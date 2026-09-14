@@ -1,0 +1,10 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "苏七镇奇缘：返回调用者的 openid",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "wx-server-sdk": "~4.0.2"
+  }
+}

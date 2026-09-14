@@ -1,0 +1,22 @@
+{
+  "description": "苏七镇 · 微信小游戏工程。正式 AppID，个人主体；现在只画一个「苏七镇」占位页，引擎定了之后替换成正式工程",
+  "appid": "wx26cb1101e51f4a47",
+  "projectname": "suqi-town",
+  "compileType": "game",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": false,
+    "minified": true
+  },
+  "condition": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
+}

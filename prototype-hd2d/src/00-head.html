@@ -1,0 +1,124 @@
+<title>苏七镇 HD-2D 样机</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=ZCOOL+XiaoWei&display=swap">
+<style>
+  :root{
+    --ink:#15111b; --panel:#1f1928; --panel2:#2a2235; --line:#3b3148;
+    --paper:#efe6d8; --muted:#b1a6ba; --gold:#d4af37; --gold1:#f4d97a; --red:#c0392b; --red0:#8c2f27;
+    --display:"ZCOOL XiaoWei","Songti SC","STSong",serif;
+    --body:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+    --pixel:"Silkscreen",ui-monospace,Menlo,monospace;
+    color-scheme: dark;
+  }
+  html,body{background:var(--ink);color:var(--paper)}
+  body{margin:0;font:14px/1.55 var(--body)}
+  *{box-sizing:border-box}
+  #app{display:flex;gap:22px;justify-content:center;align-items:flex-start;padding:16px;min-height:100vh}
+  #stage{position:relative;height:calc(100vh - 32px);aspect-ratio:9/16;max-width:calc(100vw - 340px);flex:none;border-radius:16px;overflow:hidden;background:#0c0a10;box-shadow:0 0 0 1px var(--line),0 24px 70px rgba(0,0,0,.55)}
+  #c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:pointer}
+  .hud{position:absolute;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}
+  .chip{display:inline-flex;align-items:center;gap:7px;padding:5px 10px 5px 9px;border-radius:999px;background:rgba(21,17,27,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px rgba(212,175,55,.35);font-size:12.5px;white-space:nowrap}
+  .chip i{width:7px;height:7px;border-radius:2px;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  #clock b{font:400 11px var(--pixel);letter-spacing:.04em;color:var(--gold1)}
+  #dialog{position:absolute;left:12px;right:12px;bottom:16px;padding:18px 16px 14px;background:rgba(22,17,30,.92);border:2px solid var(--gold);border-radius:5px;box-shadow:0 0 0 2px #120e18,0 10px 30px rgba(0,0,0,.45);pointer-events:none}
+  #dialog b{position:absolute;top:-13px;left:12px;padding:2px 10px;background:var(--red);border:2px solid var(--gold);border-radius:3px;font:400 14px var(--display);color:var(--gold1);letter-spacing:.08em}
+  #dialog b:empty{display:none}
+  #dialog p{margin:0;font-size:15.5px;line-height:1.6;letter-spacing:.02em;text-wrap:balance}
+  #toast{position:absolute;left:50%;top:54px;transform:translateX(-50%);padding:6px 14px;border-radius:4px;background:rgba(212,175,55,.94);color:#1b1422;font-weight:600;font-size:13px;white-space:nowrap;pointer-events:none}
+  #hint{position:absolute;left:0;right:0;bottom:112px;text-align:center;font-size:12px;color:rgba(239,230,216,.8);text-shadow:0 1px 3px #000;pointer-events:none;transition:opacity .6s}
+  #loading{position:absolute;inset:0;display:grid;place-items:center;background:#0c0a10;font:400 20px var(--display);letter-spacing:.2em;color:var(--gold1)}
+  #panel-toggle{display:none}
+  #panel{width:300px;flex:none;max-height:calc(100vh - 32px);overflow:auto;padding:22px 20px 18px;background:var(--panel);border-radius:14px;box-shadow:inset 0 0 0 1px var(--line)}
+  #panel h1{margin:0;font:400 34px/1 var(--display);letter-spacing:.12em;color:var(--gold1)}
+  #panel .sub{margin:8px 0 18px;color:var(--muted);font-size:12.5px}
+  #panel section{padding:14px 0;border-top:1px solid var(--line);display:grid;gap:10px}
+  #panel h2{margin:0;font-size:11.5px;font-weight:600;letter-spacing:.18em;color:var(--muted)}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .row label{flex:1}
+  .val{font:400 11px var(--pixel);color:var(--gold1);min-width:48px;text-align:right}
+  input[type=range]{width:100%;accent-color:var(--gold)}
+  input[type=checkbox]{width:17px;height:17px;accent-color:var(--red)}
+  .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+  .seg button,.jumps button{font:inherit;font-size:12.5px;color:var(--paper);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:6px 0;cursor:pointer}
+  .seg button[aria-pressed=true]{background:var(--red0);border-color:var(--gold);color:var(--gold1)}
+  .jumps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .seg button:hover,.jumps button:hover{border-color:var(--gold)}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--gold1);outline-offset:2px}
+  #fps{font:400 11px var(--pixel);color:var(--gold1)}
+  .note{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+  [hidden]{display:none!important}
+  @media (max-width:760px){
+    #app{padding:0;display:block}
+    #stage{height:100vh;height:100dvh;width:100vw;max-width:none;aspect-ratio:auto;border-radius:0;box-shadow:none}
+    #panel-toggle{display:block;position:absolute;right:12px;top:48px;font:inherit;font-size:12px;color:var(--gold1);background:rgba(21,17,27,.78);border:1px solid rgba(212,175,55,.5);border-radius:999px;padding:4px 12px}
+    #panel{position:fixed;left:0;right:0;bottom:0;width:auto;max-height:62vh;border-radius:16px 16px 0 0;transform:translateY(105%);transition:transform .25s ease;z-index:5}
+    #panel.open{transform:none}
+  }
+  @media (prefers-reduced-motion:reduce){#panel{transition:none}}
+</style>
+
+<div id="app">
+  <div id="stage">
+    <canvas id="c" aria-label="苏七镇场景，点地面走路"></canvas>
+    <div class="hud">
+      <span class="chip" id="place"><i></i><span id="place-name">罗曼山庄</span></span>
+      <span class="chip" id="clock"><span id="clock-tag">赶场日</span><b id="clock-time">--:--</b></span>
+    </div>
+    <button id="panel-toggle" type="button" aria-controls="panel" aria-expanded="false">调整</button>
+    <div id="toast" hidden></div>
+    <div id="dialog" hidden><b id="who"></b><p id="line"></p></div>
+    <div id="hint">点地面走路 · 点小动物、球、捐箱试试</div>
+    <div id="loading">苏七镇 搭建中</div>
+  </div>
+
+  <aside id="panel" aria-label="样机调整">
+    <h1>苏七镇</h1>
+    <p class="sub" data-dev>HD-2D 场景样机 · 第一版 · 占位美术</p>
+
+    <section>
+      <h2>时间</h2>
+      <div class="row"><label for="follow">跟随北京时间</label><input type="checkbox" id="follow" checked></div>
+      <div class="row"><input type="range" id="hour" min="0" max="24" step="0.25" value="12" aria-label="几点"><span class="val" id="hour-val">12:00</span></div>
+      <div class="seg" id="presets">
+        <button type="button" data-h="6.5">清晨</button><button type="button" data-h="12">正午</button><button type="button" data-h="18.2">黄昏</button><button type="button" data-h="19.8">夜游</button><button type="button" data-h="23">深夜</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>镇子状态</h2>
+      <div class="row"><label for="market">赶场日（逢单日）</label><input type="checkbox" id="market"></div>
+      <div class="row"><label for="flood">涨水（6～8 月桥面过水）</label><input type="checkbox" id="flood"></div>
+      <div class="row"><label for="lamps">桥灯</label><span class="val" id="lamps-val">5／17</span></div>
+      <input type="range" id="lamps" min="0" max="17" step="1" value="5" aria-label="桥灯亮了几盏">
+    </section>
+
+    <section data-dev>
+      <h2>画质与镜头</h2>
+      <div class="seg" id="quality"><button type="button" data-q="low">低</button><button type="button" data-q="mid">中</button><button type="button" data-q="high">高</button></div>
+      <div class="row"><label for="zoom">镜头远近</label><span class="val" id="zoom-val">30</span></div>
+      <input type="range" id="zoom" min="20" max="52" step="1" value="30" aria-label="镜头远近">
+      <div class="row"><span>帧率 · Draw Call</span><span id="fps">--</span></div>
+    </section>
+
+    <section>
+      <h2>快速去</h2>
+      <div class="jumps" id="jumps">
+        <button type="button" data-go="roman">罗曼山庄</button><button type="button" data-go="market">本地集市</button><button type="button" data-go="tree">黄葛树</button>
+        <button type="button" data-go="street">老街</button><button type="button" data-go="bridge">石板桥</button><button type="button" data-go="home">你家</button>
+        <button type="button" data-go="tourist">游客集市</button><button type="button" data-go="temple">月老庙</button><button type="button" data-go="couple">新人家</button>
+      </div>
+    </section>
+
+    <section data-dev>
+      <p class="note">宾客、动物、作物都是临时画的占位像素。阿鱼和 Toretto 没放进样机，美术包规定只能用现有原图。对白全部摘自设计文档。</p>
+    </section>
+  </aside>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>

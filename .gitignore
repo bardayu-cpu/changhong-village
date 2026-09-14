@@ -1,0 +1,5 @@
+# 构建产物和缓存：每次导出、导入都会重新生成
+wechat-build/
+godot/.godot/
+.DS_Store
+*.tmp
