@@ -22,7 +22,8 @@ from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(HERE)
-DELIVERY = os.path.join(os.path.dirname(os.path.dirname(GODOT)), "苏七镇奇缘 -gpt 总文件夹", "素材交付")
+# 9/15 晚起交付在共用文件夹，按地图、场景、画布分（ASSETS.md v0.9 第 1 节）；旧「素材交付」只作存档。环境变量 SUQI_DELIVERY 可指到别的画布文件夹
+DELIVERY = os.environ.get("SUQI_DELIVERY") or os.path.join(os.path.dirname(os.path.dirname(GODOT)), "游戏制作中-gpt 和 claude 合作", "地图一-苏七镇", "罗曼山庄", "001-宴会厅")
 CELL = 10
 
 
