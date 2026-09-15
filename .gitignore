@@ -3,3 +3,6 @@ wechat-build/
 godot/.godot/
 .DS_Store
 *.tmp
+
+# 从 server-claude/src/ 复制出来的，部署前用 server-claude/scripts/sync-cf-rules.js 重新生成
+server-claude/cloudfunctions/*/rules/

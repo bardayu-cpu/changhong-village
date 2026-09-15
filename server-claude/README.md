@@ -20,19 +20,36 @@ src/tree.js      邀请树、三层关系、扩列、可能认识的人
 src/temple.js    月老庙：外殿牵红线、内殿许愿求签、找介绍人
 src/town.js      桥灯、踢球、镇报
 src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、桌簿、进厅提示
-test/rules.test.js  115 条测试，零依赖
-cloudfunctions/login/  云函数：返回调用者的 openid，已部署到 cloud1-d9ggg36tj34742bef
+test/rules.test.js  116 条测试，零依赖
+scripts/sync-cf-rules.js  把 src/ 的规则文件复制进各云函数自己的 rules/ 文件夹，部署前必须先跑
+cloudfunctions/login/       云函数：返回调用者的 openid，已部署到 cloud1-d9ggg36tj34742bef
+cloudfunctions/initDb/      云函数：建宴会厅要用的 5 张数据表，还没部署（回执 02-建表与云函数）
+cloudfunctions/enterHall/   云函数：进宴会厅，自动分座、进厅合并提示，还没部署
+cloudfunctions/changeSeat/  云函数：换桌，还没部署
+cloudfunctions/toast/       云函数：敬酒，还没部署
+cloudfunctions/writeBook/   云函数：写桌簿，还没部署
+cloudfunctions/readBook/    云函数：读桌簿，还没部署
+cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄话，还没部署
 ```
 
 ## 云函数
 
-部署（在任意目录执行，需要微信开发者工具已登录）：
+`enterHall`、`changeSeat`、`toast`、`writeBook` 这几个用到 `src/` 里的规则文件，微信云函数按文件夹单独打包，
+不能 require 文件夹外的代码，**部署前必须先跑一遍同步**（改了 src/ 也要重跑）：
+
+```bash
+node scripts/sync-cf-rules.js
+```
+
+部署单个函数（在任意目录执行，需要微信开发者工具已登录）：
 
 ```bash
 /Applications/wechatwebdevtools.app/Contents/MacOS/cli cloud functions deploy --env cloud1-d9ggg36tj34742bef --paths "<本目录的完整路径>/cloudfunctions/login" --appid wx26cb1101e51f4a47 --remote-npm-install
 ```
 
-第一次创建时如果报「当前函数处于 Creating 状态」，等二三十秒再执行一次。
+把 `login` 换成要部署的函数名。第一次创建时如果报「当前函数处于 Creating 状态」，等二三十秒再执行一次。
+
+**部署前先看 `回执/02-建表与云函数.md` 的函数列表，阿鱼点头后再部署（HANDOFF §0.6）。**
 
 ## 跑测试
 
@@ -99,9 +116,9 @@ if (!r.ok) return { code: r.reason };
 
 ## 还没做（阶段 1 剩余）
 
-- 云函数外壳（微信云开发的 `exports.main`）
-- 敏感词校验（见 `docs/敏感词模块-需求.md`）
-- 数据表定义与索引
+- 宴会厅数据表和 6 个云函数已经写好，**还没部署、没建表**，见 `回执/02-建表与云函数.md`
+- 敏感词校验（见 `docs/敏感词模块-需求.md`），`writeBook` 云函数先不判，等模块做出来接
+- 其余功能（迎宾院签到、偷菜、月老庙等）对应的云函数外壳还没写
 - 定时触发器：镇报、每日重置、动物路线、球的位置
 
 下一批我来写。
