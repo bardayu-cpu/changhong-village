@@ -17,7 +17,10 @@ const C = require('./config');
  *   tables: Array<{
  *     id: string,
  *     reserved: boolean,        是不是离主桌最近的两桌之一
- *     branch: string|null,      这桌现在服务谁的邀请（第一个坐下那人的邀请人 openid），没人坐过是 null
+ *     branch: string|null,      这桌是不是给谁的邀请开的溢出桌（第一个坐下那人的邀请人 openid）；
+ *                               没人坐过，或第一个坐下的人自己没有邀请人，就是 null。
+ *                               "邀请人那桌"不靠这个字段判——直接在 seats 里找邀请人本人；
+ *                               这个字段只用来找"邀请人的桌满了之后开的下一桌"
  *     seats: string[],          已经坐下的人的 openid 列表
  *   }>,                     12 桌现状，数组顺序就是桌序（reserved 的两桌排最前）
  * }}
@@ -34,7 +37,14 @@ function assignSeat(ctx) {
     return t ? { ok: true, tableId: t.id, bench: false } : { ok: true, bench: true };
   }
 
-  // 邀请人这枝已经开的桌里，找一桌还有位置的（邀请人那桌，满了就是同枝的下一桌）
+  // 邀请人那桌：直接找邀请人自己坐在哪桌，不靠 branch 标记
+  // （邀请人自己可能是没有邀请人、任意空桌坐下的，这种桌不会打 branch 标记，必须直接找人）
+  const inviterTable = tables.find(t => t.seats.includes(inviter));
+  if (inviterTable && inviterTable.seats.length < CAP) {
+    return { ok: true, tableId: inviterTable.id, bench: false };
+  }
+
+  // 邀请人那桌满了，或邀请人还没坐过：找这一枝已经开过的溢出桌（branch 标记 = 邀请人 openid）
   const branchTables = tables.filter(t => t.branch === inviter);
   const withRoom = branchTables.find(t => t.seats.length < CAP);
   if (withRoom) return { ok: true, tableId: withRoom.id, bench: false };

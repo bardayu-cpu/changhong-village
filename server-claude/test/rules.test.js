@@ -188,6 +188,11 @@ eq(banquet.assignSeat({
 
 eq(banquet.assignSeat({
   inviter: 'A', vip: new Set(),
+  tables: [mkTable('T1', false, null, ['A', 'x1'])],
+}), { ok: true, tableId: 'T1', bench: false }, '邀请人自己是没有邀请人坐的（branch标记是null），也要直接找到那桌');
+
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(),
   tables: Array.from({ length: 12 }, (_, i) => mkTable(`T${i}`, i < 2, 'A', fullSeats(10))),
 }), { ok: true, bench: true }, '120坐满了坐长凳');
 
