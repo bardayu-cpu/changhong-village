@@ -48,7 +48,7 @@ def fix_png(src, dst, crop):
 
 def write_import(dst, kind):
     """第一次导入前先写好导入设置：像素图不压缩（有损压缩会糊）；
-    贴图要铺在 3D 表面上，远处会闪，所以生成 mipmap；贴片不用。
+    贴图和贴片要铺在 3D 表面上（地面、桌面），远处会闪，所以生成 mipmap；角色和道具不用。
     detect_3d 关掉：不然 Godot 发现它用在 3D 里会自动改成显卡压缩格式。"""
     path = dst + ".import"
     if os.path.exists(path):
@@ -56,7 +56,7 @@ def write_import(dst, kind):
     with open(path, "w", encoding="utf-8") as f:
         f.write('[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n[params]\n\n')
         f.write("compress/mode=0\n")
-        f.write("mipmaps/generate=%s\n" % ("true" if kind == "textures" else "false"))
+        f.write("mipmaps/generate=%s\n" % ("true" if kind in ("textures", "decals") else "false"))
         f.write("detect_3d/compress_to=0\n")
 
 

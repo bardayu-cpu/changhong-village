@@ -112,7 +112,7 @@ func _cyl(p: Vector3, r_top: float, r_bot: float, h: float, m: Material, seg := 
     return _mi(c, p, m)
 
 ## 不动的方块和圆柱按材质并成一个网格。原来每把椅子、每碟菜各画一次，一帧三百多次，手机微信里会卡
-## 半透明的（出口光圈）、地毯（贴图不是按世界坐标铺的）、会动的（人物、名字）不并
+## 半透明的（出口光圈）、会动的（人物、名字）不并；地毯、桌面、椅背这类按贴图坐标贴的也并（Geo 带贴图坐标）
 ##
 ## 注意：网格数据必须自己在 CPU 上算，不能用 SurfaceTool.append_from、surface_get_arrays、
 ## get_mesh_arrays——它们都要把网格从显卡读回来（WebGL 的 getBufferSubData），
@@ -123,9 +123,11 @@ func _merge_static() -> void:
     for n in find_children("*", "MeshInstance3D", true, false):
         var mi := n as MeshInstance3D
         var m := mi.material_override as BaseMaterial3D
-        if mi == exit_mark or m == null or m.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED:
+        if mi == exit_mark or m == null:
             continue
-        if not (mi.mesh is BoxMesh or mi.mesh is CylinderMesh):
+        if m.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED and m.transparency != BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+            continue
+        if not (mi.mesh is BoxMesh or mi.mesh is CylinderMesh or mi.mesh is PlaneMesh):
             continue
         var cast := mi.cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
         var key := "%d|%s" % [m.get_instance_id(), cast]
@@ -135,6 +137,8 @@ func _merge_static() -> void:
         var xf := _rel_xf(mi)
         if mi.mesh is BoxMesh:
             g.box(xf, (mi.mesh as BoxMesh).size)
+        elif mi.mesh is PlaneMesh:
+            g.plane(xf, (mi.mesh as PlaneMesh).size)
         else:
             var c := mi.mesh as CylinderMesh
             g.cyl(xf, c.top_radius, c.bottom_radius, c.height, c.radial_segments)
@@ -158,10 +162,13 @@ func _rel_xf(n: Node3D) -> Transform3D:
         p = p.get_parent()
     return xf
 
-## 合并用的几何数据，全在 CPU 上算
+## 合并用的几何数据，全在 CPU 上算。带贴图坐标：
+## 方块每个面各贴一整张（正着看，上边朝上）；平面按俯视贴（图的上边朝北）；圆柱顶面按圆贴
+## 铺花纹的材质是按世界坐标铺的，用不到这些坐标；椅背、桌面这类「贴一整张」的积木要用
 class Geo:
     var v := PackedVector3Array()
     var n := PackedVector3Array()
+    var uv := PackedVector2Array()
     var idx := PackedInt32Array()
     var mat: Material
     var cast: bool
@@ -171,25 +178,42 @@ class Geo:
         cast = c
 
     ## 加一个三角形。out_n 是这一面朝外的方向，按它自动排顶点顺序（Godot 顺时针为正面）
-    func tri(xf: Transform3D, a: Vector3, b: Vector3, c: Vector3, na: Vector3, nb: Vector3, nc: Vector3, out_n: Vector3) -> void:
+    func tri(xf: Transform3D, a: Vector3, b: Vector3, c: Vector3, na: Vector3, nb: Vector3, nc: Vector3, out_n: Vector3,
+            ta := Vector2.ZERO, tb := Vector2.ZERO, tc := Vector2.ZERO) -> void:
         if (b - a).cross(c - a).dot(out_n) > 0.0:
             var t := b; b = c; c = t
             var tn := nb; nb = nc; nc = tn
-        for pair in [[a, na], [b, nb], [c, nc]]:
+            var tt := tb; tb = tc; tc = tt
+        for k in 3:
+            var p: Vector3 = [a, b, c][k]
             idx.append(v.size())
-            v.append(xf * (pair[0] as Vector3))
-            n.append((xf.basis * (pair[1] as Vector3)).normalized())
+            v.append(xf * p)
+            n.append((xf.basis * ([na, nb, nc][k] as Vector3)).normalized())
+            uv.append([ta, tb, tc][k])
+
+    ## 一个面：中心 c，right/up 是这一面里朝右、朝上的方向（已经乘好半边长）
+    func quad(xf: Transform3D, c: Vector3, right: Vector3, up: Vector3, nrm: Vector3) -> void:
+        var tl := c - right + up
+        var tr := c + right + up
+        var br := c + right - up
+        var bl := c - right - up
+        tri(xf, tl, tr, br, nrm, nrm, nrm, nrm, Vector2(0, 0), Vector2(1, 0), Vector2(1, 1))
+        tri(xf, tl, br, bl, nrm, nrm, nrm, nrm, Vector2(0, 0), Vector2(1, 1), Vector2(0, 1))
 
     func box(xf: Transform3D, size: Vector3) -> void:
         var h := size * 0.5
-        for axis: Vector3 in [Vector3.RIGHT, Vector3.LEFT, Vector3.UP, Vector3.DOWN, Vector3.BACK, Vector3.FORWARD]:
-            var u: Vector3 = Vector3(axis.y, axis.z, axis.x).abs()   # 这一面内的两个方向
-            var w: Vector3 = axis.cross(u).abs()
-            var c: Vector3 = axis * h
-            var du: Vector3 = u * h
-            var dw: Vector3 = w * h
-            tri(xf, c - du - dw, c + du - dw, c + du + dw, axis, axis, axis, axis)
-            tri(xf, c - du - dw, c + du + dw, c - du + dw, axis, axis, axis, axis)
+        # 每个面：朝外方向、朝右、朝上。侧面上边朝上，顶面上边朝北
+        for f in [[Vector3.BACK, Vector3.RIGHT, Vector3.UP], [Vector3.FORWARD, Vector3.LEFT, Vector3.UP],
+                [Vector3.RIGHT, Vector3.FORWARD, Vector3.UP], [Vector3.LEFT, Vector3.BACK, Vector3.UP],
+                [Vector3.UP, Vector3.RIGHT, Vector3.FORWARD], [Vector3.DOWN, Vector3.RIGHT, Vector3.BACK]]:
+            var nrm: Vector3 = f[0]
+            var r: Vector3 = f[1]
+            var u: Vector3 = f[2]
+            quad(xf, nrm * absf(h.dot(nrm)), r * absf(h.dot(r)), u * absf(h.dot(u)), nrm)
+
+    ## 水平的平面（PlaneMesh 的样子），图的上边朝北
+    func plane(xf: Transform3D, size: Vector2) -> void:
+        quad(xf, Vector3.ZERO, Vector3(size.x * 0.5, 0, 0), Vector3(0, 0, -size.y * 0.5), Vector3.UP)
 
     func cyl(xf: Transform3D, rt: float, rb: float, height: float, seg: int) -> void:
         var hy := height * 0.5
@@ -206,18 +230,23 @@ class Geo:
             var t0 := d0 * rt + Vector3(0, hy, 0)
             var t1 := d1 * rt + Vector3(0, hy, 0)
             var mid := (d0 + d1).normalized()
-            tri(xf, b0, b1, t1, n0, n1, n1, mid)
-            tri(xf, b0, t1, t0, n0, n1, n0, mid)
+            var u0 := float(i) / seg
+            var u1 := float(i + 1) / seg
+            tri(xf, b0, b1, t1, n0, n1, n1, mid, Vector2(u0, 1), Vector2(u1, 1), Vector2(u1, 0))
+            tri(xf, b0, t1, t0, n0, n1, n0, mid, Vector2(u0, 1), Vector2(u1, 0), Vector2(u0, 0))
             if rt > 0.0:
-                tri(xf, Vector3(0, hy, 0), t0, t1, Vector3.UP, Vector3.UP, Vector3.UP, Vector3.UP)
+                tri(xf, Vector3(0, hy, 0), t0, t1, Vector3.UP, Vector3.UP, Vector3.UP, Vector3.UP,
+                    Vector2(0.5, 0.5), Vector2(0.5 + d0.x * 0.5, 0.5 + d0.z * 0.5), Vector2(0.5 + d1.x * 0.5, 0.5 + d1.z * 0.5))
             if rb > 0.0:
-                tri(xf, Vector3(0, -hy, 0), b1, b0, Vector3.DOWN, Vector3.DOWN, Vector3.DOWN, Vector3.DOWN)
+                tri(xf, Vector3(0, -hy, 0), b1, b0, Vector3.DOWN, Vector3.DOWN, Vector3.DOWN, Vector3.DOWN,
+                    Vector2(0.5, 0.5), Vector2(0.5 + d1.x * 0.5, 0.5 + d1.z * 0.5), Vector2(0.5 + d0.x * 0.5, 0.5 + d0.z * 0.5))
 
     func build() -> MeshInstance3D:
         var arr := []
         arr.resize(Mesh.ARRAY_MAX)
         arr[Mesh.ARRAY_VERTEX] = v
         arr[Mesh.ARRAY_NORMAL] = n
+        arr[Mesh.ARRAY_TEX_UV] = uv
         arr[Mesh.ARRAY_INDEX] = idx
         var am := ArrayMesh.new()
         am.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
@@ -422,22 +451,31 @@ func _table(c: Vector2, idx: int) -> void:
     var z := c.y
     _rug(Vector3(x, 0.014, z), Vector2(4.5, 4.4))
     _cyl(Vector3(x, 0.37, z), 1.26, 1.32, 0.74, m_cloth)
-    # 金边只露一圈：金盘上面再盖一层小一点的红桌布，中间米色转盘，盘子摆在红布上
+    # 金边只露一圈：金盘上面再盖一层小一点的红桌布
     _cyl(Vector3(x, 0.755, z), 1.34, 1.34, 0.03, m_gold)
     _cyl(Vector3(x, 0.775, z), 1.28, 1.28, 0.02, m_cloth)
-    _cyl(Vector3(x, 0.795, z), 0.72, 0.72, 0.02, Pix.flat("#ecdcc0", 0.8))
-    for k in 8:
-        var a := TAU * k / 8.0 + TAU / 16.0
-        _cyl(Vector3(x + cos(a) * 0.98, 0.8, z + sin(a) * 0.98), 0.15, 0.15, 0.02, Pix.flat("#f6eedf", 0.4), 12)
+    if Pix.has_block("decals", "decal_tabletop"):
+        # GPT 的桌面积木（A02）：红布、桌旗、一圈碗碟都画在图里，整张平铺在桌面上，直径和红桌布一样
+        var pm := PlaneMesh.new()
+        pm.size = Vector2(2.56, 2.56)
+        _mi(pm, Vector3(x, 0.788, z), Pix.block_mat("decals", "decal_tabletop"), false)
+    else:
+        # 占位：中间米色转盘，一圈白盘子
+        _cyl(Vector3(x, 0.795, z), 0.72, 0.72, 0.02, Pix.flat("#ecdcc0", 0.8))
+        for k in 8:
+            var a := TAU * k / 8.0 + TAU / 16.0
+            _cyl(Vector3(x + cos(a) * 0.98, 0.8, z + sin(a) * 0.98), 0.15, 0.15, 0.02, Pix.flat("#f6eedf", 0.4), 12)
     _prop_sprite("prop_flower_basket", Vector3(x, 0.8, z), 0.55)
     var cushion := Pix.flat("#9c2a22", 0.8)
+    # GPT 的雕花椅背（A02）：一整张贴在椅背前后两面，镂空的孔能透过去；没交就用深色木板
+    var back_m: Material = Pix.block_mat("textures", "tex_chair_back") if Pix.has_block("textures", "tex_chair_back") else m_wood
     for k in 8:
         var a := TAU * k / 8.0 + TAU / 16.0
         var out := Vector2(cos(a), sin(a))
         var cp := c + out * 1.78
         _box(Vector3(cp.x, 0.44, cp.y), Vector3(0.48, 0.06, 0.48), m_wood)
         _box(Vector3(cp.x, 0.49, cp.y), Vector3(0.42, 0.05, 0.42), cushion)
-        var back := _box(Vector3(cp.x + out.x * 0.22, 0.8, cp.y + out.y * 0.22), Vector3(0.48, 0.66, 0.06), m_wood)
+        var back := _box(Vector3(cp.x + out.x * 0.22, 0.8, cp.y + out.y * 0.22), Vector3(0.48, 0.66, 0.06), back_m)
         back.rotation.y = atan2(out.x, out.y)
         # 桌子北边坐着其他宾客，桌布挡住腿，看着像坐下了
         if out.y < -0.3 and Pix.h2(idx * 7 + k, 3) > 0.35:

@@ -97,6 +97,24 @@ static func lamp_mat() -> StandardMaterial3D:
         _cache["lamp"] = m
     return _cache["lamp"]
 
+## GPT 的积木图在不在工程里（assets/<类型>/<名字>.png）
+static func has_block(kind: String, name: String) -> bool:
+    return ResourceLoader.exists("res://assets/%s/%s.png" % [kind, name])
+
+## 「贴一整张」的积木材质：椅背、桌面这类，按贴图坐标贴满一个面（不按世界坐标铺）。
+## 镂空和圆外的透明用挖孔处理：还是不透明物体，不用排序，能和别的一起合并
+static func block_mat(kind: String, name: String) -> StandardMaterial3D:
+    var key := "block|%s|%s" % [kind, name]
+    if not _cache.has(key):
+        var m := StandardMaterial3D.new()
+        m.albedo_texture = load("res://assets/%s/%s.png" % [kind, name])
+        m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
+        m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+        m.alpha_scissor_threshold = 0.5
+        m.roughness = 0.9
+        _cache[key] = m
+    return _cache[key]
+
 ## 同样参数的纯色、发光材质共用一个：宴会厅合并网格是按材质并的，材质不共用就并不到一起
 ## 要单独改参数的（比如会闪的出口光圈），拿到后先 duplicate()
 static var _cache := {}

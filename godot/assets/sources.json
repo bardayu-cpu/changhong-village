@@ -103,5 +103,20 @@
     "from": "scenes/scene_roman_banquet_v4.json",
     "batch": "A01",
     "revision": "v4"
+  },
+  "textures/tex_floor_stone.png": {
+    "from": "textures/tex_floor_stone_v5.png",
+    "batch": "A02-pilot",
+    "revision": "v5"
+  },
+  "decals/decal_tabletop.png": {
+    "from": "decals/decal_tabletop_v5.png",
+    "batch": "A02-pilot",
+    "revision": "v5"
+  },
+  "textures/tex_chair_back.png": {
+    "from": "textures/tex_chair_back_v5.png",
+    "batch": "A02-pilot",
+    "revision": "v5"
   }
 }
