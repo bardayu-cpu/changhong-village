@@ -93,9 +93,9 @@ if (!r.ok) return { code: r.reason };
 | `changed_today` | 今天换过了 明天再换 |
 | `toast_limit` | 今天敬够了 |
 | `toast_same_person` | 这杯敬过了 |
-| `not_sat_here` | 【待补】任务卡 02 只给了规则（坐过的桌才能写），蓝图 3.2 异常表没给这句的文案，等总策划/阿鱼补 |
-| `book_too_long` | 【待补】同上，蓝图只写了"≤100 字"，没给拒绝文案 |
-| `toast_self` | 【待补】蓝图 3.2 canToast 写了"不能敬自己"，但任务卡 02 列的 6 个新增码里没有这条，我自己加的，文案和码名都要总策划/阿鱼确认 |
+| `not_sat_here` | 先坐下 慢慢写 |
+| `book_too_long` | 太长啦 真实情感的话 短一点也没关系 |
+| `toast_self` | 自己就不用敬了 |
 
 ## 还没做（阶段 1 剩余）
 
