@@ -70,4 +70,13 @@ module.exports = {
 
   HOUSE_CAPACITY: 5,                // 屋内摆件位
   RENAME_LIMIT: 1,                  // 改名次数
+
+  // 宴会厅：一场不散的席（蓝图 3.2）
+  BANQUET_TABLE_COUNT: 12,
+  BANQUET_SEATS_PER_TABLE: 10,
+  BANQUET_RESERVED_TABLES: 2,          // 离主桌最近的两桌，给阿鱼、Toretto 的枝
+  BANQUET_CHANGE_PER_VISIT: 1,         // 每次来访能换几次桌
+  BANQUET_TOAST_DAILY: 5,              // 每人每天敬几杯
+  BANQUET_TOAST_PER_PERSON_DAILY: 1,   // 对同一人每天几杯
+  BANQUET_BOOK_MAX_LEN: 100,           // 桌簿一条最多几字
 };

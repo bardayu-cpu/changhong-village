@@ -7,6 +7,7 @@ const steal = require('../src/steal');
 const tree = require('../src/tree');
 const temple = require('../src/temple');
 const town = require('../src/town');
+const banquet = require('../src/banquet');
 
 let pass = 0, fail = 0;
 const failures = [];
@@ -155,6 +156,78 @@ eq(paper.columns.地最肥的, {who:'A',n:340}, '收成王A');
 eq(paper.columns.新来的, {count:3,byBranch:{A:2,B:1}}, '新来3位分两枝');
 eq(paper.columns.最安逸的屋.owner, 'A', '评分最高A（B没人评不算）');
 eq(paper.columns.猫猫狗狗的一周['落落'], {sleep:2}, '落落睡了2次');
+
+// ---------- 宴会厅 · 入座 ----------
+const mkTable = (id, reserved, branch, seats) => ({ id, reserved, branch, seats });
+const fullSeats = (n) => Array.from({ length: n }, (_, i) => `s${i}`);
+
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(),
+  tables: [mkTable('T1', false, 'A', ['x1', 'x2'])],
+}), { ok: true, tableId: 'T1', bench: false }, '坐邀请人那桌');
+
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(),
+  tables: [mkTable('T1', false, 'A', fullSeats(10)), mkTable('T2', false, 'A', [])],
+}), { ok: true, tableId: 'T2', bench: false }, '邀请人那桌满了坐同枝下一桌');
+
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(['A']),
+  tables: [mkTable('R1', true, null, []), mkTable('R2', true, null, [])],
+}), { ok: true, tableId: 'R1', bench: false }, '阿鱼/Toretto的枝第一次坐前两桌');
+
+eq(banquet.assignSeat({
+  inviter: null, vip: new Set(),
+  tables: [mkTable('T1', false, null, fullSeats(10)), mkTable('T2', false, null, [])],
+}), { ok: true, tableId: 'T2', bench: false }, '没有邀请人坐任意空桌');
+
+eq(banquet.assignSeat({
+  inviter: 'B', vip: new Set(),
+  tables: [mkTable('R1', true, null, []), mkTable('R2', true, null, []), mkTable('T3', false, null, [])],
+}), { ok: true, tableId: 'T3', bench: false }, '邀请人还没坐过就开一桌（非阿鱼/Toretto不占前两桌）');
+
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(),
+  tables: Array.from({ length: 12 }, (_, i) => mkTable(`T${i}`, i < 2, 'A', fullSeats(10))),
+}), { ok: true, bench: true }, '120坐满了坐长凳');
+
+// ---------- 宴会厅 · 换桌 ----------
+eq(banquet.canChangeSeat({ occupant: null, todayChanges: 0 }).ok, true, '正常换到空椅子');
+eq(banquet.canChangeSeat({ occupant: 'X', todayChanges: 0 }).reason, 'seat_taken', '目标椅子有人');
+eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1 }).reason, 'changed_today', '这次来访已经换过一次');
+eq(banquet.canChangeSeat({ occupant: null, todayChanges: 0 }).ok, true, '跨北京时间0点：昨天换过，今天重新计数为0次仍能换');
+
+// ---------- 宴会厅 · 敬酒 ----------
+const toastBase = { from: 'A', to: 'B', todayToastCount: 0, todayToastToCount: 0 };
+eq(banquet.canToast(toastBase).ok, true, '正常敬一杯');
+eq(banquet.canToast({ ...toastBase, todayToastCount: 5 }).reason, 'toast_limit', '今天5杯敬完');
+eq(banquet.canToast({ ...toastBase, todayToastToCount: 1 }).reason, 'toast_same_person', '对同一人今天敬过');
+eq(banquet.canToast({ ...toastBase, to: 'A' }).reason, 'toast_self', '不能敬自己');
+eq(banquet.canToast({ ...toastBase, todayToastCount: 0 }).ok, true, '跨北京时间0点：昨天5杯敬完，今天重新计数为0杯仍能敬');
+
+// ---------- 宴会厅 · 桌簿 ----------
+eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1', 'T2'], text: '恭喜恭喜' }).ok, true, '坐过的桌能写');
+eq(banquet.canWriteBook({ table: 'T3', satTables: ['T1', 'T2'], text: '恭喜恭喜' }).reason, 'not_sat_here', '没坐过的桌不能写');
+eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1'], text: 'x'.repeat(100) }).ok, true, '边界：正好100字能写');
+eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1'], text: 'x'.repeat(101) }).reason, 'book_too_long', '超过100字不能写');
+
+// ---------- 宴会厅 · 进厅提示 ----------
+eq(banquet.arrivalDigest({
+  toasts: [{ from: '老王', at: T5 + 1 }],
+  bookLines: [{ tableId: 'T1', at: T5 + 1 }, { tableId: 'T1', at: T5 + 2 }],
+  since: T5,
+}), { toasts: [{ from: '老王', at: T5 + 1 }], toastCount: 1, bookLineCount: 2, hasNews: true }, '正常合并新动静');
+eq(banquet.arrivalDigest({ toasts: [], bookLines: [], since: T5 }).hasNews, false, '没有新动静');
+eq(banquet.arrivalDigest({
+  toasts: [{ from: '老王', at: T5 }],
+  bookLines: [],
+  since: T5,
+}).toastCount, 0, '边界：正好等于since的不算新');
+eq(banquet.arrivalDigest({
+  toasts: [{ from: 'A', at: T5 + 1 }, { from: 'A', at: T5 + 2 }],
+  bookLines: [],
+  since: T5,
+}).toastCount, 2, '同一人敬了两杯都算');
 
 // ---------- 结果 ----------
 console.log(`\n通过 ${pass}，失败 ${fail}`);

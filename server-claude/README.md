@@ -19,7 +19,8 @@ src/steal.js     偷菜配额、喜多看家
 src/tree.js      邀请树、三层关系、扩列、可能认识的人
 src/temple.js    月老庙：外殿牵红线、内殿许愿求签、找介绍人
 src/town.js      桥灯、踢球、镇报
-test/rules.test.js  92 条测试，零依赖
+src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、桌簿、进厅提示
+test/rules.test.js  115 条测试，零依赖
 cloudfunctions/login/  云函数：返回调用者的 openid，已部署到 cloud1-d9ggg36tj34742bef
 ```
 
@@ -88,6 +89,13 @@ if (!r.ok) return { code: r.reason };
 | `full` | 写满了 |
 | `too_far` | 隔太远了 |
 | `kicked_this_ball` | 这个球今天踢过了 |
+| `seat_taken` | 这把有人坐了 |
+| `changed_today` | 今天换过了 明天再换 |
+| `toast_limit` | 今天敬够了 |
+| `toast_same_person` | 这杯敬过了 |
+| `not_sat_here` | 【待补】任务卡 02 只给了规则（坐过的桌才能写），蓝图 3.2 异常表没给这句的文案，等总策划/阿鱼补 |
+| `book_too_long` | 【待补】同上，蓝图只写了"≤100 字"，没给拒绝文案 |
+| `toast_self` | 【待补】蓝图 3.2 canToast 写了"不能敬自己"，但任务卡 02 列的 6 个新增码里没有这条，我自己加的，文案和码名都要总策划/阿鱼确认 |
 
 ## 还没做（阶段 1 剩余）
 
