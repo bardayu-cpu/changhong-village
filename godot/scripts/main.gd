@@ -4,6 +4,9 @@ extends Node
 ## 画面上的对白全部摘自设计文档；【待补】【待做】是占位，不是正式内容
 
 const Hall = preload("res://scripts/hall.gd")
+const LayeredHall = preload("res://scripts/layered_hall.gd")
+## 宴会厅用分层场景（画面就是 GPT 的效果图，阿鱼 9/15 选定）；false 回到 3D 搭的 HD-2D 宴会厅
+const USE_LAYERED := true
 const Spr = preload("res://scripts/sprites.gd")
 
 const LINE_ARRIVE := "到啦～ 罗曼山庄 席还没散"
@@ -71,14 +74,16 @@ func _ready() -> void:
     view.stretch = true
     view.set_anchors_preset(Control.PRESET_FULL_RECT)
     view.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    var pm := ShaderMaterial.new()
-    pm.shader = load("res://shaders/post.gdshader")
-    view.material = pm
+    # 移轴模糊、暗角是给 3D 宴会厅做 HD-2D 味道的；分层场景本身就是一张画，不加
+    if not USE_LAYERED:
+        var pm := ShaderMaterial.new()
+        pm.shader = load("res://shaders/post.gdshader")
+        view.material = pm
     ui.add_child(view)
     var sv := SubViewport.new()
     sv.msaa_3d = Viewport.MSAA_DISABLED
     view.add_child(sv)
-    hall = Hall.new()
+    hall = LayeredHall.new() if USE_LAYERED else Hall.new()
     sv.add_child(hall)
     hall.build(preset, "", font)
     print("[suqi] 宴会厅搭好了")
@@ -656,13 +661,13 @@ func _setup_shot(shot: String) -> void:
         "walk":
             nickname = "小李"
             await _enter_banquet()
-            hall.reset_to(Vector2(1.4, -7.2))
+            hall.reset_to(Vector2(760, 640) if USE_LAYERED else Vector2(1.4, -7.2))
             hall.face = "up"
         "couple":
             nickname = "小李"
             preset = 5
             await _enter_banquet()
-            hall.reset_to(hall.COUPLE_SPOT + Vector2(0.2, 0.6))
+            hall.reset_to(hall.near(hall.COUPLE_SPOT, Vector2(0.2, 0.6)))
             await get_tree().process_frame
             await get_tree().process_frame
             whisper_edit.text = "新婚快乐"
@@ -672,17 +677,25 @@ func _setup_shot(shot: String) -> void:
             preset = 7
             await _enter_banquet()
             hall.couple_armed = false
-            hall.reset_to(Vector2(0.4, -1.0))
+            hall.reset_to(Vector2(860, 780) if USE_LAYERED else Vector2(0.4, -1.0))
             whisper_edit.text = "测试"
             _send_whisper()
+        "behind":
+            # 站在桌子后面：看椅背有没有挡住腿、人有没有被地面切掉
+            nickname = "小李"
+            await _enter_banquet()
+            hall.couple_armed = false
+            hall.reset_to(Vector2(478, 690) if USE_LAYERED else Vector2(-4.8, -3.6))
+            dialog.visible = false
         "end":
             _goto("end")
         "stick":
             # 摇杆往左上推、镜头转到左边 40 度：看转镜头和摇杆有没有画对
             nickname = "小李"
             await _enter_banquet()
-            hall.reset_to(Vector2(0.0, -4.0))
-            hall.cam_yaw = deg_to_rad(40.0)
+            hall.reset_to(Vector2(1000, 700) if USE_LAYERED else Vector2(0.0, -4.0))
+            if not USE_LAYERED:
+                hall.cam_yaw = deg_to_rad(40.0)
             hall.snap_cam()
             hall.stick = Vector2(-0.5, -0.8)
             _stick_show(Vector2(STICK_R + 36.0, get_viewport().get_visible_rect().size.y - 220.0), Vector2(-0.5, -0.8))
@@ -691,18 +704,26 @@ func _setup_shot(shot: String) -> void:
             nickname = ""
             await _enter_banquet()
             hall.couple_armed = false
-            hall.reset_to(Vector2(0.0, -3.0))
+            hall.reset_to(Vector2(836, 700) if USE_LAYERED else Vector2(0.0, -3.0))
             hud.visible = false
             hall.walking_enabled = false
-            hall.cam.fov = 50.0
             hall.set_process(false)
-            hall.cam.position = Vector3(0, 19.0, 10.5)
-            hall.cam.look_at(Vector3(0, 0, -8.0), Vector3.UP)
+            if USE_LAYERED:
+                # 整张场景图缩进画面，和效果图对照
+                var vs := get_viewport().get_visible_rect().size
+                var z := minf(vs.x / 1672.0, vs.y / 941.0)
+                hall.cam.zoom = Vector2(z, z)
+                hall.cam.position = Vector2(836, 470)
+                hall.cam.reset_smoothing()
+            else:
+                hall.cam.fov = 50.0
+                hall.cam.position = Vector3(0, 19.0, 10.5)
+                hall.cam.look_at(Vector3(0, 0, -8.0), Vector3.UP)
         "share":
             # 分享卡片用的干净画面：没有界面，站在新人桌前
             nickname = ""
             preset = 2
             await _enter_banquet()
             hall.couple_armed = false
-            hall.reset_to(hall.COUPLE_SPOT + Vector2(0.0, 2.2))
+            hall.reset_to(hall.near(hall.COUPLE_SPOT, Vector2(0.0, 2.2)))
             hud.visible = false

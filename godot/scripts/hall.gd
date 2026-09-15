@@ -764,6 +764,10 @@ func reset_to(p: Vector2) -> void:
     face = "up"
     snap_cam()
 
+## 截图用：从某个点往旁边挪几米（3D 场景本来就是米）
+func near(p: Vector2, v_m: Vector2) -> Vector2:
+    return p + v_m
+
 ## 手指左右拖屏幕转镜头，最多各 45 度，松手停在那儿
 func rotate_cam(drag_px: float) -> void:
     cam_yaw = clampf(cam_yaw - drag_px * 0.006, -CAM_YAW_MAX, CAM_YAW_MAX)
