@@ -395,7 +395,165 @@ func _process(dt: float) -> void:
         path.clear()
         face = "up"
         reached.emit("couple")
+    _scan_chairs(dt)
     if exit_armed and pos.distance_to(door) < door_r:
         exit_armed = false
         path.clear()
         reached.emit("exit")
+
+# ---------- 席位：enterHall 的数据画成坐着的人（蓝图 3.2） ----------
+signal chair_near(table_id: String, chair_no: int)   # 走到空椅子旁触发；chair_no 0 表示离开了
+
+var seats_holder: Node2D
+var seat_tags: Node2D
+var seat_marker: Polygon2D
+var chairs: Array = []          # [{table_id, chair_no, pos}]
+var seat_taken: Dictionary = {} # "T1:3" -> openid
+var table_names: Dictionary = {} # table_id -> 第一个坐下的人的昵称（桌牌）
+var my_seat := {"table_id": "", "chair_no": 0}
+var near_key := ""
+var seat_scan := 0.0
+
+## 椅子在画布上的位置：绕桌子占地一圈，1 号在正后方（靠里），顺时针
+func chair_world(t: Dictionary, no: int) -> Vector2:
+    var a := -PI / 2.0 + TAU * float(no - 1) / 10.0
+    return Vector2(float(t["x"]) + cos(a) * (float(t["rx"]) + 16.0),
+        float(t["y"]) + sin(a) * (float(t["ry"]) + 12.0))
+
+func set_seats(data: Dictionary, me_id: String) -> void:
+    if seats_holder != null:
+        seats_holder.queue_free()
+    if seat_tags != null:
+        seat_tags.queue_free()
+    seats_holder = Node2D.new()
+    seats_holder.y_sort_enabled = true
+    world.add_child(seats_holder)
+    seat_tags = Node2D.new()
+    seat_tags.z_index = 4
+    add_child(seat_tags)
+    chairs.clear()
+    seat_taken.clear()
+    table_names.clear()
+    my_seat = data.get("me", my_seat)
+    var names: Dictionary = data.get("names", {})
+    var by_id := {}
+    for t in cfg.get("tables", []):
+        by_id[t["id"]] = t
+    for tb in data.get("tables", []):
+        if not by_id.has(tb["id"]):
+            continue   # 试点只摆了两张桌，服务端多出来的桌先不画
+        var t: Dictionary = by_id[tb["id"]]
+        for no in range(1, 11):
+            chairs.append({"table_id": tb["id"], "chair_no": no, "pos": chair_world(t, no)})
+        for s in tb.get("seats", []):
+            var no := int(s["chair_no"])
+            seat_taken["%s:%d" % [tb["id"], no]] = s["openid"]
+            var info: Dictionary = names.get(s["openid"], {})
+            if not table_names.has(tb["id"]) and str(info.get("nick", "")) != "":
+                table_names[tb["id"]] = str(info["nick"])
+            if s["openid"] == me_id:
+                continue   # 自己是走动的玩家，不画坐着的
+            _seated(info, chair_world(t, no), Vector2(float(t["x"]), float(t["y"])))
+    _my_marker()
+
+func _seated(info: Dictionary, at: Vector2, center: Vector2) -> void:
+    var preset := int(info.get("avatar", -1))
+    if preset < 0 or preset > 7:
+        preset = 0
+    var s := Sprite2D.new()
+    var gl := Spr.gpt_look(preset)
+    var lk: Dictionary
+    var fh: float
+    if gl.is_empty():
+        s.texture = ImageTexture.create_from_image(Spr.sheet(preset))
+        s.hframes = 9
+        fh = 32.0
+        lk = Spr.PROC_ANIM
+    else:
+        s.texture = gl["tex"]
+        s.hframes = gl["hframes"]
+        fh = float(gl["frame_h"])
+        lk = gl["anim"]
+    var fl: Dictionary = lk[_face_for(center - at)]
+    s.frame = fl["idle"]
+    s.flip_h = fl["flip"]
+    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    s.centered = true
+    s.offset = Vector2(0, -fh * 0.5)
+    var sc := _px_h(at.y) / fh
+    s.scale = Vector2(sc, sc)
+    s.position = at
+    seats_holder.add_child(s)
+    var nick := str(info.get("nick", ""))
+    if nick != "" and font != null:
+        var l := Label.new()
+        l.text = nick
+        l.add_theme_font_override("font", font)
+        l.add_theme_font_size_override("font_size", 12)
+        l.add_theme_color_override("font_color", Color(1, 1, 1, 0.9))
+        l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+        l.add_theme_constant_override("outline_size", 4)
+        l.size = Vector2(96, 14)
+        l.position = at - Vector2(48, _px_h(at.y) + 16.0)
+        l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        seat_tags.add_child(l)
+
+## 自己座位的小金标
+func _my_marker() -> void:
+    if seat_marker != null:
+        seat_marker.queue_free()
+        seat_marker = null
+    var pos := _my_chair_pos()
+    if pos == Vector2.ZERO:
+        return
+    seat_marker = Polygon2D.new()
+    var pts := PackedVector2Array()
+    for i in 16:
+        var a := TAU * i / 16.0
+        pts.append(Vector2(cos(a) * 14.0, sin(a) * 6.0))
+    seat_marker.polygon = pts
+    seat_marker.color = Color(1.0, 0.85, 0.4, 0.55)
+    seat_marker.position = pos
+    seat_marker.z_index = -5
+    add_child(seat_marker)
+
+func _my_chair_pos() -> Vector2:
+    for c in chairs:
+        if c["table_id"] == my_seat.get("table_id", "") and c["chair_no"] == int(my_seat.get("chair_no", 0)):
+            return c["pos"]
+    return Vector2.ZERO
+
+## 换桌成功后本地更新，不用重新拉 enterHall
+func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
+    var old := "%s:%d" % [my_seat.get("table_id", ""), int(my_seat.get("chair_no", 0))]
+    if seat_taken.get(old, "") == me_id:
+        seat_taken.erase(old)
+    my_seat = {"table_id": table_id, "chair_no": chair_no}
+    seat_taken["%s:%d" % [table_id, chair_no]] = me_id
+    _my_marker()
+
+## 每 0.15 秒扫一次：人旁边有没有空椅子（不含自己那把）
+func _scan_chairs(dt: float) -> void:
+    if chairs.is_empty():
+        return
+    seat_scan += dt
+    if seat_scan < 0.15:
+        return
+    seat_scan = 0.0
+    var best_key := ""
+    var best_tid := ""
+    var best_no := 0
+    var best_d := 60.0
+    for c in chairs:
+        var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
+        if seat_taken.has(key):
+            continue
+        var d: float = pos.distance_to(c["pos"])
+        if d < best_d:
+            best_d = d
+            best_key = key
+            best_tid = c["table_id"]
+            best_no = c["chair_no"]
+    if best_key != near_key:
+        near_key = best_key
+        chair_near.emit(best_tid, best_no)

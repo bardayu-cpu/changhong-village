@@ -32,6 +32,21 @@ var hud: Control
 var dialog: PanelContainer
 var dialog_text: Label
 var hint: Label
+var note: Label            # 顶部一行浅色提示：进厅合并提示、坐好了、拒绝原因
+var note_token := 0
+var sit_btn: Button        # 走到空椅子旁出现；第一次点变确认文案，再点执行
+var sit_target := {"table_id": "", "chair_no": 0}
+var sit_confirming := false
+const CloudRpc = preload("res://scripts/cloud.gd")
+var cloud: Node
+# 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）
+const REASONS := {
+    "seat_taken": "这把有人坐了", "changed_today": "今天换过了 明天再换",
+    "toast_limit": "今天敬够了", "toast_same_person": "这杯敬过了",
+    "toast_self": "自己就不用敬了", "not_sat_here": "先坐下 慢慢写",
+    "book_too_long": "太长啦 真实情感的话 短一点也没关系",
+    "network": "没连上 再试一下", "no_resident": "没连上 再试一下",
+}
 var nick_edit: LineEdit
 var nick_err: Label
 var nick_count: Label
@@ -83,11 +98,15 @@ func _ready() -> void:
     var sv := SubViewport.new()
     sv.msaa_3d = Viewport.MSAA_DISABLED
     view.add_child(sv)
+    cloud = CloudRpc.new()
+    add_child(cloud)
     hall = LayeredHall.new() if USE_LAYERED else Hall.new()
     sv.add_child(hall)
     hall.build(preset, "", font)
     print("[suqi] 宴会厅搭好了")
     hall.reached.connect(_on_reached)
+    if USE_LAYERED:
+        hall.chair_near.connect(_on_chair_near)
     hall.walking_enabled = false
     _build_ui()
     print("[suqi] 界面搭好了")
@@ -410,6 +429,22 @@ func _build_hud() -> void:
     hint.offset_top = 66
     hint.offset_bottom = 96
     hud.add_child(hint)
+    note = _label("", 22, Color(PAPER, 0.92))
+    note.set_anchors_preset(Control.PRESET_TOP_WIDE)
+    note.offset_top = 100
+    note.offset_bottom = 130
+    note.visible = false
+    hud.add_child(note)
+    sit_btn = Button.new()
+    sit_btn.text = "坐这儿"
+    sit_btn.visible = false
+    sit_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    sit_btn.offset_top = -170
+    sit_btn.offset_bottom = -120
+    sit_btn.offset_left = -220
+    sit_btn.offset_right = 220
+    sit_btn.pressed.connect(_on_sit_pressed)
+    hud.add_child(sit_btn)
     dialog = PanelContainer.new()
     dialog.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
     dialog.offset_left = 14; dialog.offset_right = -14
@@ -455,6 +490,8 @@ func _goto(s: String) -> void:
     for k in screens:
         screens[k].visible = (k == s)
     hud.visible = (s == "banquet")
+    if sit_btn != null and s != "banquet":
+        sit_btn.visible = false
     hall.walking_enabled = (s == "banquet") and not whisper_box.visible
     if s == "nick":
         nick_edit.grab_focus()
@@ -480,6 +517,8 @@ func _enter_banquet() -> void:
     hint.visible = true
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
+    # 存资料、进厅拿席位（蓝图 3.2）。失败不拦流程，只顶部提示
+    cloud.call_fn("saveProfile", {"nick": nickname, "avatar": preset}, _after_profile)
 
 func _say(text: String, hold := -1.0) -> void:
     say_token += 1
@@ -492,6 +531,67 @@ func _say(text: String, hold := -1.0) -> void:
     await get_tree().create_timer(d).timeout
     if my == say_token:
         dialog.visible = false
+
+func _after_profile(_r: Dictionary) -> void:
+    cloud.call_fn("enterHall", {}, _on_enter_hall)
+
+func _on_enter_hall(r: Dictionary) -> void:
+    if not bool(r.get("ok", false)):
+        _note(REASONS.get(str(r.get("reason", "network")), "没连上 再试一下"))
+        return
+    var d: Dictionary = r["data"]
+    hall.set_seats(d, cloud.openid())
+    var dg: Dictionary = d.get("digest", {})
+    if bool(dg.get("hasNews", false)):
+        var names: Dictionary = d.get("names", {})
+        var parts: Array[String] = []
+        var tc := int(dg.get("toastCount", 0))
+        if tc > 0:
+            var first: Dictionary = dg["toasts"][0]
+            var who := str(names.get(str(first.get("from", "")), {}).get("nick", "有人"))
+            parts.append(who + ("等 %d 人敬了你" % tc if tc > 1 else " 敬了你一杯"))
+        var bc := int(dg.get("bookLineCount", 0))
+        if bc > 0:
+            parts.append("簿子上多了 %d 句" % bc)
+        _note("，".join(parts), 5.0)
+
+func _on_chair_near(table_id: String, chair_no: int) -> void:
+    sit_confirming = false
+    if chair_no == 0 or state != "banquet":
+        sit_btn.visible = false
+        return
+    sit_target = {"table_id": table_id, "chair_no": chair_no}
+    sit_btn.text = "坐这儿"
+    sit_btn.visible = true
+
+func _on_sit_pressed() -> void:
+    if not sit_confirming:
+        sit_confirming = true
+        var tn: String = hall.table_names.get(sit_target["table_id"], "")
+        sit_btn.text = ("换到" + tn + "那桌？" if tn != "" else "坐这桌？") + "再点一下确认 今天只能换一次"
+        return
+    sit_btn.disabled = true
+    cloud.call_fn("changeSeat", sit_target.duplicate(), _on_seat_changed)
+
+func _on_seat_changed(r: Dictionary) -> void:
+    sit_btn.disabled = false
+    sit_confirming = false
+    if bool(r.get("ok", false)):
+        hall.apply_change(sit_target["table_id"], int(sit_target["chair_no"]), cloud.openid())
+        sit_btn.visible = false
+        _note("坐好了")
+    else:
+        sit_btn.text = "坐这儿"
+        _note(REASONS.get(str(r.get("reason", "network")), "没连上 再试一下"))
+
+func _note(text: String, hold := 3.0) -> void:
+    note_token += 1
+    var my := note_token
+    note.text = text
+    note.visible = true
+    await get_tree().create_timer(hold).timeout
+    if my == note_token:
+        note.visible = false
 
 func _on_reached(what: String) -> void:
     if what == "couple":
@@ -520,6 +620,7 @@ func _send_whisper() -> void:
     var f := FileAccess.open(path, FileAccess.WRITE)
     f.store_string(JSON.stringify(arr, "  "))
     f.close()
+    cloud.call_fn("saveProfile", {"whisper": text}, func(_r): pass)
     whisper_edit.text = ""
     whisper_box.visible = false
     hall.walking_enabled = true

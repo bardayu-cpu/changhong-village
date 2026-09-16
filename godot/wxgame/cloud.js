@@ -30,3 +30,43 @@ if (typeof wx !== 'undefined' && wx.cloud) {
 } else {
     console.error('[suqi] 没有 wx.cloud，登录不了');
 }
+
+// 云函数通用调用：Godot 那边用 JavaScriptBridge 调 call 拿到一个编号，每帧用 poll 问结果。
+// 只用老写法。结果一律是 JSON 字符串；网络失败返回 {ok:false, reason:"network"}。
+GameGlobal.__suqiCloud = {
+    _seq: 0,
+    _done: {},
+    call: function (name, dataJson) {
+        var self = this;
+        self._seq += 1;
+        var id = self._seq;
+        if (typeof wx === 'undefined' || !wx.cloud) {
+            self._done[id] = JSON.stringify({ ok: false, reason: 'network' });
+            return id;
+        }
+        var data = {};
+        try { data = dataJson ? JSON.parse(dataJson) : {}; } catch (e) { data = {}; }
+        wx.cloud.callFunction({
+            name: name,
+            data: data,
+            success: function (res) {
+                var r = (res && res.result) || { ok: false, reason: 'network' };
+                self._done[id] = JSON.stringify(r);
+            },
+            fail: function (err) {
+                console.error('[suqi] 云函数 ' + name + ' 失败 ' + (err && err.errMsg ? err.errMsg : String(err)));
+                self._done[id] = JSON.stringify({ ok: false, reason: 'network' });
+            },
+        });
+        return id;
+    },
+    poll: function (id) {
+        var r = this._done[id];
+        if (r === undefined) return '';
+        delete this._done[id];
+        return r;
+    },
+    openid: function () {
+        return (GameGlobal.__suqiUser && GameGlobal.__suqiUser.openid) || '';
+    },
+};

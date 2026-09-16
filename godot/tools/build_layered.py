@@ -258,6 +258,21 @@ def main_blocks(src_path, check_out):
                    if 0 <= pi + di < cols and 0 <= pj + dj < rows and math.hypot(di, dj) * CELL < p["r"])
         assert near, "交互点 %s 周围走不到" % p["id"]
 
+    # 桌子清单：给宴会厅玩法用（座位画在哪）。离舞台近（y 小）优先、再从左到右编 T1、T2……
+    # 和服务端 config.js 的 BANQUET_TABLE_IDS 对应：前两桌是离主桌最近的
+    tabs = []
+    for _f, _y, _i, p2, _im, _xy in items:
+        if p2["block"].startswith("blk_table") and not p2.get("front"):
+            fp2 = src["blocks"][p2["block"]].get("footprint", {})
+            if "ellipse" in fp2:
+                trx, try_ = fp2["ellipse"]
+            else:
+                trx, try_ = fp2.get("rect", [240, 160])[0] / 2, fp2.get("rect", [240, 160])[1] / 2
+            tabs.append({"x": p2["x"], "y": p2["y"], "rx": trx, "ry": try_})
+    tabs.sort(key=lambda t: (t["y"], t["x"]))
+    for ti, t in enumerate(tabs):
+        t["id"] = "T%d" % (ti + 1)
+
     ph = src["person_h"]
     out = {
         "scene": scene,
@@ -272,6 +287,7 @@ def main_blocks(src_path, check_out):
         "points": src["points"],
         "walk_grid": {"cell": CELL, "cols": cols, "rows": ["".join("1" if v else "0" for v in r) for r in grid]},
         "occluders": occ,
+        "tables": tabs,
     }
     json.dump(out, open(os.path.join(out_dir, "scene.json"), "w", encoding="utf-8"), ensure_ascii=False)
     print("场景 %s（积木）：格子 %d×%d，能走 %d 格，积木摆放 %d 次，图 %d 张" % (scene, cols, rows, len(seen), len(occ), len(saved)))

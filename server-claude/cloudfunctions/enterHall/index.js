@@ -100,6 +100,18 @@ exports.main = async () => {
     else (byTableNow[s.table_id] = byTableNow[s.table_id] || []).push({ openid: s.openid, chair_no: s.chair_no });
   }
 
+  // 昵称和形象一起带回去：resident 表是「仅创建者可读写」，客户端查不到别人的，
+  // 只能在这里用管理员权限查好。桌牌「XX 那桌」和敬酒提示的名字都靠它。
+  const ids = new Set(allSeats.map(s => s.openid));
+  for (const t of digest.toasts) ids.add(t.from);
+  const names = {};
+  const idList = Array.from(ids);
+  for (let i = 0; i < idList.length; i += 100) {
+    const { data: rs } = await db.collection('resident').where({ _id: _.in(idList.slice(i, i + 100)) })
+      .field({ _id: true, nick: true, avatar: true }).get();
+    for (const r of rs) names[r._id] = { nick: r.nick || '', avatar: r.avatar === undefined ? -1 : r.avatar };
+  }
+
   return {
     ok: true,
     data: {
@@ -107,6 +119,7 @@ exports.main = async () => {
       tables: TABLE_IDS.map(id => ({ id, reserved: RESERVED_IDS.has(id), seats: byTableNow[id] || [] })),
       bench,
       digest,
+      names,
     },
   };
 };
