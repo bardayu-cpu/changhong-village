@@ -8,6 +8,7 @@ const tree = require('../src/tree');
 const temple = require('../src/temple');
 const town = require('../src/town');
 const banquet = require('../src/banquet');
+const resident = require('../src/resident');
 
 let pass = 0, fail = 0;
 const failures = [];
@@ -233,6 +234,23 @@ eq(banquet.arrivalDigest({
   bookLines: [],
   since: T5,
 }).toastCount, 2, '同一人敬了两杯都算');
+
+// ---------- 住民资料校验（最小版） ----------
+eq(resident.canSaveProfile({ nick: '阿花' }).ok, true, '正常昵称能存');
+eq(resident.canSaveProfile({ nick: ' 阿花 ' }), { ok: true }, '去掉首尾空白后正好2个字能存');
+eq(resident.canSaveProfile({ nick: '阿 花' }), { ok: true }, '去空白只去首尾，中间空格不折叠，仍算3个字符');
+eq(resident.canSaveProfile({ nick: 'x'.repeat(12) }).ok, true, '边界：正好12字能存');
+eq(resident.canSaveProfile({ nick: 'x'.repeat(13) }), { ok: false, reason: 'book_too_long', field: 'nick' }, '昵称超过12字');
+eq(resident.canSaveProfile({ nick: '' }), { ok: false, reason: 'nick_too_short', field: 'nick' }, '昵称空的（去空白后不够2字）');
+eq(resident.canSaveProfile({ nick: '  ' }).reason, 'nick_too_short', '昵称全是空白');
+eq(resident.canSaveProfile({ whisper: '新婚快乐' }).ok, true, '正常悄悄话能存');
+eq(resident.canSaveProfile({ whisper: 'x'.repeat(200) }).ok, true, '边界：正好200字能存');
+eq(resident.canSaveProfile({ whisper: 'x'.repeat(201) }), { ok: false, reason: 'book_too_long', field: 'whisper' }, '悄悄话超过200字');
+eq(resident.canSaveProfile({}), { ok: true }, '没传要查的字段就不查');
+eq(resident.clampGiftValue(88), 88, '正常礼金原样存');
+eq(resident.clampGiftValue(99999), 9999, '超上限按上限');
+eq(resident.clampGiftValue(-5), 0, '负数夹到0');
+eq(resident.clampGiftValue(66.9), 66, '取整（向下）');
 
 // ---------- 结果 ----------
 console.log(`\n通过 ${pass}，失败 ${fail}`);

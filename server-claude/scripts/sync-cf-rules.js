@@ -18,6 +18,7 @@ const NEEDS = {
   changeSeat: ['config.js', 'time.js', 'banquet.js'],
   toast: ['config.js', 'time.js', 'banquet.js'],
   writeBook: ['config.js', 'banquet.js'],
+  saveProfile: ['config.js', 'resident.js'],
 };
 
 for (const [fn, files] of Object.entries(NEEDS)) {

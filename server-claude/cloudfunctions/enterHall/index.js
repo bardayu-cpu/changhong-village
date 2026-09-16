@@ -16,9 +16,14 @@ const TABLE_IDS = C.BANQUET_TABLE_IDS;
 const RESERVED_IDS = new Set(TABLE_IDS.slice(0, C.BANQUET_RESERVED_TABLES));
 const BENCH = C.BANQUET_BENCH_ID;
 
-// 阿鱼、Toretto 的 openid。建表后由阿鱼提供，先留空——留空时没人会命中"阿鱼/Toretto 的枝坐前两桌"这条，
-// 不影响其它人正常入座，只是前两桌暂时按普通空桌分配。见回执 03。
-const VIP = new Set([]);
+// 阿鱼、Toretto 的 openid 存在 config/banquet 文档里（initDb 建好，先是空数组），不写死在代码里。
+// 后台脚本把两人的 openid 填进去之前，读到空数组，没人会命中"阿鱼/Toretto 的枝坐前两桌"这条，
+// 不影响其它人正常入座，只是前两桌暂时按普通空桌分配（回执 02-总策划答复-2 第 3 条）。
+async function loadVip() {
+  const doc = await db.collection('config').doc('banquet').get().catch(() => null);
+  const ids = (doc && doc.data && doc.data.vip_openids) || [];
+  return new Set(ids);
+}
 
 async function loadTables() {
   const { data: seats } = await db.collection('seat').where({ table_id: _.neq(BENCH) }).get();
@@ -47,8 +52,8 @@ exports.main = async () => {
   mySeat = mySeat && mySeat.data;
 
   if (!mySeat) {
-    const { tables, byTable } = await loadTables();
-    const assigned = banquet.assignSeat({ inviter, vip: VIP, tables });
+    const [{ tables, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
+    const assigned = banquet.assignSeat({ inviter, vip, tables });
 
     // 注意：changed_on 这里不能写今天——它表示"最近一次换桌是哪天"，第一次自动分座不算换桌，
     // 写了今天会导致刚进厅的人当天不能再用 changeSeat（canChangeSeat 会判成 changed_today）。

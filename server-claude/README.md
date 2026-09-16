@@ -20,7 +20,8 @@ src/tree.js      邀请树、三层关系、扩列、可能认识的人
 src/temple.js    月老庙：外殿牵红线、内殿许愿求签、找介绍人
 src/town.js      桥灯、踢球、镇报
 src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、桌簿、进厅提示
-test/rules.test.js  116 条测试，零依赖
+src/resident.js  住民资料最小校验：昵称、悄悄话长度，礼金夹上限
+test/rules.test.js  131 条测试，零依赖
 scripts/sync-cf-rules.js  把 src/ 的规则文件复制进各云函数自己的 rules/ 文件夹，部署前必须先跑
 cloudfunctions/login/       云函数：返回调用者的 openid，已部署到 cloud1-d9ggg36tj34742bef
 cloudfunctions/initDb/      云函数：建宴会厅要用的 5 张数据表，还没部署（回执 02-建表与云函数）
@@ -111,8 +112,9 @@ if (!r.ok) return { code: r.reason };
 | `toast_limit` | 今天敬够了 |
 | `toast_same_person` | 这杯敬过了 |
 | `not_sat_here` | 先坐下 慢慢写 |
-| `book_too_long` | 太长啦 真实情感的话 短一点也没关系 |
+| `book_too_long` | 太长啦 真实情感的话 短一点也没关系（`saveProfile` 昵称、悄悄话超长也沿用这条） |
 | `toast_self` | 自己就不用敬了 |
+| `nick_too_short` | 【待补】`saveProfile` 最小校验加的（回执 02-总策划答复-2 第 4 条），昵称去空白后不够 2 字，没有现成文案能沿用，等总策划/阿鱼给一句 |
 
 ## 还没做（阶段 1 剩余）
 

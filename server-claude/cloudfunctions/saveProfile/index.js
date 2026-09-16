@@ -1,9 +1,10 @@
 // 云函数 saveProfile：存昵称、形象、邀请人、签到礼金、悄悄话（resident 表，一人一条）。
-// 这几个字段各自的校验规则（昵称长度、敏感词、礼金上限）在蓝图 3.1，不在这次任务卡对应的
-// 3.2 范围内，也没有对应的纯函数，这里先只做存取，不做校验。校验谁来接、什么时候接，写进回执。
+// 昵称长度、悄悄话长度做了最小校验（rules/resident.js，回执 02-总策划答复-2 第 4 条）；
+// 礼金夹到 0～9999，不拒绝。完整的字符集、敏感词校验见 docs/敏感词模块-需求.md，还没做。
 // 客户端：wx.cloud.callFunction({ name: 'saveProfile', data: { nick, avatar, inviter, gift_value, whisper } })
 // 传哪个字段就存哪个，没传的不动。
 const cloud = require('wx-server-sdk');
+const resident = require('./rules/resident');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
@@ -19,6 +20,10 @@ exports.main = async (event) => {
     if (event && event[k] !== undefined) fields[k] = event[k];
   }
   if (Object.keys(fields).length === 0) return { ok: false, reason: 'bad_request' };
+
+  const check = resident.canSaveProfile({ nick: fields.nick, whisper: fields.whisper });
+  if (!check.ok) return check;
+  if (fields.gift_value !== undefined) fields.gift_value = resident.clampGiftValue(fields.gift_value);
 
   const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);
   if (existing && existing.data) {

@@ -377,7 +377,11 @@ func _process(dt: float) -> void:
     player.flip_h = fl["flip"]
     # 占位人物的迈腿只有 1 像素，看着像滑行：走路时加一点上下起伏，重画的人物有走路帧后再收小
     var bob := -absf(sin(anim * look_fps * PI)) * 1.6 if moving else 0.0
-    player.offset = Vector2(0, -frame_h * 0.5 + bob)
+    # 左右脚交替：每迈一步身体往落脚那边偏一点（上下走时看得最清楚）
+    var sway := 0.0
+    if moving:
+        sway = 0.9 if int(anim * look_fps) % 4 < 2 else -0.9
+    player.offset = Vector2(sway, -frame_h * 0.5 + bob)
     player.position = pos
     var sc := _px_h(pos.y) / frame_h
     player.scale = Vector2(sc, sc)
