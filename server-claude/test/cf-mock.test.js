@@ -1,0 +1,257 @@
+'use strict';
+/**
+ * 假 db 跑一遍云函数（回执 03：宴会厅服务端加固）。
+ *
+ * rules.test.js 只测 src/ 里的纯函数，测不到云函数里的 I/O 代码（分页读全、names 怎么拼、
+ * saveProfile 怎么接线邀请人判定）。这个脚本不装任何依赖（不装真的 wx-server-sdk），
+ * 用一个内存里的假数据库 + 劫持 require('wx-server-sdk') 的办法，把 enterHall/readBook/
+ * saveProfile 这三个云函数的 index.js 源码原样跑起来，断言真实行为。
+ *
+ * 跑之前先跑一遍 node scripts/sync-cf-rules.js（把 src/、lib/ 同步进各云函数自己的 rules、lib
+ * 子文件夹），这个脚本才能 require 到各云函数目录下 rules、lib 里的文件。
+ *
+ * 用法：
+ *   node scripts/sync-cf-rules.js   # 先同步（改过 src/ 或 lib/ 就要重跑）
+ *   node test/cf-mock.test.js
+ */
+const path = require('path');
+const assert_module = require('module');
+
+let pass = 0, fail = 0;
+const failures = [];
+function check(cond, name) {
+  if (cond) pass++;
+  else { fail++; failures.push(name); }
+}
+
+// ---------- 劫持 require('wx-server-sdk')，喂假的进去 ----------
+// 不装依赖、不碰真的 wx-server-sdk：Module._load 是 Node 内部所有 require() 最终都会走到的
+// 入口，这里只拦截 request === 'wx-server-sdk' 这一个字符串，其它全部照常走原来的逻辑。
+let CURRENT_FAKE_SDK = null;
+const originalLoad = assert_module._load;
+assert_module._load = function (request, parent, isMain) {
+  if (request === 'wx-server-sdk') {
+    if (!CURRENT_FAKE_SDK) throw new Error('cf-mock: 还没设置假 wx-server-sdk 就被 require 了');
+    return CURRENT_FAKE_SDK;
+  }
+  return originalLoad.apply(this, arguments);
+};
+
+const CF_ROOT = path.join(__dirname, '..', 'cloudfunctions');
+
+/** 重新加载一个云函数的 index.js，绑定到指定的假 sdk 上（每个场景要用干净的库就重新 load 一次） */
+function loadCloudFunction(name, fakeSdk) {
+  const indexPath = require.resolve(path.join(CF_ROOT, name, 'index.js'));
+  delete require.cache[indexPath]; // 逼它重新执行，重新 require('wx-server-sdk') 拿到新的假 db
+  CURRENT_FAKE_SDK = fakeSdk;
+  const mod = require(indexPath);
+  CURRENT_FAKE_SDK = null;
+  return mod;
+}
+
+// ---------- 内存假数据库：只实现这三个云函数真正用到的那部分 wx-server-sdk 行为 ----------
+function ensureColl(state, name) {
+  if (!state.collections[name]) state.collections[name] = new Map();
+  return state.collections[name];
+}
+
+function matchOne(docValue, cond) {
+  if (cond && typeof cond === 'object' && cond.__cmd) {
+    switch (cond.__cmd) {
+      case 'eq': return docValue === cond.value;
+      case 'neq': return docValue !== cond.value;
+      case 'gt': return docValue > cond.value;
+      case 'gte': return docValue >= cond.value;
+      case 'lt': return docValue < cond.value;
+      case 'lte': return docValue <= cond.value;
+      case 'in': return Array.isArray(cond.value) && cond.value.includes(docValue);
+      default: throw new Error('假 db 不支持的操作符：' + cond.__cmd);
+    }
+  }
+  return docValue === cond;
+}
+function matchesAll(doc, cond) {
+  return Object.keys(cond).every(k => matchOne(doc[k], cond[k]));
+}
+
+function makeDocRef(state, collName, id) {
+  return {
+    async get() {
+      const doc = state.collections[collName] && state.collections[collName].get(String(id));
+      if (!doc) throw new Error(`假 db：${collName}/${id} 不存在`); // 跟真的 SDK 一样，查不到就 reject
+      return { data: JSON.parse(JSON.stringify(doc)) };
+    },
+    async update({ data }) {
+      const coll = state.collections[collName];
+      const doc = coll && coll.get(String(id));
+      if (!doc) throw new Error(`假 db：${collName}/${id} 不存在，update 失败`);
+      Object.assign(doc, data);
+      return { stats: { updated: 1 } };
+    },
+  };
+}
+
+function makeQuery(state, collName, initialCond) {
+  let cond = Object.assign({}, initialCond);
+  const order = [];
+  let skipN = 0;
+  let limitN = null;
+  let proj = null;
+  const q = {
+    where(c) { cond = Object.assign({}, cond, c); return q; },
+    orderBy(field, dir) { order.push([field, dir === 'desc' ? 'desc' : 'asc']); return q; },
+    skip(n) { skipN = n; return q; },
+    limit(n) { limitN = n; return q; },
+    field(p) { proj = p; return q; },
+    doc(id) { return makeDocRef(state, collName, id); },
+    async add({ data }) {
+      const coll = ensureColl(state, collName);
+      const id = data._id != null ? String(data._id) : `auto_${String(++state.autoSeq).padStart(10, '0')}`;
+      coll.set(id, Object.assign({}, data, { _id: id }));
+      return { _id: id };
+    },
+    async get() {
+      const coll = state.collections[collName];
+      let rows = coll ? Array.from(coll.values()).filter(d => matchesAll(d, cond)) : [];
+      if (order.length) {
+        rows = rows.slice().sort((a, b) => {
+          for (const [field, dir] of order) {
+            const av = a[field] === undefined ? null : a[field];
+            const bv = b[field] === undefined ? null : b[field];
+            if (av < bv) return dir === 'desc' ? 1 : -1;
+            if (av > bv) return dir === 'desc' ? -1 : 1;
+          }
+          return 0;
+        });
+      }
+      if (skipN) rows = rows.slice(skipN);
+      if (limitN != null) rows = rows.slice(0, limitN);
+      if (proj) {
+        const keys = Object.keys(proj).filter(k => proj[k]);
+        if (!keys.includes('_id')) keys.push('_id');
+        rows = rows.map(r => { const o = {}; for (const k of keys) o[k] = r[k]; return o; });
+      }
+      return { data: JSON.parse(JSON.stringify(rows)) };
+    },
+  };
+  return q;
+}
+
+/** @returns {{sdk: object, state: object}} sdk 喂给 require('wx-server-sdk')；state 是测试代码直接摆数据、断言结果用的 */
+function createFakeSdk() {
+  const state = { collections: {}, autoSeq: 0, currentOpenid: null };
+  const db = {
+    collection: (name) => makeQuery(state, name, {}),
+    command: {
+      eq: (value) => ({ __cmd: 'eq', value }),
+      neq: (value) => ({ __cmd: 'neq', value }),
+      gt: (value) => ({ __cmd: 'gt', value }),
+      gte: (value) => ({ __cmd: 'gte', value }),
+      lt: (value) => ({ __cmd: 'lt', value }),
+      lte: (value) => ({ __cmd: 'lte', value }),
+      in: (value) => ({ __cmd: 'in', value }),
+    },
+  };
+  const sdk = {
+    init() {},
+    database: () => db,
+    getWXContext: () => ({ OPENID: state.currentOpenid, APPID: 'wx-fake-appid' }),
+    DYNAMIC_CURRENT_ENV: 'fake-env',
+  };
+  return { sdk, state };
+}
+
+function seed(state, collName, doc) {
+  ensureColl(state, collName).set(String(doc._id), Object.assign({}, doc));
+}
+
+// ================= 场景1：seat 有 250 条时 enterHall 能读全、椅子号不重复 =================
+async function scenarioSeatPagination() {
+  const { sdk, state } = createFakeSdk();
+  const TABLE_IDS = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'];
+  let n = 0;
+  const mkSeat = (id, tableId, chairNo) => ({
+    _id: id, openid: id, table_id: tableId, chair_no: chairNo, inviter: null,
+    sat_at: 1000 + (++n), changed_on: null, sat_tables: tableId === 'bench' ? [] : [tableId], last_visit_at: 1000 + n,
+  });
+  // T1..T11 坐满（各 10 人），先插入——朴素的"不分页、默认最多读 100 条"如果只读到插入顺序里
+  // 前 100 条，连 T11 都读不全，更别提之后插入的 T12、长凳
+  for (const t of TABLE_IDS.slice(0, 11)) {
+    for (let c = 1; c <= 10; c++) seed(state, 'seat', mkSeat(`seat_${t}_${c}`, t, c));
+  }
+  // 130 人坐长凳，插在 T12 之前
+  for (let i = 1; i <= 130; i++) seed(state, 'seat', mkSeat(`bench_${String(i).padStart(4, '0')}`, 'bench', null));
+  // T12 只坐了 9 人（1..9 号椅），10 号空着——全场唯一有空位的桌，最后插入
+  for (let c = 1; c <= 9; c++) seed(state, 'seat', mkSeat(`seat_T12_${c}`, 'T12', c));
+  // 到这里一共 110 + 130 + 9 = 249 条已有 seat 记录
+
+  const NEW_GUY = 'newGuy';
+  seed(state, 'resident', { _id: NEW_GUY, openid: NEW_GUY, nick: '新客', avatar: 3, inviter: null, created_at: 1, gift_value: 0, whisper: '', checked_in_at: null });
+  state.currentOpenid = NEW_GUY;
+
+  const enterHall = loadCloudFunction('enterHall', sdk);
+  const res = await enterHall.main();
+
+  check(res.ok === true, '场景1 enterHall 返回 ok:true');
+  check(res.data && res.data.me.table_id === 'T12', `场景1 新客应分到唯一有空位的 T12（实际 ${res.data && res.data.me.table_id}）`);
+  check(res.data && res.data.me.chair_no === 10, `场景1 T12 只空 10 号椅（实际 ${res.data && res.data.me.chair_no}）`);
+
+  const t12 = res.data.tables.find(t => t.id === 'T12');
+  check(!!t12 && t12.seats.length === 10, `场景1 T12 应满 10 人（实际 ${t12 && t12.seats.length}）`);
+  const chairNos = t12.seats.map(s => s.chair_no).slice().sort((a, b) => a - b);
+  check(JSON.stringify(chairNos) === JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), `场景1 T12 椅子号应是 1~10 且不重复（实际 ${JSON.stringify(chairNos)}）`);
+
+  let allFull = true;
+  for (const tid of TABLE_IDS.slice(0, 11)) {
+    const t = res.data.tables.find(x => x.id === tid);
+    if (!t || t.seats.length !== 10) allFull = false;
+  }
+  check(allFull, '场景1 T1~T11 应该都还是满的 10 人（分页没漏读）');
+  check(res.data.bench.length === 130, `场景1 长凳应还是 130 人（实际 ${res.data.bench.length}）`);
+}
+
+// ================= 场景2：readBook 超过 200 条只回最新 200 条且正序 =================
+async function scenarioReadBookLatest200() {
+  const { sdk, state } = createFakeSdk();
+  const TABLE = 'T3';
+  const BASE = 1_700_000_000_000;
+  const TOTAL = 260;
+  for (let i = 0; i < TOTAL; i++) {
+    seed(state, 'guestbook', {
+      _id: `gb_${String(i).padStart(5, '0')}`, table_id: TABLE, openid: `writer_${i % 5}`,
+      text: `第${i}句`, created_at: BASE + i,
+    });
+  }
+
+  const readBook = loadCloudFunction('readBook', sdk);
+  const res = await readBook.main({ table: TABLE });
+
+  check(res.ok === true, '场景2 readBook 返回 ok:true');
+  check(res.data.lines.length === 200, `场景2 超过 200 条只回 200 条（实际 ${res.data.lines.length}）`);
+  check(res.data.lines[0].at === BASE + 60, `场景2 第一条应是第 60 句，即丢掉最老的 60 条（实际 at-BASE=${res.data.lines[0].at - BASE}）`);
+  check(res.data.lines[199].at === BASE + 259, `场景2 最后一条应是最新的第 259 句（实际 at-BASE=${res.data.lines[199].at - BASE}）`);
+  let ascending = true;
+  for (let i = 1; i < res.data.lines.length; i++) if (res.data.lines[i].at <= res.data.lines[i - 1].at) ascending = false;
+  check(ascending, '场景2 返回的 200 条仍按时间正序排列');
+  check(res.data.lines.every(l => 'openid' in l && 'text' in l && 'at' in l && Object.keys(l).length === 3), '场景2 data.lines 每条结构不变（只有 openid/text/at）');
+}
+
+// ---------- 跑全部场景 ----------
+(async () => {
+  await scenarioSeatPagination();
+  await scenarioReadBookLatest200();
+
+  assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
+
+  console.log(`\n通过 ${pass}，失败 ${fail}`);
+  if (fail) {
+    console.log('\n失败项：');
+    failures.forEach(f => console.log('  ✗ ' + f));
+    process.exit(1);
+  } else {
+    console.log('全部通过');
+  }
+})().catch((e) => {
+  console.error('测试脚本本身报错：', e);
+  process.exit(1);
+});

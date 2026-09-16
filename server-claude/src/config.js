@@ -81,4 +81,9 @@ module.exports = {
   BANQUET_TOAST_DAILY: 5,              // 每人每天敬几杯
   BANQUET_TOAST_PER_PERSON_DAILY: 1,   // 对同一人每天几杯
   BANQUET_BOOK_MAX_LEN: 100,           // 桌簿一条最多几字
+
+  // 宴会厅服务端加固（回执 03）：云开发 collection.get() 不写 limit 一次最多回 100 条，
+  // 婚宴人数会超过 100，读座位/敬酒/簿子都要分页读全，见 lib/db-page.js
+  BANQUET_PAGE_MAX_TOTAL: 5000,        // 分页读全的总上限，防失控；婚宴量级用不到这么多
+  BANQUET_BOOK_READ_MAX: 200,           // readBook 只带回最近这么多条（按 created_at 取最新，返回时仍正序）【待验证：200 这个数字】
 };
