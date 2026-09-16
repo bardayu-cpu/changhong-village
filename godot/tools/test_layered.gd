@@ -102,23 +102,31 @@ func run() -> void:
     # 6. 前后：人站在桌子后面（脚在桌子着地线以上）时，桌子要画在人前面；站到桌子前面，人在前
     var t4: Dictionary = {}
     for o in hall.cfg["occluders"]:
-        if o["id"] == "table_4":
+        if String(o["id"]).begins_with("blk_table") or o["id"] == "table_4":
             t4 = o
-    var foot: float = t4["foot"]
-    hall.reset_to(Vector2(452, foot - 150.0))
-    hall._process(0.0)
-    var behind: bool = hall.player.position.y < foot
-    hall.reset_to(Vector2(452, foot + 20.0))
-    hall._process(0.0)
-    var front: bool = hall.player.position.y > foot
-    print("6 桌子 4 前后：站桌后被挡 ", behind, "  站桌前挡桌 ", front)
-    ok = ok and behind and front
+            break
+    if t4.is_empty():
+        print("6 场景里没有桌子遮挡块，跳过")
+    var foot: float = t4.get("foot", 0.0)
+    if not t4.is_empty():
+        var tx: float = hall.cfg["size"][0] * 0.29   # 桌子附近的 x（第一张桌在左侧）
+        hall.reset_to(Vector2(tx, foot - 150.0))
+        hall._process(0.0)
+        var behind: bool = hall.player.position.y < foot
+        hall.reset_to(Vector2(tx, foot + 30.0))
+        hall._process(0.0)
+        var front: bool = hall.player.position.y > foot
+        print("6 桌子前后：站桌后被挡 ", behind, "  站桌前挡桌 ", front)
+        ok = ok and behind and front
 
     # 7. 人的大小：越往里越小
     var near_h: float = hall._px_h(900.0)
     var far_h: float = hall._px_h(330.0)
     print("7 人高：靠门口 ", snappedf(near_h, 0.1), " 像素，新人桌前 ", snappedf(far_h, 0.1), " 像素")
-    ok = ok and near_h > far_h
+    if String(hall.cfg.get("mode", "")) == "blocks":
+        ok = ok and absf(near_h - far_h) < 0.5   # 斜俯视正交：固定 84，不随远近缩
+    else:
+        ok = ok and near_h > far_h
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()

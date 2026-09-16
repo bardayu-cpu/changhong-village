@@ -153,5 +153,144 @@ def main():
         Image.alpha_composite(im, ov).convert("RGB").save(check_out)
 
 
+
+
+
+# ---------------- A04 积木配置（blocks/place）那一路 ----------------
+# 用法：python3 tools/build_layered.py <画布文件夹>/scene_pilot.json [检查图.png]
+# 和 stand_in 的区别：底图由 base.png 加积木按脚点排序拼出来（拼法和 assemble_layered.py 一致）；
+# 遮挡块直接用积木图（occluder 带 image）；人高固定 person_h，不随远近缩
+
+def main_blocks(src_path, check_out):
+    folder = os.path.dirname(os.path.abspath(src_path))
+    src = json.load(open(src_path, encoding="utf-8"))
+    scene = src["scene"]
+    w, h = src["canvas"]
+    out_dir = os.path.join(GODOT, "assets", "layered", scene)
+    os.makedirs(out_dir, exist_ok=True)
+
+    def lossy_import(path):
+        imp = path + ".import"
+        if not os.path.exists(imp):
+            with open(imp, "w", encoding="utf-8") as f:
+                f.write('[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n[params]\n\n')
+                f.write("compress/mode=1\ncompress/lossy_quality=0.9\nmipmaps/generate=false\ndetect_3d/compress_to=0\n")
+
+    # 1. 烘底图：base + 积木按 (front, 脚点 y, 顺序) 叠，和拼装脚本同一规则
+    base = Image.open(os.path.join(folder, src["base"])).convert("RGBA")
+    assert base.size == (w, h), "底图应是 %d×%d" % (w, h)
+    sprites = {}
+    for name in src["blocks"]:
+        sprites[name] = Image.open(os.path.join(folder, name + ".png")).convert("RGBA")
+    items = []
+    for i, p in enumerate(src["place"]):
+        im2 = sprites[p["block"]]
+        ax, ay = src["blocks"][p["block"]]["anchor"]
+        if p.get("flip"):
+            im2 = im2.transpose(Image.FLIP_LEFT_RIGHT)
+            ax = im2.width - ax
+        items.append((bool(p.get("front")), p["y"], i, p, im2, (p["x"] - ax, p["y"] - ay)))
+    baked = base.copy()
+    for front, y, i, p, im2, xy in sorted(items, key=lambda t: (t[0], t[1], t[2])):
+        layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        layer.paste(im2, xy)
+        baked = Image.alpha_composite(baked, layer)
+    base_dst = os.path.join(out_dir, "base.png")
+    baked.convert("RGB").save(base_dst)
+    lossy_import(base_dst)
+
+    # 2. 遮挡块：每次摆放一个，图用积木（镜像的另存一张），脚点 y 定前后
+    occ = []
+    saved = {}
+    for front, y, i, p, im2, xy in items:
+        key = p["block"] + ("_flip" if p.get("flip") else "")
+        if key not in saved:
+            dst = os.path.join(out_dir, key + ".png")
+            im2.save(dst)
+            lossy_import(dst)
+            saved[key] = "res://assets/layered/%s/%s.png" % (scene, key)
+        if front:
+            y = h + 1000 + i  # 前景永远画在人前面
+        occ.append({"id": "%s_%d" % (p["block"], i), "image": saved[key], "x": xy[0], "y": xy[1], "foot": p["y"]})
+
+    # 3. 能走的格子：walk 多边形里、离占地 12 像素外、从进场点连通
+    C = 12
+    feet = []
+    for _, _, _, p, _, _ in items:
+        fp = src["blocks"][p["block"]].get("footprint")
+        if fp and not p.get("front"):
+            feet.append((p["x"], p["y"], fp))
+    cols, rows = math.ceil(w / CELL), math.ceil(h / CELL)
+
+    def foot_block(x, y):
+        for fx, fy, fp in feet:
+            if "ellipse" in fp:
+                rx, ry = fp["ellipse"]
+                if ((x - fx) / (rx + C)) ** 2 + ((y - fy) / (ry + C)) ** 2 < 1.0:
+                    return True
+            elif abs(x - fx) < fp["rect"][0] / 2 + C and abs(y - fy) < fp["rect"][1] / 2 + C:
+                return True
+        return False
+
+    grid = [[False] * cols for _ in range(rows)]
+    for j in range(rows):
+        for i in range(cols):
+            x, y = (i + 0.5) * CELL, (j + 0.5) * CELL
+            if any(in_poly(x, y, poly) for poly in src["walk"]) and not foot_block(x, y):
+                grid[j][i] = True
+    sx, sy = int(src["spawn"][0] // CELL), int(src["spawn"][1] // CELL)
+    assert grid[sy][sx], "进场点不在能走的地方"
+    seen = {(sx, sy)}
+    stack = [(sx, sy)]
+    while stack:
+        i, j = stack.pop()
+        for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ni, nj = i + di, j + dj
+            if 0 <= ni < cols and 0 <= nj < rows and grid[nj][ni] and (ni, nj) not in seen:
+                seen.add((ni, nj))
+                stack.append((ni, nj))
+    for j in range(rows):
+        for i in range(cols):
+            grid[j][i] = (i, j) in seen
+    for p in src["points"]:
+        pi, pj = int(p["x"] // CELL), int(p["y"] // CELL)
+        near = any(grid[pj + dj][pi + di] for dj in range(-7, 8) for di in range(-7, 8)
+                   if 0 <= pi + di < cols and 0 <= pj + dj < rows and math.hypot(di, dj) * CELL < p["r"])
+        assert near, "交互点 %s 周围走不到" % p["id"]
+
+    ph = src["person_h"]
+    out = {
+        "scene": scene,
+        "mode": "blocks",
+        "revision": src.get("revision", ""),
+        "base": "res://assets/layered/%s/base.png" % scene,
+        "size": [w, h],
+        # 斜俯视正交：人不随远近缩，两行同高
+        "person_px": {"near_y": h, "near_h": ph, "far_y": 0, "far_h": ph},
+        "spawn": src["spawn"],
+        "couple": src["couple"],
+        "points": src["points"],
+        "walk_grid": {"cell": CELL, "cols": cols, "rows": ["".join("1" if v else "0" for v in r) for r in grid]},
+        "occluders": occ,
+    }
+    json.dump(out, open(os.path.join(out_dir, "scene.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    print("场景 %s（积木）：格子 %d×%d，能走 %d 格，积木摆放 %d 次，图 %d 张" % (scene, cols, rows, len(seen), len(occ), len(saved)))
+
+    if check_out:
+        ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        d = ImageDraw.Draw(ov)
+        for j in range(rows):
+            for i in range(cols):
+                if grid[j][i]:
+                    d.rectangle((i * CELL, j * CELL, i * CELL + CELL - 1, j * CELL + CELL - 1), fill=(0, 255, 90, 70))
+        for p in src["points"]:
+            d.ellipse((p["x"] - p["r"], p["y"] - p["r"], p["x"] + p["r"], p["y"] + p["r"]), outline=(60, 160, 255, 255), width=3)
+        Image.alpha_composite(baked, ov).convert("RGB").save(check_out)
+
+
 if __name__ == "__main__":
-    main()
+    _src = json.load(open(sys.argv[1], encoding="utf-8"))
+    if "blocks" in _src:
+        main_blocks(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
+    else:
+        main()
