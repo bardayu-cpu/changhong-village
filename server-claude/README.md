@@ -23,15 +23,17 @@ src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、
 src/resident.js  住民资料最小校验：昵称、悄悄话长度，礼金夹上限
 test/rules.test.js  131 条测试，零依赖
 scripts/sync-cf-rules.js  把 src/ 的规则文件复制进各云函数自己的 rules/ 文件夹，部署前必须先跑
-cloudfunctions/login/       云函数：返回调用者的 openid，已部署到 cloud1-d9ggg36tj34742bef
-cloudfunctions/initDb/      云函数：建宴会厅要用的 5 张数据表，还没部署（回执 02-建表与云函数）
-cloudfunctions/enterHall/   云函数：进宴会厅，自动分座、进厅合并提示，还没部署
-cloudfunctions/changeSeat/  云函数：换桌，还没部署
-cloudfunctions/toast/       云函数：敬酒，还没部署
-cloudfunctions/writeBook/   云函数：写桌簿，还没部署
-cloudfunctions/readBook/    云函数：读桌簿，还没部署
-cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄话，还没部署
+cloudfunctions/login/       云函数：返回调用者的 openid，已部署
+cloudfunctions/initDb/      云函数：建 config/banquet 配置文档，已部署、已跑过
+cloudfunctions/enterHall/   云函数：进宴会厅，自动分座、进厅合并提示，已部署
+cloudfunctions/changeSeat/  云函数：换桌，已部署
+cloudfunctions/toast/       云函数：敬酒，已部署
+cloudfunctions/writeBook/   云函数：写桌簿，已部署
+cloudfunctions/readBook/    云函数：读桌簿，已部署
+cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄话，已部署
 ```
+
+数据表（`resident`/`seat`/`toast`/`guestbook`/`friend_request`/`config`）已在云开发控制台建好，权限已设「仅创建者可读写」（2026-09-16，阿鱼手动操作，见 `回执/02-建表与云函数.md` 第 11 节）。
 
 ## 云函数
 
