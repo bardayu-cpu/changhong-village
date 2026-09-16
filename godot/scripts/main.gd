@@ -39,13 +39,17 @@ var sit_target := {"table_id": "", "chair_no": 0}
 var sit_confirming := false
 const CloudRpc = preload("res://scripts/cloud.gd")
 var cloud: Node
-# 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）
+# 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）。
+# 云函数的字段名和拒绝原因清单见 godot/回执/席位桥修复.md 第七节，发请求前对一遍
 const REASONS := {
     "seat_taken": "这把有人坐了", "changed_today": "今天换过了 明天再换",
     "toast_limit": "今天敬够了", "toast_same_person": "这杯敬过了",
     "toast_self": "自己就不用敬了", "not_sat_here": "先坐下 慢慢写",
     "book_too_long": "太长啦 真实情感的话 短一点也没关系",
     "network": "没连上 再试一下", "no_resident": "没连上 再试一下",
+    # 这两个是字段名对不上、或者服务端那边没有我的座位，玩家看不懂，统一说没连上；
+    # 真实原因打进日志，不然又会像第 19 版那样被「没连上」盖住（bad_request 当时就是 changeSeat 字段名发错了）
+    "bad_request": "没连上 再试一下", "no_seat": "没连上 再试一下",
 }
 var nick_edit: LineEdit
 var nick_err: Label
@@ -539,9 +543,19 @@ func _say(text: String, hold := -1.0) -> void:
 func _after_profile(_r: Dictionary) -> void:
     cloud.call_fn("enterHall", {}, _on_enter_hall)
 
+## 拒绝原因转成给玩家看的一句话。没见过的原因一律说「没连上」，但日志里要打出真实原因，
+## 不然像第 19 版那样：服务端回 bad_request，玩家只看到「没连上」，查了半天才发现是字段名发错了
+func _reason_text(r: Dictionary, where: String) -> String:
+    var reason := str(r.get("reason", "network"))
+    if not REASONS.has(reason):
+        print("[suqi] ", where, " 被拒，原因没见过：", reason, " 整条返回 ", JSON.stringify(r).substr(0, 160))
+        return "没连上 再试一下"
+    print("[suqi] ", where, " 被拒，原因 ", reason)
+    return str(REASONS[reason])
+
 func _on_enter_hall(r: Dictionary) -> void:
     if not bool(r.get("ok", false)):
-        _note(REASONS.get(str(r.get("reason", "network")), "没连上 再试一下"))
+        _note(_reason_text(r, "进厅"))
         return
     var d: Dictionary = r["data"]
     hall.set_seats(d, cloud.openid())
@@ -578,7 +592,12 @@ func _on_sit_pressed() -> void:
         sit_btn.text = ("换到" + tn + "那桌？" if tn != "" else "坐这桌？") + "再点一下确认 今天只能换一次"
         return
     sit_btn.disabled = true
-    cloud.call_fn("changeSeat", sit_target.duplicate(), _on_seat_changed)
+    # 字段名以服务端为准：changeSeat 收的是驼峰 tableId、chairNo。
+    # 本地 sit_target 还是下划线（和 layered_hall 的席位数据一套），发出去的时候转
+    cloud.call_fn("changeSeat", {
+        "tableId": str(sit_target["table_id"]),
+        "chairNo": int(sit_target["chair_no"]),
+    }, _on_seat_changed)
 
 func _on_seat_changed(r: Dictionary) -> void:
     sit_btn.disabled = false
@@ -589,7 +608,7 @@ func _on_seat_changed(r: Dictionary) -> void:
         _note("坐好了")
     else:
         sit_btn.text = "坐这儿"
-        _note(REASONS.get(str(r.get("reason", "network")), "没连上 再试一下"))
+        _note(_reason_text(r, "换桌"))
 
 func _note(text: String, hold := 3.0) -> void:
     note_token += 1

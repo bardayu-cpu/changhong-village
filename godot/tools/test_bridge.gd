@@ -62,12 +62,29 @@ func _init() -> void:
     var seats_ok: bool = bool(got.get("ok", false)) and got.get("data", {}).has("tables")
     print("4 电脑假数据 enterHall 回来了 ", seats_ok, " openid ", c.openid())
     ok = ok and seats_ok and c.openid() == "fake_me"
-    c.call_fn("changeSeat", {"table_id": "T2", "chair_no": 3}, func(r): box["s1"] = r)
-    c.call_fn("changeSeat", {"table_id": "T1", "chair_no": 5}, func(r): box["s2"] = r)
+    # 字段名以服务端为准：changeSeat 收驼峰 tableId、chairNo。
+    # 第 19 版就是这里发了下划线，服务端回 bad_request，玩家看到的却是「没连上」
+    c.call_fn("changeSeat", {"table_id": "T2", "chair_no": 3}, func(r): box["bad"] = r)
+    var bad: Dictionary = box.get("bad", {})
+    print("5 换桌用错字段名（下划线）：", bad)
+    ok = ok and str(bad.get("reason", "")) == "bad_request"
+    c.call_fn("changeSeat", {"tableId": "T2", "chairNo": 3}, func(r): box["s1"] = r)
+    c.call_fn("changeSeat", {"tableId": "T1", "chairNo": 5}, func(r): box["s2"] = r)
     var got2: Dictionary = box.get("s1", {})
     var got3: Dictionary = box.get("s2", {})
-    print("5 换桌第一次 ", got2, " 第二次（今天换过了）", got3)
+    print("  换桌第一次 ", got2, " 第二次（今天换过了）", got3)
     ok = ok and bool(got2.get("ok", false)) and str(got3.get("reason", "")) == "changed_today"
+
+    # 5b. 拒绝原因表要盖住服务端会回的每一种，不然玩家只看到「没连上」，查不出真原因
+    var Main = load("res://scripts/main.gd")
+    var server_reasons := ["bad_request", "book_too_long", "changed_today", "no_resident",
+        "no_seat", "not_sat_here", "seat_taken", "toast_limit", "toast_same_person", "toast_self"]
+    var missing: Array = []
+    for reason in server_reasons:
+        if not Main.REASONS.has(reason):
+            missing.append(reason)
+    print("5b 拒绝原因表漏的 ", missing, "（nick_too_short 的文案等阿鱼给，先不算漏）")
+    ok = ok and missing.is_empty()
 
     # 6. 把两条请求的名字写出去，交给 node 回放（tools/replay_bridge.js）
     var out_path := OS.get_environment("SUQI_BRIDGE_OUT")

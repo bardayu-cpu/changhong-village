@@ -150,17 +150,23 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 "digest": {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
                 "names": fake_names}}
         "changeSeat":
+            # 入参跟服务端一样是驼峰 tableId、chairNo（cloudfunctions/changeSeat/index.js）。
+            # 少一个就和服务端一样回 bad_request，这样字段名发错在电脑上就能测出来
+            if not data.has("tableId") or not data.has("chairNo"):
+                return {"ok": false, "reason": "bad_request"}
             if fake_changed_today:
                 return {"ok": false, "reason": "changed_today"}
+            var tid_new := str(data["tableId"])
+            var no_new := int(data["chairNo"])
             for tid in fake_seats:
                 var arr: Array = fake_seats[tid]
                 for i in range(arr.size() - 1, -1, -1):
                     if arr[i]["openid"] == "fake_me":
                         arr.remove_at(i)
-            fake_me = {"table_id": data["table_id"], "chair_no": data["chair_no"]}
-            if not fake_seats.has(data["table_id"]):
-                fake_seats[data["table_id"]] = []
-            fake_seats[data["table_id"]].append({"openid": "fake_me", "chair_no": data["chair_no"]})
+            fake_me = {"table_id": tid_new, "chair_no": no_new}
+            if not fake_seats.has(tid_new):
+                fake_seats[tid_new] = []
+            fake_seats[tid_new].append({"openid": "fake_me", "chair_no": no_new})
             fake_changed_today = true
             return {"ok": true}
         "toast":
