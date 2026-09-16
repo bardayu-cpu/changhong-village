@@ -94,10 +94,11 @@ static func back_rows(front: Array, preset: int) -> Array:
     return r
 
 static func lift_leg(rows: Array, x0: int, x1: int) -> Array:
+    # 抬 2 行，步子才看得出来（原来 1 行，手机上像滑行）
     var out: Array = rows.duplicate()
     for y in range(24, 32):
         for x in range(x0, x1 + 1):
-            var c: String = rows[y + 1][x] if y < 31 else "."
+            var c: String = rows[y + 2][x] if y < 30 else "."
             out[y] = set_ch(out[y], x, c)
     return out
 
@@ -118,11 +119,11 @@ static func side_legs(im: Image, ox: int, phase: int, pal: Dictionary) -> void:
         var col: Color = pal[L[1]]
         var bx: int = L[2]
         for y in range(21, 29):
-            var x := bx + int(round(dir * (y - 21) / 3.5))
+            var x := bx + int(round(dir * (y - 21) / 1.9))   # 摆腿到脚踝差约 3～4 像素，两腿分得开
             im.set_pixel(ox + x - 1, y, pal["o"])
             for k in 3: im.set_pixel(ox + x + k, y, col)
             im.set_pixel(ox + x + 3, y, pal["o"])
-        var fx := bx + dir * 2
+        var fx := bx + dir * 4
         for i in range(-1, 5): im.set_pixel(ox + fx + i, 29, pal["o"] if (i == -1 or i == 4) else pal["f"])
         for i in range(-1, 6): im.set_pixel(ox + fx + i, 30, pal["o"] if (i == -1 or i == 5) else pal["f"])
         for i in range(-1, 6): im.set_pixel(ox + fx + i, 31, pal["o"])
