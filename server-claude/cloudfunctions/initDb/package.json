@@ -1,0 +1,10 @@
+{
+  "name": "initDb",
+  "version": "1.0.0",
+  "description": "苏七镇奇缘：建宴会厅要用的数据表（一次性/幂等）",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "wx-server-sdk": "~4.0.2"
+  }
+}
