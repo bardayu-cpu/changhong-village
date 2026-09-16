@@ -514,7 +514,8 @@ func _my_marker() -> void:
     seat_marker.polygon = pts
     seat_marker.color = Color(1.0, 0.85, 0.4, 0.55)
     seat_marker.position = pos
-    seat_marker.z_index = -5
+    # 要画在底图和桌子上面才看得见：原来是 -5，沉到底图下面，电脑上也看不到（第 19 版修）
+    seat_marker.z_index = 4
     add_child(seat_marker)
 
 func _my_chair_pos() -> Vector2:

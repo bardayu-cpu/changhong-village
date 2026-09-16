@@ -128,5 +128,53 @@ func run() -> void:
     else:
         ok = ok and near_h > far_h
 
+    # 8. 席位：拿 enterHall 那个形状的数据画席位，金标要在自己那把椅子上，
+    #    走到空椅子旁要冒出「坐这儿」，走到别人坐着的椅子旁不冒
+    var data := {
+        "me": {"table_id": "T1", "chair_no": 2},
+        "tables": [
+            {"id": "T1", "seats": [{"openid": "wang", "chair_no": 1}, {"openid": "me", "chair_no": 2}]},
+            {"id": "T2", "seats": [{"openid": "li", "chair_no": 4}]},
+        ],
+        "names": {"wang": {"nick": "老王", "avatar": 1}, "li": {"nick": "小李", "avatar": 5}},
+    }
+    hall.set_seats(data, "me")
+    var tables: Array = hall.cfg.get("tables", [])
+    print("8 席位：桌 ", tables.size(), " 张，椅子 ", hall.chairs.size(), " 把，坐了人的 ", hall.seat_taken.size(),
+        "，桌牌 ", hall.table_names)
+    ok = ok and hall.chairs.size() == tables.size() * 10 and hall.seat_taken.size() == 3
+    var mark: Vector2 = hall._my_chair_pos()
+    print("  金标位置 ", mark, " 画出来了 ", hall.seat_marker != null)
+    ok = ok and mark != Vector2.ZERO and hall.seat_marker != null and hall.seat_marker.position == mark
+
+    var near: Array = []
+    hall.chair_near.connect(func(tid, no): near.append([tid, no]))
+    # 站到一把空椅子旁边
+    var empty_chair: Dictionary = {}
+    for c in hall.chairs:
+        if not hall.seat_taken.has("%s:%d" % [c["table_id"], c["chair_no"]]):
+            empty_chair = c
+            break
+    hall.near_key = ""
+    hall.seat_scan = 1.0
+    hall.reset_to(empty_chair["pos"])
+    hall._scan_chairs(1.0)
+    var offered: bool = near.size() > 0 and near[-1][1] == int(empty_chair["chair_no"])
+    print("  走到空椅子 ", empty_chair["table_id"], empty_chair["chair_no"], " 旁：冒出坐这儿 ", offered)
+    ok = ok and offered
+    # 走远：要收回
+    near.clear()
+    hall.seat_scan = 1.0
+    hall.reset_to(hall.SPAWN)
+    hall._scan_chairs(1.0)
+    var withdrawn: bool = near.size() > 0 and near[-1][1] == 0
+    print("  走开以后收回 ", withdrawn)
+    ok = ok and withdrawn
+    # 换桌以后金标跟着挪
+    hall.apply_change("T2", 7, "me")
+    print("  换到 T2 第 7 把：金标 ", hall.seat_marker.position, " 该是 ", hall._my_chair_pos())
+    ok = ok and hall.seat_marker != null and hall.seat_marker.position == hall._my_chair_pos()
+    ok = ok and hall.seat_taken.get("T2:7", "") == "me" and not hall.seat_taken.has("T1:2")
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()

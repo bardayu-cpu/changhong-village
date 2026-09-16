@@ -190,14 +190,18 @@ func _toggle_log() -> void:
     if dbg_panel.visible:
         dbg_text.text = _read_js_log()
 
-## 日志在微信那一层（wxgame/debug-console.js 收集的），这里只是读出来显示
+## 日志在微信那一层（wxgame/debug-console.js 收集的），这里只是读出来显示。
+## 打开面板时顺便让云桥自查一次，结果也会进日志，排查席位用
 func _read_js_log() -> String:
     if not (OS.has_feature("web") or OS.has_feature("wechat")):
         return "电脑上没有这份日志，看 Godot 的输出窗口"
+    var caps := ""
+    if cloud != null:
+        caps = cloud.diagnose() + "\n\n"
     var log_obj = JavaScriptBridge.get_interface("__suqiLog")
     if log_obj == null:
-        return "读不到日志：调试脚本没加载"
-    return str(log_obj.text())
+        return caps + "读不到日志：调试脚本没加载"
+    return caps + str(log_obj.text())
 
 func _process(dt: float) -> void:
     if stick_base != null:

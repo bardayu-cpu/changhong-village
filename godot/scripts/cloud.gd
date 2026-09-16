@@ -1,10 +1,23 @@
 extends Node
-## 云函数调用：微信里走 wxgame/cloud.js 的 __suqiCloud（call 拿编号、每帧 poll 结果）；
+## 云函数调用。真机上只用两种确定能用的写法（和日志面板读 __suqiLog.text() 是同一种）：
+##   1) 送出去：JavaScriptBridge.get_interface("名字")，名字是任意字符串。请求先转成纯 ASCII 的
+##      一行 JSON，再一个字符一个字符当名字「查」过去，换行符表示这条完了。见 wxgame/cloud.js
+##   2) 取回来：无参方法返回字符串。__suqiCloud.pop() 取结果、openid() 取自己的 id
+## 不带参数调 JS 方法、不用 eval、不读显卡。
 ## 电脑上没有微信层，用内存里的假席位应付流程，方便开发和截图（fake 开头的都是）。
 ## 用法：Cloud.call_fn("enterHall", {}, func(r): ...)。r 是 Dictionary，至少有 ok；失败 reason="network"。
 
-var _js: JavaScriptObject = null
-var _pending: Dictionary = {}   # 编号 -> Callable
+const TX_PREFIX := "__sqT"
+const TIMEOUT := 12.0           # 超过这么久没回来就按「没连上」回调，界面不会一直没反应
+const POP_PER_FRAME := 8
+
+var _js = null                  # 故意不写类型：JS 对象上的方法都是动态调的
+var _in_wx := false
+var _seq := 0
+var _pending: Dictionary = {}   # 编号 -> {"cb": Callable, "t": float}
+var _bank := false
+var _ok_once := false           # 有过一次成功往返，探针才允许跑
+var _probed := false
 
 # ---- 电脑上的假数据：两个人坐着，自己第一次进厅会被分到 T1 ----
 var fake_me := {"table_id": "", "chair_no": 0}
@@ -13,10 +26,17 @@ var fake_names := {"fake_wang": {"nick": "老王", "avatar": 1}, "fake_li": {"ni
 var fake_changed_today := false
 
 func _ready() -> void:
-    if OS.has_feature("web") or OS.has_feature("wechat"):
-        _js = JavaScriptBridge.get_interface("__suqiCloud")
-        if _js == null:
+    # 不按 OS.has_feature 判断：读得到 __suqiCloud 就是接上了，读不到再看是不是在微信里
+    _js = JavaScriptBridge.get_interface("__suqiCloud")
+    _in_wx = _js != null or OS.has_feature("web") or OS.has_feature("wechat")
+    if _js == null:
+        if _in_wx:
             print("[suqi] 云桥没接上：__suqiCloud 读不到，席位功能不可用")
+        else:
+            print("[suqi] 电脑上没有微信层，席位走假数据")
+    else:
+        print("[suqi] 云桥接上了")
+    set_process(false)
 
 func openid() -> String:
     if _js != null:
@@ -24,27 +44,95 @@ func openid() -> String:
     return "fake_me"
 
 func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
-    if _js != null:
-        var id := int(_js.req(name, JSON.stringify(data)))
-        print("[suqi] 云函数 ", name, " 发出 编号 ", id)
-        _pending[id] = cb
-        set_process(true)
+    if _js == null:
+        # 真机上桥断了也要给回调，不然界面什么都不显示（第 17、18 版就是这样五步全哑）
+        if _in_wx:
+            print("[suqi] 云桥没接上，", name, " 直接按没连上处理")
+            cb.call({"ok": false, "reason": "network"})
+        else:
+            cb.call(_fake(name, data))
         return
-    cb.call(_fake(name, data))
+    _seq += 1
+    var id := _seq
+    _pending[id] = {"cb": cb, "t": 0.0}
+    _send({"id": id, "fn": name, "d": data})
+    print("[suqi] 云函数 ", name, " 送出 编号 ", id)
+    set_process(true)
 
-func _process(_dt: float) -> void:
+## 把一条请求送过去：每个字符查一次 get_interface。A、B 两套名字轮流用，
+## 因为适配层查一个名字会把属性读两遍，JS 那边靠「名字和上一个一样就忽略」去重，
+## 轮流用才不会把连着两个一样的字符吃掉一个。
+func _send(msg: Dictionary) -> void:
+    for n in encode_names(msg):
+        JavaScriptBridge.get_interface(n)
+
+## 送一条请求要查的名字，按顺序。单独拆出来是为了在电脑上能测（tools/test_bridge.gd）
+func encode_names(msg: Dictionary) -> PackedStringArray:
+    var text := ascii_only(JSON.stringify(msg)) + "\n"
+    var names := PackedStringArray()
+    for i in text.length():
+        _bank = not _bank
+        names.append(TX_PREFIX + ("A" if _bank else "B") + text[i])
+    return names
+
+## 转成纯 ASCII：中文、表情都写成 \uXXXX。这样每个字符都在我们注册好的 96 个名字里，
+## JS 那边 JSON.parse 会自己还原，不用在 JS 里解 UTF-8
+static func ascii_only(s: String) -> String:
+    var out := ""
+    for i in s.length():
+        var c := s.unicode_at(i)
+        if c >= 0x20 and c < 0x7F:
+            out += char(c)
+        elif c <= 0xFFFF:
+            out += "\\u%04x" % c
+        else:
+            var v := c - 0x10000
+            out += "\\u%04x\\u%04x" % [0xD800 + (v >> 10), 0xDC00 + (v & 0x3FF)]
+    return out
+
+func _process(dt: float) -> void:
     if _js == null or _pending.is_empty():
         set_process(false)
         return
-    for id in _pending.keys():
-        var txt := str(_js.poll(id))
+    for _i in POP_PER_FRAME:
+        var txt := str(_js.pop())
         if txt == "":
+            break
+        var m = JSON.parse_string(txt)
+        if typeof(m) != TYPE_DICTIONARY:
+            print("[suqi] 云桥返回看不懂 ", txt.substr(0, 120))
             continue
-        var cb: Callable = _pending[id]
+        var id := int(m.get("id", 0))
+        if not _pending.has(id):
+            continue
+        var cb: Callable = _pending[id]["cb"]
         _pending.erase(id)
-        var r = JSON.parse_string(txt)
+        _ok_once = true
+        var r = m.get("r", null)
         print("[suqi] 云函数 编号 ", id, " 返回 ", txt.substr(0, 120))
         cb.call(r if typeof(r) == TYPE_DICTIONARY else {"ok": false, "reason": "network"})
+    for id in _pending.keys():
+        _pending[id]["t"] += dt
+        if _pending[id]["t"] > TIMEOUT:
+            var cb2: Callable = _pending[id]["cb"]
+            _pending.erase(id)
+            print("[suqi] 云函数 编号 ", id, " 等了 ", TIMEOUT, " 秒没回来，按没连上处理")
+            cb2.call({"ok": false, "reason": "network"})
+
+## 日志面板打开时叫一次：先报 JS 那边的自查，再单独试一次「带参数调 JS 方法」。
+## 探针只为查清适配层的能力，玩法一概不走它。万一这一句在真机上把函数打断或者更糟，
+## 也只影响这个函数，五步验收已经在前面走完了。
+func diagnose() -> String:
+    if _js == null:
+        return "云桥没接上"
+    var caps := str(_js.caps())
+    print("[suqi] ", caps)
+    if _ok_once and not _probed:
+        _probed = true
+        print("[suqi] 探针：准备试带参调用 echo(\"ping\")")
+        var r = _js.echo("ping")
+        print("[suqi] 探针：带参调用回来了，返回 ", str(r), " 类型 ", typeof(r))
+    return caps
 
 # ---- 电脑上的假实现：规则和服务端一致的最小子集，只为跑通流程 ----
 func _fake(name: String, data: Dictionary) -> Dictionary:
