@@ -375,6 +375,9 @@ func _process(dt: float) -> void:
     var walk_frames: Array = fl["walk"]
     player.frame = walk_frames[int(anim * look_fps) % walk_frames.size()] if moving else fl["idle"]
     player.flip_h = fl["flip"]
+    # 占位人物的迈腿只有 1 像素，看着像滑行：走路时加一点上下起伏，重画的人物有走路帧后再收小
+    var bob := -absf(sin(anim * look_fps * PI)) * 1.6 if moving else 0.0
+    player.offset = Vector2(0, -frame_h * 0.5 + bob)
     player.position = pos
     var sc := _px_h(pos.y) / frame_h
     player.scale = Vector2(sc, sc)
