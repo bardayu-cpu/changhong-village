@@ -277,12 +277,58 @@ async function scenarioEnterHallOfflineInviterNames() {
   check(res.data.names.X && res.data.names.X.inviter === 'Y', '场景4 小李的 names 条目带着 inviter=Y，客户端才能拼"老王带进来的"');
 }
 
+// ================= 场景5：saveProfile 邀请人只存第一次的接线 =================
+async function scenarioSaveProfileInviter() {
+  const { sdk, state } = createFakeSdk();
+  seed(state, 'resident', { _id: 'B', openid: 'B', nick: '老王', avatar: 1, inviter: null });
+  seed(state, 'resident', { _id: 'C', openid: 'C', nick: '小李', avatar: 2, inviter: null });
+
+  // 用例1：A 首次存资料，带合法邀请人 B，应该存上，其它字段也存上
+  state.currentOpenid = 'A';
+  let saveProfile = loadCloudFunction('saveProfile', sdk);
+  let res = await saveProfile.main({ nick: '阿花', inviter: 'B' });
+  check(res.ok === true, '场景5-用例1 首次存资料+合法邀请人：返回 ok:true');
+  let docA = state.collections.resident.get('A');
+  check(!!docA, '场景5-用例1 resident 记录被创建');
+  check(!!docA && docA.inviter === 'B', `场景5-用例1 首次合法邀请人应被记下（实际 ${docA && docA.inviter}）`);
+  check(!!docA && docA.nick === '阿花', '场景5-用例1 昵称一起存上');
+
+  // 用例2：A 第二次存资料，传不同邀请人 C，不应覆盖；其它字段照存
+  state.currentOpenid = 'A';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '阿花花', inviter: 'C', gift_value: 88 });
+  check(res.ok === true, '场景5-用例2 第二次传不同邀请人：仍返回 ok:true（不整体失败）');
+  docA = state.collections.resident.get('A');
+  check(docA.inviter === 'B', `场景5-用例2 邀请人不应被 C 覆盖，应还是 B（实际 ${docA.inviter}）`);
+  check(docA.nick === '阿花花', '场景5-用例2 昵称照常更新为新值');
+  check(docA.gift_value === 88, '场景5-用例2 礼金照常更新');
+
+  // 用例3：新人 D 传自己当邀请人，不应写入，其它字段照存
+  state.currentOpenid = 'D';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '阿德', inviter: 'D' });
+  check(res.ok === true, '场景5-用例3 传自己当邀请人：仍返回 ok:true');
+  const docD = state.collections.resident.get('D');
+  check(!!docD && docD.nick === '阿德', '场景5-用例3 昵称照常创建/存上');
+  check(!docD.inviter, `场景5-用例3 不能把自己记成邀请人（实际 ${docD.inviter}）`);
+
+  // 用例4：新人 E 传一个不存在的邀请人 id，不应写入，其它字段照存
+  state.currentOpenid = 'E';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '阿E', inviter: 'not-exist-id' });
+  check(res.ok === true, '场景5-用例4 邀请人不存在：仍返回 ok:true');
+  const docE = state.collections.resident.get('E');
+  check(!!docE && docE.nick === '阿E', '场景5-用例4 昵称照常创建/存上');
+  check(!docE.inviter, `场景5-用例4 不存在的邀请人不能被记下（实际 ${docE.inviter}）`);
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
   await scenarioReadBookLatest200();
   await scenarioReadBookNames();
   await scenarioEnterHallOfflineInviterNames();
+  await scenarioSaveProfileInviter();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

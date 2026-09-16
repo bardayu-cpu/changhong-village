@@ -252,6 +252,15 @@ eq(resident.clampGiftValue(99999), 9999, '超上限按上限');
 eq(resident.clampGiftValue(-5), 0, '负数夹到0');
 eq(resident.clampGiftValue(66.9), 66, '取整（向下）');
 
+// ---------- 邀请人只存第一次（canAdoptInviter，回执 03 第 3 项） ----------
+eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: 'B', inviterExists: true }), true, '正常：第一次存、邀请人存在，能记');
+eq(resident.canAdoptInviter({ existingInviter: 'X', selfOpenid: 'A', inviter: 'B', inviterExists: true }), false, '已经有邀请人了，只认第一次');
+eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: 'A', inviterExists: true }), false, '不能填自己');
+eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: 'B', inviterExists: false }), false, '邀请人不存在，不能记');
+eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: null, inviterExists: true }), false, '边界：没传候选人（null）');
+eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: '', inviterExists: true }), false, '边界：候选人是空字符串');
+eq(resident.canAdoptInviter({ existingInviter: '', selfOpenid: 'A', inviter: 'B', inviterExists: true }), true, '边界：已有邀请人是空字符串，等同没有，能记');
+
 // ---------- 结果 ----------
 console.log(`\n通过 ${pass}，失败 ${fail}`);
 if (fail) { console.log('\n失败项：'); failures.forEach(f => console.log('  ✗ ' + f)); process.exit(1); }
