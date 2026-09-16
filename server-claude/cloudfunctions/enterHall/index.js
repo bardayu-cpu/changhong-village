@@ -107,17 +107,31 @@ exports.main = async () => {
     else (byTableNow[s.table_id] = byTableNow[s.table_id] || []).push({ openid: s.openid, chair_no: s.chair_no });
   }
 
-  // 昵称和形象一起带回去：resident 表是「仅创建者可读写」，客户端查不到别人的，
-  // 只能在这里用管理员权限查好。桌牌「XX 那桌」和敬酒提示的名字都靠它。
+  // 昵称、形象、邀请人一起带回去：resident 表是「仅创建者可读写」，客户端查不到别人的，
+  // 只能在这里用管理员权限查好。桌牌「XX 那桌」、敬酒提示的名字、看人卡片「XX 带进来的」都靠它。
+  // _.in 一批最多 100 个 id，这里按 100 一批分批查（这个上限跟分页读全是两回事——每批传的 id
+  // 不超过 100 个，命中的行数天然也不会超过 100，不需要再分页），回执 03 确认过这段本来就没问题。
   const ids = new Set(allSeats.map(s => s.openid));
   for (const t of digest.toasts) ids.add(t.from);
   const names = {};
-  const idList = Array.from(ids);
-  for (let i = 0; i < idList.length; i += 100) {
-    const { data: rs } = await db.collection('resident').where({ _id: _.in(idList.slice(i, i + 100)) })
-      .field({ _id: true, nick: true, avatar: true }).get();
-    for (const r of rs) names[r._id] = { nick: r.nick || '', avatar: r.avatar === undefined ? -1 : r.avatar };
+  async function loadNames(idArray) {
+    for (let i = 0; i < idArray.length; i += 100) {
+      const { data: rs } = await db.collection('resident').where({ _id: _.in(idArray.slice(i, i + 100)) })
+        .field({ _id: true, nick: true, avatar: true, inviter: true }).get();
+      for (const r of rs) {
+        names[r._id] = { nick: r.nick || '', avatar: r.avatar === undefined ? -1 : r.avatar, inviter: r.inviter || null };
+      }
+    }
   }
+  await loadNames(Array.from(ids));
+
+  // 邀请人本人可能没坐在厅里（没换过座、甚至从没进过厅），也要把邀请人的
+  // {nick, avatar, inviter} 补进 names，客户端「看人」卡片才有「XX 带进来的」可显示（蓝图 3.2）。
+  // 只找这一层：names 里已有的人的邀请人，不递归找邀请人的邀请人（看人卡片只需要一跳）。
+  const missingInviterIds = Array.from(new Set(
+    Object.values(names).map(n => n.inviter).filter(id => id && !names[id]),
+  ));
+  if (missingInviterIds.length) await loadNames(missingInviterIds);
 
   return {
     ok: true,

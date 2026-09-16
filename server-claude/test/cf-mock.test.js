@@ -236,10 +236,53 @@ async function scenarioReadBookLatest200() {
   check(res.data.lines.every(l => 'openid' in l && 'text' in l && 'at' in l && Object.keys(l).length === 3), '场景2 data.lines 每条结构不变（只有 openid/text/at）');
 }
 
+// ================= 场景3：readBook 带回 names（写过句子的人的 nick/avatar） =================
+async function scenarioReadBookNames() {
+  const { sdk, state } = createFakeSdk();
+  const TABLE = 'T5';
+  seed(state, 'guestbook', { _id: 'gb_a', table_id: TABLE, openid: 'W1', text: '新婚快乐', created_at: 100 });
+  seed(state, 'guestbook', { _id: 'gb_b', table_id: TABLE, openid: 'W2', text: '百年好合', created_at: 200 });
+  seed(state, 'resident', { _id: 'W1', openid: 'W1', nick: '阿强', avatar: 4, inviter: null });
+  seed(state, 'resident', { _id: 'W2', openid: 'W2', nick: '阿美', avatar: 5, inviter: null });
+
+  const readBook = loadCloudFunction('readBook', sdk);
+  const res = await readBook.main({ table: TABLE });
+
+  check(res.ok === true, '场景3 readBook 返回 ok:true');
+  check(res.data.lines.length === 2, '场景3 data.lines 结构、条数不受 names 影响');
+  check(!!res.data.names.W1 && res.data.names.W1.nick === '阿强', `场景3 names 里能查到写过句子的阿强（实际 ${JSON.stringify(res.data.names.W1)}）`);
+  check(!!res.data.names.W2 && res.data.names.W2.avatar === 5, `场景3 names 的 avatar 对得上 resident 表（实际 ${JSON.stringify(res.data.names.W2)}）`);
+}
+
+// ================= 场景4：enterHall 的 names 里有不在厅里的邀请人 =================
+async function scenarioEnterHallOfflineInviterNames() {
+  const { sdk, state } = createFakeSdk();
+  // Y：邀请人，从没进过厅，没有 seat 记录
+  seed(state, 'resident', { _id: 'Y', openid: 'Y', nick: '老王', avatar: 2, inviter: null });
+  // X：坐在厅里，邀请人是 Y
+  seed(state, 'resident', { _id: 'X', openid: 'X', nick: '小李', avatar: 1, inviter: 'Y' });
+  seed(state, 'seat', { _id: 'X', openid: 'X', table_id: 'T1', chair_no: 1, inviter: 'Y', sat_at: 100, changed_on: null, sat_tables: ['T1'], last_visit_at: 100 });
+  // Z：调用者自己，坐在厅里，没有邀请人
+  seed(state, 'resident', { _id: 'Z', openid: 'Z', nick: '阿花', avatar: 0, inviter: null });
+  seed(state, 'seat', { _id: 'Z', openid: 'Z', table_id: 'T1', chair_no: 2, inviter: null, sat_at: 90, changed_on: null, sat_tables: ['T1'], last_visit_at: 90 });
+  state.currentOpenid = 'Z';
+
+  const enterHall = loadCloudFunction('enterHall', sdk);
+  const res = await enterHall.main();
+
+  check(res.ok === true, '场景4 enterHall 返回 ok:true');
+  check(!!res.data.names.X, '场景4 names 里有坐在厅里的小李');
+  check(!!res.data.names.Y, '场景4 names 里也有从没进过厅的邀请人老王');
+  check(res.data.names.Y && res.data.names.Y.nick === '老王', '场景4 老王的昵称对得上');
+  check(res.data.names.X && res.data.names.X.inviter === 'Y', '场景4 小李的 names 条目带着 inviter=Y，客户端才能拼"老王带进来的"');
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
   await scenarioReadBookLatest200();
+  await scenarioReadBookNames();
+  await scenarioEnterHallOfflineInviterNames();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

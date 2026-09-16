@@ -3,7 +3,7 @@
 // 只带回最近 BANQUET_BOOK_READ_MAX 条（回执 03 第 1 项）：云开发 get() 不写 limit 时一次最多
 // 回 100 条，原来 orderBy('created_at','asc') 不设 limit，桌簿写满 100 条后新句子反而看不到
 // （拿到的是最老的 100 条）。改成按 created_at 倒序分页取最新一批，取够了再翻回正序返回，
-// data.lines 每一条的字段结构不变。
+// data.lines 每一条的字段结构不变（只加了本文件末尾的 data.names，是新增字段，不算改结构）。
 // 客户端：wx.cloud.callFunction({ name: 'readBook', data: { table } })
 const cloud = require('wx-server-sdk');
 const C = require('./rules/config');
@@ -11,6 +11,7 @@ const { fetchAllPages } = require('./lib/db-page');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
+const _ = db.command;
 
 exports.main = async (event) => {
   const { table } = event || {};
@@ -25,5 +26,22 @@ exports.main = async (event) => {
   );
   const rows = rowsDesc.slice().reverse();
 
-  return { ok: true, data: { lines: rows.map(l => ({ openid: l.openid, text: l.text, at: l.created_at })) } };
+  // 写过这些句子的人的 {nick, avatar}，结构跟 enterHall 的 names 一样按 openid 做键，
+  // 客户端翻簿子时不用再单独查一次昵称。resident 表「仅创建者可读写」，客户端查不到别人的，
+  // 只能在这里用管理员权限查好。
+  const ids = Array.from(new Set(rows.map(l => l.openid)));
+  const names = {};
+  for (let i = 0; i < ids.length; i += 100) {
+    const { data: rs } = await db.collection('resident').where({ _id: _.in(ids.slice(i, i + 100)) })
+      .field({ _id: true, nick: true, avatar: true }).get();
+    for (const r of rs) names[r._id] = { nick: r.nick || '', avatar: r.avatar === undefined ? -1 : r.avatar };
+  }
+
+  return {
+    ok: true,
+    data: {
+      lines: rows.map(l => ({ openid: l.openid, text: l.text, at: l.created_at })),
+      names,
+    },
+  };
 };
