@@ -284,6 +284,7 @@ func tap(screen: Vector2) -> void:
         print("[suqi] 寻路用了 %d 毫秒" % int(ms))
 
 func go_to(target: Vector2) -> void:
+    stand_up()   # 坐着的时候点地面：先起身，再从起身点算路，不然路是从桌子占地里出发的
     var a := _cell_of(pos)
     var b := _cell_of(target)
     if nav.is_point_solid(a): a = _nearest_free(a)
@@ -313,6 +314,7 @@ func reset_to(p: Vector2) -> void:
     path.clear()
     stick = Vector2.ZERO
     face = "up"
+    seated = false
     snap_cam()
 
 ## 截图用：从某个点往旁边挪几米（换成这一行的像素）
@@ -352,6 +354,7 @@ func _process(dt: float) -> void:
     t += dt
     var moving := false
     if stick.length() > 0.15 and walking_enabled:
+        stand_up()   # 坐着的时候推摇杆：先起身，从椅子外侧那一步开始走
         path.clear()
         moving = _stick_move(dt)
     elif not path.is_empty():
@@ -413,6 +416,8 @@ var table_names: Dictionary = {} # table_id -> 第一个坐下的人的昵称（
 var my_seat := {"table_id": "", "chair_no": 0}
 var near_key := ""
 var seat_scan := 0.0
+var seated := false              # 坐在自己椅子上：停在椅位面朝桌心，一动就站起来
+var seat_stand_spot := Vector2.ZERO   # 起身落脚的点：椅子外侧一步，保证不在桌子占地里
 
 ## 椅子在画布上的位置：绕桌子占地一圈，1 号在正后方（靠里），顺时针
 func chair_world(t: Dictionary, no: int) -> Vector2:
@@ -524,7 +529,8 @@ func _my_chair_pos() -> Vector2:
             return c["pos"]
     return Vector2.ZERO
 
-## 换桌成功后本地更新，不用重新拉 enterHall
+## 换桌成功后本地更新，不用重新拉 enterHall。顺便把人挪到那把椅子上坐下——
+## 第 20 版只有金标挪了位置、人还站在原地，阿鱼没看出来成功，连点了四次
 func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
     var old := "%s:%d" % [my_seat.get("table_id", ""), int(my_seat.get("chair_no", 0))]
     if seat_taken.get(old, "") == me_id:
@@ -532,6 +538,52 @@ func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
     my_seat = {"table_id": table_id, "chair_no": chair_no}
     seat_taken["%s:%d" % [table_id, chair_no]] = me_id
     _my_marker()
+    sit_at(table_id, chair_no)
+
+func _table_cfg(table_id: String) -> Dictionary:
+    for t in cfg.get("tables", []):
+        if str(t["id"]) == table_id:
+            return t
+    return {}
+
+## 坐下：人挪到椅子上，面朝桌心，停着不动。
+## 还没有坐姿帧（等新画风人物），先用面朝桌心的站姿；「拖椅子坐下」的动作在待讨论里
+func sit_at(table_id: String, chair_no: int) -> void:
+    var t := _table_cfg(table_id)
+    if t.is_empty():
+        return   # 服务端把人分到了还没摆出来的桌，坐不了，main.gd 那边会提示先找把椅子
+    var seat := chair_world(t, chair_no)
+    var center := Vector2(float(t["x"]), float(t["y"]))
+    path.clear()
+    stick = Vector2.ZERO
+    pos = seat
+    face = _face_for(center - seat)
+    seated = true
+    seat_stand_spot = _stand_spot(seat, center)
+    # 坐下就把「坐这儿」收起来；站起来走近别的空椅子时，扫描会照旧弹出来
+    seat_scan = 0.0
+    if near_key != "":
+        near_key = ""
+        chair_near.emit("", 0)
+
+## 起身落脚的点：从桌心往外，沿椅子那个方向退开一步，退到能站的地方为止
+func _stand_spot(seat: Vector2, center: Vector2) -> Vector2:
+    var dir := seat - center
+    dir = dir.normalized() if dir.length() > 0.001 else Vector2(0.0, 1.0)
+    var step := px_per_m(seat.y)
+    for k in 10:
+        var p := seat + dir * step * (0.6 + 0.3 * k)
+        if _free(p):
+            return p
+    return _cell_pos(_nearest_free(_cell_of(seat)))
+
+## 站起来：从椅子外侧那一步起身，不会卡在桌子占地里
+func stand_up() -> void:
+    if not seated:
+        return
+    seated = false
+    if seat_stand_spot != Vector2.ZERO and _free(seat_stand_spot):
+        pos = seat_stand_spot
 
 ## 每 0.15 秒扫一次：人旁边有没有空椅子（不含自己那把）
 func _scan_chairs(dt: float) -> void:
@@ -541,6 +593,13 @@ func _scan_chairs(dt: float) -> void:
     if seat_scan < 0.15:
         return
     seat_scan = 0.0
+    # 坐着的时候不提「坐这儿」：刚坐下又冒出一个按钮，看着像没坐成。
+    # 要「走近别的空椅子」总得先动，一动就起身了，那时照旧弹
+    if seated:
+        if near_key != "":
+            near_key = ""
+            chair_near.emit("", 0)
+        return
     var best_key := ""
     var best_tid := ""
     var best_no := 0

@@ -170,11 +170,66 @@ func run() -> void:
     var withdrawn: bool = near.size() > 0 and near[-1][1] == 0
     print("  走开以后收回 ", withdrawn)
     ok = ok and withdrawn
-    # 换桌以后金标跟着挪
+    # 换桌以后金标跟着挪，人也要坐到那把椅子上
+    hall.reset_to(hall.SPAWN)
     hall.apply_change("T2", 7, "me")
     print("  换到 T2 第 7 把：金标 ", hall.seat_marker.position, " 该是 ", hall._my_chair_pos())
     ok = ok and hall.seat_marker != null and hall.seat_marker.position == hall._my_chair_pos()
     ok = ok and hall.seat_taken.get("T2:7", "") == "me" and not hall.seat_taken.has("T1:2")
+
+    # 9. 坐下的表现：人吸附到椅位、面朝桌心、停着不动
+    var t2: Dictionary = hall._table_cfg("T2")
+    var seat_pos: Vector2 = hall.chair_world(t2, 7)
+    var center := Vector2(float(t2["x"]), float(t2["y"]))
+    print("9 坐下：人在 ", hall.pos, " 椅位 ", seat_pos, " 坐着 ", hall.seated, " 朝向 ", hall.face,
+        " 该朝 ", hall._face_for(center - seat_pos))
+    ok = ok and hall.seated and hall.pos == seat_pos and hall.face == hall._face_for(center - seat_pos)
+    hall.path.clear()
+    hall.stick = Vector2.ZERO
+    hall._process(1.0 / 60.0)
+    print("  站着不动：还在 ", hall.pos, " 还坐着 ", hall.seated)
+    ok = ok and hall.seated and hall.pos == seat_pos
+
+    # 10. 推摇杆要站起来，而且落脚点不能在桌子占地里
+    hall.stick = Vector2(0.0, 1.0)
+    hall._process(1.0 / 60.0)
+    hall.stick = Vector2.ZERO
+    print("10 推摇杆：起身 ", not hall.seated, " 停在 ", hall.pos, " 在能走的地方 ", hall._free(hall.pos),
+        " 起身点 ", hall.seat_stand_spot)
+    ok = ok and not hall.seated and hall._free(hall.pos)
+
+    # 11. 坐着时点地面也要站起来，而且走得到目标
+    hall.apply_change("T2", 3, "me")
+    print("11 再坐下 ", hall.seated, " 在 ", hall.pos)
+    ok = ok and hall.seated
+    hall.go_to(hall.SPAWN)
+    print("  点门口：起身 ", not hall.seated, " 起身后在能走的地方 ", hall._free(hall.pos), " 路 ", hall.path.size(), " 段")
+    ok = ok and not hall.seated and hall._free(hall.pos) and not hall.path.is_empty()
+    step(3000)
+    print("  走到 ", hall.pos, " 目标 ", hall.SPAWN)
+    ok = ok and hall.pos.distance_to(hall.SPAWN) < 6.0
+
+    # 12. 坐着时不提「坐这儿」（刚坐下又冒一个按钮，看着像没坐成）；
+    #     站起来走近空椅子照旧弹
+    near.clear()
+    hall.apply_change("T1", 5, "me")
+    hall.seat_scan = 1.0
+    hall._scan_chairs(1.0)
+    print("12 坐着时：坐着 ", hall.seated, " 按钮广播 ", near)
+    ok = ok and hall.seated and (near.is_empty() or near[-1][1] == 0)
+    var free_chair: Dictionary = {}
+    for c in hall.chairs:
+        if not hall.seat_taken.has("%s:%d" % [c["table_id"], c["chair_no"]]):
+            free_chair = c
+            break
+    hall.go_to(free_chair["pos"])   # 点地面：起身走过去
+    step(3000)
+    near.clear()
+    hall.seat_scan = 1.0
+    hall.near_key = ""
+    hall._scan_chairs(1.0)
+    print("  起身走到空椅子 ", free_chair["table_id"], free_chair["chair_no"], " 旁：", near)
+    ok = ok and not hall.seated and near.size() > 0 and near[-1][1] != 0
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()

@@ -790,6 +790,15 @@ func _setup_shot(shot: String) -> void:
             await _enter_banquet()
             hall.reset_to(Vector2(760, 640) if USE_LAYERED else Vector2(1.4, -7.2))
             hall.face = "up"
+        "sit":
+            # 换桌成功以后的样子：人坐在椅子上、面朝桌心，顶部一句「坐好了」
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                sit_target = {"table_id": "T1", "chair_no": 4}
+                hall.apply_change("T1", 4, cloud.openid())
+                _note("坐好了")
+                await get_tree().process_frame
         "couple":
             nickname = "小李"
             preset = 5
