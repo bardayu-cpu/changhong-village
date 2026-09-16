@@ -15,6 +15,8 @@ var fake_changed_today := false
 func _ready() -> void:
     if OS.has_feature("web") or OS.has_feature("wechat"):
         _js = JavaScriptBridge.get_interface("__suqiCloud")
+        if _js == null:
+            print("[suqi] 云桥没接上：__suqiCloud 读不到，席位功能不可用")
 
 func openid() -> String:
     if _js != null:
@@ -23,7 +25,8 @@ func openid() -> String:
 
 func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
     if _js != null:
-        var id := int(_js.call("call", name, JSON.stringify(data)))
+        var id := int(_js.req(name, JSON.stringify(data)))
+        print("[suqi] 云函数 ", name, " 发出 编号 ", id)
         _pending[id] = cb
         set_process(true)
         return
@@ -34,12 +37,13 @@ func _process(_dt: float) -> void:
         set_process(false)
         return
     for id in _pending.keys():
-        var txt := str(_js.call("poll", id))
+        var txt := str(_js.poll(id))
         if txt == "":
             continue
         var cb: Callable = _pending[id]
         _pending.erase(id)
         var r = JSON.parse_string(txt)
+        print("[suqi] 云函数 编号 ", id, " 返回 ", txt.substr(0, 120))
         cb.call(r if typeof(r) == TYPE_DICTIONARY else {"ok": false, "reason": "network"})
 
 # ---- 电脑上的假实现：规则和服务端一致的最小子集，只为跑通流程 ----

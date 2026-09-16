@@ -36,7 +36,7 @@ if (typeof wx !== 'undefined' && wx.cloud) {
 GameGlobal.__suqiCloud = {
     _seq: 0,
     _done: {},
-    call: function (name, dataJson) {
+    req: function (name, dataJson) {   // 不叫 call：Godot 那边 call 是保留方法名，撞了手机上调不动
         var self = this;
         self._seq += 1;
         var id = self._seq;

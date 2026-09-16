@@ -541,6 +541,9 @@ func _on_enter_hall(r: Dictionary) -> void:
         return
     var d: Dictionary = r["data"]
     hall.set_seats(d, cloud.openid())
+    # 服务端可能把人分在试点还没摆出来的桌（T3 以后），金标画不了：提示先找把椅子坐
+    if hall._my_chair_pos() == Vector2.ZERO:
+        _note("先找把空椅子坐下", 4.0)
     var dg: Dictionary = d.get("digest", {})
     if bool(dg.get("hasNews", false)):
         var names: Dictionary = d.get("names", {})
