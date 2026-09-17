@@ -8,3 +8,6 @@ godot/.godot/
 # server-claude/scripts/sync-cf-rules.js 重新生成
 server-claude/cloudfunctions/*/rules/
 server-claude/cloudfunctions/*/lib/
+
+# Claude Code 的工作区副本（程序分身在独立分支上干活用），不进仓库
+.claude/worktrees/
