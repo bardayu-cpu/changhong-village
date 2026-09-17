@@ -32,8 +32,12 @@ var hud: Control
 var dialog: PanelContainer
 var dialog_text: Label
 var hint: Label
-var note: Label            # 顶部一行浅色提示：进厅合并提示、坐好了、拒绝原因
+var note: Label            # 顶部提示框里的字：进厅合并提示、坐好了、拒绝原因
+var note_box: PanelContainer
 var note_token := 0
+## 屏幕上方的对白框、提示框从这一行往下排（阿鱼 9/17：提示放屏幕上方，要看得见）。
+## 要让开右上角微信的胶囊按钮：iPhone 16 Pro 上它的下沿约在 124
+const TOP_Y := 150.0
 var sit_btn: Button        # 走到空椅子旁出现；第一次点变确认文案，再点执行
 var sit_target := {"table_id": "", "chair_no": 0}
 var sit_confirming := false
@@ -208,6 +212,8 @@ func _read_js_log() -> String:
     return caps + str(log_obj.text())
 
 func _process(dt: float) -> void:
+    if dialog != null:
+        _layout_top()
     if stick_base != null:
         # 写悄悄话、说话的时候不能走，摇杆也藏起来
         var show_stick: bool = state == "banquet" and hall.walking_enabled
@@ -436,13 +442,19 @@ func _build_hud() -> void:
     hint.set_anchors_preset(Control.PRESET_TOP_WIDE)
     hint.offset_top = 66
     hint.offset_bottom = 96
+    _hard_shadow(hint)
     hud.add_child(hint)
-    note = _label("", 22, Color(PAPER, 0.92))
-    note.set_anchors_preset(Control.PRESET_TOP_WIDE)
-    note.offset_top = 100
-    note.offset_bottom = 130
-    note.visible = false
-    hud.add_child(note)
+    # 提示框：第 21 版是一行没底色的字，压在场景图上，阿鱼真机上「什么都没看到」（9/17）。
+    # 改成和对白框一样的深色底框，排在屏幕上方（位置每帧由 _layout_top 排）
+    note_box = PanelContainer.new()
+    note_box.set_anchors_preset(Control.PRESET_TOP_WIDE)
+    note_box.offset_left = 14; note_box.offset_right = -14
+    note_box.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.94), GOLD1, 2, 6, 14))
+    note_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    note = _label("", 24, GOLD1)
+    note_box.add_child(note)
+    note_box.visible = false
+    hud.add_child(note_box)
     sit_btn = Button.new()
     sit_btn.text = "坐这儿"
     sit_btn.visible = false
@@ -453,10 +465,12 @@ func _build_hud() -> void:
     sit_btn.offset_right = 220
     sit_btn.pressed.connect(_on_sit_pressed)
     hud.add_child(sit_btn)
+    # 阿鱼说话的对白框：原来在屏幕底下，阿鱼 9/17 要放到屏幕上方（底下留给按钮和操作盘）
     dialog = PanelContainer.new()
-    dialog.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+    dialog.set_anchors_preset(Control.PRESET_TOP_WIDE)
     dialog.offset_left = 14; dialog.offset_right = -14
-    dialog.offset_top = -112; dialog.offset_bottom = -16
+    dialog.offset_top = TOP_Y; dialog.offset_bottom = TOP_Y
+    dialog.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var dv := VBoxContainer.new()
     dv.add_child(_label("阿鱼", 24, GOLD, HORIZONTAL_ALIGNMENT_LEFT))
     dialog_text = _label("", 24, PAPER, HORIZONTAL_ALIGNMENT_LEFT)
@@ -589,7 +603,9 @@ func _on_sit_pressed() -> void:
     if not sit_confirming:
         sit_confirming = true
         var tn: String = hall.table_names.get(sit_target["table_id"], "")
-        sit_btn.text = ("换到" + tn + "那桌？" if tn != "" else "坐这桌？") + "再点一下确认 今天只能换一次"
+        # 原来整句塞在按钮里，太长撑出屏幕；拆开：问句放上方提示框，按钮只留「再点一下确认」，字一个没改
+        sit_btn.text = "再点一下确认"
+        _note(("换到" + tn + "那桌？" if tn != "" else "坐这桌？") + "今天只能换一次", 4.0)
         return
     sit_btn.disabled = true
     # 字段名以服务端为准：changeSeat 收的是驼峰 tableId、chairNo。
@@ -614,10 +630,26 @@ func _note(text: String, hold := 3.0) -> void:
     note_token += 1
     var my := note_token
     note.text = text
-    note.visible = true
+    note_box.visible = true
     await get_tree().create_timer(hold).timeout
     if my == note_token:
-        note.visible = false
+        note_box.visible = false
+
+## 屏幕上方从 TOP_Y 往下排：对白框在上，提示框紧跟在下面；对白框收起时提示框顶上去
+func _layout_top() -> void:
+    var y := TOP_Y
+    if dialog.visible:
+        dialog.offset_top = y
+        dialog.offset_bottom = y
+        y += dialog.size.y + 10.0
+    note_box.offset_top = y
+    note_box.offset_bottom = y
+
+## 压在场景图上的字：错开 2 个像素的深色硬投影（像素字描边会糊）
+func _hard_shadow(l: Label) -> void:
+    l.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.1, 0.9))
+    l.add_theme_constant_override("shadow_offset_x", 2)
+    l.add_theme_constant_override("shadow_offset_y", 2)
 
 func _on_reached(what: String) -> void:
     if what == "couple":
@@ -797,6 +829,19 @@ func _setup_shot(shot: String) -> void:
             if USE_LAYERED:
                 sit_target = {"table_id": "T1", "chair_no": 4}
                 hall.apply_change("T1", 4, cloud.openid())
+                _note("坐好了")
+                await get_tree().process_frame
+        "sit_front", "sit_back":
+            # 坐下的样子（占位）两个方向：桌子前面那把（背对镜头）、桌子后面那把（面朝镜头）
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                if shot == "sit_front":
+                    hall.reset_to(hall.near(hall.chair_world(hall._table_cfg("T1"), 6), Vector2(0.0, 0.8)))
+                    hall.apply_change("T1", 6, cloud.openid())
+                else:
+                    hall.reset_to(hall.near(hall.chair_world(hall._table_cfg("T2"), 1), Vector2(0.0, -0.8)))
+                    hall.apply_change("T2", 1, cloud.openid())
                 _note("坐好了")
                 await get_tree().process_frame
         "couple":

@@ -9,6 +9,16 @@ const Spr = preload("res://scripts/sprites.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
 const PERSON_M := 1.75
+## 坐着的样子（占位，9/17）：还没有坐姿帧，第 21 版人只是站到椅位上，阿鱼真机上看不出坐下了。
+## 先把站姿帧从头往下截一段（下半身不画），抬到大约椅面的高度；等新画风人物的坐姿帧到了换掉
+const SIT_KEEP := 0.62    # 留上半身：人高的这么多
+const SIT_LIFT := 0.0     # 上半身下沿抬离椅位点多少（人高的比例）。椅位点量的就是画里的椅面，不用再抬
+const SIT_ANIM := 0.3     # 从站的地方挪到椅子上用多久，秒（第 21 版是瞬移，挪一米不到，看不出动过）
+## 椅位圈（画里椅面那一圈）相对桌子占地椭圆（x、y、rx、ry）的位置，9/17 对着试点积木 blk_table_round.png 量的：
+## 后排椅面约 y 470、前排约 562、左右约 x ±65。A04 整批换桌子积木要重量
+const SEAT_DY := -0.85    # 圈心在占地中心往上 0.85 个 ry
+const SEAT_RX := -15.0    # 横半径 = rx - 15
+const SEAT_RY := -6.0     # 竖半径 = ry - 6
 
 var cfg: Dictionary
 var base_tex: Texture2D
@@ -31,6 +41,7 @@ var anim := 0.0
 var look := Spr.PROC_ANIM
 var look_fps := 7.7
 var frame_h := 32.0
+var look_hframes := 9      # 形象图集一行几帧；坐着时截半身会临时把 hframes 改成 1，站起来还原
 var stick := Vector2.ZERO   # 摇杆：屏幕方向，x 向右、y 向下，长度 0～1
 var couple_armed := true
 var exit_armed := false
@@ -180,6 +191,8 @@ func _player(preset: int, nickname: String) -> void:
 
 func set_look(preset: int, nickname: String) -> void:
     var gl := Spr.gpt_look(preset)
+    player.region_enabled = false   # 坐着时截过半身，换形象先还原
+    player.frame = 0
     if gl.is_empty():
         player.texture = ImageTexture.create_from_image(Spr.sheet(preset))
         player.hframes = 9
@@ -192,6 +205,7 @@ func set_look(preset: int, nickname: String) -> void:
         frame_h = float(gl["frame_h"])
         look = gl["anim"]
         look_fps = gl["fps"]
+    look_hframes = player.hframes
     player.centered = true
     player.offset = Vector2(0, -frame_h * 0.5)   # 原点在脚底
     player.frame = look["up"]["idle"]
@@ -315,6 +329,7 @@ func reset_to(p: Vector2) -> void:
     stick = Vector2.ZERO
     face = "up"
     seated = false
+    sit_t = SIT_ANIM
     snap_cam()
 
 ## 截图用：从某个点往旁边挪几米（换成这一行的像素）
@@ -353,6 +368,11 @@ func _stick_move(dt: float) -> bool:
 func _process(dt: float) -> void:
     t += dt
     var moving := false
+    if seated and sit_t < SIT_ANIM:
+        # 坐下的那一下：从站的地方滑到椅位上，先快后慢，最后正好停在椅位
+        sit_t = minf(sit_t + dt, SIT_ANIM)
+        var k := sit_t / SIT_ANIM
+        pos = sit_from.lerp(sit_seat, 1.0 - (1.0 - k) * (1.0 - k))
     if stick.length() > 0.15 and walking_enabled:
         stand_up()   # 坐着的时候推摇杆：先起身，从椅子外侧那一步开始走
         path.clear()
@@ -375,20 +395,37 @@ func _process(dt: float) -> void:
             face = _face_for(to)
     anim = anim + dt if moving else 0.0
     var fl: Dictionary = look[face]
-    var walk_frames: Array = fl["walk"]
-    player.frame = walk_frames[int(anim * look_fps) % walk_frames.size()] if moving else fl["idle"]
     player.flip_h = fl["flip"]
-    # 占位人物的迈腿只有 1 像素，看着像滑行：走路时加一点上下起伏，重画的人物有走路帧后再收小
-    var bob := -absf(sin(anim * look_fps * PI)) * 1.6 if moving else 0.0
-    # 左右脚交替：每迈一步身体往落脚那边偏一点（上下走时看得最清楚）
-    var sway := 0.0
-    if moving:
-        sway = 0.9 if int(anim * look_fps) % 4 < 2 else -0.9
-    player.offset = Vector2(sway, -frame_h * 0.5 + bob)
+    if seated:
+        # 坐着（占位）：只画站姿帧的上半身，下沿抬到椅面高，见 SIT_KEEP、SIT_LIFT
+        var fw := float(player.texture.get_width()) / float(look_hframes)
+        var keep := floorf(frame_h * SIT_KEEP)
+        if not player.region_enabled:
+            player.frame = 0
+            player.hframes = 1
+            player.region_enabled = true
+        player.region_rect = Rect2(float(fl["idle"]) * fw, 0.0, fw, keep)
+        player.offset = Vector2(0.0, -keep * 0.5 - frame_h * SIT_LIFT)
+        player.z_index = 1 if seat_front else 0
+        tag_anchor.position = pos - Vector2(0, _px_h(pos.y) * (SIT_KEEP + SIT_LIFT) + 2.0)
+    else:
+        if player.region_enabled:
+            player.region_enabled = false
+            player.hframes = look_hframes
+            player.z_index = 0
+        var walk_frames: Array = fl["walk"]
+        player.frame = walk_frames[int(anim * look_fps) % walk_frames.size()] if moving else fl["idle"]
+        # 占位人物的迈腿只有 1 像素，看着像滑行：走路时加一点上下起伏，重画的人物有走路帧后再收小
+        var bob := -absf(sin(anim * look_fps * PI)) * 1.6 if moving else 0.0
+        # 左右脚交替：每迈一步身体往落脚那边偏一点（上下走时看得最清楚）
+        var sway := 0.0
+        if moving:
+            sway = 0.9 if int(anim * look_fps) % 4 < 2 else -0.9
+        player.offset = Vector2(sway, -frame_h * 0.5 + bob)
+        tag_anchor.position = pos - Vector2(0, _px_h(pos.y) + 2.0)
     player.position = pos
     var sc := _px_h(pos.y) / frame_h
     player.scale = Vector2(sc, sc)
-    tag_anchor.position = pos - Vector2(0, _px_h(pos.y) + 2.0)
     if cam:
         cam.position = pos
     if exit_mark.visible:
@@ -418,12 +455,26 @@ var near_key := ""
 var seat_scan := 0.0
 var seated := false              # 坐在自己椅子上：停在椅位面朝桌心，一动就站起来
 var seat_stand_spot := Vector2.ZERO   # 起身落脚的点：椅子外侧一步，保证不在桌子占地里
+var sit_from := Vector2.ZERO     # 坐下那一下从哪滑过来
+var sit_seat := Vector2.ZERO     # 滑到哪（椅位）
+var sit_t := SIT_ANIM            # 滑了多久；等于 SIT_ANIM 表示没在滑
+var seat_front := false          # 自己坐的椅子在桌子两边或前面：画在桌子前面（seat_in_front）
 
 ## 椅子在画布上的位置：绕桌子占地一圈，1 号在正后方（靠里），顺时针
 func chair_world(t: Dictionary, no: int) -> Vector2:
     var a := -PI / 2.0 + TAU * float(no - 1) / 10.0
-    return Vector2(float(t["x"]) + cos(a) * (float(t["rx"]) + 16.0),
-        float(t["y"]) + sin(a) * (float(t["ry"]) + 12.0))
+    var c := _seat_center(t)
+    return Vector2(c.x + cos(a) * (float(t["rx"]) + SEAT_RX), c.y + sin(a) * (float(t["ry"]) + SEAT_RY))
+
+## 椅位圈的圈心：桌子积木里画出来的那圈椅子，比桌子占地椭圆靠上（占地椭圆的中心在桌子着地的那一行）。
+## 9/17 对着试点积木 blk_table_round.png 量的，原来按占地椭圆往外扩，坐下的人飘在椅子外面一大截
+func _seat_center(t: Dictionary) -> Vector2:
+    return Vector2(float(t["x"]), float(t["y"]) + SEAT_DY * float(t["ry"]))
+
+## 坐在这把椅子上的人画不画在桌子前面：桌子后面那几把（圈的上半截）照 y 排序躲在桌子后面；
+## 两边和前面的画在桌子前面。桌子积木只有一条着地线，分不出人在桌子哪一侧，只能按椅子在圈上的位置定
+func seat_in_front(t: Dictionary, seat: Vector2) -> bool:
+    return seat.y >= _seat_center(t).y - 0.5 * float(t["ry"])
 
 func set_seats(data: Dictionary, me_id: String) -> void:
     if seats_holder != null:
@@ -458,10 +509,12 @@ func set_seats(data: Dictionary, me_id: String) -> void:
                 table_names[tb["id"]] = str(info["nick"])
             if s["openid"] == me_id:
                 continue   # 自己是走动的玩家，不画坐着的
-            _seated(info, chair_world(t, no), Vector2(float(t["x"]), float(t["y"])))
+            var at := chair_world(t, no)
+            _seated(info, at, _seat_center(t), seat_in_front(t, at))
     _my_marker()
 
-func _seated(info: Dictionary, at: Vector2, center: Vector2) -> void:
+## 坐着的住民：和自己坐下一样画上半身（占位，SIT_KEEP、SIT_LIFT），不然别人像站在桌边、只有自己像坐着
+func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool) -> void:
     var preset := int(info.get("avatar", -1))
     if preset < 0 or preset > 7:
         preset = 0
@@ -480,14 +533,19 @@ func _seated(info: Dictionary, at: Vector2, center: Vector2) -> void:
         fh = float(gl["frame_h"])
         lk = gl["anim"]
     var fl: Dictionary = lk[_face_for(center - at)]
-    s.frame = fl["idle"]
+    var fw := float(s.texture.get_width()) / float(s.hframes)
+    var keep := floorf(fh * SIT_KEEP)
+    s.hframes = 1
+    s.region_enabled = true
+    s.region_rect = Rect2(float(fl["idle"]) * fw, 0.0, fw, keep)
     s.flip_h = fl["flip"]
     s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     s.centered = true
-    s.offset = Vector2(0, -fh * 0.5)
+    s.offset = Vector2(0, -keep * 0.5 - fh * SIT_LIFT)
     var sc := _px_h(at.y) / fh
     s.scale = Vector2(sc, sc)
     s.position = at
+    s.z_index = 1 if front else 0
     seats_holder.add_child(s)
     var nick := str(info.get("nick", ""))
     if nick != "" and font != null:
@@ -499,7 +557,7 @@ func _seated(info: Dictionary, at: Vector2, center: Vector2) -> void:
         l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
         l.add_theme_constant_override("outline_size", 4)
         l.size = Vector2(96, 14)
-        l.position = at - Vector2(48, _px_h(at.y) + 16.0)
+        l.position = at - Vector2(48, _px_h(at.y) * (SIT_KEEP + SIT_LIFT) + 16.0)
         l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         seat_tags.add_child(l)
 
@@ -546,17 +604,20 @@ func _table_cfg(table_id: String) -> Dictionary:
             return t
     return {}
 
-## 坐下：人挪到椅子上，面朝桌心，停着不动。
-## 还没有坐姿帧（等新画风人物），先用面朝桌心的站姿；「拖椅子坐下」的动作在待讨论里
+## 坐下：人滑到椅子上（SIT_ANIM 秒），面朝桌心，停着不动，只画上半身（_process 里，占位）。
+## 还没有坐姿帧（等新画风人物）；椅子和桌子画在同一块积木里挪不动，「拖椅子坐下」在待讨论里
 func sit_at(table_id: String, chair_no: int) -> void:
     var t := _table_cfg(table_id)
     if t.is_empty():
         return   # 服务端把人分到了还没摆出来的桌，坐不了，main.gd 那边会提示先找把椅子
     var seat := chair_world(t, chair_no)
-    var center := Vector2(float(t["x"]), float(t["y"]))
+    var center := _seat_center(t)
+    seat_front = seat_in_front(t, seat)
     path.clear()
     stick = Vector2.ZERO
-    pos = seat
+    sit_from = pos
+    sit_seat = seat
+    sit_t = 0.0
     face = _face_for(center - seat)
     seated = true
     seat_stand_spot = _stand_spot(seat, center)
@@ -582,6 +643,7 @@ func stand_up() -> void:
     if not seated:
         return
     seated = false
+    sit_t = SIT_ANIM   # 正在往椅子上滑也立刻停
     if seat_stand_spot != Vector2.ZERO and _free(seat_stand_spot):
         pos = seat_stand_spot
 

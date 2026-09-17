@@ -177,10 +177,11 @@ func run() -> void:
     ok = ok and hall.seat_marker != null and hall.seat_marker.position == hall._my_chair_pos()
     ok = ok and hall.seat_taken.get("T2:7", "") == "me" and not hall.seat_taken.has("T1:2")
 
-    # 9. 坐下的表现：人吸附到椅位、面朝桌心、停着不动
+    # 9. 坐下的表现：人滑到椅位（SIT_ANIM 秒）、面朝桌心、停着不动
+    step(30)   # 半秒，滑到位
     var t2: Dictionary = hall._table_cfg("T2")
     var seat_pos: Vector2 = hall.chair_world(t2, 7)
-    var center := Vector2(float(t2["x"]), float(t2["y"]))
+    var center: Vector2 = hall._seat_center(t2)   # 面朝的是椅位圈的圈心（9/17 起椅位对齐画出来的椅子）
     print("9 坐下：人在 ", hall.pos, " 椅位 ", seat_pos, " 坐着 ", hall.seated, " 朝向 ", hall.face,
         " 该朝 ", hall._face_for(center - seat_pos))
     ok = ok and hall.seated and hall.pos == seat_pos and hall.face == hall._face_for(center - seat_pos)
@@ -189,6 +190,10 @@ func run() -> void:
     hall._process(1.0 / 60.0)
     print("  站着不动：还在 ", hall.pos, " 还坐着 ", hall.seated)
     ok = ok and hall.seated and hall.pos == seat_pos
+    # 9b. 坐着只画上半身（占位，9/17）：截了一段、比整个人矮
+    var keep_h: float = hall.player.region_rect.size.y
+    print("9b 坐着的样子：截半身 ", hall.player.region_enabled, " 留下 ", keep_h, " 像素，整个人 ", hall.frame_h)
+    ok = ok and hall.player.region_enabled and keep_h > 0.0 and keep_h < hall.frame_h
 
     # 10. 推摇杆要站起来，而且落脚点不能在桌子占地里
     hall.stick = Vector2(0.0, 1.0)
@@ -197,6 +202,9 @@ func run() -> void:
     print("10 推摇杆：起身 ", not hall.seated, " 停在 ", hall.pos, " 在能走的地方 ", hall._free(hall.pos),
         " 起身点 ", hall.seat_stand_spot)
     ok = ok and not hall.seated and hall._free(hall.pos)
+    hall._process(1.0 / 60.0)
+    print("  站起来以后画回整个人 ", not hall.player.region_enabled, " 一行 ", hall.player.hframes, " 帧")
+    ok = ok and not hall.player.region_enabled and hall.player.hframes == hall.look_hframes
 
     # 11. 坐着时点地面也要站起来，而且走得到目标
     hall.apply_change("T2", 3, "me")
