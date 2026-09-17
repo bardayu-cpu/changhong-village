@@ -285,6 +285,12 @@ func _theme() -> Theme:
         t.set_color("caret_color", cls, GOLD1)
     return t
 
+## 压在场景图上的字：错开 2 个像素的深色硬投影，比描边清楚
+func _hard_shadow(l: Label) -> void:
+    l.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.1, 0.9))
+    l.add_theme_constant_override("shadow_offset_x", 2)
+    l.add_theme_constant_override("shadow_offset_y", 2)
+
 func _label(text: String, size := 24, color := PAPER, align := HORIZONTAL_ALIGNMENT_CENTER, wrap := true) -> Label:
     var l := Label.new()
     l.text = text
@@ -449,12 +455,16 @@ func _build_hud() -> void:
     hint.set_anchors_preset(Control.PRESET_TOP_WIDE)
     hint.offset_top = 66
     hint.offset_bottom = 96
+    _hard_shadow(hint)
     hud.add_child(hint)
-    note = _label("", 22, Color(PAPER, 0.92))
+    # 敬酒、换桌成没成全靠这一行告诉玩家；压在舞台的红底和囍字上看不清，加硬投影（像素字描边会糊）。
+    # 字号 22 改 24：像素字体只认 12 的倍数
+    note = _label("", 24, Color(PAPER, 0.92))
     note.set_anchors_preset(Control.PRESET_TOP_WIDE)
     note.offset_top = 100
     note.offset_bottom = 130
     note.visible = false
+    _hard_shadow(note)
     hud.add_child(note)
     sit_btn = Button.new()
     sit_btn.text = "坐这儿"
@@ -469,6 +479,9 @@ func _build_hud() -> void:
     person_btn = Button.new()
     person_btn.text = ""
     person_btn.visible = false
+    # 昵称最长 12 个字，并排时按钮只有 240 宽：放不下就截成省略号，不许把按钮撑到「坐这儿」上面
+    person_btn.clip_text = true
+    person_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
     person_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
     person_btn.offset_top = -170
     person_btn.offset_bottom = -120
