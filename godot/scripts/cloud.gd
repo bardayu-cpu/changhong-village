@@ -60,7 +60,8 @@ func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
         return
     _seq += 1
     var id := _seq
-    _pending[id] = {"cb": cb, "t": 0.0}
+    # 送出时记一下时间：回来（或超时）时算用时多少毫秒，助理 01 要靠它决定云函数超时要不要调
+    _pending[id] = {"cb": cb, "t": 0.0, "sent_ms": Time.get_ticks_msec()}
     _send({"id": id, "fn": name, "d": data})
     print("[suqi] 云函数 ", name, " 送出 编号 ", id)
     set_process(true)
@@ -112,17 +113,21 @@ func _process(dt: float) -> void:
         if not _pending.has(id):
             continue
         var cb: Callable = _pending[id]["cb"]
+        var sent_ms: int = int(_pending[id].get("sent_ms", 0))
         _pending.erase(id)
         _ok_once = true
         var r = m.get("r", null)
-        print("[suqi] 云函数 编号 ", id, " 返回 ", txt.substr(0, 120))
+        var elapsed := Time.get_ticks_msec() - sent_ms
+        print("[suqi] 云函数 编号 ", id, " 返回 用时 ", elapsed, " 毫秒 ", txt.substr(0, 120))
         cb.call(r if typeof(r) == TYPE_DICTIONARY else {"ok": false, "reason": "network"})
     for id in _pending.keys():
         _pending[id]["t"] += dt
         if _pending[id]["t"] > TIMEOUT:
             var cb2: Callable = _pending[id]["cb"]
+            var sent_ms2: int = int(_pending[id].get("sent_ms", 0))
             _pending.erase(id)
-            print("[suqi] 云函数 编号 ", id, " 等了 ", TIMEOUT, " 秒没回来，按没连上处理")
+            var elapsed2 := Time.get_ticks_msec() - sent_ms2
+            print("[suqi] 云函数 编号 ", id, " 用时 ", elapsed2, " 毫秒 等了 ", TIMEOUT, " 秒没回来，按没连上处理")
             cb2.call({"ok": false, "reason": "network"})
 
 ## 日志面板打开时叫一次：先报 JS 那边的自查，再单独试一次「带参数调 JS 方法」。

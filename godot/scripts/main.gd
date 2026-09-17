@@ -690,6 +690,13 @@ func _on_enter_hall(r: Dictionary) -> void:
         return
     var d: Dictionary = r["data"]
     hall.set_seats(d, cloud.openid())
+    # 真机排查用：这厅有多少人、带邀请人的有几个（看人卡片「XX 带进来的」靠这个字段）
+    var with_inviter := 0
+    for k in hall.resident_names:
+        var inv = (hall.resident_names[k] as Dictionary).get("inviter", null)
+        if inv != null and str(inv) != "":
+            with_inviter += 1
+    print("[suqi] 进厅 名字 ", hall.resident_names.size(), " 个 带邀请人的 ", with_inviter, " 个")
     # 服务端可能把人分在试点还没摆出来的桌（T3 以后），金标画不了：提示先找把椅子坐
     if hall._my_chair_pos() == Vector2.ZERO:
         _note("先找把空椅子坐下", 4.0)
