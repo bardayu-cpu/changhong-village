@@ -6,6 +6,7 @@
 const cloud = require('wx-server-sdk');
 const banquet = require('./rules/banquet');
 const T = require('./rules/time');
+const C = require('./rules/config');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
@@ -22,7 +23,7 @@ exports.main = async (event) => {
   const todayToastCount = mine.length;
   const todayToastToCount = mine.filter(t => t.to === to).length;
 
-  const result = banquet.canToast({ from, to, todayToastCount, todayToastToCount });
+  const result = banquet.canToast({ from, to, todayToastCount, todayToastToCount, testMode: C.BANQUET_TEST_MODE });
   if (!result.ok) return result;
 
   await db.collection('toast').add({ data: { from, to, date: today, created_at: now } });

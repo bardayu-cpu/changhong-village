@@ -202,6 +202,10 @@ eq(banquet.canChangeSeat({ occupant: null, todayChanges: 0 }).ok, true, '正常�
 eq(banquet.canChangeSeat({ occupant: 'X', todayChanges: 0 }).reason, 'seat_taken', '目标椅子有人');
 eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1 }).reason, 'changed_today', '这次来访已经换过一次');
 eq(banquet.canChangeSeat({ occupant: null, todayChanges: 0 }).ok, true, '跨北京时间0点：昨天换过，今天重新计数为0次仍能换');
+eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1, testMode: true }).ok, true, '测试模式：今天换过也能再换');
+eq(banquet.canChangeSeat({ occupant: null, todayChanges: 7, testMode: true }).ok, true, '测试模式：换很多次也不拦');
+eq(banquet.canChangeSeat({ occupant: 'X', todayChanges: 0, testMode: true }).reason, 'seat_taken', '测试模式：有人坐的椅子照样拒');
+eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1, testMode: false }).reason, 'changed_today', '测试模式关着：照常一天一次');
 
 // ---------- 宴会厅 · 敬酒 ----------
 const toastBase = { from: 'A', to: 'B', todayToastCount: 0, todayToastToCount: 0 };
@@ -210,6 +214,10 @@ eq(banquet.canToast({ ...toastBase, todayToastCount: 5 }).reason, 'toast_limit',
 eq(banquet.canToast({ ...toastBase, todayToastToCount: 1 }).reason, 'toast_same_person', '对同一人今天敬过');
 eq(banquet.canToast({ ...toastBase, to: 'A' }).reason, 'toast_self', '不能敬自己');
 eq(banquet.canToast({ ...toastBase, todayToastCount: 0 }).ok, true, '跨北京时间0点：昨天5杯敬完，今天重新计数为0杯仍能敬');
+eq(banquet.canToast({ ...toastBase, todayToastCount: 5, testMode: true }).ok, true, '测试模式：敬满5杯还能敬');
+eq(banquet.canToast({ ...toastBase, todayToastToCount: 1, testMode: true }).ok, true, '测试模式：同一人今天敬过还能敬');
+eq(banquet.canToast({ ...toastBase, to: 'A', testMode: true }).reason, 'toast_self', '测试模式：敬自己照样拒');
+eq(banquet.canToast({ ...toastBase, todayToastCount: 5, testMode: false }).reason, 'toast_limit', '测试模式关着：照常5杯封顶');
 
 // ---------- 宴会厅 · 桌簿 ----------
 eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1', 'T2'], text: '恭喜恭喜' }).ok, true, '坐过的桌能写');

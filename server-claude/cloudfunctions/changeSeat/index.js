@@ -29,7 +29,7 @@ exports.main = async (event) => {
   const occupant = atTarget.length ? atTarget[0].openid : null;
 
   const todayChanges = mySeat.changed_on === today ? 1 : 0;
-  const result = banquet.canChangeSeat({ occupant, todayChanges });
+  const result = banquet.canChangeSeat({ occupant, todayChanges, testMode: C.BANQUET_TEST_MODE });
   if (!result.ok) return result;
 
   const satTables = mySeat.sat_tables && mySeat.sat_tables.length ? mySeat.sat_tables.slice() : [mySeat.table_id];

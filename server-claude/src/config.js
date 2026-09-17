@@ -86,4 +86,8 @@ module.exports = {
   // 婚宴人数会超过 100，读座位/敬酒/簿子都要分页读全，见 lib/db-page.js
   BANQUET_PAGE_MAX_TOTAL: 5000,        // 分页读全的总上限，防失控；婚宴量级用不到这么多
   BANQUET_BOOK_READ_MAX: 200,           // readBook 只带回最近这么多条（按 created_at 取最新，返回时仍正序）【待验证：200 这个数字】
+  // 测试期开关（9/17 助理 01 定）：阿鱼真机测「坐下」时，第一次换桌以后当天再换全被拒（changed_today），没法反复验。
+  // 为 true 时：换桌不限每天次数，敬酒不限每天杯数、不限对同一人的杯数；有人坐的椅子、敬自己照样拒。
+  // 【请朋友进来之前必须改成 false，并重新部署 changeSeat、toast】（HANDOFF 服务端一节有记）
+  BANQUET_TEST_MODE: true,
 };

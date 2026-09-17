@@ -67,11 +67,12 @@ function assignSeat(ctx) {
  * @param ctx {{
  *   occupant: string|null,   目标椅子现在坐的人，没人是 null
  *   todayChanges: number,    这次来访（今天）已经换过几次，调用方按北京时间今天算好传入
+ *   testMode?: boolean,      测试期开关（config.BANQUET_TEST_MODE）：true 时不限每天次数，默认 false
  * }}
  */
 function canChangeSeat(ctx) {
-  const { occupant, todayChanges } = ctx;
-  if (todayChanges >= C.BANQUET_CHANGE_PER_VISIT) return { ok: false, reason: 'changed_today' };
+  const { occupant, todayChanges, testMode } = ctx;
+  if (!testMode && todayChanges >= C.BANQUET_CHANGE_PER_VISIT) return { ok: false, reason: 'changed_today' };
   if (occupant) return { ok: false, reason: 'seat_taken' };
   return { ok: true };
 }
@@ -84,13 +85,14 @@ function canChangeSeat(ctx) {
  *   from: string, to: string,
  *   todayToastCount: number,    from 今天一共敬了几杯，调用方按今天算好传入
  *   todayToastToCount: number,  from 今天敬给 to 几杯
+ *   testMode?: boolean,         测试期开关（config.BANQUET_TEST_MODE）：true 时不限每天杯数、不限对同一人，默认 false
  * }}
  */
 function canToast(ctx) {
-  const { from, to, todayToastCount, todayToastToCount } = ctx;
+  const { from, to, todayToastCount, todayToastToCount, testMode } = ctx;
   if (from === to) return { ok: false, reason: 'toast_self' };
-  if (todayToastCount >= C.BANQUET_TOAST_DAILY) return { ok: false, reason: 'toast_limit' };
-  if (todayToastToCount >= C.BANQUET_TOAST_PER_PERSON_DAILY) return { ok: false, reason: 'toast_same_person' };
+  if (!testMode && todayToastCount >= C.BANQUET_TOAST_DAILY) return { ok: false, reason: 'toast_limit' };
+  if (!testMode && todayToastToCount >= C.BANQUET_TOAST_PER_PERSON_DAILY) return { ok: false, reason: 'toast_same_person' };
   return { ok: true };
 }
 
