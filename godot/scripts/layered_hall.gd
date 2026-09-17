@@ -316,6 +316,8 @@ func reset_to(p: Vector2) -> void:
     face = "up"
     seated = false
     snap_cam()
+    # 传送到新位置：椅子按钮、昵称按钮该收的收、该冒的冒，不等 0.15 秒的自然扫描
+    _scan_chairs(1.0)
 
 ## 截图用：从某个点往旁边挪几米（换成这一行的像素）
 func near(p: Vector2, v_m: Vector2) -> Vector2:
@@ -406,6 +408,7 @@ func _process(dt: float) -> void:
 
 # ---------- 席位：enterHall 的数据画成坐着的人（蓝图 3.2） ----------
 signal chair_near(table_id: String, chair_no: int)   # 走到空椅子旁触发；chair_no 0 表示离开了
+signal person_near(openid: String)   # 走到「有人坐、不是自己」的椅子旁触发（看人、敬酒，蓝图 3.2）；"" 表示走开了
 
 var seats_holder: Node2D
 var seat_tags: Node2D
@@ -414,7 +417,10 @@ var chairs: Array = []          # [{table_id, chair_no, pos}]
 var seat_taken: Dictionary = {} # "T1:3" -> openid
 var table_names: Dictionary = {} # table_id -> 第一个坐下的人的昵称（桌牌）
 var my_seat := {"table_id": "", "chair_no": 0}
+var my_openid := ""              # set_seats 存的自己 openid：判断「是不是自己」，main 敬酒时也要用
+var resident_names: Dictionary = {}  # set_seats 存的 data["names"]：openid -> {nick, avatar, inviter}，给 main 读昵称、形象、邀请人
 var near_key := ""
+var person_near_key := ""
 var seat_scan := 0.0
 var seated := false              # 坐在自己椅子上：停在椅位面朝桌心，一动就站起来
 var seat_stand_spot := Vector2.ZERO   # 起身落脚的点：椅子外侧一步，保证不在桌子占地里
@@ -440,7 +446,9 @@ func set_seats(data: Dictionary, me_id: String) -> void:
     seat_taken.clear()
     table_names.clear()
     my_seat = data.get("me", my_seat)
+    my_openid = me_id
     var names: Dictionary = data.get("names", {})
+    resident_names = names
     var by_id := {}
     for t in cfg.get("tables", []):
         by_id[t["id"]] = t
@@ -460,6 +468,8 @@ func set_seats(data: Dictionary, me_id: String) -> void:
                 continue   # 自己是走动的玩家，不画坐着的
             _seated(info, chair_world(t, no), Vector2(float(t["x"]), float(t["y"])))
     _my_marker()
+    # 椅子列表整个重建过（换桌、重进厅都会走到这）：旧的按钮状态可能对不上了，立刻重扫一次
+    _scan_chairs(1.0)
 
 func _seated(info: Dictionary, at: Vector2, center: Vector2) -> void:
     var preset := int(info.get("avatar", -1))
@@ -585,7 +595,7 @@ func stand_up() -> void:
     if seat_stand_spot != Vector2.ZERO and _free(seat_stand_spot):
         pos = seat_stand_spot
 
-## 每 0.15 秒扫一次：人旁边有没有空椅子（不含自己那把）
+## 每 0.15 秒扫一次：人旁边有没有空椅子（不含自己那把）；同时扫旁边坐着的人（看人、敬酒，蓝图 3.2）
 func _scan_chairs(dt: float) -> void:
     if chairs.is_empty():
         return
@@ -599,21 +609,37 @@ func _scan_chairs(dt: float) -> void:
         if near_key != "":
             near_key = ""
             chair_near.emit("", 0)
-        return
-    var best_key := ""
-    var best_tid := ""
-    var best_no := 0
-    var best_d := 60.0
+    else:
+        var best_key := ""
+        var best_tid := ""
+        var best_no := 0
+        var best_d := 60.0
+        for c in chairs:
+            var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
+            if seat_taken.has(key):
+                continue
+            var d: float = pos.distance_to(c["pos"])
+            if d < best_d:
+                best_d = d
+                best_key = key
+                best_tid = c["table_id"]
+                best_no = c["chair_no"]
+        if best_key != near_key:
+            near_key = best_key
+            chair_near.emit(best_tid, best_no)
+    # 看人：最近的「有人坐、不是自己」的椅子，60 像素内，和「坐这儿」一个距离。
+    # 坐在自己椅子上时邻座照样能敬酒（第 22 版规则 6），所以这一段不受 seated 影响
+    var best_pid := ""
+    var best_pd := 60.0
     for c in chairs:
         var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
-        if seat_taken.has(key):
+        var occ: String = str(seat_taken.get(key, ""))
+        if occ == "" or occ == my_openid:
             continue
         var d: float = pos.distance_to(c["pos"])
-        if d < best_d:
-            best_d = d
-            best_key = key
-            best_tid = c["table_id"]
-            best_no = c["chair_no"]
-    if best_key != near_key:
-        near_key = best_key
-        chair_near.emit(best_tid, best_no)
+        if d < best_pd:
+            best_pd = d
+            best_pid = occ
+    if best_pid != person_near_key:
+        person_near_key = best_pid
+        person_near.emit(best_pid)

@@ -22,8 +22,14 @@ var _probed := false
 # ---- 电脑上的假数据：两个人坐着，自己第一次进厅会被分到 T1 ----
 var fake_me := {"table_id": "", "chair_no": 0}
 var fake_seats := {"T1": [{"openid": "fake_wang", "chair_no": 1}], "T2": [{"openid": "fake_li", "chair_no": 4}]}
-var fake_names := {"fake_wang": {"nick": "老王", "avatar": 1}, "fake_li": {"nick": "小李", "avatar": 5}}
+## inviter 照服务端的字段（enterHall/index.js）：没有邀请人是 null，不是空字符串。
+## fake_li 的邀请人是 fake_wang，这样电脑上截图能看到看人卡片「老王 带进来的」（第 22 版）
+var fake_names := {
+    "fake_wang": {"nick": "老王", "avatar": 1, "inviter": null},
+    "fake_li": {"nick": "小李", "avatar": 5, "inviter": "fake_wang"},
+}
 var fake_changed_today := false
+var fake_toasts_today: Array = []   # 我今天敬出去的杯数，敬过谁：[to openid, ...]（电脑上没有日期，跑一次当一天）
 
 func _ready() -> void:
     # 不按 OS.has_feature 判断：读得到 __suqiCloud 就是接上了，读不到再看是不是在微信里
@@ -170,6 +176,19 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             fake_changed_today = true
             return {"ok": true}
         "toast":
+            # 规则照抄服务端 server-claude/src/banquet.js 的 canToast + toast/index.js 的 to 校验：
+            # 缺 to → bad_request；敬自己 → toast_self；今天敬满 5 杯（config.BANQUET_TOAST_DAILY）
+            # → toast_limit；今天敬过这个人（BANQUET_TOAST_PER_PERSON_DAILY=1）→ toast_same_person
+            var to := str(data.get("to", ""))
+            if to == "":
+                return {"ok": false, "reason": "bad_request"}
+            if to == "fake_me":
+                return {"ok": false, "reason": "toast_self"}
+            if fake_toasts_today.size() >= 5:
+                return {"ok": false, "reason": "toast_limit"}
+            if fake_toasts_today.has(to):
+                return {"ok": false, "reason": "toast_same_person"}
+            fake_toasts_today.append(to)
             return {"ok": true}
         "writeBook":
             return {"ok": true}
