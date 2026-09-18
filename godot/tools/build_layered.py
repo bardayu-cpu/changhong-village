@@ -269,11 +269,20 @@ def main_blocks(src_path, check_out):
             else:
                 trx, try_ = fp2.get("rect", [240, 160])[0] / 2, fp2.get("rect", [240, 160])[1] / 2
             tabs.append({"x": p2["x"], "y": p2["y"], "rx": trx, "ry": try_})
-    # 同一排里离中线（红毯、主桌所在的 x）近的先编：T1、T2 就是离主桌最近的两桌（9/18 摆满一排四张以后要这样）
+    # 同一排里离中线（红毯、主桌所在的 x）近的先编：T1、T2 就是离主桌最近的两桌（9/18 摆满一排四张以后要这样）。
+    # 9/18 晚桌子错落着摆以后，一排里的桌子 y 不一样：先按 y 分排（和这排第一张差不到 85 像素算同一排），
+    # 排里离中线的距离按 40 像素一档比（差不多远算一样远），一样远的左边先编——编出来的号和错落前同一个位置一样
     mid = w / 2.0
-    tabs.sort(key=lambda t: (t["y"], abs(t["x"] - mid), t["x"]))
+    tabs.sort(key=lambda t: t["y"])
+    row, row_y = 0, None
+    for t in tabs:
+        if row_y is None or t["y"] - row_y > 85:
+            row, row_y = row + 1, t["y"]
+        t["row"] = row
+    tabs.sort(key=lambda t: (t["row"], round(abs(t["x"] - mid) / 40.0), t["x"]))
     for ti, t in enumerate(tabs):
         t["id"] = "T%d" % (ti + 1)
+        del t["row"]
 
     ph = src["person_h"]
     out = {

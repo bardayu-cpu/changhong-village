@@ -22,6 +22,9 @@ const SIT_ANIM := 0.3     # 从站的地方挪到椅子上用多久，秒（第 
 const SEAT_DY := -0.85    # 圈心在占地中心往上 0.85 个 ry
 const SEAT_RX := -15.0    # 横半径 = rx - 15
 const SEAT_RY := -6.0     # 竖半径 = ry - 6
+## 走到椅子（或坐着的人）多近算「在旁边」：原来 60 像素，每张桌正前方那把（6 号）离最近能站的地方 63～69 像素，
+## 12 把椅子永远不出「坐这儿」（9/18 晚查出来的）。放到 78，最远那把也够得着
+const NEAR_R := 78.0
 
 var cfg: Dictionary
 var base_tex: Texture2D
@@ -764,7 +767,7 @@ func _scan_chairs(dt: float) -> void:
         var best_key := ""
         var best_tid := ""
         var best_no := 0
-        var best_d := 60.0
+        var best_d := NEAR_R
         for c in chairs:
             var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
             if seat_taken.has(key) or npc_taken.has(key):
@@ -778,10 +781,10 @@ func _scan_chairs(dt: float) -> void:
         if best_key != near_key:
             near_key = best_key
             chair_near.emit(best_tid, best_no)
-    # 看人：最近的「有人坐、不是自己」的椅子，60 像素内，和「坐这儿」一个距离。
+    # 看人：最近的「有人坐、不是自己」的椅子，NEAR_R 以内，和「坐这儿」一个距离。
     # 坐在自己椅子上时邻座照样能敬酒（第 22 版规则 6），所以这一段不受 seated 影响
     var best_pid := ""
-    var best_pd := 60.0
+    var best_pd := NEAR_R
     for c in chairs:
         var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
         var occ: String = str(seat_taken.get(key, ""))

@@ -342,5 +342,20 @@ func run() -> void:
     print("16 坐在 T1 第 5 号椅：table_near 发出 ", tables_seen)
     ok = ok and tables_seen.size() > 0 and tables_seen[-1] == "T1"
 
+    # 17. 每张桌的 10 把椅子都走得到：离最近能站的格子不到 NEAR_R（9/18 晚查出 6 号椅 63～69 像素，原来 60 够不着）
+    var far_chairs: Array = []
+    for tc in hall.cfg["tables"]:
+        for no in range(1, 11):
+            var cp: Vector2 = hall.chair_world(tc, no)
+            var best := INF
+            for j in hall.rows:
+                for i in hall.cols:
+                    if hall.walk[j * hall.cols + i] == 1:
+                        best = minf(best, cp.distance_to(hall._cell_pos(Vector2i(i, j))))
+            if best >= hall.NEAR_R:
+                far_chairs.append("%s:%d(%d)" % [tc["id"], no, int(best)])
+    print("17 走不到的椅子（", hall.cfg["tables"].size() * 10, " 把里）：", far_chairs)
+    ok = ok and far_chairs.is_empty()
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()
