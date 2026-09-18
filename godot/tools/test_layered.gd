@@ -142,7 +142,12 @@ func run() -> void:
     var tables: Array = hall.cfg.get("tables", [])
     print("8 席位：桌 ", tables.size(), " 张，椅子 ", hall.chairs.size(), " 把，坐了人的 ", hall.seat_taken.size(),
         "，桌牌 ", hall.table_names)
-    ok = ok and hall.chairs.size() == tables.size() * 10 and hall.seat_taken.size() == 3
+    # 椅子只给席位数据里有、画面上也摆了的桌子建（9/18 起画面上 10 张，这份测试数据只给了 T1、T2）
+    var listed := 0
+    for tb in data["tables"]:
+        if not hall._table_cfg(str(tb["id"])).is_empty():
+            listed += 1
+    ok = ok and tables.size() >= 2 and hall.chairs.size() == listed * 10 and hall.seat_taken.size() == 3
     var mark: Vector2 = hall._my_chair_pos()
     print("  金标位置 ", mark, " 画出来了 ", hall.seat_marker != null)
     ok = ok and mark != Vector2.ZERO and hall.seat_marker != null and hall.seat_marker.position == mark

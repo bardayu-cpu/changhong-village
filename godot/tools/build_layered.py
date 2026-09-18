@@ -269,7 +269,9 @@ def main_blocks(src_path, check_out):
             else:
                 trx, try_ = fp2.get("rect", [240, 160])[0] / 2, fp2.get("rect", [240, 160])[1] / 2
             tabs.append({"x": p2["x"], "y": p2["y"], "rx": trx, "ry": try_})
-    tabs.sort(key=lambda t: (t["y"], t["x"]))
+    # 同一排里离中线（红毯、主桌所在的 x）近的先编：T1、T2 就是离主桌最近的两桌（9/18 摆满一排四张以后要这样）
+    mid = w / 2.0
+    tabs.sort(key=lambda t: (t["y"], abs(t["x"] - mid), t["x"]))
     for ti, t in enumerate(tabs):
         t["id"] = "T%d" % (ti + 1)
 
