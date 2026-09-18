@@ -31,6 +31,10 @@ var fake_names := {
 var fake_toasts_today: Array = []   # 我今天敬出去的杯数，敬过谁：[to openid, ...]（电脑上没有日期，跑一次当一天）
 var fake_toasted_me: Array = ["fake_wang"]   # 敬过我的人：和 enterHall 进厅提示里「老王敬了你一杯」对上；hallPulse 带回去的也记进来
 var fake_meet_sent: Array = []      # 我说过「想认识你」的人（wantToMeet；服务端是 friend_request 表）
+## 坐长凳的人（openid 列表，和服务端 enterHall 回的 bench 一样）。默认没人；长凳的测试、截图往里塞，
+## 要假装自己坐长凳就把 fake_me 设成 {"table_id": "bench", "chair_no": null}（和服务端一样是 null）再把 fake_me 放进来
+var fake_bench: Array = []
+var fake_no_news := false   # true：进厅提示里什么都没有（测「分到长凳」那句提示时用，不然被「老王敬了你一杯」顶掉）
 ## 翻簿子假数据（第 24 版）：T1 两条方便看接龙，T2 空的方便截空簿子截图。字段名照真实服务端
 ## readBook 的返回（`at`，不是 `created_at`——之前这里写错过，main.gd 读的是 `at`）
 var fake_book: Dictionary = {
@@ -197,8 +201,9 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             for i in range(1, 13):   # 和服务端一样回 12 张桌（9/19 起，原来只回试点的两张）
                 var tid := "T%d" % i
                 tables.append({"id": tid, "reserved": tid == "T1" or tid == "T2", "seats": fake_seats.get(tid, [])})
-            return {"ok": true, "data": {"me": fake_me, "tables": tables, "bench": [],
-                "digest": {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
+            return {"ok": true, "data": {"me": fake_me, "tables": tables, "bench": fake_bench,
+                "digest": {"toasts": [], "toastCount": 0, "bookLineCount": 0, "hasNews": false} if fake_no_news else
+                    {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
                 "mine": fake_mine,
                 "names": fake_names}}
         "changeSeat":
@@ -217,6 +222,7 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 for i in range(arr.size() - 1, -1, -1):
                     if arr[i]["openid"] == "fake_me":
                         arr.remove_at(i)
+            fake_bench.erase("fake_me")   # 从长凳换到椅子
             fake_me = {"table_id": tid_new, "chair_no": no_new}
             if not fake_seats.has(tid_new):
                 fake_seats[tid_new] = []

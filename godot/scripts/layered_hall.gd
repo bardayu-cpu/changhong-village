@@ -82,6 +82,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
     _occluders()
     _books()
     _walk_grid()
+    _bench()
     SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
     for p in cfg["points"]:
         if p["id"] == "couple_table":
@@ -535,6 +536,86 @@ func _process(dt: float) -> void:
         path.clear()
         reached.emit("exit")
 
+# ---------- 长凳（蓝图 3.2「座位上限 120，满了新来的人坐在墙边的长凳上，长凳无限，能做所有动作」，01 9/19 派任务 5） ----------
+## 占位，正式位置等整批底图。放在北墙根、舞台西边：贺礼堆（hall_life 的 gifts，x 331～489）西边那块空地。
+## 这块原来不在能走的格子里（能走的从 y 320 起），放凳子不挡任何一条路。凳子前面补一条能走的窄道（BENCH_WALK），
+## 从西头 T3 积木外面那段接回原来能走的地方：不补的话人只能站在 y 320 那一行，T3 后排椅子上的人总比凳子上的近，
+## 凳子上的人点不到。凳子上只有看人、敬酒、想认识你，没有簿子、没有小游戏（那是桌子的）
+const BENCH_ID := "bench"        # 服务端 seat 表里坐长凳的 table_id（server-claude config.BANQUET_BENCH_ID），chair_no 是 null
+const BENCH_X0 := 112.0          # 坐的人从这儿
+const BENCH_X1 := 322.0          # 排到这儿
+const BENCH_Y := 244.0           # 椅位点（上半身下沿），和桌边椅子的椅位点一个意思；靠着北墙（墙根约 y 210）
+const BENCH_GAP := 30.0          # 人少时一人占多宽（8 个人正好一排）；再多就把整条分匀、挤着叠
+                                 # （01：坐不下可以叠，或者换第二排；第二排会堵住凳子前面那条道，后排也点不到，所以叠）
+const BENCH_STAND_DY := 26.0     # 被敬酒时站起来：站在自己位置正前方这么远（在凳子前那条道上）
+const BENCH_WALK := [Rect2(100, 260, 230, 30), Rect2(100, 290, 60, 30)]   # 补的能走的格子：凳子前一条横道，西头一段往下接回去
+var bench_spots: Array = []      # [{openid, pos}]：长凳上的人（含自己，自己不画），按服务端 bench 的顺序
+
+## 长凳上第 k 个（从 0 数，一共 n 个）坐哪：人少时一人 BENCH_GAP 宽、整排居中；坐不下就把整条分匀，挤着叠
+static func bench_pos(k: int, n: int) -> Vector2:
+    var span := BENCH_X1 - BENCH_X0
+    var gap := BENCH_GAP
+    if n > 1 and float(n - 1) * BENCH_GAP > span:
+        gap = span / float(n - 1)
+    var start := (BENCH_X0 + BENCH_X1) * 0.5 - gap * float(n - 1) * 0.5
+    return Vector2(start + gap * float(k), BENCH_Y)
+
+## 凳子（代码画的占位，和桌心簿子一样粗的像素）：靠背一块、凳面连腿一块。
+## 靠背排在坐的人后面（着地点比椅位点靠里），凳面排在前面（盖住坐的人最下面一点，像坐在上面）；再把凳子前面那条道放开
+func _bench() -> void:
+    var w := int(BENCH_X1 - BENCH_X0) + 36
+    var x := BENCH_X0 - 18.0
+    var back := Sprite2D.new()
+    back.texture = _bench_back_texture(w)
+    back.centered = false
+    back.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    back.position = Vector2(x, BENCH_Y - 6.0)
+    back.offset = Vector2(0, -26)
+    back.name = "bench_back"
+    world.add_child(back)
+    var seat := Sprite2D.new()
+    seat.texture = _bench_seat_texture(w)
+    seat.centered = false
+    seat.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    seat.position = Vector2(x, BENCH_Y + 16.0)
+    seat.offset = Vector2(0, -20)
+    seat.name = "bench_seat"
+    world.add_child(seat)
+    for r in BENCH_WALK:
+        var a := _cell_of(r.position)
+        var b := _cell_of(r.end - Vector2(0.01, 0.01))
+        for j in range(a.y, b.y + 1):
+            for i in range(a.x, b.x + 1):
+                walk[j * cols + i] = 1
+                nav.set_point_solid(Vector2i(i, j), false)
+
+const BENCH_DARK := Color("#3e2415")
+const BENCH_WOOD := Color("#7a4e2c")
+const BENCH_LIGHT := Color("#a8743f")
+
+## 靠背：上下两根横木、几根立柱，w×26
+static func _bench_back_texture(w: int) -> ImageTexture:
+    var img := Image.create(w, 26, false, Image.FORMAT_RGBA8)
+    img.fill(Color(0, 0, 0, 0))
+    for px in [0, int(w / 3.0) - 2, int(w * 2 / 3.0) - 2, w - 4]:
+        img.fill_rect(Rect2i(px, 0, 4, 26), BENCH_DARK)
+    img.fill_rect(Rect2i(0, 0, w, 6), BENCH_WOOD)
+    img.fill_rect(Rect2i(0, 0, w, 2), BENCH_LIGHT)
+    img.fill_rect(Rect2i(0, 12, w, 4), BENCH_WOOD)
+    img.fill_rect(Rect2i(0, 16, w, 2), BENCH_DARK)
+    return ImageTexture.create_from_image(img)
+
+## 凳面连腿：凳面亮一道、前脸暗、几条腿，w×20
+static func _bench_seat_texture(w: int) -> ImageTexture:
+    var img := Image.create(w, 20, false, Image.FORMAT_RGBA8)
+    img.fill(Color(0, 0, 0, 0))
+    for px in [4, int(w / 2.0) - 2, w - 8]:
+        img.fill_rect(Rect2i(px, 8, 4, 12), BENCH_DARK)
+    img.fill_rect(Rect2i(0, 0, w, 6), BENCH_WOOD)
+    img.fill_rect(Rect2i(0, 0, w, 2), BENCH_LIGHT)
+    img.fill_rect(Rect2i(0, 6, w, 4), BENCH_DARK)
+    return ImageTexture.create_from_image(img)
+
 # ---------- 席位：enterHall 的数据画成坐着的人（蓝图 3.2） ----------
 signal chair_near(table_id: String, chair_no: int)   # 走到空椅子旁触发；chair_no 0 表示离开了
 signal person_near(openid: String)   # 走到「有人坐、不是自己」的椅子旁触发（看人、敬酒，蓝图 3.2）；"" 表示走开了
@@ -630,6 +711,18 @@ func set_seats(data: Dictionary, me_id: String) -> void:
     for t in cfg.get("tables", []):
         if not signed.has(t["id"]):
             _table_sign(t, "")
+    # 长凳（任务 5）：服务端的 bench 是 openid 列表，按顺序坐成一排；自己也占一个位置（金标画在那儿），不画坐着的。
+    # 头上不挂名字：人挨得近，名字会叠成一片；走到跟前底下的名字按钮照样出
+    bench_spots.clear()
+    var bench_ids: Array = data.get("bench", [])
+    for k in bench_ids.size():
+        var oid := str(bench_ids[k])
+        var at := bench_pos(k, bench_ids.size())
+        bench_spots.append({"openid": oid, "pos": at})
+        if oid == me_id:
+            continue
+        _seated(names.get(oid, {}), at, at + Vector2(0, 40), false, oid, false)
+        resident_nodes[oid]["stand"] = at + Vector2(0, BENCH_STAND_DY)   # 被敬酒时站在凳子跟前，不往墙里退
     # 别桌的 NPC 宾客：真人坐了的椅子让出来（阿鱼 9/18 定留，见 hall_life.gd 开头）
     npc_taken = life.seat_guests(seat_taken) if life != null else {}
     _my_marker()
@@ -666,8 +759,9 @@ func _table_sign(t: Dictionary, nick: String) -> void:
     l.name = "sign_" + str(t["id"])
     seat_tags.add_child(l)
 
-## 坐着的住民：和自己坐下一样画上半身（占位，SIT_KEEP、SIT_LIFT），不然别人像站在桌边、只有自己像坐着
-func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool, openid := "") -> void:
+## 坐着的住民：和自己坐下一样画上半身（占位，SIT_KEEP、SIT_LIFT），不然别人像站在桌边、只有自己像坐着。
+## center 是他面朝的地方（桌边的人朝桌心，长凳上的人朝厅里）；label 为 false 时头上不挂名字（长凳）
+func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool, openid := "", label := true) -> void:
     var preset := int(info.get("avatar", -1))
     if preset < 0 or preset > 7:
         preset = 0
@@ -703,7 +797,7 @@ func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool, openid
     if openid != "":
         resident_nodes[openid] = {"spr": s, "preset": preset, "at": at, "center": center}
     var nick := str(info.get("nick", ""))
-    if nick != "" and font != null:
+    if label and nick != "" and font != null:
         var l := Label.new()
         l.text = nick
         l.add_theme_font_override("font", font)
@@ -727,7 +821,7 @@ func resident_toast(openid: String) -> bool:
         return false
     var seated_spr: Sprite2D = r["spr"]
     var preset: int = int(r["preset"])
-    var stand := _stand_spot(r["at"], r["center"])
+    var stand: Vector2 = r["stand"] if r.has("stand") else _stand_spot(r["at"], r["center"])
     var st := Sprite2D.new()
     var gl := Spr.gpt_look(preset)
     var lk: Dictionary
@@ -813,17 +907,32 @@ func _my_marker() -> void:
     add_child(seat_marker)
 
 func _my_chair_pos() -> Vector2:
+    if str(my_seat.get("table_id", "")) == BENCH_ID:
+        for b in bench_spots:
+            if b["openid"] == my_openid:
+                return b["pos"]
+        return Vector2.ZERO
+    var my_no := chair_no_of(my_seat)
     for c in chairs:
-        if c["table_id"] == my_seat.get("table_id", "") and c["chair_no"] == int(my_seat.get("chair_no", 0)):
+        if c["table_id"] == my_seat.get("table_id", "") and c["chair_no"] == my_no:
             return c["pos"]
     return Vector2.ZERO
+
+## 椅子号。坐长凳的没有号，服务端给 null——int(null) 在 Godot 里是报错，原来分到长凳的人一进厅就在这儿断掉，只剩「先找把空椅子坐下」
+static func chair_no_of(seat: Dictionary) -> int:
+    var v = seat.get("chair_no", 0)
+    return 0 if v == null else int(v)
 
 ## 换桌成功后本地更新，不用重新拉 enterHall。顺便把人挪到那把椅子上坐下——
 ## 第 20 版只有金标挪了位置、人还站在原地，阿鱼没看出来成功，连点了四次
 func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
-    var old := "%s:%d" % [my_seat.get("table_id", ""), int(my_seat.get("chair_no", 0))]
+    var old := "%s:%d" % [my_seat.get("table_id", ""), chair_no_of(my_seat)]
     if seat_taken.get(old, "") == me_id:
         seat_taken.erase(old)
+    # 从长凳换到椅子（任务 5）：凳子上自己那个位置空着，不再算自己的
+    for i in range(bench_spots.size() - 1, -1, -1):
+        if bench_spots[i]["openid"] == me_id:
+            bench_spots.remove_at(i)
     my_seat = {"table_id": table_id, "chair_no": chair_no}
     var key := "%s:%d" % [table_id, chair_no]
     seat_taken[key] = me_id
@@ -938,6 +1047,15 @@ func _scan_chairs(dt: float) -> void:
         if occ == "" or occ == my_openid:
             continue
         var d: float = pos.distance_to(c["pos"])
+        if d < best_pd:
+            best_pd = d
+            best_pid = occ
+    # 长凳上的人一样能看、能敬（任务 5）。凳子在能走的格子外面，走进凳子前面那条道（BENCH_WALK）就是最近的
+    for b in bench_spots:
+        var occ: String = b["openid"]
+        if occ == my_openid:
+            continue
+        var d: float = pos.distance_to(b["pos"])
         if d < best_pd:
             best_pd = d
             best_pid = occ

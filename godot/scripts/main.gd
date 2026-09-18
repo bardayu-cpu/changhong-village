@@ -36,6 +36,8 @@ const LINE_CHEERS := "干杯"   # 敬酒插图上的大字，新写，等阿鱼�
 ## 阶段 1 只记请求（云函数 wantToMeet 写 friend_request），对方看不到，好友关系在阶段 2
 const LINE_MEET := "想认识你"   # 按钮上的字，蓝图 3.2、阶段 1 设计 v1.1 §4 文案「加好友请求」
 const LINE_MEET_SENT_FMT := "想认识 %s 记下了"   # 发成功后顶部那句，新写，等阿鱼定
+## 长凳（蓝图 3.2「满了新来的人坐在墙边的长凳上」，01 9/19 派任务 5）：服务端把我分到长凳时进厅说一句，金标在凳子上我那个位置
+const LINE_BENCH := "桌子都坐满了 先坐墙边的长凳"   # 新写，等阿鱼定
 const ToastScene = preload("res://scripts/toast_scene.gd")
 ## 席间小游戏（蓝图 3.2，阿鱼 9/19 定）：两桌一个，坐下后点桌心的菜或底下「玩·XX」开；金币只能玩出来，唯一去处是主桌添礼金
 const GameCfg = preload("res://scripts/games/game_config.gd")
@@ -1258,8 +1260,11 @@ func _on_enter_hall(r: Dictionary) -> void:
         if inv != null and str(inv) != "":
             with_inviter += 1
     print("[suqi] 进厅 名字 ", hall.resident_names.size(), " 个 带邀请人的 ", with_inviter, " 个")
-    # 服务端可能把人分在试点还没摆出来的桌（T3 以后），金标画不了：提示先找把椅子坐
-    if hall._my_chair_pos() == Vector2.ZERO:
+    # 120 个座坐满了，服务端把我分到长凳（seat 的 table_id 是 bench）：说一句，金标在凳子上；
+    # 分到了画面上没摆出来的桌、金标画不了：提示先找把椅子坐
+    if USE_LAYERED and str(hall.my_seat.get("table_id", "")) == LayeredHall.BENCH_ID:
+        _note(LINE_BENCH, 4.0)
+    elif hall._my_chair_pos() == Vector2.ZERO:
         _note("先找把空椅子坐下", 4.0)
     var dg: Dictionary = d.get("digest", {})
     if bool(dg.get("hasNews", false)):
@@ -2067,6 +2072,38 @@ func _setup_shot(shot: String) -> void:
             nickname = "小李"
             await _enter_banquet()
             _note(LINE_TOASTED_FMT % "老王")
+            await get_tree().process_frame
+        "bench", "bench_crowd", "bench_me", "bench_card", "bench_toast":
+            # 长凳（01 9/19 派任务 5）：北墙根、舞台西边，8 个人正好一排；bench_crowd 30 个挤着叠；
+            # bench_me 是我被分到长凳：金标在凳子上我那个位置（进厅那句提示测试里查）；card、toast 是对凳子上的人看人、敬酒（他站到凳子跟前）
+            var n := 30 if shot == "bench_crowd" else 8
+            var nicks := ["阿强", "小周", "大刘", "阿梅", "小陈", "老孙", "阿兰", "小吴"]
+            cloud.fake_bench = []
+            for i in n:
+                var oid := "fake_b%d" % i
+                cloud.fake_bench.append(oid)
+                cloud.fake_names[oid] = {"nick": nicks[i] if i < nicks.size() else "客%d" % (i + 1), "avatar": i % 8, "inviter": null}
+            if shot == "bench_me":
+                cloud.fake_me = {"table_id": "bench", "chair_no": null}
+                cloud.fake_bench.insert(3, "fake_me")
+            nickname = "阿花"
+            await _enter_banquet()
+            hall.couple_armed = false
+            dialog.visible = false
+            await _shot_skip_entry_toast()
+            var spot: Vector2 = hall.bench_pos(4, cloud.fake_bench.size())
+            # 敬酒那张站开半个身位，不然被敬的人站起来正好和我叠在一起
+            hall.reset_to(Vector2(spot.x + (15.0 if shot == "bench_toast" else 0.0), 282.0 if shot == "bench_toast" else 268.0))
+            for i in 12: await get_tree().process_frame
+            # 凳子在画布最上面，顶部提示框正好压在它上面（提示几秒就收）；截图把提示收了，看得见凳子和金标
+            note_box.visible = false
+            _clear_toast_back()
+            if shot == "bench_card" or shot == "bench_toast":
+                _open_person_card(hall.person_near_key)
+                if shot == "bench_toast":
+                    _on_toast_pressed()
+                    await _shot_skip_entry_toast()
+                    note_box.visible = false
             await get_tree().process_frame
         "meet_sent", "meet_not_met":
             # 想认识你（01 9/19 派，文案新写，等阿鱼定）：我坐 T1，老王也在 T1，发得出去，顶部「想认识 老王 记下了」；
