@@ -138,6 +138,14 @@ func run() -> void:
     check("按钮接到了点击，回敬了小李", m.cloud.fake_toasts_today.size() == before + 1 and m.cloud.fake_toasts_today.has("fake_li"))
     check("顶部一句：" + m.note.text, m.note.text == "敬了 小李 一杯")
 
+    # 7b. 调试版：日志面板打开时盖住回敬按钮（面板在按钮上面、黑幕还是最上面）
+    print("7b 调试面板盖住回敬按钮")
+    m._build_debug()
+    await pulse([{"from": "fake_li", "created_at": 750}], {"fake_li": {"nick": "小李", "avatar": 5}})
+    check("出按钮", m.toast_back_btn.visible)
+    check("日志面板在按钮上面", m.dbg_panel.get_index() > m.toast_back_btn.get_index())
+    check("黑幕还是最上面", m.fade.get_index() == m.ui.get_child_count() - 1)
+
     # 8. 开着小游戏时不出按钮（提示也被小游戏盖着）
     print("8 开着小游戏")
     var fake_game := Control.new()

@@ -144,6 +144,11 @@ var dbg_text: Label
 var dbg_acc := 0.0
 var dbg_log_acc := 0.0
 var dbg_worst := 0.0
+# 远程加载的最小验证（HANDOFF §0.9，01 9/19 派）：只有调试版日志面板里有入口，见 scripts/remote_probe.gd
+const RemoteProbe = preload("res://scripts/remote_probe.gd")
+var remote_probe: RefCounted     # 正在跑的那一次（跑完清掉）；跑的时候再点不重复开
+var remote_status: Label
+var remote_img: TextureRect
 
 func _ready() -> void:
     # [suqi] 开头的几行是启动进度，微信预览版的调试弹窗靠它们判断卡在哪
@@ -270,12 +275,37 @@ func _build_debug() -> void:
     dbg_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
     dbg_panel.offset_left = 10; dbg_panel.offset_right = -10
     dbg_panel.offset_top = 150; dbg_panel.offset_bottom = -10
+    var dv := VBoxContainer.new()
+    dv.add_theme_constant_override("separation", 8)
+    dbg_panel.add_child(dv)
+    # 远程加载的最小验证（§0.9）：先点「远程加载」（下载、存本地、显示），关掉小游戏再打开、再点一次，
+    # 应该写「读的本地，没下载」。「删掉本地副本」用来重验下载那一路。回执 godot/回执/远程加载-最小验证.md
+    var rrow := HBoxContainer.new()
+    rrow.add_theme_constant_override("separation", 8)
+    var rb := Button.new()
+    rb.text = "远程加载"
+    rb.pressed.connect(_run_remote_probe)
+    rrow.add_child(rb)
+    var rc := Button.new()
+    rc.text = "删掉本地副本"
+    rc.pressed.connect(_clear_remote_probe)
+    rrow.add_child(rc)
+    dv.add_child(rrow)
+    remote_status = _label("", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT)
+    dv.add_child(remote_status)
+    remote_img = TextureRect.new()
+    remote_img.custom_minimum_size = Vector2(0, 240)
+    remote_img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    remote_img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    remote_img.visible = false
+    dv.add_child(remote_img)
     var sc := ScrollContainer.new()
     sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
     dbg_text = _label("", 12, PAPER, HORIZONTAL_ALIGNMENT_LEFT)
     dbg_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     sc.add_child(dbg_text)
-    dbg_panel.add_child(sc)
+    dv.add_child(sc)
     dbg_panel.visible = false
     ui.add_child(dbg_panel)
 
@@ -283,6 +313,29 @@ func _toggle_log() -> void:
     dbg_panel.visible = not dbg_panel.visible
     if dbg_panel.visible:
         dbg_text.text = _read_js_log()
+
+## 远程加载的最小验证（HANDOFF §0.9）：本地有就读本地，没有就从云存储下载；结果一行字加那张图，日志跟着刷新。
+## p：截图时传一个填好假 File ID 的进来（电脑上走 cloud.gd 的假下载）；按钮点的时候是空的，照 assets/remote_probe.json
+func _run_remote_probe(p: RefCounted = null) -> void:
+    if remote_probe != null:
+        return
+    remote_status.text = "远程加载中"
+    remote_probe = p if p != null else RemoteProbe.new()
+    remote_probe.run(cloud, func(r: Dictionary):
+        remote_probe = null
+        remote_status.text = str(r.get("text", ""))
+        var tex = r.get("texture", null)
+        remote_img.texture = tex
+        remote_img.visible = tex != null
+        dbg_text.text = _read_js_log())
+
+func _clear_remote_probe() -> void:
+    if remote_probe != null:
+        return
+    var had: bool = RemoteProbe.new().clear_local()
+    remote_status.text = "本地副本删了，再点「远程加载」会重新下载" if had else "本地没有副本"
+    remote_img.texture = null
+    remote_img.visible = false
 
 ## 日志在微信那一层（wxgame/debug-console.js 收集的），这里只是读出来显示。
 ## 打开面板时顺便让云桥自查一次，结果也会进日志，排查席位用
@@ -1099,11 +1152,14 @@ func _play_toast(left_preset: int, right_preset: int, caption: String) -> void:
     toast_scene.play(font, left_preset, right_preset, LINE_CHEERS, caption)
     print("[suqi] 干杯插图 ", caption)
 
-## 叠放顺序：……干杯插图、回敬按钮、黑幕。插图整屏接点击（点一下提前收），按钮要在它上面才点得到；
-## 黑幕永远在最上面，切场景时把这些都盖住（原来插图加在黑幕上面，出门淡出时插图还亮着）
+## 叠放顺序：……干杯插图、回敬按钮、调试版的绿字和日志面板、黑幕。插图整屏接点击（点一下提前收），按钮要在它上面才点得到；
+## 调试面板打开时要盖住回敬按钮；黑幕永远在最上面，切场景时把这些都盖住（原来插图加在黑幕上面，出门淡出时插图还亮着）
 func _restack_top() -> void:
     if toast_back_btn.visible:
         ui.move_child(toast_back_btn, -1)
+    for n in [dbg, dbg_panel]:
+        if n != null:
+            ui.move_child(n, -1)
     ui.move_child(fade, -1)
 
 ## 被敬以后在顶部那句提示右边出「回敬一杯」。先 _note 出那句提示再调：按钮认的是那一句（note_token），
@@ -1795,6 +1851,24 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
+        "remote_probe", "remote_probe_local":
+            # 远程加载的最小验证（§0.9）：调试版日志面板里点「远程加载」以后的样子。要加 --hud 才有调试面板。
+            # 电脑上走假下载；remote_probe 是第一次（下载了），remote_probe_local 是第二次（读的本地，没下载）
+            if dbg == null:
+                _build_debug()
+            nickname = "小李"
+            await _enter_banquet()
+            dialog.visible = false
+            _toggle_log()
+            var pr = RemoteProbe.new()
+            pr.file_id = "cloud://fake-env.fake-bucket/canvas/scene_roman_banquet/base.png"
+            if shot == "remote_probe":
+                pr.clear_local()
+            else:
+                _run_remote_probe(pr)
+                pr = RemoteProbe.new()
+                pr.file_id = "cloud://fake-env.fake-bucket/canvas/scene_roman_banquet/base.png"
+            _run_remote_probe(pr)
         "toast_back", "toast_back_sent":
             # 回敬（蓝图 3.2「可回敬一次」，01 9/19）：我坐在 T1，老王当场敬了我——顶部提示右边出「回敬一杯」，
             # 浮在插图上面；sent 是点了以后：顶部「敬了 老王 一杯」、老王站起来、我举杯、放我敬他的那张插图

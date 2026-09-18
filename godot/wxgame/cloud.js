@@ -68,6 +68,23 @@ function txDispatch(text) {
     var id = msg.id;
     var name = msg.fn;
     var data = msg.d || {};
+    // 名字以 @ 开头的不是云函数，是这一层自己做的事（比如 remote.js 的 @fetchFile：从云存储下载文件交给 Godot）
+    if (String(name).charAt(0) === '@') {
+        var fns = GameGlobal.__suqiLocalFns || {};
+        if (typeof fns[name] !== 'function') {
+            console.error('[suqi] 桥：没有这个本地功能 ' + name);
+            txFinish(id, { ok: false, reason: 'no_handler' });
+            return;
+        }
+        console.log('[suqi] 本地功能 ' + name + ' 开始 编号 ' + id);
+        try {
+            fns[name](data, function (result) { txFinish(id, result || { ok: false, reason: 'network' }); });
+        } catch (e) {
+            console.error('[suqi] 本地功能 ' + name + ' 出错 ' + (e && e.message));
+            txFinish(id, { ok: false, reason: 'local_error', detail: String(e && e.message) });
+        }
+        return;
+    }
     if (typeof wx === 'undefined' || !wx.cloud) {
         console.error('[suqi] 没有 wx.cloud，云函数 ' + name + ' 调不了');
         txFinish(id, { ok: false, reason: 'network' });

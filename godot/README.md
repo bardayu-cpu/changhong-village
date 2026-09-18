@@ -117,7 +117,9 @@ wxgame/             微信那一层：分享、登录、调试弹窗、分享图
 /Applications/wechatwebdevtools.app/Contents/MacOS/cli preview --project "<wechat-build 的完整路径>" --qr-format image --qr-output 二维码.png
 ```
 
-导出默认是调试版（导出预设「小游戏调试」，带 `suqi_debug` 特性）：左上角绿字是帧率、最慢一帧和绘制次数，点一下打开日志面板；90 秒没进游戏或者出错，会弹窗显示报错和启动进度（`wxgame/debug-console.js`）；卡死的话下次打开先弹上次的日志。不用剪贴板：它在微信里算隐私接口，要先在后台填隐私指引才能用。正式上传前用 `SUQI_DEBUG=0 ./export-wechat.sh`，导出预设「小游戏」，不带这些。
+导出默认是调试版（导出预设「小游戏调试」，带 `suqi_debug` 特性）：左上角绿字是帧率、最慢一帧和绘制次数，点一下打开日志面板；90 秒没进游戏或者出错，会弹窗显示报错和启动进度（`wxgame/debug-console.js`）；卡死的话下次打开先弹上次的日志。不用剪贴板：它在微信里算隐私接口，要先在后台填隐私指引才能用。正式上传前用 `SUQI_DEBUG=0 ./export-wechat.sh`，导出预设「小游戏」，不带这些。日志面板顶上的「远程加载」「删掉本地副本」是远程加载的最小验证（HANDOFF §0.9，`wxgame/remote.js`、`scripts/remote_probe.gd`，回执 `回执/远程加载-最小验证.md`），也只在调试版里。
+
+`../wechat-build` 只由助理 01 导出、出码。只想验证导出脚本时，给一个临时目录：`./export-wechat.sh /tmp/某个空目录`，目录里有东西又不像上次导出的就不删。
 
 `wxgame/` 里是微信那一层的脚本和图，导出时由脚本拷进 `wechat-build/`；有 `.gdignore`，Godot 不导入。
 

@@ -1,0 +1,7 @@
+{
+  "_说明": "远程加载最小验证（HANDOFF §0.9，回执 godot/回执/远程加载-最小验证.md）只用这一张图。file_id 要等阿鱼把 source 那个文件传到云存储 canvas/scene_roman_banquet/base.png 以后，从云开发控制台「存储」里点这个文件复制 File ID 填进来；没填时调试版的「远程加载」按钮只提示还没填。path 是存到本机 user:// 下的位置；bytes 用来核对本地副本完不完整（0 表示不核对）；source 是要上传的那个文件，电脑上的假下载也从这里拷",
+  "file_id": "",
+  "path": "canvas/scene_roman_banquet/base.png",
+  "bytes": 2317820,
+  "source": "res://assets/layered/scene_roman_banquet/base.png"
+}

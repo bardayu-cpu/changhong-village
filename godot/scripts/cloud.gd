@@ -65,8 +65,12 @@ func inviter() -> String:
 var fake_inviter := ""   # 电脑上假装是点谁的卡片进来的，测试用
 var fake_mine := {"coins": 0, "games": {}, "dishes": [], "gift_coins": 0}   # 小游戏存档（saveProfile 新字段、enterHall 的 mine）
 var fake_pulse_toasts: Array = []   # 电脑上假装「刚有人敬我」：截图、测试往这里塞 {from}，下一次 hallPulse 带回去
+var fake_fetch_count := 0           # 电脑上假装从云存储下载（@fetchFile）了几次：测「第二次打开读本地、不下载」用
+var fake_fetch_fail := ""           # 不是空串就假装下载失败，回这个 reason（测试失败那一路用）
 
-func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
+## timeout：等多少秒没回来就按「没连上」回调。名字以 @ 开头的不是云函数，是微信那一层自己做的事
+## （wxgame/remote.js 的 @fetchFile：从云存储下载文件写进 user://，远程加载最小验证用，下载慢，要给长一点）
+func call_fn(name: String, data: Dictionary, cb: Callable, timeout := TIMEOUT) -> void:
     if _js == null:
         # 真机上桥断了也要给回调，不然界面什么都不显示（第 17、18 版就是这样五步全哑）
         if _in_wx:
@@ -78,7 +82,7 @@ func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
     _seq += 1
     var id := _seq
     # 送出时记一下时间：回来（或超时）时算用时多少毫秒，助理 01 要靠它决定云函数超时要不要调
-    _pending[id] = {"cb": cb, "t": 0.0, "sent_ms": Time.get_ticks_msec()}
+    _pending[id] = {"cb": cb, "t": 0.0, "limit": timeout, "sent_ms": Time.get_ticks_msec()}
     _send({"id": id, "fn": name, "d": data})
     print("[suqi] 云函数 ", name, " 送出 编号 ", id)
     set_process(true)
@@ -139,12 +143,13 @@ func _process(dt: float) -> void:
         cb.call(r if typeof(r) == TYPE_DICTIONARY else {"ok": false, "reason": "network"})
     for id in _pending.keys():
         _pending[id]["t"] += dt
-        if _pending[id]["t"] > TIMEOUT:
+        var limit := float(_pending[id].get("limit", TIMEOUT))
+        if _pending[id]["t"] > limit:
             var cb2: Callable = _pending[id]["cb"]
             var sent_ms2: int = int(_pending[id].get("sent_ms", 0))
             _pending.erase(id)
             var elapsed2 := Time.get_ticks_msec() - sent_ms2
-            print("[suqi] 云函数 编号 ", id, " 用时 ", elapsed2, " 毫秒 等了 ", TIMEOUT, " 秒没回来，按没连上处理")
+            print("[suqi] 云函数 编号 ", id, " 用时 ", elapsed2, " 毫秒 等了 ", limit, " 秒没回来，按没连上处理")
             cb2.call({"ok": false, "reason": "network"})
 
 ## 日志面板打开时叫一次：先报 JS 那边的自查，再单独试一次「带参数调 JS 方法」。
@@ -263,4 +268,26 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 nm[ft["from"]] = fake_names.get(ft["from"], {"nick": "", "avatar": -1})
             fake_pulse_toasts.clear()
             return {"ok": true, "now": now, "toasts": out, "names": nm}
+        "@fetchFile":
+            # 假装从云存储下载（真机上是 wxgame/remote.js）：把 assets/remote_probe.json 的 source 拷到要的位置。
+            # 只在工程目录里跑（编辑器、无界面测试、截图）时拿得到 source 原图，导出的包里没有，也用不到
+            fake_fetch_count += 1
+            var fid := str(data.get("fileID", ""))
+            var dst := str(data.get("path", ""))
+            if fid == "" or dst == "":
+                return {"ok": false, "reason": "bad_request"}
+            if fake_fetch_fail != "":
+                return {"ok": false, "reason": fake_fetch_fail, "detail": "电脑上假装失败"}
+            var man = JSON.parse_string(FileAccess.get_file_as_string("res://assets/remote_probe.json"))
+            var src := str((man as Dictionary).get("source", "")) if man is Dictionary else ""
+            var bytes := FileAccess.get_file_as_bytes(src)
+            if bytes.is_empty():
+                return {"ok": false, "reason": "download_failed", "detail": "电脑上读不到 " + src}
+            DirAccess.make_dir_recursive_absolute(dst.get_base_dir())
+            var f := FileAccess.open(dst, FileAccess.WRITE)
+            if f == null:
+                return {"ok": false, "reason": "copy_failed", "detail": "写不进 " + dst}
+            f.store_buffer(bytes)
+            f.close()
+            return {"ok": true, "bytes": bytes.size(), "download_ms": 0, "read_ms": 0, "write_ms": 0}
     return {"ok": false, "reason": "network"}
