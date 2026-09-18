@@ -1,0 +1,363 @@
+{
+ "note": "席间小游戏（蓝图 3.2，阿鱼 9/19 定）：两桌一个、换桌换游戏。levels 里每个参数第 N 关 = base + step×(N-1)，夹在 min～max；hard=1 表示越大越难（乘调试版的难度倍数），hard=-1 表示越大越容易（除以难度倍数），0 不随难度变；int=true 取整。reward 同样算法：每关通关得的金币。改难度就改这里，不用改代码",
+ "games": [
+  {
+   "id": "lianliankan",
+   "tables": [
+    "T1",
+    "T2"
+   ],
+   "title": "吃席",
+   "kind": "连连看",
+   "goal": "把一样的菜连起来消掉，拐弯不超过两次",
+   "levels": {
+    "cols": {
+     "base": 4,
+     "step": 0.5,
+     "max": 6,
+     "int": true
+    },
+    "rows": {
+     "base": 4,
+     "step": 0.5,
+     "max": 8,
+     "int": true
+    },
+    "kinds": {
+     "base": 4,
+     "step": 1,
+     "max": 12,
+     "int": true,
+     "hard": 1
+    },
+    "time": {
+     "base": 90,
+     "step": 6,
+     "max": 180,
+     "hard": -1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   }
+  },
+  {
+   "id": "match3",
+   "tables": [
+    "T3",
+    "T4"
+   ],
+   "title": "凑菜",
+   "kind": "三消",
+   "goal": "换相邻两道菜，凑成三个一样的消掉，步数用完前凑够分",
+   "levels": {
+    "size": {
+     "base": 7,
+     "step": 0,
+     "int": true
+    },
+    "kinds": {
+     "base": 4,
+     "step": 0.34,
+     "max": 6,
+     "int": true,
+     "hard": 1
+    },
+    "moves": {
+     "base": 20,
+     "step": -0.5,
+     "min": 12,
+     "int": true,
+     "hard": -1
+    },
+    "target": {
+     "base": 300,
+     "step": 150,
+     "max": 3000,
+     "int": true,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   }
+  },
+  {
+   "id": "g2048",
+   "tables": [
+    "T5",
+    "T6"
+   ],
+   "title": "小菜合大菜",
+   "kind": "2048",
+   "goal": "上下左右滑，一样的菜碰到一起合成更大的菜",
+   "levels": {
+    "size": {
+     "base": 4,
+     "step": 0,
+     "int": true
+    },
+    "target_pow": {
+     "base": 5,
+     "step": 1,
+     "max": 11,
+     "int": true,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 5,
+    "max": 60
+   }
+  },
+  {
+   "id": "memory",
+   "tables": [
+    "T7",
+    "T8"
+   ],
+   "title": "记菜名",
+   "kind": "翻牌配对",
+   "goal": "翻两张牌，一样的菜就配成一对；翻错的次数有限",
+   "levels": {
+    "pairs": {
+     "base": 3,
+     "step": 1,
+     "max": 10,
+     "int": true,
+     "hard": 1
+    },
+    "preview": {
+     "base": 3.0,
+     "step": -0.25,
+     "min": 1.0,
+     "hard": -1
+    },
+    "misses": {
+     "base": 8,
+     "step": 0.2,
+     "max": 12,
+     "int": true,
+     "hard": -1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   }
+  },
+  {
+   "id": "whack",
+   "tables": [
+    "T9",
+    "T10"
+   ],
+   "title": "夹菜",
+   "kind": "打地鼠",
+   "goal": "盘子里冒出菜就点它夹走，别夹到辣椒",
+   "levels": {
+    "holes": {
+     "base": 6,
+     "step": 0.5,
+     "max": 9,
+     "int": true
+    },
+    "duration": {
+     "base": 30,
+     "step": 0
+    },
+    "target": {
+     "base": 12,
+     "step": 3,
+     "max": 45,
+     "int": true,
+     "hard": 1
+    },
+    "show": {
+     "base": 1.3,
+     "step": -0.07,
+     "min": 0.5,
+     "hard": -1
+    },
+    "interval": {
+     "base": 0.9,
+     "step": -0.05,
+     "min": 0.35,
+     "hard": -1
+    },
+    "bad": {
+     "base": 0.0,
+     "step": 0.03,
+     "max": 0.3,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   }
+  },
+  {
+   "id": "catch",
+   "tables": [
+    "T11",
+    "T12"
+   ],
+   "title": "接喜糖",
+   "kind": "接物",
+   "goal": "左右拖动篮子接住掉下来的喜糖，别接鞭炮",
+   "levels": {
+    "duration": {
+     "base": 30,
+     "step": 0
+    },
+    "target": {
+     "base": 12,
+     "step": 3,
+     "max": 45,
+     "int": true,
+     "hard": 1
+    },
+    "speed": {
+     "base": 170,
+     "step": 18,
+     "max": 420,
+     "hard": 1
+    },
+    "interval": {
+     "base": 0.85,
+     "step": -0.04,
+     "min": 0.3,
+     "hard": -1
+    },
+    "misses": {
+     "base": 6,
+     "step": -0.3,
+     "min": 2,
+     "int": true,
+     "hard": -1
+    },
+    "bad": {
+     "base": 0.0,
+     "step": 0.03,
+     "max": 0.25,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   }
+  }
+ ],
+ "dishes_note": "连连看每过一关解锁一道乐山菜进「菜单册」（蓝图 3.2）。菜名先占位、阿鱼可改；短评只有阿鱼能写（世界观 4.2），没写的显示「待阿鱼写」。游戏里不出现真实地名，一律写苏七",
+ "dishes": [
+  {
+   "name": "跷脚牛肉",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "甜皮鸭",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "钵钵鸡",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "豆腐脑",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "叶儿粑",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "冰粉",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "西坝豆腐",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "麻辣烫",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "烧烤",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "米花糖",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "凉糕",
+   "note": "待阿鱼写"
+  },
+  {
+   "name": "肥肠粉",
+   "note": "待阿鱼写"
+  }
+ ],
+ "tiles_note": "菜牌占位：一种菜一个颜色加一个字，正式美术到了换成图",
+ "tiles": [
+  {
+   "ch": "鱼",
+   "bg": "#e0703a"
+  },
+  {
+   "ch": "鸭",
+   "bg": "#b5651d"
+  },
+  {
+   "ch": "鸡",
+   "bg": "#e6b34a"
+  },
+  {
+   "ch": "虾",
+   "bg": "#f28f7a"
+  },
+  {
+   "ch": "粑",
+   "bg": "#7fb069"
+  },
+  {
+   "ch": "豆",
+   "bg": "#f4efe6"
+  },
+  {
+   "ch": "面",
+   "bg": "#e8c872"
+  },
+  {
+   "ch": "汤",
+   "bg": "#d8c8a8"
+  },
+  {
+   "ch": "肉",
+   "bg": "#a3262b"
+  },
+  {
+   "ch": "菜",
+   "bg": "#5c8a6a"
+  },
+  {
+   "ch": "糖",
+   "bg": "#f2a7c3"
+  },
+  {
+   "ch": "酒",
+   "bg": "#c9a0dc"
+  }
+ ]
+}
