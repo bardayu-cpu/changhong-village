@@ -39,7 +39,8 @@ func status_text() -> String:
     return "翻错 %d/%d" % [misses, misses_max]
 
 func _build() -> void:
-    pairs = clampi(p_int("pairs", 3), 3, 10)
+    # 上限跟菜牌种数走（minigames.json 的 tiles 有 12 种），一对一种菜；9/19 01 定 pairs 封顶从 10 提到 12
+    pairs = clampi(p_int("pairs", 3), 3, maxi(Cfg.tiles().size(), 3))
     misses_max = maxi(p_int("misses", 8), 0)
     preview_total = maxf(p_float("preview", 3.0), 0.0)
     deck = make_deck(pairs, maxi(Cfg.tiles().size(), 1), rng)

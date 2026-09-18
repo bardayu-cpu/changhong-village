@@ -39,7 +39,8 @@ func run() -> void:
     ok = ok and p1["kinds"] == 4.0 and p5["kinds"] == 8.0 and p30["kinds"] == 12.0 and p30["rows"] == 8.0
     ok = ok and p1h["kinds"] == 6.0 and p1h["time"] < p1["time"]
     print("  金币 第1关 ", Cfg.reward(llk, 1), " 第5关 ", Cfg.reward(llk, 5), " 第30关 ", Cfg.reward(llk, 30))
-    ok = ok and Cfg.reward(llk, 1) == 10 and Cfg.reward(llk, 30) == 60
+    # 第 30 关早就到顶：等于 json 里的 reward.max（9/19 01 调难度时从 60 提到 80，这里跟着配置走，不写死）
+    ok = ok and Cfg.reward(llk, 1) == 10 and Cfg.reward(llk, 30) == int(llk["reward"]["max"])
 
     # 3. 存档：通关加金币、记关、解锁菜；添礼金扣金币；金币不够添不了；存云上成功才算干净
     var s := Save.new()

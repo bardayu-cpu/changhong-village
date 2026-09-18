@@ -1672,7 +1672,8 @@ func _stick_rest() -> void:
     stick_knob.modulate.a = 0.45
 
 # ---------- 自动截图（开发用） ----------
-## 小游戏截图：game_<id> 坐到这个游戏的第一张桌、打开开始卡；game_<id>_play 再点开始、玩一会儿
+## 小游戏截图：game_<id> 坐到这个游戏的第一张桌、打开开始卡；game_<id>_play 再点开始、玩一会儿；
+## 名字里带 lvN（比如 game_memory_lv10_play）就从第 N 关开：只改内存里的进度，不存档，不影响本机存档
 func _shot_game(shot: String) -> void:
     var parts := shot.split("_")
     var id := parts[1]
@@ -1683,6 +1684,9 @@ func _shot_game(shot: String) -> void:
     var g := GameCfg.game(id)
     if g.is_empty():
         return
+    for part in parts:
+        if part.begins_with("lv") and int(part.substr(2)) > 1:
+            games_save.games[id] = int(part.substr(2)) - 1
     var tid := str(g["tables"][0])
     hall.apply_change(tid, 5, cloud.openid())
     for i in 30: await get_tree().process_frame
