@@ -61,6 +61,7 @@ module.exports = {
   // 文本长度（图形簇）
   LEN: {
     nickname: [2, 12],
+    checkInName: [1, 12],           // 迎宾院签到的名字（蓝图 3.1：1～12 字，默认带昵称）
     message: [1, 100],              // 留言
     whisper: [1, 200],              // 悄悄话
     status: [1, 100],               // 动态

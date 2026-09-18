@@ -186,7 +186,7 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             for k in ["coins", "games", "dishes", "gift_coins"]:
                 if data.has(k):
                     fake_mine[k] = data[k]
-            return {"ok": true}
+            return {"ok": true, "checked_in": not fake_check_in.is_empty()}   # 和服务端一样回签过到没有
         "enterHall":
             if fake_me["table_id"] == "":
                 fake_me = {"table_id": "T1", "chair_no": 2}

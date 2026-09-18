@@ -250,6 +250,12 @@ eq(resident.canSaveProfile({ nick: ' 阿花 ' }), { ok: true }, '去掉首尾空
 eq(resident.canSaveProfile({ nick: '阿 花' }), { ok: true }, '去空白只去首尾，中间空格不折叠，仍算3个字符');
 eq(resident.canSaveProfile({ nick: 'x'.repeat(12) }).ok, true, '边界：正好12字能存');
 eq(resident.canSaveProfile({ nick: 'x'.repeat(13) }), { ok: false, reason: 'book_too_long', field: 'nick' }, '昵称超过12字');
+// 迎宾院签到的名字（蓝图 3.1：1～12 字，9/19）
+eq(resident.canCheckIn('李'), { ok: true }, '签到名字 1 个字可以（比昵称的 2 字宽）');
+eq(resident.canCheckIn('x'.repeat(12)), { ok: true }, '签到名字 正好 12 字可以');
+eq(resident.canCheckIn('x'.repeat(13)), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 超过 12 字');
+eq(resident.canCheckIn('   '), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 全是空白');
+eq(resident.canCheckIn(88), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 不是字符串');
 eq(resident.canSaveProfile({ nick: '' }), { ok: false, reason: 'nick_too_short', field: 'nick' }, '昵称空的（去空白后不够2字）');
 eq(resident.canSaveProfile({ nick: '  ' }).reason, 'nick_too_short', '昵称全是空白');
 eq(resident.canSaveProfile({ whisper: '新婚快乐' }).ok, true, '正常悄悄话能存');

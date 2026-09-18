@@ -471,6 +471,17 @@ func part4(c) -> void:
     check("服务端存的礼金是 0", int(m.cloud.fake_check_in.get("gift_value", -1)) == 0 and sv.signed_in)
     m.court_ui.candy_root.visible = false
 
+    # 26c. 换了手机（本机没签到记录）：进山庄存资料时服务端回签过了，签到桌只显示「已签到」（第五段）
+    print("26c 换手机")
+    sv.signed_in = false
+    sv.candy = false
+    m.cloud.fake_check_in = {"name": "小李", "gift_value": 88}
+    m._save_profile()
+    check("本机补记签过到、喜糖当收过了", sv.signed_in and sv.candy)
+    walk_to(c.spot_pos("sign_in") + Vector2(0, 120))
+    walk_to(c.spot_pos("sign_in"))
+    check("签到桌只显示「已签到」", m.court_ui.act_btn.visible and m.court_ui.act_btn.text == CourtCopy.text("btn_signed") and m.court_ui.act_btn.disabled)
+
     # 27. 本机存档
     print("27 本机存档")
     var again := CourtSave.new()

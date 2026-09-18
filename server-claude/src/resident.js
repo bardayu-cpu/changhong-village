@@ -22,6 +22,22 @@ function canSaveProfile(ctx) {
   return { ok: true };
 }
 
+/**
+ * 迎宾院签到的名字（蓝图 3.1「签到名字：默认带昵称，可改，1～12 字，过敏感词」）：这里只查长度，
+ * 敏感词、保留名跟昵称一样由 saveProfile 用 sensitive.checkText 查。客户端先拦了空的和超长的，
+ * 能走到这里多半是字段传错了，统一回 bad_request
+ * @param name {string}
+ * @returns {{ok:true}|{ok:false, reason:'bad_request', field:'check_in_name'}}
+ */
+function canCheckIn(name) {
+  if (typeof name !== 'string') return { ok: false, reason: 'bad_request', field: 'check_in_name' };
+  const len = name.trim().length;
+  if (len < C.LEN.checkInName[0] || len > C.LEN.checkInName[1]) {
+    return { ok: false, reason: 'bad_request', field: 'check_in_name' };
+  }
+  return { ok: true };
+}
+
 /** 礼金夹到 0～9999 的非负整数，不拒绝，直接改成合法值（蓝图 3.1："超上限按上限"） */
 function clampGiftValue(v) {
   const n = Math.floor(Number(v) || 0);
@@ -157,7 +173,7 @@ function sanitizeGiftAdd(v) {
 }
 
 module.exports = {
-  canSaveProfile, clampGiftValue, canAdoptInviter,
+  canSaveProfile, canCheckIn, clampGiftValue, canAdoptInviter,
   sanitizeCoins, sanitizeGames, sanitizeDishes, sanitizeGiftAdd,
   mergeGames, mergeDishes,
 };

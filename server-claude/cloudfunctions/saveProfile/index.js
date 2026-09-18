@@ -1,11 +1,15 @@
 // 云函数 saveProfile：存昵称、形象、邀请人、签到礼金、悄悄话（resident 表，一人一条）。
+//
+// 9/19 加（迎宾院签到，蓝图 3.1、2.4「签到名字、礼金数存服务器同一条记录，只有阿鱼后台能看」）：check_in_name
+// 签到名字（1～12 字，跟昵称一样过敏感词和保留名），传了就在 checked_in_at 记下第一次签到的时间（以后再签不改）。
+// 返回里带 checked_in（这个人签过到没有）：客户端进山庄时存资料就知道，换了手机签到桌也只显示「已签到」
 // 昵称长度、悄悄话长度做了最小校验（rules/resident.js，回执 02-总策划答复-2 第 4 条）；
 // 礼金夹到 0～9999，不拒绝。
 // 敏感词/保留名校验（docs/敏感词模块-需求.md，回执 05）：nick 要过 rules/sensitive.js 的
 // checkText，命中敏感词或保留名都不写库，直接把 {ok:false, reason} 原样返回给客户端；
 // 悄悄话（whisper）不过滤，需求文档第 1 节写明私密祝福不改动现有逻辑。
 // 客户端：wx.cloud.callFunction({ name: 'saveProfile', data: { nick, avatar, inviter, gift_value, whisper,
-//   coins, games, dishes, gift_coins, gift_add } })
+//   coins, games, dishes, gift_coins, gift_add, check_in_name } })
 // 传哪个字段就存哪个，没传的不动。
 //
 // 9/19 加（蓝图 3.2「席间小游戏」，阿鱼 9/19 定）：coins 金币、games 各小游戏通关进度、
@@ -30,7 +34,7 @@ const sensitive = require('./rules/sensitive');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
-const FIELDS = ['nick', 'avatar', 'inviter', 'gift_value', 'whisper', 'coins', 'games', 'dishes', 'gift_coins', 'gift_add'];
+const FIELDS = ['nick', 'avatar', 'inviter', 'gift_value', 'whisper', 'coins', 'games', 'dishes', 'gift_coins', 'gift_add', 'check_in_name'];
 
 // 词库文件由 scripts/sync-cf-rules.js 同步进这个云函数自己的 words/ 文件夹（部署前必须先跑同步）。
 // 模块加载时读一次、建好 AC 自动机；同一个容器热启动的后续调用复用，不重复读文件、不重复建。
@@ -49,6 +53,20 @@ async function isVip(openid) {
   return ids.indexOf(openid) !== -1;
 }
 
+// 名字过敏感词和保留名：昵称、签到名字都走这里。保留名是留给主角的——主角名单（config/banquet 的 vip_openids）
+// 不拦；已经用着这个名字的人接着用也不拦（9/18 助理 01：阿鱼自己起名「阿鱼」不能被拦），ownNames 是算「自己的名字」的那几个。
+// 敏感词对谁都拦。返回 {ok:true} 或 {ok:false, reason:'sensitive'|'reserved'}
+async function checkName(text, ownNames, openid) {
+  const wordCheck = sensitive.checkText(text, { sensitiveMatcher: SENSITIVE_MATCHER, reservedSet: RESERVED_SET });
+  if (wordCheck.ok) return wordCheck;
+  if (wordCheck.reason === 'reserved') {
+    const n = sensitive.normalize(text);
+    const own = ownNames.some(x => typeof x === 'string' && sensitive.normalize(x) === n);
+    if (own || await isVip(openid)) return { ok: true };
+  }
+  return wordCheck;
+}
+
 exports.main = async (event) => {
   const { OPENID } = cloud.getWXContext();
   const now = Date.now();
@@ -61,25 +79,24 @@ exports.main = async (event) => {
 
   const check = resident.canSaveProfile({ nick: fields.nick, whisper: fields.whisper });
   if (!check.ok) return check;
+  if (fields.check_in_name !== undefined) {
+    const ci = resident.canCheckIn(fields.check_in_name);
+    if (!ci.ok) return ci;
+    fields.check_in_name = fields.check_in_name.trim();
+  }
 
   const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);
   const existingData = existing && existing.data;
 
   if (fields.nick !== undefined) {
-    const wordCheck = sensitive.checkText(fields.nick, {
-      sensitiveMatcher: SENSITIVE_MATCHER, reservedSet: RESERVED_SET,
-    });
-    if (!wordCheck.ok) {
-      // 保留名是留给主角的：主角名单（config/banquet 的 vip_openids，阿鱼和 Toretto）不拦；
-      // 已经用着这个名字的人接着用也不拦（9/18 助理 01：阿鱼自己起名「阿鱼」不能被拦）。敏感词对谁都拦
-      let exempt = false;
-      if (wordCheck.reason === 'reserved') {
-        const keepsOwnName = !!(existingData && typeof existingData.nick === 'string'
-          && sensitive.normalize(existingData.nick) === sensitive.normalize(fields.nick));
-        exempt = keepsOwnName || await isVip(OPENID);
-      }
-      if (!exempt) return wordCheck; // reason: 'sensitive' | 'reserved'，不写库
-    }
+    const nickCheck = await checkName(fields.nick, [existingData && existingData.nick], OPENID);
+    if (!nickCheck.ok) return nickCheck; // reason: 'sensitive' | 'reserved'，不写库
+  }
+  if (fields.check_in_name !== undefined) {
+    // 签到名字默认带昵称：跟自己现有的昵称、这次一起存的昵称一样的，保留名不拦
+    const nameCheck = await checkName(fields.check_in_name, [existingData && existingData.nick, fields.nick], OPENID);
+    if (!nameCheck.ok) return nameCheck; // 不写库，客户端退回签到第一页显示原因
+    fields.checked_in_at = (existingData && existingData.checked_in_at) || now; // 第一次签到的时间，再签不改
   }
   if (fields.gift_value !== undefined) fields.gift_value = resident.clampGiftValue(fields.gift_value);
 
@@ -167,5 +184,7 @@ exports.main = async (event) => {
     }
   }
 
-  return { ok: true };
+  // 签过到没有（这次签的，或者以前签过的）：客户端进山庄时据此让签到桌显示「已签到」
+  const checkedIn = !!(fields.checked_in_at || (existingData && existingData.checked_in_at));
+  return { ok: true, checked_in: checkedIn };
 };

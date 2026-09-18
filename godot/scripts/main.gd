@@ -1200,6 +1200,13 @@ func _after_profile(r: Dictionary) -> void:
         nick_ok.disabled = true
         return
     profile_saved = bool(r.get("ok", false))
+    # 服务端说签过到了（换了手机、清过本机存档）：签到桌也只显示「已签到」，喜糖当收过了（第五段，saveProfile 回 checked_in）
+    if bool(r.get("checked_in", false)) and not court_save.signed_in:
+        court_save.signed_in = true
+        court_save.candy = true
+        court_save.save()
+        _update_gate()
+        court_ui.refresh_spots()
     # 在迎宾院存的资料：进厅拿席位等走进宴会厅再说（_switch_canvas → _enter_hall_net）
     if state == "banquet":
         cloud.call_fn("enterHall", {}, _on_enter_hall)

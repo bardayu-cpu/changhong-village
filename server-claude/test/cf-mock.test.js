@@ -430,6 +430,75 @@ async function scenarioReservedNameExemptions() {
   check(res.ok === false && res.reason === 'sensitive', `场景9 主角起名带敏感词照样拦（实际 ${JSON.stringify(res)}）`);
 }
 
+// ================= 场景：迎宾院签到（蓝图 3.1、2.4，9/19）——签到名字和礼金存在同一条住民记录，名字过敏感词和保留名，
+// checked_in_at 记第一次签到的时间，返回 checked_in 让客户端换手机也显示「已签到」 =================
+async function scenarioSaveProfileCheckIn() {
+  const { sdk, state } = createFakeSdk();
+  seed(state, 'config', { _id: 'banquet', vip_openids: ['vip_ayu'] });
+  seed(state, 'resident', { _id: 'old_holder', openid: 'old_holder', nick: '新娘', avatar: 1, inviter: null, checked_in_at: null });
+
+  // 进山庄先存资料（还没签到）：checked_in 是 false
+  state.currentOpenid = 'guest_ci';
+  let saveProfile = loadCloudFunction('saveProfile', sdk);
+  let res = await saveProfile.main({ nick: '小李', avatar: 2 });
+  check(res.ok === true && res.checked_in === false, `签到 进山庄存资料 checked_in=false（实际 ${JSON.stringify(res)}）`);
+
+  // 签到：名字和礼金存进同一条，记下签到时间
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: ' 小李 ', gift_value: 88 });
+  let doc = state.collections.resident.get('guest_ci');
+  check(res.ok === true && res.checked_in === true, `签到 成功 checked_in=true（实际 ${JSON.stringify(res)}）`);
+  check(doc.check_in_name === '小李' && doc.gift_value === 88, `签到 名字去掉首尾空白、礼金存在同一条（实际 ${doc.check_in_name}/${doc.gift_value}）`);
+  check(typeof doc.checked_in_at === 'number' && doc.checked_in_at > 0, '签到 记下了 checked_in_at');
+  const firstAt = doc.checked_in_at;
+
+  // 再签一次：名字、礼金照存，签到时间不改（记的是第一次）；礼金超上限按上限
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '李四', gift_value: 12345 });
+  doc = state.collections.resident.get('guest_ci');
+  check(res.ok === true && doc.check_in_name === '李四' && doc.gift_value === 9999, `签到 再签：名字改了、礼金夹到 9999（实际 ${doc.check_in_name}/${doc.gift_value}）`);
+  check(doc.checked_in_at === firstAt, '签到 再签不改第一次的签到时间');
+
+  // 以后只存别的（换手机进山庄存资料）：照样回 checked_in=true
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '小李', avatar: 3 });
+  check(res.ok === true && res.checked_in === true, `签到 签过的人以后存资料 checked_in=true（实际 ${JSON.stringify(res)}）`);
+
+  // 名字含敏感词：拒，不写库，不算签到
+  state.currentOpenid = 'guest_bad';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '阿花' });
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '情色达人', gift_value: 66 });
+  doc = state.collections.resident.get('guest_bad');
+  check(res.ok === false && res.reason === 'sensitive', `签到 名字含敏感词被拒（实际 ${JSON.stringify(res)}）`);
+  check(!doc.check_in_name && !doc.checked_in_at && doc.gift_value === undefined, '签到 被拒时名字、礼金、签到时间都没写');
+
+  // 保留名：别人拿「阿鱼」签到拦；主角放行；已经叫「新娘」的人用自己的名字签到放行
+  state.currentOpenid = 'guest_res';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '阿鱼', gift_value: 0 });
+  check(res.ok === false && res.reason === 'reserved', `签到 别人用保留名被拒（实际 ${JSON.stringify(res)}）`);
+  state.currentOpenid = 'vip_ayu';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '阿鱼', gift_value: 0 });
+  check(res.ok === true && res.checked_in === true, `签到 主角用「阿鱼」放行（实际 ${JSON.stringify(res)}）`);
+  state.currentOpenid = 'old_holder';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '新娘', gift_value: 188 });
+  check(res.ok === true && state.collections.resident.get('old_holder').check_in_name === '新娘', `签到 用自己现有的昵称签到放行（实际 ${JSON.stringify(res)}）`);
+
+  // 名字空的、超过 12 字：bad_request，不写库
+  state.currentOpenid = 'guest_len';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '   ' });
+  check(res.ok === false && res.reason === 'bad_request', `签到 名字空的被拒（实际 ${JSON.stringify(res)}）`);
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: 'x'.repeat(13) });
+  check(res.ok === false && res.reason === 'bad_request', `签到 名字超过 12 字被拒（实际 ${JSON.stringify(res)}）`);
+  check(!(state.collections.resident && state.collections.resident.has('guest_len')), '签到 名字不对不建档');
+}
+
 /** 包一层 sdk.database()，数出每个表被查询过几次——用来验证 hallPulse "toasts 为空时不查 resident" 这类性能约束 */
 function withCallCounter(sdk) {
   const counts = {};
@@ -828,6 +897,7 @@ async function scenarioSaveProfileGameDishesMergeNotOverwrite() {
   await scenarioWriteBookSensitiveRejected();
   await scenarioSaveProfileWordRejected();
   await scenarioReservedNameExemptions();
+  await scenarioSaveProfileCheckIn();
   await scenarioHallPulseInvalidSince();
   await scenarioHallPulseGetsNewToast();
   await scenarioHallPulseNoDuplicateOnNextPoll();

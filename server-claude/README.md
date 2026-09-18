@@ -20,7 +20,7 @@ src/tree.js      邀请树、三层关系、扩列、可能认识的人
 src/temple.js    月老庙：外殿牵红线、内殿许愿求签、找介绍人
 src/town.js      桥灯、踢球、镇报
 src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、桌簿、进厅提示
-src/resident.js  住民资料最小校验：昵称、悄悄话长度，礼金夹上限；邀请人只存第一次的判定（canAdoptInviter）
+src/resident.js  住民资料最小校验：昵称、悄悄话长度，迎宾院签到名字长度（canCheckIn，1～12 字），礼金夹上限；邀请人只存第一次的判定（canAdoptInviter）
 lib/db-page.js   分页读全云开发数据库查询的小工具。做 I/O（依赖调用方传入的查询对象），不是纯函数，
                  所以跟 src/ 分开放；云开发 collection.get() 不写 limit 一次最多回 100 条，
                  宴会厅人数会超过 100，enterHall、readBook 靠它分页读全（回执 03）
@@ -36,7 +36,8 @@ cloudfunctions/changeSeat/  云函数：换桌，已部署
 cloudfunctions/toast/       云函数：敬酒，已部署
 cloudfunctions/writeBook/   云函数：写桌簿，已部署
 cloudfunctions/readBook/    云函数：读桌簿，已部署（用到 lib/db-page.js）
-cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄话，已部署
+cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄话，已部署；9/19 加迎宾院签到 check_in_name（过敏感词和保留名，
+                 记 checked_in_at 第一次签到时间，返回 checked_in），这一版待部署
 ```
 
 数据表（`resident`/`seat`/`toast`/`guestbook`/`friend_request`/`config`）已在云开发控制台建好，权限已设「仅创建者可读写」（2026-09-16，阿鱼手动操作，见 `回执/02-建表与云函数.md` 第 11 节）。
