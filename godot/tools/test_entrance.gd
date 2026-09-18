@@ -4,6 +4,8 @@ extends SceneTree
 ##         迎宾院 ↔ 宴会厅来回走，席位、金币这些状态还在；东西小径出「还没修好」
 ## 第二段：新娘妈妈只迎一次；签到面板名字 → 礼金 → 确认，名字校验、礼金夹上限、断网留草稿、签完一串（爸爸收礼、喜糖、妈妈指路）、
 ##         重进只显示「已签到」、本机存档；名字被服务端判敏感词退回第一页
+## 第三段：回忆册正式版置灰「还没印好」、调试版能打开占位屏并回到原地；摄影师招呼；合影吸到站位、姿势 → 对焦 → 相纸、
+##         再拍一张、收好最多 3 张旧的顶掉、算了不留东西
 ## 用法：Godot --headless --path . --script res://tools/test_entrance.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -175,6 +177,7 @@ func run() -> void:
     check("东小径：%s" % m.note.text, m.note.text == CourtCopy.text("to_lawn"))
 
     await part2(c)
+    await part3(c)
 
     DirAccess.remove_absolute("user://test_entrance_games.json")
     DirAccess.remove_absolute("user://test_entrance_court.json")
@@ -285,4 +288,85 @@ func part2(c) -> void:
     check("退回第一页：%s" % ui.name_err.text, ui.pages[0].visible and ui.name_err.text == m.REASONS["sensitive"] and not sv.signed_in)
     ui._close_sign()
     sv.signed_in = true
+
+
+
+## 第三段：回忆册、合影
+func part3(c) -> void:
+    var ui = m.court_ui
+    var sv = m.court_save
+    # 18. 回忆册：剪辑没到，正式版「翻开」置灰、提示「还没印好」
+    print("18 回忆册")
+    m.debug_override = false
+    walk_to(c.spot_pos("album") + Vector2(0, 120))
+    walk_to(c.spot_pos("album"))
+    check("按钮「%s」置灰" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_album") and ui.act_btn.disabled)
+    check("提示：%s" % m.note.text, m.note_box.visible and m.note.text == CourtCopy.text("album_not_ready"))
+    ui._on_act()
+    check("点不开", m.state == "court")
+    # 调试版能打开占位屏；「继续」回到迎宾院，人站在原地，按钮还在
+    m.debug_override = true
+    walk_to(c.spot_pos("album") + Vector2(0, 120))
+    walk_to(c.spot_pos("album"))
+    var at: Vector2 = c.pos
+    check("调试版按钮能点", not ui.act_btn.disabled)
+    ui._on_act()
+    check("打开剪辑占位屏 state=%s" % m.state, m.state == "clip" and m.screens["clip"].visible and not m.hud.visible)
+    m._close_clip()
+    check("回到迎宾院原地 %s" % str(c.pos), m.state == "court" and c.pos == at and c.walking_enabled)
+    check("按钮还在", ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_album"))
+    m.debug_override = false
+
+    # 19. 摄影师招呼：走到地毯前说一句，同一次在院里不重复
+    print("19 摄影师招呼")
+    walk_to(c.spot_pos("photo_wait"))
+    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog_who.text == "摄影师" and m.dialog_text.text == CourtCopy.text("photo_greet"))
+    m.dialog_text.text = ""
+    walk_to(c.spot_pos("photo_wait") + Vector2(0, 120))
+    walk_to(c.spot_pos("photo_wait"))
+    check("再走过来不重复", m.dialog_text.text == "")
+
+    # 20. 合影站位：人吸过去，出「拍一张」
+    print("20 合影")
+    walk_to(c.spot_pos("photo_mark") + Vector2(20, 30))
+    check("吸到站位 %s" % str(c.pos), c.pos == c.spot_pos("photo_mark"))
+    check("按钮「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_photo"))
+    ui._on_act()
+    check("摆姿势，人停下", ui.pose_root.visible and not c.walking_enabled and not ui.act_btn.visible)
+    ui._pick_pose("wave")
+    check("对焦圈出来，摄影师倒数：%s" % m.dialog_text.text, ui.focus_root.visible and m.dialog_text.text == CourtCopy.text("photo_count"))
+    var p0: Vector2 = ui.ring_a.position
+    for i in 30:
+        ui._process(DT)
+    check("两个圈在动", ui.ring_a.position != p0)
+    ui._shutter()
+    check("出相纸，招手", ui.paper_root.visible and not ui.focus_root.visible and str(ui.paper_art.get_meta("pose")) == "wave")
+    ui._retake()
+    check("再拍一张：回到摆姿势", ui.pose_root.visible and not ui.paper_root.visible)
+    ui._pick_pose("heart")
+    ui._shutter()
+    ui._keep()
+    check("收好 1 张（比心）%s" % str(sv.photos), sv.photos.size() == 1 and str(sv.photos[0]["pose"]) == "heart")
+    check("提示：%s" % m.note.text, m.note.text == CourtCopy.text("photo_kept"))
+    check("关了、能走、按钮回来", not ui.panel_open() and c.walking_enabled and ui.act_btn.visible)
+
+    # 21. 最多留 3 张，旧的顶掉
+    print("21 最多 3 张")
+    for pose in ["stand", "wave", "stand"]:
+        ui._on_act()
+        ui._pick_pose(pose)
+        ui._shutter()
+        ui._keep()
+    var poses: Array = sv.photos.map(func(ph): return str(ph["pose"]))
+    check("留 3 张 %s，最早那张比心顶掉了" % str(poses), poses == ["stand", "wave", "stand"])
+    var again := CourtSave.new()
+    again.local_path = sv.local_path
+    again.load_local()
+    check("本机存档里也是 3 张", again.photos.size() == 3)
+
+    # 22. 算了：不留东西，人能走
+    print("22 不拍了")
+    ui._on_act()
+    ui._close_photo()
+    check("什么都没多、能走", sv.photos.size() == 3 and c.walking_enabled and not ui.panel_open())
 

@@ -1,5 +1,6 @@
 extends Control
-## 迎宾院的界面（蓝图 3.1，灰盒，01 9/19 派）：走近交互点时底部冒出的按钮、签到面板（名字 → 礼金 → 确认）、喜糖弹窗。
+## 迎宾院的界面（蓝图 3.1，灰盒，01 9/19 派）：走近交互点时底部冒出的按钮、签到面板（名字 → 礼金 → 确认）、喜糖弹窗、
+## 回忆册、花墙合影（姿势 → 对焦 → 相纸）。
 ## main.gd 管走路、切画布、说话框和提示框；迎宾院自己的事在这里，要说话、提示、调云函数都回到 main（_say、_note、cloud）。
 ## 字都在 assets/entrance/lines.json（court_copy.gd 读），这里不写死
 
@@ -7,6 +8,12 @@ signal panel_changed(open: bool)   # 面板开、关：main 据此让人停下�
 
 const Copy = preload("res://scripts/court_copy.gd")
 const Tiles = preload("res://scripts/games/tiles.gd")
+const Spr = preload("res://scripts/sprites.gd")
+## 回忆册的两分钟剪辑（六张图六句话，阿鱼给）到了没有。没到：正式版「翻开」置灰、提示「还没印好」（世界观 1.1），
+## 调试版照样能打开占位屏（01 9/19 定）。阿鱼给了图和句子、剪辑做好以后改成 true
+const CLIP_READY := false
+const POSES := ["stand", "wave", "heart"]   # 蓝图 3.1：站好、招手、比心
+const RING_PERIOD := 1.6   # 两个对焦圈一靠一离多久，秒
 const GIFTS := [0, 66, 88, 188]    # 蓝图 3.1：不送、66、88、188，再加「自己填」
 const GIFT_MAX := 9999             # 自己填的上限，超了按上限（蓝图 3.1 异常表）
 const NAME_MAX := 12
@@ -36,6 +43,15 @@ var sign_gift := 0
 var busy := false          # 签到请求在路上
 var candy_root: Control
 var candy_token := 0
+var pose_root: Control     # 合影第 1 步：摆个姿势
+var focus_root: Control    # 第 2 步：两个对焦圈靠拢时点一下（早了晚了都不算失败）
+var ring_a: Panel
+var ring_b: Panel
+var focus_t := 0.0
+var paper_root: Control    # 第 3 步：相纸（用节点拼出来的「照片」，不读显卡截图），再拍一张 / 收好
+var paper_art: Control
+var flash: ColorRect
+var photo_pose := ""
 
 func setup(main_ref, f: Font, s) -> void:
     m = main_ref
@@ -54,10 +70,11 @@ func setup(main_ref, f: Font, s) -> void:
     add_child(act_btn)
     _build_sign()
     _build_candy()
+    _build_photo()
 
 ## 有面板开着（开着时人不能走）
 func panel_open() -> bool:
-    return sign_root.visible or candy_root.visible
+    return sign_root.visible or candy_root.visible or pose_root.visible or focus_root.visible or paper_root.visible
 
 ## 离开迎宾院（进宴会厅、回开场）：按钮、面板都收起来
 func hide_all() -> void:
@@ -66,18 +83,40 @@ func hide_all() -> void:
     if sign_root.visible:
         _close_sign()
     candy_root.visible = false
+    if pose_root.visible or focus_root.visible or paper_root.visible:
+        _close_photo()
 
 ## 走进、走出交互点（main 的 _on_court_spot 转过来）
 func spot(id: String, inside: bool) -> void:
-    if id != "sign_in":
+    if not id in ["sign_in", "album", "photo_mark"]:
         return
     if inside:
         act_id = id
         _refresh_act()
         act_btn.visible = true
+        if id == "album" and not can_open_album():
+            m._note(Copy.text("album_not_ready"), 2.5)
+        if id == "photo_mark":
+            # 合影站位：人吸过去（蓝图 3.1 交互说明「合影时人吸附到站位」）；在半径里照样能小幅挪
+            m.court.path.clear()
+            m.court.pos = m.court.spot_pos("photo_mark")
+            m.court.face = "down"
     elif act_id == id:
         act_id = ""
         act_btn.visible = false
+
+## 从别的界面（回忆册剪辑）回到迎宾院：人还站在交互点里的，把按钮补出来
+func refresh_spots() -> void:
+    for id in ["sign_in", "album", "photo_mark"]:
+        if m.court.in_spot(id):
+            act_id = id
+            _refresh_act()
+            act_btn.visible = true
+            return
+
+## 回忆册能不能翻开：剪辑到了，或者调试版
+func can_open_album() -> bool:
+    return CLIP_READY or m.is_debug()
 
 func _refresh_act() -> void:
     match act_id:
@@ -85,11 +124,22 @@ func _refresh_act() -> void:
             # 重进山庄不重复签到，签到桌只显示「已签到」（蓝图 3.1 交互说明）
             act_btn.text = Copy.text("btn_signed") if save.signed_in else Copy.text("btn_sign")
             act_btn.disabled = save.signed_in
+        "album":
+            act_btn.text = Copy.text("btn_album")
+            act_btn.disabled = not can_open_album()
+        "photo_mark":
+            act_btn.text = Copy.text("btn_photo")
+            act_btn.disabled = false
 
 func _on_act() -> void:
     match act_id:
         "sign_in":
             open_sign()
+        "album":
+            if can_open_album():
+                m.open_clip()
+        "photo_mark":
+            start_photo()
 
 # ---------- 签到面板：名字 → 礼金 → 确认（蓝图 3.1） ----------
 func _panel(width := 460.0) -> Array:
@@ -376,3 +426,245 @@ func candy_popup() -> void:
         t += get_process_delta_time()
     if my == candy_token:
         candy_root.visible = false
+
+# ---------- 花墙合影：摆姿势 → 对焦圈靠拢时点一下 → 相纸（蓝图 3.1） ----------
+func _build_photo() -> void:
+    # 第 1 步：摆个姿势
+    var pr := _panel(420.0)
+    pose_root = pr[0]
+    var ph: VBoxContainer = pr[1]
+    var pv := VBoxContainer.new()
+    pv.add_theme_constant_override("separation", 14)
+    ph.add_child(pv)
+    pv.add_child(_lbl(Copy.text("pose_title"), 24, GOLD1))
+    var pr_row: Array = []
+    for pose in POSES:
+        pr_row.append(_grow(_btn(Copy.text("pose_" + pose), _pick_pose.bind(pose))))
+    pv.add_child(_row(pr_row))
+    pv.add_child(_btn(Copy.text("btn_cancel"), _close_photo))
+    # 第 2 步：对焦。整屏都能点，点哪都算按快门
+    focus_root = Control.new()
+    focus_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    focus_root.visible = false
+    var shoot := Button.new()
+    shoot.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    for st in ["normal", "hover", "pressed", "focus"]:
+        var sb := StyleBoxFlat.new()
+        sb.bg_color = Color(0.03, 0.02, 0.04, 0.35)
+        shoot.add_theme_stylebox_override(st, sb)
+    shoot.pressed.connect(_shutter)
+    focus_root.add_child(shoot)
+    ring_a = _ring(Color("#f4d97a"))
+    ring_b = _ring(Color("#f4f1ea"))
+    focus_root.add_child(ring_a)
+    focus_root.add_child(ring_b)
+    var hint := _lbl(Copy.text("focus_hint"), 24, GOLD1, HORIZONTAL_ALIGNMENT_CENTER)
+    hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+    hint.offset_left = -240
+    hint.offset_right = 240
+    hint.offset_top = -260
+    hint.offset_bottom = -220
+    hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    focus_root.add_child(hint)
+    add_child(focus_root)
+    # 第 3 步：相纸
+    var pp := _panel(440.0)
+    paper_root = pp[0]
+    var paper_holder: VBoxContainer = pp[1]
+    var pv2 := VBoxContainer.new()
+    pv2.add_theme_constant_override("separation", 14)
+    paper_holder.add_child(pv2)
+    var paper := PanelContainer.new()
+    var psb := StyleBoxFlat.new()
+    psb.bg_color = Color("#f4f1ea")
+    psb.set_content_margin_all(12)
+    psb.content_margin_bottom = 36   # 相纸下沿留白厚一点，像拍立得
+    paper.add_theme_stylebox_override("panel", psb)
+    paper_art = Control.new()
+    paper_art.custom_minimum_size = Vector2(380, 250)
+    paper_art.clip_contents = true
+    paper.add_child(paper_art)
+    var pc := CenterContainer.new()
+    pc.add_child(paper)
+    pv2.add_child(pc)
+    pv2.add_child(_row([_grow(_btn(Copy.text("btn_retake"), _retake)), _grow(_btn(Copy.text("btn_keep"), _keep))]))
+    # 快门一闪
+    flash = ColorRect.new()
+    flash.color = Color(1, 1, 1, 0)
+    flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    add_child(flash)
+
+func _ring(col: Color) -> Panel:
+    var r := Panel.new()
+    var sb := StyleBoxFlat.new()
+    sb.bg_color = Color(0, 0, 0, 0)
+    sb.border_color = col
+    sb.set_border_width_all(4)
+    sb.set_corner_radius_all(60)
+    r.add_theme_stylebox_override("panel", sb)
+    r.size = Vector2(120, 120)
+    r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    return r
+
+## 开始合影：先摆姿势。人停下
+func start_photo() -> void:
+    if panel_open():
+        return
+    act_btn.visible = false
+    pose_root.visible = true
+    panel_changed.emit(true)
+
+func _pick_pose(pose: String) -> void:
+    photo_pose = pose
+    pose_root.visible = false
+    focus_t = 0.0
+    _place_rings()
+    focus_root.visible = true
+    m._say(Copy.text("photo_count"), -1.0, Copy.who("photo_count"))
+
+func _process(dt: float) -> void:
+    if focus_root != null and focus_root.visible:
+        focus_t += dt
+        _place_rings()
+
+## 两个圈从两边往中间靠、再分开，来回走（蓝图 3.1：靠拢时点一下）
+func _place_rings() -> void:
+    var vp := get_viewport_rect().size
+    var k := (1.0 - cos(focus_t * TAU / RING_PERIOD)) * 0.5   # 0 分开、1 对上
+    var gap := lerpf(130.0, 0.0, k)
+    var c := Vector2(vp.x * 0.5, vp.y * 0.42)
+    ring_a.position = c + Vector2(-gap, 0) - ring_a.size * 0.5
+    ring_b.position = c + Vector2(gap, 0) - ring_b.size * 0.5
+
+## 按快门：什么时候点都算（早了晚了都不算失败），闪一下，出相纸
+func _shutter() -> void:
+    if not focus_root.visible:
+        return
+    focus_root.visible = false
+    m.dialog.visible = false
+    _compose_paper(photo_pose, m.preset)
+    paper_root.visible = true
+    print("[suqi] 合影 姿势 ", photo_pose)
+    if m.fast:
+        return
+    flash.color.a = 0.9
+    var tw := create_tween()
+    tw.tween_property(flash, "color:a", 0.0, 0.35)
+
+## 相纸上的「照片」：花墙、金囍、新人合照、自己的样子和姿势，全用节点拼（占位；不读显卡截图，蓝图 §6）
+func _compose_paper(pose: String, preset: int) -> void:
+    for c in paper_art.get_children():
+        c.queue_free()
+    var w := paper_art.custom_minimum_size.x
+    var h := paper_art.custom_minimum_size.y
+    paper_art.add_child(_rect(Rect2(0, 0, w, h), Color("#a8c48a")))
+    paper_art.add_child(_rect(Rect2(0, h - 34, w, 34), Color("#c0392b")))   # 合影地毯
+    var rng := RandomNumberGenerator.new()
+    rng.seed = 319
+    var cols := [Color("#e8746a"), Color("#f2a7c3"), Color("#f4f1ea"), Color("#c0392b")]
+    for i in 70:
+        paper_art.add_child(_rect(Rect2(rng.randf_range(4, w - 10), rng.randf_range(4, h - 44), 6, 5), cols[i % cols.size()]))
+    var xi_bg := Panel.new()
+    var xsb := StyleBoxFlat.new()
+    xsb.bg_color = Color("#b0322a")
+    xsb.set_corner_radius_all(30)
+    xi_bg.add_theme_stylebox_override("panel", xsb)
+    xi_bg.position = Vector2(w * 0.5 - 30, 10)
+    xi_bg.size = Vector2(60, 60)
+    paper_art.add_child(xi_bg)
+    var xi := _lbl("囍", 48, Color("#d4af37"), HORIZONTAL_ALIGNMENT_CENTER)
+    xi.autowrap_mode = TextServer.AUTOWRAP_OFF
+    xi.position = Vector2(w * 0.5 - 30, 4)
+    xi.size = Vector2(60, 60)
+    paper_art.add_child(xi)
+    # 新人：现有合照原图（HANDOFF §0.5），不重画
+    var cp := TextureRect.new()
+    cp.texture = load("res://assets/couple.png")
+    cp.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    cp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+    var ch := 170.0
+    var cw := ch * float(cp.texture.get_width()) / float(cp.texture.get_height())
+    cp.size = Vector2(cw, ch)
+    cp.position = Vector2(w * 0.58, h - 22 - ch)
+    paper_art.add_child(cp)
+    # 自己：选的形象，朝前站着那一帧，放大；姿势是占位的小记号（招手画一只手，比心画一颗心）
+    var me := TextureRect.new()
+    me.texture = _front_frame(preset)
+    me.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    me.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    me.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+    var mh := 160.0
+    me.size = Vector2(mh * 0.5, mh)
+    var mx := w * 0.3
+    me.position = Vector2(mx, h - 18 - mh)
+    paper_art.add_child(me)
+    var hand_col := Color("#f1c9a1")
+    match pose:
+        "wave":
+            paper_art.add_child(_rect(Rect2(mx + mh * 0.5 + 2, h - 18 - mh + 18, 10, 14), hand_col))
+            paper_art.add_child(_rect(Rect2(mx + mh * 0.5 + 16, h - 18 - mh + 14, 3, 10), Color("#2c1f1c")))
+            paper_art.add_child(_rect(Rect2(mx + mh * 0.5 + 22, h - 18 - mh + 20, 3, 10), Color("#2c1f1c")))
+        "heart":
+            paper_art.add_child(_heart(Vector2(mx + mh * 0.25, h - 18 - mh * 0.55), 12.0))
+    paper_art.set_meta("pose", pose)
+
+func _rect(r: Rect2, col: Color) -> ColorRect:
+    var c := ColorRect.new()
+    c.position = r.position
+    c.size = r.size
+    c.color = col
+    c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    return c
+
+## 一颗心（两个圆加一个三角），比心的记号
+func _heart(at: Vector2, r: float) -> Control:
+    var holder := Control.new()
+    holder.position = at
+    holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    var poly := Polygon2D.new()
+    var pts := PackedVector2Array()
+    for i in 12:
+        var a := PI + PI * float(i) / 11.0
+        pts.append(Vector2(-r * 0.5, 0) + Vector2(cos(a), sin(a)) * r * 0.55)
+    for i in 12:
+        var a := PI + PI * float(i) / 11.0
+        pts.append(Vector2(r * 0.5, 0) + Vector2(cos(a), sin(a)) * r * 0.55)
+    pts.append(Vector2(0, r * 1.2))
+    poly.polygon = pts
+    poly.color = Color("#e8424a")
+    holder.add_child(poly)
+    return holder
+
+## 形象朝前站着那一帧（和看人卡片一样的取法）
+func _front_frame(preset: int) -> Texture2D:
+    var p := preset if preset >= 0 and preset <= 7 else 0
+    var gl := Spr.gpt_look(p)
+    if gl.is_empty():
+        return Spr.portrait(p, 3)
+    var at := AtlasTexture.new()
+    at.atlas = gl["tex"]
+    at.region = Rect2(int(gl["anim"]["down"]["idle"]) * int(gl["frame_w"]), 0, gl["frame_w"], gl["frame_h"])
+    return at
+
+func _retake() -> void:
+    paper_root.visible = false
+    pose_root.visible = true
+
+## 收好：本机记一张（最多 3 张，旧的顶掉），关掉，人能走
+func _keep() -> void:
+    save.keep_photo(photo_pose, m.preset)
+    print("[suqi] 相纸收好了 共 ", save.photos.size(), " 张")
+    _close_photo()
+    m._note(Copy.text("photo_kept"), 2.0)
+
+func _close_photo() -> void:
+    pose_root.visible = false
+    focus_root.visible = false
+    paper_root.visible = false
+    panel_changed.emit(false)
+    if m.court.in_spot("photo_mark") and m.state == "court":
+        act_id = "photo_mark"
+        _refresh_act()
+        act_btn.visible = true
+

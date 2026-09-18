@@ -19,7 +19,9 @@ var profile_saved := false      # 这次打开游戏 saveProfile 成功过没有
 const CourtSave = preload("res://scripts/court_save.gd")
 const CourtUI = preload("res://scripts/court_ui.gd")
 var court_save                  # 迎宾院存在本机的：迎过了、签过到、喜糖……（蓝图 2.4）
-var court_ui: Control           # 迎宾院的按钮和面板：签到……
+var court_ui: Control           # 迎宾院的按钮和面板：签到、回忆册、合影……
+var photo_greeted := false      # 这次在迎宾院摄影师招呼过了（每回到迎宾院招呼一次，不走一步说一句）
+var debug_override := false     # 测试里当成调试版（回忆册的占位屏只有调试版能打开）
 ## 宴会厅用分层场景（画面就是 GPT 的效果图，阿鱼 9/15 选定）；false 回到 3D 搭的 HD-2D 宴会厅
 const USE_LAYERED := true
 const Spr = preload("res://scripts/sprites.gd")
@@ -596,7 +598,7 @@ func _build_ui() -> void:
     cb.add_child(_label("六章各一张图一句话，等阿鱼提供。样机先跳过。", 24, MUTED))
     var go := Button.new()
     go.text = "继续"
-    go.pressed.connect(_enter_banquet)
+    go.pressed.connect(_close_clip)   # 回忆册的剪辑看完（或点「继续」）回到迎宾院，人站在原地（世界观 1.1）
     cb.add_child(go)
     # 吃完出门：下一段还没做
     var ep := _center_panel(480.0)
@@ -1007,6 +1009,7 @@ func _enter_court() -> void:
     court.reset_to(court.SPAWN)
     _show_canvas("court")
     _goto("court")
+    photo_greeted = false
     hall_ready = false
     hint.visible = true
     await _fade_to(0.0)
@@ -1041,6 +1044,7 @@ func _switch_canvas(to: String) -> void:
         _show_canvas("court")
         court.reset_to(COURT_FROM_HALL)
         _goto("court")
+        photo_greeted = false
     cv.face = keep_face
     print("[suqi] 换画布 到 ", to)
     await _fade_to(0.0)
@@ -1071,12 +1075,29 @@ func _on_court_spot(id: String, inside: bool) -> void:
                 court_save.save()
                 if not court_save.signed_in:
                     _say(CourtCopy.text("welcome"), -1.0, CourtCopy.who("welcome"))
+        "photo_wait":
+            # 摄影师招呼（蓝图 3.1）：每回到迎宾院招呼一次
+            if inside and not photo_greeted:
+                photo_greeted = true
+                _say(CourtCopy.text("photo_greet"), -1.0, CourtCopy.who("photo_greet"))
         "to_hall":
             if inside:
                 _switch_canvas("banquet")
         "to_lake", "to_lawn":
             if inside:
                 _note(CourtCopy.text(id), 3.0)
+
+## 调试版（导出预设「小游戏调试」，或者电脑上带 --hud）；测试里用 debug_override 当成调试版
+func is_debug() -> bool:
+    return debug_override or OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args()
+
+## 回忆册：打开两分钟剪辑（世界观 1.1）。现在六张图六句话还没到，是占位屏，只有调试版进得来（court_ui.can_open_album）
+func open_clip() -> void:
+    _goto("clip")
+
+func _close_clip() -> void:
+    _goto("court")
+    court_ui.refresh_spots()
 
 ## 截图、测试用：不走迎宾院，直接进宴会厅（原来的进场流程）
 func _enter_banquet() -> void:
@@ -2153,6 +2174,30 @@ func _setup_shot(shot: String) -> void:
                         court_ui._pick_gift(88)
                     if shot == "court_candy":
                         court_ui._submit()
+        "court_album", "court_clip", "court_pose", "court_focus", "court_paper_wave", "court_paper_heart":
+            # 回忆册（正式版置灰「还没印好」；court_clip 是调试版打开的占位屏）、花墙合影三步（蓝图 3.1、世界观 1.1）
+            _shot_court_fresh()
+            nickname = "小李"
+            await _enter_court()
+            dialog.visible = false
+            if shot == "court_album" or shot == "court_clip":
+                debug_override = shot == "court_clip"
+                court.reset_to(court.spot_pos("album") + Vector2(0, 100))
+                court.face = "up"
+                court.go_to(court.spot_pos("album"))
+                for i in 90: await get_tree().process_frame
+                if shot == "court_clip":
+                    court_ui._on_act()
+            else:
+                court.reset_to(court.spot_pos("photo_mark") + Vector2(0, 60))
+                court.go_to(court.spot_pos("photo_mark"))
+                for i in 60: await get_tree().process_frame
+                court_ui._on_act()
+                if shot != "court_pose":
+                    court_ui._pick_pose("heart" if shot == "court_paper_heart" else "wave")
+                    for i in 20: await get_tree().process_frame
+                if shot.begins_with("court_paper"):
+                    court_ui._shutter()
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
             nickname = ""
