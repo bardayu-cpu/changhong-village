@@ -19,7 +19,7 @@ src/steal.js     偷菜配额、喜多看家
 src/tree.js      邀请树、三层关系、扩列、可能认识的人
 src/temple.js    月老庙：外殿牵红线、内殿许愿求签、找介绍人
 src/town.js      桥灯、踢球、镇报
-src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、桌簿、进厅提示
+src/banquet.js   宴会厅「一场不散的席」：入座、换桌、敬酒、想认识你（canWantToMeet）、桌簿、进厅提示
 src/resident.js  住民资料最小校验：昵称、悄悄话长度，迎宾院签到名字长度（canCheckIn，1～12 字），礼金夹上限；邀请人只存第一次的判定（canAdoptInviter）
 lib/db-page.js   分页读全云开发数据库查询的小工具。做 I/O（依赖调用方传入的查询对象），不是纯函数，
                  所以跟 src/ 分开放；云开发 collection.get() 不写 limit 一次最多回 100 条，
@@ -34,6 +34,8 @@ cloudfunctions/initDb/      云函数：建 config/banquet 配置文档，已部
 cloudfunctions/enterHall/   云函数：进宴会厅，自动分座、进厅合并提示，已部署（用到 lib/db-page.js）
 cloudfunctions/changeSeat/  云函数：换桌，已部署
 cloudfunctions/toast/       云函数：敬酒，已部署
+cloudfunctions/wantToMeet/  云函数：看人卡片「想认识你」（9/19 新写，待部署）。现在同一桌（长凳不算）或者敬过酒（谁敬谁都算）
+                 才能发，同一对只记一次；阶段 1 只往 friend_request 记一条 status=pending，对方看不到，好友关系在阶段 2
 cloudfunctions/writeBook/   云函数：写桌簿，已部署
 cloudfunctions/readBook/    云函数：读桌簿，已部署（用到 lib/db-page.js）
 cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄话，已部署；9/19 加迎宾院签到 check_in_name（过敏感词和保留名，
@@ -44,7 +46,7 @@ cloudfunctions/saveProfile/ 云函数：存昵称/形象/邀请人/礼金/悄悄
 
 ## 云函数
 
-`enterHall`、`changeSeat`、`toast`、`writeBook` 这几个用到 `src/` 里的规则文件，微信云函数按文件夹单独打包，
+`enterHall`、`changeSeat`、`toast`、`wantToMeet`、`writeBook` 这几个用到 `src/` 里的规则文件，微信云函数按文件夹单独打包，
 不能 require 文件夹外的代码，**部署前必须先跑一遍同步**（改了 src/ 也要重跑）：
 
 ```bash
@@ -123,6 +125,9 @@ if (!r.ok) return { code: r.reason };
 | `not_sat_here` | 先坐下 慢慢写 |
 | `book_too_long` | 太长啦 真实情感的话 短一点也没关系（`saveProfile` 昵称、悄悄话超长也沿用这条） |
 | `toast_self` | 自己就不用敬了 |
+| `meet_self` | 自己就不用认识了（`wantToMeet`，新写，等阿鱼定） |
+| `meet_already` | 这句说过了（同一对只记一次；新写，等阿鱼定） |
+| `meet_not_met` | 先坐到一桌 或者敬一杯（不在同一桌、也没敬过酒；新写，等阿鱼定） |
 | `nick_too_short` | 【待补】`saveProfile` 最小校验加的（回执 02-总策划答复-2 第 4 条），昵称去空白后不够 2 字，没有现成文案能沿用，等总策划/阿鱼给一句 |
 
 ## 还没做（阶段 1 剩余）

@@ -82,7 +82,7 @@ func _init() -> void:
     var Main = load("res://scripts/main.gd")
     var server_reasons := ["bad_request", "book_too_long", "no_resident",
         "no_seat", "not_sat_here", "seat_taken", "toast_limit", "toast_same_person", "toast_self",
-        "sensitive", "reserved"]
+        "sensitive", "reserved", "meet_self", "meet_already", "meet_not_met"]   # meet_*：wantToMeet（想认识你，9/19）
     var missing: Array = []
     for reason in server_reasons:
         if not Main.REASONS.has(reason):

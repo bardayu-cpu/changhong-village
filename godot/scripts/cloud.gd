@@ -29,6 +29,8 @@ var fake_names := {
     "fake_li": {"nick": "小李", "avatar": 5, "inviter": "fake_wang"},
 }
 var fake_toasts_today: Array = []   # 我今天敬出去的杯数，敬过谁：[to openid, ...]（电脑上没有日期，跑一次当一天）
+var fake_toasted_me: Array = ["fake_wang"]   # 敬过我的人：和 enterHall 进厅提示里「老王敬了你一杯」对上；hallPulse 带回去的也记进来
+var fake_meet_sent: Array = []      # 我说过「想认识你」的人（wantToMeet；服务端是 friend_request 表）
 ## 翻簿子假数据（第 24 版）：T1 两条方便看接龙，T2 空的方便截空簿子截图。字段名照真实服务端
 ## readBook 的返回（`at`，不是 `created_at`——之前这里写错过，main.gd 读的是 `at`）
 var fake_book: Dictionary = {
@@ -235,6 +237,27 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 return {"ok": false, "reason": "toast_same_person"}
             fake_toasts_today.append(to)
             return {"ok": true}
+        "wantToMeet":
+            # 规则照抄服务端 server-claude/src/banquet.js 的 canWantToMeet + wantToMeet/index.js：缺 to → bad_request；
+            # 对自己 → meet_self；说过了 → meet_already；现在同一桌（长凳不算）或者敬过酒（谁敬谁都算）才行，不然 meet_not_met
+            var mto := str(data.get("to", ""))
+            if mto == "":
+                return {"ok": false, "reason": "bad_request"}
+            if mto == "fake_me":
+                return {"ok": false, "reason": "meet_self"}
+            if fake_meet_sent.has(mto):
+                return {"ok": false, "reason": "meet_already"}
+            var their_table := ""
+            for tid in fake_seats:
+                for st in fake_seats[tid]:
+                    if st["openid"] == mto:
+                        their_table = tid
+            var my_table := str(fake_me.get("table_id", ""))
+            var same_table := my_table != "" and my_table != "bench" and my_table == their_table
+            if not same_table and not fake_toasts_today.has(mto) and not fake_toasted_me.has(mto):
+                return {"ok": false, "reason": "meet_not_met"}
+            fake_meet_sent.append(mto)
+            return {"ok": true}
         "writeBook":
             # 规则照抄服务端 9/18 改过的 canWriteBook（src/banquet.js）：少字段 bad_request；
             # 桌子不是 fake_me 当前坐的桌 not_sat_here；空文本 bad_request；超过 100 字 book_too_long
@@ -273,6 +296,8 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             var nm := {}
             for ft in fake_pulse_toasts:
                 out.append({"from": ft["from"], "created_at": now})
+                if not fake_toasted_me.has(ft["from"]):
+                    fake_toasted_me.append(ft["from"])
                 nm[ft["from"]] = fake_names.get(ft["from"], {"nick": "", "avatar": -1})
             fake_pulse_toasts.clear()
             return {"ok": true, "now": now, "toasts": out, "names": nm}

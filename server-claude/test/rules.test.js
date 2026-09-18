@@ -218,6 +218,17 @@ eq(banquet.canToast({ ...toastBase, todayToastToCount: 1, testMode: true }).ok, 
 eq(banquet.canToast({ ...toastBase, to: 'A', testMode: true }).reason, 'toast_self', '测试模式：敬自己照样拒');
 eq(banquet.canToast({ ...toastBase, todayToastCount: 5, testMode: false }).reason, 'toast_limit', '测试模式关着：照常5杯封顶');
 
+// ---------- 宴会厅 · 想认识你（蓝图 3.2 加好友；9/19 总策划定「同桌」指现在同一桌，坐过不算） ----------
+const meetBase = { from: 'A', to: 'B', alreadySent: false, fromTableId: 'T3', toTableId: 'T5', toasted: false };
+eq(banquet.canWantToMeet({ ...meetBase, toTableId: 'T3' }), { ok: true, via: 'table' }, '想认识你：现在同一桌能发');
+eq(banquet.canWantToMeet({ ...meetBase, toasted: true }), { ok: true, via: 'toast' }, '想认识你：不同桌、敬过酒能发');
+eq(banquet.canWantToMeet(meetBase).reason, 'meet_not_met', '想认识你：不同桌、没敬过酒不能发（以前坐过同桌也不算，调用方只传现在的桌）');
+eq(banquet.canWantToMeet({ ...meetBase, to: 'A', toTableId: 'T3', toasted: true }).reason, 'meet_self', '想认识你：对自己不能发');
+eq(banquet.canWantToMeet({ ...meetBase, toTableId: 'T3', toasted: true, alreadySent: true }).reason, 'meet_already', '想认识你：同一对只记一次');
+eq(banquet.canWantToMeet({ ...meetBase, fromTableId: C.BANQUET_BENCH_ID, toTableId: C.BANQUET_BENCH_ID }).reason, 'meet_not_met', '想认识你：两人都坐长凳不算同桌');
+eq(banquet.canWantToMeet({ ...meetBase, fromTableId: C.BANQUET_BENCH_ID, toTableId: C.BANQUET_BENCH_ID, toasted: true }), { ok: true, via: 'toast' }, '想认识你：坐长凳敬过酒照样能发');
+eq(banquet.canWantToMeet({ ...meetBase, fromTableId: null, toTableId: null }).reason, 'meet_not_met', '想认识你：两人都没座位不算同桌');
+
 // ---------- 宴会厅 · 桌簿（蓝图 3.2 9/18 改：只能写「现在坐的那桌」，不再是「坐过的桌都能写」） ----------
 eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: 'T1', text: '恭喜恭喜' }).ok, true, '坐在T1写T1能写');
 eq(banquet.canWriteBook({ table: 'T2', mySeatTableId: 'T1', text: '恭喜恭喜' }).reason, 'not_sat_here', '坐在T1、写T2不行（哪怕以前坐过T2）');

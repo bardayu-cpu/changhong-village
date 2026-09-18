@@ -32,6 +32,10 @@ const LINE_TABLE := "想跟我们说点什么 写这儿 只有我们看得到"
 const LINE_LEAVE := "吃好了？走 带你回镇上"
 const LINE_TOASTED_FMT := "敬了 %s 一杯"   # 新写，等阿鱼定
 const LINE_CHEERS := "干杯"   # 敬酒插图上的大字，新写，等阿鱼定
+## 想认识你（蓝图 3.2 加好友，01 9/19 派）：看人卡片「敬一杯」旁边。现在同一桌、或者敬过酒（谁敬谁都算）才能发，服务端判；
+## 阶段 1 只记请求（云函数 wantToMeet 写 friend_request），对方看不到，好友关系在阶段 2
+const LINE_MEET := "想认识你"   # 按钮上的字，蓝图 3.2、阶段 1 设计 v1.1 §4 文案「加好友请求」
+const LINE_MEET_SENT_FMT := "想认识 %s 记下了"   # 发成功后顶部那句，新写，等阿鱼定
 const ToastScene = preload("res://scripts/toast_scene.gd")
 ## 席间小游戏（蓝图 3.2，阿鱼 9/19 定）：两桌一个，坐下后点桌心的菜或底下「玩·XX」开；金币只能玩出来，唯一去处是主桌添礼金
 const GameCfg = preload("res://scripts/games/game_config.gd")
@@ -107,6 +111,7 @@ var person_card_portrait: TextureRect
 var person_card_name: Label
 var person_card_inviter: Label
 var person_card_toast_btn: Button
+var person_card_meet_btn: Button     # 想认识你，挨着敬一杯
 var book_btn: Button      # 走到桌边、或坐在自己桌上时出现，「翻簿子」（第 24 版，蓝图 3.2）
 var near_table_id := ""   # hall.table_near 最新一次的内容
 var book_open := false
@@ -137,6 +142,8 @@ const REASONS := {
     "bad_request": "没连上 再试一下", "no_seat": "没连上 再试一下",
     # 敏感词模块（docs/敏感词模块-需求.md 第 2 节定稿文案，回执 05）：起昵称、写簿子命中都用这两句
     "sensitive": "换一个吧", "reserved": "这个名字留给主角了，换一个吧",
+    # 想认识你（01 9/19 派）：三句都是新写，等阿鱼定，照异常表的口吻（「自己就不用敬了」「这杯敬过了」「先坐下 慢慢写」）
+    "meet_self": "自己就不用认识了", "meet_already": "这句说过了", "meet_not_met": "先坐到一桌 或者敬一杯",
 }
 var nick_edit: LineEdit
 var nick_err: Label
@@ -771,7 +778,8 @@ func _build_hud() -> void:
     toast_back_btn.pressed.connect(_on_toast_back_pressed)
     ui.add_child(toast_back_btn)
 
-## 看人卡片（蓝图 3.2）：形象、昵称、「XX 带进来的」（没有邀请人或查不到邀请人昵称，整行不显示）、敬一杯。
+## 看人卡片（蓝图 3.2）：形象、昵称、「XX 带进来的」（没有邀请人或查不到邀请人昵称，整行不显示），
+## 底下一排两个按钮「敬一杯」「想认识你」（阶段 1 只显示这三样，9/19 总策划定）。
 ## 点卡片外面暗下去的地方关掉；字体里有「×」再加一个右上角关闭按钮（第 22 版）
 func _build_person_card() -> void:
     person_card = Control.new()
@@ -815,10 +823,19 @@ func _build_person_card() -> void:
     box.add_child(person_card_name)
     person_card_inviter = _label("", 24, MUTED)
     box.add_child(person_card_inviter)
+    var btns := HBoxContainer.new()
+    btns.add_theme_constant_override("separation", 12)
     person_card_toast_btn = Button.new()
     person_card_toast_btn.text = "敬一杯"
+    person_card_toast_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     person_card_toast_btn.pressed.connect(_on_toast_pressed)
-    box.add_child(person_card_toast_btn)
+    btns.add_child(person_card_toast_btn)
+    person_card_meet_btn = Button.new()
+    person_card_meet_btn.text = LINE_MEET
+    person_card_meet_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    person_card_meet_btn.pressed.connect(_on_meet_pressed)
+    btns.add_child(person_card_meet_btn)
+    box.add_child(btns)
     ui.add_child(person_card)
 
 ## 形象取法照选形象界面：GPT 画的图集有就取正面 idle 帧做 AtlasTexture，没有就代码画的占位；
@@ -928,6 +945,8 @@ func _open_person_card(openid: String) -> void:
     _set_person_portrait(int(info.get("avatar", -1)))
     person_card_toast_btn.disabled = false
     person_card_toast_btn.text = "敬一杯"
+    person_card_meet_btn.disabled = false
+    person_card_meet_btn.text = LINE_MEET
     person_card.visible = true
     hall.walking_enabled = false
     _refresh_seat_buttons()
@@ -1342,9 +1361,29 @@ func _on_person_pressed() -> void:
 func _on_toast_pressed() -> void:
     if card_openid == "" or person_card_toast_btn.disabled:
         return
-    person_card_toast_btn.disabled = true   # 先置灰防连点
+    person_card_toast_btn.disabled = true   # 先置灰防连点；想认识你也一起置灰，结果回来卡片就关了
+    person_card_meet_btn.disabled = true
     var target := card_openid
     cloud.call_fn("toast", {"to": target}, func(r): _on_toast_result(r, target))
+
+## 想认识你：发给服务端判（现在同一桌、或者敬过酒；同一对只记一次），客户端不先拦
+func _on_meet_pressed() -> void:
+    if card_openid == "" or person_card_meet_btn.disabled:
+        return
+    person_card_meet_btn.disabled = true    # 先置灰防连点，敬一杯也一起
+    person_card_toast_btn.disabled = true
+    var target := card_openid
+    cloud.call_fn("wantToMeet", {"to": target}, func(r): _on_meet_result(r, target))
+
+## 成了顶部说一句「想认识 XX 记下了」，没成说原因；两样都先关卡片（和敬酒一样，提示在卡片底下会被暗底盖住）
+func _on_meet_result(r: Dictionary, target: String) -> void:
+    _close_person_card()
+    if bool(r.get("ok", false)):
+        var nick := str((hall.resident_names.get(target, {}) as Dictionary).get("nick", ""))
+        _note(LINE_MEET_SENT_FMT % (nick if nick != "" else "有人"))
+        print("[suqi] 想认识你 记下了 ", nick)
+    else:
+        _note(_reason_text(r, "想认识你"))
 
 ## known：回敬时带过来的对方昵称、形象（对方可能是我进厅以后才进来的，hall.resident_names 里没有他）
 func _on_toast_result(r: Dictionary, target: String, known := {}) -> void:
@@ -1385,9 +1424,10 @@ func _restack_top() -> void:
     ui.move_child(fade, -1)
 
 ## 被敬以后在顶部那句提示右边出「回敬一杯」。先 _note 出那句提示再调：按钮认的是那一句（note_token），
-## 提示换了一句或者收了（TOAST_BACK_SECS 秒），按钮一起收，见 _layout_top。开着小游戏时不出（提示也被小游戏盖着）
+## 提示换了一句或者收了（TOAST_BACK_SECS 秒），按钮一起收，见 _layout_top。开着小游戏时不出（提示也被小游戏盖着）；
+## 看人卡片、簿子开着时也不出：提示被它们的暗底盖着，按钮却浮在最上面，压在卡片上（9/19 做想认识你时截图看到的）
 func _offer_toast_back(from: String, info: Dictionary) -> void:
-    if from == "" or from == cloud.openid() or is_instance_valid(game_host):
+    if from == "" or from == cloud.openid() or is_instance_valid(game_host) or card_open or book_open:
         return
     toast_back_to = from
     toast_back_info = info
@@ -1722,9 +1762,10 @@ func _layout_top() -> void:
         dialog.offset_top = y
         dialog.offset_bottom = y
         y += dialog.size.y + 10.0
-    # 回敬按钮跟着它那一句提示走：提示换了、收了，离开宴会厅、开了小游戏，按钮一起收
+    # 回敬按钮跟着它那一句提示走：提示换了、收了，离开宴会厅、开了小游戏、开了看人卡片或簿子，按钮一起收
+    # （卡片上本来就有「敬一杯」，簿子关了回头再点那人也一样）
     if toast_back_btn.visible and (note_token != toast_back_note or not note_box.visible
-            or state != "banquet" or is_instance_valid(game_host)):
+            or state != "banquet" or is_instance_valid(game_host) or card_open or book_open):
         _clear_toast_back()
     var right := 14.0
     if toast_back_btn.visible:
@@ -2014,7 +2055,7 @@ func _setup_shot(shot: String) -> void:
                 hall.reset_to(hall.chair_world(hall._table_cfg("T1"), 1))
                 await get_tree().process_frame
         "card":
-            # 卡片打开：形象、昵称、「老王 带进来的」、敬一杯（第 22 版）
+            # 卡片打开：形象、昵称、「老王 带进来的」、底下「敬一杯」「想认识你」（第 22 版；想认识你 01 9/19 派）
             nickname = "小李"
             await _enter_banquet()
             if USE_LAYERED:
@@ -2026,6 +2067,20 @@ func _setup_shot(shot: String) -> void:
             nickname = "小李"
             await _enter_banquet()
             _note(LINE_TOASTED_FMT % "老王")
+            await get_tree().process_frame
+        "meet_sent", "meet_not_met":
+            # 想认识你（01 9/19 派，文案新写，等阿鱼定）：我坐 T1，老王也在 T1，发得出去，顶部「想认识 老王 记下了」；
+            # 小李在 T2、没敬过酒，顶部「先坐到一桌 或者敬一杯」
+            nickname = "阿花"
+            await _enter_banquet()
+            hall.couple_armed = false
+            dialog.visible = false
+            await _shot_skip_entry_toast()
+            var who := "fake_wang" if shot == "meet_sent" else "fake_li"
+            if USE_LAYERED:
+                hall.reset_to(hall.chair_world(hall._table_cfg("T1" if shot == "meet_sent" else "T2"), 1 if shot == "meet_sent" else 4))
+            _open_person_card(who)
+            _on_meet_pressed()
             await get_tree().process_frame
         "book":
             # 翻簿子：坐在 T1，面板打开，有几条句子，能写（第 24 版）

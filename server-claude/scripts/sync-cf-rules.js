@@ -21,6 +21,8 @@ const NEEDS = {
   // changeSeat 9/18 起不再需要 time.js：canChangeSeat 去掉了「今天换过几次」的判定
   changeSeat: ['config.js', 'banquet.js'],
   toast: ['config.js', 'time.js', 'banquet.js'],
+  // wantToMeet（想认识你，9/19）：canWantToMeet 要 config.js 的长凳 id
+  wantToMeet: ['config.js', 'banquet.js'],
   writeBook: ['config.js', 'banquet.js', 'sensitive.js'],
   readBook: ['config.js'],
   saveProfile: ['config.js', 'resident.js', 'sensitive.js'],

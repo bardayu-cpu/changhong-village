@@ -95,6 +95,32 @@ function canToast(ctx) {
   return { ok: true };
 }
 
+// ============ 想认识你 ============
+
+/**
+ * 能不能对这个人说「想认识你」（蓝图 3.2 加好友：同桌、敬过酒的人可以发）
+ * 9/19 总策划定：「同桌」指现在同一桌，两人此刻都坐在这桌，坐过不算（跟桌簿只认现在坐的桌同一个理）。
+ * 阶段 1 只记请求（friend_request 表），对方看不到；好友关系本身在阶段 2。
+ * @param ctx {{
+ *   from: string, to: string,
+ *   alreadySent: boolean,       from 以前对 to 说过。同一对只记一次；反过来 to 对 from 说是另一条，不拦
+ *   fromTableId: string|null,   from 现在坐的桌（seat 表的 table_id），没座位是 null
+ *   toTableId: string|null,     to 现在坐的桌，没座位是 null
+ *   toasted: boolean,           两人之间有敬酒记录：谁敬谁都算，哪天敬的都算
+ * }}
+ * 长凳（config.BANQUET_BENCH_ID）不算一桌：长凳人数不限，算的话坐长凳的人互相都能发，
+ * 「现在同一桌」就拦不住乱发了。坐长凳的人敬过酒照样能发
+ * @returns {{ok:true, via:'table'|'toast'} | {ok:false, reason:string}}
+ */
+function canWantToMeet(ctx) {
+  const { from, to, alreadySent, fromTableId, toTableId, toasted } = ctx;
+  if (from === to) return { ok: false, reason: 'meet_self' };
+  if (alreadySent) return { ok: false, reason: 'meet_already' };
+  if (fromTableId && fromTableId === toTableId && fromTableId !== C.BANQUET_BENCH_ID) return { ok: true, via: 'table' };
+  if (toasted) return { ok: true, via: 'toast' };
+  return { ok: false, reason: 'meet_not_met' };
+}
+
 // ============ 桌簿 ============
 
 /**
@@ -139,4 +165,4 @@ function arrivalDigest(ctx) {
   };
 }
 
-module.exports = { assignSeat, canChangeSeat, canToast, canWriteBook, arrivalDigest };
+module.exports = { assignSeat, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest };

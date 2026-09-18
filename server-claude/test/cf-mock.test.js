@@ -887,6 +887,97 @@ async function scenarioSaveProfileGameDishesMergeNotOverwrite() {
 }
 
 // ---------- 跑全部场景 ----------
+// ================= 想认识你（wantToMeet，蓝图 3.2 加好友，01 9/19 派） =================
+// 现在同一桌、或者敬过酒（哪个方向都算）才能发；同一对只记一次；对自己不行；长凳不算一桌；坐过同桌不算
+async function scenarioWantToMeet() {
+  const { sdk, state } = createFakeSdk();
+  const mkSeat = (id, tableId, chairNo, satTables) => ({
+    _id: id, openid: id, table_id: tableId, chair_no: chairNo, sat_tables: satTables || [tableId],
+  });
+  seed(state, 'seat', mkSeat('m_A', 'T3', 1, ['T5', 'T3']));   // A 以前坐过 T5，现在在 T3
+  seed(state, 'seat', mkSeat('m_B', 'T3', 2));                 // B 跟 A 现在同桌
+  seed(state, 'seat', mkSeat('m_C', 'T5', 1));                 // C 在 T5：A 坐过这桌，但现在不同桌
+  seed(state, 'seat', mkSeat('m_D', 'T7', 1));                 // D 在 T7：A 敬过 D
+  seed(state, 'seat', mkSeat('m_E', 'T8', 1));                 // E 在 T8：E 敬过 A
+  seed(state, 'seat', mkSeat('m_F', 'bench', null, []));       // F、G 都坐长凳，没敬过酒
+  seed(state, 'seat', mkSeat('m_G', 'bench', null, []));
+  seed(state, 'seat', mkSeat('m_H', 'bench', null, []));       // H 也坐长凳，F 敬过 H
+  seed(state, 'toast', { _id: 'mt1', from: 'm_A', to: 'm_D', date: '2026-09-17', created_at: 1 });
+  seed(state, 'toast', { _id: 'mt2', from: 'm_E', to: 'm_A', date: '2026-09-18', created_at: 2 });
+  seed(state, 'toast', { _id: 'mt3', from: 'm_F', to: 'm_H', date: '2026-09-19', created_at: 3 });
+  const reqs = () => Array.from((state.collections.friend_request || new Map()).values());
+  const send = async (from, data) => {
+    state.currentOpenid = from;
+    return loadCloudFunction('wantToMeet', sdk).main(data);
+  };
+
+  // 现在同一桌：能发，记一条 pending
+  let res = await send('m_A', { to: 'm_B' });
+  check(res.ok === true, `想认识你 同桌能发（实际 ${JSON.stringify(res)}）`);
+  let r = reqs().find(x => x.from === 'm_A' && x.to === 'm_B');
+  check(!!r && r.status === 'pending' && r.via === 'table' && typeof r.created_at === 'number' && r.created_at > 0,
+    `想认识你 记下 from、to、created_at、status=pending、via=table（实际 ${JSON.stringify(r)}）`);
+
+  // 同一对再发：拒，不多记
+  res = await send('m_A', { to: 'm_B' });
+  check(res.ok === false && res.reason === 'meet_already', `想认识你 同一对只记一次（实际 ${JSON.stringify(res)}）`);
+  check(reqs().filter(x => x.from === 'm_A' && x.to === 'm_B').length === 1, '想认识你 重复发不多记');
+
+  // 反过来 B 对 A 说：是另一条，照样能发
+  res = await send('m_B', { to: 'm_A' });
+  check(res.ok === true && reqs().some(x => x.from === 'm_B' && x.to === 'm_A'), `想认识你 反过来另算一条（实际 ${JSON.stringify(res)}）`);
+
+  // A 敬过 D（前天）：不同桌也能发
+  res = await send('m_A', { to: 'm_D' });
+  check(res.ok === true && reqs().some(x => x.from === 'm_A' && x.to === 'm_D' && x.via === 'toast'), `想认识你 我敬过对方能发（实际 ${JSON.stringify(res)}）`);
+
+  // E 敬过 A：A 对 E 也能发（谁敬谁都算）
+  res = await send('m_A', { to: 'm_E' });
+  check(res.ok === true && reqs().some(x => x.from === 'm_A' && x.to === 'm_E' && x.via === 'toast'), `想认识你 对方敬过我也能发（实际 ${JSON.stringify(res)}）`);
+
+  // C 在 A 以前坐过的桌，没敬过酒：拒（坐过不算），不记
+  const before = reqs().length;
+  res = await send('m_A', { to: 'm_C' });
+  check(res.ok === false && res.reason === 'meet_not_met', `想认识你 不同桌、没敬过酒不能发，坐过同桌不算（实际 ${JSON.stringify(res)}）`);
+
+  // 对自己：拒
+  res = await send('m_A', { to: 'm_A' });
+  check(res.ok === false && res.reason === 'meet_self', `想认识你 对自己不能发（实际 ${JSON.stringify(res)}）`);
+
+  // 两人都坐长凳、没敬过酒：长凳不算一桌，拒；坐长凳敬过酒的照样能发
+  res = await send('m_F', { to: 'm_G' });
+  check(res.ok === false && res.reason === 'meet_not_met', `想认识你 都坐长凳不算同桌（实际 ${JSON.stringify(res)}）`);
+  res = await send('m_H', { to: 'm_F' });
+  check(res.ok === true, `想认识你 坐长凳、敬过酒能发（实际 ${JSON.stringify(res)}）`);
+
+  // 对方从没进过厅（没座位）、也没敬过酒：拒
+  res = await send('m_A', { to: 'm_nobody' });
+  check(res.ok === false && res.reason === 'meet_not_met', `想认识你 对方没座位没敬过酒不能发（实际 ${JSON.stringify(res)}）`);
+  check(reqs().length === before + 1, `想认识你 被拒的都没记（实际多了 ${reqs().length - before} 条，应只有长凳敬过酒那 1 条）`);
+
+  // 缺 to：bad_request
+  res = await send('m_A', {});
+  check(res.ok === false && res.reason === 'bad_request', `想认识你 缺 to 回 bad_request（实际 ${JSON.stringify(res)}）`);
+}
+
+// 数据库出错：回 network（客户端显示「没连上 再试一下」），不抛出去
+async function scenarioWantToMeetDbError() {
+  const { sdk, state } = createFakeSdk();
+  state.currentOpenid = 'm_A';
+  const originalDatabase = sdk.database;
+  sdk.database = () => {
+    const realDb = originalDatabase();
+    return Object.assign({}, realDb, {
+      collection(name) {
+        if (name === 'friend_request') throw new Error('模拟数据库异常');
+        return realDb.collection(name);
+      },
+    });
+  };
+  const res = await loadCloudFunction('wantToMeet', sdk).main({ to: 'm_B' });
+  check(res.ok === false && res.reason === 'network', `想认识你 数据库出错回 network（实际 ${JSON.stringify(res)}）`);
+}
+
 (async () => {
   await scenarioSeatPagination();
   await scenarioReadBookLatest200();
@@ -898,6 +989,8 @@ async function scenarioSaveProfileGameDishesMergeNotOverwrite() {
   await scenarioSaveProfileWordRejected();
   await scenarioReservedNameExemptions();
   await scenarioSaveProfileCheckIn();
+  await scenarioWantToMeet();
+  await scenarioWantToMeetDbError();
   await scenarioHallPulseInvalidSince();
   await scenarioHallPulseGetsNewToast();
   await scenarioHallPulseNoDuplicateOnNextPoll();

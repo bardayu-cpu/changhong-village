@@ -1,7 +1,8 @@
 extends SceneTree
 ## 验收：回敬（蓝图 3.2「可回敬一次」，01 9/19 派）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 被敬以后（进厅提示、厅里当场收到两种）顶部那句提示右边出「回敬一杯」，跟着那句提示留 6 秒；
-## 点了直接敬回去，几个人一起敬的回敬最新那位；每天几杯、敬过没有由服务端定；按钮浮在干杯插图上面也点得到
+## 点了直接敬回去，几个人一起敬的回敬最新那位；每天几杯、敬过没有由服务端定；按钮浮在干杯插图上面也点得到；
+## 开着小游戏、看人卡片、簿子时不出
 ## 用法：Godot --headless --path . --script res://tools/test_toast_back.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -154,6 +155,25 @@ func run() -> void:
     check("不出按钮", not m.toast_back_btn.visible and m.toast_back_to == "")
     m.game_host = null
     fake_game.free()
+
+    # 8b. 看人卡片、簿子开着：按钮不出、已经出了的收掉（提示被暗底盖着，按钮不能浮在卡片上）
+    print("8b 开着看人卡片、簿子")
+    m._open_person_card("fake_wang")
+    await pulse([{"from": "fake_li", "created_at": 820}], {"fake_li": {"nick": "小李", "avatar": 5}})
+    check("卡片开着收到敬酒：不出按钮", not m.toast_back_btn.visible and m.toast_back_to == "")
+    m._close_person_card()
+    await pulse([{"from": "fake_li", "created_at": 840}], {"fake_li": {"nick": "小李", "avatar": 5}})
+    check("出按钮", m.toast_back_btn.visible)
+    m._open_person_card("fake_wang")
+    await frames(2)
+    check("打开卡片：按钮收了", not m.toast_back_btn.visible and m.toast_back_to == "")
+    m._close_person_card()
+    await pulse([{"from": "fake_li", "created_at": 860}], {"fake_li": {"nick": "小李", "avatar": 5}})
+    check("出按钮", m.toast_back_btn.visible)
+    m._open_book_panel("T1")
+    await frames(2)
+    check("打开簿子：按钮收了", not m.toast_back_btn.visible and m.toast_back_to == "")
+    m._close_book_panel()
 
     # 9. 离开宴会厅，按钮收
     print("9 离开宴会厅")
