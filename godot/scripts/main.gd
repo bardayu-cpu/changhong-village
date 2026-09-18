@@ -15,6 +15,19 @@ const LINE_LEAVE := "吃好了？走 带你回镇上"
 const LINE_TOASTED_FMT := "敬了 %s 一杯"   # 新写，等阿鱼定
 const LINE_CHEERS := "干杯"   # 敬酒插图上的大字，新写，等阿鱼定
 const ToastScene = preload("res://scripts/toast_scene.gd")
+## 席间小游戏（蓝图 3.2，阿鱼 9/19 定）：两桌一个，坐下后点桌心的菜或底下「玩·XX」开；金币只能玩出来，唯一去处是主桌添礼金
+const GameCfg = preload("res://scripts/games/game_config.gd")
+const GameSave = preload("res://scripts/games/game_save.gd")
+const GameHost = preload("res://scripts/games/game_host.gd")
+const LINE_SIT_FIRST_GAME := "先坐下 再玩"   # 在自己没坐着的桌点桌心的菜（蓝图 3.2 异常表：文案待阿鱼定），新写
+const LINE_GIFT_DONE_FMT := "添了 %d 金 礼金簿记上了"   # 主桌添礼金以后，新写，等阿鱼定
+const GIFT_CHOICES := [8, 88, 188, 888]
+var games_save
+var game_host: Control
+var play_btn: Button            # 坐在有小游戏的桌上时出现：「玩·吃席」
+var coins_chip: Label           # 右上角：手上几金
+var gift_row: HBoxContainer     # 写悄悄话的框里：「手上 N 金 添礼金」，有金币才出
+var gift_pick: HBoxContainer    # 点「添礼金」以后换成几个数目
 ## 在厅里时每隔几秒问一次服务端「有没有人刚敬我」（云函数 hallPulse，阿鱼 9/18 晚：被敬的人在线要当场知道）
 const PULSE_EVERY := 8.0
 var pulse_t := 0.0
@@ -150,6 +163,9 @@ func _ready() -> void:
     view.add_child(sv)
     cloud = CloudRpc.new()
     add_child(cloud)
+    games_save = GameSave.new()
+    games_save.load_local()
+    games_save.saver = _save_games
     hall = LayeredHall.new() if USE_LAYERED else Hall.new()
     sv.add_child(hall)
     hall.build(preset, "", font)
@@ -159,6 +175,7 @@ func _ready() -> void:
         hall.chair_near.connect(_on_chair_near)
         hall.person_near.connect(_on_person_near)
         hall.table_near.connect(_on_table_near)
+        hall.game_tap.connect(_on_game_tap)
     hall.walking_enabled = false
     _build_ui()
     print("[suqi] 界面搭好了")
@@ -276,6 +293,8 @@ func _read_js_log() -> String:
 func _process(dt: float) -> void:
     if dialog != null:
         _layout_top()
+    if coins_chip != null and state == "banquet":
+        coins_chip.text = "%d 金" % games_save.coins
     if state == "banquet" and hall_ready and not pulse_busy:
         pulse_t += dt
         # 进厅后先对一次表（1 秒后），之后每 PULSE_EVERY 秒问一次
@@ -510,6 +529,15 @@ func _build_hud() -> void:
     chip.position = Vector2(14, 14)
     chip.add_child(_label("● 罗曼山庄", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
     hud.add_child(chip)
+    var cchip := PanelContainer.new()
+    cchip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
+    cchip.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+    cchip.offset_left = -150
+    cchip.offset_right = -14
+    cchip.offset_top = 14
+    coins_chip = _label("0 金", 24, GOLD1, HORIZONTAL_ALIGNMENT_RIGHT, false)
+    cchip.add_child(coins_chip)
+    hud.add_child(cchip)
     stick_base = _ring(STICK_R * 2.0, Color(1, 1, 1, 0.08), Color(GOLD, 0.6))
     stick_knob = _ring(56.0, Color(GOLD1, 0.4), Color(GOLD1, 0.85))
     hud.add_child(stick_base)
@@ -565,6 +593,15 @@ func _build_hud() -> void:
     book_btn.offset_bottom = -120
     book_btn.pressed.connect(_on_book_btn_pressed)
     hud.add_child(book_btn)
+    play_btn = Button.new()
+    play_btn.visible = false
+    play_btn.clip_text = true
+    play_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    play_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    play_btn.offset_top = -170
+    play_btn.offset_bottom = -120
+    play_btn.pressed.connect(func(): _open_game(str(hall.my_seat.get("table_id", ""))))
+    hud.add_child(play_btn)
     # 阿鱼说话的对白框：原来在屏幕底下，阿鱼 9/17 要放到屏幕上方（底下留给按钮和操作盘）
     dialog = PanelContainer.new()
     dialog.set_anchors_preset(Control.PRESET_TOP_WIDE)
@@ -599,6 +636,21 @@ func _build_hud() -> void:
     whisper_ok.pressed.connect(_send_whisper)
     wr.add_child(whisper_ok)
     wv.add_child(wr)
+    # 主桌添礼金（蓝图 3.2 9/19）：小游戏玩出来的金币添给新人，服务端礼金簿记一笔。没金币这一行不出
+    gift_row = HBoxContainer.new()
+    var gl := _label("", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false)
+    gl.name = "coins"
+    gl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    gift_row.add_child(gl)
+    var gb := Button.new()
+    gb.text = "添礼金"
+    gb.pressed.connect(_open_gift_pick)
+    gift_row.add_child(gb)
+    wv.add_child(gift_row)
+    gift_pick = HBoxContainer.new()
+    gift_pick.add_theme_constant_override("separation", 8)
+    gift_pick.visible = false
+    wv.add_child(gift_pick)
     whisper_box.add_child(wv)
     whisper_box.visible = false
     hud.add_child(whisper_box)
@@ -789,6 +841,11 @@ func _goto(s: String) -> void:
         person_btn.visible = false
     if book_btn != null and s != "banquet":
         book_btn.visible = false
+    if play_btn != null and s != "banquet":
+        play_btn.visible = false
+    if is_instance_valid(game_host) and s != "banquet":
+        game_host.queue_free()
+        game_host = null
     if person_card != null and s != "banquet" and card_open:
         card_open = false
         card_openid = ""
@@ -882,6 +939,10 @@ func _on_enter_hall(r: Dictionary) -> void:
     var d: Dictionary = r["data"]
     hall.set_seats(d, cloud.openid())
     hall_ready = true   # 席位拿到了，开始每隔几秒问 hallPulse
+    # 小游戏的金币、进度：服务端有就以服务端为准（换手机还在）；还没部署新版 enterHall 时没有 mine，用本机的
+    if d.has("mine"):
+        games_save.apply_cloud(d["mine"])
+    print("[suqi] 小游戏存档 金 ", games_save.coins, " 进度 ", games_save.games)
     # 真机排查用：这厅有多少人、带邀请人的有几个（看人卡片「XX 带进来的」靠这个字段）
     var with_inviter := 0
     for k in hall.resident_names:
@@ -930,7 +991,7 @@ func _on_table_near(table_id: String) -> void:
 ## 「坐这儿」「昵称」「翻簿子」三个按钮的显示状态统一在这里算（第 22 版规则 7，第 24 版加翻簿子）：
 ## 卡片或翻簿子面板开着、或不在宴会厅里，全部收起；「坐这儿」进了确认文案时另外两个先让开，免得并排挤在一起
 func _refresh_seat_buttons() -> void:
-    var blocked: bool = card_open or book_open or state != "banquet"
+    var blocked: bool = card_open or book_open or state != "banquet" or is_instance_valid(game_host)
     if blocked or int(near_seat_info.get("chair_no", 0)) == 0:
         sit_btn.visible = false
     else:
@@ -949,6 +1010,13 @@ func _refresh_seat_buttons() -> void:
         book_btn.visible = false
     else:
         book_btn.visible = true
+    # 玩·XX：坐在自己的椅子上、这桌有小游戏才出（蓝图 3.2：坐在这桌才能开这桌的游戏）
+    var my_game: Dictionary = GameCfg.game_for_table(str(hall.my_seat.get("table_id", ""))) if USE_LAYERED else {}
+    if blocked or whisper_box.visible or sit_confirming or not (USE_LAYERED and hall.seated) or my_game.is_empty():
+        play_btn.visible = false
+    else:
+        play_btn.text = "玩·" + GameCfg.title(my_game)
+        play_btn.visible = true
     _layout_seat_buttons()
 
 ## 1～3 个都要能排（第 24 版起加了翻簿子）。这一路 UI 都按 540 宽竖屏设计，用固定像素挪位置，
@@ -959,6 +1027,7 @@ func _layout_seat_buttons() -> void:
     var slots: Array[Button] = []
     if person_btn.visible: slots.append(person_btn)
     if book_btn.visible: slots.append(book_btn)
+    if play_btn.visible: slots.append(play_btn)
     if sit_btn.visible: slots.append(sit_btn)
     match slots.size():
         1:
@@ -1046,6 +1115,69 @@ func _on_pulse(r: Dictionary) -> void:
     if USE_LAYERED:
         hall.toasted_me()
     _play_toast(_avatar_of(info), preset, line)
+
+# ---------- 席间小游戏（蓝图 3.2，阿鱼 9/19） ----------
+## 点了某张桌桌心的菜：坐在这桌就开这桌的游戏；没坐在这桌就提示先坐下（人照样往那边走）
+func _on_game_tap(table_id: String) -> void:
+    if hall.seated and str(hall.my_seat.get("table_id", "")) == table_id:
+        _open_game(table_id)
+    else:
+        _note(LINE_SIT_FIRST_GAME, 2.5)
+
+func _open_game(table_id: String) -> void:
+    var g := GameCfg.game_for_table(table_id)
+    if g.is_empty() or is_instance_valid(game_host) or card_open or book_open or whisper_box.visible:
+        return
+    hall.walking_enabled = false
+    hall.stick = Vector2.ZERO
+    game_host = GameHost.new()
+    ui.add_child(game_host)
+    game_host.closed.connect(_on_game_closed)
+    game_host.open(str(g["id"]), table_id, games_save, font, OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args())
+    print("[suqi] 开小游戏 ", g["id"], " 在 ", table_id)
+    _refresh_seat_buttons()
+
+func _on_game_closed() -> void:
+    game_host = null
+    hall.walking_enabled = state == "banquet" and not whisper_box.visible
+    _refresh_seat_buttons()
+
+## 存档：GameSave 每次有变化调这里，存进住民资料（saveProfile 的新字段，待部署）；done(成功没有)
+func _save_games(payload: Dictionary, done: Callable) -> void:
+    cloud.call_fn("saveProfile", payload, func(r):
+        var ok := bool(r.get("ok", false))
+        if not ok:
+            print("[suqi] 小游戏存档没存上 ", str(r.get("reason", "")))
+        done.call(ok))
+
+## 写悄悄话的框里「手上 N 金 添礼金」：有金币才出
+func _refresh_gift_row() -> void:
+    gift_pick.visible = false
+    gift_row.visible = games_save.coins > 0
+    (gift_row.get_node("coins") as Label).text = "手上 %d 金" % games_save.coins
+
+func _open_gift_pick() -> void:
+    for c in gift_pick.get_children():
+        c.queue_free()
+    var amounts: Array = GIFT_CHOICES.filter(func(n): return n < games_save.coins)
+    amounts.append(games_save.coins)   # 最后一个是「全部」
+    for n in amounts:
+        var b := Button.new()
+        b.text = ("全部 %d" % n) if n == games_save.coins else str(n)
+        b.pressed.connect(_give_gift.bind(int(n)))
+        gift_pick.add_child(b)
+    var back := Button.new()
+    back.text = "算了"
+    back.pressed.connect(_refresh_gift_row)
+    gift_pick.add_child(back)
+    gift_row.visible = false
+    gift_pick.visible = true
+
+func _give_gift(n: int) -> void:
+    if games_save.give_gift(n):
+        print("[suqi] 添礼金 ", n, " 金，累计 ", games_save.gift_coins)
+        _note(LINE_GIFT_DONE_FMT % n, 3.0)
+    _refresh_gift_row()
 
 func _on_book_btn_pressed() -> void:
     if near_table_id != "":
@@ -1249,6 +1381,7 @@ func _on_reached(what: String) -> void:
         whisper_box.visible = true
         whisper_edit.grab_focus()
         _check_whisper_ui()
+        _refresh_gift_row()
         _refresh_seat_buttons()   # 写悄悄话的框开着时昵称按钮也收起，别叠在一起
     elif what == "exit":
         await _fade_to(1.0)
@@ -1393,7 +1526,31 @@ func _stick_rest() -> void:
     stick_knob.modulate.a = 0.45
 
 # ---------- 自动截图（开发用） ----------
+## 小游戏截图：game_<id> 坐到这个游戏的第一张桌、打开开始卡；game_<id>_play 再点开始、玩一会儿
+func _shot_game(shot: String) -> void:
+    var parts := shot.split("_")
+    var id := parts[1]
+    nickname = "小李"
+    await _enter_banquet()
+    hall.couple_armed = false
+    dialog.visible = false
+    var g := GameCfg.game(id)
+    if g.is_empty():
+        return
+    var tid := str(g["tables"][0])
+    hall.apply_change(tid, 5, cloud.openid())
+    for i in 30: await get_tree().process_frame
+    _open_game(tid)
+    await get_tree().process_frame
+    await get_tree().process_frame
+    if shot.ends_with("_play") and is_instance_valid(game_host):
+        game_host._start()
+        for i in 30: await get_tree().process_frame
+
 func _setup_shot(shot: String) -> void:
+    if shot.begins_with("game_"):
+        await _shot_game(shot)
+        return
     match shot:
         "title":
             _goto("title")
@@ -1505,6 +1662,15 @@ func _setup_shot(shot: String) -> void:
             hall.couple_armed = false
             hall.reset_to(Vector2(330, 845) if USE_LAYERED else Vector2(-4.8, -3.6))
             dialog.visible = false
+        "gift":
+            # 主桌添礼金（蓝图 3.2 9/19）：手上 120 金，走到主桌前，点了「添礼金」出几个数目
+            cloud.fake_mine["coins"] = 120
+            nickname = "小李"
+            await _enter_banquet()
+            for i in 20: await get_tree().process_frame
+            hall.reset_to(hall.near(hall.COUPLE_SPOT, Vector2(0.2, 0.6)))
+            for i in 5: await get_tree().process_frame
+            _open_gift_pick()
         "toast_send", "toast_recv":
             # 敬酒的样子（阿鱼 9/18 晚）：send 我敬坐着的小李——小李站起来、我举杯、干杯插图；
             # recv 我坐在 T1，hallPulse 带回「老王刚敬了我」——我站起来举杯、同一张插图

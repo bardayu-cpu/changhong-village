@@ -7,6 +7,7 @@ signal reached(what: String)
 
 const Spr = preload("res://scripts/sprites.gd")
 const Life = preload("res://scripts/hall_life.gd")
+const GameCfg = preload("res://scripts/games/game_config.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
 ## 走路速度备选两档（HANDOFF：3.2 备选 2.4，阿鱼真机比一比）；调试版右下角的按钮切换 speed_m
@@ -333,7 +334,14 @@ func tap(screen: Vector2) -> void:
     if not walking_enabled:
         return
     var t0 := Time.get_ticks_usec()
-    go_to(get_viewport().get_canvas_transform().affine_inverse() * screen)
+    var wp := get_viewport().get_canvas_transform().affine_inverse() * screen
+    # 点到桌心的菜（椅位圈中间那一块）：告诉 main 开这桌的小游戏。坐在这桌就不走路（一走就站起来了）
+    var tid := table_at(wp)
+    if tid != "":
+        game_tap.emit(tid)
+        if seated and str(my_seat.get("table_id", "")) == tid:
+            return
+    go_to(wp)
     var ms := (Time.get_ticks_usec() - t0) / 1000.0
     if ms > 20.0:
         print("[suqi] 寻路用了 %d 毫秒" % int(ms))
@@ -382,6 +390,15 @@ func reset_to(p: Vector2) -> void:
     snap_cam()
     # 传送到新位置：椅子按钮、昵称按钮该收的收、该冒的冒，不等 0.15 秒的自然扫描
     _scan_chairs(1.0)
+
+## 这个点落在哪张桌的桌心（椅位圈中间、放菜的那块桌面）；都不在返回 ""
+func table_at(wp: Vector2) -> String:
+    for t in cfg.get("tables", []):
+        var c := _seat_center(t) + Vector2(0, -4)
+        var d := wp - c
+        if (d.x / 52.0) * (d.x / 52.0) + (d.y / 30.0) * (d.y / 30.0) <= 1.0:
+            return str(t["id"])
+    return ""
 
 ## 截图用：从某个点往旁边挪几米（换成这一行的像素）
 func near(p: Vector2, v_m: Vector2) -> Vector2:
@@ -520,6 +537,7 @@ func _process(dt: float) -> void:
 signal chair_near(table_id: String, chair_no: int)   # 走到空椅子旁触发；chair_no 0 表示离开了
 signal person_near(openid: String)   # 走到「有人坐、不是自己」的椅子旁触发（看人、敬酒，蓝图 3.2）；"" 表示走开了
 signal table_near(table_id: String)   # 走到桌边（翻簿子，第 24 版）；"" 表示走开了
+signal game_tap(table_id: String)     # 点了某张桌桌心的菜（席间小游戏，蓝图 3.2 9/19：坐下后点桌心的菜开游戏）
 
 var seats_holder: Node2D
 var seat_tags: Node2D
@@ -580,6 +598,7 @@ func set_seats(data: Dictionary, me_id: String) -> void:
     my_openid = me_id
     var names: Dictionary = data.get("names", {})
     resident_names = names
+    var signed := {}
     var by_id := {}
     for t in cfg.get("tables", []):
         by_id[t["id"]] = t
@@ -603,17 +622,31 @@ func set_seats(data: Dictionary, me_id: String) -> void:
             var at := chair_world(t, no)
             _seated(info, at, _seat_center(t), seat_in_front(t, at), str(s["openid"]))
         if table_names.has(tb["id"]):
+            signed[tb["id"]] = true
             _table_sign(t, str(table_names[tb["id"]]))
+    # 没有真人的桌也挂桌牌，只写游戏名（蓝图 3.2 9/19：桌牌带上游戏名，走到哪桌玩哪样）
+    for t in cfg.get("tables", []):
+        if not signed.has(t["id"]):
+            _table_sign(t, "")
     # 别桌的 NPC 宾客：真人坐了的椅子让出来（阿鱼 9/18 定留，见 hall_life.gd 开头）
     npc_taken = life.seat_guests(seat_taken) if life != null else {}
     _my_marker()
     # 椅子列表整个重建过（换桌、重进厅都会走到这）：旧的按钮状态可能对不上了，立刻重扫一次
     _scan_chairs(1.0)
 
-## 桌牌「XX那桌」（蓝图 3.2：桌牌由引擎渲染，XX 是这桌第一个坐下的人），立在桌心；空桌不挂
+## 桌牌「XX那桌·吃席」（蓝图 3.2：桌牌由引擎渲染，XX 是这桌第一个坐下的人；9/19 起带上这桌的小游戏名），立在桌心；
+## 没有真人坐的桌只写游戏名
 func _table_sign(t: Dictionary, nick: String) -> void:
     var l := Label.new()
-    l.text = nick + "那桌"
+    var game_title := GameCfg.title(GameCfg.game_for_table(str(t["id"])))
+    var parts: Array[String] = []
+    if nick != "":
+        parts.append(nick + "那桌")
+    if game_title != "":
+        parts.append(game_title)
+    if parts.is_empty():
+        return
+    l.text = "·".join(parts)
     l.add_theme_font_override("font", font)
     l.add_theme_font_size_override("font_size", 12)
     l.add_theme_color_override("font_color", Color("#F4D97A"))

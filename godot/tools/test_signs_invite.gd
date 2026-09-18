@@ -34,12 +34,12 @@ func run() -> void:
     hall.set_seats(data, "me")
     print("1 桌牌 ", hall.table_names)
     ok = ok and hall.table_names.get("T1", "") == "先来的" and not hall.table_names.has("T2")
-    # 2. 牌子真的挂上了，空桌不挂
+    # 2. 牌子真的挂上了；9/19 起带这桌的小游戏名（蓝图 3.2），没人坐的桌只写游戏名
     await process_frame
     var sign1 = hall.seat_tags.get_node_or_null("sign_T1")
     var sign2 = hall.seat_tags.get_node_or_null("sign_T2")
-    print("2 T1 牌子 ", sign1.text if sign1 else "没有", "  T2 牌子 ", "有" if sign2 else "没有")
-    ok = ok and sign1 != null and sign1.text == "先来的那桌" and sign2 == null
+    print("2 T1 牌子 ", sign1.text if sign1 else "没有", "  T2 牌子 ", sign2.text if sign2 else "没有")
+    ok = ok and sign1 != null and sign1.text == "先来的那桌·吃席" and sign2 != null and sign2.text == "吃席"
     # 3. 旧数据没有 sat_at：按列表里第一个有昵称的
     hall.set_seats({"me": {"table_id": "T2", "chair_no": 1}, "tables": [
         {"id": "T1", "seats": [{"openid": "a", "chair_no": 1}, {"openid": "b", "chair_no": 2}]}],

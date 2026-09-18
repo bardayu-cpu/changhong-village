@@ -63,6 +63,7 @@ func inviter() -> String:
     return fake_inviter
 
 var fake_inviter := ""   # 电脑上假装是点谁的卡片进来的，测试用
+var fake_mine := {"coins": 0, "games": {}, "dishes": [], "gift_coins": 0}   # 小游戏存档（saveProfile 新字段、enterHall 的 mine）
 var fake_pulse_toasts: Array = []   # 电脑上假装「刚有人敬我」：截图、测试往这里塞 {from}，下一次 hallPulse 带回去
 
 func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
@@ -169,16 +170,21 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             # nick_rejected（起昵称被服务端拒，main.gd 的 _setup_shot 用得到）
             if str(data.get("nick", "")).contains("测试敏感"):
                 return {"ok": false, "reason": "sensitive"}
+            for k in ["coins", "games", "dishes", "gift_coins"]:
+                if data.has(k):
+                    fake_mine[k] = data[k]
             return {"ok": true}
         "enterHall":
             if fake_me["table_id"] == "":
                 fake_me = {"table_id": "T1", "chair_no": 2}
                 fake_seats["T1"].append({"openid": "fake_me", "chair_no": 2})
             var tables := []
-            for tid in ["T1", "T2"]:
+            for i in range(1, 13):   # 和服务端一样回 12 张桌（9/19 起，原来只回试点的两张）
+                var tid := "T%d" % i
                 tables.append({"id": tid, "reserved": tid == "T1" or tid == "T2", "seats": fake_seats.get(tid, [])})
             return {"ok": true, "data": {"me": fake_me, "tables": tables, "bench": [],
                 "digest": {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
+                "mine": fake_mine,
                 "names": fake_names}}
         "changeSeat":
             # 入参跟服务端一样是驼峰 tableId、chairNo（cloudfunctions/changeSeat/index.js）。
