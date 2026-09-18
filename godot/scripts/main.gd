@@ -1419,6 +1419,24 @@ func _setup_shot(shot: String) -> void:
             hall.couple_armed = false
             hall.reset_to(Vector2(330, 845) if USE_LAYERED else Vector2(-4.8, -3.6))
             dialog.visible = false
+        "life_band", "life_gifts", "life_guests", "life_waiter":
+            # 厅里的热闹（阿鱼 9/18）：乐队、贺礼、别桌的 NPC 宾客、服务员，各拍一张看摆得对不对
+            nickname = "小李"
+            await _enter_banquet()
+            hall.couple_armed = false
+            dialog.visible = false
+            var spot := {"life_band": Vector2(1150, 360), "life_gifts": Vector2(420, 360),
+                "life_guests": Vector2(640, 690), "life_waiter": Vector2(1300, 520)}
+            hall.reset_to(spot[shot])
+            if shot == "life_waiter" and hall.life != null and not hall.life.waiters.is_empty():
+                # 把第一个服务员挪到人旁边、正走着，看托盘和走路
+                var w = hall.life.waiters[0]
+                w.pos = Vector2(1240, 540)
+                w.face = "down"
+                w.state = "serve"
+                w.wait = 99.0
+            # 多跑一会儿，让举杯、音符、弓都动起来
+            for i in 90: await get_tree().process_frame
         "behind":
             # 站在桌子后面：看椅背有没有挡住腿、人有没有被地面切掉
             nickname = "小李"

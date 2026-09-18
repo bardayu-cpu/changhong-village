@@ -6,6 +6,7 @@ extends Node2D
 signal reached(what: String)
 
 const Spr = preload("res://scripts/sprites.gd")
+const Life = preload("res://scripts/hall_life.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
 ## 走路速度备选两档（HANDOFF：3.2 备选 2.4，阿鱼真机比一比）；调试版右下角的按钮切换 speed_m
@@ -56,6 +57,7 @@ var couple_r := 70.0
 var door := Vector2.ZERO
 var door_r := 60.0
 var font: Font
+var life: Node2D           # 厅里的热闹：服务员、乐队、贺礼、彩带、灯笼光、别桌的 NPC 宾客（hall_life.gd，阿鱼 9/18）
 
 func build(preset: int, nickname: String, f: Font) -> void:
     font = f
@@ -84,6 +86,10 @@ func build(preset: int, nickname: String, f: Font) -> void:
     _couple()
     _player(preset, nickname)
     _exit_mark()
+    life = Life.new()
+    life.name = "life"
+    add_child(life)
+    life.build(self)
     cam = Camera2D.new()
     cam.limit_left = 0
     cam.limit_top = 0
@@ -330,29 +336,37 @@ func tap(screen: Vector2) -> void:
 
 func go_to(target: Vector2) -> void:
     stand_up()   # 坐着的时候点地面：先起身，再从起身点算路，不然路是从桌子占地里出发的
-    var a := _cell_of(pos)
+    var out := find_path(pos, target)
+    if out.is_empty():
+        return
+    path = out
+
+## 从 from 走到 target 要经过的拐点（不含起点，能直着走的格子合成一段）；走不到返回空。
+## 玩家点地面、服务员在桌子之间走（hall_life.gd）都用它
+func find_path(from: Vector2, target: Vector2) -> Array:
+    var a := _cell_of(from)
     var b := _cell_of(target)
     if nav.is_point_solid(a): a = _nearest_free(a)
     if nav.is_point_solid(b): b = _nearest_free(b)
     var ids := nav.get_id_path(a, b)
     if ids.is_empty():
-        return
+        return []
     var pts: Array = []
     for id in ids: pts.append(_cell_pos(id))
     if _free(target): pts[pts.size() - 1] = target
     var out: Array = []
-    var from := pos
+    var cur := from
     var k := 0
     while k < pts.size():
         var far := k
         for m in range(pts.size() - 1, k, -1):
-            if _clear(from, pts[m]):
+            if _clear(cur, pts[m]):
                 far = m
                 break
         out.append(pts[far])
-        from = pts[far]
+        cur = pts[far]
         k = far + 1
-    path = out
+    return out
 
 func reset_to(p: Vector2) -> void:
     pos = p
@@ -484,6 +498,7 @@ var seat_tags: Node2D
 var seat_marker: Polygon2D
 var chairs: Array = []          # [{table_id, chair_no, pos}]
 var seat_taken: Dictionary = {} # "T1:3" -> openid
+var npc_taken: Dictionary = {}  # "T7:3" -> true：NPC 宾客坐着的椅子（hall_life.gd），不出「坐这儿」，也点不开
 var table_names: Dictionary = {} # table_id -> 第一个坐下的人的昵称（桌牌）
 var my_seat := {"table_id": "", "chair_no": 0}
 var my_openid := ""              # set_seats 存的自己 openid：判断「是不是自己」，main 敬酒时也要用
@@ -557,6 +572,8 @@ func set_seats(data: Dictionary, me_id: String) -> void:
             _seated(info, at, _seat_center(t), seat_in_front(t, at))
         if table_names.has(tb["id"]):
             _table_sign(t, str(table_names[tb["id"]]))
+    # 别桌的 NPC 宾客：真人坐了的椅子让出来（等总策划定，见 hall_life.gd 开头）
+    npc_taken = life.seat_guests(seat_taken) if life != null else {}
     _my_marker()
     # 椅子列表整个重建过（换桌、重进厅都会走到这）：旧的按钮状态可能对不上了，立刻重扫一次
     _scan_chairs(1.0)
@@ -750,7 +767,7 @@ func _scan_chairs(dt: float) -> void:
         var best_d := 60.0
         for c in chairs:
             var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
-            if seat_taken.has(key):
+            if seat_taken.has(key) or npc_taken.has(key):
                 continue
             var d: float = pos.distance_to(c["pos"])
             if d < best_d:
