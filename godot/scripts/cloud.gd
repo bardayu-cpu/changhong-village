@@ -164,6 +164,10 @@ func diagnose() -> String:
 func _fake(name: String, data: Dictionary) -> Dictionary:
     match name:
         "saveProfile":
+            # 敏感词模块假数据（回执 05）：nick 里含"测试敏感"就回 sensitive，方便电脑上截图
+            # nick_rejected（起昵称被服务端拒，main.gd 的 _setup_shot 用得到）
+            if str(data.get("nick", "")).contains("测试敏感"):
+                return {"ok": false, "reason": "sensitive"}
             return {"ok": true}
         "enterHall":
             if fake_me["table_id"] == "":
@@ -224,6 +228,9 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 return {"ok": false, "reason": "bad_request"}
             if w_text.length() > 100:
                 return {"ok": false, "reason": "book_too_long"}
+            # 敏感词模块假数据（回执 05），跟 saveProfile 用同一个触发词，方便电脑上测
+            if w_text.contains("测试敏感"):
+                return {"ok": false, "reason": "sensitive"}
             if not fake_book.has(w_table):
                 fake_book[w_table] = []
             (fake_book[w_table] as Array).append({"openid": "fake_me", "text": w_text, "at": Time.get_ticks_msec()})

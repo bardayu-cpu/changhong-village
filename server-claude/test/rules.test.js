@@ -9,6 +9,7 @@ const temple = require('../src/temple');
 const town = require('../src/town');
 const banquet = require('../src/banquet');
 const resident = require('../src/resident');
+const sensitive = require('../src/sensitive');
 
 let pass = 0, fail = 0;
 const failures = [];
@@ -268,6 +269,29 @@ eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: '
 eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: null, inviterExists: true }), false, '边界：没传候选人（null）');
 eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: '', inviterExists: true }), false, '边界：候选人是空字符串');
 eq(resident.canAdoptInviter({ existingInviter: '', selfOpenid: 'A', inviter: 'B', inviterExists: true }), true, '边界：已有邀请人是空字符串，等同没有，能记');
+
+// ---------- 敏感词与保留名校验（src/sensitive.js，docs/敏感词模块-需求.md 第 4 节） ----------
+// normalize：去空白折叠、剥离零宽字符/变体选择符、全角转半角、大小写不敏感
+eq(sensitive.normalize('  阿花  '), '阿花', 'normalize 去首尾空白');
+eq(sensitive.normalize('阿    花'), '阿 花', 'normalize 连续空白折叠为一个');
+eq(sensitive.normalize('ABC１２３'), 'abc123', 'normalize 全角转半角+大写转小写');
+eq(sensitive.normalize('敏​感﻿词'), '敏感词', 'normalize 剥离零宽字符');
+eq(sensitive.normalize('a️b'), 'ab', 'normalize 剥离变体选择符');
+
+// stripForB：在 normalize 之后再去标点、空格、符号/emoji（抓"傻·逼""S B"这类插入变体）
+eq(sensitive.stripForB(sensitive.normalize('傻·逼')), '傻逼', 'stripForB 去标点');
+eq(sensitive.stripForB(sensitive.normalize('s b')), 'sb', 'stripForB 去空格');
+eq(sensitive.stripForB(sensitive.normalize('正常文字')), '正常文字', 'stripForB 没有标点原样返回');
+eq(sensitive.stripForB(sensitive.normalize('a😀b')), 'ab', 'stripForB 去 emoji');
+
+// buildMatcher + checkText：AC 自动机命中判断、保留名完全匹配、A/B 双文本
+const testMatcher = sensitive.buildMatcher(['敏感词', '坏话', 'abc']);
+eq(sensitive.checkText('这是敏感词测试', { sensitiveMatcher: testMatcher }).reason, 'sensitive', 'checkText 命中敏感词（包含匹配）');
+eq(sensitive.checkText('平安喜乐', { sensitiveMatcher: testMatcher }).ok, true, 'checkText 没命中就放行');
+eq(sensitive.checkText('阿鱼', { reservedSet: new Set(['阿鱼']) }).reason, 'reserved', 'checkText 保留名完全匹配');
+eq(sensitive.checkText('阿鱼真棒', { reservedSet: new Set(['阿鱼']) }).ok, true, 'checkText 保留名只做完全匹配，不做包含匹配');
+eq(sensitive.checkText('敏·感·词', { sensitiveMatcher: sensitive.buildMatcher(['敏感词']) }).reason, 'sensitive', 'checkText 文本B抓住插入标点的变体');
+eq(sensitive.checkText('ＡＢＣ', { sensitiveMatcher: testMatcher }).reason, 'sensitive', 'checkText 全角大写照样命中半角小写词条');
 
 // ---------- 结果 ----------
 console.log(`\n通过 ${pass}，失败 ${fail}`);
