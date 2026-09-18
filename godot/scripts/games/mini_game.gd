@@ -4,7 +4,8 @@ extends Control
 ## 写一个新游戏要做的（照 g2048.gd）：
 ##   1. extends "res://scripts/games/mini_game.gd"
 ##   2. _build()：按 size（游戏区大小，host 已经设好）和 params（这一关的难度参数）搭棋盘
-##   3. goal_text()：开始前那张卡上写的这一关目标，比如「合出 跷脚牛肉」「90 秒内连完」
+##   3. goal_text()：开始前那张卡上写的这一关目标，比如「合出 跷脚牛肉」「90 秒内连完」。
+##      外壳是造一个只 setup、没 _build 的「探子」来读它的，所以只能读 params（p_int / p_float），别读 _build 里才赋值的成员
 ##   4. status_text()：玩的时候顶栏右边那一小行，比如「剩 45 秒」「还差 3 步」，每帧都会读
 ##   5. 赢了调 win()，输了调 lose("为什么输")；计时放 _game_tick(dt)（暂停时 host 不调它）
 ##   6. 触摸：用 gui_input 收 InputEventMouseButton / InputEventMouseMotion（手机上触摸会转成鼠标事件），

@@ -17,11 +17,13 @@ var gap := 8.0
 var drag_from := Vector2.ZERO
 var dragging := false
 
+## 开始卡上的目标：外壳造的「探子」只 setup 没 _build，所以这里直接读参数，不读 _build 里才定的 target
+## （9/19 分身查出来的：原来一直显示第 5 级那道菜）
 func goal_text() -> String:
-    return "合出「%s」" % DISHES[clampi(target - 1, 0, DISHES.size() - 1)]
+    return "合出「%s」" % DISHES[clampi(p_int("target_pow", 5) - 1, 0, DISHES.size() - 1)]
 
 func status_text() -> String:
-    return "目标 %s" % DISHES[clampi(target - 1, 0, DISHES.size() - 1)]
+    return "目标 %s" % DISHES[clampi(p_int("target_pow", 5) - 1, 0, DISHES.size() - 1)]
 
 func _build() -> void:
     n = maxi(p_int("size", 4), 3)
