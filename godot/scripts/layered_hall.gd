@@ -572,7 +572,7 @@ func set_seats(data: Dictionary, me_id: String) -> void:
             _seated(info, at, _seat_center(t), seat_in_front(t, at))
         if table_names.has(tb["id"]):
             _table_sign(t, str(table_names[tb["id"]]))
-    # 别桌的 NPC 宾客：真人坐了的椅子让出来（等总策划定，见 hall_life.gd 开头）
+    # 别桌的 NPC 宾客：真人坐了的椅子让出来（阿鱼 9/18 定留，见 hall_life.gd 开头）
     npc_taken = life.seat_guests(seat_taken) if life != null else {}
     _my_marker()
     # 椅子列表整个重建过（换桌、重进厅都会走到这）：旧的按钮状态可能对不上了，立刻重扫一次
