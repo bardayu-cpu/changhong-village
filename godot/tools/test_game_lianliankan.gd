@@ -155,5 +155,65 @@ func run() -> void:
     print("5 时间到了 ", result2)
     ok = ok and result2[0] == false and result2[1] == "时间到了"
 
+    # 6. 外圈连线画得进游戏区（01 9/19：原来左右会被裁掉一截）。1～20 关都在手机竖屏里摆一次（调试版，游戏区最小）：
+    #    外圈虚格的中心在棋盘边外半格，再加半条线宽（2），四边都要在游戏区里；格子不小于 36 像素（字用 24 号）
+    var ring_ok := true
+    var min_cell := 999.0
+    var hosts: Array = []
+    for lv in range(1, 21):
+        var s6 := Save.new()
+        s6.local_path = "user://test_llk_ring.json"
+        s6.saver = func(_p, done): done.call(true)
+        s6.games["lianliankan"] = lv - 1
+        var h6 = Host.new()
+        root.add_child(h6)
+        hosts.append(h6)
+        h6.open("lianliankan", "T1", s6, SystemFont.new(), true)
+        h6.k = 1.0
+        h6._start()
+        var gm = h6.game
+        var half: float = gm.cell_px * 0.5 + 2.0
+        var gl: float = gm.grid.position.x - half
+        var gr: float = gm.grid.position.x + gm.grid.size.x + half
+        var gt: float = gm.grid.position.y - half
+        var gb: float = gm.grid.position.y + gm.grid.size.y + half
+        if gl < 0.0 or gt < 0.0 or gr > gm.size.x or gb > gm.size.y:
+            ring_ok = false
+            print("  第 %d 关 %dx%d 外圈出界：左 %.1f 右 %.1f/%.1f 上 %.1f 下 %.1f/%.1f" % [lv, gm.cols, gm.rows, gl, gr, gm.size.x, gt, gb, gm.size.y])
+        min_cell = minf(min_cell, gm.cell_px)
+    print("6 1～20 关外圈都在游戏区里 ", ring_ok, "  最小的格子 ", snappedf(min_cell, 0.1), " 像素")
+    ok = ok and ring_ok and min_cell >= 36.0
+
+    # 6b. 真消一对只能绕左边外圈的牌（第 9 关 8x8）：最左一列最上、最下两张换成同一种菜（跟别处同种的对换，数量不变），
+    #     连线的每个点都要在游戏区里
+    var g9 = hosts[8].game
+    var b9: Array = g9.board
+    var kk := int(b9[0][0])
+    var bot := Vector2i(0, b9.size() - 1)
+    if int(b9[bot.y][bot.x]) != kk:
+        var done_swap := false
+        for y in b9.size():
+            for x in range(1, (b9[y] as Array).size()):
+                if not done_swap and int(b9[y][x]) == kk:
+                    b9[y][x] = b9[bot.y][bot.x]
+                    b9[bot.y][bot.x] = kk
+                    done_swap = true
+        g9._redraw_all()
+    g9.tap(Vector2i(0, 0))
+    g9.tap(bot)
+    var line: Line2D = null
+    for c in g9.grid.get_children():
+        if c is Line2D:
+            line = c
+    var inside := line != null
+    var went_left := false
+    if line != null:
+        for p in line.points:
+            var q: Vector2 = p + g9.grid.position
+            inside = inside and q.x - 2.0 >= 0.0 and q.x + 2.0 <= g9.size.x and q.y - 2.0 >= 0.0 and q.y + 2.0 <= g9.size.y
+            went_left = went_left or p.x < 0.0
+    print("6b 第 9 关 %dx%d 格子 %.1f 像素：绕左边外圈 %s，连线全在游戏区里 %s" % [g9.cols, g9.rows, g9.cell_px, went_left, inside])
+    ok = ok and went_left and inside and int(g9.board[0][0]) == 0 and int(g9.board[bot.y][bot.x]) == 0
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

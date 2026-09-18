@@ -17,6 +17,7 @@ var selected := Vector2i.ZERO
 var has_sel := false
 var time_left := 90.0
 var shuffle_msg_left := 0.0
+var line_fade := 0.25          # 消掉时那条连线多久淡没，秒（截图时拉长，好截到）
 
 func goal_text() -> String:
     return "%d 秒内把菜连完" % roundi(p_float("time", 90.0))
@@ -38,8 +39,10 @@ func _build() -> void:
         board = reshuffle(board, rng)
     var avail_w: float = size.x - 16.0
     var avail_h: float = size.y - 16.0
-    var cw := (avail_w - gap * (cols + 1)) / cols
-    var ch := (avail_h - gap * (rows + 1)) / rows
+    # 四周各留一整格：连线可以绕到棋盘外面那一圈（虚格），留出来才画在游戏区里面，不被左右裁掉（01 9/19）。
+    # 按 cols+2 列、rows+2 行来排，格子会小一点：8 列时约 42 像素
+    var cw := (avail_w - gap * (cols + 3)) / (cols + 2)
+    var ch := (avail_h - gap * (rows + 3)) / (rows + 2)
     cell_px = clampf(minf(cw, ch), 20.0, 72.0)
     grid = Control.new()
     grid.size = Vector2(cols * (cell_px + gap) + gap, rows * (cell_px + gap) + gap)
@@ -68,7 +71,8 @@ func _redraw_all() -> void:
     for y in rows:
         for x in cols:
             cell_panels[y][x] = null
-    var fs := 24 if cell_px >= 48.0 else 12
+    # 24 号字（像素字 12 放两倍）放进 36 像素以上的格子还有余量；四周留了一格以后 7、8 列的格子是 42～47，要保住 24 号
+    var fs := 24 if cell_px >= 36.0 else 12
     for y in rows:
         for x in cols:
             var v := int(board[y][x])
@@ -159,7 +163,7 @@ func _flash_line(path: Array) -> void:
     line.points = pts
     grid.add_child(line)
     var tw := create_tween()
-    tw.tween_property(line, "modulate:a", 0.0, 0.25)
+    tw.tween_property(line, "modulate:a", 0.0, line_fade)
     tw.tween_callback(line.queue_free)
 
 func _game_tick(dt: float) -> void:

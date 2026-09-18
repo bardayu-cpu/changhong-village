@@ -1693,9 +1693,30 @@ func _shot_game(shot: String) -> void:
     _open_game(tid)
     await get_tree().process_frame
     await get_tree().process_frame
-    if shot.ends_with("_play") and is_instance_valid(game_host):
+    if (shot.ends_with("_play") or shot.ends_with("_ring")) and is_instance_valid(game_host):
         game_host._start()
         for i in 30: await get_tree().process_frame
+        if shot.ends_with("_ring") and id == "lianliankan":
+            _shot_llk_ring(game_host.game)
+
+## 截图用（game_lianliankan_lv9_ring）：最左一列最上、最下两张换成同一种菜（跟别处同种的对换，数量不变），再点这两张：
+## 只能从棋盘左边外面那一圈绕过去。连线停住不淡，看它画没画进游戏区（01 9/19：原来左右会被裁掉一截）
+func _shot_llk_ring(gm) -> void:
+    var b: Array = gm.board
+    var k := int(b[0][0])
+    var bot := Vector2i(0, b.size() - 1)
+    if int(b[bot.y][bot.x]) != k:
+        var swapped := false
+        for y in b.size():
+            for x in range(1, (b[y] as Array).size()):
+                if not swapped and int(b[y][x]) == k:
+                    b[y][x] = b[bot.y][bot.x]
+                    b[bot.y][bot.x] = k
+                    swapped = true
+        gm._redraw_all()
+    gm.line_fade = 60.0
+    gm.tap(Vector2i(0, 0))
+    gm.tap(bot)
 
 ## 截图用：进厅提示那张干杯插图 1.5 秒后才放，先等它出来、收掉，免得和要截的那张抢
 func _shot_skip_entry_toast() -> void:
