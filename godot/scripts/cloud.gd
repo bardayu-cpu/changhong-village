@@ -28,7 +28,6 @@ var fake_names := {
     "fake_wang": {"nick": "老王", "avatar": 1, "inviter": null},
     "fake_li": {"nick": "小李", "avatar": 5, "inviter": "fake_wang"},
 }
-var fake_changed_today := false
 var fake_toasts_today: Array = []   # 我今天敬出去的杯数，敬过谁：[to openid, ...]（电脑上没有日期，跑一次当一天）
 ## 翻簿子假数据（第 24 版）：T1 两条方便看接龙，T2 空的方便截空簿子截图。字段名照真实服务端
 ## readBook 的返回（`at`，不是 `created_at`——之前这里写错过，main.gd 读的是 `at`）
@@ -181,10 +180,12 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             # 少一个就和服务端一样回 bad_request，这样字段名发错在电脑上就能测出来
             if not data.has("tableId") or not data.has("chairNo"):
                 return {"ok": false, "reason": "bad_request"}
-            if fake_changed_today:
-                return {"ok": false, "reason": "changed_today"}
+            # 9/18 起和服务端一样不限每天次数（蓝图 3.2）；有人坐的椅子回 seat_taken
             var tid_new := str(data["tableId"])
             var no_new := int(data["chairNo"])
+            for other in fake_seats.get(tid_new, []):
+                if int(other["chair_no"]) == no_new and other["openid"] != "fake_me":
+                    return {"ok": false, "reason": "seat_taken"}
             for tid in fake_seats:
                 var arr: Array = fake_seats[tid]
                 for i in range(arr.size() - 1, -1, -1):
@@ -194,7 +195,6 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             if not fake_seats.has(tid_new):
                 fake_seats[tid_new] = []
             fake_seats[tid_new].append({"openid": "fake_me", "chair_no": no_new})
-            fake_changed_today = true
             return {"ok": true}
         "toast":
             # 规则照抄服务端 server-claude/src/banquet.js 的 canToast + toast/index.js 的 to 校验：

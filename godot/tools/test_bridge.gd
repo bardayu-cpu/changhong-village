@@ -70,10 +70,13 @@ func _init() -> void:
     ok = ok and str(bad.get("reason", "")) == "bad_request"
     c.call_fn("changeSeat", {"tableId": "T2", "chairNo": 3}, func(r): box["s1"] = r)
     c.call_fn("changeSeat", {"tableId": "T1", "chairNo": 5}, func(r): box["s2"] = r)
+    c.call_fn("changeSeat", {"tableId": "T1", "chairNo": 1}, func(r): box["s3"] = r)   # 老王坐着
     var got2: Dictionary = box.get("s1", {})
     var got3: Dictionary = box.get("s2", {})
-    print("  换桌第一次 ", got2, " 第二次（今天换过了）", got3)
-    ok = ok and bool(got2.get("ok", false)) and str(got3.get("reason", "")) == "changed_today"
+    var got4: Dictionary = box.get("s3", {})
+    # 9/18 起换桌不限次数（蓝图 3.2）：第二次照样成；有人坐的椅子回 seat_taken
+    print("  换桌第一次 ", got2, " 第二次（不限次数）", got3, " 坐老王的椅子 ", got4)
+    ok = ok and bool(got2.get("ok", false)) and bool(got3.get("ok", false)) and str(got4.get("reason", "")) == "seat_taken"
 
     # 5b. 拒绝原因表要盖住服务端会回的每一种，不然玩家只看到「没连上」，查不出真原因
     var Main = load("res://scripts/main.gd")
