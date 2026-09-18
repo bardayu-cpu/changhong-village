@@ -11,17 +11,19 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const SRC = path.join(ROOT, 'src');
 const LIB = path.join(ROOT, 'lib');
+const WORDS = path.join(ROOT, 'words');
 const CF = path.join(ROOT, 'cloudfunctions');
 
 // 云函数名 -> 需要哪些 src/ 纯函数文件（同步进各自的 rules/ 文件夹；只列这个函数真正 require 到的）
+// sensitive.js（敏感词/保留名校验，docs/敏感词模块-需求.md）：saveProfile 查 nick，writeBook 查 text
 const NEEDS = {
   enterHall: ['config.js', 'banquet.js'],
   // changeSeat 9/18 起不再需要 time.js：canChangeSeat 去掉了「今天换过几次」的判定
   changeSeat: ['config.js', 'banquet.js'],
   toast: ['config.js', 'time.js', 'banquet.js'],
-  writeBook: ['config.js', 'banquet.js'],
+  writeBook: ['config.js', 'banquet.js', 'sensitive.js'],
   readBook: ['config.js'],
-  saveProfile: ['config.js', 'resident.js'],
+  saveProfile: ['config.js', 'resident.js', 'sensitive.js'],
 };
 
 // 云函数名 -> 需要哪些 lib/ 的 I/O 小工具（同步进各自的 lib/ 文件夹）。
@@ -47,4 +49,23 @@ for (const [fn, files] of Object.entries(LIB_NEEDS)) {
     fs.copyFileSync(path.join(LIB, f), path.join(dest, f));
   }
   console.log(`${fn}: 同步了 lib/${files.join('、lib/')}`);
+}
+
+// 云函数名 -> 需要哪些词库文件（同步进各自的 words/ 文件夹；build-words.js 生成 base.txt 之后要重跑这里）。
+// saveProfile 的 nick 要查敏感词 + 保留名，writeBook 的 text 只查敏感词（悄悄话不过滤，没有云函数需要它）。
+// MIT 许可证原文跟着词库一起拷过去（阿鱼 9/18 同意下载时的要求，见 words/source/.../SOURCE.md）。
+const WORDS_NEEDS = {
+  saveProfile: ['base.txt', 'reserved.txt'],
+  writeBook: ['base.txt'],
+};
+const LICENSE_SRC = path.join(WORDS, 'source', 'konsheng-Sensitive-lexicon', 'LICENSE');
+
+for (const [fn, files] of Object.entries(WORDS_NEEDS)) {
+  const dest = path.join(CF, fn, 'words');
+  fs.mkdirSync(dest, { recursive: true });
+  for (const f of files) {
+    fs.copyFileSync(path.join(WORDS, f), path.join(dest, f));
+  }
+  fs.copyFileSync(LICENSE_SRC, path.join(dest, 'LICENSE'));
+  console.log(`${fn}: 同步了 words/${files.join('、words/')}、words/LICENSE`);
 }

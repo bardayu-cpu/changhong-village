@@ -352,6 +352,55 @@ async function scenarioWriteBookCurrentTableOnly() {
   check(res.ok === false && res.reason === 'not_sat_here', `场景6 长凳的人写T1被拒（实际 ${JSON.stringify(res)}）`);
 }
 
+// ================= 场景7：writeBook 带敏感词被拒、不写库；正常文本照样能写（回执 05：敏感词模块） =================
+async function scenarioWriteBookSensitiveRejected() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'sensitive_guy';
+  seed(state, 'seat', { _id: ME, openid: ME, table_id: 'T1', chair_no: 1, inviter: null, sat_at: 100, sat_tables: ['T1'], last_visit_at: 100 });
+  state.currentOpenid = ME;
+
+  const writeBook = loadCloudFunction('writeBook', sdk);
+
+  // 敏感词（从 words/base.txt 真实词条挑的"情色"，跟误伤测试 test/words-false-positive.test.js 用的是同一个词）
+  let res = await writeBook.main({ table: 'T1', text: '这里有情色内容' });
+  check(res.ok === false && res.reason === 'sensitive', `场景7 桌簿含敏感词被拒（实际 ${JSON.stringify(res)}）`);
+  const gbAfterReject = state.collections.guestbook ? Array.from(state.collections.guestbook.values()) : [];
+  check(gbAfterReject.length === 0, `场景7 敏感词被拒不应该写进 guestbook（实际 ${gbAfterReject.length} 条）`);
+
+  // 正常文本：不受影响，照样能写、真的落库
+  res = await writeBook.main({ table: 'T1', text: '新婚快乐 百年好合' });
+  check(res.ok === true, `场景7 正常文本能写（实际 ${JSON.stringify(res)}）`);
+  const gbAfterOk = Array.from(state.collections.guestbook.values());
+  check(gbAfterOk.length === 1 && gbAfterOk[0].text === '新婚快乐 百年好合', '场景7 正常文本确实写进了 guestbook');
+}
+
+// ================= 场景8：saveProfile 昵称命中保留名/敏感词被拒、不建档；正常昵称照样能存（回执 05：敏感词模块） =================
+async function scenarioSaveProfileWordRejected() {
+  const { sdk, state } = createFakeSdk();
+
+  // 保留名（docs/敏感词模块-需求.md 第 5 节初始名单）：起昵称用"阿鱼"被拒，不写库
+  state.currentOpenid = 'guest_a';
+  let saveProfile = loadCloudFunction('saveProfile', sdk);
+  let res = await saveProfile.main({ nick: '阿鱼' });
+  check(res.ok === false && res.reason === 'reserved', `场景8 昵称是保留名被拒（实际 ${JSON.stringify(res)}）`);
+  check(!(state.collections.resident && state.collections.resident.has('guest_a')), '场景8 保留名被拒不应该建 resident 记录');
+
+  // 敏感词：起昵称含词库里的词被拒，不写库
+  state.currentOpenid = 'guest_b';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '情色达人' });
+  check(res.ok === false && res.reason === 'sensitive', `场景8 昵称含敏感词被拒（实际 ${JSON.stringify(res)}）`);
+  check(!(state.collections.resident && state.collections.resident.has('guest_b')), '场景8 敏感词被拒不应该建 resident 记录');
+
+  // 正常昵称：不受影响，照样能存、真的落库
+  state.currentOpenid = 'guest_c';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '阿花' });
+  check(res.ok === true, `场景8 正常昵称能存（实际 ${JSON.stringify(res)}）`);
+  const docC = state.collections.resident.get('guest_c');
+  check(!!docC && docC.nick === '阿花', '场景8 正常昵称确实存进了 resident');
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
@@ -360,6 +409,8 @@ async function scenarioWriteBookCurrentTableOnly() {
   await scenarioEnterHallOfflineInviterNames();
   await scenarioSaveProfileInviter();
   await scenarioWriteBookCurrentTableOnly();
+  await scenarioWriteBookSensitiveRejected();
+  await scenarioSaveProfileWordRejected();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 
