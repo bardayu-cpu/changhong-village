@@ -16,6 +16,10 @@ var cv                          # 现在人在哪块画布（court 或 hall）�
 var switching := false
 var hall_door_latched := true   # 刚进宴会厅时人就站在门口：先走出门的范围，门才算数（不会来回弹）
 var profile_saved := false      # 这次打开游戏 saveProfile 成功过没有（进厅前要有住民记录）
+const CourtSave = preload("res://scripts/court_save.gd")
+const CourtUI = preload("res://scripts/court_ui.gd")
+var court_save                  # 迎宾院存在本机的：迎过了、签过到、喜糖……（蓝图 2.4）
+var court_ui: Control           # 迎宾院的按钮和面板：签到……
 ## 宴会厅用分层场景（画面就是 GPT 的效果图，阿鱼 9/15 选定）；false 回到 3D 搭的 HD-2D 宴会厅
 const USE_LAYERED := true
 const Spr = preload("res://scripts/sprites.gd")
@@ -77,6 +81,7 @@ var screens := {}
 var hud: Control
 var dialog: PanelContainer
 var dialog_text: Label
+var dialog_who: Label      # 说话框左上角：谁在说（默认阿鱼；迎宾院有新娘妈妈、新娘爸爸、摄影师、老人）
 var hint: Label
 var note: Label            # 顶部提示框里的字：进厅合并提示、坐好了、拒绝原因
 var note_box: PanelContainer
@@ -208,6 +213,13 @@ func _ready() -> void:
     print("[suqi] 迎宾院搭好了")
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
+    court_save = CourtSave.new()
+    court_save.load_local()
+    court_ui = CourtUI.new()
+    ui.add_child(court_ui)
+    court_ui.setup(self, font, court_save)
+    court_ui.panel_changed.connect(func(open): court.walking_enabled = state == "court" and not open)
+    ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
     print("[suqi] 界面搭好了")
     var cap := ""
     var shot := ""
@@ -695,7 +707,8 @@ func _build_hud() -> void:
     dialog.offset_top = TOP_Y; dialog.offset_bottom = TOP_Y
     dialog.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var dv := VBoxContainer.new()
-    dv.add_child(_label("阿鱼", 24, GOLD, HORIZONTAL_ALIGNMENT_LEFT))
+    dialog_who = _label("阿鱼", 24, GOLD, HORIZONTAL_ALIGNMENT_LEFT)
+    dv.add_child(dialog_who)
     dialog_text = _label("", 24, PAPER, HORIZONTAL_ALIGNMENT_LEFT)
     dv.add_child(dialog_text)
     dialog.add_child(dv)
@@ -965,7 +978,9 @@ func _goto(s: String) -> void:
         book_table = ""
         book_panel.visible = false
     hall.walking_enabled = (s == "banquet") and not whisper_box.visible
-    court.walking_enabled = (s == "court")
+    court.walking_enabled = (s == "court") and not court_ui.panel_open()
+    if s != "court":
+        court_ui.hide_all()
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
@@ -1043,11 +1058,19 @@ func _enter_hall_net() -> void:
     else:
         _save_profile()
 
-## 走到迎宾院的交互点（进、出半径各一次，见 entrance.gd）。这一段只接出入口：楼门进宴会厅、东西小径还没修好
+## 走到迎宾院的交互点（进、出半径各一次，见 entrance.gd）：门口迎宾、签到（按钮和面板在 court_ui.gd）、楼门进宴会厅、东西小径还没修好
 func _on_court_spot(id: String, inside: bool) -> void:
     if state != "court" or switching:
         return
+    court_ui.spot(id, inside)
     match id:
+        "welcome":
+            # 第一次走到这，新娘妈妈迎一句（蓝图 3.1）；迎过就不再说。签过到的（重进山庄）也不用再招呼去签到
+            if inside and not court_save.welcomed:
+                court_save.welcomed = true
+                court_save.save()
+                if not court_save.signed_in:
+                    _say(CourtCopy.text("welcome"), -1.0, CourtCopy.who("welcome"))
         "to_hall":
             if inside:
                 _switch_canvas("banquet")
@@ -1086,9 +1109,10 @@ static func profile_payload(nick: String, avatar: int, inviter: String, me: Stri
         d["inviter"] = inviter
     return d
 
-func _say(text: String, hold := -1.0) -> void:
+func _say(text: String, hold := -1.0, who := "阿鱼") -> void:
     say_token += 1
     var my := say_token
+    dialog_who.text = who
     dialog_text.text = text
     dialog.visible = true
     if hold == 0.0:
@@ -1840,6 +1864,14 @@ func _shot_llk_ring(gm) -> void:
     gm.tap(Vector2i(0, 0))
     gm.tap(bot)
 
+## 截图用：迎宾院从头来（没迎过、没签到），存档写到临时文件，不动这台电脑上的真存档
+func _shot_court_fresh() -> void:
+    court_save.local_path = "user://shot_court.json"
+    court_save.welcomed = false
+    court_save.signed_in = false
+    court_save.candy = false
+    court_save.draft = {}
+
 ## 截图用：进厅提示那张干杯插图 1.5 秒后才放，先等它出来、收掉，免得和要截的那张抢
 func _shot_skip_entry_toast() -> void:
     for i in 600:
@@ -2096,6 +2128,31 @@ func _setup_shot(shot: String) -> void:
                 dialog.visible = false
                 court.reset_to(at[shot])
                 court.face = "up"
+        "court_welcome", "court_sign_name", "court_sign_gift", "court_sign_confirm", "court_candy", "court_signed":
+            # 迎宾院签到（蓝图 3.1）：门口新娘妈妈迎一句；签到面板三页；签完喜糖弹窗和新娘妈妈指路；再来只显示「已签到」
+            _shot_court_fresh()
+            nickname = "小李"
+            await _enter_court()
+            dialog.visible = false
+            if shot == "court_welcome":
+                court.reset_to(Vector2(768, 700))
+                court.face = "up"
+                _on_court_spot("welcome", true)
+            else:
+                court.reset_to(court.spot_pos("sign_in"))
+                court.face = "up"
+                court_ui.spot("sign_in", true)
+                if shot == "court_signed":
+                    court_save.signed_in = true
+                    court_ui.spot("sign_in", true)
+                else:
+                    court_ui.open_sign()
+                    if shot != "court_sign_name":
+                        court_ui._name_next()
+                    if shot == "court_sign_confirm" or shot == "court_candy":
+                        court_ui._pick_gift(88)
+                    if shot == "court_candy":
+                        court_ui._submit()
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
             nickname = ""

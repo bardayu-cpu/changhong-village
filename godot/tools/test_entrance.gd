@@ -2,11 +2,15 @@ extends SceneTree
 ## 验收：罗曼山庄迎宾院（蓝图 3.1，灰盒，01 9/19 派）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 第一段：能走的格子连通、交互点都走得到、随机点地面不踩进占地；刚到一块画布时站在出口里不会来回弹；
 ##         迎宾院 ↔ 宴会厅来回走，席位、金币这些状态还在；东西小径出「还没修好」
+## 第二段：新娘妈妈只迎一次；签到面板名字 → 礼金 → 确认，名字校验、礼金夹上限、断网留草稿、签完一串（爸爸收礼、喜糖、妈妈指路）、
+##         重进只显示「已签到」、本机存档；名字被服务端判敏感词退回第一页
 ## 用法：Godot --headless --path . --script res://tools/test_entrance.gd
 ## 最后一行 RESULT PASS 才算过
 
 const Main = preload("res://scripts/main.gd")
 const CourtCopy = preload("res://scripts/court_copy.gd")
+const CourtSave = preload("res://scripts/court_save.gd")
+const CourtUI = preload("res://scripts/court_ui.gd")
 const DT := 1.0 / 60.0
 
 var m
@@ -50,8 +54,13 @@ func run() -> void:
         await process_frame
     await process_frame
     var c = m.court
-    # 小游戏存档写到测试自己的文件，别写进这台电脑上游戏的真存档
+    # 小游戏存档、迎宾院存档都写到测试自己的文件，别写进这台电脑上游戏的真存档
     m.games_save.local_path = "user://test_entrance_games.json"
+    m.court_save.local_path = "user://test_entrance_court.json"
+    m.court_save.welcomed = false
+    m.court_save.signed_in = false
+    m.court_save.candy = false
+    m.court_save.draft = {}
 
     # 1. 格子：进场点能站；十个有半径的交互点从进场点都走得到
     print("1 迎宾院的格子和交互点")
@@ -165,6 +174,115 @@ func run() -> void:
     walk_to(c.spot_pos("to_lawn"), 30.0)
     check("东小径：%s" % m.note.text, m.note.text == CourtCopy.text("to_lawn"))
 
+    await part2(c)
+
     DirAccess.remove_absolute("user://test_entrance_games.json")
+    DirAccess.remove_absolute("user://test_entrance_court.json")
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)
+
+## 第二段：迎宾、签到、喜糖
+func part2(c) -> void:
+    var ui = m.court_ui
+    var sv = m.court_save
+    # 9. 新娘妈妈只迎一次（进山庄往楼门走时已经迎过了）：再走进 welcome 不说话
+    print("9 新娘妈妈迎一次")
+    check("往楼门走时迎过了", sv.welcomed)
+    sv.welcomed = false
+    c.reset_to(Vector2(768, 560))
+    walk_to(c.spot_pos("welcome"))
+    check("第一次走进来：%s 说「%s」" % [m.dialog_who.text, m.dialog_text.text],
+        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("welcome"))
+    m.dialog_text.text = ""
+    walk_to(Vector2(768, 560))
+    walk_to(c.spot_pos("welcome"))
+    check("再走进来不说了", m.dialog_text.text == "")
+
+    # 10. 走到签到桌前出「签到」，点开是名字页，默认带昵称，人停下
+    print("10 签到面板")
+    walk_to(c.spot_pos("sign_in"))
+    check("按钮「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_sign") and not ui.act_btn.disabled)
+    ui._on_act()
+    check("面板开了，第一页，名字默认「%s」" % ui.name_edit.text, ui.sign_root.visible and ui.pages[0].visible and ui.name_edit.text == "小李")
+    check("开着面板人不能走", not c.walking_enabled)
+
+    # 11. 名字：空的、太长、字体里没有的字
+    print("11 名字校验")
+    ui.name_edit.text = ""
+    ui._name_next()
+    check("空的：%s" % ui.name_err.text, ui.name_err.text == CourtCopy.text("err_name_empty") and ui.pages[0].visible)
+    ui.name_edit.text = "一二三四五六七八九十一二三"
+    ui._name_next()
+    check("13 个字：%s" % ui.name_err.text, ui.name_err.text == CourtCopy.text("err_name_long") and ui.pages[0].visible)
+    check("12 个字可以", ui.check_name("一二三四五六七八九十一二") == "")
+    check("一个字也可以（签到名 1～12 字）", ui.check_name("李") == "")
+    ui.name_edit.text = "小李"
+    ui._name_next()
+    check("好的名字进礼金页", ui.pages[1].visible and ui.sign_name == "小李")
+
+    # 12. 礼金：自己填夹到 0～9999；选 88
+    print("12 礼金")
+    check("自己填 12345 按上限 9999", CourtUI.clamp_gift("12345") == 9999)
+    check("自己填 0 可以、空的不行", CourtUI.clamp_gift("0") == 0 and CourtUI.clamp_gift("") == -1)
+    ui._open_custom()
+    ui.gift_edit.text = "12345"
+    ui._custom_done()
+    check("确认页写 %s" % ui.confirm_gift.text, ui.pages[2].visible and ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "9999")
+    ui._show_page(1)
+    ui._pick_gift(88)
+    check("选 88：%s / %s" % [ui.confirm_name.text, ui.confirm_gift.text],
+        ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "88" and ui.confirm_name.text == CourtCopy.text("confirm_name_fmt") % "小李")
+    var note_ok := false
+    for ch in ui.pages[2].get_children():
+        if ch is Label and ch.text == CourtCopy.text("confirm_note"):
+            note_ok = true
+    check("确认页写着「只是游戏里的记录」", note_ok)
+
+    # 13. 断网：「没连上 再试一下」，本机留草稿，关了再开直接回到确认页
+    print("13 断网留草稿")
+    m.cloud.fake_fail_next = "network"
+    ui._submit()
+    check("提示：%s" % m.note.text, m.note_box.visible and m.note.text == m.REASONS["network"])
+    check("没签上、留了草稿 %s" % str(sv.draft), not sv.signed_in and str(sv.draft.get("name", "")) == "小李" and int(sv.draft.get("gift", -1)) == 88)
+    ui._close_sign()
+    check("关了面板能走", c.walking_enabled)
+    ui.open_sign()
+    check("再开直接到确认页，还是 88", ui.pages[2].visible and ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "88")
+
+    # 14. 签上：爸爸收礼，喜糖只弹一次，妈妈指路；服务端存下名字和礼金
+    print("14 签好了")
+    ui._submit()
+    check("签上了、草稿清掉", sv.signed_in and sv.draft.is_empty())
+    check("服务端存了 %s" % str(m.cloud.fake_check_in), str(m.cloud.fake_check_in.get("name", "")) == "小李" and int(m.cloud.fake_check_in.get("gift_value", -1)) == 88)
+    check("面板关了、能走", not ui.sign_root.visible and c.walking_enabled)
+    check("喜糖：%s" % str(ui.candy_root.visible), sv.candy and ui.candy_root.visible)
+    check("最后新娘妈妈指路：%s「%s」" % [m.dialog_who.text, m.dialog_text.text],
+        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("mom_point"))
+    ui.candy_root.visible = false
+
+    # 15. 签过了：按钮「已签到」、点不开
+    print("15 已签到")
+    check("按钮「%s」、置灰" % ui.act_btn.text, ui.act_btn.text == CourtCopy.text("btn_signed") and ui.act_btn.disabled)
+    ui.open_sign()
+    check("点不开", not ui.sign_root.visible)
+
+    # 16. 本机存档：重进山庄接着上次的
+    print("16 本机存档")
+    var again := CourtSave.new()
+    again.local_path = sv.local_path
+    again.load_local()
+    check("迎过、签过、喜糖都记着", again.welcomed and again.signed_in and again.candy and again.draft.is_empty())
+
+    # 17. 名字被服务端判敏感词：退回第一页，显示原因
+    print("17 名字过敏感词")
+    sv.signed_in = false
+    ui._refresh_act()
+    ui.open_sign()
+    ui.name_edit.text = "测试敏感"
+    ui._name_next()
+    ui._pick_gift(66)
+    ui._submit()
+    check("退回第一页：%s" % ui.name_err.text, ui.pages[0].visible and ui.name_err.text == m.REASONS["sensitive"] and not sv.signed_in)
+    ui._close_sign()
+    sv.signed_in = true
+

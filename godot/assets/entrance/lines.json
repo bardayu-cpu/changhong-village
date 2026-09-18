@@ -1,7 +1,135 @@
 {
  "note": "迎宾院的话（蓝图 3.1）都在这里，改文案只改这份。who 是谁说的（空的是顶部提示框，不是人说的）；source 写出处：「新写，等阿鱼定」是 02 按蓝图 3.1 用户故事、照《乐山话 v0.2》口吻新写的占位，阿鱼看过再改；有出处的是设计文档里的原句。回执 godot/回执/迎宾院灰盒.md 有全表",
  "lines": {
-  "to_lake": {"who": "", "text": "去湖边的小路还没修好", "source": "新写，等阿鱼定"},
-  "to_lawn": {"who": "", "text": "去草坪的小路还没修好", "source": "新写，等阿鱼定"}
+  "to_lake": {
+   "who": "",
+   "text": "去湖边的小路还没修好",
+   "source": "新写，等阿鱼定"
+  },
+  "to_lawn": {
+   "who": "",
+   "text": "去草坪的小路还没修好",
+   "source": "新写，等阿鱼定"
+  },
+  "welcome": {
+   "who": "新娘妈妈",
+   "text": "来啦 先到这边签个到",
+   "source": "新写，等阿鱼定（照蓝图 3.1 用户故事：新娘妈妈迎上来说这边签到）"
+  },
+  "btn_sign": {
+   "who": "",
+   "text": "签到",
+   "source": "蓝图 3.1 交互点 sign_in「签到面板」"
+  },
+  "btn_signed": {
+   "who": "",
+   "text": "已签到",
+   "source": "蓝图 3.1 交互说明「签到桌只显示『已签到』」"
+  },
+  "sign_name_title": {
+   "who": "",
+   "text": "签个名",
+   "source": "新写，等阿鱼定"
+  },
+  "btn_cancel": {
+   "who": "",
+   "text": "算了",
+   "source": "新写，等阿鱼定"
+  },
+  "btn_next": {
+   "who": "",
+   "text": "下一步",
+   "source": "新写，等阿鱼定"
+  },
+  "gift_title": {
+   "who": "",
+   "text": "礼金",
+   "source": "蓝图 3.1 功能需求「礼金」"
+  },
+  "gift_hint": {
+   "who": "",
+   "text": "要包多少都行 不包也行",
+   "source": "文案改写版 v2 A8-G1（原句末尾有个表情，像素字体显示不了，去掉了）"
+  },
+  "gift_none": {
+   "who": "",
+   "text": "不送",
+   "source": "蓝图 3.1 礼金选项"
+  },
+  "gift_custom": {
+   "who": "",
+   "text": "自己填",
+   "source": "蓝图 3.1 礼金选项"
+  },
+  "gift_custom_placeholder": {
+   "who": "",
+   "text": "填个数",
+   "source": "新写，等阿鱼定"
+  },
+  "btn_ok": {
+   "who": "",
+   "text": "好",
+   "source": "现有按钮字"
+  },
+  "btn_back": {
+   "who": "",
+   "text": "返回",
+   "source": "新写，等阿鱼定"
+  },
+  "confirm_title": {
+   "who": "",
+   "text": "确认一下",
+   "source": "新写，等阿鱼定"
+  },
+  "confirm_name_fmt": {
+   "who": "",
+   "text": "名字：%s",
+   "source": "新写，等阿鱼定"
+  },
+  "confirm_gift_fmt": {
+   "who": "",
+   "text": "礼金：%s",
+   "source": "新写，等阿鱼定"
+  },
+  "confirm_note": {
+   "who": "",
+   "text": "只是游戏里的记录",
+   "source": "蓝图 3.1 交互说明「确认页写明『只是游戏里的记录』」"
+  },
+  "err_name_empty": {
+   "who": "",
+   "text": "先留下怎么称呼你",
+   "source": "蓝图 3.1 异常表"
+  },
+  "err_name_long": {
+   "who": "",
+   "text": "最多 12 个字",
+   "source": "现有（起昵称那句）"
+  },
+  "err_name_glyph": {
+   "who": "",
+   "text": "有个字显示不出来 换一个",
+   "source": "蓝图 3.1 异常表（现有提示）"
+  },
+  "dad_thanks": {
+   "who": "新娘爸爸",
+   "text": "收到啦～",
+   "source": "文案改写版 v2 A8-G2「包完」、乐山话 v0.2 §2「包完礼金」（蓝图用户故事转述为『心意收到了』）"
+  },
+  "dad_no_gift": {
+   "who": "新娘爸爸",
+   "text": "人来了就好",
+   "source": "新写，等阿鱼定（选了不送时）"
+  },
+  "candy": {
+   "who": "",
+   "text": "喜糖收好了",
+   "source": "蓝图 3.1 功能需求「喜糖」"
+  },
+  "mom_point": {
+   "who": "新娘妈妈",
+   "text": "那本回忆册可以先翻翻 翻完去花墙拍张照 里面已经开席了",
+   "source": "新写，等阿鱼定（照蓝图 3.1 用户故事）"
+  }
  }
 }

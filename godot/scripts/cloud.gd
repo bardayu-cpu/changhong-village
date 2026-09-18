@@ -67,6 +67,8 @@ var fake_mine := {"coins": 0, "games": {}, "dishes": [], "gift_coins": 0}   # �
 var fake_pulse_toasts: Array = []   # 电脑上假装「刚有人敬我」：截图、测试往这里塞 {from}，下一次 hallPulse 带回去
 var fake_fetch_count := 0           # 电脑上假装从云存储下载（@fetchFile）了几次：测「第二次打开读本地、不下载」用
 var fake_fetch_fail := ""           # 不是空串就假装下载失败，回这个 reason（测试失败那一路用）
+var fake_fail_next := ""            # 不是空串：下一次调任何云函数都假装失败、回这个 reason（测断网那一路用），用一次就清掉
+var fake_check_in: Dictionary = {}  # 电脑上签到存下来的 {name, gift_value}（迎宾院签到，服务端是 resident 的 check_in_name、gift_value）
 
 ## timeout：等多少秒没回来就按「没连上」回调。名字以 @ 开头的不是云函数，是微信那一层自己做的事
 ## （wxgame/remote.js 的 @fetchFile：从云存储下载文件写进 user://，远程加载最小验证用，下载慢，要给长一点）
@@ -169,12 +171,18 @@ func diagnose() -> String:
 
 # ---- 电脑上的假实现：规则和服务端一致的最小子集，只为跑通流程 ----
 func _fake(name: String, data: Dictionary) -> Dictionary:
+    if fake_fail_next != "":
+        var why := fake_fail_next
+        fake_fail_next = ""
+        return {"ok": false, "reason": why}
     match name:
         "saveProfile":
             # 敏感词模块假数据（回执 05）：nick 里含"测试敏感"就回 sensitive，方便电脑上截图
-            # nick_rejected（起昵称被服务端拒，main.gd 的 _setup_shot 用得到）
-            if str(data.get("nick", "")).contains("测试敏感"):
+            # nick_rejected（起昵称被服务端拒，main.gd 的 _setup_shot 用得到）；签到的名字一样过（迎宾院，蓝图 3.1）
+            if str(data.get("nick", "")).contains("测试敏感") or str(data.get("check_in_name", "")).contains("测试敏感"):
                 return {"ok": false, "reason": "sensitive"}
+            if data.has("check_in_name"):
+                fake_check_in = {"name": str(data["check_in_name"]), "gift_value": clampi(int(data.get("gift_value", 0)), 0, 9999)}
             for k in ["coins", "games", "dishes", "gift_coins"]:
                 if data.has(k):
                     fake_mine[k] = data[k]
