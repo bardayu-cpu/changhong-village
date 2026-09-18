@@ -698,7 +698,18 @@ func _enter_banquet() -> void:
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
     # 存资料、进厅拿席位（蓝图 3.2）。失败不拦流程，只顶部提示
-    cloud.call_fn("saveProfile", {"nick": nickname, "avatar": preset}, _after_profile)
+    var inv: String = cloud.inviter()
+    var payload := profile_payload(nickname, preset, inv, cloud.openid())
+    print("[suqi] 存资料 带邀请人 ", payload.has("inviter"), " ", inv.substr(0, 6))
+    cloud.call_fn("saveProfile", payload, _after_profile)
+
+## 存资料要发的字段（字段名以服务端 saveProfile 为准）。邀请链：点谁的卡片进来就带上 inviter，
+## 不带自己；服务端还会再判「只认第一次、查无此人不认」（回执 03）
+static func profile_payload(nick: String, avatar: int, inviter: String, me: String) -> Dictionary:
+    var d := {"nick": nick, "avatar": avatar}
+    if inviter != "" and inviter != me:
+        d["inviter"] = inviter
+    return d
 
 func _say(text: String, hold := -1.0) -> void:
     say_token += 1

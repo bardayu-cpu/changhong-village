@@ -144,6 +144,10 @@ GameGlobal.__suqiCloud = {
     openid: function () {
         return (GameGlobal.__suqiUser && GameGlobal.__suqiUser.openid) || '';
     },
+    // 点谁的分享卡片进来的（share.js 记在 GameGlobal.__suqiInviter），没有是空串
+    inviter: function () {
+        return GameGlobal.__suqiInviter || '';
+    },
     // 自查：真机上点绿字看日志，这一行能看出请求有没有送到这边
     caps: function () {
         return '桥自查 收到字符 ' + tx.chars + ' 请求 ' + tx.msgs + ' 坏包 ' + tx.bad +

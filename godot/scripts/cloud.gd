@@ -49,6 +49,14 @@ func openid() -> String:
         return str(_js.openid())
     return "fake_me"
 
+## 点谁的分享卡片进来的（邀请链，wxgame/share.js 记下的）；没有、或者电脑上，都是空串
+func inviter() -> String:
+    if _js != null:
+        return str(_js.inviter())
+    return fake_inviter
+
+var fake_inviter := ""   # 电脑上假装是点谁的卡片进来的，测试用
+
 func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
     if _js == null:
         # 真机上桥断了也要给回调，不然界面什么都不显示（第 17、18 版就是这样五步全哑）
