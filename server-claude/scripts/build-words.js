@@ -38,8 +38,34 @@ function readLines(file) {
   return fs.readFileSync(file, 'utf8').split(/\r?\n/);
 }
 
+// ---- 9/18 助理 01 审词库后加的三道筛（原因写在各自的文件和注释里，回执 05 有摘要）----
+// 1. 整份不用的源文件：这两份是压新闻话题用的，几乎全是普通词（疫情、政府、北京、拆迁、维权），
+//    婚礼游戏里拦了只会误伤，跟「拦脏话、拦广告、拦政治口号」不是一回事
+const SKIP_FILES = {
+  'COVID-19词库.txt': '新闻话题词表：疫情、肺炎、政府、北京、红十字会……',
+  '民生词库.txt': '新闻话题词表：拆迁、上访、维权……',
+};
+// 2. 政治、反动、贪腐三份里像人名的词条（两三个汉字、常见姓开头）默认不收：和来宾真名撞的可能不小，
+//    words/keep-names.txt 里列的（领导人本人、骂人的变体）照收
+const NAME_FILES = new Set(['政治类型.txt', '反动词库.txt', '贪腐词库.txt']);
+const SURNAMES = new Set(Array.from(
+  '王李张刘陈杨黄赵吴周徐孙马朱胡郭何高林罗郑梁谢宋唐许韩冯邓曹彭曾肖田董袁潘于蒋蔡余杜叶程苏魏吕丁任沈姚卢' +
+  '姜崔钟谭陆汪范金石廖贾夏韦付方白邹孟熊秦邱江尹薛闫段雷侯龙史陶黎贺顾毛郝龚邵万钱严覃武戴莫孔向汤习温薄令俞栗'));
+// 3. words/exclude.txt：普通词和常见人名，最后整条剔掉
+function readList(name) {
+  const file = path.join(ROOT, 'words', name);
+  if (!fs.existsSync(file)) return [];
+  return readLines(file).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+}
+function looksLikeName(word) {
+  return /^[\u4e00-\u9fff]{2,3}$/.test(word) && SURNAMES.has(word[0]);
+}
+
 function main() {
-  const files = fs.readdirSync(SOURCE_DIR).filter(f => f.endsWith('.txt')).sort();
+  const allFiles = fs.readdirSync(SOURCE_DIR).filter(f => f.endsWith('.txt')).sort();
+  const files = allFiles.filter(f => !SKIP_FILES[f]);
+  const keepNames = new Set(readList('keep-names.txt').map(w => sensitive.normalize(w)));
+  let nameRemoved = 0;
   if (files.length === 0) throw new Error('build-words: 词库源目录下没有 .txt 文件，先确认路径');
 
   const perFile = [];
@@ -58,6 +84,7 @@ function main() {
       totalRaw++;
       const norm = sensitive.normalize(line);
       if (!norm) { emptyAfterNormalize++; continue; }
+      if (NAME_FILES.has(f) && looksLikeName(line) && !keepNames.has(norm)) { nameRemoved++; continue; }
       if (Array.from(norm).length <= 1) { singleCharRemoved++; continue; }
       if (seen.has(norm)) { dupRemoved++; continue; }
       seen.add(norm);
@@ -72,6 +99,14 @@ function main() {
     if (seen.has(norm)) { seen.delete(norm); excludeHit++; }
   }
 
+  const exclude = readList('exclude.txt');
+  let generalExcluded = 0;
+  const excludeMissing = [];
+  for (const w of exclude) {
+    const norm = sensitive.normalize(w);
+    if (seen.has(norm)) { seen.delete(norm); generalExcluded++; } else excludeMissing.push(w);
+  }
+
   const finalWords = Array.from(seen).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, finalWords.join('\n') + '\n', 'utf8');
@@ -83,6 +118,10 @@ function main() {
   console.log(`单字词条删除 ${singleCharRemoved} 条`);
   console.log(`跨文件重复 ${dupRemoved} 条`);
   console.log(`误伤排除 ${excludeHit}/${FALSE_POSITIVE_EXCLUDE.length} 条（FALSE_POSITIVE_EXCLUDE 列表，命中数应等于列表长度，不等说明词库更新后某条已经不在里面了）`);
+  console.log(`整份不用的源文件 ${Object.keys(SKIP_FILES).length} 份：${Object.keys(SKIP_FILES).join('、')}`);
+  console.log(`政治、反动、贪腐里像人名的词条不收 ${nameRemoved} 条（keep-names.txt 里的照收）`);
+  console.log(`exclude.txt 剔掉普通词 ${generalExcluded}/${exclude.length} 条` +
+    (excludeMissing.length ? `；这些本来就不在词库里（可能来自不用的源文件）：${excludeMissing.join('、')}` : ''));
   console.log(`最终 base.txt 词条数 ${finalWords.length}`);
   const stat = fs.statSync(OUT_FILE);
   console.log(`文件大小 ${stat.size} 字节`);
