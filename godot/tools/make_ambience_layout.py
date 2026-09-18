@@ -22,7 +22,10 @@ tables = scene["tables"]
 
 # 墙上的灯笼亮心（9/18 对着 base.png 量的，A04 整批换底图要重量）
 WALL_LANTERNS = [(520, 32), (953, 31), (315, 82), (1157, 81), (98, 124), (1373, 123), (20, 224), (1453, 224), (1485, 289)]
-FLOOR_LANTERNS = [(90, 470), (90, 650), (1446, 470), (1446, 650)]
+# 落地灯笼、花盆这些站在地上的积木（墙边、红毯两边），从 scene.json 的遮挡块里读着地点
+FLOOR_LANTERNS = [(o["x"] + 14, o["foot"]) for o in scene["occluders"] if "blk_lantern_floor" in o["image"]]
+FLOOR_PROPS = [(o["x"] + 20, o["foot"]) for o in scene["occluders"]
+               if "blk_lantern_floor" in o["image"] or "blk_flower_pot" in o["image"]]
 
 
 def on_carpet(x, y):
@@ -41,7 +44,7 @@ def under_rail(x, y):
 
 
 def near_lantern(x, y):
-    return any(abs(x - lx) < 40 and ly - 70 < y < ly + 24 for lx, ly in FLOOR_LANTERNS)
+    return any(abs(x - lx) < 40 and ly - 80 < y < ly + 24 for lx, ly in FLOOR_PROPS)
 
 
 def scatter(rng, n, placed, min_d):

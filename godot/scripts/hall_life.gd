@@ -84,6 +84,7 @@ func build(h: Node2D) -> void:
         var a = JSON.parse_string(FileAccess.get_file_as_string(DIR + "amb_art.json"))
         if typeof(a) == TYPE_DICTIONARY:
             art = a
+    _rugs()
     _decals()
     _gifts()
     _band()
@@ -157,6 +158,18 @@ func _shins(tx: Texture2D) -> Sprite2D:
 
 func _vec(a) -> Vector2:
     return Vector2(float(a[0]), float(a[1]))
+
+# ---------- 桌子下面的红地毯（阿鱼 9/18 晚：厅里看着太空）----------
+## 每张桌一块，圈心在桌子加椅子那一圈的地面中间（着地点往上 20 像素）；桌子积木盖在它上面，只露一圈边
+func _rugs() -> void:
+    for tc in hall.cfg.get("tables", []):
+        var s := _sprite("amb_rug")
+        if s == null:
+            return
+        s.position = Vector2(float(tc["x"]), float(tc["y"]) - 20.0)
+        s.z_index = -9   # 和彩带一样贴在底图上；先摆，彩带压在它上面
+        s.name = "rug"
+        add_child(s, true)
 
 # ---------- 地上的彩带、彩纸 ----------
 func _decals() -> void:

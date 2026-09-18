@@ -47,6 +47,10 @@ random.seed(20260918)
 ROOT = "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘-claude 总文件/godot"
 SCENE_DIR = os.path.join(ROOT, "assets/layered/scene_roman_banquet")
 OUT_DIR = os.path.join(ROOT, "assets/ambience")
+# tools/layout_v7_tables/ 是场景积木的暂存目录（跟 assets/layered/scene_roman_banquet/ 镜像的
+# base.png、blk_table_round.png 等都在这），2026-09-18 协调方要的 blk_flower_pot.png 是场景积木、
+# 不是氛围占位图，按它自己的规矩放这里，不进 amb_art.json
+LAYOUT_DIR = os.path.join(ROOT, "tools/layout_v7_tables")
 SCRATCH = (
     "/private/tmp/claude-501/-Users-kayra-ayu-Desktop------/"
     "9522c259-47a8-43c3-aa9c-60a480f2ffcb/scratchpad/amb"
@@ -111,6 +115,20 @@ CONFETTI_RED = (224, 64, 58, 255)        # #e0403a
 CONFETTI_GOLD = (240, 192, 64, 255)      # #f0c040
 CONFETTI_PINK = (242, 143, 176, 255)     # #f28fb0
 CONFETTI_WHITE = (255, 246, 224, 255)    # #fff6e0
+
+# 2026-09-18 新一批：桌下红地毯 + 舞台花瓶。颜色是协调方给的十六进制值，
+# 特意跟桌布/椅子的红（RED/RED_DARK）区分开，别撞色
+RUG_FIELD = (125, 26, 31, 255)       # #7d1a1f 地毯主色，深绛红
+RUG_PATTERN = (158, 42, 43, 255)     # #9e2a2b 暗纹（菱形/花纹）
+RUG_GOLD = (212, 165, 58, 255)       # #d4a53a 金边
+RUG_GOLD_HI = (240, 207, 106, 255)   # #f0cf6a 金边高光
+RUG_EDGE_DARK = (52, 14, 16, 255)    # 金边外面那圈细的深红边线
+
+VASE_DARK = (26, 27, 36, 255)        # 花瓶深蓝黑色瓷
+VASE_DARK_HI = (46, 48, 62, 255)     # 花瓶肩部一点高光
+LEAF_GREEN = (60, 98, 55, 255)
+LEAF_GREEN_DARK = (36, 64, 36, 255)
+LEAF_GREEN_LIGHT = (96, 140, 80, 255)
 
 ANCHORS = {}  # 收集每张图的 size / anchor，最后写 amb_art.json
 
@@ -866,6 +884,127 @@ def build_cup():
 
 
 # ---------------------------------------------------------------------------
+# 14. 桌下红地毯 amb_rug  约 224x136，平贴地面，锚点图片中心
+# ---------------------------------------------------------------------------
+
+def build_rug():
+    # 2026-09-18 协调方要的：桌子底下的圆地毯。只有外面一圈会露出来（中间被桌椅盖住），
+    # 所以没画桌子；颜色特意跟桌布/椅子的红分开，别撞色。全程不做体积，扁扁贴在地上
+    W, H = 120, 76
+    cx, cy = 60, 38
+    img = new_canvas(W, H)
+    d = ImageDraw.Draw(img)
+
+    def ell(rx, ry, color):
+        ellipse(d, [cx - rx, cy - ry, cx + rx, cy + ry], fill=color, outline=None)
+
+    ell(56, 34, RUG_EDGE_DARK)   # 最外面一圈细的深红边线
+    ell(55, 33, RUG_GOLD)        # 金边（比里面的地毯色垫大 2ap，露出 2ap 宽）
+    ell(53, 31, RUG_FIELD)       # 地毯主色
+
+    # 花纹一圈：一圈小菱形，靠近金边内侧
+    ring_rx, ring_ry = 45, 25
+    n = 14
+    for i in range(n):
+        a = 2 * math.pi * i / n
+        px = cx + math.cos(a) * ring_rx
+        py = cy + math.sin(a) * ring_ry
+        poly(d, [(px, py - 1.7), (px + 1.7, py), (px, py + 1.7), (px - 1.7, py)],
+             fill=RUG_PATTERN, outline=None)
+
+    # 中心一小朵花纹（大半会被桌子盖住，露出来也不突兀）
+    for i in range(8):
+        a = 2 * math.pi * i / 8
+        px = cx + math.cos(a) * 7.5
+        py = cy + math.sin(a) * 4.4
+        poly(d, [(px, py - 1.3), (px + 1.3, py), (px, py + 1.3), (px - 1.3, py)],
+             fill=RUG_PATTERN, outline=None)
+    ellipse(d, [cx - 1.6, cy - 1.2, cx + 1.6, cy + 1.2], fill=RUG_GOLD, outline=None)
+
+    # 金边高光：左上方一小段（光从左上来），不做体积，只是这一段的金色换成亮一点的
+    for deg in range(190, 261, 6):
+        a = math.radians(deg)
+        px = cx + math.cos(a) * 54.3
+        py = cy + math.sin(a) * 32.3
+        d.point([(px, py)], fill=RUG_GOLD_HI)
+        d.point([(px, py - 1)], fill=RUG_GOLD_HI)
+
+    # 底边（南）一点点阴影：最多 1 个美术像素，贴着地毯主色的下缘描一丝暗色，不叠体积
+    shadow_color = (98, 18, 22, 255)
+    for deg in range(50, 131, 4):
+        a = math.radians(deg)
+        px = cx + math.cos(a) * 51.3
+        py = cy + math.sin(a) * 29.3
+        d.point([(px, py)], fill=shadow_color)
+
+    out = finalize(img, margin_ap=1)
+    return out, (out.width // 2, out.height // 2)
+
+
+# ---------------------------------------------------------------------------
+# 15. 舞台花瓶 blk_flower_pot（场景积木，放 tools/layout_v7_tables/，不进 amb_art.json）
+#     约 40x72（0.8m 宽 x 1.5m 高），参照 base.png 舞台两侧花瓶
+# ---------------------------------------------------------------------------
+
+def _leaf(d, base, tip, width, color):
+    bx, by = base
+    tx, ty = tip
+    dx, dy = tx - bx, ty - by
+    length = math.hypot(dx, dy) or 1.0
+    px, py = -dy / length * width, dx / length * width
+    mx, my = (bx + tx) / 2.0, (by + ty) / 2.0
+    poly(d, [base, (mx + px, my + py), tip, (mx - px, my - py)], fill=color, outline=None)
+
+
+def build_flower_pot():
+    W, H = 24, 40
+    OX, OY = 2, 2
+    img = new_canvas(W, H)
+    d = ImageDraw.Draw(img)
+
+    def P(x, y):
+        return (x + OX, y + OY)
+
+    # 叶子先画（在花朵后面），从花瓶瓶口往外放射状展开
+    leaf_tips = [
+        ((0, 11), LEAF_GREEN_DARK), ((1, 6), LEAF_GREEN), ((6, 2), LEAF_GREEN_LIGHT),
+        ((14, 2), LEAF_GREEN_LIGHT), ((19, 6), LEAF_GREEN), ((20, 11), LEAF_GREEN_DARK),
+        ((17, 16), LEAF_GREEN_DARK), ((3, 16), LEAF_GREEN_DARK),
+    ]
+    base = (10, 15)
+    for tip, color in leaf_tips:
+        _leaf(d, P(*base), P(*tip), 1.9, color)
+
+    # 花瓶：圆润的罐子形，深蓝黑瓷，肩部一点高光（光从左上来）
+    body = [
+        (9, 16), (11, 16), (13, 18), (15, 22), (14, 26), (12, 29),
+        (8, 29), (6, 26), (5, 22), (7, 18),
+    ]
+    poly(d, [P(x, y) for x, y in body], fill=VASE_DARK, outline=OUTLINE)
+    d.line([P(7.4, 19), P(6.2, 22.5)], fill=VASE_DARK_HI, width=1)
+    d.line([P(9, 16.4), P(11, 16.4)], fill=GOLD, width=1)  # 瓶口一道细金边
+    for px, py in ((6.6, 23), (9, 24), (11.2, 24), (13.6, 23)):
+        poly(d, [P(px, py - 1), P(px + 1, py), P(px, py + 1), P(px - 1, py)], fill=GOLD, outline=None)
+
+    # 花朵：红、米白几朵围成一个圆团，每朵一个深色小花心
+    flowers = [
+        (10, 5, 3.0, RED_LIGHT), (5, 8, 2.4, CREAM), (15, 8, 2.4, RED),
+        (7, 11, 2.2, RED), (13, 11, 2.2, CREAM), (10, 10, 2.0, CREAM_SHADE),
+        (3, 12.5, 1.8, RED_DARK), (17, 12.5, 1.8, RED_DARK),
+    ]
+    for fx, fy, r, color in flowers:
+        ellipse(d, [P(fx - r, fy - r), P(fx + r, fy + r)], fill=color, outline=OUTLINE)
+        ellipse(d, [P(fx - 0.6, fy - 0.6), P(fx + 0.6, fy + 0.6)], fill=GOLD_DARK, outline=None)
+
+    # 小小的深色木托
+    draw_box(d, *P(4, 29), 12, 6, 1.8, 2.5, WOOD_LIGHT, WOOD_MID, WOOD_DARK)
+
+    out = finalize(img, margin_ap=1)
+    anchor = (out.width // 2, out.height - 1)
+    return out, anchor
+
+
+# ---------------------------------------------------------------------------
 # 主流程：生成所有素材
 # ---------------------------------------------------------------------------
 
@@ -925,9 +1064,20 @@ def main(write_only=None):
     emit("amb_petal_1", build_petal)
     emit("amb_petal_2", build_sequin)
     emit("amb_cup", build_cup)
+    emit("amb_rug", build_rug)
 
     with open(os.path.join(OUT_DIR, "amb_art.json"), "w", encoding="utf-8") as f:
         json.dump(ANCHORS, f, ensure_ascii=False, indent=2)
+
+    # blk_flower_pot 是场景积木（不是氛围占位图）：存到 tools/layout_v7_tables/，
+    # 不写进 amb_art.json；锚点和地面占位椭圆由脚本回报，协调方自己填场景配置
+    flower_img, flower_anchor = build_flower_pot()
+    if _should_write("blk_flower_pot"):
+        os.makedirs(LAYOUT_DIR, exist_ok=True)
+        flower_img.save(os.path.join(LAYOUT_DIR, "blk_flower_pot.png"), optimize=True)
+    generated["blk_flower_pot"] = flower_img
+    flower_footprint_rx = round((flower_img.width / 2.0) * 0.62, 1)  # 木托比花瓶正面宽一点，量出来的占地半径
+    flower_footprint_ry = round(flower_footprint_rx * (32.0 / 48.0), 1)  # 纵深按 32:48 的地面比例换算
 
     # ------------------------------------------------------------------
     # 预览 1：contact.png —— 所有图放大 3 倍排在地砖底上，旁边标英文文件名
@@ -1025,6 +1175,12 @@ def main(write_only=None):
     print(f"--- PNG 总大小: {total} B ({total/1024:.1f} KB) ---")
     print(f"contact.png -> {contact_path}")
     print(f"mock.png -> {mock_path}")
+
+    flower_path = os.path.join(LAYOUT_DIR, "blk_flower_pot.png")
+    flower_size = os.path.getsize(flower_path) if os.path.exists(flower_path) else 0
+    print(f"--- {flower_path} ---")
+    print(f"blk_flower_pot.png\t{flower_size} B\tsize={flower_img.width}x{flower_img.height}\t"
+          f"anchor(贴地中点)={list(flower_anchor)}\t建议地面占位椭圆 rx,ry≈{flower_footprint_rx},{flower_footprint_ry}")
 
 
 if __name__ == "__main__":

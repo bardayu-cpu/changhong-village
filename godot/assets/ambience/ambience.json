@@ -2,105 +2,87 @@
  "note": "宴会厅氛围的摆放，tools/make_ambience_layout.py 生成，别手改",
  "decals": [
   {
-   "art": "amb_streamer_2",
-   "x": 612,
-   "y": 555,
-   "flip": false
-  },
-  {
-   "art": "amb_streamer_1",
-   "x": 134,
-   "y": 488,
-   "flip": true
-  },
-  {
-   "art": "amb_streamer_6",
+   "art": "amb_streamer_4",
    "x": 368,
    "y": 685,
-   "flip": false
-  },
-  {
-   "art": "amb_streamer_4",
-   "x": 918,
-   "y": 537,
    "flip": true
   },
   {
-   "art": "amb_streamer_6",
+   "art": "amb_streamer_5",
+   "x": 588,
+   "y": 812,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_5",
    "x": 652,
    "y": 826,
    "flip": false
   },
   {
-   "art": "amb_streamer_4",
+   "art": "amb_streamer_2",
    "x": 1206,
    "y": 515,
    "flip": true
   },
   {
-   "art": "amb_streamer_5",
-   "x": 566,
-   "y": 849,
-   "flip": false
-  },
-  {
-   "art": "amb_streamer_1",
+   "art": "amb_streamer_3",
    "x": 378,
    "y": 525,
-   "flip": false
-  },
-  {
-   "art": "amb_streamer_2",
-   "x": 368,
-   "y": 422,
-   "flip": false
-  },
-  {
-   "art": "amb_streamer_4",
-   "x": 631,
-   "y": 712,
-   "flip": false
-  },
-  {
-   "art": "amb_streamer_5",
-   "x": 904,
-   "y": 622,
    "flip": true
   },
   {
-   "art": "amb_streamer_4",
-   "x": 622,
-   "y": 485,
+   "art": "amb_streamer_1",
+   "x": 290,
+   "y": 458,
    "flip": false
   },
   {
-   "art": "amb_streamer_4",
+   "art": "amb_streamer_3",
+   "x": 368,
+   "y": 422,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_3",
+   "x": 603,
+   "y": 450,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_1",
    "x": 129,
    "y": 709,
    "flip": true
   },
   {
-   "art": "amb_streamer_4",
-   "x": 910,
-   "y": 719,
+   "art": "amb_streamer_2",
+   "x": 1402,
+   "y": 412,
    "flip": true
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 601,
+   "y": 675,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 129,
+   "y": 367,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 362,
+   "y": 331,
+   "flip": false
   },
   {
    "art": "amb_streamer_6",
-   "x": 129,
-   "y": 367,
-   "flip": true
-  },
-  {
-   "art": "amb_streamer_2",
-   "x": 362,
-   "y": 331,
-   "flip": true
-  },
-  {
-   "art": "amb_streamer_3",
-   "x": 129,
-   "y": 576,
+   "x": 884,
+   "y": 749,
    "flip": false
   },
   {
@@ -116,153 +98,171 @@
    "flip": true
   },
   {
-   "art": "amb_streamer_2",
+   "art": "amb_streamer_1",
    "x": 1015,
    "y": 845,
    "flip": true
   },
   {
-   "art": "amb_streamer_2",
+   "art": "amb_streamer_5",
    "x": 472,
    "y": 839,
    "flip": false
   },
   {
-   "art": "amb_streamer_6",
+   "art": "amb_streamer_5",
    "x": 887,
    "y": 841,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 1116,
+   "y": 505,
    "flip": false
+  },
+  {
+   "art": "amb_streamer_2",
+   "x": 634,
+   "y": 749,
+   "flip": true
   },
   {
    "art": "amb_streamer_6",
-   "x": 1209,
-   "y": 690,
+   "x": 940,
+   "y": 638,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 1065,
+   "y": 459,
    "flip": false
   },
   {
    "art": "amb_streamer_5",
-   "x": 604,
-   "y": 644,
+   "x": 422,
+   "y": 607,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_4",
+   "x": 341,
+   "y": 621,
    "flip": false
   },
   {
-   "art": "amb_streamer_3",
-   "x": 1205,
-   "y": 412,
-   "flip": true
-  },
-  {
    "art": "amb_streamer_5",
-   "x": 1365,
-   "y": 645,
-   "flip": true
-  },
-  {
-   "art": "amb_confetti_1",
-   "x": 350,
-   "y": 630,
+   "x": 1408,
+   "y": 482,
    "flip": false
   },
   {
    "art": "amb_confetti_2",
-   "x": 632,
-   "y": 426,
-   "flip": false
-  },
-  {
-   "art": "amb_confetti_1",
-   "x": 620,
-   "y": 784,
-   "flip": true
-  },
-  {
-   "art": "amb_confetti_1",
-   "x": 951,
-   "y": 827,
-   "flip": true
-  },
-  {
-   "art": "amb_confetti_3",
    "x": 357,
    "y": 737,
-   "flip": false
-  },
-  {
-   "art": "amb_confetti_3",
-   "x": 1409,
-   "y": 564,
-   "flip": false
-  },
-  {
-   "art": "amb_confetti_1",
-   "x": 893,
-   "y": 398,
-   "flip": false
-  },
-  {
-   "art": "amb_confetti_1",
-   "x": 409,
-   "y": 646,
-   "flip": false
-  },
-  {
-   "art": "amb_confetti_3",
-   "x": 1409,
-   "y": 376,
-   "flip": false
+   "flip": true
   },
   {
    "art": "amb_confetti_2",
+   "x": 1176,
+   "y": 402,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_1",
+   "x": 935,
+   "y": 745,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 893,
+   "y": 398,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 924,
+   "y": 793,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 213,
+   "y": 457,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_1",
    "x": 1185,
    "y": 635,
    "flip": false
   },
   {
-   "art": "amb_confetti_2",
+   "art": "amb_confetti_1",
    "x": 333,
    "y": 488,
    "flip": true
   },
   {
-   "art": "amb_confetti_2",
-   "x": 1141,
-   "y": 609,
+   "art": "amb_confetti_3",
+   "x": 1215,
+   "y": 582,
    "flip": true
   },
   {
-   "art": "amb_confetti_2",
-   "x": 902,
-   "y": 783,
+   "art": "amb_confetti_1",
+   "x": 1141,
+   "y": 609,
    "flip": false
   },
   {
    "art": "amb_confetti_3",
    "x": 652,
    "y": 603,
-   "flip": true
-  },
-  {
-   "art": "amb_confetti_1",
-   "x": 881,
-   "y": 503,
    "flip": false
   },
   {
    "art": "amb_confetti_2",
-   "x": 1133,
-   "y": 487,
+   "x": 1197,
+   "y": 683,
    "flip": false
   },
   {
-   "art": "amb_confetti_1",
+   "art": "amb_confetti_2",
    "x": 648,
    "y": 375,
    "flip": true
   },
   {
-   "art": "amb_confetti_1",
+   "art": "amb_confetti_2",
    "x": 331,
    "y": 551,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 978,
+   "y": 804,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 145,
+   "y": 417,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 1433,
+   "y": 541,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 883,
+   "y": 599,
    "flip": false
   }
  ],
@@ -334,14 +334,32 @@
    0.4
   ],
   [
-   1446,
+   1443,
    430,
    46,
    0.4
   ],
   [
-   1446,
+   1443,
    610,
+   46,
+   0.4
+  ],
+  [
+   650,
+   488,
+   46,
+   0.4
+  ],
+  [
+   883,
+   305,
+   46,
+   0.4
+  ],
+  [
+   883,
+   660,
    46,
    0.4
   ]
