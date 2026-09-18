@@ -30,6 +30,14 @@ var fake_names := {
 }
 var fake_changed_today := false
 var fake_toasts_today: Array = []   # 我今天敬出去的杯数，敬过谁：[to openid, ...]（电脑上没有日期，跑一次当一天）
+## 翻簿子假数据（第 24 版）：T1 两条方便看接龙，T2 空的方便截空簿子截图。字段名照真实服务端
+## readBook 的返回（`at`，不是 `created_at`——之前这里写错过，main.gd 读的是 `at`）
+var fake_book: Dictionary = {
+    "T1": [
+        {"openid": "fake_wang", "text": "新婚快乐", "at": 0},
+        {"openid": "fake_li", "text": "百年好合 常来坐坐", "at": 1},
+    ],
+}
 
 func _ready() -> void:
     # 不按 OS.has_feature 判断：读得到 __suqiCloud 就是接上了，读不到再看是不是在微信里
@@ -204,7 +212,29 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             fake_toasts_today.append(to)
             return {"ok": true}
         "writeBook":
+            # 规则照抄服务端 9/18 改过的 canWriteBook（src/banquet.js）：少字段 bad_request；
+            # 桌子不是 fake_me 当前坐的桌 not_sat_here；空文本 bad_request；超过 100 字 book_too_long
+            if not data.has("table") or not data.has("text"):
+                return {"ok": false, "reason": "bad_request"}
+            var w_table := str(data["table"])
+            var w_text := str(data["text"])
+            if w_table != str(fake_me.get("table_id", "")):
+                return {"ok": false, "reason": "not_sat_here"}
+            if w_text == "":
+                return {"ok": false, "reason": "bad_request"}
+            if w_text.length() > 100:
+                return {"ok": false, "reason": "book_too_long"}
+            if not fake_book.has(w_table):
+                fake_book[w_table] = []
+            (fake_book[w_table] as Array).append({"openid": "fake_me", "text": w_text, "at": Time.get_ticks_msec()})
             return {"ok": true}
         "readBook":
-            return {"ok": true, "data": {"lines": [{"openid": "fake_wang", "text": "新婚快乐", "created_at": 0}]}}
+            var r_table := str(data.get("table", ""))
+            var lines: Array = (fake_book.get(r_table, []) as Array).duplicate()
+            var names := {}
+            for l in lines:
+                var oid := str((l as Dictionary)["openid"])
+                if fake_names.has(oid):
+                    names[oid] = fake_names[oid]
+            return {"ok": true, "data": {"lines": lines, "names": names}}
     return {"ok": false, "reason": "network"}

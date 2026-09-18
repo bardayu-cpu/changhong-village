@@ -77,7 +77,6 @@ module.exports = {
   BANQUET_RESERVED_TABLES: 2,          // 离主桌最近的两桌，给阿鱼、Toretto 的枝
   BANQUET_TABLE_IDS: ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'], // 数组顺序即桌序，前 BANQUET_RESERVED_TABLES 个是离主桌最近的
   BANQUET_BENCH_ID: 'bench',           // 长凳：seat 表里 table_id 写这个，chair_no 为 null，人数不限
-  BANQUET_CHANGE_PER_VISIT: 1,         // 每次来访能换几次桌
   BANQUET_TOAST_DAILY: 5,              // 每人每天敬几杯
   BANQUET_TOAST_PER_PERSON_DAILY: 1,   // 对同一人每天几杯
   BANQUET_BOOK_MAX_LEN: 100,           // 桌簿一条最多几字
@@ -87,7 +86,8 @@ module.exports = {
   BANQUET_PAGE_MAX_TOTAL: 5000,        // 分页读全的总上限，防失控；婚宴量级用不到这么多
   BANQUET_BOOK_READ_MAX: 200,           // readBook 只带回最近这么多条（按 created_at 取最新，返回时仍正序）【待验证：200 这个数字】
   // 测试期开关（9/17 助理 01 定）：阿鱼真机测「坐下」时，第一次换桌以后当天再换全被拒（changed_today），没法反复验。
-  // 为 true 时：换桌不限每天次数，敬酒不限每天杯数、不限对同一人的杯数；有人坐的椅子、敬自己照样拒。
-  // 【请朋友进来之前必须改成 false，并重新部署 changeSeat、toast】（HANDOFF 服务端一节有记）
+  // 9/18 蓝图把换桌改成不限次数，这条判定已经从 canChangeSeat 删掉，换桌不再受这个开关影响。
+  // 现在只有敬酒还靠它放开测试：为 true 时敬酒不限每天杯数、不限对同一人的杯数；敬自己照样拒。
+  // 【请朋友进来之前必须改成 false，并重新部署 toast】（HANDOFF 服务端一节有记）
   BANQUET_TEST_MODE: true,
 };

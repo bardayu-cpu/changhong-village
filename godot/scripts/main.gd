@@ -13,6 +13,9 @@ const LINE_ARRIVE := "到啦～ 罗曼山庄 席还没散"
 const LINE_TABLE := "想跟我们说点什么 写这儿 只有我们看得到"
 const LINE_LEAVE := "吃好了？走 带你回镇上"
 const LINE_TOASTED_FMT := "敬了 %s 一杯"   # 新写，等阿鱼定
+const LINE_BOOK_EMPTY := "还没人写 你来第一句"   # 新写，等阿鱼定
+const BOOK_PLACEHOLDER := "接一句"   # 新写，等阿鱼定
+const LINE_BOOK_READONLY := "先坐下 慢慢写"   # 蓝图 3.2 9/18 定稿：不是自己现在坐的那桌，只能看
 const GOLD := Color("#d4af37")
 const GOLD1 := Color("#f4d97a")
 const RED := Color("#c0392b")
@@ -52,6 +55,21 @@ var person_card_portrait: TextureRect
 var person_card_name: Label
 var person_card_inviter: Label
 var person_card_toast_btn: Button
+var book_btn: Button      # 走到桌边、或坐在自己桌上时出现，「翻簿子」（第 24 版，蓝图 3.2）
+var near_table_id := ""   # hall.table_near 最新一次的内容
+var book_open := false
+var book_table := ""      # 正在翻的是哪一桌
+var book_empty_shown := false   # 列表当前显示的是不是「还没人写 你来第一句」占位
+var book_panel: Control
+var book_list_box: VBoxContainer
+var book_scroll: ScrollContainer
+var book_loading: Label
+var book_input_row: VBoxContainer   # 输入框 + 好，写得了的时候显示
+var book_readonly_label: Label      # 「先坐下 慢慢写」，写不了的时候显示
+var book_edit: TextEdit
+var book_count: Label
+var book_err: Label
+var book_ok: Button
 const CloudRpc = preload("res://scripts/cloud.gd")
 var cloud: Node
 # 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）。
@@ -127,6 +145,7 @@ func _ready() -> void:
     if USE_LAYERED:
         hall.chair_near.connect(_on_chair_near)
         hall.person_near.connect(_on_person_near)
+        hall.table_near.connect(_on_table_near)
     hall.walking_enabled = false
     _build_ui()
     print("[suqi] 界面搭好了")
@@ -454,6 +473,7 @@ func _build_ui() -> void:
     eb.add_child(again)
     _build_hud()
     _build_person_card()
+    _build_book_panel()
     fade = ColorRect.new()
     fade.color = Color(0, 0, 0, 0)
     fade.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -515,6 +535,16 @@ func _build_hud() -> void:
     person_btn.offset_right = 220
     person_btn.pressed.connect(_on_person_pressed)
     hud.add_child(person_btn)
+    book_btn = Button.new()
+    book_btn.text = "翻簿子"
+    book_btn.visible = false
+    book_btn.clip_text = true
+    book_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    book_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    book_btn.offset_top = -170
+    book_btn.offset_bottom = -120
+    book_btn.pressed.connect(_on_book_btn_pressed)
+    hud.add_child(book_btn)
     # 阿鱼说话的对白框：原来在屏幕底下，阿鱼 9/17 要放到屏幕上方（底下留给按钮和操作盘）
     dialog = PanelContainer.new()
     dialog.set_anchors_preset(Control.PRESET_TOP_WIDE)
@@ -618,9 +648,78 @@ func _set_person_portrait(preset_in: int) -> void:
         at.region = Rect2(int(gl["anim"]["down"]["idle"]) * int(gl["frame_w"]), 0, gl["frame_w"], gl["frame_h"])
         person_card_portrait.texture = at
 
+## 翻簿子面板（第 24 版，蓝图 3.2）：样式照看人卡片——暗底、点外面或右上角「×」关。
+## 先「加载中」，读到接龙列表；列表下面输入框 + 好；不是自己现在坐的那桌时输入换成一行「先坐下 慢慢写」
+func _build_book_panel() -> void:
+    book_panel = Control.new()
+    book_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+    book_panel.visible = false
+    var dim := Button.new()
+    dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+    for st in ["normal", "hover", "pressed", "focus"]:
+        dim.add_theme_stylebox_override(st, _sb(Color(0.06, 0.03, 0.06, 0.6), Color(0, 0, 0, 0), 0, 0, 0))
+    dim.pressed.connect(_close_book_panel)
+    book_panel.add_child(dim)
+    var cc := CenterContainer.new()
+    cc.set_anchors_preset(Control.PRESET_FULL_RECT)
+    cc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    book_panel.add_child(cc)
+    var panel := PanelContainer.new()
+    panel.custom_minimum_size = Vector2(460.0, 0)
+    cc.add_child(panel)
+    var box := VBoxContainer.new()
+    box.add_theme_constant_override("separation", 12)
+    panel.add_child(box)
+    if font.has_char(0xD7):
+        var head := HBoxContainer.new()
+        var spacer := Control.new()
+        spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+        head.add_child(spacer)
+        var close_b := Button.new()
+        close_b.text = "×"
+        close_b.custom_minimum_size = Vector2(40, 40)
+        close_b.pressed.connect(_close_book_panel)
+        head.add_child(close_b)
+        box.add_child(head)
+    book_scroll = ScrollContainer.new()
+    book_scroll.custom_minimum_size = Vector2(0, 220)
+    book_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    book_list_box = VBoxContainer.new()
+    book_list_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    book_list_box.add_theme_constant_override("separation", 6)
+    book_scroll.add_child(book_list_box)
+    box.add_child(book_scroll)
+    book_loading = _label("加载中", 24, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
+    box.add_child(book_loading)
+    book_readonly_label = _label(LINE_BOOK_READONLY, 24, MUTED, HORIZONTAL_ALIGNMENT_LEFT)
+    book_readonly_label.visible = false
+    box.add_child(book_readonly_label)
+    book_input_row = VBoxContainer.new()
+    book_input_row.add_theme_constant_override("separation", 10)
+    book_edit = TextEdit.new()
+    book_edit.custom_minimum_size = Vector2(0, 80)
+    book_edit.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+    book_edit.placeholder_text = BOOK_PLACEHOLDER
+    book_edit.text_changed.connect(_check_book_ui)
+    book_input_row.add_child(book_edit)
+    var br := HBoxContainer.new()
+    book_err = _label("", 24, Color("#E8746A"), HORIZONTAL_ALIGNMENT_LEFT)
+    book_err.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    book_count = _label("0/100", 24, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, false)
+    br.add_child(book_err)
+    br.add_child(book_count)
+    book_input_row.add_child(br)
+    book_ok = Button.new()
+    book_ok.text = "好"
+    book_ok.disabled = true
+    book_ok.pressed.connect(_on_book_ok_pressed)
+    book_input_row.add_child(book_ok)
+    box.add_child(book_input_row)
+    ui.add_child(book_panel)
+
 func _open_person_card(openid: String) -> void:
-    if openid == "" or whisper_box.visible:
-        return   # 写悄悄话的框开着时不弹卡片
+    if openid == "" or whisper_box.visible or book_open:
+        return   # 写悄悄话的框、翻簿子面板开着时不弹卡片
     card_open = true
     card_openid = openid
     var info: Dictionary = hall.resident_names.get(openid, {})
@@ -651,7 +750,7 @@ func _close_person_card() -> void:
     card_open = false
     card_openid = ""
     person_card.visible = false
-    if state == "banquet" and not whisper_box.visible:
+    if state == "banquet" and not whisper_box.visible and not book_open:
         hall.walking_enabled = true
     _refresh_seat_buttons()
 
@@ -668,10 +767,16 @@ func _goto(s: String) -> void:
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
         person_btn.visible = false
+    if book_btn != null and s != "banquet":
+        book_btn.visible = false
     if person_card != null and s != "banquet" and card_open:
         card_open = false
         card_openid = ""
         person_card.visible = false
+    if book_panel != null and s != "banquet" and book_open:
+        book_open = false
+        book_table = ""
+        book_panel.visible = false
     hall.walking_enabled = (s == "banquet") and not whisper_box.visible
     if s == "nick":
         nick_edit.grab_focus()
@@ -775,10 +880,14 @@ func _on_person_near(openid: String) -> void:
     near_person_id = openid
     _refresh_seat_buttons()
 
-## 「坐这儿」「昵称」两个按钮的显示状态统一在这里算（第 22 版规则 7）：
-## 卡片开着、或不在宴会厅里，两个都收起；「坐这儿」进了确认文案时昵称按钮先让开，免得并排挤在一起
+func _on_table_near(table_id: String) -> void:
+    near_table_id = table_id
+    _refresh_seat_buttons()
+
+## 「坐这儿」「昵称」「翻簿子」三个按钮的显示状态统一在这里算（第 22 版规则 7，第 24 版加翻簿子）：
+## 卡片或翻簿子面板开着、或不在宴会厅里，全部收起；「坐这儿」进了确认文案时另外两个先让开，免得并排挤在一起
 func _refresh_seat_buttons() -> void:
-    var blocked: bool = card_open or state != "banquet"
+    var blocked: bool = card_open or book_open or state != "banquet"
     if blocked or int(near_seat_info.get("chair_no", 0)) == 0:
         sit_btn.visible = false
     else:
@@ -793,16 +902,33 @@ func _refresh_seat_buttons() -> void:
         var nick := str(info.get("nick", ""))
         person_btn.text = nick if nick != "" else "有人"
         person_btn.visible = true
+    if blocked or whisper_box.visible or near_table_id == "" or sit_confirming:
+        book_btn.visible = false
+    else:
+        book_btn.visible = true
     _layout_seat_buttons()
 
-## 两个都出现时并排；只有一个时居中（440 宽，和原来一样）。竖屏 540 宽下并排每个 240 宽，够点
+## 1～3 个都要能排（第 24 版起加了翻簿子）。这一路 UI 都按 540 宽竖屏设计，用固定像素挪位置，
+## 不查实际屏宽：1 个时居中 440 宽（原来的样子）；2 个时各 240 宽、中间留 20（原来的样子）；
+## 3 个时各 164 宽、间隔 8，总宽 508，比 2 个时的 500 宽不了多少，两侧到 540 屏幕边还各留 16 像素。
+## 固定顺序昵称、翻簿子、坐这儿从左到右排，缺哪个就少一个槽位，不会跳位置
 func _layout_seat_buttons() -> void:
-    if sit_btn.visible and person_btn.visible:
-        person_btn.offset_left = -250; person_btn.offset_right = -10
-        sit_btn.offset_left = 10; sit_btn.offset_right = 250
-    else:
-        sit_btn.offset_left = -220; sit_btn.offset_right = 220
-        person_btn.offset_left = -220; person_btn.offset_right = 220
+    var slots: Array[Button] = []
+    if person_btn.visible: slots.append(person_btn)
+    if book_btn.visible: slots.append(book_btn)
+    if sit_btn.visible: slots.append(sit_btn)
+    match slots.size():
+        1:
+            slots[0].offset_left = -220; slots[0].offset_right = 220
+        2:
+            slots[0].offset_left = -250; slots[0].offset_right = -10
+            slots[1].offset_left = 10; slots[1].offset_right = 250
+        3:
+            slots[0].offset_left = -254; slots[0].offset_right = -90
+            slots[1].offset_left = -82; slots[1].offset_right = 82
+            slots[2].offset_left = 90; slots[2].offset_right = 254
+        _:
+            pass
 
 func _on_person_pressed() -> void:
     if near_person_id != "":
@@ -822,6 +948,153 @@ func _on_toast_result(r: Dictionary, target: String) -> void:
         _note(LINE_TOASTED_FMT % (nick if nick != "" else "有人"))
     else:
         _note(_reason_text(r, "敬酒"))
+
+func _on_book_btn_pressed() -> void:
+    if near_table_id != "":
+        _open_book_panel(near_table_id)
+
+## 打开翻簿子面板：先「加载中」，调 readBook 拿接龙列表。写悄悄话的框、看人卡片开着时不弹（同person卡片的规矩）
+func _open_book_panel(table_id: String) -> void:
+    if table_id == "" or whisper_box.visible or card_open:
+        return
+    book_open = true
+    book_table = table_id
+    hall.walking_enabled = false
+    _refresh_seat_buttons()
+    for c in book_list_box.get_children():
+        c.queue_free()
+    book_empty_shown = false
+    book_err.text = ""
+    book_edit.text = ""
+    book_loading.visible = true
+    book_scroll.visible = false
+    book_input_row.visible = false
+    book_readonly_label.visible = false
+    book_panel.visible = true
+    cloud.call_fn("readBook", {"table": table_id}, func(r): _on_book_loaded(r, table_id))
+
+## readBook 回来晚了、面板已经关掉或者又翻了别的桌：这条结果就不管了
+func _on_book_loaded(r: Dictionary, table_id: String) -> void:
+    if not book_open or book_table != table_id:
+        return
+    book_loading.visible = false
+    book_scroll.visible = true
+    var lines: Array = []
+    var names: Dictionary = {}
+    if bool(r.get("ok", false)):
+        var d: Dictionary = r.get("data", {})
+        lines = d.get("lines", [])
+        names = d.get("names", {})
+    else:
+        _note(_reason_text(r, "翻簿子"))
+    await _render_book_lines(lines, names)
+    _update_book_write_state()
+
+## 每条一行「昵称：内容」，最新的在最下面；空的写占位「还没人写 你来第一句」。画完滚到最下面
+func _render_book_lines(lines: Array, names: Dictionary) -> void:
+    for c in book_list_box.get_children():
+        c.queue_free()
+    if lines.is_empty():
+        book_list_box.add_child(_label(LINE_BOOK_EMPTY, 24, MUTED, HORIZONTAL_ALIGNMENT_LEFT))
+        book_empty_shown = true
+    else:
+        book_empty_shown = false
+        for line in lines:
+            var nick := _book_nick(str((line as Dictionary).get("openid", "")), names)
+            book_list_box.add_child(_label(nick + "：" + str((line as Dictionary).get("text", "")), 24, PAPER, HORIZONTAL_ALIGNMENT_LEFT))
+    await get_tree().process_frame
+    _scroll_book_to_bottom()
+
+func _scroll_book_to_bottom() -> void:
+    var bar := book_scroll.get_v_scroll_bar()
+    if bar != null:
+        book_scroll.scroll_vertical = int(bar.max_value)
+
+## 昵称先用 readBook 带回的 names，没有再用进厅拿到的 hall.resident_names，都没有写「有人」（已有兜底词）
+func _book_nick(openid: String, names: Dictionary) -> String:
+    if names.has(openid):
+        var n := str((names[openid] as Dictionary).get("nick", ""))
+        if n != "": return n
+    if hall.resident_names.has(openid):
+        var n2 := str((hall.resident_names[openid] as Dictionary).get("nick", ""))
+        if n2 != "": return n2
+    return "有人"
+
+## 只能写自己现在坐着的那桌（蓝图 3.2 9/18 定稿）：不是这桌时输入框、「好」换成一行「先坐下 慢慢写」
+func _update_book_write_state() -> void:
+    var can_write: bool = book_table != "" and str(hall.my_seat.get("table_id", "")) == book_table
+    book_input_row.visible = can_write
+    book_readonly_label.visible = not can_write
+    if can_write:
+        _check_book_ui()
+
+func _close_book_panel() -> void:
+    if not book_open:
+        return
+    book_open = false
+    book_table = ""
+    book_panel.visible = false
+    book_edit.text = ""
+    if state == "banquet" and not whisper_box.visible and not card_open:
+        hall.walking_enabled = true
+    _refresh_seat_buttons()
+
+## 翻簿子输入校验：空、超100字、字体里没有的字（照昵称校验），"empty" 是还没填，其余是要显示的提示
+func _check_book(text: String) -> String:
+    var s := text.strip_edges()
+    var g := _graphemes(s)
+    if g == 0:
+        return "empty"
+    if g > 100:
+        return str(REASONS["book_too_long"])
+    for i in s.length():
+        if not font.has_char(s.unicode_at(i)):
+            return "有个字显示不出来 换一个"
+    return ""
+
+func _check_book_ui() -> void:
+    var r := _check_book(book_edit.text)
+    var n := _graphemes(book_edit.text.strip_edges())
+    book_count.text = "%d/100" % n
+    book_count.add_theme_color_override("font_color", Color("#E8746A") if n > 100 else MUTED)
+    book_err.text = "" if r == "empty" else r
+    book_ok.disabled = r != ""
+
+func _on_book_ok_pressed() -> void:
+    if book_ok.disabled or book_table == "":
+        return
+    var text := book_edit.text.strip_edges()
+    if text == "":
+        return
+    book_ok.disabled = true   # 先置灰防连点
+    var t := book_table
+    cloud.call_fn("writeBook", {"table": t, "text": text}, func(r): _on_book_written(r, t, text))
+
+func _on_book_written(r: Dictionary, table_id: String, text: String) -> void:
+    var still_here: bool = book_open and book_table == table_id
+    if still_here:
+        book_ok.disabled = false
+    if bool(r.get("ok", false)):
+        if still_here:
+            _append_book_line({"openid": cloud.openid(), "text": text}, nickname)
+            book_edit.text = ""
+            _check_book_ui()
+    else:
+        _note(_reason_text(r, "写簿子"))
+
+## 成功写完，在列表最下面加自己这一条：自己的昵称本地就知道（main.gd 的 nickname），不用等服务器的
+## names 回来；nick_override 传空字符串时退回 _book_nick 的兜底顺序（备用，目前调用方都会传昵称）
+func _append_book_line(line: Dictionary, nick_override := "") -> void:
+    if book_empty_shown:
+        for c in book_list_box.get_children():
+            c.queue_free()
+        book_empty_shown = false
+    var nick := nick_override
+    if nick == "":
+        nick = _book_nick(str(line.get("openid", "")), {})
+    book_list_box.add_child(_label(nick + "：" + str(line.get("text", "")), 24, PAPER, HORIZONTAL_ALIGNMENT_LEFT))
+    await get_tree().process_frame
+    _scroll_book_to_bottom()
 
 func _on_sit_pressed() -> void:
     if not sit_confirming:
@@ -1086,6 +1359,30 @@ func _setup_shot(shot: String) -> void:
             await _enter_banquet()
             _note(LINE_TOASTED_FMT % "老王")
             await get_tree().process_frame
+        "book":
+            # 翻簿子：坐在 T1，面板打开，有几条句子，能写（第 24 版）
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                hall.apply_change("T1", 4, cloud.openid())
+                _open_book_panel("T1")
+                await get_tree().process_frame
+        "book_empty":
+            # T2 的空簿子：「还没人写 你来第一句」（第 24 版，新写文案）
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                hall.apply_change("T2", 4, cloud.openid())
+                _open_book_panel("T2")
+                await get_tree().process_frame
+        "book_readonly":
+            # 坐在 T1、翻 T2 的簿子：只能看，「先坐下 慢慢写」（蓝图 3.2 9/18 定稿，第 24 版）
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                hall.apply_change("T1", 4, cloud.openid())
+                _open_book_panel("T2")
+                await get_tree().process_frame
         "couple":
             nickname = "小李"
             preset = 5

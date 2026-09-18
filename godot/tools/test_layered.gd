@@ -300,5 +300,42 @@ func run() -> void:
     print("14 坐着、邻座有人：坐着 ", hall.seated, " person_near 发出 ", seen, " 坐这儿广播 ", offers)
     ok = ok and hall.seated and seen.size() > 0 and seen[-1] == "li" and not offered_chair
 
+    # 15/16 铺垫：翻簿子要测 T1、T2 都在（前面 14 只留了 T2 在 chairs 里），先铺一份两桌都空的席位
+    var data15 := {
+        "me": {"table_id": "", "chair_no": 0},
+        "tables": [
+            {"id": "T1", "seats": []},
+            {"id": "T2", "seats": []},
+        ],
+        "names": {},
+    }
+    hall.set_seats(data15, "me")
+
+    # 15. 翻簿子：走到桌边（占地椭圆边缘 60 像素内）发出那张桌；走远发 ""（蓝图 3.2，第 24 版）
+    var tables_seen: Array = []
+    hall.table_near.connect(func(tid): tables_seen.append(tid))
+    var t1cfg15: Dictionary = hall._table_cfg("T1")
+    var edge_pt := Vector2(float(t1cfg15["x"]), float(t1cfg15["y"]) - float(t1cfg15["ry"]) - 30.0)
+    hall.reset_to(hall.SPAWN)   # 先归位到远离桌子的地方，把基线收成已知的 ""
+    tables_seen.clear()
+    hall.reset_to(edge_pt)
+    hall._scan_chairs(1.0)
+    print("15 走到 T1 桌边（占地椭圆边缘外 30 像素）：table_near 发出 ", tables_seen)
+    ok = ok and tables_seen.size() > 0 and tables_seen[-1] == "T1"
+    tables_seen.clear()
+    hall.reset_to(hall.SPAWN)
+    hall._scan_chairs(1.0)
+    print("  走远：table_near 发出 ", tables_seen)
+    ok = ok and tables_seen.size() > 0 and tables_seen[-1] == ""
+
+    # 16. 坐在自己椅子上：强制算自己那桌（规则 1 的例外），不管椅位离占地椭圆边缘是不是超过 60 像素
+    tables_seen.clear()
+    hall.apply_change("T1", 5, "me")
+    step(30)   # 等 0.3 秒坐下动画滑到位
+    hall.seat_scan = 1.0
+    hall._scan_chairs(1.0)
+    print("16 坐在 T1 第 5 号椅：table_near 发出 ", tables_seen)
+    ok = ok and tables_seen.size() > 0 and tables_seen[-1] == "T1"
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()

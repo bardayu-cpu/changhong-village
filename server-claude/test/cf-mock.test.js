@@ -322,6 +322,36 @@ async function scenarioSaveProfileInviter() {
   check(!docE.inviter, `场景5-用例4 不存在的邀请人不能被记下（实际 ${docE.inviter}）`);
 }
 
+// ================= 场景6：writeBook 只能写「现在坐的那桌」（蓝图 3.2 9/18 改） =================
+async function scenarioWriteBookCurrentTableOnly() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'me6';
+  seed(state, 'seat', { _id: ME, openid: ME, table_id: 'T1', chair_no: 1, inviter: null, sat_at: 100, sat_tables: ['T1'], last_visit_at: 100 });
+  state.currentOpenid = ME;
+
+  const writeBook = loadCloudFunction('writeBook', sdk);
+  let res = await writeBook.main({ table: 'T1', text: '恭喜恭喜' });
+  check(res.ok === true, `场景6 坐在T1写T1成功（实际 ${JSON.stringify(res)}）`);
+
+  res = await writeBook.main({ table: 'T2', text: '恭喜恭喜' });
+  check(res.ok === false && res.reason === 'not_sat_here', `场景6 坐在T1写T2被拒（实际 ${JSON.stringify(res)}）`);
+
+  // 换到 T2：走真正的 changeSeat 云函数（跟真实流程一样，T2 4 号椅没人坐）
+  const changeSeat = loadCloudFunction('changeSeat', sdk);
+  res = await changeSeat.main({ tableId: 'T2', chairNo: 4 });
+  check(res.ok === true, `场景6 换到T2应该成功（实际 ${JSON.stringify(res)}）`);
+
+  res = await writeBook.main({ table: 'T2', text: '百年好合' });
+  check(res.ok === true, `场景6 换到T2后写T2成功（实际 ${JSON.stringify(res)}）`);
+
+  // 长凳的人写任何桌都拒
+  const BENCH_GUY = 'bench6';
+  seed(state, 'seat', { _id: BENCH_GUY, openid: BENCH_GUY, table_id: 'bench', chair_no: null, inviter: null, sat_at: 100, sat_tables: [], last_visit_at: 100 });
+  state.currentOpenid = BENCH_GUY;
+  res = await writeBook.main({ table: 'T1', text: '坐长凳也想说句话' });
+  check(res.ok === false && res.reason === 'not_sat_here', `场景6 长凳的人写T1被拒（实际 ${JSON.stringify(res)}）`);
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
@@ -329,6 +359,7 @@ async function scenarioSaveProfileInviter() {
   await scenarioReadBookNames();
   await scenarioEnterHallOfflineInviterNames();
   await scenarioSaveProfileInviter();
+  await scenarioWriteBookCurrentTableOnly();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

@@ -16,7 +16,8 @@ const CF = path.join(ROOT, 'cloudfunctions');
 // 云函数名 -> 需要哪些 src/ 纯函数文件（同步进各自的 rules/ 文件夹；只列这个函数真正 require 到的）
 const NEEDS = {
   enterHall: ['config.js', 'banquet.js'],
-  changeSeat: ['config.js', 'time.js', 'banquet.js'],
+  // changeSeat 9/18 起不再需要 time.js：canChangeSeat 去掉了「今天换过几次」的判定
+  changeSeat: ['config.js', 'banquet.js'],
   toast: ['config.js', 'time.js', 'banquet.js'],
   writeBook: ['config.js', 'banquet.js'],
   readBook: ['config.js'],
