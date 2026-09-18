@@ -1437,6 +1437,10 @@ func _setup_shot(shot: String) -> void:
                 w.wait = 99.0
             # 多跑一会儿，让举杯、音符、弓都动起来
             for i in 90: await get_tree().process_frame
+            if shot == "life_guests" and hall.life != null:
+                # 截图那一刻正好 9 号桌整桌举杯（再过 50 帧截，杯子正举在最高）
+                hall.life.toast_left["T9"] = hall.life.TOAST_LEN
+                hall.life.toast_next["T9"] = 99.0
         "behind":
             # 站在桌子后面：看椅背有没有挡住腿、人有没有被地面切掉
             nickname = "小李"

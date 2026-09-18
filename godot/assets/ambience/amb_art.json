@@ -1,0 +1,222 @@
+{
+  "amb_piano": {
+    "size": [
+      124,
+      110
+    ],
+    "anchor": [
+      68,
+      102
+    ]
+  },
+  "amb_piano_bench": {
+    "size": [
+      34,
+      30
+    ],
+    "anchor": [
+      16,
+      26
+    ]
+  },
+  "amb_cello": {
+    "size": [
+      26,
+      66
+    ],
+    "anchor": [
+      12,
+      66
+    ]
+  },
+  "amb_violin": {
+    "size": [
+      38,
+      14
+    ],
+    "anchor": [
+      19,
+      7
+    ]
+  },
+  "amb_music_stand": {
+    "size": [
+      24,
+      44
+    ],
+    "anchor": [
+      12,
+      43
+    ]
+  },
+  "amb_chair": {
+    "size": [
+      30,
+      46
+    ],
+    "anchor": [
+      15,
+      45
+    ]
+  },
+  "amb_gift_pile": {
+    "size": [
+      158,
+      106
+    ],
+    "anchor": [
+      79,
+      105
+    ]
+  },
+  "amb_streamer_1": {
+    "size": [
+      42,
+      22
+    ],
+    "anchor": [
+      21,
+      11
+    ]
+  },
+  "amb_streamer_2": {
+    "size": [
+      66,
+      28
+    ],
+    "anchor": [
+      33,
+      14
+    ]
+  },
+  "amb_streamer_3": {
+    "size": [
+      54,
+      24
+    ],
+    "anchor": [
+      27,
+      12
+    ]
+  },
+  "amb_streamer_4": {
+    "size": [
+      42,
+      24
+    ],
+    "anchor": [
+      21,
+      12
+    ]
+  },
+  "amb_streamer_5": {
+    "size": [
+      58,
+      32
+    ],
+    "anchor": [
+      29,
+      16
+    ]
+  },
+  "amb_streamer_6": {
+    "size": [
+      32,
+      16
+    ],
+    "anchor": [
+      16,
+      8
+    ]
+  },
+  "amb_confetti_1": {
+    "size": [
+      24,
+      14
+    ],
+    "anchor": [
+      12,
+      7
+    ]
+  },
+  "amb_confetti_2": {
+    "size": [
+      20,
+      12
+    ],
+    "anchor": [
+      10,
+      6
+    ]
+  },
+  "amb_confetti_3": {
+    "size": [
+      24,
+      16
+    ],
+    "anchor": [
+      12,
+      8
+    ]
+  },
+  "amb_tray": {
+    "size": [
+      38,
+      26
+    ],
+    "anchor": [
+      19,
+      13
+    ]
+  },
+  "amb_note_1": {
+    "size": [
+      18,
+      22
+    ],
+    "anchor": [
+      9,
+      11
+    ]
+  },
+  "amb_note_2": {
+    "size": [
+      24,
+      22
+    ],
+    "anchor": [
+      12,
+      11
+    ]
+  },
+  "amb_petal_1": {
+    "size": [
+      12,
+      10
+    ],
+    "anchor": [
+      6,
+      5
+    ]
+  },
+  "amb_petal_2": {
+    "size": [
+      10,
+      10
+    ],
+    "anchor": [
+      5,
+      5
+    ]
+  },
+  "amb_cup": {
+    "size": [
+      10,
+      12
+    ],
+    "anchor": [
+      5,
+      6
+    ]
+  }
+}

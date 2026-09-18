@@ -554,7 +554,8 @@ func _step_guest(g: Guest, dt: float) -> void:
         if left > 0.0 and k > 0.0:
             g.cup.visible = true
             var up := minf(k / 0.3, 1.0) * minf(maxf(TOAST_LEN - k, 0.0) / 0.3, 1.0)
-            g.cup.position = Vector2(g.side * 10.0, -keep * sc + 6.0 - up * 8.0)
+            # 手从下巴高举到头顶旁边（上半身高 keep*sc，头在上面那一截）
+            g.cup.position = Vector2(g.side * 16.0, -keep * sc * (0.6 + 0.45 * up))
         else:
             g.cup.visible = false
 
