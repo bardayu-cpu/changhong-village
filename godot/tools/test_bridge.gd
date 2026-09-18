@@ -86,6 +86,35 @@ func _init() -> void:
     print("5b 拒绝原因表漏的 ", missing, "（nick_too_short 的文案等阿鱼给，先不算漏）")
     ok = ok and missing.is_empty()
 
+    # 5c. 假数据敬酒规则（server-claude/src/banquet.js canToast + toast/index.js 的 to 校验），第 22 版
+    var c5c: Node = Cloud.new()
+    c5c._ready()
+    var box5c := {}
+    c5c.call_fn("toast", {}, func(r): box5c["no_to"] = r)
+    c5c.call_fn("toast", {"to": "fake_me"}, func(r): box5c["self"] = r)
+    c5c.call_fn("toast", {"to": "fake_wang"}, func(r): box5c["first"] = r)
+    c5c.call_fn("toast", {"to": "fake_wang"}, func(r): box5c["again"] = r)
+    print("5c 敬酒：少 to ", box5c.get("no_to", {}), " 敬自己 ", box5c.get("self", {}),
+        " 正常一杯 ", box5c.get("first", {}), " 同一人第二次 ", box5c.get("again", {}))
+    ok = ok and str(box5c.get("no_to", {}).get("reason", "")) == "bad_request"
+    ok = ok and str(box5c.get("self", {}).get("reason", "")) == "toast_self"
+    ok = ok and bool(box5c.get("first", {}).get("ok", false))
+    ok = ok and str(box5c.get("again", {}).get("reason", "")) == "toast_same_person"
+    # 再敬 4 个不同的人，连上前面的 fake_wang 凑满今天 5 杯（config.js BANQUET_TOAST_DAILY），第 6 杯该拒
+    var fills_ok := true
+    for who in ["p1", "p2", "p3", "p4"]:
+        c5c.call_fn("toast", {"to": who}, func(r): box5c["fill_" + who] = r)
+        if not bool(box5c.get("fill_" + who, {}).get("ok", false)):
+            fills_ok = false
+    c5c.call_fn("toast", {"to": "p5"}, func(r): box5c["sixth"] = r)
+    print("  凑够 5 杯都成功 ", fills_ok, " 第 6 杯 ", box5c.get("sixth", {}))
+    ok = ok and fills_ok and str(box5c.get("sixth", {}).get("reason", "")) == "toast_limit"
+    # main 里发敬酒请求用的字段名是 to（云函数 toast/index.js 收的就是 to，回执第七节）
+    var main_src := FileAccess.get_file_as_string("res://scripts/main.gd")
+    var toast_field_ok := main_src.find('call_fn("toast", {"to"') >= 0
+    print("  main.gd 发敬酒用的字段名是 to：", toast_field_ok)
+    ok = ok and toast_field_ok
+
     # 6. 把两条请求的名字写出去，交给 node 回放（tools/replay_bridge.js）
     var out_path := OS.get_environment("SUQI_BRIDGE_OUT")
     if out_path == "":

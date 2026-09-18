@@ -12,6 +12,7 @@ const Spr = preload("res://scripts/sprites.gd")
 const LINE_ARRIVE := "到啦～ 罗曼山庄 席还没散"
 const LINE_TABLE := "想跟我们说点什么 写这儿 只有我们看得到"
 const LINE_LEAVE := "吃好了？走 带你回镇上"
+const LINE_TOASTED_FMT := "敬了 %s 一杯"   # 新写，等阿鱼定
 const GOLD := Color("#d4af37")
 const GOLD1 := Color("#f4d97a")
 const RED := Color("#c0392b")
@@ -41,6 +42,16 @@ const TOP_Y := 150.0
 var sit_btn: Button        # 走到空椅子旁出现；第一次点变确认文案，再点执行
 var sit_target := {"table_id": "", "chair_no": 0}
 var sit_confirming := false
+var person_btn: Button     # 走到坐着的人（不是自己）旁边出现，按钮上是对方昵称（蓝图 3.2，第 22 版）
+var near_seat_info := {"table_id": "", "chair_no": 0}   # hall.chair_near 最新一次的内容
+var near_person_id := ""   # hall.person_near 最新一次的内容
+var card_open := false
+var card_openid := ""      # 卡片开着时，正在看的那个人的 openid
+var person_card: Control
+var person_card_portrait: TextureRect
+var person_card_name: Label
+var person_card_inviter: Label
+var person_card_toast_btn: Button
 const CloudRpc = preload("res://scripts/cloud.gd")
 var cloud: Node
 # 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）。
@@ -115,6 +126,7 @@ func _ready() -> void:
     hall.reached.connect(_on_reached)
     if USE_LAYERED:
         hall.chair_near.connect(_on_chair_near)
+        hall.person_near.connect(_on_person_near)
     hall.walking_enabled = false
     _build_ui()
     print("[suqi] 界面搭好了")
@@ -279,6 +291,12 @@ func _theme() -> Theme:
         t.set_color("caret_color", cls, GOLD1)
     return t
 
+## 压在场景图上的字：错开 2 个像素的深色硬投影，比描边清楚
+func _hard_shadow(l: Label) -> void:
+    l.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.1, 0.9))
+    l.add_theme_constant_override("shadow_offset_x", 2)
+    l.add_theme_constant_override("shadow_offset_y", 2)
+
 func _label(text: String, size := 24, color := PAPER, align := HORIZONTAL_ALIGNMENT_CENTER, wrap := true) -> Label:
     var l := Label.new()
     l.text = text
@@ -417,6 +435,7 @@ func _build_ui() -> void:
     again.pressed.connect(_enter_banquet)
     eb.add_child(again)
     _build_hud()
+    _build_person_card()
     fade = ColorRect.new()
     fade.color = Color(0, 0, 0, 0)
     fade.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -465,6 +484,19 @@ func _build_hud() -> void:
     sit_btn.offset_right = 220
     sit_btn.pressed.connect(_on_sit_pressed)
     hud.add_child(sit_btn)
+    person_btn = Button.new()
+    person_btn.text = ""
+    person_btn.visible = false
+    # 昵称最长 12 个字，并排时按钮只有 240 宽：放不下就截成省略号，不许把按钮撑到「坐这儿」上面
+    person_btn.clip_text = true
+    person_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    person_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    person_btn.offset_top = -170
+    person_btn.offset_bottom = -120
+    person_btn.offset_left = -220
+    person_btn.offset_right = 220
+    person_btn.pressed.connect(_on_person_pressed)
+    hud.add_child(person_btn)
     # 阿鱼说话的对白框：原来在屏幕底下，阿鱼 9/17 要放到屏幕上方（底下留给按钮和操作盘）
     dialog = PanelContainer.new()
     dialog.set_anchors_preset(Control.PRESET_TOP_WIDE)
@@ -503,6 +535,108 @@ func _build_hud() -> void:
     whisper_box.visible = false
     hud.add_child(whisper_box)
 
+## 看人卡片（蓝图 3.2）：形象、昵称、「XX 带进来的」（没有邀请人或查不到邀请人昵称，整行不显示）、敬一杯。
+## 点卡片外面暗下去的地方关掉；字体里有「×」再加一个右上角关闭按钮（第 22 版）
+func _build_person_card() -> void:
+    person_card = Control.new()
+    person_card.set_anchors_preset(Control.PRESET_FULL_RECT)
+    person_card.visible = false
+    var dim := Button.new()
+    dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+    for st in ["normal", "hover", "pressed", "focus"]:
+        dim.add_theme_stylebox_override(st, _sb(Color(0.06, 0.03, 0.06, 0.6), Color(0, 0, 0, 0), 0, 0, 0))
+    dim.pressed.connect(_close_person_card)
+    person_card.add_child(dim)
+    var cc := CenterContainer.new()
+    cc.set_anchors_preset(Control.PRESET_FULL_RECT)
+    cc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    person_card.add_child(cc)
+    var panel := PanelContainer.new()
+    panel.custom_minimum_size = Vector2(400.0, 0)
+    cc.add_child(panel)
+    var box := VBoxContainer.new()
+    box.add_theme_constant_override("separation", 12)
+    panel.add_child(box)
+    if font.has_char(0xD7):
+        var head := HBoxContainer.new()
+        var spacer := Control.new()
+        spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+        head.add_child(spacer)
+        var close_b := Button.new()
+        close_b.text = "×"
+        close_b.custom_minimum_size = Vector2(40, 40)
+        close_b.pressed.connect(_close_person_card)
+        head.add_child(close_b)
+        box.add_child(head)
+    var pc := CenterContainer.new()
+    person_card_portrait = TextureRect.new()
+    person_card_portrait.custom_minimum_size = Vector2(140, 220)
+    person_card_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    person_card_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    pc.add_child(person_card_portrait)
+    box.add_child(pc)
+    person_card_name = _label("", 36, GOLD1)
+    box.add_child(person_card_name)
+    person_card_inviter = _label("", 24, MUTED)
+    box.add_child(person_card_inviter)
+    person_card_toast_btn = Button.new()
+    person_card_toast_btn.text = "敬一杯"
+    person_card_toast_btn.pressed.connect(_on_toast_pressed)
+    box.add_child(person_card_toast_btn)
+    ui.add_child(person_card)
+
+## 形象取法照选形象界面：GPT 画的图集有就取正面 idle 帧做 AtlasTexture，没有就代码画的占位；
+## 编号不在 0～7 按 0（和 layered_hall._seated 一样）
+func _set_person_portrait(preset_in: int) -> void:
+    var p := preset_in
+    if p < 0 or p > 7:
+        p = 0
+    var gl := Spr.gpt_look(p)
+    if gl.is_empty():
+        person_card_portrait.texture = Spr.portrait(p, 3)
+    else:
+        var at := AtlasTexture.new()
+        at.atlas = gl["tex"]
+        at.region = Rect2(int(gl["anim"]["down"]["idle"]) * int(gl["frame_w"]), 0, gl["frame_w"], gl["frame_h"])
+        person_card_portrait.texture = at
+
+func _open_person_card(openid: String) -> void:
+    if openid == "" or whisper_box.visible:
+        return   # 写悄悄话的框开着时不弹卡片
+    card_open = true
+    card_openid = openid
+    var info: Dictionary = hall.resident_names.get(openid, {})
+    var nick := str(info.get("nick", ""))
+    person_card_name.text = nick if nick != "" else "有人"
+    # inviter 没有邀请人时是 null（不是空字符串，见 enterHall/index.js）；查不到邀请人昵称也整行不显示
+    var inviter_raw = info.get("inviter", "")
+    var inviter := "" if inviter_raw == null else str(inviter_raw)
+    var inviter_nick := ""
+    if inviter != "":
+        inviter_nick = str((hall.resident_names.get(inviter, {}) as Dictionary).get("nick", ""))
+    if inviter != "" and inviter_nick != "":
+        person_card_inviter.text = inviter_nick + " 带进来的"
+        person_card_inviter.visible = true
+    else:
+        person_card_inviter.text = ""
+        person_card_inviter.visible = false
+    _set_person_portrait(int(info.get("avatar", -1)))
+    person_card_toast_btn.disabled = false
+    person_card_toast_btn.text = "敬一杯"
+    person_card.visible = true
+    hall.walking_enabled = false
+    _refresh_seat_buttons()
+
+func _close_person_card() -> void:
+    if not card_open:
+        return
+    card_open = false
+    card_openid = ""
+    person_card.visible = false
+    if state == "banquet" and not whisper_box.visible:
+        hall.walking_enabled = true
+    _refresh_seat_buttons()
+
 # ---------- 流程 ----------
 func _goto(s: String) -> void:
     state = s
@@ -514,6 +648,12 @@ func _goto(s: String) -> void:
     hud.visible = (s == "banquet")
     if sit_btn != null and s != "banquet":
         sit_btn.visible = false
+    if person_btn != null and s != "banquet":
+        person_btn.visible = false
+    if person_card != null and s != "banquet" and card_open:
+        card_open = false
+        card_openid = ""
+        person_card.visible = false
     hall.walking_enabled = (s == "banquet") and not whisper_box.visible
     if s == "nick":
         nick_edit.grab_focus()
@@ -573,6 +713,13 @@ func _on_enter_hall(r: Dictionary) -> void:
         return
     var d: Dictionary = r["data"]
     hall.set_seats(d, cloud.openid())
+    # 真机排查用：这厅有多少人、带邀请人的有几个（看人卡片「XX 带进来的」靠这个字段）
+    var with_inviter := 0
+    for k in hall.resident_names:
+        var inv = (hall.resident_names[k] as Dictionary).get("inviter", null)
+        if inv != null and str(inv) != "":
+            with_inviter += 1
+    print("[suqi] 进厅 名字 ", hall.resident_names.size(), " 个 带邀请人的 ", with_inviter, " 个")
     # 服务端可能把人分在试点还没摆出来的桌（T3 以后），金标画不了：提示先找把椅子坐
     if hall._my_chair_pos() == Vector2.ZERO:
         _note("先找把空椅子坐下", 4.0)
@@ -592,12 +739,60 @@ func _on_enter_hall(r: Dictionary) -> void:
 
 func _on_chair_near(table_id: String, chair_no: int) -> void:
     sit_confirming = false
-    if chair_no == 0 or state != "banquet":
+    near_seat_info = {"table_id": table_id, "chair_no": chair_no}
+    _refresh_seat_buttons()
+
+func _on_person_near(openid: String) -> void:
+    near_person_id = openid
+    _refresh_seat_buttons()
+
+## 「坐这儿」「昵称」两个按钮的显示状态统一在这里算（第 22 版规则 7）：
+## 卡片开着、或不在宴会厅里，两个都收起；「坐这儿」进了确认文案时昵称按钮先让开，免得并排挤在一起
+func _refresh_seat_buttons() -> void:
+    var blocked: bool = card_open or state != "banquet"
+    if blocked or int(near_seat_info.get("chair_no", 0)) == 0:
         sit_btn.visible = false
+    else:
+        sit_target = near_seat_info
+        if not sit_confirming:
+            sit_btn.text = "坐这儿"
+        sit_btn.visible = true
+    if blocked or whisper_box.visible or near_person_id == "" or sit_confirming:
+        person_btn.visible = false
+    else:
+        var info: Dictionary = hall.resident_names.get(near_person_id, {})
+        var nick := str(info.get("nick", ""))
+        person_btn.text = nick if nick != "" else "有人"
+        person_btn.visible = true
+    _layout_seat_buttons()
+
+## 两个都出现时并排；只有一个时居中（440 宽，和原来一样）。竖屏 540 宽下并排每个 240 宽，够点
+func _layout_seat_buttons() -> void:
+    if sit_btn.visible and person_btn.visible:
+        person_btn.offset_left = -250; person_btn.offset_right = -10
+        sit_btn.offset_left = 10; sit_btn.offset_right = 250
+    else:
+        sit_btn.offset_left = -220; sit_btn.offset_right = 220
+        person_btn.offset_left = -220; person_btn.offset_right = 220
+
+func _on_person_pressed() -> void:
+    if near_person_id != "":
+        _open_person_card(near_person_id)
+
+func _on_toast_pressed() -> void:
+    if card_openid == "" or person_card_toast_btn.disabled:
         return
-    sit_target = {"table_id": table_id, "chair_no": chair_no}
-    sit_btn.text = "坐这儿"
-    sit_btn.visible = true
+    person_card_toast_btn.disabled = true   # 先置灰防连点
+    var target := card_openid
+    cloud.call_fn("toast", {"to": target}, func(r): _on_toast_result(r, target))
+
+func _on_toast_result(r: Dictionary, target: String) -> void:
+    _close_person_card()
+    if bool(r.get("ok", false)):
+        var nick := str(hall.resident_names.get(target, {}).get("nick", ""))
+        _note(LINE_TOASTED_FMT % (nick if nick != "" else "有人"))
+    else:
+        _note(_reason_text(r, "敬酒"))
 
 func _on_sit_pressed() -> void:
     if not sit_confirming:
@@ -606,6 +801,7 @@ func _on_sit_pressed() -> void:
         # 原来整句塞在按钮里，太长撑出屏幕；拆开：问句放上方提示框，按钮只留「再点一下确认」，字一个没改
         sit_btn.text = "再点一下确认"
         _note(("换到" + tn + "那桌？" if tn != "" else "坐这桌？") + "今天只能换一次", 4.0)
+        _refresh_seat_buttons()   # 昵称按钮先让开
         return
     sit_btn.disabled = true
     # 字段名以服务端为准：changeSeat 收的是驼峰 tableId、chairNo。
@@ -620,11 +816,10 @@ func _on_seat_changed(r: Dictionary) -> void:
     sit_confirming = false
     if bool(r.get("ok", false)):
         hall.apply_change(sit_target["table_id"], int(sit_target["chair_no"]), cloud.openid())
-        sit_btn.visible = false
         _note("坐好了")
     else:
-        sit_btn.text = "坐这儿"
         _note(_reason_text(r, "换桌"))
+    _refresh_seat_buttons()
 
 func _note(text: String, hold := 3.0) -> void:
     note_token += 1
@@ -645,11 +840,6 @@ func _layout_top() -> void:
     note_box.offset_top = y
     note_box.offset_bottom = y
 
-## 压在场景图上的字：错开 2 个像素的深色硬投影（像素字描边会糊）
-func _hard_shadow(l: Label) -> void:
-    l.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.1, 0.9))
-    l.add_theme_constant_override("shadow_offset_x", 2)
-    l.add_theme_constant_override("shadow_offset_y", 2)
 
 func _on_reached(what: String) -> void:
     if what == "couple":
@@ -659,6 +849,7 @@ func _on_reached(what: String) -> void:
         whisper_box.visible = true
         whisper_edit.grab_focus()
         _check_whisper_ui()
+        _refresh_seat_buttons()   # 写悄悄话的框开着时昵称按钮也收起，别叠在一起
     elif what == "exit":
         await _fade_to(1.0)
         _goto("end")
@@ -684,6 +875,7 @@ func _send_whisper() -> void:
     hall.walking_enabled = true
     hall.arm_exit()
     _say(LINE_LEAVE)
+    _refresh_seat_buttons()
 
 # ---------- 校验 ----------
 func _graphemes(s: String) -> int:
@@ -844,6 +1036,27 @@ func _setup_shot(shot: String) -> void:
                     hall.apply_change("T2", 1, cloud.openid())
                 _note("坐好了")
                 await get_tree().process_frame
+        "person":
+            # 站在一个坐着的人（老王）旁边，底部昵称按钮出来了（第 22 版）
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                hall.reset_to(hall.chair_world(hall._table_cfg("T1"), 1))
+                await get_tree().process_frame
+        "card":
+            # 卡片打开：形象、昵称、「老王 带进来的」、敬一杯（第 22 版）
+            nickname = "小李"
+            await _enter_banquet()
+            if USE_LAYERED:
+                hall.reset_to(hall.chair_world(hall._table_cfg("T2"), 4))
+                _open_person_card("fake_li")
+                await get_tree().process_frame
+        "toasted":
+            # 敬完，顶部「敬了 XX 一杯」（第 22 版，文案新写，等阿鱼定）
+            nickname = "小李"
+            await _enter_banquet()
+            _note(LINE_TOASTED_FMT % "老王")
+            await get_tree().process_frame
         "couple":
             nickname = "小李"
             preset = 5

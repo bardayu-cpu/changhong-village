@@ -22,8 +22,14 @@ var _probed := false
 # ---- 电脑上的假数据：两个人坐着，自己第一次进厅会被分到 T1 ----
 var fake_me := {"table_id": "", "chair_no": 0}
 var fake_seats := {"T1": [{"openid": "fake_wang", "chair_no": 1}], "T2": [{"openid": "fake_li", "chair_no": 4}]}
-var fake_names := {"fake_wang": {"nick": "老王", "avatar": 1}, "fake_li": {"nick": "小李", "avatar": 5}}
+## inviter 照服务端的字段（enterHall/index.js）：没有邀请人是 null，不是空字符串。
+## fake_li 的邀请人是 fake_wang，这样电脑上截图能看到看人卡片「老王 带进来的」（第 22 版）
+var fake_names := {
+    "fake_wang": {"nick": "老王", "avatar": 1, "inviter": null},
+    "fake_li": {"nick": "小李", "avatar": 5, "inviter": "fake_wang"},
+}
 var fake_changed_today := false
+var fake_toasts_today: Array = []   # 我今天敬出去的杯数，敬过谁：[to openid, ...]（电脑上没有日期，跑一次当一天）
 
 func _ready() -> void:
     # 不按 OS.has_feature 判断：读得到 __suqiCloud 就是接上了，读不到再看是不是在微信里
@@ -54,7 +60,8 @@ func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
         return
     _seq += 1
     var id := _seq
-    _pending[id] = {"cb": cb, "t": 0.0}
+    # 送出时记一下时间：回来（或超时）时算用时多少毫秒，助理 01 要靠它决定云函数超时要不要调
+    _pending[id] = {"cb": cb, "t": 0.0, "sent_ms": Time.get_ticks_msec()}
     _send({"id": id, "fn": name, "d": data})
     print("[suqi] 云函数 ", name, " 送出 编号 ", id)
     set_process(true)
@@ -106,17 +113,21 @@ func _process(dt: float) -> void:
         if not _pending.has(id):
             continue
         var cb: Callable = _pending[id]["cb"]
+        var sent_ms: int = int(_pending[id].get("sent_ms", 0))
         _pending.erase(id)
         _ok_once = true
         var r = m.get("r", null)
-        print("[suqi] 云函数 编号 ", id, " 返回 ", txt.substr(0, 120))
+        var elapsed := Time.get_ticks_msec() - sent_ms
+        print("[suqi] 云函数 编号 ", id, " 返回 用时 ", elapsed, " 毫秒 ", txt.substr(0, 120))
         cb.call(r if typeof(r) == TYPE_DICTIONARY else {"ok": false, "reason": "network"})
     for id in _pending.keys():
         _pending[id]["t"] += dt
         if _pending[id]["t"] > TIMEOUT:
             var cb2: Callable = _pending[id]["cb"]
+            var sent_ms2: int = int(_pending[id].get("sent_ms", 0))
             _pending.erase(id)
-            print("[suqi] 云函数 编号 ", id, " 等了 ", TIMEOUT, " 秒没回来，按没连上处理")
+            var elapsed2 := Time.get_ticks_msec() - sent_ms2
+            print("[suqi] 云函数 编号 ", id, " 用时 ", elapsed2, " 毫秒 等了 ", TIMEOUT, " 秒没回来，按没连上处理")
             cb2.call({"ok": false, "reason": "network"})
 
 ## 日志面板打开时叫一次：先报 JS 那边的自查，再单独试一次「带参数调 JS 方法」。
@@ -170,6 +181,19 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             fake_changed_today = true
             return {"ok": true}
         "toast":
+            # 规则照抄服务端 server-claude/src/banquet.js 的 canToast + toast/index.js 的 to 校验：
+            # 缺 to → bad_request；敬自己 → toast_self；今天敬满 5 杯（config.BANQUET_TOAST_DAILY）
+            # → toast_limit；今天敬过这个人（BANQUET_TOAST_PER_PERSON_DAILY=1）→ toast_same_person
+            var to := str(data.get("to", ""))
+            if to == "":
+                return {"ok": false, "reason": "bad_request"}
+            if to == "fake_me":
+                return {"ok": false, "reason": "toast_self"}
+            if fake_toasts_today.size() >= 5:
+                return {"ok": false, "reason": "toast_limit"}
+            if fake_toasts_today.has(to):
+                return {"ok": false, "reason": "toast_same_person"}
+            fake_toasts_today.append(to)
             return {"ok": true}
         "writeBook":
             return {"ok": true}

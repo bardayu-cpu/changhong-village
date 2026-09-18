@@ -239,5 +239,66 @@ func run() -> void:
     print("  起身走到空椅子 ", free_chair["table_id"], free_chair["chair_no"], " 旁：", near)
     ok = ok and not hall.seated and near.size() > 0 and near[-1][1] != 0
 
+    # 13. 看人：走到有人坐的椅子旁边发出对方 openid；走远发 ""；自己那把椅子不算（第 22 版，蓝图 3.2）
+    var data13 := {
+        "me": {"table_id": "T1", "chair_no": 2},
+        "tables": [
+            {"id": "T1", "seats": [{"openid": "wang", "chair_no": 1}, {"openid": "me", "chair_no": 2}]},
+            {"id": "T2", "seats": [{"openid": "li", "chair_no": 4}]},
+        ],
+        "names": {"wang": {"nick": "老王", "avatar": 1}, "li": {"nick": "小李", "avatar": 5}},
+    }
+    hall.set_seats(data13, "me")
+    var t1cfg: Dictionary = hall._table_cfg("T1")
+    var wang_pos: Vector2 = hall.chair_world(t1cfg, 1)
+    var my_pos13: Vector2 = hall.chair_world(t1cfg, 2)
+    var seen: Array = []
+    hall.person_near.connect(func(oid): seen.append(oid))
+    # 先归位到远离所有椅子的地方，把 person_near_key 收成已知的 ""（set_seats、上一条测试
+    # 留下的位置都可能凑巧已经在谁旁边，不清空基线，下一步「变了才发」会误判成没变）
+    hall.reset_to(hall.SPAWN)
+    seen.clear()
+    hall.reset_to(wang_pos)
+    hall._scan_chairs(1.0)
+    print("13 走到老王旁边：person_near 发出 ", seen)
+    ok = ok and seen.size() > 0 and seen[-1] == "wang"
+    seen.clear()
+    hall.reset_to(hall.SPAWN)
+    hall._scan_chairs(1.0)
+    print("  走远：person_near 发出 ", seen)
+    ok = ok and seen.size() > 0 and seen[-1] == ""
+    seen.clear()
+    hall.reset_to(my_pos13)
+    hall._scan_chairs(1.0)
+    var self_ok := true
+    for oid in seen:
+        if oid == "me":
+            self_ok = false
+    print("  走到自己座位旁：person_near 发出 ", seen, "（不该有 me）")
+    ok = ok and self_ok
+
+    # 14. 坐在自己椅子上、邻座有人：能发出邻座 openid，同时「坐这儿」不发（第 22 版规则 6）
+    var data14 := {
+        "me": {"table_id": "T2", "chair_no": 3},
+        "tables": [
+            {"id": "T2", "seats": [{"openid": "li", "chair_no": 4}, {"openid": "me", "chair_no": 3}]},
+        ],
+        "names": {"li": {"nick": "小李", "avatar": 5}},
+    }
+    hall.set_seats(data14, "me")
+    var offers: Array = []
+    hall.chair_near.connect(func(tid, no): offers.append(no))
+    seen.clear()
+    hall.apply_change("T2", 3, "me")   # 坐到自己那把椅子上，4 号邻座是小李
+    step(30)   # 第 22 版起坐下是 0.3 秒滑过去，等滑到位再看
+    hall.seat_scan = 1.0
+    hall._scan_chairs(1.0)
+    var offered_chair := false
+    for no in offers:
+        if int(no) != 0:
+            offered_chair = true
+    print("14 坐着、邻座有人：坐着 ", hall.seated, " person_near 发出 ", seen, " 坐这儿广播 ", offers)
+    ok = ok and hall.seated and seen.size() > 0 and seen[-1] == "li" and not offered_chair
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()
