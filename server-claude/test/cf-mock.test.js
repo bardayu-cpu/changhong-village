@@ -401,6 +401,35 @@ async function scenarioSaveProfileWordRejected() {
   check(!!docC && docC.nick === '阿花', '场景8 正常昵称确实存进了 resident');
 }
 
+// ================= 场景9：保留名留给主角——主角名单里的人、已经用着这个名字的人不拦；别人照拦；敏感词对谁都拦 =================
+async function scenarioReservedNameExemptions() {
+  const { sdk, state } = createFakeSdk();
+  seed(state, 'config', { _id: 'banquet', vip_openids: ['vip_ayu'] });
+  seed(state, 'resident', { _id: 'old_holder', openid: 'old_holder', nick: '新娘', avatar: 1, inviter: null });
+
+  state.currentOpenid = 'vip_ayu';
+  let saveProfile = loadCloudFunction('saveProfile', sdk);
+  let res = await saveProfile.main({ nick: '阿鱼', avatar: 2 });
+  check(res.ok === true, `场景9 主角名单里的人起名「阿鱼」放行（实际 ${JSON.stringify(res)}）`);
+  const docVip = state.collections.resident.get('vip_ayu');
+  check(!!docVip && docVip.nick === '阿鱼', '场景9 主角的昵称确实存上了');
+
+  state.currentOpenid = 'old_holder';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '新娘', avatar: 3 });
+  check(res.ok === true, `场景9 已经叫「新娘」的人接着用放行（实际 ${JSON.stringify(res)}）`);
+
+  state.currentOpenid = 'guest_d';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '阿鱼' });
+  check(res.ok === false && res.reason === 'reserved', `场景9 别人起名「阿鱼」照样拦（实际 ${JSON.stringify(res)}）`);
+
+  state.currentOpenid = 'vip_ayu';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ nick: '情色达人' });
+  check(res.ok === false && res.reason === 'sensitive', `场景9 主角起名带敏感词照样拦（实际 ${JSON.stringify(res)}）`);
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
@@ -411,6 +440,7 @@ async function scenarioSaveProfileWordRejected() {
   await scenarioWriteBookCurrentTableOnly();
   await scenarioWriteBookSensitiveRejected();
   await scenarioSaveProfileWordRejected();
+  await scenarioReservedNameExemptions();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

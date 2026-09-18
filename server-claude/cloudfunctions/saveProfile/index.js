@@ -33,6 +33,13 @@ function readWordFile(name) {
 const SENSITIVE_MATCHER = sensitive.buildMatcher(readWordFile('base.txt'));
 const RESERVED_SET = new Set(readWordFile('reserved.txt').map(sensitive.normalize));
 
+// 主角名单：阿鱼、Toretto 的 openid，存在 config/banquet（和 enterHall 分座用的是同一份，initDb 建的，先是空数组）
+async function isVip(openid) {
+  const doc = await db.collection('config').doc('banquet').get().catch(() => null);
+  const ids = (doc && doc.data && doc.data.vip_openids) || [];
+  return ids.indexOf(openid) !== -1;
+}
+
 exports.main = async (event) => {
   const { OPENID } = cloud.getWXContext();
   const now = Date.now();
@@ -46,16 +53,26 @@ exports.main = async (event) => {
   const check = resident.canSaveProfile({ nick: fields.nick, whisper: fields.whisper });
   if (!check.ok) return check;
 
+  const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);
+  const existingData = existing && existing.data;
+
   if (fields.nick !== undefined) {
     const wordCheck = sensitive.checkText(fields.nick, {
       sensitiveMatcher: SENSITIVE_MATCHER, reservedSet: RESERVED_SET,
     });
-    if (!wordCheck.ok) return wordCheck; // reason: 'sensitive' | 'reserved'，不写库
+    if (!wordCheck.ok) {
+      // 保留名是留给主角的：主角名单（config/banquet 的 vip_openids，阿鱼和 Toretto）不拦；
+      // 已经用着这个名字的人接着用也不拦（9/18 助理 01：阿鱼自己起名「阿鱼」不能被拦）。敏感词对谁都拦
+      let exempt = false;
+      if (wordCheck.reason === 'reserved') {
+        const keepsOwnName = !!(existingData && typeof existingData.nick === 'string'
+          && sensitive.normalize(existingData.nick) === sensitive.normalize(fields.nick));
+        exempt = keepsOwnName || await isVip(OPENID);
+      }
+      if (!exempt) return wordCheck; // reason: 'sensitive' | 'reserved'，不写库
+    }
   }
   if (fields.gift_value !== undefined) fields.gift_value = resident.clampGiftValue(fields.gift_value);
-
-  const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);
-  const existingData = existing && existing.data;
 
   if (fields.inviter !== undefined) {
     if (!fields.inviter) {
