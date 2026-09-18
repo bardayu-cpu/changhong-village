@@ -798,9 +798,9 @@ func _on_sit_pressed() -> void:
     if not sit_confirming:
         sit_confirming = true
         var tn: String = hall.table_names.get(sit_target["table_id"], "")
-        # 原来整句塞在按钮里，太长撑出屏幕；拆开：问句放上方提示框，按钮只留「再点一下确认」，字一个没改
+        # 问句放上方提示框，按钮只留「再点一下确认」。蓝图 3.2 9/18 改：换桌不限次数，去掉「今天只能换一次」
         sit_btn.text = "再点一下确认"
-        _note(("换到" + tn + "那桌？" if tn != "" else "坐这桌？") + "今天只能换一次", 4.0)
+        _note("换到" + tn + "那桌？" if tn != "" else "坐这桌？", 4.0)
         _refresh_seat_buttons()   # 昵称按钮先让开
         return
     sit_btn.disabled = true
