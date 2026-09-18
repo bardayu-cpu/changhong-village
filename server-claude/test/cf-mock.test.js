@@ -664,6 +664,159 @@ async function scenarioPulseOverlapCatchesLateWrite() {
   check(old.toasts.length === 0, `场景19 超过 3 秒的旧敬酒不再拿（实际 ${JSON.stringify(old.toasts)}）`);
 }
 
+// ================= 场景20：只传 coins、games → 存进去，nick 不变、也没跑昵称检查（resident 里原昵称是保留名也不会被拦，蓝图 3.2 席间小游戏） =================
+async function scenarioSaveProfileGameFieldsNoNickCheck() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'game_guy_20';
+  // "阿鱼"是保留名（场景8/9 已验证过），这里直接把它塞进 resident（模拟这是以前就存好的昵称），
+  // 用来证明只传 coins/games 时完全不会去重新过一遍昵称检查——不然这条已经存在的记录会被"拦"下来
+  seed(state, 'resident', { _id: ME, openid: ME, nick: '阿鱼', avatar: 2, inviter: null });
+  state.currentOpenid = ME;
+
+  const saveProfile = loadCloudFunction('saveProfile', sdk);
+  const res = await saveProfile.main({ coins: 50, games: { t1_t2: 3 } });
+
+  check(res.ok === true, `场景20 只传coins/games：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  const doc = state.collections.resident.get(ME);
+  check(doc.nick === '阿鱼', `场景20 昵称没被动过、也没被拦下（实际 ${doc.nick}）`);
+  check(doc.coins === 50, `场景20 coins存上了（实际 ${doc.coins}）`);
+  check(!!doc.games && doc.games.t1_t2 === 3, `场景20 games存上了（实际 ${JSON.stringify(doc.games)}）`);
+}
+
+// ================= 场景21：coins负数/字符串夹到0/丢掉；games坏键坏值丢掉留好的；dishes去重、超范围丢掉（蓝图 3.2 席间小游戏） =================
+async function scenarioSaveProfileGameFieldsSanitize() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'game_guy_21';
+  seed(state, 'resident', { _id: ME, openid: ME, nick: '阿花21', avatar: 1, inviter: null });
+  state.currentOpenid = ME;
+  const saveProfile = loadCloudFunction('saveProfile', sdk);
+
+  // 用例1：coins 是负数 → 夹到0
+  let res = await saveProfile.main({ coins: -5 });
+  check(res.ok === true, `场景21-用例1 coins负数：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  let doc = state.collections.resident.get(ME);
+  check(doc.coins === 0, `场景21-用例1 coins负数应该夹到0（实际 ${doc.coins}）`);
+
+  // 用例2：coins 是字符串 → 整个字段丢掉（不写库），旧值不受影响
+  res = await saveProfile.main({ coins: 'abc' });
+  check(res.ok === true, `场景21-用例2 coins字符串：仍返回ok:true（实际 ${JSON.stringify(res)}）`);
+  doc = state.collections.resident.get(ME);
+  check(doc.coins === 0, `场景21-用例2 coins是字符串应该被整个丢掉，旧值（0）不变（实际 ${doc.coins}）`);
+
+  // 用例3：games 有坏键（格式不对）、坏值（不是数字），丢掉坏的、留下好的
+  res = await saveProfile.main({ games: { 'bad key!': 9, ok_game: 3, another_bad: 'nope' } });
+  check(res.ok === true, `场景21-用例3 games带坏键坏值：仍返回ok:true（实际 ${JSON.stringify(res)}）`);
+  doc = state.collections.resident.get(ME);
+  check(!!doc.games && doc.games.ok_game === 3, `场景21-用例3 合法键ok_game应该存上（实际 ${JSON.stringify(doc.games)}）`);
+  check(!('bad key!' in (doc.games || {})), '场景21-用例3 格式不对的键"bad key!"应该被丢掉');
+  check(!('another_bad' in (doc.games || {})), '场景21-用例3 值不是数字的键another_bad应该被丢掉');
+
+  // 用例4：dishes 去重、超范围（负数、大于99）丢掉
+  res = await saveProfile.main({ dishes: [3, 5, 3, -1, 100, 7] });
+  check(res.ok === true, `场景21-用例4 dishes：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  doc = state.collections.resident.get(ME);
+  check(JSON.stringify(doc.dishes) === JSON.stringify([3, 5, 7]), `场景21-用例4 dishes应该去重、丢掉超范围的（实际 ${JSON.stringify(doc.dishes)}）`);
+}
+
+// ================= 场景22：gift_add 添礼金——合法记一笔流水，不合法不记，其它字段不受影响（蓝图 3.2 席间小游戏） =================
+async function scenarioSaveProfileGiftAdd() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'gift_guy_22';
+  seed(state, 'resident', { _id: ME, openid: ME, nick: '阿添', avatar: 1, inviter: null });
+  state.currentOpenid = ME;
+  const saveProfile = loadCloudFunction('saveProfile', sdk);
+
+  // 用例1：gift_add=88 合法 → gift_coin 集合多一条 {openid, nick, coins:88, created_at}，不存进 resident
+  let res = await saveProfile.main({ gift_add: 88 });
+  check(res.ok === true, `场景22-用例1 gift_add=88：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  let giftDocs = state.collections.gift_coin ? Array.from(state.collections.gift_coin.values()) : [];
+  check(giftDocs.length === 1, `场景22-用例1 gift_coin集合应该多一条（实际 ${giftDocs.length} 条）`);
+  check(!!giftDocs[0] && giftDocs[0].coins === 88, `场景22-用例1 记录的coins字段应该是88（实际 ${giftDocs[0] && giftDocs[0].coins}）`);
+  check(!!giftDocs[0] && giftDocs[0].nick === '阿添', `场景22-用例1 记录的nick应该是这人现在的昵称（实际 ${giftDocs[0] && giftDocs[0].nick}）`);
+  check(!!giftDocs[0] && giftDocs[0].openid === ME, `场景22-用例1 记录的openid应该是这人自己（实际 ${giftDocs[0] && giftDocs[0].openid}）`);
+  check(typeof giftDocs[0].created_at === 'number', '场景22-用例1 记录应该带created_at');
+  let doc = state.collections.resident.get(ME);
+  check(!('gift_add' in doc), '场景22-用例1 gift_add不应该存进resident');
+
+  // 用例2：同一次调用顺带改了昵称，礼金流水的nick应该用这次刚存的新昵称
+  res = await saveProfile.main({ nick: '阿添改名', gift_add: 66 });
+  check(res.ok === true, `场景22-用例2 改名同时添礼金：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  giftDocs = Array.from(state.collections.gift_coin.values());
+  check(giftDocs.length === 2, `场景22-用例2 gift_coin集合应该再多一条，一共2条（实际 ${giftDocs.length} 条）`);
+  const second = giftDocs.find(g => g.coins === 66);
+  check(!!second && second.nick === '阿添改名', `场景22-用例2 这条记录的nick应该是这次改的新昵称（实际 ${second && second.nick}）`);
+
+  // 用例3：gift_add 不合格（0，不在1~999999范围）→ 不记这一笔，其它字段（nick）照常存
+  const before = giftDocs.length;
+  res = await saveProfile.main({ nick: '阿添三改', gift_add: 0 });
+  check(res.ok === true, `场景22-用例3 gift_add不合格：仍返回ok:true（实际 ${JSON.stringify(res)}）`);
+  giftDocs = Array.from(state.collections.gift_coin.values());
+  check(giftDocs.length === before, `场景22-用例3 gift_coin集合不应该增加（实际从 ${before} 变成 ${giftDocs.length}）`);
+  doc = state.collections.resident.get(ME);
+  check(doc.nick === '阿添三改', `场景22-用例3 nick字段照常存上（实际 ${doc.nick}）`);
+}
+
+// ================= 场景23：enterHall 返回 data.mine（蓝图 3.2 席间小游戏，阿鱼 9/19） =================
+async function scenarioEnterHallMine() {
+  const { sdk, state } = createFakeSdk();
+
+  // 用例1：resident 已经存了这些字段，data.mine 应该原样带回去
+  const ME1 = 'mine_guy_23a';
+  seed(state, 'resident', {
+    _id: ME1, openid: ME1, nick: '阿存档', avatar: 1, inviter: null,
+    coins: 233, games: { t1_t2: 5, t3_t4: 2 }, dishes: [1, 3, 5], gift_coins: 188,
+  });
+  state.currentOpenid = ME1;
+  let enterHall = loadCloudFunction('enterHall', sdk);
+  let res = await enterHall.main();
+  check(res.ok === true, `场景23-用例1 enterHall返回ok:true（实际 ${JSON.stringify(res).slice(0, 200)}）`);
+  check(!!res.data && !!res.data.mine, '场景23-用例1 返回里应该有data.mine');
+  check(res.data.mine.coins === 233, `场景23-用例1 mine.coins应该对得上（实际 ${res.data.mine.coins}）`);
+  check(JSON.stringify(res.data.mine.games) === JSON.stringify({ t1_t2: 5, t3_t4: 2 }), `场景23-用例1 mine.games应该对得上（实际 ${JSON.stringify(res.data.mine.games)}）`);
+  check(JSON.stringify(res.data.mine.dishes) === JSON.stringify([1, 3, 5]), `场景23-用例1 mine.dishes应该对得上（实际 ${JSON.stringify(res.data.mine.dishes)}）`);
+  check(res.data.mine.gift_coins === 188, `场景23-用例1 mine.gift_coins应该对得上（实际 ${res.data.mine.gift_coins}）`);
+
+  // 用例2：resident 存在，但没存过这些游戏字段（老住民），data.mine 应该是默认空值
+  const ME2 = 'mine_guy_23b';
+  seed(state, 'resident', { _id: ME2, openid: ME2, nick: '阿旧', avatar: 2, inviter: null });
+  state.currentOpenid = ME2;
+  enterHall = loadCloudFunction('enterHall', sdk);
+  res = await enterHall.main();
+  check(res.ok === true, `场景23-用例2 老住民enterHall返回ok:true（实际 ${JSON.stringify(res).slice(0, 200)}）`);
+  check(JSON.stringify(res.data.mine) === JSON.stringify({ coins: 0, games: {}, dishes: [], gift_coins: 0 }), `场景23-用例2 没存过时mine应该是默认空值（实际 ${JSON.stringify(res.data.mine)}）`);
+}
+
+// ================= 场景24：games/dishes 存档是"跟旧值合并"，不是整体覆盖——只传一个游戏的新进度/一道新解锁的菜，不会把别的冲掉（蓝图 3.2 席间小游戏） =================
+async function scenarioSaveProfileGameDishesMergeNotOverwrite() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'merge_guy_24';
+  seed(state, 'resident', {
+    _id: ME, openid: ME, nick: '阿合并', avatar: 1, inviter: null,
+    games: { t1_t2: 2, t3_t4: 5 }, dishes: [1, 2, 3],
+  });
+  state.currentOpenid = ME;
+  const saveProfile = loadCloudFunction('saveProfile', sdk);
+
+  // 只传 t1_t2 一个游戏的新进度：t3_t4 应该照样保留
+  let res = await saveProfile.main({ games: { t1_t2: 4 } });
+  check(res.ok === true, `场景24-用例1 只传一个游戏的进度：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  let doc = state.collections.resident.get(ME);
+  check(doc.games.t1_t2 === 4, `场景24-用例1 t1_t2应该更新成4（实际 ${doc.games.t1_t2}）`);
+  check(doc.games.t3_t4 === 5, `场景24-用例1 t3_t4应该还是5，没被冲掉（实际 ${doc.games.t3_t4}）`);
+
+  // 只传一道新解锁的菜（9）：之前的 1、2、3 应该照样保留
+  res = await saveProfile.main({ dishes: [9] });
+  check(res.ok === true, `场景24-用例2 只传一道新菜：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  doc = state.collections.resident.get(ME);
+  check(JSON.stringify(doc.dishes) === JSON.stringify([1, 2, 3, 9]), `场景24-用例2 应该是旧的+新的合并、去重、排序（实际 ${JSON.stringify(doc.dishes)}）`);
+
+  // 再传一道已经解锁过的菜（2）：应该还是去重，不会重复出现
+  res = await saveProfile.main({ dishes: [2] });
+  check(res.ok === true, `场景24-用例3 重复解锁同一道菜：返回ok:true（实际 ${JSON.stringify(res)}）`);
+  doc = state.collections.resident.get(ME);
+  check(JSON.stringify(doc.dishes) === JSON.stringify([1, 2, 3, 9]), `场景24-用例3 重复的菜不应该重复出现（实际 ${JSON.stringify(doc.dishes)}）`);
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
@@ -685,6 +838,11 @@ async function scenarioPulseOverlapCatchesLateWrite() {
   await scenarioHallPulseDbErrorReturnsNetwork();
   await scenarioPulseSeenNotRepeatedOnEnter();
   await scenarioPulseOverlapCatchesLateWrite();
+  await scenarioSaveProfileGameFieldsNoNickCheck();
+  await scenarioSaveProfileGameFieldsSanitize();
+  await scenarioSaveProfileGiftAdd();
+  await scenarioEnterHallMine();
+  await scenarioSaveProfileGameDishesMergeNotOverwrite();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

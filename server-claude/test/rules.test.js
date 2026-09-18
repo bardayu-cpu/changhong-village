@@ -261,6 +261,84 @@ eq(resident.clampGiftValue(99999), 9999, '超上限按上限');
 eq(resident.clampGiftValue(-5), 0, '负数夹到0');
 eq(resident.clampGiftValue(66.9), 66, '取整（向下）');
 
+// ---------- 席间小游戏存档校验（sanitizeCoins/sanitizeGames/sanitizeDishes/sanitizeGiftAdd，蓝图 3.2 席间小游戏，阿鱼 9/19） ----------
+eq(resident.sanitizeCoins(88), 88, 'coins 正常数字原样存');
+eq(resident.sanitizeCoins(0), 0, 'coins 边界：0能存');
+eq(resident.sanitizeCoins(999999), 999999, 'coins 边界：正好上限能存');
+eq(resident.sanitizeCoins(1000000), 999999, 'coins 超上限夹到999999');
+eq(resident.sanitizeCoins(-5), 0, 'coins 负数夹到0');
+eq(resident.sanitizeCoins(66.9), 66, 'coins 取整（向下）');
+eq(resident.sanitizeCoins('88'), undefined, 'coins 字符串（哪怕像数字）整个丢掉');
+eq(resident.sanitizeCoins('abc'), undefined, 'coins 非数字字符串整个丢掉');
+eq(resident.sanitizeCoins(NaN), undefined, 'coins 是NaN整个丢掉');
+eq(resident.sanitizeCoins(Infinity), undefined, 'coins 是Infinity整个丢掉');
+eq(resident.sanitizeCoins(null), undefined, 'coins 是null整个丢掉');
+eq(resident.sanitizeCoins(undefined), undefined, 'coins 是undefined整个丢掉');
+eq(resident.sanitizeCoins(true), undefined, 'coins 是布尔值整个丢掉');
+eq(resident.sanitizeCoins({}), undefined, 'coins 是对象整个丢掉');
+eq(resident.sanitizeCoins(500), 500, 'gift_coins 跟coins共用同一个校验函数，正常数字原样存');
+
+eq(resident.sanitizeGames({ t1_t2: 3, t3_t4: 5 }), { t1_t2: 3, t3_t4: 5 }, 'games 正常两个键都存');
+eq(resident.sanitizeGames({ t1_t2: -1 }), { t1_t2: 0 }, 'games 值负数夹到0');
+eq(resident.sanitizeGames({ t1_t2: 99999 }), { t1_t2: 999 }, 'games 值超上限夹到999');
+eq(resident.sanitizeGames({ t1_t2: 3.9 }), { t1_t2: 3 }, 'games 值取整（向下）');
+eq(resident.sanitizeGames({ 'bad key!': 3, ok_key: 2 }), { ok_key: 2 }, 'games 键带非法字符被丢，合法键照留');
+eq(resident.sanitizeGames({ '': 1, ok_key: 2 }), { ok_key: 2 }, 'games 空字符串键被丢');
+eq(resident.sanitizeGames({ [('k').repeat(21)]: 1, ok_key: 2 }), { ok_key: 2 }, 'games 键超过20字被丢');
+eq(resident.sanitizeGames({ [('k').repeat(20)]: 1 }), { [('k').repeat(20)]: 1 }, 'games 边界：键正好20字能存');
+eq(resident.sanitizeGames({ t1_t2: 'not-a-number', ok_key: 2 }), { ok_key: 2 }, 'games 值不是数字被丢，合法键照留');
+eq(resident.sanitizeGames({ t1_t2: NaN, ok_key: 2 }), { ok_key: 2 }, 'games 值是NaN被丢');
+{
+  const many = {};
+  for (let i = 0; i < 20; i++) many['g' + i] = i;
+  const got = resident.sanitizeGames(many);
+  eq(Object.keys(got).length, 12, 'games 最多只收12个键');
+  eq(got.g0, 0, 'games 前12个键按原顺序保留（第1个）');
+  eq(got.g11, 11, 'games 前12个键按原顺序保留（第12个）');
+  eq(got.g12, undefined, 'games 第13个键起被丢');
+}
+eq(resident.sanitizeGames([1, 2, 3]), undefined, 'games 传数组整个字段丢掉');
+eq(resident.sanitizeGames(null), undefined, 'games 传null整个字段丢掉');
+eq(resident.sanitizeGames('x'), undefined, 'games 传字符串整个字段丢掉');
+eq(resident.sanitizeGames({}), {}, 'games 空对象原样存空对象');
+
+eq(resident.sanitizeDishes([3, 5, 7]), [3, 5, 7], 'dishes 正常数组原样存');
+eq(resident.sanitizeDishes([3, 5, 3, 7, 5]), [3, 5, 7], 'dishes 去重');
+eq(resident.sanitizeDishes([0, 99]), [0, 99], 'dishes 边界：0和99都能存');
+eq(resident.sanitizeDishes([-1, 100, 3]), [3], 'dishes 超范围（负数、大于99）被丢，合法的照留');
+eq(resident.sanitizeDishes([3.5, 3]), [3], 'dishes 非整数被丢');
+eq(resident.sanitizeDishes(['3', 3]), [3], 'dishes 字符串元素被丢，数字元素照留');
+eq(resident.sanitizeDishes({ 0: 1 }), undefined, 'dishes 传对象（不是数组）整个字段丢掉');
+eq(resident.sanitizeDishes('x'), undefined, 'dishes 传字符串整个字段丢掉');
+eq(resident.sanitizeDishes([]), [], 'dishes 空数组原样存空数组');
+{
+  const full = Array.from({ length: 100 }, (_, i) => i); // 0~99每个整数各一个，正好100个
+  const got = resident.sanitizeDishes(full);
+  eq(got.length, 100, 'dishes 0~99全给，去重后应该是100个，不会被误裁');
+}
+
+eq(resident.sanitizeGiftAdd(88), 88, 'gift_add 正常数字能记');
+eq(resident.sanitizeGiftAdd(1), 1, 'gift_add 边界：1能记');
+eq(resident.sanitizeGiftAdd(999999), 999999, 'gift_add 边界：正好上限能记');
+eq(resident.sanitizeGiftAdd(1000000), null, 'gift_add 超上限不记');
+eq(resident.sanitizeGiftAdd(0), null, 'gift_add 是0不记');
+eq(resident.sanitizeGiftAdd(-5), null, 'gift_add 负数不记');
+eq(resident.sanitizeGiftAdd(0.5), null, 'gift_add 取整后是0不记');
+eq(resident.sanitizeGiftAdd(88.9), 88, 'gift_add 取整（向下）后再判断范围');
+eq(resident.sanitizeGiftAdd('88'), null, 'gift_add 字符串不记');
+eq(resident.sanitizeGiftAdd(NaN), null, 'gift_add 是NaN不记');
+eq(resident.sanitizeGiftAdd(null), null, 'gift_add 是null不记');
+eq(resident.sanitizeGiftAdd(undefined), null, 'gift_add 是undefined不记');
+
+// mergeGames/mergeDishes：只传变化的那一部分，不该把没提到的旧值冲掉
+eq(resident.mergeGames({ t1_t2: 2, t3_t4: 5 }, { t1_t2: 4 }), { t1_t2: 4, t3_t4: 5 }, 'mergeGames 只传一个游戏的新进度，另一个游戏照样保留');
+eq(resident.mergeGames({}, { t1_t2: 1 }), { t1_t2: 1 }, 'mergeGames 旧值是空对象也能正常合并');
+eq(resident.mergeGames({ t1_t2: 2 }, {}), { t1_t2: 2 }, 'mergeGames 这次没传新值，旧值原样保留');
+eq(resident.mergeDishes([1, 2, 3], [9]), [1, 2, 3, 9], 'mergeDishes 新解锁一道菜，旧的照样保留');
+eq(resident.mergeDishes([1, 2, 3], [2]), [1, 2, 3], 'mergeDishes 重复解锁同一道菜不重复');
+eq(resident.mergeDishes([], [5, 1, 3]), [1, 3, 5], 'mergeDishes 旧值是空数组时按数字排序返回');
+eq(resident.mergeDishes([3, 1], []), [1, 3], 'mergeDishes 这次没有新菜，旧值原样保留（排序）');
+
 // ---------- 邀请人只存第一次（canAdoptInviter，回执 03 第 3 项） ----------
 eq(resident.canAdoptInviter({ existingInviter: null, selfOpenid: 'A', inviter: 'B', inviterExists: true }), true, '正常：第一次存、邀请人存在，能记');
 eq(resident.canAdoptInviter({ existingInviter: 'X', selfOpenid: 'A', inviter: 'B', inviterExists: true }), false, '已经有邀请人了，只认第一次');

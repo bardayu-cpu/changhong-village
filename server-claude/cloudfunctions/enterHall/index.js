@@ -5,6 +5,10 @@
 // 分页读全（rules/lib/db-page.js 同步来的）：见回执 03，座位/敬酒/簿子过了 100 条不分页会静默漏读。
 // 客户端：wx.cloud.callFunction({ name: 'enterHall' })
 // 前提：resident 表里已经有这个 openid 的记录（saveProfile 先存过昵称、邀请人）
+// 9/19 加：返回里带 data.mine，是调用者自己的席间小游戏存档（coins/games/dishes/gift_coins，
+// 蓝图 3.2「席间小游戏」，阿鱼 9/19 定），直接从上面已经查好的 residentDoc 里取，不额外查表；
+// resident 记录里没存过这几个字段就给默认空值，不代表真的没有 resident 记录（那种情况前面
+// 已经 return { ok:false, reason:'no_resident' } 了）。
 const cloud = require('wx-server-sdk');
 const banquet = require('./rules/banquet');
 const C = require('./rules/config');
@@ -135,6 +139,16 @@ exports.main = async () => {
   ));
   if (missingInviterIds.length) await loadNames(missingInviterIds);
 
+  // 席间小游戏存档（蓝图 3.2，阿鱼 9/19 定）：residentDoc.data 前面已经确认存在，这里只是
+  // 挑几个字段带回去，没存过的字段给默认空值（类型不对也当没存，防御性兜底，不抛错）。
+  const rd = residentDoc.data;
+  const mine = {
+    coins: typeof rd.coins === 'number' ? rd.coins : 0,
+    games: (rd.games && typeof rd.games === 'object' && !Array.isArray(rd.games)) ? rd.games : {},
+    dishes: Array.isArray(rd.dishes) ? rd.dishes : [],
+    gift_coins: typeof rd.gift_coins === 'number' ? rd.gift_coins : 0,
+  };
+
   return {
     ok: true,
     data: {
@@ -143,6 +157,7 @@ exports.main = async () => {
       bench,
       digest,
       names,
+      mine,
     },
   };
 };
