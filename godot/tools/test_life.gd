@@ -1,6 +1,7 @@
 extends SceneTree
 ## 验收：厅里的热闹（hall_life.gd，阿鱼 9/18）。无界面跑，只看逻辑：
-## NPC 宾客给真人让座、NPC 的椅子不出「坐这儿」也点不开；服务员一直走在能走的地方、会上菜也会出门再进来；
+## NPC 宾客给真人让座（9/18 晚起 NPC 的椅子也出「坐这儿」，坐下时 NPC 起身走掉）、点不开；
+## 服务员一直走在能走的地方、端菜放上桌再回侧门；
 ## 乐队、贺礼、彩带、灯笼光都摆出来了；整桌会举杯
 ## 用法：Godot --headless --path . --script res://tools/test_life.gd
 
@@ -42,7 +43,7 @@ func run() -> void:
     print("2 老王坐 ", some_key, "：NPC 还剩 ", life.guests.size(), " 个，这把还算 NPC 的 ", life.npc_taken.has(some_key))
     ok = ok and life.guests.size() == want - 1 and not life.npc_taken.has(some_key)
 
-    # 3. 走到 NPC 坐着的椅子旁：不出「坐这儿」，也不出人名（点不开）
+    # 3. 走到 NPC 坐着的椅子旁：出「坐这儿」（坐下时 NPC 让座），但不出人名（NPC 点不开）
     var full_tables: Array = []
     for k in plan: full_tables.append({"id": k, "seats": []})
     hall.set_seats({"tables": full_tables, "me": {"table_id": "", "chair_no": 0}, "names": {}}, "me")
@@ -50,37 +51,42 @@ func run() -> void:
     var person_hits: Array = []
     hall.chair_near.connect(func(t, n): near_hits.append("%s:%d" % [t, n]))
     hall.person_near.connect(func(p): person_hits.append(p))
-    var bad := 0
+    var offered := 0
     for key in life.npc_taken.keys():
         var tc: Dictionary = hall._table_cfg(key.split(":")[0])
         var at: Vector2 = hall.chair_world(tc, int(key.split(":")[1]))
         hall.reset_to(at)
         if key in near_hits:
-            bad += 1
+            offered += 1
     var real_people := person_hits.filter(func(p): return p != "")
-    print("3 走遍 NPC 的椅子：冒出坐这儿 ", bad, " 次，冒出人名 ", real_people.size(), " 次")
-    ok = ok and bad == 0 and real_people.is_empty()
-    # NPC 桌上的空椅子照样能坐
-    var free_key := ""
-    for c in hall.chairs:
-        var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
-        if plan.has(c["table_id"]) and not life.npc_taken.has(key):
-            free_key = key
-            hall.reset_to(c["pos"])
-            break
-    print("  NPC 桌上的空椅子 ", free_key, "：冒出坐这儿 ", free_key in near_hits)
-    ok = ok and free_key != "" and free_key in near_hits
+    print("3 走遍 NPC 的椅子 ", life.npc_taken.size(), " 把：出坐这儿 ", offered, " 把，冒出人名 ", real_people.size(), " 次")
+    ok = ok and offered == life.npc_taken.size() and real_people.is_empty()
+    # 坐到一把 NPC 的椅子上：那个 NPC 起身走掉，走到大门就没了
+    var take: String = life.npc_taken.keys()[0]
+    var before: int = life.guests.size()
+    hall.apply_change(take.split(":")[0], int(take.split(":")[1]), "me")
+    var leavers: Array = life.waiters.filter(func(w): return w.kind == "leaver")
+    print("  坐到 NPC 的椅子 ", take, "：NPC 少了 ", before - life.guests.size(), " 个，还算 NPC 的 ", life.npc_taken.has(take),
+        "，起身往外走的 ", leavers.size(), " 个")
+    ok = ok and before - life.guests.size() == 1 and not life.npc_taken.has(take) and leavers.size() == 1
+    for i in 60 * 40:
+        life._process(1.0 / 60.0)
+    var still: Array = life.waiters.filter(func(w): return w.kind == "leaver")
+    print("  40 秒后还在厅里的让座宾客 ", still.size(), " 个")
+    ok = ok and still.is_empty()
 
-    # 4. 服务员：推 4 分钟，每一步都站在能走的地方（出门那会儿人不见了不算），上过菜、出过门
+    # 4. 服务员：推 4 分钟，每一步都站在能走的地方（在门里那会儿人不见了不算），端菜放上桌、空托盘回侧门
     var off := 0
     var served := 0
     var away := 0
+    var dish_max := 0
     var was: Dictionary = {}
     var toasted_tables: Dictionary = {}
     for step in 60 * 240:
         life._process(1.0 / 60.0)
         for k in plan:
             if life.toast_left.get(k, 0.0) > 0.0: toasted_tables[k] = true
+        dish_max = maxi(dish_max, life.dishes.size())
         for w in life.waiters:
             if w.node.visible and not hall._free(w.pos):
                 off += 1
@@ -89,8 +95,12 @@ func run() -> void:
                 if st == "serve": served += 1
                 if st == "away": away += 1
                 was[w] = st
-    print("4 服务员 ", life.waiters.size(), " 个，4 分钟：踩出能走的地方 ", off, " 次，上菜 ", served, " 次，出门 ", away, " 次")
-    ok = ok and life.waiters.size() == 3 and off == 0 and served >= 6 and away >= 1
+    var has_dish_art := ResourceLoader.exists("res://assets/ambience/amb_dish_1.png")
+    print("4 服务员 ", life.waiters.size(), " 个，4 分钟：踩出能走的地方 ", off, " 次，放菜 ", served, " 次，回侧门 ", away,
+        " 次，桌上同时最多 ", dish_max, " 盘新菜（菜的图在 ", has_dish_art, "）")
+    ok = ok and life.waiters.size() == int(life.conf["waiters"]["count"]) and off == 0 and served >= 6 and away >= 3
+    if has_dish_art:
+        ok = ok and dish_max > 0
 
     # 5. 整桌举杯：推的这 4 分钟里每桌都举过
     print("5 4 分钟里举过杯的桌 ", toasted_tables.size(), " / ", plan.size())

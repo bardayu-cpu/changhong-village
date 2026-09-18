@@ -50,6 +50,7 @@ var frame_h := 32.0
 var look_hframes := 9      # 形象图集一行几帧；坐着时截半身会临时把 hframes 改成 1，站起来还原
 var speed_m := SPEED_M     # 现在用的走路速度，米/秒
 var stick := Vector2.ZERO   # 摇杆：屏幕方向，x 向右、y 向下，长度 0～1
+var cam_pan := Vector2.ZERO # 手指左右拖出来的镜头偏移（画布像素，阿鱼 9/18 晚要能拖着看全厅）；人一走就慢慢收回到自己身上
 var couple_armed := true
 var exit_armed := false
 var walking_enabled := true
@@ -386,11 +387,27 @@ func reset_to(p: Vector2) -> void:
 func near(p: Vector2, v_m: Vector2) -> Vector2:
     return p + v_m * px_per_m(p.y)
 
-## 分层场景的镜头不转
-func rotate_cam(_drag_px: float) -> void:
-    pass
+## main.gd 里「别处左右拖」调这个（3D 厅是转镜头）。分层场景的镜头不转，改成左右挪着看全厅：
+## 手指往左拖，画面跟着往左走（看右边）；拖到厅的边上就停
+func rotate_cam(drag_px: float) -> void:
+    if cam == null or cam.zoom.x <= 0.0:
+        return
+    cam_pan.x -= drag_px / cam.zoom.x
+    _clamp_pan()
+
+## 镜头中心不出厅：左右各留半屏宽
+func _clamp_pan() -> void:
+    var half := float(get_viewport().get_visible_rect().size.x) * 0.5 / cam.zoom.x
+    var w := float(cfg["size"][0])
+    var cx := pos.x + cam_pan.x
+    if w > half * 2.0:
+        cx = clampf(cx, half, w - half)
+    else:
+        cx = w * 0.5
+    cam_pan.x = cx - pos.x
 
 func snap_cam() -> void:
+    cam_pan = Vector2.ZERO
     if cam:
         cam.position = pos
         cam.reset_smoothing()
@@ -476,8 +493,16 @@ func _process(dt: float) -> void:
     player.position = pos
     var sc := _px_h(pos.y) / frame_h
     player.scale = Vector2(sc, sc)
+    if moving or (seated and sit_t < SIT_ANIM):
+        # 一走（或坐下那一下）镜头就慢慢回到自己身上，约半秒收回大半
+        cam_pan = cam_pan.lerp(Vector2.ZERO, minf(dt * 4.0, 1.0))
     if cam:
-        cam.position = pos
+        cam.position = pos + cam_pan
+    if my_cup != null:
+        cup_left = maxf(cup_left - dt, 0.0)
+        my_cup.visible = cup_left > 0.0
+        var body_h := _px_h(pos.y) * (SIT_KEEP if seated else 1.0)
+        my_cup.position = pos + Vector2(-14.0 if face == "left" else 14.0, -body_h + 22.0)
     if exit_mark.visible:
         exit_mark.color.a = 0.35 + sin(t * 3.0) * 0.15
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:
@@ -501,7 +526,10 @@ var seat_tags: Node2D
 var seat_marker: Polygon2D
 var chairs: Array = []          # [{table_id, chair_no, pos}]
 var seat_taken: Dictionary = {} # "T1:3" -> openid
-var npc_taken: Dictionary = {}  # "T7:3" -> true：NPC 宾客坐着的椅子（hall_life.gd），不出「坐这儿」，也点不开
+var resident_nodes: Dictionary = {}  # openid -> {spr, preset, at, center}：坐着的住民，敬酒时要让他站起来（9/18 晚）
+var cup_left := 0.0              # 自己举杯还剩几秒（敬酒、被敬酒时）
+var my_cup: Sprite2D
+var npc_taken: Dictionary = {}  # "T7:3" -> true：NPC 宾客坐着的椅子（hall_life.gd）。点不开；9/18 晚起照样出「坐这儿」，坐下时 NPC 让座
 var table_names: Dictionary = {} # table_id -> 第一个坐下的人的昵称（桌牌）
 var my_seat := {"table_id": "", "chair_no": 0}
 var my_openid := ""              # set_seats 存的自己 openid：判断「是不是自己」，main 敬酒时也要用
@@ -541,6 +569,7 @@ func set_seats(data: Dictionary, me_id: String) -> void:
     seats_holder = Node2D.new()
     seats_holder.y_sort_enabled = true
     world.add_child(seats_holder)
+    resident_nodes.clear()
     seat_tags = Node2D.new()
     seat_tags.z_index = 4
     add_child(seat_tags)
@@ -572,7 +601,7 @@ func set_seats(data: Dictionary, me_id: String) -> void:
             if s["openid"] == me_id:
                 continue   # 自己是走动的玩家，不画坐着的
             var at := chair_world(t, no)
-            _seated(info, at, _seat_center(t), seat_in_front(t, at))
+            _seated(info, at, _seat_center(t), seat_in_front(t, at), str(s["openid"]))
         if table_names.has(tb["id"]):
             _table_sign(t, str(table_names[tb["id"]]))
     # 别桌的 NPC 宾客：真人坐了的椅子让出来（阿鱼 9/18 定留，见 hall_life.gd 开头）
@@ -603,7 +632,7 @@ func _table_sign(t: Dictionary, nick: String) -> void:
     seat_tags.add_child(l)
 
 ## 坐着的住民：和自己坐下一样画上半身（占位，SIT_KEEP、SIT_LIFT），不然别人像站在桌边、只有自己像坐着
-func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool) -> void:
+func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool, openid := "") -> void:
     var preset := int(info.get("avatar", -1))
     if preset < 0 or preset > 7:
         preset = 0
@@ -636,6 +665,8 @@ func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool) -> voi
     s.position = at
     s.z_index = 1 if front else 0
     seats_holder.add_child(s)
+    if openid != "":
+        resident_nodes[openid] = {"spr": s, "preset": preset, "at": at, "center": center}
     var nick := str(info.get("nick", ""))
     if nick != "" and font != null:
         var l := Label.new()
@@ -649,6 +680,82 @@ func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool) -> voi
         l.position = at - Vector2(48, _px_h(at.y) * (SIT_KEEP + SIT_LIFT) + 16.0)
         l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         seat_tags.add_child(l)
+
+# ---------- 敬酒的样子（阿鱼 9/18 晚：被敬的人要站起来，两人碰杯）----------
+const TOAST_SHOW := 2.8   # 站起来、举杯多久，秒（和 toast_scene.gd 的插图一样长）
+const CUP_TEX := "res://assets/ambience/amb_cup.png"
+
+## 我敬了坐着的某人：在我这边他从椅子上站起来（站到椅子外侧那一步），面朝我举杯，过一会儿坐回去
+func resident_toast(openid: String) -> bool:
+    var r: Dictionary = resident_nodes.get(openid, {})
+    if r.is_empty() or not is_instance_valid(r["spr"]):
+        return false
+    var seated_spr: Sprite2D = r["spr"]
+    var preset: int = int(r["preset"])
+    var stand := _stand_spot(r["at"], r["center"])
+    var st := Sprite2D.new()
+    var gl := Spr.gpt_look(preset)
+    var lk: Dictionary
+    var fh: float
+    if gl.is_empty():
+        st.texture = ImageTexture.create_from_image(Spr.sheet(preset))
+        st.hframes = 9
+        fh = 32.0
+        lk = Spr.PROC_ANIM
+    else:
+        st.texture = gl["tex"]
+        st.hframes = gl["hframes"]
+        fh = float(gl["frame_h"])
+        lk = gl["anim"]
+    var fl: Dictionary = lk[_face_for(pos - stand)]
+    st.frame = int(fl["idle"])
+    st.flip_h = bool(fl["flip"])
+    st.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    st.centered = true
+    st.offset = Vector2(0, -fh * 0.5)
+    var k := _px_h(stand.y) / fh
+    st.scale = Vector2(k, k)
+    st.position = stand
+    st.name = "toast_stand"
+    world.add_child(st)
+    seated_spr.visible = false
+    var cup := _cup_sprite()
+    cup.position = stand + Vector2(14.0 if pos.x >= stand.x else -14.0, -_px_h(stand.y) + 22.0)
+    add_child(cup)
+    get_tree().create_timer(TOAST_SHOW).timeout.connect(func():
+        if is_instance_valid(st): st.queue_free()
+        if is_instance_valid(cup): cup.queue_free()
+        if is_instance_valid(seated_spr): seated_spr.visible = true)
+    return true
+
+## 自己举杯 secs 秒：酒杯在手边举到头旁边
+func raise_cup(secs := TOAST_SHOW) -> void:
+    if my_cup == null:
+        my_cup = _cup_sprite()
+        add_child(my_cup)
+    cup_left = secs
+
+## 有人敬我（在厅里当场收到）：坐着就站起来、举杯，插图完了没动过就坐回原位
+func toasted_me() -> void:
+    var was := seated
+    var seat: Dictionary = my_seat.duplicate()
+    if seated:
+        stand_up()
+    face = "down"
+    raise_cup()
+    if was:
+        get_tree().create_timer(TOAST_SHOW).timeout.connect(func():
+            if not seated and path.is_empty() and stick == Vector2.ZERO and my_seat == seat:
+                sit_at(str(seat.get("table_id", "")), int(seat.get("chair_no", 0))))
+
+func _cup_sprite() -> Sprite2D:
+    var c := Sprite2D.new()
+    if ResourceLoader.exists(CUP_TEX):
+        c.texture = load(CUP_TEX)
+    c.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    c.z_index = 5
+    c.visible = true
+    return c
 
 ## 自己座位的小金标
 func _my_marker() -> void:
@@ -683,7 +790,12 @@ func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
     if seat_taken.get(old, "") == me_id:
         seat_taken.erase(old)
     my_seat = {"table_id": table_id, "chair_no": chair_no}
-    seat_taken["%s:%d" % [table_id, chair_no]] = me_id
+    var key := "%s:%d" % [table_id, chair_no]
+    seat_taken[key] = me_id
+    # 这把原来坐着 NPC：它站起来走掉，把椅子让给我（阿鱼 9/18 晚）
+    if life != null and npc_taken.has(key):
+        life.vacate(key)
+        npc_taken = life.npc_taken
     _my_marker()
     sit_at(table_id, chair_no)
 
@@ -770,8 +882,8 @@ func _scan_chairs(dt: float) -> void:
         var best_d := NEAR_R
         for c in chairs:
             var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
-            if seat_taken.has(key) or npc_taken.has(key):
-                continue
+            if seat_taken.has(key):
+                continue   # NPC 坐着的也算空椅子：坐下时 NPC 让座
             var d: float = pos.distance_to(c["pos"])
             if d < best_d:
                 best_d = d

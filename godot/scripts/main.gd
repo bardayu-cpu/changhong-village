@@ -13,6 +13,16 @@ const LINE_ARRIVE := "到啦～ 罗曼山庄 席还没散"
 const LINE_TABLE := "想跟我们说点什么 写这儿 只有我们看得到"
 const LINE_LEAVE := "吃好了？走 带你回镇上"
 const LINE_TOASTED_FMT := "敬了 %s 一杯"   # 新写，等阿鱼定
+const LINE_CHEERS := "干杯"   # 敬酒插图上的大字，新写，等阿鱼定
+const ToastScene = preload("res://scripts/toast_scene.gd")
+## 在厅里时每隔几秒问一次服务端「有没有人刚敬我」（云函数 hallPulse，阿鱼 9/18 晚：被敬的人在线要当场知道）
+const PULSE_EVERY := 8.0
+var pulse_t := 0.0
+var pulse_since := 0            # hallPulse 上一次回的服务端时间（毫秒）；0 表示这次进厅还没对过表
+var pulse_busy := false
+var hall_ready := false         # 这次进厅拿到席位了没（拿到才开始问 hallPulse）
+var toast_scene: Control
+var toast_queue: Array = []     # 排队等着放的干杯插图 [left, right, caption]
 const LINE_BOOK_EMPTY := "还没人写 你来第一句"   # 新写，等阿鱼定
 const BOOK_PLACEHOLDER := "接一句"   # 新写，等阿鱼定
 const LINE_BOOK_READONLY := "先坐下 慢慢写"   # 蓝图 3.2 9/18 定稿：不是自己现在坐的那桌，只能看
@@ -265,6 +275,13 @@ func _read_js_log() -> String:
 func _process(dt: float) -> void:
     if dialog != null:
         _layout_top()
+    if state == "banquet" and hall_ready and not pulse_busy:
+        pulse_t += dt
+        # 进厅后先对一次表（1 秒后），之后每 PULSE_EVERY 秒问一次
+        if pulse_t >= (1.0 if pulse_since == 0 else PULSE_EVERY):
+            pulse_t = 0.0
+            pulse_busy = true
+            cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
     if stick_base != null:
         # 写悄悄话、说话的时候不能走，摇杆也藏起来
         var show_stick: bool = state == "banquet" and hall.walking_enabled
@@ -801,6 +818,9 @@ func _enter_banquet() -> void:
     whisper_box.visible = false
     hall.reset_to(hall.SPAWN)
     _goto("banquet")
+    hall_ready = false
+    pulse_since = 0
+    pulse_t = 0.0
     hint.visible = true
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
@@ -859,6 +879,7 @@ func _on_enter_hall(r: Dictionary) -> void:
         return
     var d: Dictionary = r["data"]
     hall.set_seats(d, cloud.openid())
+    hall_ready = true   # 席位拿到了，开始每隔几秒问 hallPulse
     # 真机排查用：这厅有多少人、带邀请人的有几个（看人卡片「XX 带进来的」靠这个字段）
     var with_inviter := 0
     for k in hall.resident_names:
@@ -876,8 +897,14 @@ func _on_enter_hall(r: Dictionary) -> void:
         var tc := int(dg.get("toastCount", 0))
         if tc > 0:
             var first: Dictionary = dg["toasts"][0]
-            var who := str(names.get(str(first.get("from", "")), {}).get("nick", "有人"))
+            var finfo: Dictionary = names.get(str(first.get("from", "")), {})
+            var who := str(finfo.get("nick", "有人"))
             parts.append(who + ("等 %d 人敬了你" % tc if tc > 1 else " 敬了你一杯"))
+            # 不在线时被敬的：进厅也看一次干杯插图（阿鱼 9/18 晚）
+            var cap: String = parts[parts.size() - 1]
+            get_tree().create_timer(1.5).timeout.connect(func():
+                if state == "banquet":
+                    _play_toast(_avatar_of(finfo), preset, cap))
         var bc := int(dg.get("bookLineCount", 0))
         if bc > 0:
             parts.append("簿子上多了 %d 句" % bc)
@@ -956,10 +983,60 @@ func _on_toast_pressed() -> void:
 func _on_toast_result(r: Dictionary, target: String) -> void:
     _close_person_card()
     if bool(r.get("ok", false)):
-        var nick := str(hall.resident_names.get(target, {}).get("nick", ""))
-        _note(LINE_TOASTED_FMT % (nick if nick != "" else "有人"))
+        var info: Dictionary = hall.resident_names.get(target, {})
+        var nick := str(info.get("nick", ""))
+        var line := LINE_TOASTED_FMT % (nick if nick != "" else "有人")
+        _note(line)
+        # 阿鱼 9/18 晚：敬了要有反应——对方站起来碰杯、弹一张干杯的插图（对方不用点同意）
+        if USE_LAYERED:
+            hall.resident_toast(target)
+            hall.raise_cup()
+        _play_toast(preset, _avatar_of(info), line)
     else:
         _note(_reason_text(r, "敬酒"))
+
+## 干杯插图：left 敬酒的人、right 被敬的人（形象编号）。同一时间只放一张，正在放就排队，放完接着放下一张
+func _play_toast(left_preset: int, right_preset: int, caption: String) -> void:
+    if is_instance_valid(toast_scene):
+        toast_queue.append([left_preset, right_preset, caption])
+        return
+    toast_scene = ToastScene.new()
+    ui.add_child(toast_scene)
+    toast_scene.finished.connect(_on_toast_scene_done)
+    toast_scene.play(font, left_preset, right_preset, LINE_CHEERS, caption)
+    print("[suqi] 干杯插图 ", caption)
+
+func _on_toast_scene_done() -> void:
+    toast_scene = null
+    if not toast_queue.is_empty() and state == "banquet":
+        var n: Array = toast_queue.pop_front()
+        _play_toast(int(n[0]), int(n[1]), str(n[2]))
+
+static func _avatar_of(info: Dictionary) -> int:
+    var a := int(info.get("avatar", -1))
+    return a if a >= 0 and a <= 7 else 0
+
+## hallPulse 回来：有人刚敬了我——顶部一句、自己站起来举杯、弹同一张插图。没连上就等下一轮，不打扰
+func _on_pulse(r: Dictionary) -> void:
+    pulse_busy = false
+    if not bool(r.get("ok", false)):
+        return
+    pulse_since = int(r.get("now", pulse_since))
+    var toasts: Array = r.get("toasts", [])
+    if toasts.is_empty() or state != "banquet":
+        return
+    var names: Dictionary = r.get("names", {})
+    var last: Dictionary = toasts[toasts.size() - 1]
+    var info: Dictionary = names.get(str(last.get("from", "")), {})
+    var who := str(info.get("nick", ""))
+    if who == "":
+        who = "有人"
+    var line := who + (" 等 %d 人敬了你" % toasts.size() if toasts.size() > 1 else " 敬了你一杯")
+    print("[suqi] 当场收到敬酒 ", toasts.size(), " 杯")
+    _note(line, 4.0)
+    if USE_LAYERED:
+        hall.toasted_me()
+    _play_toast(_avatar_of(info), preset, line)
 
 func _on_book_btn_pressed() -> void:
     if near_table_id != "":
@@ -1240,7 +1317,7 @@ func _check_whisper_ui() -> void:
 
 # ---------- 输入 ----------
 ## 触屏操作（只认触摸事件；电脑上鼠标会被当成触摸，见 project.godot）：
-## 屏幕左下方按住拖 = 摇杆；别处左右拖 = 转镜头；轻点一下 = 走过去
+## 屏幕左下方按住拖 = 摇杆；别处左右拖 = 转镜头（宴会厅是左右挪着看全厅，9/18 晚）；轻点一下 = 走过去
 func _unhandled_input(e: InputEvent) -> void:
     if e is InputEventScreenTouch and not e.pressed:
         var tc = touches.get(e.index)
@@ -1419,6 +1496,29 @@ func _setup_shot(shot: String) -> void:
             hall.couple_armed = false
             hall.reset_to(Vector2(330, 845) if USE_LAYERED else Vector2(-4.8, -3.6))
             dialog.visible = false
+        "toast_send", "toast_recv":
+            # 敬酒的样子（阿鱼 9/18 晚）：send 我敬坐着的小李——小李站起来、我举杯、干杯插图；
+            # recv 我坐在 T1，hallPulse 带回「老王刚敬了我」——我站起来举杯、同一张插图
+            nickname = "小李" if shot == "toast_recv" else "阿鱼"
+            await _enter_banquet()
+            hall.couple_armed = false
+            dialog.visible = false
+            for i in 10: await get_tree().process_frame
+            if shot == "toast_send":
+                var li: Dictionary = hall.resident_nodes.get("fake_li", {})
+                if not li.is_empty():
+                    hall.reset_to(hall._stand_spot(li["at"], li["center"]) + Vector2(-30, 20))
+                card_openid = "fake_li"
+                person_card_toast_btn.disabled = false
+                _on_toast_pressed()
+            else:
+                hall.apply_change("T1", 5, cloud.openid())
+                for i in 30: await get_tree().process_frame
+                cloud.fake_pulse_toasts = [{"from": "fake_wang"}]
+                cloud.call_fn("hallPulse", {"since": 1}, _on_pulse)
+            # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
+            while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
+                await get_tree().process_frame
         "life_band", "life_gifts", "life_guests", "life_waiter":
             # 厅里的热闹（阿鱼 9/18）：乐队、贺礼、别桌的 NPC 宾客、服务员，各拍一张看摆得对不对
             nickname = "小李"

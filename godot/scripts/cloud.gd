@@ -63,6 +63,7 @@ func inviter() -> String:
     return fake_inviter
 
 var fake_inviter := ""   # 电脑上假装是点谁的卡片进来的，测试用
+var fake_pulse_toasts: Array = []   # 电脑上假装「刚有人敬我」：截图、测试往这里塞 {from}，下一次 hallPulse 带回去
 
 func call_fn(name: String, data: Dictionary, cb: Callable) -> void:
     if _js == null:
@@ -244,4 +245,16 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 if fake_names.has(oid):
                     names[oid] = fake_names[oid]
             return {"ok": true, "data": {"lines": lines, "names": names}}
+        "hallPulse":
+            # 第一次（since 是 0）只对表；之后把 fake_pulse_toasts 里攒的一次性带回去（服务端规格见 cloudfunctions/hallPulse）
+            var now := Time.get_ticks_msec() + 1000000
+            if int(data.get("since", 0)) <= 0:
+                return {"ok": true, "now": now, "toasts": [], "names": {}}
+            var out: Array = []
+            var nm := {}
+            for ft in fake_pulse_toasts:
+                out.append({"from": ft["from"], "created_at": now})
+                nm[ft["from"]] = fake_names.get(ft["from"], {"nick": "", "avatar": -1})
+            fake_pulse_toasts.clear()
+            return {"ok": true, "now": now, "toasts": out, "names": nm}
     return {"ok": false, "reason": "network"}
