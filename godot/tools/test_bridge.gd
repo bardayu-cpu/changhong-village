@@ -115,6 +115,27 @@ func _init() -> void:
     print("  main.gd 发敬酒用的字段名是 to：", toast_field_ok)
     ok = ok and toast_field_ok
 
+    # 5d. 假数据翻簿子规则（cloud.gd 的 writeBook 照抄 server-claude/src/banquet.js 9/18 改过的
+    # canWriteBook），第 24 版：不是当前坐的桌、太长、少字段、正常
+    var c5d: Node = Cloud.new()
+    c5d._ready()
+    var box5d := {}
+    c5d.call_fn("enterHall", {}, func(r): box5d["enter"] = r)   # 先进厅，fake_me 落在 T1
+    c5d.call_fn("writeBook", {"table": "T1"}, func(r): box5d["no_text"] = r)
+    c5d.call_fn("writeBook", {"table": "T2", "text": "恭喜恭喜"}, func(r): box5d["wrong_table"] = r)
+    c5d.call_fn("writeBook", {"table": "T1", "text": "x".repeat(101)}, func(r): box5d["too_long"] = r)
+    c5d.call_fn("writeBook", {"table": "T1", "text": "新婚快乐"}, func(r): box5d["ok_write"] = r)
+    print("5d 翻簿子：少字段 ", box5d.get("no_text", {}), " 不是当前桌 ", box5d.get("wrong_table", {}),
+        " 太长 ", box5d.get("too_long", {}), " 正常 ", box5d.get("ok_write", {}))
+    ok = ok and str(box5d.get("no_text", {}).get("reason", "")) == "bad_request"
+    ok = ok and str(box5d.get("wrong_table", {}).get("reason", "")) == "not_sat_here"
+    ok = ok and str(box5d.get("too_long", {}).get("reason", "")) == "book_too_long"
+    ok = ok and bool(box5d.get("ok_write", {}).get("ok", false))
+    # main 里发翻簿子请求用的字段名是 table、text（云函数 writeBook/readBook 收的就是这些，回执第七节）
+    var book_field_ok := main_src.find('call_fn("writeBook", {"table"') >= 0 and main_src.find('call_fn("readBook", {"table"') >= 0
+    print("  main.gd 发翻簿子用的字段名是 table/text：", book_field_ok)
+    ok = ok and book_field_ok
+
     # 6. 把两条请求的名字写出去，交给 node 回放（tools/replay_bridge.js）
     var out_path := OS.get_environment("SUQI_BRIDGE_OUT")
     if out_path == "":

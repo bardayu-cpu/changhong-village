@@ -446,6 +446,7 @@ func _process(dt: float) -> void:
 # ---------- 席位：enterHall 的数据画成坐着的人（蓝图 3.2） ----------
 signal chair_near(table_id: String, chair_no: int)   # 走到空椅子旁触发；chair_no 0 表示离开了
 signal person_near(openid: String)   # 走到「有人坐、不是自己」的椅子旁触发（看人、敬酒，蓝图 3.2）；"" 表示走开了
+signal table_near(table_id: String)   # 走到桌边（翻簿子，第 24 版）；"" 表示走开了
 
 var seats_holder: Node2D
 var seat_tags: Node2D
@@ -458,6 +459,7 @@ var my_openid := ""              # set_seats 存的自己 openid：判断「是�
 var resident_names: Dictionary = {}  # set_seats 存的 data["names"]：openid -> {nick, avatar, inviter}，给 main 读昵称、形象、邀请人
 var near_key := ""
 var person_near_key := ""
+var table_near_key := ""         # _scan_chairs 里翻簿子那部分最新一次发出的桌 id，""=没在任何桌边
 var seat_scan := 0.0
 var seated := false              # 坐在自己椅子上：停在椅位面朝桌心，一动就站起来
 var seat_stand_spot := Vector2.ZERO   # 起身落脚的点：椅子外侧一步，保证不在桌子占地里
@@ -614,6 +616,19 @@ func _table_cfg(table_id: String) -> Dictionary:
             return t
     return {}
 
+## 翻簿子的「离桌子占地椭圆一圈 60 像素内」：沿桌心到人的方向量出椭圆边界那一点，
+## 两点距离相减，正数是在外面、负数是在里面。跟 chair_world 一样用 rx、ry 撑扁的圆算角度
+func _table_edge_dist(t: Dictionary, p: Vector2) -> float:
+    var c := Vector2(float(t["x"]), float(t["y"]))
+    var d := p - c
+    var rx: float = float(t["rx"])
+    var ry: float = float(t["ry"])
+    if d.length() < 0.001:
+        return -minf(rx, ry)   # 正好站在桌心（理论上不会发生），当作在里面
+    var ang := atan2(d.y / ry, d.x / rx)
+    var edge := Vector2(cos(ang) * rx, sin(ang) * ry)
+    return d.length() - edge.length()
+
 ## 坐下：人滑到椅子上（SIT_ANIM 秒），面朝桌心，停着不动，只画上半身（_process 里，占位）。
 ## 还没有坐姿帧（等新画风人物）；椅子和桌子画在同一块积木里挪不动，「拖椅子坐下」在待讨论里
 func sit_at(table_id: String, chair_no: int) -> void:
@@ -705,3 +720,20 @@ func _scan_chairs(dt: float) -> void:
     if best_pid != person_near_key:
         person_near_key = best_pid
         person_near.emit(best_pid)
+    # 翻簿子：走到桌边（占地椭圆边缘 60 像素内）冒「翻簿子」；坐在自己椅子上时也算自己那桌（蓝图 3.2，
+    # 第 24 版规则 1），不受 seated 影响——跟看人一样，坐着也能翻自己桌上的簿子
+    var best_table := ""
+    if seated:
+        var my_t := _table_cfg(str(my_seat.get("table_id", "")))
+        if not my_t.is_empty():
+            best_table = str(my_t["id"])
+    if best_table == "":
+        var best_td := 60.0
+        for t in cfg.get("tables", []):
+            var td: float = _table_edge_dist(t, pos)
+            if td < best_td:
+                best_td = td
+                best_table = str(t["id"])
+    if best_table != table_near_key:
+        table_near_key = best_table
+        table_near.emit(best_table)
