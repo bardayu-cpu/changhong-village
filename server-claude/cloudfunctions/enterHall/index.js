@@ -97,14 +97,14 @@ exports.main = async () => {
     await db.collection('seat').doc(OPENID).update({ data: { last_visit_at: now } });
   }
 
-  // 本厅全部座位、桌牌（桌牌用桌上第一个人的 openid，客户端按 openid 查昵称拼「XX 那桌」）
+  // 本厅全部座位、桌牌：每个座位带 sat_at（9/18 加，只加字段），客户端取这桌 sat_at 最早的人拼「XX那桌」（蓝图 3.2：XX 是这桌第一个坐下的人）
   // 120 座满了就超过单页 100 条上限，分页读全，不然桌上会少画人、长凳也可能漏人。
   const allSeats = await fetchAllPages(() => db.collection('seat'), PAGE_OPTS);
   const byTableNow = {};
   const bench = [];
   for (const s of allSeats) {
     if (s.table_id === BENCH) bench.push(s.openid);
-    else (byTableNow[s.table_id] = byTableNow[s.table_id] || []).push({ openid: s.openid, chair_no: s.chair_no });
+    else (byTableNow[s.table_id] = byTableNow[s.table_id] || []).push({ openid: s.openid, chair_no: s.chair_no, sat_at: s.sat_at || 0 });
   }
 
   // 昵称、形象、邀请人一起带回去：resident 表是「仅创建者可读写」，客户端查不到别人的，

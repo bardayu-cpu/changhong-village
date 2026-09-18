@@ -512,19 +512,45 @@ func set_seats(data: Dictionary, me_id: String) -> void:
         var t: Dictionary = by_id[tb["id"]]
         for no in range(1, 11):
             chairs.append({"table_id": tb["id"], "chair_no": no, "pos": chair_world(t, no)})
+        var first_at := INF   # 桌牌：这桌最早坐下的人（sat_at 最小；旧数据没有 sat_at 就按列表里第一个）
         for s in tb.get("seats", []):
             var no := int(s["chair_no"])
             seat_taken["%s:%d" % [tb["id"], no]] = s["openid"]
             var info: Dictionary = names.get(s["openid"], {})
-            if not table_names.has(tb["id"]) and str(info.get("nick", "")) != "":
+            var sat_at := float(s.get("sat_at", 0))
+            if str(info.get("nick", "")) != "" and (not table_names.has(tb["id"]) or sat_at < first_at):
                 table_names[tb["id"]] = str(info["nick"])
+                first_at = sat_at
             if s["openid"] == me_id:
                 continue   # 自己是走动的玩家，不画坐着的
             var at := chair_world(t, no)
             _seated(info, at, _seat_center(t), seat_in_front(t, at))
+        if table_names.has(tb["id"]):
+            _table_sign(t, str(table_names[tb["id"]]))
     _my_marker()
     # 椅子列表整个重建过（换桌、重进厅都会走到这）：旧的按钮状态可能对不上了，立刻重扫一次
     _scan_chairs(1.0)
+
+## 桌牌「XX那桌」（蓝图 3.2：桌牌由引擎渲染，XX 是这桌第一个坐下的人），立在桌心；空桌不挂
+func _table_sign(t: Dictionary, nick: String) -> void:
+    var l := Label.new()
+    l.text = nick + "那桌"
+    l.add_theme_font_override("font", font)
+    l.add_theme_font_size_override("font_size", 12)
+    l.add_theme_color_override("font_color", Color("#F4D97A"))
+    var sb := StyleBoxFlat.new()
+    sb.bg_color = Color(0.08, 0.05, 0.1, 0.8)
+    sb.border_color = Color("#d4af37")
+    sb.set_border_width_all(1)
+    sb.set_corner_radius_all(3)
+    sb.content_margin_left = 4; sb.content_margin_right = 4
+    sb.content_margin_top = 1; sb.content_margin_bottom = 1
+    l.add_theme_stylebox_override("normal", sb)
+    l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    l.size = l.get_combined_minimum_size()   # 牌子只包住字，居中立在桌心
+    l.position = _seat_center(t) - l.size * 0.5
+    l.name = "sign_" + str(t["id"])
+    seat_tags.add_child(l)
 
 ## 坐着的住民：和自己坐下一样画上半身（占位，SIT_KEEP、SIT_LIFT），不然别人像站在桌边、只有自己像坐着
 func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool) -> void:
