@@ -209,6 +209,14 @@ const MUSICIANS := {
     "violin1": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "g": "#D4AF37", "k": "#C0392B", "K": "#8C2F27", "p": "#C0392B", "P": "#8C2F27", "f": "#2C2438"}},
     "violin2": {"hair": "short", "tux": true, "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#2b2833", "K": "#1c1a22", "p": "#2b2833", "P": "#1c1a22", "f": "#15131a"}},
 }
+## 迎宾院的 NPC（蓝图 3.1，灰盒占位，entrance.gd 用）：家人只叫「新娘爸爸」「新娘妈妈」，不追求真人相似（HANDOFF §0.5、蓝图 3.1）
+const COURT_NPCS := {
+    "bride_mom": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "g": "#D4AF37", "k": "#C0392B", "K": "#8C2F27", "p": "#8C2F27", "P": "#5e1f1a", "f": "#2C2438"}},
+    "bride_dad": {"hair": "short", "tux": true, "bow": true, "scale": Vector2.ONE, "pal": {"H": "#6c6972", "h": "#4a4552", "i": "#8a8790", "k": "#2b2833", "K": "#1c1a22", "p": "#2b2833", "P": "#1c1a22", "f": "#15131a"}},
+    "photographer_w": {"hair": "short", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#5c8a6a", "K": "#3f6a50", "p": "#2C2438", "P": "#1E1A2A", "f": "#1d1a24"}},
+    "photographer_e": {"hair": "tails", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#4a3226", "h": "#3a261d", "i": "#6d4a38", "k": "#4A6FA5", "K": "#2E4A7A", "p": "#26222f", "P": "#1a1720", "f": "#1d1a24"}},
+    "elder": {"hair": "short", "glasses": true, "scale": Vector2(1.05, 0.96), "pal": {"H": "#8a8790", "h": "#6c6972", "i": "#b0adb5", "k": "#5a3a2a", "K": "#3e281c", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+}
 const GUEST_HAIR := ["short", "long", "curly", "short", "long", "bald", "tails", "short", "long"]
 const GUEST_HAIR_COL := [
     ["#26202c", "#1b1620", "#3d3446"], ["#3b2a26", "#2c1f1c", "#5e4038"], ["#4a3226", "#3a261d", "#6d4a38"],

@@ -5,6 +5,17 @@ extends Node
 
 const Hall = preload("res://scripts/hall.gd")
 const LayeredHall = preload("res://scripts/layered_hall.gd")
+## 罗曼山庄迎宾院（蓝图 3.1，灰盒，01 9/19 派）：进山庄先到这里，走到楼门进宴会厅，宴会厅的门出来回到这里
+const Entrance = preload("res://scripts/entrance.gd")
+const CourtCopy = preload("res://scripts/court_copy.gd")
+## 切画布：0.35 秒暖色淡出淡入（蓝图 1），人保持朝向，出现在对面的「到了站在」点
+const SWITCH_TINT := Color("#3a1d12")
+const COURT_FROM_HALL := Vector2(768, 260)   # 蓝图 1 出入口表：宴会厅的门 → 迎宾院 (768, 260)
+var court
+var cv                          # 现在人在哪块画布（court 或 hall）：走路、摇杆、镜头都交给它
+var switching := false
+var hall_door_latched := true   # 刚进宴会厅时人就站在门口：先走出门的范围，门才算数（不会来回弹）
+var profile_saved := false      # 这次打开游戏 saveProfile 成功过没有（进厅前要有住民记录）
 ## 宴会厅用分层场景（画面就是 GPT 的效果图，阿鱼 9/15 选定）；false 回到 3D 搭的 HD-2D 宴会厅
 const USE_LAYERED := true
 const Spr = preload("res://scripts/sprites.gd")
@@ -189,6 +200,13 @@ func _ready() -> void:
         hall.table_near.connect(_on_table_near)
         hall.game_tap.connect(_on_game_tap)
     hall.walking_enabled = false
+    court = Entrance.new()
+    sv.add_child(court)
+    court.build(preset, "", font)
+    court.spot.connect(_on_court_spot)
+    court.walking_enabled = false
+    print("[suqi] 迎宾院搭好了")
+    _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     print("[suqi] 界面搭好了")
     var cap := ""
@@ -353,8 +371,16 @@ func _read_js_log() -> String:
 func _process(dt: float) -> void:
     if dialog != null:
         _layout_top()
-    if coins_chip != null and state == "banquet":
+    if coins_chip != null and _in_scene():
         coins_chip.text = "%d 金" % games_save.coins
+    # 宴会厅的门出去回迎宾院（蓝图 1 出入口表）。刚进厅时人就站在门口：先走出门的范围，门才算数
+    if state == "banquet" and not switching and hall.door_r > 0.0:
+        var dd: float = hall.pos.distance_to(hall.door)
+        if hall_door_latched:
+            if dd > hall.door_r:
+                hall_door_latched = false
+        elif dd < hall.door_r and hall.walking_enabled:
+            _switch_canvas("court")
     if state == "banquet" and hall_ready and not pulse_busy:
         pulse_t += dt
         # 进厅后先对一次表（1 秒后），之后每 PULSE_EVERY 秒问一次
@@ -364,12 +390,12 @@ func _process(dt: float) -> void:
             cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
     if stick_base != null:
         # 写悄悄话、说话的时候不能走，摇杆也藏起来
-        var show_stick: bool = state == "banquet" and hall.walking_enabled
+        var show_stick: bool = _in_scene() and cv.walking_enabled
         stick_base.visible = show_stick
         stick_knob.visible = show_stick
         if not show_stick and stick_touch != -1:
             stick_touch = -1
-            hall.stick = Vector2.ZERO
+            cv.stick = Vector2.ZERO
             _stick_rest()
     if dbg == null:
         return
@@ -548,7 +574,7 @@ func _build_ui() -> void:
     ab.add_child(grid)
     var ok2 := Button.new()
     ok2.text = "好"
-    ok2.pressed.connect(func(): _goto("clip"))
+    ok2.pressed.connect(_enter_court)   # 选完形象从迎宾院大门进来（蓝图 2.1）；两分钟剪辑挪进回忆册
     ab.add_child(ok2)
     # 两分钟剪辑：六句还没定，只放占位
     var cp := _center_panel()
@@ -568,7 +594,7 @@ func _build_ui() -> void:
     eb.add_child(_label("本地人集市、镇政府、小学门口的黄葛树、老街、石板桥", 24, MUTED))
     var again := Button.new()
     again.text = "再走一遍"
-    again.pressed.connect(_enter_banquet)
+    again.pressed.connect(_enter_court)
     eb.add_child(again)
     _build_hud()
     _build_person_card()
@@ -894,14 +920,31 @@ func _close_person_card() -> void:
     _refresh_seat_buttons()
 
 # ---------- 流程 ----------
+## 人在能走路的场景里（迎宾院、宴会厅），不是开场、起名这些界面
+func _in_scene() -> bool:
+    return state == "court" or state == "banquet"
+
+## 换到哪块画布：另一块藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。两块一直都在，
+## 所以座位、NPC、敬酒这些宴会厅的状态切来切去都还在
+func _show_canvas(which: String) -> void:
+    var on_court := which == "court"
+    court.visible = on_court
+    court.process_mode = Node.PROCESS_MODE_INHERIT if on_court else Node.PROCESS_MODE_DISABLED
+    hall.visible = not on_court
+    hall.process_mode = Node.PROCESS_MODE_DISABLED if on_court else Node.PROCESS_MODE_INHERIT
+    cv = court if on_court else hall
+    if cv.cam != null:
+        cv.cam.make_current()
+
 func _goto(s: String) -> void:
     state = s
     hall.stick = Vector2.ZERO
+    court.stick = Vector2.ZERO
     stick_touch = -1
     touches.clear()
     for k in screens:
         screens[k].visible = (k == s)
-    hud.visible = (s == "banquet")
+    hud.visible = (s == "banquet" or s == "court")
     if sit_btn != null and s != "banquet":
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
@@ -922,6 +965,7 @@ func _goto(s: String) -> void:
         book_table = ""
         book_panel.visible = false
     hall.walking_enabled = (s == "banquet") and not whisper_box.visible
+    court.walking_enabled = (s == "court")
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
@@ -934,14 +978,95 @@ func _fade_to(a: float) -> void:
     tw.tween_property(fade, "color:a", a, 0.35)
     await tw.finished
 
-func _enter_banquet() -> void:
+## 进山庄（01 9/19 起的正式流程：选完形象从迎宾院大门走进来，蓝图 2.1）。「到啦～ 罗曼山庄 席还没散」挪到大门口说（01 定）。
+## 这时先存资料（签到、进厅都要有住民记录）；进厅拿席位等走进宴会厅再说
+func _enter_court() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
+    court.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
     whisper_box.visible = false
     hall.reset_to(hall.SPAWN)
+    court.reset_to(court.SPAWN)
+    _show_canvas("court")
+    _goto("court")
+    hall_ready = false
+    hint.visible = true
+    await _fade_to(0.0)
+    _say(LINE_ARRIVE)
+    _save_profile()
+
+func _save_profile() -> void:
+    var inv: String = cloud.inviter()
+    var payload := profile_payload(nickname, preset, inv, cloud.openid())
+    print("[suqi] 存资料 带邀请人 ", payload.has("inviter"), " ", inv.substr(0, 6))
+    cloud.call_fn("saveProfile", payload, _after_profile)
+
+## 在两块画布之间走（蓝图 1：0.35 秒暖色淡出淡入，人保持朝向，出现在对面的「到了站在」点）。
+## 进宴会厅：站到厅门口 (768,840)，重新拿一次席位（进厅提示、别人敬的酒照旧报）；回迎宾院：站到 (768,260)
+func _switch_canvas(to: String) -> void:
+    if switching or not _in_scene():
+        return
+    switching = true
+    var keep_face: String = cv.face
+    cv.walking_enabled = false
+    cv.stick = Vector2.ZERO
+    cv.path.clear()
+    fade.color = Color(SWITCH_TINT, fade.color.a)
+    await _fade_to(1.0)
+    if to == "banquet":
+        _show_canvas("banquet")
+        hall.reset_to(hall.SPAWN)
+        hall_door_latched = true
+        _goto("banquet")
+        _enter_hall_net()
+    else:
+        _show_canvas("court")
+        court.reset_to(COURT_FROM_HALL)
+        _goto("court")
+    cv.face = keep_face
+    print("[suqi] 换画布 到 ", to)
+    await _fade_to(0.0)
+    fade.color = Color(0, 0, 0, 0)
+    switching = false
+
+## 进宴会厅要做的网上的事：心跳重新对表；资料存过了就直接进厅拿席位，没存上（刚才断网）先补存一次
+func _enter_hall_net() -> void:
+    hall_ready = false
+    pulse_since = 0
+    pulse_t = 0.0
+    pulse_seen.clear()
+    if profile_saved:
+        cloud.call_fn("enterHall", {}, _on_enter_hall)
+    else:
+        _save_profile()
+
+## 走到迎宾院的交互点（进、出半径各一次，见 entrance.gd）。这一段只接出入口：楼门进宴会厅、东西小径还没修好
+func _on_court_spot(id: String, inside: bool) -> void:
+    if state != "court" or switching:
+        return
+    match id:
+        "to_hall":
+            if inside:
+                _switch_canvas("banquet")
+        "to_lake", "to_lawn":
+            if inside:
+                _note(CourtCopy.text(id), 3.0)
+
+## 截图、测试用：不走迎宾院，直接进宴会厅（原来的进场流程）
+func _enter_banquet() -> void:
+    await _fade_to(1.0)
+    hall.set_look(preset, nickname)
+    court.set_look(preset, nickname)
+    hall.couple_armed = true
+    hall.exit_armed = false
+    hall.exit_mark.visible = false
+    whisper_box.visible = false
+    hall.reset_to(hall.SPAWN)
+    hall_door_latched = true
+    _show_canvas("banquet")
     _goto("banquet")
     hall_ready = false
     pulse_since = 0
@@ -951,10 +1076,7 @@ func _enter_banquet() -> void:
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
     # 存资料、进厅拿席位（蓝图 3.2）。失败不拦流程，只顶部提示
-    var inv: String = cloud.inviter()
-    var payload := profile_payload(nickname, preset, inv, cloud.openid())
-    print("[suqi] 存资料 带邀请人 ", payload.has("inviter"), " ", inv.substr(0, 6))
-    cloud.call_fn("saveProfile", payload, _after_profile)
+    _save_profile()
 
 ## 存资料要发的字段（字段名以服务端 saveProfile 为准）。邀请链：点谁的卡片进来就带上 inviter，
 ## 不带自己；服务端还会再判「只认第一次、查无此人不认」（回执 03）
@@ -987,7 +1109,10 @@ func _after_profile(r: Dictionary) -> void:
         nick_err.text = str(REASONS[reason])
         nick_ok.disabled = true
         return
-    cloud.call_fn("enterHall", {}, _on_enter_hall)
+    profile_saved = bool(r.get("ok", false))
+    # 在迎宾院存的资料：进厅拿席位等走进宴会厅再说（_switch_canvas → _enter_hall_net）
+    if state == "banquet":
+        cloud.call_fn("enterHall", {}, _on_enter_hall)
 
 ## 拒绝原因转成给玩家看的一句话。没见过的原因一律说「没连上」，但日志里要打出真实原因，
 ## 不然像第 19 版那样：服务端回 bad_request，玩家只看到「没连上」，查了半天才发现是字段名发错了
@@ -1529,10 +1654,6 @@ func _on_reached(what: String) -> void:
         _check_whisper_ui()
         _refresh_gift_row()
         _refresh_seat_buttons()   # 写悄悄话的框开着时昵称按钮也收起，别叠在一起
-    elif what == "exit":
-        await _fade_to(1.0)
-        _goto("end")
-        await _fade_to(0.0)
 
 func _send_whisper() -> void:
     var text := whisper_edit.text.strip_edges()
@@ -1552,7 +1673,8 @@ func _send_whisper() -> void:
     whisper_edit.text = ""
     whisper_box.visible = false
     hall.walking_enabled = true
-    hall.arm_exit()
+    # 厅门亮一圈金光，提示往外走（门一直通迎宾院；大门开不开在迎宾院那边管）
+    hall.exit_mark.visible = true
     _say(LINE_LEAVE)
     _refresh_seat_buttons()
 
@@ -1612,14 +1734,14 @@ func _unhandled_input(e: InputEvent) -> void:
         touches.erase(e.index)
         if e.index == stick_touch:
             stick_touch = -1
-            hall.stick = Vector2.ZERO
+            cv.stick = Vector2.ZERO
             _stick_rest()
         var quick: bool = tc != null and not tc["drag"] and Time.get_ticks_msec() - int(tc["t"]) < 350
-        if quick and state == "banquet" and hall.walking_enabled:
+        if quick and _in_scene() and cv.walking_enabled:
             hint.visible = false
-            hall.tap(e.position)
+            cv.tap(e.position)
         return
-    if state != "banquet" or not hall.walking_enabled:
+    if not _in_scene() or not cv.walking_enabled:
         return
     var vp := get_viewport().get_visible_rect().size
     if e is InputEventScreenTouch and e.pressed:
@@ -1641,10 +1763,10 @@ func _unhandled_input(e: InputEvent) -> void:
             var v: Vector2 = (e.position - stick_origin) / STICK_R
             if v.length() > 1.0:
                 v = v.normalized()
-            hall.stick = v
+            cv.stick = v
             _stick_show(stick_origin, v)
         else:
-            hall.rotate_cam(e.relative.x)
+            cv.rotate_cam(e.relative.x)
 
 ## 摇杆：平时淡淡地停在左下角提示有它；按下时跟到手指位置
 func _ring(d: float, bg: Color, border: Color) -> Panel:
@@ -1964,6 +2086,29 @@ func _setup_shot(shot: String) -> void:
             hall.snap_cam()
             hall.stick = Vector2(-0.5, -0.8)
             _stick_show(Vector2(STICK_R + 36.0, get_viewport().get_visible_rect().size.y - 220.0), Vector2(-0.5, -0.8))
+        "court", "court_sign", "court_photo", "court_rest", "court_hall_door":
+            # 迎宾院灰盒（蓝图 3.1）：court 刚从大门进来；另外几张站到签到桌前、花墙前、休息区、楼门口
+            nickname = "小李"
+            await _enter_court()
+            var at := {"court_sign": Vector2(1100, 690), "court_photo": Vector2(1150, 440),
+                "court_rest": Vector2(330, 520), "court_hall_door": Vector2(768, 270)}
+            if at.has(shot):
+                dialog.visible = false
+                court.reset_to(at[shot])
+                court.face = "up"
+        "court_overview":
+            # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
+            nickname = ""
+            await _enter_court()
+            hud.visible = false
+            court.walking_enabled = false
+            court.set_process(false)
+            var vsz := get_viewport().get_visible_rect().size
+            var zz := minf(vsz.x / 1536.0, vsz.y / 1024.0)
+            court.cam.zoom = Vector2(zz, zz)
+            court.cam.limit_right = 100000
+            court.cam.position = Vector2(768, 512)
+            court.cam.reset_smoothing()
         "overview":
             # 和 GPT 的拼装预览图对照用：高处俯视整个厅，没有界面
             nickname = ""

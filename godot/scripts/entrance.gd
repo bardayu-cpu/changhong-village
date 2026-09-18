@@ -1,0 +1,348 @@
+extends "res://scripts/layered_hall.gd"
+## 罗曼山庄 · 迎宾院（蓝图 3.1，灰盒，01 9/19 派）：全部代码画的占位，没有图（落地灯笼复用宴会厅积木）。
+## 走路、寻路、摇杆、镜头、人都沿用宴会厅那一套（layered_hall.gd；蓝图 §6：六块画布共用），这里只重写「搭场景」：
+## 照 assets/layered/scene_luoman_entrance/layout.json 画地面、红毯、大门、楼门、签到桌……能走的格子开场时按布局现算
+## （灰盒没有 build_layered.py 那一步；GPT 出 A05 底图和积木以后换成宴会厅那样的 scene.json，这份灰盒整个换掉）。
+## 交互点：走进、走出半径各发一次 spot(id, 进没进)。刚到这块画布时人要是正好站在某个点里，先走出去一次才算（不会来回弹）
+signal spot(id: String, inside: bool)
+
+const LAYOUT := "res://assets/layered/scene_luoman_entrance/layout.json"
+const GRID_CELL := 12
+const CLEAR := 12.0            # 离东西多远算挡住，像素（和宴会厅拼装脚本一样）
+const NPC_FOOT := Vector2(12, 6)    # 站着的 NPC 占地（椭圆半宽、半高），人不穿过去
+const COUPLE_FOOT := Vector2(40, 10)
+
+var points: Dictionary = {}    # id -> {pos, r}
+var inside_spot: Dictionary = {}   # id -> 现在人在不在这个点的半径里
+var npc_nodes: Dictionary = {}     # id -> Sprite2D
+var obstacles: Array = []      # 挡路的占地：{"rect": [x0,y0,x1,y1]} / {"ellipse": [cx,cy,rx,ry]}
+var labels: Node2D
+
+func build(preset: int, nickname: String, f: Font) -> void:
+    font = f
+    cfg = JSON.parse_string(FileAccess.get_file_as_string(LAYOUT))
+    var flat := Node2D.new()
+    flat.z_index = -10
+    add_child(flat)
+    world = Node2D.new()
+    world.y_sort_enabled = true
+    add_child(world)
+    labels = Node2D.new()
+    labels.z_index = 3
+    add_child(labels)
+    for it in cfg.get("flat", []):
+        _flat(flat, it)
+    for it in cfg.get("items", []):
+        _item(it)
+    for p in cfg.get("points", []):
+        points[str(p["id"])] = {"pos": Vector2(float(p["x"]), float(p["y"])), "r": float(p["r"])}
+    SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
+    couple_armed = false   # 迎宾院没有新人桌，新人只在花墙前站着（蓝图 3.1）
+    _couple()
+    var cf: Vector2 = Vector2(cfg["couple"][0], cfg["couple"][1])
+    obstacles.append({"ellipse": [cf.x, cf.y, COUPLE_FOOT.x, COUPLE_FOOT.y]})
+    _npcs()
+    var t0 := Time.get_ticks_msec()
+    cfg["walk_grid"] = compute_grid(cfg, obstacles, GRID_CELL, CLEAR)
+    print("[suqi] 迎宾院 能走的格子算了 %d 毫秒" % (Time.get_ticks_msec() - t0))
+    _walk_grid()
+    _player(preset, nickname)
+    # 大门开了才有的那圈金光：借宴会厅的出口光圈，放在 gate 上（大门开没开由 main 管）
+    door = points["gate"]["pos"]
+    door_r = points["gate"]["r"]
+    _exit_mark()
+    cam = Camera2D.new()
+    cam.limit_left = 0
+    cam.limit_top = 0
+    cam.limit_right = int(cfg["size"][0])
+    cam.limit_bottom = int(cfg["size"][1])
+    cam.position_smoothing_enabled = true
+    cam.position_smoothing_speed = 6.0
+    add_child(cam)
+    _fit_zoom()
+    get_viewport().size_changed.connect(_fit_zoom)
+    reset_to(SPAWN)
+
+## 到了（进场、从宴会厅回来）：记下这时站在哪些点里面，这些点要先走出去一次才会触发
+func reset_to(p: Vector2) -> void:
+    super(p)
+    for id in points:
+        inside_spot[id] = pos.distance_to(points[id]["pos"]) < float(points[id]["r"])
+
+func _process(dt: float) -> void:
+    super(dt)
+    for id in points:
+        var now: bool = pos.distance_to(points[id]["pos"]) < float(points[id]["r"])
+        if now != bool(inside_spot.get(id, false)):
+            inside_spot[id] = now
+            spot.emit(id, now)
+
+## 人现在在不在某个点的半径里（main 判断按钮该不该出）
+func in_spot(id: String) -> bool:
+    return bool(inside_spot.get(id, false))
+
+## 点的位置（合影时把人吸到站位上用）
+func spot_pos(id: String) -> Vector2:
+    return points[id]["pos"] if points.has(id) else Vector2.ZERO
+
+# ---------- 画灰盒 ----------
+func _flat(parent: Node2D, it: Dictionary) -> void:
+    match str(it.get("type", "")):
+        "rect":
+            parent.add_child(_poly(_rect_pts(it["rect"]), Color(str(it["color"]))))
+        "label":
+            _label(str(it["text"]), Vector2(float(it["x"]), float(it["y"])))
+
+func _item(it: Dictionary) -> void:
+    var kind := str(it.get("type", ""))
+    var foot := 0.0
+    var holder := Node2D.new()
+    match kind:
+        "box":
+            var r: Array = it["rect"]
+            var x0 := float(r[0]); var y0 := float(r[1]); var x1 := float(r[2]); var y1 := float(r[3])
+            var h := float(it["h"])
+            foot = y1
+            # 斜俯视没有透视：顶面是占地往上挪 h，正面是顶面下沿到地面这一条
+            holder.add_child(_poly(_rect_pts([x0, y1 - h, x1, y1]), Color(str(it["front"])), foot))
+            holder.add_child(_poly(_rect_pts([x0, y0 - h, x1, y1 - h]), Color(str(it["top"])), foot))
+            for d in it.get("deco", []):
+                holder.add_child(_poly(_rect_pts(d["rect"]), Color(str(d["color"])), foot))
+            if bool(it.get("flowers", false)):
+                _flowers(holder, x0, y1 - h, x1, y1, foot)
+            if it.has("xi"):
+                # 花墙上的金色「囍」：唯一允许的字（ASSETS 第 0 节），引擎渲染；底下垫个红圆，不然在花里看不清
+                holder.add_child(_poly(_ellipse_pts(float(it["xi"][0]), float(it["xi"][1]), 34.0, 34.0, 24), Color("#b0322a"), foot))
+                var xl := Label.new()
+                xl.text = "囍"
+                xl.add_theme_font_override("font", font)
+                xl.add_theme_font_size_override("font_size", 48)
+                xl.add_theme_color_override("font_color", Color("#d4af37"))
+                xl.size = Vector2(60, 60)
+                xl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+                xl.position = Vector2(float(it["xi"][0]) - 30.0, float(it["xi"][1]) - 30.0 - foot)
+                holder.add_child(xl)
+            if bool(it.get("block", true)):
+                obstacles.append({"rect": [x0, y0, x1, y1]})
+        "cyl":
+            var cx := float(it["x"]); var cy := float(it["y"])
+            var rx := float(it["rx"]); var ry := float(it["ry"]); var h2 := float(it["h"])
+            foot = cy + ry
+            holder.add_child(_poly(_cyl_side(cx, cy, rx, ry, h2), Color(str(it["front"])), foot))
+            holder.add_child(_poly(_ellipse_pts(cx, cy - h2, rx, ry), Color(str(it["top"])), foot))
+            obstacles.append({"ellipse": [cx, cy, rx, ry]})
+        "tree":
+            var tx := float(it["x"]); var ty := float(it["y"]); var tr := float(it["r"])
+            foot = ty
+            holder.add_child(_poly(_rect_pts([tx - 7, ty - 46, tx + 7, ty]), Color("#6d4a38"), foot))
+            holder.add_child(_poly(_ellipse_pts(tx, ty - 46 - tr * 0.7, tr, tr * 0.85), Color("#4f7a4a"), foot))
+            holder.add_child(_poly(_ellipse_pts(tx - tr * 0.25, ty - 52 - tr * 0.9, tr * 0.55, tr * 0.45), Color("#6a9a5c"), foot))
+            obstacles.append({"ellipse": [tx, ty, 14.0, 8.0]})
+        "image":
+            foot = float(it["y"])
+            var s := Sprite2D.new()
+            s.texture = Canvas.texture(str(it["path"]))
+            s.centered = false
+            s.offset = Vector2(-float(it["anchor"][0]), -float(it["anchor"][1]))
+            s.position = Vector2(float(it["x"]), 0.0)
+            s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+            holder.add_child(s)
+            obstacles.append({"ellipse": [float(it["x"]), foot, float(it["ellipse"][0]), float(it["ellipse"][1])]})
+        "tripod":
+            var px := float(it["x"]); var py := float(it["y"])
+            foot = py
+            for lx in [-12.0, 0.0, 12.0]:
+                holder.add_child(_poly(PackedVector2Array([Vector2(px - 1, py - 56 - foot), Vector2(px + 1, py - 56 - foot),
+                    Vector2(px + lx + 1.5, py - (4.0 if lx == 0.0 else 0.0) - foot), Vector2(px + lx - 1.5, py - (4.0 if lx == 0.0 else 0.0) - foot)]), Color("#2c2438")))
+            holder.add_child(_poly(_rect_pts([px - 14, py - 78, px + 14, py - 56]), Color("#6d4a38"), foot))
+            holder.add_child(_poly(_rect_pts([px - 6, py - 74, px + 6, py - 62]), Color("#1e1a2a"), foot))
+            obstacles.append({"ellipse": [px, py, float(it["ellipse"][0]), float(it["ellipse"][1])]})
+        "beam":
+            foot = float(it["foot"])
+            holder.add_child(_poly(_rect_pts([it["x0"], it["top"], it["x1"], float(it["top"]) + float(it["thick"])]), Color(str(it["color"])), foot))
+    holder.position = Vector2(0.0, foot)
+    holder.name = str(it.get("id", kind))
+    world.add_child(holder)
+    if it.has("label"):
+        var lb: Dictionary = it["label"]
+        var lx2 := _item_center_x(it)
+        _label(str(lb["text"]), Vector2(lx2, foot + float(lb.get("dy", -40))))
+
+static func _item_center_x(it: Dictionary) -> float:
+    if it.has("rect"):
+        return (float(it["rect"][0]) + float(it["rect"][2])) * 0.5
+    if it.has("x0"):
+        return (float(it["x0"]) + float(it["x1"])) * 0.5
+    return float(it.get("x", 0.0))
+
+## 花：一排小圆点（占位），画在正面上
+func _flowers(holder: Node2D, x0: float, y0: float, x1: float, y1: float, foot: float) -> void:
+    var cols := [Color("#e8746a"), Color("#f2a7c3"), Color("#f4f1ea"), Color("#c0392b")]
+    var rng := RandomNumberGenerator.new()
+    rng.seed = int(x0 * 7 + y0)
+    var n := int((x1 - x0) * (y1 - y0) / 260.0)
+    for i in n:
+        var c := Vector2(rng.randf_range(x0 + 4, x1 - 4), rng.randf_range(y0 + 4, y1 - 4))
+        holder.add_child(_poly(_ellipse_pts(c.x, c.y, 4.0, 3.5, 8), cols[i % cols.size()], foot))
+
+## 站着的 NPC（占位，代码画的像素人，sprites.gd 的 COURT_NPCS）：不写名字（01 9/19）
+func _npcs() -> void:
+    for n in cfg.get("npcs", []):
+        var id := str(n["id"])
+        var look_cfg: Dictionary = Spr.COURT_NPCS.get(id, Spr.COURT_NPCS["elder"])
+        var s := Sprite2D.new()
+        s.texture = ImageTexture.create_from_image(Spr.sheet_of(look_cfg))
+        s.hframes = 9
+        var fl: Dictionary = Spr.PROC_ANIM[str(n.get("face", "down"))]
+        s.frame = int(fl["idle"])
+        s.flip_h = bool(fl["flip"])
+        s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        s.centered = true
+        s.offset = Vector2(0, -16.0)
+        var at := Vector2(float(n["x"]), float(n["y"]))
+        var k := _px_h(at.y) / 32.0
+        s.scale = Vector2(k, k)
+        s.position = at
+        s.name = "npc_" + id
+        world.add_child(s)
+        npc_nodes[id] = s
+        obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
+
+## NPC 在哪（对话、指路时 main 要用）
+func npc_pos(id: String) -> Vector2:
+    return (npc_nodes[id] as Sprite2D).position if npc_nodes.has(id) else Vector2.ZERO
+
+func _label(text: String, at: Vector2) -> void:
+    var l := Label.new()
+    l.text = text
+    l.add_theme_font_override("font", font)
+    l.add_theme_font_size_override("font_size", 12)
+    l.add_theme_color_override("font_color", Color(1, 1, 1, 0.85))
+    l.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.05, 0.8))
+    l.add_theme_constant_override("outline_size", 4)
+    l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    l.size = Vector2(96, 16)
+    l.position = at - Vector2(48, 8)
+    labels.add_child(l)
+
+## foot 不是 0 时，点的 y 减掉 foot（放进原点在着地线上的 holder 里）
+func _poly(pts: PackedVector2Array, col: Color, foot := 0.0) -> Polygon2D:
+    var p := Polygon2D.new()
+    if foot != 0.0:
+        var moved := PackedVector2Array()
+        for v in pts:
+            moved.append(v - Vector2(0.0, foot))
+        pts = moved
+    p.polygon = pts
+    p.color = col
+    return p
+
+static func _rect_pts(r) -> PackedVector2Array:
+    var x0 := float(r[0]); var y0 := float(r[1]); var x1 := float(r[2]); var y1 := float(r[3])
+    return PackedVector2Array([Vector2(x0, y0), Vector2(x1, y0), Vector2(x1, y1), Vector2(x0, y1)])
+
+static func _ellipse_pts(cx: float, cy: float, rx: float, ry: float, n := 20) -> PackedVector2Array:
+    var out := PackedVector2Array()
+    for i in n:
+        var a := TAU * float(i) / float(n)
+        out.append(Vector2(cx + cos(a) * rx, cy + sin(a) * ry))
+    return out
+
+## 圆桌的侧面：顶面椭圆的下半圈，往下拉 h 到地面
+static func _cyl_side(cx: float, cy: float, rx: float, ry: float, h: float) -> PackedVector2Array:
+    var out := PackedVector2Array()
+    for i in 11:
+        var a := PI * float(i) / 10.0
+        out.append(Vector2(cx + cos(a) * rx, cy - h + sin(a) * ry))
+    for i in range(10, -1, -1):
+        var a := PI * float(i) / 10.0
+        out.append(Vector2(cx + cos(a) * rx, cy + sin(a) * ry))
+    return out
+
+# ---------- 能走的格子（开场现算，灰盒用；和 tools/build_layered.py 同一个规则） ----------
+## 在 walk 多边形里、离每块占地 clear 像素以外，再从进场点走一遍，走不到的角落也算不能走。
+## 返回宴会厅 scene.json 里 walk_grid 那个样子，交给 layered_hall._walk_grid()
+static func compute_grid(c: Dictionary, obs: Array, cell: int, clear: float) -> Dictionary:
+    var w := int(c["size"][0])
+    var h := int(c["size"][1])
+    var cols_n := int(ceil(float(w) / cell))
+    var rows_n := int(ceil(float(h) / cell))
+    var ok := PackedByteArray()
+    ok.resize(cols_n * rows_n)
+    var polys: Array = []
+    for poly in c.get("walk", []):
+        var pts := PackedVector2Array()
+        for v in poly:
+            pts.append(Vector2(float(v[0]), float(v[1])))
+        polys.append(pts)
+    for j in rows_n:
+        var y := (j + 0.5) * cell
+        for i in cols_n:
+            var x := (i + 0.5) * cell
+            for pts in polys:
+                if Geometry2D.is_point_in_polygon(Vector2(x, y), pts):
+                    ok[j * cols_n + i] = 1
+                    break
+    # 每块占地只查它四周那几格（手机上逐格比所有东西太慢）
+    for o in obs:
+        var bb := _obs_box(o, clear)
+        var i0 := maxi(int(floor(bb.position.x / cell)), 0)
+        var i1 := mini(int(ceil(bb.end.x / cell)), cols_n - 1)
+        var j0 := maxi(int(floor(bb.position.y / cell)), 0)
+        var j1 := mini(int(ceil(bb.end.y / cell)), rows_n - 1)
+        for j in range(j0, j1 + 1):
+            for i in range(i0, i1 + 1):
+                if ok[j * cols_n + i] == 1 and _blocked((i + 0.5) * cell, (j + 0.5) * cell, [o], clear):
+                    ok[j * cols_n + i] = 0
+    # 从进场点灌水，灌不到的格子不算
+    var seen := PackedByteArray()
+    seen.resize(cols_n * rows_n)
+    var sx := int(float(c["spawn"][0]) / cell)
+    var sy := int(float(c["spawn"][1]) / cell)
+    var stack: Array[int] = []
+    if ok[sy * cols_n + sx] == 1:
+        seen[sy * cols_n + sx] = 1
+        stack.append(sy * cols_n + sx)
+    while not stack.is_empty():
+        var idx: int = stack.pop_back()
+        var ci := idx % cols_n
+        var cj := idx / cols_n
+        for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+            var ni: int = ci + d.x
+            var nj: int = cj + d.y
+            if ni < 0 or nj < 0 or ni >= cols_n or nj >= rows_n:
+                continue
+            var n := nj * cols_n + ni
+            if ok[n] == 1 and seen[n] == 0:
+                seen[n] = 1
+                stack.append(n)
+    var rows_out: Array = []
+    for j in rows_n:
+        var line := ""
+        for i in cols_n:
+            line += "1" if seen[j * cols_n + i] == 1 else "0"
+        rows_out.append(line)
+    return {"cell": cell, "cols": cols_n, "rows": rows_out}
+
+static func _obs_box(o: Dictionary, clear: float) -> Rect2:
+    if o.has("rect"):
+        var r: Array = o["rect"]
+        return Rect2(float(r[0]) - clear, float(r[1]) - clear, float(r[2]) - float(r[0]) + clear * 2.0, float(r[3]) - float(r[1]) + clear * 2.0)
+    var e: Array = o["ellipse"]
+    var rx := float(e[2]) + clear
+    var ry := float(e[3]) + clear
+    return Rect2(float(e[0]) - rx, float(e[1]) - ry, rx * 2.0, ry * 2.0)
+
+static func _blocked(x: float, y: float, obs: Array, clear: float) -> bool:
+    for o in obs:
+        if o.has("rect"):
+            var r: Array = o["rect"]
+            if x >= float(r[0]) - clear and x <= float(r[2]) + clear and y >= float(r[1]) - clear and y <= float(r[3]) + clear:
+                return true
+        else:
+            var e: Array = o["ellipse"]
+            var dx := (x - float(e[0])) / (float(e[2]) + clear)
+            var dy := (y - float(e[1])) / (float(e[3]) + clear)
+            if dx * dx + dy * dy < 1.0:
+                return true
+    return false

@@ -8,6 +8,8 @@ signal reached(what: String)
 const Spr = preload("res://scripts/sprites.gd")
 const Life = preload("res://scripts/hall_life.gd")
 const GameCfg = preload("res://scripts/games/game_config.gd")
+## 画布的图（底图、积木）从哪来统一走这里（HANDOFF §0.9）：现在从包里读，远程加载真机验过以后只改那一处
+const Canvas = preload("res://scripts/canvas_assets.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
 ## 走路速度备选两档（HANDOFF：3.2 备选 2.4，阿鱼真机比一比）；调试版右下角的按钮切换 speed_m
@@ -67,7 +69,7 @@ var life: Node2D           # 厅里的热闹：服务员、乐队、贺礼、彩
 func build(preset: int, nickname: String, f: Font) -> void:
     font = f
     cfg = JSON.parse_string(FileAccess.get_file_as_string(DATA))
-    base_tex = load(cfg["base"])
+    base_tex = Canvas.texture(cfg["base"])
     var base := Sprite2D.new()
     base.texture = base_tex
     base.centered = false
@@ -150,7 +152,7 @@ func _occluders() -> void:
         world.add_child(holder)
         if o.has("image"):
             var s := Sprite2D.new()
-            s.texture = load(o["image"])
+            s.texture = Canvas.texture(o["image"])
             s.centered = false
             s.offset = Vector2(o["x"], float(o["y"]) - foot)
             s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
