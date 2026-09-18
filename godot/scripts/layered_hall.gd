@@ -71,6 +71,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
     world.y_sort_enabled = true
     add_child(world)
     _occluders()
+    _books()
     _walk_grid()
     SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
     for p in cfg["points"]:
@@ -101,6 +102,33 @@ func _fit_zoom() -> void:
     var vh := float(get_viewport().get_visible_rect().size.y)
     var z := vh / float(cfg["size"][1])
     cam.zoom = Vector2(z, z)
+
+## 桌心的簿子（蓝图 3.2 桌簿）：每张摆出来的桌子一本。占位：代码画的小簿子（红封皮、米白内页、几道字迹），
+## 正式的簿子积木 blk_guestbook 到了再换。按桌子着地那一行排前后，画在桌面上、在桌前的人后面
+func _books() -> void:
+    var tex := _book_texture()
+    for t in cfg.get("tables", []):
+        var s := Sprite2D.new()
+        s.texture = tex
+        s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        s.centered = true
+        s.position = Vector2(float(t["x"]), float(t["y"]) + 0.5)
+        s.offset = Vector2(0.0, _seat_center(t).y - float(t["y"]))
+        world.add_child(s)
+
+static func _book_texture() -> ImageTexture:
+    # 8×5 个美术像素，每个 2×2 画布像素（和积木一样粗），16×10，约 0.33 米宽
+    var rows := [".RRRRRR.", "RWWrWWWR", "RkWrWkWR", "RWWrWWWR", ".RRRRRR."]
+    var pal := {"R": Color("#9e2a2b"), "r": Color("#6e1e1e"), "W": Color("#f4ead2"), "k": Color("#8a7a66")}
+    var img := Image.create(16, 10, false, Image.FORMAT_RGBA8)
+    img.fill(Color(0, 0, 0, 0))
+    for j in rows.size():
+        var line: String = rows[j]
+        for i in line.length():
+            var ch := line[i]
+            if pal.has(ch):
+                img.fill_rect(Rect2i(i * 2, j * 2, 2, 2), pal[ch])
+    return ImageTexture.create_from_image(img)
 
 ## 遮挡块：临时版用底图把这一块重画一遍（多边形贴底图），GPT 的积木到了换成积木图
 func _occluders() -> void:
@@ -550,7 +578,7 @@ func _table_sign(t: Dictionary, nick: String) -> void:
     l.add_theme_stylebox_override("normal", sb)
     l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     l.size = l.get_combined_minimum_size()   # 牌子只包住字，居中立在桌心
-    l.position = _seat_center(t) - l.size * 0.5
+    l.position = _seat_center(t) - Vector2(l.size.x * 0.5, l.size.y + 8.0)   # 立在簿子上方，不挡簿子
     l.name = "sign_" + str(t["id"])
     seat_tags.add_child(l)
 
