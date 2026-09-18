@@ -83,6 +83,8 @@ const REASONS := {
     # 这两个是字段名对不上、或者服务端那边没有我的座位，玩家看不懂，统一说没连上；
     # 真实原因打进日志，不然又会像第 19 版那样被「没连上」盖住（bad_request 当时就是 changeSeat 字段名发错了）
     "bad_request": "没连上 再试一下", "no_seat": "没连上 再试一下",
+    # 敏感词模块（docs/敏感词模块-需求.md 第 2 节定稿文案，回执 05）：起昵称、写簿子命中都用这两句
+    "sensitive": "换一个吧", "reserved": "这个名字留给主角了，换一个吧",
 }
 var nick_edit: LineEdit
 var nick_err: Label
@@ -828,7 +830,17 @@ func _say(text: String, hold := -1.0) -> void:
     if my == say_token:
         dialog.visible = false
 
-func _after_profile(_r: Dictionary) -> void:
+## 起昵称被服务端拒（敏感词模块，docs/敏感词模块-需求.md 第 2 节：服务端拒绝 → 回到输入、
+## 显示服务端的提示）：只拦 sensitive/reserved 这两种——回到起昵称那一屏，nick_err 显示对应
+## 那句，不进厅。别的原因（网络问题等）不拦流程，照旧直接进厅，跟改动前一样
+func _after_profile(r: Dictionary) -> void:
+    var reason := str(r.get("reason", ""))
+    if not bool(r.get("ok", false)) and (reason == "sensitive" or reason == "reserved"):
+        print("[suqi] 起昵称 被拒，原因 ", reason)
+        _goto("nick")
+        nick_err.text = str(REASONS[reason])
+        nick_ok.disabled = true
+        return
     cloud.call_fn("enterHall", {}, _on_enter_hall)
 
 ## 拒绝原因转成给玩家看的一句话。没见过的原因一律说「没连上」，但日志里要打出真实原因，
@@ -1447,3 +1459,10 @@ func _setup_shot(shot: String) -> void:
             hall.couple_armed = false
             hall.reset_to(hall.near(hall.COUPLE_SPOT, Vector2(0.0, 2.2)))
             hud.visible = false
+        "nick_rejected":
+            # 起昵称被服务端拒（敏感词模块，回执 05）：cloud.gd 的假数据遇到"测试敏感"回 sensitive，
+            # _after_profile 应该带回起昵称那一屏、nick_err 显示「换一个吧」，不进厅
+            nick_edit.text = "测试敏感"
+            nickname = "测试敏感"
+            await _enter_banquet()
+            await get_tree().process_frame
