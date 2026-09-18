@@ -61,7 +61,7 @@ exports.main = async () => {
     const assigned = banquet.assignSeat({ inviter, vip, tables });
 
     // 注意：changed_on 这里不能写今天——它表示"最近一次换桌是哪天"，第一次自动分座不算换桌，
-    // 写了今天会导致刚进厅的人当天不能再用 changeSeat（canChangeSeat 会判成 changed_today）。
+    // （9/18 起换桌不限次数，changed_on 已不参与判定，留着只是记录。）
     if (assigned.bench) {
       mySeat = {
         _id: OPENID, openid: OPENID, table_id: BENCH, chair_no: null, inviter,

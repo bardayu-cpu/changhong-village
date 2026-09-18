@@ -80,7 +80,7 @@ func _init() -> void:
 
     # 5b. 拒绝原因表要盖住服务端会回的每一种，不然玩家只看到「没连上」，查不出真原因
     var Main = load("res://scripts/main.gd")
-    var server_reasons := ["bad_request", "book_too_long", "changed_today", "no_resident",
+    var server_reasons := ["bad_request", "book_too_long", "no_resident",
         "no_seat", "not_sat_here", "seat_taken", "toast_limit", "toast_same_person", "toast_self",
         "sensitive", "reserved"]
     var missing: Array = []

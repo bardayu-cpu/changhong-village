@@ -116,7 +116,7 @@ if (!r.ok) return { code: r.reason };
 | `too_far` | 隔太远了 |
 | `kicked_this_ball` | 这个球今天踢过了 |
 | `seat_taken` | 这把有人坐了 |
-| `changed_today` | 今天换过了 明天再换 |
+| ~~`changed_today`~~ | 9/18 作废：蓝图 3.2 改为换桌不限次数，服务端不再回这个原因 |
 | `toast_limit` | 今天敬够了 |
 | `toast_same_person` | 这杯敬过了 |
 | `not_sat_here` | 先坐下 慢慢写 |

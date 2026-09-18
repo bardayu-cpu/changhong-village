@@ -75,7 +75,7 @@ var cloud: Node
 # 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）。
 # 云函数的字段名和拒绝原因清单见 godot/回执/席位桥修复.md 第七节，发请求前对一遍
 const REASONS := {
-    "seat_taken": "这把有人坐了", "changed_today": "今天换过了 明天再换",
+    "seat_taken": "这把有人坐了",   # changed_today（今天换过了）9/18 蓝图改为换桌不限次数，服务端不再回
     "toast_limit": "今天敬够了", "toast_same_person": "这杯敬过了",
     "toast_self": "自己就不用敬了", "not_sat_here": "先坐下 慢慢写",
     "book_too_long": "太长啦 真实情感的话 短一点也没关系",
