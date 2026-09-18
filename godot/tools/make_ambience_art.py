@@ -130,6 +130,12 @@ LEAF_GREEN = (60, 98, 55, 255)
 LEAF_GREEN_DARK = (36, 64, 36, 255)
 LEAF_GREEN_LIGHT = (96, 140, 80, 255)
 
+# 2026-09-19 服务员上菜那批：红烧菜色（鱼、扣肉一类）、汤盅、蒸汽
+BRAISED_DARK = (92, 32, 16, 255)
+BRAISED = (150, 58, 28, 255)
+BRAISED_LIGHT = (196, 104, 56, 255)
+STEAM_COLOR = (244, 239, 230, 255)   # #f4efe6
+
 ANCHORS = {}  # 收集每张图的 size / anchor，最后写 amb_art.json
 
 
@@ -781,10 +787,10 @@ def build_confetti(seed):
 
 
 # ---------------------------------------------------------------------------
-# 10. 托盘 amb_tray  约 28x14
+# 10. 托盘 amb_tray / amb_tray_empty  约 28x14/38x26
 # ---------------------------------------------------------------------------
 
-def build_tray():
+def _tray_base(with_dish):
     W, H = 20, 14
     OX, OY = 2, 4
     img = new_canvas(W, H)
@@ -794,13 +800,30 @@ def build_tray():
     ellipse(d, [OX + 0.6, OY + 0.6, OX + 15.4, OY + 7], fill=SILVER, outline=OUTLINE)
     d.line([(OX + 2, OY + 2.2), (OX + 6, OY + 1.4)], fill=SILVER_LIGHT, width=1)
 
-    # 盖着的菜盅：银色小圆顶 + 顶端小圆钮
-    dome_cx, dome_cy = OX + 8, OY + 2.6
-    ellipse(d, [dome_cx - 4.5, dome_cy - 3.2, dome_cx + 4.5, dome_cy + 2.2], fill=SILVER, outline=OUTLINE)
-    d.line([(dome_cx - 3, dome_cy - 1.6), (dome_cx - 1, dome_cy - 2.6)], fill=SILVER_LIGHT, width=1)
-    ellipse(d, [dome_cx - 1, dome_cy - 4.2, dome_cx + 1, dome_cy - 2.6], fill=SILVER_DARK, outline=OUTLINE)
+    if with_dish:
+        # 盖着的菜盅：银色小圆顶 + 顶端小圆钮
+        dome_cx, dome_cy = OX + 8, OY + 2.6
+        ellipse(d, [dome_cx - 4.5, dome_cy - 3.2, dome_cx + 4.5, dome_cy + 2.2], fill=SILVER, outline=OUTLINE)
+        d.line([(dome_cx - 3, dome_cy - 1.6), (dome_cx - 1, dome_cy - 2.6)], fill=SILVER_LIGHT, width=1)
+        ellipse(d, [dome_cx - 1, dome_cy - 4.2, dome_cx + 1, dome_cy - 2.6], fill=SILVER_DARK, outline=OUTLINE)
 
-    out = finalize(img, margin_ap=1)
+    return img
+
+
+def build_tray():
+    out = finalize(_tray_base(True), margin_ap=1)
+    return out, (out.width // 2, out.height // 2)
+
+
+def build_tray_empty():
+    """跟 amb_tray 用同一块画布、同一套裁切边界（照有菜盅那版的边界裁，不按自己的内容
+    重新收边）——这样运行时两张图互换，托盘本身的像素位置分毫不差，不会跳一下。"""
+    reference = binarize_alpha(_tray_base(True))
+    l, t, r, b = reference.getbbox()
+    l, t = max(0, l - 1), max(0, t - 1)
+    r, b = min(reference.width, r + 1), min(reference.height, b + 1)
+    empty = binarize_alpha(_tray_base(False)).crop((l, t, r, b))
+    out = empty.resize((empty.width * 2, empty.height * 2), Image.NEAREST)
     return out, (out.width // 2, out.height // 2)
 
 
@@ -1005,6 +1028,111 @@ def build_flower_pot():
 
 
 # ---------------------------------------------------------------------------
+# 16. 服务员上的菜 amb_dish_1/2/3  各约 30x20，参照 blk_table_round.png 桌上那几道菜画法：
+#     一个白色盘子（椭圆），菜堆偏后一点，露出前面一圈白边，跟描边保证在红桌布上看得清
+# ---------------------------------------------------------------------------
+
+def _plate(d, cx, cy, rx, ry, plate_c=WHITE):
+    ellipse(d, [cx - rx, cy - ry, cx + rx, cy + ry], fill=plate_c, outline=OUTLINE)
+
+
+def build_dish_fish():
+    # 1：一整条红烧鱼，摆在长条白盘子里——盘子要明显比鱼大一圈，前面和两头露出白边，
+    # 不然鱼会把盘子整个盖住，看着就是一坨红棕色，看不出"摆在盘子里"
+    W, H = 24, 16
+    OX, OY = 2, 2
+    img = new_canvas(W, H)
+    d = ImageDraw.Draw(img)
+
+    _plate(d, OX + 9, OY + 8, 9, 3.6)
+
+    fish = [
+        (OX + 4, OY + 8.3), (OX + 6, OY + 7.0), (OX + 11, OY + 6.6), (OX + 15, OY + 7.0),
+        (OX + 17, OY + 8.3), (OX + 15, OY + 9.6), (OX + 11, OY + 10.0), (OX + 6, OY + 9.6),
+    ]
+    poly(d, fish, fill=BRAISED, outline=OUTLINE)
+    # 左上亮一点、右下暗一点，表现一点体积；再画一道侧线当鱼身的纹理
+    d.line([(OX + 6.5, OY + 7.6), (OX + 10.5, OY + 7.1)], fill=BRAISED_LIGHT, width=1)
+    d.line([(OX + 11.5, OY + 9.6), (OX + 14.5, OY + 9.1)], fill=BRAISED_DARK, width=1)
+    d.line([(OX + 7, OY + 8.3), (OX + 15, OY + 8.3)], fill=BRAISED_DARK, width=1)
+    # 尾巴（分叉的三角尾鳍）
+    poly(d, [(OX + 17, OY + 8.3), (OX + 20, OY + 6.6), (OX + 19, OY + 8.3), (OX + 20, OY + 10.0)],
+         fill=BRAISED_DARK, outline=OUTLINE)
+    # 头和眼睛
+    ellipse(d, [OX + 3.4, OY + 7.6, OX + 6.4, OY + 9.0], fill=BRAISED, outline=None)
+    d.point([(OX + 4.6, OY + 8.1)], fill=OUTLINE)
+    # 两道葱段搭在鱼身上，颜色要够亮才看得见
+    d.line([(OX + 8, OY + 7.0), (OX + 10.5, OY + 9.6)], fill=LEAF_GREEN_LIGHT, width=1)
+    d.line([(OX + 12, OY + 6.8), (OX + 14, OY + 9.2)], fill=LEAF_GREEN_LIGHT, width=1)
+
+    out = finalize(img, margin_ap=1)
+    return out, (out.width // 2, out.height // 2)
+
+
+def build_dish_piled():
+    # 2：圆白盘子，扣肉/大虾一类的红烧菜，堆得偏高一点
+    W, H = 18, 14
+    OX, OY = 2, 3
+    img = new_canvas(W, H)
+    d = ImageDraw.Draw(img)
+
+    _plate(d, OX + 7, OY + 6.5, 7, 2.5)
+
+    # 一圈垫底的（贴着盘子偏后），再摞两块更小的在中间偏上——堆出"高一点"的感觉
+    base_pieces = [
+        (OX + 3, OY + 5.6, 2.1, BRAISED), (OX + 6.4, OY + 4.6, 2.3, BRAISED_LIGHT),
+        (OX + 10, OY + 5.4, 2.1, BRAISED), (OX + 8, OY + 6.8, 1.8, (224, 138, 132, 255)),
+    ]
+    for fx, fy, r, c in base_pieces:
+        ellipse(d, [fx - r, fy - r, fx + r, fy + r], fill=c, outline=OUTLINE)
+    top_pieces = [(OX + 5.4, OY + 3.4, 1.6, BRAISED_LIGHT), (OX + 8.2, OY + 3.6, 1.5, BRAISED)]
+    for fx, fy, r, c in top_pieces:
+        ellipse(d, [fx - r, fy - r, fx + r, fy + r], fill=c, outline=OUTLINE)
+    d.point([(OX + 4.6, OY + 4.4), (OX + 5, OY + 4.7)], fill=BRAISED_LIGHT)
+
+    out = finalize(img, margin_ap=1)
+    return out, (out.width // 2, out.height // 2)
+
+
+def build_dish_tureen():
+    # 3：带盖的白瓷汤盅
+    W, H = 18, 16
+    OX, OY = 2, 3
+    img = new_canvas(W, H)
+    d = ImageDraw.Draw(img)
+
+    # 盅身（矮胖，露一点前侧面）
+    _plate(d, OX + 7, OY + 8.6, 6.5, 2.0, plate_c=CREAM_SHADE)
+    rect(d, [OX + 0.6, OY + 7.4, OX + 13.4, OY + 8.6], fill=CREAM_SHADE, outline=OUTLINE)
+    # 盖子（比盅身略窄一圈的拱顶）
+    ellipse(d, [OX + 1, OY + 3, OX + 13, OY + 9.4], fill=WHITE, outline=OUTLINE)
+    d.line([(OX + 3, OY + 5), (OX + 5.6, OY + 3.8)], fill=SILVER_LIGHT, width=1)
+    # 盖沿一圈细金线
+    d.line([(OX + 1.3, OY + 7.6), (OX + 7, OY + 8.9), (OX + 12.7, OY + 7.6)], fill=GOLD, width=1)
+    # 盖顶小圆钮
+    ellipse(d, [OX + 6, OY + 2, OX + 8, OY + 3.6], fill=GOLD_DARK, outline=OUTLINE)
+
+    out = finalize(img, margin_ap=1)
+    return out, (out.width // 2, out.height // 2)
+
+
+# ---------------------------------------------------------------------------
+# 17. 蒸汽 amb_steam  约 8x8，纯色不透明块，游戏自己做上升淡出
+# ---------------------------------------------------------------------------
+
+def build_steam():
+    W, H = 8, 8
+    img = new_canvas(W, H)
+    d = ImageDraw.Draw(img)
+    poly(d, [
+        (2, 5), (1, 3.4), (2.2, 2), (3.6, 2.6), (4.4, 1.4),
+        (6, 1.8), (6.6, 3.4), (5.4, 4.6), (5.8, 6), (3.6, 6.2), (2.6, 5.4),
+    ], fill=STEAM_COLOR, outline=None)
+    out = finalize(img, margin_ap=1)
+    return out, (out.width // 2, out.height // 2)
+
+
+# ---------------------------------------------------------------------------
 # 主流程：生成所有素材
 # ---------------------------------------------------------------------------
 
@@ -1059,12 +1187,17 @@ def main(write_only=None):
         emit(f"amb_confetti_{i}", lambda i=i: build_confetti(seed=100 + i))
 
     emit("amb_tray", build_tray)
+    emit("amb_tray_empty", build_tray_empty)
     emit("amb_note_1", build_note_single)
     emit("amb_note_2", build_note_beamed)
     emit("amb_petal_1", build_petal)
     emit("amb_petal_2", build_sequin)
     emit("amb_cup", build_cup)
     emit("amb_rug", build_rug)
+    emit("amb_dish_1", build_dish_fish)
+    emit("amb_dish_2", build_dish_piled)
+    emit("amb_dish_3", build_dish_tureen)
+    emit("amb_steam", build_steam)
 
     with open(os.path.join(OUT_DIR, "amb_art.json"), "w", encoding="utf-8") as f:
         json.dump(ANCHORS, f, ensure_ascii=False, indent=2)
@@ -1083,7 +1216,9 @@ def main(write_only=None):
     # 预览 1：contact.png —— 所有图放大 3 倍排在地砖底上，旁边标英文文件名
     # ------------------------------------------------------------------
     base = Image.open(BASE_PNG).convert("RGB")
-    floor_tile = base.crop((870, 810, 1050, 900))  # 从空地砖区域截一块（纯地面，没有桌椅）
+    # 从空地砖区域截一块纯地面当对照表底纹。2026-09-19：原来截的 (870,810,1050,900) 那块
+    # 现在被摆了花瓶（base.png 被协调方那边更新过，已经把花瓶实际摆进去了），换一块干净地面
+    floor_tile = base.crop((860, 760, 980, 830))
 
     names = list(generated.keys())
     cell_w, cell_h = 190, 190

@@ -21,6 +21,7 @@ var pulse_t := 0.0
 var pulse_since := 0            # hallPulse 上一次回的服务端时间（毫秒）；0 表示这次进厅还没对过表
 var pulse_busy := false
 var hall_ready := false         # 这次进厅拿到席位了没（拿到才开始问 hallPulse）
+var pulse_seen: Dictionary = {} # 这次进厅报过的敬酒「from:created_at」：hallPulse 往回多看 3 秒，靠它去重
 var toast_scene: Control
 var toast_queue: Array = []     # 排队等着放的干杯插图 [left, right, caption]
 const LINE_BOOK_EMPTY := "还没人写 你来第一句"   # 新写，等阿鱼定
@@ -821,6 +822,7 @@ func _enter_banquet() -> void:
     hall_ready = false
     pulse_since = 0
     pulse_t = 0.0
+    pulse_seen.clear()
     hint.visible = true
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
@@ -895,6 +897,8 @@ func _on_enter_hall(r: Dictionary) -> void:
         var names: Dictionary = d.get("names", {})
         var parts: Array[String] = []
         var tc := int(dg.get("toastCount", 0))
+        for dt_ in dg.get("toasts", []):
+            pulse_seen["%s:%d" % [str(dt_.get("from", "")), int(dt_.get("at", 0))]] = true   # 进厅报过的，心跳别再报
         if tc > 0:
             var first: Dictionary = dg["toasts"][0]
             var finfo: Dictionary = names.get(str(first.get("from", "")), {})
@@ -1022,7 +1026,12 @@ func _on_pulse(r: Dictionary) -> void:
     if not bool(r.get("ok", false)):
         return
     pulse_since = int(r.get("now", pulse_since))
-    var toasts: Array = r.get("toasts", [])
+    var toasts: Array = []
+    for tt in r.get("toasts", []):
+        var key := "%s:%d" % [str(tt.get("from", "")), int(tt.get("created_at", 0))]
+        if not pulse_seen.has(key):
+            pulse_seen[key] = true
+            toasts.append(tt)
     if toasts.is_empty() or state != "banquet":
         return
     var names: Dictionary = r.get("names", {})
@@ -1529,14 +1538,24 @@ func _setup_shot(shot: String) -> void:
                 "life_guests": Vector2(640, 690), "life_waiter": Vector2(1300, 520)}
             hall.reset_to(spot[shot])
             if shot == "life_waiter" and hall.life != null and not hall.life.waiters.is_empty():
-                # 把第一个服务员挪到人旁边、正走着，看托盘和走路
+                # 服务员在 8 号桌边放菜：托盘放低、菜已经上桌冒着热气（9/19：原来只端着走不放下）
                 var w = hall.life.waiters[0]
-                w.pos = Vector2(1240, 540)
-                w.face = "down"
-                w.state = "serve"
-                w.wait = 99.0
+                var sp: Array = hall.life.spots.get("T8", [])
+                if not sp.is_empty():
+                    w.pos = sp[0]
+                    w.table = "T8"
+                    w.state = "serve"
+                    w.serve_t = hall.life.SERVE_LEN * 0.5
+                    w.placed = false
             # 多跑一会儿，让举杯、音符、弓都动起来
             for i in 90: await get_tree().process_frame
+            if shot == "life_waiter" and hall.life != null:
+                # 定格在菜刚放上桌、托盘还低着的那一下
+                var w = hall.life.waiters[0]
+                w.state = "serve"
+                w.serve_t = hall.life.SERVE_LEN * 0.55
+                hall.life._pose_waiter(w, false)
+                hall.life.set_process(false)
             if shot == "life_guests" and hall.life != null:
                 # 截图那一刻正好 9 号桌整桌举杯（再过 50 帧截，杯子正举在最高）
                 hall.life.toast_left["T9"] = hall.life.TOAST_LEN
