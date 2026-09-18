@@ -197,15 +197,13 @@ eq(banquet.assignSeat({
   tables: Array.from({ length: 12 }, (_, i) => mkTable(`T${i}`, i < 2, 'A', fullSeats(10))),
 }), { ok: true, bench: true }, '120坐满了坐长凳');
 
-// ---------- 宴会厅 · 换桌 ----------
-eq(banquet.canChangeSeat({ occupant: null, todayChanges: 0 }).ok, true, '正常换到空椅子');
-eq(banquet.canChangeSeat({ occupant: 'X', todayChanges: 0 }).reason, 'seat_taken', '目标椅子有人');
-eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1 }).reason, 'changed_today', '这次来访已经换过一次');
-eq(banquet.canChangeSeat({ occupant: null, todayChanges: 0 }).ok, true, '跨北京时间0点：昨天换过，今天重新计数为0次仍能换');
-eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1, testMode: true }).ok, true, '测试模式：今天换过也能再换');
-eq(banquet.canChangeSeat({ occupant: null, todayChanges: 7, testMode: true }).ok, true, '测试模式：换很多次也不拦');
-eq(banquet.canChangeSeat({ occupant: 'X', todayChanges: 0, testMode: true }).reason, 'seat_taken', '测试模式：有人坐的椅子照样拒');
-eq(banquet.canChangeSeat({ occupant: null, todayChanges: 1, testMode: false }).reason, 'changed_today', '测试模式关着：照常一天一次');
+// ---------- 宴会厅 · 换桌（蓝图 3.2 9/18 改：不限次数，去掉 changed_today，BANQUET_CHANGE_PER_VISIT 已删） ----------
+eq(banquet.canChangeSeat({ occupant: null }).ok, true, '正常换到空椅子');
+eq(banquet.canChangeSeat({ occupant: 'X' }).reason, 'seat_taken', '目标椅子有人');
+eq(banquet.canChangeSeat({ occupant: null }).ok, true, '换过一次，同一次来访还能再换（不再判 changed_today）');
+eq(banquet.canChangeSeat({ occupant: null }).ok, true, '连着换第二次也能换');
+eq(banquet.canChangeSeat({ occupant: null }).ok, true, '连着换第三次也能换（不限次数）');
+eq(banquet.canChangeSeat({ occupant: 'X', todayChanges: 99 }).reason, 'seat_taken', '调用方就算还传老字段 todayChanges，也不影响判断，只看座位有没有人');
 
 // ---------- 宴会厅 · 敬酒 ----------
 const toastBase = { from: 'A', to: 'B', todayToastCount: 0, todayToastToCount: 0 };
@@ -219,11 +217,13 @@ eq(banquet.canToast({ ...toastBase, todayToastToCount: 1, testMode: true }).ok, 
 eq(banquet.canToast({ ...toastBase, to: 'A', testMode: true }).reason, 'toast_self', '测试模式：敬自己照样拒');
 eq(banquet.canToast({ ...toastBase, todayToastCount: 5, testMode: false }).reason, 'toast_limit', '测试模式关着：照常5杯封顶');
 
-// ---------- 宴会厅 · 桌簿 ----------
-eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1', 'T2'], text: '恭喜恭喜' }).ok, true, '坐过的桌能写');
-eq(banquet.canWriteBook({ table: 'T3', satTables: ['T1', 'T2'], text: '恭喜恭喜' }).reason, 'not_sat_here', '没坐过的桌不能写');
-eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1'], text: 'x'.repeat(100) }).ok, true, '边界：正好100字能写');
-eq(banquet.canWriteBook({ table: 'T1', satTables: ['T1'], text: 'x'.repeat(101) }).reason, 'book_too_long', '超过100字不能写');
+// ---------- 宴会厅 · 桌簿（蓝图 3.2 9/18 改：只能写「现在坐的那桌」，不再是「坐过的桌都能写」） ----------
+eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: 'T1', text: '恭喜恭喜' }).ok, true, '坐在T1写T1能写');
+eq(banquet.canWriteBook({ table: 'T2', mySeatTableId: 'T1', text: '恭喜恭喜' }).reason, 'not_sat_here', '坐在T1、写T2不行（哪怕以前坐过T2）');
+eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: 'T1', text: 'x'.repeat(100) }).ok, true, '边界：正好100字能写');
+eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: 'T1', text: 'x'.repeat(101) }).reason, 'book_too_long', '超过100字不能写');
+eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: 'T1', text: '' }).reason, 'bad_request', '空文本回bad_request（不再是book_too_long）');
+eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: C.BANQUET_BENCH_ID, text: '坐长凳也想说句话' }).reason, 'not_sat_here', '坐长凳的人写哪桌都不行');
 
 // ---------- 宴会厅 · 进厅提示 ----------
 eq(banquet.arrivalDigest({

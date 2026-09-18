@@ -66,13 +66,12 @@ function assignSeat(ctx) {
  * 能不能换到这把椅子
  * @param ctx {{
  *   occupant: string|null,   目标椅子现在坐的人，没人是 null
- *   todayChanges: number,    这次来访（今天）已经换过几次，调用方按北京时间今天算好传入
- *   testMode?: boolean,      测试期开关（config.BANQUET_TEST_MODE）：true 时不限每天次数，默认 false
  * }}
+ * 蓝图 3.2 9/18 改：换桌不限次数，去掉「今天只能换一次」这条判定
+ * （`todayChanges`/`BANQUET_CHANGE_PER_VISIT` 已不用，调用方不用再算「今天换过几次」）
  */
 function canChangeSeat(ctx) {
-  const { occupant, todayChanges, testMode } = ctx;
-  if (!testMode && todayChanges >= C.BANQUET_CHANGE_PER_VISIT) return { ok: false, reason: 'changed_today' };
+  const { occupant } = ctx;
   if (occupant) return { ok: false, reason: 'seat_taken' };
   return { ok: true };
 }
@@ -101,16 +100,19 @@ function canToast(ctx) {
 /**
  * 能不能在这桌写一句
  * @param ctx {{
- *   table: string,          要写的桌 id
- *   satTables: string[],    我坐过的桌 id 列表
+ *   table: string,           要写的桌 id
+ *   mySeatTableId: string,   我现在坐的桌 id（seat 表的 table_id）；坐长凳是 config.BANQUET_BENCH_ID，
+ *                            跟任何桌 id 都对不上，写哪桌都会落到 not_sat_here
  *   text: string,
  * }}
+ * 蓝图 3.2 9/18 改：人坐在哪桌就只能写哪桌，别的桌能看不能写；不再是「坐过的桌都能写」（sat_tables）
  * 敏感词校验走敏感词模块（`docs/敏感词模块-需求.md`，还没做），这里不判；由云函数在敏感词模块接好后另外拦
  */
 function canWriteBook(ctx) {
-  const { table, satTables, text } = ctx;
-  if (!satTables || !satTables.includes(table)) return { ok: false, reason: 'not_sat_here' };
-  if (!text || text.length > C.BANQUET_BOOK_MAX_LEN) return { ok: false, reason: 'book_too_long' };
+  const { table, mySeatTableId, text } = ctx;
+  if (mySeatTableId !== table) return { ok: false, reason: 'not_sat_here' };
+  if (!text) return { ok: false, reason: 'bad_request' };
+  if (text.length > C.BANQUET_BOOK_MAX_LEN) return { ok: false, reason: 'book_too_long' };
   return { ok: true };
 }
 
