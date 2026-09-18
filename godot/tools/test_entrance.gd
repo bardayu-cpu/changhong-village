@@ -6,7 +6,7 @@ extends SceneTree
 ##         重进只显示「已签到」、本机存档；名字被服务端判敏感词退回第一页
 ## 第三段：回忆册正式版置灰「还没印好」、调试版能打开占位屏并回到原地；摄影师招呼；合影吸到站位、姿势 → 对焦 → 相纸、
 ##         再拍一张、收好最多 3 张旧的顶掉、算了不留东西
-## 第四段：休息区老人一句乐山话、方言词第一次自动弹普通话、点说话框再看；大门：没写悄悄话不理人、写了没签到新娘妈妈提醒、
+## 第四段：休息区老人一句乐山话（只一个方言词、是二档标了可用的、像素字显示得出）、方言词第一次自动弹普通话、点说话框再看；大门：没写悄悄话不理人、写了没签到新娘妈妈提醒、
 ##         写了也签了才开（金圈）、走到门口「镇上的路还没修好 下次带你去」人停下、不进结束页；本机存档
 ## 用法：Godot --headless --path . --script res://tools/test_entrance.gd
 ## 最后一行 RESULT PASS 才算过
@@ -16,6 +16,11 @@ const CourtCopy = preload("res://scripts/court_copy.gd")
 const CourtSave = preload("res://scripts/court_save.gd")
 const CourtUI = preload("res://scripts/court_ui.gd")
 const DT := 1.0 / 60.0
+## 《乐山话 v0.2》词表（写法去掉空格）。一档直接用、不解释；二档第一次自动出翻译、点一下出普通话，标了可用的只有阿鱼给的两个。
+## 老人那句要第一次弹普通话（蓝图 3.1），所以得用二档可用的词（03 9/19 测出原来用一档词对不上）；语气词「哈」「嘛」到处在用，不算
+const TIER1 := ["安逸", "巴适", "好好吃", "要得", "莫得", "啥子", "咋个", "晓得", "巴巴适适", "摆龙门阵", "走赶场", "耍", "巴倒"]
+const TIER2_OK := ["楼卜", "翘jio儿"]
+const TIER2_ALL := ["楼卜", "翘jio儿", "海椒", "谷子", "茶铺子", "卡卡角角", "警格导", "干狮猴儿", "招财咡", "麻螂咡", "蝻蝻"]
 
 var m
 var started := false
@@ -380,6 +385,21 @@ func part4(c) -> void:
     var sv = m.court_save
     # 23. 休息区：老人一句，方言词第一次自动弹普通话；同一次不重复；再来不自动弹，点说话框能看
     print("23 休息区")
+    var line := CourtCopy.text("elder")
+    var gloss := CourtCopy.text("elder_gloss")
+    var word := gloss.split("：")[0]
+    check("方言词「%s」是二档标了可用的，这句里只出现一次" % word, word in TIER2_OK and line.count(word) == 1)
+    var others := []
+    for w in TIER1 + TIER2_ALL:
+        if w != word and line.contains(w):
+            others.append(w)
+    check("这句没有别的方言词 %s" % [others], others.is_empty())
+    var missing := []
+    for s in [line, gloss]:
+        for i in s.length():
+            if not m.font.has_char(s.unicode_at(i)):
+                missing.append(s[i])
+    check("像素字都显示得出（有 jio 这几个字母）%s" % [missing], missing.is_empty())
     sv.gloss_seen = false
     m.rest_heard = false
     m.note.text = ""
