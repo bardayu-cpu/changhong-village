@@ -192,6 +192,24 @@ func _build_debug() -> void:
     dbg.text = "测帧率中"
     dbg.pressed.connect(_toggle_log)
     ui.add_child(dbg)
+    # 走路速度两档，给阿鱼真机比一比（只有调试版有）：点一下在 3.2 和 2.4 米/秒之间切
+    var spd := Button.new()
+    spd.add_theme_font_size_override("font_size", 24)
+    spd.add_theme_color_override("font_color", Color("#9CFF9C"))
+    for st in ["normal", "hover", "pressed", "focus"]:
+        spd.add_theme_stylebox_override(st, _sb(Color(0, 0, 0, 0.55), Color(0, 0, 0, 0), 0, 4, 8))
+    spd.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+    spd.offset_left = -170; spd.offset_right = -12
+    spd.offset_top = -60; spd.offset_bottom = -16
+    spd.text = "走路 %.1f" % hall.speed_m if USE_LAYERED else "走路"
+    spd.pressed.connect(func():
+        if not USE_LAYERED:
+            return
+        var i: int = hall.SPEED_CHOICES.find(hall.speed_m)
+        hall.speed_m = hall.SPEED_CHOICES[(i + 1) % hall.SPEED_CHOICES.size()]
+        spd.text = "走路 %.1f" % hall.speed_m
+        print("[suqi] 走路速度切到 ", hall.speed_m, " 米/秒"))
+    ui.add_child(spd)
     dbg_panel = PanelContainer.new()
     dbg_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
     dbg_panel.offset_left = 10; dbg_panel.offset_right = -10

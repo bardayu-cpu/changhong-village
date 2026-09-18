@@ -8,6 +8,8 @@ signal reached(what: String)
 const Spr = preload("res://scripts/sprites.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
+## 走路速度备选两档（HANDOFF：3.2 备选 2.4，阿鱼真机比一比）；调试版右下角的按钮切换 speed_m
+const SPEED_CHOICES := [3.2, 2.4]
 const PERSON_M := 1.75
 ## 坐着的样子（占位，9/17）：还没有坐姿帧，第 21 版人只是站到椅位上，阿鱼真机上看不出坐下了。
 ## 先把站姿帧从头往下截一段（下半身不画），抬到大约椅面的高度；等新画风人物的坐姿帧到了换掉
@@ -42,6 +44,7 @@ var look := Spr.PROC_ANIM
 var look_fps := 7.7
 var frame_h := 32.0
 var look_hframes := 9      # 形象图集一行几帧；坐着时截半身会临时把 hframes 改成 1，站起来还原
+var speed_m := SPEED_M     # 现在用的走路速度，米/秒
 var stick := Vector2.ZERO   # 摇杆：屏幕方向，x 向右、y 向下，长度 0～1
 var couple_armed := true
 var exit_armed := false
@@ -359,7 +362,7 @@ func _face_for(d: Vector2) -> String:
 
 ## 摇杆走路：挡住了就试着只走一个方向，贴着桌边滑过去
 func _stick_move(dt: float) -> bool:
-    var step := stick * SPEED_M * px_per_m(pos.y) * dt
+    var step := stick * speed_m * px_per_m(pos.y) * dt
     face = _face_for(stick)
     for np: Vector2 in [pos + step, pos + Vector2(step.x, 0), pos + Vector2(0, step.y)]:
         if np != pos and _free(np):
@@ -383,7 +386,7 @@ func _process(dt: float) -> void:
         var tgt: Vector2 = path[0]
         var to := tgt - pos
         var dist := to.length()
-        var speed := SPEED_M * px_per_m(pos.y)
+        var speed := speed_m * px_per_m(pos.y)
         if dist < 2.0:
             pos = tgt   # 到拐点就站准，下一段从算好的起点出发
             path.pop_front()
