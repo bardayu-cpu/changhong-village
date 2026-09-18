@@ -1,0 +1,210 @@
+{
+ "scene": "scene_roman_banquet",
+ "revision": "v7-12tables",
+ "canvas": [
+  1536,
+  1024
+ ],
+ "person_h": 84,
+ "base": "base.png",
+ "blocks": {
+  "blk_table_round": {
+   "anchor": [
+    82,
+    117
+   ],
+   "footprint": {
+    "ellipse": [
+     80,
+     52
+    ]
+   }
+  },
+  "blk_lantern_floor": {
+   "anchor": [
+    14,
+    66
+   ],
+   "footprint": {
+    "ellipse": [
+     12,
+     6
+    ]
+   }
+  },
+  "fg_rail_left": {
+   "anchor": [
+    0,
+    261
+   ]
+  },
+  "fg_rail_right": {
+   "anchor": [
+    0,
+    272
+   ]
+  }
+ },
+ "place": [
+  {
+   "block": "blk_table_round",
+   "x": 230,
+   "y": 430
+  },
+  {
+   "block": "blk_table_round",
+   "x": 510,
+   "y": 430
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1026,
+   "y": 430,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1306,
+   "y": 430,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 230,
+   "y": 600
+  },
+  {
+   "block": "blk_table_round",
+   "x": 510,
+   "y": 600
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1026,
+   "y": 600,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1306,
+   "y": 600,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 230,
+   "y": 770
+  },
+  {
+   "block": "blk_table_round",
+   "x": 510,
+   "y": 770
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1026,
+   "y": 770,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1306,
+   "y": 770,
+   "flip": true
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 90,
+   "y": 470
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 90,
+   "y": 650
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 1446,
+   "y": 470,
+   "flip": true
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 1446,
+   "y": 650,
+   "flip": true
+  },
+  {
+   "block": "fg_rail_left",
+   "x": 0,
+   "y": 1013,
+   "front": true
+  },
+  {
+   "block": "fg_rail_right",
+   "x": 1066,
+   "y": 1012,
+   "front": true
+  }
+ ],
+ "walk": [
+  [
+   [
+    80,
+    320
+   ],
+   [
+    1456,
+    320
+   ],
+   [
+    1456,
+    860
+   ],
+   [
+    80,
+    860
+   ]
+  ]
+ ],
+ "spawn": [
+  768,
+  840
+ ],
+ "couple": [
+  768,
+  228
+ ],
+ "points": [
+  {
+   "id": "couple_table",
+   "x": 768,
+   "y": 430,
+   "r": 70,
+   "kind": "talk",
+   "line": "table"
+  },
+  {
+   "id": "door",
+   "x": 768,
+   "y": 840,
+   "r": 60,
+   "kind": "door",
+   "line": "leave"
+  }
+ ],
+ "preview_people": [
+  [
+   768,
+   840
+  ],
+  [
+   768,
+   430
+  ],
+  [
+   510,
+   380
+  ]
+ ]
+}

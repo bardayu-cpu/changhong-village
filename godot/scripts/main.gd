@@ -1412,6 +1412,13 @@ func _setup_shot(shot: String) -> void:
             hall.reset_to(Vector2(860, 780) if USE_LAYERED else Vector2(0.4, -1.0))
             whisper_edit.text = "测试"
             _send_whisper()
+        "behind_rail":
+            # 站到左下角栏杆后面（9/18 第三排桌子在栏杆后面）：看栏杆有没有把人的下半身挡住
+            nickname = "小李"
+            await _enter_banquet()
+            hall.couple_armed = false
+            hall.reset_to(Vector2(330, 845) if USE_LAYERED else Vector2(-4.8, -3.6))
+            dialog.visible = false
         "behind":
             # 站在桌子后面：看椅背有没有挡住腿、人有没有被地面切掉
             nickname = "小李"
