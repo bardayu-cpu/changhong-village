@@ -11,10 +11,20 @@ const CourtCopy = preload("res://scripts/court_copy.gd")
 ## 切画布：0.35 秒暖色淡出淡入（蓝图 1），人保持朝向，出现在对面的「到了站在」点
 const SWITCH_TINT := Color("#3a1d12")
 const COURT_FROM_HALL := Vector2(768, 260)   # 蓝图 1 出入口表：宴会厅的门 → 迎宾院 (768, 260)
+## 后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）：宴会厅东侧门进去，西口出来回宴会厅
+const Backhall = preload("res://scripts/backhall.gd")
+const BackhallUI = preload("res://scripts/backhall_ui.gd")
+## 蓝图 1 出入口表写宴会厅 → 后厅站 (50, 780)，离后厅西口 (40, 780, 50) 只有 10 像素、站在出口圈里；
+## 01 9/19 定：到了站的点离出口至少 1 米，沿出口方向往里挪，所以是 (100, 780)
+const BACKHALL_FROM_HALL := Vector2(100, 780)
+const HALL_FROM_BACKHALL := Vector2(1440, 600)   # 蓝图 1：后厅西口 → 宴会厅 (1440, 600)，离东侧门 60 像素
 var court
-var cv                          # 现在人在哪块画布（court 或 hall）：走路、摇杆、镜头都交给它
+var backhall
+var backhall_ui: Control        # 后厅四个房间的按钮（backhall_ui.gd）
+var cv                          # 现在人在哪块画布（court、hall 或 backhall）：走路、摇杆、镜头都交给它
 var switching := false
 var hall_door_latched := true   # 刚进宴会厅时人就站在门口：先走出门的范围，门才算数（不会来回弹）
+var hall_side_latched := true   # 东侧门也一样：从后厅回来站在门边，先走出去一次才算
 var profile_saved := false      # 这次打开游戏 saveProfile 成功过没有（进厅前要有住民记录）
 const CourtSave = preload("res://scripts/court_save.gd")
 const CourtUI = preload("res://scripts/court_ui.gd")
@@ -225,6 +235,12 @@ func _ready() -> void:
     court.spot.connect(_on_court_spot)
     court.walking_enabled = false
     print("[suqi] 迎宾院搭好了")
+    backhall = Backhall.new()
+    sv.add_child(backhall)
+    backhall.build(preset, "", font)
+    backhall.spot.connect(_on_backhall_spot)
+    backhall.walking_enabled = false
+    print("[suqi] 后厅搭好了")
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     court_save = CourtSave.new()
@@ -233,6 +249,9 @@ func _ready() -> void:
     ui.add_child(court_ui)
     court_ui.setup(self, font, court_save)
     court_ui.panel_changed.connect(func(open): court.walking_enabled = state == "court" and not open)
+    backhall_ui = BackhallUI.new()
+    ui.add_child(backhall_ui)
+    backhall_ui.setup(self)
     ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
     print("[suqi] 界面搭好了")
     var cap := ""
@@ -407,6 +426,14 @@ func _process(dt: float) -> void:
                 hall_door_latched = false
         elif dd < hall.door_r and hall.walking_enabled:
             _switch_canvas("court")
+    # 东侧门进后厅（蓝图 1、3.2），一样先走出去一次才算
+    if state == "banquet" and not switching and USE_LAYERED and hall.side_door_r > 0.0:
+        var sd: float = hall.pos.distance_to(hall.side_door)
+        if hall_side_latched:
+            if sd > hall.side_door_r:
+                hall_side_latched = false
+        elif sd < hall.side_door_r and hall.walking_enabled:
+            _switch_canvas("backhall")
     if state == "banquet" and hall_ready and not pulse_busy:
         pulse_t += dt
         # 进厅后先对一次表（1 秒后），之后每 PULSE_EVERY 秒问一次
@@ -964,19 +991,22 @@ func _close_person_card() -> void:
     _refresh_seat_buttons()
 
 # ---------- 流程 ----------
-## 人在能走路的场景里（迎宾院、宴会厅），不是开场、起名这些界面
+## 人在能走路的场景里（迎宾院、宴会厅、后厅），不是开场、起名这些界面
 func _in_scene() -> bool:
-    return state == "court" or state == "banquet"
+    return state == "court" or state == "banquet" or state == "backhall"
 
-## 换到哪块画布：另一块藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。两块一直都在，
+## 换到哪块画布：别的都藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。几块一直都在，
 ## 所以座位、NPC、敬酒这些宴会厅的状态切来切去都还在
 func _show_canvas(which: String) -> void:
-    var on_court := which == "court"
-    court.visible = on_court
-    court.process_mode = Node.PROCESS_MODE_INHERIT if on_court else Node.PROCESS_MODE_DISABLED
-    hall.visible = not on_court
-    hall.process_mode = Node.PROCESS_MODE_DISABLED if on_court else Node.PROCESS_MODE_INHERIT
-    cv = court if on_court else hall
+    var canvases := {"court": court, "banquet": hall, "backhall": backhall}
+    for k in canvases:
+        var c = canvases[k]
+        if c == null:
+            continue
+        var on: bool = k == which
+        c.visible = on
+        c.process_mode = Node.PROCESS_MODE_INHERIT if on else Node.PROCESS_MODE_DISABLED
+    cv = canvases[which] if canvases.get(which) != null else hall
     if cv.cam != null:
         cv.cam.make_current()
 
@@ -984,11 +1014,13 @@ func _goto(s: String) -> void:
     state = s
     hall.stick = Vector2.ZERO
     court.stick = Vector2.ZERO
+    if backhall != null:
+        backhall.stick = Vector2.ZERO
     stick_touch = -1
     touches.clear()
     for k in screens:
         screens[k].visible = (k == s)
-    hud.visible = (s == "banquet" or s == "court")
+    hud.visible = (s == "banquet" or s == "court" or s == "backhall")
     if sit_btn != null and s != "banquet":
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
@@ -1012,6 +1044,10 @@ func _goto(s: String) -> void:
     court.walking_enabled = (s == "court") and not court_ui.panel_open()
     if s != "court":
         court_ui.hide_all()
+    if backhall != null:
+        backhall.walking_enabled = (s == "backhall")
+    if backhall_ui != null and s != "backhall":
+        backhall_ui.hide_all()
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
@@ -1030,11 +1066,13 @@ func _enter_court() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
+    backhall.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
     whisper_box.visible = false
     hall.reset_to(hall.SPAWN)
+    hall_side_latched = true
     court.reset_to(court.SPAWN)
     _show_canvas("court")
     _goto("court")
@@ -1053,12 +1091,14 @@ func _save_profile() -> void:
     print("[suqi] 存资料 带邀请人 ", payload.has("inviter"), " ", inv.substr(0, 6))
     cloud.call_fn("saveProfile", payload, _after_profile)
 
-## 在两块画布之间走（蓝图 1：0.35 秒暖色淡出淡入，人保持朝向，出现在对面的「到了站在」点）。
-## 进宴会厅：站到厅门口 (768,840)，重新拿一次席位（进厅提示、别人敬的酒照旧报）；回迎宾院：站到 (768,260)
+## 在画布之间走（蓝图 1：0.35 秒暖色淡出淡入，人保持朝向，出现在对面的「到了站在」点）。
+## 进宴会厅：从迎宾院来站到厅门口 (768,840)、从后厅来站到东侧门边 (1440,600)，都重新拿一次席位（进厅提示、别人敬的酒照旧报）；
+## 回迎宾院：站到 (768,260)；进后厅：站到西口边 (100,780)
 func _switch_canvas(to: String) -> void:
     if switching or not _in_scene():
         return
     switching = true
+    var from := state
     var keep_face: String = cv.face
     cv.walking_enabled = false
     cv.stick = Vector2.ZERO
@@ -1067,10 +1107,15 @@ func _switch_canvas(to: String) -> void:
     await _fade_to(1.0)
     if to == "banquet":
         _show_canvas("banquet")
-        hall.reset_to(hall.SPAWN)
+        hall.reset_to(HALL_FROM_BACKHALL if from == "backhall" else hall.SPAWN)
         hall_door_latched = true
+        hall_side_latched = true
         _goto("banquet")
         _enter_hall_net()
+    elif to == "backhall":
+        _show_canvas("backhall")
+        backhall.reset_to(BACKHALL_FROM_HALL)
+        _goto("backhall")
     else:
         _show_canvas("court")
         court.reset_to(COURT_FROM_HALL)
@@ -1132,6 +1177,20 @@ func _on_court_spot(id: String, inside: bool) -> void:
             if inside:
                 _note(CourtCopy.text(id), 3.0)
 
+## 走到后厅的交互点（蓝图 3.3，进、出半径各一次，见 entrance.gd）：四个房间的按钮在 backhall_ui.gd；
+## 西口回宴会厅；东口是厨房后门去草坪，草坪还没做，出「还没修好」
+func _on_backhall_spot(id: String, inside: bool) -> void:
+    if state != "backhall" or switching:
+        return
+    backhall_ui.spot(id, inside)
+    match id:
+        "to_hall":
+            if inside:
+                _switch_canvas("banquet")
+        "to_lawn":
+            if inside:
+                _note(CourtCopy.text("to_lawn", CourtCopy.BACKHALL), 3.0)
+
 ## 调试版（导出预设「小游戏调试」，或者电脑上带 --hud）；测试里用 debug_override 当成调试版
 func is_debug() -> bool:
     return debug_override or OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args()
@@ -1165,12 +1224,14 @@ func _enter_banquet() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
+    backhall.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
     whisper_box.visible = false
     hall.reset_to(hall.SPAWN)
     hall_door_latched = true
+    hall_side_latched = true
     _show_canvas("banquet")
     _goto("banquet")
     hall_ready = false
@@ -2372,6 +2433,52 @@ func _setup_shot(shot: String) -> void:
                         if state == "banquet" and not switching:
                             break
                     dialog.visible = false
+        "backhall", "backhall_overview", "backhall_dress", "backhall_lounge", "backhall_mahjong", "backhall_pot", "backhall_lawn", "hall_side_door":
+            # 后厅灰盒（蓝图 3.3，01 9/19 派任务 7）：backhall 是从宴会厅东侧门刚进来；dress、lounge、mahjong、pot 是走进各房间的点、
+            # 点了按钮出那句（话没定之前是【待补】）；lawn 是走到厨房后门；overview 整张（横屏 RES=1536x1024）；
+            # hall_side_door 是宴会厅里走到东侧门跟前（再走一步就进后厅）
+            nickname = "阿花"
+            await _enter_banquet()
+            hall.couple_armed = false
+            dialog.visible = false
+            await _shot_skip_entry_toast()
+            note_box.visible = false
+            _clear_toast_back()
+            if shot == "hall_side_door":
+                hall.reset_to(HALL_FROM_BACKHALL + Vector2(-60, 20))
+                hall.face = "right"
+                for i in 6: await get_tree().process_frame
+            else:
+                hall_side_latched = false
+                hall.reset_to(hall.side_door + Vector2(-20, 0))
+                for i in 90:
+                    await get_tree().process_frame
+                    if state == "backhall" and not switching:
+                        break
+                var at := {"backhall_dress": Vector2(168, 420), "backhall_lounge": Vector2(504, 440),
+                    "backhall_mahjong": Vector2(840, 510), "backhall_pot": Vector2(1272, 400), "backhall_lawn": Vector2(1490, 780)}
+                if at.has(shot):
+                    backhall.reset_to(at[shot] + Vector2(0, 60))
+                    backhall.face = "up"
+                    backhall.go_to(at[shot])
+                    for i in 90:
+                        await get_tree().process_frame
+                        if backhall.path.is_empty():
+                            break
+                    if shot != "backhall_lawn":
+                        backhall_ui._on_act()
+                if shot == "backhall_overview":
+                    hud.visible = false
+                    dialog.visible = false
+                    backhall.walking_enabled = false
+                    backhall.set_process(false)
+                    var vb := get_viewport().get_visible_rect().size
+                    var zb := minf(vb.x / 1536.0, vb.y / 1024.0)
+                    backhall.cam.zoom = Vector2(zb, zb)
+                    backhall.cam.limit_right = 100000
+                    backhall.cam.position = Vector2(768, 512)
+                    backhall.cam.reset_smoothing()
+            await get_tree().process_frame
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
             nickname = ""

@@ -63,6 +63,9 @@ var COUPLE_SPOT := Vector2.ZERO
 var couple_r := 70.0
 var door := Vector2.ZERO
 var door_r := 60.0
+## 东侧门通后厅（蓝图 3.2「东侧门 (1500, 600, 50) 通后厅」，9/19 任务 7 加进 scene.json 的 side_door）；scene.json 里没有就是 0，main 不管它
+var side_door := Vector2.ZERO
+var side_door_r := 0.0
 var font: Font
 var life: Node2D           # 厅里的热闹：服务员、乐队、贺礼、彩带、灯笼光、别桌的 NPC 宾客（hall_life.gd，阿鱼 9/18）
 
@@ -91,6 +94,9 @@ func build(preset: int, nickname: String, f: Font) -> void:
         elif p["id"] == "door":
             door = Vector2(p["x"], p["y"])
             door_r = float(p["r"])
+        elif p["id"] == "side_door":
+            side_door = Vector2(p["x"], p["y"])
+            side_door_r = float(p["r"])
     _couple()
     _player(preset, nickname)
     _exit_mark()

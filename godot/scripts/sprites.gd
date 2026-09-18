@@ -217,6 +217,24 @@ const COURT_NPCS := {
     "photographer_e": {"hair": "tails", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#4a3226", "h": "#3a261d", "i": "#6d4a38", "k": "#4A6FA5", "K": "#2E4A7A", "p": "#26222f", "P": "#1a1720", "f": "#1d1a24"}},
     "elder": {"hair": "short", "glasses": true, "scale": Vector2(1.05, 0.96), "pal": {"H": "#8a8790", "h": "#6c6972", "i": "#b0adb5", "k": "#5a3a2a", "K": "#3e281c", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
 }
+## 后厅的 NPC（蓝图 3.3，灰盒占位，backhall.gd 用）：麻将室四个长辈、厨房一个厨师，全部泛称，不追真人（HANDOFF §0.5）。
+## 休息间的新郎妈妈不画：新郎家人名单没给之前，休息间只有一件外套（蓝图 3.3 异常处理）
+const BACKHALL_NPCS := {
+    "elder_n": {"hair": "short", "glasses": true, "scale": Vector2(1.05, 0.96), "pal": {"H": "#8a8790", "h": "#6c6972", "i": "#b0adb5", "k": "#5a3a2a", "K": "#3e281c", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+    "elder_e": {"hair": "bald", "scale": Vector2(1.05, 0.96), "pal": {"H": "#b0adb5", "h": "#8a8790", "i": "#d4d1d8", "k": "#2E4A7A", "K": "#1F3A5C", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+    "elder_s": {"hair": "curly", "scale": Vector2(1.0, 0.96), "pal": {"H": "#8a8790", "h": "#6c6972", "i": "#b0adb5", "g": "#D4AF37", "k": "#8C2F27", "K": "#5e1f1a", "p": "#2C2438", "P": "#1E1A2A", "f": "#1d1a24"}},
+    "elder_w": {"hair": "short", "scale": Vector2(1.05, 0.96), "pal": {"H": "#d4d1d8", "h": "#b0adb5", "i": "#eeeaf0", "k": "#3f6a50", "K": "#2c4a38", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+    "cook": {"hair": "short", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#f4f1ea", "K": "#d4cec2", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+}
+
+## 灰盒画布（迎宾院、后厅……）里的 NPC 长什么样：按 id 在各画布的表里找，找不到用迎宾院的老人
+static func npc_look(id: String) -> Dictionary:
+    if COURT_NPCS.has(id):
+        return COURT_NPCS[id]
+    if BACKHALL_NPCS.has(id):
+        return BACKHALL_NPCS[id]
+    return COURT_NPCS["elder"]
+
 const GUEST_HAIR := ["short", "long", "curly", "short", "long", "bald", "tails", "short", "long"]
 const GUEST_HAIR_COL := [
     ["#26202c", "#1b1620", "#3d3446"], ["#3b2a26", "#2c1f1c", "#5e4038"], ["#4a3226", "#3a261d", "#6d4a38"],

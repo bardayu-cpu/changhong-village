@@ -4,9 +4,11 @@ extends "res://scripts/layered_hall.gd"
 ## 照 assets/layered/scene_luoman_entrance/layout.json 画地面、红毯、大门、楼门、签到桌……能走的格子开场时按布局现算
 ## （灰盒没有 build_layered.py 那一步；GPT 出 A05 底图和积木以后换成宴会厅那样的 scene.json，这份灰盒整个换掉）。
 ## 交互点：走进、走出半径各发一次 spot(id, 进没进)。刚到这块画布时人要是正好站在某个点里，先走出去一次才算（不会来回弹）
+## 后厅（backhall.gd，蓝图 3.3）也是这一套，只换 layout_path：布局里有 couple 才摆新人，exit_mark 说金光圈放在哪个点上
 signal spot(id: String, inside: bool)
 
 const LAYOUT := "res://assets/layered/scene_luoman_entrance/layout.json"
+var layout_path := LAYOUT      # 这块画布的布局；后厅在 _init 里换成自己的
 const GRID_CELL := 12
 const CLEAR := 12.0            # 离东西多远算挡住，像素（和宴会厅拼装脚本一样）
 const NPC_FOOT := Vector2(12, 6)    # 站着的 NPC 占地（椭圆半宽、半高），人不穿过去
@@ -20,7 +22,7 @@ var labels: Node2D
 
 func build(preset: int, nickname: String, f: Font) -> void:
     font = f
-    cfg = JSON.parse_string(FileAccess.get_file_as_string(LAYOUT))
+    cfg = JSON.parse_string(FileAccess.get_file_as_string(layout_path))
     var flat := Node2D.new()
     flat.z_index = -10
     add_child(flat)
@@ -37,19 +39,22 @@ func build(preset: int, nickname: String, f: Font) -> void:
     for p in cfg.get("points", []):
         points[str(p["id"])] = {"pos": Vector2(float(p["x"]), float(p["y"])), "r": float(p["r"])}
     SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
-    couple_armed = false   # 迎宾院没有新人桌，新人只在花墙前站着（蓝图 3.1）
-    _couple()
-    var cf: Vector2 = Vector2(cfg["couple"][0], cfg["couple"][1])
-    obstacles.append({"ellipse": [cf.x, cf.y, COUPLE_FOOT.x, COUPLE_FOOT.y]})
+    couple_armed = false   # 迎宾院没有新人桌，新人只在花墙前站着（蓝图 3.1）；后厅没有新人
+    if cfg.has("couple"):
+        _couple()
+        var cf: Vector2 = Vector2(cfg["couple"][0], cfg["couple"][1])
+        obstacles.append({"ellipse": [cf.x, cf.y, COUPLE_FOOT.x, COUPLE_FOOT.y]})
     _npcs()
     var t0 := Time.get_ticks_msec()
     cfg["walk_grid"] = compute_grid(cfg, obstacles, GRID_CELL, CLEAR)
-    print("[suqi] 迎宾院 能走的格子算了 %d 毫秒" % (Time.get_ticks_msec() - t0))
+    print("[suqi] %s 能走的格子算了 %d 毫秒" % [str(cfg.get("title", "迎宾院")), Time.get_ticks_msec() - t0])
     _walk_grid()
     _player(preset, nickname)
-    # 大门开了才有的那圈金光：借宴会厅的出口光圈，放在 gate 上（大门开没开由 main 管）
-    door = points["gate"]["pos"]
-    door_r = points["gate"]["r"]
+    # 大门开了才有的那圈金光：借宴会厅的出口光圈，放在 gate 上（大门开没开由 main 管）。布局里 exit_mark 可以换点，没有这个点就不放
+    var mark_id := str(cfg.get("exit_mark", "gate"))
+    if points.has(mark_id):
+        door = points[mark_id]["pos"]
+        door_r = points[mark_id]["r"]
     _exit_mark()
     cam = Camera2D.new()
     cam.limit_left = 0
@@ -127,7 +132,7 @@ func _item(it: Dictionary) -> void:
         "cyl":
             var cx := float(it["x"]); var cy := float(it["y"])
             var rx := float(it["rx"]); var ry := float(it["ry"]); var h2 := float(it["h"])
-            foot = cy + ry
+            foot = float(it.get("foot", cy + ry))   # 放在别的东西上面的（后厅砖灶上的大锅）给个更靠前的着地线，排在底座后面画
             holder.add_child(_poly(_cyl_side(cx, cy, rx, ry, h2), Color(str(it["front"])), foot))
             holder.add_child(_poly(_ellipse_pts(cx, cy - h2, rx, ry), Color(str(it["top"])), foot))
             obstacles.append({"ellipse": [cx, cy, rx, ry]})
@@ -160,6 +165,11 @@ func _item(it: Dictionary) -> void:
         "beam":
             foot = float(it["foot"])
             holder.add_child(_poly(_rect_pts([it["x0"], it["top"], it["x1"], float(it["top"]) + float(it["thick"])]), Color(str(it["color"])), foot))
+        "puffs":
+            # 几团半透明的圆（后厅大锅冒的气，蓝图 3.3 用户故事「大锅在冒气」），着地线跟着锅走，不挡路
+            foot = float(it["y"])
+            for e in it["e"]:
+                holder.add_child(_poly(_ellipse_pts(float(e[0]), float(e[1]), float(e[2]), float(e[3]), 14), Color(str(it.get("color", "#ffffff66"))), foot))
     holder.position = Vector2(0.0, foot)
     holder.name = str(it.get("id", kind))
     world.add_child(holder)
@@ -185,20 +195,30 @@ func _flowers(holder: Node2D, x0: float, y0: float, x1: float, y1: float, foot: 
         var c := Vector2(rng.randf_range(x0 + 4, x1 - 4), rng.randf_range(y0 + 4, y1 - 4))
         holder.add_child(_poly(_ellipse_pts(c.x, c.y, 4.0, 3.5, 8), cols[i % cols.size()], foot))
 
-## 站着的 NPC（占位，代码画的像素人，sprites.gd 的 COURT_NPCS）：不写名字（01 9/19）
+## NPC（占位，代码画的像素人，sprites.gd 的 COURT_NPCS、BACKHALL_NPCS）：不写名字（01 9/19）。
+## sit 为 true 的坐着（后厅麻将桌的长辈）：和宴会厅坐着的人一样只画上半身，下沿在椅位点上；坐着的默认不挡路（桌椅挡），
+## block 为 true 才也挡（麻将桌边的长辈：不然人能从他们身上穿过去）
 func _npcs() -> void:
     for n in cfg.get("npcs", []):
         var id := str(n["id"])
-        var look_cfg: Dictionary = Spr.COURT_NPCS.get(id, Spr.COURT_NPCS["elder"])
+        var look_cfg: Dictionary = Spr.npc_look(str(n.get("look", id)))
         var s := Sprite2D.new()
         s.texture = ImageTexture.create_from_image(Spr.sheet_of(look_cfg))
         s.hframes = 9
         var fl: Dictionary = Spr.PROC_ANIM[str(n.get("face", "down"))]
-        s.frame = int(fl["idle"])
         s.flip_h = bool(fl["flip"])
         s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
         s.centered = true
-        s.offset = Vector2(0, -16.0)
+        var sit := bool(n.get("sit", false))
+        if sit:
+            var keep := floorf(32.0 * SIT_KEEP)
+            s.hframes = 1
+            s.region_enabled = true
+            s.region_rect = Rect2(float(fl["idle"]) * 16.0, 0.0, 16.0, keep)
+            s.offset = Vector2(0, -keep * 0.5)
+        else:
+            s.frame = int(fl["idle"])
+            s.offset = Vector2(0, -16.0)
         var at := Vector2(float(n["x"]), float(n["y"]))
         var k := _px_h(at.y) / 32.0
         s.scale = Vector2(k, k)
@@ -206,7 +226,8 @@ func _npcs() -> void:
         s.name = "npc_" + id
         world.add_child(s)
         npc_nodes[id] = s
-        obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
+        if not sit or bool(n.get("block", false)):
+            obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
 
 ## NPC 在哪（对话、指路时 main 要用）
 func npc_pos(id: String) -> Vector2:
