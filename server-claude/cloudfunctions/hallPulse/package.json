@@ -1,0 +1,10 @@
+{
+  "name": "hallPulse",
+  "version": "1.0.0",
+  "description": "苏七镇奇缘：宴会厅 - hallPulse",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "wx-server-sdk": "~4.0.2"
+  }
+}

@@ -430,6 +430,240 @@ async function scenarioReservedNameExemptions() {
   check(res.ok === false && res.reason === 'sensitive', `场景9 主角起名带敏感词照样拦（实际 ${JSON.stringify(res)}）`);
 }
 
+/** 包一层 sdk.database()，数出每个表被查询过几次——用来验证 hallPulse "toasts 为空时不查 resident" 这类性能约束 */
+function withCallCounter(sdk) {
+  const counts = {};
+  const originalDatabase = sdk.database;
+  sdk.database = () => {
+    const realDb = originalDatabase();
+    return Object.assign({}, realDb, {
+      collection(name) {
+        counts[name] = (counts[name] || 0) + 1;
+        return realDb.collection(name);
+      },
+    });
+  };
+  return counts;
+}
+
+// ================= 场景10：hallPulse 的 since 缺/不是正数 → toasts、names 都是空，但带着 now；这种情况完全不查 toast 表 =================
+async function scenarioHallPulseInvalidSince() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'pulse_me_10';
+  // 提前埋一条本来会命中的敬酒——如果 hallPulse 在 since 不合法时仍然去查表，这条就会被误报出来
+  seed(state, 'toast', { _id: 't10_old', from: 'someone_10', to: ME, date: '2026-09-18', created_at: 500 });
+  state.currentOpenid = ME;
+  const counts = withCallCounter(sdk);
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+
+  let res = await hallPulse.main({});
+  check(res.ok === true, `场景10 不传 since：返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(Array.isArray(res.toasts) && res.toasts.length === 0, `场景10 不传 since：toasts 应为空（实际 ${JSON.stringify(res.toasts)}）`);
+  check(!!res.names && Object.keys(res.names).length === 0, `场景10 不传 since：names 应为空对象（实际 ${JSON.stringify(res.names)}）`);
+  check(typeof res.now === 'number' && res.now > 0, `场景10 不传 since：应该带上 now（实际 ${res.now}）`);
+
+  res = await hallPulse.main({ since: 0 });
+  check(res.ok === true && res.toasts.length === 0, `场景10 since=0（不是正数）：toasts 应为空（实际 ${JSON.stringify(res)}）`);
+
+  res = await hallPulse.main({ since: -100 });
+  check(res.ok === true && res.toasts.length === 0, `场景10 since 是负数：toasts 应为空（实际 ${JSON.stringify(res)}）`);
+
+  res = await hallPulse.main({ since: 'not-a-number' });
+  check(res.ok === true && res.toasts.length === 0, `场景10 since 不是数字：toasts 应为空（实际 ${JSON.stringify(res)}）`);
+
+  check(!counts.toast, `场景10 since 不合法的这几次调用，一次都不该查 toast 表（实际查了 ${counts.toast || 0} 次）`);
+  check(!counts.resident, `场景10 since 不合法时也不该查 resident 表（实际查了 ${counts.resident || 0} 次）`);
+}
+
+// ================= 场景11：A 敬 B 以后，B 带着上一次的 now 当 since 调 hallPulse → 拿到 1 条，from 是 A，names 里有 A 的昵称和形象 =================
+async function scenarioHallPulseGetsNewToast() {
+  const { sdk, state } = createFakeSdk();
+  const A = 'pulse_A_11';
+  const B = 'pulse_B_11';
+  seed(state, 'resident', { _id: A, openid: A, nick: '阿强', avatar: 4, inviter: null });
+  const lastNow = 1_700_000_000_000; // 假装是 B 上一次心跳（或者进厅那次）拿到的 now
+  const toastAt = lastNow + 3000; // 之后 A 敬了 B 一杯
+  seed(state, 'toast', { _id: 't11_a_to_b', from: A, to: B, date: '2026-09-18', created_at: toastAt });
+  state.currentOpenid = B;
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: lastNow });
+
+  check(res.ok === true, `场景11 返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(res.toasts.length === 1, `场景11 应该拿到 1 条敬酒（实际 ${res.toasts.length}）`);
+  check(!!res.toasts[0] && res.toasts[0].from === A, `场景11 敬酒的 from 应该是 A（实际 ${res.toasts[0] && res.toasts[0].from}）`);
+  check(!!res.toasts[0] && res.toasts[0].created_at === toastAt, `场景11 created_at 应该对得上（实际 ${res.toasts[0] && res.toasts[0].created_at}）`);
+  check(!!res.names[A], `场景11 names 里应该有 A（实际 ${JSON.stringify(res.names)}）`);
+  check(res.names[A] && res.names[A].nick === '阿强', `场景11 A 的昵称应该对得上（实际 ${res.names[A] && res.names[A].nick}）`);
+  check(res.names[A] && res.names[A].avatar === 4, `场景11 A 的形象应该对得上（实际 ${res.names[A] && res.names[A].avatar}）`);
+  check(typeof res.now === 'number' && res.now >= toastAt, `场景11 返回的 now 不应该比刚报出的敬酒还早，否则下次心跳会漏报（实际 now=${res.now}，created_at=${toastAt}）`);
+}
+
+// ================= 场景12：B 用第一次心跳返回的 now 当 since 再调一次 → 不再重复拿到同一条敬酒 =================
+async function scenarioHallPulseNoDuplicateOnNextPoll() {
+  const { sdk, state } = createFakeSdk();
+  const A = 'pulse_A_12';
+  const B = 'pulse_B_12';
+  const lastNow = 1_700_000_000_000;
+  const toastAt = lastNow + 3000;
+  seed(state, 'toast', { _id: 't12_a_to_b', from: A, to: B, date: '2026-09-18', created_at: toastAt });
+  state.currentOpenid = B;
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const first = await hallPulse.main({ since: lastNow });
+  check(first.ok === true && first.toasts.length === 1, `场景12 第一次心跳应该先拿到那条敬酒，后面才谈得上"不重复"（实际 ${JSON.stringify(first)}）`);
+
+  const second = await hallPulse.main({ since: first.now });
+  check(second.ok === true, `场景12 第二次心跳返回 ok:true（实际 ${JSON.stringify(second)}）`);
+  check(second.toasts.length === 0, `场景12 用第一次返回的 now 当 since 再调，不应该重复拿到（实际 ${JSON.stringify(second.toasts)}）`);
+}
+
+// ================= 场景13：别人（C）收到的敬酒不会出现在 B 这里 =================
+async function scenarioHallPulseOnlyMine() {
+  const { sdk, state } = createFakeSdk();
+  const A = 'pulse_A_13';
+  const B = 'pulse_B_13';
+  const C = 'pulse_C_13';
+  const lastNow = 1_700_000_000_000;
+  seed(state, 'toast', { _id: 't13_to_b', from: A, to: B, date: '2026-09-18', created_at: lastNow + 100 });
+  seed(state, 'toast', { _id: 't13_to_c', from: A, to: C, date: '2026-09-18', created_at: lastNow + 200 }); // 敬的是 C，不是 B
+  state.currentOpenid = B;
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: lastNow });
+
+  check(res.ok === true, `场景13 返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(res.toasts.length === 1, `场景13 B 应该只拿到敬给自己的那 1 条，敬给 C 的不该混进来（实际 ${res.toasts.length}）`);
+  check(!!res.toasts[0] && res.toasts[0].from === A, '场景13 拿到的应该是敬给 B 的那条');
+}
+
+// ================= 场景14：8 秒内被敬超过 10 杯，只回最早的 10 条，按时间升序 =================
+async function scenarioHallPulseCapAtTen() {
+  const { sdk, state } = createFakeSdk();
+  const B = 'pulse_B_14';
+  const lastNow = 1_700_000_000_000;
+  const TOTAL = 15;
+  for (let i = 0; i < TOTAL; i++) {
+    seed(state, 'toast', { _id: `t14_${i}`, from: `friend_14_${i}`, to: B, date: '2026-09-18', created_at: lastNow + 10 + i });
+  }
+  state.currentOpenid = B;
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: lastNow });
+
+  check(res.ok === true, `场景14 返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(res.toasts.length === 10, `场景14 超过 10 条只回 10 条（实际 ${res.toasts.length}）`);
+  let ascending = true;
+  for (let i = 1; i < res.toasts.length; i++) if (res.toasts[i].created_at <= res.toasts[i - 1].created_at) ascending = false;
+  check(ascending, '场景14 返回的 10 条应该按 created_at 升序排列');
+  check(res.toasts[0].created_at === lastNow + 10, `场景14 应该是最早的那条打头（实际偏移 ${res.toasts[0].created_at - lastNow}）`);
+  check(res.toasts[9].created_at === lastNow + 19, `场景14 第 10 条应该是最早的第 10 条，即原始第 0~9 条（实际偏移 ${res.toasts[9].created_at - lastNow}）`);
+  check(Object.keys(res.names).length === 10, `场景14 names 应该正好有这 10 个人（实际 ${Object.keys(res.names).length}）`);
+}
+
+// ================= 场景15（追加）：since 合法但确实没有新敬酒 → toasts/names 都是空，且不查 resident 表 =================
+async function scenarioHallPulseNoneNewSkipsResident() {
+  const { sdk, state } = createFakeSdk();
+  const B = 'pulse_B_15';
+  state.currentOpenid = B;
+  const counts = withCallCounter(sdk);
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: 1_700_000_000_000 });
+
+  check(res.ok === true, `场景15 返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(res.toasts.length === 0, `场景15 没有新敬酒时 toasts 应为空（实际 ${JSON.stringify(res.toasts)}）`);
+  check(Object.keys(res.names).length === 0, `场景15 没有新敬酒时 names 应为空（实际 ${JSON.stringify(res.names)}）`);
+  check(counts.toast === 1, `场景15 since 合法时应该查一次 toast 表（实际 ${counts.toast || 0} 次）`);
+  check(!counts.resident, `场景15 toasts 为空时不该查 resident 表（实际查了 ${counts.resident || 0} 次）`);
+}
+
+// ================= 场景16（追加）：敬酒人在 resident 表里查不到记录时，names 仍要有这个人，兜底 nick=''、avatar=-1 =================
+async function scenarioHallPulseGhostSenderNameFallback() {
+  const { sdk, state } = createFakeSdk();
+  const GHOST = 'pulse_ghost_16'; // 敬过酒但 resident 表里没有记录的人（理论上不该发生，但 names 兜底要能处理）
+  const B = 'pulse_B_16';
+  const lastNow = 1_700_000_000_000;
+  seed(state, 'toast', { _id: 't16_ghost_to_b', from: GHOST, to: B, date: '2026-09-18', created_at: lastNow + 100 });
+  state.currentOpenid = B;
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: lastNow });
+
+  check(res.ok === true, `场景16 返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(res.toasts.length === 1, `场景16 应该拿到这 1 条敬酒（实际 ${res.toasts.length}）`);
+  check(!!res.names[GHOST], `场景16 查不到 resident 记录的敬酒人也要出现在 names 里（实际 ${JSON.stringify(res.names)}）`);
+  check(res.names[GHOST] && res.names[GHOST].nick === '' && res.names[GHOST].avatar === -1, `场景16 查不到的人应该兜底成 nick=''/avatar=-1（实际 ${JSON.stringify(res.names[GHOST])}）`);
+}
+
+// ================= 场景17（追加）：数据库异常时返回 {ok:false, reason:'network'}，不把异常抛给客户端 =================
+async function scenarioHallPulseDbErrorReturnsNetwork() {
+  const { sdk, state } = createFakeSdk();
+  const B = 'pulse_B_17';
+  state.currentOpenid = B;
+  // 模拟数据库异常：让 toast 表的查询直接抛错
+  const originalDatabase = sdk.database;
+  sdk.database = () => {
+    const realDb = originalDatabase();
+    return Object.assign({}, realDb, {
+      collection(name) {
+        if (name === 'toast') throw new Error('模拟数据库异常');
+        return realDb.collection(name);
+      },
+    });
+  };
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: 1_700_000_000_000 });
+
+  check(res.ok === false, `场景17 数据库异常时不应该返回 ok:true（实际 ${JSON.stringify(res)}）`);
+  check(res.reason === 'network', `场景17 数据库异常应该返回 reason:'network'（实际 ${JSON.stringify(res)}）`);
+}
+
+// ================= 场景18：在厅里当场报过的敬酒，下次进厅不再报；没当场报过的照报（主程 9/19） =================
+async function scenarioPulseSeenNotRepeatedOnEnter() {
+  const { sdk, state } = createFakeSdk();
+  const A = 'seen_A_18';
+  const B = 'seen_B_18';
+  seed(state, 'resident', { _id: A, openid: A, nick: '老王', avatar: 1, inviter: null });
+  seed(state, 'resident', { _id: B, openid: B, nick: '小李', avatar: 5, inviter: null });
+  const T0 = 1_700_000_000_000;   // B 上次进厅
+  seed(state, 'seat', { _id: B, openid: B, table_id: 'T1', chair_no: 3, inviter: null, sat_at: T0, changed_on: null, sat_tables: ['T1'], last_visit_at: T0 });
+  seed(state, 'toast', { _id: 't18_1', from: A, to: B, date: '2026-09-19', created_at: T0 + 5000 });
+  state.currentOpenid = B;
+
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const pulse = await hallPulse.main({ since: T0 + 1000 });
+  check(pulse.ok === true && pulse.toasts.length === 1, `场景18 当场收到 1 条（实际 ${JSON.stringify(pulse)}）`);
+  const seat = state.collections.seat.get(B);
+  check(seat.toast_seen_at === T0 + 5000, `场景18 seat 记下 toast_seen_at = 那条的时间（实际 ${seat.toast_seen_at}）`);
+
+  // B 离开后 A 又敬了一杯，B 没在线、没当场收到
+  seed(state, 'toast', { _id: 't18_2', from: A, to: B, date: '2026-09-19', created_at: T0 + 9000 });
+  const enterHall = loadCloudFunction('enterHall', sdk);
+  const res = await enterHall.main();
+  check(res.ok === true, `场景18 enterHall ok（实际 ${JSON.stringify(res).slice(0, 200)}）`);
+  const dg = res.data && res.data.digest;
+  check(dg && dg.toastCount === 1, `场景18 进厅只报没当场看过的那 1 杯（实际 ${dg && dg.toastCount}）`);
+  check(dg && dg.toasts[0] && dg.toasts[0].at === T0 + 9000, `场景18 报的是后来那杯（实际 ${dg && JSON.stringify(dg.toasts)}）`);
+}
+
+// ================= 场景19：往回多看 3 秒——上次心跳之前 2 秒写进库的敬酒（写库慢了一拍）这次还能拿到 =================
+async function scenarioPulseOverlapCatchesLateWrite() {
+  const { sdk, state } = createFakeSdk();
+  const A = 'late_A_19';
+  const B = 'late_B_19';
+  const lastNow = 1_700_000_000_000;
+  seed(state, 'toast', { _id: 't19', from: A, to: B, date: '2026-09-19', created_at: lastNow - 2000 });
+  state.currentOpenid = B;
+  const hallPulse = loadCloudFunction('hallPulse', sdk);
+  const res = await hallPulse.main({ since: lastNow });
+  check(res.ok === true && res.toasts.length === 1, `场景19 since 前 2 秒的那条也拿到（客户端去重）（实际 ${JSON.stringify(res.toasts)}）`);
+  const old = await hallPulse.main({ since: lastNow + 10000 });
+  check(old.toasts.length === 0, `场景19 超过 3 秒的旧敬酒不再拿（实际 ${JSON.stringify(old.toasts)}）`);
+}
+
 // ---------- 跑全部场景 ----------
 (async () => {
   await scenarioSeatPagination();
@@ -441,6 +675,16 @@ async function scenarioReservedNameExemptions() {
   await scenarioWriteBookSensitiveRejected();
   await scenarioSaveProfileWordRejected();
   await scenarioReservedNameExemptions();
+  await scenarioHallPulseInvalidSince();
+  await scenarioHallPulseGetsNewToast();
+  await scenarioHallPulseNoDuplicateOnNextPoll();
+  await scenarioHallPulseOnlyMine();
+  await scenarioHallPulseCapAtTen();
+  await scenarioHallPulseNoneNewSkipsResident();
+  await scenarioHallPulseGhostSenderNameFallback();
+  await scenarioHallPulseDbErrorReturnsNetwork();
+  await scenarioPulseSeenNotRepeatedOnEnter();
+  await scenarioPulseOverlapCatchesLateWrite();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

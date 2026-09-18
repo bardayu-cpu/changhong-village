@@ -82,9 +82,11 @@ exports.main = async () => {
   // 进厅提示：上次离开到现在，收到的敬酒 + 坐过的桌新增的簿子句子
   // 同样要分页读全——常来的人攒的敬酒、坐过很多桌的人攒的簿子新句子，都可能过 100 条。
   const since = mySeat.last_visit_at || mySeat.sat_at;
+  // 敬酒另从「在厅里当场报过的」之后算（hallPulse 记的 toast_seen_at，9/19 加）：当场看过的不再在进厅时报一遍
+  const toastSince = Math.max(since, mySeat.toast_seen_at || 0);
   const satTables = mySeat.sat_tables && mySeat.sat_tables.length ? mySeat.sat_tables : [mySeat.table_id];
   const [toasts, bookLines] = await Promise.all([
-    fetchAllPages(() => db.collection('toast').where({ to: OPENID, created_at: _.gt(since) }), PAGE_OPTS),
+    fetchAllPages(() => db.collection('toast').where({ to: OPENID, created_at: _.gt(toastSince) }), PAGE_OPTS),
     fetchAllPages(() => db.collection('guestbook').where({ table_id: _.in(satTables), created_at: _.gt(since) }), PAGE_OPTS),
   ]);
   const digest = banquet.arrivalDigest({
