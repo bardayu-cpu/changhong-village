@@ -37,6 +37,13 @@ var hall_ready := false         # 这次进厅拿到席位了没（拿到才开�
 var pulse_seen: Dictionary = {} # 这次进厅报过的敬酒「from:created_at」：hallPulse 往回多看 3 秒，靠它去重
 var toast_scene: Control
 var toast_queue: Array = []     # 排队等着放的干杯插图 [left, right, caption]
+## 回敬（蓝图 3.2「可回敬一次」，01 9/19 派）：被敬以后顶部那句提示右边出一个按钮，点了直接敬回去，不用再去找对方的座位
+const LINE_TOAST_BACK := "回敬一杯"   # 按钮上的字，新写，等阿鱼定
+const TOAST_BACK_SECS := 6.0    # 被敬的那句提示连同按钮留多久，秒
+var toast_back_btn: Button
+var toast_back_to := ""         # 回敬给谁（openid）；"" 表示现在没有可回敬的
+var toast_back_info: Dictionary = {}   # 对方的昵称、形象（hallPulse、enterHall 带回的 names；对方不一定坐在我这边的厅里）
+var toast_back_note := -1       # 按钮跟的是哪一句提示（note_token）：提示换了一句、或者收了，按钮一起收
 const LINE_BOOK_EMPTY := "还没人写 你来第一句"   # 新写，等阿鱼定
 const BOOK_PLACEHOLDER := "接一句"   # 新写，等阿鱼定
 const LINE_BOOK_READONLY := "先坐下 慢慢写"   # 蓝图 3.2 9/18 定稿：不是自己现在坐的那桌，只能看
@@ -654,6 +661,13 @@ func _build_hud() -> void:
     whisper_box.add_child(wv)
     whisper_box.visible = false
     hud.add_child(whisper_box)
+    # 回敬一杯：挂在 ui 上、不在 hud 里，这样能挪到干杯插图上面，插图开着也点得到（见 _restack_top）。位置每帧由 _layout_top 排
+    toast_back_btn = Button.new()
+    toast_back_btn.text = LINE_TOAST_BACK
+    toast_back_btn.visible = false
+    toast_back_btn.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+    toast_back_btn.pressed.connect(_on_toast_back_pressed)
+    ui.add_child(toast_back_btn)
 
 ## 看人卡片（蓝图 3.2）：形象、昵称、「XX 带进来的」（没有邀请人或查不到邀请人昵称，整行不显示）、敬一杯。
 ## 点卡片外面暗下去的地方关掉；字体里有「×」再加一个右上角关闭按钮（第 22 版）
@@ -960,9 +974,11 @@ func _on_enter_hall(r: Dictionary) -> void:
         var tc := int(dg.get("toastCount", 0))
         for dt_ in dg.get("toasts", []):
             pulse_seen["%s:%d" % [str(dt_.get("from", "")), int(dt_.get("at", 0))]] = true   # 进厅报过的，心跳别再报
+        # 几个人敬的，名字、插图、回敬都按最新的那位（进厅提示的敬酒是按文档 id 排的，不按时间，不能拿第一条）
+        var latest := latest_toast(dg.get("toasts", []), "at")
+        var from := str(latest.get("from", ""))
+        var finfo: Dictionary = names.get(from, {})
         if tc > 0:
-            var first: Dictionary = dg["toasts"][0]
-            var finfo: Dictionary = names.get(str(first.get("from", "")), {})
             var who := str(finfo.get("nick", "有人"))
             parts.append(who + ("等 %d 人敬了你" % tc if tc > 1 else " 敬了你一杯"))
             # 不在线时被敬的：进厅也看一次干杯插图（阿鱼 9/18 晚）
@@ -973,7 +989,9 @@ func _on_enter_hall(r: Dictionary) -> void:
         var bc := int(dg.get("bookLineCount", 0))
         if bc > 0:
             parts.append("簿子上多了 %d 句" % bc)
-        _note("，".join(parts), 5.0)
+        _note("，".join(parts), TOAST_BACK_SECS if tc > 0 else 5.0)
+        if tc > 0:
+            _offer_toast_back(from, finfo)
 
 func _on_chair_near(table_id: String, chair_no: int) -> void:
     sit_confirming = false
@@ -1053,10 +1071,11 @@ func _on_toast_pressed() -> void:
     var target := card_openid
     cloud.call_fn("toast", {"to": target}, func(r): _on_toast_result(r, target))
 
-func _on_toast_result(r: Dictionary, target: String) -> void:
+## known：回敬时带过来的对方昵称、形象（对方可能是我进厅以后才进来的，hall.resident_names 里没有他）
+func _on_toast_result(r: Dictionary, target: String, known := {}) -> void:
     _close_person_card()
     if bool(r.get("ok", false)):
-        var info: Dictionary = hall.resident_names.get(target, {})
+        var info: Dictionary = known if not known.is_empty() else hall.resident_names.get(target, {})
         var nick := str(info.get("nick", ""))
         var line := LINE_TOASTED_FMT % (nick if nick != "" else "有人")
         _note(line)
@@ -1075,9 +1094,63 @@ func _play_toast(left_preset: int, right_preset: int, caption: String) -> void:
         return
     toast_scene = ToastScene.new()
     ui.add_child(toast_scene)
+    _restack_top()
     toast_scene.finished.connect(_on_toast_scene_done)
     toast_scene.play(font, left_preset, right_preset, LINE_CHEERS, caption)
     print("[suqi] 干杯插图 ", caption)
+
+## 叠放顺序：……干杯插图、回敬按钮、黑幕。插图整屏接点击（点一下提前收），按钮要在它上面才点得到；
+## 黑幕永远在最上面，切场景时把这些都盖住（原来插图加在黑幕上面，出门淡出时插图还亮着）
+func _restack_top() -> void:
+    if toast_back_btn.visible:
+        ui.move_child(toast_back_btn, -1)
+    ui.move_child(fade, -1)
+
+## 被敬以后在顶部那句提示右边出「回敬一杯」。先 _note 出那句提示再调：按钮认的是那一句（note_token），
+## 提示换了一句或者收了（TOAST_BACK_SECS 秒），按钮一起收，见 _layout_top。开着小游戏时不出（提示也被小游戏盖着）
+func _offer_toast_back(from: String, info: Dictionary) -> void:
+    if from == "" or from == cloud.openid() or is_instance_valid(game_host):
+        return
+    toast_back_to = from
+    toast_back_info = info
+    toast_back_note = note_token
+    toast_back_btn.disabled = false
+    toast_back_btn.visible = true
+    _restack_top()
+    print("[suqi] 可以回敬 ", str(info.get("nick", "")))
+
+func _clear_toast_back() -> void:
+    toast_back_to = ""
+    toast_back_info = {}
+    toast_back_btn.visible = false
+
+## 点「回敬一杯」：直接敬回去，和看人卡片的「敬一杯」走同一条路（对方站起来、我举杯、插图、顶部一句）；
+## 每天几杯、敬过没有，都由服务端定，被拒就显示原因。按钮点一次就收，不能连点
+func _on_toast_back_pressed() -> void:
+    var target := toast_back_to
+    var info := toast_back_info
+    _clear_toast_back()
+    if target == "":
+        return
+    # 眼前那张「XX 敬了你一杯」的插图先收起来（跟点一下插图一样），接着放我敬回去的那张
+    if is_instance_valid(toast_scene) and toast_scene.closing < 0.0:
+        toast_scene.closing = toast_scene.t
+    print("[suqi] 回敬 ", str(info.get("nick", "")))
+    cloud.call_fn("toast", {"to": target}, func(r): _on_toast_result(r, target, info))
+
+## 几个人一起敬我时回敬最新的那位：取时间最大的一条，一样大取后面那条。key：hallPulse 回的是 created_at（升序），
+## enterHall 进厅提示回的是 at（按文档 id 排，不按时间），所以不能拿第一条、最后一条凑合。没有就回空的
+static func latest_toast(toasts: Array, key: String) -> Dictionary:
+    var best: Dictionary = {}
+    var best_t := -1
+    for t in toasts:
+        if typeof(t) != TYPE_DICTIONARY:
+            continue
+        var at := int((t as Dictionary).get(key, 0))
+        if at >= best_t:
+            best_t = at
+            best = t
+    return best
 
 func _on_toast_scene_done() -> void:
     toast_scene = null
@@ -1104,14 +1177,16 @@ func _on_pulse(r: Dictionary) -> void:
     if toasts.is_empty() or state != "banquet":
         return
     var names: Dictionary = r.get("names", {})
-    var last: Dictionary = toasts[toasts.size() - 1]
-    var info: Dictionary = names.get(str(last.get("from", "")), {})
+    # 几个人一起敬的，名字、插图、回敬都按最新的那位
+    var from := str(latest_toast(toasts, "created_at").get("from", ""))
+    var info: Dictionary = names.get(from, {})
     var who := str(info.get("nick", ""))
     if who == "":
         who = "有人"
     var line := who + (" 等 %d 人敬了你" % toasts.size() if toasts.size() > 1 else " 敬了你一杯")
     print("[suqi] 当场收到敬酒 ", toasts.size(), " 杯")
-    _note(line, 4.0)
+    _note(line, TOAST_BACK_SECS)
+    _offer_toast_back(from, info)
     if USE_LAYERED:
         hall.toasted_me()
     _play_toast(_avatar_of(info), preset, line)
@@ -1369,6 +1444,21 @@ func _layout_top() -> void:
         dialog.offset_top = y
         dialog.offset_bottom = y
         y += dialog.size.y + 10.0
+    # 回敬按钮跟着它那一句提示走：提示换了、收了，离开宴会厅、开了小游戏，按钮一起收
+    if toast_back_btn.visible and (note_token != toast_back_note or not note_box.visible
+            or state != "banquet" or is_instance_valid(game_host)):
+        _clear_toast_back()
+    var right := 14.0
+    if toast_back_btn.visible:
+        # 按钮在提示框右边，竖着和提示框对中；提示框让出这一块
+        var bs := toast_back_btn.get_combined_minimum_size()
+        var by := y + maxf(0.0, (note_box.size.y - bs.y) * 0.5)
+        toast_back_btn.offset_left = -14.0 - bs.x
+        toast_back_btn.offset_right = -14.0
+        toast_back_btn.offset_top = by
+        toast_back_btn.offset_bottom = by + bs.y
+        right += bs.x + 8.0
+    note_box.offset_right = -right
     note_box.offset_top = y
     note_box.offset_bottom = y
 
@@ -1547,6 +1637,17 @@ func _shot_game(shot: String) -> void:
         game_host._start()
         for i in 30: await get_tree().process_frame
 
+## 截图用：进厅提示那张干杯插图 1.5 秒后才放，先等它出来、收掉，免得和要截的那张抢
+func _shot_skip_entry_toast() -> void:
+    for i in 600:
+        if is_instance_valid(toast_scene):
+            break
+        await get_tree().process_frame
+    if is_instance_valid(toast_scene):
+        toast_scene.closing = toast_scene.t
+        while is_instance_valid(toast_scene):
+            await get_tree().process_frame
+
 func _setup_shot(shot: String) -> void:
     if shot.begins_with("game_"):
         await _shot_game(shot)
@@ -1693,6 +1794,25 @@ func _setup_shot(shot: String) -> void:
                 cloud.call_fn("hallPulse", {"since": 1}, _on_pulse)
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
+                await get_tree().process_frame
+        "toast_back", "toast_back_sent":
+            # 回敬（蓝图 3.2「可回敬一次」，01 9/19）：我坐在 T1，老王当场敬了我——顶部提示右边出「回敬一杯」，
+            # 浮在插图上面；sent 是点了以后：顶部「敬了 老王 一杯」、老王站起来、我举杯、放我敬他的那张插图
+            nickname = "小李"
+            await _enter_banquet()
+            hall.couple_armed = false
+            dialog.visible = false
+            hall.apply_change("T1", 5, cloud.openid())
+            await _shot_skip_entry_toast()
+            cloud.fake_pulse_toasts = [{"from": "fake_wang"}]
+            cloud.call_fn("hallPulse", {"since": 1}, _on_pulse)
+            var first_scene := toast_scene
+            if shot == "toast_back_sent":
+                _on_toast_back_pressed()
+            for i in 900:
+                var s := toast_scene
+                if is_instance_valid(s) and s.t >= 1.3 and (shot == "toast_back" or s != first_scene):
+                    break
                 await get_tree().process_frame
         "life_band", "life_gifts", "life_guests", "life_waiter":
             # 厅里的热闹（阿鱼 9/18）：乐队、贺礼、别桌的 NPC 宾客、服务员，各拍一张看摆得对不对
