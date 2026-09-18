@@ -11,6 +11,8 @@ var candy := false               # 喜糖收好了（签到后自动给，只弹
 var draft: Dictionary = {}       # 断网没交上的签到草稿 {name, gift}（蓝图 3.1 异常表：本机留草稿）
 const PHOTO_KEEP := 3            # 合影最多留 3 张，旧的顶掉（蓝图 3.1 异常表）
 var photos: Array = []           # 收好的相纸：[{pose, preset, at}]，只记怎么拍的，不存图（微信里不能读显卡截图）
+var whisper_done := false        # 在宴会厅给新人写过悄悄话了：大门开不开看它和签到（蓝图 3.1「大门只在悄悄话写完后开」）
+var gloss_seen := false          # 休息区老人那句的方言词弹过普通话了（只自动弹第一次，蓝图 3.1）
 
 func load_local() -> void:
     if not FileAccess.file_exists(local_path):
@@ -25,12 +27,15 @@ func load_local() -> void:
     draft = dr if dr is Dictionary else {}
     var ph = d.get("photos", [])
     photos = ph if ph is Array else []
+    whisper_done = bool(d.get("whisper_done", false))
+    gloss_seen = bool(d.get("gloss_seen", false))
 
 func save() -> void:
     var f := FileAccess.open(local_path, FileAccess.WRITE)
     if f == null:
         return
-    f.store_string(JSON.stringify({"welcomed": welcomed, "signed_in": signed_in, "candy": candy, "draft": draft, "photos": photos}))
+    f.store_string(JSON.stringify({"welcomed": welcomed, "signed_in": signed_in, "candy": candy, "draft": draft, "photos": photos,
+        "whisper_done": whisper_done, "gloss_seen": gloss_seen}))
     f.close()
 
 ## 收好一张相纸：最多留 PHOTO_KEEP 张，多了把最早的顶掉
@@ -39,3 +44,7 @@ func keep_photo(pose: String, preset: int) -> void:
     while photos.size() > PHOTO_KEEP:
         photos.pop_front()
     save()
+
+## 大门开没开（蓝图 3.1、2.3）：写过悄悄话、也签过到。写了悄悄话没签到的，大门不开，新娘妈妈提醒先签到
+func gate_open() -> bool:
+    return whisper_done and signed_in

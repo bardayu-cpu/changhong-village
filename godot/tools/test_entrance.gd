@@ -6,6 +6,8 @@ extends SceneTree
 ##         重进只显示「已签到」、本机存档；名字被服务端判敏感词退回第一页
 ## 第三段：回忆册正式版置灰「还没印好」、调试版能打开占位屏并回到原地；摄影师招呼；合影吸到站位、姿势 → 对焦 → 相纸、
 ##         再拍一张、收好最多 3 张旧的顶掉、算了不留东西
+## 第四段：休息区老人一句乐山话、方言词第一次自动弹普通话、点说话框再看；大门：没写悄悄话不理人、写了没签到新娘妈妈提醒、
+##         写了也签了才开（金圈）、走到门口「镇上的路还没修好 下次带你去」人停下、不进结束页；本机存档
 ## 用法：Godot --headless --path . --script res://tools/test_entrance.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -178,6 +180,7 @@ func run() -> void:
 
     await part2(c)
     await part3(c)
+    await part4(c)
 
     DirAccess.remove_absolute("user://test_entrance_games.json")
     DirAccess.remove_absolute("user://test_entrance_court.json")
@@ -369,4 +372,109 @@ func part3(c) -> void:
     ui._on_act()
     ui._close_photo()
     check("什么都没多、能走", sv.photos.size() == 3 and c.walking_enabled and not ui.panel_open())
+
+
+
+## 第四段：休息区、大门
+func part4(c) -> void:
+    var sv = m.court_save
+    # 23. 休息区：老人一句，方言词第一次自动弹普通话；同一次不重复；再来不自动弹，点说话框能看
+    print("23 休息区")
+    sv.gloss_seen = false
+    m.rest_heard = false
+    m.note.text = ""
+    walk_to(c.spot_pos("rest") + Vector2(0, 120))
+    walk_to(c.spot_pos("rest"))
+    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog_who.text == "老人" and m.dialog_text.text == CourtCopy.text("elder"))
+    check("第一次自动弹普通话：%s" % m.note.text, m.note_box.visible and m.note.text == CourtCopy.text("elder_gloss") and sv.gloss_seen)
+    m.dialog_text.text = ""
+    walk_to(c.spot_pos("rest") + Vector2(0, 120))
+    walk_to(c.spot_pos("rest"))
+    check("同一次再走过来不重复", m.dialog_text.text == "")
+    m.rest_heard = false   # 当成下回再来
+    m.note.text = ""
+    walk_to(c.spot_pos("rest") + Vector2(0, 120))
+    walk_to(c.spot_pos("rest"))
+    check("再来：老人照说，不自动弹", m.dialog_text.text == CourtCopy.text("elder") and m.note.text == "")
+    var tapev := InputEventMouseButton.new()
+    tapev.button_index = MOUSE_BUTTON_LEFT
+    tapev.pressed = true
+    m.dialog.gui_input.emit(tapev)
+    check("点说话框出普通话：%s" % m.note.text, m.note.text == CourtCopy.text("elder_gloss"))
+
+    # 24. 大门：还没写悄悄话，走到门口不理人，没有金圈
+    print("24 大门没开")
+    sv.whisper_done = false
+    sv.signed_in = true
+    m._update_gate()
+    m.note.text = ""
+    m.dialog_text.text = ""
+    walk_to(c.spot_pos("gate") + Vector2(0, -200))
+    walk_to(c.spot_pos("gate"))
+    check("没金圈、不理人", not c.exit_mark.visible and m.note.text == "" and m.dialog_text.text == "")
+
+    # 25. 写了悄悄话没签到：大门不开，新娘妈妈提醒先签个到
+    print("25 写了没签到")
+    sv.whisper_done = true
+    sv.signed_in = false
+    m._update_gate()
+    walk_to(c.spot_pos("gate") + Vector2(0, -200))
+    walk_to(c.spot_pos("gate"))
+    check("没金圈；%s：%s" % [m.dialog_who.text, m.dialog_text.text],
+        not c.exit_mark.visible and m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed"))
+
+    # 26. 真走一遍：签过到，进厅写悄悄话，出来大门开了；走到门口「镇上的路还没修好 下次带你去」，人停下，不进结束页
+    print("26 写完悄悄话出大门")
+    sv.signed_in = true
+    sv.whisper_done = false
+    var wpath := "user://whispers.json"
+    var had := FileAccess.file_exists(wpath)
+    var old_w := FileAccess.get_file_as_string(wpath) if had else ""
+    walk_to(c.spot_pos("to_hall") + Vector2(0, 150))
+    walk_to(c.spot_pos("to_hall"))
+    check("进了宴会厅", m.state == "banquet")
+    m.hall.couple_armed = true
+    walk_to(m.hall.COUPLE_SPOT, 30.0)
+    check("走到新人桌，写悄悄话的框开了", m.whisper_box.visible)
+    m.whisper_edit.text = "新婚快乐"
+    m._send_whisper()
+    check("写完：本机记下、厅门亮", sv.whisper_done and m.hall.exit_mark.visible)
+    walk_to(m.hall.SPAWN + Vector2(0, -160))
+    walk_to(m.hall.door)
+    check("回到迎宾院，大门亮金圈", m.state == "court" and c.exit_mark.visible)
+    m.note.text = ""
+    walk_to(c.spot_pos("gate"), 30.0)
+    check("门口：%s" % m.note.text, m.note_box.visible and m.note.text == CourtCopy.text("gate_road"))
+    check("人停在门口、还在迎宾院", c.path.is_empty() and m.state == "court" and c.in_spot("gate"))
+    tick(60)
+    check("站着不动，没进结束页", m.state == "court" and not m.screens["end"].visible)
+    if had:
+        var wf := FileAccess.open(wpath, FileAccess.WRITE)
+        wf.store_string(old_w)
+        wf.close()
+    else:
+        DirAccess.remove_absolute(wpath)
+
+    # 26b. 签到选「不送」：新娘爸爸说「人来了就好」（03 9/19 指出这一支原来没断言）；确认页写「礼金：不送」
+    print("26b 选不送")
+    sv.signed_in = false
+    m.court_ui._refresh_act()
+    m.court_ui.open_sign()
+    m.court_ui.name_edit.text = "小李"
+    m.court_ui._name_next()
+    m.court_ui._pick_gift(0)
+    check("确认页：%s" % m.court_ui.confirm_gift.text, m.court_ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % CourtCopy.text("gift_none"))
+    m.say_log.clear()
+    m.court_ui._submit()
+    check("新娘爸爸说「%s」%s" % [CourtCopy.text("dad_no_gift"), str(m.say_log)],
+        m.say_log.has(["新娘爸爸", CourtCopy.text("dad_no_gift")]) and not m.say_log.has(["新娘爸爸", CourtCopy.text("dad_thanks")]))
+    check("服务端存的礼金是 0", int(m.cloud.fake_check_in.get("gift_value", -1)) == 0 and sv.signed_in)
+    m.court_ui.candy_root.visible = false
+
+    # 27. 本机存档
+    print("27 本机存档")
+    var again := CourtSave.new()
+    again.local_path = sv.local_path
+    again.load_local()
+    check("写过悄悄话、弹过普通话都记着", again.whisper_done and again.gloss_seen and again.gate_open())
 

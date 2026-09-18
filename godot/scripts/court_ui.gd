@@ -350,6 +350,7 @@ func _on_signed(r: Dictionary) -> void:
         save.save()
         _close_sign()
         _refresh_act()
+        m._update_gate()   # 写过悄悄话、这会儿才签到的：大门现在开
         print("[suqi] 签到 好了")
         after_sign()
         return

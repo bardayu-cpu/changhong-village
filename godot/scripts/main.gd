@@ -21,6 +21,7 @@ const CourtUI = preload("res://scripts/court_ui.gd")
 var court_save                  # 迎宾院存在本机的：迎过了、签过到、喜糖……（蓝图 2.4）
 var court_ui: Control           # 迎宾院的按钮和面板：签到、回忆册、合影……
 var photo_greeted := false      # 这次在迎宾院摄影师招呼过了（每回到迎宾院招呼一次，不走一步说一句）
+var rest_heard := false         # 这次在迎宾院休息区的老人说过了（同上）
 var debug_override := false     # 测试里当成调试版（回忆册的占位屏只有调试版能打开）
 ## 宴会厅用分层场景（画面就是 GPT 的效果图，阿鱼 9/15 选定）；false 回到 3D 搭的 HD-2D 宴会厅
 const USE_LAYERED := true
@@ -84,6 +85,8 @@ var hud: Control
 var dialog: PanelContainer
 var dialog_text: Label
 var dialog_who: Label      # 说话框左上角：谁在说（默认阿鱼；迎宾院有新娘妈妈、新娘爸爸、摄影师、老人）
+var dialog_gloss := ""     # 这句里方言词的普通话（《乐山话 v0.2》：点一下出普通话）；空的时候说话框点不了
+var say_log: Array = []    # 最近说过的 20 句 [谁, 话]：一串话接着说时前一句会被盖掉，测试、排查靠它看说过什么
 var hint: Label
 var note: Label            # 顶部提示框里的字：进厅合并提示、坐好了、拒绝原因
 var note_box: PanelContainer
@@ -715,6 +718,11 @@ func _build_hud() -> void:
     dv.add_child(dialog_text)
     dialog.add_child(dv)
     dialog.visible = false
+    # 带方言词的话（休息区老人）：说话框能点，点一下出普通话（《乐山话 v0.2》§2）
+    dialog.gui_input.connect(func(e):
+        if dialog_gloss != "" and ((e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed):
+            _note(dialog_gloss, 2.5)
+            dialog.accept_event())
     hud.add_child(dialog)
     whisper_box = PanelContainer.new()
     whisper_box.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
@@ -1010,6 +1018,8 @@ func _enter_court() -> void:
     _show_canvas("court")
     _goto("court")
     photo_greeted = false
+    rest_heard = false
+    _update_gate()
     hall_ready = false
     hint.visible = true
     await _fade_to(0.0)
@@ -1045,6 +1055,8 @@ func _switch_canvas(to: String) -> void:
         court.reset_to(COURT_FROM_HALL)
         _goto("court")
         photo_greeted = false
+        rest_heard = false
+        _update_gate()
     cv.face = keep_face
     print("[suqi] 换画布 到 ", to)
     await _fade_to(0.0)
@@ -1080,6 +1092,18 @@ func _on_court_spot(id: String, inside: bool) -> void:
             if inside and not photo_greeted:
                 photo_greeted = true
                 _say(CourtCopy.text("photo_greet"), -1.0, CourtCopy.who("photo_greet"))
+        "rest":
+            # 休息区的老人一句乐山话（蓝图 3.1）；方言词第一次自动弹普通话，之后点说话框再看
+            if inside and not rest_heard:
+                rest_heard = true
+                _say(CourtCopy.text("elder"), -1.0, CourtCopy.who("elder"), CourtCopy.text("elder_gloss"))
+                if not court_save.gloss_seen:
+                    court_save.gloss_seen = true
+                    court_save.save()
+                    _note(CourtCopy.text("elder_gloss"), 3.0)
+        "gate":
+            if inside:
+                _at_gate()
         "to_hall":
             if inside:
                 _switch_canvas("banquet")
@@ -1098,6 +1122,22 @@ func open_clip() -> void:
 func _close_clip() -> void:
     _goto("court")
     court_ui.refresh_spots()
+
+## 大门（蓝图 3.1、2.3）：悄悄话写完、也签过到才开，门口一圈金光。开了走到门口：「镇上的路还没修好 下次带你去」，
+## 人停在门口，存档（阶段 1 到这里结束，阶段 2 接进镇）。写了悄悄话没签到：大门不开，新娘妈妈提醒先签到。还没写悄悄话：大门不理人
+func _at_gate() -> void:
+    if court_save.gate_open():
+        court.path.clear()
+        court.stick = Vector2.ZERO
+        court_save.save()
+        _note(CourtCopy.text("gate_road"), 3.0)
+        print("[suqi] 走到大门口 大门开着")
+    elif court_save.whisper_done:
+        _say(CourtCopy.text("gate_not_signed"), -1.0, CourtCopy.who("gate_not_signed"))
+
+## 大门那圈金光跟着开没开（签完到、写完悄悄话、回到迎宾院时都对一次）
+func _update_gate() -> void:
+    court.exit_mark.visible = court_save.gate_open()
 
 ## 截图、测试用：不走迎宾院，直接进宴会厅（原来的进场流程）
 func _enter_banquet() -> void:
@@ -1130,11 +1170,16 @@ static func profile_payload(nick: String, avatar: int, inviter: String, me: Stri
         d["inviter"] = inviter
     return d
 
-func _say(text: String, hold := -1.0, who := "阿鱼") -> void:
+func _say(text: String, hold := -1.0, who := "阿鱼", gloss := "") -> void:
     say_token += 1
     var my := say_token
     dialog_who.text = who
     dialog_text.text = text
+    say_log.append([who, text])
+    if say_log.size() > 20:
+        say_log.pop_front()
+    dialog_gloss = gloss
+    dialog.mouse_filter = Control.MOUSE_FILTER_STOP if gloss != "" else Control.MOUSE_FILTER_IGNORE
     dialog.visible = true
     if hold == 0.0:
         return
@@ -1715,6 +1760,10 @@ func _send_whisper() -> void:
     f.store_string(JSON.stringify(arr, "  "))
     f.close()
     cloud.call_fn("saveProfile", {"whisper": text}, func(_r): pass)
+    # 写完悄悄话大门才开（蓝图 2.3、3.1），记在本机（蓝图 2.4「大门开了」存本机）
+    court_save.whisper_done = true
+    court_save.save()
+    _update_gate()
     whisper_edit.text = ""
     whisper_box.visible = false
     hall.walking_enabled = true
@@ -2198,6 +2247,32 @@ func _setup_shot(shot: String) -> void:
                     for i in 20: await get_tree().process_frame
                 if shot.begins_with("court_paper"):
                     court_ui._shutter()
+        "court_elder", "court_gate_open", "court_gate_not_signed", "court_to_hall":
+            # 休息区老人一句（第一次自动弹普通话）；大门开了走到门口、写了悄悄话没签到；从迎宾院走进楼门到宴会厅（03 9/19 建议加）
+            _shot_court_fresh()
+            nickname = "小李"
+            await _enter_court()
+            dialog.visible = false
+            match shot:
+                "court_elder":
+                    court.reset_to(court.spot_pos("rest") + Vector2(0, 30))
+                    court.face = "up"
+                    _on_court_spot("rest", true)
+                "court_gate_open", "court_gate_not_signed":
+                    court_save.whisper_done = true
+                    court_save.signed_in = shot == "court_gate_open"
+                    _update_gate()
+                    court.reset_to(court.spot_pos("gate") + Vector2(0, -20))
+                    court.face = "down"
+                    _at_gate()
+                "court_to_hall":
+                    court.reset_to(court.spot_pos("to_hall") + Vector2(0, 120))
+                    court.go_to(court.spot_pos("to_hall"))
+                    for i in 240:
+                        await get_tree().process_frame
+                        if state == "banquet" and not switching:
+                            break
+                    dialog.visible = false
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
             nickname = ""
