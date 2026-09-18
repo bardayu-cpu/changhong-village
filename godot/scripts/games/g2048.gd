@@ -76,7 +76,7 @@ func _redraw(merged: Array) -> void:
     for c in cells:
         c.queue_free()
     cells.clear()
-    var fs := 24 if cell_px >= 70.0 else 12
+    var fs := 24 if cell_px >= 44.0 else 12
     for j in n:
         for i in n:
             var k: int = board[j][i]

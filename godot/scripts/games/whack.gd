@@ -122,7 +122,7 @@ func _spawn_at(i: int) -> void:
     var plate: Panel = plates[i]
     var bad := rng.randf() < bad_ratio
     var dish_size := plate.size.x * 0.62
-    var fs := 24 if dish_size >= 50.0 else 12
+    var fs := 24 if dish_size >= 44.0 else 12
     var node: Panel
     if bad:
         node = _bad_tile(dish_size, fs)
