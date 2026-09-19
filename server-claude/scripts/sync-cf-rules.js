@@ -23,6 +23,8 @@ const NEEDS = {
   toast: ['config.js', 'time.js', 'banquet.js'],
   // wantToMeet（想认识你，9/19）：canWantToMeet 要 config.js 的长凳 id
   wantToMeet: ['config.js', 'banquet.js'],
+  // canvasFile（画布图远程加载，9/19）：只许读 canvas/ 下面的文件、一块多大
+  canvasFile: ['config.js', 'canvas.js'],
   writeBook: ['config.js', 'banquet.js', 'sensitive.js'],
   readBook: ['config.js'],
   saveProfile: ['config.js', 'resident.js', 'sensitive.js'],

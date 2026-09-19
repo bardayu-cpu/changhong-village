@@ -8,6 +8,7 @@ const tree = require('../src/tree');
 const temple = require('../src/temple');
 const town = require('../src/town');
 const banquet = require('../src/banquet');
+const canvasRules = require('../src/canvas');
 const resident = require('../src/resident');
 const sensitive = require('../src/sensitive');
 
@@ -228,6 +229,22 @@ eq(banquet.canWantToMeet({ ...meetBase, toTableId: 'T3', toasted: true, alreadyS
 eq(banquet.canWantToMeet({ ...meetBase, fromTableId: C.BANQUET_BENCH_ID, toTableId: C.BANQUET_BENCH_ID }).reason, 'meet_not_met', '想认识你：两人都坐长凳不算同桌');
 eq(banquet.canWantToMeet({ ...meetBase, fromTableId: C.BANQUET_BENCH_ID, toTableId: C.BANQUET_BENCH_ID, toasted: true }), { ok: true, via: 'toast' }, '想认识你：坐长凳敬过酒照样能发');
 eq(banquet.canWantToMeet({ ...meetBase, fromTableId: null, toTableId: null }).reason, 'meet_not_met', '想认识你：两人都没座位不算同桌');
+
+// ---------- 画布图远程加载（云函数 canvasFile，HANDOFF §0.9）：只许读 canvas/ 下面的，一块一块回 ----------
+const CV_ID = 'cloud://cloud1-d9ggg36tj34742bef.636c-cloud1-d9ggg36tj34742bef-1488216695/canvas/scene_roman_banquet/base.png';
+eq(canvasRules.canReadCanvas(CV_ID), true, '画布图：canvas/ 下面的能读');
+eq(canvasRules.canReadCanvas(CV_ID.replace('/canvas/', '/private/')), false, '画布图：canvas/ 以外的不给');
+eq(canvasRules.canReadCanvas(CV_ID.replace('/canvas/', '/canvas/../private/')), false, '画布图：路径里有 .. 不给');
+eq(canvasRules.canReadCanvas(CV_ID + ' '), false, '画布图：带空白不给');
+eq(canvasRules.canReadCanvas('https://x.com/canvas/a.png'), false, '画布图：不是 cloud:// 不给');
+eq(canvasRules.canReadCanvas(undefined), false, '画布图：没传不给');
+eq(canvasRules.chunkRange(600, 0, 256), { ok: true, start: 0, end: 256, done: false }, '画布图：第一块');
+eq(canvasRules.chunkRange(600, 512, 256), { ok: true, start: 512, end: 600, done: true }, '画布图：最后一块不满也算完');
+eq(canvasRules.chunkRange(600, 600, 256).done, true, '画布图：正好要到末尾算完');
+eq(canvasRules.chunkRange(600, 601, 256).reason, 'bad_request', '画布图：超过文件大小回 bad_request');
+eq(canvasRules.chunkRange(600, -1, 256).reason, 'bad_request', '画布图：负数回 bad_request');
+eq(canvasRules.chunkRange(600, 1.5, 256).reason, 'bad_request', '画布图：不是整数回 bad_request');
+eq(canvasRules.chunkRange(C.CANVAS_CHUNK * 3, C.CANVAS_CHUNK).end, C.CANVAS_CHUNK * 2, '画布图：默认一块 CANVAS_CHUNK');
 
 // ---------- 宴会厅 · 桌簿（蓝图 3.2 9/18 改：只能写「现在坐的那桌」，不再是「坐过的桌都能写」） ----------
 eq(banquet.canWriteBook({ table: 'T1', mySeatTableId: 'T1', text: '恭喜恭喜' }).ok, true, '坐在T1写T1能写');

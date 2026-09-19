@@ -4,6 +4,7 @@
 // 日志里只打 openid 前 6 位。
 // 只用老写法：开发者工具的编译器碰到新写法可能会崩。
 var ENV = 'cloud1-d9ggg36tj34742bef';
+GameGlobal.__suqiEnv = ENV;   // remote.js 下载失败时拿它和 File ID 里的环境对一下
 
 GameGlobal.__suqiUser = { openid: '', state: 'pending' };
 

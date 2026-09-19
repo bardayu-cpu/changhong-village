@@ -978,6 +978,70 @@ async function scenarioWantToMeetDbError() {
   check(res.ok === false && res.reason === 'network', `想认识你 数据库出错回 network（实际 ${JSON.stringify(res)}）`);
 }
 
+// ================= 画布图远程加载（canvasFile，HANDOFF §0.9，01 9/19 派） =================
+// 云存储「仅创建者可读写」时玩家读不到控制台传的图，走云函数一块一块回：拼起来和原图一样；只许读 canvas/；
+// 同一个热实例一张图只下一次；文件不在回 download_failed、下次重下
+async function scenarioCanvasFile() {
+  const { sdk } = createFakeSdk();
+  const ID = 'cloud://cloud1-d9ggg36tj34742bef.636c-cloud1-d9ggg36tj34742bef-1488216695/canvas/scene_roman_banquet/base.png';
+  const ID2 = ID.replace('base.png', 'blk_table_round.png');
+  const orig = Buffer.alloc(600 * 1024);
+  for (let i = 0; i < orig.length; i++) orig[i] = (i * 31 + 7) & 0xff;
+  const other = Buffer.from('another canvas file');
+  const store = { [ID]: orig, [ID2]: other };
+  let downloads = 0;
+  sdk.downloadFile = async ({ fileID }) => {
+    downloads++;
+    if (!store[fileID]) throw { errMsg: 'downloadFile:fail STORAGE_FILE_NONEXIST' };
+    return { fileContent: store[fileID], statusCode: 200 };
+  };
+  const fn = loadCloudFunction('canvasFile', sdk);
+
+  // 一块一块要到 done，拼起来和原图一模一样
+  const parts = [];
+  let offset = 0, res, calls = 0, lastDoneOnlyAtEnd = true;
+  do {
+    res = await fn.main({ fileID: ID, offset });
+    calls++;
+    if (!res.ok) break;
+    parts.push(Buffer.from(res.data, 'base64'));
+    if (res.done && res.offset + res.size !== orig.length) lastDoneOnlyAtEnd = false;
+    offset = res.offset + res.size;
+  } while (!res.done && calls < 50);
+  const joined = Buffer.concat(parts);
+  check(res.ok === true && res.total === orig.length, `画布图 每块都回 total=${orig.length}（实际 ${JSON.stringify({ ok: res.ok, total: res.total })}）`);
+  check(joined.equals(orig), `画布图 拼起来和原图一样（${joined.length} 字节）`);
+  check(calls === 3 && lastDoneOnlyAtEnd, `画布图 600KB 分 3 块、最后一块才 done（实际 ${calls} 块）`);
+  check(parts[0].length === 256 * 1024, `画布图 一块 256KB（实际 ${parts[0].length}）`);
+  check(downloads === 1, `画布图 同一个实例一张图只从存储下一次（实际 ${downloads} 次）`);
+
+  // 换一张图：重下
+  res = await fn.main({ fileID: ID2, offset: 0 });
+  check(res.ok && Buffer.from(res.data, 'base64').equals(other) && res.done && downloads === 2, `画布图 换一张图重下（实际下了 ${downloads} 次）`);
+
+  // canvas/ 以外、带空白、有 ..、不传：都 bad_request，不去碰存储
+  const before = downloads;
+  for (const bad of [ID.replace('/canvas/', '/private/'), ID + ' ', ID.replace('/canvas/', '/canvas/../private/'), undefined]) {
+    res = await fn.main({ fileID: bad, offset: 0 });
+    check(res.ok === false && res.reason === 'bad_request', `画布图 不许读 ${String(bad).slice(-24)}（实际 ${JSON.stringify(res)}）`);
+  }
+  check(downloads === before, '画布图 不许读的都没去碰存储');
+
+  // offset 超过文件大小、负数：bad_request
+  res = await fn.main({ fileID: ID2, offset: 999999 });
+  check(res.ok === false && res.reason === 'bad_request', `画布图 offset 超过文件大小回 bad_request（实际 ${JSON.stringify(res)}）`);
+  res = await fn.main({ fileID: ID2, offset: -5 });
+  check(res.ok === false && res.reason === 'bad_request', `画布图 offset 负数回 bad_request（实际 ${JSON.stringify(res)}）`);
+
+  // 文件不在：download_failed，原因带回去；下次再要重新去存储下
+  const missing = ID.replace('base.png', 'nope.png');
+  res = await fn.main({ fileID: missing, offset: 0 });
+  check(res.ok === false && res.reason === 'download_failed' && /NONEXIST/.test(res.detail), `画布图 文件不在回 download_failed 带原因（实际 ${JSON.stringify(res)}）`);
+  const d0 = downloads;
+  res = await fn.main({ fileID: ID2, offset: 0 });
+  check(res.ok === true && downloads === d0 + 1, '画布图 出错以后缓存清掉，下一张重新下');
+}
+
 (async () => {
   await scenarioSeatPagination();
   await scenarioReadBookLatest200();
@@ -991,6 +1055,7 @@ async function scenarioWantToMeetDbError() {
   await scenarioSaveProfileCheckIn();
   await scenarioWantToMeet();
   await scenarioWantToMeetDbError();
+  await scenarioCanvasFile();
   await scenarioHallPulseInvalidSince();
   await scenarioHallPulseGetsNewToast();
   await scenarioHallPulseNoDuplicateOnNextPoll();

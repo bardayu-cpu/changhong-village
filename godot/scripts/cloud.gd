@@ -73,6 +73,9 @@ var fake_mine := {"coins": 0, "games": {}, "dishes": [], "gift_coins": 0}   # �
 var fake_pulse_toasts: Array = []   # 电脑上假装「刚有人敬我」：截图、测试往这里塞 {from}，下一次 hallPulse 带回去
 var fake_fetch_count := 0           # 电脑上假装从云存储下载（@fetchFile）了几次：测「第二次打开读本地、不下载」用
 var fake_fetch_fail := ""           # 不是空串就假装下载失败，回这个 reason（测试失败那一路用）
+var fake_fetch_diag: Dictionary = {}   # 假装下载失败时一起带回的临时链接回话（真机上是 wxgame/remote.js 的 diagnose）
+var fake_no_function := false       # 走云函数那条路（@fetchChunks）时假装 canvasFile 还没部署
+var fake_fetch_last := ""           # 最后一次假下载走的哪条路（@fetchFile / @fetchChunks）
 var fake_fail_next := ""            # 不是空串：下一次调任何云函数都假装失败、回这个 reason（测断网那一路用），用一次就清掉
 var fake_check_in: Dictionary = {}  # 电脑上签到存下来的 {name, gift_value}（迎宾院签到，服务端是 resident 的 check_in_name、gift_value）
 
@@ -307,16 +310,22 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 nm[ft["from"]] = fake_names.get(ft["from"], {"nick": "", "avatar": -1})
             fake_pulse_toasts.clear()
             return {"ok": true, "now": now, "toasts": out, "names": nm}
-        "@fetchFile":
+        "@fetchFile", "@fetchChunks":
             # 假装从云存储下载（真机上是 wxgame/remote.js）：把 assets/remote_probe.json 的 source 拷到要的位置。
             # 只在工程目录里跑（编辑器、无界面测试、截图）时拿得到 source 原图，导出的包里没有，也用不到
             fake_fetch_count += 1
+            fake_fetch_last = name
+            if name == "@fetchChunks" and fake_no_function:
+                return {"ok": false, "reason": "no_function", "detail": "云函数 canvasFile 还没部署：电脑上假装的"}
             var fid := str(data.get("fileID", ""))
             var dst := str(data.get("path", ""))
             if fid == "" or dst == "":
                 return {"ok": false, "reason": "bad_request"}
             if fake_fetch_fail != "":
-                return {"ok": false, "reason": fake_fetch_fail, "detail": "电脑上假装失败"}
+                var failed := {"ok": false, "reason": fake_fetch_fail, "detail": "电脑上假装失败"}
+                if not fake_fetch_diag.is_empty():
+                    failed["diag"] = fake_fetch_diag
+                return failed
             var man = JSON.parse_string(FileAccess.get_file_as_string("res://assets/remote_probe.json"))
             var src := str((man as Dictionary).get("source", "")) if man is Dictionary else ""
             var bytes := FileAccess.get_file_as_bytes(src)

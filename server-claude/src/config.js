@@ -91,4 +91,7 @@ module.exports = {
   // 现在只有敬酒还靠它放开测试：为 true 时敬酒不限每天杯数、不限对同一人的杯数；敬自己照样拒。
   // 【请朋友进来之前必须改成 false，并重新部署 toast】（HANDOFF 服务端一节有记）
   BANQUET_TEST_MODE: true,
+  // 画布图远程加载（HANDOFF §0.9，云函数 canvasFile）：一次回多少字节。base64 以后约 342KB，
+  // 远低于云函数回包的上限【待验证：回包上限具体多大】；一张 2.3MB 的底图要 9 次
+  CANVAS_CHUNK: 256 * 1024,
 };

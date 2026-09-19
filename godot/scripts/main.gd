@@ -2322,9 +2322,10 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
-        "remote_probe", "remote_probe_local":
+        "remote_probe", "remote_probe_local", "remote_probe_fail":
             # 远程加载的最小验证（§0.9）：调试版日志面板里点「远程加载」以后的样子。要加 --hud 才有调试面板。
-            # 电脑上走假下载；remote_probe 是第一次（下载了），remote_probe_local 是第二次（读的本地，没下载）
+            # 电脑上走假下载；remote_probe 是第一次（下载了），remote_probe_local 是第二次（读的本地，没下载）；
+            # remote_probe_fail 是第 30 版真机那样下载失败，带上问临时链接的回话（这里假装回的是没权限）
             if dbg == null:
                 _build_debug()
             nickname = "小李"
@@ -2333,7 +2334,12 @@ func _setup_shot(shot: String) -> void:
             _toggle_log()
             var pr = RemoteProbe.new()
             pr.file_id = "cloud://fake-env.fake-bucket/canvas/scene_roman_banquet/base.png"
-            if shot == "remote_probe":
+            if shot == "remote_probe_fail":
+                pr.clear_local()
+                cloud.fake_fetch_fail = "download_failed"
+                cloud.fake_fetch_diag = {"env_in_id": "cloud1-d9ggg36tj34742bef", "env_init": "cloud1-d9ggg36tj34742bef",
+                    "status": -1, "errMsg": "STORAGE_EXCEED_AUTHORITY", "url_host": ""}
+            if shot == "remote_probe" or shot == "remote_probe_fail":
                 pr.clear_local()
             else:
                 _run_remote_probe(pr)

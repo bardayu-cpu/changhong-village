@@ -34,6 +34,9 @@ func _init() -> void:
     check("开始前本地没有", not FileAccess.file_exists(local))
     check("清单里写了图的大小", p0.expect_bytes > 0)
 
+    # 0b. 走哪条路：清单写的是云函数（云存储是「仅创建者可读写」，玩家自己下不了，9/19 第 30 版真机查实）
+    check("清单写 via=function", p0.via == "function")
+
     # 1. 还没填 File ID（阿鱼还没上传）：不下载，说清楚还没填
     print("1 还没填 File ID")
     var r0 := probe_once(c, "")
@@ -80,7 +83,42 @@ func _init() -> void:
     var r5 := probe_once(c)
     check("回失败原因：" + str(r5.get("text", "")), not bool(r5.get("ok", true)) and str(r5.get("reason", "")) == "download_failed")
     check("本地没留东西", not FileAccess.file_exists(local))
+    # 6b. 微信那一层顺手问了临时链接（remote.js 的 diagnose）：屏幕上那行、日志都带上，截图看得出是哪种毛病
+    c.fake_fetch_diag = {"env_in_id": "cloud1-d9ggg36tj34742bef", "env_init": "cloud1-d9ggg36tj34742bef",
+        "status": -1, "errMsg": "STORAGE_EXCEED_AUTHORITY", "url_host": ""}
+    var r6 := probe_once(c)
+    var t6 := str(r6.get("text", ""))
+    check("屏幕上带临时链接那句：" + t6.replace("\n", " | "), t6.contains("临时链接 status -1 STORAGE_EXCEED_AUTHORITY") and t6.contains("权限"))
+    c.fake_fetch_diag = {}
     c.fake_fetch_fail = ""
+    # 6c. 临时链接的回话翻成人话：权限、文件不在、环境对不上、拿得到链接（下载那一步的事）、没回
+    var env := "cloud1-d9ggg36tj34742bef"
+    check("没权限", Probe.diag_text({"status": -1, "errMsg": "STORAGE_EXCEED_AUTHORITY", "env_in_id": env, "env_init": env}).contains("权限"))
+    check("文件不在", Probe.diag_text({"status": -1, "errMsg": "STORAGE_FILE_NONEXIST", "env_in_id": env, "env_init": env}).contains("没有这个文件"))
+    check("环境对不上", Probe.diag_text({"status": -1, "errMsg": "x", "env_in_id": "cloud1-other", "env_init": env}).contains("环境"))
+    var got := Probe.diag_text({"status": 0, "errMsg": "ok", "url_host": "636c-x.tcb.qcloud.la", "env_in_id": env, "env_init": env})
+    check("拿得到链接：%s" % got, got.contains("下载那一步") and got.contains("636c-x.tcb.qcloud.la"))
+    got = Probe.diag_text({"errMsg": "临时链接 8000 毫秒没回", "env_in_id": env, "env_init": env})
+    check("没回：%s" % got, got.begins_with("status 没回 临时链接 8000 毫秒没回"))
+
+    # 6d. 默认走云函数那条路（@fetchChunks）；清单改成 storage 就走小程序自己下（@fetchFile）
+    p0.clear_local()
+    probe_once(c)
+    check("默认走云函数 %s" % c.fake_fetch_last, c.fake_fetch_last == "@fetchChunks")
+    p0.clear_local()
+    var box := {}
+    var ps = Probe.new()
+    ps.file_id = "cloud://test-env.test-bucket/canvas/scene_roman_banquet/base.png"
+    ps.via = "storage"
+    ps.run(c, func(r): box["r"] = r)
+    check("via=storage 走小程序自己下 %s" % c.fake_fetch_last, c.fake_fetch_last == "@fetchFile" and bool(box.get("r", {}).get("ok", false)))
+    # 6e. 云函数还没部署：说清楚要阿鱼点头部署
+    p0.clear_local()
+    c.fake_no_function = true
+    var r7 := probe_once(c)
+    c.fake_no_function = false
+    check("没部署：" + str(r7.get("text", "")), str(r7.get("reason", "")) == "no_function" and str(r7.get("text", "")).contains("还没部署"))
+    check("没部署也不留本地副本", not FileAccess.file_exists(local))
 
     # 7. 删掉本地副本那个按钮
     print("7 删掉本地副本")
