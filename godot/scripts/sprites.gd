@@ -227,13 +227,75 @@ const BACKHALL_NPCS := {
     "cook": {"hair": "short", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#f4f1ea", "K": "#d4cec2", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
 }
 
-## 灰盒画布（迎宾院、后厅……）里的 NPC 长什么样：按 id 在各画布的表里找，找不到用迎宾院的老人
+## 草坪的 NPC（蓝图 3.4，灰盒占位，lawn.gd 用）：孩童玩闹区两个小孩，泛称「小孩」，不追真人；画出来按 0.65 个大人高（布局里 size）
+const LAWN_NPCS := {
+    "kid_1": {"hair": "tails", "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "g": "#E8746A", "k": "#f2c14e", "K": "#c9a13e", "p": "#4A6FA5", "P": "#2E4A7A", "f": "#1d1a24"}},
+    "kid_2": {"hair": "short", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#5c8a6a", "K": "#3f6a50", "p": "#e0a458", "P": "#b87a36", "f": "#1d1a24"}},
+}
+
+## 灰盒画布（迎宾院、后厅、草坪……）里的 NPC 长什么样：按 id 在各画布的表里找，找不到用迎宾院的老人
 static func npc_look(id: String) -> Dictionary:
     if COURT_NPCS.has(id):
         return COURT_NPCS[id]
     if BACKHALL_NPCS.has(id):
         return BACKHALL_NPCS[id]
+    if LAWN_NPCS.has(id):
+        return LAWN_NPCS[id]
     return COURT_NPCS["elder"]
+
+## 喜多（柯基，美术生图包「喜多（柯基）」；蓝图 3.4 草坪）：灰盒占位，代码画的小柯基，短腿、大耳朵，朝右画。
+## 三帧横排：站、跑 1、跑 2，每帧 CORGI_W×CORGI_H（外圈留一像素描边）。正式图（坐、趴、盯人）以后出，要阿鱼给照片（蓝图 5）
+const CORGI_W := 22
+const CORGI_H := 13
+const CORGI_BODY := [
+    "..............F..F..",
+    "..............FF.FF.",
+    "..............FFFFF.",
+    "..............FKFFW.",
+    "..FFFFFFFFFFFFFFFWWK",
+    ".FFFFFFFFFFFFFFFWWW.",
+    "FFFFFFFFFFFFFFFWWW..",
+    ".FFFFFFFFFFFFFWWW...",
+    "..WWWWWWWWWWWWWW....",
+]
+const CORGI_LEGS := [
+    "...WW..WW...WW.WW...",   # 站
+    "..WW....WW.WW....WW.",   # 跑 1：前后腿岔开
+    "....WWWW.....WWWW...",   # 跑 2：收拢
+]
+const CORGI_PAL := {"F": "#d98c4a", "W": "#f4f1ea", "K": "#1d1a24"}
+const CORGI_LINE := "#3a2418"
+
+static func corgi_sheet() -> Image:
+    var im := Image.create_empty(CORGI_W * 3, CORGI_H, false, Image.FORMAT_RGBA8)
+    for k in 3:
+        var rows: Array = CORGI_BODY.duplicate()
+        rows.append(CORGI_LEGS[k])
+        rows.append(CORGI_LEGS[k])
+        for y in rows.size():
+            var line: String = rows[y]
+            for x in line.length():
+                var ch := line[x]
+                if CORGI_PAL.has(ch):
+                    im.set_pixel(k * CORGI_W + 1 + x, 1 + y, Color(str(CORGI_PAL[ch])))
+    # 描边：透明的格子挨着有颜色的就涂深色（每帧自己描，不串到隔壁帧）
+    var line_col := Color(CORGI_LINE)
+    var marks: Array[Vector2i] = []
+    for k in 3:
+        for y in CORGI_H:
+            for x in CORGI_W:
+                var px := k * CORGI_W + x
+                if im.get_pixel(px, y).a > 0.0:
+                    continue
+                for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+                    var nx: int = x + d.x
+                    var ny: int = y + d.y
+                    if nx >= 0 and ny >= 0 and nx < CORGI_W and ny < CORGI_H and im.get_pixel(k * CORGI_W + nx, ny).a > 0.0:
+                        marks.append(Vector2i(px, y))
+                        break
+    for p in marks:
+        im.set_pixelv(p, line_col)
+    return im
 
 const GUEST_HAIR := ["short", "long", "curly", "short", "long", "bald", "tails", "short", "long"]
 const GUEST_HAIR_COL := [

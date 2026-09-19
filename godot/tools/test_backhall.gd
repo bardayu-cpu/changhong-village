@@ -3,7 +3,7 @@ extends SceneTree
 ## 布局：六个交互点和蓝图一字不差、四个房门走得通、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室四个长辈坐着、厨房一个厨师、
 ## 休息间没人只有一件外套、礼服架只有架子。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
 ## 西口回宴会厅站 (1440,600)，两头都不来回弹，座位、金币、NPC 宾客都还在。四个房间：走进半径出按钮，点一下一句「【待补】」
-## （话没定前不空着），再点关掉，走出去按钮和话都收。东口（厨房后门）「去草坪的小路还没修好」。整条路 迎宾院 → 宴会厅 → 后厅 → 宴会厅 → 迎宾院
+## （话没定前不空着），再点关掉，走出去按钮和话都收。东口（厨房后门）去草坪（9/19 任务 8 起）。整条路 迎宾院 → 宴会厅 → 后厅 → 宴会厅 → 迎宾院
 ## 用法：Godot --headless --path . --script res://tools/test_backhall.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -206,11 +206,13 @@ func run() -> void:
     check("再点是再说一遍「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "【待补】")
     ui._on_act()
 
-    # 7. 东口（厨房后门）：草坪还没做，出「还没修好」，人还在后厅
+    # 7. 东口（厨房后门）去草坪（9/19 任务 8 起）：站在西北口边 (100,300)；从西北口回来站在厨房后门边 (1440,780)
     print("7 厨房后门")
     walk_to(Vector2(168, 790))
     walk_to(b.spot_pos("to_lawn"), 30.0)
-    check("东口：%s" % m.note.text, m.note_box.visible and m.note.text == "去草坪的小路还没修好" and m.state == "backhall")
+    check("厨房后门进了草坪 state=%s，站在 %s" % [m.state, m.lawn.pos], m.state == "lawn" and m.lawn.pos == Vector2(100, 300))
+    walk_to(m.lawn.spot_pos("to_backhall"))
+    check("草坪西北口回到后厅、站在厨房后门边 %s" % b.pos, m.state == "backhall" and b.pos == Vector2(1440, 780))
 
     # 8. 离开后厅时按钮收起来：站在大锅前出着按钮，走回宴会厅
     print("8 离开后厅按钮收")

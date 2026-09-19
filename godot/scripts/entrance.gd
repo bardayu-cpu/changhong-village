@@ -165,6 +165,15 @@ func _item(it: Dictionary) -> void:
         "beam":
             foot = float(it["foot"])
             holder.add_child(_poly(_rect_pts([it["x0"], it["top"], it["x1"], float(it["top"]) + float(it["thick"])]), Color(str(it["color"])), foot))
+        "poly":
+            # 随便一块多边形（草坪滑梯的滑道），点是画布上的绝对坐标；block 给了才挡路（[x0,y0,x1,y1]）
+            foot = float(it["foot"])
+            var pts := PackedVector2Array()
+            for v in it["pts"]:
+                pts.append(Vector2(float(v[0]), float(v[1])))
+            holder.add_child(_poly(pts, Color(str(it["color"])), foot))
+            if it.has("block"):
+                obstacles.append({"rect": it["block"]})
         "puffs":
             # 几团半透明的圆（后厅大锅冒的气，蓝图 3.3 用户故事「大锅在冒气」），着地线跟着锅走，不挡路
             foot = float(it["y"])
@@ -220,7 +229,7 @@ func _npcs() -> void:
             s.frame = int(fl["idle"])
             s.offset = Vector2(0, -16.0)
         var at := Vector2(float(n["x"]), float(n["y"]))
-        var k := _px_h(at.y) / 32.0
+        var k := _px_h(at.y) / 32.0 * float(n.get("size", 1.0))   # size：小孩按大人的几成高（草坪 0.65）
         s.scale = Vector2(k, k)
         s.position = at
         s.name = "npc_" + id
