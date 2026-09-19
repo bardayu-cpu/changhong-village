@@ -2336,6 +2336,7 @@ func _setup_shot(shot: String) -> void:
             pr.file_id = "cloud://fake-env.fake-bucket/canvas/scene_roman_banquet/base.png"
             if shot == "remote_probe_fail":
                 pr.clear_local()
+                pr.via = "storage"   # 诊断是小程序自己从云存储下那条路的（走云函数那条不问临时链接）
                 cloud.fake_fetch_fail = "download_failed"
                 cloud.fake_fetch_diag = {"env_in_id": "cloud1-d9ggg36tj34742bef", "env_init": "cloud1-d9ggg36tj34742bef",
                     "status": -1, "errMsg": "STORAGE_EXCEED_AUTHORITY", "url_host": ""}
