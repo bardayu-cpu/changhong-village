@@ -458,6 +458,13 @@ func order_dish(tid: String, dish_name: String) -> bool:
         if d < best_d:
             best_d = d
             best = w
+    # 在门里待着的是藏起来的（state=away、node.visible=false）：先让它从门口现身再派活，
+    # 不然它一路隐身走过去，菜像凭空出现在桌上（03 9/20 报的）。
+    # 也必须先挪到门口再算路——不然算的是它上一趟停下的老位置
+    if best != null and best.state == "away":
+        best.pos = door
+        best.node.visible = true
+        best.wait = 0.0
     if best != null and _take_order(best):
         best.full = true
         _tray_look(best)

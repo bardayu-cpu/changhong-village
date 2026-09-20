@@ -242,6 +242,18 @@ func run() -> void:
     check("扣了 40，手上剩 60", m.games_save.coins == 60)
     check("顶部：%s" % m.note.text, m.note.text == "添了一道豆腐脑 马上端来")
     check("这一单记下了（服务员当场调过来了）", life.ordered_total("T3") == 1 and life.ordered_count("T3") == 0)
+    # 门里待着的服务员是藏起来的，被调出来接单必须先现身，不然一路隐身走过去、
+    # 菜像凭空出现在桌上（03 9/20 报的）
+    var carriers := 0
+    var hidden := 0
+    for w in life.waiters:
+        if w.order != "":
+            carriers += 1
+            if not w.node.visible:
+                hidden += 1
+            if w.pos.distance_to(life.door) > 4.0 and w.path.is_empty():
+                hidden += 1   # 既不在门口又没路可走：这趟没真派出去
+    check("接单的服务员看得见、有路可走（%d 个在端，%d 个不对劲）" % [carriers, hidden], hidden == 0)
     life_secs(life, 5.0)
     check("5 秒内菜就端到了", life.ordered_count("T3") == 1)
     var mine: Dictionary = {}

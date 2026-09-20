@@ -134,5 +134,34 @@ func run() -> void:
     ok = ok and all_named
     print("  每张牌都带名字、名字都在那张菜谱里 ", all_named)
 
+    # 7. 两套图别混（03 9/20 报的：一级「花生」配了鱼的图）。
+    #    2048 那 11 级有自己一套阶梯图，GPT 还没交 —— 这轮退回色块 + 菜名，不拿共用那 12 张凑；
+    #    另外五个游戏照旧用共用那 12 张
+    var Tiles = load("res://scripts/games/tiles.gd")
+    var ladder_tex = Tiles.dish_art(0, "ladder")
+    var shared_tex = Tiles.dish_art(0, "shared")
+    print("7 阶梯图 ", "有" if ladder_tex != null else "还没交", "，共用菜牌 ", "有" if shared_tex != null else "没有")
+    ok = ok and shared_tex != null
+    var pics := 0
+    for c in g.cells:
+        for kid in (c as Panel).get_children():
+            if kid is TextureRect:
+                pics += 1
+    if ladder_tex == null:
+        # 图没交：盘上一张图都不该有（宁可全色块，也别一半图一半色块）
+        print("  阶梯图还没交，2048 退回色块 + 菜名：盘上图片数 ", pics)
+        ok = ok and pics == 0 and drawn > 0
+    else:
+        print("  阶梯图到了，2048 每格都该有图：", pics, "/", drawn)
+        ok = ok and pics == drawn
+    var shared_tile: Panel = Tiles.dish_tile(0, 48.0, SystemFont.new(), 24)
+    var shared_pics := 0
+    for kid in shared_tile.get_children():
+        if kid is TextureRect:
+            shared_pics += 1
+    print("  另外五个游戏照旧用共用那 12 张：一张牌里有 ", shared_pics, " 张图")
+    ok = ok and shared_pics == 1
+    shared_tile.queue_free()
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

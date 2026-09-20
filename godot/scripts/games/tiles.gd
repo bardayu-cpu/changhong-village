@@ -6,23 +6,34 @@ extends RefCounted
 
 const Cfg = preload("res://scripts/games/game_config.gd")
 const INK := Color("#2c1f1c")
-const ART := "res://assets/minigames/tiles/dish_%02d.png"
+## 两套图，别混（`回执/GPT出图清单-席间小游戏.md` 第一节 vs 第二节，本来就是分开列的）：
+##   shared —— 五个游戏共用的 12 张菜牌（鱼、菜、豆、酒……），GPT 9/20 交了，已接进来
+##   ladder —— 小菜合大菜那 11 级自己的阶梯图（花生 → 凉菜 → …… → 大菜），**GPT 还没交**
+## 拿级数去共用那 12 张里取会错位（一级「花生」取到鱼的图，03 9/20 报的）。
+## 阶梯图到了往 assets/minigames/ladder/ 一放就自动用上，代码一行都不用改
+const ART := {
+    "shared": "res://assets/minigames/tiles/dish_%02d.png",
+    "ladder": "res://assets/minigames/ladder/step_%02d.png",
+}
 const ART_PAD := 0.08        # 图四周留一圈，别顶着描边
 
-static var _art: Dictionary = {}   # 序号 -> Texture2D（没有这张图就存 null，不用每次都去试）
+static var _art: Dictionary = {}   # "套名:序号" -> Texture2D（没有这张图就存 null，不用每次都去试）
 
-## 交接单那 12 张图里的第 kind 张；没有返回 null
-static func dish_art(kind: int) -> Texture2D:
-    if not _art.has(kind):
-        var path := ART % kind
-        _art[kind] = load(path) if ResourceLoader.exists(path) else null
-    return _art[kind]
+## 某一套图里的第 kind 张；没有返回 null（那就退回色块 + 字）
+static func dish_art(kind: int, art_set := "shared") -> Texture2D:
+    var key := "%s:%d" % [art_set, kind]
+    if not _art.has(key):
+        var tpl := str(ART.get(art_set, ""))
+        var path := tpl % kind if tpl != "" else ""
+        _art[key] = load(path) if path != "" and ResourceLoader.exists(path) else null
+    return _art[key]
 
 ## 一张菜牌：kind 是 tiles 里的序号（超出就轮回去），size 边长（屏幕像素），font_size 字号（像素字体要 12 的倍数）。
 ## caption 不是空串就写这几个字（小菜合大菜要的：那一级叫什么名字，光看图看不出先后）；
 ## 空串时有图就只放图，没图退回原来的「色块 + tiles 里那个字」。
+## art_set 选哪一套图（见上面 ART）：五个游戏用 shared，小菜合大菜用 ladder。
 ## **别在外面去摸这个 Panel 的孩子**（有图没图孩子不一样，9/20 换图时 2048 就是这么崩的），要写字就用 caption
-static func dish_tile(kind: int, size: float, font: Font, font_size := 24, caption := "") -> Panel:
+static func dish_tile(kind: int, size: float, font: Font, font_size := 24, caption := "", art_set := "shared") -> Panel:
     var tl: Array = Cfg.tiles()
     var n := kind % tl.size() if not tl.is_empty() else kind
     var t: Dictionary = tl[n] if not tl.is_empty() else {"ch": "?", "bg": "#cccccc"}
@@ -30,7 +41,8 @@ static func dish_tile(kind: int, size: float, font: Font, font_size := 24, capti
     p.size = Vector2(size, size)
     p.add_theme_stylebox_override("panel", box(Color(str(t["bg"]))))
     p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    var tex := dish_art(n)
+    # 阶梯那套按级数取（不轮回，缺了就是缺了，退回色块），共用那套按 tiles 的序号取
+    var tex := dish_art(kind if art_set != "shared" else n, art_set)
     if tex != null:
         var r := TextureRect.new()
         r.texture = tex

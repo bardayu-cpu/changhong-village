@@ -82,9 +82,12 @@ func _redraw(merged: Array) -> void:
             var k: int = board[j][i]
             if k == 0:
                 continue
-            # 名字走 caption（9/20 换成图以后，牌子里第一个孩子不一定是 Label，不能再去摸孩子）。
-            # 这个游戏一定要看得见名字：目标写的是「合出『全家福』」，光看图分不出哪级大
-            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, DISHES[clampi(k - 1, 0, DISHES.size() - 1)])
+            # 这 11 级有自己一套阶梯图（ladder），不是五个游戏共用的那 12 张菜牌——
+            # 拿级数去共用那套里取会错位（一级「花生」取到鱼的图，03 9/20 报的）。
+            # 阶梯图 GPT 还没交，dish_tile 取不到就退回「色块 + 菜名」，跟换图之前一个样；
+            # 图往 assets/minigames/ladder/ 一放就自动用上。
+            # 名字一定要看得见：目标写的是「合出『全家福』」，光看图分不出哪级大
+            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, DISHES[clampi(k - 1, 0, DISHES.size() - 1)], "ladder")
             t.position = _cell_pos(i, j)
             if Vector2i(i, j) in merged:
                 t.pivot_offset = t.size * 0.5
