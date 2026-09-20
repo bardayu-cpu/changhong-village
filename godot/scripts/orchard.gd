@@ -241,8 +241,23 @@ func _fruit_dot(at: Vector2, col: Color, r: float, dy: float) -> Array:
     world.add_child(holder)
     return [holder, body]
 
+## 手机时间往回拨（蓝图 3.6 异常处理）：哪块地的时刻比现在还晚，就从现在重算，不结算负数、也不会白等一年
+func _fix_clock() -> void:
+    if save == null:
+        return
+    var t := now()
+    var fixed := false
+    for p in plots:
+        if save.picked_at(p["id"]) > t:
+            save.mark_plot(p["id"], t)
+            fixed = true
+    if fixed:
+        save.save()
+        print("[suqi] 果园 手机时间往回拨了，地从现在重算")
+
 ## 照每块地长到哪一步，把果子改成看得出来的样子：光地没有、青果绿的小一点、熟了原色
 func refresh_fruit() -> void:
+    _fix_clock()
     for p in plots:
         var st := stage_of(p["id"], p["kind"])
         var col: Color = GREEN_COL if st == 1 else RIPE_COL[p["kind"]]

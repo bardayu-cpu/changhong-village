@@ -83,7 +83,7 @@ func run() -> void:
     m.orchard_save.plots = {}
     m.orchard_save.basket = {}
     m.orchard_save.sold = {}
-    o.fake_now = 1_000_000.0          # 从一个定死的时刻起算，省得跟着真钟走
+    o.fake_now = 1_800_000_000.0      # 从一个定死的时刻起算（真实纪元的量级，往回拨也不会变成负数），省得跟着真钟走
 
     # 1. 布局：蓝图 3.6 的三个点没动，另加收购处
     print("1 布局")
@@ -264,6 +264,20 @@ func run() -> void:
         o.ripe_count("strawberry") == 8 and o.ripe_count("loquat") == 0)
     o.farm["season_gate"] = false
     o.fake_today = ""
+
+    # 10b. 手机时间往回拨（蓝图 3.6 异常处理）：不结算负数，从现在重算
+    print("10b 时间往回拨")
+    age_all(o, 100.0)
+    o.fake_now -= 86400.0 * 30.0            # 手机时间退回一个月
+    o.refresh_fruit()
+    var back_ok := true
+    for p in o.plots:
+        var at: float = m.orchard_save.picked_at(p["id"])
+        back_ok = back_ok and at <= o.now() and o.ripeness(p["id"]) >= 0.0 and o.ripeness(p["id"]) < 0.01
+    check("往回拨一个月：地从现在重算，没有负数、也不用白等一个月", back_ok and o.ripe_count("strawberry") == 0)
+    o.fake_now += 300.0
+    o.refresh_fruit()
+    check("往回拨以后照样 5 分钟熟（%d 垄）" % o.ripe_count("strawberry"), o.ripe_count("strawberry") == 8)
 
     # 11. 月份表还能换（蓝图 3.6 那两行标着待验证，改 json 不改代码）
     print("11 月份表")
