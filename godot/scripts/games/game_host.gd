@@ -280,7 +280,7 @@ func _open_book() -> void:
     for i in ds.size():
         var open_d: bool = save.dishes.has(i)
         var d: Dictionary = ds[i]
-        var l := _label(("%d. %s" % [i + 1, str(d.get("name", ""))]) if open_d else ("%d. ？？？（吃席第 %d 关解锁）" % [i + 1, i + 1]),
+        var l := _label(("%d. %s" % [i + 1, str(d.get("name", ""))]) if open_d else ("%d. ？？？（连连看第 %d 关解锁）" % [i + 1, i + 1]),
             24, Color("#2c1f1c") if open_d else Color("#8a7a66"))
         l.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
         l.custom_minimum_size = Vector2(list.custom_minimum_size.x, 0)
