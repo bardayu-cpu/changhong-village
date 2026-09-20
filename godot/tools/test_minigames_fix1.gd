@@ -101,9 +101,11 @@ func run() -> void:
     await create_timer(0.6).timeout
     check("第 1 关奖励 %d 金 → 安慰 %d 金" % [r1, r1 / 4], s1.coins == r1 / 4 and s1.coins == 2)
     check("没记成过关", s1.cleared("g2048") == 0 and h1.level == 1)
+    # 01 9/20 定：每次输都给（刷它 4 金/分钟，比果园 8 金/分钟还慢；
+    # 限成一关一次挡住的正好是连输好几次的长辈，那才是安慰奖要给的人）
     var after_first: int = s1.coins
     h1._after_lose("再输一次")
-    check("同一关不重复给", s1.coins == after_first)
+    check("同一关连输也照给（%d → %d 金）" % [after_first, s1.coins], s1.coins == after_first + r1 / 4)
     var s2 = _save("user://test_fix1_b.json")
     var h2 = _host("g2048", s2)
     h2._after_lose("根本没开局")
@@ -250,9 +252,11 @@ func run() -> void:
     var sets: Dictionary = {}
     for gid in ["lianliankan", "match3", "g2048", "memory", "whack", "catch"]:
         sets[gid] = str(Cfg.game(gid).get("art_set", ""))
-    check("翻牌配对单用一套（喜庆纹样，等 GPT）：%s" % [sets], str(sets["memory"]) == "pattern")
+    # 纹样图 GPT 还没交，先用回菜图（01 9/20：不然真机上那桌变成色块加一个字）
+    check("翻牌先用回共用菜牌，等纹样图：%s" % [sets], str(sets["memory"]) == "shared")
     check("小菜合大菜用成长阶梯那套", str(sets["g2048"]) == "ladder")
-    check("另外四个共用那 12 张菜牌", str(sets["lianliankan"]) == "shared" and str(sets["match3"]) == "shared" and str(sets["whack"]) == "shared" and str(sets["catch"]) == "shared")
+    check("另外四个也共用那 12 张菜牌", str(sets["lianliankan"]) == "shared" and str(sets["match3"]) == "shared" and str(sets["whack"]) == "shared" and str(sets["catch"]) == "shared")
+    check("三套图的口子还在（换一个字就能切过去）", Tiles.ART.has("pattern") and Tiles.ART.has("ladder") and Tiles.ART.has("shared"))
     check("作废的那 11 张阶梯图已经删了", not ResourceLoader.exists("res://assets/minigames/ladder/step_00.png"))
 
     h1._close()

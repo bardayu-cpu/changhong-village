@@ -154,7 +154,8 @@
     "step": 4,
     "max": 60
    },
-   "art_set": "pattern"
+   "art_set": "shared",
+   "art_set_note": "喜庆纹样那套（pattern）GPT 还没交，先用回共用菜牌；图到了把这里改成 pattern 就换过去（01 9/20）"
   },
   {
    "id": "whack",

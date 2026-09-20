@@ -49,7 +49,6 @@ var dbg_l: Label
 var book: Panel
 var pause_b: Button
 var played := false                  # 这一关真开过局没有（安慰奖只给真玩过的）
-var consoled: Dictionary = {}        # 这次打开小游戏里，哪几关已经给过安慰奖了（同一关不重复给）
 
 func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug := false) -> void:
     game_id = p_game_id
@@ -239,14 +238,15 @@ func _after_win(cleared: int, lines: Array) -> void:
 ## 没过（体验评审第 12 条，阿鱼 9/20 定「要给」）：给该关奖励的四分之一、向下取整（第 1 关 10 金 → 2 金）。
 ## 三条守住：① 只有真开过局才给（点开就点「离开」那种走的是 _close，根本到不了这儿，另外再拿 played 兜一层）；
 ## ② 走现成的钱包出口 save.earn，不新开路径，也不动关卡进度（输了就是没过）；
-## ③ 同一关这次打开只给一次，不许反复送死刷金币
+## ③ **每次输都给**（01 9/20 算过：输一局 30 秒拿 2 金 = 4 金/分钟，
+##    果园一趟 40 金、5 分钟一轮 = 8 金/分钟，刷安慰奖比走果园还慢，没人会刷；
+##    真限成「一关只给一次」，挡住的正好是连输好几次的长辈——安慰奖本来就是给他的）
 func _after_lose(why: String) -> void:
     var lines: Array = [why] if why != "" else []
     var prize := 0
-    if played and not consoled.has(level):
+    if played:
         prize = int(floor(float(Cfg.reward(g, level)) / 4.0))
         if prize > 0:
-            consoled[level] = true
             save.earn(prize)
             lines.append(LINE_CONSOLE % prize)
     _card("差一点", lines, [["再来一次", _show_start], ["离开", _close]])
