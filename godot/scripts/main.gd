@@ -18,7 +18,7 @@ const BackhallUI = preload("res://scripts/backhall_ui.gd")
 ## 01 9/19 定：到了站的点离出口至少 1 米，沿出口方向往里挪，所以是 (100, 780)
 const BACKHALL_FROM_HALL := Vector2(100, 780)
 const HALL_FROM_BACKHALL := Vector2(1440, 600)   # 蓝图 1：后厅西口 → 宴会厅 (1440, 600)，离东侧门 60 像素
-## 草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）：迎宾院东小径、后厅厨房后门都通这里；北口去果园还没修好
+## 草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）：迎宾院东小径、后厅厨房后门都通这里；北口通果园
 const Lawn = preload("res://scripts/lawn.gd")
 const LawnUI = preload("res://scripts/lawn_ui.gd")
 ## 蓝图 1 写迎宾院 → 草坪站 (50, 780)、后厅 → 草坪站 (50, 300)，离草坪西南口 (40, 780, 50)、西北口 (40, 300, 50) 都只有 10 像素；
@@ -29,15 +29,17 @@ const COURT_FROM_LAWN := Vector2(1440, 780)      # 蓝图 1：草坪西南口 �
 ## 湖边（蓝图 3.5，灰盒，01 9/20 派任务 9）：迎宾院西小径通这里，湖边东口回迎宾院
 const Lake = preload("res://scripts/lake.gd")
 const LakeUI = preload("res://scripts/lake_ui.gd")
-## 蓝图 1 写迎宾院 → 湖边站 (1490, 700)，离湖边东口 (1500, 700, 50) 只有 10 像素；照 01 的规矩往里挪到离出口 60 像素
-const LAKE_FROM_COURT := Vector2(1440, 700)
+## 蓝图 1 写迎宾院 → 湖边站 (1490, 700)，离湖边东口 (1500, 700, 50) 只有 10 像素；照 01 的规矩往里挪到离出口 60 像素。
+## 9/20 湖边加高到 1280、玩法区整体 +256（01 派任务 11），所以这里也 +256
+const LAKE_FROM_COURT := Vector2(1440, 956)
 const COURT_FROM_LAKE := Vector2(100, 520)       # 蓝图 1：湖边东口 → 迎宾院 (100, 520)，离西小径 60 像素
 ## 果园（蓝图 3.6，灰盒，01 9/20 派任务 10）：草坪北口通这里，果园南口回草坪
 const Orchard = preload("res://scripts/orchard.gd")
 const OrchardUI = preload("res://scripts/orchard_ui.gd")
 const OrchardSave = preload("res://scripts/orchard_save.gd")
-## 蓝图 1 写草坪 → 果园站 (768, 840)，离果园南口 (768, 880, 60) 只有 40 像素、还在出口圈里；照 01 的规矩往里挪
-const ORCHARD_FROM_LAWN := Vector2(768, 820)
+## 蓝图 1 写草坪 → 果园站 (768, 840)，离果园南口 (768, 880, 60) 只有 40 像素、还在出口圈里；照 01 的规矩往里挪。
+## 9/20 果园加高到 1280、玩法区整体 +256（01 派任务 11），所以这里也 +256
+const ORCHARD_FROM_LAWN := Vector2(768, 1076)
 const LAWN_FROM_ORCHARD := Vector2(768, 220)     # 蓝图 1：果园南口 → 草坪 (768, 220)，离北口 60 像素
 const BACKHALL_FROM_LAWN := Vector2(1440, 780)   # 蓝图 1：草坪西北口 → 后厅 (1440, 780)，离厨房后门 60 像素
 var court
@@ -1310,7 +1312,7 @@ func _on_backhall_spot(id: String, inside: bool) -> void:
                 _switch_canvas("lawn")
 
 ## 走到草坪的交互点（蓝图 3.4）：球旁的「踢一脚」在 lawn_ui.gd（lawn.gd 按球现在的位置发 ball）；
-## 西南口回迎宾院、西北口去后厅；北口去果园，果园还没做，出「还没修好」
+## 西南口回迎宾院、西北口去后厅、北口去果园
 func _on_lawn_spot(id: String, inside: bool) -> void:
     if state != "lawn" or switching:
         return
@@ -2751,13 +2753,13 @@ func _setup_shot(shot: String) -> void:
                 lake.walking_enabled = false
                 lake.set_process(false)
                 var vk := get_viewport().get_visible_rect().size
-                var zk := minf(vk.x / 1536.0, vk.y / 1024.0)
+                var zk := minf(vk.x / 1536.0, vk.y / 1280.0)
                 lake.cam.zoom = Vector2(zk, zk)
                 lake.cam.limit_right = 100000
-                lake.cam.position = Vector2(768, 512)
+                lake.cam.position = Vector2(768, 640)
                 lake.cam.reset_smoothing()
             await get_tree().process_frame
-        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell":
+        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell", "orchard_north":
             # 果园（阿鱼 9/20 定的种田玩法）：头一回进来地都是熟的。
             # pick 收草莓、sell 卖给山庄、grow 把地拨到长了六成（青果，报还有多久熟）
             nickname = "阿花"
@@ -2784,7 +2786,7 @@ func _setup_shot(shot: String) -> void:
             note_box.visible = false
             _clear_toast_back()
             var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_grow": orchard.spot_pos("strawberry"),
-                "orchard_sell": orchard.spot_pos("strawberry")}
+                "orchard_sell": orchard.spot_pos("strawberry"), "orchard_north": Vector2(768, 500)}   # 最北边：看镜头上下跟和顶上的风景带
             if oat.has(shot):
                 orchard.reset_to(oat[shot] + Vector2(90, 0))   # 同一条空道上、交互点外头，走进去信号才会发
                 orchard.go_to(oat[shot])
@@ -2813,10 +2815,10 @@ func _setup_shot(shot: String) -> void:
                 orchard.walking_enabled = false
                 orchard.set_process(false)
                 var vo := get_viewport().get_visible_rect().size
-                var zo := minf(vo.x / 1536.0, vo.y / 1024.0)
+                var zo := minf(vo.x / 1536.0, vo.y / 1280.0)
                 orchard.cam.zoom = Vector2(zo, zo)
                 orchard.cam.limit_right = 100000
-                orchard.cam.position = Vector2(768, 512)
+                orchard.cam.position = Vector2(768, 640)
                 orchard.cam.reset_smoothing()
             await get_tree().process_frame
         "court_overview":

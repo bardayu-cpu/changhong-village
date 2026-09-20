@@ -6,8 +6,8 @@ extends "res://scripts/entrance.gd"
 ##   镜头不做别的动作（不推远、不拉近），只照常跟着人；一推摇杆、一点地面就站起来（layered_hall 里本来的规矩）
 ## 亭子那句走进去自动出、走出去收，话在 assets/lake/lines.json，阿鱼写好之前是「【待补】」（蓝图 3.5 异常处理）
 
-const BENCH_SEAT := Vector2(400, 700)    # 坐上去坐在哪（蓝图 3.5：长凳 (400, 700)）
-const BENCH_STAND := Vector2(400, 738)   # 起来站在哪（凳子南边，能站）
+const BENCH_SEAT := Vector2(400, 956)    # 坐上去坐在哪（蓝图 3.5：长凳 (400, 700)；9/20 加高，玩法区 +256）
+const BENCH_STAND := Vector2(400, 994)   # 起来站在哪（凳子南边，能站）
 
 func _init() -> void:
     layout_path = "res://assets/layered/scene_luoman_lake/layout.json"

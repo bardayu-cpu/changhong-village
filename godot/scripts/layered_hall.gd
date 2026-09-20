@@ -117,10 +117,14 @@ func build(preset: int, nickname: String, f: Font) -> void:
     get_viewport().size_changed.connect(_fit_zoom)
     snap_cam()
 
-## 场景图的高度正好铺满屏幕高度，左右跟着人移动
+## 一屏按 1024 高算（ASSETS v1.0：画布可以比一屏高）。不到 1024 高的画布照旧整张铺满，
+## 比 1024 高的（9/20 起湖边、果园 1280）人和东西还是这么大，高出来的部分镜头上下跟着人走
+const VIEW_H := 1024.0
+
+## 一屏铺满多高，左右、上下跟着人移动（超出画布的部分由 cam 的 limit 挡住）
 func _fit_zoom() -> void:
     var vh := float(get_viewport().get_visible_rect().size.y)
-    var z := vh / float(cfg["size"][1])
+    var z := vh / minf(float(cfg["size"][1]), VIEW_H)
     cam.zoom = Vector2(z, z)
 
 ## 桌心的簿子（蓝图 3.2 桌簿）：每张摆出来的桌子一本。占位：代码画的小簿子（红封皮、米白内页、几道字迹），
