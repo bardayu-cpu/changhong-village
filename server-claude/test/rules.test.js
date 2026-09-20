@@ -238,6 +238,27 @@ eq(canvasRules.canReadCanvas(CV_ID.replace('/canvas/', '/canvas/../private/')), 
 eq(canvasRules.canReadCanvas(CV_ID + ' '), false, '画布图：带空白不给');
 eq(canvasRules.canReadCanvas('https://x.com/canvas/a.png'), false, '画布图：不是 cloud:// 不给');
 eq(canvasRules.canReadCanvas(undefined), false, '画布图：没传不给');
+// 白名单（01 9/20 定，起因 03 查出 %2e%2e 绕过了只查字面「..」的写法）：编码、花样字符一律拒，每种钉一条
+const CV = 'cloud://env-1.bucket-2/canvas/';
+eq(canvasRules.canReadCanvas(CV + 'sub_dir-1/a.b.png'), true, '画布图：正常的子目录、点、下划线、连字符能读');
+eq(canvasRules.canReadCanvas(CV + '%2e%2e/secret.png'), false, '画布图：%2e%2e 不给');
+eq(canvasRules.canReadCanvas(CV + '%2E%2E/secret.png'), false, '画布图：%2E%2E 不给');
+eq(canvasRules.canReadCanvas(CV + '%252e%252e/secret.png'), false, '画布图：%252e 双重编码不给');
+eq(canvasRules.canReadCanvas(CV + 'a%00.png'), false, '画布图：%00 不给');
+eq(canvasRules.canReadCanvas(CV + 'a.png?x=1'), false, '画布图：问号不给');
+eq(canvasRules.canReadCanvas(CV + 'a.png#f'), false, '画布图：井号不给');
+eq(canvasRules.canReadCanvas('cloud://env-1.bucket-2/canvas\\..\\secret.png'), false, '画布图：反斜杠不给');
+eq(canvasRules.canReadCanvas(CV + '．．/secret.png'), false, '画布图：全角点不给');
+eq(canvasRules.canReadCanvas(CV + './a.png'), false, '画布图：单独一个点不给');
+eq(canvasRules.canReadCanvas(CV + '/a.png'), false, '画布图：空段 // 不给');
+eq(canvasRules.canReadCanvas(CV + '../secret.png'), false, '画布图：连着两个点不给');
+eq(canvasRules.canReadCanvas('cloud://env-1.bucket-2/Canvas/a.png'), false, '画布图：大小写不一样不给');
+eq(canvasRules.canReadCanvas('cloud://env-1.bucket-2//canvas/a.png'), false, '画布图：前导斜杠不给');
+eq(canvasRules.canReadCanvas('cloud://env-1.bucket-2/canvasXXX/a.png'), false, '画布图：前缀伪装 canvasXXX 不给');
+eq(canvasRules.canReadCanvas('cloud://envbucket/canvas/a.png'), false, '画布图：环境.桶 不成样子不给');
+eq(canvasRules.canReadCanvas(CV + '中文.png'), false, '画布图：中文不给');
+eq(canvasRules.canReadCanvas(CV), false, '画布图：canvas/ 后面空的不给');
+eq(canvasRules.canReadCanvas(CV + 'a'.repeat(600) + '.png'), false, '画布图：超长不给');
 eq(canvasRules.chunkRange(600, 0, 256), { ok: true, start: 0, end: 256, done: false }, '画布图：第一块');
 eq(canvasRules.chunkRange(600, 512, 256), { ok: true, start: 512, end: 600, done: true }, '画布图：最后一块不满也算完');
 eq(canvasRules.chunkRange(600, 600, 256).done, true, '画布图：正好要到末尾算完');

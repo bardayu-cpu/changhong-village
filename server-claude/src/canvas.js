@@ -8,17 +8,36 @@ const C = require('./config');
  * 跟其它规则文件一样：同步纯函数，不做 I/O。
  */
 
+// 白名单（01 9/20 定，起因：03 查出 %2e%2e 这种编码绕过了只查字面「..」的写法，报告见回执）：
+// 只放行长成 cloud://<env>.<bucket>/canvas/<路径> 的，其余一律拒。别再往「..」上打补丁——再想出一种编码又得补一次。
+const HOST_RE = /^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;   // env.bucket：字母数字连字符，点分隔
+const SEG_RE = /^[A-Za-z0-9_.-]+$/;                    // 路径的每一段：字母数字下划线点连字符
+const MAX_LEN = 512;                                   // File ID 再长也没意义，长的一律拒
+
 /**
- * 这个 File ID 能不能读：只许 cloud://环境.桶/canvas/ 下面的文件（画布的底图、积木图），
- * 别的文件（以后可能放别的东西）一律不给；路径里不能有「..」、不能有空白
+ * 这个 File ID 能不能读：只许 cloud://环境.桶/canvas/ 下面的文件（画布的底图、积木图），别的一律不给。
+ * 路径里只认字母、数字、下划线、点、连字符、斜杠；不能连着两个点、不能空段（//）、不能单独一个点、不能以 / 开头。
+ * 百分号编码（%2e%2e、%00）、反斜杠、全角点、问号井号、空白、控制字符、中文都不在白名单里，直接拒
  */
 function canReadCanvas(fileID) {
-  if (typeof fileID !== 'string' || !fileID.startsWith('cloud://')) return false;
-  if (/\s/.test(fileID) || fileID.includes('..')) return false;
-  const rest = fileID.slice('cloud://'.length);
+  if (typeof fileID !== 'string') return false;
+  if (fileID.length === 0 || fileID.length > MAX_LEN) return false;
+  const PREFIX = 'cloud://';
+  if (!fileID.startsWith(PREFIX)) return false;
+  const rest = fileID.slice(PREFIX.length);
   const slash = rest.indexOf('/');
   if (slash <= 0) return false;
-  return rest.slice(slash + 1).startsWith('canvas/');
+  if (!HOST_RE.test(rest.slice(0, slash))) return false;
+  const path = rest.slice(slash + 1);
+  if (!path.startsWith('canvas/')) return false;
+  if (path.includes('..')) return false;
+  const segs = path.split('/');
+  if (segs.length < 2) return false;            // canvas/ 后面得真有东西
+  for (const seg of segs) {
+    if (seg === '' || seg === '.') return false;
+    if (!SEG_RE.test(seg)) return false;
+  }
+  return true;
 }
 
 /**
