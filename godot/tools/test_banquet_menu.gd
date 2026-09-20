@@ -109,6 +109,37 @@ func run() -> void:
     menu.fake_hour = 20
     check("20 点是「晚上 · 晚宴」", menu.title() == "晚宴")
 
+    # 2b. 固定 UTC+8，不跟设备时区走（阿鱼 9/20 定）。
+    # 用真实纪元的量级拨时间（小数字往回拨会成负数，钟点全乱）
+    print("2b 固定 UTC+8，设备时区改了也不变")
+    menu.fake_hour = -1
+    check("配置里写着 UTC+8", menu.tz_offset_hours() == 8)
+    # 2026-09-20 04:00:00 UTC = UTC+8 的 12:00:00 整
+    var noon8 := 1789876799.0    # UTC+8 的 2026-09-20 11:59:59（真实纪元量级）
+    var cases := {
+        noon8: ["evening", 11],          # 11:59:59 还是晚宴
+        noon8 + 1.0: ["midday", 12],     # 12:00:00 切正席
+        noon8 + 6.0 * 3600.0: ["midday", 17],       # 17:59:59 还是正席
+        noon8 + 6.0 * 3600.0 + 1.0: ["evening", 18] # 18:00:00 切晚宴
+    }
+    var edges := true
+    for t in cases:
+        menu.fake_now = t
+        var want_key: String = str(cases[t][0])
+        var want_h: int = int(cases[t][1])
+        if menu.hour_now() != want_h or menu.menu_key() != want_key:
+            edges = false
+            print("    %d 该是 %d 点 %s，实际 %d 点 %s" % [int(t), want_h, want_key, menu.hour_now(), menu.menu_key()])
+    check("四个边界都准（11:59:59 / 12:00:00 / 17:59:59 / 18:00:00）", edges)
+    # 同一个真实瞬间，设备时区是什么都算出同一个钟点：钟点只由纪元秒 + 8 小时决定，
+    # 不经过任何读设备时区的接口（这份源码里不许出现 get_datetime_dict_from_system）
+    var src8 := FileAccess.get_file_as_string("res://scripts/banquet_menu.gd")
+    check("源码不读设备时区（没有 get_datetime_dict_from_system）", not src8.contains("get_datetime_dict_from_system"))
+    var h_utc: int = int(Time.get_datetime_dict_from_unix_time(int(noon8 + 1.0) + 8 * 3600)["hour"])
+    menu.fake_now = noon8 + 1.0
+    check("自己按 UTC 加 8 小时算，和代码一个结果（%d 点）" % h_utc, menu.hour_now() == h_utc and h_utc == 12)
+    menu.fake_now = -1.0
+
     # ---------- 3. 简介：有把握的写了，酒店自己起名的留「【待补】」 ----------
     print("3 简介")
     check("咸烧白有话", menu.intro("咸烧白") != "")

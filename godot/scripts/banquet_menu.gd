@@ -10,6 +10,9 @@ const PATH := "res://assets/banquet/menu.json"
 
 var d: Dictionary = {}
 var fake_hour := -1        # 0～23 当成现在几点；-1 按真实时间
+## 大于 0 就当成现在这个真实瞬间（Unix 秒，UTC）。**要用真实纪元的量级**（1_800_000_000 这种）：
+## 用一百万那种小数字，往回拨一个月就成负数了，算出来的钟点全乱
+var fake_now := -1.0
 
 func _init() -> void:
     var j = JSON.parse_string(FileAccess.get_file_as_string(PATH))
@@ -17,11 +20,19 @@ func _init() -> void:
 
 # ---------- 哪一套 ----------
 
-## 现在几点（0～23）。测试里 fake_hour 说了算
+## 切菜按哪个时区算，小时（阿鱼 9/20 定：固定 UTC+8，不跟手机的时区设置走——
+## 人在国外、或者手机时区设错了，看到的席面应该还是山庄这边的席面）
+func tz_offset_hours() -> int:
+    return int((d.get("switch", {}) as Dictionary).get("utc_offset_hours", 8))
+
+## 现在几点（0～23，UTC+8）。**不读设备时区**：拿 UTC 的纪元秒自己加 8 小时。
+## 测试里 fake_hour（直接指定钟点）、fake_now（指定真实瞬间）说了算
 func hour_now() -> int:
     if fake_hour >= 0:
         return fake_hour % 24
-    return int(Time.get_datetime_dict_from_system()["hour"])
+    var now: float = fake_now if fake_now > 0.0 else Time.get_unix_time_from_system()
+    var at := int(now) + tz_offset_hours() * 3600
+    return int(Time.get_datetime_dict_from_unix_time(at)["hour"])
 
 ## 现在该上哪一套：阿鱼 9/20 定的 12:00～18:00 正席、其余晚宴。几点切在 json 的 switch 里，改钟点不改代码
 func menu_key() -> String:
