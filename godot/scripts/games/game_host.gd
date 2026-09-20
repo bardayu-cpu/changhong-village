@@ -19,6 +19,10 @@ const SCRIPTS := {
 }
 const BAR_H := 64.0
 const DBG_H := 56.0
+const BTN_ROW_H := 68.0      # 左下角「离开」「歇一下」占的那一条
+## 没过也给一点（体验评审第 12 条，阿鱼 9/20 定要给）。**新写，等阿鱼定**：
+## 话要说清是安慰的，别让人以为过关了
+const LINE_CONSOLE := "没过 也给你 %d 金 辛苦了"
 const WINE := Color("#2a1418")
 const GOLD := Color("#d4af37")
 const GOLD1 := Color("#f4d97a")
@@ -43,6 +47,9 @@ var area: Control
 var card: Panel
 var dbg_l: Label
 var book: Panel
+var pause_b: Button
+var played := false                  # 这一关真开过局没有（安慰奖只给真玩过的）
+var consoled: Dictionary = {}        # 这次打开小游戏里，哪几关已经给过安慰奖了（同一关不重复给）
 
 func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug := false) -> void:
     game_id = p_game_id
@@ -72,7 +79,10 @@ func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug :
     panel.offset_bottom = -20
     add_child(panel)
     # 顶栏
-    title_l = _label("%s·%s" % [Cfg.title(g), str(g.get("kind", ""))], 24, GOLD1)
+    # 桌牌名和玩法名一样时只写一个（第 34 版顶栏是「连连看·连连看」，体验评审第 4 条）
+    var t_name: String = Cfg.title(g)
+    var t_kind: String = str(g.get("kind", ""))
+    title_l = _label(t_name if t_kind == "" or t_kind == t_name else "%s·%s" % [t_name, t_kind], 24, GOLD1)
     title_l.position = Vector2(14, 8)
     panel.add_child(title_l)
     level_l = _label("", 24, PAPER)
@@ -84,9 +94,16 @@ func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug :
     coins_l = _label("", 24, GOLD1)
     coins_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
     panel.add_child(coins_l)
+    # 「离开」原来在右上角，紧挨着小程序自己的关闭按钮，阿鱼真机上容易误触退出整个游戏（A2）：挪到左下角
     var quit := _button("离开", _close)
     quit.name = "quit"
     panel.add_child(quit)
+    # 「歇一下」（评论第 11 条）：喜宴上有人来敬酒、上菜、长辈说话是常态，不是意外。
+    # paused 这个开关六个游戏一直在读，就是没人置过 true——位子留好了、开关没装
+    pause_b = _button("歇一下", _pause)
+    pause_b.name = "pause"
+    pause_b.visible = false
+    panel.add_child(pause_b)
     area = Control.new()
     area.clip_contents = true
     panel.add_child(area)
@@ -98,16 +115,21 @@ func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug :
 
 func _layout() -> void:
     var ps := panel.size
+    var bottom := DBG_H if debug else 0.0
+    # 「离开」「歇一下」都在左下角（A2：右上角紧挨小程序的关闭按钮，会误触退出整个游戏）
     var quit: Button = panel.get_node("quit")
     quit.size = Vector2(96, 44)
-    quit.position = Vector2(ps.x - quit.size.x - 12, 10)
+    quit.position = Vector2(12, ps.y - bottom - quit.size.y - 12)
+    pause_b.size = Vector2(112, 44)
+    pause_b.position = Vector2(12 + quit.size.x + 12, quit.position.y)
+    # 顶栏右边空出来了（原来被「离开」占着），金币和状态各往右挪回去
     coins_l.size = Vector2(160, 28)
-    coins_l.position = Vector2(ps.x - 12 - 96 - 12 - 160, 8)
+    coins_l.position = Vector2(ps.x - 12 - 160, 8)
     status_l.size = Vector2(220, 28)
-    status_l.position = Vector2(ps.x - 12 - 96 - 12 - 220, 34)
-    var bottom := DBG_H if debug else 0.0
+    status_l.position = Vector2(ps.x - 12 - 220, 34)
     area.position = Vector2(8, BAR_H + 8)
-    area.size = Vector2(ps.x - 16, ps.y - BAR_H - 16 - bottom)
+    # 底下给那两个按钮留一条（原来「离开」在顶栏，游戏区能铺到底）
+    area.size = Vector2(ps.x - 16, ps.y - BAR_H - 16 - bottom - BTN_ROW_H)
     if game != null:
         game.size = area.size
     if dbg_l != null:
@@ -124,7 +146,15 @@ func _process(_dt: float) -> void:
 # ---------- 开始卡、结算卡 ----------
 func _show_start() -> void:
     _clear_game()
-    var lines: Array = ["第 %d 关" % level]
+    played = false
+    _sync_buttons()
+    # 最大那行字原来是「2048」「三消」这种行话，说人话的那句排在最底下、颜色最淡（评审第 4 条）：
+    # 大字换成桌牌名，json 里那句 goal 提到「第 N 关」上面
+    var lines: Array = []
+    var human: String = str(g.get("goal", ""))
+    if human != "":
+        lines.append(human)
+    lines.append("第 %d 关" % level)
     var probe := _make_game()
     var ready_to_play := probe != null
     if not ready_to_play:
@@ -140,7 +170,7 @@ func _show_start() -> void:
     if game_id == "lianliankan":
         btns.append(["菜单册", _open_book])
     btns.append(["离开", _close])
-    _card(str(g.get("kind", "")), lines, btns, str(g.get("goal", "")))
+    _card(Cfg.title(g), lines, btns)
 
 func _make_game() -> Control:
     var path: String = SCRIPTS.get(game_id, "")
@@ -148,6 +178,7 @@ func _make_game() -> Control:
         return null
     var gm: Control = load(path).new()
     gm.setup(level, Cfg.params(g, level, k), font, int(Time.get_ticks_usec()) ^ (level * 7919))
+    gm.art_set = str(g.get("art_set", "shared"))
     return gm
 
 func _start() -> void:
@@ -160,9 +191,32 @@ func _start() -> void:
     area.add_child(game)
     game.finished.connect(_on_finished)
     game.start()
+    played = true
+    _sync_buttons()
     print("[suqi] 小游戏 %s 第 %d 关 开始 难度×%.1f 参数 %s" % [game_id, level, k, JSON.stringify(game.params)])
 
+## 歇一下（评审第 11 条）：把 paused 置上，盖一张卡。这一关不作废、不扣金币，接着玩就从刚才那下继续
+func _pause() -> void:
+    if game == null or not is_instance_valid(game) or game.over or game.paused:
+        return
+    game.paused = true
+    _sync_buttons()
+    _card("歇一下", ["这一关停在这儿 等你回来", "不算输 也不扣金币"], [["接着玩", _resume], ["离开", _close]])
+
+func _resume() -> void:
+    _clear_card()
+    if game != null and is_instance_valid(game) and not game.over:
+        game.paused = false
+    _sync_buttons()
+
+## 「歇一下」只在真在玩的时候出：开始卡、结算卡、歇着的时候都收起来
+func _sync_buttons() -> void:
+    if pause_b == null:
+        return
+    pause_b.visible = game != null and is_instance_valid(game) and not game.over and not game.paused
+
 func _on_finished(won: bool, why: String) -> void:
+    _sync_buttons()
     print("[suqi] 小游戏 %s 第 %d 关 %s %s" % [game_id, level, "过了" if won else "没过", why])
     if won:
         var reward: int = Cfg.reward(g, level)
@@ -182,8 +236,20 @@ func _after_win(cleared: int, lines: Array) -> void:
     level = save.next_level(game_id)
     _card("第 %d 关 过了" % cleared, lines, [["下一关", _show_start], ["离开", _close]])
 
+## 没过（体验评审第 12 条，阿鱼 9/20 定「要给」）：给该关奖励的四分之一、向下取整（第 1 关 10 金 → 2 金）。
+## 三条守住：① 只有真开过局才给（点开就点「离开」那种走的是 _close，根本到不了这儿，另外再拿 played 兜一层）；
+## ② 走现成的钱包出口 save.earn，不新开路径，也不动关卡进度（输了就是没过）；
+## ③ 同一关这次打开只给一次，不许反复送死刷金币
 func _after_lose(why: String) -> void:
-    _card("差一点", [why] if why != "" else [], [["再来一次", _show_start], ["离开", _close]])
+    var lines: Array = [why] if why != "" else []
+    var prize := 0
+    if played and not consoled.has(level):
+        prize = int(floor(float(Cfg.reward(g, level)) / 4.0))
+        if prize > 0:
+            consoled[level] = true
+            save.earn(prize)
+            lines.append(LINE_CONSOLE % prize)
+    _card("差一点", lines, [["再来一次", _show_start], ["离开", _close]])
 
 ## 卡片：大字标题、几行字、一排按钮；盖在游戏区中间
 func _card(head: String, lines: Array, btns: Array, foot := "") -> void:
@@ -239,6 +305,8 @@ func _clear_card() -> void:
 
 func _clear_game() -> void:
     _clear_card()
+    if pause_b != null:
+        pause_b.visible = false
     if game != null and is_instance_valid(game):
         game.queue_free()
     game = null
