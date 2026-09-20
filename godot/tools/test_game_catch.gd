@@ -90,7 +90,8 @@ func run() -> void:
     print("2 外壳里接到赢：结果 ", result[0], " 金币 ", s1.coins, " 进度 ", s1.games, " 循环 ", guard, " 次")
     ok = ok and result[0] == true and s1.coins == Cfg.reward(host1.g, 1) and s1.cleared("catch") == 1
 
-    # 3. 篮子不动、一直漏，检查漏太多输的原因
+    # 3. 篮子不动、糖一直掉：**这样不该输在「漏」上**（体验评审第 1 条，9/20 改）。
+    #    糖落地不算漏——没接住的糖再掉一颗就是了，只有接到鞭炮才罚。所以输只能输在时间到
     var s2 := Save.new()
     s2.local_path = "user://test_catch2.json"
     s2.saver = func(_p, done): done.call(true)
@@ -100,9 +101,10 @@ func run() -> void:
     host2.g["levels"]["misses"] = {"base": 3, "step": 0, "int": true}
     host2.g["levels"]["interval"] = {"base": 0.3, "step": 0}
     host2.g["levels"]["duration"] = {"base": 30, "step": 0}
+    host2.g["levels"]["target"] = {"base": 99, "step": 0, "int": true}   # 接不满，好看清是怎么输的
     host2.g["levels"]["bad"] = {"base": 0.0, "step": 0}
     host2._start()
-    host2.game.basket_x = host2.game.basket_w * 0.5   # 篮子杵在最左边，不去接
+    host2.game.basket_x = -999.0   # 篮子挪到场外，一颗也接不到
     host2.game._layout_basket()
     var result2 := [null]
     var why2 := [""]
@@ -111,8 +113,37 @@ func run() -> void:
     while result2[0] == null and guard2 < 2000:
         host2.game._game_tick(0.05)
         guard2 += 1
-    print("3 篮子不动、一直漏：结果 ", result2[0], " 原因 ", why2[0], " 漏了 ", host2.game.misses)
-    ok = ok and result2[0] == false and why2[0] == "漏掉太多了"
+    print("3 篮子挪开、糖全落地：结果 ", result2[0], " 原因 ", why2[0], " 漏了 ", host2.game.misses)
+    ok = ok and result2[0] == false and why2[0].begins_with("时间到了") and host2.game.misses == 0
+
+    # 3b. 只有接到鞭炮才算漏：全是炮、篮子接着，漏满就输
+    var s3 := Save.new()
+    s3.local_path = "user://test_catch3.json"
+    s3.saver = func(_p, done): done.call(true)
+    var host3 = _make_host(s3)
+    host3.k = 1.0
+    host3.g = Cfg.game("catch").duplicate(true)
+    host3.g["levels"]["misses"] = {"base": 3, "step": 0, "int": true}
+    host3.g["levels"]["interval"] = {"base": 0.3, "step": 0}
+    host3.g["levels"]["duration"] = {"base": 30, "step": 0}
+    host3.g["levels"]["bad"] = {"base": 1.0, "step": 0}   # 掉下来的全是炮
+    host3._start()
+    var result3 := [null]
+    var why3 := [""]
+    host3.game.finished.connect(func(won, r3): result3[0] = won; why3[0] = r3)
+    var guard3 := 0
+    while result3[0] == null and guard3 < 2000:
+        # 篮子每帧贴到最靠下那颗底下，专去接炮
+        var lowest := -1.0
+        for d in host3.game.drops:
+            if float(d["y"]) > lowest:
+                lowest = float(d["y"])
+                host3.game.basket_x = float(d["x"])
+        host3.game._layout_basket()
+        host3.game._game_tick(0.05)
+        guard3 += 1
+    print("3b 专接鞭炮：结果 ", result3[0], " 原因 ", why3[0], " 漏了 ", host3.game.misses)
+    ok = ok and result3[0] == false and why3[0] == "漏掉太多了" and host3.game.misses > 3
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

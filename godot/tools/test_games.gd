@@ -36,7 +36,8 @@ func run() -> void:
     var p30 := Cfg.params(llk, 30)
     var p1h := Cfg.params(llk, 1, 1.5)
     print("2 连连看 第1关 ", p1, " 第5关 ", p5, " 第30关 ", p30, " 第1关难度×1.5 ", p1h)
-    ok = ok and p1["kinds"] == 4.0 and p5["kinds"] == 8.0 and p30["kinds"] == 12.0 and p30["rows"] == 8.0
+    # 9/20 体验评审第 9 条：8×8 时每格 42 像素（约 29 点）比手指小，列数封顶从 8 降到 7
+    ok = ok and p1["kinds"] == 4.0 and p5["kinds"] == 8.0 and p30["kinds"] == 12.0 and p30["rows"] == 7.0
     ok = ok and p1h["kinds"] == 6.0 and p1h["time"] < p1["time"]
     print("  金币 第1关 ", Cfg.reward(llk, 1), " 第5关 ", Cfg.reward(llk, 5), " 第30关 ", Cfg.reward(llk, 30))
     # 第 30 关早就到顶：等于 json 里的 reward.max（9/19 01 调难度时从 60 提到 80，这里跟着配置走，不写死）
@@ -126,10 +127,10 @@ func run() -> void:
                 captions.append(str((kid as Label).text))
     print("6 棋盘画出来了：", drawn, " 张牌，盘上 ", on_board, " 格有菜，名字 ", captions)
     ok = ok and drawn > 0 and drawn == on_board
-    # 每张牌都写着那一级叫什么（目标卡写的是「合出『全家福』」，光看图分不出先后）
+    # 每张牌都写着那一级叫什么（目标卡写的是「合到『喜宴』」，光看图分不出先后）
     var all_named := captions.size() == drawn
     for cap in captions:
-        if not G2048.DISHES.has(cap):
+        if not g.steps().has(cap):
             all_named = false
     ok = ok and all_named
     print("  每张牌都带名字、名字都在那张菜谱里 ", all_named)

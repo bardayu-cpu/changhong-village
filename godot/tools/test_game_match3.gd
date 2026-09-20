@@ -100,7 +100,8 @@ func run() -> void:
     probe.setup(3, {"moves": 15, "target": 120, "size": 7, "kinds": 5}, SystemFont.new(), 1)
     var goal: String = probe.goal_text()
     print("3b 探针（没 _build）读到的 goal_text() ", goal)
-    ok = ok and goal == "15 步内凑够 120 分"
+    # 9/20 体验评审第 10 条：把「一次消三个 = 30 分、连着消翻倍」写进开始卡，玩家才算得出来
+    ok = ok and goal == "15 步内凑够 120 分（一次消三个 = 30 分，连着消还翻倍）"
     probe.free()
 
     # 4／6a. 换了凑不成：不扣步、不加分（用一局真的游戏测，跟第 6 条一起走）
