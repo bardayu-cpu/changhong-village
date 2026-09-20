@@ -8,11 +8,13 @@
 用法：python3 tools/make_ref_map.py 截图目录 json目录 输出目录
 """
 import json, os, sys
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageOps
 
 FONT = "/System/Library/Fonts/Hiragino Sans GB.ttc"
 HEAD = 132          # 顶上的说明条多高
-BLOCK = (214, 69, 58, 74)      # 不能走：半透明红
+BLOCK = (232, 62, 48)          # 不能走：斜线网格和描边的红（v2，01 9/20：v1 那层淡红盖在湖面、草莓垄上分不出来）
+HATCH_GAP = 16                 # 斜线隔多远
+DIM = 0.72                     # 不能走的地方压到多暗
 POINT = (255, 208, 74, 255)    # 交互点：黄圈
 SPAWN = (108, 214, 126, 255)   # 到了站的点：绿
 BAND = (94, 168, 255, 255)     # 风景带的分界线：蓝
@@ -29,6 +31,7 @@ CANVAS = {
 SCENE = {"banquet": "scene_luoman_hall", "court": "scene_luoman_entrance", "backhall": "scene_luoman_backhall",
          "lawn": "scene_luoman_lawn", "lake": "scene_luoman_lake", "orchard": "scene_luoman_orchard"}
 BAND_H = {"lake": 256, "orchard": 256}   # 顶上的纯风景带（人走不到）
+VER = "v2"                     # 改版加版本号（目录说明的规矩），v1 的画法太淡已作废
 # 宴会厅底图已经是 A04 试点的正式图，别的五块还是代码画的灰盒占位
 REAL_ART = {"banquet"}
 
@@ -37,11 +40,11 @@ def font(sz):
     return ImageFont.truetype(FONT, sz)
 
 
-def draw_blocked(img, d):
-    """不能走的格子铺一层半透明红。用游戏自己算好的那份格子，图和游戏不会对不上。"""
+def blocked_mask(img, d):
+    """不能走的地方涂白的一张遮罩。用游戏自己算好的那份格子，图和游戏不会对不上。"""
     cell = float(d["cell"])
-    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    dr = ImageDraw.Draw(layer)
+    m = Image.new("L", img.size, 0)
+    dr = ImageDraw.Draw(m)
     for j, line in enumerate(d["rows"]):
         i = 0
         while i < len(line):
@@ -51,9 +54,30 @@ def draw_blocked(img, d):
             k = i
             while k < len(line) and line[k] == "0":   # 连成一条画，省得几万个小方块
                 k += 1
-            dr.rectangle([i * cell, j * cell, k * cell, (j + 1) * cell], fill=BLOCK)
+            dr.rectangle([i * cell, j * cell, k * cell - 1, (j + 1) * cell - 1], fill=255)
             i = k
-    return Image.alpha_composite(img, layer)
+    return m
+
+
+def draw_blocked(img, d):
+    """不能走的地方：去色压暗 + 红斜线 + 红描边；能走的地方原样不动。
+    v1 是盖一层淡红，底色是湖面（蓝紫）或草莓垄（棕红）时分不出来（01 9/20 看图提的）。
+    去色压暗跟底色什么颜色都不打架，斜线和描边再给一层「这里过不去」的读法。"""
+    m = blocked_mask(img, d)
+    grey = ImageOps.grayscale(img).convert("RGBA")
+    dim = ImageEnhance.Brightness(grey).enhance(DIM)
+    out = Image.composite(dim, img, m)
+    # 斜线网格（只落在不能走的地方）
+    hatch = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    hd = ImageDraw.Draw(hatch)
+    W, H = img.size
+    for x in range(-H, W, HATCH_GAP):
+        hd.line([(x, 0), (x + H, H)], fill=BLOCK + (96,), width=2)
+    out = Image.composite(Image.alpha_composite(out, hatch), out, m)
+    # 描边：能走和不能走的交界画一圈红
+    edge = m.filter(ImageFilter.FIND_EDGES).filter(ImageFilter.MaxFilter(5))
+    out.paste(Image.new("RGBA", img.size, BLOCK + (255,)), (0, 0), edge)
+    return out
 
 
 def _hits(box, placed):
@@ -63,47 +87,63 @@ def _hits(box, placed):
     return False
 
 
+def _place(dr, txt, f, ax, ay, keep_out, W, H, colour):
+    """把一块字放在 (ax, ay) 旁边：先试上下左右，撞了就往外挪；
+    挨着画布边的时候往里翻，绝不让字被边切掉（01 9/20 看图提的）。放好了画一条细线连回那个点。"""
+    tw = dr.textlength(txt, font=f)
+    th = 30
+    tries = [(ax - tw / 2, ay + 8), (ax - tw / 2, ay - 8 - th), (ax + 12, ay - th / 2), (ax - tw - 12, ay - th / 2)]
+    tries += [(ax - tw / 2, ay + 8 + 34 * k) for k in range(1, 7)]
+    tries += [(ax - tw / 2, ay - 8 - th - 34 * k) for k in range(1, 7)]
+    tries += [(ax + 12 + 40 * k, ay - th / 2) for k in range(1, 5)]
+    tries += [(ax - tw - 12 - 40 * k, ay - th / 2) for k in range(1, 5)]
+    best = None
+    for cx, cy in tries:
+        cx = min(max(cx, 8), W - tw - 8)       # 往里翻，别顶出画布
+        cy = min(max(cy, 6), H - th - 2)
+        box = (cx - 6, cy - 3, cx + tw + 6, cy + th - 3)
+        if not _hits(box, keep_out):
+            best = (cx, cy, box)
+            break
+    if best is None:
+        cx = min(max(ax - tw / 2, 8), W - tw - 8)
+        cy = min(max(ay + 8, 6), H - th - 2)
+        best = (cx, cy, (cx - 6, cy - 3, cx + tw + 6, cy + th - 3))
+    cx, cy, box = best
+    # 字离点远了就牵一条线回去，省得认不出这块字说的是哪个点
+    cxm, cym = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+    if abs(cxm - ax) > tw / 2 + 30 or abs(cym - ay) > 60:
+        dr.line([ax, ay, cxm, cym], fill=colour[:3] + (150,), width=2)
+    dr.rectangle(box, fill=(24, 22, 20, 214))
+    dr.text((cx, cy), txt, font=f, fill=colour)
+    keep_out.append(box)
+
+
 def draw_points(img, d, name):
     dr = ImageDraw.Draw(img, "RGBA")
     f = font(22)
-    placed = []
     W, H = img.size
-    if "spawn" in d:
-        sx, sy = float(d["spawn"][0]), float(d["spawn"][1])
-        dr.regular_polygon((sx, sy, 15), 3, rotation=180, fill=SPAWN)
-        txt = "进场／到了站这儿"
-        sw = dr.textlength(txt, font=f)
-        lx = min(max(sx + 22, 8), W - sw - 8)
-        ly = min(max(sy - 13, 6), H - 30)
-        placed.append((lx - 6, ly - 3, lx + sw + 6, ly + 27))
-        dr.rectangle([lx - 6, ly - 3, lx + sw + 6, ly + 27], fill=(24, 22, 20, 205))
-        dr.text((lx, ly), txt, font=f, fill=SPAWN)
-    for p in sorted(d["points"], key=lambda q: (float(q["y"]), float(q["x"]))):
+    # 先把圈本身占的地方记下来：标签不许盖住任何一个交互圈
+    keep_out = []
+    for p in d["points"]:
+        x, y, r = float(p["x"]), float(p["y"]), float(p["r"])
+        keep_out.append((x - r - 4, y - r - 4, x + r + 4, y + r + 4))
+    circles = list(keep_out)
+    for p in d["points"]:
         x, y, r = float(p["x"]), float(p["y"]), float(p["r"])
         dr.ellipse([x - r, y - r, x + r, y + r], outline=POINT, width=4)
         dr.ellipse([x - 5, y - 5, x + 5, y + 5], fill=POINT)
-        label = f'{p["id"]} ({int(x)},{int(y)}) r{int(r)}'
-        tw = dr.textlength(label, font=f)
-        # 先试点下面，再试上面、右边、左边，都撞就往下错开：标签互相盖住就看不清了
-        tries = [(x - tw / 2, y + r + 6), (x - tw / 2, y - r - 34), (x + r + 10, y - 13), (x - r - tw - 10, y - 13)]
-        tries += [(x - tw / 2, y + r + 6 + 34 * k) for k in range(1, 6)]
-        tx, ty = tries[0]
-        for cx, cy in tries:
-            box = (cx - 6, cy - 3, cx + tw + 6, cy + 27)
-            if box[0] < 2 or box[2] > W - 2 or box[1] < 2 or box[3] > H - 2:
-                continue
-            if not _hits(box, placed):
-                tx, ty = cx, cy
-                break
-        tx = min(max(tx, 8), W - tw - 8)
-        ty = min(max(ty, 6), H - 30)
-        placed.append((tx - 6, ty - 3, tx + tw + 6, ty + 27))
-        dr.rectangle([tx - 6, ty - 3, tx + tw + 6, ty + 27], fill=(24, 22, 20, 205))
-        dr.text((tx, ty), label, font=f, fill=POINT)
+    if "spawn" in d:
+        sx, sy = float(d["spawn"][0]), float(d["spawn"][1])
+        dr.regular_polygon((sx, sy, 15), 3, rotation=180, fill=SPAWN)
+        _place(dr, "进场／到了站这儿", f, sx, sy + 16, keep_out, W, H, SPAWN)
+    for p in sorted(d["points"], key=lambda q: (float(q["y"]), float(q["x"]))):
+        x, y, r = float(p["x"]), float(p["y"]), float(p["r"])
+        _place(dr, f'{p["id"]} ({int(x)},{int(y)}) r{int(r)}', f, x, y + r, keep_out, W, H, POINT)
     b = BAND_H.get(name)
     if b:
         dr.line([0, b, img.size[0], b], fill=BAND, width=4)
-        dr.rectangle([12, b - 40, 470, b - 6], fill=(24, 22, 20, 205))
+        dr.rectangle([12, b - 40, 470, b - 6], fill=(24, 22, 20, 214))
         dr.text((20, b - 37), f"↑ 上面 {b} 像素是纯风景带（人走不到）", font=font(24), fill=BAND)
     return img
 
@@ -147,7 +187,7 @@ def main():
         img = header(img, name, cn, d)
         dst = os.path.join(out_dir, folder, "交接")
         os.makedirs(dst, exist_ok=True)
-        path = os.path.join(dst, f"对照图-{cn}-俯视-v1.png" if name in REAL_ART else f"对照图-{cn}-灰盒俯视-v1.png")
+        path = os.path.join(dst, f"对照图-{cn}-俯视-{VER}.png" if name in REAL_ART else f"对照图-{cn}-灰盒俯视-{VER}.png")
         img.convert("RGB").save(path)
         print(f"好了 {path}  {img.size[0]}×{img.size[1]}")
 
