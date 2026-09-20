@@ -13,14 +13,14 @@
    "levels": {
     "cols": {
      "base": 4,
-     "step": 0.5,
-     "max": 8,
+     "step": 0.34,
+     "max": 7,
      "int": true
     },
     "rows": {
      "base": 4,
-     "step": 0.5,
-     "max": 8,
+     "step": 0.34,
+     "max": 7,
      "int": true
     },
     "kinds": {
@@ -41,7 +41,8 @@
     "base": 10,
     "step": 5,
     "max": 80
-   }
+   },
+   "art_set": "shared"
   },
   {
    "id": "match3",
@@ -67,14 +68,14 @@
     },
     "moves": {
      "base": 20,
-     "step": -0.5,
+     "step": 0,
      "min": 12,
      "int": true,
      "hard": -1
     },
     "target": {
      "base": 300,
-     "step": 55,
+     "step": 40,
      "max": 3000,
      "int": true,
      "hard": 1
@@ -84,7 +85,8 @@
     "base": 10,
     "step": 4,
     "max": 60
-   }
+   },
+   "art_set": "shared"
   },
   {
    "id": "g2048",
@@ -103,8 +105,8 @@
     },
     "target_pow": {
      "base": 5,
-     "step": 0.5,
-     "max": 11,
+     "step": 0.25,
+     "max": 9,
      "int": true,
      "hard": 1
     }
@@ -113,7 +115,8 @@
     "base": 10,
     "step": 5,
     "max": 60
-   }
+   },
+   "art_set": "ladder"
   },
   {
    "id": "memory",
@@ -134,14 +137,14 @@
     },
     "preview": {
      "base": 3.0,
-     "step": -0.25,
-     "min": 1.5,
-     "hard": -1
+     "step": 0.25,
+     "hard": -1,
+     "max": 6.0
     },
     "misses": {
      "base": 8,
-     "step": 0.2,
-     "max": 12,
+     "step": 0.6,
+     "max": 20,
      "int": true,
      "hard": -1
     }
@@ -150,7 +153,8 @@
     "base": 10,
     "step": 4,
     "max": 60
-   }
+   },
+   "art_set": "pattern"
   },
   {
    "id": "whack",
@@ -193,8 +197,8 @@
     },
     "bad": {
      "base": 0.0,
-     "step": 0.03,
-     "max": 0.3,
+     "step": 0.02,
+     "max": 0.15,
      "hard": 1
     }
    },
@@ -202,7 +206,8 @@
     "base": 10,
     "step": 4,
     "max": 60
-   }
+   },
+   "art_set": "shared"
   },
   {
    "id": "catch",
@@ -220,7 +225,7 @@
     },
     "target": {
      "base": 12,
-     "step": 3,
+     "step": 2,
      "max": 45,
      "int": true,
      "hard": 1
@@ -238,8 +243,8 @@
      "hard": -1
     },
     "misses": {
-     "base": 6,
-     "step": -0.3,
+     "base": 10,
+     "step": 0,
      "min": 3,
      "int": true,
      "hard": -1
@@ -255,7 +260,8 @@
     "base": 10,
     "step": 4,
     "max": 60
-   }
+   },
+   "art_set": "shared"
   }
  ],
  "dishes_note": "连连看每过一关解锁一道乐山菜进「菜单册」（蓝图 3.2）。菜名先占位、阿鱼可改；短评只有阿鱼能写（世界观 4.2），没写的显示「待阿鱼写」。游戏里不出现真实地名，一律写苏七",
@@ -359,5 +365,6 @@
    "ch": "肉",
    "bg": "#a3262b"
   }
- ]
+ ],
+ "art_set_note": "每个游戏用哪一套菜牌图（tiles.gd 的 ART）：shared 五个游戏共用那 12 张、ladder 小菜合大菜的成长阶梯（具体哪一关哪种作物看 ladder.json）、pattern 翻牌配对的喜庆纹样。图还没交的那套自动退回「色块 + 一个字」"
 }

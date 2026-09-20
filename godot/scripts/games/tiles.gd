@@ -8,12 +8,15 @@ const Cfg = preload("res://scripts/games/game_config.gd")
 const INK := Color("#2c1f1c")
 ## 两套图，别混（`回执/GPT出图清单-席间小游戏.md` 第一节 vs 第二节，本来就是分开列的）：
 ##   shared —— 五个游戏共用的 12 张菜牌（鱼、菜、豆、酒……），GPT 9/20 交了，已接进来
-##   ladder —— 小菜合大菜那 11 级自己的阶梯图（花生 → 凉菜 → …… → 大菜），**GPT 还没交**
+##   ladder —— 小菜合大菜那条成长路径自己的阶梯图（阿鱼 9/20 改成水稻 10 级：种子 → …… → 喜宴），**GPT 还没交**
+##   pattern —— 翻牌配对的喜庆纹样（喜字、双喜、如意、同心结这类 12 张，阿鱼 9/20 定不再用菜），**GPT 还没交**
 ## 拿级数去共用那 12 张里取会错位（一级「花生」取到鱼的图，03 9/20 报的）。
 ## 阶梯图到了往 assets/minigames/ladder/ 一放就自动用上，代码一行都不用改
+## 哪个游戏用哪一套，写在 minigames.json 每个游戏的 art_set 里（改配置不改代码）
 const ART := {
     "shared": "res://assets/minigames/tiles/dish_%02d.png",
     "ladder": "res://assets/minigames/ladder/step_%02d.png",
+    "pattern": "res://assets/minigames/pattern/sign_%02d.png",
 }
 const ART_PAD := 0.08        # 图四周留一圈，别顶着描边
 
@@ -32,17 +35,22 @@ static func dish_art(kind: int, art_set := "shared") -> Texture2D:
 ## caption 不是空串就写这几个字（小菜合大菜要的：那一级叫什么名字，光看图看不出先后）；
 ## 空串时有图就只放图，没图退回原来的「色块 + tiles 里那个字」。
 ## art_set 选哪一套图（见上面 ART）：五个游戏用 shared，小菜合大菜用 ladder。
+## keep_bg：有图时还画不画底下那个色块。**默认不画**——阿鱼 9/20 真机原话「每个图都不是透明底，很奇怪」，
+## 就是这个色块顶在透明图后面。**只有翻牌配对传 true**：那是一张「牌」，牌需要一个面。
 ## **别在外面去摸这个 Panel 的孩子**（有图没图孩子不一样，9/20 换图时 2048 就是这么崩的），要写字就用 caption
-static func dish_tile(kind: int, size: float, font: Font, font_size := 24, caption := "", art_set := "shared") -> Panel:
+static func dish_tile(kind: int, size: float, font: Font, font_size := 24, caption := "", art_set := "shared", keep_bg := false) -> Panel:
     var tl: Array = Cfg.tiles()
     var n := kind % tl.size() if not tl.is_empty() else kind
     var t: Dictionary = tl[n] if not tl.is_empty() else {"ch": "?", "bg": "#cccccc"}
     var p := Panel.new()
     p.size = Vector2(size, size)
-    p.add_theme_stylebox_override("panel", box(Color(str(t["bg"]))))
     p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    # 阶梯那套按级数取（不轮回，缺了就是缺了，退回色块），共用那套按 tiles 的序号取
+    # 阶梯、纹样那两套按级数/序号直取（不轮回，缺了就是缺了，退回色块），共用那套按 tiles 的序号取
     var tex := dish_art(kind if art_set != "shared" else n, art_set)
+    # 有图又不用留底：底色和描边都透明，只剩那张透明图（描边宽度留着，选中时 highlight 把它染成金的）
+    var show_bg: bool = tex == null or keep_bg
+    p.add_theme_stylebox_override("panel", box(Color(str(t["bg"])) if show_bg else Color(0, 0, 0, 0), 6,
+        INK if show_bg else Color(0, 0, 0, 0)))
     if tex != null:
         var r := TextureRect.new()
         r.texture = tex
@@ -88,11 +96,12 @@ static func dish_tile(kind: int, size: float, font: Font, font_size := 24, capti
     p.add_child(l)
     return p
 
-## 菜牌的底：圆角、深色描边、下沿一道暗边（有点厚度）
-static func box(bg: Color, radius := 6) -> StyleBoxFlat:
+## 菜牌的底：圆角、深色描边、下沿一道暗边（有点厚度）。border 传透明色就是「只占位不显形」，
+## 留着宽度是为了选中时 highlight 能把它染成金的
+static func box(bg: Color, radius := 6, border := INK) -> StyleBoxFlat:
     var s := StyleBoxFlat.new()
     s.bg_color = bg
-    s.border_color = INK
+    s.border_color = border
     s.set_border_width_all(2)
     s.border_width_bottom = 4
     s.set_corner_radius_all(radius)

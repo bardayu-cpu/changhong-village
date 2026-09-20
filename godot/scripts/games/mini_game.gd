@@ -19,6 +19,9 @@ var level := 1
 var params: Dictionary = {}
 var font: Font
 var rng := RandomNumberGenerator.new()
+## 这个游戏用哪一套菜牌图（minigames.json 每个游戏的 art_set，host 开局时塞进来）：
+## shared 五个游戏共用那 12 张、ladder 小菜合大菜的成长阶梯、pattern 翻牌配对的喜庆纹样
+var art_set := "shared"
 var over := false            # 已经赢了或输了：不再收操作
 var paused := false
 

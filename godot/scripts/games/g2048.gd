@@ -3,8 +3,11 @@ extends "res://scripts/games/mini_game.gd"
 ## 没地方挪、也合不了就输。难度参数（minigames.json）：size 边长，target_pow 目标是第几级菜（5 = 第 5 级）
 ## 这个文件也是别的游戏的样板：逻辑写成静态函数好测，界面只管画和收手势
 
-## 第 1～11 级菜（2、4、8……2048），名字占位、阿鱼可改；颜色借菜牌的
-const DISHES := ["花生", "凉菜", "豆花", "清汤", "鱼", "甜皮鸭", "钵钵鸡", "回锅肉", "牛肉", "全家福", "大菜"]
+## 合上去那条路（阿鱼 9/20 定：原来的 11 级菜作废，改成农作物成长路径，先做水稻 10 级）。
+## 名字、级数、用哪套图全在 assets/minigames/ladder.json，**改字改级数不改代码**；
+## 哪一关用哪种作物也在那份 json 的 by_level 里（阿鱼在考虑以后每关换一种），这里只管按关数问它要
+const LADDER := "res://assets/minigames/ladder.json"
+static var _ladder: Dictionary = {}
 const SWIPE := 30.0          # 手指划多远算一次滑动，像素
 
 var n := 4
@@ -20,14 +23,42 @@ var dragging := false
 ## 开始卡上的目标：外壳造的「探子」只 setup 没 _build，所以这里直接读参数，不读 _build 里才定的 target
 ## （9/19 分身查出来的：原来一直显示第 5 级那道菜）
 func goal_text() -> String:
-    return "合出「%s」" % DISHES[clampi(p_int("target_pow", 5) - 1, 0, DISHES.size() - 1)]
+    var st := steps()
+    return "从一粒%s合到「%s」" % [str(st[0]), str(st[clampi(p_int("target_pow", 5) - 1, 0, st.size() - 1)])]
 
 func status_text() -> String:
-    return "目标 %s" % DISHES[clampi(p_int("target_pow", 5) - 1, 0, DISHES.size() - 1)]
+    # 体验评审第 6 条：原来只写「目标 X」，不写现在最大合到哪，滑十分钟也不知道走到没走到
+    var goal_name: String = steps()[clampi(p_int("target_pow", 5) - 1, 0, steps().size() - 1)]
+    var mx := max_tile(board) if not board.is_empty() else 0
+    if mx <= 0:
+        return "目标 %s" % goal_name
+    return "目标 %s 现在最大 %s" % [goal_name, steps()[clampi(mx - 1, 0, steps().size() - 1)]]
+
+## 这一关用哪种作物（by_level 没写就用 default）
+func crop() -> Dictionary:
+    if _ladder.is_empty():
+        var j = JSON.parse_string(FileAccess.get_file_as_string(LADDER))
+        _ladder = j if j is Dictionary else {}
+    var crops: Dictionary = _ladder.get("crops", {})
+    var name := str(_ladder.get("default", ""))
+    for r in _ladder.get("by_level", []):
+        var rr: Dictionary = r
+        if level >= int(rr.get("from", 1)) and level <= int(rr.get("to", 9999)):
+            name = str(rr.get("crop", name))
+            break
+    var c = crops.get(name, {})
+    return c if c is Dictionary else {}
+
+## 这条路上每一级叫什么
+func steps() -> Array:
+    var st = crop().get("steps", [])
+    return st if st is Array and not st.is_empty() else ["种子"]
 
 func _build() -> void:
+    # 这一关那种作物有自己的一套图（art_set），没写就用 minigames.json 给这个游戏定的那套
+    art_set = str(crop().get("art_set", art_set))
     n = maxi(p_int("size", 4), 3)
-    target = clampi(p_int("target_pow", 5), 2, DISHES.size())
+    target = clampi(p_int("target_pow", 5), 2, steps().size())
     board = []
     for i in n:
         var row: Array = []
@@ -82,12 +113,12 @@ func _redraw(merged: Array) -> void:
             var k: int = board[j][i]
             if k == 0:
                 continue
-            # 这 11 级有自己一套阶梯图（ladder），不是五个游戏共用的那 12 张菜牌——
-            # 拿级数去共用那套里取会错位（一级「花生」取到鱼的图，03 9/20 报的）。
-            # 阶梯图 GPT 还没交，dish_tile 取不到就退回「色块 + 菜名」，跟换图之前一个样；
-            # 图往 assets/minigames/ladder/ 一放就自动用上。
-            # 名字一定要看得见：目标写的是「合出『全家福』」，光看图分不出哪级大
-            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, DISHES[clampi(k - 1, 0, DISHES.size() - 1)], "ladder")
+            # 这条路有自己一套图（作物的 art_set），不是五个游戏共用的那 12 张菜牌——
+            # 拿级数去共用那套里取会错位（03 9/20 报过）。水稻那套 GPT 还没交，
+            # dish_tile 取不到就整套退回「色块 + 名字」；图往 assets/minigames/<art_set>/ 一放就自动用上。
+            # 名字一定要看得见：目标写的是「合到『喜宴』」，光看图分不出哪级大
+            var st := steps()
+            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, str(st[clampi(k - 1, 0, st.size() - 1)]), art_set)
             t.position = _cell_pos(i, j)
             if Vector2i(i, j) in merged:
                 t.pivot_offset = t.size * 0.5
