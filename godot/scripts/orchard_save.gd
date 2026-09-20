@@ -54,10 +54,14 @@ func clear_basket() -> void:
         sold[k] = int(sold.get(k, 0)) + int(basket[k])
     basket = {}
 
-## json 读回来的数字都是小数，统一成能算的字典
+## json 读回来的数字都是小数，统一成能算的字典。
+## 存档要是被改花了（null、又套一层字典这类），那一项直接丢掉不要：
+## 脚本本来就不会崩、兜底也是「这块地没收过」，但日志里别留红字，以后排查碍事（01 9/20，03 提）
 func _num_dict(d) -> Dictionary:
     var out := {}
     if d is Dictionary:
         for k in d:
-            out[str(k)] = float(d[k])
+            var v = d[k]
+            if v is float or v is int:
+                out[str(k)] = float(v)
     return out

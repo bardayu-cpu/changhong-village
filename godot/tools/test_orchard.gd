@@ -306,6 +306,23 @@ func run() -> void:
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "orchard")
 
+    # 14. 存档被改花了（01 9/20，03 提）：null、又套一层字典、字符串这几项直接丢掉，
+    #     不留红字日志，兜底还是「这块地没收过」
+    print("14 存档被改花了")
+    var dirty_path := "user://test_orchard_dirty.json"
+    var df := FileAccess.open(dirty_path, FileAccess.WRITE)
+    df.store_string('{"plots":{"ridge_0":null,"ridge_1":{"a":1},"ridge_2":"坏的","ridge_3":123.5},"basket":{"strawberry":null,"loquat":2}}')
+    df.close()
+    var dirty = OrchardSave.new()
+    dirty.local_path = dirty_path
+    dirty.load_local()
+    check("坏的那三项丢掉，只留下能算的一项（留了 %d 项）" % dirty.plots.size(), dirty.plots.size() == 1)
+    check("坏的那块地兜底成「没收过」（%.0f）" % dirty.picked_at("ridge_0"), dirty.picked_at("ridge_0") < 0.0 and dirty.picked_at("ridge_1") < 0.0)
+    check("能算的那项照常读出来（%.1f）" % dirty.picked_at("ridge_3"), is_equal_approx(dirty.picked_at("ridge_3"), 123.5))
+    check("果篮同理：坏的丢掉（草莓 %d 枇杷 %d）" % [dirty.basket_of("strawberry"), dirty.basket_of("loquat")],
+        dirty.basket_of("strawberry") == 0 and dirty.basket_of("loquat") == 2)
+    DirAccess.remove_absolute(dirty_path)
+
     DirAccess.remove_absolute("user://test_orchard_games.json")
     DirAccess.remove_absolute("user://test_orchard_court.json")
     DirAccess.remove_absolute(SAVE_PATH)
