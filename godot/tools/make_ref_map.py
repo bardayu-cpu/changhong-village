@@ -160,9 +160,15 @@ def header(img, name, cn, d):
     # 图例
     x = 26
     y = 98
-    dr.rectangle([x, y, x + 26, y + 20], fill=(214, 69, 58, 190))
-    dr.text((x + 34, y - 2), "不能走", font=font(22), fill=(226, 214, 196, 255))
-    x += 130
+    # 图例第一格就是图上「不能走」的画法本身：压暗 + 斜线 + 描边（01 9/20：v2 多了描边，图例要说到）
+    sw = Image.new("RGBA", (26, 20), (92, 88, 84, 255))
+    sd = ImageDraw.Draw(sw)
+    for k in range(-20, 26, 8):
+        sd.line([(k, 0), (k + 20, 20)], fill=BLOCK + (140,), width=2)
+    sd.rectangle([0, 0, 25, 19], outline=BLOCK + (255,), width=2)
+    out.paste(sw, (x, y), sw)
+    dr.text((x + 34, y - 2), "不能走（压暗＋斜线，红边是交界）", font=font(22), fill=(226, 214, 196, 255))
+    x += 400
     dr.ellipse([x, y - 2, x + 24, y + 22], outline=POINT, width=3)
     dr.text((x + 32, y - 2), "交互点（圈是半径）", font=font(22), fill=(226, 214, 196, 255))
     x += 250
