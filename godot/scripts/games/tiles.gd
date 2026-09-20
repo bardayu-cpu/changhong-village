@@ -1,18 +1,46 @@
 extends RefCounted
-## 席间小游戏共用的画法（占位）：菜牌 = 一种菜一个颜色的圆角方块 + 一个字（minigames.json 的 tiles），
-## 正式美术到了换成图。几个游戏都从这拿，长得一样
+## 席间小游戏共用的画法：菜牌 = 圆角方块的底 + GPT 交的那张菜图（`assets/minigames/tiles/dish_NN.png`，
+## 交接单 handoff_minigames_shared_dish_tiles_v1，01 9/20 验收过，128×128 PNG）。
+## **序号就是交接单的 index，绝对不能错位**（尤其 10 号是喜糖）：minigames.json 的 tiles 第 N 条配 dish_NN.png。
+## 图缺了就退回原来的占位（一个颜色方块 + 一个字），不至于满屏空白。几个游戏都从这拿，长得一样
 
 const Cfg = preload("res://scripts/games/game_config.gd")
 const INK := Color("#2c1f1c")
+const ART := "res://assets/minigames/tiles/dish_%02d.png"
+const ART_PAD := 0.08        # 图四周留一圈，别顶着描边
+
+static var _art: Dictionary = {}   # 序号 -> Texture2D（没有这张图就存 null，不用每次都去试）
+
+## 交接单那 12 张图里的第 kind 张；没有返回 null
+static func dish_art(kind: int) -> Texture2D:
+    if not _art.has(kind):
+        var path := ART % kind
+        _art[kind] = load(path) if ResourceLoader.exists(path) else null
+    return _art[kind]
 
 ## 一张菜牌：kind 是 tiles 里的序号（超出就轮回去），size 边长（屏幕像素），font_size 字号（像素字体要 12 的倍数）
 static func dish_tile(kind: int, size: float, font: Font, font_size := 24) -> Panel:
     var tl: Array = Cfg.tiles()
-    var t: Dictionary = tl[kind % tl.size()] if not tl.is_empty() else {"ch": "?", "bg": "#cccccc"}
+    var n := kind % tl.size() if not tl.is_empty() else kind
+    var t: Dictionary = tl[n] if not tl.is_empty() else {"ch": "?", "bg": "#cccccc"}
     var p := Panel.new()
     p.size = Vector2(size, size)
     p.add_theme_stylebox_override("panel", box(Color(str(t["bg"]))))
     p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    var tex := dish_art(n)
+    if tex != null:
+        var r := TextureRect.new()
+        r.texture = tex
+        r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+        r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+        r.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        var pad := size * ART_PAD
+        r.position = Vector2(pad, pad)
+        r.size = Vector2(size - pad * 2.0, size - pad * 2.0)
+        r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+        p.add_child(r)
+        return p
+    # 图还没到（或者缺了这一张）：还是原来那个色块加一个字
     var l := Label.new()
     l.text = str(t["ch"])
     l.add_theme_font_override("font", font)
