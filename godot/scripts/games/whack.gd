@@ -100,8 +100,8 @@ func hit(i: int) -> int:
         return 0
     if st["bad"]:
         score = maxi(score - 1, 0)
+        _shake_bad(i)
         _retract(i)
-        _flash_red()
         return -1
     score += 1
     _fly_away(i)
@@ -127,7 +127,7 @@ func _spawn_at(i: int) -> void:
     if bad:
         node = _bad_tile(dish_size, fs)
     else:
-        node = Tiles.dish_tile(rng.randi() % maxi(Cfg.tiles().size(), 1), dish_size, font, fs)
+        node = Tiles.dish_tile(rng.randi() % maxi(Cfg.tiles().size(), 1), dish_size, font, fs, "", art_set)
     node.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var up_pos: Vector2 = plate.position + Vector2((plate.size.x - dish_size) * 0.5, -dish_size * 0.32)
     var start_pos: Vector2 = plate.position + Vector2((plate.size.x - dish_size) * 0.5, plate.size.y * 0.5)
@@ -161,18 +161,31 @@ func _fly_away(i: int) -> void:
         tw.chain().tween_callback(node.queue_free)
     holes_state[i] = {"up": false, "bad": false, "timer": 0.0, "node": null}
 
-func _flash_red() -> void:
-    if flash == null or not is_instance_valid(flash):
+## 点错了（体验评审第 5 条）：原来整个游戏区闪一片红（0.4 透明度盖满），
+## 喜宴桌上那是「出事了」的信号。改成那个盘子抖一下、辣椒左右摇头
+func _shake_bad(i: int) -> void:
+    if i < 0 or i >= holes_state.size():
         return
-    flash.color = Color(1, 0, 0, 0.4)
-    var tw := create_tween()
-    tw.tween_property(flash, "color:a", 0.0, 0.25)
+    var node = holes_state[i].get("node")
+    for target_node in [node, plates[i] if i < plates.size() else null]:
+        if target_node == null or not is_instance_valid(target_node):
+            continue
+        var c: Control = target_node
+        var x0 := c.position.x
+        var tw := create_tween()
+        tw.tween_property(c, "position:x", x0 - 6.0, 0.05)
+        tw.tween_property(c, "position:x", x0 + 6.0, 0.05)
+        tw.tween_property(c, "position:x", x0 - 4.0, 0.05)
+        tw.tween_property(c, "position:x", x0, 0.05)
 
+## 辣椒（体验评审第 13 条）：原来是 #b0261e 的红底，和 12 号菜牌「肉」的 #a3262b 几乎一个色，
+## 玩家学到的捷径变成「底色红 = 别碰」，连红烧肉一起躲了。
+## 换成**一眼不同**的：墨绿底 + 亮黄描边 + 写「辣」，红的那一片里只有它是绿的
 func _bad_tile(sz: float, font_size := 24) -> Panel:
     var p := Panel.new()
     p.size = Vector2(sz, sz)
-    p.add_theme_stylebox_override("panel", Tiles.box(Color("#b0261e")))
-    var l := Tiles.label("椒", font, font_size, Color("#fff3e0"))
+    p.add_theme_stylebox_override("panel", Tiles.box(Color("#1f5c3a"), 6, Color("#ffd447")))
+    var l := Tiles.label("辣", font, font_size, Color("#ffd447"))
     l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
     l.size = p.size
@@ -190,7 +203,18 @@ func _gui_input(e: InputEvent) -> void:
             hit(idx)
         accept_event()
 
+## 点哪个盘子（体验评审第 3 条）：**先认冒出来那张菜本身**，认不到再认盘子。
+## 菜冒起来比盘沿高出约 26 像素、菜高约 81 像素，上面三成露在盘子外头；原来只认盘子那个框，
+## 于是「照着菜点没反应」，而且盘子上下只隔 14 像素，露出来那截落在**上一排**的框里——
+## 玩家没点辣椒却被判倒扣，就是这么来的
 func _hole_at(pos: Vector2) -> int:
+    for i in holes_state.size():
+        var st: Dictionary = holes_state[i]
+        if not st["up"]:
+            continue
+        var node = st.get("node")
+        if node != null and is_instance_valid(node) and Rect2((node as Control).position, (node as Control).size).has_point(pos):
+            return i
     for i in plates.size():
         var p: Panel = plates[i]
         if Rect2(p.position, p.size).has_point(pos):

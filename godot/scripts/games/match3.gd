@@ -30,7 +30,9 @@ func goal_text() -> String:
     # 注意：开始卡是拿一个只 setup() 没 start() 的探针实例来读 goal_text()（game_host.gd _show_start），
     # _build() 还没跑，moves/target 都还是声明时的默认值；这里改成直接读 params，跟 g2048.gd 的 goal_text()
     # 读 target（_build() 以后才对）不一样，见回报「框架哪里用着别扭」
-    return "%d 步内凑够 %d 分" % [p_int("moves", moves), p_int("target", target)]
+    # 体验评审第 10 条：原来只写「N 步内凑够 M 分」，玩家算不出一次消三个值多少，
+    # 更不知道连锁第 2 轮起翻倍。把最小一次消多少分写在明处
+    return "%d 步内凑够 %d 分（一次消三个 = 30 分，连着消还翻倍）" % [p_int("moves", moves), p_int("target", target)]
 
 func status_text() -> String:
     if shuffle_flash > 0.0:
@@ -87,7 +89,7 @@ func _redraw(b: Array, animate_fall := false) -> void:
             var kd: int = b[r][c]
             if kd < 0:
                 continue
-            var t := Tiles.dish_tile(kd, cell_px, font, fs)
+            var t := Tiles.dish_tile(kd, cell_px, font, fs, "", art_set)
             var final_pos := _cell_pos(c, r)
             if animate_fall:
                 t.position = final_pos - Vector2(0, cell_px + gap)

@@ -24,11 +24,14 @@ var basket_x := 0.0     # 篮子中心 x（逻辑位置，测试可以直接改�
 var basket_y := 0.0     # 篮子顶沿 y
 var dragging := false
 
+## 30 秒限时原来从头到尾没人说（开始卡不写、玩的时候顶上也不显示），忽然就「时间到了」——
+## 六个游戏里只有它这样（体验评审第 2 条）
 func goal_text() -> String:
-    return "接住 %d 颗喜糖，最多漏 %d 颗，别接鞭炮" % [p_int("target", 12), p_int("misses", 6)]
+    return "%d 秒内接住 %d 颗喜糖，别接鞭炮（接到鞭炮才算漏，最多 %d 次）" % [
+        int(p_float("duration", 30.0)), p_int("target", 12), p_int("misses", 6)]
 
 func status_text() -> String:
-    return "接到 %d/%d 漏 %d/%d" % [caught, p_int("target", 12), misses, p_int("misses", 6)]
+    return "接到 %d/%d 漏 %d/%d 剩 %d 秒" % [caught, p_int("target", 12), misses, p_int("misses", 6), int(ceil(maxf(time_left, 0.0)))]
 
 func _build() -> void:
     duration = p_float("duration", 30.0)
@@ -117,14 +120,17 @@ func _spawn_drop() -> void:
     if bad:
         node = _bad_tile(dish_size)
     else:
-        node = Tiles.dish_tile(10, dish_size, font, 24)   # 10 号菜牌是「糖」
+        node = Tiles.dish_tile(10, dish_size, font, 24, "", art_set)   # 10 号菜牌是「糖」
     node.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var x := rng.randf_range(dish_size * 0.5, maxf(size.x - dish_size * 0.5, dish_size * 0.5))
     node.position = Vector2(x - dish_size * 0.5, -dish_size)
     add_child(node)
     drops.append({"x": x, "y": -dish_size * 0.5, "bad": bad, "node": node})
 
-## 一颗喜糖／鞭炮落地或落进篮子：喜糖进篮 +1，喜糖落地算漏，鞭炮进篮算漏（篮子抖一下），鞭炮落地没事
+## 一颗喜糖／鞭炮落地或落进篮子：喜糖进篮 +1，**喜糖落地不算漏**，鞭炮进篮算漏（篮子抖一下），鞭炮落地没事。
+## 「漏」原来把每颗没接到的糖都算上，于是「接 12 颗最多漏 6 颗」实际是「头 18 颗里必须接中 67%」，
+## 第 10 关更是「头 42 颗接中 93%」——六个游戏里只有它第 1 关就在为难长辈（体验评审第 1 条）。
+## 现在「漏」只数接到鞭炮那一种：没接住的糖再掉一颗就是了，**接错东西才罚**
 func _collect(d: Dictionary, in_basket: bool) -> void:
     var node = d.get("node")
     if node != null and is_instance_valid(node):
@@ -135,8 +141,6 @@ func _collect(d: Dictionary, in_basket: bool) -> void:
             _shake_basket()
         else:
             caught += 1
-    elif not d["bad"]:
-        misses += 1
     if caught >= target:
         win()
     elif misses > misses_max:

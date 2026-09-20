@@ -8,6 +8,10 @@ const BACK_BG := Color("#8a1a1a")
 const BACK_BORDER := Color("#d4af37")
 const BACK_CH := Color("#f4d97a")
 const MISS_WAIT := 0.6
+const POP_LEN := 0.35        # 配对成功那一下弹多久，秒
+## 阿鱼 9/20 真机：「每行都必须是满的才对」。第 3 关 10 张摆成 4+4+2，最后一行缺两个。
+## 这几个对数，牌数（对数×2）都排得成整行；难度表给别的数就往下取最近的一个
+const PAIRS_OK := [3, 4, 5, 6, 8, 9, 10, 12]
 
 var pairs := 3
 var misses_max := 8
@@ -29,18 +33,21 @@ var pending_miss := false
 var hide_at := 0.0
 var miss_pair := Vector2i(-1, -1)
 var misses := 0
+var pop_left := 0.0            # 配对成功那一下的余韵，顶栏跟着说一句
 
 func goal_text() -> String:
-    return "配完 %d 对，最多翻错 %d 次" % [p_int("pairs", 3), p_int("misses", 8)]
+    return "配完 %d 对，最多翻错 %d 次" % [snap_pairs(p_int("pairs", 3)), p_int("misses", 8)]
 
 func status_text() -> String:
     if previewing:
         return "记住它们"
+    if pop_left > 0.0:
+        return "配上了"
     return "翻错 %d/%d" % [misses, misses_max]
 
 func _build() -> void:
     # 上限跟菜牌种数走（minigames.json 的 tiles 有 12 种），一对一种菜；9/19 01 定 pairs 封顶从 10 提到 12
-    pairs = clampi(p_int("pairs", 3), 3, maxi(Cfg.tiles().size(), 3))
+    pairs = snap_pairs(clampi(p_int("pairs", 3), 3, maxi(Cfg.tiles().size(), 3)))
     misses_max = maxi(p_int("misses", 8), 0)
     preview_total = maxf(p_float("preview", 3.0), 0.0)
     deck = make_deck(pairs, maxi(Cfg.tiles().size(), 1), rng)
@@ -89,12 +96,26 @@ func _redraw_one(i: int) -> void:
     var fs := 24 if cell_px >= 48.0 else 12
     var t: Panel
     if matched[i] or revealed[i]:
-        t = Tiles.dish_tile(deck[i], cell_px, font, fs)
+        # 牌面留底色：那是一张「牌」，牌需要一个面（阿鱼 A1 的例外）
+        t = Tiles.dish_tile(deck[i], cell_px, font, fs, "", art_set, true)
     else:
         t = _back_tile(cell_px, font, fs)
     t.position = _cell_pos(i)
     grid.add_child(t)
     panels[i] = t
+
+## 配对成功：这两张描金边、弹一下（A4）
+func _pop(i: int) -> void:
+    if i < 0 or i >= panels.size():
+        return
+    var t = panels[i]
+    if t == null or not is_instance_valid(t):
+        return
+    Tiles.highlight(t, true)
+    var pan: Panel = t
+    pan.pivot_offset = pan.size * 0.5
+    pan.scale = Vector2(1.18, 1.18)
+    create_tween().tween_property(pan, "scale", Vector2.ONE, POP_LEN)
 
 func _set_all_face(up: bool) -> void:
     for i in total:
@@ -133,6 +154,10 @@ func tap(i: int) -> void:
     if deck[a] == deck[i]:
         matched[a] = true
         matched[i] = true
+        # 阿鱼 9/20：「配对成功后应该有明确的配对成功」。原来翻对了就那么消掉，没有「对了」的感觉
+        _pop(a)
+        _pop(i)
+        pop_left = POP_LEN
         if _all_matched():
             win()
     else:
@@ -161,6 +186,8 @@ func _all_matched() -> bool:
     return true
 
 func _game_tick(dt: float) -> void:
+    if pop_left > 0.0:
+        pop_left = maxf(pop_left - dt, 0.0)
     if previewing:
         preview_left -= dt
         if preview_left <= 0.0:
@@ -198,13 +225,26 @@ static func _back_tile(sz: float, font: Font, font_size: int) -> Panel:
     return p
 
 # ---------- 逻辑（静态，好测） ----------
-## 牌该摆几列：≤6 张 3 列、≤12 张 4 列、再多 5 列
+## 对数取 PAIRS_OK 里不超过 p 的最大那个（牌数是双数还不够，还得排得成整行）
+static func snap_pairs(p: int) -> int:
+    var best: int = PAIRS_OK[0]
+    for v in PAIRS_OK:
+        if int(v) <= p:
+            best = int(v)
+    return best
+
+## 牌该摆几列：**必须整除牌数**，不然最后一行是缺的（阿鱼 9/20）。
+## 在因数里取不小于 sqrt 的最小那个，排出来最接近方块
 static func _cols_for(total: int) -> int:
-    if total <= 6:
-        return 3
-    if total <= 12:
-        return 4
-    return 5
+    var want := sqrt(float(total))
+    var best := total
+    for c in range(1, total + 1):
+        if total % c != 0:
+            continue
+        if float(c) >= want:
+            best = c
+            break
+    return maxi(best, 1)
 
 ## 摆一副牌：pairs 对，从 kinds_total 种菜里选（菜不够就轮回去用），洗匀。返回长度 pairs*2 的菜序号数组
 static func make_deck(pairs: int, kinds_total: int, rng: RandomNumberGenerator) -> Array:

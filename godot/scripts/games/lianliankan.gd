@@ -78,7 +78,7 @@ func _redraw_all() -> void:
             var v := int(board[y][x])
             if v == 0:
                 continue
-            var t := Tiles.dish_tile(v - 1, cell_px, font, fs)
+            var t := Tiles.dish_tile(v - 1, cell_px, font, fs, "", art_set)
             t.position = _cell_pos(x, y)
             grid.add_child(t)
             cell_panels[y][x] = t
@@ -102,6 +102,20 @@ func _gui_input(e: InputEvent) -> void:
         accept_event()
 
 ## 点一张菜牌；逻辑全同步（好测），画面上的连线只是好看，不挡下一步操作
+## 连不上时那张牌抖一下（体验评审第 8 条）
+func _shake(c: Vector2i) -> void:
+    if c.y < 0 or c.y >= cell_panels.size() or c.x < 0 or c.x >= (cell_panels[c.y] as Array).size():
+        return
+    var t = cell_panels[c.y][c.x]
+    if t == null or not is_instance_valid(t):
+        return
+    var ct: Control = t
+    var x0 := ct.position.x
+    var tw := create_tween()
+    tw.tween_property(ct, "position:x", x0 - 5.0, 0.05)
+    tw.tween_property(ct, "position:x", x0 + 5.0, 0.05)
+    tw.tween_property(ct, "position:x", x0, 0.05)
+
 func tap(c: Vector2i) -> void:
     if over:
         return
@@ -121,6 +135,10 @@ func tap(c: Vector2i) -> void:
     var same_kind: bool = int(board[c.y][c.x]) == int(board[selected.y][selected.x])
     var path: Array = (can_link(board, selected, c) if same_kind else [])
     if path.is_empty():
+        # 连不上原来什么反应都没有：点两下没消也没响，不知道是自己点歪还是游戏坏了（体验评审第 8 条）。
+        # 那两张一起抖一下
+        _shake(selected)
+        _shake(c)
         _set_highlight(selected, false)
         selected = c
         has_sel = true
