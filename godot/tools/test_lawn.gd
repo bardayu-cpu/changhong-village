@@ -141,7 +141,7 @@ func run() -> void:
     check("站着 60 帧不弹回后厅", m.state == "lawn")
     walk_to(Vector2(768, 330))
     walk_to(l.spot_pos("to_orchard"))
-    check("北口去了果园，站在南口边 (768,820) %s" % m.orchard.pos, m.state == "orchard" and m.orchard.pos == Vector2(768, 820))
+    check("北口去了果园，站在南口边 (768,1076) %s" % m.orchard.pos, m.state == "orchard" and m.orchard.pos == Vector2(768, 1076))   # 9/20 果园加高，玩法区 +256
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "orchard")
     walk_to(m.orchard.spot_pos("to_lawn"))

@@ -1,7 +1,8 @@
 extends SceneTree
 ## 验收：罗曼山庄湖边（蓝图 3.5，灰盒，01 9/20 派任务 9）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
-## 布局：三个交互点和蓝图一字不差；湖面（北半 y 0～520）不能走，栈道 x 720～816、y 300～560 和亭子（4 米见方，中心 768,300）能走，
-## 南半 y 540～900 能走；栈道上摇杆往两边推不下水（边缘挡住，蓝图 3.5 异常处理）；柳树、长凳都在。
+## 9/20 加高（01 派任务 11）：画布 1536×1280，顶上 256 像素是纯风景带（对岸，人走不到），玩法区整体 +256，下面的坐标都是加过的。
+## 布局：三个交互点照蓝图 +256；湖面（y 256～776）不能走，栈道 x 720～816、y 556～816 和亭子（4 米见方，中心 768,556）能走，
+## 南半 y 796～1156 能走；栈道上摇杆往两边推不下水（边缘挡住，蓝图 3.5 异常处理）；柳树、长凳都在。
 ## 亭子：走进去自动出一句、走出去收，阿鱼写好之前是「【待补】」（《世界观》4.2 记忆点只有阿鱼能写）。
 ## 长凳：走到旁边出「坐下」，点一下坐（面朝湖、换坐姿、镜头不变焦），再点起来；自己推摇杆也会站起来，按钮跟着变回「坐下」。
 ## 进出：迎宾院西小径 ↔ 湖边东口，到了站的点离出口至少 1 米、不来回弹
@@ -57,18 +58,19 @@ func run() -> void:
 
     # 1. 布局对蓝图 3.5
     print("1 布局对蓝图 3.5")
-    var want := {"pavilion": [768, 340, 60], "bench": [400, 720, 50], "to_entrance": [1500, 700, 50]}
+    var want := {"pavilion": [768, 596, 60], "bench": [400, 976, 50], "to_entrance": [1500, 956, 50]}
     var same: bool = k.points.size() == 3
     for id in want:
         same = same and k.points.has(id) and k.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(k.points[id]["r"]), float(want[id][2]))
     check("三个交互点和蓝图一字不差", same)
     var water := true
-    for p in [Vector2(300, 300), Vector2(1200, 200), Vector2(768, 120), Vector2(690, 450), Vector2(850, 450), Vector2(400, 520)]:
+    for p in [Vector2(300, 556), Vector2(1200, 456), Vector2(768, 376), Vector2(690, 706), Vector2(850, 706), Vector2(400, 776),
+            Vector2(768, 120), Vector2(200, 60)]:   # 最后两个是顶上那条风景带（9/20 加高，人走不上去）
         water = water and not k._free(p)
     check("湖面、栈道两边都不能走", water)
     var walkable := true
-    for p in [Vector2(768, 450), Vector2(726, 540), Vector2(810, 320), Vector2(768, 340), Vector2(700, 300), Vector2(830, 300),
-            Vector2(200, 700), Vector2(1400, 800), Vector2(768, 860)]:
+    for p in [Vector2(768, 706), Vector2(726, 796), Vector2(810, 576), Vector2(768, 596), Vector2(700, 556), Vector2(830, 556),
+            Vector2(200, 956), Vector2(1400, 1056), Vector2(768, 1116)]:
         walkable = walkable and k._free(p)
     check("栈道、亭子、南半都能走", walkable)
     check("到了站的点 %s 离东口 %.0f 像素（至少 48），能站" % [m.LAKE_FROM_COURT, m.LAKE_FROM_COURT.distance_to(k.points["to_entrance"]["pos"])],
@@ -95,7 +97,7 @@ func run() -> void:
     walk_to(c.spot_pos("to_lake") + Vector2(150, 0))
     walk_to(c.spot_pos("to_lake"))
     check("西小径到了湖边 state=%s" % m.state, m.state == "lake" and m.cv == k and k.visible and not c.visible)
-    check("站在东口边 (1440,700) %s，朝向没变 %s" % [k.pos, k.face], k.pos == m.LAKE_FROM_COURT and k.face == "left")
+    check("站在东口边 (1440,956) %s，朝向没变 %s" % [k.pos, k.face], k.pos == m.LAKE_FROM_COURT and k.face == "left")
     tick(60)
     check("站着 60 帧不弹回迎宾院", m.state == "lake")
     walk_to(k.spot_pos("to_entrance"))
@@ -107,17 +109,17 @@ func run() -> void:
 
     # 3. 栈道上摇杆往两边推：掉不下去（蓝图 3.5 异常处理）
     print("3 栈道推不下水")
-    k.reset_to(Vector2(768, 450))
+    k.reset_to(Vector2(768, 706))
     var off := 0
     for d in [Vector2(1, 0), Vector2(-1, 0), Vector2(0.9, -0.4), Vector2(-0.9, -0.4)]:
-        k.reset_to(Vector2(768, 450))
+        k.reset_to(Vector2(768, 706))
         k.stick = d
         for i in 90:
             tick(1)
-            # 北半（y 小于 534）只有栈道和亭子能站：人只要在北半，就得在栈道或亭子的范围里，而且脚下永远是能站的格子
+            # 北半（y 小于 790）只有栈道和亭子能站：人只要在北半，就得在栈道或亭子的范围里，而且脚下永远是能站的格子
             var in_deck: bool = k.pos.x >= 714.0 and k.pos.x <= 822.0
-            var in_pav: bool = k.pos.y <= 402.0 and k.pos.x >= 666.0 and k.pos.x <= 870.0
-            if not k._free(k.pos) or (k.pos.y < 534.0 and not (in_deck or in_pav)):
+            var in_pav: bool = k.pos.y <= 658.0 and k.pos.x >= 666.0 and k.pos.x <= 870.0
+            if not k._free(k.pos) or (k.pos.y < 790.0 and not (in_deck or in_pav)):
                 off += 1
                 break
     k.stick = Vector2.ZERO
@@ -129,17 +131,17 @@ func run() -> void:
     walk_to(k.spot_pos("pavilion"))
     check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_text.text == "【待补】" and m.dialog_who.text == "阿鱼")
     check("话在 lines.json 里也是【待补】", CourtCopy.text("pavilion", CourtCopy.LAKE) == "【待补】")
-    walk_to(Vector2(768, 520))
+    walk_to(Vector2(768, 776))
     check("走出亭子，那句收了", not m.dialog.visible and not k.in_spot("pavilion"))
     walk_to(k.spot_pos("pavilion"))
     check("再走进去又出", m.dialog.visible and m.dialog_text.text == "【待补】")
-    walk_to(Vector2(768, 620))
+    walk_to(Vector2(768, 876))
 
     # 5. 长凳：走到旁边出「坐下」，点一下坐（面朝湖、坐姿、镜头不变焦），再点起来
     print("5 长凳")
     var ui = m.lake_ui
     var zoom0: Vector2 = k.cam.zoom
-    walk_to(Vector2(400, 780))
+    walk_to(Vector2(400, 1036))
     walk_to(k.spot_pos("bench"))
     check("走到长凳旁出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "坐下")
     check("还没坐", not k.seated)

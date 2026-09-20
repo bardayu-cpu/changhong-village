@@ -1,6 +1,7 @@
 extends SceneTree
 ## 验收：罗曼山庄果园（地方照蓝图 3.6，玩法按阿鱼 9/20 定的种田循环）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
-## 布局：蓝图 3.6 那三个交互点一字不差，另加「山庄收购处」；八条草莓垄、六棵枇杷树、中间小路、北边田埂不能走；人在垄间走得开。
+## 9/20 加高（01 派任务 11）：画布 1536×1280，顶上 256 像素是纯风景带（远处的田，人走不到），玩法区整体 +256，下面的坐标都是加过的。
+## 布局：蓝图 3.6 那三个交互点照蓝图 +256，另加「山庄收购处」；八条草莓垄、六棵枇杷树、中间小路、北边田埂不能走；人在垄间走得开。
 ## 种田：八条垄 + 六棵树 = 14 块地各自计时，一轮 300 秒（assets/orchard/farm.json，改数不改代码）；
 ##   光地 → 长一半变青果 → 熟；按真实时钟算，人不在也长（关了游戏回来该熟的熟了）；
 ##   【熟了不叠，01 9/20 定的底线】挂多久回来都是 14 块地、一轮的量；
@@ -87,7 +88,7 @@ func run() -> void:
 
     # 1. 布局：蓝图 3.6 的三个点没动，另加收购处
     print("1 布局")
-    var want := {"strawberry": [400, 540, 60], "loquat": [1150, 500, 60], "to_lawn": [768, 880, 60]}
+    var want := {"strawberry": [400, 796, 60], "loquat": [1150, 756, 60], "to_lawn": [768, 1136, 60]}
     var same: bool = o.points.size() == 4
     for id in want:
         same = same and o.points.has(id) and o.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(o.points[id]["r"]), float(want[id][2]))
@@ -105,11 +106,12 @@ func run() -> void:
             trees += 1
     check("八条草莓垄、六棵枇杷树，各算一块地（%d + %d = %d 块）" % [ridges, trees, o.plots.size()], ridges == 8 and trees == 6)
     var gap_walk := 0
-    for y in [336, 404, 472, 540, 608, 676, 744]:
+    for y in [592, 660, 728, 796, 864, 932, 1000]:
         if o._free(Vector2(400, y)):
             gap_walk += 1
     check("垄间走得开（七条空道能站 %d 条）" % gap_walk, gap_walk == 7)
-    check("北边田埂、远处的田不能走", not o._free(Vector2(768, 150)) and not o._free(Vector2(300, 100)))
+    check("北边田埂、远处的田、顶上那条风景带都不能走", not o._free(Vector2(768, 406)) and not o._free(Vector2(300, 356))
+        and not o._free(Vector2(768, 120)) and not o._free(Vector2(200, 60)))
     for id in o.points:
         var pt: Vector2 = o.points[id]["pos"]
         var path: Array = o.find_path(o.SPAWN, pt)
@@ -149,13 +151,13 @@ func run() -> void:
     walk_to(m.court.spot_pos("to_lawn"))
     walk_to(Vector2(768, 300))
     walk_to(l.spot_pos("to_orchard"))
-    check("草坪北口到了果园，站在 (768,820)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)
+    check("草坪北口到了果园，站在 (768,1076)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)
     var calls := []
     var real_cloud = m.cloud
     var spy := SpyCloud.new()
     spy.calls = calls
     m.cloud = spy
-    walk_into(o, "strawberry", Vector2(490, 540))
+    walk_into(o, "strawberry", Vector2(490, 796))
     check("垄间出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "收草莓（8 垄熟了）")
     var coins0: int = m.games_save.coins
     ui._on_act()
@@ -171,19 +173,19 @@ func run() -> void:
     # 5. 长：一半变青果，到点才熟；人站着不动地也在长
     print("5 长")
     m.note.text = ""
-    walk_into(o, "strawberry", Vector2(490, 540))
+    walk_into(o, "strawberry", Vector2(490, 796))
     check("刚收完站过去：%s" % m.note.text, m.note.text == "草莓还有 5 分 0 秒 熟" and not ui.act_btn.visible)
     o.fake_now += 180.0                     # 长了六成
     o.refresh_fruit()
     check("六成：垄上是青果（青 %d 块、熟 %d 块）" % [stage_count(o, "strawberry", 1), o.ripe_count("strawberry")],
         stage_count(o, "strawberry", 1) == 8 and o.ripe_count("strawberry") == 0)
     m.note.text = ""
-    walk_into(o, "strawberry", Vector2(490, 540))
+    walk_into(o, "strawberry", Vector2(490, 796))
     check("青果的时候：%s" % m.note.text, m.note.text == "草莓还有 2 分 0 秒 熟" and not ui.act_btn.visible)
     o.fake_now += 130.0                     # 到点
     tick(40)                                # 人站着不动，地自己长（main 每帧叫 sync）
     check("到点了：8 垄又熟了", o.ripe_count("strawberry") == 8)
-    walk_into(o, "strawberry", Vector2(490, 540))
+    walk_into(o, "strawberry", Vector2(490, 796))
     check("按钮自己回来了「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "收草莓（8 垄熟了）")
 
     # 6. 人不在也长：离开果园、时间过去，回来该熟的熟了
@@ -198,7 +200,7 @@ func run() -> void:
 
     # 7. 卖给山庄（manual：跑一趟收购处）
     print("7 卖")
-    walk_into(o, "loquat", Vector2(1150, 580))
+    walk_into(o, "loquat", Vector2(1150, 836))
     check("树下出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "收枇杷（6 棵熟了）")
     ui._on_act()
     tick(2)
@@ -207,7 +209,7 @@ func run() -> void:
         m.orchard_save.basket_of("strawberry") == 16 and m.orchard_save.basket_of("loquat") == 6)
     check("果篮值 %d 金（草莓 16×2 + 枇杷 6×4）" % o.basket_coins(), o.basket_coins() == 56)
     m.dialog.visible = false
-    walk_into(o, "shop", Vector2(980, 760))
+    walk_into(o, "shop", Vector2(980, 1016))
     check("收购处出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "卖给山庄（56 金）")
     ui._on_act()
     tick(2)
@@ -219,7 +221,7 @@ func run() -> void:
     m.cloud = real_cloud
     spy.free()
     m.note.text = ""
-    walk_into(o, "shop", Vector2(980, 760))
+    walk_into(o, "shop", Vector2(980, 1016))
     check("果篮空着再去收购处：%s，不出按钮" % m.note.text, m.note.text == "果篮是空的 先去收点果子" and not ui.act_btn.visible)
 
     # 8. 本机存着：关了游戏再开，地还是刚才那个进度
@@ -239,13 +241,13 @@ func run() -> void:
     age_all(o, 400.0)                       # 都熟了
     var coins1: int = m.games_save.coins
     m.dialog.visible = false
-    walk_into(o, "strawberry", Vector2(490, 540))
+    walk_into(o, "strawberry", Vector2(490, 796))
     ui._on_act()
     tick(2)
     check("收完直接折钱：%s" % m.dialog_text.text, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
         and m.dialog_text.text.begins_with("山庄收走 草莓 8 筐"))
     m.note.text = ""
-    walk_into(o, "shop", Vector2(980, 760))
+    walk_into(o, "shop", Vector2(980, 1016))
     check("这种卖法下走到收购处：%s" % m.note.text, m.note.text == "果子山庄直接收走了 不用跑这一趟" and not ui.act_btn.visible)
 
     # 10. season_gate 打开：蓝图 3.6 那套老玩法还在
@@ -256,7 +258,7 @@ func run() -> void:
     check("季节关着的时候不长（熟 %d 块）" % (o.ripe_count("strawberry") + o.ripe_count("loquat")),
         o.ripe_count("strawberry") == 0 and o.ripe_count("loquat") == 0)
     m.note.text = ""
-    walk_into(o, "strawberry", Vector2(490, 540))
+    walk_into(o, "strawberry", Vector2(490, 796))
     check("出蓝图原话「%s」，不出按钮" % m.note.text, m.note.text == "还没到时候" and not ui.act_btn.visible)
     o.fake_today = "2026-12-08"             # 草莓的季节
     age_all(o, 400.0)
@@ -300,7 +302,7 @@ func run() -> void:
     tick(60)
     check("站着 60 帧不弹回果园", m.state == "lawn")
     walk_to(l.spot_pos("to_orchard"))
-    check("又到果园，站在 (768,820)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)
+    check("又到果园，站在 (768,1076)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "orchard")
 
