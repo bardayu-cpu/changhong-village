@@ -505,6 +505,8 @@ func _process(dt: float) -> void:
             cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
     if state == "lake" and lake_ui != null:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
+    if state == "orchard" and orchard_ui != null:
+        orchard_ui.sync()   # 人站着不动地也在长：按钮上「几垄熟了」跟着变
     if stick_base != null:
         # 写悄悄话、说话的时候不能走，摇杆也藏起来
         var show_stick: bool = _in_scene() and cv.walking_enabled
@@ -1222,7 +1224,7 @@ func _switch_canvas(to: String) -> void:
     elif to == "orchard":
         _show_canvas("orchard")
         orchard.reset_to(ORCHARD_FROM_LAWN)
-        orchard.refresh_fruit()   # 隔天再来：该有的果子回来，今天摘过的还是少一颗
+        orchard.refresh_fruit()   # 人不在的时候地也在长：进来先对一次，该熟的已经熟了
         _goto("orchard")
     else:
         _show_canvas("court")
@@ -1324,7 +1326,7 @@ func _on_lawn_spot(id: String, inside: bool) -> void:
             if inside:
                 _switch_canvas("orchard")
 
-## 走到果园的交互点（蓝图 3.6）：草莓垄、枇杷树的「摘一颗」在 orchard_ui.gd（没到季节、今天摘过了也由它说）；南口回草坪
+## 走到果园的交互点（蓝图 3.6 的地方 + 阿鱼 9/20 的种田玩法）：草莓垄、枇杷树的「收」和山庄收购处的「卖」都在 orchard_ui.gd；南口回草坪
 func _on_orchard_spot(id: String, inside: bool) -> void:
     if state != "orchard" or switching:
         return
@@ -2755,13 +2757,21 @@ func _setup_shot(shot: String) -> void:
                 lake.cam.position = Vector2(768, 512)
                 lake.cam.reset_smoothing()
             await get_tree().process_frame
-        "orchard", "orchard_overview", "orchard_pick", "orchard_loquat", "orchard_off":
-            # 果园灰盒（蓝图 3.6，01 9/20 派任务 10）：今天（9 月）两种都不在季节，截图把日期调开。
-            # orchard、overview、pick 用 12 月（草莓红的），loquat 用 5 月（枇杷黄的），off 用 9 月（都没到时候）
+        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell":
+            # 果园（阿鱼 9/20 定的种田玩法）：头一回进来地都是熟的。
+            # pick 收草莓、sell 卖给山庄、grow 把地拨到长了六成（青果，报还有多久熟）
             nickname = "阿花"
             orchard_save.local_path = "user://shot_orchard.json"   # 不动这台电脑上的真存档
-            orchard_save.picked = {}
-            orchard.fake_today = {"orchard_loquat": "2026-05-12", "orchard_off": "2026-09-20"}.get(shot, "2026-12-08")
+            orchard_save.plots = {}
+            orchard_save.basket = {}
+            games_save.local_path = "user://shot_orchard_games.json"
+            games_save.coins = 0
+            if shot == "orchard_sell":
+                orchard.farm["sell_mode"] = "manual"   # 这张专门演示跑一趟收购处那种卖法
+            if shot == "orchard_grow":
+                var t0: float = orchard.now() - orchard.grow_secs() * 0.6
+                for pp in orchard.plots:
+                    orchard_save.mark_plot(pp["id"], t0)
             orchard.refresh_fruit()
             await _enter_court()
             dialog.visible = false
@@ -2773,16 +2783,26 @@ func _setup_shot(shot: String) -> void:
                     break
             note_box.visible = false
             _clear_toast_back()
-            var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_loquat": orchard.spot_pos("loquat"),
-                "orchard_off": orchard.spot_pos("strawberry")}
+            var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_grow": orchard.spot_pos("strawberry"),
+                "orchard_sell": orchard.spot_pos("strawberry")}
             if oat.has(shot):
-                orchard.reset_to(oat[shot] + Vector2(0, 68))   # 垄间那条空道上（+90 会正好落在垄里，走不动）
+                orchard.reset_to(oat[shot] + Vector2(90, 0))   # 同一条空道上、交互点外头，走进去信号才会发
                 orchard.go_to(oat[shot])
-                for i in 500:   # 垄间只能从两头绕进去，路不短
+                for i in 300:
                     await get_tree().process_frame
                     if orchard.path.is_empty():
                         break
-                if shot == "orchard_pick":
+                if shot in ["orchard_pick", "orchard_sell"]:
+                    orchard_ui._on_act()          # 收草莓
+                    for i in 20:
+                        await get_tree().process_frame
+                if shot == "orchard_sell":        # 拿着果篮去收购处卖
+                    note_box.visible = false
+                    orchard.go_to(orchard.spot_pos("shop"))
+                    for i in 600:
+                        await get_tree().process_frame
+                        if orchard.path.is_empty():
+                            break
                     orchard_ui._on_act()
                     for i in 20:
                         await get_tree().process_frame

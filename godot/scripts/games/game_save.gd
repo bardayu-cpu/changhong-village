@@ -55,6 +55,14 @@ func clear_level(id: String, level: int, reward: int, dish := -1) -> void:
         payload["dishes"] = dishes
     _push(payload)
 
+## 别处挣的金币（果园把果子卖给山庄，阿鱼 9/20 定）：和小游戏同一个钱包，存法也一样
+func earn(n: int) -> int:
+    if n <= 0:
+        return coins
+    coins += n
+    _push({"coins": coins})
+    return coins
+
 ## 主桌添礼金：n 金从金币里扣、记进累计，服务端礼金簿记一笔。金币不够返回 false
 func give_gift(n: int) -> bool:
     if n <= 0 or n > coins:

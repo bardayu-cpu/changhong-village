@@ -2,46 +2,374 @@
  "scene": "scene_luoman_orchard",
  "title": "果园",
  "note": "罗曼山庄 · 果园灰盒（蓝图 3.6，01 9/20 派任务 10）：全部代码画的占位，没有图。草莓垄在西、枇杷树在东、中间小路、北边田埂都照蓝图 3.6；草莓和枇杷的果子不在这份里，是 scripts/orchard.gd 按季节画的（到季节才有）。蓝图没给的（田埂长什么样、地的底色、南边那条土路）是灰盒占位。八条垄的宽窄和间隔按实际能走开人调过，见回执第二节。spawn 是从草坪北口过来站的地方：蓝图 1 写 (768,840)，离南口 (768,880,60) 只有 40 像素、还在出口圈里，照 01 的规矩挪到 (768,820)",
- "size": [1536, 1024],
- "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
- "spawn": [768, 820],
- "points": [
-  {"id": "strawberry", "x": 400, "y": 540, "r": 60},
-  {"id": "loquat", "x": 1150, "y": 500, "r": 60},
-  {"id": "to_lawn", "x": 768, "y": 880, "r": 60}
+ "size": [
+  1536,
+  1024
  ],
- "walk": [[[60, 210], [1490, 210], [1490, 900], [60, 900]]],
+ "person_px": {
+  "near_y": 1024,
+  "near_h": 84,
+  "far_y": 0,
+  "far_h": 84
+ },
+ "spawn": [
+  768,
+  820
+ ],
+ "points": [
+  {
+   "id": "strawberry",
+   "x": 400,
+   "y": 540,
+   "r": 60
+  },
+  {
+   "id": "loquat",
+   "x": 1150,
+   "y": 500,
+   "r": 60
+  },
+  {
+   "id": "to_lawn",
+   "x": 768,
+   "y": 880,
+   "r": 60
+  },
+  {
+   "id": "shop",
+   "x": 980,
+   "y": 866,
+   "r": 55
+  }
+ ],
+ "walk": [
+  [
+   [
+    60,
+    210
+   ],
+   [
+    1490,
+    210
+   ],
+   [
+    1490,
+    900
+   ],
+   [
+    60,
+    900
+   ]
+  ]
+ ],
  "flat": [
-  {"type": "rect", "rect": [0, 0, 1536, 1024], "color": "#9ec46f"},
-  {"type": "rect", "rect": [0, 0, 1536, 96], "color": "#7fa85c"},
-  {"type": "rect", "rect": [0, 60, 1536, 150], "color": "#8fb765"},
-  {"type": "rect", "rect": [0, 150, 1536, 186], "color": "#b79a6a"},
-  {"type": "rect", "rect": [0, 186, 1536, 200], "color": "#8a6f4a"},
-  {"type": "rect", "rect": [714, 186, 822, 910], "color": "#bf9f74"},
-  {"type": "rect", "rect": [720, 190, 816, 906], "color": "#d2b48c"},
-  {"type": "rect", "rect": [88, 238, 708, 812], "color": "#8fbf6a"},
-  {"type": "rect", "rect": [840, 238, 1462, 812], "color": "#93bf72"},
-  {"type": "rect", "rect": [60, 846, 1490, 894], "color": "#c8a87c"},
-  {"type": "label", "text": "草莓园", "x": 400, "y": 222},
-  {"type": "label", "text": "枇杷园", "x": 1150, "y": 222},
-  {"type": "label", "text": "田埂", "x": 260, "y": 168},
-  {"type": "label", "text": "回草坪", "x": 768, "y": 930}
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    0,
+    1536,
+    1024
+   ],
+   "color": "#9ec46f"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    0,
+    1536,
+    96
+   ],
+   "color": "#7fa85c"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    60,
+    1536,
+    150
+   ],
+   "color": "#8fb765"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    150,
+    1536,
+    186
+   ],
+   "color": "#b79a6a"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    186,
+    1536,
+    200
+   ],
+   "color": "#8a6f4a"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    714,
+    186,
+    822,
+    910
+   ],
+   "color": "#bf9f74"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    720,
+    190,
+    816,
+    906
+   ],
+   "color": "#d2b48c"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    88,
+    238,
+    708,
+    812
+   ],
+   "color": "#8fbf6a"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    840,
+    238,
+    1462,
+    812
+   ],
+   "color": "#93bf72"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    60,
+    846,
+    1490,
+    894
+   ],
+   "color": "#c8a87c"
+  },
+  {
+   "type": "label",
+   "text": "草莓园",
+   "x": 400,
+   "y": 222
+  },
+  {
+   "type": "label",
+   "text": "枇杷园",
+   "x": 1150,
+   "y": 222
+  },
+  {
+   "type": "label",
+   "text": "田埂",
+   "x": 260,
+   "y": 168
+  },
+  {
+   "type": "label",
+   "text": "回草坪",
+   "x": 768,
+   "y": 930
+  }
  ],
  "items": [
-  {"type": "box", "id": "ridge_0", "rect": [100, 288, 700, 316], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_1", "rect": [100, 356, 700, 384], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_2", "rect": [100, 424, 700, 452], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_3", "rect": [100, 492, 700, 520], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_4", "rect": [100, 560, 700, 588], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_5", "rect": [100, 628, 700, 656], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_6", "rect": [100, 696, 700, 724], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "box", "id": "ridge_7", "rect": [100, 764, 700, 792], "h": 10, "top": "#6b4a36", "front": "#4a3226"},
-  {"type": "tree", "id": "loquat_0_0", "x": 862, "y": 356, "r": 40, "trunk": "#6d4a38", "leaf": "#4f7a4a", "leaf2": "#6a9a5c"},
-  {"type": "tree", "id": "loquat_0_1", "x": 1150, "y": 356, "r": 40, "trunk": "#6d4a38", "leaf": "#4f7a4a", "leaf2": "#6a9a5c"},
-  {"type": "tree", "id": "loquat_0_2", "x": 1438, "y": 356, "r": 40, "trunk": "#6d4a38", "leaf": "#4f7a4a", "leaf2": "#6a9a5c"},
-  {"type": "tree", "id": "loquat_1_0", "x": 862, "y": 644, "r": 40, "trunk": "#6d4a38", "leaf": "#4f7a4a", "leaf2": "#6a9a5c"},
-  {"type": "tree", "id": "loquat_1_1", "x": 1150, "y": 644, "r": 40, "trunk": "#6d4a38", "leaf": "#4f7a4a", "leaf2": "#6a9a5c"},
-  {"type": "tree", "id": "loquat_1_2", "x": 1438, "y": 644, "r": 40, "trunk": "#6d4a38", "leaf": "#4f7a4a", "leaf2": "#6a9a5c"}
+  {
+   "type": "box",
+   "id": "ridge_0",
+   "rect": [
+    100,
+    288,
+    700,
+    316
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_1",
+   "rect": [
+    100,
+    356,
+    700,
+    384
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_2",
+   "rect": [
+    100,
+    424,
+    700,
+    452
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_3",
+   "rect": [
+    100,
+    492,
+    700,
+    520
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_4",
+   "rect": [
+    100,
+    560,
+    700,
+    588
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_5",
+   "rect": [
+    100,
+    628,
+    700,
+    656
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_6",
+   "rect": [
+    100,
+    696,
+    700,
+    724
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "box",
+   "id": "ridge_7",
+   "rect": [
+    100,
+    764,
+    700,
+    792
+   ],
+   "h": 10,
+   "top": "#6b4a36",
+   "front": "#4a3226"
+  },
+  {
+   "type": "tree",
+   "id": "loquat_0_0",
+   "x": 862,
+   "y": 356,
+   "r": 40,
+   "trunk": "#6d4a38",
+   "leaf": "#4f7a4a",
+   "leaf2": "#6a9a5c"
+  },
+  {
+   "type": "tree",
+   "id": "loquat_0_1",
+   "x": 1150,
+   "y": 356,
+   "r": 40,
+   "trunk": "#6d4a38",
+   "leaf": "#4f7a4a",
+   "leaf2": "#6a9a5c"
+  },
+  {
+   "type": "tree",
+   "id": "loquat_0_2",
+   "x": 1438,
+   "y": 356,
+   "r": 40,
+   "trunk": "#6d4a38",
+   "leaf": "#4f7a4a",
+   "leaf2": "#6a9a5c"
+  },
+  {
+   "type": "tree",
+   "id": "loquat_1_0",
+   "x": 862,
+   "y": 644,
+   "r": 40,
+   "trunk": "#6d4a38",
+   "leaf": "#4f7a4a",
+   "leaf2": "#6a9a5c"
+  },
+  {
+   "type": "tree",
+   "id": "loquat_1_1",
+   "x": 1150,
+   "y": 644,
+   "r": 40,
+   "trunk": "#6d4a38",
+   "leaf": "#4f7a4a",
+   "leaf2": "#6a9a5c"
+  },
+  {
+   "type": "tree",
+   "id": "loquat_1_2",
+   "x": 1438,
+   "y": 644,
+   "r": 40,
+   "trunk": "#6d4a38",
+   "leaf": "#4f7a4a",
+   "leaf2": "#6a9a5c"
+  },
+  {
+   "type": "box",
+   "id": "shop_stall",
+   "rect": [
+    900,
+    800,
+    1060,
+    832
+   ],
+   "h": 26,
+   "top": "#c7a06a",
+   "front": "#8a6a44",
+   "label": {
+    "text": "山庄收购处",
+    "dy": -52
+   }
+  }
  ],
  "npcs": []
 }

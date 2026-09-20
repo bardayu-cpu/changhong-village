@@ -1,39 +1,70 @@
 extends "res://scripts/entrance.gd"
-## 罗曼山庄 · 果园（蓝图 3.6，灰盒，01 9/20 派任务 10）：西边八条草莓垄，东边六棵枇杷树（两行三列），
+## 罗曼山庄 · 果园（蓝图 3.6 的地方 + 阿鱼 9/20 定的种田玩法）：西边八条草莓垄，东边六棵枇杷树（两行三列），
 ## 中间一条小路从南口通到北边田埂，北边 y 0～200 是田埂和远处的田、不能走。
-## 搭法、走路、交互点和迎宾院一样（entrance.gd，布局 assets/layered/scene_luoman_orchard/layout.json），这里多的是按季节结果：
-##   有果的月份在 assets/orchard/seasons.json（草莓 12～4 月、枇杷 4～6 月，蓝图标了待验证，可调）；
-##   到季节垄上才有红的、树上才有黄的，走到跟前出「摘一颗」；没到季节出「还没到时候」，按钮不出（蓝图 3.6）；
-##   每天每种只能摘一颗，记在本机（orchard_save.gd）；摘了播一下小动作、说一句，没有奖励、不进背包、不上服务器；
-##   日期早于 seasons.json 的 min_year（2026）按当季无果算（蓝图 3.6 异常处理）
-## 测试、截图要看别的季节：把 fake_today 设成 "2026-12-05" 这样的日期就行
+## 搭法、走路、交互点和迎宾院一样（entrance.gd，布局 assets/layered/scene_luoman_orchard/layout.json），这里多的是种田那套：
+##   每条垄、每棵树各算一块地，各自计时；一轮 5 分钟（assets/orchard/farm.json 的 grow_secs，改数不改代码）
+##   光地 → 长到一半变青果 → 熟了（草莓红、枇杷黄）。按真实时钟算，人不在也长：关了游戏过 5 分钟回来，该熟的已经熟了
+##   走到垄间、树下：有熟的出「收草莓（N 垄熟了）」，一下收完那种所有熟的，进果篮；没熟顶部报还有多久
+##   收完山庄直接折成金币（sell_mode 默认 auto，01 9/20 定），金币进和小游戏同一个钱包（game_save → saveProfile）；
+##   改成 manual 就是先进果篮、走到「山庄收购处」再卖，摊子和 shop 交互点两种模式都在
+##   【熟了不叠，01 9/20 定】地熟了就停着等人收，不接着攒：挂多久回来都是一轮的量（见 ripeness 封顶）。
+##   没有加速成熟、立刻收获这类口子——金币只能玩出来（第 28 版验收清单第 15 条）
+##   season_gate 打开才按蓝图 3.6 的真实月份（草莓 12～4、枇杷 4～6，seasons.json），默认关——5 分钟一轮和等几个月的季节对不上
+## 测试、截图要拨时间：fake_now 设成秒数就按那个时刻算；老的季节玩法要试就 fake_today + season_gate
 
 const SEASONS := "res://assets/orchard/seasons.json"
+const FARM := "res://assets/orchard/farm.json"
 const KINDS := ["strawberry", "loquat"]
-const PICK_SECS := 0.45          # 摘一下的小动作多久
+const PICK_SECS := 0.45          # 收一下的小动作多久
+const REFRESH_SECS := 0.5        # 站在果园里多久对一次地（果子该长的长、倒计时该跳的跳）
+const RIPE_COL := {"strawberry": Color("#d33b2f"), "loquat": Color("#e8a33d")}
+const GREEN_COL := Color("#7fa83f")
 
 var seasons: Dictionary = {}
-var fake_today := ""             # 不是空串就当成今天（测试、截图用）；空串按这台机器的日期
+var farm: Dictionary = {}
+var fake_today := ""             # 不是空串就当成今天（只有季节开关打开时才用得上）
+var fake_now := -1.0             # 大于 0 就当成现在几点（秒），测试、截图拨时间用
 var save                         # orchard_save.gd，main 建好塞进来
-var fruit_nodes: Dictionary = {} # 果子 -> [Node2D]：到季节才显示
-var pick_t := 0.0                # 摘的小动作还剩多久
+var plots: Array = []            # [{id, kind, dots:[Node2D], bodies:[Polygon2D]}]
+var pick_t := 0.0                # 收的小动作还剩多久
+var _refresh_t := 0.0
 
 func _init() -> void:
     layout_path = "res://assets/layered/scene_luoman_orchard/layout.json"
 
 func build(preset: int, nickname: String, f: Font) -> void:
     super(preset, nickname, f)
-    var cfg = JSON.parse_string(FileAccess.get_file_as_string(SEASONS))
-    seasons = cfg if cfg is Dictionary else {}
-    _make_fruit()
+    seasons = _read(SEASONS)
+    farm = _read(FARM)
+    _make_plots()
     refresh_fruit()
 
-## 今天（本地日期，YYYY-MM-DD）
+func _read(path: String) -> Dictionary:
+    var d = JSON.parse_string(FileAccess.get_file_as_string(path))
+    return d if d is Dictionary else {}
+
+# ---------- 时间 ----------
+
+## 现在几点（秒）。测试里把 fake_now 设成别的时刻，就能看见果子长大
+func now() -> float:
+    return fake_now if fake_now > 0.0 else Time.get_unix_time_from_system()
+
+## 今天（本地日期）——只有季节开关打开时才用
 func today() -> String:
     if fake_today != "":
         return fake_today
     var d := Time.get_date_dict_from_system()
     return "%04d-%02d-%02d" % [int(d["year"]), int(d["month"]), int(d["day"])]
+
+func grow_secs() -> float:
+    return maxf(float(farm.get("grow_secs", 300.0)), 1.0)
+
+func auto_sell() -> bool:
+    return str(farm.get("sell_mode", "manual")) == "auto"
+
+## 要不要按真实月份（蓝图 3.6 的老玩法，默认关）
+func season_on() -> bool:
+    return bool(farm.get("season_gate", false))
 
 ## 这种果子这天有没有（蓝图 3.6：按手机日期，月份表可调；min_year 以前的日期按当季无果）
 static func in_season(kind: String, day: String, cfg: Dictionary) -> bool:
@@ -51,73 +82,185 @@ static func in_season(kind: String, day: String, cfg: Dictionary) -> bool:
             return true
     return false
 
-## 今天这种摘过没有
-func picked_today(kind: String) -> bool:
-    return save != null and save.picked_on(kind) == today()
+## 季节开关关着的时候，什么时候来都长
+func kind_on(kind: String) -> bool:
+    return not season_on() or in_season(kind, today(), seasons)
 
-## 现在能不能摘：到季节、今天还没摘过
-func can_pick(kind: String) -> bool:
-    return in_season(kind, today(), seasons) and not picked_today(kind)
+# ---------- 地长到哪一步了 ----------
 
-## 摘一颗：本机记一笔，垄上（树上）少一颗，人弯一下腰
-func pick(kind: String) -> bool:
-    if not can_pick(kind):
-        return false
-    if save != null:
-        save.mark(kind, today())
+## 这块地长了几成（1 以上就是熟了）。没收过的地当早就熟了：头一回进果园就有的收。
+## 【熟了不叠，01 9/20 定的底线】封顶在 1：地熟了就停在那儿等人收，不会接着攒。
+## 挂一天回来也还是 14 块地、一轮的量——产出由「来几次」定，不由「挂多久」定
+func ripeness(plot_id: String) -> float:
+    if save == null:
+        return 1.0
+    var at: float = save.picked_at(plot_id)
+    if at < 0.0:
+        return 1.0
+    return clampf((now() - at) / grow_secs(), 0.0, 1.0)
+
+## 0 光地、1 青果、2 熟了
+func stage_of(plot_id: String, kind: String) -> int:
+    if not kind_on(kind):
+        return 0
+    var r := ripeness(plot_id)
+    if r >= 1.0:
+        return 2
+    return 1 if r >= float(farm.get("green_at", 0.5)) else 0
+
+## 这种果子熟了几块地
+func ripe_count(kind: String) -> int:
+    var n := 0
+    for p in plots:
+        if p["kind"] == kind and stage_of(p["id"], kind) == 2:
+            n += 1
+    return n
+
+## 这种果子最快还有多久熟（都熟了返回 0；季节关着返回 -1）
+func secs_left(kind: String) -> float:
+    if not kind_on(kind):
+        return -1.0
+    var best := -1.0
+    for p in plots:
+        if p["kind"] != kind:
+            continue
+        var left := (1.0 - ripeness(p["id"])) * grow_secs()
+        if left <= 0.0:
+            return 0.0
+        if best < 0.0 or left < best:
+            best = left
+    return maxf(best, 0.0)
+
+## 还有多久，说成人话
+static func left_text(secs: float) -> String:
+    var s := int(ceil(maxf(secs, 0.0)))
+    if s < 60:
+        return "%d 秒" % s
+    return "%d 分 %d 秒" % [s / 60, s % 60]
+
+# ---------- 收和卖 ----------
+
+## 把这种果子熟了的地一次收完，进果篮。返回收了几份（一块地几份看 farm.json 的 yield）
+func harvest(kind: String) -> int:
+    var got := 0
+    var per := int(_fruit(kind).get("yield", 1))
+    for p in plots:
+        if p["kind"] != kind or stage_of(p["id"], kind) != 2:
+            continue
+        save.mark_plot(p["id"], now())   # 收完这块地重新开始长
+        got += per
+    if got <= 0:
+        return 0
+    save.add_basket(kind, got)
+    save.save()
     pick_t = PICK_SECS
-    for n in fruit_nodes.get(kind, []):
-        if (n as Node2D).visible:
-            (n as Node2D).visible = false     # 摘掉的那一颗不见了
-            break
-    print("[suqi] 果园 摘了一颗 ", kind, " ", today())
-    return true
+    refresh_fruit()
+    print("[suqi] 果园 收了 ", got, " 份 ", kind)
+    return got
 
-## 到季节的才显示（换了日期、摘过以后都对一次）
-func refresh_fruit() -> void:
+## 果篮里现在值多少金币
+func basket_coins() -> int:
+    var c := 0
     for kind in KINDS:
-        var on := in_season(kind, today(), seasons)
-        var gone := picked_today(kind)
-        var list: Array = fruit_nodes.get(kind, [])
-        for i in list.size():
-            # 今天摘过的那种：少画一颗，看得出摘走了
-            (list[i] as Node2D).visible = on and not (gone and i == 0)
+        c += save.basket_of(kind) * int(_fruit(kind).get("price", 0))
+    return c
 
-# ---------- 果子（灰盒占位：垄上的红点、树上的黄点） ----------
-func _make_fruit() -> void:
-    var straw: Array = []
-    var loquat: Array = []
+## 果篮里都有什么，说成人话（「草莓 3 筐 枇杷 2 篮」）
+func basket_text() -> String:
+    var parts: Array = []
+    for kind in KINDS:
+        var n: int = save.basket_of(kind)
+        if n > 0:
+            parts.append("%s %d %s" % [_fruit(kind).get("name", kind), n, _fruit(kind).get("unit", "份")])
+    return " ".join(parts)
+
+## 卖给山庄：清空果篮，返回 {n: 几份, coins: 多少金, text: 都卖了什么}。金币由 main 加进钱包
+func sell() -> Dictionary:
+    var n: int = save.basket_total()
+    if n <= 0:
+        return {"n": 0, "coins": 0, "text": ""}
+    var out := {"n": n, "coins": basket_coins(), "text": basket_text()}
+    save.clear_basket()
+    save.save()
+    print("[suqi] 果园 卖了 ", out["text"], " 得 ", out["coins"], " 金")
+    return out
+
+func _fruit(kind: String) -> Dictionary:
+    var fruits: Dictionary = farm.get("fruits", {})
+    var d = fruits.get(kind, {})
+    return d if d is Dictionary else {}
+
+func fruit_name(kind: String) -> String:
+    return str(_fruit(kind).get("name", kind))
+
+func plot_word(kind: String) -> String:
+    return str(_fruit(kind).get("plot", "块"))
+
+## 一份叫什么（草莓一筐、枇杷一篮）
+func basket_unit(kind: String) -> String:
+    return str(_fruit(kind).get("unit", "份"))
+
+# ---------- 地里的果子（灰盒占位：垄上的点、树上的点） ----------
+
+func _make_plots() -> void:
     var rng := RandomNumberGenerator.new()
     rng.seed = 926
+    plots = []
     for it in cfg.get("items", []):
         var id := str(it.get("id", ""))
+        var dots: Array = []
+        var bodies: Array = []
         if id.begins_with("ridge_"):
             var r: Array = it["rect"]
             var foot := float(r[3])
             for k in 9:
                 var x := lerpf(float(r[0]) + 30.0, float(r[2]) - 30.0, float(k) / 8.0) + rng.randf_range(-8.0, 8.0)
-                straw.append(_fruit_dot(Vector2(x, foot), Color("#d33b2f"), 5.0, -6.0))
+                var pair := _fruit_dot(Vector2(x, foot), RIPE_COL["strawberry"], 5.0, -6.0)
+                dots.append(pair[0])
+                bodies.append(pair[1])
+            plots.append({"id": id, "kind": "strawberry", "dots": dots, "bodies": bodies})
         elif id.begins_with("loquat_"):
             var tx := float(it["x"])
             var ty := float(it["y"])
             var tr := float(it["r"])
             for k in 7:
                 var a := TAU * float(k) / 7.0
-                loquat.append(_fruit_dot(Vector2(tx + cos(a) * tr * 0.55, ty), Color("#e8a33d"), 4.5, -46.0 - tr * 0.7 + sin(a) * tr * 0.45))
-    fruit_nodes = {"strawberry": straw, "loquat": loquat}
+                var pair2 := _fruit_dot(Vector2(tx + cos(a) * tr * 0.55, ty), RIPE_COL["loquat"], 4.5,
+                    -46.0 - tr * 0.7 + sin(a) * tr * 0.45)
+                dots.append(pair2[0])
+                bodies.append(pair2[1])
+            plots.append({"id": id, "kind": "loquat", "dots": dots, "bodies": bodies})
 
-## 一颗果子：画在着地点上方 dy 的地方，按脚点排前后（垄、树都在同一块画布里）
-func _fruit_dot(at: Vector2, col: Color, r: float, dy: float) -> Node2D:
+## 一颗果子：画在着地点上方 dy 的地方，按脚点排前后（垄、树都在同一块画布里）。返回 [整颗, 果肉那块]
+func _fruit_dot(at: Vector2, col: Color, r: float, dy: float) -> Array:
     var holder := Node2D.new()
     holder.position = at
-    holder.add_child(_poly(_ellipse_pts(0.0, dy, r, r * 0.9, 10), col))
+    var body := _poly(_ellipse_pts(0.0, dy, r, r * 0.9, 10), col)
+    holder.add_child(body)
     holder.add_child(_poly(_ellipse_pts(-r * 0.3, dy - r * 0.35, r * 0.28, r * 0.25, 6), Color(1, 1, 1, 0.5)))
     world.add_child(holder)
-    return holder
+    return [holder, body]
+
+## 照每块地长到哪一步，把果子改成看得出来的样子：光地没有、青果绿的小一点、熟了原色
+func refresh_fruit() -> void:
+    for p in plots:
+        var st := stage_of(p["id"], p["kind"])
+        var col: Color = GREEN_COL if st == 1 else RIPE_COL[p["kind"]]
+        var sc := 0.7 if st == 1 else 1.0
+        for i in (p["dots"] as Array).size():
+            var dot := p["dots"][i] as Node2D
+            dot.visible = st > 0
+            dot.scale = Vector2(sc, sc)
+            (p["bodies"][i] as Polygon2D).color = col
 
 func _process(dt: float) -> void:
     super(dt)
-    # 摘的小动作（蓝图 3.6 交互说明「摘了播一个短动作」）：弯一下腰再起来，灰盒先这样
+    # 站在果园里也会长：每半秒对一次地
+    _refresh_t += dt
+    if _refresh_t >= REFRESH_SECS:
+        _refresh_t = 0.0
+        refresh_fruit()
+    # 收的小动作：弯一下腰再起来，灰盒先这样
     if pick_t > 0.0:
         pick_t = maxf(pick_t - dt, 0.0)
         var k := 1.0 - absf(pick_t / PICK_SECS - 0.5) * 2.0
