@@ -224,7 +224,8 @@ func _tap_add(name: String) -> void:
     var life = m._hall_life()
     if life == null:
         return
-    var on_table: int = life.ordered_count(tid)
+    # 摆上桌的 + 还在路上的一起数：服务员端过去要几秒，只数桌上的话连点就绕过上限了（03 9/20 测出来）
+    var on_table: int = life.ordered_total(tid)
     if on_table >= menu.add_max():
         close()
         m._note(menu.line("add_full"), 3.0)

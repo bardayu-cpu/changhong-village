@@ -110,5 +110,29 @@ func run() -> void:
     print("5 外壳里玩 2048（目标第 3 级）：结果 ", result[0], " 金币 ", s3.coins, " 进度 ", s3.games)
     ok = ok and result[0] == true and s3.coins == Cfg.reward(host.g, 1) and s3.cleared("g2048") == 1
 
+    # 6. 真把棋盘画出来（9/20 换成 GPT 的菜牌图以后，2048 开局 16 格全空、一点就是空棋盘，
+    #    原因是外面去摸牌子里第一个孩子当 Label 用。以前的测试只走逻辑、没走到「画格子」，所以没抓到）
+    var g = host.game
+    var drawn: int = g.cells.size()
+    var on_board := 0
+    for row in g.board:
+        for k in row:
+            if int(k) > 0:
+                on_board += 1
+    var captions: Array = []
+    for c in g.cells:
+        for kid in (c as Panel).get_children():
+            if kid is Label and str((kid as Label).text) != "":
+                captions.append(str((kid as Label).text))
+    print("6 棋盘画出来了：", drawn, " 张牌，盘上 ", on_board, " 格有菜，名字 ", captions)
+    ok = ok and drawn > 0 and drawn == on_board
+    # 每张牌都写着那一级叫什么（目标卡写的是「合出『全家福』」，光看图分不出先后）
+    var all_named := captions.size() == drawn
+    for cap in captions:
+        if not G2048.DISHES.has(cap):
+            all_named = false
+    ok = ok and all_named
+    print("  每张牌都带名字、名字都在那张菜谱里 ", all_named)
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

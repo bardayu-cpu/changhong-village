@@ -49,6 +49,7 @@ class Waiter:
     var spot := Vector2.ZERO
     var gone := false
     var order := ""          # 这一趟端的是玩家添的哪道菜（空串是平常上菜，随机挑桌）
+    var order_t := 0.0       # 这一单接了多久了：超过 ORDER_WAIT_MAX 直接摆上桌，不让人干等
 
 class Guest:
     var node: Node2D
@@ -446,19 +447,50 @@ func order_dish(tid: String, dish_name: String) -> bool:
     if dish_name == "" or not spots.has(tid):
         return false
     orders.append({"tid": tid, "name": dish_name, "wait": 0.0})
-    # 门里待着的服务员马上出来接单，不用等它自己数完秒
+    # 当场调一个服务员过来，别等它把手上这趟走完——那一趟可能还有大半圈，
+    # 说了「马上端来」就不能让人等一分钟
+    var best = null
+    var best_d := INF
     for w in waiters:
-        if w.kind == "waiter" and w.state == "away":
-            w.wait = minf(w.wait, 0.2)
+        if w.kind != "waiter" or w.order != "" or w.state == "serve":
+            continue
+        var d: float = w.pos.distance_to(_table_center(tid))
+        if d < best_d:
+            best_d = d
+            best = w
+    if best != null and _take_order(best):
+        best.full = true
+        _tray_look(best)
+    else:
+        # 一个都调不动（都在放菜）：门里待着的先出来，剩下的交给下一个空出来的，再不行走兜底
+        for w in waiters:
+            if w.kind == "waiter" and w.state == "away":
+                w.wait = minf(w.wait, 0.2)
     return true
 
-## 这张桌上玩家自己添的菜有几道（面板上「桌上摆满了」拿它比）
+## 这张桌上玩家自己添的菜，已经摆上桌的有几道
 func ordered_count(tid: String) -> int:
     var n := 0
     for dd in dishes:
         if bool(dd.get("keep", false)) and str(dd["table"]) == tid:
             n += 1
     return n
+
+## 添了还没摆上桌的有几道：单子里排队的 + 服务员已经端在手上往这张桌走的。
+## 服务员走过去要好几秒，只数桌上的话，这几秒里连点就能绕过上限（03 9/20 测出来：连点 6 次上了 6 道）
+func coming_count(tid: String) -> int:
+    var n := 0
+    for od in orders:
+        if str(od["tid"]) == tid:
+            n += 1
+    for w in waiters:
+        if w.order != "" and w.table == tid:
+            n += 1
+    return n
+
+## 这张桌一共几道（摆上的 + 在路上的）。判断「桌上摆满了」要拿这个数比
+func ordered_total(tid: String) -> int:
+    return ordered_count(tid) + coming_count(tid)
 
 ## 离开宴会厅：添的菜和还没端到的单子都清掉（不累计、不进存档）
 func clear_orders() -> void:
@@ -484,11 +516,13 @@ func _take_order(w: Waiter) -> bool:
             w.path = route
             w.state = "carry"
             w.order = str(od["name"])
+            w.order_t = 0.0
             orders.erase(od)
             return true
     return false
 
-## 等太久没人接（服务员都在放菜、或者一时走不过去）：直接摆上桌，钱不能白花
+## 添的菜从下单到上桌一律封顶 ORDER_WAIT_MAX 秒，钱不能白花、也不能让人干等：
+## 没人接的（服务员都在放菜、一时走不过去）到点直接摆上桌；接了单但路上走太久的也一样
 func _orders_tick(dt: float) -> void:
     for od in orders.duplicate():
         od["wait"] = float(od["wait"]) + dt
@@ -500,6 +534,19 @@ func _orders_tick(dt: float) -> void:
             continue
         var sp: Array = spots[tid]
         _place_dish(tid, sp[0], str(od["name"]))
+    for w in waiters:
+        if w.order == "":
+            continue
+        w.order_t += dt
+        if w.order_t < ORDER_WAIT_MAX:
+            continue
+        # 这一单先记在桌上，服务员该怎么走还怎么走（它待会儿放的就是平常那盘菜）
+        var tid2: String = w.table
+        var name2: String = w.order
+        w.order = ""
+        w.order_t = 0.0
+        if spots.has(tid2):
+            _place_dish(tid2, (spots[tid2] as Array)[0], name2)
 
 func _tray_look(w: Waiter) -> void:
     if w.tray == null:

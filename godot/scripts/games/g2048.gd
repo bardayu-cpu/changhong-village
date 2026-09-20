@@ -82,8 +82,9 @@ func _redraw(merged: Array) -> void:
             var k: int = board[j][i]
             if k == 0:
                 continue
-            var t := Tiles.dish_tile(k - 1, cell_px, font, fs)
-            (t.get_child(0) as Label).text = DISHES[clampi(k - 1, 0, DISHES.size() - 1)]
+            # 名字走 caption（9/20 换成图以后，牌子里第一个孩子不一定是 Label，不能再去摸孩子）。
+            # 这个游戏一定要看得见名字：目标写的是「合出『全家福』」，光看图分不出哪级大
+            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, DISHES[clampi(k - 1, 0, DISHES.size() - 1)])
             t.position = _cell_pos(i, j)
             if Vector2i(i, j) in merged:
                 t.pivot_offset = t.size * 0.5

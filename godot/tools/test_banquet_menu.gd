@@ -210,16 +210,16 @@ func run() -> void:
     bu._tap_add("豆腐脑")
     check("扣了 40，手上剩 60", m.games_save.coins == 60)
     check("顶部：%s" % m.note.text, m.note.text == "添了一道豆腐脑 马上端来")
-    check("单子记下了，还没端到", life.orders.size() == 1 or life.ordered_count("T3") == 1)
-    life_secs(life, 15.0)
-    check("15 秒内菜上桌了", life.ordered_count("T3") == 1)
+    check("这一单记下了（服务员当场调过来了）", life.ordered_total("T3") == 1 and life.ordered_count("T3") == 0)
+    life_secs(life, 5.0)
+    check("5 秒内菜就端到了", life.ordered_count("T3") == 1)
     var mine: Dictionary = {}
     for dd in life.dishes:
         if bool(dd.get("keep", false)):
             mine = dd
     check("是添的那道、放在 T3、菜名挂出来了", str(mine.get("table", "")) == "T3" and mine.get("tag") != null)
     check("菜名写的是豆腐脑", mine.get("tag") != null and (mine["tag"] as Label).text == "豆腐脑")
-    life_secs(life, 10.0)
+    life_secs(life, 8.0)
     check("菜名显示几秒就收（盘子还在）", mine.get("tag") == null and life.ordered_count("T3") == 1)
 
     # ---------- 9. 添的菜不淡出；服务员自己上的菜会撤 ----------
@@ -244,13 +244,30 @@ func run() -> void:
     for i in 3:
         bu.open_add()
         bu._tap_add("冰粉")
-        life_secs(life, 30.0)
+        life_secs(life, 15.0)
     check("桌上满 4 道", life.ordered_count("T3") == 4)
     var coins_before: int = m.games_save.coins
     bu.open_add()
     bu._tap_add("冰粉")
     check("第 5 道：%s" % m.note.text, m.note.text == "桌上摆满了 先吃")
     check("没扣钱", m.games_save.coins == coins_before)
+
+    # 连点绕不过上限（03 9/20 测出来的：服务员走过去那几秒里一直点，上了 6 道）。
+    # 判满要连「还在路上的」一起数，不然只数桌上的就漏了
+    print("10b 连点 6 次也只上得了 4 道")
+    life.clear_orders()
+    m.games_save.coins = 1000
+    var paid_before: int = m.games_save.coins
+    var got := 0
+    for i in 6:
+        bu.open_add()
+        bu._tap_add("冰粉")
+        life_secs(life, 1.0)   # 每次只隔 1 秒，服务员还在路上
+    check("六次只成了 4 次（扣 160 金）", paid_before - m.games_save.coins == 160)
+    check("最后一次报的是：%s" % m.note.text, m.note.text == "桌上摆满了 先吃")
+    check("摆上的 + 在路上的一共 4 道", life.ordered_total("T3") == 4)
+    life_secs(life, 40.0)
+    check("等服务员都走到，桌上正好 4 道", life.ordered_count("T3") == 4 and life.ordered_total("T3") == 4)
 
     # ---------- 11. 没服务员也得把菜端上（钱不能白花） ----------
     print("11 兜底")
