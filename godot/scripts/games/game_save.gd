@@ -72,6 +72,15 @@ func give_gift(n: int) -> bool:
     _push({"coins": coins, "gift_coins": gift_coins, "gift_add": n})
     return true
 
+## 花金币（阿鱼 9/20 定：全游戏消费都用金币）。现在只有宴会厅「添一道菜」40 金用它。
+## 只买当场发生的那一下，不买属性、不买优势；金币不够返回 false，不欠账
+func spend(n: int) -> bool:
+    if n <= 0 or n > coins:
+        return false
+    coins -= n
+    _push({"coins": coins})
+    return true
+
 ## 调试版：跳关用（不给金币）
 func debug_set_cleared(id: String, level: int) -> void:
     games[id] = maxi(level, 0)

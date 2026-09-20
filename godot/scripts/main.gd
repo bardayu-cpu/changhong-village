@@ -52,6 +52,10 @@ var lake_ui: Control            # 湖边的长凳按钮、亭子那句（lake_ui
 var orchard
 var orchard_ui: Control         # 果园的「摘一颗」（orchard_ui.gd）
 var orchard_save                # 果园存在本机的：今天摘过没有（orchard_save.gd）
+## 宴会厅的席面菜单 + 添一道菜（阿鱼 9/20 定的两样，banquet_ui.gd）
+const BanquetUI = preload("res://scripts/banquet_ui.gd")
+var banquet_ui: Control
+var add_dish_btn: Button        # 坐在自己桌上时底下多的那个「添一道菜」
 var kids_heard := false         # 这次在草坪小孩说过了（每回到草坪说一次）
 var cv                          # 现在人在哪块画布（court、hall 或 backhall）：走路、摇杆、镜头都交给它
 var switching := false
@@ -316,6 +320,12 @@ func _ready() -> void:
     orchard_ui = OrchardUI.new()
     ui.add_child(orchard_ui)
     orchard_ui.setup(self)
+    banquet_ui = BanquetUI.new()
+    ui.add_child(banquet_ui)
+    banquet_ui.setup(self, font)
+    banquet_ui.panel_changed.connect(func(open):
+        hall.walking_enabled = state == "banquet" and not open and not whisper_box.visible
+        _refresh_seat_buttons())
     ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
     print("[suqi] 界面搭好了")
     var cap := ""
@@ -505,6 +515,8 @@ func _process(dt: float) -> void:
             pulse_t = 0.0
             pulse_busy = true
             cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
+    if state == "banquet" and banquet_ui != null:
+        banquet_ui.sync()   # 右上角「席面菜单」那块牌子：别的面板开着时让开
     if state == "lake" and lake_ui != null:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
@@ -809,6 +821,17 @@ func _build_hud() -> void:
     play_btn.offset_bottom = -120
     play_btn.pressed.connect(func(): _open_game(str(hall.my_seat.get("table_id", ""))))
     hud.add_child(play_btn)
+    # 添一道菜（玩法过目-金币花在哪 第一样）：坐在自己桌上才出，和上面三个按钮并排
+    add_dish_btn = Button.new()
+    add_dish_btn.text = "添一道菜"
+    add_dish_btn.visible = false
+    add_dish_btn.clip_text = true
+    add_dish_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    add_dish_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    add_dish_btn.offset_top = -170
+    add_dish_btn.offset_bottom = -120
+    add_dish_btn.pressed.connect(func(): banquet_ui.open_add())
+    hud.add_child(add_dish_btn)
     # 阿鱼说话的对白框：原来在屏幕底下，阿鱼 9/17 要放到屏幕上方（底下留给按钮和操作盘）
     dialog = PanelContainer.new()
     dialog.set_anchors_preset(Control.PRESET_TOP_WIDE)
@@ -1103,6 +1126,14 @@ func _goto(s: String) -> void:
         book_btn.visible = false
     if play_btn != null and s != "banquet":
         play_btn.visible = false
+    if add_dish_btn != null and s != "banquet":
+        add_dish_btn.visible = false
+    if banquet_ui != null and s != "banquet":
+        banquet_ui.hide_all()
+        # 添的菜摆到离开宴会厅为止（玩法过目-金币花在哪：不累计、不进存档）
+        var life = _hall_life()
+        if life != null:
+            life.clear_orders()
     if is_instance_valid(game_host) and s != "banquet":
         game_host.queue_free()
         game_host = null
@@ -1114,7 +1145,7 @@ func _goto(s: String) -> void:
         book_open = false
         book_table = ""
         book_panel.visible = false
-    hall.walking_enabled = (s == "banquet") and not whisper_box.visible
+    hall.walking_enabled = (s == "banquet") and not whisper_box.visible and not _menu_open()
     court.walking_enabled = (s == "court") and not court_ui.panel_open()
     if s != "court":
         court_ui.hide_all()
@@ -1533,7 +1564,7 @@ func _on_table_near(table_id: String) -> void:
 ## 「坐这儿」「昵称」「翻簿子」三个按钮的显示状态统一在这里算（第 22 版规则 7，第 24 版加翻簿子）：
 ## 卡片或翻簿子面板开着、或不在宴会厅里，全部收起；「坐这儿」进了确认文案时另外两个先让开，免得并排挤在一起
 func _refresh_seat_buttons() -> void:
-    var blocked: bool = card_open or book_open or state != "banquet" or is_instance_valid(game_host)
+    var blocked: bool = card_open or book_open or state != "banquet" or is_instance_valid(game_host) or _menu_open()
     if blocked or int(near_seat_info.get("chair_no", 0)) == 0:
         sit_btn.visible = false
     else:
@@ -1559,7 +1590,32 @@ func _refresh_seat_buttons() -> void:
     else:
         play_btn.text = "玩·" + GameCfg.title(my_game)
         play_btn.visible = true
+    # 添一道菜：坐在自己桌上就出（不挑桌子有没有小游戏）
+    if blocked or whisper_box.visible or sit_confirming or not (USE_LAYERED and hall.seated):
+        add_dish_btn.visible = false
+    else:
+        add_dish_btn.visible = true
     _layout_seat_buttons()
+
+## 席面菜单那张面板开着没有（开着时底下的按钮全让开、人不能走）
+func _menu_open() -> bool:
+    return banquet_ui != null and banquet_ui.panel_open()
+
+## 宴会厅里有别的面板占着屏幕（看人卡片、簿子、小游戏、悄悄话）：右上角「席面菜单」那块牌子先让开
+func _hall_busy() -> bool:
+    return card_open or book_open or is_instance_valid(game_host) or whisper_box.visible
+
+## 我现在坐着的那张桌；没坐着（或者厅是 3D 备用版）返回空串。添一道菜拿它当收货地址
+func _my_table() -> String:
+    if not USE_LAYERED or hall == null or not hall.seated:
+        return ""
+    return str(hall.my_seat.get("table_id", ""))
+
+## 厅里的热闹那一层（服务员在里面）；3D 备用版、ambience.json 缺了都返回 null
+func _hall_life():
+    if not USE_LAYERED or hall == null:
+        return null
+    return hall.life
 
 ## 1～3 个都要能排（第 24 版起加了翻簿子）。这一路 UI 都按 540 宽竖屏设计，用固定像素挪位置，
 ## 不查实际屏宽：1 个时居中 440 宽（原来的样子）；2 个时各 240 宽、中间留 20（原来的样子）；
@@ -1570,6 +1626,7 @@ func _layout_seat_buttons() -> void:
     if person_btn.visible: slots.append(person_btn)
     if book_btn.visible: slots.append(book_btn)
     if play_btn.visible: slots.append(play_btn)
+    if add_dish_btn.visible: slots.append(add_dish_btn)
     if sit_btn.visible: slots.append(sit_btn)
     match slots.size():
         1:
@@ -1582,7 +1639,15 @@ func _layout_seat_buttons() -> void:
             slots[1].offset_left = -82; slots[1].offset_right = 82
             slots[2].offset_left = 90; slots[2].offset_right = 254
         _:
-            pass
+            # 第 33 版加了「添一道菜」，坐着的时候可能到四个（昵称、翻簿子、玩·XX、添一道菜）。
+            # 四个以上按总宽 512 平分、间隔 8 排，两侧到 540 屏幕边还各留 14 像素；
+            # 按钮字都开了截断，挤窄了显示成省略号，不会互相压住
+            var n := slots.size()
+            var gap := 8.0
+            var w: float = (512.0 - gap * float(n - 1)) / float(n)
+            for i in n:
+                slots[i].offset_left = -256.0 + float(i) * (w + gap)
+                slots[i].offset_right = slots[i].offset_left + w
 
 func _on_person_pressed() -> void:
     if near_person_id != "":

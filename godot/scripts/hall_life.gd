@@ -48,6 +48,7 @@ class Waiter:
     var table := ""
     var spot := Vector2.ZERO
     var gone := false
+    var order := ""          # 这一趟端的是玩家添的哪道菜（空串是平常上菜，随机挑桌）
 
 class Guest:
     var node: Node2D
@@ -80,7 +81,12 @@ var heads: Array = []            # 乐手头顶，音符从这冒
 var notes: Array = []
 var note_timer := 0.5
 var glows: Array = []
-var dishes: Array = []           # [{spr, table, left}]：服务员新放上桌的菜
+var dishes: Array = []           # [{spr, table, left, keep}]：服务员新放上桌的菜。keep 的是玩家添的，不淡出
+## 玩家添的菜还没端到的（玩法过目-金币花在哪 第一样）：[{tid, name, wait}]。
+## 下一个空出来的服务员接单；等太久（都在放菜、路一时走不通）就直接摆上，钱不能白花
+var orders: Array = []
+const ORDER_WAIT_MAX := 12.0
+const ORDER_NAME_SECS := 6.0     # 菜名在桌上显示几秒（看清是哪道，然后收掉，不长期挡着）
 var guest_atlas: ImageTexture
 
 func build(h: Node2D) -> void:
@@ -403,6 +409,10 @@ func _start_trip(w: Waiter) -> void:
     _pick_table(w)
 
 func _pick_table(w: Waiter) -> void:
+    w.order = ""
+    # 有人添了菜就先走这一单（玩法过目-金币花在哪 第一样：服务员真的端过来）
+    if not orders.is_empty() and _take_order(w):
+        return
     var ids: Array = spots.keys()
     for tries in 12:
         var tid := str(ids[rng.randi() % ids.size()])
@@ -427,6 +437,69 @@ func _pick_table(w: Waiter) -> void:
     # 一时挑不到（别的服务员占着）：原地等一秒再挑
     w.state = "away"
     w.wait = 1.0
+
+# ---------- 玩家添的菜（玩法过目-金币花在哪 第一样，阿鱼 9/20 点头） ----------
+
+## 添一道菜：叫服务员端这道菜去那张桌。和平常上菜不一样的三处——端的是指定那张桌、
+## 放下不撤（摆到离开宴会厅为止）、放下那会儿菜名在桌上显示几秒。桌号不认得返回 false（钱不扣）
+func order_dish(tid: String, dish_name: String) -> bool:
+    if dish_name == "" or not spots.has(tid):
+        return false
+    orders.append({"tid": tid, "name": dish_name, "wait": 0.0})
+    # 门里待着的服务员马上出来接单，不用等它自己数完秒
+    for w in waiters:
+        if w.kind == "waiter" and w.state == "away":
+            w.wait = minf(w.wait, 0.2)
+    return true
+
+## 这张桌上玩家自己添的菜有几道（面板上「桌上摆满了」拿它比）
+func ordered_count(tid: String) -> int:
+    var n := 0
+    for dd in dishes:
+        if bool(dd.get("keep", false)) and str(dd["table"]) == tid:
+            n += 1
+    return n
+
+## 离开宴会厅：添的菜和还没端到的单子都清掉（不累计、不进存档）
+func clear_orders() -> void:
+    orders.clear()
+    for dd in dishes.duplicate():
+        if bool(dd.get("keep", false)):
+            _drop_dish(dd)
+
+## 这个服务员接一单：走得到就接，走不到（路被占）留给下一个
+func _take_order(w: Waiter) -> bool:
+    for od in orders:
+        var tid := str(od["tid"])
+        if not spots.has(tid):
+            orders.erase(od)
+            return false
+        var sp: Array = spots[tid]
+        for p in sp:
+            var route: Array = hall.find_path(w.pos, p)
+            if route.is_empty():
+                continue
+            w.table = tid
+            w.spot = p
+            w.path = route
+            w.state = "carry"
+            w.order = str(od["name"])
+            orders.erase(od)
+            return true
+    return false
+
+## 等太久没人接（服务员都在放菜、或者一时走不过去）：直接摆上桌，钱不能白花
+func _orders_tick(dt: float) -> void:
+    for od in orders.duplicate():
+        od["wait"] = float(od["wait"]) + dt
+        if float(od["wait"]) < ORDER_WAIT_MAX:
+            continue
+        var tid := str(od["tid"])
+        orders.erase(od)
+        if not spots.has(tid):
+            continue
+        var sp: Array = spots[tid]
+        _place_dish(tid, sp[0], str(od["name"]))
 
 func _tray_look(w: Waiter) -> void:
     if w.tray == null:
@@ -456,7 +529,8 @@ func _step_waiter(w: Waiter, dt: float) -> void:
             w.serve_t += dt
             if not w.placed and w.serve_t >= SERVE_LEN * 0.5:
                 w.placed = true
-                _place_dish(w.table, w.pos)
+                _place_dish(w.table, w.pos, w.order)
+                w.order = ""
                 w.full = false
                 _tray_look(w)
             if w.serve_t >= SERVE_LEN:
@@ -511,15 +585,17 @@ func _pose_waiter(w: Waiter, moving: bool) -> void:
             tp += Vector2(toward.x * 12.0, 14.0) * k
         w.tray.position = tp
 
-## 菜放上桌：在桌面靠服务员那一边，按桌子着地那一行排前后（画在桌面上、桌前的人后面；簿子是 +0.5）
-func _place_dish(tid: String, from: Vector2) -> void:
+## 菜放上桌：在桌面靠服务员那一边，按桌子着地那一行排前后（画在桌面上、桌前的人后面；簿子是 +0.5）。
+## ordered 不是空串：这是玩家添的那道菜，放下不撤，菜名在桌上显示几秒
+func _place_dish(tid: String, from: Vector2, ordered := "") -> void:
     var tc: Dictionary = hall._table_cfg(tid)
     if tc.is_empty():
         return
     var s := _sprite("amb_dish_%d" % rng.randi_range(1, 3))
     if s == null:
         return
-    var mine := dishes.filter(func(d): return d["table"] == tid)
+    # 撤旧的只撤服务员自己上的那几盘，玩家添的不撤
+    var mine := dishes.filter(func(d): return d["table"] == tid and not bool(d.get("keep", false)))
     if mine.size() >= DISH_MAX:
         _drop_dish(mine[0])
     var top: Vector2 = hall._seat_center(tc) + Vector2(0, -6)   # 桌面中心：比椅面那一圈高一点
@@ -536,7 +612,26 @@ func _place_dish(tid: String, from: Vector2) -> void:
     if steam != null:
         steam.position = p - foot + Vector2(0, -6)
         s.add_child(steam)
-    dishes.append({"spr": s, "table": tid, "left": rng.randf_range(DISH_LIFE.x, DISH_LIFE.y)})
+    if ordered == "":
+        dishes.append({"spr": s, "table": tid, "left": rng.randf_range(DISH_LIFE.x, DISH_LIFE.y), "keep": false})
+        return
+    # 玩家添的：菜名在盘子上方显示几秒（看清是哪道），盘子留到离开宴会厅
+    var tag := Label.new()
+    tag.text = ordered
+    if hall.font != null:
+        tag.add_theme_font_override("font", hall.font)
+    tag.add_theme_font_size_override("font_size", 20)
+    tag.add_theme_color_override("font_color", Color("#f4d97a"))
+    tag.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.85))
+    tag.add_theme_constant_override("shadow_offset_x", 2)
+    tag.add_theme_constant_override("shadow_offset_y", 2)
+    tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    tag.position = p - foot + Vector2(-60, -34)
+    tag.custom_minimum_size = Vector2(120, 0)
+    tag.size = Vector2(120, 24)
+    tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    s.add_child(tag)
+    dishes.append({"spr": s, "table": tid, "left": INF, "keep": true, "tag": tag, "tag_left": ORDER_NAME_SECS})
 
 func _drop_dish(dd: Dictionary) -> void:
     (dd["spr"] as Sprite2D).queue_free()
@@ -719,7 +814,18 @@ func _process(dt: float) -> void:
         _step_waiter(w, dt)
         if w.gone:
             waiters.erase(w)
+    _orders_tick(dt)
     for dd in dishes.duplicate():
+        if bool(dd.get("keep", false)):
+            # 玩家添的菜不撤；菜名显示几秒就收
+            var tg = dd.get("tag")
+            if tg != null and is_instance_valid(tg):
+                dd["tag_left"] = float(dd["tag_left"]) - dt
+                (tg as Label).modulate.a = clampf(float(dd["tag_left"]), 0.0, 1.0)
+                if float(dd["tag_left"]) <= 0.0:
+                    (tg as Label).queue_free()
+                    dd["tag"] = null
+            continue
         dd["left"] -= dt
         var ds: Sprite2D = dd["spr"]
         ds.modulate.a = clampf(dd["left"], 0.0, 1.0)   # 最后一秒淡掉（吃完了）
