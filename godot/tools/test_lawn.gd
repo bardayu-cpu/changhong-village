@@ -2,7 +2,7 @@ extends SceneTree
 ## 验收：罗曼山庄草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 布局：四个交互点和蓝图一字不差、球 (760,580)、喜多 (700,540)、孩童区秋千滑梯两个小孩、西北拱门和白椅子（没交互）、四周的树。
 ## 进出：迎宾院东小径 ↔ 草坪西南口、后厅厨房后门 ↔ 草坪西北口，到了站的点离出口至少 1 米、不来回弹；北口去果园「还没修好」。
-## 小孩：走进孩童区说一句「再踢一个」，这次来只说一次。踢球（只在本机）：第一次走近喜多叼着球跑过来；走到球旁出「踢一脚」；
+## 小孩：第一次踢完球、喜多把球放回脚边时喊一句「再踢一个」，每回到草坪喊一次（01 9/20 定）。踢球（只在本机）：第一次走近喜多叼着球跑过来；走到球旁出「踢一脚」；
 ## 朝人面朝的方向滚 1 秒停住（左右 4 米 192 像素、前后 4 米 128 像素）；滚不出草坪；滚进东西弹回上一格；停了喜多叼回人脚边，
 ## 喜多被挡住直接出现在球旁；在滚、在叼的时候不出按钮；踢几次都行；不调云函数；离开草坪球和喜多回起始点
 ## 用法：Godot --headless --path . --script res://tools/test_lawn.gd
@@ -143,16 +143,12 @@ func run() -> void:
     walk_to(l.spot_pos("to_orchard"))
     check("北口：%s" % m.note.text, m.note_box.visible and m.note.text == "去果园的小路还没修好" and m.state == "lawn")
 
-    # 3. 小孩：走进孩童区说一句，这次来只说一次
-    print("3 小孩")
+    # 3. 走进孩童区不单独说话（01 9/20 改：小孩那句挪到「踢完球、喜多把球放回脚边」那一刻，见第 4b 条）
+    print("3 走进孩童区")
     m.dialog.visible = false
     walk_to(Vector2(1180, 560))
     walk_to(l.spot_pos("kids"))
-    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_who.text == "小孩" and m.dialog_text.text == "再踢一个")
-    m.dialog.visible = false
-    walk_to(Vector2(1150, 700))
-    walk_to(l.spot_pos("kids"))
-    check("走开再回来不再说", not m.dialog.visible)
+    check("走进孩童区不说话", not m.dialog.visible)
 
     # 4. 第一次走近：喜多叼着球跑过来放在脚边，出「踢一脚」
     print("4 喜多迎")
@@ -170,6 +166,33 @@ func run() -> void:
     check("喜多叼着球跑过来（中途叼着）", l.greeted and saw_held)
     check("球放在脚边（离人 %.0f 像素）" % l.ball_pos.distance_to(l.pos), l.ball_pos.distance_to(l.pos) < l.BALL_NEAR and l.ball_state == "rest")
     check("出「踢一脚」", ui.act_btn.visible and ui.act_btn.text == "踢一脚")
+
+    # 4b. 小孩那句（蓝图 3.4 用户故事的顺序，01 9/20 定）：第一次踢完、喜多把球放回脚边那一刻喊；
+    #     再踢不重复；出草坪再回来又能喊一次
+    print("4b 踢完球小孩喊")
+    m.dialog.visible = false
+    var tok: int = m.say_token
+    check("喜多迎完（没踢球）不喊", not m.dialog.visible and m.say_token == tok)
+    place(l, Vector2(560, 620), Vector2(530, 620), "right")
+    l.kick()
+    until_idle(l)
+    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text],
+        m.dialog.visible and m.dialog_who.text == "小孩" and m.dialog_text.text == "再踢一个" and m.say_token > tok)
+    tok = m.say_token
+    place(l, Vector2(560, 620), Vector2(530, 620), "right")
+    l.kick()
+    until_idle(l)
+    check("再踢不重复喊", m.say_token == tok)
+    walk_to(l.spot_pos("to_entrance"))
+    check("先回迎宾院", m.state == "court")
+    walk_to(c.spot_pos("to_lawn"))
+    check("又进草坪", m.state == "lawn")
+    m.dialog.visible = false
+    tok = m.say_token
+    place(l, Vector2(560, 620), Vector2(530, 620), "right")
+    l.kick()
+    until_idle(l)
+    check("这回来又喊一次：%s" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "再踢一个" and m.say_token > tok)
 
     # 5. 朝人面朝的方向滚 1 秒停住：左右 4 米（192 像素）、前后 4 米（128 像素）；在滚、在叼的时候不出按钮；叼回脚边又出
     print("5 四个方向")

@@ -6,7 +6,9 @@ extends "res://scripts/entrance.gd"
 ##   走到球旁 60 像素出「踢一脚」（按钮在 lawn_ui.gd，这里发 spot("ball", 进没进)）；球朝人面朝的方向滚 1 秒停住，先快后慢；
 ##   滚不出草坪、滚进东西的占地都弹回上一格停住（蓝图 3.4 交互说明、异常处理；草坪边上和东西四周都是不能走的格子，一个规矩）；
 ##   停了喜多跑过去叼起来，放回人脚前；人在走的话叼着跟着，人停下才放；喜多走不过去就直接出现在球旁，回来的路走不通就直接出现在人跟前。
-##   第一次走近（离球 GREET_R 以内），喜多叼着球跑过来放下（用户故事）。离开这块画布球和喜多回起始点（main 调 reset_ball）
+##   第一次走近（离球 GREET_R 以内），喜多叼着球跑过来放下（用户故事）。离开这块画布球和喜多回起始点（main 调 reset_ball）。
+## 喜多把球放回脚边时发 fetched(是不是踢完球回来的)：踢完那一次 main 让孩童区的小孩喊一句「再踢一个」（蓝图 3.4 用户故事的顺序，01 9/20 定）
+signal fetched(after_kick: bool)
 
 const BALL_START := Vector2(760, 580)    # 蓝图 3.4：球 (760, 580)
 const DOG_START := Vector2(700, 540)     # 蓝图 3.4：喜多 (700, 540)
@@ -40,6 +42,7 @@ var retarget_t := 0.0
 var greeted := false          # 这次来草坪，喜多迎过了
 var ball_near := false        # 「踢一脚」现在出着没有（spot("ball") 的进出）
 var kicks := 0                # 这次踢了几脚：只给测试看，不上服务器，不限次数
+var fetch_after_kick := false # 这趟叼球是踢完球去叼的（不是第一次迎人）
 
 func _init() -> void:
     layout_path = "res://assets/layered/scene_luoman_lawn/layout.json"
@@ -133,6 +136,7 @@ static func _ease(k: float) -> float:
 
 func _stop_roll() -> void:
     ball_state = "rest"
+    fetch_after_kick = true
     _fetch()
 
 # ---------- 喜多 ----------
@@ -180,6 +184,8 @@ func _drop() -> void:
     dog_path.clear()
     if absf(pos.x - dog_pos.x) > 1.0:
         dog_right = pos.x > dog_pos.x    # 放下以后朝着人
+    fetched.emit(fetch_after_kick)
+    fetch_after_kick = false
 
 ## 挨着某点的一个能站的地方（先试左边、右边、上下，都不行就找最近的空格）
 func _beside(p: Vector2) -> Vector2:
@@ -236,6 +242,7 @@ func _process(dt: float) -> void:
     # 第一次走近：喜多叼着球跑过来放下（用户故事）
     if not greeted and ball_state == "rest" and dog_state == "idle" and pos.distance_to(ball_pos) < GREET_R:
         greeted = true
+        fetch_after_kick = false
         _fetch()
     _roll(dt)
     _dog(dt)

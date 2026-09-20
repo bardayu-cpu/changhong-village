@@ -26,12 +26,20 @@ const LawnUI = preload("res://scripts/lawn_ui.gd")
 const LAWN_FROM_COURT := Vector2(100, 780)
 const LAWN_FROM_BACKHALL := Vector2(100, 300)
 const COURT_FROM_LAWN := Vector2(1440, 780)      # 蓝图 1：草坪西南口 → 迎宾院 (1440, 780)，离东小径 60 像素
+## 湖边（蓝图 3.5，灰盒，01 9/20 派任务 9）：迎宾院西小径通这里，湖边东口回迎宾院
+const Lake = preload("res://scripts/lake.gd")
+const LakeUI = preload("res://scripts/lake_ui.gd")
+## 蓝图 1 写迎宾院 → 湖边站 (1490, 700)，离湖边东口 (1500, 700, 50) 只有 10 像素；照 01 的规矩往里挪到离出口 60 像素
+const LAKE_FROM_COURT := Vector2(1440, 700)
+const COURT_FROM_LAKE := Vector2(100, 520)       # 蓝图 1：湖边东口 → 迎宾院 (100, 520)，离西小径 60 像素
 const BACKHALL_FROM_LAWN := Vector2(1440, 780)   # 蓝图 1：草坪西北口 → 后厅 (1440, 780)，离厨房后门 60 像素
 var court
 var backhall
 var backhall_ui: Control        # 后厅四个房间的按钮（backhall_ui.gd）
 var lawn
 var lawn_ui: Control            # 草坪的「踢一脚」（lawn_ui.gd）
+var lake
+var lake_ui: Control            # 湖边的长凳按钮、亭子那句（lake_ui.gd）
 var kids_heard := false         # 这次在草坪小孩说过了（每回到草坪说一次）
 var cv                          # 现在人在哪块画布（court、hall 或 backhall）：走路、摇杆、镜头都交给它
 var switching := false
@@ -257,8 +265,15 @@ func _ready() -> void:
     sv.add_child(lawn)
     lawn.build(preset, "", font)
     lawn.spot.connect(_on_lawn_spot)
+    lawn.fetched.connect(_on_lawn_fetched)
     lawn.walking_enabled = false
     print("[suqi] 草坪搭好了")
+    lake = Lake.new()
+    sv.add_child(lake)
+    lake.build(preset, "", font)
+    lake.spot.connect(_on_lake_spot)
+    lake.walking_enabled = false
+    print("[suqi] 湖边搭好了")
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     court_save = CourtSave.new()
@@ -273,6 +288,9 @@ func _ready() -> void:
     lawn_ui = LawnUI.new()
     ui.add_child(lawn_ui)
     lawn_ui.setup(self)
+    lake_ui = LakeUI.new()
+    ui.add_child(lake_ui)
+    lake_ui.setup(self)
     ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
     print("[suqi] 界面搭好了")
     var cap := ""
@@ -462,6 +480,8 @@ func _process(dt: float) -> void:
             pulse_t = 0.0
             pulse_busy = true
             cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
+    if state == "lake" and lake_ui != null:
+        lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if stick_base != null:
         # 写悄悄话、说话的时候不能走，摇杆也藏起来
         var show_stick: bool = _in_scene() and cv.walking_enabled
@@ -1012,14 +1032,14 @@ func _close_person_card() -> void:
     _refresh_seat_buttons()
 
 # ---------- 流程 ----------
-## 人在能走路的场景里（迎宾院、宴会厅、后厅、草坪），不是开场、起名这些界面
+## 人在能走路的场景里（迎宾院、宴会厅、后厅、草坪、湖边），不是开场、起名这些界面
 func _in_scene() -> bool:
-    return state == "court" or state == "banquet" or state == "backhall" or state == "lawn"
+    return state == "court" or state == "banquet" or state == "backhall" or state == "lawn" or state == "lake"
 
 ## 换到哪块画布：别的都藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。几块一直都在，
 ## 所以座位、NPC、敬酒这些宴会厅的状态切来切去都还在
 func _show_canvas(which: String) -> void:
-    var canvases := {"court": court, "banquet": hall, "backhall": backhall, "lawn": lawn}
+    var canvases := {"court": court, "banquet": hall, "backhall": backhall, "lawn": lawn, "lake": lake}
     for k in canvases:
         var c = canvases[k]
         if c == null:
@@ -1039,11 +1059,13 @@ func _goto(s: String) -> void:
         backhall.stick = Vector2.ZERO
     if lawn != null:
         lawn.stick = Vector2.ZERO
+    if lake != null:
+        lake.stick = Vector2.ZERO
     stick_touch = -1
     touches.clear()
     for k in screens:
         screens[k].visible = (k == s)
-    hud.visible = (s == "banquet" or s == "court" or s == "backhall" or s == "lawn")
+    hud.visible = (s == "banquet" or s == "court" or s == "backhall" or s == "lawn" or s == "lake")
     if sit_btn != null and s != "banquet":
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
@@ -1075,6 +1097,10 @@ func _goto(s: String) -> void:
         lawn.walking_enabled = (s == "lawn")
     if lawn_ui != null and s != "lawn":
         lawn_ui.hide_all()
+    if lake != null:
+        lake.walking_enabled = (s == "lake")
+    if lake_ui != null and s != "lake":
+        lake_ui.hide_all()
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
@@ -1095,6 +1121,7 @@ func _enter_court() -> void:
     court.set_look(preset, nickname)
     backhall.set_look(preset, nickname)
     lawn.set_look(preset, nickname)
+    lake.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
@@ -1153,9 +1180,18 @@ func _switch_canvas(to: String) -> void:
         lawn.reset_to(LAWN_FROM_BACKHALL if from == "backhall" else LAWN_FROM_COURT)
         kids_heard = false
         _goto("lawn")
+    elif to == "lake":
+        _show_canvas("lake")
+        lake.reset_to(LAKE_FROM_COURT)
+        _goto("lake")
     else:
         _show_canvas("court")
-        court.reset_to(COURT_FROM_LAWN if from == "lawn" else COURT_FROM_HALL)
+        var back_to := COURT_FROM_HALL
+        if from == "lawn":
+            back_to = COURT_FROM_LAWN
+        elif from == "lake":
+            back_to = COURT_FROM_LAKE
+        court.reset_to(back_to)
         _goto("court")
         photo_greeted = false
         rest_heard = false
@@ -1215,7 +1251,7 @@ func _on_court_spot(id: String, inside: bool) -> void:
                 _switch_canvas("lawn")
         "to_lake":
             if inside:
-                _note(CourtCopy.text(id), 3.0)
+                _switch_canvas("lake")
 
 ## 走到后厅的交互点（蓝图 3.3，进、出半径各一次，见 entrance.gd）：四个房间的按钮在 backhall_ui.gd；
 ## 西口回宴会厅；东口是厨房后门去草坪
@@ -1231,17 +1267,13 @@ func _on_backhall_spot(id: String, inside: bool) -> void:
             if inside:
                 _switch_canvas("lawn")
 
-## 走到草坪的交互点（蓝图 3.4）：球旁的「踢一脚」在 lawn_ui.gd（lawn.gd 按球现在的位置发 ball）；孩童区小孩说一句（每回到草坪一次）；
+## 走到草坪的交互点（蓝图 3.4）：球旁的「踢一脚」在 lawn_ui.gd（lawn.gd 按球现在的位置发 ball）；
 ## 西南口回迎宾院、西北口去后厅；北口去果园，果园还没做，出「还没修好」
 func _on_lawn_spot(id: String, inside: bool) -> void:
     if state != "lawn" or switching:
         return
     lawn_ui.spot(id, inside)
     match id:
-        "kids":
-            if inside and not kids_heard:
-                kids_heard = true
-                _say(CourtCopy.text("kids", CourtCopy.LAWN), -1.0, CourtCopy.who("kids", CourtCopy.LAWN))
         "to_entrance":
             if inside:
                 _switch_canvas("court")
@@ -1251,6 +1283,22 @@ func _on_lawn_spot(id: String, inside: bool) -> void:
         "to_orchard":
             if inside:
                 _note(CourtCopy.text("to_orchard", CourtCopy.LAWN), 3.0)
+
+## 走到湖边的交互点（蓝图 3.5）：亭子走进去自动出一句、走出去收；长凳的「坐下」「起来」；东口回迎宾院（按钮和那句在 lake_ui.gd）
+func _on_lake_spot(id: String, inside: bool) -> void:
+    if state != "lake" or switching:
+        return
+    lake_ui.spot(id, inside)
+    if id == "to_entrance" and inside:
+        _switch_canvas("court")
+
+## 喜多把球放回脚边（蓝图 3.4 用户故事：踢一脚 → 球滚出去 → 喜多叼回来放脚边 → 旁边小孩喊「再踢一个」）。
+## 01 9/20 定：踢完球那一次才喊，每回到草坪喊一次；不按人站在哪判断（草坪就这么大，在哪踢都听得见）
+func _on_lawn_fetched(after_kick: bool) -> void:
+    if state != "lawn" or switching or not after_kick or kids_heard:
+        return
+    kids_heard = true
+    _say(CourtCopy.text("kids", CourtCopy.LAWN), -1.0, CourtCopy.who("kids", CourtCopy.LAWN))
 
 ## 调试版（导出预设「小游戏调试」，或者电脑上带 --hud）；测试里用 debug_override 当成调试版
 func is_debug() -> bool:
@@ -1287,6 +1335,7 @@ func _enter_banquet() -> void:
     court.set_look(preset, nickname)
     backhall.set_look(preset, nickname)
     lawn.set_look(preset, nickname)
+    lake.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
@@ -2614,6 +2663,48 @@ func _setup_shot(shot: String) -> void:
                     await get_tree().process_frame
                     if note_box.visible:
                         break
+            await get_tree().process_frame
+        "lake", "lake_overview", "lake_pavilion", "lake_bench", "lake_walk":
+            # 湖边灰盒（蓝图 3.5，01 9/20 派任务 9）：lake 是从迎宾院西小径刚过来；pavilion 是站进亭子（自动出那句）；
+            # bench 是坐在长凳上（按钮变「起来」）；walk 是站在栈道中间；overview 整张（横屏 RES=1536x1024）
+            nickname = "阿花"
+            await _enter_court()
+            dialog.visible = false
+            _switch_canvas("lake")
+            for i in 30:
+                await get_tree().process_frame
+                if state == "lake" and not switching:
+                    break
+            note_box.visible = false
+            _clear_toast_back()
+            var lat := {"lake_pavilion": lake.spot_pos("pavilion"), "lake_bench": Vector2(400, 750), "lake_walk": Vector2(768, 470)}
+            if lat.has(shot):
+                lake.reset_to(lat[shot] + (Vector2(0, 80) if shot != "lake_bench" else Vector2(0, 0)))
+                lake.face = "up"
+                if shot != "lake_bench":
+                    lake.go_to(lat[shot])
+                    for i in 120:
+                        await get_tree().process_frame
+                        if lake.path.is_empty():
+                            break
+                else:
+                    lake_ui.spot("bench", true)
+                    lake_ui._on_act()
+                    for i in 30:
+                        await get_tree().process_frame
+            if shot == "lake_overview":
+                hud.visible = false
+                dialog.visible = false
+                lake_ui.hide_all()
+                lake.reset_to(Vector2(768, 620))
+                lake.walking_enabled = false
+                lake.set_process(false)
+                var vk := get_viewport().get_visible_rect().size
+                var zk := minf(vk.x / 1536.0, vk.y / 1024.0)
+                lake.cam.zoom = Vector2(zk, zk)
+                lake.cam.limit_right = 100000
+                lake.cam.position = Vector2(768, 512)
+                lake.cam.reset_smoothing()
             await get_tree().process_frame
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview

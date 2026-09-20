@@ -1,10 +1,11 @@
 extends RefCounted
 ## 迎宾院的话（蓝图 3.1）：全在 assets/entrance/lines.json，改文案只改那份 json，不用改代码。
-## 后厅（蓝图 3.3）、草坪（蓝图 3.4）的在 assets/backhall/、assets/lawn/ 的 lines.json，读法一样，多传一个 path
+## 后厅（蓝图 3.3）、草坪（蓝图 3.4）、湖边（蓝图 3.5）的在 assets/backhall/、assets/lawn/、assets/lake/ 的 lines.json，读法一样，多传一个 path
 
 const PATH := "res://assets/entrance/lines.json"
 const BACKHALL := "res://assets/backhall/lines.json"
 const LAWN := "res://assets/lawn/lines.json"
+const LAKE := "res://assets/lake/lines.json"
 
 static var _d: Dictionary = {}   # 文件路径 -> 那份的 lines
 

@@ -139,9 +139,21 @@ func _item(it: Dictionary) -> void:
         "tree":
             var tx := float(it["x"]); var ty := float(it["y"]); var tr := float(it["r"])
             foot = ty
-            holder.add_child(_poly(_rect_pts([tx - 7, ty - 46, tx + 7, ty]), Color("#6d4a38"), foot))
-            holder.add_child(_poly(_ellipse_pts(tx, ty - 46 - tr * 0.7, tr, tr * 0.85), Color("#4f7a4a"), foot))
-            holder.add_child(_poly(_ellipse_pts(tx - tr * 0.25, ty - 52 - tr * 0.9, tr * 0.55, tr * 0.45), Color("#6a9a5c"), foot))
+            var trunk := Color(str(it.get("trunk", "#6d4a38")))
+            var leaf := Color(str(it.get("leaf", "#4f7a4a")))
+            var leaf2 := Color(str(it.get("leaf2", "#6a9a5c")))
+            holder.add_child(_poly(_rect_pts([tx - 7, ty - 46, tx + 7, ty]), trunk, foot))
+            holder.add_child(_poly(_ellipse_pts(tx, ty - 46 - tr * 0.7, tr, tr * 0.85), leaf, foot))
+            holder.add_child(_poly(_ellipse_pts(tx - tr * 0.25, ty - 52 - tr * 0.9, tr * 0.55, tr * 0.45), leaf2, foot))
+            if bool(it.get("droop", false)):
+                # 柳树（蓝图 3.5 湖边）：树冠下面垂几条柳条
+                var rngw := RandomNumberGenerator.new()
+                rngw.seed = int(tx * 13 + ty)
+                for i in 7:
+                    var dx := rngw.randf_range(-tr * 0.95, tr * 0.95)
+                    var top := ty - 46 - tr * 0.5 + absf(dx) * 0.25
+                    var len_w := rngw.randf_range(tr * 0.5, tr * 1.1)
+                    holder.add_child(_poly(_rect_pts([tx + dx - 1.5, top, tx + dx + 1.5, top + len_w]), leaf2, foot))
             obstacles.append({"ellipse": [tx, ty, 14.0, 8.0]})
         "image":
             foot = float(it["y"])
