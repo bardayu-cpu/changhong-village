@@ -32,6 +32,13 @@ const LakeUI = preload("res://scripts/lake_ui.gd")
 ## 蓝图 1 写迎宾院 → 湖边站 (1490, 700)，离湖边东口 (1500, 700, 50) 只有 10 像素；照 01 的规矩往里挪到离出口 60 像素
 const LAKE_FROM_COURT := Vector2(1440, 700)
 const COURT_FROM_LAKE := Vector2(100, 520)       # 蓝图 1：湖边东口 → 迎宾院 (100, 520)，离西小径 60 像素
+## 果园（蓝图 3.6，灰盒，01 9/20 派任务 10）：草坪北口通这里，果园南口回草坪
+const Orchard = preload("res://scripts/orchard.gd")
+const OrchardUI = preload("res://scripts/orchard_ui.gd")
+const OrchardSave = preload("res://scripts/orchard_save.gd")
+## 蓝图 1 写草坪 → 果园站 (768, 840)，离果园南口 (768, 880, 60) 只有 40 像素、还在出口圈里；照 01 的规矩往里挪
+const ORCHARD_FROM_LAWN := Vector2(768, 820)
+const LAWN_FROM_ORCHARD := Vector2(768, 220)     # 蓝图 1：果园南口 → 草坪 (768, 220)，离北口 60 像素
 const BACKHALL_FROM_LAWN := Vector2(1440, 780)   # 蓝图 1：草坪西北口 → 后厅 (1440, 780)，离厨房后门 60 像素
 var court
 var backhall
@@ -40,6 +47,9 @@ var lawn
 var lawn_ui: Control            # 草坪的「踢一脚」（lawn_ui.gd）
 var lake
 var lake_ui: Control            # 湖边的长凳按钮、亭子那句（lake_ui.gd）
+var orchard
+var orchard_ui: Control         # 果园的「摘一颗」（orchard_ui.gd）
+var orchard_save                # 果园存在本机的：今天摘过没有（orchard_save.gd）
 var kids_heard := false         # 这次在草坪小孩说过了（每回到草坪说一次）
 var cv                          # 现在人在哪块画布（court、hall 或 backhall）：走路、摇杆、镜头都交给它
 var switching := false
@@ -274,6 +284,16 @@ func _ready() -> void:
     lake.spot.connect(_on_lake_spot)
     lake.walking_enabled = false
     print("[suqi] 湖边搭好了")
+    orchard_save = OrchardSave.new()
+    orchard_save.load_local()
+    orchard = Orchard.new()
+    sv.add_child(orchard)
+    orchard.build(preset, "", font)
+    orchard.save = orchard_save
+    orchard.refresh_fruit()
+    orchard.spot.connect(_on_orchard_spot)
+    orchard.walking_enabled = false
+    print("[suqi] 果园搭好了")
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     court_save = CourtSave.new()
@@ -291,6 +311,9 @@ func _ready() -> void:
     lake_ui = LakeUI.new()
     ui.add_child(lake_ui)
     lake_ui.setup(self)
+    orchard_ui = OrchardUI.new()
+    ui.add_child(orchard_ui)
+    orchard_ui.setup(self)
     ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
     print("[suqi] 界面搭好了")
     var cap := ""
@@ -1032,14 +1055,14 @@ func _close_person_card() -> void:
     _refresh_seat_buttons()
 
 # ---------- 流程 ----------
-## 人在能走路的场景里（迎宾院、宴会厅、后厅、草坪、湖边），不是开场、起名这些界面
+## 人在能走路的场景里（迎宾院、宴会厅、后厅、草坪、湖边、果园），不是开场、起名这些界面
 func _in_scene() -> bool:
-    return state == "court" or state == "banquet" or state == "backhall" or state == "lawn" or state == "lake"
+    return state in ["court", "banquet", "backhall", "lawn", "lake", "orchard"]
 
 ## 换到哪块画布：别的都藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。几块一直都在，
 ## 所以座位、NPC、敬酒这些宴会厅的状态切来切去都还在
 func _show_canvas(which: String) -> void:
-    var canvases := {"court": court, "banquet": hall, "backhall": backhall, "lawn": lawn, "lake": lake}
+    var canvases := {"court": court, "banquet": hall, "backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard}
     for k in canvases:
         var c = canvases[k]
         if c == null:
@@ -1061,11 +1084,13 @@ func _goto(s: String) -> void:
         lawn.stick = Vector2.ZERO
     if lake != null:
         lake.stick = Vector2.ZERO
+    if orchard != null:
+        orchard.stick = Vector2.ZERO
     stick_touch = -1
     touches.clear()
     for k in screens:
         screens[k].visible = (k == s)
-    hud.visible = (s == "banquet" or s == "court" or s == "backhall" or s == "lawn" or s == "lake")
+    hud.visible = s in ["banquet", "court", "backhall", "lawn", "lake", "orchard"]
     if sit_btn != null and s != "banquet":
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
@@ -1101,6 +1126,10 @@ func _goto(s: String) -> void:
         lake.walking_enabled = (s == "lake")
     if lake_ui != null and s != "lake":
         lake_ui.hide_all()
+    if orchard != null:
+        orchard.walking_enabled = (s == "orchard")
+    if orchard_ui != null and s != "orchard":
+        orchard_ui.hide_all()
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
@@ -1122,6 +1151,7 @@ func _enter_court() -> void:
     backhall.set_look(preset, nickname)
     lawn.set_look(preset, nickname)
     lake.set_look(preset, nickname)
+    orchard.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
@@ -1177,13 +1207,23 @@ func _switch_canvas(to: String) -> void:
     elif to == "lawn":
         _show_canvas("lawn")
         lawn.reset_ball()
-        lawn.reset_to(LAWN_FROM_BACKHALL if from == "backhall" else LAWN_FROM_COURT)
+        var lawn_at := LAWN_FROM_COURT
+        if from == "backhall":
+            lawn_at = LAWN_FROM_BACKHALL
+        elif from == "orchard":
+            lawn_at = LAWN_FROM_ORCHARD
+        lawn.reset_to(lawn_at)
         kids_heard = false
         _goto("lawn")
     elif to == "lake":
         _show_canvas("lake")
         lake.reset_to(LAKE_FROM_COURT)
         _goto("lake")
+    elif to == "orchard":
+        _show_canvas("orchard")
+        orchard.reset_to(ORCHARD_FROM_LAWN)
+        orchard.refresh_fruit()   # 隔天再来：该有的果子回来，今天摘过的还是少一颗
+        _goto("orchard")
     else:
         _show_canvas("court")
         var back_to := COURT_FROM_HALL
@@ -1282,7 +1322,15 @@ func _on_lawn_spot(id: String, inside: bool) -> void:
                 _switch_canvas("backhall")
         "to_orchard":
             if inside:
-                _note(CourtCopy.text("to_orchard", CourtCopy.LAWN), 3.0)
+                _switch_canvas("orchard")
+
+## 走到果园的交互点（蓝图 3.6）：草莓垄、枇杷树的「摘一颗」在 orchard_ui.gd（没到季节、今天摘过了也由它说）；南口回草坪
+func _on_orchard_spot(id: String, inside: bool) -> void:
+    if state != "orchard" or switching:
+        return
+    orchard_ui.spot(id, inside)
+    if id == "to_lawn" and inside:
+        _switch_canvas("lawn")
 
 ## 走到湖边的交互点（蓝图 3.5）：亭子走进去自动出一句、走出去收；长凳的「坐下」「起来」；东口回迎宾院（按钮和那句在 lake_ui.gd）
 func _on_lake_spot(id: String, inside: bool) -> void:
@@ -1336,6 +1384,7 @@ func _enter_banquet() -> void:
     backhall.set_look(preset, nickname)
     lawn.set_look(preset, nickname)
     lake.set_look(preset, nickname)
+    orchard.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
@@ -2705,6 +2754,50 @@ func _setup_shot(shot: String) -> void:
                 lake.cam.limit_right = 100000
                 lake.cam.position = Vector2(768, 512)
                 lake.cam.reset_smoothing()
+            await get_tree().process_frame
+        "orchard", "orchard_overview", "orchard_pick", "orchard_loquat", "orchard_off":
+            # 果园灰盒（蓝图 3.6，01 9/20 派任务 10）：今天（9 月）两种都不在季节，截图把日期调开。
+            # orchard、overview、pick 用 12 月（草莓红的），loquat 用 5 月（枇杷黄的），off 用 9 月（都没到时候）
+            nickname = "阿花"
+            orchard_save.local_path = "user://shot_orchard.json"   # 不动这台电脑上的真存档
+            orchard_save.picked = {}
+            orchard.fake_today = {"orchard_loquat": "2026-05-12", "orchard_off": "2026-09-20"}.get(shot, "2026-12-08")
+            orchard.refresh_fruit()
+            await _enter_court()
+            dialog.visible = false
+            _switch_canvas("lawn")
+            _switch_canvas("orchard")
+            for i in 40:
+                await get_tree().process_frame
+                if state == "orchard" and not switching:
+                    break
+            note_box.visible = false
+            _clear_toast_back()
+            var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_loquat": orchard.spot_pos("loquat"),
+                "orchard_off": orchard.spot_pos("strawberry")}
+            if oat.has(shot):
+                orchard.reset_to(oat[shot] + Vector2(0, 68))   # 垄间那条空道上（+90 会正好落在垄里，走不动）
+                orchard.go_to(oat[shot])
+                for i in 500:   # 垄间只能从两头绕进去，路不短
+                    await get_tree().process_frame
+                    if orchard.path.is_empty():
+                        break
+                if shot == "orchard_pick":
+                    orchard_ui._on_act()
+                    for i in 20:
+                        await get_tree().process_frame
+            if shot == "orchard_overview":
+                hud.visible = false
+                dialog.visible = false
+                orchard_ui.hide_all()
+                orchard.walking_enabled = false
+                orchard.set_process(false)
+                var vo := get_viewport().get_visible_rect().size
+                var zo := minf(vo.x / 1536.0, vo.y / 1024.0)
+                orchard.cam.zoom = Vector2(zo, zo)
+                orchard.cam.limit_right = 100000
+                orchard.cam.position = Vector2(768, 512)
+                orchard.cam.reset_smoothing()
             await get_tree().process_frame
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
