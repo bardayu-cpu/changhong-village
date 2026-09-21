@@ -8,16 +8,18 @@ const Cfg = preload("res://scripts/games/game_config.gd")
 const INK := Color("#2c1f1c")
 ## 两套图，别混（`回执/GPT出图清单-席间小游戏.md` 第一节 vs 第二节，本来就是分开列的）：
 ##   shared —— 五个游戏共用的 12 张菜牌（鱼、菜、豆、酒……），GPT 9/20 交了，已接进来
-##   ladder —— 小菜合大菜那条成长路径自己的阶梯图（阿鱼 9/20 改成水稻 10 级：种子 → …… → 喜宴），**GPT 还没交**
+##   crop_01…crop_11 —— 小菜合大菜每一关那种作物的十级图（阿鱼 9/20：每关一种植物），**GPT 还没交**
 ##   pattern —— 翻牌配对的喜庆纹样（喜字、双喜、如意、同心结这类 12 张，阿鱼 9/20 定不再用菜），**GPT 还没交**
 ## 拿级数去共用那 12 张里取会错位（一级「花生」取到鱼的图，03 9/20 报的）。
 ## 阶梯图到了往 assets/minigames/ladder/ 一放就自动用上，代码一行都不用改
-## 哪个游戏用哪一套，写在 minigames.json 每个游戏的 art_set 里（改配置不改代码）
+## 哪个游戏用哪一套，写在 minigames.json 每个游戏的 art_set 里（改配置不改代码）。
+## **套名不在这张表里也认**：一律按 assets/minigames/<套名>/step_NN.png 找图（见 ART_ANY）。
+## 所以小菜合大菜加第 N 种作物，只要把十张图放进 crop_NN/，代码和 json 都不用再动
 const ART := {
     "shared": "res://assets/minigames/tiles/dish_%02d.png",
-    "ladder": "res://assets/minigames/ladder/step_%02d.png",
     "pattern": "res://assets/minigames/pattern/sign_%02d.png",
 }
+const ART_ANY := "res://assets/minigames/%s/step_%02d.png"
 const ART_PAD := 0.08        # 图四周留一圈，别顶着描边
 
 static var _art: Dictionary = {}   # "套名:序号" -> Texture2D（没有这张图就存 null，不用每次都去试）
@@ -26,9 +28,8 @@ static var _art: Dictionary = {}   # "套名:序号" -> Texture2D（没有这张
 static func dish_art(kind: int, art_set := "shared") -> Texture2D:
     var key := "%s:%d" % [art_set, kind]
     if not _art.has(key):
-        var tpl := str(ART.get(art_set, ""))
-        var path := tpl % kind if tpl != "" else ""
-        _art[key] = load(path) if path != "" and ResourceLoader.exists(path) else null
+        var path := (str(ART[art_set]) % kind) if ART.has(art_set) else (ART_ANY % [art_set, kind])
+        _art[key] = load(path) if ResourceLoader.exists(path) else null
     return _art[key]
 
 ## 一张菜牌：kind 是 tiles 里的序号（超出就轮回去），size 边长（屏幕像素），font_size 字号（像素字体要 12 的倍数）。
@@ -49,8 +50,11 @@ static func dish_tile(kind: int, size: float, font: Font, font_size := 24, capti
     var tex := dish_art(kind if art_set != "shared" else n, art_set)
     # 有图又不用留底：底色和描边都透明，只剩那张透明图（描边宽度留着，选中时 highlight 把它染成金的）
     var show_bg: bool = tex == null or keep_bg
-    p.add_theme_stylebox_override("panel", box(Color(str(t["bg"])) if show_bg else Color(0, 0, 0, 0), 6,
-        INK if show_bg else Color(0, 0, 0, 0)))
+    var border0: Color = INK if show_bg else Color(0, 0, 0, 0)
+    p.add_theme_stylebox_override("panel", box(Color(str(t["bg"])) if show_bg else Color(0, 0, 0, 0), 6, border0))
+    # 选中了再取消时要恢复成这个样子，别一律写回 INK（03 9/20：有图的牌会多出一圈深色边）
+    p.set_meta("border0", border0)
+    p.set_meta("border_w0", 2)
     if tex != null:
         var r := TextureRect.new()
         r.texture = tex
@@ -107,11 +111,15 @@ static func box(bg: Color, radius := 6, border := INK) -> StyleBoxFlat:
     s.set_corner_radius_all(radius)
     return s
 
-## 选中、高亮时换的底
+## 选中、高亮时换的底。**取消选中要恢复成这张牌原来的样子**：
+## 有图的牌描边本来是透明的，一律写回 INK 就会多出一圈深色边（03 9/20 在三消和连连看都看到了）。
+## 原来什么样记在 meta 里（dish_tile 建牌时存的），没存过的按老规矩当 INK
 static func highlight(p: Panel, on: bool) -> void:
     var s: StyleBoxFlat = (p.get_theme_stylebox("panel") as StyleBoxFlat).duplicate()
-    s.border_color = Color("#f4d97a") if on else INK
-    s.set_border_width_all(4 if on else 2)
+    var base: Color = p.get_meta("border0", INK)
+    var w: int = int(p.get_meta("border_w0", 2))
+    s.border_color = Color("#f4d97a") if on else base
+    s.set_border_width_all(4 if on else w)
     s.border_width_bottom = 4
     p.add_theme_stylebox_override("panel", s)
 

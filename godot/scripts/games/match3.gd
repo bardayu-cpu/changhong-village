@@ -111,7 +111,9 @@ func _flash_cleared(cells: Array) -> void:
 
 # ---------- 手势：按住一道往上下左右划，或者先点一道再点相邻的一道 ----------
 func _gui_input(e: InputEvent) -> void:
-    if over or busy:
+    # paused 也要判（03 9/20 测出来：歇着照样能换块、步数和分数照走）。
+    # 六个游戏里只有这一处漏了，别的五个本来就判了
+    if over or paused or busy:
         return
     if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
         if e.pressed:

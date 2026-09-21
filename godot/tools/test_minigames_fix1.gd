@@ -203,27 +203,44 @@ func run() -> void:
     check("鞭炮落地没事", cg.misses == 1)
     cg.queue_free()
 
-    # ---------- 10. 小菜合大菜：水稻 10 级 + 按关数选作物 ----------
-    print("10 合的是农作物的成长路径（阿鱼 9/20 定，原来那 11 级菜作废）")
+    # ---------- 10. 小菜合大菜：每关一种作物，牌面写大白话名 ----------
+    print("10 合的是农作物的成长路径，每关一种（阿鱼 9/20 定）")
     var gg = G2048.new()
     gg.setup(1, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 9)
     gg.size = Vector2(400, 400)
     ui.add_child(gg)
     gg.start()
     var st: Array = gg.steps()
-    check("水稻 10 级：%s" % [st], st.size() == 10 and str(st[0]) == "种子" and str(st[9]) == "喜宴")
-    check("开始卡说的是从种子合到哪：%s" % gg.goal_text(), gg.goal_text().contains("种子") and gg.goal_text().contains("稻穗"))
+    check("第 1 关是水稻十级：%s" % ["／".join(PackedStringArray(st))],
+        st.size() == 10 and str(st[0]) == "谷种" and str(st[9]) == "米饭")
+    check("牌面这十个字和成长阶段表第 1 种一字不差",
+        "／".join(PackedStringArray(st)) == "谷种／芽谷／秧苗／一窝苗／抽杆／大肚子／稻穗／鼓粒／黄谷／米饭")
+    check("开始卡说的是从哪合到哪：%s" % gg.goal_text(), gg.goal_text().contains("谷种") and gg.goal_text().contains("抽杆"))
     check("顶栏写现在最大合到哪：%s" % gg.status_text(), gg.status_text().contains("现在最大"))
     check("目标级数封顶跟着表长度走，不会越界", gg.target <= st.size())
-    # 按关数换作物的口子（01 9/20：阿鱼要每关一种植物）
-    gg._ladder = {"default": "rice",
-        "by_level": [{"from": 1, "to": 5, "crop": "rice"}, {"from": 6, "to": 10, "crop": "wheat"}],
-        "crops": {"rice": {"steps": ["种子", "秧苗"], "art_set": "ladder"},
-                  "wheat": {"steps": ["麦种", "麦苗", "麦穗"], "art_set": "ladder_wheat"}}}
+    # 植物学阶段名一个字都不上牌面（长辈不认「分蘖期」，合成时每秒都要分清哪级是哪级）
+    var on_card := "／".join(PackedStringArray(st))
+    var leaked: Array = []
+    for w in ["分蘖", "拔节", "孕穗", "灌浆", "蜡熟", "期"]:
+        if on_card.contains(w):
+            leaked.append(w)
+    check("学名没漏到牌面上（%s）" % ["没有" if leaked.is_empty() else leaked], leaked.is_empty())
+    check("学名存着没丢，以后做图鉴用", str(gg.crop().get("stages", [])).contains("分蘖期"))
+    # 每关一种：第 2 关草莓、第 3 关枇杷、超过种数就一直用最后一种
+    var by_level: Array = []
+    for lv in [1, 2, 3, 9, 11, 20]:
+        gg.level = lv
+        by_level.append("第%d关=%s" % [lv, str(gg.crop().get("title", "?"))])
+    check("每关一种：%s" % [by_level],
+        by_level[0].ends_with("水稻") and by_level[1].ends_with("草莓") and by_level[2].ends_with("枇杷")
+        and by_level[3].ends_with("辣椒") and by_level[4].ends_with("猕猴桃") and by_level[5].ends_with("猕猴桃"))
+    gg.level = 2
+    check("第 2 关那套图是 crop_02（十张图放进去就用上，代码不用改）", str(gg.crop().get("art_set")) == "crop_02")
+    # by_level 填了就按它来（要按段分的时候）
+    gg._ladder["by_level"] = [{"from": 1, "to": 5, "crop": "crop_11"}]
     gg.level = 3
-    check("第 3 关走水稻", gg.steps().size() == 2 and str(gg.crop().get("art_set")) == "ladder")
-    gg.level = 8
-    check("第 8 关换小麦、连图那套一起换", gg.steps().size() == 3 and str(gg.crop().get("art_set")) == "ladder_wheat")
+    check("by_level 填了它说了算", str(gg.crop().get("title")) == "猕猴桃")
+    gg._ladder["by_level"] = []
     G2048._ladder = {}
     gg.queue_free()
 
@@ -254,10 +271,72 @@ func run() -> void:
         sets[gid] = str(Cfg.game(gid).get("art_set", ""))
     # 纹样图 GPT 还没交，先用回菜图（01 9/20：不然真机上那桌变成色块加一个字）
     check("翻牌先用回共用菜牌，等纹样图：%s" % [sets], str(sets["memory"]) == "shared")
-    check("小菜合大菜用成长阶梯那套", str(sets["g2048"]) == "ladder")
+    check("小菜合大菜按关数换作物（这里只是兜底）", str(sets["g2048"]).begins_with("crop_"))
     check("另外四个也共用那 12 张菜牌", str(sets["lianliankan"]) == "shared" and str(sets["match3"]) == "shared" and str(sets["whack"]) == "shared" and str(sets["catch"]) == "shared")
-    check("三套图的口子还在（换一个字就能切过去）", Tiles.ART.has("pattern") and Tiles.ART.has("ladder") and Tiles.ART.has("shared"))
-    check("作废的那 11 张阶梯图已经删了", not ResourceLoader.exists("res://assets/minigames/ladder/step_00.png"))
+    check("认得共用菜牌和纹样两套", Tiles.ART.has("pattern") and Tiles.ART.has("shared"))
+    # 加第 N 种作物只要把十张图放进 crop_NN/，代码和 json 都不用再动（03 9/20 指出原来是写死的三条路径）
+    check("表里没有的套名也认，按 assets/minigames/<套名>/step_NN.png 找", Tiles.ART_ANY.contains("assets/minigames/%s/step_%02d.png"))
+    check("没这套图就返回 null（那一关整盘退回色块）", Tiles.dish_art(0, "crop_07") == null)
+    check("作废的那 11 张旧阶梯图已经删了", not ResourceLoader.exists("res://assets/minigames/ladder/step_00.png"))
+
+    # ---------- 13. 六个游戏歇着的时候都不收操作（03 9/20：三消漏判 paused） ----------
+    print("13 歇一下对六个游戏都管用")
+    var deaf := []
+    var heard := []
+    for gid in ["lianliankan", "match3", "g2048", "memory", "whack", "catch"]:
+        var src2 := FileAccess.get_file_as_string("res://scripts/games/%s.gd" % gid)
+        var good := true
+        # 每个收手势的入口都得判 paused
+        for fn in ["func _gui_input", "func _unhandled_key_input"]:
+            var at := src2.find(fn)
+            while at >= 0:
+                var seg := src2.substr(at, 220)
+                if not seg.contains("paused"):
+                    good = false
+                at = src2.find(fn, at + 1)
+        (deaf if good else heard).append(gid)
+    check("六个都判了 paused（漏的：%s）" % ["没有" if heard.is_empty() else heard], heard.is_empty() and deaf.size() == 6)
+    # 三消那个是 03 真点出来的：歇着换块，步数和分数都不该动
+    var m3 = load("res://scripts/games/match3.gd").new()
+    m3.setup(1, Cfg.params(Cfg.game("match3"), 1), SystemFont.new(), 5)
+    m3.size = Vector2(480, 480)
+    ui.add_child(m3)
+    m3.start()
+    var moves0: int = m3.moves
+    var score0: int = m3.score
+    m3.paused = true
+    var ev := InputEventMouseButton.new()
+    ev.button_index = MOUSE_BUTTON_LEFT
+    ev.pressed = true
+    ev.position = Vector2(60, 60)
+    m3._gui_input(ev)
+    ev.pressed = false
+    ev.position = Vector2(120, 60)
+    m3._gui_input(ev)
+    check("三消歇着时换块：步数和分数都没动（%d 步 %d 分）" % [m3.moves, m3.score], m3.moves == moves0 and m3.score == score0)
+    m3.paused = false
+    m3.queue_free()
+
+    # ---------- 14. 选中再取消，不许多出一圈深色边（03 9/20 在三消和连连看看到的） ----------
+    print("14 取消选中要恢复成它原来的样子")
+    var f2 := SystemFont.new()
+    var art_tile: Panel = Tiles.dish_tile(0, 48.0, f2, 24, "", "shared")
+    var b0: Color = (art_tile.get_theme_stylebox("panel") as StyleBoxFlat).border_color
+    Tiles.highlight(art_tile, true)
+    var b1: Color = (art_tile.get_theme_stylebox("panel") as StyleBoxFlat).border_color
+    Tiles.highlight(art_tile, false)
+    var b2: StyleBoxFlat = art_tile.get_theme_stylebox("panel")
+    check("有图的牌：选中是金的", b1.a > 0.5 and b1.r > 0.8)
+    check("取消以后描边还是透明的（原来会写回深色，多出一圈边）", b2.border_color.a == 0.0 and b0.a == 0.0)
+    var plain: Panel = Tiles.dish_tile(0, 48.0, f2, 24, "", "nosuchset")
+    var p0: Color = (plain.get_theme_stylebox("panel") as StyleBoxFlat).border_color
+    Tiles.highlight(plain, true)
+    Tiles.highlight(plain, false)
+    var p2: StyleBoxFlat = plain.get_theme_stylebox("panel")
+    check("没图的牌：取消以后还是原来那圈深边", p2.border_color == p0 and p0.a > 0.5)
+    check("描边粗细也回到原样", p2.get_border_width(SIDE_TOP) == 2)
+    art_tile.queue_free()
+    plain.queue_free()
 
     h1._close()
     print("RESULT ", "PASS" if ok else "FAIL")

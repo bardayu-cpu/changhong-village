@@ -116,7 +116,8 @@
     "step": 5,
     "max": 60
    },
-   "art_set": "ladder"
+   "art_set": "crop_01",
+   "art_set_note": "兜底而已：这个游戏实际用哪套由 ladder.json 按关数定（每关一种作物），这里写的只在 ladder.json 读不到时才用"
   },
   {
    "id": "memory",

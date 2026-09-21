@@ -41,6 +41,12 @@ func crop() -> Dictionary:
         _ladder = j if j is Dictionary else {}
     var crops: Dictionary = _ladder.get("crops", {})
     var name := str(_ladder.get("default", ""))
+    # 每关一种（阿鱼 9/20）：第 N 关用第 N 种，关号超过种数就一直用最后一种
+    if bool(_ladder.get("per_level", false)) and not crops.is_empty():
+        var keys: Array = crops.keys()
+        keys.sort()
+        name = str(keys[clampi(level - 1, 0, keys.size() - 1)])
+    # by_level 有内容时它说了算（要按段分的时候用）
     for r in _ladder.get("by_level", []):
         var rr: Dictionary = r
         if level >= int(rr.get("from", 1)) and level <= int(rr.get("to", 9999)):
