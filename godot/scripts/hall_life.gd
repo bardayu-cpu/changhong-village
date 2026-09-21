@@ -214,7 +214,95 @@ func _gifts() -> void:
     hall.world.add_child(s)
 
 # ---------- 舞台右边的乐队 ----------
+## 舞台右边的乐队。**先试 GPT 交的那批图**（assets/ambience/band/，v2，01 9/21 验收：
+## 逐块和阿鱼确认的效果图比过，八块色差 0.0，是从那张图上拆的）；
+## 图或者 band.json 缺了就退回原来代码画的那套色块，跟菜牌、阶梯图一个规矩。
+## 音符和灯光走**单独的动效层**：音符按 band.json 给的点往上飘（换曲时换一种形状），灯光原地闪，
+## 都不画死在乐手身上
 func _band() -> void:
+    if _band_art():
+        return
+    _band_blocks()
+
+const BAND_DIR := "band/"
+const BAND_CFG := DIR + "band/band.json"
+var band_notes: Array = []       # 音符用哪几张图（图没到时是代码画的那两张）
+
+## 按 band.json 摆那批图；json 或者图缺了返回 false，让调用方退回色块
+func _band_art() -> bool:
+    if not FileAccess.file_exists(BAND_CFG):
+        return false
+    var j = JSON.parse_string(FileAccess.get_file_as_string(BAND_CFG))
+    if not (j is Dictionary):
+        return false
+    var cfg: Dictionary = j
+    var blocks: Dictionary = cfg.get("blocks", {})
+    var place: Array = cfg.get("place", [])
+    if blocks.is_empty() or place.is_empty():
+        return false
+    # 一套图缺一张就整套不用（跟小游戏那边一个规矩：半图半色块比全色块更难看）
+    for k in blocks:
+        if _tex(BAND_DIR + str((blocks[k] as Dictionary).get("file", "")).replace(".png", "")) == null:
+            print("[suqi] 乐队的图缺 ", k, "，这一片退回代码画的色块")
+            return false
+    var ordered: Array = place.duplicate()
+    ordered.sort_custom(func(a, b): return int((a as Dictionary).get("z", 0)) < int((b as Dictionary).get("z", 0)))
+    var blocked := 0
+    band_notes = []
+    for pl_any in ordered:
+        var pl: Dictionary = pl_any
+        var key := str(pl.get("block", ""))
+        var bk: Dictionary = blocks.get(key, {})
+        if bk.is_empty():
+            continue
+        var file := str(bk.get("file", "")).replace(".png", "")
+        var at := _vec(pl.get("at", [0, 0]))
+        var anchor := _vec(bk.get("anchor", [0, 0]))
+        var motion := str(pl.get("motion", ""))
+        if motion == "float_up":
+            # 音符：不摆成一张死图，只记下从哪儿往上飘，交给 _step_notes
+            heads.append(at)
+            band_notes.append(BAND_DIR + file)
+            continue
+        var tx := _tex(BAND_DIR + file)
+        var s := Sprite2D.new()
+        s.texture = tx
+        s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        s.centered = false
+        s.offset = -anchor
+        s.position = at
+        s.name = key
+        s.z_index = int(pl.get("z", 0)) - 30    # 和厅里别的东西一个坐标系：人和桌子按着地点排，这批固定在乐队这一片
+        hall.world.add_child(s, true)
+        if motion == "flicker":
+            # 灯光：原地一闪一闪，和灯笼的光同一套
+            glows.append({"spr": s, "a": 1.0, "phase": rng.randf() * TAU})
+        elif bool(bk.get("can_block", false)):
+            blocked += _block_cells(at, anchor, tx)
+    print("[suqi] 乐队用 GPT 的图摆好了：%d 件，音符 %d 种，挡人挖掉 %d 格" % [ordered.size(), band_notes.size(), blocked])
+    return true
+
+## 乐手脚下那一小片标成走不进去。**乐队这一片本来就不在能走的格子里**（能走的从 y 320 起），
+## 所以今天一格都挖不掉；留着这段是为了以后谁把乐队往厅里挪的时候不用再想一遍
+func _block_cells(at: Vector2, anchor: Vector2, tx: Texture2D) -> int:
+    if tx == null:
+        return 0
+    var half := float(tx.get_width()) * 0.5
+    var n := 0
+    var y := at.y - 6.0
+    while y <= at.y + 4.0:
+        var x := at.x - half
+        while x <= at.x + half:
+            var c: Vector2i = hall._cell_of(Vector2(x, y))
+            if c.x >= 0 and c.y >= 0 and c.x < hall.cols and c.y < hall.rows and hall.walk[c.y * hall.cols + c.x] == 1:
+                hall.walk[c.y * hall.cols + c.x] = 0
+                n += 1
+            x += 8.0
+        y += 8.0
+    return n
+
+## 原来那套：钢琴、琴凳、大提琴、两把小提琴全是代码画的色块，图没到的时候用
+func _band_blocks() -> void:
     var b: Dictionary = conf.get("band", {})
     if b.is_empty():
         return
@@ -915,7 +1003,8 @@ func _step_notes(dt: float) -> void:
     note_timer -= dt
     if note_timer <= 0.0 and not heads.is_empty():
         note_timer = rng.randf_range(0.5, 1.0)
-        var s := _sprite("amb_note_%d" % rng.randi_range(1, 2))
+        var s := _sprite(str(band_notes[rng.randi() % band_notes.size()])) if not band_notes.is_empty() \
+            else _sprite("amb_note_%d" % rng.randi_range(1, 2))
         if s != null:
             var h: Vector2 = heads[rng.randi() % heads.size()]
             s.z_index = 3

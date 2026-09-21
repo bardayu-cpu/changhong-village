@@ -115,18 +115,43 @@ func run() -> void:
         if str(n.name).begins_with("decal"): decals += 1
         if str(n.name).begins_with("glow"): glows += 1
     var has_art := ResourceLoader.exists("res://assets/ambience/amb_piano.png")
-    print("6 占位图在 ", has_art, "：钢琴 ", "piano" in names, " 贺礼 ", "gifts" in names, " 乐手 ",
-        ["pianist", "cellist", "violin1", "violin2"].all(func(x): return x in names),
-        " 彩带彩纸 ", decals, " 灯笼光 ", glows)
-    ok = ok and glows == life.conf["glows"].size()
-    ok = ok and ["pianist", "cellist", "violin1", "violin2"].all(func(x): return x in names)
+    # 乐队 9/21 换成 GPT 交的图了（band/），老的色块乐手（pianist/cellist/…）只在图缺了时才有
+    var band_art := ResourceLoader.exists("res://assets/ambience/band/piano_player.png")
+    var band_names := ["piano_player", "violin_player_a", "cello_player", "violin_player_b", "stage_rug", "light"]
+    var old_band := ["pianist", "cellist", "violin1", "violin2"]
+    print("6 占位图在 ", has_art, "：贺礼 ", "gifts" in names, " 彩带彩纸 ", decals, " 灯笼光 ", glows,
+        "；乐队用图 ", band_art)
+    ok = ok and glows == life.conf["glows"].size()   # 数的是灯笼光那些节点，乐队的灯光不在这堆里
+    if band_art:
+        var got := band_names.all(func(x): return x in names)
+        print("  乐队那批图都摆上了 ", got, "；老的色块乐手不该再出现 ", not old_band.any(func(x): return x in names))
+        ok = ok and got and not old_band.any(func(x): return x in names)
+        # 灯光走会闪那一队（单独的动效层，不画死在乐手身上）
+        print("  会闪的一共 ", life.glows.size(), " 个 = 灯笼 ", life.conf["glows"].size(), " + 乐队的灯光 1")
+        ok = ok and life.glows.size() == life.conf["glows"].size() + 1
+        # 音符是单独的动效层：不摆成死图，只记飘起来的点，交给 _step_notes
+        print("  音符 ", life.band_notes.size(), " 种，从 ", life.heads.size(), " 个点往上飘；盘面上没有写死的音符 ",
+            not ("note_a" in names))
+        ok = ok and life.band_notes.size() == 3 and life.heads.size() == 3 and not ("note_a" in names)
+        # 真推一段时间，音符得飘起来又淡掉
+        life.notes.clear()
+        for i in 400:
+            life._step_notes(0.05)
+        print("  推 20 秒：同时飘着的音符 ", life.notes.size(), " 个")
+        ok = ok and life.notes.size() > 0
+    else:
+        ok = ok and old_band.all(func(x): return x in names)
     if has_art:
-        ok = ok and "piano" in names and "gifts" in names and decals == life.conf["decals"].size()
+        ok = ok and "gifts" in names and decals == life.conf["decals"].size()
 
     # 7. 乐队和贺礼摆在能走的范围外（不挡路）
     var blockers := 0
-    for key in ["piano", "bench", "cello", "violin1", "violin2"]:
-        if hall._free(life._vec(life.conf["band"][key])): blockers += 1
+    if band_art:
+        for pl in JSON.parse_string(FileAccess.get_file_as_string("res://assets/ambience/band/band.json"))["place"]:
+            if hall._free(life._vec(pl["at"])): blockers += 1
+    else:
+        for key in ["piano", "bench", "cello", "violin1", "violin2"]:
+            if hall._free(life._vec(life.conf["band"][key])): blockers += 1
     if hall._free(life._vec(life.conf["gifts"])): blockers += 1
     print("7 乐队、贺礼落在能走的地方 ", blockers, " 处")
     ok = ok and blockers == 0

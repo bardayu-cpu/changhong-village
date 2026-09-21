@@ -1,0 +1,193 @@
+{
+ "note": "宴会厅舞台右边的乐队（GPT 交的 v2，01 9/21 验收）。坐标是 1536×1024 画布的绝对像素，直接用，不换算。",
+ "source": "handoff_scene_roman_banquet_band_v2 + scene_banquet_band_v2.json；图逐块和阿鱼确认的那张效果图比过，八块色差 0.0（就是从那张图上拆的）",
+ "blocks": {
+  "piano_player": {
+   "file": "piano_player.png",
+   "size": [
+    119,
+    158
+   ],
+   "can_block": true,
+   "anchor": [
+    39,
+    153
+   ]
+  },
+  "violin_player_a": {
+   "file": "violin_player_a.png",
+   "size": [
+    85,
+    137
+   ],
+   "can_block": true,
+   "anchor": [
+    45,
+    135
+   ]
+  },
+  "cello_player": {
+   "file": "cello_player.png",
+   "size": [
+    95,
+    138
+   ],
+   "can_block": true,
+   "anchor": [
+    50,
+    136
+   ]
+  },
+  "violin_player_b": {
+   "file": "violin_player_b.png",
+   "size": [
+    75,
+    136
+   ],
+   "can_block": true,
+   "anchor": [
+    43,
+    134
+   ]
+  },
+  "stage_rug": {
+   "file": "stage_rug.png",
+   "size": [
+    385,
+    49
+   ],
+   "can_block": false,
+   "anchor": [
+    192,
+    24
+   ]
+  },
+  "note_a": {
+   "file": "note_a.png",
+   "size": [
+    23,
+    25
+   ],
+   "can_block": false,
+   "anchor": [
+    11,
+    24
+   ]
+  },
+  "note_b": {
+   "file": "note_b.png",
+   "size": [
+    24,
+    27
+   ],
+   "can_block": false,
+   "anchor": [
+    12,
+    26
+   ]
+  },
+  "note_c": {
+   "file": "note_c.png",
+   "size": [
+    24,
+    27
+   ],
+   "can_block": false,
+   "anchor": [
+    12,
+    26
+   ]
+  },
+  "light": {
+   "file": "light.png",
+   "size": [
+    19,
+    68
+   ],
+   "can_block": false,
+   "anchor": [
+    9,
+    67
+   ]
+  }
+ },
+ "place": [
+  {
+   "block": "stage_rug",
+   "at": [
+    1192,
+    271
+   ],
+   "z": 20
+  },
+  {
+   "block": "piano_player",
+   "at": [
+    1065,
+    283
+   ],
+   "z": 30,
+   "fix": "交接单写 [1045,283]，按它摆钢琴比效果图左了 20 像素（02 9/21 逐块比对量出来的，那张图里钢琴那块的像素从 x=1027 起）。这里用实测值，已报 01 请 GPT 核 anchor.pixel.x"
+  },
+  {
+   "block": "violin_player_a",
+   "at": [
+    1180,
+    288
+   ],
+   "z": 31
+  },
+  {
+   "block": "cello_player",
+   "at": [
+    1265,
+    288
+   ],
+   "z": 32
+  },
+  {
+   "block": "violin_player_b",
+   "at": [
+    1343,
+    288
+   ],
+   "z": 33
+  },
+  {
+   "block": "note_a",
+   "at": [
+    1058,
+    151
+   ],
+   "z": 50,
+   "motion": "float_up"
+  },
+  {
+   "block": "note_b",
+   "at": [
+    1168,
+    154
+   ],
+   "z": 50,
+   "motion": "float_up"
+  },
+  {
+   "block": "note_c",
+   "at": [
+    1236,
+    159
+   ],
+   "z": 50,
+   "motion": "float_up"
+  },
+  {
+   "block": "light",
+   "at": [
+    1008,
+    220
+   ],
+   "z": 45,
+   "motion": "flicker"
+  }
+ ]
+}
