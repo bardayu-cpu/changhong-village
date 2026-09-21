@@ -20,12 +20,36 @@ const ART := {
     "pattern": "res://assets/minigames/pattern/sign_%02d.png",
 }
 const ART_ANY := "res://assets/minigames/%s/step_%02d.png"
+## 一张一个菜／一个纹样的那两套，少一张就退一张，不牵连整盘；
+## 作物那种成阶梯的套不一样——**十级少一张就整盘退回色块**，不许半图半色块（01 9/20 定，03 9/21 测出来）
+const ART_PER_TILE := ["shared", "pattern"]
+
+static var _ready: Dictionary = {}   # 套名 -> 这套图齐不齐（查一次记着，别每画一格就问十次文件）
 const ART_PAD := 0.08        # 图四周留一圈，别顶着描边
 
 static var _art: Dictionary = {}   # "套名:序号" -> Texture2D（没有这张图就存 null，不用每次都去试）
 
+## 这一套图齐不齐：`shared`／`pattern` 那种一张一个的永远算「齐」（少一张退一张就行）；
+## 作物那种成阶梯的要 step_00 到 step_(n-1) **一张不缺**才算齐，缺一张就整套不用，那一关整盘退回色块 + 名字。
+## 结果记在 _ready 里，一套只查一次
+static func art_ready(art_set: String, n: int) -> bool:
+    if art_set == "":
+        return false
+    if ART_PER_TILE.has(art_set):
+        return true
+    if not _ready.has(art_set):
+        var all := true
+        for i in n:
+            if not ResourceLoader.exists(ART_ANY % [art_set, i]):
+                all = false
+                break
+        _ready[art_set] = all
+    return bool(_ready[art_set])
+
 ## 某一套图里的第 kind 张；没有返回 null（那就退回色块 + 字）
 static func dish_art(kind: int, art_set := "shared") -> Texture2D:
+    if art_set == "":
+        return null
     var key := "%s:%d" % [art_set, kind]
     if not _art.has(key):
         var path := (str(ART[art_set]) % kind) if ART.has(art_set) else (ART_ANY % [art_set, kind])

@@ -61,8 +61,11 @@ func steps() -> Array:
     return st if st is Array and not st.is_empty() else ["种子"]
 
 func _build() -> void:
-    # 这一关那种作物有自己的一套图（art_set），没写就用 minigames.json 给这个游戏定的那套
-    art_set = str(crop().get("art_set", art_set))
+    # 这一关那种作物有自己的一套图（art_set），没写就用 minigames.json 给这个游戏定的那套。
+    # **十级的图少一张就整套不用**，那一关整盘退回「色块 + 名字」——半图半色块比全色块更难看，
+    # 也更容易让人以为是坏了（01 9/20 定，03 9/21 测出来原来是一张张单独找的）
+    var want: String = str(crop().get("art_set", art_set))
+    art_set = want if Tiles.art_ready(want, steps().size()) else ""
     n = maxi(p_int("size", 4), 3)
     target = clampi(p_int("target_pow", 5), 2, steps().size())
     board = []
