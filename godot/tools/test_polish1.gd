@@ -76,6 +76,9 @@ func run() -> void:
     check("提示提到摇杆：%s" % m.LINE_WALK_HINT, m.LINE_WALK_HINT.contains("圈"))
     var hr: Rect2 = m.hint.get_global_rect()
     check("在屏幕下半截，不压喜字和新人 %s" % hr, hr.position.y > m.ui.size.y * 0.5)
+    # 体验第二轮 新 2：不压左下角摇杆
+    var sr: Rect2 = Rect2(m.stick_base.global_position, m.stick_base.size)
+    check("不压摇杆 提示%s 摇杆%s" % [hr, sr], not hr.intersects(sr))
     m._hide_hint()
     await m._enter_banquet()
     await frames(2)
@@ -98,18 +101,10 @@ func run() -> void:
             small += 1
     check("桌牌、别人的名字都不小于 16 号（小的 %d 个）" % small, small == 0)
 
-    # B3：自己的名字碰到别的字就让开
-    print("B3 名字让开")
-    var other: Control = null
-    for c in m.hall.seat_tags.get_children():
-        if c is Label:
-            other = c
-            break
-    if other != null:
-        m.hall.tag_anchor.global_position = other.global_position + other.size * 0.5 + Vector2(0, tag.size.y * 0.5)
-        check("叠上了：自己的名字让开", not m.hall._tag_clear())
-        m.hall.tag_anchor.global_position = other.global_position + Vector2(0, 400)
-        check("走开了：自己的名字回来", m.hall._tag_clear())
+    # B3 → 体验第二轮 新 1：自己的名字干脆不显示（原来让位只比对牌对牌，还是压在亭子墙、麻将桌、新娘裙子上）
+    print("新 1 自己的名字不显示")
+    await frames(2)
+    check("自己头顶的名字不显示", not m.hall.tag.visible)
 
     # B4：名字牌不出屏幕边
     print("B4 名字牌往屏幕里收")

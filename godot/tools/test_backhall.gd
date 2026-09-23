@@ -46,13 +46,20 @@ func walk_to(target: Vector2, secs := 20.0) -> void:
         if m.cv.path.is_empty():
             break
 
+## 布局里这个名字标在哪。体验第二轮 新 1（01 9/24）起东西的名字牌不再挂在图上（只留出口牌），所以查布局数据，不查画出来的字
 func label_at(canvas, text: String) -> Vector2:
-    for l in canvas.labels.get_children():
-        if (l as Label).text == text:
-            return (l as Label).position + (l as Label).size * 0.5
+    for it in canvas.cfg.get("flat", []):
+        if str(it.get("type", "")) == "label" and str(it.get("text", "")) == text:
+            return Vector2(float(it["x"]), float(it["y"]))
+    for it in canvas.cfg.get("items", []):
+        if it.has("label") and str(it["label"]["text"]) == text:
+            var foot := float(it.get("y", it["rect"][3] if it.has("rect") else 0.0))
+            return Vector2(canvas._item_center_x(it), foot + float(it["label"].get("dy", -40)))
     return Vector2(-1, -1)
 
 func run() -> void:
+    # 进厅小卡那一套（有人敬过就先放干杯插图、放完才能走）这里不看，关掉，免得一进厅走路被插图挡住
+    m.cloud.fake_no_news = true
     for i in 600:
         if m.state == "title":
             break

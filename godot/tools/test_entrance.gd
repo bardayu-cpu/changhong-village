@@ -57,6 +57,8 @@ func walk_to(target: Vector2, secs := 20.0) -> void:
             break
 
 func run() -> void:
+    # 进厅小卡那一套（有人敬过就先放干杯插图、放完才能走）这里不看，关掉，免得一进厅走路被插图挡住
+    m.cloud.fake_no_news = true
     for i in 600:
         if m.state == "title":
             break

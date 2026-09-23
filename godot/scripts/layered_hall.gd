@@ -236,6 +236,31 @@ func _player(preset: int, nickname: String) -> void:
     tag_anchor.add_child(tag)
     set_look(preset, nickname)
 
+# ---------- 地上的记号（体验第二轮 新 3）----------
+## 空心的一圈金边，外面一圈淡光，一明一暗地呼吸。原来是一块不透明的橘色椭圆，像地上一摊东西、桌上一块污渍，
+## 不像「往这儿来」（04 第 43 版复看）。出口那圈金光、签到台头顶的记号都用它
+static func ring_mark(rx: float, ry: float) -> Polygon2D:
+    var holder := Polygon2D.new()   # 本身不画（没有 polygon），只当个壳，visible、position、modulate 照旧用
+    var pts := PackedVector2Array()
+    for i in 33:
+        var a := TAU * float(i) / 32.0
+        pts.append(Vector2(cos(a) * rx, sin(a) * ry))
+    var glow := Line2D.new()
+    glow.points = pts
+    glow.width = 10.0
+    glow.default_color = Color(1.0, 0.85, 0.4, 0.22)
+    holder.add_child(glow)
+    var edge := Line2D.new()
+    edge.points = pts
+    edge.width = 3.5
+    edge.default_color = Color(1.0, 0.9, 0.5, 0.95)
+    holder.add_child(edge)
+    return holder
+
+static func breathe_ring(m: Node2D, t_now: float) -> void:
+    m.modulate.a = 0.55 + sin(t_now * 3.0) * 0.4
+    m.scale = Vector2.ONE * (1.0 + sin(t_now * 3.0) * 0.06)
+
 # ---------- 世界里的字（体验 B2、B3、B4）----------
 ## 世界里的字（人名、桌牌、物件名）原来 12 像素（约 8.5 点），长辈看不清，字心和地面几乎同色（1.04:1），全靠描边撑着。
 ## 改成 18（画面按屏高缩放约 0.94，屏上约 17，在 04 说的 16～18 里），垫一层暗底。像素字体本来就被镜头缩放过，不在 12 的倍数上
@@ -256,18 +281,6 @@ func name_plate(l: Label, color := Color(1, 1, 1, 0.92)) -> void:
     l.add_theme_stylebox_override("normal", sb)
     l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     l.size = l.get_combined_minimum_size()
-
-## 自己头顶的名字：走到有名字的东西（回忆册、麻将桌、亭子……）跟前时，和那东西的名字叠成一团（体验 B3）。
-## 叠上了自己的名字就先让开（藏起来），走开再出来。别人的名字、物件名不动
-func _tag_clear() -> bool:
-    if tag == null or tag.text == "":
-        return true
-    var me := Rect2(tag.global_position, tag.size)
-    for holder in _tag_holders():
-        for c in holder.get_children():
-            if c is Control and (c as Control).visible and Rect2((c as Control).global_position, (c as Control).size).intersects(me):
-                return false
-    return true
 
 ## 世界里挂字的几层（宴会厅：桌牌和别人的名字；灰盒画布另有物件名那层，entrance.gd 覆盖）
 func _tag_holders() -> Array:
@@ -320,13 +333,7 @@ func set_look(preset: int, nickname: String) -> void:
     tag.position = Vector2(-tag.size.x * 0.5, -tag.size.y)   # 下沿中点立在头顶
 
 func _exit_mark() -> void:
-    exit_mark = Polygon2D.new()
-    var pts := PackedVector2Array()
-    for i in 24:
-        var a := TAU * i / 24.0
-        pts.append(Vector2(cos(a) * door_r, sin(a) * door_r * 0.4))
-    exit_mark.polygon = pts
-    exit_mark.color = Color(1.0, 0.85, 0.4, 0.45)
+    exit_mark = ring_mark(door_r, door_r * 0.4)
     exit_mark.position = door
     exit_mark.z_index = -5
     exit_mark.visible = false
@@ -582,7 +589,8 @@ func _process(dt: float) -> void:
     if cam:
         cam.position = pos + cam_pan
     if tag != null:
-        tag.visible = _tag_clear()
+        # 体验第二轮 新 1：不显示自己的名字（你知道自己是谁，别人手机上照样看得到你）。原来压在亭子墙、麻将桌、新娘裙子上
+        tag.visible = false
     _keep_tags_on_screen()
     if my_cup != null:
         cup_left = maxf(cup_left - dt, 0.0)
@@ -590,7 +598,7 @@ func _process(dt: float) -> void:
         var body_h := _px_h(pos.y) * (SIT_KEEP if seated else 1.0)
         my_cup.position = pos + Vector2(-14.0 if face == "left" else 14.0, -body_h + 22.0)
     if exit_mark.visible:
-        exit_mark.color.a = 0.35 + sin(t * 3.0) * 0.15
+        breathe_ring(exit_mark, t)
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:
         couple_armed = false
         path.clear()

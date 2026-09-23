@@ -265,8 +265,8 @@
 护-04,小游戏·护菜,游戏中,顶栏状态,守住 %d/%d 剩 %d 秒,,godot/scripts/games/whack.gd 的 status_text,,守住几次／要几次，剩几秒
 护-05,小游戏·护菜,时间到没守够,没过卡的输因,时间到了，守住了 %d 次,,godot/scripts/games/whack.gd 的 lose,,
 接-01,小游戏·接彩头,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T11、T12 两桌）,游戏名,接彩头,,godot/assets/minigames/minigames.json 的 games[catch].title,,
-接-02,小游戏·接彩头,开始卡第一行,开始卡说明,左右跑着用篮子接喜糖和红包／接够就过关，别接鞭炮,,godot/assets/minigames/minigames.json 的 games[catch].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
-接-03,小游戏·接彩头,开始卡,这关目标,%d 秒内接够 %d 金／喜糖、红包都是钱，鞭炮别接／糖和红包给的金币不一样／接到 %d 个鞭炮就输了,第三行新写，等阿鱼定,godot/scripts/games/catch.gd 的 goal_text,,四行；%d 秒数、%d 要接几金、%d 几个鞭炮就输
+接-02,小游戏·接彩头,开始卡第一行,开始卡说明,左右跑着用篮子接喜糖和红包,,godot/assets/minigames/minigames.json 的 games[catch].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+接-03,小游戏·接彩头,开始卡,这关目标,%d 秒内接够 %d 金／喜糖、红包都是钱，给的金币不一样／鞭炮别接，接到 %d 个就输,后两行新写，等阿鱼定,godot/scripts/games/catch.gd 的 goal_text,,三行（体验第二轮 新 6：原来四行，合并了）；%d 秒数、%d 要接几金、%d 几个鞭炮就输
 接-04,小游戏·接彩头,游戏中,顶栏状态,还差 %d 金,新写，等阿鱼定,godot/scripts/games/catch.gd 的 status_text,,原来是「接了 N 金／这关要 M 金」
 接-05,小游戏·接彩头,游戏中,游戏区左上角,剩 %d 秒  鞭炮 %d/%d,,godot/scripts/games/catch.gd 的 _sync_hud 的 hud,,剩几秒，接到几个鞭炮／几个就输；中间两个半角空格
 接-06,小游戏·接彩头,时间到没接够,没过卡的输因,时间到了，接了 %d 金,,godot/scripts/games/catch.gd 的 lose,,

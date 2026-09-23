@@ -794,8 +794,9 @@ func _build_hud() -> void:
     hint.add_child(_label(LINE_WALK_HINT, 24, GOLD1, HORIZONTAL_ALIGNMENT_CENTER, false))
     hint.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
     hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
-    hint.offset_top = -262
-    hint.offset_bottom = -216
+    # 原来 y 698～749，压着左下角摇杆（圆心 y 740、半径 64）46 像素（体验第二轮 新 2）：往上抬一档，下沿在摇杆顶上
+    hint.offset_top = -346
+    hint.offset_bottom = -300
     hint.visible = false
     hud.add_child(hint)
     # 提示框：第 21 版是一行没底色的字，压在场景图上，阿鱼真机上「什么都没看到」（9/17）。
@@ -1443,6 +1444,7 @@ func _at_gate() -> void:
 ## 大门那圈金光跟着开没开（签完到、写完悄悄话、回到迎宾院时都对一次）
 func _update_gate() -> void:
     court.exit_mark.visible = court_save.gate_open()
+    court.sign_needed = not court_save.signed_in   # 签完到，签到台的记号和屏幕边的箭头就没了
 
 ## 截图、测试用：不走迎宾院，直接进宴会厅（原来的进场流程）
 func _enter_banquet() -> void:
@@ -1585,12 +1587,17 @@ func _arrive(d: Dictionary) -> void:
             break
     if first_toast != "":
         var finfo: Dictionary = names.get(first_toast, {})
-        await get_tree().create_timer(1.5).timeout
+        # 原来空等 1.5 秒，这时已经能走路了，插图「啪」地盖上来是打断人（04 第 43 版复看）：缩到 0.3 秒，
+        # 插图放的时候先别让人走路，放完再放开（插图上有「点一下继续」）
+        hall.walking_enabled = false
+        await get_tree().create_timer(0.3).timeout
         if state != "banquet":
+            hall.walking_enabled = true
             return
         _play_toast(_avatar_of(finfo), preset, ArrivalCard.LINE_TOAST_1 % ArrivalCard.short_nick(str(finfo.get("nick", ""))))
         while is_instance_valid(toast_scene):
             await get_tree().process_frame
+        hall.walking_enabled = true
     if state != "banquet" or is_instance_valid(game_host):
         return
     _show_arrival_card(rows, names)
@@ -2496,6 +2503,8 @@ func _setup_shot(shot: String) -> void:
                     break
                 await get_tree().create_timer(0.1).timeout
             await get_tree().create_timer(0.8).timeout
+            await get_tree().process_frame   # 多等一帧，底图画完再截（04 复看：原来截出来底图是灰的）
+            await get_tree().process_frame
         "walk":
             nickname = "小李"
             await _enter_banquet()
@@ -3005,7 +3014,7 @@ func _setup_shot(shot: String) -> void:
                 lake.cam.position = Vector2(768, 640)
                 lake.cam.reset_smoothing()
             await get_tree().process_frame
-        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell", "orchard_north":
+        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell", "orchard_sold", "orchard_north":
             # 果园（阿鱼 9/20 定的种田玩法）：头一回进来地都是熟的。
             # pick 收草莓、sell 卖给山庄、grow 把地拨到长了六成（青果，报还有多久熟）
             nickname = "阿花"
@@ -3014,7 +3023,7 @@ func _setup_shot(shot: String) -> void:
             orchard_save.basket = {}
             games_save.local_path = "user://shot_orchard_games.json"
             games_save.coins = 0
-            if shot == "orchard_sell":
+            if shot in ["orchard_sell", "orchard_sold"]:
                 orchard.farm["sell_mode"] = "manual"   # 这张专门演示跑一趟收购处那种卖法
             if shot == "orchard_grow":
                 var t0: float = orchard.now() - orchard.grow_secs() * 0.6
@@ -3032,7 +3041,7 @@ func _setup_shot(shot: String) -> void:
             note_box.visible = false
             _clear_toast_back()
             var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_grow": orchard.spot_pos("strawberry"),
-                "orchard_sell": orchard.spot_pos("strawberry"), "orchard_north": Vector2(768, 500)}   # 最北边：看镜头上下跟和顶上的风景带
+                "orchard_sell": orchard.spot_pos("strawberry"), "orchard_sold": orchard.spot_pos("strawberry"), "orchard_north": Vector2(768, 500)}   # 最北边：看镜头上下跟和顶上的风景带
             if oat.has(shot):
                 orchard.reset_to(oat[shot] + Vector2(90, 0))   # 同一条空道上、交互点外头，走进去信号才会发
                 orchard.go_to(oat[shot])
@@ -3040,11 +3049,11 @@ func _setup_shot(shot: String) -> void:
                     await get_tree().process_frame
                     if orchard.path.is_empty():
                         break
-                if shot in ["orchard_pick", "orchard_sell"]:
+                if shot in ["orchard_pick", "orchard_sell", "orchard_sold"]:
                     orchard_ui._on_act()          # 收草莓
                     for i in 20:
                         await get_tree().process_frame
-                if shot == "orchard_sell":        # 拿着果篮去收购处卖
+                if shot in ["orchard_sell", "orchard_sold"]:        # 拿着果篮去收购处卖
                     note_box.visible = false
                     orchard.go_to(orchard.spot_pos("shop"))
                     for i in 600:
@@ -3054,6 +3063,12 @@ func _setup_shot(shot: String) -> void:
                     orchard_ui._on_act()
                     for i in 20:
                         await get_tree().process_frame
+                    # orchard_sold（04 第 43 版复看要的）：等卖出那句真出来再截
+                    if shot == "orchard_sold":
+                        for i in 120:
+                            if note_box.visible:
+                                break
+                            await get_tree().process_frame
             if shot == "orchard_overview":
                 hud.visible = false
                 dialog.visible = false
@@ -3067,6 +3082,17 @@ func _setup_shot(shot: String) -> void:
                 orchard.cam.position = Vector2(768, 640)
                 orchard.cam.reset_smoothing()
             await get_tree().process_frame
+            await get_tree().process_frame   # 多等一帧（04 复看：orchard_sell 截出来底图是灰的）
+        "court_sign_far":
+            # 刚进门站在大门口、还没签到、签到台在屏幕外的那一帧（04 第 43 版复看：看签到台的小箭头在不在）
+            _shot_court_fresh()
+            nickname = "小李"
+            await _enter_court()
+            dialog.visible = false
+            court.reset_to(court.SPAWN)
+            court.face = "up"
+            _update_gate()
+            await get_tree().create_timer(1.0).timeout
         "court_overview":
             # 迎宾院整张（灰盒）：镜头拉远看全图，没有界面。横屏截：RES=1536x1024 ./capture.sh 目录 court_overview
             nickname = ""

@@ -25,6 +25,8 @@ var labels: Node2D
 var base_on := false
 var base_path_override := ""   # 测试用：指到 user:// 下的一张图
 var sign_mark: Polygon2D       # B20：签到台头顶的记号（体验第一轮，04 报告「签到台在屏幕外」）
+var sign_arrow: Polygon2D      # 签到台在屏幕外时，屏幕边上指着它的小箭头（体验第二轮）
+var sign_needed := true        # 还没签到：记号、箭头才出（main 按 court_save.signed_in 设，签完到就没了）
 
 func build(preset: int, nickname: String, f: Font) -> void:
     font = f
@@ -96,10 +98,31 @@ func _process(dt: float) -> void:
             spot.emit(id, now)
             if id == "sign_in" and now and sign_mark != null:
                 sign_mark.visible = false   # B20：走到桌子跟前了，看见了，记号收起来，别一直杵着
+    if sign_mark != null and not sign_needed:
+        sign_mark.visible = false
     if sign_mark != null and sign_mark.visible:
-        var t := Time.get_ticks_msec() / 1000.0
-        sign_mark.scale = Vector2.ONE * (1.0 + sin(t * 4.0) * 0.22)
-        sign_mark.modulate.a = 0.6 + sin(t * 4.0) * 0.4
+        breathe_ring(sign_mark, t)
+    _point_sign_arrow()
+
+## 签到台出了屏幕，屏幕边上（往里收 40 像素）放个小箭头指着它；签到台进了屏幕就收
+func _point_sign_arrow() -> void:
+    if sign_arrow == null:
+        return
+    if sign_mark == null or not sign_mark.visible or cam == null or cam.zoom.x <= 0.0:
+        sign_arrow.visible = false
+        return
+    var vs := get_viewport().get_visible_rect().size / cam.zoom
+    var c := cam.get_screen_center_position()
+    var view := Rect2(c - vs * 0.5, vs)
+    var target: Vector2 = sign_mark.position
+    var inner := view.grow(-40.0)
+    if view.grow(-10.0).has_point(target):
+        sign_arrow.visible = false
+        return
+    sign_arrow.visible = true
+    sign_arrow.position = Vector2(clampf(target.x, inner.position.x, inner.end.x), clampf(target.y, inner.position.y, inner.end.y))
+    sign_arrow.rotation = (target - sign_arrow.position).angle()
+    sign_arrow.modulate.a = 0.7 + sin(t * 5.0) * 0.3
 
 ## B20（体验第一轮，04 报告「新娘妈妈叫你签到，签到台在屏幕外，没有任何东西指出在哪」）：
 ## 给签到台头顶挂一圈会跳的金光，和大门那圈金光（layered_hall.gd _exit_mark）同一个颜色、同一个画法，
@@ -108,16 +131,23 @@ func _sign_mark() -> void:
     if not points.has("sign_in"):
         return
     var p: Vector2 = points["sign_in"]["pos"]
-    sign_mark = Polygon2D.new()
-    var pts := PackedVector2Array()
-    for i in 20:
-        var a := TAU * float(i) / 20.0
-        pts.append(Vector2(cos(a) * 22.0, sin(a) * 22.0 * 0.55))
-    sign_mark.polygon = pts
-    sign_mark.color = Color(1.0, 0.85, 0.4, 0.55)
+    sign_mark = ring_mark(24.0, 24.0 * 0.55)   # 空心会呼吸的圈（体验第二轮 新 3，原来是一块实心橘色，像污渍）
     sign_mark.position = p + Vector2(0, -70)
     sign_mark.z_index = 4
     add_child(sign_mark)
+    # 签到台出了屏幕：屏幕边上出一个小箭头指着它（B20，04 复看：桌子在屏幕外时记号也在屏幕外，等于没有）
+    sign_arrow = Polygon2D.new()
+    sign_arrow.polygon = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11)])
+    sign_arrow.color = Color(1.0, 0.88, 0.45)
+    var outline := Line2D.new()
+    outline.points = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11), Vector2(16, 0)])
+    outline.width = 2.0
+    outline.default_color = Color(0.2, 0.12, 0.08)
+    sign_arrow.add_child(outline)
+    sign_arrow.z_index = 8
+    sign_arrow.scale = Vector2(1.6, 1.6)   # 截图看原大小太小，放大一点
+    sign_arrow.visible = false
+    add_child(sign_arrow)
 
 ## 物件名那层也算：自己的名字碰到它就让开、贴屏幕边就往里收（体验 B3、B4）
 func _tag_holders() -> Array:
@@ -349,10 +379,22 @@ func _breathe() -> void:
 func npc_pos(id: String) -> Vector2:
     return (npc_nodes[id] as Sprite2D).position if npc_nodes.has(id) else Vector2.ZERO
 
+## 体验第二轮 新 1、新 4（01 9/24）：东西的名字牌（亭子、大门口、宴会楼、回忆册……）不再一直挂在图上——底图有了真画，
+## 东西一眼认得出，走近时出的按钮上写清楚就够了（阿鱼 9/23：图上别叠字）。**只留出口牌**（去哪、回哪、通到别处的门和小径），
+## 做成小木牌的样子：暖褐底、米白字、没有金边，和屏幕上 HUD 那套深底金边的按钮拉开，不会被当成按钮
+const EXIT_WORDS := ["后门", "楼门", "西小径", "东小径", "大门"]
+static func is_exit_label(text: String) -> bool:
+    return text.begins_with("去") or text.begins_with("回") or text in EXIT_WORDS
+
 func _label(text: String, at: Vector2) -> void:
+    if not is_exit_label(text):
+        return
     var l := Label.new()
     l.text = text
-    name_plate(l, Color(1, 1, 1, 0.9))   # 18 号字、垫暗底（体验 B2，原来 12 号、只靠描边）
+    name_plate(l, Color("#f3e6c8"))
+    var sb := l.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
+    sb.bg_color = Color(0.36, 0.23, 0.13, 0.85)   # 小木牌
+    l.add_theme_stylebox_override("normal", sb)
     l.position = at - l.size * 0.5
     labels.add_child(l)
 
