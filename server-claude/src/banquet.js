@@ -165,4 +165,47 @@ function arrivalDigest(ctx) {
   };
 }
 
-module.exports = { assignSeat, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest };
+/**
+ * 进厅那张小卡（01 9/23 派活「进厅先见人」，体验评审 0923 改法一）：最多 C.BANQUET_ARRIVAL_ROWS 行，**每行一个人一件事**。
+ * 排前面的：敬了你的 → 在你这桌簿子上接了话的 → 你走后来过的；同一类里新的在前；
+ * 同一个人只出现一次，放在他排最前的那一类（敬了你又写了簿子的，只说敬酒那一件）。
+ * 人数超过行数：前 N-1 行照排，最后一行合成「还有 M 位来过」（kind:'more'，count 是没列出来的人数）。
+ * 没有新鲜事 hasNews:false，客户端就不弹卡（别写「没人来过」这种冷清话）。
+ * @param ctx {{
+ *   me: string,
+ *   since: number,                                         上次离开（或上次进厅）的时间
+ *   toasts: Array<{from:string, at:number}>,              我收到的敬酒（调用方已按 toast_seen_at 筛过）
+ *   bookLines: Array<{from:string, at:number}>,           我现在坐的这桌簿子上新写的句子
+ *   visitors: Array<{openid:string, at:number}>,          我走后来过厅里的人（at 是他最近一次进厅的时间）
+ * }}
+ * @returns {{rows:Array<{kind:'toast'|'book'|'visit'|'more', who?:string, at?:number, count:number}>, hasNews:boolean}}
+ *   toast/book 的 count 是这个人敬了几杯、写了几句；visit 的 count 恒为 1；more 的 count 是还有几位
+ */
+function arrivalCard(ctx) {
+  const { me, since } = ctx;
+  const ROWS = C.BANQUET_ARRIVAL_ROWS;
+  const seen = new Set([me]);
+  const items = [];
+  function collect(kind, list, whoKey) {
+    const byWho = new Map();
+    for (const x of list || []) {
+      const who = x[whoKey];
+      if (!who || !(x.at > since)) continue;
+      const cur = byWho.get(who);
+      if (cur) { cur.count++; cur.at = Math.max(cur.at, x.at); } else byWho.set(who, { kind, who, at: x.at, count: 1 });
+    }
+    const group = Array.from(byWho.values()).filter(it => !seen.has(it.who));
+    group.sort((a, b) => b.at - a.at);
+    for (const it of group) { seen.add(it.who); items.push(it); }
+  }
+  collect('toast', ctx.toasts, 'from');
+  collect('book', ctx.bookLines, 'from');
+  collect('visit', ctx.visitors, 'openid');
+  for (const it of items) if (it.kind === 'visit') it.count = 1;
+  if (items.length <= ROWS) return { rows: items, hasNews: items.length > 0 };
+  const rows = items.slice(0, ROWS - 1);
+  rows.push({ kind: 'more', count: items.length - (ROWS - 1) });
+  return { rows, hasNews: true };
+}
+
+module.exports = { assignSeat, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest, arrivalCard };

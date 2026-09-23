@@ -81,6 +81,8 @@ module.exports = {
   BANQUET_TOAST_DAILY: 5,              // 每人每天敬几杯
   BANQUET_TOAST_PER_PERSON_DAILY: 1,   // 对同一人每天几杯
   BANQUET_BOOK_MAX_LEN: 100,           // 桌簿一条最多几字
+  BANQUET_ARRIVAL_ROWS: 3,             // 进厅那张小卡最多几行，每行一个人一件事（01 9/23 派活「进厅先见人」，阿鱼：字多了看着乱）
+  BANQUET_ARRIVAL_LIST_MAX: 30,        // enterHall 带回「谁来过」「这桌簿子谁写了」最多各几条（卡上最多三行，多的只要个数）
 
   // 宴会厅服务端加固（回执 03）：云开发 collection.get() 不写 limit 一次最多回 100 条，
   // 婚宴人数会超过 100，读座位/敬酒/簿子都要分页读全，见 lib/db-page.js

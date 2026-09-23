@@ -293,6 +293,37 @@ eq(banquet.arrivalDigest({
   since: T5,
 }).toastCount, 2, '同一人敬了两杯都算');
 
+// ---------- 宴会厅 · 进厅小卡（01 9/23「进厅先见人」：最多三行、每行一个人一件事） ----------
+{
+  const S = 1000;
+  const card = banquet.arrivalCard({
+    me: 'me', since: S,
+    toasts: [{ from: '老王', at: S + 5 }, { from: '老王', at: S + 9 }, { from: '旧账', at: S }],
+    bookLines: [{ from: '老王', at: S + 6 }, { from: '阿花', at: S + 3 }],
+    visitors: [{ openid: '小李', at: S + 8 }, { openid: 'me', at: S + 9 }],
+  });
+  eq(card.rows, [
+    { kind: 'toast', who: '老王', at: S + 9, count: 2 },
+    { kind: 'book', who: '阿花', at: S + 3, count: 1 },
+    { kind: 'visit', who: '小李', at: S + 8, count: 1 },
+  ], '三类各一人：敬酒在前、簿子其次、来过最后；老王敬了又写只说敬酒；正好等于 since 的不算；自己不算');
+  eq(card.hasNews, true, '有新鲜事');
+  eq(banquet.arrivalCard({ me: 'me', since: S, toasts: [], bookLines: [], visitors: [] }), { rows: [], hasNews: false }, '没有新鲜事：不弹卡');
+  const many = banquet.arrivalCard({
+    me: 'me', since: S, toasts: [], bookLines: [],
+    visitors: [1, 2, 3, 4, 5].map(i => ({ openid: 'v' + i, at: S + i })),
+  });
+  eq(many.rows, [
+    { kind: 'visit', who: 'v5', at: S + 5, count: 1 },
+    { kind: 'visit', who: 'v4', at: S + 4, count: 1 },
+    { kind: 'more', count: 3 },
+  ], '超过三位：新的在前列两位，第三行合成「还有 3 位」');
+  eq(banquet.arrivalCard({
+    me: 'me', since: S, toasts: [], visitors: [],
+    bookLines: [{ from: '阿花', at: S + 1 }, { from: '阿花', at: S + 2 }],
+  }).rows, [{ kind: 'book', who: '阿花', at: S + 2, count: 2 }], '同一人写两句并成一行，count 2');
+}
+
 // ---------- 住民资料校验（最小版） ----------
 eq(resident.canSaveProfile({ nick: '阿花' }).ok, true, '正常昵称能存');
 eq(resident.canSaveProfile({ nick: ' 阿花 ' }), { ok: true }, '去掉首尾空白后正好2个字能存');

@@ -855,6 +855,60 @@ async function scenarioEnterHallMine() {
   check(JSON.stringify(res.data.mine) === JSON.stringify({ coins: 0, games: {}, dishes: [], gift_coins: 0 }), `场景23-用例2 没存过时mine应该是默认空值（实际 ${JSON.stringify(res.data.mine)}）`);
 }
 
+// ================= 场景25：enterHall 的进厅小卡（01 9/23「进厅先见人」） =================
+async function scenarioEnterHallArrivalCard() {
+  const { sdk, state } = createFakeSdk();
+  const ME = 'arr_me';
+  const people = ['arr_wang', 'arr_hua', 'arr_li', 'arr_old', 'arr_far'];
+  seed(state, 'resident', { _id: ME, openid: ME, nick: '我', avatar: 0, inviter: null });
+  for (const p of people) seed(state, 'resident', { _id: p, openid: p, nick: p, avatar: 1, inviter: null });
+  seed(state, 'seat', { _id: ME, openid: ME, table_id: 'T1', chair_no: 1, inviter: null, sat_at: 500, sat_tables: ['T1'], last_visit_at: 1000 });
+  seed(state, 'seat', { _id: 'arr_wang', openid: 'arr_wang', table_id: 'T2', chair_no: 1, sat_at: 400, sat_tables: ['T2'], last_visit_at: 1100 });
+  seed(state, 'seat', { _id: 'arr_hua', openid: 'arr_hua', table_id: 'T1', chair_no: 2, sat_at: 450, sat_tables: ['T1'], last_visit_at: 900 });
+  seed(state, 'seat', { _id: 'arr_li', openid: 'arr_li', table_id: 'T3', chair_no: 1, sat_at: 460, sat_tables: ['T3'], last_visit_at: 3000 });
+  seed(state, 'seat', { _id: 'arr_old', openid: 'arr_old', table_id: 'T3', chair_no: 2, sat_at: 470, sat_tables: ['T3'], last_visit_at: 800 });
+  seed(state, 'seat', { _id: 'arr_far', openid: 'arr_far', table_id: 'T4', chair_no: 1, sat_at: 480, sat_tables: ['T4'], last_visit_at: 700 });
+  seed(state, 'toast', { _id: 't1', from: 'arr_wang', to: ME, created_at: 2000 });
+  seed(state, 'guestbook', { _id: 'g1', table_id: 'T1', openid: 'arr_hua', text: '新婚快乐', created_at: 1500 });
+  seed(state, 'guestbook', { _id: 'g2', table_id: 'T1', openid: ME, text: '我自己写的', created_at: 1600 });
+  seed(state, 'guestbook', { _id: 'g3', table_id: 'T4', openid: 'arr_far', text: '别桌的', created_at: 1700 });
+  state.currentOpenid = ME;
+  let enterHall = loadCloudFunction('enterHall', sdk);
+  let res = await enterHall.main();
+  check(res.ok === true, `场景25 enterHall ok（实际 ${JSON.stringify(res).slice(0, 200)}）`);
+  const a = res.data && res.data.arrival;
+  check(!!a, '场景25 返回里有 data.arrival');
+  check(a.first_visit === false, '场景25 老客人 first_visit 是 false');
+  const rows = JSON.stringify(a.rows.map(r => [r.kind, r.who]));
+  check(rows === JSON.stringify([['toast', 'arr_wang'], ['book', 'arr_hua'], ['visit', 'arr_li']]),
+    `场景25 三行：老王敬酒、阿花写我这桌、小李来过；我自己写的、别桌的簿子、我来之前来的人都不算（实际 ${rows}）`);
+  check(a.book_lines.length === 1 && a.book_lines[0].text === '新婚快乐', `场景25 book_lines 只有我这桌别人写的那句（实际 ${JSON.stringify(a.book_lines)}）`);
+  check(a.visitors.map(v => v.openid).join(',') === 'arr_li,arr_wang', `场景25 visitors 新的在前、不含我和旧的（实际 ${JSON.stringify(a.visitors)}）`);
+  check(!!res.data.names.arr_hua && !!res.data.names.arr_li, '场景25 卡上说到的人 names 里都有');
+  check(res.data.digest.toastCount === 1, '场景25 旧的 digest 照旧带着');
+
+  // 马上再进一次：刚才那些都看过了（last_visit_at 已更新成这次），不该再有新鲜事
+  enterHall = loadCloudFunction('enterHall', sdk);
+  res = await enterHall.main();
+  check(res.data.arrival.hasNews === false && res.data.arrival.rows.length === 0, `场景25 再进一次没有新鲜事，不弹卡（实际 ${JSON.stringify(res.data.arrival.rows)}）`);
+
+  // 第一次进厅的新客人：first_visit true，桌子原来空不空如实说；不出卡
+  const NEW = 'arr_new';
+  seed(state, 'resident', { _id: NEW, openid: NEW, nick: '新来的', avatar: 2, inviter: 'arr_li' });
+  state.currentOpenid = NEW;
+  enterHall = loadCloudFunction('enterHall', sdk);
+  res = await enterHall.main();
+  check(res.data.arrival.first_visit === true, '场景25 新客人 first_visit 是 true');
+  check(res.data.me.table_id === 'T3' && res.data.arrival.table_was_empty === false, `场景25 跟着邀请人小李坐 T3，桌上原来有人（实际 ${res.data.me.table_id} ${res.data.arrival.table_was_empty}）`);
+  check(res.data.arrival.hasNews === false, '场景25 第一次进厅不出卡');
+  const LONE = 'arr_lone';
+  seed(state, 'resident', { _id: LONE, openid: LONE, nick: '一个人', avatar: 3, inviter: null });
+  state.currentOpenid = LONE;
+  enterHall = loadCloudFunction('enterHall', sdk);
+  res = await enterHall.main();
+  check(res.data.arrival.first_visit === true, '场景25 没邀请人的新客人 first_visit true');
+}
+
 // ================= 场景24：games/dishes 存档是"跟旧值合并"，不是整体覆盖——只传一个游戏的新进度/一道新解锁的菜，不会把别的冲掉（蓝图 3.2 席间小游戏） =================
 async function scenarioSaveProfileGameDishesMergeNotOverwrite() {
   const { sdk, state } = createFakeSdk();
@@ -1071,6 +1125,7 @@ async function scenarioCanvasFile() {
   await scenarioSaveProfileGiftAdd();
   await scenarioEnterHallMine();
   await scenarioSaveProfileGameDishesMergeNotOverwrite();
+  await scenarioEnterHallArrivalCard();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

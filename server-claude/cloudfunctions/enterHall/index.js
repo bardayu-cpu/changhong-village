@@ -9,6 +9,10 @@
 // 蓝图 3.2「席间小游戏」，阿鱼 9/19 定），直接从上面已经查好的 residentDoc 里取，不额外查表；
 // resident 记录里没存过这几个字段就给默认空值，不代表真的没有 resident 记录（那种情况前面
 // 已经 return { ok:false, reason:'no_resident' } 了）。
+// 9/23 加（01 派活「进厅先见人」）：返回里带 data.arrival——第一次进厅：first_visit、table_was_empty
+// （客户端据此说「你坐谁那桌、谁带你来的」）；以后每次进厅：最多三行的小卡 rows（敬了你的 → 在你这桌簿子上
+// 接了话的 → 你走后来过的，排法在 rules/banquet.js 的 arrivalCard），外加卡上用不完的明细 visitors、book_lines（各最多
+// C.BANQUET_ARRIVAL_LIST_MAX 条，新的在前）。原来的 digest 照旧带着，没更新的旧客户端还能用。
 const cloud = require('wx-server-sdk');
 const banquet = require('./rules/banquet');
 const C = require('./rules/config');
@@ -59,6 +63,8 @@ exports.main = async () => {
 
   let mySeat = await db.collection('seat').doc(OPENID).get().catch(() => null);
   mySeat = mySeat && mySeat.data;
+  const firstVisit = !mySeat;
+  let tableWasEmpty = false;
 
   if (!mySeat) {
     const [{ tables, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
@@ -72,6 +78,7 @@ exports.main = async () => {
         sat_at: now, changed_on: null, sat_tables: [], last_visit_at: now,
       };
     } else {
+      tableWasEmpty = !(byTable[assigned.tableId] || []).length;
       const used = new Set((byTable[assigned.tableId] || []).map(s => s.chair_no));
       let chairNo = 1;
       while (used.has(chairNo)) chairNo++;
@@ -89,15 +96,43 @@ exports.main = async () => {
   // 敬酒另从「在厅里当场报过的」之后算（hallPulse 记的 toast_seen_at，9/19 加）：当场看过的不再在进厅时报一遍
   const toastSince = Math.max(since, mySeat.toast_seen_at || 0);
   const satTables = mySeat.sat_tables && mySeat.sat_tables.length ? mySeat.sat_tables : [mySeat.table_id];
-  const [toasts, bookLines] = await Promise.all([
+  // 「你走后谁来过」：seat 表的 last_visit_at 比我上次来得晚的人（第一次进厅 since 就是现在，查了也是空的，省掉）
+  const [toasts, bookLines, visitorSeats] = await Promise.all([
     fetchAllPages(() => db.collection('toast').where({ to: OPENID, created_at: _.gt(toastSince) }), PAGE_OPTS),
     fetchAllPages(() => db.collection('guestbook').where({ table_id: _.in(satTables), created_at: _.gt(since) }), PAGE_OPTS),
+    firstVisit ? Promise.resolve([])
+      : fetchAllPages(() => db.collection('seat').where({ last_visit_at: _.gt(since) }), PAGE_OPTS),
   ]);
   const digest = banquet.arrivalDigest({
     toasts: toasts.map(t => ({ from: t.from, at: t.created_at })),
     bookLines: bookLines.map(l => ({ tableId: l.table_id, at: l.created_at })),
     since,
   });
+
+  // 进厅小卡：簿子只算「我现在坐的这桌」（坐长凳的没有这桌，table_id 是 bench，对不上任何簿子），不算我自己写的
+  const myTableLines = bookLines
+    .filter(l => l.table_id === mySeat.table_id && l.openid && l.openid !== OPENID)
+    .map(l => ({ from: l.openid, at: l.created_at, text: l.text || '' }))
+    .sort((a, b) => b.at - a.at);
+  const visitors = visitorSeats
+    .filter(s => s.openid !== OPENID)
+    .map(s => ({ openid: s.openid, at: s.last_visit_at }))
+    .sort((a, b) => b.at - a.at);
+  const card = banquet.arrivalCard({
+    me: OPENID,
+    since,
+    toasts: digest.toasts,
+    bookLines: myTableLines,
+    visitors,
+  });
+  const arrival = {
+    first_visit: firstVisit,
+    table_was_empty: tableWasEmpty,
+    rows: card.rows,
+    hasNews: card.hasNews,
+    visitors: visitors.slice(0, C.BANQUET_ARRIVAL_LIST_MAX),
+    book_lines: myTableLines.slice(0, C.BANQUET_ARRIVAL_LIST_MAX),
+  };
 
   if (mySeat.last_visit_at !== now) {
     await db.collection('seat').doc(OPENID).update({ data: { last_visit_at: now } });
@@ -119,6 +154,7 @@ exports.main = async () => {
   // 不超过 100 个，命中的行数天然也不会超过 100，不需要再分页），回执 03 确认过这段本来就没问题。
   const ids = new Set(allSeats.map(s => s.openid));
   for (const t of digest.toasts) ids.add(t.from);
+  for (const r of card.rows) if (r.who) ids.add(r.who);
   const names = {};
   async function loadNames(idArray) {
     for (let i = 0; i < idArray.length; i += 100) {
@@ -156,6 +192,7 @@ exports.main = async () => {
       tables: TABLE_IDS.map(id => ({ id, reserved: RESERVED_IDS.has(id), seats: byTableNow[id] || [] })),
       bench,
       digest,
+      arrival,
       names,
       mine,
     },
