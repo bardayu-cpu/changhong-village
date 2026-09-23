@@ -2,15 +2,27 @@ extends Control
 ## 敬酒插图（阿鱼 9/18 晚：「两人敬酒时使用一个画面插图表现在敬酒」）：
 ## 屏幕中间弹一张小画——左边敬酒的人、右边被敬的人，侧身面对面各举一杯，杯子碰一下、金光一闪，上面「干杯」，下面一行谁敬了谁。
 ## 敬的人（敬完）和被敬的人（在厅里当场、或下次进厅）看到的是同一张。
-## 占位：人是代码画的那套像素人放大，底子是红底金边；正式插图等美术。点一下提前收，不点 LEN 秒后自己收
+## 占位：人是代码画的那套像素人放大，底子是红底金边；正式插图等美术。点一下提前收，不点 LEN 秒后自己收。
+## 卡多高跟着内容走（体验第二轮 新 5）：原来固定 300 高、底下留着放那行「谁敬了谁」，那行按 B22 拿掉以后下半截空着一块红。
+## 现在从上往下排：「干杯」、两个人、那行字（有才排）、「点一下继续」，排到哪卡就到哪。
+## 「点一下继续」（01 定，进厅先见人那一条）：点一下本来就能提前收，只是屏幕上没说，长辈只会干等；字小、颜色淡，不抢「干杯」
 signal finished
 
 const Spr = preload("res://scripts/sprites.gd")
 const LEN := 2.8
 const CUP := "res://assets/ambience/amb_cup.png"
 const SPARK := "res://assets/ambience/amb_petal_2.png"
-const PANEL := Vector2(420, 300)
+const PANEL_W := 420.0
 const PEOPLE_H := 168.0   # 两个人画多高（屏幕像素）
+const TITLE_Y := 14.0     # 「干杯」那行顶
+const TITLE_H := 60.0
+const PEOPLE_Y := 82.0    # 两个人的头顶（「干杯」底下留 8）
+const CAP_H := 30.0       # 「谁敬了谁」那行（caption 空就不排）
+const HINT_H := 28.0      # 「点一下继续」那行
+const GAP := 6.0
+const PAD_BOTTOM := 12.0
+## 新写，等阿鱼定（01 定了要这一行，字是 02 写的）
+const LINE_HINT := "点一下继续"
 
 var t := 0.0
 var closing := -1.0        # 开始收的时刻；-1 表示还没收
@@ -21,6 +33,9 @@ var right_p: TextureRect
 var left_cup: TextureRect
 var right_cup: TextureRect
 var title: Label
+var cap: Label             # 「谁敬了谁」；caption 空就是 null
+var hint: Label            # 「点一下继续」
+var panel_size := Vector2(PANEL_W, 0.0)   # play 时按内容算
 var sparks: Array = []
 var clinked := false
 
@@ -40,8 +55,15 @@ func play(font: Font, left_preset: int, right_preset: int, title_text: String, c
     sb.set_border_width_all(3)
     sb.set_corner_radius_all(10)
     panel.add_theme_stylebox_override("panel", sb)
-    panel.size = PANEL
-    panel.pivot_offset = PANEL * 0.5
+    # 从上往下排：「干杯」、两个人、那行字（有才排）、「点一下继续」，卡的高度排到哪算到哪（新 5）
+    var y := PEOPLE_Y + PEOPLE_H + GAP
+    var cap_y := y
+    if caption != "":
+        y += CAP_H + GAP
+    var hint_y := y
+    panel_size = Vector2(PANEL_W, hint_y + HINT_H + PAD_BOTTOM)
+    panel.size = panel_size
+    panel.pivot_offset = panel_size * 0.5
     panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
     panel.clip_contents = true
     add_child(panel)
@@ -58,22 +80,36 @@ func play(font: Font, left_preset: int, right_preset: int, title_text: String, c
     title.add_theme_color_override("font_outline_color", Color("#2c1414"))
     title.add_theme_constant_override("outline_size", 6)
     title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    title.size = Vector2(PANEL.x, 60)
-    title.position = Vector2(0, 14)
+    title.size = Vector2(PANEL_W, TITLE_H)
+    title.position = Vector2(0, TITLE_Y)
     title.pivot_offset = title.size * 0.5
     title.modulate.a = 0.0
     title.mouse_filter = Control.MOUSE_FILTER_IGNORE
     panel.add_child(title)
-    var cap := Label.new()
-    cap.text = caption
-    cap.add_theme_font_override("font", font)
-    cap.add_theme_font_size_override("font_size", 24)
-    cap.add_theme_color_override("font_color", Color("#efe6d8"))
-    cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    cap.size = Vector2(PANEL.x, 30)
-    cap.position = Vector2(0, PANEL.y - 44)
-    cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    panel.add_child(cap)
+    if caption != "":
+        cap = Label.new()
+        cap.text = caption
+        cap.add_theme_font_override("font", font)
+        cap.add_theme_font_size_override("font_size", 24)
+        cap.add_theme_color_override("font_color", Color("#efe6d8"))
+        cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        cap.size = Vector2(PANEL_W, CAP_H)
+        cap.position = Vector2(0, cap_y)
+        cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+        panel.add_child(cap)
+    # 「点一下继续」：像素字最小能看清的就是 24（字体只按 12 的整数倍放大，12 在手机上太小），靠颜色淡下去，
+    # 半透明的米色压在红底上，比「干杯」的 48 号金字、那行 24 号亮米色都退一步
+    hint = Label.new()
+    hint.name = "hint"
+    hint.text = LINE_HINT
+    hint.add_theme_font_override("font", font)
+    hint.add_theme_font_size_override("font_size", 24)
+    hint.add_theme_color_override("font_color", Color(0.937, 0.902, 0.847, 0.5))
+    hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    hint.size = Vector2(PANEL_W, HINT_H)
+    hint.position = Vector2(0, hint_y)
+    hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    panel.add_child(hint)
     for i in 10:
         var sp := _tex_rect(SPARK, 3.0)
         if sp != null:
@@ -122,7 +158,7 @@ func _tex_rect(path: String, scale_k: float) -> TextureRect:
 
 func _layout() -> void:
     var vp := get_viewport_rect().size
-    panel.position = (vp - PANEL) * 0.5
+    panel.position = (vp - panel_size) * 0.5
 
 func _gui_input(e: InputEvent) -> void:
     if (e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed and closing < 0.0:
@@ -139,11 +175,11 @@ func _process(dt: float) -> void:
     shade.color.a = 0.45 * k_in * k_out
     panel.modulate.a = k_in * k_out
     panel.scale = Vector2.ONE * lerpf(0.85, 1.0, _ease(k_in))
-    var mid := PANEL.x * 0.5
-    var base_y := PANEL.y - 44.0 - PEOPLE_H - 6.0
+    var mid := PANEL_W * 0.5
+    var base_y := PEOPLE_Y
     var slide := _ease(clampf((t - 0.2) / 0.4, 0.0, 1.0))
     left_p.position = Vector2(lerpf(-left_p.size.x, mid - left_p.size.x - 6.0, slide), base_y)
-    right_p.position = Vector2(lerpf(PANEL.x, mid + 6.0, slide), base_y)
+    right_p.position = Vector2(lerpf(PANEL_W, mid + 6.0, slide), base_y)
     # 杯子：在两人身前胸口高，举起来往中间碰
     var lift := _ease(clampf((t - 0.6) / 0.35, 0.0, 1.0))
     var chest := base_y + PEOPLE_H * 0.42

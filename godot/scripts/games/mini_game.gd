@@ -81,6 +81,11 @@ func status_text() -> String:
 func status_parts() -> Array:
     return []
 
+## 这一局顶栏会不会放小图（B10）：外壳开局前问一次，好先把顶栏加高、游戏区往下让。
+## 外壳问的时候只 setup 过、还没 _build，只能读 level、params、art_set。status_parts 会给图的游戏才返回 true
+func status_has_icons() -> bool:
+    return false
+
 ## 过关给多少金。-1 = 照奖励表（六个游戏里五个都这样）；接彩头是「接到的全拿走」，自己报
 func won_coins() -> int:
     return -1

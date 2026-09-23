@@ -151,11 +151,16 @@ func run() -> void:
     probe.setup(1, Cfg.params(Cfg.game("catch"), 1), SystemFont.new(), 1)
     var goal: String = probe.goal_text()
     var lines_ok := goal.contains("不一样")
-    for ln in goal.split("\n"):
+    # 新 6（体验第二轮）：整张开始卡（json 的 goal、「第 1 关」、goal_text）原来七行，精简到五行以内；
+    # 鞭炮别接、接到几个就输还得说到
+    var card_text: String = str(Cfg.game("catch").get("goal", "")) + "\n第 1 关\n" + goal
+    var card_lines: PackedStringArray = card_text.split("\n")
+    for ln in card_lines:
         if ln.length() > 16 or (ln.length() > 0 and "，。、；：！？）」".contains(ln.substr(0, 1))):
             lines_ok = false
-    print("4 开始卡（B12）：", goal.replace("\n", "／"), " ", lines_ok)
-    ok = ok and lines_ok
+    var five_ok: bool = card_lines.size() <= 5 and card_text.contains("鞭炮别接") and goal.contains("接到 3 个就输")
+    print("4 开始卡（B12、新 6）：%d 行 %s 每行≤16 字、行首没标点 %s，五行以内 %s" % [card_lines.size(), card_text.replace("\n", "／"), lines_ok, five_ok])
+    ok = ok and lines_ok and five_ok
     probe.free()
 
     # 5. 没接住的落到地面线就收掉（B14）：原来掉到游戏区下沿再多 30 才删，穿过红毯往下沉。

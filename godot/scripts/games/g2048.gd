@@ -50,6 +50,10 @@ func status_parts() -> Array:
         out.append_array(["现在最大", mx_tex])
     return out
 
+## 外壳开局前问的（还没 _build）：这一关那套图齐了，顶栏就会放图，跟 _build 里定 art_set 是同一个判断
+func status_has_icons() -> bool:
+    return Tiles.art_ready(str(crop().get("art_set", art_set)), steps().size())
+
 ## 这一关用哪种作物（by_level 没写就用 default）
 func crop() -> Dictionary:
     if _ladder.is_empty():

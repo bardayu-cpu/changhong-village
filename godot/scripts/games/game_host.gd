@@ -24,7 +24,10 @@ const CAPSULE_BOTTOM := 124.0
 const CAPSULE_LEFT := 400.0
 const DBG_H := 56.0
 const BTN_ROW_H := 68.0      # 左下角「离开」「歇一下」占的那一条
-const STATUS_ICON := 32.0    # 顶栏状态那行的小图多大（B10：小菜合大菜的「目标」「现在最大」画成那一级的图）
+## 顶栏状态那行的小图多大（B10：小菜合大菜的「目标」「现在最大」画成那一级的图）。
+## 原来 32，比旁边 24 号的字还难认（04 复看第 43 版）；01 定 56 以上。这一行跟着变高，游戏区往下让，
+## 只有带图的那一局这样（icon_row），别的游戏顶栏不变
+const STATUS_ICON := 56.0
 ## 没过也给一点（体验评审第 12 条，阿鱼 9/20 定要给）。**新写，等阿鱼定**：
 ## 话要说清是安慰的，别让人以为过关了
 const LINE_CONSOLE := "没过 也给你 %d 金 辛苦了"
@@ -50,6 +53,7 @@ var status_l: Label
 var status_box: HBoxContainer        # 状态那行要放小图时用它（B10），不放图时藏着、照旧用 status_l
 var status_sig := ""                 # status_box 现在摆的是什么，变了才重摆（每帧都读）
 var bar_h := BAR_H                   # 顶栏实际多高（_layout 按胶囊算）
+var icon_row := false                # 这一局顶栏第二行要放小图（B10），第二行按图高排
 var coins_l: Label
 var area: Control
 var card: Panel
@@ -141,15 +145,19 @@ func _layout() -> void:
     coins_l.position = Vector2(coins_r - 160.0, 8)
     var row2 := maxf(34.0, CAPSULE_BOTTOM - p0.y + 6.0)
     bar_h = BAR_H + (row2 - 34.0)
-    level_l.position = Vector2(14, row2)
+    # 带小图那一局（B10）：第二行按图高 STATUS_ICON 排，「第 N 关」跟图上下居中，顶栏跟着加高，游戏区整块往下让
+    var row2_h := STATUS_ICON if icon_row else 28.0
+    if icon_row:
+        bar_h = maxf(bar_h, row2 + STATUS_ICON)
+    level_l.position = Vector2(14, row2 + (row2_h - 28.0) * 0.5)
     # 状态那行原来只给 220 宽，小菜合大菜「目标 抽杆 现在最大 芽谷」有 276 宽，右边被面板截掉一截（第 38 版）。
     # 改成占满「第 N 关」右边整条（540 宽的屏上约 380，最长那句 324）；万一还放不下，尾巴收成省略号，不出面板
     var st_x := 14.0 + 96.0 + 16.0      # 「第 10 关」96 宽
     status_l.size = Vector2(maxf(ps.x - 12.0 - st_x, 60.0), 28)
     status_l.position = Vector2(st_x, row2)
     status_l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-    # 带小图的那行：和 status_l 占同一条，右对齐；图是 STATUS_ICON 见方，比字高一点，往上提 3 像素，不压到游戏区
-    status_box.position = Vector2(st_x, row2 - 3)
+    # 带小图的那行：和 status_l 占同一条，右对齐；图是 STATUS_ICON 见方，顶在胶囊下沿以下（row2），底下就是游戏区
+    status_box.position = Vector2(st_x, row2)
     status_box.size = Vector2(status_l.size.x, STATUS_ICON)
     area.position = Vector2(8, bar_h + 8)
     # 底下给那两个按钮留一条（原来「离开」在顶栏，游戏区能铺到底）
@@ -257,6 +265,9 @@ func _start() -> void:
     if game == null:
         _show_start()
         return
+    # 这一局顶栏要不要放小图，开局前问好、排好，游戏区定了大小再搭盘（开局后再改大小，盘就不居中了）
+    icon_row = game.status_has_icons()
+    _layout()
     game.size = area.size
     status_sig = ""
     area.add_child(game)
@@ -407,6 +418,9 @@ func _clear_game() -> void:
         status_l.visible = true
         status_box.visible = false
         status_sig = ""
+    if icon_row:
+        icon_row = false
+        _layout()
 
 func _close() -> void:
     _clear_game()

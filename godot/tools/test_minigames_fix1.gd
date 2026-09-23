@@ -125,6 +125,28 @@ func run() -> void:
     var sb_end: float = h1.status_box.position.x + h1.status_box.size.x
     check("小图那行不出面板、不压「第 N 关」", sb_end <= h1.panel.size.x - 12.0 + 0.5 and h1.status_box.position.x >= 14.0 + 96.0)
     check("小图不压到游戏区", h1.status_box.position.y + h1.status_box.size.y <= h1.area.position.y)
+    # B10 第二轮（04 复看第 43 版：两格图只有 32，比旁边的字还难认）：放大到 56 以上，还是不写字；
+    # 顶栏跟着变高，不压微信胶囊、不压游戏区，盘子也不因为游戏区矮了一截而变小
+    await process_frame
+    var min_icon := 9999.0
+    for c in h1.status_box.get_children():
+        if c is Panel:
+            min_icon = minf(min_icon, minf((c as Panel).size.x, (c as Panel).size.y))
+    check("顶栏小图 %.0f 像素见方（≥ 56）" % min_icon, min_icon >= 56.0 and min_icon < 9999.0)
+    var p1: Vector2 = h1.panel.global_position
+    var cap1 := Rect2(Vector2(Host.CAPSULE_LEFT, 0), Vector2(540.0 - Host.CAPSULE_LEFT, Host.CAPSULE_BOTTOM))
+    var sb_rect := Rect2(p1 + h1.status_box.position, h1.status_box.size)
+    check("小图那行不压胶囊（屏幕上 y %.0f～%.0f，胶囊下沿 %.0f）" % [sb_rect.position.y, sb_rect.end.y, Host.CAPSULE_BOTTOM],
+        not sb_rect.intersects(cap1))
+    var lv_rect := Rect2(p1 + h1.level_l.position, h1.level_l.size)
+    check("「第 N 关」跟小图一行、不压到游戏区", lv_rect.end.y <= p1.y + h1.area.position.y and lv_rect.position.y >= sb_rect.position.y)
+    var grid: Control = h1.game.grid
+    var gr := Rect2(grid.position, grid.size)
+    check("盘子整块在游戏区里（盘 y %.0f～%.0f，游戏区高 %.0f）" % [gr.position.y, gr.end.y, h1.area.size.y],
+        gr.position.y >= 0.0 and gr.end.y <= h1.area.size.y + 0.5)
+    check("盘子没变小（边长 %.0f，还是按游戏区宽 %.0f 排）" % [gr.size.x, h1.area.size.x], gr.size.x >= h1.area.size.x - 16.0 - 0.5)
+    check("盘子在游戏区上下居中", absf(gr.position.y + gr.size.y * 0.5 - h1.area.size.y * 0.5) <= 1.0)
+    var area_icon: float = h1.area.position.y
     check("卡片收了", h1.card == null or not is_instance_valid(h1.card))
     check("这一关没作废、金币没动", h1.level == 1 and s1.coins == 0)
 
@@ -464,12 +486,15 @@ func run() -> void:
     h15._process(0.0)
     check("第 11 关（假装图没交）顶栏照旧写名字：%s" % h15.status_l.text,
         h15.status_l.visible and not h15.status_box.visible and h15.status_l.text.begins_with("目标 ") and h15.game.art_set == "")
+    check("图没交齐的那关顶栏不加高（不放图就不让位）", not h15.icon_row and h15.area.position.y < area_icon)
     h15._close()
     G2048._ladder = {}   # 临时改的套名还原
     var h16 = _host("lianliankan", _save("user://test_fix1_d.json"))
     h16._start()
     h16._process(0.0)
     check("连连看顶栏还是一句字：%s" % h16.status_l.text, h16.status_l.visible and not h16.status_box.visible and h16.status_l.text.begins_with("剩"))
+    check("连连看顶栏不跟着加高（游戏区顶 %.0f，比小菜合大菜 %.0f 高）" % [h16.area.position.y, area_icon],
+        not h16.icon_row and h16.area.position.y < area_icon)
     h16._close()
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()

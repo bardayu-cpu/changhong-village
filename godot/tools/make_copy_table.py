@@ -400,8 +400,8 @@ code("时间到没守够", "没过卡的输因", "时间到了，守住了 %d �
 
 section("接", "小游戏·接彩头")
 game_head("catch", "T11、T12 两桌")
-code("开始卡", "这关目标", "%d 秒内接够 %d 金\n喜糖、红包都是钱，鞭炮别接\n糖和红包给的金币不一样\n接到 %d 个鞭炮就输了",
-     "第三行新写，等阿鱼定", "godot/scripts/games/catch.gd", "goal_text", "四行；%d 秒数、%d 要接几金、%d 几个鞭炮就输")
+code("开始卡", "这关目标", "%d 秒内接够 %d 金\n喜糖、红包都是钱，给的金币不一样\n鞭炮别接，接到 %d 个就输",
+     "后两行新写，等阿鱼定", "godot/scripts/games/catch.gd", "goal_text", "三行（体验第二轮 新 6：原来四行，合并了）；%d 秒数、%d 要接几金、%d 几个鞭炮就输")
 code("游戏中", "顶栏状态", "还差 %d 金", "新写，等阿鱼定", "godot/scripts/games/catch.gd", "status_text", "原来是「接了 N 金／这关要 M 金」")
 code("游戏中", "游戏区左上角", "剩 %d 秒  鞭炮 %d/%d", "", "godot/scripts/games/catch.gd", "_sync_hud 的 hud", "剩几秒，接到几个鞭炮／几个就输；中间两个半角空格")
 code("时间到没接够", "没过卡的输因", "时间到了，接了 %d 金", "", "godot/scripts/games/catch.gd", "lose")
