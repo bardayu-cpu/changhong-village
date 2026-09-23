@@ -31,7 +31,7 @@ var flash: ColorRect
 var art := {}           # 名字 -> Texture2D；空的就是用占位
 
 func goal_text() -> String:
-    return "%d 秒内挡回 %d 次来偷菜的小松鼠，别点辣椒" % [p_int("duration", 30), p_int("target", 12)]
+    return "%d 秒内挡回 %d 次偷菜的小松鼠\n别点辣椒" % [p_int("duration", 30), p_int("target", 12)]
 
 func status_text() -> String:
     return "守住 %d/%d 剩 %d 秒" % [score, p_int("target", 12), int(ceil(time_left))]

@@ -5,7 +5,7 @@ extends "res://scripts/games/mini_game.gd"
 ## 说明：`回执/接彩头和护菜-玩法改.md` 第一节（01 9/23 定，金币数是起步值，03 模拟以后调）
 ##
 ## 难度参数（minigames.json）：duration 时限（秒）、target 这关要接够多少金、speed 下落像素/秒、
-## interval 隔多久掉一个、misses 最多接到几次鞭炮还不算输、bad 掉下来的是鞭炮的比例。
+## interval 隔多久掉一个、misses 接到第几个鞭炮就输（01 9/23 定 3）、bad 掉下来的是鞭炮的比例。
 ## 掉下来的六样有赏的东西各给几金、出现多少，写在同一个游戏的 drops 里；吉利话写在 sayings 里
 ##
 ## 图：assets/minigames/catch/ 下那 12 张（出图清单第 2 批，02 接图时去掉 prop_/chr_ 前缀和 _v1），
@@ -65,8 +65,9 @@ var last_saying := -1
 
 ## 开始卡：外壳造的「探子」只 setup 没 _build，所以只读参数
 func goal_text() -> String:
-    return "%d 秒内接够 %d 金：喜糖、红包都是钱，鞭炮别接，接到 %d 次就输了" % [
-        int(p_float("duration", 30.0)), p_int("target", 10), p_int("misses", 6) + 1]
+    # 卡片是按字硬折行的，自己断好行，别让逗号跑到行首（01 9/23）
+    return "%d 秒内接够 %d 金\n喜糖、红包都是钱，鞭炮别接\n接到 %d 个鞭炮就输了" % [
+        int(p_float("duration", 30.0)), p_int("target", 10), p_int("misses", 3)]
 
 ## 顶上那行（01 定的字：「接了 N 金／这关要 M 金」）；剩几秒、失误几次在游戏区左上角
 func status_text() -> String:
@@ -86,7 +87,7 @@ func _build() -> void:
     target = maxi(p_int("target", 10), 1)
     speed = maxf(p_float("speed", 130.0), 10.0)
     interval = maxf(p_float("interval", 2.3), 0.1)
-    misses_max = p_int("misses", 6)
+    misses_max = maxi(p_int("misses", 3), 1)
     bad_ratio = clampf(p_float("bad", 0.0), 0.0, 1.0)
     _load_tables()
     time_left = duration
@@ -295,7 +296,7 @@ func _game_tick(dt: float) -> void:
 
 func _sync_hud() -> void:
     if hud != null:
-        hud.text = "剩 %d 秒  鞭炮 %d/%d" % [int(ceil(maxf(time_left, 0.0))), misses, misses_max + 1]
+        hud.text = "剩 %d 秒  鞭炮 %d/%d" % [int(ceil(maxf(time_left, 0.0))), misses, misses_max]
 
 ## 按 drops 的 weight 抽一样
 func _pick_kind() -> Dictionary:
@@ -427,7 +428,7 @@ func _collect(d: Dictionary, in_basket: bool) -> void:
                 _say(_pick_saying())
     if coins >= target:
         win()
-    elif misses > misses_max:
+    elif misses >= misses_max:
         lose("接到的鞭炮太多了")
 
 ## 接到红包冒一句吉利话：同一时间只有一句（新的顶掉旧的），1 秒左右淡掉。**接到糖不冒字**（阿鱼 9/23：字多了乱）

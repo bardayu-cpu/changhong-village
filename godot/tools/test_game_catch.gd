@@ -144,7 +144,7 @@ func run() -> void:
         host3.game._game_tick(0.05)
         guard3 += 1
     print("3b 专接鞭炮：结果 ", result3[0], " 原因 ", why3[0], " 漏了 ", host3.game.misses)
-    ok = ok and result3[0] == false and why3[0] == "接到的鞭炮太多了" and host3.game.misses > 3
+    ok = ok and result3[0] == false and why3[0] == "接到的鞭炮太多了" and host3.game.misses == 3   # 接到第 3 个就输（01 9/23）
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)
