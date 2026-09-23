@@ -278,18 +278,20 @@ func run() -> void:
     check("认得共用菜牌和纹样两套", Tiles.ART.has("pattern") and Tiles.ART.has("shared"))
     # 加第 N 种作物只要把十张图放进 crop_NN/，代码和 json 都不用再动（03 9/20 指出原来是写死的三条路径）
     check("表里没有的套名也认，按 assets/minigames/<套名>/step_NN.png 找", Tiles.ART_ANY.contains("assets/minigames/%s/step_%02d.png"))
-    check("没这套图就返回 null（那一关整盘退回色块）", Tiles.dish_art(0, "crop_07") == null)
+    check("没这套图就返回 null（那一关整盘退回色块）", Tiles.dish_art(0, "crop_10") == null)
     # 「齐不齐」的判断（03 9/21 报的：原来一张张单独找，crop_02 放 9 张就是 9 图 + 1 色块）
     check("一张一个的那两套永远算齐（少一张退一张，不牵连整盘）",
         Tiles.art_ready("shared", 12) and Tiles.art_ready("pattern", 12))
     # 前三种（水稻、草莓、枇杷）GPT 9/21 交了，齐；第 4 种起还没交
-    check("交齐的那几套算齐", Tiles.art_ready("crop_01", 10) and Tiles.art_ready("crop_02", 10) and Tiles.art_ready("crop_03", 10))
-    check("没交的还是不齐", not Tiles.art_ready("crop_04", 10) and not Tiles.art_ready("crop_11", 10))
+    # 9/23 晚第 4～9 种（玉米、油菜、花生、洋芋、莲藕、辣椒）也交了，第 10、11 种（茶、猕猴桃）还在画
+    var ready_sets := ["crop_01", "crop_02", "crop_03", "crop_04", "crop_05", "crop_06", "crop_07", "crop_08", "crop_09"]
+    check("交齐的那几套算齐（第 1～9 种）", ready_sets.all(func(c): return Tiles.art_ready(c, 10)))
+    check("没交的还是不齐（第 10、11 种）", not Tiles.art_ready("crop_10", 10) and not Tiles.art_ready("crop_11", 10))
     check("套名空着直接算不齐", not Tiles.art_ready("", 10) and Tiles.dish_art(0, "") == null)
     check("查过就记着，不会每画一格问十次文件", Tiles._ready.has("crop_02"))
     # 图不齐时，整盘都是色块 + 名字，不许一半图一半色块
     var gz = G2048.new()
-    gz.setup(4, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 11)   # 第 4 关玉米，图还没交
+    gz.setup(10, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 11)   # 第 10 关茶，图还没交
     gz.size = Vector2(400, 400)
     ui.add_child(gz)
     gz.start()
@@ -301,13 +303,13 @@ func run() -> void:
             if kid is TextureRect: pics2 += 1
             if kid is Label and gz.steps().has(str((kid as Label).text)): named2 += 1
         if ((c as Panel).get_theme_stylebox("panel") as StyleBoxFlat).bg_color.a > 0.5: blocks2 += 1
-    check("第 4 关（玉米，图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
+    check("第 10 关（茶，图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
         pics2 == 0 and blocks2 == gz.cells.size() and gz.cells.size() > 0)
     check("这一关的 art_set 被清空了（整套不用）", gz.art_set == "")
     check("色块牌照旧写级名（%d/%d），不然分不出是哪一级" % [named2, gz.cells.size()], named2 == gz.cells.size())
     gz.queue_free()
     # 交了图的前三关：整盘都该是图，不许半图半色块（GPT 9/21 交了水稻、草莓、枇杷 30 张）
-    for lv in [1, 2, 3]:
+    for lv in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
         var gy = G2048.new()
         gy.setup(lv, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 3)
         gy.size = Vector2(400, 400)
