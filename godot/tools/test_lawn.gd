@@ -88,19 +88,23 @@ func run() -> void:
         if str(id).begins_with("kid") and p.x >= 1100 and p.x <= 1500 and p.y >= 250 and p.y <= 600:
             kids_in += 1
     check("孩童区（x 1100～1500，y 250～600）两个小孩（%d）" % kids_in, kids_in == 2)
-    check("秋千、滑梯都在孩童区", l.world.has_node("swing_bar") and l.world.has_node("swing_seat") and l.world.has_node("slide_tower") and l.world.has_node("slide_chute"))
-    var arch_ok: bool = l.world.has_node("arch_post_w") and l.world.has_node("arch_post_e") and l.world.has_node("arch_top")
+    # 9/24 起草坪铺了占位底图，秋千、拱门、椅子、树画在图里、不再单独画；这里查布局里有没有它们（它们还在布局里算挡人）
+    var ids := {}
+    for it in l.cfg.get("items", []):
+        ids[str(it.get("id", ""))] = it
+    check("秋千、滑梯都在孩童区", ids.has("swing_bar") and ids.has("swing_seat") and ids.has("slide_tower") and ids.has("slide_chute"))
+    var arch_ok: bool = ids.has("arch_post_w") and ids.has("arch_post_e") and ids.has("arch_top")
     var chairs := 0
-    for n in l.world.get_children():
-        if str(n.name).begins_with("chair_") and (n as Node2D).position.y > 322.0:
+    for id in ids:
+        if str(id).begins_with("chair_"):
             chairs += 1
     var far_from_points := true
     for id in l.points:
         far_from_points = far_from_points and (l.points[id]["pos"] as Vector2).distance_to(Vector2(300, 320)) > 150.0
     check("西北拱门、前面 %d 把白椅子，附近没有交互点（预留）" % chairs, arch_ok and chairs >= 6 and far_from_points)
     var trees := 0
-    for n in l.world.get_children():
-        if str(n.name).begins_with("tree_"):
+    for id in ids:
+        if str(id).begins_with("tree_"):
             trees += 1
     check("四周有树（%d 棵）" % trees, trees >= 20)
     for id in l.points:

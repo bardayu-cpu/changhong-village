@@ -19,6 +19,11 @@ var inside_spot: Dictionary = {}   # id -> 现在人在不在这个点的半径�
 var npc_nodes: Dictionary = {}     # id -> Sprite2D
 var obstacles: Array = []      # 挡路的占地：{"rect": [x0,y0,x1,y1]} / {"ellipse": [cx,cy,rx,ry]}
 var labels: Node2D
+## 占位底图（01 9/24：这轮 GPT 画整张占位底图，不抠图）：有图就铺图，灰盒的地面和摆设不再画，但挡人的占地照旧算，
+## 走路格子、交互点、出入口一概不变；没图照旧灰盒。默认找布局旁边的 base.png（和宴会厅 scene_roman_banquet/base.png 一样），
+## 布局里写了 "base" 就用它。图到了只要拷到那个位置就换上，代码不用再动
+var base_on := false
+var base_path_override := ""   # 测试用：指到 user:// 下的一张图
 var sign_mark: Polygon2D       # B20：签到台头顶的记号（体验第一轮，04 报告「签到台在屏幕外」）
 
 func build(preset: int, nickname: String, f: Font) -> void:
@@ -33,7 +38,10 @@ func build(preset: int, nickname: String, f: Font) -> void:
     labels = Node2D.new()
     labels.z_index = 3
     add_child(labels)
+    _base(flat)
     for it in cfg.get("flat", []):
+        if base_on and str(it.get("type", "")) != "label":
+            continue   # 地面、路、水面都画在底图里了；物件名那层字照旧
         _flat(flat, it)
     for it in cfg.get("items", []):
         _item(it)
@@ -117,6 +125,40 @@ func _tag_holders() -> Array:
     if labels != null:
         out.append(labels)
     return out
+
+## 铺底图：布局写了 base 用它，没写找布局旁边的 base.png；都没有就是灰盒。图不是画布大小的，拉到画布大小（进包前该对好尺寸）
+func base_path() -> String:
+    if base_path_override != "":
+        return base_path_override
+    if cfg.has("base"):
+        return str(cfg["base"])
+    return layout_path.get_base_dir() + "/base.png"
+
+func _base(parent: Node2D) -> void:
+    var path := base_path()
+    var tex: Texture2D = null
+    if path.begins_with("res://"):
+        if ResourceLoader.exists(path):
+            tex = Canvas.texture(path)
+    elif FileAccess.file_exists(path):
+        var img := Image.load_from_file(path)
+        if img != null:
+            tex = ImageTexture.create_from_image(img)
+    if tex == null:
+        return
+    var sp := Sprite2D.new()
+    sp.name = "base"
+    sp.texture = tex
+    sp.centered = false
+    sp.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+    var want := Vector2(float(cfg["size"][0]), float(cfg["size"][1]))
+    var have := Vector2(tex.get_width(), tex.get_height())
+    if have != want:
+        print("[suqi] %s 底图 %s 不是画布大小 %s，拉到画布大小" % [str(cfg.get("title", "")), have, want])
+        sp.scale = want / have
+    parent.add_child(sp)
+    base_on = true
+    print("[suqi] %s 铺了底图 %s" % [str(cfg.get("title", "")), path])
 
 ## 人现在在不在某个点的半径里（main 判断按钮该不该出）
 func in_spot(id: String) -> bool:
@@ -229,7 +271,10 @@ func _item(it: Dictionary) -> void:
                 holder.add_child(_poly(_ellipse_pts(float(e[0]), float(e[1]), float(e[2]), float(e[3]), 14), Color(str(it.get("color", "#ffffff66"))), foot))
     holder.position = Vector2(0.0, foot)
     holder.name = str(it.get("id", kind))
-    world.add_child(holder)
+    if base_on and not bool(it.get("keep_on_base", false)):
+        holder.free()   # 有底图：这件东西画在图里了，只留上面算好的挡人占地。布局里标了 keep_on_base 的（后厅大锅冒的气）照旧画
+    else:
+        world.add_child(holder)
     if it.has("label"):
         var lb: Dictionary = it["label"]
         var lx2 := _item_center_x(it)

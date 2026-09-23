@@ -97,7 +97,7 @@
   {"type": "box", "id": "counter_e", "rect": [1336, 232, 1510, 270], "h": 36, "top": "#8a8f94", "front": "#5d6166"},
   {"type": "box", "id": "brick_stove", "rect": [1222, 262, 1322, 296], "h": 20, "top": "#8c5a3c", "front": "#6a3f2a"},
   {"type": "cyl", "id": "pot", "x": 1272, "y": 258, "rx": 44, "ry": 17, "h": 38, "top": "#b5651d", "front": "#2b2b2b", "foot": 297},
-  {"type": "puffs", "id": "steam", "y": 298, "e": [[1258, 206, 13, 9], [1284, 188, 15, 10], [1264, 170, 11, 8]], "color": "#ffffff59"},
+  {"type": "puffs", "id": "steam", "keep_on_base": true, "y": 298, "e": [[1258, 206, 13, 9], [1284, 188, 15, 10], [1264, 170, 11, 8]], "color": "#ffffff59"},
   {"type": "box", "id": "board", "rect": [1090, 420, 1190, 452], "h": 28, "top": "#d9b98a", "front": "#8a6a48", "label": {"text": "案板", "dy": -46}},
   {"type": "box", "id": "bowl_table", "rect": [1380, 430, 1440, 456], "h": 26, "top": "#a0714a", "front": "#6d4a38", "deco": [{"rect": [1398, 396, 1422, 412], "color": "#f4f1ea"}, {"rect": [1398, 401, 1422, 403], "color": "#c0392b"}, {"rect": [1398, 406, 1422, 408], "color": "#c0392b"}], "label": {"text": "碗", "dy": -66}}
  ],
