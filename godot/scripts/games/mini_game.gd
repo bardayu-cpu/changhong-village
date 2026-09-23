@@ -7,6 +7,7 @@ extends Control
 ##   3. goal_text()：开始前那张卡上写的这一关目标，比如「合出 跷脚牛肉」「90 秒内连完」。
 ##      外壳是造一个只 setup、没 _build 的「探子」来读它的，所以只能读 params（p_int / p_float），别读 _build 里才赋值的成员
 ##   4. status_text()：玩的时候顶栏右边那一小行，比如「剩 45 秒」「还差 3 步」，每帧都会读
+##      （要在那行放小图就再写 status_parts()，见下面；小菜合大菜用了）
 ##   5. 赢了调 win()，输了调 lose("为什么输")；计时放 _game_tick(dt)（暂停时 host 不调它）
 ##   6. 触摸：用 gui_input 收 InputEventMouseButton / InputEventMouseMotion（手机上触摸会转成鼠标事件），
 ##      或 InputEventScreenTouch / InputEventScreenDrag，两种都来的话别重复处理
@@ -73,6 +74,12 @@ func goal_text() -> String:
 
 func status_text() -> String:
     return ""
+
+## 顶栏那行要放小图时用（B10，阿鱼 9/23「有图就别叠字」）：返回一串，每一项是字（String）或小图（Texture2D），
+## 外壳从左到右摆、右对齐，图垫一层浅米色小牌底。**返回空数组就照旧写 status_text()**——五个游戏都不用管它。
+## 每帧都会读；外壳只在内容变了才重摆
+func status_parts() -> Array:
+    return []
 
 ## 过关给多少金。-1 = 照奖励表（六个游戏里五个都这样）；接彩头是「接到的全拿走」，自己报
 func won_coins() -> int:

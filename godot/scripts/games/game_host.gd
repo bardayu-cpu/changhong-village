@@ -1,7 +1,7 @@
 extends Control
 ## 席间小游戏的外壳（蓝图 3.2，阿鱼 9/19 定）：全屏盖在宴会厅上，六个游戏共用。
 ##   开始卡：游戏名、第几关、这一关目标、手上几金、「开始」「离开」（连连看多一个「菜单册」）
-##   玩：顶栏写游戏名、第几关、状态（游戏自己给，比如「剩 45 秒」）、手上几金、「离开」
+##   玩：顶栏写游戏名、第几关、状态（游戏自己给，比如「剩 45 秒」；有图的游戏可以给几张小图，见 status_parts）、手上几金、「离开」
 ##   结算卡：过了——「+N 金」、连连看写解锁了哪道菜，「下一关」「离开」；没过——为什么，「再来一次」「离开」
 ##   调试版底下多一行（阿鱼要「难度可调」）：难度倍数 −/+（参数怎么随倍数变见 minigames.json 的 hard）、上一关/下一关
 ## 游戏脚本在 SCRIPTS 里登记，缺哪个就在开始卡上写「这个还在做」
@@ -17,9 +17,14 @@ const SCRIPTS := {
     "whack": "res://scripts/games/whack.gd",
     "catch": "res://scripts/games/catch.gd",
 }
-const BAR_H := 64.0
+const BAR_H := 64.0          # 顶栏两行本来多高（第二行被胶囊往下推时跟着加高，见 bar_h）
+## 微信右上角的胶囊按钮（A1，体验第一轮）：屏幕坐标（540 宽）。下沿 iPhone 16 Pro 上约 124（main.gd 的 TOP_Y 150 就是为它让的），
+## 左沿 402 宽的屏约 414、375 宽的约 405，取 400 留点余。原来面板顶在 70，右上角「N 金」和状态那行的右半截都压在胶囊底下
+const CAPSULE_BOTTOM := 124.0
+const CAPSULE_LEFT := 400.0
 const DBG_H := 56.0
 const BTN_ROW_H := 68.0      # 左下角「离开」「歇一下」占的那一条
+const STATUS_ICON := 32.0    # 顶栏状态那行的小图多大（B10：小菜合大菜的「目标」「现在最大」画成那一级的图）
 ## 没过也给一点（体验评审第 12 条，阿鱼 9/20 定要给）。**新写，等阿鱼定**：
 ## 话要说清是安慰的，别让人以为过关了
 const LINE_CONSOLE := "没过 也给你 %d 金 辛苦了"
@@ -42,6 +47,9 @@ var panel: Panel
 var title_l: Label
 var level_l: Label
 var status_l: Label
+var status_box: HBoxContainer        # 状态那行要放小图时用它（B10），不放图时藏着、照旧用 status_l
+var status_sig := ""                 # status_box 现在摆的是什么，变了才重摆（每帧都读）
+var bar_h := BAR_H                   # 顶栏实际多高（_layout 按胶囊算）
 var coins_l: Label
 var area: Control
 var card: Panel
@@ -77,19 +85,22 @@ func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug :
     panel.offset_top = 70
     panel.offset_bottom = -20
     add_child(panel)
-    # 顶栏
-    # 桌牌名和玩法名一样时只写一个（第 34 版顶栏是「连连看·连连看」，体验评审第 4 条）
-    var t_name: String = Cfg.title(g)
-    var t_kind: String = str(g.get("kind", ""))
-    title_l = _label(t_name if t_kind == "" or t_kind == t_name else "%s·%s" % [t_name, t_kind], 24, GOLD1)
+    # 顶栏：只写游戏名（B11，体验第一轮）。原来是「游戏名·玩法」，顶栏挂着「小菜合大菜·2048」「川菜消消乐·三消」这种行话；
+    # kind 只留在 json 里给人看，玩家眼里不出现
+    title_l = _label(Cfg.title(g), 24, GOLD1)
     title_l.position = Vector2(14, 8)
     panel.add_child(title_l)
     level_l = _label("", 24, PAPER)
-    level_l.position = Vector2(14, 34)
     panel.add_child(level_l)
     status_l = _label("", 24, PAPER)
     status_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
     panel.add_child(status_l)
+    status_box = HBoxContainer.new()
+    status_box.alignment = BoxContainer.ALIGNMENT_END
+    status_box.add_theme_constant_override("separation", 6)
+    status_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    status_box.visible = false
+    panel.add_child(status_box)
     coins_l = _label("", 24, GOLD1)
     coins_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
     panel.add_child(coins_l)
@@ -121,18 +132,28 @@ func _layout() -> void:
     quit.position = Vector2(12, ps.y - bottom - quit.size.y - 12)
     pause_b.size = Vector2(112, 44)
     pause_b.position = Vector2(12 + quit.size.x + 12, quit.position.y)
-    # 顶栏右边空出来了（原来被「离开」占着），金币和状态各往右挪回去
+    # 让开微信的胶囊（A1，体验第一轮）：面板顶不动（整块往下挪要少 60 像素游戏区），顶栏自己躲——
+    #   第一行（游戏名、手上几金）在胶囊左边：金币右边收到胶囊左沿再往左 6 像素；
+    #   第二行（第 N 关、状态）挪到胶囊下沿以下，这一行要占满右边，躲不开就往下挪。游戏区只少 26 像素
+    var p0: Vector2 = panel.global_position     # 胶囊是按屏幕算的
     coins_l.size = Vector2(160, 28)
-    coins_l.position = Vector2(ps.x - 12 - 160, 8)
+    var coins_r := minf(ps.x - 12.0, CAPSULE_LEFT - p0.x - 6.0)
+    coins_l.position = Vector2(coins_r - 160.0, 8)
+    var row2 := maxf(34.0, CAPSULE_BOTTOM - p0.y + 6.0)
+    bar_h = BAR_H + (row2 - 34.0)
+    level_l.position = Vector2(14, row2)
     # 状态那行原来只给 220 宽，小菜合大菜「目标 抽杆 现在最大 芽谷」有 276 宽，右边被面板截掉一截（第 38 版）。
     # 改成占满「第 N 关」右边整条（540 宽的屏上约 380，最长那句 324）；万一还放不下，尾巴收成省略号，不出面板
     var st_x := 14.0 + 96.0 + 16.0      # 「第 10 关」96 宽
     status_l.size = Vector2(maxf(ps.x - 12.0 - st_x, 60.0), 28)
-    status_l.position = Vector2(st_x, 34)
+    status_l.position = Vector2(st_x, row2)
     status_l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-    area.position = Vector2(8, BAR_H + 8)
+    # 带小图的那行：和 status_l 占同一条，右对齐；图是 STATUS_ICON 见方，比字高一点，往上提 3 像素，不压到游戏区
+    status_box.position = Vector2(st_x, row2 - 3)
+    status_box.size = Vector2(status_l.size.x, STATUS_ICON)
+    area.position = Vector2(8, bar_h + 8)
     # 底下给那两个按钮留一条（原来「离开」在顶栏，游戏区能铺到底）
-    area.size = Vector2(ps.x - 16, ps.y - BAR_H - 16 - bottom - BTN_ROW_H)
+    area.size = Vector2(ps.x - 16, ps.y - bar_h - 16 - bottom - BTN_ROW_H)
     if game != null:
         game.size = area.size
     if dbg_l != null:
@@ -142,9 +163,55 @@ func _layout() -> void:
 
 func _process(_dt: float) -> void:
     if game != null and is_instance_valid(game):
-        status_l.text = game.status_text()
+        _sync_status()
     level_l.text = "第 %d 关" % level
     coins_l.text = "%d 金" % save.coins
+
+## 顶栏状态那行（B10，阿鱼 9/23「有图就别叠字」）：游戏给了 status_parts（字和小图混排）就摆那个，
+## 没给（空数组）就照旧写 status_text 那一句。现在只有小菜合大菜给图：「目标 [图] 现在最大 [图]」；
+## 那一关图没交齐（色块兜底）它也不给图，还是写名字
+func _sync_status() -> void:
+    var parts: Array = game.status_parts()
+    if parts.is_empty():
+        status_box.visible = false
+        status_l.visible = true
+        status_l.text = game.status_text()
+        return
+    status_l.visible = false
+    status_box.visible = true
+    var sig := ""
+    for p in parts:
+        sig += ("[%s]" % (p as Texture2D).resource_path) if p is Texture2D else ("|" + str(p))
+    if sig == status_sig:
+        return
+    status_sig = sig
+    for c in status_box.get_children():
+        c.queue_free()
+    for p in parts:
+        if p is Texture2D:
+            status_box.add_child(_status_icon(p))
+        else:
+            var l := _label(str(p), 24, PAPER)
+            l.custom_minimum_size = Vector2(0, STATUS_ICON)
+            l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+            status_box.add_child(l)
+
+## 状态行里的一张小图：垫一层和 2048 牌面一样的浅米色牌底（最低几级只有一小粒，没底看不出是个东西）
+func _status_icon(tex: Texture2D) -> Panel:
+    var p := Panel.new()
+    p.custom_minimum_size = Vector2(STATUS_ICON, STATUS_ICON)
+    p.add_theme_stylebox_override("panel", Tiles.box(Tiles.CARD_BG, 4, Tiles.CARD_EDGE))
+    p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    var r := TextureRect.new()
+    r.texture = tex
+    r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    r.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    r.position = Vector2(2, 2)
+    r.size = Vector2(STATUS_ICON - 4, STATUS_ICON - 4)
+    r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    p.add_child(r)
+    return p
 
 # ---------- 开始卡、结算卡 ----------
 func _show_start() -> void:
@@ -191,6 +258,7 @@ func _start() -> void:
         _show_start()
         return
     game.size = area.size
+    status_sig = ""
     area.add_child(game)
     game.finished.connect(_on_finished)
     game.start()
@@ -217,6 +285,16 @@ func _sync_buttons() -> void:
     if pause_b == null:
         return
     pause_b.visible = game != null and is_instance_valid(game) and not game.over and not game.paused
+    _sync_quit()
+
+## 左下角「离开」：卡片开着的时候收起来（B15，体验第一轮）——卡片上自己有一个「离开」，
+## 原来屏幕上同时两个一模一样的「离开」。卡片一收，它就回来
+func _sync_quit() -> void:
+    if panel == null:
+        return
+    var quit := panel.get_node_or_null("quit") as Button
+    if quit != null:
+        quit.visible = card == null
 
 func _on_finished(won: bool, why: String) -> void:
     _sync_buttons()
@@ -266,6 +344,7 @@ func _after_lose(why: String) -> void:
 func _card(head: String, lines: Array, btns: Array, foot := "") -> void:
     _clear_card()
     card = Panel.new()
+    _sync_quit()
     var sb := StyleBoxFlat.new()
     sb.bg_color = Color("#6e1e1e")
     sb.border_color = GOLD
@@ -313,6 +392,7 @@ func _clear_card() -> void:
     if card != null and is_instance_valid(card):
         card.queue_free()
     card = null
+    _sync_quit()
 
 func _clear_game() -> void:
     _clear_card()
@@ -321,6 +401,12 @@ func _clear_game() -> void:
     if game != null and is_instance_valid(game):
         game.queue_free()
     game = null
+    # 上一局的状态别留到下一张开始卡上（带小图那行尤其显眼）
+    if status_l != null:
+        status_l.text = ""
+        status_l.visible = true
+        status_box.visible = false
+        status_sig = ""
 
 func _close() -> void:
     _clear_game()

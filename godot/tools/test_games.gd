@@ -199,6 +199,23 @@ func run() -> void:
     var fits: bool = widest <= sl.size.x and sl.position.x + sl.size.x <= 520.0 - 12.0 + 0.5 and sl.position.x >= 14.0 + lv_w
     print("8 顶栏状态那行：最长「", widest_s, "」", widest, " 宽，给了 ", sl.size.x, "（从 x ", sl.position.x, " 起，不压「第 10 关」、不出面板）", fits)
     ok = ok and fits
+    # 8b. 让开微信右上角的胶囊（A1，体验第一轮）：胶囊按屏幕算，右边 x ≥ CAPSULE_LEFT、y ≤ CAPSULE_BOTTOM 那一块。
+    #     顶栏的字（游戏名、金币、第 N 关、状态、状态那行的小图）一样都不许落在里面；游戏区也在胶囊下面
+    var p0: Vector2 = host.panel.global_position
+    var cap := Rect2(Vector2(Host.CAPSULE_LEFT, 0), Vector2(540.0 - Host.CAPSULE_LEFT, Host.CAPSULE_BOTTOM))
+    var clear := true
+    var hit: Array = []
+    for pair in [["游戏名", host.title_l], ["金币", host.coins_l], ["第 N 关", host.level_l], ["状态", host.status_l], ["状态小图", host.status_box]]:
+        var c: Control = pair[1]
+        var r := Rect2(p0 + c.position, c.size)
+        if r.intersects(cap):
+            clear = false
+            hit.append(pair[0])
+    var area_top: float = p0.y + host.area.position.y
+    print("8b 顶栏让开胶囊（右上 x≥%.0f、y≤%.0f）：压着的 %s；金币右沿 %.0f，第二行 y %.0f，游戏区顶 %.0f、高 %.0f" % [
+        Host.CAPSULE_LEFT, Host.CAPSULE_BOTTOM, hit, p0.x + host.coins_l.position.x + host.coins_l.size.x,
+        p0.y + host.status_l.position.y, area_top, host.area.size.y])
+    ok = ok and clear and area_top >= Host.CAPSULE_BOTTOM
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

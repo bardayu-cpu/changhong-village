@@ -5,6 +5,12 @@ extends "res://scripts/games/mini_game.gd"
 ## 棋盘坐标 x=列 y=行，board[y][x]；0=空，其余=第几种菜（1 起）。连线允许绕到棋盘外面一圈（一圈虚格永远算空）
 
 const GOLD := Color("#d4af37")
+## 牌最大多大（B7，体验第一轮）：原来封 72，4×4 那关屏幕上下各空一大片（游戏区只用了 39%）。
+## 菜牌原图 128，放到 128 以内不糊
+const MAX_CELL := 128.0
+## 绕到棋盘外面那一圈的连线，画在牌边外多远（B7）：原来四周各留一整格给它，
+## 格子被挤得只剩 72 以下；其实线只要画在牌外面、看得见就行，留一窄条
+const RING := 12.0
 
 var cols := 4
 var rows := 4
@@ -37,13 +43,15 @@ func _build() -> void:
     cols = (board[0] as Array).size() if rows > 0 else 0
     if not has_any_pair(board):
         board = reshuffle(board, rng)
-    var avail_w: float = size.x - 16.0
-    var avail_h: float = size.y - 16.0
-    # 四周各留一整格：连线可以绕到棋盘外面那一圈（虚格），留出来才画在游戏区里面，不被左右裁掉（01 9/19）。
-    # 按 cols+2 列、rows+2 行来排，格子会小一点：8 列时约 42 像素
-    var cw := (avail_w - gap * (cols + 3)) / (cols + 2)
-    var ch := (avail_h - gap * (rows + 3)) / (rows + 2)
-    cell_px = clampf(minf(cw, ch), 20.0, 72.0)
+    # 连线可以绕到棋盘外面那一圈（虚格），四周要留出地方画这条线，不被左右裁掉（01 9/19）。
+    # 原来留一整格（按 cols+2 列排，4×4 的牌只有 72），B7 改成外圈的线画在牌边外 RING 像素，
+    # 四周只留 RING + 半条线宽 + 一点余量（见 _cell_center）
+    var margin := RING + 4.0
+    var avail_w: float = size.x - margin * 2.0
+    var avail_h: float = size.y - margin * 2.0
+    var cw := (avail_w - gap * (cols + 1)) / cols
+    var ch := (avail_h - gap * (rows + 1)) / rows
+    cell_px = clampf(minf(cw, ch), 20.0, MAX_CELL)
     grid = Control.new()
     grid.size = Vector2(cols * (cell_px + gap) + gap, rows * (cell_px + gap) + gap)
     grid.position = (size - grid.size) * 0.5
@@ -60,8 +68,16 @@ func _build() -> void:
 func _cell_pos(x: int, y: int) -> Vector2:
     return Vector2(gap + x * (cell_px + gap), gap + y * (cell_px + gap))
 
+## 连线的拐点：棋盘里是那格的中心；外面那一圈虚格（-1 或 cols/rows）画在棋盘边外 RING 像素那条线上（B7）
 func _cell_center(p: Vector2i) -> Vector2:
-    return _cell_pos(p.x, p.y) + Vector2(cell_px, cell_px) * 0.5
+    return Vector2(_axis(p.x, cols, grid.size.x if grid != null else 0.0), _axis(p.y, rows, grid.size.y if grid != null else 0.0))
+
+func _axis(i: int, n: int, span: float) -> float:
+    if i < 0:
+        return -RING
+    if i >= n:
+        return span + RING
+    return gap + i * (cell_px + gap) + cell_px * 0.5
 
 func _redraw_all() -> void:
     for row in cell_panels:
@@ -78,7 +94,10 @@ func _redraw_all() -> void:
             var v := int(board[y][x])
             if v == 0:
                 continue
-            var t := Tiles.dish_tile(v - 1, cell_px, font, fs, "", art_set)
+            # 垫浅米色牌底（B8，体验第一轮）：原来菜是光板贴在底色上，看不出哪儿是一张牌、
+            # 两张挨着的同种菜糊成一块。用小菜合大菜那层牌底（card），不用翻牌那种按菜换色的色块
+            # （阿鱼 9/20 嫌透明图后面顶着色块怪）；图没到的照旧色块 + 一个字
+            var t := Tiles.dish_tile(v - 1, cell_px, font, fs, "", art_set, false, true)
             t.position = _cell_pos(x, y)
             grid.add_child(t)
             cell_panels[y][x] = t

@@ -101,5 +101,38 @@ func run() -> void:
     print("3 不点、时间到：结果 ", result2[0], " 原因 ", why2[0])
     ok = ok and result2[0] == false and why2[0].begins_with("时间到了")
 
+    # 4. 盘子放大（B7，体验第一轮）：原来封 130、两排只隔 14，屏幕上下空一大片。
+    #    在外壳的游戏区里摆 6 盘、9 盘：盘子要比 130 大，案板不出游戏区，上下两排拉开（松鼠探头不压上一排）
+    var area: Vector2 = host2.area.size
+    var lay_ok := true
+    var notes: Array = []
+    for holes in [6.0, 9.0]:
+        var wg = Whack.new()
+        wg.setup(1, {"holes": holes, "duration": 30.0, "target": 12.0, "show": 1.3, "interval": 99.0, "bad": 0.0}, SystemFont.new(), 3)
+        wg.size = area
+        get_root().add_child(wg)
+        wg.start()
+        var p0: Panel = wg.plates[0]
+        var p3: Panel = wg.plates[3]
+        var row_gap: float = p3.position.y - (p0.position.y + p0.size.y)
+        var top_y: float = p0.position.y - p0.size.x * 0.4 - 16.0
+        var last: Panel = wg.plates[wg.plates.size() - 1]
+        var bottom_y: float = last.position.y + last.size.y + 16.0
+        notes.append("%d 盘：盘子 %.0f 两排隔 %.0f 案板 %.0f～%.0f/%.0f" % [int(holes), p0.size.x, row_gap, top_y, bottom_y, area.y])
+        lay_ok = lay_ok and p0.size.x > 130.0 and row_gap >= p0.size.x * 0.2 and top_y >= -0.5 and bottom_y <= area.y + 0.5
+        wg.free()
+    print("4 盘子放大（B7）", notes, " ", lay_ok)
+    ok = ok and lay_ok
+
+    # 5. 松鼠占位（B16）：尾巴整条画在 64 见方里（原来尾巴根是一刀直边，看着像被切掉）；身子的描边看截图
+    var tail_in: bool = Whack.TAIL.size() > 0
+    for t in Whack.TAIL:
+        var c: Vector2 = t[0]
+        var r: float = float(t[1]) + 1.5
+        tail_in = tail_in and c.x - r >= 0.0 and c.x + r <= 64.0 and c.y - r >= 0.0 and c.y + r <= 64.0
+    var cs: Array = Whack.TAIL
+    print("5 松鼠尾巴 %d 个圆都在 64 见方里 %s" % [cs.size(), tail_in])
+    ok = ok and tail_in
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

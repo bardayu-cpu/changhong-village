@@ -34,6 +34,22 @@ func status_text() -> String:
         return "目标 %s" % goal_name
     return "目标 %s 现在最大 %s" % [goal_name, steps()[clampi(mx - 1, 0, steps().size() - 1)]]
 
+## 顶栏放图（B10，阿鱼 9/23「有图就别叠字」）：原来写「目标 抽杆 现在最大 谷种」，抽杆、谷种没人看得懂，
+## 牌上又是图——改成「目标 [那一级的小图] 现在最大 [那一级的小图]」，级名一个字不写。
+## 这一关图没交齐（整盘色块兜底，art_set 被清成空）就返回空，外壳照旧写上面那句带名字的
+func status_parts() -> Array:
+    if art_set == "" or board.is_empty():
+        return []
+    var goal_tex := Tiles.dish_art(target - 1, art_set)
+    if goal_tex == null:
+        return []
+    var out: Array = ["目标", goal_tex]
+    var mx := max_tile(board)
+    var mx_tex := Tiles.dish_art(mx - 1, art_set) if mx > 0 else null
+    if mx_tex != null:
+        out.append_array(["现在最大", mx_tex])
+    return out
+
 ## 这一关用哪种作物（by_level 没写就用 default）
 func crop() -> Dictionary:
     if _ladder.is_empty():

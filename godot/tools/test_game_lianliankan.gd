@@ -156,9 +156,14 @@ func run() -> void:
     ok = ok and result2[0] == false and result2[1] == "时间到了"
 
     # 6. 外圈连线画得进游戏区（01 9/19：原来左右会被裁掉一截）。1～20 关都在手机竖屏里摆一次（调试版，游戏区最小）：
-    #    外圈虚格的中心在棋盘边外半格，再加半条线宽（2），四边都要在游戏区里；格子不小于 36 像素（字用 24 号）
+    #    外圈那条线（B7 起画在牌边外 RING 像素，不再留一整格）再加半条线宽（2），四边都要在游戏区里；格子不小于 36 像素（字用 24 号）
+    #    B7（体验第一轮）：牌放大——第 1 关 4×4 原来封 72，现在要到 100 以上；7 列那几关原来约 47，现在要到 55 以上；
+    #    最大不超过 128（菜牌原图的大小，再大就糊）
     var ring_ok := true
     var min_cell := 999.0
+    var max_cell := 0.0
+    var lv1_cell := 0.0
+    var wide_cell := 999.0
     var hosts: Array = []
     for lv in range(1, 21):
         var s6 := Save.new()
@@ -172,17 +177,43 @@ func run() -> void:
         h6.k = 1.0
         h6._start()
         var gm = h6.game
-        var half: float = gm.cell_px * 0.5 + 2.0
-        var gl: float = gm.grid.position.x - half
-        var gr: float = gm.grid.position.x + gm.grid.size.x + half
-        var gt: float = gm.grid.position.y - half
-        var gb: float = gm.grid.position.y + gm.grid.size.y + half
+        var lo: Vector2 = gm._cell_center(Vector2i(-1, -1)) + gm.grid.position
+        var hi: Vector2 = gm._cell_center(Vector2i(gm.cols, gm.rows)) + gm.grid.position
+        var gl: float = lo.x - 2.0
+        var gr: float = hi.x + 2.0
+        var gt: float = lo.y - 2.0
+        var gb: float = hi.y + 2.0
+        # 外圈那条线要画在牌外面（不压在牌上）：离最外一张牌的边至少 6 像素
+        if lo.x > gm.grid.position.x + gm.gap - 6.0 or hi.x < gm.grid.position.x + gm.grid.size.x - gm.gap + 6.0:
+            ring_ok = false
+            print("  第 %d 关 外圈的线贴着牌了" % lv)
         if gl < 0.0 or gt < 0.0 or gr > gm.size.x or gb > gm.size.y:
             ring_ok = false
             print("  第 %d 关 %dx%d 外圈出界：左 %.1f 右 %.1f/%.1f 上 %.1f 下 %.1f/%.1f" % [lv, gm.cols, gm.rows, gl, gr, gm.size.x, gt, gb, gm.size.y])
         min_cell = minf(min_cell, gm.cell_px)
+        max_cell = maxf(max_cell, gm.cell_px)
+        if lv == 1:
+            lv1_cell = gm.cell_px
+        if gm.cols >= 7:
+            wide_cell = minf(wide_cell, gm.cell_px)
     print("6 1～20 关外圈都在游戏区里 ", ring_ok, "  最小的格子 ", snappedf(min_cell, 0.1), " 像素")
     ok = ok and ring_ok and min_cell >= 36.0
+    print("6c 牌放大（B7）：第 1 关 %.1f（原来 72）、7 列那几关 %.1f（原来约 47）、最大 %.1f（不过 128）" % [lv1_cell, wide_cell, max_cell])
+    ok = ok and lv1_cell >= 100.0 and wide_cell >= 55.0 and max_cell <= 128.0
+    # 6d. 牌底（B8）：有图的牌垫浅米色牌底（和小菜合大菜那层一样），不是透明的光板
+    var Tiles = load("res://scripts/games/tiles.gd")
+    var carded := 0
+    var n_tiles := 0
+    for row in hosts[0].game.cell_panels:
+        for p in row:
+            if p == null:
+                continue
+            n_tiles += 1
+            var st := (p as Panel).get_theme_stylebox("panel") as StyleBoxFlat
+            if st.bg_color == Tiles.CARD_BG and st.border_color == Tiles.CARD_EDGE:
+                carded += 1
+    print("6d 牌底（B8）：%d/%d 张有浅米色牌底" % [carded, n_tiles])
+    ok = ok and n_tiles > 0 and carded == n_tiles
 
     # 6b. 真消一对只能绕左边外圈的牌（第 9 关 8x8）：最左一列最上、最下两张换成同一种菜（跟别处同种的对换，数量不变），
     #     连线的每个点都要在游戏区里

@@ -146,5 +146,70 @@ func run() -> void:
     print("3b 专接鞭炮：结果 ", result3[0], " 原因 ", why3[0], " 漏了 ", host3.game.misses)
     ok = ok and result3[0] == false and why3[0] == "接到的鞭炮太多了" and host3.game.misses == 3   # 接到第 3 个就输（01 9/23）
 
+    # 4. 开始卡（B12，体验第一轮）：加一句「糖和红包给的金币不一样」；自己断行，一行不超过 16 个字，标点不在行首
+    var probe = Catch.new()
+    probe.setup(1, Cfg.params(Cfg.game("catch"), 1), SystemFont.new(), 1)
+    var goal: String = probe.goal_text()
+    var lines_ok := goal.contains("不一样")
+    for ln in goal.split("\n"):
+        if ln.length() > 16 or (ln.length() > 0 and "，。、；：！？）」".contains(ln.substr(0, 1))):
+            lines_ok = false
+    print("4 开始卡（B12）：", goal.replace("\n", "／"), " ", lines_ok)
+    ok = ok and lines_ok
+    probe.free()
+
+    # 5. 没接住的落到地面线就收掉（B14）：原来掉到游戏区下沿再多 30 才删，穿过红毯往下沉。
+    #    篮子挪开，每种都掉一个，一小步一小步推：收掉那一刻它的底边刚碰到红毯上沿（差不过一步），收之前一直在红毯上面
+    var c5 = Catch.new()
+    c5.setup(1, Cfg.params(Cfg.game("catch"), 1), SystemFont.new(), 5)
+    c5.size = Vector2(504, 700)
+    get_root().add_child(c5)
+    c5.start()
+    c5.interval = 9999.0
+    c5.basket_x = -999.0
+    var land_ok := true
+    var land_notes: Array = []
+    for kind in ["candy_a", "candy_b", "candy_c", "candy_d", "hongbao_s", "hongbao_l", "firecracker"]:
+        c5.drops.clear()
+        c5.time_left = 999.0   # 七样一样一样掉，别半路时间到了
+        c5.bad_ratio = 1.0 if kind == "firecracker" else 0.0
+        c5._spawn_drop()
+        var d: Dictionary = c5.drops[0]
+        d["kind"] = kind
+        d["bottom"] = float(Catch.DROP_BOTTOM[kind]) * Catch.DROP_SCALE
+        var step: float = c5.speed * 0.02
+        var last_y := -999.0
+        var guard5 := 0
+        while not c5.drops.is_empty() and guard5 < 2000:
+            last_y = float(c5.drops[0]["y"])
+            c5._game_tick(0.02)
+            guard5 += 1
+        var bottom_at := last_y + step + float(d["bottom"])
+        var gy: float = c5.ground_y()
+        land_notes.append("%s 底边 %.0f/地面 %.0f" % [kind, bottom_at, gy])
+        land_ok = land_ok and bottom_at >= gy - 0.5 and bottom_at <= gy + step + 0.5 and last_y + float(d["bottom"]) < gy
+    print("5 落地就收（B14）：", land_notes, " ", land_ok, "  漏了 ", c5.misses)
+    ok = ok and land_ok and c5.misses == 0 and not c5.over and c5.ground_y() < c5.size.y
+    c5.queue_free()
+
+    # 5b. 接到的判定没动：篮口那条线在地面上面，正下来的照样接到
+    var c6 = Catch.new()
+    c6.setup(1, Cfg.params(Cfg.game("catch"), 1), SystemFont.new(), 6)
+    c6.size = Vector2(504, 700)
+    get_root().add_child(c6)
+    c6.start()
+    c6.interval = 9999.0
+    c6.bad_ratio = 0.0
+    c6._spawn_drop()
+    c6.basket_x = c6.drops[0]["x"]
+    c6._layout_basket()
+    var guard6 := 0
+    while not c6.drops.is_empty() and guard6 < 2000:
+        c6._game_tick(0.02)
+        guard6 += 1
+    print("5b 篮口 %.0f 在地面 %.0f 上面，正下来的接到了 %d 样" % [c6.basket_y, c6.ground_y(), c6.caught])
+    ok = ok and c6.basket_y < c6.ground_y() and c6.caught == 1
+    c6.queue_free()
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

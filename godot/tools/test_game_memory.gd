@@ -118,5 +118,30 @@ func run() -> void:
     print("4 外壳里配对赢 结果 ", result4[0], " 金币 ", s.coins, " 进度 ", s.games)
     ok = ok and result4[0] == true and s.coins == Cfg.reward(host.g, 1) and s.cleared("memory") == 1
 
+    # 5. 牌放大（B7，体验第一轮）：原来封 110、一律往宽里摆，屏幕空一半。
+    #    在手机竖屏的游戏区（外壳量出来的，调试版最小）里摆 3～12 对：每行都满（阿鱼 9/20），牌不超过 152（图正好 128），
+    #    第 1 关 3 对要到 140 以上，12 对（24 张）要到 90 以上（原来 72；这是调试版的游戏区，正式版还高 56，约 104）
+    var area: Vector2 = host.area.size
+    var shapes: Array = []
+    var full := true
+    var sizes := {}
+    for pairs in [3, 4, 5, 6, 8, 9, 10, 12]:
+        var gm := Memory.new()
+        gm.size = area
+        gm.setup(1, {"pairs": pairs, "preview": 0.0, "misses": 8}, SystemFont.new(), 5)
+        gm.start()
+        if gm.total % gm.cols != 0:
+            full = false
+        sizes[pairs] = gm.cell_px
+        var grid_ok: bool = gm.grid.position.x >= 0.0 and gm.grid.position.y >= 0.0 \
+            and gm.grid.position.x + gm.grid.size.x <= area.x + 0.5 and gm.grid.position.y + gm.grid.size.y <= area.y + 0.5
+        if not grid_ok:
+            full = false
+        shapes.append("%d对 %d×%d 牌%.0f" % [pairs, gm.cols, gm.rows, gm.cell_px])
+        gm.free()
+    print("5 牌放大（B7）游戏区 %s：%s" % [area, shapes])
+    ok = ok and full and float(sizes[3]) >= 140.0 and float(sizes[12]) >= 90.0
+    ok = ok and sizes.values().all(func(v): return float(v) <= 152.0)
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

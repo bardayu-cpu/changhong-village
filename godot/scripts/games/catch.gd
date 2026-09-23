@@ -20,6 +20,13 @@ const ART_CFG := ART_DIR + "catch.json"
 const DROP_PX := 44.0          # 掉下来那一样在屏上多大（图是 128，缩着放）
 const PLAYER_H := 128.0        # 抱篮子的人在屏上多高（图是 128×160）
 const FACE_HOLD := 0.25        # 停下来多久转回正面
+const GROUND_H := 22.0         # 地面（占位那条红毯）多高；没接住的东西落到它上沿就收掉（B14）
+## 占位糖放大几倍（B12，体验第一轮：原来 1.35，四种糖看着只是颜色不一样的小圆点）
+const DROP_SCALE := 1.6
+## 占位的每一样从中心往下画到多深（44 见方里的像素，没乘 DROP_SCALE）：落地时按它的底边算，
+## 不然小糖离地还有一截就没了、大红包沉进红毯一截（B14）
+const DROP_BOTTOM := {"candy_a": 9.0, "candy_b": 10.0, "candy_c": 21.0, "candy_d": 17.0,
+    "hongbao_s": 15.0, "hongbao_l": 20.0, "firecracker": 17.0}
 ## drops 没写时的兜底（和 minigames.json 里的一样）
 const DEFAULT_DROPS := [
     {"id": "candy_a", "coins": 1, "weight": 40},
@@ -66,12 +73,14 @@ var last_saying := -1
 ## 开始卡：外壳造的「探子」只 setup 没 _build，所以只读参数
 func goal_text() -> String:
     # 卡片是按字硬折行的，自己断好行，别让逗号跑到行首（01 9/23）
-    return "%d 秒内接够 %d 金\n喜糖、红包都是钱，鞭炮别接\n接到 %d 个鞭炮就输了" % [
+    # B12（体验第一轮）加一行说四种糖、两种红包给的不一样多（新写，等阿鱼定）
+    return "%d 秒内接够 %d 金\n喜糖、红包都是钱，鞭炮别接\n糖和红包给的金币不一样\n接到 %d 个鞭炮就输了" % [
         int(p_float("duration", 30.0)), p_int("target", 10), p_int("misses", 3)]
 
-## 顶上那行（01 定的字：「接了 N 金／这关要 M 金」）；剩几秒、失误几次在游戏区左上角
+## 顶上那行：这关还差几金（B13，体验第一轮）。原来写「接了 N 金／这关要 M 金」，和右上角手上的「N 金」
+## 一行里三个「金」，容易看串；改成只说还差多少。剩几秒、失误几次在游戏区左上角
 func status_text() -> String:
-    return "接了 %d 金／这关要 %d 金" % [coins, p_int("target", 10)]
+    return "还差 %d 金" % maxi(p_int("target", 10) - coins, 0)
 
 ## 过关给多少：接到的全拿走（外壳读这个，不读奖励表）
 func won_coins() -> int:
@@ -113,8 +122,8 @@ func _build() -> void:
         # 占位：底下一条红毯当地面
         var ground := ColorRect.new()
         ground.color = Color("#6e1f22")
-        ground.position = Vector2(0, size.y - 22.0)
-        ground.size = Vector2(size.x, 22.0)
+        ground.position = Vector2(0, size.y - GROUND_H)
+        ground.size = Vector2(size.x, GROUND_H)
         ground.mouse_filter = Control.MOUSE_FILTER_IGNORE
         add_child(ground)
 
@@ -211,6 +220,14 @@ func _draw_player(n: Control) -> void:
     # 身子（喜庆的酒红衣服）
     n.draw_rect(Rect2(cx - 22 + lean * 0.5, 44, 44, 64), Color("#9c2a2e"))
     n.draw_rect(Rect2(cx - 22 + lean * 0.5, 44, 44, 64), INK, false, 2.0)
+    # 两条胳膊（B16，体验第一轮）：原来只有两只手搭在篮沿上，和身子不连，像两块浮着的肉色方块。
+    # 从肩膀斜着伸到篮沿上那两只手，袖子和衣服一个色、描深边；篮子后画，盖住胳膊下半截
+    var top0 := mouth.position.y
+    for side in [-1.0, 1.0]:
+        var shoulder := Vector2(cx + side * 18.0 + lean * 0.5, 52)
+        var hand := Vector2((mouth.position.x + 5.0) if side < 0.0 else (mouth.end.x - 5.0), top0)
+        n.draw_line(shoulder, hand, INK, 11.0)
+        n.draw_line(shoulder, hand, Color("#9c2a2e"), 8.0)
     # 头：先画一团头发（往后脑勺那边偏），再画脸（往跑的方向偏），朝向一眼看得出
     var hc := Vector2(cx + lean, 26)
     n.draw_circle(hc + Vector2(-float(facing) * 4.0, -4), 19, Color("#2a1d1a"))
@@ -231,9 +248,10 @@ func _draw_player(n: Control) -> void:
         n.draw_line(Vector2(mouth.position.x + 6 + k * 3, yy), Vector2(mouth.end.x - 6 - k * 3, yy), Color("#a61d1d"), 2.0)
     n.draw_rect(Rect2(mouth.position.x - 3, top - 4, mouth.size.x + 6, 7), Color("#f2c14e"))
     n.draw_rect(Rect2(mouth.position.x - 3, top - 4, mouth.size.x + 6, 7), INK, false, 1.5)
-    # 两只手搭在篮沿上
-    n.draw_circle(Vector2(mouth.position.x + 4, top + 2), 5, Color("#f2c9a0"))
-    n.draw_circle(Vector2(mouth.end.x - 4, top + 2), 5, Color("#f2c9a0"))
+    # 两只手搭在篮沿上（胳膊的那一头，见上面）
+    for hx in [mouth.position.x + 5.0, mouth.end.x - 5.0]:
+        n.draw_circle(Vector2(hx, top), 6.5, INK)
+        n.draw_circle(Vector2(hx, top), 5.0, Color("#f2c9a0"))
 
 func _layout_basket() -> void:
     if basket == null or not is_instance_valid(basket):
@@ -283,7 +301,9 @@ func _game_tick(dt: float) -> void:
         if d["y"] >= basket_y and d["x"] >= basket_left and d["x"] <= basket_right:
             _collect(d, true)
             drops.remove_at(i)
-        elif d["y"] > size.y + 30.0:
+        elif d["y"] + float(d.get("bottom", DROP_PX * 0.5)) >= ground_y():
+            # 没接住：底边碰到地面（红毯上沿）就收掉（B14）。原来掉到游戏区下沿再多 30 才删，
+            # 会穿过红毯往下沉、露半截再消失，像坏图。「接到」的判定在上面那个分支，没动
             _collect(d, false)
             drops.remove_at(i)
         i -= 1
@@ -293,6 +313,10 @@ func _game_tick(dt: float) -> void:
     _sync_hud()
     if not over and time_left <= 0.0 and coins < target:
         lose("时间到了，接了 %d 金" % coins)
+
+## 地面那条线的 y（红毯上沿；正式背景图到了也按这条线，人就站在这上面）
+func ground_y() -> float:
+    return size.y - GROUND_H
 
 func _sync_hud() -> void:
     if hud != null:
@@ -322,7 +346,8 @@ func _spawn_drop() -> void:
     var x := rng.randf_range(DROP_PX * 0.5, maxf(size.x - DROP_PX * 0.5, DROP_PX * 0.5))
     node.position = Vector2(x - DROP_PX * 0.5, -DROP_PX)
     add_child(node)
-    drops.append({"x": x, "y": -DROP_PX * 0.5, "bad": bad, "kind": kind, "coins": worth, "node": node})
+    var bottom: float = DROP_PX * 0.5 if art.has(kind) else float(DROP_BOTTOM.get(kind, 11.0)) * DROP_SCALE
+    drops.append({"x": x, "y": -DROP_PX * 0.5, "bad": bad, "kind": kind, "coins": worth, "node": node, "bottom": bottom})
 
 func _drop_node(kind: String) -> Control:
     if art.has(kind):
@@ -338,9 +363,9 @@ func _drop_node(kind: String) -> Control:
     c.size = Vector2(DROP_PX, DROP_PX)
     c.mouse_filter = Control.MOUSE_FILTER_IGNORE
     c.draw.connect(_draw_drop.bind(c, kind))
-    # 占位的形状画在 44 见方里偏小，放大 1.35 倍，深色底上看得清（判定只看中心 x，不受影响）
+    # 占位的形状画在 44 见方里偏小，放大 DROP_SCALE 倍，深色底上看得清（判定只看中心 x，不受影响）
     c.pivot_offset = c.size * 0.5
-    c.scale = Vector2(1.35, 1.35)
+    c.scale = Vector2(DROP_SCALE, DROP_SCALE)
     return c
 
 ## 占位的七样：**靠形状和颜色分，不写字**（01 定）。四种糖四个形状四个颜色，红包是红底金圆，
@@ -348,14 +373,16 @@ func _drop_node(kind: String) -> Control:
 func _draw_drop(n: Control, kind: String) -> void:
     var c := n.size * 0.5
     match kind:
-        "candy_a":   # 1 金：粉色圆糖
-            n.draw_circle(c, 11, Color("#f48fb1"))
-            n.draw_arc(c, 11, 0, TAU, 24, INK, 2.0)
-            n.draw_circle(c + Vector2(-4, -4), 3, Color("#fff4f8"))
-        "candy_b":   # 2 金：黄色包装糖（中间椭圆、两头拧成蝴蝶结）
+        # B12（体验第一轮）：四种糖原来都缩在半径 11～15 里，屏上看是四个颜色不同的小圆点。
+        # 改成**轮廓一眼不同**、个头随金数变大：小圆球 → 横着的包装糖 → 竖着的棒棒糖 → 大星星
+        "candy_a":   # 1 金：粉色小圆球糖（最小）
+            n.draw_circle(c, 9, Color("#f48fb1"))
+            n.draw_arc(c, 9, 0, TAU, 24, INK, 2.0)
+            n.draw_circle(c + Vector2(-3, -3), 2.5, Color("#fff4f8"))
+        "candy_b":   # 2 金：黄色包装糖，横着宽（中间椭圆、两头拧成蝴蝶结）
             var col := Color("#ffc107")
-            var left := PackedVector2Array([c + Vector2(-9, 0), c + Vector2(-19, -9), c + Vector2(-19, 9)])
-            var right := PackedVector2Array([c + Vector2(9, 0), c + Vector2(19, -9), c + Vector2(19, 9)])
+            var left := PackedVector2Array([c + Vector2(-9, 0), c + Vector2(-21, -10), c + Vector2(-21, 10)])
+            var right := PackedVector2Array([c + Vector2(9, 0), c + Vector2(21, -10), c + Vector2(21, 10)])
             n.draw_colored_polygon(left, col)
             n.draw_colored_polygon(right, col)
             n.draw_polyline(PackedVector2Array([left[0], left[1], left[2], left[0]]), INK, 1.5)
@@ -367,20 +394,24 @@ func _draw_drop(n: Control, kind: String) -> void:
             n.draw_colored_polygon(ell, col)
             ell.append(ell[0])
             n.draw_polyline(ell, INK, 2.0)
-        "candy_c":   # 3 金：绿色菱形糖
-            var dia := PackedVector2Array([c + Vector2(0, -14), c + Vector2(12, 0), c + Vector2(0, 14), c + Vector2(-12, 0)])
-            n.draw_colored_polygon(dia, Color("#43a047"))
-            n.draw_polyline(PackedVector2Array([dia[0], dia[1], dia[2], dia[3], dia[0]]), INK, 2.0)
-            n.draw_line(c + Vector2(-4, -6), c + Vector2(0, -10), Color("#c8f5c0"), 2.0)
-        "candy_d":   # 4 金：紫色五角星糖
+        "candy_c":   # 3 金：绿色棒棒糖，竖着高（上面一个带旋纹的圆、下面一根白棍）
+            var head := c + Vector2(0, -7)
+            n.draw_rect(Rect2(c.x - 2, c.y + 1, 4, 20), Color("#f5efe6"))
+            n.draw_rect(Rect2(c.x - 2, c.y + 1, 4, 20), INK, false, 1.5)
+            n.draw_circle(head, 13, Color("#43a047"))
+            n.draw_arc(head, 13, 0, TAU, 28, INK, 2.0)
+            n.draw_arc(head, 8, 0, PI * 1.5, 16, Color("#c8f5c0"), 2.0)
+            n.draw_arc(head, 3.5, PI, PI * 2.5, 10, Color("#c8f5c0"), 2.0)
+        "candy_d":   # 4 金：紫色大五角星糖（最大）
             var star := PackedVector2Array()
             for i in 10:
                 var a := -PI * 0.5 + PI * float(i) / 5.0
-                var rr := 15.0 if i % 2 == 0 else 6.5
+                var rr := 20.0 if i % 2 == 0 else 8.5
                 star.append(c + Vector2(cos(a) * rr, sin(a) * rr))
             n.draw_colored_polygon(star, Color("#b56cf0"))
             star.append(star[0])
             n.draw_polyline(star, INK, 2.0)
+            n.draw_circle(c + Vector2(-3, -4), 2.5, Color("#ecd6ff"))
         "hongbao_s":  # 5 金：小红包
             var r := Rect2(c - Vector2(11, 15), Vector2(22, 30))
             n.draw_rect(r, Color("#d81b1b"))

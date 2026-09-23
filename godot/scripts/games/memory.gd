@@ -12,6 +12,9 @@ const POP_LEN := 0.35        # 配对成功那一下弹多久，秒
 ## 阿鱼 9/20 真机：「每行都必须是满的才对」。第 3 关 10 张摆成 4+4+2，最后一行缺两个。
 ## 这几个对数，牌数（对数×2）都排得成整行；难度表给别的数就往下取最近的一个
 const PAIRS_OK := [3, 4, 5, 6, 8, 9, 10, 12]
+## 牌最大多大（B7，体验第一轮）：原来封 110，屏幕空一半。牌面的菜图四周留 ART_PAD，
+## 牌 152 时图正好 128（菜牌原图的大小），再大就是放大原图了
+const MAX_CELL := 152.0
 
 var pairs := 3
 var misses_max := 8
@@ -59,13 +62,13 @@ func _build() -> void:
         revealed.append(true)   # 一开始全翻开，预览
         matched.append(false)
         panels.append(null)
-    cols = _cols_for(total)
-    rows = int(ceil(float(total) / float(cols)))
     var avail_w: float = size.x - 16.0
     var avail_h: float = size.y - 16.0
-    var cw := (avail_w - gap * (cols + 1)) / cols
-    var ch := (avail_h - gap * (rows + 1)) / rows
-    cell_px = clampf(minf(cw, ch), 32.0, 110.0)
+    # 摆几列（B7）：原来一律「不小于 sqrt」往宽里摆，竖屏上 12 张摆成 4×3、牌只有 112；
+    # 改成在排得成整行的那几种里挑牌最大的（12 张摆 3×4、牌 152）。每行照旧是满的（阿鱼 9/20）
+    cols = cols_fit(total, avail_w, avail_h, gap, MAX_CELL)
+    rows = int(ceil(float(total) / float(cols)))
+    cell_px = clampf(_cell_for(cols, rows, avail_w, avail_h, gap), 32.0, MAX_CELL)
     grid = Control.new()
     grid.size = Vector2(cols * (cell_px + gap) + gap, rows * (cell_px + gap) + gap)
     grid.position = (size - grid.size) * 0.5
@@ -245,6 +248,26 @@ static func _cols_for(total: int) -> int:
             best = c
             break
     return maxi(best, 1)
+
+## 按 cols 列 rows 行摆，牌能多大（不封顶）
+static func _cell_for(c: int, r: int, w: float, h: float, g: float) -> float:
+    return minf((w - g * (c + 1)) / c, (h - g * (r + 1)) / r)
+
+## 这么多张牌在 w×h 里摆几列牌最大（B7）：只在**整除牌数**的列数里挑（每行都得是满的），
+## 牌一样大（都顶到 max_cell）时挑更接近方块的那种，别摆成一长条
+static func cols_fit(total: int, w: float, h: float, g: float, max_cell: float) -> int:
+    var best := _cols_for(total)
+    var best_px := minf(_cell_for(best, total / best, w, h, g), max_cell)
+    for c in range(1, total + 1):
+        if total % c != 0:
+            continue
+        var r := total / c
+        var px := minf(_cell_for(c, r, w, h, g), max_cell)
+        var squarer := absi(c - r) < absi(best - total / best)
+        if px > best_px + 0.5 or (absf(px - best_px) <= 0.5 and squarer):
+            best = c
+            best_px = px
+    return best
 
 ## 摆一副牌：pairs 对，从 kinds_total 种菜里选（菜不够就轮回去用），洗匀。返回长度 pairs*2 的菜序号数组
 static func make_deck(pairs: int, kinds_total: int, rng: RandomNumberGenerator) -> Array:

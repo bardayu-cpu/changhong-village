@@ -14,6 +14,12 @@ const ART_DIR := "res://assets/minigames/guard/"
 const ART_FILES := ["board", "plate", "dish_a", "dish_b", "dish_c", "dish_d", "dish_e", "dish_f",
     "squirrel", "squirrel_hit", "chili", "hit", "hand", "bg"]
 const INK := Color("#2c1f1c")
+## 盘子最大多大（B7，体验第一轮）：原来封 130，屏幕上下各空一大片。盘子是代码画的，不怕糊；
+## 盘里那道菜是盘子的 0.62，盘子 200 时菜 124，还在菜牌原图 128 以内
+const MAX_CELL := 200.0
+## 松鼠占位的大尾巴（B16）：一串圆 [圆心, 半径]，按 64 见方画；外面再描 1.5 的深边，整条都得在 64 见方里
+const TAIL := [[Vector2(38, 50), 7.0], [Vector2(45, 43), 9.0], [Vector2(50, 34), 10.5],
+    [Vector2(51, 24), 10.5], [Vector2(47, 15), 9.0], [Vector2(40, 10), 7.0]]
 
 var holes_n := 6
 var duration := 30.0
@@ -57,13 +63,23 @@ func _build() -> void:
     var rows := int(ceil(float(holes_n) / float(COLS)))
     var pad := 16.0
     var gap := 14.0
-    var cell := minf((size.x - pad * 2.0 - gap * (COLS - 1)) / COLS, (size.y - pad * 2.0 - gap * (rows - 1)) / rows)
-    cell = clampf(cell, 40.0, 130.0)
+    # 上下两排之间的空（B7）：松鼠探头时比盘沿高出约盘子的 0.2，原来两排只隔 14，
+    # 探出来那截压在上一排盘子上。竖屏上下有的是地方，拉开到盘子的 0.3（还有余就 0.3，没余就退回 14）
+    var head := 0.4                       # 案板顶上给最上一排松鼠探头留的，按盘子大小算
+    var cell := minf((size.x - pad * 2.0 - gap * (COLS - 1)) / COLS,
+        (size.y - pad * 2.0 - gap * (rows - 1)) / (rows + head))
+    cell = clampf(cell, 40.0, MAX_CELL)
+    var gap_y := gap
+    if rows > 1:
+        var spare := size.y - pad * 2.0 - cell * (rows + head)
+        gap_y = clampf(spare / (rows - 1), gap, cell * 0.3)
     var grid_w := cell * COLS + gap * (COLS - 1)
-    var grid_h := cell * rows + gap * (rows - 1)
-    var origin := Vector2((size.x - grid_w) * 0.5, (size.y - grid_h) * 0.5)
+    var grid_h := cell * rows + gap_y * (rows - 1)
+    # 整块案板（连同顶上留的那条）在游戏区里居中
+    var board_h := grid_h + pad * 2.0 + cell * head
+    var origin := Vector2((size.x - grid_w) * 0.5, (size.y - board_h) * 0.5 + pad + cell * head)
     # 案板：整个盘面的底，菜摆在上面
-    var board_r := Rect2(origin - Vector2(pad, pad + cell * 0.4), Vector2(grid_w + pad * 2.0, grid_h + pad * 2.0 + cell * 0.4))
+    var board_r := Rect2(origin - Vector2(pad, pad + cell * head), Vector2(grid_w + pad * 2.0, board_h))
     if art.has("board"):
         add_child(_pic(art["board"], board_r.position, board_r.size, TextureRect.STRETCH_SCALE))
     else:
@@ -87,7 +103,7 @@ func _build() -> void:
         var row := i / COLS
         var plate := Panel.new()
         plate.size = Vector2(cell, cell)
-        plate.position = origin + Vector2(col * (cell + gap), row * (cell + gap))
+        plate.position = origin + Vector2(col * (cell + gap), row * (cell + gap_y))
         var st := StyleBoxFlat.new()
         if art.has("plate"):
             st.bg_color = Color(0, 0, 0, 0)
@@ -249,16 +265,15 @@ func _draw_squirrel(n: Control) -> void:
     var s := n.size.x / 64.0     # 按 64 见方画，再按实际大小缩放
     var hit: bool = n.get_meta("hit", false)
     var brown := Color("#b8692a")
-    # 大尾巴：从身子右后方往上卷，比头还高
-    var tail := PackedVector2Array()
-    for k in 24:
-        var a := -PI * 0.15 + PI * 1.35 * float(k) / 23.0
-        tail.append(Vector2(44, 30) * s + Vector2(cos(a) * 16.0, -sin(a) * 22.0) * s)
-    for k in 24:
-        var a := -PI * 0.15 + PI * 1.35 * float(23 - k) / 23.0
-        tail.append(Vector2(44, 34) * s + Vector2(cos(a) * 7.0, -sin(a) * 10.0) * s)
-    n.draw_colored_polygon(tail, Color("#d4843a"))
-    # 身子
+    # 大尾巴：从身子右后方往上卷，比头还高。B16（体验第一轮）：原来是一条弯带子，尾巴根那头是一刀直边，
+    # 看着像被切掉了。改成一串圆（蓬松），根藏在身子后面，整条都在 64 见方里；先描一圈深边再填色，和头一样有描边
+    for t in TAIL:
+        n.draw_circle((t[0] as Vector2) * s, (float(t[1]) + 1.5) * s, INK)
+    for t in TAIL:
+        n.draw_circle((t[0] as Vector2) * s, float(t[1]) * s, Color("#d4843a"))
+    n.draw_arc(Vector2(48, 28) * s, 5.0 * s, PI * 0.6, PI * 1.5, 10, Color("#e9a560"), 2.0 * s)
+    # 身子（B16：补一圈描边，原来只有头有）
+    n.draw_circle(Vector2(30, 44) * s, 16.5 * s, INK)
     n.draw_circle(Vector2(30, 44) * s, 15.0 * s, brown)
     n.draw_circle(Vector2(30, 47) * s, 9.0 * s, Color("#f3dcb8"))
     # 头

@@ -61,7 +61,10 @@ func run() -> void:
     check("「离开」在下半边", quit.position.y > h1.panel.size.y * 0.5)
     check("「歇一下」紧挨着它、不重叠", pause.position.x >= quit.position.x + quit.size.x and is_equal_approx(pause.position.y, quit.position.y))
     check("两个都没出面板", quit.position.x >= 0.0 and pause.position.x + pause.size.x <= h1.panel.size.x)
-    check("顶栏右上角空出来了（金币挪回最右）", h1.coins_l.position.x + h1.coins_l.size.x >= h1.panel.size.x - 16.0)
+    # 金币原来挪回最右（「离开」挪走以后），可那儿压在微信的胶囊底下（A1，体验第一轮）：收到胶囊左边
+    var coins_end: float = h1.panel.global_position.x + h1.coins_l.position.x + h1.coins_l.size.x
+    check("金币在胶囊左边（右沿 %.0f ≤ %.0f）" % [coins_end, Host.CAPSULE_LEFT], coins_end <= Host.CAPSULE_LEFT)
+    check("金币还在顶栏右半边，没挤到游戏名上", h1.coins_l.position.x > h1.title_l.position.x + 130.0)
 
     # ---------- 2. 开始卡：大字是桌牌名，不是行话 ----------
     print("2 开始卡（体验评审第 4 条：最大那行原来写着「2048」「三消」）")
@@ -79,18 +82,49 @@ func run() -> void:
     check("说人话那句排在「第 N 关」上面：%s" % [card_lines.slice(0, 2)], card_lines.size() >= 2 and card_lines[1].begins_with("第 1 关"))
     check("顶栏不重名（原来是「连连看·连连看」）", not h1.title_l.text.contains("·") or h1.title_l.text.split("·")[0] != h1.title_l.text.split("·")[1])
     check("还没开局，「歇一下」不出", not pause.visible)
+    # B11（体验第一轮）：顶栏只写游戏名，不再挂「· 2048」「· 三消」这种行话
+    check("顶栏只写游戏名：%s" % h1.title_l.text, h1.title_l.text == "小菜合大菜")
+    var hm = _host("match3", _save("user://test_fix1_m3.json"))
+    check("消消乐顶栏只写游戏名：%s" % hm.title_l.text, hm.title_l.text == "川菜消消乐")
+    hm._close()
+    # B15（体验第一轮）：卡片开着的时候左下角那个「离开」收起来（卡片上自己有一个），屏幕上只剩一个「离开」
+    check("开始卡开着，左下角「离开」收起来", not quit.visible and h1.card != null)
 
     # ---------- 3. 「歇一下」真能暂停 ----------
     print("3 歇一下（体验评审第 11 条：paused 六个游戏都在读，就是没人置过 true）")
     h1._start()
     check("开局了「歇一下」出来", pause.visible and not h1.game.paused)
+    check("开局了左下角「离开」回来（B15）", quit.visible)
     h1._pause()
     check("按下去真的暂停了", h1.game.paused)
     check("盖了一张卡", h1.card != null and is_instance_valid(h1.card))
     check("歇着的时候按钮收起来", not pause.visible)
+    check("歇一下那张卡开着，左下角「离开」也收起来（B15）", not quit.visible)
     h1.game._process(1.0)   # 暂停时 _game_tick 不该跑
     h1._resume()
     check("「接着玩」恢复", not h1.game.paused and pause.visible)
+    check("卡收了左下角「离开」回来（B15）", quit.visible)
+    # B10（体验第一轮，阿鱼 9/23「有图就别叠字」）：小菜合大菜顶栏「目标」「现在最大」画成那一级的小图，不写级名
+    h1._process(0.0)
+    var icons := 0
+    var words: Array = []
+    for c in h1.status_box.get_children():
+        if c is Panel and (c as Panel).get_child_count() > 0 and (c as Panel).get_child(0) is TextureRect:
+            icons += 1
+        elif c is Label:
+            words.append((c as Label).text)
+    var named := false
+    for w in h1.game.steps():
+        if words.has(str(w)) or h1.status_l.text.contains(str(w)) and h1.status_l.visible:
+            named = true
+    check("第 1 关（水稻，图齐）顶栏：%s + %d 张小图" % [words, icons],
+        h1.status_box.visible and not h1.status_l.visible and icons == 2 and words == ["目标", "现在最大"])
+    check("顶栏不写级名（谷种、抽杆……）", not named)
+    var goal_tex: Texture2D = ((h1.status_box.get_child(1) as Panel).get_child(0) as TextureRect).texture
+    check("「目标」那张是这关目标那一级的图：%s" % goal_tex.resource_path, goal_tex == Tiles.dish_art(h1.game.target - 1, h1.game.art_set))
+    var sb_end: float = h1.status_box.position.x + h1.status_box.size.x
+    check("小图那行不出面板、不压「第 N 关」", sb_end <= h1.panel.size.x - 12.0 + 0.5 and h1.status_box.position.x >= 14.0 + 96.0)
+    check("小图不压到游戏区", h1.status_box.position.y + h1.status_box.size.y <= h1.area.position.y)
     check("卡片收了", h1.card == null or not is_instance_valid(h1.card))
     check("这一关没作废、金币没动", h1.level == 1 and s1.coins == 0)
 
@@ -194,8 +228,15 @@ func run() -> void:
     ui.add_child(cg)
     cg.start()
     check("开始卡写了秒数：%s" % cg.goal_text(), cg.goal_text().contains("30 秒内"))
-    # 9/23 起顶上那行写「接了 N 金／这关要 M 金」（01 定），剩几秒挪到游戏区左上角
-    check("顶上写接了多少金、这关要多少：%s" % cg.status_text(), cg.status_text().contains("接了") and cg.status_text().contains("这关要"))
+    # 9/23 起顶上那行写这关的金（01 定），剩几秒挪到游戏区左上角。
+    # B13（体验第一轮）：原来「接了 N 金／这关要 M 金」一行两个「金」，和右上角手上的金看串，改成「还差 N 金」
+    check("顶上写这关还差多少金：%s" % cg.status_text(), cg.status_text() == "还差 12 金")
+    check("顶上那行只有一个「金」（B13）", cg.status_text().count("金") == 1)
+    cg.coins = 5
+    check("接了 5 金以后：%s" % cg.status_text(), cg.status_text() == "还差 7 金")
+    cg.coins = 20
+    check("接够了不写负数：%s" % cg.status_text(), cg.status_text() == "还差 0 金")
+    cg.coins = 0
     check("玩的时候看得到剩余秒数：%s" % cg.hud.text, cg.hud.text.contains("剩") and cg.hud.text.contains("秒"))
     cg._collect({"bad": false, "node": null}, false)
     check("糖落地不算漏", cg.misses == 0)
@@ -403,5 +444,21 @@ func run() -> void:
     plain.queue_free()
 
     h1._close()
+
+    # ---------- 15. B10 色块兜底的关照旧写名字；别的游戏不受影响 ----------
+    print("15 顶栏小图只在有图时出（B10）")
+    var s15 = _save("user://test_fix1_c.json")
+    s15.games["g2048"] = 10     # 第 11 关猕猴桃，图还没交，整盘色块
+    var h15 = _host("g2048", s15)
+    h15._start()
+    h15._process(0.0)
+    check("第 11 关（图没交）顶栏照旧写名字：%s" % h15.status_l.text,
+        h15.status_l.visible and not h15.status_box.visible and h15.status_l.text.begins_with("目标 ") and h15.game.art_set == "")
+    h15._close()
+    var h16 = _host("lianliankan", _save("user://test_fix1_d.json"))
+    h16._start()
+    h16._process(0.0)
+    check("连连看顶栏还是一句字：%s" % h16.status_l.text, h16.status_l.visible and not h16.status_box.visible and h16.status_l.text.begins_with("剩"))
+    h16._close()
     print("RESULT ", "PASS" if ok else "FAIL")
     quit()
