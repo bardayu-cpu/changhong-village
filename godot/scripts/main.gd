@@ -102,10 +102,15 @@ const GameHost = preload("res://scripts/games/game_host.gd")
 const LINE_SIT_FIRST_GAME := "先坐下 再玩"   # 在自己没坐着的桌点桌心的菜（蓝图 3.2 异常表：文案待阿鱼定），新写
 const LINE_GIFT_DONE_FMT := "添了 %d 金 礼金簿记上了"   # 主桌添礼金以后，新写，等阿鱼定
 const GIFT_CHOICES := [8, 88, 188, 888]
+## 添礼金：一排数字后面都带「金」（体验 B18）；点「全部」先问一句（体验 B17：原来一点金币全没了、不问）。新写，等阿鱼定
+const LINE_GIFT_BTN_FMT := "%d 金"
+const LINE_GIFT_ALL_FMT := "全部 %d 金"
+const LINE_GIFT_ASK_FMT := "%d 金全添上？"
+const LINE_GIFT_YES := "添"
 var games_save
 var game_host: Control
 var play_btn: Button            # 坐在有小游戏的桌上时出现：「玩·吃席」
-var coins_chip: Label           # 右上角：手上几金
+var coins_chip: Label           # 左上角地名右边：手上几金
 var gift_row: HBoxContainer     # 写悄悄话的框里：「手上 N 金 添礼金」，有金币才出
 var gift_pick: HBoxContainer    # 点「添礼金」以后换成几个数目
 ## 在厅里时每隔几秒问一次服务端「有没有人刚敬我」（云函数 hallPulse，阿鱼 9/18 晚：被敬的人在线要当场知道）
@@ -149,7 +154,11 @@ var dialog_text: Label
 var dialog_who: Label      # 说话框左上角：谁在说（默认阿鱼；迎宾院有新娘妈妈、新娘爸爸、摄影师、老人）
 var dialog_gloss := ""     # 这句里方言词的普通话（《乐山话 v0.2》：点一下出普通话）；空的时候说话框点不了
 var say_log: Array = []    # 最近说过的 20 句 [谁, 话]：一串话接着说时前一句会被盖掉，测试、排查靠它看说过什么
-var hint: Label
+var hint: PanelContainer   # 「点地面走路」那一行（带底框，体验 B1）
+var hint_done := false     # 这次打开游戏已经提示过、玩家也走过了：以后进哪个场景都不再出（体验 B1：原来每进一个场景亮一次）
+## 走路提示（体验 B1、五.1）：原来是没底框的光字印在画面正中，压着喜字和新人的脸；也从没提过能推摇杆。新写，等阿鱼定
+const LINE_WALK_HINT := "点地面走路 或推左下圆圈"
+const LINE_LOOK_FMT := "看看 %s"   # 走近坐着的人，底下那个按钮（体验 B23）
 var note: Label            # 顶部提示框里的字：进厅合并提示、坐好了、拒绝原因
 var note_box: PanelContainer
 var note_token := 0
@@ -526,7 +535,7 @@ func _process(dt: float) -> void:
             pulse_busy = true
             cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
     if state == "banquet" and banquet_ui != null:
-        banquet_ui.sync()   # 右上角「席面菜单」那块牌子：别的面板开着时让开
+        banquet_ui.sync()   # 左上角「席面菜单」那块牌子：别的面板开着时让开
     if state == "lake" and lake_ui != null:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
@@ -753,30 +762,41 @@ func _build_hud() -> void:
     hud.set_anchors_preset(Control.PRESET_FULL_RECT)
     hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
     ui.add_child(hud)
+    # 左上角一排：地名、金币。金币原来在右上角，落在微信胶囊按钮底下（胶囊下沿约 y 124），看不见（体验 A1）；
+    # 右上角整块留给胶囊，席面菜单也挪到左边（banquet_ui.gd）
+    var top_row := HBoxContainer.new()
+    top_row.position = Vector2(14, 14)
+    top_row.add_theme_constant_override("separation", 10)
+    top_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    hud.add_child(top_row)
     var chip := PanelContainer.new()
     chip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
-    chip.position = Vector2(14, 14)
     chip.add_child(_label("● 罗曼山庄", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
-    hud.add_child(chip)
+    top_row.add_child(chip)
     var cchip := PanelContainer.new()
+    cchip.name = "coins_chip"
     cchip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
-    cchip.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-    cchip.offset_left = -150
-    cchip.offset_right = -14
-    cchip.offset_top = 14
     coins_chip = _label("0 金", 24, GOLD1, HORIZONTAL_ALIGNMENT_RIGHT, false)
     cchip.add_child(coins_chip)
-    hud.add_child(cchip)
-    stick_base = _ring(STICK_R * 2.0, Color(1, 1, 1, 0.08), Color(GOLD, 0.6))
-    stick_knob = _ring(56.0, Color(GOLD1, 0.4), Color(GOLD1, 0.85))
+    top_row.add_child(cchip)
+    # 摇杆：原来是白 8% 的底、金边，在迎宾院这种浅色地上量到 1.02:1，几乎看不见（体验五.1）。
+    # 改成深色半透明底 + 亮金边：浅地上靠深底看得见，深地上靠金边看得见
+    stick_base = _ring(STICK_R * 2.0, Color(0.08, 0.06, 0.1, 0.32), Color(GOLD1, 0.9))
+    stick_knob = _ring(56.0, Color(GOLD1, 0.55), Color(0.08, 0.06, 0.1, 0.8))
     hud.add_child(stick_base)
     hud.add_child(stick_knob)
     _stick_rest.call_deferred()
-    hint = _label("点地面走路", 24, Color(PAPER, 0.85))
-    hint.set_anchors_preset(Control.PRESET_TOP_WIDE)
-    hint.offset_top = 66
-    hint.offset_bottom = 96
-    _hard_shadow(hint)
+    # 走路提示：和顶上提示框一样的深色底框，挪到屏幕下面（原来在正中上方，压着喜字和新人的脸，体验 B1）
+    hint = PanelContainer.new()
+    hint.name = "walk_hint"
+    hint.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.94), GOLD1, 2, 6, 14))
+    hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    hint.add_child(_label(LINE_WALK_HINT, 24, GOLD1, HORIZONTAL_ALIGNMENT_CENTER, false))
+    hint.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
+    hint.offset_top = -262
+    hint.offset_bottom = -216
+    hint.visible = false
     hud.add_child(hint)
     # 提示框：第 21 版是一行没底色的字，压在场景图上，阿鱼真机上「什么都没看到」（9/17）。
     # 改成和对白框一样的深色底框，排在屏幕上方（位置每帧由 _layout_top 排）
@@ -889,6 +909,7 @@ func _build_hud() -> void:
     gl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     gift_row.add_child(gl)
     var gb := Button.new()
+    gb.name = "add"
     gb.text = "添礼金"
     gb.pressed.connect(_open_gift_pick)
     gift_row.add_child(gb)
@@ -1210,7 +1231,7 @@ func _enter_court() -> void:
     rest_heard = false
     _update_gate()
     hall_ready = false
-    hint.visible = true
+    hint.visible = not hint_done
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
     _save_profile()
@@ -1445,7 +1466,7 @@ func _enter_banquet() -> void:
     pulse_since = 0
     pulse_t = 0.0
     pulse_seen.clear()
-    hint.visible = true
+    hint.visible = not hint_done
     await _fade_to(0.0)
     _say(LINE_ARRIVE)
     # 存资料、进厅拿席位（蓝图 3.2）。失败不拦流程，只顶部提示
@@ -1651,10 +1672,9 @@ func _arrive_old(d: Dictionary) -> void:
             var who := str(finfo.get("nick", "有人"))
             parts.append(who + ("等 %d 人敬了你" % tc if tc > 1 else " 敬了你一杯"))
             # 不在线时被敬的：进厅也看一次干杯插图（阿鱼 9/18 晚）
-            var cap: String = parts[parts.size() - 1]
             get_tree().create_timer(1.5).timeout.connect(func():
                 if state == "banquet":
-                    _play_toast(_avatar_of(finfo), preset, cap))
+                    _play_toast(_avatar_of(finfo), preset, ""))   # 顶上那行已经说了（体验 B22）
         var bc := int(dg.get("bookLineCount", 0))
         if bc > 0:
             parts.append("簿子上多了 %d 句" % bc)
@@ -1691,7 +1711,8 @@ func _refresh_seat_buttons() -> void:
     else:
         var info: Dictionary = hall.resident_names.get(near_person_id, {})
         var nick := str(info.get("nick", ""))
-        person_btn.text = nick if nick != "" else "有人"
+        # 原来按钮上只写一个人名，不知道点了会怎样（体验 B23）。新写，等阿鱼定
+        person_btn.text = LINE_LOOK_FMT % (nick if nick != "" else "有人")
         person_btn.visible = true
     if blocked or whisper_box.visible or near_table_id == "" or sit_confirming:
         book_btn.visible = false
@@ -1715,7 +1736,7 @@ func _refresh_seat_buttons() -> void:
 func _menu_open() -> bool:
     return banquet_ui != null and banquet_ui.panel_open()
 
-## 宴会厅里有别的面板占着屏幕（看人卡片、簿子、小游戏、悄悄话）：右上角「席面菜单」那块牌子先让开
+## 宴会厅里有别的面板占着屏幕（看人卡片、簿子、小游戏、悄悄话）：左上角「席面菜单」那块牌子先让开
 func _hall_busy() -> bool:
     return card_open or book_open or is_instance_valid(game_host) or whisper_box.visible
 
@@ -1806,7 +1827,8 @@ func _on_toast_result(r: Dictionary, target: String, known := {}) -> void:
         if USE_LAYERED:
             hall.resident_toast(target)
             hall.raise_cup()
-        _play_toast(preset, _avatar_of(info), line)
+        # 那句只在顶上说一遍，插图下面不再重复（体验 B22：原来顶上一遍、干杯卡下面又一遍）
+        _play_toast(preset, _avatar_of(info), "")
     else:
         _note(_reason_text(r, "敬酒"))
 
@@ -1916,7 +1938,7 @@ func _on_pulse(r: Dictionary) -> void:
     _offer_toast_back(from, info)
     if USE_LAYERED:
         hall.toasted_me()
-    _play_toast(_avatar_of(info), preset, line)
+    _play_toast(_avatar_of(info), preset, "")   # 顶上已经说了，插图下面不重复（体验 B22）
 
 # ---------- 席间小游戏（蓝图 3.2，阿鱼 9/19） ----------
 ## 点了某张桌桌心的菜：坐在这桌就开这桌的游戏；没坐在这桌就提示先坐下（人照样往那边走）
@@ -1956,6 +1978,7 @@ func _save_games(payload: Dictionary, done: Callable) -> void:
 func _refresh_gift_row() -> void:
     gift_pick.visible = false
     gift_row.visible = games_save.coins > 0
+    (gift_row.get_node("add") as Button).visible = true
     (gift_row.get_node("coins") as Label).text = "手上 %d 金" % games_save.coins
 
 func _open_gift_pick() -> void:
@@ -1965,15 +1988,32 @@ func _open_gift_pick() -> void:
     amounts.append(games_save.coins)   # 最后一个是「全部」
     for n in amounts:
         var b := Button.new()
-        b.text = ("全部 %d" % n) if n == games_save.coins else str(n)
-        b.pressed.connect(_give_gift.bind(int(n)))
+        var all: bool = n == games_save.coins
+        b.text = (LINE_GIFT_ALL_FMT % n) if all else (LINE_GIFT_BTN_FMT % n)
+        b.pressed.connect(_ask_gift_all.bind(int(n)) if all else _give_gift.bind(int(n)))
         gift_pick.add_child(b)
     var back := Button.new()
     back.text = "算了"
     back.pressed.connect(_refresh_gift_row)
     gift_pick.add_child(back)
-    gift_row.visible = false
+    # 「手上 N 金」那行留着（原来选数的时候整行藏了，体验 B18），只把「添礼金」按钮让开
+    (gift_row.get_node("add") as Button).visible = false
     gift_pick.visible = true
+
+## 点「全部」：先问一句，点「添」才添（体验 B17）
+func _ask_gift_all(n: int) -> void:
+    for c in gift_pick.get_children():
+        c.queue_free()
+    gift_pick.add_child(_label(LINE_GIFT_ASK_FMT % n, 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
+    var yes := Button.new()
+    yes.name = "yes"
+    yes.text = LINE_GIFT_YES
+    yes.pressed.connect(_give_gift.bind(n))
+    gift_pick.add_child(yes)
+    var back := Button.new()
+    back.text = "算了"
+    back.pressed.connect(_refresh_gift_row)
+    gift_pick.add_child(back)
 
 func _give_gift(n: int) -> void:
     if games_save.give_gift(n):
@@ -2201,7 +2241,7 @@ func _layout_top() -> void:
 
 func _on_reached(what: String) -> void:
     if what == "couple":
-        hint.visible = false
+        _hide_hint()
         hall.walking_enabled = false
         _say(LINE_TABLE, 0.0)
         whisper_box.visible = true
@@ -2297,7 +2337,7 @@ func _unhandled_input(e: InputEvent) -> void:
             _stick_rest()
         var quick: bool = tc != null and not tc["drag"] and Time.get_ticks_msec() - int(tc["t"]) < 350
         if quick and _in_scene() and cv.walking_enabled:
-            hint.visible = false
+            _hide_hint()
             cv.tap(e.position)
         return
     if not _in_scene() or not cv.walking_enabled:
@@ -2315,7 +2355,7 @@ func _unhandled_input(e: InputEvent) -> void:
             return
         if not tc["drag"] and (tc["start"] as Vector2).distance_to(e.position) > 12.0:
             tc["drag"] = true
-            hint.visible = false
+            _hide_hint()
         if not tc["drag"]:
             return
         if e.index == stick_touch:
@@ -2328,6 +2368,11 @@ func _unhandled_input(e: InputEvent) -> void:
             cv.rotate_cam(e.relative.x)
 
 ## 摇杆：平时淡淡地停在左下角提示有它；按下时跟到手指位置
+## 走过一次就不再提示（这次打开游戏里，进哪个场景都不再出）
+func _hide_hint() -> void:
+    hint.visible = false
+    hint_done = true
+
 func _ring(d: float, bg: Color, border: Color) -> Panel:
     var p := Panel.new()
     var s := StyleBoxFlat.new()

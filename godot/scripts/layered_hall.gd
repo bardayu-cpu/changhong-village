@@ -232,17 +232,65 @@ func _player(preset: int, nickname: String) -> void:
     tag_anchor.z_index = 5
     add_child(tag_anchor)
     tag = Label.new()
-    tag.add_theme_font_override("font", font)
-    tag.add_theme_font_size_override("font_size", 12)
     tag.add_theme_color_override("font_color", Color("#F4D97A"))
-    tag.add_theme_color_override("font_shadow_color", Color("#1b1422"))
-    tag.add_theme_constant_override("shadow_offset_x", 1)
-    tag.add_theme_constant_override("shadow_offset_y", 1)
-    tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    tag.size = Vector2(120, 16)
-    tag.position = Vector2(-60, -16)
     tag_anchor.add_child(tag)
     set_look(preset, nickname)
+
+# ---------- 世界里的字（体验 B2、B3、B4）----------
+## 世界里的字（人名、桌牌、物件名）原来 12 像素（约 8.5 点），长辈看不清，字心和地面几乎同色（1.04:1），全靠描边撑着。
+## 改成 18（画面按屏高缩放约 0.94，屏上约 17，在 04 说的 16～18 里），垫一层暗底。像素字体本来就被镜头缩放过，不在 12 的倍数上
+const WORLD_FONT := 18
+const PLATE_BG := Color(0.08, 0.05, 0.1, 0.72)
+
+## 给一块世界里的字垫暗底、设字号，大小只包住字；牌子以 (cx, bottom) 为下沿中点立着
+func name_plate(l: Label, color := Color(1, 1, 1, 0.92)) -> void:
+    l.add_theme_font_override("font", font)
+    l.add_theme_font_size_override("font_size", WORLD_FONT)
+    if not l.has_theme_color_override("font_color"):
+        l.add_theme_color_override("font_color", color)
+    var sb := StyleBoxFlat.new()
+    sb.bg_color = PLATE_BG
+    sb.set_corner_radius_all(3)
+    sb.content_margin_left = 4; sb.content_margin_right = 4
+    sb.content_margin_top = 0; sb.content_margin_bottom = 1
+    l.add_theme_stylebox_override("normal", sb)
+    l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    l.size = l.get_combined_minimum_size()
+
+## 自己头顶的名字：走到有名字的东西（回忆册、麻将桌、亭子……）跟前时，和那东西的名字叠成一团（体验 B3）。
+## 叠上了自己的名字就先让开（藏起来），走开再出来。别人的名字、物件名不动
+func _tag_clear() -> bool:
+    if tag == null or tag.text == "":
+        return true
+    var me := Rect2(tag.global_position, tag.size)
+    for holder in _tag_holders():
+        for c in holder.get_children():
+            if c is Control and (c as Control).visible and Rect2((c as Control).global_position, (c as Control).size).intersects(me):
+                return false
+    return true
+
+## 世界里挂字的几层（宴会厅：桌牌和别人的名字；灰盒画布另有物件名那层，entrance.gd 覆盖）
+func _tag_holders() -> Array:
+    return [seat_tags] if seat_tags != null else []
+
+## 名字牌贴着屏幕边被切掉（草坪「…礼拱门·预留」、宴会厅「小李那桌·连…」，体验 B4）：往屏幕里收，
+## 离开屏幕边以后回到原位（原位记在 meta "home"）
+func _keep_tags_on_screen() -> void:
+    if cam == null or cam.zoom.x <= 0.0:
+        return
+    var half := float(get_viewport().get_visible_rect().size.x) * 0.5 / cam.zoom.x
+    var cx := cam.get_screen_center_position().x
+    var lo := cx - half + 4.0
+    var hi := cx + half - 4.0
+    for holder in _tag_holders():
+        for c in holder.get_children():
+            if not (c is Control):
+                continue
+            var l: Control = c
+            if not l.has_meta("home"):
+                l.set_meta("home", l.position.x)
+            var home: float = l.get_meta("home")
+            l.position.x = clampf(home, lo, maxf(lo, hi - l.size.x))
 
 func set_look(preset: int, nickname: String) -> void:
     var gl := Spr.gpt_look(preset)
@@ -265,6 +313,8 @@ func set_look(preset: int, nickname: String) -> void:
     player.offset = Vector2(0, -frame_h * 0.5)   # 原点在脚底
     player.frame = look["up"]["idle"]
     tag.text = nickname
+    name_plate(tag, Color("#F4D97A"))
+    tag.position = Vector2(-tag.size.x * 0.5, -tag.size.y)   # 下沿中点立在头顶
 
 func _exit_mark() -> void:
     exit_mark = Polygon2D.new()
@@ -528,6 +578,9 @@ func _process(dt: float) -> void:
         cam_pan = cam_pan.lerp(Vector2.ZERO, minf(dt * 4.0, 1.0))
     if cam:
         cam.position = pos + cam_pan
+    if tag != null:
+        tag.visible = _tag_clear()
+    _keep_tags_on_screen()
     if my_cup != null:
         cup_left = maxf(cup_left - dt, 0.0)
         my_cup.visible = cup_left > 0.0
@@ -753,7 +806,7 @@ func _table_sign(t: Dictionary, nick: String) -> void:
         return
     l.text = "·".join(parts)
     l.add_theme_font_override("font", font)
-    l.add_theme_font_size_override("font_size", 12)
+    l.add_theme_font_size_override("font_size", WORLD_FONT)   # 原来 12，看不清（体验 B2）
     l.add_theme_color_override("font_color", Color("#F4D97A"))
     var sb := StyleBoxFlat.new()
     sb.bg_color = Color(0.08, 0.05, 0.1, 0.8)
@@ -810,14 +863,8 @@ func _seated(info: Dictionary, at: Vector2, center: Vector2, front: bool, openid
     if label and nick != "" and font != null:
         var l := Label.new()
         l.text = nick
-        l.add_theme_font_override("font", font)
-        l.add_theme_font_size_override("font_size", 12)
-        l.add_theme_color_override("font_color", Color(1, 1, 1, 0.9))
-        l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
-        l.add_theme_constant_override("outline_size", 4)
-        l.size = Vector2(96, 14)
-        l.position = at - Vector2(48, _px_h(at.y) * (SIT_KEEP + SIT_LIFT) + 16.0)
-        l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        name_plate(l)
+        l.position = at - Vector2(l.size.x * 0.5, _px_h(at.y) * (SIT_KEEP + SIT_LIFT) + l.size.y + 2.0)
         seat_tags.add_child(l)
 
 # ---------- 敬酒的样子（阿鱼 9/18 晚：被敬的人要站起来，两人碰杯）----------

@@ -82,6 +82,13 @@ func _process(dt: float) -> void:
             inside_spot[id] = now
             spot.emit(id, now)
 
+## 物件名那层也算：自己的名字碰到它就让开、贴屏幕边就往里收（体验 B3、B4）
+func _tag_holders() -> Array:
+    var out := super()
+    if labels != null:
+        out.append(labels)
+    return out
+
 ## 人现在在不在某个点的半径里（main 判断按钮该不该出）
 func in_spot(id: String) -> bool:
     return bool(inside_spot.get(id, false))
@@ -257,14 +264,8 @@ func npc_pos(id: String) -> Vector2:
 func _label(text: String, at: Vector2) -> void:
     var l := Label.new()
     l.text = text
-    l.add_theme_font_override("font", font)
-    l.add_theme_font_size_override("font_size", 12)
-    l.add_theme_color_override("font_color", Color(1, 1, 1, 0.85))
-    l.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.05, 0.8))
-    l.add_theme_constant_override("outline_size", 4)
-    l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    l.size = Vector2(96, 16)
-    l.position = at - Vector2(48, 8)
+    name_plate(l, Color(1, 1, 1, 0.9))   # 18 号字、垫暗底（体验 B2，原来 12 号、只靠描边）
+    l.position = at - l.size * 0.5
     labels.add_child(l)
 
 ## foot 不是 0 时，点的 y 减掉 foot（放进原点在着地线上的 holder 里）

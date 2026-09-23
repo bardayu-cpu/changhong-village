@@ -1,6 +1,6 @@
 extends Control
 ## 宴会厅的席面菜单和「添一道菜」（阿鱼 9/20 定的两样）：
-##   右上角金币底下一块牌子「席面菜单」，点开就是今天席上的菜——中午正席、晚上晚宴，按手机的真实时间切；
+##   左上角地名底下一块牌子「席面菜单」（体验 A1 前在右上角，被微信胶囊挡住），点开就是今天席上的菜——中午正席、晚上晚宴，按手机的真实时间切；
 ##   点一道菜，简介就在这张面板里展开，不切场景（阿鱼 9/20 原话）；简介底下「学做这道」跳后厅厨房（厨房还没做，先顶一句话）；
 ##   坐在自己桌上时底下多一个「添一道菜」：40 金一道，服务员真端过来放你桌上，摆到你离开宴会厅为止。
 ## 菜名、简介、几点切、多少钱全在 assets/banquet/menu.json，改字改数不改代码（菜名是阿鱼认过的定稿，别动）。
@@ -18,7 +18,7 @@ const MUTED := Color("#b1a6ba")
 var m                        # main.gd
 var font: Font
 var menu                     # banquet_menu.gd
-var chip: Button             # 右上角那块「席面菜单」
+var chip: Button             # 左上角那块「席面菜单」
 var root: Control            # 面板
 var head: Label
 var sub: Label
@@ -36,7 +36,7 @@ func setup(main_ref, f: Font) -> void:
     _build_chip()
     _build_panel()
 
-# ---------- 右上角那块牌子 ----------
+# ---------- 左上角那块牌子 ----------
 func _build_chip() -> void:
     chip = Button.new()
     chip.text = menu.line("btn_menu")
@@ -45,9 +45,10 @@ func _build_chip() -> void:
     chip.add_theme_color_override("font_color", GOLD1)
     for st in ["normal", "hover", "pressed", "focus", "disabled"]:
         chip.add_theme_stylebox_override(st, _sb())
-    chip.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-    chip.offset_left = -164
-    chip.offset_right = -14
+    # 原来在右上角 y 66～110，落在微信胶囊按钮底下（胶囊下沿约 y 124），按不到（体验 A1）：挪到左边，地名那排下面
+    chip.set_anchors_preset(Control.PRESET_TOP_LEFT)
+    chip.offset_left = 14
+    chip.offset_right = 164
     chip.offset_top = 66
     chip.offset_bottom = 110
     chip.visible = false
