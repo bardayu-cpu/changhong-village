@@ -1,4 +1,6 @@
 {
+ "enabled": false,
+ "enabled_note": "阿鱼 9/22 真机看了打回：GPT 这批图扣烂了——三个人身上粘着成块的红地毯和墙，violin_player_b 的脸被一块墙顶掉了。关掉以后 _band() 退回原来代码画的那套色块。GPT 重新扣干净、02 放白底逐张看过，再把这里改回 true",
  "note": "宴会厅舞台右边的乐队（GPT 交的 v2，01 9/21 验收）。坐标是 1536×1024 画布的绝对像素，直接用，不换算。",
  "source": "handoff_scene_roman_banquet_band_v2 + scene_banquet_band_v2.json；图逐块和阿鱼确认的那张效果图比过，八块色差 0.0（就是从那张图上拆的）",
  "blocks": {

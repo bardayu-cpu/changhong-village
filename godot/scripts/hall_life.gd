@@ -236,6 +236,11 @@ func _band_art() -> bool:
     if not (j is Dictionary):
         return false
     var cfg: Dictionary = j
+    # 阿鱼 9/22 打回：这批图扣烂了（粘着地毯和墙、一个人的脸被顶掉）。
+    # enabled 关着就走原来代码画的那套色块，图留着不删，GPT 重扣好再打开
+    if not bool(cfg.get("enabled", true)):
+        print("[suqi] 乐队的图被关着（band.json enabled=false），用代码画的那套")
+        return false
     var blocks: Dictionary = cfg.get("blocks", {})
     var place: Array = cfg.get("place", [])
     if blocks.is_empty() or place.is_empty():

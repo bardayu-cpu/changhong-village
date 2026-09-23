@@ -116,7 +116,10 @@ func run() -> void:
         if str(n.name).begins_with("glow"): glows += 1
     var has_art := ResourceLoader.exists("res://assets/ambience/amb_piano.png")
     # 乐队 9/21 换成 GPT 交的图了（band/），老的色块乐手（pianist/cellist/…）只在图缺了时才有
-    var band_art := ResourceLoader.exists("res://assets/ambience/band/piano_player.png")
+    # 图在不在不算数，band.json 的 enabled 说了算（阿鱼 9/22 打回那批图，关着）
+    var band_cfg = JSON.parse_string(FileAccess.get_file_as_string("res://assets/ambience/band/band.json"))
+    var band_art := ResourceLoader.exists("res://assets/ambience/band/piano_player.png") \
+        and (band_cfg is Dictionary) and bool(band_cfg.get("enabled", true))
     var band_names := ["piano_player", "violin_player_a", "cello_player", "violin_player_b", "stage_rug", "light"]
     var old_band := ["pianist", "cellist", "violin1", "violin2"]
     print("6 占位图在 ", has_art, "：贺礼 ", "gifts" in names, " 彩带彩纸 ", decals, " 灯笼光 ", glows,
@@ -147,7 +150,7 @@ func run() -> void:
     # 7. 乐队和贺礼摆在能走的范围外（不挡路）
     var blockers := 0
     if band_art:
-        for pl in JSON.parse_string(FileAccess.get_file_as_string("res://assets/ambience/band/band.json"))["place"]:
+        for pl in band_cfg["place"]:
             if hall._free(life._vec(pl["at"])): blockers += 1
     else:
         for key in ["piano", "bench", "cello", "violin1", "violin2"]:
