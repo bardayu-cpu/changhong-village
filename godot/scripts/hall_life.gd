@@ -282,6 +282,7 @@ func _band_art() -> bool:
         s.position = at
         s.name = key
         s.z_index = int(pl.get("z", 0)) - 30    # 和厅里别的东西一个坐标系：人和桌子按着地点排，这批固定在乐队这一片
+        _sway(s, bk.get("sway", {}))
         hall.world.add_child(s, true)
         if motion == "flicker":
             # 灯光：原地一闪一闪，和灯笼的光同一套
@@ -290,6 +291,25 @@ func _band_art() -> bool:
             blocked += _block_cells(at, anchor, tx)
     print("[suqi] 乐队用 GPT 的图摆好了：%d 件，音符 %d 种，挡人挖掉 %d 格" % [ordered.size(), band_notes.size(), blocked])
     return true
+
+## 一整张图里的人跟着拍子轻轻摇（阿鱼 9/24：乐队人不动却在飘音符，怪）。band.json 块上写了 sway 才加：
+## regions 每个人 [左x, 上y, 右x, 支点y, 节拍错开]（图的像素），支点那行不动、越往上摇得越多，着色器在 shaders/sway.gdshader
+const SWAY_SHADER := "res://shaders/sway.gdshader"
+func _sway(s: Sprite2D, cfg) -> void:
+    if not (cfg is Dictionary) or (cfg as Dictionary).get("regions", []).is_empty() or not ResourceLoader.exists(SWAY_SHADER):
+        return
+    var mat := ShaderMaterial.new()
+    mat.shader = load(SWAY_SHADER)
+    var regs: Array = cfg["regions"]
+    var ph := [0.0, 0.0, 0.0, 0.0]
+    for i in 4:
+        var r: Array = regs[i] if i < regs.size() else [0, 0, 0, 0, 0]
+        mat.set_shader_parameter("r%d" % i, Vector4(float(r[0]), float(r[1]), float(r[2]), float(r[3])))
+        ph[i] = float(r[4]) if r.size() > 4 else 0.0
+    mat.set_shader_parameter("phase", Vector4(ph[0], ph[1], ph[2], ph[3]))
+    mat.set_shader_parameter("amp", float(cfg.get("amp", 1.5)))
+    mat.set_shader_parameter("speed", float(cfg.get("speed", 5.0)))
+    s.material = mat
 
 ## 乐手脚下那一小片标成走不进去。**乐队这一片本来就不在能走的格子里**（能走的从 y 320 起），
 ## 所以今天一格都挖不掉；留着这段是为了以后谁把乐队往厅里挪的时候不用再想一遍

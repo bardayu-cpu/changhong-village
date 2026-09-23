@@ -80,6 +80,7 @@ func reset_to(p: Vector2) -> void:
 
 func _process(dt: float) -> void:
     super(dt)
+    _breathe()
     for id in points:
         var now: bool = pos.distance_to(points[id]["pos"]) < float(points[id]["r"])
         if now != bool(inside_spot.get(id, false)):
@@ -280,10 +281,24 @@ func _npcs() -> void:
         s.scale = Vector2(k, k)
         s.position = at
         s.name = "npc_" + id
+        s.set_meta("base_offset", s.offset)
+        s.set_meta("breath_phase", float(npc_nodes.size()) * 1.7)
         world.add_child(s)
         npc_nodes[id] = s
         if not sit or bool(n.get("block", false)):
             obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
+
+## NPC 呼吸（阿鱼 9/24：人物都不动，看着怪）：每个人身子隔两三秒轻轻一起一伏，不到一个像素格，各人错开，
+## 以后画布里新加的 NPC 自动都有。GPT 交了带待机帧的人物图以后，换成真的待机动画
+const BREATH_SPEED := 2.4
+const BREATH_AMP := 0.6
+func _breathe() -> void:
+    for id in npc_nodes:
+        var s: Sprite2D = npc_nodes[id]
+        if not is_instance_valid(s) or not s.has_meta("base_offset"):
+            continue
+        var b: Vector2 = s.get_meta("base_offset")
+        s.offset = b + Vector2(0.0, sin(t * BREATH_SPEED + float(s.get_meta("breath_phase"))) * BREATH_AMP)
 
 ## NPC 在哪（对话、指路时 main 要用）
 func npc_pos(id: String) -> Vector2:
