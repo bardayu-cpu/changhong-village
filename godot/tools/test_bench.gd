@@ -119,7 +119,7 @@ func run() -> void:
     var hit := 0
     for k in 8:
         await stand(Vector2(xs[k], 266.0))
-        if h.person_near_key == "fake_b%d" % k and m.person_btn.visible and m.person_btn.text == "小凳%d" % (k + 1):
+        if h.person_near_key == "fake_b%d" % k and m.person_btn.visible and m.person_btn.text == "看看 小凳%d" % (k + 1):   # 9/23 起按钮写「看看 XX」（体验 B23）
             hit += 1
     check("8 个人名字按钮都对（%d）" % hit, hit == 8)
 

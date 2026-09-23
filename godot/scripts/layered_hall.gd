@@ -273,7 +273,8 @@ func _tag_clear() -> bool:
 func _tag_holders() -> Array:
     return [seat_tags] if seat_tags != null else []
 
-## 名字牌贴着屏幕边被切掉（草坪「…礼拱门·预留」、宴会厅「小李那桌·连…」，体验 B4）：往屏幕里收，
+## 名字牌贴着屏幕边被切掉（草坪「…礼拱门·预留」、宴会厅「小李那桌·连…」，体验 B4）：牌子中点还在屏幕里的，往屏幕里收；
+## 中点已经出了屏幕的（那张桌、那样东西大半在屏幕外）就先不显示——都往里收的话，屏幕边上会摞起一串别桌的牌子。
 ## 离开屏幕边以后回到原位（原位记在 meta "home"）
 func _keep_tags_on_screen() -> void:
     if cam == null or cam.zoom.x <= 0.0:
@@ -290,6 +291,8 @@ func _keep_tags_on_screen() -> void:
             if not l.has_meta("home"):
                 l.set_meta("home", l.position.x)
             var home: float = l.get_meta("home")
+            var mid := home + l.size.x * 0.5
+            l.visible = mid >= lo and mid <= hi
             l.position.x = clampf(home, lo, maxf(lo, hi - l.size.x))
 
 func set_look(preset: int, nickname: String) -> void:

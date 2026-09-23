@@ -319,20 +319,24 @@ func run() -> void:
     check("认得共用菜牌和纹样两套", Tiles.ART.has("pattern") and Tiles.ART.has("shared"))
     # 加第 N 种作物只要把十张图放进 crop_NN/，代码和 json 都不用再动（03 9/20 指出原来是写死的三条路径）
     check("表里没有的套名也认，按 assets/minigames/<套名>/step_NN.png 找", Tiles.ART_ANY.contains("assets/minigames/%s/step_%02d.png"))
-    check("没这套图就返回 null（那一关整盘退回色块）", Tiles.dish_art(0, "crop_11") == null)
+    check("没这套图就返回 null（那一关整盘退回色块）", Tiles.dish_art(0, "crop_missing") == null)
     # 「齐不齐」的判断（03 9/21 报的：原来一张张单独找，crop_02 放 9 张就是 9 图 + 1 色块）
     check("一张一个的那两套永远算齐（少一张退一张，不牵连整盘）",
         Tiles.art_ready("shared", 12) and Tiles.art_ready("pattern", 12))
     # 前三种（水稻、草莓、枇杷）GPT 9/21 交了，齐；第 4 种起还没交
-    # 9/23 晚第 4～10 种（玉米、油菜、花生、洋芋、莲藕、辣椒、茶）也交了，第 11 种（猕猴桃）还在画
-    var ready_sets := ["crop_01", "crop_02", "crop_03", "crop_04", "crop_05", "crop_06", "crop_07", "crop_08", "crop_09", "crop_10"]
-    check("交齐的那几套算齐（第 1～10 种）", ready_sets.all(func(c): return Tiles.art_ready(c, 10)))
-    check("没交的还是不齐（第 11 种）", not Tiles.art_ready("crop_11", 10))
+    # 9/24 凌晨第 11 种（猕猴桃）也交了，11 种全齐。「没交齐退回色块」那条规矩用一个不存在的套名 crop_missing 来测
+    var ready_sets := ["crop_01", "crop_02", "crop_03", "crop_04", "crop_05", "crop_06", "crop_07", "crop_08", "crop_09", "crop_10", "crop_11"]
+    check("交齐的那几套算齐（11 种全齐）", ready_sets.all(func(c): return Tiles.art_ready(c, 10)))
+    check("没有的套还是不齐", not Tiles.art_ready("crop_missing", 10))
     check("套名空着直接算不齐", not Tiles.art_ready("", 10) and Tiles.dish_art(0, "") == null)
     check("查过就记着，不会每画一格问十次文件", Tiles._ready.has("crop_02"))
     # 图不齐时，整盘都是色块 + 名字，不许一半图一半色块
     var gz = G2048.new()
-    gz.setup(11, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 11)   # 第 11 关猕猴桃，图还没交
+    # 11 种都交了：把第 11 关猕猴桃临时指到一套不存在的图上，当成「图没交齐」
+    G2048._ladder = {}
+    gz.crop()
+    G2048._ladder["crops"]["crop_11"]["art_set"] = "crop_missing"
+    gz.setup(11, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 11)
     gz.size = Vector2(400, 400)
     ui.add_child(gz)
     gz.start()
@@ -344,11 +348,12 @@ func run() -> void:
             if kid is TextureRect: pics2 += 1
             if kid is Label and gz.steps().has(str((kid as Label).text)): named2 += 1
         if ((c as Panel).get_theme_stylebox("panel") as StyleBoxFlat).bg_color.a > 0.5: blocks2 += 1
-    check("第 11 关（猕猴桃，图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
+    check("第 11 关（假装图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
         pics2 == 0 and blocks2 == gz.cells.size() and gz.cells.size() > 0)
     check("这一关的 art_set 被清空了（整套不用）", gz.art_set == "")
     check("色块牌照旧写级名（%d/%d），不然分不出是哪一级" % [named2, gz.cells.size()], named2 == gz.cells.size())
     gz.queue_free()
+    G2048._ladder = {}   # 临时改的套名还原
     # 交了图的前三关：整盘都该是图，不许半图半色块（GPT 9/21 交了水稻、草莓、枇杷 30 张）
     for lv in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
         var gy = G2048.new()
@@ -380,7 +385,7 @@ func run() -> void:
     gw.size = Vector2(400, 400)
     ui.add_child(gw)
     gw.start()
-    check("第 15 关回绕到猕猴桃、不崩、整盘色块", str(gw.crop().get("title", "")) == "猕猴桃" and gw.cells.size() > 0)
+    check("第 15 关回绕到猕猴桃、不崩", str(gw.crop().get("title", "")) == "猕猴桃" and gw.cells.size() > 0)
     gw.queue_free()
     check("作废的那 11 张旧阶梯图已经删了", not ResourceLoader.exists("res://assets/minigames/ladder/step_00.png"))
 
@@ -448,13 +453,19 @@ func run() -> void:
     # ---------- 15. B10 色块兜底的关照旧写名字；别的游戏不受影响 ----------
     print("15 顶栏小图只在有图时出（B10）")
     var s15 = _save("user://test_fix1_c.json")
-    s15.games["g2048"] = 10     # 第 11 关猕猴桃，图还没交，整盘色块
+    s15.games["g2048"] = 10     # 第 11 关猕猴桃，临时指到不存在的图上，当成图没交齐、整盘色块
+    G2048._ladder = {}
+    var probe15 = G2048.new()
+    probe15.crop()
+    probe15.free()
+    G2048._ladder["crops"]["crop_11"]["art_set"] = "crop_missing"
     var h15 = _host("g2048", s15)
     h15._start()
     h15._process(0.0)
-    check("第 11 关（图没交）顶栏照旧写名字：%s" % h15.status_l.text,
+    check("第 11 关（假装图没交）顶栏照旧写名字：%s" % h15.status_l.text,
         h15.status_l.visible and not h15.status_box.visible and h15.status_l.text.begins_with("目标 ") and h15.game.art_set == "")
     h15._close()
+    G2048._ladder = {}   # 临时改的套名还原
     var h16 = _host("lianliankan", _save("user://test_fix1_d.json"))
     h16._start()
     h16._process(0.0)
