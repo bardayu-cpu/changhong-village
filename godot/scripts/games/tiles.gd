@@ -57,8 +57,8 @@ static func dish_art(kind: int, art_set := "shared") -> Texture2D:
     return _art[key]
 
 ## 一张菜牌：kind 是 tiles 里的序号（超出就轮回去），size 边长（屏幕像素），font_size 字号（像素字体要 12 的倍数）。
-## caption 不是空串就写这几个字（小菜合大菜要的：那一级叫什么名字，光看图看不出先后）；
-## 空串时有图就只放图，没图退回原来的「色块 + tiles 里那个字」。
+## caption 是没图时写在色块上的字（小菜合大菜要的：那一级叫什么名字，色块分不出先后）；空串就写 tiles 里那个字。
+## **有图的牌一个字都不叠**，caption 传了也不写——阿鱼 9/23 看第 38 版原话「不要放文字，看起来很乱」。
 ## art_set 选哪一套图（见上面 ART）：五个游戏用 shared，小菜合大菜用 ladder。
 ## keep_bg：有图时还画不画底下那个色块。**默认不画**——阿鱼 9/20 真机原话「每个图都不是透明底，很奇怪」，
 ## 就是这个色块顶在透明图后面。**只有翻牌配对传 true**：那是一张「牌」，牌需要一个面。
@@ -90,26 +90,6 @@ static func dish_tile(kind: int, size: float, font: Font, font_size := 24, capti
         r.size = Vector2(size - pad * 2.0, size - pad * 2.0)
         r.mouse_filter = Control.MOUSE_FILTER_IGNORE
         p.add_child(r)
-        if caption != "":
-            # 名字压在图下沿，底下垫一条深色带子，压在花花绿绿的菜上也读得出来
-            var strip := ColorRect.new()
-            strip.color = Color(0.09, 0.06, 0.11, 0.72)
-            strip.size = Vector2(size, float(font_size) + 6.0)
-            strip.position = Vector2(0, size - strip.size.y - 3.0)
-            strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-            p.add_child(strip)
-            var cl := Label.new()
-            cl.text = caption
-            cl.add_theme_font_override("font", font)
-            cl.add_theme_font_size_override("font_size", font_size)
-            cl.add_theme_color_override("font_color", Color("#f4d97a"))
-            cl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-            cl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-            cl.clip_text = true
-            cl.size = strip.size
-            cl.position = strip.position
-            cl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-            p.add_child(cl)
         return p
     # 图还没到（或者缺了这一张）：还是原来那个色块加一个字
     var l := Label.new()

@@ -121,19 +121,31 @@ func run() -> void:
             if int(k) > 0:
                 on_board += 1
     var captions: Array = []
+    var art_with_text := 0
+    var plain := 0
     for c in g.cells:
+        var has_pic := false
+        var txt := ""
         for kid in (c as Panel).get_children():
-            if kid is Label and str((kid as Label).text) != "":
-                captions.append(str((kid as Label).text))
-    print("6 棋盘画出来了：", drawn, " 张牌，盘上 ", on_board, " 格有菜，名字 ", captions)
+            if kid is TextureRect:
+                has_pic = true
+            elif kid is Label and str((kid as Label).text) != "":
+                txt = str((kid as Label).text)
+        if has_pic:
+            if txt != "":
+                art_with_text += 1
+        else:
+            plain += 1
+            captions.append(txt)
+    print("6 棋盘画出来了：", drawn, " 张牌，盘上 ", on_board, " 格有菜，色块牌上的名字 ", captions)
     ok = ok and drawn > 0 and drawn == on_board
-    # 每张牌都写着那一级叫什么（目标卡写的是「合到『喜宴』」，光看图分不出先后）
-    var all_named := captions.size() == drawn
+    # 有图的牌一个字都不叠（阿鱼 9/23：「不要放文字，看起来很乱」）；退回色块的牌照旧写那一级叫什么，不然分不出先后
+    var all_named := captions.size() == plain
     for cap in captions:
         if not g.steps().has(cap):
             all_named = false
-    ok = ok and all_named
-    print("  每张牌都带名字、名字都在那张菜谱里 ", all_named)
+    ok = ok and all_named and art_with_text == 0
+    print("  有图的牌上叠了字的 ", art_with_text, " 张（该是 0）；色块牌都带名字、名字都在那张菜谱里 ", all_named)
 
     # 7. 两套图别混（03 9/20 报的：一级「花生」配了鱼的图）。
     #    小菜合大菜每关一种作物、各用各的那套图（crop_NN），不拿共用那 12 张凑；另外五个游戏照旧用共用那 12 张。

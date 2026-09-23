@@ -293,13 +293,16 @@ func run() -> void:
     gz.start()
     var pics2 := 0
     var blocks2 := 0
+    var named2 := 0
     for c in gz.cells:
         for kid in (c as Panel).get_children():
             if kid is TextureRect: pics2 += 1
+            if kid is Label and gz.steps().has(str((kid as Label).text)): named2 += 1
         if ((c as Panel).get_theme_stylebox("panel") as StyleBoxFlat).bg_color.a > 0.5: blocks2 += 1
     check("第 4 关（玉米，图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
         pics2 == 0 and blocks2 == gz.cells.size() and gz.cells.size() > 0)
     check("这一关的 art_set 被清空了（整套不用）", gz.art_set == "")
+    check("色块牌照旧写级名（%d/%d），不然分不出是哪一级" % [named2, gz.cells.size()], named2 == gz.cells.size())
     gz.queue_free()
     # 交了图的前三关：整盘都该是图，不许半图半色块（GPT 9/21 交了水稻、草莓、枇杷 30 张）
     for lv in [1, 2, 3]:
@@ -309,12 +312,16 @@ func run() -> void:
         ui.add_child(gy)
         gy.start()
         var pics3 := 0
+        var texts3 := 0
         for c in gy.cells:
             for kid in (c as Panel).get_children():
                 if kid is TextureRect:
                     pics3 += 1
+                elif kid is Label or kid is ColorRect:
+                    texts3 += 1
         check("第 %d 关（%s）整盘都是图（%d/%d），套 %s" % [lv, str(gy.crop().get("title", "")), pics3, gy.cells.size(), gy.art_set],
             gy.cells.size() > 0 and pics3 == gy.cells.size() and gy.art_set == "crop_%02d" % lv)
+        check("第 %d 关有图的牌上不叠字、不垫字条（阿鱼 9/23）：%d 处" % [lv, texts3], texts3 == 0)
         gy.queue_free()
     # 关号超过种数回绕到最后一种，不许崩
     var gw = G2048.new()
