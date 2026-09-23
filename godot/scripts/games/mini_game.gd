@@ -73,3 +73,11 @@ func goal_text() -> String:
 
 func status_text() -> String:
     return ""
+
+## 过关给多少金。-1 = 照奖励表（六个游戏里五个都这样）；接彩头是「接到的全拿走」，自己报
+func won_coins() -> int:
+    return -1
+
+## 过关结算卡上多说的几句（接彩头的吉利话）；默认没有
+func win_lines() -> Array:
+    return []

@@ -2257,6 +2257,10 @@ func _shot_game(shot: String) -> void:
         for i in 30: await get_tree().process_frame
         if shot.ends_with("_ring") and id == "lianliankan":
             _shot_llk_ring(game_host.game)
+    # game_<id>_busy：开局以后多等 3 秒再截，看得到掉下来的东西、探出头的松鼠（接彩头、护菜 9/23 占位用）
+    if shot.ends_with("_busy") and is_instance_valid(game_host):
+        game_host._start()
+        await get_tree().create_timer(4.0).timeout   # 按真时间等：后台截图时一帧不到 1/60 秒
 
 ## 截图用（game_lianliankan_lv9_ring）：最左一列最上、最下两张换成同一种菜（跟别处同种的对换，数量不变），再点这两张：
 ## 只能从棋盘左边外面那一圈绕过去。连线停住不淡，看它画没画进游戏区（01 9/19：原来左右会被裁掉一截）

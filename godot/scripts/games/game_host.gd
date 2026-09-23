@@ -223,8 +223,15 @@ func _on_finished(won: bool, why: String) -> void:
     print("[suqi] 小游戏 %s 第 %d 关 %s %s" % [game_id, level, "过了" if won else "没过", why])
     if won:
         var reward: int = Cfg.reward(g, level)
+        var extra: Array = []
+        if game != null and is_instance_valid(game):
+            # 接彩头：接到的全拿走，不照奖励表（01 9/23）
+            if game.won_coins() >= 0:
+                reward = game.won_coins()
+            extra = game.win_lines()
         var dish := -1
         var lines: Array = ["+%d 金（手上 %d 金）" % [reward, save.coins + reward]]
+        lines.append_array(extra)
         if game_id == "lianliankan" and not Cfg.dishes().is_empty():
             dish = (level - 1) % Cfg.dishes().size()
             var d: Dictionary = Cfg.dishes()[dish]

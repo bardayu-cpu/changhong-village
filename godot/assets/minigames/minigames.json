@@ -164,9 +164,9 @@
     "T9",
     "T10"
    ],
-   "title": "夹菜",
-   "kind": "打地鼠",
-   "goal": "盘子里冒出菜就点它夹走，别夹到辣椒",
+   "title": "护菜",
+   "kind": "护菜",
+   "goal": "小松鼠从菜后面探头就点它，把它挡回去，别点到辣椒",
    "levels": {
     "holes": {
      "base": 6,
@@ -209,7 +209,8 @@
     "step": 4,
     "max": 60
    },
-   "art_set": "shared"
+   "art_set": "shared",
+   "title_note": "暂名，正式名字等阿鱼给（01 9/23）"
   },
   {
    "id": "catch",
@@ -217,31 +218,31 @@
     "T11",
     "T12"
    ],
-   "title": "接喜糖",
-   "kind": "接物",
-   "goal": "左右拖动篮子接住掉下来的喜糖，别接鞭炮",
+   "title": "接彩头",
+   "kind": "接彩头",
+   "goal": "左右跑着用篮子接住撒下来的喜糖和红包，接够就过关，别接鞭炮",
    "levels": {
     "duration": {
      "base": 30,
      "step": 0
     },
     "target": {
-     "base": 12,
-     "step": 2,
-     "max": 45,
+     "base": 9,
+     "step": 4,
+     "max": 58,
      "int": true,
      "hard": 1
     },
     "speed": {
-     "base": 170,
+     "base": 130,
      "step": 18,
-     "max": 420,
+     "max": 380,
      "hard": 1
     },
     "interval": {
-     "base": 0.85,
-     "step": -0.04,
-     "min": 0.3,
+     "base": 2.3,
+     "step": -0.17,
+     "min": 0.55,
      "hard": -1
     },
     "misses": {
@@ -263,7 +264,50 @@
     "step": 4,
     "max": 60
    },
-   "art_set": "shared"
+   "art_set": "shared",
+   "levels_note": "01 9/23 起步值：target 是这关要接够多少金（攒够马上过关、接到的全拿走），调到和 reward 表差不多；03 模拟以后调",
+   "drops": [
+    {
+     "id": "candy_a",
+     "coins": 1,
+     "weight": 40
+    },
+    {
+     "id": "candy_b",
+     "coins": 2,
+     "weight": 25
+    },
+    {
+     "id": "candy_c",
+     "coins": 3,
+     "weight": 15
+    },
+    {
+     "id": "candy_d",
+     "coins": 4,
+     "weight": 10
+    },
+    {
+     "id": "hongbao_s",
+     "coins": 5,
+     "weight": 7
+    },
+    {
+     "id": "hongbao_l",
+     "coins": 10,
+     "weight": 3
+    }
+   ],
+   "drops_note": "四种喜糖 1～4 金、小红包 5 金、大红包 10 金（01 9/23 定）；weight 是出现多少，03 调。鞭炮的比例看 levels 里的 bad",
+   "sayings": [
+    "接好彩头 人生好彩",
+    "红包接住 好事成双",
+    "彩头接满怀",
+    "喜上加喜",
+    "年年有余 岁岁欢喜",
+    "大吉大利 百年好合"
+   ],
+   "sayings_note": "接到小红包、大红包时篮子上方冒一句，过关结算卡也说一句。第一句是阿鱼给的，其余五句 02 新写，等阿鱼定（见 回执/等阿鱼定的字.md）"
   }
  ],
  "dishes_note": "连连看每过一关解锁一道乐山菜进「菜单册」（蓝图 3.2）。菜名先占位、阿鱼可改；短评只有阿鱼能写（世界观 4.2），没写的显示「待阿鱼写」。游戏里不出现真实地名，一律写苏七",

@@ -149,7 +149,7 @@ func run() -> void:
     mg.queue_free()
 
     # ---------- 7. 夹菜：点冒出来那一截能命中 ----------
-    print("7 夹菜的命中判定（体验评审第 3 条：菜上面三成露在盘子外，原来点不到）")
+    print("7 护菜（原来叫夹菜）的命中判定（体验评审第 3 条：冒出来那一截露在盘子外，原来点不到）")
     var wg = Whack.new()
     wg.setup(1, {"holes": 6.0, "duration": 30.0, "target": 12.0, "show": 5.0, "interval": 99.0, "bad": 0.0}, SystemFont.new(), 7)
     wg.size = Vector2(500, 700)
@@ -160,7 +160,7 @@ func run() -> void:
     await create_timer(0.25).timeout   # 冒出来那一下是 tween，等它走完
     var plate: Panel = wg.plates[0]
     var top_point := node.position + Vector2(node.size.x * 0.5, 6.0)   # 菜露在盘沿上面那一截
-    check("菜确实露在盘子上面", node.position.y < plate.position.y)
+    check("松鼠确实探出盘子上面", node.position.y < plate.position.y)
     check("点那一截命中的是这个盘子（原来认成上一排或者没反应）", wg._hole_at(top_point) == 0)
     check("点盘子本身照样命中", wg._hole_at(plate.position + plate.size * 0.5) == 0)
     var wg2 = wg
@@ -187,14 +187,16 @@ func run() -> void:
     wg2.queue_free()
 
     # ---------- 9. 接喜糖：糖落地不算漏、限时写在明处 ----------
-    print("9 接喜糖（体验评审第 1、2 条）")
+    print("9 接彩头（原来叫接喜糖；体验评审第 1、2 条）")
     var cg = Catch.new()
     cg.setup(1, {"duration": 30.0, "target": 12.0, "speed": 170.0, "interval": 0.85, "misses": 10.0, "bad": 0.0}, SystemFont.new(), 3)
     cg.size = Vector2(500, 700)
     ui.add_child(cg)
     cg.start()
     check("开始卡写了秒数：%s" % cg.goal_text(), cg.goal_text().contains("30 秒内"))
-    check("玩的时候顶上有剩余秒数：%s" % cg.status_text(), cg.status_text().contains("剩") and cg.status_text().contains("秒"))
+    # 9/23 起顶上那行写「接了 N 金／这关要 M 金」（01 定），剩几秒挪到游戏区左上角
+    check("顶上写接了多少金、这关要多少：%s" % cg.status_text(), cg.status_text().contains("接了") and cg.status_text().contains("这关要"))
+    check("玩的时候看得到剩余秒数：%s" % cg.hud.text, cg.hud.text.contains("剩") and cg.hud.text.contains("秒"))
     cg._collect({"bad": false, "node": null}, false)
     check("糖落地不算漏", cg.misses == 0)
     cg._collect({"bad": true, "node": null}, true)

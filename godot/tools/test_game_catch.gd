@@ -1,5 +1,5 @@
 extends SceneTree
-## 验收：接喜糖（接物，T11/T12，蓝图 3.2）。无界面跑，只看逻辑。
+## 验收：接彩头（接物，T11/T12，蓝图 3.2；原来叫接喜糖）。无界面跑，只看逻辑。
 ## 用法：Godot --headless --path . --script res://tools/test_game_catch.gd
 
 const Cfg = preload("res://scripts/games/game_config.gd")
@@ -40,7 +40,7 @@ func run() -> void:
     c._spawn_drop()
     c.basket_x = c.drops[0]["x"]
     c._layout_basket()
-    c._game_tick(5.0)
+    c._game_tick(8.0)   # 一下推 8 秒：第 1 关落得慢（130 像素/秒），5 秒还没到篮口
     var miss_after_bad = c.misses
     var caught_after_bad = c.caught
     print("1 接到鞭炮：漏 ", miss_after_bad, " 接 ", caught_after_bad)
@@ -50,9 +50,9 @@ func run() -> void:
     c._spawn_drop()
     c.basket_x = c.drops[0]["x"]
     c._layout_basket()
-    c._game_tick(5.0)
-    print("  接到喜糖：漏还是 ", c.misses, " 接变成 ", c.caught)
-    ok = ok and c.misses == 1 and c.caught == 1
+    c._game_tick(8.0)
+    print("  接到有赏的：漏还是 ", c.misses, " 接变成 ", c.caught, " 金 ", c.coins)
+    ok = ok and c.misses == 1 and c.caught == 1 and c.coins >= 1
     c.queue_free()
 
     # 2. 外壳里玩一整关：每帧把篮子挪到最近一颗喜糖下面，推时间，直到赢，检查金币和进度
@@ -87,8 +87,9 @@ func run() -> void:
             g._layout_basket()
         host1.game._game_tick(0.05)
         guard += 1
-    print("2 外壳里接到赢：结果 ", result[0], " 金币 ", s1.coins, " 进度 ", s1.games, " 循环 ", guard, " 次")
-    ok = ok and result[0] == true and s1.coins == Cfg.reward(host1.g, 1) and s1.cleared("catch") == 1
+    # 接到的全拿走（01 9/23）：钱包里加的是这一局接到的金，不是奖励表；至少够这关要的 3 金
+    print("2 外壳里接到赢：结果 ", result[0], " 这局接到 ", host1.game.coins, " 金，钱包 ", s1.coins, " 进度 ", s1.games, " 循环 ", guard, " 次")
+    ok = ok and result[0] == true and s1.coins == host1.game.coins and s1.coins >= 3 and s1.cleared("catch") == 1
 
     # 3. 篮子不动、糖一直掉：**这样不该输在「漏」上**（体验评审第 1 条，9/20 改）。
     #    糖落地不算漏——没接住的糖再掉一颗就是了，只有接到鞭炮才罚。所以输只能输在时间到
@@ -143,7 +144,7 @@ func run() -> void:
         host3.game._game_tick(0.05)
         guard3 += 1
     print("3b 专接鞭炮：结果 ", result3[0], " 原因 ", why3[0], " 漏了 ", host3.game.misses)
-    ok = ok and result3[0] == false and why3[0] == "漏掉太多了" and host3.game.misses > 3
+    ok = ok and result3[0] == false and why3[0] == "接到的鞭炮太多了" and host3.game.misses > 3
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)
