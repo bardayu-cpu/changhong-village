@@ -12,3 +12,6 @@ server-claude/cloudfunctions/*/words/
 
 # Claude Code 的工作区副本（程序分身在独立分支上干活用），不进仓库
 .claude/worktrees/
+
+# 02 盯 GPT 交接文件夹的「上次查看」时间（godot/tools/gpt_inbox.py），只在本机
+.gpt_inbox_stamp.json
