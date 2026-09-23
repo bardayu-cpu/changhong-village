@@ -118,9 +118,10 @@ func run() -> void:
     # 乐队 9/21 换成 GPT 交的图了（band/），老的色块乐手（pianist/cellist/…）只在图缺了时才有
     # 图在不在不算数，band.json 的 enabled 说了算（阿鱼 9/22 打回那批图，关着）
     var band_cfg = JSON.parse_string(FileAccess.get_file_as_string("res://assets/ambience/band/band.json"))
-    var band_art := ResourceLoader.exists("res://assets/ambience/band/piano_player.png") \
+    var band_art := ResourceLoader.exists("res://assets/ambience/band/stage.png") \
         and (band_cfg is Dictionary) and bool(band_cfg.get("enabled", true))
-    var band_names := ["piano_player", "violin_player_a", "cello_player", "violin_player_b", "stage_rug", "light"]
+    # 9/23 起是 v4 那一整块舞台（地毯、钢琴、四个乐手连在一起）；宫灯、音符等 GPT 重切，这次没有
+    var band_names := ["stage"]
     var old_band := ["pianist", "cellist", "violin1", "violin2"]
     print("6 占位图在 ", has_art, "：贺礼 ", "gifts" in names, " 彩带彩纸 ", decals, " 灯笼光 ", glows,
         "；乐队用图 ", band_art)
@@ -129,13 +130,16 @@ func run() -> void:
         var got := band_names.all(func(x): return x in names)
         print("  乐队那批图都摆上了 ", got, "；老的色块乐手不该再出现 ", not old_band.any(func(x): return x in names))
         ok = ok and got and not old_band.any(func(x): return x in names)
-        # 灯光走会闪那一队（单独的动效层，不画死在乐手身上）
-        print("  会闪的一共 ", life.glows.size(), " 个 = 灯笼 ", life.conf["glows"].size(), " + 乐队的灯光 1")
-        ok = ok and life.glows.size() == life.conf["glows"].size() + 1
-        # 音符是单独的动效层：不摆成死图，只记飘起来的点，交给 _step_notes
-        print("  音符 ", life.band_notes.size(), " 种，从 ", life.heads.size(), " 个点往上飘；盘面上没有写死的音符 ",
-            not ("note_a" in names))
-        ok = ok and life.band_notes.size() == 3 and life.heads.size() == 3 and not ("note_a" in names)
+        # 宫灯这次不放（GPT 重切），会闪的只有灯笼
+        print("  会闪的一共 ", life.glows.size(), " 个 = 灯笼 ", life.conf["glows"].size(), "（宫灯等重切，这次没有）")
+        ok = ok and life.glows.size() == life.conf["glows"].size()
+        # 整块舞台和人一样按脚点排前后：层级 0、脚点在地毯前沿 y 288，能走的格子从 y 320 起，人永远在台前
+        var stage: Node2D = hall.world.get_node("stage")
+        print("  舞台层级 ", stage.z_index, " 脚点 y ", stage.position.y, "（能走的从 y 320 起）")
+        ok = ok and stage.z_index == 0 and is_equal_approx(stage.position.y, 288.0)
+        # 音符：GPT 那三张要重切，用代码画的那两种，从 4 个点往上飘；盘面上没有写死的音符
+        print("  音符 用图 ", life.band_notes.size(), " 种（该是 0，用代码画的），从 ", life.heads.size(), " 个点往上飘")
+        ok = ok and life.band_notes.size() == 0 and life.heads.size() == 4 and not ("note_a" in names)
         # 真推一段时间，音符得飘起来又淡掉
         life.notes.clear()
         for i in 400:

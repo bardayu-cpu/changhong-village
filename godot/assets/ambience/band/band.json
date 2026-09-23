@@ -1,195 +1,59 @@
 {
- "enabled": false,
- "enabled_note": "阿鱼 9/22 真机看了打回：GPT 这批图扣烂了——三个人身上粘着成块的红地毯和墙，violin_player_b 的脸被一块墙顶掉了。关掉以后 _band() 退回原来代码画的那套色块。GPT 重新扣干净、02 放白底逐张看过，再把这里改回 true",
- "note": "宴会厅舞台右边的乐队（GPT 交的 v2，01 9/21 验收）。坐标是 1536×1024 画布的绝对像素，直接用，不换算。",
- "source": "handoff_scene_roman_banquet_band_v2 + scene_banquet_band_v2.json；图逐块和阿鱼确认的那张效果图比过，八块色差 0.0（就是从那张图上拆的）",
+ "enabled": true,
+ "enabled_note": "9/23 换成 GPT 的 v4 整块舞台（01 判接）。宫灯和音符 GPT 要重切（宫灯缺灯帽、粘红帘子；音符只切到一角），这次不放宫灯，音符用原来代码画的那两种，从 place 里 float_up 那几个点往上飘。重切到了再加进 blocks",
+ "note": "宴会厅舞台右边的乐队。坐标是 1536×1024 画布的绝对像素，直接用，不换算。舞台 z=30 → 层级 0，和人一样按脚点（地毯前沿 y 288）排前后；能走的格子从 y 320 起，人永远在台前",
+ "source": "handoff_scene_roman_banquet_band_v4 + scene_banquet_band_v4.json：整块舞台（地毯、钢琴、四个乐手），像素和阿鱼确认的效果图一模一样。02 接的时候把右端带进来的花几和台阶沿地毯右沿挖透明（只挖不画），见 回执/乐队区v4-查验.md",
  "blocks": {
-  "piano_player": {
-   "file": "piano_player.png",
+  "stage": {
+   "file": "stage.png",
    "size": [
-    119,
-    158
+    402,
+    164
    ],
    "can_block": true,
    "anchor": [
-    39,
-    153
-   ]
-  },
-  "violin_player_a": {
-   "file": "violin_player_a.png",
-   "size": [
-    85,
-    137
-   ],
-   "can_block": true,
-   "anchor": [
-    45,
-    135
-   ]
-  },
-  "cello_player": {
-   "file": "cello_player.png",
-   "size": [
-    95,
-    138
-   ],
-   "can_block": true,
-   "anchor": [
-    50,
-    136
-   ]
-  },
-  "violin_player_b": {
-   "file": "violin_player_b.png",
-   "size": [
-    75,
-    136
-   ],
-   "can_block": true,
-   "anchor": [
-    43,
-    134
-   ]
-  },
-  "stage_rug": {
-   "file": "stage_rug.png",
-   "size": [
-    385,
-    49
-   ],
-   "can_block": false,
-   "anchor": [
-    192,
-    24
-   ]
-  },
-  "note_a": {
-   "file": "note_a.png",
-   "size": [
-    23,
-    25
-   ],
-   "can_block": false,
-   "anchor": [
-    11,
-    24
-   ]
-  },
-  "note_b": {
-   "file": "note_b.png",
-   "size": [
-    24,
-    27
-   ],
-   "can_block": false,
-   "anchor": [
-    12,
-    26
-   ]
-  },
-  "note_c": {
-   "file": "note_c.png",
-   "size": [
-    24,
-    27
-   ],
-   "can_block": false,
-   "anchor": [
-    12,
-    26
-   ]
-  },
-  "light": {
-   "file": "light.png",
-   "size": [
-    19,
-    68
-   ],
-   "can_block": false,
-   "anchor": [
-    9,
-    67
+    197,
+    160
    ]
   }
  },
  "place": [
   {
-   "block": "stage_rug",
+   "block": "stage",
    "at": [
     1192,
-    271
-   ],
-   "z": 20
-  },
-  {
-   "block": "piano_player",
-   "at": [
-    1065,
-    283
-   ],
-   "z": 30,
-   "fix": "交接单写 [1045,283]，按它摆钢琴比效果图左了 20 像素（02 9/21 逐块比对量出来的，那张图里钢琴那块的像素从 x=1027 起）。这里用实测值，已报 01 请 GPT 核 anchor.pixel.x"
-  },
-  {
-   "block": "violin_player_a",
-   "at": [
-    1180,
     288
    ],
-   "z": 31
+   "z": 30
   },
   {
-   "block": "cello_player",
    "at": [
-    1265,
-    288
+    1062,
+    168
    ],
-   "z": 32
+   "motion": "float_up",
+   "note": "钢琴手头顶上方，音符从这往上飘（代码画的）"
   },
   {
-   "block": "violin_player_b",
    "at": [
-    1343,
-    288
+    1178,
+    172
    ],
-   "z": 33
-  },
-  {
-   "block": "note_a",
-   "at": [
-    1058,
-    151
-   ],
-   "z": 50,
    "motion": "float_up"
   },
   {
-   "block": "note_b",
    "at": [
-    1168,
-    154
+    1262,
+    168
    ],
-   "z": 50,
    "motion": "float_up"
   },
   {
-   "block": "note_c",
    "at": [
-    1236,
-    159
+    1342,
+    172
    ],
-   "z": 50,
    "motion": "float_up"
-  },
-  {
-   "block": "light",
-   "at": [
-    1008,
-    220
-   ],
-   "z": 45,
-   "motion": "flicker"
   }
  ]
 }

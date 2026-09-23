@@ -214,8 +214,8 @@ func _gifts() -> void:
     hall.world.add_child(s)
 
 # ---------- 舞台右边的乐队 ----------
-## 舞台右边的乐队。**先试 GPT 交的那批图**（assets/ambience/band/，v2，01 9/21 验收：
-## 逐块和阿鱼确认的效果图比过，八块色差 0.0，是从那张图上拆的）；
+## 舞台右边的乐队。**用 GPT 交的图**（assets/ambience/band/，9/23 起是 v4 那一整块舞台：地毯、钢琴、四个乐手连在一起，
+## v2、v3 分块切，红裙子和红地毯怎么也分不干净，阿鱼 9/22 打回过）；
 ## 图或者 band.json 缺了就退回原来代码画的那套色块，跟菜牌、阶梯图一个规矩。
 ## 音符和灯光走**单独的动效层**：音符按 band.json 给的点往上飘（换曲时换一种形状），灯光原地闪，
 ## 都不画死在乐手身上
@@ -257,6 +257,10 @@ func _band_art() -> bool:
     for pl_any in ordered:
         var pl: Dictionary = pl_any
         var key := str(pl.get("block", ""))
+        # 只写了点、没写块的 float_up：音符用代码画的那两种，从这个点往上飘（9/23 v4：GPT 的音符要重切）
+        if key == "" and str(pl.get("motion", "")) == "float_up":
+            heads.append(_vec(pl.get("at", [0, 0])))
+            continue
         var bk: Dictionary = blocks.get(key, {})
         if bk.is_empty():
             continue

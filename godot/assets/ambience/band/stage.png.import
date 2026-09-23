@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://birsy1rg24f8"
-path="res://.godot/imported/cello_player.png-82fab3fad6217a03fd8b07480bedb77b.ctex"
+uid="uid://dr056coar00hg"
+path="res://.godot/imported/stage.png-c8d113dbb765ee92cff7834ea6a442c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ambience/band/cello_player.png"
-dest_files=["res://.godot/imported/cello_player.png-82fab3fad6217a03fd8b07480bedb77b.ctex"]
+source_file="res://assets/ambience/band/stage.png"
+dest_files=["res://.godot/imported/stage.png-c8d113dbb765ee92cff7834ea6a442c9.ctex"]
 
 [params]
 
