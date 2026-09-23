@@ -26,6 +26,10 @@ const ART_PER_TILE := ["shared", "pattern"]
 
 static var _ready: Dictionary = {}   # 套名 -> 这套图齐不齐（查一次记着，别每画一格就问十次文件）
 const ART_PAD := 0.08        # 图四周留一圈，别顶着描边
+## 小菜合大菜有图的牌垫的那层牌底（01 9/23：第 1 关两粒谷种放在空格子里几乎看不出是一张牌，
+## 2048 得一眼看出哪格有牌、哪格空着）。浅米色，和空格子那个棕（#7a5a44）明显分得开，又不抢图
+const CARD_BG := Color("#f1e3c2")
+const CARD_EDGE := Color("#b89160")
 
 static var _art: Dictionary = {}   # "套名:序号" -> Texture2D（没有这张图就存 null，不用每次都去试）
 
@@ -62,8 +66,9 @@ static func dish_art(kind: int, art_set := "shared") -> Texture2D:
 ## art_set 选哪一套图（见上面 ART）：五个游戏用 shared，小菜合大菜用 ladder。
 ## keep_bg：有图时还画不画底下那个色块。**默认不画**——阿鱼 9/20 真机原话「每个图都不是透明底，很奇怪」，
 ## 就是这个色块顶在透明图后面。**只有翻牌配对传 true**：那是一张「牌」，牌需要一个面。
+## card：有图时垫一层浅色牌底（CARD_BG），不写字。**只有小菜合大菜传 true**；没图时不管它，照旧色块 + 名字
 ## **别在外面去摸这个 Panel 的孩子**（有图没图孩子不一样，9/20 换图时 2048 就是这么崩的），要写字就用 caption
-static func dish_tile(kind: int, size: float, font: Font, font_size := 24, caption := "", art_set := "shared", keep_bg := false) -> Panel:
+static func dish_tile(kind: int, size: float, font: Font, font_size := 24, caption := "", art_set := "shared", keep_bg := false, card := false) -> Panel:
     var tl: Array = Cfg.tiles()
     var n := kind % tl.size() if not tl.is_empty() else kind
     var t: Dictionary = tl[n] if not tl.is_empty() else {"ch": "?", "bg": "#cccccc"}
@@ -74,8 +79,10 @@ static func dish_tile(kind: int, size: float, font: Font, font_size := 24, capti
     var tex := dish_art(kind if art_set != "shared" else n, art_set)
     # 有图又不用留底：底色和描边都透明，只剩那张透明图（描边宽度留着，选中时 highlight 把它染成金的）
     var show_bg: bool = tex == null or keep_bg
-    var border0: Color = INK if show_bg else Color(0, 0, 0, 0)
-    p.add_theme_stylebox_override("panel", box(Color(str(t["bg"])) if show_bg else Color(0, 0, 0, 0), 6, border0))
+    var as_card: bool = tex != null and card and not keep_bg
+    var border0: Color = INK if show_bg else (CARD_EDGE if as_card else Color(0, 0, 0, 0))
+    var bg: Color = Color(str(t["bg"])) if show_bg else (CARD_BG if as_card else Color(0, 0, 0, 0))
+    p.add_theme_stylebox_override("panel", box(bg, 6, border0))
     # 选中了再取消时要恢复成这个样子，别一律写回 INK（03 9/20：有图的牌会多出一圈深色边）
     p.set_meta("border0", border0)
     p.set_meta("border_w0", 2)

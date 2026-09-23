@@ -178,5 +178,27 @@ func run() -> void:
     ok = ok and shared_pics == 1
     shared_tile.queue_free()
 
+    # 8. 顶栏状态那行放得下（第 38 版「目标 抽杆 现在最大 …」右边被截掉一截）：
+    #    按手机上的面板宽（540 宽的屏，面板 520）排一次，所有作物里最长的一句用游戏那个像素字体量
+    var pix: Font = load("res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.otf.woff2")
+    host.panel.size = Vector2(520, 880)
+    host._layout()
+    var lad = JSON.parse_string(FileAccess.get_file_as_string("res://assets/minigames/ladder.json"))
+    var widest := 0.0
+    var widest_s := ""
+    for ck in lad["crops"]:
+        for sa in lad["crops"][ck]["steps"]:
+            for sb2 in lad["crops"][ck]["steps"]:
+                var line := "目标 %s 现在最大 %s" % [sa, sb2]
+                var w := pix.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+                if w > widest:
+                    widest = w
+                    widest_s = line
+    var sl: Label = host.status_l
+    var lv_w := pix.get_string_size("第 10 关", HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+    var fits: bool = widest <= sl.size.x and sl.position.x + sl.size.x <= 520.0 - 12.0 + 0.5 and sl.position.x >= 14.0 + lv_w
+    print("8 顶栏状态那行：最长「", widest_s, "」", widest, " 宽，给了 ", sl.size.x, "（从 x ", sl.position.x, " 起，不压「第 10 关」、不出面板）", fits)
+    ok = ok and fits
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

@@ -124,8 +124,12 @@ func _layout() -> void:
     # 顶栏右边空出来了（原来被「离开」占着），金币和状态各往右挪回去
     coins_l.size = Vector2(160, 28)
     coins_l.position = Vector2(ps.x - 12 - 160, 8)
-    status_l.size = Vector2(220, 28)
-    status_l.position = Vector2(ps.x - 12 - 220, 34)
+    # 状态那行原来只给 220 宽，小菜合大菜「目标 抽杆 现在最大 芽谷」有 276 宽，右边被面板截掉一截（第 38 版）。
+    # 改成占满「第 N 关」右边整条（540 宽的屏上约 380，最长那句 324）；万一还放不下，尾巴收成省略号，不出面板
+    var st_x := 14.0 + 96.0 + 16.0      # 「第 10 关」96 宽
+    status_l.size = Vector2(maxf(ps.x - 12.0 - st_x, 60.0), 28)
+    status_l.position = Vector2(st_x, 34)
+    status_l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
     area.position = Vector2(8, BAR_H + 8)
     # 底下给那两个按钮留一条（原来「离开」在顶栏，游戏区能铺到底）
     area.size = Vector2(ps.x - 16, ps.y - BAR_H - 16 - bottom - BTN_ROW_H)

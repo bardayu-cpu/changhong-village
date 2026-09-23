@@ -322,6 +322,12 @@ func run() -> void:
         check("第 %d 关（%s）整盘都是图（%d/%d），套 %s" % [lv, str(gy.crop().get("title", "")), pics3, gy.cells.size(), gy.art_set],
             gy.cells.size() > 0 and pics3 == gy.cells.size() and gy.art_set == "crop_%02d" % lv)
         check("第 %d 关有图的牌上不叠字、不垫字条（阿鱼 9/23）：%d 处" % [lv, texts3], texts3 == 0)
+        var carded := 0
+        for c in gy.cells:
+            var cst := (c as Panel).get_theme_stylebox("panel") as StyleBoxFlat
+            if cst.bg_color == Tiles.CARD_BG and cst.border_color == Tiles.CARD_EDGE:
+                carded += 1
+        check("第 %d 关有图的牌都垫了浅色牌底（01 9/23）：%d/%d" % [lv, carded, gy.cells.size()], carded == gy.cells.size())
         gy.queue_free()
     # 关号超过种数回绕到最后一种，不许崩
     var gw = G2048.new()

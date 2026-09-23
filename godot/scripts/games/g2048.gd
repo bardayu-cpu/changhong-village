@@ -125,9 +125,10 @@ func _redraw(merged: Array) -> void:
             # 这条路有自己一套图（作物的 art_set），不是五个游戏共用的那 12 张菜牌——
             # 拿级数去共用那套里取会错位（03 9/20 报过）。水稻那套 GPT 还没交，
             # dish_tile 取不到就整套退回「色块 + 名字」；图往 assets/minigames/<art_set>/ 一放就自动用上。
-            # 名字一定要看得见：目标写的是「合到『喜宴』」，光看图分不出哪级大
+            # 色块的时候名字一定要看得见（色块分不出哪级大）；有图的时候不叠字（阿鱼 9/23），垫一层浅色牌底，
+            # 不然最低几级只有一小粒，看不出这格有牌（01 9/23）
             var st := steps()
-            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, str(st[clampi(k - 1, 0, st.size() - 1)]), art_set)
+            var t := Tiles.dish_tile(k - 1, cell_px, font, fs, str(st[clampi(k - 1, 0, st.size() - 1)]), art_set, false, true)
             t.position = _cell_pos(i, j)
             if Vector2i(i, j) in merged:
                 t.pivot_offset = t.size * 0.5
