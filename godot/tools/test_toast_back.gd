@@ -52,29 +52,43 @@ func run() -> void:
         await process_frame
     await frames(2)
 
-    # 1. 进厅提示里有人敬过我（假数据：老王），提示右边出「回敬一杯」
-    print("1 进厅提示")
+    # 1. 进厅先见人（01 9/23）：有人敬过我（假数据：老王），先放一次干杯插图，放完出进厅小卡，
+    #    「老王敬了你一杯」那一行右边就是「回敬一杯」。原来顶上那一行提示 + 旁边的按钮并进了卡里（体验 B6）
+    print("1 进厅小卡")
     m.nickname = "小李"
     await m._enter_banquet()
+    var waited := 0.0
+    while not is_instance_valid(m.arrival_card) and waited < 8.0:
+        await create_timer(0.1).timeout
+        waited += 0.1
     await frames(3)
-    check("出按钮，回敬老王", m.toast_back_btn.visible and m.toast_back_to == "fake_wang")
-    check("提示里有老王：" + m.note.text, m.note.text.contains("老王"))
-    check("按钮上的字是回敬一杯", m.toast_back_btn.text == "回敬一杯")
-    var nr: Rect2 = m.note_box.get_global_rect()
-    var br: Rect2 = m.toast_back_btn.get_global_rect()
-    check("按钮在提示框右边、同一行 提示%s 按钮%s" % [nr, br],
-        br.position.x >= nr.end.x and br.position.y < nr.end.y and br.end.y > nr.position.y
-        and br.end.x <= m.ui.size.x)
+    var card = m.arrival_card
+    check("插图放完出了小卡（等了 %.1f 秒）" % waited, is_instance_valid(card))
+    check("原来那一行提示和旁边的按钮不再出", not m.toast_back_btn.visible and not m.note.text.contains("敬了你"))
+    check("对白框收起了，一次只留一层", not m.dialog.visible)
+    var texts: Array = []
+    for row in card.rows_box.get_children():
+        texts.append(str((row.get_child(0) as Label).text))
+    check("三行：%s" % [texts], texts.size() == 3 and texts[0] == "老王 敬了你一杯"
+        and texts[1] == "小李 在你这桌簿子上写了 2 句" and texts[2] == "还有 3 位来过")
+    var tb: Button = card.rows_box.get_child(0).get_node("btn")
+    check("敬酒那行右边是回敬一杯", tb.text == "回敬一杯")
+    check("簿子那行右边是翻簿子", (card.rows_box.get_child(1).get_node("btn") as Button).text == "翻簿子")
+    var cr: Rect2 = card.get_global_rect()
+    check("卡在屏幕里、不出边 %s" % cr, cr.position.x >= 0.0 and cr.end.x <= m.ui.size.x and cr.size.y < m.ui.size.y * 0.3)
 
-    # 2. 点回敬：直接敬老王，和看人卡片「敬一杯」同一条路——顶部「敬了 老王 一杯」、插图；按钮收掉
-    print("2 点回敬")
-    m._on_toast_back_pressed()
-    await frames(2)
+    # 2. 点卡上的回敬：直接敬老王，和看人卡片「敬一杯」同一条路——顶部「敬了 老王 一杯」、插图；卡收起
+    print("2 点卡上的回敬")
+    tb.emit_signal("pressed")
+    await frames(3)
     check("服务端收到敬老王", m.cloud.fake_toasts_today.has("fake_wang"))
     check("顶部一句：" + m.note.text, m.note.text == "敬了 老王 一杯")
-    check("按钮收了", not m.toast_back_btn.visible and m.toast_back_to == "")
+    check("卡收起了", not is_instance_valid(m.arrival_card))
     var has_scene: bool = is_instance_valid(m.toast_scene) or not m.toast_queue.is_empty()
     check("有干杯插图（在放或排队）", has_scene)
+    if is_instance_valid(m.toast_scene):
+        m.toast_scene.closing = m.toast_scene.t
+    await create_timer(0.6).timeout
 
     # 3. 当场收到两杯（乱序），回敬最新的老王；今天已经敬过老王，服务端拒，显示原因
     print("3 两个人一起敬、服务端拒")

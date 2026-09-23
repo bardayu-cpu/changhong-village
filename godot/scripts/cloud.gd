@@ -34,6 +34,9 @@ var fake_meet_sent: Array = []      # 我说过「想认识你」的人（wantTo
 ## 坐长凳的人（openid 列表，和服务端 enterHall 回的 bench 一样）。默认没人；长凳的测试、截图往里塞，
 ## 要假装自己坐长凳就把 fake_me 设成 {"table_id": "bench", "chair_no": null}（和服务端一样是 null）再把 fake_me 放进来
 var fake_bench: Array = []
+## 进厅先见人（01 9/23）：假 enterHall 回的 arrival。"card" 出三行小卡（老王敬了你、小李在你这桌写了 2 句、还有 3 位来过）；
+## "first" 当第一次进厅（只说坐谁那桌、谁带你来的）；fake_no_news 为 true 时什么都没有
+var fake_arrival_mode := "card"
 var fake_no_news := false   # true：进厅提示里什么都没有（测「分到长凳」那句提示时用，不然被「老王敬了你一杯」顶掉）
 ## 翻簿子假数据（第 24 版）：T1 两条方便看接龙，T2 空的方便截空簿子截图。字段名照真实服务端
 ## readBook 的返回（`at`，不是 `created_at`——之前这里写错过，main.gd 读的是 `at`）
@@ -207,6 +210,7 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             return {"ok": true, "data": {"me": fake_me, "tables": tables, "bench": fake_bench,
                 "digest": {"toasts": [], "toastCount": 0, "bookLineCount": 0, "hasNews": false} if fake_no_news else
                     {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
+                "arrival": _fake_arrival(),
                 "mine": fake_mine,
                 "names": fake_names}}
         "changeSeat":
@@ -339,3 +343,14 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             f.close()
             return {"ok": true, "bytes": bytes.size(), "download_ms": 0, "read_ms": 0, "write_ms": 0}
     return {"ok": false, "reason": "network"}
+
+func _fake_arrival() -> Dictionary:
+    if fake_no_news:
+        return {"first_visit": false, "table_was_empty": false, "rows": [], "hasNews": false, "visitors": [], "book_lines": []}
+    if fake_arrival_mode == "first":
+        return {"first_visit": true, "table_was_empty": false, "rows": [], "hasNews": false, "visitors": [], "book_lines": []}
+    return {"first_visit": false, "table_was_empty": false, "hasNews": true,
+        "rows": [{"kind": "toast", "who": "fake_wang", "at": 0, "count": 1},
+            {"kind": "book", "who": "fake_li", "at": 0, "count": 2},
+            {"kind": "more", "count": 3}],
+        "visitors": [], "book_lines": []}

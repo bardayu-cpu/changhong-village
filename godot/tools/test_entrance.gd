@@ -463,12 +463,18 @@ func part4(c) -> void:
     m.whisper_edit.text = "新婚快乐"
     m._send_whisper()
     check("写完：本机记下、厅门亮", sv.whisper_done and m.hall.exit_mark.visible)
+    # 01 9/23：写完悄悄话新人先道谢，不再马上「吃好了？走」往外赶
+    check("写完新人先道谢：%s" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == m.LINE_THANKS and not m.dialog_text.text.contains("走"))
     walk_to(m.hall.SPAWN + Vector2(0, -160))
     walk_to(m.hall.door)
     check("回到迎宾院，大门亮金圈", m.state == "court" and c.exit_mark.visible)
     m.note.text = ""
     walk_to(c.spot_pos("gate"), 30.0)
-    check("门口：%s" % m.note.text, m.note_box.visible and m.note.text == CourtCopy.text("gate_road"))
+    # 01 9/23：出大门改成新娘妈妈送你——一句送别，一句明天回来能看到什么；回忆册现在是灰的，不提
+    var bye: String = m.dialog_text.text
+    check("门口新娘妈妈送你：%s" % bye.replace("\n", " / "), m.dialog.visible and m.dialog_who.text == "新娘妈妈"
+        and bye == CourtCopy.text("gate_bye") + "\n" + CourtCopy.text("gate_tomorrow") and not bye.contains("回忆册"))
+    check("不再说路没修好", not bye.contains("路还没修好") and not m.note.text.contains("路还没修好"))
     check("人停在门口、还在迎宾院", c.path.is_empty() and m.state == "court" and c.in_spot("gate"))
     tick(60)
     check("站着不动，没进结束页", m.state == "court" and not m.screens["end"].visible)

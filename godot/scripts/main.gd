@@ -75,7 +75,8 @@ const Spr = preload("res://scripts/sprites.gd")
 
 const LINE_ARRIVE := "到啦～ 罗曼山庄 席还没散"
 const LINE_TABLE := "想跟我们说点什么 写这儿 只有我们看得到"
-const LINE_LEAVE := "吃好了？走 带你回镇上"
+## 写完悄悄话，新人先谢你一句（01 9/23 派活：别马上说「吃好了？走」把人往外赶）。新写，等阿鱼定
+const LINE_THANKS := "收到啦 谢谢你专门来一趟"
 const LINE_TOASTED_FMT := "敬了 %s 一杯"   # 新写，等阿鱼定
 const LINE_CHEERS := "干杯"   # 敬酒插图上的大字，新写，等阿鱼定
 ## 想认识你（蓝图 3.2 加好友，01 9/19 派）：看人卡片「敬一杯」旁边。现在同一桌、或者敬过酒（谁敬谁都算）才能发，服务端判；
@@ -84,6 +85,15 @@ const LINE_MEET := "想认识你"   # 按钮上的字，蓝图 3.2、阶段 1 �
 const LINE_MEET_SENT_FMT := "想认识 %s 记下了"   # 发成功后顶部那句，新写，等阿鱼定
 ## 长凳（蓝图 3.2「满了新来的人坐在墙边的长凳上」，01 9/19 派任务 5）：服务端把我分到长凳时进厅说一句，金标在凳子上我那个位置
 const LINE_BENCH := "桌子都坐满了 先坐墙边的长凳"   # 新写，等阿鱼定
+## 进厅先见人（01 9/23 派活，体验评审 0923 改法一）：第一次进宴会厅，新人一句话告诉你坐谁那桌、谁带你来的。
+## 以后每次进厅弹 arrival_card.gd 那张小卡。这几句都是新写，等阿鱼定（收在 回执/等阿鱼定的字.md）
+const LINE_FIRST_WITH_INVITER := "%s 带你来的 你们坐一桌"            # 邀请人就是这桌第一个坐下的
+const LINE_FIRST_INVITER_OTHER := "%s 带你来的 你坐 %s 那桌"        # 邀请人不在这桌（他那桌满了，跟着坐了同一枝开的桌）
+const LINE_FIRST_INVITER_NEW := "%s 带你来的 这桌还空着 你先坐"     # 邀请人那桌满了，给这一枝新开了一桌
+const LINE_FIRST_EMPTY := "这桌还空着 你是第一个坐的"
+const LINE_FIRST_TABLE := "你坐 %s 那桌"
+const ArrivalCard = preload("res://scripts/arrival_card.gd")
+var arrival_card: Control = null
 const ToastScene = preload("res://scripts/toast_scene.gd")
 ## 席间小游戏（蓝图 3.2，阿鱼 9/19 定）：两桌一个，坐下后点桌心的菜或底下「玩·XX」开；金币只能玩出来，唯一去处是主桌添礼金
 const GameCfg = preload("res://scripts/games/game_config.gd")
@@ -1402,7 +1412,9 @@ func _at_gate() -> void:
         court.path.clear()
         court.stick = Vector2.ZERO
         court_save.save()
-        _note(CourtCopy.text("gate_road"), 3.0)
+        # 出大门：新娘妈妈送你（01 9/23 派活，原来是「镇上的路还没修好 下次带你去」）。
+        # 一句送别，一句明天回来能看到什么——就是进厅那张小卡。回忆册现在是灰的，送别先不提它
+        _say(CourtCopy.text("gate_bye") + "\n" + CourtCopy.text("gate_tomorrow"), 6.0, CourtCopy.who("gate_bye"))
         print("[suqi] 走到大门口 大门开着")
     elif court_save.whisper_done:
         _say(CourtCopy.text("gate_not_signed"), -1.0, CourtCopy.who("gate_not_signed"))
@@ -1523,12 +1535,114 @@ func _on_enter_hall(r: Dictionary) -> void:
     elif hall._my_chair_pos() == Vector2.ZERO:
         _note("先找把空椅子坐下", 4.0)
     var dg: Dictionary = d.get("digest", {})
+    for dt_ in dg.get("toasts", []):
+        pulse_seen["%s:%d" % [str(dt_.get("from", "")), int(dt_.get("at", 0))]] = true   # 进厅报过的，心跳别再报
+    # 进厅先见人（01 9/23）：新版 enterHall 带 arrival。还没部署新版时没有这个字段，照旧顶上一行提示
+    if d.has("arrival"):
+        _arrive(d)
+    else:
+        _arrive_old(d)
+
+## 进厅先见人：第一次进厅，新人一句话告诉你坐谁那桌、谁带你来的；以后每次进厅，有新鲜事才弹那张小卡（arrival_card.gd）。
+## 一次只留一层（体验 B6：原来阿鱼说话、提示、回敬按钮三层叠在一起）：新人那句直接换掉「到啦～」那句；
+## 小卡出来时对白框收起。有人敬过我的，先照旧放一次干杯插图（阿鱼 9/18 晚要的），插图放完再出卡
+func _arrive(d: Dictionary) -> void:
+    var ar: Dictionary = d["arrival"]
+    var names: Dictionary = d.get("names", {})
+    if bool(ar.get("first_visit", false)):
+        var line := first_visit_line(d, cloud.openid())
+        if line != "":
+            _say(line, 5.0)
+        return
+    var rows: Array = ar.get("rows", [])
+    if not bool(ar.get("hasNews", false)) or rows.is_empty():
+        return   # 没有新鲜事就不弹卡，别写「没人来过」这种冷清话
+    var first_toast := ""
+    for r in rows:
+        if str((r as Dictionary).get("kind", "")) == "toast":
+            first_toast = str(r.get("who", ""))
+            break
+    if first_toast != "":
+        var finfo: Dictionary = names.get(first_toast, {})
+        await get_tree().create_timer(1.5).timeout
+        if state != "banquet":
+            return
+        _play_toast(_avatar_of(finfo), preset, ArrivalCard.LINE_TOAST_1 % ArrivalCard.short_nick(str(finfo.get("nick", ""))))
+        while is_instance_valid(toast_scene):
+            await get_tree().process_frame
+    if state != "banquet" or is_instance_valid(game_host):
+        return
+    _show_arrival_card(rows, names)
+
+func _show_arrival_card(rows: Array, names: Dictionary) -> void:
+    if is_instance_valid(arrival_card):
+        arrival_card.queue_free()
+    var c = ArrivalCard.new()
+    c.setup(font, rows, names)
+    c.set_anchors_preset(Control.PRESET_TOP_WIDE)
+    c.offset_left = 14
+    c.offset_right = -14
+    c.name = "arrival_card"
+    hud.add_child(c)
+    arrival_card = c
+    dialog.visible = false   # 一次只留一层
+    c.toast_back.connect(func(who: String, info: Dictionary):
+        print("[suqi] 进厅小卡 回敬 ", str(info.get("nick", "")))
+        cloud.call_fn("toast", {"to": who}, func(r): _on_toast_result(r, who, info)))
+    c.open_book.connect(func():
+        var tid := str(hall.my_seat.get("table_id", ""))
+        if tid != "" and tid != LayeredHall.BENCH_ID:
+            _open_book_panel(tid))
+    # 卡上说到的人正坐在厅里的：朝我站起来举一下杯（第 27 版现成的动作），一眼就知道他坐哪
+    if USE_LAYERED:
+        for who in c.people:
+            hall.resident_toast(who)
+    print("[suqi] 进厅小卡 ", rows.size(), " 行")
+
+## 第一次进厅那一句：坐谁那桌、谁带你来的。「谁那桌」和桌牌一个算法——这桌第一个坐下的人（不算我自己）。
+## 坐长凳的不在这说（进厅时另有 LINE_BENCH 那句）
+static func first_visit_line(d: Dictionary, me: String) -> String:
+    var ar: Dictionary = d.get("arrival", {})
+    var names: Dictionary = d.get("names", {})
+    var tid := str((d.get("me", {}) as Dictionary).get("table_id", ""))
+    if tid == "" or tid == LayeredHall.BENCH_ID:
+        return ""
+    var host := ""
+    var host_at := INF
+    for t in d.get("tables", []):
+        if str((t as Dictionary).get("id", "")) != tid:
+            continue
+        for st in t.get("seats", []):
+            var who := str(st.get("openid", ""))
+            if who == me or who == "":
+                continue
+            var at := float(st.get("sat_at", 0))
+            if at < host_at:
+                host_at = at
+                host = who
+    var my_info: Dictionary = names.get(me, {})
+    var inviter = my_info.get("inviter", null)
+    var inv := str(inviter) if inviter != null else ""
+    var inv_nick := ArrivalCard.short_nick(str((names.get(inv, {}) as Dictionary).get("nick", ""))) if inv != "" else ""
+    var host_nick := ArrivalCard.short_nick(str((names.get(host, {}) as Dictionary).get("nick", ""))) if host != "" else ""
+    var empty := bool(ar.get("table_was_empty", false)) or host == ""
+    if inv != "":
+        if empty:
+            return LINE_FIRST_INVITER_NEW % inv_nick
+        if host == inv:
+            return LINE_FIRST_WITH_INVITER % inv_nick
+        return LINE_FIRST_INVITER_OTHER % [inv_nick, host_nick]
+    if empty:
+        return LINE_FIRST_EMPTY
+    return LINE_FIRST_TABLE % host_nick
+
+## 旧版 enterHall（还没部署带 arrival 的那版）：照原来顶上一行「老王敬了你一杯，簿子上多了 2 句」+ 回敬按钮
+func _arrive_old(d: Dictionary) -> void:
+    var dg: Dictionary = d.get("digest", {})
     if bool(dg.get("hasNews", false)):
         var names: Dictionary = d.get("names", {})
         var parts: Array[String] = []
         var tc := int(dg.get("toastCount", 0))
-        for dt_ in dg.get("toasts", []):
-            pulse_seen["%s:%d" % [str(dt_.get("from", "")), int(dt_.get("at", 0))]] = true   # 进厅报过的，心跳别再报
         # 几个人敬的，名字、插图、回敬都按最新的那位（进厅提示的敬酒是按文档 id 排的，不按时间，不能拿第一条）
         var latest := latest_toast(dg.get("toasts", []), "at")
         var from := str(latest.get("from", ""))
@@ -2057,6 +2171,14 @@ func _layout_top() -> void:
         dialog.offset_top = y
         dialog.offset_bottom = y
         y += dialog.size.y + 10.0
+    # 进厅小卡：离开宴会厅、开了小游戏、看人卡片或簿子，就收起（它们都有自己的一层）；排在对白框下面、提示框上面
+    if is_instance_valid(arrival_card):
+        if state != "banquet" or is_instance_valid(game_host) or card_open or book_open:
+            arrival_card.close()
+        else:
+            arrival_card.offset_top = y
+            arrival_card.offset_bottom = y
+            y += arrival_card.size.y + 10.0
     # 回敬按钮跟着它那一句提示走：提示换了、收了，离开宴会厅、开了小游戏、开了看人卡片或簿子，按钮一起收
     # （卡片上本来就有「敬一杯」，簿子关了回头再点那人也一样）
     if toast_back_btn.visible and (note_token != toast_back_note or not note_box.visible
@@ -2112,7 +2234,7 @@ func _send_whisper() -> void:
     hall.walking_enabled = true
     # 厅门亮一圈金光，提示往外走（门一直通迎宾院；大门开不开在迎宾院那边管）
     hall.exit_mark.visible = true
-    _say(LINE_LEAVE)
+    _say(LINE_THANKS)
     _refresh_seat_buttons()
 
 # ---------- 校验 ----------
@@ -2319,6 +2441,16 @@ func _setup_shot(shot: String) -> void:
         "arrive":
             nickname = "小李"
             await _enter_banquet()
+        # 进厅先见人（01 9/23）：arrive_card 等插图放完、小卡出来再截；arrive_first 当第一次进厅
+        "arrive_card", "arrive_first":
+            nickname = "小李"
+            cloud.fake_arrival_mode = "first" if shot == "arrive_first" else "card"
+            await _enter_banquet()
+            for i in 80:
+                if shot == "arrive_first" or is_instance_valid(arrival_card):
+                    break
+                await get_tree().create_timer(0.1).timeout
+            await get_tree().create_timer(0.8).timeout
         "walk":
             nickname = "小李"
             await _enter_banquet()
