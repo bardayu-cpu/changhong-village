@@ -1,8 +1,8 @@
 {
  "enabled": true,
- "enabled_note": "9/23 换成 GPT 的 v4 整块舞台（01 判接）。宫灯和音符 GPT 要重切（宫灯缺灯帽、粘红帘子；音符只切到一角），这次不放宫灯，音符用原来代码画的那两种，从 place 里 float_up 那几个点往上飘。重切到了再加进 blocks",
+ "enabled_note": "9/23 换成 GPT 的 v4 整块舞台（01 判接）。9/24 音符换成 GPT v5 那三个（完整的金色音符，a、b 音头里有一两个像素的洞，贴在深墙前看不出，01 定不补），从四个乐手头顶上方往上飘。宫灯 v4、v5 都只切到半盏，01 定不放了、不再返工",
  "note": "宴会厅舞台右边的乐队。坐标是 1536×1024 画布的绝对像素，直接用，不换算。舞台 z=30 → 层级 0，和人一样按脚点（地毯前沿 y 288）排前后；能走的格子从 y 320 起，人永远在台前",
- "source": "handoff_scene_roman_banquet_band_v4 + scene_banquet_band_v4.json：整块舞台（地毯、钢琴、四个乐手），像素和阿鱼确认的效果图一模一样。02 接的时候把右端带进来的花几和台阶沿地毯右沿挖透明（只挖不画），见 回执/乐队区v4-查验.md",
+ "source": "舞台：handoff_scene_roman_banquet_band_v4（整块舞台，02 把右端花几挖透明）；音符：handoff_scene_roman_banquet_band_v5 的 note_a/b/c；宫灯弃用",
  "blocks": {
   "stage": {
    "file": "stage.png",
@@ -50,6 +50,42 @@
     "amp": 2.5,
     "speed": 5.0
    }
+  },
+  "note_a": {
+   "file": "note_a.png",
+   "size": [
+    31,
+    34
+   ],
+   "can_block": false,
+   "anchor": [
+    17,
+    26
+   ]
+  },
+  "note_b": {
+   "file": "note_b.png",
+   "size": [
+    31,
+    34
+   ],
+   "can_block": false,
+   "anchor": [
+    16,
+    26
+   ]
+  },
+  "note_c": {
+   "file": "note_c.png",
+   "size": [
+    27,
+    31
+   ],
+   "can_block": false,
+   "anchor": [
+    14,
+    23
+   ]
   }
  },
  "place": [
@@ -62,33 +98,40 @@
    "z": 30
   },
   {
+   "block": "note_a",
    "at": [
     1062,
     168
    ],
    "motion": "float_up",
-   "note": "钢琴手头顶上方，音符从这往上飘（代码画的）"
+   "z": 50
   },
   {
+   "block": "note_b",
    "at": [
     1178,
     172
    ],
-   "motion": "float_up"
+   "motion": "float_up",
+   "z": 50
   },
   {
+   "block": "note_c",
    "at": [
     1262,
     168
    ],
-   "motion": "float_up"
+   "motion": "float_up",
+   "z": 50
   },
   {
+   "block": "note_a",
    "at": [
     1342,
     172
    ],
-   "motion": "float_up"
+   "motion": "float_up",
+   "z": 50
   }
  ]
 }

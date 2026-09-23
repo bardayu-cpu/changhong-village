@@ -137,9 +137,9 @@ func run() -> void:
         var stage: Node2D = hall.world.get_node("stage")
         print("  舞台层级 ", stage.z_index, " 脚点 y ", stage.position.y, "（能走的从 y 320 起）")
         ok = ok and stage.z_index == 0 and is_equal_approx(stage.position.y, 288.0)
-        # 音符：GPT 那三张要重切，用代码画的那两种，从 4 个点往上飘；盘面上没有写死的音符
-        print("  音符 用图 ", life.band_notes.size(), " 种（该是 0，用代码画的），从 ", life.heads.size(), " 个点往上飘")
-        ok = ok and life.band_notes.size() == 0 and life.heads.size() == 4 and not ("note_a" in names)
+        # 音符：9/24 起用 GPT v5 那三个，从四个乐手头顶上方 4 个点往上飘；盘面上没有写死的音符
+        print("  音符 用图 ", life.band_notes.size(), " 个（v5 的 a、b、c），从 ", life.heads.size(), " 个点往上飘")
+        ok = ok and life.band_notes.size() == 4 and life.heads.size() == 4 and not ("note_a" in names)
         # 真推一段时间，音符得飘起来又淡掉
         life.notes.clear()
         for i in 400:
