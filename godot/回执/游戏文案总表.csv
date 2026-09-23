@@ -1,0 +1,363 @@
+﻿编号,环节,什么时候出现,谁说／在哪,现在的字,状态,在哪改,改成（阿鱼填）,备注
+开-01,开场,第一次打开小游戏、下载游戏包时,黑屏进度条上,首次加载请耐心等待,导出模板自带,wechat-build/game.js 的 textConfig.firstStartText,,Godot 微信导出模板生成的，直接改会被下次导出冲掉，要改得让 02 改导出流程
+开-02,开场,下载游戏包过程中（三句轮换）,黑屏进度条上,正在加载资源／加载中...／请稍候...,导出模板自带,wechat-build/game.js 的 textConfig.downloadingText,,同上
+开-03,开场,下载完、编译时,黑屏进度条上,编译中,导出模板自带,wechat-build/game.js 的 textConfig.compilingText,,同上
+开-04,开场,引擎启动时,黑屏进度条上,引擎初始化中,导出模板自带,wechat-build/game.js 的 textConfig.initText,,同上
+开-05,开场,引擎启动完,黑屏进度条上,开始游戏,导出模板自带,wechat-build/game.js 的 textConfig.completeText,,同上
+开-06,开场,游戏画面出来前黑屏预热（手机上十几二十秒）,屏幕正中,加载中,,godot/scripts/main.gd 的 _ready 里的 wait 标签,,和翻簿子的「加载中」是两处
+开-07,开场,开场标题页,大标题,苏七镇奇缘,,godot/scripts/main.gd 的 _build_ui 的 name_l,,
+开-08,开场,开场标题页,按钮,打开看看,,godot/scripts/main.gd 的 _build_ui 的 open_b,,
+开-09,开场,起昵称页，输入框空着时,输入框里的灰字,填一个朋友们认得出的名字,,godot/scripts/main.gd 的 _build_ui 的 nick_edit.placeholder_text,,
+开-10,开场,起昵称页,输入框下面一行,其他宾客会看到这个名字,,godot/scripts/main.gd 的 _build_ui,,
+开-11,开场,起昵称页，边打边数,输入框右下角,0/12,,godot/scripts/main.gd 的 nick_count（_check_nick_ui 里是 %d/12）,,前面是已经打了几个字，最多 12
+开-12,开场,起昵称页,按钮,好,,godot/scripts/main.gd 的 _build_ui 的 nick_ok,,名字不合格时是灰的点不了
+开-13,开场,起昵称，只打了 1 个字,输入框下红字,再长一点,,godot/scripts/main.gd 的 _check_nick,,至少 2 个字
+开-14,开场,起昵称，超过 12 个字,输入框下红字,最多 12 个字,,godot/scripts/main.gd 的 _check_nick,,
+开-15,开场,起昵称，全是数字或全是符号,输入框下红字,用中文、英文或数字,,godot/scripts/main.gd 的 _check_nick,,
+开-16,开场,起昵称，有字体里没有的字（生僻字、表情）,输入框下红字,有个字显示不出来 换一个,,godot/scripts/main.gd 的 _check_nick,,翻簿子、签到签名也有一样的句子，分在三处
+开-17,开场,起昵称被服务端拒（敏感词、保留名）,输入框下红字,换一个吧／这个名字留给主角了，换一个吧,阿鱼定稿（敏感词模块需求）,godot/scripts/main.gd 的 REASONS,,见「各处通用」拒绝原因 sensitive、reserved 两条，不在这里重复改
+开-18,开场,选形象页（8 个形象，没有标题字）,按钮,好,,godot/scripts/main.gd 的 _build_ui 的 ok2,,点了从迎宾院大门进来
+开-19,开场,回忆册里的两分钟剪辑（占位屏）,标题,【待补】两分钟剪辑,【待补】，只有阿鱼能写,godot/scripts/main.gd 的 _build_ui 的 clip 屏,,现在只有调试版能从迎宾院回忆册点进来，正式版按钮是灰的「还没印好」。六章六张图六句话是阿鱼的记忆点（世界观 4.2）
+开-20,开场,回忆册里的两分钟剪辑（占位屏）,标题下面一行,六章各一张图一句话，等阿鱼提供。样机先跳过。,占位说明,godot/scripts/main.gd 的 _build_ui 的 clip 屏,,这是给开发看的占位说明，剪辑做好后整屏换掉
+开-21,开场,回忆册里的两分钟剪辑（占位屏）,按钮,继续,,godot/scripts/main.gd 的 _build_ui 的 go,,看完回迎宾院原地
+迎-01,迎宾院,选完形象，从大门走进迎宾院,阿鱼,到啦～ 罗曼山庄 席还没散,,godot/scripts/main.gd 的 LINE_ARRIVE,,每次从开场进山庄都说
+迎-02,迎宾院,第一次进场景、还没走过路,屏幕下方提示条,点地面走路 或推左下圆圈,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_WALK_HINT,,这次打开游戏走过一次就不再出
+迎-03,迎宾院,第一次走到门口迎宾处（还没签到）,新娘妈妈,来啦 先到这边签个到,新写，等阿鱼定,godot/assets/entrance/lines.json 的 welcome,,出处：新写，等阿鱼定（照蓝图 3.1 用户故事：新娘妈妈迎上来说这边签到）
+迎-04,迎宾院,走到签到桌,按钮,签到,蓝图原话,godot/assets/entrance/lines.json 的 btn_sign,,出处：蓝图 3.1 交互点 sign_in「签到面板」
+迎-05,迎宾院,签过到以后再走到签到桌,按钮,已签到,蓝图原话,godot/assets/entrance/lines.json 的 btn_signed,,灰的，点不了；出处：蓝图 3.1 交互说明「签到桌只显示『已签到』」
+迎-06,迎宾院,点「签到」，签名页,面板标题,签个名,新写，等阿鱼定,godot/assets/entrance/lines.json 的 sign_name_title,,
+迎-07,迎宾院,签名页，边打边数,输入框右下角,0/12,,godot/scripts/court_ui.gd 的 name_count（%d/12）,,
+迎-08,迎宾院,签名页、合影摆姿势页,按钮,算了,新写，等阿鱼定,godot/assets/entrance/lines.json 的 btn_cancel,,两处共用这一条
+迎-09,迎宾院,签名页,按钮,下一步,新写，等阿鱼定,godot/assets/entrance/lines.json 的 btn_next,,
+迎-10,迎宾院,签名页，名字空着点下一步,输入框下红字,先留下怎么称呼你,蓝图原话,godot/assets/entrance/lines.json 的 err_name_empty,,出处：蓝图 3.1 异常表
+迎-11,迎宾院,签名页，超过 12 个字,输入框下红字,最多 12 个字,现有的字,godot/assets/entrance/lines.json 的 err_name_long,,出处：现有（起昵称那句）
+迎-12,迎宾院,签名页，有显示不出来的字,输入框下红字,有个字显示不出来 换一个,蓝图原话,godot/assets/entrance/lines.json 的 err_name_glyph,,出处：蓝图 3.1 异常表（现有提示）
+迎-13,迎宾院,签名后，礼金页,面板标题,礼金,蓝图原话,godot/assets/entrance/lines.json 的 gift_title,,出处：蓝图 3.1 功能需求「礼金」
+迎-14,迎宾院,礼金页,标题下面一行,要包多少都行 不包也行,文档原句,godot/assets/entrance/lines.json 的 gift_hint,,出处：文案改写版 v2 A8-G1（原句末尾有个表情，像素字体显示不了，去掉了）
+迎-15,迎宾院,礼金页第一个选项；确认页没送礼金时也显示它,按钮,不送,蓝图原话,godot/assets/entrance/lines.json 的 gift_none,,出处：蓝图 3.1 礼金选项
+迎-16,迎宾院,礼金页的三个数目,按钮,66／88／188,蓝图原话,godot/scripts/court_ui.gd 的 GIFTS,,数字按钮上只有数字、不带「金」；蓝图 3.1：不送、66、88、188
+迎-17,迎宾院,礼金页,按钮,自己填,蓝图原话,godot/assets/entrance/lines.json 的 gift_custom,,出处：蓝图 3.1 礼金选项
+迎-18,迎宾院,点「自己填」，输入框空着时,输入框里的灰字,填个数,新写，等阿鱼定,godot/assets/entrance/lines.json 的 gift_custom_placeholder,,上限 9999
+迎-19,迎宾院,自己填礼金旁边；确认页,按钮,好,现有的字,godot/assets/entrance/lines.json 的 btn_ok,,两处共用这一条；出处：现有按钮字
+迎-20,迎宾院,礼金页、确认页,按钮,返回,新写，等阿鱼定,godot/assets/entrance/lines.json 的 btn_back,,两处共用这一条
+迎-21,迎宾院,礼金选完，确认页,面板标题,确认一下,新写，等阿鱼定,godot/assets/entrance/lines.json 的 confirm_title,,
+迎-22,迎宾院,确认页,面板第一行,名字：%s,新写，等阿鱼定,godot/assets/entrance/lines.json 的 confirm_name_fmt,,%s 是刚签的名字
+迎-23,迎宾院,确认页,面板第二行,礼金：%s,新写，等阿鱼定,godot/assets/entrance/lines.json 的 confirm_gift_fmt,,%s 是礼金数字（不带「金」）；选了不送时是「不送」
+迎-24,迎宾院,确认页,面板底下灰字,只是游戏里的记录,蓝图原话,godot/assets/entrance/lines.json 的 confirm_note,,出处：蓝图 3.1 交互说明「确认页写明『只是游戏里的记录』」
+迎-25,迎宾院,签完到、包了礼金,新娘爸爸,收到啦～,文档原句,godot/assets/entrance/lines.json 的 dad_thanks,,出处：文案改写版 v2 A8-G2「包完」、乐山话 v0.2 §2「包完礼金」（蓝图用户故事转述为『心意收到了』）
+迎-26,迎宾院,签完到、选了不送,新娘爸爸,人来了就好,新写，等阿鱼定,godot/assets/entrance/lines.json 的 dad_no_gift,,出处：新写，等阿鱼定（选了不送时）
+迎-27,迎宾院,签完到，第一次（只弹一次）,弹窗大字,喜糖收好了,蓝图原话,godot/assets/entrance/lines.json 的 candy,,弹窗上还有一张「糖」字菜牌占位图；出处：蓝图 3.1 功能需求「喜糖」
+迎-28,迎宾院,喜糖弹窗收起后,新娘妈妈,那本回忆册可以先翻翻／翻完去花墙拍张照／里面已经开席了,新写，等阿鱼定,godot/assets/entrance/lines.json 的 mom_point,,出处：新写，等阿鱼定（照蓝图 3.1 用户故事）。02 按 04 体验报告 C2 改，9/23：字没变，原来是一整句连着写，说话框按字硬折行会断在「里／面」中间；改成三句各自一行（\n …
+迎-29,迎宾院,走到回忆册台子（剪辑做好了）,按钮,翻开,蓝图原话,godot/assets/entrance/lines.json 的 btn_album,,出处：世界观 v0.1 1.1 交互说明「走到台子旁出现『翻开』」
+迎-30,迎宾院,走到回忆册台子（剪辑还没做好，正式版现在就是这样）,按钮（灰）＋顶上提示,还没印好,蓝图原话,godot/assets/entrance/lines.json 的 album_not_ready,,按钮上写它、同时顶上提示也说一遍；出处：世界观 v0.1 1.1 异常处理「剪辑素材没到时按钮置灰，提示『还没印好』」（01 9/19 定：正式版这样，调试版能打开占位）
+迎-31,迎宾院,每回到迎宾院，第一次走近花墙,摄影师,来 站到地毯上 拍一张,新写，等阿鱼定,godot/assets/entrance/lines.json 的 photo_greet,,出处：新写，等阿鱼定（蓝图 3.1：摄影师招呼）
+迎-32,迎宾院,站上花墙前的合影位,按钮,拍一张,新写，等阿鱼定,godot/assets/entrance/lines.json 的 btn_photo,,
+迎-33,迎宾院,点「拍一张」，选姿势,面板标题,摆个姿势,新写，等阿鱼定,godot/assets/entrance/lines.json 的 pose_title,,
+迎-34,迎宾院,选姿势,按钮,站好,蓝图原话,godot/assets/entrance/lines.json 的 pose_stand,,出处：蓝图 3.1 合影姿势
+迎-35,迎宾院,选姿势,按钮,招手,蓝图原话,godot/assets/entrance/lines.json 的 pose_wave,,出处：蓝图 3.1 合影姿势
+迎-36,迎宾院,选姿势,按钮,比心,蓝图原话,godot/assets/entrance/lines.json 的 pose_heart,,出处：蓝图 3.1 合影姿势
+迎-37,迎宾院,选完姿势，拍之前,摄影师,看这边 三 二 一,新写，等阿鱼定,godot/assets/entrance/lines.json 的 photo_count,,出处：新写，等阿鱼定（蓝图 3.1：摄影师倒数）
+迎-38,迎宾院,对焦小玩法,屏幕提示,两个圈对上的时候点一下,新写，等阿鱼定,godot/assets/entrance/lines.json 的 focus_hint,,出处：新写，等阿鱼定（蓝图 3.1：两个对焦环靠拢时点一下，早了晚了都不算失败）
+迎-39,迎宾院,拍好的相纸上,相纸顶上,囍,,godot/scripts/court_ui.gd 的 _compose_paper 的 xi,,装饰字，花墙上也有一个（entrance.gd）
+迎-40,迎宾院,相纸展示页,按钮,再拍一张,蓝图原话,godot/assets/entrance/lines.json 的 btn_retake,,出处：蓝图 3.1 交互说明「相纸展示页有『再拍一张』『收好』」
+迎-41,迎宾院,相纸展示页,按钮,收好,蓝图原话,godot/assets/entrance/lines.json 的 btn_keep,,出处：蓝图 3.1 交互说明
+迎-42,迎宾院,点「收好」以后,顶上提示,相纸收好了,新写，等阿鱼定,godot/assets/entrance/lines.json 的 photo_kept,,
+迎-43,迎宾院,每回到迎宾院，第一次走到休息区,老人,席上有翘jio儿 记得多吃两碗,新写，等阿鱼定,godot/assets/entrance/lines.json 的 elder,,一句最多一个方言词；出处：新写，等阿鱼定（蓝图 3.1：一句乐山话，一句最多一个方言词，方言词第一次弹普通话；《乐山话 v0.2》只有二档词才自动出翻译，一档是直接用不解释，所以用二档标可用的「翘 jio …
+迎-44,迎宾院,老人那句第一次出现时自动弹；以后点说话框再弹,顶上提示,翘jio儿：跷脚牛肉,文档原句,godot/assets/entrance/lines.json 的 elder_gloss,,出处：《乐山话 v0.2》二档词表「翘 jio 儿 = 跷脚牛肉」（蓝图 3.1：方言词第一次弹普通话；点说话框也能再看）
+迎-45,迎宾院,写过悄悄话、没签到就走到大门,新娘妈妈,先签个到,蓝图原话,godot/assets/entrance/lines.json 的 gate_not_signed,,出处：蓝图 3.1 异常表「没签到……新娘妈妈提醒『先签个到』」
+迎-46,迎宾院,签过到、写过悄悄话，走到大门口,新娘妈妈,慢慢走 路上当心／明天再来看看 谁来过 谁敬了你,新写，等阿鱼定,godot/assets/entrance/lines.json 的 gate_bye ＋ gate_tomorrow,,两句拼成两行一起说（第一行 gate_bye，第二行 gate_tomorrow），各改各的键。第二句说的是进厅那张小卡；原来的「镇上的路还没修好 下次带你去」（gate_road）已停用
+迎-47,迎宾院,迎宾院地图上（画在地上的名字）,地上的名字牌,宴会楼,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 flat[8].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-48,迎宾院,迎宾院地图上（画在地上的名字）,地上的名字牌,楼门,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 flat[9].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-49,迎宾院,迎宾院地图上（画在地上的名字）,地上的名字牌,西小径,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 flat[19].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-50,迎宾院,迎宾院地图上（画在地上的名字）,地上的名字牌,东小径,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 flat[20].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-51,迎宾院,迎宾院地图上（画在地上的名字）,地上的名字牌,休息区,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 flat[24].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-52,迎宾院,迎宾院地图上（物件头上的名字）,物件名字牌,大门,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 items[4].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-53,迎宾院,迎宾院地图上（物件头上的名字）,物件名字牌,签到,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 items[11].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-54,迎宾院,迎宾院地图上（物件头上的名字）,物件名字牌,回忆册,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 items[12].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-55,迎宾院,迎宾院地图上（物件头上的名字）,物件名字牌,花墙,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 items[13].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+迎-56,迎宾院,迎宾院地图上（物件头上的名字）,物件名字牌,打印台,灰盒占位,godot/assets/layered/scene_luoman_entrance/layout.json 的 items[16].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+宴-01,宴会厅,第一次进宴会厅：邀请人就是这桌第一个坐下的,阿鱼,%s 带你来的 你们坐一桌,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_FIRST_WITH_INVITER,,%s 是邀请人昵称（超过 6 个字截断加…）
+宴-02,宴会厅,第一次进宴会厅：邀请人那桌满了，你坐别人那桌,阿鱼,%s 带你来的 你坐 %s 那桌,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_FIRST_INVITER_OTHER,,第一个 %s 是邀请人，第二个是这桌第一个坐下的人
+宴-03,宴会厅,第一次进宴会厅：邀请人那桌满了，新开了一桌,阿鱼,%s 带你来的 这桌还空着 你先坐,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_FIRST_INVITER_NEW,,%s 是邀请人昵称
+宴-04,宴会厅,第一次进宴会厅：没人邀请、桌子空着,阿鱼,这桌还空着 你是第一个坐的,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_FIRST_EMPTY,,
+宴-05,宴会厅,第一次进宴会厅：没人邀请、桌上有人,阿鱼,你坐 %s 那桌,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_FIRST_TABLE,,%s 是这桌第一个坐下的人
+宴-06,宴会厅,进厅时 120 个座坐满了，被分到墙边长凳,顶上提示,桌子都坐满了 先坐墙边的长凳,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_BENCH,,
+宴-07,宴会厅,进厅时分到的座位画面上摆不出来,顶上提示,先找把空椅子坐下,,godot/scripts/main.gd 的 _on_enter_hall,,少见的兜底情况
+宴-08,宴会厅,以后每次进厅（有新鲜事才弹）小卡：有 1 个人敬过你,进厅小卡一行,%s 敬了你一杯,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 LINE_TOAST_1,,%s 是对方昵称（超 6 字截断加…）；进厅先放的那张干杯插图下面也写这句
+宴-09,宴会厅,进厅小卡：同一个人敬了你几杯,进厅小卡一行,%s 敬了你 %d 杯,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 LINE_TOAST_N,,%s 昵称，%d 杯数
+宴-10,宴会厅,进厅小卡：有人在你这桌簿子上写了 1 句,进厅小卡一行,%s 在你这桌簿子上写了一句,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 LINE_BOOK_1,,%s 昵称
+宴-11,宴会厅,进厅小卡：有人写了几句,进厅小卡一行,%s 在你这桌簿子上写了 %d 句,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 LINE_BOOK_N,,%s 昵称，%d 句数
+宴-12,宴会厅,进厅小卡：你走后有人来过,进厅小卡一行,%s 你走后来过,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 LINE_VISIT,,%s 昵称
+宴-13,宴会厅,进厅小卡：人多，第三行合起来,进厅小卡一行,还有 %d 位来过,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 LINE_MORE,,%d 人数
+宴-14,宴会厅,进厅小卡「敬了你」那行右边,按钮,回敬一杯,新写，等阿鱼定,godot/scripts/arrival_card.gd 的 BTN_TOAST_BACK,,和被敬时顶上那个按钮（main.gd 的 LINE_TOAST_BACK）一个字，两处要一起改
+宴-15,宴会厅,进厅小卡「簿子上写了」那行右边,按钮,翻簿子,,godot/scripts/arrival_card.gd 的 BTN_BOOK,,和走到桌边的按钮（main.gd）一个字，两处要一起改
+宴-16,宴会厅,进厅提示（旧版服务端才走这条，新版进厅小卡上线后看不到）,顶上提示,%s 敬了你一杯／%s等 %d 人敬了你／簿子上多了 %d 句,,godot/scripts/main.gd 的 _arrive_old,,几段用「，」连成一行；%s 昵称。注意「等」前面没空格，和当场被敬那句不一样
+宴-17,宴会厅,宴会厅每张桌心立着的桌牌,桌牌,%s那桌·%s,,godot/scripts/layered_hall.gd 的 _table_sign,,第一个 %s 是这桌第一个坐下的人，第二个是这桌的小游戏名（见小游戏各节的标题）；没真人坐的桌只写游戏名
+宴-18,宴会厅,走到空椅子旁,按钮,坐这儿,,godot/scripts/main.gd 的 _build_hud 和 _refresh_seat_buttons 的 sit_btn,,代码里两处写了这个字，要一起改
+宴-19,宴会厅,点了「坐这儿」，等你再点一次,按钮,再点一下确认,,godot/scripts/main.gd 的 _on_sit_pressed,,
+宴-20,宴会厅,点了「坐这儿」，等你再点一次,顶上提示,换到%s那桌？／坐这桌？,,godot/scripts/main.gd 的 _on_sit_pressed,,两种情况二选一：这桌有人时「换到XX那桌？」，%s 是这桌第一个坐下的人；空桌时「坐这桌？」
+宴-21,宴会厅,坐下成功,顶上提示,坐好了,,godot/scripts/main.gd 的 _on_seat_changed,,
+宴-22,宴会厅,走近坐着的人,按钮,看看 %s,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_LOOK_FMT,,%s 是对方昵称，太长截成…
+宴-23,宴会厅,看人卡片,卡片上的名字,（对方昵称）,,godot/scripts/main.gd 的 _open_person_card,,没有昵称时写「有人」，见各处通用
+宴-24,宴会厅,看人卡片，对方是别人邀请来的,卡片名字下面一行,%s 带进来的,,godot/scripts/main.gd 的 _open_person_card,,%s 是邀请人昵称；查不到邀请人这行不出
+宴-25,宴会厅,看人卡片,按钮,敬一杯,,godot/scripts/main.gd 的 _build_person_card 和 _open_person_card,,代码里两处写了这个字，要一起改
+宴-26,宴会厅,看人卡片,按钮,想认识你,蓝图 3.2（阶段 1 设计 v1.1 §4）,godot/scripts/main.gd 的 LINE_MEET,,
+宴-27,宴会厅,敬酒成功,顶上提示,敬了 %s 一杯,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_TOASTED_FMT,,%s 是对方昵称
+宴-28,宴会厅,敬酒、被敬时弹的干杯插图,插图大字,干杯,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_CHEERS,,
+宴-29,宴会厅,在厅里时有人当场敬你,顶上提示,%s 敬了你一杯／%s 等 %d 人敬了你,,godot/scripts/main.gd 的 _on_pulse,,二选一：1 个人时前一句，几个人时后一句；%s 是最新那位的昵称，%d 人数
+宴-30,宴会厅,被敬以后，顶上那句提示右边（留 6 秒）,按钮,回敬一杯,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_TOAST_BACK,,和进厅小卡的按钮一个字，两处要一起改
+宴-31,宴会厅,走到桌边，或坐在自己桌上,按钮,翻簿子,,godot/scripts/main.gd 的 _build_hud 的 book_btn,,和进厅小卡的按钮一个字，两处要一起改
+宴-32,宴会厅,簿子刚打开、还在读,簿子面板,加载中,,godot/scripts/main.gd 的 _build_book_panel 的 book_loading,,
+宴-33,宴会厅,簿子还没人写,簿子面板,还没人写 你来第一句,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_BOOK_EMPTY,,
+宴-34,宴会厅,簿子里每一条,簿子面板,%s：%s,,godot/scripts/main.gd 的 _render_book_lines,,前一个 %s 是写的人昵称，后一个是那句话；中间是全角冒号
+宴-35,宴会厅,簿子写字框空着时,输入框里的灰字,接一句,新写，等阿鱼定,godot/scripts/main.gd 的 BOOK_PLACEHOLDER,,
+宴-36,宴会厅,簿子写字，边打边数,输入框右下角,0/100,,godot/scripts/main.gd 的 book_count（%d/100）,,最多 100 字
+宴-37,宴会厅,簿子写字,按钮,好,,godot/scripts/main.gd 的 _build_book_panel 的 book_ok,,
+宴-38,宴会厅,翻的不是自己现在坐的那桌,簿子面板（替换写字框）,先坐下 慢慢写,蓝图原话（9/18 定稿）,godot/scripts/main.gd 的 LINE_BOOK_READONLY,,拒绝原因 not_sat_here 也是这句，两处要一起改
+宴-39,宴会厅,簿子写了显示不出来的字,输入框下红字,有个字显示不出来 换一个,,godot/scripts/main.gd 的 _check_book,,超过 100 字时显示拒绝原因 book_too_long（见各处通用）
+宴-40,宴会厅,「想认识你」发出去了,顶上提示,想认识 %s 记下了,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_MEET_SENT_FMT,,%s 是对方昵称；对方现在看不到（好友在阶段 2）
+宴-41,宴会厅,在宴会厅，左上角地名下面那块牌子；添菜页底下切回菜单的按钮,按钮,席面菜单,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.btn_menu,,两处共用这一条
+宴-42,宴会厅,打开席面菜单（北京时间 12:00～18:00）,面板标题,中午 · 正席,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.head_midday,,
+宴-43,宴会厅,打开席面菜单（18:00 以后、12:00 以前）,面板标题,晚上 · 晚宴,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.head_evening,,
+宴-44,宴会厅,打开席面菜单,标题下面一行,今天席上的 {n} 道菜,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.sub_fmt,,{n} 是今天这套有几道菜，别删
+宴-45,宴会厅,席面菜单里每一道,列表,%d. %s,,godot/scripts/banquet_ui.gd 的 _fill_menu,,序号. 菜名
+宴-46,宴会厅,席面菜单：中午正席的菜名（19 道，按顺序）,列表,韭香蹄花／白宰鸡／金牌玉女瓜／秋葵拌桃仁／炝拌鹿茸菌／金蒜波士顿龙虾／北京烤鸭／养生鲍鱼盅（位上）／大蒜红烧娃娃鱼／笋子烧牛腩／天赐良缘网红参／虫草花香菇煨土鸡／一品香碗／特色碳烤生态兔／金枝玉叶炒时蔬／清蒸苏眉鱼／咸烧白／养生玉米粑／水果,阿鱼认过的定稿,godot/assets/banquet/menu.json 的 menus.midday.dishes,,菜名别改（menu.json 注明）；单子上的人数、价格、单号不进游戏
+宴-47,宴会厅,席面菜单：晚上晚宴的菜名（18 道，按顺序）,列表,白宰鸡／五彩拌肚丝／炝拌鹿茸菌／鸡蛋干拌花仁／手工麦香糕／蒜蓉开边虾／糖醋脆皮鱼／私房冒双脆／红烧牛肉／炭烤牙签肉／香酥茶香鸭／鲜椒子姜嘎嘎蛙／外婆粗粮窝窝头／一品香碗／山药炒木耳／炒时蔬一道／特级冬菜海鲜汤／水果,阿鱼认过的定稿,godot/assets/banquet/menu.json 的 menus.evening.dishes,,菜名别改（menu.json 注明）
+宴-48,宴会厅,席面菜单里点开「韭香蹄花」,菜名下面展开的简介,蹄花炖到脱骨，韭菜提香。头一道压桌的。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.韭香蹄花,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-49,宴会厅,席面菜单里点开「白宰鸡」,菜名下面展开的简介,白水煮出来切块，浇红油蒜泥。凉菜里的头牌。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.白宰鸡,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-50,宴会厅,席面菜单里点开「金牌玉女瓜」,菜名下面展开的简介,（空着，显示【待补】）,【待补】,godot/assets/banquet/menu.json 的 intros.金牌玉女瓜,,酒店自己起的名字，02 没瞎猜，要阿鱼说这道是什么
+宴-51,宴会厅,席面菜单里点开「秋葵拌桃仁」,菜名下面展开的简介,秋葵焯过切段，拌上核桃仁，脆生生的。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.秋葵拌桃仁,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-52,宴会厅,席面菜单里点开「炝拌鹿茸菌」,菜名下面展开的简介,鹿茸菌焯熟，热油一炝。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.炝拌鹿茸菌,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-53,宴会厅,席面菜单里点开「金蒜波士顿龙虾」,菜名下面展开的简介,龙虾开边，蒜蓉铺满了蒸。一桌一只。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.金蒜波士顿龙虾,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-54,宴会厅,席面菜单里点开「北京烤鸭」,菜名下面展开的简介,片好的鸭子卷饼，蘸甜面酱。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.北京烤鸭,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-55,宴会厅,席面菜单里点开「养生鲍鱼盅（位上）」,菜名下面展开的简介,一人一盅，鲍鱼炖的汤。「位上」就是一人一份。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.养生鲍鱼盅（位上）,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-56,宴会厅,席面菜单里点开「大蒜红烧娃娃鱼」,菜名下面展开的简介,整条红烧，大蒜烧进味，汤汁厚。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.大蒜红烧娃娃鱼,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-57,宴会厅,席面菜单里点开「笋子烧牛腩」,菜名下面展开的简介,牛腩炖到软，笋子吸饱了汤。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.笋子烧牛腩,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-58,宴会厅,席面菜单里点开「天赐良缘网红参」,菜名下面展开的简介,（空着，显示【待补】）,【待补】,godot/assets/banquet/menu.json 的 intros.天赐良缘网红参,,酒店自己起的名字，02 没瞎猜，要阿鱼说这道是什么
+宴-59,宴会厅,席面菜单里点开「虫草花香菇煨土鸡」,菜名下面展开的简介,土鸡煨的汤，虫草花和香菇一起下。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.虫草花香菇煨土鸡,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-60,宴会厅,席面菜单里点开「一品香碗」,菜名下面展开的简介,蒸碗，几样垒成一碗上桌。席上的老规矩。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.一品香碗,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-61,宴会厅,席面菜单里点开「特色碳烤生态兔」,菜名下面展开的简介,整只烤，上桌现拆。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.特色碳烤生态兔,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-62,宴会厅,席面菜单里点开「金枝玉叶炒时蔬」,菜名下面展开的简介,一盘炒青菜，解腻的。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.金枝玉叶炒时蔬,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-63,宴会厅,席面菜单里点开「清蒸苏眉鱼」,菜名下面展开的简介,整条清蒸，起锅浇豉油。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.清蒸苏眉鱼,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-64,宴会厅,席面菜单里点开「咸烧白」,菜名下面展开的简介,肥瘦相间的烧白扣在芽菜上，蒸到入口就化。席上少不了这一碗。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.咸烧白,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-65,宴会厅,席面菜单里点开「养生玉米粑」,菜名下面展开的简介,玉米做的粑，甜口，当小吃。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.养生玉米粑,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-66,宴会厅,席面菜单里点开「水果」,菜名下面展开的简介,一盘水果，席吃到最后端上来。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.水果,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-67,宴会厅,席面菜单里点开「五彩拌肚丝」,菜名下面展开的简介,肚丝切细，几样菜丝拌到一起。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.五彩拌肚丝,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-68,宴会厅,席面菜单里点开「鸡蛋干拌花仁」,菜名下面展开的简介,鸡蛋干切条，拌炸花生。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.鸡蛋干拌花仁,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-69,宴会厅,席面菜单里点开「手工麦香糕」,菜名下面展开的简介,麦香糕，一小块一小块摆开。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.手工麦香糕,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-70,宴会厅,席面菜单里点开「蒜蓉开边虾」,菜名下面展开的简介,虾开边铺蒜蓉，上锅蒸。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.蒜蓉开边虾,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-71,宴会厅,席面菜单里点开「糖醋脆皮鱼」,菜名下面展开的简介,整条炸过再浇糖醋汁，皮是脆的。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.糖醋脆皮鱼,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-72,宴会厅,席面菜单里点开「私房冒双脆」,菜名下面展开的简介,两样脆的烫熟起锅，汤头麻辣。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.私房冒双脆,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-73,宴会厅,席面菜单里点开「红烧牛肉」,菜名下面展开的简介,牛肉红烧，慢火收汁。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.红烧牛肉,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-74,宴会厅,席面菜单里点开「炭烤牙签肉」,菜名下面展开的简介,小块肉串在牙签上烤，一盘几十根。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.炭烤牙签肉,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-75,宴会厅,席面菜单里点开「香酥茶香鸭」,菜名下面展开的简介,鸭子用茶熏过再炸，皮酥。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.香酥茶香鸭,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-76,宴会厅,席面菜单里点开「鲜椒子姜嘎嘎蛙」,菜名下面展开的简介,牛蛙下鲜椒和子姜，麻辣。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.鲜椒子姜嘎嘎蛙,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-77,宴会厅,席面菜单里点开「外婆粗粮窝窝头」,菜名下面展开的简介,粗粮捏的小窝头，配着菜吃。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.外婆粗粮窝窝头,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-78,宴会厅,席面菜单里点开「山药炒木耳」,菜名下面展开的简介,山药片炒木耳，清口。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.山药炒木耳,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-79,宴会厅,席面菜单里点开「炒时蔬一道」,菜名下面展开的简介,当天的青菜，炒一盘。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.炒时蔬一道,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-80,宴会厅,席面菜单里点开「特级冬菜海鲜汤」,菜名下面展开的简介,冬菜吊的汤，收尾这一道。,02 草稿，等阿鱼定,godot/assets/banquet/menu.json 的 intros.特级冬菜海鲜汤,,写法照《文案改写版 v2》2.3：白描、短、不夸；两套里重样的菜共用一条
+宴-81,宴会厅,简介还空着的菜点开时,菜名下面（灰字）,【待补】,【待补】,godot/assets/banquet/menu.json 的 lines.intro_todo,,现在是金牌玉女瓜、天赐良缘网红参两道；出处：简介还没写的菜照这个显示（跟后厅四句、亭子那句一个办法）
+宴-82,宴会厅,简介下面,按钮,学做这道,,godot/assets/banquet/menu.json 的 learn.btn,,代码里 banquet_ui.gd 也留了一份一样的兜底字
+宴-83,宴会厅,点「学做这道」（厨房还没做）,顶上提示,厨房还没开火 等等再来,,godot/assets/banquet/menu.json 的 learn.not_ready,,代码里 banquet_ui.gd 也留了一份一样的兜底字
+宴-84,宴会厅,席面菜单、添菜页,按钮,合上,,godot/scripts/banquet_ui.gd 的 _build_panel 的 close_b,,小游戏菜单册的「合上」是另一处
+宴-85,宴会厅,坐在自己桌上时，底下那排按钮,按钮,添一道菜,,godot/scripts/main.gd 的 _build_hud 的 add_dish_btn,,和菜单面板里的「添一道菜」（menu.json btn_add）是两处，要一起改
+宴-86,宴会厅,席面菜单面板底下，切到添菜页,按钮,添一道菜,玩法过目原话,godot/assets/banquet/menu.json 的 lines.btn_add,,出处：玩法过目-金币花在哪 第一样的原话
+宴-87,宴会厅,添菜页,面板标题,添一道菜（{price} 金一道）,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.add_head_fmt,,{price} 是一道多少金（现在 40），别删
+宴-88,宴会厅,添菜页,标题下面一行,手上 %d 金,,godot/scripts/banquet_ui.gd 的 _fill_add,,%d 是手上金币
+宴-89,宴会厅,添菜页每一道能添的菜,按钮,%s　%d 金,,godot/scripts/banquet_ui.gd 的 _fill_add,,%s 菜名，%d 价格，中间是全角空格；钱不够时按钮是灰的
+宴-90,宴会厅,添菜页：一开始就能添的三道,按钮上的菜名,豆腐脑／叶儿粑／冰粉,,godot/assets/banquet/menu.json 的 add_dish.always,,别的菜要打连连看解锁（菜名见 小游戏·连连看）
+宴-91,宴会厅,添菜页，还有没解锁的菜,列表底下灰字,这道还没解锁 打「连连看」那两桌解得开,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.add_locked,,
+宴-92,宴会厅,添菜成功,顶上提示,添了一道{dish} 马上端来,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.add_done_fmt,,{dish} 是菜名，别删；服务员端上来时盘子上方也飘几秒菜名
+宴-93,宴会厅,添菜钱不够,顶上提示,还差 {n} 金 去玩两把挣点,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.add_no_coins_fmt,,{n} 是还差几金，别删
+宴-94,宴会厅,没坐下就点添菜,顶上提示,先坐下 再添菜,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.add_sit_first,,出处：新写，等阿鱼定（跟小游戏那句「先坐下 再玩」一个说法）
+宴-95,宴会厅,桌上已经摆了 4 道,顶上提示,桌上摆满了 先吃,新写，等阿鱼定,godot/assets/banquet/menu.json 的 lines.add_full,,
+宴-96,宴会厅,走到主桌新人跟前,阿鱼,想跟我们说点什么 写这儿 只有我们看得到,,godot/scripts/main.gd 的 LINE_TABLE,,说完底下出写字框
+宴-97,宴会厅,写悄悄话，边打边数,输入框左下角,0/200,,godot/scripts/main.gd 的 whisper_count（%d/200）,,最多 200 字
+宴-98,宴会厅,写悄悄话,按钮,好,,godot/scripts/main.gd 的 _build_hud 的 whisper_ok,,
+宴-99,宴会厅,悄悄话写完,阿鱼,收到啦 谢谢你专门来一趟,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_THANKS,,写完厅门亮金光、迎宾院大门才开
+宴-100,宴会厅,写悄悄话的框里（手上有金币才出）,框里一行,手上 %d 金,,godot/scripts/main.gd 的 _refresh_gift_row,,%d 是手上金币
+宴-101,宴会厅,写悄悄话的框里,按钮,添礼金,,godot/scripts/main.gd 的 _build_hud 的 gb,,
+宴-102,宴会厅,点「添礼金」，一排数目,按钮,%d 金,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_GIFT_BTN_FMT ＋ GIFT_CHOICES,,%d 是 8／88／188／888 里比手上少的那几个
+宴-103,宴会厅,一排数目的最后一个,按钮,全部 %d 金,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_GIFT_ALL_FMT,,%d 是手上全部金币
+宴-104,宴会厅,选数目时、问「全添上？」时,按钮,算了,,godot/scripts/main.gd 的 _open_gift_pick 和 _ask_gift_all,,代码里两处写了这个字
+宴-105,宴会厅,点了「全部」，先问一句,框里一行,%d 金全添上？,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_GIFT_ASK_FMT,,
+宴-106,宴会厅,点了「全部」，确认,按钮,添,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_GIFT_YES,,
+宴-107,宴会厅,添完礼金,顶上提示,添了 %d 金 礼金簿记上了,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_GIFT_DONE_FMT,,%d 是添了多少
+宴-108,宴会厅,厅里热闹（服务员、乐队、彩带、别桌客人）,—,（没有字）,,godot/scripts/hall_life.gd,,只有自己添的菜端上桌时，盘子上方飘几秒菜名（就是菜单里的菜名）
+游-01,小游戏·通用（六个游戏共用的外壳）,点了别人桌（不是自己坐着的）桌心的菜,顶上提示,先坐下 再玩,新写，等阿鱼定,godot/scripts/main.gd 的 LINE_SIT_FIRST_GAME,,蓝图 3.2 异常表写的文案待阿鱼定
+游-02,小游戏·通用（六个游戏共用的外壳）,坐在有小游戏的桌上，底下那排按钮,按钮,玩·%s,,godot/scripts/main.gd 的 _refresh_seat_buttons 的 play_btn,,%s 是这桌的游戏名（见各游戏节的标题）
+游-03,小游戏·通用（六个游戏共用的外壳）,开始卡、顶栏,第几关,第 %d 关,,godot/scripts/games/game_host.gd 的 _show_start 和 _process,,代码里两处
+游-04,小游戏·通用（六个游戏共用的外壳）,游戏里右上角,顶栏,%d 金,,godot/scripts/games/game_host.gd 的 _process 的 coins_l,,手上金币
+游-05,小游戏·通用（六个游戏共用的外壳）,开始卡：游戏脚本还没做好,开始卡一行,这个游戏还在做,,godot/scripts/games/game_host.gd 的 _show_start,,现在六个都做好了，一般看不到
+游-06,小游戏·通用（六个游戏共用的外壳）,开始卡,按钮,开始,,godot/scripts/games/game_host.gd 的 _show_start,,
+游-07,小游戏·通用（六个游戏共用的外壳）,开始卡、歇一下卡、过关卡、没过卡、游戏里左下角,按钮,离开,,"godot/scripts/games/game_host.gd 的 _button(""离开""…) 和 [""离开"", _close]（共 5 处）",,代码里 5 处都写的这个字，要一起改
+游-08,小游戏·通用（六个游戏共用的外壳）,游戏进行中，左下角,按钮,歇一下,,godot/scripts/games/game_host.gd 的 open 的 pause_b,,
+游-09,小游戏·通用（六个游戏共用的外壳）,点了「歇一下」,卡片标题,歇一下,,godot/scripts/games/game_host.gd 的 _pause,,
+游-10,小游戏·通用（六个游戏共用的外壳）,点了「歇一下」,卡片正文,这一关停在这儿 等你回来／不算输 也不扣金币,,godot/scripts/games/game_host.gd 的 _pause,,两行
+游-11,小游戏·通用（六个游戏共用的外壳）,点了「歇一下」,按钮,接着玩,,godot/scripts/games/game_host.gd 的 _pause,,
+游-12,小游戏·通用（六个游戏共用的外壳）,过关,卡片标题,第 %d 关 过了,,godot/scripts/games/game_host.gd 的 _after_win,,%d 是刚过的关
+游-13,小游戏·通用（六个游戏共用的外壳）,过关,卡片正文第一行,+%d 金（手上 %d 金）,,godot/scripts/games/game_host.gd 的 _on_finished,,第一个 %d 这关得了多少，第二个是得完手上一共多少
+游-14,小游戏·通用（六个游戏共用的外壳）,过关,按钮,下一关,,godot/scripts/games/game_host.gd 的 _after_win,,
+游-15,小游戏·通用（六个游戏共用的外壳）,没过,卡片标题,差一点,,godot/scripts/games/game_host.gd 的 _after_lose,,正文第一行是各游戏自己的输因（见各游戏节）
+游-16,小游戏·通用（六个游戏共用的外壳）,没过（真玩过才给）,卡片正文,没过 也给你 %d 金 辛苦了,新写，等阿鱼定,godot/scripts/games/game_host.gd 的 LINE_CONSOLE,,%d 是这关奖励的四分之一；要让人听出是安慰、不是过关
+游-17,小游戏·通用（六个游戏共用的外壳）,没过,按钮,再来一次,,godot/scripts/games/game_host.gd 的 _after_lose,,
+游-18,小游戏·通用（六个游戏共用的外壳）,五个游戏共用的菜牌，图还没到时色块上写的字（12 种）,牌面上的一个字,鱼／菜／豆／酒／鸡／虾／粑／鸭／面／汤／糖／肉,占位,godot/assets/minigames/minigames.json 的 tiles[].ch,,正式图到了换成图、有图的牌不叠字（阿鱼 9/23）；第 11 个「糖」接喜糖在用，别挪
+连-01,小游戏·连连看,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T1、T2 两桌）,游戏名,连连看,,godot/assets/minigames/minigames.json 的 games[lianliankan].title,,
+连-02,小游戏·连连看,开始卡第一行,开始卡说明,把一样的菜连起来消掉，拐弯不超过两次,,godot/assets/minigames/minigames.json 的 games[lianliankan].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+连-03,小游戏·连连看,开始卡,这关目标,%d 秒内把菜连完,,godot/scripts/games/lianliankan.gd 的 goal_text,,%d 是这关给几秒
+连-04,小游戏·连连看,游戏中,顶栏状态,剩 %d 秒,,godot/scripts/games/lianliankan.gd 的 status_text,,
+连-05,小游戏·连连看,没得连了自动洗牌那一下,顶栏状态,洗一下牌,,godot/scripts/games/lianliankan.gd 的 status_text,,
+连-06,小游戏·连连看,时间用完,没过卡的输因,时间到了,,godot/scripts/games/lianliankan.gd 的 _game_tick 里的 lose,,
+连-07,小游戏·连连看,连连看开始卡,按钮,菜单册,,godot/scripts/games/game_host.gd 的 _show_start,,
+连-08,小游戏·连连看,过关卡（连连看每关解锁一道菜）,卡片正文一行,菜单册多了一道：%s,,godot/scripts/games/game_host.gd 的 _on_finished,,%s 是解锁的菜名
+连-09,小游戏·连连看,打开菜单册,面板标题,菜单册,,godot/scripts/games/game_host.gd 的 _open_book 的 head,,
+连-10,小游戏·连连看,菜单册,按钮,合上,,godot/scripts/games/game_host.gd 的 _open_book 的 close_b,,
+连-11,小游戏·连连看,菜单册里没解锁的菜,列表一行（灰）,%d. ？？？（连连看第 %d 关解锁）,,godot/scripts/games/game_host.gd 的 _open_book,,第一个 %d 序号，第二个是第几关解锁
+连-12,小游戏·连连看,菜单册里解锁了的菜,列表一行,%d. %s,,godot/scripts/games/game_host.gd 的 _open_book,,序号. 菜名；下一行是短评
+连-13,小游戏·连连看,菜单册 12 道菜的名字（按解锁顺序）,列表里的菜名,跷脚牛肉／甜皮鸭／钵钵鸡／豆腐脑／叶儿粑／冰粉／西坝豆腐／麻辣烫／烧烤／米花糖／凉糕／肥肠粉,占位，阿鱼可改,godot/assets/minigames/minigames.json 的 dishes[].name,,游戏里不出现真实地名，一律写苏七；已解锁的也能在宴会厅「添一道菜」
+连-14,小游戏·连连看,菜单册里「跷脚牛肉」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[0].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-15,小游戏·连连看,菜单册里「甜皮鸭」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[1].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-16,小游戏·连连看,菜单册里「钵钵鸡」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[2].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-17,小游戏·连连看,菜单册里「豆腐脑」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[3].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-18,小游戏·连连看,菜单册里「叶儿粑」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[4].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-19,小游戏·连连看,菜单册里「冰粉」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[5].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-20,小游戏·连连看,菜单册里「西坝豆腐」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[6].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-21,小游戏·连连看,菜单册里「麻辣烫」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[7].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-22,小游戏·连连看,菜单册里「烧烤」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[8].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-23,小游戏·连连看,菜单册里「米花糖」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[9].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-24,小游戏·连连看,菜单册里「凉糕」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[10].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+连-25,小游戏·连连看,菜单册里「肥肠粉」解锁后，名字下面,短评,待阿鱼写,待阿鱼写,godot/assets/minigames/minigames.json 的 dishes[11].note,,只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」
+消-01,小游戏·川菜消消乐,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T3、T4 两桌）,游戏名,川菜消消乐,,godot/assets/minigames/minigames.json 的 games[match3].title,,
+消-02,小游戏·川菜消消乐,开始卡第一行,开始卡说明,换相邻两道菜，凑成三个一样的消掉，步数用完前凑够分,,godot/assets/minigames/minigames.json 的 games[match3].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+消-03,小游戏·川菜消消乐,开始卡,这关目标,%d 步内凑够 %d 分（一次消三个 = 30 分，连着消还翻倍）,,godot/scripts/games/match3.gd 的 goal_text,,%d 步数、%d 目标分
+消-04,小游戏·川菜消消乐,游戏中,顶栏状态,%d/%d 分 剩 %d 步,,godot/scripts/games/match3.gd 的 status_text,,现在分／目标分，剩几步
+消-05,小游戏·川菜消消乐,没得消了自动洗牌那一下,顶栏状态,洗一下,,godot/scripts/games/match3.gd 的 status_text,,
+消-06,小游戏·川菜消消乐,步数用完没凑够,没过卡的输因,步数用完了,,godot/scripts/games/match3.gd 的 lose,,
+合-01,小游戏·小菜合大菜,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T5、T6 两桌）,游戏名,小菜合大菜,,godot/assets/minigames/minigames.json 的 games[g2048].title,,
+合-02,小游戏·小菜合大菜,开始卡第一行,开始卡说明,上下左右滑，一样的菜碰到一起合成更大的菜,,godot/assets/minigames/minigames.json 的 games[g2048].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+合-03,小游戏·小菜合大菜,开始卡,这关目标,从一粒%s合到「%s」,,godot/scripts/games/g2048.gd 的 goal_text,,第一个 %s 是这关作物第 1 级的名字，第二个是目标那一级（名字见下面作物表）
+合-04,小游戏·小菜合大菜,游戏中（这关图没交齐、用色块时）,顶栏状态,目标 %s 现在最大 %s,,godot/scripts/games/g2048.gd 的 status_text,,两个 %s 都是作物级名；还没开合时只有「目标 %s」
+合-05,小游戏·小菜合大菜,游戏中（有图时）,顶栏状态,目标 [图] 现在最大 [图],,godot/scripts/games/g2048.gd 的 status_parts,,有图就不写级名（阿鱼 9/23 有图别叠字）；字只有「目标」「现在最大」
+合-06,小游戏·小菜合大菜,没地方合了,没过卡的输因,没地方合了,,godot/scripts/games/g2048.gd 的 lose,,
+合-07,小游戏·小菜合大菜,第 1 关（水稻）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,谷种／芽谷／秧苗／一窝苗／抽杆／大肚子／稻穗／鼓粒／黄谷／米饭,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_01.steps,,作物名「水稻」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-08,小游戏·小菜合大菜,第 2 关（草莓）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,莓籽／两片叶／莓苗／一蓬叶／花蕾／白花／青果／白莓／红莓／一筐莓,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_02.steps,,作物名「草莓」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-09,小游戏·小菜合大菜,第 3 关（枇杷）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,枇杷核／出芽／小苗／枇杷树／花穗／白花／毛青果／胀果／黄枇杷／枇杷篮,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_03.steps,,作物名「枇杷」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-10,小游戏·小菜合大菜,第 4 关（玉米）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,包谷籽／冒芽／三叶苗／半人高／喇叭口／顶花／吐须／嫩包谷／老包谷／煮包谷,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_04.steps,,作物名「玉米」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-11,小游戏·小菜合大菜,第 5 关（油菜）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,菜籽／冒芽／菜秧／菜盘／菜苔／黄花／花海／青角／干角／菜油,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_05.steps,,作物名「油菜」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-12,小游戏·小菜合大菜,第 6 关（花生）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,花生米／顶土／小秧／一蓬／黄花／下针／鸡头果／嫩果／干果／盐花生,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_06.steps,,作物名「花生」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-13,小游戏·小菜合大菜,第 7 关（洋芋）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,洋芋种／发芽／小苗／一墩苗／满棵叶／白花／小洋芋／大洋芋／老洋芋／洋芋丝,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_07.steps,,作物名「洋芋」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-14,小游戏·小菜合大菜,第 8 关（莲藕）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,藕种／藕芽／小圆叶／出水叶／荷叶／荷花／莲蓬／结藕／新藕／糯米藕,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_08.steps,,作物名「莲藕」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-15,小游戏·小菜合大菜,第 9 关（辣椒）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,椒籽／冒芽／椒苗／花蕾／白花／小青椒／青椒串／红辣椒／干辣椒／红油碟,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_09.steps,,作物名「辣椒」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-16,小游戏·小菜合大菜,第 10 关（茶）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,茶籽／茶苗／茶树／鼓芽／小鱼叶／独芽／一叶芽／两叶芽／一篓叶／一杯茶,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_10.steps,,作物名「茶」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-17,小游戏·小菜合大菜,第 11 关（猕猴桃）牌面：从第 1 级到第 10 级,牌上的级名（没图时写在色块上）；开始卡、顶栏也用,小黑籽／冒尖／毛叶苗／爬藤／白花／毛果／大毛果／硬果／软果／果盘,01 拟（按农作物成长阶段表）,godot/assets/minigames/ladder.json 的 crops.crop_11.steps,,作物名「猕猴桃」本身不显示；每个三个字以内，长辈认得出；第 11 关以后一直用最后一种
+合-18,小游戏·小菜合大菜,作物表读不到时的兜底,级名,种子,,godot/scripts/games/g2048.gd 的 steps,,一般看不到
+记-01,小游戏·记菜名,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T7、T8 两桌）,游戏名,记菜名,,godot/assets/minigames/minigames.json 的 games[memory].title,,
+记-02,小游戏·记菜名,开始卡第一行,开始卡说明,翻两张牌，一样的菜就配成一对；翻错的次数有限,,godot/assets/minigames/minigames.json 的 games[memory].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+记-03,小游戏·记菜名,开始卡,这关目标,配完 %d 对，最多翻错 %d 次,,godot/scripts/games/memory.gd 的 goal_text,,%d 几对、%d 最多翻错几次
+记-04,小游戏·记菜名,开局先亮牌让你记,顶栏状态,记住它们,,godot/scripts/games/memory.gd 的 status_text,,
+记-05,小游戏·记菜名,刚配上一对,顶栏状态,配上了,,godot/scripts/games/memory.gd 的 status_text,,
+记-06,小游戏·记菜名,游戏中,顶栏状态,翻错 %d/%d,,godot/scripts/games/memory.gd 的 status_text,,翻错几次／最多几次
+记-07,小游戏·记菜名,翻错次数用完,没过卡的输因,翻错太多次了,,godot/scripts/games/memory.gd 的 lose,,
+记-08,小游戏·记菜名,扣着的牌背面,牌背,囍,,godot/scripts/games/memory.gd 的 _game_tick 里牌背的 l,,装饰字
+护-01,小游戏·护菜,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T9、T10 两桌）,游戏名,护菜,暂名，等阿鱼给,godot/assets/minigames/minigames.json 的 games[whack].title,,暂名，正式名字等阿鱼给（01 9/23）
+护-02,小游戏·护菜,开始卡第一行,开始卡说明,小松鼠从菜后面探头就点它／把它挡回去，别点到辣椒,,godot/assets/minigames/minigames.json 的 games[whack].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+护-03,小游戏·护菜,开始卡,这关目标,%d 秒内挡回 %d 次偷菜的小松鼠／别点辣椒,,godot/scripts/games/whack.gd 的 goal_text,,%d 秒数、%d 要挡几次；两行
+护-04,小游戏·护菜,游戏中,顶栏状态,守住 %d/%d 剩 %d 秒,,godot/scripts/games/whack.gd 的 status_text,,守住几次／要几次，剩几秒
+护-05,小游戏·护菜,时间到没守够,没过卡的输因,时间到了，守住了 %d 次,,godot/scripts/games/whack.gd 的 lose,,
+接-01,小游戏·接彩头,桌牌、「玩·XX」按钮、开始卡大字、游戏顶栏（T11、T12 两桌）,游戏名,接彩头,,godot/assets/minigames/minigames.json 的 games[catch].title,,
+接-02,小游戏·接彩头,开始卡第一行,开始卡说明,左右跑着用篮子接喜糖和红包／接够就过关，别接鞭炮,,godot/assets/minigames/minigames.json 的 games[catch].goal,,卡片按字硬折行，自己用换行断好（／就是换行）
+接-03,小游戏·接彩头,开始卡,这关目标,%d 秒内接够 %d 金／喜糖、红包都是钱，鞭炮别接／糖和红包给的金币不一样／接到 %d 个鞭炮就输了,第三行新写，等阿鱼定,godot/scripts/games/catch.gd 的 goal_text,,四行；%d 秒数、%d 要接几金、%d 几个鞭炮就输
+接-04,小游戏·接彩头,游戏中,顶栏状态,还差 %d 金,新写，等阿鱼定,godot/scripts/games/catch.gd 的 status_text,,原来是「接了 N 金／这关要 M 金」
+接-05,小游戏·接彩头,游戏中,游戏区左上角,剩 %d 秒  鞭炮 %d/%d,,godot/scripts/games/catch.gd 的 _sync_hud 的 hud,,剩几秒，接到几个鞭炮／几个就输；中间两个半角空格
+接-06,小游戏·接彩头,时间到没接够,没过卡的输因,时间到了，接了 %d 金,,godot/scripts/games/catch.gd 的 lose,,
+接-07,小游戏·接彩头,接到太多鞭炮,没过卡的输因,接到的鞭炮太多了,,godot/scripts/games/catch.gd 的 lose,,
+接-08,小游戏·接彩头,接到小红包、大红包时篮子上方冒一句；过关卡也随机说一句,吉利话,接好彩头 人生好彩,阿鱼给的,godot/assets/minigames/minigames.json 的 games[catch].sayings[0],,一句最好 10 个字以内；接到糖不冒字
+接-09,小游戏·接彩头,接到小红包、大红包时篮子上方冒一句；过关卡也随机说一句,吉利话,红包接住 好事成双,新写，等阿鱼定,godot/assets/minigames/minigames.json 的 games[catch].sayings[1],,一句最好 10 个字以内；接到糖不冒字
+接-10,小游戏·接彩头,接到小红包、大红包时篮子上方冒一句；过关卡也随机说一句,吉利话,彩头接满怀,新写，等阿鱼定,godot/assets/minigames/minigames.json 的 games[catch].sayings[2],,一句最好 10 个字以内；接到糖不冒字
+接-11,小游戏·接彩头,接到小红包、大红包时篮子上方冒一句；过关卡也随机说一句,吉利话,喜上加喜,新写，等阿鱼定,godot/assets/minigames/minigames.json 的 games[catch].sayings[3],,一句最好 10 个字以内；接到糖不冒字
+接-12,小游戏·接彩头,接到小红包、大红包时篮子上方冒一句；过关卡也随机说一句,吉利话,年年有余 岁岁欢喜,新写，等阿鱼定,godot/assets/minigames/minigames.json 的 games[catch].sayings[4],,一句最好 10 个字以内；接到糖不冒字
+接-13,小游戏·接彩头,接到小红包、大红包时篮子上方冒一句；过关卡也随机说一句,吉利话,大吉大利 百年好合,新写，等阿鱼定,godot/assets/minigames/minigames.json 的 games[catch].sayings[5],,一句最好 10 个字以内；接到糖不冒字
+后-01,后厅,走到化妆室的交互点,按钮,礼服架,蓝图原话,godot/assets/backhall/lines.json 的 btn_dress,,出处：蓝图 3.3 布局表「化妆台、镜子、礼服架」
+后-02,后厅,在化妆室点了按钮,阿鱼,【待补】,【待补】，等阿鱼定,godot/assets/backhall/lines.json 的 dress,,02 的草稿在 回执/等阿鱼定的字.md 第 1 条（有 A／B 两版）；出处：蓝图 3.3 交互点 dress：礼服架一句话，文案新写，待阿鱼定；定之前显示【待补】
+后-03,后厅,走到休息间的交互点,按钮,外套,蓝图原话,godot/assets/backhall/lines.json 的 btn_lounge,,出处：蓝图 3.3 异常处理「休息间没有人，只有一件外套」
+后-04,后厅,在休息间点了按钮,阿鱼,【待补】,【待补】，等阿鱼定,godot/assets/backhall/lines.json 的 lounge,,02 的草稿在 回执/等阿鱼定的字.md 第 1 条（有 A／B 两版）；出处：蓝图 3.3 交互点 lounge：休息间一句话。新郎家人名单没给之前休息间没有人、只有一件外套（异常处理）；定之前显示【待补】
+后-05,后厅,走到麻将室的交互点,按钮,麻将桌,蓝图原话,godot/assets/backhall/lines.json 的 btn_mahjong,,出处：蓝图 3.3 布局表「一张麻将桌四把椅子」
+后-06,后厅,在麻将室点了按钮,长辈,【待补】,【待补】，等阿鱼定,godot/assets/backhall/lines.json 的 mahjong,,02 的草稿在 回执/等阿鱼定的字.md 第 1 条（有 A／B 两版）；出处：蓝图 3.3 交互点 mahjong：四个长辈打牌一句话（用户故事「你也来打两圈」）；定之前显示【待补】
+后-07,后厅,走到厨房的交互点,按钮,大锅,蓝图原话,godot/assets/backhall/lines.json 的 btn_pot,,出处：蓝图 3.3 布局表「跷脚牛肉大锅」
+后-08,后厅,在厨房点了按钮,厨师,【待补】,【待补】，等阿鱼定,godot/assets/backhall/lines.json 的 pot,,02 的草稿在 回执/等阿鱼定的字.md 第 1 条（有 A／B 两版）；出处：蓝图 3.3 交互点 pot：大锅一句话，带出跷脚牛肉、为阶段 4 手艺埋线；定之前显示【待补】
+后-09,后厅,后厅地图上（画在地上的名字）,地上的名字牌,化妆室,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[45].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-10,后厅,后厅地图上（画在地上的名字）,地上的名字牌,休息间,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[46].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-11,后厅,后厅地图上（画在地上的名字）,地上的名字牌,麻将室,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[47].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-12,后厅,后厅地图上（画在地上的名字）,地上的名字牌,厨房,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[48].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-13,后厅,后厅地图上（画在地上的名字）,地上的名字牌,走廊,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[49].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-14,后厅,后厅地图上（画在地上的名字）,地上的名字牌,回宴会厅,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[50].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-15,后厅,后厅地图上（画在地上的名字）,地上的名字牌,后门,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[51].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-16,后厅,后厅地图上（画在地上的名字）,地上的名字牌,外套,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[52].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-17,后厅,后厅地图上（画在地上的名字）,地上的名字牌,麻将桌,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[53].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-18,后厅,后厅地图上（画在地上的名字）,地上的名字牌,大锅,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 flat[54].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-19,后厅,后厅地图上（物件头上的名字）,物件名字牌,化妆台,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[8].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-20,后厅,后厅地图上（物件头上的名字）,物件名字牌,礼服架,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[12].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-21,后厅,后厅地图上（物件头上的名字）,物件名字牌,沙发,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[13].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-22,后厅,后厅地图上（物件头上的名字）,物件名字牌,行李,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[15].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-23,后厅,后厅地图上（物件头上的名字）,物件名字牌,灶台,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[21].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-24,后厅,后厅地图上（物件头上的名字）,物件名字牌,案板,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[26].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+后-25,后厅,后厅地图上（物件头上的名字）,物件名字牌,碗,灰盒占位,godot/assets/layered/scene_luoman_backhall/layout.json 的 items[27].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-01,草坪,走到球旁边,按钮,踢一脚,蓝图原话,godot/assets/lawn/lines.json 的 btn_kick,,出处：蓝图 3.4 交互点 ball「踢一脚」
+草-02,草坪,踢完球、喜多把球叼回脚边（每回到草坪喊一次）,小孩,再踢一个,新写，等阿鱼定,godot/assets/lawn/lines.json 的 kids,,出处：新写，等阿鱼定（照蓝图 3.4 用户故事「旁边小孩喊再踢一个」，01 9/19 说先用它占位）。01 9/20 定时机：第一次踢完球、喜多把球放回脚边的那一刻喊，每回到草坪喊一次；…
+草-03,草坪,草坪地图上（画在地上的名字）,地上的名字牌,回迎宾院,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[26].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-04,草坪,草坪地图上（画在地上的名字）,地上的名字牌,去后厅,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[27].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-05,草坪,草坪地图上（画在地上的名字）,地上的名字牌,去果园,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[28].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-06,草坪,草坪地图上（画在地上的名字）,地上的名字牌,婚礼拱门·预留,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[29].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-07,草坪,草坪地图上（画在地上的名字）,地上的名字牌,孩童区,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[30].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-08,草坪,草坪地图上（画在地上的名字）,地上的名字牌,秋千,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[31].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+草-09,草坪,草坪地图上（画在地上的名字）,地上的名字牌,滑梯,灰盒占位,godot/assets/layered/scene_luoman_lawn/layout.json 的 flat[32].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+湖-01,湖边,走到长凳旁,按钮,坐下,新写，等阿鱼定,godot/assets/lake/lines.json 的 btn_sit,,出处：新写，等阿鱼定（蓝图 3.5 交互说明「长凳点一下坐」）
+湖-02,湖边,坐在长凳上,按钮,起来,新写，等阿鱼定,godot/assets/lake/lines.json 的 btn_stand,,出处：新写，等阿鱼定（蓝图 3.5 交互说明「再点起来」）
+湖-03,湖边,走上栈道进亭子（自动出，走出去收）,阿鱼,【待补】,【待补】，只有阿鱼能写,godot/assets/lake/lines.json 的 pavilion,,阿鱼的记忆点（世界观 4.2），02 不代写；一行 20 字以内好看；说话人现在写阿鱼，也可以改成没人说的旁白；出处：蓝图 3.5 交互点 pavilion：亭子里一句话，是阿鱼的记忆点（《世界观》4.2 清单最后一行「罗曼山庄湖边亭子」写着需补充、阶段 1）。只有阿鱼能写，02 不代写；写好之前…
+湖-04,湖边,湖边地图上（画在地上的名字）,地上的名字牌,湖,灰盒占位,godot/assets/layered/scene_luoman_lake/layout.json 的 flat[90].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+湖-05,湖边,湖边地图上（画在地上的名字）,地上的名字牌,亭子,灰盒占位,godot/assets/layered/scene_luoman_lake/layout.json 的 flat[91].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+湖-06,湖边,湖边地图上（画在地上的名字）,地上的名字牌,栈道,灰盒占位,godot/assets/layered/scene_luoman_lake/layout.json 的 flat[92].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+湖-07,湖边,湖边地图上（画在地上的名字）,地上的名字牌,长凳,灰盒占位,godot/assets/layered/scene_luoman_lake/layout.json 的 flat[93].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+湖-08,湖边,湖边地图上（画在地上的名字）,地上的名字牌,回迎宾院,灰盒占位,godot/assets/layered/scene_luoman_lake/layout.json 的 flat[94].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+果-01,果园,走到熟了的草莓垄、枇杷树下,按钮,收{fruit}（{n} {plot}熟了）,新写，等阿鱼定,godot/assets/orchard/lines.json 的 btn_harvest,,{fruit} 果名、{n} 几块熟了、{plot} 垄／棵，别删；出处：新写，等阿鱼定（阿鱼 9/20：5 分钟熟一轮，熟了收）
+果-02,果园,走到还没熟的地,顶上提示,{fruit}还有 {left} 熟,新写，等阿鱼定,godot/assets/orchard/lines.json 的 growing,,{fruit} 果名、{left} 还有多久（格式见下一条），别删
+果-03,果园,「还有多久」的说法,嵌在上一句里,%d 秒／%d 分 %d 秒,,godot/scripts/orchard.gd 的 left_text,,不到 1 分钟用前一种
+果-04,果园,收完果子（现在是山庄直接收走折成金币）,说话框（没写谁说）,你的 {what} 卖了 {coins} 金,新写，等阿鱼定,godot/assets/orchard/lines.json 的 sold,,{what} 是卖了什么（格式见下一条）、{coins} 几金，别删；出处：新写（02 按 04 体验报告 B21 改，9/23）：原来是「山庄收走 {what}，给你 {coins} 金（手上 {total} 金）」——04 说「收走」像被人拿走的、括号…
+果-05,果园,「卖了什么」的说法,嵌在上一句里,%s %d %s,,godot/scripts/orchard.gd 的 basket_text,,果名 数量 单位，两种果子之间空格隔开，比如「草莓 3 筐 枇杷 2 篮」
+果-06,果园,收完果子（切成自己拿去卖的模式才出，现在看不到）,说话框（没写谁说）,收了 {n} {unit}{fruit} 放进果篮,新写，等阿鱼定,godot/assets/orchard/lines.json 的 harvested,,{n} 几份、{unit} 筐／篮、{fruit} 果名，别删
+果-07,果园,果篮有东西、走到山庄收购处（自己卖模式才出）,按钮,卖给山庄（{coins} 金）,新写，等阿鱼定,godot/assets/orchard/lines.json 的 btn_sell,,{coins} 能卖几金，别删；出处：新写，等阿鱼定（阿鱼 9/20：熟了让山庄卖掉换金币）
+果-08,果园,走到山庄收购处（现在的山庄直接收模式）,顶上提示,果子山庄直接收走了 不用跑这一趟,新写，等阿鱼定,godot/assets/orchard/lines.json 的 shop_auto,,出处：新写，等阿鱼定（sell_mode=auto 的时候走到收购处说这句，省得人以为坏了）
+果-09,果园,果篮空着走到收购处（自己卖模式）,顶上提示,果篮是空的 先去收点果子,新写，等阿鱼定,godot/assets/orchard/lines.json 的 basket_empty,,
+果-10,果园,走到不在季节的地（季节开关打开才出，现在关着）,顶上提示,还没到时候,蓝图原话,godot/assets/orchard/lines.json 的 not_season,,出处：蓝图 3.6 阶段 1 原话。只有 farm.json 的 season_gate 打开（按真实月份的老玩法）才会出这句
+果-11,果园,果园各句里嵌的「草莓」的叫法,嵌在按钮和提示里,草莓／垄／筐,,godot/assets/orchard/farm.json 的 fruits.strawberry 的 name／plot／unit,,依次是果名、一块地叫什么（几垄熟了）、一份叫什么（3 筐）
+果-12,果园,果园各句里嵌的「枇杷」的叫法,嵌在按钮和提示里,枇杷／棵／篮,,godot/assets/orchard/farm.json 的 fruits.loquat 的 name／plot／unit,,依次是果名、一块地叫什么（几棵熟了）、一份叫什么（3 篮）
+果-13,果园,果园地图上（画在地上的名字）,地上的名字牌,草莓园,灰盒占位,godot/assets/layered/scene_luoman_orchard/layout.json 的 flat[16].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+果-14,果园,果园地图上（画在地上的名字）,地上的名字牌,枇杷园,灰盒占位,godot/assets/layered/scene_luoman_orchard/layout.json 的 flat[17].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+果-15,果园,果园地图上（画在地上的名字）,地上的名字牌,田埂,灰盒占位,godot/assets/layered/scene_luoman_orchard/layout.json 的 flat[18].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+果-16,果园,果园地图上（画在地上的名字）,地上的名字牌,回草坪,灰盒占位,godot/assets/layered/scene_luoman_orchard/layout.json 的 flat[19].text,,灰盒阶段代码画的字，出正式底图后整份换掉
+果-17,果园,果园地图上（物件头上的名字）,物件名字牌,山庄收购处,灰盒占位,godot/assets/layered/scene_luoman_orchard/layout.json 的 items[14].label.text,,灰盒阶段代码画的字，出正式底图后整份换掉
+终-01,结束页,吃完出门后的下一段（还没做）,标题,【待做】出了罗曼山庄往南,【待做】,godot/scripts/main.gd 的 _build_ui 的 end 屏,,现在正常玩到不了这一屏（出大门是新娘妈妈送你），只有截图模式能看到
+终-02,结束页,同上,标题下面一行,本地人集市、镇政府、小学门口的黄葛树、老街、石板桥,占位说明,godot/scripts/main.gd 的 _build_ui 的 end 屏,,
+终-03,结束页,同上,按钮,再走一遍,,godot/scripts/main.gd 的 _build_ui 的 again,,
+通-01,各处通用,所有场景左上角,地名牌,● 罗曼山庄,,godot/scripts/main.gd 的 _build_hud 的 chip,,五块画布都写这一个，不随场景变
+通-02,各处通用,所有场景左上角地名右边,金币牌,%d 金,,godot/scripts/main.gd 的 coins_chip,,刚打开是「0 金」
+通-03,各处通用,说话框左上角，没指定谁说时,说话人,阿鱼,,godot/scripts/main.gd 的 _say 的 who 默认值,,其他说话人（新娘妈妈、新娘爸爸、摄影师、老人、长辈、厨师、小孩）写在各 lines.json 的 who
+通-04,各处通用,对方没有昵称时（卡片、簿子、敬酒提示、桌牌…）,替代昵称,有人,,godot/scripts/main.gd 的 多处兜底字（另有 godot/scripts/arrival_card.gd 的 short_nick）,,main.gd 里好几处、arrival_card.gd 1 处都写这个字，要一起改
+通-05,各处通用,昵称太长被截断,截断记号,…,,godot/scripts/arrival_card.gd 的 short_nick,,进厅小卡、第一次进厅那句截到 6 个字加…；按钮上的截断是引擎自带
+通-06,各处通用,看人卡片、翻簿子右上角,关闭按钮,×,,godot/scripts/main.gd 的 _build_person_card、_build_book_panel,,字体里有这个字才出
+通-07,各处通用,花墙上、相纸上、翻牌背面,装饰字,囍,,godot/scripts/entrance.gd 的 _item 里花墙的 xl,,唯一允许画在场景里的字（ASSETS 第 0 节）
+通-08,各处通用,坐的那把椅子刚被人抢先坐了,顶上提示（起昵称时是输入框下红字）,这把有人坐了,阿鱼定稿,godot/scripts/main.gd 的 REASONS.seat_taken,,服务端回拒绝原因码，客户端翻成这句
+通-09,各处通用,今天敬酒次数用完,顶上提示（起昵称时是输入框下红字）,今天敬够了,阿鱼定稿,godot/scripts/main.gd 的 REASONS.toast_limit,,服务端回拒绝原因码，客户端翻成这句
+通-10,各处通用,同一个人敬过了,顶上提示（起昵称时是输入框下红字）,这杯敬过了,阿鱼定稿,godot/scripts/main.gd 的 REASONS.toast_same_person,,服务端回拒绝原因码，客户端翻成这句
+通-11,各处通用,敬自己,顶上提示（起昵称时是输入框下红字）,自己就不用敬了,阿鱼定稿,godot/scripts/main.gd 的 REASONS.toast_self,,服务端回拒绝原因码，客户端翻成这句
+通-12,各处通用,往不是自己坐的桌簿子上写,顶上提示（起昵称时是输入框下红字）,先坐下 慢慢写,阿鱼定稿,godot/scripts/main.gd 的 REASONS.not_sat_here,,服务端回拒绝原因码，客户端翻成这句
+通-13,各处通用,簿子写超过 100 字,顶上提示（起昵称时是输入框下红字）,太长啦 真实情感的话 短一点也没关系,阿鱼定稿,godot/scripts/main.gd 的 REASONS.book_too_long,,服务端回拒绝原因码，客户端翻成这句
+通-14,各处通用,起昵称、签到签名、写簿子碰到敏感词,顶上提示（起昵称时是输入框下红字）,换一个吧,阿鱼定稿（敏感词模块需求第 2 节）,godot/scripts/main.gd 的 REASONS.sensitive,,服务端回拒绝原因码，客户端翻成这句
+通-15,各处通用,昵称撞了保留名（主角的名字）,顶上提示（起昵称时是输入框下红字）,这个名字留给主角了，换一个吧,阿鱼定稿（敏感词模块需求第 2 节）,godot/scripts/main.gd 的 REASONS.reserved,,服务端回拒绝原因码，客户端翻成这句
+通-16,各处通用,想认识自己,顶上提示（起昵称时是输入框下红字）,自己就不用认识了,新写，等阿鱼定,godot/scripts/main.gd 的 REASONS.meet_self,,服务端回拒绝原因码，客户端翻成这句
+通-17,各处通用,同一个人说过想认识了,顶上提示（起昵称时是输入框下红字）,这句说过了,新写，等阿鱼定,godot/scripts/main.gd 的 REASONS.meet_already,,服务端回拒绝原因码，客户端翻成这句
+通-18,各处通用,不同桌、也没敬过酒就点想认识你,顶上提示（起昵称时是输入框下红字）,先坐到一桌 或者敬一杯,新写，等阿鱼定,godot/scripts/main.gd 的 REASONS.meet_not_met,,服务端回拒绝原因码，客户端翻成这句
+通-19,各处通用,没连上网、服务端出错、或者服务端回了没见过的原因码,顶上提示（签到时是输入框下红字）,没连上 再试一下,阿鱼定稿,godot/scripts/main.gd 的 REASONS.network／no_resident／bad_request／no_seat ＋ _reason_text 的兜底,,代码里 5 处都是这句，要一起改；进厅、坐下、敬酒、翻簿子、写簿子、想认识你、签到失败都用它
+通-20,各处通用,有新版本下好了（微信弹窗）,弹窗标题,更新提示,导出模板自带,wechat-build/game.js 的 checkUpdate,,导出模板生成的，直接改会被下次导出冲掉
+通-21,各处通用,有新版本下好了（微信弹窗）,弹窗正文,新版本已经准备好，是否重启应用？,导出模板自带,wechat-build/game.js 的 checkUpdate,,同上
+通-22,各处通用,右上角「···」转发给朋友、朋友圈时,分享卡片标题,苏七镇奇缘,待阿鱼定,godot/wxgame/share.js 的 card().title,,代码注释：卡片文案待阿鱼定，先只放游戏名；卡片图是 godot/wxgame/share.jpg
