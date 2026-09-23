@@ -227,7 +227,7 @@
      "step": 0
     },
     "target": {
-     "base": 9,
+     "base": 10,
      "step": 4,
      "max": 58,
      "int": true,
@@ -255,7 +255,7 @@
     "bad": {
      "base": 0.0,
      "step": 0.03,
-     "max": 0.2,
+     "max": 0.28,
      "hard": 1
     }
    },
