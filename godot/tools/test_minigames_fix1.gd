@@ -280,12 +280,14 @@ func run() -> void:
     # 「齐不齐」的判断（03 9/21 报的：原来一张张单独找，crop_02 放 9 张就是 9 图 + 1 色块）
     check("一张一个的那两套永远算齐（少一张退一张，不牵连整盘）",
         Tiles.art_ready("shared", 12) and Tiles.art_ready("pattern", 12))
-    check("作物那种成阶梯的套，一张都没有就是不齐", not Tiles.art_ready("crop_02", 10) and not Tiles.art_ready("crop_11", 10))
+    # 前三种（水稻、草莓、枇杷）GPT 9/21 交了，齐；第 4 种起还没交
+    check("交齐的那几套算齐", Tiles.art_ready("crop_01", 10) and Tiles.art_ready("crop_02", 10) and Tiles.art_ready("crop_03", 10))
+    check("没交的还是不齐", not Tiles.art_ready("crop_04", 10) and not Tiles.art_ready("crop_11", 10))
     check("套名空着直接算不齐", not Tiles.art_ready("", 10) and Tiles.dish_art(0, "") == null)
     check("查过就记着，不会每画一格问十次文件", Tiles._ready.has("crop_02"))
     # 图不齐时，整盘都是色块 + 名字，不许一半图一半色块
     var gz = G2048.new()
-    gz.setup(2, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 11)
+    gz.setup(4, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 11)   # 第 4 关玉米，图还没交
     gz.size = Vector2(400, 400)
     ui.add_child(gz)
     gz.start()
@@ -295,10 +297,33 @@ func run() -> void:
         for kid in (c as Panel).get_children():
             if kid is TextureRect: pics2 += 1
         if ((c as Panel).get_theme_stylebox("panel") as StyleBoxFlat).bg_color.a > 0.5: blocks2 += 1
-    check("第 2 关（草莓，图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
+    check("第 4 关（玉米，图没交）：%d 张牌全是色块、一张图都没有" % gz.cells.size(),
         pics2 == 0 and blocks2 == gz.cells.size() and gz.cells.size() > 0)
     check("这一关的 art_set 被清空了（整套不用）", gz.art_set == "")
     gz.queue_free()
+    # 交了图的前三关：整盘都该是图，不许半图半色块（GPT 9/21 交了水稻、草莓、枇杷 30 张）
+    for lv in [1, 2, 3]:
+        var gy = G2048.new()
+        gy.setup(lv, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 3)
+        gy.size = Vector2(400, 400)
+        ui.add_child(gy)
+        gy.start()
+        var pics3 := 0
+        for c in gy.cells:
+            for kid in (c as Panel).get_children():
+                if kid is TextureRect:
+                    pics3 += 1
+        check("第 %d 关（%s）整盘都是图（%d/%d），套 %s" % [lv, str(gy.crop().get("title", "")), pics3, gy.cells.size(), gy.art_set],
+            gy.cells.size() > 0 and pics3 == gy.cells.size() and gy.art_set == "crop_%02d" % lv)
+        gy.queue_free()
+    # 关号超过种数回绕到最后一种，不许崩
+    var gw = G2048.new()
+    gw.setup(15, {"size": 4.0, "target_pow": 5.0}, SystemFont.new(), 3)
+    gw.size = Vector2(400, 400)
+    ui.add_child(gw)
+    gw.start()
+    check("第 15 关回绕到猕猴桃、不崩、整盘色块", str(gw.crop().get("title", "")) == "猕猴桃" and gw.cells.size() > 0)
+    gw.queue_free()
     check("作废的那 11 张旧阶梯图已经删了", not ResourceLoader.exists("res://assets/minigames/ladder/step_00.png"))
 
     # ---------- 13. 六个游戏歇着的时候都不收操作（03 9/20：三消漏判 paused） ----------

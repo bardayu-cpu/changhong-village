@@ -136,25 +136,27 @@ func run() -> void:
     print("  每张牌都带名字、名字都在那张菜谱里 ", all_named)
 
     # 7. 两套图别混（03 9/20 报的：一级「花生」配了鱼的图）。
-    #    2048 那 11 级有自己一套阶梯图，GPT 还没交 —— 这轮退回色块 + 菜名，不拿共用那 12 张凑；
-    #    另外五个游戏照旧用共用那 12 张
+    #    小菜合大菜每关一种作物、各用各的那套图（crop_NN），不拿共用那 12 张凑；另外五个游戏照旧用共用那 12 张。
+    #    一套十张缺一张就整关退回色块 + 名字，不许半图半色块（9/21 加的判断）
     var Tiles = load("res://scripts/games/tiles.gd")
-    var ladder_tex = Tiles.dish_art(0, "ladder")
     var shared_tex = Tiles.dish_art(0, "shared")
-    print("7 阶梯图 ", "有" if ladder_tex != null else "还没交", "，共用菜牌 ", "有" if shared_tex != null else "没有")
+    var lv_set: String = g.art_set
+    var lv_ready: bool = lv_set != ""
+    print("7 这一关（第 ", g.level, " 关 ", str(g.crop().get("title", "")), "）用的套 ", "「" + lv_set + "」" if lv_ready else "没有（图还没交）",
+        "，共用菜牌 ", "有" if shared_tex != null else "没有")
     ok = ok and shared_tex != null
     var pics := 0
     for c in g.cells:
         for kid in (c as Panel).get_children():
             if kid is TextureRect:
                 pics += 1
-    if ladder_tex == null:
-        # 图没交：盘上一张图都不该有（宁可全色块，也别一半图一半色块）
-        print("  阶梯图还没交，2048 退回色块 + 菜名：盘上图片数 ", pics)
+    if not lv_ready:
+        # 这一关的图没交齐：盘上一张图都不该有（宁可全色块，也别一半图一半色块）
+        print("  图没交齐，整盘退回色块 + 名字：盘上图片数 ", pics)
         ok = ok and pics == 0 and drawn > 0
     else:
-        print("  阶梯图到了，2048 每格都该有图：", pics, "/", drawn)
-        ok = ok and pics == drawn
+        print("  图交齐了，每格都该有图：", pics, "/", drawn)
+        ok = ok and pics == drawn and drawn > 0
     var shared_tile: Panel = Tiles.dish_tile(0, 48.0, SystemFont.new(), 24)
     var shared_pics := 0
     for kid in shared_tile.get_children():
