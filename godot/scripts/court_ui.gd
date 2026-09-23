@@ -38,6 +38,9 @@ var gift_edit: LineEdit
 var confirm_name: Label
 var confirm_gift: Label
 var confirm_ok: Button
+var gift_back_btn: Button   # B19：礼金卡「返回」，次一级
+var confirm_back_btn: Button   # B19：确认卡「返回」，次一级
+var focus_hint_panel: PanelContainer   # C1：合影提示字的底框
 var sign_name := ""
 var sign_gift := 0
 var busy := false          # 签到请求在路上
@@ -125,8 +128,10 @@ func _refresh_act() -> void:
             act_btn.text = Copy.text("btn_signed") if save.signed_in else Copy.text("btn_sign")
             act_btn.disabled = save.signed_in
         "album":
-            act_btn.text = Copy.text("btn_album")
-            act_btn.disabled = not can_open_album()
+            # C4：灰着的时候别写「翻开」——按钮点不动，字直接说清楚为什么
+            var ready := can_open_album()
+            act_btn.text = Copy.text("btn_album") if ready else Copy.text("album_not_ready")
+            act_btn.disabled = not ready
         "photo_mark":
             act_btn.text = Copy.text("btn_photo")
             act_btn.disabled = false
@@ -175,6 +180,20 @@ func _btn(text: String, cb: Callable) -> Button:
     var b := Button.new()
     b.text = text
     b.pressed.connect(cb)
+    return b
+
+## B19（迎宾院礼金卡、确认卡「返回」比往前走的按钮还大还显眼）：次一级按钮，字小一号、
+## 边框淡、不撑满一行——往前走的那个照旧用主题给的红金主色，不用另外改
+func _btn_secondary(text: String, cb: Callable) -> Button:
+    var b := _btn(text, cb)
+    b.add_theme_font_size_override("font_size", 20)
+    b.add_theme_color_override("font_color", MUTED)
+    b.add_theme_color_override("font_hover_color", PAPER)
+    b.add_theme_color_override("font_pressed_color", PAPER)
+    b.add_theme_stylebox_override("normal", m._sb(Color(0.106, 0.078, 0.133, 0.5), MUTED, 1, 6, 10))
+    b.add_theme_stylebox_override("hover", m._sb(Color(0.106, 0.078, 0.133, 0.5), PAPER, 1, 6, 10))
+    b.add_theme_stylebox_override("pressed", m._sb(Color(0.106, 0.078, 0.133, 0.6), PAPER, 1, 6, 10))
+    b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     return b
 
 func _page(holder: VBoxContainer) -> VBoxContainer:
@@ -232,7 +251,8 @@ func _build_sign() -> void:
     gift_custom_row = _row([_grow(gift_edit), _btn(Copy.text("btn_ok"), _custom_done)])
     gift_custom_row.visible = false
     p1.add_child(gift_custom_row)
-    p1.add_child(_btn(Copy.text("btn_back"), func(): _show_page(0)))
+    gift_back_btn = _btn_secondary(Copy.text("btn_back"), func(): _show_page(0))
+    p1.add_child(gift_back_btn)
     # 第 3 页：确认，写明「只是游戏里的记录」
     var p2 := _page(holder)
     p2.add_child(_lbl(Copy.text("confirm_title"), 24, GOLD1))
@@ -242,7 +262,9 @@ func _build_sign() -> void:
     p2.add_child(confirm_gift)
     p2.add_child(_lbl(Copy.text("confirm_note"), 24, MUTED))
     confirm_ok = _btn(Copy.text("btn_ok"), _submit)
-    p2.add_child(_row([_grow(_btn(Copy.text("btn_back"), func(): _show_page(1))), _grow(confirm_ok)]))
+    confirm_ok.add_theme_font_size_override("font_size", 28)   # B19：往前走的那个做大
+    confirm_back_btn = _btn_secondary(Copy.text("btn_back"), func(): _show_page(1))
+    p2.add_child(_row([confirm_back_btn, _grow(confirm_ok)]))
 
 func _show_page(i: int) -> void:
     for k in pages.size():
@@ -459,14 +481,27 @@ func _build_photo() -> void:
     ring_b = _ring(Color("#f4f1ea"))
     focus_root.add_child(ring_a)
     focus_root.add_child(ring_b)
+    # C1（体验第一轮，阿鱼 9/23 加派）：「两个圈对上的时候点一下」原来是没底板的光字，压在场景上看不清。
+    # 照对白框／顶上提示框一样的底框：深色底、金边，别再是光字
+    focus_hint_panel = PanelContainer.new()
+    focus_hint_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+    focus_hint_panel.offset_left = -240
+    focus_hint_panel.offset_right = 240
+    focus_hint_panel.offset_top = -260
+    focus_hint_panel.offset_bottom = -220
+    focus_hint_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    var hint_sb := StyleBoxFlat.new()
+    hint_sb.bg_color = Color(0.106, 0.078, 0.133, 0.94)
+    hint_sb.border_color = GOLD1
+    hint_sb.set_border_width_all(2)
+    hint_sb.set_corner_radius_all(6)
+    hint_sb.content_margin_left = 14; hint_sb.content_margin_right = 14
+    hint_sb.content_margin_top = 8; hint_sb.content_margin_bottom = 8
+    focus_hint_panel.add_theme_stylebox_override("panel", hint_sb)
     var hint := _lbl(Copy.text("focus_hint"), 24, GOLD1, HORIZONTAL_ALIGNMENT_CENTER)
-    hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-    hint.offset_left = -240
-    hint.offset_right = 240
-    hint.offset_top = -260
-    hint.offset_bottom = -220
     hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    focus_root.add_child(hint)
+    focus_hint_panel.add_child(hint)
+    focus_root.add_child(focus_hint_panel)
     add_child(focus_root)
     # 第 3 步：相纸
     var pp := _panel(440.0)

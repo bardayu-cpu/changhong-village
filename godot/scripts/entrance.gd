@@ -19,6 +19,7 @@ var inside_spot: Dictionary = {}   # id -> 现在人在不在这个点的半径�
 var npc_nodes: Dictionary = {}     # id -> Sprite2D
 var obstacles: Array = []      # 挡路的占地：{"rect": [x0,y0,x1,y1]} / {"ellipse": [cx,cy,rx,ry]}
 var labels: Node2D
+var sign_mark: Polygon2D       # B20：签到台头顶的记号（体验第一轮，04 报告「签到台在屏幕外」）
 
 func build(preset: int, nickname: String, f: Font) -> void:
     font = f
@@ -45,6 +46,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
         var cf: Vector2 = Vector2(cfg["couple"][0], cfg["couple"][1])
         obstacles.append({"ellipse": [cf.x, cf.y, COUPLE_FOOT.x, COUPLE_FOOT.y]})
     _npcs()
+    _sign_mark()
     var t0 := Time.get_ticks_msec()
     cfg["walk_grid"] = compute_grid(cfg, obstacles, GRID_CELL, CLEAR)
     print("[suqi] %s 能走的格子算了 %d 毫秒" % [str(cfg.get("title", "迎宾院")), Time.get_ticks_msec() - t0])
@@ -73,6 +75,8 @@ func reset_to(p: Vector2) -> void:
     super(p)
     for id in points:
         inside_spot[id] = pos.distance_to(points[id]["pos"]) < float(points[id]["r"])
+    if bool(inside_spot.get("sign_in", false)) and sign_mark != null:
+        sign_mark.visible = false
 
 func _process(dt: float) -> void:
     super(dt)
@@ -81,6 +85,30 @@ func _process(dt: float) -> void:
         if now != bool(inside_spot.get(id, false)):
             inside_spot[id] = now
             spot.emit(id, now)
+            if id == "sign_in" and now and sign_mark != null:
+                sign_mark.visible = false   # B20：走到桌子跟前了，看见了，记号收起来，别一直杵着
+    if sign_mark != null and sign_mark.visible:
+        var t := Time.get_ticks_msec() / 1000.0
+        sign_mark.scale = Vector2.ONE * (1.0 + sin(t * 4.0) * 0.22)
+        sign_mark.modulate.a = 0.6 + sin(t * 4.0) * 0.4
+
+## B20（体验第一轮，04 报告「新娘妈妈叫你签到，签到台在屏幕外，没有任何东西指出在哪」）：
+## 给签到台头顶挂一圈会跳的金光，和大门那圈金光（layered_hall.gd _exit_mark）同一个颜色、同一个画法，
+## 只是挂在头顶不是踩在脚下。走到桌子跟前一次以后就收起来（见上面 _process、reset_to）
+func _sign_mark() -> void:
+    if not points.has("sign_in"):
+        return
+    var p: Vector2 = points["sign_in"]["pos"]
+    sign_mark = Polygon2D.new()
+    var pts := PackedVector2Array()
+    for i in 20:
+        var a := TAU * float(i) / 20.0
+        pts.append(Vector2(cos(a) * 22.0, sin(a) * 22.0 * 0.55))
+    sign_mark.polygon = pts
+    sign_mark.color = Color(1.0, 0.85, 0.4, 0.55)
+    sign_mark.position = p + Vector2(0, -70)
+    sign_mark.z_index = 4
+    add_child(sign_mark)
 
 ## 物件名那层也算：自己的名字碰到它就让开、贴屏幕边就往里收（体验 B3、B4）
 func _tag_holders() -> Array:

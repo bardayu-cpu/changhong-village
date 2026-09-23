@@ -213,7 +213,7 @@ func run() -> void:
     check("收购处出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "卖给山庄（56 金）")
     ui._on_act()
     tick(2)
-    check("卖了说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "山庄收走 草莓 16 筐 枇杷 6 篮，给你 56 金（手上 56 金）")
+    check("卖了说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "你的 草莓 16 筐 枇杷 6 篮 卖了 56 金")
     check("金币进了和小游戏同一个钱包（%d 金）" % m.games_save.coins, m.games_save.coins == coins0 + 56)
     check("果篮空了", m.orchard_save.basket_total() == 0)
     check("按钮收了", not ui.act_btn.visible)
@@ -245,7 +245,7 @@ func run() -> void:
     ui._on_act()
     tick(2)
     check("收完直接折钱：%s" % m.dialog_text.text, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
-        and m.dialog_text.text.begins_with("山庄收走 草莓 8 筐"))
+        and m.dialog_text.text.begins_with("你的 草莓 8 筐") and not m.dialog_text.text.contains("（"))
     m.note.text = ""
     walk_into(o, "shop", Vector2(980, 1016))
     check("这种卖法下走到收购处：%s" % m.note.text, m.note.text == "果子山庄直接收走了 不用跑这一趟" and not ui.act_btn.visible)

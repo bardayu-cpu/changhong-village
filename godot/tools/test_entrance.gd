@@ -76,6 +76,7 @@ func run() -> void:
     var g: Dictionary = c.cfg["walk_grid"]
     check("进场点能站 %s" % str(c.SPAWN), c._free(c.SPAWN))
     check("交互点 10 个", c.points.size() == 10)
+    check("B20 签到台记号：一开始亮着", c.sign_mark != null and c.sign_mark.visible)
     for id in c.points:
         var p: Vector2 = c.points[id]["pos"]
         var path: Array = c.find_path(c.SPAWN, p)
@@ -217,6 +218,7 @@ func part2(c) -> void:
     print("10 签到面板")
     walk_to(c.spot_pos("sign_in"))
     check("按钮「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_sign") and not ui.act_btn.disabled)
+    check("B20 走到桌子跟前了，记号收起来", not c.sign_mark.visible)
     ui._on_act()
     check("面板开了，第一页，名字默认「%s」" % ui.name_edit.text, ui.sign_root.visible and ui.pages[0].visible and ui.name_edit.text == "小李")
     check("开着面板人不能走", not c.walking_enabled)
@@ -252,6 +254,14 @@ func part2(c) -> void:
         if ch is Label and ch.text == CourtCopy.text("confirm_note"):
             note_ok = true
     check("确认页写着「只是游戏里的记录」", note_ok)
+
+    # 12b. B19：礼金卡、确认卡上「返回」不再是最大最抢眼的按钮，往前走的那个更大
+    print("12b B19 按钮主次")
+    check("礼金卡「返回」缩成次一级（不撑满一行、字小一号）",
+        ui.gift_back_btn.size_flags_horizontal == Control.SIZE_SHRINK_CENTER and ui.gift_back_btn.get_theme_font_size("font_size") < 24)
+    check("确认卡「好」比「返回」大（%d > %d），「返回」缩成次一级" % [ui.confirm_ok.get_theme_font_size("font_size"), ui.confirm_back_btn.get_theme_font_size("font_size")],
+        ui.confirm_ok.get_theme_font_size("font_size") > ui.confirm_back_btn.get_theme_font_size("font_size")
+        and ui.confirm_back_btn.size_flags_horizontal == Control.SIZE_SHRINK_CENTER)
 
     # 13. 断网：「没连上 再试一下」，本机留草稿，关了再开直接回到确认页
     print("13 断网留草稿")
@@ -312,7 +322,8 @@ func part3(c) -> void:
     m.debug_override = false
     walk_to(c.spot_pos("album") + Vector2(0, 120))
     walk_to(c.spot_pos("album"))
-    check("按钮「%s」置灰" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_album") and ui.act_btn.disabled)
+    # C4：灰着的时候按钮直接写「还没印好」，不再是点不动的「翻开」
+    check("按钮「%s」置灰" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("album_not_ready") and ui.act_btn.disabled)
     check("提示：%s" % m.note.text, m.note_box.visible and m.note.text == CourtCopy.text("album_not_ready"))
     ui._on_act()
     check("点不开", m.state == "court")
@@ -347,6 +358,10 @@ func part3(c) -> void:
     check("摆姿势，人停下", ui.pose_root.visible and not c.walking_enabled and not ui.act_btn.visible)
     ui._pick_pose("wave")
     check("对焦圈出来，摄影师倒数：%s" % m.dialog_text.text, ui.focus_root.visible and m.dialog_text.text == CourtCopy.text("photo_count"))
+    # C1：「两个圈对上的时候点一下」不再是压在场景上的光字，有深色底、金边
+    var hint_sb: StyleBox = ui.focus_hint_panel.get_theme_stylebox("panel")
+    check("合影提示字有底框（深色底、金边）%s" % str(hint_sb),
+        hint_sb is StyleBoxFlat and (hint_sb as StyleBoxFlat).bg_color.a > 0.5 and (hint_sb as StyleBoxFlat).border_width_left >= 2)
     var p0: Vector2 = ui.ring_a.position
     for i in 30:
         ui._process(DT)
