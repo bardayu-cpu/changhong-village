@@ -1,0 +1,31 @@
+{
+ "scene": "迎宾院（第 43 版占位底图 preview_entrance_v1，1536×1024）",
+ "image": "court_base_v43.png",
+ "image_how": "图已从 main 撤回，取法：git show 887095c:godot/assets/layered/scene_luoman_entrance/base.png > court_base_v43.png",
+ "person_px": 84,
+ "scale": 1.0,
+ "objects": [
+  {"name": "人（NPC，游戏里量，不透明像素）高", "std": "person_h", "box": [0, 0, 32, 81.4], "dim": "h", "draw": false, "note": "不在图上：在游戏里量的（NPC 整帧 84、不透明像素 81.4）"},
+  {"name": "楼门 门扇宽（双开门）", "std": "double_door_w", "box": [739, 45, 865, 159], "dim": "w"},
+  {"name": "楼门 门扇高", "std": "double_door_h", "box": [739, 45, 865, 159], "dim": "h"},
+  {"name": "大门 门洞宽（两柱之间）", "std": "double_door_w", "box": [610, 686, 882, 884], "dim": "w", "note": "布局灰盒（蓝图 6 米大门）门洞 232，图是灰盒的 1.17 倍"},
+  {"name": "大门 门洞高（地到横梁下）", "std": "double_door_h", "box": [610, 686, 882, 884], "dim": "h"},
+  {"name": "签到桌 长", "std": "long_table_w", "box": [936, 545, 1166, 686], "dim": "w", "note": "布局灰盒 144"},
+  {"name": "签到桌 台面前后（深）", "std": "long_table_d", "box": [936, 545, 1166, 608], "dim": "h"},
+  {"name": "签到桌 高（台面前沿到桌腿脚）", "std": "long_table_h", "box": [936, 608, 1166, 686], "dim": "h"},
+  {"name": "回忆册（摊开）宽", "std": "book_w", "box": [1186, 531, 1311, 601], "dim": "w"},
+  {"name": "椅子 高", "std": "chair_h", "box": [321, 342, 421, 496], "dim": "h"},
+  {"name": "椅子 宽（含靠背）", "std": "chair_w", "box": [321, 342, 421, 496], "dim": "w"},
+  {"name": "茶桌 宽（圆）", "meters": 1.4, "axis": "w", "box": [202, 362, 331, 438], "dim": "w", "note": "表里没有：按布局灰盒的茶桌（68 像素 = 1.4 米）"},
+  {"name": "花盆（大门口灌木盆）高", "std": "pot", "box": [612, 107, 693, 213], "dim": "h"},
+  {"name": "花盆 宽", "std": "pot", "box": [612, 107, 693, 213], "dim": "w"},
+  {"name": "桌上花瓶（连花）高", "std": "pot", "box": [1000, 474, 1079, 572], "dim": "h"},
+  {"name": "挂灯笼（大门上，灯身）高", "std": "lantern_hang_h", "box": [496, 638, 546, 710], "dim": "h", "note": "连吊绳流苏 144"},
+  {"name": "桌上的灯（座灯）高", "meters": 0.45, "axis": "h", "box": [948, 477, 990, 588], "dim": "h", "note": "表里没有：座灯按 0.45 米"},
+  {"name": "柳树（左）高，顶被图边截断", "std": "tree_h", "box": [0, 0, 290, 270], "dim": "h", "truncated": true},
+  {"name": "柳树（右）高，顶被图边截断", "std": "tree_h", "box": [1232, 0, 1536, 270], "dim": "h", "truncated": true},
+  {"name": "一朵花（花丛里的红花）宽", "std": "flower_one", "box": [1262, 233, 1300, 270], "dim": "w", "note": "牡丹类大花 0.15 米也才 7 像素"}
+ ],
+ "rulers": [[890, 215], [440, 880], [1490, 686], [110, 500]],
+ "rulers_note": "标图时把游戏里真的 NPC（84 像素高）站在：楼门旁、大门左脚旁、签到桌右边、茶桌左边，当尺子"
+}
