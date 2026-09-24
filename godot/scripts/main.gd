@@ -280,17 +280,7 @@ func _ready() -> void:
     games_save = GameSave.new()
     games_save.load_local()
     games_save.saver = _save_games
-    hall = LayeredHall.new() if USE_LAYERED else Hall.new()
-    sv.add_child(hall)
-    hall.build(preset, "", font)
-    print("[suqi] 宴会厅搭好了")
-    hall.reached.connect(_on_reached)
-    if USE_LAYERED:
-        hall.chair_near.connect(_on_chair_near)
-        hall.person_near.connect(_on_person_near)
-        hall.table_near.connect(_on_table_near)
-        hall.game_tap.connect(_on_game_tap)
-    hall.walking_enabled = false
+    _make_hall(sv)
     court = Entrance.new()
     sv.add_child(court)
     court.build(preset, "", font)
@@ -458,6 +448,15 @@ func _build_debug() -> void:
     h55b.text = "55 桌试验厅"
     h55b.pressed.connect(_open_hall55.bind(6))
     dv.add_child(h55b)
+    var bigb := Button.new()
+    bigb.name = "hall55_toggle"
+    bigb.text = "宴会厅换成 55 桌" if not hall55_on() else "宴会厅换回 12 桌"
+    bigb.pressed.connect(func():
+        var on := not hall55_on()
+        dbg_panel.visible = false
+        await _set_hall55(on)
+        bigb.text = "宴会厅换回 12 桌" if on else "宴会厅换成 55 桌")
+    dv.add_child(bigb)
     remote_status = _label("", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT)
     dv.add_child(remote_status)
     remote_img = TextureRect.new()
@@ -638,6 +637,61 @@ func _close_hall55() -> void:
     view.visible = true
     view.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
     print("[suqi] 关了 55 桌试验厅")
+
+## 搭宴会厅。55 桌大厅（01 9/24）是新场景，和 12 桌厅并存、开关切：assets/hall.json 的 hall55（正式默认关，验收前玩家照旧玩 12 桌厅），
+## 调试版日志面板里的按钮能临时切（存在本机 user://hall55.flag，下次打开还记得）
+const HALL_CFG := "res://assets/hall.json"
+const HALL55_FLAG := "user://hall55.flag"
+func hall55_on() -> bool:
+    if hall55_once >= 0:
+        return hall55_once == 1
+    if FileAccess.file_exists(HALL55_FLAG):
+        return FileAccess.get_file_as_string(HALL55_FLAG).strip_edges() == "1"
+    if FileAccess.file_exists(HALL_CFG):
+        var j = JSON.parse_string(FileAccess.get_file_as_string(HALL_CFG))
+        if j is Dictionary:
+            return bool(j.get("hall55", false))
+    return false
+
+func _make_hall(sv: Node) -> void:
+    hall = LayeredHall.new() if USE_LAYERED else Hall.new()
+    if USE_LAYERED and hall55_on():
+        hall.data_path = LayeredHall.DATA_55
+    sv.add_child(hall)
+    sv.move_child(hall, 0)
+    hall.build(preset, "", font)
+    print("[suqi] 宴会厅搭好了", "（55 桌大厅）" if USE_LAYERED and hall.big else "")
+    hall.reached.connect(_on_reached)
+    if USE_LAYERED:
+        hall.chair_near.connect(_on_chair_near)
+        hall.person_near.connect(_on_person_near)
+        hall.table_near.connect(_on_table_near)
+        hall.game_tap.connect(_on_game_tap)
+        cloud.fake_tables = (hall.cfg.get("tables", []) as Array).size()   # 电脑上的假服务端跟着回几张桌
+    hall.walking_enabled = false
+
+## 调试版切 12 桌厅 / 55 桌大厅：记下来，拆掉旧厅搭新厅；人正在宴会厅里就重新进一次厅（拿座位、站位照新厅来）
+## keep=false：只这一次切（截图用，不记到本机，免得以后打开都是 55 桌）
+var hall55_once := -1
+func _set_hall55(on: bool, keep := true) -> void:
+    if keep:
+        var f := FileAccess.open(HALL55_FLAG, FileAccess.WRITE)
+        if f != null:
+            f.store_string("1" if on else "0")
+            f.close()
+    else:
+        hall55_once = 1 if on else 0
+    var sv: Node = hall.get_parent()
+    var was_banquet := state == "banquet"
+    hall.queue_free()
+    hall = null
+    _make_hall(sv)
+    if was_banquet:
+        await _enter_banquet()
+    else:
+        hall.visible = false
+        hall.process_mode = Node.PROCESS_MODE_DISABLED
+    print("[suqi] 切到 ", "55 桌大厅" if on else "12 桌厅")
 
 ## 每帧的绘制次数和物体数。微信小游戏建议绘制次数不超过 200
 func _render_stats() -> String:
@@ -1341,7 +1395,9 @@ func _switch_canvas(to: String) -> void:
         lawn.reset_ball()
     if to == "banquet":
         _show_canvas("banquet")
-        hall.reset_to(HALL_FROM_BACKHALL if from == "backhall" else hall.SPAWN)
+        # 55 桌大厅的东侧门挪到下面去了：从后厅回来站在侧门里边 60 像素（和 12 桌厅 HALL_FROM_BACKHALL 一个意思）
+        var from_back: Vector2 = hall.side_door + Vector2(-60, 0) if USE_LAYERED and hall.big else HALL_FROM_BACKHALL
+        hall.reset_to(from_back if from == "backhall" else hall.SPAWN)
         hall_door_latched = true
         hall_side_latched = true
         _goto("banquet")
@@ -1640,6 +1696,11 @@ func _on_enter_hall(r: Dictionary) -> void:
     for dt_ in dg.get("toasts", []):
         pulse_seen["%s:%d" % [str(dt_.get("from", "")), int(dt_.get("at", 0))]] = true   # 进厅报过的，心跳别再报
     # 进厅先见人（01 9/23）：新版 enterHall 带 arrival。还没部署新版时没有这个字段，照旧顶上一行提示
+    # 55 桌大厅（01 9/24）：第一次进厅站大门口（看 55 桌的场面），以后进厅直接站到自己那桌边上。
+    # 只在刚从大门进来的时候挪（从后厅侧门回来不挪）；服务端还没带 arrival 的旧版照旧站门口
+    if USE_LAYERED and hall.big and d.has("arrival") and not bool((d["arrival"] as Dictionary).get("first_visit", true)) \
+            and hall.pos.distance_to(hall.SPAWN) < 1.0:
+        hall.stand_by_my_table()
     if d.has("arrival"):
         _arrive(d)
     else:
@@ -2456,7 +2517,10 @@ func _unhandled_input(e: InputEvent) -> void:
             cv.stick = v
             _stick_show(stick_origin, v)
         else:
-            cv.rotate_cam(e.relative.x)
+            if cv.has_method("pan_cam"):
+                cv.pan_cam(e.relative)   # 宴会厅：上下左右拖着看（55 桌大厅比一屏高）
+            else:
+                cv.rotate_cam(e.relative.x)
 
 ## 摇杆：平时淡淡地停在左下角提示有它；按下时跟到手指位置
 ## 走过一次就不再提示（这次打开游戏里，进哪个场景都不再出）
@@ -2764,6 +2828,32 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
+        "big_door", "big_stage", "big_table", "big_overview":
+            # 55 桌大厅（01 9/24）：big_door 第一次进厅站大门口；big_stage 走到婚礼台前看横幅和 LED 屏；
+            # big_table 以后进厅站在自己桌边；big_overview 整个厅缩进一张图（和排法草图对照，没有界面）
+            nickname = "小李"
+            await _set_hall55(true, false)
+            cloud.fake_no_news = shot != "big_door"   # 假服务端「没新鲜事」时一律当老客，第一次进厅要把它关了
+            cloud.fake_arrival_mode = "first" if shot == "big_door" else "card"
+            await _enter_banquet()
+            await get_tree().create_timer(2.0).timeout
+            dialog.visible = false
+            _hide_hint()
+            if shot == "big_stage":
+                hall.reset_to(Vector2(760, 360))
+                hall.couple_armed = false
+            elif shot == "big_overview":
+                hud.visible = false
+                hall.walking_enabled = false
+                var vs := get_viewport().get_visible_rect().size
+                var z := minf(vs.x / 1536.0, vs.y / float(hall.cfg["size"][1]))
+                hall.set_process(false)
+                hall.cam.zoom = Vector2(z, z)
+                hall.cam.limit_bottom = 100000
+                hall.cam.limit_right = 100000
+                hall.cam.position = Vector2(768, float(hall.cfg["size"][1]) * 0.5)
+                hall.cam.reset_smoothing()
+            await get_tree().create_timer(0.5).timeout
         "hall55", "hall55_panel":
             # 55 桌试验厅（调试版）：hall55_panel 是日志面板里那个入口按钮，hall55 是点进去以后（色块厅、屏上的帧率字）
             if dbg == null:

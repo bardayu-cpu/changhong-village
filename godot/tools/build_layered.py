@@ -300,6 +300,10 @@ def main_blocks(src_path, check_out):
         "occluders": occ,
         "tables": tabs,
     }
+    # 可选的几块原样带过去：ambience 是这块画布的氛围摆放文件名（assets/ambience/ 下，hall_life.gd 读）；stage 是婚礼台上的横幅和 LED 屏（stage_signs.gd 读）
+    for k in ("ambience", "stage"):
+        if k in src:
+            out[k] = src[k]
     json.dump(out, open(os.path.join(out_dir, "scene.json"), "w", encoding="utf-8"), ensure_ascii=False)
     print("场景 %s（积木）：格子 %d×%d，能走 %d 格，积木摆放 %d 次，图 %d 张" % (scene, cols, rows, len(seen), len(occ), len(saved)))
 

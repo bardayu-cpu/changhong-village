@@ -95,7 +95,7 @@ func build(h: Node2D) -> void:
     hall = h
     rng.seed = 918
     sc = hall._px_h(500.0) / FH
-    var cp := DIR + "ambience.json"
+    var cp := DIR + str(hall.cfg.get("ambience", "ambience.json"))   # 55 桌大厅用 ambience_55.json
     if not FileAccess.file_exists(cp):
         return
     conf = JSON.parse_string(FileAccess.get_file_as_string(cp))

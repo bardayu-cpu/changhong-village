@@ -11,6 +11,9 @@ const GameCfg = preload("res://scripts/games/game_config.gd")
 ## 画布的图（底图、积木）从哪来统一走这里（HANDOFF §0.9）：现在从包里读，远程加载真机验过以后只改那一处
 const Canvas = preload("res://scripts/canvas_assets.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
+## 55 桌大厅（01 9/24 派，阿鱼 v11「真实还原酒宴当天」）：新场景，和 12 桌厅并存，main.gd 按开关挑一个搭（验收前玩家照旧玩 12 桌厅）
+const DATA_55 := "res://assets/layered/scene_roman_banquet_55/scene.json"
+const StageSigns = preload("res://scripts/stage_signs.gd")
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
 ## 走路速度备选两档（HANDOFF：3.2 备选 2.4，阿鱼真机比一比）；调试版右下角的按钮切换 speed_m
 const SPEED_CHOICES := [3.2, 2.4]
@@ -67,11 +70,15 @@ var door_r := 60.0
 var side_door := Vector2.ZERO
 var side_door_r := 0.0
 var font: Font
+var data_path := DATA      # 搭哪个厅：DATA（12 桌）或 DATA_55，build 之前由 main.gd 定
+var big := false           # 是不是 55 桌大厅（场景名带 _55）
+var signs: Node2D          # 婚礼台上的横幅和 LED 屏（只有配置里有 stage 的厅才有，现在是 55 桌大厅）
 var life: Node2D           # 厅里的热闹：服务员、乐队、贺礼、彩带、灯笼光、别桌的 NPC 宾客（hall_life.gd，阿鱼 9/18）
 
 func build(preset: int, nickname: String, f: Font) -> void:
     font = f
-    cfg = JSON.parse_string(FileAccess.get_file_as_string(DATA))
+    cfg = JSON.parse_string(FileAccess.get_file_as_string(data_path))
+    big = str(cfg.get("scene", "")).ends_with("_55")
     base_tex = Canvas.texture(cfg["base"])
     var base := Sprite2D.new()
     base.texture = base_tex
@@ -98,6 +105,12 @@ func build(preset: int, nickname: String, f: Font) -> void:
             side_door = Vector2(p["x"], p["y"])
             side_door_r = float(p["r"])
     _couple()
+    if cfg.has("stage"):
+        signs = StageSigns.new()
+        signs.name = "stage_signs"
+        signs.z_index = -5   # 贴在底图（-10）上面、人和桌子（0 起）下面：婚礼台是底图画的，字挂在台上
+        add_child(signs)
+        signs.setup(font, cfg["stage"])
     _player(preset, nickname)
     _exit_mark()
     life = Life.new()
@@ -453,6 +466,18 @@ func find_path(from: Vector2, target: Vector2) -> Array:
         k = far + 1
     return out
 
+## 55 桌大厅以后进厅（01 9/24：第一次站大门口看场面，以后直接站到自己那桌边上）：站到自己椅子边上最近的能走的格子。
+## 还没分到座、分到了画面上没有的桌，返回 false，照旧站门口
+func stand_by_my_table() -> bool:
+    var p := _my_chair_pos()
+    if p == Vector2.ZERO:
+        return false
+    var c := _cell_of(p)
+    if not _cell_ok(c):
+        c = _nearest_free(c)
+    reset_to(_cell_pos(c))
+    return true
+
 func reset_to(p: Vector2) -> void:
     pos = p
     path.clear()
@@ -485,16 +510,22 @@ func rotate_cam(drag_px: float) -> void:
     cam_pan.x -= drag_px / cam.zoom.x
     _clamp_pan()
 
-## 镜头中心不出厅：左右各留半屏宽
+## 手指拖着看（55 桌大厅比一屏高，01 9/24：「镜头手指拖着看、上下左右跟人」）：上下左右都跟着手指走，
+## 拖到厅的边上就停。12 桌厅只有一屏高，上下拖不动，和原来的 rotate_cam 一样
+func pan_cam(drag: Vector2) -> void:
+    if cam == null or cam.zoom.x <= 0.0:
+        return
+    cam_pan -= drag / cam.zoom.x
+    _clamp_pan()
+
+## 镜头中心不出厅：左右各留半屏宽，上下各留半屏高
 func _clamp_pan() -> void:
-    var half := float(get_viewport().get_visible_rect().size.x) * 0.5 / cam.zoom.x
-    var w := float(cfg["size"][0])
-    var cx := pos.x + cam_pan.x
-    if w > half * 2.0:
-        cx = clampf(cx, half, w - half)
-    else:
-        cx = w * 0.5
-    cam_pan.x = cx - pos.x
+    var vs := get_viewport().get_visible_rect().size * 0.5 / cam.zoom.x
+    var sz := Vector2(float(cfg["size"][0]), float(cfg["size"][1]))
+    var c := pos + cam_pan
+    c.x = clampf(c.x, vs.x, sz.x - vs.x) if sz.x > vs.x * 2.0 else sz.x * 0.5
+    c.y = clampf(c.y, vs.y, sz.y - vs.y) if sz.y > vs.y * 2.0 else sz.y * 0.5
+    cam_pan = c - pos
 
 func snap_cam() -> void:
     cam_pan = Vector2.ZERO
@@ -785,6 +816,11 @@ func set_seats(data: Dictionary, me_id: String) -> void:
     for t in cfg.get("tables", []):
         if not signed.has(t["id"]):
             _table_sign(t, "")
+    if signs != null:
+        var n: int = data.get("bench", []).size()
+        for tb in data.get("tables", []):
+            n += (tb.get("seats", []) as Array).size()
+        signs.set_count(n)
     # 长凳（任务 5）：服务端的 bench 是 openid 列表，按顺序坐成一排；自己也占一个位置（金标画在那儿），不画坐着的。
     # 头上不挂名字：人挨得近，名字会叠成一片；走到跟前底下的名字按钮照样出
     bench_spots.clear()

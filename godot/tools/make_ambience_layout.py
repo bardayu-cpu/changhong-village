@@ -8,14 +8,20 @@
 - 服务员几个、从东边侧门进出
 
 重跑：python3 tools/make_ambience_layout.py（结果固定：随机数有种子）
+55 桌大厅（01 9/24 派，新场景 scene_roman_banquet_55）：python3 tools/make_ambience_layout.py 55，写 assets/ambience/ambience_55.json。
+  底图中间拉长了 1020 像素（tools/layout_55/make_base55.py），下半截（栏杆、东侧门）的坐标都往下挪 1020；
+  NPC 每桌 5～7 个（方案：满厅约三百人，帧率等阿鱼真机的数再定），服务员 6 个
 """
 import json
 import pathlib
 import random
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SCENE = ROOT / "assets/layered/scene_roman_banquet/scene.json"
-OUT = ROOT / "assets/ambience/ambience.json"
+BIG = len(sys.argv) > 1 and sys.argv[1] == "55"
+SCENE = ROOT / ("assets/layered/scene_roman_banquet_55/scene.json" if BIG else "assets/layered/scene_roman_banquet/scene.json")
+OUT = ROOT / ("assets/ambience/ambience_55.json" if BIG else "assets/ambience/ambience.json")
+DY = 1020 if BIG else 0      # 下半截往下挪了多少
 
 scene = json.loads(SCENE.read_text())
 tables = scene["tables"]
@@ -40,7 +46,7 @@ def under_table(x, y):
 
 
 def under_rail(x, y):
-    return (x < 440 and y > 745) or (x > 1060 and y > 735)
+    return (x < 440 and y > 745 + DY) or (x > 1060 and y > 735 + DY)
 
 
 def near_lantern(x, y):
@@ -53,7 +59,7 @@ def scatter(rng, n, placed, min_d):
     while len(out) < n and tries < 20000:
         tries += 1
         x = rng.uniform(100, 1436)
-        y = rng.uniform(330, 850)
+        y = rng.uniform(330, 850 + DY)
         if on_carpet(x, y) or under_table(x, y) or under_rail(x, y) or near_lantern(x, y):
             continue
         if any((x - px) ** 2 + (y - py) ** 2 < min_d ** 2 for px, py in placed):
@@ -67,9 +73,10 @@ def main():
     rng = random.Random(918)
     placed = []
     decals = []
-    for x, y in scatter(rng, 26, placed, 64):
+    k = 3 if BIG else 1
+    for x, y in scatter(rng, 26 * k, placed, 64):
         decals.append({"art": "amb_streamer_%d" % rng.randint(1, 6), "x": x, "y": y, "flip": rng.random() < 0.5})
-    for x, y in scatter(rng, 18, placed, 48):
+    for x, y in scatter(rng, 18 * k, placed, 48):
         decals.append({"art": "amb_confetti_%d" % rng.randint(1, 3), "x": x, "y": y, "flip": rng.random() < 0.5})
 
     glows = [[x, y, 64, 0.42] for x, y in WALL_LANTERNS]
@@ -97,6 +104,14 @@ def main():
         "waiters": {"count": 4, "door": [1448, 800], "speed_m": 1.5},
         "petals": {"amount": 26},
     }
+    if BIG:
+        # 55 桌：每桌 5～7 个 NPC；1、2 号桌（阿鱼、Toretto 那两桌）坐 5 个；服务员 6 个，从东侧门（往下挪了 1020）进出
+        r2 = random.Random(55)
+        conf["npc_tables"] = {t["id"]: (5 if t["id"] in ("T1", "T2") else r2.randint(5, 7)) for t in tables}
+        conf["waiters"] = {"count": 6, "door": [1448, 800 + DY], "speed_m": 1.5}
+        conf["petals"] = {"amount": 60}
+        # 贺礼堆：台面上会挡横幅，挪到台下右前方、第一排空出来的那个位上（新人在左边那个位）
+        conf["gifts"] = [960, 362]   # 顶边 256，在 LED 屏（到 y 246）下面
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(conf, ensure_ascii=False, indent=1) + "\n")
     print("写好", OUT.relative_to(ROOT), "彩带彩纸", len(decals), "灯笼光", len(glows))
