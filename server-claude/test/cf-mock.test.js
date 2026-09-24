@@ -1096,6 +1096,120 @@ async function scenarioCanvasFile() {
   check(res.ok === true && downloads === d0 + 1, '画布图 出错以后缓存清掉，下一张重新下');
 }
 
+// 临时改某个云函数自己那份 rules/config.js（sync-cf-rules.js 同步过去的）里的几项，fn 跑完就改回去。
+// banquet.js 在同一个 rules/ 里 require('./config')，拿到的是同一个对象，一起生效；
+// 云函数 index.js 在加载时就读了 TABLE_IDS，所以 loadCloudFunction 要放在 fn 里面调。
+async function withCfConfig(fnName, patch, fn) {
+  const cfg = require(path.join(CF_ROOT, fnName, 'rules', 'config.js'));
+  const saved = {};
+  for (const k of Object.keys(patch)) { saved[k] = cfg[k]; cfg[k] = patch[k]; }
+  try { return await fn(cfg); } finally { Object.assign(cfg, saved); }
+}
+
+// ================= 场景26：enterHall 55 桌 + 长凳门槛开关（9/24） =================
+async function scenarioEnterHallBenchOnlyWhenFull() {
+  // 摆一个 55 桌的厅：T3..T55 这 53 张普通桌各被一枝占了、各坐 3 人，T1、T2 空着
+  function setup(state) {
+    const ids = require(path.join(CF_ROOT, 'enterHall', 'rules', 'config.js')).BANQUET_TABLE_IDS_55;
+    let n = 0;
+    for (const t of ids.slice(2)) {
+      for (let c = 1; c <= 3; c++) {
+        const id = `s_${t}_${c}`;
+        seed(state, 'seat', { _id: id, openid: id, table_id: t, chair_no: c, inviter: `root_${t}`, sat_at: 1000 + (++n), changed_on: null, sat_tables: [t], last_visit_at: 1000 + n });
+      }
+    }
+    seed(state, 'config', { _id: 'banquet', vip_openids: ['AYU'] });
+    seed(state, 'resident', { _id: 'new54', openid: 'new54', nick: '第54枝', avatar: 1, inviter: 'root_new' });
+    seed(state, 'resident', { _id: 'loner', openid: 'loner', nick: '没人带', avatar: 1, inviter: null });
+    seed(state, 'resident', { _id: 'AYU', openid: 'AYU', nick: '阿鱼', avatar: 1, inviter: null });
+  }
+  async function enterAs(sdk, state, who) {
+    state.currentOpenid = who;
+    const enterHall = loadCloudFunction('enterHall', sdk);
+    return enterHall.main();
+  }
+
+  // 用例1：开关开 + 55 桌：第 54 枝不去长凳，坐 T3 的 4 号椅；没有邀请人的不进 T1；阿鱼自己坐 T1
+  await withCfConfig('enterHall', { BANQUET_BENCH_ONLY_WHEN_FULL: true, BANQUET_TABLE_IDS: null }, async (cfg) => {
+    cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
+    const { sdk, state } = createFakeSdk();
+    setup(state);
+    let res = await enterAs(sdk, state, 'new54');
+    check(res.ok === true, `场景26-用例1 enterHall 返回 ok（实际 ${JSON.stringify(res).slice(0, 200)}）`);
+    check(res.data.tables.length === 55, `场景26-用例1 返回 55 桌（实际 ${res.data.tables.length}）`);
+    check(res.data.me.table_id === 'T3' && res.data.me.chair_no === 4, `场景26-用例1 第 54 枝坐 T3 4 号椅，不去长凳（实际 ${JSON.stringify(res.data.me)}）`);
+    check(res.data.bench.length === 0, '场景26-用例1 长凳没人');
+    res = await enterAs(sdk, state, 'loner');
+    check(res.data.me.table_id === 'T3' && res.data.me.chair_no === 5, `场景26-用例1 没有邀请人的坐普通桌 T3，不进 T1（实际 ${JSON.stringify(res.data.me)}）`);
+    res = await enterAs(sdk, state, 'AYU');
+    check(res.data.me.table_id === 'T1' && res.data.me.chair_no === 1, `场景26-用例1 阿鱼自己坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
+  });
+
+  // 用例2：开关关（旧规矩）、同样 55 桌：第 54 枝上长凳，没有邀请人的坐 T1——跟线上现在一样
+  await withCfConfig('enterHall', { BANQUET_TABLE_IDS: null }, async (cfg) => {
+    cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
+    check(cfg.BANQUET_BENCH_ONLY_WHEN_FULL === false, '场景26-用例2 开关默认是关的');
+    const { sdk, state } = createFakeSdk();
+    setup(state);
+    let res = await enterAs(sdk, state, 'new54');
+    check(res.data.me.table_id === 'bench' && res.data.me.chair_no === null, `场景26-用例2 旧规矩第 54 枝上长凳（实际 ${JSON.stringify(res.data.me)}）`);
+    res = await enterAs(sdk, state, 'loner');
+    check(res.data.me.table_id === 'T1', `场景26-用例2 旧规矩没有邀请人坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
+  });
+
+  // 用例3：什么都不改（12 桌、开关关），返回还是 12 桌
+  {
+    const { sdk, state } = createFakeSdk();
+    seed(state, 'resident', { _id: 'r12', openid: 'r12', nick: '十二桌', avatar: 1, inviter: null });
+    const res = await enterAs(sdk, state, 'r12');
+    check(res.data.tables.length === 12 && res.data.me.table_id === 'T1', `场景26-用例3 默认 12 桌、没有邀请人坐 T1（实际 ${res.data.tables.length} 桌，${JSON.stringify(res.data.me)}）`);
+  }
+}
+
+// ================= 场景27：changeSeat 拒绝不存在的桌号、椅子号（9/24） =================
+async function scenarioChangeSeatValidation() {
+  const ME = 'me27';
+  function setup() {
+    const { sdk, state } = createFakeSdk();
+    seed(state, 'seat', { _id: ME, openid: ME, table_id: 'T3', chair_no: 1, inviter: null, sat_at: 100, sat_tables: ['T3'], last_visit_at: 100 });
+    state.currentOpenid = ME;
+    return { sdk, state };
+  }
+  const cases = [
+    [{ tableId: 'T13', chairNo: 1 }, '12 桌时 T13'],
+    [{ tableId: 'T99', chairNo: 1 }, 'T99'],
+    [{ tableId: 'T4', chairNo: 11 }, '11 号椅'],
+    [{ tableId: 'T4', chairNo: -1 }, '-1 号椅'],
+    [{ tableId: 'T4', chairNo: 2.5 }, '2.5 号椅'],
+    [{ tableId: 'T4', chairNo: '3' }, '字符串椅子号'],
+    [{ tableId: 'bench', chairNo: 1 }, '长凳'],
+  ];
+  for (const [ev, label] of cases) {
+    const { sdk, state } = setup();
+    const changeSeat = loadCloudFunction('changeSeat', sdk);
+    const res = await changeSeat.main(ev);
+    check(res.ok === false && res.reason === 'bad_request', `场景27 ${label} 回 bad_request（实际 ${JSON.stringify(res)}）`);
+    check(state.collections.seat.get(ME).table_id === 'T3', `场景27 ${label} 被拒后座位没动`);
+  }
+  {
+    const { sdk, state } = setup();
+    const changeSeat = loadCloudFunction('changeSeat', sdk);
+    const res = await changeSeat.main({ tableId: 'T12', chairNo: 10 });
+    check(res.ok === true && state.collections.seat.get(ME).table_id === 'T12', `场景27 T12 10 号椅能换（实际 ${JSON.stringify(res)}）`);
+  }
+  await withCfConfig('changeSeat', { BANQUET_TABLE_IDS: null }, async (cfg) => {
+    cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
+    let { sdk, state } = setup();
+    let changeSeat = loadCloudFunction('changeSeat', sdk);
+    let res = await changeSeat.main({ tableId: 'T55', chairNo: 7 });
+    check(res.ok === true && state.collections.seat.get(ME).table_id === 'T55', `场景27 55 桌时 T55 能换（实际 ${JSON.stringify(res)}）`);
+    ({ sdk, state } = setup());
+    changeSeat = loadCloudFunction('changeSeat', sdk);
+    res = await changeSeat.main({ tableId: 'T56', chairNo: 1 });
+    check(res.ok === false && res.reason === 'bad_request', `场景27 55 桌时 T56 回 bad_request（实际 ${JSON.stringify(res)}）`);
+  });
+}
+
 (async () => {
   await scenarioSeatPagination();
   await scenarioReadBookLatest200();
@@ -1126,6 +1240,8 @@ async function scenarioCanvasFile() {
   await scenarioEnterHallMine();
   await scenarioSaveProfileGameDishesMergeNotOverwrite();
   await scenarioEnterHallArrivalCard();
+  await scenarioEnterHallBenchOnlyWhenFull();
+  await scenarioChangeSeatValidation();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

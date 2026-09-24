@@ -7,6 +7,8 @@
 
 const HOUR = 3600 * 1000;
 const DAY = 24 * HOUR;
+// 宴会厅桌号 T1..Tn，数组顺序即桌序
+const tableIds = (n) => Array.from({ length: n }, (_, i) => `T${i + 1}`);
 
 module.exports = {
   HOUR,
@@ -73,10 +75,17 @@ module.exports = {
   RENAME_LIMIT: 1,                  // 改名次数
 
   // 宴会厅：一场不散的席（蓝图 3.2）
-  BANQUET_TABLE_COUNT: 12,
+  // 【55 桌上线时改这三处】BANQUET_TABLE_COUNT 改 55、BANQUET_TABLE_IDS 改成 BANQUET_TABLE_IDS_55、
+  // BANQUET_BENCH_ONLY_WHEN_FULL 改 true；改完跑 sync-cf-rules.js，重新部署 enterHall、changeSeat
+  BANQUET_TABLE_COUNT: 12,             // 只是记个数，代码不读它，桌以 BANQUET_TABLE_IDS 为准
   BANQUET_SEATS_PER_TABLE: 10,
   BANQUET_RESERVED_TABLES: 2,          // 离主桌最近的两桌，给阿鱼、Toretto 的枝
-  BANQUET_TABLE_IDS: ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'], // 数组顺序即桌序，前 BANQUET_RESERVED_TABLES 个是离主桌最近的
+  BANQUET_TABLE_IDS: tableIds(12),     // 现在用的桌：T1..T12。数组顺序即桌序，前 BANQUET_RESERVED_TABLES 个是离主桌最近的
+  BANQUET_TABLE_IDS_55: tableIds(55),  // 新厅 55 桌（550 座）：T1..T55，规矩同上，前两桌 T1、T2 离主桌最近。还没上线
+  // 长凳门槛（9/24）：false = 旧规矩，开不出新空桌就去长凳，哪怕别的桌还有空椅子；
+  // true = 普通桌（不算前两桌）全坐满了才去长凳，开不出新桌就插到还有空椅子的桌；
+  // 没有邀请人的人也先坐普通桌，普通桌全满了才坐前两桌。详见 banquet.js 的 assignSeat
+  BANQUET_BENCH_ONLY_WHEN_FULL: false,
   BANQUET_BENCH_ID: 'bench',           // 长凳：seat 表里 table_id 写这个，chair_no 为 null，人数不限
   BANQUET_TOAST_DAILY: 5,              // 每人每天敬几杯
   BANQUET_TOAST_PER_PERSON_DAILY: 1,   // 对同一人每天几杯

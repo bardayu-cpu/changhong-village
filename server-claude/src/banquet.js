@@ -14,6 +14,9 @@ const C = require('./config');
  * @param ctx {{
  *   inviter: string|null,   邀请人 openid；没有邀请人（阿鱼后台直接加的），或邀请人所在枝被封，调用方传 null
  *   vip: Set<string>,       阿鱼、Toretto 的 openid
+ *   me?: string,            这次入座的人自己的 openid。只在新规矩下用：没有邀请人、自己又是阿鱼/Toretto，
+ *                           按"自己这一枝"算，可以坐前两桌；旧规矩下不看
+ *   benchOnlyWhenFull?: boolean,  长凳门槛，不传就用 config.BANQUET_BENCH_ONLY_WHEN_FULL（见下面两套规矩）
  *   tables: Array<{
  *     id: string,
  *     reserved: boolean,        是不是离主桌最近的两桌之一
@@ -22,12 +25,25 @@ const C = require('./config');
  *                               "邀请人那桌"不靠这个字段判——直接在 seats 里找邀请人本人；
  *                               这个字段只用来找"邀请人的桌满了之后开的下一桌"
  *     seats: string[],          已经坐下的人的 openid 列表
- *   }>,                     12 桌现状，数组顺序就是桌序（reserved 的两桌排最前）
+ *   }>,                     全厅各桌现状（几桌都行，12 桌、55 桌都是这个格式，调用方按 config.BANQUET_TABLE_IDS 拼），
+ *                           数组顺序就是桌序（reserved 的两桌排最前）
  * }}
  * @returns {{ok:true, tableId?:string, bench:boolean}}
- *   bench:true 表示 120 个座位坐满了，坐长凳（长凳不占 tables，调用方自己处理无限容量）
+ *   bench:true 表示没有能坐的桌了，坐长凳（长凳不占 tables，调用方自己处理无限容量）。
+ *   什么叫"没有能坐的桌"，两套规矩不一样，见下面
  */
 function assignSeat(ctx) {
+  const onlyWhenFull = ctx.benchOnlyWhenFull === undefined ? C.BANQUET_BENCH_ONLY_WHEN_FULL : !!ctx.benchOnlyWhenFull;
+  return onlyWhenFull ? assignSeatFillFirst(ctx) : assignSeatOld(ctx);
+}
+
+/**
+ * 旧规矩（BANQUET_BENCH_ONLY_WHEN_FULL 为 false，现在线上用的）：
+ * 邀请人那桌 → 这一枝开过的桌 → 开一张完全没人坐的新桌 → 长凳。
+ * 开不出新桌就去长凳，哪怕别的桌还有空椅子；没有邀请人的人按桌序坐第一张有空位的桌，前两桌也坐。
+ * 这段不动，保持跟线上一样。
+ */
+function assignSeatOld(ctx) {
   const { inviter, vip, tables } = ctx;
   const CAP = C.BANQUET_SEATS_PER_TABLE;
 
@@ -58,6 +74,81 @@ function assignSeat(ctx) {
   if (empty) return { ok: true, tableId: empty.id, bench: false };
 
   return { ok: true, bench: true };
+}
+
+/**
+ * 新规矩（BANQUET_BENCH_ONLY_WHEN_FULL 为 true，55 桌上线时打开）：普通桌全坐满了才去长凳。
+ * "普通桌"指前两桌以外的桌。前两桌只给阿鱼/Toretto 那一枝，别人不坐（没有邀请人的人例外，见下）。
+ *
+ * 有邀请人：
+ *   1. 邀请人那桌还有空椅子，坐那桌
+ *   2. 这一枝开过的桌还有空椅子，坐那桌
+ *   3. 阿鱼/Toretto 的枝：前两桌里没被别的枝占（branch 为 null）、还有空椅子的，坐那桌
+ *   4. 开一张完全没人坐的普通桌
+ *   5. 开不出新桌：按桌序坐第一张还有空椅子的普通桌（跟别的枝拼桌）
+ *   6. 阿鱼/Toretto 的枝：前两桌只要还有空椅子就坐
+ *   7. 都没有，坐长凳。别的枝的人，普通桌全满了就去长凳，不进前两桌
+ * 没有邀请人：
+ *   - 自己是阿鱼/Toretto（ctx.me 在 vip 里）：先坐前两桌（同上第 3 步），没有再往下走
+ *   - 按桌序坐第一张还有空椅子的普通桌
+ *   - 普通桌全满了，才坐前两桌里还有空椅子的
+ *   - 都满了，坐长凳
+ */
+function assignSeatFillFirst(ctx) {
+  const { inviter, vip, tables, me } = ctx;
+  const CAP = C.BANQUET_SEATS_PER_TABLE;
+  const hasRoom = t => t.seats.length < CAP;
+  const seat = t => ({ ok: true, tableId: t.id, bench: false });
+  // 算不算阿鱼/Toretto 那一枝：有邀请人看邀请人，没有邀请人看自己
+  const vipBranch = !!(vip && (inviter ? vip.has(inviter) : (me && vip.has(me))));
+
+  if (inviter) {
+    const inviterTable = tables.find(t => t.seats.includes(inviter));
+    if (inviterTable && hasRoom(inviterTable)) return seat(inviterTable);
+    const branchTable = tables.find(t => t.branch === inviter && hasRoom(t));
+    if (branchTable) return seat(branchTable);
+  }
+
+  if (vipBranch) {
+    const reserved = tables.find(t => t.reserved && t.branch == null && hasRoom(t));
+    if (reserved) return seat(reserved);
+  }
+
+  if (inviter) {
+    const empty = tables.find(t => !t.reserved && t.seats.length === 0);
+    if (empty) return seat(empty);
+  }
+
+  // 没有邀请人的人从这里开始；有邀请人的走到这里说明开不出新桌了，插到有空椅子的普通桌
+  const normal = tables.find(t => !t.reserved && hasRoom(t));
+  if (normal) return seat(normal);
+
+  // 普通桌全满了：前两桌只让阿鱼/Toretto 的枝和没有邀请人的人坐
+  if (vipBranch || !inviter) {
+    const reserved = tables.find(t => t.reserved && hasRoom(t));
+    if (reserved) return seat(reserved);
+  }
+
+  return { ok: true, bench: true };
+}
+
+// ============ 换桌椅子号校验 ============
+
+/**
+ * 换桌要去的桌号、椅子号是不是厅里真有的（changeSeat 用）
+ * @param ctx {{
+ *   tableId: any, chairNo: any,
+ *   tableIds?: string[],   厅里有哪些桌，不传就用 config.BANQUET_TABLE_IDS
+ * }}
+ * 桌号必须在桌表里（长凳不算，长凳不是换过去的地方）；椅子号必须是 1..BANQUET_SEATS_PER_TABLE 的整数。
+ * 不对都回 bad_request（客户端已经认这个原因）。
+ */
+function checkSeatTarget(ctx) {
+  const { tableId, chairNo } = ctx;
+  const ids = ctx.tableIds || C.BANQUET_TABLE_IDS;
+  if (typeof tableId !== 'string' || !ids.includes(tableId)) return { ok: false, reason: 'bad_request' };
+  if (!Number.isInteger(chairNo) || chairNo < 1 || chairNo > C.BANQUET_SEATS_PER_TABLE) return { ok: false, reason: 'bad_request' };
+  return { ok: true };
 }
 
 // ============ 换桌 ============
@@ -208,4 +299,4 @@ function arrivalCard(ctx) {
   return { rows, hasNews: true };
 }
 
-module.exports = { assignSeat, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest, arrivalCard };
+module.exports = { assignSeat, checkSeatTarget, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest, arrivalCard };

@@ -16,6 +16,10 @@ exports.main = async (event) => {
   const { tableId, chairNo } = event || {};
   if (!tableId || !chairNo) return { ok: false, reason: 'bad_request' };
   if (tableId === C.BANQUET_BENCH_ID) return { ok: false, reason: 'bad_request' };
+  // 9/24 加：桌号要在 config.BANQUET_TABLE_IDS 里、椅子号要是 1..BANQUET_SEATS_PER_TABLE，
+  // 不然传个 T99、11 号椅也能写进 seat 表（55 桌上线前补的，12 桌时一样拦）
+  const target = banquet.checkSeatTarget({ tableId, chairNo, tableIds: C.BANQUET_TABLE_IDS });
+  if (!target.ok) return target;
 
   const { OPENID } = cloud.getWXContext();
   const now = Date.now();

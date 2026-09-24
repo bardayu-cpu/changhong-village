@@ -22,6 +22,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const _ = db.command;
 
+// 厅里有哪些桌以 config.BANQUET_TABLE_IDS 为准（现在 12 桌，55 桌上线时换成 BANQUET_TABLE_IDS_55）
 const TABLE_IDS = C.BANQUET_TABLE_IDS;
 const RESERVED_IDS = new Set(TABLE_IDS.slice(0, C.BANQUET_RESERVED_TABLES));
 const BENCH = C.BANQUET_BENCH_ID;
@@ -37,7 +38,7 @@ async function loadVip() {
 }
 
 async function loadTables() {
-  // 12 桌满座就有 120 人，超过云开发 get() 不写 limit 时默认的单页 100 条上限，必须分页读全，
+  // 全厅坐满是 桌数 × 10 人（12 桌 120 人、55 桌 550 人），超过云开发 get() 不写 limit 时默认的单页 100 条上限，必须分页读全，
   // 不然会算错某桌已有几人、椅子号分重复（回执 03 第 1 项）。
   const seats = await fetchAllPages(() => db.collection('seat').where({ table_id: _.neq(BENCH) }), PAGE_OPTS);
   const byTable = {};
@@ -68,7 +69,11 @@ exports.main = async () => {
 
   if (!mySeat) {
     const [{ tables, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
-    const assigned = banquet.assignSeat({ inviter, vip, tables });
+    // 长凳门槛看 config.BANQUET_BENCH_ONLY_WHEN_FULL（false 旧规矩 / true 普通桌全满才去长凳），规矩见 rules/banquet.js；
+    // me 只在新规矩下用：阿鱼/Toretto 自己没有邀请人时也能坐前两桌
+    const assigned = banquet.assignSeat({
+      inviter, vip, tables, me: OPENID, benchOnlyWhenFull: C.BANQUET_BENCH_ONLY_WHEN_FULL,
+    });
 
     // 注意：changed_on 这里不能写今天——它表示"最近一次换桌是哪天"，第一次自动分座不算换桌，
     // （9/18 起换桌不限次数，changed_on 已不参与判定，留着只是记录。）
@@ -139,7 +144,7 @@ exports.main = async () => {
   }
 
   // 本厅全部座位、桌牌：每个座位带 sat_at（9/18 加，只加字段），客户端取这桌 sat_at 最早的人拼「XX那桌」（蓝图 3.2：XX 是这桌第一个坐下的人）
-  // 120 座满了就超过单页 100 条上限，分页读全，不然桌上会少画人、长凳也可能漏人。
+  // 人数过了 100 就超过单页上限（12 桌坐满 120、55 桌坐满 550，再加长凳），分页读全，不然桌上会少画人、长凳也可能漏人。
   const allSeats = await fetchAllPages(() => db.collection('seat'), PAGE_OPTS);
   const byTableNow = {};
   const bench = [];
