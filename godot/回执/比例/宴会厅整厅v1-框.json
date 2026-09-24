@@ -3,7 +3,7 @@
   {"name": "新郎 高", "std": "person_h", "box": [757, 190, 800, 299], "dim": "h"},
   {"name": "新娘 高", "std": "person_h", "box": [712, 193, 752, 297], "dim": "h"},
   {"name": "服务员（左上）高", "std": "person_h", "box": [92, 377, 130, 473], "dim": "h"},
-  {"name": "一盘菜 直径", "std": "dish_w", "box": [430, 283, 455, 297], "dim": "w"},
+  {"name": "大菜盘（整盘菜）直径", "std": "big_dish_w", "box": [430, 283, 455, 297], "dim": "w"},
   {"name": "贺礼堆 高", "std": "gifts_h", "box": [565, 153, 660, 208], "dim": "h"},
   {"name": "桌心簿子 宽", "std": "book_w", "box": [470, 318, 498, 336], "dim": "w"},
   {"name": "红毯边落地灯 高（下半截被花盆挡）", "std": "lamp_floor_h", "box": [630, 598, 668, 700], "dim": "h", "truncated": true}
