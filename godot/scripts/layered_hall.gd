@@ -13,6 +13,8 @@ const Canvas = preload("res://scripts/canvas_assets.gd")
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 ## 55 桌大厅（01 9/24 派，阿鱼 v11「真实还原酒宴当天」）：新场景，和 12 桌厅并存，main.gd 按开关挑一个搭（验收前玩家照旧玩 12 桌厅）
 const DATA_55 := "res://assets/layered/scene_roman_banquet_55/scene.json"
+## 第 46 版照 GPT 效果图还原的那套（9/24 夜阿鱼看了说不如第 44 版，01 定默认退回第 44 版，这套只在调试开关后面）
+const DATA_V11 := "res://assets/layered/scene_roman_banquet_v11/scene.json"
 const StageSigns = preload("res://scripts/stage_signs.gd")
 const SPEED_M := 3.2      # 走路速度，米/秒；换成像素按人所在那一行的比例算
 ## 走路速度备选两档（HANDOFF：3.2 备选 2.4，阿鱼真机比一比）；调试版右下角的按钮切换 speed_m

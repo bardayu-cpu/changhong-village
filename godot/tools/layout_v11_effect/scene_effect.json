@@ -1,7 +1,7 @@
 {
- "scene": "scene_roman_banquet",
+ "scene": "scene_roman_banquet_v11",
  "revision": "v11-effect",
- "note": "阿鱼 9/24 晚：照 GPT 效果图 preview_banquet_full_v1 还原（新人不用 GPT 画的，用阿鱼定的 couple.png）。底图、桌子、落地灯是 GPT 21:30 交的 A04 积木（001-宴会厅/积木/），桌心位置对着效果图逐张量的；花盆沿用旧积木；栏杆照旧形状从新底图重剪",
+ "note": "阿鱼 9/24 晚：照 GPT 效果图 preview_banquet_full_v1 还原（新人不用 GPT 画的，用阿鱼定的 couple.png）。底图、桌子、落地灯是 GPT 21:30 交的 A04 积木（001-宴会厅/积木/），桌心位置对着效果图逐张量的；花盆沿用旧积木；栏杆照旧形状从新底图重剪。9/24 夜阿鱼看了说不如第 44 版，01 定默认退回第 44 版，这套挪成单独的场景 scene_roman_banquet_v11，只在调试面板开关后面",
  "canvas": [
   1536,
   1024
@@ -306,5 +306,6 @@
    "kind": "door",
    "line": "backhall"
   }
- ]
+ ],
+ "ambience": "ambience_v11.json"
 }

@@ -2,7 +2,8 @@ extends SceneTree
 ## 验收：55 桌大厅（01 9/24 派，阿鱼 v11）。新场景，和 12 桌厅并存，开关切：
 ## 0 默认还是 12 桌厅；1 调试版切过去：55 张桌、桌号 T1、T2 离婚礼台最近；2 每把椅子都走得到；
 ## 3 镜头上下左右跟人、手指拖着看、拖到边上停；4 第一次进厅站大门口，以后站自己桌边；5 从后厅回来站东侧门里边；
-## 6 婚礼台横幅两行字、LED 屏「现在 N 人在场」跟着人数变、在滚；7 假服务端回 55 张桌、换桌查桌号椅子号；8 切回 12 桌厅
+## 6 婚礼台横幅两行字、LED 屏「现在 N 人在场」跟着人数变、在滚；7 假服务端回 55 张桌、换桌查桌号椅子号；8 切回 12 桌厅；
+## 9 第三档「照效果图（第 46 版）」也能切（9/24 夜 01 定：默认退回第 44 版，第 46 版那套只在调试开关后面）
 ## 用法：Godot --headless --path . --script res://tools/test_hall_big.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -151,6 +152,19 @@ func run() -> void:
     await create_timer(0.5).timeout
     check("回到 12 桌厅：%d 张桌" % m.hall.cfg["tables"].size(), not m.hall.big and m.hall.cfg["tables"].size() == 12 and m.hall.signs == null)
     check("假服务端也回 12 张", m.cloud.fake_tables == 12)
+    check("默认的宴会厅是第 44 版那套（场景 scene_roman_banquet、贺礼堆在舞台左边地上 (410, 302)）",
+        str(m.hall.cfg["scene"]) == "scene_roman_banquet" and m.hall.life._vec(m.hall.life.conf["gifts"]) == Vector2(410, 302))
+
+    print("9 第三档：照效果图（第 46 版）")
+    await m._set_hall_variant("v11")
+    await create_timer(0.5).timeout
+    check("是第 46 版那套：场景 %s、%d 张桌、贺礼堆 %s" % [m.hall.cfg["scene"], m.hall.cfg["tables"].size(), m.hall.life.conf.get("gifts", [])],
+        str(m.hall.cfg["scene"]) == "scene_roman_banquet_v11" and m.hall.cfg["tables"].size() == 12 and not m.hall.big
+        and m.hall.life._vec(m.hall.life.conf["gifts"]) == Vector2(625, 210))
+    check("调试面板上写着现在是哪一档", m.hall_variant() == "v11")
+    await m._set_hall_variant("")
+    await create_timer(0.3).timeout
+    check("切回第 44 版", str(m.hall.cfg["scene"]) == "scene_roman_banquet" and m.hall_variant() == "")
     DirAccess.remove_absolute(ProjectSettings.globalize_path(Main.HALL55_FLAG))
 
     print("RESULT ", "PASS" if ok else "FAIL")

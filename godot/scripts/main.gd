@@ -448,14 +448,16 @@ func _build_debug() -> void:
     h55b.text = "55 桌试验厅"
     h55b.pressed.connect(_open_hall55.bind(6))
     dv.add_child(h55b)
+    # 宴会厅轮着切：第 44 版 → 照效果图（第 46 版）→ 55 桌大厅 → 第 44 版
     var bigb := Button.new()
     bigb.name = "hall55_toggle"
-    bigb.text = "宴会厅换成 55 桌" if not hall55_on() else "宴会厅换回 12 桌"
+    bigb.text = "宴会厅：%s（点一下换）" % HALL_VARIANT_NAMES.get(hall_variant(), "")
     bigb.pressed.connect(func():
-        var on := not hall55_on()
+        var i: int = HALL_VARIANTS.find(hall_variant())
+        var nv: String = HALL_VARIANTS[(i + 1) % HALL_VARIANTS.size()]
         dbg_panel.visible = false
-        await _set_hall55(on)
-        bigb.text = "宴会厅换回 12 桌" if on else "宴会厅换成 55 桌")
+        await _set_hall_variant(nv)
+        bigb.text = "宴会厅：%s（点一下换）" % HALL_VARIANT_NAMES.get(nv, ""))
     dv.add_child(bigb)
     remote_status = _label("", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT)
     dv.add_child(remote_status)
@@ -638,29 +640,42 @@ func _close_hall55() -> void:
     view.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
     print("[suqi] 关了 55 桌试验厅")
 
-## 搭宴会厅。55 桌大厅（01 9/24）是新场景，和 12 桌厅并存、开关切：assets/hall.json 的 hall55（正式默认关，验收前玩家照旧玩 12 桌厅），
-## 调试版日志面板里的按钮能临时切（存在本机 user://hall55.flag，下次打开还记得）
+## 搭宴会厅。默认是第 44 版的 12 桌厅（9/24 夜阿鱼：「目前看来最合适的还不如 44 版」，01 定退回第 44 版当底子）。
+## 另外两套只在调试开关后面：v11 = 第 46 版照 GPT 效果图还原的那套；55 = 55 桌大厅（实验，等 04 复看）。
+## 正式开关在 assets/hall.json（hall55 为 true 才默认 55 桌）；调试版日志面板里的按钮能临时轮着切（存在本机 user://hall55.flag，下次打开还记得）
 const HALL_CFG := "res://assets/hall.json"
 const HALL55_FLAG := "user://hall55.flag"
-func hall55_on() -> bool:
-    if hall55_once >= 0:
-        return hall55_once == 1
+const HALL_VARIANTS := ["", "v11", "55"]
+const HALL_VARIANT_NAMES := {"": "第 44 版", "v11": "照效果图（第 46 版）", "55": "55 桌大厅"}
+func hall_variant() -> String:
+    if hall_variant_once != "?":
+        return hall_variant_once
     if FileAccess.file_exists(HALL55_FLAG):
-        return FileAccess.get_file_as_string(HALL55_FLAG).strip_edges() == "1"
+        var v := FileAccess.get_file_as_string(HALL55_FLAG).strip_edges()
+        if v == "1":
+            return "55"   # 旧的开关文件：1 是 55 桌
+        return v if v in HALL_VARIANTS else ""
     if FileAccess.file_exists(HALL_CFG):
         var j = JSON.parse_string(FileAccess.get_file_as_string(HALL_CFG))
-        if j is Dictionary:
-            return bool(j.get("hall55", false))
-    return false
+        if j is Dictionary and bool(j.get("hall55", false)):
+            return "55"
+    return ""
+
+func hall55_on() -> bool:
+    return hall_variant() == "55"
 
 func _make_hall(sv: Node) -> void:
     hall = LayeredHall.new() if USE_LAYERED else Hall.new()
-    if USE_LAYERED and hall55_on():
-        hall.data_path = LayeredHall.DATA_55
+    if USE_LAYERED:
+        match hall_variant():
+            "55":
+                hall.data_path = LayeredHall.DATA_55
+            "v11":
+                hall.data_path = LayeredHall.DATA_V11
     sv.add_child(hall)
     sv.move_child(hall, 0)
     hall.build(preset, "", font)
-    print("[suqi] 宴会厅搭好了", "（55 桌大厅）" if USE_LAYERED and hall.big else "")
+    print("[suqi] 宴会厅搭好了（", HALL_VARIANT_NAMES.get(hall_variant(), ""), "）")
     hall.reached.connect(_on_reached)
     if USE_LAYERED:
         hall.chair_near.connect(_on_chair_near)
@@ -670,17 +685,20 @@ func _make_hall(sv: Node) -> void:
         cloud.fake_tables = (hall.cfg.get("tables", []) as Array).size()   # 电脑上的假服务端跟着回几张桌
     hall.walking_enabled = false
 
-## 调试版切 12 桌厅 / 55 桌大厅：记下来，拆掉旧厅搭新厅；人正在宴会厅里就重新进一次厅（拿座位、站位照新厅来）
-## keep=false：只这一次切（截图用，不记到本机，免得以后打开都是 55 桌）
-var hall55_once := -1
+## 调试版切宴会厅（第 44 版 / 照效果图 / 55 桌）：记下来，拆掉旧厅搭新厅；人正在宴会厅里就重新进一次厅（拿座位、站位照新厅来）
+## keep=false：只这一次切（截图用，不记到本机，免得以后打开都是别的厅）
+var hall_variant_once := "?"
 func _set_hall55(on: bool, keep := true) -> void:
+    await _set_hall_variant("55" if on else "", keep)
+
+func _set_hall_variant(v: String, keep := true) -> void:
     if keep:
         var f := FileAccess.open(HALL55_FLAG, FileAccess.WRITE)
         if f != null:
-            f.store_string("1" if on else "0")
+            f.store_string(v if v != "" else "0")
             f.close()
     else:
-        hall55_once = 1 if on else 0
+        hall_variant_once = v
     var sv: Node = hall.get_parent()
     var was_banquet := state == "banquet"
     hall.queue_free()
@@ -691,7 +709,7 @@ func _set_hall55(on: bool, keep := true) -> void:
     else:
         hall.visible = false
         hall.process_mode = Node.PROCESS_MODE_DISABLED
-    print("[suqi] 切到 ", "55 桌大厅" if on else "12 桌厅")
+    print("[suqi] 宴会厅切到 ", HALL_VARIANT_NAMES.get(v, v))
 
 ## 每帧的绘制次数和物体数。微信小游戏建议绘制次数不超过 200
 func _render_stats() -> String:

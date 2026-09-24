@@ -18,9 +18,12 @@ import random
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BIG = len(sys.argv) > 1 and sys.argv[1] == "55"
-SCENE = ROOT / ("assets/layered/scene_roman_banquet_55/scene.json" if BIG else "assets/layered/scene_roman_banquet/scene.json")
-OUT = ROOT / ("assets/ambience/ambience_55.json" if BIG else "assets/ambience/ambience.json")
+VARIANT = sys.argv[1] if len(sys.argv) > 1 else ""
+BIG = VARIANT == "55"
+V11 = VARIANT == "v11"   # 第 46 版照 GPT 效果图还原的那套（9/24 夜退成调试开关后面的单独场景）
+SCENE = ROOT / {"55": "assets/layered/scene_roman_banquet_55/scene.json",
+                "v11": "assets/layered/scene_roman_banquet_v11/scene.json"}.get(VARIANT, "assets/layered/scene_roman_banquet/scene.json")
+OUT = ROOT / {"55": "assets/ambience/ambience_55.json", "v11": "assets/ambience/ambience_v11.json"}.get(VARIANT, "assets/ambience/ambience.json")
 DY = 1020 if BIG else 0      # 下半截往下挪了多少
 
 scene = json.loads(SCENE.read_text())
@@ -29,7 +32,8 @@ tables = scene["tables"]
 # 墙上的灯笼亮心（9/18 对着 base.png 量的，A04 整批换底图要重量）
 WALL_LANTERNS = [(520, 32), (953, 31), (315, 82), (1157, 81), (98, 124), (1373, 123), (20, 224), (1453, 224), (1485, 289)]
 # 落地灯笼、花盆这些站在地上的积木（墙边、红毯两边），从 scene.json 的遮挡块里读着地点
-FLOOR_LANTERNS = [(o["x"] + 12, o["foot"]) for o in scene["occluders"] if "blk_lantern_floor" in o["image"]]
+LANTERN_HALF = 12 if (V11 or BIG) else 14   # 落地灯积木半宽：GPT 21:30 的新灯 24 宽，第 44 版的旧灯 31 宽
+FLOOR_LANTERNS = [(o["x"] + LANTERN_HALF, o["foot"]) for o in scene["occluders"] if "blk_lantern_floor" in o["image"]]
 FLOOR_PROPS = [(o["x"] + 20, o["foot"]) for o in scene["occluders"]
                if "blk_lantern_floor" in o["image"] or "blk_flower_pot" in o["image"]]
 
@@ -86,7 +90,7 @@ def main():
         "note": "宴会厅氛围的摆放，tools/make_ambience_layout.py 生成，别手改",
         "decals": decals,
         "glows": glows,
-        "gifts": [625, 210],   # 9/24 晚照 GPT 效果图：舞台左边台面上
+        "gifts": [625, 210] if V11 else [410, 302],   # v11（第 46 版照效果图）：舞台左边台面上；默认（第 44 版）：舞台左边地上
         # 舞台右边的乐队：钢琴（琴键在左端，人坐琴凳面朝右）、大提琴坐着、两把小提琴站着，谱架在小提琴左前
         "band": {
             "piano": [1082, 298],
