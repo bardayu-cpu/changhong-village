@@ -139,5 +139,32 @@ func run() -> void:
     await frames(3)
     check("离开宴会厅：卡收了", not is_instance_valid(m.arrival_card))
 
+    # 7. 03 第 43 版回归：插图放着的时候开了席面菜单，插图放完不能把走路放开（原来一律放开）
+    print("7 插图放完不盖掉「菜单开着不能走」")
+    m.cloud.fake_no_news = false
+    m.cloud.fake_arrival_mode = "card"
+    await m._enter_banquet()
+    var w2 := 0.0
+    while not is_instance_valid(m.toast_scene) and w2 < 3.0:
+        await wait(0.05)
+        w2 += 0.05
+    m.banquet_ui.open_menu()
+    while is_instance_valid(m.toast_scene) and w2 < 8.0:
+        await wait(0.1)
+        w2 += 0.1
+    await frames(3)
+    check("菜单开着，插图放完仍不能走", m._menu_open() and not m.hall.walking_enabled)
+    if m.banquet_ui.has_method("close_menu"):
+        m.banquet_ui.close_menu()
+
+    # 8. 画布里画出来的牌都得是出口牌（03：「回忆册」回字开头漏过了）
+    print("8 画出来的牌都是出口牌")
+    var bad: Array = []
+    for cv in [m.court, m.backhall, m.lawn, m.lake, m.orchard]:
+        for l in cv.labels.get_children():
+            if not m.court.is_exit_label(str((l as Label).text)):
+                bad.append(str((l as Label).text))
+    check("不是出口的牌 %s" % [bad], bad.is_empty() and not m.court.is_exit_label("回忆册"))
+
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

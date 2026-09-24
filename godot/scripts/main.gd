@@ -1592,12 +1592,13 @@ func _arrive(d: Dictionary) -> void:
         hall.walking_enabled = false
         await get_tree().create_timer(0.3).timeout
         if state != "banquet":
-            hall.walking_enabled = true
+            hall.walking_enabled = _nothing_open()
             return
         _play_toast(_avatar_of(finfo), preset, ArrivalCard.LINE_TOAST_1 % ArrivalCard.short_nick(str(finfo.get("nick", ""))))
         while is_instance_valid(toast_scene):
             await get_tree().process_frame
-        hall.walking_enabled = true
+        # 放开走路前先看一眼：插图放着的时候开了席面菜单、看人卡片、簿子、悄悄话框的，它们自己管走不走（03 第 43 版回归）
+        hall.walking_enabled = _nothing_open()
     if state != "banquet" or is_instance_valid(game_host):
         return
     _show_arrival_card(rows, names)
@@ -1742,6 +1743,10 @@ func _refresh_seat_buttons() -> void:
 ## 席面菜单那张面板开着没有（开着时底下的按钮全让开、人不能走）
 func _menu_open() -> bool:
     return banquet_ui != null and banquet_ui.panel_open()
+
+## 宴会厅里没有别的面板占着（席面菜单、看人卡片、簿子、悄悄话框）：可以走路
+func _nothing_open() -> bool:
+    return not (_menu_open() or card_open or book_open or whisper_box.visible)
 
 ## 宴会厅里有别的面板占着屏幕（看人卡片、簿子、小游戏、悄悄话）：左上角「席面菜单」那块牌子先让开
 func _hall_busy() -> bool:

@@ -383,7 +383,10 @@ func npc_pos(id: String) -> Vector2:
 ## 东西一眼认得出，走近时出的按钮上写清楚就够了（阿鱼 9/23：图上别叠字）。**只留出口牌**（去哪、回哪、通到别处的门和小径），
 ## 做成小木牌的样子：暖褐底、米白字、没有金边，和屏幕上 HUD 那套深底金边的按钮拉开，不会被当成按钮
 const EXIT_WORDS := ["后门", "楼门", "西小径", "东小径", "大门"]
+const NOT_EXIT := ["回忆册"]   # 「回」字开头但不是出口（03 第 43 版回归查出来的）
 static func is_exit_label(text: String) -> bool:
+    if text in NOT_EXIT:
+        return false
     return text.begins_with("去") or text.begins_with("回") or text in EXIT_WORDS
 
 func _label(text: String, at: Vector2) -> void:
