@@ -244,6 +244,13 @@ const RemoteProbe = preload("res://scripts/remote_probe.gd")
 var remote_probe: RefCounted     # 正在跑的那一次（跑完清掉）；跑的时候再点不重复开
 var remote_status: Label
 var remote_img: TextureRect
+# 55 桌满厅色块试验（01 9/24 派）：只有调试版日志面板里有入口，点了整屏换成 55 桌色块厅，屏上显示帧率。见 scripts/hall55_test.gd
+const Hall55 = preload("res://scripts/hall55_test.gd")
+var h55_view: SubViewportContainer
+var h55: Node2D
+var h55_info: Label
+var h55_box: PanelContainer
+var h55_acc := 0.0
 
 func _ready() -> void:
     # [suqi] 开头的几行是启动进度，微信预览版的调试弹窗靠它们判断卡在哪
@@ -447,6 +454,10 @@ func _build_debug() -> void:
     rc.pressed.connect(_clear_remote_probe)
     rrow.add_child(rc)
     dv.add_child(rrow)
+    var h55b := Button.new()
+    h55b.text = "55 桌试验厅"
+    h55b.pressed.connect(_open_hall55.bind(6))
+    dv.add_child(h55b)
     remote_status = _label("", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT)
     dv.add_child(remote_status)
     remote_img = TextureRect.new()
@@ -527,7 +538,7 @@ func _process(dt: float) -> void:
                 hall_side_latched = false
         elif sd < hall.side_door_r and hall.walking_enabled:
             _switch_canvas("backhall")
-    if state == "banquet" and hall_ready and not pulse_busy:
+    if state == "banquet" and hall_ready and not pulse_busy and h55 == null:   # 55 桌试验厅开着时不问（免得插图盖上来）
         pulse_t += dt
         # 进厅后先对一次表（1 秒后），之后每 PULSE_EVERY 秒问一次
         if pulse_t >= (1.0 if pulse_since == 0 else PULSE_EVERY):
@@ -551,6 +562,16 @@ func _process(dt: float) -> void:
             _stick_rest()
     if dbg == null:
         return
+    if h55 != null:
+        h55_acc += dt
+        if h55_acc >= 0.5:
+            h55_acc = 0.0
+            h55_info.text = h55.report()
+            # 试验厅开着时后来冒出来的东西（进厅插图、提示）也压在它底下
+            if ui.get_child(ui.get_child_count() - 1) != dbg:
+                ui.move_child(h55_view, -1)
+                ui.move_child(h55_box, -1)
+                ui.move_child(dbg, -1)
     dbg_worst = maxf(dbg_worst, dt)
     if dt > 0.15:
         print("[suqi] 卡了 %d 毫秒（%s）" % [int(dt * 1000.0), state])
@@ -564,6 +585,59 @@ func _process(dt: float) -> void:
     if dbg_log_acc >= 5.0:
         dbg_log_acc = 0.0
         print("[suqi] " + dbg.text)
+
+## 55 桌试验厅（调试版）：原来的场景整个停掉、藏起来（不占手机的力气），换上色块厅；per 是每桌几个 NPC（6 约 330 人，10 是坐满 550）。
+## 屏上一块字写帧率，下面三个按钮：330 人、550 人、回去。正常玩的东西一样不动，点「回去」原样回来
+func _open_hall55(per: int) -> void:
+    _close_hall55()
+    dbg_panel.visible = false
+    view.visible = false
+    view.get_child(0).process_mode = Node.PROCESS_MODE_DISABLED
+    h55_view = SubViewportContainer.new()
+    h55_view.stretch = true
+    h55_view.set_anchors_preset(Control.PRESET_FULL_RECT)
+    h55_view.mouse_filter = Control.MOUSE_FILTER_STOP   # 盖住底下的按钮、摇杆
+    ui.add_child(h55_view)
+    var sv := SubViewport.new()
+    h55_view.add_child(sv)
+    h55 = Hall55.new()
+    h55.per = per
+    sv.add_child(h55)
+    h55_box = PanelContainer.new()
+    h55_box.add_theme_stylebox_override("panel", _sb(Color(0, 0, 0, 0.7), Color(0, 0, 0, 0), 0, 8, 12))
+    h55_box.position = Vector2(12, 160)
+    var v := VBoxContainer.new()
+    v.add_theme_constant_override("separation", 10)
+    h55_box.add_child(v)
+    h55_info = _label(h55.report(), 24, Color("#9CFF9C"), HORIZONTAL_ALIGNMENT_LEFT)
+    v.add_child(h55_info)
+    var row := HBoxContainer.new()
+    row.add_theme_constant_override("separation", 10)
+    for b in [["330 人", func(): _open_hall55(6)], ["550 人", func(): _open_hall55(10)], ["回去", _close_hall55]]:
+        var btn := Button.new()
+        btn.text = b[0]
+        btn.add_theme_font_size_override("font_size", 26)
+        btn.custom_minimum_size = Vector2(120, 64)
+        btn.pressed.connect(b[1])
+        row.add_child(btn)
+    v.add_child(row)
+    ui.add_child(h55_box)
+    # 盖在所有东西上面（插图、卡片、按钮、黑幕都在底下），左上角原来那行帧率照样在最上面
+    ui.move_child(h55_view, -1)
+    ui.move_child(h55_box, -1)
+    print("[suqi] 打开 55 桌试验厅，每桌 ", per, " 人")
+
+func _close_hall55() -> void:
+    if h55_view == null:
+        return
+    h55_view.queue_free()
+    h55_box.queue_free()
+    h55_view = null
+    h55_box = null
+    h55 = null
+    view.visible = true
+    view.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+    print("[suqi] 关了 55 桌试验厅")
 
 ## 每帧的绘制次数和物体数。微信小游戏建议绘制次数不超过 200
 func _render_stats() -> String:
@@ -2690,6 +2764,18 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
+        "hall55", "hall55_panel":
+            # 55 桌试验厅（调试版）：hall55_panel 是日志面板里那个入口按钮，hall55 是点进去以后（色块厅、屏上的帧率字）
+            if dbg == null:
+                _build_debug()
+            nickname = "小李"
+            await _enter_banquet()
+            dialog.visible = false
+            if shot == "hall55_panel":
+                _toggle_log()
+            else:
+                _open_hall55(6)
+                await get_tree().create_timer(1.5).timeout
         "remote_probe", "remote_probe_local", "remote_probe_fail":
             # 远程加载的最小验证（§0.9）：调试版日志面板里点「远程加载」以后的样子。要加 --hud 才有调试面板。
             # 电脑上走假下载；remote_probe 是第一次（下载了），remote_probe_local 是第二次（读的本地，没下载）；
