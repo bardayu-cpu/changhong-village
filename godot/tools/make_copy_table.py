@@ -137,7 +137,7 @@ code("回忆册里的两分钟剪辑（占位屏）", "按钮", "继续", "", MA
 # ======================= 迎宾院 =======================
 section("迎", "迎宾院")
 code("选完形象，从大门走进迎宾院", "阿鱼", "到啦～ 罗曼山庄 席还没散", "", MAIN, "LINE_ARRIVE", "每次从开场进山庄都说")
-code("第一次进场景、还没走过路", "屏幕下方提示条", "点地面走路 或推左下圆圈", "新写，等阿鱼定", MAIN, "LINE_WALK_HINT",
+code("第一次进场景、还没走过路", "屏幕右下角提示框", "点地面走路\n或推左下圆圈", "新写，等阿鱼定", MAIN, "LINE_WALK_HINT",
      "这次打开游戏走过一次就不再出")
 jl(EN, "welcome", "第一次走到门口迎宾处（还没签到）")
 jl(EN, "btn_sign", "走到签到桌", pos="按钮")
@@ -358,8 +358,9 @@ code("菜单册里解锁了的菜", "列表一行", "%d. %s", "", HOST, "_open_b
 row("菜单册 12 道菜的名字（按解锁顺序）", "列表里的菜名", "／".join(d["name"] for d in J[MG]["dishes"]), "占位，阿鱼可改",
     MG + " 的 dishes[].name", "游戏里不出现真实地名，一律写苏七；已解锁的也能在宴会厅「添一道菜」")
 for i, d in enumerate(J[MG]["dishes"]):
-    row("菜单册里「%s」解锁后，名字下面" % d["name"], "短评", d["note"], "待阿鱼写", MG + " 的 dishes[%d].note" % i,
-        "只有阿鱼能写（世界观 4.2）；没写时显示「待阿鱼写」")
+    row("菜单册里「%s」解锁后，名字下面" % d["name"], "短评", d["note"],
+        "待阿鱼写" if d["note"] == "待阿鱼写" else "01 写（阿鱼 9/24 交给 01），阿鱼看了再改", MG + " 的 dishes[%d].note" % i,
+        "原来标「只有阿鱼能写」，阿鱼 9/24 交给 01 写（乐山话，一句最多一个方言词，依据见 回执/菜单册短评-12道.md）")
 
 section("消", "小游戏·川菜消消乐")
 game_head("match3", "T3、T4 两桌")
@@ -495,6 +496,16 @@ row("右上角「···」转发给朋友、朋友圈时", "分享卡片标题",
 
 # ======================= 输出 =======================
 HEAD = ["编号", "环节", "什么时候出现", "谁说／在哪", "现在的字", "状态", "在哪改", "改成（阿鱼填）", "备注"]
+# 重新生成前先把旧表里阿鱼已经填的「改成」接回来（按「在哪改 + 什么时候出现」对，对不上的打印出来，不悄悄丢）
+KEEP = {}
+_old = os.path.join(OUT_DIR, "游戏文案总表.xlsx")
+if os.path.exists(_old):
+    from openpyxl import load_workbook
+    _ws = load_workbook(_old).active
+    for _r in _ws.iter_rows(min_row=2, values_only=True):
+        if _r and len(_r) >= 8 and _r[7] not in (None, ""):
+            KEEP[(str(_r[6] or ""), str(_r[2] or ""))] = str(_r[7])
+_used = set()
 flat = []
 counts = []
 for code_, name, rows in SECTIONS:
@@ -502,10 +513,18 @@ for code_, name, rows in SECTIONS:
     block = []
     for i, r in enumerate(rows, 1):
         when, who, text, st, where, note = r
-        block.append(["%s-%02d" % (code_, i), name, when, who, text, st, where, "", note])
+        _k = (str(where), str(when))
+        if _k in KEEP:
+            _used.add(_k)
+        block.append(["%s-%02d" % (code_, i), name, when, who, text, st, where, KEEP.get(_k, ""), note])
     flat.append(block)
 
 total = sum(c for _, c in counts)
+if KEEP:
+    print("旧表里填过「改成」的 %d 条，接回 %d 条" % (len(KEEP), len(_used)))
+    for _k in KEEP:
+        if _k not in _used:
+            print("  没对上（这条字的位置变了，要手动挪）：", _k, "→", KEEP[_k])
 
 # csv（UTF-8 带 BOM）
 with open(os.path.join(OUT_DIR, "游戏文案总表.csv"), "w", encoding="utf-8-sig", newline="") as f:
