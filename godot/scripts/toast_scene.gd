@@ -110,11 +110,13 @@ func play(font: Font, left_preset: int, right_preset: int, title_text: String, c
     hint.position = Vector2(0, hint_y)
     hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
     panel.add_child(hint)
+    # 碰杯的金光：原来放大 3 倍、往外飞 90～150 像素，两个人的脸、上面的「干杯」全被金块盖住（04 第 43 版复看 2）。
+    # 缩到 1.5 倍、只在杯子一圈 24～40 像素里闪，不碰脸
     for i in 10:
-        var sp := _tex_rect(SPARK, 3.0)
+        var sp := _tex_rect(SPARK, 1.5)
         if sp != null:
             sp.visible = false
-            sparks.append({"n": sp, "dir": Vector2.from_angle(TAU * i / 10.0 + 0.3), "v": 90.0 + 30.0 * (i % 3)})
+            sparks.append({"n": sp, "dir": Vector2.from_angle(TAU * i / 10.0 + 0.3), "v": 24.0 + 8.0 * (i % 3)})
     _layout()
     get_viewport().size_changed.connect(_layout)
 
@@ -195,7 +197,7 @@ func _process(dt: float) -> void:
     for s in sparks:
         if s["n"].visible:
             var n: TextureRect = s["n"]
-            n.position = Vector2(mid, chest - 46.0) + s["dir"] * s["v"] * _ease(ks) - n.size * 0.5
+            n.position = Vector2(mid, chest - 40.0) + s["dir"] * s["v"] * _ease(ks) - n.size * 0.5
             n.modulate.a = 1.0 - ks
     # 「干杯」碰杯那一下弹出来：先大后正常
     var kt := clampf((t - 0.95) / 0.25, 0.0, 1.0)

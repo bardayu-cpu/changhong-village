@@ -307,7 +307,7 @@ func _item(it: Dictionary) -> void:
         world.add_child(holder)
     if it.has("label"):
         var lb: Dictionary = it["label"]
-        var lx2 := _item_center_x(it)
+        var lx2 := _item_center_x(it) + float(lb.get("dx", 0))
         _label(str(lb["text"]), Vector2(lx2, foot + float(lb.get("dy", -40))))
 
 static func _item_center_x(it: Dictionary) -> float:

@@ -79,6 +79,10 @@ func run() -> void:
     # 体验第二轮 新 2：不压左下角摇杆
     var sr: Rect2 = Rect2(m.stick_base.global_position, m.stick_base.size)
     check("不压摇杆 提示%s 摇杆%s" % [hr, sr], not hr.intersects(sr))
+    # 04 第 43 版复看 2：也不压屏幕正中间那条（人刚进门就站在那），靠右下
+    # 按手机屏宽 540 量：屏幕正中间 ±40 像素是人站的地方，提示框不能伸进去（headless 窗口比手机宽，不能拿 ui.size 量）
+    var w540: float = m.hint.get_combined_minimum_size().x
+    check("手机屏 540 宽时靠右下、不伸到屏幕中间（框宽 %.0f，左沿 %.0f）" % [w540, 540.0 - 14.0 - w540], 540.0 - 14.0 - w540 > 270.0 + 40.0 and hr.end.y <= m.ui.size.y - 170.0)
     m._hide_hint()
     await m._enter_banquet()
     await frames(2)

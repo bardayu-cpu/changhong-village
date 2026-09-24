@@ -157,7 +157,7 @@ var say_log: Array = []    # 最近说过的 20 句 [谁, 话]：一串话接着
 var hint: PanelContainer   # 「点地面走路」那一行（带底框，体验 B1）
 var hint_done := false     # 这次打开游戏已经提示过、玩家也走过了：以后进哪个场景都不再出（体验 B1：原来每进一个场景亮一次）
 ## 走路提示（体验 B1、五.1）：原来是没底框的光字印在画面正中，压着喜字和新人的脸；也从没提过能推摇杆。新写，等阿鱼定
-const LINE_WALK_HINT := "点地面走路 或推左下圆圈"
+const LINE_WALK_HINT := "点地面走路\n或推左下圆圈"   # 断两行、窄一点，放在右下角不伸到屏幕中间（人站在那）
 const LINE_LOOK_FMT := "看看 %s"   # 走近坐着的人，底下那个按钮（体验 B23）
 var note: Label            # 顶部提示框里的字：进厅合并提示、坐好了、拒绝原因
 var note_box: PanelContainer
@@ -791,12 +791,17 @@ func _build_hud() -> void:
     hint.name = "walk_hint"
     hint.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.94), GOLD1, 2, 6, 14))
     hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    hint.add_child(_label(LINE_WALK_HINT, 24, GOLD1, HORIZONTAL_ALIGNMENT_CENTER, false))
-    hint.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-    hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
-    # 原来 y 698～749，压着左下角摇杆（圆心 y 740、半径 64）46 像素（体验第二轮 新 2）：往上抬一档，下沿在摇杆顶上
-    hint.offset_top = -346
-    hint.offset_bottom = -300
+    hint.add_child(_label(LINE_WALK_HINT, 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
+    # 放在右下角：左下是摇杆（体验第二轮 新 2：原来居中压着摇杆），屏幕中间是刚进门的人
+    # （04 第 43 版复看 2：居中抬高以后，正好盖在迎宾院拱门底下的人身上，只露个头顶，看着像被拱门吞了）。
+    # 下沿在「坐这儿」那排按钮（下沿往上 120～170）上面
+    hint.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+    hint.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+    hint.grow_vertical = Control.GROW_DIRECTION_BEGIN
+    hint.offset_right = -14
+    hint.offset_left = -14
+    hint.offset_top = -262
+    hint.offset_bottom = -180
     hint.visible = false
     hud.add_child(hint)
     # 提示框：第 21 版是一行没底色的字，压在场景图上，阿鱼真机上「什么都没看到」（9/17）。
@@ -3088,6 +3093,18 @@ func _setup_shot(shot: String) -> void:
                 orchard.cam.reset_smoothing()
             await get_tree().process_frame
             await get_tree().process_frame   # 多等一帧（04 复看：orchard_sell 截出来底图是灰的）
+        "toast_clink":
+            # 干杯插图停在碰杯金光那一帧（04 第 43 版复看 2：金光盖住两张脸）
+            nickname = "小李"
+            cloud.fake_no_news = true
+            await _enter_banquet()
+            dialog.visible = false
+            _play_toast(1, preset, "")
+            for i in 300:
+                await get_tree().process_frame
+                if is_instance_valid(toast_scene) and toast_scene.t >= 1.08:
+                    toast_scene.set_process(false)
+                    break
         "court_sign_far":
             # 刚进门站在大门口、还没签到、签到台在屏幕外的那一帧（04 第 43 版复看：看签到台的小箭头在不在）
             _shot_court_fresh()
