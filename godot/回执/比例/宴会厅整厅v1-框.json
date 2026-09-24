@@ -1,0 +1,11 @@
+{"scene": "宴会厅 整厅效果预览 v1（GPT 9/24 18:31）", "image": "/Users/kayra_ayu/Desktop/苏七镇奇缘/游戏制作中-gpt 和 claude 合作/地图一-苏七镇/罗曼山庄/001-宴会厅/素材图/preview_banquet_full_v1.png", "person_px": 84, "scale": 1.0,
+ "objects": [
+  {"name": "新郎 高", "std": "person_h", "box": [757, 190, 800, 299], "dim": "h"},
+  {"name": "新娘 高", "std": "person_h", "box": [712, 193, 752, 297], "dim": "h"},
+  {"name": "服务员（左上）高", "std": "person_h", "box": [92, 377, 130, 473], "dim": "h"},
+  {"name": "一盘菜 直径", "std": "dish_w", "box": [430, 283, 455, 297], "dim": "w"},
+  {"name": "贺礼堆 高", "std": "gifts_h", "box": [565, 153, 660, 208], "dim": "h"},
+  {"name": "桌心簿子 宽", "std": "book_w", "box": [470, 318, 498, 336], "dim": "w"},
+  {"name": "红毯边落地灯 高（下半截被花盆挡）", "std": "lamp_floor_h", "box": [630, 598, 668, 700], "dim": "h", "truncated": true}
+ ],
+ "rulers": [[700, 300], [150, 480], [560, 560]]}
