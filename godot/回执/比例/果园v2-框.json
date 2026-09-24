@@ -1,0 +1,14 @@
+{"scene": "果园 占位底图 v2", "image": "/Users/kayra_ayu/Desktop/苏七镇奇缘/游戏制作中-gpt 和 claude 合作/地图一-苏七镇/罗曼山庄/006-果园/素材图/preview_orchard_v2.png", "person_px": 84, "scale": 1.0,
+ "objects": [
+  {"name": "枇杷树 高（西北那棵）", "std": "tree_h", "box": [840, 525, 1050, 722], "dim": "h"},
+  {"name": "枇杷树 高（东南那棵）", "std": "tree_h", "box": [1280, 785, 1495, 985], "dim": "h"},
+  {"name": "草莓 一棵 高", "std": "strawberry_h", "box": [200, 470, 232, 502], "dim": "h"},
+  {"name": "收购摊 柜台 高", "std": "long_table_h", "box": [880, 1148, 1060, 1236], "dim": "h"},
+  {"name": "收购摊 整个 高（约 2.6 米）", "meters": 2.6, "axis": "h", "box": [838, 1004, 1150, 1240], "dim": "h", "truncated": true},
+  {"name": "摊子挂的灯笼 高", "std": "lantern_hang_h", "box": [838, 1052, 872, 1135], "dim": "h"},
+  {"name": "南墙门柱上的灯 高", "std": "lantern_hang_h", "box": [1198, 1150, 1240, 1222], "dim": "h"},
+  {"name": "一朵白花", "std": "flower_one", "box": [196, 416, 219, 439], "dim": "w"},
+  {"name": "院墙 高（约 2 米）", "meters": 2.0, "axis": "h", "box": [0, 272, 200, 405], "dim": "h"},
+  {"name": "中间土路 宽（约 2 米）", "meters": 2.0, "axis": "w", "box": [700, 400, 812, 1100], "dim": "w"}
+ ],
+ "rulers": [[756, 700], [950, 760], [1110, 1275], [300, 545]]}
