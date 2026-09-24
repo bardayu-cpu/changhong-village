@@ -20,14 +20,20 @@ func _process(_dt: float) -> bool:
 func run() -> void:
     var ok := true
 
-    # 1. 配置：6 个游戏、12 张桌两两一组，每桌都找得到游戏
+    # 1. 配置：6 个游戏都还在（代码留着）；阿鱼 9/24 定宴会厅只留吃席、川菜消消乐、小菜合大菜在 1～6 号桌，
+    #    7～12 号只吃席、敬酒、聊天，没有游戏；记菜名、护菜、接彩头在厅里关掉（以后接到迎宾院、后厅厨房）
     var ids: Array = []
     for gg in Cfg.data()["games"]: ids.append(gg["id"])
     var tables_ok := true
+    var want := {"T1": "lianliankan", "T2": "lianliankan", "T3": "match3", "T4": "match3", "T5": "g2048", "T6": "g2048"}
     for i in range(1, 13):
-        if Cfg.game_for_table("T%d" % i).is_empty(): tables_ok = false
-    print("1 游戏 ", ids, " 12 张桌都有游戏 ", tables_ok)
-    ok = ok and ids.size() == 6 and tables_ok
+        var tid := "T%d" % i
+        var got := str(Cfg.game_for_table(tid).get("id", ""))
+        if got != str(want.get(tid, "")):
+            tables_ok = false
+    var off_ok: bool = ["memory", "whack", "catch"].all(func(x): return (Cfg.game(x)["tables"] as Array).is_empty())
+    print("1 游戏 ", ids, " 1～6 号桌三个游戏、7～12 号没有 ", tables_ok, "；记菜名、护菜、接彩头在厅里关了 ", off_ok)
+    ok = ok and ids.size() == 6 and tables_ok and off_ok
 
     # 2. 难度：第 1 关、第 5 关、第 30 关的参数；难度倍数 1.5 时 hard=1 的变大、hard=-1 的变小，都不出 min/max
     var llk := Cfg.game("lianliankan")

@@ -2430,7 +2430,8 @@ func _shot_game(shot: String) -> void:
     for part in parts:
         if part.begins_with("lv") and int(part.substr(2)) > 1:
             games_save.games[id] = int(part.substr(2)) - 1
-    var tid := str(g["tables"][0])
+    # 9/24 起记菜名、护菜、接彩头在宴会厅关掉了（tables 是空的），截图时借 1 号桌开
+    var tid := str(g["tables"][0]) if not (g["tables"] as Array).is_empty() else "T1"
     hall.apply_change(tid, 5, cloud.openid())
     for i in 30: await get_tree().process_frame
     _open_game(tid)
