@@ -40,8 +40,10 @@ def pieces():
     """定稿板上的几样：[(标题, 原大那张, 3 倍那张)]"""
     out = []
     lake = Image.open(SHARE + "/地图一-苏七镇/罗曼山庄/005-湖边/素材图/preview_lake_a_v5.png").convert("RGB")
-    lk = lake.crop((440, 20, 1100, 1060))
-    out.append(("湖边场景（preview_lake_a_v5：亭子、栈道、岸边）", lk, x3(lake.crop((600, 60, 780, 200)))))
+    # 只截亭子、栈道、水面那一块干净的：原来截得宽，左下角带进一截被切成方块的柳树（接缝），01 9/24 说「标准」里不能有这个；
+    # 再宽一点水面上会露出一道横着的拼块缝，这个宽度刚好被亭子顶和灯笼挡住
+    lk = lake.crop((548, 20, 962, 680))
+    out.append(("湖边场景（preview_lake_a_v5：亭子、栈道、水面）", lk, x3(lake.crop((600, 60, 780, 200)))))
     st = rgba(HALL + "/积木/blk_banquet_band_stage_v4.png")
     out.append(("宴会厅乐队整块舞台（v4，在游戏里）", on_bg(st), x3(on_bg(st.crop((150, 20, 290, 130))))))
     crops = [("水稻", "crop_01"), ("草莓", "crop_02"), ("玉米", "crop_04"), ("辣椒", "crop_09")]
