@@ -199,6 +199,16 @@ eq(banquet.assignSeat({
   tables: Array.from({ length: 12 }, (_, i) => mkTable(`T${i}`, i < 2, 'A', fullSeats(10))),
 }), { ok: true, bench: true }, '12桌全坐满了坐长凳');
 
+// 9/24 01 定修：阿鱼本人没有邀请人、坐在 R1（branch 是 null），R1 坐满了，他请的人不能再进 R1（原来会拿到 11 号椅）
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(['A']),
+  tables: [mkTable('R1', true, null, ['A', ...fullSeats(9)]), mkTable('R2', true, null, []), mkTable('T3', false, null, [])],
+}), { ok: true, tableId: 'R2', bench: false }, '阿鱼坐的前两桌满了：他请的人坐另一张前两桌，不进满桌');
+eq(banquet.assignSeat({
+  inviter: 'A', vip: new Set(['A']),
+  tables: [mkTable('R1', true, null, ['A', ...fullSeats(9)]), mkTable('R2', true, 'B', fullSeats(3)), mkTable('T3', false, null, [])],
+}), { ok: true, tableId: 'T3', bench: false }, '阿鱼坐的前两桌满了、另一张被别的枝占了：开一张普通空桌');
+
 // ---------- 宴会厅 · 入座：长凳门槛（config.BANQUET_BENCH_ONLY_WHEN_FULL，9/24） ----------
 eq(C.BANQUET_BENCH_ONLY_WHEN_FULL, false, '长凳门槛开关默认关（上线 55 桌前保持旧规矩）');
 eq(C.BANQUET_TABLE_IDS.length, 12, '现在用的还是 12 桌');

@@ -41,7 +41,7 @@ function assignSeat(ctx) {
  * 旧规矩（BANQUET_BENCH_ONLY_WHEN_FULL 为 false，现在线上用的）：
  * 邀请人那桌 → 这一枝开过的桌 → 开一张完全没人坐的新桌 → 长凳。
  * 开不出新桌就去长凳，哪怕别的桌还有空椅子；没有邀请人的人按桌序坐第一张有空位的桌，前两桌也坐。
- * 这段不动，保持跟线上一样。
+ * 这段保持跟线上一样，只修了一处：阿鱼/Toretto 的枝找前两桌时先看满没满（9/24，原来会分到 11 号椅）。
  */
 function assignSeatOld(ctx) {
   const { inviter, vip, tables } = ctx;
@@ -66,8 +66,10 @@ function assignSeatOld(ctx) {
   if (withRoom) return { ok: true, tableId: withRoom.id, bench: false };
 
   // 这枝还没有桌（邀请人自己也没坐过），或已开的桌都满了：开一桌
+  // 前两桌也要看满没满（9/24 01 定修）：阿鱼本人没有邀请人、坐在 T1，T1 的 branch 标记是 null，
+  // 原来只看「没被别的枝占」，T1 坐满了他请的人还会分进 T1、拿到第 11 号椅。满了就往后找
   if (vip && vip.has(inviter)) {
-    const reserved = tables.find(t => t.reserved && t.branch == null);
+    const reserved = tables.find(t => t.reserved && t.branch == null && t.seats.length < CAP);
     if (reserved) return { ok: true, tableId: reserved.id, bench: false };
   }
   const empty = tables.find(t => !t.reserved && t.seats.length === 0);
