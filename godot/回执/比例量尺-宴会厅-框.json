@@ -492,9 +492,9 @@
    "png": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘-claude 总文件/godot/assets/ambience/amb_dish_1.png",
    "dim": "w",
    "src": "代码画的占位图（amb_dish）",
-   "note": "ASSETS v1.2「一盘菜 直径 12～14」",
-   "call": "占位，要缩到 1/3（宽 14 以内）",
-   "std": "dish_w"
+   "call": "占位，要缩到 24 宽以内",
+   "std": "big_dish_w",
+   "note": "ASSETS v1.3「大菜盘（上桌的整盘菜）17～24」"
   },
   {
    "group": "桌上的东西",
@@ -502,8 +502,8 @@
    "png": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘-claude 总文件/godot/assets/ambience/amb_dish_2.png",
    "dim": "w",
    "src": "代码画的占位图（amb_dish）",
-   "call": "占位，要缩到约一半",
-   "std": "dish_w"
+   "call": "占位，对（正好 1.25×，在边上）",
+   "std": "big_dish_w"
   },
   {
    "group": "桌上的东西",
@@ -511,8 +511,8 @@
    "png": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘-claude 总文件/godot/assets/ambience/amb_dish_3.png",
    "dim": "w",
    "src": "代码画的占位图（amb_dish）",
-   "call": "占位，要缩到约一半",
-   "std": "dish_w"
+   "call": "占位，对（在边上）",
+   "std": "big_dish_w"
   },
   {
    "group": "桌上的东西",
@@ -552,16 +552,12 @@
    ],
    "dim": "w",
    "src": "GPT 底图",
-   "note": "同一张桌上画的餐盘，比 ASSETS 的「一盘菜」略大一点点",
+   "note": "同一张桌上画的餐盘，对 ASSETS「小碟、餐盘 12～14」，略大一点点",
    "call": "对（对照用）"
   },
   {
    "group": "桌上的东西",
-   "name": "底图桌上画的大菜盘 宽（对照，估）",
-   "meters": [
-    0.35,
-    0.5
-   ],
+   "name": "底图桌上画的大菜盘 宽（对照）",
    "box": [
     221,
     329,
@@ -570,8 +566,9 @@
    ],
    "dim": "w",
    "src": "GPT 底图",
-   "note": "大菜盘按 0.35～0.5 米估；按 ASSETS「一盘菜 12～14」量是 1.6×，但那一行是餐盘大小",
-   "call": "对（对照用）"
+   "note": "同一张桌上画的大菜盘，对 ASSETS v1.3「大菜盘 17～24」",
+   "call": "对（对照用）",
+   "std": "big_dish_w"
   },
   {
    "group": "长凳",
