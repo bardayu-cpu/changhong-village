@@ -1,0 +1,310 @@
+{
+ "scene": "scene_roman_banquet",
+ "revision": "v11-effect",
+ "note": "阿鱼 9/24 晚：照 GPT 效果图 preview_banquet_full_v1 还原（新人不用 GPT 画的，用阿鱼定的 couple.png）。底图、桌子、落地灯是 GPT 21:30 交的 A04 积木（001-宴会厅/积木/），桌心位置对着效果图逐张量的；花盆沿用旧积木；栏杆照旧形状从新底图重剪",
+ "canvas": [
+  1536,
+  1024
+ ],
+ "person_h": 84,
+ "base": "base.png",
+ "blocks": {
+  "blk_table_round": {
+   "anchor": [
+    82,
+    124
+   ],
+   "footprint": {
+    "ellipse": [
+     80,
+     52
+    ]
+   }
+  },
+  "blk_lantern_floor": {
+   "anchor": [
+    12,
+    63
+   ],
+   "footprint": {
+    "ellipse": [
+     12,
+     6
+    ]
+   }
+  },
+  "fg_rail_left": {
+   "anchor": [
+    0,
+    261
+   ]
+  },
+  "fg_rail_right": {
+   "anchor": [
+    0,
+    272
+   ]
+  },
+  "blk_flower_pot": {
+   "anchor": [
+    23,
+    71
+   ],
+   "footprint": {
+    "ellipse": [
+     14,
+     9
+    ]
+   }
+  }
+ },
+ "place": [
+  {
+   "block": "blk_table_round",
+   "x": 229,
+   "y": 368
+  },
+  {
+   "block": "blk_table_round",
+   "x": 492,
+   "y": 371
+  },
+  {
+   "block": "blk_table_round",
+   "x": 221,
+   "y": 549
+  },
+  {
+   "block": "blk_table_round",
+   "x": 495,
+   "y": 533
+  },
+  {
+   "block": "blk_table_round",
+   "x": 207,
+   "y": 706
+  },
+  {
+   "block": "blk_table_round",
+   "x": 484,
+   "y": 722
+  },
+  {
+   "block": "blk_table_round",
+   "x": 988,
+   "y": 374,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1262,
+   "y": 392,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 996,
+   "y": 534,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1271,
+   "y": 552,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1002,
+   "y": 726,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1280,
+   "y": 731,
+   "flip": true
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 650,
+   "y": 330
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 650,
+   "y": 500
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 650,
+   "y": 700
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 650,
+   "y": 390
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 650,
+   "y": 560
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 650,
+   "y": 760
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 650,
+   "y": 845
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 850,
+   "y": 330,
+   "flip": true
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 850,
+   "y": 500,
+   "flip": true
+  },
+  {
+   "block": "blk_lantern_floor",
+   "x": 850,
+   "y": 700,
+   "flip": true
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 850,
+   "y": 390
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 850,
+   "y": 560
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 850,
+   "y": 760
+  },
+  {
+   "block": "blk_flower_pot",
+   "x": 850,
+   "y": 845
+  },
+  {
+   "block": "fg_rail_left",
+   "x": 0,
+   "y": 1013,
+   "front": true
+  },
+  {
+   "block": "fg_rail_right",
+   "x": 1066,
+   "y": 1012,
+   "front": true
+  }
+ ],
+ "walk": [
+  [
+   [
+    80,
+    270
+   ],
+   [
+    505,
+    270
+   ],
+   [
+    505,
+    320
+   ],
+   [
+    985,
+    320
+   ],
+   [
+    985,
+    300
+   ],
+   [
+    1400,
+    300
+   ],
+   [
+    1400,
+    270
+   ],
+   [
+    1456,
+    270
+   ],
+   [
+    1456,
+    860
+   ],
+   [
+    80,
+    860
+   ]
+  ],
+  [
+   [
+    1450,
+    596
+   ],
+   [
+    1500,
+    596
+   ],
+   [
+    1500,
+    646
+   ],
+   [
+    1450,
+    646
+   ]
+  ]
+ ],
+ "spawn": [
+  768,
+  840
+ ],
+ "couple": [
+  756,
+  300
+ ],
+ "points": [
+  {
+   "id": "couple_table",
+   "x": 768,
+   "y": 430,
+   "r": 70,
+   "kind": "talk",
+   "line": "table"
+  },
+  {
+   "id": "door",
+   "x": 768,
+   "y": 840,
+   "r": 60,
+   "kind": "door",
+   "line": "leave"
+  },
+  {
+   "id": "side_door",
+   "x": 1500,
+   "y": 600,
+   "r": 50,
+   "kind": "door",
+   "line": "backhall"
+  }
+ ]
+}

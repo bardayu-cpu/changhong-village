@@ -125,8 +125,8 @@ func run() -> void:
     tick(2)
     check("宴会厅有东侧门 %s 半径 %.0f" % [h.side_door, h.side_door_r], h.side_door == Vector2(1500, 600) and is_equal_approx(h.side_door_r, 50.0))
     check("东侧门的门洞能站", h._free(Vector2(1480, 610)))
-    # scene.json 里宴会厅能走的格子：原来 5081 格（9/18 第 26 版起），这次只在东墙门洞加了 19 格（x 1460～1500、y 600～650），
-    # 别处一格没动（长凳前那条道是开场时另加的，不在 scene.json 里，这里不算）
+    # scene.json 里宴会厅能走的格子：9/24 晚照 GPT 效果图还原（桌子挪了、顶上一排后排椅子那条往北扩到 y 270）以后是 5369 格，
+    # 其中东墙门洞 19 格（x 1460～1500、y 600～650）；x 1460 往东只有门洞能走（长凳前那条道是开场时另加的，不在 scene.json 里，这里不算）
     var n_walk := 0
     var outside := 0
     var grid_rows: Array = h.cfg["walk_grid"]["rows"]
@@ -137,7 +137,7 @@ func run() -> void:
                 n_walk += 1
                 if i * 10 >= 1460 and not (i * 10 < 1500 and j * 10 >= 600 and j * 10 < 650):
                     outside += 1
-    check("scene.json 能走 %d 格 = 原来 5081 + 门洞 19；x 1460 往东的都在门洞里（门洞外 %d 格）" % [n_walk, outside], n_walk == 5100 and outside == 0)
+    check("scene.json 能走 %d 格（9/24 晚还原后 5369，含门洞 19）；x 1460 往东的都在门洞里（门洞外 %d 格）" % [n_walk, outside], n_walk == 5369 and outside == 0)
     var sat := {}
     m.cloud.call_fn("changeSeat", {"tableId": "T2", "chairNo": 5}, func(r): sat["r"] = r)
     check("换座成功", bool(sat.get("r", {}).get("ok", false)))

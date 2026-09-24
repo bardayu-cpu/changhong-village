@@ -23,7 +23,7 @@ tables = scene["tables"]
 # 墙上的灯笼亮心（9/18 对着 base.png 量的，A04 整批换底图要重量）
 WALL_LANTERNS = [(520, 32), (953, 31), (315, 82), (1157, 81), (98, 124), (1373, 123), (20, 224), (1453, 224), (1485, 289)]
 # 落地灯笼、花盆这些站在地上的积木（墙边、红毯两边），从 scene.json 的遮挡块里读着地点
-FLOOR_LANTERNS = [(o["x"] + 14, o["foot"]) for o in scene["occluders"] if "blk_lantern_floor" in o["image"]]
+FLOOR_LANTERNS = [(o["x"] + 12, o["foot"]) for o in scene["occluders"] if "blk_lantern_floor" in o["image"]]
 FLOOR_PROPS = [(o["x"] + 20, o["foot"]) for o in scene["occluders"]
                if "blk_lantern_floor" in o["image"] or "blk_flower_pot" in o["image"]]
 
@@ -79,7 +79,7 @@ def main():
         "note": "宴会厅氛围的摆放，tools/make_ambience_layout.py 生成，别手改",
         "decals": decals,
         "glows": glows,
-        "gifts": [410, 302],
+        "gifts": [625, 210],   # 9/24 晚照 GPT 效果图：舞台左边台面上
         # 舞台右边的乐队：钢琴（琴键在左端，人坐琴凳面朝右）、大提琴坐着、两把小提琴站着，谱架在小提琴左前
         "band": {
             "piano": [1082, 298],
