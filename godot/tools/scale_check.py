@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """比例量尺（人 = 1）：拿一张图和几个框，对着「人 = 1」表出偏差表。超过表里的 1.5 倍、或小于一半，标红、退出码 1。
 
-标准以 godot/回执/比例尺-人等于1.md（02 抄进 godot/ASSETS.md）为准；表在下面 STANDARD，改表两处一起改。
+标准以 godot/ASSETS.md 第 15 节「比例尺（人 = 1）」为准（原表 godot/回执/比例尺-人等于1.md）；表在下面 STANDARD，改表两处一起改。
 换算：左右和高度 1 米 = 48 像素，地面前后 1 米 = 32 像素；人 84 像素（1.75 米）。表里的数按「人 84 像素」写，
 量的画布人不是 84 就在 JSON 里写 person_px，表会按比例缩放。
 
@@ -10,7 +10,7 @@
 子命令：
   grid     把图的一块放大、盖上带坐标的格子，读框的坐标用
              python3 godot/tools/scale_check.py grid 图.png --region 500,480,1000,760 --zoom 3 -o /tmp/g.png
-  measure  读框文件，出偏差表（--md 存 Markdown、--json 存 JSON、--annot 存标了框的图）
+  measure  读框文件，出偏差表（--md 存 Markdown、--json 存 JSON、--annot 存标了框的图、--compact 出窄表）
              python3 godot/tools/scale_check.py measure 框.json --annot /tmp/a.png --md /tmp/t.md
   bbox     一张带透明的 PNG（积木、人物帧）不透明部分的外框，量单个积木时用
              python3 godot/tools/scale_check.py bbox 积木.png
@@ -30,7 +30,9 @@
     框自动取不透明部分的外框（路径相对框文件；这样的项不在标图里画）。
   rulers：标图时把游戏里真的人（scale_person_84.png，84 像素高）按同样比例贴在这几个脚点上当尺子，不写就贴左上角。
   draw：false 表示这项不在图上（比如在游戏里量的人高），标图时不画框。
-  std 取表里的行；表里没有的东西写 meters（真实大小，米）和 axis（h、w 用 48，d 前后用 32）自己算。
+  group／src／call：一屏东西多的时候用。group 分节（表按节列），src 写「来源」（GPT 图／代码画的占位……），
+    call 写「结论」（对／要重画／占位待换……），有 src 或 call 的项，表里多出对应的列。
+  std 取表里的行；表里没有的东西写 meters（真实大小，米；不确定的写范围 [下限, 上限]）和 axis（h、w 用 48，d 前后用 32）自己算。
   truncated：东西被图边截掉了，量到的是下限，结果写「≥」，只判「大了」，不判「小了」。
 """
 import argparse
@@ -57,7 +59,11 @@ STANDARD = {
     "single_door_w": ("单扇门 宽", 43, 43),
     "double_door_h": ("双开门／院门门洞 高", 115, 145),
     "double_door_w": ("双开门／院门门洞 宽", 86, 115),
+    "gate_arch_w": ("山庄大门门楼 门洞宽（迎宾院南边）", 232, 232),
+    "gate_arch_h": ("山庄大门门楼 门柱高", 196, 196),
+    "gate_arch_total_w": ("山庄大门门楼 整座宽", 344, 344),
     "round_table_w": ("宴会圆桌 宽（直径）", 86, 86),
+    "round_table_d": ("宴会圆桌 桌面前后（深）", 58, 58),
     "round_table_h": ("宴会圆桌 桌高", 36, 36),
     "long_table_w": ("长条桌（签到台）长", 86, 115),
     "long_table_d": ("长条桌 前后（深）", 19, 19),
@@ -120,8 +126,11 @@ def expected_range(obj, person_px):
         return name, lo * k, hi * k
     if "meters" in obj:
         per = PX_PER_M_DEPTH if obj.get("axis", "h") == "d" else PX_PER_M
-        v = float(obj["meters"]) * per * k
-        return "真实 %.2f 米 × %d" % (float(obj["meters"]), per), v, v
+        m = obj["meters"]
+        lo_m, hi_m = (float(m[0]), float(m[1])) if isinstance(m, (list, tuple)) else (float(m), float(m))
+        if lo_m == hi_m:
+            return "真实 %g 米 × %d" % (lo_m, per), lo_m * per * k, lo_m * per * k
+        return "真实 %g～%g 米 × %d" % (lo_m, hi_m, per), lo_m * per * k, hi_m * per * k
     die("%r 要写 std 或 meters" % obj.get("name"))
 
 
@@ -223,6 +232,7 @@ def cmd_measure(args):
             "times_vs_mid": measured / mid if mid > 0 else float("nan"),
             "ratio": ratio, "verdict": verdict, "truncated": bool(o.get("truncated", False)),
             "note": o.get("note", ""), "draw": bool(o.get("draw", True)),
+            "group": o.get("group", ""), "src": o.get("src", ""), "call": o.get("call", ""),
         })
     reds = [r for r in rows if r["verdict"].startswith("红")]
     warns = [r for r in rows if r["verdict"].startswith("黄")]
@@ -230,16 +240,48 @@ def cmd_measure(args):
     lines = []
     lines.append("比例量尺 · %s（人 = %g 像素，图上 1 像素 = 画布 %g 像素）" % (scene, person_px, scale))
     lines.append("")
-    lines.append("| # | 东西 | 框 | 测得 px | 折合几个人 | 表里 px | 表里几个人 | 对表中值几倍 | 超出表里范围几倍（判定用） | 判定 |")
-    lines.append("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
-    for r in rows:
+    has_src = any(r["src"] for r in rows)
+    has_call = any(r["call"] for r in rows)
+
+    def fmt_row(r):
         ge = "≥" if r["truncated"] else ""
         exp_txt = ("%g" % round(r["lo"], 1)) if abs(r["hi"] - r["lo"]) < 0.5 else ("%g～%g" % (round(r["lo"], 1), round(r["hi"], 1)))
         ep = r["expected_people"]
         exp_p = ("%.2f" % ep[0]) if abs(ep[1] - ep[0]) < 0.005 else ("%.2f～%.2f" % ep)
-        lines.append("| %d | %s | %s | %s%.0f | %s%.2f | %s | %s | %s%.1f× | %s%.1f× | %s |" % (
-            r["n"], r["name"], "×".join(str(int(v)) for v in r["box"]), ge, r["measured_px"], ge, r["measured_people"],
-            exp_txt, exp_p, ge, r["times_vs_mid"], ge, r["ratio"], r["verdict"]))
+        if args.compact:
+            est = "" if not r["expected"].startswith("真实") else "；估 " + r["expected"][2:].split(" ×")[0].strip()
+            cells = ["%d" % r["n"], r["name"], "%s%.0f（%s%.2f 人）" % (ge, r["measured_px"], ge, r["measured_people"]), "%s（%s 人%s）" % (exp_txt, exp_p, est),
+                     "%s%.1f×" % (ge, r["ratio"]), r["verdict"]]
+        else:
+            cells = ["%d" % r["n"], r["name"], "×".join(str(int(v)) for v in r["box"]), "%s%.0f" % (ge, r["measured_px"]), "%s%.2f" % (ge, r["measured_people"]),
+                     exp_txt, exp_p, "%s%.1f×" % (ge, r["times_vs_mid"]), "%s%.1f×" % (ge, r["ratio"]), r["verdict"]]
+        if has_src:
+            cells.append(r["src"])
+        if has_call:
+            cells.append(r["call"])
+        return "| " + " | ".join(cells) + " |"
+
+    if args.compact:
+        head = ["#", "东西", "测得 px", "表里 px", "超出表里范围几倍", "判定"]
+    else:
+        head = ["#", "东西", "框", "测得 px", "折合几个人", "表里 px", "表里几个人", "对表中值几倍", "超出表里范围几倍（判定用）", "判定"]
+    if has_src:
+        head.append("来源")
+    if has_call:
+        head.append("结论")
+    head_lines = ["| " + " | ".join(head) + " |", "| " + " | ".join("---" for _ in head) + " |"]
+    order = []
+    for r in rows:
+        if r["group"] not in order:
+            order.append(r["group"])
+    for g in order:
+        if g:
+            lines.append("**%s**" % g)
+            lines.append("")
+        lines.extend(head_lines)
+        lines.extend(fmt_row(r) for r in rows if r["group"] == g)
+        lines.append("")
+    lines.pop()
     lines.append("")
     lines.append("红 %d · 黄 %d · 绿 %d（共 %d 项）" % (len(reds), len(warns), len(rows) - len(reds) - len(warns), len(rows)))
     if reds:
@@ -340,6 +382,7 @@ def main():
     m.add_argument("--md")
     m.add_argument("--json")
     m.add_argument("--annot", help="存一张标了框的图")
+    m.add_argument("--compact", action="store_true", help="窄表：不列框和几个人，按节、来源、结论排")
     m.set_defaults(fn=cmd_measure)
     b = sub.add_parser("bbox", help="带透明的 PNG 不透明部分的外框")
     b.add_argument("image")
