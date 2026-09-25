@@ -522,7 +522,7 @@ def draw_stander(g, sx, sy, col, tray=True):
 
 def middle_with_people(items, tid, door, stand_top, rail_foot, out_path):
     """手机屏-中间（01 D 9/25：阿鱼问 55 桌会不会看着太挤）：两条横走道之间那段（第 4～7 排），
-    每桌随机坐 4～7 个人（坐着 62 高的剪影，坐在椅子的位置上），红毯上站两个服务员（84）；别的图照旧不放人"""
+    每桌随机坐 9～10 个人（阿鱼 9/25 定，10 把椅子空 0～1 把；坐着 62 高的剪影，坐在椅子的位置上），红毯上站两个服务员（84）；别的图照旧不放人"""
     import random
     im = draw(items, False, tid, door, stand_top, rail_foot)
     g = ImageDraw.Draw(im)
@@ -539,7 +539,7 @@ def middle_with_people(items, tid, door, stand_top, rail_foot, out_path):
         if fy + fh < y0 - 20 or fy > y0 + VIEW[1] + 80:
             continue
         cx, cyy = fx + fw / 2, fy + fh / 2
-        n = rng.randint(4, 7)
+        n = rng.randint(9, 10)   # 阿鱼 9/25：「人不能少做，标准就是 9-10 人一桌」（04 第 47 版的 4～7 作废）
         chairs = sorted(rng.sample(range(10), n))
         import math
         pts = []
@@ -555,7 +555,9 @@ def middle_with_people(items, tid, door, stand_top, rail_foot, out_path):
         draw_table(g, it, "top")    # 桌面盖住后排人的腿
         for p in sorted(front, key=lambda p: p[1]):
             draw_sitter(g, int(p[0]), int(p[1]), cols[rng.randrange(4)])
-        seated += n
+        vx0 = CX - VIEW[0] // 2
+        if fx + fw > vx0 and fx < vx0 + VIEW[0] and fy + fh > y0 and it["box"][1] < y0 + VIEW[1]:
+            seated += n   # 只数这一屏里看得见的桌
     # 红毯上两个服务员
     wy = [rows_y[r0 + 1] + 20, rows_y[r1 - 1] + 60]
     draw_stander(g, CX - 30, wy[0], (40, 40, 40))
@@ -617,7 +619,7 @@ def main():
     clean.crop((vx, 0, vx + VIEW[0], VIEW[1])).resize((540, 960), Image.NEAREST).save(os.path.join(OUT, "宴会厅55桌-手机屏-舞台.png"))
     open(os.path.join(OUT, "宴会厅55桌-摆位表.md"), "w", encoding="utf-8").write(table_md(items, bad, gaps))
     my, seated = middle_with_people(items, tid, door, stand_top, rail_foot, os.path.join(OUT, "宴会厅55桌-手机屏-中间.png"))
-    print("手机屏-中间：画布 y %d～%d，这一屏里的桌坐了 %d 人（每桌 4～7）、红毯上 2 个服务员" % (my, my + VIEW[1], seated))
+    print("手机屏-中间：画布 y %d～%d，这一屏里的桌坐了 %d 人（每桌 9～10）、红毯上 2 个服务员" % (my, my + VIEW[1], seated))
     print("画布 %d×%d，东西 %d 件，主桌 + T1～T%d" % (W, H, len(items), N_T))
     print("自检：", "全过" if not bad else bad)
     print("行与行之间画面上露的地面最窄 %d（不算地毯 %d）" % gaps)
