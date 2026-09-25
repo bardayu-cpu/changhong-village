@@ -10,6 +10,7 @@
   宴会厅55桌-手机屏-进门.png / -舞台.png   按手机竖屏 540×960 的视野（镜头 960/1024 倍，一屏看画布 576×1024）切的两屏
 跑完自己验：比例（对 §15，1.5 倍 / 一半）、谁压谁（除了桌压自己的地毯）、每张桌从红毯走得到（路至少 43 宽）、横幅不盖囍、LED 不出台面
 用法：python3 tools/layout_55/make_board55.py [输出目录，默认 回执/]
+      python3 tools/layout_55/make_board55.py --north 输出目录   切北边 y 0～1024 给 GPT（干净版、标注版、这块的摆位表）
 """
 import collections
 import os
@@ -18,7 +19,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "..", "..", "回执")
+OUT = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("--") else os.path.join(HERE, "..", "..", "回执")
 FONT = "/System/Library/Fonts/STHeiti Medium.ttc"
 
 W = 1536
@@ -413,5 +414,49 @@ def main():
     return 0 if not bad else 1
 
 
+NORTH_RULER_FOOT = (CX, 760)   # 北边那块的尺子：红毯正中、第 1 排和第 2 排之间，不压任何东西
+
+
+def north(out_dir):
+    """切北边那块（y 0～1024）给 GPT 画效果图用（01 D 9/25）：
+    干净版去掉新人脚印、在红毯上站一个 84 像素的人当尺子；标注版同一块；表只列落在这块里的，被下沿切掉的标「被切」"""
+    items, tid, door, stand_top, rail_foot = build()
+    bad = check(items)
+    fx, fy = NORTH_RULER_FOOT
+    ruler = {"name": "尺子：人（北边）", "kind": "ruler", "box": [fx - 16, fy - PERSON, 32, PERSON], "color": (20, 20, 20),
+             "basis": "§15 人 84；脚点 (%d, %d)，站在红毯正中" % (fx, fy), "group": ""}
+    for it in items:   # 尺子不许压任何东西（红毯是地面，站在上面不算）
+        if it["kind"] not in ("floor", "zone") and overlaps(it["box"], ruler["box"]):
+            bad.append("北边尺子压着 %s" % it["name"])
+    no_feet = [it for it in items if it["kind"] not in ("mark", "ruler")] + [ruler]
+    with_feet = [it for it in items if it["kind"] != "ruler"] + [ruler]
+    clean = draw(no_feet, False, tid, door, stand_top, rail_foot).crop((0, 0, W, 1024))
+    ann = draw(with_feet, True, tid, door, stand_top, rail_foot).crop((0, 0, W, 1024))
+    os.makedirs(out_dir, exist_ok=True)
+    clean.save(os.path.join(out_dir, "claude-55桌摆位-北-干净.png"))
+    ann.save(os.path.join(out_dir, "claude-55桌摆位-北-标注.png"))
+    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024）", "",
+             "> 02 9/25。从整厅摆位底图（1536×%d，v2，`36c76bb` 那版的数；脚本 `godot/tools/layout_55/make_board55.py --north`）切出北边 1536×1024，给 GPT 画效果图用。坐标是整厅的，这块左上角就是整厅 (0,0)，所以数不用换算。" % H,
+             "> 干净版：没有字、没有新人脚印，只在红毯上站一个 84 像素的人当尺子（脚点 (%d, %d)）。新人站位只在标注版里标。被下沿（y 1024）切掉一截的标「被切」，宽高写的是整件的。" % (fx, fy),
+             "", "| 名字 | x | y | 宽 | 高 | 被切 | 依据 |", "| --- | --- | --- | --- | --- | --- | --- |"]
+    n = 0
+    for it in with_feet:
+        x, y, w, h = it["box"]
+        if y >= 1024 or it["kind"] == "zone":
+            continue
+        n += 1
+        cut = "被切（露出 %d）" % (1024 - y) if y + h > 1024 else ""
+        note = "（只在标注版）" if it["kind"] == "mark" else ""
+        name = it["name"]
+        if name == "红毯":
+            cut = "被切（露出 %d）" % (1024 - y)
+        lines.append("| %s%s | %d | %d | %d | %d | %s | %s |" % (name, note, x, y, w, h, cut, it["basis"]))
+    open(os.path.join(out_dir, "claude-55桌摆位表-北.md"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    print("北边：%d 件；尺子脚点 %s；自检 %s" % (n, NORTH_RULER_FOOT, "全过" if not bad else bad))
+    return 0 if not bad else 1
+
+
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "--north":
+        sys.exit(north(sys.argv[2]))
     sys.exit(main())
