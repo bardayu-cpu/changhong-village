@@ -486,6 +486,85 @@ def draw(items, labels, tid, door, stand_top, rail_foot):
     return im
 
 
+SIT_H = 62                    # 坐着的人（§15 坐着的人头顶到脚 62）
+SIT_W = 24                    # 剪影宽：一桌 10 把椅子一圈，32 宽排不开，取 24（0.5 米）
+
+
+def draw_table(g, it, part="all"):
+    """part：back = 椅背和一圈椅子；top = 桌面；all = 都画"""
+    fx, fy, fw, fh = it["foot"]
+    x, y, w, h = it["box"]
+    if part in ("all", "back"):
+        g.ellipse([fx + 10, y, fx + fw - 10, y + fh], fill=(90, 50, 25))
+        g.ellipse([fx, fy, fx + fw - 1, fy + fh - 1], fill=(90, 50, 25))
+    if part in ("all", "top"):
+        g.ellipse([fx + 27, fy + 17, fx + fw - 27, fy + fh - 17], fill=it["color"])
+
+
+def draw_sitter(g, sx, sy, col):
+    """坐着的剪影：脚在 (sx, sy)，62 高、24 宽；头一个圆、身子一块、腿收着"""
+    x0, y0 = sx - SIT_W // 2, sy - SIT_H
+    g.ellipse([x0 + 5, y0, x0 + SIT_W - 6, y0 + 14], fill=col)
+    g.rectangle([x0 + 2, y0 + 14, x0 + SIT_W - 3, y0 + 44], fill=col)
+    g.rectangle([x0 + 4, y0 + 44, x0 + SIT_W - 5, sy - 1], fill=col)
+
+
+def draw_stander(g, sx, sy, col, tray=True):
+    """站着的剪影（服务员）：脚在 (sx, sy)，84 高、32 宽，手上一个托盘"""
+    x0, y0 = sx - 16, sy - PERSON
+    g.ellipse([x0 + 8, y0, x0 + 23, y0 + 17], fill=col)
+    g.rectangle([x0, y0 + 18, x0 + 31, y0 + 58], fill=col)
+    g.rectangle([x0 + 3, y0 + 58, x0 + 13, sy - 1], fill=col)
+    g.rectangle([x0 + 18, y0 + 58, x0 + 28, sy - 1], fill=col)
+    if tray:
+        g.rectangle([x0 + 22, y0 + 30, x0 + 44, y0 + 34], fill=(230, 230, 230))
+
+
+def middle_with_people(items, tid, door, stand_top, rail_foot, out_path):
+    """手机屏-中间（01 D 9/25：阿鱼问 55 桌会不会看着太挤）：两条横走道之间那段（第 4～7 排），
+    每桌随机坐 4～7 个人（坐着 62 高的剪影，坐在椅子的位置上），红毯上站两个服务员（84）；别的图照旧不放人"""
+    import random
+    im = draw(items, False, tid, door, stand_top, rail_foot)
+    g = ImageDraw.Draw(im)
+    rng = random.Random(55)
+    r0, r1 = CROSS_AFTER[0] + 1, CROSS_AFTER[1]
+    top = rows_y[r0] - TABLE[1] // 2 - CHAIR_UP
+    bot = rows_y[r1] + RUG[1] // 2
+    cy = (top + bot) // 2
+    y0 = max(0, min(H - VIEW[1], cy - VIEW[1] // 2))
+    tables = sorted([it for it in items if it["kind"] == "table"], key=lambda it: it["foot"][1])
+    seated = 0
+    for it in tables:
+        fx, fy, fw, fh = it["foot"]
+        if fy + fh < y0 - 20 or fy > y0 + VIEW[1] + 80:
+            continue
+        cx, cyy = fx + fw / 2, fy + fh / 2
+        n = rng.randint(4, 7)
+        chairs = sorted(rng.sample(range(10), n))
+        import math
+        pts = []
+        for k in chairs:
+            a = -math.pi / 2 + 2 * math.pi * k / 10
+            pts.append((cx + math.cos(a) * 58, cyy + math.sin(a) * 34 + 10))
+        back = [p for p in pts if p[1] < cyy + 6]
+        front = [p for p in pts if p[1] >= cyy + 6]
+        cols = [(55, 55, 70), (70, 55, 60), (60, 70, 60), (80, 70, 55)]
+        draw_table(g, it, "back")   # 先椅背、一圈椅子
+        for p in sorted(back, key=lambda p: p[1]):
+            draw_sitter(g, int(p[0]), int(p[1]), cols[rng.randrange(4)])   # 后排的人坐在椅背前面
+        draw_table(g, it, "top")    # 桌面盖住后排人的腿
+        for p in sorted(front, key=lambda p: p[1]):
+            draw_sitter(g, int(p[0]), int(p[1]), cols[rng.randrange(4)])
+        seated += n
+    # 红毯上两个服务员
+    wy = [rows_y[r0 + 1] + 20, rows_y[r1 - 1] + 60]
+    draw_stander(g, CX - 30, wy[0], (40, 40, 40))
+    draw_stander(g, CX + 20, wy[1], (40, 40, 40))
+    vx = CX - VIEW[0] // 2
+    im.crop((vx, y0, vx + VIEW[0], y0 + VIEW[1])).resize((540, 960), Image.NEAREST).save(out_path)
+    return y0, seated
+
+
 def table_rows(items, only_north=False):
     out = []
     for it in items:
@@ -537,6 +616,8 @@ def main():
     clean.crop((vx, H - VIEW[1], vx + VIEW[0], H)).resize((540, 960), Image.NEAREST).save(os.path.join(OUT, "宴会厅55桌-手机屏-进门.png"))
     clean.crop((vx, 0, vx + VIEW[0], VIEW[1])).resize((540, 960), Image.NEAREST).save(os.path.join(OUT, "宴会厅55桌-手机屏-舞台.png"))
     open(os.path.join(OUT, "宴会厅55桌-摆位表.md"), "w", encoding="utf-8").write(table_md(items, bad, gaps))
+    my, seated = middle_with_people(items, tid, door, stand_top, rail_foot, os.path.join(OUT, "宴会厅55桌-手机屏-中间.png"))
+    print("手机屏-中间：画布 y %d～%d，这一屏里的桌坐了 %d 人（每桌 4～7）、红毯上 2 个服务员" % (my, my + VIEW[1], seated))
     print("画布 %d×%d，东西 %d 件，主桌 + T1～T%d" % (W, H, len(items), N_T))
     print("自检：", "全过" if not bad else bad)
     print("行与行之间画面上露的地面最窄 %d（不算地毯 %d）" % gaps)
