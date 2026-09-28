@@ -52,8 +52,10 @@ for r in range(10):
     y += (TABLE[1] + CROSS_GAP) if r in CROSS_AFTER else PITCH
 # 60 个位：主桌 + T1～T54 一共 55 桌（01 定的默认「55 桌含主桌」，还没跟阿鱼核过），空 5 个
 MAIN = (0, 2)
+# v3.1（04 新 2：最南一排只剩 3 张、缺口正对进门，冷清不对称）：最南一排补回东头那张，4 张左右对称；
+# 多出来的那个空位挪到第 1 排最东——正对乐队地台，客人能站着看乐队，和西头放长凳的空位左右对称，离大门最远
 EMPTY = {(0, 3): "新人下台敬酒的路，看台子不挡", (0, 0): "放长凳（普通桌坐满了坐这）", (9, 2): "进门客人站的地方", (9, 3): "进门客人站的地方",
-         (9, 5): "去掉的一张 T 桌（55 桌含主桌）：和前排西头的长凳位斜对着；东南角空出来给服务员从东侧门往后排、往大门转身"}
+         (0, 5): "v3.1 挪来的空位（55 桌含主桌）：正对乐队地台，客人站着看乐队；和西头放长凳的空位左右对称；离大门最远，进门看不见缺口"}
 N_T = 54
 
 # ---------- 北边 ----------
@@ -104,11 +106,13 @@ def build():
     # 墙
     add("北墙（立面）", "wall", (0, 0, W, WALL_N), wood, "墙高 7 米：7×48=336（§15 没有墙这一行）", foot=(0, WALL_N - 16, W, 16))
     add("墙顶横梁", "decor", (0, 0, W, 24), (60, 32, 22), "梁高 0.5 米×48=24", "top_decor")
-    drapes = list(range(40, W - 40 - 152 + 1, 192))
+    # 帐幔 7 段，在两边墙之间（40～1496）左右匀开：段与段、段与墙之间的缝一样宽（v3.1，03：原来东边空出一段光板）
+    gap = (W - 80 - 7 * 152) // 8
+    drapes = [40 + gap + k * (152 + gap) for k in range(7)]
     for k, x0 in enumerate(drapes):
         add("帐幔 %d" % (k + 1), "decor", (x0, 24, 152, 40), (170, 40, 40), "垂下 0.8 米×48=40；一段 3.2 米宽", "top_decor")
-    for k in range(len(drapes) - 1):   # 挂灯只挂在两段帐幔之间的缝里
-        add("挂灯 %d" % (k + 1), "decor", (drapes[k] + 152 + 10, 60, 20, 24), (240, 170, 60), "§15 挂着的灯笼 高 19～24，取 24；宽 20", "top_decor")
+    for k in range(len(drapes) - 1):   # 挂灯只挂在两段帐幔之间的缝里，挂在缝正中
+        add("挂灯 %d" % (k + 1), "decor", (drapes[k] + 152 + (gap - 20) // 2, 60, 20, 24), (240, 170, 60), "§15 挂着的灯笼 高 19～24，取 24；宽 20", "top_decor")
     side_bottom = rail_foot - 48
     add("西墙", "wall", (0, WALL_N, 40, side_bottom - WALL_N), wood, "墙厚 40（约 0.8 米，§15 没有）；俯看是一条，平的", flat=True)
     cross2_mid = (rows_y[CROSS_AFTER[1]] + TABLE[1] // 2 + rows_y[CROSS_AFTER[1] + 1] - TABLE[1] // 2) // 2
@@ -121,10 +125,10 @@ def build():
     add("囍字圆牌", "decor", XI, (215, 170, 60), "直径 2 米×48=96（§15 没有）", "wall_decor")
     add("横幅", "decor", BANNER, (150, 30, 30), "宽 6.75 米×48=324、高 0.8 米×48=40；囍下沿往下 10；挂在花拱前面，盖住花拱下沿 38（294～332）", "wall_decor")
     # 婚礼台、台阶、LED、新人
-    add("婚礼台（台面）", "stage", STAGE_TOP, (200, 60, 55), "占地宽 10 米×48=480、前后 4 米×32=128（365～493）；台高 0.6 米，台面画在占地往上 29（336～464）", "stage", foot=STAGE_FOOT)
-    add("婚礼台（台口立面）", "stage", STAGE_FACE, (150, 40, 38), "台高 0.6 米×48=29；落地线 493", "stage", foot=(528, 477, 480, 16))
+    add("婚礼台（台面）", "stage", STAGE_TOP, (214, 78, 66), "占地宽 10 米×48=480、前后 4 米×32=128（365～493）；台高 0.6 米，台面画在占地往上 29（336～464）", "stage", foot=STAGE_FOOT)
+    add("婚礼台（台口立面）", "stage", STAGE_FACE, (112, 24, 24), "台高 0.6 米×48=29；落地线 493；色块比台面深得多（v3.1，04 新 3：台面、立面要分得开）", "stage", foot=(528, 477, 480, 16))
     for side, f in (("西", STEPS_L_FOOT), ("东", STEPS_R_FOOT)):
-        add("台阶（%s）" % side, "stage", up(f, STAGE_UP), (175, 50, 46), "在台口%s端：占地宽 1.5 米×48=72、前后 1 米×32=32；最上一级和台面一样高 0.6 米，往上加 29" % side, "stage", foot=f)
+        add("台阶（%s）" % side, "stage", up(f, STAGE_UP), (190, 120, 96), "在台口%s端：占地宽 1.5 米×48=72、前后 1 米×32=32；最上一级和台面一样高 0.6 米，往上加 29" % side, "stage", foot=f)
     add("LED 屏", "decor", LED, (20, 10, 8), "贴在台口立面中间整段：台面 480 减两端台阶各 72、再各留 12，宽 312；高 24（0.5 米）", "stage_decor")
     for i, (fx, fy) in enumerate(COUPLE_FEET):
         add("新人站位%s" % ("（新娘）" if i == 0 else "（新郎）"), "mark", (fx - 12, fy - 4, 24, 8), (255, 255, 255),
@@ -175,8 +179,8 @@ def build():
     add("大提琴手的椅子", "band", up(chair_f, 46), (80, 50, 30), "§15 椅子 高 46、宽 22 取 24；进深 16；大提琴手坐在东半截，西边露 12", "band", foot=chair_f)
     b = (1224, fl - 62, 32, 62)
     add("大提琴手（坐）", "band", b, (70, 60, 110), "§15 坐着的人 62；宽 32；坐在椅子上", "band", foot=standing(b, 10))
-    b = (1260, fl - 70, 20, 70)
-    add("大提琴", "band", b, (140, 80, 40), "琴高 1.2 米×48=58，连着地的尾柱和进深共 70（§15 没有）", "band", foot=standing(b, 12))
+    b = (1260, fl - 62, 20, 62)
+    add("大提琴", "band", b, (140, 80, 40), "琴高 1.2 米×48=58，加尾柱着地 4 共 62（§15 没有；v3.1 从 70 收到 62，在 03 估的 48～62 里）", "band", foot=standing(b, 8))
     for k, (sx, px) in enumerate(((1284, 1302), (1346, 1364))):
         b = (sx, fl - 66, 16, 66)
         add("谱架 %s" % "甲乙"[k], "band", b, (60, 60, 60), "高 1.2 米×48=58 + 脚 8 = 66、宽 16（§15 没有）", "band", foot=standing(b, 8))
@@ -611,7 +615,7 @@ def main():
     bad = check(items)
     gaps = row_gaps(items)
     os.makedirs(OUT, exist_ok=True)
-    clean = draw(items, False, tid, door, stand_top, rail_foot)
+    clean = draw([it for it in items if it["kind"] != "mark"], False, tid, door, stand_top, rail_foot)   # 干净版不画新人脚印（v3.1，03：表里写「只在标注版」）
     clean.save(os.path.join(OUT, "宴会厅55桌-摆位底图.png"))
     draw(items, True, tid, door, stand_top, rail_foot).save(os.path.join(OUT, "宴会厅55桌-摆位底图-标注.png"))
     vx = CX - VIEW[0] // 2
@@ -619,7 +623,7 @@ def main():
     clean.crop((vx, 0, vx + VIEW[0], VIEW[1])).resize((540, 960), Image.NEAREST).save(os.path.join(OUT, "宴会厅55桌-手机屏-舞台.png"))
     open(os.path.join(OUT, "宴会厅55桌-摆位表.md"), "w", encoding="utf-8").write(table_md(items, bad, gaps))
     my, seated = middle_with_people(items, tid, door, stand_top, rail_foot, os.path.join(OUT, "宴会厅55桌-手机屏-中间.png"))
-    print("手机屏-中间：画布 y %d～%d，这一屏里的桌坐了 %d 人（每桌 9～10）、红毯上 2 个服务员" % (my, my + VIEW[1], seated))
+    print("手机屏-中间：画布 y %d～%d（含），这一屏里的桌坐了 %d 人（每桌 9～10）、红毯上 2 个服务员" % (my, my + VIEW[1] - 1, seated))
     print("画布 %d×%d，东西 %d 件，主桌 + T1～T%d" % (W, H, len(items), N_T))
     print("自检：", "全过" if not bad else bad)
     print("行与行之间画面上露的地面最窄 %d（不算地毯 %d）" % gaps)
@@ -649,7 +653,7 @@ def north(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     clean.save(os.path.join(out_dir, "claude-55桌摆位-北-干净.png"))
     ann.save(os.path.join(out_dir, "claude-55桌摆位-北-标注.png"))
-    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024，v3）", "",
+    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024，v3.1）", "",
              "> 02 9/25。从整厅摆位底图（1536×%d，v3；脚本 `godot/tools/layout_55/make_board55.py --north`）切出北边 1536×1024，给 GPT 画效果图用。坐标是整厅的，这块左上角就是整厅 (0,0)，数不用换算。" % H,
              "> **x、y、宽、高是画出来在画面上占的框（色块画的就是它），下沿是落地的地方；「占地」是地上占的地。**干净版：没有字、没有新人脚印，只在红毯上站一个 84 像素的人当尺子（脚点 (%d, %d)）。新人站位只在标注版里标。被下沿（y 1024）切掉一截的标「被切」，宽高写的是整件的。" % (fx, fy),
              "", "| 名字 | x | y | 宽 | 高 | 占地（x, y, 宽×高） | 被切 | 依据 |", "| --- | --- | --- | --- | --- | --- | --- | --- |"]
