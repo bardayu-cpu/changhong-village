@@ -17,7 +17,8 @@ v3（01 D 9/25，起因是 03 量 v2 的风险第 1 条）：**每样东西的�
   宴会厅55桌-摆位底图-标注.png   同一张，标名字、桌号、关键尺寸、落地线
   宴会厅55桌-摆位表.md           每样东西一行：画出来的框、占地、依据
   宴会厅55桌-手机屏-进门.png / -舞台.png   按手机竖屏 540×960 的视野（镜头 960/1024 倍，一屏看画布 576×1024）切的两屏
-自检：比例对 §15、画面上谁压谁、每张桌从红毯走得到（按占地、路至少 43 宽）、横幅不盖囍、LED 不出台面、行与行之间画面上露的地面最窄多少
+自检：比例对 §15、画面上谁压谁、每张桌从红毯走得到（按占地、路至少 43 宽）、行与行之间画面上露的地面最窄多少
+v3.2（阿鱼 9/28：「不要横幅和 led 了，太丑了」）：删掉横幅、LED 屏；台阶回到台口正中一段 144 宽（像第 44 版），红毯接到台阶下沿
 用法：python3 tools/layout_55/make_board55.py [输出目录，默认 回执/]
       python3 tools/layout_55/make_board55.py --north 输出目录   切北边 y 0～1024 给 GPT（干净版、标注版、这块的摆位表）
 """
@@ -65,15 +66,12 @@ STAGE_UP = 29                 # 台高 0.6 米：台面画在占地往上 29，�
 STAGE_BOX = (528, 336, 480, 157)    # 画出来：台面 336～464 + 台口立面 464～493，落地线 493
 STAGE_TOP = (528, 336, 480, 128)
 STAGE_FACE = (528, 464, 480, 29)
-STEP_W = 72                   # 台阶在台口两端，左右各一段 1.5 米宽
-STEPS_L_FOOT = (528, 493, STEP_W, 32)
-STEPS_R_FOOT = (1008 - STEP_W, 493, STEP_W, 32)
-LED = (528 + STEP_W + 12, 466, 480 - 2 * STEP_W - 24, 24)   # LED 屏：台口中间整段，两端台阶里边各留 12
+STEP_W = 144                  # 台阶回到台口正中一段（v3.2，像第 44 版；宽照 v1 的 144，和红毯一样宽 3 米）
+STEPS_FOOT = (CX - STEP_W // 2, 493, STEP_W, 32)
 ARCH = (CX - 120, 152, 240, 180)   # 花拱：宽 5 米、高 3.75 米，贴北墙，整个在 150 以下
 XI = (CX - 48, 188, 96, 96)   # 囍字圆牌：直径 2 米
-BANNER = (CX - 162, 294, 324, 40)  # 横幅：囍字下沿（284）再往下 10；在花拱前面，盖住花拱下沿 38
 COUPLE_FEET = [(CX - 16, 434), (CX + 16, 434)]   # 新人站位：台面中间、囍字正下方（只标位置）
-CARPET_TOP = 493              # 红毯从台口立面下沿往南铺
+CARPET_TOP = 525              # 红毯从台阶下沿往南铺（v3.2）
 H = None
 
 
@@ -120,22 +118,19 @@ def build():
     add("东墙（北段）", "wall", (W - 40, WALL_N, 40, d0 - WALL_N), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
     add("东墙（南段）", "wall", (W - 40, d1, 40, side_bottom - d1), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
     add("东侧门（门洞）", "door", (W - 40, d0, 40, d1 - d0), (60, 140, 200), "§15 双开门宽 1.8 米；开在东墙上，宽沿地面前后算：1.8×32=58；开在第二条横走道东头", flat=True)
-    # 北墙上的：花拱、囍、横幅
-    add("花拱", "decor", ARCH, (70, 130, 70), "宽 5 米×48=240、高 3.75 米×48=180（§15 没有）；下沿 38 被横幅盖住（横幅在前）", "wall_decor")
+    # 北墙上的：花拱、囍（v3.2 横幅删了）
+    add("花拱", "decor", ARCH, (70, 130, 70), "宽 5 米×48=240、高 3.75 米×48=180（§15 没有）", "wall_decor")
     add("囍字圆牌", "decor", XI, (215, 170, 60), "直径 2 米×48=96（§15 没有）", "wall_decor")
-    add("横幅", "decor", BANNER, (150, 30, 30), "宽 6.75 米×48=324、高 0.8 米×48=40；囍下沿往下 10；挂在花拱前面，盖住花拱下沿 38（294～332）", "wall_decor")
-    # 婚礼台、台阶、LED、新人
+    # 婚礼台、台阶、新人
     add("婚礼台（台面）", "stage", STAGE_TOP, (214, 78, 66), "占地宽 10 米×48=480、前后 4 米×32=128（365～493）；台高 0.6 米，台面画在占地往上 29（336～464）", "stage", foot=STAGE_FOOT)
     add("婚礼台（台口立面）", "stage", STAGE_FACE, (112, 24, 24), "台高 0.6 米×48=29；落地线 493；色块比台面深得多（v3.1，04 新 3：台面、立面要分得开）", "stage", foot=(528, 477, 480, 16))
-    for side, f in (("西", STEPS_L_FOOT), ("东", STEPS_R_FOOT)):
-        add("台阶（%s）" % side, "stage", up(f, STAGE_UP), (190, 120, 96), "在台口%s端：占地宽 1.5 米×48=72、前后 1 米×32=32；最上一级和台面一样高 0.6 米，往上加 29" % side, "stage", foot=f)
-    add("LED 屏", "decor", LED, (20, 10, 8), "贴在台口立面中间整段：台面 480 减两端台阶各 72、再各留 12，宽 312；高 24（0.5 米）", "stage_decor")
+    add("台阶", "stage", up(STEPS_FOOT, STAGE_UP), (190, 120, 96), "台口正中一段（v3.2，像第 44 版）：占地宽 3 米×48=144（和红毯一样宽）、前后 1 米×32=32，两级；最上一级和台面一样高 0.6 米，往上加 29", "stage", foot=STEPS_FOOT)
     for i, (fx, fy) in enumerate(COUPLE_FEET):
         add("新人站位%s" % ("（新娘）" if i == 0 else "（新郎）"), "mark", (fx - 12, fy - 4, 24, 8), (255, 255, 255),
-            "台面中间、囍字正下方；只标脚下 y %d。人 84 高，头顶到 y %d，在横幅下沿 %d 下面、不挡横幅和囍" % (fy, fy - PERSON, BANNER[1] + BANNER[3]), "stage_decor")
+            "台面中间、囍字正下方；只标脚下 y %d。人 84 高，头顶到 y %d，在囍字下沿 %d 下面、不挡囍" % (fy, fy - PERSON, XI[1] + XI[3]), "stage_decor")
     # 红毯、宫灯、花盆
     carpet_bottom = rail_foot - 145
-    add("红毯", "floor", (CX - 72, CARPET_TOP, 144, carpet_bottom - CARPET_TOP), (179, 32, 42), "3 米×48=144（方案）；从台口立面下沿到大门跟前", flat=True)
+    add("红毯", "floor", (CX - 72, CARPET_TOP, 144, carpet_bottom - CARPET_TOP), (179, 32, 42), "3 米×48=144（方案）；从台阶下沿到大门跟前", flat=True)
     LAMP = (24, 80)
 
     def lamp_pair(y_foot, tag):
@@ -147,7 +142,7 @@ def build():
         b = (x, y_foot - 32, 32, 32)
         add(name, "prop", b, (90, 170, 90), "§15 一盆花 24～38，取 32；占地是最下面 16", foot=standing(b, 16))
 
-    # 台前两盏：落在台阶下沿 525 和第 1 排椅背（ROW0 - 46 - 46）之间
+    # 台前两盏：落在台口立面下沿和第 1 排椅背（ROW0 - 46 - 46）之间，红毯两边、贴着台阶两侧
     row0_top = ROW0 - TABLE[1] // 2 - CHAIR_UP
     lamp_pair(row0_top - 6, "台前")
     for k, r in enumerate(CROSS_AFTER):
@@ -236,7 +231,7 @@ SIT = [{"钢琴手（坐）", "琴凳"}, {"大提琴手（坐）", "大提琴手
 
 
 def check(items):
-    """验收：画面上谁压谁、走得开（按占地）、横幅不盖囍、LED 不出台面、行与行之间露的地面"""
+    """验收：画面上谁压谁、走得开（按占地）、行与行之间露的地面"""
     bad = []
     for i, a in enumerate(items):
         for b in items[i + 1:]:
@@ -252,11 +247,9 @@ def check(items):
             if "top_decor" in (ga, gb) and ("北墙（立面）" in pair or {ga, gb} == {"top_decor"}):
                 continue   # 墙顶的梁、帐幔、挂灯贴在北墙上
             if "wall_decor" in (ga, gb) and ("北墙（立面）" in pair or {ga, gb} == {"wall_decor"}):
-                if pair == {"横幅", "囍字圆牌"}:
-                    bad.append("横幅盖住囍字")
-                continue   # 花拱、囍、横幅贴北墙；横幅在花拱前面（表里写明）
+                continue   # 花拱、囍贴北墙
             if {ga, gb} <= {"stage", "stage_decor"}:
-                continue   # 台面、台口、两端台阶、LED、新人脚印是一座台子
+                continue   # 台面、台口、台阶、新人脚印是一座台子
             if {ga, gb} == {"band"} and (ka == "band_floor" or kb == "band_floor" or pair in SIT):
                 continue   # 乐队站在地台上；坐着的人坐在凳子、椅子上
             if a["flat"] and b["flat"]:
@@ -270,13 +263,6 @@ def check(items):
                     bad.append("站在别桌的地毯上：%s × %s" % (st["name"], fl["name"]))
                 continue
             bad.append("画面上压住了：%s × %s" % (a["name"], b["name"]))
-    if not (LED[0] >= STAGE_TOP[0] and LED[0] + LED[2] <= STAGE_TOP[0] + STAGE_TOP[2]):
-        bad.append("LED 出了台面")
-    if BANNER[1] < XI[1] + XI[3]:
-        bad.append("横幅盖住囍字")
-    for st in (STEPS_L_FOOT, STEPS_R_FOOT):
-        if LED[0] < st[0] + st[2] and st[0] < LED[0] + LED[2]:
-            bad.append("LED 和台阶左右叠着")
     for it in items:
         x, y, w, h = it["box"]
         if x < 0 or y < 0 or x + w > W or y + h > H:
@@ -285,7 +271,7 @@ def check(items):
             bad.append("手机顶上被挡的那条里放了 %s" % it["name"])
         if it["group"] == "top_decor" and y + h > 140:
             bad.append("墙顶的 %s 伸到了 140 下面" % it["name"])
-    for n, box in (("囍字圆牌", XI), ("花拱", ARCH), ("横幅", BANNER)):
+    for n, box in (("囍字圆牌", XI), ("花拱", ARCH)):
         if box[1] < 150:
             bad.append("%s 没整个落在 150 以下" % n)
     fl = [it for it in items if it["kind"] == "band_floor"][0]["foot"]
@@ -474,11 +460,9 @@ def draw(items, labels, tid, door, stand_top, rail_foot):
     dim((c[5] + 60, a["box"][1] + a["box"][3]), (c[5] + 60, b2["box"][1]), "露地面 42", (255, 120, 120))
     dim((c[5] + 100, rows_y[2] + 46), (c[5] + 100, rows_y[3] - 46), "横走道 128")
     dim((STAGE_TOP[0], STAGE_TOP[1] + 12), (STAGE_TOP[0] + STAGE_TOP[2], STAGE_TOP[1] + 12), "台 480，画出来 157")
-    dim((LED[0], LED[1] + LED[3] + 6), (LED[0] + LED[2], LED[1] + LED[3] + 6), "LED %d" % LED[2])
-    dim((STEPS_L_FOOT[0], STEPS_L_FOOT[1] + STEPS_L_FOOT[3] + 6), (STEPS_L_FOOT[0] + STEP_W, STEPS_L_FOOT[1] + STEPS_L_FOOT[3] + 6), "台阶 72")
+    dim((STEPS_FOOT[0], STEPS_FOOT[1] + STEPS_FOOT[3] + 6), (STEPS_FOOT[0] + STEP_W, STEPS_FOOT[1] + STEPS_FOOT[3] + 6), "台阶 144")
     dim((W - 60, 0), (W - 60, 140), "手机顶上被挡 140", (255, 120, 120))
     dim((W - 110, 0), (W - 110, WALL_N), "北墙 336")
-    dim((BANNER[0], BANNER[1] - 4), (BANNER[0] + BANNER[2], BANNER[1] - 4), "横幅 324×40（在花拱前）")
     dim((CX - 57, rail_foot + 4), (CX + 57, rail_foot + 4), "大门 114")
     txt((W - 20, 40), "画布 %d×%d（1:1，人 84）" % (W, H), f22, anchor="rm")
     txt((W - 20, 72), "洋红线 = 落地线", f14, (255, 120, 220), anchor="rm")
@@ -591,7 +575,7 @@ def table_rows(items, only_north=False):
 
 
 def table_md(items, bad, gaps):
-    lines = ["# 宴会厅 55 桌 · 摆位表（02，9/25，v3）", "",
+    lines = ["# 宴会厅 55 桌 · 摆位表（02，9/28，v3.2）", "",
              "> 01 D 9/25 派。画布 %d×%d，1:1（人 84）。坐标单位画布像素，x、y 是左上角。依据：ASSETS §15（左右和高 1 米 = 48、地面前后 1 米 = 32）、04 `体验-第47版-55桌.md`、03 `比例量尺-55桌摆位底图v2.md`、方案 `宴会厅55桌-方案.md`。脚本 `tools/layout_55/make_board55.py`，改数重跑。" % (W, H),
              "> **v3：x、y、宽、高是画出来在画面上占的框（色块画的就是它），下沿是落地的地方；「占地」列是地上占的地（走路判定用），平的东西两个一样。**",
              "", "| 名字 | x | y | 宽 | 高 | 占地（x, y, 宽×高） | 依据 |", "| --- | --- | --- | --- | --- | --- | --- |"]
@@ -599,11 +583,10 @@ def table_md(items, bad, gaps):
     lines += ["", "## 自检", ""]
     lines += ["- " + b for b in bad] if bad else [
         "- 比例：每样都照 §15 的数取（取值见「依据」列），没有大过 1.5 倍、小过一半的",
-        "- 画面上谁也不压谁：按画出来的框比。可以叠的只有：桌压自己的地毯；墙上的梁、帐幔、挂灯、花拱、囍、横幅贴北墙（横幅在花拱前面）；台面、台口、两端台阶、LED、新人脚印是一座台子；乐队站在地台上、坐着的人坐在凳子椅子上。立着的东西画出来挡住它后面的地面（地毯、红毯）不算压，但它的占地不踩别桌的地毯",
+        "- 画面上谁也不压谁：按画出来的框比。可以叠的只有：桌压自己的地毯；墙上的梁、帐幔、挂灯、花拱、囍贴北墙；台面、台口、台阶、新人脚印是一座台子；乐队站在地台上、坐着的人坐在凳子椅子上。立着的东西画出来挡住它后面的地面（地毯、红毯）不算压，但它的占地不踩别桌的地毯",
         "- 地毯之间都露地面：左右 43，上下 %d" % (PITCH - RUG[1]),
         "- 主桌 + T1～T54（55 桌），每张都能从红毯走到；走路按占地算，路按人宽 43 算（离挡路的东西 21 像素以内不算能站）",
-        "- 横幅 %d～%d，在囍字下沿 %d 下面，不盖囍；横幅在花拱前面，盖住花拱下沿 38；LED %d～%d，在台面 528～1008 里、不跟两端台阶叠" % (BANNER[1], BANNER[1] + BANNER[3], XI[1] + XI[3], LED[0], LED[0] + LED[2]),
-        "- 手机顶上 140 那条里只有墙顶横梁、帐幔、挂灯；囍、花拱、横幅都整个在 150 以下",
+        "- 手机顶上 140 那条里只有墙顶横梁、帐幔、挂灯；囍、花拱都整个在 150 以下",
         "- 乐队的钢琴、琴凳、椅子、谱架和 4 个人，占地都在乐队地台里",
         "- 所有东西都在画布里（v2 表里的「挂灯 8」出了画布，v3 挂灯只挂在帐幔之间的 7 条缝里）"]
     lines += ["- **行与行之间画面上露出的地面，最窄 %d**（前一排桌画出来的前沿到后一排椅背）；连地毯也不算地面的话最窄 %d（前一排地毯下沿到后一排椅背）" % gaps]
@@ -653,7 +636,7 @@ def north(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     clean.save(os.path.join(out_dir, "claude-55桌摆位-北-干净.png"))
     ann.save(os.path.join(out_dir, "claude-55桌摆位-北-标注.png"))
-    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024，v3.1）", "",
+    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024，v3.2）", "",
              "> 02 9/25。从整厅摆位底图（1536×%d，v3；脚本 `godot/tools/layout_55/make_board55.py --north`）切出北边 1536×1024，给 GPT 画效果图用。坐标是整厅的，这块左上角就是整厅 (0,0)，数不用换算。" % H,
              "> **x、y、宽、高是画出来在画面上占的框（色块画的就是它），下沿是落地的地方；「占地」是地上占的地。**干净版：没有字、没有新人脚印，只在红毯上站一个 84 像素的人当尺子（脚点 (%d, %d)）。新人站位只在标注版里标。被下沿（y 1024）切掉一截的标「被切」，宽高写的是整件的。" % (fx, fy),
              "", "| 名字 | x | y | 宽 | 高 | 占地（x, y, 宽×高） | 被切 | 依据 |", "| --- | --- | --- | --- | --- | --- | --- | --- |"]
