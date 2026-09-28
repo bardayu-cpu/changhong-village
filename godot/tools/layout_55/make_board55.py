@@ -7,7 +7,7 @@ v3（01 D 9/25，起因是 03 量 v2 的风险第 1 条）：**每样东西的�
   每件记两个框：
     box  = 画出来占的框（色块画的就是它）
     foot = 地上占的地（走路判定、落地线用）
-  平的（地毯、红毯、地面、乐队地台）两个框一样；立着的从占地往上加它的高：
+  平的（红毯、地面、乐队地台）两个框一样；立着的从占地往上加它的高：
     有进深的（桌连椅、婚礼台连台口、台阶、礼物堆、钢琴、长凳、琴凳、椅子）：框 = 占地 + 往上高出的那截
     细高的（人、宫灯、灯柱、花盆、谱架、大提琴、门、栏杆）：框就是 §15 的高，占地是框最下面那一条
   行距 148 → 180（前一排前沿到后一排椅背，画面上露 42 地面）；横走道那两处（占地之间 128）不动
@@ -19,6 +19,7 @@ v3（01 D 9/25，起因是 03 量 v2 的风险第 1 条）：**每样东西的�
   宴会厅55桌-手机屏-进门.png / -舞台.png   按手机竖屏 540×960 的视野（镜头 960/1024 倍，一屏看画布 576×1024）切的两屏
 自检：比例对 §15、画面上谁压谁、每张桌从红毯走得到（按占地、路至少 43 宽）、行与行之间画面上露的地面最窄多少
 v3.2（阿鱼 9/28：「不要横幅和 led 了，太丑了」）：删掉横幅、LED 屏；台阶回到台口正中一段 144 宽（像第 44 版），红毯接到台阶下沿
+      （阿鱼 9/28：「都有地毯的话看起来太乱了，先不要地毯」）：55 桌和主桌下面的地毯全删，中间红毯留着；行距、列距、画布一个数不动
 用法：python3 tools/layout_55/make_board55.py [输出目录，默认 回执/]
       python3 tools/layout_55/make_board55.py --north 输出目录   切北边 y 0～1024 给 GPT（干净版、标注版、这块的摆位表）
 """
@@ -40,7 +41,7 @@ VIEW = (576, 1024)            # 手机竖屏一屏看到的画布（540×960，�
 # ---------- 桌位 ----------
 TABLE = (140, 92)             # 桌连一圈椅子的占地（§15 宴会圆桌 1.8 米 + 一圈椅子，04 / 01 定）
 CHAIR_UP = 46                 # 后排椅背往上冒的高（§15 椅子高 46）：画出来 140×138（01 v3）
-RUG = (160, 105)              # 每桌一块地毯，桌子居中压在上面（每边露 10，04）
+RUG = (160, 105)              # v3.2 起桌下地毯删了（阿鱼：太乱）；这个数只留着定南边那块空地从哪起、中间屏切到哪，画布大小不变
 COLS = [CX - 160 - 203 * 2, CX - 160 - 203, CX - 160, CX + 160, CX + 160 + 203, CX + 160 + 203 * 2]   # 块内列距 203、跨红毯 320
 ROW0 = 682                    # 第 1 排桌心：台前红毯两边的宫灯（画出来 80 高）要站在台阶下沿 525 和第 1 排椅背之间
 PITCH = 180                   # 行距（v3：148 → 180；占地之间 88，画面上前一排前沿到后一排椅背 42）
@@ -184,7 +185,7 @@ def build():
     # 礼物堆（台子西边地上）
     gf = (400, 490, 72, 32)
     add("贺礼堆", "prop", up(gf, 48), (230, 120, 120), "§15 礼物堆整堆高 48；宽 72（1.5 米）、占地进深 1 米×32=32，往上加 48", foot=gf)
-    # 桌、地毯、长凳
+    # 桌、长凳（v3.2 桌下地毯删了）
     ids = []
     for r in range(10):
         slots = [c for c in range(6) if (r, c) not in EMPTY and (r, c) != MAIN]
@@ -201,8 +202,6 @@ def build():
                     add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；进深 0.5 米×32=16，往上加 38；放在第 1 排最西的空位", foot=bf)
                 continue
             name = "主桌" if (r, c) == MAIN else tid[(r, c)]
-            add(name + " 地毯", "rug", (cx - RUG[0] // 2, cy - RUG[1] // 2, RUG[0], RUG[1]), (150, 70, 40) if name != "主桌" else (200, 150, 40),
-                "04 / 01：桌子占地每边多露 10，160×105；平的", "rug:" + name, flat=True)
             tf = (cx - TABLE[0] // 2, cy - TABLE[1] // 2, TABLE[0], TABLE[1])
             add(name, "table", up(tf, CHAIR_UP), (220, 70, 60) if name != "主桌" else (240, 190, 60),
                 "占地 140×92（§15 宴会圆桌 1.8 米 + 一圈椅子，04 / 01）；后排椅背往上冒 46（§15 椅子高 46），画出来 140×138", "table:" + name, foot=tf)
@@ -242,8 +241,6 @@ def check(items):
             pair = {a["name"], b["name"]}
             if "zone" in (ka, kb) or "ruler" in (ka, kb) and ({ka, kb} & {"floor"}):
                 continue
-            if {ka, kb} == {"table", "rug"} and ga.split(":")[1] == gb.split(":")[1]:
-                continue   # 桌压自己的地毯
             if "top_decor" in (ga, gb) and ("北墙（立面）" in pair or {ga, gb} == {"top_decor"}):
                 continue   # 墙顶的梁、帐幔、挂灯贴在北墙上
             if "wall_decor" in (ga, gb) and ("北墙（立面）" in pair or {ga, gb} == {"wall_decor"}):
@@ -253,15 +250,9 @@ def check(items):
             if {ga, gb} == {"band"} and (ka == "band_floor" or kb == "band_floor" or pair in SIT):
                 continue   # 乐队站在地台上；坐着的人坐在凳子、椅子上
             if a["flat"] and b["flat"]:
-                if {ka, kb} == {"rug"}:
-                    bad.append("地毯连上了：%s × %s" % (a["name"], b["name"]))
                 continue
             if a["flat"] or b["flat"]:
-                # 立着的东西画出来会挡住它后面的地面（地毯、红毯），这不算压；它的占地不能踩在别人的地毯上
-                st, fl = (a, b) if b["flat"] else (b, a)
-                if fl["kind"] == "rug" and overlaps(st["foot"], fl["box"]):
-                    bad.append("站在别桌的地毯上：%s × %s" % (st["name"], fl["name"]))
-                continue
+                continue   # 立着的东西画出来会挡住它后面的地面（红毯、地面），这不算压
             bad.append("画面上压住了：%s × %s" % (a["name"], b["name"]))
     for it in items:
         x, y, w, h = it["box"]
@@ -280,7 +271,7 @@ def check(items):
             x, y, w, h = it["foot"]
             if not (x >= fl[0] and x + w <= fl[0] + fl[2] and y >= fl[1] and y + h <= fl[1] + fl[3]):
                 bad.append("%s 不在乐队地台上" % it["name"])
-    # 走得开：按占地。4 像素一格；挡路的是立着的东西的占地、墙、台子、乐队地台；地毯、红毯能走。
+    # 走得开：按占地。4 像素一格；挡路的是立着的东西的占地、墙、台子、乐队地台；红毯能走。
     # 人宽 43：离挡路的东西 21 像素以内的格子不算能站
     g = 4
     cols, rows = W // g, H // g
@@ -337,19 +328,15 @@ def check(items):
 
 
 def row_gaps(items):
-    """行与行之间画面上露出的地面：同一列里，后一排画出来的上沿（椅背）减前一排画出来的下沿（前沿）；
-    另算一个「连地毯也不算地面」的：后一排椅背减前一排地毯下沿"""
+    """行与行之间画面上露出的地面：同一列里，后一排画出来的上沿（椅背）减前一排画出来的下沿（前沿）"""
     tables = {}
-    rugs = {}
     for it in items:
         if it["kind"] == "table":
             tables[(it["foot"][0], it["foot"][1])] = it
-        if it["kind"] == "rug":
-            rugs[it["group"].split(":")[1]] = it
     by_col = collections.defaultdict(list)
     for (x, y), it in tables.items():
         by_col[x].append(it)
-    g1, g2 = [], []
+    g1 = []
     for x, lst in by_col.items():
         lst.sort(key=lambda it: it["foot"][1])
         for a, b in zip(lst, lst[1:]):
@@ -358,15 +345,13 @@ def row_gaps(items):
             a_front = a["box"][1] + a["box"][3]
             b_top = b["box"][1]
             g1.append(b_top - a_front)
-            ra = rugs[a["name"]]["box"]
-            g2.append(b_top - (ra[1] + ra[3]))
-    return min(g1), min(g2)
+    return min(g1)
 
 
 def draw(items, labels, tid, door, stand_top, rail_foot):
     im = Image.new("RGB", (W, H), (239, 227, 207))
     g = ImageDraw.Draw(im)
-    order = ["floor", "zone", "rug", "band_floor", "wall", "stage", "decor", "mark", "door", "table", "prop", "band", "ruler"]
+    order = ["floor", "zone", "band_floor", "wall", "stage", "decor", "mark", "door", "table", "prop", "band", "ruler"]
     # 立着的东西按落地线从北往南画（南边的挡北边的）
     for k in order:
         lst = [it for it in items if it["kind"] == k and it["color"] is not None]
@@ -448,8 +433,6 @@ def draw(items, labels, tid, door, stand_top, rail_foot):
     dim((x, y - 8), (x + w, y - 8), "桌 140")
     dim((x - 10, y), (x - 10, y + h), "画出来 138")
     dim((x + w + 10, fy), (x + w + 10, fy + fh), "占地 92")
-    r0 = [it for it in items if it["name"] == tid[(1, 1)] + " 地毯"][0]["box"]
-    dim((r0[0], r0[1] + r0[3] + 8), (r0[0] + r0[2], r0[1] + r0[3] + 8), "毯 160×105")
     c = COLS
     yy = rows_y[4]
     dim((c[0], yy), (c[1], yy), "列距 203")
@@ -583,13 +566,13 @@ def table_md(items, bad, gaps):
     lines += ["", "## 自检", ""]
     lines += ["- " + b for b in bad] if bad else [
         "- 比例：每样都照 §15 的数取（取值见「依据」列），没有大过 1.5 倍、小过一半的",
-        "- 画面上谁也不压谁：按画出来的框比。可以叠的只有：桌压自己的地毯；墙上的梁、帐幔、挂灯、花拱、囍贴北墙；台面、台口、台阶、新人脚印是一座台子；乐队站在地台上、坐着的人坐在凳子椅子上。立着的东西画出来挡住它后面的地面（地毯、红毯）不算压，但它的占地不踩别桌的地毯",
-        "- 地毯之间都露地面：左右 43，上下 %d" % (PITCH - RUG[1]),
+        "- 画面上谁也不压谁：按画出来的框比。可以叠的只有：墙上的梁、帐幔、挂灯、花拱、囍贴北墙；台面、台口、台阶、新人脚印是一座台子；乐队站在地台上、坐着的人坐在凳子椅子上。立着的东西画出来挡住它后面的地面（红毯、地面）不算压",
+        "- v3.2 起桌下没有地毯了（阿鱼：太乱），中间红毯留着",
         "- 主桌 + T1～T54（55 桌），每张都能从红毯走到；走路按占地算，路按人宽 43 算（离挡路的东西 21 像素以内不算能站）",
         "- 手机顶上 140 那条里只有墙顶横梁、帐幔、挂灯；囍、花拱都整个在 150 以下",
         "- 乐队的钢琴、琴凳、椅子、谱架和 4 个人，占地都在乐队地台里",
         "- 所有东西都在画布里（v2 表里的「挂灯 8」出了画布，v3 挂灯只挂在帐幔之间的 7 条缝里）"]
-    lines += ["- **行与行之间画面上露出的地面，最窄 %d**（前一排桌画出来的前沿到后一排椅背）；连地毯也不算地面的话最窄 %d（前一排地毯下沿到后一排椅背）" % gaps]
+    lines += ["- **行与行之间画面上露出的地面，最窄 %d**（前一排桌画出来的前沿到后一排椅背）" % gaps]
     return "\n".join(lines) + "\n"
 
 
@@ -609,7 +592,7 @@ def main():
     print("手机屏-中间：画布 y %d～%d（含），这一屏里的桌坐了 %d 人（每桌 9～10）、红毯上 2 个服务员" % (my, my + VIEW[1] - 1, seated))
     print("画布 %d×%d，东西 %d 件，主桌 + T1～T%d" % (W, H, len(items), N_T))
     print("自检：", "全过" if not bad else bad)
-    print("行与行之间画面上露的地面最窄 %d（不算地毯 %d）" % gaps)
+    print("行与行之间画面上露的地面最窄 %d" % gaps)
     print("排：", rows_y)
     return 0 if not bad else 1
 
