@@ -343,6 +343,7 @@ func _ready() -> void:
     banquet_ui = BanquetUI.new()
     ui.add_child(banquet_ui)
     banquet_ui.setup(self, font)
+    stories = load_stories(STORIES_PATH)   # 55 桌的故事卡（现在一段都没有）
     banquet_ui.panel_changed.connect(func(open):
         hall.walking_enabled = state == "banquet" and not open and not whisper_box.visible
         _refresh_seat_buttons())
@@ -1918,7 +1919,8 @@ func _refresh_seat_buttons() -> void:
         book_btn.visible = false
     else:
         book_btn.visible = true
-    story_btn.visible = book_btn.visible and USE_LAYERED and hall.big   # 故事卡只在 55 桌大厅有
+    # 故事卡只在 55 桌大厅有，而且这桌得有故事（阿鱼 9/29：没故事的桌走近不出卡）
+    story_btn.visible = book_btn.visible and USE_LAYERED and hall.big and table_story(near_table_id, stories) != ""
     # 玩·XX：坐在自己的椅子上、这桌有小游戏才出（蓝图 3.2：坐在这桌才能开这桌的游戏）
     var my_game: Dictionary = GameCfg.game_for_table(str(hall.my_seat.get("table_id", ""))) if USE_LAYERED else {}
     if blocked or whisper_box.visible or sit_confirming or not (USE_LAYERED and hall.seated) or my_game.is_empty():
@@ -2308,33 +2310,31 @@ func _update_book_write_state() -> void:
     if can_write:
         _check_book_ui()
 
-## 55 桌大厅的故事卡（01 D 9/29「每桌能点开看故事卡：先用假数据，一桌一张卡，写这桌坐的是谁」）。
-## 卡上：桌号、这桌坐的真人（名字）、还有几位宾客（NPC）、一句故事（还没写，先标「假数据」）。点暗处或「关上」收起
-const LINE_STORY_BTN := "这桌是谁"
-const LINE_STORY_NONE := "还没有人坐"
-const LINE_STORY_MORE := "还有 %d 位宾客"
-const LINE_STORY_TODO := "这桌的故事还没写（假数据）"
-static func story_lines(tid: String, seat_taken: Dictionary, names: Dictionary, npc_taken: Dictionary, me: String) -> Dictionary:
-    var people: Array = []
-    for k in seat_taken:
-        if str(k).begins_with(tid + ":"):
-            var oid := str(seat_taken[k])
-            var nick := "我" if oid == me else str((names.get(oid, {}) as Dictionary).get("nick", ""))
-            if nick != "":
-                people.append(nick)
-    var npc := 0
-    for k in npc_taken:
-        if str(k).begins_with(tid + ":") and not seat_taken.has(k):
-            npc += 1
-    return {"title": LayeredHall.table_label(tid), "people": people, "npc": npc}
+## 55 桌大厅的故事卡：有故事的桌，走到桌边出「这桌的故事」，点开是桌号和一段故事。
+## 阿鱼 9/29：不写座次表（卡上不列谁坐这桌）；没有故事的桌走近不出卡。故事写在 assets/table_stories.json，谁写【待阿鱼定】，现在一段都没有
+const LINE_STORY_BTN := "这桌的故事"
+const STORIES_PATH := "res://assets/table_stories.json"
+var stories: Dictionary = {}
+static func load_stories(path: String) -> Dictionary:
+    if not FileAccess.file_exists(path):
+        return {}
+    var j = JSON.parse_string(FileAccess.get_file_as_string(path))
+    if j is Dictionary and j.get("stories", {}) is Dictionary:
+        return j["stories"]
+    return {}
+
+## 这桌有没有故事（空字符串、只有空白的都算没有）
+static func table_story(tid: String, st: Dictionary) -> String:
+    return str(st.get(tid, "")).strip_edges()
 
 func _open_story_card(tid: String) -> void:
     if tid == "" or story_open or not (USE_LAYERED and hall.big):
         return
+    var text := table_story(tid, stories)
+    if text == "":
+        return
     story_open = true
     hall.walking_enabled = false
-    var life = _hall_life()
-    var d := story_lines(tid, hall.seat_taken, hall.resident_names, life.npc_taken if life != null else {}, cloud.openid())
     story_card = Control.new()
     story_card.name = "story_card"
     story_card.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -2354,15 +2354,10 @@ func _open_story_card(tid: String) -> void:
     var v := VBoxContainer.new()
     v.add_theme_constant_override("separation", 10)
     panel.add_child(v)
-    v.add_child(_label(str(d["title"]), 30, GOLD1))
-    var people: Array = d["people"]
-    var who := "、".join(people) if not people.is_empty() else LINE_STORY_NONE
-    var body := _label(who, 22, PAPER)
+    v.add_child(_label(LayeredHall.table_label(tid), 30, GOLD1))
+    var body := _label(text, 22, PAPER)
     body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     v.add_child(body)
-    if int(d["npc"]) > 0:
-        v.add_child(_label(LINE_STORY_MORE % int(d["npc"]), 20, MUTED))
-    v.add_child(_label(LINE_STORY_TODO, 18, MUTED))
     var close := Button.new()
     close.text = "关上"
     close.pressed.connect(_close_story_card)
@@ -2370,7 +2365,7 @@ func _open_story_card(tid: String) -> void:
     story_card.add_child(panel)
     ui.add_child(story_card)
     _refresh_seat_buttons()
-    print("[suqi] 故事卡 ", tid, " 真人 ", people.size(), " 宾客 ", d["npc"])
+    print("[suqi] 故事卡 ", tid)
 
 func _close_story_card() -> void:
     if not story_open:
@@ -2959,9 +2954,10 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
-        "big_door", "big_stage", "big_table", "big_overview":
+        "big_door", "big_stage", "big_table", "big_overview", "big_main":
             # 55 桌大厅灰盒（01 D 9/29 要的三张）：big_door 进门（站大门口看全场）；big_table 第一次进厅，镜头滑到自己那桌以后；
-            # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）
+            # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）；
+            # big_main 站到主桌外婆跟前（阿鱼 9/29：主桌坐阿鱼家 13 位，称呼走近谁亮谁）
             nickname = "小李"
             await _set_hall55(true, false)
             cloud.fake_no_news = shot != "big_table"   # 假服务端「没新鲜事」时一律当老客，第一次进厅要把它关了
@@ -2973,6 +2969,11 @@ func _setup_shot(shot: String) -> void:
             if shot == "big_door":
                 hall.reset_to(hall.SPAWN)
                 hall_door_latched = true   # 跳回门口：先当刚进门，不然一站上门圈就出厅了
+                hall.snap_cam()
+            elif shot == "big_main":
+                hall.couple_armed = false
+                var mt: Dictionary = hall._table_cfg("MAIN")
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.chair_world(mt, 13) + Vector2(0, -40)))))
                 hall.snap_cam()
             elif shot == "big_stage":
                 hall.couple_armed = false

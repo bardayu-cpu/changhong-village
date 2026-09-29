@@ -334,6 +334,8 @@ func _keep_tags_on_screen() -> void:
             l.visible = mid >= lo and mid <= hi
             if sign_near and l.has_meta("tid") and not _sign_shown(str(l.get_meta("tid"))):
                 l.visible = false   # 55 桌认桌：不是自己那桌、也没走近的桌，牌子不挂（这里每帧重算，得一起管）
+            if l.has_meta("near_only") and not bool(l.get_meta("near_on")):
+                l.visible = false   # 主桌家里人的称呼：走近谁亮谁（hall_life._family_near）
             l.position.x = clampf(home, lo, maxf(lo, hi - l.size.x))
 
 func set_look(preset: int, nickname: String) -> void:
@@ -804,8 +806,12 @@ var sit_t := SIT_ANIM            # 滑了多久；等于 SIT_ANIM 表示没在�
 var seat_front := false          # 自己坐的椅子在桌子两边或前面：画在桌子前面（seat_in_front）
 
 ## 椅子在画布上的位置：绕桌子占地一圈，1 号在正后方（靠里），顺时针
+## 这张桌几把椅子：普通桌 10 把；55 桌厅的主桌大一号 13 把（scene.json 的 seats，阿鱼 9/29）
+static func seats_of(t: Dictionary) -> int:
+    return int(t.get("seats", 10))
+
 func chair_world(t: Dictionary, no: int) -> Vector2:
-    var a := -PI / 2.0 + TAU * float(no - 1) / 10.0
+    var a := -PI / 2.0 + TAU * float(no - 1) / float(seats_of(t))
     var c := _seat_center(t)
     return Vector2(c.x + cos(a) * (float(t["rx"]) + seat_rx), c.y + sin(a) * (float(t["ry"]) + seat_ry))
 
@@ -847,7 +853,7 @@ func set_seats(data: Dictionary, me_id: String) -> void:
         if not by_id.has(tb["id"]):
             continue   # 试点只摆了两张桌，服务端多出来的桌先不画
         var t: Dictionary = by_id[tb["id"]]
-        for no in range(1, 11):
+        for no in range(1, seats_of(t) + 1):
             chairs.append({"table_id": tb["id"], "chair_no": no, "pos": chair_world(t, no)})
         var first_at := INF   # 桌牌：这桌最早坐下的人（sat_at 最小；旧数据没有 sat_at 就按列表里第一个）
         for s in tb.get("seats", []):
@@ -1211,6 +1217,8 @@ func _scan_chairs(dt: float) -> void:
             var key: String = "%s:%d" % [c["table_id"], c["chair_no"]]
             if seat_taken.has(key):
                 continue   # NPC 坐着的也算空椅子：坐下时 NPC 让座
+            if life != null and life.family_keys.has(key):
+                continue   # 55 桌主桌上阿鱼家里人的椅子：不让座，也不冒「坐这儿」
             var d: float = pos.distance_to(c["pos"])
             if d < best_d:
                 best_d = d

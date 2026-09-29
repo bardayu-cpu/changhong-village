@@ -32,6 +32,15 @@ B = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(B)
 
 
+# 主桌坐谁（阿鱼 9/29：出阁宴，没有男方父母；主桌坐满阿鱼的家人，一共 13 位）。
+# 1、2 号椅留给阿鱼、Toretto 本人的号（服务端 vip_openids 进厅分主桌取最小的空号，正好是 1、2）；没来就空着，新人在台上。
+# 其余 11 位是 NPC，头上挂称呼。椅子从正北（背对婚礼台、面朝大门那把）起顺时针数；谁坐哪把是 02 排的，【待阿鱼定】，改这张表重跑就行
+FAMILY = {"table": "MAIN", "reserved": {"1": "阿鱼", "2": "老公"}, "seats": [
+    {"chair": 13, "title": "外婆"}, {"chair": 3, "title": "爸爸"}, {"chair": 4, "title": "妈妈"},
+    {"chair": 5, "title": "四孃"}, {"chair": 6, "title": "四姑爷"}, {"chair": 7, "title": "六孃"}, {"chair": 8, "title": "六姑爷"},
+    {"chair": 9, "title": "小舅"}, {"chair": 10, "title": "小舅妈"}, {"chair": 11, "title": "弟弟"}, {"chair": 12, "title": "弟妹"}]}
+
+
 def block_image(it):
     """一件东西画成一张透明底的小图，和摆位图同一套画法"""
     x, y, w, h = it["box"]
@@ -86,6 +95,7 @@ def main():
         t = {"id": "MAIN" if it["name"] == "主桌" else it["name"], "x": fx + fw // 2, "y": fy + fh // 2, "rx": fw // 2, "ry": fh // 2}
         if it["name"] == "主桌":
             t["main"] = True
+            t["seats"] = B.MAIN_SEATS   # 主桌大一号，13 把椅子（v3.3，阿鱼 9/29）；别的桌不写，照 10 把
         tables.append(t)
     tables.sort(key=lambda t: (t["id"] != "MAIN", int(t["id"][1:]) if t["id"] != "MAIN" else 0))
 
@@ -178,7 +188,8 @@ def main():
     rng = random.Random(55)
     npc = {}
     for t in tables:
-        npc[t["id"]] = 8 if t["id"] == "MAIN" else rng.randint(9, 10)   # 每桌 9～10（阿鱼定）；主桌留两把给阿鱼、Toretto
+        if t["id"] != "MAIN":
+            npc[t["id"]] = rng.randint(9, 10)   # 每桌 9～10（阿鱼定）；主桌不放随机宾客，坐阿鱼家里人（family）
     decals = []
     placed = []
     carpet = [it for it in items if it["name"] == "红毯"][0]["box"]
@@ -199,6 +210,7 @@ def main():
         "note": "55 桌大厅灰盒的热闹摆放，tools/layout_55/build_graybox55.py 生成，别手改",
         "decals": decals, "glows": [],
         "npc_tables": npc,
+        "family": FAMILY,
         "waiters": {"count": 6, "door": [W - 70, (d0 + d1) // 2], "speed_m": 1.5},
         "petals": {"amount": 60},
     }

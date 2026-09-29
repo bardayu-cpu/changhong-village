@@ -1,9 +1,10 @@
 extends SceneTree
 ## 验收：55 桌大厅灰盒（01 D 9/29 派：不等 GPT 的图，照摆位底图 v3.2 的摆位表做进游戏）。和第 44 版厅并存，调试开关切：
 ## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×2714、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
-## 2 550 把椅子都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
+## 2 553 把椅子（主桌大一号 13 把）都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
 ## 4 第一次进厅镜头从大门滑到自己那桌、人站在桌边；以后进厅直接站自己桌边；5 从后厅回来站东侧门里边；
-## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上先写桌号）、其余不挂；7 故事卡（假数据）；
+## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上只写桌号和游戏名）、其余不挂；
+## 7 故事卡：没故事的桌不出卡，有故事的出「这桌的故事」、卡上不列谁坐；7b 主桌坐阿鱼家 13 位（阿鱼 9/29 出阁宴）；
 ## 8 假服务端：回 55 张（主桌 MAIN 带 main）、主桌换不进去、桌号椅子号不对拒；
 ## 9 席上功能在 55 桌厅里都能用：坐下、换桌、看人、敬酒、翻簿子、主桌悄悄话、添礼金、添菜、菜单册；
 ## 10 切回第 44 版一切照旧，第三档「照效果图」也还能切
@@ -101,7 +102,9 @@ func run() -> void:
         if s is Sprite2D and (s as Sprite2D).texture != null and str((s as Sprite2D).texture.resource_path).contains("amb_rug"):
             rugs += 1
     check("桌下不铺地毯（%d 块）" % rugs, rugs == 0)
-    check("NPC 宾客 %d 个（每桌 9～10，主桌 8）" % h.life.guests.size(), h.life.guests.size() >= 54 * 9 + 8 - 10 and h.life.guests.size() <= 54 * 10 + 8)
+    check("NPC 宾客 %d 个（每桌 9～10，主桌是家里人 11 位）" % h.life.guests.size(), h.life.guests.size() >= 54 * 9 + 11 - 10 and h.life.guests.size() <= 54 * 10 + 11)
+    check("主桌大一号：占地 %s×%s、%d 把椅子（普通桌 %s×%s、%d 把）" % [mt["rx"], mt["ry"], LayeredHall.seats_of(mt), t1["rx"], t1["ry"], LayeredHall.seats_of(t1)],
+        int(mt["rx"]) == 80 and int(mt["ry"]) == 53 and LayeredHall.seats_of(mt) == 13 and LayeredHall.seats_of(t1) == 10 and int(t1["rx"]) == 70)
     check("服务员 %d 个" % h.life.waiters.size(), h.life.waiters.size() == 6)
     check("座位圈照灰盒的桌子：dy %.1f rx %.1f ry %.1f" % [h.seat_dy, h.seat_rx, h.seat_ry], h.seat_dy == 0.0 and h.seat_rx == -12.0 and h.seat_ry == -8.0)
     check("长凳不另画（色块里有），坐的人排在凳面上 %.0f～%.0f y %.0f" % [h.bench_x0, h.bench_x1, h.bench_y], not h.bench_draw and h.bench_x1 > h.bench_x0)
@@ -117,13 +120,17 @@ func run() -> void:
     print("2 每把椅子都走得到")
     var bad: Array = []
     for t in tabs:
-        for no in range(1, 11):
+        for no in range(1, LayeredHall.seats_of(t) + 1):
             var p: Vector2 = h.chair_world(t, no)
             var c: Vector2i = h._nearest_free(h._cell_of(p))
             var d: float = h._cell_pos(c).distance_to(p)
             if d > 80.0 or h.find_path(h.SPAWN, h._cell_pos(c)).is_empty():
                 bad.append("%s:%d(%.0f)" % [t["id"], no, d])
-    check("走不到的椅子（550 把里）%s" % [bad], bad.is_empty())
+    check("走不到的椅子（553 把里）%s" % [bad], bad.is_empty())
+    var n_chairs := 0
+    for c in h.chairs:
+        n_chairs += 1
+    check("厅里一共 %d 把椅子（主桌 13 + 54×10）" % n_chairs, n_chairs == 553)
     check("东侧门走得到", not h.find_path(h.SPAWN, h.side_door + Vector2(-20, 0)).is_empty())
     check("主桌悄悄话那块（台阶前）走得到", not h.find_path(h.SPAWN, h.COUPLE_SPOT).is_empty())
     var bench_c: Vector2i = h._nearest_free(h._cell_of(h.bench_pos(0, 1)))
@@ -210,12 +217,18 @@ func run() -> void:
     check("回到自己那桌：自己的牌亮着", (h.table_signs[mine] as Label).visible)
     check("主桌叫「主桌」", LayeredHall.table_label("MAIN") == "主桌" and LayeredHall.table_label("T12") == "12 号桌")
 
-    print("7 故事卡（假数据）")
+    print("7 故事卡：没故事的桌不出卡（阿鱼 9/29）")
+    check("现在一段故事都没有（assets/table_stories.json）", Main.load_stories(Main.STORIES_PATH).is_empty() and m.stories.is_empty())
     await stand_near(h, "T1")
     m.near_table_id = "T1"
     m._refresh_seat_buttons()
-    check("走到桌边出「这桌是谁」", m.story_btn.visible and m.story_btn.text == "这桌是谁")
-    check("「这桌是谁」单独在底下那排上面，不挤进那排", m.story_btn.offset_bottom <= m.book_btn.offset_top - 8.0
+    check("走到 T1 桌边：出翻簿子，不出故事卡按钮", m.book_btn.visible and not m.story_btn.visible)
+    m._open_story_card("T1")
+    check("硬点也打不开（没故事）", not m.story_open)
+    m.stories = {"T1": "这桌是阿鱼的高中同学（测试用的一句）"}
+    m._refresh_seat_buttons()
+    check("有故事的桌出「这桌的故事」", m.story_btn.visible and m.story_btn.text == "这桌的故事")
+    check("按钮单独在底下那排上面，不挤进那排", m.story_btn.offset_bottom <= m.book_btn.offset_top - 8.0
         and m.story_btn.offset_left >= -270.0 and m.story_btn.offset_right <= 270.0)
     m.story_btn.emit_signal("pressed")
     await frames(2)
@@ -223,17 +236,68 @@ func run() -> void:
     var texts: Array = []
     for l in m.story_card.find_children("*", "Label", true, false):
         texts.append((l as Label).text)
-    check("卡上：%s" % [texts], texts.has("1 号桌") and str(texts).contains("老王") and texts.has(Main.LINE_STORY_TODO))
-    var sl: Dictionary = Main.story_lines("T1", h.seat_taken, h.resident_names, h.life.npc_taken, m.cloud.openid())
-    check("还有几位宾客照 NPC 数：%d" % int(sl["npc"]), int(sl["npc"]) >= 5)
+    check("卡上只有桌号和故事，不列谁坐（不写座次表）：%s" % [texts], texts == ["1 号桌", "这桌是阿鱼的高中同学（测试用的一句）"])
     m._close_story_card()
     await frames(1)
     check("关上了，人能走", not m.story_open and h.walking_enabled)
+    m.stories = {}
+
+    print("7b 主桌坐阿鱼家 13 位（出阁宴）")
+    var want_fam := ["外婆", "爸爸", "妈妈", "四孃", "四姑爷", "六孃", "六姑爷", "小舅", "小舅妈", "弟弟", "弟妹"]
+    var fam_titles: Array = []
+    for k in h.life.family_tags:
+        fam_titles.append((h.life.family_tags[k] as Label).text)
+    var all_there := true
+    for w in want_fam:
+        all_there = all_there and fam_titles.has(w)
+    check("11 位家里人坐在主桌、各有称呼牌：%s" % [fam_titles], fam_titles.size() == 11 and all_there)
+    var fam_on_main := 0
+    for g in h.life.guests:
+        if g.table == "MAIN":
+            fam_on_main += 1
+    check("主桌上的 NPC 就是这 11 位（%d），没有随机宾客" % fam_on_main, fam_on_main == 11)
+    check("1、2 号留给阿鱼、老公本人（没来就空着）", not h.life.npc_taken.has("MAIN:1") and not h.life.npc_taken.has("MAIN:2")
+        and h.life.conf["family"]["reserved"] == {"1": "阿鱼", "2": "老公"})
+    var tag13: Label = h.life.family_tags["MAIN:13"]
+    var chair13: Vector2 = h.chair_world(mt, 13)
+    check("称呼挂在人头上（外婆，椅子 %s，牌子 %s）" % [chair13, tag13.position], tag13.text == "外婆"
+        and absf(tag13.position.x + tag13.size.x * 0.5 - chair13.x) < 2.0 and tag13.position.y < chair13.y - 30.0)
+    # 走到外婆那把椅子跟前：不冒「坐这儿」
+    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(chair13 + Vector2(-30, 0)))))
+    h._scan_chairs(1.0)
+    await frames(1)
+    check("走到家里人椅子跟前不冒「坐这儿」（最近的椅子 %s）" % [m.near_seat_info], not str(m.near_seat_info.get("table_id", "")).begins_with("MAIN") or int(m.near_seat_info.get("chair_no", 0)) <= 2)
+    # 称呼走近谁亮谁：11 块一起挂会叠成一摞
+    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(chair13 + Vector2(0, -40)))))
+    h.life._family_near()
+    await frames(2)
+    var lit: Array = []
+    for k in h.life.family_tags:
+        if (h.life.family_tags[k] as Label).visible:
+            lit.append((h.life.family_tags[k] as Label).text)
+    check("站在外婆跟前：只亮外婆 %s" % [lit], lit == ["外婆"])
+    var dad: Vector2 = h.chair_world(mt, 3)
+    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(dad + Vector2(40, 0)))))
+    h.life._family_near()
+    await frames(2)
+    lit.clear()
+    for k in h.life.family_tags:
+        if (h.life.family_tags[k] as Label).visible:
+            lit.append((h.life.family_tags[k] as Label).text)
+    check("走到爸爸那边：换成亮爸爸 %s" % [lit], lit == ["爸爸"])
+    await stand_near(h, "T20")
+    h.life._family_near()
+    await frames(2)
+    lit.clear()
+    for k in h.life.family_tags:
+        if (h.life.family_tags[k] as Label).visible:
+            lit.append((h.life.family_tags[k] as Label).text)
+    check("走远了一个都不挂 %s" % [lit], lit.is_empty())
     await m._set_hall55(false)
     await create_timer(0.3).timeout
     m.near_table_id = "T1"
     m._refresh_seat_buttons()
-    check("第 44 版厅里没有「这桌是谁」", not m.story_btn.visible)
+    check("第 44 版厅里没有故事卡按钮", not m.story_btn.visible and m.hall.life.family_tags.is_empty())
     await m._set_hall55(true)
     await create_timer(0.5).timeout
     h = m.hall
@@ -243,13 +307,15 @@ func run() -> void:
     m.cloud.call_fn("enterHall", {}, func(r): got["enter"] = r)
     m.cloud.call_fn("changeSeat", {"tableId": "T55", "chairNo": 1}, func(r): got["t55"] = r)
     m.cloud.call_fn("changeSeat", {"tableId": "T54", "chairNo": 11}, func(r): got["c11"] = r)
-    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 3}, func(r): got["main"] = r)
+    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 13}, func(r): got["main"] = r)
+    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 14}, func(r): got["m14"] = r)
     await create_timer(1.0).timeout
     var et: Array = got.get("enter", {}).get("data", {}).get("tables", [])
     check("回 55 张桌、第一张是主桌", et.size() == 55 and str(et[0]["id"]) == "MAIN" and bool(et[0].get("main", false)))
     check("T55、11 号椅都拒：%s %s" % [got.get("t55", {}).get("reason", ""), got.get("c11", {}).get("reason", "")],
         got.get("t55", {}).get("reason", "") == "bad_request" and got.get("c11", {}).get("reason", "") == "bad_request")
-    check("主桌换不进去：%s" % got.get("main", {}).get("reason", ""), got.get("main", {}).get("reason", "") == "main_table_only_family")
+    check("主桌 13 号换不进去：%s；14 号没有这把：%s" % [got.get("main", {}).get("reason", ""), got.get("m14", {}).get("reason", "")],
+        got.get("main", {}).get("reason", "") == "main_table_only_family" and got.get("m14", {}).get("reason", "") == "bad_request")
 
     print("9 席上功能")
     var feat := {}

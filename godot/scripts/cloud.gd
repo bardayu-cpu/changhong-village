@@ -232,7 +232,8 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             # 和服务端 checkSeatTarget 一样：桌号要在表里、椅子号 1～10，不然 bad_request
             var known: bool = tid_new in fake_table_ids if not fake_table_ids.is_empty() else \
                 (tid_new.begins_with("T") and int(tid_new.substr(1)) >= 1 and int(tid_new.substr(1)) <= fake_tables)
-            if not known or no_new < 1 or no_new > 10:
+            var cap := 13 if tid_new == "MAIN" else 10   # 主桌大一号 13 把（服务端 BANQUET_MAIN_SEATS，阿鱼 9/29）
+            if not known or no_new < 1 or no_new > cap:
                 return {"ok": false, "reason": "bad_request"}
             if tid_new == "MAIN":
                 return {"ok": false, "reason": "main_table_only_family"}   # 主桌只给新人家（电脑上的「我」不是阿鱼、Toretto）

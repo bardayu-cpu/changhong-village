@@ -39,7 +39,8 @@ const C = require('./config');
  */
 function assignSeat(ctx) {
   const main = ctx.mainTable;
-  if (main && ctx.me && ctx.vip && ctx.vip.has(ctx.me) && main.seats.length < C.BANQUET_SEATS_PER_TABLE) {
+  // 主桌能给真人坐的只有阿鱼、Toretto 那两把（BANQUET_MAIN_VIP_CHAIRS），其余是阿鱼家里人（NPC）
+  if (main && ctx.me && ctx.vip && ctx.vip.has(ctx.me) && main.seats.length < C.BANQUET_MAIN_VIP_CHAIRS.length) {
     return { ok: true, tableId: main.id, bench: false };
   }
   const onlyWhenFull = ctx.benchOnlyWhenFull === undefined ? C.BANQUET_BENCH_ONLY_WHEN_FULL : !!ctx.benchOnlyWhenFull;
@@ -167,14 +168,18 @@ function assignSeatFillFirst(ctx) {
  * 不对都回 bad_request（客户端已经认这个原因）。
  * 主桌（9/29，55 桌厅才有）：桌号、椅子号都对，但换的人不是阿鱼、Toretto 本人，回 main_table_only_family
  * （新原因，客户端要认：主桌只坐阿鱼、Toretto 本人）。
+ * 主桌 13 把椅子（BANQUET_MAIN_SEATS，阿鱼 9/29）：椅子号 1..13；阿鱼、Toretto 本人只能换到 1、2 号，
+ * 3～13 号坐着阿鱼家里人，回 seat_taken（「这把有人坐了」）。
  */
 function checkSeatTarget(ctx) {
   const { tableId, chairNo } = ctx;
   const ids = ctx.tableIds || C.BANQUET_TABLE_IDS;
   const isMain = !!ctx.mainTableId && tableId === ctx.mainTableId;
   if (typeof tableId !== 'string' || !(isMain || ids.includes(tableId))) return { ok: false, reason: 'bad_request' };
-  if (!Number.isInteger(chairNo) || chairNo < 1 || chairNo > C.BANQUET_SEATS_PER_TABLE) return { ok: false, reason: 'bad_request' };
+  const cap = isMain ? C.BANQUET_MAIN_SEATS : C.BANQUET_SEATS_PER_TABLE;
+  if (!Number.isInteger(chairNo) || chairNo < 1 || chairNo > cap) return { ok: false, reason: 'bad_request' };
   if (isMain && !ctx.isVip) return { ok: false, reason: 'main_table_only_family' };
+  if (isMain && !C.BANQUET_MAIN_VIP_CHAIRS.includes(chairNo)) return { ok: false, reason: 'seat_taken' };
   return { ok: true };
 }
 

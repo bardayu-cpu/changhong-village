@@ -856,14 +856,14 @@ func seat_guests(taken: Dictionary) -> Dictionary:
             continue
         var r := RandomNumberGenerator.new()
         r.seed = hash(str(tid)) & 0x7fffffff
-        var nos: Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        var nos: Array = range(1, hall.seats_of(tc) + 1)
         for i in range(nos.size() - 1, 0, -1):
             var j := r.randi_range(0, i)
             var tmp = nos[i]
             nos[i] = nos[j]
             nos[j] = tmp
         var center: Vector2 = hall._seat_center(tc)
-        for k in mini(int(plan[tid]), 10):
+        for k in mini(int(plan[tid]), nos.size()):
             var no: int = nos[k]
             var key := "%s:%d" % [tid, no]
             if taken.has(key):
@@ -873,8 +873,71 @@ func seat_guests(taken: Dictionary) -> Dictionary:
             _guest(str(tid), key, at, center, hall.seat_in_front(tc, at))
         if not toast_next.has(tid):
             toast_next[tid] = rng.randf_range(2.0, TOAST.y)
+    _seat_family(taken)
     print("[suqi] 别桌 NPC 宾客 %d 个 用时 %d 毫秒" % [guests.size(), (Time.get_ticks_usec() - t0) / 1000])
     return npc_taken
+
+## 主桌的家里人（55 桌厅，阿鱼 9/29「主桌坐满阿鱼的家人」）：照 ambience 的 family 坐定的椅子，头上挂称呼（外婆、爸爸……）。
+## 长相照旧是现画的宾客长相（泛称，不追真人，HANDOFF §0.5）。真人坐了哪把就让座，称呼也不挂。
+## 称呼**走近谁亮谁**（FAMILY_NEAR 像素内离得最近的那一位），平时不挂：11 块牌子围着一张桌同时挂，前排四个人挨着坐（椅距约 30），
+## 牌子叠成一摞谁也看不清（02 9/29 截图试过；排成一圈、内外两圈错开也放不下）
+const FAMILY_NEAR := 90.0
+var family_tags: Dictionary = {}   # "MAIN:13" -> 头上的称呼牌
+var family_keys: Dictionary = {}   # "MAIN:13" -> 称呼：家里人的椅子（走近不冒「坐这儿」）
+var family_lit := ""               # 现在亮着称呼的是哪一位（"MAIN:13"），没有是空
+
+## 离我最近、FAMILY_NEAR 以内的那位家里人亮称呼，别的都收着
+func _family_near() -> void:
+    if family_tags.is_empty():
+        return
+    var best := ""
+    var best_d := FAMILY_NEAR
+    for key in family_tags:
+        var l: Label = family_tags[key]
+        if not is_instance_valid(l):
+            continue
+        var d: float = hall.pos.distance_to(l.get_meta("chair"))
+        if d < best_d:
+            best_d = d
+            best = str(key)
+    if best == family_lit:
+        return
+    family_lit = best
+    for key in family_tags:
+        var l: Label = family_tags[key]
+        if is_instance_valid(l):
+            l.set_meta("near_on", str(key) == best)
+            l.visible = str(key) == best
+func _seat_family(taken: Dictionary) -> void:
+    family_tags.clear()
+    family_keys.clear()
+    family_lit = ""
+    var fam: Dictionary = conf.get("family", {})
+    var tc: Dictionary = hall._table_cfg(str(fam.get("table", "")))
+    if tc.is_empty():
+        return
+    var tid := str(tc["id"])
+    var center: Vector2 = hall._seat_center(tc)
+    for f in fam.get("seats", []):
+        var key := "%s:%d" % [tid, int(f["chair"])]
+        family_keys[key] = str(f["title"])
+        if taken.has(key):
+            continue
+        npc_taken[key] = true
+        var at: Vector2 = hall.chair_world(tc, int(f["chair"]))
+        _guest(tid, key, at, center, hall.seat_in_front(tc, at))
+        if hall.seat_tags != null and hall.font != null:
+            var l := Label.new()
+            l.text = str(f["title"])
+            l.name = "family_" + str(f["chair"])
+            hall.seat_tags.add_child(l)   # 先进树再量大小：不在树里量出来的宽偏小，牌子就歪到一边
+            hall.name_plate(l)
+            l.position = at - Vector2(l.size.x * 0.5, hall._px_h(at.y) * (hall.SIT_KEEP + hall.SIT_LIFT) + l.size.y + 2.0)
+            l.set_meta("chair", at)
+            l.set_meta("near_only", true)   # layered_hall 每帧的「贴屏幕边」那遍认这个：没走近不显示
+            l.set_meta("near_on", false)
+            l.visible = false
+            family_tags[key] = l
 
 ## 别桌宾客的长相拼成一张图：一种长相一行（9 帧 144×32），所有宾客共用这一张
 func _guest_atlas() -> ImageTexture:
@@ -985,6 +1048,7 @@ func _leaver(row: int, from: Vector2) -> void:
 # ---------- 每帧 ----------
 func _process(dt: float) -> void:
     t += dt
+    _family_near()
     for w in waiters.duplicate():
         _step_waiter(w, dt)
         if w.gone:
