@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfqdy3bvqfvsc"
-path="res://.godot/imported/gb_4.png-9d2c98faf71303125abcc3251891047f.ctex"
+uid="uid://bqh2yfw4m6x3d"
+path="res://.godot/imported/art_table.png-152cb0082c0cae3dc31c0e19df5abf54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/layered/scene_roman_banquet_55/gb_4.png"
-dest_files=["res://.godot/imported/gb_4.png-9d2c98faf71303125abcc3251891047f.ctex"]
+source_file="res://assets/layered/scene_roman_banquet_55/art_table.png"
+dest_files=["res://.godot/imported/art_table.png-152cb0082c0cae3dc31c0e19df5abf54.ctex"]
 
 [params]
 

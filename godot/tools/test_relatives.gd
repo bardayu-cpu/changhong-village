@@ -256,6 +256,9 @@ func run() -> void:
 
     print("7 真人坐了亲友的椅子")
     var dad = rel.find("大爸")
+    if dad.state != "sit":   # 正巧在去敬酒的路上：先让他坐回去，这一节只验「真人占了他那把」
+        rel.toaster = null
+        rel._sit_now(dad)
     var old_chair: int = dad.chair
     var key := "T9:%d" % old_chair
     await sit(h, "T9", old_chair)

@@ -83,9 +83,10 @@ func build(preset: int, nickname: String, f: Font) -> void:
     big = str(cfg.get("scene", "")).ends_with("_55")
     # 场景配置可以改座位圈、长凳、桌牌的规矩（55 桌大厅灰盒，01 D 9/29）；12 桌厅不写，照旧用上面的常数
     var sg: Dictionary = cfg.get("seat_geom", {})
-    seat_dy = float(sg.get("dy", SEAT_DY))
-    seat_rx = float(sg.get("rx", SEAT_RX))
-    seat_ry = float(sg.get("ry", SEAT_RY))
+    seat_abs = sg if bool(sg.get("abs", false)) else {}
+    seat_dy = float(sg.get("dy", SEAT_DY)) if seat_abs.is_empty() else SEAT_DY
+    seat_rx = float(sg.get("rx", SEAT_RX)) if seat_abs.is_empty() else SEAT_RX
+    seat_ry = float(sg.get("ry", SEAT_RY)) if seat_abs.is_empty() else SEAT_RY
     var bc: Dictionary = cfg.get("bench", {})
     bench_x0 = float(bc.get("x0", BENCH_X0))
     bench_x1 = float(bc.get("x1", BENCH_X1))
@@ -774,6 +775,7 @@ signal game_tap(table_id: String)     # 点了某张桌桌心的菜（席间小�
 
 var seats_holder: Node2D
 var seat_tags: Node2D
+var seat_abs: Dictionary = {}   # 55 桌接图：座位圈的绝对量法（见 _seat_abs）；空的照旧用 seat_dy/rx/ry
 var seat_dy := SEAT_DY           # 座位圈（场景配置 seat_geom 能改；55 桌灰盒的桌是一圈 140×92，圈心不往上挪）
 var seat_rx := SEAT_RX
 var seat_ry := SEAT_RY
@@ -812,14 +814,28 @@ var seat_front := false          # 自己坐的椅子在桌子两边或前面：
 static func seats_of(t: Dictionary) -> int:
     return int(t.get("seats", 10))
 
+## 55 桌接图 v1（9/30）：座位圈照零件图里椅子的位置量，写成「圈心离占地中心 dx、dy，半径 rx、ry」（abs）；
+## 整厅一套（scene.json 的 seat_geom），哪张桌不一样（主桌那张图椅子圈大）桌上自己带 seat_geom
+func _seat_abs(t: Dictionary) -> Dictionary:
+    var own = t.get("seat_geom", null)
+    if own is Dictionary and bool((own as Dictionary).get("abs", false)):
+        return own
+    return seat_abs
+
 func chair_world(t: Dictionary, no: int) -> Vector2:
     var a := -PI / 2.0 + TAU * float(no - 1) / float(seats_of(t))
     var c := _seat_center(t)
+    var sa := _seat_abs(t)
+    if not sa.is_empty():
+        return Vector2(c.x + cos(a) * float(sa["rx"]), c.y + sin(a) * float(sa["ry"]))
     return Vector2(c.x + cos(a) * (float(t["rx"]) + seat_rx), c.y + sin(a) * (float(t["ry"]) + seat_ry))
 
 ## 椅位圈的圈心：桌子积木里画出来的那圈椅子，比桌子占地椭圆靠上（占地椭圆的中心在桌子着地的那一行）。
 ## 9/17 对着试点积木 blk_table_round.png 量的，原来按占地椭圆往外扩，坐下的人飘在椅子外面一大截
 func _seat_center(t: Dictionary) -> Vector2:
+    var sa := _seat_abs(t)
+    if not sa.is_empty():
+        return Vector2(float(t["x"]) + float(sa["dx"]), float(t["y"]) + float(sa["dy"]))
     return Vector2(float(t["x"]), float(t["y"]) + seat_dy * float(t["ry"]))
 
 ## 坐在这把椅子上的人画不画在桌子前面：桌子后面那几把（圈的上半截）照 y 排序躲在桌子后面；

@@ -10,6 +10,14 @@
   回执/55桌灰盒-拼回整厅.png                         自查：底图 + 全部色块按落地线叠回一张，和摆位底图逐像素比（03 拿它跑 board_check）
 桌下不铺地毯（阿鱼 9/28），没有横幅、LED（阿鱼 9/28）
 用法：python3 tools/layout_55/build_graybox55.py
+
+接图 v1（01 D 9/30）：tools/layout_55/art/ 里有 GPT 交的「空厅背景 + 5 件零件」就用图，不再画色块：
+  base.png = 北边空厅背景 base_banquet55_north_v1.png（y 0～1024）+ 往南接出去的地砖（照背景最下面 60 行一段段往下铺，SOUTH_BAND）
+             + 背景里没有的东侧门还是色块
+  桌、主桌、长凳、宫灯（红毯两边的和墙边灯柱都用这一张）、花盆 → 零件图（art_*.png）；南边栏杆、大门还是色块（没有图）
+  婚礼台、台阶、乐队、贺礼堆画在背景里：不当遮挡块，从北墙到它们的脚都不让走（不然人走到它们后面会画在它们上面）
+  能走的格子北边照背景量出来的两边墙（背景的墙是透视的，往下越来越宽，y 760 往下出了画面）
+  座位圈照零件图里椅子的位置量（普通桌、主桌各一套）
 """
 import importlib.util
 import json
@@ -24,6 +32,14 @@ GODOT = os.path.dirname(os.path.dirname(HERE))
 OUT = os.path.join(GODOT, "assets", "layered", "scene_roman_banquet_55")
 AMB = os.path.join(GODOT, "assets", "ambience", "ambience_55.json")
 RES = "res://assets/layered/scene_roman_banquet_55/"
+ART = os.path.join(HERE, "art")
+ART_BG = os.path.join(ART, "base_banquet55_north_v1.png")
+ART_PIECES = {"table": "blk_banquet55_table_v1.png", "table_main": "blk_banquet55_table_main_v1.png",
+              "bench": "blk_banquet55_bench_v1.png", "lantern": "blk_banquet55_lantern_v1.png", "flowerpot": "blk_banquet55_flowerpot_v1.png"}
+SOUTH_BAND = (964, 1024)   # 往南接地砖用背景的哪几行（最下面一个砖高 60：往下的砖一行行已经差不多一样高了）
+# 座位圈（量零件图里椅子的位置，02 9/30）：10 把椅子正好每 36° 一把、从正北起；圈心相对桌子占地中心、圈的半径
+SEAT_TABLE = {"abs": True, "dx": 5.0, "dy": -8.0, "rx": 52.0, "ry": 40.0}
+SEAT_MAIN = {"abs": True, "dx": 4.0, "dy": -12.0, "rx": 60.0, "ry": 45.0}
 CELL = 10
 C = 12                    # 走路离占地留的边（和 build_layered.py 一样）
 
@@ -89,16 +105,96 @@ def block_image(it):
     return im
 
 
+def art_on():
+    return os.path.exists(ART_BG) and all(os.path.exists(os.path.join(ART, f)) for f in ART_PIECES.values())
+
+
+def art_piece(it):
+    """这件东西用哪张零件图；没有图的（栏杆、大门）回 None 照旧画色块"""
+    n = it["name"]
+    if it["kind"] == "table":
+        return "table_main" if n == "主桌" else "table"
+    if n == "长凳":
+        return "bench"
+    if "宫灯" in n or "灯柱" in n:
+        return "lantern"
+    if "花盆" in n:
+        return "flowerpot"
+    return None
+
+
+def south_extend(bg, W, H):
+    """背景只画到 y 1024：往南用最下面 SOUTH_BAND 那几行一段段接出去。回 (整张, 接缝数)"""
+    a, b = SOUTH_BAND
+    band = bg.crop((0, a, W, b))
+    im = Image.new("RGB", (W, H))
+    im.paste(bg, (0, 0))
+    y = bg.height
+    while y < H:
+        im.paste(band, (0, y))
+        y += b - a
+    # 接缝数：接缝上下两行像素差，和背景自己最下面相邻两行的差比；分中间（红毯两边各 400 以内）和两边（离画布边 250 以内）
+    px = im.load()
+    def row_diff(y0, x0, x1):
+        return sum(sum(abs(px[x, y0][k] - px[x, y0 - 1][k]) for k in range(3)) for x in range(x0, x1)) / float(x1 - x0) / 3.0
+    natural = [row_diff(y0, 0, W) for y0 in range(900, 1020)]
+    nat = sum(natural) / len(natural)
+    seam = {"seam_all": row_diff(bg.height, 0, W), "seam_mid": row_diff(bg.height, 300, 1236),
+            "seam_edge": (row_diff(bg.height, 0, 250) + row_diff(bg.height, W - 250, W)) / 2.0, "natural": nat}
+    # 地砖花的位置：背景最下一行花（y 1009 左右）和接出去第一行（band 里同一行）左右差多少（透视：越往边上越错开）
+    return im, seam
+
+
+def floor_bounds(bg):
+    """背景里每一行地砖从哪到哪（两边是透视的墙）：从左往右找第一段连着 8 个浅色地砖的像素，右边同样。y 1024 往下没有墙"""
+    px = bg.load()
+    W = bg.width
+    def floor_like(c):
+        return c[0] > 175 and c[1] > 160 and c[2] > 120 and c[0] - c[2] < 90
+    out = {}
+    for y in range(B.WALL_N, bg.height):
+        lx = 0
+        for x in range(0, 400):
+            if all(floor_like(px[x + k, y]) for k in range(8)):
+                lx = x
+                break
+        rx = W
+        for x in range(W - 1, W - 400, -1):
+            if all(floor_like(px[x - k, y]) for k in range(8)):
+                rx = x
+                break
+        out[y] = (lx, rx)
+    return out
+
+
 def main():
     items, tid, door, stand_top, rail_foot = B.build()
     W, H = B.W, B.H
     os.makedirs(OUT, exist_ok=True)
+    art = art_on()
 
     occ_kinds = ("table", "prop")
     front_names = ("南边西段栏杆", "南边东段栏杆", "大门（双开门门洞）")
     base_items = [it for it in items if it["kind"] not in occ_kinds + ("mark", "ruler", "zone") and it["name"] not in front_names]
-    base = B.draw(base_items, False, tid, door, stand_top, rail_foot)
+    seam = None
+    bounds = {}
+    if art:
+        bg = Image.open(ART_BG).convert("RGB")
+        base, seam = south_extend(bg, W, H)
+        bounds = floor_bounds(bg)
+        g = ImageDraw.Draw(base)
+        for it in items:
+            if it["name"] == "东侧门（门洞）":   # 背景里没有侧门（墙在 y 760 往下出了画面）：还画色块
+                x, y, w, h = it["box"]
+                g.rectangle([x, y, x + w - 1, y + h - 1], fill=tuple(it["color"]))
+    else:
+        base = B.draw(base_items, False, tid, door, stand_top, rail_foot)
     base.save(os.path.join(OUT, "base.png"))
+    art_res = {}
+    if art:
+        for k, f in ART_PIECES.items():
+            Image.open(os.path.join(ART, f)).save(os.path.join(OUT, "art_%s.png" % k))
+            art_res[k] = RES + "art_%s.png" % k
 
     # 遮挡块：同样大小同样颜色的只存一张图
     imgs = {}
@@ -106,7 +202,14 @@ def main():
     for it in items:
         if not (it["kind"] in occ_kinds or it["name"] in front_names):
             continue
+        if art and "背景里画好的" in it["name"]:
+            continue   # 贺礼堆画在背景里
         x, y, w, h = it["box"]
+        piece = art_piece(it) if art else None
+        if piece is not None:
+            fx, fy, fw, fh = it["foot"]
+            occ.append({"id": it["name"], "image": art_res[piece], "x": x, "y": y, "foot": fy + fh // 2})
+            continue
         key = "%s_%dx%d_%02x%02x%02x" % (it["kind"], w, h, *it["color"])
         if key not in imgs:
             name = "gb_%d.png" % len(imgs)
@@ -127,6 +230,8 @@ def main():
         t = {"id": "MAIN" if it["name"] == "主桌" else it["name"], "x": fx + fw // 2, "y": fy + fh // 2, "rx": fw // 2, "ry": fh // 2}
         if it["name"] == "主桌":
             t["main"] = True
+            if art:
+                t["seat_geom"] = SEAT_MAIN   # 主桌那张图的椅子圈比普通桌大
         tables.append(t)
     tables.sort(key=lambda t: (t["id"] != "MAIN", int(t["id"][1:]) if t["id"] != "MAIN" else 0))
 
@@ -141,7 +246,22 @@ def main():
             continue
         blockers.append(it)
 
+    # 接图：婚礼台、台阶、乐队、贺礼堆画在背景里，从北墙到它们的脚都不让走（人走到后面会画在它们上面）
+    backdrops = []
+    if art:
+        for it in items:
+            if it["kind"] in ("stage", "band_floor") or "背景里画好的" in it["name"]:
+                fx, fy, fw, fh = it["foot"]
+                backdrops.append((fx, B.WALL_N, fw, fy + fh - B.WALL_N))
+
     def blocked(px, py):
+        for fx, fy, fw, fh in backdrops:
+            if fx - C < px < fx + fw + C and fy - C < py < fy + fh + C:
+                return True
+        if art and py < 1024:
+            lx, rx = bounds.get(int(py), (0, W))
+            if px < lx + C or px > rx - C:
+                return True   # 背景两边的墙（透视的）
         for it in blockers:
             fx, fy, fw, fh = it["foot"]
             if it["kind"] == "table":
@@ -206,10 +326,15 @@ def main():
         "band_art": False,    # 乐队是底图里的色块，不叠第 44 版那块乐队图
         "sign_mode": "near",  # 认桌（01 定）：自己那桌一直挂牌，走近哪桌亮哪桌，其余不挂
     }
+    if art:
+        scene["revision"] = "art-v1（GPT 空厅背景 + 5 件零件，摆位 v4）"
+        scene["note"] = "55 桌大厅接图 v1（01 D 9/30）：GPT 北边空厅背景 + 零件，摆位 v4；tools/layout_55/build_graybox55.py 生成，别手改"
+        scene["seat_geom"] = SEAT_TABLE
+        scene["south_seam"] = seam
     json.dump(scene, open(os.path.join(OUT, "scene.json"), "w", encoding="utf-8"), ensure_ascii=False)
     # 这回没生成的图（第 47 版留下的拉长底图、GPT 桌子，或者色块少了一种）连同 .import 一起清掉；
     # 生成了的图留着 .import，重跑不换 uid
-    keep = {"base.png"} | {v.replace(RES, "") for v in imgs.values()}
+    keep = {"base.png"} | {v.replace(RES, "") for v in imgs.values()} | {v.replace(RES, "") for v in art_res.values()}
     for f in os.listdir(OUT):
         png = f[:-len(".import")] if f.endswith(".png.import") else f
         if png.endswith(".png") and png not in keep:
@@ -261,9 +386,16 @@ def main():
             cache[f] = Image.open(os.path.join(OUT, f)).convert("RGBA")
         flat.alpha_composite(cache[f], (int(o["x"]), int(o["y"])))
     flat = flat.convert("RGB")
-    flat.save(os.path.join(GODOT, "回执", "55桌灰盒-拼回整厅.png"))
+    if art:
+        # 接图：没有「逐像素一样」可比（背景是 GPT 画的）；存一张整厅、一张北边给 01、03 看
+        flat.save(os.path.join(GODOT, "回执", "55桌接图v1-整厅拼图.png"))
+        flat.crop((0, 0, W, 1024)).save(os.path.join(GODOT, "回执", "55桌接图v1-北边预览.png"))
+        print("往南接地砖的接缝（每像素平均差，0～255）：整行 %.1f、中间 %.1f、两边 %.1f；背景自己相邻两行平均差 %.1f" % (
+            seam["seam_all"], seam["seam_mid"], seam["seam_edge"], seam["natural"]))
+    else:
+        flat.save(os.path.join(GODOT, "回执", "55桌灰盒-拼回整厅.png"))
     ref = os.path.join(GODOT, "回执", "宴会厅55桌-摆位底图.png")
-    if os.path.exists(ref):
+    if not art and os.path.exists(ref):
         d = ImageChops.difference(flat, Image.open(ref).convert("RGB"))
         ruler = [it["box"] for it in items if it["kind"] == "ruler"]
         n = n_out = 0
