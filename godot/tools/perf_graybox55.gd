@@ -2,7 +2,8 @@ extends SceneTree
 ## 量帧率（01 D 9/29「报电脑上约 550 人时的帧率」）：真的 55 桌灰盒厅（不是 perf_hall55.gd 那种纯色块试验），
 ## 进厅后人从大门一路蛇形走到婚礼台前再走回来，镜头跟着扫过全部 55 张桌；关垂直同步，量每秒帧率、这一秒里最慢一帧、画图调用次数。
 ## 要开窗口跑（headless 不画图，量不出帧率）：
-##   Godot --path . --resolution 540x960 --script res://tools/perf_graybox55.gd -- --secs=20
+##   Godot --path . --resolution 540x960 --script res://tools/perf_graybox55.gd -- --secs=20 [--feast=pre|feast]
+##   --feast：亲友强制开席前（在厅里走动）／开席（坐下、敬酒、打牌）；不给就按北京时间
 ## 最后一行是汇总
 
 const Main = preload("res://scripts/main.gd")
@@ -10,11 +11,14 @@ const Main = preload("res://scripts/main.gd")
 var m
 var started := false
 var secs := 20.0
+var feast := ""
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
         if a.begins_with("--secs="):
             secs = float(a.substr(7))
+        elif a.begins_with("--feast="):
+            feast = a.substr(8)
     DirAccess.remove_absolute(ProjectSettings.globalize_path(Main.HALL55_FLAG))
     m = Main.new()
     m.fast = true
@@ -34,6 +38,7 @@ func run() -> void:
         await process_frame
     m.nickname = "小李"
     m.cloud.fake_no_news = true
+    m.feast_force = feast
     await m._set_hall55(true, false)
     await m._enter_banquet()
     await create_timer(1.5).timeout
@@ -41,9 +46,11 @@ func run() -> void:
     var h = m.hall
     h.couple_armed = false
     DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-    var people: int = h.life.guests.size() + h.life.waiters.size() + h.resident_nodes.size() + 1 + 2   # 宾客、服务员、坐着的真人、自己、新人
-    print("厅里的人：NPC 宾客 %d、服务员 %d、坐着的真人 %d、自己 1、新人 2，共 %d" % [
-        h.life.guests.size(), h.life.waiters.size(), h.resident_nodes.size(), people])
+    var nrel: int = h.life.relatives.rels.size() if h.life.relatives != null else 0
+    var people: int = h.life.guests.size() + h.life.waiters.size() + h.resident_nodes.size() + nrel + 1 + 2   # 宾客、服务员、坐着的真人、亲友、自己、新人
+    print("厅里的人：NPC 宾客 %d、服务员 %d、坐着的真人 %d、亲友 %d（%s）、自己 1、新人 2，共 %d" % [
+        h.life.guests.size(), h.life.waiters.size(), h.resident_nodes.size(), nrel,
+        "开席" if h.life.relatives != null and h.life.relatives.feast else "开席前", people])
     var sz := Vector2(float(h.cfg["size"][0]), float(h.cfg["size"][1]))
     var y0: float = h.SPAWN.y - 60.0     # 别踩进大门那圈（一踩就出厅）
     var y1 := 560.0

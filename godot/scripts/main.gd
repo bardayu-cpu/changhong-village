@@ -180,6 +180,11 @@ var person_card_inviter: Label
 var person_card_toast_btn: Button
 var person_card_meet_btn: Button     # 想认识你，挨着敬一杯
 var book_btn: Button      # 走到桌边、或坐在自己桌上时出现，「翻簿子」（第 24 版，蓝图 3.2）
+var rel_btn: Button       # 55 桌亲友：走到跟前冒「看看大爸」，点开身份卡（01 D 9/29）
+var near_rel := {"title": "", "relation": ""}
+const LINE_REL_FMT := "看看%s"
+var feast_force := ""     # 调试：亲友「按北京时间」""／强制开席 "feast"／强制开席前 "pre"
+const FEAST_NAMES := {"": "按北京时间", "feast": "强制开席", "pre": "强制开席前"}
 var chat_btn: Button      # 55 桌主桌：走近家里人冒「和外婆聊聊」，点了说一句（01 D 9/29；话以后派支线，先是【待补】）
 var near_family := {"key": "", "title": ""}
 const LINE_CHAT_FMT := "和%s聊聊"   # 三个按钮并排时只有 164 宽，「和外婆说说话」会截成省略号
@@ -469,6 +474,16 @@ func _build_debug() -> void:
         await _set_hall_variant(nv)
         bigb.text = "宴会厅：%s（点一下换）" % HALL_VARIANT_NAMES.get(nv, ""))
     dv.add_child(bigb)
+    # 55 桌亲友：开席（北京时间 12～14、17～19 点）坐下敬酒打牌，开席前在厅里走动。测的时候不用等到饭点（01 D 9/29）
+    var feastb := Button.new()
+    feastb.name = "feast_toggle"
+    feastb.text = "亲友：%s（点一下换）" % FEAST_NAMES.get(feast_force, "")
+    feastb.pressed.connect(func():
+        var order := ["", "feast", "pre"]
+        var nf: String = order[(order.find(feast_force) + 1) % order.size()]
+        _set_feast_force(nf)
+        feastb.text = "亲友：%s（点一下换）" % FEAST_NAMES.get(nf, ""))
+    dv.add_child(feastb)
     remote_status = _label("", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT)
     dv.add_child(remote_status)
     remote_img = TextureRect.new()
@@ -705,6 +720,12 @@ func _make_hall(sv: Node) -> void:
         near_family = {"key": "", "title": ""}
         if hall.life != null and hall.life.has_signal("family_near"):
             hall.life.family_near.connect(_on_family_near)
+        near_rel = {"title": "", "relation": ""}
+        if hall.life != null and hall.life.relatives != null:
+            hall.life.relatives.rel_near.connect(_on_rel_near)
+            hall.life.relatives.set_force(feast_force)
+        if rel_btn != null:
+            _refresh_seat_buttons()   # 换厅（调试切第 44 版／55 桌）以后，上一个厅留下的「看看 XX」「和 XX 聊聊」收掉
         if hall.big:
             for t in hall.cfg.get("tables", []):
                 cloud.fake_table_ids.append(str(t["id"]))   # 55 桌灰盒：主桌 MAIN + T1～T54
@@ -1019,6 +1040,15 @@ func _build_hud() -> void:
     book_btn.offset_bottom = -120
     book_btn.pressed.connect(_on_book_btn_pressed)
     hud.add_child(book_btn)
+    rel_btn = Button.new()
+    rel_btn.visible = false
+    rel_btn.clip_text = true
+    rel_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    rel_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    rel_btn.offset_top = -170
+    rel_btn.offset_bottom = -120
+    rel_btn.pressed.connect(func(): _open_rel_card(str(near_rel["title"]), str(near_rel["relation"])))
+    hud.add_child(rel_btn)
     chat_btn = Button.new()
     chat_btn.visible = false
     chat_btn.clip_text = true
@@ -1351,6 +1381,8 @@ func _goto(s: String) -> void:
         person_btn.visible = false
     if chat_btn != null and s != "banquet":
         chat_btn.visible = false
+    if rel_btn != null and s != "banquet":
+        rel_btn.visible = false
     if book_btn != null and s != "banquet":
         book_btn.visible = false
     if story_btn != null and s != "banquet":
@@ -1910,6 +1942,16 @@ func _on_person_near(openid: String) -> void:
     near_person_id = openid
     _refresh_seat_buttons()
 
+func _on_rel_near(title: String, relation: String) -> void:
+    near_rel = {"title": title, "relation": relation}
+    _refresh_seat_buttons()
+
+## 调试版：亲友按北京时间 → 强制开席 → 强制开席前 → 按北京时间
+func _set_feast_force(f: String) -> void:
+    feast_force = f
+    if USE_LAYERED and hall != null and hall.life != null and hall.life.relatives != null:
+        hall.life.relatives.set_force(f)
+
 func _on_family_near(key: String, title: String) -> void:
     near_family = {"key": key, "title": title}
     _refresh_seat_buttons()
@@ -1959,6 +2001,8 @@ func _refresh_seat_buttons() -> void:
         book_btn.visible = true
     chat_btn.visible = not blocked and not whisper_box.visible and USE_LAYERED and hall.big and str(near_family["title"]) != ""
     chat_btn.text = LINE_CHAT_FMT % str(near_family["title"])
+    rel_btn.visible = not blocked and not whisper_box.visible and USE_LAYERED and hall.big and str(near_rel["title"]) != ""
+    rel_btn.text = LINE_REL_FMT % str(near_rel["title"])
     # 故事卡只在 55 桌大厅有，而且这桌得有故事（阿鱼 9/29：没故事的桌走近不出卡）
     story_btn.visible = book_btn.visible and USE_LAYERED and hall.big and table_story(near_table_id, stories) != ""
     # 玩·XX：坐在自己的椅子上、这桌有小游戏才出（蓝图 3.2：坐在这桌才能开这桌的游戏）
@@ -2007,6 +2051,7 @@ func _layout_seat_buttons() -> void:
     var slots: Array[Button] = []
     if person_btn.visible: slots.append(person_btn)
     if chat_btn.visible: slots.append(chat_btn)
+    if rel_btn.visible: slots.append(rel_btn)
     if book_btn.visible: slots.append(book_btn)
     if play_btn.visible: slots.append(play_btn)
     if add_dish_btn.visible: slots.append(add_dish_btn)
@@ -2374,6 +2419,19 @@ func _open_story_card(tid: String) -> void:
     var text := table_story(tid, stories)
     if text == "":
         return
+    _open_info_card(LayeredHall.table_label(tid), text)
+    print("[suqi] 故事卡 ", tid)
+
+## 身份卡（55 桌亲友，01 D 9/29）：称呼 + 跟阿鱼什么关系（照 docs/宴会厅-亲友NPC-玩家说明.md 的原话）；
+## 关系【待讨论】的那几位（relation 空的）卡上只写称呼
+func _open_rel_card(title: String, relation: String) -> void:
+    if title == "" or story_open or not (USE_LAYERED and hall.big):
+        return
+    _open_info_card(title, relation)
+    print("[suqi] 身份卡 ", title)
+
+## 故事卡、身份卡共用的那张卡：暗底 + 金边面板，标题一行、正文一段（空的不放），「关上」；点暗处也收
+func _open_info_card(title: String, text: String) -> void:
     story_open = true
     hall.walking_enabled = false
     story_card = Control.new()
@@ -2395,10 +2453,11 @@ func _open_story_card(tid: String) -> void:
     var v := VBoxContainer.new()
     v.add_theme_constant_override("separation", 10)
     panel.add_child(v)
-    v.add_child(_label(LayeredHall.table_label(tid), 30, GOLD1))
-    var body := _label(text, 22, PAPER)
-    body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    v.add_child(body)
+    v.add_child(_label(title, 30, GOLD1))
+    if text != "":
+        var body := _label(text, 22, PAPER)
+        body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+        v.add_child(body)
     var close := Button.new()
     close.text = "关上"
     close.pressed.connect(_close_story_card)
@@ -2406,7 +2465,6 @@ func _open_story_card(tid: String) -> void:
     story_card.add_child(panel)
     ui.add_child(story_card)
     _refresh_seat_buttons()
-    print("[suqi] 故事卡 ", tid)
 
 func _close_story_card() -> void:
     if not story_open:
@@ -2995,10 +3053,11 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
-        "big_door", "big_stage", "big_table", "big_overview", "big_main":
+        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast":
             # 55 桌大厅灰盒（01 D 9/29 要的三张）：big_door 进门（站大门口看全场）；big_table 第一次进厅，镜头滑到自己那桌以后；
             # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）；
-            # big_main 站到主桌外婆跟前（阿鱼 9/29：主桌坐阿鱼家 13 位，称呼走近谁亮谁）
+            # big_main 站到主桌外婆跟前（阿鱼 9/29：主桌 10 座，称呼走近谁亮谁）；
+            # big_pre／big_feast 亲友开席前走动／开席坐下（01 D 9/29，调试开关强制，不等饭点），站在 T9、T11 中间看
             nickname = "小李"
             await _set_hall55(true, false)
             cloud.fake_no_news = shot != "big_table"   # 假服务端「没新鲜事」时一律当老客，第一次进厅要把它关了
@@ -3010,6 +3069,15 @@ func _setup_shot(shot: String) -> void:
             if shot == "big_door":
                 hall.reset_to(hall.SPAWN)
                 hall_door_latched = true   # 跳回门口：先当刚进门，不然一站上门圈就出厅了
+                hall.snap_cam()
+            elif shot == "big_pre" or shot == "big_feast":
+                hall.couple_armed = false
+                _set_feast_force("pre" if shot == "big_pre" else "feast")
+                var rel = hall.life.relatives
+                for i in int(25.0 / 0.05):
+                    rel._process(0.05)   # 快进 25 秒：开席前的人散开、找人说话；开席的人走回座位、有人去敬酒
+                var t9: Dictionary = hall._table_cfg("T9")
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(Vector2(float(t9["x"]) - 100.0, float(t9["y"]) - 60.0)))))
                 hall.snap_cam()
             elif shot == "big_main":
                 hall.couple_armed = false

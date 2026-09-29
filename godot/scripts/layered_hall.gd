@@ -1131,6 +1131,8 @@ func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
     if life != null and npc_taken.has(key):
         life.vacate(key)
         npc_taken = life.npc_taken
+    if life != null and life.relatives != null:
+        life.relatives.vacate(key)   # 55 桌：这把是亲友开席要坐的，亲友换一把
     _my_marker()
     sit_at(table_id, chair_no)
 

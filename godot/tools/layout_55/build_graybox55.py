@@ -41,6 +41,36 @@ FAMILY = {"table": "MAIN", "reserved": {"1": "阿鱼", "2": "Toretto"}, "seats":
     {"chair": 7, "title": "弟弟"}, {"chair": 8, "title": "弟妹"}, {"chair": 9, "title": "外公"}, {"chair": 10, "title": "外婆"}]}
 
 
+# 亲友 NPC（01 D 9/29，照 docs/宴会厅-亲友NPC-玩家说明.md a108150，阿鱼点过头）：18 位。
+# relation 照那页表里的原话抄；【待讨论】的几位空着，身份卡上只写称呼。没有男方父母、公婆、亲家（出阁宴）。
+# table：开席坐哪桌（02 定：主桌附近、不是 T1～T6 游戏桌的 T9、T11、T7）；group：开席前找熟人先找同一组的；
+# cards：开席后凑在 T11 打牌的四位（玩家只能看）；toast：开席后会端杯去主桌敬酒
+RELATIVES = {
+    "feast": [[12, 14], [17, 19]],    # 开席：北京时间每天 12:00～14:00、17:00～19:00（阿鱼 9/29 定），前闭后开
+    "tz_hours": 8,                     # 按北京时间算，不看手机时区
+    "cards_table": "T11",
+    "people": [
+        {"title": "大爸", "relation": "爸爸的大哥", "group": "大爸家", "table": "T9", "toast": True},
+        {"title": "大娘", "relation": "大哥的爱人", "group": "大爸家", "table": "T9", "toast": True},
+        {"title": "小虎哥", "relation": "大爸的大儿子", "group": "大爸家", "table": "T9", "toast": True},
+        {"title": "大嫂", "relation": "小虎哥的爱人", "group": "大爸家", "table": "T9", "toast": True},
+        {"title": "二爸", "relation": "爸爸的二哥", "group": "二爸家", "table": "T9", "toast": True},
+        {"title": "二娘", "relation": "二哥的爱人", "group": "二爸家", "table": "T9", "toast": True},
+        {"title": "二孃", "relation": "妈妈的堂姐", "group": "二爸家", "table": "T9", "toast": True},
+        {"title": "四孃", "relation": "", "group": "四孃家", "table": "T11", "cards": True},
+        {"title": "四姑爷", "relation": "", "group": "四孃家", "table": "T11", "cards": True},
+        {"title": "六孃", "relation": "", "group": "六孃家", "table": "T11", "cards": True},
+        {"title": "六姑爷", "relation": "", "group": "六孃家", "table": "T11", "cards": True},
+        {"title": "小舅", "relation": "", "group": "小舅家", "table": "T11", "toast": True},
+        {"title": "小舅妈", "relation": "", "group": "小舅家", "table": "T11", "toast": True},
+        {"title": "周叔", "relation": "阿鱼爸爸最好的朋友", "group": "爸爸的朋友", "table": "T7", "toast": True},
+        {"title": "李叔", "relation": "阿鱼爸爸最好的朋友", "group": "爸爸的朋友", "table": "T7", "toast": True},
+        {"title": "丹孃", "relation": "周叔的爱人", "group": "爸爸的朋友", "table": "T7", "toast": True},
+        {"title": "小江", "relation": "阿鱼初中起的好朋友，男生，现在最熟的老朋友", "group": "阿鱼的朋友", "table": "T7", "toast": True},
+        {"title": "表弟媳", "relation": "阿鱼表弟的媳妇，有两个女儿", "group": "阿鱼的朋友", "table": "T7", "toast": True},
+    ]}
+
+
 def block_image(it):
     """一件东西画成一张透明底的小图，和摆位图同一套画法"""
     x, y, w, h = it["box"]
@@ -186,9 +216,14 @@ def main():
     # 厅里的热闹
     rng = random.Random(55)
     npc = {}
+    rel_n = {}
+    for r in RELATIVES["people"]:
+        rel_n[r["table"]] = rel_n.get(r["table"], 0) + 1
     for t in tables:
         if t["id"] != "MAIN":
             npc[t["id"]] = rng.randint(9, 10)   # 每桌 9～10（阿鱼定）；主桌不放随机宾客，坐阿鱼家里人（family）
+            if t["id"] in rel_n:
+                npc[t["id"]] = 10 - rel_n[t["id"]]   # 亲友那几桌：随机宾客让出亲友的座（开席前那几把空着，亲友在厅里走动）
     decals = []
     placed = []
     carpet = [it for it in items if it["name"] == "红毯"][0]["box"]
@@ -210,6 +245,7 @@ def main():
         "decals": decals, "glows": [],
         "npc_tables": npc,
         "family": FAMILY,
+        "relatives": RELATIVES,
         "waiters": {"count": 6, "door": [W - 70, (d0 + d1) // 2], "speed_m": 1.5},
         "petals": {"amount": 60},
     }

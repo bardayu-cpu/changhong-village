@@ -12,6 +12,7 @@ signal family_near(key: String, title: String)   # 走近主桌家里人（亮�
 ## 摆哪、几个在 assets/ambience/ambience.json（tools/make_ambience_layout.py 生成）
 
 const Spr = preload("res://scripts/sprites.gd")
+const Relatives = preload("res://scripts/relatives.gd")
 const DIR := "res://assets/ambience/"
 const FH := 32.0             # 代码画的人一帧 16×32
 const WALK_FPS := 5.0        # 服务员走得比玩家慢，迈腿也慢一点
@@ -91,6 +92,7 @@ var orders: Array = []
 const ORDER_WAIT_MAX := 12.0
 const ORDER_NAME_SECS := 6.0     # 菜名在桌上显示几秒（看清是哪道，然后收掉，不长期挡着）
 var guest_atlas: ImageTexture
+var relatives: Node2D = null     # 55 桌大厅的亲友 NPC（relatives.gd；ambience 里有 relatives 才建）
 
 func build(h: Node2D) -> void:
     var t0 := Time.get_ticks_usec()
@@ -112,6 +114,11 @@ func build(h: Node2D) -> void:
     _glows()
     _petals()
     _waiters()
+    if conf.has("relatives"):
+        relatives = Relatives.new()
+        relatives.name = "relatives"
+        add_child(relatives)
+        relatives.setup(hall, self, conf["relatives"])
     print("[suqi] 厅里的热闹搭好了 用时 %d 毫秒（彩带 %d 灯笼光 %d 服务员 %d）" % [
         (Time.get_ticks_usec() - t0) / 1000, conf.get("decals", []).size(), glows.size(), waiters.size()])
 
@@ -876,6 +883,8 @@ func seat_guests(taken: Dictionary) -> Dictionary:
         if not toast_next.has(tid):
             toast_next[tid] = rng.randf_range(2.0, TOAST.y)
     _seat_family(taken)
+    if relatives != null:
+        relatives.seat(taken)
     print("[suqi] 别桌 NPC 宾客 %d 个 用时 %d 毫秒" % [guests.size(), (Time.get_ticks_usec() - t0) / 1000])
     return npc_taken
 
