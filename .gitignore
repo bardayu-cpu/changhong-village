@@ -15,3 +15,6 @@ server-claude/cloudfunctions/*/words/
 
 # 02 盯 GPT 交接文件夹的「上次查看」时间（godot/tools/gpt_inbox.py），只在本机
 .gpt_inbox_stamp.json
+
+# 别人的素材包，只拿来试做法，不进仓库、不进游戏（01 D 9/29）
+godot/参考/
