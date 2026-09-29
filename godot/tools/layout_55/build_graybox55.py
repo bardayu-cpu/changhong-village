@@ -25,7 +25,7 @@ import math
 import os
 import random
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
@@ -36,6 +36,16 @@ ART = os.path.join(HERE, "art")
 ART_BG = os.path.join(ART, "base_banquet55_north_v1.png")
 ART_PIECES = {"table": "blk_banquet55_table_v1.png", "table_main": "blk_banquet55_table_main_v1.png",
               "bench": "blk_banquet55_bench_v1.png", "lantern": "blk_banquet55_lantern_v1.png", "flowerpot": "blk_banquet55_flowerpot_v1.png"}
+# 乐队台上的乐手（01 D 9/30）：用 12 桌厅那套 GPT 乐手零件（band v3）。只摆两位站着的小提琴手：
+# 量过（人 84、坐着 62）：小提琴 a 高 107（1.3 倍）、b 120（1.4 倍），都没超 1.5 倍，照原样摆在背景两个谱架前面；
+# 弹钢琴的、拉大提琴的零件里自带钢琴、大提琴和椅子，背景里已经画了一套，摆上去就是两架钢琴两把琴；大提琴手还有 1.85 倍，
+# 缩到 0.53 倍脸糊了——这两位先不摆，报 01（见 回执/55桌接图v1-回执.md 9/30 那节）
+BAND_PLAYERS = [
+    {"id": "小提琴手甲", "file": "blk_banquet_band_violin_player_a_v3.png", "anchor": (45, 135), "foot": (1305, 414)},
+    {"id": "小提琴手乙", "file": "blk_banquet_band_violin_player_b_v3.png", "anchor": (43, 134), "foot": (1370, 414)},
+]
+# 桌下软边暗影（01 D 9/30）：每桌底下一块 150×95、黑 20% 的软边椭圆，烘进底图（压在地砖上、桌子下面）
+TABLE_SHADOW = {"w": 150, "h": 95, "alpha": 0.20, "blur": 8, "dx": 5, "dy": 0}
 SOUTH_BAND = (964, 1024)   # 往南接地砖用背景的哪几行（最下面一个砖高 60：往下的砖一行行已经差不多一样高了）
 # 座位圈（量零件图里椅子的位置，02 9/30）：10 把椅子正好每 36° 一把、从正北起；圈心相对桌子占地中心、圈的半径
 SEAT_TABLE = {"abs": True, "dx": 5.0, "dy": -8.0, "rx": 52.0, "ry": 40.0}
@@ -182,6 +192,21 @@ def main():
         bg = Image.open(ART_BG).convert("RGB")
         base, seam = south_extend(bg, W, H)
         bounds = floor_bounds(bg)
+        # 桌下暗影：一块黑的椭圆，边上高斯糊开，乘 20% 叠上去
+        sh = TABLE_SHADOW
+        pad = sh["blur"] * 3
+        m = Image.new("L", (sh["w"] + pad * 2, sh["h"] + pad * 2), 0)
+        ImageDraw.Draw(m).ellipse([pad, pad, pad + sh["w"] - 1, pad + sh["h"] - 1], fill=255)
+        m = m.filter(ImageFilter.GaussianBlur(sh["blur"])).point(lambda v: int(v * sh["alpha"]))
+        dark = Image.new("RGBA", m.size, (0, 0, 0, 0))
+        dark.putalpha(m)
+        base = base.convert("RGBA")
+        for it in items:
+            if it["kind"] == "table":
+                fx, fy, fw, fh = it["foot"]
+                cx, cy = fx + fw // 2 + sh["dx"], fy + fh // 2 + sh["dy"]
+                base.alpha_composite(dark, (cx - m.width // 2, cy - m.height // 2))
+        base = base.convert("RGB")
         g = ImageDraw.Draw(base)
         for it in items:
             if it["name"] == "东侧门（门洞）":   # 背景里没有侧门（墙在 y 760 往下出了画面）：还画色块
@@ -222,6 +247,14 @@ def main():
         occ.append({"id": it["name"], "image": imgs[key], "x": x, "y": y, "foot": foot})
 
     # 桌：主桌 MAIN + T1～T54；x、y 是占地中心（和 12 桌厅一样的规矩），rx、ry 是占地半径
+    if art:
+        for k, bp in enumerate(BAND_PLAYERS):
+            name = "art_band_%d.png" % k
+            Image.open(os.path.join(ART, bp["file"])).save(os.path.join(OUT, name))
+            art_res["band_%d" % k] = RES + name
+            ax, ay = bp["anchor"]
+            fx, fy = bp["foot"]
+            occ.append({"id": bp["id"], "image": RES + name, "x": fx - ax, "y": fy - ay, "foot": fy})
     tables = []
     for it in items:
         if it["kind"] != "table":
