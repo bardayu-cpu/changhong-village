@@ -783,6 +783,7 @@ var bench_y := BENCH_Y
 var bench_draw := true
 var sign_near := false           # 认桌（01 D 9/29，55 桌）：只给自己那桌、走近的那桌挂牌，其余不挂
 var table_signs: Dictionary = {} # table_id -> 桌牌（sign_near 时建好先藏着）
+var main_seat_ok := false        # 55 桌：我是不是阿鱼、Toretto 本人（enterHall 的 mainSeatOk）；不是就走到主桌空椅子前也不冒「坐这儿」
 var seat_marker: Polygon2D
 var chairs: Array = []          # [{table_id, chair_no, pos}]
 var seat_taken: Dictionary = {} # "T1:3" -> openid
@@ -826,6 +827,7 @@ func seat_in_front(t: Dictionary, seat: Vector2) -> bool:
     return seat.y >= _seat_center(t).y - 0.5 * float(t["ry"])
 
 func set_seats(data: Dictionary, me_id: String) -> void:
+    main_seat_ok = bool(data.get("mainSeatOk", false))
     if seats_holder != null:
         seats_holder.queue_free()
     if seat_tags != null:
@@ -1219,6 +1221,8 @@ func _scan_chairs(dt: float) -> void:
                 continue   # NPC 坐着的也算空椅子：坐下时 NPC 让座
             if life != null and life.family_keys.has(key):
                 continue   # 55 桌主桌上阿鱼家里人的椅子：不让座，也不冒「坐这儿」
+            if not main_seat_ok and str(c["table_id"]) == "MAIN":
+                continue   # 主桌 1、2 号空椅子是阿鱼、Toretto 本人的，别人走到跟前不冒「坐这儿」（01 D 9/29）
             var d: float = pos.distance_to(c["pos"])
             if d < best_d:
                 best_d = d

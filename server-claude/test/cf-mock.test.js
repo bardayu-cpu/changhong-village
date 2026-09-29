@@ -1235,6 +1235,7 @@ async function scenarioEnterHallMainTable() {
     check(res.data.me.table_id === 'T1' && res.data.me.chair_no === 1, `场景28 12 桌厅阿鱼本人照旧坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
     check(res.data.tables.length === 12 && res.data.tables.every(t => !('main' in t)) && res.data.tables[0].id === 'T1', `场景28 12 桌厅返回 12 桌、没有主桌（实际 ${res.data.tables.map(t => t.id).join(',')}）`);
     check(JSON.stringify(Object.keys(res.data.tables[0])) === JSON.stringify(['id', 'reserved', 'seats']), `场景28 12 桌厅每桌字段跟原来一样（实际 ${Object.keys(res.data.tables[0])}）`);
+    check(!('mainSeatOk' in res.data), '场景28 12 桌厅不回 mainSeatOk，返回跟原来一样');
   }
 
   for (const flag of [false, true]) {
@@ -1249,6 +1250,9 @@ async function scenarioEnterHallMainTable() {
       check(tables[1].id === 'T1' && tables[1].reserved === true && tables[54].id === 'T54' && tables.slice(1).every(t => !t.main), `场景28 开关${flag} 主桌后面是 T1..T54`);
       check(tables.length * 10 === 550, `场景28 开关${flag} 主桌 + 54 桌 = 550 把椅子`);
       check(tables[0].seats.length === 1 && tables[0].seats[0].openid === 'AYU', `场景28 开关${flag} 主桌上坐着阿鱼`);
+      check(res.data.mainSeatOk === true, `场景28 开关${flag} 阿鱼本人 mainSeatOk 是 true（实际 ${res.data.mainSeatOk}）`);
+      res = await enterAs(sdk, state, 'AYU');
+      check(res.data.mainSeatOk === true && res.data.me.table_id === 'MAIN', `场景28 开关${flag} 阿鱼再进厅（不是第一次）mainSeatOk 照样 true（实际 ${res.data.mainSeatOk}）`);
       res = await enterAs(sdk, state, 'TOR');
       check(res.data.me.table_id === 'MAIN' && res.data.me.chair_no === 2, `场景28 开关${flag} Toretto 本人（有邀请人）也坐主桌，椅子取最小空号 2（实际 ${JSON.stringify(res.data.me)}）`);
       res = await enterAs(sdk, state, 'a1');
@@ -1260,6 +1264,9 @@ async function scenarioEnterHallMainTable() {
       res = await enterAs(sdk, state, 'x1');
       check(res.data.me.table_id !== 'MAIN', `场景28 开关${flag} 别的枝不进主桌（实际 ${JSON.stringify(res.data.me)}）`);
       check(res.data.tables[0].seats.map(s => s.openid).join(',') === 'AYU,TOR', `场景28 开关${flag} 主桌上只有阿鱼、Toretto`);
+      check(res.data.mainSeatOk === false, `场景28 开关${flag} 别人 mainSeatOk 是 false（实际 ${res.data.mainSeatOk}）`);
+      res = await enterAs(sdk, state, 'x1');
+      check(res.data.mainSeatOk === false, `场景28 开关${flag} 别人再进厅 mainSeatOk 还是 false（实际 ${res.data.mainSeatOk}）`);
     });
 
     // 54 桌全坐满、主桌只坐了阿鱼：别人进来去长凳，不进主桌；Toretto 本人照样坐主桌

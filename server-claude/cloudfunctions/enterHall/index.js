@@ -70,9 +70,11 @@ exports.main = async () => {
   mySeat = mySeat && mySeat.data;
   const firstVisit = !mySeat;
   let tableWasEmpty = false;
+  let vip = null;   // 第一次进厅分座时读；55 桌厅回 mainSeatOk 时没读过再读一次
 
   if (!mySeat) {
-    const [{ tables, mainTable, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
+    let tables, mainTable, byTable;
+    [{ tables, mainTable, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
     // 长凳门槛看 config.BANQUET_BENCH_ONLY_WHEN_FULL（false 旧规矩 / true 普通桌全满才去长凳），规矩见 rules/banquet.js；
     // me 只在新规矩下用：阿鱼/Toretto 自己没有邀请人时也能坐前两桌
     // mainTable 只有 55 桌厅才有：阿鱼、Toretto 本人先坐主桌（12 桌厅是 null，跟原来一样）
@@ -195,9 +197,7 @@ exports.main = async () => {
     gift_coins: typeof rd.gift_coins === 'number' ? rd.gift_coins : 0,
   };
 
-  return {
-    ok: true,
-    data: {
+  const data = {
       me: { table_id: mySeat.table_id, chair_no: mySeat.chair_no },
       // 55 桌厅：主桌排第一项，带 main:true；12 桌厅没有这一项，跟原来一样
       tables: (MAIN_ID ? [{ id: MAIN_ID, main: true, reserved: false, seats: byTableNow[MAIN_ID] || [] }] : [])
@@ -207,6 +207,9 @@ exports.main = async () => {
       arrival,
       names,
       mine,
-    },
   };
+  // 55 桌厅才有：我是不是阿鱼、Toretto 本人（主桌 1、2 号能坐）。客户端别人走到那两把空椅子前就不冒「坐这儿」（01 D 9/29）。
+  // 12 桌厅不回这个字段，返回跟原来一样
+  if (MAIN_ID) data.mainSeatOk = (vip || await loadVip()).has(OPENID);
+  return { ok: true, data };
 };

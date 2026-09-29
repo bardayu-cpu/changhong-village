@@ -266,7 +266,21 @@ func run() -> void:
     h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(chair13 + Vector2(-30, 0)))))
     h._scan_chairs(1.0)
     await frames(1)
-    check("走到家里人椅子跟前不冒「坐这儿」（最近的椅子 %s）" % [m.near_seat_info], not str(m.near_seat_info.get("table_id", "")).begins_with("MAIN") or int(m.near_seat_info.get("chair_no", 0)) <= 2)
+    check("走到家里人椅子跟前不冒「坐这儿」（最近的椅子 %s）" % [m.near_seat_info], not str(m.near_seat_info.get("table_id", "")).begins_with("MAIN"))
+    # 1、2 号空椅子：别人走到跟前也不冒「坐这儿」（01 D 9/29）；阿鱼、Toretto 本人（mainSeatOk）才冒
+    var c1: Vector2 = h.chair_world(mt, 1)
+    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(c1 + Vector2(0, -36)))))
+    h._scan_chairs(1.0)
+    await frames(1)
+    check("别人站在主桌 1 号空椅子跟前：不冒「坐这儿」（%s，mainSeatOk %s）" % [m.near_seat_info, h.main_seat_ok],
+        not h.main_seat_ok and not str(m.near_seat_info.get("table_id", "")).begins_with("MAIN"))
+    h.main_seat_ok = true   # 当自己是阿鱼本人（服务端 enterHall 回 mainSeatOk: true）
+    h._scan_chairs(1.0)
+    await frames(1)
+    check("阿鱼本人站在那儿：冒 1 号「坐这儿」（%s）" % [m.near_seat_info], str(m.near_seat_info.get("table_id", "")) == "MAIN" and int(m.near_seat_info.get("chair_no", 0)) == 1)
+    h.main_seat_ok = false
+    h._scan_chairs(1.0)
+    await frames(1)
     # 称呼走近谁亮谁：11 块一起挂会叠成一摞
     h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(chair13 + Vector2(0, -40)))))
     h.life._family_near()
@@ -318,6 +332,8 @@ func run() -> void:
     m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 11}, func(r): got["m14"] = r)
     await create_timer(1.0).timeout
     var et: Array = got.get("enter", {}).get("data", {}).get("tables", [])
+    check("55 桌厅回 mainSeatOk（电脑上的「我」不是本人：%s）" % got.get("enter", {}).get("data", {}).get("mainSeatOk", "没回"),
+        got.get("enter", {}).get("data", {}).get("mainSeatOk", null) == false)
     check("回 55 张桌、第一张是主桌", et.size() == 55 and str(et[0]["id"]) == "MAIN" and bool(et[0].get("main", false)))
     check("T55、11 号椅都拒：%s %s" % [got.get("t55", {}).get("reason", ""), got.get("c11", {}).get("reason", "")],
         got.get("t55", {}).get("reason", "") == "bad_request" and got.get("c11", {}).get("reason", "") == "bad_request")
@@ -333,7 +349,7 @@ func run() -> void:
     feat["换桌"] = str(h.my_seat.get("table_id", "")) == "T33" and m.note.text == "坐好了"
     check("换桌：换到 T33 7 号 %s，顶上「%s」" % [h.my_seat, m.note.text], feat["换桌"])
     await sit(h, "MAIN", 3)
-    check("换到主桌：不让，顶上「%s」，还坐 T33" % m.note.text, m.note.text == "主桌是新人家里人坐的" and str(h.my_seat.get("table_id", "")) == "T33")
+    check("换到主桌：不让，顶上「%s」，还坐 T33" % m.note.text, m.note.text == "主桌是阿鱼家里人坐的" and str(h.my_seat.get("table_id", "")) == "T33")
     m._open_person_card("fake_wang")
     feat["看人"] = m.card_open and m.person_card.visible and m.person_card_name.text == "老王"
     check("看人：老王的卡片", feat["看人"])

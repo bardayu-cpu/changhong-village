@@ -22,6 +22,7 @@ var _probed := false
 # ---- 电脑上的假数据：两个人坐着，自己第一次进厅会被分到 T1 ----
 var fake_me := {"table_id": "", "chair_no": 0}
 var fake_tables := 12     # 假服务端回几张桌：12 桌厅 12；55 桌大厅 55（01 9/24：座位 550 先在假服务端里改，真服务端不部署）
+var fake_main_ok := false        # 55 桌：假服务端当「我」是不是阿鱼、Toretto 本人（enterHall 的 mainSeatOk，服务端 9/29 加，不部署）
 var fake_table_ids: Array = []   # 55 桌大厅灰盒（01 D 9/29）：照场景的桌号表回（主桌 MAIN + T1～T54）；空的就照 fake_tables 回 T1～Tn
 var fake_seats := {"T1": [{"openid": "fake_wang", "chair_no": 1}], "T2": [{"openid": "fake_li", "chair_no": 4}]}
 ## inviter 照服务端的字段（enterHall/index.js）：没有邀请人是 null，不是空字符串。
@@ -215,12 +216,15 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 if tid == "MAIN":
                     tb["main"] = true   # 主桌：新人家那桌（服务端 BANQUET_MAIN_TABLE_ID，不部署）
                 tables.append(tb)
-            return {"ok": true, "data": {"me": fake_me, "tables": tables, "bench": fake_bench,
+            var extra := {}
+            if not fake_table_ids.is_empty():
+                extra["mainSeatOk"] = fake_main_ok   # 55 桌厅才回（和服务端一样，12 桌厅不回）
+            return {"ok": true, "data": extra.merged({"me": fake_me, "tables": tables, "bench": fake_bench,
                 "digest": {"toasts": [], "toastCount": 0, "bookLineCount": 0, "hasNews": false} if fake_no_news else
                     {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
                 "arrival": _fake_arrival(),
                 "mine": fake_mine,
-                "names": fake_names}}
+                "names": fake_names})}
         "changeSeat":
             # 入参跟服务端一样是驼峰 tableId、chairNo（cloudfunctions/changeSeat/index.js）。
             # 少一个就和服务端一样回 bad_request，这样字段名发错在电脑上就能测出来
