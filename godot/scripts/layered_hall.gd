@@ -781,6 +781,7 @@ var bench_x0 := BENCH_X0         # 长凳（场景配置 bench 能改；55 桌�
 var bench_x1 := BENCH_X1
 var bench_y := BENCH_Y
 var bench_draw := true
+const SIGN_BELOW := 55.0         # 55 桌桌牌挂在桌心往下多少（桌子占地下沿 46 再往下一点）
 var sign_near := false           # 认桌（01 D 9/29，55 桌）：只给自己那桌、走近的那桌挂牌，其余不挂
 var table_signs: Dictionary = {} # table_id -> 桌牌（sign_near 时建好先藏着）
 var main_seat_ok := false        # 55 桌：我是不是阿鱼、Toretto 本人（enterHall 的 mainSeatOk）；不是就走到主桌空椅子前也不冒「坐这儿」
@@ -949,9 +950,15 @@ func _table_sign(t: Dictionary, nick: String) -> void:
     l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     l.size = l.get_combined_minimum_size()   # 牌子只包住字，居中立在桌心
     l.position = _seat_center(t) - Vector2(l.size.x * 0.5, l.size.y + 8.0)   # 立在簿子上方，不挡簿子
+    if sign_near:
+        # 55 桌：挂在桌子下沿（桌心往下 55），不压桌面和桌上的东西（04 新 1：T11 的牌、主桌、1 号桌都被盖住过）
+        l.position = Vector2(float(t["x"]), float(t["y"]) + SIGN_BELOW) - Vector2(l.size.x * 0.5, l.size.y * 0.5)
     l.name = "sign_" + str(t["id"])
     seat_tags.add_child(l)
     if sign_near:
+        # 进树以后再量一次大小、摆一次（不在树里量出来偏窄，牌子往右歪；第 44 版的桌牌还是老样子，01 定下次一起修）
+        l.size = l.get_combined_minimum_size()
+        l.position = Vector2(float(t["x"]), float(t["y"]) + SIGN_BELOW) - Vector2(l.size.x * 0.5, l.size.y * 0.5)
         l.set_meta("tid", str(t["id"]))
         table_signs[str(t["id"])] = l
         l.visible = _sign_shown(str(t["id"]))
@@ -1133,6 +1140,11 @@ func apply_change(table_id: String, chair_no: int, me_id: String) -> void:
         npc_taken = life.npc_taken
     if life != null and life.relatives != null:
         life.relatives.vacate(key)   # 55 桌：这把是亲友开席要坐的，亲友换一把
+    if life != null and life.reserved_cards.has(key):
+        var card: Label = life.reserved_cards[key]
+        if is_instance_valid(card):
+            card.queue_free()        # 阿鱼、Toretto 本人坐上去了：那张座签收掉
+        life.reserved_cards.erase(key)
     _my_marker()
     sit_at(table_id, chair_no)
 

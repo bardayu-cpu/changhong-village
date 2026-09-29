@@ -205,6 +205,11 @@ func run() -> void:
     on_screen.erase(mine)   # 自己那桌一直挂着（这会儿在屏幕上面，看不见）
     check("别的桌没挂牌，只亮 T40：%s" % [on_screen], on_screen == ["T40"])
     check("牌上先写桌号：%s" % (h.table_signs["T40"] as Label).text, (h.table_signs["T40"] as Label).text.begins_with("40 号桌"))
+    var s40: Label = h.table_signs["T40"]
+    var t40: Dictionary = h._table_cfg("T40")
+    var sc40: Vector2 = s40.position + s40.size * 0.5
+    check("桌牌挂在桌子下沿（牌子中心 %s，桌心 %s，往下 %.0f），不压桌面" % [sc40, Vector2(t40["x"], t40["y"]), sc40.y - float(t40["y"])],
+        absf(sc40.y - float(t40["y"]) - 55.0) < 2.0 and absf(sc40.x - float(t40["x"])) < 2.0 and s40.position.y > float(t40["y"]) + float(t40["ry"]) - 20.0)
     var my_sign: Label = h.table_signs[mine]
     check("自己那桌：%s（只写桌号和游戏名，不写「XX那桌」，宽 %.0f）" % [my_sign.text, my_sign.size.x],
         my_sign.text.begins_with(LayeredHall.table_label(mine)) and not my_sign.text.contains("那桌") and my_sign.size.x < 240.0)   # 原来带「老王那桌」334 宽
@@ -256,6 +261,14 @@ func run() -> void:
         if g.table == "MAIN":
             fam_on_main += 1
     check("主桌上的 NPC 就是这 8 位（%d），没有随机宾客" % fam_on_main, fam_on_main == 8)
+    var cards: Dictionary = h.life.reserved_cards
+    var card_txt: Array = []
+    for k in ["MAIN:1", "MAIN:2"]:
+        if cards.has(k):
+            card_txt.append((cards[k] as Label).text)
+    var c1pos: Vector2 = h.chair_world(mt, 1)
+    check("1、2 号空椅上摆着小红座签 %s" % [card_txt], card_txt == ["阿鱼", "Toretto"]
+        and absf((cards["MAIN:1"] as Label).position.x + (cards["MAIN:1"] as Label).size.x * 0.5 - c1pos.x) < 2.0)
     check("1、2 号留给阿鱼、Toretto 本人（没来就空着）", not h.life.npc_taken.has("MAIN:1") and not h.life.npc_taken.has("MAIN:2")
         and h.life.conf["family"]["reserved"] == {"1": "阿鱼", "2": "Toretto"})
     var tag13: Label = h.life.family_tags["MAIN:10"]
@@ -281,6 +294,13 @@ func run() -> void:
     h.main_seat_ok = false
     h._scan_chairs(1.0)
     await frames(1)
+    # 阿鱼本人坐上 1 号：那张座签收掉，2 号的还在
+    var card1: Label = h.life.reserved_cards["MAIN:1"]
+    h.apply_change("MAIN", 1, "vip_ayu_test")
+    await frames(2)
+    check("阿鱼本人坐上 1 号：1 号座签收了，2 号还在", not is_instance_valid(card1) and h.life.reserved_cards.has("MAIN:2") and not h.life.reserved_cards.has("MAIN:1"))
+    h.stand_up()
+    h.seat_taken.erase("MAIN:1")
     # 称呼走近谁亮谁：11 块一起挂会叠成一摞
     h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(chair13 + Vector2(0, -40)))))
     h.life._family_near()

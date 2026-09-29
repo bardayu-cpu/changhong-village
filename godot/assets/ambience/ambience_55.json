@@ -728,35 +728,47 @@
   "seats": [
    {
     "chair": 3,
-    "title": "爷爷"
+    "title": "爷爷",
+    "sex": "m",
+    "elder": true
    },
    {
     "chair": 4,
-    "title": "奶奶"
+    "title": "奶奶",
+    "sex": "f",
+    "elder": true
    },
    {
     "chair": 5,
-    "title": "爸爸"
+    "title": "爸爸",
+    "sex": "m"
    },
    {
     "chair": 6,
-    "title": "妈妈"
+    "title": "妈妈",
+    "sex": "f"
    },
    {
     "chair": 7,
-    "title": "弟弟"
+    "title": "弟弟",
+    "sex": "m"
    },
    {
     "chair": 8,
-    "title": "弟妹"
+    "title": "弟妹",
+    "sex": "f"
    },
    {
     "chair": 9,
-    "title": "外公"
+    "title": "外公",
+    "sex": "m",
+    "elder": true
    },
    {
     "chair": 10,
-    "title": "外婆"
+    "title": "外婆",
+    "sex": "f",
+    "elder": true
    }
   ]
  },
@@ -776,6 +788,7 @@
   "people": [
    {
     "title": "大爸",
+    "sex": "m",
     "relation": "爸爸的大哥",
     "group": "大爸家",
     "table": "T9",
@@ -783,6 +796,7 @@
    },
    {
     "title": "大娘",
+    "sex": "f",
     "relation": "大哥的爱人",
     "group": "大爸家",
     "table": "T9",
@@ -790,6 +804,7 @@
    },
    {
     "title": "小虎哥",
+    "sex": "m",
     "relation": "大爸的大儿子",
     "group": "大爸家",
     "table": "T9",
@@ -797,6 +812,7 @@
    },
    {
     "title": "大嫂",
+    "sex": "f",
     "relation": "小虎哥的爱人",
     "group": "大爸家",
     "table": "T9",
@@ -804,6 +820,7 @@
    },
    {
     "title": "二爸",
+    "sex": "m",
     "relation": "爸爸的二哥",
     "group": "二爸家",
     "table": "T9",
@@ -811,6 +828,7 @@
    },
    {
     "title": "二娘",
+    "sex": "f",
     "relation": "二哥的爱人",
     "group": "二爸家",
     "table": "T9",
@@ -818,6 +836,7 @@
    },
    {
     "title": "二孃",
+    "sex": "f",
     "relation": "妈妈的堂姐",
     "group": "二爸家",
     "table": "T9",
@@ -825,6 +844,7 @@
    },
    {
     "title": "四孃",
+    "sex": "f",
     "relation": "",
     "group": "四孃家",
     "table": "T11",
@@ -832,6 +852,7 @@
    },
    {
     "title": "四姑爷",
+    "sex": "m",
     "relation": "",
     "group": "四孃家",
     "table": "T11",
@@ -839,6 +860,7 @@
    },
    {
     "title": "六孃",
+    "sex": "f",
     "relation": "",
     "group": "六孃家",
     "table": "T11",
@@ -846,6 +868,7 @@
    },
    {
     "title": "六姑爷",
+    "sex": "m",
     "relation": "",
     "group": "六孃家",
     "table": "T11",
@@ -853,6 +876,7 @@
    },
    {
     "title": "小舅",
+    "sex": "m",
     "relation": "",
     "group": "小舅家",
     "table": "T11",
@@ -860,6 +884,7 @@
    },
    {
     "title": "小舅妈",
+    "sex": "f",
     "relation": "",
     "group": "小舅家",
     "table": "T11",
@@ -867,6 +892,7 @@
    },
    {
     "title": "周叔",
+    "sex": "m",
     "relation": "阿鱼爸爸最好的朋友",
     "group": "爸爸的朋友",
     "table": "T7",
@@ -874,6 +900,7 @@
    },
    {
     "title": "李叔",
+    "sex": "m",
     "relation": "阿鱼爸爸最好的朋友",
     "group": "爸爸的朋友",
     "table": "T7",
@@ -881,6 +908,7 @@
    },
    {
     "title": "丹孃",
+    "sex": "f",
     "relation": "周叔的爱人",
     "group": "爸爸的朋友",
     "table": "T7",
@@ -888,6 +916,7 @@
    },
    {
     "title": "小江",
+    "sex": "m",
     "relation": "阿鱼初中起的好朋友，男生，现在最熟的老朋友",
     "group": "阿鱼的朋友",
     "table": "T7",
@@ -895,6 +924,7 @@
    },
    {
     "title": "表弟媳",
+    "sex": "f",
     "relation": "阿鱼表弟的媳妇，有两个女儿",
     "group": "阿鱼的朋友",
     "table": "T7",

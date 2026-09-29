@@ -20,6 +20,7 @@ const TOAST_EVERY := Vector2(12.0, 24.0)   # 开席后隔多久有一位去主�
 const TOAST_HOLD := 2.6
 const CARD_EVERY := Vector2(1.2, 2.2)      # 打牌：隔多久有人出一张
 const CHECK_EVERY := 2.0                   # 隔多久看一次钟（到没到饭点）
+const CARD_UP := 20.0                      # 牌摆在桌心往上多少（桌面露出来的那半）
 
 class Rel:
     var title := ""
@@ -86,6 +87,8 @@ func setup(h: Node2D, l: Node2D, c: Dictionary) -> void:
     carpet = Vector2(768.0 - 72.0 - 14.0, 768.0 + 72.0 + 14.0)   # 红毯 3 米宽（摆位图 CX=768），两边各留 14 像素，停人不停在上面
     _spots()
     var i := 0
+    var pools: Dictionary = life.look_pools()
+    var counters := {}
     for p in c.get("people", []):
         var r := Rel.new()
         r.title = str(p["title"])
@@ -94,7 +97,7 @@ func setup(h: Node2D, l: Node2D, c: Dictionary) -> void:
         r.table = str(p.get("table", ""))
         r.cards = bool(p.get("cards", false))
         r.toast = bool(p.get("toast", false))
-        r.row = absi(hash("rel:" + r.title)) % life.LOOKS
+        r.row = life.pick_look(p, pools, counters)   # 按称呼分男女挑长相（04 9/29）
         _make_node(r)
         rels.append(r)
         i += 1
@@ -296,9 +299,20 @@ func _process(dt: float) -> void:
     _near()
     _declutter()
 
-## 两位挨着站（说话、停在相邻的地方）时称呼牌会叠：从上往下排，跟已经排好的哪块叠了就往上抬一行；
-## 抬两行还叠（三四个人挤在一起、路过的人擦肩），这一位的牌先收起来，散开了自己回来（走到跟前照样冒「看看 XX」）
+## 称呼牌不叠、不被屏幕边切（04 新 2、新 3；跟名字牌第一轮 B4 同一条规矩）：
+## 1. 贴屏幕边：牌子中点还在屏幕里的往里收，中点出了屏幕的先不显示（和 layered_hall._keep_tags_on_screen 一样）
+## 2. 两位挨着站时：从上往下排，跟已经排好的哪块叠了就往上抬一行；抬两行还叠（三四个人挤成一团），
+##    这一位的牌先收起来，散开了自己回来（走到跟前照样冒「看看 XX」）
+const TAG_GAP := 4.0
 func _declutter() -> void:
+    var lo := -INF
+    var hi := INF
+    var cam: Camera2D = hall.cam
+    if cam != null and cam.zoom.x > 0.0:
+        var half := float(hall.get_viewport().get_visible_rect().size.x) * 0.5 / cam.zoom.x
+        var cx := cam.get_screen_center_position().x
+        lo = cx - half + 4.0
+        hi = cx + half - 4.0
     var placed: Array = []   # [Rect2]
     var order: Array = []
     for r in rels:
@@ -307,16 +321,21 @@ func _declutter() -> void:
     order.sort_custom(func(a, b): return a.pos.y < b.pos.y)
     for r in order:
         var rect := Rect2(r.pos + r.tag.position, r.tag.size)
+        var mid := rect.position.x + rect.size.x * 0.5
+        if mid < lo or mid > hi:
+            r.tag.visible = false
+            continue
+        rect.position.x = clampf(rect.position.x, lo, maxf(lo, hi - rect.size.x))
         var hit := true
         for k in 3:
             hit = false
             for q in placed:
-                if rect.grow(1.0).intersects(q):
+                if rect.grow(TAG_GAP * 0.5).intersects(q.grow(TAG_GAP * 0.5)):
                     hit = true
                     break
             if not hit or k == 2:
                 break
-            rect.position.y -= r.tag.size.y + 2.0
+            rect.position.y -= r.tag.size.y + TAG_GAP
         if hit and r != near_key:
             r.tag.visible = false
             continue
@@ -536,7 +555,8 @@ func _cards_tick(dt: float) -> void:
         return
     var who: Rel = players[rng.randi() % players.size()]
     var tc: Dictionary = hall._table_cfg(who.table)
-    var top: Vector2 = hall._seat_center(tc) - cards_node.position   # 桌面中间（相对牌那个节点）
+    # 桌面靠后那半（桌心往上 CARD_UP）：桌心正中被前排坐着的人的头挡住，往后放才看得见（04 新 1 挪完桌牌后发现）
+    var top: Vector2 = hall._seat_center(tc) + Vector2(0.0, -CARD_UP) - cards_node.position
     var from: Vector2 = who.pos - cards_node.position
     var c := _card(from.lerp(top, 0.35), rng.randf_range(-0.6, 0.6))
     cards_node.add_child(c)

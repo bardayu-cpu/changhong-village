@@ -88,6 +88,17 @@ func run() -> void:
     for r in rel.rels:
         words += r.title + r.relation
     check("没有男方父母、公婆、亲家", not (words.contains("公婆") or words.contains("亲家") or words.contains("男方") or words.contains("婆婆") or words.contains("公公")))
+    # 长相按称呼分男女（04 9/29）
+    var pools: Dictionary = h.life.look_pools()
+    var male := ["大爸", "小虎哥", "二爸", "四姑爷", "六姑爷", "小舅", "周叔", "李叔", "小江"]
+    var wrong_sex: Array = []
+    for r in rel.rels:
+        var pool: Array = pools["m"] if r.title in male else pools["f"]
+        if not pool.has(r.row):
+            wrong_sex.append(r.title)
+    check("长相按称呼分男女（男 %d 种、女 %d 种可挑；挑错的 %s）" % [pools["m"].size(), pools["f"].size(), wrong_sex], wrong_sex.is_empty() and pools["m"].size() >= 3)
+    var dad_look: Dictionary = load("res://scripts/sprites.gd").guest_look(rel.find("大爸").row)
+    check("大爸：%s 头发、金耳环 %s" % [dad_look["hair"], str(dad_look["pal"]["g"]) == "#D4AF37"], dad_look["hair"] in ["short", "bald"] and str(dad_look["pal"]["g"]) != "#D4AF37")
     var tabs := {}
     for r in rel.rels:
         tabs[r.table] = true
@@ -131,12 +142,18 @@ func run() -> void:
     check("亲友的椅子上没有随机宾客（开席前空着）", chairs_empty)
     var tagged := 0
     var named := 0
+    var on_screen := 0
+    var vs: Vector2 = m.get_viewport().get_visible_rect().size / h.cam.zoom.x
+    var view := Rect2(h.cam.get_screen_center_position() - vs * 0.5, vs).grow(-40.0)
     for r in rel.rels:
         if r.tag != null and r.tag.text == r.title:
             named += 1
-            if r.tag.visible:
-                tagged += 1
-    check("18 位都有称呼牌（%d），走着的这会儿挂着 %d 位（挤成一团的先收一块）" % [named, tagged], named == 18 and tagged >= 14)
+            if view.has_point(r.pos):
+                on_screen += 1
+                if r.tag.visible:
+                    tagged += 1
+    check("18 位都有称呼牌（%d）；屏幕里的 %d 位挂着 %d 块（屏幕外的不挂，挤成一团的先收一块）" % [named, on_screen, tagged],
+        named == 18 and tagged >= on_screen - 2 and (on_screen == 0 or tagged > 0))
     # 称呼牌不叠：模拟过程中每一步都查太费，这里再走 30 秒、每秒看一次
     var overlaps := 0
     for sec in 30:
@@ -151,6 +168,24 @@ func run() -> void:
                 if rects[i].intersects(rects[j]):
                     overlaps += 1
     check("30 秒里称呼牌叠在一起 %d 次（挤成一团时让一块先收起来）" % overlaps, overlaps == 0)
+    # 屏幕边：挂着的牌子整块都在屏幕里（名字牌第一轮 B4 那条）
+    var half: float = float(m.get_viewport().get_visible_rect().size.x) * 0.5 / h.cam.zoom.x
+    var cx: float = h.cam.get_screen_center_position().x
+    var cut := 0
+    for sec in 20:
+        # 人站在厅西边，镜头贴左墙；亲友走到屏幕边的机会多
+        h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(Vector2(150 + sec * 60, 1300)))))
+        for i in 10:
+            rel._process(0.05)
+        h._process(0.0)
+        half = float(m.get_viewport().get_visible_rect().size.x) * 0.5 / h.cam.zoom.x
+        cx = h.cam.get_screen_center_position().x
+        for r in rel.rels:
+            if r.tag.visible:
+                var x0: float = r.pos.x + r.tag.position.x
+                if x0 < cx - half - 0.5 or x0 + r.tag.size.x > cx + half + 0.5:
+                    cut += 1
+    check("称呼牌不被屏幕左右边切（切到 %d 次）" % cut, cut == 0)
 
     print("4 开席：坐下、敬酒、打牌")
     rel.set_force("feast")

@@ -897,6 +897,7 @@ const FAMILY_NEAR := 90.0
 var family_tags: Dictionary = {}   # "MAIN:13" -> 头上的称呼牌
 var family_keys: Dictionary = {}   # "MAIN:13" -> 称呼：家里人的椅子（走近不冒「坐这儿」）
 var family_lit := ""               # 现在亮着称呼的是哪一位（"MAIN:13"），没有是空
+var reserved_cards: Dictionary = {} # "MAIN:1" -> 空座上的小红座签（阿鱼、Toretto）
 
 ## 离我最近、FAMILY_NEAR 以内的那位家里人亮称呼，别的都收着
 func _family_near() -> void:
@@ -933,14 +934,17 @@ func _seat_family(taken: Dictionary) -> void:
         return
     var tid := str(tc["id"])
     var center: Vector2 = hall._seat_center(tc)
+    var pools := look_pools()
+    var counters := {}
     for f in fam.get("seats", []):
         var key := "%s:%d" % [tid, int(f["chair"])]
         family_keys[key] = str(f["title"])
+        var row := pick_look(f, pools, counters)
         if taken.has(key):
             continue
         npc_taken[key] = true
         var at: Vector2 = hall.chair_world(tc, int(f["chair"]))
-        _guest(tid, key, at, center, hall.seat_in_front(tc, at))
+        _guest(tid, key, at, center, hall.seat_in_front(tc, at), row)
         if hall.seat_tags != null and hall.font != null:
             var l := Label.new()
             l.text = str(f["title"])
@@ -953,6 +957,67 @@ func _seat_family(taken: Dictionary) -> void:
             l.set_meta("near_on", false)
             l.visible = false
             family_tags[key] = l
+    # 主桌 1、2 号空座的座签（04 新 4、01 D 9/29：椅子上各一张小红座签「阿鱼」「Toretto」）：真人坐了那把就不摆
+    reserved_cards.clear()
+    var res: Dictionary = fam.get("reserved", {})
+    for no in res:
+        var key := "%s:%d" % [tid, int(no)]
+        if taken.has(key) or hall.seat_tags == null or hall.font == null:
+            continue
+        var at: Vector2 = hall.chair_world(tc, int(no))
+        var c := Label.new()
+        c.text = str(res[no])
+        c.name = "seatcard_" + str(no)
+        hall.seat_tags.add_child(c)
+        c.add_theme_font_override("font", hall.font)
+        c.add_theme_font_size_override("font_size", 16)
+        c.add_theme_color_override("font_color", Color("#F4D97A"))
+        var sb := StyleBoxFlat.new()
+        sb.bg_color = Color("#B3282D")
+        sb.border_color = Color("#D4AF37")
+        sb.set_border_width_all(1)
+        sb.set_corner_radius_all(2)
+        sb.content_margin_left = 3; sb.content_margin_right = 3
+        sb.content_margin_top = 0; sb.content_margin_bottom = 1
+        c.add_theme_stylebox_override("normal", sb)
+        c.size = c.get_combined_minimum_size()
+        c.position = at - Vector2(c.size.x * 0.5, c.size.y + 6.0)   # 立在椅面上（像插在椅背前的座签）
+        # 1、2 号挨着（椅距约 34），两张签会叠：跟前面摆好的叠了，前面那张往上挪到不叠
+        for k in reserved_cards:
+            var o: Label = reserved_cards[k]
+            var ro := Rect2(o.position, o.size)
+            var rc := Rect2(c.position, c.size)
+            if ro.grow(1.0).intersects(rc):
+                o.position.y = c.position.y - o.size.y - 2.0
+        reserved_cards[key] = c
+
+## 按称呼分男女挑长相（04 9/29：大爸抽到长发金耳环像女的）：从现有 LOOKS 种宾客长相里分出
+## 男：短发或光头、不戴金耳环、没有蝴蝶结；女：长发或扎辫子；老人（女）：女里灰头发的。不画新图
+static func look_pools() -> Dictionary:
+    var out := {"m": [], "f": [], "f_old": []}
+    for i in LOOKS:
+        var l: Dictionary = Spr.guest_look(i)
+        var hair := str(l["hair"])
+        var gold: bool = str(l["pal"]["g"]) == "#D4AF37"
+        if hair in ["short", "bald"] and not gold and not bool(l["bow"]):
+            out["m"].append(i)
+        elif hair in ["long", "tails"]:
+            out["f"].append(i)
+            if str(l["pal"]["H"]) == "#8a8790":
+                out["f_old"].append(i)
+    return out
+
+## 按 sex、elder 轮着发长相：同一种性别依次取下一种，一家人不撞脸。counters 由调用的人留着（主桌一份、亲友一份）
+static func pick_look(p: Dictionary, pools: Dictionary, counters: Dictionary) -> int:
+    var kind := "m" if str(p.get("sex", "")) == "m" else "f"
+    if kind == "f" and bool(p.get("elder", false)) and not (pools["f_old"] as Array).is_empty():
+        kind = "f_old"
+    var pool: Array = pools[kind]
+    if pool.is_empty():
+        return absi(hash(str(p.get("title", "")))) % LOOKS
+    var n := int(counters.get(kind, 0))
+    counters[kind] = n + 1
+    return int(pool[n % pool.size()])
 
 ## 别桌宾客的长相拼成一张图：一种长相一行（9 帧 144×32），所有宾客共用这一张
 func _guest_atlas() -> ImageTexture:
@@ -963,7 +1028,7 @@ func _guest_atlas() -> ImageTexture:
         guest_atlas = ImageTexture.create_from_image(im)
     return guest_atlas
 
-func _guest(tid: String, key: String, at: Vector2, center: Vector2, front: bool) -> void:
+func _guest(tid: String, key: String, at: Vector2, center: Vector2, front: bool, row := -1) -> void:
     var g := Guest.new()
     g.table = tid
     g.key = key
@@ -971,7 +1036,7 @@ func _guest(tid: String, key: String, at: Vector2, center: Vector2, front: bool)
     g.node.position = at
     g.node.z_index = 1 if front else 0   # 和 layered_hall 画住民一样：桌子两边和前面的画在桌子前面
     guest_holder.add_child(g.node)
-    g.row = absi(hash(key)) % LOOKS
+    g.row = row if row >= 0 else absi(hash(key)) % LOOKS
     var fl: Dictionary = Spr.PROC_ANIM[hall._face_for(center - at)]
     g.face_frame = int(fl["idle"])
     g.face_flip = bool(fl["flip"])
