@@ -180,6 +180,10 @@ var person_card_inviter: Label
 var person_card_toast_btn: Button
 var person_card_meet_btn: Button     # 想认识你，挨着敬一杯
 var book_btn: Button      # 走到桌边、或坐在自己桌上时出现，「翻簿子」（第 24 版，蓝图 3.2）
+var chat_btn: Button      # 55 桌主桌：走近家里人冒「和外婆聊聊」，点了说一句（01 D 9/29；话以后派支线，先是【待补】）
+var near_family := {"key": "", "title": ""}
+const LINE_CHAT_FMT := "和%s聊聊"   # 三个按钮并排时只有 164 宽，「和外婆说说话」会截成省略号
+const MAIN_LINES_PATH := "res://assets/main_table_lines.json"
 var story_btn: Button     # 55 桌大厅：走到桌边出「这桌是谁」，点开这桌的故事卡（01 D 9/29，先用假数据）
 var story_card: Control
 var story_open := false
@@ -698,6 +702,9 @@ func _make_hall(sv: Node) -> void:
         hall.game_tap.connect(_on_game_tap)
         cloud.fake_tables = (hall.cfg.get("tables", []) as Array).size()   # 电脑上的假服务端跟着回几张桌
         cloud.fake_table_ids = []
+        near_family = {"key": "", "title": ""}
+        if hall.life != null and hall.life.has_signal("family_near"):
+            hall.life.family_near.connect(_on_family_near)
         if hall.big:
             for t in hall.cfg.get("tables", []):
                 cloud.fake_table_ids.append(str(t["id"]))   # 55 桌灰盒：主桌 MAIN + T1～T54
@@ -1012,6 +1019,15 @@ func _build_hud() -> void:
     book_btn.offset_bottom = -120
     book_btn.pressed.connect(_on_book_btn_pressed)
     hud.add_child(book_btn)
+    chat_btn = Button.new()
+    chat_btn.visible = false
+    chat_btn.clip_text = true
+    chat_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    chat_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    chat_btn.offset_top = -170
+    chat_btn.offset_bottom = -120
+    chat_btn.pressed.connect(_on_chat_pressed)
+    hud.add_child(chat_btn)
     story_btn = Button.new()
     story_btn.text = LINE_STORY_BTN
     story_btn.visible = false
@@ -1333,6 +1349,8 @@ func _goto(s: String) -> void:
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
         person_btn.visible = false
+    if chat_btn != null and s != "banquet":
+        chat_btn.visible = false
     if book_btn != null and s != "banquet":
         book_btn.visible = false
     if story_btn != null and s != "banquet":
@@ -1892,6 +1910,26 @@ func _on_person_near(openid: String) -> void:
     near_person_id = openid
     _refresh_seat_buttons()
 
+func _on_family_near(key: String, title: String) -> void:
+    near_family = {"key": key, "title": title}
+    _refresh_seat_buttons()
+
+## 和主桌家里人说一句：话在 assets/main_table_lines.json，按称呼取；没写的显示【待补】（聊什么以后派支线）
+static func family_line(title: String, path: String) -> String:
+    if FileAccess.file_exists(path):
+        var j = JSON.parse_string(FileAccess.get_file_as_string(path))
+        if j is Dictionary:
+            var t := str((j.get("lines", {}) as Dictionary).get(title, "")).strip_edges()
+            if t != "":
+                return t
+    return "【待补】"
+
+func _on_chat_pressed() -> void:
+    var title := str(near_family["title"])
+    if title == "":
+        return
+    _say(family_line(title, MAIN_LINES_PATH), -1.0, title)
+
 func _on_table_near(table_id: String) -> void:
     near_table_id = table_id
     _refresh_seat_buttons()
@@ -1919,6 +1957,8 @@ func _refresh_seat_buttons() -> void:
         book_btn.visible = false
     else:
         book_btn.visible = true
+    chat_btn.visible = not blocked and not whisper_box.visible and USE_LAYERED and hall.big and str(near_family["title"]) != ""
+    chat_btn.text = LINE_CHAT_FMT % str(near_family["title"])
     # 故事卡只在 55 桌大厅有，而且这桌得有故事（阿鱼 9/29：没故事的桌走近不出卡）
     story_btn.visible = book_btn.visible and USE_LAYERED and hall.big and table_story(near_table_id, stories) != ""
     # 玩·XX：坐在自己的椅子上、这桌有小游戏才出（蓝图 3.2：坐在这桌才能开这桌的游戏）
@@ -1966,6 +2006,7 @@ func _hall_life():
 func _layout_seat_buttons() -> void:
     var slots: Array[Button] = []
     if person_btn.visible: slots.append(person_btn)
+    if chat_btn.visible: slots.append(chat_btn)
     if book_btn.visible: slots.append(book_btn)
     if play_btn.visible: slots.append(play_btn)
     if add_dish_btn.visible: slots.append(add_dish_btn)
@@ -2973,7 +3014,7 @@ func _setup_shot(shot: String) -> void:
             elif shot == "big_main":
                 hall.couple_armed = false
                 var mt: Dictionary = hall._table_cfg("MAIN")
-                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.chair_world(mt, 13) + Vector2(0, -40)))))
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.chair_world(mt, 10) + Vector2(0, -40)))))
                 hall.snap_cam()
             elif shot == "big_stage":
                 hall.couple_armed = false

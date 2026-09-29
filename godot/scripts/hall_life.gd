@@ -1,4 +1,6 @@
 extends Node2D
+
+signal family_near(key: String, title: String)   # 走近主桌家里人（亮称呼的那一位换了）：main 冒「和 XX 聊聊」；走开是空
 ## 宴会厅的热闹（阿鱼 9/18 要的「氛围感」）：
 ##   服务员从东侧门端菜出来，走到桌边把菜放上桌（冒热气），端空托盘回去再端下一盘（9/18 晚改：原来只端着走不放下）；
 ##   舞台右边乐队（钢琴、大提琴、两把小提琴），头上飘音符；舞台左边堆满贺礼；地上红彩带、彩纸；
@@ -877,10 +879,11 @@ func seat_guests(taken: Dictionary) -> Dictionary:
     print("[suqi] 别桌 NPC 宾客 %d 个 用时 %d 毫秒" % [guests.size(), (Time.get_ticks_usec() - t0) / 1000])
     return npc_taken
 
-## 主桌的家里人（55 桌厅，阿鱼 9/29「主桌坐满阿鱼的家人」）：照 ambience 的 family 坐定的椅子，头上挂称呼（外婆、爸爸……）。
+## 主桌的家里人（55 桌厅，阿鱼 9/29：主桌普通 10 座，坐爸妈、外公外婆、爷爷奶奶、弟弟弟妹 8 位，1、2 号留给阿鱼、Toretto）：
+## 照 ambience 的 family 坐定的椅子，头上挂称呼。
 ## 长相照旧是现画的宾客长相（泛称，不追真人，HANDOFF §0.5）。真人坐了哪把就让座，称呼也不挂。
 ## 称呼**走近谁亮谁**（FAMILY_NEAR 像素内离得最近的那一位），平时不挂：11 块牌子围着一张桌同时挂，前排四个人挨着坐（椅距约 30），
-## 牌子叠成一摞谁也看不清（02 9/29 截图试过；排成一圈、内外两圈错开也放不下）
+## 牌子叠成一摞谁也看不清（02 9/29 截图试过 13 座时的样子；排成一圈、内外两圈错开也放不下）
 const FAMILY_NEAR := 90.0
 var family_tags: Dictionary = {}   # "MAIN:13" -> 头上的称呼牌
 var family_keys: Dictionary = {}   # "MAIN:13" -> 称呼：家里人的椅子（走近不冒「坐这儿」）
@@ -903,6 +906,7 @@ func _family_near() -> void:
     if best == family_lit:
         return
     family_lit = best
+    family_near.emit(best, str(family_keys.get(best, "")))
     for key in family_tags:
         var l: Label = family_tags[key]
         if is_instance_valid(l):
@@ -911,7 +915,9 @@ func _family_near() -> void:
 func _seat_family(taken: Dictionary) -> void:
     family_tags.clear()
     family_keys.clear()
-    family_lit = ""
+    if family_lit != "":
+        family_lit = ""
+        family_near.emit("", "")
     var fam: Dictionary = conf.get("family", {})
     var tc: Dictionary = hall._table_cfg(str(fam.get("table", "")))
     if tc.is_empty():

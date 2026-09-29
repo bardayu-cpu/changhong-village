@@ -1,10 +1,10 @@
 extends SceneTree
 ## 验收：55 桌大厅灰盒（01 D 9/29 派：不等 GPT 的图，照摆位底图 v3.2 的摆位表做进游戏）。和第 44 版厅并存，调试开关切：
 ## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×2714、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
-## 2 553 把椅子（主桌大一号 13 把）都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
+## 2 550 把椅子都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
 ## 4 第一次进厅镜头从大门滑到自己那桌、人站在桌边；以后进厅直接站自己桌边；5 从后厅回来站东侧门里边；
 ## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上只写桌号和游戏名）、其余不挂；
-## 7 故事卡：没故事的桌不出卡，有故事的出「这桌的故事」、卡上不列谁坐；7b 主桌坐阿鱼家 13 位（阿鱼 9/29 出阁宴）；
+## 7 故事卡：没故事的桌不出卡，有故事的出「这桌的故事」、卡上不列谁坐；7b 主桌普通 10 座：8 位家里人、1、2 号留给阿鱼和 Toretto、走近能聊聊（阿鱼 9/29 出阁宴）；
 ## 8 假服务端：回 55 张（主桌 MAIN 带 main）、主桌换不进去、桌号椅子号不对拒；
 ## 9 席上功能在 55 桌厅里都能用：坐下、换桌、看人、敬酒、翻簿子、主桌悄悄话、添礼金、添菜、菜单册；
 ## 10 切回第 44 版一切照旧，第三档「照效果图」也还能切
@@ -102,9 +102,9 @@ func run() -> void:
         if s is Sprite2D and (s as Sprite2D).texture != null and str((s as Sprite2D).texture.resource_path).contains("amb_rug"):
             rugs += 1
     check("桌下不铺地毯（%d 块）" % rugs, rugs == 0)
-    check("NPC 宾客 %d 个（每桌 9～10，主桌是家里人 11 位）" % h.life.guests.size(), h.life.guests.size() >= 54 * 9 + 11 - 10 and h.life.guests.size() <= 54 * 10 + 11)
-    check("主桌大一号：占地 %s×%s、%d 把椅子（普通桌 %s×%s、%d 把）" % [mt["rx"], mt["ry"], LayeredHall.seats_of(mt), t1["rx"], t1["ry"], LayeredHall.seats_of(t1)],
-        int(mt["rx"]) == 80 and int(mt["ry"]) == 53 and LayeredHall.seats_of(mt) == 13 and LayeredHall.seats_of(t1) == 10 and int(t1["rx"]) == 70)
+    check("NPC 宾客 %d 个（每桌 9～10，主桌是家里人 8 位）" % h.life.guests.size(), h.life.guests.size() >= 54 * 9 + 8 - 10 and h.life.guests.size() <= 54 * 10 + 8)
+    check("主桌就是普通 10 座：占地 %s×%s、%d 把椅子" % [mt["rx"], mt["ry"], LayeredHall.seats_of(mt)],
+        int(mt["rx"]) == int(t1["rx"]) and int(mt["ry"]) == int(t1["ry"]) and LayeredHall.seats_of(mt) == 10)
     check("服务员 %d 个" % h.life.waiters.size(), h.life.waiters.size() == 6)
     check("座位圈照灰盒的桌子：dy %.1f rx %.1f ry %.1f" % [h.seat_dy, h.seat_rx, h.seat_ry], h.seat_dy == 0.0 and h.seat_rx == -12.0 and h.seat_ry == -8.0)
     check("长凳不另画（色块里有），坐的人排在凳面上 %.0f～%.0f y %.0f" % [h.bench_x0, h.bench_x1, h.bench_y], not h.bench_draw and h.bench_x1 > h.bench_x0)
@@ -126,11 +126,11 @@ func run() -> void:
             var d: float = h._cell_pos(c).distance_to(p)
             if d > 80.0 or h.find_path(h.SPAWN, h._cell_pos(c)).is_empty():
                 bad.append("%s:%d(%.0f)" % [t["id"], no, d])
-    check("走不到的椅子（553 把里）%s" % [bad], bad.is_empty())
+    check("走不到的椅子（550 把里）%s" % [bad], bad.is_empty())
     var n_chairs := 0
     for c in h.chairs:
         n_chairs += 1
-    check("厅里一共 %d 把椅子（主桌 13 + 54×10）" % n_chairs, n_chairs == 553)
+    check("厅里一共 %d 把椅子（主桌 10 + 54×10）" % n_chairs, n_chairs == 550)
     check("东侧门走得到", not h.find_path(h.SPAWN, h.side_door + Vector2(-20, 0)).is_empty())
     check("主桌悄悄话那块（台阶前）走得到", not h.find_path(h.SPAWN, h.COUPLE_SPOT).is_empty())
     var bench_c: Vector2i = h._nearest_free(h._cell_of(h.bench_pos(0, 1)))
@@ -242,24 +242,24 @@ func run() -> void:
     check("关上了，人能走", not m.story_open and h.walking_enabled)
     m.stories = {}
 
-    print("7b 主桌坐阿鱼家 13 位（出阁宴）")
-    var want_fam := ["外婆", "爸爸", "妈妈", "四孃", "四姑爷", "六孃", "六姑爷", "小舅", "小舅妈", "弟弟", "弟妹"]
+    print("7b 主桌：8 位家里人，1、2 号留给阿鱼和 Toretto（出阁宴）")
+    var want_fam := ["爸爸", "妈妈", "外公", "外婆", "爷爷", "奶奶", "弟弟", "弟妹"]
     var fam_titles: Array = []
     for k in h.life.family_tags:
         fam_titles.append((h.life.family_tags[k] as Label).text)
     var all_there := true
     for w in want_fam:
         all_there = all_there and fam_titles.has(w)
-    check("11 位家里人坐在主桌、各有称呼牌：%s" % [fam_titles], fam_titles.size() == 11 and all_there)
+    check("8 位家里人坐在主桌、各有称呼牌：%s" % [fam_titles], fam_titles.size() == 8 and all_there)
     var fam_on_main := 0
     for g in h.life.guests:
         if g.table == "MAIN":
             fam_on_main += 1
-    check("主桌上的 NPC 就是这 11 位（%d），没有随机宾客" % fam_on_main, fam_on_main == 11)
-    check("1、2 号留给阿鱼、老公本人（没来就空着）", not h.life.npc_taken.has("MAIN:1") and not h.life.npc_taken.has("MAIN:2")
-        and h.life.conf["family"]["reserved"] == {"1": "阿鱼", "2": "老公"})
-    var tag13: Label = h.life.family_tags["MAIN:13"]
-    var chair13: Vector2 = h.chair_world(mt, 13)
+    check("主桌上的 NPC 就是这 8 位（%d），没有随机宾客" % fam_on_main, fam_on_main == 8)
+    check("1、2 号留给阿鱼、Toretto 本人（没来就空着）", not h.life.npc_taken.has("MAIN:1") and not h.life.npc_taken.has("MAIN:2")
+        and h.life.conf["family"]["reserved"] == {"1": "阿鱼", "2": "Toretto"})
+    var tag13: Label = h.life.family_tags["MAIN:10"]
+    var chair13: Vector2 = h.chair_world(mt, 10)
     check("称呼挂在人头上（外婆，椅子 %s，牌子 %s）" % [chair13, tag13.position], tag13.text == "外婆"
         and absf(tag13.position.x + tag13.size.x * 0.5 - chair13.x) < 2.0 and tag13.position.y < chair13.y - 30.0)
     # 走到外婆那把椅子跟前：不冒「坐这儿」
@@ -276,8 +276,13 @@ func run() -> void:
         if (h.life.family_tags[k] as Label).visible:
             lit.append((h.life.family_tags[k] as Label).text)
     check("站在外婆跟前：只亮外婆 %s" % [lit], lit == ["外婆"])
-    var dad: Vector2 = h.chair_world(mt, 3)
-    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(dad + Vector2(40, 0)))))
+    m._refresh_seat_buttons()
+    check("底下冒「%s」" % m.chat_btn.text, m.chat_btn.visible and m.chat_btn.text == "和外婆聊聊")
+    m.chat_btn.emit_signal("pressed")
+    await frames(1)
+    check("点了说一句（占位）：%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_who.text == "外婆" and m.dialog_text.text == "【待补】")
+    var dad: Vector2 = h.chair_world(mt, 5)
+    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(dad + Vector2(20, 35)))))
     h.life._family_near()
     await frames(2)
     lit.clear()
@@ -293,6 +298,8 @@ func run() -> void:
         if (h.life.family_tags[k] as Label).visible:
             lit.append((h.life.family_tags[k] as Label).text)
     check("走远了一个都不挂 %s" % [lit], lit.is_empty())
+    m._refresh_seat_buttons()
+    check("走远了「聊聊」也收了", not m.chat_btn.visible)
     await m._set_hall55(false)
     await create_timer(0.3).timeout
     m.near_table_id = "T1"
@@ -307,14 +314,14 @@ func run() -> void:
     m.cloud.call_fn("enterHall", {}, func(r): got["enter"] = r)
     m.cloud.call_fn("changeSeat", {"tableId": "T55", "chairNo": 1}, func(r): got["t55"] = r)
     m.cloud.call_fn("changeSeat", {"tableId": "T54", "chairNo": 11}, func(r): got["c11"] = r)
-    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 13}, func(r): got["main"] = r)
-    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 14}, func(r): got["m14"] = r)
+    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 3}, func(r): got["main"] = r)
+    m.cloud.call_fn("changeSeat", {"tableId": "MAIN", "chairNo": 11}, func(r): got["m14"] = r)
     await create_timer(1.0).timeout
     var et: Array = got.get("enter", {}).get("data", {}).get("tables", [])
     check("回 55 张桌、第一张是主桌", et.size() == 55 and str(et[0]["id"]) == "MAIN" and bool(et[0].get("main", false)))
     check("T55、11 号椅都拒：%s %s" % [got.get("t55", {}).get("reason", ""), got.get("c11", {}).get("reason", "")],
         got.get("t55", {}).get("reason", "") == "bad_request" and got.get("c11", {}).get("reason", "") == "bad_request")
-    check("主桌 13 号换不进去：%s；14 号没有这把：%s" % [got.get("main", {}).get("reason", ""), got.get("m14", {}).get("reason", "")],
+    check("主桌 3 号换不进去：%s；11 号没有这把：%s" % [got.get("main", {}).get("reason", ""), got.get("m14", {}).get("reason", "")],
         got.get("main", {}).get("reason", "") == "main_table_only_family" and got.get("m14", {}).get("reason", "") == "bad_request")
 
     print("9 席上功能")

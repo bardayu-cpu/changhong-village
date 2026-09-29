@@ -32,13 +32,13 @@ B = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(B)
 
 
-# 主桌坐谁（阿鱼 9/29：出阁宴，没有男方父母；主桌坐满阿鱼的家人，一共 13 位）。
-# 1、2 号椅留给阿鱼、Toretto 本人的号（服务端 vip_openids 进厅分主桌取最小的空号，正好是 1、2）；没来就空着，新人在台上。
-# 其余 11 位是 NPC，头上挂称呼。椅子从正北（背对婚礼台、面朝大门那把）起顺时针数；谁坐哪把是 02 排的，【待阿鱼定】，改这张表重跑就行
-FAMILY = {"table": "MAIN", "reserved": {"1": "阿鱼", "2": "老公"}, "seats": [
-    {"chair": 13, "title": "外婆"}, {"chair": 3, "title": "爸爸"}, {"chair": 4, "title": "妈妈"},
-    {"chair": 5, "title": "四孃"}, {"chair": 6, "title": "四姑爷"}, {"chair": 7, "title": "六孃"}, {"chair": 8, "title": "六姑爷"},
-    {"chair": 9, "title": "小舅"}, {"chair": 10, "title": "小舅妈"}, {"chair": 11, "title": "弟弟"}, {"chair": 12, "title": "弟妹"}]}
+# 主桌坐谁（阿鱼 9/29 定，以 01 D 最后那条更正为准）：主桌就是普通 10 座。8 位 NPC：爸爸、妈妈、外公、外婆、爷爷、奶奶、弟弟、弟妹；
+# 1、2 号空着留给阿鱼、Toretto 本人（服务端进厅分主桌取最小的空号，正好是这两把；上线就坐这儿）。
+# 椅子从正北（背对婚礼台、面朝大门那把）起顺时针数；谁坐哪把是 02 排的，【待阿鱼定】，改这张表重跑就行。
+# 别的亲友（大爸一家、周叔他们、四孃、小舅……）这一版不做：阿鱼要他们开席前走动、开席后敬酒打牌，玩法 01 先写说明给阿鱼过目
+FAMILY = {"table": "MAIN", "reserved": {"1": "阿鱼", "2": "Toretto"}, "seats": [
+    {"chair": 3, "title": "爷爷"}, {"chair": 4, "title": "奶奶"}, {"chair": 5, "title": "爸爸"}, {"chair": 6, "title": "妈妈"},
+    {"chair": 7, "title": "弟弟"}, {"chair": 8, "title": "弟妹"}, {"chair": 9, "title": "外公"}, {"chair": 10, "title": "外婆"}]}
 
 
 def block_image(it):
@@ -95,7 +95,6 @@ def main():
         t = {"id": "MAIN" if it["name"] == "主桌" else it["name"], "x": fx + fw // 2, "y": fy + fh // 2, "rx": fw // 2, "ry": fh // 2}
         if it["name"] == "主桌":
             t["main"] = True
-            t["seats"] = B.MAIN_SEATS   # 主桌大一号，13 把椅子（v3.3，阿鱼 9/29）；别的桌不写，照 10 把
         tables.append(t)
     tables.sort(key=lambda t: (t["id"] != "MAIN", int(t["id"][1:]) if t["id"] != "MAIN" else 0))
 

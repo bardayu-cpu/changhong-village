@@ -1322,8 +1322,8 @@ async function scenarioChangeSeatMainTable() {
     check(res.ok === false && res.reason === 'seat_taken' && state.collections.seat.get('TOR').table_id !== 'MAIN', `场景29 主桌 5 号坐着阿鱼家里人，Toretto 换也回 seat_taken（实际 ${JSON.stringify(res)}）`);
 
     ({ sdk, state } = setup('AYU'));
-    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 14 });
-    check(res.ok === false && res.reason === 'bad_request', `场景29 主桌只有 13 把，14 号椅 bad_request（实际 ${JSON.stringify(res)}）`);
+    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 11 });
+    check(res.ok === false && res.reason === 'bad_request', `场景29 主桌 10 座，11 号椅 bad_request（实际 ${JSON.stringify(res)}）`);
 
     ({ sdk, state } = setup('AYU'));
     seed(state, 'seat', { _id: 'TOR', openid: 'TOR', table_id: 'MAIN', chair_no: 1, inviter: null, sat_at: 50, sat_tables: ['MAIN'], last_visit_at: 50 });

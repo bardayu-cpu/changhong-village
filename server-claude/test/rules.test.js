@@ -388,8 +388,8 @@ eq(banquet.checkSeatTarget({ tableId: 'T3', chairNo: '3' }).reason, 'bad_request
   for (let k = 0; k < 10; k++) for (let b = 1; b <= 52; b++) people.push({ id: `p${b}_${k}`, inviter: `R${b}` });
   for (let k = 0; k < 30; k++) people.push({ id: `late${k}`, inviter: k % 2 ? null : `R${k}` });
   const { log, main, tables } = seatAll(ids55, people, { flag: true, vip, main: true });
-  eq(tables.length * C.BANQUET_SEATS_PER_TABLE + C.BANQUET_MAIN_SEATS, 553, '主桌：主桌 13 座（阿鱼 9/29 大一号）+ 54 桌 540 座 = 553 把椅子');
-  eq(C.BANQUET_MAIN_VIP_CHAIRS, [1, 2], '主桌：1、2 号是阿鱼、Toretto 本人的，3～13 号坐家里人');
+  eq(tables.length * C.BANQUET_SEATS_PER_TABLE + C.BANQUET_SEATS_PER_TABLE, 550, '主桌：主桌 10 座 + 54 桌 540 座 = 550 把椅子');
+  eq(C.BANQUET_MAIN_VIP_CHAIRS, [1, 2], '主桌：1、2 号是阿鱼、Toretto 本人的，3～10 号坐家里人');
   eq(main.seats, ['AYU', 'TOR'], '主桌：整厅坐满时主桌上还是只有阿鱼、Toretto 本人');
   eq(tables.reduce((n, t) => n + t.seats.length, 0), 540, '主桌：54 张普通桌 540 座全坐满');
   eq(log.filter(r => r.bench).length, 30, '主桌：多出来的 30 人都去长凳，没人被塞进主桌的空椅子');
@@ -403,9 +403,9 @@ eq(banquet.checkSeatTarget({ tableId: 'T3', chairNo: '3' }).reason, 'bad_request
   eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 3, isVip: false }, t55)).reason, 'main_table_only_family', '换桌校验：isVip false 同上');
   eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 2, isVip: true }, t55)), { ok: true }, '换桌校验：55 桌厅阿鱼、Toretto 本人能换进主桌（1、2 号）');
   eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 3, isVip: true }, t55)).reason, 'seat_taken', '换桌校验：主桌 3 号坐着家里人，阿鱼换过去回 seat_taken');
-  eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 13, isVip: true }, t55)).reason, 'seat_taken', '换桌校验：主桌 13 号（最后一把）也是家里人');
-  eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 14, isVip: true }, t55)).reason, 'bad_request', '换桌校验：主桌只有 13 把，14 号 bad_request');
-  eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 14 }, t55)).reason, 'bad_request', '换桌校验：别人换主桌 14 号椅，先回 bad_request');
+  eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 10, isVip: true }, t55)).reason, 'seat_taken', '换桌校验：主桌 10 号（最后一把）也是家里人');
+  eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 11, isVip: true }, t55)).reason, 'bad_request', '换桌校验：主桌 10 座，11 号 bad_request');
+  eq(banquet.checkSeatTarget(Object.assign({ tableId: MAIN, chairNo: 11 }, t55)).reason, 'bad_request', '换桌校验：别人换主桌 11 号椅，先回 bad_request');
   eq(banquet.checkSeatTarget(Object.assign({ tableId: 'T5', chairNo: 11, isVip: true }, t55)).reason, 'bad_request', '换桌校验：普通桌还是 10 把，11 号 bad_request');
   eq(banquet.checkSeatTarget(Object.assign({ tableId: 'T54', chairNo: 10 }, t55)), { ok: true }, '换桌校验：55 桌厅别人换普通桌照旧');
   eq(banquet.checkSeatTarget(Object.assign({ tableId: 'T55', chairNo: 1, isVip: true }, t55)).reason, 'bad_request', '换桌校验：55 桌厅 T55 不存在，阿鱼也不行');

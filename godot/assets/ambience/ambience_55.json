@@ -723,52 +723,40 @@
   "table": "MAIN",
   "reserved": {
    "1": "阿鱼",
-   "2": "老公"
+   "2": "Toretto"
   },
   "seats": [
    {
-    "chair": 13,
-    "title": "外婆"
-   },
-   {
     "chair": 3,
-    "title": "爸爸"
+    "title": "爷爷"
    },
    {
     "chair": 4,
-    "title": "妈妈"
+    "title": "奶奶"
    },
    {
     "chair": 5,
-    "title": "四孃"
+    "title": "爸爸"
    },
    {
     "chair": 6,
-    "title": "四姑爷"
+    "title": "妈妈"
    },
    {
     "chair": 7,
-    "title": "六孃"
-   },
-   {
-    "chair": 8,
-    "title": "六姑爷"
-   },
-   {
-    "chair": 9,
-    "title": "小舅"
-   },
-   {
-    "chair": 10,
-    "title": "小舅妈"
-   },
-   {
-    "chair": 11,
     "title": "弟弟"
    },
    {
-    "chair": 12,
+    "chair": 8,
     "title": "弟妹"
+   },
+   {
+    "chair": 9,
+    "title": "外公"
+   },
+   {
+    "chair": 10,
+    "title": "外婆"
    }
   ]
  },

@@ -92,9 +92,8 @@ module.exports = {
   //   - 换桌：只有阿鱼、Toretto 本人能换进主桌，别人换进去回 main_table_only_family（客户端要认这个原因）
   //   - enterHall 返回的 tables 第一项是主桌 {id:'MAIN', main:true, reserved:false, seats}
   BANQUET_MAIN_TABLE_ID: 'MAIN',
-  // 主桌大一号（阿鱼 9/29：出阁宴，主桌坐满阿鱼家 13 位）：13 把椅子。1、2 号是阿鱼、Toretto 本人的（进厅分主桌取最小的空号，
-  // 正好落在这两把）；3～13 号坐阿鱼家里人（外婆、爸妈……），是客户端画的 NPC，不进 seat 表，谁也换不过去
-  BANQUET_MAIN_SEATS: 13,
+  // 主桌（阿鱼 9/29 定：普通 10 座）：1、2 号是阿鱼、Toretto 本人的（进厅分主桌取最小的空号，正好落在这两把）；
+  // 3～10 号坐阿鱼家里人（爸妈、外公外婆、爷爷奶奶、弟弟弟妹），是客户端画的 NPC，不进 seat 表，谁也换不过去
   BANQUET_MAIN_VIP_CHAIRS: [1, 2],
   // 长凳门槛（9/24）：false = 旧规矩，开不出新空桌就去长凳，哪怕别的桌还有空椅子；
   // true = 普通桌（不算前两桌）全坐满了才去长凳，开不出新桌就插到还有空椅子的桌；
