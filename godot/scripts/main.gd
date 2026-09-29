@@ -180,6 +180,9 @@ var person_card_inviter: Label
 var person_card_toast_btn: Button
 var person_card_meet_btn: Button     # 想认识你，挨着敬一杯
 var book_btn: Button      # 走到桌边、或坐在自己桌上时出现，「翻簿子」（第 24 版，蓝图 3.2）
+var story_btn: Button     # 55 桌大厅：走到桌边出「这桌是谁」，点开这桌的故事卡（01 D 9/29，先用假数据）
+var story_card: Control
+var story_open := false
 var near_table_id := ""   # hall.table_near 最新一次的内容
 var book_open := false
 var book_table := ""      # 正在翻的是哪一桌
@@ -199,7 +202,8 @@ var cloud: Node
 # 拒绝原因对照（server-claude/README.md，文案阿鱼定稿）。
 # 云函数的字段名和拒绝原因清单见 godot/回执/席位桥修复.md 第七节，发请求前对一遍
 const REASONS := {
-    "seat_taken": "这把有人坐了",   # changed_today（今天换过了）9/18 蓝图改为换桌不限次数，服务端不再回
+    "seat_taken": "这把有人坐了",
+    "main_table_only_family": "主桌是新人家里人坐的",   # 55 桌大厅（01 D 9/29，新写）：主桌不给换进去   # changed_today（今天换过了）9/18 蓝图改为换桌不限次数，服务端不再回
     "toast_limit": "今天敬够了", "toast_same_person": "这杯敬过了",
     "toast_self": "自己就不用敬了", "not_sat_here": "先坐下 慢慢写",
     "book_too_long": "太长啦 真实情感的话 短一点也没关系",
@@ -683,6 +687,10 @@ func _make_hall(sv: Node) -> void:
         hall.table_near.connect(_on_table_near)
         hall.game_tap.connect(_on_game_tap)
         cloud.fake_tables = (hall.cfg.get("tables", []) as Array).size()   # 电脑上的假服务端跟着回几张桌
+        cloud.fake_table_ids = []
+        if hall.big:
+            for t in hall.cfg.get("tables", []):
+                cloud.fake_table_ids.append(str(t["id"]))   # 55 桌灰盒：主桌 MAIN + T1～T54
     hall.walking_enabled = false
 
 ## 调试版切宴会厅（第 44 版 / 照效果图 / 55 桌）：记下来，拆掉旧厅搭新厅；人正在宴会厅里就重新进一次厅（拿座位、站位照新厅来）
@@ -994,6 +1002,16 @@ func _build_hud() -> void:
     book_btn.offset_bottom = -120
     book_btn.pressed.connect(_on_book_btn_pressed)
     hud.add_child(book_btn)
+    story_btn = Button.new()
+    story_btn.text = LINE_STORY_BTN
+    story_btn.visible = false
+    story_btn.clip_text = true
+    story_btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+    story_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    story_btn.offset_top = -170
+    story_btn.offset_bottom = -120
+    story_btn.pressed.connect(func(): _open_story_card(near_table_id))
+    hud.add_child(story_btn)
     play_btn = Button.new()
     play_btn.visible = false
     play_btn.clip_text = true
@@ -1307,6 +1325,9 @@ func _goto(s: String) -> void:
         person_btn.visible = false
     if book_btn != null and s != "banquet":
         book_btn.visible = false
+    if story_btn != null and s != "banquet":
+        story_btn.visible = false
+        _close_story_card()
     if play_btn != null and s != "banquet":
         play_btn.visible = false
     if add_dish_btn != null and s != "banquet":
@@ -1714,11 +1735,15 @@ func _on_enter_hall(r: Dictionary) -> void:
     for dt_ in dg.get("toasts", []):
         pulse_seen["%s:%d" % [str(dt_.get("from", "")), int(dt_.get("at", 0))]] = true   # 进厅报过的，心跳别再报
     # 进厅先见人（01 9/23）：新版 enterHall 带 arrival。还没部署新版时没有这个字段，照旧顶上一行提示
-    # 55 桌大厅（01 9/24）：第一次进厅站大门口（看 55 桌的场面），以后进厅直接站到自己那桌边上。
-    # 只在刚从大门进来的时候挪（从后厅侧门回来不挪）；服务端还没带 arrival 的旧版照旧站门口
-    if USE_LAYERED and hall.big and d.has("arrival") and not bool((d["arrival"] as Dictionary).get("first_visit", true)) \
-            and hall.pos.distance_to(hall.SPAWN) < 1.0:
-        hall.stand_by_my_table()
+    # 55 桌大厅：第一次进厅先在门口看一眼全场，镜头再滑到自己那桌、人站在桌边（01 D 9/29「镜头带你到自己那桌」）；以后进厅直接站到自己那桌边上。
+    # 只在刚从大门进来的时候管（从后厅侧门回来不管）；服务端还没带 arrival 的旧版照旧站门口
+    if USE_LAYERED and hall.big and d.has("arrival") and hall.pos.distance_to(hall.SPAWN) < 1.0:
+        if bool((d["arrival"] as Dictionary).get("first_visit", true)):
+            get_tree().create_timer(0.8).timeout.connect(func():
+                if state == "banquet" and hall.big and hall.pos.distance_to(hall.SPAWN) < 1.0:
+                    hall.fly_to_my_table())
+        else:
+            hall.stand_by_my_table()
     if d.has("arrival"):
         _arrive(d)
     else:
@@ -1864,7 +1889,7 @@ func _on_table_near(table_id: String) -> void:
 ## 「坐这儿」「昵称」「翻簿子」三个按钮的显示状态统一在这里算（第 22 版规则 7，第 24 版加翻簿子）：
 ## 卡片或翻簿子面板开着、或不在宴会厅里，全部收起；「坐这儿」进了确认文案时另外两个先让开，免得并排挤在一起
 func _refresh_seat_buttons() -> void:
-    var blocked: bool = card_open or book_open or state != "banquet" or is_instance_valid(game_host) or _menu_open()
+    var blocked: bool = card_open or book_open or story_open or state != "banquet" or is_instance_valid(game_host) or _menu_open()
     if blocked or int(near_seat_info.get("chair_no", 0)) == 0:
         sit_btn.visible = false
     else:
@@ -1884,6 +1909,7 @@ func _refresh_seat_buttons() -> void:
         book_btn.visible = false
     else:
         book_btn.visible = true
+    story_btn.visible = book_btn.visible and USE_LAYERED and hall.big   # 故事卡只在 55 桌大厅有
     # 玩·XX：坐在自己的椅子上、这桌有小游戏才出（蓝图 3.2：坐在这桌才能开这桌的游戏）
     var my_game: Dictionary = GameCfg.game_for_table(str(hall.my_seat.get("table_id", ""))) if USE_LAYERED else {}
     if blocked or whisper_box.visible or sit_confirming or not (USE_LAYERED and hall.seated) or my_game.is_empty():
@@ -1904,11 +1930,11 @@ func _menu_open() -> bool:
 
 ## 宴会厅里没有别的面板占着（席面菜单、看人卡片、簿子、悄悄话框）：可以走路
 func _nothing_open() -> bool:
-    return not (_menu_open() or card_open or book_open or whisper_box.visible)
+    return not (_menu_open() or card_open or book_open or story_open or whisper_box.visible)
 
 ## 宴会厅里有别的面板占着屏幕（看人卡片、簿子、小游戏、悄悄话）：左上角「席面菜单」那块牌子先让开
 func _hall_busy() -> bool:
-    return card_open or book_open or is_instance_valid(game_host) or whisper_box.visible
+    return card_open or book_open or story_open or is_instance_valid(game_host) or whisper_box.visible
 
 ## 我现在坐着的那张桌；没坐着（或者厅是 3D 备用版）返回空串。添一道菜拿它当收货地址
 func _my_table() -> String:
@@ -1933,6 +1959,9 @@ func _layout_seat_buttons() -> void:
     if play_btn.visible: slots.append(play_btn)
     if add_dish_btn.visible: slots.append(add_dish_btn)
     if sit_btn.visible: slots.append(sit_btn)
+    # 55 桌的「这桌是谁」单独一行、在底下那排上面居中：底下那排坐着时已经四五个，再挤一个字就全成省略号了
+    story_btn.offset_left = -90; story_btn.offset_right = 90
+    story_btn.offset_top = -234; story_btn.offset_bottom = -184
     match slots.size():
         1:
             slots[0].offset_left = -220; slots[0].offset_right = 220
@@ -2269,6 +2298,81 @@ func _update_book_write_state() -> void:
     book_readonly_label.visible = not can_write
     if can_write:
         _check_book_ui()
+
+## 55 桌大厅的故事卡（01 D 9/29「每桌能点开看故事卡：先用假数据，一桌一张卡，写这桌坐的是谁」）。
+## 卡上：桌号、这桌坐的真人（名字）、还有几位宾客（NPC）、一句故事（还没写，先标「假数据」）。点暗处或「关上」收起
+const LINE_STORY_BTN := "这桌是谁"
+const LINE_STORY_NONE := "还没有人坐"
+const LINE_STORY_MORE := "还有 %d 位宾客"
+const LINE_STORY_TODO := "这桌的故事还没写（假数据）"
+static func story_lines(tid: String, seat_taken: Dictionary, names: Dictionary, npc_taken: Dictionary, me: String) -> Dictionary:
+    var people: Array = []
+    for k in seat_taken:
+        if str(k).begins_with(tid + ":"):
+            var oid := str(seat_taken[k])
+            var nick := "我" if oid == me else str((names.get(oid, {}) as Dictionary).get("nick", ""))
+            if nick != "":
+                people.append(nick)
+    var npc := 0
+    for k in npc_taken:
+        if str(k).begins_with(tid + ":") and not seat_taken.has(k):
+            npc += 1
+    return {"title": LayeredHall.table_label(tid), "people": people, "npc": npc}
+
+func _open_story_card(tid: String) -> void:
+    if tid == "" or story_open or not (USE_LAYERED and hall.big):
+        return
+    story_open = true
+    hall.walking_enabled = false
+    var life = _hall_life()
+    var d := story_lines(tid, hall.seat_taken, hall.resident_names, life.npc_taken if life != null else {}, cloud.openid())
+    story_card = Control.new()
+    story_card.name = "story_card"
+    story_card.set_anchors_preset(Control.PRESET_FULL_RECT)
+    story_card.mouse_filter = Control.MOUSE_FILTER_STOP
+    var dim := ColorRect.new()
+    dim.color = Color(0, 0, 0, 0.45)
+    dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+    dim.gui_input.connect(func(e):
+        if e is InputEventMouseButton and e.pressed:
+            _close_story_card())
+    story_card.add_child(dim)
+    var panel := PanelContainer.new()
+    panel.add_theme_stylebox_override("panel", _sb(Color(0.12, 0.07, 0.06, 0.96), Color("#d4af37"), 2, 10, 18))
+    panel.set_anchors_preset(Control.PRESET_CENTER)
+    panel.custom_minimum_size = Vector2(420, 0)
+    panel.position = Vector2(-210, -160)
+    var v := VBoxContainer.new()
+    v.add_theme_constant_override("separation", 10)
+    panel.add_child(v)
+    v.add_child(_label(str(d["title"]), 30, GOLD1))
+    var people: Array = d["people"]
+    var who := "、".join(people) if not people.is_empty() else LINE_STORY_NONE
+    var body := _label(who, 22, PAPER)
+    body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    v.add_child(body)
+    if int(d["npc"]) > 0:
+        v.add_child(_label(LINE_STORY_MORE % int(d["npc"]), 20, MUTED))
+    v.add_child(_label(LINE_STORY_TODO, 18, MUTED))
+    var close := Button.new()
+    close.text = "关上"
+    close.pressed.connect(_close_story_card)
+    v.add_child(close)
+    story_card.add_child(panel)
+    ui.add_child(story_card)
+    _refresh_seat_buttons()
+    print("[suqi] 故事卡 ", tid, " 真人 ", people.size(), " 宾客 ", d["npc"])
+
+func _close_story_card() -> void:
+    if not story_open:
+        return
+    story_open = false
+    if is_instance_valid(story_card):
+        story_card.queue_free()
+    story_card = null
+    if state == "banquet" and not whisper_box.visible and not card_open and not book_open:
+        hall.walking_enabled = true
+    _refresh_seat_buttons()
 
 func _close_book_panel() -> void:
     if not book_open:
@@ -2847,19 +2951,24 @@ func _setup_shot(shot: String) -> void:
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
         "big_door", "big_stage", "big_table", "big_overview":
-            # 55 桌大厅（01 9/24）：big_door 第一次进厅站大门口；big_stage 走到婚礼台前看横幅和 LED 屏；
-            # big_table 以后进厅站在自己桌边；big_overview 整个厅缩进一张图（和排法草图对照，没有界面）
+            # 55 桌大厅灰盒（01 D 9/29 要的三张）：big_door 进门（站大门口看全场）；big_table 第一次进厅，镜头滑到自己那桌以后；
+            # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）
             nickname = "小李"
             await _set_hall55(true, false)
-            cloud.fake_no_news = shot != "big_door"   # 假服务端「没新鲜事」时一律当老客，第一次进厅要把它关了
-            cloud.fake_arrival_mode = "first" if shot == "big_door" else "card"
+            cloud.fake_no_news = shot != "big_table"   # 假服务端「没新鲜事」时一律当老客，第一次进厅要把它关了
+            cloud.fake_arrival_mode = "first" if shot == "big_table" else "card"
             await _enter_banquet()
-            await get_tree().create_timer(2.0).timeout
+            await get_tree().create_timer(4.0 if shot == "big_table" else 2.0).timeout   # 门口站 0.8 秒 + 镜头滑 2.4 秒
             dialog.visible = false
             _hide_hint()
-            if shot == "big_stage":
-                hall.reset_to(Vector2(760, 360))
+            if shot == "big_door":
+                hall.reset_to(hall.SPAWN)
+                hall_door_latched = true   # 跳回门口：先当刚进门，不然一站上门圈就出厅了
+                hall.snap_cam()
+            elif shot == "big_stage":
                 hall.couple_armed = false
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.COUPLE_SPOT + Vector2(0, 80)))))
+                hall.snap_cam()
             elif shot == "big_overview":
                 hud.visible = false
                 hall.walking_enabled = false

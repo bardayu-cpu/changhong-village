@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c53er2nvfbxhj"
-path="res://.godot/imported/fg_rail_right.png-05b45968623d18b290427f483423c8d3.ctex"
+uid="uid://dkapfgjshyq2q"
+path="res://.godot/imported/gb_3.png-b33dee11e2dbdad034dd3880c4f638c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/layered/scene_roman_banquet_55/fg_rail_right.png"
-dest_files=["res://.godot/imported/fg_rail_right.png-05b45968623d18b290427f483423c8d3.ctex"]
+source_file="res://assets/layered/scene_roman_banquet_55/gb_3.png"
+dest_files=["res://.godot/imported/gb_3.png-b33dee11e2dbdad034dd3880c4f638c9.ctex"]
 
 [params]
 
-compress/mode=1
+compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=0.9
+compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clia61l8m53y8"
-path="res://.godot/imported/blk_table_round_flip.png-07eca2efce55105b4a00e63bd0a60c75.ctex"
+uid="uid://bg4i70pexbwsj"
+path="res://.godot/imported/gb_2.png-e793050c41f0c3d90e0ec3efb245d851.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/layered/scene_roman_banquet_55/blk_table_round_flip.png"
-dest_files=["res://.godot/imported/blk_table_round_flip.png-07eca2efce55105b4a00e63bd0a60c75.ctex"]
+source_file="res://assets/layered/scene_roman_banquet_55/gb_2.png"
+dest_files=["res://.godot/imported/gb_2.png-e793050c41f0c3d90e0ec3efb245d851.ctex"]
 
 [params]
 
-compress/mode=1
+compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=0.9
+compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

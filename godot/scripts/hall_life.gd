@@ -181,6 +181,8 @@ func _vec(a) -> Vector2:
 # ---------- 桌子下面的红地毯（阿鱼 9/18 晚：厅里看着太空）----------
 ## 每张桌一块，圈心在桌子加椅子那一圈的地面中间（着地点往上 20 像素）；桌子积木盖在它上面，只露一圈边
 func _rugs() -> void:
+    if not bool(hall.cfg.get("rugs", true)):
+        return   # 55 桌大厅：桌下不铺地毯（阿鱼 9/28：「都有地毯的话看起来太乱了」）
     for tc in hall.cfg.get("tables", []):
         var s := _sprite("amb_rug")
         if s == null:
@@ -220,6 +222,8 @@ func _gifts() -> void:
 ## 音符和灯光走**单独的动效层**：音符按 band.json 给的点往上飘（换曲时换一种形状），灯光原地闪，
 ## 都不画死在乐手身上
 func _band() -> void:
+    if not bool(hall.cfg.get("band_art", true)):
+        return   # 55 桌灰盒：乐队是底图里的色块，不叠第 44 版那块乐队图、也不飘音符
     if _band_art():
         return
     _band_blocks()

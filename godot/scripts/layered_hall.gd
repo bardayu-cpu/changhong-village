@@ -81,6 +81,17 @@ func build(preset: int, nickname: String, f: Font) -> void:
     font = f
     cfg = JSON.parse_string(FileAccess.get_file_as_string(data_path))
     big = str(cfg.get("scene", "")).ends_with("_55")
+    # 场景配置可以改座位圈、长凳、桌牌的规矩（55 桌大厅灰盒，01 D 9/29）；12 桌厅不写，照旧用上面的常数
+    var sg: Dictionary = cfg.get("seat_geom", {})
+    seat_dy = float(sg.get("dy", SEAT_DY))
+    seat_rx = float(sg.get("rx", SEAT_RX))
+    seat_ry = float(sg.get("ry", SEAT_RY))
+    var bc: Dictionary = cfg.get("bench", {})
+    bench_x0 = float(bc.get("x0", BENCH_X0))
+    bench_x1 = float(bc.get("x1", BENCH_X1))
+    bench_y = float(bc.get("y", BENCH_Y))
+    bench_draw = bool(bc.get("draw", true))
+    sign_near = str(cfg.get("sign_mode", "")) == "near"
     base_tex = Canvas.texture(cfg["base"])
     var base := Sprite2D.new()
     base.texture = base_tex
@@ -321,6 +332,8 @@ func _keep_tags_on_screen() -> void:
             var home: float = l.get_meta("home")
             var mid := home + l.size.x * 0.5
             l.visible = mid >= lo and mid <= hi
+            if sign_near and l.has_meta("tid") and not _sign_shown(str(l.get_meta("tid"))):
+                l.visible = false   # 55 桌认桌：不是自己那桌、也没走近的桌，牌子不挂（这里每帧重算，得一起管）
             l.position.x = clampf(home, lo, maxf(lo, hi - l.size.x))
 
 func set_look(preset: int, nickname: String) -> void:
@@ -480,6 +493,25 @@ func stand_by_my_table() -> bool:
     reset_to(_cell_pos(c))
     return true
 
+## 55 桌第一次进厅（01 D 9/29「第一次进厅镜头带你到自己那桌」）：人直接站到自己椅子边上，镜头从大门那儿
+## 慢慢滑过去（CAM_TOUR 秒）。不让人从大门自己走过去：大门到第一排近 1900 像素，走要 12 秒，太长。
+## 还没分到座、分到了画面上没有的桌，返回 false，照旧站门口
+const CAM_TOUR := 2.4
+var cam_tour := 0.0              # 镜头还要滑多久（秒）；人一走就停，交回给跟人的镜头
+var cam_tour_from := Vector2.ZERO
+
+func fly_to_my_table() -> bool:
+    if cam == null:
+        return false
+    var from := cam.position
+    if not stand_by_my_table():
+        return false
+    cam_pan = from - pos
+    _clamp_pan()
+    cam_tour_from = cam_pan
+    cam_tour = CAM_TOUR
+    return true
+
 func reset_to(p: Vector2) -> void:
     pos = p
     path.clear()
@@ -616,6 +648,13 @@ func _process(dt: float) -> void:
     player.position = pos
     var sc := _px_h(pos.y) / frame_h
     player.scale = Vector2(sc, sc)
+    if cam_tour > 0.0:
+        if moving:
+            cam_tour = 0.0
+        else:
+            cam_tour = maxf(cam_tour - dt, 0.0)
+            var k := 1.0 - cam_tour / CAM_TOUR
+            cam_pan = cam_tour_from * (1.0 - k * k * (3.0 - 2.0 * k))   # 先慢后快再慢
     if moving or (seated and sit_t < SIT_ANIM):
         # 一走（或坐下那一下）镜头就慢慢回到自己身上，约半秒收回大半
         cam_pan = cam_pan.lerp(Vector2.ZERO, minf(dt * 4.0, 1.0))
@@ -659,17 +698,19 @@ const BENCH_WALK := [Rect2(100, 260, 230, 30), Rect2(100, 290, 60, 30)]   # 补�
 var bench_spots: Array = []      # [{openid, pos}]：长凳上的人（含自己，自己不画），按服务端 bench 的顺序
 
 ## 长凳上第 k 个（从 0 数，一共 n 个）坐哪：人少时一人 BENCH_GAP 宽、整排居中；坐不下就把整条分匀，挤着叠
-static func bench_pos(k: int, n: int) -> Vector2:
-    var span := BENCH_X1 - BENCH_X0
+func bench_pos(k: int, n: int) -> Vector2:
+    var span := bench_x1 - bench_x0
     var gap := BENCH_GAP
     if n > 1 and float(n - 1) * BENCH_GAP > span:
         gap = span / float(n - 1)
-    var start := (BENCH_X0 + BENCH_X1) * 0.5 - gap * float(n - 1) * 0.5
-    return Vector2(start + gap * float(k), BENCH_Y)
+    var start := (bench_x0 + bench_x1) * 0.5 - gap * float(n - 1) * 0.5
+    return Vector2(start + gap * float(k), bench_y)
 
 ## 凳子（代码画的占位，和桌心簿子一样粗的像素）：靠背一块、凳面连腿一块。
 ## 靠背排在坐的人后面（着地点比椅位点靠里），凳面排在前面（盖住坐的人最下面一点，像坐在上面）；再把凳子前面那条道放开
 func _bench() -> void:
+    if not bench_draw:
+        return   # 55 桌灰盒：凳子是底图旁边的色块遮挡块，能走的格子也是生成场景时算好的
     var w := int(BENCH_X1 - BENCH_X0) + 36
     var x := BENCH_X0 - 18.0
     var back := Sprite2D.new()
@@ -731,6 +772,15 @@ signal game_tap(table_id: String)     # 点了某张桌桌心的菜（席间小�
 
 var seats_holder: Node2D
 var seat_tags: Node2D
+var seat_dy := SEAT_DY           # 座位圈（场景配置 seat_geom 能改；55 桌灰盒的桌是一圈 140×92，圈心不往上挪）
+var seat_rx := SEAT_RX
+var seat_ry := SEAT_RY
+var bench_x0 := BENCH_X0         # 长凳（场景配置 bench 能改；55 桌灰盒在第 1 排最西那个空位，色块画了凳子，代码不另画）
+var bench_x1 := BENCH_X1
+var bench_y := BENCH_Y
+var bench_draw := true
+var sign_near := false           # 认桌（01 D 9/29，55 桌）：只给自己那桌、走近的那桌挂牌，其余不挂
+var table_signs: Dictionary = {} # table_id -> 桌牌（sign_near 时建好先藏着）
 var seat_marker: Polygon2D
 var chairs: Array = []          # [{table_id, chair_no, pos}]
 var seat_taken: Dictionary = {} # "T1:3" -> openid
@@ -757,12 +807,12 @@ var seat_front := false          # 自己坐的椅子在桌子两边或前面：
 func chair_world(t: Dictionary, no: int) -> Vector2:
     var a := -PI / 2.0 + TAU * float(no - 1) / 10.0
     var c := _seat_center(t)
-    return Vector2(c.x + cos(a) * (float(t["rx"]) + SEAT_RX), c.y + sin(a) * (float(t["ry"]) + SEAT_RY))
+    return Vector2(c.x + cos(a) * (float(t["rx"]) + seat_rx), c.y + sin(a) * (float(t["ry"]) + seat_ry))
 
 ## 椅位圈的圈心：桌子积木里画出来的那圈椅子，比桌子占地椭圆靠上（占地椭圆的中心在桌子着地的那一行）。
 ## 9/17 对着试点积木 blk_table_round.png 量的，原来按占地椭圆往外扩，坐下的人飘在椅子外面一大截
 func _seat_center(t: Dictionary) -> Vector2:
-    return Vector2(float(t["x"]), float(t["y"]) + SEAT_DY * float(t["ry"]))
+    return Vector2(float(t["x"]), float(t["y"]) + seat_dy * float(t["ry"]))
 
 ## 坐在这把椅子上的人画不画在桌子前面：桌子后面那几把（圈的上半截）照 y 排序躲在桌子后面；
 ## 两边和前面的画在桌子前面。桌子积木只有一条着地线，分不出人在桌子哪一侧，只能按椅子在圈上的位置定
@@ -774,6 +824,7 @@ func set_seats(data: Dictionary, me_id: String) -> void:
         seats_holder.queue_free()
     if seat_tags != null:
         seat_tags.queue_free()
+    table_signs.clear()
     seats_holder = Node2D.new()
     seats_holder.y_sort_enabled = true
     world.add_child(seats_holder)
@@ -843,10 +894,32 @@ func set_seats(data: Dictionary, me_id: String) -> void:
 
 ## 桌牌「XX那桌·吃席」（蓝图 3.2：桌牌由引擎渲染，XX 是这桌第一个坐下的人；9/19 起带上这桌的小游戏名），立在桌心；
 ## 没有真人坐的桌只写游戏名
+## 55 桌的桌号怎么念：主桌叫「主桌」，T12 叫「12 号桌」
+static func table_label(tid: String) -> String:
+    if tid == "MAIN":
+        return "主桌"
+    if tid.begins_with("T"):
+        return "%s 号桌" % tid.substr(1)
+    return tid
+
+## 认桌（55 桌）：自己那桌一直挂牌，走近哪桌亮哪桌，其余不挂
+func _sign_shown(tid: String) -> bool:
+    return tid == str(my_seat.get("table_id", "")) or tid == table_near_key
+
+func _refresh_near_signs() -> void:
+    if not sign_near:
+        return
+    for tid in table_signs:
+        var l: Label = table_signs[tid]
+        if is_instance_valid(l):
+            l.visible = _sign_shown(str(tid))
+
 func _table_sign(t: Dictionary, nick: String) -> void:
     var l := Label.new()
     var game_title := GameCfg.title(GameCfg.game_for_table(str(t["id"])))
     var parts: Array[String] = []
+    if sign_near:
+        parts.append(table_label(str(t["id"])))   # 55 桌：牌子上先写桌号
     if nick != "":
         parts.append(nick + "那桌")
     if game_title != "":
@@ -870,6 +943,10 @@ func _table_sign(t: Dictionary, nick: String) -> void:
     l.position = _seat_center(t) - Vector2(l.size.x * 0.5, l.size.y + 8.0)   # 立在簿子上方，不挡簿子
     l.name = "sign_" + str(t["id"])
     seat_tags.add_child(l)
+    if sign_near:
+        l.set_meta("tid", str(t["id"]))
+        table_signs[str(t["id"])] = l
+        l.visible = _sign_shown(str(t["id"]))
 
 ## 坐着的住民：和自己坐下一样画上半身（占位，SIT_KEEP、SIT_LIFT），不然别人像站在桌边、只有自己像坐着。
 ## center 是他面朝的地方（桌边的人朝桌心，长凳上的人朝厅里）；label 为 false 时头上不挂名字（长凳）
@@ -1185,3 +1262,4 @@ func _scan_chairs(dt: float) -> void:
     if best_table != table_near_key:
         table_near_key = best_table
         table_near.emit(best_table)
+        _refresh_near_signs()

@@ -22,6 +22,7 @@ var _probed := false
 # ---- 电脑上的假数据：两个人坐着，自己第一次进厅会被分到 T1 ----
 var fake_me := {"table_id": "", "chair_no": 0}
 var fake_tables := 12     # 假服务端回几张桌：12 桌厅 12；55 桌大厅 55（01 9/24：座位 550 先在假服务端里改，真服务端不部署）
+var fake_table_ids: Array = []   # 55 桌大厅灰盒（01 D 9/29）：照场景的桌号表回（主桌 MAIN + T1～T54）；空的就照 fake_tables 回 T1～Tn
 var fake_seats := {"T1": [{"openid": "fake_wang", "chair_no": 1}], "T2": [{"openid": "fake_li", "chair_no": 4}]}
 ## inviter 照服务端的字段（enterHall/index.js）：没有邀请人是 null，不是空字符串。
 ## fake_li 的邀请人是 fake_wang，这样电脑上截图能看到看人卡片「老王 带进来的」（第 22 版）
@@ -205,9 +206,15 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 fake_me = {"table_id": "T1", "chair_no": 2}
                 fake_seats["T1"].append({"openid": "fake_me", "chair_no": 2})
             var tables := []
-            for i in range(1, fake_tables + 1):   # 和服务端一样回全部桌（12 桌厅 12 张；55 桌大厅 55 张，服务端 BANQUET_TABLE_IDS_55）
-                var tid := "T%d" % i
-                tables.append({"id": tid, "reserved": tid == "T1" or tid == "T2", "seats": fake_seats.get(tid, [])})
+            var ids: Array = fake_table_ids.duplicate()
+            if ids.is_empty():
+                for i in range(1, fake_tables + 1):   # 和服务端一样回全部桌（12 桌厅 12 张）
+                    ids.append("T%d" % i)
+            for tid in ids:
+                var tb := {"id": tid, "reserved": tid == "T1" or tid == "T2", "seats": fake_seats.get(tid, [])}
+                if tid == "MAIN":
+                    tb["main"] = true   # 主桌：新人家那桌（服务端 BANQUET_MAIN_TABLE_ID，不部署）
+                tables.append(tb)
             return {"ok": true, "data": {"me": fake_me, "tables": tables, "bench": fake_bench,
                 "digest": {"toasts": [], "toastCount": 0, "bookLineCount": 0, "hasNews": false} if fake_no_news else
                     {"toasts": [{"from": "fake_wang", "at": 0}], "toastCount": 1, "bookLineCount": 2, "hasNews": true},
@@ -223,8 +230,12 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             var tid_new := str(data["tableId"])
             var no_new := int(data["chairNo"])
             # 和服务端 checkSeatTarget 一样：桌号要在表里、椅子号 1～10，不然 bad_request
-            if not tid_new.begins_with("T") or int(tid_new.substr(1)) < 1 or int(tid_new.substr(1)) > fake_tables or no_new < 1 or no_new > 10:
+            var known: bool = tid_new in fake_table_ids if not fake_table_ids.is_empty() else \
+                (tid_new.begins_with("T") and int(tid_new.substr(1)) >= 1 and int(tid_new.substr(1)) <= fake_tables)
+            if not known or no_new < 1 or no_new > 10:
                 return {"ok": false, "reason": "bad_request"}
+            if tid_new == "MAIN":
+                return {"ok": false, "reason": "main_table_only_family"}   # 主桌只给新人家（电脑上的「我」不是阿鱼、Toretto）
             for other in fake_seats.get(tid_new, []):
                 if int(other["chair_no"]) == no_new and other["openid"] != "fake_me":
                     return {"ok": false, "reason": "seat_taken"}
