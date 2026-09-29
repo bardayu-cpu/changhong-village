@@ -23,6 +23,9 @@
 
 颜色（COLORS）是 02 的 make_board55.py 用的色；02 换色了，改这里。表里名字到颜色的对应在 color_of()。
 v3 加的两种：琴凳和大提琴手的椅子（80,50,30）、谱架（60,60,60）；桌子后排椅背用的还是桌一圈那个深棕。
+9/29 校过一遍色块图实测色，改了三个（v3.1 起台面、台口立面、台阶就分开了，这份表一直没跟着改）：
+台面 (200,60,55)→(214,78,66)、台口立面 (150,40,38)→(112,24,24)、台阶 (175,50,46)→(190,120,96)。
+台口立面和台阶现在颜色分得开（先前那份表把两者的色值写得很接近，但从没对过实测色，一对才发现真正的色值早就分开了）。
 """
 import argparse
 import heapq
@@ -37,8 +40,8 @@ ZOOM = 0.9375          # 手机屏镜头：屏高 960 ÷ 画布 1024
 MAGENTA = (255, 0, 200)   # 标注版里落地线的颜色
 COLORS = {
     "地面": (239, 227, 207), "墙": (92, 52, 36), "墙顶横梁": (60, 32, 22), "帐幔": (170, 40, 40), "挂灯": (240, 170, 60),
-    "花拱": (70, 130, 70), "囍": (215, 170, 60), "横幅": (150, 30, 30), "台面": (200, 60, 55), "台口立面": (150, 40, 38),
-    "台阶": (175, 50, 46), "LED": (20, 10, 8), "脚印": (255, 255, 255), "红毯": (179, 32, 42), "落地宫灯": (240, 200, 60),
+    "花拱": (70, 130, 70), "囍": (215, 170, 60), "横幅": (150, 30, 30), "台面": (214, 78, 66), "台口立面": (112, 24, 24),
+    "台阶": (190, 120, 96), "LED": (20, 10, 8), "脚印": (255, 255, 255), "红毯": (179, 32, 42), "落地宫灯": (240, 200, 60),
     "花盆": (90, 170, 90), "壁边灯柱": (230, 170, 60), "乐队地台": (120, 40, 50), "钢琴": (30, 30, 30), "坐乐手": (70, 60, 110),
     "站乐手": (110, 70, 140), "大提琴": (140, 80, 40), "贺礼堆": (230, 120, 120), "长凳": (120, 200, 255),
     "桌一圈": (90, 50, 25), "桌面": (220, 70, 60), "主桌桌面": (240, 190, 60), "地毯": (150, 70, 40), "主桌地毯": (200, 150, 40),
@@ -442,18 +445,22 @@ def cmd_walk(args):
     print("跨红毯（红毯两边最近的桌之间）：%d 像素 = %.2f 米" % (min(cross_c), min(cross_c) / 48.0))
     lr = max(r[2] for r in rings if r[2] < carpet[0]); rl = min(r[0] for r in rings if r[0] > carpet[2])
     print("红毯边到最近的桌：左 %d、右 %d 像素" % (carpet[0] - lr - 1, rl - carpet[2] - 1))
-    lg = max(r[2] for r in rugs if r[2] < carpet[0]); rg = min(r[0] for r in rugs if r[0] > carpet[2])
-    print("红毯边到最近的地毯：左 %d、右 %d 像素" % (carpet[0] - lg - 1, rg - carpet[2] - 1))
-    rug_v = [gv(a, b) for a in rugs for b in rugs if a[0] == b[0] and b[1] > a[1]]
-    rug_h = [gh(a, b) for a in rugs for b in rugs if a[1] == b[1] and b[0] > a[0]]
-    print("地毯之间露出的地面：上下最窄 %d、左右最窄 %d 像素（一人宽 %d）" % (min(rug_v), min(rug_h), PERSON_W))
+    if rugs:                       # v3.2 起桌下不铺地毯（阿鱼 9/28），图上一块都没有；这一段（地毯间隙）就跳过
+        lg = max(r[2] for r in rugs if r[2] < carpet[0]); rg = min(r[0] for r in rugs if r[0] > carpet[2])
+        print("红毯边到最近的地毯：左 %d、右 %d 像素" % (carpet[0] - lg - 1, rg - carpet[2] - 1))
+        rug_v = [gv(a, b) for a in rugs for b in rugs if a[0] == b[0] and b[1] > a[1]]
+        rug_h = [gh(a, b) for a in rugs for b in rugs if a[1] == b[1] and b[0] > a[0]]
+        print("地毯之间露出的地面：上下最窄 %d、左右最窄 %d 像素（一人宽 %d）" % (min(rug_v), min(rug_h), PERSON_W))
+    else:
+        print("图上没有地毯（v3.2 起桌下不铺地毯）")
     # 行与行之间画面上露出的地面：按像素扫
     if trows:
         rr = [(r["x"], r["y"], r["x"] + r["w"] - 1, r["y"] + r["h"] - 1) for r in trows if color_of(r["name"]) in ("地毯", "主桌地毯")]
-        rv = [gv(a, b) for a in rr for b in rr if a[0] == b[0] and b[1] > a[1]]
-        rh = [gh(a, b) for a in rr for b in rr if a[1] == b[1] and b[0] > a[0]]
-        print("地毯之间露出的地面（按表里地毯的框，105 高）：上下最窄 %d、左右最窄 %d 像素；图上量到的地毯被后排椅背盖住一截（见 diff），所以上面那行上下是 %d" % (
-            min(rv), min(rh), min(rug_v)))
+        if rr:
+            rv = [gv(a, b) for a in rr for b in rr if a[0] == b[0] and b[1] > a[1]]
+            rh = [gh(a, b) for a in rr for b in rr if a[1] == b[1] and b[0] > a[0]]
+            print("地毯之间露出的地面（按表里地毯的框，105 高）：上下最窄 %d、左右最窄 %d 像素；图上量到的地毯被后排椅背盖住一截（见 diff），所以上面那行上下是 %d" % (
+                min(rv), min(rh), min(rug_v) if rugs else -1))
     va, vb = visible_floor(im, rings, lambda g: g <= small_r + 5)
     print("行与行之间画面上露出的地面（前一排桌画出来的前沿 → 后一排椅背最上沿，逐列扫）：最窄 %d 像素（连地毯）；只算地面色最窄 %d 像素（在 x=%d 那一列）" % (va[0], vb[0], vb[1]))
     vc, vd = visible_floor(im, rings, lambda g: g > small_r + 5)
