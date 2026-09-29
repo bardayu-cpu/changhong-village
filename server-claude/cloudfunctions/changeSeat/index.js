@@ -18,7 +18,16 @@ exports.main = async (event) => {
   if (tableId === C.BANQUET_BENCH_ID) return { ok: false, reason: 'bad_request' };
   // 9/24 加：桌号要在 config.BANQUET_TABLE_IDS 里、椅子号要是 1..BANQUET_SEATS_PER_TABLE，
   // 不然传个 T99、11 号椅也能写进 seat 表（55 桌上线前补的，12 桌时一样拦）
-  const target = banquet.checkSeatTarget({ tableId, chairNo, tableIds: C.BANQUET_TABLE_IDS });
+  // 9/29 加：55 桌厅有主桌，只有阿鱼、Toretto 本人能换进去，别人回 main_table_only_family。
+  // 只有要换进主桌时才查 config/banquet 的 vip_openids；12 桌厅 mainId 是 null，主桌 id 当不存在的桌回 bad_request
+  const mainId = banquet.mainTableIdOf(C.BANQUET_TABLE_IDS);
+  let isVip = false;
+  if (mainId && tableId === mainId) {
+    const doc = await db.collection('config').doc('banquet').get().catch(() => null);
+    const vipIds = (doc && doc.data && doc.data.vip_openids) || [];
+    isVip = vipIds.includes(cloud.getWXContext().OPENID);
+  }
+  const target = banquet.checkSeatTarget({ tableId, chairNo, tableIds: C.BANQUET_TABLE_IDS, mainTableId: mainId, isVip });
   if (!target.ok) return target;
 
   const { OPENID } = cloud.getWXContext();

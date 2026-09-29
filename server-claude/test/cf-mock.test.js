@@ -1108,7 +1108,7 @@ async function withCfConfig(fnName, patch, fn) {
 
 // ================= 场景26：enterHall 55 桌 + 长凳门槛开关（9/24） =================
 async function scenarioEnterHallBenchOnlyWhenFull() {
-  // 摆一个 55 桌的厅：T3..T55 这 53 张普通桌各被一枝占了、各坐 3 人，T1、T2 空着
+  // 摆一个 55 桌的厅（主桌 + T1..T54）：T3..T54 这 52 张普通桌各被一枝占了、各坐 3 人，T1、T2、主桌空着
   function setup(state) {
     const ids = require(path.join(CF_ROOT, 'enterHall', 'rules', 'config.js')).BANQUET_TABLE_IDS_55;
     let n = 0;
@@ -1119,7 +1119,7 @@ async function scenarioEnterHallBenchOnlyWhenFull() {
       }
     }
     seed(state, 'config', { _id: 'banquet', vip_openids: ['AYU'] });
-    seed(state, 'resident', { _id: 'new54', openid: 'new54', nick: '第54枝', avatar: 1, inviter: 'root_new' });
+    seed(state, 'resident', { _id: 'new54', openid: 'new54', nick: '第53枝', avatar: 1, inviter: 'root_new' });
     seed(state, 'resident', { _id: 'loner', openid: 'loner', nick: '没人带', avatar: 1, inviter: null });
     seed(state, 'resident', { _id: 'AYU', openid: 'AYU', nick: '阿鱼', avatar: 1, inviter: null });
   }
@@ -1129,30 +1129,30 @@ async function scenarioEnterHallBenchOnlyWhenFull() {
     return enterHall.main();
   }
 
-  // 用例1：开关开 + 55 桌：第 54 枝不去长凳，坐 T3 的 4 号椅；没有邀请人的不进 T1；阿鱼自己坐 T1
+  // 用例1：开关开 + 55 桌：第 53 枝不去长凳，坐 T3 的 4 号椅；没有邀请人的不进 T1；阿鱼自己坐主桌（9/29 起不再坐 T1）
   await withCfConfig('enterHall', { BANQUET_BENCH_ONLY_WHEN_FULL: true, BANQUET_TABLE_IDS: null }, async (cfg) => {
     cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
     const { sdk, state } = createFakeSdk();
     setup(state);
     let res = await enterAs(sdk, state, 'new54');
     check(res.ok === true, `场景26-用例1 enterHall 返回 ok（实际 ${JSON.stringify(res).slice(0, 200)}）`);
-    check(res.data.tables.length === 55, `场景26-用例1 返回 55 桌（实际 ${res.data.tables.length}）`);
-    check(res.data.me.table_id === 'T3' && res.data.me.chair_no === 4, `场景26-用例1 第 54 枝坐 T3 4 号椅，不去长凳（实际 ${JSON.stringify(res.data.me)}）`);
+    check(res.data.tables.length === 55, `场景26-用例1 返回 55 桌（主桌 + 54，实际 ${res.data.tables.length}）`);
+    check(res.data.me.table_id === 'T3' && res.data.me.chair_no === 4, `场景26-用例1 第 53 枝坐 T3 4 号椅，不去长凳（实际 ${JSON.stringify(res.data.me)}）`);
     check(res.data.bench.length === 0, '场景26-用例1 长凳没人');
     res = await enterAs(sdk, state, 'loner');
     check(res.data.me.table_id === 'T3' && res.data.me.chair_no === 5, `场景26-用例1 没有邀请人的坐普通桌 T3，不进 T1（实际 ${JSON.stringify(res.data.me)}）`);
     res = await enterAs(sdk, state, 'AYU');
-    check(res.data.me.table_id === 'T1' && res.data.me.chair_no === 1, `场景26-用例1 阿鱼自己坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
+    check(res.data.me.table_id === 'MAIN' && res.data.me.chair_no === 1, `场景26-用例1 阿鱼自己坐主桌 1 号椅（实际 ${JSON.stringify(res.data.me)}）`);
   });
 
-  // 用例2：开关关（旧规矩）、同样 55 桌：第 54 枝上长凳，没有邀请人的坐 T1——跟线上现在一样
+  // 用例2：开关关（旧规矩）、同样 55 桌：第 53 枝上长凳，没有邀请人的坐 T1——跟线上现在一样
   await withCfConfig('enterHall', { BANQUET_TABLE_IDS: null }, async (cfg) => {
     cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
     check(cfg.BANQUET_BENCH_ONLY_WHEN_FULL === false, '场景26-用例2 开关默认是关的');
     const { sdk, state } = createFakeSdk();
     setup(state);
     let res = await enterAs(sdk, state, 'new54');
-    check(res.data.me.table_id === 'bench' && res.data.me.chair_no === null, `场景26-用例2 旧规矩第 54 枝上长凳（实际 ${JSON.stringify(res.data.me)}）`);
+    check(res.data.me.table_id === 'bench' && res.data.me.chair_no === null, `场景26-用例2 旧规矩第 53 枝上长凳（实际 ${JSON.stringify(res.data.me)}）`);
     res = await enterAs(sdk, state, 'loner');
     check(res.data.me.table_id === 'T1', `场景26-用例2 旧规矩没有邀请人坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
   });
@@ -1201,12 +1201,134 @@ async function scenarioChangeSeatValidation() {
     cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
     let { sdk, state } = setup();
     let changeSeat = loadCloudFunction('changeSeat', sdk);
-    let res = await changeSeat.main({ tableId: 'T55', chairNo: 7 });
-    check(res.ok === true && state.collections.seat.get(ME).table_id === 'T55', `场景27 55 桌时 T55 能换（实际 ${JSON.stringify(res)}）`);
+    let res = await changeSeat.main({ tableId: 'T54', chairNo: 7 });
+    check(res.ok === true && state.collections.seat.get(ME).table_id === 'T54', `场景27 55 桌时 T54 能换（实际 ${JSON.stringify(res)}）`);
     ({ sdk, state } = setup());
     changeSeat = loadCloudFunction('changeSeat', sdk);
-    res = await changeSeat.main({ tableId: 'T56', chairNo: 1 });
-    check(res.ok === false && res.reason === 'bad_request', `场景27 55 桌时 T56 回 bad_request（实际 ${JSON.stringify(res)}）`);
+    res = await changeSeat.main({ tableId: 'T55', chairNo: 1 });
+    check(res.ok === false && res.reason === 'bad_request', `场景27 55 桌厅没有 T55（主桌 + T1..T54），回 bad_request（实际 ${JSON.stringify(res)}）`);
+  });
+}
+
+// ================= 场景28：enterHall 主桌（55 桌厅才有，9/29，规矩待确认） =================
+async function scenarioEnterHallMainTable() {
+  async function enterAs(sdk, state, who) {
+    state.currentOpenid = who;
+    const enterHall = loadCloudFunction('enterHall', sdk);
+    return enterHall.main();
+  }
+  function people(state) {
+    seed(state, 'config', { _id: 'banquet', vip_openids: ['AYU', 'TOR'] });
+    seed(state, 'resident', { _id: 'AYU', openid: 'AYU', nick: '阿鱼', avatar: 1, inviter: null });
+    seed(state, 'resident', { _id: 'TOR', openid: 'TOR', nick: 'Toretto', avatar: 1, inviter: 'AYU' });
+    seed(state, 'resident', { _id: 'a1', openid: 'a1', nick: '阿鱼请的', avatar: 1, inviter: 'AYU' });
+    seed(state, 'resident', { _id: 't1', openid: 't1', nick: 'Toretto请的', avatar: 1, inviter: 'TOR' });
+    seed(state, 'resident', { _id: 'loner', openid: 'loner', nick: '没人带', avatar: 1, inviter: null });
+    seed(state, 'resident', { _id: 'x1', openid: 'x1', nick: '别的枝', avatar: 1, inviter: 'R1' });
+  }
+
+  // 线上 12 桌（什么都不改）：阿鱼本人照旧坐 T1，返回 12 桌、没有主桌那一项
+  {
+    const { sdk, state } = createFakeSdk();
+    people(state);
+    const res = await enterAs(sdk, state, 'AYU');
+    check(res.data.me.table_id === 'T1' && res.data.me.chair_no === 1, `场景28 12 桌厅阿鱼本人照旧坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
+    check(res.data.tables.length === 12 && res.data.tables.every(t => !('main' in t)) && res.data.tables[0].id === 'T1', `场景28 12 桌厅返回 12 桌、没有主桌（实际 ${res.data.tables.map(t => t.id).join(',')}）`);
+    check(JSON.stringify(Object.keys(res.data.tables[0])) === JSON.stringify(['id', 'reserved', 'seats']), `场景28 12 桌厅每桌字段跟原来一样（实际 ${Object.keys(res.data.tables[0])}）`);
+  }
+
+  for (const flag of [false, true]) {
+    await withCfConfig('enterHall', { BANQUET_BENCH_ONLY_WHEN_FULL: flag, BANQUET_TABLE_IDS: null }, async (cfg) => {
+      cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
+      const { sdk, state } = createFakeSdk();
+      people(state);
+      let res = await enterAs(sdk, state, 'AYU');
+      check(res.data.me.table_id === 'MAIN' && res.data.me.chair_no === 1, `场景28 开关${flag} 阿鱼本人坐主桌 1 号椅（实际 ${JSON.stringify(res.data.me)}）`);
+      const tables = res.data.tables;
+      check(tables.length === 55 && tables[0].id === 'MAIN' && tables[0].main === true && tables[0].reserved === false, `场景28 开关${flag} 返回主桌 + 54 桌，主桌排第一、带 main:true（实际 ${tables.length} 桌，第一项 ${JSON.stringify(tables[0])}）`);
+      check(tables[1].id === 'T1' && tables[1].reserved === true && tables[54].id === 'T54' && tables.slice(1).every(t => !t.main), `场景28 开关${flag} 主桌后面是 T1..T54`);
+      check(tables.length * 10 === 550, `场景28 开关${flag} 主桌 + 54 桌 = 550 把椅子`);
+      check(tables[0].seats.length === 1 && tables[0].seats[0].openid === 'AYU', `场景28 开关${flag} 主桌上坐着阿鱼`);
+      res = await enterAs(sdk, state, 'TOR');
+      check(res.data.me.table_id === 'MAIN' && res.data.me.chair_no === 2, `场景28 开关${flag} Toretto 本人（有邀请人）也坐主桌，椅子取最小空号 2（实际 ${JSON.stringify(res.data.me)}）`);
+      res = await enterAs(sdk, state, 'a1');
+      check(res.data.me.table_id === 'T1', `场景28 开关${flag} 阿鱼请的人坐 T1（实际 ${JSON.stringify(res.data.me)}）`);
+      res = await enterAs(sdk, state, 't1');
+      check(res.data.me.table_id === 'T2', `场景28 开关${flag} Toretto 请的人坐 T2（实际 ${JSON.stringify(res.data.me)}）`);
+      res = await enterAs(sdk, state, 'loner');
+      check(res.data.me.table_id !== 'MAIN', `场景28 开关${flag} 没有邀请人的人不进主桌（实际 ${JSON.stringify(res.data.me)}）`);
+      res = await enterAs(sdk, state, 'x1');
+      check(res.data.me.table_id !== 'MAIN', `场景28 开关${flag} 别的枝不进主桌（实际 ${JSON.stringify(res.data.me)}）`);
+      check(res.data.tables[0].seats.map(s => s.openid).join(',') === 'AYU,TOR', `场景28 开关${flag} 主桌上只有阿鱼、Toretto`);
+    });
+
+    // 54 桌全坐满、主桌只坐了阿鱼：别人进来去长凳，不进主桌；Toretto 本人照样坐主桌
+    await withCfConfig('enterHall', { BANQUET_BENCH_ONLY_WHEN_FULL: flag, BANQUET_TABLE_IDS: null }, async (cfg) => {
+      cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
+      const { sdk, state } = createFakeSdk();
+      people(state);
+      let n = 0;
+      for (const t of cfg.BANQUET_TABLE_IDS_55) {
+        for (let c = 1; c <= 10; c++) {
+          const id = `f_${t}_${c}`;
+          seed(state, 'seat', { _id: id, openid: id, table_id: t, chair_no: c, inviter: `root_${t}`, sat_at: 1000 + (++n), changed_on: null, sat_tables: [t], last_visit_at: 1000 + n });
+        }
+      }
+      seed(state, 'seat', { _id: 'AYU', openid: 'AYU', table_id: 'MAIN', chair_no: 1, inviter: null, sat_at: 999, changed_on: null, sat_tables: ['MAIN'], last_visit_at: 999 });
+      for (const who of ['loner', 'x1', 'a1', 't1']) {
+        const res = await enterAs(sdk, state, who);
+        check(res.data.me.table_id === 'bench', `场景28 开关${flag} 54 桌全满时 ${who} 去长凳、不进主桌（实际 ${JSON.stringify(res.data.me)}）`);
+      }
+      const res = await enterAs(sdk, state, 'TOR');
+      check(res.data.me.table_id === 'MAIN' && res.data.me.chair_no === 2, `场景28 开关${flag} 54 桌全满时 Toretto 本人照样坐主桌 2 号椅（实际 ${JSON.stringify(res.data.me)}）`);
+      check(res.data.bench.length === 4, `场景28 开关${flag} 长凳上 4 人（实际 ${res.data.bench.length}）`);
+    });
+  }
+}
+
+// ================= 场景29：changeSeat 换进主桌（55 桌厅才有，9/29） =================
+async function scenarioChangeSeatMainTable() {
+  function setup(me) {
+    const { sdk, state } = createFakeSdk();
+    seed(state, 'config', { _id: 'banquet', vip_openids: ['AYU', 'TOR'] });
+    seed(state, 'seat', { _id: me, openid: me, table_id: 'T3', chair_no: 1, inviter: null, sat_at: 100, sat_tables: ['T3'], last_visit_at: 100 });
+    state.currentOpenid = me;
+    return { sdk, state };
+  }
+  // 线上 12 桌：MAIN 不存在，谁换都是 bad_request
+  for (const who of ['guest', 'AYU']) {
+    const { sdk, state } = setup(who);
+    const res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 1 });
+    check(res.ok === false && res.reason === 'bad_request' && state.collections.seat.get(who).table_id === 'T3', `场景29 12 桌厅 ${who} 换 MAIN 回 bad_request（实际 ${JSON.stringify(res)}）`);
+  }
+  await withCfConfig('changeSeat', { BANQUET_TABLE_IDS: null }, async (cfg) => {
+    cfg.BANQUET_TABLE_IDS = cfg.BANQUET_TABLE_IDS_55;
+    let { sdk, state } = setup('guest');
+    let res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 5 });
+    check(res.ok === false && res.reason === 'main_table_only_family', `场景29 55 桌厅别人换进主桌回 main_table_only_family（实际 ${JSON.stringify(res)}）`);
+    check(state.collections.seat.get('guest').table_id === 'T3', '场景29 被拒后座位没动');
+
+    ({ sdk, state } = setup('guest'));
+    state.collections.config.delete('banquet'); // config/banquet 还没建：谁都不算阿鱼、Toretto，照样拒
+    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 5 });
+    check(res.ok === false && res.reason === 'main_table_only_family', `场景29 没有 vip 名单时换主桌也拒（实际 ${JSON.stringify(res)}）`);
+
+    ({ sdk, state } = setup('TOR'));
+    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 5 });
+    check(res.ok === true && state.collections.seat.get('TOR').table_id === 'MAIN' && state.collections.seat.get('TOR').chair_no === 5, `场景29 55 桌厅 Toretto 本人能换进主桌（实际 ${JSON.stringify(res)}）`);
+
+    ({ sdk, state } = setup('AYU'));
+    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 11 });
+    check(res.ok === false && res.reason === 'bad_request', `场景29 主桌 11 号椅照样 bad_request（实际 ${JSON.stringify(res)}）`);
+
+    ({ sdk, state } = setup('AYU'));
+    seed(state, 'seat', { _id: 'TOR', openid: 'TOR', table_id: 'MAIN', chair_no: 1, inviter: null, sat_at: 50, sat_tables: ['MAIN'], last_visit_at: 50 });
+    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'MAIN', chairNo: 1 });
+    check(res.ok === false && res.reason === 'seat_taken', `场景29 主桌那把椅子有人，阿鱼换也回 seat_taken（实际 ${JSON.stringify(res)}）`);
+
+    ({ sdk, state } = setup('guest'));
+    res = await loadCloudFunction('changeSeat', sdk).main({ tableId: 'T54', chairNo: 2 });
+    check(res.ok === true && state.collections.seat.get('guest').table_id === 'T54', `场景29 55 桌厅别人换普通桌照旧（实际 ${JSON.stringify(res)}）`);
   });
 }
 
@@ -1242,6 +1364,8 @@ async function scenarioChangeSeatValidation() {
   await scenarioEnterHallArrivalCard();
   await scenarioEnterHallBenchOnlyWhenFull();
   await scenarioChangeSeatValidation();
+  await scenarioEnterHallMainTable();
+  await scenarioChangeSeatMainTable();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

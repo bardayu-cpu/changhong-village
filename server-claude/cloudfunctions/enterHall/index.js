@@ -25,6 +25,8 @@ const _ = db.command;
 // 厅里有哪些桌以 config.BANQUET_TABLE_IDS 为准（现在 12 桌，55 桌上线时换成 BANQUET_TABLE_IDS_55）
 const TABLE_IDS = C.BANQUET_TABLE_IDS;
 const RESERVED_IDS = new Set(TABLE_IDS.slice(0, C.BANQUET_RESERVED_TABLES));
+// 主桌（9/29）：只有 55 桌厅有（TABLE_IDS 是 BANQUET_TABLE_IDS_55 时），12 桌厅是 null，下面跟主桌有关的都不做
+const MAIN_ID = banquet.mainTableIdOf(TABLE_IDS);
 const BENCH = C.BANQUET_BENCH_ID;
 const PAGE_OPTS = { orderBy: [['_id', 'asc']], maxTotal: C.BANQUET_PAGE_MAX_TOTAL };
 
@@ -50,6 +52,8 @@ async function loadTables() {
       branch: byTable[id] && byTable[id][0] ? byTable[id][0].inviter || null : null,
       seats: (byTable[id] || []).map(s => s.openid),
     })),
+    // 主桌单独给，不混进 tables：分座规矩只在 tables 里挑，别人就不会被分到主桌
+    mainTable: MAIN_ID ? { id: MAIN_ID, seats: (byTable[MAIN_ID] || []).map(s => s.openid) } : null,
     byTable,
   };
 }
@@ -68,11 +72,12 @@ exports.main = async () => {
   let tableWasEmpty = false;
 
   if (!mySeat) {
-    const [{ tables, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
+    const [{ tables, mainTable, byTable }, vip] = await Promise.all([loadTables(), loadVip()]);
     // 长凳门槛看 config.BANQUET_BENCH_ONLY_WHEN_FULL（false 旧规矩 / true 普通桌全满才去长凳），规矩见 rules/banquet.js；
     // me 只在新规矩下用：阿鱼/Toretto 自己没有邀请人时也能坐前两桌
+    // mainTable 只有 55 桌厅才有：阿鱼、Toretto 本人先坐主桌（12 桌厅是 null，跟原来一样）
     const assigned = banquet.assignSeat({
-      inviter, vip, tables, me: OPENID, benchOnlyWhenFull: C.BANQUET_BENCH_ONLY_WHEN_FULL,
+      inviter, vip, tables, me: OPENID, benchOnlyWhenFull: C.BANQUET_BENCH_ONLY_WHEN_FULL, mainTable,
     });
 
     // 注意：changed_on 这里不能写今天——它表示"最近一次换桌是哪天"，第一次自动分座不算换桌，
@@ -194,7 +199,9 @@ exports.main = async () => {
     ok: true,
     data: {
       me: { table_id: mySeat.table_id, chair_no: mySeat.chair_no },
-      tables: TABLE_IDS.map(id => ({ id, reserved: RESERVED_IDS.has(id), seats: byTableNow[id] || [] })),
+      // 55 桌厅：主桌排第一项，带 main:true；12 桌厅没有这一项，跟原来一样
+      tables: (MAIN_ID ? [{ id: MAIN_ID, main: true, reserved: false, seats: byTableNow[MAIN_ID] || [] }] : [])
+        .concat(TABLE_IDS.map(id => ({ id, reserved: RESERVED_IDS.has(id), seats: byTableNow[id] || [] }))),
       bench,
       digest,
       arrival,

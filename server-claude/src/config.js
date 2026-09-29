@@ -77,11 +77,21 @@ module.exports = {
   // 宴会厅：一场不散的席（蓝图 3.2）
   // 【55 桌上线时改这三处】BANQUET_TABLE_COUNT 改 55、BANQUET_TABLE_IDS 改成 BANQUET_TABLE_IDS_55、
   // BANQUET_BENCH_ONLY_WHEN_FULL 改 true；改完跑 sync-cf-rules.js，重新部署 enterHall、changeSeat
-  BANQUET_TABLE_COUNT: 12,             // 只是记个数，代码不读它，桌以 BANQUET_TABLE_IDS 为准
+  BANQUET_TABLE_COUNT: 12,             // 只是记个数，代码不读它，桌以 BANQUET_TABLE_IDS 为准（55 桌 = 主桌 + 54 张普通桌）
   BANQUET_SEATS_PER_TABLE: 10,
   BANQUET_RESERVED_TABLES: 2,          // 离主桌最近的两桌，给阿鱼、Toretto 的枝
   BANQUET_TABLE_IDS: tableIds(12),     // 现在用的桌：T1..T12。数组顺序即桌序，前 BANQUET_RESERVED_TABLES 个是离主桌最近的
-  BANQUET_TABLE_IDS_55: tableIds(55),  // 新厅 55 桌（550 座）：T1..T55，规矩同上，前两桌 T1、T2 离主桌最近。还没上线
+  // 新厅 55 桌（550 座）= 主桌 + T1..T54（9/29 改，原来是 T1..T55）。还没上线。
+  // 这张表里只放 54 张普通桌，规矩同上，前两桌 T1、T2 离主桌最近；主桌另记在 BANQUET_MAIN_TABLE_ID。
+  BANQUET_TABLE_IDS_55: tableIds(54),
+  // 主桌（只在 55 桌厅里有；12 桌厅没有主桌这张桌）。怎么认出是 55 桌厅：BANQUET_TABLE_IDS 跟
+  // BANQUET_TABLE_IDS_55 桌号一样，就算（banquet.js 的 mainTableIdOf），不用另开开关。主桌的规矩【待确认：先按这个做】：
+  //   - 第一次进厅自动分座：只有阿鱼、Toretto 本人（config/banquet 的 vip_openids）坐主桌，椅子取最小的空号；
+  //     他们请来的人照旧坐 T1、T2；别人不管厅里多满都不会被分到主桌（普通桌、前两桌都满了就去长凳）。
+  //     主桌 10 把椅子坐满了，阿鱼、Toretto 本人按原来的规矩分（前两桌 → ……）
+  //   - 换桌：只有阿鱼、Toretto 本人能换进主桌，别人换进去回 main_table_only_family（客户端要认这个原因）
+  //   - enterHall 返回的 tables 第一项是主桌 {id:'MAIN', main:true, reserved:false, seats}
+  BANQUET_MAIN_TABLE_ID: 'MAIN',
   // 长凳门槛（9/24）：false = 旧规矩，开不出新空桌就去长凳，哪怕别的桌还有空椅子；
   // true = 普通桌（不算前两桌）全坐满了才去长凳，开不出新桌就插到还有空椅子的桌；
   // 没有邀请人的人也先坐普通桌，普通桌全满了才坐前两桌。详见 banquet.js 的 assignSeat

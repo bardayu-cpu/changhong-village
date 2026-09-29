@@ -26,15 +26,34 @@ const C = require('./config');
  *                               这个字段只用来找"邀请人的桌满了之后开的下一桌"
  *     seats: string[],          已经坐下的人的 openid 列表
  *   }>,                     全厅各桌现状（几桌都行，12 桌、55 桌都是这个格式，调用方按 config.BANQUET_TABLE_IDS 拼），
- *                           数组顺序就是桌序（reserved 的两桌排最前）
+ *                           数组顺序就是桌序（reserved 的两桌排最前）。主桌不放在这里面，见 mainTable
+ *   mainTable?: {id:string, seats:string[]},  主桌现状，只有 55 桌厅才传（调用方用 mainTableIdOf 判），12 桌厅不传
  * }}
  * @returns {{ok:true, tableId?:string, bench:boolean}}
  *   bench:true 表示没有能坐的桌了，坐长凳（长凳不占 tables，调用方自己处理无限容量）。
  *   什么叫"没有能坐的桌"，两套规矩不一样，见下面
+ *
+ * 主桌（9/29，55 桌厅才有，规矩【待确认】）：阿鱼、Toretto 本人（me 在 vip 里）先坐主桌，不管有没有邀请人；
+ * 主桌满了才按下面两套规矩走。别人一律不分到主桌——下面两套规矩只在 tables 里挑，主桌不在 tables 里。
+ * 他们请来的人照旧坐前两桌：阿鱼本人坐了主桌，他那桌（主桌）不在 tables 里找不到，就走"阿鱼的枝坐前两桌"那一步。
  */
 function assignSeat(ctx) {
+  const main = ctx.mainTable;
+  if (main && ctx.me && ctx.vip && ctx.vip.has(ctx.me) && main.seats.length < C.BANQUET_SEATS_PER_TABLE) {
+    return { ok: true, tableId: main.id, bench: false };
+  }
   const onlyWhenFull = ctx.benchOnlyWhenFull === undefined ? C.BANQUET_BENCH_ONLY_WHEN_FULL : !!ctx.benchOnlyWhenFull;
   return onlyWhenFull ? assignSeatFillFirst(ctx) : assignSeatOld(ctx);
+}
+
+/**
+ * 这个厅有没有主桌：桌表跟 config.BANQUET_TABLE_IDS_55 桌号一样（55 桌厅）就回主桌 id，否则回 null（12 桌厅没有主桌）。
+ * 按桌号比，不按是不是同一个数组比：上线时 config 里不管写成引用还是重新列一遍，都认得出来。
+ */
+function mainTableIdOf(tableIds) {
+  const ids55 = C.BANQUET_TABLE_IDS_55;
+  if (!Array.isArray(tableIds) || tableIds.length !== ids55.length) return null;
+  return tableIds.every((id, i) => id === ids55[i]) ? C.BANQUET_MAIN_TABLE_ID : null;
 }
 
 /**
@@ -141,15 +160,21 @@ function assignSeatFillFirst(ctx) {
  * @param ctx {{
  *   tableId: any, chairNo: any,
  *   tableIds?: string[],   厅里有哪些桌，不传就用 config.BANQUET_TABLE_IDS
+ *   mainTableId?: string|null,  主桌 id，只有 55 桌厅才传（mainTableIdOf 算），12 桌厅不传：不传时主桌 id 跟 T99 一样不认
+ *   isVip?: boolean,       换桌的人是不是阿鱼、Toretto 本人；只在换进主桌时看
  * }}
  * 桌号必须在桌表里（长凳不算，长凳不是换过去的地方）；椅子号必须是 1..BANQUET_SEATS_PER_TABLE 的整数。
  * 不对都回 bad_request（客户端已经认这个原因）。
+ * 主桌（9/29，55 桌厅才有）：桌号、椅子号都对，但换的人不是阿鱼、Toretto 本人，回 main_table_only_family
+ * （新原因，客户端要认：主桌只坐阿鱼、Toretto 本人）。
  */
 function checkSeatTarget(ctx) {
   const { tableId, chairNo } = ctx;
   const ids = ctx.tableIds || C.BANQUET_TABLE_IDS;
-  if (typeof tableId !== 'string' || !ids.includes(tableId)) return { ok: false, reason: 'bad_request' };
+  const isMain = !!ctx.mainTableId && tableId === ctx.mainTableId;
+  if (typeof tableId !== 'string' || !(isMain || ids.includes(tableId))) return { ok: false, reason: 'bad_request' };
   if (!Number.isInteger(chairNo) || chairNo < 1 || chairNo > C.BANQUET_SEATS_PER_TABLE) return { ok: false, reason: 'bad_request' };
+  if (isMain && !ctx.isVip) return { ok: false, reason: 'main_table_only_family' };
   return { ok: true };
 }
 
@@ -301,4 +326,4 @@ function arrivalCard(ctx) {
   return { rows, hasNews: true };
 }
 
-module.exports = { assignSeat, checkSeatTarget, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest, arrivalCard };
+module.exports = { assignSeat, mainTableIdOf, checkSeatTarget, canChangeSeat, canToast, canWantToMeet, canWriteBook, arrivalDigest, arrivalCard };
