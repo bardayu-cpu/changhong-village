@@ -198,7 +198,9 @@ func run() -> void:
     on_screen.erase(mine)   # 自己那桌一直挂着（这会儿在屏幕上面，看不见）
     check("别的桌没挂牌，只亮 T40：%s" % [on_screen], on_screen == ["T40"])
     check("牌上先写桌号：%s" % (h.table_signs["T40"] as Label).text, (h.table_signs["T40"] as Label).text.begins_with("40 号桌"))
-    check("自己那桌：%s" % (h.table_signs[mine] as Label).text, (h.table_signs[mine] as Label).text.begins_with(LayeredHall.table_label(mine)))
+    var my_sign: Label = h.table_signs[mine]
+    check("自己那桌：%s（只写桌号和游戏名，不写「XX那桌」，宽 %.0f）" % [my_sign.text, my_sign.size.x],
+        my_sign.text.begins_with(LayeredHall.table_label(mine)) and not my_sign.text.contains("那桌") and my_sign.size.x < 240.0)   # 原来带「老王那桌」334 宽
     await stand_near(h, "T50")
     await frames(2)   # 牌子每帧还要过一遍「在不在屏幕里」，那一遍不能把没走近的桌又亮出来
     check("走到 T50：T40 的牌收了、T50 亮了", not (h.table_signs["T40"] as Label).visible and (h.table_signs["T50"] as Label).visible

@@ -919,14 +919,14 @@ func _table_sign(t: Dictionary, nick: String) -> void:
     var game_title := GameCfg.title(GameCfg.game_for_table(str(t["id"])))
     var parts: Array[String] = []
     if sign_near:
-        parts.append(table_label(str(t["id"])))   # 55 桌：牌子上先写桌号
-    if nick != "":
+        parts.append(table_label(str(t["id"])))   # 55 桌：只写桌号和游戏名（04 新 1：带「XX那桌」牌子 334 宽，压着玩家头上的名字）
+    elif nick != "":
         parts.append(nick + "那桌")
     if game_title != "":
         parts.append(game_title)
     if parts.is_empty():
         return
-    l.text = "·".join(parts)
+    l.text = (" · " if sign_near else "·").join(parts)
     l.add_theme_font_override("font", font)
     l.add_theme_font_size_override("font_size", WORLD_FONT)   # 原来 12，看不清（体验 B2）
     l.add_theme_color_override("font_color", Color("#F4D97A"))
