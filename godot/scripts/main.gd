@@ -452,13 +452,14 @@ func _build_debug() -> void:
     h55b.text = "55 桌试验厅"
     h55b.pressed.connect(_open_hall55.bind(6))
     dv.add_child(h55b)
-    # 宴会厅轮着切：第 44 版 → 照效果图（第 46 版）→ 55 桌大厅 → 第 44 版
+    # 宴会厅轮着切：第 44 版 → 照效果图（第 46 版）→ 55 桌大厅 → 第 44 版（包里没有第 46 版那套时跳过它）
     var bigb := Button.new()
     bigb.name = "hall55_toggle"
     bigb.text = "宴会厅：%s（点一下换）" % HALL_VARIANT_NAMES.get(hall_variant(), "")
     bigb.pressed.connect(func():
-        var i: int = HALL_VARIANTS.find(hall_variant())
-        var nv: String = HALL_VARIANTS[(i + 1) % HALL_VARIANTS.size()]
+        var vs: Array = hall_variants()
+        var i: int = vs.find(hall_variant())
+        var nv: String = vs[(i + 1) % vs.size()]
         dbg_panel.visible = false
         await _set_hall_variant(nv)
         bigb.text = "宴会厅：%s（点一下换）" % HALL_VARIANT_NAMES.get(nv, ""))
@@ -651,6 +652,14 @@ const HALL_CFG := "res://assets/hall.json"
 const HALL55_FLAG := "user://hall55.flag"
 const HALL_VARIANTS := ["", "v11", "55"]
 const HALL_VARIANT_NAMES := {"": "第 44 版", "v11": "照效果图（第 46 版）", "55": "55 桌大厅"}
+## 这台机器上能切的几档：第 46 版那套从第 49 版起不进包（01 定），包里没有它的场景就不列
+static func hall_variants() -> Array:
+    var out: Array = []
+    for v in HALL_VARIANTS:
+        if v != "v11" or FileAccess.file_exists(LayeredHall.DATA_V11):
+            out.append(v)
+    return out
+
 func hall_variant() -> String:
     if hall_variant_once != "?":
         return hall_variant_once
@@ -658,7 +667,7 @@ func hall_variant() -> String:
         var v := FileAccess.get_file_as_string(HALL55_FLAG).strip_edges()
         if v == "1":
             return "55"   # 旧的开关文件：1 是 55 桌
-        return v if v in HALL_VARIANTS else ""
+        return v if v in hall_variants() else ""
     if FileAccess.file_exists(HALL_CFG):
         var j = JSON.parse_string(FileAccess.get_file_as_string(HALL_CFG))
         if j is Dictionary and bool(j.get("hall55", false)):
