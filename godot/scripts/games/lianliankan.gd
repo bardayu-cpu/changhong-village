@@ -11,6 +11,8 @@ const MAX_CELL := 128.0
 ## 绕到棋盘外面那一圈的连线，画在牌边外多远（B7）：原来四周各留一整格给它，
 ## 格子被挤得只剩 72 以下；其实线只要画在牌外面、看得见就行，留一窄条
 const RING := 12.0
+const UISkin = preload("res://scripts/games/ui_skin.gd")
+var skin := false            # 外壳换 GPT 第 1 批（01 D 9/30）：棋盘底、格子底、选中框、连线、配对星星
 
 var cols := 4
 var rows := 4
@@ -56,7 +58,20 @@ func _build() -> void:
     grid.size = Vector2(cols * (cell_px + gap) + gap, rows * (cell_px + gap) + gap)
     grid.position = (size - grid.size) * 0.5
     grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    skin = UISkin.tex("base_ui_board_v1") != null
+    if skin:
+        # 棋盘底垫在牌和外面那一圈连线底下（比牌大 RING，连线绕到外圈也在底上）
+        var bd := UISkin.patch("base_ui_board_v1", UISkin.BOARD_M)
+        bd.position = grid.position - Vector2(RING, RING)
+        bd.size = grid.size + Vector2(RING, RING) * 2.0
+        add_child(bd)
     add_child(grid)
+    if skin:
+        for y in rows:
+            for x in cols:
+                var c := UISkin.cell(cell_px)
+                c.position = _cell_pos(x, y)
+                grid.add_child(c)
     cell_panels = []
     for y in rows:
         var row: Array = []
@@ -99,6 +114,7 @@ func _redraw_all() -> void:
             # （阿鱼 9/20 嫌透明图后面顶着色块怪）；图没到的照旧色块 + 一个字
             var t := Tiles.dish_tile(v - 1, cell_px, font, fs, "", art_set, false, true)
             t.position = _cell_pos(x, y)
+            t.set_meta("skin", skin)
             grid.add_child(t)
             cell_panels[y][x] = t
 
@@ -165,6 +181,9 @@ func tap(c: Vector2i) -> void:
         return
     _set_highlight(selected, false)
     _flash_line(path)
+    if skin:
+        UISkin.pop(grid, _cell_center(selected), cell_px)
+        UISkin.pop(grid, _cell_center(c), cell_px)
     _remove_at(selected)
     _remove_at(c)
     has_sel = false
@@ -198,6 +217,8 @@ func _flash_line(path: Array) -> void:
     for p in path:
         pts.append(_cell_center(p))
     line.points = pts
+    if skin:
+        UISkin.skin_line(line)
     grid.add_child(line)
     var tw := create_tween()
     tw.tween_property(line, "modulate:a", 0.0, line_fade)

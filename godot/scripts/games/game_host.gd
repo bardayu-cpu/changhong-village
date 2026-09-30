@@ -9,6 +9,7 @@ signal closed
 
 const Cfg = preload("res://scripts/games/game_config.gd")
 const Tiles = preload("res://scripts/games/tiles.gd")
+const UISkin = preload("res://scripts/games/ui_skin.gd")
 const SCRIPTS := {
     "lianliankan": "res://scripts/games/lianliankan.gd",
     "match3": "res://scripts/games/match3.gd",
@@ -61,6 +62,12 @@ var dbg_l: Label
 var book: Panel
 var pause_b: Button
 var played := false                  # 这一关真开过局没有（安慰奖只给真玩过的）
+## 外壳换 GPT 第 1 批 UI（01 D 9/30，只换宴会厅那三个：连连看、川菜消消乐、小菜合大菜，见 ui_skin.gd）
+var skin := false
+var topbar: NinePatchRect            # 顶栏底图（换皮时有）
+var coin_i: TextureRect              # 金币 v2（方孔铜钱），贴在「N 金」左边
+var clock_i: TextureRect             # 倒计时钟，状态那行有「秒」时贴在它左边
+const SKIN_ICON := 48.0
 
 func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug := false) -> void:
     game_id = p_game_id
@@ -70,25 +77,46 @@ func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug :
     debug = p_debug
     g = Cfg.game(game_id)
     level = save.next_level(game_id)
+    skin = UISkin.on(game_id)
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     mouse_filter = Control.MOUSE_FILTER_STOP
     var shade := ColorRect.new()
-    shade.color = Color(0, 0, 0, 0.55)
+    # 换皮时整屏垫深酒红（GPT 边框中间是空的，照预览图那样底子是深的）；不换皮照旧半透明黑，看得见后面的厅
+    shade.color = WINE if skin else Color(0, 0, 0, 0.55)
     shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     add_child(shade)
     panel = Panel.new()
     var sb := StyleBoxFlat.new()
     sb.bg_color = WINE
     sb.border_color = GOLD
-    sb.set_border_width_all(3)
+    sb.set_border_width_all(0 if skin else 3)   # 换皮时金边由整屏那张边框出
     sb.set_corner_radius_all(10)
     panel.add_theme_stylebox_override("panel", sb)
     panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    panel.offset_left = 10
-    panel.offset_right = -10
+    # 换皮时整屏那张边框四边各 24：面板往里收到边框里面，字和按钮不压在金边底下
+    var inset := 28.0 if skin else 10.0
+    panel.offset_left = inset
+    panel.offset_right = -inset
     panel.offset_top = 70
-    panel.offset_bottom = -20
+    panel.offset_bottom = -inset if skin else -20.0
     add_child(panel)
+    if skin:
+        # 整屏边框（540×960，九宫格 24，中间透明）盖在最上面，不挡点
+        var frame := UISkin.patch("base_ui_frame_v1", UISkin.FRAME_M)
+        frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+        frame.name = "skin_frame"
+        frame.z_index = 1
+        add_child(frame)
+        topbar = UISkin.patch("base_ui_topbar_v1", 8)
+        topbar.name = "skin_topbar"
+        panel.add_child(topbar)
+        coin_i = UISkin.icon("prop_ui_coin_v2", SKIN_ICON)
+        coin_i.name = "skin_coin"
+        panel.add_child(coin_i)
+        clock_i = UISkin.icon("prop_ui_clock_v1", SKIN_ICON)
+        clock_i.name = "skin_clock"
+        clock_i.visible = false
+        panel.add_child(clock_i)
     # 顶栏：只写游戏名（B11，体验第一轮）。原来是「游戏名·玩法」，顶栏挂着「小菜合大菜·2048」「川菜消消乐·三消」这种行话；
     # kind 只留在 json 里给人看，玩家眼里不出现
     title_l = _label(Cfg.title(g), 24, GOLD1)
@@ -149,16 +177,27 @@ func _layout() -> void:
     var row2_h := STATUS_ICON if icon_row else 28.0
     if icon_row:
         bar_h = maxf(bar_h, row2 + STATUS_ICON)
+    elif skin:
+        # 换皮：第二行要放 48 的钟，按钟高排（游戏区往下让一点）
+        row2_h = SKIN_ICON
+        bar_h = maxf(bar_h, row2 + SKIN_ICON)
     level_l.position = Vector2(14, row2 + (row2_h - 28.0) * 0.5)
+    if skin:
+        status_l.position.y = row2 + (row2_h - 28.0) * 0.5
     # 状态那行原来只给 220 宽，小菜合大菜「目标 抽杆 现在最大 芽谷」有 276 宽，右边被面板截掉一截（第 38 版）。
     # 改成占满「第 N 关」右边整条（540 宽的屏上约 380，最长那句 324）；万一还放不下，尾巴收成省略号，不出面板
     var st_x := 14.0 + 96.0 + 16.0      # 「第 10 关」96 宽
     status_l.size = Vector2(maxf(ps.x - 12.0 - st_x, 60.0), 28)
-    status_l.position = Vector2(st_x, row2)
+    status_l.position = Vector2(st_x, row2 + ((row2_h - 28.0) * 0.5 if skin and not icon_row else 0.0))
     status_l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
     # 带小图的那行：和 status_l 占同一条，右对齐；图是 STATUS_ICON 见方，顶在胶囊下沿以下（row2），底下就是游戏区
     status_box.position = Vector2(st_x, row2)
     status_box.size = Vector2(status_l.size.x, STATUS_ICON)
+    if topbar != null:
+        title_l.position.x = 36.0   # 顶栏两头有小括号花，游戏名往里让开
+        # 顶栏底图只垫第一行（游戏名、手上几金），高到第二行上面；不往下拉长，不然两头的小箭头跑到中间
+        topbar.position = Vector2(0, 0)
+        topbar.size = Vector2(ps.x, minf(64.0, row2 - 2.0))
     area.position = Vector2(8, bar_h + 8)
     # 底下给那两个按钮留一条（原来「离开」在顶栏，游戏区能铺到底）
     area.size = Vector2(ps.x - 16, ps.y - bar_h - 16 - bottom - BTN_ROW_H)
@@ -174,6 +213,21 @@ func _process(_dt: float) -> void:
         _sync_status()
     level_l.text = "第 %d 关" % level
     coins_l.text = "%d 金" % save.coins
+    if skin:
+        _place_icons()
+
+## 换皮：金币贴在「N 金」左边、钟贴在「剩 N 秒」左边（字是右对齐的，按字宽算）
+func _place_icons() -> void:
+    if coin_i != null:
+        var w := font.get_string_size(coins_l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+        coin_i.position = Vector2(coins_l.position.x + coins_l.size.x - w - SKIN_ICON - 4.0, coins_l.position.y + 14.0 - SKIN_ICON * 0.5)
+    if clock_i != null:
+        var timed: bool = status_l.visible and status_l.text.contains("秒")
+        clock_i.visible = timed
+        if timed:
+            var w2 := font.get_string_size(status_l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+            w2 = minf(w2, status_l.size.x)
+            clock_i.position = Vector2(status_l.position.x + status_l.size.x - w2 - SKIN_ICON - 4.0, status_l.position.y + 14.0 - SKIN_ICON * 0.5)
 
 ## 顶栏状态那行（B10，阿鱼 9/23「有图就别叠字」）：游戏给了 status_parts（字和小图混排）就摆那个，
 ## 没给（空数组）就照旧写 status_text 那一句。现在只有小菜合大菜给图：「目标 [图] 现在最大 [图]」；
@@ -361,34 +415,41 @@ func _card(head: String, lines: Array, btns: Array, foot := "") -> void:
     sb.border_color = GOLD
     sb.set_border_width_all(2)
     sb.set_corner_radius_all(8)
-    card.add_theme_stylebox_override("panel", sb)
+    var skin_sb: StyleBox = UISkin.card_box() if skin else null
+    card.add_theme_stylebox_override("panel", skin_sb if skin_sb != null else sb)
+    var paper: bool = skin_sb != null   # 米色纸卡：字用深色，四周按卡上的花留边
     var w := minf(area.size.x - 24.0, 460.0)
+    # 纸卡上下各有一道金点花边（离边 77），字从花边里面写起，不压花边
+    var pad := Vector2(52, float(UISkin.CARD_MT)) if paper else Vector2(16, 16)
     var box := VBoxContainer.new()
     box.add_theme_constant_override("separation", 12)
-    box.position = Vector2(16, 16)
-    box.size = Vector2(w - 32, 0)
+    box.position = pad
+    box.size = Vector2(w - pad.x * 2.0, 0)
     card.add_child(box)
-    var h := _label(head, 36, GOLD1)
+    var h := _label(head, 36, UISkin.CARD_HEAD if paper else GOLD1)
     h.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     box.add_child(h)
     for ln in lines:
-        var l := _label(str(ln), 24, PAPER)
+        var l := _label(str(ln), 24, UISkin.CARD_INK if paper else PAPER)
         l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         l.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
-        l.custom_minimum_size = Vector2(w - 32, 0)
+        l.custom_minimum_size = Vector2(w - pad.x * 2.0, 0)
         box.add_child(l)
     if foot != "":
-        var f := _label(foot, 24, MUTED)
+        var f := _label(foot, 24, Color("#6a5a4a") if paper else MUTED)
         f.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         f.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
-        f.custom_minimum_size = Vector2(w - 32, 0)
+        f.custom_minimum_size = Vector2(w - pad.x * 2.0, 0)
         box.add_child(f)
     var row := HBoxContainer.new()
     row.alignment = BoxContainer.ALIGNMENT_CENTER
     row.add_theme_constant_override("separation", 12)
-    for b in btns:
+    for i in btns.size():
+        var b: Array = btns[i]
         var bt := _button(str(b[0]), b[1])
         bt.custom_minimum_size = Vector2(120, 52)
+        if skin:
+            UISkin.skin_button(bt, i == 0)   # 第一个（开始、下一关、再来一次、接着玩）是主按钮，其余次按钮
         row.add_child(bt)
     box.add_child(row)
     area.add_child(card)
@@ -396,7 +457,7 @@ func _card(head: String, lines: Array, btns: Array, foot := "") -> void:
     await get_tree().process_frame
     if not is_instance_valid(card):
         return
-    card.size = Vector2(w, box.get_combined_minimum_size().y + 32)
+    card.size = Vector2(w, box.get_combined_minimum_size().y + pad.y * 2.0)
     card.position = (area.size - card.size) * 0.5
 
 func _clear_card() -> void:
@@ -507,4 +568,6 @@ func _button(text: String, cb: Callable) -> Button:
     b.add_theme_font_override("font", font)
     b.add_theme_font_size_override("font_size", 24)
     b.pressed.connect(cb)
+    if skin:
+        UISkin.skin_button(b, false)   # 默认次按钮（离开、歇一下、菜单册、合上、调试那排）；卡片上第一个再换成主按钮
     return b

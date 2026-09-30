@@ -8,6 +8,8 @@ extends "res://scripts/games/mini_game.gd"
 const SWIPE := 24.0          # 手指划多远算一次滑动，像素
 const CLEAR_T := 0.15        # 消掉缩小的时长
 const FALL_T := 0.15         # 下落的时长
+const UISkin = preload("res://scripts/games/ui_skin.gd")
+var skin := false            # 外壳换 GPT 第 1 批（01 D 9/30）：棋盘底、格子底、选中框、消掉时的星星
 
 var n := 7
 var kinds := 4
@@ -54,11 +56,18 @@ func _build() -> void:
     grid = Panel.new()
     grid.size = Vector2(side, side)
     grid.position = (size - grid.size) * 0.5
-    grid.add_theme_stylebox_override("panel", Tiles.box(Color("#5a3a2a"), 10))
+    skin = UISkin.tex("base_ui_board_v1") != null
+    var bsb: StyleBox = UISkin.box("base_ui_board_v1", UISkin.BOARD_M) if skin else null
+    grid.add_theme_stylebox_override("panel", bsb if bsb != null else Tiles.box(Color("#5a3a2a"), 10))
     grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(grid)
     for r in n:
         for c in n:
+            if skin:
+                var cb := UISkin.cell(cell_px)
+                cb.position = _cell_pos(c, r)
+                grid.add_child(cb)
+                continue
             var bg := Panel.new()
             bg.size = Vector2(cell_px, cell_px)
             bg.position = _cell_pos(c, r)
@@ -90,6 +99,7 @@ func _redraw(b: Array, animate_fall := false) -> void:
             if kd < 0:
                 continue
             var t := Tiles.dish_tile(kd, cell_px, font, fs, "", art_set)
+            t.set_meta("skin", skin)
             var final_pos := _cell_pos(c, r)
             if animate_fall:
                 t.position = final_pos - Vector2(0, cell_px + gap)
@@ -108,6 +118,8 @@ func _flash_cleared(cells: Array) -> void:
         if node != null and is_instance_valid(node):
             node.pivot_offset = node.size * 0.5
             create_tween().tween_property(node, "scale", Vector2.ZERO, CLEAR_T)
+            if skin:
+                UISkin.pop(grid, node.position + node.size * 0.5, cell_px)
 
 # ---------- 手势：按住一道往上下左右划，或者先点一道再点相邻的一道 ----------
 func _gui_input(e: InputEvent) -> void:

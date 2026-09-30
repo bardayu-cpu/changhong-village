@@ -39,6 +39,26 @@ func frames(n: int) -> void:
     for i in n:
         await process_frame
 
+## 连连看（T1）、川菜消消乐（T3）、小菜合大菜（T5）各开一次：外壳在、换了皮（GPT 边框、顶栏、金币 v2）、开局有棋盘，关上
+func _try_games() -> bool:
+    var all_ok := true
+    for tid in ["T1", "T3", "T5"]:
+        var g: Dictionary = load("res://scripts/games/game_config.gd").game_for_table(tid)
+        m._open_game(tid)
+        await frames(2)
+        var gh = m.game_host
+        var ok1: bool = is_instance_valid(gh) and gh.skin and gh.get_node_or_null("skin_frame") != null \
+            and gh.panel.get_node_or_null("skin_topbar") != null and gh.panel.get_node_or_null("skin_coin") != null
+        if is_instance_valid(gh):
+            gh._start()
+            await frames(3)
+            ok1 = ok1 and gh.game != null and is_instance_valid(gh.game) and gh.game.skin
+            gh._close()
+            await frames(2)
+        print("    %s %s：%s" % [tid, g.get("id", ""), "好" if ok1 else "不行"])
+        all_ok = all_ok and ok1
+    return all_ok
+
 func _occ_image(h, id: String) -> String:
     for o in h.cfg["occluders"]:
         if str(o["id"]) == id:
@@ -424,6 +444,8 @@ func run() -> void:
     m.banquet_ui.open_menu()
     feat["菜单册"] = m.banquet_ui.panel_open() and m.banquet_ui.list_box.get_child_count() > 0
     check("菜单册：打开有菜", feat["菜单册"])
+    feat["小游戏"] = await _try_games()
+    check("三个小游戏在 55 桌厅里都开得了、换了 GPT 外壳", feat["小游戏"])
     m.banquet_ui.close()
     await frames(1)
     var broken: Array = []
@@ -439,6 +461,7 @@ func run() -> void:
     check("假服务端也回 12 张、不带主桌", m.cloud.fake_tables == 12 and m.cloud.fake_table_ids.is_empty())
     check("默认的宴会厅是第 44 版那套（场景 scene_roman_banquet、贺礼堆在舞台左边地上 (410, 302)）",
         str(m.hall.cfg["scene"]) == "scene_roman_banquet" and m.hall.life._vec(m.hall.life.conf["gifts"]) == Vector2(410, 302))
+    check("第 44 版厅里三个小游戏照样开得了、换了 GPT 外壳", await _try_games())
     check("第 44 版的座位圈、长凳、桌牌照旧", m.hall.seat_dy == LayeredHall.SEAT_DY and m.hall.seat_rx == LayeredHall.SEAT_RX
         and m.hall.bench_draw and m.hall.bench_y == LayeredHall.BENCH_Y and not m.hall.sign_near and m.hall.table_signs.is_empty())
     await m._set_hall_variant("v11")

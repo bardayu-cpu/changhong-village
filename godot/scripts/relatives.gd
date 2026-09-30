@@ -194,7 +194,19 @@ func _apply_mode(f: bool) -> void:
             r.cup.visible = false
             r.state = "idle"
             r.wait = rng.randf_range(0.0, 2.0)
+            if not _stop_ok(r.pos):
+                _walk_to(r, _nearest_spot(r.pos), "walk")   # 正走在红毯上（敬酒回来的路上）就到饭点完了：先走到旁边能停的地方，不停在红毯上
     _arrange_cards()
+
+func _nearest_spot(p: Vector2) -> Vector2:
+    var best := p
+    var bd := INF
+    for sp in spots:
+        var d: float = p.distance_squared_to(sp)
+        if d < bd:
+            bd = d
+            best = sp
+    return best
 
 # ---------- 画 ----------
 func _make_node(r: Rel) -> void:

@@ -5,6 +5,7 @@ extends RefCounted
 ## 图缺了就退回原来的占位（一个颜色方块 + 一个字），不至于满屏空白。几个游戏都从这拿，长得一样
 
 const Cfg = preload("res://scripts/games/game_config.gd")
+const UISkin = preload("res://scripts/games/ui_skin.gd")
 const INK := Color("#2c1f1c")
 ## 两套图，别混（`回执/GPT出图清单-席间小游戏.md` 第一节 vs 第二节，本来就是分开列的）：
 ##   shared —— 五个游戏共用的 12 张菜牌（鱼、菜、豆、酒……），GPT 9/20 交了，已接进来
@@ -126,6 +127,15 @@ static func box(bg: Color, radius := 6, border := INK) -> StyleBoxFlat:
 ## 有图的牌描边本来是透明的，一律写回 INK 就会多出一圈深色边（03 9/20 在三消和连连看都看到了）。
 ## 原来什么样记在 meta 里（dish_tile 建牌时存的），没存过的按老规矩当 INK
 static func highlight(p: Panel, on: bool) -> void:
+    # 换了外壳的三个游戏（牌上有 meta skin）：选中用 GPT 的选中框（decal_ui_select_v1）盖在牌上，不染描边
+    if bool(p.get_meta("skin", false)) and UISkin.tex("decal_ui_select_v1") != null:
+        var old := p.get_node_or_null("select_frame")
+        if on and old == null:
+            p.add_child(UISkin.select_frame(p.size.x))
+        elif not on and old != null:
+            p.remove_child(old)
+            old.queue_free()
+        return
     var s: StyleBoxFlat = (p.get_theme_stylebox("panel") as StyleBoxFlat).duplicate()
     var base: Color = p.get_meta("border0", INK)
     var w: int = int(p.get_meta("border_w0", 2))

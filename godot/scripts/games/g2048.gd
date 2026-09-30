@@ -9,6 +9,8 @@ extends "res://scripts/games/mini_game.gd"
 const LADDER := "res://assets/minigames/ladder.json"
 static var _ladder: Dictionary = {}
 const SWIPE := 30.0          # 手指划多远算一次滑动，像素
+const UISkin = preload("res://scripts/games/ui_skin.gd")
+var skin := false            # 外壳换 GPT 第 1 批（01 D 9/30）：棋盘底、格子底、合成时的星星
 
 var n := 4
 var target := 5
@@ -99,11 +101,18 @@ func _build() -> void:
     grid = Panel.new()
     grid.size = Vector2(side, side)
     grid.position = (size - grid.size) * 0.5
-    grid.add_theme_stylebox_override("panel", Tiles.box(Color("#5a3a2a"), 10))
+    skin = UISkin.tex("base_ui_board_v1") != null
+    var bsb: StyleBox = UISkin.box("base_ui_board_v1", UISkin.BOARD_M) if skin else null
+    grid.add_theme_stylebox_override("panel", bsb if bsb != null else Tiles.box(Color("#5a3a2a"), 10))
     grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(grid)
     for j in n:
         for i in n:
+            if skin:
+                var cb := UISkin.cell(cell_px)
+                cb.position = _cell_pos(i, j)
+                grid.add_child(cb)
+                continue
             var bg := Panel.new()
             bg.size = Vector2(cell_px, cell_px)
             bg.position = _cell_pos(i, j)
@@ -154,6 +163,8 @@ func _redraw(merged: Array) -> void:
                 t.pivot_offset = t.size * 0.5
                 t.scale = Vector2(1.15, 1.15)
                 create_tween().tween_property(t, "scale", Vector2.ONE, 0.12)
+                if skin:
+                    UISkin.pop(grid, t.position + t.size * 0.5, cell_px)
             grid.add_child(t)
             cells.append(t)
 
