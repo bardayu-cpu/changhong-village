@@ -65,6 +65,8 @@ ROW0_X = {0: 235, 1: 550, 2: 975}   # 第 1 排照 d 的位置：贺礼堆西（
 PITCH = 205                   # v5 行距：照 d 量的 184～222 取中；占地之间 93，画面上前一排前沿到后一排椅背 37
 CROSS_GAP = 128               # 横走道：占地之间 128（4 米），v3 不动
 CROSS_AFTER = (2, 6, 10)      # v6：第 3、7、11 排后面各一条横走道：3 + 4 + 4 + 3 排
+SOUTH_BG_H = 1024             # GPT 补南边那张背景的高：整厅最南头这一截留给它（01 D 9/30）
+SOUTH_SIDE_DOOR = (193, 251)  # 那张图里东侧门的上下（任务单写的；图交了以后照图量了改）
 NROWS = 14                    # v6：第 1 排 3 张 + 13 排×4 张 = 55 张（含主桌）
 rows_y = []
 y = ROW0
@@ -133,8 +135,10 @@ def build():
         add("挂灯 %d" % (k + 1), "decor", (drapes[k] + 152 + (gap - 20) // 2, 60, 20, 24), (240, 170, 60), "§15 挂着的灯笼 高 19～24，取 24；宽 20", "top_decor")
     side_bottom = rail_foot - 48
     add("西墙", "wall", (0, WALL_N, 40, side_bottom - WALL_N), wood, "墙厚 40（约 0.8 米，§15 没有）；俯看是一条，平的", flat=True)
-    cross2_mid = (rows_y[CROSS_AFTER[1]] + TABLE[1] // 2 + rows_y[CROSS_AFTER[1] + 1] - TABLE[1] // 2) // 2
-    d0, d1 = cross2_mid - 29, cross2_mid + 29
+    # 东侧门（v6 更正，01 D 9/30）：GPT 补南边那张背景就是整厅最南头 1024 高一截，门画在那张图里 y 193～251；
+    # 背景说了算，这里照它算：整厅 y = (H - 1024) + 193～251。图没到之前色块也先摆在这
+    south_top = H - SOUTH_BG_H
+    d0, d1 = south_top + SOUTH_SIDE_DOOR[0], south_top + SOUTH_SIDE_DOOR[1]
     add("东墙（北段）", "wall", (W - 40, WALL_N, 40, d0 - WALL_N), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
     add("东墙（南段）", "wall", (W - 40, d1, 40, side_bottom - d1), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
     add("东侧门（门洞）", "door", (W - 40, d0, 40, d1 - d0), (60, 140, 200), "§15 双开门宽 1.8 米；开在东墙上，宽沿地面前后算：1.8×32=58；开在第二条横走道东头", flat=True)
