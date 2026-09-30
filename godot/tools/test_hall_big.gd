@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：55 桌大厅灰盒（01 D 9/29 派：不等 GPT 的图，照摆位底图 v3.2 的摆位表做进游戏）。和第 44 版厅并存，调试开关切：
-## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×2594（摆位 v4，接图 v1）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
+## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×2691（摆位 v5：家具照 d 的大小）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
 ## 2 550 把椅子都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
 ## 4 第一次进厅镜头从大门滑到自己那桌、人站在桌边；以后进厅直接站自己桌边；5 从后厅回来站东侧门里边；
 ## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上只写桌号和游戏名）、其余不挂；
@@ -88,7 +88,7 @@ func run() -> void:
     var h = m.hall
     var tabs: Array = h.cfg["tables"]
     check("是 55 桌大厅：%d 张桌、画布 %s" % [tabs.size(), h.cfg["size"]], h.big and tabs.size() == 55
-        and int(h.cfg["size"][0]) == 1536 and int(h.cfg["size"][1]) == 2594)
+        and int(h.cfg["size"][0]) == 1536 and int(h.cfg["size"][1]) == 2691)
     check("还在宴会厅", m.state == "banquet" and m.cv == h)
     var ids: Array = []
     for t in tabs:
@@ -114,9 +114,11 @@ func run() -> void:
     check("服务员 %d 个" % h.life.waiters.size(), h.life.waiters.size() == 6)
     var sa: Dictionary = h._seat_abs(t1)
     var sm: Dictionary = h._seat_abs(mt)
-    check("座位圈照零件图里的椅子量：普通桌 %s、主桌 %s" % [sa, sm], not sa.is_empty() and float(sa["rx"]) == 52.0 and float(sa["ry"]) == 40.0
-        and float(sm["rx"]) == 60.0 and float(sm["ry"]) == 45.0)
-    check("接的是 GPT 的图：桌子 %s、主桌 %s" % [_occ_image(h, "T1"), _occ_image(h, "主桌")], _occ_image(h, "T1").ends_with("art_table.png") and _occ_image(h, "主桌").ends_with("art_table_main.png"))
+    check("座位圈照 v5 色块桌（170×112 占地）：普通桌 %s、主桌 %s" % [sa, sm], not sa.is_empty() and float(sa["rx"]) == 70.0 and float(sa["ry"]) == 46.0
+        and float(sm["rx"]) == 70.0)
+    check("桌子占地放大到 170×112（照 d）：T1 %s×%s" % [t1["rx"], t1["ry"]], int(t1["rx"]) == 85 and int(t1["ry"]) == 56)
+    check("桌子先用色块（GPT 重画 170 宽的还没交）：T1 %s、主桌 %s" % [_occ_image(h, "T1"), _occ_image(h, "主桌")],
+        _occ_image(h, "T1").contains("/gb_") and _occ_image(h, "主桌").contains("/gb_"))
     check("长凳不另画（色块里有），坐的人排在凳面上 %.0f～%.0f y %.0f" % [h.bench_x0, h.bench_x1, h.bench_y], not h.bench_draw and h.bench_x1 > h.bench_x0)
     # 遮挡：桌子色块的落地线就是占地中心；栏杆、大门画在所有人前面
     var bad_foot: Array = []

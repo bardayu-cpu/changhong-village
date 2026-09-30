@@ -124,17 +124,33 @@ def art_on():
 
 
 def art_piece(it):
-    """这件东西用哪张零件图；没有图的（栏杆、大门）回 None 照旧画色块"""
+    """这件东西用哪张零件图；没有图的（栏杆、大门、花架）回 None 照旧画色块。
+    零件图大小和摆位表里画出来的框对不上的（v5 桌子放大到 170、宫灯换成大的，GPT 重画的还没交）也回 None 先画色块"""
     n = it["name"]
+    piece = None
     if it["kind"] == "table":
-        return "table_main" if n == "主桌" else "table"
-    if n == "长凳":
-        return "bench"
-    if "宫灯" in n or "灯柱" in n:
-        return "lantern"
-    if "花盆" in n:
-        return "flowerpot"
-    return None
+        piece = "table_main" if n == "主桌" else "table"
+    elif n == "长凳":
+        piece = "bench"
+    elif "宫灯" in n or "灯柱" in n:
+        piece = "lantern"
+    elif "花盆" in n:
+        piece = "flowerpot"
+    if piece is None:
+        return None
+    w, h = Image.open(os.path.join(ART, ART_PIECES[piece])).size
+    return piece if [w, h] == list(it["box"][2:]) else None
+
+
+def seat_geom_for(it):
+    """座位圈：用零件图的桌照零件里椅子量的；色块桌（v5 放大到 170、等 GPT 重画）照色块那一圈：半径比占地小 15、10"""
+    piece = art_piece(it)
+    if piece == "table":
+        return SEAT_TABLE
+    if piece == "table_main":
+        return SEAT_MAIN
+    fx, fy, fw, fh = it["foot"]
+    return {"abs": True, "dx": 0.0, "dy": 0.0, "rx": fw / 2.0 - 15.0, "ry": fh / 2.0 - 10.0}
 
 
 def south_extend(bg, W, H):
@@ -267,8 +283,8 @@ def main():
         t = {"id": "MAIN" if it["name"] == "主桌" else it["name"], "x": fx + fw // 2, "y": fy + fh // 2, "rx": fw // 2, "ry": fh // 2}
         if it["name"] == "主桌":
             t["main"] = True
-            if art:
-                t["seat_geom"] = SEAT_MAIN   # 主桌那张图的椅子圈比普通桌大
+        if art:
+            t["seat_geom"] = seat_geom_for(it)   # 每张桌自己带座位圈（零件图、色块不一样）
         tables.append(t)
     tables.sort(key=lambda t: (t["id"] != "MAIN", int(t["id"][1:]) if t["id"] != "MAIN" else 0))
 
