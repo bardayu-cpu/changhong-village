@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：55 桌大厅灰盒（01 D 9/29 派：不等 GPT 的图，照摆位底图 v3.2 的摆位表做进游戏）。和第 44 版厅并存，调试开关切：
-## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×2691（摆位 v5：家具照 d 的大小）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
+## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×3546（摆位 v6：照 d 每排 4 张）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
 ## 2 550 把椅子都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
 ## 4 第一次进厅镜头从大门滑到自己那桌、人站在桌边；以后进厅直接站自己桌边；5 从后厅回来站东侧门里边；
 ## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上只写桌号和游戏名）、其余不挂；
@@ -88,7 +88,7 @@ func run() -> void:
     var h = m.hall
     var tabs: Array = h.cfg["tables"]
     check("是 55 桌大厅：%d 张桌、画布 %s" % [tabs.size(), h.cfg["size"]], h.big and tabs.size() == 55
-        and int(h.cfg["size"][0]) == 1536 and int(h.cfg["size"][1]) == 2691)
+        and int(h.cfg["size"][0]) == 1536 and int(h.cfg["size"][1]) == 3546)
     check("还在宴会厅", m.state == "banquet" and m.cv == h)
     var ids: Array = []
     for t in tabs:

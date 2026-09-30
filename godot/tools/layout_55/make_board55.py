@@ -30,6 +30,10 @@ v5（01 D 9/30，阿鱼「按我选的来」：家具照 GPT 效果图 d 的大�
   第 1 排照 d：贺礼堆西边、东边各一张（西边那张是主桌），红毯东边一张，椅背贴着台口；乐队前、贺礼堆那三个位空着；
   宫灯照 d 换大的（28×118，带灯座）：台前一对照 d 的位置（脚 445），往南的在两条横走道里；墙边的照 d 从脚 680 起每 300 一根；
   花架照 d（44×104）：北墙脚两边各一个、台子两个后角各一个；小花盆照 d 挪到贺礼堆东边、乐队西边；长凳让出桌位，挪到进门那块
+v6（01 D 9/30，嫌 v5 每排 6 张比 d 挤）：照 d 的疏密每排 4 张，红毯两边各 2 张：列的位置照 d 第 2 排量（x 373、573、963、1163），
+  行距 205；第 1 排照旧照 d（贺礼堆西、主桌、红毯东）；55 桌 + 主桌一排排往南：第 1 排 3 张 + 13 排×4 = 55；
+  横走道照原来的规矩每 3～4 排一条（3 + 4 + 4 + 3 排，三条）；红毯宫灯照 d 每隔一排一对，立在红毯边和靠红毯那张桌之间；
+  长凳回到 d 的位置（第 2 排西头外侧）；东侧门还开在第二条横走道东头，大门跟着厅长往南挪
       （阿鱼 9/28：「都有地毯的话看起来太乱了，先不要地毯」）：55 桌和主桌下面的地毯全删，中间红毯留着；行距、列距、画布一个数不动
 用法：python3 tools/layout_55/make_board55.py [输出目录，默认 回执/]
       python3 tools/layout_55/make_board55.py --north 输出目录   切北边 y 0～1024 给 GPT（干净版、标注版、这块的摆位表）
@@ -53,25 +57,25 @@ VIEW = (576, 1024)            # 手机竖屏一屏看到的画布（540×960，�
 TABLE = (170, 112)            # v5：桌连一圈椅子的占地（照 d：画出来 170 宽，占地照 140×92 放大 1.21 倍）
 CHAIR_UP = 56                 # v5：后排椅背往上冒 56，画出来 170×168（照零件 140:138 的比例）
 RUG = (190, 125)              # v3.2 起桌下地毯删了（阿鱼：太乱）；这个数只留着定南边那块空地从哪起、中间屏切到哪，画布大小不变
-COL_GAP = 215                 # v5：同一边桌与桌的间距（照 d 量的 205～216）
-COL_IN = CX - 72 - 12 - TABLE[0] // 2   # 靠红毯那列：椅子外沿离红毯 12
-COLS = [COL_IN - 2 * COL_GAP, COL_IN - COL_GAP, COL_IN, 2 * CX - COL_IN, 2 * CX - COL_IN + COL_GAP, 2 * CX - COL_IN + 2 * COL_GAP]
+COL_IN_OFF = 195               # v6：靠红毯那列桌心离红毯中线 195（照 d 第 2 排量：574、963）
+COL_OUT_OFF = 395              # v6：靠墙那列离红毯中线 395（照 d 第 2 排量：376、1166）
+COLS = [CX - COL_OUT_OFF, CX - COL_IN_OFF, CX + COL_IN_OFF, CX + COL_OUT_OFF]   # 373、573、963、1163
 ROW0 = 434                    # v5 第 1 排桌心：照 d，椅背上沿 322 贴着台口立面下沿
-ROW0_X = {0: 235, 2: 550, 3: 975}   # v5 第 1 排照 d 的位置：贺礼堆西（235）、贺礼堆东（主桌 550）、红毯东（975，d 是 990，往西挪 15 让开乐队台）
+ROW0_X = {0: 235, 1: 550, 2: 975}   # 第 1 排照 d 的位置：贺礼堆西（235）、贺礼堆东（主桌 550）、红毯东（975，d 是 990，往西挪 15 让开乐队台）
 PITCH = 205                   # v5 行距：照 d 量的 184～222 取中；占地之间 93，画面上前一排前沿到后一排椅背 37
 CROSS_GAP = 128               # 横走道：占地之间 128（4 米），v3 不动
-CROSS_AFTER = (2, 6)          # 第 3 排、第 7 排后面各一条横走道：3 + 4 + 3 排
+CROSS_AFTER = (2, 6, 10)      # v6：第 3、7、11 排后面各一条横走道：3 + 4 + 4 + 3 排
+NROWS = 14                    # v6：第 1 排 3 张 + 13 排×4 张 = 55 张（含主桌）
 rows_y = []
 y = ROW0
-for r in range(10):
+for r in range(NROWS):
     rows_y.append(y)
     y += (TABLE[1] + CROSS_GAP) if r in CROSS_AFTER else PITCH
 # 60 个位：主桌 + T1～T54 一共 55 桌（01 定的默认「55 桌含主桌」，还没跟阿鱼核过），空 5 个
-MAIN = (0, 2)   # v5：第 1 排贺礼堆东边那张（x 550）
+MAIN = (0, 1)   # 第 1 排贺礼堆东边那张（x 550）
 # v3.1（04 新 2：最南一排只剩 3 张、缺口正对进门，冷清不对称）：最南一排补回东头那张，4 张左右对称；
 # 多出来的那个空位挪到第 1 排最东——正对乐队地台，客人能站着看乐队，和西头放长凳的空位左右对称，离大门最远
-EMPTY = {(0, 1): "v5：贺礼堆在这（照 d）", (0, 4): "v5：乐队台前（照 d 空着）", (0, 5): "v5：乐队台前（照 d 空着）",
-         (9, 2): "进门客人站的地方", (9, 3): "进门客人站的地方"}
+EMPTY = {(0, 3): "v6：乐队台前（照 d 空着）"}
 N_T = 54
 
 # ---------- 北边 ----------
@@ -150,7 +154,7 @@ def build():
     LAMP = (28, 118)   # v5：照 d 的大落地宫灯（带灯座），GPT 重画中，先色块
 
     def lamp_pair(y_foot, tag):
-        for side, x in (("西", CX - 72 - 19 - LAMP[0]), ("东", CX + 72 + 16)):   # 照 d：离红毯西 19、东 16
+        for side, x in (("西", CX - 72 - 8 - LAMP[0]), ("东", CX + 72 + 8)):   # v6：离红毯 8，和靠红毯那张桌（椅子外沿离红毯 38）之间
             b = (x, y_foot - LAMP[1], LAMP[0], LAMP[1])
             add("红毯%s侧落地宫灯（%s）" % (side, tag), "prop", b, (240, 200, 60), "v5 照 d 量：带灯座大宫灯 28×118；占地是最下面 14", foot=standing(b, 14))
 
@@ -162,9 +166,9 @@ def build():
         b = (x, y_foot - 32, 32, 32)
         add(name, "prop", b, (90, 170, 90), "§15 一盆花 24～38，取 32；占地是最下面 16", foot=standing(b, 16))
 
-    # 台前一对照 d 的位置（脚 445）。d 往南还有一对（脚 818），方格里靠红毯那列桌子离红毯只有 12，那儿是桌子；
-    # 横走道画面上只露 72，放不下 118 高的宫灯（会压到北边那排桌子）——往南的这几对先不放，报 01
-    lamp_pair(445, "台前")
+    # v6 照 d：每隔一排一对，立在红毯边和靠红毯那张桌之间；脚比那排桌心往南 11（d：第 1 排脚 445、第 3 排脚 818）
+    for r in range(0, NROWS, 2):
+        lamp_pair(rows_y[r] + 11, "第 %d 排" % (r + 1))
     # 小花盆照 d：贺礼堆东边、乐队台西边（脚 360）
     pot("花盆（贺礼堆东）", 476, 360)
     pot("花盆（乐队西）", 1036, 360)
@@ -189,14 +193,15 @@ def build():
     def col_x(r, c):
         return ROW0_X[c] if r == 0 and c in ROW0_X else COLS[c]
     ids = []
-    for r in range(10):
-        slots = [c for c in range(6) if (r, c) not in EMPTY and (r, c) != MAIN]
+    for r in range(NROWS):
+        cols_r = range(3) if r == 0 else range(len(COLS))
+        slots = [c for c in cols_r if (r, c) not in EMPTY and (r, c) != MAIN]
         slots.sort(key=lambda c: (abs(col_x(r, c) - CX), col_x(r, c)))
         ids += [(r, c) for c in slots]
     tid = {rc: "T%d" % (i + 1) for i, rc in enumerate(ids)}
     assert len(tid) == N_T
-    for r in range(10):
-        for c in range(6):
+    for r in range(NROWS):
+        for c in (range(3) if r == 0 else range(len(COLS))):
             cx, cy = col_x(r, c), rows_y[r]
             if (r, c) in EMPTY:
                 continue
@@ -213,9 +218,9 @@ def build():
     b = (CX + door_w // 2, rail_foot - 48, W - 40 - (CX + door_w // 2), 48)
     add("南边东段栏杆", "wall", b, (120, 80, 50), "§15 齐腰栏杆 高 48；落地线 %d" % rail_foot, foot=standing(b, 8))
     add("进门站的地方", "zone", (CX - 150, stand_top, 300, rail_foot - 145 - stand_top), None, "大门里边空出来的地面：宽 300、前后 3 米（96）", flat=True)
-    # 长凳（v5）：方格里让不出桌位（d 里它在第 2 排西头，那儿现在是桌），挪到进门那块西边，客人进门就看得见
-    bf = (CX - 150 - 24 - 72, stand_top + 40, 72, 16)
-    add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；v5 放在进门站的地方西边", foot=bf)
+    # 长凳（v6）：回到 d 的位置——第 2 排西头外侧（d 量的 146～218、脚 555）
+    bf = (146, 555 - 16, 72, 16)
+    add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；v6 照 d：第 2 排西头外侧", foot=bf)
     b = (CX + 90, rail_foot - 145 - 4 - PERSON, 32, PERSON)
     add("尺子：人", "ruler", b, (20, 20, 20), "§15 人 84；宽 32（画的人整个撑满这 32×84）", foot=standing(b, 10))
     return items, tid, (d0, d1), stand_top, rail_foot
@@ -438,18 +443,19 @@ def draw(items, labels, tid, door, stand_top, rail_foot):
     t0 = [it for it in items if it["name"] == tid[(1, 1)]][0]
     x, y, w, h = t0["box"]
     fx, fy, fw, fh = t0["foot"]
-    dim((x, y - 8), (x + w, y - 8), "桌 140")
-    dim((x - 10, y), (x - 10, y + h), "画出来 138")
-    dim((x + w + 10, fy), (x + w + 10, fy + fh), "占地 92")
+    dim((x, y - 8), (x + w, y - 8), "桌 %d" % w)
+    dim((x - 10, y), (x - 10, y + h), "画出来 %d" % h)
+    dim((x + w + 10, fy), (x + w + 10, fy + fh), "占地 %d" % fh)
     c = COLS
     yy = rows_y[4]
-    dim((c[0], yy), (c[1], yy), "列距 203")
-    dim((c[2], yy), (c[3], yy), "跨红毯 320")
-    dim((c[4] + 90, rows_y[3]), (c[4] + 90, rows_y[4]), "行距 180")
-    a = [it for it in items if it["name"] == tid[(3, 5)]][0]
-    b2 = [it for it in items if it["name"] == tid[(4, 5)]][0]
-    dim((c[5] + 60, a["box"][1] + a["box"][3]), (c[5] + 60, b2["box"][1]), "露地面 42", (255, 120, 120))
-    dim((c[5] + 100, rows_y[2] + 46), (c[5] + 100, rows_y[3] - 46), "横走道 128")
+    dim((c[0], yy), (c[1], yy), "列距 %d" % (c[1] - c[0]))
+    dim((c[1], yy), (c[2], yy), "跨红毯 %d" % (c[2] - c[1]))
+    last = len(c) - 1
+    dim((c[last] + 110, rows_y[3]), (c[last] + 110, rows_y[4]), "行距 %d" % (rows_y[4] - rows_y[3]))
+    a = [it for it in items if it["name"] == tid[(3, last)]][0]
+    b2 = [it for it in items if it["name"] == tid[(4, last)]][0]
+    dim((c[last] + 60, a["box"][1] + a["box"][3]), (c[last] + 60, b2["box"][1]), "露地面 %d" % (b2["box"][1] - a["box"][1] - a["box"][3]), (255, 120, 120))
+    dim((c[last] + 130, rows_y[2] + TABLE[1] // 2), (c[last] + 130, rows_y[3] - TABLE[1] // 2), "横走道 %d" % CROSS_GAP)
     dim((STAGE_TOP[0], STAGE_TOP[1] + 12), (STAGE_TOP[0] + STAGE_TOP[2], STAGE_TOP[1] + 12), "台 480，画出来 %d" % STAGE_BOX[3])
     dim((STEPS_FOOT[0], STEPS_FOOT[1] + STEPS_FOOT[3] + 6), (STEPS_FOOT[0] + STEP_W, STEPS_FOOT[1] + STEPS_FOOT[3] + 6), "台阶 %d" % STEP_W)
     dim((W - 60, 0), (W - 60, 140), "手机顶上被挡 140", (255, 120, 120))
