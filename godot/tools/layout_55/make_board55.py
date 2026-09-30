@@ -34,6 +34,10 @@ v6（01 D 9/30，嫌 v5 每排 6 张比 d 挤）：照 d 的疏密每排 4 张�
   行距 205；第 1 排照旧照 d（贺礼堆西、主桌、红毯东）；55 桌 + 主桌一排排往南：第 1 排 3 张 + 13 排×4 = 55；
   横走道照原来的规矩每 3～4 排一条（3 + 4 + 4 + 3 排，三条）；红毯宫灯照 d 每隔一排一对，立在红毯边和靠红毯那张桌之间；
   长凳回到 d 的位置（第 2 排西头外侧）；东侧门还开在第二条横走道东头，大门跟着厅长往南挪
+v7（01 D 9/30，GPT 南边包交了）：桌、主桌照零件实际 180×150 摆（画出来的框），占地照零件里椅子外沿量 146×100（椅背往上冒 50）；
+  大宫灯 48×112、花架 56×112（零件实际大小）；疏密照旧照 d（每排 4 张、行距 205、第 1 排照 d）；
+  最南头 1024 垫 GPT 南边那张背景：东侧门、大门、栏杆都照那张图量（那张图里门洞 706～826、门柱 640～900、门槛 890～905、
+  栏杆顶 958、脚 1000、东侧门 193～251）；厅长到最后一排桌前沿离门柱上沿留 40
       （阿鱼 9/28：「都有地毯的话看起来太乱了，先不要地毯」）：55 桌和主桌下面的地毯全删，中间红毯留着；行距、列距、画布一个数不动
 用法：python3 tools/layout_55/make_board55.py [输出目录，默认 回执/]
       python3 tools/layout_55/make_board55.py --north 输出目录   切北边 y 0～1024 给 GPT（干净版、标注版、这块的摆位表）
@@ -54,19 +58,26 @@ PERSON = 84
 VIEW = (576, 1024)            # 手机竖屏一屏看到的画布（540×960，镜头 960/1024）
 
 # ---------- 桌位 ----------
-TABLE = (170, 112)            # v5：桌连一圈椅子的占地（照 d：画出来 170 宽，占地照 140×92 放大 1.21 倍）
-CHAIR_UP = 56                 # v5：后排椅背往上冒 56，画出来 170×168（照零件 140:138 的比例）
+TABLE = (146, 100)            # v7：桌连一圈椅子的占地（照 GPT v2 桌子零件里椅子外沿量：19～164 宽，脚下那一截 100 深）
+CHAIR_UP = 50                 # v7：后排椅背往上冒 50
+TABLE_BOX = (180, 150)        # v7：画出来的框就是零件图 180×150，脚点在下沿正中
 RUG = (190, 125)              # v3.2 起桌下地毯删了（阿鱼：太乱）；这个数只留着定南边那块空地从哪起、中间屏切到哪，画布大小不变
 COL_IN_OFF = 195               # v6：靠红毯那列桌心离红毯中线 195（照 d 第 2 排量：574、963）
 COL_OUT_OFF = 395              # v6：靠墙那列离红毯中线 395（照 d 第 2 排量：376、1166）
 COLS = [CX - COL_OUT_OFF, CX - COL_IN_OFF, CX + COL_IN_OFF, CX + COL_OUT_OFF]   # 373、573、963、1163
-ROW0 = 434                    # v5 第 1 排桌心：照 d，椅背上沿 322 贴着台口立面下沿
+ROW0 = 422                    # v7 第 1 排桌心：照 d，零件图上沿 322 贴着台口立面下沿
 ROW0_X = {0: 235, 1: 550, 2: 975}   # 第 1 排照 d 的位置：贺礼堆西（235）、贺礼堆东（主桌 550）、红毯东（975，d 是 990，往西挪 15 让开乐队台）
 PITCH = 205                   # v5 行距：照 d 量的 184～222 取中；占地之间 93，画面上前一排前沿到后一排椅背 37
 CROSS_GAP = 128               # 横走道：占地之间 128（4 米），v3 不动
 CROSS_AFTER = (2, 6, 10)      # v6：第 3、7、11 排后面各一条横走道：3 + 4 + 4 + 3 排
 SOUTH_BG_H = 1024             # GPT 补南边那张背景的高：整厅最南头这一截留给它（01 D 9/30）
-SOUTH_SIDE_DOOR = (193, 251)  # 那张图里东侧门的上下（任务单写的；图交了以后照图量了改）
+SOUTH_SIDE_DOOR = (193, 251)  # 那张图里东侧门的上下（v7 照图核过：东墙上 190～250 那个门洞看得见外面）
+# v7 照 GPT 南边那张量的（那张图里的坐标，y 从它上沿算）
+SOUTH_DOOR_POSTS = (640, 830, 260, 170)   # 大门门柱、开着的两扇门：x 640～900、y 830～1000
+SOUTH_DOORWAY = (706, 826)                # 门洞里能走的那一截
+SOUTH_THRESHOLD = 890                     # 红毯到门槛这儿断（890～905 是金门槛）
+SOUTH_RAIL = (958, 1000)                  # 栏杆顶、脚
+SOUTH_GAP = 40                            # 最后一排桌（零件下沿）离门柱上沿至少这么多
 NROWS = 14                    # v6：第 1 排 3 张 + 13 排×4 张 = 55 张（含主桌）
 rows_y = []
 y = ROW0
@@ -111,11 +122,12 @@ def standing(box, foot_h):
 
 def build():
     global H
-    last_rug_bottom = rows_y[-1] + RUG[1] // 2 + 1
-    stand_top = last_rug_bottom + 30
-    STAND = 96
-    rail_foot = stand_top + STAND + 145
-    H = rail_foot + 8
+    # v7：厅长由 GPT 南边那张定——最后一排桌（零件下沿）离那张图里门柱上沿 SOUTH_GAP，南边那张垫在最南头
+    last_front = rows_y[-1] + TABLE[1] // 2
+    south_top = last_front + SOUTH_GAP - SOUTH_DOOR_POSTS[1]
+    H = south_top + SOUTH_BG_H
+    stand_top = south_top + SOUTH_THRESHOLD - 96   # 进门站的地方：门槛里边 96（3 米）
+    rail_foot = south_top + SOUTH_RAIL[1]
     items = []
 
     def add(name, kind, box, color, basis, group="", foot=None, flat=False):
@@ -133,11 +145,10 @@ def build():
         add("帐幔 %d" % (k + 1), "decor", (x0, 24, 152, 40), (170, 40, 40), "垂下 0.8 米×48=40；一段 3.2 米宽", "top_decor")
     for k in range(len(drapes) - 1):   # 挂灯只挂在两段帐幔之间的缝里，挂在缝正中
         add("挂灯 %d" % (k + 1), "decor", (drapes[k] + 152 + (gap - 20) // 2, 60, 20, 24), (240, 170, 60), "§15 挂着的灯笼 高 19～24，取 24；宽 20", "top_decor")
-    side_bottom = rail_foot - 48
+    side_bottom = south_top + SOUTH_RAIL[0]   # 两边墙画到栏杆顶
     add("西墙", "wall", (0, WALL_N, 40, side_bottom - WALL_N), wood, "墙厚 40（约 0.8 米，§15 没有）；俯看是一条，平的", flat=True)
     # 东侧门（v6 更正，01 D 9/30）：GPT 补南边那张背景就是整厅最南头 1024 高一截，门画在那张图里 y 193～251；
     # 背景说了算，这里照它算：整厅 y = (H - 1024) + 193～251。图没到之前色块也先摆在这
-    south_top = H - SOUTH_BG_H
     d0, d1 = south_top + SOUTH_SIDE_DOOR[0], south_top + SOUTH_SIDE_DOOR[1]
     add("东墙（北段）", "wall", (W - 40, WALL_N, 40, d0 - WALL_N), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
     add("东墙（南段）", "wall", (W - 40, d1, 40, side_bottom - d1), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
@@ -153,18 +164,19 @@ def build():
         add("新人站位%s" % ("（新娘）" if i == 0 else "（新郎）"), "mark", (fx - 12, fy - 4, 24, 8), (255, 255, 255),
             "台面中间、囍字正下方；只标脚下 y %d。人 84 高，头顶到 y %d，在囍字下沿 %d 下面、不挡囍" % (fy, fy - PERSON, XI[1] + XI[3]), "stage_decor")
     # 红毯、宫灯、花盆
-    carpet_bottom = rail_foot - 145
-    add("红毯", "floor", (CX - 72, CARPET_TOP, 144, carpet_bottom - CARPET_TOP), (179, 32, 42), "3 米×48=144（方案）；从台阶下沿到大门跟前", flat=True)
-    LAMP = (28, 118)   # v5：照 d 的大落地宫灯（带灯座），GPT 重画中，先色块
+    carpet_bottom = south_top + SOUTH_THRESHOLD   # v7：红毯铺到南边背景里的门槛
+    add("红毯", "floor", (CX - 72, CARPET_TOP, 144, carpet_bottom - CARPET_TOP), (179, 32, 42), "3 米×48=144（方案）；从台阶下沿到大门门槛", flat=True)
+    LAMP = (48, 112)   # v7：GPT v2 大落地宫灯零件实际大小（看得见的灯是中间 13～38 那一截）
 
     def lamp_pair(y_foot, tag):
-        for side, x in (("西", CX - 72 - 8 - LAMP[0]), ("东", CX + 72 + 8)):   # v6：离红毯 8，和靠红毯那张桌（椅子外沿离红毯 38）之间
+        # 看得见的灯（零件里 13～38）离红毯 4；零件两边是透明的，框会和靠红毯那张桌的透明边搭上一点
+        for side, x in (("西", CX - 72 - 4 - 38), ("东", CX + 72 + 4 - 13)):
             b = (x, y_foot - LAMP[1], LAMP[0], LAMP[1])
-            add("红毯%s侧落地宫灯（%s）" % (side, tag), "prop", b, (240, 200, 60), "v5 照 d 量：带灯座大宫灯 28×118；占地是最下面 14", foot=standing(b, 14))
+            add("红毯%s侧落地宫灯（%s）" % (side, tag), "prop", b, (240, 200, 60), "v7：GPT v2 大宫灯 48×112；占地是最下面 14", foot=(b[0] + 13, b[1] + b[3] - 14, 25, 14))
 
     def stand(name, cx, y_foot, group=""):
-        b = (cx - 22, y_foot - 104, 44, 104)
-        add(name, "prop", b, (60, 140, 60), "v5 照 d 量：花架连花 44×104；占地最下面 16", group, foot=standing(b, 16))
+        b = (cx - 28, y_foot - 112, 56, 112)
+        add(name, "prop", b, (60, 140, 60), "v7：GPT v2 花架 56×112；占地最下面 16", group, foot=standing(b, 16))
 
     def pot(name, x, y_foot):
         b = (x, y_foot - 32, 32, 32)
@@ -172,7 +184,7 @@ def build():
 
     # v6 照 d：每隔一排一对，立在红毯边和靠红毯那张桌之间；脚比那排桌心往南 11（d：第 1 排脚 445、第 3 排脚 818）
     for r in range(0, NROWS, 2):
-        lamp_pair(rows_y[r] + 11, "第 %d 排" % (r + 1))
+        lamp_pair(rows_y[r] + 23, "第 %d 排" % (r + 1))   # d 第 1 排的脚 445，v7 第 1 排桌心 422
     # 小花盆照 d：贺礼堆东边、乐队台西边（脚 360）
     pot("花盆（贺礼堆东）", 476, 360)
     pot("花盆（乐队西）", 1036, 360)
@@ -183,11 +195,11 @@ def build():
     stand("花架（北墙东）", 1390, 256)
     # 墙边宫灯：照 d 从脚 680 起每 300 一根（和台前那对同一款），东边躲开侧门
     for yf in range(680, side_bottom - 40, 300):
-        b = (33, yf - LAMP[1], LAMP[0], LAMP[1])
-        add("西墙边宫灯（y %d）" % yf, "prop", b, (230, 170, 60), "v5 照 d：墙边大宫灯 28×118，x 47 居中；占地最下面 14", foot=standing(b, 14))
+        b = (47 - 24, yf - LAMP[1], LAMP[0], LAMP[1])
+        add("西墙边宫灯（y %d）" % yf, "prop", b, (230, 170, 60), "v7：墙边大宫灯 48×112，x 47 居中（照 d）；占地最下面 14", foot=(b[0] + 13, b[1] + b[3] - 14, 25, 14))
         if not (d0 - 20 < yf < d1 + 130):
-            b = (W - 33 - LAMP[0], yf - LAMP[1], LAMP[0], LAMP[1])
-            add("东墙边宫灯（y %d）" % yf, "prop", b, (230, 170, 60), "v5 照 d：墙边大宫灯 28×118；占地最下面 14", foot=standing(b, 14))
+            b = (W - 47 - 24, yf - LAMP[1], LAMP[0], LAMP[1])
+            add("东墙边宫灯（y %d）" % yf, "prop", b, (230, 170, 60), "v7：墙边大宫灯 48×112；占地最下面 14", foot=(b[0] + 13, b[1] + b[3] - 14, 25, 14))
     # 乐队（v4：背景里画好的地台和乐器——钢琴、琴凳、椅子、大提琴、两个谱架，没有乐手；这里只记它占的地方）
     add("乐队地台（背景里画好的）", "band_floor", (1062, 256, 338, 176), (120, 40, 50),
         "v4 照背景量：地台 1062～1399、台面 322～422、前沿 432；钢琴顶到 256。背景里没画乐手", "band", foot=(1062, 322, 338, 110))
@@ -211,21 +223,22 @@ def build():
                 continue
             name = "主桌" if (r, c) == MAIN else tid[(r, c)]
             tf = (cx - TABLE[0] // 2, cy - TABLE[1] // 2, TABLE[0], TABLE[1])
-            add(name, "table", up(tf, CHAIR_UP), (220, 70, 60) if name != "主桌" else (240, 190, 60),
-                "v5 照 d：占地 170×112、椅背往上冒 56，画出来 170×168（GPT 重画中，先色块）", "table:" + name, foot=tf)
-    # 南边：栏杆、大门、进门站的地方
-    door_w = 114
-    b = (CX - door_w // 2, rail_foot - 145, door_w, 145)
-    add("大门（双开门门洞）", "door", b, (60, 140, 200), "§15 双开门／院门门洞 宽 86～115、高 115～145，取 114×145；落地线 %d" % rail_foot, foot=standing(b, 8))
-    b = (40, rail_foot - 48, CX - door_w // 2 - 40, 48)
-    add("南边西段栏杆", "wall", b, (120, 80, 50), "§15 齐腰栏杆 高 48；落地线 %d" % rail_foot, foot=standing(b, 8))
-    b = (CX + door_w // 2, rail_foot - 48, W - 40 - (CX + door_w // 2), 48)
-    add("南边东段栏杆", "wall", b, (120, 80, 50), "§15 齐腰栏杆 高 48；落地线 %d" % rail_foot, foot=standing(b, 8))
-    add("进门站的地方", "zone", (CX - 150, stand_top, 300, rail_foot - 145 - stand_top), None, "大门里边空出来的地面：宽 300、前后 3 米（96）", flat=True)
+            tb = (cx - TABLE_BOX[0] // 2, cy + TABLE[1] // 2 - TABLE_BOX[1], TABLE_BOX[0], TABLE_BOX[1])
+            add(name, "table", tb, (220, 70, 60) if name != "主桌" else (240, 190, 60),
+                "v7：GPT v2 桌子零件 180×150（脚点下沿正中），占地照椅子外沿 146×100", "table:" + name, foot=tf)
+    # 南边（v7 照 GPT 南边那张背景量）：大门、栏杆、进门站的地方
+    px0, py0, pw, ph = SOUTH_DOOR_POSTS
+    b = (px0, south_top + py0, pw, ph)
+    add("大门（门柱和开着的两扇门，南边背景里画好的）", "door", b, (60, 140, 200), "v7 照南边背景量：门柱 640～900、门洞 706～826；落地线 %d" % rail_foot, foot=standing(b, 8))
+    b = (40, south_top + SOUTH_RAIL[0], px0 - 40, SOUTH_RAIL[1] - SOUTH_RAIL[0])
+    add("南边西段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量：顶 958、脚 1000（那张图里）", foot=standing(b, 8))
+    b = (px0 + pw, south_top + SOUTH_RAIL[0], W - 40 - (px0 + pw), SOUTH_RAIL[1] - SOUTH_RAIL[0])
+    add("南边东段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量", foot=standing(b, 8))
+    add("进门站的地方", "zone", (CX - 150, stand_top, 300, 96), None, "门槛里边空出来的地面：宽 300、前后 3 米（96）", flat=True)
     # 长凳（v6）：回到 d 的位置——第 2 排西头外侧（d 量的 146～218、脚 555）
     bf = (146, 555 - 16, 72, 16)
     add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；v6 照 d：第 2 排西头外侧", foot=bf)
-    b = (CX + 90, rail_foot - 145 - 4 - PERSON, 32, PERSON)
+    b = (CX + 90, stand_top + 96 - 4 - PERSON, 32, PERSON)
     add("尺子：人", "ruler", b, (20, 20, 20), "§15 人 84；宽 32（画的人整个撑满这 32×84）", foot=standing(b, 10))
     return items, tid, (d0, d1), stand_top, rail_foot
 
@@ -239,7 +252,21 @@ def overlaps(a, b):
 # 画面上可以叠的：坐着的人和他的凳子、椅子
 SIT = [{"钢琴手（坐）", "琴凳"}, {"大提琴手（坐）", "大提琴手的椅子"}]
 # v5 照 d 本来就挨着的：两盆小花躲在桌子后排椅背后面（脚比桌子靠北，按落地线排在桌子后面），乐队西那盆靠着乐队台
-BEHIND_OK = [{"花盆（贺礼堆东）", "主桌"}, {"花盆（乐队西）", "T1"}, {"花盆（乐队西）", "乐队地台（背景里画好的）"}]
+BEHIND_OK = [{"花盆（贺礼堆东）", "主桌"}, {"花盆（乐队西）", "T1"}, {"花盆（乐队西）", "乐队地台（背景里画好的）"},
+             {"T1", "乐队地台（背景里画好的）"}, {"大门（门柱和开着的两扇门，南边背景里画好的）", "尺子：人"}]
+# v7：零件图四周有透明边（桌子两边各 16～19、宫灯两边各 13），框搭上一点不算压——比的时候按看得见那一截
+VISIBLE_INSET = {"table": (16, 0), "宫灯": (13, 0)}
+
+
+def _vis(it):
+    """画出来看得见的那一截（v7 零件图两边有透明边）"""
+    x, y, w, h = it["box"]
+    dx = 0
+    if it["kind"] == "table":
+        dx = VISIBLE_INSET["table"][0]
+    elif "宫灯" in it["name"]:
+        dx = VISIBLE_INSET["宫灯"][0]
+    return (x + dx, y, w - 2 * dx, h)
 
 
 def check(items):
@@ -247,7 +274,7 @@ def check(items):
     bad = []
     for i, a in enumerate(items):
         for b in items[i + 1:]:
-            if not overlaps(a["box"], b["box"]):
+            if not overlaps(_vis(a), _vis(b)):
                 continue
             ka, kb = a["kind"], b["kind"]
             ga, gb = a["group"], b["group"]
@@ -576,7 +603,7 @@ def table_rows(items, only_north=False):
 
 
 def table_md(items, bad, gaps):
-    lines = ["# 宴会厅 55 桌 · 摆位表（02，9/30，v5）", "",
+    lines = ["# 宴会厅 55 桌 · 摆位表（02，9/30，v7）", "",
              "> 01 D 9/25 派。画布 %d×%d，1:1（人 84）。坐标单位画布像素，x、y 是左上角。依据：ASSETS §15（左右和高 1 米 = 48、地面前后 1 米 = 32）、04 `体验-第47版-55桌.md`、03 `比例量尺-55桌摆位底图v2.md`、方案 `宴会厅55桌-方案.md`。脚本 `tools/layout_55/make_board55.py`，改数重跑。" % (W, H),
              "> **v3：x、y、宽、高是画出来在画面上占的框（色块画的就是它），下沿是落地的地方；「占地」列是地上占的地（走路判定用），平的东西两个一样。**",
              "", "| 名字 | x | y | 宽 | 高 | 占地（x, y, 宽×高） | 依据 |", "| --- | --- | --- | --- | --- | --- | --- |"]
@@ -639,7 +666,7 @@ def north(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     clean.save(os.path.join(out_dir, "claude-55桌摆位-北-干净.png"))
     ann.save(os.path.join(out_dir, "claude-55桌摆位-北-标注.png"))
-    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024，v5）", "",
+    lines = ["# 宴会厅 55 桌摆位表 · 北边那块（y 0～1024，v7）", "",
              "> 02 9/25。从整厅摆位底图（1536×%d，v3；脚本 `godot/tools/layout_55/make_board55.py --north`）切出北边 1536×1024，给 GPT 画效果图用。坐标是整厅的，这块左上角就是整厅 (0,0)，数不用换算。" % H,
              "> **x、y、宽、高是画出来在画面上占的框（色块画的就是它），下沿是落地的地方；「占地」是地上占的地。**干净版：没有字、没有新人脚印，只在红毯上站一个 84 像素的人当尺子（脚点 (%d, %d)）。新人站位只在标注版里标。被下沿（y 1024）切掉一截的标「被切」，宽高写的是整件的。" % (fx, fy),
              "", "| 名字 | x | y | 宽 | 高 | 占地（x, y, 宽×高） | 被切 | 依据 |", "| --- | --- | --- | --- | --- | --- | --- | --- |"]

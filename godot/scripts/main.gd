@@ -3079,7 +3079,7 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
-        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast", "big_rel_card", "big_empty_stage", "big_empty_overview":
+        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast", "big_rel_card", "big_empty_stage", "big_empty_overview", "big_middle":
             # 55 桌大厅灰盒（01 D 9/29 要的三张）：big_door 进门（站大门口看全场）；big_table 第一次进厅，镜头滑到自己那桌以后；
             # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）；
             # big_main 站到主桌外婆跟前（阿鱼 9/29：主桌 10 座，称呼走近谁亮谁）；
@@ -3106,6 +3106,11 @@ func _setup_shot(shot: String) -> void:
                     rel._process(0.05)   # 快进 45 秒：开席前的人散开、找人说话；开席的人走回座位、有人去敬酒
                 var t9: Dictionary = hall._table_cfg("T9")
                 hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(Vector2(float(t9["x"]) - 100.0, float(t9["y"]) - 60.0)))))
+                hall.snap_cam()
+            elif shot == "big_middle":
+                # 厅正中间（v7 接南边包以后看中间那截：接出去的地砖、两边竖墙）
+                hall.couple_armed = false
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(Vector2(768, float(hall.cfg["size"][1]) * 0.55)))))
                 hall.snap_cam()
             elif shot == "big_empty_stage" or shot == "big_empty_overview":
                 hall.couple_armed = false

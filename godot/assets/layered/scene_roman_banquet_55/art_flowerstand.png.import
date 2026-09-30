@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm7r453vr0h06"
-path="res://.godot/imported/gb_3.png-b33dee11e2dbdad034dd3880c4f638c9.ctex"
+uid="uid://cqcbbmwuapbkh"
+path="res://.godot/imported/art_flowerstand.png-84a6c05cbfa9946d8d5d90bb3fc1b836.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/layered/scene_roman_banquet_55/gb_3.png"
-dest_files=["res://.godot/imported/gb_3.png-b33dee11e2dbdad034dd3880c4f638c9.ctex"]
+source_file="res://assets/layered/scene_roman_banquet_55/art_flowerstand.png"
+dest_files=["res://.godot/imported/art_flowerstand.png-84a6c05cbfa9946d8d5d90bb3fc1b836.ctex"]
 
 [params]
 

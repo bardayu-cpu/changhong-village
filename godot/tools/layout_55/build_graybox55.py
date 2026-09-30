@@ -34,8 +34,14 @@ AMB = os.path.join(GODOT, "assets", "ambience", "ambience_55.json")
 RES = "res://assets/layered/scene_roman_banquet_55/"
 ART = os.path.join(HERE, "art")
 ART_BG = os.path.join(ART, "base_banquet55_north_v1.png")
-ART_PIECES = {"table": "blk_banquet55_table_v1.png", "table_main": "blk_banquet55_table_main_v1.png",
-              "bench": "blk_banquet55_bench_v1.png", "lantern": "blk_banquet55_lantern_v1.png", "flowerpot": "blk_banquet55_flowerpot_v1.png"}
+# v7（01 D 9/30）：桌、主桌、大宫灯、花架换 GPT 南边包里的 v2；长凳、小花盆照旧 v1
+ART_PIECES = {"table": "blk_banquet55_table_v2.png", "table_main": "blk_banquet55_table_main_v2.png",
+              "bench": "blk_banquet55_bench_v1.png", "lantern": "blk_banquet55_lantern_v2.png", "flowerpot": "blk_banquet55_flowerpot_v1.png",
+              "flowerstand": "blk_banquet55_flowerstand_v2.png"}
+ART_SOUTH = os.path.join(ART, "base_banquet55_south_v1.png")   # 最南头 1024 那张
+ART_WALL_W = os.path.join(ART, "tex_banquet55_wall_west_v1.png")   # 中间那截的竖墙，40×240 一段段接
+ART_WALL_E = os.path.join(ART, "tex_banquet55_wall_east_v1.png")
+WALL_FROM = 724   # 北边那张的墙是透视的，西墙最下那根柱子到 y 724 左右——竖墙从这儿接下去（再往下北边那张两边已经是地砖）
 # 乐队台上的乐手（01 D 9/30）：用 12 桌厅那套 GPT 乐手零件（band v3）。只摆两位站着的小提琴手：
 # 量过（人 84、坐着 62）：小提琴 a 高 107（1.3 倍）、b 120（1.4 倍），都没超 1.5 倍，照原样摆在背景两个谱架前面；
 # 弹钢琴的、拉大提琴的零件里自带钢琴、大提琴和椅子，背景里已经画了一套，摆上去就是两架钢琴两把琴；大提琴手还有 1.85 倍，
@@ -52,8 +58,9 @@ BAND_PLAYERS = [
 TABLE_SHADOW = {"w": 150, "h": 95, "alpha": 0.20, "blur": 8, "dx": 5, "dy": 0}
 SOUTH_BAND = (964, 1024)   # 往南接地砖用背景的哪几行（最下面一个砖高 60：往下的砖一行行已经差不多一样高了）
 # 座位圈（量零件图里椅子的位置，02 9/30）：10 把椅子正好每 36° 一把、从正北起；圈心相对桌子占地中心、圈的半径
-SEAT_TABLE = {"abs": True, "dx": 5.0, "dy": -8.0, "rx": 52.0, "ry": 40.0}
-SEAT_MAIN = {"abs": True, "dx": 4.0, "dy": -12.0, "rx": 60.0, "ry": 45.0}
+# v7 照 GPT v2 桌子零件量：普通桌椅子圈心在占地中心往上 18、半径 63×50；主桌椅子圈大：往上 22、75×57
+SEAT_TABLE = {"abs": True, "dx": 0.0, "dy": -18.0, "rx": 63.0, "ry": 50.0}
+SEAT_MAIN = {"abs": True, "dx": 0.0, "dy": -22.0, "rx": 75.0, "ry": 57.0}
 CELL = 10
 C = 12                    # 走路离占地留的边（和 build_layered.py 一样）
 
@@ -136,6 +143,8 @@ def art_piece(it):
         piece = "lantern"
     elif "花盆" in n:
         piece = "flowerpot"
+    elif "花架" in n:
+        piece = "flowerstand"
     if piece is None:
         return None
     w, h = Image.open(os.path.join(ART, ART_PIECES[piece])).size
@@ -151,6 +160,34 @@ def seat_geom_for(it):
         return SEAT_MAIN
     fx, fy, fw, fh = it["foot"]
     return {"abs": True, "dx": 0.0, "dy": 0.0, "rx": fw / 2.0 - 15.0, "ry": fh / 2.0 - 10.0}
+
+
+def compose(bg, W, H):
+    """v7：北边那张（0～1024）+ 中间照最下面一截地砖一段段接 + 两边竖墙 + 南边那张垫最南头（H-1024～H）。回 (整张, 接缝数)"""
+    im, seam = south_extend(bg, W, H)
+    if os.path.exists(ART_SOUTH):
+        south = Image.open(ART_SOUTH).convert("RGB")
+        top = H - south.height
+        # 中间那截两边的竖墙（北边那张的墙在 y 760 出画面，从那儿接到南边那张上沿）
+        if os.path.exists(ART_WALL_W) and os.path.exists(ART_WALL_E):
+            ww = Image.open(ART_WALL_W).convert("RGB")
+            we = Image.open(ART_WALL_E).convert("RGB")
+            y = WALL_FROM
+            while y < top:
+                im.paste(ww, (0, y))
+                im.paste(we, (W - we.width, y))
+                y += ww.height
+        # 中间地砖和南边那张的接缝：南边上沿那一行和它上面一行比
+        px = im.load()
+        def row_diff(y0, x0, x1):
+            return sum(sum(abs(px[x, y0][k] - px[x, y0 - 1][k]) for k in range(3)) for x in range(x0, x1)) / float(x1 - x0) / 3.0
+        im.paste(south, (0, top))
+        seam["south_all"] = row_diff(top, 40, W - 40)
+        seam["south_mid"] = row_diff(top, 300, 1236)
+        seam["south_top"] = top
+        # 竖墙最后一段接到南边那张上沿：墙那两条的缝
+        seam["wall_join"] = (row_diff(top, 0, 40) + row_diff(top, W - 40, W)) / 2.0
+    return im, seam
 
 
 def south_extend(bg, W, H):
@@ -210,7 +247,7 @@ def main():
     bounds = {}
     if art:
         bg = Image.open(ART_BG).convert("RGB")
-        base, seam = south_extend(bg, W, H)
+        base, seam = compose(bg, W, H)
         bounds = floor_bounds(bg)
         # 桌下暗影：一块黑的椭圆，边上高斯糊开，乘 20% 叠上去
         sh = TABLE_SHADOW
@@ -228,8 +265,8 @@ def main():
                 base.alpha_composite(dark, (cx - m.width // 2, cy - m.height // 2))
         base = base.convert("RGB")
         g = ImageDraw.Draw(base)
-        for it in items:
-            if it["name"] == "东侧门（门洞）":   # 背景里没有侧门（墙在 y 760 往下出了画面）：还画色块
+        for it in ([] if os.path.exists(ART_SOUTH) else items):
+            if it["name"] == "东侧门（门洞）":   # 南边那张没来之前背景里没有侧门：还画色块
                 x, y, w, h = it["box"]
                 g.rectangle([x, y, x + w - 1, y + h - 1], fill=tuple(it["color"]))
     else:
@@ -248,7 +285,9 @@ def main():
         if not (it["kind"] in occ_kinds or it["name"] in front_names):
             continue
         if art and "背景里画好的" in it["name"]:
-            continue   # 贺礼堆画在背景里
+            continue   # 贺礼堆、南边的大门画在背景里
+        if art and os.path.exists(ART_SOUTH) and it["name"] in front_names:
+            continue   # v7：南边栏杆画在南边那张背景里；人走不到栏杆顶以南（见能走的格子），不用挡
         x, y, w, h = it["box"]
         piece = art_piece(it) if art else None
         if piece is not None:
@@ -288,6 +327,7 @@ def main():
         tables.append(t)
     tables.sort(key=lambda t: (t["id"] != "MAIN", int(t["id"][1:]) if t["id"] != "MAIN" else 0))
 
+    south_art = art and os.path.exists(ART_SOUTH)
     # 能走的格子：厅里（两边墙之间、北墙脚到南边栏杆）减掉挡路东西的占地（外放 12）；东侧门门洞能站；从大门那块空地连通
     cols, rows = math.ceil(W / CELL), math.ceil(H / CELL)
     d0, d1 = door
@@ -303,7 +343,7 @@ def main():
     backdrops = []
     if art:
         for it in items:
-            if it["kind"] in ("stage", "band_floor") or "背景里画好的" in it["name"]:
+            if (it["kind"] in ("stage", "band_floor") or "背景里画好的" in it["name"]) and it["foot"][1] < 1024:   # 只管北边那张里的（南边大门另算）
                 fx, fy, fw, fh = it["foot"]
                 backdrops.append((fx, B.WALL_N, fw, fy + fh - B.WALL_N))
 
@@ -313,6 +353,8 @@ def main():
                 return True
         if art and py < 1024:
             lx, rx = bounds.get(int(py), (0, W))
+            if os.path.exists(ART_WALL_W) and py >= WALL_FROM:
+                lx, rx = max(lx, 40), min(rx, W - 40)   # 竖墙盖在北边那张上的那一截：墙上不让走
             if px < lx + C or px > rx - C:
                 return True   # 背景两边的墙（透视的）
         for it in blockers:
@@ -331,6 +373,15 @@ def main():
         for i in range(cols):
             px = (i + 0.5) * CELL
             inside = 40 < px < W - 40 and B.WALL_N < py < rail_foot - 8
+            if south_art:
+                # v7：南边那张里——栏杆顶以南不让走（栏杆画在背景里，人走到它后面会画在它上面）；只有门洞那一截能走到门口；
+                # 门柱和开着的两扇门那两块也不让走
+                st = H - 1024
+                inside = 40 < px < W - 40 and B.WALL_N < py < st + B.SOUTH_RAIL[0] - 8
+                if B.SOUTH_DOORWAY[0] < px < B.SOUTH_DOORWAY[1] and st + B.SOUTH_DOOR_POSTS[1] <= py < st + B.SOUTH_RAIL[1] - 6:
+                    inside = True
+                elif B.SOUTH_DOOR_POSTS[0] <= px < B.SOUTH_DOOR_POSTS[0] + B.SOUTH_DOOR_POSTS[2] and py >= st + B.SOUTH_DOOR_POSTS[1]:
+                    inside = False
             in_side_door = W - 40 <= px < W and d0 < py < d1
             if (inside and not blocked(px, py)) or in_side_door:
                 grid[j][i] = True
@@ -356,7 +407,8 @@ def main():
     points = [
         # 主桌悄悄话：红毯上、台阶正前方（新人站在台上）
         {"id": "couple_table", "x": B.CX, "y": steps_bottom + 45, "r": 60, "kind": "talk", "line": "table"},
-        {"id": "door", "x": B.CX, "y": rail_foot - 145 - 20, "r": 50, "kind": "door", "line": "leave"},
+        {"id": "door", "x": (B.SOUTH_DOORWAY[0] + B.SOUTH_DOORWAY[1]) // 2 if south_art else B.CX,
+         "y": (H - 1024 + 950) if south_art else rail_foot - 145 - 20, "r": 40 if south_art else 50, "kind": "door", "line": "leave"},
         {"id": "side_door", "x": W - 20, "y": (d0 + d1) // 2, "r": 30, "kind": "door", "line": "backhall"},
     ]
     scene = {
