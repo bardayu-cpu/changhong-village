@@ -93,6 +93,16 @@ func build(preset: int, nickname: String, f: Font) -> void:
     bench_y = float(bc.get("y", BENCH_Y))
     bench_draw = bool(bc.get("draw", true))
     sign_near = str(cfg.get("sign_mode", "")) == "near"
+    # 每桌一个小游戏（55 桌厅，01 D 9/30 v8）：按北京日期分好；第 44 版厅没写这项，照 minigames.json 的 1～6 号桌
+    var tg: Dictionary = cfg.get("table_games", {})
+    if str(tg.get("mode", "")) == "daily":
+        var ids: Array = []
+        for t in cfg.get("tables", []):
+            ids.append(str(t["id"]))
+        var unix := game_unix if game_unix >= 0.0 else Time.get_unix_time_from_system()
+        GameCfg.use_daily(ids, tg.get("games", []), GameCfg.beijing_day(unix, int(tg.get("tz_hours", 8))))
+    else:
+        GameCfg.clear_daily()
     base_tex = Canvas.texture(cfg["base"])
     var base := Sprite2D.new()
     base.texture = base_tex
@@ -785,6 +795,7 @@ var bench_x1 := BENCH_X1
 var bench_y := BENCH_Y
 var bench_draw := true
 const SIGN_BELOW := 55.0         # 55 桌桌牌挂在桌心往下多少（桌子占地下沿 46 再往下一点）
+var game_unix := -1.0          # 测试用：分桌游戏按这个时间算北京日期；-1 用系统时间
 var sign_near := false           # 认桌（01 D 9/29，55 桌）：只给自己那桌、走近的那桌挂牌，其余不挂
 var table_signs: Dictionary = {} # table_id -> 桌牌（sign_near 时建好先藏着）
 var main_seat_ok := false        # 55 桌：我是不是阿鱼、Toretto 本人（enterHall 的 mainSeatOk）；不是就走到主桌空椅子前也不冒「坐这儿」

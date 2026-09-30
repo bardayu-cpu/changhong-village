@@ -430,6 +430,8 @@ def main():
         "rugs": False,        # 桌下不铺地毯（阿鱼 9/28）
         "band_art": False,    # 乐队是底图里的色块，不叠第 44 版那块乐队图
         "sign_mode": "near",  # 认桌（01 定）：自己那桌一直挂牌，走近哪桌亮哪桌，其余不挂
+        # 每桌一个小游戏（01 D 9/30 v8）：55 桌（含主桌）在这三个里分，按北京日期洗，同一天大家一样（game_config.gd daily_plan）
+        "table_games": {"mode": "daily", "games": ["lianliankan", "match3", "g2048"], "tz_hours": 8},
     }
     if art:
         scene["revision"] = "art-v1（GPT 空厅背景 + 5 件零件，摆位 v4）"

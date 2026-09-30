@@ -141,6 +141,14 @@ func seat(taken: Dictionary) -> void:
                 continue
             _sit_now(r)
 
+## 亲友开席要坐的椅子 "T9:3" -> true（开席前也算，空着留给他们）：让座的宾客换椅子时不挑这些
+func chair_keys() -> Dictionary:
+    var out := {}
+    for r in rels:
+        if r.chair > 0:
+            out["%s:%d" % [r.table, r.chair]] = true
+    return out
+
 ## 真人坐下占了哪把：坐那把的亲友换这桌别的空椅子（没有就站到桌边）
 func vacate(key: String) -> void:
     for r in rels:

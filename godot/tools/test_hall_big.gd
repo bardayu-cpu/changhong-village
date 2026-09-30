@@ -42,7 +42,7 @@ func frames(n: int) -> void:
 ## 连连看（T1）、川菜消消乐（T3）、小菜合大菜（T5）各开一次：外壳在、换了皮（GPT 边框、顶栏、金币 v2）、开局有棋盘，关上
 func _try_games() -> bool:
     var all_ok := true
-    for tid in ["T1", "T3", "T5"]:
+    for tid in _one_table_per_game():
         var g: Dictionary = load("res://scripts/games/game_config.gd").game_for_table(tid)
         # 04 v7 新 1：干杯插图正在放的时候开游戏，插图要先收掉，不盖在游戏上
         m._play_toast(0, 1, "测试插图")
@@ -73,6 +73,30 @@ func _try_games() -> bool:
         print("    %s %s：%s（插图 开游戏前在放 %s、开游戏收掉 %s、玩着来的排队 %s、关了接着放 %s）" % [tid, g.get("id", ""), "好" if ok1 else "不行", had_toast, toast_gone, queued, replayed])
         all_ok = all_ok and ok1
     return all_ok
+
+## 三个游戏各挑一张桌：第 44 版厅是 T1、T3、T5；55 桌厅按今天的分法，每个游戏挑排在最前的那张
+func _one_table_per_game() -> Array:
+    var Cfg = load("res://scripts/games/game_config.gd")
+    if Cfg.daily.is_empty():
+        return ["T1", "T3", "T5"]
+    var out: Array = []
+    for gid in ["lianliankan", "match3", "g2048"]:
+        for t in m.hall.cfg["tables"]:
+            if str(Cfg.daily.get(str(t["id"]), "")) == gid:
+                out.append(str(t["id"]))
+                break
+    return out
+
+## 这桌的 NPC：坐着的宾客、让座后正在走的、站在桌边的
+func _npc_at(h, tid: String) -> Dictionary:
+    var out := {"sit": [], "walk": [], "stay": []}
+    for g in h.life.guests:
+        if g.table == tid:
+            out["sit"].append(g.key)
+    for w in h.life.waiters:
+        if w.kind == "reseat" and w.table == tid:
+            out["walk" if w.state == "walk" else "stay"].append(w)
+    return out
 
 func _occ_image(h, id: String) -> String:
     for o in h.cfg["occluders"]:
@@ -259,7 +283,7 @@ func run() -> void:
         absf(sc40.y - float(t40["y"]) - 55.0) < 2.0 and absf(sc40.x - float(t40["x"])) < 2.0 and s40.position.y > float(t40["y"]) + float(t40["ry"]) - 20.0)
     var my_sign: Label = h.table_signs[mine]
     check("自己那桌：%s（只写桌号和游戏名，不写「XX那桌」，宽 %.0f）" % [my_sign.text, my_sign.size.x],
-        my_sign.text.begins_with(LayeredHall.table_label(mine)) and not my_sign.text.contains("那桌") and my_sign.size.x < 240.0)   # 原来带「老王那桌」334 宽
+        my_sign.text.begins_with(LayeredHall.table_label(mine)) and not my_sign.text.contains("那桌") and my_sign.size.x < 270.0)   # 原来带「老王那桌」334 宽；v8 起每桌按日期分游戏，最长「54 号桌 · 川菜消消乐」约 262
     await stand_near(h, "T50")
     await frames(2)   # 牌子每帧还要过一遍「在不在屏幕里」，那一遍不能把没走近的桌又亮出来
     check("走到 T50：T40 的牌收了、T50 亮了", not (h.table_signs["T40"] as Label).visible and (h.table_signs["T50"] as Label).visible
@@ -469,6 +493,102 @@ func run() -> void:
             broken.append(k)
     print("  接不上的席上功能：%s" % [broken])
 
+    print("11 v8：每桌一个小游戏（按北京日期）、开席后哪桌都能坐（NPC 让座去空椅或站桌边）")
+    var Cfg = load("res://scripts/games/game_config.gd")
+    var gcount := {}
+    var none: Array = []
+    for t in tabs:
+        var gid := str(Cfg.game_for_table(str(t["id"])).get("id", ""))
+        if gid == "":
+            none.append(str(t["id"]))
+        gcount[gid] = int(gcount.get(gid, 0)) + 1
+    check("55 桌每桌都有游戏（没有的 %s），三个游戏各 %s 桌" % [none, gcount], none.is_empty() and gcount.size() == 3
+        and gcount.has("lianliankan") and gcount.has("match3") and gcount.has("g2048")
+        and gcount.values().all(func(n): return n >= 18 and n <= 19))
+    var day0: String = Cfg.daily_day
+    check("按北京日期：今天是 %s" % day0, day0 == Cfg.beijing_day(Time.get_unix_time_from_system()))
+    # 北京日期的边界：UTC 15:59 是北京 23:59，UTC 16:00 就是北京第二天 0:00
+    var u := int(Time.get_unix_time_from_datetime_string("2026-09-30T15:59:00"))
+    check("UTC 9/30 15:59 → 北京 %s；16:00 → %s" % [Cfg.beijing_day(u), Cfg.beijing_day(u + 60)],
+        Cfg.beijing_day(u) == "2026-09-30" and Cfg.beijing_day(u + 60) == "2026-10-01")
+    var p1: Dictionary = Cfg.daily_plan(ids, ["lianliankan", "match3", "g2048"], "2026-09-30")
+    var p2: Dictionary = Cfg.daily_plan(ids, ["lianliankan", "match3", "g2048"], "2026-09-30")
+    var p3: Dictionary = Cfg.daily_plan(ids, ["lianliankan", "match3", "g2048"], "2026-10-01")
+    var diff := 0
+    for k in p1:
+        if p1[k] != p3[k]:
+            diff += 1
+    check("同一天算两遍一样；换一天 %d 桌不一样" % diff, p1 == p2 and diff >= 20)
+    # 9/30 这天的分法写死几张：换了引擎版本、换了手机，算出来也得是这个（种子、洗牌都是自己写的整数算法）
+    print("    9/30：主桌 %s、T1 %s、T2 %s、T27 %s、T54 %s" % [p1["MAIN"], p1["T1"], p1["T2"], p1["T27"], p1["T54"]])
+    var bad_sign: Array = []
+    for t in tabs:
+        var tid := str(t["id"])
+        var l = h.table_signs.get(tid)
+        var want_txt := "%s · %s" % [LayeredHall.table_label(tid), Cfg.title(Cfg.game_for_table(tid))]
+        if l == null or not is_instance_valid(l) or (l as Label).text != want_txt:
+            bad_sign.append(tid)
+    check("桌牌都写「N 号桌 · 游戏名」（不对的 %s），如 %s" % [bad_sign, (h.table_signs["T12"] as Label).text], bad_sign.is_empty())
+    # 坐下以后底下那颗「玩·XX」按今天这桌分到的游戏
+    await sit(h, "T12", 1)
+    m._refresh_seat_buttons()
+    check("坐 T12：按钮「%s」" % m.play_btn.text, m.play_btn.visible and m.play_btn.text == "玩·" + Cfg.title(Cfg.game_for_table("T12")))
+    # 开席：坐到 NPC 宾客坐着的椅子上，它走去这桌别的空椅子坐下
+    h.life.relatives.set_force("feast")
+    h.life.relatives._apply_mode(true)
+    var tid_s := ""
+    var key_s := ""
+    for tt in ["T40", "T41", "T42", "T43", "T44", "T45", "T46", "T47"]:
+        var n: Dictionary = _npc_at(h, tt)
+        if n["sit"].size() > 0 and n["sit"].size() < 10 and h.life.free_chair(tt, "") > 0:
+            tid_s = tt
+            key_s = str(n["sit"][0])
+            break
+    var n0: int = _npc_at(h, tid_s)["sit"].size()
+    var free_no: int = h.life.free_chair(tid_s, key_s)
+    await sit(h, tid_s, int(key_s.get_slice(":", 1)))
+    var n1: Dictionary = _npc_at(h, tid_s)
+    check("开席，坐到 %s（NPC 坐着）：坐上了 %s，那位站起来往 %d 号空椅走（在走 %d 位）" % [key_s, h.my_seat, free_no, n1["walk"].size()],
+        str(h.my_seat.get("table_id", "")) == tid_s and int(h.my_seat.get("chair_no", 0)) == int(key_s.get_slice(":", 1))
+        and n1["walk"].size() == 1 and n1["walk"][0].key == "%s:%d" % [tid_s, free_no] and h.life.npc_taken.has("%s:%d" % [tid_s, free_no]))
+    await create_timer(8.0).timeout
+    var n2: Dictionary = _npc_at(h, tid_s)
+    check("8 秒后坐下了：这桌坐着的 NPC %d → %d，没人在走、没人出门" % [n0, n2["sit"].size()],
+        n2["sit"].size() == n0 and n2["walk"].is_empty() and n2["sit"].has("%s:%d" % [tid_s, free_no]) and not n2["sit"].has(key_s))
+    # 坐满的桌（10 位 NPC）：让座的那位站到桌边
+    var tid_f := ""
+    for t in tabs:
+        var tt := str(t["id"])
+        if tt != "MAIN" and _npc_at(h, tt)["sit"].size() == 10:
+            tid_f = tt
+            break
+    await sit(h, tid_f, 5)
+    await create_timer(6.0).timeout
+    var nf: Dictionary = _npc_at(h, tid_f)
+    var stand_ok := false
+    if nf["stay"].size() == 1:
+        var w = nf["stay"][0]
+        var tc: Dictionary = h._table_cfg(tid_f)
+        stand_ok = h._free(w.pos) and w.pos.distance_to(Vector2(float(tc["x"]), float(tc["y"]))) < float(tc["rx"]) + 90.0
+    check("坐满的 %s：坐到 5 号，那位站到桌边（坐着 %d、站着 %d，站的地方能走、贴着桌）" % [tid_f, nf["sit"].size(), nf["stay"].size()],
+        str(h.my_seat.get("table_id", "")) == tid_f and nf["sit"].size() == 9 and stand_ok)
+    # 亲友那桌：坐到亲友开席的椅子上，亲友换椅子或站桌边（亲友的测试 test_relatives 细测）
+    var rel = null
+    for r in h.life.relatives.rels:
+        if r.table == "T7" and r.chair > 0 and r.state == "sit":
+            rel = r
+            break
+    if rel != null:
+        var rk: String = "%s:%d" % [rel.table, rel.chair]
+        await sit(h, "T7", rel.chair)
+        check("开席坐到亲友 %s 的 %s：坐上了，%s %s" % [rel.title, rk, rel.title, ("换到 %d 号" % rel.chair) if rel.chair > 0 else "这桌没空椅，站到桌边"],
+            str(h.my_seat.get("table_id", "")) == "T7" and "%s:%d" % [rel.table, rel.chair] != rk)
+    else:
+        check("T7 有坐着的亲友", false)
+    await sit(h, "MAIN", 5)
+    check("主桌照旧只给阿鱼、Toretto：顶上「%s」" % m.note.text, m.note.text == "主桌是阿鱼家里人坐的" and str(h.my_seat.get("table_id", "")) == "T7")
+    h.life.relatives.set_force("")
+
     print("10 切回第 44 版")
     await m._set_hall55(false)
     await create_timer(0.5).timeout
@@ -476,6 +596,8 @@ func run() -> void:
     check("假服务端也回 12 张、不带主桌", m.cloud.fake_tables == 12 and m.cloud.fake_table_ids.is_empty())
     check("默认的宴会厅是第 44 版那套（场景 scene_roman_banquet、贺礼堆在舞台左边地上 (410, 302)）",
         str(m.hall.cfg["scene"]) == "scene_roman_banquet" and m.hall.life._vec(m.hall.life.conf["gifts"]) == Vector2(410, 302))
+    check("第 44 版厅不按日期分：1～6 号桌照旧，7 号没有", load("res://scripts/games/game_config.gd").daily.is_empty()
+        and str(m.GameCfg.game_for_table("T1").get("id", "")) == "lianliankan" and m.GameCfg.game_for_table("T7").is_empty())
     check("第 44 版厅里三个小游戏照样开得了、换了 GPT 外壳", await _try_games())
     check("第 44 版的座位圈、长凳、桌牌照旧", m.hall.seat_dy == LayeredHall.SEAT_DY and m.hall.seat_rx == LayeredHall.SEAT_RX
         and m.hall.bench_draw and m.hall.bench_y == LayeredHall.BENCH_Y and not m.hall.sign_near and m.hall.table_signs.is_empty())

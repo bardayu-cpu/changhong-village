@@ -53,6 +53,8 @@ class Waiter:
     var gone := false
     var order := ""          # 这一趟端的是玩家添的哪道菜（空串是平常上菜，随机挑桌）
     var order_t := 0.0       # 这一单接了多久了：超过 ORDER_WAIT_MAX 直接摆上桌，不让人干等
+    var key := ""            # 让座的宾客（55 桌厅）：要去坐的那把 "T7:5"；空串是没空椅子、去桌边站着
+    var row := 0             # 让座的宾客：长相在宾客拼图里是第几行
 
 class Guest:
     var node: Node2D
@@ -695,7 +697,7 @@ func _tray_look(w: Waiter) -> void:
 func _step_waiter(w: Waiter, dt: float) -> void:
     var moving := false
     match w.state:
-        "carry", "return", "leave":
+        "carry", "return", "leave", "walk":
             if w.path.is_empty():
                 _arrive(w)
             else:
@@ -745,6 +747,18 @@ func _arrive(w: Waiter) -> void:
         "leave":
             w.node.queue_free()
             w.gone = true
+        "walk":
+            var tc: Dictionary = hall._table_cfg(w.table)
+            var center: Vector2 = hall._seat_center(tc)
+            if w.key != "":
+                # 走到了空椅子外侧：坐下，变回坐着的宾客（吃菜、举杯照旧）
+                var at: Vector2 = hall.chair_world(tc, int(w.key.get_slice(":", 1)))
+                _guest(w.table, w.key, at, center, hall.seat_in_front(tc, at), w.row)
+                w.node.queue_free()
+                w.gone = true
+            else:
+                w.state = "stay"   # 没空椅子：站在桌边，面朝桌子
+                w.face = hall._face_for(center - w.pos)
 
 func _pose_waiter(w: Waiter, moving: bool) -> void:
     var fl: Dictionary = Spr.PROC_ANIM[w.face]
@@ -852,6 +866,11 @@ func seat_guests(taken: Dictionary) -> Dictionary:
         guest_holder.queue_free()
     guests.clear()
     npc_taken = {}
+    # 上一轮让座后换椅子、站桌边的宾客（55 桌厅）：重排座时一起收掉，照新的座重摆
+    for w in waiters.duplicate():
+        if w.kind == "reseat":
+            w.node.queue_free()
+            waiters.erase(w)
     guest_holder = Node2D.new()
     guest_holder.y_sort_enabled = true
     guest_holder.name = "npc_guests"
@@ -1086,7 +1105,9 @@ func _step_guest(g: Guest, dt: float) -> void:
         else:
             g.cup.visible = false
 
-## 真人坐到 NPC 坐着的椅子上（换桌成功，layered_hall.apply_change 调）：那个 NPC 站起来，从大门走出去
+## 真人坐到 NPC 坐着的椅子上（换桌成功，layered_hall.apply_change 调）：那个 NPC 站起来让座。
+## 第 44 版厅：从大门走出去（阿鱼 9/18 晚）。
+## 55 桌厅（01 D 9/30 v8）：走去这桌别的空椅子坐下；这桌没空的就站到桌边
 func vacate(key: String) -> void:
     if not npc_taken.has(key):
         return
@@ -1097,15 +1118,87 @@ func vacate(key: String) -> void:
             var from: Vector2 = hall._stand_spot(g.node.position, hall._seat_center(tc))
             g.node.queue_free()
             guests.erase(g)
-            _leaver(g.row, from)
+            if hall.sign_near:
+                _reseat(_walker(g.row, from), g.table, key)
+            else:
+                _leaver(g.row, from)
             return
+    # 这把是别的让座宾客正走过去要坐的：它另找一把
+    for w in waiters:
+        if w.kind == "reseat" and w.key == key:
+            _reseat(w, w.table, key)
+            return
+
+## 这桌还空着的椅子（从小号往大号挑）：真人、NPC、亲友开席要坐的、主桌家里人的都不算空；没有回 0
+func free_chair(tid: String, skip: String) -> int:
+    var tc: Dictionary = hall._table_cfg(tid)
+    if tc.is_empty() or tid == "MAIN":
+        return 0
+    var rel_keys: Dictionary = relatives.chair_keys() if relatives != null else {}
+    for no in range(1, hall.seats_of(tc) + 1):
+        var k := "%s:%d" % [tid, no]
+        if k == skip or hall.seat_taken.has(k) or npc_taken.has(k) or rel_keys.has(k) or family_keys.has(k):
+            continue
+        return no
+    return 0
+
+## 让座的宾客定去处：有空椅子就先占上（npc_taken 记上，别人让座不挑它），走过去坐；没有就走到桌边空着的那个点站着
+func _reseat(w: Waiter, tid: String, skip: String) -> void:
+    var tc: Dictionary = hall._table_cfg(tid)
+    var center: Vector2 = hall._seat_center(tc)
+    w.table = tid
+    var no := free_chair(tid, skip)
+    if no > 0:
+        w.key = "%s:%d" % [tid, no]
+        npc_taken[w.key] = true
+        w.spot = hall._stand_spot(hall.chair_world(tc, no), center)
+    else:
+        w.key = ""
+        w.spot = _stand_by(tid, w)
+    w.path = hall.find_path(w.pos, w.spot)
+    w.state = "walk"
+
+## 站桌边的点：这桌边上服务员放菜那几个点里，没有别的站着的宾客、亲友的那个；都占了就在桌子右边找空地
+func _stand_by(tid: String, me: Waiter) -> Vector2:
+    var taken: Array = []
+    for o in waiters:
+        if o != me and o.kind == "reseat" and o.key == "":
+            taken.append(o.spot)
+    if relatives != null:
+        for r in relatives.rels:
+            taken.append(r.stand)
+    var tc: Dictionary = hall._table_cfg(tid)
+    var cands: Array = (spots.get(tid, []) as Array).duplicate()
+    var c := Vector2(float(tc["x"]), float(tc["y"]))
+    for k in 4:
+        cands.append(hall._cell_pos(hall._nearest_free(hall._cell_of(c + Vector2(float(tc["rx"]) + 24.0, -10.0 + 26.0 * k)))))
+    for p in cands:
+        var clear := true
+        for q in taken:
+            if (p as Vector2).distance_to(q) < 22.0:
+                clear = false
+                break
+        if clear:
+            return p
+    return cands[cands.size() - 1]
 
 ## 让了座的宾客：站起来，走到大门（厅里的出口）淡出。走路和服务员共用一套
 func _leaver(row: int, from: Vector2) -> void:
-    var w := Waiter.new()
+    var w := _walker(row, from)
     w.kind = "leaver"
-    w.node = Node2D.new()
     w.node.name = "leaver"
+    w.path = hall.find_path(from, hall.door)
+    w.spot = hall.door
+    w.state = "leave"
+    _pose_waiter(w, false)
+
+## 站起来走路的宾客（让座的）：宾客长相、服务员那套走路
+func _walker(row: int, from: Vector2) -> Waiter:
+    var w := Waiter.new()
+    w.kind = "reseat"
+    w.row = row
+    w.node = Node2D.new()
+    w.node.name = "reseat"
     hall.world.add_child(w.node, true)
     var s := Sprite2D.new()
     s.texture = _guest_atlas()
@@ -1119,11 +1212,8 @@ func _leaver(row: int, from: Vector2) -> void:
     w.node.add_child(s)
     w.body = s
     w.pos = from
-    w.path = hall.find_path(from, hall.door)
-    w.spot = hall.door
-    w.state = "leave"
     waiters.append(w)
-    _pose_waiter(w, false)
+    return w
 
 # ---------- 每帧 ----------
 func _process(dt: float) -> void:
