@@ -33,7 +33,7 @@ OUT = os.path.join(GODOT, "assets", "layered", "scene_roman_banquet_55")
 AMB = os.path.join(GODOT, "assets", "ambience", "ambience_55.json")
 RES = "res://assets/layered/scene_roman_banquet_55/"
 ART = os.path.join(HERE, "art")
-ART_BG = os.path.join(ART, "base_banquet55_north_v1.png")
+ART_BG = os.path.join(ART, "base_banquet55_north_v2.png")   # v9（9/30）：阿鱼给的新北边，贺礼架、乐队台跟婚礼台一条线
 # v7（01 D 9/30）：桌、主桌、大宫灯、花架换 GPT 南边包里的 v2；长凳、小花盆照旧 v1
 ART_PIECES = {"table": "blk_banquet55_table_v2.png", "table_main": "blk_banquet55_table_main_v2.png",
               "bench": "blk_banquet55_bench_v1.png", "lantern": "blk_banquet55_lantern_v2.png", "flowerpot": "blk_banquet55_flowerpot_v1.png",
@@ -51,8 +51,8 @@ WALL_FROM = 724   # 北边那张的墙是透视的，西墙最下那根柱子到
 # 下面两样的数留着（以后要加回来改开关就行），开关关着
 ART_EXTRAS = False
 BAND_PLAYERS = [
-    {"id": "小提琴手甲", "file": "blk_banquet_band_violin_player_a_v3.png", "anchor": (45, 135), "foot": (1305, 414)},
-    {"id": "小提琴手乙", "file": "blk_banquet_band_violin_player_b_v3.png", "anchor": (43, 134), "foot": (1370, 414)},
+    {"id": "小提琴手甲", "file": "blk_banquet_band_violin_player_a_v3.png", "anchor": (45, 135), "foot": (1257, 312)},
+    {"id": "小提琴手乙", "file": "blk_banquet_band_violin_player_b_v3.png", "anchor": (43, 134), "foot": (1307, 312)},
 ]
 # 桌下软边暗影（01 D 9/30）：每桌底下一块 150×95、黑 20% 的软边椭圆，烘进底图（压在地砖上、桌子下面）
 TABLE_SHADOW = {"w": 150, "h": 95, "alpha": 0.20, "blur": 8, "dx": 5, "dy": 0}
