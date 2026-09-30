@@ -210,13 +210,14 @@ eq(banquet.assignSeat({
 }), { ok: true, tableId: 'T3', bench: false }, '阿鱼坐的前两桌满了、另一张被别的枝占了：开一张普通空桌');
 
 // ---------- 宴会厅 · 入座：长凳门槛（config.BANQUET_BENCH_ONLY_WHEN_FULL，9/24） ----------
-eq(C.BANQUET_BENCH_ONLY_WHEN_FULL, false, '长凳门槛开关默认关（上线 55 桌前保持旧规矩）');
-eq(C.BANQUET_TABLE_IDS.length, 12, '现在用的还是 12 桌');
+eq(C.BANQUET_BENCH_ONLY_WHEN_FULL, true, '长凳门槛开关 9/30 随 55 桌上线打开（之前默认关）');
+eq(C.BANQUET_TABLE_IDS.length, 54, '现在用的是 55 桌厅：T1..T54（加主桌 55 桌，9/30 上线）');
+eq(JSON.stringify(C.BANQUET_TABLE_IDS), JSON.stringify(C.BANQUET_TABLE_IDS_55), '线上桌表跟 BANQUET_TABLE_IDS_55 一样');
 eq(C.BANQUET_TABLE_IDS_55.length, 54, '55 桌厅桌号表只有 54 张普通桌（主桌另算，9/29）');
 eq([C.BANQUET_TABLE_IDS_55[0], C.BANQUET_TABLE_IDS_55[1], C.BANQUET_TABLE_IDS_55[53]], ['T1', 'T2', 'T54'], '55 桌厅桌号 T1..T54，顺序即桌序');
 eq(C.BANQUET_MAIN_TABLE_ID, 'MAIN', '主桌 id 是 MAIN');
 eq(C.BANQUET_TABLE_IDS_55.includes(C.BANQUET_MAIN_TABLE_ID), false, '主桌不在 55 桌厅的普通桌表里');
-eq(C.BANQUET_TABLE_IDS_55.slice(0, 12), C.BANQUET_TABLE_IDS, '55 桌的前 12 桌跟现在的 12 桌同号');
+eq(C.BANQUET_TABLE_IDS_55.slice(0, 12), Array.from({ length: 12 }, (_, i) => `T${i + 1}`), '55 桌的前 12 桌跟原来 12 桌厅同号（第 44 版厅的 T1..T12 照样对得上）');
 
 // 按 config 的桌号表拼 tables（跟 enterHall 的 loadTables 一样：前 BANQUET_RESERVED_TABLES 桌是 reserved）
 const hallOf = (ids) => ids.map((id, i) => mkTable(id, i < C.BANQUET_RESERVED_TABLES, null, []));
@@ -241,16 +242,18 @@ function seatAll(ids, people, opts) {
 const overCap = (tables) => tables.some(t => t.seats.length > C.BANQUET_SEATS_PER_TABLE);
 
 // 开关关（旧规矩）：跟以前一模一样
-const tables12Branchy = hallOf(C.BANQUET_TABLE_IDS).map((t, i) => i < 2 ? t : mkTable(t.id, false, `B${i}`, fullSeats(3)));
-eq(banquet.assignSeat({ inviter: 'NEW', vip: new Set(), tables: tables12Branchy }), { ok: true, bench: true }, '开关不传=旧规矩：10 张普通桌都被别的枝占了，新的一枝直接长凳（旧毛病）');
+// 12 桌厅的桌表（9/30 前的线上配置）：下面这些 12 桌的规矩测试单独列出来，不跟线上配置走
+const IDS12 = Array.from({ length: 12 }, (_, i) => `T${i + 1}`);
+const tables12Branchy = hallOf(IDS12).map((t, i) => i < 2 ? t : mkTable(t.id, false, `B${i}`, fullSeats(3)));
+eq(banquet.assignSeat({ inviter: 'NEW', vip: new Set(), tables: tables12Branchy }), { ok: true, tableId: 'T3', bench: false }, '开关不传=按线上配置（9/30 起开）：10 张普通桌都被别的枝占了，新的一枝插到有空椅子的普通桌');
 eq(banquet.assignSeat({ inviter: 'NEW', vip: new Set(), tables: tables12Branchy, benchOnlyWhenFull: false }), { ok: true, bench: true }, '开关 false=旧规矩：同上');
-eq(banquet.assignSeat({ inviter: null, vip: new Set(), me: 'X', tables: hallOf(C.BANQUET_TABLE_IDS), benchOnlyWhenFull: false }), { ok: true, tableId: 'T1', bench: false }, '开关 false：没有邀请人照旧坐 T1（前两桌也坐）');
-eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables: hallOf(C.BANQUET_TABLE_IDS).map((t, i) => i < 2 ? t : mkTable(t.id, false, null, ['x'])), benchOnlyWhenFull: false }), { ok: true, tableId: 'T1', bench: false }, '开关 false：me 不看');
+eq(banquet.assignSeat({ inviter: null, vip: new Set(), me: 'X', tables: hallOf(IDS12), benchOnlyWhenFull: false }), { ok: true, tableId: 'T1', bench: false }, '开关 false：没有邀请人照旧坐 T1（前两桌也坐）');
+eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables: hallOf(IDS12).map((t, i) => i < 2 ? t : mkTable(t.id, false, null, ['x'])), benchOnlyWhenFull: false }), { ok: true, tableId: 'T1', bench: false }, '开关 false：me 不看');
 {
   // 旧规矩 12 桌：13 枝各来人，每枝 2 人 → 第 11 枝起全上长凳，虽然普通桌只坐了 20 人
   const people = [];
   for (let b = 1; b <= 13; b++) for (let k = 0; k < 2; k++) people.push({ id: `p${b}_${k}`, inviter: `R${b}` });
-  const { log, tables } = seatAll(C.BANQUET_TABLE_IDS, people, { flag: false });
+  const { log, tables } = seatAll(IDS12, people, { flag: false });
   eq(log.filter(r => r.bench).length, 6, '开关 false：12 桌 13 枝，后 3 枝 6 人上长凳（旧行为不变）');
   eq(tables.slice(0, 2).every(t => t.seats.length === 0), true, '开关 false：非阿鱼的枝不进前两桌');
 }
@@ -262,15 +265,15 @@ eq(banquet.assignSeat({ inviter: 'B5', vip: new Set(), tables: tables12Branchy, 
   const t = tables12Branchy.map((x, i) => i === 3 ? mkTable(x.id, false, 'B3', fullSeats(10)) : x);
   eq(banquet.assignSeat({ inviter: 'B3', vip: new Set(), tables: t, benchOnlyWhenFull: true }), { ok: true, tableId: 'T3', bench: false }, '开关 true：这枝的桌（T4）满了、又开不出新桌，拼到第一张有空椅子的普通桌');
 }
-eq(banquet.assignSeat({ inviter: 'NEW', vip: new Set(), tables: hallOf(C.BANQUET_TABLE_IDS).map((t, i) => i === 2 ? mkTable(t.id, false, 'B', ['x']) : t), benchOnlyWhenFull: true }), { ok: true, tableId: 'T4', bench: false }, '开关 true：还有完全空的普通桌就先开新桌');
-const tables12NormalFull = hallOf(C.BANQUET_TABLE_IDS).map((t, i) => i < 2 ? t : mkTable(t.id, false, `B${i}`, fullSeats(10)));
+eq(banquet.assignSeat({ inviter: 'NEW', vip: new Set(), tables: hallOf(IDS12).map((t, i) => i === 2 ? mkTable(t.id, false, 'B', ['x']) : t), benchOnlyWhenFull: true }), { ok: true, tableId: 'T4', bench: false }, '开关 true：还有完全空的普通桌就先开新桌');
+const tables12NormalFull = hallOf(IDS12).map((t, i) => i < 2 ? t : mkTable(t.id, false, `B${i}`, fullSeats(10)));
 eq(banquet.assignSeat({ inviter: 'NEW', vip: new Set(), tables: tables12NormalFull, benchOnlyWhenFull: true }), { ok: true, bench: true }, '开关 true：普通桌全满、前两桌空着，别的枝照样去长凳');
 eq(banquet.assignSeat({ inviter: 'AYU', vip: new Set(['AYU']), tables: tables12NormalFull, benchOnlyWhenFull: true }), { ok: true, tableId: 'T1', bench: false }, '开关 true：阿鱼的枝照旧坐前两桌');
-eq(banquet.assignSeat({ inviter: null, vip: new Set(), me: 'X', tables: hallOf(C.BANQUET_TABLE_IDS), benchOnlyWhenFull: true }), { ok: true, tableId: 'T3', bench: false }, '开关 true：没有邀请人先坐普通桌，不进 T1、T2');
+eq(banquet.assignSeat({ inviter: null, vip: new Set(), me: 'X', tables: hallOf(IDS12), benchOnlyWhenFull: true }), { ok: true, tableId: 'T3', bench: false }, '开关 true：没有邀请人先坐普通桌，不进 T1、T2');
 eq(banquet.assignSeat({ inviter: null, vip: new Set(), me: 'X', tables: tables12NormalFull, benchOnlyWhenFull: true }), { ok: true, tableId: 'T1', bench: false }, '开关 true：没有邀请人、普通桌全满了才坐前两桌');
-eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables: hallOf(C.BANQUET_TABLE_IDS), benchOnlyWhenFull: true }), { ok: true, tableId: 'T1', bench: false }, '开关 true：阿鱼自己没有邀请人也坐 T1');
+eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables: hallOf(IDS12), benchOnlyWhenFull: true }), { ok: true, tableId: 'T1', bench: false }, '开关 true：阿鱼自己没有邀请人也坐 T1');
 {
-  const t = hallOf(C.BANQUET_TABLE_IDS).map((x, i) => i < 2 ? mkTable(x.id, true, null, fullSeats(10)) : mkTable(x.id, false, `B${i}`, fullSeats(10)));
+  const t = hallOf(IDS12).map((x, i) => i < 2 ? mkTable(x.id, true, null, fullSeats(10)) : mkTable(x.id, false, `B${i}`, fullSeats(10)));
   eq(banquet.assignSeat({ inviter: null, vip: new Set(), me: 'X', tables: t, benchOnlyWhenFull: true }), { ok: true, bench: true }, '开关 true：120 座全满，没有邀请人也坐长凳');
   eq(banquet.assignSeat({ inviter: 'AYU', vip: new Set(['AYU']), tables: t, benchOnlyWhenFull: true }), { ok: true, bench: true }, '开关 true：120 座全满，阿鱼的枝也坐长凳');
 }
@@ -278,7 +281,7 @@ eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables:
   // 开关 true、12 桌：13 枝各 11 人依次进来，普通桌 100 个座坐满之前没人上长凳
   const people = [];
   for (let k = 0; k < 11; k++) for (let b = 1; b <= 13; b++) people.push({ id: `p${b}_${k}`, inviter: `R${b}` });
-  const { log, tables } = seatAll(C.BANQUET_TABLE_IDS, people, { flag: true });
+  const { log, tables } = seatAll(IDS12, people, { flag: true });
   const firstBench = log.findIndex(r => r.bench);
   eq(firstBench, 100, '开关 true：12 桌第 101 个人才上长凳（普通桌 100 座坐满）');
   eq(log.slice(firstBench).every(r => r.bench), true, '开关 true：普通桌满了以后的人都上长凳');
@@ -329,8 +332,9 @@ eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables:
 }
 
 // ---------- 宴会厅 · 换桌目标校验（checkSeatTarget，9/24） ----------
-eq(banquet.checkSeatTarget({ tableId: 'T12', chairNo: 10 }), { ok: true }, '换桌校验：T12 10 号椅合法');
-eq(banquet.checkSeatTarget({ tableId: 'T13', chairNo: 1 }).reason, 'bad_request', '换桌校验：12 桌时 T13 不在桌表里');
+eq(banquet.checkSeatTarget({ tableId: 'T12', chairNo: 10, tableIds: IDS12 }), { ok: true }, '换桌校验：T12 10 号椅合法');
+eq(banquet.checkSeatTarget({ tableId: 'T13', chairNo: 1 }), { ok: true }, '换桌校验：线上配置（9/30 起 55 桌）T13 合法');
+eq(banquet.checkSeatTarget({ tableId: 'T13', chairNo: 1, tableIds: IDS12 }).reason, 'bad_request', '换桌校验：12 桌时 T13 不在桌表里');
 eq(banquet.checkSeatTarget({ tableId: 'T54', chairNo: 1, tableIds: C.BANQUET_TABLE_IDS_55 }), { ok: true }, '换桌校验：55 桌厅 T54 合法');
 eq(banquet.checkSeatTarget({ tableId: 'T55', chairNo: 1, tableIds: C.BANQUET_TABLE_IDS_55 }).reason, 'bad_request', '换桌校验：55 桌厅没有 T55 了（主桌 + T1..T54）');
 eq(banquet.checkSeatTarget({ tableId: C.BANQUET_BENCH_ID, chairNo: 1 }).reason, 'bad_request', '换桌校验：长凳不能换过去');
@@ -344,7 +348,10 @@ eq(banquet.checkSeatTarget({ tableId: 'T3', chairNo: '3' }).reason, 'bad_request
   const MAIN = C.BANQUET_MAIN_TABLE_ID;
   const ids55 = C.BANQUET_TABLE_IDS_55;
   // 认不认得出 55 桌厅
-  eq(banquet.mainTableIdOf(C.BANQUET_TABLE_IDS), null, '主桌：12 桌厅没有主桌');
+  // 9/30 起线上是 55 桌（BANQUET_TABLE_IDS 跟 _55 一样）；12 桌厅的桌表单独列出来测
+  eq(banquet.mainTableIdOf(Array.from({ length: 12 }, (_, i) => `T${i + 1}`)), null, '主桌：12 桌厅没有主桌');
+  eq(banquet.mainTableIdOf(C.BANQUET_TABLE_IDS), MAIN, '主桌：线上配置（9/30 起 55 桌）认得出主桌');
+  eq(C.BANQUET_BENCH_ONLY_WHEN_FULL, true, '55 桌上线：普通桌全满才去长凳');
   eq(banquet.mainTableIdOf(ids55), MAIN, '主桌：55 桌厅有主桌');
   eq(banquet.mainTableIdOf(ids55.slice()), MAIN, '主桌：桌号一样的另一份数组也认得出（不靠是不是同一个数组）');
   eq(banquet.mainTableIdOf(ids55.concat(['T55'])), null, '主桌：多一桌就不算 55 桌厅');
@@ -352,7 +359,7 @@ eq(banquet.checkSeatTarget({ tableId: 'T3', chairNo: '3' }).reason, 'bad_request
 
   // 线上 12 桌（不传 mainTable）：阿鱼本人照旧坐 T1，两套规矩都一样
   for (const flag of [false, true]) {
-    eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables: hallOf(C.BANQUET_TABLE_IDS), benchOnlyWhenFull: flag }), { ok: true, tableId: 'T1', bench: false }, `主桌：12 桌厅不传主桌，阿鱼本人照旧坐 T1（开关 ${flag}）`);
+    eq(banquet.assignSeat({ inviter: null, vip: new Set(['AYU']), me: 'AYU', tables: hallOf(IDS12), benchOnlyWhenFull: flag }), { ok: true, tableId: 'T1', bench: false }, `主桌：12 桌厅不传主桌，阿鱼本人照旧坐 T1（开关 ${flag}）`);
   }
 
   const vip = new Set(['AYU', 'TOR']);
