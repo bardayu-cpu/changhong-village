@@ -326,6 +326,22 @@ func _declutter() -> void:
         lo = cx - half + 4.0
         hi = cx + half - 4.0
     var placed: Array = []   # [Rect2]
+    # 桌牌、主桌家里人的称呼先排（04 v7 新 2：原来只比称呼牌对称呼牌，「大爸」被「1 号桌 · 连连看」压住下半截；
+    # 桌牌贴屏幕边也没收口）：它们位置定死，贴边的往里收，占的地方先记上，亲友的称呼再让开它们
+    var fixed: Array = []
+    if hall.get("table_signs") != null:
+        for k in hall.table_signs:
+            fixed.append(hall.table_signs[k])
+    if life.get("family_tags") != null:
+        for k in life.family_tags:
+            fixed.append(life.family_tags[k])
+    for l in fixed:
+        if not is_instance_valid(l) or not (l as Control).visible:
+            continue
+        var c: Control = l
+        var w: float = c.size.x
+        c.position.x = clampf(c.position.x, lo, maxf(lo, hi - w))
+        placed.append(Rect2(c.position, c.size))   # 桌牌、称呼牌的爹（seat_tags）在厅的原点，position 就是厅里的坐标
     var order: Array = []
     for r in rels:
         if r.tag != null and r.tag.visible:

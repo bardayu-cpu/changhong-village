@@ -2156,7 +2156,8 @@ func _on_toast_result(r: Dictionary, target: String, known := {}) -> void:
 
 ## 干杯插图：left 敬酒的人、right 被敬的人（形象编号）。同一时间只放一张，正在放就排队，放完接着放下一张
 func _play_toast(left_preset: int, right_preset: int, caption: String) -> void:
-    if is_instance_valid(toast_scene):
+    # 开着小游戏也排队：插图整屏盖在游戏上会压住牌面（04 v7 新 1），等游戏关了再放
+    if is_instance_valid(toast_scene) or is_instance_valid(game_host):
         toast_queue.append([left_preset, right_preset, caption])
         return
     toast_scene = ToastScene.new()
@@ -2276,6 +2277,11 @@ func _open_game(table_id: String) -> void:
         return
     hall.walking_enabled = false
     hall.stick = Vector2.ZERO
+    # 干杯插图正在放（进厅有人敬过你、当场有人敬你）就先收掉，不然整块盖在游戏上（04 v7 新 1：
+    # 原来这里拦了卡片、簿子、悄悄话，唯独没拦插图）。后面排着的插图等游戏关了再放
+    if is_instance_valid(toast_scene):
+        toast_scene.queue_free()
+        toast_scene = null
     game_host = GameHost.new()
     ui.add_child(game_host)
     game_host.closed.connect(_on_game_closed)
@@ -2287,6 +2293,10 @@ func _on_game_closed() -> void:
     game_host = null
     hall.walking_enabled = state == "banquet" and not whisper_box.visible
     _refresh_seat_buttons()
+    # 玩游戏时来的干杯插图排着队，游戏关了接着放
+    if not is_instance_valid(toast_scene) and not toast_queue.is_empty() and state == "banquet":
+        var n: Array = toast_queue.pop_front()
+        _play_toast(int(n[0]), int(n[1]), str(n[2]))
 
 ## 存档：GameSave 每次有变化调这里，存进住民资料（saveProfile 的新字段，待部署）；done(成功没有)
 func _save_games(payload: Dictionary, done: Callable) -> void:

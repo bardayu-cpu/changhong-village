@@ -44,9 +44,18 @@ func _try_games() -> bool:
     var all_ok := true
     for tid in ["T1", "T3", "T5"]:
         var g: Dictionary = load("res://scripts/games/game_config.gd").game_for_table(tid)
+        # 04 v7 新 1：干杯插图正在放的时候开游戏，插图要先收掉，不盖在游戏上
+        m._play_toast(0, 1, "测试插图")
+        await frames(1)
+        var had_toast: bool = is_instance_valid(m.toast_scene)
         m._open_game(tid)
         await frames(2)
         var gh = m.game_host
+        var toast_gone: bool = not is_instance_valid(m.toast_scene)
+        # 玩着的时候来的插图排队，不放
+        m._play_toast(0, 1, "玩着来的插图")
+        await frames(1)
+        var queued: bool = not is_instance_valid(m.toast_scene) and m.toast_queue.size() >= 1
         var ok1: bool = is_instance_valid(gh) and gh.skin and gh.get_node_or_null("skin_frame") != null \
             and gh.panel.get_node_or_null("skin_topbar") != null and gh.panel.get_node_or_null("skin_coin") != null
         if is_instance_valid(gh):
@@ -55,7 +64,13 @@ func _try_games() -> bool:
             ok1 = ok1 and gh.game != null and is_instance_valid(gh.game) and gh.game.skin
             gh._close()
             await frames(2)
-        print("    %s %s：%s" % [tid, g.get("id", ""), "好" if ok1 else "不行"])
+        var replayed: bool = is_instance_valid(m.toast_scene)   # 关了游戏接着放排着的那张
+        if is_instance_valid(m.toast_scene):
+            m.toast_scene.queue_free()
+            m.toast_scene = null
+        m.toast_queue.clear()
+        ok1 = ok1 and had_toast and toast_gone and queued and replayed
+        print("    %s %s：%s（插图 开游戏前在放 %s、开游戏收掉 %s、玩着来的排队 %s、关了接着放 %s）" % [tid, g.get("id", ""), "好" if ok1 else "不行", had_toast, toast_gone, queued, replayed])
         all_ok = all_ok and ok1
     return all_ok
 

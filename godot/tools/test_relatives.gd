@@ -168,6 +168,25 @@ func run() -> void:
                 if rects[i].intersects(rects[j]):
                     overlaps += 1
     check("30 秒里称呼牌叠在一起 %d 次（挤成一团时让一块先收起来）" % overlaps, overlaps == 0)
+    # 04 v7 新 2：称呼牌也不压桌牌（台前那一屏，大爸撞 1 号桌的桌牌）
+    var t1c: Dictionary = h._table_cfg("T1")
+    var sign_hits := 0
+    for sec in 20:
+        h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(Vector2(float(t1c["x"]) - 120.0 + sec * 12.0, float(t1c["y"]) + 90.0)))))
+        h.snap_cam()
+        h._scan_chairs(1.0)
+        h._process(0.0)
+        for i in 10:
+            rel._process(0.05)
+        for k in h.table_signs:
+            var sl: Label = h.table_signs[k]
+            if not sl.visible:
+                continue
+            var sr := Rect2(sl.position, sl.size)
+            for r in rel.rels:
+                if r.tag.visible and Rect2(r.pos + r.tag.position, r.tag.size).intersects(sr):
+                    sign_hits += 1
+    check("称呼牌压桌牌 %d 次" % sign_hits, sign_hits == 0)
     # 屏幕边：挂着的牌子整块都在屏幕里（名字牌第一轮 B4 那条）
     var half: float = float(m.get_viewport().get_visible_rect().size.x) * 0.5 / h.cam.zoom.x
     var cx: float = h.cam.get_screen_center_position().x
