@@ -1946,6 +1946,32 @@ func _on_rel_near(title: String, relation: String) -> void:
     near_rel = {"title": title, "relation": relation}
     _refresh_seat_buttons()
 
+## 截图用：55 桌厅只留 GPT 的背景和零件——宾客、真人、亲友、服务员、新人、自己、桌上的菜和牌、所有字和界面都藏起来
+func _hide_people_for_shot() -> void:
+    var life = _hall_life()
+    if life != null:
+        if life.guest_holder != null:
+            life.guest_holder.visible = false
+        for w in life.waiters:
+            w.node.visible = false
+            w.node.set_process(false)
+        for dd in life.dishes:
+            (dd["spr"] as CanvasItem).visible = false
+        if life.relatives != null:
+            life.relatives.visible = false
+            for r in life.relatives.rels:
+                r.node.visible = false
+            if life.relatives.cards_node != null:
+                life.relatives.cards_node.visible = false
+        life.set_process(false)
+    for n in [hall.seats_holder, hall.seat_tags, hall.player, hall.tag_anchor, hall.world.get_node_or_null("couple")]:
+        if n != null:
+            n.visible = false
+    # 界面：厅是画在 ui 下面的子画面里的，不能整个藏 ui；只藏顶上、底下那些按钮牌子和说话框
+    for n in [hud, banquet_ui, dialog, note_box]:
+        if n != null:
+            (n as CanvasItem).visible = false
+
 ## 调试版：亲友按北京时间 → 强制开席 → 强制开席前 → 按北京时间
 func _set_feast_force(f: String) -> void:
     feast_force = f
@@ -3053,12 +3079,13 @@ func _setup_shot(shot: String) -> void:
             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
                 await get_tree().process_frame
-        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast", "big_rel_card":
+        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast", "big_rel_card", "big_empty_stage", "big_empty_overview":
             # 55 桌大厅灰盒（01 D 9/29 要的三张）：big_door 进门（站大门口看全场）；big_table 第一次进厅，镜头滑到自己那桌以后；
             # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）；
             # big_main 站到主桌外婆跟前（阿鱼 9/29：主桌 10 座，称呼走近谁亮谁）；
             # big_pre／big_feast 亲友开席前走动／开席坐下（01 D 9/29，调试开关强制，不等饭点），站在 T9、T11 中间看；
-            # big_rel_card 走到大爸跟前、点开他的身份卡（04 新 6：身份卡能截图验）
+            # big_rel_card 走到大爸跟前、点开他的身份卡（04 新 6：身份卡能截图验）；
+            # big_empty_stage／big_empty_overview 不放人、不要界面（阿鱼 9/30「按 gpt 的图先还原」：和 GPT 效果图 d 比像不像）
             nickname = "小李"
             await _set_hall55(true, false)
             cloud.fake_no_news = shot != "big_table"   # 假服务端「没新鲜事」时一律当老客，第一次进厅要把它关了
@@ -3080,6 +3107,20 @@ func _setup_shot(shot: String) -> void:
                 var t9: Dictionary = hall._table_cfg("T9")
                 hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(Vector2(float(t9["x"]) - 100.0, float(t9["y"]) - 60.0)))))
                 hall.snap_cam()
+            elif shot == "big_empty_stage" or shot == "big_empty_overview":
+                hall.couple_armed = false
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.COUPLE_SPOT + Vector2(0, 80)))))
+                hall.snap_cam()
+                _hide_people_for_shot()
+                if shot == "big_empty_overview":
+                    var vs := get_viewport().get_visible_rect().size
+                    var z := minf(vs.x / 1536.0, vs.y / float(hall.cfg["size"][1]))
+                    hall.set_process(false)
+                    hall.cam.zoom = Vector2(z, z)
+                    hall.cam.limit_bottom = 100000
+                    hall.cam.limit_right = 100000
+                    hall.cam.position = Vector2(768, float(hall.cfg["size"][1]) * 0.5)
+                    hall.cam.reset_smoothing()
             elif shot == "big_rel_card":
                 hall.couple_armed = false
                 _set_feast_force("pre")

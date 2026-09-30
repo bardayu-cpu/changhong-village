@@ -40,6 +40,10 @@ ART_PIECES = {"table": "blk_banquet55_table_v1.png", "table_main": "blk_banquet5
 # 量过（人 84、坐着 62）：小提琴 a 高 107（1.3 倍）、b 120（1.4 倍），都没超 1.5 倍，照原样摆在背景两个谱架前面；
 # 弹钢琴的、拉大提琴的零件里自带钢琴、大提琴和椅子，背景里已经画了一套，摆上去就是两架钢琴两把琴；大提琴手还有 1.85 倍，
 # 缩到 0.53 倍脸糊了——这两位先不摆，报 01（见 回执/55桌接图v1-回执.md 9/30 那节）
+# 9/30 阿鱼：「先不要铺了，看起来乱糟糟的，我需要你按 gpt 的图先还原」——55 桌厅里代码自己加的装饰全撤：
+# 桌下暗影、两位小提琴手、地上的彩带彩纸、飘的花瓣都不要了，画面只剩 GPT 的背景和零件（人照旧坐，玩法要）。
+# 下面两样的数留着（以后要加回来改开关就行），开关关着
+ART_EXTRAS = False
 BAND_PLAYERS = [
     {"id": "小提琴手甲", "file": "blk_banquet_band_violin_player_a_v3.png", "anchor": (45, 135), "foot": (1305, 414)},
     {"id": "小提琴手乙", "file": "blk_banquet_band_violin_player_b_v3.png", "anchor": (43, 134), "foot": (1370, 414)},
@@ -201,7 +205,7 @@ def main():
         dark = Image.new("RGBA", m.size, (0, 0, 0, 0))
         dark.putalpha(m)
         base = base.convert("RGBA")
-        for it in items:
+        for it in (items if ART_EXTRAS else []):
             if it["kind"] == "table":
                 fx, fy, fw, fh = it["foot"]
                 cx, cy = fx + fw // 2 + sh["dx"], fy + fh // 2 + sh["dy"]
@@ -247,7 +251,7 @@ def main():
         occ.append({"id": it["name"], "image": imgs[key], "x": x, "y": y, "foot": foot})
 
     # 桌：主桌 MAIN + T1～T54；x、y 是占地中心（和 12 桌厅一样的规矩），rx、ry 是占地半径
-    if art:
+    if art and ART_EXTRAS:
         for k, bp in enumerate(BAND_PLAYERS):
             name = "art_band_%d.png" % k
             Image.open(os.path.join(ART, bp["file"])).save(os.path.join(OUT, name))
@@ -400,6 +404,8 @@ def main():
         placed.append((x, y))
         art = "amb_streamer_%d" % rng.randint(1, 6) if len(decals) % 3 else "amb_confetti_%d" % rng.randint(1, 3)
         decals.append({"art": art, "x": round(x), "y": round(y), "flip": rng.random() < 0.5})
+    if art and not ART_EXTRAS:
+        decals = []   # 55 桌厅不要地上的彩带彩纸（阿鱼 9/30：照 GPT 的图还原）
     amb = {
         "note": "55 桌大厅灰盒的热闹摆放，tools/layout_55/build_graybox55.py 生成，别手改",
         "decals": decals, "glows": [],
@@ -407,7 +413,7 @@ def main():
         "family": FAMILY,
         "relatives": RELATIVES,
         "waiters": {"count": 6, "door": [W - 70, (d0 + d1) // 2], "speed_m": 1.5},
-        "petals": {"amount": 60},
+        "petals": {"amount": 60 if (not art or ART_EXTRAS) else 0},   # 飘的花瓣：接图以后关（阿鱼 9/30）
     }
     json.dump(amb, open(AMB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # 自查：叠回一张整厅，和摆位底图比。只该差比例尺那个小人（人=1 的量尺，不进游戏）

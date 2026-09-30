@@ -240,6 +240,7 @@ func px_per_m(y: float) -> float:
 
 func _couple() -> void:
     var cp := Sprite2D.new()
+    cp.name = "couple"
     cp.texture = load("res://assets/couple.png")
     cp.centered = false
     var foot := Vector2(cfg["couple"][0], cfg["couple"][1])
