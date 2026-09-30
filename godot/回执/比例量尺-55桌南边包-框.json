@@ -1,0 +1,12 @@
+{
+ "scene": "55 桌宴会厅南边背景 v1（GPT，交接单 handoff_scene_roman_banquet_55_south_v1.json；拿背景自带的尺子人当尺）",
+ "image": "/Users/kayra_ayu/Desktop/苏七镇奇缘/游戏制作中-gpt 和 claude 合作/地图一-苏七镇/罗曼山庄/001-宴会厅/素材图/base_banquet55_south_v1_ruler.png",
+ "person_px": 84, "scale": 1.0,
+ "rulers": [[768, 870]],
+ "objects": [
+  {"group": "背景", "name": "尺子人 高", "box": [752, 787, 784, 871], "dim": "h", "std": "person_h", "src": "背景自带的尺子人", "call": "对"},
+  {"group": "背景", "name": "大门 门洞 宽（两个门柱内沿之间）", "box": [695, 800, 845, 895], "dim": "w", "std": "double_door_w", "src": "背景实测", "call": "", "note": "门柱内沿目测约 x695～845，误差±10"},
+  {"group": "背景", "name": "大门 门洞 高（红帐可见起到门槛）", "box": [695, 800, 845, 895], "dim": "h", "std": "double_door_h", "src": "背景实测", "call": "", "note": "上沿目测约 y800，门槛约 y890～895，误差±10"},
+  {"group": "背景", "name": "南边栏杆 高（远离门柱那段，避开灯柱装饰）", "box": [560, 959, 700, 996], "dim": "h", "std": "rail_h", "src": "背景实测", "call": ""}
+ ]
+}
