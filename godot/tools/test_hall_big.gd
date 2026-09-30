@@ -502,33 +502,34 @@ func run() -> void:
         if gid == "":
             none.append(str(t["id"]))
         gcount[gid] = int(gcount.get(gid, 0)) + 1
-    check("55 桌每桌都有游戏（没有的 %s），三个游戏各 %s 桌" % [none, gcount], none.is_empty() and gcount.size() == 3
-        and gcount.has("lianliankan") and gcount.has("match3") and gcount.has("g2048")
-        and gcount.values().all(func(n): return n >= 18 and n <= 19))
+    check("54 张普通桌都有游戏、主桌不挂（没有的 %s），三个游戏各 %s 桌" % [none, gcount], none == ["MAIN"] and gcount.size() == 4
+        and int(gcount.get("lianliankan", 0)) == 18 and int(gcount.get("match3", 0)) == 18 and int(gcount.get("g2048", 0)) == 18)
     var day0: String = Cfg.daily_day
     check("按北京日期：今天是 %s" % day0, day0 == Cfg.beijing_day(Time.get_unix_time_from_system()))
     # 北京日期的边界：UTC 15:59 是北京 23:59，UTC 16:00 就是北京第二天 0:00
     var u := int(Time.get_unix_time_from_datetime_string("2026-09-30T15:59:00"))
     check("UTC 9/30 15:59 → 北京 %s；16:00 → %s" % [Cfg.beijing_day(u), Cfg.beijing_day(u + 60)],
         Cfg.beijing_day(u) == "2026-09-30" and Cfg.beijing_day(u + 60) == "2026-10-01")
-    var p1: Dictionary = Cfg.daily_plan(ids, ["lianliankan", "match3", "g2048"], "2026-09-30")
-    var p2: Dictionary = Cfg.daily_plan(ids, ["lianliankan", "match3", "g2048"], "2026-09-30")
-    var p3: Dictionary = Cfg.daily_plan(ids, ["lianliankan", "match3", "g2048"], "2026-10-01")
+    var ids54: Array = ids.filter(func(x): return x != "MAIN")
+    var p1: Dictionary = Cfg.daily_plan(ids54, ["lianliankan", "match3", "g2048"], "2026-09-30")
+    var p2: Dictionary = Cfg.daily_plan(ids54, ["lianliankan", "match3", "g2048"], "2026-09-30")
+    var p3: Dictionary = Cfg.daily_plan(ids54, ["lianliankan", "match3", "g2048"], "2026-10-01")
     var diff := 0
     for k in p1:
         if p1[k] != p3[k]:
             diff += 1
-    check("同一天算两遍一样；换一天 %d 桌不一样" % diff, p1 == p2 and diff >= 20)
+    check("同一天算两遍一样；换一天 %d 桌不一样；今天进厅分的就是这张" % diff, p1 == p2 and diff >= 20
+        and (day0 != "2026-09-30" or Cfg.daily == p1))
     # 9/30 这天的分法写死几张：换了引擎版本、换了手机，算出来也得是这个（种子、洗牌都是自己写的整数算法）
-    print("    9/30：主桌 %s、T1 %s、T2 %s、T27 %s、T54 %s" % [p1["MAIN"], p1["T1"], p1["T2"], p1["T27"], p1["T54"]])
+    print("    9/30：T1 %s、T2 %s、T27 %s、T54 %s" % [p1["T1"], p1["T2"], p1["T27"], p1["T54"]])
     var bad_sign: Array = []
     for t in tabs:
         var tid := str(t["id"])
         var l = h.table_signs.get(tid)
-        var want_txt := "%s · %s" % [LayeredHall.table_label(tid), Cfg.title(Cfg.game_for_table(tid))]
+        var want_txt := "主桌" if tid == "MAIN" else "%s · %s" % [LayeredHall.table_label(tid), Cfg.title(Cfg.game_for_table(tid))]
         if l == null or not is_instance_valid(l) or (l as Label).text != want_txt:
             bad_sign.append(tid)
-    check("桌牌都写「N 号桌 · 游戏名」（不对的 %s），如 %s" % [bad_sign, (h.table_signs["T12"] as Label).text], bad_sign.is_empty())
+    check("桌牌都写「N 号桌 · 游戏名」、主桌只写「主桌」（不对的 %s），如 %s" % [bad_sign, (h.table_signs["T12"] as Label).text], bad_sign.is_empty())
     # 坐下以后底下那颗「玩·XX」按今天这桌分到的游戏
     await sit(h, "T12", 1)
     m._refresh_seat_buttons()

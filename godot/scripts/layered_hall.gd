@@ -93,12 +93,14 @@ func build(preset: int, nickname: String, f: Font) -> void:
     bench_y = float(bc.get("y", BENCH_Y))
     bench_draw = bool(bc.get("draw", true))
     sign_near = str(cfg.get("sign_mode", "")) == "near"
-    # 每桌一个小游戏（55 桌厅，01 D 9/30 v8）：按北京日期分好；第 44 版厅没写这项，照 minigames.json 的 1～6 号桌
+    # 每桌一个小游戏（55 桌厅，01 D 9/30 v8）：按北京日期分好，skip 里的桌（主桌）不挂；第 44 版厅没写这项，照 minigames.json 的 1～6 号桌
     var tg: Dictionary = cfg.get("table_games", {})
     if str(tg.get("mode", "")) == "daily":
         var ids: Array = []
+        var skip: Array = tg.get("skip", [])
         for t in cfg.get("tables", []):
-            ids.append(str(t["id"]))
+            if not skip.has(str(t["id"])):
+                ids.append(str(t["id"]))
         var unix := game_unix if game_unix >= 0.0 else Time.get_unix_time_from_system()
         GameCfg.use_daily(ids, tg.get("games", []), GameCfg.beijing_day(unix, int(tg.get("tz_hours", 8))))
     else:
