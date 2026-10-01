@@ -1,0 +1,997 @@
+{
+ "scene_dev": [
+  [
+   "B55-P01-01",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-02",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-05",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-06",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P03-01",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P03-02",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P02-01",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P02-02",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P02-03",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P02-04",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-03",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-04",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-07",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P01-08",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-02",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T02",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-01",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-05",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-03",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-04",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-06",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-09",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-07",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-08",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-10",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-13",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-11",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-12",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-T01-14",
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "B55-P04",
+   0,
+   0,
+   0,
+   0
+  ]
+ ],
+ "scene_problems": [],
+ "count_on_picture": {
+  "B55-T01": 14,
+  "B55-T02": 1,
+  "B55-P01": 8,
+  "B55-P02": 4,
+  "B55-P03": 2,
+  "B55-P04": 1
+ },
+ "count_listed": {
+  "B55-T01": 14,
+  "B55-T02": 1,
+  "B55-P01": 8,
+  "B55-P02": 4,
+  "B55-P03": 2,
+  "B55-P04": 1
+ },
+ "n_parts": 30,
+ "n_bg": 25,
+ "cut": [
+  "B55-T01-13",
+  "B55-T01-11",
+  "B55-T01-12",
+  "B55-T01-14"
+ ],
+ "real_match": [
+  {
+   "id": "B55-P01-01",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P01-02",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P01-05",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P01-06",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P03-01",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.34814814814814815
+  },
+  {
+   "id": "B55-P03-02",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.34814814814814815
+  },
+  {
+   "id": "B55-P02-01",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.27489481065918653
+  },
+  {
+   "id": "B55-P02-02",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.27489481065918653
+  },
+  {
+   "id": "B55-P02-03",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.27489481065918653
+  },
+  {
+   "id": "B55-P02-04",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.27489481065918653
+  },
+  {
+   "id": "B55-P01-03",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P01-04",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P01-07",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-P01-08",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3372365339578454
+  },
+  {
+   "id": "B55-T01-02",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T02",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.99038974906567,
+   "rate_best": 0.99038974906567,
+   "second": 0.32701548318206086
+  },
+  {
+   "id": "B55-T01-01",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9714198844633627,
+   "rate_best": 0.9714198844633627,
+   "second": 0.3247187595013682
+  },
+  {
+   "id": "B55-T01-05",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-03",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-04",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-06",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-09",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-07",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-08",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-10",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 0.9890544238370326,
+   "rate_best": 0.9890544238370326,
+   "second": 0.33444816053511706
+  },
+  {
+   "id": "B55-T01-13",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3304130162703379
+  },
+  {
+   "id": "B55-T01-11",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3304130162703379
+  },
+  {
+   "id": "B55-T01-12",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3304130162703379
+  },
+  {
+   "id": "B55-T01-14",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.3304130162703379
+  },
+  {
+   "id": "B55-P04",
+   "best": [
+    0,
+    0
+   ],
+   "rate0": 1.0,
+   "rate_best": 1.0,
+   "second": 0.7139830508474576
+  }
+ ],
+ "bg_probe": [
+  {
+   "item": "婚礼台",
+   "edge": "左缘(台口立面)",
+   "expect": 555,
+   "found": 555,
+   "diff": 0,
+   "strength": 56.9,
+   "clear": true
+  },
+  {
+   "item": "婚礼台",
+   "edge": "右缘(台口立面)",
+   "expect": 999,
+   "found": 1000,
+   "diff": 1,
+   "strength": 65.0,
+   "clear": true
+  },
+  {
+   "item": "婚礼台",
+   "edge": "台口立面下沿 y",
+   "expect": 322,
+   "found": 324,
+   "diff": 2,
+   "strength": 73.7,
+   "clear": true
+  },
+  {
+   "item": "台阶",
+   "edge": "左缘",
+   "expect": 692,
+   "found": 697,
+   "diff": 5,
+   "strength": 49.6,
+   "clear": true
+  },
+  {
+   "item": "台阶",
+   "edge": "右缘",
+   "expect": 844,
+   "found": 840,
+   "diff": -4,
+   "strength": 49.9,
+   "clear": true
+  },
+  {
+   "item": "红毯",
+   "edge": "左缘",
+   "expect": 696,
+   "found": 697,
+   "diff": 1,
+   "strength": 87.6,
+   "clear": true
+  },
+  {
+   "item": "红毯",
+   "edge": "右缘",
+   "expect": 840,
+   "found": 840,
+   "diff": 0,
+   "strength": 100.1,
+   "clear": true
+  },
+  {
+   "item": "乐队地台",
+   "edge": "左缘",
+   "expect": 1014,
+   "found": 1014,
+   "diff": 0,
+   "strength": 73.6,
+   "clear": true
+  },
+  {
+   "item": "乐队地台",
+   "edge": "右缘",
+   "expect": 1348,
+   "found": 1349,
+   "diff": 1,
+   "strength": 83.4,
+   "clear": true
+  },
+  {
+   "item": "乐队地台",
+   "edge": "前沿 y",
+   "expect": 325,
+   "found": 326,
+   "diff": 1,
+   "strength": 100.5,
+   "clear": true
+  },
+  {
+   "item": "贺礼架",
+   "edge": "左缘",
+   "expect": 487,
+   "found": 490,
+   "diff": 3,
+   "strength": 100.0,
+   "clear": true
+  },
+  {
+   "item": "贺礼架",
+   "edge": "底 y",
+   "expect": 288,
+   "found": 282,
+   "diff": -6,
+   "strength": 50.6,
+   "clear": true
+  },
+  {
+   "item": "囍字圆牌",
+   "edge": "左缘",
+   "expect": 704,
+   "found": 707,
+   "diff": 3,
+   "strength": 79.5,
+   "clear": true
+  },
+  {
+   "item": "囍字圆牌",
+   "edge": "右缘",
+   "expect": 830,
+   "found": 824,
+   "diff": -6,
+   "strength": 61.8,
+   "clear": true
+  },
+  {
+   "item": "囍字圆牌",
+   "edge": "上沿 y",
+   "expect": 110,
+   "found": 117,
+   "diff": 7,
+   "strength": 41.4,
+   "clear": true
+  },
+  {
+   "item": "花拱",
+   "edge": "左缘",
+   "expect": 636,
+   "found": 631,
+   "diff": -5,
+   "strength": 24.8,
+   "clear": true
+  },
+  {
+   "item": "花拱",
+   "edge": "右缘",
+   "expect": 900,
+   "found": 905,
+   "diff": 5,
+   "strength": 25.4,
+   "clear": true
+  },
+  {
+   "item": "北墙脚",
+   "edge": "地砖起点 y（北墙下沿）",
+   "expect": 236,
+   "found": 231,
+   "diff": -5,
+   "strength": 43.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-1",
+   "edge": "左缘",
+   "expect": 89,
+   "found": 83,
+   "diff": -6,
+   "strength": 25.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-1",
+   "edge": "右缘",
+   "expect": 241,
+   "found": 250,
+   "diff": 9,
+   "strength": 33.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-2",
+   "edge": "左缘",
+   "expect": 290,
+   "found": 280,
+   "diff": -10,
+   "strength": 37.2,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-2",
+   "edge": "右缘",
+   "expect": 442,
+   "found": 450,
+   "diff": 8,
+   "strength": 28.6,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-3",
+   "edge": "左缘",
+   "expect": 491,
+   "found": 482,
+   "diff": -9,
+   "strength": 28.1,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-3",
+   "edge": "右缘",
+   "expect": 643,
+   "found": 655,
+   "diff": 12,
+   "strength": 24.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-4",
+   "edge": "左缘",
+   "expect": 692,
+   "found": 687,
+   "diff": -5,
+   "strength": 15.3,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-4",
+   "edge": "右缘",
+   "expect": 844,
+   "found": 851,
+   "diff": 7,
+   "strength": 30.8,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-5",
+   "edge": "左缘",
+   "expect": 893,
+   "found": 882,
+   "diff": -11,
+   "strength": 43.2,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-5",
+   "edge": "右缘",
+   "expect": 1045,
+   "found": 1057,
+   "diff": 12,
+   "strength": 42.4,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-6",
+   "edge": "左缘",
+   "expect": 1094,
+   "found": 1089,
+   "diff": -5,
+   "strength": 21.4,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-6",
+   "edge": "右缘",
+   "expect": 1246,
+   "found": 1257,
+   "diff": 11,
+   "strength": 28.1,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-7",
+   "edge": "左缘",
+   "expect": 1295,
+   "found": 1288,
+   "diff": -7,
+   "strength": 23.2,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-c-7",
+   "edge": "右缘",
+   "expect": 1447,
+   "found": 1455,
+   "diff": 8,
+   "strength": 24.6,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-1",
+   "edge": "左缘",
+   "expect": 255,
+   "found": 262,
+   "diff": 7,
+   "strength": 63.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-1",
+   "edge": "右缘",
+   "expect": 275,
+   "found": 274,
+   "diff": -1,
+   "strength": 57.1,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-2",
+   "edge": "左缘",
+   "expect": 456,
+   "found": 464,
+   "diff": 8,
+   "strength": 56.8,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-2",
+   "edge": "右缘",
+   "expect": 476,
+   "found": 477,
+   "diff": 1,
+   "strength": 65.2,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-3",
+   "edge": "左缘",
+   "expect": 657,
+   "found": 656,
+   "diff": -1,
+   "strength": 56.1,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-3",
+   "edge": "右缘",
+   "expect": 677,
+   "found": 672,
+   "diff": -5,
+   "strength": 84.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-4",
+   "edge": "左缘",
+   "expect": 858,
+   "found": 863,
+   "diff": 5,
+   "strength": 59.8,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-4",
+   "edge": "右缘",
+   "expect": 878,
+   "found": 878,
+   "diff": 0,
+   "strength": 66.3,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-5",
+   "edge": "左缘",
+   "expect": 1059,
+   "found": 1058,
+   "diff": -1,
+   "strength": 55.5,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-5",
+   "edge": "右缘",
+   "expect": 1079,
+   "found": 1073,
+   "diff": -6,
+   "strength": 69.9,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-6",
+   "edge": "左缘",
+   "expect": 1260,
+   "found": 1258,
+   "diff": -2,
+   "strength": 70.8,
+   "clear": true
+  },
+  {
+   "item": "B55-BG01-d-6",
+   "edge": "右缘",
+   "expect": 1280,
+   "found": 1275,
+   "diff": -5,
+   "strength": 68.9,
+   "clear": true
+  }
+ ],
+ "wall_inner": [
+  {
+   "y": 260,
+   "west_floor_from": 110,
+   "east_floor_to": 1427
+  },
+  {
+   "y": 300,
+   "west_floor_from": 93,
+   "east_floor_to": 1443
+  },
+  {
+   "y": 400,
+   "west_floor_from": 61,
+   "east_floor_to": 1472
+  },
+  {
+   "y": 500,
+   "west_floor_from": 41,
+   "east_floor_to": 1495
+  },
+  {
+   "y": 600,
+   "west_floor_from": 60,
+   "east_floor_to": 1479
+  },
+  {
+   "y": 700,
+   "west_floor_from": 43,
+   "east_floor_to": 1494
+  },
+  {
+   "y": 760,
+   "west_floor_from": 40,
+   "east_floor_to": 1496
+  },
+  {
+   "y": 800,
+   "west_floor_from": 40,
+   "east_floor_to": 1496
+  },
+  {
+   "y": 900,
+   "west_floor_from": 60,
+   "east_floor_to": 1479
+  },
+  {
+   "y": 1000,
+   "west_floor_from": 40,
+   "east_floor_to": 1496
+  }
+ ],
+ "render_extra": {
+  "diff_outside_parts": 0,
+  "diff_inside_parts": 160733,
+  "part_pixels": 188206,
+  "bbox_outside": null
+ }
+}
