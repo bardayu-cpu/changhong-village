@@ -39,6 +39,21 @@ ART_PIECES = {"table": "blk_banquet55_table_v2.png", "table_main": "blk_banquet5
               "bench": "blk_banquet55_bench_v1.png", "lantern": "blk_banquet55_lantern_v2.png", "flowerpot": "blk_banquet55_flowerpot_v1.png",
               "flowerstand": "blk_banquet55_flowerstand_v2.png"}
 ART_SOUTH = os.path.join(ART, "base_banquet55_south_v1.png")   # 最南头 1024 那张
+# 现场版（B55S，阿鱼 10/2 新做法：GPT 照色块画北边、照零件单拆；01 E 派 02 先铺路）：SUQI55_ART=b55s 时换这一套。
+# 图由 import_gpt_pack.py 从 GPT 交的包里接进 art/，名字照零件总表。框和坐标还是 B55 那套（位置以色块为准），所以只换图：
+#   北边背景 → B55S-BG01；桌、主桌、灯、花架、花盆、长凳 → B55S-T01、T02、P01～P04（灯一张，红毯两边和墙边都用它）；
+#   中间那截地砖 → B55S-W01 一块块铺（对齐北边背景最下面的砖，接缝小）；红毯那一条照旧用北边背景最下面那截往下接。
+#   能走的格子：两边墙还照 v2 背景量（任务原文「墙和地面的边照现状，不挪」），新背景量出来不一样只提醒
+ART_SET = os.environ.get("SUQI55_ART", "b55")
+ART_FLOOR = None
+BOUNDS_BG = None
+if ART_SET == "b55s":
+    BOUNDS_BG = ART_BG
+    ART_BG = os.path.join(ART, "base_banquet55_scene_v1.png")
+    ART_PIECES = {"table": "blk_banquet55s_table_v1.png", "table_main": "blk_banquet55s_table_main_v1.png",
+                  "bench": "blk_banquet55s_bench_v1.png", "lantern": "blk_banquet55s_aisle_post_v1.png",
+                  "flowerpot": "blk_banquet55s_flowerpot_v1.png", "flowerstand": "blk_banquet55s_flowerstand_v1.png"}
+    ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v1.png")
 ART_WALL_W = os.path.join(ART, "tex_banquet55_wall_west_v1.png")   # 中间那截的竖墙，40×240 一段段接
 ART_WALL_E = os.path.join(ART, "tex_banquet55_wall_east_v1.png")
 WALL_FROM = 724   # 北边那张的墙是透视的，西墙最下那根柱子到 y 724 左右——竖墙从这儿接下去（再往下北边那张两边已经是地砖）
@@ -127,7 +142,10 @@ def block_image(it):
 
 
 def art_on():
-    return os.path.exists(ART_BG) and all(os.path.exists(os.path.join(ART, f)) for f in ART_PIECES.values())
+    ok = os.path.exists(ART_BG) and all(os.path.exists(os.path.join(ART, f)) for f in ART_PIECES.values())
+    if ART_SET == "b55s" and not (ok and os.path.exists(ART_FLOOR)):
+        raise SystemExit("SUQI55_ART=b55s 但 art/ 里现场版的图不齐：先跑 import_gpt_pack.py 接 GPT 的包")
+    return ok
 
 
 def art_piece(it):
@@ -172,7 +190,7 @@ def compose(bg, W, H):
         if os.path.exists(ART_WALL_W) and os.path.exists(ART_WALL_E):
             ww = Image.open(ART_WALL_W).convert("RGB")
             we = Image.open(ART_WALL_E).convert("RGB")
-            y = WALL_FROM
+            y = wall_from(bg)
             while y < top:
                 im.paste(ww, (0, y))
                 im.paste(we, (W - we.width, y))
@@ -190,6 +208,23 @@ def compose(bg, W, H):
     return im, seam
 
 
+def wall_from(bg):
+    """竖墙从哪往下接。v2 背景 y 724 往下两边已经是地砖，竖墙从 724 盖上去；现场版要是 GPT 照色块把两边墙画到底了
+    （两条 40 宽里多半不是地砖），就别拿旧竖墙盖它，从北边那张下沿 1024 才接"""
+    if ART_SET != "b55s":
+        return WALL_FROM
+    px = bg.load()
+    n = floor = 0
+    for y in range(WALL_FROM, bg.height, 4):
+        for x in list(range(4, 36, 4)) + list(range(bg.width - 36, bg.width - 4, 4)):
+            c = px[x, y]
+            n += 1
+            floor += c[0] > 175 and c[1] > 160 and c[2] > 120 and c[0] - c[2] < 90
+    y0 = WALL_FROM if floor > n / 2 else bg.height
+    print("现场版两边 y %d～%d：地砖占 %.0f%%，竖墙从 y %d 接" % (WALL_FROM, bg.height, 100.0 * floor / n, y0))
+    return y0
+
+
 def south_extend(bg, W, H):
     """背景只画到 y 1024：往南用最下面 SOUTH_BAND 那几行一段段接出去。回 (整张, 接缝数)"""
     a, b = SOUTH_BAND
@@ -200,6 +235,8 @@ def south_extend(bg, W, H):
     while y < H:
         im.paste(band, (0, y))
         y += b - a
+    if ART_FLOOR and os.path.exists(ART_FLOOR):
+        floor_tiles(im, bg, W, H)
     # 接缝数：接缝上下两行像素差，和背景自己最下面相邻两行的差比；分中间（红毯两边各 400 以内）和两边（离画布边 250 以内）
     px = im.load()
     def row_diff(y0, x0, x1):
@@ -210,6 +247,41 @@ def south_extend(bg, W, H):
             "seam_edge": (row_diff(bg.height, 0, 250) + row_diff(bg.height, W - 250, W)) / 2.0, "natural": nat}
     # 地砖花的位置：背景最下一行花（y 1009 左右）和接出去第一行（band 里同一行）左右差多少（透视：越往边上越错开）
     return im, seam
+
+
+def floor_tiles(im, bg, W, H):
+    """现场版：y 1024 往南的地砖用 B55S-W01 铺。先在北边背景最下面两块砖高里找瓦片对得最齐的错位（ox, oy），
+    照这个错位往下铺，北边和中间的接缝就是砖缝而不是一刀切。红毯那一条（摆位表里红毯的框）不铺，留着背景接下来的红毯"""
+    tile = Image.open(ART_FLOOR).convert("RGB")
+    tw, th = tile.size
+    carpet = [it for it in B.build()[0] if it["name"] == "红毯"][0]["box"]
+    c0, c1 = carpet[0], carpet[0] + carpet[2]
+    ref = bg.crop((60, bg.height - 2 * th, c0 - 20, bg.height)).convert("L")   # 红毯西边那一片地砖
+    best = None
+    tg = tile.convert("L")
+    pat = Image.new("L", (ref.width + tw, ref.height + th))
+    for yy in range(0, pat.height, th):
+        for xx in range(0, pat.width, tw):
+            pat.paste(tg, (xx, yy))
+    for oy in range(0, th, 2):
+        for ox in range(0, tw, 2):
+            # 整厅 x 处的瓦片列 = (x - ox) mod tw；ref 左上角在整厅 (60, bg.height - 2th)
+            sx = (60 - ox) % tw
+            sy = (bg.height - 2 * th - oy) % th
+            d = ImageChops.difference(pat.crop((sx, sy, sx + ref.width, sy + ref.height)), ref)
+            score = sum(i * n for i, n in enumerate(d.histogram())) / float(ref.width * ref.height)
+            if best is None or score < best[0]:
+                best = (score, ox, oy)
+    _, ox, oy = best
+    floor = Image.new("RGB", (W, H - bg.height))
+    y0 = bg.height - ((bg.height - oy) % th) - th
+    for yy in range(y0, H, th):
+        for xx in range(ox % tw - tw, W, tw):
+            floor.paste(tile, (xx, yy - bg.height))
+    mask = Image.new("L", floor.size, 255)
+    ImageDraw.Draw(mask).rectangle([c0, 0, c1 - 1, floor.height], fill=0)
+    im.paste(floor, (0, bg.height), mask)
+    print("现场版地砖 %d×%d 铺中间，对齐北边背景的错位 (%d, %d)，对齐差 %.1f" % (tw, th, ox, oy, best[0]))
 
 
 def floor_bounds(bg):
@@ -249,6 +321,13 @@ def main():
         bg = Image.open(ART_BG).convert("RGB")
         base, seam = compose(bg, W, H)
         bounds = floor_bounds(bg)
+        if BOUNDS_BG:
+            # 现场版：走路格子的两边墙照 v2 背景（墙和地面的边不许挪）；新背景量出来差得多的行报出来
+            new_b, bounds = bounds, floor_bounds(Image.open(BOUNDS_BG).convert("RGB"))
+            bad = [(y, bounds[y], new_b.get(y)) for y in sorted(bounds) if new_b.get(y) and
+                   max(abs(bounds[y][0] - new_b[y][0]), abs(bounds[y][1] - new_b[y][1])) > 8]
+            if bad:
+                print("提醒：新背景两边墙跟 v2 差 8 像素以上的有 %d 行（走路格子照 v2），例：y %d v2 %s 新 %s" % (len(bad), *bad[0]))
         # 桌下暗影：一块黑的椭圆，边上高斯糊开，乘 20% 叠上去
         sh = TABLE_SHADOW
         pad = sh["blur"] * 3
@@ -439,6 +518,9 @@ def main():
         scene["note"] = "55 桌大厅接图 v1（01 D 9/30）：GPT 北边空厅背景 + 零件，摆位 v4；tools/layout_55/build_graybox55.py 生成，别手改"
         scene["seat_geom"] = SEAT_TABLE
         scene["south_seam"] = seam
+        if ART_SET != "b55":
+            scene["revision"] = "art-%s（GPT 照色块画的北边 + 零件，摆位不变）" % ART_SET
+            scene["art_set"] = ART_SET
     json.dump(scene, open(os.path.join(OUT, "scene.json"), "w", encoding="utf-8"), ensure_ascii=False)
     # 这回没生成的图（第 47 版留下的拉长底图、GPT 桌子，或者色块少了一种）连同 .import 一起清掉；
     # 生成了的图留着 .import，重跑不换 uid
@@ -498,8 +580,9 @@ def main():
     flat = flat.convert("RGB")
     if art:
         # 接图：没有「逐像素一样」可比（背景是 GPT 画的）；存一张整厅、一张北边给 01、03 看
-        flat.save(os.path.join(GODOT, "回执", "55桌接图v1-整厅拼图.png"))
-        flat.crop((0, 0, W, 1024)).save(os.path.join(GODOT, "回执", "55桌接图v1-北边预览.png"))
+        tag = "55桌接图v1" if ART_SET == "b55" else "55桌接图-" + ART_SET
+        flat.save(os.path.join(GODOT, "回执", tag + "-整厅拼图.png"))
+        flat.crop((0, 0, W, 1024)).save(os.path.join(GODOT, "回执", tag + "-北边预览.png"))
         print("往南接地砖的接缝（每像素平均差，0～255）：整行 %.1f、中间 %.1f、两边 %.1f；背景自己相邻两行平均差 %.1f" % (
             seam["seam_all"], seam["seam_mid"], seam["seam_edge"], seam["natural"]))
     else:
