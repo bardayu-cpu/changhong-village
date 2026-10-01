@@ -331,8 +331,8 @@ func _declutter() -> void:
     if cam != null and cam.zoom.x > 0.0:
         var half := float(hall.get_viewport().get_visible_rect().size.x) * 0.5 / cam.zoom.x
         var cx := cam.get_screen_center_position().x
-        lo = cx - half + 4.0
-        hi = cx + half - 4.0
+        lo = cx - half + hall.TAG_EDGE / cam.zoom.x   # 跟 layered_hall._keep_tags_on_screen 同一个留边
+        hi = cx + half - hall.TAG_EDGE / cam.zoom.x
     var placed: Array = []   # [Rect2]
     # 桌牌、主桌家里人的称呼先排（04 v7 新 2：原来只比称呼牌对称呼牌，「大爸」被「1 号桌 · 连连看」压住下半截；
     # 桌牌贴屏幕边也没收口）：它们位置定死，贴边的往里收，占的地方先记上，亲友的称呼再让开它们

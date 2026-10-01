@@ -329,13 +329,16 @@ func _tag_holders() -> Array:
 ## 名字牌贴着屏幕边被切掉（草坪「…礼拱门·预留」、宴会厅「小李那桌·连…」，体验 B4）：牌子中点还在屏幕里的，往屏幕里收；
 ## 中点已经出了屏幕的（那张桌、那样东西大半在屏幕外）就先不显示——都往里收的话，屏幕边上会摞起一串别桌的牌子。
 ## 离开屏幕边以后回到原位（原位记在 meta "home"）
+## 牌子离屏幕左右边至少留多少（屏幕像素）。原来是 4 个厅里的像素，55 桌厅镜头缩到 0.94，牌子的 1 像素金边贴着屏幕边
+## 画出来时有时断一截，看着像被切掉（04 v7 新 2、v8v9 新 2；实测没出屏，是边框太贴边）
+const TAG_EDGE := 8.0
 func _keep_tags_on_screen() -> void:
     if cam == null or cam.zoom.x <= 0.0:
         return
     var half := float(get_viewport().get_visible_rect().size.x) * 0.5 / cam.zoom.x
     var cx := cam.get_screen_center_position().x
-    var lo := cx - half + 4.0
-    var hi := cx + half - 4.0
+    var lo := cx - half + TAG_EDGE / cam.zoom.x
+    var hi := cx + half - TAG_EDGE / cam.zoom.x
     for holder in _tag_holders():
         for c in holder.get_children():
             if not (c is Control):
@@ -941,9 +944,15 @@ static func table_label(tid: String) -> String:
         return "%s 号桌" % tid.substr(1)
     return tid
 
-## 认桌（55 桌）：自己那桌一直挂牌，走近哪桌亮哪桌，其余不挂
+## 认桌（55 桌）：自己那桌一直挂牌，走近哪桌亮哪桌，其余不挂。
+## 「坐这儿」出来时那把椅子的桌一定亮、「和外婆聊聊」这类主桌家里人的按钮出来时主桌一定亮（04 v8v9 新 1：
+## 牌子按到桌边 60 算、「坐这儿」按到椅子 78 算，中间那一圈能坐下却看不见这桌今天玩什么）
 func _sign_shown(tid: String) -> bool:
-    return tid == str(my_seat.get("table_id", "")) or tid == table_near_key
+    if tid == str(my_seat.get("table_id", "")) or tid == table_near_key:
+        return true
+    if near_key != "" and tid == near_key.get_slice(":", 0):
+        return true
+    return tid == "MAIN" and life != null and str(life.get("family_lit")) != ""
 
 func _refresh_near_signs() -> void:
     if not sign_near:

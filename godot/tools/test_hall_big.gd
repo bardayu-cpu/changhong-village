@@ -590,6 +590,8 @@ func run() -> void:
     check("主桌照旧只给阿鱼、Toretto：顶上「%s」" % m.note.text, m.note.text == "主桌是阿鱼家里人坐的" and str(h.my_seat.get("table_id", "")) == "T7")
     h.life.relatives.set_force("")
 
+    await _signs_v8v9(h)
+
     print("10 切回第 44 版")
     await m._set_hall55(false)
     await create_timer(0.5).timeout
@@ -613,3 +615,86 @@ func run() -> void:
 
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)
+
+
+## 11b（04 v8v9 新 1、新 2）：放在自己的函数里，变量名不跟 run() 里的撞
+func _signs_v8v9(h) -> void:
+    print("11b 04 v8v9：「坐这儿」出来时这桌牌子一定亮、主桌聊聊出来时「主桌」亮；牌子离屏幕边留 8 像素")
+    h.stand_up()
+    await frames(1)
+    # 找一把：站在它外侧那一步，离椅子在 NEAR_R 以内，但离桌边超过原来亮牌的 60（04 说的「能坐、牌没亮」那一圈）
+    var gap_spot := Vector2.ZERO
+    var gap_tid := ""
+    for tid in ["T30", "T31", "T34", "T35", "T22", "T23"]:
+        var tc: Dictionary = h._table_cfg(tid)
+        for no in range(1, LayeredHall.seats_of(tc) + 1):
+            var cw: Vector2 = h.chair_world(tc, no)
+            var sp: Vector2 = h._stand_spot(cw, h._seat_center(tc))
+            for k in 6:
+                var gp: Vector2 = sp + (sp - h._seat_center(tc)).normalized() * 4.0 * k
+                if h._free(gp) and gp.distance_to(cw) < LayeredHall.NEAR_R - 4.0 and h._table_edge_dist(tc, gp) > 64.0:
+                    gap_spot = gp
+                    gap_tid = tid
+                    break
+            if gap_tid != "":
+                break
+        if gap_tid != "":
+            break
+    check("找到「能坐、离桌边超过 60」的站位 %s（%s）" % [gap_spot, gap_tid], gap_tid != "")
+    h.reset_to(gap_spot)
+    h.cam.reset_smoothing()
+    await frames(3)   # 镜头先跟过去（牌子出了屏幕是不挂的）
+    h._scan_chairs(1.0)
+    h._keep_tags_on_screen()
+    await frames(1)
+    var gap_sign: Label = h.table_signs.get(gap_tid)
+    check("「坐这儿」对着 %s（near_key %s、翻簿子那圈 %s），%s 的牌亮着：%s" % [gap_tid, h.near_key, h.table_near_key, gap_tid, gap_sign.visible],
+        h.near_key.begins_with(gap_tid + ":") and h.table_near_key != gap_tid and gap_sign.visible)
+    # 主桌：站到外婆（10 号）椅子外侧，「和外婆聊聊」的那一位亮起来，「主桌」牌也亮
+    var mtc: Dictionary = h._table_cfg("MAIN")
+    var gm: Vector2 = h.chair_world(mtc, 10)
+    h.reset_to(h._stand_spot(gm, h._seat_center(mtc)))
+    h.cam.reset_smoothing()
+    await frames(3)
+    h._scan_chairs(1.0)
+    h.life._family_near()
+    h._keep_tags_on_screen()
+    await frames(1)
+    var main_sign: Label = h.table_signs.get("MAIN")
+    check("站在外婆跟前（亮的是 %s），「主桌」牌亮着：%s" % [h.life.family_lit, main_sign.visible], h.life.family_lit != "" and main_sign.visible and main_sign.text == "主桌")
+    # 贴屏幕右边：让自己那桌（一直亮）的牌子本来的位置跨过屏幕右边——人往西站，屏幕右边正好落在牌子中点往右 50，
+    # 牌子要往里收，收完右边离屏幕边至少 8 像素
+    var east := ""
+    for t in h.cfg["tables"]:
+        if str(t["id"]) != "MAIN" and int(t["x"]) == 963 and float(t["y"]) > 1000.0:
+            east = str(t["id"])
+            break
+    await sit(h, east, 1)   # 先坐到红毯东边那列的一张（桌心 x 963），镜头往西挪的时候它的牌子会碰到屏幕右边
+    h.stand_up()
+    var mine: Label = h.table_signs[str(h.my_seat.get("table_id", ""))]
+    var home_mid: float = float(mine.get_meta("home", mine.position.x)) + mine.size.x * 0.5
+    var half: float = float(h.get_viewport().get_visible_rect().size.x) * 0.5 / h.cam.zoom.x
+    var stand: Vector2 = h._cell_pos(h._nearest_free(h._cell_of(Vector2(home_mid + 50.0 - half, mine.position.y + 40.0))))
+    h.reset_to(stand)
+    h.cam.reset_smoothing()
+    await frames(3)
+    h._scan_chairs(1.0)
+    h._keep_tags_on_screen()
+    await frames(1)
+    var vp: Viewport = h.get_viewport()
+    var ct: Transform2D = vp.get_canvas_transform()
+    var vw := float(vp.get_visible_rect().size.x)
+    var worst := INF
+    var shown := 0
+    for k in h.table_signs:
+        var l: Label = h.table_signs[k]
+        if not l.visible:
+            continue
+        shown += 1
+        var lx: float = (ct * l.global_position).x
+        var rx: float = (ct * (l.global_position + l.size)).x
+        worst = minf(worst, minf(lx, vw - rx))
+    var mine_r: float = vw - (ct * (mine.global_position + mine.size)).x
+    var pulled: bool = absf(mine.position.x - float(mine.get_meta("home", mine.position.x))) > 1.0
+    check("坐 %s，自己那桌的牌本来跨出屏幕右边，往里收了（%s），右边离屏幕边 %.1f 像素；亮着的牌 %d 块，离屏幕左右边最近 %.1f（要 ≥ %.0f）" % [east, pulled, mine_r, shown, worst, LayeredHall.TAG_EDGE],
+        east != "" and pulled and mine.visible and shown >= 1 and worst >= LayeredHall.TAG_EDGE - 0.6)
