@@ -3422,6 +3422,57 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
+        "kitchen_play", "kitchen_play_lv4", "kitchen_result_win", "kitchen_result_lose":
+            # 厨房截图（01 D 10/1，给 04 看炒菜那屏和结算卡）：先照 backhall_pot 走到大锅、点开厨房，再用厨房面板自己的开局、
+            # 加料、计时摆出那一屏，不改厨房代码。play 是第 1 关一口锅正在煮；play_lv4 是第 4 关三口锅（一锅好了、一锅在煮、
+            # 一锅加了一样料）、三位服务员；result_win、result_lose 是结算卡（交够菜 / 三位服务员等走了）。
+            # 金币、厨房进度写进 shot_ 开头的文件，不动这台电脑上的真存档
+            games_save.local_path = "user://shot_kitchen_games.json"
+            await _setup_shot("backhall_pot")
+            var kp = game_host
+            if not is_instance_valid(kp) or not kp.has_method("_start"):
+                print("[suqi] 厨房截图：没打开厨房")
+                return
+            kp.saved_path = "user://shot_kitchen.json"
+            kp.set_process(false)   # 摆的时候别让真时间往前走
+            var kr = kp.rules
+            match shot:
+                "kitchen_play":
+                    kp._start(1)
+                    kr.choose(0, "beef")
+                    for ing in ["汤底", "牛肉", "葱花"]:
+                        kr.add_ingredient(0, ing)
+                    kr.tick(4.0)   # 跷脚牛肉 8 秒，煮到一半
+                "kitchen_play_lv4":
+                    kp._start(4)
+                    kr.choose(0, "beef")
+                    for ing in ["汤底", "牛肉", "葱花"]:
+                        kr.add_ingredient(0, ing)
+                    kr.tick(9.0)   # 第一锅好了，等着盛
+                    kr.choose(1, "tofu")
+                    for ing in ["汤底", "豆腐", "葱花"]:
+                        kr.add_ingredient(1, ing)
+                    kr.tick(3.0)   # 第二锅在煮
+                    kr.choose(2, "beef")
+                    kr.add_ingredient(2, "汤底")   # 第三锅刚加了一样
+                    while kr.orders.size() < 3:
+                        var n0: int = kr.orders.size()
+                        kr.add_order()
+                        if kr.orders.size() == n0:
+                            break
+                "kitchen_result_win":
+                    kp._start(1)
+                    kr.completed = kr.target
+                    kr.earned = kr.target * 3
+                    kr.orders.clear()   # 下一次走时间就判赢、出结算卡
+                "kitchen_result_lose":
+                    kp._start(1)
+                    kr.missed = 2
+                    kr.orders[0].left = 0.05   # 下一次走时间第三位服务员走掉、判输
+            kp._render()
+            kp.set_process(true)
+            for i in 3:
+                await get_tree().process_frame
         "lawn", "lawn_overview", "lawn_greet", "lawn_kick", "lawn_fetch", "lawn_kids", "lawn_orchard":
             # 草坪灰盒（蓝图 3.4，01 9/19 派任务 8）：lawn 是从迎宾院东小径刚过来；greet 是走近球、喜多叼着球跑过来；
             # kick 是往右踢一脚、球在滚；fetch 是喜多叼着球往回跑；kids 是走到孩童区小孩说一句；orchard 是走到北口；
