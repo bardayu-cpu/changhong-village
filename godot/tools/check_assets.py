@@ -5,7 +5,8 @@
   拦下（退出码 1，提交不了）：
     1. JSON 读不出来（写错了逗号、括号、引号）
     2. 场景零件有半透明的像素：blk_*、art_*、fg_*、chr_* 开头的图，和 assets/kitchen/ 里的图集，透明度只许 0 或 255。
-       界面底和特效（base_ui_*、decal_*、tex_ui_*）放行（01 D 9/30：界面底和特效允许半透明，0/255 只管场景零件）
+       界面底和特效（base_ui_*、decal_*、tex_ui_*）放行（01 D 9/30：界面底和特效允许半透明，0/255 只管场景零件）；
+       零件的影子另出一层 shadow_*，允许半透明（01 D 10/2：零件本身照旧硬边）
     3. 尺寸不对：
        - 场景文件夹里的 base.png 要跟同一个文件夹 scene.json / layout.json 里写的 size 一样大；
        - GPT 交的整张背景 base_*.png 宽必须 1536；
@@ -31,6 +32,7 @@ from PIL import Image
 STRICT_PREFIX = ("blk_", "art_", "fg_", "chr_")
 STRICT_DIRS = ("assets/kitchen/",)
 UI_PREFIX = ("base_ui_", "decal_", "tex_ui_")
+SHADOW_PREFIX = ("shadow_",)   # 零件的影子另出一层，允许半透明（01 D 10/2；零件本身照旧硬边）
 TILES = [  # (文件名开头, 宽, 高, 能不能透明)
     ("tex_banquet_floor", 80, 52, False),
     ("tex_banquet_carpet", 140, 96, False),
@@ -114,9 +116,9 @@ def check_png(src: Source, path: str, raw: bytes, errors: list, warns: list) -> 
         semi = sum(hist[1:255])
         clear = hist[0]
     strict = name.startswith(STRICT_PREFIX) or any(("/" + d) in ("/" + norm) for d in STRICT_DIRS)
-    if strict and not name.startswith(UI_PREFIX) and semi:
+    if strict and not name.startswith(UI_PREFIX + SHADOW_PREFIX) and semi:
         errors.append((path, "场景零件有 %d 个半透明像素（透明度只许 0 或 255）" % semi,
-                       "让画图的把边缘改成硬边：要么全透明、要么全不透明（界面底、特效才可以半透明）"))
+                       "让画图的把边缘改成硬边：要么全透明、要么全不透明（界面底、特效、另出的影子层 shadow_* 才可以半透明）"))
     for prefix, tw, th, alpha_ok in TILES:
         if name.startswith(prefix):
             if (w, h) != (tw, th):

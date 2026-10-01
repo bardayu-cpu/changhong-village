@@ -27,6 +27,6 @@
 | base.png 跟 scene.json / layout.json 写的画布大小不一样；GPT 的整张背景 base_*.png 不是 1536 宽 | assets/ 下文件名有大写、空格 |
 | 瓦片尺寸不对（地砖 80×52、红毯 140×96、侧墙 96×240、55 桌竖墙 40×240），地砖、红毯有透明 | |
 
-不查：回执/、参考/、.godot/ 下的东西；界面底和特效（base_ui_、decal_、tex_ui_）可以半透明。
+不查：回执/、参考/、.godot/ 下的东西；界面底和特效（base_ui_、decal_、tex_ui_）、零件另出的影子层（shadow_，01 D 10/2）可以半透明。
 
 自己先查一遍：`python3 godot/tools/check_assets.py --staged`（查已经 git add 的），或者 `python3 godot/tools/check_assets.py 某张图.png`（查硬盘上的）。
