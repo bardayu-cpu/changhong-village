@@ -11,9 +11,16 @@
        - 场景文件夹里的 base.png 要跟同一个文件夹 scene.json / layout.json 里写的 size 一样大；
        - GPT 交的整张背景 base_*.png 宽必须 1536；
        - 瓦片照 回执/宴会厅55桌-瓦片规格.md：地砖 80×52、红毯 140×96、侧墙 96×240，55 桌那两条竖墙 40×240；地砖、红毯不许透明
+    4. 图太大（01 D 10/2，阿鱼嫌 1 MB 太大）：按类分，量的是**进手机包的大小**——
+       .import 里是有损压缩（compress/mode=1）的，按它的 lossy_quality 压成 WebP 估一下（比 Godot 实际导出的小约 8%，乘 1.1）；
+       没有 .import 或者是无损的，就按 PNG 本身的大小。
+       - 零件 blk_ art_ fg_ prop_ decal_：每张 ≤ 100 KB
+       - 人物动作图 chr_：≤ 300 KB
+       - 背景 base_ 和场景文件夹里的 base.png、瓦片 tex_：≤ 500 KB
+       - 界面（文件名带 _ui_ 或放在 ui/ 文件夹里）：≤ 100 KB
   只提醒（退出码 0，照样能提交）：
-    4. 一张要进包的图（路径里有 assets/）超过 1 MB；这次提交让要进包的图一共多出 2 MB 以上
-    5. assets/ 下文件名有空格或大写字母
+    5. 不在上面四类里的图，进包超过 100 KB；这次提交让要进包的图（PNG 本身）一共多出 2 MB 以上
+    6. assets/ 下文件名有空格或大写字母
 
 用法：
   python3 godot/tools/check_assets.py --staged      查这次要提交的（git 暂存区里的内容，不是硬盘上的），提交前检查用这个
@@ -43,6 +50,15 @@ TILES = [  # (文件名开头, 宽, 高, 能不能透明)
 ]
 CANVAS_W = 1536
 ONE_MB = 1024 * 1024
+KB = 1024
+SIZE_LIMITS = [  # (类, 判断, 上限 KB)：从上往下第一个对上的算
+    ("界面", lambda n, p: "_ui_" in n or "/ui/" in p, 100),
+    ("人物动作图", lambda n, p: n.startswith("chr_"), 300),
+    ("背景、瓦片", lambda n, p: n.startswith(("base_", "tex_")) or n == "base.png", 500),
+    ("零件", lambda n, p: n.startswith(("blk_", "art_", "fg_", "prop_", "decal_")), 100),
+]
+OTHER_WARN_KB = 100
+LOSSY_FUDGE = 1.1   # PIL 压的 WebP 比 Godot 导出的 .ctex 小约 8%（10/2 拿三张宴会厅底图量的）
 SKIP_DIRS = ("回执/", "参考/", ".godot/")   # 回执里的截图、对照图，别人的参考包，导入缓存：不查
 
 
@@ -99,6 +115,20 @@ def scene_size(src: Source, png_path: str):
     return None
 
 
+def shipped_size(src: Source, path: str, raw: bytes, im) -> tuple:
+    """进手机包大概多大（字节）、怎么算的"""
+    imp = src.read(path + ".import")
+    text = imp.decode("utf-8", "ignore") if imp else ""
+    m = re.search(r"compress/mode=(\d+)", text)
+    if m and m.group(1) == "1":
+        q = re.search(r"compress/lossy_quality=([0-9.]+)", text)
+        quality = float(q.group(1)) if q else 0.7
+        buf = io.BytesIO()
+        im.convert("RGBA" if im.mode in ("RGBA", "LA", "PA", "P") else "RGB").save(buf, "WEBP", quality=int(quality * 100), method=4)
+        return int(len(buf.getvalue()) * LOSSY_FUDGE), "有损导入（质量 %.2f）估的" % quality
+    return len(raw), "PNG 本身"
+
+
 def check_png(src: Source, path: str, raw: bytes, errors: list, warns: list) -> None:
     name = os.path.basename(path)
     norm = path.replace(os.sep, "/")
@@ -126,6 +156,15 @@ def check_png(src: Source, path: str, raw: bytes, errors: list, warns: list) -> 
             if not alpha_ok and has_alpha and (semi or clear):
                 errors.append((path, "地砖、红毯瓦片不许有透明", "铺满不透明的颜色重出"))
             break
+    if "assets/" in norm or not src.staged:
+        size, how = shipped_size(src, path, raw, im)
+        kind = next(((k, lim) for k, test, lim in SIZE_LIMITS if test(name, "/" + norm)), None)
+        if kind and size > kind[1] * KB:
+            errors.append((path, "%s进手机包约 %d KB（%s），上限 %d KB" % (kind[0], size // KB, how, kind[1]),
+                           "照画出来的大小出图（人 84 高就别画 450 高）；GPT 的图让 GPT 改；我们自己生成的图可以在 .import 里改成有损压缩、调低质量，"
+                           "改完跑 restore_check.py 对原图看差多少"))
+        elif not kind and size > OTHER_WARN_KB * KB:
+            warns.append((path, "进手机包约 %d KB（%s），不在零件／人物／背景／界面四类里" % (size // KB, how), "看看能不能缩；要定上限找 01"))
     if name == "base.png":
         want = scene_size(src, path)
         if want and (w, h) != (want[0], want[1]):
@@ -155,8 +194,6 @@ def run(paths: list, src: Source) -> int:
             continue
         check_png(src, path, raw, errors, warns)
         if "assets/" in path.replace(os.sep, "/"):
-            if len(raw) > ONE_MB:
-                warns.append((path, "这张图 %.1f MB，超过 1 MB" % (len(raw) / ONE_MB), "能缩就缩：照画出来的大小出图（人 84 高就别画 450 高）"))
             grew += len(raw) - src.head_size(path)
             base = os.path.basename(path)
             if re.search(r"[A-Z ]", base):
