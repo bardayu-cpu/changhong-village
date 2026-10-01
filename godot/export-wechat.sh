@@ -58,6 +58,9 @@ printf "import './share'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game
 # 登录：一启动就调 login 云函数拿 openid（wxgame/cloud.js）
 cp "$GODOT_DIR/wxgame/cloud.js" .
 printf "import './cloud'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
+# 厨房前后台状态桥：只记录切后台事件，由厨房面板暂停自己的计时。
+cp "$GODOT_DIR/wxgame/kitchen-visibility.js" .
+printf "import './kitchen-visibility'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
 # 调试弹窗：手机上显示启动日志和报错。要排在最前面，才能收到后面所有脚本的日志
 if [ "${SUQI_DEBUG:-1}" != "0" ]; then
     # 远程加载的最小验证（HANDOFF §0.9）：从云存储下载文件写进 user://，调试版日志面板里的「远程加载」用

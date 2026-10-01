@@ -59,5 +59,16 @@ func _initialize() -> void:
         g.orders.clear()
         g.add_order()
         check("单人订单不超过三道 %d" % i, g.orders[0].dishes.size() <= 3)
+    g.start(8,42)
+    g.completed = g.target
+    g.orders[0].left = 0.1
+    g.tick(0.2)
+    check("目标已达成后末单超时不会卡死", g.won and not g.active and g.orders.is_empty())
+    g.start(8,42)
+    g.completed = g.target
+    g.missed = 2
+    g.orders[0].left = 0.1
+    g.tick(0.2)
+    check("第三人超时失败优先于通关", not g.won and not g.active and g.missed == 3)
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

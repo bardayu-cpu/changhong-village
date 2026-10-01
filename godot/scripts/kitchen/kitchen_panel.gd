@@ -15,7 +15,8 @@ var timers: Array = []
 var order_labels: Array = []
 var saved_path := "user://suqi_kitchen.json"
 var round_saved := false
-var render_due := false
+var visibility_bridge
+var visibility_epoch := -1
 var figures: Array = []
 
 func open(save, f: Font) -> void:
@@ -118,7 +119,33 @@ func _start(stage: int) -> void:
     rules.start(stage)
     _render()
 
+func _notification(what: int) -> void:
+    if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT]:
+        _pause_for_background()
+
+func _pause_for_background() -> void:
+    if rules == null or not rules.active or rules.paused: return
+    rules.paused = true
+    rules.message = "已暂停，回到游戏后点继续"
+    if is_instance_valid(status): call_deferred("_render")
+
+func _poll_visibility() -> void:
+    if not (OS.has_feature("web") or OS.has_feature("wechat")): return
+    if visibility_bridge == null:
+        visibility_bridge = JavaScriptBridge.get_interface("__suqiKitchenVisibility")
+    if visibility_bridge == null: return
+    var epoch := int(visibility_bridge.epoch())
+    if bool(visibility_bridge.hidden()) or (visibility_epoch >= 0 and epoch != visibility_epoch):
+        _pause_for_background()
+    visibility_epoch = epoch
+
+func _toggle_pause() -> void:
+    rules.paused = not rules.paused
+    rules.message = "已暂停，锅和服务员一起等待" if rules.paused else "继续做菜，留意每一口锅的火候"
+    _render()
+
 func _process(dt: float) -> void:
+    _poll_visibility()
     if not is_instance_valid(status): return
     var old_states: Array = rules.pots.map(func(p): return p.state)
     var old_ids: Array = rules.orders.map(func(o): return o.id)
@@ -161,7 +188,7 @@ func _render() -> void:
     order_labels.clear()
     figures.clear()
     _label("已交 %d/%d 道   本局 +%d 金   离场 %d/3" % [rules.completed,rules.target,rules.earned,rules.missed],Rect2(24,100,492,32),18)
-    _button("继续" if rules.paused else "暂停",Rect2(418,20,98,48),func(): rules.paused = not rules.paused; _render())
+    _button("继续" if rules.paused else "暂停",Rect2(418,20,98,48),_toggle_pause)
     for i in rules.orders.size():
         var o: Dictionary = rules.orders[i]
         var x: int = 24 + i * 166

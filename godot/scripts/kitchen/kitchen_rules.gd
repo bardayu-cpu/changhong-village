@@ -142,6 +142,12 @@ func tick(dt: float) -> void:
         message = "三位服务员没有等到菜，再试一次吧"
         changed.emit()
         return
+    if completed >= target and orders.is_empty():
+        active = false
+        won = true
+        message = "本关完成！厨艺更上一层"
+        changed.emit()
+        return
     spawn_in -= dt
     if spawn_in <= 0:
         add_order()
