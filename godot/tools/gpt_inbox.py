@@ -36,6 +36,12 @@ for d, _, fs in os.walk(ROOT):
             rows.append((m, rel, os.path.getsize(p)))
 rows.sort()
 print("上次查看：", time.strftime("%m-%d %H:%M", time.localtime(since)) if since else "（第一次）", "；新的/改过的", len(rows), "个")
+# 交付单、交接单先单独列在最上面：文件一多，翻到最后几行就看不到它们了（10/2 漏看过一次 gpt-后厨交付-v1.2.md）
+notes = [r for r in rows if ("交付" in r[1] or "交接" in r[1] or "handoff" in r[1].lower()) and r[1].lower().endswith((".md", ".json"))]
+if notes:
+    print("★ 交付单／交接单 %d 个（先看这些）：" % len(notes))
+    for m, rel, sz in notes:
+        print("★", time.strftime("%m-%d %H:%M", time.localtime(m)), rel)
 for m, rel, sz in rows[-400:]:
     print(time.strftime("%m-%d %H:%M", time.localtime(m)), f"{sz//1024:>6}KB", rel)
 # 新交的图和 JSON 顺手过一遍提交前检查那套硬规则（check_assets.py：JSON 能读、零件透明 0/255、背景和瓦片尺寸、图多大），
