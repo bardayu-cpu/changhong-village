@@ -1,0 +1,127 @@
+{
+ "scene": "scene_backhall_start",
+ "title": "后厅（空）",
+ "note": "后厅交给 GPT 试接手的起点（01 D 10/1 派）：一块空地，只有地面、北墙、南边走廊和两个出口。出口 id、坐标跟灰盒后厅（scene_luoman_backhall）一样，main.gd 的 _on_backhall_spot 照旧认：to_hall 回宴会厅、to_lawn 去草坪。scripts/backhall_start.gd 读这份；启动参数 --backhall=start 用它代替灰盒后厅。",
+ "size": [
+  1536,
+  1024
+ ],
+ "person_px": {
+  "near_y": 1024,
+  "near_h": 84,
+  "far_y": 0,
+  "far_h": 84
+ },
+ "spawn": [
+  100,
+  780
+ ],
+ "points": [
+  {
+   "id": "to_hall",
+   "x": 40,
+   "y": 780,
+   "r": 50
+  },
+  {
+   "id": "to_lawn",
+   "x": 1500,
+   "y": 780,
+   "r": 50
+  }
+ ],
+ "walk": [
+  [
+   [
+    16,
+    232
+   ],
+   [
+    1520,
+    232
+   ],
+   [
+    1520,
+    878
+   ],
+   [
+    16,
+    878
+   ]
+  ]
+ ],
+ "flat": [
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    0,
+    1536,
+    1024
+   ],
+   "color": "#2e211b"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    104,
+    1536,
+    226
+   ],
+   "color": "#6b4a36"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    218,
+    1536,
+    226
+   ],
+   "color": "#4a3226"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    16,
+    226,
+    1520,
+    690
+   ],
+   "color": "#c9b79a"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    16,
+    690,
+    1520,
+    880
+   ],
+   "color": "#b8a184"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    0,
+    740,
+    16,
+    820
+   ],
+   "color": "#7a5a40"
+  },
+  {
+   "type": "rect",
+   "rect": [
+    1520,
+    740,
+    1536,
+    820
+   ],
+   "color": "#7a5a40"
+  }
+ ],
+ "items": [],
+ "npcs": []
+}

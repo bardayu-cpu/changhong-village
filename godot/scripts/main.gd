@@ -13,6 +13,9 @@ const SWITCH_TINT := Color("#3a1d12")
 const COURT_FROM_HALL := Vector2(768, 260)   # 蓝图 1 出入口表：宴会厅的门 → 迎宾院 (768, 260)
 ## 后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）：宴会厅东侧门进去，西口出来回宴会厅
 const Backhall = preload("res://scripts/backhall.gd")
+## 后厅搭哪块（01 D 10/1：后厅厨房交给 GPT 试接手）：默认灰盒后厅；启动参数 --backhall=start 换成空起点 backhall_start.gd。
+## GPT 在自己那份副本里做新后厅，做好以后换这一行（或者新场景直接写进 backhall.gd）
+const BACKHALL_START := "res://scripts/backhall_start.gd"
 const BackhallUI = preload("res://scripts/backhall_ui.gd")
 ## 蓝图 1 出入口表写宴会厅 → 后厅站 (50, 780)，离后厅西口 (40, 780, 50) 只有 10 像素、站在出口圈里；
 ## 01 9/19 定：到了站的点离出口至少 1 米，沿出口方向往里挪，所以是 (100, 780)
@@ -300,7 +303,7 @@ func _ready() -> void:
     court.spot.connect(_on_court_spot)
     court.walking_enabled = false
     print("[suqi] 迎宾院搭好了")
-    backhall = Backhall.new()
+    backhall = load(BACKHALL_START).new() if "--backhall=start" in OS.get_cmdline_user_args() else Backhall.new()
     sv.add_child(backhall)
     backhall.build(preset, "", font)
     backhall.spot.connect(_on_backhall_spot)
@@ -360,9 +363,11 @@ func _ready() -> void:
     print("[suqi] 界面搭好了")
     var cap := ""
     var shot := ""
+    var start := ""   # 开发用：--start=<截图预设名> 跳过开场直接到那个地方，人能接着走（比如 --start=backhall 直接进后厅）
     for a in OS.get_cmdline_user_args():
         if a.begins_with("--capture="): cap = a.substr(10)
         elif a.begins_with("--shot="): shot = a.substr(7)
+        elif a.begins_with("--start="): start = a.substr(8)
     if cap != "":
         fast = true
         if "--hud" in OS.get_cmdline_user_args():
@@ -386,6 +391,11 @@ func _ready() -> void:
         print("[suqi] 着色器预热完了")
         if OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args():
             _build_debug()
+        if start != "":
+            await _setup_shot(start)
+            fade.color.a = 0.0
+            print("[suqi] 直接到了 ", start, "（--start）")
+            return
         _goto("title")
         _fade_to(0.0)
         # 保险：不管前面哪里没走完，2 秒后开场一定亮出来
