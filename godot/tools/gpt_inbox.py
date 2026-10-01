@@ -47,6 +47,15 @@ if fresh:
     r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "check_assets.py")] + fresh)
     if r.returncode == 0:
         print("硬检查：没有要拦的")
+# 零件总表（docs/零件总表.md）：新交的零件图对得上编号就把状态改成「交了」，对不上的报出来（01 D 10/2）
+if fresh:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import parts_table
+    notes = parts_table.apply(fresh)
+    if notes:
+        print("—— 零件总表 ——")
+        for n in notes:
+            print(n)
 if "--done" in sys.argv:
     json.dump({"at": time.time()}, open(STAMP, "w"))
     print("已记下这次查看的时间")
