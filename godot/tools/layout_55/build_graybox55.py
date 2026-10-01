@@ -365,6 +365,8 @@ def main():
             continue
         if art and "背景里画好的" in it["name"]:
             continue   # 贺礼堆、南边的大门画在背景里
+        if it["group"] == "gifts":
+            continue   # 重排的礼物堆（B55S-P05）：真图没到先不画（01 E），挡路照算
         if art and os.path.exists(ART_SOUTH) and it["name"] in front_names:
             continue   # v7：南边栏杆画在南边那张背景里；人走不到栏杆顶以南（见能走的格子），不用挡
         x, y, w, h = it["box"]

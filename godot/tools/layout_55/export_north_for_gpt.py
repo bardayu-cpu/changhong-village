@@ -50,13 +50,15 @@ PARTS = {
     "B55-P02": {"name": "落地花架", "art": "art_flowerstand.png", "color": (90, 190, 90)},
     "B55-P03": {"name": "小花盆", "art": "art_flowerpot.png", "color": (150, 225, 140)},
     "B55-P04": {"name": "长凳", "art": "art_bench.png", "color": (110, 190, 255)},
+    # 重排（02 10/2，01 E）：舞台西边地上的礼物堆，GPT 多交一件 B55S-P05（约 96×80），真图没到游戏里先不画（scene.json 里没有）
+    "B55S-P05": {"name": "礼物堆", "art": None, "color": (245, 150, 60)},
 }
 # ---------- 背景（不拆）：总表里只有 BG01（北边整张）、W01/W02（竖墙），其余是这次临时起的子编号，等 01 定要不要收进总表 ----------
 BG_COLORS = {
     "地面": (239, 227, 207), "北墙": (92, 52, 36), "墙顶横梁": (55, 28, 20), "帐幔": (170, 40, 40), "挂灯": (255, 140, 0),
     "西墙": (135, 95, 65), "东墙": (135, 95, 65), "花拱": (30, 100, 95), "囍字圆牌": (215, 170, 60),
     "红毯": (179, 32, 42), "乐队地台": (110, 60, 140), "婚礼台（台面）": (150, 60, 90), "婚礼台（台口立面）": (95, 20, 45),
-    "台阶": (190, 120, 96), "贺礼架": (240, 140, 160),
+    "台阶": (190, 120, 96), "贺礼架": (240, 140, 160), "东侧门": (60, 140, 200),
 }
 
 
@@ -77,11 +79,15 @@ def classify(it):
         return "B55-P03", "小花盆", "part", it["box"][0]
     if n == "长凳":
         return "B55-P04", "长凳", "part", 0
+    if it["group"] == "gifts":
+        return "B55S-P05", "礼物堆", "part", (it["foot"][1], it["box"][0])
     bg = {"北墙（立面）": ("B55-BG01-a", "北墙"), "墙顶横梁": ("B55-BG01-b", "墙顶横梁"), "花拱": ("B55-BG01-g", "花拱"),
           "囍字圆牌": ("B55-BG01-h", "囍字圆牌"), "婚礼台（台面）": ("B55-BG01-i", "婚礼台（台面）"),
           "婚礼台（台口立面）": ("B55-BG01-j", "婚礼台（台口立面）"), "台阶": ("B55-BG01-k", "台阶"), "红毯": ("B55-BG01-l", "红毯"),
           "乐队地台（背景里画好的）": ("B55-BG01-m", "乐队地台"), "贺礼堆（背景里画好的）": ("B55-BG01-n", "贺礼架"),
-          "西墙": ("B55-W01", "西墙"), "东墙（北段）": ("B55-W02", "东墙")}
+          "西墙": ("B55-W01", "西墙"), "东墙（北段）": ("B55-W02", "东墙"),
+          # 重排以后厅变短，东侧门和东墙南段也落进北边这块了
+          "东墙（南段）": ("B55-W02", "东墙"), "东侧门（门洞）": ("B55-BG01-o", "东侧门")}
     if n in bg:
         return bg[n][0], bg[n][1], "bg", it["box"][1]
     if n.startswith("帐幔"):
@@ -111,6 +117,11 @@ def build_catalog():
             continue
         prefix, kind, cat, key = c
         rec = {"item": it, "prefix": prefix, "kind": kind, "cat": cat, "key": key, "name": it["name"], "box": it["box"]}
+        if cat == "part" and prefix == "B55S-P05":
+            rec["occ"] = {"x": x, "y": y, "foot": it["foot"][1] + it["foot"][3], "no_scene": True}   # 不在游戏里，按占地下沿排前后
+            rec["cut"] = y + h > NORTH_H
+            parts.append(rec)
+            continue
         if cat == "part":
             o = occ.get((x, y))
             rec["occ"] = o
@@ -140,6 +151,8 @@ def build_catalog():
 
 
 def part_art(prefix):
+    if PARTS[prefix]["art"] is None:   # 礼物堆：没有图，拿一块满的框顶上（只用来量大小、数块）
+        return Image.new("RGBA", (96, 80), (255, 255, 255, 255))
     return Image.open(os.path.join(SCENE_DIR, PARTS[prefix]["art"])).convert("RGBA")
 
 
@@ -147,7 +160,7 @@ def draw_blocks(parts, bgs, scene, labels):
     """色块图：背景大件和零件都画成『画出来的框』（矩形），一种一色；零件按游戏里排前后的线从北往南画，压住后面的"""
     im = Image.new("RGB", (W, NORTH_H), BG_COLORS["地面"])
     g = ImageDraw.Draw(im)
-    order = ["北墙", "墙顶横梁", "帐幔", "挂灯", "西墙", "东墙", "花拱", "囍字圆牌", "红毯", "乐队地台", "婚礼台（台面）", "婚礼台（台口立面）", "台阶", "贺礼架"]
+    order = ["北墙", "墙顶横梁", "帐幔", "挂灯", "西墙", "东墙", "东侧门", "花拱", "囍字圆牌", "红毯", "乐队地台", "婚礼台（台面）", "婚礼台（台口立面）", "台阶", "贺礼架"]
     for kind in order:
         for r in bgs:
             if r["kind"] == kind:
@@ -288,6 +301,7 @@ def check_scene(parts, scene):
     """零件框对 scene.json：x、y、零件图大小逐件对；件数对；回 (偏差表, 问题)"""
     bad, rows = [], []
     occ_n = [o for o in scene["occluders"] if o["y"] < NORTH_H]
+    parts = [r for r in parts if not (r["occ"] or {}).get("no_scene")]   # 礼物堆不在游戏里，不对 scene.json
     if len(occ_n) != len(parts):
         bad.append("scene.json 里 y<1024 的零件 %d 件，零件单 %d 件" % (len(occ_n), len(parts)))
     for r in parts:
