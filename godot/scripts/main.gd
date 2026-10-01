@@ -675,9 +675,10 @@ func _close_hall55() -> void:
     view.get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
     print("[suqi] 关了 55 桌试验厅")
 
-## 搭宴会厅。默认是第 44 版的 12 桌厅（9/24 夜阿鱼：「目前看来最合适的还不如 44 版」，01 定退回第 44 版当底子）。
-## 另外两套只在调试开关后面：v11 = 第 46 版照 GPT 效果图还原的那套；55 = 55 桌大厅（实验，等 04 复看）。
-## 正式开关在 assets/hall.json（hall55 为 true 才默认 55 桌）；调试版日志面板里的按钮能临时轮着切（存在本机 user://hall55.flag，下次打开还记得）
+## 搭宴会厅。第 52 版起默认是 55 桌大厅（阿鱼 10/1 定，婚礼当天就是 55 桌）；第 44 版的 12 桌厅留着不删，调试开关后面能切回去。
+## v11 = 第 46 版照 GPT 效果图还原的那套，也只在调试开关后面。
+## 正式开关在 assets/hall.json（hall55 为 true 默认 55 桌）；调试版日志面板里的按钮能临时轮着切（存在本机 user://hall55.flag，下次打开还记得）
+## 开关文件里第 44 版记「44」；第 52 版以前记的是「0」，那时默认就是第 44 版，不算挑过，照默认走（不然调试切过的手机一直卡在 12 桌厅）
 const HALL_CFG := "res://assets/hall.json"
 const HALL55_FLAG := "user://hall55.flag"
 const HALL_VARIANTS := ["", "v11", "55"]
@@ -697,7 +698,10 @@ func hall_variant() -> String:
         var v := FileAccess.get_file_as_string(HALL55_FLAG).strip_edges()
         if v == "1":
             return "55"   # 旧的开关文件：1 是 55 桌
-        return v if v in hall_variants() else ""
+        if v == "44":
+            return ""
+        if v != "" and v in hall_variants():
+            return v
     if FileAccess.file_exists(HALL_CFG):
         var j = JSON.parse_string(FileAccess.get_file_as_string(HALL_CFG))
         if j is Dictionary and bool(j.get("hall55", false)):
@@ -751,7 +755,7 @@ func _set_hall_variant(v: String, keep := true) -> void:
     if keep:
         var f := FileAccess.open(HALL55_FLAG, FileAccess.WRITE)
         if f != null:
-            f.store_string(v if v != "" else "0")
+            f.store_string(v if v != "" else "44")
             f.close()
     else:
         hall_variant_once = v

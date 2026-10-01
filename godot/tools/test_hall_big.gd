@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：55 桌大厅灰盒（01 D 9/29 派：不等 GPT 的图，照摆位底图 v3.2 的摆位表做进游戏）。和第 44 版厅并存，调试开关切：
-## 0 默认还是第 44 版 12 桌厅；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×3440（摆位 v7：GPT 南边包、v2 零件）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
+## 0 第 52 版起默认就是 55 桌厅，本机开关文件旧的「0」照默认走、「44」还认；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×3440（摆位 v7：GPT 南边包、v2 零件）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
 ## 2 550 把椅子都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
 ## 4 第一次进厅镜头从大门滑到自己那桌、人站在桌边；以后进厅直接站自己桌边；5 从后厅回来站东侧门里边；
 ## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上只写桌号和游戏名）、其余不挂；
@@ -133,11 +133,10 @@ func run() -> void:
     m.nickname = "小李"
     m.cloud.fake_no_news = true
 
-    print("0 默认还是第 44 版 12 桌厅")
-    check("assets/hall.json 默认关", not m.hall55_on())
-    check("搭的是 12 桌厅：%d 张桌" % m.hall.cfg["tables"].size(), not m.hall.big and m.hall.cfg["tables"].size() == 12)
-    check("12 桌厅的座位圈、长凳还是原来的常数", m.hall.seat_dy == LayeredHall.SEAT_DY and m.hall.bench_x0 == LayeredHall.BENCH_X0
-        and m.hall.bench_draw and not m.hall.sign_near)
+    print("0 第 52 版起默认就是 55 桌大厅（阿鱼 10/1 定）")
+    check("assets/hall.json 默认开", m.hall55_on())
+    check("一打开搭的就是 55 桌厅：%d 张桌" % m.hall.cfg["tables"].size(), m.hall.big and m.hall.cfg["tables"].size() == 55)
+    check_flag_default()
 
     print("1 切到 55 桌大厅灰盒")
     await m._enter_banquet()
@@ -597,7 +596,7 @@ func run() -> void:
     await create_timer(0.5).timeout
     check("回到 12 桌厅：%d 张桌" % m.hall.cfg["tables"].size(), not m.hall.big and m.hall.cfg["tables"].size() == 12 and m.hall.signs == null)
     check("假服务端也回 12 张、不带主桌", m.cloud.fake_tables == 12 and m.cloud.fake_table_ids.is_empty())
-    check("默认的宴会厅是第 44 版那套（场景 scene_roman_banquet、贺礼堆在舞台左边地上 (410, 302)）",
+    check("切回的是第 44 版那套（场景 scene_roman_banquet、贺礼堆在舞台左边地上 (410, 302)）",
         str(m.hall.cfg["scene"]) == "scene_roman_banquet" and m.hall.life._vec(m.hall.life.conf["gifts"]) == Vector2(410, 302))
     check("第 44 版厅不按日期分：1～6 号桌照旧，7 号没有", load("res://scripts/games/game_config.gd").daily.is_empty()
         and str(m.GameCfg.game_for_table("T1").get("id", "")) == "lianliankan" and m.GameCfg.game_for_table("T7").is_empty())
@@ -698,3 +697,13 @@ func _signs_v8v9(h) -> void:
     var pulled: bool = absf(mine.position.x - float(mine.get_meta("home", mine.position.x))) > 1.0
     check("坐 %s，自己那桌的牌本来跨出屏幕右边，往里收了（%s），右边离屏幕边 %.1f 像素；亮着的牌 %d 块，离屏幕左右边最近 %.1f（要 ≥ %.0f）" % [east, pulled, mine_r, shown, worst, LayeredHall.TAG_EDGE],
         east != "" and pulled and mine.visible and shown >= 1 and worst >= LayeredHall.TAG_EDGE - 0.6)
+
+## 本机开关文件：第 52 版以前切过第 44 版的手机记的是「0」，照默认走 55 桌；第 52 版起切第 44 版记「44」，还认
+func check_flag_default() -> void:
+    var path := ProjectSettings.globalize_path(Main.HALL55_FLAG)
+    for c in [["0", "55"], ["44", ""], ["v11", "v11" if "v11" in Main.hall_variants() else "55"], ["55", "55"], ["1", "55"]]:
+        var f := FileAccess.open(Main.HALL55_FLAG, FileAccess.WRITE)
+        f.store_string(c[0])
+        f.close()
+        check("开关文件写「%s」→ 宴会厅「%s」（实际「%s」）" % [c[0], c[1], m.hall_variant()], m.hall_variant() == c[1])
+    DirAccess.remove_absolute(path)

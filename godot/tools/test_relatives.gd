@@ -64,6 +64,7 @@ func run() -> void:
     m.cloud.fake_no_news = true
 
     print("0 第 44 版厅没有亲友")
+    await m._set_hall55(false)   # 第 52 版起默认 55 桌，先切到第 44 版（开关文件最后删掉）
     await m._enter_banquet()
     await create_timer(0.5).timeout
     check("第 44 版厅：没有亲友", m.hall.life.relatives == null and not m.rel_btn.visible)

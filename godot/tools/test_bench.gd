@@ -18,6 +18,7 @@ var ok := true
 func _initialize() -> void:
     m = Main.new()
     m.fast = true   # 淡入淡出直接跳过
+    m.hall_variant_once = ""   # 这套测的是第 44 版 12 桌厅（第 52 版起默认 55 桌，第 44 版留着）；只这一次，不写本机开关
     get_root().add_child(m)
 
 func _process(_dt: float) -> bool:
