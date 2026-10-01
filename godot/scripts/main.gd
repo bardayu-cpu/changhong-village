@@ -2956,6 +2956,34 @@ func _setup_shot(shot: String) -> void:
                     hall.apply_change("T2", 1, cloud.openid())
                 _note("坐好了")
                 await get_tree().process_frame
+        "big_sit_far":
+            # 第 52 版起默认就是 55 桌厅（不强制切）：站到 T20 一把空椅子跟前，「坐这儿」点两下走假服务端 changeSeat，坐好了再截（01 E 10/2 验收）
+            nickname = "小李"
+            cloud.fake_no_news = true
+            await _enter_banquet()
+            await get_tree().create_timer(2.0).timeout
+            dialog.visible = false
+            _hide_hint()
+            hall.couple_armed = false
+            var tf: Dictionary = hall._table_cfg("T20")
+            var no := 0
+            for n in range(1, 11):
+                if not hall.seat_taken.has("T20:%d" % n):
+                    no = n
+                    break
+            hall.reset_to(hall._stand_spot(hall.chair_world(tf, no), Vector2(float(tf["x"]), float(tf["y"]))))
+            hall.snap_cam()
+            for i in 30:
+                if str(near_seat_info.get("table_id", "")) == "T20":
+                    break
+                await get_tree().create_timer(0.1).timeout
+            _on_sit_pressed()
+            _on_sit_pressed()
+            for i in 30:
+                if hall.seated:
+                    break
+                await get_tree().create_timer(0.1).timeout
+            print("[suqi] big_sit_far 坐在 ", hall.my_seat, " seated=", hall.seated)
         "person":
             # 站在一个坐着的人（老王）旁边，底部昵称按钮出来了（第 22 版）
             nickname = "小李"
