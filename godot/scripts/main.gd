@@ -2845,6 +2845,11 @@ func _shot_game(shot: String) -> void:
             games_save.games[id] = int(part.substr(2)) - 1
     # 9/24 起记菜名、护菜、接彩头在宴会厅关掉了（tables 是空的），截图时借 1 号桌开
     var tid := str(g["tables"][0]) if not (g["tables"] as Array).is_empty() else "T1"
+    # 55 桌厅每桌按北京日期分游戏（GameCfg.daily），上面那张桌今天不一定是这个游戏：找一张今天玩它的桌
+    for t in GameCfg.daily:
+        if str(GameCfg.daily[t]) == id:
+            tid = str(t)
+            break
     hall.apply_change(tid, 5, cloud.openid())
     for i in 30: await get_tree().process_frame
     _open_game(tid)
@@ -3055,6 +3060,7 @@ func _setup_shot(shot: String) -> void:
             # 翻簿子：坐在 T1，面板打开，有几条句子，能写（第 24 版）
             nickname = "小李"
             await _enter_banquet()
+            await _shot_skip_entry_toast()   # 进厅那张干杯插图先收掉，不然盖在簿子上
             if USE_LAYERED:
                 hall.apply_change("T1", 4, cloud.openid())
                 _open_book_panel("T1")
