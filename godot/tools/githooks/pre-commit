@@ -1,0 +1,16 @@
+#!/bin/zsh
+# 提交前检查（01 D 10/1，阿鱼点头）：查这次要提交的 JSON 和图，规则见 godot/tools/check_assets.py 开头。
+# 装法（仓库里跑一次，01、02、03、04 哪个窗口提交都会过）：git config core.hooksPath godot/tools/githooks
+# 被拦了：看上面打出来的「拦下」那几行，照「怎么办」改完重新 git add 再提交；只有「提醒」不挡提交。
+# 万一要先提交（比如提交的就是要交给 GPT 返工的坏图），先问 01，再用 git commit --no-verify
+ROOT="$(git rev-parse --show-toplevel)"
+CHECK="$ROOT/godot/tools/check_assets.py"
+[ -f "$CHECK" ] || exit 0   # 这条分支上还没有检查脚本（比如早于 10/1 的分支）：不查
+python3 "$CHECK" --staged
+code=$?
+if [ $code -ne 0 ]; then
+    echo ""
+    echo "提交被提交前检查拦下了（godot/tools/check_assets.py）。看上面「拦下」那几行。"
+    exit 1
+fi
+exit 0
