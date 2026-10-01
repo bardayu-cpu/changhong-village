@@ -307,6 +307,8 @@ func _ready() -> void:
     sv.add_child(backhall)
     backhall.build(preset, "", font)
     backhall.spot.connect(_on_backhall_spot)
+    if backhall.has_signal("kitchen_requested"):
+        backhall.kitchen_requested.connect(_open_kitchen)
     backhall.walking_enabled = false
     print("[suqi] 后厅搭好了")
     lawn = Lawn.new()
@@ -3668,3 +3670,18 @@ func _setup_shot(shot: String) -> void:
             nickname = "测试敏感"
             await _enter_banquet()
             await get_tree().process_frame
+
+
+# GPT 厨房：独立玩法面板，复用现有金币，关闭后恢复后厅行走。
+func _open_kitchen() -> void:
+    if state != "backhall" or is_instance_valid(game_host):
+        return
+    backhall.walking_enabled = false
+    backhall.stick = Vector2.ZERO
+    backhall_ui.hide_all()
+    game_host = load("res://scripts/kitchen/kitchen_panel.gd").new()
+    ui.add_child(game_host)
+    game_host.closed.connect(func():
+        game_host = null
+        backhall.walking_enabled = state == "backhall")
+    game_host.open(games_save, font)

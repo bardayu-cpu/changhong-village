@@ -31,7 +31,7 @@ func spot(id: String, inside: bool) -> void:
     if inside:
         _close_line()
         act_id = id
-        act_btn.text = Copy.text("btn_" + id, Copy.BACKHALL)
+        act_btn.text = "穿上围裙 · 学做菜" if id == "pot" else Copy.text("btn_" + id, Copy.BACKHALL)
         act_btn.visible = true
     elif act_id == id:
         _close_line()
@@ -41,6 +41,9 @@ func spot(id: String, inside: bool) -> void:
 ## 点一下出这句话（不自己收），再点关掉
 func _on_act() -> void:
     if act_id == "":
+        return
+    if act_id == "pot":
+        m._open_kitchen()
         return
     if line_open():
         _close_line()
