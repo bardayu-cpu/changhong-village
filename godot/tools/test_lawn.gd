@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：罗曼山庄草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
-## 布局：四个交互点和蓝图一字不差、球 (760,580)、喜多 (700,540)、孩童区秋千滑梯两个小孩、西北拱门和白椅子（没交互）、四周的树。
+## 布局：四个交互点和蓝图一字不差、球 (760,580)、喜多 (700,540)、孩童区秋千滑梯四个小孩、西北草坪婚礼仪式区（展位，没交互）、四周的树。
 ## 进出：迎宾院东小径 ↔ 草坪西南口、后厅厨房后门 ↔ 草坪西北口，到了站的点离出口至少 1 米、不来回弹；草坪北口 ↔ 果园南口。
 ## 小孩：第一次踢完球、喜多把球放回脚边时喊一句「再踢一个」，每回到草坪喊一次（01 9/20 定）。踢球（只在本机）：第一次走近喜多叼着球跑过来；走到球旁出「踢一脚」；
 ## 朝人面朝的方向滚 1 秒停住（左右 4 米 192 像素、前后 4 米 128 像素）；滚不出草坪；滚进东西弹回上一格；停了喜多叼回人脚边，
@@ -88,23 +88,28 @@ func run() -> void:
     var kids_in := 0
     for id in l.npc_nodes:
         var p: Vector2 = (l.npc_nodes[id] as Sprite2D).position
-        if str(id).begins_with("kid") and p.x >= 1100 and p.x <= 1500 and p.y >= 250 and p.y <= 600:
+        if str(id).begins_with("kid") and p.x >= 1100 and p.x <= 1500 and p.y >= 250 and p.y <= 620:
             kids_in += 1
-    check("孩童区（x 1100～1500，y 250～600）两个小孩（%d）" % kids_in, kids_in == 2)
+    check("孩童区（x 1100～1500，y 250～620）四个小孩（%d；展位 01 E 10/3：LM-KID-01～04）" % kids_in, kids_in == 4)
     # 9/24 起草坪铺了占位底图，秋千、拱门、椅子、树画在图里、不再单独画；这里查布局里有没有它们（它们还在布局里算挡人）
     var ids := {}
     for it in l.cfg.get("items", []):
         ids[str(it.get("id", ""))] = it
     check("秋千、滑梯都在孩童区", ids.has("swing_bar") and ids.has("swing_seat") and ids.has("slide_tower") and ids.has("slide_chute"))
-    var arch_ok: bool = ids.has("arch_post_w") and ids.has("arch_post_e") and ids.has("arch_top")
+    # 展位（01 E 10/3）：西北是西式草坪婚礼仪式区——大树、圆台（LW-P01）、通道两边矮花丛（LW-P04）、两边各 5 排 × 4 把白椅子（LW-P03）；
+    # 花拱门（LW-P02）先不摆，跟仪式台二选一等阿鱼看目录
+    var wed_ok: bool = ids.has("wed_tree") and ids.has("wed_stage") and not ids.has("arch_top")
     var chairs := 0
+    var hedges := 0
     for id in ids:
         if str(id).begins_with("chair_"):
             chairs += 1
+        if str(id).begins_with("hedge_"):
+            hedges += 1
     var far_from_points := true
     for id in l.points:
-        far_from_points = far_from_points and (l.points[id]["pos"] as Vector2).distance_to(Vector2(300, 320)) > 150.0
-    check("西北拱门、前面 %d 把白椅子，附近没有交互点（预留）" % chairs, arch_ok and chairs >= 6 and far_from_points)
+        far_from_points = far_from_points and (l.points[id]["pos"] as Vector2).distance_to(Vector2(300, 420)) > 150.0
+    check("西北仪式区：大树圆台、%d 把白椅子、%d 丛矮花，附近没有交互点（只摆位置）" % [chairs, hedges], wed_ok and chairs == 40 and hedges == 10 and far_from_points)
     var trees := 0
     for id in ids:
         if str(id).begins_with("tree_"):
@@ -211,7 +216,7 @@ func run() -> void:
     print("5 四个方向")
     var dirs := {"right": Vector2(192, 0), "down": Vector2(0, 128), "left": Vector2(-192, 0), "up": Vector2(0, -128)}
     for f in dirs:
-        var start := Vector2(560, 620)
+        var start := Vector2(1000, 700)   # 展位（10/3）西边摆了观礼椅子，往左 4 米会撞上，挪到中间空草地上踢
         place(l, start, start - (dirs[f] as Vector2).normalized() * 30.0, f)
         check("%s：能踢、按钮出着" % f, l.can_kick() and ui.act_btn.visible)
         ui._on_act()
@@ -248,15 +253,16 @@ func run() -> void:
     check("往西踢：停在 %s，还在草坪里、能站" % l.ball_pos, l.ball_pos.x > 16.0 and l._free(l.ball_pos) and l.bounced)
     until_idle(l)
 
-    # 7. 滚进东西的占地弹回上一格：白椅子那一列下面往上踢
+    # 7. 滚进东西的占地弹回上一格：白椅子那一列下面往上踢（展位 10/3 起椅子在通道西边 x 229 那一列，最后一排脚在 y 676）
     print("7 弹回上一格")
-    place(l, Vector2(242, 478), Vector2(242, 506), "up")
+    var under := Vector2(229, 780)
+    place(l, under, under + Vector2(0, 28), "up")
     l.kick()
     tick(int(1.1 / DT))
     var cell: float = l.cell
     check("撞到白椅子停在 %s：这格能站、正好是格子中心、往上一格就挡住" % l.ball_pos,
         l.bounced and l._free(l.ball_pos) and l.ball_pos == l._cell_pos(l._cell_of(l.ball_pos)) and not l._free(l.ball_pos + Vector2(0, -cell))
-        and l.ball_pos.y < 478.0)
+        and l.ball_pos.y < under.y)
     until_idle(l)
 
     # 8. 喜多被挡住：去叼球的路不通，直接出现在球旁；回来的路不通，直接出现在人跟前；照样把球放回脚边
