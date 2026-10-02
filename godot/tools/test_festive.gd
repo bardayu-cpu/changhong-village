@@ -2,11 +2,11 @@ extends SceneTree
 ## 验收：宴会厅的彩带与飘落（docs/宴会厅-彩带与飘落-说明.md，01 E 10/2）
 ## 1 红绸：红毯两边每对灯柱一道，挂在花冠里侧边上（西 +43、东 +3、花冠那一行 +23，相距 137），3 格来回晃、每道错开；
 ##   在人和桌子上面、牌子下面（z）；不是界面控件，不收点击
-## 2 开席：一阵最多 60 片、约 4 秒散完；同一时间只放一阵（进厅排着、等开席散了再放；开席时来的干杯不要）
+## 2 开席：一阵最多 90 片、约 5 秒散完（04 10/2 从 60 片 4 秒加上来）；同一时间只放一阵（进厅排着、等开席散了再放；开席时来的干杯不要）
 ## 3 进厅：最多 30 片；每天第一次进厅才放（北京日期），同一天第二次不放、第二天又放
 ## 4 干杯：12～16 片、只有花瓣、落在两个人头顶；干杯插图还开着先等着；别人当场敬我也落
 ## 5 开席那一刻：按北京时间从 11:59 走到 12:00 放；调试版强制开席不放；进厅时已经开席了不补
-## 6 在小游戏、簿子、菜单里不放，回来也不补；7 掉帧（低于 55）片数减半；8 没图又不是调试版：不挂不飘
+## 1b 脚下那圈找自己：跟着人、在人后面、不写字；6 在小游戏、簿子、菜单里不放，回来也不补；7 掉帧（低于 55）片数减半；8 没图又不是调试版：不挂不飘
 ## 用法：Godot --headless --path . --script res://tools/test_festive.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -102,6 +102,17 @@ func run() -> void:
         controls += 1
     check("不是界面控件、不收点击（里面 Control %d 个）" % controls, controls == 0 and f is Node2D)
 
+    print("1b 脚下找自己的圈（04 10/2）")
+    h._process(0.016)
+    var ring = h.me_ring
+    check("脚下有一圈：跟着人（%s 对 %s）、在人和桌子后面（z %d）、没有字" % [ring.position if ring != null else null, h.pos, ring.z_index if ring != null else 0],
+        ring != null and ring.visible and ring.position.is_equal_approx(h.pos) and ring.z_index < 0 and ring.find_children("*", "Label", true, false).is_empty())
+    h.player.visible = false
+    h._process(0.016)
+    check("人藏起来（截图）圈也藏", not ring.visible)
+    h.player.visible = true
+    h._process(0.016)
+
     print("2 开席")
     f.request("feast")
     f.request("entry")
@@ -112,7 +123,7 @@ func run() -> void:
     while f.cur == "feast" and t < 8.0:
         most = maxi(most, sim(f, 0.05))
         t += 0.05
-    check("开席一阵 %.1f 秒散完、同时最多 %d 片（≤ 60）" % [t, most], t >= 3.0 and t <= 5.0 and most <= 60 and most >= 30)
+    check("开席一阵 %.1f 秒散完、同时最多 %d 片（≤ 90）" % [t, most], t >= 4.0 and t <= 6.0 and most <= 90 and most >= 60)
     sim(f, 0.1)
     check("开席散了接着放进厅", f.cur == "entry")
     most = sim(f, 3.0)
@@ -208,9 +219,9 @@ func run() -> void:
     print("7 掉帧片数减半")
     f.fps_fn = func() -> float: return 40.0
     f.request("feast")
-    most = sim(f, 3.0)
-    check("40 帧时开席同时最多 %d 片（≤ 30）" % most, f.cur_max == 30 and most <= 30)
-    sim(f, 4.0)
+    most = sim(f, 4.0)
+    check("40 帧时开席同时最多 %d 片（≤ 45）" % most, f.cur_max == 45 and most <= 45)
+    sim(f, 5.0)
     f.fps_fn = func() -> float: return 60.0
 
     print("8 没图又不是调试版：不挂不飘")

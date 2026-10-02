@@ -40,6 +40,7 @@ var base_tex: Texture2D
 var world: Node2D          # 开了 y 排序：积木、新人、玩家都在这里面
 var cam: Camera2D
 var player: Sprite2D
+var me_ring: Node2D        # 脚下一圈淡金色、会呼吸的圈（04 10/2：人堆里找不到自己），在宴会厅一直在、不写字
 var tag: Label
 var tag_anchor: Node2D
 var exit_mark: Polygon2D
@@ -273,6 +274,11 @@ func _couple() -> void:
     world.add_child(cp)
 
 func _player(preset: int, nickname: String) -> void:
+    # 脚下那圈：跟出口、签到台同一个画法（空心金边 + 淡光、一明一暗），淡一些、小一些；
+    # 贴地画在人和桌子后面（z -5，跟出口那圈一样），人站哪跟到哪，人藏起来它也藏
+    me_ring = ring_mark(20.0, 8.0)
+    me_ring.z_index = -5
+    add_child(me_ring)
     player = Sprite2D.new()
     player.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     world.add_child(player)
@@ -703,6 +709,11 @@ func _process(dt: float) -> void:
         my_cup.position = pos + Vector2(-14.0 if face == "left" else 14.0, -body_h + 22.0)
     if exit_mark.visible:
         breathe_ring(exit_mark, t)
+    if me_ring != null:
+        me_ring.visible = player.visible
+        me_ring.position = pos
+        breathe_ring(me_ring, t)
+        me_ring.modulate.a *= 0.6   # 比出口那圈淡：只是让人一眼找到自己，不是「往这儿来」
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:
         couple_armed = false
         path.clear()
