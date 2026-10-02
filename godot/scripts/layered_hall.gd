@@ -370,7 +370,7 @@ static func edge_arrow() -> Polygon2D:
 var door_hint := false
 var door_mark: Polygon2D
 var door_arrow: Polygon2D
-const DOOR_MARK_UP := 80.0   # 金光挂在门那个点上面多高
+const DOOR_MARK_UP := 30.0   # 金光挂在门那个点上面多高（门那块面板正前面一点，不飘到墙上）
 
 func set_door_hint(on: bool) -> void:
     door_hint = on and side_door != Vector2.ZERO
