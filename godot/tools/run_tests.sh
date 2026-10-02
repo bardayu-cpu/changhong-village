@@ -8,7 +8,8 @@ D=$(mktemp -d)
 pass=0; fail=0; failed=""
 for f in tools/test_*.gd; do
   n=$(basename $f)
-  $G --headless --path . --script res://$f > "$D/$n.log" 2>&1
+  # 每个测试最多跑 5 分钟：测试脚本中途报错常常就停在那儿不退出，整套会一直挂着（10/2 test_relatives 就挂过）
+  perl -e 'alarm shift; exec @ARGV' 300 $G --headless --path . --script res://$f > "$D/$n.log" 2>&1
   if grep -q "^RESULT PASS" "$D/$n.log" && ! grep -q "^RESULT FAIL" "$D/$n.log" && ! grep -aq "Parse Error\|Compile Error\|Failed to load script" "$D/$n.log"; then
     pass=$((pass+1))
   else

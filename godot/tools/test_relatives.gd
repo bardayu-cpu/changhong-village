@@ -242,13 +242,19 @@ func run() -> void:
 
     print("5 称呼：坐下了只亮跟前那位")
     var t9: Dictionary = h._table_cfg("T9")
-    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(Vector2(t9["x"], t9["y"]) + Vector2(0, float(t9["ry"]) + 30.0)))))
-    h.snap_cam()          # 镜头跟过来（不然牌子按原来镜头算都在屏幕外，全收了）
     rel.toast_t = 999.0   # 这两节别让人走开去敬酒；正巧在敬酒路上的先坐回去
     rel.toaster = null
     for r in rel.rels:
         if r.state != "sit" and r.chair > 0:
             rel._sit_now(r)
+    # 站到 T9 最靠前那位亲友的椅子跟前（10/2 十椅桌椅子圈转了 18°，桌子正前方没有椅子，不能写死站桌心正南）
+    var front = null
+    for r in rel.rels:
+        if r.table == "T9" and r.state == "sit" and (front == null or r.pos.y > front.pos.y):
+            front = r
+    var at: Vector2 = front.pos + Vector2(0, 34) if front != null else Vector2(t9["x"], t9["y"]) + Vector2(0, float(t9["ry"]) + 30.0)
+    h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(at))))
+    h.snap_cam()          # 镜头跟过来（不然牌子按原来镜头算都在屏幕外，全收了）
     rel._process(0.05)
     rel._process(0.05)   # 第一步算出谁在跟前，第二步按它亮称呼
     var lit: Array = []
