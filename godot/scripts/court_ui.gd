@@ -897,7 +897,7 @@ func open_poster() -> void:
     paper_root.visible = false
     _compose_paper(photo_pose, m.preset, poster_paper_art)
     _poster_show_code(false)
-    poster_status.text = Copy.text("poster_making")
+    _poster_say(Copy.text("poster_making"))
     poster_status.add_theme_color_override("font_color", MUTED)
     poster_share_btn.disabled = true
     poster_root.visible = true
@@ -919,14 +919,19 @@ func _on_poster_code(r: Dictionary) -> void:
     if tex != null:
         poster_code.texture = tex
         _poster_show_code(true)
-        poster_status.text = ""
+        _poster_say("")
         print("[suqi] 海报 码到了")
     else:
         _poster_show_code(false)
-        poster_status.text = Copy.text("poster_no_code")
+        _poster_say(Copy.text("poster_no_code"))
         poster_status.add_theme_color_override("font_color", RED_ERR)
         print("[suqi] 海报 码没拿到 ", r.get("reason", ""), " ", r.get("detail", ""), "，只有照片")
     poster_share_btn.disabled = false
+
+## 海报页的一句提示（正在做、没做好、没发出去）；没话说就收起来，不在海报和键中间空一块
+func _poster_say(t: String) -> void:
+    poster_status.text = t
+    poster_status.visible = t != ""
 
 ## 有码：照片 + 一句话 + 码；没码：只有照片
 func _poster_show_code(on: bool) -> void:
@@ -953,7 +958,7 @@ func _on_poster_shared(r: Dictionary) -> void:
         poster_share_btn.disabled = false
     print("[suqi] 海报 分享 ", r)
     if not bool(r.get("ok", false)) and poster_root != null and poster_root.visible:
-        poster_status.text = Copy.text("poster_share_fail")
+        _poster_say(Copy.text("poster_share_fail"))
         poster_status.add_theme_color_override("font_color", RED_ERR)
 
 ## 海报页「返回」：回到相纸（再拍一张、收好都在那儿）
