@@ -3376,16 +3376,18 @@ func _setup_shot(shot: String) -> void:
             hall.snap_cam()
             hall.stick = Vector2(-0.5, -0.8)
             _stick_show(Vector2(STICK_R + 36.0, get_viewport().get_visible_rect().size.y - 220.0), Vector2(-0.5, -0.8))
-        "court", "court_sign", "court_photo", "court_rest", "court_hall_door":
-            # 迎宾院灰盒（蓝图 3.1）：court 刚从大门进来；另外几张站到签到桌前、花墙前、休息区、楼门口
+        "court", "court_sign", "court_photo", "court_rest", "court_hall_door", "court_yard":
+            # 迎宾院灰盒（蓝图 3.1）：court 刚从大门进来；另外几张站到签到桌前、花墙前、休息区、楼门口；
+            # court_yard 站在红毯东边，一屏看见签到桌、祝福牌、花墙、回忆册和走动的客人（01 E 10/2 院子全景）
             nickname = "小李"
             await _enter_court()
             var at := {"court_sign": Vector2(1100, 690), "court_photo": Vector2(1150, 440),
-                "court_rest": Vector2(330, 520), "court_hall_door": Vector2(768, 270)}
+                "court_rest": Vector2(330, 520), "court_hall_door": Vector2(768, 270), "court_yard": Vector2(1010, 780)}
             if at.has(shot):
                 dialog.visible = false
                 court.reset_to(at[shot])
                 court.face = "up"
+            court.settle_people(20261002, 12.0)   # 走动的客人按固定种子摆、快进 12 秒：每回截出来一样
         "court_welcome", "court_sign_name", "court_sign_gift", "court_sign_confirm", "court_candy", "court_signed", "court_sign_bless", "court_sign_bless_bad":
             # 迎宾院签到（蓝图 3.1）：门口新娘妈妈迎一句；签到面板三页；签完喜糖弹窗和新娘妈妈指路；再来只显示「已签到」
             _shot_court_fresh()
@@ -3838,6 +3840,7 @@ func _setup_shot(shot: String) -> void:
             court.cam.limit_right = 100000
             court.cam.position = Vector2(768, 512)
             court.cam.reset_smoothing()
+            court.settle_people(20261002, 12.0)   # 走动的客人按固定种子摆、快进 12 秒
         "overview":
             # 和 GPT 的拼装预览图对照用：高处俯视整个厅，没有界面
             nickname = ""

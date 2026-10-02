@@ -27,6 +27,8 @@ var base_path_override := ""   # 测试用：指到 user:// 下的一张图
 var sign_mark: Polygon2D       # B20：签到台头顶的记号（体验第一轮，04 报告「签到台在屏幕外」）
 var sign_arrow: Polygon2D      # 签到台在屏幕外时，屏幕边上指着它的小箭头（体验第二轮）
 var sign_needed := true        # 还没签到：记号、箭头才出（main 按 court_save.signed_in 设，签完到就没了）
+const CourtLife = preload("res://scripts/court_life.gd")
+var court_life                 # 迎宾院里走动的客人、新娘爸妈和摄影师的小动作（court_life.gd，01 E 10/2）；别的画布没有
 
 func build(preset: int, nickname: String, f: Font) -> void:
     me_marks = false   # 找自己的圈和倒三角只在宴会厅（01 E 10/2）
@@ -63,6 +65,10 @@ func build(preset: int, nickname: String, f: Font) -> void:
     print("[suqi] %s 能走的格子算了 %d 毫秒" % [str(cfg.get("title", "迎宾院")), Time.get_ticks_msec() - t0])
     _walk_grid()
     _player(preset, nickname)
+    if layout_path == LAYOUT:
+        court_life = CourtLife.new()
+        add_child(court_life)
+        court_life.setup(self)
     # 大门开了才有的那圈金光：借宴会厅的出口光圈，放在 gate 上（大门开没开由 main 管）。布局里 exit_mark 可以换点，没有这个点就不放
     var mark_id := str(cfg.get("exit_mark", "gate"))
     if points.has(mark_id):
@@ -384,6 +390,21 @@ func _breathe() -> void:
             continue
         var b: Vector2 = s.get_meta("base_offset")
         s.offset = b + Vector2(0.0, sin(t * BREATH_SPEED + float(s.get_meta("breath_phase"))) * BREATH_AMP)
+
+## 换了形象（每回进院子 main 都会设一遍）：院子里的客人重摆一拨，不跟玩家撞脸
+func set_look(preset: int, nickname: String) -> void:
+    super(preset, nickname)
+    if court_life != null:
+        court_life.reseed(court_life.rng.randi())
+
+## 截图、测试用：院子里的人按固定种子重摆，再快进 secs 秒（每回出来一样）
+func settle_people(seed_n: int, secs: float) -> void:
+    if court_life == null:
+        return
+    court_life.reseed(seed_n)
+    var n := int(secs * 30.0)
+    for i in n:
+        court_life.step(1.0 / 30.0)
 
 ## NPC 在哪（对话、指路时 main 要用）
 func npc_pos(id: String) -> Vector2:
