@@ -10,7 +10,8 @@ extends SceneTree
 ##   --people=0       0 不放人（宾客、亲友、服务员、新人、自己、桌上的菜和牌都藏），1 照常
 ##   --ui=0           0 只存厅那块子画面（没有界面）；1 存整个窗口（手机屏那样，带界面，镜头对着 rect 中心）
 ##   --hall=55        哪个厅：55（55 桌大厅）、44（第 44 版 12 桌厅）
-##   --feast=         空 = 照北京时间；feast 强制开席；pre 强制开席前（只有 --people=1 才看得出）
+##   --feast=         空 = 照北京时间；feast 强制开席；pre 强制开席前（只有 --people=1 才看得出）；给了就快进 60 秒让亲友走到位
+##   手机上镜头的缩放是 960/1024 = 0.9375：要跟游戏里一样大，--ui=1 时给 --zoom=0.9375
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
 
 const Main = preload("res://scripts/main.gd")
@@ -73,7 +74,13 @@ func run() -> void:
     hall.couple_armed = false
     if str(opt["feast"]) != "":
         m._set_feast_force(str(opt["feast"]))
-    hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.COUPLE_SPOT + Vector2(0, 80)))))
+        var rel = hall.life.relatives
+        if rel != null:
+            for i in int(60.0 / 0.05):
+                rel._process(0.05)   # 快进 60 秒：开席的亲友走回座位坐下、开席前的散开（跟 big_*_feast 截图预设一样）
+    # 带界面的（手机屏）：人站在镜头对着的地方（跟截图预设一样，人在屏幕正中）；不带界面的：人站台前（藏不藏另说）
+    var stand_at: Vector2 = rect.get_center() if str(opt["ui"]) != "0" else hall.COUPLE_SPOT + Vector2(0, 80)
+    hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(stand_at))))
     if str(opt["people"]) == "0":
         m._hide_people_for_shot()
     var out_size := Vector2i(int(round(rect.size.x * zoom)), int(round(rect.size.y * zoom)))

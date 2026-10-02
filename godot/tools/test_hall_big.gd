@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：55 桌大厅灰盒（01 D 9/29 派：不等 GPT 的图，照摆位底图 v3.2 的摆位表做进游戏）。和第 44 版厅并存，调试开关切：
-## 0 第 52 版起默认就是 55 桌厅，本机开关文件旧的「0」照默认走、「44」还认；1 切过去：主桌 + T1～T54 共 55 张、画布 1536×3440（摆位 v7：GPT 南边包、v2 零件）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
+## 0 第 52 版起默认就是 55 桌厅，本机开关文件旧的「0」照默认走、「44」还认；1 切过去：主桌 + T1～T54 共 55 张、画布宽 1536（长跟着摆位表，10/2 起排法 C 2091）、没横幅 LED、桌下不铺地毯、每桌 NPC 9～10；
 ## 2 550 把椅子都走得到、东侧门走得到；3 镜头跟人、手指拖着看、拖到边上停；
 ## 4 第一次进厅镜头从大门滑到自己那桌、人站在桌边；以后进厅直接站自己桌边；5 从后厅回来站东侧门里边；
 ## 6 认桌：自己那桌一直挂牌、走近哪桌亮哪桌（牌上只写桌号和游戏名）、其余不挂；
@@ -145,8 +145,9 @@ func run() -> void:
     await create_timer(0.5).timeout
     var h = m.hall
     var tabs: Array = h.cfg["tables"]
+    # 厅多长跟着摆位表走（10/2 起排法 C，2091；不写死），这里只看宽 1536、比北边、南边两张背景（各 1024）加起来长
     check("是 55 桌大厅：%d 张桌、画布 %s" % [tabs.size(), h.cfg["size"]], h.big and tabs.size() == 55
-        and int(h.cfg["size"][0]) == 1536 and int(h.cfg["size"][1]) == 3440)
+        and int(h.cfg["size"][0]) == 1536 and int(h.cfg["size"][1]) >= 2048)
     check("还在宴会厅", m.state == "banquet" and m.cv == h)
     var ids: Array = []
     for t in tabs:
@@ -158,8 +159,17 @@ func run() -> void:
     var mt: Dictionary = h._table_cfg("MAIN")
     var t1: Dictionary = h._table_cfg("T1")
     var t2: Dictionary = h._table_cfg("T2")
-    check("主桌 %s、T1 %s、T2 %s 都在第一排，T1、T2 红毯一边一张" % [Vector2(mt["x"], mt["y"]), Vector2(t1["x"], t1["y"]), Vector2(t2["x"], t2["y"])],
-        float(t1["y"]) == float(mt["y"]) and float(t2["y"]) == float(mt["y"]) and (float(t1["x"]) - 768.0) * (float(t2["x"]) - 768.0) < 0.0)
+    # 排法 C（阿鱼 10/2）：主桌在第 1 排红毯西边第一张（这一排西边别的位让给礼物堆）；T1、T2 也在第 1 排（东边，离红毯近的先编号）
+    var row0_west_closer := false
+    for t in tabs:
+        if float(t["y"]) == float(mt["y"]) and float(t["x"]) < 768.0 and float(t["x"]) > float(mt["x"]):
+            row0_west_closer = true
+    var first_row := true
+    for t in tabs:
+        if float(t["y"]) < float(mt["y"]):
+            first_row = false
+    check("主桌 %s 在第 1 排红毯西边第一张；T1 %s、T2 %s 也在第 1 排" % [Vector2(mt["x"], mt["y"]), Vector2(t1["x"], t1["y"]), Vector2(t2["x"], t2["y"])],
+        first_row and float(mt["x"]) < 768.0 and not row0_west_closer and float(t1["y"]) == float(mt["y"]) and float(t2["y"]) == float(mt["y"]))
     check("没有横幅和 LED 屏（阿鱼 9/28）", h.signs == null)
     var rugs := 0
     for s in h.life.get_children():
@@ -573,11 +583,17 @@ func run() -> void:
     check("坐满的 %s：坐到 5 号，那位站到桌边（坐着 %d、站着 %d，站的地方能走、贴着桌）" % [tid_f, nf["sit"].size(), nf["stay"].size()],
         str(h.my_seat.get("table_id", "")) == tid_f and nf["sit"].size() == 9 and stand_ok)
     # 亲友那桌：坐到亲友开席的椅子上，亲友换椅子或站桌边（亲友的测试 test_relatives 细测）
+    # 亲友开席是从厅里各处走回座位的（排法 C 里 T7 离他们开席前转的地方远，第一位 10 秒左右才坐下）：
+    # 等到有一位坐下再测，最多等 30 秒；不在某一刻碰运气
     var rel = null
-    for r in h.life.relatives.rels:
-        if r.table == "T7" and r.chair > 0 and r.state == "sit":
-            rel = r
+    for i in 300:
+        for r in h.life.relatives.rels:
+            if r.table == "T7" and r.chair > 0 and r.state == "sit":
+                rel = r
+                break
+        if rel != null:
             break
+        await create_timer(0.1).timeout
     if rel != null:
         var rk: String = "%s:%d" % [rel.table, rel.chair]
         await sit(h, "T7", rel.chair)
@@ -663,12 +679,17 @@ func _signs_v8v9(h) -> void:
     check("站在外婆跟前（亮的是 %s），「主桌」牌亮着：%s" % [h.life.family_lit, main_sign.visible], h.life.family_lit != "" and main_sign.visible and main_sign.text == "主桌")
     # 贴屏幕右边：让自己那桌（一直亮）的牌子本来的位置跨过屏幕右边——人往西站，屏幕右边正好落在牌子中点往右 50，
     # 牌子要往里收，收完右边离屏幕边至少 8 像素
+    # 红毯东边最靠红毯那一列（排法改了列的 x 跟着变，不写死），挑一张在 y 1000 往南的
+    var east_x := INF
+    for t in h.cfg["tables"]:
+        if float(t["x"]) > 768.0:
+            east_x = minf(east_x, float(t["x"]))
     var east := ""
     for t in h.cfg["tables"]:
-        if str(t["id"]) != "MAIN" and int(t["x"]) == 963 and float(t["y"]) > 1000.0:
+        if str(t["id"]) != "MAIN" and float(t["x"]) == east_x and float(t["y"]) > 1000.0:
             east = str(t["id"])
             break
-    await sit(h, east, 1)   # 先坐到红毯东边那列的一张（桌心 x 963），镜头往西挪的时候它的牌子会碰到屏幕右边
+    await sit(h, east, 1)   # 先坐到红毯东边最靠红毯那列的一张，镜头往西挪的时候它的牌子会碰到屏幕右边
     h.stand_up()
     var mine: Label = h.table_signs[str(h.my_seat.get("table_id", ""))]
     var home_mid: float = float(mine.get_meta("home", mine.position.x)) + mine.size.x * 0.5
