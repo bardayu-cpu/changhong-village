@@ -11,6 +11,11 @@ const KitchenArt = preload("res://scripts/kitchen/kitchen_art.gd")
 signal kitchen_requested
 var pending_cook := false
 var kitchen_walkers: Array = []
+# K8（04 10/1 挡路）：进后厅第一眼只看到「回宴会厅」，厨房在最东头屏幕外。照迎宾院签到台那个做法，
+# 厨房在屏幕外时屏幕边一个金色小箭头指着它；走到厨房门口（离大锅 KITCHEN_NEAR 以内）就收，下回进后厅再出
+var kitchen_arrow: Polygon2D
+var kitchen_hint := true
+const KITCHEN_NEAR := 220.0
 
 func build(preset: int, nickname: String, f: Font) -> void:
     super(preset,nickname,f)
@@ -60,8 +65,18 @@ func build(preset: int, nickname: String, f: Font) -> void:
         world.add_child(waiter)
         kitchen_walkers.append(waiter)
 
+func reset_to(p: Vector2) -> void:
+    super(p)
+    kitchen_hint = true   # 每回进后厅都重新指一次
+
 func _process(dt: float) -> void:
     super(dt)
+    if kitchen_arrow == null:
+        kitchen_arrow = edge_arrow()
+        add_child(kitchen_arrow)
+    if kitchen_hint and pos.distance_to(spot_pos("pot")) < KITCHEN_NEAR:
+        kitchen_hint = false
+    point_edge_arrow(kitchen_arrow, spot_pos("pot"), kitchen_hint and visible)
     if pending_cook and walking_enabled and pos.distance_to(spot_pos("pot")) < 60:
         pending_cook = false
         path.clear()

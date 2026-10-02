@@ -365,6 +365,7 @@ func _declutter() -> void:
         var mid := rect.position.x + rect.size.x * 0.5
         if mid < lo or mid > hi:
             r.tag.visible = false
+            r.tag.set_meta("hidden_why", "edge")   # 测试看：为什么收（贴屏幕边、挤不下）
             continue
         rect.position.x = clampf(rect.position.x, lo, maxf(lo, hi - rect.size.x))
         var hit := true
@@ -379,7 +380,9 @@ func _declutter() -> void:
             rect.position.y -= r.tag.size.y + TAG_GAP
         if hit and r != near_key:
             r.tag.visible = false
+            r.tag.set_meta("hidden_why", "crowd")
             continue
+        r.tag.set_meta("hidden_why", "")
         r.tag.position = rect.position - r.pos
         placed.append(rect)
 

@@ -54,42 +54,7 @@ static func put(parent: Node, id: String, rect: Rect2) -> TextureRect:
     parent.add_child(t)
     return t
 
-const PIECE_FILES := {
-    "汤底":"cards/ingredient_soup_base.png","牛肉":"cards/ingredient_beef.png",
-    "葱花":"cards/ingredient_scallion.png","香菜":"cards/ingredient_cilantro.png",
-    "鸡蛋":"cards/ingredient_egg.png","米饭":"cards/ingredient_rice.png",
-    "凉粉":"cards/ingredient_liangfen.png","辣椒":"cards/ingredient_chili.png",
-    "plate":"cards/empty_plate.png","serve":"cards/button_serve.png","deliver":"cards/button_deliver.png",
-    "dish_egg_rice":"dishes/dish_egg_rice.png","dish_beef":"dishes/dish_beef.png","dish_liangfen":"dishes/dish_liangfen.png"
-}
-static func reference_texture(id: String) -> Texture2D:
-    if PIECE_FILES.has(id):
-        var piece := CanvasAssets.texture("res://assets/kitchen/v2/"+str(PIECE_FILES[id]))
-        if id == "dish_liangfen":
-            var dish := AtlasTexture.new()
-            dish.atlas = piece
-            dish.region = Rect2(0,14,piece.get_width(),piece.get_height()-14)
-            return dish
-        return piece
-    var atlas := AtlasTexture.new()
-    atlas.atlas = CanvasAssets.texture("res://assets/kitchen/v2/kitchen_ui_reference_v2.png")
-    var region: Rect2 = UI_REGIONS.get(id,UI_REGIONS.plate)
-    atlas.region = Rect2(region.position * atlas.atlas.get_size()/UI_REFERENCE_SIZE,region.size * atlas.atlas.get_size()/UI_REFERENCE_SIZE)
-    return atlas
-
-static func put_reference(parent: Node, id: String, rect: Rect2) -> TextureRect:
-    var t := TextureRect.new()
-    t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    t.texture = reference_texture(id)
-    t.position = rect.position
-    t.size = rect.size
-    t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-    t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    parent.add_child(t)
-    return t
-
 # Source geometry is in approved-reference pixels; the renderer scales all layers together.
-const REFERENCE := "res://assets/kitchen/v2/kitchen_ui_reference_v2.png"
 const REFERENCE_REGIONS := {
     "sign":Rect2(0,0,263,148),
     "rank_frame":Rect2(285,5,291,71),
@@ -106,25 +71,8 @@ const REFERENCE_REGIONS := {
     "order_辣椒":Rect2(860,437,33,38)
 }
 
-static func reference_region(region: Rect2) -> Texture2D:
-    var atlas := AtlasTexture.new()
-    atlas.atlas = CanvasAssets.texture(REFERENCE)
-    var ratio := atlas.atlas.get_size() / UI_REFERENCE_SIZE
-    atlas.region = Rect2(region.position * ratio,region.size * ratio)
-    return atlas
-
-static func put_source(parent: Node, region: Rect2, rect: Rect2) -> TextureRect:
-    var t := TextureRect.new()
-    t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    t.texture = reference_region(region)
-    t.position = rect.position
-    t.size = rect.size
-    t.stretch_mode = TextureRect.STRETCH_SCALE
-    t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    parent.add_child(t)
-    return t
-
-# 顶栏 5 件（招牌、等级框、金币框、帽子、铜钱）：01 E 10/2 定，照 REFERENCE_REGIONS 的框从 v2 参考图切成 5 张小图
+# 顶栏 5 件（招牌、等级框、金币框、帽子、铜钱）：01 E 10/2 定，原来读 v2 参考图的那几个函数（reference_texture、put_reference、
+# reference_region、put_source，只有没人调的 _image_action 用）一起删了；照 REFERENCE_REGIONS 的框从 v2 参考图切成 5 张小图
 # （mobile/ui/kitchen_ui_<id>.png，像素一个不差），那张 2.6 MB 的参考图不进包
 const PIECE_DIR := "res://assets/kitchen/mobile/ui/kitchen_ui_%s.png"
 

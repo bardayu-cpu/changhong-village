@@ -146,6 +146,7 @@ func run() -> void:
     var on_screen := 0
     var vs: Vector2 = m.get_viewport().get_visible_rect().size / h.cam.zoom.x
     var view := Rect2(h.cam.get_screen_center_position() - vs * 0.5, vs).grow(-40.0)
+    var crowded := 0
     for r in rel.rels:
         if r.tag != null and r.tag.text == r.title:
             named += 1
@@ -153,8 +154,11 @@ func run() -> void:
                 on_screen += 1
                 if r.tag.visible:
                     tagged += 1
-    check("18 位都有称呼牌（%d）；屏幕里的 %d 位挂着 %d 块（屏幕外的不挂，挤成一团的先收一块）" % [named, on_screen, tagged],
-        named == 18 and tagged >= on_screen - 2 and (on_screen == 0 or tagged > 0))
+                elif str(r.tag.get_meta("hidden_why", "")) != "":
+                    crowded += 1   # 挤不下、贴边收的（04 10/2 第 3 条：让位排不下就先不亮，走近了会亮）
+    # 04 第 3 条以后挤成一团的会收好几块（原来写死最多收 2 块，人一扎堆就不过）：收掉的得是挤不下或贴边收的，别的原因收的最多 2 块
+    check("18 位都有称呼牌（%d）；屏幕里的 %d 位挂着 %d 块，挤不下收了 %d 块（屏幕外的不挂）" % [named, on_screen, tagged, crowded],
+        named == 18 and tagged + crowded >= on_screen - 2 and (on_screen == 0 or tagged > 0))
     # 称呼牌不叠：模拟过程中每一步都查太费，这里再走 30 秒、每秒看一次
     var overlaps := 0
     for sec in 30:

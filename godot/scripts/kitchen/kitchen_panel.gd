@@ -135,19 +135,6 @@ func _panel_label(parent: Control, text: String, rect: Rect2, fs := 16, color :=
     parent.add_child(l)
     return l
 
-func _image_action(id: String, rect: Rect2, action: Callable) -> Button:
-    Art.put_reference(panel,id,rect)
-    var hit := Button.new()
-    hit.flat = true
-    hit.position = rect.position
-    hit.size = rect.size
-    hit.tooltip_text = id
-    hit.set_meta("kitchen_action",id)
-    hit.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
-    hit.pressed.connect(action)
-    panel.add_child(hit)
-    return hit
-
 func _menu() -> void:
     _base("灶火与手艺")
     _label("%s · 第 %d 关" % [Rules.title_for(unlocked),unlocked],Rect2(24,112,490,48),22)

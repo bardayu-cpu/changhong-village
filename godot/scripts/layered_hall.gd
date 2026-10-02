@@ -41,6 +41,7 @@ var world: Node2D          # 开了 y 排序：积木、新人、玩家都在这
 var cam: Camera2D
 var player: Sprite2D
 var me_ring: Node2D        # 脚下一圈淡金色、会呼吸的圈（04 10/2：人堆里找不到自己），在宴会厅一直在、不写字
+var me_marks := true       # 脚下的圈、头顶的倒三角只在宴会厅出（迎宾院、后厅、草坪这些继承了这份代码的画布里关掉）
 var me_mark: Polygon2D     # 头顶一个小金色倒三角，轻轻上下浮（01 E 10/2：脚下那圈在人堆里常被前面的桌子盖住）
 var tag: Label
 var tag_anchor: Node2D
@@ -724,12 +725,12 @@ func _process(dt: float) -> void:
     if exit_mark.visible:
         breathe_ring(exit_mark, t)
     if me_ring != null:
-        me_ring.visible = player.visible
+        me_ring.visible = me_marks and player.visible
         me_ring.position = pos - Vector2(0, 1)
         breathe_ring(me_ring, t)
         me_ring.modulate.a *= 0.6   # 比出口那圈淡：只是让人一眼找到自己，不是「往这儿来」
     if me_mark != null:
-        me_mark.visible = player.visible
+        me_mark.visible = me_marks and player.visible
         var head := _px_h(pos.y) * (SIT_KEEP if seated else 1.0)
         me_mark.position = pos + Vector2(0, -head - 12.0 + sin(t * 2.5) * 3.0)   # 头顶上方一点，上下浮 3 像素
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:

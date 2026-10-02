@@ -139,8 +139,17 @@ func route(label: String) -> void:
             break
         await process_frame
     check("%s：东侧门进了后厅（state=%s）" % [label, m.state], m.state == "backhall" and m.cv == b)
+    tick(2)
+    b.snap_cam()   # 镜头别从上回的位置慢慢挪过来（看「厨房在不在屏幕里」要按刚进来那一眼）
+    tick(1)
+    # K8（04 挡路）：进后厅厨房在屏幕外，屏幕边有个金色小箭头指着它
+    check("%s：进后厅屏幕边有箭头指着厨房（%s）" % [label, b.kitchen_arrow != null and b.kitchen_arrow.visible],
+        b.kitchen_arrow != null and b.kitchen_arrow.visible and absf(wrapf(b.kitchen_arrow.rotation - (b.spot_pos("pot") - b.kitchen_arrow.position).angle(), -PI, PI)) < 0.01)
     walk_to(Vector2(1272, 790))
     walk_to(b.spot_pos("pot"))
+    tick(1)
+    check("%s：走到厨房门口箭头收了" % label, not b.kitchen_arrow.visible and not b.kitchen_hint)
+    check("%s：后厅里没有找自己的圈和倒三角（只在宴会厅）" % label, not b.me_ring.visible and not b.me_mark.visible and m.hall.me_marks)
     check("%s：走到大锅出「%s」" % [label, m.backhall_ui.act_btn.text], m.backhall_ui.act_btn.visible and m.backhall_ui.act_btn.text == "穿上围裙 · 学做菜")
     m.backhall_ui._on_act()
     await process_frame
@@ -183,6 +192,7 @@ func route(label: String) -> void:
     check("%s：西口回了宴会厅（state=%s）" % [label, m.state], m.state == "banquet" and m.cv == m.hall)
 
 func run() -> void:
+    root.size = Vector2i(540, 960)   # 手机竖屏：看「在不在屏幕里」要按手机那么宽算（无头跑默认窗口宽得多）
     m.cloud.fake_no_news = true
     for i in 600:
         if m.state == "title":

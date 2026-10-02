@@ -29,6 +29,7 @@ var sign_arrow: Polygon2D      # 签到台在屏幕外时，屏幕边上指着�
 var sign_needed := true        # 还没签到：记号、箭头才出（main 按 court_save.signed_in 设，签完到就没了）
 
 func build(preset: int, nickname: String, f: Font) -> void:
+    me_marks = false   # 找自己的圈和倒三角只在宴会厅（01 E 10/2）
     font = f
     cfg = JSON.parse_string(FileAccess.get_file_as_string(layout_path))
     var flat := Node2D.new()
@@ -108,21 +109,25 @@ func _process(dt: float) -> void:
 func _point_sign_arrow() -> void:
     if sign_arrow == null:
         return
-    if sign_mark == null or not sign_mark.visible or cam == null or cam.zoom.x <= 0.0:
-        sign_arrow.visible = false
+    point_edge_arrow(sign_arrow, sign_mark.position if sign_mark != null else Vector2.ZERO, sign_mark != null and sign_mark.visible)
+
+## 屏幕边的小箭头（签到台、后厅指厨房共用）：want 为真、目标又在屏幕外时，贴着屏幕边（往里收 40）指着它，一闪一闪；
+## 目标进了屏幕、或者 want 为假就收
+func point_edge_arrow(arrow: Polygon2D, target: Vector2, want: bool) -> void:
+    if not want or cam == null or cam.zoom.x <= 0.0:
+        arrow.visible = false
         return
     var vs := get_viewport().get_visible_rect().size / cam.zoom
     var c := cam.get_screen_center_position()
     var view := Rect2(c - vs * 0.5, vs)
-    var target: Vector2 = sign_mark.position
     var inner := view.grow(-40.0)
     if view.grow(-10.0).has_point(target):
-        sign_arrow.visible = false
+        arrow.visible = false
         return
-    sign_arrow.visible = true
-    sign_arrow.position = Vector2(clampf(target.x, inner.position.x, inner.end.x), clampf(target.y, inner.position.y, inner.end.y))
-    sign_arrow.rotation = (target - sign_arrow.position).angle()
-    sign_arrow.modulate.a = 0.7 + sin(t * 5.0) * 0.3
+    arrow.visible = true
+    arrow.position = Vector2(clampf(target.x, inner.position.x, inner.end.x), clampf(target.y, inner.position.y, inner.end.y))
+    arrow.rotation = (target - arrow.position).angle()
+    arrow.modulate.a = 0.7 + sin(t * 5.0) * 0.3
 
 ## B20（体验第一轮，04 报告「新娘妈妈叫你签到，签到台在屏幕外，没有任何东西指出在哪」）：
 ## 给签到台头顶挂一圈会跳的金光，和大门那圈金光（layered_hall.gd _exit_mark）同一个颜色、同一个画法，
@@ -136,18 +141,23 @@ func _sign_mark() -> void:
     sign_mark.z_index = 4
     add_child(sign_mark)
     # 签到台出了屏幕：屏幕边上出一个小箭头指着它（B20，04 复看：桌子在屏幕外时记号也在屏幕外，等于没有）
-    sign_arrow = Polygon2D.new()
-    sign_arrow.polygon = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11)])
-    sign_arrow.color = Color(1.0, 0.88, 0.45)
+    sign_arrow = edge_arrow()
+    add_child(sign_arrow)
+
+## 屏幕边那种金色小箭头（签到台、后厅指厨房共用）
+static func edge_arrow() -> Polygon2D:
+    var a := Polygon2D.new()
+    a.polygon = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11)])
+    a.color = Color(1.0, 0.88, 0.45)
     var outline := Line2D.new()
     outline.points = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11), Vector2(16, 0)])
     outline.width = 2.0
     outline.default_color = Color(0.2, 0.12, 0.08)
-    sign_arrow.add_child(outline)
-    sign_arrow.z_index = 8
-    sign_arrow.scale = Vector2(1.6, 1.6)   # 截图看原大小太小，放大一点
-    sign_arrow.visible = false
-    add_child(sign_arrow)
+    a.add_child(outline)
+    a.z_index = 8
+    a.scale = Vector2(1.6, 1.6)   # 截图看原大小太小，放大一点
+    a.visible = false
+    return a
 
 ## 物件名那层也算：自己的名字碰到它就让开、贴屏幕边就往里收（体验 B3、B4）
 func _tag_holders() -> Array:
