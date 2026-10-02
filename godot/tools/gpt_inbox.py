@@ -2,7 +2,7 @@
 # 盯 GPT 的交接文件夹（01 9/24 交给 02 的长期活）：列出上次查看以后新放进来、或者改过的文件。
 # 不算：.DS_Store、claude-* 开头的（我们自己写的回执、对照图）、*-raw/ 草稿文件夹里的。
 # 用法：python3 godot/tools/gpt_inbox.py          只列，不动记号
-#       python3 godot/tools/gpt_inbox.py --done   列完把「上次查看」的时间记成现在（处理完一批再加 --done）
+#       python3 godot/tools/gpt_inbox.py --done   列完把零件总表改了、把「上次查看」的时间记成现在（处理完一批再加 --done）
 # 列完会对新交的 .png、.json 跑一遍 check_assets.py（硬检查），有「拦下」的写进给 01 的报告里
 import os, sys, time, json
 
@@ -57,9 +57,11 @@ if fresh:
 if fresh:
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import parts_table
-    notes = parts_table.apply(fresh)
+    # 01 E 10/2（03 报）：不带 --done 只是看看，不改表；带 --done 才把「交了」写进零件总表
+    write = "--done" in sys.argv
+    notes = parts_table.apply(fresh, write=write)
     if notes:
-        print("—— 零件总表 ——")
+        print("—— 零件总表 ——" + ("" if write else "（只是预览，没写表；处理完加 --done 才写）"))
         for n in notes:
             print(n)
 if "--done" in sys.argv:

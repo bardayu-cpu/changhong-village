@@ -99,6 +99,8 @@ def apply(paths: list, write: bool = True, path: str = TABLE) -> list:
     for p in paths:
         if not is_part(p):
             continue
+        if "_idle" in os.path.basename(p):
+            continue   # 人物的待机那张（chr_LM-GUEST-01_idle_v2.png）跟走路那张是一件，不另算
         hit = find(rows, p)
         base = os.path.basename(p)
         if hit is None:
@@ -114,6 +116,10 @@ def apply(paths: list, write: bool = True, path: str = TABLE) -> list:
             m = RANGE.match(r["id"])
             total = int(m.group("hi")) - int(m.group("lo")) + 1
             got = re.search(r"交了 \d+/\d+（([0-9、]+)）", r["status"])
+            if not got and r["status"].strip() != "要画":
+                # 状态是人写的（比如「交了（目录阿鱼点头…）」）：不改，只报一句
+                out.append("%s %s：第 %s 位交了（%s），状态是人写的不动：%s" % (r["id"], r["name"], n, base, r["status"].strip()))
+                continue
             have = set(got.group(1).split("、")) if got else set()
             if n in have:
                 out.append("%s %s：第 %s 位重存了（%s），02 要重核" % (r["id"], r["name"], n, base))
