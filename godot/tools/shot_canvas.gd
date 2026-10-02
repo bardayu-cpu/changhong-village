@@ -1,0 +1,103 @@
+extends SceneTree
+## 截画布：给一块画布区域、缩放，出一张图（00 10/2 批、01 E 派；收编 03 的 render_north_1to1.patch）。
+## 不改 main.gd：像测试那样把 main 起起来、进 55 桌厅，然后把厅那块子画面设成要的大小、镜头对准那块，存子画面。
+## 一般别直接跑，用 tools/shot.sh（先把截图专用的 worktree 更新到指定提交、导入跑完、核过才截）。
+##
+## 用法（要有窗口，不能 --headless：headless 不出画面）：
+##   Godot --path . --resolution 540x960 --script res://tools/shot_canvas.gd -- --out=图.png [下面这些]
+##   --rect=x,y,w,h   画布上哪一块（整厅坐标，默认 0,0,1536,1024 = 北边那块）
+##   --zoom=1         缩放：出图大小 = w×zoom、h×zoom（1 就是一比一）
+##   --people=0       0 不放人（宾客、亲友、服务员、新人、自己、桌上的菜和牌都藏），1 照常
+##   --ui=0           0 只存厅那块子画面（没有界面）；1 存整个窗口（手机屏那样，带界面，镜头对着 rect 中心）
+##   --hall=55        哪个厅：55（55 桌大厅）、44（第 44 版 12 桌厅）
+##   --feast=         空 = 照北京时间；feast 强制开席；pre 强制开席前（只有 --people=1 才看得出）
+## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
+
+const Main = preload("res://scripts/main.gd")
+
+var m
+var started := false
+var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": ""}
+
+func _initialize() -> void:
+    for a in OS.get_cmdline_user_args():
+        if a.begins_with("--") and "=" in a:
+            var kv := a.substr(2).split("=", true, 1)
+            opt[kv[0]] = kv[1]
+    m = Main.new()
+    m.fast = true
+    get_root().add_child(m)
+
+func _process(_dt: float) -> bool:
+    if started:
+        return false
+    started = true
+    run()
+    return false
+
+func fail(why: String) -> void:
+    print("SHOT FAILED ", why)
+    quit(1)
+
+func frames(n: int) -> void:
+    for i in n:
+        await process_frame
+
+func run() -> void:
+    if str(opt["out"]) == "":
+        fail("没给 --out=")
+        return
+    var r: PackedStringArray = str(opt["rect"]).split(",")
+    if r.size() != 4:
+        fail("--rect 要 x,y,w,h")
+        return
+    var rect := Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3]))
+    var zoom: float = float(opt["zoom"])
+    for i in 600:
+        if m.state == "title":
+            break
+        await process_frame
+    await frames(2)
+    # 进厅：照 big_* 截图预设那条路（main.gd _setup_shot），只这一次切厅、不写本机开关
+    m.nickname = "小李"
+    await m._set_hall_variant("55" if str(opt["hall"]) == "55" else "", false)
+    m.cloud.fake_no_news = true
+    m.cloud.fake_arrival_mode = "card"
+    await m._enter_banquet()
+    await create_timer(2.0).timeout
+    m.dialog.visible = false
+    var hall = m.hall
+    if str(opt["hall"]) == "55" and not hall.big:
+        fail("没进 55 桌厅（这个提交的场景不对？）")
+        return
+    hall.couple_armed = false
+    if str(opt["feast"]) != "":
+        m._set_feast_force(str(opt["feast"]))
+    hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.COUPLE_SPOT + Vector2(0, 80)))))
+    if str(opt["people"]) == "0":
+        m._hide_people_for_shot()
+    var out_size := Vector2i(int(round(rect.size.x * zoom)), int(round(rect.size.y * zoom)))
+    var sv: SubViewport = m.view.get_child(0)
+    if str(opt["ui"]) == "0":
+        hall.set_process(false)
+        m.view.stretch = false
+        sv.size = out_size
+        await frames(5)
+    hall.cam.limit_left = -100000
+    hall.cam.limit_top = -100000
+    hall.cam.limit_bottom = 100000
+    hall.cam.limit_right = 100000
+    hall.cam.zoom = Vector2(zoom, zoom)
+    hall.cam.position = rect.get_center()
+    hall.cam.reset_smoothing()
+    if str(opt["ui"]) != "0":
+        hall.set_process(false)
+    await frames(10)
+    await RenderingServer.frame_post_draw
+    var img: Image = (sv.get_texture() if str(opt["ui"]) == "0" else get_root().get_texture()).get_image()
+    var err := img.save_png(str(opt["out"]))
+    if err != OK:
+        fail("存不下 %s（错误 %d）" % [opt["out"], err])
+        return
+    print("SHOT SAVED ", opt["out"], " ", img.get_width(), "x", img.get_height())
+    quit(0)
