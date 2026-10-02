@@ -64,6 +64,7 @@ module.exports = {
   LEN: {
     nickname: [2, 12],
     checkInName: [1, 12],           // 迎宾院签到的名字（蓝图 3.1：1～12 字，默认带昵称）
+    blessing: [1, 30],              // 迎宾院签到时写的一句公开祝福（迎宾院玩家说明 v1：1～30 字，01 E 10/2）
     message: [1, 100],              // 留言
     whisper: [1, 200],              // 悄悄话
     status: [1, 100],               // 动态
@@ -110,6 +111,7 @@ module.exports = {
   // 宴会厅服务端加固（回执 03）：云开发 collection.get() 不写 limit 一次最多回 100 条，
   // 婚宴人数会超过 100，读座位/敬酒/簿子都要分页读全，见 lib/db-page.js
   BANQUET_PAGE_MAX_TOTAL: 5000,        // 分页读全的总上限，防失控；婚宴量级用不到这么多
+  BLESSING_READ_MAX: 50,               // readBlessings：迎宾院祝福牌一次带回最近这么多条（按 blessing_at 取最新）【待验证：50 这个数字】
   BANQUET_BOOK_READ_MAX: 200,           // readBook 只带回最近这么多条（按 created_at 取最新，返回时仍正序）【待验证：200 这个数字】
   // 测试期开关（9/17 助理 01 定）：阿鱼真机测「坐下」时，第一次换桌以后当天再换全被拒（changed_today），没法反复验。
   // 9/18 蓝图把换桌改成不限次数，这条判定已经从 canChangeSeat 删掉，换桌不再受这个开关影响。

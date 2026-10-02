@@ -341,7 +341,11 @@ func _ready() -> void:
     court_ui = CourtUI.new()
     ui.add_child(court_ui)
     court_ui.setup(self, font, court_save)
-    court_ui.panel_changed.connect(func(open): court.walking_enabled = state == "court" and not open)
+    court_ui.panel_changed.connect(func(open):
+        court.walking_enabled = state == "court" and not open
+        # 04 基线第 8 条：面板开着（签到、祝福牌、合影摆姿势、对焦）把「点地面走路」那块藏起来，关了再照旧
+        if hint != null:
+            hint.visible = false if open else (state == "court" and not hint_done))
     backhall_ui = BackhallUI.new()
     ui.add_child(backhall_ui)
     backhall_ui.setup(self)
@@ -3381,7 +3385,7 @@ func _setup_shot(shot: String) -> void:
                 dialog.visible = false
                 court.reset_to(at[shot])
                 court.face = "up"
-        "court_welcome", "court_sign_name", "court_sign_gift", "court_sign_confirm", "court_candy", "court_signed":
+        "court_welcome", "court_sign_name", "court_sign_gift", "court_sign_confirm", "court_candy", "court_signed", "court_sign_bless", "court_sign_bless_bad":
             # 迎宾院签到（蓝图 3.1）：门口新娘妈妈迎一句；签到面板三页；签完喜糖弹窗和新娘妈妈指路；再来只显示「已签到」
             _shot_court_fresh()
             nickname = "小李"
@@ -3402,10 +3406,44 @@ func _setup_shot(shot: String) -> void:
                     court_ui.open_sign()
                     if shot != "court_sign_name":
                         court_ui._name_next()
+                    if shot in ["court_sign_confirm", "court_candy", "court_sign_bless", "court_sign_bless_bad"]:
+                        court_ui._pick_gift(88)   # 礼金选了以后到祝福那屏（01 E 10/2）
                     if shot == "court_sign_confirm" or shot == "court_candy":
-                        court_ui._pick_gift(88)
+                        court_ui._pick_bless(CourtCopy.text("bless_2"))
+                    if shot == "court_sign_bless_bad":
+                        # 自己写的祝福被敏感词拦（电脑上的假服务端：含「测试敏感」就拦）：回到祝福那屏说「换个说法吧」
+                        court_ui._open_bless_custom()
+                        court_ui.bless_edit.text = "祝你们测试敏感"
+                        court_ui._bless_custom_done()
+                        court_ui._submit()
                     if shot == "court_candy":
                         court_ui._submit()
+        "court_board", "court_mom_after", "court_album_far":
+            # 01 E 10/2 迎宾院第一件：祝福牌（几条祝福往下翻）、签完新娘妈妈那句、回忆册入口走近之前就认得出（站在签到桌这边看）
+            _shot_court_fresh()
+            nickname = "小李"
+            await _enter_court()
+            dialog.visible = false
+            match shot:
+                "court_board":
+                    cloud.fake_blessings = [{"name": "小王", "text": CourtCopy.text("bless_1")}, {"name": "阿花", "text": "早点生个娃，我来当干妈！"},
+                        {"name": "李叔", "text": CourtCopy.text("bless_3")}, {"name": "丹孃", "text": CourtCopy.text("bless_2")}, {"name": "小江", "text": CourtCopy.text("bless_4")}]
+                    court.reset_to(court.spot_pos("blessing"))
+                    court.face = "up"
+                    court_ui.spot("blessing", true)
+                    court_ui.open_board()
+                "court_mom_after":
+                    court.reset_to(court.spot_pos("sign_in"))
+                    court.face = "up"
+                    court_save.signed_in = true
+                    court_save.candy = true   # 喜糖弹窗已经收过，直接到新娘妈妈指路那句
+                    court_ui.sign_gift = 88
+                    await court_ui.after_sign()
+                "court_album_far":
+                    court.reset_to(Vector2(1150, 780))   # 站在签到桌南边，离回忆册 200 多，按钮还没出
+                    court.face = "up"
+            for i in 20:
+                await get_tree().process_frame
         "court_album", "court_clip", "court_pose", "court_focus", "court_paper_wave", "court_paper_heart":
             # 回忆册（正式版置灰「还没印好」；court_clip 是调试版打开的占位屏）、花墙合影三步（蓝图 3.1、世界观 1.1）
             _shot_court_fresh()

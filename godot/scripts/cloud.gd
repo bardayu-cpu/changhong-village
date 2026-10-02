@@ -83,6 +83,7 @@ var fake_fetch_diag: Dictionary = {}   # 假装下载失败时一起带回的临
 var fake_no_function := false       # 走云函数那条路（@fetchChunks）时假装 canvasFile 还没部署
 var fake_fetch_last := ""           # 最后一次假下载走的哪条路（@fetchFile / @fetchChunks）
 var fake_fail_next := ""            # 不是空串：下一次调任何云函数都假装失败、回这个 reason（测断网那一路用），用一次就清掉
+var fake_blessings: Array = []   # 电脑上的祝福牌：签到时写的祝福，新的在前（[{name, text, at}]）
 var fake_check_in: Dictionary = {}  # 电脑上签到存下来的 {name, gift_value}（迎宾院签到，服务端是 resident 的 check_in_name、gift_value）
 
 ## timeout：等多少秒没回来就按「没连上」回调。名字以 @ 开头的不是云函数，是微信那一层自己做的事
@@ -196,12 +197,23 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
             # nick_rejected（起昵称被服务端拒，main.gd 的 _setup_shot 用得到）；签到的名字一样过（迎宾院，蓝图 3.1）
             if str(data.get("nick", "")).contains("测试敏感") or str(data.get("check_in_name", "")).contains("测试敏感"):
                 return {"ok": false, "reason": "sensitive"}
+            # 祝福（01 E 10/2，跟服务端 saveProfile 一样）：1～30 字、过敏感词，不过整次不存、标明是祝福
+            if data.has("blessing"):
+                var bl := str(data["blessing"]).strip_edges()
+                if bl.contains("测试敏感"):
+                    return {"ok": false, "reason": "sensitive", "field": "blessing"}
+                if bl.length() < 1 or bl.length() > 30:
+                    return {"ok": false, "reason": "bad_request", "field": "blessing"}
+                fake_blessings.push_front({"name": str(data.get("check_in_name", "")), "text": bl, "at": Time.get_unix_time_from_system()})
             if data.has("check_in_name"):
                 fake_check_in = {"name": str(data["check_in_name"]), "gift_value": clampi(int(data.get("gift_value", 0)), 0, 9999)}
             for k in ["coins", "games", "dishes", "gift_coins"]:
                 if data.has(k):
                     fake_mine[k] = data[k]
             return {"ok": true, "checked_in": not fake_check_in.is_empty()}   # 和服务端一样回签过到没有
+        "readBlessings":
+            # 迎宾院祝福牌：新的在前（跟服务端 readBlessings 一样）
+            return {"ok": true, "items": fake_blessings.duplicate(true)}
         "enterHall":
             if fake_me["table_id"] == "":
                 fake_me = {"table_id": "T1", "chair_no": 2}

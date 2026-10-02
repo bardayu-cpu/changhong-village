@@ -9,7 +9,8 @@
 // checkText，命中敏感词或保留名都不写库，直接把 {ok:false, reason} 原样返回给客户端；
 // 悄悄话（whisper）不过滤，需求文档第 1 节写明私密祝福不改动现有逻辑。
 // 客户端：wx.cloud.callFunction({ name: 'saveProfile', data: { nick, avatar, inviter, gift_value, whisper,
-//   coins, games, dishes, gift_coins, gift_add, check_in_name } })
+//   coins, games, dishes, gift_coins, gift_add, check_in_name, blessing } })
+// 10/2 加 blessing（迎宾院签到的一句公开祝福，1～30 字、过敏感词），别人在祝福牌上能看到（readBlessings）
 // 传哪个字段就存哪个，没传的不动。
 //
 // 9/19 加（蓝图 3.2「席间小游戏」，阿鱼 9/19 定）：coins 金币、games 各小游戏通关进度、
@@ -34,7 +35,7 @@ const sensitive = require('./rules/sensitive');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
-const FIELDS = ['nick', 'avatar', 'inviter', 'gift_value', 'whisper', 'coins', 'games', 'dishes', 'gift_coins', 'gift_add', 'check_in_name'];
+const FIELDS = ['nick', 'avatar', 'inviter', 'gift_value', 'whisper', 'coins', 'games', 'dishes', 'gift_coins', 'gift_add', 'check_in_name', 'blessing'];
 
 // 词库文件由 scripts/sync-cf-rules.js 同步进这个云函数自己的 words/ 文件夹（部署前必须先跑同步）。
 // 模块加载时读一次、建好 AC 自动机；同一个容器热启动的后续调用复用，不重复读文件、不重复建。
@@ -85,6 +86,17 @@ exports.main = async (event) => {
     fields.check_in_name = fields.check_in_name.trim();
   }
 
+  if (fields.blessing !== undefined) {
+    // 迎宾院签到的一句公开祝福（01 E 10/2，迎宾院玩家说明 v1）：1～30 字、过敏感词（不查保留名），
+    // 命中就整次不写库、返回 {ok:false, reason:'sensitive', field:'blessing'}，客户端回到祝福那屏说「换个说法吧」，
+    // 前面填的名字、礼金不丢（客户端留着）。存在 resident 自己那条，blessing_at 是最后一次写的时间，祝福牌按它排
+    const bl = resident.canBless(fields.blessing);
+    if (!bl.ok) return bl;
+    fields.blessing = fields.blessing.trim();
+    const wc = sensitive.checkText(fields.blessing, { sensitiveMatcher: SENSITIVE_MATCHER });
+    if (!wc.ok) return { ok: false, reason: wc.reason, field: 'blessing' };
+    fields.blessing_at = now;
+  }
   const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);
   const existingData = existing && existing.data;
 

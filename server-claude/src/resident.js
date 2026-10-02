@@ -38,6 +38,16 @@ function canCheckIn(name) {
   return { ok: true };
 }
 
+/** 迎宾院签到时的一句公开祝福（01 E 10/2）：去掉前后空白 1～30 个字（按字算，不按字节）；空的不传（可以跳过） */
+function canBless(text) {
+  if (typeof text !== 'string') return { ok: false, reason: 'bad_request', field: 'blessing' };
+  const len = Array.from(text.trim()).length;
+  if (len < C.LEN.blessing[0] || len > C.LEN.blessing[1]) {
+    return { ok: false, reason: 'bad_request', field: 'blessing' };
+  }
+  return { ok: true };
+}
+
 /** 礼金夹到 0～9999 的非负整数，不拒绝，直接改成合法值（蓝图 3.1："超上限按上限"） */
 function clampGiftValue(v) {
   const n = Math.floor(Number(v) || 0);
@@ -173,7 +183,7 @@ function sanitizeGiftAdd(v) {
 }
 
 module.exports = {
-  canSaveProfile, canCheckIn, clampGiftValue, canAdoptInviter,
+  canSaveProfile, canCheckIn, canBless, clampGiftValue, canAdoptInviter,
   sanitizeCoins, sanitizeGames, sanitizeDishes, sanitizeGiftAdd,
   mergeGames, mergeDishes,
 };

@@ -401,6 +401,36 @@ async function scenarioSaveProfileWordRejected() {
   check(!!docC && docC.nick === '阿花', '场景8 正常昵称确实存进了 resident');
 }
 
+// ================= 场景 祝福：迎宾院签到写一句公开祝福（01 E 10/2）——过敏感词、1～30 字、存进 resident；readBlessings 按新到旧带回 =================
+async function scenarioBlessing() {
+  const { sdk, state } = createFakeSdk();
+  state.currentOpenid = 'bless_a';
+  let saveProfile = loadCloudFunction('saveProfile', sdk);
+  let res = await saveProfile.main({ check_in_name: '阿花', gift_value: 88, blessing: '  新婚快乐，白头偕老  ' });
+  check(res.ok === true, `祝福 正常的能存（实际 ${JSON.stringify(res)}）`);
+  const a = state.collections.resident.get('bless_a');
+  check(!!a && a.blessing === '新婚快乐，白头偕老' && a.blessing_at > 0, '祝福 去掉前后空白存进 resident、记下时间');
+  // 敏感词：整次不写库（名字、礼金也不存），客户端回祝福那屏
+  state.currentOpenid = 'bless_b';
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  res = await saveProfile.main({ check_in_name: '阿草', gift_value: 66, blessing: '情色达人祝你们' });
+  check(res.ok === false && res.reason === 'sensitive' && res.field === 'blessing', `祝福 有敏感词被拦、标明是祝福（实际 ${JSON.stringify(res)}）`);
+  check(!(state.collections.resident && state.collections.resident.has('bless_b')), '祝福 被拦不写库');
+  // 31 字：不合格
+  res = await saveProfile.main({ check_in_name: '阿草', blessing: '喜'.repeat(31) });
+  check(res.ok === false && res.reason === 'bad_request' && res.field === 'blessing', `祝福 31 字不行（实际 ${JSON.stringify(res)}）`);
+  // 不传 blessing（跳过）：照常签到
+  res = await saveProfile.main({ check_in_name: '阿草', gift_value: 66 });
+  check(res.ok === true, `祝福 跳过照常签到（实际 ${JSON.stringify(res)}）`);
+  check(!('blessing' in state.collections.resident.get('bless_b')), '祝福 跳过的不留 blessing');
+  // 再写一个，读祝福牌：新的在前，带签到名字，没写祝福的不出
+  seed(state, 'resident', { _id: 'bless_c', nick: '小王', blessing: '恭喜恭喜，幸福美满', blessing_at: a.blessing_at + 1000 });
+  const readBlessings = loadCloudFunction('readBlessings', sdk);
+  res = await readBlessings.main({});
+  check(res.ok === true && res.items.length === 2, `祝福牌 两条（实际 ${JSON.stringify(res)}）`);
+  check(res.items[0].text === '恭喜恭喜，幸福美满' && res.items[0].name === '小王' && res.items[1].name === '阿花', '祝福牌 新的在前、没签到名字的用昵称');
+}
+
 // ================= 场景9：保留名留给主角——主角名单里的人、已经用着这个名字的人不拦；别人照拦；敏感词对谁都拦 =================
 async function scenarioReservedNameExemptions() {
   const { sdk, state } = createFakeSdk();
@@ -1396,6 +1426,7 @@ async function scenarioChangeSeatMainTable() {
   await scenarioChangeSeatValidation();
   await scenarioEnterHallMainTable();
   await scenarioChangeSeatMainTable();
+  await scenarioBlessing();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

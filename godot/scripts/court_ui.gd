@@ -17,6 +17,9 @@ const RING_PERIOD := 1.6   # 两个对焦圈一靠一离多久，秒
 const GIFTS := [0, 66, 88, 188]    # 蓝图 3.1：不送、66、88、188，再加「自己填」
 const GIFT_MAX := 9999             # 自己填的上限，超了按上限（蓝图 3.1 异常表）
 const NAME_MAX := 12
+const BLESS_MAX := 30
+const PAGE_BLESS := 2
+const PAGE_CONFIRM := 3
 const CANDY_SECS := 2.5
 const RED_ERR := Color("#E8746A")
 const MUTED := Color("#b1a6ba")
@@ -29,7 +32,7 @@ var save                   # court_save.gd
 var act_btn: Button        # 底部按钮：签到 / 已签到 ……（走进交互点半径才出，蓝图 3.1 交互说明）
 var act_id := ""
 var sign_root: Control
-var pages: Array = []      # 0 名字、1 礼金、2 确认
+var pages: Array = []      # 0 名字、1 礼金、2 祝福、3 确认（01 E 10/2：迎宾院玩家说明 v1 加一句公开祝福）
 var name_edit: LineEdit
 var name_err: Label
 var name_count: Label
@@ -42,6 +45,14 @@ var gift_back_btn: Button   # B19：礼金卡「返回」，次一级
 var confirm_back_btn: Button   # B19：确认卡「返回」，次一级
 var focus_hint_panel: PanelContainer   # C1：合影提示字的底框
 var sign_name := ""
+var sign_bless := ""       # 签到时的一句公开祝福；空的是跳过了
+var bless_edit: LineEdit
+var bless_err: Label
+var bless_custom_row: HBoxContainer
+var confirm_bless: Label
+var board_root: Control    # 祝福牌：签到桌旁那块，大家写的祝福往下翻
+var board_list: VBoxContainer
+var board_status: Label
 var sign_gift := 0
 var busy := false          # 签到请求在路上
 var candy_root: Control
@@ -88,10 +99,12 @@ func hide_all() -> void:
     candy_root.visible = false
     if pose_root.visible or focus_root.visible or paper_root.visible:
         _close_photo()
+    if board_root != null and board_root.visible:
+        close_board()
 
 ## 走进、走出交互点（main 的 _on_court_spot 转过来）
 func spot(id: String, inside: bool) -> void:
-    if not id in ["sign_in", "album", "photo_mark"]:
+    if not id in ["sign_in", "album", "photo_mark", "blessing"]:
         return
     if inside:
         act_id = id
@@ -110,7 +123,7 @@ func spot(id: String, inside: bool) -> void:
 
 ## 从别的界面（回忆册剪辑）回到迎宾院：人还站在交互点里的，把按钮补出来
 func refresh_spots() -> void:
-    for id in ["sign_in", "album", "photo_mark"]:
+    for id in ["sign_in", "album", "photo_mark", "blessing"]:
         if m.court.in_spot(id):
             act_id = id
             _refresh_act()
@@ -135,6 +148,9 @@ func _refresh_act() -> void:
         "photo_mark":
             act_btn.text = Copy.text("btn_photo")
             act_btn.disabled = false
+        "blessing":
+            act_btn.text = Copy.text("btn_board")
+            act_btn.disabled = false
 
 func _on_act() -> void:
     match act_id:
@@ -145,6 +161,8 @@ func _on_act() -> void:
                 m.open_clip()
         "photo_mark":
             start_photo()
+        "blessing":
+            open_board()
 
 # ---------- 签到面板：名字 → 礼金 → 确认（蓝图 3.1） ----------
 func _panel(width := 460.0) -> Array:
@@ -253,17 +271,37 @@ func _build_sign() -> void:
     p1.add_child(gift_custom_row)
     gift_back_btn = _btn_secondary(Copy.text("btn_back"), func(): _show_page(0))
     p1.add_child(gift_back_btn)
-    # 第 3 页：确认，写明「只是游戏里的记录」
+    # 第 3 页：一句祝福（公开，别人在祝福牌上看得到）。长辈打字难：给四句现成的一点就用，再留「自己写」；可以跳过（04 基线第六节第 1 条）
+    var pb := _page(holder)
+    pb.add_child(_lbl(Copy.text("bless_title"), 24, GOLD1))
+    pb.add_child(_lbl(Copy.text("bless_hint"), 24, MUTED))
+    for k in ["bless_1", "bless_2", "bless_3", "bless_4"]:
+        var b := _btn(Copy.text(k), _pick_bless.bind(Copy.text(k)))
+        b.set_meta("bless_preset", true)
+        pb.add_child(_grow(b))
+    pb.add_child(_grow(_btn(Copy.text("bless_custom"), _open_bless_custom)))
+    bless_edit = LineEdit.new()
+    bless_edit.placeholder_text = Copy.text("bless_placeholder")
+    bless_edit.max_length = BLESS_MAX * 2   # 按字素数校验，这里放宽一点
+    bless_custom_row = _row([_grow(bless_edit), _btn(Copy.text("btn_ok"), _bless_custom_done)])
+    bless_custom_row.visible = false
+    pb.add_child(bless_custom_row)
+    bless_err = _lbl("", 24, RED_ERR)
+    pb.add_child(bless_err)
+    pb.add_child(_row([_btn_secondary(Copy.text("btn_back"), func(): _show_page(1)), _grow(_btn(Copy.text("bless_skip"), _pick_bless.bind("")))]))
+    # 第 4 页：确认，写明「只是游戏里的记录」
     var p2 := _page(holder)
     p2.add_child(_lbl(Copy.text("confirm_title"), 24, GOLD1))
     confirm_name = _lbl("")
     p2.add_child(confirm_name)
     confirm_gift = _lbl("")
     p2.add_child(confirm_gift)
+    confirm_bless = _lbl("")
+    p2.add_child(confirm_bless)
     p2.add_child(_lbl(Copy.text("confirm_note"), 24, MUTED))
     confirm_ok = _btn(Copy.text("btn_ok"), _submit)
     confirm_ok.add_theme_font_size_override("font_size", 28)   # B19：往前走的那个做大
-    confirm_back_btn = _btn_secondary(Copy.text("btn_back"), func(): _show_page(1))
+    confirm_back_btn = _btn_secondary(Copy.text("btn_back"), func(): _show_page(PAGE_BLESS))
     p2.add_child(_row([confirm_back_btn, _grow(confirm_ok)]))
 
 func _show_page(i: int) -> void:
@@ -272,6 +310,8 @@ func _show_page(i: int) -> void:
     if i == 1:
         gift_custom_row.visible = false
         gift_edit.text = ""
+    if i == PAGE_BLESS and bless_err.text == "":
+        bless_custom_row.visible = false
 
 func open_sign() -> void:
     if save.signed_in or busy or sign_root.visible:
@@ -279,9 +319,11 @@ func open_sign() -> void:
     # 默认带昵称；上次断网没交上的，接着用草稿
     sign_name = str(save.draft.get("name", m.nickname))
     sign_gift = int(save.draft.get("gift", 0))
+    sign_bless = str(save.draft.get("bless", ""))
+    bless_err.text = ""
     name_edit.text = sign_name
     _check_name_ui()
-    _show_page(2 if save.draft.has("name") else 0)
+    _show_page(PAGE_CONFIRM if save.draft.has("name") else 0)
     if save.draft.has("name"):
         _fill_confirm()
     sign_root.visible = true
@@ -320,8 +362,38 @@ func _name_next() -> void:
 
 func _pick_gift(g: int) -> void:
     sign_gift = g
+    bless_err.text = ""
+    _show_page(PAGE_BLESS)
+
+## 祝福：点现成的一句、自己写好了、或者跳过（text 空）都到确认页
+func _pick_bless(text: String) -> void:
+    sign_bless = text
+    bless_err.text = ""
     _fill_confirm()
-    _show_page(2)
+    _show_page(PAGE_CONFIRM)
+
+func _open_bless_custom() -> void:
+    bless_custom_row.visible = true
+    bless_edit.grab_focus()
+
+## 自己写的祝福：1～30 字、字体里有的字（敏感词服务端判，判不过回到这一屏说「换个说法吧」）
+func check_bless(raw: String) -> String:
+    var s: String = m._normalize(raw)
+    if s == "":
+        return Copy.text("err_bless_empty")
+    if m._graphemes(s) > BLESS_MAX:
+        return Copy.text("err_bless_long")
+    for i in s.length():
+        if not font.has_char(s.unicode_at(i)):
+            return Copy.text("err_name_glyph")
+    return ""
+
+func _bless_custom_done() -> void:
+    var r := check_bless(bless_edit.text)
+    if r != "":
+        bless_err.text = r
+        return
+    _pick_bless(m._normalize(bless_edit.text))
 
 func _open_custom() -> void:
     gift_custom_row.visible = true
@@ -352,6 +424,7 @@ func _custom_done() -> void:
 func _fill_confirm() -> void:
     confirm_name.text = Copy.text("confirm_name_fmt") % sign_name
     confirm_gift.text = Copy.text("confirm_gift_fmt") % (Copy.text("gift_none") if sign_gift == 0 else str(sign_gift))
+    confirm_bless.text = Copy.text("confirm_bless_fmt") % sign_bless if sign_bless != "" else Copy.text("confirm_bless_none")
 
 ## 交签到：名字和礼金一起存进服务端自己那条住民记录（蓝图 2.4），名字过敏感词（服务端判）
 func _submit() -> void:
@@ -360,7 +433,10 @@ func _submit() -> void:
     busy = true
     confirm_ok.disabled = true
     print("[suqi] 签到 礼金 ", sign_gift)
-    m.cloud.call_fn("saveProfile", {"check_in_name": sign_name, "gift_value": sign_gift}, _on_signed)
+    var data := {"check_in_name": sign_name, "gift_value": sign_gift}
+    if sign_bless != "":
+        data["blessing"] = sign_bless   # 公开的一句祝福（跳过了就不传）
+    m.cloud.call_fn("saveProfile", data, _on_signed)
 
 func _on_signed(r: Dictionary) -> void:
     busy = false
@@ -376,13 +452,20 @@ func _on_signed(r: Dictionary) -> void:
         print("[suqi] 签到 好了")
         after_sign()
         return
+    if reason == "sensitive" and str(r.get("field", "")) == "blessing":
+        # 祝福里有敏感词：回到祝福那屏、自己写那行打开、原话还在，说「换个说法吧」；名字、礼金不丢
+        _show_page(PAGE_BLESS)
+        bless_custom_row.visible = true
+        bless_edit.text = sign_bless
+        bless_err.text = Copy.text("err_bless_sensitive")
+        return
     if reason == "sensitive" or reason == "reserved":
         # 名字被服务端拦了：回到第 1 页，显示原因（和起昵称一样的两句）
         name_err.text = m._reason_text(r, "签到")
         _show_page(0)
         return
     # 断网：提示「没连上 再试一下」，本机留草稿，停在确认页可以再点「好」（蓝图 3.1 异常表）
-    save.draft = {"name": sign_name, "gift": sign_gift}
+    save.draft = {"name": sign_name, "gift": sign_gift, "bless": sign_bless}
     save.save()
     m._note(m._reason_text(r, "签到"), 3.0)
 
@@ -704,3 +787,51 @@ func _close_photo() -> void:
         _refresh_act()
         act_btn.visible = true
 
+
+
+# ---------- 祝福牌（01 E 10/2，迎宾院玩家说明 v1 第 1 条）：签到桌旁一块牌，大家签到时写的祝福，新的在上面，往下翻 ----------
+func _build_board() -> void:
+    var pr := _panel()
+    board_root = pr[0]
+    var holder: VBoxContainer = pr[1]
+    holder.add_child(_lbl(Copy.text("board_title"), 24, GOLD1))
+    board_status = _lbl("", 24, MUTED)
+    holder.add_child(board_status)
+    var sc := ScrollContainer.new()
+    sc.custom_minimum_size = Vector2(0, 420)
+    sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    holder.add_child(sc)
+    board_list = VBoxContainer.new()
+    board_list.add_theme_constant_override("separation", 12)
+    board_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    sc.add_child(board_list)
+    holder.add_child(_grow(_btn(Copy.text("board_close"), close_board)))
+
+func open_board() -> void:
+    if board_root == null:
+        _build_board()
+    for c in board_list.get_children():
+        c.queue_free()
+    board_status.text = Copy.text("board_loading")
+    board_root.visible = true
+    panel_changed.emit(true)
+    m.cloud.call_fn("readBlessings", {}, _on_board)
+
+func _on_board(r: Dictionary) -> void:
+    if board_root == null or not board_root.visible:
+        return
+    if not bool(r.get("ok", false)):
+        board_status.text = m._reason_text(r, "祝福牌")
+        return
+    var items: Array = r.get("items", [])
+    board_status.text = Copy.text("board_empty") if items.is_empty() else ""
+    for it in items:
+        var nm := str(it.get("name", ""))
+        var l := _lbl((nm + "：" if nm != "" else "") + str(it.get("text", "")), 24)
+        l.set_meta("blessing_line", true)
+        board_list.add_child(l)
+
+func close_board() -> void:
+    if board_root != null:
+        board_root.visible = false
+    panel_changed.emit(false)

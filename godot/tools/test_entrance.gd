@@ -78,7 +78,7 @@ func run() -> void:
     print("1 迎宾院的格子和交互点")
     var g: Dictionary = c.cfg["walk_grid"]
     check("进场点能站 %s" % str(c.SPAWN), c._free(c.SPAWN))
-    check("交互点 10 个", c.points.size() == 10)
+    check("交互点 11 个（10/2 加了祝福牌）", c.points.size() == 11 and c.points.has("blessing"))
     check("B20 签到台记号：一开始亮着", c.sign_mark != null and c.sign_mark.visible)
     for id in c.points:
         var p: Vector2 = c.points[id]["pos"]
@@ -247,13 +247,14 @@ func part2(c) -> void:
     ui._open_custom()
     ui.gift_edit.text = "12345"
     ui._custom_done()
-    check("确认页写 %s" % ui.confirm_gift.text, ui.pages[2].visible and ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "9999")
+    check("自己填 12345 记成 9999、到祝福那屏（01 E 10/2：名字 → 礼金 → 祝福 → 确认）", ui.pages[ui.PAGE_BLESS].visible and ui.sign_gift == 9999)
     ui._show_page(1)
     ui._pick_gift(88)
+    ui._pick_bless(CourtCopy.text("bless_2"))
     check("选 88：%s / %s" % [ui.confirm_name.text, ui.confirm_gift.text],
         ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "88" and ui.confirm_name.text == CourtCopy.text("confirm_name_fmt") % "小李")
     var note_ok := false
-    for ch in ui.pages[2].get_children():
+    for ch in ui.pages[ui.PAGE_CONFIRM].get_children():
         if ch is Label and ch.text == CourtCopy.text("confirm_note"):
             note_ok = true
     check("确认页写着「只是游戏里的记录」", note_ok)
@@ -275,7 +276,8 @@ func part2(c) -> void:
     ui._close_sign()
     check("关了面板能走", c.walking_enabled)
     ui.open_sign()
-    check("再开直接到确认页，还是 88", ui.pages[2].visible and ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "88")
+    check("再开直接到确认页，还是 88、祝福还在", ui.pages[ui.PAGE_CONFIRM].visible and ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % "88"
+        and ui.confirm_bless.text == CourtCopy.text("confirm_bless_fmt") % CourtCopy.text("bless_2"))
 
     # 14. 签上：爸爸收礼，喜糖只弹一次，妈妈指路；服务端存下名字和礼金
     print("14 签好了")
@@ -309,6 +311,7 @@ func part2(c) -> void:
     ui.name_edit.text = "测试敏感"
     ui._name_next()
     ui._pick_gift(66)
+    ui._pick_bless("")
     ui._submit()
     check("退回第一页：%s" % ui.name_err.text, ui.pages[0].visible and ui.name_err.text == m.REASONS["sensitive"] and not sv.signed_in)
     ui._close_sign()
@@ -511,6 +514,7 @@ func part4(c) -> void:
     m.court_ui.name_edit.text = "小李"
     m.court_ui._name_next()
     m.court_ui._pick_gift(0)
+    m.court_ui._pick_bless("")
     check("确认页：%s" % m.court_ui.confirm_gift.text, m.court_ui.confirm_gift.text == CourtCopy.text("confirm_gift_fmt") % CourtCopy.text("gift_none"))
     m.say_log.clear()
     m.court_ui._submit()

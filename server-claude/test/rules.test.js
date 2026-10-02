@@ -553,6 +553,10 @@ eq(resident.canSaveProfile({ nick: 'x'.repeat(13) }), { ok: false, reason: 'book
 eq(resident.canCheckIn('李'), { ok: true }, '签到名字 1 个字可以（比昵称的 2 字宽）');
 eq(resident.canCheckIn('x'.repeat(12)), { ok: true }, '签到名字 正好 12 字可以');
 eq(resident.canCheckIn('x'.repeat(13)), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 超过 12 字');
+eq(resident.canBless('喜'), { ok: true }, '祝福 1 个字可以');
+eq(resident.canBless('喜'.repeat(30)), { ok: true }, '祝福 正好 30 字可以');
+eq(resident.canBless('喜'.repeat(31)), { ok: false, reason: 'bad_request', field: 'blessing' }, '祝福 31 字不行');
+eq(resident.canBless('   '), { ok: false, reason: 'bad_request', field: 'blessing' }, '祝福 全是空白不行');
 eq(resident.canCheckIn('   '), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 全是空白');
 eq(resident.canCheckIn(88), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 不是字符串');
 eq(resident.canSaveProfile({ nick: '' }), { ok: false, reason: 'nick_too_short', field: 'nick' }, '昵称空的（去空白后不够2字）');

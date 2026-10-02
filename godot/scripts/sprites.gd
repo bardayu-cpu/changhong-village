@@ -170,8 +170,7 @@ const PROC_ANIM := {
     "left": {"walk": [7, 6, 8, 6], "idle": 6, "flip": true},
 }
 
-## GPT 画的宾客图集（assets/characters/chr_guestNN.png 和 .json，NN 从 01 起，对应形象 0 起）。
-## 有就用它，没有返回空字典，照旧用代码画的
+## GPT 画的宾客图集：罗曼山庄的宾客 LM-GUEST-01～08（形象 0～7）。有就用它，没有返回空字典，照旧用代码画的
 ## 10/2 起先看罗曼山庄的宾客 LM-GUEST-01～08（lm_people.gd，形象 0～7 对 01～08），在就用它
 static func gpt_look(preset: int) -> Dictionary:
     if preset >= 0 and preset < LMPeople.PICKABLE:
@@ -183,21 +182,8 @@ static func gpt_look(preset: int) -> Dictionary:
                 lanim[d] = {"walk": fr, "idle": fr[0], "flip": false}
             return {"tex": l["tex"], "hframes": l["hframes"], "frame_w": l["fw"], "frame_h": l["fh"],
                 "anim": lanim, "fps": l["fps"], "height_m": l["height_m"], "code": l["code"]}
-    var base := "res://assets/characters/chr_guest%02d" % (preset + 1)
-    if not ResourceLoader.exists(base + ".png") or not FileAccess.file_exists(base + ".json"):
-        return {}
-    var meta = JSON.parse_string(FileAccess.get_file_as_string(base + ".json"))
-    if typeof(meta) != TYPE_DICTIONARY:
-        return {}
-    var tex: Texture2D = load(base + ".png")
-    var fw: int = int(meta["frame"][0])
-    var fh: int = int(meta["frame"][1])
-    var anim := {}
-    for dir in ["down", "up", "left", "right"]:
-        var fr: Array = meta["frames"][dir]
-        anim[dir] = {"walk": fr, "idle": fr[0], "flip": false}
-    return {"tex": tex, "hframes": tex.get_width() / fw, "frame_w": fw, "frame_h": fh,
-        "anim": anim, "fps": float(meta.get("fps", 8)), "height_m": float(meta.get("height_m", 1.75))}
+    # 老的 chr_guestNN（第 3 个形象那张 48×64，放大是杂点）01 E 10/2 定不再用、文件删了：没有罗曼山庄宾客的图就用代码画的
+    return {}
 
 ## 选形象界面用的正面大图
 static func portrait(preset: int, zoom := 5) -> ImageTexture:
