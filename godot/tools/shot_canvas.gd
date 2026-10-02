@@ -15,6 +15,7 @@ extends SceneTree
 ##   --feast=         空 = 照北京时间；feast 强制开席；pre 强制开席前（只有 --people=1 才看得出）；给了就快进 60 秒让亲友走到位
 ##   --preset=        给了就不走上面那套：照 main.gd 的截图预设（_setup_shot，跟 capture.sh 同一套）摆好整屏截（厨房、后厅这些），
 ##                    其余参数都不管。例：--preset=k04_start、--preset=kitchen_play_lv4、--preset=backhall
+##   --lm_dir=        罗曼山庄的人（lm_people.gd）换一个文件夹读（绝对路径），比如拿假图看全换上的样子；空 = 照旧读游戏里的
 ##   --fx=            空 = 不飘；feast / entry / toast 放那一阵飘落（hall_festive.gd），快进 --fx_t 秒（默认 1.0）再截
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
 
@@ -22,13 +23,18 @@ const Main = preload("res://scripts/main.gd")
 
 var m
 var started := false
-var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": "", "stand": "rect", "fx": "", "fx_t": "1.0", "preset": ""}
+var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": "", "stand": "rect", "fx": "", "fx_t": "1.0", "preset": "", "lm_dir": ""}
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
         if a.begins_with("--") and "=" in a:
             var kv := a.substr(2).split("=", true, 1)
             opt[kv[0]] = kv[1]
+    if str(opt["lm_dir"]) != "":
+        var LMPeople = load("res://scripts/lm_people.gd")
+        if LMPeople != null:
+            LMPeople.dir = str(opt["lm_dir"]).trim_suffix("/") + "/"
+            LMPeople.clear_cache()
     m = Main.new()
     m.fast = true
     get_root().add_child(m)

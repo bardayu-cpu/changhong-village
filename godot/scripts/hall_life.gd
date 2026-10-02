@@ -12,6 +12,7 @@ signal family_near(key: String, title: String)   # 走近主桌家里人（亮�
 ## 摆哪、几个在 assets/ambience/ambience.json（tools/make_ambience_layout.py 生成）
 
 const Spr = preload("res://scripts/sprites.gd")
+const LMPeople = preload("res://scripts/lm_people.gd")
 const Relatives = preload("res://scripts/relatives.gd")
 const DIR := "res://assets/ambience/"
 const FH := 32.0             # 代码画的人一帧 16×32
@@ -55,6 +56,7 @@ class Waiter:
     var order_t := 0.0       # 这一单接了多久了：超过 ORDER_WAIT_MAX 直接摆上桌，不让人干等
     var key := ""            # 让座的宾客（55 桌厅）：要去坐的那把 "T7:5"；空串是没空椅子、去桌边站着
     var row := 0             # 让座的宾客：长相在宾客拼图里是第几行
+    var lm := {}             # 罗曼山庄服务员（LM-WAITER）的图和数；空的照旧代码画的
 
 class Guest:
     var node: Node2D
@@ -94,6 +96,16 @@ var orders: Array = []
 const ORDER_WAIT_MAX := 12.0
 const ORDER_NAME_SECS := 6.0     # 菜名在桌上显示几秒（看清是哪道，然后收掉，不长期挡着）
 var guest_atlas: ImageTexture
+# 宾客、亲友、让座走的人共用的一套「人」（10/2，01 E：GPT 画全套人物，图到一个用一个）：
+#   罗曼山庄的宾客 LM-GUEST-01～12 有一张以上就用它们（64×84、16 帧、四个朝向不翻转），一个人一行拼成一张图；
+#   一张都没有就照旧用代码画的 20 种（16×32、9 帧、侧面朝左用翻转）。
+#   rows 每行：top、h（这个人在格子里画了多高，坐下截上半身照它截）、sc（照 height_m 缩到该有的高，小孩 1.1 米）、kid
+var kit := {}
+var table_rows := {}
+var lm_band: Array = []      # 罗曼山庄乐手（LM-BAND-01～04）：[{spr, frames, fps}]
+# 乐手站哪（03 量的，godot/回执/出图-乐队台乐手/ 零件单）：编号 → 脚点（整厅）。只在 55 桌厅摆
+const LM_BAND_FEET := {"LM-BAND-01": Vector2(1128, 293), "LM-BAND-02": Vector2(1200, 292),
+    "LM-BAND-03": Vector2(1257, 290), "LM-BAND-04": Vector2(1302, 290)}         # 每张桌发长相：一桌一个打乱的顺序，同一桌不重样、小孩最多一个
 var relatives: Node2D = null     # 55 桌大厅的亲友 NPC（relatives.gd；ambience 里有 relatives 才建）
 
 func build(h: Node2D) -> void:
@@ -113,6 +125,7 @@ func build(h: Node2D) -> void:
     _decals()
     _gifts()
     _band()
+    _lm_band()
     _glows()
     _petals()
     _waiters()
@@ -232,6 +245,35 @@ func _gifts() -> void:
 ## 图或者 band.json 缺了就退回原来代码画的那套色块，跟菜牌、阶梯图一个规矩。
 ## 音符和灯光走**单独的动效层**：音符按 band.json 给的点往上飘（换曲时换一种形状），灯光原地闪，
 ## 都不画死在乐手身上
+## 乐队台上的乐手（10/2 01 E）：哪位的图到了就摆哪位，脚踩在 03 量的脚点上（格子里的脚点照 json 的 foot，没写就是下沿正中），
+## 演奏那几帧循环（json 的 frames.play、fps）。钢琴、大提琴、谱架画在背景里；大提琴手、小提琴手的图里自带琴和谱架，盖住背景那个
+func _lm_band() -> void:
+    if not hall.big:
+        return
+    for code in LM_BAND_FEET:
+        var l: Dictionary = LMPeople.look(code)
+        if l.is_empty():
+            continue
+        var foot: Vector2 = LM_BAND_FEET[code]
+        var node := Node2D.new()
+        node.name = code
+        node.position = foot
+        hall.world.add_child(node)
+        var s := Sprite2D.new()
+        s.texture = l["tex"]
+        s.hframes = int(l["hframes"])
+        s.vframes = int(l["vframes"])
+        s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        s.centered = false
+        var fp: Array = l["foot"]
+        var k: float = hall._px_h(foot.y) / 84.0   # 03 照 1:1 量的（55 桌厅人 84 高）
+        s.scale = Vector2(k, k)
+        s.position = -Vector2(float(fp[0]), float(fp[1])) * k
+        var frames: Array = (l["frames"] as Dictionary).get("play", [0])
+        s.frame = int(frames[0])
+        node.add_child(s)
+        lm_band.append({"spr": s, "frames": frames, "fps": float(l["fps"]) if float(l["fps"]) > 0.0 else 6.0})
+
 func _band() -> void:
     if not bool(hall.cfg.get("band_art", true)):
         return   # 55 桌灰盒：乐队是底图里的色块，不叠第 44 版那块乐队图、也不飘音符
@@ -499,14 +541,29 @@ func _waiters() -> void:
     _spots()
     var ids: Array = spots.keys()
     ids.sort()
+    # 罗曼山庄服务员（LM-WAITER-01～40）有图就从里面挑（不重样，按厅固定的顺序），后厅、厨房以后也用这套
+    var lm_codes: Array = LMPeople.waiters_present()
+    var lr := RandomNumberGenerator.new()
+    lr.seed = 1002
+    for k in range(lm_codes.size() - 1, 0, -1):
+        var j := lr.randi_range(0, k)
+        var tmp = lm_codes[k]
+        lm_codes[k] = lm_codes[j]
+        lm_codes[j] = tmp
     for i in n:
         var w := Waiter.new()
         w.node = Node2D.new()
         w.node.name = "waiter%d" % i
         hall.world.add_child(w.node)
-        w.body = _stander(_look("w%d" % (i % Spr.WAITERS.size()), Spr.WAITERS[i % Spr.WAITERS.size()]))
-        w.node.add_child(w.body)
-        w.tray = _sprite("amb_tray")
+        if not lm_codes.is_empty():
+            w.lm = LMPeople.look(lm_codes[i % lm_codes.size()])
+            w.body = _lm_stander(w.lm)
+            w.node.add_child(w.body)
+            w.tray = _sprite("amb_dish_1")
+        else:
+            w.body = _stander(_look("w%d" % (i % Spr.WAITERS.size()), Spr.WAITERS[i % Spr.WAITERS.size()]))
+            w.node.add_child(w.body)
+            w.tray = _sprite("amb_tray")
         if w.tray != null:
             w.node.add_child(w.tray)
         # 开场时分散在几张桌边，已经端着菜在走了
@@ -690,6 +747,9 @@ func _orders_tick(dt: float) -> void:
 func _tray_look(w: Waiter) -> void:
     if w.tray == null:
         return
+    if not w.lm.is_empty():
+        w.tray.visible = w.full   # 托盘画在人身上，挂上去的只是菜：端着菜才有
+        return
     var tx := _tex("amb_tray" if w.full else "amb_tray_empty")
     if tx != null:
         w.tray.texture = tx
@@ -761,13 +821,31 @@ func _arrive(w: Waiter) -> void:
                 w.face = hall._face_for(center - w.pos)
 
 func _pose_waiter(w: Waiter, moving: bool) -> void:
+    var bob := -absf(sin(w.anim * WALK_FPS * PI)) * 1.2 if moving else 0.0
+    w.node.position = w.pos
+    if w.kind == "reseat":
+        _kit_pose(w.body, w.row, w.face, moving, w.anim)
+        return
+    if not w.lm.is_empty():
+        # 罗曼山庄服务员：端托盘那一行走（托盘画在人身上），菜挂在 json 写的托盘中心那一点
+        var fr: Array = LMPeople.dir_frames(w.lm, w.face, true)
+        w.body.frame = int(fr[int(w.anim * WALK_FPS) % fr.size()]) if moving else int(fr[0])
+        w.body.flip_h = false
+        w.body.offset = Vector2(0, _lm_foot_offset(w.lm) + bob)
+        if w.tray != null:
+            var tpt := LMPeople.tray_point(w.lm, w.face)
+            var tp := Vector2(tpt.x - float(w.lm["fw"]) * 0.5, tpt.y - float(w.lm["top"]) - float(w.lm["h"]) + bob) * w.body.scale.x
+            if w.state == "serve":
+                var k := sin(clampf(w.serve_t / SERVE_LEN, 0.0, 1.0) * PI)
+                var toward := (_table_center(w.table) - w.pos).normalized()
+                tp += Vector2(toward.x * 12.0, 14.0) * k
+            w.tray.position = tp
+        return
     var fl: Dictionary = Spr.PROC_ANIM[w.face]
     var walk: Array = fl["walk"]
     w.body.frame = walk[int(w.anim * WALK_FPS) % walk.size()] if moving else int(fl["idle"])
     w.body.flip_h = bool(fl["flip"])
-    var bob := -absf(sin(w.anim * WALK_FPS * PI)) * 1.2 if moving else 0.0
     w.body.offset = Vector2(0, -FH * 0.5 + bob)
-    w.node.position = w.pos
     if w.tray != null:
         # 托盘端在左手、举到肩膀高：面朝外时在画面右边，背对时在左边，侧身时在身前
         var tx := 14.0
@@ -1012,7 +1090,16 @@ func _seat_family(taken: Dictionary) -> void:
 
 ## 按称呼分男女挑长相（04 9/29：大爸抽到长发金耳环像女的）：从现有 LOOKS 种宾客长相里分出
 ## 男：短发或光头、不戴金耳环、没有蝴蝶结；女：长发或扎辫子；老人（女）：女里灰头发的。不画新图
-static func look_pools() -> Dictionary:
+func look_pools() -> Dictionary:
+    if _kit()["lm"]:
+        # 罗曼山庄的宾客：照 GPT 任务单里每位什么样分（小孩不发给亲友、主桌家里人）
+        var lm := {"m": ["LM-GUEST-01", "LM-GUEST-04", "LM-GUEST-05", "LM-GUEST-07", "LM-GUEST-10"],
+            "f": ["LM-GUEST-02", "LM-GUEST-03", "LM-GUEST-06", "LM-GUEST-08", "LM-GUEST-09"],
+            "m_old": ["LM-GUEST-10", "LM-GUEST-07"], "f_old": ["LM-GUEST-09", "LM-GUEST-06"]}
+        var pools := {}
+        for kind in lm:
+            pools[kind] = (lm[kind] as Array).map(func(c): return kit_row_of(c)).filter(func(r): return r >= 0)
+        return pools
     var out := {"m": [], "f": [], "f_old": []}
     for i in LOOKS:
         var l: Dictionary = Spr.guest_look(i)
@@ -1027,16 +1114,141 @@ static func look_pools() -> Dictionary:
     return out
 
 ## 按 sex、elder 轮着发长相：同一种性别依次取下一种，一家人不撞脸。counters 由调用的人留着（主桌一份、亲友一份）
-static func pick_look(p: Dictionary, pools: Dictionary, counters: Dictionary) -> int:
+func pick_look(p: Dictionary, pools: Dictionary, counters: Dictionary) -> int:
     var kind := "m" if str(p.get("sex", "")) == "m" else "f"
     if kind == "f" and bool(p.get("elder", false)) and not (pools["f_old"] as Array).is_empty():
         kind = "f_old"
+    if kind == "m" and bool(p.get("elder", false)) and not (pools.get("m_old", []) as Array).is_empty():
+        kind = "m_old"
     var pool: Array = pools[kind]
     if pool.is_empty():
-        return absi(hash(str(p.get("title", "")))) % LOOKS
+        return absi(hash(str(p.get("title", "")))) % (_kit()["rows"] as Array).size()
     var n := int(counters.get(kind, 0))
     counters[kind] = n + 1
     return int(pool[n % pool.size()])
+
+## 宾客、亲友共用的那套人（见 kit 上面的说明）
+func _kit() -> Dictionary:
+    if not kit.is_empty():
+        return kit
+    var codes: Array = LMPeople.guests_present()
+    var rows: Array = []
+    if not codes.is_empty():
+        var a := LMPeople.guest_atlas(codes)
+        var anim := {}
+        for d in ["down", "up", "left", "right"]:
+            var fr: Array = a["frames"].get(d, a["frames"]["down"])
+            anim[d] = {"walk": fr, "idle": int(fr[0]), "flip": false}
+        for r in a["rows"]:
+            var target: float = hall._px_h(500.0) * float(r["height_m"]) / LMPeople.ADULT_M
+            rows.append({"code": r["code"], "top": float(r["top"]), "h": float(r["h"]), "sc": target / maxf(1.0, float(r["h"])), "kid": bool(r["kid"])})
+        kit = {"lm": true, "tex": a["tex"], "fw": float(a["fw"]), "fh": float(a["fh"]), "hframes": int(a["hframes"]), "anim": anim,
+            "side": [{"frame": int(anim["left"]["idle"]), "flip": false}, {"frame": int(anim["right"]["idle"]), "flip": false}], "rows": rows}
+    else:
+        for i in LOOKS:
+            rows.append({"code": "", "top": 0.0, "h": FH, "sc": sc, "kid": false})
+        kit = {"lm": false, "tex": _guest_atlas(), "fw": 16.0, "fh": FH, "hframes": 9, "anim": Spr.PROC_ANIM,
+            "side": [{"frame": 6, "flip": false}, {"frame": 6, "flip": true}], "rows": rows}
+    return kit
+
+## 这套人里某个编号在第几行（没有回 -1）
+func kit_row_of(code: String) -> int:
+    var rows: Array = _kit()["rows"]
+    for i in rows.size():
+        if rows[i]["code"] == code:
+            return i
+    return -1
+
+## 给一张桌发下一个长相：一桌一个打乱的顺序（按桌号定死），同一桌不重样（长相不够才重），小孩一桌最多一个
+func _next_row(tid: String) -> int:
+    var rows: Array = _kit()["rows"]
+    var n := rows.size()
+    if not table_rows.has(tid):
+        var r2 := RandomNumberGenerator.new()
+        r2.seed = hash(tid)
+        var perm: Array = range(n)
+        for k in range(n - 1, 0, -1):
+            var j := r2.randi_range(0, k)
+            var tmp = perm[k]
+            perm[k] = perm[j]
+            perm[j] = tmp
+        table_rows[tid] = {"perm": perm, "i": 0, "kids": 0}
+    var e: Dictionary = table_rows[tid]
+    for tries in n * 2:
+        var row: int = e["perm"][int(e["i"]) % n]
+        e["i"] = int(e["i"]) + 1
+        if bool(rows[row]["kid"]):
+            if int(e["kids"]) >= 1 and tries < n:
+                continue
+            e["kids"] = int(e["kids"]) + 1
+        return row
+    return int(e["perm"][0])
+
+## 坐着的人：这套人第 row 行、第 frame 帧的上半身（照这个人画了多高截 SIT_KEEP），原点在椅面
+func _kit_upper(row: int, frame: int, flip: bool) -> Sprite2D:
+    var k := _kit()
+    var r: Dictionary = k["rows"][row]
+    var s := Sprite2D.new()
+    s.texture = k["tex"]
+    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    s.region_enabled = true
+    s.centered = true
+    s.scale = Vector2(float(r["sc"]), float(r["sc"]))
+    _kit_frame(s, row, frame, flip)
+    return s
+
+func _kit_frame(s: Sprite2D, row: int, frame: int, flip: bool) -> void:
+    var k := _kit()
+    var r: Dictionary = k["rows"][row]
+    var keep := floorf(float(r["h"]) * hall.SIT_KEEP)
+    s.region_rect = Rect2(frame * float(k["fw"]), row * float(k["fh"]) + float(r["top"]), float(k["fw"]), keep)
+    s.flip_h = flip
+    s.offset = Vector2(0, -keep * 0.5)
+
+## 站着走的人（让座的宾客、亲友）：这套人第 row 行一整行帧，原点在脚底
+func _kit_body(row: int) -> Sprite2D:
+    var k := _kit()
+    var r: Dictionary = k["rows"][row]
+    var s := Sprite2D.new()
+    s.texture = k["tex"]
+    s.region_enabled = true
+    s.region_rect = Rect2(0.0, row * float(k["fh"]), float(k["fw"]) * int(k["hframes"]), float(k["fh"]))
+    s.hframes = int(k["hframes"])
+    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    s.centered = true
+    s.offset = Vector2(0, kit_foot(row))
+    s.scale = Vector2(float(r["sc"]), float(r["sc"]))
+    return s
+
+## 站着的人画的时候往上挪多少，脚才踩在原点上（脚是这个人画的最下面一行）
+func kit_foot(row: int) -> float:
+    var k := _kit()
+    var r: Dictionary = k["rows"][row]
+    return float(k["fh"]) * 0.5 - float(r["top"]) - float(r["h"])
+
+func _kit_pose(s: Sprite2D, row: int, face: String, moving: bool, anim_t: float) -> void:
+    var fl: Dictionary = _kit()["anim"][face]
+    var walk: Array = fl["walk"]
+    s.frame = int(walk[int(anim_t * WALK_FPS) % walk.size()]) if moving else int(fl["idle"])
+    s.flip_h = bool(fl["flip"])
+    var bob := -absf(sin(anim_t * WALK_FPS * PI)) * 1.2 if moving else 0.0
+    s.offset = Vector2(0, kit_foot(row) + bob)
+
+## 罗曼山庄的人站着：一整张图（多行），原点在脚底，照 height_m 缩
+func _lm_stander(l: Dictionary) -> Sprite2D:
+    var s := Sprite2D.new()
+    s.texture = l["tex"]
+    s.hframes = int(l["hframes"])
+    s.vframes = int(l["vframes"])
+    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    s.centered = true
+    s.offset = Vector2(0, _lm_foot_offset(l))
+    var k: float = hall._px_h(500.0) * float(l["height_m"]) / LMPeople.ADULT_M / maxf(1.0, float(l["h"]))
+    s.scale = Vector2(k, k)
+    return s
+
+func _lm_foot_offset(l: Dictionary) -> float:
+    return float(l["fh"]) * 0.5 - float(l["top"]) - float(l["h"])
 
 ## 别桌宾客的长相拼成一张图：一种长相一行（9 帧 144×32），所有宾客共用这一张
 func _guest_atlas() -> ImageTexture:
@@ -1055,12 +1267,11 @@ func _guest(tid: String, key: String, at: Vector2, center: Vector2, front: bool,
     g.node.position = at
     g.node.z_index = 1 if front else 0   # 和 layered_hall 画住民一样：桌子两边和前面的画在桌子前面
     guest_holder.add_child(g.node)
-    g.row = row if row >= 0 else absi(hash(key)) % LOOKS
-    var fl: Dictionary = Spr.PROC_ANIM[hall._face_for(center - at)]
+    g.row = row if row >= 0 else _next_row(tid)
+    var fl: Dictionary = _kit()["anim"][hall._face_for(center - at)]
     g.face_frame = int(fl["idle"])
     g.face_flip = bool(fl["flip"])
-    g.body = _upper(_guest_atlas(), g.face_frame, g.face_flip)
-    g.body.region_rect.position.y = g.row * FH
+    g.body = _kit_upper(g.row, g.face_frame, g.face_flip)
     g.node.add_child(g.body)
     g.cup = _sprite("amb_cup")
     if g.cup != null:
@@ -1072,7 +1283,9 @@ func _guest(tid: String, key: String, at: Vector2, center: Vector2, front: bool,
     guests.append(g)
 
 func _step_guest(g: Guest, dt: float) -> void:
-    var keep := floorf(FH * hall.SIT_KEEP)
+    var kt := _kit()
+    var kr: Dictionary = kt["rows"][g.row]
+    var keep := floorf(float(kr["h"]) * hall.SIT_KEEP)
     # 吃一口：低一下头（整个上半身往下 1 个美术像素）
     g.bite -= dt
     if g.bite <= 0.0:
@@ -1085,13 +1298,12 @@ func _step_guest(g: Guest, dt: float) -> void:
         g.next_turn = rng.randf_range(4.0, 9.0)
         if rng.randf() < 0.4:
             g.turn = rng.randf_range(1.4, 2.6)
-            g.body.region_rect = Rect2(6 * 16.0, g.row * FH, 16.0, keep)
-            g.body.flip_h = rng.randf() < 0.5
+            var sd: Dictionary = kt["side"][rng.randi() % (kt["side"] as Array).size()]
+            _kit_frame(g.body, g.row, int(sd["frame"]), bool(sd["flip"]))
     if g.turn > 0.0:
         g.turn -= dt
         if g.turn <= 0.0:
-            g.body.region_rect = Rect2(g.face_frame * 16.0, g.row * FH, 16.0, keep)
-            g.body.flip_h = g.face_flip
+            _kit_frame(g.body, g.row, g.face_frame, g.face_flip)
     g.body.offset = Vector2(0, -keep * 0.5 + (1.0 if g.dip > 0.0 else 0.0))
     # 举杯：这桌举杯的时候，酒杯举过头顶，先升后落
     var left: float = toast_left.get(g.table, 0.0)
@@ -1101,7 +1313,7 @@ func _step_guest(g: Guest, dt: float) -> void:
             g.cup.visible = true
             var up := minf(k / 0.3, 1.0) * minf(maxf(TOAST_LEN - k, 0.0) / 0.3, 1.0)
             # 手从下巴高举到头顶旁边（上半身高 keep*sc，头在上面那一截）
-            g.cup.position = Vector2(g.side * 16.0, -keep * sc * (0.6 + 0.45 * up))
+            g.cup.position = Vector2(g.side * 16.0, -keep * float(kr["sc"]) * (0.6 + 0.45 * up))
         else:
             g.cup.visible = false
 
@@ -1200,15 +1412,7 @@ func _walker(row: int, from: Vector2) -> Waiter:
     w.node = Node2D.new()
     w.node.name = "reseat"
     hall.world.add_child(w.node, true)
-    var s := Sprite2D.new()
-    s.texture = _guest_atlas()
-    s.region_enabled = true
-    s.region_rect = Rect2(0.0, row * FH, 16.0 * 9, FH)
-    s.hframes = 9
-    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    s.centered = true
-    s.offset = Vector2(0, -FH * 0.5)
-    s.scale = Vector2(sc, sc)
+    var s := _kit_body(row)
     w.node.add_child(s)
     w.body = s
     w.pos = from
@@ -1219,6 +1423,9 @@ func _walker(row: int, from: Vector2) -> Waiter:
 func _process(dt: float) -> void:
     t += dt
     _family_near()
+    for b in lm_band:
+        var fr: Array = b["frames"]
+        (b["spr"] as Sprite2D).frame = int(fr[int(t * float(b["fps"])) % fr.size()])
     for w in waiters.duplicate():
         _step_waiter(w, dt)
         if w.gone:

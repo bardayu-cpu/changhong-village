@@ -10,6 +10,16 @@ signal rel_near(title: String, relation: String)   # 离我最近（REL_NEAR 内
 
 const Spr = preload("res://scripts/sprites.gd")
 const FH := 32.0
+# 有罗曼山庄宾客的图时，18 位亲友每位固定一个长相（10/2 01 E：照称呼配男女老少；同一桌不重样，小孩不发）。
+# 宾客 01 年轻男、02 高瘦女、03 中等女、04 中等男寸头、05 矮胖男、06 矮胖女眼镜、07 高壮光头长辈、08 瘦小女、09 奶奶、10 爷爷
+# T9：大爸家、二爸家；T11：四孃、六孃、小舅三家；T7：爸爸的朋友、阿鱼的朋友。那个编号的图还没到就照旧按男女轮着发
+const REL_LOOKS := {
+    "大爸": "LM-GUEST-10", "大娘": "LM-GUEST-09", "小虎哥": "LM-GUEST-01", "大嫂": "LM-GUEST-02",
+    "二爸": "LM-GUEST-07", "二娘": "LM-GUEST-06", "二孃": "LM-GUEST-03",
+    "四孃": "LM-GUEST-06", "四姑爷": "LM-GUEST-07", "六孃": "LM-GUEST-03", "六姑爷": "LM-GUEST-10",
+    "小舅": "LM-GUEST-04", "小舅妈": "LM-GUEST-02",
+    "周叔": "LM-GUEST-05", "李叔": "LM-GUEST-04", "丹孃": "LM-GUEST-06", "小江": "LM-GUEST-01", "表弟媳": "LM-GUEST-08",
+}
 const WALK_FPS := 5.0
 const SPEED_M := 1.1          # 亲友走得慢，逛着走
 const REL_NEAR := 70.0        # 走到跟前多近算「在跟前」：冒「看看 XX」、坐着的那位亮称呼
@@ -98,6 +108,9 @@ func setup(h: Node2D, l: Node2D, c: Dictionary) -> void:
         r.cards = bool(p.get("cards", false))
         r.toast = bool(p.get("toast", false))
         r.row = life.pick_look(p, pools, counters)   # 按称呼分男女挑长相（04 9/29）
+        var fixed: int = life.kit_row_of(str(REL_LOOKS.get(r.title, ""))) if life._kit()["lm"] else -1
+        if fixed >= 0:
+            r.row = fixed
         _make_node(r)
         rels.append(r)
         i += 1
@@ -221,19 +234,10 @@ func _make_node(r: Rel) -> void:
     r.node = Node2D.new()
     r.node.name = "rel_" + r.title
     hall.world.add_child(r.node)
-    var s := Sprite2D.new()
-    s.texture = life._guest_atlas()
-    s.region_enabled = true
-    s.region_rect = Rect2(0.0, r.row * FH, 16.0 * 9, FH)
-    s.hframes = 9
-    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    s.centered = true
-    s.offset = Vector2(0, -FH * 0.5)
-    s.scale = Vector2(life.sc, life.sc)
+    var s: Sprite2D = life._kit_body(r.row)
     r.node.add_child(s)
     r.body = s
-    r.seat_spr = life._upper(life._guest_atlas(), 0, false)
-    r.seat_spr.region_rect.position.y = r.row * FH
+    r.seat_spr = life._kit_upper(r.row, int(life._kit()["anim"]["down"]["idle"]), false)
     r.seat_spr.visible = false
     r.node.add_child(r.seat_spr)
     r.cup = life._sprite("amb_cup")
@@ -255,16 +259,15 @@ func _pose(r: Rel, moving: bool) -> void:
     var sitting := r.state == "sit"
     r.body.visible = not sitting
     r.seat_spr.visible = sitting
-    var fl: Dictionary = Spr.PROC_ANIM[r.face]
+    var fl: Dictionary = life._kit()["anim"][r.face]
     if sitting:
-        r.seat_spr.region_rect.position.x = float(fl["idle"]) * 16.0
-        r.seat_spr.flip_h = bool(fl["flip"])
+        life._kit_frame(r.seat_spr, r.row, int(fl["idle"]), bool(fl["flip"]))
     else:
         var walk: Array = fl["walk"]
         r.body.frame = walk[int(r.anim * WALK_FPS) % walk.size()] if moving else int(fl["idle"])
         r.body.flip_h = bool(fl["flip"])
         var bob := -absf(sin(r.anim * WALK_FPS * PI)) * 1.2 if moving else 0.0
-        r.body.offset = Vector2(0, -FH * 0.5 + bob)
+        r.body.offset = Vector2(0, life.kit_foot(r.row) + bob)
     var h: float = hall._px_h(r.pos.y) * (hall.SIT_KEEP if sitting else 1.0)
     if r.cup.visible:
         r.cup.position = Vector2(-14.0 if r.face == "left" else 14.0, -h + 22.0)

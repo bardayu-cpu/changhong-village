@@ -1,4 +1,5 @@
 extends RefCounted
+const LMPeople = preload("res://scripts/lm_people.gd")
 ## 宾客形象：美术生图包里的 8 个预设，全部是占位像素
 ## 同一套 16×32 模板，换发型、衣服颜色和体型；每人一张 9 帧的图：
 ## 下 0-2、上 3-5、侧 6-8（侧面朝右，朝左用翻转）
@@ -171,7 +172,17 @@ const PROC_ANIM := {
 
 ## GPT 画的宾客图集（assets/characters/chr_guestNN.png 和 .json，NN 从 01 起，对应形象 0 起）。
 ## 有就用它，没有返回空字典，照旧用代码画的
+## 10/2 起先看罗曼山庄的宾客 LM-GUEST-01～08（lm_people.gd，形象 0～7 对 01～08），在就用它
 static func gpt_look(preset: int) -> Dictionary:
+    if preset >= 0 and preset < LMPeople.PICKABLE:
+        var l: Dictionary = LMPeople.look(LMPeople.guest_code(preset + 1))
+        if not l.is_empty():
+            var lanim := {}
+            for d in ["down", "up", "left", "right"]:
+                var fr: Array = LMPeople.dir_frames(l, d)
+                lanim[d] = {"walk": fr, "idle": fr[0], "flip": false}
+            return {"tex": l["tex"], "hframes": l["hframes"], "frame_w": l["fw"], "frame_h": l["fh"],
+                "anim": lanim, "fps": l["fps"], "height_m": l["height_m"], "code": l["code"]}
     var base := "res://assets/characters/chr_guest%02d" % (preset + 1)
     if not ResourceLoader.exists(base + ".png") or not FileAccess.file_exists(base + ".json"):
         return {}
