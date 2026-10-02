@@ -26,8 +26,8 @@ const FX_ROWS := {"petal": 4, "paper": 6, "ribbon": 3}   # 行 = 颜色，列 = 
 const FX_FRAME_T := 0.12
 # 三种飘落：放片放多久（秒）、每片活多久、屏幕上同时最多几片、花瓣 / 彩纸 / 卷彩带各占多少、落多快（像素/秒）
 const KINDS := {
-    "feast": {"spawn": 2.2, "life": Vector2(1.4, 2.0), "max": 60, "mix": [0.5, 0.4, 0.1], "fall": 280.0},
-    "entry": {"spawn": 0.9, "life": Vector2(1.0, 1.3), "max": 30, "mix": [0.5, 0.4, 0.1], "fall": 260.0},
+    "feast": {"spawn": 2.0, "life": Vector2(1.8, 2.6), "max": 60, "mix": [0.5, 0.4, 0.1], "fall": 300.0},   # 落到半屏多
+    "entry": {"spawn": 0.8, "life": Vector2(1.2, 1.6), "max": 30, "mix": [0.5, 0.4, 0.1], "fall": 280.0},
     "toast": {"spawn": 0.5, "life": Vector2(0.8, 1.1), "max": 14, "mix": [1.0, 0.0, 0.0], "fall": 110.0},
 }
 const FADE := 0.35                      # 每片最后这么久淡掉
@@ -153,8 +153,9 @@ static func _block_silk() -> Image:
             var t := (x - a.x) / SILK_SPAN
             var y := a.y + 30.0 * sin(t * PI)
             var xs := x + sway * sin(t * PI)
-            img.fill_rect(Rect2i(ox + int(xs), int(y) - 2, 1, 5), dark)
-            img.fill_rect(Rect2i(ox + int(xs), int(y) - 1, 1, 3), red)
+            img.fill_rect(Rect2i(ox + int(xs), int(y) - 3, 1, 7), dark)
+            img.fill_rect(Rect2i(ox + int(xs), int(y) - 2, 1, 5), red)
+            img.set_pixel(ox + int(xs), int(y) - 2, gold)   # 比红毯亮一档的正红、上沿压一道金（不然压在红毯上看不出来）
         var ball := Vector2i(ox + int(a.x + SILK_SPAN * 0.5 + sway), int(a.y + 40.0))
         for dy in range(-7, 8):
             for dx in range(-7, 8):
