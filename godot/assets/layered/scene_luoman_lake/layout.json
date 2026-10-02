@@ -124,12 +124,12 @@
   {"type": "box", "id": "bench_leg_e", "rect": [420, 962, 430, 970], "h": 14, "top": "#6d4a38", "front": "#4a3226", "block": false},
   {"type": "beam", "id": "bench_back", "x0": 364, "x1": 436, "top": 972, "thick": 6, "foot": 988, "color": "#6d4a38"},
   {"type": "poly", "id": "bench_block", "pts": [[364, 946], [436, 946], [436, 972], [364, 972]], "foot": 946, "color": "#00000000", "block": [364, 946, 436, 972]},
-  {"type": "tree", "id": "willow_0", "x": 230, "y": 882, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}, "scale_note": "10/3 照「人 = 1」（04 量到约 1.5 个人高）：垂柳原来按 r 28～34 画约 100 高，改成给 h 264（3.1 个人）、树冠宽 150、照旧垂柳条；willow_5 挪到 x 600，不盖长凳"},
+  {"type": "tree", "id": "willow_0", "x": 230, "y": 882, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}, "scale_note": "10/3 照「人 = 1」（04 量到约 1.5 个人高）：垂柳原来按 r 28～34 画约 100 高，改成给 h 264（3.1 个人）、树冠宽 150、照旧垂柳条；willow_5 挪到 x 600，不盖长凳；南岸两棵（willow_4、willow_5）树脚挪到 y 1300（画布下沿外），树冠落在岸边小路下面，不挡人走路、坐长凳"},
   {"type": "tree", "id": "willow_1", "x": 596, "y": 892, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}},
   {"type": "tree", "id": "willow_2", "x": 1044, "y": 872, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}},
   {"type": "tree", "id": "willow_3", "x": 1306, "y": 908, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}},
-  {"type": "tree", "id": "willow_4", "x": 880, "y": 1118, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}},
-  {"type": "tree", "id": "willow_5", "x": 600, "y": 1122, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}}
+  {"type": "tree", "id": "willow_4", "x": 880, "y": 1300, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}},
+  {"type": "tree", "id": "willow_5", "x": 600, "y": 1300, "droop": true, "trunk": "#7a5c3a", "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}}
  ],
  "npcs": []
 }
