@@ -133,11 +133,19 @@ func run() -> void:
     check("红毯中间那一条客人的格子里整条没有（大门口、楼门口两边能过）", carpet_mid and life._wok(Vector2(684, 600)) and life._wok(Vector2(852, 600)))
 
     print("4 让玩家")
+    # 找一个站着、离红毯中间远一点的客人。快进到哪一刻有没有这样一位，每回不一样（客人什么时候站、站多久是随机的，
+    # 新娘爸妈、摄影师的小动作又从同一个随机数里抽，reseed 没把它们的计时一起重置，所以固定种子也不是每回一样：
+    # 10/3 03 查：同一个种子 80 回，进门数 11～15 不等），正好没人站着的那一刻原来就判失败（约 3%）。
+    # 改成最多再快进 60 秒等一位站着的出现；60 秒还没有才算没过
     var w0 = null
-    for w in present(life):
-        if w.state == "stay" and w.pos.distance_to(Vector2(768, 500)) > 100:
-            w0 = w
+    for tries in 30 * 60 + 1:
+        for w in present(life):
+            if w.state == "stay" and w.pos.distance_to(Vector2(768, 500)) > 100:
+                w0 = w
+                break
+        if w0 != null:
             break
+        life.step(1.0 / 30.0)
     var gap := 0.0
     if w0 != null:
         c.reset_to(w0.pos + Vector2(20, 6))
