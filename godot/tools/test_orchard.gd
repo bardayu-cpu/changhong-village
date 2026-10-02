@@ -244,8 +244,8 @@ func run() -> void:
     walk_into(o, "strawberry", Vector2(490, 796))
     ui._on_act()
     tick(2)
-    check("收完直接折钱：%s" % m.dialog_text.text, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
-        and m.dialog_text.text.begins_with("你的 草莓 8 筐") and not m.dialog_text.text.contains("（"))
+    check("收完山庄直接折钱、只说「%s」不写金（蓝图 3.6）" % m.dialog_text.text, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
+        and m.dialog_text.text == "收了 8 筐草莓" and not m.dialog_text.text.contains("金"))
     m.note.text = ""
     walk_into(o, "shop", Vector2(980, 1016))
     check("这种卖法下走到收购处：%s" % m.note.text, m.note.text == "果子山庄直接收走了 不用跑这一趟" and not ui.act_btn.visible)
