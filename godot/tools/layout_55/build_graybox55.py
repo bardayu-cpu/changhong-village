@@ -56,7 +56,11 @@ if ART_SET == "b55s":
                   "bench": "blk_banquet55s_bench_v1.png", "lantern": "blk_banquet55s_aisle_post_v1.png",
                   "flowerpot": "blk_banquet55s_flowerpot_v1.png", "flowerstand": "blk_banquet55s_flowerstand_v1.png",
                   "gift": "blk_banquet55s_giftpile_v1.png"}
-    ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v1.png")
+    ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v3.png")   # 10/2 GPT 交 W01 v3（v1 跟北边的砖对不上）
+    # 10/2 GPT 照色块画的南边 B55S-BG02（1536×1067，整厅 y 1024～2091）：北边 1024 往南直接接它，中间不再留一截地砖；
+    # 大门、栏杆、东侧门画在整厅同一个位置（02 拿摆位表的框套过：门柱、门洞、门槛、栏杆、东侧门 1260～1318 都对上），
+    # 所以下面 SOUTH_* 那些坐标照旧（还是按「南边那张上沿 = 厅长 − 1024」算的整厅坐标）。W01 现在被南边那张整个盖住，铺不铺都看不见
+    ART_SOUTH = os.path.join(ART, "base_banquet55s_south_v1.png")
 ART_WALL_W = os.path.join(ART, "tex_banquet55_wall_west_v1.png")   # 中间那截的竖墙，40×240 一段段接
 ART_WALL_E = os.path.join(ART, "tex_banquet55_wall_east_v1.png")
 if ART_SET == "b55s":
