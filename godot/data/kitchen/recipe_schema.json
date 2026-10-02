@@ -1,0 +1,24 @@
+{
+  "id": "stable_ascii_id",
+  "name": "游戏显示菜名",
+  "cuisine": "菜系或来源组",
+  "cooking_family": "soup|simmer|blanch|steam|grill|roast_glaze|cold_soak|cold_assemble|hot_assemble|boil_assemble|candy_press",
+  "station_id": "wok|stock_wok|steamer|grill|cold_mix|candy_press",
+  "finished_art": "relative/path/to/dish_full.png",
+  "plate_id": "bowl|plate|steamer|tray",
+  "steps": [
+    {
+      "index": 1,
+      "component_id": "ingredient_id",
+      "component_art": "relative/path/to/ingredient_full.png",
+      "action": "add|mix|steam|grill|glaze|press|plate",
+      "optional": false
+    }
+  ],
+  "cook_seconds": null,
+  "ready_window_seconds": null,
+  "reward_coins": null,
+  "unlock_rule": null,
+  "source": "authoritative source path or user confirmation",
+  "status": "visual_ready|gameplay_confirmed|pending_recipe_details"
+}

@@ -1,0 +1,550 @@
+[
+  {
+    "id": "qiaojiao_beef",
+    "name": "跷脚牛肉",
+    "cooking_family": "soup",
+    "station_id": "stock_wok",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_qiaojiao_beef.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "broth",
+        "component_art": "ingredients/local12/ingredient_broth_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "汤底"
+      },
+      {
+        "index": 2,
+        "component_id": "beef",
+        "component_art": "ingredients/local12/ingredient_beef_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "牛肉"
+      },
+      {
+        "index": 3,
+        "component_id": "scallion",
+        "component_art": "ingredients/local12/ingredient_scallion_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "葱花"
+      },
+      {
+        "index": 4,
+        "component_id": "cilantro",
+        "component_art": "ingredients/local12/ingredient_cilantro_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "香菜"
+      }
+    ],
+    "cook_seconds": 8,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 3,
+    "unlock_rule": {
+      "min_level": 1
+    },
+    "runtime_id": "beef",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "sweet_skin_duck",
+    "name": "甜皮鸭",
+    "cooking_family": "roast_glaze",
+    "station_id": "grill",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_sweet_skin_duck.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "duck",
+        "component_art": "ingredients/local12/ingredient_duck_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "鸭"
+      },
+      {
+        "index": 2,
+        "component_id": "maltose_glaze",
+        "component_art": "ingredients/local12/ingredient_maltose_glaze_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "麦芽糖浆"
+      },
+      {
+        "index": 3,
+        "component_id": "sesame",
+        "component_art": "ingredients/local12/ingredient_sesame_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "芝麻"
+      }
+    ],
+    "cook_seconds": 13,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 5,
+    "unlock_rule": {
+      "min_level": 10
+    },
+    "runtime_id": "sweet_skin_duck",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "bobo_chicken",
+    "name": "钵钵鸡",
+    "cooking_family": "cold_soak",
+    "station_id": "cold_mix",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_bobo_chicken.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "cooked_chicken_skewers",
+        "component_art": "ingredients/local12/ingredient_cooked_chicken_skewers_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "鸡肉串"
+      },
+      {
+        "index": 2,
+        "component_id": "chili_oil",
+        "component_art": "ingredients/local12/ingredient_chili_oil_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "红油"
+      },
+      {
+        "index": 3,
+        "component_id": "sesame",
+        "component_art": "ingredients/local12/ingredient_sesame_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "芝麻"
+      }
+    ],
+    "cook_seconds": 8,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 4,
+    "unlock_rule": {
+      "min_level": 6
+    },
+    "runtime_id": "bobo_chicken",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "tofu_pudding",
+    "name": "豆腐脑",
+    "cooking_family": "hot_assemble",
+    "station_id": "stock_wok",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_tofu_pudding.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "tofu_pudding_curds",
+        "component_art": "ingredients/local12/ingredient_tofu_pudding_curds_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "豆花"
+      },
+      {
+        "index": 2,
+        "component_id": "beef_gravy",
+        "component_art": "ingredients/local12/ingredient_beef_gravy_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "浇头"
+      },
+      {
+        "index": 3,
+        "component_id": "scallion",
+        "component_art": "ingredients/local12/ingredient_scallion_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "葱花"
+      }
+    ],
+    "cook_seconds": 7,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 3,
+    "unlock_rule": {
+      "min_level": 3
+    },
+    "runtime_id": "tofu_pudding",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "yeerba",
+    "name": "叶儿粑",
+    "cooking_family": "steam",
+    "station_id": "steamer",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_yeerba.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "rice_cake_dough",
+        "component_art": "ingredients/local12/ingredient_rice_cake_dough_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "糯米团"
+      },
+      {
+        "index": 2,
+        "component_id": "wrapping_leaves",
+        "component_art": "ingredients/local12/ingredient_wrapping_leaves_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "叶片"
+      }
+    ],
+    "cook_seconds": 12,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 5,
+    "unlock_rule": {
+      "min_level": 9
+    },
+    "runtime_id": "yeerba",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "ice_jelly",
+    "name": "冰粉",
+    "cooking_family": "cold_assemble",
+    "station_id": "cold_mix",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_ice_jelly.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "ice_jelly",
+        "component_art": "ingredients/local12/ingredient_ice_jelly_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "冰粉"
+      },
+      {
+        "index": 2,
+        "component_id": "brown_sugar_syrup",
+        "component_art": "ingredients/local12/ingredient_brown_sugar_syrup_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "红糖浆"
+      },
+      {
+        "index": 3,
+        "component_id": "peanuts",
+        "component_art": "ingredients/local12/ingredient_peanuts_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "花生"
+      },
+      {
+        "index": 4,
+        "component_id": "sesame",
+        "component_art": "ingredients/local12/ingredient_sesame_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "芝麻"
+      }
+    ],
+    "cook_seconds": 6,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 3,
+    "unlock_rule": {
+      "min_level": 2
+    },
+    "runtime_id": "ice_jelly",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "xiba_tofu",
+    "name": "西坝豆腐",
+    "cooking_family": "simmer",
+    "station_id": "wok",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_xiba_tofu.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "broth",
+        "component_art": "ingredients/local12/ingredient_broth_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "汤底"
+      },
+      {
+        "index": 2,
+        "component_id": "tofu",
+        "component_art": "ingredients/local12/ingredient_tofu_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "豆腐"
+      },
+      {
+        "index": 3,
+        "component_id": "scallion",
+        "component_art": "ingredients/local12/ingredient_scallion_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "葱花"
+      }
+    ],
+    "cook_seconds": 11,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 4,
+    "unlock_rule": {
+      "min_level": 4
+    },
+    "runtime_id": "tofu",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "malatang",
+    "name": "麻辣烫",
+    "cooking_family": "blanch",
+    "station_id": "stock_wok",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_malatang.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "broth",
+        "component_art": "ingredients/local12/ingredient_broth_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "汤底"
+      },
+      {
+        "index": 2,
+        "component_id": "assorted_skewers",
+        "component_art": "ingredients/local12/ingredient_assorted_skewers_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "串料"
+      },
+      {
+        "index": 3,
+        "component_id": "chili_oil",
+        "component_art": "ingredients/local12/ingredient_chili_oil_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "红油"
+      },
+      {
+        "index": 4,
+        "component_id": "scallion",
+        "component_art": "ingredients/local12/ingredient_scallion_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "葱花"
+      }
+    ],
+    "cook_seconds": 10,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 4,
+    "unlock_rule": {
+      "min_level": 8
+    },
+    "runtime_id": "malatang",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "bbq_skewers",
+    "name": "烧烤",
+    "cooking_family": "grill",
+    "station_id": "grill",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_bbq_skewers.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "raw_bbq_skewers",
+        "component_art": "ingredients/local12/ingredient_raw_bbq_skewers_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "烧烤串"
+      },
+      {
+        "index": 2,
+        "component_id": "red_chili",
+        "component_art": "ingredients/local12/ingredient_red_chili_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "辣椒"
+      },
+      {
+        "index": 3,
+        "component_id": "sesame",
+        "component_art": "ingredients/local12/ingredient_sesame_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "芝麻"
+      }
+    ],
+    "cook_seconds": 11,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 5,
+    "unlock_rule": {
+      "min_level": 11
+    },
+    "runtime_id": "bbq_skewers",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "rice_candy",
+    "name": "米花糖",
+    "cooking_family": "candy_press",
+    "station_id": "candy_press",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_rice_candy.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "puffed_rice",
+        "component_art": "ingredients/local12/ingredient_puffed_rice_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "米花"
+      },
+      {
+        "index": 2,
+        "component_id": "maltose_glaze",
+        "component_art": "ingredients/local12/ingredient_maltose_glaze_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "麦芽糖浆"
+      },
+      {
+        "index": 3,
+        "component_id": "peanuts",
+        "component_art": "ingredients/local12/ingredient_peanuts_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "花生"
+      },
+      {
+        "index": 4,
+        "component_id": "sesame",
+        "component_art": "ingredients/local12/ingredient_sesame_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "芝麻"
+      }
+    ],
+    "cook_seconds": 12,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 5,
+    "unlock_rule": {
+      "min_level": 12
+    },
+    "runtime_id": "rice_candy",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "lianggao",
+    "name": "凉糕",
+    "cooking_family": "cold_assemble",
+    "station_id": "cold_mix",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_lianggao.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "rice_jelly",
+        "component_art": "ingredients/local12/ingredient_rice_jelly_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "凉糕"
+      },
+      {
+        "index": 2,
+        "component_id": "brown_sugar_syrup",
+        "component_art": "ingredients/local12/ingredient_brown_sugar_syrup_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "红糖浆"
+      },
+      {
+        "index": 3,
+        "component_id": "sesame",
+        "component_art": "ingredients/local12/ingredient_sesame_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "芝麻"
+      }
+    ],
+    "cook_seconds": 6,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 4,
+    "unlock_rule": {
+      "min_level": 7
+    },
+    "runtime_id": "lianggao",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  },
+  {
+    "id": "feichang_noodles",
+    "name": "肥肠粉",
+    "cooking_family": "boil_assemble",
+    "station_id": "stock_wok",
+    "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_feichang_noodles.png",
+    "status": "gameplay_confirmed",
+    "steps": [
+      {
+        "index": 1,
+        "component_id": "broth",
+        "component_art": "ingredients/local12/ingredient_broth_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "汤底"
+      },
+      {
+        "index": 2,
+        "component_id": "sweet_potato_noodles",
+        "component_art": "ingredients/local12/ingredient_sweet_potato_noodles_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "粉条"
+      },
+      {
+        "index": 3,
+        "component_id": "pork_intestine",
+        "component_art": "ingredients/local12/ingredient_pork_intestine_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "肥肠"
+      },
+      {
+        "index": 4,
+        "component_id": "scallion",
+        "component_art": "ingredients/local12/ingredient_scallion_full.png",
+        "action": "add",
+        "optional": false,
+        "label": "葱花"
+      }
+    ],
+    "cook_seconds": 10,
+    "ready_window_seconds": 6.0,
+    "reward_coins": 4,
+    "unlock_rule": {
+      "min_level": 5
+    },
+    "runtime_id": "noodles",
+    "source": "01_approved_current_values_as_integration_placeholders_2026-10-02",
+    "value_status": "integration_placeholder_replace_recipe_by_recipe"
+  }
+]

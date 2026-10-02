@@ -9,9 +9,10 @@ func _initialize() -> void:
     call_deferred("run")
 func run() -> void:
     var w = Save.new()
-    w.local_path = "user://test_kitchen_wallet.json"
+    w.local_path = "user://kitchen_test_test_kitchen_wallet.json"
     var p = KitchenPanel.new()
-    p.saved_path = "user://test_kitchen_progress.json"
+    p.saved_path = "user://kitchen_test_test_kitchen_progress.json"
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(p.saved_path))
     root.add_child(p)
     var f = load("res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.otf.woff2")
     p.open(w,f)
@@ -28,8 +29,8 @@ func run() -> void:
     p._process(1.0)
     check("回前台仍暂停，等待玩家继续", g.paused and g.orders[0].left == wait_before)
     p._toggle_pause()
-    g.choose(0,"beef")
-    for ingredient in g.recipe("beef").ingredients: g.add_ingredient(0,ingredient)
+    g.choose_order_dish(0,g.orders[0].id,0)
+    for ingredient in g.pots[0].required: g.add_ingredient(0,ingredient)
     g.tick(8)
     g.serve_pot(0)
     g.deliver(g.plates[0].id,g.orders[0].id)
@@ -37,15 +38,19 @@ func run() -> void:
     p._render()
     await process_frame
     check("面板采用540×960设计尺寸", p.panel.size == Vector2(540,960))
+    # The panel animates served waiters out before settlement. This unit test
+    # jumps straight to the result state, so finish that presentation step.
+    p.departures.clear()
     g.won = true
     g.active = false
     p._process(0.01)
     check("过关解锁并保存", p.unlocked == 2 and FileAccess.file_exists(p.saved_path))
     p._menu()
     await process_frame
+    var progress_path: String = p.saved_path
     p.queue_free()
     await process_frame
-    for path in ["user://test_kitchen_wallet.json","user://test_kitchen_progress.json"]:
+    for path in [w.local_path,progress_path]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
     print("RESULT ","PASS" if ok else "FAIL")
     quit(0 if ok else 1)

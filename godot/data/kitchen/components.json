@@ -1,0 +1,122 @@
+[
+  {
+    "id": "broth",
+    "name": "汤底",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_broth.png"
+  },
+  {
+    "id": "beef",
+    "name": "牛肉",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_beef.png"
+  },
+  {
+    "id": "scallion",
+    "name": "葱花",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_scallion.png"
+  },
+  {
+    "id": "cilantro",
+    "name": "香菜",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_cilantro.png"
+  },
+  {
+    "id": "duck",
+    "name": "鸭",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_duck.png"
+  },
+  {
+    "id": "maltose_glaze",
+    "name": "麦芽糖浆",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_maltose_glaze.png"
+  },
+  {
+    "id": "cooked_chicken_skewers",
+    "name": "鸡肉串",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_cooked_chicken_skewers.png"
+  },
+  {
+    "id": "chili_oil",
+    "name": "红油",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_chili_oil.png"
+  },
+  {
+    "id": "tofu_pudding_curds",
+    "name": "豆花",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_tofu_pudding_curds.png"
+  },
+  {
+    "id": "beef_gravy",
+    "name": "浇头",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_beef_gravy.png"
+  },
+  {
+    "id": "rice_cake_dough",
+    "name": "糯米团",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_rice_cake_dough.png"
+  },
+  {
+    "id": "wrapping_leaves",
+    "name": "叶片",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_wrapping_leaves.png"
+  },
+  {
+    "id": "ice_jelly",
+    "name": "冰粉",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_ice_jelly.png"
+  },
+  {
+    "id": "brown_sugar_syrup",
+    "name": "红糖浆",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_brown_sugar_syrup.png"
+  },
+  {
+    "id": "tofu",
+    "name": "豆腐",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_tofu.png"
+  },
+  {
+    "id": "assorted_skewers",
+    "name": "串料",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_assorted_skewers.png"
+  },
+  {
+    "id": "raw_bbq_skewers",
+    "name": "烧烤串",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_raw_bbq_skewers.png"
+  },
+  {
+    "id": "puffed_rice",
+    "name": "米花",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_puffed_rice.png"
+  },
+  {
+    "id": "peanuts",
+    "name": "花生",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_peanuts.png"
+  },
+  {
+    "id": "sesame",
+    "name": "芝麻",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_sesame.png"
+  },
+  {
+    "id": "rice_jelly",
+    "name": "凉糕",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_rice_jelly.png"
+  },
+  {
+    "id": "sweet_potato_noodles",
+    "name": "粉条",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_sweet_potato_noodles.png"
+  },
+  {
+    "id": "pork_intestine",
+    "name": "肥肠",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_pork_intestine.png"
+  },
+  {
+    "id": "red_chili",
+    "name": "辣椒",
+    "art": "res://assets/kitchen/mobile/ingredients/blk_ingredient_red_chili.png"
+  }
+]

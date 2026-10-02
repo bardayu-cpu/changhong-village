@@ -57,25 +57,72 @@ func click(p, text: String, last := false) -> bool:
     return false
 
 ## 一局：照 GPT 的 test_kitchen_buttons 那样点（第 1 关、跷脚牛肉、三样料、煮熟、盛出、交给服务员）
+## 玩一局交一道菜。厨房 v3（GPT 10/2）界面全是图按钮，按钮上没字可找了：照 GPT 自己的测试那样走规则接口——
+## 开第 1 关、给第一位服务员选第一道菜、照配料下锅、烧熟、盛出、交到他面前的盘子；钱从主工程的钱包走（看金币涨没涨）
 func play_one(p) -> bool:
-    var good := true
-    good = good and await click(p, "穿上厨师套装 · 开始第 1 关")
-    good = good and await click(p, "跷脚牛肉")
-    for ing in ["汤底", "牛肉", "葱花"]:
-        good = good and await click(p, ing)
-    p.rules.tick(8)
-    p._render()
-    good = good and await click(p, "盛出选中的锅")
-    good = good and await click(p, "跷脚牛肉", true)
-    var customer: Button = null
-    for c in p.panel.get_children():
-        if c is Button and c.text.begins_with("· 跷脚牛肉"):
-            customer = c
-    if customer == null:
+    p._start(1)
+    await process_frame
+    var g = p.rules
+    if g.orders.is_empty():
         return false
-    customer.pressed.emit()
+    var good: bool = g.choose_order_dish(0, g.orders[0].id, 0)
+    for ing in g.pots[0].required:
+        good = good and g.add_ingredient(0, ing)
+    g.tick(8)
+    good = good and g.serve_pot(0)
+    good = good and not g.plates.is_empty() and g.deliver(g.plates[0].id, g.orders[0].id)
+    p._render()
     await process_frame
     return good
+
+## 三人三锅局：第 4 关（三位服务员、三口锅）用规则接口一直做到过关——空锅就接一道还没做的菜、照配料下锅，
+## 熟了盛出、自动交给要它的那位；每步走 0.5 秒。回 [过没过关, 交了几道, 同屏最多几位服务员, 用了几口锅]
+func play_three(p) -> Array:
+    p._start(4)
+    await process_frame
+    var g = p.rules
+    var most_orders := 0
+    var pots_used := {}
+    for k in 120:   # 先等三位服务员都来了再动手（不然做得快，同屏凑不齐三位）
+        if g.orders.size() >= 3:
+            break
+        g.tick(0.5)
+    for step in 1200:
+        if not g.active:
+            break
+        most_orders = maxi(most_orders, g.orders.size())
+        for i in g.pots.size():
+            var pot: Dictionary = g.pots[i]
+            if pot.state == "empty":
+                var taken := {}
+                for q in g.pots:
+                    if q.state != "empty":
+                        taken["%s:%s" % [q.get("order_id", -1), q.get("dish_index", -1)]] = true
+                for pl in g.plates:
+                    taken["%s:%s" % [pl.get("order_id", -1), pl.get("dish_index", -1)]] = true
+                var picked := false
+                for o in g.orders:
+                    if picked:
+                        break
+                    for d in o.dishes.size():
+                        if not o.dishes[d].done and not taken.has("%s:%s" % [o.id, d]) and g.choose_order_dish(i, o.id, d):
+                            for ing in g.pots[i].required:
+                                g.add_ingredient(i, ing)
+                            pots_used[i] = true
+                            picked = true
+                            break
+            elif pot.state == "ready":
+                if g.serve_pot(i):
+                    g.deliver_auto()
+            elif pot.state in ["burnt", "invalid"]:
+                g.clear_pot(i)
+        while not g.plates.is_empty() and g.deliver_auto():
+            pass
+        g.tick(0.5)
+    p.departures.clear()
+    p._process(0.01)
+    await process_frame
+    return [g.won, g.completed, most_orders, pots_used.size()]
 
 func route(label: String) -> void:
     var h = m.hall
@@ -103,6 +150,10 @@ func route(label: String) -> void:
     var played: bool = await play_one(p)
     await process_frame
     check("%s：玩一局交了一道菜（%s），金币 %d → %d" % [label, played, coins0, m.games_save.coins], played and p.rules.completed == 1 and m.games_save.coins == coins0 + 3)
+    var coins1: int = m.games_save.coins
+    var three: Array = await play_three(p)
+    check("%s：三人三锅局（第 4 关）打到过关 %s，交了 %d 道，同屏最多 %d 位服务员、用了 %d 口锅，金币 %d → %d" % [label, three[0], three[1], three[2], three[3], coins1, m.games_save.coins],
+        three[0] and three[2] == 3 and three[3] == 3 and m.games_save.coins > coins1)
     var local: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(m.games_save.local_path))
     check("%s：金币进了钱包——本机存档 %s、电脑假服务端 %s" % [label, local.get("coins"), m.cloud.fake_mine.get("coins")],
         int(local.get("coins", -1)) == m.games_save.coins and int(m.cloud.fake_mine.get("coins", -1)) == m.games_save.coins and not m.games_save.dirty)

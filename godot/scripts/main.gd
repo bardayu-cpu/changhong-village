@@ -3514,35 +3514,48 @@ func _setup_shot(shot: String) -> void:
             var kr = kp.rules
             match shot:
                 "kitchen_play":
+                    # 厨房 v3（GPT 10/2）：按服务员要的菜下锅（choose_order_dish），不再自己挑菜谱
                     kp._start(1)
-                    kr.choose(0, "beef")
-                    for ing in ["汤底", "牛肉", "葱花"]:
+                    while kr.orders.is_empty():
+                        var n0: int = kr.orders.size()
+                        kr.add_order()
+                        if kr.orders.size() == n0:
+                            break
+                    kr.choose_order_dish(0, kr.orders[0].id, 0)
+                    for ing in kr.pots[0].required:
                         kr.add_ingredient(0, ing)
                     kr.tick(4.0)   # 跷脚牛肉 8 秒，煮到一半
                 "kitchen_play_lv4":
                     kp._start(4)
-                    kr.choose(0, "beef")
-                    for ing in ["汤底", "牛肉", "葱花"]:
-                        kr.add_ingredient(0, ing)
-                    kr.tick(9.0)   # 第一锅好了，等着盛
-                    kr.choose(1, "tofu")
-                    for ing in ["汤底", "豆腐", "葱花"]:
-                        kr.add_ingredient(1, ing)
-                    kr.tick(3.0)   # 第二锅在煮
-                    kr.choose(2, "beef")
-                    kr.add_ingredient(2, "汤底")   # 第三锅刚加了一样
                     while kr.orders.size() < 3:
                         var n0: int = kr.orders.size()
                         kr.add_order()
                         if kr.orders.size() == n0:
                             break
+                    # 第一锅好了等着盛、第二锅在煮、第三锅刚加了一样料（锅没解锁那么多就少摆）
+                    if kr.choose_order_dish(0, kr.orders[0].id, 0):
+                        for ing in kr.pots[0].required:
+                            kr.add_ingredient(0, ing)
+                        kr.tick(9.0)
+                    if kr.pots.size() > 1 and kr.orders.size() > 1 and kr.choose_order_dish(1, kr.orders[1].id, 0):
+                        for ing in kr.pots[1].required:
+                            kr.add_ingredient(1, ing)
+                        kr.tick(3.0)
+                    if kr.pots.size() > 2 and kr.orders.size() > 2 and kr.choose_order_dish(2, kr.orders[2].id, 0):
+                        kr.add_ingredient(2, kr.pots[2].required[0])
                 "kitchen_result_win":
                     kp._start(1)
                     kr.completed = kr.target
                     kr.earned = kr.target * 3
                     kr.orders.clear()   # 下一次走时间就判赢、出结算卡
+                    kp.departures.clear()
                 "kitchen_result_lose":
                     kp._start(1)
+                    while kr.orders.is_empty():
+                        var n0: int = kr.orders.size()
+                        kr.add_order()
+                        if kr.orders.size() == n0:
+                            break
                     kr.missed = 2
                     kr.orders[0].left = 0.05   # 下一次走时间第三位服务员走掉、判输
             kp._render()

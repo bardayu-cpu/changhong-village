@@ -1,0 +1,201 @@
+[
+  {
+    "id": "egg_rice",
+    "name": "蛋包饭",
+    "ingredients": [
+      "鸡蛋",
+      "米饭"
+    ],
+    "heat": 2,
+    "seconds": 7.0,
+    "window": 6.0,
+    "coins": 3,
+    "unlock": 2,
+    "region": "宴席主食",
+    "visual_group": "egg_rice",
+    "variants": [
+      [
+        "鸡蛋",
+        "米饭"
+      ]
+    ],
+    "enabled": false,
+    "compatibility_only": true,
+    "dish_id": "egg_rice",
+    "station_id": "wok",
+    "cooking_family": "legacy",
+    "component_steps": [
+      {
+        "ingredient": "鸡蛋"
+      },
+      {
+        "ingredient": "米饭"
+      }
+    ],
+    "finished_art": "pending"
+  },
+  {
+    "id": "liangfen",
+    "name": "凉粉",
+    "ingredients": [
+      "凉粉",
+      "辣椒",
+      "葱花"
+    ],
+    "heat": 2,
+    "seconds": 6.0,
+    "window": 7.0,
+    "coins": 3,
+    "unlock": 2,
+    "region": "苏七小吃",
+    "visual_group": "liangfen",
+    "variants": [
+      [
+        "凉粉",
+        "辣椒",
+        "葱花"
+      ],
+      [
+        "凉粉",
+        "辣椒"
+      ]
+    ],
+    "enabled": false,
+    "compatibility_only": true,
+    "dish_id": "liangfen",
+    "station_id": "wok",
+    "cooking_family": "legacy",
+    "component_steps": [
+      {
+        "ingredient": "凉粉"
+      },
+      {
+        "ingredient": "辣椒"
+      },
+      {
+        "ingredient": "葱花"
+      }
+    ],
+    "finished_art": "pending"
+  },
+  {
+    "id": "mapo",
+    "name": "麻婆豆腐",
+    "ingredients": [
+      "红油",
+      "豆腐",
+      "肉末"
+    ],
+    "heat": 2,
+    "seconds": 9.0,
+    "window": 5.0,
+    "coins": 5,
+    "unlock": 7,
+    "region": "川菜",
+    "visual_group": "mapo",
+    "variants": [
+      [
+        "红油",
+        "豆腐",
+        "肉末"
+      ]
+    ],
+    "enabled": false,
+    "compatibility_only": true,
+    "dish_id": "mapo",
+    "station_id": "wok",
+    "cooking_family": "legacy",
+    "component_steps": [
+      {
+        "ingredient": "红油"
+      },
+      {
+        "ingredient": "豆腐"
+      },
+      {
+        "ingredient": "肉末"
+      }
+    ],
+    "finished_art": "pending"
+  },
+  {
+    "id": "shrimp",
+    "name": "白灼虾",
+    "ingredients": [
+      "清水",
+      "鲜虾",
+      "姜片"
+    ],
+    "heat": 2,
+    "seconds": 7.0,
+    "window": 4.0,
+    "coins": 6,
+    "unlock": 10,
+    "region": "粤菜",
+    "visual_group": "shrimp",
+    "variants": [
+      [
+        "清水",
+        "鲜虾",
+        "姜片"
+      ]
+    ],
+    "enabled": false,
+    "compatibility_only": true,
+    "dish_id": "shrimp",
+    "station_id": "wok",
+    "cooking_family": "legacy",
+    "component_steps": [
+      {
+        "ingredient": "清水"
+      },
+      {
+        "ingredient": "鲜虾"
+      },
+      {
+        "ingredient": "姜片"
+      }
+    ],
+    "finished_art": "pending"
+  },
+  {
+    "id": "pork",
+    "name": "红烧肉",
+    "ingredients": [
+      "酱汁",
+      "五花肉",
+      "冰糖"
+    ],
+    "heat": 2,
+    "seconds": 14.0,
+    "window": 6.0,
+    "coins": 7,
+    "unlock": 13,
+    "region": "上海菜",
+    "visual_group": "pork",
+    "variants": [
+      [
+        "酱汁",
+        "五花肉",
+        "冰糖"
+      ]
+    ],
+    "enabled": false,
+    "compatibility_only": true,
+    "dish_id": "pork",
+    "station_id": "wok",
+    "cooking_family": "legacy",
+    "component_steps": [
+      {
+        "ingredient": "酱汁"
+      },
+      {
+        "ingredient": "五花肉"
+      },
+      {
+        "ingredient": "冰糖"
+      }
+    ],
+    "finished_art": "pending"
+  }
+]

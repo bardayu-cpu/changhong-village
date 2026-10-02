@@ -13,7 +13,16 @@ func _initialize() -> void:
     var g = Rules.new()
     g.delivered.connect(func(n): coins += n)
     g.start(1, 42)
-    check("首关一锅一菜", g.pots.size() == 1 and g.orders[0].dishes.size() == 1)
+    check("学徒首关一锅一菜，先学跷脚牛肉", g.pots.size() == 1 and g.orders[0].dishes.size() == 1 and g.orders[0].dishes[0].recipe == "beef")
+    for stage in [1,2,4]:
+        var counts: Array = []
+        for seed_value in 100:
+            var sample = Rules.new()
+            sample.start(stage,seed_value+1)
+            counts.append(sample.orders[0].dishes.size())
+        var limit := mini(1+stage/2,3)
+        check("第%d关订单上限%d菜，随厨艺升级而增加" % [stage,limit],counts.all(func(c): return c >= 1 and c <= limit) and limit in counts)
+    g.orders[0].dishes = [{"recipe":"beef","ingredients":Rules.recipe("beef").ingredients.duplicate(),"done":false}]
     cook(g, 0)
     g.tick(7)
     check("提前出锅失败", not g.serve_pot(0) and g.plates.is_empty() and coins == 0)
@@ -36,11 +45,11 @@ func _initialize() -> void:
     g.orders = [{"id":101,"female":true,"dishes":[{"recipe":"beef","done":false},{"recipe":"tofu","done":false},{"recipe":"beef","done":false}],"left":50.0,"total":50.0},{"id":102,"female":false,"dishes":[{"recipe":"beef","done":false}],"left":50.0,"total":50.0}]
     g.spawn_in = 1000.0
     cook(g,0)
-    cook(g,1)
+    cook(g,1,"beef")
     g.tick(8)
     g.serve_pot(0)
     g.serve_pot(1)
-    check("可先交后排服务员", g.deliver(g.plates[0].id,102) and g.orders.size() == 1)
+    check("可先交后排且收齐即离开订单列表", g.deliver(g.plates[0].id,102) and g.orders.size() == 1)
     check("部分交菜保留订单", g.deliver(g.plates[0].id,101) and g.orders.size() == 1 and g.orders[0].dishes[0].done)
     var earned_before := coins
     g.orders[0].left = 0.1

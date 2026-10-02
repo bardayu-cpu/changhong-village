@@ -1,0 +1,3123 @@
+{
+  "schema_version": 2,
+  "status": "mobile_handoff_ready_2026-10-02",
+  "assets": {
+    "character/server_male_1/waiting": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_1_wait.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_1_wait_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        457.0
+      ],
+      "scale_in_reference": 1.0268948655256724,
+      "blocked_reason": "",
+      "tray_surface": [
+        58.0,
+        272.0,
+        152.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "c9aff9cfa6623bf3e7a75b992ecee81012949a1c42b664984a126f66be9e6c0e",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_1/confirm": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_1_confirm.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_1_confirm_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        456.0
+      ],
+      "scale_in_reference": 1.0268948655256724,
+      "blocked_reason": "",
+      "tray_surface": [
+        103.0,
+        263.0,
+        130.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "fa1dea622dbf6317cdb338fee4350b0271bf8509b31057eaa269bc2278ceb11f",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_1/carrying": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_1_carry.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_1_carry_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        457.0
+      ],
+      "scale_in_reference": 1.0268948655256724,
+      "blocked_reason": "",
+      "tray_surface": [
+        45.0,
+        259.0,
+        129.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "b64d04f3a815e7207c956bce46f0e5af43dd7c76d03c49495607d967e2dd15ad",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_1/leaving": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_1_leave.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_1_leave_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        456.0
+      ],
+      "scale_in_reference": 1.0268948655256724,
+      "blocked_reason": "",
+      "tray_surface": [
+        151.0,
+        207.0,
+        86.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "744f1a739a51804ed7d08959334e72ee86e151cd9938169d17d1a777d9a325d5",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_1/angry": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_male_1/approaching_wok": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_male_2/waiting": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_2_wait.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_2_wait_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        454.0
+      ],
+      "scale_in_reference": 1.0473815461346634,
+      "blocked_reason": "",
+      "tray_surface": [
+        58.0,
+        258.0,
+        156.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "4bd1db2f7af887c7ab1bda6861bd4ae098e1086164122c8c237ea13b27bb475e",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_2/confirm": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_2_confirm.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_2_confirm_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        455.0
+      ],
+      "scale_in_reference": 1.0473815461346634,
+      "blocked_reason": "",
+      "tray_surface": [
+        62.0,
+        257.0,
+        161.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "f6e4eca105a29364b3fd3354ff25fb6b58e3df3cbc4317bfd1d2a9541b58a244",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_2/carrying": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_2_carry.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_2_carry_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        457.0
+      ],
+      "scale_in_reference": 1.0473815461346634,
+      "blocked_reason": "",
+      "tray_surface": [
+        44.0,
+        255.0,
+        132.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "4a11f4fb1c049b6b82e21282d08328cd5f97d820bc95199044c0cefbe995947b",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_2/leaving": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_2_leave.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_2_leave_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        456.0
+      ],
+      "scale_in_reference": 1.0473815461346634,
+      "blocked_reason": "",
+      "tray_surface": [
+        163.0,
+        214.0,
+        72.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "4676b25583eb632f71cb5194304a760d7d196a5e45655a5ee3e619eef20eb53e",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_2/angry": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_male_2/approaching_wok": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_male_3/waiting": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_3_wait.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_3_wait_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        457.0
+      ],
+      "scale_in_reference": 0.9813084112149533,
+      "blocked_reason": "",
+      "tray_surface": [
+        59.0,
+        249.0,
+        152.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "9c18be80bd68cec32ba2d9d26d7d90bbc6ee3ab49f12f66b1c6438e1f8ecfa4c",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_3/confirm": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_3_confirm.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_3_confirm_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        455.0
+      ],
+      "scale_in_reference": 0.9813084112149533,
+      "blocked_reason": "",
+      "tray_surface": [
+        49.0,
+        245.0,
+        160.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "36ded2344dc47f5e957c87fa9c301e27bace101f5dc3b7a2c97f45911cc48f67",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_3/carrying": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_3_carry.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_3_carry_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        455.0
+      ],
+      "scale_in_reference": 0.9813084112149533,
+      "blocked_reason": "",
+      "tray_surface": [
+        35.0,
+        240.0,
+        138.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "7919135dfc022af1b7d3f9233678ac69b222ef3b1dd443d7e6b2b1ef9fed0b1e",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_3/leaving": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_male_3_leave.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/male/server_male_3_leave_full.png",
+      "pixel_size": [
+        270,
+        481
+      ],
+      "foot_anchor": [
+        135.0,
+        456.0
+      ],
+      "scale_in_reference": 0.9813084112149533,
+      "blocked_reason": "",
+      "tray_surface": [
+        169.0,
+        196.0,
+        66.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "1d1af6bbcacdcd36e9ed8f60dbe961b59c2a3e9591b839e9e8513f9a416cc832",
+      "alpha_hard_edge": true
+    },
+    "character/server_male_3/angry": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_male_3/approaching_wok": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_female_1/waiting": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_1_wait.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_1_wait_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 0.997624703087886,
+      "blocked_reason": "",
+      "tray_surface": [
+        80.0,
+        268.0,
+        135.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "a39caf4815334914b6b27c94bb98fe075f953dd5027b8fde7427095353eedfe9",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_1/confirm": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_1_confirm.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_1_confirm_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        457.0
+      ],
+      "scale_in_reference": 0.997624703087886,
+      "blocked_reason": "",
+      "tray_surface": [
+        91.0,
+        261.0,
+        135.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "b31d522aa03d0e52d5a1611c3000ea37e9ac50c8bbc8432d666dfcb067a08ec3",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_1/carrying": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_1_carry.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_1_carry_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 0.997624703087886,
+      "blocked_reason": "",
+      "tray_surface": [
+        129.0,
+        248.0,
+        131.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "2825112a3562eb9d24135bec60b1290aa40173b703bfc8908b262c2434bca836",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_1/leaving": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_1_leave.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_1_leave_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        457.0
+      ],
+      "scale_in_reference": 0.997624703087886,
+      "blocked_reason": "",
+      "tray_surface": [
+        194.0,
+        211.0,
+        55.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "0b16f5e9f7eef8100c6eceb1bdc8badbc172b7dde28dce76b0d5e57070f44534",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_1/angry": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_female_1/approaching_wok": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_female_2/waiting": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_2_wait.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_2_wait_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 1.024390243902439,
+      "blocked_reason": "",
+      "tray_surface": [
+        81.0,
+        262.0,
+        138.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "14d8dde87b8c6e8eb3bf93d37163932cc73731c6333160dc9ac0523b5e1e33de",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_2/confirm": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_2_confirm.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_2_confirm_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 1.024390243902439,
+      "blocked_reason": "",
+      "tray_surface": [
+        88.0,
+        261.0,
+        139.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "0b5012e9bc2b635b96199c0597dde0df43762182e59f7cce6730809e3f80b7a5",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_2/carrying": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_2_carry.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_2_carry_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 1.024390243902439,
+      "blocked_reason": "",
+      "tray_surface": [
+        113.0,
+        239.0,
+        135.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "b325dd4854d33a55d82af1c3617f353ed81b583f21e1ec9f9f9973fcaed69e79",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_2/leaving": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_2_leave.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_2_leave_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        457.0
+      ],
+      "scale_in_reference": 1.024390243902439,
+      "blocked_reason": "",
+      "tray_surface": [
+        186.0,
+        208.0,
+        45.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "7353e071c299eab282a5a71a25d41210621c41428377d28b2e69275446574308",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_2/angry": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_female_2/approaching_wok": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_female_3/waiting": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_3_wait.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_3_wait_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 0.9790209790209791,
+      "blocked_reason": "",
+      "tray_surface": [
+        67.0,
+        250.0,
+        153.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "44f13bdb785b9dd1beee9fc7d98122d3484efc4259d07a507175ed2f79da946b",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_3/confirm": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_3_confirm.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_3_confirm_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        459.0
+      ],
+      "scale_in_reference": 0.9790209790209791,
+      "blocked_reason": "",
+      "tray_surface": [
+        93.0,
+        239.0,
+        131.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "c190a053c11e1580f84e93743c3fd14aa522d1c960cc02a265ff7333cf743a15",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_3/carrying": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_3_carry.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_3_carry_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 0.9790209790209791,
+      "blocked_reason": "",
+      "tray_surface": [
+        108.0,
+        233.0,
+        137.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "bbfc49aded4d922553aeae44c07493aaa35251a7332f72868b0d46a67fdd0225",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_3/leaving": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/characters/chr_server_female_3_leave.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3-modern/characters/female/server_female_3_leave_full.png",
+      "pixel_size": [
+        291,
+        483
+      ],
+      "foot_anchor": [
+        145.5,
+        458.0
+      ],
+      "scale_in_reference": 0.9790209790209791,
+      "blocked_reason": "",
+      "tray_surface": [
+        179.0,
+        196.0,
+        51.0,
+        12.0
+      ],
+      "wardrobe": "modern_hotel",
+      "tray_empty": true,
+      "sha256": "25f145c7646c839c0d296f164677025fcd8a394f87dc352ad064ae281c29fa0b",
+      "alpha_hard_edge": true
+    },
+    "character/server_female_3/angry": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "character/server_female_3/approaching_wok": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "ingredient/汤底": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_broth.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_broth_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "39415567b803adfa415bc206d24ef450ce71af6496efbb6588da5a80f0c71d5e",
+      "alpha_hard_edge": true
+    },
+    "ingredient/牛肉": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_beef.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_beef_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "dd045d3b61a3e22f14adf48c5f0e463fbbb803520f6856c5df5829fbda3525f8",
+      "alpha_hard_edge": true
+    },
+    "ingredient/葱花": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_scallion.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_scallion_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "4262ccfcf2ba3bfe47d9fb0351ed4ea6fe23604a48e2005083a14554b9a5d365",
+      "alpha_hard_edge": true
+    },
+    "ingredient/香菜": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_cilantro.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_cilantro_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "8f507a4a4de83dbfd722ae5d0539ef58b9feb965c9dd83e60fad8b98143a5b19",
+      "alpha_hard_edge": true
+    },
+    "ingredient/鸭": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_duck.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_duck_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "e6e906bb44171680c27e345dd99b4813bd3d745f568d50418882acc31346a5ae",
+      "alpha_hard_edge": true
+    },
+    "ingredient/麦芽糖浆": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_maltose_glaze.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_maltose_glaze_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "fd18617268cb1866bfb4cafdb585b0cdff8204a66672f13e4e2a62a61a0513d3",
+      "alpha_hard_edge": true
+    },
+    "ingredient/鸡肉串": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_cooked_chicken_skewers.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_cooked_chicken_skewers_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "c2d9cc67a551bebb39b0decbf13ae212afdf9460538f8e8444c4173c5929d75c",
+      "alpha_hard_edge": true
+    },
+    "ingredient/红油": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_chili_oil.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_chili_oil_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "fde303bc7a49bdda8780d3ec7e3a23e81cd90ee8ffce0db33277668bf8de68b6",
+      "alpha_hard_edge": true
+    },
+    "ingredient/豆花": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_tofu_pudding_curds.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_tofu_pudding_curds_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "790b00b79952b019ca4f0d4d31bda0340403dcfcae1e50dbeba9d00cbc9b4187",
+      "alpha_hard_edge": true
+    },
+    "ingredient/浇头": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_beef_gravy.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_beef_gravy_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "f0a917d9927b634d49716fc543a311375bc65f15e876ff6d012a25a6eee5c064",
+      "alpha_hard_edge": true
+    },
+    "ingredient/糯米团": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_rice_cake_dough.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_rice_cake_dough_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "e67e819f5c7b67432f6724bb2a1ad6659f4f311a3cc9359a1eeee0fd4aee4ce7",
+      "alpha_hard_edge": true
+    },
+    "ingredient/叶片": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_wrapping_leaves.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_wrapping_leaves_full.png",
+      "pixel_size": [
+        192,
+        174
+      ],
+      "sha256": "6938f49147825604bb1659aafe4c26ff2210f942d87c56d8e2f5c2db2db998b6",
+      "alpha_hard_edge": true
+    },
+    "ingredient/冰粉": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_ice_jelly.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_ice_jelly_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "4f1bf21ab3f6478f0abed85fe543dd1202f1d922f709980ba511ed6d4fe01318",
+      "alpha_hard_edge": true
+    },
+    "ingredient/红糖浆": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_brown_sugar_syrup.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_brown_sugar_syrup_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "f3a7f290a33f02e2a58941371c938dc2b4aed83c5919f3afada47d5b4f3d97bc",
+      "alpha_hard_edge": true
+    },
+    "ingredient/豆腐": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_tofu.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_tofu_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "7de89c63c260d9337a452ed17fe9654ef53a3aa64f7b9e198a02d2e0e86f37bc",
+      "alpha_hard_edge": true
+    },
+    "ingredient/串料": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_assorted_skewers.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_assorted_skewers_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "c97cb2be74b7d176231ac8825dcbb1295a309d999b83df04f77b4acc657ce14b",
+      "alpha_hard_edge": true
+    },
+    "ingredient/烧烤串": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_raw_bbq_skewers.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_raw_bbq_skewers_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "d3abca3fbc3a6831b54887f66a03133577c03a6278c4af96ee3c6a2e64a18fb3",
+      "alpha_hard_edge": true
+    },
+    "ingredient/米花": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_puffed_rice.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_puffed_rice_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "3ff37078166c3cfb3b802a15214f7b37e3d01ff5651c773ea64d1fb3127ac759",
+      "alpha_hard_edge": true
+    },
+    "ingredient/花生": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_peanuts.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_peanuts_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "4c1336afdcec5dbf9a02c6963900364ad98dae95ffc2fcbe5dff6f609faba2bb",
+      "alpha_hard_edge": true
+    },
+    "ingredient/芝麻": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_sesame.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_sesame_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "7533187c600678891c525554cb95d242e791584fc4e7b0c2b54ede25fd94ac3a",
+      "alpha_hard_edge": true
+    },
+    "ingredient/凉糕": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_rice_jelly.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_rice_jelly_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "414805f9465e9bd97dd80ff2129eb72e738ad7abae72137c43945f37ed64318c",
+      "alpha_hard_edge": true
+    },
+    "ingredient/粉条": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_sweet_potato_noodles.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_sweet_potato_noodles_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "8f92f5ca7fa3acc0e268d53a058dd18d5682800555bae0a2269e9c00ee4a9637",
+      "alpha_hard_edge": true
+    },
+    "ingredient/肥肠": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_pork_intestine.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_pork_intestine_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "cea854ae3cbb711e6a6a9314a8175cabd62d62d5ec157aba56a134453f55fd6a",
+      "alpha_hard_edge": true
+    },
+    "ingredient/辣椒": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ingredients/blk_ingredient_red_chili.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/ingredients/local12/ingredient_red_chili_full.png",
+      "pixel_size": [
+        192,
+        193
+      ],
+      "sha256": "690178e5a2eebb2b62a1456aa672ec3bb5d9093c5123a7ddfe9e0040529275b2",
+      "alpha_hard_edge": true
+    },
+    "dish/beef": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_qiaojiao_beef.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_qiaojiao_beef_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "6e5d20f1c4699794873676a6fbfd9c1a64fd1eeace64e19311d73116f98fbdde",
+      "alpha_hard_edge": true
+    },
+    "dish/qiaojiao_beef": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_qiaojiao_beef.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_qiaojiao_beef_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "6e5d20f1c4699794873676a6fbfd9c1a64fd1eeace64e19311d73116f98fbdde",
+      "alpha_hard_edge": true
+    },
+    "content/qiaojiao_beef/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_qiaojiao_beef_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        21.2779,
+        47.8753,
+        213.4442,
+        146.9506
+      ],
+      "sha256": "f8f122e135cd2ac560345751c6d02c236cc9fdb74f1093a24a499b2b456a5cdf",
+      "source": "02-v3/content/dish_states/qiaojiao_beef_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "qiaojiao_beef",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/qiaojiao_beef/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_qiaojiao_beef_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        47.2104,
+        219.4286,
+        147.6156
+      ],
+      "sha256": "045cbcc111a6755992ee3bbb16f235f46a22627b98ade79becec72f7b30d34c5",
+      "source": "02-v3/content/dish_states/qiaojiao_beef_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "qiaojiao_beef",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/qiaojiao_beef/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_qiaojiao_beef.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        26.4383,
+        83.8287,
+        204.4131,
+        153.471
+      ],
+      "sha256": "6e5d20f1c4699794873676a6fbfd9c1a64fd1eeace64e19311d73116f98fbdde",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "qiaojiao_beef",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/qiaojiao_beef/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_qiaojiao_beef_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        44.5506,
+        219.4286,
+        150.2753
+      ],
+      "sha256": "b72fa6a45338dcd1054e747d910a5e23059478ea5602ec79ac9bbd53140cc50b",
+      "source": "02-v3/content/dish_states/qiaojiao_beef_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "qiaojiao_beef",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/ice_jelly": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_ice_jelly.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_ice_jelly_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "d553a65b4685e7bfe2bc6264b0a8feacbb862ca211bb4ccc990a4962ade79a5f",
+      "alpha_hard_edge": true
+    },
+    "content/ice_jelly/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_ice_jelly_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        19.845,
+        74.7494,
+        215.6486,
+        143.5452
+      ],
+      "sha256": "58c9fa9765db65b9966754cf4b4ebbe6f297339bbf8557ad3907fe29eddc840e",
+      "source": "02-v3/content/dish_states/ice_jelly_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "ice_jelly",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/ice_jelly/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_ice_jelly_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        19.845,
+        70.7804,
+        216.3101,
+        147.5142
+      ],
+      "sha256": "12c273c2c087df23a55e80d153e9354659de14d2a75437154a164c2f148dfbeb",
+      "source": "02-v3/content/dish_states/ice_jelly_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "ice_jelly",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/ice_jelly/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_ice_jelly.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        26.4383,
+        77.3804,
+        203.1234,
+        158.6297
+      ],
+      "sha256": "d553a65b4685e7bfe2bc6264b0a8feacbb862ca211bb4ccc990a4962ade79a5f",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "ice_jelly",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/ice_jelly/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_ice_jelly_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        20.5065,
+        62.8424,
+        214.3256,
+        155.4522
+      ],
+      "sha256": "a236f57ade7438480b2c2d8187f8138c80b3904493055352e875e9c49feefe82",
+      "source": "02-v3/content/dish_states/ice_jelly_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "ice_jelly",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/tofu_pudding": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_tofu_pudding.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_tofu_pudding_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "0091ffbbea5a7ddbc9af58a29a86bcfda6a2a8f4a28266b86857c311051ec1be",
+      "alpha_hard_edge": true
+    },
+    "content/tofu_pudding/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_tofu_pudding_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        23.2727,
+        55.8545,
+        209.4545,
+        138.9714
+      ],
+      "sha256": "544c29447a9356ee29ee0a8730d581fe92a81f4f62b377c12e4525521722be16",
+      "source": "02-v3/content/dish_states/tofu_pudding_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "tofu_pudding",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/tofu_pudding/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_tofu_pudding_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        42.5558,
+        220.0935,
+        152.2701
+      ],
+      "sha256": "025e9f1c29a0c2f23881229a69d031bd56fd344356b470d57eb67e6049e696c0",
+      "source": "02-v3/content/dish_states/tofu_pudding_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "tofu_pudding",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/tofu_pudding/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_tofu_pudding.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        26.4383,
+        81.8942,
+        203.1234,
+        155.4055
+      ],
+      "sha256": "0091ffbbea5a7ddbc9af58a29a86bcfda6a2a8f4a28266b86857c311051ec1be",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "tofu_pudding",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/tofu_pudding/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_tofu_pudding_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        15.9584,
+        48.5403,
+        224.0831,
+        146.2857
+      ],
+      "sha256": "24f9d4fdebac82b9cf2a07afa310bd8ba6d45544fc1fff3b68f84581d048a0a9",
+      "source": "02-v3/content/dish_states/tofu_pudding_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "tofu_pudding",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/tofu": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_xiba_tofu.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_xiba_tofu_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "a3291187b09050fc1719c920cb59b3ba3989b92272b5ba6c80c9f6efe1861910",
+      "alpha_hard_edge": true
+    },
+    "dish/xiba_tofu": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_xiba_tofu.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_xiba_tofu_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "a3291187b09050fc1719c920cb59b3ba3989b92272b5ba6c80c9f6efe1861910",
+      "alpha_hard_edge": true
+    },
+    "content/xiba_tofu/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_xiba_tofu_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        21.8295,
+        84.6718,
+        212.3411,
+        133.6227
+      ],
+      "sha256": "d5c64210849cd6d0efdb2c11d127dd4c74fc40d16fa9b6cf13f097b3ae5fede6",
+      "source": "02-v3/content/dish_states/xiba_tofu_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "xiba_tofu",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/xiba_tofu/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_xiba_tofu_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        19.845,
+        68.1344,
+        216.3101,
+        150.1602
+      ],
+      "sha256": "e25291b8f682f464c201f47621132d4e51bbf26d99f7d6135742a58e3909e891",
+      "source": "02-v3/content/dish_states/xiba_tofu_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "xiba_tofu",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/xiba_tofu/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_xiba_tofu.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        24.5038,
+        74.1562,
+        207.6373,
+        163.1436
+      ],
+      "sha256": "a3291187b09050fc1719c920cb59b3ba3989b92272b5ba6c80c9f6efe1861910",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "xiba_tofu",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/xiba_tofu/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_xiba_tofu_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        19.845,
+        60.1964,
+        215.6486,
+        158.0982
+      ],
+      "sha256": "0e5a2aecd265b4906d427b4b5045929ae8c640bbfb136f1e4d32d5b7d5655fd4",
+      "source": "02-v3/content/dish_states/xiba_tofu_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "xiba_tofu",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/noodles": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_feichang_noodles.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_feichang_noodles_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "ffa3033afd3144246ba7c2db19c245b1f5d6add35241d51cf05beba8ff144304",
+      "alpha_hard_edge": true
+    },
+    "dish/feichang_noodles": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_feichang_noodles.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_feichang_noodles_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "ffa3033afd3144246ba7c2db19c245b1f5d6add35241d51cf05beba8ff144304",
+      "alpha_hard_edge": true
+    },
+    "content/feichang_noodles/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_feichang_noodles_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        17.6085,
+        43.3439,
+        220.7831,
+        166.6032
+      ],
+      "sha256": "77edff860b4fa4c5dd8f9b3922d8dd0508698a76659bcecbb88da4be31522a1a",
+      "source": "02-v3/content/dish_states/feichang_noodles_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "feichang_noodles",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/feichang_noodles/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_feichang_noodles_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        16.254,
+        46.0529,
+        222.8148,
+        163.8942
+      ],
+      "sha256": "209176561defc592b1a3ba6ca7601c0218f935a92e98e79410ab49bc8e177bd5",
+      "source": "02-v3/content/dish_states/feichang_noodles_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "feichang_noodles",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/feichang_noodles/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_feichang_noodles.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        19.9899,
+        59.3249,
+        214.0856,
+        177.9748
+      ],
+      "sha256": "ffa3033afd3144246ba7c2db19c245b1f5d6add35241d51cf05beba8ff144304",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "feichang_noodles",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/feichang_noodles/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_feichang_noodles_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        17.6085,
+        45.3757,
+        220.1058,
+        164.5714
+      ],
+      "sha256": "b7649a1a7bcae3fbc3da040e121ba72deafb2d14e355a101c42f5139449d8513",
+      "source": "02-v3/content/dish_states/feichang_noodles_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "feichang_noodles",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/bobo_chicken": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_bobo_chicken.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_bobo_chicken_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "69682e16e8f33ac50d3fac846fe464773ad043e2a7afa6c2f324f74a9f8fe266",
+      "alpha_hard_edge": true
+    },
+    "content/bobo_chicken/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_bobo_chicken_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        21.9429,
+        29.2571,
+        212.1143,
+        165.5688
+      ],
+      "sha256": "e0362a378f31d8ff002cd31097e816c13a9b4b936f23bcb455b9cf4d6bb3ad67",
+      "source": "02-v3/content/dish_states/bobo_chicken_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bobo_chicken",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/bobo_chicken/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_bobo_chicken_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        15.9584,
+        219.4286,
+        178.8675
+      ],
+      "sha256": "06e8230eb5e756437f401d39be641576dd14ccf7522f95288dc15b985a0c3cbc",
+      "source": "02-v3/content/dish_states/bobo_chicken_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bobo_chicken",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/bobo_chicken/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_bobo_chicken.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        27.728,
+        38.0453,
+        200.5441,
+        199.2544
+      ],
+      "sha256": "69682e16e8f33ac50d3fac846fe464773ad043e2a7afa6c2f324f74a9f8fe266",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bobo_chicken",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/bobo_chicken/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_bobo_chicken_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        18.6182,
+        219.4286,
+        176.2078
+      ],
+      "sha256": "1b4dbed8651729c1d10622f2f1389f319f141983f32c4af58aa0cac55dd2fb66",
+      "source": "02-v3/content/dish_states/bobo_chicken_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bobo_chicken",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/lianggao": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_lianggao.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_lianggao_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "f3b6b4c2422d4c6a50de9f5f722183bcb2ce44b3224921b129b92198d4f49dbb",
+      "alpha_hard_edge": true
+    },
+    "content/lianggao/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_lianggao_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        18.2857,
+        46.0529,
+        218.7513,
+        163.8942
+      ],
+      "sha256": "14a1158757d7f34c6f1e9709b0f5bc7f8a40394f9d0a2c4e19b6bafdb785bcb6",
+      "source": "02-v3/content/dish_states/lianggao_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "lianggao",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/lianggao/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_lianggao_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        18.2857,
+        58.9206,
+        219.4286,
+        151.0265
+      ],
+      "sha256": "6868616084fabd27b2eb9a9b70238b07301dd4eab0c403cb5121bb3e02c2bd3f",
+      "source": "02-v3/content/dish_states/lianggao_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "lianggao",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/lianggao/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_lianggao.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        22.5693,
+        102.529,
+        212.1511,
+        134.1259
+      ],
+      "sha256": "f3b6b4c2422d4c6a50de9f5f722183bcb2ce44b3224921b129b92198d4f49dbb",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "lianggao",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/lianggao/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_lianggao_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        18.2857,
+        62.9841,
+        218.7513,
+        146.963
+      ],
+      "sha256": "7f457d781bd087937502dfae2ffd8ba9ff06c047edfba4aad01e11f6aca9f6fa",
+      "source": "02-v3/content/dish_states/lianggao_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "lianggao",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/malatang": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_malatang.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_malatang_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "38eb9a38b02163d5392fca83c56c535246948dd2854829adf9e420cf9a4ec7c3",
+      "alpha_hard_edge": true
+    },
+    "content/malatang/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_malatang_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        17.8605,
+        54.9044,
+        220.2791,
+        163.3902
+      ],
+      "sha256": "10f6328f7e78071159c2b294b4eb24369b61a4b0aa34345637051f6baa95bdb8",
+      "source": "02-v3/content/dish_states/malatang_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "malatang",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/malatang/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_malatang_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        15.876,
+        15.876,
+        224.2481,
+        202.4186
+      ],
+      "sha256": "c01d988814865548bb67699a0dcd50d7093d95f80c5b510723d0da00282c61e3",
+      "source": "02-v3/content/dish_states/malatang_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "malatang",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/malatang/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_malatang.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        17.4106,
+        16.1209,
+        220.534,
+        219.2443
+      ],
+      "sha256": "38eb9a38b02163d5392fca83c56c535246948dd2854829adf9e420cf9a4ec7c3",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "malatang",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/malatang/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_malatang_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        19.1835,
+        42.3359,
+        217.6331,
+        175.9587
+      ],
+      "sha256": "359425eb8b80c2f7087cd3ca85e4d4136a4aa54bf8b2e557ad5bfa22b49244d7",
+      "source": "02-v3/content/dish_states/malatang_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "malatang",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/yeerba": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_yeerba.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_yeerba_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "90df13366be6bcb61bc630f1b70213e283a61d7c183bad36ff618da5e52dfddb",
+      "alpha_hard_edge": true
+    },
+    "content/yeerba/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_yeerba_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        16.5375,
+        70.1189,
+        222.2636,
+        148.1757
+      ],
+      "sha256": "aeefc63c5631d29b918c22ab9b1c3e772ebf09360c1ccf8ab05f6865efcf585d",
+      "source": "02-v3/content/dish_states/yeerba_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "yeerba",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/yeerba/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_yeerba_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        20.5065,
+        15.876,
+        214.3256,
+        202.4186
+      ],
+      "sha256": "abcf3bc8e5e0e614d9cbd791721582dde77dc6ce1395102a0ce5fe57a1f1ee24",
+      "source": "02-v3/content/dish_states/yeerba_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "yeerba",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/yeerba/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_yeerba.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        25.1486,
+        46.4282,
+        206.3476,
+        190.8715
+      ],
+      "sha256": "90df13366be6bcb61bc630f1b70213e283a61d7c183bad36ff618da5e52dfddb",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "yeerba",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/yeerba/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_yeerba_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        234
+      ],
+      "content_bounds": [
+        19.1835,
+        59.5349,
+        216.9716,
+        158.7597
+      ],
+      "sha256": "78d4b9805fabffe6ca8adf0f87134fbf0fc02bb6e76243c7937c67ea10186313",
+      "source": "02-v3/content/dish_states/yeerba_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "yeerba",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/sweet_skin_duck": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_sweet_skin_duck.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_sweet_skin_duck_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "e9f4dd12cc4ec751fd53e05b4f435cafddfc3b36fed0eb68a8f356fec430ef1a",
+      "alpha_hard_edge": true
+    },
+    "content/sweet_skin_duck/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_sweet_skin_duck_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        22.6078,
+        39.2312,
+        210.1195,
+        155.5948
+      ],
+      "sha256": "1ab1ef46c00a9cbd131dd0af0ad4cf19ed65d519462c8d0075bafd940aca6796",
+      "source": "02-v3/content/dish_states/sweet_skin_duck_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "sweet_skin_duck",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/sweet_skin_duck/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_sweet_skin_duck_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        19.2831,
+        219.4286,
+        175.5429
+      ],
+      "sha256": "eeca26cc8d0c8c300b457a3de91b5f2a565b76769ef4a35a9a3ada903038b1a2",
+      "source": "02-v3/content/dish_states/sweet_skin_duck_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "sweet_skin_duck",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/sweet_skin_duck/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_sweet_skin_duck.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        19.9899,
+        108.9773,
+        215.3753,
+        127.6776
+      ],
+      "sha256": "e9f4dd12cc4ec751fd53e05b4f435cafddfc3b36fed0eb68a8f356fec430ef1a",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "sweet_skin_duck",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/sweet_skin_duck/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_sweet_skin_duck_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        211
+      ],
+      "content_bounds": [
+        17.9532,
+        33.2468,
+        219.4286,
+        161.5792
+      ],
+      "sha256": "7d82d023e07cd6aac06d0fee5df8b6a26135caf8000bf0af2e96bcad4959ff71",
+      "source": "02-v3/content/dish_states/sweet_skin_duck_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "sweet_skin_duck",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/bbq_skewers": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_bbq_skewers.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_bbq_skewers_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "026f418dfe2a532da0e3090ce0a602ae8370e2dd44238bbcf137bd468d9424b8",
+      "alpha_hard_edge": true
+    },
+    "content/bbq_skewers/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_bbq_skewers_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        17.6085,
+        27.0899,
+        220.7831,
+        182.8571
+      ],
+      "sha256": "7ec92fb04fd31129b9dd2a451f1aec63acc0309dd946daddd0f14be44e5d3daa",
+      "source": "02-v3/content/dish_states/bbq_skewers_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bbq_skewers",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/bbq_skewers/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_bbq_skewers_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        16.254,
+        17.6085,
+        223.4921,
+        192.3386
+      ],
+      "sha256": "8ee9ef1372e1dfcd50519dc89b9e0e90ec8ace9de33e3fff6d2c8e26a52cc6d8",
+      "source": "02-v3/content/dish_states/bbq_skewers_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bbq_skewers",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/bbq_skewers/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_bbq_skewers.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        16.1209,
+        61.9043,
+        223.7582,
+        175.3955
+      ],
+      "sha256": "026f418dfe2a532da0e3090ce0a602ae8370e2dd44238bbcf137bd468d9424b8",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bbq_skewers",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/bbq_skewers/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_bbq_skewers_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        17.6085,
+        16.254,
+        220.7831,
+        193.6931
+      ],
+      "sha256": "f6bfe660443979942e5400b42f0ee59837ec08b79c9f95c6ddfb7985be0c698a",
+      "source": "02-v3/content/dish_states/bbq_skewers_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "bbq_skewers",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "dish/rice_candy": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_rice_candy.png"
+      ],
+      "frame_seconds": 0.12,
+      "loop": false,
+      "source": "02-v3/dishes/local12/dish_rice_candy_full.png",
+      "pixel_size": [
+        256,
+        253
+      ],
+      "sha256": "c0f970bc7940d510cdc865eadf1da9e3c6d71ac12a064ee4bb4cf64f49b9963d",
+      "alpha_hard_edge": true
+    },
+    "content/rice_candy/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_rice_candy_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        18.2857,
+        30.4762,
+        219.4286,
+        179.4709
+      ],
+      "sha256": "a4b51ba2bcc26d4315dd39b5469b60149b95043ed624014007648982f8b87511",
+      "source": "02-v3/content/dish_states/rice_candy_prep.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "rice_candy",
+      "stage": "prep",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/rice_candy/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_rice_candy_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        20.9947,
+        36.5714,
+        214.0106,
+        173.3757
+      ],
+      "sha256": "9e4d35373543e485fc7671cb9f1e8b718e91f1c3c2ca8b2ee53fda60da6616f4",
+      "source": "02-v3/content/dish_states/rice_candy_cooking.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "rice_candy",
+      "stage": "cooking",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/rice_candy/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dishes/blk_dish_rice_candy.png"
+      ],
+      "pixel_size": [
+        256,
+        253
+      ],
+      "content_bounds": [
+        18.7003,
+        81.2494,
+        218.5995,
+        155.4055
+      ],
+      "sha256": "c0f970bc7940d510cdc865eadf1da9e3c6d71ac12a064ee4bb4cf64f49b9963d",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "rice_candy",
+      "stage": "ready",
+      "ready_uses_finished_art": true,
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "content/rice_candy/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/dish_states/blk_dish_state_rice_candy_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        226
+      ],
+      "content_bounds": [
+        16.9312,
+        51.4709,
+        222.1376,
+        158.4762
+      ],
+      "sha256": "b77de530e0e8128a14053e5e85652752304f2ef90409aa5cb5a4f6176fb19178",
+      "source": "02-v3/content/dish_states/rice_candy_burnt.png",
+      "alpha_hard_edge": true,
+      "includes_station_body": false,
+      "dish_id": "rice_candy",
+      "stage": "burnt",
+      "loop": false,
+      "frame_seconds": 0.12
+    },
+    "station/grill/body": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/stations/blk_station_grill.png"
+      ],
+      "source": "02-v3/stations",
+      "loop": false,
+      "pixel_size": [
+        352,
+        209
+      ],
+      "sha256": "4696262b2371aceadd87530166841976b6d5388e2775d24fb0891dd4869af266",
+      "alpha_hard_edge": true
+    },
+    "station/steamer/body": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/stations/blk_station_steamer.png"
+      ],
+      "source": "02-v3/stations",
+      "loop": false,
+      "pixel_size": [
+        352,
+        279
+      ],
+      "sha256": "1c07d892344bf8bb7b2d07aee3f95c34d950fa255afde6cc70b07a05a2c8ec3a",
+      "alpha_hard_edge": true
+    },
+    "station/wok/body": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "separate_station_body_missing"
+    },
+    "effect/fixed_fire": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_flame.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "6f3dea118608646e4d6925c2a813a3fd880cd2b8623313af7c4940b04b4f94ab",
+      "source": "02-v3/effects/effect_flame.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "pulse",
+      "content_bounds": [
+        10.9194,
+        91.4502,
+        170.1611,
+        155.6019
+      ]
+    },
+    "effect/steam": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_steam.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "a87b71c488ca9c8e0baa75cfd153729845517c6619cd5c9f2308c2fb258b2be1",
+      "source": "02-v3/effects/effect_steam.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "rise",
+      "content_bounds": [
+        19.564,
+        33.2133,
+        152.4171,
+        213.8389
+      ]
+    },
+    "effect/smoke": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_smoke.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "e87a96a5f00a47576a0f6fc44854e0d2b117f48e7ccf2e404e6f4b23c8b43ae6",
+      "source": "02-v3/effects/effect_smoke.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "rise",
+      "content_bounds": [
+        21.8389,
+        10.9194,
+        147.8673,
+        236.1327
+      ]
+    },
+    "character/chef/waiting": {
+      "approved": false,
+      "frames": [],
+      "blocked_reason": "revoked_wrong_period_costume_modern_hotel_required"
+    },
+    "plate/empty": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_empty_plate.png"
+      ],
+      "source": "02-v3/core_confirmed",
+      "loop": false,
+      "pixel_size": [
+        384,
+        185
+      ],
+      "sha256": "8f8cbad9bb6f93f147f15579c453b5d46d165c7531be923abd89f4d46aa98e10",
+      "alpha_hard_edge": true
+    },
+    "ui/serve": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ui/base_ui_button_serve.png"
+      ],
+      "source": "02-v3/ui_reference",
+      "loop": false,
+      "pixel_size": [
+        169,
+        220
+      ],
+      "sha256": "01116bbff68dac7678a3efe63ebdd623ab1de01c018a3ac776bc3ba83007010d",
+      "alpha_hard_edge": true
+    },
+    "ui/deliver": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/ui/base_ui_button_deliver.png"
+      ],
+      "source": "02-v3/ui_reference",
+      "loop": false,
+      "pixel_size": [
+        181,
+        220
+      ],
+      "sha256": "26de65aafe5ecdbba9e86e53f73e78269030315edc03ae8cade81eea0d6fc654",
+      "alpha_hard_edge": true
+    },
+    "station/stock_wok/body": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/stations/blk_station_stock_wok.png"
+      ],
+      "source": "02-v3/stations",
+      "loop": false,
+      "pixel_size": [
+        352,
+        228
+      ],
+      "sha256": "b5c699295f0110c30e532608a38505302450eb796deda621a1937898ee1d458b",
+      "alpha_hard_edge": true
+    },
+    "station/cold_mix/body": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/stations/blk_station_cold_mix.png"
+      ],
+      "source": "02-v3/stations",
+      "loop": false,
+      "pixel_size": [
+        352,
+        217
+      ],
+      "sha256": "413bc74cdc9e040345adb9c666adcab578eefe305455583d835156087234523f",
+      "alpha_hard_edge": true
+    },
+    "station/candy_press/body": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/stations/blk_station_candy_press.png"
+      ],
+      "source": "02-v3/stations",
+      "loop": false,
+      "pixel_size": [
+        352,
+        203
+      ],
+      "sha256": "5db4679a72e5ba59fa8f751a27549bcde55c0310eea78abd5d98b5b4b17365db",
+      "alpha_hard_edge": true
+    },
+    "content/cold_mix/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_cold_mix_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "76ba3d265d376ac54dd79d0bffa17a11403a99c6746f96c56e14d76805d430b7",
+      "source": "02-v3/content/stages/cold_mix_burnt.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/grill/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_grill_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "d819ac02b94cfa331e683174244a4d8e850ec04e86fae5ec89a45017ff5d7755",
+      "source": "02-v3/content/stages/grill_cooking.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/stock_wok/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_stock_wok_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "bd8edc8a52ff5bcb001052464e09c51506792bb0ed1726346f5c3096b3ab4d42",
+      "source": "02-v3/content/stages/stock_wok_cooking.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/candy_press/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_candy_press_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "a05e868b8407c0c61161dedf7ef097de69141c7954608e41c20f901e1d5f654e",
+      "source": "02-v3/content/stages/candy_press_burnt.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/steamer/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_steamer_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "40d8ad7b829bfa28ecadc5bb3f281bb5b22e20c87a63e4003f21278216d36bab",
+      "source": "02-v3/content/stages/steamer_prep.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/grill/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_grill_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "cfc3dacc5a2e588c3418e3dd1d283d1d32f3178ef41e6238fed80e14fccab4ab",
+      "source": "02-v3/content/stages/grill_prep.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/cold_mix/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_cold_mix_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "fda9df51d023e6c7b969967767818ec65a4e7c10706d05cb5c9997d47e817812",
+      "source": "02-v3/content/stages/cold_mix_prep.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/grill/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_grill_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "21551a1f75a624f7b14271bed4a4c52bc82bf4fbf281816b189f6808f1e29036",
+      "source": "02-v3/content/stages/grill_burnt.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/cold_mix/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_cold_mix_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "fcd8349a8d8797172107b6c79fd8fd14ffeb5f0767aa0fde08f98205282e2a9c",
+      "source": "02-v3/content/stages/cold_mix_cooking.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/stock_wok/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_stock_wok_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "2ca90cb3655ff0cda780cacc895c1df27f10430992515a160160d2a277f398fe",
+      "source": "02-v3/content/stages/stock_wok_prep.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/steamer/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_steamer_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "9e9e7793a0afe6031bf6afed1b3a9eb4ff6d0c01de2c83697a66444d73665bfc",
+      "source": "02-v3/content/stages/steamer_burnt.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/stock_wok/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_stock_wok_ready.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "98156d322e81ed84e31074412b80196a9c7498e056c70c879181e6cddfe2ecf7",
+      "source": "02-v3/content/stages/stock_wok_ready.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/steamer/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_steamer_ready.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "95f74d987f646a4f0905c94df5fd668bbe2bd45cc26b55f9e49052558e2b9281",
+      "source": "02-v3/content/stages/steamer_ready.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/stock_wok/burnt": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_stock_wok_burnt.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "0b0c1df6ad87eb3a3fba1ca55fe49b3207767af5fee9ee62ec0efd1f4e49c233",
+      "source": "02-v3/content/stages/stock_wok_burnt.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/candy_press/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_candy_press_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "33fd309a0d58431d1c611fd477e3748e1eacda341c4933671465d3dd63b8ac77",
+      "source": "02-v3/content/stages/candy_press_cooking.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/grill/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_grill_ready.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "f88066aa45877a67d883ab8932ef5471bf429b3305f5d37e55b0c1e38c383100",
+      "source": "02-v3/content/stages/grill_ready.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/candy_press/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_candy_press_ready.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "70e40e3b3585a69f6a37f5dee1238dbb232338d982b7cab9503b22e1126eba10",
+      "source": "02-v3/content/stages/candy_press_ready.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/candy_press/prep": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_candy_press_prep.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "fc53d41ff86406cd0bdd6f89d5fe05da273dae5c7a3b14244c124d251baa271a",
+      "source": "02-v3/content/stages/candy_press_prep.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/steamer/cooking": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_steamer_cooking.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "1a02f5347ad604858af33afc5f97c8e16ed79cd5645fcfb05e15df57a2246815",
+      "source": "02-v3/content/stages/steamer_cooking.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "content/cold_mix/ready": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/components/blk_cold_mix_ready.png"
+      ],
+      "pixel_size": [
+        256,
+        248
+      ],
+      "sha256": "a1b43222d8e778df9f66f528b428c1b342239f563a7b8b49183e77c7dc45e48e",
+      "source": "02-v3/content/stages/cold_mix_ready.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": true
+    },
+    "effect/sizzle": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_sizzle.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "335889e48fe953d16b211415e8dc9fe62801d1e9571040d13fd1be5c9f6e4af9",
+      "source": "02-v3/effects/effect_sizzle.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "pulse",
+      "content_bounds": [
+        13.6493,
+        100.0948,
+        164.2464,
+        146.9573
+      ]
+    },
+    "effect/ready_sparkle": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_ready_sparkle.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "7435b218861dc1ca0c6931812eccb3c7f28482a99efc34d4a8e8786ae64ddc6c",
+      "source": "02-v3/effects/effect_ready_sparkle.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "pulse",
+      "content_bounds": [
+        19.109,
+        81.8957,
+        153.782,
+        165.1564
+      ]
+    },
+    "effect/flame": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_flame.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "6f3dea118608646e4d6925c2a813a3fd880cd2b8623313af7c4940b04b4f94ab",
+      "source": "02-v3/effects/effect_flame.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "pulse",
+      "content_bounds": [
+        10.9194,
+        91.4502,
+        170.1611,
+        155.6019
+      ],
+      "stretch_scale": true
+    },
+    "effect/cold_glint": {
+      "approved": true,
+      "frames": [
+        "res://assets/kitchen/mobile/effects/decal_cold_glint.png"
+      ],
+      "pixel_size": [
+        192,
+        258
+      ],
+      "sha256": "7fc9e3c23f1f47329504e3d4f02f9fee37decfa467c9ca9765c74a7ea54502bf",
+      "source": "02-v3/effects/effect_cold_glint.png",
+      "alpha_hard_edge": true,
+      "loop": true,
+      "frame_seconds": 0.12,
+      "includes_station_body": false,
+      "motion": "pulse",
+      "content_bounds": [
+        16.3791,
+        82.8057,
+        158.7867,
+        164.2464
+      ]
+    }
+  },
+  "recipe_visual_map": {
+    "qiaojiao_beef": "stock_wok",
+    "sweet_skin_duck": "grill",
+    "bobo_chicken": "cold_mix",
+    "tofu_pudding": "stock_wok",
+    "yeerba": "steamer",
+    "ice_jelly": "cold_mix",
+    "xiba_tofu": "stock_wok",
+    "malatang": "stock_wok",
+    "bbq_skewers": "grill",
+    "rice_candy": "candy_press",
+    "lianggao": "cold_mix",
+    "feichang_noodles": "stock_wok"
+  },
+  "background": "res://assets/kitchen/mobile/background/base_kitchen_no_fire.png",
+  "release_ready": false,
+  "approval_scope": "component_loading_contract_only_not_full_visual_acceptance",
+  "known_visual_risks": [
+    "real_gpu_and_wechat_visual_validation_not_completed"
+  ]
+}

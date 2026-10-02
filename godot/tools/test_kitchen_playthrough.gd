@@ -7,29 +7,27 @@ func _initialize() -> void:
         g.start(stage,stage*773)
         for step in 12000:
             if not g.active: break
-            for plate in g.plates.duplicate(true):
-                for o in g.orders.duplicate(true):
-                    if g.deliver(plate.id,o.id): break
-            var wanted: Array = []
-            for o in g.orders:
-                for d in o.dishes:
-                    if not d.done: wanted.append(d.recipe)
-            for p in g.pots:
-                if p.recipe in wanted: wanted.erase(p.recipe)
-            for plate in g.plates:
-                if plate.recipe in wanted: wanted.erase(plate.recipe)
+            g.deliver_auto()
             for i in g.pots.size():
-                var p: Dictionary = g.pots[i]
-                if p.state == "ready": g.serve_pot(i)
-                elif p.state == "empty" and not wanted.is_empty():
-                    var id: String = wanted.pop_front()
-                    g.choose(i,id)
-                    for ingredient in Rules.recipe(id).ingredients: g.add_ingredient(i,ingredient)
-                    g.heat(i,Rules.recipe(id).heat)
+                if g.pots[i].state == "ready": g.serve_pot(i)
+            var assigned: Array = []
+            for pot in g.pots:
+                if pot.order_id >= 0: assigned.append("%d:%d" % [pot.order_id,pot.dish_index])
+            for plate in g.plates: assigned.append("%d:%d" % [plate.order_id,plate.dish_index])
+            for order in g.orders:
+                for dish_index in order.dishes.size():
+                    var key := "%d:%d" % [order.id,dish_index]
+                    if order.dishes[dish_index].done or key in assigned: continue
+                    for i in g.pots.size():
+                        if g.pots[i].state != "empty": continue
+                        g.choose_order_dish(i,order.id,dish_index)
+                        for item in g.pots[i].required: g.add_ingredient(i,item)
+                        assigned.append(key)
+                        break
             g.tick(0.1)
-        var pass_stage: bool = g.won and g.completed >= g.target and g.orders.is_empty()
-        print("PASS " if pass_stage else "FAIL ","关卡 ",stage," 交菜 ",g.completed," 离场 ",g.missed)
-        ok = ok and pass_stage
+        var passed: bool = g.won and g.completed >= g.target and g.orders.is_empty()
+        print("PASS " if passed else "FAIL ","关卡 ",stage," 交菜 ",g.completed," 离场 ",g.missed)
+        ok = ok and passed
     var abandoned = Rules.new()
     abandoned.start(1,12)
     for i in 400: abandoned.tick(1)

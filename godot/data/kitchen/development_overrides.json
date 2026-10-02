@@ -1,0 +1,551 @@
+{
+  "status": "archived_source_for_approved_integration_placeholders_do_not_load",
+  "recipes": [
+    {
+      "id": "qiaojiao_beef",
+      "dish_id": "qiaojiao_beef",
+      "name": "跷脚牛肉",
+      "cooking_family": "soup",
+      "station_id": "stock_wok",
+      "component_steps": [
+        {
+          "ingredient": "汤底"
+        },
+        {
+          "ingredient": "牛肉"
+        },
+        {
+          "ingredient": "葱花"
+        },
+        {
+          "ingredient": "香菜"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_qiaojiao_beef.png",
+      "ingredients": [
+        "汤底",
+        "牛肉",
+        "葱花",
+        "香菜"
+      ],
+      "variants": [
+        [
+          "汤底",
+          "牛肉",
+          "葱花",
+          "香菜"
+        ],
+        [
+          "汤底",
+          "牛肉",
+          "葱花"
+        ],
+        [
+          "汤底",
+          "牛肉",
+          "香菜"
+        ]
+      ],
+      "seconds": 8,
+      "window": 6.0,
+      "coins": 3,
+      "unlock": 1,
+      "region": "乐山基础菜",
+      "visual_group": "qiaojiao_beef",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "beef",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "ice_jelly",
+      "dish_id": "ice_jelly",
+      "name": "冰粉",
+      "cooking_family": "cold_assemble",
+      "station_id": "cold_mix",
+      "component_steps": [
+        {
+          "ingredient": "冰粉"
+        },
+        {
+          "ingredient": "红糖浆"
+        },
+        {
+          "ingredient": "花生"
+        },
+        {
+          "ingredient": "芝麻"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_ice_jelly.png",
+      "ingredients": [
+        "冰粉",
+        "红糖浆",
+        "花生",
+        "芝麻"
+      ],
+      "variants": [
+        [
+          "冰粉",
+          "红糖浆",
+          "花生",
+          "芝麻"
+        ]
+      ],
+      "seconds": 6,
+      "window": 6.0,
+      "coins": 3,
+      "unlock": 2,
+      "region": "乐山基础菜",
+      "visual_group": "ice_jelly",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "放置太久，需要重新制作",
+      "heat": 2,
+      "runtime_id": "ice_jelly",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "tofu_pudding",
+      "dish_id": "tofu_pudding",
+      "name": "豆腐脑",
+      "cooking_family": "hot_assemble",
+      "station_id": "stock_wok",
+      "component_steps": [
+        {
+          "ingredient": "豆花"
+        },
+        {
+          "ingredient": "浇头"
+        },
+        {
+          "ingredient": "葱花"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_tofu_pudding.png",
+      "ingredients": [
+        "豆花",
+        "浇头",
+        "葱花"
+      ],
+      "variants": [
+        [
+          "豆花",
+          "浇头",
+          "葱花"
+        ]
+      ],
+      "seconds": 7,
+      "window": 6.0,
+      "coins": 3,
+      "unlock": 3,
+      "region": "乐山基础菜",
+      "visual_group": "tofu_pudding",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "放置太久，需要重新制作",
+      "heat": 2,
+      "runtime_id": "tofu_pudding",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "xiba_tofu",
+      "dish_id": "xiba_tofu",
+      "name": "西坝豆腐",
+      "cooking_family": "simmer",
+      "station_id": "wok",
+      "component_steps": [
+        {
+          "ingredient": "汤底"
+        },
+        {
+          "ingredient": "豆腐"
+        },
+        {
+          "ingredient": "葱花"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_xiba_tofu.png",
+      "ingredients": [
+        "汤底",
+        "豆腐",
+        "葱花"
+      ],
+      "variants": [
+        [
+          "汤底",
+          "豆腐",
+          "葱花"
+        ]
+      ],
+      "seconds": 11,
+      "window": 6.0,
+      "coins": 4,
+      "unlock": 4,
+      "region": "乐山基础菜",
+      "visual_group": "xiba_tofu",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "tofu",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "feichang_noodles",
+      "dish_id": "feichang_noodles",
+      "name": "肥肠粉",
+      "cooking_family": "boil_assemble",
+      "station_id": "stock_wok",
+      "component_steps": [
+        {
+          "ingredient": "汤底"
+        },
+        {
+          "ingredient": "粉条"
+        },
+        {
+          "ingredient": "肥肠"
+        },
+        {
+          "ingredient": "葱花"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_feichang_noodles.png",
+      "ingredients": [
+        "汤底",
+        "粉条",
+        "肥肠",
+        "葱花"
+      ],
+      "variants": [
+        [
+          "汤底",
+          "粉条",
+          "肥肠",
+          "葱花"
+        ]
+      ],
+      "seconds": 10,
+      "window": 6.0,
+      "coins": 4,
+      "unlock": 5,
+      "region": "乐山基础菜",
+      "visual_group": "feichang_noodles",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "noodles",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "bobo_chicken",
+      "dish_id": "bobo_chicken",
+      "name": "钵钵鸡",
+      "cooking_family": "cold_soak",
+      "station_id": "cold_mix",
+      "component_steps": [
+        {
+          "ingredient": "鸡肉串"
+        },
+        {
+          "ingredient": "红油"
+        },
+        {
+          "ingredient": "芝麻"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_bobo_chicken.png",
+      "ingredients": [
+        "鸡肉串",
+        "红油",
+        "芝麻"
+      ],
+      "variants": [
+        [
+          "鸡肉串",
+          "红油",
+          "芝麻"
+        ]
+      ],
+      "seconds": 8,
+      "window": 6.0,
+      "coins": 4,
+      "unlock": 6,
+      "region": "乐山基础菜",
+      "visual_group": "bobo_chicken",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "放置太久，需要重新制作",
+      "heat": 2,
+      "runtime_id": "bobo_chicken",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "lianggao",
+      "dish_id": "lianggao",
+      "name": "凉糕",
+      "cooking_family": "cold_assemble",
+      "station_id": "cold_mix",
+      "component_steps": [
+        {
+          "ingredient": "凉糕"
+        },
+        {
+          "ingredient": "红糖浆"
+        },
+        {
+          "ingredient": "芝麻"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_lianggao.png",
+      "ingredients": [
+        "凉糕",
+        "红糖浆",
+        "芝麻"
+      ],
+      "variants": [
+        [
+          "凉糕",
+          "红糖浆",
+          "芝麻"
+        ]
+      ],
+      "seconds": 6,
+      "window": 6.0,
+      "coins": 4,
+      "unlock": 7,
+      "region": "乐山基础菜",
+      "visual_group": "lianggao",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "放置太久，需要重新制作",
+      "heat": 2,
+      "runtime_id": "lianggao",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "malatang",
+      "dish_id": "malatang",
+      "name": "麻辣烫",
+      "cooking_family": "blanch",
+      "station_id": "stock_wok",
+      "component_steps": [
+        {
+          "ingredient": "汤底"
+        },
+        {
+          "ingredient": "串料"
+        },
+        {
+          "ingredient": "红油"
+        },
+        {
+          "ingredient": "葱花"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_malatang.png",
+      "ingredients": [
+        "汤底",
+        "串料",
+        "红油",
+        "葱花"
+      ],
+      "variants": [
+        [
+          "汤底",
+          "串料",
+          "红油",
+          "葱花"
+        ]
+      ],
+      "seconds": 10,
+      "window": 6.0,
+      "coins": 4,
+      "unlock": 8,
+      "region": "乐山基础菜",
+      "visual_group": "malatang",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "malatang",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "yeerba",
+      "dish_id": "yeerba",
+      "name": "叶儿粑",
+      "cooking_family": "steam",
+      "station_id": "steamer",
+      "component_steps": [
+        {
+          "ingredient": "糯米团"
+        },
+        {
+          "ingredient": "叶片"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_yeerba.png",
+      "ingredients": [
+        "糯米团",
+        "叶片"
+      ],
+      "variants": [
+        [
+          "糯米团",
+          "叶片"
+        ]
+      ],
+      "seconds": 12,
+      "window": 6.0,
+      "coins": 5,
+      "unlock": 9,
+      "region": "乐山基础菜",
+      "visual_group": "yeerba",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "yeerba",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "sweet_skin_duck",
+      "dish_id": "sweet_skin_duck",
+      "name": "甜皮鸭",
+      "cooking_family": "roast_glaze",
+      "station_id": "grill",
+      "component_steps": [
+        {
+          "ingredient": "鸭"
+        },
+        {
+          "ingredient": "麦芽糖浆"
+        },
+        {
+          "ingredient": "芝麻"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_sweet_skin_duck.png",
+      "ingredients": [
+        "鸭",
+        "麦芽糖浆",
+        "芝麻"
+      ],
+      "variants": [
+        [
+          "鸭",
+          "麦芽糖浆",
+          "芝麻"
+        ]
+      ],
+      "seconds": 13,
+      "window": 6.0,
+      "coins": 5,
+      "unlock": 10,
+      "region": "乐山基础菜",
+      "visual_group": "sweet_skin_duck",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "sweet_skin_duck",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "bbq_skewers",
+      "dish_id": "bbq_skewers",
+      "name": "烧烤",
+      "cooking_family": "grill",
+      "station_id": "grill",
+      "component_steps": [
+        {
+          "ingredient": "烧烤串"
+        },
+        {
+          "ingredient": "辣椒"
+        },
+        {
+          "ingredient": "芝麻"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_bbq_skewers.png",
+      "ingredients": [
+        "烧烤串",
+        "辣椒",
+        "芝麻"
+      ],
+      "variants": [
+        [
+          "烧烤串",
+          "辣椒",
+          "芝麻"
+        ]
+      ],
+      "seconds": 11,
+      "window": 6.0,
+      "coins": 5,
+      "unlock": 11,
+      "region": "乐山基础菜",
+      "visual_group": "bbq_skewers",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "bbq_skewers",
+      "status": "01_development_draft"
+    },
+    {
+      "id": "rice_candy",
+      "dish_id": "rice_candy",
+      "name": "米花糖",
+      "cooking_family": "candy_press",
+      "station_id": "candy_press",
+      "component_steps": [
+        {
+          "ingredient": "米花"
+        },
+        {
+          "ingredient": "麦芽糖浆"
+        },
+        {
+          "ingredient": "花生"
+        },
+        {
+          "ingredient": "芝麻"
+        }
+      ],
+      "finished_art": "res://assets/kitchen/mobile/dishes/blk_dish_rice_candy.png",
+      "ingredients": [
+        "米花",
+        "麦芽糖浆",
+        "花生",
+        "芝麻"
+      ],
+      "variants": [
+        [
+          "米花",
+          "麦芽糖浆",
+          "花生",
+          "芝麻"
+        ]
+      ],
+      "seconds": 12,
+      "window": 6.0,
+      "coins": 5,
+      "unlock": 12,
+      "region": "乐山基础菜",
+      "visual_group": "rice_candy",
+      "enabled": true,
+      "design_status": "01_provisional_steps_and_balance",
+      "overcook_text": "这一份糊了，需要重新制作",
+      "heat": 2,
+      "runtime_id": "rice_candy",
+      "status": "01_development_draft"
+    }
+  ]
+}

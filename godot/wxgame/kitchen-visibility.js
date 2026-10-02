@@ -4,8 +4,8 @@
     var isHidden = false;
     var revision = 0;
     GameGlobal.__suqiKitchenVisibility = {
-        epoch: function () { return revision; },
-        hidden: function () { return isHidden; }
+        epoch: function () { return String(revision); },
+        hidden: function () { return isHidden ? "1" : "0"; }
     };
     if (typeof wx !== 'undefined') {
         if (wx.onHide) wx.onHide(function () { isHidden = true; revision += 1; });
