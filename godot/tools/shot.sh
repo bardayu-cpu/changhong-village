@@ -18,12 +18,17 @@ shift
 # 1. worktree：没有就建；有就清掉本地改动、切到这个提交（.godot 导入缓存是 git 不管的，留着，下次快）
 if [ ! -d "$W" ]; then
   git -C "$REPO" worktree add --detach "$W" "$REV" >/dev/null 2>&1 || { echo "SHOT FAILED 建不了 worktree $W"; exit 2; }
-else
+elif [ "$(git -C "$W" rev-parse HEAD)" != "$REV" ]; then
+  # 只有换提交才清：同一个提交再截，导入生成的 .import（提交里没带的）要留着，清掉了图就没了（10/2 礼物堆截不出来就是这么丢的）
   git -C "$W" reset -q --hard && git -C "$W" clean -qfd && git -C "$W" checkout -q --detach "$REV" || { echo "SHOT FAILED 切不到 $REV"; exit 2; }
 fi
 STAMP="$W/godot/.godot/shot_ready"
 
-# 2. 导入：这个提交没导过（或者上回没导完）才导；导完核
+# 2. 导入：这个提交没导过、上回没导完、或者导入结果对不上了（每次截之前都核一遍，核不过就重导）
+if [ "$(cat "$STAMP" 2>/dev/null)" = "$REV" ] && ! python3 "$HERE/shot_import_check.py" "$W/godot" >/dev/null 2>&1; then
+  echo "导入结果对不上了，重导"
+  rm -f "$STAMP"
+fi
 if [ "$(cat "$STAMP" 2>/dev/null)" != "$REV" ]; then
   rm -f "$STAMP"
   LOG="$W/godot/.godot/shot_import.log"
@@ -33,34 +38,7 @@ if [ "$(cat "$STAMP" 2>/dev/null)" != "$REV" ]; then
   if grep -aq "Scan thread aborted" "$LOG"; then
     echo "SHOT FAILED 导入没跑完：Scan thread aborted（日志 $LOG）"; exit 2
   fi
-  python3 - "$W/godot" <<'EOF' || exit 2
-import os, re, sys
-root = sys.argv[1]
-EXT = (".png", ".jpg", ".jpeg", ".webp", ".svg", ".ttf", ".otf", ".woff", ".woff2", ".wav", ".ogg", ".mp3")
-missing, broken = [], []
-for d, dirs, files in os.walk(root):
-    rel = os.path.relpath(d, root)
-    if rel.startswith(".godot") or os.path.exists(os.path.join(d, ".gdignore")):
-        dirs[:] = []
-        continue
-    for f in files:
-        p = os.path.join(d, f)
-        if f.lower().endswith(EXT) and not os.path.exists(p + ".import"):
-            missing.append(os.path.relpath(p, root))
-        if f.endswith(".import"):
-            txt = open(p, encoding="utf-8", errors="ignore").read()
-            if 'valid=false' in txt:
-                continue   # Godot 自己标了不导的
-            m = re.search(r"dest_files=\[(.*?)\]", txt, re.S)
-            for res in re.findall(r'"res://([^"]+)"', m.group(1) if m else ""):
-                if not os.path.exists(os.path.join(root, res)):
-                    broken.append(os.path.relpath(p, root))
-                    break
-if missing or broken:
-    print("SHOT FAILED 导入不全：没有 .import 的 %d 个 %s；导入结果不在的 %d 个 %s" % (len(missing), missing[:5], len(broken), broken[:5]))
-    sys.exit(2)
-print("导入核过：素材都有 .import、导入结果都在")
-EOF
+  python3 "$HERE/shot_import_check.py" "$W/godot" || exit 2
   echo "$REV" > "$STAMP"
 fi
 
