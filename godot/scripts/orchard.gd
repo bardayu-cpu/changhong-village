@@ -222,11 +222,11 @@ func _make_plots() -> void:
         elif id.begins_with("loquat_"):
             var tx := float(it["x"])
             var ty := float(it["y"])
-            var tr := float(it["r"])
+            var tg := tree_geom(it)   # 果子挂在树冠上（树按「人 = 1」改大以后跟着走，10/3）
             for k in 7:
                 var a := TAU * float(k) / 7.0
-                var pair2 := _fruit_dot(Vector2(tx + cos(a) * tr * 0.55, ty), RIPE_COL["loquat"], 4.5,
-                    -46.0 - tr * 0.7 + sin(a) * tr * 0.45)
+                var pair2 := _fruit_dot(Vector2(tx + cos(a) * float(tg["rx"]) * 0.55, ty), RIPE_COL["loquat"], 4.5,
+                    float(tg["cy"]) - ty + sin(a) * float(tg["ry"]) * 0.53)
                 dots.append(pair2[0])
                 bodies.append(pair2[1])
             plots.append({"id": id, "kind": "loquat", "dots": dots, "bodies": bodies})

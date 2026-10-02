@@ -229,34 +229,26 @@ func _item(it: Dictionary) -> void:
             holder.add_child(_poly(_ellipse_pts(cx, cy - h2, rx, ry), Color(str(it["top"])), foot))
             obstacles.append({"ellipse": [cx, cy, rx, ry]})
         "tree":
-            var tx := float(it["x"]); var ty := float(it["y"]); var tr := float(it.get("r", 0.0))
+            var tx := float(it["x"]); var ty := float(it["y"])
             foot = ty
             var trunk := Color(str(it.get("trunk", "#6d4a38")))
             var leaf := Color(str(it.get("leaf", "#4f7a4a")))
             var leaf2 := Color(str(it.get("leaf2", "#6a9a5c")))
-            if it.has("h"):
-                # 给了 h（整棵多高）、w（树冠多宽）的照这两个画（10/3 迎宾院照「人 = 1」：树 3～4 个人高，见 ASSETS §15）：
-                # 树干占下面 TREE_TRUNK，上面是树冠，顶正好在 ty - h。tools/layout_court/gen_specs_court.py 照同一个算法量框
-                var th := float(it["h"])
-                var trunk_h := th * TREE_TRUNK
-                var crx := float(it.get("w", th * 0.53)) * 0.5
-                var cry := (th - trunk_h) * 0.5
-                tr = crx
-                holder.add_child(_poly(_rect_pts([tx - 8, ty - trunk_h - 6, tx + 8, ty]), trunk, foot))
-                holder.add_child(_poly(_ellipse_pts(tx, ty - trunk_h - cry, crx, cry), leaf, foot))
-                holder.add_child(_poly(_ellipse_pts(tx - crx * 0.25, ty - trunk_h - cry * 1.25, crx * 0.55, cry * 0.45), leaf2, foot))
-            else:
-                holder.add_child(_poly(_rect_pts([tx - 7, ty - 46, tx + 7, ty]), trunk, foot))
-                holder.add_child(_poly(_ellipse_pts(tx, ty - 46 - tr * 0.7, tr, tr * 0.85), leaf, foot))
-                holder.add_child(_poly(_ellipse_pts(tx - tr * 0.25, ty - 52 - tr * 0.9, tr * 0.55, tr * 0.45), leaf2, foot))
+            var tg := tree_geom(it)
+            var crx: float = tg["rx"]
+            var cry: float = tg["ry"]
+            var ccy: float = tg["cy"]
+            holder.add_child(_poly(_rect_pts([tx - tg["trunk_w"], tg["trunk_top"], tx + tg["trunk_w"], ty]), trunk, foot))
+            holder.add_child(_poly(_ellipse_pts(tx, ccy, crx, cry), leaf, foot))
+            holder.add_child(_poly(_ellipse_pts(tx - crx * 0.25, ccy - cry * 0.25, crx * 0.55, cry * 0.53), leaf2, foot))
             if bool(it.get("droop", false)):
                 # 柳树（蓝图 3.5 湖边）：树冠下面垂几条柳条
                 var rngw := RandomNumberGenerator.new()
                 rngw.seed = int(tx * 13 + ty)
                 for i in 7:
-                    var dx := rngw.randf_range(-tr * 0.95, tr * 0.95)
-                    var top := ty - 46 - tr * 0.5 + absf(dx) * 0.25
-                    var len_w := rngw.randf_range(tr * 0.5, tr * 1.1)
+                    var dx := rngw.randf_range(-crx * 0.95, crx * 0.95)
+                    var top := ccy + cry * 0.4 + absf(dx) * 0.25 * cry / maxf(1.0, crx)
+                    var len_w := rngw.randf_range(cry * 0.6, cry * 1.3)
                     holder.add_child(_poly(_rect_pts([tx + dx - 1.5, top, tx + dx + 1.5, top + len_w]), leaf2, foot))
             obstacles.append({"ellipse": [tx, ty, 14.0, 8.0]})
         "image":
@@ -305,6 +297,20 @@ func _item(it: Dictionary) -> void:
         var lb: Dictionary = it["label"]
         var lx2 := _item_center_x(it) + float(lb.get("dx", 0))
         _label(str(lb["text"]), Vector2(lx2, foot + float(lb.get("dy", -40))))
+
+## 一棵树画在哪（画树、果园往树上挂果子共用；tools/layout_court/gen_specs_court.py 照同一个算法量框）：
+## 给了 h（整棵多高）、w（树冠多宽）的：树干占下面 TREE_TRUNK，上面是树冠，顶正好在 y - h（10/3 照「人 = 1」）；
+## 老写法只给 r 的照旧（树干 46 高，树冠半径 r）。回 {trunk_top, trunk_w, cy, rx, ry, top}
+static func tree_geom(it: Dictionary) -> Dictionary:
+    var ty := float(it["y"])
+    if it.has("h"):
+        var th := float(it["h"])
+        var trunk_h := th * TREE_TRUNK
+        var crx := float(it.get("w", th * 0.53)) * 0.5
+        var cry := (th - trunk_h) * 0.5
+        return {"trunk_top": ty - trunk_h - 6.0, "trunk_w": 8.0, "cy": ty - trunk_h - cry, "rx": crx, "ry": cry, "top": ty - th}
+    var r := float(it.get("r", 30.0))
+    return {"trunk_top": ty - 46.0, "trunk_w": 7.0, "cy": ty - 46.0 - r * 0.7, "rx": r, "ry": r * 0.85, "top": ty - 46.0 - r * 1.55}
 
 static func _item_center_x(it: Dictionary) -> float:
     if it.has("rect"):

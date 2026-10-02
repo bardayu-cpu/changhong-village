@@ -10,7 +10,8 @@ layout.json 每件东西的 scale 写它对哪一行：
   gap + gap_to = 跟另一件之间的空（大门门洞宽 = 东柱左边 - 西柱右边）
 换算照 ASSETS §15：左右和高 1 米 = 48 像素，地面前后 1 米 = 32 像素，人 84。超过表的 1.5 倍、不足一半算红（scale_check 一样的线）。
 
-用法：python3 godot/tools/layout_court/gen_specs_court.py            生成两样，报变没变；有红项退出码 1
+用法：python3 godot/tools/layout_court/gen_specs_court.py [--scene entrance|backhall|lawn|lake|orchard]   生成那一块的两样（默认迎宾院）；有红项退出码 1
+      python3 godot/tools/layout_court/gen_specs_court.py --all [--check]   五块都来
       python3 godot/tools/layout_court/gen_specs_court.py --check    只核：跟仓库里的比，变了或有红项退出码 1
       python3 godot/tools/layout_court/gen_specs_court.py --layout 别的.json --out 目录   量别的版本（回执里对比改前用）
 """
@@ -22,8 +23,22 @@ import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
-LAYOUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_entrance", "layout.json")
-OUT = os.path.join(GODOT, "回执", "零件规格", "迎宾院")
+# 场景 → (layout.json, 出到 回执/零件规格/<中文名>/)。10/3 起后厅、草坪、湖边、果园也照这套（01 E）
+SCENES = {
+    "entrance": ("scene_luoman_entrance", "迎宾院"),
+    "backhall": ("scene_luoman_backhall", "后厅"),
+    "lawn": ("scene_luoman_lawn", "草坪"),
+    "lake": ("scene_luoman_lake", "湖边"),
+    "orchard": ("scene_luoman_orchard", "果园"),
+}
+
+
+def scene_paths(name):
+    folder, cn = SCENES[name]
+    return os.path.join(GODOT, "assets", "layered", folder, "layout.json"), os.path.join(GODOT, "回执", "零件规格", cn), cn
+
+
+LAYOUT, OUT, _ = scene_paths("entrance")
 PX_M = 48.0      # 左右、高 1 米
 PX_M_D = 32.0    # 地面前后 1 米
 PERSON = 84.0
@@ -35,7 +50,19 @@ NAMES = {
     "blessing_board": "祝福牌", "print_desk": "打印台", "camera_w": "相机三脚架（西）", "camera_e": "相机三脚架（东）",
     "gate_post_w": "大门门柱", "gate_roof": "大门门楼", "wall_s_w": "南墙（西段）", "wall_s_e": "南墙（东段）",
     "flower_box_w": "花箱（西）", "flower_box_e": "花箱（东）",
+    # 后厅
+    "vanity": "化妆台", "rack_post_w": "礼服架", "sofa": "沙发", "tea_table": "茶几", "luggage_1": "行李箱（大）", "luggage_2": "行李箱（小）",
+    "mahjong_table": "麻将桌", "counter_w": "灶台（西）", "counter_e": "灶台（东）", "brick_stove": "砖灶", "pot": "大锅", "board": "案板", "bowl_table": "碗桌",
+    "wall_1": "隔墙", "front_1": "前沿矮墙",
+    # 草坪
+    "arch_post_w": "花拱门", "swing_post_w": "秋千", "slide_tower": "滑梯",
+    # 湖边
+    "pavilion_roof": "亭子", "bench_seat": "长凳",
+    # 果园
+    "shop_stall": "山庄收购处",
 }
+GROUPS = (("tea_", "茶桌"), ("stool_", "凳子"), ("lantern_", "落地宫灯"), ("tree_", "树"), ("willow_", "柳树"), ("loquat_", "枇杷树"),
+          ("chair_", "白椅子"), ("ridge_", "草莓垄"), ("wall_", "隔墙"), ("front_", "前沿矮墙"))
 
 
 def load_std():
@@ -111,16 +138,27 @@ def build(layout_path):
         d = json.load(f)
     items = {it["id"]: it for it in d["items"] if "id" in it}
     boxes, rows = [], []
+    measured = {}
     for it in d["items"]:
         box, dims = measure(it)
         if box is None:
             continue
+        measured[it["id"]] = (box, dims)
         boxes.append({"id": it["id"], "type": it["type"], "box": [round(v, 1) for v in box],
                       "dims": {q: round(v, 1) for q, v in dims.items()}})
+    for it in d["items"]:
+        if it.get("id") not in measured:
+            continue
+        box, dims = measured[it["id"]]
         sc = it.get("scale")
         if not sc:
             continue
-        name = NAMES.get(it["id"], it["id"])
+        name = sc.get("name") or NAMES.get(it["id"], it["id"])
+        if "group" in sc:
+            # 几件拼成一样东西（亭子 = 顶 + 四根柱子）：量它们合起来的外框
+            gb = [measured[g][0] for g in sc["group"] if g in measured] + [box]
+            ub = [min(b[0] for b in gb), min(b[1] for b in gb), max(b[2] for b in gb), max(b[3] for b in gb)]
+            dims = {"w": ub[2] - ub[0], "h": ub[3] - ub[1]}
         for dim, label in (("w", "宽"), ("d", "前后"), ("h", "高")):
             if dim in sc:
                 key = sc[dim]
@@ -144,7 +182,7 @@ def build(layout_path):
     merged = {}
     order = []
     for name, label, val, ref, lo, hi in rows:
-        for pre, nm in (("tea_", "茶桌"), ("stool_", "凳子"), ("lantern_", "落地宫灯"), ("tree_", "树")):
+        for pre, nm in GROUPS:
             if name.startswith(pre):
                 base = nm
                 break
@@ -164,8 +202,8 @@ def build(layout_path):
     return d, boxes, table
 
 
-def render_md(table, layout_rel):
-    out = ["# 迎宾院零件尺寸（照「人 = 1」，ASSETS §15）", "",
+def render_md(table, layout_rel, cn="迎宾院"):
+    out = ["# %s零件尺寸（照「人 = 1」，ASSETS §15）" % cn, "",
            "> 自动生成，别手改：改 `%s` 再跑 `python3 godot/tools/layout_court/gen_specs_court.py`。" % layout_rel,
            "> 换算：左右和高 1 米 = 48 像素，地面前后 1 米 = 32 像素，人 84 像素。倍数：落在表的范围里算 1；超过 1.5 倍、不足一半算红。", "",
            "| 东西 | 量哪 | 画多大（像素） | 约几个人 | 对表 | 几倍 | 结果 |", "| --- | --- | --- | --- | --- | --- | --- |"]
@@ -175,17 +213,17 @@ def render_md(table, layout_rel):
     return "\n".join(out) + "\n"
 
 
-def write(out_dir, layout_path):
-    _, boxes, table = build(layout_path)
+def write(out_dir, layout_path, cn="迎宾院"):
+    d, boxes, table = build(layout_path)
     os.makedirs(out_dir, exist_ok=True)
     rel = os.path.relpath(layout_path, os.path.dirname(GODOT))
-    md = os.path.join(out_dir, "迎宾院-尺寸表.md")
-    js = os.path.join(out_dir, "迎宾院-框.json")
+    md = os.path.join(out_dir, "%s-尺寸表.md" % cn)
+    js = os.path.join(out_dir, "%s-框.json" % cn)
     with open(md, "w", encoding="utf-8") as f:
-        f.write(render_md(table, rel))
+        f.write(render_md(table, rel, cn))
     with open(js, "w", encoding="utf-8") as f:
-        json.dump({"note": "迎宾院每件东西在画布上画出来的外框（x0, y0, x1, y1，连高度）和宽 w、前后 d、高 h（像素），"
-                           "gen_specs_court.py 从 layout.json 生成，别手改；给 GPT 出色块照这个", "canvas": [1536, 1024], "items": boxes},
+        json.dump({"note": "%s每件东西在画布上画出来的外框（x0, y0, x1, y1，连高度）和宽 w、前后 d、高 h（像素），"
+                           "gen_specs_court.py 从 layout.json 生成，别手改；给 GPT 出色块照这个" % cn, "canvas": d["size"], "items": boxes},
                   f, ensure_ascii=False, indent=1)
         f.write("\n")
     return md, js, table
@@ -193,22 +231,29 @@ def write(out_dir, layout_path):
 
 def main():
     args = sys.argv[1:]
-    layout = LAYOUT
-    out = OUT
+    if "--all" in args:
+        bad = 0
+        for sc in SCENES:
+            r = __import__("subprocess").run([sys.executable, __file__, "--scene", sc] + [a for a in args if a == "--check"])
+            bad += r.returncode != 0
+        sys.exit(1 if bad else 0)
+    scene = args[args.index("--scene") + 1] if "--scene" in args else "entrance"
+    layout, out, cn = scene_paths(scene)
+    print("== %s" % cn)
     if "--layout" in args:
         layout = os.path.abspath(args[args.index("--layout") + 1])
     if "--out" in args:
         out = os.path.abspath(args[args.index("--out") + 1])
     if "--check" in args:
         with tempfile.TemporaryDirectory() as tmp:
-            md, js, table = write(tmp, layout)
+            md, js, table = write(tmp, layout, cn)
             changed = []
             for f in (md, js):
-                mine = os.path.join(OUT, os.path.basename(f))
+                mine = os.path.join(out, os.path.basename(f))
                 if not os.path.exists(mine) or open(mine, encoding="utf-8").read() != open(f, encoding="utf-8").read():
                     changed.append(os.path.basename(f))
     else:
-        md, js, table = write(out, layout)
+        md, js, table = write(out, layout, cn)
         changed = []
     red = [t for t in table if t["ok"] == "红"]
     for t in table:

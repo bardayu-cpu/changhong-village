@@ -1,0 +1,123 @@
+extends SceneTree
+## 验收：后厅、草坪、湖边、果园照「人 = 1」摆（01 E 10/3，跟迎宾院 test_court_scale 一个做法；04 基线 体验-后厅草坪湖边果园基线.md）
+## 1 游戏里画出来的每件东西，外框跟 gen_specs_court.py 从 layout.json 算的（回执/零件规格/<场景>/<场景>-框.json）一样
+## 2 几样关键的直接量：树 ≥3 个人高、白椅子 0.55 个人、沙发 ≤2.4 米、长凳 72 宽
+## 3 交互点、出口从进来的地方都走得到；站在那里的人不被树冠挡（树在人前面画）
+## 4 果园：果子挂在枇杷树冠上
+## 用法：Godot --headless --path . --script res://tools/test_scene_scale.gd ；最后一行 RESULT PASS 才算过
+
+const SCENES := {"backhall": "后厅", "lawn": "草坪", "lake": "湖边", "orchard": "果园"}
+
+var m
+var started := false
+var ok := true
+
+func _initialize() -> void:
+    m = load("res://scripts/main.gd").new()
+    m.fast = true
+    get_root().add_child(m)
+
+func _process(_dt: float) -> bool:
+    if started:
+        return false
+    started = true
+    run()
+    return false
+
+func check(name: String, cond: bool) -> void:
+    print(("  好 " if cond else "  不行 ") + name)
+    ok = ok and cond
+
+func drawn_box(holder: Node2D) -> Rect2:
+    var r := Rect2()
+    var first := true
+    for c in holder.get_children():
+        if not c is Polygon2D:
+            continue
+        for v in (c as Polygon2D).polygon:
+            var p: Vector2 = v + holder.position
+            if first:
+                r = Rect2(p, Vector2.ZERO)
+                first = false
+            else:
+                r = r.expand(p)
+    return r
+
+func run() -> void:
+    for i in 600:
+        if m.state == "title":
+            break
+        await process_frame
+    for sc in SCENES:
+        var cn: String = SCENES[sc]
+        var c = m.get(sc)
+        print("== ", cn)
+        var spec = JSON.parse_string(FileAccess.get_file_as_string("res://回执/零件规格/%s/%s-框.json" % [cn, cn]))
+        if not spec is Dictionary:
+            check("读到 %s-框.json" % cn, false)
+            continue
+        var bad: Array = []
+        var n := 0
+        for it in spec["items"]:
+            if str(it["type"]) == "image":
+                continue
+            var holder: Node2D = c.world.get_node_or_null(NodePath(str(it["id"])))
+            if holder == null:
+                bad.append("%s 没画" % it["id"])
+                continue
+            var want := Rect2(Vector2(it["box"][0], it["box"][1]), Vector2(float(it["box"][2]) - float(it["box"][0]), float(it["box"][3]) - float(it["box"][1])))
+            var got := drawn_box(holder)
+            n += 1
+            if absf(got.position.x - want.position.x) > 1.5 or absf(got.position.y - want.position.y) > 1.5 or absf(got.end.x - want.end.x) > 1.5 or absf(got.end.y - want.end.y) > 1.5:
+                bad.append("%s 画的 %s 表里 %s" % [it["id"], got, want])
+        check("%s：%d 件画出来的外框跟 layout.json 算的一样（不对的 %s）" % [cn, n, bad.slice(0, 4)], n > 0 and bad.is_empty())
+        # 树
+        var trees: Array = (c.cfg["items"] as Array).filter(func(x): return str(x.get("type", "")) == "tree")
+        var short: Array = trees.filter(func(x): return drawn_box(c.world.get_node(str(x["id"]))).size.y < 3.0 * 84.0 - 1.0)
+        if not trees.is_empty():
+            check("%s：%d 棵树都 ≥3 个人高（矮的 %s）" % [cn, trees.size(), short.map(func(x): return x["id"])], short.is_empty())
+        # 走得到、不被树冠挡
+        var from: Vector2 = c.SPAWN
+        var miss: Array = []
+        var covered: Array = []
+        for p in c.cfg["points"]:
+            var at := Vector2(float(p["x"]), float(p["y"]))
+            var path: Array = c.find_path(from, at)
+            if path.is_empty() or (path[path.size() - 1] as Vector2).distance_to(at) > float(p["r"]):
+                miss.append(str(p["id"]))
+            var body := Rect2(at.x - 18.0, at.y - 84.0, 36.0, 84.0)
+            for t in trees:
+                if float(t["y"]) <= at.y:
+                    continue
+                var g: Dictionary = c.tree_geom(t)
+                var cr := Rect2(float(t["x"]) - float(g["rx"]), float(g["cy"]) - float(g["ry"]), 2.0 * float(g["rx"]), 2.0 * float(g["ry"]))
+                if cr.intersects(body):
+                    covered.append("%s←%s" % [p["id"], t["id"]])
+        check("%s：从进来的地方走得到每个交互点、出口（走不到的 %s）" % [cn, miss], miss.is_empty())
+        check("%s：站在交互点、出口的人不被树冠挡（挡的 %s）" % [cn, covered], covered.is_empty())
+
+    print("== 几样关键的直接量")
+    var chair := drawn_box(m.lawn.world.get_node("chair_0_242"))
+    check("草坪白椅子高 %.0f（连前后 14）= %.2f 个人（表 0.55，椅高 46）" % [chair.size.y, (chair.size.y - 14.0) / 84.0], is_equal_approx(chair.size.y - 14.0, 46.0))
+    var sofa: Array = (m.backhall.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == "sofa")[0]["rect"]
+    check("后厅沙发宽 %d = %.1f 米（≤2.4）" % [int(sofa[2]) - int(sofa[0]), (float(sofa[2]) - float(sofa[0])) / 48.0], (float(sofa[2]) - float(sofa[0])) / 48.0 <= 2.4)
+    var seat := drawn_box(m.lake.world.get_node("bench_seat"))
+    check("湖边长凳宽 %.0f（表 72）" % seat.size.x, is_equal_approx(seat.size.x, 72.0))
+
+    print("== 果园的果子挂在树冠上")
+    var off: Array = []
+    for p in m.orchard.plots:
+        if str(p["kind"]) != "loquat":
+            continue
+        var t: Dictionary = (m.orchard.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == str(p["id"]))[0]
+        var g: Dictionary = m.orchard.tree_geom(t)
+        var cr := Rect2(float(t["x"]) - float(g["rx"]), float(g["cy"]) - float(g["ry"]), 2.0 * float(g["rx"]), 2.0 * float(g["ry"]))
+        for d in p["dots"]:
+            var h: Node2D = d
+            var at: Vector2 = h.position + (h.get_child(0) as Polygon2D).polygon[0]
+            if not cr.grow(4.0).has_point(at):
+                off.append("%s %s" % [p["id"], at])
+    check("6 棵枇杷树 42 颗果子都在树冠里（不在的 %s）" % [off.slice(0, 3)], off.is_empty())
+
+    print("RESULT PASS" if ok else "RESULT FAIL")
+    quit(0 if ok else 1)
