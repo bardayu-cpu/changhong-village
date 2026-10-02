@@ -24,6 +24,13 @@ var departures: Array = []
 var playfield: Control
 var coin_label: Label
 var menu_texture_cache: Dictionary = {}
+const UISkin = preload("res://scripts/games/ui_skin.gd")
+# 第 1 关（教学那关）的引导（04 10/2：刚进来没一句话、先点原料没反应；03：规则里那两句被滤掉了）：
+# 锅和原料之间一行大字，照现在该做的那一步说；做对一步就换下一句；点错了先说为什么（2 秒）再回到这一步。第 2 关起不出
+var guide: Label
+var guide_flash := ""
+var guide_flash_t := 0.0
+const GUIDE_FS := 42   # 参考坐标里的字号，乘 540/941 ≈ 24 像素
 
 func open(save, f: Font) -> void:
     wallet = save
@@ -190,6 +197,9 @@ func _toggle_pause() -> void:
 
 func _process(dt: float) -> void:
     _poll_visibility()
+    if guide_flash_t > 0.0:
+        guide_flash_t -= dt
+        if guide_flash_t <= 0.0 and is_instance_valid(guide): guide.text = guide_text()
     if not is_instance_valid(status): return
     var old_states: Array = rules.pots.map(func(p): return p.state)
     var old_ids: Array = rules.orders.map(func(o): return o.id)
@@ -394,9 +404,8 @@ func _render() -> void:
         ingredient_box.set_meta("ingredient_wood_box",ingredient)
         Art.put_configured(playfield,"ingredient/"+ingredient,Rect2(rect.position+Vector2(8,8),Vector2(rect.size.x-16,rect.size.y-52)))
         _source_label(ingredient,Rect2(rect.position+Vector2(8,rect.size.y-42),Vector2(rect.size.x-16,34)),24,Color("ffe2ad"))
-        var hit := _source_hit(rect,func(): rules.add_ingredient(selected_pot,ingredient); _render())
+        var hit := _source_hit(rect,func(): _tap_ingredient(ingredient))
         hit.set_meta("kitchen_action",ingredient)
-        hit.disabled = rules.pots[selected_pot].state != "prep"
     _draw_serving_counter()
     Art.put_configured(playfield,"ui/deliver",Art.UI_REGIONS.deliver)
     var delivery_hit := _source_hit(Art.UI_REGIONS.deliver,func():
@@ -404,6 +413,16 @@ func _render() -> void:
         selected_plate = -1
         _render())
     delivery_hit.set_meta("kitchen_action","deliver")
+    guide = null
+    if rules.level == 1:
+        _source_fill(Rect2(150,1166,640,50),Color(0.12,0.06,0.03,0.78))
+        guide = _source_label("",Rect2(150,1164,640,54),GUIDE_FS,Color("ffe9b0"))
+        guide.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        guide.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+        guide.autowrap_mode = TextServer.AUTOWRAP_OFF
+        guide.add_theme_color_override("font_outline_color",Color("3a1a0a"))
+        guide.add_theme_constant_override("outline_size",4)
+        guide.set_meta("kitchen_guide",true)
     status = _source_label("",Rect2(22,1593,896,39),24,Color("ffefc6"))
     status.add_theme_color_override("font_outline_color",Color("542811"))
     status.add_theme_constant_override("outline_size",3)
@@ -722,7 +741,7 @@ func _draw_order(order: Dictionary, slot: int) -> void:
         click.set_meta("dish_index",dish_index)
         click.pressed.connect(func():
             if rules.choose_order_dish(selected_pot,int(order.id),dish_index): _render()
-            else: rules.message = "先点一口空锅，再点要做的菜")
+            else: _hint_wrong("先点一口空锅，再点要做的菜"))
         card.add_child(click)
         if dish.done: card.modulate = Color(0.72,0.72,0.70,1)
     var clock_position := Vector2(148,164) if narrow_three else Vector2(0,199)
@@ -774,6 +793,47 @@ func _update_live_labels() -> void:
         entry.fill.size.x = float(entry.width)*fraction
         entry.fill.color = Color("bc4c36") if fraction < 0.25 else Color("c4953f") if fraction < 0.5 else Color("739849")
     if is_instance_valid(status): status.text = _feedback_text()
+    if is_instance_valid(guide): guide.text = guide_flash if guide_flash_t > 0.0 else guide_text()
+
+## 第 1 关：照现在该做的那一步说一句（流程：点服务员头上要的菜 → 照菜下面的小图一样样点原料 → 烧 → 熟了点锅下面「盛出」→ 点「交菜」）
+func guide_text() -> String:
+    if rules.paused or not rules.active: return ""
+    for p in rules.pots:
+        if p.state == "ready": return "熟了！点锅下面的「盛出」"
+    if not rules.plates.is_empty(): return "装好盘了，点右下角「交菜」"
+    var pot: Dictionary = rules.pots[selected_pot]
+    match str(pot.state):
+        "prep":
+            var need: Array = pot.required
+            var have: int = pot.ingredients.size()
+            return "点原料：%s" % str(need[have]) if have < need.size() else ""
+        "cooking": return "正在烧，熟了点锅盛出"
+        "burnt", "invalid": return "这锅坏了，点一下锅清掉重做"
+    for o in rules.orders:
+        for d in o.dishes:
+            if not d.done: return "点服务员头上要的那道菜"
+    return "等服务员来点菜"
+
+## 点错了先说为什么（第 1 关在大字那行闪 2 秒；别的关照旧在底下那行）
+func _hint_wrong(text: String) -> void:
+    rules.message = text
+    guide_flash = text
+    guide_flash_t = 2.0
+    _update_live_labels()
+
+## 点原料：锅里正在加料就加；不是的话说该先干什么（原来锅不在加料时原料格直接点不动、也不说为什么）
+func _tap_ingredient(ingredient: String) -> void:
+    var pot: Dictionary = rules.pots[selected_pot]
+    if pot.state == "prep":
+        rules.add_ingredient(selected_pot,ingredient)
+        guide_flash_t = 0.0
+        _render()
+        return
+    match str(pot.state):
+        "empty": _hint_wrong("先点服务员头上要的菜，再放原料")
+        "cooking": _hint_wrong("这锅正在烧，等熟了点「盛出」")
+        "ready": _hint_wrong("熟了，先点锅下面的「盛出」")
+        _: _hint_wrong("这锅坏了，点一下锅清掉重做")
 
 func _feedback_text() -> String:
     # Pictures and state badges already explain routine progress. Only the next
@@ -815,24 +875,38 @@ func _exit_confirmation() -> void:
     _button("继续做菜",Rect2(24,430,492,60),func(): rules.paused=false; _render(),true)
     _button("结束本局 · 回到选关",Rect2(24,520,492,60),func(): rules.active=false; _menu())
 
+## 结算卡（04 10/2：字飘在背景上没底板）：垫小游戏外壳那张卡片 MG-U05（base_ui_card_v1.png，米色纸、九宫格），
+## 字照旧游戏写，纸是浅的所以用深色字；标题、交了几道、学会了、这局做的菜、金币都居中
 func _result() -> void:
     _base("")
-    var heading := _label("接单完成" if rules.won else "这次先歇一歇",Rect2(24,105,492,64),28,Color("ffd894"))
-    heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     status = null
-    _label("交付 %d 道菜" % rules.completed,Rect2(24,200,492,40),22)
-    if not rules.won: _label(rules.message,Rect2(24,260,492,80),20)
-    if not learned_this_round.is_empty():
-        _label("学会了 %s" % "、".join(learned_this_round),Rect2(24,365,492,85),20,Color("ffe7a6"))
-    var reward := _label("+ %d 金币" % rules.earned,Rect2(24,635,492,65),28,Color("ffe08b"))
-    reward.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    var dish_index := 0
+    guide = null
+    var card := Panel.new()
+    var sb = UISkin.card_box()
+    if sb != null: card.add_theme_stylebox_override("panel",sb)
+    card.position = Vector2(40,70)
+    card.size = Vector2(460,560)
+    card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    card.set_meta("kitchen_result_card",true)
+    panel.add_child(card)
+    var lines: Array = []
+    lines.append([("接单完成" if rules.won else "这次先歇一歇"),40,UISkin.CARD_HEAD])
+    lines.append(["交了 %d 道菜" % rules.completed,30,UISkin.CARD_INK])
+    if not rules.won: lines.append([rules.message,22,UISkin.CARD_INK])
+    if not learned_this_round.is_empty(): lines.append(["学会了 %s" % "、".join(learned_this_round),30,UISkin.CARD_HEAD])
+    var dishes: Array = []
     for id in rules.served_counts:
-        var dish_text := "%s ×%d" % [rules.recipe_data(id).name,rules.served_counts[id]]
-        _label(dish_text,Rect2(24+(dish_index%2)*246,710+(dish_index/2)*34,240,32),20)
-        dish_index += 1
-    _button("继续下一关" if rules.won else "再试一次",Rect2(24,470,492,64),func(): _start(mini(30,rules.level+1) if rules.won else rules.level),true)
-    _button("回到选关",Rect2(24,560,492,60),_menu)
+        dishes.append("%s ×%d" % [rules.recipe_data(id).name,rules.served_counts[id]])
+    if not dishes.is_empty(): lines.append(["　".join(dishes),26,UISkin.CARD_INK])
+    lines.append(["+ %d 金币" % rules.earned,36,Color("8a4b00")])
+    var y := 92.0
+    for line in lines:
+        var l := _panel_label(card,str(line[0]),Rect2(UISkin.CARD_ML-8,y,460-2*(UISkin.CARD_ML-8),int(line[1])*2.4),int(line[1]),line[2])
+        l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+        l.set_meta("kitchen_result_line",true)
+        y += maxf(float(line[1])*1.7,l.get_combined_minimum_size().y+12.0)
+    _button("继续下一关" if rules.won else "再试一次",Rect2(40,660,460,66),func(): _start(mini(30,rules.level+1) if rules.won else rules.level),true)
+    _button("回到选关",Rect2(40,750,460,60),_menu)
 
 func _close() -> void:
     rules.active = false

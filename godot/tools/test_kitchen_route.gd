@@ -65,14 +65,35 @@ func play_one(p) -> bool:
     var g = p.rules
     if g.orders.is_empty():
         return false
+    # 第 1 关的引导（04、03 10/2）：锅和原料之间一行大字，照该做的那一步说，做对一步换一句；点错了先说为什么
+    var said: Array = []
+    p._update_live_labels()
+    said.append(p.guide.text if is_instance_valid(p.guide) else "")
+    p._tap_ingredient(str(g.recipe_data(str(g.orders[0].dishes[0].recipe)).ingredients[0]))   # 先点原料（长辈最自然的那一下）
+    said.append(p.guide.text if is_instance_valid(p.guide) else "")
+    p.guide_flash_t = 0.0
     var good: bool = g.choose_order_dish(0, g.orders[0].id, 0)
+    p._render()
+    said.append(p.guide.text)
+    var first: String = str(g.pots[0].required[0])
     for ing in g.pots[0].required:
-        good = good and g.add_ingredient(0, ing)
+        p._tap_ingredient(ing)
+    said.append(p.guide.text)
     g.tick(8)
+    p._update_live_labels()
+    said.append(p.guide.text)
     good = good and g.serve_pot(0)
+    p._render()
+    said.append(p.guide.text)
     good = good and not g.plates.is_empty() and g.deliver(g.plates[0].id, g.orders[0].id)
     p._render()
     await process_frame
+    check("第 1 关引导一步一句：%s" % [said], said[0] == "点服务员头上要的那道菜" and said[1].begins_with("先点服务员头上要的菜")
+        and said[2] == "点原料：%s" % first and said[3] == "正在烧，熟了点锅盛出" and said[4].begins_with("熟了") and said[5].contains("交菜"))
+    var gfs: int = p.guide.get_theme_font_size("font_size") if is_instance_valid(p.guide) else 0
+    var gy: float = p.guide.position.y if is_instance_valid(p.guide) else 0.0
+    check("引导字 %d（乘 540/941 约 %.0f 像素，≥24）、放在锅和原料之间（y %.0f，锅牌下沿 1170、原料格上沿 1210）" % [gfs, gfs * 540.0 / 941.0, gy],
+        gfs * 540.0 / 941.0 >= 24.0 and gy >= 1150.0 and gy <= 1210.0)
     return good
 
 ## 三人三锅局：第 4 关（三位服务员、三口锅）用规则接口一直做到过关——空锅就接一道还没做的菜、照配料下锅，
@@ -119,9 +140,12 @@ func play_three(p) -> Array:
         while not g.plates.is_empty() and g.deliver_auto():
             pass
         g.tick(0.5)
+    var guide_off: bool = not is_instance_valid(p.guide)
     p.departures.clear()
     p._process(0.01)
     await process_frame
+    var card: Array = p.find_children("*", "Panel", true, false).filter(func(n): return n.get_meta("kitchen_result_card", false))
+    check("第 4 关没有引导那行（%s）；过关出结算卡、垫着小游戏的卡片（%d 张）" % [guide_off, card.size()], guide_off and card.size() == 1)
     return [g.won, g.completed, most_orders, pots_used.size()]
 
 func route(label: String) -> void:
@@ -202,8 +226,10 @@ func run() -> void:
     m.games_save.local_path = "user://test_kitchen_route_games.json"
     m.court_save.local_path = "user://test_kitchen_route_court.json"
     m.nickname = "小李"
+    await m._set_hall55(false)   # 03 10/2：第一遍标「第 44 版厅」，第 52 版起默认 55 桌，得显式切过去
     await m._enter_banquet()
     await create_timer(0.3).timeout
+    check("第一遍真是第 44 版厅（%d 张桌）" % m.hall.cfg["tables"].size(), not m.hall.big)
     await route("第 44 版厅")
     await m._set_hall55(true)
     await create_timer(0.5).timeout

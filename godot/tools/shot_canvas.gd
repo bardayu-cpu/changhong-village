@@ -13,6 +13,8 @@ extends SceneTree
 ##   --hall=55        哪个厅：55（55 桌大厅）、44（第 44 版 12 桌厅）
 ##   --stand=rect     rect：人站在 rect 中心（--ui=1 时）；keep：人留在进厅时游戏放的地方（自己那桌边），截「进厅第一眼」
 ##   --feast=         空 = 照北京时间；feast 强制开席；pre 强制开席前（只有 --people=1 才看得出）；给了就快进 60 秒让亲友走到位
+##   --preset=        给了就不走上面那套：照 main.gd 的截图预设（_setup_shot，跟 capture.sh 同一套）摆好整屏截（厨房、后厅这些），
+##                    其余参数都不管。例：--preset=k04_start、--preset=kitchen_play_lv4、--preset=backhall
 ##   --fx=            空 = 不飘；feast / entry / toast 放那一阵飘落（hall_festive.gd），快进 --fx_t 秒（默认 1.0）再截
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
 
@@ -20,7 +22,7 @@ const Main = preload("res://scripts/main.gd")
 
 var m
 var started := false
-var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": "", "stand": "rect", "fx": "", "fx_t": "1.0"}
+var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": "", "stand": "rect", "fx": "", "fx_t": "1.0", "preset": ""}
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
@@ -61,6 +63,17 @@ func run() -> void:
             break
         await process_frame
     await frames(2)
+    if str(opt["preset"]) != "":
+        await m._setup_shot(str(opt["preset"]))
+        await frames(50)
+        await RenderingServer.frame_post_draw
+        var pimg: Image = get_root().get_texture().get_image()
+        if pimg.save_png(str(opt["out"])) != OK:
+            fail("存不下 %s" % opt["out"])
+            return
+        print("SHOT SAVED ", opt["out"], " ", pimg.get_width(), "x", pimg.get_height())
+        quit(0)
+        return
     # 进厅：照 big_* 截图预设那条路（main.gd _setup_shot），只这一次切厅、不写本机开关
     m.nickname = "小李"
     await m._set_hall_variant("55" if str(opt["hall"]) == "55" else "", false)

@@ -285,11 +285,11 @@ func _player(preset: int, nickname: String) -> void:
     world.add_child(me_ring)
     # 头顶的倒三角：画在人和桌子上面（z 3）、牌子（z 4～5）下面，不写字；金色、一圈深边
     me_mark = Polygon2D.new()
-    me_mark.polygon = PackedVector2Array([Vector2(-7, -5), Vector2(7, -5), Vector2(0, 5)])
+    me_mark.polygon = PackedVector2Array([Vector2(-8, -6), Vector2(8, -6), Vector2(0, 6)])   # 宽 16（04 10/2：12 小了点）
     me_mark.color = Color(1.0, 0.84, 0.35)
     me_mark.z_index = 3
     var mark_edge := Line2D.new()
-    mark_edge.points = PackedVector2Array([Vector2(-7, -5), Vector2(7, -5), Vector2(0, 5), Vector2(-7, -5)])
+    mark_edge.points = PackedVector2Array([Vector2(-8, -6), Vector2(8, -6), Vector2(0, 6), Vector2(-8, -6)])
     mark_edge.width = 1.5
     mark_edge.default_color = Color(0.45, 0.25, 0.05)
     me_mark.add_child(mark_edge)

@@ -3502,7 +3502,7 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
-        "kitchen_play", "kitchen_play_lv4", "kitchen_result_win", "kitchen_result_lose":
+        "kitchen_play", "kitchen_play_lv4", "kitchen_result_win", "kitchen_result_lose", "k04_start", "k04_picked", "k04_added1":
             # 厨房截图（01 D 10/1，给 04 看炒菜那屏和结算卡）：先照 backhall_pot 走到大锅、点开厨房，再用厨房面板自己的开局、
             # 加料、计时摆出那一屏，不改厨房代码。play 是第 1 关一口锅正在煮；play_lv4 是第 4 关三口锅（一锅好了、一锅在煮、
             # 一锅加了一样料）、三位服务员；result_win、result_lose 是结算卡（交够菜 / 三位服务员等走了）。
@@ -3517,6 +3517,18 @@ func _setup_shot(shot: String) -> void:
             kp.set_process(false)   # 摆的时候别让真时间往前走
             var kr = kp.rules
             match shot:
+                "k04_start", "k04_picked", "k04_added1":
+                    # 04 10/2 看「第一次进厨房」截的三个时刻：刚进来（第 1 关，锅空着）、点了头顶那道菜、加了第一样料
+                    kp._start(1)
+                    while kr.orders.is_empty():
+                        var n0: int = kr.orders.size()
+                        kr.add_order()
+                        if kr.orders.size() == n0:
+                            break
+                    if shot != "k04_start":
+                        kr.choose_order_dish(0, kr.orders[0].id, 0)
+                    if shot == "k04_added1":
+                        kr.add_ingredient(0, kr.pots[0].required[0])
                 "kitchen_play":
                     # 厨房 v3（GPT 10/2）：按服务员要的菜下锅（choose_order_dish），不再自己挑菜谱
                     kp._start(1)
@@ -3551,8 +3563,11 @@ func _setup_shot(shot: String) -> void:
                     kp._start(1)
                     kr.completed = kr.target
                     kr.earned = kr.target * 3
-                    kr.orders.clear()   # 下一次走时间就判赢、出结算卡
-                    kp.departures.clear()
+                    kr.orders.clear()   # 走一下时间就判赢
+                    kr.tick(0.1)
+                    kp.departures.clear()   # 结算卡要等服务员离场动画走完才出（04：预设没等到卡），这里直接跳过动画
+                    kp.set_process(true)
+                    kp._process(0.01)
                 "kitchen_result_lose":
                     kp._start(1)
                     while kr.orders.is_empty():
@@ -3561,8 +3576,13 @@ func _setup_shot(shot: String) -> void:
                         if kr.orders.size() == n0:
                             break
                     kr.missed = 2
-                    kr.orders[0].left = 0.05   # 下一次走时间第三位服务员走掉、判输
-            kp._render()
+                    kr.orders[0].left = 0.05   # 走一下时间第三位服务员走掉、判输
+                    kr.tick(0.1)
+                    kp.departures.clear()
+                    kp.set_process(true)
+                    kp._process(0.01)
+            if kr.active:
+                kp._render()   # 结算卡已经出来了就别再画回炒菜屏
             kp.set_process(true)
             for i in 3:
                 await get_tree().process_frame

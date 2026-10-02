@@ -1,7 +1,7 @@
 #!/bin/zsh
 # 截图专用环境：一条命令把固定的 worktree（.claude/worktrees/shot）更新到指定提交、跑完导入、核过导入，再截一张（00 10/2 批、01 E 派）。
 # 用法见 godot/tools/截图环境-用法.md。
-#   zsh godot/tools/shot.sh <提交> --out=图.png [--rect=x,y,w,h] [--zoom=1] [--people=0] [--ui=0] [--hall=55] [--feast=] [--fx=feast|entry|toast] [--fx_t=1.0]
+#   zsh godot/tools/shot.sh <提交> --out=图.png [--rect=x,y,w,h] [--zoom=1] [--people=0] [--ui=0] [--hall=55] [--feast=] [--fx=feast|entry|toast] [--fx_t=1.0] [--preset=main 的截图预设]
 #   zsh godot/tools/shot.sh <提交> --prepare-only        只更新、导入、核，不截
 # 导入没跑完（Scan thread aborted、有图没有 .import、.import 指的导入结果不在）→ 报错退出 2，不截（免得拿空厅截图）。
 # 截图脚本 shot_canvas.gd 用这份仓库里最新的（拷进 worktree），所以老提交也能截。
