@@ -4,7 +4,7 @@ extends SceneTree
 ##   在人和桌子上面、牌子下面（z）；不是界面控件，不收点击
 ## 2 开席：一阵最多 60 片、约 4 秒散完；同一时间只放一阵（进厅排着、等开席散了再放；开席时来的干杯不要）
 ## 3 进厅：最多 30 片；每天第一次进厅才放（北京日期），同一天第二次不放、第二天又放
-## 4 干杯：12～16 片、只有花瓣、落在两个人头顶；干杯插图还开着先等着
+## 4 干杯：12～16 片、只有花瓣、落在两个人头顶；干杯插图还开着先等着；别人当场敬我也落
 ## 5 开席那一刻：按北京时间从 11:59 走到 12:00 放；调试版强制开席不放；进厅时已经开席了不补
 ## 6 在小游戏、簿子、菜单里不放，回来也不补；7 掉帧（低于 55）片数减半；8 没图又不是调试版：不挂不飘
 ## 用法：Godot --headless --path . --script res://tools/test_festive.gd
@@ -156,6 +156,16 @@ func run() -> void:
     check("干杯同时最多 %d 片（12～16）、只有花瓣（%s）、都在两个人头顶（%s）" % [most, kinds.keys(), near],
         most >= 8 and most <= 16 and kinds.keys() == ["petal"] and near)
     sim(f, 2.0)
+
+    print("4b 别人敬我也落（01 E 10/2：被敬也是干杯）")
+    f.hold_fn = func() -> bool: return false
+    f.queue.clear()
+    m._on_pulse({"ok": true, "now": 5, "toasts": [{"from": "test_someone", "created_at": 4}], "names": {}})
+    check("当场被敬：排上干杯那阵（排着 %s）" % [f.queue.map(func(q): return q[0])], f.queue.any(func(q): return q[0] == "toast"))
+    sim(f, 2.0)
+    if is_instance_valid(m.toast_scene):
+        m.toast_scene.queue_free()
+    await frames(2)
 
     print("5 开席那一刻")
     f.played.clear()

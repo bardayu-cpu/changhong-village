@@ -43,7 +43,8 @@ ART_SOUTH = os.path.join(ART, "base_banquet55_south_v1.png")   # 最南头 1024 
 # 图由 import_gpt_pack.py 从 GPT 交的包里接进 art/，名字照零件总表。框和坐标还是 B55 那套（位置以色块为准），所以只换图：
 #   北边背景 → B55S-BG01；桌、主桌、灯、花架、花盆、长凳 → B55S-T01、T02、P01～P04（灯一张，红毯两边和墙边都用它）；
 #   中间那截地砖 → B55S-W01 一块块铺（对齐北边背景最下面的砖，接缝小）；红毯那一条照旧用北边背景最下面那截往下接。
-#   两边墙（01 E 10/2 定）：GPT 照色块把墙画成笔直的 40 宽，能走的格子也照 40 宽平条算——看着能走就要走得上去；
+#   两边墙（01 E 10/2 定）：GPT 照色块把墙画成笔直的一条，能走的格子也照这么宽的平条算——看着能走就要走得上去；
+#   宽多少照摆位表 B.WALL（10/2 03 量两张背景都是 46，原来写 40）
 #   中间那截竖墙换 B55S-W02（西）、W03（东），跟新北墙一个样子
 # 10/2 起默认 b55s（GPT 照色块画的北边 v2，阿鱼验收过，01 E 派接）；SUQI55_ART=b55 退回原来那套
 ART_SET = os.environ.get("SUQI55_ART", "b55s")
@@ -56,7 +57,11 @@ if ART_SET == "b55s":
                   "bench": "blk_banquet55s_bench_v1.png", "lantern": "blk_banquet55s_aisle_post_v1.png",
                   "flowerpot": "blk_banquet55s_flowerpot_v1.png", "flowerstand": "blk_banquet55s_flowerstand_v1.png",
                   "gift": "blk_banquet55s_giftpile_v1.png"}
-    ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v1.png")
+    ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v3.png")   # 10/2 GPT 交 W01 v3（v1 跟北边的砖对不上）
+    # 10/2 GPT 照色块画的南边 B55S-BG02（1536×1067，整厅 y 1024～2091）：北边 1024 往南直接接它，中间不再留一截地砖；
+    # 大门、栏杆、东侧门画在整厅同一个位置（02 拿摆位表的框套过：门柱、门洞、门槛、栏杆、东侧门 1260～1318 都对上），
+    # 所以下面 SOUTH_* 那些坐标照旧（还是按「南边那张上沿 = 厅长 − 1024」算的整厅坐标）。W01 现在被南边那张整个盖住，铺不铺都看不见
+    ART_SOUTH = os.path.join(ART, "base_banquet55s_south_v1.png")
 ART_WALL_W = os.path.join(ART, "tex_banquet55_wall_west_v1.png")   # 中间那截的竖墙，40×240 一段段接
 ART_WALL_E = os.path.join(ART, "tex_banquet55_wall_east_v1.png")
 if ART_SET == "b55s":
@@ -345,10 +350,10 @@ def main():
         if BOUNDS_BG:
             # 现场版：走路格子的两边墙照 40 宽平条（01 E 10/2）；新背景照地砖颜色量出来，离平条差 8 像素以上的行报出来
             # （GPT 要是哪段没画直、墙边留了别的东西，这里看得见）
-            new_b, bounds = bounds, {y: (40, W - 40) for y in bounds}
+            new_b, bounds = bounds, {y: (B.WALL, W - B.WALL) for y in bounds}
             bad = [(y, new_b[y]) for y in sorted(new_b) if y >= 260 and
-                   max(abs(new_b[y][0] - 40), abs(new_b[y][1] - (W - 40))) > 8]
-            print("现场版走路格子两边墙照 40 宽平条；新背景量出来离平条差 8 像素以上的 %d 行%s" % (
+                   max(abs(new_b[y][0] - B.WALL), abs(new_b[y][1] - (W - B.WALL))) > 8]
+            print("现场版走路格子两边墙照 %d 宽平条；" % B.WALL + "新背景量出来离平条差 8 像素以上的 %d 行%s" % (
                 len(bad), "，例：y %d 量到 %s" % bad[0] if bad else ""))
         # 桌下暗影：一块黑的椭圆，边上高斯糊开，乘 20% 叠上去
         sh = TABLE_SHADOW
@@ -457,7 +462,7 @@ def main():
         if art and py < 1024:
             lx, rx = bounds.get(int(py), (0, W))
             if os.path.exists(ART_WALL_W) and py >= WALL_FROM:
-                lx, rx = max(lx, 40), min(rx, W - 40)   # 竖墙盖在北边那张上的那一截：墙上不让走
+                lx, rx = max(lx, B.WALL), min(rx, W - B.WALL)   # 竖墙盖在北边那张上的那一截：墙上不让走
             if px < lx + C or px > rx - C:
                 return True   # 背景两边的墙（透视的）
         for it in blockers:
@@ -475,17 +480,17 @@ def main():
         py = (j + 0.5) * CELL
         for i in range(cols):
             px = (i + 0.5) * CELL
-            inside = 40 < px < W - 40 and B.WALL_N < py < rail_foot - 8
+            inside = B.WALL < px < W - B.WALL and B.WALL_N < py < rail_foot - 8
             if south_art:
                 # v7：南边那张里——栏杆顶以南不让走（栏杆画在背景里，人走到它后面会画在它上面）；只有门洞那一截能走到门口；
                 # 门柱和开着的两扇门那两块也不让走
                 st = H - 1024
-                inside = 40 < px < W - 40 and B.WALL_N < py < st + B.SOUTH_RAIL[0] - 8
+                inside = B.WALL < px < W - B.WALL and B.WALL_N < py < st + B.SOUTH_RAIL[0] - 8
                 if B.SOUTH_DOORWAY[0] < px < B.SOUTH_DOORWAY[1] and st + B.SOUTH_DOOR_POSTS[1] <= py < st + B.SOUTH_RAIL[1] - 6:
                     inside = True
                 elif B.SOUTH_DOOR_POSTS[0] <= px < B.SOUTH_DOOR_POSTS[0] + B.SOUTH_DOOR_POSTS[2] and py >= st + B.SOUTH_DOOR_POSTS[1]:
                     inside = False
-            in_side_door = W - 40 <= px < W and d0 < py < d1
+            in_side_door = W - B.WALL <= px < W and d0 < py < d1
             if (inside and not blocked(px, py)) or in_side_door:
                 grid[j][i] = True
     spawn = [B.CX, stand_top + 48]
