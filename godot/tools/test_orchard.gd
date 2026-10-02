@@ -15,6 +15,7 @@ extends SceneTree
 const Main = preload("res://scripts/main.gd")
 const Orchard = preload("res://scripts/orchard.gd")
 const OrchardSave = preload("res://scripts/orchard_save.gd")
+const CourtCopy = preload("res://scripts/court_copy.gd")
 const DT := 1.0 / 60.0
 const SAVE_PATH := "user://test_orchard.json"
 
@@ -167,6 +168,8 @@ func run() -> void:
     tick(2)
     check("收了说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "收了 8 筐草莓 放进果篮")
     check("果篮里 8 筐草莓", m.orchard_save.basket_of("strawberry") == 8)
+    check("第一次收草莓那句阿鱼的话还是【待补】：不弹、也不记弹过", CourtCopy.text("first_strawberry", CourtCopy.ORCHARD) == "【待补】"
+        and CourtCopy.who("first_strawberry", CourtCopy.ORCHARD) == "阿鱼" and not m.orchard_save.firsts.has("strawberry"))
     check("垄上的草莓收光了（熟的 %d 块、光地 %d 块）" % [o.ripe_count("strawberry"), stage_count(o, "strawberry", 0)],
         o.ripe_count("strawberry") == 0 and stage_count(o, "strawberry", 0) == 8)
     check("按钮收了", not ui.act_btn.visible)
@@ -252,6 +255,34 @@ func run() -> void:
     m.note.text = ""
     walk_into(o, "shop", Vector2(980, 1016))
     check("这种卖法下走到收购处：%s" % m.note.text, m.note.text == "果子山庄直接收走了 不用跑这一趟" and not ui.act_btn.visible)
+
+    # 9b. 第一次收枇杷弹阿鱼一句（蓝图 3.6，9/20 定）：照阿鱼写好了的样子测（不动文件）；只弹一次，记在本机
+    print("9b 第一次收弹阿鱼一句")
+    var pl: Dictionary = CourtCopy._lines(CourtCopy.ORCHARD)
+    var keep_l: Dictionary = pl["first_loquat"].duplicate()
+    pl["first_loquat"]["text"] = "测试：第一次收枇杷这句"
+    age_all(o, 400.0)
+    m.dialog.visible = false
+    m.note.text = ""
+    walk_into(o, "loquat", Vector2(1150, 836))
+    ui._on_act()
+    tick(2)
+    check("第一次收枇杷：对话框是阿鱼那句「%s」（%s）、收了几篮挪到顶部「%s」" % [m.dialog_text.text, m.dialog_who.text, m.note.text],
+        m.dialog.visible and m.dialog_text.text == "测试：第一次收枇杷这句" and m.dialog_who.text == "阿鱼" and m.note.text == "收了 6 篮枇杷")
+    var again2 = OrchardSave.new()
+    again2.local_path = SAVE_PATH
+    again2.load_local()
+    check("弹过记在本机（%s）" % [again2.firsts], again2.firsts.get("loquat", false) == true and not again2.firsts.has("strawberry"))
+    age_all(o, 400.0)
+    m.dialog.visible = false
+    walk_into(o, "loquat", Vector2(1150, 836))
+    ui._on_act()
+    tick(2)
+    check("第二回收枇杷不再弹：%s" % m.dialog_text.text, m.dialog_text.text == "收了 6 篮枇杷")
+    m.orchard_save.firsts = {}
+    m.orchard_save.load_local()
+    check("关了再开（重读本机存档）也记得弹过", m.orchard_save.firsts.get("loquat", false) == true)
+    pl["first_loquat"] = keep_l
 
     # 10. season_gate 打开：蓝图 3.6 那套老玩法还在
     print("10 季节开关")

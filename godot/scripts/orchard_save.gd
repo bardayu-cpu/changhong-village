@@ -9,6 +9,7 @@ var local_path := LOCAL       # 测试里改成别的文件，别写进这台机
 var plots: Dictionary = {}    # 地的编号（ridge_0、loquat_1_2……）-> 上次收走的时刻（秒）
 var basket: Dictionary = {}   # 果子 -> 果篮里有几份（还没卖的）
 var sold: Dictionary = {}     # 果子 -> 一共卖过几份（给以后看着玩，不影响玩法）
+var firsts: Dictionary = {}   # 果子 -> true：第一次收那句阿鱼的话已经弹过了（蓝图 3.6，只弹一次）
 
 func load_local() -> void:
     if not FileAccess.file_exists(local_path):
@@ -20,12 +21,18 @@ func load_local() -> void:
     plots = _num_dict(d.get("plots", {}))
     basket = _num_dict(d.get("basket", {}))
     sold = _num_dict(d.get("sold", {}))
+    firsts = {}
+    var fd = d.get("firsts", {})
+    if fd is Dictionary:
+        for k in fd:
+            if fd[k] == true:
+                firsts[str(k)] = true
 
 func save() -> void:
     var f := FileAccess.open(local_path, FileAccess.WRITE)
     if f == null:
         return
-    f.store_string(JSON.stringify({"plots": plots, "basket": basket, "sold": sold}))
+    f.store_string(JSON.stringify({"plots": plots, "basket": basket, "sold": sold, "firsts": firsts}))
     f.close()
 
 ## 这块地上次收是什么时候（没收过返回 -1：当它早就熟了，头一回来就有的摘）
