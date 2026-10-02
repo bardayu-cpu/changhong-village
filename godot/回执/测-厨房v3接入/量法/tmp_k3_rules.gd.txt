@@ -1,0 +1,235 @@
+extends SceneTree
+## 03 自己写的厨房 v3 规则探针（跑完删，不提交）：不走界面，直接对 kitchen_rules.gd 逼各种情况。
+const Rules = preload("res://scripts/kitchen/kitchen_rules.gd")
+var ok := true
+var coins_box := [0]   # 闭包计数器用数组（lambda 改外层局部变量是改拷贝）
+var lines: Array = []
+
+func check(name: String, cond: bool) -> void:
+    print(("  好 " if cond else "  不行 ") + name)
+    ok = ok and cond
+
+func mk(level: int, seed_value: int) -> Rules:
+    var r := Rules.new()
+    r.delivered.connect(func(n): coins_box[0] += n)
+    r.start(level, seed_value)
+    r.orders.clear()
+    r.spawn_in = 1.0e9
+    return r
+
+func order_of(id: int, slot: int, recipe: String, ings: Array, left := 999.0, who := "server_male_1") -> Dictionary:
+    return {"slot": slot, "id": id, "character": who, "female": false, "dishes": [{"recipe": recipe, "ingredients": ings.duplicate(), "done": false}], "left": left, "total": left, "age": 0.0, "leaving": 0.0}
+
+func _initialize() -> void:
+    run()
+    print("RESULT ", "PASS" if ok else "FAIL")
+    quit(0 if ok else 1)
+
+func run() -> void:
+    var base := Rules.new()
+    var rows: Array = base.recipe_catalog.filter(func(r): return bool(r.get("enabled", true)))
+    print("== 启用的菜 %d 道" % rows.size())
+    check("启用 12 道", rows.size() == 12)
+    print("| id | 菜名 | 配料 | 烧几秒 | 可盛窗口 | 金币 | 解锁级 | 变体数 |")
+    for rec in rows:
+        print("| %s | %s | %s | %s | %s | %s | %s | %s |" % [rec.id, rec.name, "、".join(rec.ingredients), rec.seconds, rec.window, rec.coins, rec.unlock, rec.get("variants", []).size()])
+    # ---- 每道菜做一遍：正常成功、糊锅、提前盛、加错料 ----
+    print("== 每道菜至少做成一次，再试糊锅、提前盛、加错料")
+    var first_msgs := {}
+    for rec in rows:
+        var ings: Array = rec.get("variants", [rec.ingredients])[0]
+        # 成功
+        coins_box[0] = 0
+        var r := mk(maxi(int(rec.unlock), 1), 11)
+        r.orders.append(order_of(99, 0, str(rec.id), ings))
+        check("%s：选菜" % rec.name, r.choose_order_dish(0, 99, 0))
+        var added := true
+        for k in ings.size():
+            added = added and r.add_ingredient(0, str(ings[k]))
+            if k == ings.size() - 1:
+                first_msgs["cook"] = r.message
+        check("%s：照配料加完进入烧（%s）" % [rec.name, r.pots[0].state], added and r.pots[0].state == "cooking")
+        r.tick(float(rec.seconds) - 0.06)
+        check("%s：烧到 %.2f 秒还没熟" % [rec.name, float(rec.seconds) - 0.06], r.pots[0].state == "cooking")
+        r.tick(0.07)
+        check("%s：烧满 %s 秒熟了" % [rec.name, rec.seconds], r.pots[0].state == "ready")
+        r.tick(float(rec.window) - 0.15)
+        check("%s：熟了等 %.2f 秒（窗口 %s）还能盛" % [rec.name, float(rec.window) - 0.15, rec.window], r.pots[0].state == "ready")
+        check("%s：盛出" % rec.name, r.serve_pot(0))
+        first_msgs["serve"] = r.message
+        check("%s：盘里有一份、锅清空" % rec.name, r.plates.size() == 1 and r.pots[0].state == "empty")
+        check("%s：交给服务员" % rec.name, r.deliver_auto())
+        check("%s：金币 %d == 奖励 %s，只发一次" % [rec.name, coins_box[0], rec.coins], coins_box[0] == int(rec.coins) and r.earned == int(rec.coins))
+        check("%s：同一盘再交一次不再发钱" % rec.name, not r.deliver(1, 99) and coins_box[0] == int(rec.coins))
+        # 糊锅
+        var b := mk(maxi(int(rec.unlock), 1), 12)
+        b.orders.append(order_of(99, 0, str(rec.id), ings))
+        b.choose_order_dish(0, 99, 0)
+        for ing in ings:
+            b.add_ingredient(0, str(ing))
+        b.tick(float(rec.seconds) + 0.01)
+        b.tick(float(rec.window) + 0.5)
+        check("%s：熟了不盛超过 %s 秒糊锅（%s）" % [rec.name, rec.window, b.pots[0].state], b.pots[0].state == "burnt")
+        check("%s：糊锅不能盛、提示「%s」" % [rec.name, b.message], not b.serve_pot(0))
+        b.clear_pot(0)
+        check("%s：清锅后能重做" % rec.name, b.pots[0].state == "empty" and b.choose_order_dish(0, 99, 0))
+        # 提前盛
+        var e := mk(maxi(int(rec.unlock), 1), 13)
+        e.orders.append(order_of(99, 0, str(rec.id), ings))
+        e.choose_order_dish(0, 99, 0)
+        for ing in ings:
+            e.add_ingredient(0, str(ing))
+        e.tick(float(rec.seconds) * 0.5)
+        coins_box[0] = 0
+        check("%s：没熟就盛返回 false，锅空了，没发钱（%s）" % [rec.name, e.message], not e.serve_pot(0) and e.pots[0].state == "empty" and coins_box[0] == 0)
+        # 加错料
+        var w := mk(maxi(int(rec.unlock), 1), 14)
+        w.orders.append(order_of(99, 0, str(rec.id), ings))
+        w.choose_order_dish(0, 99, 0)
+        var wrong := "不存在的料"
+        w.add_ingredient(0, wrong)
+        check("%s：第一步加错料 → invalid，不能盛" % rec.name, w.pots[0].state == "invalid" and not w.serve_pot(0))
+    print("  新文案：烧 =「%s」，盛 =「%s」" % [first_msgs["cook"], first_msgs["serve"]])
+    check("文案 烧", first_msgs["cook"] == "正在烧，熟了点锅盛出")
+    check("文案 盛", first_msgs["serve"] == "装好盘了，点交菜")
+
+    # ---- 超时失败、N ----
+    print("== 一直不动：三位服务员等走了就输")
+    var t := mk(1, 21)
+    t.add_order()
+    t.spawn_in = 8.0
+    var secs := 0.0
+    while t.active and secs < 3000.0:
+        t.tick(0.5)
+        secs += 0.5
+    check("一直不动 %.0f 秒后输了，missed=%d，消息「%s」" % [secs, t.missed, t.message], not t.active and not t.won and t.missed == 3 and t.message == "有 3 位服务员没等到菜，再试一次吧")
+    # 一下子走掉好几位：N 照实际
+    var n5 := mk(4, 22)
+    n5.missed = 2
+    for k in 3:
+        n5.orders.append(order_of(100 + k, k, "", [], 0.1, ["server_male_1", "server_male_2", "server_male_3"][k]))
+        n5.orders[k].dishes = [{"recipe": str(rows[0].id), "ingredients": [], "done": false}]
+    n5.tick(0.2)
+    check("已经走了 2 位、同一刻又走 3 位：N 写 %d（消息「%s」）" % [n5.missed, n5.message], n5.missed == 5 and n5.message == "有 5 位服务员没等到菜，再试一次吧")
+    var big := mk(4, 23)
+    big.orders.append(order_of(1, 0, str(rows[0].id), ["x"], 5.0))
+    big.tick(100.0)
+    check("一次 tick(100) 走一位：missed=%d，没崩" % big.missed, big.missed == 1 and big.active)
+
+    # ---- 交给对的人 ----
+    print("== 盘里的菜交给对的人")
+    var X: Dictionary = rows[0]
+    var xi: Array = X.get("variants", [X.ingredients])[0]
+    var Y: Dictionary = rows[1]
+    var yi: Array = Y.get("variants", [Y.ingredients])[0]
+    # a) 两位要同一道菜，菜是给 A 做的，B 更急：交给 A
+    coins_box[0] = 0
+    var ra := mk(8, 31)
+    ra.orders.append(order_of(1, 0, str(X.id), xi, 50.0))
+    ra.orders.append(order_of(2, 1, str(X.id), xi, 10.0, "server_male_2"))
+    ra.choose_order_dish(0, 1, 0)
+    for ing in xi: ra.add_ingredient(0, str(ing))
+    ra.tick(float(X.seconds) + 0.1)
+    ra.serve_pot(0)
+    ra.deliver_auto()
+    check("两位要同一道菜，给 A 做的就交给 A（A 做完 %s、B 没动 %s）" % [ra.orders.size() == 1, ra.orders[0].id == 2 if ra.orders.size() == 1 else "?"], ra.orders.size() == 1 and int(ra.orders[0].id) == 2 and not ra.orders[0].dishes[0].done)
+    # b) 给 A 做的，A 在交之前走了：交给 B
+    coins_box[0] = 0
+    var rb := mk(8, 32)
+    rb.orders.append(order_of(1, 0, str(X.id), xi, 3.0))
+    rb.orders.append(order_of(2, 1, str(X.id), xi, 200.0, "server_male_2"))
+    rb.choose_order_dish(0, 1, 0)
+    for ing in xi: rb.add_ingredient(0, str(ing))
+    rb.tick(float(X.seconds) + 0.1)   # 烧这段 A 已经走了
+    rb.serve_pot(0)
+    check("A 走了以后盘里的菜还在（盘 %d、订单 %d）" % [rb.plates.size(), rb.orders.size()], rb.plates.size() == 1 and rb.orders.size() == 1 and int(rb.orders[0].id) == 2)
+    check("交给还在等的 B、发钱一次（%d）" % coins_box[0], rb.deliver_auto() and coins_box[0] == int(X.coins))
+    # c) 没人要的菜
+    coins_box[0] = 0
+    var rc := mk(8, 33)
+    rc.orders.append(order_of(1, 0, str(Y.id), yi))
+    # 手工塞一盘没人要的
+    rc.plates.append({"id": 77, "recipe": str(X.id), "ingredients": xi.duplicate(), "order_id": 1, "dish_index": 0})
+    check("盘里是没人要的菜：交不出去（%s）、没发钱、盘还在" % rc.message, not rc.deliver_auto(77) and coins_box[0] == 0 and rc.plates.size() == 1 and rc.message == "暂时没有配料完全相同的订单")
+    check("指定给不要这道菜的人：false（%s）、没发钱" % rc.message, not rc.deliver(77, 1) and coins_box[0] == 0 and rc.message == "这位服务员不需要这道菜")
+    # d) 一位要两道，做完两道才走
+    coins_box[0] = 0
+    var rd := mk(4, 34)
+    var two := order_of(1, 0, str(X.id), xi)
+    two.dishes.append({"recipe": str(Y.id), "ingredients": yi.duplicate(), "done": false})
+    rd.orders.append(two)
+    var departed := [0, 0]
+    rd.order_departed.connect(func(o, done): departed[0 if done else 1] += 1)
+    for dj in 2:
+        var rec2: Dictionary = [X, Y][dj]
+        var ing2: Array = [xi, yi][dj]
+        rd.choose_order_dish(dj, 1, dj)
+        for ing in ing2: rd.add_ingredient(dj, str(ing))
+    rd.tick(float(X.seconds) + 0.1)
+    rd.serve_pot(0)
+    rd.deliver_auto()
+    check("要两道的服务员：交了第一道还没走（订单 %d）" % rd.orders.size(), rd.orders.size() == 1)
+    rd.tick(float(Y.seconds) - float(X.seconds) + 0.1)
+    rd.serve_pot(1)
+    rd.deliver_auto()
+    check("交完第二道才走（走了 %d、没走完就走 %d），金币 %d" % [departed[0], departed[1], coins_box[0]], rd.orders.is_empty() and departed[0] == 1 and departed[1] == 0 and coins_box[0] == int(X.coins) + int(Y.coins))
+    # e) 盛菜台满 6 份
+    var rp := mk(8, 35)
+    for k in 6:
+        rp.plates.append({"id": 200 + k, "recipe": str(X.id), "ingredients": xi.duplicate(), "order_id": -1, "dish_index": -1})
+    rp.orders.append(order_of(1, 0, str(X.id), xi))
+    rp.choose_order_dish(0, 1, 0)
+    for ing in xi: rp.add_ingredient(0, str(ing))
+    rp.tick(float(X.seconds) + 0.1)
+    check("盛菜台满 6 份再盛：false、锅里的菜还在（%s）" % rp.message, not rp.serve_pot(0) and rp.pots[0].state == "ready" and rp.message == "盛菜台满了，先把做好的菜交出去")
+    # f) 暂停
+    var rz := mk(1, 36)
+    rz.orders.append(order_of(1, 0, str(X.id), xi, 10.0))
+    rz.paused = true
+    rz.tick(100.0)
+    check("暂停时 tick 不走（订单还有 %.1f 秒）、不能选菜" % rz.orders[0].left, rz.orders[0].left == 10.0 and not rz.choose_order_dish(0, 1, 0))
+
+    # ---- 第 N 关：一个照做的玩家打各关，看通不通 ----
+    print("== 贪心玩家打第 1～8 关（每关 20 个种子，每步 0.5 秒）")
+    for lv in [1, 2, 3, 4, 5, 6, 8]:
+        var wins := 0
+        var dishes := 0
+        var maxo := 0
+        var potsused := {}
+        for sd in range(1, 21):
+            var g := Rules.new()
+            g.start(lv, sd * 977)
+            for step in 2400:
+                if not g.active: break
+                maxo = maxi(maxo, g.orders.size())
+                for i in g.pots.size():
+                    var pot: Dictionary = g.pots[i]
+                    if pot.state == "empty":
+                        var taken := {}
+                        for q in g.pots:
+                            if q.state != "empty": taken["%s:%s" % [q.order_id, q.dish_index]] = true
+                        for pl in g.plates: taken["%s:%s" % [pl.order_id, pl.dish_index]] = true
+                        var picked := false
+                        var os: Array = g.orders.duplicate()
+                        os.sort_custom(func(a, b): return float(a.left) < float(b.left))
+                        for o in os:
+                            if picked: break
+                            for d in o.dishes.size():
+                                if not o.dishes[d].done and not taken.has("%s:%s" % [o.id, d]) and g.choose_order_dish(i, o.id, d):
+                                    for ing in g.pots[i].required: g.add_ingredient(i, ing)
+                                    potsused[i] = true
+                                    picked = true
+                                    break
+                    elif pot.state == "ready":
+                        if g.serve_pot(i): g.deliver_auto()
+                    elif pot.state in ["burnt", "invalid"]:
+                        g.clear_pot(i)
+                while not g.plates.is_empty() and g.deliver_auto(): pass
+                g.tick(0.5)
+            if g.won: wins += 1
+            dishes += g.completed
+        print("  第 %d 关：%d/20 过，平均交 %.1f 道，同屏最多 %d 位，用过 %d 口锅（该关 %d 口）" % [lv, wins, dishes / 20.0, maxo, potsused.size(), mini(1 + lv / 2, 3)])
+        if lv == 4:
+            check("第 4 关三人三锅：贪心玩家 %d/20 过、用满 3 口锅、同屏 3 位" % wins, wins >= 15 and potsused.size() == 3 and maxo == 3)
+        if lv == 1:
+            check("第 1 关：贪心玩家 %d/20 过" % wins, wins >= 18)
