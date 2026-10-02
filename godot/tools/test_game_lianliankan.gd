@@ -215,16 +215,20 @@ func run() -> void:
     print("6d 牌底（B8）：%d/%d 张有浅米色牌底" % [carded, n_tiles])
     ok = ok and n_tiles > 0 and carded == n_tiles
 
-    # 6b. 真消一对只能绕左边外圈的牌（第 9 关 8x8）：最左一列最上、最下两张换成同一种菜（跟别处同种的对换，数量不变），
+    # 6b. 真消一对只能绕左边外圈的牌（第 9 关 7×7，奇数少一行变 7×6）：最左一列最上、最下两张换成同一种菜（跟别处同种的对换，数量不变），
     #     连线的每个点都要在游戏区里
     var g9 = hosts[8].game
     var b9: Array = g9.board
     var kk := int(b9[0][0])
     var bot := Vector2i(0, b9.size() - 1)
     if int(b9[bot.y][bot.x]) != kk:
+        # 另一张同种牌可以在任何地方（包括最左一列，只是不能是 (0,0) 自己）：原来只在 x≥1 里找，同种牌恰好只在最左一列时
+        # 换不成、两下点了也连不上，约 1.5% 的开局失败（10/2 03 查：20000 个种子 296 个）
         var done_swap := false
         for y in b9.size():
-            for x in range(1, (b9[y] as Array).size()):
+            for x in (b9[y] as Array).size():
+                if Vector2i(x, y) == Vector2i(0, 0):
+                    continue
                 if not done_swap and int(b9[y][x]) == kk:
                     b9[y][x] = b9[bot.y][bot.x]
                     b9[bot.y][bot.x] = kk
