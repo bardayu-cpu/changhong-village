@@ -7,6 +7,7 @@ signal reached(what: String)
 
 const Spr = preload("res://scripts/sprites.gd")
 const Life = preload("res://scripts/hall_life.gd")
+const Festive = preload("res://scripts/hall_festive.gd")
 const GameCfg = preload("res://scripts/games/game_config.gd")
 ## 画布的图（底图、积木）从哪来统一走这里（HANDOFF §0.9）：现在从包里读，远程加载真机验过以后只改那一处
 const Canvas = preload("res://scripts/canvas_assets.gd")
@@ -75,6 +76,7 @@ var font: Font
 var data_path := DATA      # 搭哪个厅：DATA（12 桌）或 DATA_55，build 之前由 main.gd 定
 var big := false           # 是不是 55 桌大厅（场景名带 _55）
 var signs: Node2D          # 婚礼台上的横幅和 LED 屏（只有配置里有 stage 的厅才有，现在是 55 桌大厅）
+var festive = null         # 55 桌厅：红毯上方的红绸、开席 / 进厅 / 干杯的飘落（hall_festive.gd，01 E 10/2）
 var life: Node2D           # 厅里的热闹：服务员、乐队、贺礼、彩带、灯笼光、别桌的 NPC 宾客（hall_life.gd，阿鱼 9/18）
 
 func build(preset: int, nickname: String, f: Font) -> void:
@@ -143,6 +145,10 @@ func build(preset: int, nickname: String, f: Font) -> void:
     life.name = "life"
     add_child(life)
     life.build(self)
+    if big:
+        festive = Festive.new()
+        add_child(festive)
+        festive.build(self)
     cam = Camera2D.new()
     cam.limit_left = 0
     cam.limit_top = 0
@@ -1060,6 +1066,13 @@ const TOAST_SHOW := 2.8   # 站起来、举杯多久，秒（和 toast_scene.gd 
 const CUP_TEX := "res://assets/ambience/amb_cup.png"
 
 ## 我敬了坐着的某人：在我这边他从椅子上站起来（站到椅子外侧那一步），面朝我举杯，过一会儿坐回去
+## 别人敬酒、回敬时站起来的地方（干杯飘落落在他头顶）；找不到这个人就回我自己站的地方
+func resident_stand(openid: String) -> Vector2:
+    var r: Dictionary = resident_nodes.get(openid, {})
+    if r.is_empty():
+        return pos
+    return r["stand"] if r.has("stand") else _stand_spot(r["at"], r["center"])
+
 func resident_toast(openid: String) -> bool:
     var r: Dictionary = resident_nodes.get(openid, {})
     if r.is_empty() or not is_instance_valid(r["spr"]):

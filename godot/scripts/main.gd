@@ -736,6 +736,10 @@ func _make_hall(sv: Node) -> void:
     sv.move_child(hall, 0)
     hall.build(preset, "", font)
     print("[suqi] 宴会厅搭好了（", HALL_VARIANT_NAMES.get(hall_variant(), ""), "）")
+    if USE_LAYERED and hall.festive != null:
+        # 飘落：不在厅里、开着小游戏 / 簿子 / 菜单 / 卡片时不放也不补；干杯插图、换画布的黑幕还在时先等着
+        hall.festive.busy_fn = func() -> bool: return state != "banquet" or _hall_busy() or _menu_open()
+        hall.festive.hold_fn = func() -> bool: return switching or is_instance_valid(toast_scene)
     hall.reached.connect(_on_reached)
     if USE_LAYERED:
         hall.chair_near.connect(_on_chair_near)
@@ -1528,6 +1532,8 @@ func _switch_canvas(to: String) -> void:
         hall_side_latched = true
         _goto("banquet")
         _enter_hall_net()
+        if USE_LAYERED and hall.festive != null:
+            hall.festive.enter_today()   # 每天第一次进厅飘一阵
     elif to == "backhall":
         _show_canvas("backhall")
         backhall.reset_to(BACKHALL_FROM_LAWN if from == "lawn" else BACKHALL_FROM_HALL)
@@ -2176,6 +2182,8 @@ func _on_toast_result(r: Dictionary, target: String, known := {}) -> void:
         if USE_LAYERED:
             hall.resident_toast(target)
             hall.raise_cup()
+            if hall.festive != null:
+                hall.festive.request("toast", [hall.pos, hall.resident_stand(target)])   # 干杯插图收了以后，两个人头顶落一小撮花瓣
         # 那句只在顶上说一遍，插图下面不再重复（体验 B22：原来顶上一遍、干杯卡下面又一遍）
         _play_toast(preset, _avatar_of(info), "")
     else:

@@ -13,13 +13,14 @@ extends SceneTree
 ##   --hall=55        哪个厅：55（55 桌大厅）、44（第 44 版 12 桌厅）
 ##   --stand=rect     rect：人站在 rect 中心（--ui=1 时）；keep：人留在进厅时游戏放的地方（自己那桌边），截「进厅第一眼」
 ##   --feast=         空 = 照北京时间；feast 强制开席；pre 强制开席前（只有 --people=1 才看得出）；给了就快进 60 秒让亲友走到位
+##   --fx=            空 = 不飘；feast / entry / toast 放那一阵飘落（hall_festive.gd），快进 --fx_t 秒（默认 1.0）再截
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
 
 const Main = preload("res://scripts/main.gd")
 
 var m
 var started := false
-var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": "", "stand": "rect"}
+var opt := {"rect": "0,0,1536,1024", "zoom": "1", "people": "0", "ui": "0", "hall": "55", "feast": "", "out": "", "stand": "rect", "fx": "", "fx_t": "1.0"}
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
@@ -103,6 +104,15 @@ func run() -> void:
     else:
         # 手机屏：镜头照游戏自己的跟人走法（缩放、贴边、跟人都跟截图预设一样），人站在 rect 中心最近能站的那格；--zoom 不管用
         hall.snap_cam()
+    if str(opt["fx"]) != "":
+        var fest = hall.get("festive")
+        if fest == null:
+            fail("这个提交的宴会厅没有飘落（hall_festive.gd）")
+            return
+        await frames(2)
+        fest.request(str(opt["fx"]), [hall.pos, hall.pos + Vector2(70, 0)])
+        for i in int(float(opt["fx_t"]) / 0.05):
+            fest._step_fall(0.05)
     await frames(10)
     await RenderingServer.frame_post_draw
     var img: Image = (sv.get_texture() if str(opt["ui"]) == "0" else get_root().get_texture()).get_image()
