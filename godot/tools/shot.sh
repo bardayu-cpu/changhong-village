@@ -7,7 +7,8 @@
 # 截图脚本 shot_canvas.gd 用这份仓库里最新的（拷进 worktree），所以老提交也能截。
 set -u
 HERE=${0:A:h}
-REPO=${HERE:h:h}
+# 仓库根：照 git 的公共目录找，从哪个 worktree 里跑都落到同一个（主仓库）的 .claude/worktrees/shot
+REPO=$(cd "$(git -C "$HERE" rev-parse --path-format=absolute --git-common-dir)/.." && pwd)
 W="$REPO/.claude/worktrees/shot"
 G=${SUQI_GODOT:-/Applications/Godot.app/Contents/MacOS/Godot}   # 测「导入不全会报错」时可以换成假的
 [ $# -ge 1 ] || { echo "用法：zsh godot/tools/shot.sh <提交> --out=图.png [...]"; exit 64; }
