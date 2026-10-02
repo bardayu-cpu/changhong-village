@@ -10,7 +10,7 @@ const Rel = preload("res://scripts/relatives.gd")
 const GameCfg = preload("res://scripts/games/game_config.gd")
 
 const SILK_TEX := "res://assets/fx/blk_B55S-P06_v1.png"   # 3 格横排，一格 160×56
-const FX_TEX := {"petal": "res://assets/fx/fx_B55S-FX01_v1.png", "paper": "res://assets/fx/fx_B55S-FX02_v1.png",
+const FX_TEX := {"petal": "res://assets/fx/fx_B55S-FX01_v2.png", "paper": "res://assets/fx/fx_B55S-FX02_v2.png",
     "ribbon": "res://assets/fx/fx_B55S-FX03_v1.png"}
 const SILK_CELL := Vector2(160, 56)
 const SILK_HANG := Vector2(11, 6)       # 左挂点（格内）；右挂点 (148, 6)，相距 137
