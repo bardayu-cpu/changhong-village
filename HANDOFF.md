@@ -50,6 +50,8 @@
 
 ## 等阿鱼（攒着一起问）
 
+- **上线资质**（`docs/上线清单-v0.1.md`）：后台看一眼小程序（ICP）备案做没做；小游戏备案要三四周，第 56 版定了就交（介绍草稿 `docs/资质/小游戏备案-游戏介绍-草稿.md`）；自审自查报告签名（`docs/资质/游戏自审自查报告-草稿.md`）
+
 - **部署云函数**（下次出码一起问，阿鱼在 02 窗口点头）：saveProfile（存祝福 + 内容安全，现成四句直接存）、readBlessings（新）、posterCode（新，合影海报的码，10/2 写好在 court-poster 分支；带 config.json 开 wxacode.getUnlimited，码先开体验版）。部署前跑 server-claude/scripts/sync-cf-rules.js
 
 - 亲戚关系：四孃、四姑爷、六孃、六姑爷、小舅、小舅妈；表弟媳两个女儿怎么叫
