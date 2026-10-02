@@ -42,6 +42,7 @@ v7（01 D 9/30，GPT 南边包交了）：桌、主桌照零件实际 180×150 �
       （阿鱼 9/28：「都有地毯的话看起来太乱了，先不要地毯」）：55 桌和主桌下面的地毯全删，中间红毯留着；行距、列距、画布一个数不动
 v10（10/2 阿鱼「那就 C 吧」，01 E 锁死）：默认排法换成 C——每边 3 列错开、左右留 45、斜着那条过道 70、行距 153、整厅 2091；
   不留横走道；红毯两边每排一根灯；主桌第 1 排红毯西边第一张；舞台西边地上礼物堆 10 份（B55S-P05）；排法细节见下面「重排」那段
+v11（10/2 阿鱼「太整齐了」，挑了「乱得自然」第 1 档，01 E 锁死）：默认 C + 第 1 档（MESS_LEVELS），一排排歪一点、桌有前有后、几对凑近
 用法：python3 tools/layout_55/make_board55.py [输出目录，默认 回执/]
       python3 tools/layout_55/make_board55.py --north 输出目录   切北边 y 0～1024 给 GPT（干净版、标注版、这块的摆位表）
 """
@@ -118,6 +119,21 @@ if LAYOUT == "v9":
 GAP = int(os.environ.get("SUQI55_GAP", {"A": "35", "B": "20", "C": "45", "D": "45"}.get(LAYOUT, "0")))
 DIAG = int(os.environ.get("SUQI55_DIAG", {"A": "35", "B": "35", "C": "70", "D": "100"}.get(LAYOUT, "0")))
 GIFT = (96, 80)               # B55S-P05 礼物堆（零件总表，约 96×80）
+# 乱的程度（01 E 10/2，阿鱼：「太整齐了，实际上宴会厅不会真的整齐的，氛围感不是这样的」）：SUQI55_MESS=1/2/3 在 C 上打乱，
+#   10/2 阿鱼挑了第 1 档（原话「1」，01 E 锁死）：默认就是 C + 第 1 档；SUQI55_MESS=0 退回 C 原样，=2、3 还能出另两档。不是每张随便抖一下，照真现场分三步：
+#     ① 一排排不再一条直线：每排每边各自前后错一点、左右整体挪一点（3、2 交替那个错开就不齐了）；
+#     ② 每张再自己偏一点；
+#     ③ 挑一些挨着的两张拉近（服务员摆的时候两张凑一块），别处自然就松出来。
+#   然后照「占地之间至少留多少」一遍遍推开，推不出墙、红毯边那排灯、北边台口，东侧门口、西墙长凳那块不进桌。
+#   55 桌、主桌位置、厅长、墙都不动；疏密跟 C 一样（同样的地方放同样多的桌）
+MESS = int(os.environ.get("SUQI55_MESS", "1")) if LAYOUT == "C" else 0   # 别的排法（A/B/D/v9）不打乱
+MESS_LEVELS = {
+    #    row: 每排前后错  shift: 每排左右挪  ax/ay: 每张自己偏  pairs: 拉近几对  pull: 拉近多少
+    #    gap: 一般两桌占地之间至少  close: 拉近那几对至少  spread: 松开时往这么宽匀  seed: 随机种子（挑过：寻路全过、看着不像格子）
+    1: dict(row=10, shift=30, ax=14, ay=10, pairs=6, pull=24, gap=38, close=26, spread=70, seed=1),
+    2: dict(row=18, shift=55, ax=26, ay=18, pairs=10, pull=40, gap=34, close=22, spread=70, seed=4),
+    3: dict(row=24, shift=90, ax=45, ay=30, pairs=14, pull=55, gap=30, close=20, spread=70, seed=6),
+}
 
 
 def _ellipse_gap(dx, dy, a=TABLE[0] / 2.0, b=TABLE[1] / 2.0, n=360):
@@ -330,11 +346,15 @@ def _relayout_tables(add, items, d0, d1):
     tid = {rk: "T%d" % (i + 1) for i, rk in enumerate(slots)}
     _relayout_tables.tid = tid
     _relayout_tables.empty = empty
+    pos = {(r, k): (slot_x(r, k), rows_y[r]) for r in range(NROWS) for k in range(6) if (r, k) not in empty}
+    by = rows_y[1] + 4   # 长凳落脚那一行（下面摆长凳也用）
+    if MESS:
+        pos = _mess(pos, main, d0, d1, by, empty)
     for r in range(NROWS):
         for k in range(6):
             if (r, k) in empty:
                 continue
-            cx, cy = slot_x(r, k), rows_y[r]
+            cx, cy = pos[(r, k)]
             name = "主桌" if (r, k) == main else tid[(r, k)]
             tf = (cx - TABLE[0] // 2, cy - TABLE[1] // 2, TABLE[0], TABLE[1])
             tb = (cx - TABLE_BOX[0] // 2, cy + TABLE[1] // 2 - TABLE_BOX[1], TABLE_BOX[0], TABLE_BOX[1])
@@ -342,8 +362,7 @@ def _relayout_tables(add, items, d0, d1):
                 "重排 %s：每边 3 列错开，列距 %d、行距 %d（占地之间左右留 %d、斜着留 %d）" % (LAYOUT, PITCH_X, PITCH, GAP, DIAG), "table:" + name, foot=tf)
     # 长凳：第 2 排最靠西墙那个空位，凳子落在那张桌占地的下沿
     # 04 10/2 第 5 条：凳子孤零零摆在地砖中间像掉在那儿的，贴西墙放（墙 40，留 2），高度还在第 2 排那个空位
-    by = rows_y[1] + 4   # 凳子落在那个位正中偏下，不压上下两排斜过来的桌
-    bf = (42, by - 16, 72, 16)
+    bf = (42, by - 16, 72, 16)   # by：凳子落在那个位正中偏下，不压上下两排斜过来的桌
     add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；重排：第 2 排最靠西墙那个空位，贴着西墙", foot=bf)
     # 礼物堆：舞台西边地上，两排错开、一份压一份（像现场图那一大片），后排 5 份、前排 5 份
     for row, (foot_y, x0, step) in enumerate(((290, 180, 69), (322, 186, 68))):   # 前排脚 322：跟台口一条线，主桌零件上沿 330 在它下面
@@ -351,6 +370,114 @@ def _relayout_tables(add, items, d0, d1):
             b = (x0 + step * i, foot_y - GIFT[1], GIFT[0], GIFT[1])
             add("礼物堆 %d" % (row * 5 + i + 1), "prop", b, (236, 110, 140),
                 "B55S-P05 礼物堆约 96×80（零件总表）；舞台西边地上，两排错开、相邻压 27；占地最下面 24", "gifts", foot=standing(b, 24))
+
+
+def _mess(pos, main, d0, d1, by, empty):
+    """排法 C 的桌心 → 打乱的桌心（MESS 档，见上面 MESS_LEVELS）。位 (排, 第几个) 不变，桌号就不变"""
+    import math
+    import random
+    P = dict(MESS_LEVELS[MESS])
+    P["seed"] = int(os.environ.get("SUQI55_SEED", P["seed"]))
+    rng = random.Random(P["seed"])
+    a, b = TABLE[0] / 2.0, TABLE[1] / 2.0
+    x_in = LAMP_FOOT_X - 1 - a                     # 西边桌心最靠红毯：占地不碰灯（跟 C 一样）
+    x_out = 41 + a                                 # 最靠墙：占地不碰墙
+    y_lo, y_hi = float(ROW0), float(rows_y[-1])    # 北边不过第 1 排（台口），南边不过最后一排（厅长不变）
+    # 不进桌的两块（按桌心算）：西墙长凳那块（桌画出来压着凳子也不行）、东侧门口（门前要留人走）
+    keep_out = [(0, by - 106, 190, 208), (W - 41 - a - 90, d0 - 80, 200, d1 - d0 + 160)]
+    keys = sorted(pos)
+    p = {k: [float(pos[k][0]), float(pos[k][1])] for k in keys}
+    # ⓪ C 里跟东侧门口对称空出来的那个位：那一排那一边剩下两张匀开占满（不留一个桌位大的洞）；东侧门口那个洞是门前的路，留着
+    for (r, k), why in empty.items():
+        if why == "跟东侧门口对称":
+            side = [j for j in keys if j[0] == r and j[1] // 3 == k // 3]
+            free = (x_in + a) - (x_out - a) - 2 * a * len(side)
+            for n, j in enumerate(sorted(side, key=lambda j: -p[j][0] if k < 3 else p[j][0])):
+                xl = x_in + a - free / (len(side) + 1) * (n + 1) - 2 * a * n - a
+                p[j][0] = xl if k < 3 else 2 * CX - xl
+    # ① 每排每边各自前后错、左右挪
+    for r in range(NROWS):
+        for side in (0, 1):
+            dy, dx = rng.uniform(-P["row"], P["row"]), rng.uniform(-P["shift"], P["shift"])
+            if r in (0, NROWS - 1):
+                dy = abs(dy) if r == 0 else -abs(dy)   # 第 1 排只能往南、最后一排只能往北（不然顶在边上又成一条直线）
+            for k in keys:
+                if k[0] == r and k[1] // 3 == side and k != main:
+                    p[k][0] += dx if side == 0 else -dx
+                    p[k][1] += dy
+    # ② 每张自己偏
+    for k in keys:
+        if k != main:
+            p[k][0] += rng.uniform(-P["ax"], P["ax"])
+            p[k][1] += rng.uniform(-P["ay"], P["ay"])
+    # ③ 挑几对挨着的拉近
+    close = set()
+    cand = [k for k in keys if k != main]
+    rng.shuffle(cand)
+    for k in cand:
+        if len(close) >= P["pairs"]:
+            break
+        nb = [j for j in keys if j != k and j[1] // 3 == k[1] // 3 and all(k not in c and j not in c for c in close)]
+        if not nb:
+            continue
+        j = min(nb, key=lambda j: math.hypot(p[j][0] - p[k][0], (p[j][1] - p[k][1]) * a / b))
+        close.add(frozenset((k, j)))
+        dx, dy = p[j][0] - p[k][0], p[j][1] - p[k][1]
+        d = math.hypot(dx, dy) or 1.0
+        for m, s in ((k, 1), (j, -1)):
+            if m != main:
+                p[m][0] += s * dx / d * P["pull"] / 2
+                p[m][1] += s * dy / d * P["pull"] / 2
+
+    def clamp(k):
+        x, y = p[k]
+        west = pos[k][0] < CX
+        xl = x if west else 2 * CX - x            # 东边照西边镜像算
+        xl = min(max(xl, x_out), x_in)
+        x = xl if west else 2 * CX - xl
+        y = min(max(y, y_lo), y_hi)
+        for zx, zy, zw, zh in keep_out:
+            if zx < x < zx + zw and zy < y < zy + zh:
+                y = zy if y - zy < zy + zh - y else zy + zh   # 往前或往后挪出去，哪边近挪哪边
+                if y < y_lo:
+                    y = zy + zh
+        p[k] = [x, y]
+
+    # 推开：两张一样大的占地椭圆，边到边至少 g ⇔ 圈心差落在 (2a+g, 2b+g) 那个椭圆外面（近似，最后用 _ellipse_gap 量真的）
+    # 前一半还带一点「松开」：离得不够 spread 的也轻轻推一下（拉近的那几对不推），C 里空出来的位就有桌慢慢挪过去，不留明显空位
+    def push(rounds, soft):
+        for it in range(rounds):
+            moved = 0.0
+            for i, k in enumerate(keys):
+                for j in keys[i + 1:]:
+                    dx, dy = p[j][0] - p[k][0], p[j][1] - p[k][1]
+                    pair_close = frozenset((k, j)) in close
+                    g = P["close"] if pair_close else P["gap"]
+                    rate = 0.6
+                    q = (dx / (2 * a + g)) ** 2 + (dy / (2 * b + g)) ** 2
+                    if q >= 1.0 and soft and not pair_close:
+                        g, rate = P["spread"], 0.08
+                        q = (dx / (2 * a + g)) ** 2 + (dy / (2 * b + g)) ** 2
+                    if q >= 1.0:
+                        continue
+                    if q < 1e-6:
+                        dx, dy, q = 1.0, 0.0, (1.0 / (2 * a + g)) ** 2
+                    s = 1.0 / math.sqrt(q) - 1.0
+                    fk, fj = (0.0, 1.0) if k == main else ((1.0, 0.0) if j == main else (0.5, 0.5))
+                    p[k][0] -= dx * s * fk * rate
+                    p[k][1] -= dy * s * fk * rate
+                    p[j][0] += dx * s * fj * rate
+                    p[j][1] += dy * s * fj * rate
+                    moved += s * rate
+            for k in keys:
+                if k != main:
+                    clamp(k)
+            if moved < 1e-4:
+                break
+    push(300, True)
+    push(800, False)
+    _mess.close = close
+    return {k: (int(round(v[0])), int(round(v[1]))) for k, v in p.items()}
 
 
 def overlaps(a, b):

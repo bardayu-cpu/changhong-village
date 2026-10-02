@@ -324,10 +324,12 @@
    0
   ]
  ],
- "scene_problems": [],
+ "scene_problems": [
+  "色块图上数 B55S-T01 得 17 块，零件单写 34 件"
+ ],
  "table_problems": [],
  "count_on_picture": {
-  "B55S-T01": 34,
+  "B55S-T01": 17,
   "B55S-T02": 0,
   "B55S-P01": 12,
   "B55S-P02": 0,
