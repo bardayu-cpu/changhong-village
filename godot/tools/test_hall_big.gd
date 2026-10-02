@@ -160,6 +160,7 @@ func run() -> void:
     var t1: Dictionary = h._table_cfg("T1")
     var t2: Dictionary = h._table_cfg("T2")
     # 排法 C（阿鱼 10/2）：主桌在第 1 排红毯西边第一张（这一排西边别的位让给礼物堆）；T1、T2 也在第 1 排（东边，离红毯近的先编号）
+    # 打乱的几档（SUQI55_MESS）一排不再一条直线：「也在第 1 排」算前后差不到半排（60）
     var row0_west_closer := false
     for t in tabs:
         if float(t["y"]) == float(mt["y"]) and float(t["x"]) < 768.0 and float(t["x"]) > float(mt["x"]):
@@ -169,7 +170,7 @@ func run() -> void:
         if float(t["y"]) < float(mt["y"]):
             first_row = false
     check("主桌 %s 在第 1 排红毯西边第一张；T1 %s、T2 %s 也在第 1 排" % [Vector2(mt["x"], mt["y"]), Vector2(t1["x"], t1["y"]), Vector2(t2["x"], t2["y"])],
-        first_row and float(mt["x"]) < 768.0 and not row0_west_closer and float(t1["y"]) == float(mt["y"]) and float(t2["y"]) == float(mt["y"]))
+        first_row and float(mt["x"]) < 768.0 and not row0_west_closer and absf(float(t1["y"]) - float(mt["y"])) < 60.0 and absf(float(t2["y"]) - float(mt["y"])) < 60.0)
     check("没有横幅和 LED 屏（阿鱼 9/28）", h.signs == null)
     var rugs := 0
     for s in h.life.get_children():
