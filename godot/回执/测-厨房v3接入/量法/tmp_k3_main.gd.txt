@@ -1,0 +1,330 @@
+extends SceneTree
+## 03 自己写的厨房 v3 接入探针（跑完删，不提交）：两种厅各走一遍——宴会厅 → 后厅 → 厨房（界面按钮、盘位、文案）→ 回宴会厅，钱包、厨房进度、换场景
+const Main = preload("res://scripts/main.gd")
+const DT := 1.0 / 60.0
+const KSAVE := "user://suqi_kitchen.json"
+const KBAK := "user://suqi_kitchen.bak03"
+const GAMES := "user://tmp03_games.json"
+
+var m
+var started := false
+var ok := true
+
+func _initialize() -> void:
+    if FileAccess.file_exists(KSAVE):
+        DirAccess.copy_absolute(ProjectSettings.globalize_path(KSAVE), ProjectSettings.globalize_path(KBAK))
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(KSAVE))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(Main.HALL55_FLAG))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(GAMES))
+    m = Main.new()
+    m.fast = true
+    get_root().add_child(m)
+
+func _process(_dt: float) -> bool:
+    if started:
+        return false
+    started = true
+    run()
+    return false
+
+func check(name: String, cond: bool) -> void:
+    print(("  好 " if cond else "  不行 ") + name)
+    ok = ok and cond
+
+func tick(n: int) -> void:
+    for i in n:
+        m.cv._process(DT)
+        m._process(DT)
+
+func walk_to(target: Vector2, secs := 30.0) -> void:
+    m.cv.go_to(target)
+    for i in int(secs / DT):
+        tick(1)
+        if m.cv.path.is_empty():
+            break
+
+func all_text(n: Node, out: Array = []) -> Array:
+    if n is Label:
+        out.append((n as Label).text)
+    elif n is Button:
+        out.append((n as Button).text)
+    for c in n.get_children():
+        all_text(c, out)
+    return out
+
+func nodes_with_meta(n: Node, key: String, out: Array = []) -> Array:
+    if n.has_meta(key):
+        out.append(n)
+    for c in n.get_children():
+        nodes_with_meta(c, key, out)
+    return out
+
+func press(p, action: String) -> bool:
+    for b in nodes_with_meta(p.playfield, "kitchen_action"):
+        if b is Button and str(b.get_meta("kitchen_action")) == action and not b.disabled:
+            b.pressed.emit()
+            return true
+    return false
+
+func greedy(p, max_steps := 2400) -> void:
+    var g = p.rules
+    for step in max_steps:
+        if not g.active:
+            break
+        for i in g.pots.size():
+            var pot: Dictionary = g.pots[i]
+            if pot.state == "empty":
+                var taken := {}
+                for q in g.pots:
+                    if q.state != "empty":
+                        taken["%s:%s" % [q.order_id, q.dish_index]] = true
+                for pl in g.plates:
+                    taken["%s:%s" % [pl.order_id, pl.dish_index]] = true
+                var os: Array = g.orders.duplicate()
+                os.sort_custom(func(a, b): return float(a.left) < float(b.left))
+                var picked := false
+                for o in os:
+                    if picked:
+                        break
+                    for d in o.dishes.size():
+                        if not o.dishes[d].done and not taken.has("%s:%s" % [o.id, d]) and g.choose_order_dish(i, o.id, d):
+                            for ing in g.pots[i].required:
+                                g.add_ingredient(i, ing)
+                            picked = true
+                            break
+            elif pot.state == "ready":
+                if g.serve_pot(i):
+                    g.deliver_auto()
+            elif pot.state in ["burnt", "invalid"]:
+                g.clear_pot(i)
+        while not g.plates.is_empty() and g.deliver_auto():
+            pass
+        g.tick(0.5)
+    p.departures.clear()
+    p._process(0.01)
+
+func route(label: String) -> void:
+    var h = m.hall
+    var b = m.backhall
+    print("== %s（%s 张桌）" % [label, h.cfg["tables"].size()])
+    m.hall_side_latched = false
+    h.stand_up()
+    h.reset_to(h.side_door + Vector2(-90, 0))
+    tick(2)
+    walk_to(h.side_door)
+    for i in 120:
+        if m.state == "backhall" and not m.switching:
+            break
+        await process_frame
+    check("%s：东侧门进了后厅" % label, m.state == "backhall" and m.cv == b)
+    walk_to(Vector2(1272, 790))
+    walk_to(b.spot_pos("pot"))
+    check("%s：走到大锅出「%s」" % [label, m.backhall_ui.act_btn.text], m.backhall_ui.act_btn.visible and m.backhall_ui.act_btn.text == "穿上围裙 · 学做菜")
+    m.backhall_ui._on_act()
+    await process_frame
+    var p = m.game_host
+    check("%s：打开厨房，后厅停住" % label, is_instance_valid(p) and not b.walking_enabled)
+    var unlocked0: int = p.unlocked
+    print("    厨房进度（进来时）unlocked=%d，钱包 %d" % [unlocked0, m.games_save.coins])
+    # ---- 界面层面做一道菜：选菜（规则接口）、点原料按钮、烧、点「盛出」、点「交菜」
+    p._start(1)
+    await process_frame
+    var g = p.rules
+    var coins0: int = m.games_save.coins
+    check("%s：第 1 关一位服务员、一口锅（%d 位 %d 锅）" % [label, g.orders.size(), g.pots.size()], g.orders.size() == 1 and g.pots.size() == 1)
+    var trays: Array = nodes_with_meta(p.playfield, "waiter_tray_order")
+    var empties: Array = nodes_with_meta(p.playfield, "empty_counter_plate_slot")
+    print("    第 1 关屏上：服务员的托盘层 %d 个，台面空盘位 %d 个（订单 %d 位）" % [trays.size(), empties.size(), g.orders.size()])
+    var order_id: int = g.orders[0].id
+    g.choose_order_dish(0, order_id, 0)
+    p._render()
+    var shown := all_text(p)
+    for ing in g.pots[0].required:
+        var hit: bool = press(p, str(ing))
+        if not hit:
+            print("    没找到原料按钮 ", ing)
+        await process_frame
+    check("%s：点原料按钮加完 %d 样、进入烧（%s）" % [label, g.pots[0].required.size(), g.pots[0].state], g.pots[0].state == "cooking")
+    print("    规则文案「%s」；屏上状态栏文字「%s」" % [g.message, p.status.text if is_instance_valid(p.status) else "（无）"])
+    var txt_cook := all_text(p)
+    check("%s：「正在烧，熟了点锅盛出」规则里是对的（%s）" % [label, g.message == "正在烧，熟了点锅盛出"], g.message == "正在烧，熟了点锅盛出")
+    print("    屏上能找到这句：%s" % [txt_cook.has("正在烧，熟了点锅盛出")])
+    g.tick(float(g.recipe_data(str(g.pots[0].recipe)).seconds) + 0.1)
+    p._render()
+    check("%s：熟了，锅下状态牌变成可点的「盛出」" % label, press(p, "serve"))
+    await process_frame
+    print("    规则文案「%s」；屏上状态栏文字「%s」" % [g.message, p.status.text if is_instance_valid(p.status) else "（无）"])
+    check("%s：「装好盘了，点交菜」规则里是对的" % label, g.message == "装好盘了，点交菜")
+    print("    屏上能找到这句：%s" % [all_text(p).has("装好盘了，点交菜")])
+    var prepared: Array = nodes_with_meta(p.playfield, "prepared_counter_slot")
+    check("%s：盘里的菜摆在第 %d 位服务员前面（盘位 %s）" % [label, int(g.orders[0].slot), str(prepared.map(func(n): return n.get_meta("prepared_counter_slot")))], prepared.size() == 1 and int(prepared[0].get_meta("prepared_counter_slot")) == int(g.orders[0].slot))
+    check("%s：点「交菜」" % label, press(p, "deliver"))
+    await process_frame
+    check("%s：交菜后金币 %d → %d（+3）" % [label, coins0, m.games_save.coins], m.games_save.coins == coins0 + 3)
+    var tray_dishes: Array = nodes_with_meta(p.playfield, "tray_dish")
+    print("    交完以后服务员托盘里的菜 %d 份（要 1 份挂在这位服务员托盘上）" % tray_dishes.size())
+    # 双击「交菜」不重复发钱
+    press(p, "deliver")
+    await process_frame
+    check("%s：再点一下「交菜」不重复发钱（%d）" % [label, m.games_save.coins], m.games_save.coins == coins0 + 3)
+    # ---- 打通第 1 关：进度存没存
+    greedy(p)
+    await process_frame
+    check("%s：第 1 关打通（won=%s，交 %d）" % [label, g.won, g.completed], g.won)
+    var ksave: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(KSAVE)) if FileAccess.file_exists(KSAVE) else {}
+    check("%s：厨房进度存了：%s" % [label, str(ksave)], int(ksave.get("unlocked", 0)) == 2)
+    var result_text := all_text(p)
+    print("    结算卡文字：%s" % [str(result_text.filter(func(t): return t != ""))])
+    var coins_after1: int = m.games_save.coins
+    var local: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(m.games_save.local_path))
+    check("%s：金币进钱包：本机 %s、电脑假服务端 %s、顶栏 %s、没有未同步" % [label, local.get("coins"), m.cloud.fake_mine.get("coins"), m.coins_chip.text], int(local.get("coins", -1)) == m.games_save.coins and int(m.cloud.fake_mine.get("coins", -1)) == m.games_save.coins and not m.games_save.dirty)
+    # ---- 失败：不动，三位服务员等走了，结算卡上 N
+    p._start(1)
+    await process_frame
+    for k in 2400:
+        if not p.rules.active:
+            break
+        p.rules.tick(0.5)
+    p.departures.clear()
+    p._process(0.01)
+    await process_frame
+    var lose_text := all_text(p)
+    check("%s：不动输了（missed=%d），结算卡上有「%s」" % [label, p.rules.missed, p.rules.message], lose_text.has(p.rules.message) and p.rules.message == "有 3 位服务员没等到菜，再试一次吧")
+    check("%s：输了不扣钱、不涨钱（%d）" % [label, m.games_save.coins], m.games_save.coins == coins_after1)
+    # ---- 第 4 关：三人三锅，屏上盘位和托盘
+    p._start(4)
+    await process_frame
+    g = p.rules
+    for k in 120:
+        if g.orders.size() >= 3:
+            break
+        g.tick(0.5)
+    p._render()
+    await process_frame
+    trays = nodes_with_meta(p.playfield, "waiter_tray_order")
+    empties = nodes_with_meta(p.playfield, "empty_counter_plate_slot")
+    print("    第 4 关屏上：服务员托盘层 %d 个、台面空盘位 %d 个、订单 %d 位、锅 %d 口" % [trays.size(), empties.size(), g.orders.size(), g.pots.size()])
+    check("%s：第 4 关三位服务员、三口锅、三个盘位" % label, g.orders.size() == 3 and g.pots.size() == 3 and empties.size() == 3 and trays.size() == 3)
+    # 给每位做一道、各盛出：盘落在各自服务员前面
+    var slots_ok := true
+    for i in 3:
+        var o: Dictionary = g.orders[i]
+        if not g.choose_order_dish(i, o.id, 0):
+            slots_ok = false
+            continue
+        for ing in g.pots[i].required:
+            g.add_ingredient(i, ing)
+    var longest := 0.0
+    for i in 3:
+        longest = maxf(longest, float(g.recipe_data(str(g.pots[i].recipe)).seconds))
+    g.tick(longest + 0.1)
+    for i in 3:
+        # 各锅的窗口 6 秒，做得最慢的那锅熟时别的锅可能已经糊了：只盛没糊的
+        if g.pots[i].state == "ready":
+            g.serve_pot(i)
+    p._render()
+    await process_frame
+    prepared = nodes_with_meta(p.playfield, "prepared_counter_slot")
+    var mism := 0
+    for pl in g.plates:
+        var want := -1
+        for o in g.orders:
+            if int(o.id) == int(pl.order_id):
+                want = int(o.slot)
+        print("    盘 %s（给订单 %s，该在盘位 %d）" % [pl.recipe, pl.order_id, want])
+    for n in prepared:
+        pass
+    print("    台面上的菜 %d 份，分在盘位 %s；盘 %d 个" % [prepared.size(), str(prepared.map(func(n): return n.get_meta("prepared_counter_slot"))), g.plates.size()])
+    var rightplace := true
+    for pl in g.plates:
+        for o in g.orders:
+            if int(o.id) == int(pl.order_id):
+                var cnt := 0
+                for n in prepared:
+                    if int(n.get_meta("prepared_counter_slot")) == int(o.slot):
+                        cnt += 1
+                rightplace = rightplace and cnt >= 1
+    check("%s：每份盛出来的菜都摆在要它的那位服务员前面" % label, rightplace and prepared.size() == g.plates.size())
+    g.paused = false
+    # 暂停（切后台）
+    p._pause_for_background()
+    var left_before: float = g.orders[0].left if not g.orders.is_empty() else 0.0
+    g.tick(10.0)
+    check("%s：切后台暂停：订单倒计时不走（%.1f → %.1f）、消息「%s」" % [label, left_before, g.orders[0].left if not g.orders.is_empty() else 0.0, g.message], g.paused and (g.orders.is_empty() or g.orders[0].left == left_before))
+    p._toggle_pause()
+    check("%s：点继续接着走（paused=%s）" % [label, g.paused], not g.paused)
+    greedy(p)
+    await process_frame
+    print("    第 4 关结果：won=%s 交 %d 道，金币 %d → %d" % [g.won, g.completed, coins_after1, m.games_save.coins])
+    check("%s：第 4 关打通" % label, g.won)
+    var ks2: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(KSAVE))
+    print("    厨房进度存档：%s" % [str(ks2)])
+    check("%s：打通第 4 关进度记到 5" % label, int(ks2.get("unlocked", 0)) == 5)
+    var coins_end: int = m.games_save.coins
+    # ---- 关厨房 → 回宴会厅 → 再进后厅 → 再开厨房：钱不丢、进度记着
+    p._close()
+    await process_frame
+    await process_frame
+    check("%s：关了厨房，后厅能走" % label, m.game_host == null and b.walking_enabled)
+    walk_to(Vector2(200, 790))
+    walk_to(b.spot_pos("to_hall"))
+    for i in 120:
+        if m.state == "banquet" and not m.switching:
+            break
+        await process_frame
+    check("%s：西口回了宴会厅，钱包 %d（关厨房时 %d），顶栏「%s」" % [label, m.games_save.coins, coins_end, m.coins_chip.text], m.state == "banquet" and m.games_save.coins == coins_end and m.coins_chip.text == "%d 金" % coins_end)
+    m.hall_side_latched = false
+    h.stand_up()
+    h.reset_to(h.side_door + Vector2(-90, 0))
+    tick(2)
+    walk_to(h.side_door)
+    for i in 120:
+        if m.state == "backhall" and not m.switching:
+            break
+        await process_frame
+    walk_to(Vector2(1272, 790))
+    walk_to(b.spot_pos("pot"))
+    m.backhall_ui._on_act()
+    await process_frame
+    var p2 = m.game_host
+    check("%s：第二次进厨房，进度记着 unlocked=%d、钱包 %d" % [label, p2.unlocked, m.games_save.coins], is_instance_valid(p2) and p2.unlocked == 5 and m.games_save.coins == coins_end)
+    p2._close()
+    await process_frame
+    walk_to(Vector2(200, 790))
+    walk_to(b.spot_pos("to_hall"))
+    for i in 120:
+        if m.state == "banquet" and not m.switching:
+            break
+        await process_frame
+    check("%s：又回了宴会厅" % label, m.state == "banquet")
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(KSAVE))   # 下一种厅从头来（进度归零，钱留着）
+
+func run() -> void:
+    m.cloud.fake_no_news = true
+    for i in 600:
+        if m.state == "title":
+            break
+        await process_frame
+    await process_frame
+    m.games_save.local_path = GAMES
+    m.court_save.local_path = "user://tmp03_court.json"
+    m.nickname = "小李"
+    await m._enter_banquet()
+    await m._set_hall55(false, false)   # 默认厅现在是 55 桌，要走第 44 版厅得明着切
+    await create_timer(0.3).timeout
+    check("先走第 44 版厅（桌数 %d，big=%s）" % [m.hall.cfg["tables"].size(), m.hall.big], not m.hall.big and m.hall.cfg["tables"].size() < 20)
+    await route("第 44 版厅")
+    await m._set_hall55(true, false)
+    await create_timer(0.5).timeout
+    check("切到 55 桌厅", m.hall.big and m.state == "banquet")
+    await route("55 桌厅")
+    pass
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(Main.HALL55_FLAG))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(GAMES))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path("user://tmp03_court.json"))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(KSAVE))
+    if FileAccess.file_exists(KBAK):
+        DirAccess.copy_absolute(ProjectSettings.globalize_path(KBAK), ProjectSettings.globalize_path(KSAVE))
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(KBAK))
+    print("RESULT ", "PASS" if ok else "FAIL")
+    quit(0 if ok else 1)
