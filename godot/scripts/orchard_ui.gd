@@ -3,6 +3,8 @@ extends Control
 ##   走到垄间、树下：有熟的出「收草莓（3 垄熟了）」，点一下把熟了的一次收完，进果篮；
 ##                   没熟顶部报「草莓还有 2 分 10 秒」；季节开关打开又不在季节，才是老话「还没到时候」
 ##   走到山庄收购处：果篮有东西出「卖给山庄（14 金）」，点了加金币、说一句；空着顶部报「果篮是空的」
+##   第一次收草莓、第一次收枇杷各弹阿鱼一句（蓝图 3.6，9/20 定）：话没定（【待补】）之前不弹；弹过一次记在本机，以后不再弹。
+##   弹的时候「收了几筐」挪到顶部那条小字，对话框留给阿鱼那句
 ##   farm.json 里 sell_mode = auto（默认）：收完直接折钱，不用跑收购处；收的时候只说「收了 6 筐草莓」不写金（蓝图 3.6）
 ## 话在 assets/orchard/lines.json，数在 assets/orchard/farm.json
 
@@ -97,16 +99,28 @@ func _on_act() -> void:
             var r: Dictionary = o.sell()
             if int(r["coins"]) > 0:
                 m.games_save.earn(int(r["coins"]))
-            m._say(Copy.text("harvested_auto", Copy.ORCHARD).format(
-                {"fruit": o.fruit_name(kind), "n": got, "unit": o.basket_unit(kind)}), -1.0, "")
-        else:
-            m._say(Copy.text("harvested", Copy.ORCHARD).format(
-                {"fruit": o.fruit_name(kind), "n": got, "unit": o.basket_unit(kind)}), -1.0, "")
+        var said := Copy.text("harvested_auto" if o.auto_sell() else "harvested", Copy.ORCHARD).format(
+            {"fruit": o.fruit_name(kind), "n": got, "unit": o.basket_unit(kind)})
+        if not _first_line(kind, said):
+            m._say(said, -1.0, "")
         sync()
         return
     if at_shop:
         _sell()
         sync()
+
+## 第一次收这种果子：阿鱼那句写好了、本机没弹过，就弹（收了几筐挪到顶部小字），记下弹过了；回 true 表示弹了。
+## 话还是【待补】的不弹、也不记——阿鱼定了句子以后，没见过的人下一回收的时候看得到
+func _first_line(kind: String, harvested_text: String) -> bool:
+    var key := "first_" + kind
+    var line := Copy.text(key, Copy.ORCHARD)
+    if not Copy.has(key, Copy.ORCHARD) or Copy.placeholder(line) or bool(m.orchard_save.firsts.get(kind, false)):
+        return false
+    m.orchard_save.firsts[kind] = true
+    m.orchard_save.save()
+    m._note(harvested_text, 3.0)
+    m._say(line, -1.0, Copy.who(key, Copy.ORCHARD))
+    return true
 
 func _sell() -> void:
     var o = m.orchard
