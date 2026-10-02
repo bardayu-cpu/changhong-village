@@ -55,6 +55,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
     ap.add_argument("--break", dest="brk", choices=["size", "sha", "qa"])
+    ap.add_argument("--straight-walls", action="store_true", help="背景两边 y 236 往下画成 40 宽的直墙（照 GPT 新背景），墙边透视那段补成地砖")
     a = ap.parse_args()
     out = a.out
     if os.path.exists(out):
@@ -64,6 +65,16 @@ def main():
     files, items = {}, []
 
     bg = Image.open(os.path.join(ART, "base_banquet55_north_v2.png")).convert("RGB")
+    ww = Image.open(os.path.join(ART, "tex_banquet55_wall_west_v1.png")).convert("RGB")
+    we = Image.open(os.path.join(ART, "tex_banquet55_wall_east_v1.png")).convert("RGB")
+    if a.straight_walls:
+        # 墙边透视那截（v2 里 y 236～760 两边往里斜着的墙）先拿旁边的地砖盖掉，再贴 40 宽的竖墙
+        for y in range(236, 1024):
+            bg.paste(bg.crop((160, y, 300, y + 1)), (40, y))
+            bg.paste(bg.crop((1236, y, 1376, y + 1)), (1356, y))
+        for y in range(236, 1024, ww.height):
+            bg.paste(ww, (0, y))
+            bg.paste(we, (1536 - we.width, y))
     bg.save(os.path.join(out, "native", "B55S-BG01.png"))
     bg.save(os.path.join(out, "base_B55S-BG01_v1.png"))
     files["base_B55S-BG01_v1.png"] = {"id": "B55S-BG01", "kind": "background", "part_id": "B55S-BG01", "size": [1536, 1024],
@@ -72,6 +83,8 @@ def main():
                                                      "resized": False, "crop": [0, 0, 1536, 1024]}}
     tile = fake_tile(bg)
     tile.save(os.path.join(out, "tex_B55S-W01_v1.png"))
+    ww.save(os.path.join(out, "tex_B55S-W02_v1.png"))   # 冒充：现在游戏里的竖墙
+    we.save(os.path.join(out, "tex_B55S-W03_v1.png"))
 
     final = bg.convert("RGBA")
     frames = []

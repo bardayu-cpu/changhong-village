@@ -39,6 +39,9 @@ PARTS = {
     "B55S-P03": {"size": (32, 32), "out": "blk_banquet55s_flowerpot_v1.png", "kind": "prop"},
     "B55S-P04": {"size": (72, 54), "out": "blk_banquet55s_bench_v1.png", "kind": "prop"},
     "B55S-W01": {"size": None, "out": "tex_banquet55s_floor_v1.png", "kind": "tile"},   # 瓦片：大小不定，要双数、不透明
+    # 中间那截两边的竖墙（01 E 10/2：北边新背景墙画直了，中间墙跟着换；零件总表 0497340）：40×240，上下接得上
+    "B55S-W02": {"size": (40, 240), "out": "tex_banquet55s_wall_west_v1.png", "kind": "walltile"},
+    "B55S-W03": {"size": (40, 240), "out": "tex_banquet55s_wall_east_v1.png", "kind": "walltile"},
 }
 # 游戏里人坐的椅子圈（build_graybox55.py 的 SEAT_TABLE、SEAT_MAIN；圈心 = 占地中心 + dy，占地中心在框里 (90, 100)）
 SEAT_RING = {"B55S-T01": (90.0, 100.0 - 18.0, 63.0, 50.0), "B55S-T02": (90.0, 100.0 - 22.0, 75.0, 57.0)}
@@ -167,11 +170,12 @@ def main():
             found[pid] = (fname, entry)
         elif pid:
             warns.append("零件单外的编号，不接：%s（%s）" % (pid, fname))
-    # 地砖瓦片可能不在 placement 的 files 里（它不摆，只铺）：按文件名找
-    if "B55S-W01" not in found:
-        for fn in sorted(os.listdir(pack)):
-            if "B55S-W01" in fn and fn.endswith(".png"):
-                found["B55S-W01"] = (fn, {})
+    # 地砖、竖墙瓦片可能不在 placement 的 files 里（它们不摆，只铺）：按文件名找
+    for wid in ("B55S-W01", "B55S-W02", "B55S-W03"):
+        if wid not in found:
+            for fn in sorted(os.listdir(pack)):
+                if wid in fn and fn.endswith(".png"):
+                    found[wid] = (fn, {})
     for pid, spec in PARTS.items():
         if pid not in found:
             errors.append("没交：%s（要存成 %s）" % (pid, spec["out"]))
@@ -187,6 +191,14 @@ def main():
         if spec["kind"] == "background":
             if im.mode == "RGBA" and im.getchannel("A").getextrema()[0] < 255:
                 errors.append("%s 背景有透明的地方" % pid)
+            im = im.convert("RGB")
+        elif spec["kind"] == "walltile":
+            t = tile_report(im)
+            r["tile"] = t
+            if not t["opaque"]:
+                warns.append("%s 竖墙有透明的地方（40 宽整条都是墙，应该不透明）" % pid)
+            if t["wrap_tb"] > max(12.0, t["inner_row"] * 3):
+                warns.append("%s 上下接不上（上沿和下沿差 %.1f，图里相邻两行差 %.1f）" % (pid, t["wrap_tb"], t["inner_row"]))
             im = im.convert("RGB")
         elif spec["kind"] == "tile":
             t = tile_report(im)

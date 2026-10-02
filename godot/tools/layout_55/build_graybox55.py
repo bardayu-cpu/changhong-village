@@ -43,7 +43,8 @@ ART_SOUTH = os.path.join(ART, "base_banquet55_south_v1.png")   # 最南头 1024 
 # 图由 import_gpt_pack.py 从 GPT 交的包里接进 art/，名字照零件总表。框和坐标还是 B55 那套（位置以色块为准），所以只换图：
 #   北边背景 → B55S-BG01；桌、主桌、灯、花架、花盆、长凳 → B55S-T01、T02、P01～P04（灯一张，红毯两边和墙边都用它）；
 #   中间那截地砖 → B55S-W01 一块块铺（对齐北边背景最下面的砖，接缝小）；红毯那一条照旧用北边背景最下面那截往下接。
-#   能走的格子：两边墙还照 v2 背景量（任务原文「墙和地面的边照现状，不挪」），新背景量出来不一样只提醒
+#   两边墙（01 E 10/2 定）：GPT 照色块把墙画成笔直的 40 宽，能走的格子也照 40 宽平条算——看着能走就要走得上去；
+#   中间那截竖墙换 B55S-W02（西）、W03（东），跟新北墙一个样子
 ART_SET = os.environ.get("SUQI55_ART", "b55")
 ART_FLOOR = None
 BOUNDS_BG = None
@@ -56,6 +57,9 @@ if ART_SET == "b55s":
     ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v1.png")
 ART_WALL_W = os.path.join(ART, "tex_banquet55_wall_west_v1.png")   # 中间那截的竖墙，40×240 一段段接
 ART_WALL_E = os.path.join(ART, "tex_banquet55_wall_east_v1.png")
+if ART_SET == "b55s":
+    ART_WALL_W = os.path.join(ART, "tex_banquet55s_wall_west_v1.png")
+    ART_WALL_E = os.path.join(ART, "tex_banquet55s_wall_east_v1.png")
 WALL_FROM = 724   # 北边那张的墙是透视的，西墙最下那根柱子到 y 724 左右——竖墙从这儿接下去（再往下北边那张两边已经是地砖）
 # 乐队台上的乐手（01 D 9/30）：用 12 桌厅那套 GPT 乐手零件（band v3）。只摆两位站着的小提琴手：
 # 量过（人 84、坐着 62）：小提琴 a 高 107（1.3 倍）、b 120（1.4 倍），都没超 1.5 倍，照原样摆在背景两个谱架前面；
@@ -143,7 +147,7 @@ def block_image(it):
 
 def art_on():
     ok = os.path.exists(ART_BG) and all(os.path.exists(os.path.join(ART, f)) for f in ART_PIECES.values())
-    if ART_SET == "b55s" and not (ok and os.path.exists(ART_FLOOR)):
+    if ART_SET == "b55s" and not (ok and all(os.path.exists(f) for f in (ART_FLOOR, ART_WALL_W, ART_WALL_E))):
         raise SystemExit("SUQI55_ART=b55s 但 art/ 里现场版的图不齐：先跑 import_gpt_pack.py 接 GPT 的包")
     return ok
 
@@ -322,12 +326,13 @@ def main():
         base, seam = compose(bg, W, H)
         bounds = floor_bounds(bg)
         if BOUNDS_BG:
-            # 现场版：走路格子的两边墙照 v2 背景（墙和地面的边不许挪）；新背景量出来差得多的行报出来
-            new_b, bounds = bounds, floor_bounds(Image.open(BOUNDS_BG).convert("RGB"))
-            bad = [(y, bounds[y], new_b.get(y)) for y in sorted(bounds) if new_b.get(y) and
-                   max(abs(bounds[y][0] - new_b[y][0]), abs(bounds[y][1] - new_b[y][1])) > 8]
-            if bad:
-                print("提醒：新背景两边墙跟 v2 差 8 像素以上的有 %d 行（走路格子照 v2），例：y %d v2 %s 新 %s" % (len(bad), *bad[0]))
+            # 现场版：走路格子的两边墙照 40 宽平条（01 E 10/2）；新背景照地砖颜色量出来，离平条差 8 像素以上的行报出来
+            # （GPT 要是哪段没画直、墙边留了别的东西，这里看得见）
+            new_b, bounds = bounds, {y: (40, W - 40) for y in bounds}
+            bad = [(y, new_b[y]) for y in sorted(new_b) if y >= 260 and
+                   max(abs(new_b[y][0] - 40), abs(new_b[y][1] - (W - 40))) > 8]
+            print("现场版走路格子两边墙照 40 宽平条；新背景量出来离平条差 8 像素以上的 %d 行%s" % (
+                len(bad), "，例：y %d 量到 %s" % bad[0] if bad else ""))
         # 桌下暗影：一块黑的椭圆，边上高斯糊开，乘 20% 叠上去
         sh = TABLE_SHADOW
         pad = sh["blur"] * 3
