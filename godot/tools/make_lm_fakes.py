@@ -28,8 +28,7 @@ def hue_shift(im, d):
             if a == 0:
                 continue
             h, s, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
-            skin = h < 0.12 and 0.15 < s < 0.75 and v > 0.45   # 皮肤（偏橙、不太饱和、亮）别改
-            if s > 0.25 and not skin:   # 只改衣服这类有颜色的，皮肤、头发（饱和度低）留着
+            if 0.33 < h < 0.7 and s > 0.2:   # 只改外套那种青绿、蓝的颜色；皮肤、头发、裤子、金扣子都不动
                 r, g, b = colorsys.hsv_to_rgb((h + d) % 1.0, s, v)
             px[x, y] = (int(r * 255), int(g * 255), int(b * 255), a)
     return im
