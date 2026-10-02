@@ -270,9 +270,9 @@ var h55_acc := 0.0
 
 func _ready() -> void:
     # [suqi] 开头的几行是启动进度，微信预览版的调试弹窗靠它们判断卡在哪
-    print("[suqi] 脚本开始")
+    print("[suqi] 脚本开始 ", Time.get_ticks_msec(), " 毫秒")   # 启动进度带引擎起来以后的毫秒数（02 10/3：真机上看每段多久）
     font = _make_font()
-    print("[suqi] 字体好了")
+    print("[suqi] 字体好了 ", Time.get_ticks_msec(), " 毫秒")
     ui = Control.new()
     ui.set_anchors_preset(Control.PRESET_FULL_RECT)
     ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -302,7 +302,7 @@ func _ready() -> void:
     court.build(preset, "", font)
     court.spot.connect(_on_court_spot)
     court.walking_enabled = false
-    print("[suqi] 迎宾院搭好了")
+    print("[suqi] 迎宾院搭好了 ", Time.get_ticks_msec(), " 毫秒")
     backhall = load(BACKHALL_START).new() if "--backhall=start" in OS.get_cmdline_user_args() else Backhall.new()
     sv.add_child(backhall)
     backhall.build(preset, "", font)
@@ -310,20 +310,20 @@ func _ready() -> void:
     if backhall.has_signal("kitchen_requested"):
         backhall.kitchen_requested.connect(_open_kitchen)
     backhall.walking_enabled = false
-    print("[suqi] 后厅搭好了")
+    print("[suqi] 后厅搭好了 ", Time.get_ticks_msec(), " 毫秒")
     lawn = Lawn.new()
     sv.add_child(lawn)
     lawn.build(preset, "", font)
     lawn.spot.connect(_on_lawn_spot)
     lawn.fetched.connect(_on_lawn_fetched)
     lawn.walking_enabled = false
-    print("[suqi] 草坪搭好了")
+    print("[suqi] 草坪搭好了 ", Time.get_ticks_msec(), " 毫秒")
     lake = Lake.new()
     sv.add_child(lake)
     lake.build(preset, "", font)
     lake.spot.connect(_on_lake_spot)
     lake.walking_enabled = false
-    print("[suqi] 湖边搭好了")
+    print("[suqi] 湖边搭好了 ", Time.get_ticks_msec(), " 毫秒")
     orchard_save = OrchardSave.new()
     orchard_save.load_local()
     orchard = Orchard.new()
@@ -333,7 +333,7 @@ func _ready() -> void:
     orchard.refresh_fruit()
     orchard.spot.connect(_on_orchard_spot)
     orchard.walking_enabled = false
-    print("[suqi] 果园搭好了")
+    print("[suqi] 果园搭好了 ", Time.get_ticks_msec(), " 毫秒")
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     court_save = CourtSave.new()
@@ -366,7 +366,7 @@ func _ready() -> void:
         hall.walking_enabled = state == "banquet" and not open and not whisper_box.visible
         _refresh_seat_buttons())
     ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
-    print("[suqi] 界面搭好了")
+    print("[suqi] 界面搭好了 ", Time.get_ticks_msec(), " 毫秒")
     var cap := ""
     var shot := ""
     var start := ""   # 开发用：--start=<截图预设名> 跳过开场直接到那个地方，人能接着走（比如 --start=backhall 直接进后厅）
@@ -394,7 +394,7 @@ func _ready() -> void:
         ui.add_child(wait)
         await hall.warm_up()
         wait.queue_free()
-        print("[suqi] 着色器预热完了")
+        print("[suqi] 着色器预热完了 ", Time.get_ticks_msec(), " 毫秒")
         if OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args():
             _build_debug()
         if start != "":
@@ -403,6 +403,7 @@ func _ready() -> void:
             print("[suqi] 直接到了 ", start, "（--start）")
             return
         _goto("title")
+        _boot_mark("title")
         _fade_to(0.0)
         # 保险：不管前面哪里没走完，2 秒后开场一定亮出来
         get_tree().create_timer(2.0).timeout.connect(func():
@@ -410,7 +411,7 @@ func _ready() -> void:
                 fade.color.a = 0.0
                 print("[suqi] 开场黑幕是被保险掀开的"))
         await get_tree().process_frame
-        print("[suqi] 开场出来了")
+        print("[suqi] 开场出来了 ", Time.get_ticks_msec(), " 毫秒")
 
 # ---------- 主题 ----------
 func _sb(bg: Color, border: Color, bw := 2, rad := 6, pad := 14) -> StyleBoxFlat:
@@ -743,7 +744,7 @@ func _make_hall(sv: Node) -> void:
     sv.add_child(hall)
     sv.move_child(hall, 0)
     hall.build(preset, "", font)
-    print("[suqi] 宴会厅搭好了（", HALL_VARIANT_NAMES.get(hall_variant(), ""), "）")
+    print("[suqi] 宴会厅搭好了（", HALL_VARIANT_NAMES.get(hall_variant(), ""), "） ", Time.get_ticks_msec(), " 毫秒")
     if USE_LAYERED and hall.festive != null:
         # 飘落：不在厅里、开着小游戏 / 簿子 / 菜单 / 卡片时不放也不补；干杯插图、换画布的黑幕还在时先等着
         hall.festive.busy_fn = func() -> bool: return state != "banquet" or _hall_busy() or _menu_open()
@@ -1402,6 +1403,9 @@ func _goto(s: String) -> void:
     state = s
     if s == "banquet":
         _refresh_door_hint()   # 东侧门的金光、箭头照存档开关（老号重进也接着亮）
+        _boot_mark("hall")     # 打开用时：第一次进厅（能走了）
+    elif s == "court":
+        _boot_mark("court")
     hall.stick = Vector2.ZERO
     court.stick = Vector2.ZERO
     if backhall != null:
@@ -1485,6 +1489,32 @@ func _fade_to(a: float) -> void:
 
 ## 进山庄（01 9/19 起的正式流程：选完形象从迎宾院大门走进来，蓝图 2.1）。「到啦～ 罗曼山庄 席还没散」挪到大门口说（01 定）。
 ## 这时先存资料（签到、进厅都要有住民记录）；进厅拿席位等走进宴会厅再说
+## 打开用时（02 10/3「性能-真人物满厅」）：引擎起来以后各段（标题、进院、进厅能走）记 Godot 自己的毫秒数，
+## 跟 boot_timer.js 记的点开、引擎分包下载连起来，第一次进厅能走时打一行「[suqi] 打开用时」（调试版点绿字看得见）
+var boot_marks := {}
+func _boot_mark(stage: String) -> void:
+    if boot_marks.has(stage):
+        return
+    boot_marks[stage] = Time.get_ticks_msec()
+    if stage != "hall":
+        return
+    var b: Dictionary = cloud.boot_info() if cloud != null else {}
+    var parts: Array[String] = []
+    if not b.is_empty() and float(b.get("t0", 0)) > 0.0:
+        var t0 := float(b["t0"])
+        var engine_up := float(b["now"]) - float(Time.get_ticks_msec())   # 引擎起来那一刻（JS 时间）
+        if float(b.get("sub_start", 0)) > 0.0:
+            parts.append("点开→开始下引擎 %.1f 秒" % ((float(b["sub_start"]) - t0) / 1000.0))
+        if float(b.get("sub_done", 0)) > 0.0:
+            parts.append("下引擎和游戏包 %.1f 秒%s" % [(float(b["sub_done"]) - float(b["sub_start"])) / 1000.0, "（%s MB）" % b["sub_mb"] if float(b.get("sub_mb", 0)) > 0.0 else ""])
+            parts.append("下完→引擎起来 %.1f 秒" % ((engine_up - float(b["sub_done"])) / 1000.0))
+        parts.append("点开→引擎起来 %.1f 秒" % ((engine_up - t0) / 1000.0))
+    parts.append("引擎起来→标题 %.1f 秒" % (float(boot_marks.get("title", 0)) / 1000.0))
+    if boot_marks.has("court"):
+        parts.append("进院 %.1f 秒" % (float(boot_marks["court"]) / 1000.0))
+    parts.append("进厅能走 %.1f 秒（引擎起来以后算）" % (float(boot_marks["hall"]) / 1000.0))
+    print("[suqi] 打开用时 " + "，".join(parts))
+
 func _enter_court() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)

@@ -330,6 +330,49 @@ static func breathe_ring(m: Node2D, t_now: float) -> void:
     m.modulate.a = 0.55 + sin(t_now * 3.0) * 0.4
     m.scale = Vector2.ONE * (1.0 + sin(t_now * 3.0) * 0.06)
 
+# ---------- 掉帧兜底（02 10/3「性能-真人物满厅」）----------
+## 每秒看一眼帧数：连着 LOW_SECS 秒低于 LOW_FPS，宾客动作降到 15 帧一动、灯笼光不闪、音符不飘（hall_life.low_end）；
+## 飘落片数本来在 55 帧以下就减半（hall_festive）。连着 RECOVER_SECS 秒高于 OK_FPS 再恢复。set_low_end 是测试、量性能时直接开关
+const LOW_FPS := 50.0
+const OK_FPS := 58.0
+const LOW_SECS := 3
+const RECOVER_SECS := 10
+var low_end_forced := -1      # -1 自己判；0、1 强制
+var _fps_acc := 0.0
+var _low_n := 0
+var _ok_n := 0
+
+func set_low_end(on: bool) -> void:
+    low_end_forced = 1 if on else 0
+    _apply_low_end(on)
+
+func _apply_low_end(on: bool) -> void:
+    if life != null and life.get("low_end") != null and int(life.low_end) != (1 if on else 0):
+        life.low_end = 1 if on else 0
+        print("[suqi] 掉帧兜底 " + ("开：宾客动作 15 帧一动、灯笼光不闪、音符不飘" if on else "关：照常"))
+
+func _low_end_tick(dt: float) -> void:
+    if low_end_forced >= 0 or life == null:
+        return
+    _fps_acc += dt
+    if _fps_acc < 1.0:
+        return
+    _fps_acc = 0.0
+    var fps := Engine.get_frames_per_second()
+    if fps > 0.0 and fps < LOW_FPS:
+        _low_n += 1
+        _ok_n = 0
+        if _low_n >= LOW_SECS:
+            _apply_low_end(true)
+    elif fps >= OK_FPS:
+        _ok_n += 1
+        _low_n = 0
+        if _ok_n >= RECOVER_SECS:
+            _apply_low_end(false)
+    else:
+        _low_n = 0
+        _ok_n = 0
+
 # ---------- 屏幕边的金箭头（10/3 从 entrance.gd 挪上来：宴会厅指东侧门也用）----------
 ## 屏幕边的小箭头（签到台、后厅指厨房、宴会厅指东侧门共用）：want 为真、目标又在屏幕外时，贴着屏幕边（往里收 40）指着它，一闪一闪；
 ## 目标进了屏幕、或者 want 为假就收
@@ -711,6 +754,7 @@ func _stick_move(dt: float) -> bool:
 func _process(dt: float) -> void:
     t += dt
     _door_hint_tick()
+    _low_end_tick(dt)
     var moving := false
     if seated and sit_t < SIT_ANIM:
         # 坐下的那一下：从站的地方滑到椅位上，先快后慢，最后正好停在椅位

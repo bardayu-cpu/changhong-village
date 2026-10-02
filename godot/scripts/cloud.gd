@@ -172,6 +172,13 @@ func _process(dt: float) -> void:
             print("[suqi] 云函数 编号 ", id, " 用时 ", elapsed2, " 毫秒 等了 ", limit, " 秒没回来，按没连上处理")
             cb2.call({"ok": false, "reason": "network"})
 
+## 打开用时（wxgame/boot_timer.js 记的，经桥取）：{t0, sub_start, sub_done, sub_mb, now}，毫秒时间戳；电脑上、桥没接上回空的
+func boot_info() -> Dictionary:
+    if _js == null:
+        return {}
+    var j = JSON.parse_string(str(_js.boot()))
+    return j if j is Dictionary else {}
+
 ## 日志面板打开时叫一次：先报 JS 那边的自查，再单独试一次「带参数调 JS 方法」。
 ## 探针只为查清适配层的能力，玩法一概不走它。万一这一句在真机上把函数打断或者更糟，
 ## 也只影响这个函数，五步验收已经在前面走完了。

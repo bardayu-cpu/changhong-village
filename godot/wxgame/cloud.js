@@ -166,6 +166,11 @@ GameGlobal.__suqiCloud = {
     inviter: function () {
         return GameGlobal.__suqiInviter || '';
     },
+    // 打开用时（boot_timer.js 记的）：点开、引擎分包开始下、下完的时间，加上现在的时间，Godot 那边算几段。无参、返回字符串（JSON）
+    boot: function () {
+        var b = GameGlobal.__suqiBoot || {};
+        return JSON.stringify({ t0: b.t0 || 0, sub_start: b.sub_start || 0, sub_done: b.sub_done || 0, sub_mb: b.sub_mb || 0, now: Date.now() });
+    },
     // 自查：真机上点绿字看日志，这一行能看出请求有没有送到这边
     caps: function () {
         return '桥自查 收到字符 ' + tx.chars + ' 请求 ' + tx.msgs + ' 坏包 ' + tx.bad +

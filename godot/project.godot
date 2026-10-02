@@ -26,6 +26,8 @@ pointing/emulate_touch_from_mouse=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/canvas_textures/default_texture_filter=0
+textures/webp_compression/compression_method=6
+textures/webp_compression/lossless_compression_factor=100.0
 lights_and_shadows/directional_shadow/size=2048
 
 [editor_plugins]
