@@ -18,7 +18,7 @@ const STEP_ASIDE := 56.0       # 让开挪多远
 const ENTER_GAP := Vector2(1.0, 3.0)   # 走了一个，隔多久大门再进来一个（秒）
 const FADE := 0.6              # 进大门、进楼门淡入淡出多久
 const STAY := Vector2(4.0, 9.0)        # 到一个地方站多久
-## 不许站、不许走过的四块（04 基线第六节第 2 条），x0, y0, x1, y1。客人走路格子里这几块整个去掉：
+## 不许站、不许走过的四块（04 基线第六节第 2 条）加进门金箭头那块，Rect2(x, y, 宽, 高)。客人走路格子里这几块整个去掉：
 ## 红毯中间（红毯 672～864 宽，两边各留 32 给客人从大门、楼门进出）；签到桌前一格（玩家站着签到那块，sign_in 点）；
 ## 花墙前合影站位（photo_mark、photo_wait 两个点和新人跟前）；回忆册前一格（album 点）
 const NO_GO := {
@@ -26,6 +26,9 @@ const NO_GO := {
     "sign": Rect2(1040, 636, 120, 94),
     "photo": Rect2(1060, 380, 190, 140),
     "album": Rect2(1260, 633, 80, 92),
+    # 进门第一眼指签到桌的金箭头（刚进门站在大门口时它在 (1016, 610)，entrance.gd 的 sign_arrow）：
+    # 脚站在箭头下面 90 以内身子就把它盖住，所以往下多划一截（04 10/2 第二件第 1 条：一位老先生站上去盖了一半）
+    "arrow": Rect2(988, 586, 60, 116),
 }
 ## 客人会去站一会儿的地方：[x, y, 朝向, 哪边]。站不上的（离挡路的东西太近）开场时挪到最近能站的格子
 const SPOTS := [
@@ -489,6 +492,12 @@ func _greet(dt: float) -> void:
         var at := s.position
         var dip := 0.0
         g["t"] = float(g["t"]) - dt
+        # 上一个动作做完了先收掉，这一帧就照没动作摆朝向（不然欠完身多朝前一帧）
+        if g["act"] != "":
+            g["dur"] = float(g["dur"]) - dt
+            if float(g["dur"]) <= 0.0:
+                g["act"] = ""
+                g["t"] = rng.randf_range(3.0, 7.0)
         if g["kind"] == "parent":
             var near: bool = hall.pos.distance_to(at) < NEAR_DESK
             if near and not bool(g.get("near", false)):
@@ -521,9 +530,4 @@ func _greet(dt: float) -> void:
                 _set_face(s, "down")
             else:
                 _set_face(s, _toward(at, g["cam"]))
-        if g["act"] != "":
-            g["dur"] = float(g["dur"]) - dt
-            if float(g["dur"]) <= 0.0:
-                g["act"] = ""
-                g["t"] = rng.randf_range(3.0, 7.0)
         s.set_meta("base_offset", (g["base"] as Vector2) + Vector2(0, dip))

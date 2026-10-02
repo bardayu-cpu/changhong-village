@@ -119,6 +119,12 @@ func run() -> void:
     for y in range(240, 860, 12):
         if life._wok(Vector2(768, y)) or life._wok(Vector2(720, y)) or life._wok(Vector2(816, y)):
             carpet_mid = false
+    var arrow_ok := true
+    for x in range(1000, 1036, 6):
+        for y in range(600, 696, 6):
+            if life._wok(Vector2(x, y)):
+                arrow_ok = false
+    check("进门金箭头 (1016, 610) 那块和它下面一个人高，客人站不上（04 第二件第 1 条）", arrow_ok)
     check("红毯中间那一条客人的格子里整条没有（大门口、楼门口两边能过）", carpet_mid and life._wok(Vector2(684, 600)) and life._wok(Vector2(852, 600)))
 
     print("4 让玩家")
@@ -175,9 +181,16 @@ func run() -> void:
         life.step(1.0 / 30.0)
     var want: String = c._face_for(c.pos - mom.position)
     var fl: Dictionary = Spr.PROC_ANIM[want]
-    for f in 30 * 3:
+    var gm: Dictionary = life.greeters.filter(func(g): return g["id"] == "bride_mom")[0]
+    var look_n := 0
+    var free_n := 0
+    for f in 30 * 6:
         life.step(1.0 / 30.0)
-    check("玩家走近签到桌：新娘妈妈转过来看着玩家（%s）" % want, want != "down" and mom.frame == int(fl["idle"]) and mom.flip_h == bool(fl["flip"]))
+        if gm["act"] == "":   # 欠身那 0.7 秒照旧朝前，不算
+            free_n += 1
+            if mom.frame == int(fl["idle"]) and mom.flip_h == bool(fl["flip"]):
+                look_n += 1
+    check("玩家走近签到桌：新娘妈妈没在欠身的时候都转过来看着玩家（%s，%d/%d 帧）" % [want, look_n, free_n], want != "down" and free_n > 30 and look_n == free_n)
     var ph: Sprite2D = c.npc_nodes["photographer_w"]
     c.reset_to(Vector2(200, 300))
     var ph_faces := {}
