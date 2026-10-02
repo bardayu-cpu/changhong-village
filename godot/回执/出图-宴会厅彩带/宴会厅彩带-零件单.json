@@ -1,0 +1,263 @@
+{
+ "lamp_measured": {
+  "size": [
+   48,
+   112
+  ],
+  "bbox": [
+   3,
+   6,
+   45,
+   112
+  ],
+  "body_x": [
+   13,
+   35
+  ],
+  "body_center": 24.0,
+  "crown_top": 6,
+  "crown_bottom": 31,
+  "crown_x_at_widest": [
+   3,
+   43
+  ],
+  "crown_widest_row": 23,
+  "foot_in_image": [
+   25,
+   112
+  ]
+ },
+ "hook": {
+  "lamp_art_x": 24,
+  "crown_bottom_art_y": 31,
+  "span": 177
+ },
+ "parts": [
+  {
+   "code": "B55S-P06",
+   "name": "路引红绸",
+   "cell": [
+    200,
+    56
+   ],
+   "cells": 3,
+   "sheet": [
+    600,
+    56
+   ],
+   "layout": "3 格横排，从左到右第 1、2、3 格",
+   "hooks_in_cell": [
+    [
+     11,
+     6
+    ],
+    [
+     188,
+     6
+    ]
+   ],
+   "hook_span": 177,
+   "pairs": [
+    {
+     "row": 1,
+     "cell_x": 667,
+     "cell_y": 366,
+     "hook_west": [
+      678,
+      372
+     ],
+     "hook_east": [
+      855,
+      372
+     ]
+    },
+    {
+     "row": 2,
+     "cell_x": 667,
+     "cell_y": 519,
+     "hook_west": [
+      678,
+      525
+     ],
+     "hook_east": [
+      855,
+      525
+     ]
+    },
+    {
+     "row": 3,
+     "cell_x": 667,
+     "cell_y": 672,
+     "hook_west": [
+      678,
+      678
+     ],
+     "hook_east": [
+      855,
+      678
+     ]
+    },
+    {
+     "row": 4,
+     "cell_x": 667,
+     "cell_y": 825,
+     "hook_west": [
+      678,
+      831
+     ],
+     "hook_east": [
+      855,
+      831
+     ]
+    },
+    {
+     "row": 5,
+     "cell_x": 667,
+     "cell_y": 978,
+     "hook_west": [
+      678,
+      984
+     ],
+     "hook_east": [
+      855,
+      984
+     ]
+    },
+    {
+     "row": 6,
+     "cell_x": 667,
+     "cell_y": 1131,
+     "hook_west": [
+      678,
+      1137
+     ],
+     "hook_east": [
+      855,
+      1137
+     ]
+    },
+    {
+     "row": 7,
+     "cell_x": 667,
+     "cell_y": 1284,
+     "hook_west": [
+      678,
+      1290
+     ],
+     "hook_east": [
+      855,
+      1290
+     ]
+    },
+    {
+     "row": 8,
+     "cell_x": 667,
+     "cell_y": 1437,
+     "hook_west": [
+      678,
+      1443
+     ],
+     "hook_east": [
+      855,
+      1443
+     ]
+    },
+    {
+     "row": 9,
+     "cell_x": 667,
+     "cell_y": 1590,
+     "hook_west": [
+      678,
+      1596
+     ],
+     "hook_east": [
+      855,
+      1596
+     ]
+    },
+    {
+     "row": 10,
+     "cell_x": 667,
+     "cell_y": 1743,
+     "hook_west": [
+      678,
+      1749
+     ],
+     "hook_east": [
+      855,
+      1749
+     ]
+    }
+   ]
+  },
+  {
+   "code": "B55S-FX01",
+   "name": "花瓣",
+   "cell": [
+    12,
+    12
+   ],
+   "colors": 4,
+   "frames": 4,
+   "sheet": [
+    48,
+    48
+   ],
+   "layout": "行 = 颜色（4 行），列 = 帧（4 列翻转）",
+   "center_in_cell": [
+    6,
+    6
+   ],
+   "suggested_cell": [
+    12,
+    12
+   ]
+  },
+  {
+   "code": "B55S-FX02",
+   "name": "彩纸",
+   "cell": [
+    8,
+    8
+   ],
+   "colors": 6,
+   "frames": 4,
+   "sheet": [
+    32,
+    48
+   ],
+   "layout": "行 = 颜色（6 行），列 = 帧（4 列转）",
+   "center_in_cell": [
+    4,
+    4
+   ],
+   "suggested_cell": [
+    10,
+    10
+   ]
+  },
+  {
+   "code": "B55S-FX03",
+   "name": "卷彩带",
+   "cell": [
+    16,
+    32
+   ],
+   "colors": 3,
+   "frames": 4,
+   "sheet": [
+    64,
+    96
+   ],
+   "layout": "行 = 颜色（3 行），列 = 帧（4 列）",
+   "center_in_cell": [
+    8,
+    16
+   ],
+   "suggested_cell": [
+    16,
+    32
+   ]
+  }
+ ]
+}
