@@ -45,7 +45,8 @@ ART_SOUTH = os.path.join(ART, "base_banquet55_south_v1.png")   # 最南头 1024 
 #   中间那截地砖 → B55S-W01 一块块铺（对齐北边背景最下面的砖，接缝小）；红毯那一条照旧用北边背景最下面那截往下接。
 #   两边墙（01 E 10/2 定）：GPT 照色块把墙画成笔直的 40 宽，能走的格子也照 40 宽平条算——看着能走就要走得上去；
 #   中间那截竖墙换 B55S-W02（西）、W03（东），跟新北墙一个样子
-ART_SET = os.environ.get("SUQI55_ART", "b55")
+# 10/2 起默认 b55s（GPT 照色块画的北边 v2，阿鱼验收过，01 E 派接）；SUQI55_ART=b55 退回原来那套
+ART_SET = os.environ.get("SUQI55_ART", "b55s")
 ART_FLOOR = None
 BOUNDS_BG = None
 if ART_SET == "b55s":
@@ -53,7 +54,8 @@ if ART_SET == "b55s":
     ART_BG = os.path.join(ART, "base_banquet55_scene_v1.png")
     ART_PIECES = {"table": "blk_banquet55s_table_v1.png", "table_main": "blk_banquet55s_table_main_v1.png",
                   "bench": "blk_banquet55s_bench_v1.png", "lantern": "blk_banquet55s_aisle_post_v1.png",
-                  "flowerpot": "blk_banquet55s_flowerpot_v1.png", "flowerstand": "blk_banquet55s_flowerstand_v1.png"}
+                  "flowerpot": "blk_banquet55s_flowerpot_v1.png", "flowerstand": "blk_banquet55s_flowerstand_v1.png",
+                  "gift": "blk_banquet55s_giftpile_v1.png"}
     ART_FLOOR = os.path.join(ART, "tex_banquet55s_floor_v1.png")
 ART_WALL_W = os.path.join(ART, "tex_banquet55_wall_west_v1.png")   # 中间那截的竖墙，40×240 一段段接
 ART_WALL_E = os.path.join(ART, "tex_banquet55_wall_east_v1.png")
@@ -80,6 +82,10 @@ SOUTH_BAND = (964, 1024)   # 往南接地砖用背景的哪几行（最下面一
 # v7 照 GPT v2 桌子零件量：普通桌椅子圈心在占地中心往上 18、半径 63×50；主桌椅子圈大：往上 22、75×57
 SEAT_TABLE = {"abs": True, "dx": 0.0, "dy": -18.0, "rx": 63.0, "ry": 50.0}
 SEAT_MAIN = {"abs": True, "dx": 0.0, "dy": -22.0, "rx": 75.0, "ry": 57.0}
+# 10/2 GPT 十椅桌（B55S）：圈心、半径跟上面一样（02 拿 GPT 的 seats 和图对过），只是东西两头各一把，整圈转 18°
+if os.environ.get("SUQI55_ART", "b55s") == "b55s":
+    SEAT_TABLE = dict(SEAT_TABLE, a0=18.0)
+    SEAT_MAIN = dict(SEAT_MAIN, a0=18.0)
 CELL = 10
 C = 12                    # 走路离占地留的边（和 build_layered.py 一样）
 
@@ -167,6 +173,8 @@ def art_piece(it):
         piece = "flowerpot"
     elif "花架" in n:
         piece = "flowerstand"
+    elif it.get("group") == "gifts" and "gift" in ART_PIECES:
+        piece = "gift"
     if piece is None:
         return None
     w, h = Image.open(os.path.join(ART, ART_PIECES[piece])).size
@@ -253,6 +261,9 @@ def south_extend(bg, W, H):
     return im, seam
 
 
+FLOOR_MATCH_MAX = 8   # 地砖瓦片跟北边背景最下面那两块砖对齐后的平均差（灰度 0～255）超过这个就算对不上（假包、v2 背景自己切的砖是 2）
+
+
 def floor_tiles(im, bg, W, H):
     """现场版：y 1024 往南的地砖用 B55S-W01 铺。先在北边背景最下面两块砖高里找瓦片对得最齐的错位（ox, oy），
     照这个错位往下铺，北边和中间的接缝就是砖缝而不是一刀切。红毯那一条（摆位表里红毯的框）不铺，留着背景接下来的红毯"""
@@ -277,6 +288,12 @@ def floor_tiles(im, bg, W, H):
             if best is None or score < best[0]:
                 best = (score, ox, oy)
     _, ox, oy = best
+    if best[0] > FLOOR_MATCH_MAX:
+        # 10/2 GPT 北边 v2 交的 W01（80×52、浅米色小花）跟它自己背景里的地砖（米黄、大十字花、砖大一圈）对不上，铺上去是一条浅色带：
+        # 对不上就不铺，照旧拿背景最下面那行砖往下接，报出来等 GPT 重画
+        print("提醒：地砖 W01 跟北边背景最下面的砖对不上（对齐差 %.1f > %d），不铺，照旧用背景最下面那行砖往南接；W01 要 GPT 照背景的砖重画"
+              % (best[0], FLOOR_MATCH_MAX))
+        return
     floor = Image.new("RGB", (W, H - bg.height))
     y0 = bg.height - ((bg.height - oy) % th) - th
     for yy in range(y0, H, th):
@@ -370,8 +387,8 @@ def main():
             continue
         if art and "背景里画好的" in it["name"]:
             continue   # 贺礼堆、南边的大门画在背景里
-        if it["group"] == "gifts":
-            continue   # 重排的礼物堆（B55S-P05）：真图没到先不画（01 E），挡路照算
+        if it["group"] == "gifts" and not (art and art_piece(it)):
+            continue   # 礼物堆（B55S-P05）：没有图（旧 B55 那套）就不画，挡路照算
         if art and os.path.exists(ART_SOUTH) and it["name"] in front_names:
             continue   # v7：南边栏杆画在南边那张背景里；人走不到栏杆顶以南（见能走的格子），不用挡
         x, y, w, h = it["box"]

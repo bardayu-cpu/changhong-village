@@ -38,6 +38,7 @@ PARTS = {
     "B55S-P02": {"size": (56, 112), "out": "blk_banquet55s_flowerstand_v1.png", "kind": "prop"},
     "B55S-P03": {"size": (32, 32), "out": "blk_banquet55s_flowerpot_v1.png", "kind": "prop"},
     "B55S-P04": {"size": (72, 54), "out": "blk_banquet55s_bench_v1.png", "kind": "prop"},
+    "B55S-P05": {"size": (96, 80), "out": "blk_banquet55s_giftpile_v1.png", "kind": "prop"},   # 舞台西边地上的礼物堆，游戏里摆十来份
     "B55S-W01": {"size": None, "out": "tex_banquet55s_floor_v1.png", "kind": "tile"},   # 瓦片：大小不定，要双数、不透明
     # 中间那截两边的竖墙（01 E 10/2：北边新背景墙画直了，中间墙跟着换；零件总表 0497340）：40×240，上下接得上
     "B55S-W02": {"size": (40, 240), "out": "tex_banquet55s_wall_west_v1.png", "kind": "walltile"},
@@ -106,14 +107,18 @@ def seat_check(pid, entry, crop_xy):
     ox, oy = crop_xy
     theirs = [(ax + ox + s["at"][0], ay + oy + s["at"][1]) for s in seats]
     cx, cy, rx, ry = SEAT_RING[pid]
-    ours = []
-    for k in range(10):
-        a = -math.pi / 2 + 2 * math.pi * k / 10
-        ours.append((cx + math.cos(a) * rx, cy + math.sin(a) * ry))
-    worst = 0.0
-    for p in ours:
-        worst = max(worst, min(math.hypot(p[0] - q[0], p[1] - q[1]) for q in theirs))
-    return {"ok": len(seats) == 10 and worst <= SEAT_TOL, "count": len(seats), "worst_px": round(worst, 1), "tol_px": SEAT_TOL}
+    # 椅子圈两种摆法：正北起（旧桌）、转 18°（10/2 十椅桌：东西两头各一把）；哪种对得上用哪种，生成时 seat_geom 写 a0
+    best = None
+    for a0 in (0.0, 18.0):
+        ours = []
+        for k in range(10):
+            a = -math.pi / 2 + 2 * math.pi * k / 10 + math.radians(a0)
+            ours.append((cx + math.cos(a) * rx, cy + math.sin(a) * ry))
+        worst = max(min(math.hypot(p[0] - q[0], p[1] - q[1]) for q in theirs) for p in ours)
+        if best is None or worst < best[0]:
+            best = (worst, a0)
+    worst, a0 = best
+    return {"ok": len(seats) == 10 and worst <= SEAT_TOL, "count": len(seats), "worst_px": round(worst, 1), "tol_px": SEAT_TOL, "a0": a0}
 
 
 def tile_report(im):
@@ -170,8 +175,8 @@ def main():
             found[pid] = (fname, entry)
         elif pid:
             warns.append("零件单外的编号，不接：%s（%s）" % (pid, fname))
-    # 地砖、竖墙瓦片可能不在 placement 的 files 里（它们不摆，只铺）：按文件名找
-    for wid in ("B55S-W01", "B55S-W02", "B55S-W03"):
+    # placement 的 files 只列 GPT 自己回拼时摆了的；瓦片（只铺不摆）、礼物堆这类「另外导出」的不在里头：按文件名在包的最上层找
+    for wid in PARTS:
         if wid not in found:
             for fn in sorted(os.listdir(pack)):
                 if wid in fn and fn.endswith(".png"):

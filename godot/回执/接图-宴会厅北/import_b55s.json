@@ -1,0 +1,240 @@
+{
+ "pack": "/Users/kayra_ayu/Desktop/苏七镇奇缘/游戏制作中-gpt 和 claude 合作/地图一-苏七镇/罗曼山庄/001-宴会厅/拆景/北边·照色块-v2-20261002",
+ "parts": {
+  "B55S-BG01": {
+   "file": "base_B55S-BG01_v2.png",
+   "from": "native/B55S-BG01.png",
+   "out": "base_banquet55_scene_v1.png",
+   "size": [
+    1536,
+    1024
+   ]
+  },
+  "B55S-T01": {
+   "file": "blk_B55S-T01_v2.png",
+   "from": "blk_B55S-T01_v2.png",
+   "out": "blk_banquet55s_table_v1.png",
+   "size": [
+    180,
+    150
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.571,
+    "margin_lrtb": [
+     5,
+     17,
+     6,
+     0
+    ]
+   },
+   "seats": {
+    "ok": true,
+    "count": 10,
+    "worst_px": 0.6,
+    "tol_px": 6.0,
+    "a0": 18.0
+   }
+  },
+  "B55S-T02": {
+   "file": "blk_B55S-T02_v2.png",
+   "from": "blk_B55S-T02_v2.png",
+   "out": "blk_banquet55s_table_main_v1.png",
+   "size": [
+    180,
+    150
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.561,
+    "margin_lrtb": [
+     6,
+     16,
+     7,
+     0
+    ]
+   },
+   "seats": {
+    "ok": true,
+    "count": 10,
+    "worst_px": 0.6,
+    "tol_px": 6.0,
+    "a0": 18.0
+   }
+  },
+  "B55S-P01": {
+   "file": "blk_B55S-P01_v2.png",
+   "from": "blk_B55S-P01_v2.png",
+   "out": "blk_banquet55s_aisle_post_v1.png",
+   "size": [
+    48,
+    112
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.392,
+    "margin_lrtb": [
+     3,
+     6,
+     3,
+     0
+    ]
+   }
+  },
+  "B55S-P02": {
+   "file": "blk_B55S-P02_v2.png",
+   "from": "blk_B55S-P02_v2.png",
+   "out": "blk_banquet55s_flowerstand_v1.png",
+   "size": [
+    56,
+    112
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.576,
+    "margin_lrtb": [
+     0,
+     4,
+     0,
+     0
+    ]
+   }
+  },
+  "B55S-P03": {
+   "file": "blk_B55S-P03_v2.png",
+   "from": "blk_B55S-P03_v2.png",
+   "out": "blk_banquet55s_flowerpot_v1.png",
+   "size": [
+    32,
+    32
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.534,
+    "margin_lrtb": [
+     3,
+     1,
+     3,
+     0
+    ]
+   }
+  },
+  "B55S-P04": {
+   "file": "blk_B55S-P04_v2.png",
+   "from": "blk_B55S-P04_v2.png",
+   "out": "blk_banquet55s_bench_v1.png",
+   "size": [
+    72,
+    54
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.487,
+    "margin_lrtb": [
+     1,
+     20,
+     1,
+     0
+    ]
+   }
+  },
+  "B55S-P05": {
+   "file": "blk_B55S-P05_v2.png",
+   "from": "blk_B55S-P05_v2.png",
+   "out": "blk_banquet55s_giftpile_v1.png",
+   "size": [
+    96,
+    80
+   ],
+   "alpha": {
+    "semi_ratio": 0.0,
+    "opaque_ratio": 0.534,
+    "margin_lrtb": [
+     5,
+     18,
+     6,
+     0
+    ]
+   }
+  },
+  "B55S-W01": {
+   "file": "tex_B55S-W01_v2.png",
+   "from": "tex_B55S-W01_v2.png",
+   "out": "tex_banquet55s_floor_v1.png",
+   "size": [
+    80,
+    52
+   ],
+   "tile": {
+    "size": [
+     80,
+     52
+    ],
+    "even": true,
+    "opaque": true,
+    "wrap_lr": 0.5,
+    "wrap_tb": 0.8,
+    "inner_col": 0.9,
+    "inner_row": 0.9
+   }
+  },
+  "B55S-W02": {
+   "file": "tex_B55S-W02_v2.png",
+   "from": "tex_B55S-W02_v2.png",
+   "out": "tex_banquet55s_wall_west_v1.png",
+   "size": [
+    40,
+    240
+   ],
+   "tile": {
+    "size": [
+     40,
+     240
+    ],
+    "even": true,
+    "opaque": true,
+    "wrap_lr": 5.1,
+    "wrap_tb": 11.5,
+    "inner_col": 18.2,
+    "inner_row": 2.9
+   }
+  },
+  "B55S-W03": {
+   "file": "tex_B55S-W03_v2.png",
+   "from": "tex_B55S-W03_v2.png",
+   "out": "tex_banquet55s_wall_east_v1.png",
+   "size": [
+    40,
+    240
+   ],
+   "tile": {
+    "size": [
+     40,
+     240
+    ],
+    "even": true,
+    "opaque": true,
+    "wrap_lr": 5.9,
+    "wrap_tb": 10.1,
+    "inner_col": 15.6,
+    "inner_row": 3.3
+   }
+  }
+ },
+ "delivery": {
+  "schema": "qiyuan-delivery/3.0",
+  "scene": "banquet-full",
+  "revision": 2,
+  "status": "阿鱼验收通过，待Claude接入",
+  "approved_at": "2026-10-02T03:50:31.540Z"
+ },
+ "placement_image": {
+  "file": "定稿效果图.png",
+  "w": 1536,
+  "h": 1024
+ },
+ "errors": [],
+ "warnings": [],
+ "ok": true,
+ "check_blocks": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘-claude 总文件/.claude/worktrees/b55s-north/godot/回执/接图-宴会厅北/零件总览-check_blocks.png"
+}

@@ -25,7 +25,7 @@ def main():
         sg = t.get("seat_geom") or s["seat_geom"]
         cx, cy = t["x"] + sg["dx"], t["y"] + sg["dy"]
         for k in range(10):
-            a = -math.pi / 2 + 2 * math.pi * k / 10
+            a = -math.pi / 2 + 2 * math.pi * k / 10 + math.radians(sg.get("a0", 0.0))
             px, py = cx + math.cos(a) * sg["rx"], cy + math.sin(a) * sg["ry"]
             n += 1
             ci, cj = int(px // cell), int(py // cell)

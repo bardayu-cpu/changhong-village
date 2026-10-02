@@ -839,10 +839,11 @@ func _seat_abs(t: Dictionary) -> Dictionary:
         return own
     return seat_abs
 
+## 椅子圈从正北起每把等分；seat_geom 里写了 a0（度）就整圈转这么多（10/2 GPT 十椅桌：东西两头各一把，比正北起的圈转 18°）
 func chair_world(t: Dictionary, no: int) -> Vector2:
-    var a := -PI / 2.0 + TAU * float(no - 1) / float(seats_of(t))
-    var c := _seat_center(t)
     var sa := _seat_abs(t)
+    var a := -PI / 2.0 + TAU * float(no - 1) / float(seats_of(t)) + deg_to_rad(float(sa.get("a0", 0.0)))
+    var c := _seat_center(t)
     if not sa.is_empty():
         return Vector2(c.x + cos(a) * float(sa["rx"]), c.y + sin(a) * float(sa["ry"]))
     return Vector2(c.x + cos(a) * (float(t["rx"]) + seat_rx), c.y + sin(a) * (float(t["ry"]) + seat_ry))
