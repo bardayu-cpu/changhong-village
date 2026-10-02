@@ -508,6 +508,11 @@ func stand_by_my_table() -> bool:
     var p := _my_chair_pos()
     if p == Vector2.ZERO:
         return false
+    # 自己那把是桌子后面（北边）的：离椅子最近的能走格子在桌子北边的缝里，人站在那儿被桌子挡掉下半截（04 10/2 第 4 条，
+    # 看着像个小孩站在缝里）——跟起身一样站到桌头外边
+    var t := _table_cfg(str(my_seat.get("table_id", "")))
+    if not t.is_empty():
+        p = _stand_spot(p, _seat_center(t))
     var c := _cell_of(p)
     if not _cell_ok(c):
         c = _nearest_free(c)
