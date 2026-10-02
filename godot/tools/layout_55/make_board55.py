@@ -94,6 +94,47 @@ MAIN = (0, 1)   # 第 1 排贺礼堆东边那张（x 550）
 EMPTY = {(0, 3): "v6：乐队台前（照 d 空着；v9 照旧空着，站这儿看乐队）"}
 N_T = 54
 
+# ---------- 重排（01 E 10/2 插队，阿鱼看了色块图：「堆多点礼物，餐桌摆的更紧实一点」，要现场效果图那种感觉） ----------
+# SUQI55_LAYOUT=A / B 时换下面这套，不设就是上面 v9 那套（main 的默认厅不动）：
+#   每边 3 列、一排一排错开（单数排往墙那边挪半个桌位）、不留横走道；红毯两边每排一根灯；
+#   主桌在第 1 排红毯西边第一张；第 1 排西边那两个位让给舞台左边地上的礼物堆（B55S-P05 96×80 摆十份）；
+#   「刚好贴着」= 桌连椅子的占地（146×100）碰上。两个距离分开算：
+#     GAP   同一排左右两张桌占地之间（列距 = 146 + GAP）
+#     DIAG  错开的上下两排、斜着那两张桌占地之间（行距照它算：最小的整数）
+#   A：两个都 35（01 D 10/1 方案 A）。
+#   B：01 E 要「各再紧 20」——两个都 20 的话，游戏里人离桌子要留 12（walk 格子），20 的缝过不去，550 把椅子 198 把走不到；
+#      都试过，两个一起收只有到 34 才全走得到，跟 A 没区别。所以 B 只收同一排左右（20），斜着那条过道留 35：
+#      错开排的过道是一条条之字形横着通到红毯的，左右那条缝不走人也能到每把椅子（02 10/2 试出来的）
+LAYOUT = os.environ.get("SUQI55_LAYOUT", "")
+#   C、D（01 E 10/2，阿鱼看了 A：「我想更松一点，现在太挤了，跟菜市场似的」；第 44/52 版又嫌空，要中间）：
+#      排法照 A，只放宽过道。每边 3 列错开，左右最多留 45 就碰墙了（墙 40 到红毯边那根灯 667 一共 627 宽，
+#      2.5 个列距 + 一张桌）；所以左右都 45，斜着那条过道（人走的之字形横道）C 放到 70、D 放到 100
+GAP = int(os.environ.get("SUQI55_GAP", {"A": "35", "B": "20", "C": "45", "D": "45"}.get(LAYOUT, "0")))
+DIAG = int(os.environ.get("SUQI55_DIAG", {"A": "35", "B": "35", "C": "70", "D": "100"}.get(LAYOUT, "0")))
+GIFT = (96, 80)               # B55S-P05 礼物堆（零件总表，约 96×80）
+
+
+def _ellipse_gap(dx, dy, a=TABLE[0] / 2.0, b=TABLE[1] / 2.0, n=360):
+    """两个一样大的占地椭圆，圈心差 (dx, dy)，边到边最近多远（数值算）"""
+    import math
+    p = [(a * math.cos(2 * math.pi * k / n), b * math.sin(2 * math.pi * k / n)) for k in range(n)]
+    return min(math.hypot(x1 - x2 - dx, y1 - y2 - dy) for x1, y1 in p for x2, y2 in p)
+
+
+if LAYOUT:
+    PITCH_X = TABLE[0] + GAP
+    PITCH = next(r for r in range(60, 400) if _ellipse_gap(PITCH_X / 2.0, r) >= DIAG)
+    LAMP_FOOT_X = CX - 72 - 4 - 38 + 13          # 红毯西边那根灯的占地左沿（667）
+    _hi = LAMP_FOOT_X - TABLE[0] // 2 - 1         # 靠红毯那张桌占地右沿不碰灯
+    _lo = 40 + 1 + TABLE[0] // 2 + 2.5 * PITCH_X  # 单数排最靠墙那张占地左沿不碰墙
+    assert _lo <= _hi, "每边 3 列错开放不下：加的距离 %d 太大" % GAP
+    X_IN = int(round((_lo + _hi) / 2.0))           # 两头离灯、离墙一样多
+    COLS = []
+    NROWS = 10                                     # 第 1 排 4 张（主桌 + 东边 3）+ 9 排 × 6 = 58 个位，空 3 个 → 55
+    ROW0 = 430                                     # 第 1 排桌心：零件上沿 330，在台口（322）、乐队台前沿（325）下面
+    rows_y = [ROW0 + r * PITCH for r in range(NROWS)]
+    CROSS_AFTER = ()
+
 # ---------- 北边 ----------
 # v4：下面这些都是从 GPT 背景 base_banquet55_north_v1.png 上量的（02 9/30）
 # v9：北边换 base_banquet55_north_v2.png（阿鱼 9/30「舞台要放这儿」）：北墙脚、台前沿、台阶、红毯没变；
@@ -188,11 +229,14 @@ def build():
         add(name, "prop", b, (90, 170, 90), "§15 一盆花 24～38，取 32；占地是最下面 16", foot=standing(b, 16))
 
     # v6 照 d：每隔一排一对，立在红毯边和靠红毯那张桌之间；脚比那排桌心往南 11（d：第 1 排脚 445、第 3 排脚 818）
-    for r in range(0, NROWS, 2):
+    for r in range(0, NROWS, 1 if LAYOUT else 2):   # 重排：现场图里每排一根
         lamp_pair(rows_y[r] + 23, "第 %d 排" % (r + 1))   # d 第 1 排的脚 445，v7 第 1 排桌心 422
     # 小花盆：v9 贺礼架贴着台子、乐队台贴着台子东边，原来那两个位置（贺礼堆东、乐队西）没了；
     # 挪到这一排东西的两头：贺礼架西边、乐队台东边，脚跟它们前沿齐
-    pot("花盆（贺礼架西）", 448, 288)
+    if LAYOUT:
+        pot("花盆（礼物区西）", 60, 330)   # 重排：贺礼架西边那块让给礼物堆，花盆挪到礼物堆西头靠墙
+    else:
+        pot("花盆（贺礼架西）", 448, 288)
     pot("花盆（乐队东）", 1352, 325)
     # 花架照 d：北墙脚两边各一个，台子两个后角各一个（台上那两个算台子的一部分，不挡路）
     stand("花架（北墙西）", 147, 256)
@@ -200,7 +244,7 @@ def build():
     stand("花架（台东后角）", 968, 256, "stage_decor")
     stand("花架（北墙东）", 1390, 256)
     # 墙边宫灯：照 d 从脚 680 起每 300 一根（和台前那对同一款），东边躲开侧门
-    for yf in range(680, side_bottom - 40, 300):
+    for yf in ([] if LAYOUT else range(680, side_bottom - 40, 300)):   # 重排：最靠墙那列贴着墙，墙边落地灯放不下，撤掉
         b = (47 - 24, yf - LAMP[1], LAMP[0], LAMP[1])
         add("西墙边宫灯（y %d）" % yf, "prop", b, (230, 170, 60), "v7：墙边大宫灯 48×112，x 47 居中（照 d）；占地最下面 14", foot=(b[0] + 13, b[1] + b[3] - 14, 25, 14))
         if not (d0 - 20 < yf < d1 + 130):
@@ -211,6 +255,10 @@ def build():
         "v9 照 v2 背景量：地台 1014～1348、台面 222～315、前沿 325；钢琴顶到 165。背景里没画乐手", "band", foot=(1014, 222, 334, 103))
     # 礼物堆（v4：背景里画好的，台子西边地上）
     add("贺礼堆（背景里画好的）", "prop", (487, 182, 68, 106), (230, 120, 120), "v9 照 v2 背景量：贺礼架 487～555、顶 182、脚 288，贴着台子西沿", foot=(487, 256, 68, 32))
+    if LAYOUT:
+        _relayout_tables(add, items, d0, d1)
+        return items, _relayout_tables.tid, (d0, d1), stand_top, rail_foot
+
     # 桌、长凳（v3.2 桌下地毯删了）
     def col_x(r, c):
         return ROW0_X[c] if r == 0 and c in ROW0_X else COLS[c]
@@ -247,6 +295,48 @@ def build():
     b = (CX + 90, stand_top + 96 - 4 - PERSON, 32, PERSON)
     add("尺子：人", "ruler", b, (20, 20, 20), "§15 人 84；宽 32（画的人整个撑满这 32×84）", foot=standing(b, 10))
     return items, tid, (d0, d1), stand_top, rail_foot
+
+
+def _relayout_tables(add, items, d0, d1):
+    """重排的桌、长凳、礼物堆。位：(排, 第几个)，第几个 0～2 是西边从红毯往墙、3～5 是东边从红毯往墙"""
+    def slot_x(r, k):
+        side, i = divmod(k, 3)
+        x = X_IN - i * PITCH_X - (PITCH_X / 2.0 if r % 2 else 0)
+        return int(round(x if side == 0 else 2 * CX - x))
+    empty = {(0, 1): "礼物堆", (0, 2): "礼物堆", (1, 2): "长凳"}
+    # 东侧门（东墙上 d0～d1）：门口那排最靠东墙那张空出来，西边同一排对称也空一张
+    door_r = min(range(NROWS), key=lambda r: abs(rows_y[r] - (d0 + d1) / 2.0))
+    if door_r in (0, 1):
+        door_r = 2
+    empty[(door_r, 5)] = "东侧门口"
+    empty[(door_r, 2)] = "跟东侧门口对称"
+    main = (0, 0)
+    slots = [(r, k) for r in range(NROWS) for k in range(6) if (r, k) not in empty and (r, k) != main]
+    slots.sort(key=lambda rk: (rk[0], abs(slot_x(*rk) - CX), slot_x(*rk)))
+    assert len(slots) == N_T, "重排的空位算错了：%d 个位" % len(slots)
+    tid = {rk: "T%d" % (i + 1) for i, rk in enumerate(slots)}
+    _relayout_tables.tid = tid
+    _relayout_tables.empty = empty
+    for r in range(NROWS):
+        for k in range(6):
+            if (r, k) in empty:
+                continue
+            cx, cy = slot_x(r, k), rows_y[r]
+            name = "主桌" if (r, k) == main else tid[(r, k)]
+            tf = (cx - TABLE[0] // 2, cy - TABLE[1] // 2, TABLE[0], TABLE[1])
+            tb = (cx - TABLE_BOX[0] // 2, cy + TABLE[1] // 2 - TABLE_BOX[1], TABLE_BOX[0], TABLE_BOX[1])
+            add(name, "table", tb, (220, 70, 60) if name != "主桌" else (240, 190, 60),
+                "重排 %s：每边 3 列错开，列距 %d、行距 %d（占地之间左右留 %d、斜着留 %d）" % (LAYOUT, PITCH_X, PITCH, GAP, DIAG), "table:" + name, foot=tf)
+    # 长凳：第 2 排最靠西墙那个空位，凳子落在那张桌占地的下沿
+    bx, by = slot_x(1, 2), rows_y[1] + 4   # 凳子落在那个位正中偏下，不压上下两排斜过来的桌
+    bf = (bx - 36, by - 16, 72, 16)
+    add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；重排：第 2 排最靠西墙那个空位", foot=bf)
+    # 礼物堆：舞台西边地上，两排错开、一份压一份（像现场图那一大片），后排 5 份、前排 5 份
+    for row, (foot_y, x0, step) in enumerate(((290, 180, 69), (322, 186, 68))):   # 前排脚 322：跟台口一条线，主桌零件上沿 330 在它下面
+        for i in range(5):
+            b = (x0 + step * i, foot_y - GIFT[1], GIFT[0], GIFT[1])
+            add("礼物堆 %d" % (row * 5 + i + 1), "prop", b, (236, 110, 140),
+                "B55S-P05 礼物堆约 96×80（零件总表）；舞台西边地上，两排错开、相邻压 27；占地最下面 24", "gifts", foot=standing(b, 24))
 
 
 def overlaps(a, b):
@@ -300,6 +390,14 @@ def check(items):
                 continue   # 台面、台口、台阶、新人脚印是一座台子
             if {ga, gb} == {"band"} and (ka == "band_floor" or kb == "band_floor" or pair in SIT):
                 continue   # 乐队站在地台上；坐着的人坐在凳子、椅子上
+            if LAYOUT and "宫灯" in a["name"] and "宫灯" in b["name"]:
+                continue   # 重排：红毯两边每排一根，行距比灯矮，前一根挡住后一根下半截，连成一串（现场图就是这样）
+            if LAYOUT and ka == kb == "table":
+                continue   # 重排：错开的两排，后排桌的椅背被前排挡住一截（现场图就是这样）
+            if "gifts" in (ga, gb) and "贺礼堆（背景里画好的）" in pair:
+                continue   # 地上的礼物堆堆在背景里那架贺礼前面
+            if {ga, gb} == {"gifts"} or (LAYOUT and "gifts" in (ga, gb) and ka != "table" and kb != "table" and "北墙（立面）" in pair):
+                continue   # 礼物堆一份压一份堆成一片
             if a["flat"] and b["flat"]:
                 continue
             if a["flat"] or b["flat"]:
@@ -550,7 +648,7 @@ def middle_with_people(items, tid, door, stand_top, rail_foot, out_path):
     im = draw(items, False, tid, door, stand_top, rail_foot)
     g = ImageDraw.Draw(im)
     rng = random.Random(55)
-    r0, r1 = CROSS_AFTER[0] + 1, CROSS_AFTER[1]
+    r0, r1 = (CROSS_AFTER[0] + 1, CROSS_AFTER[1]) if CROSS_AFTER else (3, 6)
     top = rows_y[r0] - TABLE[1] // 2 - CHAIR_UP
     bot = rows_y[r1] + RUG[1] // 2
     cy = (top + bot) // 2
