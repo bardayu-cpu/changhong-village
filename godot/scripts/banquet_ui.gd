@@ -181,8 +181,8 @@ func _fill_menu() -> void:
             continue
         # 点开的那道：简介就在这儿展开，不切场景（阿鱼 9/20）
         var txt: String = menu.intro(name)
-        var intro := _lbl("　" + (txt if txt != "" else menu.line("intro_todo")), 24, PAPER if txt != "" else MUTED)
-        list_box.add_child(intro)
+        if txt != "":   # 简介还没写的那两道不出那一行（原来显示「【待补】」，01 E 10/3：开发字样不给玩家看）
+            list_box.add_child(_lbl("　" + txt, 24, PAPER))
         var learn := _btn(_learn_cfg("btn", "学做这道"), _learn.bind(name))
         learn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         list_box.add_child(learn)

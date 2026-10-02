@@ -143,7 +143,7 @@ func run() -> void:
     # ---------- 3. 简介：有把握的写了，酒店自己起名的留「【待补】」 ----------
     print("3 简介")
     check("咸烧白有话", menu.intro("咸烧白") != "")
-    check("金牌玉女瓜没瞎猜，是空的（界面显示【待补】）", menu.intro("金牌玉女瓜") == "")
+    check("金牌玉女瓜没瞎猜，是空的（界面不出简介那行）", menu.intro("金牌玉女瓜") == "")
     check("天赐良缘网红参同上", menu.intro("天赐良缘网红参") == "")
     var todo := 0
     for n in uniq:
@@ -183,7 +183,7 @@ func run() -> void:
     for c in bu.list_box.get_children():
         if c is Label and str((c as Label).text).contains("待补"):
             shown = (c as Label).text
-    check("没写简介的那道显示【待补】：%s" % shown, shown != "")
+    check("没写简介的那道不出「【待补】」那行（01 E 10/3），只有「学做这道」（%s）" % shown, shown == "" and bu.list_box.get_child_count() == 20)
     bu._learn("咸烧白")
     check("「学做这道」：厨房还没做，顶一句话", m.note.text == "厨房还没开火 等等再来")
     check("点完面板收起来", not bu.panel_open())

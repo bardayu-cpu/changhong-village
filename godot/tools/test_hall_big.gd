@@ -392,10 +392,19 @@ func run() -> void:
             lit.append((h.life.family_tags[k] as Label).text)
     check("站在外婆跟前：只亮外婆 %s" % [lit], lit == ["外婆"])
     m._refresh_seat_buttons()
-    check("底下冒「%s」" % m.chat_btn.text, m.chat_btn.visible and m.chat_btn.text == "和外婆聊聊")
+    check("外婆的话还是【待补】：底下不冒「和外婆聊聊」（01 E 10/3：开发字样不给玩家看）", not m.chat_btn.visible and m.family_line("外婆", m.main_lines_path) == "")
+    var tmp_lines := "user://test_main_table_lines.json"
+    var fw := FileAccess.open(tmp_lines, FileAccess.WRITE)
+    fw.store_string(JSON.stringify({"lines": {"外婆": "测试：外婆这句"}}))
+    fw.close()
+    var keep_path: String = m.main_lines_path
+    m.main_lines_path = tmp_lines   # 照写好了的样子测（不动文件）
+    m._refresh_seat_buttons()
+    check("写好了：底下冒「%s」" % m.chat_btn.text, m.chat_btn.visible and m.chat_btn.text == "和外婆聊聊")
     m.chat_btn.emit_signal("pressed")
     await frames(1)
-    check("点了说一句（占位）：%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_who.text == "外婆" and m.dialog_text.text == "【待补】")
+    check("点了说一句：%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_who.text == "外婆" and m.dialog_text.text == "测试：外婆这句")
+    m.main_lines_path = keep_path
     var dad: Vector2 = h.chair_world(mt, 5)
     h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(dad + Vector2(20, 35)))))
     h.life._family_near()

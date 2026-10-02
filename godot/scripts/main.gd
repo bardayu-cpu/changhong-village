@@ -191,7 +191,7 @@ const FEAST_NAMES := {"": "按北京时间", "feast": "强制开席", "pre": "�
 var chat_btn: Button      # 55 桌主桌：走近家里人冒「和外婆聊聊」，点了说一句（01 D 9/29；话以后派支线，先是【待补】）
 var near_family := {"key": "", "title": ""}
 const LINE_CHAT_FMT := "和%s聊聊"   # 三个按钮并排时只有 164 宽，「和外婆说说话」会截成省略号
-const MAIN_LINES_PATH := "res://assets/main_table_lines.json"
+var main_lines_path := "res://assets/main_table_lines.json"   # 测试可以指到 user:// 下一份
 var story_btn: Button     # 55 桌大厅：走到桌边出「这桌是谁」，点开这桌的故事卡（01 D 9/29，先用假数据）
 var story_card: Control
 var story_open := false
@@ -562,6 +562,8 @@ func _read_js_log() -> String:
 func _process(dt: float) -> void:
     if dialog != null:
         _layout_top()
+    if state == "banquet" and USE_LAYERED and not court_save.door_hint and hall.seated:
+        _arm_door_hint()
     if coins_chip != null and _in_scene():
         coins_chip.text = "%d 金" % games_save.coins
     # 宴会厅的门出去回迎宾院（蓝图 1 出入口表）。刚进厅时人就站在门口：先走出门的范围，门才算数
@@ -922,7 +924,7 @@ func _build_ui() -> void:
         nickname = _normalize(nick_edit.text)
         _goto("avatar"))
     nb.add_child(nick_ok)
-    # 形象：8 个预设
+    # 形象：预设里自己有图的那几个（10/3 起 7 个）
     var ap := _center_panel(470.0)
     screens["avatar"] = ap[0]
     var ab: VBoxContainer = ap[1]
@@ -931,7 +933,7 @@ func _build_ui() -> void:
     grid.add_theme_constant_override("h_separation", 10)
     grid.add_theme_constant_override("v_separation", 10)
     var group := ButtonGroup.new()
-    for i in 8:
+    for i in Spr.pickable_presets():   # 自己有图的才出（10/3 起第 7 个先拿掉，见 sprites.gd STAND_IN）
         var b := Button.new()
         b.toggle_mode = true
         b.button_group = group
@@ -972,8 +974,8 @@ func _build_ui() -> void:
     var ep := _center_panel(480.0)
     screens["end"] = ep[0]
     var eb: VBoxContainer = ep[1]
-    eb.add_child(_label("【待做】出了罗曼山庄往南", 36, GOLD1))
-    eb.add_child(_label("本地人集市、镇政府、小学门口的黄葛树、老街、石板桥", 24, MUTED))
+    # 原来上面两行「【待做】出了罗曼山庄往南」「本地人集市、镇政府……」：下一段的开发占位，01 E 10/3 藏掉（玩家看得见的开发字样一律不出），
+    # 只留「再走一遍」。阿鱼那句「收到啦 谢谢你专门来一趟」在这屏前面照旧说。下一段做了再放字
     var again := Button.new()
     again.text = "再走一遍"
     again.pressed.connect(_enter_court)
@@ -1398,6 +1400,8 @@ func _show_canvas(which: String) -> void:
 
 func _goto(s: String) -> void:
     state = s
+    if s == "banquet":
+        _refresh_door_hint()   # 东侧门的金光、箭头照存档开关（老号重进也接着亮）
     hall.stick = Vector2.ZERO
     court.stick = Vector2.ZERO
     if backhall != null:
@@ -1542,6 +1546,10 @@ func _switch_canvas(to: String) -> void:
         if USE_LAYERED and hall.festive != null:
             hall.festive.enter_today()   # 每天第一次进厅飘一阵
     elif to == "backhall":
+        if not court_save.backhall_seen:
+            court_save.backhall_seen = true   # 进过一次后厅：东侧门的金光、箭头、进厅小卡那行都收（01 E 10/3）
+            court_save.save()
+            _refresh_door_hint()
         _show_canvas("backhall")
         backhall.reset_to(BACKHALL_FROM_LAWN if from == "lawn" else BACKHALL_FROM_HALL)
         _goto("backhall")
@@ -1859,9 +1867,16 @@ func _arrive(d: Dictionary) -> void:
         var line := first_visit_line(d, cloud.openid())
         if line != "":
             _say(line, 5.0)
+        if _want_backhall_row():
+            # 第一次进厅：新人那句说完（5 秒）再出卡，卡上就这一行（一次只留一层）
+            get_tree().create_timer(5.2 if line != "" else 0.3).timeout.connect(func():
+                if state == "banquet" and not is_instance_valid(arrival_card) and not is_instance_valid(game_host) and _want_backhall_row():
+                    _show_arrival_card([{"kind": "backhall"}], {}))
         return
-    var rows: Array = ar.get("rows", [])
-    if not bool(ar.get("hasNews", false)) or rows.is_empty():
+    var rows: Array = (ar.get("rows", []) as Array).duplicate() if bool(ar.get("hasNews", false)) else []
+    if _want_backhall_row():
+        rows.append({"kind": "backhall"})
+    if rows.is_empty():
         return   # 没有新鲜事就不弹卡，别写「没人来过」这种冷清话
     var first_toast := ""
     for r in rows:
@@ -1885,6 +1900,20 @@ func _arrive(d: Dictionary) -> void:
     if state != "banquet" or is_instance_valid(game_host):
         return
     _show_arrival_card(rows, names)
+
+## 东侧门通后厅（01 E 10/3，04「第一次来整条路」第 1 条）：第一次坐下或玩完第一个小游戏以后开金光、箭头；进过一次后厅就收
+func _arm_door_hint() -> void:
+    court_save.door_hint = true
+    court_save.save()
+    _refresh_door_hint()
+
+func _refresh_door_hint() -> void:
+    if USE_LAYERED and hall != null:
+        hall.set_door_hint(court_save.door_hint and not court_save.backhall_seen)
+
+## 没进过后厅的人：进厅小卡多一行「东边侧门通后厅，厨房在那边」（55 桌厅、有东侧门才说）
+func _want_backhall_row() -> bool:
+    return USE_LAYERED and hall.big and hall.side_door != Vector2.ZERO and not court_save.backhall_seen
 
 func _show_arrival_card(rows: Array, names: Dictionary) -> void:
     if is_instance_valid(arrival_card):
@@ -1951,6 +1980,8 @@ static func first_visit_line(d: Dictionary, me: String) -> String:
 ## 旧版 enterHall（还没部署带 arrival 的那版）：照原来顶上一行「老王敬了你一杯，簿子上多了 2 句」+ 回敬按钮
 func _arrive_old(d: Dictionary) -> void:
     var dg: Dictionary = d.get("digest", {})
+    if _want_backhall_row():
+        _show_arrival_card([{"kind": "backhall"}], {})   # 服务端还没带 arrival 的旧版：卡上只有这一行
     if bool(dg.get("hasNews", false)):
         var names: Dictionary = d.get("names", {})
         var parts: Array[String] = []
@@ -2024,21 +2055,23 @@ func _on_family_near(key: String, title: String) -> void:
     near_family = {"key": key, "title": title}
     _refresh_seat_buttons()
 
-## 和主桌家里人说一句：话在 assets/main_table_lines.json，按称呼取；没写的显示【待补】（聊什么以后派支线）
+## 和主桌家里人说一句：话在 assets/main_table_lines.json，按称呼取；还没写的（【待补】）回空串，那位走近不出「和 XX 聊聊」（01 E 10/3）
 static func family_line(title: String, path: String) -> String:
     if FileAccess.file_exists(path):
         var j = JSON.parse_string(FileAccess.get_file_as_string(path))
         if j is Dictionary:
             var t := str((j.get("lines", {}) as Dictionary).get(title, "")).strip_edges()
-            if t != "":
+            if not CourtCopy.placeholder(t):
                 return t
-    return "【待补】"
+    return ""
 
 func _on_chat_pressed() -> void:
     var title := str(near_family["title"])
     if title == "":
         return
-    _say(family_line(title, MAIN_LINES_PATH), -1.0, title)
+    var t := family_line(title, main_lines_path)
+    if t != "":
+        _say(t, -1.0, title)
 
 func _on_table_near(table_id: String) -> void:
     near_table_id = table_id
@@ -2067,7 +2100,8 @@ func _refresh_seat_buttons() -> void:
         book_btn.visible = false
     else:
         book_btn.visible = true
-    chat_btn.visible = not blocked and not whisper_box.visible and USE_LAYERED and hall.big and str(near_family["title"]) != ""
+    chat_btn.visible = not blocked and not whisper_box.visible and USE_LAYERED and hall.big and str(near_family["title"]) != "" \
+        and family_line(str(near_family["title"]), main_lines_path) != ""
     chat_btn.text = LINE_CHAT_FMT % str(near_family["title"])
     rel_btn.visible = not blocked and not whisper_box.visible and USE_LAYERED and hall.big and str(near_rel["title"]) != ""
     rel_btn.text = LINE_REL_FMT % str(near_rel["title"])
@@ -2337,6 +2371,8 @@ func _open_game(table_id: String) -> void:
 
 func _on_game_closed() -> void:
     game_host = null
+    if state == "banquet" and not court_save.door_hint:
+        _arm_door_hint()   # 玩完第一个小游戏也开
     hall.walking_enabled = state == "banquet" and not whisper_box.visible
     _refresh_seat_buttons()
     # 玩游戏时来的干杯插图排着队，游戏关了接着放
@@ -2923,6 +2959,8 @@ func _shot_court_fresh() -> void:
     court_save.signed_in = false
     court_save.candy = false
     court_save.draft = {}
+    court_save.door_hint = false
+    court_save.backhall_seen = false
 
 ## 截图用：进厅提示那张干杯插图 1.5 秒后才放，先等它出来、收掉，免得和要截的那张抢
 func _shot_skip_entry_toast() -> void:
@@ -2957,6 +2995,7 @@ func _setup_shot(shot: String) -> void:
         # 进厅先见人（01 9/23）：arrive_card 等插图放完、小卡出来再截；arrive_first 当第一次进厅
         "arrive_card", "arrive_first":
             nickname = "小李"
+            _shot_court_fresh()   # 当没进过后厅的人：卡上多「东边侧门通后厅」那行（01 E 10/3）
             cloud.fake_arrival_mode = "first" if shot == "arrive_first" else "card"
             await _enter_banquet()
             for i in 80:
@@ -2980,6 +3019,23 @@ func _setup_shot(shot: String) -> void:
                 hall.apply_change("T1", 4, cloud.openid())
                 _note("坐好了")
                 await get_tree().process_frame
+        "hall_door_hint", "hall_door_near":
+            # 东侧门的金光、箭头（01 E 10/3）：hall_door_hint 坐下以后（门在屏幕外，屏幕边金箭头指着）；hall_door_near 走到门跟前看金光
+            nickname = "小李"
+            _shot_court_fresh()
+            cloud.fake_no_news = true
+            await _enter_banquet()
+            await _shot_skip_entry_toast()
+            dialog.visible = false
+            note_box.visible = false
+            if shot == "hall_door_hint":
+                sit_target = {"table_id": "T1", "chair_no": 4}
+                hall.apply_change("T1", 4, cloud.openid())
+            else:
+                _arm_door_hint()
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.side_door + Vector2(-150, 60)))))
+                hall.face = "right"
+            for i in 20: await get_tree().process_frame
         "sit_front", "sit_back":
             # 坐下的样子（占位）两个方向：桌子前面那把（背对镜头）、桌子后面那把（面朝镜头）
             nickname = "小李"

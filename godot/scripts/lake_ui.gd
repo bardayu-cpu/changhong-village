@@ -33,6 +33,8 @@ func spot(id: String, inside: bool) -> void:
             _refresh()
         "pavilion":
             if inside:
+                if Copy.placeholder(Copy.text("pavilion", Copy.LAKE)):
+                    return   # 阿鱼还没写那句（【待补】）：走进亭子不出话（01 E 10/3：开发字样不给玩家看）
                 m._say(Copy.text("pavilion", Copy.LAKE), 0.0, Copy.who("pavilion", Copy.LAKE))
                 said = m.say_token
             else:

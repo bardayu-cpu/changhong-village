@@ -330,6 +330,68 @@ static func breathe_ring(m: Node2D, t_now: float) -> void:
     m.modulate.a = 0.55 + sin(t_now * 3.0) * 0.4
     m.scale = Vector2.ONE * (1.0 + sin(t_now * 3.0) * 0.06)
 
+# ---------- 屏幕边的金箭头（10/3 从 entrance.gd 挪上来：宴会厅指东侧门也用）----------
+## 屏幕边的小箭头（签到台、后厅指厨房、宴会厅指东侧门共用）：want 为真、目标又在屏幕外时，贴着屏幕边（往里收 40）指着它，一闪一闪；
+## 目标进了屏幕、或者 want 为假就收
+func point_edge_arrow(arrow: Polygon2D, target: Vector2, want: bool) -> void:
+    if not want or cam == null or cam.zoom.x <= 0.0:
+        arrow.visible = false
+        return
+    var vs := get_viewport().get_visible_rect().size / cam.zoom
+    var c := cam.get_screen_center_position()
+    var view := Rect2(c - vs * 0.5, vs)
+    var inner := view.grow(-40.0)
+    if view.grow(-10.0).has_point(target):
+        arrow.visible = false
+        return
+    arrow.visible = true
+    arrow.position = Vector2(clampf(target.x, inner.position.x, inner.end.x), clampf(target.y, inner.position.y, inner.end.y))
+    arrow.rotation = (target - arrow.position).angle()
+    arrow.modulate.a = 0.7 + sin(t * 5.0) * 0.3
+
+## 屏幕边那种金色小箭头（签到台、后厅指厨房共用）
+static func edge_arrow() -> Polygon2D:
+    var a := Polygon2D.new()
+    a.polygon = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11)])
+    a.color = Color(1.0, 0.88, 0.45)
+    var outline := Line2D.new()
+    outline.points = PackedVector2Array([Vector2(16, 0), Vector2(-10, -11), Vector2(-4, 0), Vector2(-10, 11), Vector2(16, 0)])
+    outline.width = 2.0
+    outline.default_color = Color(0.2, 0.12, 0.08)
+    a.add_child(outline)
+    a.z_index = 8
+    a.scale = Vector2(1.6, 1.6)   # 截图看原大小太小，放大一点
+    a.visible = false
+    return a
+
+# ---------- 东侧门通后厅的记号（01 E 10/3，04「第一次来整条路」第 1 条：宴会厅里没人告诉你东侧门通后厅）----------
+## 第一次坐下（或玩完第一个小游戏）以后，东侧门头上挂一圈会呼吸的金光，门在屏幕外时屏幕边出金箭头指着它（签到台那套）；
+## 进过一次后厅就收（main 管开关，记在 court_save）。墙上不叠字
+var door_hint := false
+var door_mark: Polygon2D
+var door_arrow: Polygon2D
+const DOOR_MARK_UP := 80.0   # 金光挂在门那个点上面多高
+
+func set_door_hint(on: bool) -> void:
+    door_hint = on and side_door != Vector2.ZERO
+    if door_hint and door_mark == null:
+        door_mark = ring_mark(24.0, 24.0 * 0.55)
+        door_mark.z_index = 4
+        add_child(door_mark)
+        door_arrow = edge_arrow()
+        add_child(door_arrow)
+    if door_mark != null:
+        door_mark.position = side_door + Vector2(-20.0, -DOOR_MARK_UP)
+        door_mark.visible = door_hint
+        door_arrow.visible = false
+
+func _door_hint_tick() -> void:
+    if door_mark == null:
+        return
+    if door_hint:
+        breathe_ring(door_mark, t)
+    point_edge_arrow(door_arrow, door_mark.position, door_hint)
+
 # ---------- 世界里的字（体验 B2、B3、B4）----------
 ## 世界里的字（人名、桌牌、物件名）原来 12 像素（约 8.5 点），长辈看不清，字心和地面几乎同色（1.04:1），全靠描边撑着。
 ## 改成 18（画面按屏高缩放约 0.94，屏上约 17，在 04 说的 16～18 里），垫一层暗底。像素字体本来就被镜头缩放过，不在 12 的倍数上
@@ -648,6 +710,7 @@ func _stick_move(dt: float) -> bool:
 
 func _process(dt: float) -> void:
     t += dt
+    _door_hint_tick()
     var moving := false
     if seated and sit_t < SIT_ANIM:
         # 坐下的那一下：从站的地方滑到椅位上，先快后慢，最后正好停在椅位

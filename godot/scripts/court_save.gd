@@ -13,6 +13,8 @@ const PHOTO_KEEP := 3            # 合影最多留 3 张，旧的顶掉（蓝图
 var photos: Array = []           # 收好的相纸：[{pose, preset, at}]，只记怎么拍的，不存图（微信里不能读显卡截图）
 var whisper_done := false        # 在宴会厅给新人写过悄悄话了：大门开不开看它和签到（蓝图 3.1「大门只在悄悄话写完后开」）
 var gloss_seen := false          # 休息区老人那句的方言词弹过普通话了（只自动弹第一次，蓝图 3.1）
+var door_hint := false           # 宴会厅东侧门的金光、箭头开了（第一次坐下或玩完第一个小游戏以后，01 E 10/3）
+var backhall_seen := false       # 进过一次后厅了：东侧门的金光、箭头、进厅小卡那行「东边侧门通后厅」都收
 
 func load_local() -> void:
     if not FileAccess.file_exists(local_path):
@@ -29,13 +31,15 @@ func load_local() -> void:
     photos = ph if ph is Array else []
     whisper_done = bool(d.get("whisper_done", false))
     gloss_seen = bool(d.get("gloss_seen", false))
+    door_hint = bool(d.get("door_hint", false))
+    backhall_seen = bool(d.get("backhall_seen", false))
 
 func save() -> void:
     var f := FileAccess.open(local_path, FileAccess.WRITE)
     if f == null:
         return
     f.store_string(JSON.stringify({"welcomed": welcomed, "signed_in": signed_in, "candy": candy, "draft": draft, "photos": photos,
-        "whisper_done": whisper_done, "gloss_seen": gloss_seen}))
+        "whisper_done": whisper_done, "gloss_seen": gloss_seen, "door_hint": door_hint, "backhall_seen": backhall_seen}))
     f.close()
 
 ## 收好一张相纸：最多留 PHOTO_KEEP 张，多了把最早的顶掉

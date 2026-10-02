@@ -172,9 +172,15 @@ const PROC_ANIM := {
 
 ## GPT 画的宾客图集：罗曼山庄的宾客 LM-GUEST-01～08（形象 0～7）。有就用它，没有返回空字典，照旧用代码画的
 ## 10/2 起先看罗曼山庄的宾客 LM-GUEST-01～08（lm_people.gd，形象 0～7 对 01～08），在就用它
+## 自己的图没到、先借别人的图顶着的形象（01 E 10/3）：形象 6 对 GUEST-07，阿鱼不要、GPT 重画；以前选了它的老号先用 GUEST-05 顶着，
+## 新 07 进了游戏自动换回（先看自己的图）。选人界面不出这几个（pickable_presets）
+const STAND_IN := {6: 5}
+
 static func gpt_look(preset: int) -> Dictionary:
     if preset >= 0 and preset < LMPeople.PICKABLE:
         var l: Dictionary = LMPeople.look(LMPeople.guest_code(preset + 1))
+        if l.is_empty() and STAND_IN.has(preset):
+            l = LMPeople.look(LMPeople.guest_code(int(STAND_IN[preset])))
         if not l.is_empty():
             var lanim := {}
             for d in ["down", "up", "left", "right"]:
@@ -184,6 +190,17 @@ static func gpt_look(preset: int) -> Dictionary:
                 "anim": lanim, "fps": l["fps"], "height_m": l["height_m"], "code": l["code"]}
     # 老的 chr_guestNN（第 3 个形象那张 48×64，放大是杂点）01 E 10/2 定不再用、文件删了：没有罗曼山庄宾客的图就用代码画的
     return {}
+
+## 选人界面出哪几个形象：自己有罗曼山庄宾客图的才出（01 E 10/3：代码画的第 7 个跟真人像放一起扎眼，先拿掉只给 7 个）；
+## 一张宾客图都没有（电脑上没放图）就照旧 8 个代码画的
+static func pickable_presets() -> Array:
+    var out: Array = []
+    for i in LMPeople.PICKABLE:
+        if not LMPeople.look(LMPeople.guest_code(i + 1)).is_empty():
+            out.append(i)
+    if out.is_empty():
+        return range(LMPeople.PICKABLE)
+    return out
 
 ## 选形象界面用的正面大图
 static func portrait(preset: int, zoom := 5) -> ImageTexture:

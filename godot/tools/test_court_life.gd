@@ -81,6 +81,7 @@ func run() -> void:
     var enters := 0
     var leaves := 0
     var bad: Array = []
+    var arrow_hit: Array = []
     var visited := {}
     var seen_ids := {}
     var twin := 0
@@ -96,6 +97,9 @@ func run() -> void:
                 seen_ids[w] = true
                 if w.state == "enter":
                     enters += 1
+            # 进门金箭头（1016, 610，放大后约 42×36）跟客人的身子（脚两边各 18、往上 84）叠没叠（04 10/3「第一次来」第 3 条）
+            if Rect2(w.pos.x - 18.0, w.pos.y - 84.0, 36.0, 84.0).intersects(Rect2(990.0, 592.0, 52.0, 36.0)) and arrow_hit.size() < 5:
+                arrow_hit.append("%s 在 %s" % [w.code, w.pos])
             if CourtLife.in_no_go(w.pos) and bad.size() < 5:
                 bad.append("%s 在 %s（%s）" % [w.code, w.pos, w.state])
             if w.state == "stay" and w.spot >= 0:
@@ -108,11 +112,12 @@ func run() -> void:
 
     print("2 进出")
     check("从大门进来了 %d 个、走进楼门 %d 个" % [enters, leaves], enters >= 4 and leaves >= 4)
-    check("站过的地方：%s（要有签到桌边、花墙前）" % [visited.keys()], visited.has("签到桌西头排着") or visited.has("签到桌东头排着"))
+    check("站过的地方：%s（要有签到桌边、花墙前）" % [visited.keys()], visited.has("签到桌前排着") or visited.has("签到桌东头排着"))
     check("……也站过花墙前", visited.has("花墙前看"))
 
     print("3 不许站不许走过")
     check("3 分钟里没有客人踩进那四块（%s）" % [bad], bad.is_empty())
+    check("3 分钟里没有客人的身子叠到进门金箭头上（%s）" % [arrow_hit], arrow_hit.is_empty())
     var spots_ok: bool = life.spots.all(func(s): return not CourtLife.in_no_go(s["pos"], 8.0))
     check("客人去站的地方都不在那四块里", spots_ok)
     var carpet_mid := true
@@ -120,8 +125,8 @@ func run() -> void:
         if life._wok(Vector2(768, y)) or life._wok(Vector2(720, y)) or life._wok(Vector2(816, y)):
             carpet_mid = false
     var arrow_ok := true
-    for x in range(1000, 1036, 6):
-        for y in range(600, 696, 6):
+    for x in range(966, 1068, 6):
+        for y in range(592, 716, 6):
             if life._wok(Vector2(x, y)):
                 arrow_ok = false
     check("进门金箭头 (1016, 610) 那块和它下面一个人高，客人站不上（04 第二件第 1 条）", arrow_ok)

@@ -24,5 +24,10 @@ static func text(key: String, path := PATH) -> String:
 static func who(key: String, path := PATH) -> String:
     return str((_lines(path).get(key, {}) as Dictionary).get("who", ""))
 
+## 还没定的占位（「【待补】」「【待做】」「【待阿鱼定】」…）或者空的：玩家看得见的地方一律不出（01 E 10/3：开发字样一律不给玩家看）
+static func placeholder(t: String) -> bool:
+    var s := t.strip_edges()
+    return s == "" or s.contains("【待") or s.contains("预留")
+
 static func has(key: String, path := PATH) -> bool:
     return _lines(path).has(key)

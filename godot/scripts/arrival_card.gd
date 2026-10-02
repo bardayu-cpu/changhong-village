@@ -19,6 +19,7 @@ const LINE_BOOK_1 := "%s 在你这桌簿子上写了一句"
 const LINE_BOOK_N := "%s 在你这桌簿子上写了 %d 句"
 const LINE_VISIT := "%s 你走后来过"
 const LINE_MORE := "还有 %d 位来过"
+const LINE_BACKHALL := "东边侧门通后厅，厨房在那边"   # 没进过后厅的人每次进厅卡上多这一行（01 E 10/3 原话），进过一次就不出
 const BTN_TOAST_BACK := "回敬一杯"   # 和原来提示右边那个按钮一个字
 const BTN_BOOK := "翻簿子"           # 和走到桌边冒出来的按钮一个字
 
@@ -62,6 +63,8 @@ func setup(p_font: Font, rows: Array, names: Dictionary) -> void:
                 text = LINE_VISIT % nick
             "more":
                 text = LINE_MORE % n
+            "backhall":
+                text = LINE_BACKHALL
             _:
                 continue
         if who != "":

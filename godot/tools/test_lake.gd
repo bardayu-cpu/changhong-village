@@ -3,7 +3,7 @@ extends SceneTree
 ## 9/20 加高（01 派任务 11）：画布 1536×1280，顶上 256 像素是纯风景带（对岸，人走不到），玩法区整体 +256，下面的坐标都是加过的。
 ## 布局：三个交互点照蓝图 +256；湖面（y 256～776）不能走，栈道 x 720～816、y 556～816 和亭子（4 米见方，中心 768,556）能走，
 ## 南半 y 796～1156 能走；栈道上摇杆往两边推不下水（边缘挡住，蓝图 3.5 异常处理）；柳树、长凳都在。
-## 亭子：走进去自动出一句、走出去收，阿鱼写好之前是「【待补】」（《世界观》4.2 记忆点只有阿鱼能写）。
+## 亭子：走进去自动出一句、走出去收；阿鱼写好之前（「【待补】」）不出（01 E 10/3）（《世界观》4.2 记忆点只有阿鱼能写）。
 ## 长凳：走到旁边出「坐下」，点一下坐（面朝湖、换坐姿、镜头不变焦），再点起来；自己推摇杆也会站起来，按钮跟着变回「坐下」。
 ## 进出：迎宾院西小径 ↔ 湖边东口，到了站的点离出口至少 1 米、不来回弹
 ## 用法：Godot --headless --path . --script res://tools/test_lake.gd
@@ -125,16 +125,23 @@ func run() -> void:
     k.stick = Vector2.ZERO
     check("往两边、斜着往上各推 1.5 秒，一次也没下水（出界 %d 次，停在 %s）" % [off, k.pos], off == 0 and k._free(k.pos))
 
-    # 4. 亭子：走进去自动出一句（阿鱼写好之前是【待补】），走出去收，再进去又出
+    # 4. 亭子：阿鱼写好之前（【待补】）走进去不出话（01 E 10/3：开发字样不给玩家看）；写好了走进去自动出一句，走出去收，再进去又出
     print("4 亭子")
     m.dialog.visible = false
+    check("话在 lines.json 里还是【待补】", CourtCopy.text("pavilion", CourtCopy.LAKE) == "【待补】")
     walk_to(k.spot_pos("pavilion"))
-    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_text.text == "【待补】" and m.dialog_who.text == "阿鱼")
-    check("话在 lines.json 里也是【待补】", CourtCopy.text("pavilion", CourtCopy.LAKE) == "【待补】")
+    check("还是【待补】：走进亭子不出话", k.in_spot("pavilion") and not m.dialog.visible)
+    walk_to(Vector2(768, 776))
+    var pl: Dictionary = CourtCopy._lines(CourtCopy.LAKE)
+    var keep: Dictionary = pl["pavilion"].duplicate()
+    pl["pavilion"]["text"] = "测试：亭子这句"   # 照阿鱼写好了的样子测（不动文件）
+    walk_to(k.spot_pos("pavilion"))
+    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_text.text == "测试：亭子这句" and m.dialog_who.text == "阿鱼")
     walk_to(Vector2(768, 776))
     check("走出亭子，那句收了", not m.dialog.visible and not k.in_spot("pavilion"))
     walk_to(k.spot_pos("pavilion"))
-    check("再走进去又出", m.dialog.visible and m.dialog_text.text == "【待补】")
+    check("再走进去又出", m.dialog.visible and m.dialog_text.text == "测试：亭子这句")
+    pl["pavilion"] = keep
     walk_to(Vector2(768, 876))
 
     # 5. 长凳：走到旁边出「坐下」，点一下坐（面朝湖、坐姿、镜头不变焦），再点起来

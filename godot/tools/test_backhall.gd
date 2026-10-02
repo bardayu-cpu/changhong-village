@@ -2,7 +2,7 @@ extends SceneTree
 ## 验收：罗曼山庄后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 布局：六个交互点和蓝图一字不差、四个房门走得通、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室四个长辈坐着、厨房一个厨师、
 ## 休息间没人只有一件外套、礼服架只有架子。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
-## 西口回宴会厅站 (1440,600)，两头都不来回弹，座位、金币、NPC 宾客都还在。四个房间：走进半径出按钮，点一下一句「【待补】」
+## 西口回宴会厅站 (1440,600)，两头都不来回弹，座位、金币、NPC 宾客都还在。四个房间：走进半径出按钮，话还是「【待补】」的不出按钮（01 E 10/3），塞了真话的点一下一句
 ## （话没定前不空着），再点关掉，走出去按钮和话都收。东口（厨房后门）去草坪（9/19 任务 8 起）。整条路 迎宾院 → 宴会厅 → 后厅 → 宴会厅 → 迎宾院
 ## 用法：Godot --headless --path . --script res://tools/test_backhall.gd
 ## 最后一行 RESULT PASS 才算过
@@ -175,6 +175,22 @@ func run() -> void:
     var ui = m.backhall_ui
     m.dialog.visible = false   # 进厅那句「到啦～」按真时间几秒就收；这里只推帧不走真时间，手动收掉
     var want_btn := {"dress": "礼服架", "lounge": "外套", "mahjong": "麻将桌", "pot": "穿上围裙 · 学做菜"}
+    # 话还是【待补】的那几间：走进去不出按钮（01 E 10/3：开发字样不给玩家看）
+    var hidden_ok := true
+    for id in ["dress", "lounge", "mahjong"]:
+        var sp0: Vector2 = b.spot_pos(id)
+        walk_to(Vector2(sp0.x, 790))
+        walk_to(sp0)
+        hidden_ok = hidden_ok and b.in_spot(id) and not ui.act_btn.visible
+    check("话还是【待补】的三间，走进去不出按钮", hidden_ok)
+    walk_to(Vector2(b.spot_pos("lounge").x, 790))
+    # 下面照阿鱼写好了的样子测：往读进来的话里塞三句（不动文件）
+    var real := {"dress": "测试：礼服架这句", "lounge": "测试：外套这句", "mahjong": "测试：打两圈这句"}
+    var bl: Dictionary = CourtCopy._lines(CourtCopy.BACKHALL)
+    var saved := {}
+    for id in real:
+        saved[id] = bl[id].duplicate()
+        bl[id]["text"] = real[id]
     var want_who := {"dress": "阿鱼", "lounge": "阿鱼", "mahjong": "长辈", "pot": "厨师"}
     for id in ROOMS:
         var sp: Vector2 = b.spot_pos(id)
@@ -196,25 +212,25 @@ func run() -> void:
             continue
         ui._on_act()
         check("%s：点一下 %s「%s」" % [id, m.dialog_who.text, m.dialog_text.text],
-            m.dialog.visible and m.dialog_text.text == "【待补】" and m.dialog_who.text == want_who[id])
+            m.dialog.visible and m.dialog_text.text == real[id] and m.dialog_who.text == want_who[id])
         if id == "dress":
             # 真等 3.2 秒（平常一句话 2.4 秒加每字 0.09 秒就自己收了），这句不收
             await create_timer(3.2).timeout
-            check("%s：真等 3 秒也不自己收" % id, m.dialog.visible and m.dialog_text.text == "【待补】")
+            check("%s：真等 3 秒也不自己收" % id, m.dialog.visible and m.dialog_text.text == real[id])
         ui._on_act()
         check("%s：再点关掉" % id, not m.dialog.visible)
         ui._on_act()
-        check("%s：再点又出" % id, m.dialog.visible and m.dialog_text.text == "【待补】")
+        check("%s：再点又出" % id, m.dialog.visible and m.dialog_text.text == real[id])
         walk_to(Vector2(sp.x, 790))
         check("%s：走出去按钮和话都收" % id, not ui.act_btn.visible and not m.dialog.visible)
 
-    # 5. 话没定之前都是【待补】、不空着；像素字有【】
+    # 5. 文件里话没定之前都是【待补】（上面塞的测试句不进文件）
     print("5 【待补】")
     var all_hold := true
     for id in ROOMS:
-        all_hold = all_hold and CourtCopy.text(id, CourtCopy.BACKHALL) == "【待补】"
-    check("四句都是【待补】", all_hold)
-    check("像素字显示得出【】", m.font.has_char("【".unicode_at(0)) and m.font.has_char("】".unicode_at(0)))
+        var raw = JSON.parse_string(FileAccess.get_file_as_string(CourtCopy.BACKHALL))["lines"][id]["text"]
+        all_hold = all_hold and str(raw) == "【待补】"
+    check("文件里四句都还是【待补】（阿鱼定了填进去就出按钮）", all_hold)
 
     # 6. 说话框被别的话顶掉了：再点按钮是再说一遍，不是把别人的话关掉
     print("6 别的话顶掉")
@@ -223,8 +239,10 @@ func run() -> void:
     ui._on_act()
     m._say("别的话", 0.0, "阿鱼")
     ui._on_act()
-    check("再点是再说一遍「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "【待补】")
+    check("再点是再说一遍「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == real["dress"])
     ui._on_act()
+    for id in saved:
+        bl[id] = saved[id]
 
     # 7. 东口（厨房后门）去草坪（9/19 任务 8 起）：站在西北口边 (100,300)；从西北口回来站在厨房后门边 (1440,780)
     print("7 厨房后门")

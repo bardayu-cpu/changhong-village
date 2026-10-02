@@ -1,6 +1,6 @@
 extends Control
 ## 后厅的按钮（蓝图 3.3 交互说明）：走进四个房间的交互点半径，底下出按钮；点一下出一句话，再点关掉；没有面板。
-## 话在 assets/backhall/lines.json，阿鱼定之前都是「【待补】」（蓝图 3.3 异常处理：不显示空白）
+## 话在 assets/backhall/lines.json，阿鱼定之前都是「【待补】」；10/3 起占位的那几间不出按钮（01 E：开发字样不给玩家看），定了填进去就出
 
 const Copy = preload("res://scripts/court_copy.gd")
 const ROOMS := ["dress", "lounge", "mahjong", "pot"]
@@ -30,6 +30,8 @@ func spot(id: String, inside: bool) -> void:
         return
     if inside:
         _close_line()
+        if id != "pot" and Copy.placeholder(Copy.text(id, Copy.BACKHALL)):
+            return   # 这间的话阿鱼还没定（【待补】）：不出按钮，点了也只会说一句占位（01 E 10/3：开发字样不给玩家看）
         act_id = id
         act_btn.text = "穿上围裙 · 学做菜" if id == "pot" else Copy.text("btn_" + id, Copy.BACKHALL)
         act_btn.visible = true
