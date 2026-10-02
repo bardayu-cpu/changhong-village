@@ -9,9 +9,9 @@ extends Node2D
 const Rel = preload("res://scripts/relatives.gd")
 const GameCfg = preload("res://scripts/games/game_config.gd")
 
-const SILK_TEX := "res://assets/fx/blk_B55S-P06.png"   # 3 格横排，一格 160×56
-const FX_TEX := {"petal": "res://assets/fx/fx_B55S-FX01.png", "paper": "res://assets/fx/fx_B55S-FX02.png",
-    "ribbon": "res://assets/fx/fx_B55S-FX03.png"}
+const SILK_TEX := "res://assets/fx/blk_B55S-P06_v1.png"   # 3 格横排，一格 160×56
+const FX_TEX := {"petal": "res://assets/fx/fx_B55S-FX01_v1.png", "paper": "res://assets/fx/fx_B55S-FX02_v1.png",
+    "ribbon": "res://assets/fx/fx_B55S-FX03_v1.png"}
 const SILK_CELL := Vector2(160, 56)
 const SILK_HANG := Vector2(11, 6)       # 左挂点（格内）；右挂点 (148, 6)，相距 137
 const SILK_SPAN := 137.0
@@ -26,7 +26,7 @@ const FX_ROWS := {"petal": 4, "paper": 6, "ribbon": 3}   # 行 = 颜色，列 = 
 const FX_FRAME_T := 0.12
 # 三种飘落：放片放多久（秒）、每片活多久、屏幕上同时最多几片、花瓣 / 彩纸 / 卷彩带各占多少、落多快（像素/秒）
 const KINDS := {
-    "feast": {"spawn": 2.0, "life": Vector2(1.8, 2.6), "max": 60, "mix": [0.5, 0.4, 0.1], "fall": 300.0},   # 落到半屏多
+    "feast": {"spawn": 3.0, "life": Vector2(1.8, 2.6), "max": 90, "mix": [0.5, 0.4, 0.1], "fall": 300.0},   # 落到半屏多；04 10/2 嫌淡：60 片 4 秒 → 90 片 5 秒（片不放大）
     "entry": {"spawn": 0.8, "life": Vector2(1.2, 1.6), "max": 30, "mix": [0.5, 0.4, 0.1], "fall": 280.0},
     "toast": {"spawn": 0.5, "life": Vector2(0.8, 1.1), "max": 14, "mix": [1.0, 0.0, 0.0], "fall": 110.0},
 }

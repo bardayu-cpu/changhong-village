@@ -58,6 +58,8 @@ FONT = "/System/Library/Fonts/STHeiti Medium.ttc"
 
 W = 1536
 CX = 768                      # 红毯中线
+WALL = 46                     # 两边墙厚：GPT 北边、南边两张背景里都画成 46（03 10/2 量；原来写 40，人能走进墙里 6 像素）。
+                              # 走路格子、墙的框、贴墙的长凳、栏杆照它；桌子的位置是锁死的排法（C + 第 1 档），不跟着挪
 PERSON = 84
 VIEW = (576, 1024)            # 手机竖屏一屏看到的画布（540×960，镜头 960/1024）
 
@@ -214,13 +216,13 @@ def build():
     for k in range(len(drapes) - 1):   # 挂灯只挂在两段帐幔之间的缝里，挂在缝正中
         add("挂灯 %d" % (k + 1), "decor", (drapes[k] + 152 + (gap - 20) // 2, 60, 20, 24), (240, 170, 60), "§15 挂着的灯笼 高 19～24，取 24；宽 20", "top_decor")
     side_bottom = south_top + SOUTH_RAIL[0]   # 两边墙画到栏杆顶
-    add("西墙", "wall", (0, WALL_N, 40, side_bottom - WALL_N), wood, "墙厚 40（约 0.8 米，§15 没有）；俯看是一条，平的", flat=True)
+    add("西墙", "wall", (0, WALL_N, WALL, side_bottom - WALL_N), wood, "墙厚 %d（GPT 两张背景里量的，§15 没有）；俯看是一条，平的" % WALL, flat=True)
     # 东侧门（v6 更正，01 D 9/30）：GPT 补南边那张背景就是整厅最南头 1024 高一截，门画在那张图里 y 193～251；
     # 背景说了算，这里照它算：整厅 y = (H - 1024) + 193～251。图没到之前色块也先摆在这
     d0, d1 = south_top + SOUTH_SIDE_DOOR[0], south_top + SOUTH_SIDE_DOOR[1]
-    add("东墙（北段）", "wall", (W - 40, WALL_N, 40, d0 - WALL_N), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
-    add("东墙（南段）", "wall", (W - 40, d1, 40, side_bottom - d1), wood, "墙厚 40（约 0.8 米）；平的", flat=True)
-    add("东侧门（门洞）", "door", (W - 40, d0, 40, d1 - d0), (60, 140, 200), "§15 双开门宽 1.8 米；开在东墙上，宽沿地面前后算：1.8×32=58；开在第二条横走道东头", flat=True)
+    add("东墙（北段）", "wall", (W - WALL, WALL_N, WALL, d0 - WALL_N), wood, "墙厚 %d；平的" % WALL, flat=True)
+    add("东墙（南段）", "wall", (W - WALL, d1, WALL, side_bottom - d1), wood, "墙厚 %d；平的" % WALL, flat=True)
+    add("东侧门（门洞）", "door", (W - WALL, d0, WALL, d1 - d0), (60, 140, 200), "§15 双开门宽 1.8 米；开在东墙上，宽沿地面前后算：1.8×32=58；开在第二条横走道东头", flat=True)
     # 北墙上的：花拱、囍（v3.2 横幅删了）
     add("花拱", "decor", ARCH, (70, 130, 70), "宽 5 米×48=240、高 3.75 米×48=180（§15 没有）", "wall_decor")
     add("囍字圆牌", "decor", XI, (215, 170, 60), "直径 2 米×48=96（§15 没有）", "wall_decor")
@@ -281,9 +283,9 @@ def build():
         px0, py0, pw, ph = SOUTH_DOOR_POSTS
         b = (px0, south_top + py0, pw, ph)
         add("大门（门柱和开着的两扇门，南边背景里画好的）", "door", b, (60, 140, 200), "v7 照南边背景量：门柱 640～900、门洞 706～826；落地线 %d" % rail_foot, foot=standing(b, 8))
-        b = (40, south_top + SOUTH_RAIL[0], px0 - 40, SOUTH_RAIL[1] - SOUTH_RAIL[0])
+        b = (WALL, south_top + SOUTH_RAIL[0], px0 - WALL, SOUTH_RAIL[1] - SOUTH_RAIL[0])
         add("南边西段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量：顶 958、脚 1000（那张图里）", foot=standing(b, 8))
-        b = (px0 + pw, south_top + SOUTH_RAIL[0], W - 40 - (px0 + pw), SOUTH_RAIL[1] - SOUTH_RAIL[0])
+        b = (px0 + pw, south_top + SOUTH_RAIL[0], W - WALL - (px0 + pw), SOUTH_RAIL[1] - SOUTH_RAIL[0])
         add("南边东段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量", foot=standing(b, 8))
         add("进门站的地方", "zone", (CX - 150, stand_top, 300, 96), None, "门槛里边空出来的地面：宽 300、前后 3 米（96）", flat=True)
 
@@ -361,8 +363,8 @@ def _relayout_tables(add, items, d0, d1):
             add(name, "table", tb, (220, 70, 60) if name != "主桌" else (240, 190, 60),
                 "重排 %s：每边 3 列错开，列距 %d、行距 %d（占地之间左右留 %d、斜着留 %d）" % (LAYOUT, PITCH_X, PITCH, GAP, DIAG), "table:" + name, foot=tf)
     # 长凳：第 2 排最靠西墙那个空位，凳子落在那张桌占地的下沿
-    # 04 10/2 第 5 条：凳子孤零零摆在地砖中间像掉在那儿的，贴西墙放（墙 40，留 2），高度还在第 2 排那个空位
-    bf = (42, by - 16, 72, 16)   # by：凳子落在那个位正中偏下，不压上下两排斜过来的桌
+    # 04 10/2 第 5 条：凳子孤零零摆在地砖中间像掉在那儿的，贴西墙放（墙 WALL，留 2），高度还在第 2 排那个空位
+    bf = (WALL + 2, by - 16, 72, 16)   # by：凳子落在那个位正中偏下，不压上下两排斜过来的桌；贴墙留 2
     add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；重排：第 2 排最靠西墙那个空位，贴着西墙", foot=bf)
     # 礼物堆：舞台西边地上，两排错开、一份压一份（像现场图那一大片），后排 5 份、前排 5 份
     for row, (foot_y, x0, step) in enumerate(((290, 180, 69), (322, 186, 68))):   # 前排脚 322：跟台口一条线，主桌零件上沿 330 在它下面

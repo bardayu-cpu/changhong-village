@@ -7,7 +7,7 @@ extends SceneTree
 ##   Godot --path . --resolution 540x960 --script res://tools/shot_canvas.gd -- --out=图.png [下面这些]
 ##   --rect=x,y,w,h   画布上哪一块（整厅坐标，默认 0,0,1536,1024 = 北边那块）
 ##   --zoom=1         缩放：出图大小 = w×zoom、h×zoom（1 就是一比一）
-##   --people=0       0 不放人（宾客、亲友、服务员、新人、自己、桌上的菜和牌都藏），1 照常
+##   --people=0       0 不放人（宾客、亲友、服务员、新人、自己、桌上的菜和牌都藏；红绸飘落也藏，除非给了 --fx），1 照常
 ##   --ui=0           0 只存厅那块子画面（没有界面）；1 存整个窗口（手机屏那样，带界面）：人站在 rect 中心，镜头照游戏自己的跟人走，缩放照手机
 
 ##   --hall=55        哪个厅：55（55 桌大厅）、44（第 44 版 12 桌厅）
@@ -86,6 +86,8 @@ func run() -> void:
         hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(stand_at))))
     if str(opt["people"]) == "0":
         m._hide_people_for_shot()
+        if hall.get("festive") != null and str(opt["fx"]) == "":
+            hall.festive.visible = false   # 不放人的截图是「背景 + 零件」（03 拿它对 GPT 的色块），红绸飘落也藏
     var out_size := Vector2i(int(round(rect.size.x * zoom)), int(round(rect.size.y * zoom)))
     var sv: SubViewport = m.view.get_child(0)
     if str(opt["ui"]) == "0":
