@@ -1,14 +1,16 @@
 {
+ "block": "north",
  "canvas": [
   1536,
   1024
  ],
- "origin": "整厅 (0,0) 就是这块左上角",
- "note": "x、y 是画出来的框的左上角；脚点（foot）是占地下沿的中点，整厅坐标；图内脚点 = 脚点 − (x, y)",
+ "y_offset": 0,
+ "origin": "x 照整厅；整厅 y = 块内 y + 0。下面所有 x、y 都是整厅坐标",
+ "note": "x、y 是画出来的框的左上角；脚点（foot）是占地下沿的中点；图内脚点 = 脚点 − (x, y)",
  "parts": [
   {
-   "code": "B55-T01",
-   "name": "普通圆桌",
+   "code": "B55S-T01",
+   "name": "圆桌",
    "size": [
     180,
     150
@@ -22,503 +24,373 @@
    "count_cut": 6,
    "instances": [
     {
-     "id": "B55-T01-01",
+     "id": "B55S-T01-01",
      "name": "T1",
      "x": 854,
      "y": 330,
+     "y_in_block": 330,
      "foot": [
       944,
       480
      ],
      "sort_y": 430,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-02",
+     "id": "B55S-T01-02",
      "name": "T2",
      "x": 1045,
      "y": 330,
+     "y_in_block": 330,
      "foot": [
       1135,
       480
      ],
      "sort_y": 430,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-03",
+     "id": "B55S-T01-03",
      "name": "T3",
      "x": 1236,
      "y": 330,
+     "y_in_block": 330,
      "foot": [
       1326,
       480
      ],
      "sort_y": 430,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-04",
+     "id": "B55S-T01-04",
      "name": "T4",
      "x": 406,
      "y": 483,
+     "y_in_block": 483,
      "foot": [
       496,
       633
      ],
      "sort_y": 583,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-05",
+     "id": "B55S-T01-05",
      "name": "T5",
      "x": 950,
      "y": 483,
+     "y_in_block": 483,
      "foot": [
       1040,
       633
      ],
      "sort_y": 583,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-06",
+     "id": "B55S-T01-06",
      "name": "T6",
      "x": 216,
      "y": 483,
+     "y_in_block": 483,
      "foot": [
       306,
       633
      ],
      "sort_y": 583,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-07",
+     "id": "B55S-T01-07",
      "name": "T7",
      "x": 1140,
      "y": 483,
+     "y_in_block": 483,
      "foot": [
       1230,
       633
      ],
      "sort_y": 583,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-08",
+     "id": "B55S-T01-08",
      "name": "T8",
      "x": 1332,
      "y": 483,
+     "y_in_block": 483,
      "foot": [
       1422,
       633
      ],
      "sort_y": 583,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-09",
+     "id": "B55S-T01-09",
      "name": "T9",
      "x": 502,
      "y": 636,
+     "y_in_block": 636,
      "foot": [
       592,
       786
      ],
      "sort_y": 736,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-10",
+     "id": "B55S-T01-10",
      "name": "T10",
      "x": 854,
      "y": 636,
+     "y_in_block": 636,
      "foot": [
       944,
       786
      ],
      "sort_y": 736,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-11",
+     "id": "B55S-T01-11",
      "name": "T11",
      "x": 311,
      "y": 636,
+     "y_in_block": 636,
      "foot": [
       401,
       786
      ],
      "sort_y": 736,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-12",
+     "id": "B55S-T01-12",
      "name": "T12",
      "x": 1045,
      "y": 636,
+     "y_in_block": 636,
      "foot": [
       1135,
       786
      ],
      "sort_y": 736,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-13",
+     "id": "B55S-T01-13",
      "name": "T13",
      "x": 120,
      "y": 636,
+     "y_in_block": 636,
      "foot": [
       210,
       786
      ],
      "sort_y": 736,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-14",
+     "id": "B55S-T01-14",
      "name": "T14",
      "x": 1236,
      "y": 636,
+     "y_in_block": 636,
      "foot": [
       1326,
       786
      ],
      "sort_y": 736,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-15",
+     "id": "B55S-T01-15",
      "name": "T15",
      "x": 406,
      "y": 789,
+     "y_in_block": 789,
      "foot": [
       496,
       939
      ],
      "sort_y": 889,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-16",
+     "id": "B55S-T01-16",
      "name": "T16",
      "x": 950,
      "y": 789,
+     "y_in_block": 789,
      "foot": [
       1040,
       939
      ],
      "sort_y": 889,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-17",
+     "id": "B55S-T01-17",
      "name": "T17",
      "x": 216,
      "y": 789,
+     "y_in_block": 789,
      "foot": [
       306,
       939
      ],
      "sort_y": 889,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-18",
+     "id": "B55S-T01-18",
      "name": "T18",
      "x": 1140,
      "y": 789,
+     "y_in_block": 789,
      "foot": [
       1230,
       939
      ],
      "sort_y": 889,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-19",
+     "id": "B55S-T01-19",
      "name": "T19",
      "x": 24,
      "y": 789,
+     "y_in_block": 789,
      "foot": [
       114,
       939
      ],
      "sort_y": 889,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-20",
+     "id": "B55S-T01-20",
      "name": "T20",
      "x": 1332,
      "y": 789,
+     "y_in_block": 789,
      "foot": [
       1422,
       939
      ],
      "sort_y": 889,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     },
     {
-     "id": "B55-T01-21",
+     "id": "B55S-T01-21",
      "name": "T21",
      "x": 502,
      "y": 942,
+     "y_in_block": 942,
      "foot": [
       592,
       1092
      ],
      "sort_y": 1042,
-     "cut": true,
-     "visible_h": 82,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "下",
+     "visible_h": 82
     },
     {
-     "id": "B55-T01-22",
+     "id": "B55S-T01-22",
      "name": "T22",
      "x": 854,
      "y": 942,
+     "y_in_block": 942,
      "foot": [
       944,
       1092
      ],
      "sort_y": 1042,
-     "cut": true,
-     "visible_h": 82,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "下",
+     "visible_h": 82
     },
     {
-     "id": "B55-T01-23",
+     "id": "B55S-T01-23",
      "name": "T23",
      "x": 311,
      "y": 942,
+     "y_in_block": 942,
      "foot": [
       401,
       1092
      ],
      "sort_y": 1042,
-     "cut": true,
-     "visible_h": 82,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "下",
+     "visible_h": 82
     },
     {
-     "id": "B55-T01-24",
+     "id": "B55S-T01-24",
      "name": "T24",
      "x": 1045,
      "y": 942,
+     "y_in_block": 942,
      "foot": [
       1135,
       1092
      ],
      "sort_y": 1042,
-     "cut": true,
-     "visible_h": 82,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "下",
+     "visible_h": 82
     },
     {
-     "id": "B55-T01-25",
+     "id": "B55S-T01-25",
      "name": "T25",
      "x": 120,
      "y": 942,
+     "y_in_block": 942,
      "foot": [
       210,
       1092
      ],
      "sort_y": 1042,
-     "cut": true,
-     "visible_h": 82,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "下",
+     "visible_h": 82
     },
     {
-     "id": "B55-T01-26",
+     "id": "B55S-T01-26",
      "name": "T26",
      "x": 1236,
      "y": 942,
+     "y_in_block": 942,
      "foot": [
       1326,
       1092
      ],
      "sort_y": 1042,
-     "cut": true,
-     "visible_h": 82,
-     "opaque_bbox_in_image": [
-      19,
-      22,
-      164,
-      150
-     ]
+     "cut": "下",
+     "visible_h": 82
     }
    ]
   },
   {
-   "code": "B55-T02",
+   "code": "B55S-T02",
    "name": "主桌",
    "size": [
     180,
@@ -533,29 +405,24 @@
    "count_cut": 0,
    "instances": [
     {
-     "id": "B55-T02",
+     "id": "B55S-T02",
      "name": "主桌",
      "x": 502,
      "y": 330,
+     "y_in_block": 330,
      "foot": [
       592,
       480
      ],
      "sort_y": 430,
-     "cut": false,
-     "visible_h": 150,
-     "opaque_bbox_in_image": [
-      11,
-      10,
-      170,
-      150
-     ]
+     "cut": "",
+     "visible_h": 150
     }
    ]
   },
   {
-   "code": "B55-P01",
-   "name": "落地宫灯",
+   "code": "B55S-P01",
+   "name": "落地灯（路引）",
    "size": [
     48,
     112
@@ -569,199 +436,149 @@
    "count_cut": 2,
    "instances": [
     {
-     "id": "B55-P01-01",
+     "id": "B55S-P01-01",
      "name": "红毯西侧落地宫灯（第 1 排）",
      "x": 654,
      "y": 341,
+     "y_in_block": 341,
      "foot": [
       679,
       453
      ],
      "sort_y": 446,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-02",
+     "id": "B55S-P01-02",
      "name": "红毯东侧落地宫灯（第 1 排）",
      "x": 831,
      "y": 341,
+     "y_in_block": 341,
      "foot": [
       856,
       453
      ],
      "sort_y": 446,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-03",
+     "id": "B55S-P01-03",
      "name": "红毯西侧落地宫灯（第 2 排）",
      "x": 654,
      "y": 494,
+     "y_in_block": 494,
      "foot": [
       679,
       606
      ],
      "sort_y": 599,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-04",
+     "id": "B55S-P01-04",
      "name": "红毯东侧落地宫灯（第 2 排）",
      "x": 831,
      "y": 494,
+     "y_in_block": 494,
      "foot": [
       856,
       606
      ],
      "sort_y": 599,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-05",
+     "id": "B55S-P01-05",
      "name": "红毯西侧落地宫灯（第 3 排）",
      "x": 654,
      "y": 647,
+     "y_in_block": 647,
      "foot": [
       679,
       759
      ],
      "sort_y": 752,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-06",
+     "id": "B55S-P01-06",
      "name": "红毯东侧落地宫灯（第 3 排）",
      "x": 831,
      "y": 647,
+     "y_in_block": 647,
      "foot": [
       856,
       759
      ],
      "sort_y": 752,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-07",
+     "id": "B55S-P01-07",
      "name": "红毯西侧落地宫灯（第 4 排）",
      "x": 654,
      "y": 800,
+     "y_in_block": 800,
      "foot": [
       679,
       912
      ],
      "sort_y": 905,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-08",
+     "id": "B55S-P01-08",
      "name": "红毯东侧落地宫灯（第 4 排）",
      "x": 831,
      "y": 800,
+     "y_in_block": 800,
      "foot": [
       856,
       912
      ],
      "sort_y": 905,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P01-09",
+     "id": "B55S-P01-09",
      "name": "红毯西侧落地宫灯（第 5 排）",
      "x": 654,
      "y": 953,
+     "y_in_block": 953,
      "foot": [
       679,
       1065
      ],
      "sort_y": 1058,
-     "cut": true,
-     "visible_h": 71,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "下",
+     "visible_h": 71
     },
     {
-     "id": "B55-P01-10",
+     "id": "B55S-P01-10",
      "name": "红毯东侧落地宫灯（第 5 排）",
      "x": 831,
      "y": 953,
+     "y_in_block": 953,
      "foot": [
       856,
       1065
      ],
      "sort_y": 1058,
-     "cut": true,
-     "visible_h": 71,
-     "opaque_bbox_in_image": [
-      13,
-      7,
-      38,
-      112
-     ]
+     "cut": "下",
+     "visible_h": 71
     }
    ]
   },
   {
-   "code": "B55-P02",
+   "code": "B55S-P02",
    "name": "落地花架",
    "size": [
     56,
@@ -776,85 +593,65 @@
    "count_cut": 0,
    "instances": [
     {
-     "id": "B55-P02-01",
+     "id": "B55S-P02-01",
      "name": "花架（北墙西）",
      "x": 119,
      "y": 144,
+     "y_in_block": 144,
      "foot": [
       147,
       256
      ],
      "sort_y": 248,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      3,
-      10,
-      54,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P02-02",
+     "id": "B55S-P02-02",
      "name": "花架（台西后角）",
      "x": 555,
      "y": 144,
+     "y_in_block": 144,
      "foot": [
       583,
       256
      ],
      "sort_y": 248,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      3,
-      10,
-      54,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P02-03",
+     "id": "B55S-P02-03",
      "name": "花架（台东后角）",
      "x": 940,
      "y": 144,
+     "y_in_block": 144,
      "foot": [
       968,
       256
      ],
      "sort_y": 248,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      3,
-      10,
-      54,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     },
     {
-     "id": "B55-P02-04",
+     "id": "B55S-P02-04",
      "name": "花架（北墙东）",
      "x": 1362,
      "y": 144,
+     "y_in_block": 144,
      "foot": [
       1390,
       256
      ],
      "sort_y": 248,
-     "cut": false,
-     "visible_h": 112,
-     "opaque_bbox_in_image": [
-      3,
-      10,
-      54,
-      112
-     ]
+     "cut": "",
+     "visible_h": 112
     }
    ]
   },
   {
-   "code": "B55-P03",
+   "code": "B55S-P03",
    "name": "小花盆",
    "size": [
     32,
@@ -869,47 +666,37 @@
    "count_cut": 0,
    "instances": [
     {
-     "id": "B55-P03-01",
+     "id": "B55S-P03-01",
      "name": "花盆（礼物区西）",
      "x": 60,
      "y": 298,
+     "y_in_block": 298,
      "foot": [
       76,
       330
      ],
      "sort_y": 322,
-     "cut": false,
-     "visible_h": 32,
-     "opaque_bbox_in_image": [
-      1,
-      1,
-      31,
-      32
-     ]
+     "cut": "",
+     "visible_h": 32
     },
     {
-     "id": "B55-P03-02",
+     "id": "B55S-P03-02",
      "name": "花盆（乐队东）",
      "x": 1352,
      "y": 293,
+     "y_in_block": 293,
      "foot": [
       1368,
       325
      ],
      "sort_y": 317,
-     "cut": false,
-     "visible_h": 32,
-     "opaque_bbox_in_image": [
-      1,
-      1,
-      31,
-      32
-     ]
+     "cut": "",
+     "visible_h": 32
     }
    ]
   },
   {
-   "code": "B55-P04",
+   "code": "B55S-P04",
    "name": "长凳",
    "size": [
     72,
@@ -924,23 +711,18 @@
    "count_cut": 0,
    "instances": [
     {
-     "id": "B55-P04",
+     "id": "B55S-P04",
      "name": "长凳",
      "x": 78,
      "y": 533,
+     "y_in_block": 533,
      "foot": [
       114,
       587
      ],
      "sort_y": 579,
-     "cut": false,
-     "visible_h": 54,
-     "opaque_bbox_in_image": [
-      3,
-      18,
-      69,
-      54
-     ]
+     "cut": "",
+     "visible_h": 54
     }
    ]
   },
@@ -964,197 +746,147 @@
      "name": "礼物堆 1",
      "x": 180,
      "y": 210,
+     "y_in_block": 210,
      "foot": [
       228,
       290
      ],
-     "sort_y": 290,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-02",
      "name": "礼物堆 2",
      "x": 249,
      "y": 210,
+     "y_in_block": 210,
      "foot": [
       297,
       290
      ],
-     "sort_y": 290,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-03",
      "name": "礼物堆 3",
      "x": 318,
      "y": 210,
+     "y_in_block": 210,
      "foot": [
       366,
       290
      ],
-     "sort_y": 290,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-04",
      "name": "礼物堆 4",
      "x": 387,
      "y": 210,
+     "y_in_block": 210,
      "foot": [
       435,
       290
      ],
-     "sort_y": 290,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-05",
      "name": "礼物堆 5",
      "x": 456,
      "y": 210,
+     "y_in_block": 210,
      "foot": [
       504,
       290
      ],
-     "sort_y": 290,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-06",
      "name": "礼物堆 6",
      "x": 186,
      "y": 242,
+     "y_in_block": 242,
      "foot": [
       234,
       322
      ],
-     "sort_y": 322,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-07",
      "name": "礼物堆 7",
      "x": 254,
      "y": 242,
+     "y_in_block": 242,
      "foot": [
       302,
       322
      ],
-     "sort_y": 322,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-08",
      "name": "礼物堆 8",
      "x": 322,
      "y": 242,
+     "y_in_block": 242,
      "foot": [
       370,
       322
      ],
-     "sort_y": 322,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-09",
      "name": "礼物堆 9",
      "x": 390,
      "y": 242,
+     "y_in_block": 242,
      "foot": [
       438,
       322
      ],
-     "sort_y": 322,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     },
     {
      "id": "B55S-P05-10",
      "name": "礼物堆 10",
      "x": 458,
      "y": 242,
+     "y_in_block": 242,
      "foot": [
       506,
       322
      ],
-     "sort_y": 322,
-     "cut": false,
-     "visible_h": 80,
-     "opaque_bbox_in_image": [
-      0,
-      0,
-      96,
-      80
-     ]
+     "sort_y": null,
+     "cut": "",
+     "visible_h": 80
     }
    ]
   }
  ],
  "background": [
   {
-   "id": "B55-BG01-a",
+   "id": "B55S-BG01-a",
    "name": "北墙（立面）",
    "kind": "北墙",
    "box": [
@@ -1163,6 +895,7 @@
     1536,
     236
    ],
+   "y_in_block": 0,
    "foot_box": [
     0,
     220,
@@ -1172,7 +905,7 @@
    "basis": "墙高 7 米：7×48=336（§15 没有墙这一行）"
   },
   {
-   "id": "B55-BG01-b",
+   "id": "B55S-BG01-b",
    "name": "墙顶横梁",
    "kind": "墙顶横梁",
    "box": [
@@ -1181,6 +914,7 @@
     1536,
     24
    ],
+   "y_in_block": 0,
    "foot_box": [
     0,
     0,
@@ -1190,7 +924,7 @@
    "basis": "梁高 0.5 米×48=24"
   },
   {
-   "id": "B55-BG01-c-1",
+   "id": "B55S-BG01-c-1",
    "name": "帐幔 1",
    "kind": "帐幔",
    "box": [
@@ -1199,6 +933,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     89,
     24,
@@ -1208,7 +943,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-c-2",
+   "id": "B55S-BG01-c-2",
    "name": "帐幔 2",
    "kind": "帐幔",
    "box": [
@@ -1217,6 +952,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     290,
     24,
@@ -1226,7 +962,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-c-3",
+   "id": "B55S-BG01-c-3",
    "name": "帐幔 3",
    "kind": "帐幔",
    "box": [
@@ -1235,6 +971,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     491,
     24,
@@ -1244,7 +981,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-c-4",
+   "id": "B55S-BG01-c-4",
    "name": "帐幔 4",
    "kind": "帐幔",
    "box": [
@@ -1253,6 +990,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     692,
     24,
@@ -1262,7 +1000,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-c-5",
+   "id": "B55S-BG01-c-5",
    "name": "帐幔 5",
    "kind": "帐幔",
    "box": [
@@ -1271,6 +1009,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     893,
     24,
@@ -1280,7 +1019,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-c-6",
+   "id": "B55S-BG01-c-6",
    "name": "帐幔 6",
    "kind": "帐幔",
    "box": [
@@ -1289,6 +1028,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     1094,
     24,
@@ -1298,7 +1038,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-c-7",
+   "id": "B55S-BG01-c-7",
    "name": "帐幔 7",
    "kind": "帐幔",
    "box": [
@@ -1307,6 +1047,7 @@
     152,
     40
    ],
+   "y_in_block": 24,
    "foot_box": [
     1295,
     24,
@@ -1316,7 +1057,7 @@
    "basis": "垂下 0.8 米×48=40；一段 3.2 米宽"
   },
   {
-   "id": "B55-BG01-d-1",
+   "id": "B55S-BG01-d-1",
    "name": "挂灯 1",
    "kind": "挂灯",
    "box": [
@@ -1325,6 +1066,7 @@
     20,
     24
    ],
+   "y_in_block": 60,
    "foot_box": [
     255,
     60,
@@ -1334,7 +1076,7 @@
    "basis": "§15 挂着的灯笼 高 19～24，取 24；宽 20"
   },
   {
-   "id": "B55-BG01-d-2",
+   "id": "B55S-BG01-d-2",
    "name": "挂灯 2",
    "kind": "挂灯",
    "box": [
@@ -1343,6 +1085,7 @@
     20,
     24
    ],
+   "y_in_block": 60,
    "foot_box": [
     456,
     60,
@@ -1352,7 +1095,7 @@
    "basis": "§15 挂着的灯笼 高 19～24，取 24；宽 20"
   },
   {
-   "id": "B55-BG01-d-3",
+   "id": "B55S-BG01-d-3",
    "name": "挂灯 3",
    "kind": "挂灯",
    "box": [
@@ -1361,6 +1104,7 @@
     20,
     24
    ],
+   "y_in_block": 60,
    "foot_box": [
     657,
     60,
@@ -1370,7 +1114,7 @@
    "basis": "§15 挂着的灯笼 高 19～24，取 24；宽 20"
   },
   {
-   "id": "B55-BG01-d-4",
+   "id": "B55S-BG01-d-4",
    "name": "挂灯 4",
    "kind": "挂灯",
    "box": [
@@ -1379,6 +1123,7 @@
     20,
     24
    ],
+   "y_in_block": 60,
    "foot_box": [
     858,
     60,
@@ -1388,7 +1133,7 @@
    "basis": "§15 挂着的灯笼 高 19～24，取 24；宽 20"
   },
   {
-   "id": "B55-BG01-d-5",
+   "id": "B55S-BG01-d-5",
    "name": "挂灯 5",
    "kind": "挂灯",
    "box": [
@@ -1397,6 +1142,7 @@
     20,
     24
    ],
+   "y_in_block": 60,
    "foot_box": [
     1059,
     60,
@@ -1406,7 +1152,7 @@
    "basis": "§15 挂着的灯笼 高 19～24，取 24；宽 20"
   },
   {
-   "id": "B55-BG01-d-6",
+   "id": "B55S-BG01-d-6",
    "name": "挂灯 6",
    "kind": "挂灯",
    "box": [
@@ -1415,6 +1161,7 @@
     20,
     24
    ],
+   "y_in_block": 60,
    "foot_box": [
     1260,
     60,
@@ -1424,7 +1171,7 @@
    "basis": "§15 挂着的灯笼 高 19～24，取 24；宽 20"
   },
   {
-   "id": "B55-BG01-g",
+   "id": "B55S-BG01-g",
    "name": "花拱",
    "kind": "花拱",
    "box": [
@@ -1433,6 +1180,7 @@
     264,
     160
    ],
+   "y_in_block": 76,
    "foot_box": [
     636,
     76,
@@ -1442,7 +1190,7 @@
    "basis": "宽 5 米×48=240、高 3.75 米×48=180（§15 没有）"
   },
   {
-   "id": "B55-BG01-h",
+   "id": "B55S-BG01-h",
    "name": "囍字圆牌",
    "kind": "囍字圆牌",
    "box": [
@@ -1451,6 +1199,7 @@
     126,
     126
    ],
+   "y_in_block": 110,
    "foot_box": [
     704,
     110,
@@ -1460,7 +1209,7 @@
    "basis": "直径 2 米×48=96（§15 没有）"
   },
   {
-   "id": "B55-BG01-i",
+   "id": "B55S-BG01-i",
    "name": "婚礼台（台面）",
    "kind": "婚礼台（台面）",
    "box": [
@@ -1469,6 +1218,7 @@
     444,
     63
    ],
+   "y_in_block": 234,
    "foot_box": [
     555,
     236,
@@ -1478,7 +1228,7 @@
    "basis": "v9 照 v2 背景量：555～999、台面 234～297，贴北墙"
   },
   {
-   "id": "B55-BG01-j",
+   "id": "B55S-BG01-j",
    "name": "婚礼台（台口立面）",
    "kind": "婚礼台（台口立面）",
    "box": [
@@ -1487,6 +1237,7 @@
     444,
     25
    ],
+   "y_in_block": 297,
    "foot_box": [
     555,
     306,
@@ -1496,7 +1247,7 @@
    "basis": "v9 照 v2 背景量：立面 297～322，落地线 322"
   },
   {
-   "id": "B55-BG01-k",
+   "id": "B55S-BG01-k",
    "name": "台阶",
    "kind": "台阶",
    "box": [
@@ -1505,6 +1256,7 @@
     152,
     45
    ],
+   "y_in_block": 297,
    "foot_box": [
     692,
     322,
@@ -1514,25 +1266,7 @@
    "basis": "v4 照背景量：692～844、两级、下沿 342"
   },
   {
-   "id": "B55-BG01-l",
-   "name": "红毯",
-   "kind": "红毯",
-   "box": [
-    696,
-    342,
-    144,
-    1615
-   ],
-   "foot_box": [
-    696,
-    342,
-    144,
-    1615
-   ],
-   "basis": "3 米×48=144（方案）；从台阶下沿到大门门槛"
-  },
-  {
-   "id": "B55-BG01-m",
+   "id": "B55S-BG01-m",
    "name": "乐队地台（背景里画好的）",
    "kind": "乐队地台",
    "box": [
@@ -1541,6 +1275,7 @@
     334,
     160
    ],
+   "y_in_block": 165,
    "foot_box": [
     1014,
     222,
@@ -1550,7 +1285,7 @@
    "basis": "v9 照 v2 背景量：地台 1014～1348、台面 222～315、前沿 325；钢琴顶到 165。背景里没画乐手"
   },
   {
-   "id": "B55-BG01-n",
+   "id": "B55S-BG01-n",
    "name": "贺礼堆（背景里画好的）",
    "kind": "贺礼架",
    "box": [
@@ -1559,6 +1294,7 @@
     68,
     106
    ],
+   "y_in_block": 182,
    "foot_box": [
     487,
     256,
@@ -1568,7 +1304,26 @@
    "basis": "v9 照 v2 背景量：贺礼架 487～555、顶 182、脚 288，贴着台子西沿"
   },
   {
-   "id": "B55-W01",
+   "id": "B55S-BG02-a",
+   "name": "红毯",
+   "kind": "红毯",
+   "box": [
+    696,
+    342,
+    144,
+    1615
+   ],
+   "y_in_block": 342,
+   "foot_box": [
+    696,
+    342,
+    144,
+    1615
+   ],
+   "basis": "3 米×48=144（方案）；从台阶下沿到大门门槛"
+  },
+  {
+   "id": "B55S-W02",
    "name": "西墙",
    "kind": "西墙",
    "box": [
@@ -1577,6 +1332,7 @@
     40,
     1789
    ],
+   "y_in_block": 236,
    "foot_box": [
     0,
     236,
@@ -1586,7 +1342,7 @@
    "basis": "墙厚 40（约 0.8 米，§15 没有）；俯看是一条，平的"
   },
   {
-   "id": "B55-W02",
+   "id": "B55S-W03",
    "name": "东墙（北段）",
    "kind": "东墙",
    "box": [
@@ -1595,6 +1351,7 @@
     40,
     1024
    ],
+   "y_in_block": 236,
    "foot_box": [
     1496,
     236,

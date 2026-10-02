@@ -115,22 +115,30 @@ def main():
         open(TABLE_MD, "w", encoding="utf-8").write(new)
     report["② 零件总表"] = changed
 
-    # ③ 给 GPT 的零件单（北边那块）
+    # ③ 给 GPT 的零件单。03 10/2 把 export_north_for_gpt.py 改成 export_block_for_gpt.py（参数 north|south）：
+    #    新的在就北边、南边各导一份；还是老的就只导北边
     out = tempfile.mkdtemp(prefix="gen_parts_") if check else PARTS_OUT
-    # 03 10/2 正把 export_north_for_gpt.py 改名成 export_block_for_gpt.py（北边、南边都要导）：哪个在用哪个，新名字优先
-    exporter = next(os.path.join(HERE, f) for f in ("export_block_for_gpt.py", "export_north_for_gpt.py")
-                    if os.path.exists(os.path.join(HERE, f)))
-    r = subprocess.run([sys.executable, exporter, out], capture_output=True, text=True)
-    if not os.path.exists(os.path.join(out, "宴会厅北-零件单.json")):
-        raise SystemExit("导零件单失败：\n" + r.stdout[-1500:] + r.stderr[-1500:])
-    gen = json.load(open(os.path.join(out, "宴会厅北-零件单.json"), encoding="utf-8"))
-    bad = [p["code"] for p in gen["parts"] if p["code"] in sizes and tuple(p["size"]) != tuple(sizes[p["code"]])]
-    if bad:
-        raise SystemExit("零件单里的尺寸跟摆位表对不上：%s" % bad)
+    blk = os.path.join(HERE, "export_block_for_gpt.py")
+    runs = [[blk, b, out] for b in ("north", "south")] if os.path.exists(blk) else [[os.path.join(HERE, "export_north_for_gpt.py"), out]]
+    made = []
+    for args in runs:
+        r = subprocess.run([sys.executable] + args, capture_output=True, text=True)
+        label = "南" if "south" in args else "北"
+        js = os.path.join(out, "宴会厅%s-零件单.json" % label)
+        if not os.path.exists(js):
+            raise SystemExit("导零件单失败（%s）：\n%s%s" % (label, r.stdout[-1500:], r.stderr[-1500:]))
+        gen = json.load(open(js, encoding="utf-8"))
+        bad = [p["code"] for p in gen["parts"] if p["code"] in sizes and tuple(p["size"]) != tuple(sizes[p["code"]])]
+        if bad:
+            raise SystemExit("零件单（%s）里的尺寸跟摆位表对不上：%s" % (label, bad))
+        made.append(js)
     if check:
-        cur = os.path.join(PARTS_OUT, "宴会厅北-零件单.json")
-        same = os.path.exists(cur) and json.load(open(cur, encoding="utf-8")) == gen
-        report["③ 零件单"] = [] if same else ["宴会厅北-零件单.json"]
+        diff = []
+        for js in made:
+            cur = os.path.join(PARTS_OUT, os.path.basename(js))
+            if not (os.path.exists(cur) and json.load(open(cur, encoding="utf-8")) == json.load(open(js, encoding="utf-8"))):
+                diff.append(os.path.basename(js))
+        report["③ 零件单"] = diff
         shutil.rmtree(out)
     else:
         report["③ 零件单"] = git_changed(["godot/回执/零件规格"])
