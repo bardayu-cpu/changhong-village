@@ -1958,6 +1958,8 @@ func _arrive_old(d: Dictionary) -> void:
             # 不在线时被敬的：进厅也看一次干杯插图（阿鱼 9/18 晚）
             get_tree().create_timer(1.5).timeout.connect(func():
                 if state == "banquet":
+                    if USE_LAYERED and hall.festive != null:
+                        hall.festive.request("toast", [hall.pos, hall.resident_stand(from)])   # 被敬也是干杯
                     _play_toast(_avatar_of(finfo), preset, ""))   # 顶上那行已经说了（体验 B22）
         var bc := int(dg.get("bookLineCount", 0))
         if bc > 0:
@@ -2296,6 +2298,8 @@ func _on_pulse(r: Dictionary) -> void:
     _offer_toast_back(from, info)
     if USE_LAYERED:
         hall.toasted_me()
+        if hall.festive != null:
+            hall.festive.request("toast", [hall.pos, hall.resident_stand(from)])   # 被敬也是干杯（01 E 10/2）：插图收了以后两人头顶落花瓣
     _play_toast(_avatar_of(info), preset, "")   # 顶上已经说了，插图下面不重复（体验 B22）
 
 # ---------- 席间小游戏（蓝图 3.2，阿鱼 9/19） ----------
