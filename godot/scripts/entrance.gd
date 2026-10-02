@@ -13,6 +13,7 @@ const GRID_CELL := 12
 const CLEAR := 12.0            # 离东西多远算挡住，像素（和宴会厅拼装脚本一样）
 const NPC_FOOT := Vector2(12, 6)    # 站着的 NPC 占地（椭圆半宽、半高），人不穿过去
 const COUPLE_FOOT := Vector2(40, 10)
+const TREE_TRUNK := 0.36           # 给了 h 的树：树干占整棵高的几成（gen_specs_court.py 用同一个数）
 
 var points: Dictionary = {}    # id -> {pos, r}
 var inside_spot: Dictionary = {}   # id -> 现在人在不在这个点的半径里
@@ -261,14 +262,26 @@ func _item(it: Dictionary) -> void:
             holder.add_child(_poly(_ellipse_pts(cx, cy - h2, rx, ry), Color(str(it["top"])), foot))
             obstacles.append({"ellipse": [cx, cy, rx, ry]})
         "tree":
-            var tx := float(it["x"]); var ty := float(it["y"]); var tr := float(it["r"])
+            var tx := float(it["x"]); var ty := float(it["y"]); var tr := float(it.get("r", 0.0))
             foot = ty
             var trunk := Color(str(it.get("trunk", "#6d4a38")))
             var leaf := Color(str(it.get("leaf", "#4f7a4a")))
             var leaf2 := Color(str(it.get("leaf2", "#6a9a5c")))
-            holder.add_child(_poly(_rect_pts([tx - 7, ty - 46, tx + 7, ty]), trunk, foot))
-            holder.add_child(_poly(_ellipse_pts(tx, ty - 46 - tr * 0.7, tr, tr * 0.85), leaf, foot))
-            holder.add_child(_poly(_ellipse_pts(tx - tr * 0.25, ty - 52 - tr * 0.9, tr * 0.55, tr * 0.45), leaf2, foot))
+            if it.has("h"):
+                # 给了 h（整棵多高）、w（树冠多宽）的照这两个画（10/3 迎宾院照「人 = 1」：树 3～4 个人高，见 ASSETS §15）：
+                # 树干占下面 TREE_TRUNK，上面是树冠，顶正好在 ty - h。tools/layout_court/gen_specs_court.py 照同一个算法量框
+                var th := float(it["h"])
+                var trunk_h := th * TREE_TRUNK
+                var crx := float(it.get("w", th * 0.53)) * 0.5
+                var cry := (th - trunk_h) * 0.5
+                tr = crx
+                holder.add_child(_poly(_rect_pts([tx - 8, ty - trunk_h - 6, tx + 8, ty]), trunk, foot))
+                holder.add_child(_poly(_ellipse_pts(tx, ty - trunk_h - cry, crx, cry), leaf, foot))
+                holder.add_child(_poly(_ellipse_pts(tx - crx * 0.25, ty - trunk_h - cry * 1.25, crx * 0.55, cry * 0.45), leaf2, foot))
+            else:
+                holder.add_child(_poly(_rect_pts([tx - 7, ty - 46, tx + 7, ty]), trunk, foot))
+                holder.add_child(_poly(_ellipse_pts(tx, ty - 46 - tr * 0.7, tr, tr * 0.85), leaf, foot))
+                holder.add_child(_poly(_ellipse_pts(tx - tr * 0.25, ty - 52 - tr * 0.9, tr * 0.55, tr * 0.45), leaf2, foot))
             if bool(it.get("droop", false)):
                 # 柳树（蓝图 3.5 湖边）：树冠下面垂几条柳条
                 var rngw := RandomNumberGenerator.new()
