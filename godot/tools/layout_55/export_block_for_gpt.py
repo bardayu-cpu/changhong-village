@@ -82,23 +82,19 @@ SOUTH_TOP = H - B.SOUTH_BG_H   # 南边背景从哪起（排法 C 里 1067），
 
 
 def south_items():
-    """排法 C 的 build() 在摆桌那步提前 return，没把南边背景里画好的大门、栏杆、门槛放进 items；这几件从 make_board55 的 SOUTH_* 常量按同样的算法补出来
-    （同一份常量，之前 v9 的 build() 就是这么加的）。跟 02 对一下要不要补进摆位表。"""
-    px0, py0, pw, ph = B.SOUTH_DOOR_POSTS
+    """摆位表里没有单列的两件：门槛、门洞口（02 10/2 说 v9 也没有，要单列就照 SOUTH_THRESHOLD、SOUTH_DOORWAY 算）。
+    大门、东西两段栏杆、进门站的地方、尺子，摆位表 build() 里已经有了（main 006dc67），这里认摆位表的，不再自己补。
+    门槛厚 15（SOUTH_THRESHOLD 注释写的 890～905），门洞口从门槛下沿到栏杆脚，宽 = 门洞 120；这两件落在大门那个大框里面，不重名"""
     st = SOUTH_TOP
+    dl, dr = B.SOUTH_DOORWAY
     out = []
 
-    def add(name, box, basis, foot=None):
-        out.append({"name": name, "kind": "bgx", "box": list(box), "foot": list(foot or box), "color": None, "basis": basis, "group": "", "flat": False})
+    def add(name, box, basis):
+        out.append({"name": name, "kind": "bgx", "box": list(box), "foot": list(box), "color": None, "basis": basis, "group": "", "flat": False})
 
-    dl, dr = B.SOUTH_DOORWAY
-    add("大门（西门柱和门扇）", (px0, st + py0, dl - px0, ph), "照南边背景量（make_board55 SOUTH_DOOR_POSTS）：门柱 640～706、y 830～1000（南边图里），落地线 %d；中间 706～826 是门洞，不属于它" % RAIL_FOOT)
-    add("大门（东门柱和门扇）", (dr, st + py0, px0 + pw - dr, ph), "同西边：826～900；两边门扇开着、占着门洞两侧")
-    add("门槛", (B.SOUTH_DOORWAY[0], st + B.SOUTH_THRESHOLD, B.SOUTH_DOORWAY[1] - B.SOUTH_DOORWAY[0], 15), "金门槛 890～905（SOUTH_THRESHOLD 注释），宽 = 门洞 120")
-    add("门洞口", (B.SOUTH_DOORWAY[0], st + B.SOUTH_THRESHOLD + 15, B.SOUTH_DOORWAY[1] - B.SOUTH_DOORWAY[0], RAIL_FOOT - (st + B.SOUTH_THRESHOLD + 15)),
-        "门槛以南、人能走出去的那截：宽 120（SOUTH_DOORWAY 706～826），下到栏杆脚 %d" % RAIL_FOOT)
-    add("栏杆（西段）", (40, st + B.SOUTH_RAIL[0], px0 - 40, B.SOUTH_RAIL[1] - B.SOUTH_RAIL[0]), "照南边背景量：顶 958、脚 1000（南边图里，SOUTH_RAIL）")
-    add("栏杆（东段）", (px0 + pw, st + B.SOUTH_RAIL[0], W - 40 - (px0 + pw), B.SOUTH_RAIL[1] - B.SOUTH_RAIL[0]), "同西段")
+    add("门槛", (dl, st + B.SOUTH_THRESHOLD, dr - dl, 15), "金门槛 890～905（SOUTH_THRESHOLD 注释），宽 = 门洞 120；摆位表没单列，从 SOUTH_THRESHOLD、SOUTH_DOORWAY 算")
+    add("门洞口", (dl, st + B.SOUTH_THRESHOLD + 15, dr - dl, RAIL_FOOT - (st + B.SOUTH_THRESHOLD + 15)),
+        "门槛以南、人能走出去的那截：宽 120（SOUTH_DOORWAY 706～826），下到栏杆脚 %d；摆位表没单列，算出来的" % RAIL_FOOT)
     return out
 
 
@@ -124,7 +120,7 @@ def classify(it):
     simple = {"北墙（立面）": "北墙", "墙顶横梁": "墙顶横梁", "花拱": "花拱", "囍字圆牌": "囍字圆牌", "婚礼台（台面）": "婚礼台（台面）",
               "婚礼台（台口立面）": "婚礼台（台口立面）", "台阶": "台阶", "红毯": "红毯", "乐队地台（背景里画好的）": "乐队地台",
               "贺礼堆（背景里画好的）": "贺礼架", "西墙": "西墙", "东墙（北段）": "东墙", "东墙（南段）": "东墙", "东侧门（门洞）": "东侧门",
-              "大门（西门柱和门扇）": "大门", "大门（东门柱和门扇）": "大门", "门槛": "门槛", "门洞口": "门洞口", "栏杆（西段）": "栏杆", "栏杆（东段）": "栏杆"}
+              "大门（门柱和开着的两扇门，南边背景里画好的）": "大门", "门槛": "门槛", "门洞口": "门洞口", "南边西段栏杆": "栏杆", "南边东段栏杆": "栏杆"}
     if n in simple:
         return BG_CODES[simple[n]], simple[n], "bg", (it["box"][1], it["box"][0])
     if n.startswith("帐幔"):
@@ -213,6 +209,14 @@ def draw_blocks(parts, bgs, labels):
                 c = clip_box(*r["box"])
                 if c:
                     g.rectangle(c, fill=BG_COLORS[kind])
+    if BLOCK == "south":   # 大门是一整个框（门柱+门扇+门洞），门洞里红毯照样铺到门槛：红毯在门洞宽度内再盖一遍
+        dl, dr = B.SOUTH_DOORWAY
+        for r in bgs:
+            if r["kind"] == "红毯":
+                x, y, w, h = r["box"]
+                c = clip_box(dl, y, dr - dl, h)
+                if c:
+                    g.rectangle(c, fill=BG_COLORS["红毯"])
     sorted_parts = sorted(parts, key=lambda r: ((r["occ"]["foot"] if r["occ"] else r["item"]["foot"][1] + r["item"]["foot"][3]), r["box"][0]))
     for r in sorted_parts:
         c = clip_box(*r["box"])
@@ -256,8 +260,8 @@ def draw_blocks(parts, bgs, labels):
             for ty in range(120, BH - 200, 520):
                 txt((cx, ty + 330 if BLOCK == "north" else ty), "%s 红毯" % short, f13)
         elif k == "大门":
-            txt((cx, c[1] + 40), short.replace("BG02-", ""), f11)
-            txt((cx, c[1] + 54), "大门", f11)
+            txt((x + 33, c[1] + 40), short.replace("BG02-", ""), f11)
+            txt((x + 33, c[1] + 54), "大门", f11)
         elif k == "门槛":
             txt((x + w + 70, c[1] + 6), "%s 门槛" % short, f11)
         elif k == "门洞口":
@@ -526,12 +530,10 @@ def measure_bg_south(real, bgs):
         rows += list(range(ly(ry + 26), ly(ry + 60)))
     g, s = edge_x(px, rows, c[0]); add("红毯", "左缘", c[0], g, s)
     g, s = edge_x(px, rows, c[0] + c[2]); add("红毯", "右缘", c[0] + c[2], g, s)
-    gw, ge = sorted(by["大门"], key=lambda r: r["box"][0])
-    rg = range(ly(gw["box"][1] + 100), ly(gw["box"][1] + 150))
-    for nm, r in (("西", gw), ("东", ge)):
-        x, y, w, h = r["box"]
-        g, s = edge_x(px, rg, x); add("大门（%s门柱）" % nm, "左缘", x, g, s)
-        g, s = edge_x(px, rg, x + w); add("大门（%s门柱）" % nm, "右缘", x + w, g, s)
+    gx, gy, gw_, gh_ = by["大门"][0]["box"]
+    rg = range(ly(gy + 100), ly(gy + 150))
+    g, s = edge_x(px, rg, gx); add("大门", "左缘（门柱）", gx, g, s)
+    g, s = edge_x(px, rg, gx + gw_); add("大门", "右缘（门柱）", gx + gw_, g, s)
     sill = by["门槛"][0]["box"]
     g, s = edge_y(px, range(sill[0] + 14, sill[0] + 100), ly(sill[1]), 10); add("门槛", "上沿 y", sill[1], g + Y0, s)
     hole = by["门洞口"][0]["box"]
