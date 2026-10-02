@@ -68,6 +68,14 @@ printf "import './cloud'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game
 cp "$GODOT_DIR/wxgame/poster.js" .
 printf "import './poster'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path "$GODOT_DIR" --script res://tools/export_poster_assets.gd -- "$OUT/poster" | grep "海报小图" || { echo "海报小图导不出来" >&2; exit 1; }
+# 开屏加载页（wxgame/splash.js，01 E 10/3）：引擎起来之前那一页换成我们的图，整张图动起来，进度条红绸底金色填充；
+# 图是 wxgame/splash/splash.jpg（tools/splash/make_splash.py 转），花瓣彩纸用宴会厅现成的两张 FX；模板自带的背景、小标删掉
+cp "$GODOT_DIR/wxgame/splash.js" .
+cp "$GODOT_DIR/wxgame/splash/splash.jpg" images/splash.jpg
+cp "$GODOT_DIR/assets/fx/fx_B55S-FX01_v2.png" images/splash_petal.png
+cp "$GODOT_DIR/assets/fx/fx_B55S-FX02_v2.png" images/splash_paper.png
+rm -f images/background.jpg images/logo.png
+python3 "$GODOT_DIR/tools/splash/patch_game_js.py" game.js
 # 厨房前后台状态桥：只记录切后台事件，由厨房面板暂停自己的计时。
 cp "$GODOT_DIR/wxgame/kitchen-visibility.js" .
 printf "import './kitchen-visibility'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
