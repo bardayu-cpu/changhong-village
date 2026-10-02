@@ -105,8 +105,9 @@ func run() -> void:
     print("1b 脚下找自己的圈（04 10/2）")
     h._process(0.016)
     var ring = h.me_ring
-    check("脚下有一圈：跟着人（%s 对 %s）、在人和桌子后面（z %d）、没有字" % [ring.position if ring != null else null, h.pos, ring.z_index if ring != null else 0],
-        ring != null and ring.visible and ring.position.is_equal_approx(h.pos) and ring.z_index < 0 and ring.find_children("*", "Label", true, false).is_empty())
+    check("脚下有一圈：跟着人（%s 对 %s）、在按前后排的那层里排在人前一格（压在人后面）、没有字" % [ring.position if ring != null else null, h.pos],
+        ring != null and ring.visible and ring.position.is_equal_approx(h.pos - Vector2(0, 1)) and ring.get_parent() == h.world and ring.get_index() < h.player.get_index()
+        and ring.find_children("*", "Label", true, false).is_empty())
     h.player.visible = false
     h._process(0.016)
     check("人藏起来（截图）圈也藏", not ring.visible)

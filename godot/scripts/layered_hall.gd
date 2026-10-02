@@ -274,11 +274,13 @@ func _couple() -> void:
     world.add_child(cp)
 
 func _player(preset: int, nickname: String) -> void:
-    # 脚下那圈：跟出口、签到台同一个画法（空心金边 + 淡光、一明一暗），淡一些、小一些；
-    # 贴地画在人和桌子后面（z -5，跟出口那圈一样），人站哪跟到哪，人藏起来它也藏
+    # 脚下那圈：跟出口、签到台同一个画法（空心金边 + 淡光、一明一暗），淡一些、小一些；人站哪跟到哪，人藏起来它也藏。
+    # 放进按前后排的 world 里、排在人前一格（节点 y 比脚小 1，画的时候再挪回来）：压在人后面、身后那排桌子前面，
+    # 只有挡在人前面的桌子才盖住它（放在所有桌子下面的话，人站在两桌中间就整圈被盖住，找不到）
     me_ring = ring_mark(20.0, 8.0)
-    me_ring.z_index = -5
-    add_child(me_ring)
+    for c in me_ring.get_children():
+        (c as Node2D).position = Vector2(0, 1)
+    world.add_child(me_ring)
     player = Sprite2D.new()
     player.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     world.add_child(player)
@@ -711,7 +713,7 @@ func _process(dt: float) -> void:
         breathe_ring(exit_mark, t)
     if me_ring != null:
         me_ring.visible = player.visible
-        me_ring.position = pos
+        me_ring.position = pos - Vector2(0, 1)
         breathe_ring(me_ring, t)
         me_ring.modulate.a *= 0.6   # 比出口那圈淡：只是让人一眼找到自己，不是「往这儿来」
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:
