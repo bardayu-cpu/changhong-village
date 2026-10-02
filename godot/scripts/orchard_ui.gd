@@ -3,7 +3,7 @@ extends Control
 ##   走到垄间、树下：有熟的出「收草莓（3 垄熟了）」，点一下把熟了的一次收完，进果篮；
 ##                   没熟顶部报「草莓还有 2 分 10 秒」；季节开关打开又不在季节，才是老话「还没到时候」
 ##   走到山庄收购处：果篮有东西出「卖给山庄（14 金）」，点了加金币、说一句；空着顶部报「果篮是空的」
-##   farm.json 里 sell_mode = auto：收完直接折钱，不用跑收购处
+##   farm.json 里 sell_mode = auto（默认）：收完直接折钱，不用跑收购处；收的时候只说「收了 6 筐草莓」不写金（蓝图 3.6）
 ## 话在 assets/orchard/lines.json，数在 assets/orchard/farm.json
 
 const Copy = preload("res://scripts/court_copy.gd")
@@ -91,8 +91,14 @@ func _on_act() -> void:
         var kind := act_kind
         act_kind = ""
         act_btn.visible = false
-        if o.auto_sell():               # 山庄直接收走折钱
-            _sell()
+        if o.auto_sell():
+            # 山庄直接收走折钱：金币照加，但这时只说「收了 6 筐草莓」，不写金——钱的事让收购处去说，
+            # 保住一筐一筐收的味道（蓝图 3.6 交互说明 9/20 定；04 10/3 看到原来这里说「卖了 16 金」，歪了）
+            var r: Dictionary = o.sell()
+            if int(r["coins"]) > 0:
+                m.games_save.earn(int(r["coins"]))
+            m._say(Copy.text("harvested_auto", Copy.ORCHARD).format(
+                {"fruit": o.fruit_name(kind), "n": got, "unit": o.basket_unit(kind)}), -1.0, "")
         else:
             m._say(Copy.text("harvested", Copy.ORCHARD).format(
                 {"fruit": o.fruit_name(kind), "n": got, "unit": o.basket_unit(kind)}), -1.0, "")

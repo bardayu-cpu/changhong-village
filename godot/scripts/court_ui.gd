@@ -9,6 +9,7 @@ signal panel_changed(open: bool)   # 面板开、关：main 据此让人停下�
 const Copy = preload("res://scripts/court_copy.gd")
 const Tiles = preload("res://scripts/games/tiles.gd")
 const Spr = preload("res://scripts/sprites.gd")
+const LMPeople = preload("res://scripts/lm_people.gd")
 ## 回忆册的两分钟剪辑（六张图六句话，阿鱼给）到了没有。没到：正式版「翻开」置灰、提示「还没印好」（世界观 1.1），
 ## 调试版照样能打开占位屏（01 9/19 定）。阿鱼给了图和句子、剪辑做好以后改成 true
 const CLIP_READY := false
@@ -767,14 +768,14 @@ func _compose_paper(pose: String, preset: int, into: Control = null) -> void:
     # 量两张图不透明的那一块，自己画 PHOTO_ME_H 高，新人比自己高 PHOTO_COUPLE_K 倍，脚踩在同一条线上。合照原图不改，只改摆的大小
     var base_y := h - 18.0
     var cp_tex: Texture2D = load("res://assets/couple.png")
-    var cu := _used_rect(cp_tex)
+    var cu := _couple_used(cp_tex)
     var ks := PHOTO_ME_H * PHOTO_COUPLE_K / maxf(1.0, cu.size.y)
     var cp := _photo_rect(cp_tex, ks, false)
     cp.position = Vector2(w * 0.56 - cu.position.x * ks, base_y - cu.end.y * ks)
     pa.add_child(cp)
     # 自己：选的形象，朝前站着那一帧；姿势比心画一颗心，招手先不画（04：代码画的占位手不能出现在发出去的海报上）
     var me_tex := _front_frame(preset)
-    var mu := _used_rect(me_tex)
+    var mu := _front_used(preset)
     var km := PHOTO_ME_H / maxf(1.0, mu.size.y)
     var me := _photo_rect(me_tex, km, true)
     var mx := w * 0.3
@@ -789,14 +790,11 @@ func _compose_paper(pose: String, preset: int, into: Control = null) -> void:
 const PHOTO_ME_H := 150.0      # 相纸上自己画多高（看得见的那一块）
 const PHOTO_COUPLE_K := 1.05   # 新人比自己高一点点（01 E：不超过 1.1 倍）
 
-## 图里不透明的那一块（量人画了多高用）
-static func _used_rect(tex: Texture2D) -> Rect2:
-    var img := tex.get_image()
-    if img == null:
-        return Rect2(Vector2.ZERO, tex.get_size())
-    if img.is_compressed():
-        img.decompress()
-    var r := img.get_used_rect()
+## 图里不透明的那一块（量人画了多高用）：手机上不从显卡读图（README），照电脑上算好的——
+## 新人合照照 assets/used_rects.json（tools/bake_used.py）；自己的形象是罗曼山庄宾客的照 lm_index 的 front，代码画的照画它的那张 Image 算
+const UsedRects = preload("res://scripts/used_rects.gd")
+static func _couple_used(tex: Texture2D) -> Rect2:
+    var r := UsedRects.rect(tex.resource_path)
     return Rect2(r) if r.size.y > 0 else Rect2(Vector2.ZERO, tex.get_size())
 
 func _photo_rect(tex: Texture2D, k: float, nearest: bool) -> TextureRect:
@@ -836,6 +834,18 @@ func _heart(at: Vector2, r: float) -> Control:
     poly.color = Color("#e8424a")
     holder.add_child(poly)
     return holder
+
+## 形象朝前站着那一帧里画了人的那一块（_front_frame 那张图的坐标）：罗曼山庄宾客照 front（bake_used.py 算好的），
+## 代码画的从画它的 Image 量（在内存里画的，不用读显卡），放大跟 portrait 一样 3 倍
+func _front_used(preset: int) -> Rect2:
+    var p := preset if preset >= 0 and preset <= 7 else 0
+    var gl := Spr.gpt_look(p)
+    if gl.is_empty():
+        var u := Spr.sheet(p).get_region(Rect2i(0, 0, 16, 32)).get_used_rect()
+        return Rect2(Vector2(u.position) * 3.0, Vector2(u.size) * 3.0)
+    var l: Dictionary = LMPeople.look(str(gl["code"]))
+    var f = l.get("front", Rect2i(0, 0, int(gl["frame_w"]), int(gl["frame_h"])))
+    return Rect2(f)
 
 ## 形象朝前站着那一帧（和看人卡片一样的取法）
 func _front_frame(preset: int) -> Texture2D:

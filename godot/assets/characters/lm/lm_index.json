@@ -1,0 +1,145 @@
+{
+ "note": "bake_used.py 生成，别手改：罗曼山庄的人每张图第一帧画的人从哪行到哪行（top、h）、朝前站着那一帧不透明的那块（front，格子里的坐标）；guest_atlas 是拼好的宾客大图拼了哪几位。游戏在手机上不从显卡读图，这些都照这份",
+ "looks": {
+  "LM-GUEST-01": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    36,
+    84
+   ],
+   "sha1": "d24891c020e11c4616be11a3666ccd4fbe49e46b"
+  },
+  "LM-GUEST-02": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    17,
+    0,
+    29,
+    84
+   ],
+   "sha1": "d3d21a9b8035927ad92c0804b5eb25256988c8f6"
+  },
+  "LM-GUEST-03": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    36,
+    84
+   ],
+   "sha1": "b1c77ebed068f071cf27c07e84188c088cac6d31"
+  },
+  "LM-GUEST-04": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    35,
+    84
+   ],
+   "sha1": "fa35546235be47719f646ad197e5992967359abd"
+  },
+  "LM-GUEST-05": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    36,
+    84
+   ],
+   "sha1": "76a28b233719b47b8077c78a792ee6bc570b1223"
+  },
+  "LM-GUEST-06": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    36,
+    84
+   ],
+   "sha1": "07cd050ed44e64c213718829b2d64a10131317c9"
+  },
+  "LM-GUEST-08": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    35,
+    84
+   ],
+   "sha1": "0b20b5565d98d2833ee8949124a5dc2764d9335b"
+  },
+  "LM-GUEST-09": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    36,
+    84
+   ],
+   "sha1": "545e750c594eb6674bb4341e63f221684758d24c"
+  },
+  "LM-GUEST-10": {
+   "top": 0,
+   "h": 84,
+   "front": [
+    14,
+    0,
+    36,
+    84
+   ],
+   "sha1": "a8566c40042162f69f31486e26ad83db73adf692"
+  },
+  "LM-GUEST-11": {
+   "top": 31,
+   "h": 53,
+   "front": [
+    15,
+    31,
+    34,
+    53
+   ],
+   "sha1": "9b56bb14b7c1d99efcced0eb9fdc79a50d46eff7"
+  },
+  "LM-GUEST-12": {
+   "top": 31,
+   "h": 53,
+   "front": [
+    18,
+    31,
+    27,
+    53
+   ],
+   "sha1": "57873c4eafaa6897894967dc710d03946343f7ad"
+  }
+ },
+ "guest_atlas": {
+  "file": "guest_atlas.png",
+  "codes": [
+   "LM-GUEST-01",
+   "LM-GUEST-02",
+   "LM-GUEST-03",
+   "LM-GUEST-04",
+   "LM-GUEST-05",
+   "LM-GUEST-06",
+   "LM-GUEST-08",
+   "LM-GUEST-09",
+   "LM-GUEST-10",
+   "LM-GUEST-11",
+   "LM-GUEST-12"
+  ],
+  "fw": 64,
+  "fh": 84,
+  "hframes": 16
+ }
+}

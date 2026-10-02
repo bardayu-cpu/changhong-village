@@ -76,6 +76,13 @@ class Guest:
 
 var waiters: Array = []
 var waiter_speed := 62.0
+## 性能（02 10/3「性能-真人物满厅」）：坐着的宾客只动看得见的（屏幕往外 ANIM_MARGIN 以内），屏幕外的 500 来位不动——看不见，玩法不变；
+## 掉帧（layered_hall 的 _low_end_tick 判）low_end = 1：看得见的宾客也只 15 帧动一下，灯笼光不闪、音符不飘
+const ANIM_MARGIN := 140.0
+const LOW_GUEST_FPS := 15.0
+var low_end := 0
+var guest_tick := 0.0
+var guests_stepped := 0      # 上一帧动了几位（测试、性能量用）
 var door := Vector2.ZERO
 var spots: Dictionary = {}   # 桌号 -> 桌边能站的几个点
 var guests: Array = []
@@ -1148,8 +1155,8 @@ func _kit() -> Dictionary:
         return kit
     var codes: Array = LMPeople.guests_present()
     var rows: Array = []
-    if not codes.is_empty():
-        var a := LMPeople.guest_atlas(codes)
+    var a := LMPeople.guest_atlas(codes) if not codes.is_empty() else {}
+    if not a.is_empty():
         var anim := {}
         for d in ["down", "up", "left", "right"]:
             var fr: Array = a["frames"].get(d, a["frames"]["down"])
@@ -1332,6 +1339,14 @@ func _step_guest(g: Guest, dt: float) -> void:
         else:
             g.cup.visible = false
 
+## 镜头看得见的那一块往外放 ANIM_MARGIN：这里面坐着的宾客才动
+func _anim_view() -> Rect2:
+    var cam: Camera2D = hall.cam
+    if cam == null or cam.zoom.x <= 0.0:
+        return Rect2(-1e6, -1e6, 2e6, 2e6)
+    var size: Vector2 = get_viewport_rect().size / cam.zoom
+    return Rect2(cam.get_screen_center_position() - size * 0.5, size).grow(ANIM_MARGIN)
+
 ## 真人坐到 NPC 坐着的椅子上（换桌成功，layered_hall.apply_change 调）：那个 NPC 站起来让座。
 ## 第 44 版厅：从大门走出去（阿鱼 9/18 晚）。
 ## 55 桌厅（01 D 9/30 v8）：走去这桌别的空椅子坐下；这桌没空的就站到桌边
@@ -1474,8 +1489,22 @@ func _process(dt: float) -> void:
             for g in guests:
                 if g.table == tid:
                     g.toast_delay = rng.randf_range(0.0, 0.25)
-    for g in guests:
-        _step_guest(g, dt)
+    var gdt := dt
+    var do_guests := true
+    if low_end >= 1:
+        guest_tick += dt
+        if guest_tick < 1.0 / LOW_GUEST_FPS:
+            do_guests = false
+        else:
+            gdt = guest_tick
+            guest_tick = 0.0
+    if do_guests:
+        var view := _anim_view()
+        guests_stepped = 0
+        for g in guests:
+            if view.has_point(g.node.position):
+                _step_guest(g, gdt)
+                guests_stepped += 1
     for b in bows:
         var d: Vector2 = (b["b"] - b["a"]).normalized() * b["amp"] * sin(t * b["speed"] + b["phase"])
         b["line"].points = PackedVector2Array([b["a"] + d, b["b"] + d])
@@ -1483,6 +1512,8 @@ func _process(dt: float) -> void:
         # 跟着节拍轻轻晃：1 个美术像素上下
         var on := sin(t * p["speed"] * PI + p["phase"]) > 0.3
         p["body"].offset = p["base"] + Vector2(0, 1.0 if on else 0.0)
+    if low_end >= 1:
+        return   # 掉帧：灯笼光不闪、音符不飘（看着跟停了一样，省一点）
     _step_notes(dt)
     for gl in glows:
         var f := 0.86 + 0.08 * sin(t * 2.3 + gl["phase"]) + 0.06 * sin(t * 5.1 + gl["phase"] * 1.7)

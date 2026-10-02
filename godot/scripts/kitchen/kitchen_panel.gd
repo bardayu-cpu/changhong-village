@@ -3,6 +3,7 @@ extends Control
 signal closed
 const Art = preload("res://scripts/kitchen/kitchen_art.gd")
 const Rules = preload("res://scripts/kitchen/kitchen_rules.gd")
+const UsedRects = preload("res://scripts/used_rects.gd")
 var rules = Rules.new()
 var wallet
 var game_font: Font
@@ -654,9 +655,8 @@ func _trim_menu_padding(node: Control) -> void:
     var key: int = node.texture.get_instance_id()
     if not menu_texture_cache.has(key):
         var source: Texture2D = node.texture
-        var pixels := source.get_image()
-        if pixels == null: return
-        var used := pixels.get_used_rect()
+        # 不从显卡读图（README：get_image 在微信里崩）：裁多少照电脑上算好的 assets/used_rects.json（tools/bake_used.py）；没算过的不裁
+        var used: Rect2i = UsedRects.rect(source.resource_path)
         if used.size == Vector2i.ZERO: return
         var cropped := AtlasTexture.new()
         cropped.atlas = source

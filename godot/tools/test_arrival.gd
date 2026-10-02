@@ -163,6 +163,8 @@ func run() -> void:
     # 8. 画布里画出来的牌都得是出口牌（03：「回忆册」回字开头漏过了）
     print("8 画出来的牌都是出口牌")
     var bad: Array = []
+    for cn in ["backhall", "lawn", "lake", "orchard"]:
+        m.ensure_canvas(cn)   # 这四块第一次进去才搭（02 10/3），这里要看它们的牌，先搭好
     for cv in [m.court, m.backhall, m.lawn, m.lake, m.orchard]:
         for l in cv.labels.get_children():
             if not m.court.is_exit_label(str((l as Label).text)):

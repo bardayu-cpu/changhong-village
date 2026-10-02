@@ -89,5 +89,8 @@ if [ "${SUQI_DEBUG:-1}" != "0" ]; then
     printf "import './debug-console'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
     echo "调试版：已加帧率、日志面板和报错弹窗"
 fi
+# 打开用时（wxgame/boot_timer.js，02 10/3）：排在所有 import 最前面，最早记下点开的时间、包住引擎分包下载记开始下完；只记不改
+cp "$GODOT_DIR/wxgame/boot_timer.js" .
+printf "import './boot_timer'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
 echo "导出完成：$(pwd)"
 du -sh . engine/demo-pck.bin

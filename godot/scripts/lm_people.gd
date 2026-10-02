@@ -32,6 +32,8 @@ static func band_code(i: int) -> String:
 static func clear_cache() -> void:
     _cache.clear()
     _names = {}
+    _index = {}
+    _atlas_tex = null
 
 ## 服务员的名字（assets/characters/waiter_names.json，阿鱼 10/2 要每位有个中文名）；没有回 ""
 const WAITER_NAMES := "res://assets/characters/waiter_names.json"
@@ -47,42 +49,98 @@ static func has(code: String) -> bool:
     return not look(code).is_empty()
 
 ## 一个人的图和数：{code, tex, img, fw, fh, hframes, frames, fps, height_m, top, h, tray, frames_tray, foot}；没有图回 {}
+## 手机上不从显卡读图（README：纹理的 get_image 在微信里崩）：res:// 下的图「画了多高」「朝前那帧不透明的那块」照
+## lm_index.json（tools/bake_used.py 在电脑上算好的）；宾客不一张张读，都从拼好的 guest_atlas.png 里取自己那一行（一张图，导出时单张的宾客图不进包）。
+## 测试、截图指到 user:// 的一套图（dir 不是 res://）照旧自己读文件算
+const INDEX := "lm_index.json"
+static var _index := {}
+static var _atlas_tex: Texture2D = null
+
+static func index() -> Dictionary:
+    if _index.is_empty() and dir.begins_with("res://") and FileAccess.file_exists(dir + INDEX):
+        var j = JSON.parse_string(FileAccess.get_file_as_string(dir + INDEX))
+        _index = j if j is Dictionary else {"looks": {}, "guest_atlas": {}}
+    return _index
+
+## 拼好的宾客大图里这位在第几行；不在大图里回 -1
+static func atlas_row(code: String) -> int:
+    var ga: Dictionary = index().get("guest_atlas", {})
+    return (ga.get("codes", []) as Array).find(code)
+
+static func _atlas() -> Texture2D:
+    if _atlas_tex == null:
+        var p := dir + str(index().get("guest_atlas", {}).get("file", "guest_atlas.png"))
+        if ResourceLoader.exists(p):
+            _atlas_tex = load(p)
+    return _atlas_tex
+
 static func look(code: String) -> Dictionary:
     if _cache.has(code):
         return _cache[code]
     var out := {}
-    var png := dir + "chr_%s.png" % code
     var js := dir + "chr_%s.json" % code
-    var img: Image = null
+    var j = JSON.parse_string(FileAccess.get_file_as_string(js)) if FileAccess.file_exists(js) else null
+    if not (j is Dictionary and j.has("frame") and j.has("frames")):
+        _cache[code] = out
+        return out
+    var fw := int(j["frame"][0])
+    var fh := int(j["frame"][1])
+    var frames: Dictionary = j["frames"]
     var tex: Texture2D = null
+    var img: Image = null
+    var top := 0
+    var h := fh
+    var front := Rect2i(0, 0, fw, fh)
     if dir.begins_with("res://"):
-        if ResourceLoader.exists(png) and FileAccess.file_exists(js):
-            tex = load(png)
-            img = tex.get_image() if tex != null else null
-    elif FileAccess.file_exists(png) and FileAccess.file_exists(js):
-        img = Image.load_from_file(ProjectSettings.globalize_path(png))
-        if img != null:
-            tex = ImageTexture.create_from_image(img)
-    if tex != null and img != null:
-        var j = JSON.parse_string(FileAccess.get_file_as_string(js))
-        if j is Dictionary and j.has("frame") and j.has("frames"):
-            if img.is_compressed():
-                img.decompress()
-            var fw := int(j["frame"][0])
-            var fh := int(j["frame"][1])
-            var frames: Dictionary = j["frames"]
-            var first := 0
-            for k in ["down", "play"]:
-                if frames.has(k) and not (frames[k] as Array).is_empty():
-                    first = int(frames[k][0])
-                    break
-            var hf := maxi(1, img.get_width() / fw)
-            var box := _content(img, Rect2i((first % hf) * fw, (first / hf) * fh, fw, fh))
-            out = {"code": code, "tex": tex, "img": img, "fw": fw, "fh": fh, "hframes": hf,
-                "vframes": maxi(1, img.get_height() / fh), "frames": frames, "fps": float(j.get("fps", 8)),
-                "height_m": float(j.get("height_m", ADULT_M)), "top": box.x, "h": box.y,
-                "frames_tray": j.get("frames_tray", {}), "tray": j.get("tray", []),
-                "foot": j.get("foot", [fw / 2.0, fh])}
+        var ix: Dictionary = index().get("looks", {}).get(code, {})
+        if ix.is_empty():
+            push_warning("罗曼山庄的人 %s 没在 lm_index.json 里（图拷进来以后没跑 tools/bake_used.py），先不用" % code)
+            _cache[code] = out
+            return out
+        top = int(ix["top"])
+        h = int(ix["h"])
+        var fr: Array = ix.get("front", [0, 0, fw, fh])
+        front = Rect2i(int(fr[0]), int(fr[1]), int(fr[2]), int(fr[3]))
+        var row := atlas_row(code)
+        if row >= 0 and _atlas() != null:
+            var ga: Dictionary = index()["guest_atlas"]
+            var at := AtlasTexture.new()
+            at.atlas = _atlas()
+            at.region = Rect2(0, row * int(ga["fh"]), int(ga["fw"]) * int(ga["hframes"]), int(ga["fh"]))
+            tex = at
+        else:
+            var png := dir + "chr_%s.png" % code
+            if ResourceLoader.exists(png):
+                tex = load(png)
+    else:
+        var png2 := dir + "chr_%s.png" % code
+        if FileAccess.file_exists(png2):
+            img = Image.load_from_file(ProjectSettings.globalize_path(png2))
+            if img != null:
+                if img.is_compressed():
+                    img.decompress()
+                tex = ImageTexture.create_from_image(img)
+    if tex == null:
+        _cache[code] = out
+        return out
+    var hf := maxi(1, int(tex.get_width()) / fw)
+    if img != null:
+        var first := 0
+        for k in ["down", "play"]:
+            if frames.has(k) and not (frames[k] as Array).is_empty():
+                first = int(frames[k][0])
+                break
+        var box := _content(img, Rect2i((first % hf) * fw, (first / hf) * fh, fw, fh))
+        top = box.x
+        h = box.y
+        var idle := int((frames.get("down", [first]) as Array)[0]) if frames.has("down") else first
+        var u := img.get_region(Rect2i((idle % hf) * fw, (idle / hf) * fh, fw, fh)).get_used_rect()
+        front = u
+    out = {"code": code, "tex": tex, "img": img, "fw": fw, "fh": fh, "hframes": hf,
+        "vframes": maxi(1, int(tex.get_height()) / fh), "frames": frames, "fps": float(j.get("fps", 8)),
+        "height_m": float(j.get("height_m", ADULT_M)), "top": top, "h": h, "front": front,
+        "frames_tray": j.get("frames_tray", {}), "tray": j.get("tray", []),
+        "foot": j.get("foot", [fw / 2.0, fh])}
     _cache[code] = out
     return out
 
@@ -109,12 +167,21 @@ static func guests_present() -> Array:
             out.append(guest_code(i))
     return out
 
+## 有哪些服务员的图：只看在不在，不把图读进来（厅里同时只有几位上场，40 张都读进来白占显存，02 10/3 量过满配多 12 MB 左右）
 static func waiters_present() -> Array:
     var out: Array = []
     for i in range(1, WAITERS + 1):
-        if has(waiter_code(i)):
+        if _exists(waiter_code(i)):
             out.append(waiter_code(i))
     return out
+
+## 这个编号的图在不在（不读图）：res:// 下看 lm_index 里有没有、图在不在；测试那套看文件
+static func _exists(code: String) -> bool:
+    if not FileAccess.file_exists(dir + "chr_%s.json" % code):
+        return false
+    if dir.begins_with("res://"):
+        return (index().get("looks", {}) as Dictionary).has(code) and (atlas_row(code) >= 0 or ResourceLoader.exists(dir + "chr_%s.png" % code))
+    return FileAccess.file_exists(dir + "chr_%s.png" % code)
 
 ## 一个朝向的帧：frames 里 down/left/right/up；没有的朝向借 down
 static func dir_frames(l: Dictionary, face: String, tray := false) -> Array:
@@ -143,10 +210,20 @@ static func guest_atlas(codes: Array) -> Dictionary:
     var fw: int = first["fw"]
     var fh: int = first["fh"]
     var hf: int = first["hframes"]
-    var im := Image.create_empty(fw * hf, fh * codes.size(), false, Image.FORMAT_RGBA8)
     var rows: Array = []
+    # res:// 下有拼好的大图（bake_used.py）、拼的正好是这几位：直接用，不在手机上拼（拼要读图，微信里不行）
+    var ga: Dictionary = index().get("guest_atlas", {})
+    if dir.begins_with("res://") and ga.get("codes", []) == codes and _atlas() != null:
+        for c in codes:
+            var lc: Dictionary = look(c)
+            rows.append({"code": c, "top": int(lc["top"]), "h": int(lc["h"]), "height_m": float(lc["height_m"]), "kid": c in KIDS})
+        return {"tex": _atlas(), "rows": rows, "fw": fw, "fh": fh, "hframes": hf, "frames": first["frames"]}
+    var im := Image.create_empty(fw * hf, fh * codes.size(), false, Image.FORMAT_RGBA8)
     for i in codes.size():
         var l: Dictionary = look(codes[i])
+        if l.get("img") == null:
+            push_warning("宾客大图拼不了：%s 没有图像数据（res:// 下要先跑 tools/bake_used.py）" % codes[i])
+            return {}
         var src: Image = l["img"]
         if src.get_format() != Image.FORMAT_RGBA8:
             src = src.duplicate()
