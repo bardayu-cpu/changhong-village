@@ -1,0 +1,158 @@
+extends SceneTree
+## 厨房 v1 试接入（01 D 10/1）：两种宴会厅都走一遍——宴会厅东侧门 → 后厅 → 走到大锅点「穿上围裙 · 学做菜」→ 玩一局（交一道菜）
+## → 金币进钱包（本机存档、电脑假服务端都记上）→ 关掉厨房、后厅能走 → 西口回宴会厅。
+## 另记一条：开着厨房时来的干杯插图，关了厨房以后有没有接着放（宴会厅小游戏是放的）
+## 用法：Godot --headless --path . --script res://tools/test_kitchen_route.gd
+## 最后一行 RESULT PASS 才算过
+
+const Main = preload("res://scripts/main.gd")
+const DT := 1.0 / 60.0
+const KITCHEN_SAVE := "user://suqi_kitchen.json"
+
+var m
+var started := false
+var ok := true
+var had_kitchen_save := false
+
+func _initialize() -> void:
+    had_kitchen_save = FileAccess.file_exists(KITCHEN_SAVE)
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(Main.HALL55_FLAG))
+    m = Main.new()
+    m.fast = true
+    get_root().add_child(m)
+
+func _process(_dt: float) -> bool:
+    if started:
+        return false
+    started = true
+    run()
+    return false
+
+func check(name: String, cond: bool) -> void:
+    print(("  好 " if cond else "  不行 ") + name)
+    ok = ok and cond
+
+func tick(n: int) -> void:
+    for i in n:
+        m.cv._process(DT)
+        m._process(DT)
+
+func walk_to(target: Vector2, secs := 30.0) -> void:
+    m.cv.go_to(target)
+    for i in int(secs / DT):
+        tick(1)
+        if m.cv.path.is_empty():
+            break
+
+func click(p, text: String, last := false) -> bool:
+    var children: Array = p.panel.get_children()
+    if last:
+        children.reverse()
+    for c in children:
+        if c is Button and c.text == text and not c.disabled:
+            c.pressed.emit()
+            await process_frame
+            return true
+    print("    找不到按钮 ", text)
+    return false
+
+## 一局：照 GPT 的 test_kitchen_buttons 那样点（第 1 关、跷脚牛肉、三样料、煮熟、盛出、交给服务员）
+func play_one(p) -> bool:
+    var good := true
+    good = good and await click(p, "穿上厨师套装 · 开始第 1 关")
+    good = good and await click(p, "跷脚牛肉")
+    for ing in ["汤底", "牛肉", "葱花"]:
+        good = good and await click(p, ing)
+    p.rules.tick(8)
+    p._render()
+    good = good and await click(p, "盛出选中的锅")
+    good = good and await click(p, "跷脚牛肉", true)
+    var customer: Button = null
+    for c in p.panel.get_children():
+        if c is Button and c.text.begins_with("· 跷脚牛肉"):
+            customer = c
+    if customer == null:
+        return false
+    customer.pressed.emit()
+    await process_frame
+    return good
+
+func route(label: String) -> void:
+    var h = m.hall
+    var b = m.backhall
+    print("== %s（%s 张桌）" % [label, h.cfg["tables"].size()])
+    # 东侧门：55 桌厅的侧门在东墙下半截，从红毯走过去要很久，先站到门里边 90 像素再走进去
+    m.hall_side_latched = false
+    h.stand_up()
+    h.reset_to(h.side_door + Vector2(-90, 0))
+    tick(2)
+    walk_to(h.side_door)
+    for i in 120:
+        if m.state == "backhall" and not m.switching:
+            break
+        await process_frame
+    check("%s：东侧门进了后厅（state=%s）" % [label, m.state], m.state == "backhall" and m.cv == b)
+    walk_to(Vector2(1272, 790))
+    walk_to(b.spot_pos("pot"))
+    check("%s：走到大锅出「%s」" % [label, m.backhall_ui.act_btn.text], m.backhall_ui.act_btn.visible and m.backhall_ui.act_btn.text == "穿上围裙 · 学做菜")
+    m.backhall_ui._on_act()
+    await process_frame
+    var p = m.game_host
+    check("%s：打开厨房，后厅停住不能走" % label, is_instance_valid(p) and p.has_method("_render") and not b.walking_enabled)
+    var coins0: int = m.games_save.coins
+    var played: bool = await play_one(p)
+    await process_frame
+    check("%s：玩一局交了一道菜（%s），金币 %d → %d" % [label, played, coins0, m.games_save.coins], played and p.rules.completed == 1 and m.games_save.coins == coins0 + 3)
+    var local: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(m.games_save.local_path))
+    check("%s：金币进了钱包——本机存档 %s、电脑假服务端 %s" % [label, local.get("coins"), m.cloud.fake_mine.get("coins")],
+        int(local.get("coins", -1)) == m.games_save.coins and int(m.cloud.fake_mine.get("coins", -1)) == m.games_save.coins and not m.games_save.dirty)
+    tick(2)
+    check("%s：顶上金币显示「%s」" % [label, m.coins_chip.text], m.coins_chip.text == "%d 金" % m.games_save.coins)
+    # 开着厨房来一张干杯插图：宴会厅小游戏是排队、关了接着放
+    m.toast_queue.clear()
+    m._play_toast(0, 1, "厨房里来的插图")
+    await process_frame
+    var queued: bool = not is_instance_valid(m.toast_scene) and m.toast_queue.size() >= 1
+    p._close()
+    await process_frame
+    await process_frame
+    var replayed: bool = is_instance_valid(m.toast_scene)
+    print("    记一条：开着厨房来的插图 排队 %s、关了厨房接着放 %s（宴会厅小游戏两样都是 true）" % [queued, replayed])
+    if is_instance_valid(m.toast_scene):
+        m.toast_scene.queue_free()
+        m.toast_scene = null
+    m.toast_queue.clear()
+    check("%s：关了厨房，后厅能走" % label, m.game_host == null and b.walking_enabled)
+    walk_to(Vector2(200, 790))
+    walk_to(b.spot_pos("to_hall"))
+    for i in 120:
+        if m.state == "banquet" and not m.switching:
+            break
+        await process_frame
+    check("%s：西口回了宴会厅（state=%s）" % [label, m.state], m.state == "banquet" and m.cv == m.hall)
+
+func run() -> void:
+    m.cloud.fake_no_news = true
+    for i in 600:
+        if m.state == "title":
+            break
+        await process_frame
+    await process_frame
+    m.games_save.local_path = "user://test_kitchen_route_games.json"
+    m.court_save.local_path = "user://test_kitchen_route_court.json"
+    m.nickname = "小李"
+    await m._enter_banquet()
+    await create_timer(0.3).timeout
+    await route("第 44 版厅")
+    await m._set_hall55(true)
+    await create_timer(0.5).timeout
+    check("切到 55 桌厅", m.hall.big and m.state == "banquet")
+    await route("55 桌厅")
+    await m._set_hall55(false)
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(Main.HALL55_FLAG))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_kitchen_route_games.json"))
+    DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_kitchen_route_court.json"))
+    if not had_kitchen_save:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(KITCHEN_SAVE))   # 别给这台电脑留一份厨房存档
+    print("RESULT ", "PASS" if ok else "FAIL")
+    quit(0 if ok else 1)

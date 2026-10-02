@@ -174,7 +174,7 @@ func run() -> void:
     check("又进了后厅", m.state == "backhall")
     var ui = m.backhall_ui
     m.dialog.visible = false   # 进厅那句「到啦～」按真时间几秒就收；这里只推帧不走真时间，手动收掉
-    var want_btn := {"dress": "礼服架", "lounge": "外套", "mahjong": "麻将桌", "pot": "大锅"}
+    var want_btn := {"dress": "礼服架", "lounge": "外套", "mahjong": "麻将桌", "pot": "穿上围裙 · 学做菜"}
     var want_who := {"dress": "阿鱼", "lounge": "阿鱼", "mahjong": "长辈", "pot": "厨师"}
     for id in ROOMS:
         var sp: Vector2 = b.spot_pos(id)
@@ -182,6 +182,18 @@ func run() -> void:
         walk_to(sp)
         check("%s：走进去出按钮「%s」" % [id, ui.act_btn.text], b.in_spot(id) and ui.act_btn.visible and ui.act_btn.text == want_btn[id])
         check("%s：还没点，不说话" % id, not m.dialog.visible)
+        if id == "pot":
+            ui._on_act()
+            check("厨房按钮打开做菜面板并停住场景行走", is_instance_valid(m.game_host) and not b.walking_enabled)
+            m.game_host._close()
+            check("关闭做菜后恢复后厅行走", m.game_host == null and b.walking_enabled)
+            await process_frame
+            b.tap(b.get_viewport().get_canvas_transform() * Vector2(1272,258))
+            tick(180)
+            check("直接点锅会走近并打开做菜", is_instance_valid(m.game_host))
+            if is_instance_valid(m.game_host): m.game_host._close()
+            await process_frame
+            continue
         ui._on_act()
         check("%s：点一下 %s「%s」" % [id, m.dialog_who.text, m.dialog_text.text],
             m.dialog.visible and m.dialog_text.text == "【待补】" and m.dialog_who.text == want_who[id])
