@@ -1127,6 +1127,21 @@ func pick_look(p: Dictionary, pools: Dictionary, counters: Dictionary) -> int:
     counters[kind] = n + 1
     return int(pool[n % pool.size()])
 
+## 点到的是不是一位罗曼山庄服务员（有图、有名字的才算）：是就回「罗曼山庄服务员 · 名字」，不是回 ""（10/2 阿鱼：每位服务员有个名字）
+func waiter_at(wp: Vector2) -> String:
+    for w in waiters:
+        if w.kind != "waiter" or w.lm.is_empty():
+            continue
+        var nm := LMPeople.waiter_name(str(w.lm["code"]))
+        if nm == "":
+            continue
+        var k: float = w.body.scale.x
+        var half: float = 18.0 * k   # 人身子大约 36 宽（格子 64 里两边是空的）
+        var top: float = float(w.lm["h"]) * k
+        if absf(wp.x - w.pos.x) <= half and wp.y <= w.pos.y + 4.0 and wp.y >= w.pos.y - top:
+            return "罗曼山庄服务员 · " + nm
+    return ""
+
 ## 宾客、亲友共用的那套人（见 kit 上面的说明）
 func _kit() -> Dictionary:
     if not kit.is_empty():

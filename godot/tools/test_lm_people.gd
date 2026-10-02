@@ -5,7 +5,7 @@ extends SceneTree
 ## 1 这套人用的是罗曼山庄的宾客：12 行，小孩认出来；站着的高照 height_m（大人 84、小孩约 53），坐下照画的高截上半身
 ## 2 别桌宾客：同一桌不重样，小孩一桌最多一个
 ## 3 18 位亲友：照称呼固定长相（REL_LOOKS），同一桌不重样
-## 4 服务员：用罗曼山庄服务员，端菜走用托盘那一行，菜挂在托盘点上
+## 4 服务员：用罗曼山庄服务员，端菜走用托盘那一行，菜挂在托盘点上；点到服务员顶上说「罗曼山庄服务员 · 名字」，人不走过去
 ## 5 乐手：四位在 03 量的脚点，演奏那几帧会动
 ## 6 选人：形象 0～7 用宾客 01～08
 ## 用法：Godot --headless --path . --script res://tools/test_lm_people.gd ；最后一行 RESULT PASS 才算过
@@ -174,6 +174,21 @@ func run() -> void:
         tray_ok = w0.tray != null and w0.tray.visible and absf(w0.tray.position.x - exp.x) < 0.6 and absf(w0.tray.position.y - exp.y) < 3.0
     check("服务员用罗曼山庄的（%d 位）、端菜走用托盘那行（第 %s 帧）、菜挂在托盘点上（%s）" % [lmw.size(), w0.body.frame if w0 != null else -1, w0.tray.position if w0 != null and w0.tray != null else null],
         lmw.size() == life.waiters.filter(func(w): return w.kind == "waiter").size() and lmw.size() > 0 and frame_ok and tray_ok)
+
+    var said := []
+    h.waiter_tap.connect(func(t): said.append(t))
+    var nm := ""
+    var miss := "?"
+    if w0 != null:
+        var want := "罗曼山庄服务员 · " + LMPeople.waiter_name(str(w0.lm["code"]))
+        var me_at: Vector2 = h.player.position
+        h.tap(h.get_viewport().get_canvas_transform() * (w0.pos - Vector2(0, 20.0 * w0.body.scale.x)))
+        nm = said[0] if not said.is_empty() else ""
+        miss = life.waiter_at(w0.pos + Vector2(200, 0))
+        check("点服务员 %s 说「%s」、人没走（%s）；点旁边空地不说（%s）" % [w0.lm["code"], nm, h.player.position == me_at and h.path.is_empty(), miss],
+            nm == want and want.length() > 10 and miss == "" and h.player.position == me_at)
+    check("名字表 40 位：01 %s、40 %s" % [LMPeople.waiter_name("LM-WAITER-01"), LMPeople.waiter_name("LM-WAITER-40")],
+        LMPeople.waiter_name("LM-WAITER-01") == "陈子航" and LMPeople.waiter_name("LM-WAITER-40") == "崔琳")
 
     print("5 乐手")
     var feet := []

@@ -752,6 +752,7 @@ func _make_hall(sv: Node) -> void:
         hall.person_near.connect(_on_person_near)
         hall.table_near.connect(_on_table_near)
         hall.game_tap.connect(_on_game_tap)
+        hall.waiter_tap.connect(func(text): _note(text, 2.5))
         cloud.fake_tables = (hall.cfg.get("tables", []) as Array).size()   # 电脑上的假服务端跟着回几张桌
         cloud.fake_table_ids = []
         near_family = {"key": "", "title": ""}

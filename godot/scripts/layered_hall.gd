@@ -484,6 +484,12 @@ func tap(screen: Vector2) -> void:
         return
     var t0 := Time.get_ticks_usec()
     var wp := get_viewport().get_canvas_transform().affine_inverse() * screen
+    # 点到一位罗曼山庄服务员：顶上说一句这位叫什么，不走过去（10/2 阿鱼：每位服务员有个名字）
+    if life != null and life.has_method("waiter_at"):
+        var wn: String = life.waiter_at(wp)
+        if wn != "":
+            waiter_tap.emit(wn)
+            return
     # 点到桌心的菜（椅位圈中间那一块）：告诉 main 开这桌的小游戏。坐在这桌就不走路（一走就站起来了）
     var tid := table_at(wp)
     if tid != "":
@@ -831,6 +837,7 @@ signal chair_near(table_id: String, chair_no: int)   # 走到空椅子旁触发�
 signal person_near(openid: String)   # 走到「有人坐、不是自己」的椅子旁触发（看人、敬酒，蓝图 3.2）；"" 表示走开了
 signal table_near(table_id: String)   # 走到桌边（翻簿子，第 24 版）；"" 表示走开了
 signal game_tap(table_id: String)     # 点了某张桌桌心的菜（席间小游戏，蓝图 3.2 9/19：坐下后点桌心的菜开游戏）
+signal waiter_tap(text: String)       # 点到一位罗曼山庄服务员：「罗曼山庄服务员 · 名字」（10/2）
 
 var seats_holder: Node2D
 var seat_tags: Node2D

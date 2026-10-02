@@ -11,12 +11,13 @@ signal rel_near(title: String, relation: String)   # 离我最近（REL_NEAR 内
 const Spr = preload("res://scripts/sprites.gd")
 const FH := 32.0
 # 有罗曼山庄宾客的图时，18 位亲友每位固定一个长相（10/2 01 E：照称呼配男女老少；同一桌不重样，小孩不发）。
-# 宾客 01 年轻男、02 高瘦女、03 中等女、04 中等男寸头、05 矮胖男、06 矮胖女眼镜、07 高壮光头长辈、08 瘦小女、09 奶奶、10 爷爷
+# 宾客 01 年轻男、02 高瘦女、03 中等女、04 中等男寸头、05 矮胖男、06 矮胖女眼镜、08 瘦小女、09 奶奶、10 爷爷
+# （07 高壮光头长辈阿鱼 10/2「宾客07不要」，GPT 重画；原来配 07 的二爸、四姑爷先改 05，跟同桌不撞）
 # T9：大爸家、二爸家；T11：四孃、六孃、小舅三家；T7：爸爸的朋友、阿鱼的朋友。那个编号的图还没到就照旧按男女轮着发
 const REL_LOOKS := {
     "大爸": "LM-GUEST-10", "大娘": "LM-GUEST-09", "小虎哥": "LM-GUEST-01", "大嫂": "LM-GUEST-02",
-    "二爸": "LM-GUEST-07", "二娘": "LM-GUEST-06", "二孃": "LM-GUEST-03",
-    "四孃": "LM-GUEST-06", "四姑爷": "LM-GUEST-07", "六孃": "LM-GUEST-03", "六姑爷": "LM-GUEST-10",
+    "二爸": "LM-GUEST-05", "二娘": "LM-GUEST-06", "二孃": "LM-GUEST-03",
+    "四孃": "LM-GUEST-06", "四姑爷": "LM-GUEST-05", "六孃": "LM-GUEST-03", "六姑爷": "LM-GUEST-10",
     "小舅": "LM-GUEST-04", "小舅妈": "LM-GUEST-02",
     "周叔": "LM-GUEST-05", "李叔": "LM-GUEST-04", "丹孃": "LM-GUEST-06", "小江": "LM-GUEST-01", "表弟媳": "LM-GUEST-08",
 }

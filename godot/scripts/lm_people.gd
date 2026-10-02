@@ -31,6 +31,17 @@ static func band_code(i: int) -> String:
 
 static func clear_cache() -> void:
     _cache.clear()
+    _names = {}
+
+## 服务员的名字（assets/characters/waiter_names.json，阿鱼 10/2 要每位有个中文名）；没有回 ""
+const WAITER_NAMES := "res://assets/characters/waiter_names.json"
+static var _names := {}
+static func waiter_name(code: String) -> String:
+    if _names.is_empty() and FileAccess.file_exists(WAITER_NAMES):
+        var j = JSON.parse_string(FileAccess.get_file_as_string(WAITER_NAMES))
+        if j is Dictionary:
+            _names = j.get("names", {})
+    return str(_names.get(code, ""))
 
 static func has(code: String) -> bool:
     return not look(code).is_empty()
