@@ -9,7 +9,7 @@
        零件的影子另出一层 shadow_*，允许半透明（01 D 10/2：零件本身照旧硬边）
     3. 尺寸不对：
        - 场景文件夹里的 base.png 要跟同一个文件夹 scene.json / layout.json 里写的 size 一样大；
-       - GPT 交的整张背景 base_*.png 宽必须 1536；
+       - GPT 交的整张背景 base_*.png 宽必须 1536；assets/kitchen/ 下的 base_*（厨房全屏面板底图，01 E 10/2）照 540×960
        - 瓦片照 回执/宴会厅55桌-瓦片规格.md：地砖 80×52、红毯 140×96、侧墙 96×240，55 桌那两条竖墙 40×240；地砖、红毯不许透明
     4. 图太大（01 D 10/2，阿鱼嫌 1 MB 太大）：按类分，量的是**进手机包的大小**——
        .import 里是有损压缩（compress/mode=1）的，按它的 lossy_quality 压成 WebP 估一下（比 Godot 实际导出的小约 8%，乘 1.1）；
@@ -49,6 +49,8 @@ TILES = [  # (文件名开头, 宽, 高, 能不能透明)
     ("tex_banquet55_wall_east", 40, 240, True),
 ]
 CANVAS_W = 1536
+PANEL_DIR = "assets/kitchen/"   # 全屏面板（厨房）：base_ 是面板底图，不是场景画布
+PANEL_SIZE = (540, 960)
 ONE_MB = 1024 * 1024
 KB = 1024
 SIZE_LIMITS = [  # (类, 判断, 上限 KB)：从上往下第一个对上的算
@@ -170,6 +172,10 @@ def check_png(src: Source, path: str, raw: bytes, errors: list, warns: list) -> 
         if want and (w, h) != (want[0], want[1]):
             errors.append((path, "底图 %d×%d，旁边 %s 写的画布是 %d×%d" % (w, h, want[2], want[0], want[1]),
                            "底图拉成画布大小，或者改 %s 的 size（两个要一样）" % want[2]))
+    elif name.startswith("base_") and not name.startswith(UI_PREFIX) and PANEL_DIR in path.replace(os.sep, "/"):
+        # 01 E 10/2：厨房这类全屏面板的底图不是场景画布，照手机竖屏 540×960 查（单张进包 ≤500 KB 照「背景」那条）
+        if (w, h) != PANEL_SIZE:
+            errors.append((path, "全屏面板底图 %d×%d，要 %d×%d" % (w, h, PANEL_SIZE[0], PANEL_SIZE[1]), "面板底图照手机竖屏 540×960 出"))
     elif name.startswith("base_") and not name.startswith(UI_PREFIX) and w != CANVAS_W:
         errors.append((path, "整张背景宽 %d，画布宽是 %d" % (w, CANVAS_W), "背景照 1536 宽出"))
 

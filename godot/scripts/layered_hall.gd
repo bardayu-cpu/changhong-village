@@ -41,6 +41,7 @@ var world: Node2D          # 开了 y 排序：积木、新人、玩家都在这
 var cam: Camera2D
 var player: Sprite2D
 var me_ring: Node2D        # 脚下一圈淡金色、会呼吸的圈（04 10/2：人堆里找不到自己），在宴会厅一直在、不写字
+var me_mark: Polygon2D     # 头顶一个小金色倒三角，轻轻上下浮（01 E 10/2：脚下那圈在人堆里常被前面的桌子盖住）
 var tag: Label
 var tag_anchor: Node2D
 var exit_mark: Polygon2D
@@ -281,6 +282,17 @@ func _player(preset: int, nickname: String) -> void:
     for c in me_ring.get_children():
         (c as Node2D).position = Vector2(0, 1)
     world.add_child(me_ring)
+    # 头顶的倒三角：画在人和桌子上面（z 3）、牌子（z 4～5）下面，不写字；金色、一圈深边
+    me_mark = Polygon2D.new()
+    me_mark.polygon = PackedVector2Array([Vector2(-7, -5), Vector2(7, -5), Vector2(0, 5)])
+    me_mark.color = Color(1.0, 0.84, 0.35)
+    me_mark.z_index = 3
+    var mark_edge := Line2D.new()
+    mark_edge.points = PackedVector2Array([Vector2(-7, -5), Vector2(7, -5), Vector2(0, 5), Vector2(-7, -5)])
+    mark_edge.width = 1.5
+    mark_edge.default_color = Color(0.45, 0.25, 0.05)
+    me_mark.add_child(mark_edge)
+    add_child(me_mark)
     player = Sprite2D.new()
     player.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     world.add_child(player)
@@ -716,6 +728,10 @@ func _process(dt: float) -> void:
         me_ring.position = pos - Vector2(0, 1)
         breathe_ring(me_ring, t)
         me_ring.modulate.a *= 0.6   # 比出口那圈淡：只是让人一眼找到自己，不是「往这儿来」
+    if me_mark != null:
+        me_mark.visible = player.visible
+        var head := _px_h(pos.y) * (SIT_KEEP if seated else 1.0)
+        me_mark.position = pos + Vector2(0, -head - 12.0 + sin(t * 2.5) * 3.0)   # 头顶上方一点，上下浮 3 像素
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:
         couple_armed = false
         path.clear()

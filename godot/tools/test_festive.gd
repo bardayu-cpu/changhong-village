@@ -6,7 +6,7 @@ extends SceneTree
 ## 3 进厅：最多 30 片；每天第一次进厅才放（北京日期），同一天第二次不放、第二天又放
 ## 4 干杯：12～16 片、只有花瓣、落在两个人头顶；干杯插图还开着先等着；别人当场敬我也落
 ## 5 开席那一刻：按北京时间从 11:59 走到 12:00 放；调试版强制开席不放；进厅时已经开席了不补
-## 1b 脚下那圈找自己：跟着人、在人后面、不写字；6 在小游戏、簿子、菜单里不放，回来也不补；7 掉帧（低于 55）片数减半；8 没图又不是调试版：不挂不飘
+## 1b 脚下那圈、头顶倒三角找自己：跟着人，圈在人后面，倒三角在人和桌子上面、牌子下面，都不写字；6 在小游戏、簿子、菜单里不放，回来也不补；7 掉帧（低于 55）片数减半；8 没图又不是调试版：不挂不飘
 ## 用法：Godot --headless --path . --script res://tools/test_festive.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -108,9 +108,17 @@ func run() -> void:
     check("脚下有一圈：跟着人（%s 对 %s）、在按前后排的那层里排在人前一格（压在人后面）、没有字" % [ring.position if ring != null else null, h.pos],
         ring != null and ring.visible and ring.position.is_equal_approx(h.pos - Vector2(0, 1)) and ring.get_parent() == h.world and ring.get_index() < h.player.get_index()
         and ring.find_children("*", "Label", true, false).is_empty())
+    var mk = h.me_mark
+    check("头顶有个小倒三角：在人头上方（%.0f 对脚 %.0f）、在人和桌子上面牌子下面（z %d）、没有字" % [mk.position.y if mk != null else 0.0, h.pos.y, mk.z_index if mk != null else 0],
+        mk != null and mk.visible and mk.position.y < h.pos.y - h._px_h(h.pos.y) and absf(mk.position.x - h.pos.x) < 0.5 and mk.z_index > 1 and mk.z_index < 4
+        and mk.find_children("*", "Label", true, false).is_empty())
+    var y0: float = mk.position.y
+    h.t += 0.6
+    h._process(0.016)
+    check("倒三角上下浮（%.1f → %.1f）" % [y0, mk.position.y], absf(mk.position.y - y0) > 0.5)
     h.player.visible = false
     h._process(0.016)
-    check("人藏起来（截图）圈也藏", not ring.visible)
+    check("人藏起来（截图）圈和倒三角也藏", not ring.visible and not mk.visible)
     h.player.visible = true
     h._process(0.016)
 

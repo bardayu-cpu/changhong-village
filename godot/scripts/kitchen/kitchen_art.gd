@@ -124,8 +124,20 @@ static func put_source(parent: Node, region: Rect2, rect: Rect2) -> TextureRect:
     parent.add_child(t)
     return t
 
+# 顶栏 5 件（招牌、等级框、金币框、帽子、铜钱）：01 E 10/2 定，照 REFERENCE_REGIONS 的框从 v2 参考图切成 5 张小图
+# （mobile/ui/kitchen_ui_<id>.png，像素一个不差），那张 2.6 MB 的参考图不进包
+const PIECE_DIR := "res://assets/kitchen/mobile/ui/kitchen_ui_%s.png"
+
 static func put_piece(parent: Node, id: String, rect: Rect2) -> TextureRect:
-    return put_source(parent,REFERENCE_REGIONS[id],rect)
+    var t := TextureRect.new()
+    t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    t.texture = CanvasAssets.texture(PIECE_DIR % id)
+    t.position = rect.position
+    t.size = rect.size
+    t.stretch_mode = TextureRect.STRETCH_SCALE
+    t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    parent.add_child(t)
+    return t
 
 const VISUAL_CONFIG := "res://data/kitchen/visual_assets.json"
 static var visual_assets: Dictionary = _read_visual_assets()
