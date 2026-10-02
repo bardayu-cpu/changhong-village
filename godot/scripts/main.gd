@@ -303,37 +303,29 @@ func _ready() -> void:
     court.spot.connect(_on_court_spot)
     court.walking_enabled = false
     print("[suqi] 迎宾院搭好了 ", Time.get_ticks_msec(), " 毫秒")
+    # 后厅、草坪、湖边、果园：开场只建个空壳、接好信号，第一次走进去才搭（ensure_canvas，切画布黑屏那一下搭）。
+    # 02 10/3「性能-真人物满厅」：开场少搭四块，手机上估省 0.5～1 秒；01 E 定做
     backhall = load(BACKHALL_START).new() if "--backhall=start" in OS.get_cmdline_user_args() else Backhall.new()
     sv.add_child(backhall)
-    backhall.build(preset, "", font)
     backhall.spot.connect(_on_backhall_spot)
     if backhall.has_signal("kitchen_requested"):
         backhall.kitchen_requested.connect(_open_kitchen)
-    backhall.walking_enabled = false
-    print("[suqi] 后厅搭好了 ", Time.get_ticks_msec(), " 毫秒")
     lawn = Lawn.new()
     sv.add_child(lawn)
-    lawn.build(preset, "", font)
     lawn.spot.connect(_on_lawn_spot)
     lawn.fetched.connect(_on_lawn_fetched)
-    lawn.walking_enabled = false
-    print("[suqi] 草坪搭好了 ", Time.get_ticks_msec(), " 毫秒")
     lake = Lake.new()
     sv.add_child(lake)
-    lake.build(preset, "", font)
     lake.spot.connect(_on_lake_spot)
-    lake.walking_enabled = false
-    print("[suqi] 湖边搭好了 ", Time.get_ticks_msec(), " 毫秒")
     orchard_save = OrchardSave.new()
     orchard_save.load_local()
     orchard = Orchard.new()
     sv.add_child(orchard)
-    orchard.build(preset, "", font)
     orchard.save = orchard_save
-    orchard.refresh_fruit()
     orchard.spot.connect(_on_orchard_spot)
-    orchard.walking_enabled = false
-    print("[suqi] 果园搭好了 ", Time.get_ticks_msec(), " 毫秒")
+    for c in [backhall, lawn, lake, orchard]:
+        c.visible = false
+        c.process_mode = Node.PROCESS_MODE_DISABLED
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     court_save = CourtSave.new()
@@ -1386,7 +1378,30 @@ func _in_scene() -> bool:
 
 ## 换到哪块画布：别的都藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。几块一直都在，
 ## 所以座位、NPC、敬酒这些宴会厅的状态切来切去都还在
+## 后厅、草坪、湖边、果园第一次要用时才搭（开场不搭，见 _ready）。搭过的不再搭；搭完照现在的形象、昵称穿上
+var canvas_built := {}
+func ensure_canvas(which: String) -> void:
+    var c = {"backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard}.get(which)
+    if c == null or canvas_built.has(which):
+        return
+    canvas_built[which] = true
+    var t0 := Time.get_ticks_msec()
+    c.build(preset, "", font)
+    c.walking_enabled = false
+    if which == "orchard":
+        orchard.refresh_fruit()
+    if nickname != "":
+        c.set_look(preset, nickname)
+    print("[suqi] %s第一次进去才搭，用了 %d 毫秒" % [{"backhall": "后厅", "lawn": "草坪", "lake": "湖边", "orchard": "果园"}[which], Time.get_ticks_msec() - t0])
+
+func _built(c) -> bool:
+    for k in canvas_built:
+        if {"backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard}.get(k) == c:
+            return true
+    return false
+
 func _show_canvas(which: String) -> void:
+    ensure_canvas(which)
     var canvases := {"court": court, "banquet": hall, "backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard}
     for k in canvases:
         var c = canvases[k]
@@ -1519,10 +1534,9 @@ func _enter_court() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
-    backhall.set_look(preset, nickname)
-    lawn.set_look(preset, nickname)
-    lake.set_look(preset, nickname)
-    orchard.set_look(preset, nickname)
+    for c in [backhall, lawn, lake, orchard]:
+        if _built(c):   # 没搭的第一次进去搭的时候再穿（ensure_canvas）
+            c.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
@@ -1562,6 +1576,7 @@ func _switch_canvas(to: String) -> void:
     cv.path.clear()
     fade.color = Color(SWITCH_TINT, fade.color.a)
     await _fade_to(1.0)
+    ensure_canvas(to)   # 第一次去：黑屏这一下搭，人看不见
     if from == "lawn":
         lawn.reset_ball()
     if to == "banquet":
@@ -1763,10 +1778,9 @@ func _enter_banquet() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
-    backhall.set_look(preset, nickname)
-    lawn.set_look(preset, nickname)
-    lake.set_look(preset, nickname)
-    orchard.set_look(preset, nickname)
+    for c in [backhall, lawn, lake, orchard]:
+        if _built(c):   # 没搭的第一次进去搭的时候再穿（ensure_canvas）
+            c.set_look(preset, nickname)
     hall.couple_armed = true
     hall.exit_armed = false
     hall.exit_mark.visible = false
@@ -3004,6 +3018,9 @@ func _shot_skip_entry_toast() -> void:
             await get_tree().process_frame
 
 func _setup_shot(shot: String) -> void:
+    for cn in ["backhall", "lawn", "lake", "orchard"]:
+        if shot.begins_with(cn) or shot.begins_with("k") or shot == "hall_side_door":
+            ensure_canvas(cn)   # 这几块开场不搭；截图预设有的在切过去之前就动它们（果园先拨地），先搭好
     if shot.begins_with("game_"):
         await _shot_game(shot)
         return

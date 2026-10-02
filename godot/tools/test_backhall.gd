@@ -65,6 +65,9 @@ func run() -> void:
         if m.state == "title":
             break
         await process_frame
+    # 后厅、草坪、湖边、果园开场不搭、第一次进去才搭（main.ensure_canvas，02 10/3）：这里要直接看它们，先搭好
+    for cn in ["backhall", "lawn", "lake", "orchard"]:
+        m.ensure_canvas(cn)
     await process_frame
     var b = m.backhall
     var h = m.hall
