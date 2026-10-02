@@ -191,20 +191,19 @@ function drawPoster(f, done) {
     var couple = null, me = null;
     function drawRest() {
         if (couple) {
-            var chh = 300, cww = chh * couple.width / couple.height;
-            ctx.drawImage(couple, ix + iw * 0.56, iy + ih - 40 - chh, cww, chh);
+            // 小图导出时已经裁到人画出来的那一块（export_poster_assets.gd），新人比自己高 1.05 倍，跟游戏里那张一样
+            var chh = 280 * 1.05, cww = chh * couple.width / couple.height;
+            ctx.drawImage(couple, ix + iw * 0.56, iy + ih - 34 - chh, cww, chh);   // 跟自己踩在同一条线上
         }
         if (me) {
             var mh = 280, mw = mh * me.width / me.height;
             var mx = ix + iw * 0.28;
             ctx.drawImage(me, mx, iy + ih - 34 - mh, mw, mh);
+            // 比心画一颗心；招手不画（04 10/2：代码画的占位手不能出现在发出去的海报上）
             if (f.pose === 'heart') {
                 ctx.fillStyle = '#e8424a';
                 ctx.font = '48px sans-serif';
                 ctx.fillText('♥', mx + mw * 0.5, iy + ih - 34 - mh * 0.55);
-            } else if (f.pose === 'wave') {
-                ctx.fillStyle = '#f1c9a1';
-                ctx.fillRect(mx + mw + 4, iy + ih - 34 - mh + 30, 18, 26);
             }
         }
         var y = py + ph + 60 + 60;

@@ -3,7 +3,8 @@ extends SceneTree
 ## 1 相纸页三个键「做成海报」「再拍一张」「收好」，各宽 ≥140、高 ≥55
 ## 2 做成海报：照片 + 一句话 + 小程序码 + 「扫码进来坐坐」；字 ≥20 像素；码和字都在照片下面，不压新人
 ## 3 「发给朋友」：把海报那一块的位置、视口大小、自己画要的东西交给 poster.js（电脑上记下来）；发不出去说「没发出去 再试一下」
-## 4 码没拿到：只有照片，说「海报没做好 先存照片吧」，照片照样能发
+## 4 码没拿到：只有照片，说「海报没做好，先把照片发给朋友吧」，下面就是「发给朋友」，发的是只有照片那张
+## 2b 照片里新人跟自己差不多高（1.0～1.1 倍）；招手不画占位手（04 第三件第 1、2 条）
 ## 5 返回回到相纸；收起合影海报也收
 ## 用法：Godot --headless --path . --script res://tools/test_court_poster.gd ；最后一行 RESULT PASS 才算过
 
@@ -89,6 +90,16 @@ func run() -> void:
     check("海报上的字都 ≥20 像素（小的 %s）" % [small], small.is_empty())
     var scan_ok: bool = ui.poster_card.find_children("*", "Label", true, false).any(func(l): return l.text == CourtCopy.text("poster_scan") and l.is_visible_in_tree())
     check("有「%s」" % CourtCopy.text("poster_scan"), scan_ok)
+    var me_h: float = ui.poster_paper_art.get_meta("me_h", 0.0)
+    var cp_h: float = ui.poster_paper_art.get_meta("couple_h", 0.0)
+    check("照片里新人跟自己差不多高：新人 %.0f、自己 %.0f，%.2f 倍（要 1.0～1.1，04 第三件第 2 条）" % [cp_h, me_h, cp_h / maxf(1.0, me_h)],
+        me_h > 100.0 and cp_h / me_h >= 1.0 and cp_h / me_h <= 1.1)
+    ui._compose_paper("wave", m.preset, ui.poster_paper_art)
+    await frames(1)
+    var hand: Array = ui.poster_paper_art.get_children().filter(func(n): return n is ColorRect and (n as ColorRect).color.is_equal_approx(Color("#f1c9a1")))
+    check("招手不画代码画的占位手（04 第三件第 1 条）", hand.is_empty())
+    ui._compose_paper("heart", m.preset, ui.poster_paper_art)
+    await frames(1)
     var pb: Array = ui.poster_root.find_children("*", "Button", true, false).filter(func(b): return b.is_visible_in_tree())
     check("海报页的键（%s）各宽 ≥140、高 ≥55" % [pb.map(func(b): return b.text)], pb.size() == 2 and pb.all(func(b): return big_enough(b)))
     check("面板开着人不能走", not c.walking_enabled and ui.panel_open())

@@ -763,36 +763,52 @@ func _compose_paper(pose: String, preset: int, into: Control = null) -> void:
     xi.position = Vector2(w * 0.5 - 30, 4)
     xi.size = Vector2(60, 60)
     pa.add_child(xi)
-    # 新人：现有合照原图（HANDOFF §0.5），不重画
-    var cp := TextureRect.new()
-    cp.texture = load("res://assets/couple.png")
-    cp.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    cp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-    var ch := 170.0
-    var cw := ch * float(cp.texture.get_width()) / float(cp.texture.get_height())
-    cp.size = Vector2(cw, ch)
-    cp.position = Vector2(w * 0.58, h - 22 - ch)
+    # 新人、自己按「画出来的人有多高」摆（04 10/2 第三件第 2 条：原来照片里玩家比新人矮约 1.6 倍）：
+    # 量两张图不透明的那一块，自己画 PHOTO_ME_H 高，新人比自己高 PHOTO_COUPLE_K 倍，脚踩在同一条线上。合照原图不改，只改摆的大小
+    var base_y := h - 18.0
+    var cp_tex: Texture2D = load("res://assets/couple.png")
+    var cu := _used_rect(cp_tex)
+    var ks := PHOTO_ME_H * PHOTO_COUPLE_K / maxf(1.0, cu.size.y)
+    var cp := _photo_rect(cp_tex, ks, false)
+    cp.position = Vector2(w * 0.56 - cu.position.x * ks, base_y - cu.end.y * ks)
     pa.add_child(cp)
-    # 自己：选的形象，朝前站着那一帧，放大；姿势是占位的小记号（招手画一只手，比心画一颗心）
-    var me := TextureRect.new()
-    me.texture = _front_frame(preset)
-    me.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    me.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    me.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-    var mh := 160.0
-    me.size = Vector2(mh * 0.5, mh)
+    # 自己：选的形象，朝前站着那一帧；姿势比心画一颗心，招手先不画（04：代码画的占位手不能出现在发出去的海报上）
+    var me_tex := _front_frame(preset)
+    var mu := _used_rect(me_tex)
+    var km := PHOTO_ME_H / maxf(1.0, mu.size.y)
+    var me := _photo_rect(me_tex, km, true)
     var mx := w * 0.3
-    me.position = Vector2(mx, h - 18 - mh)
+    me.position = Vector2(mx - mu.position.x * km, base_y - mu.end.y * km)
     pa.add_child(me)
-    var hand_col := Color("#f1c9a1")
-    match pose:
-        "wave":
-            pa.add_child(_rect(Rect2(mx + mh * 0.5 + 2, h - 18 - mh + 18, 10, 14), hand_col))
-            pa.add_child(_rect(Rect2(mx + mh * 0.5 + 16, h - 18 - mh + 14, 3, 10), Color("#2c1f1c")))
-            pa.add_child(_rect(Rect2(mx + mh * 0.5 + 22, h - 18 - mh + 20, 3, 10), Color("#2c1f1c")))
-        "heart":
-            pa.add_child(_heart(Vector2(mx + mh * 0.25, h - 18 - mh * 0.55), 12.0))
+    pa.set_meta("me_h", mu.size.y * km)
+    pa.set_meta("couple_h", cu.size.y * ks)
+    if pose == "heart":
+        pa.add_child(_heart(Vector2(mx + mu.size.x * km * 0.5, base_y - PHOTO_ME_H * 0.55), 12.0))
     pa.set_meta("pose", pose)
+
+const PHOTO_ME_H := 150.0      # 相纸上自己画多高（看得见的那一块）
+const PHOTO_COUPLE_K := 1.05   # 新人比自己高一点点（01 E：不超过 1.1 倍）
+
+## 图里不透明的那一块（量人画了多高用）
+static func _used_rect(tex: Texture2D) -> Rect2:
+    var img := tex.get_image()
+    if img == null:
+        return Rect2(Vector2.ZERO, tex.get_size())
+    if img.is_compressed():
+        img.decompress()
+    var r := img.get_used_rect()
+    return Rect2(r) if r.size.y > 0 else Rect2(Vector2.ZERO, tex.get_size())
+
+func _photo_rect(tex: Texture2D, k: float, nearest: bool) -> TextureRect:
+    var t := TextureRect.new()
+    t.texture = tex
+    if nearest:
+        t.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    t.stretch_mode = TextureRect.STRETCH_SCALE
+    t.size = tex.get_size() * k
+    t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    return t
 
 func _rect(r: Rect2, col: Color) -> ColorRect:
     var c := ColorRect.new()
