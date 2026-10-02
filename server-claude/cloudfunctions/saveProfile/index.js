@@ -110,11 +110,14 @@ exports.main = async (event) => {
     const bl = resident.canBless(fields.blessing);
     if (!bl.ok) return bl;
     fields.blessing = fields.blessing.trim();
-    const wc = sensitive.checkText(fields.blessing, { sensitiveMatcher: SENSITIVE_MATCHER });
-    if (!wc.ok) return { ok: false, reason: wc.reason, field: 'blessing' };
-    // 自己的词库过了再问微信：不过跟敏感词走同一条路（客户端说「换个说法吧」），sec 只是留着查日志
-    const sc = await secCheck(fields.blessing, OPENID);
-    if (!sc.ok) return { ok: false, reason: 'sensitive', field: 'blessing', sec: sc.sec };
+    // 四句现成的是我们自己写的字，原文对上直接存；只有自己写的才查（01 E 10/2：接口出错也不拦现成的）
+    if (!resident.isPresetBlessing(fields.blessing)) {
+      const wc = sensitive.checkText(fields.blessing, { sensitiveMatcher: SENSITIVE_MATCHER });
+      if (!wc.ok) return { ok: false, reason: wc.reason, field: 'blessing' };
+      // 自己的词库过了再问微信：不过跟敏感词走同一条路（客户端说「换个说法吧」），sec 只是留着查日志
+      const sc = await secCheck(fields.blessing, OPENID);
+      if (!sc.ok) return { ok: false, reason: 'sensitive', field: 'blessing', sec: sc.sec };
+    }
     fields.blessing_at = now;
   }
   const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);

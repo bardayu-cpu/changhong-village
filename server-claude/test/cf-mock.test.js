@@ -416,10 +416,10 @@ async function scenarioBlessing() {
   const { sdk, state } = createFakeSdk();
   state.currentOpenid = 'bless_a';
   let saveProfile = loadCloudFunction('saveProfile', sdk);
-  let res = await saveProfile.main({ check_in_name: '阿花', gift_value: 88, blessing: '  新婚快乐，白头偕老  ' });
+  let res = await saveProfile.main({ check_in_name: '阿花', gift_value: 88, blessing: '  新婚快乐，永结同心  ' });
   check(res.ok === true, `祝福 正常的能存（实际 ${JSON.stringify(res)}）`);
   const a = state.collections.resident.get('bless_a');
-  check(!!a && a.blessing === '新婚快乐，白头偕老' && a.blessing_at > 0, '祝福 去掉前后空白存进 resident、记下时间');
+  check(!!a && a.blessing === '新婚快乐，永结同心' && a.blessing_at > 0, '祝福 去掉前后空白存进 resident、记下时间');
   // 敏感词：整次不写库（名字、礼金也不存），客户端回祝福那屏
   state.currentOpenid = 'bless_b';
   saveProfile = loadCloudFunction('saveProfile', sdk);
@@ -434,7 +434,7 @@ async function scenarioBlessing() {
   check(res.ok === true, `祝福 跳过照常签到（实际 ${JSON.stringify(res)}）`);
   check(!('blessing' in state.collections.resident.get('bless_b')), '祝福 跳过的不留 blessing');
   // 微信内容安全（msgSecCheck）：正常那条问过微信、带了 openid 和场景；词库拦下的不用再问
-  check(state.secCalls.length === 1 && state.secCalls[0].content === '新婚快乐，白头偕老' && state.secCalls[0].openid === 'bless_a'
+  check(state.secCalls.length === 1 && state.secCalls[0].content === '新婚快乐，永结同心' && state.secCalls[0].openid === 'bless_a'
     && state.secCalls[0].scene === 2 && state.secCalls[0].version === 2, `祝福 过词库的再问微信内容安全（实际 ${JSON.stringify(state.secCalls)}）`);
   // 微信说不行（risky / review）、接口出错：都跟敏感词一样整次不写库、标明是祝福
   for (const sg of ['risky', 'review', 'throw']) {
@@ -457,6 +457,15 @@ async function scenarioBlessing() {
   res = await readBlessings.main({});
   check(res.ok === true && res.items.length === 2, `祝福牌 两条（实际 ${JSON.stringify(res)}）`);
   check(res.items[0].text === '恭喜恭喜，幸福美满' && res.items[0].name === '小王' && res.items[1].name === '阿花', '祝福牌 新的在前、没签到名字的用昵称');
+  // 四句现成的：微信接口出错也照存，不问微信、不过词库（01 E 10/2）
+  saveProfile = loadCloudFunction('saveProfile', sdk);
+  state.secSuggest = 'throw';
+  state.currentOpenid = 'bless_preset';
+  const n1 = state.secCalls.length;
+  res = await saveProfile.main({ check_in_name: '阿林', blessing: '百年好合，早生贵子' });
+  check(res.ok === true && state.collections.resident.get('bless_preset').blessing === '百年好合，早生贵子' && state.secCalls.length === n1,
+    `祝福 现成的四句不问微信、接口坏了也照存（实际 ${JSON.stringify(res)}）`);
+  state.secSuggest = 'pass';
 }
 
 // ================= 场景9：保留名留给主角——主角名单里的人、已经用着这个名字的人不拦；别人照拦；敏感词对谁都拦 =================

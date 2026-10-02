@@ -38,6 +38,11 @@ function canCheckIn(name) {
   return { ok: true };
 }
 
+/** 是不是签到那屏的四句现成祝福之一（去掉前后空白后原文对上）：是就不用再查（config BLESSING_PRESETS） */
+function isPresetBlessing(text) {
+  return typeof text === 'string' && C.BLESSING_PRESETS.indexOf(text.trim()) !== -1;
+}
+
 /** 迎宾院签到时的一句公开祝福（01 E 10/2）：去掉前后空白 1～30 个字（按字算，不按字节）；空的不传（可以跳过） */
 function canBless(text) {
   if (typeof text !== 'string') return { ok: false, reason: 'bad_request', field: 'blessing' };
@@ -183,7 +188,7 @@ function sanitizeGiftAdd(v) {
 }
 
 module.exports = {
-  canSaveProfile, canCheckIn, canBless, clampGiftValue, canAdoptInviter,
+  canSaveProfile, canCheckIn, canBless, isPresetBlessing, clampGiftValue, canAdoptInviter,
   sanitizeCoins, sanitizeGames, sanitizeDishes, sanitizeGiftAdd,
   mergeGames, mergeDishes,
 };

@@ -554,6 +554,18 @@ eq(resident.canCheckIn('李'), { ok: true }, '签到名字 1 个字可以（比�
 eq(resident.canCheckIn('x'.repeat(12)), { ok: true }, '签到名字 正好 12 字可以');
 eq(resident.canCheckIn('x'.repeat(13)), { ok: false, reason: 'bad_request', field: 'check_in_name' }, '签到名字 超过 12 字');
 eq(resident.canBless('喜'), { ok: true }, '祝福 1 个字可以');
+eq(resident.isPresetBlessing(' 新婚快乐，白头偕老 '), true, '祝福 现成的四句认得出（前后空白不算）');
+eq(resident.isPresetBlessing('新婚快乐，白头偕老！'), false, '祝福 改了一个字就不算现成的');
+{
+  // 服务端那四句要跟游戏里签到那屏一字不差（godot/assets/entrance/lines.json 的 bless_1～4）
+  const linesPath = require('path').join(__dirname, '..', '..', 'godot', 'assets', 'entrance', 'lines.json');
+  if (require('fs').existsSync(linesPath)) {
+    const lines = JSON.parse(require('fs').readFileSync(linesPath, 'utf8'));
+    const tbl = lines.lines || lines;
+    const game = ['bless_1', 'bless_2', 'bless_3', 'bless_4'].map(k => tbl[k] && tbl[k].text);
+    eq(game, require('../src/config').BLESSING_PRESETS, '祝福 服务端的四句跟游戏里签到那屏一字不差');
+  }
+}
 eq(resident.canBless('喜'.repeat(30)), { ok: true }, '祝福 正好 30 字可以');
 eq(resident.canBless('喜'.repeat(31)), { ok: false, reason: 'bad_request', field: 'blessing' }, '祝福 31 字不行');
 eq(resident.canBless('   '), { ok: false, reason: 'bad_request', field: 'blessing' }, '祝福 全是空白不行');

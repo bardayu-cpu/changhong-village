@@ -49,6 +49,11 @@ var sign_bless := ""       # 签到时的一句公开祝福；空的是跳过了
 var bless_edit: LineEdit
 var bless_err: Label
 var bless_custom_row: HBoxContainer
+var bless_pick: Array = []    # 祝福屏「点现成的」那几样（提示、四句、自己写）：自己写的时候收起来
+var bless_custom := false     # 祝福屏在不在「自己写」
+var sign_cc: CenterContainer  # 签到面板的居中框：自己写的时候只占屏幕上半（04 10/2：手机键盘弹起来会盖住下半屏的输入框）
+var board_more: Label         # 祝福牌：下面还有、往下翻（04 10/2：长辈不知道能翻）
+var board_scroll: ScrollContainer
 var confirm_bless: Label
 var board_root: Control    # 祝福牌：签到桌旁那块，大家写的祝福往下翻
 var board_list: VBoxContainer
@@ -236,6 +241,7 @@ func _build_sign() -> void:
     var pr := _panel()
     sign_root = pr[0]
     var holder: VBoxContainer = pr[1]
+    sign_cc = holder.get_parent().get_parent()
     # 第 1 页：名字（默认带昵称，可改，1～12 字）
     var p0 := _page(holder)
     p0.add_child(_lbl(Copy.text("sign_name_title"), 24, GOLD1))
@@ -274,12 +280,17 @@ func _build_sign() -> void:
     # 第 3 页：一句祝福（公开，别人在祝福牌上看得到）。长辈打字难：给四句现成的一点就用，再留「自己写」；可以跳过（04 基线第六节第 1 条）
     var pb := _page(holder)
     pb.add_child(_lbl(Copy.text("bless_title"), 24, GOLD1))
-    pb.add_child(_lbl(Copy.text("bless_hint"), 24, MUTED))
+    var hint := _lbl(Copy.text("bless_hint"), 24, MUTED)
+    pb.add_child(hint)
+    bless_pick = [hint]
     for k in ["bless_1", "bless_2", "bless_3", "bless_4"]:
         var b := _btn(Copy.text(k), _pick_bless.bind(Copy.text(k)))
         b.set_meta("bless_preset", true)
         pb.add_child(_grow(b))
-    pb.add_child(_grow(_btn(Copy.text("bless_custom"), _open_bless_custom)))
+        bless_pick.append(b)
+    var custom_btn := _btn(Copy.text("bless_custom"), _open_bless_custom)
+    pb.add_child(_grow(custom_btn))
+    bless_pick.append(custom_btn)
     bless_edit = LineEdit.new()
     bless_edit.placeholder_text = Copy.text("bless_placeholder")
     bless_edit.max_length = BLESS_MAX * 2   # 按字素数校验，这里放宽一点
@@ -287,8 +298,9 @@ func _build_sign() -> void:
     bless_custom_row.visible = false
     pb.add_child(bless_custom_row)
     bless_err = _lbl("", 24, RED_ERR)
+    bless_err.visible = false
     pb.add_child(bless_err)
-    pb.add_child(_row([_btn_secondary(Copy.text("btn_back"), func(): _show_page(1)), _grow(_btn(Copy.text("bless_skip"), _pick_bless.bind("")))]))
+    pb.add_child(_row([_btn_secondary(Copy.text("btn_back"), _bless_back), _grow(_btn(Copy.text("bless_skip"), _pick_bless.bind("")))]))
     # 第 4 页：确认，写明「只是游戏里的记录」
     var p2 := _page(holder)
     p2.add_child(_lbl(Copy.text("confirm_title"), 24, GOLD1))
@@ -311,7 +323,9 @@ func _show_page(i: int) -> void:
         gift_custom_row.visible = false
         gift_edit.text = ""
     if i == PAGE_BLESS and bless_err.text == "":
-        bless_custom_row.visible = false
+        _set_bless_custom(false)
+    if i != PAGE_BLESS:
+        _set_bless_custom(false)
 
 func open_sign() -> void:
     if save.signed_in or busy or sign_root.visible:
@@ -320,7 +334,7 @@ func open_sign() -> void:
     sign_name = str(save.draft.get("name", m.nickname))
     sign_gift = int(save.draft.get("gift", 0))
     sign_bless = str(save.draft.get("bless", ""))
-    bless_err.text = ""
+    _set_bless_err("")
     name_edit.text = sign_name
     _check_name_ui()
     _show_page(PAGE_CONFIRM if save.draft.has("name") else 0)
@@ -362,19 +376,42 @@ func _name_next() -> void:
 
 func _pick_gift(g: int) -> void:
     sign_gift = g
-    bless_err.text = ""
+    _set_bless_err("")
     _show_page(PAGE_BLESS)
 
 ## 祝福：点现成的一句、自己写好了、或者跳过（text 空）都到确认页
 func _pick_bless(text: String) -> void:
     sign_bless = text
-    bless_err.text = ""
+    _set_bless_err("")
     _fill_confirm()
     _show_page(PAGE_CONFIRM)
 
 func _open_bless_custom() -> void:
-    bless_custom_row.visible = true
+    _set_bless_custom(true)
     bless_edit.grab_focus()
+
+## 自己写（04 10/2 体验第 1 条）：四句现成的、提示、「自己写」收起来，面板挪到屏幕上半，手机键盘弹起来盖不住输入框；
+## 不写了点「返回」回到四句现成的。面板矮了，被拦时红字那行也不会把面板撑到底下的「签到」条上（第 2 条）
+func _set_bless_custom(on: bool) -> void:
+    bless_custom = on
+    for c in bless_pick:
+        (c as Control).visible = not on
+    bless_custom_row.visible = on
+    if sign_cc != null:
+        sign_cc.anchor_bottom = 0.55 if on else 1.0
+        sign_cc.offset_bottom = 0.0
+
+func _set_bless_err(t: String) -> void:
+    bless_err.text = t
+    bless_err.visible = t != ""
+
+## 祝福屏的「返回」：自己写的时候回到四句现成的，不然回礼金那屏
+func _bless_back() -> void:
+    if bless_custom:
+        _set_bless_err("")
+        _set_bless_custom(false)
+    else:
+        _show_page(1)
 
 ## 自己写的祝福：1～30 字、字体里有的字（敏感词服务端判，判不过回到这一屏说「换个说法吧」）
 func check_bless(raw: String) -> String:
@@ -391,7 +428,7 @@ func check_bless(raw: String) -> String:
 func _bless_custom_done() -> void:
     var r := check_bless(bless_edit.text)
     if r != "":
-        bless_err.text = r
+        _set_bless_err(r)
         return
     _pick_bless(m._normalize(bless_edit.text))
 
@@ -455,9 +492,9 @@ func _on_signed(r: Dictionary) -> void:
     if reason == "sensitive" and str(r.get("field", "")) == "blessing":
         # 祝福里有敏感词：回到祝福那屏、自己写那行打开、原话还在，说「换个说法吧」；名字、礼金不丢
         _show_page(PAGE_BLESS)
-        bless_custom_row.visible = true
+        _set_bless_custom(true)
         bless_edit.text = sign_bless
-        bless_err.text = Copy.text("err_bless_sensitive")
+        _set_bless_err(Copy.text("err_bless_sensitive"))
         return
     if reason == "sensitive" or reason == "reserved":
         # 名字被服务端拦了：回到第 1 页，显示原因（和起昵称一样的两句）
@@ -801,10 +838,17 @@ func _build_board() -> void:
     sc.custom_minimum_size = Vector2(0, 420)
     sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
     holder.add_child(sc)
+    board_scroll = sc
     board_list = VBoxContainer.new()
     board_list.add_theme_constant_override("separation", 12)
     board_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     sc.add_child(board_list)
+    # 下面还有：条数多到一屏放不下才出，翻到底就收（04 10/2 体验第 3 条）
+    board_more = _lbl(Copy.text("board_more"), 22, MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+    board_more.visible = false
+    holder.add_child(board_more)
+    sc.get_v_scroll_bar().value_changed.connect(func(_v): _board_more_ui())
+    sc.get_v_scroll_bar().changed.connect(_board_more_ui)
     holder.add_child(_grow(_btn(Copy.text("board_close"), close_board)))
 
 func open_board() -> void:
@@ -830,6 +874,12 @@ func _on_board(r: Dictionary) -> void:
         var l := _lbl((nm + "：" if nm != "" else "") + str(it.get("text", "")), 24)
         l.set_meta("blessing_line", true)
         board_list.add_child(l)
+
+func _board_more_ui() -> void:
+    if board_scroll == null:
+        return
+    var bar := board_scroll.get_v_scroll_bar()
+    board_more.visible = bar.max_value - bar.page > 2.0 and bar.value < bar.max_value - bar.page - 2.0
 
 func close_board() -> void:
     if board_root != null:

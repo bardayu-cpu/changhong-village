@@ -3,6 +3,8 @@ extends SceneTree
 ## 1 签到四屏：名字 → 礼金 → 祝福 → 确认；四句现成的一点就用；自己写 1～30 字；可以跳过
 ## 2 自己写的被敏感词拦：回到祝福那屏说「换个说法吧」，名字、礼金不丢；改了再交能签上
 ##   词库过了、微信内容安全（msgSecCheck）不过的，也走这条路
+## 1c 点「自己写」：四句现成的收起来、输入框在屏幕上半（手机键盘盖不住）；「返回」回到四句现成的（04 10/2 第 1 条）
+##    被拦时面板不压底下的「签到」条（第 2 条）
 ## 3 祝福公开：签到桌旁的祝福牌走近出「看祝福」，新的在上面；没人写时说「还没人写」
 ## 4 签完新娘妈妈那句带上回忆册和花墙（还是一句）；进门金箭头、拦门照旧（test_entrance 守着）
 ## 5 回忆册摊开一本书（色块），走近之前就看得见；面板开着把「点地面走路」藏起来
@@ -69,6 +71,16 @@ func run() -> void:
     check("四句现成的：%s" % [texts], texts == [CourtCopy.text("bless_1"), CourtCopy.text("bless_2"), CourtCopy.text("bless_3"), CourtCopy.text("bless_4")])
     var big := presets.all(func(b): return b.get_combined_minimum_size().y >= 55.0)
     check("现成那几句的按钮够大（≥55 高，长辈好点）", big)
+    print("1c 自己写")
+    ui._open_bless_custom()
+    await frames(2)
+    var vh: float = ui.get_viewport().get_visible_rect().size.y
+    var eb: Rect2 = ui.bless_edit.get_global_rect()
+    check("点自己写：四句现成的收起来（%s）、输入框在屏幕上半（下沿 %.0f / 屏高 %.0f）" % [presets.all(func(b): return not b.visible), eb.end.y, vh],
+        presets.all(func(b): return not b.visible) and ui.bless_edit.is_visible_in_tree() and eb.end.y < vh * 0.55)
+    ui._bless_back()
+    await frames(2)
+    check("自己写里点返回：回到四句现成的，还在祝福这屏", presets.all(func(b): return b.visible) and not ui.bless_custom_row.visible and ui.pages[ui.PAGE_BLESS].visible)
     ui._open_bless_custom()
     ui.bless_edit.text = "喜".repeat(31)
     ui._bless_custom_done()
@@ -82,6 +94,9 @@ func run() -> void:
     ui._bless_custom_done()
     check("自己写的到确认页：%s" % ui.confirm_bless.text, ui.pages[ui.PAGE_CONFIRM].visible and ui.confirm_bless.text == CourtCopy.text("confirm_bless_fmt") % "祝你们测试敏感")
     ui._submit()
+    await frames(2)
+    var pr: Rect2 = (ui.bless_edit.get_parent().get_parent().get_parent().get_parent() as Control).get_global_rect()
+    check("被拦时面板下沿 %.0f 不压到屏幕下面的「签到」条（屏高 %.0f，键盘也盖不住输入框）" % [pr.end.y, vh], pr.end.y < vh * 0.6 and ui.bless_custom_row.visible and presets.all(func(b): return not b.visible))
     check("被拦：回到祝福那屏「%s」、原话还在、名字礼金不丢（%s，%d）" % [ui.bless_err.text, ui.sign_name, ui.sign_gift],
         ui.pages[ui.PAGE_BLESS].visible and ui.bless_err.text == "换个说法吧" and ui.bless_edit.text == "祝你们测试敏感"
         and ui.sign_name == "小李" and ui.sign_gift == 88 and not m.court_save.signed_in)
@@ -131,6 +146,16 @@ func run() -> void:
     check("面板开着「点地面走路」藏起来", not m.hint.visible)
     ui.close_board()
     check("收起能走", c.walking_enabled and not ui.board_root.visible)
+    for i in 40:
+        m.cloud.fake_blessings.push_front({"name": "客%d" % i, "text": CourtCopy.text("bless_1")})
+    ui.open_board()
+    await frames(3)
+    check("祝福牌 40 多条：底下出「%s」" % ui.board_more.text, ui.board_more.visible)
+    var bar: VScrollBar = ui.board_scroll.get_v_scroll_bar()
+    bar.value = bar.max_value
+    await frames(2)
+    check("翻到底「往下翻还有」收了", not ui.board_more.visible)
+    ui.close_board()
     m.cloud.fake_blessings = []
     ui.open_board()
     await frames(2)
