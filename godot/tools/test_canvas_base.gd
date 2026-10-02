@@ -69,8 +69,8 @@ func run() -> void:
         var shapes := 0
         for n in c.world.get_children():
             var nm := str(n.name)
-            # 留下的只该是：人、NPC、新人、大锅冒的气（steam）、草坪的小孩和喜多和球、果园地里的果子（玩法里会变的）
-            if not (nm.begins_with("npc_") or nm == "steam" or n == c.player or nm.begins_with("couple") or n is Sprite2D
+            # 留下的只该是：人、NPC、迎宾院走动的客人（walker_）、新人、大锅冒的气（steam）、草坪的小孩和喜多和球、果园地里的果子（玩法里会变的）
+            if not (nm.begins_with("npc_") or nm.begins_with("walker_") or nm == "steam" or n == c.player or nm.begins_with("couple") or n is Sprite2D
                     or nm in ["xiduo", "ball"] or (title == "果园" and nm.begins_with("@Node2D"))):
                 shapes += 1
         if shapes > 2:

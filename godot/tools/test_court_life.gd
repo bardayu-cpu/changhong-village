@@ -163,7 +163,7 @@ func run() -> void:
     var mom: Sprite2D = c.npc_nodes["bride_mom"]
     var faces := {}
     var dipped := false
-    var base0: Vector2 = mom.get_meta("base_offset")
+    var base0: Vector2 = life.greeters.filter(func(g): return g["id"] == "bride_mom")[0]["base"]   # 站直时的（上一节可能正欠着身）
     for f in 30 * 25:
         life.step(1.0 / 30.0)
         faces["%d%s" % [mom.frame, mom.flip_h]] = true
