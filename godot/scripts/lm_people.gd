@@ -167,12 +167,21 @@ static func guests_present() -> Array:
             out.append(guest_code(i))
     return out
 
+## 有哪些服务员的图：只看在不在，不把图读进来（厅里同时只有几位上场，40 张都读进来白占显存，02 10/3 量过满配多 12 MB 左右）
 static func waiters_present() -> Array:
     var out: Array = []
     for i in range(1, WAITERS + 1):
-        if has(waiter_code(i)):
+        if _exists(waiter_code(i)):
             out.append(waiter_code(i))
     return out
+
+## 这个编号的图在不在（不读图）：res:// 下看 lm_index 里有没有、图在不在；测试那套看文件
+static func _exists(code: String) -> bool:
+    if not FileAccess.file_exists(dir + "chr_%s.json" % code):
+        return false
+    if dir.begins_with("res://"):
+        return (index().get("looks", {}) as Dictionary).has(code) and (atlas_row(code) >= 0 or ResourceLoader.exists(dir + "chr_%s.png" % code))
+    return FileAccess.file_exists(dir + "chr_%s.png" % code)
 
 ## 一个朝向的帧：frames 里 down/left/right/up；没有的朝向借 down
 static func dir_frames(l: Dictionary, face: String, tray := false) -> Array:
