@@ -10,8 +10,8 @@ extends "res://scripts/entrance.gd"
 ## 喜多把球放回脚边时发 fetched(是不是踢完球回来的)：踢完那一次 main 让孩童区的小孩喊一句「再踢一个」（蓝图 3.4 用户故事的顺序，01 9/20 定）
 signal fetched(after_kick: bool)
 
-const BALL_START := Vector2(760, 580)    # 蓝图 3.4：球 (760, 580)
-const DOG_START := Vector2(700, 540)     # 蓝图 3.4：喜多 (700, 540)
+const BALL_START := Vector2(1100, 800)   # 蓝图 3.4 原来是 (760, 580)；展位（01 E 10/3）：西块正中摆了草坪婚礼，挪到竖路东边、孩童区南边的空草地，别往椅子里滚
+const DOG_START := Vector2(1040, 760)    # 蓝图 3.4 原来是 (700, 540)，跟球一起挪
 const BALL_NEAR := 60.0                  # 走到球旁多近出「踢一脚」（蓝图 3.4 交互点 ball：球的当前位置，半径 60）
 const ROLL_SECS := 1.0                   # 球滚 1 秒停住（蓝图 3.4）
 const ROLL_M := 4.0                      # 一脚滚多远，米；左右 1 米 48 像素、前后 1 米 32 像素（蓝图开头的坐标约定）

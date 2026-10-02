@@ -121,7 +121,7 @@ func run() -> void:
             tick(1)
             # 北半（y 小于 790）只有栈道和亭子能站：人只要在北半，就得在栈道或亭子的范围里，而且脚下永远是能站的格子
             var in_deck: bool = k.pos.x >= 714.0 and k.pos.x <= 822.0
-            var in_pav: bool = k.pos.y <= 658.0 and k.pos.x >= 666.0 and k.pos.x <= 870.0
+            var in_pav: bool = k.pos.y <= 658.0 and k.pos.x >= 618.0 and k.pos.x <= 918.0   # 展位 10/3：亭子放大到 6 米（x 624～912）
             if not k._free(k.pos) or (k.pos.y < 790.0 and not (in_deck or in_pav)):
                 off += 1
                 break
