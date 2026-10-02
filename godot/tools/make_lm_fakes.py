@@ -30,7 +30,7 @@ def hue_shift(im, d):
             h, s, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
             if 0.33 < h < 0.7 and s > 0.2:   # 只改外套那种青绿、蓝的颜色；皮肤、头发、裤子、金扣子都不动
                 r, g, b = colorsys.hsv_to_rgb((h + d) % 1.0, s, v)
-            px[x, y] = (int(r * 255), int(g * 255), int(b * 255), a)
+                px[x, y] = (int(r * 255), int(g * 255), int(b * 255), a)
     return im
 
 
