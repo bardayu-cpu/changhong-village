@@ -261,8 +261,23 @@ def build():
         "v9 照 v2 背景量：地台 1014～1348、台面 222～315、前沿 325；钢琴顶到 165。背景里没画乐手", "band", foot=(1014, 222, 334, 103))
     # 礼物堆（v4：背景里画好的，台子西边地上）
     add("贺礼堆（背景里画好的）", "prop", (487, 182, 68, 106), (230, 120, 120), "v9 照 v2 背景量：贺礼架 487～555、顶 182、脚 288，贴着台子西沿", foot=(487, 256, 68, 32))
+    def add_south():
+        px0, py0, pw, ph = SOUTH_DOOR_POSTS
+        b = (px0, south_top + py0, pw, ph)
+        add("大门（门柱和开着的两扇门，南边背景里画好的）", "door", b, (60, 140, 200), "v7 照南边背景量：门柱 640～900、门洞 706～826；落地线 %d" % rail_foot, foot=standing(b, 8))
+        b = (40, south_top + SOUTH_RAIL[0], px0 - 40, SOUTH_RAIL[1] - SOUTH_RAIL[0])
+        add("南边西段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量：顶 958、脚 1000（那张图里）", foot=standing(b, 8))
+        b = (px0 + pw, south_top + SOUTH_RAIL[0], W - 40 - (px0 + pw), SOUTH_RAIL[1] - SOUTH_RAIL[0])
+        add("南边东段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量", foot=standing(b, 8))
+        add("进门站的地方", "zone", (CX - 150, stand_top, 300, 96), None, "门槛里边空出来的地面：宽 300、前后 3 米（96）", flat=True)
+
     if LAYOUT:
         _relayout_tables(add, items, d0, d1)
+        # v10（01 E 10/2）：排法 C 原来摆完桌就 return，南边背景里画好的大门、栏杆、进门站的地方没进摆位表（03 导南边时自己补的）；
+        # 摆位表是唯一源，这几件跟 v9 一样放进来，比例尺小人也放
+        add_south()
+        b = (CX + 90, stand_top + 96 - 4 - PERSON, 32, PERSON)
+        add("尺子：人", "ruler", b, (20, 20, 20), "§15 人 84；宽 32（画的人整个撑满这 32×84）", foot=standing(b, 10))
         return items, _relayout_tables.tid, (d0, d1), stand_top, rail_foot
 
     # 桌、长凳（v3.2 桌下地毯删了）
@@ -286,15 +301,7 @@ def build():
             tb = (cx - TABLE_BOX[0] // 2, cy + TABLE[1] // 2 - TABLE_BOX[1], TABLE_BOX[0], TABLE_BOX[1])
             add(name, "table", tb, (220, 70, 60) if name != "主桌" else (240, 190, 60),
                 "v7：GPT v2 桌子零件 180×150（脚点下沿正中），占地照椅子外沿 146×100", "table:" + name, foot=tf)
-    # 南边（v7 照 GPT 南边那张背景量）：大门、栏杆、进门站的地方
-    px0, py0, pw, ph = SOUTH_DOOR_POSTS
-    b = (px0, south_top + py0, pw, ph)
-    add("大门（门柱和开着的两扇门，南边背景里画好的）", "door", b, (60, 140, 200), "v7 照南边背景量：门柱 640～900、门洞 706～826；落地线 %d" % rail_foot, foot=standing(b, 8))
-    b = (40, south_top + SOUTH_RAIL[0], px0 - 40, SOUTH_RAIL[1] - SOUTH_RAIL[0])
-    add("南边西段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量：顶 958、脚 1000（那张图里）", foot=standing(b, 8))
-    b = (px0 + pw, south_top + SOUTH_RAIL[0], W - 40 - (px0 + pw), SOUTH_RAIL[1] - SOUTH_RAIL[0])
-    add("南边东段栏杆", "wall", b, (120, 80, 50), "v7 照南边背景量", foot=standing(b, 8))
-    add("进门站的地方", "zone", (CX - 150, stand_top, 300, 96), None, "门槛里边空出来的地面：宽 300、前后 3 米（96）", flat=True)
+    add_south()
     # 长凳（v6）：回到 d 的位置——第 2 排西头外侧（d 量的 146～218、脚 555）
     bf = (146, 555 - 16, 72, 16)
     add("长凳", "prop", up(bf, 38), (120, 200, 255), "§15 长凳 宽 72、高 38；v6 照 d：第 2 排西头外侧", foot=bf)
