@@ -114,7 +114,11 @@ module.exports = {
   // 迎宾院签到那屏的四句现成祝福（godot/assets/entrance/lines.json 的 bless_1～4，一字不差；改了两边一起改，rules.test 核着）。
   // 是我们自己写的字：原文对上就直接存，不过词库、不问微信内容安全（01 E 10/2：接口出错也不会把现成的拦掉）
   BLESSING_PRESETS: ['百年好合，早生贵子', '新婚快乐，白头偕老', '恭喜恭喜，幸福美满', '祝你们天天开心'],
-  BLESSING_READ_MAX: 50,               // readBlessings：迎宾院祝福牌一次带回最近这么多条（按 blessing_at 取最新）【待验证：50 这个数字】
+  BLESSING_READ_MAX: 50,
+  // 合影海报的小程序码（posterCode，01 E 10/2）：打开哪个版本。正式发布前只能 'trial'（体验版，只有体验成员扫得开）；
+  // 正式发布以后改成 'release'（存着的码会照这个重生成）。发布时间阿鱼定
+  POSTER_CODE_ENV: 'trial',
+  POSTER_CODE_WIDTH: 280,              // 码多宽（像素）：海报上画 120 左右，留余量扫得清【待验证：真机扫】               // readBlessings：迎宾院祝福牌一次带回最近这么多条（按 blessing_at 取最新）【待验证：50 这个数字】
   BANQUET_BOOK_READ_MAX: 200,           // readBook 只带回最近这么多条（按 created_at 取最新，返回时仍正序）【待验证：200 这个数字】
   // 测试期开关（9/17 助理 01 定）：阿鱼真机测「坐下」时，第一次换桌以后当天再换全被拒（changed_today），没法反复验。
   // 9/18 蓝图把换桌改成不限次数，这条判定已经从 canChangeSeat 删掉，换桌不再受这个开关影响。

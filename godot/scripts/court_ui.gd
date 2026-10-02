@@ -69,6 +69,20 @@ var ring_b: Panel
 var focus_t := 0.0
 var paper_root: Control    # 第 3 步：相纸（用节点拼出来的「照片」，不读显卡截图），再拍一张 / 收好
 var paper_art: Control
+# 第 4 步：海报（01 E 10/2，迎宾院玩家说明 v1 第 3 条）：相纸 + 一句话 + 带分享人的小程序码 + 「扫码进来坐坐」，
+# 一个「发给朋友」走微信的分享图片弹窗（弹窗里自带下载）。海报的样子这边拼，截屏和分享是 wxgame/poster.js 做
+var poster_root: Control
+var poster_card: PanelContainer   # 截下来分享的就是这一块（相纸、一句话、码），按钮和提示不在里面
+var poster_paper_art: Control
+var poster_line: Label
+var poster_code_row: HBoxContainer
+var poster_code: TextureRect
+var poster_status: Label
+var poster_share_btn: Button
+var poster_busy := false
+var poster_has_code := false
+const POSTER_CODE_PATH := "user://poster/code.png"
+const BIG_BTN := Vector2(140, 58)   # 04 基线第六节第 4 条：相纸页、海报页的键各宽 ≥140、高 ≥55
 var flash: ColorRect
 var photo_pose := ""
 
@@ -93,7 +107,8 @@ func setup(main_ref, f: Font, s) -> void:
 
 ## 有面板开着（开着时人不能走）
 func panel_open() -> bool:
-    return sign_root.visible or candy_root.visible or pose_root.visible or focus_root.visible or paper_root.visible
+    return sign_root.visible or candy_root.visible or pose_root.visible or focus_root.visible or paper_root.visible \
+        or (poster_root != null and poster_root.visible)
 
 ## 离开迎宾院（进宴会厅、回开场）：按钮、面板都收起来
 func hide_all() -> void:
@@ -102,7 +117,7 @@ func hide_all() -> void:
     if sign_root.visible:
         _close_sign()
     candy_root.visible = false
-    if pose_root.visible or focus_root.visible or paper_root.visible:
+    if pose_root.visible or focus_root.visible or paper_root.visible or (poster_root != null and poster_root.visible):
         _close_photo()
     if board_root != null and board_root.visible:
         close_board()
@@ -643,13 +658,26 @@ func _build_photo() -> void:
     var pc := CenterContainer.new()
     pc.add_child(paper)
     pv2.add_child(pc)
-    pv2.add_child(_row([_grow(_btn(Copy.text("btn_retake"), _retake)), _grow(_btn(Copy.text("btn_keep"), _keep))]))
+    # 三个键：「做成海报」往前走的放上面一整条，「再拍一张」「收好」下面一排（各宽 ≥140、高 ≥55）
+    var mk := _big(_btn(Copy.text("btn_poster"), open_poster))
+    mk.add_theme_font_size_override("font_size", 28)
+    mk.set_meta("paper_btn", "poster")
+    pv2.add_child(_grow(mk))
+    var rt := _big(_btn(Copy.text("btn_retake"), _retake))
+    rt.set_meta("paper_btn", "retake")
+    var kp := _big(_btn(Copy.text("btn_keep"), _keep))
+    kp.set_meta("paper_btn", "keep")
+    pv2.add_child(_row([_grow(rt), _grow(kp)]))
     # 快门一闪
     flash = ColorRect.new()
     flash.color = Color(1, 1, 1, 0)
     flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(flash)
+
+func _big(b: Button) -> Button:
+    b.custom_minimum_size = BIG_BTN
+    return b
 
 func _ring(col: Color) -> Panel:
     var r := Panel.new()
@@ -709,18 +737,19 @@ func _shutter() -> void:
     tw.tween_property(flash, "color:a", 0.0, 0.35)
 
 ## 相纸上的「照片」：花墙、金囍、新人合照、自己的样子和姿势，全用节点拼（占位；不读显卡截图，蓝图 §6）
-func _compose_paper(pose: String, preset: int) -> void:
-    for c in paper_art.get_children():
+func _compose_paper(pose: String, preset: int, into: Control = null) -> void:
+    var pa: Control = into if into != null else paper_art   # 海报上那张也照这个拼（into）
+    for c in pa.get_children():
         c.queue_free()
-    var w := paper_art.custom_minimum_size.x
-    var h := paper_art.custom_minimum_size.y
-    paper_art.add_child(_rect(Rect2(0, 0, w, h), Color("#a8c48a")))
-    paper_art.add_child(_rect(Rect2(0, h - 34, w, 34), Color("#c0392b")))   # 合影地毯
+    var w := pa.custom_minimum_size.x
+    var h := pa.custom_minimum_size.y
+    pa.add_child(_rect(Rect2(0, 0, w, h), Color("#a8c48a")))
+    pa.add_child(_rect(Rect2(0, h - 34, w, 34), Color("#c0392b")))   # 合影地毯
     var rng := RandomNumberGenerator.new()
     rng.seed = 319
     var cols := [Color("#e8746a"), Color("#f2a7c3"), Color("#f4f1ea"), Color("#c0392b")]
     for i in 70:
-        paper_art.add_child(_rect(Rect2(rng.randf_range(4, w - 10), rng.randf_range(4, h - 44), 6, 5), cols[i % cols.size()]))
+        pa.add_child(_rect(Rect2(rng.randf_range(4, w - 10), rng.randf_range(4, h - 44), 6, 5), cols[i % cols.size()]))
     var xi_bg := Panel.new()
     var xsb := StyleBoxFlat.new()
     xsb.bg_color = Color("#b0322a")
@@ -728,12 +757,12 @@ func _compose_paper(pose: String, preset: int) -> void:
     xi_bg.add_theme_stylebox_override("panel", xsb)
     xi_bg.position = Vector2(w * 0.5 - 30, 10)
     xi_bg.size = Vector2(60, 60)
-    paper_art.add_child(xi_bg)
+    pa.add_child(xi_bg)
     var xi := _lbl("囍", 48, Color("#d4af37"), HORIZONTAL_ALIGNMENT_CENTER)
     xi.autowrap_mode = TextServer.AUTOWRAP_OFF
     xi.position = Vector2(w * 0.5 - 30, 4)
     xi.size = Vector2(60, 60)
-    paper_art.add_child(xi)
+    pa.add_child(xi)
     # 新人：现有合照原图（HANDOFF §0.5），不重画
     var cp := TextureRect.new()
     cp.texture = load("res://assets/couple.png")
@@ -743,7 +772,7 @@ func _compose_paper(pose: String, preset: int) -> void:
     var cw := ch * float(cp.texture.get_width()) / float(cp.texture.get_height())
     cp.size = Vector2(cw, ch)
     cp.position = Vector2(w * 0.58, h - 22 - ch)
-    paper_art.add_child(cp)
+    pa.add_child(cp)
     # 自己：选的形象，朝前站着那一帧，放大；姿势是占位的小记号（招手画一只手，比心画一颗心）
     var me := TextureRect.new()
     me.texture = _front_frame(preset)
@@ -754,16 +783,16 @@ func _compose_paper(pose: String, preset: int) -> void:
     me.size = Vector2(mh * 0.5, mh)
     var mx := w * 0.3
     me.position = Vector2(mx, h - 18 - mh)
-    paper_art.add_child(me)
+    pa.add_child(me)
     var hand_col := Color("#f1c9a1")
     match pose:
         "wave":
-            paper_art.add_child(_rect(Rect2(mx + mh * 0.5 + 2, h - 18 - mh + 18, 10, 14), hand_col))
-            paper_art.add_child(_rect(Rect2(mx + mh * 0.5 + 16, h - 18 - mh + 14, 3, 10), Color("#2c1f1c")))
-            paper_art.add_child(_rect(Rect2(mx + mh * 0.5 + 22, h - 18 - mh + 20, 3, 10), Color("#2c1f1c")))
+            pa.add_child(_rect(Rect2(mx + mh * 0.5 + 2, h - 18 - mh + 18, 10, 14), hand_col))
+            pa.add_child(_rect(Rect2(mx + mh * 0.5 + 16, h - 18 - mh + 14, 3, 10), Color("#2c1f1c")))
+            pa.add_child(_rect(Rect2(mx + mh * 0.5 + 22, h - 18 - mh + 20, 3, 10), Color("#2c1f1c")))
         "heart":
-            paper_art.add_child(_heart(Vector2(mx + mh * 0.25, h - 18 - mh * 0.55), 12.0))
-    paper_art.set_meta("pose", pose)
+            pa.add_child(_heart(Vector2(mx + mh * 0.25, h - 18 - mh * 0.55), 12.0))
+    pa.set_meta("pose", pose)
 
 func _rect(r: Rect2, col: Color) -> ColorRect:
     var c := ColorRect.new()
@@ -807,6 +836,131 @@ func _retake() -> void:
     paper_root.visible = false
     pose_root.visible = true
 
+# ---------- 海报 ----------
+func _build_poster() -> void:
+    var pr := _panel(480.0)
+    poster_root = pr[0]
+    var holder: VBoxContainer = pr[1]
+    holder.add_theme_constant_override("separation", 12)
+    poster_card = PanelContainer.new()
+    var sb := StyleBoxFlat.new()
+    sb.bg_color = Color("#f6efe2")
+    sb.border_color = Color("#8f1d1d")
+    sb.border_width_top = 8
+    sb.border_width_bottom = 8
+    sb.set_content_margin_all(14)
+    poster_card.add_theme_stylebox_override("panel", sb)
+    var v := VBoxContainer.new()
+    v.add_theme_constant_override("separation", 10)
+    poster_card.add_child(v)
+    var paper := PanelContainer.new()
+    var psb := StyleBoxFlat.new()
+    psb.bg_color = Color("#ffffff")
+    psb.set_content_margin_all(10)
+    psb.content_margin_bottom = 24
+    paper.add_theme_stylebox_override("panel", psb)
+    poster_paper_art = Control.new()
+    poster_paper_art.custom_minimum_size = paper_art.custom_minimum_size
+    poster_paper_art.clip_contents = true
+    paper.add_child(poster_paper_art)
+    var pc := CenterContainer.new()
+    pc.add_child(paper)
+    v.add_child(pc)
+    # 一句话、码、「扫码进来坐坐」都在照片下面，不压新人（04 基线第六节第 4 条）；字 ≥20 像素
+    poster_line = _lbl(Copy.text("poster_line"), 28, Color("#5a2a1a"), HORIZONTAL_ALIGNMENT_CENTER)
+    v.add_child(poster_line)
+    poster_code = TextureRect.new()
+    poster_code.custom_minimum_size = Vector2(120, 120)
+    poster_code.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    poster_code.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    var scan := _lbl(Copy.text("poster_scan"), 24, Color("#8a6a50"))
+    scan.autowrap_mode = TextServer.AUTOWRAP_OFF
+    scan.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+    poster_code_row = _row([poster_code, scan], 16)
+    var cc := CenterContainer.new()
+    cc.add_child(poster_code_row)
+    v.add_child(cc)
+    holder.add_child(poster_card)
+    poster_status = _lbl("", 24, MUTED, HORIZONTAL_ALIGNMENT_CENTER)
+    holder.add_child(poster_status)
+    poster_share_btn = _big(_btn(Copy.text("btn_poster_share"), _poster_share))
+    poster_share_btn.add_theme_font_size_override("font_size", 28)
+    var back := _big(_btn_secondary(Copy.text("btn_back"), _poster_back))
+    holder.add_child(_row([back, _grow(poster_share_btn)]))
+
+## 相纸页点「做成海报」：先摆出只有照片的样子，同时去要小程序码；码到了摆上一句话和码，没到就只有照片（「海报没做好 先存照片吧」）
+func open_poster() -> void:
+    if poster_busy:
+        return
+    if poster_root == null:
+        _build_poster()
+    paper_root.visible = false
+    _compose_paper(photo_pose, m.preset, poster_paper_art)
+    _poster_show_code(false)
+    poster_status.text = Copy.text("poster_making")
+    poster_status.add_theme_color_override("font_color", MUTED)
+    poster_share_btn.disabled = true
+    poster_root.visible = true
+    poster_busy = true
+    DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(POSTER_CODE_PATH.get_base_dir()))
+    if FileAccess.file_exists(POSTER_CODE_PATH):
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(POSTER_CODE_PATH))
+    m.cloud.call_fn("@posterCode", {"path": ProjectSettings.globalize_path(POSTER_CODE_PATH)}, _on_poster_code, 15.0)
+
+func _on_poster_code(r: Dictionary) -> void:
+    poster_busy = false
+    if poster_root == null or not poster_root.visible:
+        return
+    var tex: Texture2D = null
+    if bool(r.get("ok", false)) and FileAccess.file_exists(POSTER_CODE_PATH):
+        var img := Image.load_from_file(ProjectSettings.globalize_path(POSTER_CODE_PATH))
+        if img != null and not img.is_empty():
+            tex = ImageTexture.create_from_image(img)
+    if tex != null:
+        poster_code.texture = tex
+        _poster_show_code(true)
+        poster_status.text = ""
+        print("[suqi] 海报 码到了")
+    else:
+        _poster_show_code(false)
+        poster_status.text = Copy.text("poster_no_code")
+        poster_status.add_theme_color_override("font_color", RED_ERR)
+        print("[suqi] 海报 码没拿到 ", r.get("reason", ""), " ", r.get("detail", ""), "，只有照片")
+    poster_share_btn.disabled = false
+
+## 有码：照片 + 一句话 + 码；没码：只有照片
+func _poster_show_code(on: bool) -> void:
+    poster_has_code = on
+    poster_line.visible = on
+    poster_code_row.visible = on
+
+## 「发给朋友」：把海报那一块（poster_card）的位置交给 poster.js 截屏，再开微信的分享图片弹窗（发给朋友、收藏、下载）。
+## 截出来是黑的 poster.js 自己照着画一张（fallback 里是它要的东西）
+func _poster_share() -> void:
+    if poster_busy or poster_share_btn.disabled:
+        return
+    poster_busy = true
+    poster_share_btn.disabled = true
+    var r := poster_card.get_global_rect()
+    var vs := get_viewport().get_visible_rect().size
+    var d := {"rect": {"x": r.position.x, "y": r.position.y, "w": r.size.x, "h": r.size.y}, "vw": vs.x, "vh": vs.y,
+        "fallback": {"preset": m.preset, "pose": photo_pose, "line": Copy.text("poster_line"), "hint": Copy.text("poster_scan"), "has_code": poster_has_code}}
+    m.cloud.call_fn("@posterShare", d, _on_poster_shared, 30.0)
+
+func _on_poster_shared(r: Dictionary) -> void:
+    poster_busy = false
+    if poster_share_btn != null:
+        poster_share_btn.disabled = false
+    print("[suqi] 海报 分享 ", r)
+    if not bool(r.get("ok", false)) and poster_root != null and poster_root.visible:
+        poster_status.text = Copy.text("poster_share_fail")
+        poster_status.add_theme_color_override("font_color", RED_ERR)
+
+## 海报页「返回」：回到相纸（再拍一张、收好都在那儿）
+func _poster_back() -> void:
+    poster_root.visible = false
+    paper_root.visible = true
+
 ## 收好：本机记一张（最多 3 张，旧的顶掉），关掉，人能走
 func _keep() -> void:
     save.keep_photo(photo_pose, m.preset)
@@ -818,6 +972,8 @@ func _close_photo() -> void:
     pose_root.visible = false
     focus_root.visible = false
     paper_root.visible = false
+    if poster_root != null:
+        poster_root.visible = false
     panel_changed.emit(false)
     if m.court.in_spot("photo_mark") and m.state == "court":
         act_id = "photo_mark"

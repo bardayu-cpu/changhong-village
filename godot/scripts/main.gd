@@ -3447,7 +3447,7 @@ func _setup_shot(shot: String) -> void:
                     court.face = "up"
             for i in 20:
                 await get_tree().process_frame
-        "court_album", "court_clip", "court_pose", "court_focus", "court_paper_wave", "court_paper_heart":
+        "court_album", "court_clip", "court_pose", "court_focus", "court_paper_wave", "court_paper_heart", "court_poster", "court_poster_nocode":
             # 回忆册（正式版置灰「还没印好」；court_clip 是调试版打开的占位屏）、花墙合影三步（蓝图 3.1、世界观 1.1）
             _shot_court_fresh()
             nickname = "小李"
@@ -3469,8 +3469,12 @@ func _setup_shot(shot: String) -> void:
                 if shot != "court_pose":
                     court_ui._pick_pose("heart" if shot == "court_paper_heart" else "wave")
                     for i in 20: await get_tree().process_frame
-                if shot.begins_with("court_paper"):
+                if shot.begins_with("court_paper") or shot.begins_with("court_poster"):
                     court_ui._shutter()
+                if shot.begins_with("court_poster"):
+                    # 合影出海报（01 E 10/2 第三件）：court_poster 码到了；court_poster_nocode 码没拿到，只有照片
+                    cloud.fake_poster_code_fail = shot == "court_poster_nocode"
+                    court_ui.open_poster()
         "court_elder", "court_gate_open", "court_gate_not_signed", "court_to_hall":
             # 休息区老人一句（第一次自动弹普通话）；大门开了走到门口、写了悄悄话没签到；从迎宾院走进楼门到宴会厅（03 9/19 建议加）
             _shot_court_fresh()

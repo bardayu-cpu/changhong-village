@@ -64,6 +64,10 @@ printf "import './share'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game
 # 登录：一启动就调 login 云函数拿 openid（wxgame/cloud.js）
 cp "$GODOT_DIR/wxgame/cloud.js" .
 printf "import './cloud'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
+# 合影海报（wxgame/poster.js，01 E 10/2）：小程序码写进 Godot、截屏上的海报交给微信分享弹窗；截出来是黑的退路要 poster/ 下的小图
+cp "$GODOT_DIR/wxgame/poster.js" .
+printf "import './poster'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path "$GODOT_DIR" --script res://tools/export_poster_assets.gd -- "$OUT/poster" | grep "海报小图" || { echo "海报小图导不出来" >&2; exit 1; }
 # 厨房前后台状态桥：只记录切后台事件，由厨房面板暂停自己的计时。
 cp "$GODOT_DIR/wxgame/kitchen-visibility.js" .
 printf "import './kitchen-visibility'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js

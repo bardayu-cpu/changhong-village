@@ -139,7 +139,7 @@ function makeQuery(state, collName, initialCond) {
 
 /** @returns {{sdk: object, state: object}} sdk 喂给 require('wx-server-sdk')；state 是测试代码直接摆数据、断言结果用的 */
 function createFakeSdk() {
-  const state = { collections: {}, autoSeq: 0, currentOpenid: null, secSuggest: 'pass', secCalls: [] };
+  const state = { collections: {}, autoSeq: 0, currentOpenid: null, secSuggest: 'pass', secCalls: [], codeCalls: [], codeFail: '' };
   const db = {
     collection: (name) => makeQuery(state, name, {}),
     command: {
@@ -159,6 +159,15 @@ function createFakeSdk() {
     DYNAMIC_CURRENT_ENV: 'fake-env',
     // 微信内容安全：state.secSuggest 摆 'pass'（默认）/'review'/'risky'，摆 'throw' 当接口出错；state.secCalls 记问过的字
     openapi: {
+      // 小程序码：state.codeFail 摆 'throw' 当接口出错、'err' 当回错误码；state.codeCalls 记要过的参数
+      wxacode: {
+        getUnlimited: async (args) => {
+          state.codeCalls.push(args);
+          if (state.codeFail === 'throw') throw Object.assign(new Error('fake wxacode error'), { errCode: 45009 });
+          if (state.codeFail === 'err') return { errCode: 41030, errMsg: 'invalid page' };
+          return { errCode: 0, contentType: 'image/png', buffer: Buffer.from('PNG-' + args.scene) };
+        },
+      },
       security: {
         msgSecCheck: async (args) => {
           state.secCalls.push(args);
@@ -466,6 +475,33 @@ async function scenarioBlessing() {
   check(res.ok === true && state.collections.resident.get('bless_preset').blessing === '百年好合，早生贵子' && state.secCalls.length === n1,
     `祝福 现成的四句不问微信、接口坏了也照存（实际 ${JSON.stringify(res)}）`);
   state.secSuggest = 'pass';
+}
+
+// ================= 场景 海报码：posterCode 生成带分享人的小程序码（01 E 10/2）——第二次给存着的；接口坏了回 code_failed =================
+async function scenarioPosterCode() {
+  const { sdk, state } = createFakeSdk();
+  const C = require('../src/config');
+  state.currentOpenid = 'oPOSTER0123456789abcdefghijk';   // 28 位，跟真 openid 一样长
+  let posterCode = loadCloudFunction('posterCode', sdk);
+  let res = await posterCode.main({});
+  const want = Buffer.from('PNG-f=' + state.currentOpenid).toString('base64');
+  check(res.ok === true && res.b64 === want && res.cached === false, `海报码 第一次生成、回 base64（实际 ${JSON.stringify(res).slice(0, 120)}）`);
+  const a0 = state.codeCalls[0] || {};
+  check(a0.scene === 'f=' + state.currentOpenid && a0.scene.length <= 32 && a0.envVersion === C.POSTER_CODE_ENV && C.POSTER_CODE_ENV === 'trial' && a0.checkPath === false,
+    `海报码 scene 带分享人（${a0.scene && a0.scene.length} 位 ≤32）、开体验版（实际 ${JSON.stringify(a0)}）`);
+  res = await posterCode.main({});
+  check(res.ok === true && res.b64 === want && res.cached === true && state.codeCalls.length === 1, '海报码 第二次直接给存着的，不再生成');
+  // 换了版本（正式发布以后改 release）：存着的作废、重生成
+  state.collections.poster_code.get(state.currentOpenid).env = 'old';
+  res = await posterCode.main({});
+  check(res.ok === true && res.cached === false && state.codeCalls.length === 2, '海报码 存着的版本不对就重生成');
+  for (const f of ['throw', 'err']) {
+    state.codeFail = f;
+    state.currentOpenid = 'oPOSTER_fail_' + f;
+    res = await posterCode.main({});
+    check(res.ok === false && res.reason === 'code_failed' && !!res.errCode, `海报码 接口${f === 'throw' ? '出错' : '回错误码'}回 code_failed（实际 ${JSON.stringify(res)}）`);
+    check(!state.collections.poster_code.has(state.currentOpenid), `海报码 没生成的不存（${f}）`);
+  }
 }
 
 // ================= 场景9：保留名留给主角——主角名单里的人、已经用着这个名字的人不拦；别人照拦；敏感词对谁都拦 =================
@@ -1464,6 +1500,7 @@ async function scenarioChangeSeatMainTable() {
   await scenarioEnterHallMainTable();
   await scenarioChangeSeatMainTable();
   await scenarioBlessing();
+  await scenarioPosterCode();
 
   assert_module._load = originalLoad; // 恢复，不影响这个进程里之后可能的其它 require
 

@@ -82,6 +82,8 @@ var fake_fetch_fail := ""           # 不是空串就假装下载失败，回这
 var fake_fetch_diag: Dictionary = {}   # 假装下载失败时一起带回的临时链接回话（真机上是 wxgame/remote.js 的 diagnose）
 var fake_no_function := false       # 走云函数那条路（@fetchChunks）时假装 canvasFile 还没部署
 var fake_fetch_last := ""           # 最后一次假下载走的哪条路（@fetchFile / @fetchChunks）
+var fake_poster_code_fail := false  # 合影海报（10/2）：true 假装小程序码没拿到（posterCode 没部署、断网），海报只有照片
+var fake_poster_shares: Array = []  # 电脑上「发给朋友」收到的请求（真机上是 wxgame/poster.js 截屏开分享弹窗）
 var fake_fail_next := ""            # 不是空串：下一次调任何云函数都假装失败、回这个 reason（测断网那一路用），用一次就清掉
 var fake_blessings: Array = []   # 电脑上的祝福牌：签到时写的祝福，新的在前（[{name, text, at}]）
 var fake_check_in: Dictionary = {}  # 电脑上签到存下来的 {name, gift_value}（迎宾院签到，服务端是 resident 的 check_in_name、gift_value）
@@ -184,6 +186,29 @@ func diagnose() -> String:
         var r = _js.echo("ping")
         print("[suqi] 探针：带参调用回来了，返回 ", str(r), " 类型 ", typeof(r))
     return caps
+
+## 电脑上的占位小程序码：圆底、三个定位角、中间一圈格子（像个码，不是真码，扫不了）
+static func fake_code_image() -> Image:
+    var n := 29
+    var k := 8
+    var img := Image.create_empty(n * k, n * k, false, Image.FORMAT_RGBA8)
+    img.fill(Color(1, 1, 1))
+    var rng := RandomNumberGenerator.new()
+    rng.seed = 1002
+    var dark := Color("#2a1a16")
+    for j in n:
+        for i in n:
+            var corner := (i < 8 and j < 8) or (i >= n - 8 and j < 8) or (i < 8 and j >= n - 8)
+            var on := false
+            if corner:
+                var ci := i if i < 8 else i - (n - 8)
+                var cj := j if j < 8 else j - (n - 8)
+                on = (ci < 7 and cj < 7) and (ci == 0 or cj == 0 or ci == 6 or cj == 6 or (ci >= 2 and ci <= 4 and cj >= 2 and cj <= 4))
+            else:
+                on = rng.randf() < 0.45
+            if on:
+                img.fill_rect(Rect2i(i * k, j * k, k, k), dark)
+    return img
 
 # ---- 电脑上的假实现：规则和服务端一致的最小子集，只为跑通流程 ----
 func _fake(name: String, data: Dictionary) -> Dictionary:
@@ -348,6 +373,21 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                 nm[ft["from"]] = fake_names.get(ft["from"], {"nick": "", "avatar": -1})
             fake_pulse_toasts.clear()
             return {"ok": true, "now": now, "toasts": out, "names": nm}
+        "@posterCode":
+            # 合影海报的小程序码（真机上 poster.js 调云函数 posterCode 再写进 user://）：电脑上画一个像码的占位图写进去
+            if fake_poster_code_fail:
+                return {"ok": false, "reason": "no_code", "detail": "电脑上假装码没拿到"}
+            var cpath := str(data.get("path", ""))
+            if cpath == "":
+                return {"ok": false, "reason": "bad_request"}
+            DirAccess.make_dir_recursive_absolute(cpath.get_base_dir())
+            if fake_code_image().save_png(cpath) != OK:
+                return {"ok": false, "reason": "no_code", "detail": "写不进 " + cpath}
+            return {"ok": true, "cached": false}
+        "@posterShare":
+            # 「发给朋友」（真机上 poster.js 截屏、开微信的分享图片弹窗）：电脑上只记下来
+            fake_poster_shares.append(data.duplicate(true))
+            return {"ok": true, "via": "fake", "drawn": "screen"}
         "@fetchFile", "@fetchChunks":
             # 假装从云存储下载（真机上是 wxgame/remote.js）：把 assets/remote_probe.json 的 source 拷到要的位置。
             # 只在工程目录里跑（编辑器、无界面测试、截图）时拿得到 source 原图，导出的包里没有，也用不到

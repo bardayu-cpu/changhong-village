@@ -47,7 +47,7 @@
 
 ## 等阿鱼（攒着一起问）
 
-- **部署云函数**（下次出码一起问，阿鱼在 02 窗口点头）：saveProfile（存祝福 + 内容安全）、readBlessings（新）；以后 posterCode（海报码）
+- **部署云函数**（下次出码一起问，阿鱼在 02 窗口点头）：saveProfile（存祝福 + 内容安全，现成四句直接存）、readBlessings（新）、posterCode（新，合影海报的码，10/2 写好在 court-poster 分支；带 config.json 开 wxacode.getUnlimited，码先开体验版）。部署前跑 server-claude/scripts/sync-cf-rules.js
 
 - 亲戚关系：四孃、四姑爷、六孃、六姑爷、小舅、小舅妈；表弟媳两个女儿怎么叫
 - 玩法库 5 个（骑车、投篮、踢毽子、猜谜、丢沙包）先做哪几个

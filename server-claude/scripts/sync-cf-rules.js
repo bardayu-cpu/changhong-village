@@ -30,6 +30,8 @@ const NEEDS = {
   saveProfile: ['config.js', 'resident.js', 'sensitive.js'],
   // readBlessings（迎宾院祝福牌，10/2）：一次带回几条
   readBlessings: ['config.js'],
+  // posterCode（合影海报的小程序码，10/2）：码打开哪个版本、多宽
+  posterCode: ['config.js'],
 };
 
 // 云函数名 -> 需要哪些 lib/ 的 I/O 小工具（同步进各自的 lib/ 文件夹）。
