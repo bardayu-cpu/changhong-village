@@ -256,7 +256,9 @@ func _couple() -> void:
     cp.texture = load("res://assets/couple.png")
     cp.centered = false
     var foot := Vector2(cfg["couple"][0], cfg["couple"][1])
-    var h := _px_h(foot.y) * 1.25   # 合照立绘里人上面还有一点空，整张比人高一些
+    # 合照立绘新郎头发顶着图上沿，整张高 = 新郎高。原来乘 1.25（以为上面有空），新郎成了客人的 1.48 倍；
+    # 04 10/2 量过：1.0 时新郎约 1.18 倍、新娘约 1.02 倍，跟真人差不多（新郎高一点），合照原图不改
+    var h := _px_h(foot.y) * 1.0
     var sc := h / float(cp.texture.get_height())
     cp.scale = Vector2(sc, sc)
     cp.offset = Vector2(-cp.texture.get_width() * 0.5, -cp.texture.get_height())
@@ -1234,6 +1236,10 @@ func sit_at(table_id: String, chair_no: int) -> void:
 func _stand_spot(seat: Vector2, center: Vector2) -> Vector2:
     var dir := seat - center
     dir = dir.normalized() if dir.length() > 0.001 else Vector2(0.0, 1.0)
+    # 桌子后面（北边）那几把：往外退就退到桌子北边的缝里，人站在那儿被前面的桌子挡掉下半截，像个小孩（04 10/2 第 4 条）。
+    # 改成往离得近的桌头那边横着退、稍往前一点，站出来整个人看得见
+    if dir.y < -0.35:
+        dir = Vector2(signf(dir.x) if absf(dir.x) > 0.01 else 1.0, 0.25).normalized()
     var step := px_per_m(seat.y)
     for k in 10:
         var p := seat + dir * step * (0.6 + 0.3 * k)

@@ -644,12 +644,15 @@ func _signs_v8v9(h) -> void:
         var tc: Dictionary = h._table_cfg(tid)
         for no in range(1, LayeredHall.seats_of(tc) + 1):
             var cw: Vector2 = h.chair_world(tc, no)
-            var sp: Vector2 = h._stand_spot(cw, h._seat_center(tc))
-            for k in 6:
-                var gp: Vector2 = sp + (sp - h._seat_center(tc)).normalized() * 4.0 * k
-                if h._free(gp) and gp.distance_to(cw) < LayeredHall.NEAR_R - 4.0 and h._table_edge_dist(tc, gp) > 64.0:
-                    gap_spot = gp
-                    gap_tid = tid
+            # 椅子四周一圈圈找（10/2 起桌子后面那几把起身往桌头横着退，不再只顺着「往外退」那一条线找）
+            for ang in range(0, 360, 15):
+                for rr in range(30, int(LayeredHall.NEAR_R) - 4, 4):
+                    var gp: Vector2 = cw + Vector2.from_angle(deg_to_rad(float(ang))) * float(rr)
+                    if h._free(gp) and h._table_edge_dist(tc, gp) > 64.0 and _nearest_chair_is(h, gp, cw):
+                        gap_spot = gp
+                        gap_tid = tid
+                        break
+                if gap_tid != "":
                     break
             if gap_tid != "":
                 break
@@ -728,3 +731,15 @@ func check_flag_default() -> void:
         f.close()
         check("开关文件写「%s」→ 宴会厅「%s」（实际「%s」）" % [c[0], c[1], m.hall_variant()], m.hall_variant() == c[1])
     DirAccess.remove_absolute(path)
+
+
+## 这个点离得最近的椅子就是 cw（不然「坐这儿」会对着别桌的椅子）
+func _nearest_chair_is(h, gp: Vector2, cw: Vector2) -> bool:
+    var best := INF
+    var best_pos := Vector2.ZERO
+    for c in h.chairs:
+        var d: float = gp.distance_to(c["pos"])
+        if d < best:
+            best = d
+            best_pos = c["pos"]
+    return best_pos.distance_to(cw) < 0.5

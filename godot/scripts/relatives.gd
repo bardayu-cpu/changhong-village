@@ -321,8 +321,9 @@ func _process(dt: float) -> void:
 
 ## 称呼牌不叠、不被屏幕边切（04 新 2、新 3；跟名字牌第一轮 B4 同一条规矩）：
 ## 1. 贴屏幕边：牌子中点还在屏幕里的往里收，中点出了屏幕的先不显示（和 layered_hall._keep_tags_on_screen 一样）
-## 2. 两位挨着站时：从上往下排，跟已经排好的哪块叠了就往上抬一行；抬两行还叠（三四个人挤成一团），
-##    这一位的牌先收起来，散开了自己回来（走到跟前照样冒「看看 XX」）
+## 2. 两位挨着站时：跟已经排好的哪块叠了就往上抬一行；抬一行还叠，这一位的牌先收起来，散开了自己回来（走到跟前照样冒「看看 XX」）
+##    谁先排（04 10/2 第 3 条：人一多五六张挤一团、抬两行压到别桌人头上）：跟前那位（near_key）最先，其余按离「我」近远，
+##    近的留、远的先收；只许抬一行，不再往上叠到别桌人的头上
 const TAG_GAP := 4.0
 func _declutter() -> void:
     var lo := -INF
@@ -354,7 +355,11 @@ func _declutter() -> void:
     for r in rels:
         if r.tag != null and r.tag.visible:
             order.append(r)
-    order.sort_custom(func(a, b): return a.pos.y < b.pos.y)
+    var me: Vector2 = hall.pos
+    order.sort_custom(func(a, b):
+        if (a == near_key) != (b == near_key):
+            return a == near_key
+        return a.pos.distance_squared_to(me) < b.pos.distance_squared_to(me))
     for r in order:
         var rect := Rect2(r.pos + r.tag.position, r.tag.size)
         var mid := rect.position.x + rect.size.x * 0.5
@@ -363,13 +368,13 @@ func _declutter() -> void:
             continue
         rect.position.x = clampf(rect.position.x, lo, maxf(lo, hi - rect.size.x))
         var hit := true
-        for k in 3:
+        for k in 2:
             hit = false
             for q in placed:
                 if rect.grow(TAG_GAP * 0.5).intersects(q.grow(TAG_GAP * 0.5)):
                     hit = true
                     break
-            if not hit or k == 2:
+            if not hit or k == 1:
                 break
             rect.position.y -= r.tag.size.y + TAG_GAP
         if hit and r != near_key:
