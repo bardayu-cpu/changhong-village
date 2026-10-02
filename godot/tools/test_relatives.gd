@@ -310,6 +310,8 @@ func run() -> void:
     fb.emit_signal("pressed")
     check("再点：回到按北京时间", m.feast_force == "" and rel.force == "")
 
+    await _crowd_tags(rel)
+
     print("9 切回第 44 版")
     await m._set_hall55(false)
     await create_timer(0.5).timeout
@@ -329,3 +331,52 @@ func sit(h, tid: String, no: int) -> void:
     m.sit_confirming = true
     m._on_sit_pressed()
     await create_timer(0.4).timeout
+
+
+## 8b（04 10/2 第 3 条）：六位亲友挤在一小块（站着、牌都该亮），称呼牌照「跟前那位先、其余按离我近远」排：
+## 亮着的牌两两不叠，谁都最多往上抬一行（不叠到别人头上），跟前那位一定亮
+func _crowd_tags(rel) -> void:
+    print("8b 一群亲友挤一块：称呼牌不叠、最多抬一行、跟前那位一定亮")
+    var h = m.hall
+    var at: Vector2 = h._cell_pos(h._nearest_free(h._cell_of(Vector2(400, 1450))))
+    h.reset_to(at + Vector2(0, 60))
+    h.snap_cam()
+    var crowd: Array = []
+    var k := 0
+    for r in rel.rels:
+        if k >= 6:
+            break
+        rel._stand_up(r)
+        r.state = "idle"
+        r.wait = 999.0
+        r.path.clear()
+        r.pos = at + Vector2(-50.0 + 20.0 * float(k), 18.0 * float(k % 2))
+        r.node.position = r.pos
+        crowd.append(r)
+        k += 1
+    rel.toast_t = 999.0
+    rel._process(0.05)
+    rel._process(0.05)
+    var shown: Array = []
+    var lifted_ok := true
+    for r in crowd:
+        if not r.tag.visible:
+            continue
+        shown.append(Rect2(r.pos + r.tag.position, r.tag.size))
+    var overlap := false
+    for i in shown.size():
+        for j in range(i + 1, shown.size()):
+            if (shown[i] as Rect2).intersects(shown[j]):
+                overlap = true
+    # 抬了几行：同一位亲友，牌子下沿离头顶的距离不超过一行牌高 + 间距
+    for r in crowd:
+        if r.tag.visible:
+            var head_gap: float = -(r.tag.position.y + r.tag.size.y)
+            var one_row: float = r.tag.size.y + rel.TAG_GAP
+            var h_top: float = h._px_h(r.pos.y)
+            if head_gap - h_top > one_row + 4.0:
+                lifted_ok = false
+    var near_shown: bool = rel.near_key != null and rel.near_key.tag.visible
+    check("挤一块的 6 位：亮着 %d 张，两两不叠（%s）、最多抬一行（%s）、跟前那位 %s 亮着（%s）" % [
+        shown.size(), not overlap, lifted_ok, rel.near_key.title if rel.near_key != null else "（没有）", near_shown],
+        not overlap and lifted_ok and near_shown and shown.size() >= 1)

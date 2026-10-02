@@ -1236,11 +1236,15 @@ func sit_at(table_id: String, chair_no: int) -> void:
 func _stand_spot(seat: Vector2, center: Vector2) -> Vector2:
     var dir := seat - center
     dir = dir.normalized() if dir.length() > 0.001 else Vector2(0.0, 1.0)
-    # 桌子后面（北边）那几把：往外退就退到桌子北边的缝里，人站在那儿被前面的桌子挡掉下半截，像个小孩（04 10/2 第 4 条）。
-    # 改成往离得近的桌头那边横着退、稍往前一点，站出来整个人看得见
-    if dir.y < -0.35:
-        dir = Vector2(signf(dir.x) if absf(dir.x) > 0.01 else 1.0, 0.25).normalized()
     var step := px_per_m(seat.y)
+    # 桌子后面（北边）那几把：往外退就退到桌子北边的缝里，人站在那儿被桌子挡掉下半截，像个小孩（04 10/2 第 4 条）。
+    # 改成站到离得近的那个桌头外边、跟桌心齐平：从椅子横着往桌头走，走出桌子占地第一个能站的地方
+    if dir.y < -0.35:
+        var sx := signf(dir.x) if absf(dir.x) > 0.01 else 1.0
+        for k in 12:
+            var q := Vector2(center.x + sx * (absf(seat.x - center.x) + step * (0.6 + 0.3 * k)), center.y + step * 0.15)
+            if _free(q):
+                return q
     for k in 10:
         var p := seat + dir * step * (0.6 + 0.3 * k)
         if _free(p):
