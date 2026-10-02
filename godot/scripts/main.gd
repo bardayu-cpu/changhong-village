@@ -679,8 +679,19 @@ func _close_hall55() -> void:
 ## v11 = 第 46 版照 GPT 效果图还原的那套，也只在调试开关后面。
 ## 正式开关在 assets/hall.json（hall55 为 true 默认 55 桌）；调试版日志面板里的按钮能临时轮着切（存在本机 user://hall55.flag，下次打开还记得）
 ## 开关文件里第 44 版记「44」；第 52 版以前记的是「0」，那时默认就是第 44 版，不算挑过，照默认走（不然调试切过的手机一直卡在 12 桌厅）
+## 开关只管这一版码（01 E 10/2：阿鱼扫新码还看见上回切的厅）：记成「厅@版本号」，版本号跟这一版对不上就不认，照默认走。
+## 版本号是 export-wechat.sh 导出时写进 assets/build.json 的（跟调试面板上那个一样）；电脑上跑没有这个文件，版本号是空的
 const HALL_CFG := "res://assets/hall.json"
 const HALL55_FLAG := "user://hall55.flag"
+const BUILD_CFG := "res://assets/build.json"
+var build_tag := _read_build()   # 测试里可以改
+
+static func _read_build() -> String:
+    if FileAccess.file_exists(BUILD_CFG):
+        var j = JSON.parse_string(FileAccess.get_file_as_string(BUILD_CFG))
+        if j is Dictionary:
+            return str(j.get("build", ""))
+    return ""
 const HALL_VARIANTS := ["", "v11", "55"]
 const HALL_VARIANT_NAMES := {"": "第 44 版", "v11": "照效果图（第 46 版）", "55": "55 桌大厅"}
 ## 这台机器上能切的几档：第 46 版那套从第 49 版起不进包（01 定），包里没有它的场景就不列
@@ -694,8 +705,10 @@ static func hall_variants() -> Array:
 func hall_variant() -> String:
     if hall_variant_once != "?":
         return hall_variant_once
-    if FileAccess.file_exists(HALL55_FLAG):
-        var v := FileAccess.get_file_as_string(HALL55_FLAG).strip_edges()
+    var raw: String = FileAccess.get_file_as_string(HALL55_FLAG).strip_edges() if FileAccess.file_exists(HALL55_FLAG) else ""
+    var at := raw.rfind("@")
+    if raw != "" and (raw.substr(at + 1) if at >= 0 else "") == build_tag:   # 别的版本记的不认（没有 @ 的是这次改之前记的，算空版本号）
+        var v: String = raw.substr(0, at) if at >= 0 else raw
         if v == "1":
             return "55"   # 旧的开关文件：1 是 55 桌
         if v == "44":
@@ -755,7 +768,7 @@ func _set_hall_variant(v: String, keep := true) -> void:
     if keep:
         var f := FileAccess.open(HALL55_FLAG, FileAccess.WRITE)
         if f != null:
-            f.store_string(v if v != "" else "44")
+            f.store_string((v if v != "" else "44") + "@" + build_tag)
             f.close()
     else:
         hall_variant_once = v

@@ -731,6 +731,15 @@ func check_flag_default() -> void:
         f.store_string(c[0])
         f.close()
         check("开关文件写「%s」→ 宴会厅「%s」（实际「%s」）" % [c[0], c[1], m.hall_variant()], m.hall_variant() == c[1])
+    # 开关只管记下它的那一版码（01 E 10/2）：版本号对不上、或者是改之前没带版本号的，都照默认 55 桌
+    var keep_tag: String = m.build_tag
+    m.build_tag = "1002-1334"
+    for c in [["44@1002-1334", ""], ["44@0930-2200", "55"], ["44", "55"], ["55@1002-1334", "55"]]:
+        var f := FileAccess.open(Main.HALL55_FLAG, FileAccess.WRITE)
+        f.store_string(c[0])
+        f.close()
+        check("这一版 %s：开关文件写「%s」→ 宴会厅「%s」（实际「%s」）" % [m.build_tag, c[0], c[1], m.hall_variant()], m.hall_variant() == c[1])
+    m.build_tag = keep_tag
     DirAccess.remove_absolute(path)
 
 

@@ -31,7 +31,13 @@ fi
 rm -rf "$OUT"
 mkdir -p "$OUT"
 OUT="$(cd "$OUT" && pwd -P)"
+# 版本号＝导出时间（调试面板上印的那个）。写进 assets/build.json 跟着进包：调试开关（切宴会厅）只认记下它的那一版，
+# 扫新码就回默认（01 E 10/2）。导完就删，电脑上跑、跑测试都没有这个文件（不进仓库，见 .gitignore）
+BUILD="$(date +%m%d-%H%M)"
+printf '{"build": "%s"}\n' "$BUILD" > "$GODOT_DIR/assets/build.json"
+trap 'rm -f "$GODOT_DIR/assets/build.json"' EXIT
 /Applications/Godot.app/Contents/MacOS/Godot --headless --path . --export-release "$PRESET" "$OUT/suqi.bin"
+rm -f "$GODOT_DIR/assets/build.json"
 
 # 插件（3 月版）把游戏包写成 engine/demo-pck.bin，4.7 模板却去读 engine/empty-tips.bin（模板自带的示例）。
 # 这里改成读我们的包，并删掉示例包和我们用不到的分包示例。
@@ -64,7 +70,7 @@ if [ "${SUQI_DEBUG:-1}" != "0" ]; then
     cp "$GODOT_DIR/wxgame/remote.js" .
     printf "import './remote'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
     cp "$GODOT_DIR/wxgame/debug-console.js" .
-    sed -i '' "s/__SUQI_BUILD__/$(date +%m%d-%H%M)/" debug-console.js   # 版本号＝导出时间
+    sed -i '' "s/__SUQI_BUILD__/$BUILD/" debug-console.js   # 版本号＝导出时间（跟 assets/build.json 里的同一个）
     printf "import './debug-console'\n" | cat - game.js > game.js.tmp && mv game.js.tmp game.js
     echo "调试版：已加帧率、日志面板和报错弹窗"
 fi
