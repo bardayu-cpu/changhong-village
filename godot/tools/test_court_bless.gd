@@ -2,6 +2,7 @@ extends SceneTree
 ## 验收：迎宾院第一件——签到加祝福 + 引导（01 E 10/2，docs/迎宾院-玩家说明-v1.md、04 基线第六节）
 ## 1 签到四屏：名字 → 礼金 → 祝福 → 确认；四句现成的一点就用；自己写 1～30 字；可以跳过
 ## 2 自己写的被敏感词拦：回到祝福那屏说「换个说法吧」，名字、礼金不丢；改了再交能签上
+##   词库过了、微信内容安全（msgSecCheck）不过的，也走这条路
 ## 3 祝福公开：签到桌旁的祝福牌走近出「看祝福」，新的在上面；没人写时说「还没人写」
 ## 4 签完新娘妈妈那句带上回忆册和花墙（还是一句）；进门金箭头、拦门照旧（test_entrance 守着）
 ## 5 回忆册摊开一本书（色块），走近之前就看得见；面板开着把「点地面走路」藏起来
@@ -84,6 +85,12 @@ func run() -> void:
     check("被拦：回到祝福那屏「%s」、原话还在、名字礼金不丢（%s，%d）" % [ui.bless_err.text, ui.sign_name, ui.sign_gift],
         ui.pages[ui.PAGE_BLESS].visible and ui.bless_err.text == "换个说法吧" and ui.bless_edit.text == "祝你们测试敏感"
         and ui.sign_name == "小李" and ui.sign_gift == 88 and not m.court_save.signed_in)
+    ui.bless_edit.text = "祝你们测试安全"
+    ui._bless_custom_done()
+    ui._submit()
+    check("微信内容安全不过：也回祝福那屏「%s」、原话还在、没签上" % ui.bless_err.text,
+        ui.pages[ui.PAGE_BLESS].visible and ui.bless_err.text == "换个说法吧" and ui.bless_edit.text == "祝你们测试安全"
+        and ui.sign_name == "小李" and not m.court_save.signed_in and m.cloud.fake_blessings.is_empty())
     ui.bless_edit.text = "早点生个娃，我来当干妈"
     ui._bless_custom_done()
     ui._submit()

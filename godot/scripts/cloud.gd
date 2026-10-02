@@ -204,6 +204,9 @@ func _fake(name: String, data: Dictionary) -> Dictionary:
                     return {"ok": false, "reason": "sensitive", "field": "blessing"}
                 if bl.length() < 1 or bl.length() > 30:
                     return {"ok": false, "reason": "bad_request", "field": "blessing"}
+                # 词库过了再过微信内容安全 msgSecCheck（10/2 晚）：含「测试安全」当微信说不行，跟敏感词同一条路，多带一个 sec
+                if bl.contains("测试安全"):
+                    return {"ok": false, "reason": "sensitive", "field": "blessing", "sec": "risky"}
                 fake_blessings.push_front({"name": str(data.get("check_in_name", "")), "text": bl, "at": Time.get_unix_time_from_system()})
             if data.has("check_in_name"):
                 fake_check_in = {"name": str(data["check_in_name"]), "gift_value": clampi(int(data.get("gift_value", 0)), 0, 9999)}

@@ -11,6 +11,8 @@
 // 客户端：wx.cloud.callFunction({ name: 'saveProfile', data: { nick, avatar, inviter, gift_value, whisper,
 //   coins, games, dishes, gift_coins, gift_add, check_in_name, blessing } })
 // 10/2 加 blessing（迎宾院签到的一句公开祝福，1～30 字、过敏感词），别人在祝福牌上能看到（readBlessings）
+// 10/2 晚又加：祝福过了自己的词库，再过一遍微信的内容安全 msgSecCheck（01 E：公开给全场看的字要过官方的）。
+// 要 config.json 里开 openapi 权限 security.msgSecCheck，部署时一起传上去
 // 传哪个字段就存哪个，没传的不动。
 //
 // 9/19 加（蓝图 3.2「席间小游戏」，阿鱼 9/19 定）：coins 金币、games 各小游戏通关进度、
@@ -46,6 +48,21 @@ function readWordFile(name) {
 }
 const SENSITIVE_MATCHER = sensitive.buildMatcher(readWordFile('base.txt'));
 const RESERVED_SET = new Set(readWordFile('reserved.txt').map(sensitive.normalize));
+
+// 微信内容安全（msgSecCheck 2.0，场景 2「评论」）：只有回 suggest 'pass' 才算过。
+// 'review'（拿不准）、'risky' 都不让上祝福牌；接口出错（没开权限、超额、网络）也不让上——祝福是公开给全场看的，
+// 宁可让这一位换个说法或跳过，也不放没查过的字上去。返回 {ok:true} 或 {ok:false, sec:'review'|'risky'|'error'}
+async function secCheck(text, openid) {
+  try {
+    const r = await cloud.openapi.security.msgSecCheck({ openid, scene: 2, version: 2, content: text });
+    const suggest = r && r.result && r.result.suggest;
+    if (r && (r.errCode === 0 || r.errCode === undefined) && suggest === 'pass') return { ok: true };
+    return { ok: false, sec: suggest || 'error' };
+  } catch (e) {
+    console.error('msgSecCheck 出错', e && (e.errCode || e.message));
+    return { ok: false, sec: 'error' };
+  }
+}
 
 // 主角名单：阿鱼、Toretto 的 openid，存在 config/banquet（和 enterHall 分座用的是同一份，initDb 建的，先是空数组）
 async function isVip(openid) {
@@ -95,6 +112,9 @@ exports.main = async (event) => {
     fields.blessing = fields.blessing.trim();
     const wc = sensitive.checkText(fields.blessing, { sensitiveMatcher: SENSITIVE_MATCHER });
     if (!wc.ok) return { ok: false, reason: wc.reason, field: 'blessing' };
+    // 自己的词库过了再问微信：不过跟敏感词走同一条路（客户端说「换个说法吧」），sec 只是留着查日志
+    const sc = await secCheck(fields.blessing, OPENID);
+    if (!sc.ok) return { ok: false, reason: 'sensitive', field: 'blessing', sec: sc.sec };
     fields.blessing_at = now;
   }
   const existing = await db.collection('resident').doc(OPENID).get().catch(() => null);

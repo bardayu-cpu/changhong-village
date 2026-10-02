@@ -139,7 +139,7 @@ function makeQuery(state, collName, initialCond) {
 
 /** @returns {{sdk: object, state: object}} sdk 喂给 require('wx-server-sdk')；state 是测试代码直接摆数据、断言结果用的 */
 function createFakeSdk() {
-  const state = { collections: {}, autoSeq: 0, currentOpenid: null };
+  const state = { collections: {}, autoSeq: 0, currentOpenid: null, secSuggest: 'pass', secCalls: [] };
   const db = {
     collection: (name) => makeQuery(state, name, {}),
     command: {
@@ -157,6 +157,16 @@ function createFakeSdk() {
     database: () => db,
     getWXContext: () => ({ OPENID: state.currentOpenid, APPID: 'wx-fake-appid' }),
     DYNAMIC_CURRENT_ENV: 'fake-env',
+    // 微信内容安全：state.secSuggest 摆 'pass'（默认）/'review'/'risky'，摆 'throw' 当接口出错；state.secCalls 记问过的字
+    openapi: {
+      security: {
+        msgSecCheck: async (args) => {
+          state.secCalls.push(args);
+          if (state.secSuggest === 'throw') throw Object.assign(new Error('fake openapi error'), { errCode: -604101 });
+          return { errCode: 0, errMsg: 'openapi.security.msgSecCheck:ok', result: { suggest: state.secSuggest, label: state.secSuggest === 'pass' ? 100 : 20002 } };
+        },
+      },
+    },
   };
   return { sdk, state };
 }
@@ -423,6 +433,24 @@ async function scenarioBlessing() {
   res = await saveProfile.main({ check_in_name: '阿草', gift_value: 66 });
   check(res.ok === true, `祝福 跳过照常签到（实际 ${JSON.stringify(res)}）`);
   check(!('blessing' in state.collections.resident.get('bless_b')), '祝福 跳过的不留 blessing');
+  // 微信内容安全（msgSecCheck）：正常那条问过微信、带了 openid 和场景；词库拦下的不用再问
+  check(state.secCalls.length === 1 && state.secCalls[0].content === '新婚快乐，白头偕老' && state.secCalls[0].openid === 'bless_a'
+    && state.secCalls[0].scene === 2 && state.secCalls[0].version === 2, `祝福 过词库的再问微信内容安全（实际 ${JSON.stringify(state.secCalls)}）`);
+  // 微信说不行（risky / review）、接口出错：都跟敏感词一样整次不写库、标明是祝福
+  for (const sg of ['risky', 'review', 'throw']) {
+    state.secSuggest = sg;
+    state.currentOpenid = 'bless_sec_' + sg;
+    res = await saveProfile.main({ check_in_name: '阿木', gift_value: 20, blessing: '祝你们百年好合' });
+    check(res.ok === false && res.reason === 'sensitive' && res.field === 'blessing' && res.sec === (sg === 'throw' ? 'error' : sg),
+      `祝福 微信内容安全回 ${sg} 被拦（实际 ${JSON.stringify(res)}）`);
+    check(!state.collections.resident.has('bless_sec_' + sg), `祝福 微信内容安全回 ${sg} 不写库`);
+  }
+  state.secSuggest = 'pass';
+  state.currentOpenid = 'bless_b';
+  // 只签到不写祝福：不问微信
+  const n0 = state.secCalls.length;
+  res = await saveProfile.main({ check_in_name: '阿草' });
+  check(res.ok === true && state.secCalls.length === n0, '祝福 不写祝福不问微信内容安全');
   // 再写一个，读祝福牌：新的在前，带签到名字，没写祝福的不出
   seed(state, 'resident', { _id: 'bless_c', nick: '小王', blessing: '恭喜恭喜，幸福美满', blessing_at: a.blessing_at + 1000 });
   const readBlessings = loadCloudFunction('readBlessings', sdk);
