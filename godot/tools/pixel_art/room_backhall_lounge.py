@@ -1905,9 +1905,12 @@ def palette_count(im):
 
 
 def crop_alpha(layer):
-    """一层裁到画了的那块：回 (图, 左上角画布 x, y)"""
-    box = layer.im.getbbox()
-    return layer.im.crop(box), layer.ox + box[0], layer.oy + box[1]
+    """一层先裁到这间的左右范围（BG_CROP 的 x：两间共用的隔墙两边画得一模一样，各出各那半，隔壁也是像素图时不会叠两遍），
+    再裁到画了的那块：回 (图, 左上角画布 x, y)"""
+    x0, x1 = BG_CROP[0] - layer.ox, BG_CROP[2] - layer.ox
+    im = layer.im.crop((x0, 0, x1, layer.im.height))
+    box = im.getbbox()
+    return im.crop(box), BG_CROP[0] + box[0], layer.oy + box[1]
 
 
 def main():
@@ -1926,7 +1929,7 @@ def main():
     bgi.save(os.path.join(OUT, "room.png"))
     man = {"note": "tools/pixel_art/room_backhall_lounge.py 生成，别手改。背景左上角放在 background.x/y（画布坐标），1 倍、不插值；"
                    "每件家具左上角在 x/y，着地线 foot（跟人排前后用）；hide 是要藏掉的灰盒（挡人的占地照旧）",
-           "background": {"png": RES + "room.png", "x": bx0, "y": by0}, "props": []}
+           "background": {"png": RES + "room.png", "x": bx0, "y": by0}, "room": {"x0": bx0, "x1": bx1}, "props": []}
     names = set()
     for name, layer, foot in props:
         im, x, y = crop_alpha(layer)

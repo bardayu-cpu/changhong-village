@@ -5,6 +5,10 @@
   "x": 331,
   "y": 104
  },
+ "room": {
+  "x0": 331,
+  "x1": 677
+ },
  "props": [
   {
    "id": "px_vinyl_wall",
@@ -149,7 +153,7 @@
   {
    "id": "px_front_walls",
    "png": "res://assets/pixel_art/backhall_lounge/props/front_walls.png",
-   "x": 328,
+   "x": 331,
    "y": 657,
    "foot": 696,
    "hide": []

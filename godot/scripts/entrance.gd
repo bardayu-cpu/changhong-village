@@ -29,6 +29,7 @@ var sign_mark: Polygon2D       # B20：签到台头顶的记号（体验第一�
 var sign_arrow: Polygon2D      # 签到台在屏幕外时，屏幕边上指着它的小箭头（体验第二轮）
 var sign_needed := true        # 还没签到：记号、箭头才出（main 按 court_save.signed_in 设，签完到就没了）
 const CourtLife = preload("res://scripts/court_life.gd")
+const LMPeople = preload("res://scripts/lm_people.gd")
 var court_life                 # 迎宾院里走动的客人、新娘爸妈和摄影师的小动作（court_life.gd，01 E 10/2）；别的画布没有
 
 func build(preset: int, nickname: String, f: Font) -> void:
@@ -221,7 +222,8 @@ func _item(it: Dictionary) -> void:
                 xl.position = Vector2(float(it["xi"][0]) - 30.0, float(it["xi"][1]) - 30.0 - foot)
                 holder.add_child(xl)
             if bool(it.get("block", true)):
-                obstacles.append({"rect": [x0, y0, x1, y1]})
+                # clear：这件四周让多宽才算挡住，默认 CLEAR；化妆间东西多、道窄（06 照脚底让 6 摆的），那 32 件在布局里写 6
+                obstacles.append({"rect": [x0, y0, x1, y1], "clear": float(it["clear"])} if it.has("clear") else {"rect": [x0, y0, x1, y1]})
         "cyl":
             var cx := float(it["x"]); var cy := float(it["y"])
             var rx := float(it["rx"]); var ry := float(it["ry"]); var h2 := float(it["h"])
@@ -314,7 +316,7 @@ func _pixel_art(flat: Node2D) -> void:
         bg.centered = false
         bg.position = Vector2(float(bgd["x"]), float(bgd["y"]))
         bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-        bg.name = "px_background"
+        bg.name = "px_background_" + str(path).get_base_dir().get_file()
         flat.add_child(bg)
         for p in man["props"]:
             for id in p.get("hide", []):
@@ -374,6 +376,8 @@ func _flowers(holder: Node2D, x0: float, y0: float, x1: float, y1: float, foot: 
 func _npcs() -> void:
     for n in cfg.get("npcs", []):
         var id := str(n["id"])
+        if n.has("standin") and _standin(n):
+            continue
         var look_cfg: Dictionary = Spr.npc_look(str(n.get("look", id)))
         var s := Sprite2D.new()
         s.texture = ImageTexture.create_from_image(Spr.sheet_of(look_cfg))
@@ -403,6 +407,37 @@ func _npcs() -> void:
         npc_nodes[id] = s
         if not sit or bool(n.get("block", false)):
             obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
+
+## 替身（10/3 化妆间起）：布局里写了 standin 的人，拿定稿宾客的图当替身（以后换 GPT 画的）——
+## code 哪张图、frame 第几格（0 朝前、4 朝左、8 朝右、12 背影）；坐着的给 rows（只留上面几行，下半截让凳子挡住）和 bottom（图底落在哪一行，凳面）。
+## 按脚点 (x, y) 跟家具排前后，1 倍、不插值。图不在（没跑 bake_used.py）回 false，照旧画代码小人
+func _standin(n: Dictionary) -> bool:
+    var sd: Dictionary = n["standin"]
+    var l: Dictionary = LMPeople.look(str(sd["code"]))
+    if l.is_empty():
+        return false
+    var fw := int(l["fw"])
+    var fh := int(l["fh"])
+    var hf := int(l["hframes"])
+    var fr := int(sd.get("frame", 0))
+    var rows := int(sd.get("rows", fh))
+    var at := Vector2(float(n["x"]), float(n["y"]))
+    var s := Sprite2D.new()
+    s.texture = l["tex"]
+    s.centered = false
+    s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+    s.region_enabled = true
+    s.region_rect = Rect2(float((fr % hf) * fw), float((fr / hf) * fh), float(fw), float(rows))
+    s.position = at
+    s.offset = Vector2(-fw / 2.0, float(sd.get("bottom", at.y)) - at.y - float(rows))
+    s.name = "npc_" + str(n["id"])
+    s.set_meta("base_offset", s.offset)
+    s.set_meta("breath_phase", float(npc_nodes.size()) * 1.7)
+    world.add_child(s)
+    npc_nodes[str(n["id"])] = s
+    if not bool(n.get("sit", false)) or bool(n.get("block", false)):
+        obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
+    return true
 
 ## NPC 呼吸（阿鱼 9/24：人物都不动，看着怪）：每个人身子隔两三秒轻轻一起一伏，不到一个像素格，各人错开，
 ## 以后画布里新加的 NPC 自动都有。GPT 交了带待机帧的人物图以后，换成真的待机动画
@@ -556,7 +591,8 @@ static func compute_grid(c: Dictionary, obs: Array, cell: int, clear: float) -> 
         rows_out.append(line)
     return {"cell": cell, "cols": cols_n, "rows": rows_out}
 
-static func _obs_box(o: Dictionary, clear: float) -> Rect2:
+static func _obs_box(o: Dictionary, clear_default: float) -> Rect2:
+    var clear := float(o.get("clear", clear_default))
     if o.has("rect"):
         var r: Array = o["rect"]
         return Rect2(float(r[0]) - clear, float(r[1]) - clear, float(r[2]) - float(r[0]) + clear * 2.0, float(r[3]) - float(r[1]) + clear * 2.0)
@@ -565,8 +601,9 @@ static func _obs_box(o: Dictionary, clear: float) -> Rect2:
     var ry := float(e[3]) + clear
     return Rect2(float(e[0]) - rx, float(e[1]) - ry, rx * 2.0, ry * 2.0)
 
-static func _blocked(x: float, y: float, obs: Array, clear: float) -> bool:
+static func _blocked(x: float, y: float, obs: Array, clear_default: float) -> bool:
     for o in obs:
+        var clear := float(o.get("clear", clear_default))
         if o.has("rect"):
             var r: Array = o["rect"]
             if x >= float(r[0]) - clear and x <= float(r[2]) + clear and y >= float(r[1]) - clear and y <= float(r[3]) + clear:
