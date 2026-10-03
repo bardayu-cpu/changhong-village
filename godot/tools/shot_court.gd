@@ -83,7 +83,7 @@ func run() -> void:
     else:
         for l in c.labels.get_children():   # 游戏里离人远的牌子先不显示、贴屏幕边的往里收（_keep_tags_on_screen）；整块图全放回原位
             if l.has_meta("home"):
-                l.position = l.get_meta("home")
+                l.position.x = float(l.get_meta("home"))
             (l as CanvasItem).visible = true
     if str(opt["world"]) == "0":
         c.world.visible = false
