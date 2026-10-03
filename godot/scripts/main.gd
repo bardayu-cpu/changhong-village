@@ -3835,7 +3835,7 @@ func _setup_shot(shot: String) -> void:
             kp.set_process(true)
             for i in 3:
                 await get_tree().process_frame
-        "lawn", "lawn_overview", "lawn_greet", "lawn_kick", "lawn_fetch", "lawn_kids", "lawn_orchard":
+        "lawn", "lawn_overview", "lawn_greet", "lawn_kick", "lawn_fetch", "lawn_kids", "lawn_orchard", "lawn_ceremony":
             # 草坪灰盒（蓝图 3.4，01 9/19 派任务 8）：lawn 是从迎宾院东小径刚过来；greet 是走近球、喜多叼着球跑过来；
             # kick 是往右踢一脚、球在滚；fetch 是喜多叼着球往回跑；kids 是走到孩童区小孩说一句；orchard 是走到北口；
             # overview 整张（横屏 RES=1536x1024）
@@ -3847,6 +3847,11 @@ func _setup_shot(shot: String) -> void:
                 await get_tree().process_frame
                 if state == "lawn" and not switching:
                     break
+            if shot == "lawn_ceremony":   # 10/3 草坪代码画的成品：站在椅子后面的通道上，朝北看仪式区（花拱门、圆台、观礼客人）
+                lawn.reset_to(Vector2(420, 740))
+                lawn.face = "up"
+                for i in 30:
+                    await get_tree().process_frame
             if shot == "lawn_overview":
                 lawn.reset_to(lawn.BALL_START + Vector2(-200, 20))
                 lawn.face = "right"
