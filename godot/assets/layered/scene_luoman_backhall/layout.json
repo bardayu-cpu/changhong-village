@@ -161,7 +161,7 @@
   {"id": "elder_w", "who": "长辈", "x": 902, "y": 399, "face": "right", "sit": true, "block": true, "lm": "LM-ELDER-02"},
   {"id": "elder_e", "who": "长辈", "x": 983, "y": 399, "face": "left", "sit": true, "block": true, "lm": "LM-ELDER-03"},
   {"id": "elder_s", "who": "长辈", "x": 942, "y": 437, "face": "up", "sit": true, "block": true, "lm": "LM-ELDER-04"},
-  {"id": "bride", "who": "新娘（坐在中间化妆台前，背对镜头；替身）", "x": 168, "y": 269, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": 252}},
+  {"id": "bride", "who": "新娘（坐在中间化妆台前，背对镜头；替身）", "x": 168, "y": 269, "face": "up", "sit": true, "lm": "LM-BRIDE-01", "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": 252}},
   {"id": "makeup_1", "who": "化妆师", "x": 194, "y": 273, "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01", "standin": {"code": "LM-GUEST-03", "frame": 4}},
   {"id": "makeup_2", "who": "化妆师", "x": 212, "y": 552, "face": "right", "look": "makeup_2", "lm": "LM-MAKEUP-02", "standin": {"code": "LM-GUEST-06", "frame": 8}},
   {"id": "tea_elder_1", "who": "喝茶的长辈", "x": 546, "y": 270, "face": "down", "look": "elder_w", "sit": true, "lm": "LM-ELDER-07"},
