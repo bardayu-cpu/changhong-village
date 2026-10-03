@@ -1,0 +1,1649 @@
+{
+ "canvas": [
+  1536,
+  1024
+ ],
+ "note": "x、y 是画出来的框左上角（整块画布 1536×1024 坐标，1:1，原点画布左上角）；脚点 = 框下沿中点；排前后的线 = 脚点 y（亭子等几条线的写在 sort_lines）；人的 x、y 是脚点，框宽 36、高 站 84×size / 坐 50×size",
+ "source": [
+  "assets/layered/scene_luoman_backhall/layout.json",
+  "回执/零件规格/后厅/后厅-框.json",
+  "docs/零件总表.md"
+ ],
+ "parts": [
+  {
+   "code": "BH-T01",
+   "name": "化妆台连镜子",
+   "temp_code": false,
+   "count": 2,
+   "size": [
+    58,
+    77
+   ],
+   "sizes": [
+    [
+     58,
+     77
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-T01-01",
+     "src": [
+      "vanity_1"
+     ],
+     "x": 44,
+     "y": 171,
+     "w": 58,
+     "h": 77,
+     "foot": [
+      73,
+      248
+     ],
+     "sort_y": 248,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-T01-02",
+     "src": [
+      "vanity_2"
+     ],
+     "x": 124,
+     "y": 171,
+     "w": 58,
+     "h": 77,
+     "foot": [
+      153,
+      248
+     ],
+     "sort_y": 248,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P03",
+   "name": "化妆凳",
+   "temp_code": false,
+   "count": 2,
+   "size": [
+    20,
+    32
+   ],
+   "sizes": [
+    [
+     20,
+     32
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P03-01",
+     "src": [
+      "makeup_stool_1"
+     ],
+     "x": 63,
+     "y": 246,
+     "w": 20,
+     "h": 32,
+     "foot": [
+      73,
+      278
+     ],
+     "sort_y": 278,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P03-02",
+     "src": [
+      "makeup_stool_2"
+     ],
+     "x": 143,
+     "y": 246,
+     "w": 20,
+     "h": 32,
+     "foot": [
+      153,
+      278
+     ],
+     "sort_y": 278,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P01",
+   "name": "礼服架",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    80,
+    96
+   ],
+   "sizes": [
+    [
+     80,
+     96
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P01-01",
+     "src": [
+      "rack_post_w",
+      "rack_post_e",
+      "rack_rail",
+      "rack_dress_1",
+      "rack_dress_2",
+      "rack_dress_3",
+      "rack_base"
+     ],
+     "x": 18,
+     "y": 376,
+     "w": 80,
+     "h": 96,
+     "foot": [
+      58,
+      472
+     ],
+     "sort_y": 472,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P02",
+   "name": "换衣屏风",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    72,
+    94
+   ],
+   "sizes": [
+    [
+     72,
+     94
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P02-01",
+     "src": [
+      "screen"
+     ],
+     "x": 252,
+     "y": 168,
+     "w": 72,
+     "h": 94,
+     "foot": [
+      288,
+      262
+     ],
+     "sort_y": 262,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P04",
+   "name": "落地全身镜",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    29,
+    88
+   ],
+   "sizes": [
+    [
+     29,
+     88
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P04-01",
+     "src": [
+      "full_mirror"
+     ],
+     "x": 214,
+     "y": 174,
+     "w": 29,
+     "h": 88,
+     "foot": [
+      228,
+      262
+     ],
+     "sort_y": 262,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P11",
+   "name": "绿植一盆",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    32,
+    58
+   ],
+   "sizes": [
+    [
+     32,
+     58
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P11-01",
+     "src": [
+      "plant"
+     ],
+     "x": 344,
+     "y": 610,
+     "w": 32,
+     "h": 58,
+     "foot": [
+      360,
+      668
+     ],
+     "sort_y": 668,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P08",
+   "name": "黑胶唱片墙",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    144,
+    121
+   ],
+   "sizes": [
+    [
+     144,
+     121
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P08-01",
+     "src": [
+      "vinyl_wall"
+     ],
+     "x": 352,
+     "y": 111,
+     "w": 144,
+     "h": 121,
+     "foot": [
+      424,
+      232
+     ],
+     "sort_y": 232,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P09",
+   "name": "唱片机",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    62,
+    78
+   ],
+   "sizes": [
+    [
+     62,
+     78
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P09-01",
+     "src": [
+      "record_player"
+     ],
+     "x": 396,
+     "y": 206,
+     "w": 62,
+     "h": 78,
+     "foot": [
+      427,
+      284
+     ],
+     "sort_y": 284,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P05",
+   "name": "三人沙发",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    101,
+    73
+   ],
+   "sizes": [
+    [
+     101,
+     73
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P05-01",
+     "src": [
+      "sofa_back",
+      "sofa"
+     ],
+     "x": 516,
+     "y": 195,
+     "w": 101,
+     "h": 73,
+     "foot": [
+      566,
+      268
+     ],
+     "sort_y": 268,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-T02",
+   "name": "茶几连茶具",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    58,
+    40
+   ],
+   "sizes": [
+    [
+     58,
+     40
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-T02-01",
+     "src": [
+      "tea_table"
+     ],
+     "x": 538,
+     "y": 274,
+     "w": 58,
+     "h": 40,
+     "foot": [
+      567,
+      314
+     ],
+     "sort_y": 314,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P06",
+   "name": "单人沙发",
+   "temp_code": false,
+   "count": 2,
+   "size": null,
+   "sizes": [
+    [
+     43,
+     69
+    ],
+    [
+     43,
+     70
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P06-01",
+     "src": [
+      "armchair_w"
+     ],
+     "x": 480,
+     "y": 251,
+     "w": 43,
+     "h": 69,
+     "foot": [
+      502,
+      320
+     ],
+     "sort_y": 320,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P06-02",
+     "src": [
+      "armchair_e"
+     ],
+     "x": 604,
+     "y": 250,
+     "w": 43,
+     "h": 70,
+     "foot": [
+      626,
+      320
+     ],
+     "sort_y": 320,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P07",
+   "name": "电视柜连电视",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    26,
+    104
+   ],
+   "sizes": [
+    [
+     26,
+     104
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P07-01",
+     "src": [
+      "tv_unit",
+      "tv_screen"
+     ],
+     "x": 634,
+     "y": 314,
+     "w": 26,
+     "h": 104,
+     "foot": [
+      647,
+      418
+     ],
+     "sort_y": 418,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P10",
+   "name": "落地灯",
+   "temp_code": false,
+   "count": 1,
+   "size": [
+    26,
+    85
+   ],
+   "sizes": [
+    [
+     26,
+     85
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P10-01",
+     "src": [
+      "floor_lamp"
+     ],
+     "x": 616,
+     "y": 175,
+     "w": 26,
+     "h": 85,
+     "foot": [
+      629,
+      260
+     ],
+     "sort_y": 260,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-T03",
+   "name": "麻将桌",
+   "temp_code": false,
+   "count": 3,
+   "size": [
+    54,
+    65
+   ],
+   "sizes": [
+    [
+     54,
+     65
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-T03-01",
+     "src": [
+      "mahjong_table"
+     ],
+     "x": 915,
+     "y": 344,
+     "w": 54,
+     "h": 65,
+     "foot": [
+      942,
+      409
+     ],
+     "sort_y": 409,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-T03-02",
+     "src": [
+      "mahjong_table_2"
+     ],
+     "x": 710,
+     "y": 264,
+     "w": 54,
+     "h": 65,
+     "foot": [
+      737,
+      329
+     ],
+     "sort_y": 329,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-T03-03",
+     "src": [
+      "mahjong_table_3"
+     ],
+     "x": 710,
+     "y": 454,
+     "w": 54,
+     "h": 65,
+     "foot": [
+      737,
+      519
+     ],
+     "sort_y": 519,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P12",
+   "name": "麻将椅",
+   "temp_code": false,
+   "count": 12,
+   "size": null,
+   "sizes": [
+    [
+     22,
+     56
+    ],
+    [
+     22,
+     58
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P12-01",
+     "src": [
+      "mj1_chair_n"
+     ],
+     "x": 931,
+     "y": 307,
+     "w": 22,
+     "h": 58,
+     "foot": [
+      942,
+      365
+     ],
+     "sort_y": 365,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-02",
+     "src": [
+      "mj1_chair_w"
+     ],
+     "x": 891,
+     "y": 341,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      902,
+      397
+     ],
+     "sort_y": 397,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-03",
+     "src": [
+      "mj1_chair_e"
+     ],
+     "x": 972,
+     "y": 341,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      983,
+      397
+     ],
+     "sort_y": 397,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-04",
+     "src": [
+      "mj1_chair_s"
+     ],
+     "x": 931,
+     "y": 379,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      942,
+      435
+     ],
+     "sort_y": 435,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-05",
+     "src": [
+      "mj2_chair_n"
+     ],
+     "x": 726,
+     "y": 227,
+     "w": 22,
+     "h": 58,
+     "foot": [
+      737,
+      285
+     ],
+     "sort_y": 285,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-06",
+     "src": [
+      "mj2_chair_w"
+     ],
+     "x": 686,
+     "y": 261,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      697,
+      317
+     ],
+     "sort_y": 317,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-07",
+     "src": [
+      "mj2_chair_e"
+     ],
+     "x": 767,
+     "y": 261,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      778,
+      317
+     ],
+     "sort_y": 317,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-08",
+     "src": [
+      "mj2_chair_s"
+     ],
+     "x": 726,
+     "y": 299,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      737,
+      355
+     ],
+     "sort_y": 355,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-09",
+     "src": [
+      "mj3_chair_n"
+     ],
+     "x": 726,
+     "y": 417,
+     "w": 22,
+     "h": 58,
+     "foot": [
+      737,
+      475
+     ],
+     "sort_y": 475,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-10",
+     "src": [
+      "mj3_chair_w"
+     ],
+     "x": 686,
+     "y": 451,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      697,
+      507
+     ],
+     "sort_y": 507,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-11",
+     "src": [
+      "mj3_chair_e"
+     ],
+     "x": 767,
+     "y": 451,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      778,
+      507
+     ],
+     "sort_y": 507,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P12-12",
+     "src": [
+      "mj3_chair_s"
+     ],
+     "x": 726,
+     "y": 489,
+     "w": 22,
+     "h": 56,
+     "foot": [
+      737,
+      545
+     ],
+     "sort_y": 545,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-T04",
+   "name": "小茶几连盖碗茶",
+   "temp_code": false,
+   "count": 2,
+   "size": [
+    29,
+    46
+   ],
+   "sizes": [
+    [
+     29,
+     46
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-T04-01",
+     "src": [
+      "mj_tea_1"
+     ],
+     "x": 970,
+     "y": 528,
+     "w": 29,
+     "h": 46,
+     "foot": [
+      984,
+      574
+     ],
+     "sort_y": 574,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-T04-02",
+     "src": [
+      "mj_tea_2"
+     ],
+     "x": 682,
+     "y": 578,
+     "w": 29,
+     "h": 46,
+     "foot": [
+      696,
+      624
+     ],
+     "sort_y": 624,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-W01",
+   "name": "隔墙（三间房之间那三道）",
+   "temp_code": true,
+   "count": 3,
+   "size": [
+    10,
+    502
+   ],
+   "sizes": [
+    [
+     10,
+     502
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-W01-01",
+     "src": [
+      "wall_1"
+     ],
+     "x": 331,
+     "y": 182,
+     "w": 10,
+     "h": 502,
+     "foot": [
+      336,
+      684
+     ],
+     "sort_y": 684,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-W01-02",
+     "src": [
+      "wall_2"
+     ],
+     "x": 667,
+     "y": 182,
+     "w": 10,
+     "h": 502,
+     "foot": [
+      672,
+      684
+     ],
+     "sort_y": 684,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-W01-03",
+     "src": [
+      "wall_3"
+     ],
+     "x": 1003,
+     "y": 182,
+     "w": 10,
+     "h": 502,
+     "foot": [
+      1008,
+      684
+     ],
+     "sort_y": 684,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-W02",
+   "name": "前沿矮墙（房间和走廊之间，留四个门口）",
+   "temp_code": true,
+   "count": 5,
+   "size": null,
+   "sizes": [
+    [
+     128,
+     34
+    ],
+    [
+     256,
+     34
+    ],
+    [
+     320,
+     34
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-W02-01",
+     "src": [
+      "front_1"
+     ],
+     "x": 0,
+     "y": 662,
+     "w": 128,
+     "h": 34,
+     "foot": [
+      64,
+      696
+     ],
+     "sort_y": 696,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-W02-02",
+     "src": [
+      "front_2"
+     ],
+     "x": 208,
+     "y": 662,
+     "w": 256,
+     "h": 34,
+     "foot": [
+      336,
+      696
+     ],
+     "sort_y": 696,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-W02-03",
+     "src": [
+      "front_3"
+     ],
+     "x": 544,
+     "y": 662,
+     "w": 256,
+     "h": 34,
+     "foot": [
+      672,
+      696
+     ],
+     "sort_y": 696,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-W02-04",
+     "src": [
+      "front_4"
+     ],
+     "x": 880,
+     "y": 662,
+     "w": 256,
+     "h": 34,
+     "foot": [
+      1008,
+      696
+     ],
+     "sort_y": 696,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-W02-05",
+     "src": [
+      "front_5"
+     ],
+     "x": 1216,
+     "y": 662,
+     "w": 320,
+     "h": 34,
+     "foot": [
+      1376,
+      696
+     ],
+     "sort_y": 696,
+     "sort_lines": null
+    }
+   ]
+  },
+  {
+   "code": "BH-P13",
+   "name": "行李箱",
+   "temp_code": true,
+   "count": 2,
+   "size": null,
+   "sizes": [
+    [
+     19,
+     34
+    ],
+    [
+     24,
+     46
+    ]
+   ],
+   "layer": "世界层（按脚点排前后）",
+   "instances": [
+    {
+     "id": "BH-P13-01",
+     "src": [
+      "luggage_1"
+     ],
+     "x": 356,
+     "y": 244,
+     "w": 24,
+     "h": 46,
+     "foot": [
+      368,
+      290
+     ],
+     "sort_y": 290,
+     "sort_lines": null
+    },
+    {
+     "id": "BH-P13-02",
+     "src": [
+      "luggage_2"
+     ],
+     "x": 636,
+     "y": 614,
+     "w": 19,
+     "h": 34,
+     "foot": [
+      646,
+      648
+     ],
+     "sort_y": 648,
+     "sort_lines": null
+    }
+   ]
+  }
+ ],
+ "background": [
+  {
+   "id": "BH-BG01-a",
+   "name": "画布底（屋子上下的黑褐底，走不到）",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    0,
+    1536,
+    1024
+   ],
+   "rects": 1,
+   "basis": "flat[0]：整张 1536×1024",
+   "rect_list": [
+    [
+     0,
+     0,
+     1536,
+     1024
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-b",
+   "name": "后墙",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    104,
+    1536,
+    122
+   ],
+   "rects": 1,
+   "basis": "flat[1]：y 104～226，三间房顶上整条（厨房那段被厨房图盖住）",
+   "rect_list": [
+    [
+     0,
+     104,
+     1536,
+     122
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-b2",
+   "name": "后墙顶亮线",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    104,
+    1536,
+    10
+   ],
+   "rects": 1,
+   "basis": "flat[2]：y 104～114",
+   "rect_list": [
+    [
+     0,
+     104,
+     1536,
+     10
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-b3",
+   "name": "后墙脚暗线",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    218,
+    1536,
+    8
+   ],
+   "rects": 1,
+   "basis": "flat[3]：y 218～226",
+   "rect_list": [
+    [
+     0,
+     218,
+     1536,
+     8
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-c",
+   "name": "化妆室后墙大镜子（金框玻璃）",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    54,
+    124,
+    92,
+    90
+   ],
+   "rects": 2,
+   "basis": "flat[4]、[5]：54～146 × 124～214",
+   "rect_list": [
+    [
+     54,
+     124,
+     92,
+     90
+    ],
+    [
+     60,
+     130,
+     80,
+     78
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-d1",
+   "name": "化妆室地面",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    226,
+    336,
+    458
+   ],
+   "rects": 1,
+   "basis": "flat[6]：0～336 × 226～684",
+   "rect_list": [
+    [
+     0,
+     226,
+     336,
+     458
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-d2",
+   "name": "休息间地面",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    336,
+    226,
+    336,
+    458
+   ],
+   "rects": 1,
+   "basis": "flat[7]：336～672 × 226～684",
+   "rect_list": [
+    [
+     336,
+     226,
+     336,
+     458
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-d3",
+   "name": "麻将室地面",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    672,
+    226,
+    336,
+    458
+   ],
+   "rects": 1,
+   "basis": "flat[8]：672～1008 × 226～684",
+   "rect_list": [
+    [
+     672,
+     226,
+     336,
+     458
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-e",
+   "name": "走廊地面",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    696,
+    1536,
+    188
+   ],
+   "rects": 1,
+   "basis": "flat[34]：0～1536 × 696～884",
+   "rect_list": [
+    [
+     0,
+     696,
+     1536,
+     188
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-e2",
+   "name": "走廊红地毯（连两条金边）",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    764,
+    1536,
+    36
+   ],
+   "rects": 3,
+   "basis": "flat[35]～[37]：y 764～800",
+   "rect_list": [
+    [
+     0,
+     764,
+     1536,
+     36
+    ],
+    [
+     0,
+     764,
+     1536,
+     3
+    ],
+    [
+     0,
+     797,
+     1536,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-e3",
+   "name": "走廊下沿墙",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    884,
+    1536,
+    16
+   ],
+   "rects": 1,
+   "basis": "flat[38]：y 884～900",
+   "rect_list": [
+    [
+     0,
+     884,
+     1536,
+     16
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-f",
+   "name": "房间通走廊的四个门口门槛",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    128,
+    684,
+    1088,
+    12
+   ],
+   "rects": 4,
+   "basis": "flat[39]～[42]：128～208、464～544、800～880、1136～1216，各 80×12",
+   "rect_list": [
+    [
+     128,
+     684,
+     80,
+     12
+    ],
+    [
+     464,
+     684,
+     80,
+     12
+    ],
+    [
+     800,
+     684,
+     80,
+     12
+    ],
+    [
+     1136,
+     684,
+     80,
+     12
+    ]
+   ]
+  },
+  {
+   "id": "BH-BG01-g",
+   "name": "两头的出口光条（回宴会厅、后门）",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    0,
+    720,
+    1536,
+    130
+   ],
+   "rects": 2,
+   "basis": "flat[43]、[44]：西 0～14、东 1522～1536 × 720～850",
+   "rect_list": [
+    [
+     0,
+     720,
+     14,
+     130
+    ],
+    [
+     1522,
+     720,
+     14,
+     130
+    ]
+   ]
+  },
+  {
+   "id": "K-BG01",
+   "name": "厨房整间（归 GPT，这里只画一块灰，不拆）",
+   "layer": "背景层（最底下，不排前后）",
+   "box": [
+    1008,
+    104,
+    528,
+    580
+   ],
+   "rects": 1,
+   "basis": "flat[9] 厨房地面 1008～1536 × 226～684 加上面的后墙到 y 104；flat[10]～[33] 是厨房地砖线。GPT 的厨房图盖在这一块上面",
+   "rect_list": [
+    [
+     1008,
+     104,
+     528,
+     580
+    ]
+   ]
+  }
+ ],
+ "people": [
+  {
+   "lm": "LM-ELDER-01",
+   "id": "elder_n",
+   "who": "长辈",
+   "foot": [
+    942,
+    367
+   ],
+   "pose": "坐着",
+   "face": "down",
+   "size": 1.0,
+   "box": [
+    924,
+    317,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-ELDER-02",
+   "id": "elder_w",
+   "who": "长辈",
+   "foot": [
+    902,
+    399
+   ],
+   "pose": "坐着",
+   "face": "right",
+   "size": 1.0,
+   "box": [
+    884,
+    349,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-ELDER-03",
+   "id": "elder_e",
+   "who": "长辈",
+   "foot": [
+    983,
+    399
+   ],
+   "pose": "坐着",
+   "face": "left",
+   "size": 1.0,
+   "box": [
+    965,
+    349,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-ELDER-04",
+   "id": "elder_s",
+   "who": "长辈",
+   "foot": [
+    942,
+    437
+   ],
+   "pose": "坐着",
+   "face": "up",
+   "size": 1.0,
+   "box": [
+    924,
+    387,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-MAKEUP-01",
+   "id": "makeup_1",
+   "who": "化妆师",
+   "foot": [
+    113,
+    264
+   ],
+   "pose": "站着",
+   "face": "down",
+   "size": 1.0,
+   "box": [
+    95,
+    180,
+    36,
+    84
+   ]
+  },
+  {
+   "lm": "LM-MAKEUP-02",
+   "id": "makeup_2",
+   "who": "化妆师",
+   "foot": [
+    112,
+    476
+   ],
+   "pose": "站着",
+   "face": "left",
+   "size": 1.0,
+   "box": [
+    94,
+    392,
+    36,
+    84
+   ]
+  },
+  {
+   "lm": "LM-ELDER-07",
+   "id": "tea_elder_1",
+   "who": "喝茶的长辈",
+   "foot": [
+    546,
+    270
+   ],
+   "pose": "坐着",
+   "face": "down",
+   "size": 1.0,
+   "box": [
+    528,
+    220,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-ELDER-08",
+   "id": "tea_elder_2",
+   "who": "喝茶的长辈",
+   "foot": [
+    588,
+    270
+   ],
+   "pose": "坐着",
+   "face": "down",
+   "size": 1.0,
+   "box": [
+    570,
+    220,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-ELDER-05",
+   "id": "elder_5",
+   "who": "长辈",
+   "foot": [
+    737,
+    287
+   ],
+   "pose": "坐着",
+   "face": "down",
+   "size": 1.0,
+   "box": [
+    719,
+    237,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-ELDER-06",
+   "id": "elder_6",
+   "who": "长辈",
+   "foot": [
+    697,
+    319
+   ],
+   "pose": "坐着",
+   "face": "right",
+   "size": 1.0,
+   "box": [
+    679,
+    269,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-GUEST",
+   "id": "mj_guest_1",
+   "who": "宾客",
+   "foot": [
+    778,
+    319
+   ],
+   "pose": "坐着",
+   "face": "left",
+   "size": 1.0,
+   "box": [
+    760,
+    269,
+    36,
+    50
+   ]
+  },
+  {
+   "lm": "LM-GUEST",
+   "id": "mj_guest_2",
+   "who": "宾客",
+   "foot": [
+    737,
+    357
+   ],
+   "pose": "坐着",
+   "face": "up",
+   "size": 1.0,
+   "box": [
+    719,
+    307,
+    36,
+    50
+   ]
+  }
+ ],
+ "not_listed": {
+  "counter_w": "厨房（归 GPT，K-BG01 整间）",
+  "counter_e": "厨房（归 GPT，K-BG01 整间）",
+  "brick_stove": "厨房（归 GPT，K-BG01 整间）",
+  "pot": "厨房（归 GPT，K-BG01 整间）",
+  "steam": "厨房（归 GPT，K-BG01 整间）",
+  "board": "厨房（归 GPT，K-BG01 整间）",
+  "bowl_table": "厨房（归 GPT，K-BG01 整间）",
+  "teacup_1": "长辈手里的茶杯（跟人走，不单独画）",
+  "teacup_1_tea": "长辈手里的茶杯（跟人走，不单独画）",
+  "teacup_2": "长辈手里的茶杯（跟人走，不单独画）",
+  "teacup_2_tea": "长辈手里的茶杯（跟人走，不单独画）",
+  "cook": "厨师（厨房，归 GPT）"
+ }
+}

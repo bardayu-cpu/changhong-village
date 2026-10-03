@@ -1,0 +1,1153 @@
+{
+ "scene": "果园",
+ "canvas": [
+  1536,
+  1280
+ ],
+ "count": {
+  "OR-P01": {
+   "on_picture": 8,
+   "expected_clusters": 8,
+   "listed": 8
+  },
+  "OR-P02": {
+   "on_picture": 6,
+   "expected_clusters": 6,
+   "listed": 6
+  },
+  "OR-P03": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "OR-W01": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 16
+  },
+  "OR-P06": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "OR-P04": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "OR-P05": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "OR-P07": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  }
+ },
+ "overlaps": [
+  {
+   "a": "OR-P02-0_0",
+   "b": "OR-W01-09",
+   "w": 67,
+   "h": 44,
+   "area": 2948
+  },
+  {
+   "a": "OR-P02-0_0",
+   "b": "OR-W01-10",
+   "w": 63,
+   "h": 44,
+   "area": 2772
+  },
+  {
+   "a": "OR-P02-0_1",
+   "b": "OR-W01-12",
+   "w": 67,
+   "h": 44,
+   "area": 2948
+  },
+  {
+   "a": "OR-P02-0_1",
+   "b": "OR-W01-13",
+   "w": 63,
+   "h": 44,
+   "area": 2772
+  },
+  {
+   "a": "OR-P02-0_2",
+   "b": "OR-W01-15",
+   "w": 67,
+   "h": 44,
+   "area": 2948
+  },
+  {
+   "a": "OR-P02-0_2",
+   "b": "OR-W01-16",
+   "w": 63,
+   "h": 44,
+   "area": 2772
+  },
+  {
+   "a": "OR-P02-1_0",
+   "b": "OR-P03-01",
+   "w": 27,
+   "h": 27,
+   "area": 729
+  },
+  {
+   "a": "OR-P02-1_1",
+   "b": "OR-P07-01",
+   "w": 83,
+   "h": 26,
+   "area": 2158
+  }
+ ],
+ "verify": {
+  "item_pixels": 382382,
+  "outside_boxes": 0,
+  "outside_bbox": null,
+  "parts_dev": [
+   {
+    "id": "OR-P01-01",
+    "declared": [
+     100,
+     534,
+     700,
+     572
+    ],
+    "measured": [
+     100,
+     534,
+     700,
+     572
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-02",
+    "declared": [
+     100,
+     602,
+     700,
+     640
+    ],
+    "measured": [
+     100,
+     602,
+     700,
+     640
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-03",
+    "declared": [
+     100,
+     670,
+     700,
+     708
+    ],
+    "measured": [
+     100,
+     670,
+     700,
+     708
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-04",
+    "declared": [
+     100,
+     738,
+     700,
+     776
+    ],
+    "measured": [
+     100,
+     738,
+     700,
+     776
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-05",
+    "declared": [
+     100,
+     806,
+     700,
+     844
+    ],
+    "measured": [
+     100,
+     806,
+     700,
+     844
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-06",
+    "declared": [
+     100,
+     874,
+     700,
+     912
+    ],
+    "measured": [
+     100,
+     874,
+     700,
+     912
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-07",
+    "declared": [
+     100,
+     942,
+     700,
+     980
+    ],
+    "measured": [
+     100,
+     942,
+     700,
+     980
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P01-08",
+    "declared": [
+     100,
+     1010,
+     700,
+     1048
+    ],
+    "measured": [
+     100,
+     1010,
+     700,
+     1048
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P02-0_0",
+    "declared": [
+     797,
+     360,
+     927,
+     612
+    ],
+    "measured": [
+     797,
+     360,
+     927,
+     612
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P02-0_1",
+    "declared": [
+     1085,
+     360,
+     1215,
+     612
+    ],
+    "measured": [
+     1085,
+     360,
+     1215,
+     612
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P02-0_2",
+    "declared": [
+     1373,
+     360,
+     1503,
+     612
+    ],
+    "measured": [
+     1373,
+     360,
+     1503,
+     612
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P02-1_0",
+    "declared": [
+     797,
+     788,
+     927,
+     1040
+    ],
+    "measured": [
+     797,
+     788,
+     927,
+     1040
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P02-1_1",
+    "declared": [
+     1085,
+     788,
+     1215,
+     1040
+    ],
+    "measured": [
+     1085,
+     788,
+     1215,
+     1040
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P02-1_2",
+    "declared": [
+     1373,
+     788,
+     1503,
+     1040
+    ],
+    "measured": [
+     1373,
+     788,
+     1503,
+     1040
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P03-01",
+    "declared": [
+     900,
+     1013,
+     1060,
+     1088
+    ],
+    "measured": [
+     900,
+     1013,
+     1060,
+     1088
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-01",
+    "declared": [
+     0,
+     350,
+     96,
+     404
+    ],
+    "measured": [
+     0,
+     350,
+     96,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-02",
+    "declared": [
+     96,
+     350,
+     192,
+     404
+    ],
+    "measured": [
+     96,
+     350,
+     192,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-03",
+    "declared": [
+     192,
+     350,
+     288,
+     404
+    ],
+    "measured": [
+     192,
+     350,
+     288,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-04",
+    "declared": [
+     288,
+     350,
+     384,
+     404
+    ],
+    "measured": [
+     288,
+     350,
+     384,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-05",
+    "declared": [
+     384,
+     350,
+     480,
+     404
+    ],
+    "measured": [
+     384,
+     350,
+     480,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-06",
+    "declared": [
+     480,
+     350,
+     576,
+     404
+    ],
+    "measured": [
+     480,
+     350,
+     576,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-07",
+    "declared": [
+     576,
+     350,
+     672,
+     404
+    ],
+    "measured": [
+     576,
+     350,
+     672,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-08",
+    "declared": [
+     672,
+     350,
+     768,
+     404
+    ],
+    "measured": [
+     672,
+     350,
+     768,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-09",
+    "declared": [
+     768,
+     350,
+     864,
+     404
+    ],
+    "measured": [
+     768,
+     350,
+     864,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-10",
+    "declared": [
+     864,
+     350,
+     960,
+     404
+    ],
+    "measured": [
+     864,
+     350,
+     960,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-11",
+    "declared": [
+     960,
+     350,
+     1056,
+     404
+    ],
+    "measured": [
+     960,
+     350,
+     1056,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-12",
+    "declared": [
+     1056,
+     350,
+     1152,
+     404
+    ],
+    "measured": [
+     1056,
+     350,
+     1152,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-13",
+    "declared": [
+     1152,
+     350,
+     1248,
+     404
+    ],
+    "measured": [
+     1152,
+     350,
+     1248,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-14",
+    "declared": [
+     1248,
+     350,
+     1344,
+     404
+    ],
+    "measured": [
+     1248,
+     350,
+     1344,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-15",
+    "declared": [
+     1344,
+     350,
+     1440,
+     404
+    ],
+    "measured": [
+     1344,
+     350,
+     1440,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-W01-16",
+    "declared": [
+     1440,
+     350,
+     1536,
+     404
+    ],
+    "measured": [
+     1440,
+     350,
+     1536,
+     404
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P06-01",
+    "declared": [
+     376,
+     446,
+     424,
+     530
+    ],
+    "measured": [
+     376,
+     446,
+     424,
+     530
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P04-01",
+    "declared": [
+     1068,
+     1064,
+     1092,
+     1088
+    ],
+    "measured": [
+     1068,
+     1064,
+     1092,
+     1088
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P04-02",
+    "declared": [
+     648,
+     508,
+     672,
+     532
+    ],
+    "measured": [
+     648,
+     508,
+     672,
+     532
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P05-01",
+    "declared": [
+     1098,
+     1064,
+     1122,
+     1088
+    ],
+    "measured": [
+     1098,
+     1064,
+     1122,
+     1088
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P05-02",
+    "declared": [
+     1288,
+     538,
+     1312,
+     562
+    ],
+    "measured": [
+     1288,
+     538,
+     1312,
+     562
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "OR-P07-01",
+    "declared": [
+     1132,
+     1014,
+     1260,
+     1090
+    ],
+    "measured": [
+     1132,
+     1014,
+     1260,
+     1090
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   }
+  ],
+  "flat_diff_pixels": 0,
+  "flat_diff_bbox": null,
+  "people_meas": [
+   {
+    "id": "farmer_1",
+    "lm": "LM-FARMER-01",
+    "sit": false,
+    "size": 1.0,
+    "foot": [
+     250.0,
+     594.0
+    ],
+    "meas_h": 81,
+    "foot_dy": 1
+   },
+   {
+    "id": "farmer_2",
+    "lm": "LM-FARMER-02",
+    "sit": false,
+    "size": 1.0,
+    "foot": [
+     560.0,
+     866.0
+    ],
+    "meas_h": 82,
+    "foot_dy": -1
+   },
+   {
+    "id": "farmer_3",
+    "lm": "LM-FARMER-03",
+    "sit": false,
+    "size": 1.0,
+    "foot": [
+     1110.0,
+     650.0
+    ],
+    "meas_h": 81,
+    "foot_dy": -1
+   }
+  ]
+ }
+}
