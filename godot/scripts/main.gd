@@ -4027,7 +4027,7 @@ func _setup_shot(shot: String) -> void:
                     if state == go and not switching:
                         break
             var stand := {"plaza_east": [Vector2(1380, 560), "right"], "plaza_west": [Vector2(170, 560), "left"], "plaza_south": [Vector2(768, 850), "down"],
-                "plaza_kids": [Vector2(300, 260), "up"], "plaza_shop": [Vector2(768, 260), "up"], "plaza_rest": [Vector2(1236, 260), "up"],
+                "plaza_kids": [Vector2(420, 260), "up"], "plaza_shop": [Vector2(768, 260), "up"], "plaza_rest": [Vector2(1116, 260), "up"],
                 "court_plaza_sign": [COURT_FROM_PLAZA + Vector2(90, 0), "left"], "lawn_plaza_sign": [Vector2(170, 780), "left"],
                 "backhall_plaza_sign": [Vector2(620, 840), "down"]}
             if stand.has(shot):
