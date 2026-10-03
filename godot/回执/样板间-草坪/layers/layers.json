@@ -1,0 +1,2047 @@
+{
+ "canvas": [
+  1536,
+  1024
+ ],
+ "note": "x,y 是这张图左上角在画布上的位置；foot_y 是按着地线跟人排前后的那条线；ids 是这张图包了 layout.json 里哪几件；叠法：底图 → ground_deco（地面装饰层）→ 其余按 foot_y 跟人一起排。椅子的 back_* 是只有椅背的一张，有人坐的椅子才用，foot_y 比椅子大 4（压在坐着的人前面）",
+ "layers": [
+  {
+   "name": "bg_lawn_temp",
+   "file": "bg_lawn_temp.png",
+   "x": 0,
+   "y": 0,
+   "w": 1536,
+   "h": 1024,
+   "foot_y": null,
+   "note": "临时底图（影子已经压进去了）；GPT 底图到了换成 bg_lawn_gpt.png"
+  },
+  {
+   "name": "ground_deco",
+   "file": "ground_deco.png",
+   "x": 315,
+   "y": 466,
+   "w": 204,
+   "h": 246,
+   "foot_y": null,
+   "note": "地面装饰层：通道白布、花瓣，平的，永远在人脚下"
+  },
+  {
+   "name": "shadow_steps",
+   "file": "shadow_steps.png",
+   "x": 0,
+   "y": 0,
+   "w": 1536,
+   "h": 1024,
+   "foot_y": null,
+   "note": "影子档数图（不是给游戏直接叠的）：灰 96 = 暗一档、64 = 暗两档、160 = 亮一档；GPT 底图压色板以后照它沿色带挪档"
+  },
+  {
+   "name": "wed_tree",
+   "file": "wed_tree.png",
+   "x": 275,
+   "y": 6,
+   "w": 296,
+   "h": 342,
+   "foot_y": 344,
+   "foot_x": 420,
+   "part": "LW-P01",
+   "inst": "LW-P01-01",
+   "ids": [
+    "wed_tree"
+   ]
+  },
+  {
+   "name": "wed_arch",
+   "file": "wed_arch.png",
+   "x": 304,
+   "y": 192,
+   "w": 231,
+   "h": 244,
+   "foot_y": 345,
+   "foot_x": 420,
+   "part": "LW-P01",
+   "inst": "LW-P01-01",
+   "ids": [
+    "wed_drape_w",
+    "wed_drape_e",
+    "wed_drape_top"
+   ]
+  },
+  {
+   "name": "wed_stage",
+   "file": "wed_stage.png",
+   "x": 323,
+   "y": 333,
+   "w": 194,
+   "h": 148,
+   "foot_y": 348,
+   "foot_x": 420,
+   "part": "LW-P01",
+   "inst": "LW-P01-01",
+   "ids": [
+    "wed_stage"
+   ]
+  },
+  {
+   "name": "wed_flowers",
+   "file": "wed_flowers.png",
+   "x": 300,
+   "y": 382,
+   "w": 236,
+   "h": 81,
+   "foot_y": 349,
+   "foot_x": 420,
+   "part": "LW-P01",
+   "inst": "LW-P01-01",
+   "ids": [
+    "wed_flowers",
+    "wed_leaves"
+   ]
+  },
+  {
+   "name": "hedge_1",
+   "file": "hedge_1.png",
+   "x": 360,
+   "y": 471,
+   "w": 34,
+   "h": 34,
+   "foot_y": 504,
+   "foot_x": 376,
+   "part": "LW-P04",
+   "inst": "LW-P04-01",
+   "ids": [
+    "hedge_1"
+   ]
+  },
+  {
+   "name": "hedge_2",
+   "file": "hedge_2.png",
+   "x": 447,
+   "y": 472,
+   "w": 35,
+   "h": 33,
+   "foot_y": 504,
+   "foot_x": 464,
+   "part": "LW-P04",
+   "inst": "LW-P04-02",
+   "ids": [
+    "hedge_2"
+   ]
+  },
+  {
+   "name": "hedge_3",
+   "file": "hedge_3.png",
+   "x": 362,
+   "y": 521,
+   "w": 30,
+   "h": 32,
+   "foot_y": 552,
+   "foot_x": 376,
+   "part": "LW-P04",
+   "inst": "LW-P04-03",
+   "ids": [
+    "hedge_3"
+   ]
+  },
+  {
+   "name": "hedge_4",
+   "file": "hedge_4.png",
+   "x": 447,
+   "y": 521,
+   "w": 32,
+   "h": 32,
+   "foot_y": 552,
+   "foot_x": 464,
+   "part": "LW-P04",
+   "inst": "LW-P04-04",
+   "ids": [
+    "hedge_4"
+   ]
+  },
+  {
+   "name": "hedge_5",
+   "file": "hedge_5.png",
+   "x": 361,
+   "y": 567,
+   "w": 29,
+   "h": 34,
+   "foot_y": 600,
+   "foot_x": 376,
+   "part": "LW-P04",
+   "inst": "LW-P04-05",
+   "ids": [
+    "hedge_5"
+   ]
+  },
+  {
+   "name": "hedge_6",
+   "file": "hedge_6.png",
+   "x": 450,
+   "y": 569,
+   "w": 30,
+   "h": 32,
+   "foot_y": 600,
+   "foot_x": 464,
+   "part": "LW-P04",
+   "inst": "LW-P04-06",
+   "ids": [
+    "hedge_6"
+   ]
+  },
+  {
+   "name": "hedge_7",
+   "file": "hedge_7.png",
+   "x": 358,
+   "y": 618,
+   "w": 32,
+   "h": 31,
+   "foot_y": 648,
+   "foot_x": 376,
+   "part": "LW-P04",
+   "inst": "LW-P04-07",
+   "ids": [
+    "hedge_7"
+   ]
+  },
+  {
+   "name": "hedge_8",
+   "file": "hedge_8.png",
+   "x": 446,
+   "y": 614,
+   "w": 35,
+   "h": 35,
+   "foot_y": 648,
+   "foot_x": 464,
+   "part": "LW-P04",
+   "inst": "LW-P04-08",
+   "ids": [
+    "hedge_8"
+   ]
+  },
+  {
+   "name": "hedge_9",
+   "file": "hedge_9.png",
+   "x": 358,
+   "y": 664,
+   "w": 34,
+   "h": 33,
+   "foot_y": 696,
+   "foot_x": 376,
+   "part": "LW-P04",
+   "inst": "LW-P04-09",
+   "ids": [
+    "hedge_9"
+   ]
+  },
+  {
+   "name": "hedge_10",
+   "file": "hedge_10.png",
+   "x": 448,
+   "y": 665,
+   "w": 30,
+   "h": 32,
+   "foot_y": 696,
+   "foot_x": 464,
+   "part": "LW-P04",
+   "inst": "LW-P04-10",
+   "ids": [
+    "hedge_10"
+   ]
+  },
+  {
+   "name": "chair_0_L1",
+   "file": "chair_0_L1.png",
+   "x": 348,
+   "y": 459,
+   "w": 27,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 360,
+   "part": "LW-P03",
+   "inst": "LW-P03-01",
+   "ids": [
+    "chair_0_L1"
+   ]
+  },
+  {
+   "name": "back_chair_0_L1",
+   "file": "back_chair_0_L1.png",
+   "x": 348,
+   "y": 459,
+   "w": 27,
+   "h": 30,
+   "foot_y": 510,
+   "foot_x": 360,
+   "only_when_seated": true,
+   "of": "chair_0_L1"
+  },
+  {
+   "name": "chair_0_L2",
+   "file": "chair_0_L2.png",
+   "x": 318,
+   "y": 459,
+   "w": 24,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 330,
+   "part": "LW-P03",
+   "inst": "LW-P03-02",
+   "ids": [
+    "chair_0_L2"
+   ]
+  },
+  {
+   "name": "back_chair_0_L2",
+   "file": "back_chair_0_L2.png",
+   "x": 318,
+   "y": 459,
+   "w": 24,
+   "h": 28,
+   "foot_y": 510,
+   "foot_x": 330,
+   "only_when_seated": true,
+   "of": "chair_0_L2"
+  },
+  {
+   "name": "chair_0_L3",
+   "file": "chair_0_L3.png",
+   "x": 288,
+   "y": 459,
+   "w": 24,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 300,
+   "part": "LW-P03",
+   "inst": "LW-P03-03",
+   "ids": [
+    "chair_0_L3"
+   ]
+  },
+  {
+   "name": "back_chair_0_L3",
+   "file": "back_chair_0_L3.png",
+   "x": 288,
+   "y": 459,
+   "w": 24,
+   "h": 28,
+   "foot_y": 510,
+   "foot_x": 300,
+   "only_when_seated": true,
+   "of": "chair_0_L3"
+  },
+  {
+   "name": "chair_0_L4",
+   "file": "chair_0_L4.png",
+   "x": 258,
+   "y": 459,
+   "w": 24,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 270,
+   "part": "LW-P03",
+   "inst": "LW-P03-04",
+   "ids": [
+    "chair_0_L4"
+   ]
+  },
+  {
+   "name": "back_chair_0_L4",
+   "file": "back_chair_0_L4.png",
+   "x": 258,
+   "y": 459,
+   "w": 24,
+   "h": 28,
+   "foot_y": 510,
+   "foot_x": 270,
+   "only_when_seated": true,
+   "of": "chair_0_L4"
+  },
+  {
+   "name": "chair_0_R1",
+   "file": "chair_0_R1.png",
+   "x": 465,
+   "y": 459,
+   "w": 27,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 480,
+   "part": "LW-P03",
+   "inst": "LW-P03-05",
+   "ids": [
+    "chair_0_R1"
+   ]
+  },
+  {
+   "name": "back_chair_0_R1",
+   "file": "back_chair_0_R1.png",
+   "x": 465,
+   "y": 459,
+   "w": 27,
+   "h": 30,
+   "foot_y": 510,
+   "foot_x": 480,
+   "only_when_seated": true,
+   "of": "chair_0_R1"
+  },
+  {
+   "name": "chair_0_R2",
+   "file": "chair_0_R2.png",
+   "x": 498,
+   "y": 459,
+   "w": 24,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 510,
+   "part": "LW-P03",
+   "inst": "LW-P03-06",
+   "ids": [
+    "chair_0_R2"
+   ]
+  },
+  {
+   "name": "back_chair_0_R2",
+   "file": "back_chair_0_R2.png",
+   "x": 498,
+   "y": 459,
+   "w": 24,
+   "h": 28,
+   "foot_y": 510,
+   "foot_x": 510,
+   "only_when_seated": true,
+   "of": "chair_0_R2"
+  },
+  {
+   "name": "chair_0_R3",
+   "file": "chair_0_R3.png",
+   "x": 528,
+   "y": 459,
+   "w": 24,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 540,
+   "part": "LW-P03",
+   "inst": "LW-P03-07",
+   "ids": [
+    "chair_0_R3"
+   ]
+  },
+  {
+   "name": "back_chair_0_R3",
+   "file": "back_chair_0_R3.png",
+   "x": 528,
+   "y": 459,
+   "w": 24,
+   "h": 28,
+   "foot_y": 510,
+   "foot_x": 540,
+   "only_when_seated": true,
+   "of": "chair_0_R3"
+  },
+  {
+   "name": "chair_0_R4",
+   "file": "chair_0_R4.png",
+   "x": 558,
+   "y": 459,
+   "w": 24,
+   "h": 47,
+   "foot_y": 506,
+   "foot_x": 570,
+   "part": "LW-P03",
+   "inst": "LW-P03-08",
+   "ids": [
+    "chair_0_R4"
+   ]
+  },
+  {
+   "name": "back_chair_0_R4",
+   "file": "back_chair_0_R4.png",
+   "x": 558,
+   "y": 459,
+   "w": 24,
+   "h": 28,
+   "foot_y": 510,
+   "foot_x": 570,
+   "only_when_seated": true,
+   "of": "chair_0_R4"
+  },
+  {
+   "name": "chair_1_L1",
+   "file": "chair_1_L1.png",
+   "x": 348,
+   "y": 497,
+   "w": 27,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 360,
+   "part": "LW-P03",
+   "inst": "LW-P03-09",
+   "ids": [
+    "chair_1_L1"
+   ]
+  },
+  {
+   "name": "back_chair_1_L1",
+   "file": "back_chair_1_L1.png",
+   "x": 348,
+   "y": 497,
+   "w": 27,
+   "h": 30,
+   "foot_y": 548,
+   "foot_x": 360,
+   "only_when_seated": true,
+   "of": "chair_1_L1"
+  },
+  {
+   "name": "chair_1_L2",
+   "file": "chair_1_L2.png",
+   "x": 318,
+   "y": 497,
+   "w": 24,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 330,
+   "part": "LW-P03",
+   "inst": "LW-P03-10",
+   "ids": [
+    "chair_1_L2"
+   ]
+  },
+  {
+   "name": "back_chair_1_L2",
+   "file": "back_chair_1_L2.png",
+   "x": 318,
+   "y": 497,
+   "w": 24,
+   "h": 28,
+   "foot_y": 548,
+   "foot_x": 330,
+   "only_when_seated": true,
+   "of": "chair_1_L2"
+  },
+  {
+   "name": "chair_1_L3",
+   "file": "chair_1_L3.png",
+   "x": 288,
+   "y": 497,
+   "w": 24,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 300,
+   "part": "LW-P03",
+   "inst": "LW-P03-11",
+   "ids": [
+    "chair_1_L3"
+   ]
+  },
+  {
+   "name": "back_chair_1_L3",
+   "file": "back_chair_1_L3.png",
+   "x": 288,
+   "y": 497,
+   "w": 24,
+   "h": 28,
+   "foot_y": 548,
+   "foot_x": 300,
+   "only_when_seated": true,
+   "of": "chair_1_L3"
+  },
+  {
+   "name": "chair_1_L4",
+   "file": "chair_1_L4.png",
+   "x": 258,
+   "y": 497,
+   "w": 24,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 270,
+   "part": "LW-P03",
+   "inst": "LW-P03-12",
+   "ids": [
+    "chair_1_L4"
+   ]
+  },
+  {
+   "name": "back_chair_1_L4",
+   "file": "back_chair_1_L4.png",
+   "x": 258,
+   "y": 497,
+   "w": 24,
+   "h": 28,
+   "foot_y": 548,
+   "foot_x": 270,
+   "only_when_seated": true,
+   "of": "chair_1_L4"
+  },
+  {
+   "name": "chair_1_R1",
+   "file": "chair_1_R1.png",
+   "x": 465,
+   "y": 497,
+   "w": 27,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 480,
+   "part": "LW-P03",
+   "inst": "LW-P03-13",
+   "ids": [
+    "chair_1_R1"
+   ]
+  },
+  {
+   "name": "back_chair_1_R1",
+   "file": "back_chair_1_R1.png",
+   "x": 465,
+   "y": 497,
+   "w": 27,
+   "h": 30,
+   "foot_y": 548,
+   "foot_x": 480,
+   "only_when_seated": true,
+   "of": "chair_1_R1"
+  },
+  {
+   "name": "chair_1_R2",
+   "file": "chair_1_R2.png",
+   "x": 498,
+   "y": 497,
+   "w": 24,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 510,
+   "part": "LW-P03",
+   "inst": "LW-P03-14",
+   "ids": [
+    "chair_1_R2"
+   ]
+  },
+  {
+   "name": "back_chair_1_R2",
+   "file": "back_chair_1_R2.png",
+   "x": 498,
+   "y": 497,
+   "w": 24,
+   "h": 28,
+   "foot_y": 548,
+   "foot_x": 510,
+   "only_when_seated": true,
+   "of": "chair_1_R2"
+  },
+  {
+   "name": "chair_1_R3",
+   "file": "chair_1_R3.png",
+   "x": 528,
+   "y": 497,
+   "w": 24,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 540,
+   "part": "LW-P03",
+   "inst": "LW-P03-15",
+   "ids": [
+    "chair_1_R3"
+   ]
+  },
+  {
+   "name": "back_chair_1_R3",
+   "file": "back_chair_1_R3.png",
+   "x": 528,
+   "y": 497,
+   "w": 24,
+   "h": 28,
+   "foot_y": 548,
+   "foot_x": 540,
+   "only_when_seated": true,
+   "of": "chair_1_R3"
+  },
+  {
+   "name": "chair_1_R4",
+   "file": "chair_1_R4.png",
+   "x": 558,
+   "y": 497,
+   "w": 24,
+   "h": 47,
+   "foot_y": 544,
+   "foot_x": 570,
+   "part": "LW-P03",
+   "inst": "LW-P03-16",
+   "ids": [
+    "chair_1_R4"
+   ]
+  },
+  {
+   "name": "back_chair_1_R4",
+   "file": "back_chair_1_R4.png",
+   "x": 558,
+   "y": 497,
+   "w": 24,
+   "h": 28,
+   "foot_y": 548,
+   "foot_x": 570,
+   "only_when_seated": true,
+   "of": "chair_1_R4"
+  },
+  {
+   "name": "chair_2_L1",
+   "file": "chair_2_L1.png",
+   "x": 348,
+   "y": 535,
+   "w": 27,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 360,
+   "part": "LW-P03",
+   "inst": "LW-P03-17",
+   "ids": [
+    "chair_2_L1"
+   ]
+  },
+  {
+   "name": "back_chair_2_L1",
+   "file": "back_chair_2_L1.png",
+   "x": 348,
+   "y": 535,
+   "w": 27,
+   "h": 30,
+   "foot_y": 586,
+   "foot_x": 360,
+   "only_when_seated": true,
+   "of": "chair_2_L1"
+  },
+  {
+   "name": "chair_2_L2",
+   "file": "chair_2_L2.png",
+   "x": 318,
+   "y": 535,
+   "w": 24,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 330,
+   "part": "LW-P03",
+   "inst": "LW-P03-18",
+   "ids": [
+    "chair_2_L2"
+   ]
+  },
+  {
+   "name": "back_chair_2_L2",
+   "file": "back_chair_2_L2.png",
+   "x": 318,
+   "y": 535,
+   "w": 24,
+   "h": 28,
+   "foot_y": 586,
+   "foot_x": 330,
+   "only_when_seated": true,
+   "of": "chair_2_L2"
+  },
+  {
+   "name": "chair_2_L3",
+   "file": "chair_2_L3.png",
+   "x": 288,
+   "y": 535,
+   "w": 24,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 300,
+   "part": "LW-P03",
+   "inst": "LW-P03-19",
+   "ids": [
+    "chair_2_L3"
+   ]
+  },
+  {
+   "name": "back_chair_2_L3",
+   "file": "back_chair_2_L3.png",
+   "x": 288,
+   "y": 535,
+   "w": 24,
+   "h": 28,
+   "foot_y": 586,
+   "foot_x": 300,
+   "only_when_seated": true,
+   "of": "chair_2_L3"
+  },
+  {
+   "name": "chair_2_L4",
+   "file": "chair_2_L4.png",
+   "x": 258,
+   "y": 535,
+   "w": 24,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 270,
+   "part": "LW-P03",
+   "inst": "LW-P03-20",
+   "ids": [
+    "chair_2_L4"
+   ]
+  },
+  {
+   "name": "back_chair_2_L4",
+   "file": "back_chair_2_L4.png",
+   "x": 258,
+   "y": 535,
+   "w": 24,
+   "h": 28,
+   "foot_y": 586,
+   "foot_x": 270,
+   "only_when_seated": true,
+   "of": "chair_2_L4"
+  },
+  {
+   "name": "chair_2_R1",
+   "file": "chair_2_R1.png",
+   "x": 465,
+   "y": 535,
+   "w": 27,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 480,
+   "part": "LW-P03",
+   "inst": "LW-P03-21",
+   "ids": [
+    "chair_2_R1"
+   ]
+  },
+  {
+   "name": "back_chair_2_R1",
+   "file": "back_chair_2_R1.png",
+   "x": 465,
+   "y": 535,
+   "w": 27,
+   "h": 30,
+   "foot_y": 586,
+   "foot_x": 480,
+   "only_when_seated": true,
+   "of": "chair_2_R1"
+  },
+  {
+   "name": "chair_2_R2",
+   "file": "chair_2_R2.png",
+   "x": 498,
+   "y": 535,
+   "w": 24,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 510,
+   "part": "LW-P03",
+   "inst": "LW-P03-22",
+   "ids": [
+    "chair_2_R2"
+   ]
+  },
+  {
+   "name": "back_chair_2_R2",
+   "file": "back_chair_2_R2.png",
+   "x": 498,
+   "y": 535,
+   "w": 24,
+   "h": 28,
+   "foot_y": 586,
+   "foot_x": 510,
+   "only_when_seated": true,
+   "of": "chair_2_R2"
+  },
+  {
+   "name": "chair_2_R3",
+   "file": "chair_2_R3.png",
+   "x": 528,
+   "y": 535,
+   "w": 24,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 540,
+   "part": "LW-P03",
+   "inst": "LW-P03-23",
+   "ids": [
+    "chair_2_R3"
+   ]
+  },
+  {
+   "name": "back_chair_2_R3",
+   "file": "back_chair_2_R3.png",
+   "x": 528,
+   "y": 535,
+   "w": 24,
+   "h": 28,
+   "foot_y": 586,
+   "foot_x": 540,
+   "only_when_seated": true,
+   "of": "chair_2_R3"
+  },
+  {
+   "name": "chair_2_R4",
+   "file": "chair_2_R4.png",
+   "x": 558,
+   "y": 535,
+   "w": 24,
+   "h": 47,
+   "foot_y": 582,
+   "foot_x": 570,
+   "part": "LW-P03",
+   "inst": "LW-P03-24",
+   "ids": [
+    "chair_2_R4"
+   ]
+  },
+  {
+   "name": "back_chair_2_R4",
+   "file": "back_chair_2_R4.png",
+   "x": 558,
+   "y": 535,
+   "w": 24,
+   "h": 28,
+   "foot_y": 586,
+   "foot_x": 570,
+   "only_when_seated": true,
+   "of": "chair_2_R4"
+  },
+  {
+   "name": "chair_3_L1",
+   "file": "chair_3_L1.png",
+   "x": 348,
+   "y": 573,
+   "w": 27,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 360,
+   "part": "LW-P03",
+   "inst": "LW-P03-25",
+   "ids": [
+    "chair_3_L1"
+   ]
+  },
+  {
+   "name": "back_chair_3_L1",
+   "file": "back_chair_3_L1.png",
+   "x": 348,
+   "y": 573,
+   "w": 27,
+   "h": 30,
+   "foot_y": 624,
+   "foot_x": 360,
+   "only_when_seated": true,
+   "of": "chair_3_L1"
+  },
+  {
+   "name": "chair_3_L2",
+   "file": "chair_3_L2.png",
+   "x": 318,
+   "y": 573,
+   "w": 24,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 330,
+   "part": "LW-P03",
+   "inst": "LW-P03-26",
+   "ids": [
+    "chair_3_L2"
+   ]
+  },
+  {
+   "name": "back_chair_3_L2",
+   "file": "back_chair_3_L2.png",
+   "x": 318,
+   "y": 573,
+   "w": 24,
+   "h": 28,
+   "foot_y": 624,
+   "foot_x": 330,
+   "only_when_seated": true,
+   "of": "chair_3_L2"
+  },
+  {
+   "name": "chair_3_L3",
+   "file": "chair_3_L3.png",
+   "x": 288,
+   "y": 573,
+   "w": 24,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 300,
+   "part": "LW-P03",
+   "inst": "LW-P03-27",
+   "ids": [
+    "chair_3_L3"
+   ]
+  },
+  {
+   "name": "back_chair_3_L3",
+   "file": "back_chair_3_L3.png",
+   "x": 288,
+   "y": 573,
+   "w": 24,
+   "h": 28,
+   "foot_y": 624,
+   "foot_x": 300,
+   "only_when_seated": true,
+   "of": "chair_3_L3"
+  },
+  {
+   "name": "chair_3_L4",
+   "file": "chair_3_L4.png",
+   "x": 258,
+   "y": 573,
+   "w": 24,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 270,
+   "part": "LW-P03",
+   "inst": "LW-P03-28",
+   "ids": [
+    "chair_3_L4"
+   ]
+  },
+  {
+   "name": "back_chair_3_L4",
+   "file": "back_chair_3_L4.png",
+   "x": 258,
+   "y": 573,
+   "w": 24,
+   "h": 28,
+   "foot_y": 624,
+   "foot_x": 270,
+   "only_when_seated": true,
+   "of": "chair_3_L4"
+  },
+  {
+   "name": "chair_3_R1",
+   "file": "chair_3_R1.png",
+   "x": 465,
+   "y": 573,
+   "w": 27,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 480,
+   "part": "LW-P03",
+   "inst": "LW-P03-29",
+   "ids": [
+    "chair_3_R1"
+   ]
+  },
+  {
+   "name": "back_chair_3_R1",
+   "file": "back_chair_3_R1.png",
+   "x": 465,
+   "y": 573,
+   "w": 27,
+   "h": 30,
+   "foot_y": 624,
+   "foot_x": 480,
+   "only_when_seated": true,
+   "of": "chair_3_R1"
+  },
+  {
+   "name": "chair_3_R2",
+   "file": "chair_3_R2.png",
+   "x": 498,
+   "y": 573,
+   "w": 24,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 510,
+   "part": "LW-P03",
+   "inst": "LW-P03-30",
+   "ids": [
+    "chair_3_R2"
+   ]
+  },
+  {
+   "name": "back_chair_3_R2",
+   "file": "back_chair_3_R2.png",
+   "x": 498,
+   "y": 573,
+   "w": 24,
+   "h": 28,
+   "foot_y": 624,
+   "foot_x": 510,
+   "only_when_seated": true,
+   "of": "chair_3_R2"
+  },
+  {
+   "name": "chair_3_R3",
+   "file": "chair_3_R3.png",
+   "x": 528,
+   "y": 573,
+   "w": 24,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 540,
+   "part": "LW-P03",
+   "inst": "LW-P03-31",
+   "ids": [
+    "chair_3_R3"
+   ]
+  },
+  {
+   "name": "back_chair_3_R3",
+   "file": "back_chair_3_R3.png",
+   "x": 528,
+   "y": 573,
+   "w": 24,
+   "h": 28,
+   "foot_y": 624,
+   "foot_x": 540,
+   "only_when_seated": true,
+   "of": "chair_3_R3"
+  },
+  {
+   "name": "chair_3_R4",
+   "file": "chair_3_R4.png",
+   "x": 558,
+   "y": 573,
+   "w": 24,
+   "h": 47,
+   "foot_y": 620,
+   "foot_x": 570,
+   "part": "LW-P03",
+   "inst": "LW-P03-32",
+   "ids": [
+    "chair_3_R4"
+   ]
+  },
+  {
+   "name": "back_chair_3_R4",
+   "file": "back_chair_3_R4.png",
+   "x": 558,
+   "y": 573,
+   "w": 24,
+   "h": 28,
+   "foot_y": 624,
+   "foot_x": 570,
+   "only_when_seated": true,
+   "of": "chair_3_R4"
+  },
+  {
+   "name": "chair_4_L1",
+   "file": "chair_4_L1.png",
+   "x": 348,
+   "y": 611,
+   "w": 27,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 360,
+   "part": "LW-P03",
+   "inst": "LW-P03-33",
+   "ids": [
+    "chair_4_L1"
+   ]
+  },
+  {
+   "name": "back_chair_4_L1",
+   "file": "back_chair_4_L1.png",
+   "x": 348,
+   "y": 611,
+   "w": 27,
+   "h": 30,
+   "foot_y": 662,
+   "foot_x": 360,
+   "only_when_seated": true,
+   "of": "chair_4_L1"
+  },
+  {
+   "name": "chair_4_L2",
+   "file": "chair_4_L2.png",
+   "x": 318,
+   "y": 611,
+   "w": 24,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 330,
+   "part": "LW-P03",
+   "inst": "LW-P03-34",
+   "ids": [
+    "chair_4_L2"
+   ]
+  },
+  {
+   "name": "back_chair_4_L2",
+   "file": "back_chair_4_L2.png",
+   "x": 318,
+   "y": 611,
+   "w": 24,
+   "h": 28,
+   "foot_y": 662,
+   "foot_x": 330,
+   "only_when_seated": true,
+   "of": "chair_4_L2"
+  },
+  {
+   "name": "chair_4_L3",
+   "file": "chair_4_L3.png",
+   "x": 288,
+   "y": 611,
+   "w": 24,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 300,
+   "part": "LW-P03",
+   "inst": "LW-P03-35",
+   "ids": [
+    "chair_4_L3"
+   ]
+  },
+  {
+   "name": "back_chair_4_L3",
+   "file": "back_chair_4_L3.png",
+   "x": 288,
+   "y": 611,
+   "w": 24,
+   "h": 28,
+   "foot_y": 662,
+   "foot_x": 300,
+   "only_when_seated": true,
+   "of": "chair_4_L3"
+  },
+  {
+   "name": "chair_4_L4",
+   "file": "chair_4_L4.png",
+   "x": 258,
+   "y": 611,
+   "w": 24,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 270,
+   "part": "LW-P03",
+   "inst": "LW-P03-36",
+   "ids": [
+    "chair_4_L4"
+   ]
+  },
+  {
+   "name": "back_chair_4_L4",
+   "file": "back_chair_4_L4.png",
+   "x": 258,
+   "y": 611,
+   "w": 24,
+   "h": 28,
+   "foot_y": 662,
+   "foot_x": 270,
+   "only_when_seated": true,
+   "of": "chair_4_L4"
+  },
+  {
+   "name": "chair_4_R1",
+   "file": "chair_4_R1.png",
+   "x": 465,
+   "y": 611,
+   "w": 27,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 480,
+   "part": "LW-P03",
+   "inst": "LW-P03-37",
+   "ids": [
+    "chair_4_R1"
+   ]
+  },
+  {
+   "name": "back_chair_4_R1",
+   "file": "back_chair_4_R1.png",
+   "x": 465,
+   "y": 611,
+   "w": 27,
+   "h": 30,
+   "foot_y": 662,
+   "foot_x": 480,
+   "only_when_seated": true,
+   "of": "chair_4_R1"
+  },
+  {
+   "name": "chair_4_R2",
+   "file": "chair_4_R2.png",
+   "x": 498,
+   "y": 611,
+   "w": 24,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 510,
+   "part": "LW-P03",
+   "inst": "LW-P03-38",
+   "ids": [
+    "chair_4_R2"
+   ]
+  },
+  {
+   "name": "back_chair_4_R2",
+   "file": "back_chair_4_R2.png",
+   "x": 498,
+   "y": 611,
+   "w": 24,
+   "h": 28,
+   "foot_y": 662,
+   "foot_x": 510,
+   "only_when_seated": true,
+   "of": "chair_4_R2"
+  },
+  {
+   "name": "chair_4_R3",
+   "file": "chair_4_R3.png",
+   "x": 528,
+   "y": 611,
+   "w": 24,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 540,
+   "part": "LW-P03",
+   "inst": "LW-P03-39",
+   "ids": [
+    "chair_4_R3"
+   ]
+  },
+  {
+   "name": "back_chair_4_R3",
+   "file": "back_chair_4_R3.png",
+   "x": 528,
+   "y": 611,
+   "w": 24,
+   "h": 28,
+   "foot_y": 662,
+   "foot_x": 540,
+   "only_when_seated": true,
+   "of": "chair_4_R3"
+  },
+  {
+   "name": "chair_4_R4",
+   "file": "chair_4_R4.png",
+   "x": 558,
+   "y": 611,
+   "w": 24,
+   "h": 47,
+   "foot_y": 658,
+   "foot_x": 570,
+   "part": "LW-P03",
+   "inst": "LW-P03-40",
+   "ids": [
+    "chair_4_R4"
+   ]
+  },
+  {
+   "name": "back_chair_4_R4",
+   "file": "back_chair_4_R4.png",
+   "x": 558,
+   "y": 611,
+   "w": 24,
+   "h": 28,
+   "foot_y": 662,
+   "foot_x": 570,
+   "only_when_seated": true,
+   "of": "chair_4_R4"
+  },
+  {
+   "name": "chair_5_L1",
+   "file": "chair_5_L1.png",
+   "x": 348,
+   "y": 649,
+   "w": 27,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 360,
+   "part": "LW-P03",
+   "inst": "LW-P03-41",
+   "ids": [
+    "chair_5_L1"
+   ]
+  },
+  {
+   "name": "back_chair_5_L1",
+   "file": "back_chair_5_L1.png",
+   "x": 348,
+   "y": 649,
+   "w": 27,
+   "h": 30,
+   "foot_y": 700,
+   "foot_x": 360,
+   "only_when_seated": true,
+   "of": "chair_5_L1"
+  },
+  {
+   "name": "chair_5_L2",
+   "file": "chair_5_L2.png",
+   "x": 318,
+   "y": 649,
+   "w": 24,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 330,
+   "part": "LW-P03",
+   "inst": "LW-P03-42",
+   "ids": [
+    "chair_5_L2"
+   ]
+  },
+  {
+   "name": "back_chair_5_L2",
+   "file": "back_chair_5_L2.png",
+   "x": 318,
+   "y": 649,
+   "w": 24,
+   "h": 28,
+   "foot_y": 700,
+   "foot_x": 330,
+   "only_when_seated": true,
+   "of": "chair_5_L2"
+  },
+  {
+   "name": "chair_5_L3",
+   "file": "chair_5_L3.png",
+   "x": 288,
+   "y": 649,
+   "w": 24,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 300,
+   "part": "LW-P03",
+   "inst": "LW-P03-43",
+   "ids": [
+    "chair_5_L3"
+   ]
+  },
+  {
+   "name": "back_chair_5_L3",
+   "file": "back_chair_5_L3.png",
+   "x": 288,
+   "y": 649,
+   "w": 24,
+   "h": 28,
+   "foot_y": 700,
+   "foot_x": 300,
+   "only_when_seated": true,
+   "of": "chair_5_L3"
+  },
+  {
+   "name": "chair_5_L4",
+   "file": "chair_5_L4.png",
+   "x": 258,
+   "y": 649,
+   "w": 24,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 270,
+   "part": "LW-P03",
+   "inst": "LW-P03-44",
+   "ids": [
+    "chair_5_L4"
+   ]
+  },
+  {
+   "name": "back_chair_5_L4",
+   "file": "back_chair_5_L4.png",
+   "x": 258,
+   "y": 649,
+   "w": 24,
+   "h": 28,
+   "foot_y": 700,
+   "foot_x": 270,
+   "only_when_seated": true,
+   "of": "chair_5_L4"
+  },
+  {
+   "name": "chair_5_R1",
+   "file": "chair_5_R1.png",
+   "x": 465,
+   "y": 649,
+   "w": 27,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 480,
+   "part": "LW-P03",
+   "inst": "LW-P03-45",
+   "ids": [
+    "chair_5_R1"
+   ]
+  },
+  {
+   "name": "back_chair_5_R1",
+   "file": "back_chair_5_R1.png",
+   "x": 465,
+   "y": 649,
+   "w": 27,
+   "h": 30,
+   "foot_y": 700,
+   "foot_x": 480,
+   "only_when_seated": true,
+   "of": "chair_5_R1"
+  },
+  {
+   "name": "chair_5_R2",
+   "file": "chair_5_R2.png",
+   "x": 498,
+   "y": 649,
+   "w": 24,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 510,
+   "part": "LW-P03",
+   "inst": "LW-P03-46",
+   "ids": [
+    "chair_5_R2"
+   ]
+  },
+  {
+   "name": "back_chair_5_R2",
+   "file": "back_chair_5_R2.png",
+   "x": 498,
+   "y": 649,
+   "w": 24,
+   "h": 28,
+   "foot_y": 700,
+   "foot_x": 510,
+   "only_when_seated": true,
+   "of": "chair_5_R2"
+  },
+  {
+   "name": "chair_5_R3",
+   "file": "chair_5_R3.png",
+   "x": 528,
+   "y": 649,
+   "w": 24,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 540,
+   "part": "LW-P03",
+   "inst": "LW-P03-47",
+   "ids": [
+    "chair_5_R3"
+   ]
+  },
+  {
+   "name": "back_chair_5_R3",
+   "file": "back_chair_5_R3.png",
+   "x": 528,
+   "y": 649,
+   "w": 24,
+   "h": 28,
+   "foot_y": 700,
+   "foot_x": 540,
+   "only_when_seated": true,
+   "of": "chair_5_R3"
+  },
+  {
+   "name": "chair_5_R4",
+   "file": "chair_5_R4.png",
+   "x": 558,
+   "y": 649,
+   "w": 24,
+   "h": 47,
+   "foot_y": 696,
+   "foot_x": 570,
+   "part": "LW-P03",
+   "inst": "LW-P03-48",
+   "ids": [
+    "chair_5_R4"
+   ]
+  },
+  {
+   "name": "back_chair_5_R4",
+   "file": "back_chair_5_R4.png",
+   "x": 558,
+   "y": 649,
+   "w": 24,
+   "h": 28,
+   "foot_y": 700,
+   "foot_x": 570,
+   "only_when_seated": true,
+   "of": "chair_5_R4"
+  },
+  {
+   "name": "dessert_table",
+   "file": "dessert_table.png",
+   "x": 602,
+   "y": 392,
+   "w": 94,
+   "h": 79,
+   "foot_y": 470,
+   "foot_x": 649,
+   "part": "LW-T01",
+   "inst": "LW-T01-01",
+   "ids": [
+    "dessert_table"
+   ]
+  },
+  {
+   "name": "swing",
+   "file": "swing.png",
+   "x": 1196,
+   "y": 261,
+   "w": 109,
+   "h": 122,
+   "foot_y": 382,
+   "foot_x": 1250,
+   "part": "LW-P05",
+   "inst": "LW-P05-01",
+   "ids": [
+    "swing_post_w",
+    "swing_post_e",
+    "swing_bar",
+    "swing_rope_w",
+    "swing_rope_e",
+    "swing_seat"
+   ]
+  },
+  {
+   "name": "slide",
+   "file": "slide.png",
+   "x": 1371,
+   "y": 396,
+   "w": 106,
+   "h": 98,
+   "foot_y": 494,
+   "foot_x": 1420,
+   "part": "LW-P06",
+   "inst": "LW-P06-01",
+   "ids": [
+    "slide_tower",
+    "slide_chute"
+   ]
+  },
+  {
+   "name": "tree_0",
+   "file": "tree_0.png",
+   "x": 16,
+   "y": 0,
+   "w": 126,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 80,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_0"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_1",
+   "file": "tree_1.png",
+   "x": 136,
+   "y": 0,
+   "w": 123,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 200,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_1"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_2",
+   "file": "tree_2.png",
+   "x": 253,
+   "y": 0,
+   "w": 129,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 320,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_2"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_3",
+   "file": "tree_3.png",
+   "x": 377,
+   "y": 0,
+   "w": 127,
+   "h": 171,
+   "foot_y": 168,
+   "foot_x": 440,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_3"
+   ],
+   "species": "紫薇"
+  },
+  {
+   "name": "tree_4",
+   "file": "tree_4.png",
+   "x": 495,
+   "y": 0,
+   "w": 127,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 560,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_4"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_5",
+   "file": "tree_5.png",
+   "x": 598,
+   "y": 0,
+   "w": 122,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 660,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_5"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_6",
+   "file": "tree_6.png",
+   "x": 835,
+   "y": 0,
+   "w": 121,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 900,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_6"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_7",
+   "file": "tree_7.png",
+   "x": 957,
+   "y": 0,
+   "w": 129,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 1020,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_7"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_8",
+   "file": "tree_8.png",
+   "x": 1071,
+   "y": 0,
+   "w": 132,
+   "h": 171,
+   "foot_y": 168,
+   "foot_x": 1140,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_8"
+   ],
+   "species": "紫薇"
+  },
+  {
+   "name": "tree_9",
+   "file": "tree_9.png",
+   "x": 1198,
+   "y": 0,
+   "w": 131,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 1260,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_9"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_10",
+   "file": "tree_10.png",
+   "x": 1322,
+   "y": 0,
+   "w": 122,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 1380,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_10"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_11",
+   "file": "tree_11.png",
+   "x": 1415,
+   "y": 0,
+   "w": 121,
+   "h": 172,
+   "foot_y": 168,
+   "foot_x": 1480,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_11"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_22",
+   "file": "tree_22.png",
+   "x": 0,
+   "y": 0,
+   "w": 107,
+   "h": 174,
+   "foot_y": 170,
+   "foot_x": 44,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_22"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_27",
+   "file": "tree_27.png",
+   "x": 1431,
+   "y": 0,
+   "w": 105,
+   "h": 184,
+   "foot_y": 180,
+   "foot_x": 1490,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_27"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_13",
+   "file": "tree_13.png",
+   "x": 155,
+   "y": 843,
+   "w": 125,
+   "h": 181,
+   "foot_y": 1090,
+   "foot_x": 220,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_13"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_14",
+   "file": "tree_14.png",
+   "x": 305,
+   "y": 844,
+   "w": 124,
+   "h": 180,
+   "foot_y": 1090,
+   "foot_x": 360,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_14"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_15",
+   "file": "tree_15.png",
+   "x": 432,
+   "y": 835,
+   "w": 128,
+   "h": 189,
+   "foot_y": 1090,
+   "foot_x": 500,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_15"
+   ],
+   "species": "紫薇"
+  },
+  {
+   "name": "tree_16",
+   "file": "tree_16.png",
+   "x": 575,
+   "y": 835,
+   "w": 127,
+   "h": 189,
+   "foot_y": 1090,
+   "foot_x": 640,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_16"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_17",
+   "file": "tree_17.png",
+   "x": 837,
+   "y": 845,
+   "w": 124,
+   "h": 179,
+   "foot_y": 1090,
+   "foot_x": 900,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_17"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_18",
+   "file": "tree_18.png",
+   "x": 970,
+   "y": 846,
+   "w": 132,
+   "h": 178,
+   "foot_y": 1090,
+   "foot_x": 1040,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_18"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_19",
+   "file": "tree_19.png",
+   "x": 1119,
+   "y": 841,
+   "w": 124,
+   "h": 183,
+   "foot_y": 1090,
+   "foot_x": 1180,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_19"
+   ],
+   "species": "紫薇"
+  },
+  {
+   "name": "tree_20",
+   "file": "tree_20.png",
+   "x": 1254,
+   "y": 837,
+   "w": 129,
+   "h": 187,
+   "foot_y": 1090,
+   "foot_x": 1320,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_20"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_21",
+   "file": "tree_21.png",
+   "x": 1397,
+   "y": 845,
+   "w": 123,
+   "h": 179,
+   "foot_y": 1090,
+   "foot_x": 1460,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_21"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_24",
+   "file": "tree_24.png",
+   "x": 0,
+   "y": 309,
+   "w": 109,
+   "h": 255,
+   "foot_y": 560,
+   "foot_x": 44,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_24"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_25",
+   "file": "tree_25.png",
+   "x": 0,
+   "y": 427,
+   "w": 105,
+   "h": 257,
+   "foot_y": 680,
+   "foot_x": 44,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_25"
+   ],
+   "species": "桂花"
+  },
+  {
+   "name": "tree_28",
+   "file": "tree_28.png",
+   "x": 1424,
+   "y": 456,
+   "w": 112,
+   "h": 248,
+   "foot_y": 700,
+   "foot_x": 1490,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_28"
+   ],
+   "species": "香樟"
+  },
+  {
+   "name": "tree_29",
+   "file": "tree_29.png",
+   "x": 1426,
+   "y": 567,
+   "w": 110,
+   "h": 256,
+   "foot_y": 820,
+   "foot_x": 1490,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_29"
+   ],
+   "species": "紫薇"
+  },
+  {
+   "name": "tree_30",
+   "file": "tree_30.png",
+   "x": 1424,
+   "y": 681,
+   "w": 112,
+   "h": 253,
+   "foot_y": 930,
+   "foot_x": 1490,
+   "part": null,
+   "inst": null,
+   "ids": [
+    "tree_30"
+   ],
+   "species": "桂花"
+  }
+ ]
+}
