@@ -294,8 +294,9 @@ func _item(it: Dictionary) -> void:
                 holder.add_child(_poly(_ellipse_pts(float(e[0]), float(e[1]), float(e[2]), float(e[3]), 14), Color(str(it.get("color", "#ffffff66"))), foot))
     holder.position = Vector2(0.0, foot)
     holder.name = str(it.get("id", kind))
-    if base_on and not bool(it.get("keep_on_base", false)):
+    if (base_on and not bool(it.get("keep_on_base", false))) or bool(it.get("on_art", false)):
         holder.free()   # 有底图：这件东西画在图里了，只留上面算好的挡人占地。布局里标了 keep_on_base 的（后厅大锅冒的气）照旧画
+                        # on_art：只有半块画布铺了像素成品（10/4 湖边东半边），画在图层里的那几件也只留占地
     else:
         world.add_child(holder)
     if it.has("label"):

@@ -36,7 +36,7 @@ const Lake = preload("res://scripts/lake.gd")
 const LakeUI = preload("res://scripts/lake_ui.gd")
 ## 蓝图 1 写迎宾院 → 湖边站 (1490, 700)，离湖边东口 (1500, 700, 50) 只有 10 像素；照 01 的规矩往里挪到离出口 60 像素。
 ## 9/20 湖边加高到 1280、玩法区整体 +256（01 派任务 11），所以这里也 +256
-const LAKE_FROM_COURT := Vector2(2304, 1140)   # 10/3 长湖岸：从迎宾院西小径过来，进东头月亮门站在门里边（布局 spawn）
+const LAKE_FROM_COURT := Vector2(2304, 999)    # 从迎宾院西小径过来，进东头月亮门站在门里边（布局 spawn；10/4 东头换像素成品，南墙挪到 y 1040）
 const COURT_FROM_LAKE := Vector2(100, 520)       # 蓝图 1：湖边东口 → 迎宾院 (100, 520)，离西小径 60 像素
 ## 果园（蓝图 3.6，灰盒，01 9/20 派任务 10）：草坪北口通这里，果园南口回草坪
 const Orchard = preload("res://scripts/orchard.gd")
@@ -3927,9 +3927,10 @@ func _setup_shot(shot: String) -> void:
                     parking.gate_hint = false   # 这张只看去湖边那道门，指大门的箭头不出
             for i in 30:
                 await get_tree().process_frame
-        "lake", "lake_overview", "lake_pavilion", "lake_bench", "lake_walk", "lake_west":
+        "lake", "lake_overview", "lake_pavilion", "lake_bench", "lake_walk", "lake_west", "lake_seam":
             # 湖边灰盒（蓝图 3.5，01 9/20 派任务 9；10/3 长湖岸）：lake 是从迎宾院西小径刚过来（东头月亮门进门第一屏）；pavilion 是站进湖心亭（自动出那句）；
-            # bench 是坐在长凳上（按钮变「起来」）；walk 是站在曲桥上；west 是走到西头湖尽头（半岛小亭、游船码头）；overview 整张
+            # bench 是坐在长凳上（按钮变「起来」）；walk 是站在曲桥上；west 是走到西头湖尽头（半岛小亭、游船码头）；overview 整张；
+            # seam 是往西小路走到东头像素画接西头色块那一下（10/4 东半边换像素成品）
             nickname = "阿花"
             await _enter_court()
             dialog.visible = false
@@ -3940,10 +3941,11 @@ func _setup_shot(shot: String) -> void:
                     break
             note_box.visible = false
             _clear_toast_back()
-            var lat := {"lake_pavilion": lake.spot_pos("pavilion"), "lake_bench": lake.spot_pos("bench"), "lake_walk": Vector2(2304, 700),
-                "lake_west": Vector2(600, 900)}
+            var lat := {"lake_pavilion": lake.spot_pos("pavilion"), "lake_bench": lake.spot_pos("bench"), "lake_walk": Vector2(2400, 712),
+                "lake_west": Vector2(600, 900), "lake_seam": Vector2(1560, 838)}
             if lat.has(shot):
-                lake.reset_to(lat[shot] + (Vector2(0, 80) if shot != "lake_bench" else Vector2(0, 0)))
+                var from: Vector2 = {"lake_walk": Vector2(2304, 780), "lake_seam": Vector2(1660, 838)}.get(shot, lat[shot] + Vector2(0, 80))
+                lake.reset_to(from if shot != "lake_bench" else lat[shot])
                 lake.face = "up"
                 if shot != "lake_bench":
                     lake.go_to(lat[shot])

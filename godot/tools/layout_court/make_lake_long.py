@@ -13,7 +13,10 @@
     半岛东边是游船小码头（船夫 1、两条小船、两条天鹅船）；码头东边两处钓鱼的；西南角那道月亮门出去，几步进停车场。
 零件形状照 lake_parts.json（第一版湖边灰盒的零件，原样不改大小），这里只把每组搬到新位置；新加的（墙、月亮门、曲桥、半岛、栏杆、
   石灯笼、太湖石、花丛、大树、小亭子）在这里写。比例照 ASSETS §15：左右和高 1 米 = 48 像素，地面前后 1 米 = 32 像素，人 84。
-用法：python3 godot/tools/layout_court/make_lake_long.py
+10/4 东半边换成代码画的像素成品（01 F 派，阿鱼要先试玩）：东半边（x ≥ 1536）的灰盒全删，换成 lake_east.json
+  （tools/pixel_art/lake_east.py 出，每件标了 on_art：游戏只算挡人占地、不画灰盒，图在 assets/pixel_art/lake_east/）；
+  灰盒那条整条的 walk 在 x 1536 切开；西半边南墙挪到 y 1040 跟东头对齐（01 F 定），墙里的柳树、花丛跟着挪进来。西半边照旧色块。
+用法：先 python3 godot/tools/pixel_art/lake_east.py（东半边有改动才要），再 python3 godot/tools/layout_court/make_lake_long.py
 """
 import copy
 import json
@@ -23,11 +26,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 OUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_lake", "layout.json")
 PARTS = json.load(open(os.path.join(HERE, "lake_parts.json"), encoding="utf-8"))
+EAST = json.load(open(os.path.join(HERE, "lake_east.json"), encoding="utf-8"))   # 东半边像素成品的摆法（lake_east.py 出）
+CUT = 1536                   # 这条往东是像素成品
 
 W, H = 3072, 1280
 SHORE = 784                  # 湖岸线（栏杆在这）
 PATH_Y = (792, 850)          # 湖岸石板小路
-WALL_Y = (1190, 1204)        # 南墙
+WALL_Y = (1028, 1040)        # 南墙（10/4 从 1190～1204 挪上来，跟东头像素成品的墙脚 1040 对齐）
 GATE_E = (2272, 2336)        # 东头月亮门（迎宾院那边进来）
 GATE_W = (708, 772)          # 西头月亮门（出去是停车场）
 EX = 2304                    # 东头中轴（图 2 正中那条路）
@@ -102,10 +107,10 @@ def main():
         {"type": "rect", "rect": [GATE_E[0], PATH_Y[1], GATE_E[1], WALL_Y[1] + 40], "color": "#c9c2b0"},   # 东头月亮门往北的石板路
         {"type": "rect", "rect": [GATE_W[0], PATH_Y[1], GATE_W[1], WALL_Y[1] + 40], "color": "#c9c2b0"},   # 西头往月亮门的石板路
     ]
-    # ================= 南墙、两道月亮门（白墙灰瓦，墙高 1.5 米；门洞 1.3 米宽、上面一道圆拱门头）
-    wall = dict(top="#5a5f68", front="#f2efe6", scale={"h_m": 1.5, "name": "白墙灰瓦"}, part="LK-W01")
-    items.append(box("wall_s_1", [0, WALL_Y[0], GATE_W[0], WALL_Y[1]], 72, **wall, inst="LK-W01-01"))
-    items.append(box("wall_s_2", [GATE_W[1], WALL_Y[0], GATE_E[0], WALL_Y[1]], 72, **dict(wall, scale=None), inst="LK-W01-02"))
+    # ================= 南墙、两道月亮门（白墙灰瓦，墙高 2.1 米，10/4 跟东头像素成品一样高；门洞 1.3 米宽、上面一道圆拱门头）
+    wall = dict(top="#5a5f68", front="#f2efe6", scale={"h_m": 2.1, "name": "白墙灰瓦（西半边灰盒）"}, part="LK-W01")
+    items.append(box("wall_s_1", [0, WALL_Y[0], GATE_W[0], WALL_Y[1]], 100, **wall, inst="LK-W01-01"))
+    items.append(box("wall_s_2", [GATE_W[1], WALL_Y[0], GATE_E[0], WALL_Y[1]], 100, **dict(wall, scale=None), inst="LK-W01-02"))
     items.append(box("wall_s_3", [GATE_E[1], WALL_Y[0], W, WALL_Y[1]], 72, **dict(wall, scale=None), inst="LK-W01-03"))
     for it in items:
         if it.get("scale") is None:
@@ -160,7 +165,7 @@ def main():
     items.append(box("rock_1", [EX + 180, 1010, EX + 220, 1024], 64, **rock, inst="LK-P05-02"))
     items.append(box("rock_2", [500, 900, 540, 914], 60, **rock, inst="LK-P05-03"))
     flower = dict(top="#e9a6c0", front="#7fa85c", part="LK-P06")
-    for k, (cx, cy) in enumerate([(EX - 130, 960), (EX + 120, 950), (EX - 110, 1100), (EX + 140, 1110), (300, 1060), (1100, 1080)]):
+    for k, (cx, cy) in enumerate([(EX - 130, 960), (EX + 120, 950), (EX - 110, 1100), (EX + 140, 1110), (300, 990), (1150, 1000)]):   # 后两丛 10/4 跟着南墙挪进墙里
         items.append({"type": "cyl", "id": "flowers_%d" % k, "x": cx, "y": cy, "rx": 30, "ry": 12, "h": 30, "top": flower["top"],
                       "front": flower["front"], "part": "LK-P06", "inst": "LK-P06-%02d" % (k + 1),
                       **({"scale": {"w_m": 1.25, "h_m": 0.6, "name": "花丛"}} if k == 0 else {})})
@@ -170,7 +175,7 @@ def main():
                       "scale": {"h": "tree_h"}})
     # 柳树：照第一版的柳树，东头两边、西头半岛和湖岸、南墙边
     willow_at = {"willow_0": (EX - 600, 960), "willow_1": (EX + 620, 960), "willow_2": (330, 900),
-                 "willow_3": (1250, 960), "willow_4": (1050, 1170), "willow_5": (2650, 1170)}
+                 "willow_3": (1250, 960), "willow_4": (1050, 1000), "willow_5": (2650, 1170)}   # willow_4 10/4 南墙挪上来，跟着挪进墙里
     for wid, (tx, ty) in willow_at.items():
         w = copy.deepcopy(IT[wid])
         w["x"], w["y"] = tx, ty
@@ -208,8 +213,31 @@ def main():
     # ================= 出口牌（只有出口牌显示，木牌）
     flat += [{"type": "label", "text": "回迎宾院", "x": EX, "y": WALL_Y[1] + 52},
              {"type": "label", "text": "去停车场", "x": (GATE_W[0] + GATE_W[1]) // 2, "y": WALL_Y[1] + 52}]
-    # 长凳挪了：lake.gd 照 layout 的 bench_seat / bench_stand 坐、起
-    bench_x = (364 + 436) // 2 + 1436
+    # ================= 10/4 东半边换成像素成品：灰盒东半边全删（横跨两半的墙、栏杆切到 CUT），拼上 lake_east.json
+    def cx(it):
+        if "rect" in it:
+            return (it["rect"][0] + it["rect"][2]) / 2
+        if "x0" in it:
+            return (it["x0"] + it["x1"]) / 2
+        if "pts" in it:
+            return sum(q[0] for q in it["pts"]) / len(it["pts"])
+        return it.get("x", 0)
+    west = []
+    for it in items:
+        if "rect" in it and it["rect"][0] < CUT < it["rect"][2]:
+            it["rect"][2] = CUT
+        elif "x0" in it and it["x0"] < CUT < it["x1"] and it["id"].startswith("rail_"):
+            it["x1"] = CUT
+        if cx(it) < CUT:
+            west.append(it)
+    taken = {it["id"] for it in west}
+    east = copy.deepcopy(EAST["items"])
+    for it in east:                       # 两边各自起的名撞了（柳树、石头、荷花）：东半边的加 _e
+        if it["id"] in taken:
+            it["id"] += "_e"
+    items = west + east
+    npcs = [n for n in npcs if n["x"] < CUT] + EAST["npcs"]
+    flat = [f for f in flat if not (f["type"] == "label" and f["x"] >= CUT)] + EAST["flat"]
     d = {
         "scene": "scene_luoman_lake",
         "title": "湖边",
@@ -217,32 +245,29 @@ def main():
                 "tools/layout_court/make_lake_long.py 生成，别手改；零件形状照 tools/layout_court/lake_parts.json（第一版湖边灰盒），改数重跑，再跑 gen_specs_court.py --scene lake。"
                 "一块画布拉宽成 3072×1280，一条湖岸从东走到西、中间不切画布。湖、对岸不能走；湖岸石板小路连着东西两头；南墙两道月亮门："
                 "东头那道（to_entrance）回迎宾院，西头那道（to_parking）出去是停车场。spawn 是从迎宾院过来站的地方（东头月亮门里边），from_parking 是从停车场过来站的地方。"
-                "第一版的玩法东西都留着：亭子（乐手四位、pavilion 那句）搬到东头湖心，曲桥连着；游船码头（船夫 1、两条小船、两条天鹅船）在西头半岛东边；"
-                "船夫 2 坐在东头湖心亭东边的小船上；两处钓鱼的在码头东边湖岸；能坐的长凳在湖岸小路南边朝湖。全部代码画的占位，阿鱼挑过摆法再出底图分区",
+                "第一版的玩法东西都留着：游船码头（船夫 1、两条小船、两条天鹅船）在西头半岛东边；两处钓鱼的在码头东边湖岸。"
+                "10/4 东半边（x ≥ 1536）换成代码画的像素成品（tools/pixel_art/lake_east.py，摆法 lake_east.json，标 on_art 的只算挡人、不画灰盒）："
+                "南墙月亮门、石板路、曲桥、湖心亭（人只走亭子前沿，乐手亭子前沿 2 位、桥头小广场 2 位）、篷船船夫 2、能坐的长凳在往西小路北沿朝湖；"
+                "西半边照旧色块，南墙挪到 y 1040 跟东头对齐",
         "size": [W, H],
         "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
-        "spawn": [EX, WALL_Y[0] - 50],
+        "spawn": EAST["spawn"],
         "from_parking": [(GATE_W[0] + GATE_W[1]) // 2, WALL_Y[0] - 50],
-        "bench_seat": [bench_x, 956 - 80],
-        "bench_stand": [bench_x, 994 - 80],
+        "bench_seat": EAST["bench_seat"],
+        "bench_stand": EAST["bench_stand"],
         "points": [
-            {"id": "pavilion", "x": 768 + DX, "y": 596 + DY, "r": 60},
-            {"id": "bench", "x": bench_x, "y": 976 - 80, "r": 50},
-            {"id": "to_entrance", "x": EX, "y": WALL_Y[1] + 22, "r": 36},
             {"id": "to_parking", "x": (GATE_W[0] + GATE_W[1]) // 2, "y": WALL_Y[1] + 22, "r": 36},
-        ],
+        ] + EAST["points"],
         "walk": [
-            [[40, PATH_Y[0]], [W - 40, PATH_Y[0]], [W - 40, WALL_Y[0] - 4], [40, WALL_Y[0] - 4]],                      # 湖岸小路和园子
-            [[GATE_E[0], WALL_Y[0] - 10], [GATE_E[1], WALL_Y[0] - 10], [GATE_E[1], WALL_Y[1] + 40], [GATE_E[0], WALL_Y[1] + 40]],   # 东头月亮门
+            [[40, PATH_Y[0]], [CUT, PATH_Y[0]], [CUT, WALL_Y[0] - 4], [40, WALL_Y[0] - 4]],                           # 西半边湖岸小路和园子（东半边接 lake_east 那块）
             [[GATE_W[0], WALL_Y[0] - 10], [GATE_W[1], WALL_Y[0] - 10], [GATE_W[1], WALL_Y[1] + 40], [GATE_W[0], WALL_Y[1] + 40]],   # 西头月亮门
-        ] + [[[r[0], r[1]], [r[2], r[1]], [r[2], r[3]], [r[0], r[3]]] for r in bridge] + [
-            [[pav[0], pav[1]], [pav[2], pav[1]], [pav[2], pav[3]], [pav[0], pav[3]]],                                  # 湖心亭台面
             [[pen[0], pen[1]], [pen[2], pen[1]], [pen[2], pen[3]], [pen[0], pen[3]]],                                  # 半岛
             [[neck[0], neck[1]], [neck[2], neck[1]], [neck[2], neck[3]], [neck[0], neck[3]]],                          # 半岛石桥
-        ],
+        ] + EAST["walk"],
         "flat": flat,
         "items": items,
         "npcs": npcs,
+        "pixel_art": ["res://assets/pixel_art/lake_east/room.json"],   # 东半边像素成品（entrance.gd _pixel_art 铺）
     }
     with open(OUT, "w", encoding="utf-8") as f:
         f.write("{\n")

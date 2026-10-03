@@ -15,7 +15,7 @@ const MAX_LEG := 240.0
 const CANVASES := ["parking", "lake", "lawn", "backhall"]
 const MJ := Rect2(672, 226, 336, 458)
 ## 03 测第 57 版时已报给 01 的已知现状（回执 测-build57.md）：这些圈掉的格子数、走不到跟前的件不算新问题，只守「不再多」
-const KNOWN_POCKETS := {"lawn": 6, "backhall": 84}
+const KNOWN_POCKETS := {"lawn": 6, "backhall": 84, "lake": 12}   # lake：10/4 东头换像素成品，湖岸边花丛围出的小块草地（最大一块 x 2148～2208 的 9 格），走不进去不挡路（02 E）
 const KNOWN_NO_FRONT := ["mj2_chair_n", "mj_stand_2"]
 
 var m
@@ -282,7 +282,7 @@ func run() -> void:
     print("== 湖边整条从东到西")
     cname = "lake"
     cv = m.lake
-    var east := Vector2(2304, 1140)
+    var east: Vector2 = cv.SPAWN                                   # 10/4 南墙挪到 y 1040：进出点照布局，不写死
     var west_exit: Vector2 = cv.points["to_parking"]["pos"]
     reenter()
     cv.reset_to(east)
@@ -290,16 +290,17 @@ func run() -> void:
     print("  东头月亮门进门处 %s → 西头出口 %s：%s，站在 %s" % [str(east), str(west_exit), str(rw), str(cv.pos)])
     check("湖边东到西走得通（走进西头月亮门的半径里就切去停车场）", rw["ok"] and (rw.get("exit_fired", false) or (cv.pos - west_exit).length() <= 36.0))
     reenter()
-    cv.reset_to(Vector2(740, 1140))
-    var re := walk(Vector2(2304, 1226))
-    print("  西头 (740,1140) → 东头出口 (2304,1226)：%s，站在 %s" % [str(re), str(cv.pos)])
-    check("湖边西到东走得通", re["ok"] and (re.get("exit_fired", false) or (cv.pos - Vector2(2304, 1226)).length() <= 36.0))
+    var east_exit: Vector2 = cv.points["to_entrance"]["pos"]
+    cv.reset_to(cv.FROM_PARKING)
+    var re := walk(east_exit)
+    print("  西头 %s → 东头出口 %s：%s，站在 %s" % [str(cv.FROM_PARKING), str(east_exit), str(re), str(cv.pos)])
+    check("湖边西到东走得通", re["ok"] and (re.get("exit_fired", false) or (cv.pos - east_exit).length() <= 36.0))
     for pt in ["pavilion", "bench"]:
         reenter()
         cv.reset_to(east)
         var r1 := walk(cv.points[pt]["pos"])
         reenter()
-        var r2 := walk(Vector2(740, 1140))
+        var r2 := walk(cv.FROM_PARKING)
         print("  东头 → %s：%.1f 秒；再走到西头：%.1f 秒（%s）" % [pt, float(r1.get("secs", 0.0)), float(r2.get("secs", 0.0)), str(r2["ok"])])
         check("东头走到 %s 再走到西头" % pt, r1["ok"] and r2["ok"])
     # 5 停车场
