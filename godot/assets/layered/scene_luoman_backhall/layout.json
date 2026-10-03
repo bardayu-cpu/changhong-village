@@ -187,6 +187,8 @@
   {"id": "mj_guest_2", "who": "宾客", "x": 737, "y": 357, "face": "up", "look": "guest_c", "sit": true, "block": true, "lm": "LM-GUEST"},
   {"id": "cook", "who": "厨师", "x": 1350, "y": 340, "face": "left"}
  ],
+ "signs": [{"text": "化妆间", "x": 262, "y": 695, "foot": 697}, {"text": "休息间", "x": 598, "y": 695, "foot": 697}, {"text": "麻将室", "x": 934, "y": 695, "foot": 697}, {"text": "后厨", "x": 1258, "y": 695, "foot": 697}],
+ "signs_note": "门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；厨房也挂，01 F）：x,y 是匾的下沿正中，挂在门洞东边的前沿矮墙上（不压门洞），foot 是排前后的线（墙脚 696 再往前一点，走廊里的人在牌子前面）。画法见 layered_hall.gd room_sign",
  "stand_points": [{"id": "stand_record", "name": "唱片机前（听唱片）", "x": 424, "y": 312, "r": 16}, {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 616, "y": 476, "r": 14}],
  "stand_points_note": "以后玩法要站人的地方（休息间第三版，10/3）：只记点，代码不读、没有玩法；要做先写玩家说明给阿鱼点头",
  "pixel_art": ["res://assets/pixel_art/backhall_makeup/room.json", "res://assets/pixel_art/backhall_lounge/room.json"]

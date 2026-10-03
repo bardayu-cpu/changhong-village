@@ -3603,7 +3603,7 @@ func _setup_shot(shot: String) -> void:
                         if state == "banquet" and not switching:
                             break
                     dialog.visible = false
-        "backhall", "backhall_overview", "backhall_dress", "backhall_lounge", "backhall_mahjong", "backhall_pot", "backhall_lawn", "hall_side_door":
+        "backhall", "backhall_overview", "backhall_dress", "backhall_lounge", "backhall_mahjong", "backhall_pot", "backhall_lawn", "hall_side_door", "hall_backhall_sign", "backhall_signs_w", "backhall_signs_e":
             # 后厅灰盒（蓝图 3.3，01 9/19 派任务 7）：backhall 是从宴会厅东侧门刚进来；dress、lounge、mahjong、pot 是走进各房间的点、
             # 点了按钮出那句（话没定之前是【待补】）；lawn 是走到厨房后门；overview 整张（横屏 RES=1536x1024）；
             # hall_side_door 是宴会厅里走到东侧门跟前（再走一步就进后厅）
@@ -3618,6 +3618,11 @@ func _setup_shot(shot: String) -> void:
                 hall.reset_to(HALL_FROM_BACKHALL + Vector2(-60, 20))
                 hall.face = "right"
                 for i in 6: await get_tree().process_frame
+            elif shot == "hall_backhall_sign":
+                # 宴会厅东侧门那块「后厅」名字牌（阿鱼 10/3 门口挂牌子）：照这个厅真的东侧门站（hall_side_door 用的是第 44 版厅的坐标）
+                hall.reset_to(hall.side_door + Vector2(-110, 40))
+                hall.face = "right"
+                for i in 30: await get_tree().process_frame
             else:
                 hall_side_latched = false
                 hall.reset_to(hall.side_door + Vector2(-20, 0))
@@ -3627,6 +3632,12 @@ func _setup_shot(shot: String) -> void:
                         break
                 var at := {"backhall_dress": Vector2(168, 420), "backhall_lounge": Vector2(504, 440),
                     "backhall_mahjong": Vector2(852, 440), "backhall_pot": Vector2(1272, 400), "backhall_lawn": Vector2(1490, 780)}
+                # 后厅三间门口的名字牌（阿鱼 10/3）：站在走廊上看，一屏 540 宽装不下三块，分两张（化妆间 + 休息间、休息间 + 麻将室）
+                var sign_at := {"backhall_signs_w": Vector2(390, 780), "backhall_signs_e": Vector2(770, 780)}
+                if sign_at.has(shot):
+                    backhall.reset_to(sign_at[shot])
+                    backhall.face = "up"
+                    for i in 30: await get_tree().process_frame
                 if at.has(shot):
                     backhall.reset_to(at[shot] + Vector2(0, 60))
                     backhall.face = "up"

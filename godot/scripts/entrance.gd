@@ -62,6 +62,8 @@ func build(preset: int, nickname: String, f: Font) -> void:
         obstacles.append({"ellipse": [cf.x, cf.y, COUPLE_FOOT.x, COUPLE_FOOT.y]})
     _npcs()
     _pixel_art(flat)
+    for s in cfg.get("signs", []):   # 门口的名字牌（后厅三间，阿鱼 10/3），见 layered_hall.room_sign
+        room_sign(str(s["text"]), Vector2(float(s["x"]), float(s["y"])), float(s.get("foot", -1.0)))
     _sign_mark()
     var t0 := Time.get_ticks_msec()
     cfg["walk_grid"] = compute_grid(cfg, obstacles, GRID_CELL, CLEAR)
