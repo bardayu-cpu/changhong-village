@@ -1,0 +1,834 @@
+{
+ "scene": "湖边",
+ "canvas": [
+  1536,
+  1280
+ ],
+ "count": {
+  "LK-P01": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "LK-P03": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "LK-P06": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "LK-P04": {
+   "on_picture": 3,
+   "expected_clusters": 3,
+   "listed": 3
+  },
+  "LK-P05": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 2
+  },
+  "LK-P07": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "LK-P08": {
+   "on_picture": 2,
+   "expected_clusters": 3,
+   "listed": 3
+  },
+  "LK-P09": {
+   "on_picture": 3,
+   "expected_clusters": 3,
+   "listed": 3
+  },
+  "LK-P10": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "LK-P02": {
+   "on_picture": 6,
+   "expected_clusters": 6,
+   "listed": 6
+  }
+ },
+ "overlaps": [
+  {
+   "a": "LK-P01-01",
+   "b": "LK-P02-02",
+   "w": 23,
+   "h": 18,
+   "area": 414
+  },
+  {
+   "a": "LK-P05-01",
+   "b": "LK-P05-02",
+   "w": 120,
+   "h": 16,
+   "area": 1920
+  },
+  {
+   "a": "LK-P07-01",
+   "b": "LK-P08-03",
+   "w": 72,
+   "h": 26,
+   "area": 1872
+  },
+  {
+   "a": "LK-P07-01",
+   "b": "LK-P02-04",
+   "w": 45,
+   "h": 150,
+   "area": 6750
+  },
+  {
+   "a": "LK-P07-02",
+   "b": "LK-P02-04",
+   "w": 47,
+   "h": 150,
+   "area": 7050
+  },
+  {
+   "a": "LK-P08-01",
+   "b": "LK-P09-01",
+   "w": 20,
+   "h": 14,
+   "area": 280
+  }
+ ],
+ "verify": {
+  "item_pixels": 230855,
+  "outside_boxes": 0,
+  "outside_bbox": null,
+  "parts_dev": [
+   {
+    "id": "LK-P01-01",
+    "declared": [
+     592,
+     300,
+     944,
+     646
+    ],
+    "measured": [
+     592,
+     300,
+     944,
+     646
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P03-01",
+    "declared": [
+     364,
+     946,
+     436,
+     978
+    ],
+    "measured": [
+     364,
+     948,
+     436,
+     978
+    ],
+    "dev": [
+     0,
+     2,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P03-02",
+    "declared": [
+     1114,
+     946,
+     1186,
+     978
+    ],
+    "measured": [
+     1114,
+     948,
+     1186,
+     978
+    ],
+    "dev": [
+     0,
+     2,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P06-01",
+    "declared": [
+     318,
+     536,
+     462,
+     798
+    ],
+    "measured": [
+     318,
+     536,
+     462,
+     798
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P04-01",
+    "declared": [
+     166,
+     568,
+     310,
+     612
+    ],
+    "measured": [
+     166,
+     568,
+     310,
+     612
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P04-02",
+    "declared": [
+     166,
+     512,
+     310,
+     556
+    ],
+    "measured": [
+     166,
+     512,
+     310,
+     556
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P04-03",
+    "declared": [
+     1080,
+     426,
+     1224,
+     470
+    ],
+    "measured": [
+     1080,
+     426,
+     1224,
+     470
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P05-01",
+    "declared": [
+     470,
+     540,
+     590,
+     612
+    ],
+    "measured": [
+     470,
+     540,
+     590,
+     612
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P05-02",
+    "declared": [
+     470,
+     484,
+     590,
+     556
+    ],
+    "measured": [
+     470,
+     484,
+     590,
+     556
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P07-01",
+    "declared": [
+     1139,
+     676,
+     1276,
+     826
+    ],
+    "measured": [
+     1139,
+     676,
+     1276,
+     826
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P07-02",
+    "declared": [
+     1334,
+     676,
+     1471,
+     826
+    ],
+    "measured": [
+     1334,
+     676,
+     1471,
+     826
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P08-01",
+    "declared": [
+     64,
+     716,
+     136,
+     742
+    ],
+    "measured": [
+     64,
+     716,
+     136,
+     742
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P08-02",
+    "declared": [
+     844,
+     726,
+     916,
+     752
+    ],
+    "measured": [
+     844,
+     726,
+     916,
+     752
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P08-03",
+    "declared": [
+     1154,
+     714,
+     1226,
+     740
+    ],
+    "measured": [
+     1154,
+     714,
+     1226,
+     740
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P09-01",
+    "declared": [
+     116,
+     728,
+     144,
+     800
+    ],
+    "measured": [
+     116,
+     728,
+     144,
+     800
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P09-02",
+    "declared": [
+     676,
+     728,
+     704,
+     800
+    ],
+    "measured": [
+     676,
+     732,
+     704,
+     800
+    ],
+    "dev": [
+     0,
+     4,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P09-03",
+    "declared": [
+     916,
+     728,
+     944,
+     800
+    ],
+    "measured": [
+     916,
+     732,
+     944,
+     800
+    ],
+    "dev": [
+     0,
+     4,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P10-01",
+    "declared": [
+     973,
+     400,
+     1034,
+     432
+    ],
+    "measured": [
+     973,
+     400,
+     1034,
+     432
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P02-01",
+    "declared": [
+     155,
+     618,
+     305,
+     882
+    ],
+    "measured": [
+     155,
+     618,
+     305,
+     882
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P02-02",
+    "declared": [
+     465,
+     628,
+     615,
+     892
+    ],
+    "measured": [
+     465,
+     628,
+     615,
+     892
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P02-03",
+    "declared": [
+     969,
+     608,
+     1119,
+     872
+    ],
+    "measured": [
+     969,
+     608,
+     1119,
+     872
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P02-04",
+    "declared": [
+     1231,
+     644,
+     1381,
+     908
+    ],
+    "measured": [
+     1231,
+     644,
+     1381,
+     908
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "LK-P02-05",
+    "declared": [
+     805,
+     1036,
+     955,
+     1300
+    ],
+    "measured": [
+     805,
+     1036,
+     955,
+     1280
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     false
+    ]
+   },
+   {
+    "id": "LK-P02-06",
+    "declared": [
+     525,
+     1036,
+     675,
+     1300
+    ],
+    "measured": [
+     525,
+     1036,
+     675,
+     1280
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     false
+    ]
+   }
+  ],
+  "flat_diff_pixels": 0,
+  "flat_diff_bbox": null,
+  "people_meas": [
+   {
+    "id": "music_1",
+    "lm": "LM-MUSIC-01",
+    "sit": true,
+    "size": 1.0,
+    "foot": [
+     696.0,
+     482.0
+    ],
+    "meas_h": 47,
+    "foot_dy": 1
+   },
+   {
+    "id": "music_2",
+    "lm": "LM-MUSIC-02",
+    "sit": true,
+    "size": 1.0,
+    "foot": [
+     744.0,
+     482.0
+    ],
+    "meas_h": 48,
+    "foot_dy": -1
+   },
+   {
+    "id": "music_3",
+    "lm": "LM-MUSIC-03",
+    "sit": true,
+    "size": 1.0,
+    "foot": [
+     792.0,
+     482.0
+    ],
+    "meas_h": 47,
+    "foot_dy": -1
+   },
+   {
+    "id": "music_4",
+    "lm": "LM-MUSIC-04",
+    "sit": true,
+    "size": 1.0,
+    "foot": [
+     840.0,
+     482.0
+    ],
+    "meas_h": 47,
+    "foot_dy": 1
+   },
+   {
+    "id": "boatman_1",
+    "lm": "LM-BOATMAN-01",
+    "sit": false,
+    "size": 1.0,
+    "foot": [
+     390.0,
+     640.0
+    ],
+    "meas_h": 81,
+    "foot_dy": 0
+   },
+   {
+    "id": "boatman_2",
+    "lm": "LM-BOATMAN-02",
+    "sit": true,
+    "size": 1.0,
+    "foot": [
+     1152.0,
+     472.0
+    ],
+    "meas_h": 47,
+    "foot_dy": -2
+   }
+  ]
+ }
+}

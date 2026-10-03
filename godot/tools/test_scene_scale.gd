@@ -100,7 +100,7 @@ func run() -> void:
         check("%s：站在交互点、出口的人不被树冠挡（挡的 %s）" % [cn, covered], covered.is_empty())
 
     print("== 几样关键的直接量")
-    var chair := drawn_box(m.lawn.world.get_node("chair_0_242"))
+    var chair := drawn_box(m.lawn.world.get_node("chair_0_L1"))
     check("草坪白椅子高 %.0f（连前后 14）= %.2f 个人（表 0.55，椅高 46）" % [chair.size.y, (chair.size.y - 14.0) / 84.0], is_equal_approx(chair.size.y - 14.0, 46.0))
     var sofa: Array = (m.backhall.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == "sofa")[0]["rect"]
     check("后厅沙发宽 %d = %.1f 米（≤2.4）" % [int(sofa[2]) - int(sofa[0]), (float(sofa[2]) - float(sofa[0])) / 48.0], (float(sofa[2]) - float(sofa[0])) / 48.0 <= 2.4)

@@ -44,6 +44,15 @@ if notes:
         print("★", time.strftime("%m-%d %H:%M", time.localtime(m)), rel)
 for m, rel, sz in rows[-400:]:
     print(time.strftime("%m-%d %H:%M", time.localtime(m)), f"{sz//1024:>6}KB", rel)
+# 山庄四块（003 后厅、004 草坪、005 湖边、006 果园）的目录图：拆景/目录-*/交付.json 按编号列给 01（01 E 10/3）；
+# 每回都列（不光是新的），阿鱼点没点头、该交没交的一眼看得到
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import catalog_inbox
+cat = catalog_inbox.report(ROOT, since)
+if cat:
+    print("—— 山庄四块目录（按编号）——")
+    for line in cat:
+        print(line)
 # 新交的图和 JSON 顺手过一遍提交前检查那套硬规则（check_assets.py：JSON 能读、零件透明 0/255、背景和瓦片尺寸、图多大），
 # 交来就知道哪张不合格，不用等进仓库（01 D 10/1）
 fresh = [os.path.join(ROOT, rel) for _, rel, _ in rows if rel.lower().endswith((".png", ".json"))]

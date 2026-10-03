@@ -247,6 +247,35 @@ const LAWN_NPCS := {
     "kid_2": {"hair": "short", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#5c8a6a", "K": "#3f6a50", "p": "#e0a458", "P": "#b87a36", "f": "#1d1a24"}},
 }
 
+## 展位（01 E 10/3）：草坪婚礼、湖边、果园、后厅三间新放的人，全是不会动的占位，泛称、不追真人（编号在布局 npcs 的 lm，零件总表 LM 那节）。
+## 正式人物图进来以后照 LM 编号换上，这张表整个拿掉
+const BOOTH_NPCS := {
+    "wed_groom": {"hair": "short", "tux": true, "bow": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#cfcac0", "K": "#a9a398", "p": "#cfcac0", "P": "#a9a398", "f": "#3a3547"}},
+    "wed_bride": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#ffffff", "K": "#e6e2da", "p": "#ffffff", "P": "#e6e2da", "f": "#f4f1ea", "g": "#f4f1ea"}},
+    "wed_host": {"hair": "short", "tux": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#2E4A7A", "K": "#1F3A5C", "p": "#2b2833", "P": "#1c1a22", "f": "#15131a"}},
+    "bridesmaid": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#4a3226", "h": "#3a261d", "i": "#6d4a38", "k": "#cfe3d0", "K": "#a9c4ab", "p": "#cfe3d0", "P": "#a9c4ab", "f": "#f4f1ea", "g": "#fbf7ee"}},
+    "groomsman": {"hair": "short", "tux": true, "bow": true, "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#6f8f7a", "K": "#55705f", "p": "#2b2833", "P": "#1c1a22", "f": "#15131a"}},
+    "guest_a": {"hair": "short", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#4A6FA5", "K": "#2E4A7A", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+    "guest_b": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#e99ab0", "K": "#c0587a", "p": "#5A4E68", "P": "#3e3548", "f": "#1d1a24", "g": "#D4AF37"}},
+    "guest_c": {"hair": "curly", "scale": Vector2.ONE, "pal": {"H": "#5a3a2a", "h": "#442a1e", "i": "#8a6048", "k": "#f2c14e", "K": "#c9a13e", "p": "#2C2438", "P": "#1E1A2A", "f": "#1d1a24"}},
+    "guest_d": {"hair": "short", "glasses": true, "scale": Vector2.ONE, "pal": {"H": "#8a8790", "h": "#6c6972", "i": "#b0adb5", "k": "#5c8a6a", "K": "#3f6a50", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+    "kid_3": {"hair": "short", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#E8746A", "K": "#c0587a", "p": "#4A6FA5", "P": "#2E4A7A", "f": "#1d1a24"}},
+    "kid_4": {"hair": "tails", "scale": Vector2.ONE, "pal": {"H": "#4a3226", "h": "#3a261d", "i": "#6d4a38", "k": "#9fc4e8", "K": "#6d94b8", "p": "#f4f1ea", "P": "#d4cec2", "f": "#1d1a24", "g": "#f2a7c3"}},
+    "kid_7": {"hair": "tails", "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#ffffff", "K": "#e6e2da", "p": "#ffffff", "P": "#e6e2da", "f": "#f4f1ea", "g": "#f2a7c3"}},
+    "kid_8": {"hair": "short", "bow": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#ffffff", "K": "#e6e2da", "p": "#cfcac0", "P": "#a9a398", "f": "#3a3547"}},
+    "music_1": {"hair": "short", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#8C2F27", "K": "#5e1f1a", "p": "#2b2833", "P": "#1c1a22", "f": "#1d1a24"}},
+    "music_2": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#3f6a50", "K": "#2c4a38", "p": "#3f6a50", "P": "#2c4a38", "f": "#1d1a24", "g": "#D4AF37"}},
+    "boatman": {"hair": "short", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#e8742a", "K": "#c0582a", "p": "#2b2833", "P": "#1c1a22", "f": "#1d1a24"}},
+    "fisher_1": {"hair": "bald", "scale": Vector2.ONE, "pal": {"H": "#b0adb5", "h": "#8a8790", "i": "#d4d1d8", "k": "#6b7a4a", "K": "#4f5a36", "p": "#34303a", "P": "#28242e", "f": "#1d1a24"}},
+    "fisher_2": {"hair": "short", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#4A6FA5", "K": "#2E4A7A", "p": "#5a4e3a", "P": "#3e3528", "f": "#1d1a24"}},
+    "farmer_m": {"hair": "short", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#4A6FA5", "K": "#2E4A7A", "p": "#3e3528", "P": "#2a241c", "f": "#1d1a24"}},
+    "farmer_f": {"hair": "long", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#c0587a", "K": "#8C2F27", "p": "#3e3528", "P": "#2a241c", "f": "#1d1a24"}},
+    "farmer_m2": {"hair": "short", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#4a3226", "h": "#3a261d", "i": "#6d4a38", "k": "#5c8a6a", "K": "#3f6a50", "p": "#3e3528", "P": "#2a241c", "f": "#1d1a24"}},
+    "farmer_f2": {"hair": "curly", "straps": true, "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#e0a458", "K": "#b87a36", "p": "#3e3528", "P": "#2a241c", "f": "#1d1a24"}},
+    "makeup_1": {"hair": "long", "scale": Vector2.ONE, "pal": {"H": "#26202c", "h": "#1b1620", "i": "#3d3446", "k": "#2b2833", "K": "#1c1a22", "p": "#2b2833", "P": "#1c1a22", "f": "#1d1a24", "g": "#D4AF37"}},
+    "makeup_2": {"hair": "curly", "scale": Vector2.ONE, "pal": {"H": "#3b2a26", "h": "#2c1f1c", "i": "#5e4038", "k": "#2b2833", "K": "#1c1a22", "p": "#2b2833", "P": "#1c1a22", "f": "#1d1a24"}},
+}
+
 ## 灰盒画布（迎宾院、后厅、草坪……）里的 NPC 长什么样：按 id 在各画布的表里找，找不到用迎宾院的老人
 static func npc_look(id: String) -> Dictionary:
     if COURT_NPCS.has(id):
@@ -255,6 +284,8 @@ static func npc_look(id: String) -> Dictionary:
         return BACKHALL_NPCS[id]
     if LAWN_NPCS.has(id):
         return LAWN_NPCS[id]
+    if BOOTH_NPCS.has(id):
+        return BOOTH_NPCS[id]
     return COURT_NPCS["elder"]
 
 ## 喜多（柯基，美术生图包「喜多（柯基）」；蓝图 3.4 草坪）：灰盒占位，代码画的小柯基，短腿、大耳朵，朝右画。

@@ -1,0 +1,1440 @@
+{
+ "scene": "后厅",
+ "canvas": [
+  1536,
+  1024
+ ],
+ "count": {
+  "BH-T01": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "BH-P03": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "BH-P01": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P02": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P04": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P11": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P08": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P09": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P05": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-T02": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P06": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "BH-P07": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-P10": {
+   "on_picture": 1,
+   "expected_clusters": 1,
+   "listed": 1
+  },
+  "BH-T03": {
+   "on_picture": 3,
+   "expected_clusters": 3,
+   "listed": 3
+  },
+  "BH-P12": {
+   "on_picture": 12,
+   "expected_clusters": 12,
+   "listed": 12
+  },
+  "BH-T04": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  },
+  "BH-W01": {
+   "on_picture": 3,
+   "expected_clusters": 3,
+   "listed": 3
+  },
+  "BH-W02": {
+   "on_picture": 5,
+   "expected_clusters": 5,
+   "listed": 5
+  },
+  "BH-P13": {
+   "on_picture": 2,
+   "expected_clusters": 2,
+   "listed": 2
+  }
+ },
+ "overlaps": [
+  {
+   "a": "BH-T01-01",
+   "b": "BH-P03-01",
+   "w": 20,
+   "h": 2,
+   "area": 40
+  },
+  {
+   "a": "BH-T01-02",
+   "b": "BH-P03-02",
+   "w": 20,
+   "h": 2,
+   "area": 40
+  },
+  {
+   "a": "BH-P11-01",
+   "b": "BH-W02-02",
+   "w": 32,
+   "h": 6,
+   "area": 192
+  },
+  {
+   "a": "BH-P08-01",
+   "b": "BH-P09-01",
+   "w": 62,
+   "h": 26,
+   "area": 1612
+  },
+  {
+   "a": "BH-P05-01",
+   "b": "BH-P06-01",
+   "w": 7,
+   "h": 17,
+   "area": 119
+  },
+  {
+   "a": "BH-P05-01",
+   "b": "BH-P06-02",
+   "w": 13,
+   "h": 18,
+   "area": 234
+  },
+  {
+   "a": "BH-P05-01",
+   "b": "BH-P10-01",
+   "w": 1,
+   "h": 65,
+   "area": 65
+  },
+  {
+   "a": "BH-P06-02",
+   "b": "BH-P07-01",
+   "w": 13,
+   "h": 6,
+   "area": 78
+  },
+  {
+   "a": "BH-P06-02",
+   "b": "BH-P10-01",
+   "w": 26,
+   "h": 10,
+   "area": 260
+  },
+  {
+   "a": "BH-T03-01",
+   "b": "BH-P12-01",
+   "w": 22,
+   "h": 21,
+   "area": 462
+  },
+  {
+   "a": "BH-T03-01",
+   "b": "BH-P12-04",
+   "w": 22,
+   "h": 30,
+   "area": 660
+  },
+  {
+   "a": "BH-T03-02",
+   "b": "BH-P12-05",
+   "w": 22,
+   "h": 21,
+   "area": 462
+  },
+  {
+   "a": "BH-T03-02",
+   "b": "BH-P12-08",
+   "w": 22,
+   "h": 30,
+   "area": 660
+  },
+  {
+   "a": "BH-T03-03",
+   "b": "BH-P12-09",
+   "w": 22,
+   "h": 21,
+   "area": 462
+  },
+  {
+   "a": "BH-T03-03",
+   "b": "BH-P12-12",
+   "w": 22,
+   "h": 30,
+   "area": 660
+  },
+  {
+   "a": "BH-W01-01",
+   "b": "BH-W02-02",
+   "w": 10,
+   "h": 22,
+   "area": 220
+  },
+  {
+   "a": "BH-W01-02",
+   "b": "BH-W02-03",
+   "w": 10,
+   "h": 22,
+   "area": 220
+  },
+  {
+   "a": "BH-W01-03",
+   "b": "BH-W02-04",
+   "w": 10,
+   "h": 22,
+   "area": 220
+  }
+ ],
+ "verify": {
+  "item_pixels": 125098,
+  "outside_boxes": 0,
+  "outside_bbox": null,
+  "parts_dev": [
+   {
+    "id": "BH-T01-01",
+    "declared": [
+     44,
+     171,
+     102,
+     248
+    ],
+    "measured": [
+     44,
+     171,
+     102,
+     248
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T01-02",
+    "declared": [
+     124,
+     171,
+     182,
+     248
+    ],
+    "measured": [
+     124,
+     171,
+     182,
+     248
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P03-01",
+    "declared": [
+     63,
+     246,
+     83,
+     278
+    ],
+    "measured": [
+     63,
+     246,
+     83,
+     278
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P03-02",
+    "declared": [
+     143,
+     246,
+     163,
+     278
+    ],
+    "measured": [
+     143,
+     246,
+     163,
+     278
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P01-01",
+    "declared": [
+     18,
+     376,
+     98,
+     472
+    ],
+    "measured": [
+     18,
+     376,
+     98,
+     472
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P02-01",
+    "declared": [
+     252,
+     168,
+     324,
+     262
+    ],
+    "measured": [
+     252,
+     168,
+     324,
+     262
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P04-01",
+    "declared": [
+     214,
+     174,
+     243,
+     262
+    ],
+    "measured": [
+     214,
+     174,
+     243,
+     262
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P11-01",
+    "declared": [
+     344,
+     610,
+     376,
+     668
+    ],
+    "measured": [
+     344,
+     610,
+     376,
+     668
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P08-01",
+    "declared": [
+     352,
+     111,
+     496,
+     232
+    ],
+    "measured": [
+     352,
+     111,
+     496,
+     232
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P09-01",
+    "declared": [
+     396,
+     206,
+     458,
+     284
+    ],
+    "measured": [
+     396,
+     206,
+     458,
+     284
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P05-01",
+    "declared": [
+     516,
+     195,
+     617,
+     268
+    ],
+    "measured": [
+     516,
+     195,
+     617,
+     268
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T02-01",
+    "declared": [
+     538,
+     274,
+     596,
+     314
+    ],
+    "measured": [
+     538,
+     274,
+     596,
+     314
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P06-01",
+    "declared": [
+     480,
+     251,
+     523,
+     320
+    ],
+    "measured": [
+     480,
+     251,
+     523,
+     320
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P06-02",
+    "declared": [
+     604,
+     250,
+     647,
+     320
+    ],
+    "measured": [
+     604,
+     250,
+     647,
+     320
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P07-01",
+    "declared": [
+     634,
+     314,
+     660,
+     418
+    ],
+    "measured": [
+     634,
+     314,
+     660,
+     418
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P10-01",
+    "declared": [
+     616,
+     175,
+     642,
+     260
+    ],
+    "measured": [
+     616,
+     183,
+     642,
+     260
+    ],
+    "dev": [
+     0,
+     8,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T03-01",
+    "declared": [
+     915,
+     344,
+     969,
+     409
+    ],
+    "measured": [
+     915,
+     344,
+     969,
+     409
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T03-02",
+    "declared": [
+     710,
+     264,
+     764,
+     329
+    ],
+    "measured": [
+     710,
+     264,
+     764,
+     329
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T03-03",
+    "declared": [
+     710,
+     454,
+     764,
+     519
+    ],
+    "measured": [
+     710,
+     454,
+     764,
+     519
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-01",
+    "declared": [
+     931,
+     307,
+     953,
+     365
+    ],
+    "measured": [
+     931,
+     307,
+     953,
+     365
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-02",
+    "declared": [
+     891,
+     341,
+     913,
+     397
+    ],
+    "measured": [
+     891,
+     341,
+     913,
+     397
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-03",
+    "declared": [
+     972,
+     341,
+     994,
+     397
+    ],
+    "measured": [
+     972,
+     341,
+     994,
+     397
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-04",
+    "declared": [
+     931,
+     379,
+     953,
+     435
+    ],
+    "measured": [
+     931,
+     379,
+     953,
+     435
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-05",
+    "declared": [
+     726,
+     227,
+     748,
+     285
+    ],
+    "measured": [
+     726,
+     227,
+     748,
+     285
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-06",
+    "declared": [
+     686,
+     261,
+     708,
+     317
+    ],
+    "measured": [
+     686,
+     261,
+     708,
+     317
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-07",
+    "declared": [
+     767,
+     261,
+     789,
+     317
+    ],
+    "measured": [
+     767,
+     261,
+     789,
+     317
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-08",
+    "declared": [
+     726,
+     299,
+     748,
+     355
+    ],
+    "measured": [
+     726,
+     299,
+     748,
+     355
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-09",
+    "declared": [
+     726,
+     417,
+     748,
+     475
+    ],
+    "measured": [
+     726,
+     417,
+     748,
+     475
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-10",
+    "declared": [
+     686,
+     451,
+     708,
+     507
+    ],
+    "measured": [
+     686,
+     451,
+     708,
+     507
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-11",
+    "declared": [
+     767,
+     451,
+     789,
+     507
+    ],
+    "measured": [
+     767,
+     451,
+     789,
+     507
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P12-12",
+    "declared": [
+     726,
+     489,
+     748,
+     545
+    ],
+    "measured": [
+     726,
+     489,
+     748,
+     545
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T04-01",
+    "declared": [
+     970,
+     528,
+     999,
+     574
+    ],
+    "measured": [
+     970,
+     528,
+     999,
+     574
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-T04-02",
+    "declared": [
+     682,
+     578,
+     711,
+     624
+    ],
+    "measured": [
+     682,
+     578,
+     711,
+     624
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W01-01",
+    "declared": [
+     331,
+     182,
+     341,
+     684
+    ],
+    "measured": [
+     331,
+     182,
+     341,
+     684
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W01-02",
+    "declared": [
+     667,
+     182,
+     677,
+     684
+    ],
+    "measured": [
+     667,
+     182,
+     677,
+     684
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W01-03",
+    "declared": [
+     1003,
+     182,
+     1013,
+     684
+    ],
+    "measured": [
+     1003,
+     182,
+     1013,
+     684
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W02-01",
+    "declared": [
+     0,
+     662,
+     128,
+     696
+    ],
+    "measured": [
+     0,
+     662,
+     128,
+     696
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W02-02",
+    "declared": [
+     208,
+     662,
+     464,
+     696
+    ],
+    "measured": [
+     208,
+     662,
+     464,
+     696
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W02-03",
+    "declared": [
+     544,
+     662,
+     800,
+     696
+    ],
+    "measured": [
+     544,
+     662,
+     800,
+     696
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W02-04",
+    "declared": [
+     880,
+     662,
+     1136,
+     696
+    ],
+    "measured": [
+     880,
+     662,
+     1136,
+     696
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-W02-05",
+    "declared": [
+     1216,
+     662,
+     1536,
+     696
+    ],
+    "measured": [
+     1216,
+     662,
+     1536,
+     696
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P13-01",
+    "declared": [
+     356,
+     244,
+     380,
+     290
+    ],
+    "measured": [
+     356,
+     244,
+     380,
+     290
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "id": "BH-P13-02",
+    "declared": [
+     636,
+     614,
+     655,
+     648
+    ],
+    "measured": [
+     636,
+     614,
+     655,
+     648
+    ],
+    "dev": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "edge_on_canvas": [
+     true,
+     true,
+     true,
+     true
+    ]
+   }
+  ],
+  "flat_diff_pixels": 0,
+  "flat_diff_bbox": null,
+  "people_meas": [
+   {
+    "id": "makeup_1",
+    "lm": "LM-MAKEUP-01",
+    "sit": false,
+    "size": 1.0,
+    "foot": [
+     113.0,
+     264.0
+    ],
+    "meas_h": 81,
+    "foot_dy": 0
+   },
+   {
+    "id": "makeup_2",
+    "lm": "LM-MAKEUP-02",
+    "sit": false,
+    "size": 1.0,
+    "foot": [
+     112.0,
+     476.0
+    ],
+    "meas_h": 81,
+    "foot_dy": -2
+   },
+   {
+    "id": "tea_elder_1",
+    "lm": "LM-ELDER-07",
+    "sit": true,
+    "size": 1.0,
+    "foot": [
+     546.0,
+     270.0
+    ],
+    "meas_h": 47,
+    "foot_dy": 0
+   }
+  ]
+ }
+}

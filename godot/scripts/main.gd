@@ -3626,7 +3626,7 @@ func _setup_shot(shot: String) -> void:
                     if state == "backhall" and not switching:
                         break
                 var at := {"backhall_dress": Vector2(168, 420), "backhall_lounge": Vector2(504, 440),
-                    "backhall_mahjong": Vector2(840, 510), "backhall_pot": Vector2(1272, 400), "backhall_lawn": Vector2(1490, 780)}
+                    "backhall_mahjong": Vector2(852, 440), "backhall_pot": Vector2(1272, 400), "backhall_lawn": Vector2(1490, 780)}
                 if at.has(shot):
                     backhall.reset_to(at[shot] + Vector2(0, 60))
                     backhall.face = "up"
@@ -3746,7 +3746,7 @@ func _setup_shot(shot: String) -> void:
                 if state == "lawn" and not switching:
                     break
             if shot == "lawn_overview":
-                lawn.reset_to(Vector2(620, 600))
+                lawn.reset_to(lawn.BALL_START + Vector2(-200, 20))
                 lawn.face = "right"
                 for i in 90:
                     await get_tree().process_frame
@@ -3764,7 +3764,7 @@ func _setup_shot(shot: String) -> void:
                 lawn.cam.position = Vector2(768, 512)
                 lawn.cam.reset_smoothing()
             elif shot in ["lawn_greet", "lawn_kick", "lawn_fetch"]:
-                lawn.reset_to(Vector2(560, 600))
+                lawn.reset_to(lawn.BALL_START + Vector2(-200, 20))   # 球西边约 4 米（展位 10/3 球挪到竖路东边）
                 lawn.face = "right"
                 for i in 300:
                     await get_tree().process_frame

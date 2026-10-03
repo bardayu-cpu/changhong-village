@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：罗曼山庄后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
-## 布局：六个交互点和蓝图一字不差、四个房门走得通、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室四个长辈坐着、厨房一个厨师、
-## 休息间没人只有一件外套、礼服架只有架子。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
+## 布局：六个交互点和蓝图一字不差、四个房门走得通、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室六个长辈坐着（展位 10/3）、厨房一个厨师、
+## 展位（10/3）休息间两位喝茶的长辈和一件外套、化妆室礼服架。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
 ## 西口回宴会厅站 (1440,600)，两头都不来回弹，座位、金币、NPC 宾客都还在。四个房间：走进半径出按钮，话还是「【待补】」的不出按钮（01 E 10/3），塞了真话的点一下一句
 ## （话没定前不空着），再点关掉，走出去按钮和话都收。东口（厨房后门）去草坪（9/19 任务 8 起）。整条路 迎宾院 → 宴会厅 → 后厅 → 宴会厅 → 迎宾院
 ## 用法：Godot --headless --path . --script res://tools/test_backhall.gd
@@ -76,12 +76,12 @@ func run() -> void:
 
     # 1. 布局对蓝图 3.3
     print("1 布局对蓝图 3.3")
-    var want := {"dress": [168, 400, 60], "lounge": [504, 420, 60], "mahjong": [840, 470, 70], "pot": [1272, 380, 70],
+    var want := {"dress": [168, 400, 60], "lounge": [504, 420, 60], "mahjong": [852, 420, 70], "pot": [1272, 380, 70],
         "to_hall": [40, 780, 50], "to_lawn": [1500, 780, 50]}
     var same: bool = b.points.size() == 6
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("六个交互点坐标、半径和蓝图一字不差", same)
+    check("六个交互点坐标、半径和蓝图一字不差（mahjong 展位 10/3 挪到门口空道里 (852,420)，01 E）", same)
     var doors := true
     for dx in [168, 504, 840, 1176]:
         doors = doors and b._free(Vector2(dx, 690))
@@ -114,11 +114,13 @@ func run() -> void:
             cooks += 1
         if s.position.x > 336 and s.position.x < 672:
             in_lounge += 1
-    check("麻将室四个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间没人（%d）" % [elders, cooks, in_lounge], elders == 4 and cooks == 1 and in_lounge == 0)
+    # 展位（01 E 10/3）：麻将室三张桌，一张坐满四位长辈、一张两位长辈加两位宾客、一张空着；休息间沙发上两位喝茶的长辈（不放新郎家人，阿鱼 9/29）
+    check("麻将室六个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间两位喝茶的长辈（%d）" % [elders, cooks, in_lounge], elders == 6 and cooks == 1 and in_lounge == 2)
     var coat := label_at(b, "外套")
     check("休息间只有一件外套（标签在 %s）" % coat, coat.x > 336 and coat.x < 672)
-    var rack := label_at(b, "礼服架")
-    check("化妆室有礼服架（架子占位，礼服等正式图）", rack.x > 0 and rack.x < 336 and b.world.has_node("rack_base") and b.world.has_node("rack_rail"))
+    var rack: Node2D = b.world.get_node_or_null("rack_rail")
+    var rack_x: float = rack.get_child(0).polygon[0].x if rack != null else -1.0
+    check("化妆室有礼服架（BH-P01 占位，x %.0f）" % rack_x, rack_x > 0 and rack_x < 336 and b.world.has_node("rack_base"))
     for room in ["化妆室", "休息间", "麻将室", "厨房"]:
         check("灰盒标签「%s」" % room, label_at(b, room).x >= 0)
 
