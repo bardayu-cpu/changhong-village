@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """开屏加载页在电脑上跑一遍、截几帧（01 E 10/3 验收）：拿导出目录里真的 godot-loader.js（模板的）+ splash.js + game.js 的 config + 图，
 在无界面 Chrome 里装一个假的 wx（屏幕尺寸、像素比、分包下载进度），照真机的顺序走：
-开头那句 → 下载 0%～100%（onProgressUpdate）→ 下完（initText）→ 引擎编译（compilingText）→ 引擎起来（cleanup，停）。
+开头那句 → 下载 0%～100%（onProgressUpdate）→ 下完（initText，推近 1.2 秒退回原大）→ 引擎编译（compilingText）→ 引擎起来（cleanup，停）。
+cleanup 以后再截一张：画布要还是最后那一帧（没被清成透明），接手时推近要是 1 倍（10/3 两层接缝）。
 每一步截屏幕画布（WebGL，preserveDrawingBuffer），另外量一帧画多久；再跑一遍「没网」（下载一直不动）。
 微信开发者工具的自动化端口 10/2 试过不回话、这台 Mac 也不让截屏，所以用 Chrome 跑；真机上的样子、手机上一帧多快要真机看。
 
@@ -59,9 +60,7 @@ function snap(name) { frames.push([name, canvas.toDataURL('image/png')]); }
 function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 async function run() {
   await wait(600); snap('0-开头');
-  // 标题金光扫到一半那一刻（4.5 秒一次、一次 1.3 秒）
-  for (var g = 0; g < 200; g++) { var ph = (Date.now() / 1000 - L.__t0) % 4.5; if (ph > 0.6 && ph < 0.75) break; await wait(25); }
-  snap('0b-标题金光');
+  await wait(3000); snap('0b-推近中');
   if (MODE === 'offline') {
     await wait(2500); snap('1-没网等了3秒');
   } else {
@@ -75,11 +74,13 @@ async function run() {
     subSuccess && subSuccess();
     await wait(500); snap('5-下完');
     L.currentText = config.textConfig.compilingText;   // 引擎 startGame 里就是这么直接改字的
-    await wait(700); snap('6-编译');
+    await wait(1000); snap('6-编译');
     L.currentText = config.textConfig.initText;
+    log.push('接手时推近 ' + GameGlobal.__suqiSplash.zoom().toFixed(4) + ' 倍，屏宽 ' + GameGlobal.__suqiSplash.cssW() + '，字「' + GameGlobal.__suqiSplash.text() + '」');
     L.cleanup();
     var n0 = costs.length;
     await wait(600);
+    snap('7-引擎接手后');
     log.push('cleanup 以后又画了 ' + (costs.length - n0) + ' 帧');
   }
   costs.sort(function (a, b) { return a - b; });
@@ -101,7 +102,7 @@ def main():
     if not cm:
         sys.exit("game.js 里找不到 config")
     files = {}
-    for rel in ["images/splash.jpg", "images/splash_petal.png", "images/splash_paper.png"]:
+    for rel in ["images/splash.jpg"]:
         b = open(os.path.join(exp, rel), "rb").read()
         mime = "image/jpeg" if rel.endswith(".jpg") else "image/png"
         files[rel] = "data:%s;base64,%s" % (mime, base64.b64encode(b).decode())

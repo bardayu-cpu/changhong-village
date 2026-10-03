@@ -8,6 +8,8 @@ const LayeredHall = preload("res://scripts/layered_hall.gd")
 ## 罗曼山庄迎宾院（蓝图 3.1，灰盒，01 9/19 派）：进山庄先到这里，走到楼门进宴会厅，宴会厅的门出来回到这里
 const Entrance = preload("res://scripts/entrance.gd")
 const CourtCopy = preload("res://scripts/court_copy.gd")
+## 开场（阿鱼 10/3 交的开屏页）：背景、logo 落下、新人和猫狗说话、「进入游戏」「玩法说明」
+const TitleScreen = preload("res://scripts/title_screen.gd")
 ## 切画布：0.35 秒暖色淡出淡入（蓝图 1），人保持朝向，出现在对面的「到了站在」点
 const SWITCH_TINT := Color("#3a1d12")
 const COURT_FROM_HALL := Vector2(768, 260)   # 蓝图 1 出入口表：宴会厅的门 → 迎宾院 (768, 260)
@@ -147,6 +149,7 @@ const FONT_PATH := "res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.ot
 
 var font: FontFile
 var ui: Control
+var title_screen: Control
 var view: SubViewportContainer
 var hall
 var fade: ColorRect
@@ -358,6 +361,7 @@ func _ready() -> void:
         hall.walking_enabled = state == "banquet" and not open and not whisper_box.visible
         _refresh_seat_buttons())
     ui.move_child(fade, -1)   # 黑幕盖在迎宾院的面板上面
+    ui.move_child(title_screen, -1)   # 开场再盖在黑幕上面：预热时看到的是开屏背景，不是黑屏（第 1 层接过来不跳）
     print("[suqi] 界面搭好了 ", Time.get_ticks_msec(), " 毫秒")
     var cap := ""
     var shot := ""
@@ -396,6 +400,7 @@ func _ready() -> void:
             return
         _goto("title")
         _boot_mark("title")
+        title_screen.boot_done()   # 预热完了：「轻触屏幕，进入苏七镇」
         _fade_to(0.0)
         # 保险：不管前面哪里没走完，2 秒后开场一定亮出来
         get_tree().create_timer(2.0).timeout.connect(func():
@@ -867,32 +872,12 @@ func _center_panel(width := 440.0) -> Array:
 
 # ---------- 界面 ----------
 func _build_ui() -> void:
-    # 开场
-    var title := Control.new()
-    title.set_anchors_preset(Control.PRESET_FULL_RECT)
-    title.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    var dim := ColorRect.new()
-    dim.color = Color(0.06, 0.02, 0.05, 0.62)
-    dim.set_anchors_preset(Control.PRESET_FULL_RECT)
-    title.add_child(dim)
-    var tv := VBoxContainer.new()
-    tv.set_anchors_preset(Control.PRESET_FULL_RECT)
-    tv.alignment = BoxContainer.ALIGNMENT_CENTER
-    tv.add_theme_constant_override("separation", 40)
-    title.add_child(tv)
-    var name_l := _label("苏七镇奇缘", 72, GOLD1)
-    # 像素字的描边会糊，用错开一个字素的硬投影代替
-    name_l.add_theme_color_override("font_shadow_color", RED0)
-    name_l.add_theme_constant_override("shadow_offset_x", 6)
-    name_l.add_theme_constant_override("shadow_offset_y", 6)
-    tv.add_child(name_l)
-    var open_b := Button.new()
-    open_b.text = "打开看看"
-    open_b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-    open_b.pressed.connect(func(): _goto("nick"))
-    tv.add_child(open_b)
-    ui.add_child(title)
-    screens["title"] = title
+    # 开场（title_screen.gd）：引擎一起来就盖满屏（接第 1 层的加载页），预热那十几秒也是它；「进入游戏」走原来「打开看看」那条路：起名
+    title_screen = TitleScreen.new()
+    ui.add_child(title_screen)
+    title_screen.setup(font)
+    title_screen.start_pressed.connect(_on_title_start)
+    screens["title"] = title_screen
     # 昵称：规则见《敏感词与昵称校验模块》第 2 节
     var np := _center_panel()
     screens["nick"] = np[0]
@@ -1493,6 +1478,12 @@ func _goto(s: String) -> void:
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
+
+## 「进入游戏」：先切到起名，开场留在上面淡出，露出底下的起名
+func _on_title_start() -> void:
+    _goto("nick")
+    title_screen.visible = true
+    await title_screen.leave()
 
 func _fade_to(a: float) -> void:
     if fast:
@@ -3024,9 +3015,17 @@ func _setup_shot(shot: String) -> void:
     if shot.begins_with("game_"):
         await _shot_game(shot)
         return
+    if shot.begins_with("title_say_"):   # 开场某一位说话（对气泡位置用）：title_say_bride、title_say_xiduo……
+        _goto("title")
+        title_screen.show_menu_now(shot.substr(10))
+        return
     match shot:
-        "title":
+        "title", "title_load", "title_tap", "title_help":
             _goto("title")
+            match shot:
+                "title": title_screen.show_menu_now("bride")
+                "title_tap": title_screen.boot_done()
+                "title_help": title_screen.show_help_now()
         "nick":
             _goto("nick")
             nick_edit.text = "小李"

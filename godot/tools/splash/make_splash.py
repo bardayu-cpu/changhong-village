@@ -1,64 +1,45 @@
 #!/usr/bin/env python3
-"""开屏图（打开小程序最先看到的加载页，01 E 10/3）：把一张整图做成加载页用的 wxgame/splash/splash.jpg（1080×1920，jpg）。
-GPT 交了开屏图（任务：共用文件夹 claude-任务-开屏页.md，540×960 和 1080×1920 两张）就拿 1080×1920 那张跑这个；
-图还没到时 --fake：拿宴会厅北边背景当假图，正中截一块竖的，写上「苏七镇奇缘」占位标题（GPT 的图里标题是画好的），最下面五分之一压暗一点给进度条。
-动起来的东西（推近、灯笼闪、标题金光、飘花瓣、进度条）都在 wxgame/splash.js 里画，图换了只要改那边 SPLASH 里灯笼、标题的位置。
-用 Python 自带的 PIL 转，不用下载别的工具。
+"""开屏素材（阿鱼 10/3 交的那包：「苏七镇-开屏文件」）转成游戏用的三样，都放 assets/splash/：
+  splash_bg.jpg      背景，540×960。两层共用这一张：引擎起来之前的加载页（wxgame/splash.js，导出时拷成 images/splash.jpg）
+                     和开场（scripts/title_screen.gd）。.import 是 keep，原 jpg 进包，两处解出来是同一张图
+  title_ui_logo.png  标题 logo，透明底。开场里最宽约 500 个视口像素（屏宽 92%），手机上 2～3 倍像素比，取 720 宽；进包按有损 WebP 压
+  title_bgm.wav      开场音乐，9 秒、首尾已交叉淡化。Godot 导入时压成 QOA、整段循环（.import 里写着），不用另装转码工具
 
-用法：python3 godot/tools/splash/make_splash.py GPT的图.png        → wxgame/splash/splash.jpg
-      python3 godot/tools/splash/make_splash.py --fake             → 用宴会厅背景做假图
+背景用 GPT 原图（关键帧2_原图.png，941×1672）直接缩，不用视频截帧（阿鱼 10/3：「GPT 原图，像素最正」）。
+原图 941×1672 缩成 540×960 横竖差 0.05%，直接拉，不裁。
+
+用法：python3 godot/tools/splash/make_splash.py [素材文件夹，默认 桌面/苏七镇奇缘/苏七镇-开屏文件]
 """
 import os
+import shutil
 import sys
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
+from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
-OUT = os.path.join(GODOT, "wxgame", "splash", "splash.jpg")
-W, H = 1080, 1920
-QUALITY = 80   # 1080×1920 存成 jpg 大约 200～400 KB（像素画颗粒多，压不太下去）；加载页整套尽量 ≤1 MB
-
-
-def fake():
-    bg = Image.open(os.path.join(GODOT, "assets", "layered", "scene_roman_banquet_55", "base.png")).convert("RGB")
-    im = bg.crop((480, 0, 1056, 1024)).resize((W, H), Image.LANCZOS)   # 北边正中，囍和舞台在中间
-    d = ImageDraw.Draw(im)
-    font = None
-    for f in ["/System/Library/Fonts/PingFang.ttc", "/System/Library/Fonts/STHeiti Medium.ttc", "/System/Library/Fonts/Hiragino Sans GB.ttc"]:
-        if os.path.exists(f):
-            font = ImageFont.truetype(f, 150)
-            break
-    t = "苏七镇奇缘"
-    bw = d.textlength(t, font=font)
-    x, y = (W - bw) / 2, 700
-    for dx in range(-8, 9, 2):
-        for dy in range(-8, 9, 2):
-            d.text((x + dx, y + dy), t, font=font, fill=(110, 20, 20))
-    d.text((x, y), t, font=font, fill=(240, 200, 90))
-    d.text((W / 2, 900), "（假图：宴会厅北边背景，等 GPT 的开屏图）", font=ImageFont.truetype(font.path, 34), fill=(120, 60, 40), anchor="mt")
-    shade = Image.new("L", (W, H), 0)
-    sd = ImageDraw.Draw(shade)
-    for i in range(int(H * 0.2)):
-        a = int(150 * i / (H * 0.2))
-        sd.line([(0, int(H * 0.8) + i), (W, int(H * 0.8) + i)], fill=a)
-    im = Image.composite(Image.new("RGB", (W, H), (40, 10, 10)), im, shade)
-    return im
+OUT = os.path.join(GODOT, "assets", "splash")
+SRC = os.path.expanduser("~/Desktop/苏七镇奇缘/苏七镇-开屏文件")
+BG_SIZE = (540, 960)
+BG_QUALITY = 85     # 4:4:4 不抽色度（红灯笼边上不糊）；约 300 KB。主包、引擎分包各一份
+LOGO_W = 720
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(__doc__)
-        sys.exit(64)
-    if sys.argv[1] == "--fake":
-        im = fake()
-    else:
-        im = Image.open(sys.argv[1]).convert("RGB")
-        if im.size != (W, H):
-            print("图是 %s，拉成 %dx%d" % (im.size, W, H))
-            im = im.resize((W, H), Image.LANCZOS)
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    im.save(OUT, "JPEG", quality=QUALITY, optimize=True, progressive=True)
-    print("开屏图 %s %d KB" % (OUT, os.path.getsize(OUT) // 1024))
+    src = sys.argv[1] if len(sys.argv) > 1 else SRC
+    os.makedirs(OUT, exist_ok=True)
+    bg = Image.open(os.path.join(src, "关键帧2_原图.png")).convert("RGB").resize(BG_SIZE, Image.LANCZOS)
+    p = os.path.join(OUT, "splash_bg.jpg")
+    bg.save(p, "JPEG", quality=BG_QUALITY, optimize=True, subsampling=0)
+    print("背景 %s %d KB" % (p, os.path.getsize(p) // 1024))
+    logo = Image.open(os.path.join(src, "logo.png")).convert("RGBA")
+    logo = logo.resize((LOGO_W, round(logo.height * LOGO_W / logo.width)), Image.LANCZOS)
+    p = os.path.join(OUT, "title_ui_logo.png")
+    logo.save(p, "PNG", optimize=True)
+    print("logo %s %dx%d %d KB（进包按 WebP 有损压）" % (p, logo.width, logo.height, os.path.getsize(p) // 1024))
+    p = os.path.join(OUT, "title_bgm.wav")
+    shutil.copyfile(os.path.join(src, "bgm.wav"), p)
+    print("音乐 %s %d KB（进包压成 QOA）" % (p, os.path.getsize(p) // 1024))
 
 
 if __name__ == "__main__":
