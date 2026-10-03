@@ -1,0 +1,1165 @@
+{
+ "note": "麻将室摆法（mahjong03，2026-10-03；摆法跟 mahjong02 一模一样，只改了画；跟第二版那份比只改了 name 的字：竹椅、竹圈椅改叫红木椅、红木圈椅（第二版起就是红木），鸟笼架去掉「竹」字）。只是补丁，不改 layout.json 本身：本地 02 照这份改。rect = 占地（画布坐标，y 是地面前后），h = 高（像素，1 米 48）；block=true 挡人。status：keep = layout.json 里原样没动、moved = 挪了、new = 新加。三张麻将桌、十二把椅子、两张茶几原样没动；墙、前沿矮墙、门洞、mahjong 交互点没动。part 编号没给（零件总表归 01）。",
+ "room": {
+  "x": [
+   677,
+   1003
+  ],
+  "door_gap": [
+   800,
+   880
+  ],
+  "mahjong_point": [
+   852,
+   420
+  ]
+ },
+ "remove": [],
+ "items": [
+  {
+   "type": "box",
+   "id": "mahjong_table",
+   "name": "麻将桌 1（东边，四位长辈）",
+   "rect": [
+    921,
+    380,
+    964,
+    409
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "牌桌 1",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.9,
+    "d_m": 0.9,
+    "h_m": 0.75
+   },
+   "foot": 409,
+   "part": "BH-T03"
+  },
+  {
+   "type": "box",
+   "id": "mj1_chair_n",
+   "name": "红木椅（桌 1 北）",
+   "rect": [
+    931,
+    353,
+    953,
+    365
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 1",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.4,
+    "h_m": 0.95
+   },
+   "foot": 365,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj1_chair_w",
+   "name": "红木椅（桌 1 西）",
+   "rect": [
+    891,
+    387,
+    913,
+    397
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 1",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 397,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj1_chair_e",
+   "name": "红木椅（桌 1 东）",
+   "rect": [
+    972,
+    387,
+    994,
+    397
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 1",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 397,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj1_chair_s",
+   "name": "红木椅（桌 1 南）",
+   "rect": [
+    931,
+    425,
+    953,
+    435
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 1",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 438,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mahjong_table_2",
+   "name": "麻将桌 2（西北）",
+   "rect": [
+    716,
+    300,
+    759,
+    329
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "牌桌 2",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.9,
+    "d_m": 0.9,
+    "h_m": 0.75
+   },
+   "foot": 329,
+   "part": "BH-T03"
+  },
+  {
+   "type": "box",
+   "id": "mj2_chair_n",
+   "name": "红木椅（桌 2 北）",
+   "rect": [
+    726,
+    273,
+    748,
+    285
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 2",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.4,
+    "h_m": 0.95
+   },
+   "foot": 285,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj2_chair_w",
+   "name": "红木椅（桌 2 西）",
+   "rect": [
+    686,
+    307,
+    708,
+    317
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 2",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 317,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj2_chair_e",
+   "name": "红木椅（桌 2 东）",
+   "rect": [
+    767,
+    307,
+    789,
+    317
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 2",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 317,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj2_chair_s",
+   "name": "红木椅（桌 2 南）",
+   "rect": [
+    726,
+    345,
+    748,
+    355
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 2",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 358,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mahjong_table_3",
+   "name": "麻将桌 3（西南，南边空一位）",
+   "rect": [
+    716,
+    490,
+    759,
+    519
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "牌桌 3",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.9,
+    "d_m": 0.9,
+    "h_m": 0.75
+   },
+   "foot": 519,
+   "part": "BH-T03"
+  },
+  {
+   "type": "box",
+   "id": "mj3_chair_n",
+   "name": "红木椅（桌 3 北）",
+   "rect": [
+    726,
+    463,
+    748,
+    475
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 3",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.4,
+    "h_m": 0.95
+   },
+   "foot": 475,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj3_chair_w",
+   "name": "红木椅（桌 3 西）",
+   "rect": [
+    686,
+    497,
+    708,
+    507
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 3",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 507,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj3_chair_e",
+   "name": "红木椅（桌 3 东）",
+   "rect": [
+    767,
+    497,
+    789,
+    507
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 3",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 507,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj3_chair_s",
+   "name": "红木椅（桌 3 南，空位）",
+   "rect": [
+    726,
+    535,
+    748,
+    545
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "牌桌 3",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 548,
+   "part": "BH-P12"
+  },
+  {
+   "type": "box",
+   "id": "mj_sideboard",
+   "name": "茶水柜（靠北墙：暖水瓶、长嘴铜壶、盖碗、喜糖罐、瓜子盘、茶叶罐、收音机）",
+   "rect": [
+    810,
+    228,
+    934,
+    242
+   ],
+   "h": 40,
+   "block": true,
+   "zone": "茶水",
+   "status": "new",
+   "scale": {
+    "w_m": 2.6,
+    "d_m": 0.45,
+    "h_m": 0.85
+   },
+   "foot": 242
+  },
+  {
+   "type": "box",
+   "id": "mj_stand_1",
+   "name": "茶凳（桌 1 东南角：盖碗、瓜子；地上一只红暖水瓶）",
+   "rect": [
+    966,
+    408,
+    990,
+    422
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "牌桌 1",
+   "status": "new",
+   "scale": {
+    "w_m": 0.5,
+    "d_m": 0.45,
+    "h_m": 0.45
+   },
+   "foot": 422
+  },
+  {
+   "type": "box",
+   "id": "mj_stand_2",
+   "name": "茶凳（桌 2 西北角）",
+   "rect": [
+    688,
+    280,
+    712,
+    296
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "牌桌 2",
+   "status": "new",
+   "scale": {
+    "w_m": 0.5,
+    "d_m": 0.5,
+    "h_m": 0.45
+   },
+   "foot": 296
+  },
+  {
+   "type": "box",
+   "id": "mj_stand_3",
+   "name": "茶凳（桌 3 西南角）",
+   "rect": [
+    688,
+    518,
+    712,
+    532
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "牌桌 3",
+   "status": "new",
+   "scale": {
+    "w_m": 0.5,
+    "d_m": 0.45,
+    "h_m": 0.45
+   },
+   "foot": 532
+  },
+  {
+   "type": "box",
+   "id": "mj_tea_1",
+   "name": "小茶几连盖碗茶（东南歇脚，两把红木圈椅中间）",
+   "rect": [
+    934,
+    566,
+    963,
+    580
+   ],
+   "h": 24,
+   "block": true,
+   "zone": "东南歇脚",
+   "status": "moved",
+   "scale": {
+    "w_m": 0.6,
+    "d_m": 0.45,
+    "h_m": 0.5
+   },
+   "foot": 580,
+   "part": "BH-T04"
+  },
+  {
+   "type": "box",
+   "id": "mj_rest_chair_w",
+   "name": "红木圈椅（东南歇脚，茶几西边，朝南）",
+   "rect": [
+    906,
+    560,
+    930,
+    574
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "东南歇脚",
+   "status": "new",
+   "scale": {
+    "w_m": 0.5,
+    "d_m": 0.45,
+    "h_m": 0.95
+   },
+   "foot": 574
+  },
+  {
+   "type": "box",
+   "id": "mj_rest_chair_e",
+   "name": "红木圈椅（东南歇脚，茶几东边，朝南）",
+   "rect": [
+    968,
+    560,
+    992,
+    574
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "东南歇脚",
+   "status": "new",
+   "scale": {
+    "w_m": 0.5,
+    "d_m": 0.45,
+    "h_m": 0.95
+   },
+   "foot": 574
+  },
+  {
+   "type": "box",
+   "id": "mj_cage_stand",
+   "name": "鸟笼架（东北：两只鸟笼，一只搭着蓝布）",
+   "rect": [
+    936,
+    296,
+    960,
+    304
+   ],
+   "h": 86,
+   "block": true,
+   "zone": "角落",
+   "status": "new",
+   "scale": {
+    "w_m": 0.5,
+    "d_m": 0.25,
+    "h_m": 1.8
+   },
+   "foot": 304
+  },
+  {
+   "type": "box",
+   "id": "card_table",
+   "name": "打牌的小方桌（三个人打扑克，只画牌背，不放钱、不放筹码）",
+   "rect": [
+    826,
+    292,
+    862,
+    316
+   ],
+   "h": 34,
+   "block": true,
+   "zone": "打牌",
+   "status": "new",
+   "scale": {
+    "w_m": 0.75,
+    "d_m": 0.75,
+    "h_m": 0.7
+   },
+   "foot": 316
+  },
+  {
+   "type": "box",
+   "id": "card_chair_n",
+   "name": "红木椅（打牌桌北）",
+   "rect": [
+    833,
+    266,
+    855,
+    278
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "打牌",
+   "status": "new",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.4,
+    "h_m": 0.95
+   },
+   "foot": 278
+  },
+  {
+   "type": "box",
+   "id": "card_chair_w",
+   "name": "红木椅（打牌桌西）",
+   "rect": [
+    800,
+    298,
+    822,
+    308
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "打牌",
+   "status": "new",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 308
+  },
+  {
+   "type": "box",
+   "id": "card_chair_e",
+   "name": "红木椅（打牌桌东）",
+   "rect": [
+    866,
+    298,
+    888,
+    308
+   ],
+   "h": 46,
+   "block": true,
+   "zone": "打牌",
+   "status": "new",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.3,
+    "h_m": 0.95
+   },
+   "foot": 308
+  },
+  {
+   "type": "box",
+   "id": "mj_candy_table",
+   "name": "喜糖台（桌 1 南边：一摞红礼盒、一大盘喜糖，客人随手拿）",
+   "rect": [
+    928,
+    492,
+    972,
+    506
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "围观",
+   "status": "new",
+   "scale": {
+    "w_m": 0.9,
+    "d_m": 0.45,
+    "h_m": 0.45
+   },
+   "foot": 506
+  },
+  {
+   "type": "box",
+   "id": "mj_lamp_w",
+   "name": "落地宫灯（门里西边）",
+   "rect": [
+    779,
+    640,
+    791,
+    648
+   ],
+   "h": 80,
+   "block": true,
+   "zone": "门口",
+   "status": "new",
+   "scale": {
+    "w_m": 0.25,
+    "d_m": 0.25,
+    "h_m": 1.65
+   },
+   "foot": 648
+  },
+  {
+   "type": "box",
+   "id": "mj_lamp_e",
+   "name": "落地宫灯（门里东边）",
+   "rect": [
+    888,
+    640,
+    900,
+    648
+   ],
+   "h": 80,
+   "block": true,
+   "zone": "门口",
+   "status": "new",
+   "scale": {
+    "w_m": 0.25,
+    "d_m": 0.25,
+    "h_m": 1.65
+   },
+   "foot": 648
+  },
+  {
+   "type": "box",
+   "id": "mj_flower_stand",
+   "name": "高花几（东墙边：青花梅瓶插红梅）",
+   "rect": [
+    984,
+    516,
+    1000,
+    524
+   ],
+   "h": 44,
+   "block": true,
+   "zone": "东墙边",
+   "status": "new",
+   "scale": {
+    "w_m": 0.35,
+    "d_m": 0.25,
+    "h_m": 0.9
+   },
+   "foot": 524
+  },
+  {
+   "type": "box",
+   "id": "mj_coat_rack",
+   "name": "衣帽架（西墙边：长辈脱下的外套、草帽、红围巾）",
+   "rect": [
+    688,
+    408,
+    706,
+    416
+   ],
+   "h": 84,
+   "block": true,
+   "zone": "西墙边",
+   "status": "new",
+   "scale": {
+    "w_m": 0.4,
+    "d_m": 0.25,
+    "h_m": 1.75
+   },
+   "foot": 416
+  },
+  {
+   "type": "box",
+   "id": "mj_tea_2",
+   "name": "小茶几连盖碗茶（西南歇脚）",
+   "rect": [
+    682,
+    610,
+    711,
+    624
+   ],
+   "h": 24,
+   "block": true,
+   "zone": "西南歇脚",
+   "status": "keep",
+   "scale": {
+    "w_m": 0.6,
+    "d_m": 0.45,
+    "h_m": 0.5
+   },
+   "foot": 624,
+   "part": "BH-T04"
+  },
+  {
+   "type": "box",
+   "id": "mj_recliner",
+   "name": "红木罗汉榻（西南歇脚，v2 换掉竹躺椅：围板、红坐垫、两只圆枕）",
+   "rect": [
+    714,
+    602,
+    788,
+    620
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "西南歇脚",
+   "status": "new",
+   "scale": {
+    "w_m": 1.55,
+    "d_m": 0.55,
+    "h_m": 0.85
+   },
+   "foot": 620
+  },
+  {
+   "type": "box",
+   "id": "mj_fan",
+   "name": "落地扇（东北角）",
+   "rect": [
+    978,
+    238,
+    996,
+    248
+   ],
+   "h": 62,
+   "block": true,
+   "zone": "角落",
+   "status": "new",
+   "scale": {
+    "w_m": 0.4,
+    "d_m": 0.3,
+    "h_m": 1.3
+   },
+   "foot": 248
+  },
+  {
+   "type": "box",
+   "id": "mj_plant_nw",
+   "name": "观音竹（西北角，大陶盆）",
+   "rect": [
+    679,
+    230,
+    699,
+    242
+   ],
+   "h": 86,
+   "block": true,
+   "zone": "角落",
+   "status": "new",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.4,
+    "h_m": 1.8
+   },
+   "foot": 242
+  },
+  {
+   "type": "box",
+   "id": "mj_plant_se",
+   "name": "发财树（东南角）",
+   "rect": [
+    980,
+    636,
+    1000,
+    650
+   ],
+   "h": 72,
+   "block": true,
+   "zone": "角落",
+   "status": "new",
+   "scale": {
+    "w_m": 0.45,
+    "d_m": 0.45,
+    "h_m": 1.5
+   },
+   "foot": 650
+  }
+ ],
+ "flat": [
+  {
+   "id": "rug_mj1",
+   "name": "桌 1 下面的方地毯（红底回纹边）",
+   "rect": [
+    889,
+    345,
+    996,
+    442
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_mj2",
+   "name": "桌 2 下面的方地毯",
+   "rect": [
+    686,
+    265,
+    793,
+    362
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_mj3",
+   "name": "桌 3 下面的方地毯",
+   "rect": [
+    686,
+    455,
+    793,
+    552
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_rest",
+   "name": "东南歇脚的小地毯（米色心回纹边）",
+   "rect": [
+    900,
+    552,
+    998,
+    592
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_card",
+   "name": "打牌那桌下面的地毯",
+   "rect": [
+    796,
+    258,
+    892,
+    334
+   ],
+   "block": false
+  },
+  {
+   "id": "runner",
+   "name": "门口一直铺到交互点的长红地毯（v2：换掉门里小地垫；跟宴会厅红毯一家）",
+   "rect": [
+    810,
+    440,
+    870,
+    684
+   ],
+   "block": false
+  }
+ ],
+ "npcs": [
+  {
+   "id": "elder_n",
+   "who": "长辈（桌 1 北，朝南）",
+   "x": 942,
+   "y": 367,
+   "status": "keep",
+   "sit": true,
+   "face": "down",
+   "standin": {
+    "code": "LM-GUEST-10",
+    "frame": 0,
+    "rows": 48,
+    "bottom": 349
+   }
+  },
+  {
+   "id": "elder_w",
+   "who": "长辈（桌 1 西，朝东）",
+   "x": 902,
+   "y": 399,
+   "status": "keep",
+   "sit": true,
+   "face": "right",
+   "standin": {
+    "code": "LM-GUEST-09",
+    "frame": 8,
+    "rows": 47,
+    "bottom": 380
+   }
+  },
+  {
+   "id": "elder_e",
+   "who": "长辈（桌 1 东，朝西）",
+   "x": 983,
+   "y": 399,
+   "status": "keep",
+   "sit": true,
+   "face": "left",
+   "standin": {
+    "code": "LM-GUEST-05",
+    "frame": 4,
+    "rows": 47,
+    "bottom": 380
+   }
+  },
+  {
+   "id": "elder_s",
+   "who": "长辈（桌 1 南，背对镜头）",
+   "x": 942,
+   "y": 437,
+   "status": "keep",
+   "sit": true,
+   "face": "up",
+   "standin": {
+    "code": "LM-GUEST-06",
+    "frame": 12,
+    "rows": 47,
+    "bottom": 418
+   }
+  },
+  {
+   "id": "elder_5",
+   "who": "长辈（桌 2 北）",
+   "x": 737,
+   "y": 287,
+   "status": "keep",
+   "sit": true,
+   "face": "down",
+   "standin": {
+    "code": "LM-GUEST-03",
+    "frame": 0,
+    "rows": 48,
+    "bottom": 269
+   }
+  },
+  {
+   "id": "elder_6",
+   "who": "长辈（桌 2 西）",
+   "x": 697,
+   "y": 319,
+   "status": "keep",
+   "sit": true,
+   "face": "right",
+   "standin": {
+    "code": "LM-GUEST-04",
+    "frame": 8,
+    "rows": 47,
+    "bottom": 300
+   }
+  },
+  {
+   "id": "mj_guest_1",
+   "who": "宾客（桌 2 东）",
+   "x": 778,
+   "y": 319,
+   "status": "keep",
+   "sit": true,
+   "face": "left",
+   "standin": {
+    "code": "LM-GUEST-01",
+    "frame": 4,
+    "rows": 47,
+    "bottom": 300
+   }
+  },
+  {
+   "id": "mj_guest_2",
+   "who": "宾客（桌 2 南，背对镜头）",
+   "x": 737,
+   "y": 357,
+   "status": "keep",
+   "sit": true,
+   "face": "up",
+   "standin": {
+    "code": "LM-GUEST-02",
+    "frame": 12,
+    "rows": 47,
+    "bottom": 338
+   }
+  },
+  {
+   "id": "mj3_n",
+   "who": "长辈（桌 3 北，新加）",
+   "x": 737,
+   "y": 477,
+   "status": "new",
+   "sit": true,
+   "face": "down",
+   "standin": {
+    "code": "LM-GUEST-08",
+    "frame": 0,
+    "rows": 48,
+    "bottom": 459
+   }
+  },
+  {
+   "id": "mj3_w",
+   "who": "长辈（桌 3 西，新加）",
+   "x": 697,
+   "y": 509,
+   "status": "new",
+   "sit": true,
+   "face": "right",
+   "standin": {
+    "code": "LM-GUEST-10",
+    "frame": 8,
+    "rows": 47,
+    "bottom": 490
+   }
+  },
+  {
+   "id": "mj3_e",
+   "who": "长辈（桌 3 东，新加）",
+   "x": 778,
+   "y": 509,
+   "status": "new",
+   "sit": true,
+   "face": "left",
+   "standin": {
+    "code": "LM-GUEST-02",
+    "frame": 4,
+    "rows": 47,
+    "bottom": 490
+   }
+  },
+  {
+   "id": "card_n",
+   "who": "打牌的客人（北，朝南，新加）",
+   "x": 844,
+   "y": 280,
+   "status": "new",
+   "sit": true,
+   "face": "down",
+   "standin": {
+    "code": "LM-GUEST-09",
+    "frame": 0,
+    "rows": 47,
+    "bottom": 261
+   }
+  },
+  {
+   "id": "card_w",
+   "who": "打牌的客人（西，朝东，新加）",
+   "x": 811,
+   "y": 310,
+   "status": "new",
+   "sit": true,
+   "face": "right",
+   "standin": {
+    "code": "LM-GUEST-06",
+    "frame": 8,
+    "rows": 47,
+    "bottom": 291
+   }
+  },
+  {
+   "id": "card_e",
+   "who": "打牌的客人（东，朝西，新加）",
+   "x": 877,
+   "y": 310,
+   "status": "new",
+   "sit": true,
+   "face": "left",
+   "standin": {
+    "code": "LM-GUEST-08",
+    "frame": 4,
+    "rows": 47,
+    "bottom": 291
+   }
+  }
+ ],
+ "spots": [
+  {
+   "id": "mahjong",
+   "name": "麻将室交互点（layout 原有）",
+   "x": 852,
+   "y": 420,
+   "r": 20
+  },
+  {
+   "id": "watch_mj1_w",
+   "name": "桌 1 西边看牌（站在西家身后）",
+   "x": 878,
+   "y": 392,
+   "r": 10
+  },
+  {
+   "id": "watch_mj1_s",
+   "name": "桌 1 西南角看牌",
+   "x": 918,
+   "y": 450,
+   "r": 10
+  },
+  {
+   "id": "watch_mj2_e",
+   "name": "桌 2 东南角看牌（站在东家、南家中间）",
+   "x": 790,
+   "y": 344,
+   "r": 10
+  },
+  {
+   "id": "watch_card_se",
+   "name": "打牌桌东南角看牌（v2 新加）",
+   "x": 880,
+   "y": 342,
+   "r": 10
+  },
+  {
+   "id": "watch_mj3_s",
+   "name": "桌 3 南边空位后面看牌",
+   "x": 737,
+   "y": 560,
+   "r": 10
+  },
+  {
+   "id": "watch_mj3_e",
+   "name": "桌 3 东边看牌",
+   "x": 802,
+   "y": 522,
+   "r": 10
+  }
+ ],
+ "keep_clear": [
+  {
+   "what": "门口往里那条路（门洞 800～880，从门槛一直到 mahjong 交互点）",
+   "rect": [
+    798,
+    430,
+    882,
+    684
+   ]
+  },
+  {
+   "what": "mahjong 交互点四周",
+   "rect": [
+    826,
+    394,
+    878,
+    446
+   ]
+  }
+ ]
+}
