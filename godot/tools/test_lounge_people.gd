@@ -6,6 +6,8 @@ extends SceneTree
 ##   4 说话：点 NPC（屏幕上点他本人）→ 走过去 → 弹对话框（名字牌、上半身人物图、一句句点下去，说完收、能走）；说话时他那组不冒泡
 ##   5 身份卡：全身人物图 + 称呼；关上回到对话框
 ##   6 坐在奶奶旁边直接「跟奶奶聊聊」
+##   7 代码小人（10/4 第二步）：坐着放坐姿格（20～27）、脚踩座位前沿；说话时放说话格（18、19）；叔叔隔一阵起身走一圈（四向走路格、
+##     站定放待机格 16、17）再坐回去
 ## 用法：Godot --headless --path . --script res://tools/test_lounge_people.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -68,8 +70,8 @@ func run() -> void:
     var who := {}
     for id in ["lounge_09", "lounge_10", "lounge_05", "lounge_06"]:
         var s: Sprite2D = b.npc_nodes.get(id)
-        who[id] = s != null and s.region_enabled and s.position.x > 336 and s.position.x < 672
-    check("四位坐在休息间（%s）" % [who], not who.values().has(false) and life.people.size() == 4)
+        who[id] = s != null and s.hframes == 16 and s.vframes == 2 and s.frame >= 20 and s.frame <= 27 and s.position.x > 336 and s.position.x < 672
+    check("四位代码小人坐在休息间、放坐姿格（%s）" % [who], not who.values().has(false) and life.people.size() == 4)
     check("奶奶、爷爷在北边沙发，叔叔、阿姨在茶座", life.person("lounge_09")["seat"] == "sofa_l" and life.person("lounge_10")["seat"] == "sofa_r"
         and life.person("lounge_05")["seat"] == "west_chair_w" and life.person("lounge_06")["seat"] == "west_chair_e")
     var bad: Array = []
@@ -175,6 +177,8 @@ func run() -> void:
         if ui.talk_box.visible:
             break
     check("屏幕上点阿姨：走过去、弹对话框（站在 %s）" % b.pos, ui.talk_box.visible and ui.talk_id == "lounge_06" and b.pos.distance_to(p06["stand"]) <= 34.0)
+    var s06: Sprite2D = b.npc_nodes["lounge_06"]
+    check("跟阿姨说话时她站起来放说话格（第 %d 格）" % s06.frame, s06.frame == 18 or s06.frame == 19)
     check("名字牌「%s」、不能走、上半身人物图（%s）" % [ui.name_label.text, ui.portrait.texture.region if ui.portrait.texture else null],
         ui.name_plate.visible and ui.name_label.text == "阿姨" and not b.walking_enabled and ui.portrait.texture != null
         and ui.portrait.texture.region.size.y < 60.0)
@@ -191,6 +195,8 @@ func run() -> void:
     check("一句句点下去（%s）；侧身那句换侧身的图" % [texts], texts.size() == n and texts[0] == str(p06["talk"][0]["text"]) and side_ok)
     ui.next_line()
     check("说完对话框收了、又能走", not ui.talk_box.visible and not ui.name_plate.visible and b.walking_enabled and life.talking == "")
+    tick(2)
+    check("阿姨说完坐回去（第 %d 格）" % s06.frame, s06.frame >= 20 and s06.frame <= 27)
 
     print("5 身份卡")
     life.request_talk("lounge_05")
@@ -222,6 +228,38 @@ func run() -> void:
     m._switch_canvas("banquet")
     tick(5)
     check("离开后厅按钮、对话框都收", not ui.seat_btn.visible and not ui.talk_btn.visible and not ui.talk_box.visible)
+
+    print("7 叔叔起身走一圈")
+    m._show_canvas("backhall")
+    m._goto("backhall")
+    var u: Dictionary = life.person("lounge_05")
+    var su: Sprite2D = b.npc_nodes["lounge_05"]
+    for i in int(60.0 / DT):   # 前面几段里他可能已经起身了：先等他坐回去
+        tick(1)
+        if str(u["mode"]) == "sit" and (u["foot"] as Vector2) == u["home"] and (u["legs"] as Array).is_empty():
+            break
+    u["wait"] = 0.0
+    var faces := {}
+    var idle_seen := false
+    var left_home := false
+    var back := false
+    for i in int(90.0 / DT):
+        tick(1)
+        if str(u["mode"]) == "walk":
+            faces[str(u["face"])] = true
+            if su.frame > 15:
+                faces["错格"] = true
+        if str(u["mode"]) == "idle" and (su.frame == 16 or su.frame == 17):
+            idle_seen = true
+        if (u["foot"] as Vector2) != u["home"]:
+            left_home = true
+        elif left_home and str(u["mode"]) == "sit":
+            back = true
+            break
+    check("叔叔起身走了（走路朝向 %s，走路只放第一行）" % [faces.keys()], left_home and faces.size() >= 3 and not faces.has("错格"))
+    check("在唱片机、电视前站着放待机格", idle_seen)
+    check("走回来坐下（%s，第 %d 格）" % [u["foot"], su.frame], back and su.frame >= 20 and su.frame <= 27)
+    check("他走开时座位还是他的（玩家不能坐）", str(life.seat_by_id("west_chair_w").get("npc", "")) == "lounge_05")
 
     DirAccess.remove_absolute("user://test_lounge_court.json")
     DirAccess.remove_absolute("user://test_lounge_games.json")

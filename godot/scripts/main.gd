@@ -3808,29 +3808,40 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
-        "lounge_chat", "lounge_sit", "lounge_talk", "lounge_card":
-            # 休息间人物样板（01 F 10/4）：chat 是四位在冒泡（两组各冒一句，停住不轮换）；sit 是玩家坐在北边沙发中间、奶奶爷爷两边；
-            # talk 是坐着跟奶奶说话弹的对话框；card 是对话框上点「身份卡」
+        "lounge_chat", "lounge_sit", "lounge_talk", "lounge_card", "lounge_walk_down", "lounge_walk_left", "lounge_walk_right", "lounge_walk_up":
+            # 休息间人物样板（01 F 10/4）：chat 是四位坐着冒泡（两组各冒一句，停住不轮换）；sit 是玩家坐在北边沙发中间、奶奶爷爷两边；
+            # talk 是坐着跟奶奶说话：对话框弹出、奶奶站起来放说话格；card 是对话框上点「身份卡」；
+            # walk_* 是叔叔起身走动时朝那个方向迈步的那一格（代码小人走路四向，10/4 第二步）
             await _setup_shot("backhall")
             var life = backhall.lounge
             var sofa_m: Dictionary = life.seat_by_id("sofa_m")
             if shot == "lounge_chat":
                 backhall.reset_to(Vector2(504, 470))
                 backhall.face = "up"
+            elif shot.begins_with("lounge_walk_"):
+                backhall.reset_to(Vector2(470, 610))
+                backhall.face = "up"
             else:
                 backhall.reset_to(sofa_m["stand"])
                 life.sit(sofa_m)
             for i in 30: await get_tree().process_frame
-            life.frozen = true
-            for id in life.bubbles.keys():
-                life._hide_bubble(id)
+            if shot in ["lounge_chat", "lounge_sit"] or shot.begins_with("lounge_walk_"):
+                life.frozen = true
+                for id in life.bubbles.keys():
+                    life._hide_bubble(id)
             if shot in ["lounge_chat", "lounge_sit"]:
                 life.show_bubble("lounge_10", str(life.data["chat"][0]["lines"][1][1]))
                 life.show_bubble("lounge_05", str(life.data["chat"][1]["lines"][0][1]))
+            if shot.begins_with("lounge_walk_"):
+                var u: Dictionary = life.person("lounge_05")
+                u["foot"] = Vector2(530, 500)
+                u["mode"] = "walk"
+                u["face"] = shot.trim_prefix("lounge_walk_")
+                u["walk_t"] = 0.15   # 迈开步子那一格
             if shot in ["lounge_talk", "lounge_card"]:
                 lounge_ui.attach(life)
                 life.request_talk("lounge_09")
-                for i in 5: await get_tree().process_frame
+                for i in 10: await get_tree().process_frame
                 if shot == "lounge_card":
                     lounge_ui.open_card("lounge_09")
             for i in 20: await get_tree().process_frame

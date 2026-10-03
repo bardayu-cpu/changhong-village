@@ -379,6 +379,8 @@ func _flowers(holder: Node2D, x0: float, y0: float, x1: float, y1: float, foot: 
 func _npcs() -> void:
     for n in cfg.get("npcs", []):
         var id := str(n["id"])
+        if n.has("code_char"):
+            continue   # 01 画的代码小人（休息间四位，10/4）：lounge_life.gd 画、管动作
         if n.has("standin") and _standin(n):
             continue
         var look_cfg: Dictionary = Spr.npc_look(str(n.get("look", id)))
