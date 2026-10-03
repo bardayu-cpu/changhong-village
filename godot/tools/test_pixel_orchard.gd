@@ -5,6 +5,8 @@ extends SceneTree
 ## 3 硬边、这块画布 ≤ 64 色
 ## 4 手机竖屏 540×960 下镜头 1 倍
 ## 5 收购处那行名字挪到布篷上的空招牌（游戏里不显示，图上不叠字）；摊子、垄、树的框照画出来的（art_box）
+## 6 路口指草莓垄的金箭头（04 体验回执可以先带着第 3 条，01 F 10/3）：没收过草莓，从草坪进来第一屏就看得见、朝西指向垄沟、
+##   不压「点地面走路」那块、不压摊子、没有字；收过一次草莓就不出了，出去再进来也不出
 ## 用法：Godot --headless --path . --script res://tools/test_pixel_orchard.gd ；最后一行 RESULT PASS 才算过
 
 var m
@@ -132,6 +134,51 @@ func run() -> void:
             lab_shown = true
     check("游戏里不显示这行字（图上不叠字）", not lab_shown)
     check("摊子的框照画出来的 179×188（%s）" % [stall.get("art_box")], (stall.get("art_box", []) as Array).map(func(v): return int(v)) == [889, 901, 1068, 1089])
+    print("6 路口的金箭头")
+    m.orchard_save.plots = {}
+    m.orchard_save.basket = {}
+    o.fake_now = -1.0
+    m.nickname = "小李"
+    m.games_save.coins = 0
+    await m._enter_court()      # 跟截图预设一样：真进院子、去草坪、再进果园
+    m.dialog.visible = false
+    m._switch_canvas("lawn")
+    m._switch_canvas("orchard")
+    for i in 60:
+        await process_frame
+        if m.state == "orchard" and not m.switching:
+            break
+    for i in 10:
+        await process_frame
+    var ar: Polygon2D = o.get_node_or_null("guide_arrow")
+    check("没收过草莓：箭头出来了", ar != null and ar.visible)
+    if ar != null:
+        check("箭头朝西指着垄沟（转了 %.0f 度）" % rad_to_deg(ar.rotation), absf(absf(ar.rotation) - PI) < 0.05)
+        check("箭头没有字（只有一个三角和描边）", ar.get_children().all(func(c): return not (c is Label)))
+        var xf := ar.get_global_transform_with_canvas()
+        var pts := PackedVector2Array()
+        for v in ar.polygon:
+            pts.append(xf * v)
+        var box := Rect2(pts[0], Vector2.ZERO)
+        for v in pts:
+            box = box.expand(v)
+        var scr := Rect2(Vector2.ZERO, Vector2(get_root().get_visible_rect().size))
+        check("从草坪进来第一屏，箭头在屏里（%s）" % box, scr.encloses(box))
+        var hint_box: Rect2 = m.hint.get_global_rect() if m.hint != null and m.hint.visible else Rect2()
+        check("不压「点地面走路」那块（%s）" % hint_box, not box.intersects(hint_box))
+        var cxf: Transform2D = o.get_global_transform_with_canvas()
+        var st_ab: Array = stall["art_box"]
+        var stall_scr := Rect2(cxf * Vector2(float(st_ab[0]), float(st_ab[1])), Vector2(float(st_ab[2]) - float(st_ab[0]), float(st_ab[3]) - float(st_ab[1])) * cxf.get_scale())
+        check("不压摊子（摊子 %s）" % stall_scr, not box.intersects(stall_scr))
+    o.farm["sell_mode"] = "auto"
+    o.harvest("strawberry")
+    await process_frame
+    check("收过一次草莓：箭头不出了", ar != null and not ar.visible)
+    m._switch_canvas("lawn")
+    m._switch_canvas("orchard")
+    for i in 30:
+        await process_frame
+    check("出去再进来也不出", ar != null and not ar.visible)
     print("RESULT PASS" if ok else "RESULT FAIL")
     quit(0 if ok else 1)
 

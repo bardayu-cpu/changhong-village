@@ -27,6 +27,7 @@ var fake_now := -1.0             # 大于 0 就当成现在几点（秒），测
 var save                         # orchard_save.gd，main 建好塞进来
 var plots: Array = []            # [{id, kind, dots:[Node2D], bodies:[Polygon2D]}]；铺了代码画的成品的多 ripe、bare 两张图
 var pick_t := 0.0                # 收的小动作还剩多久
+var guide_arrow: Polygon2D       # 路口指草莓垄的金箭头（见 _guide_tick）
 var _refresh_t := 0.0
 
 func _init() -> void:
@@ -38,6 +39,9 @@ func build(preset: int, nickname: String, f: Font) -> void:
     farm = _read(FARM)
     _make_plots()
     refresh_fruit()
+    guide_arrow = edge_arrow()       # 跟签到台、厨房、东侧门同一种金箭头，不写字
+    guide_arrow.name = "guide_arrow"
+    add_child(guide_arrow)
 
 func _read(path: String) -> Dictionary:
     var d = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -157,6 +161,31 @@ func harvest(kind: String) -> int:
     refresh_fruit()
     print("[suqi] 果园 收了 ", got, " 份 ", kind)
     return got
+
+## 第一回进果园的人不知道要走进垄里（04 体验回执「后厅两间和果园」可以先带着第 3 条，01 F 10/3 定）：
+## 中间小路西边、正对「收草莓」那条垄沟（草莓交互点 y）放一个金箭头朝西，往垄里一下一下地点；收过一次草莓就不出了。
+## 收没收过看存档里有没有记过哪条垄（收一次就记下那条垄的时刻），不另加存档项
+const GUIDE_AT := Vector2(746, 796)
+const GUIDE_NUDGE := 5.0
+
+func strawberry_picked() -> bool:
+    if save == null:
+        return false
+    for k in save.plots:
+        if str(k).begins_with("ridge_"):
+            return true
+    return false
+
+func _guide_tick() -> void:
+    if guide_arrow == null:
+        return
+    guide_arrow.visible = not strawberry_picked()
+    if not guide_arrow.visible:
+        return
+    var tip := Vector2(points["strawberry"]["pos"].x, GUIDE_AT.y) if points.has("strawberry") else GUIDE_AT + Vector2.LEFT
+    guide_arrow.rotation = (tip - GUIDE_AT).angle()
+    guide_arrow.position = GUIDE_AT + Vector2.from_angle(guide_arrow.rotation) * absf(sin(t * 3.0)) * GUIDE_NUDGE
+    guide_arrow.modulate.a = 0.75 + sin(t * 5.0) * 0.25
 
 ## 果篮里现在值多少金币
 func basket_coins() -> int:
@@ -288,6 +317,7 @@ func _process(dt: float) -> void:
     if _refresh_t >= REFRESH_SECS:
         _refresh_t = 0.0
         refresh_fruit()
+    _guide_tick()
     # 收的小动作：弯一下腰再起来，灰盒先这样
     if pick_t > 0.0:
         pick_t = maxf(pick_t - dt, 0.0)
