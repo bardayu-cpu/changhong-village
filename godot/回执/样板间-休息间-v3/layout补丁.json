@@ -1,0 +1,841 @@
+{
+ "note": "休息间第三版摆法（lounge03，2026-10-03）。只是补丁，不改 layout.json 本身：本地 02 照这份改。rect = 占地（画布坐标，y 是地面前后），h = 高（像素，1 米 48）；block=true 挡人。status：keep = layout.json 里原样没动、moved = 挪了或改了大小、new = 新加。remove 里是要拿掉的灰盒（行李箱）。墙、前沿矮墙、门洞、lounge 交互点都没动。part 编号没给（零件总表归 01）。",
+ "room": {
+  "x": [
+   336,
+   672
+  ],
+  "door_gap": [
+   464,
+   544
+  ],
+  "lounge_point": [
+   504,
+   420
+  ]
+ },
+ "remove": [
+  {
+   "id": "luggage_1",
+   "why": "蓝色拉杆箱（休息间不要行李箱）",
+   "in_layout": true
+  },
+  {
+   "id": "luggage_2",
+   "why": "棕色皮箱（同上）",
+   "in_layout": true
+  }
+ ],
+ "items": [
+  {
+   "type": "box",
+   "id": "vinyl_wall",
+   "rect": [
+    352,
+    226,
+    496,
+    232
+   ],
+   "h": 115,
+   "block": true,
+   "zone": "唱片角",
+   "status": "keep",
+   "scale": {
+    "name": "唱片墙",
+    "w_m": 3.0,
+    "d_m": 0.19,
+    "h_m": 2.4
+   },
+   "foot": 232,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "record_player",
+   "rect": [
+    396,
+    258,
+    452,
+    284
+   ],
+   "h": 97,
+   "block": true,
+   "zone": "唱片角",
+   "status": "keep",
+   "scale": {
+    "name": "唱片机（连金喇叭）",
+    "w_m": 1.17,
+    "d_m": 0.81,
+    "h_m": 2.02
+   },
+   "foot": 284,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "record_crate",
+   "rect": [
+    356,
+    272,
+    386,
+    290
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "唱片角",
+   "status": "new",
+   "scale": {
+    "name": "唱片箱（两只木箱叠着）",
+    "w_m": 0.62,
+    "d_m": 0.56,
+    "h_m": 0.46
+   },
+   "foot": 290,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "fiddle_fig",
+   "rect": [
+    497,
+    234,
+    515,
+    242
+   ],
+   "h": 82,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "琴叶榕",
+    "w_m": 0.38,
+    "d_m": 0.25,
+    "h_m": 1.71
+   },
+   "foot": 242,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "sofa_back",
+   "rect": [
+    516,
+    236,
+    617,
+    244
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "三人沙发（靠背）",
+    "w_m": 2.1,
+    "d_m": 0.25,
+    "h_m": 0.85
+   },
+   "foot": 244,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "sofa",
+   "rect": [
+    516,
+    244,
+    617,
+    268
+   ],
+   "h": 20,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "三人沙发（坐垫）",
+    "w_m": 2.1,
+    "d_m": 0.75,
+    "h_m": 0.42
+   },
+   "foot": 268,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "tea_table",
+   "rect": [
+    538,
+    296,
+    596,
+    314
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "茶几",
+    "w_m": 1.21,
+    "d_m": 0.56,
+    "h_m": 0.46
+   },
+   "foot": 314,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "armchair_w",
+   "rect": [
+    480,
+    292,
+    523,
+    320
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "单人沙发 1（朝东）",
+    "w_m": 0.9,
+    "d_m": 0.88,
+    "h_m": 0.85
+   },
+   "foot": 320,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "armchair_e",
+   "rect": [
+    604,
+    292,
+    647,
+    320
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "单人沙发 2（朝西）",
+    "w_m": 0.9,
+    "d_m": 0.88,
+    "h_m": 0.85
+   },
+   "foot": 320,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "floor_lamp",
+   "rect": [
+    624,
+    252,
+    634,
+    260
+   ],
+   "h": 77,
+   "block": true,
+   "zone": "茶座",
+   "status": "keep",
+   "scale": {
+    "name": "落地灯",
+    "w_m": 0.21,
+    "d_m": 0.25,
+    "h_m": 1.6
+   },
+   "foot": 260,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "tv_unit",
+   "rect": [
+    638,
+    360,
+    664,
+    450
+   ],
+   "h": 24,
+   "block": true,
+   "zone": "电视角",
+   "status": "moved",
+   "scale": {
+    "name": "电视柜连大电视、游戏机",
+    "w_m": 0.54,
+    "d_m": 2.81,
+    "h_m": 0.5
+   },
+   "foot": 450,
+   "art": "lounge03/draw_lounge_v3.py",
+   "was": {
+    "rect": [
+     636,
+     360,
+     660,
+     418
+    ],
+    "h": 24
+   }
+  },
+  {
+   "type": "box",
+   "id": "tv_sofa",
+   "rect": [
+    548,
+    378,
+    590,
+    458
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "电视角",
+   "status": "new",
+   "scale": {
+    "name": "三人沙发（朝东看电视）",
+    "w_m": 0.88,
+    "d_m": 2.5,
+    "h_m": 0.85
+   },
+   "foot": 458,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "tv_table",
+   "rect": [
+    598,
+    398,
+    620,
+    438
+   ],
+   "h": 18,
+   "block": true,
+   "zone": "电视角",
+   "status": "new",
+   "scale": {
+    "name": "电视前长茶几（两个手柄）",
+    "w_m": 0.46,
+    "d_m": 1.25,
+    "h_m": 0.38
+   },
+   "foot": 438,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "bookshelf_1",
+   "rect": [
+    342,
+    330,
+    362,
+    392
+   ],
+   "h": 86,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "书架 1（靠西墙）",
+    "w_m": 0.42,
+    "d_m": 1.94,
+    "h_m": 1.79
+   },
+   "foot": 392,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "bookshelf_2",
+   "rect": [
+    342,
+    428,
+    362,
+    490
+   ],
+   "h": 86,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "书架 2（靠西墙）",
+    "w_m": 0.42,
+    "d_m": 1.94,
+    "h_m": 1.79
+   },
+   "foot": 490,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "reading_lamp",
+   "rect": [
+    346,
+    496,
+    356,
+    502
+   ],
+   "h": 77,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "阅读落地灯",
+    "w_m": 0.21,
+    "d_m": 0.19,
+    "h_m": 1.6
+   },
+   "foot": 502,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "reading_sofa",
+   "rect": [
+    342,
+    508,
+    384,
+    588
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "看书的长沙发（朝东）",
+    "w_m": 0.88,
+    "d_m": 2.5,
+    "h_m": 0.85
+   },
+   "foot": 588,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "book_table",
+   "rect": [
+    394,
+    524,
+    420,
+    564
+   ],
+   "h": 20,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "放书矮桌",
+    "w_m": 0.54,
+    "d_m": 1.25,
+    "h_m": 0.42
+   },
+   "foot": 564,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "reading_chair",
+   "rect": [
+    424,
+    528,
+    462,
+    556
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "单人沙发 3（朝西）",
+    "w_m": 0.79,
+    "d_m": 0.88,
+    "h_m": 0.85
+   },
+   "foot": 556,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "floor_lamp_se",
+   "rect": [
+    652,
+    530,
+    662,
+    536
+   ],
+   "h": 77,
+   "block": true,
+   "zone": "门口落座",
+   "status": "new",
+   "scale": {
+    "name": "落地灯 2",
+    "w_m": 0.21,
+    "d_m": 0.19,
+    "h_m": 1.6
+   },
+   "foot": 536,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "loveseat",
+   "rect": [
+    628,
+    544,
+    664,
+    592
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "门口落座",
+   "status": "new",
+   "scale": {
+    "name": "双人沙发（朝西）",
+    "w_m": 0.75,
+    "d_m": 1.5,
+    "h_m": 0.85
+   },
+   "foot": 592,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "se_table",
+   "rect": [
+    608,
+    558,
+    626,
+    576
+   ],
+   "h": 24,
+   "block": true,
+   "zone": "门口落座",
+   "status": "new",
+   "scale": {
+    "name": "圆边几",
+    "w_m": 0.38,
+    "d_m": 0.56,
+    "h_m": 0.5
+   },
+   "foot": 576,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "se_chair",
+   "rect": [
+    568,
+    552,
+    604,
+    580
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "门口落座",
+   "status": "new",
+   "scale": {
+    "name": "单人沙发 4（朝东）",
+    "w_m": 0.75,
+    "d_m": 0.88,
+    "h_m": 0.85
+   },
+   "foot": 580,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "kumquat",
+   "rect": [
+    638,
+    630,
+    662,
+    646
+   ],
+   "h": 60,
+   "block": true,
+   "zone": "门口落座",
+   "status": "new",
+   "scale": {
+    "name": "金桔一盆",
+    "w_m": 0.5,
+    "d_m": 0.5,
+    "h_m": 1.25
+   },
+   "foot": 646,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "go_chair_w",
+   "rect": [
+    386,
+    386,
+    420,
+    414
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "棋桌",
+   "status": "new",
+   "scale": {
+    "name": "单人沙发 5（朝东，下棋）",
+    "w_m": 0.71,
+    "d_m": 0.88,
+    "h_m": 0.85
+   },
+   "foot": 414,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "go_table",
+   "rect": [
+    420,
+    394,
+    446,
+    412
+   ],
+   "h": 24,
+   "block": true,
+   "zone": "棋桌",
+   "status": "new",
+   "scale": {
+    "name": "小圆棋桌（围棋）",
+    "w_m": 0.54,
+    "d_m": 0.56,
+    "h_m": 0.5
+   },
+   "foot": 412,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "go_chair_e",
+   "rect": [
+    446,
+    386,
+    480,
+    414
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "棋桌",
+   "status": "new",
+   "scale": {
+    "name": "单人沙发 6（朝西，下棋）",
+    "w_m": 0.71,
+    "d_m": 0.88,
+    "h_m": 0.85
+   },
+   "foot": 414,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "coat_rack",
+   "rect": [
+    548,
+    646,
+    566,
+    654
+   ],
+   "h": 84,
+   "block": true,
+   "zone": "门口",
+   "status": "moved",
+   "scale": {
+    "name": "衣帽架（挂外套）",
+    "w_m": 0.38,
+    "d_m": 0.25,
+    "h_m": 1.75
+   },
+   "foot": 654,
+   "art": "lounge03/draw_lounge_v3.py",
+   "was": {
+    "rect": [
+     648,
+     598,
+     666,
+     606
+    ],
+    "h": 84
+   }
+  },
+  {
+   "type": "box",
+   "id": "sw_table",
+   "rect": [
+    382,
+    626,
+    406,
+    642
+   ],
+   "h": 30,
+   "block": true,
+   "zone": "看书角",
+   "status": "new",
+   "scale": {
+    "name": "小边几（台灯、杂志）",
+    "w_m": 0.5,
+    "d_m": 0.5,
+    "h_m": 0.62
+   },
+   "foot": 642,
+   "art": "lounge03/draw_lounge_v3.py"
+  },
+  {
+   "type": "box",
+   "id": "plant",
+   "rect": [
+    350,
+    656,
+    370,
+    668
+   ],
+   "h": 16,
+   "block": true,
+   "zone": "西南角",
+   "status": "keep",
+   "scale": {
+    "name": "绿植（青花盆）",
+    "w_m": 0.42,
+    "d_m": 0.38,
+    "h_m": 0.33
+   },
+   "foot": 668,
+   "art": "lounge03/draw_lounge_v3.py"
+  }
+ ],
+ "flat": [
+  {
+   "id": "rug_tea",
+   "name": "茶座回纹地毯（01 版原样）",
+   "rect": [
+    470,
+    250,
+    658,
+    342
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_tv",
+   "name": "电视角回纹地毯（米色心）",
+   "rect": [
+    540,
+    370,
+    632,
+    466
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_read",
+   "name": "看书角回纹地毯（红心）",
+   "rect": [
+    376,
+    504,
+    468,
+    598
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_se",
+   "name": "门口落座小地毯（藏青心）",
+   "rect": [
+    566,
+    538,
+    646,
+    602
+   ],
+   "block": false
+  },
+  {
+   "id": "rug_go",
+   "name": "棋桌小地毯（米色心）",
+   "rect": [
+    378,
+    374,
+    488,
+    424
+   ],
+   "block": false
+  },
+  {
+   "id": "doormat",
+   "name": "门里地垫",
+   "rect": [
+    480,
+    644,
+    528,
+    660
+   ],
+   "block": false
+  }
+ ],
+ "spots": [
+  {
+   "id": "stand_record",
+   "name": "唱片机前（听唱片）",
+   "x": 424,
+   "y": 312,
+   "r": 16,
+   "note": "建议的站人点（以后玩法用），layout 原有的只有 lounge"
+  },
+  {
+   "id": "stand_tv",
+   "name": "电视前（看电视、打游戏）",
+   "x": 616,
+   "y": 476,
+   "r": 14,
+   "note": "建议的站人点（以后玩法用），layout 原有的只有 lounge"
+  },
+  {
+   "id": "lounge",
+   "name": "休息间交互点（layout 原有）",
+   "x": 504,
+   "y": 420,
+   "r": 20,
+   "note": "原有"
+  }
+ ],
+ "keep_clear": [
+  {
+   "what": "门口往里那条路（门洞 464～544，从门槛一直到 lounge 交互点）",
+   "rect": [
+    462,
+    466,
+    548,
+    684
+   ]
+  },
+  {
+   "what": "lounge 交互点四周（门口进来那片空地）",
+   "rect": [
+    470,
+    344,
+    546,
+    470
+   ]
+  },
+  {
+   "what": "唱片机前站人",
+   "rect": [
+    404,
+    292,
+    446,
+    324
+   ]
+  },
+  {
+   "what": "电视前站人（看电视、打游戏）",
+   "rect": [
+    598,
+    462,
+    636,
+    488
+   ]
+  }
+ ]
+}
