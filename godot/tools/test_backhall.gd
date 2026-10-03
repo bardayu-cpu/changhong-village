@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：罗曼山庄后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 布局：六个交互点和蓝图一字不差、四个房门走得通、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室六个长辈坐着（展位 10/3）、厨房一个厨师、
-## 展位（10/3）休息间两位喝茶的长辈和一件外套、化妆室礼服架。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
+## 展位（10/3）休息间两位喝茶的长辈和一件外套、化妆室衣架衣墙。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
 ## 西口回宴会厅站 (1440,600)，两头都不来回弹，座位、金币、NPC 宾客都还在。四个房间：走进半径出按钮，话还是「【待补】」的不出按钮（01 E 10/3），塞了真话的点一下一句
 ## （话没定前不空着），再点关掉，走出去按钮和话都收。东口（厨房后门）去草坪（9/19 任务 8 起）。整条路 迎宾院 → 宴会厅 → 后厅 → 宴会厅 → 迎宾院
 ## 用法：Godot --headless --path . --script res://tools/test_backhall.gd
@@ -118,9 +118,13 @@ func run() -> void:
     check("麻将室六个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间两位喝茶的长辈（%d）" % [elders, cooks, in_lounge], elders == 6 and cooks == 1 and in_lounge == 2)
     var coat := label_at(b, "外套")
     check("休息间只有一件外套（标签在 %s）" % coat, coat.x > 336 and coat.x < 672)
-    var rack: Node2D = b.world.get_node_or_null("rack_rail")
-    var rack_x: float = rack.get_child(0).polygon[0].x if rack != null else -1.0
-    check("化妆室有礼服架（BH-P01 占位，x %.0f）" % rack_x, rack_x > 0 and rack_x < 336 and b.world.has_node("rack_base"))
+    # 10/3 化妆间换成 06 画的第二版：一个礼服架换成四个区的衣架、两座衣墙（BH-P15～P27），像素图在 tools/pixel_art
+    var racks := 0
+    for it in b.cfg["items"]:
+        var iid := str(it.get("id", ""))
+        if (iid.begins_with("mk_rack_") or iid.begins_with("mk_closet_")) and float(it["rect"][2]) <= 336.0:
+            racks += 1
+    check("化妆室有挂衣服的架子和衣墙（%d 个）" % racks, racks == 8)
     for room in ["化妆室", "休息间", "麻将室", "厨房"]:
         check("灰盒标签「%s」" % room, label_at(b, room).x >= 0)
 
