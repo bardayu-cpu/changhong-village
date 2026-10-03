@@ -6,6 +6,7 @@ extends "res://scripts/layered_hall.gd"
 ## 交互点：走进、走出半径各发一次 spot(id, 进没进)。刚到这块画布时人要是正好站在某个点里，先走出去一次才算（不会来回弹）
 ## 后厅（backhall.gd，蓝图 3.3）也是这一套，只换 layout_path：布局里有 couple 才摆新人，exit_mark 说金光圈放在哪个点上
 signal spot(id: String, inside: bool)
+signal talk_requested(id: String)   # 点了一位能说话的 NPC、走到他跟前了：main 开对话框（lounge_ui.gd，台词走对话插件）
 
 const LAYOUT := "res://assets/layered/scene_luoman_entrance/layout.json"
 var layout_path := LAYOUT      # 这块画布的布局；后厅在 _init 里换成自己的
@@ -18,6 +19,10 @@ const TREE_TRUNK := 0.36           # 给了 h 的树：树干占整棵高的几�
 var points: Dictionary = {}    # id -> {pos, r}
 var inside_spot: Dictionary = {}   # id -> 现在人在不在这个点的半径里
 var npc_nodes: Dictionary = {}     # id -> Sprite2D
+## 能说话的 NPC（10/4 接对话插件 Dialogue Manager）：布局里给 NPC 写一个 dialogue（.dialogue 文件路径），他就能点、能聊，哪块画布都一样。
+## id -> {id, foot, head, dialogue, title（名字牌上的称呼）, code（对话框、身份卡用哪张人物图）, approach（玩家走到哪开聊）}
+var talkers: Dictionary = {}
+var pending_talker := ""
 var obstacles: Array = []      # 挡路的占地：{"rect": [x0,y0,x1,y1]} / {"ellipse": [cx,cy,rx,ry]}
 var labels: Node2D
 ## 占位底图（01 9/24：这轮 GPT 画整张占位底图，不抠图）：有图就铺图，灰盒的地面和摆设不再画，但挡人的占地照旧算，
@@ -103,6 +108,12 @@ func reset_to(p: Vector2) -> void:
 func _process(dt: float) -> void:
     super(dt)
     _breathe()
+    if pending_talker != "" and path.is_empty():
+        var tid := pending_talker
+        pending_talker = ""
+        if talkers.has(tid) and pos.distance_to(talker_approach(tid)) <= 34.0:
+            face = _face_for((talkers[tid]["foot"] as Vector2) - pos)
+            talk_requested.emit(tid)
     for id in points:
         var now: bool = pos.distance_to(points[id]["pos"]) < float(points[id]["r"])
         if now != bool(inside_spot.get(id, false)):
@@ -379,6 +390,11 @@ func _flowers(holder: Node2D, x0: float, y0: float, x1: float, y1: float, foot: 
 func _npcs() -> void:
     for n in cfg.get("npcs", []):
         var id := str(n["id"])
+        if n.has("dialogue") and not n.has("code_char"):
+            var sd: Dictionary = n.get("standin", {})
+            var foot := Vector2(float(n["x"]), float(n["y"]))
+            var h: float = float(sd["rows"]) + (foot.y - float(sd.get("bottom", foot.y))) if sd.has("rows") else (52.0 if bool(n.get("sit", false)) else 84.0)
+            add_talker(id, foot, h, str(n["dialogue"]), str(n.get("title", "")), str(n.get("portrait", sd.get("code", ""))))
         if n.has("code_char"):
             continue   # 01 画的代码小人（休息间四位，10/4）：lounge_life.gd 画、管动作
         if n.has("standin") and _standin(n):
@@ -412,6 +428,63 @@ func _npcs() -> void:
         npc_nodes[id] = s
         if not sit or bool(n.get("block", false)):
             obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
+
+# ---------- 能说话的 NPC（对话插件，10/4） ----------
+## 登一位能说话的：脚点、人画出来多高（点他身上哪块算点到他）、台词文件、称呼、人物图
+func add_talker(id: String, foot: Vector2, height: float, dialogue: String, title: String, code: String) -> void:
+    talkers[id] = {"id": id, "foot": foot, "head": foot - Vector2(0, height), "dialogue": dialogue, "title": title, "code": code}
+
+## 玩家走到哪开聊：他脚前一步最近的空地（第一次要时才找，搭画布那会儿能走的格子还没算）
+func talker_approach(id: String) -> Vector2:
+    var tk: Dictionary = talkers[id]
+    if not tk.has("approach"):
+        tk["approach"] = nearest_free((tk["foot"] as Vector2) + Vector2(0, 30))
+    return tk["approach"]
+
+## 画布上这一点点到了哪位能说话的（叠在一起算前面那个）
+func talker_at(at: Vector2) -> String:
+    var best := ""
+    var by := -INF
+    for id in talkers:
+        var tk: Dictionary = talkers[id]
+        var r := Rect2(tk["head"].x - 18.0, tk["head"].y, 36.0, (tk["foot"] as Vector2).y - (tk["head"] as Vector2).y)
+        if r.grow(4.0).has_point(at) and (tk["foot"] as Vector2).y > by:
+            by = (tk["foot"] as Vector2).y
+            best = id
+    return best
+
+## 去跟他说话：已经在跟前直接开聊，不然走过去，到了再开（_process）
+func request_talker(id: String) -> void:
+    if not talkers.has(id):
+        return
+    var ap: Vector2 = talker_approach(id)
+    if pos.distance_to(ap) <= 34.0:
+        face = _face_for((talkers[id]["foot"] as Vector2) - pos)
+        talk_requested.emit(id)
+        return
+    pending_talker = id
+    go_to(ap)
+
+## 离 p 最近的能站的点（72 像素内，4 像素一格找）；找不到回 Vector2.ZERO
+func nearest_free(p: Vector2) -> Vector2:
+    var best := Vector2.ZERO
+    var bd := INF
+    for dy in range(-72, 73, 4):
+        for dx in range(-72, 73, 4):
+            var d := Vector2(dx, dy).length()
+            if d < bd and _free(p + Vector2(dx, dy)):
+                bd = d
+                best = p + Vector2(dx, dy)
+    return best
+
+func tap(screen: Vector2) -> void:
+    if walking_enabled and not talkers.is_empty():
+        var id := talker_at(get_viewport().get_canvas_transform().affine_inverse() * screen)
+        if id != "":
+            request_talker(id)
+            return
+    pending_talker = ""
+    super(screen)
 
 ## 替身（10/3 化妆间起）：布局里写了 standin 的人，拿定稿宾客的图当替身（以后换 GPT 画的）——
 ## code 哪张图、frame 第几格（0 朝前、4 朝左、8 朝右、12 背影）；坐着的给 rows（只留上面几行，下半截让凳子挡住）和 bottom（图底落在哪一行，凳面）。
