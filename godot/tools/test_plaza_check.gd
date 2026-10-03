@@ -65,6 +65,8 @@ func wait_state(s: String, secs := 6.0) -> bool:
     return false
 
 func canvas_of(n: String):
+    if m.areas.has(n):
+        return m.areas[n]
     return {"court": m.court, "plaza": m.plaza, "lawn": m.lawn, "backhall": m.backhall, "orchard": m.orchard, "lake": m.lake, "parking": m.parking}[n]
 
 ## 直接放到某块画布的某一点（测试起点用）
@@ -103,13 +105,15 @@ func run() -> void:
         m.ensure_canvas(cn)
     var pz = m.plaza
 
+    # 10/4 连图（02 E 照新连法改，01 G 派）：游戏里各块照阿鱼图转半圈摆，广场的口换了边——
+    # 迎宾院东口 ↔ 广场西口、广场东口 ↔ 草坪西南口、广场北口 ↔ 后厅走廊南口；北边三个「待做」口改成南边三个口，通儿童乐园、小卖部、休息区 2 灰盒。
+    # 落点不再写死，照布局算（对面通回来的那个口往里 70 像素，一定在那个口的圈外）；每条路的全面来回在 test_liantu.gd
     print("1 新连法每个口来回（来回各 3 遍）")
     var links := [
-        # [名字, 从哪块, 走进哪个口, 到哪块, 到了站哪, 回去走哪个口, 回到原块站哪]
-        # 约定的落点照 02 回执的表（不读游戏里的常量，免得常量改了测试跟着改）
-        ["迎宾院西北口 → 广场东口", "court", "to_plaza", "plaza", Vector2(1430, 560), "to_court", Vector2(100, 334), Vector2(100, 334)],
-        ["广场西口 → 草坪西南口", "plaza", "to_lawn", "lawn", Vector2(100, 780), "to_plaza", Vector2(106, 560), Vector2(106, 560)],
-        ["广场南口 → 后厅走廊南口", "plaza", "to_backhall", "backhall", Vector2(620, 900), "to_plaza", Vector2(768, 920), Vector2(768, 920)],
+        # [名字, 从哪块, 走进哪个口, 到哪块, 回去走哪个口]
+        ["迎宾院东口 → 广场西口", "court", "to_plaza", "plaza", "to_court"],
+        ["广场东口 → 草坪西南口", "plaza", "to_lawn", "lawn", "to_plaza"],
+        ["广场北口 → 后厅走廊南口", "plaza", "to_backhall", "backhall", "to_plaza"],
     ]
     for lk in links:
         var from_name: String = lk[1]
@@ -118,133 +122,104 @@ func run() -> void:
         var landing_ok := true
         var detail := ""
         for round_i in 3:
-            # 起点：放在去那个口的路上（离口 150 像素的空地）
             var fc = canvas_of(from_name)
-            var spot_p: Vector2 = fc.spot_pos(lk[2])
-            var start: Vector2 = spot_p + (Vector2(150, 0) if spot_p.x < 700 else Vector2(-150, 0))
-            if from_name == "plaza" and str(lk[2]) == "to_backhall":
-                start = Vector2(768, 780)
-            if from_name == "court":
-                start = Vector2(200, 334)
-            put(from_name, start)
+            put(from_name, fc.arrival_at(str(lk[2])))
             var landed: Vector2 = await cross(from_name, str(lk[2]), dest_name)
             var dc = canvas_of(dest_name)
-            var want: Vector2 = lk[4]
+            var want: Vector2 = dc.arrival_at(str(lk[4]))
             if landed.distance_to(want) > 8.0:
                 round_bad += 1
-                detail += "第 %d 遍去：站在 %s，约定 %s；" % [round_i + 1, str(landed), str(want)]
+                detail += "第 %d 遍去：站在 %s，该站 %s；" % [round_i + 1, str(landed), str(want)]
                 continue
             if not dc._free(landed):
                 landing_ok = false
                 detail += "落点 %s 不能站；" % str(landed)
-            # 离对面那个口至少 1 米（48 像素）、没站进口子的半径里
-            var back_spot: Vector2 = dc.spot_pos(str(lk[5]))
-            var back_r: float = float(dc.points[str(lk[5])]["r"])
+            var back_spot: Vector2 = dc.spot_pos(str(lk[4]))
+            var back_r: float = float(dc.points[str(lk[4])]["r"])
             if landed.distance_to(back_spot) <= back_r:
                 landing_ok = false
                 detail += "落点 %s 站在回去那个口 %s 的半径 %.0f 里；" % [str(landed), str(back_spot), back_r]
-            elif landed.distance_to(back_spot) - back_r < 0.0:
-                landing_ok = false
             tick(120)    # 站着 2 秒，不能自己弹回去
             await frames(2)
             if m.state != dest_name:
                 round_bad += 1
                 detail += "站着 2 秒后切走了（%s）；" % m.state
                 continue
-            # 走回去
-            var back_landed: Vector2 = await cross(dest_name, str(lk[5]), from_name)
-            if back_landed.distance_to(lk[7]) > 8.0:
+            var back_landed: Vector2 = await cross(dest_name, str(lk[4]), from_name)
+            var back_want: Vector2 = fc.arrival_at(str(lk[2]))
+            if back_landed.distance_to(back_want) > 8.0:
                 round_bad += 1
-                detail += "第 %d 遍回：站在 %s，约定 %s；" % [round_i + 1, str(back_landed), str(lk[7])]
+                detail += "第 %d 遍回：站在 %s，该站 %s；" % [round_i + 1, str(back_landed), str(back_want)]
         check("%s：来回 3 遍落点对、能站、不弹回、站着不动 2 秒（%s）" % [lk[0], detail if detail != "" else "全对"], round_bad == 0 and landing_ok)
 
-    print("2 北边三个口（待做）")
-    var lines: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/plaza/lines.json"))["lines"]
-    for id in ["north_kids", "north_shop", "north_rest"]:
-        put("plaza", pz.FROM_COURT)
+    print("2 南边三个口（原来北边三个「待做」口，10/4 起通三块灰盒）")
+    var lines: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/areas/lines.json"))["lines"]
+    for aid in ["kids", "shop", "rest2"]:
+        put("plaza", pz.arrival_at("to_" + aid))
+        var landed: Vector2 = await cross("plaza", "to_" + aid, aid)
+        var ac = canvas_of(aid)
+        check("广场南口 → %s（站在 %s）" % [aid, str(landed)], m.state == aid and landed.distance_to(ac.arrival_at("to_plaza")) < 8.0)
         m.dialog.visible = false
-        walk_to(pz.spot_pos(id))
+        walk_to(ac.spot_pos("wip"))
         await frames(3)
         var said: String = m.dialog_text.text if m.dialog.visible else ""
-        check("%s：走进去人还在广场、说「%s」" % [id, said], m.state == "plaza" and said == str(lines[id]["text"]) and m.dialog_who.text == str(lines[id]["who"]))
-        # 往北推摇杆 3 秒，过不去（施工栏）
-        pz.walking_enabled = true
-        var y0: float = pz.pos.y
-        pz.stick = Vector2(0, -1)
-        for i in 180:
-            pz._process(DT)
-        pz.stick = Vector2.ZERO
-        check("%s 口子往北过不去（推 3 秒，y %.0f → %.0f，没越过施工栏 y 74）" % [id, y0, pz.pos.y], pz.pos.y > 80.0)
-        # 走出来再进去又说一次
-        walk_to(pz.spot_pos(id) + Vector2(0, 130))
-        m.dialog.visible = false
-        walk_to(pz.spot_pos(id))
-        await frames(3)
-        check("%s：走出来再进去又说一遍" % id, m.dialog.visible and m.dialog_text.text == str(lines[id]["text"]))
+        check("%s：走到当中说「%s」、人还在那块" % [aid, said], m.state == aid and said == str(lines[aid + "_wip"]["text"]))
+        var back: Vector2 = await cross(aid, "to_plaza", "plaza")
+        check("%s 北口回广场（站在 %s）" % [aid, str(back)], m.state == "plaza" and back.distance_to(pz.arrival_at("to_" + aid)) < 8.0)
     m.dialog.visible = false
 
     print("3 主线路线")
-    put("court", m.court.SPAWN)
+    put("court", m.court.arrival_at("to_plaza"))
     var p1: Vector2 = await cross("court", "to_plaza", "plaza")
     var p2: Vector2 = await cross("plaza", "to_lawn", "lawn")
     var p3: Vector2 = await cross("lawn", "to_orchard", "orchard")
-    check("迎宾院 → 广场 → 草坪 → 果园，落点 %s、%s、%s" % [str(p1), str(p2), str(p3)], p1.distance_to(pz.FROM_COURT) < 8.0 and p2.distance_to(m.LAWN_FROM_PLAZA) < 8.0 and p3.distance_to(m.ORCHARD_FROM_LAWN) < 8.0)
+    check("迎宾院 → 广场 → 草坪 → 果园 A，落点 %s、%s、%s" % [str(p1), str(p2), str(p3)], p1.distance_to(pz.arrival_at("to_court")) < 8.0
+        and p2.distance_to(m.lawn.arrival_at("to_plaza")) < 8.0 and p3.distance_to(m.orchard.arrival_at("to_lawn")) < 8.0)
     var q1: Vector2 = await cross("orchard", "to_lawn", "lawn")
-    check("果园 → 草坪（%s，约定 %s）" % [str(q1), str(m.LAWN_FROM_ORCHARD)], q1.distance_to(m.LAWN_FROM_ORCHARD) < 8.0)
+    check("果园 A → 草坪（%s）" % str(q1), q1.distance_to(m.lawn.arrival_at("to_orchard")) < 8.0)
     var q2: Vector2 = await cross("lawn", "to_plaza", "plaza")
     var q3: Vector2 = await cross("plaza", "to_court", "court")
-    check("草坪 → 广场 → 迎宾院（%s、%s）" % [str(q2), str(q3)], q2.distance_to(pz.FROM_LAWN) < 8.0 and q3.distance_to(m.COURT_FROM_PLAZA) < 8.0)
+    check("草坪 → 广场 → 迎宾院（%s、%s）" % [str(q2), str(q3)], q2.distance_to(pz.arrival_at("to_lawn")) < 8.0 and q3.distance_to(m.court.arrival_at("to_plaza")) < 8.0)
     # 后厅
     put("backhall", Vector2(300, 780))
-    var h1: Vector2 = Vector2(-1, -1)
     walk_to(m.backhall.spot_pos("to_hall"))
     var hall_ok: bool = await wait_state("banquet")
     check("后厅走廊西口 → 宴会厅", hall_ok)
     m._switch_canvas("backhall")
     var back_ok: bool = await wait_state("backhall")
     var back_pos: Vector2 = m.backhall.pos
-    check("宴会厅 → 后厅：站在走廊西口里边（%s）" % str(back_pos), back_ok and back_pos.distance_to(m.BACKHALL_FROM_HALL) < 8.0)
+    check("宴会厅 → 后厅：站在走廊西口里边（%s）" % str(back_pos), back_ok and back_pos.distance_to(m.backhall.arrival_at("to_hall")) < 8.0)
     put("backhall", Vector2(1300, 780))
     walk_to(m.backhall.spot_pos("to_lawn"))
     var kitchen_ok: bool = await wait_state("lawn")
-    check("后厅厨房后门 → 草坪（%s，约定 %s）" % [str(m.lawn.pos), str(m.LAWN_FROM_BACKHALL)], kitchen_ok and m.lawn.pos.distance_to(m.LAWN_FROM_BACKHALL) < 8.0)
+    check("后厅厨房后门 → 草坪（%s）" % str(m.lawn.pos), kitchen_ok and m.lawn.pos.distance_to(m.lawn.arrival_at("to_backhall")) < 8.0)
     walk_to(m.lawn.spot_pos("to_backhall"))
     var lb_ok: bool = await wait_state("backhall")
-    check("草坪西北口 → 后厅厨房后门边（%s，约定 %s）" % [str(m.backhall.pos), str(m.BACKHALL_FROM_LAWN)], lb_ok and m.backhall.pos.distance_to(m.BACKHALL_FROM_LAWN) < 8.0)
-    # 湖边
-    put("court", Vector2(200, 520))
-    var l1: Vector2 = await cross("court", "to_lake", "lake")
-    check("迎宾院西小径 → 湖边东头（%s，约定 %s）" % [str(l1), str(m.LAKE_FROM_COURT)], l1.distance_to(m.LAKE_FROM_COURT) < 8.0)
-    var l2: Vector2 = await cross("lake", "to_entrance", "court")
-    check("湖边东头 → 迎宾院西小径（%s）" % str(l2), m.state == "court" and m.court._free(l2))
+    check("草坪西北口 → 后厅厨房后门边（%s）" % str(m.backhall.pos), lb_ok and m.backhall.pos.distance_to(m.backhall.arrival_at("to_lawn")) < 8.0)
+    # 湖边：10/4 起从后花园（西头月亮门）、果园 A（东头尽头）进
+    put("orchard", m.orchard.arrival_at("to_lake"))
+    var l1: Vector2 = await cross("orchard", "to_lake", "lake")
+    check("果园 A 西口 → 湖边东头尽头（%s）" % str(l1), l1.distance_to(m.lake.arrival_at("to_orchard")) < 8.0)
+    var l2: Vector2 = await cross("lake", "to_orchard", "orchard")
+    check("湖边东头尽头 → 果园 A（%s）" % str(l2), m.state == "orchard" and m.orchard._free(l2))
 
-    print("4 老存档、关了的东小径口")
-    check("迎宾院里没有去草坪的口了（交互点 %s）" % str(m.court.points.keys()), not m.court.points.has("to_lawn") and m.court.points.has("to_plaza") and m.court.points.has("to_lake"))
+    print("4 老存档、关了的口、重开的口")
+    check("迎宾院：没有去草坪、去湖边的口了，东口去广场、西北口去停车场（交互点 %s）" % str(m.court.points.keys()),
+        not m.court.points.has("to_lawn") and not m.court.points.has("to_lake") and m.court.points.has("to_plaza") and m.court.points.has("to_parking"))
     check("草坪里没有回迎宾院的口了（交互点 %s）" % str(m.lawn.points.keys()), not m.lawn.points.has("to_entrance") and m.lawn.points.has("to_plaza"))
-    var old_spot := Vector2(1440, 780)     # 原来从草坪回迎宾院落在这儿
-    check("迎宾院里老落点 (1440,780) 还站得上", m.court._free(old_spot))
-    put("court", old_spot)
-    walk_to(Vector2(768, 700))
-    check("站在老落点能走出去（走到 %s）" % str(m.court.pos), m.court.pos.distance_to(Vector2(768, 700)) < 20.0)
-    put("court", old_spot)
-    m.court.stick = Vector2(1, 0)
-    for i in 120:
-        m.court._process(DT)
-    m.court.stick = Vector2.ZERO
-    check("老落点往东推摇杆：不走出画布、不掉进墙（%s）" % str(m.court.pos), m.court.pos.x < 1490.0 and m.court._free(m.court.pos))
-    var east_open := 0
-    for y in range(750, 811, 12):
-        for x in range(1488, 1536, 12):
+    var west_open := 0
+    for y in range(486, 555, 12):
+        for x in range(0, 48, 12):
             if m.court._free(Vector2(x + 6, y + 6)):
-                east_open += 1
-    check("原来东小径口（x 1488～1536、y 750～810）现在走不进去（能站的格子 %d 个）" % east_open, east_open == 0)
-    # 老存档开局
+                west_open += 1
+    check("原来西小径口（x 0～48、y 486～554）现在走不进去（能站的格子 %d 个）" % west_open, west_open == 0)
+    # 老存档开局：10/4 起每次都开车进来，停车场下车
     m.court_save.court_seen = false
     m.court_save.welcomed = true
     m.court_save.signed_in = true
     await m._start_play()
-    await wait_state("court")
-    check("老存档开局：站迎宾院大门里边（%s）、能站" % str(m.court.pos), m.state == "court" and m.court.pos == m.court.SPAWN and m.court._free(m.court.pos))
+    await wait_state("parking")
+    check("老存档开局：开车进来，停车场自己车旁下车（%s）、能站" % str(m.parking.pos), m.state == "parking" and m.parking.pos == m.parking.SPAWN and m.parking._free(m.parking.pos))
 
     print("5 广场四角大树冠挡不挡人")
     var trees: Array = []
@@ -277,14 +252,14 @@ func run() -> void:
             spots_bad.append(id)
     for l in covered_report:
         print("    ", l)
-    for p in [pz.FROM_COURT, pz.FROM_LAWN, pz.FROM_BACKHALL]:
+    for p in pz.points.keys().filter(func(k): return str(pz.points[k]["to"]) != "").map(func(k): return pz.arrival_at(k)):   # 10/4 连图：八个口的落点
         for t in trees:
             var g2: Dictionary = Ent.tree_geom(t)
             var head2 := Vector2(p.x, p.y - 70.0)
             var e2 := Vector2((head2.x - float(t["x"])) / float(g2["rx"]), (head2.y - float(g2["cy"])) / float(g2["ry"]))
             if e2.length() <= 1.0 and float(t["y"]) > p.y:
                 spots_bad.append("落点 %s" % str(p))
-    check("六个口、三个落点周围能站的格子：人头不被四角大树冠盖住（有问题的 %s）" % str(spots_bad), spots_bad.is_empty())
+    check("各口、各落点周围能站的格子：人头不被四角大树冠盖住（有问题的 %s）" % str(spots_bad), spots_bad.is_empty())
 
     print("6 牌子")
     var bad_label: Array = []

@@ -3950,6 +3950,52 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
+        "drive_gate", "drive_fountain", "drive_park":
+            # 自动开车进山庄（10/4 连图）：gate 是车开进前门门楼；fountain 是绕喷泉开到一半；park 是开进停车场、快停进车位
+            nickname = "阿花"
+            await _enter_court()
+            court_save.local_path = "user://shot_drive_court.json"
+            court_save.drive_seen = false
+            drive_in_fast = true
+            _drive_in()
+            var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 2.6], "drive_park": ["parking", 1.9]}[shot]
+            for i in 3000:
+                await get_tree().process_frame
+                if drive.leg == want[0] and drive.leg_t >= float(want[1]):
+                    drive.paused = true
+                    break
+            for i in 10: await get_tree().process_frame
+        "area_kids", "area_shop", "area_rest2", "area_wkitchen", "area_garden", "area_frontgate", "area_backgate":
+            # 连图新加的七块灰盒（10/4）：站在块正中偏南，看一屏
+            nickname = "阿花"
+            await _enter_court()
+            dialog.visible = false
+            var aid := shot.trim_prefix("area_")
+            ensure_canvas(aid)
+            _show_canvas(aid)
+            _goto(aid)
+            areas[aid].reset_to(areas[aid].SPAWN)
+            for i in 30: await get_tree().process_frame
+        "edge_plaza", "edge_lake", "lake_south", "lake_dock", "lake_east_exit":
+            # 走到头提示（10/4 连图）：edge_plaza 是喷泉广场往北顶到绿篱；edge_lake 是湖边南墙外往南顶到画布底。
+            # lake_south 是湖边东头南墙外（原来不能走）；lake_dock 是站在游船码头上、船夫 1 跟前；lake_east_exit 是东头尽头去果园那个口
+            nickname = "阿花"
+            await _enter_court()
+            dialog.visible = false
+            var cn := "plaza" if shot == "edge_plaza" else "lake"
+            ensure_canvas(cn)
+            _show_canvas(cn)
+            _goto(cn)
+            var at: Vector2 = {"edge_plaza": Vector2(320, 240), "edge_lake": Vector2(2200, 1260), "lake_south": Vector2(2304, 1150),
+                "lake_dock": Vector2(910, 700), "lake_east_exit": Vector2(2960, 955)}[shot]
+            cv.reset_to(at)
+            cv.face = "up" if shot != "edge_lake" else "down"
+            for i in 10: await get_tree().process_frame
+            if shot.begins_with("edge_"):
+                cv.stick = Vector2(0, -1) if shot == "edge_plaza" else Vector2(0, 1)
+                for i in 40: await get_tree().process_frame
+                cv.stick = Vector2.ZERO
+            for i in 10: await get_tree().process_frame
         "lounge_dm", "lounge_dm_choice":
             # 对话插件 Dialogue Manager（10/4）：dm 是点奶奶走过去、插件给的第一句；dm_choice 是问到「你是哪边的客人呀？」出三个选项
             await _setup_shot("backhall")

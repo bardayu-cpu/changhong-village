@@ -4,6 +4,8 @@ extends SceneTree
 ## 2 开头：没进过迎宾院的选完形象从自己车旁边出生，金箭头指大门；走进门洞到迎宾院大门里边，说「到啦～」；进过一次箭头不再出
 ## 3 结尾：大门开了（签过到、写过悄悄话）从迎宾院大门出来回停车场，金箭头指自己的车；走到车旁说送别那两句，箭头收
 ## 4 进过迎宾院的再开游戏照旧从迎宾院进；没吃完就往外走不拦着、不指车
+## （10/4 连图 02 E 改：门楼挪到前门那块；停车场东口去迎宾院、东南口去前门、北口去后花园，路东原来那条湖拿掉了；
+##   迎宾院大门出去先到前门再往西进停车场；每次进山庄都开车进来停车场下车）
 ## 用法：Godot --headless --path . --script res://tools/test_parking.gd ；最后一行 RESULT PASS 才算过
 
 const CourtCopy = preload("res://scripts/court_copy.gd")
@@ -77,11 +79,12 @@ func run() -> void:
         if not p._free(Vector2(690, y)):
             road_bad += 1
     check("路正中从大门一直到南边都能走（挡住 %d 格）" % road_bad, road_bad == 0)
-    check("湖不能走", not p._free(Vector2(920, 700)) and not p._free(Vector2(1000, 400)))
+    check("路东原来的湖拿掉了，东边两个口、北口、南边两间小屋都在", p.points.has("to_court") and p.points.has("to_frontgate") and p.points.has("to_garden")
+        and p.points.has("toilet") and p.points.has("trash") and not p.points.has("to_lake"))
     var path: Array = p.find_path(p.SPAWN, p.points["to_court"]["pos"])
-    check("从自己的车走得到门楼门洞", not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(p.points["to_court"]["pos"]) <= float(p.points["to_court"]["r"]))
-    path = p.find_path(p.FROM_COURT, p.points["my_car"]["pos"])
-    check("从门楼进来走得到自己的车旁", not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(p.points["my_car"]["pos"]) <= float(p.points["my_car"]["r"]))
+    check("从自己的车走得到去迎宾院的口", not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(p.points["to_court"]["pos"]) <= float(p.points["to_court"]["r"]))
+    path = p.find_path(p.arrival_at("to_frontgate"), p.points["my_car"]["pos"])
+    check("从前门进来走得到自己的车旁", not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(p.points["my_car"]["pos"]) <= float(p.points["my_car"]["r"]))
     var far := 0
     for id in items:
         if not str(id).begins_with("car_"):
@@ -105,10 +108,10 @@ func run() -> void:
     var ar: Polygon2D = p.guide_arrow
     var to_gate: Vector2 = p.points["to_court"]["pos"] - (p.pos - Vector2(0, p.GUIDE_UP))
     check("金箭头出来了、指着大门（差 %.0f 度）" % rad_to_deg(absf(angle_difference(ar.rotation, to_gate.angle()))), ar.visible and absf(angle_difference(ar.rotation, to_gate.angle())) < 0.1)
-    var got: bool = await walk_in(p, "to_court", Vector2(0, 90), func(): return m.state == "court" and not m.switching)
-    check("走进门洞到了迎宾院", got)
+    var got: bool = await walk_in(p, "to_court", Vector2(-90, 0), func(): return m.state == "court" and not m.switching)
+    check("走进东口到了迎宾院", got)
     await frames(5)
-    check("站在迎宾院大门里边（%s）" % m.court.pos, m.court.pos.distance_to(m.court.SPAWN) < 2.0)
+    check("站在迎宾院西北口里边（%s）" % m.court.pos, m.court.pos.distance_to(m.court.arrival_from("parking")) < 2.0)
     check("第一次进来说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
     check("记下进过迎宾院了", cs.court_seen)
     m.dialog.visible = false
@@ -117,10 +120,12 @@ func run() -> void:
     cs.signed_in = true
     cs.whisper_done = true
     m._update_gate()
-    got = await walk_in(m.court, "gate", Vector2(0, -100), func(): return m.state == "parking" and not m.switching)
-    check("大门开了，走出大门回到停车场", got)
+    got = await walk_in(m.court, "gate", Vector2(0, -100), func(): return m.state == "frontgate" and not m.switching)
+    check("大门开了，走出大门到了前门", got)
+    got = await walk_in(m.areas["frontgate"], "to_parking", Vector2(90, 0), func(): return m.state == "parking" and not m.switching)
+    check("前门往西回到停车场", got)
     await frames(5)
-    check("站在门楼外边（%s）" % p.pos, p.pos.distance_to(p.FROM_COURT) < 2.0)
+    check("站在东南口里边（%s）" % p.pos, p.pos.distance_to(p.arrival_from("frontgate")) < 2.0)
     check("金箭头这回指自己的车", p.car_hint and ar.visible and absf(angle_difference(ar.rotation, (p.points["my_car"]["pos"] - (p.pos - Vector2(0, p.GUIDE_UP))).angle())) < 0.1)
     got = await walk_in(p, "my_car", Vector2(0, -120), func(): return m.dialog.visible)
     var bye: String = CourtCopy.text("gate_bye")
@@ -132,12 +137,15 @@ func run() -> void:
     print("4 再开游戏、没吃完就走")
     await m._start_play()
     await frames(5)
-    check("进过迎宾院的再开游戏照旧从迎宾院进（%s）" % m.state, m.state == "court")
+    check("进过迎宾院的再开游戏：也是开车进来停车场下车（%s），不指大门" % m.state, m.state == "parking" and not p.gate_hint)
+    got = await walk_in(p, "to_court", Vector2(-90, 0), func(): return m.state == "court" and not m.switching)
     m.dialog.visible = false
     cs.whisper_done = false
     m._update_gate()
-    got = await walk_in(m.court, "gate", Vector2(0, -100), func(): return m.state == "parking" and not m.switching)
-    check("没吃完往外走：不拦着，出到停车场", got)
+    m.court.reset_to(m.court.SPAWN + Vector2(0, -120))
+    got = await walk_in(m.court, "gate", Vector2(0, -100), func(): return m.state == "frontgate" and not m.switching)
+    got = got and await walk_in(m.areas["frontgate"], "to_parking", Vector2(90, 0), func(): return m.state == "parking" and not m.switching)
+    check("没吃完往外走：不拦着，出大门过前门到停车场", got)
     await frames(3)
     check("不指车、也不再指大门", not p.car_hint and not p.gate_hint and not ar.visible)
     check("提醒那句还是【待补】，不出", CourtCopy.placeholder(CourtCopy.text("gate_leave_early")) and not m.dialog.visible)

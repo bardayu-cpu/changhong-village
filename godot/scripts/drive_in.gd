@@ -17,6 +17,8 @@ var m                           # main.gd
 var skipped := false
 var leg := ""                   # 现在开到哪一段（截图、测试看）
 var car: Node2D
+var paused := false             # 截图用：车停在路上那一格不动
+var leg_t := 0.0                # 这一段开了多久（截图用）
 
 ## 三段路线（画布坐标）。喷泉那段是绕着喷泉中心转一圈的椭圆
 const GATE_ROUTE := [Vector2(768, 990), Vector2(768, 536), Vector2(1500, 536)]
@@ -72,7 +74,11 @@ func _leg(cn: String, route: Array, _extra: Array) -> void:
     await m._fade_to(0.0)
     var i := 1
     var from: Vector2 = route[0]
+    leg_t = 0.0
     while i < route.size() and not skipped:
+        while paused:
+            await get_tree().process_frame
+        leg_t += 1.0 / 60.0
         var to: Vector2 = route[i]
         var d := from.distance_to(to)
         var step := SPEED * (1.0 / 60.0 if m.fast else get_process_delta_time())

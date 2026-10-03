@@ -1,6 +1,7 @@
 extends SceneTree
 ## 验收：喷泉广场灰盒和各处新连法（蓝图 v0.3 第 1.0 节新总图第 ② 步，阿鱼 10/4「行」；01 F 派）。无界面跑整个 main.gd。
-##   1 布局：喷泉在正中、挡路；六个口（东去迎宾院、西去草坪、南去后厅、北边三个待做）；从哪来站的点能站、离口至少 1 米、都走得到
+##   （10/4 连图 02 E 改：来回走、北边待做口、老存档都挪到 test_liantu.gd、test_plaza_check.gd；这里只核广场八个口）
+##   1 布局：喷泉在正中、挡路；八个口通哪、在哪条边；落点能站、离口至少 1 米、都走得到；八块牌子
 ##   2 迎宾院西北口 ↔ 广场东口；广场西口 ↔ 草坪西南口；广场南口 ↔ 后厅走廊南口：真走过去、站对、站着不弹回去
 ##   3 北边三个口：走进去说一句还在布置、人还在广场；走出来再进去又说
 ##   4 连法：迎宾院没有去草坪的口了（湖边那个口照旧）；草坪没有回迎宾院的口；牌子都在（迎宾院、草坪、后厅、广场六个口）
@@ -76,82 +77,36 @@ func run() -> void:
     var p = m.plaza
     var c = m.court
 
+    # 10/4 连图（02 E 改）：广场的口照阿鱼图转半圈换了边、北边三个「待做」口改成南边三个口通灰盒；
+    # 每个口来回走、落点、不弹回去都挪到 test_liantu.gd，这里只核广场自己
     print("1 布局")
-    var ids: Array = p.points.keys()
-    ids.sort()
-    check("六个口 %s" % [ids], ids == ["north_kids", "north_rest", "north_shop", "to_backhall", "to_court", "to_lawn"])
+    var want := {"to_backhall": "backhall", "to_rest2": "rest2", "to_shop": "shop", "to_kids": "kids", "to_court": "court",
+        "to_frontgate": "frontgate", "to_lawn": "lawn", "to_wkitchen": "wkitchen"}
+    var got := {}
+    for id in p.points:
+        got[id] = str(p.points[id]["to"])
+    check("八个口、各通哪块 %s" % [got], got == want)
     check("喷泉在正中、挡路", not p._free(Vector2(768, 540)) and not p._free(Vector2(700, 540)) and p._free(Vector2(768, 700)))
-    var stand_ok := true
-    for pair in [[p.FROM_COURT, "to_court"], [p.FROM_LAWN, "to_lawn"], [p.FROM_BACKHALL, "to_backhall"]]:
-        var at: Vector2 = pair[0]
-        var d: float = at.distance_to(p.points[pair[1]]["pos"])
-        stand_ok = stand_ok and p._free(at) and d >= 48.0
-        print("    %s 进来站 %s，离口 %.0f" % [pair[1], at, d])
-    check("从三个口进来站的点能站、离口至少 1 米", stand_ok)
+    var side_ok := true
+    for id in want:
+        var q: Vector2 = p.points[id]["pos"]
+        var side := "N" if q.y < 100 else ("S" if q.y > 924 else ("W" if q.x < 100 else "E"))
+        var exp: String = {"to_backhall": "N", "to_rest2": "S", "to_shop": "S", "to_kids": "S", "to_court": "W", "to_frontgate": "W", "to_lawn": "E", "to_wkitchen": "E"}[id]
+        if side != exp:
+            side_ok = false
+            print("    %s 在 %s 边，该在 %s 边" % [id, side, exp])
+    check("口在哪条边照转半圈的阿鱼图：北后厅、南三块、西迎宾院前门、东草坪西餐厨房", side_ok)
     var reach := true
     for id in p.points:
+        var land: Vector2 = p.arrival_at(id)
         var path: Array = p.find_path(p.SPAWN, p.points[id]["pos"])
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else p.SPAWN
-        if end.distance_to(p.points[id]["pos"]) >= float(p.points[id]["r"]):
+        if end.distance_to(p.points[id]["pos"]) >= float(p.points[id]["r"]) or not p._free(land) or land.distance_to(p.points[id]["pos"]) < 48.0:
             reach = false
-            print("    走不到 ", id)
-    check("广场上每个口都走得到", reach)
-
-    print("2 迎宾院 ↔ 广场 ↔ 草坪、后厅")
-    m.nickname = "小李"
-    await m._enter_court()
-    m.dialog.visible = false
-    check("迎宾院西北口在 %s，从广场回来站 %s（离口 %.0f、能站）" % [c.spot_pos("to_plaza"), m.COURT_FROM_PLAZA, m.COURT_FROM_PLAZA.distance_to(c.spot_pos("to_plaza"))],
-        c.points.has("to_plaza") and c._free(m.COURT_FROM_PLAZA) and m.COURT_FROM_PLAZA.distance_to(c.spot_pos("to_plaza")) >= 48.0)
-    await walk_to(c.spot_pos("to_plaza"))
-    check("迎宾院往西走到广场 state=%s，站在东口里边 %s" % [m.state, p.pos], m.state == "plaza" and m.cv == p and p.pos == p.FROM_COURT)
-    tick(60)
-    check("站着 60 帧不弹回迎宾院", m.state == "plaza")
-    await walk_to(p.spot_pos("to_lawn"))
-    check("广场西口到草坪，站在西南口边 %s" % m.lawn.pos, m.state == "lawn" and m.lawn.pos == m.LAWN_FROM_PLAZA)
-    tick(60)
-    check("站着 60 帧不弹回广场", m.state == "lawn")
-    await walk_to(m.lawn.spot_pos("to_plaza"))
-    check("草坪西南口回广场，站在西口里边 %s" % p.pos, m.state == "plaza" and p.pos == p.FROM_LAWN)
-    tick(60)
-    await walk_to(p.spot_pos("to_backhall"))
-    check("广场南口到后厅，站在走廊南口里边 %s" % m.backhall.pos, m.state == "backhall" and m.backhall.pos == m.BACKHALL_FROM_PLAZA)
-    tick(60)
-    check("站着 60 帧不弹回广场", m.state == "backhall")
-    await walk_to(m.backhall.spot_pos("to_plaza"))
-    check("后厅走廊南口回广场，站在南口里边 %s" % p.pos, m.state == "plaza" and p.pos == p.FROM_BACKHALL)
-    tick(60)
-
-    print("3 北边三个口（待做）")
-    var said: Array = []
-    for id in ["north_kids", "north_shop", "north_rest"]:
-        m.dialog.visible = false
-        await walk_to(p.spot_pos(id))
-        var t1: String = m.dialog_text.text if m.dialog.visible else ""
-        await walk_to(p.spot_pos(id) + Vector2(0, 160))
-        m.dialog.visible = false
-        await walk_to(p.spot_pos(id))
-        var t2: String = m.dialog_text.text if m.dialog.visible else ""
-        said.append(t1)
-        check("%s：走进去说「%s」、人还在广场；走出来再进去又说" % [id, t1], t1.contains("还在布置") and t2 == t1 and m.state == "plaza")
-
-    print("4 连法和牌子")
-    await walk_to(p.spot_pos("to_court"))
-    check("广场东口回迎宾院，站在西北口里边 %s" % c.pos, m.state == "court" and c.pos == m.COURT_FROM_PLAZA)
-    check("迎宾院没有去草坪的口了，湖边的口照旧", not c.points.has("to_lawn") and c.points.has("to_lake"))
-    check("迎宾院东边原来那个口走不出去了", not c._free(Vector2(1510, 780)))
-    check("草坪没有回迎宾院的口了", not m.lawn.points.has("to_entrance") and m.lawn.points.has("to_plaza") and m.lawn.points.has("to_backhall"))
-    check("后厅原来两个口照旧", m.backhall.points.has("to_hall") and m.backhall.points.has("to_lawn"))
+            print("    %s 走不到或落点不对（落点 %s）" % [id, land])
+    check("每个口从出生点走得到、落点能站、离口至少 1 米", reach)
     var pl: Array = labels_of(p)
-    check("广场六块牌子 %s" % [pl], pl.size() == 6 and "去迎宾院" in pl and "去草坪" in pl and "去后厅" in pl)
-    check("迎宾院、草坪、后厅那头都挂「去喷泉广场」", "去喷泉广场" in labels_of(c) and "去喷泉广场" in labels_of(m.lawn) and "去喷泉广场" in labels_of(m.backhall)
-        and not "东小径" in labels_of(c) and not "回迎宾院" in labels_of(m.lawn))
-
-    print("5 老存档")
-    check("老存档读进来了（签过到、迎过）", m.court_save.signed_in and m.court_save.welcomed)
-    await walk_to(c.spot_pos("to_plaza"))
-    await walk_to(p.spot_pos("to_court"))
-    check("老存档也能进广场、回迎宾院", m.state == "court")
+    check("广场八块牌子 %s" % [pl], pl.size() == 8 and not pl.any(func(x): return str(x).contains("待做")))
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_plaza_games.json")

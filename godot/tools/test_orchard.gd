@@ -92,15 +92,20 @@ func run() -> void:
 
     # 1. 布局：蓝图 3.6 的三个点没动，另加收购处
     print("1 布局")
-    var want := {"strawberry": [400, 796, 60], "loquat": [1150, 756, 60], "to_lawn": [768, 1136, 60]}
-    var same: bool = o.points.size() == 4
+    # 10/4 连图（02 E 改）：果园原地切成西 A 草莓、东 B 枇杷；A、B 各一个南口去草坪，A 西口去湖边，B 北口去后门
+    var want := {"strawberry": [400, 796, 60], "loquat": [1150, 756, 60], "to_lawn": [420, 1136, 60], "to_lawn_b": [1150, 1136, 60],
+        "to_lake": [40, 800, 44], "to_backgate": [1000, 470, 44]}
+    var same: bool = o.points.size() == 7
     for id in want:
         same = same and o.points.has(id) and o.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(o.points[id]["r"]), float(want[id][2]))
-    check("蓝图 3.6 那三个点一字不差，另加了收购处", same and o.points.has("shop"))
+    check("蓝图 3.6 那几个点（10/4 加了 A、B 两个南口和去湖边、后门的口）一字不差，另加了收购处", same and o.points.has("shop"))
     check("收购处站得住、和南口不重叠（离 %.0f 像素）" % o.points["shop"]["pos"].distance_to(o.points["to_lawn"]["pos"]),
         o._free(o.points["shop"]["pos"]) and o.points["shop"]["pos"].distance_to(o.points["to_lawn"]["pos"]) > float(o.points["shop"]["r"]) + float(o.points["to_lawn"]["r"]))
-    check("到了站的点不会正好踩在收购处圈里（离 %.0f 像素）" % m.ORCHARD_FROM_LAWN.distance_to(o.points["shop"]["pos"]),
-        m.ORCHARD_FROM_LAWN.distance_to(o.points["shop"]["pos"]) > float(o.points["shop"]["r"]))
+    var land_ok := true
+    for id in ["to_lawn", "to_lawn_b", "to_lake", "to_backgate"]:
+        if o.arrival_at(id).distance_to(o.points["shop"]["pos"]) <= float(o.points["shop"]["r"]):
+            land_ok = false
+    check("从各口进来站的点都不会正好踩在收购处圈里", land_ok)
     var ridges := 0
     var trees := 0
     for p in o.plots:
@@ -156,7 +161,7 @@ func run() -> void:
     walk_to(m.plaza.spot_pos("to_lawn"))
     walk_to(Vector2(768, 300))
     walk_to(l.spot_pos("to_orchard"))
-    check("草坪北口到了果园，站在 (768,1076)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)
+    check("草坪北口到了果园 A，站在 A 南口里边 %s" % o.pos, m.state == "orchard" and o.pos == o.arrival_at("to_lawn"))
     var calls := []
     var real_cloud = m.cloud
     var spy := SpyCloud.new()
@@ -333,11 +338,11 @@ func run() -> void:
     # 13. 进出：草坪北口 ↔ 果园南口，不来回弹
     print("13 进出")
     walk_to(o.spot_pos("to_lawn"))
-    check("南口回到草坪，站在 (768,220) %s" % l.pos, m.state == "lawn" and l.pos == m.LAWN_FROM_ORCHARD)
+    check("A 南口回到草坪，站在北口里边 %s" % l.pos, m.state == "lawn" and l.pos == l.arrival_at("to_orchard"))
     tick(60)
     check("站着 60 帧不弹回果园", m.state == "lawn")
     walk_to(l.spot_pos("to_orchard"))
-    check("又到果园，站在 (768,1076)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)
+    check("又到果园 A，站在 A 南口里边", m.state == "orchard" and o.pos == o.arrival_at("to_lawn"))
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "orchard")
 

@@ -77,11 +77,11 @@ func run() -> void:
     # 1. 布局对蓝图 3.3
     print("1 布局对蓝图 3.3")
     var want := {"dress": [168, 400, 60], "lounge": [504, 420, 60], "mahjong": [852, 420, 70], "pot": [1272, 380, 70],
-        "to_hall": [40, 780, 50], "to_lawn": [1500, 780, 50], "to_plaza": [620, 990, 40]}
-    var same: bool = b.points.size() == 7
+        "to_hall": [40, 780, 50], "to_lawn": [1500, 780, 50], "to_plaza": [620, 990, 40], "to_wkitchen": [1272, 990, 40]}
+    var same: bool = b.points.size() == 8
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("七个交互点坐标、半径和蓝图一字不差（mahjong 展位 10/3 挪到门口空道里 (852,420)，01 E；to_plaza 10/4 新总图走廊南口去喷泉广场）", same)
+    check("八个交互点坐标、半径和蓝图一字不差（mahjong 展位 10/3 挪到门口空道里 (852,420)，01 E；to_plaza 10/4 新总图走廊南口去喷泉广场；to_wkitchen 10/4 连图厨房那头去西餐厨房）", same)
     var doors := true
     for dx in [168, 504, 840, 1176]:
         doors = doors and b._free(Vector2(dx, 690))
@@ -159,7 +159,8 @@ func run() -> void:
     walk_to(h.side_door + Vector2(-90, 0))
     walk_to(h.side_door)
     check("进了后厅 state=%s" % m.state, m.state == "backhall" and m.cv == b and b.visible and not h.visible)
-    check("站在 (100,780) %s" % b.pos, b.pos == Vector2(100, 780))
+    # 10/4 连图起落点照布局的口算（口往里 70 像素，原来写死 60）
+    check("站在西口里边 %s" % b.pos, b.pos == b.arrival_from("banquet"))
     check("朝向没变（往东走是朝右）%s" % b.face, b.face == "right")
     check("宴会厅停着", h.process_mode == Node.PROCESS_MODE_DISABLED)
     check("后厅能走、底下没有宴会厅的按钮", b.walking_enabled and not m.sit_btn.visible and not m.person_btn.visible and not m.book_btn.visible)
@@ -258,9 +259,9 @@ func run() -> void:
     print("7 厨房后门")
     walk_to(Vector2(168, 790))
     walk_to(b.spot_pos("to_lawn"), 30.0)
-    check("厨房后门进了草坪 state=%s，站在 %s" % [m.state, m.lawn.pos], m.state == "lawn" and m.lawn.pos == Vector2(100, 300))
+    check("厨房后门进了草坪 state=%s，站在 %s" % [m.state, m.lawn.pos], m.state == "lawn" and m.lawn.pos == m.lawn.arrival_from("backhall"))
     walk_to(m.lawn.spot_pos("to_backhall"))
-    check("草坪西北口回到后厅、站在厨房后门边 %s" % b.pos, m.state == "backhall" and b.pos == Vector2(1440, 780))
+    check("草坪西北口回到后厅、站在厨房后门边 %s" % b.pos, m.state == "backhall" and b.pos == b.arrival_from("lawn"))
 
     # 8. 离开后厅时按钮收起来：站在大锅前出着按钮，走回宴会厅
     print("8 离开后厅按钮收")

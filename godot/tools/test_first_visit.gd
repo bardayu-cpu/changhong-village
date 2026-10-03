@@ -1,7 +1,8 @@
 extends SceneTree
 ## 第一次来整条路（04 `回执/体验-第一次来整条路.md` 的路线，01 E 10/3 派，03 写）：每版出码前跑它。
 ## 新号：选形象 → 进大门 → 新娘妈妈迎 → 签到（四屏，选一句现成祝福）→ 祝福牌 → 回忆册 → 合影出海报（码走电脑假服务端）→ 进宴会厅（55 桌，第一次来）→ 坐下
-## → 玩一个小游戏 → 东侧门金箭头出没出 → 进后厅 → 进厨房玩第一关 → 回宴会厅 → 写悄悄话 → 回迎宾院 → 走到大门出去。
+## → 玩一个小游戏 → 东侧门金箭头出没出 → 进后厅 → 进厨房玩第一关 → 回宴会厅 → 写悄悄话 → 回迎宾院 → 走到大门出去 → 前门 → 停车场找车。
+## （10/4 连图 02 E 改：停车场东口进迎宾院西北口；大门出去先到前门再往西进停车场）
 ## 每一步断言「该出的出了」；整套按真玩的路走（点按钮、走路、点「坐这儿」「签到」），只有「走路」是点地面走（寻路），「小游戏赢一局」「厨房交一道菜」走各自的规则接口。
 ## 无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据，存档写到测试自己的文件（不动这台电脑上游戏的真存档）。
 ## 用法：Godot --headless --path . --script res://tools/test_first_visit.gd
@@ -154,8 +155,9 @@ func run() -> void:
     await wait_state("court")
     await frames(3)
     var c = m.court
-    check("在迎宾院、站大门口 %s" % str(c.pos), m.state == "court" and m.cv == c and c.pos == c.SPAWN)
-    check("大门口说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
+    # 10/4 连图起：停车场东口进迎宾院西北口（停车场在迎宾院西边），站口里边
+    check("在迎宾院、站西北口里边 %s" % str(c.pos), m.state == "court" and m.cv == c and c.pos == c.arrival_from("parking"))
+    check("一进来说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
     check("资料存了、还不拿席位", m.profile_saved and not m.hall_ready)
     check("签到台头顶有记号（还没签到）", c.sign_mark != null and c.sign_mark.visible and c.sign_needed)
     tick(600)
@@ -406,10 +408,14 @@ func run() -> void:
     check("大门那圈金光亮了（签过到也写过悄悄话）", m.court_save.gate_open() and c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -150))
     walk_to(c.spot_pos("gate"))
+    await wait_state("frontgate")
+    # 10/4 连图起：大门出去是前门（门楼），往西进停车场；金箭头指自己的车，走到车旁新娘妈妈送你
+    var fg = m.areas["frontgate"]
+    check("出大门到前门（%s）" % m.state, m.state == "frontgate")
+    walk_to(fg.spot_pos("to_parking"))
     await wait_state("parking")
     await frames(3)
-    # 10/3 起：出大门回停车场，金箭头指自己的车，走到车旁新娘妈妈送你
-    check("出大门回到停车场，金箭头指自己的车", m.state == "parking" and pk.car_hint)
+    check("前门往西回到停车场，金箭头指自己的车", m.state == "parking" and pk.car_hint)
     walk_to(pk.spot_pos("my_car"))
     await frames(3)
     check("走到车旁：新娘妈妈送「%s」" % m.dialog_text.text.replace("\n", "／"), m.dialog_who.text == CourtCopy.who("gate_bye") and m.dialog_text.text.begins_with(CourtCopy.text("gate_bye")))

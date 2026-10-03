@@ -78,11 +78,13 @@ func run() -> void:
 
     # 1. 布局对蓝图 3.4
     print("1 布局对蓝图 3.4")
-    var want := {"kids": [1300, 520, 70], "to_plaza": [40, 780, 50], "to_backhall": [40, 300, 50], "to_orchard": [768, 160, 60]}
-    var same: bool = l.points.size() == 4
+    # 10/4 连图（02 E 改）：加了西南角去西餐厨房、南边去儿童乐园、北边东头去果园 B 三个口
+    var want := {"kids": [1300, 520, 70], "to_plaza": [40, 780, 50], "to_backhall": [40, 300, 50], "to_orchard": [768, 160, 60],
+        "to_wkitchen": [40, 940, 44], "to_kids": [760, 1000, 44], "to_orchard_b": [1320, 172, 50]}
+    var same: bool = l.points.size() == 7
     for id in want:
         same = same and l.points.has(id) and l.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(l.points[id]["r"]), float(want[id][2]))
-    check("四个交互点和蓝图一字不差（球那个点跟着球走，半径 %.0f）" % l.BALL_NEAR, same and is_equal_approx(l.BALL_NEAR, 60.0))
+    check("七个交互点和蓝图一字不差（球那个点跟着球走，半径 %.0f）" % l.BALL_NEAR, same and is_equal_approx(l.BALL_NEAR, 60.0))
     check("球从 (1100,800)、喜多从 (1040,760) 起（展位 10/3：挪到竖路东边空草地，别往椅子里滚）", l.BALL_START == Vector2(1100, 800) and l.DOG_START == Vector2(1040, 760)
         and l.ball_pos == l.BALL_START and l.dog_pos == l.DOG_START)
     var kids_in := 0
@@ -120,7 +122,7 @@ func run() -> void:
         var path: Array = l.find_path(l.SPAWN, pt)
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else l.SPAWN
         check("%s 走得到（离点 %.1f，半径 %.0f）" % [id, end.distance_to(pt), l.points[id]["r"]], end.distance_to(pt) < float(l.points[id]["r"]))
-    for pair in [[m.LAWN_FROM_PLAZA, "to_plaza"], [m.LAWN_FROM_BACKHALL, "to_backhall"]]:
+    for pair in [[l.arrival_at("to_plaza"), "to_plaza"], [l.arrival_at("to_backhall"), "to_backhall"]]:
         var at: Vector2 = pair[0]
         var gap: float = at.distance_to(l.points[pair[1]]["pos"])
         check("到了站在 %s 离 %s %.0f 像素（至少 48），能站" % [at, pair[1], gap], gap >= 48.0 and l._free(at))
@@ -131,35 +133,36 @@ func run() -> void:
     await m._enter_court()
     m.dialog.visible = false
     var c = m.court
+    # 10/4 连图起落点照布局算（口往里 70 像素），不再写死
     walk_to(c.spot_pos("to_plaza"))
     var pz = m.plaza
-    walk_to(pz.spot_pos("to_lawn") + Vector2(120, 0))
+    walk_to(pz.spot_pos("to_lawn") + Vector2(-120, 0))
     walk_to(pz.spot_pos("to_lawn"))
-    check("广场西口进了草坪 state=%s" % m.state, m.state == "lawn" and m.cv == l and l.visible and not pz.visible)
-    check("站在西南口边 (100,780) %s，朝向没变 %s" % [l.pos, l.face], l.pos == Vector2(100, 780) and l.face == "left")
+    check("广场东口进了草坪 state=%s" % m.state, m.state == "lawn" and m.cv == l and l.visible and not pz.visible)
+    check("站在西南口边 %s，朝向没变 %s" % [l.pos, l.face], l.pos == l.arrival_at("to_plaza") and l.face == "right")
     tick(60)
     check("站着 60 帧不弹回广场", m.state == "lawn")
     walk_to(l.spot_pos("to_plaza"))
-    check("西南口回到广场，站在西口里边 %s" % pz.pos, m.state == "plaza" and pz.pos == pz.FROM_LAWN)
+    check("西南口回到广场，站在东口里边 %s" % pz.pos, m.state == "plaza" and pz.pos == pz.arrival_at("to_lawn"))
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "plaza")
     walk_to(pz.spot_pos("to_lawn"))
     walk_to(l.spot_pos("to_backhall") + Vector2(80, 0))
     walk_to(l.spot_pos("to_backhall"))
-    check("西北口去了后厅，站在厨房后门边 (1440,780) %s" % m.backhall.pos, m.state == "backhall" and m.backhall.pos == Vector2(1440, 780))
+    check("西北口去了后厅，站在厨房后门边 %s" % m.backhall.pos, m.state == "backhall" and m.backhall.pos == m.backhall.arrival_at("to_lawn"))
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "backhall")
     walk_to(m.backhall.spot_pos("to_lawn"))
-    check("厨房后门回到草坪，站在西北口边 (100,300) %s" % l.pos, m.state == "lawn" and l.pos == Vector2(100, 300))
+    check("厨房后门回到草坪，站在西北口边 %s" % l.pos, m.state == "lawn" and l.pos == l.arrival_at("to_backhall"))
     tick(60)
     check("站着 60 帧不弹回后厅", m.state == "lawn")
     walk_to(Vector2(768, 330))
     walk_to(l.spot_pos("to_orchard"))
-    check("北口去了果园，站在南口边 (768,1076) %s" % m.orchard.pos, m.state == "orchard" and m.orchard.pos == Vector2(768, 1076))   # 9/20 果园加高，玩法区 +256
+    check("北口去了果园 A，站在 A 南口边 %s" % m.orchard.pos, m.state == "orchard" and m.orchard.pos == m.orchard.arrival_at("to_lawn"))   # 10/4 果园切成 A、B
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "orchard")
     walk_to(m.orchard.spot_pos("to_lawn"))
-    check("南口回到草坪，站在北口边 (768,220) %s" % l.pos, m.state == "lawn" and l.pos == Vector2(768, 220))
+    check("南口回到草坪，站在北口边 %s" % l.pos, m.state == "lawn" and l.pos == l.arrival_at("to_orchard"))
     tick(60)
     check("站着 60 帧不弹回果园", m.state == "lawn")
 
