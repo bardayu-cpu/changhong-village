@@ -1,0 +1,19 @@
+{
+ "note": "连图（10/4，01 G 派）新加的话：走到头提示、还没做的地方走进去说的那句。02 拟的，待校对；改文案只改这份",
+ "status": "待校对",
+ "lines": {
+  "edge_up": {"who": "", "text": "前面过不去了"},
+  "edge_down": {"who": "", "text": "后面不能再走了"},
+  "edge_left": {"who": "", "text": "左边没路了"},
+  "edge_right": {"who": "", "text": "右边没路了"},
+  "kids_wip": {"who": "阿鱼", "text": "儿童乐园还在布置，过几天再来玩"},
+  "shop_wip": {"who": "阿鱼", "text": "小卖部还在布置，过几天再来逛"},
+  "rest2_wip": {"who": "阿鱼", "text": "休息区还在布置，台球桌先摆上了"},
+  "wkitchen_wip": {"who": "阿鱼", "text": "西餐厨房还在布置，过几天再来看"},
+  "garden_wip": {"who": "阿鱼", "text": "后花园还在布置，过几天再来逛"},
+  "toilet_wip": {"who": "阿鱼", "text": "这是公共洗手间"},
+  "trash_wip": {"who": "阿鱼", "text": "这边是垃圾杂物处，没什么好看的"},
+  "frontgate_out": {"who": "阿鱼", "text": "要走的话，去停车场开车出去"},
+  "backgate_out": {"who": "阿鱼", "text": "后门外面是小山，还没开放"}
+ }
+}

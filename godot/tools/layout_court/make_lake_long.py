@@ -28,6 +28,7 @@ OUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_lake", "layout.json
 PARTS = json.load(open(os.path.join(HERE, "lake_parts.json"), encoding="utf-8"))
 EAST = json.load(open(os.path.join(HERE, "lake_east.json"), encoding="utf-8"))   # 东半边像素成品的摆法（lake_east.py 出）
 CUT = 1536                   # 这条往东是像素成品
+EAST_OUT = (3050, 955)       # 10/4 连图：东头尽头去果园 A 的口（让开 bush_25、bush_24）
 
 W, H = 3072, 1280
 SHORE = 784                  # 湖岸线（栏杆在这）
@@ -212,7 +213,8 @@ def main():
     items += group(["bench2"], 2700 - 1114, -80)
     # ================= 出口牌（只有出口牌显示，木牌）
     flat += [{"type": "label", "text": "回迎宾院", "x": EX, "y": WALL_Y[1] + 52},
-             {"type": "label", "text": "去停车场", "x": (GATE_W[0] + GATE_W[1]) // 2, "y": WALL_Y[1] + 52}]
+             {"type": "label", "text": "去后花园", "x": (GATE_W[0] + GATE_W[1]) // 2, "y": WALL_Y[1] + 52},
+             {"type": "label", "text": "去果园", "x": EAST_OUT[0] - 70, "y": EAST_OUT[1] - 60}]
     # ================= 10/4 东半边换成像素成品：灰盒东半边全删（横跨两半的墙、栏杆切到 CUT），拼上 lake_east.json
     def cx(it):
         if "rect" in it:
@@ -252,18 +254,23 @@ def main():
         "size": [W, H],
         "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
         "spawn": EAST["spawn"],
-        "from_parking": [(GATE_W[0] + GATE_W[1]) // 2, WALL_Y[0] - 50],
         "bench_seat": EAST["bench_seat"],
         "bench_stand": EAST["bench_stand"],
+        # 10/4 连图：西头月亮门去后花园（原来去停车场），东头尽头开口去果园 A（原来东头南墙月亮门回迎宾院，撤了，门洞留着通南墙外）
         "points": [
-            {"id": "to_parking", "x": (GATE_W[0] + GATE_W[1]) // 2, "y": WALL_Y[1] + 22, "r": 36},
-        ] + EAST["points"],
+            {"id": "to_garden", "x": (GATE_W[0] + GATE_W[1]) // 2, "y": WALL_Y[1] + 22, "r": 36, "to": "garden"},
+            {"id": "to_orchard", "x": EAST_OUT[0], "y": EAST_OUT[1], "r": 40, "to": "orchard"},
+        ] + [p for p in EAST["points"] if p["id"] != "to_entrance"],
         "walk": [
             [[40, PATH_Y[0]], [CUT, PATH_Y[0]], [CUT, WALL_Y[0] - 4], [40, WALL_Y[0] - 4]],                           # 西半边湖岸小路和园子（东半边接 lake_east 那块）
             [[GATE_W[0], WALL_Y[0] - 10], [GATE_W[1], WALL_Y[0] - 10], [GATE_W[1], WALL_Y[1] + 40], [GATE_W[0], WALL_Y[1] + 40]],   # 西头月亮门
             [[pen[0], pen[1]], [pen[2], pen[1]], [pen[2], pen[3]], [pen[0], pen[3]]],                                  # 半岛
             [[neck[0], neck[1]], [neck[2], neck[1]], [neck[2], neck[3]], [neck[0], neck[3]]],                          # 半岛石桥
-        ] + EAST["walk"],
+            [[842, 566], [978, 566], [978, 798], [842, 798]],                                                          # 游船码头的木台（10/4：看着是地面的都能走；船夫 1 跟前能站，挂台词能走过去说话）
+        ] + EAST["walk"] + [
+            [[4, WALL_Y[1] + 8], [W - 4, WALL_Y[1] + 8], [W - 4, H - 6], [4, H - 6]],                                 # 南墙外（10/4：看着是草地、石板路的都能走）
+            [[EAST_OUT[0] - 14, EAST_OUT[1] - 30], [W - 4, EAST_OUT[1] - 30], [W - 4, EAST_OUT[1] + 30], [EAST_OUT[0] - 14, EAST_OUT[1] + 30]],   # 东头尽头去果园那个口
+        ],
         "flat": flat,
         "items": items,
         "npcs": npcs,

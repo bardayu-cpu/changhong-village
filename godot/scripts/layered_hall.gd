@@ -75,6 +75,8 @@ var door_r := 60.0
 ## 东侧门通后厅（蓝图 3.2「东侧门 (1500, 600, 50) 通后厅」，9/19 任务 7 加进 scene.json 的 side_door）；scene.json 里没有就是 0，main 不管它
 var side_door := Vector2.ZERO
 var side_door_r := 0.0
+## 多开的门（10/4 连图：西门通后花园）：scene.json 的 points 里写了 to 的，{pos, r, to, arrive}；main 照这个切
+var exits: Array = []
 var font: Font
 var data_path := DATA      # 搭哪个厅：DATA（12 桌）或 DATA_55，build 之前由 main.gd 定
 var big := false           # 是不是 55 桌大厅（场景名带 _55）
@@ -135,6 +137,9 @@ func build(preset: int, nickname: String, f: Font) -> void:
         elif p["id"] == "side_door":
             side_door = Vector2(p["x"], p["y"])
             side_door_r = float(p["r"])
+        elif p.has("to"):
+            var ar: Array = p.get("arrive", [p["x"], p["y"]])
+            exits.append({"id": str(p["id"]), "pos": Vector2(p["x"], p["y"]), "r": float(p["r"]), "to": str(p["to"]), "arrive": Vector2(ar[0], ar[1])})
     _couple()
     if cfg.has("stage"):
         signs = StageSigns.new()
@@ -146,6 +151,13 @@ func build(preset: int, nickname: String, f: Font) -> void:
     _exit_mark()
     if side_door != Vector2.ZERO:
         room_sign("后厅", side_door + SIDE_DOOR_SIGN, side_door.y)
+    for e in exits:   # 多开的门也挂名字牌（10/4 西门「后花园」），西墙的门牌子往门里挪
+        var lb := ""
+        for p in cfg["points"]:
+            if str(p["id"]) == str(e["id"]):
+                lb = str(p.get("label", ""))
+        if lb != "":
+            room_sign(lb, (e["pos"] as Vector2) + Vector2(44, -34), (e["pos"] as Vector2).y)
     life = Life.new()
     life.name = "life"
     add_child(life)

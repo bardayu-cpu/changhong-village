@@ -1,0 +1,43 @@
+{
+ "scene": "scene_luoman_kids",
+ "title": "儿童乐园",
+ "note": "罗曼山庄 · 儿童乐园灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene kids。北边西口去喷泉广场、北边东口去草坪、西口去小卖部；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "size": [1152, 1024],
+ "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
+ "spawn": [576, 632],
+ "points": [
+  {"id": "to_plaza", "x": 380, "y": 36, "r": 44, "to": "plaza"},
+  {"id": "to_lawn", "x": 860, "y": 36, "r": 44, "to": "lawn"},
+  {"id": "to_shop", "x": 36, "y": 560, "r": 44, "to": "shop"},
+  {"id": "wip", "x": 576, "y": 600, "r": 120, "say": "kids_wip"}
+ ],
+ "walk": [[[60, 60], [1092, 60], [1092, 964], [60, 964]], [[346, 2], [414, 2], [414, 58], [346, 58]], [[826, 2], [894, 2], [894, 58], [826, 58]], [[2, 526], [58, 526], [58, 594], [2, 594]]],
+ "flat": [
+  {"type": "rect", "rect": [0, 0, 1152, 1024], "color": "#5f8f55"},
+  {"type": "rect", "rect": [60, 60, 1092, 964], "color": "#cfe3a8"},
+  {"type": "rect", "rect": [344, 0, 416, 60], "color": "#c2b393"},
+  {"type": "label", "text": "去喷泉广场", "x": 380, "y": 128},
+  {"type": "rect", "rect": [824, 0, 896, 60], "color": "#c2b393"},
+  {"type": "label", "text": "去草坪", "x": 860, "y": 128},
+  {"type": "rect", "rect": [0, 524, 60, 596], "color": "#c2b393"},
+  {"type": "label", "text": "去小卖部", "x": 110, "y": 504}
+ ],
+ "items": [
+  {"type": "box", "id": "slide", "rect": [700, 360, 840, 400], "h": 110, "top": "#e8742a", "front": "#c0582a", "scale": {"h_m": 2.3, "w_m": 2.9, "name": "滑梯"}, "part": "KD-P01"},
+  {"type": "box", "id": "swing_frame", "rect": [260, 420, 420, 432], "h": 120, "top": "#4a6fa5", "front": "#2e4a7a", "scale": {"h_m": 2.5, "name": "秋千架"}, "part": "KD-P02"},
+  {"type": "cyl", "id": "sandpit", "x": 380, "y": 720, "rx": 130, "ry": 56, "h": 10, "top": "#e6d29a", "front": "#c8b47c", "scale": {"w_m": 5.4, "name": "沙坑"}, "part": "KD-P03"},
+  {"type": "cyl", "id": "seesaw", "x": 820, "y": 680, "rx": 90, "ry": 14, "h": 30, "top": "#d9534f", "front": "#b03a37", "scale": {"w_m": 3.75, "name": "跷跷板"}, "part": "KD-P04"},
+  {"type": "box", "id": "bench_k", "rect": [520, 880, 592, 890], "h": 22, "top": "#c19a68", "front": "#8c5f3c", "part": "KD-P05"},
+  {"type": "box", "id": "wall_n_0", "rect": [0, 46, 344, 60], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01", "scale": {"h_m": 1.2, "name": "围墙 / 绿篱"}},
+  {"type": "box", "id": "wall_n_1", "rect": [416, 46, 824, 60], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_n_2", "rect": [896, 46, 1152, 60], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_s_0", "rect": [0, 964, 1152, 978], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_w_0", "rect": [46, 0, 60, 524], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_w_1", "rect": [46, 596, 60, 1024], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_0", "rect": [1092, 0, 1106, 1024], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"}
+ ],
+ "npcs": [],
+ "signs": [
+  {"text": "儿童乐园", "x": 576, "y": 96}
+ ]
+}

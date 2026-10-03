@@ -6,7 +6,8 @@ extends "res://scripts/layered_hall.gd"
 ## 交互点：走进、走出半径各发一次 spot(id, 进没进)。刚到这块画布时人要是正好站在某个点里，先走出去一次才算（不会来回弹）
 ## 后厅（backhall.gd，蓝图 3.3）也是这一套，只换 layout_path：布局里有 couple 才摆新人，exit_mark 说金光圈放在哪个点上
 signal spot(id: String, inside: bool)
-signal talk_requested(id: String)   # 点了一位能说话的 NPC、走到他跟前了：main 开对话框（lounge_ui.gd，台词走对话插件）
+signal talk_requested(id: String)
+signal edge_bump(dir: String)       # 走到头了（往没路的那边顶、或者点了画布外头）：dir 是 up/down/left/right，main 弹一句（10/4 连图）   # 点了一位能说话的 NPC、走到他跟前了：main 开对话框（lounge_ui.gd，台词走对话插件）
 
 const LAYOUT := "res://assets/layered/scene_luoman_entrance/layout.json"
 var layout_path := LAYOUT      # 这块画布的布局；后厅在 _init 里换成自己的
@@ -23,6 +24,12 @@ var npc_nodes: Dictionary = {}     # id -> Sprite2D
 ## id -> {id, foot, head, dialogue, title（名字牌上的称呼）, code（对话框、身份卡用哪张人物图）, approach（玩家走到哪开聊）}
 var talkers: Dictionary = {}
 var pending_talker := ""
+var bump_armed := true            # 走到头那句：顶住弹一次，走开 BUMP_REARM 再回来才再弹
+var bump_at := Vector2.ZERO
+var bump_still := 0.0
+var bump_last := Vector2.ZERO
+const BUMP_REARM := 60.0
+const BUMP_HOLD := 0.35           # 推着摇杆原地不动多久算顶住了
 var obstacles: Array = []      # 挡路的占地：{"rect": [x0,y0,x1,y1]} / {"ellipse": [cx,cy,rx,ry]}
 var labels: Node2D
 ## 占位底图（01 9/24：这轮 GPT 画整张占位底图，不抠图）：有图就铺图，灰盒的地面和摆设不再画，但挡人的占地照旧算，
@@ -58,8 +65,14 @@ func build(preset: int, nickname: String, f: Font) -> void:
     for it in cfg.get("items", []):
         _item(it)
     for p in cfg.get("points", []):
-        points[str(p["id"])] = {"pos": Vector2(float(p["x"]), float(p["y"])), "r": float(p["r"])}
+        # to：这个口通哪块画布（10/4 连图：口都写在布局里，main 照这个切）；arrive：从那块过来站哪（不写就照口往里走 70 像素）；
+        # say：走进去说一句（还没做的地方，话在 assets/areas/lines.json 那个 key）
+        var ar: Array = p.get("arrive", [])
+        points[str(p["id"])] = {"pos": Vector2(float(p["x"]), float(p["y"])), "r": float(p["r"]), "to": str(p.get("to", "")),
+            "arrive": Vector2(float(ar[0]), float(ar[1])) if ar.size() == 2 else Vector2.ZERO, "say": str(p.get("say", "")),
+            "via": str(p.get("via", ""))}
     SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
+    _keep_signs_off_people()
     couple_armed = false   # 迎宾院没有新人桌，新人只在花墙前站着（蓝图 3.1）；后厅没有新人
     if cfg.has("couple"):
         _couple()
@@ -108,6 +121,7 @@ func reset_to(p: Vector2) -> void:
 func _process(dt: float) -> void:
     super(dt)
     _breathe()
+    _bump_tick(dt)
     if pending_talker != "" and path.is_empty():
         var tid := pending_talker
         pending_talker = ""
@@ -429,6 +443,126 @@ func _npcs() -> void:
         if not sit or bool(n.get("block", false)):
             obstacles.append({"ellipse": [at.x, at.y, NPC_FOOT.x, NPC_FOOT.y]})
 
+# ---------- 连图（10/4）：口通哪、到了站哪、走到头提示、牌子别盖人 ----------
+## 从 src 那块画布过来，站哪：这边通 src 的那个口写了 arrive 就站那，不然从口往画布里走 70 像素、找最近能站的点。没有通 src 的口回 ZERO
+func arrival_from(src: String) -> Vector2:
+    for id in points:
+        var pt: Dictionary = points[id]
+        if str(pt["to"]) != src:
+            continue
+        if pt["arrive"] != Vector2.ZERO:
+            return pt["arrive"]
+        return _land(pt)
+    return Vector2.ZERO
+
+## 站在这块的 id 那个口里边（对面通这块的口不止一个时，main 照对面那个口写的 via 找到这里）
+func arrival_at(id: String) -> Vector2:
+    if not points.has(id):
+        return Vector2.ZERO
+    var pt: Dictionary = points[id]
+    return pt["arrive"] if pt["arrive"] != Vector2.ZERO else _land(pt)
+
+## 从口往里走，找第一个能站、又在这个口的圈外头的点（落在圈里的话一到就算「已经在口里」，走不出去也走不回来）
+func _land(pt: Dictionary) -> Vector2:
+    var p: Vector2 = pt["pos"]
+    var dir := _inward(p) - p
+    for k in [1.0, 1.4, 1.8, 2.4, 3.0]:
+        var q := nearest_free(p + dir * k)
+        if q != Vector2.ZERO and q.distance_to(p) > float(pt["r"]) + 6.0:
+            return q
+    return nearest_free(p + dir)
+
+## 口往画布里走 70 像素（口挨着哪条边，就往对面走）
+func _inward(p: Vector2) -> Vector2:
+    var sz: Array = cfg["size"]
+    var w := float(sz[0])
+    var h := float(sz[1])
+    var d := {Vector2(1, 0): p.x, Vector2(-1, 0): w - p.x, Vector2(0, 1): p.y, Vector2(0, -1): h - p.y}
+    var best := Vector2(0, 1)
+    var bd := INF
+    for k in d:
+        if float(d[k]) < bd:
+            bd = float(d[k])
+            best = k
+    return p + best * 70.0
+
+## 「去…」牌子别盖住站在口上、落点上、出生点上的人（03 测第 60、61 版报的 9 处，01 G 定这件里改）：
+## 牌子跟人身子（宽 32、高 84）叠上了，就把牌子挪到那人头顶上面；挪到画布顶还叠，就挪到人右边
+func _keep_signs_off_people() -> void:
+    var spots: Array = [SPAWN]
+    for id in points:
+        if str(points[id]["to"]) != "":
+            spots.append(points[id]["pos"])
+            spots.append(points[id]["arrive"] if points[id]["arrive"] != Vector2.ZERO else _inward(points[id]["pos"]))
+    for k in cfg:
+        if str(k).begins_with("from_"):
+            spots.append(Vector2(float(cfg[k][0]), float(cfg[k][1])))
+    for l in labels.get_children():
+        if not l is Control:
+            continue
+        for pass_i in 4:
+            var hit := false
+            for s in spots:
+                var body := Rect2((s as Vector2).x - 16.0, (s as Vector2).y - 84.0, 32.0, 84.0)
+                var r := Rect2(l.position, l.size)
+                if r.intersects(body):
+                    hit = true
+                    var up: float = (s as Vector2).y - 84.0 - l.size.y - 6.0
+                    if up >= 2.0:
+                        l.position.y = up
+                    else:
+                        l.position.x = (s as Vector2).x + 22.0
+            if not hit:
+                break
+
+## 走到头：推着摇杆原地不动 BUMP_HOLD 秒，往推的那边一步不在能走的范围里（不是被桌子挡，是到了边）→ 弹一句
+func _bump_tick(dt: float) -> void:
+    if not bump_armed and pos.distance_to(bump_at) > BUMP_REARM:
+        bump_armed = true
+    if stick.length() < 0.5 or not walking_enabled or seated:
+        bump_still = 0.0
+        bump_last = pos
+        return
+    if pos.distance_to(bump_last) > 0.5:
+        bump_still = 0.0
+        bump_last = pos
+        return
+    bump_still += dt
+    if bump_still >= BUMP_HOLD and bump_armed:
+        var d := _dir_name(stick)
+        if not in_walk(pos + stick.normalized() * 30.0):
+            _bump(d)
+
+## 点了能走的范围外头（水、墙外、画布边外），往那边弹一句
+func _tap_bump(target: Vector2) -> void:
+    if bump_armed and not in_walk(target) and target.distance_to(pos) > 40.0:
+        var near_exit := false
+        for id in points:
+            if str(points[id]["to"]) != "" and target.distance_to(points[id]["pos"]) < float(points[id]["r"]) + 40.0:
+                near_exit = true
+        if not near_exit:
+            _bump(_dir_name(target - pos))
+
+func _bump(d: String) -> void:
+    bump_armed = false
+    bump_at = pos
+    edge_bump.emit(d)
+
+static func _dir_name(v: Vector2) -> String:
+    if absf(v.x) > absf(v.y):
+        return "right" if v.x > 0.0 else "left"
+    return "down" if v.y > 0.0 else "up"
+
+## 这一点在布局的能走范围（walk 那几块多边形）里不在（家具挡不挡不管）
+func in_walk(p: Vector2) -> bool:
+    for poly in cfg.get("walk", []):
+        var pts := PackedVector2Array()
+        for v in poly:
+            pts.append(Vector2(float(v[0]), float(v[1])))
+        if Geometry2D.is_point_in_polygon(p, pts):
+            return true
+    return false
+
 # ---------- 能说话的 NPC（对话插件，10/4） ----------
 ## 登一位能说话的：脚点、人画出来多高（点他身上哪块算点到他）、台词文件、称呼、人物图
 func add_talker(id: String, foot: Vector2, height: float, dialogue: String, title: String, code: String) -> void:
@@ -484,6 +618,8 @@ func tap(screen: Vector2) -> void:
             request_talker(id)
             return
     pending_talker = ""
+    if walking_enabled:
+        _tap_bump(get_viewport().get_canvas_transform().affine_inverse() * screen)
     super(screen)
 
 ## 替身（10/3 化妆间起）：布局里写了 standin 的人，拿定稿宾客的图当替身（以后换 GPT 画的）——

@@ -8,7 +8,10 @@
  "points": [
   {"id": "strawberry", "x": 400, "y": 796, "r": 60},
   {"id": "loquat", "x": 1150, "y": 756, "r": 60},
-  {"id": "to_lawn", "x": 768, "y": 1136, "r": 60},
+  {"id": "to_lawn", "x": 420, "y": 1136, "r": 60, "to": "lawn", "via": "to_orchard", "note": "果园 A（草莓）南口去草坪（10/4 连图：果园原地切成西 A 草莓、东 B 枇杷，A、B 中间直接走过去）"},
+  {"id": "to_lawn_b", "x": 1150, "y": 1136, "r": 60, "to": "lawn", "via": "to_orchard_b", "note": "果园 B（枇杷）南口去草坪（10/4 连图）"},
+  {"id": "to_lake", "x": 40, "y": 800, "r": 44, "to": "lake", "note": "果园 A 西口去湖边东头（10/4 连图）"},
+  {"id": "to_backgate", "x": 1150, "y": 470, "r": 44, "to": "backgate", "note": "果园 B 北口去后门（10/4 连图）"},
   {"id": "shop", "x": 980, "y": 1122, "r": 55}
  ],
  "walk": [
@@ -34,7 +37,7 @@
   {"type": "label", "text": "草莓园", "x": 400, "y": 478},
   {"type": "label", "text": "枇杷园", "x": 1150, "y": 478},
   {"type": "label", "text": "田埂", "x": 260, "y": 424},
-  {"type": "label", "text": "回草坪", "x": 768, "y": 1186}
+  {"type": "label", "text": "去草坪", "x": 520, "y": 1186}, {"type": "label", "text": "去草坪", "x": 1250, "y": 1186}, {"type": "label", "text": "去湖边", "x": 130, "y": 740}, {"type": "label", "text": "去后门", "x": 1270, "y": 440}
  ],
  "items": [
   {"type": "box", "id": "ridge_0", "rect": [100, 544, 700, 572], "h": 10, "top": "#6b4a36", "front": "#4a3226", "scale": {"w_m": 12.5, "d_m": 0.9, "h_m": 0.2}, "part": "OR-P01", "inst": "OR-P01-01", "art_box": [99, 530, 701, 573]},
@@ -84,5 +87,7 @@
   {"id": "farmer_3", "who": "农夫", "x": 1110, "y": 650, "face": "down", "look": "farmer_m2", "lm": "LM-FARMER-03"},
   {"id": "farmer_4", "who": "农夫", "x": 980, "y": 1050, "face": "down", "look": "farmer_f2", "lm": "LM-FARMER-04"}
  ],
- "pixel_art": ["res://assets/pixel_art/orchard/room.json"]
+ "pixel_art": ["res://assets/pixel_art/orchard/room.json"],
+ "signs": [{"text": "果园 A", "x": 400, "y": 412}, {"text": "果园 B", "x": 1150, "y": 412}],
+ "signs_note": "10/4 连图：果园原地切成两块，西边果园 A（草莓之类地上的），东边果园 B（枇杷之类树上的），名字牌挂在北边田埂上；以后 A、B 各加新作物（01 先给阿鱼一页玩家说明）"
 }

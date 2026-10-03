@@ -1,0 +1,39 @@
+{
+ "scene": "scene_luoman_rest2",
+ "title": "休息区 2",
+ "note": "罗曼山庄 · 休息区 2灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene rest2。北口去喷泉广场、东口去小卖部；台球桌先摆色块占位置，能不能打以后再说；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "size": [1152, 1024],
+ "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
+ "spawn": [576, 632],
+ "points": [
+  {"id": "to_plaza", "x": 576, "y": 36, "r": 44, "to": "plaza"},
+  {"id": "to_shop", "x": 1116, "y": 560, "r": 44, "to": "shop"},
+  {"id": "wip", "x": 576, "y": 640, "r": 120, "say": "rest2_wip"}
+ ],
+ "walk": [[[60, 60], [1092, 60], [1092, 964], [60, 964]], [[542, 2], [610, 2], [610, 58], [542, 58]], [[1094, 526], [1150, 526], [1150, 594], [1094, 594]]],
+ "flat": [
+  {"type": "rect", "rect": [0, 0, 1152, 1024], "color": "#5f8f55"},
+  {"type": "rect", "rect": [60, 60, 1092, 964], "color": "#e9dcc0"},
+  {"type": "rect", "rect": [540, 0, 612, 60], "color": "#c2b393"},
+  {"type": "label", "text": "去喷泉广场", "x": 576, "y": 128},
+  {"type": "rect", "rect": [1092, 524, 1152, 596], "color": "#c2b393"},
+  {"type": "label", "text": "去小卖部", "x": 1042, "y": 504}
+ ],
+ "items": [
+  {"type": "box", "id": "pool_table", "rect": [516, 470, 636, 515], "h": 38, "top": "#2f7a4a", "front": "#6d4a38", "scale": {"w_m": 2.5, "h_m": 0.8, "name": "台球桌"}, "part": "R2-P01"},
+  {"type": "box", "id": "sofa_r2", "rect": [240, 260, 400, 290], "h": 41, "top": "#c8b8a0", "front": "#a89880", "scale": {"w_m": 3.3, "name": "沙发"}, "part": "R2-P02"},
+  {"type": "box", "id": "tea_r2", "rect": [270, 330, 370, 350], "h": 22, "top": "#a07850", "front": "#7a5a3a", "part": "R2-P03"},
+  {"type": "box", "id": "cue_rack", "rect": [760, 230, 790, 240], "h": 72, "top": "#8c5f3c", "front": "#6d4a38", "scale": {"h_m": 1.5, "name": "球杆架"}, "part": "R2-P04"},
+  {"type": "box", "id": "plant_r2", "rect": [880, 760, 904, 772], "h": 60, "top": "#5f8f4e", "front": "#3f6a3f", "part": "R2-P05"},
+  {"type": "box", "id": "wall_n_0", "rect": [0, 46, 540, 60], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01", "scale": {"h_m": 1.2, "name": "围墙 / 绿篱"}},
+  {"type": "box", "id": "wall_n_1", "rect": [612, 46, 1152, 60], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_s_0", "rect": [0, 964, 1152, 978], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_w_0", "rect": [46, 0, 60, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_0", "rect": [1092, 0, 1106, 524], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_1", "rect": [1092, 596, 1106, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"}
+ ],
+ "npcs": [],
+ "signs": [
+  {"text": "休息区", "x": 576, "y": 96}
+ ]
+}

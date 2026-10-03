@@ -16,6 +16,7 @@ var gloss_seen := false          # 休息区老人那句的方言词弹过普通
 var door_hint := false           # 宴会厅东侧门的金光、箭头开了（第一次坐下或玩完第一个小游戏以后，01 E 10/3）
 var backhall_seen := false       # 进过一次后厅了：东侧门的金光、箭头、进厅小卡那行「东边侧门通后厅」都收
 var court_seen := false          # 进过一次迎宾院了（10/3 停车场起）：再开游戏不从停车场出生、停车场指大门的箭头不再出
+var drive_seen := false          # 看过一次自动开车进山庄了（10/4 连图）：第二次起点一下屏幕能跳过
 
 func load_local() -> void:
     if not FileAccess.file_exists(local_path):
@@ -35,6 +36,7 @@ func load_local() -> void:
     door_hint = bool(d.get("door_hint", false))
     backhall_seen = bool(d.get("backhall_seen", false))
     court_seen = bool(d.get("court_seen", false))
+    drive_seen = bool(d.get("drive_seen", false))
 
 func save() -> void:
     var f := FileAccess.open(local_path, FileAccess.WRITE)
@@ -42,7 +44,7 @@ func save() -> void:
         return
     f.store_string(JSON.stringify({"welcomed": welcomed, "signed_in": signed_in, "candy": candy, "draft": draft, "photos": photos,
         "whisper_done": whisper_done, "gloss_seen": gloss_seen, "door_hint": door_hint, "backhall_seen": backhall_seen,
-        "court_seen": court_seen}))
+        "court_seen": court_seen, "drive_seen": drive_seen}))
     f.close()
 
 ## 收好一张相纸：最多留 PHOTO_KEEP 张，多了把最早的顶掉

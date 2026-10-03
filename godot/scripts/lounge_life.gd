@@ -208,6 +208,11 @@ func approach_of(id: String) -> Vector2:
     if p.is_empty():
         return Vector2.ZERO
     if (p["foot"] as Vector2) == p["home"]:
+        # 坐在北边沙发上（朝下坐）的：站到她斜前方，别正挡在她身前（第 62 版截图奶奶被玩家挡住一大半，01 G 叫调）
+        if str(p["seat_face"]) == "down":
+            if not p.has("side_stand"):
+                p["side_stand"] = _nearest_free((p["foot"] as Vector2) + Vector2(-52 if (p["foot"] as Vector2).x < 566 else 52, 40))
+            return p["side_stand"]
         return p["stand"]
     return _nearest_free((p["foot"] as Vector2) + Vector2(0, 30))
 

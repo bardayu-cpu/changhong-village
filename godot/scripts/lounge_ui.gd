@@ -143,8 +143,8 @@ func _build_talk_box() -> void:
     choices.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
     choices.offset_right = -24
     choices.offset_left = -340
-    choices.offset_bottom = -310
-    choices.offset_top = -310
+    choices.offset_bottom = -352   # 压在名字牌（-340 起）上面，名字牌不盖按钮（03 测第 62 版报的）
+    choices.offset_top = -352
     choices.grow_vertical = Control.GROW_DIRECTION_BEGIN
     choices.add_theme_constant_override("separation", 10)
     choices.visible = false
