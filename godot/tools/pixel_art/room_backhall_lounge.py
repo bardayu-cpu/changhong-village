@@ -28,6 +28,9 @@ import sys
 
 from PIL import Image, ImageDraw
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from backhall_floor import HW_HEX, HW_RAMP, draw_floor_v3   # 地板 v3：三间共用一份（同一个文件夹）
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 LAYOUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_backhall", "layout.json")
@@ -63,6 +66,7 @@ PAL_HEX = {
     "sv0": "#737a8f", "sv1": "#a3abbe", "sv2": "#d3d8e3",
     "pk0": "#a8455e", "pk2": "#f4bfc8",
 }
+PAL_HEX.update(HW_HEX)          # 地板 v3：蜜色木 hw0～hw6（新名字的色带，fl0～fl7 一个没改）
 
 
 def hex2rgba(h):
@@ -72,6 +76,7 @@ def hex2rgba(h):
 
 C = {k: hex2rgba(v) for k, v in PAL_HEX.items()}
 RAMPS = {
+    "hw": HW_RAMP,
     "wd": ["wd0", "wd1", "wd2", "wd3", "wd4", "wd5"],
     "fl": ["fl0", "fl1", "fl2", "fl3", "fl4", "fl5", "fl6", "fl7"],
     "wl": ["wl0", "wl1", "wl2", "wl3", "wl4", "wl5"],
@@ -457,62 +462,8 @@ def draw_north_wall(L):
 
 
 def draw_floor(L):
-    """横铺木地板：一排 7 像素（1 行缝 + 6 行板），板长 1～2 米错缝；
-    颜色两档为主、偶尔一块浅的或深的；木纹是顺着板的细暗线，少量节疤；只有一部分板头有一小段倒角高光"""
-    rnd = random.Random(20261003)
-    x0, x1 = WALL_W[0], WALL_E[1]
-    y = FLOOR_Y
-    prev_joints = []
-    while y < Y1:
-        L.hl(x0, x1, y, "fl2")                       # 板缝
-        x = x0 - rnd.randrange(0, 70)
-        joints = []
-        last_tone = None
-        while x < x1:
-            ln = rnd.randrange(52, 112)
-            # 接缝别跟上一排太近（错缝）
-            for j in prev_joints:
-                if abs(x + ln - j) < 10:
-                    ln += 14
-            tone = rnd.choice([4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6])
-            if tone == last_tone:
-                tone = 5 if tone == 4 else 4
-            last_tone = tone
-            base = "fl%d" % tone
-            a, b = max(x, x0), min(x + ln, x1)
-            if b > a:
-                L.rect(a, y + 1, b, y + 7, base)
-                # 倒角高光：约四成的板，板头往后一小段
-                if rnd.random() < 0.4:
-                    L.hl(a + 1, min(b, a + rnd.randrange(8, 30)), y + 1, "fl%d" % min(7, tone + 1))
-                # 木纹：1～2 条细长暗线，偶尔拐一格
-                for _ in range(rnd.randrange(1, 3)):
-                    gy = y + rnd.randrange(2, 6)
-                    gx = a + rnd.randrange(0, max(1, b - a - 8))
-                    gl = rnd.randrange(8, 30)
-                    for k in range(gl):
-                        xx = gx + k
-                        if xx >= b - 1:
-                            break
-                        if rnd.random() < 0.85:
-                            L.p(xx, gy, "fl%d" % (tone - 1))
-                        if rnd.random() < 0.07:
-                            gy = max(y + 2, min(y + 6, gy + rnd.choice([-1, 1])))
-                # 节疤
-                if rnd.random() < 0.07 and b - a > 14:
-                    kx = rnd.randrange(a + 4, b - 5)
-                    ky = y + rnd.randrange(3, 5)
-                    L.p(kx, ky, "fl%d" % (tone - 2))
-                    L.p(kx + 1, ky, "fl%d" % (tone - 2))
-                    for (dx, dy) in ((-1, 0), (2, 0), (0, -1), (1, 1)):
-                        L.p(kx + dx, ky + dy, "fl%d" % (tone - 1))
-                # 板头接缝（左边一列暗、右边一列亮一点 = 有缝有倒角）
-                if x >= x0:
-                    L.vl(x, y + 1, y + 7, "fl2")
-                    joints.append(x)
-            x += ln
-        prev_joints = joints
-        y += 7
+    """地板 v3（阿鱼 10/3：01 版太细、06 第二版像酱油）：宽板蜜色木，三间共用 backhall_floor.py"""
+    draw_floor_v3(L, WALL_W[0], WALL_E[1], Y1, seed=1)
 
 
 # 回纹：一个单元 8×7，1 = 画纹的颜色
