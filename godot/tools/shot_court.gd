@@ -3,11 +3,12 @@ extends SceneTree
 ## 要有窗口（headless 不出画面）：Godot --path . --resolution 540x960 --script res://tools/shot_court.gd -- --out=图.png [--rect=0,0,1536,1024] [--zoom=1] [--labels=0]
 ##   --labels=0 藏灰盒上「签到」「花墙」那些物件名（图上不写字）；1 留着
 ##   --world=0 连桌子、墙、大门、树这些物件整层都藏，只剩地面和路（量物件框时拿它跟带物件的那张做差）；1 留着
+##   --canvas=plaza 截别的画布（喷泉广场等，10/4 02 E 加；默认 court 迎宾院）；--rect 不给就是整块
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
-var opt := {"rect": "0,0,1536,1024", "zoom": "1", "out": "", "labels": "0", "world": "1"}
+var opt := {"rect": "", "zoom": "1", "out": "", "labels": "0", "world": "1", "canvas": "court"}
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
@@ -37,11 +38,6 @@ func run() -> void:
     if str(opt["out"]) == "":
         fail("没给 --out=")
         return
-    var r: PackedStringArray = str(opt["rect"]).split(",")
-    if r.size() != 4:
-        fail("--rect 要 x,y,w,h")
-        return
-    var rect := Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3]))
     var zoom: float = float(opt["zoom"])
     for i in 600:
         if m.state == "title":
@@ -51,17 +47,28 @@ func run() -> void:
     m.nickname = "小李"
     m.cloud.fake_no_news = true
     await m._enter_court()
+    var cn := str(opt["canvas"])
+    if cn != "court":
+        m.ensure_canvas(cn)
+        m._show_canvas(cn)
+        m._goto(cn)
     await create_timer(1.0).timeout
     m.dialog.visible = false
     m.hint.visible = false
-    var c = m.court
+    var c = m.court if cn == "court" else m.get(cn)
+    var sz: Array = c.cfg["size"]
+    var r: PackedStringArray = (str(opt["rect"]) if str(opt["rect"]) != "" else "0,0,%d,%d" % [int(sz[0]), int(sz[1])]).split(",")
+    if r.size() != 4:
+        fail("--rect 要 x,y,w,h")
+        return
+    var rect := Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3]))
     # 藏人：玩家、新人、新娘妈妈等站桩的、走动的客人、摄影师；藏记号和字
-    for n in [c.player, c.tag_anchor, c.world.get_node_or_null("couple"), c.sign_mark, c.sign_arrow]:
+    for n in [c.player, c.tag_anchor, c.world.get_node_or_null("couple"), c.get("sign_mark"), c.get("sign_arrow"), c.get("me_ring"), c.get("me_mark")]:
         if n != null:
             n.visible = false
     for id in c.npc_nodes:
         (c.npc_nodes[id] as CanvasItem).visible = false
-    if c.court_life != null:
+    if c.get("court_life") != null:
         c.court_life.set_process(false)
         for w in c.court_life.walkers:
             w.node.visible = false

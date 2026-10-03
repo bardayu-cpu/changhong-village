@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：罗曼山庄迎宾院（蓝图 3.1，灰盒，01 9/19 派）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 第一段：能走的格子连通、交互点都走得到、随机点地面不踩进占地；刚到一块画布时站在出口里不会来回弹；
-##         迎宾院 ↔ 宴会厅来回走，席位、金币这些状态还在；西小径去湖边（9/20 起）、东小径去草坪（9/19 起）
+##         迎宾院 ↔ 宴会厅来回走，席位、金币这些状态还在；西小径去湖边（9/20 起）、西北口去喷泉广场（10/4 新总图起，东小径去草坪那个口关了）
 ## 第二段：新娘妈妈只迎一次；签到面板名字 → 礼金 → 确认，名字校验、礼金夹上限、断网留草稿、签完一串（爸爸收礼、喜糖、妈妈指路）、
 ##         重进只显示「已签到」、本机存档；名字被服务端判敏感词退回第一页
 ## 第三段：回忆册正式版置灰「还没印好」、调试版能打开占位屏并回到原地；摄影师招呼；合影吸到站位、姿势 → 对焦 → 相纸、
@@ -187,7 +187,7 @@ func run() -> void:
     check("金币还在 %d（原来 %d，通关加 50）" % [m.games_save.coins, coins0], m.games_save.coins == coins0 + 50)
     check("NPC 宾客还在", m.hall.life != null and not m.hall.npc_taken.is_empty())
 
-    # 8. 西小径去湖边（9/20 任务 9 起）、东小径去草坪（9/19 任务 8 起），从那边回来都站在对应的口边上
+    # 8. 西小径去湖边（9/20 任务 9 起）；10/4 新总图起东小径去草坪那个口关了，西北口去喷泉广场；从那边回来都站在对应的口边上
     print("8 东西小径")
     walk_to(m.hall.SPAWN + Vector2(0, -160))
     walk_to(m.hall.door)
@@ -195,10 +195,11 @@ func run() -> void:
     check("西小径到了湖边 state=%s" % m.state, m.state == "lake")
     walk_to(m.lake.spot_pos("to_entrance"))
     check("湖边东口回到迎宾院、站在西小径边 %s" % str(c.pos), m.state == "court" and c.pos == Vector2(100, 520))
-    walk_to(c.spot_pos("to_lawn"), 30.0)
-    check("东小径进了草坪 state=%s" % m.state, m.state == "lawn")
-    walk_to(m.lawn.spot_pos("to_entrance"))
-    check("草坪西南口回到迎宾院、站在东小径边 %s" % str(c.pos), m.state == "court" and c.pos == Vector2(1440, 780))
+    walk_to(c.spot_pos("to_plaza"), 30.0)
+    check("西北口进了喷泉广场 state=%s" % m.state, m.state == "plaza")
+    walk_to(m.plaza.spot_pos("to_court"), 30.0)
+    check("广场东口回到迎宾院、站在西北口边 %s" % str(c.pos), m.state == "court" and c.pos == m.COURT_FROM_PLAZA)
+    check("东小径那个口关了", not c.points.has("to_lawn"))
 
     await part2(c)
     await part3(c)

@@ -7,6 +7,7 @@ const BACKHALL := "res://assets/backhall/lines.json"
 const LAWN := "res://assets/lawn/lines.json"
 const LAKE := "res://assets/lake/lines.json"
 const ORCHARD := "res://assets/orchard/lines.json"
+const PLAZA := "res://assets/plaza/lines.json"      # 喷泉广场（10/4 新总图）
 
 static var _d: Dictionary = {}   # 文件路径 -> 那份的 lines
 

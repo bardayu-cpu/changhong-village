@@ -31,6 +31,7 @@ SCENES = {
     "lake": ("scene_luoman_lake", "湖边"),
     "orchard": ("scene_luoman_orchard", "果园"),
     "parking": ("scene_luoman_parking", "停车场"),   # 10/3 停车场和大门灰盒（01 F）
+    "plaza": ("scene_luoman_plaza", "喷泉广场"),     # 10/4 喷泉广场灰盒（新总图第 ② 步，01 F）
 }
 
 
