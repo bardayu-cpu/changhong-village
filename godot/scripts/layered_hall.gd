@@ -155,6 +155,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
     _exit_mark()
     if side_door != Vector2.ZERO:
         room_sign("后厅", side_off(-SIDE_DOOR_SIGN.x, SIDE_DOOR_SIGN.y), side_door.y)
+        _west_door()
     for e in exits:   # 多开的门也挂名字牌（10/4 方案 C 东门「后花园」），牌子往门里挪
         var lb := ""
         for p in cfg["points"]:
@@ -463,6 +464,29 @@ const ROOM_SIGN_TEXT := Color("#f7e09a")
 const ROOM_SIGN_EDGE := Color("#deb550")
 const SIDE_DOOR_SIGN := Vector2(-44, -34)   # 宴会厅侧门：匾的下沿正中在门那个点往厅里 44、往上 34（贴着墙；再往外手机上会被屏幕边切掉）。x 是东墙的写法，西墙的门照 side_off 翻过来
 var room_signs: Array = []                   # 挂上的名字牌（测试、截图看）
+
+## 10/4 方案 C（01 G 定）：通后厅的门挪到西墙，画里那儿没有门板——照东侧门（底图 x 1496～1536、y 1260～1318）的样子用代码画一扇，
+## 左右对称、以门那个点为中心；叠在底图上、人和桌子下面（底图本身不动）。门在东墙（画里有门）就不画
+const WEST_DOOR_RECTS := [   # [离外墙几像素起, 到几像素, 门顶往下几像素起, 到几像素, 颜色]，一圈一圈往里叠（量的东侧门）
+    [0, 40, 0, 58, "#391f14"], [0, 36, 4, 56, "#67381c"], [0, 32, 6, 52, "#a66731"],
+    [0, 30, 10, 42, "#e5b263"], [0, 30, 42, 50, "#703e1f"]]
+func _west_door() -> void:
+    if side_door == Vector2.ZERO or _in_sign(side_door) < 0.0:
+        return
+    var holder := Node2D.new()
+    holder.name = "west_door"
+    holder.z_index = -9   # 底图是 -10
+    var top := side_door.y - 29.0
+    for r in WEST_DOOR_RECTS:
+        var p := Polygon2D.new()
+        var x0 := float(r[0])
+        var x1 := float(r[1])
+        var y0 := top + float(r[2])
+        var y1 := top + float(r[3])
+        p.polygon = PackedVector2Array([Vector2(x0, y0), Vector2(x1, y0), Vector2(x1, y1), Vector2(x0, y1)])
+        p.color = Color(str(r[4]))
+        holder.add_child(p)
+    add_child(holder)
 
 ## 门往厅里是 +x（西墙的门）还是 -x（东墙的门）
 func _in_sign(p: Vector2) -> float:

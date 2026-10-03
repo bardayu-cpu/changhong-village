@@ -29,8 +29,8 @@ const Lawn = preload("res://scripts/lawn.gd")
 const LawnUI = preload("res://scripts/lawn_ui.gd")
 ## 蓝图 1 写迎宾院 → 草坪站 (50, 780)、后厅 → 草坪站 (50, 300)，离草坪西南口 (40, 780, 50)、西北口 (40, 300, 50) 都只有 10 像素；
 ## 照 01 9/19 的规矩（到了站的点离出口至少 1 米，沿出口方向往里挪）改成下面两个，离出口 60 像素
-const LAWN_FROM_PLAZA := Vector2(1426, 430)     # 10/4 方案 C：草坪东边南头那个口通喷泉广场（第 64 版西南 (100, 780)）
-const LAWN_FROM_BACKHALL := Vector2(1426, 230)   # 10/4 方案 C：草坪东边北头那个口通后厅
+const LAWN_FROM_PLAZA := Vector2(1496, 490)     # 10/4 方案 C：草坪东边南头那个口通喷泉广场，落在东边碎石小路上（布局 arrive；第 64 版西南 (100, 780)）
+const LAWN_FROM_BACKHALL := Vector2(1458, 210)   # 10/4 方案 C：草坪东边北头那个口通后厅（口往里 70）
 const COURT_FROM_PLAZA := Vector2(100, 334)     # 10/4 新总图：喷泉广场东口 → 迎宾院西北口里边（离口 60 像素）；原来东小径去草坪的口关了
 ## 湖边（蓝图 3.5，灰盒，01 9/20 派任务 9）：迎宾院西小径通这里，湖边东口回迎宾院
 const Lake = preload("res://scripts/lake.gd")
@@ -4248,7 +4248,7 @@ func _setup_shot(shot: String) -> void:
                         break
             var stand := {"plaza_east": [Vector2(1380, 560), "right"], "plaza_west": [Vector2(170, 560), "left"], "plaza_south": [Vector2(768, 850), "down"],
                 "plaza_kids": [Vector2(420, 850), "down"], "plaza_shop": [Vector2(768, 850), "down"], "plaza_rest": [Vector2(1116, 850), "down"],
-                "court_plaza_sign": [COURT_FROM_PLAZA + Vector2(90, 0), "left"], "lawn_plaza_sign": [Vector2(1300, 430), "right"],
+                "court_plaza_sign": [COURT_FROM_PLAZA + Vector2(90, 0), "left"], "lawn_plaza_sign": [Vector2(1380, 470), "right"],
                 "backhall_plaza_sign": [Vector2(896, 840), "down"]}
             if stand.has(shot):
                 cv.reset_to(stand[shot][0])

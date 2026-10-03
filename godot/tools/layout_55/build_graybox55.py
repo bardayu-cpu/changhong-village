@@ -594,7 +594,8 @@ def main():
         "npc_tables": npc,
         "family": FAMILY,
         "relatives": RELATIVES,
-        "waiters": {"count": 6, "door": [W - 70, (d0 + d1) // 2], "speed_m": 1.5},
+        # 10/4 方案 C（01 G 定）：服务员改从西墙那道门（通后厅、厨房）进出；西门是 10/4 连图手加进 scene.json 的（(40, 1300)），这份脚本还没出它
+        "waiters": {"count": 6, "door": [70, 1300], "speed_m": 1.5},
         "petals": {"amount": 60 if (not art or ART_EXTRAS) else 0},   # 飘的花瓣：接图以后关（阿鱼 9/30）
     }
     json.dump(amb, open(AMB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

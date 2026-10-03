@@ -79,9 +79,9 @@ func run() -> void:
     # 1. 布局对蓝图 3.4
     print("1 布局对蓝图 3.4")
     # 10/4 连图（02 E 改）：加了去西餐厨房、南边去儿童乐园、北边去果园 B 三个口；
-    # 10/4 方案 C：去后厅、西餐厨房、喷泉广场的口挪到东边北段空当（y 450 往南全是树冠），去果园 B 挪到北边西头
-    var want := {"kids": [1300, 520, 70], "to_plaza": [1496, 430, 44], "to_backhall": [1496, 230, 44], "to_orchard": [768, 160, 60],
-        "to_wkitchen": [1496, 330, 44], "to_kids": [760, 1000, 44], "to_orchard_b": [140, 172, 50]}
+    # 10/4 方案 C：去后厅、西餐厨房、喷泉广场的口在东边，01 G 定拉开到 y 210、380、550（拿掉 tree_28、沙坑东边收窄、加一段碎石小路；口在灌木缺口里头、圈 18，顺着小路走不误进），去果园 B 挪到北边西头
+    var want := {"kids": [1300, 520, 70], "to_plaza": [1528, 550, 18], "to_backhall": [1528, 210, 18], "to_orchard": [768, 160, 60],
+        "to_wkitchen": [1528, 380, 18], "to_kids": [760, 1000, 44], "to_orchard_b": [140, 172, 50]}
     var same: bool = l.points.size() == 7
     for id in want:
         same = same and l.points.has(id) and l.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(l.points[id]["r"]), float(want[id][2]))

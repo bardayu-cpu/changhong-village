@@ -1018,16 +1018,6 @@
    ]
   },
   {
-   "id": "px_tree_28",
-   "png": "res://assets/pixel_art/lawn/props/tree_28.png",
-   "x": 1424,
-   "y": 456,
-   "foot": 700,
-   "hide": [
-    "tree_28"
-   ]
-  },
-  {
    "id": "px_tree_29",
    "png": "res://assets/pixel_art/lawn/props/tree_29.png",
    "x": 1426,
