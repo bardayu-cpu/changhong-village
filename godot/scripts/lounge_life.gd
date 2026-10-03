@@ -15,7 +15,7 @@ const TALK_NEAR := 34.0         # 离 NPC 跟前多近算走到了（出「聊�
 const BUBBLE_HOLD := 2.6        # 一句冒多久
 const BUBBLE_GAP := 0.9         # 一句收了隔多久下一个人说
 const BUBBLE_POP := 0.12        # 冒出来那一下（从小变大）
-const BUBBLE_FONT := 14
+const BUBBLE_FONT := 15         # 屏幕上的字号（540 宽算）：气泡按镜头缩放反着放大，后厅镜头缩到 0.5 多也认得出字
 const INK := Color("#2b1d16")
 const BUBBLE_BG := Color("#fffdf6")
 const FACE_DIR := {"down": Vector2(0, 1), "up": Vector2(0, -1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}
@@ -144,10 +144,16 @@ func step(dt: float) -> void:
     if not frozen:
         for g in groups:
             _step_group(g, dt)
+    var full := _bubble_scale()
     for id in bubbles:
         var b: Node2D = bubbles[id]
-        if b.visible and b.scale.x < 1.0:
-            b.scale = Vector2.ONE * minf(1.0, b.scale.x + dt / BUBBLE_POP * 0.4)
+        if b.visible and b.scale.x < full:
+            b.scale = Vector2.ONE * minf(full, b.scale.x + dt / BUBBLE_POP * 0.4 * full)
+
+## 气泡放多大：镜头缩小多少就反着放大多少，屏幕上字一样大
+func _bubble_scale() -> float:
+    var z: float = c.cam.zoom.x if c.cam != null else 1.0
+    return 1.0 / maxf(z, 0.2)
 
 func _step_group(g: Dictionary, dt: float) -> void:
     var lines: Array = g["lines"]
@@ -223,7 +229,7 @@ func show_bubble(id: String, text: String) -> void:
     edge.antialiased = false
     b.add_child(edge)
     b.position = (p["head"] as Vector2) + Vector2(0, -4)
-    b.scale = Vector2.ONE * 0.6
+    b.scale = Vector2.ONE * 0.6 * _bubble_scale()
     b.set_meta("text", text)
     add_child(b)
     bubbles[id] = b

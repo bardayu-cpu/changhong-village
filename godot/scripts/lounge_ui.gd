@@ -78,7 +78,7 @@ func _build_talk_box() -> void:
     talk_box.offset_right = -14
     talk_box.offset_top = -300
     talk_box.offset_bottom = -40
-    talk_box.add_theme_stylebox_override("panel", m._sb(Color(0.12, 0.07, 0.06, 0.96), m.GOLD, 3, 10, 16))
+    talk_box.add_theme_stylebox_override("panel", m._sb(Color(0.12, 0.07, 0.06, 1.0), m.GOLD, 3, 10, 16))   # 不透：底下「点地面走路」那块别透出来
     talk_box.mouse_filter = Control.MOUSE_FILTER_STOP
     talk_box.gui_input.connect(func(e):
         if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
