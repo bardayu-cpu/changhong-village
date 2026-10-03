@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cepea10kqlyx3"
-path="res://.godot/imported/luggage_1.png-9eb1068b05d77b1534039810e149a839.ctex"
+uid="uid://dajrsw17ok7ti"
+path="res://.godot/imported/west_chair_e.png-974a9be51cb46970ecd302fdf533431c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixel_art/backhall_lounge/props/luggage_1.png"
-dest_files=["res://.godot/imported/luggage_1.png-9eb1068b05d77b1534039810e149a839.ctex"]
+source_file="res://assets/pixel_art/backhall_lounge/props/west_chair_e.png"
+dest_files=["res://.godot/imported/west_chair_e.png-974a9be51cb46970ecd302fdf533431c.ctex"]
 
 [params]
 

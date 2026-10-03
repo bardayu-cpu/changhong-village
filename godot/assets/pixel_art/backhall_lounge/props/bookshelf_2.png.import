@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0khvt4wcnt3n"
-path="res://.godot/imported/luggage_2.png-433b4445d37f7f97536d76cefeb9000a.ctex"
+uid="uid://dlrefyfea1rjn"
+path="res://.godot/imported/bookshelf_2.png-52c3afdef33fef4f3c80717bdc02f74c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixel_art/backhall_lounge/props/luggage_2.png"
-dest_files=["res://.godot/imported/luggage_2.png-433b4445d37f7f97536d76cefeb9000a.ctex"]
+source_file="res://assets/pixel_art/backhall_lounge/props/bookshelf_2.png"
+dest_files=["res://.godot/imported/bookshelf_2.png-52c3afdef33fef4f3c80717bdc02f74c.ctex"]
 
 [params]
 
