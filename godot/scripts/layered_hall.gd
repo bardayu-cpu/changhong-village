@@ -144,6 +144,8 @@ func build(preset: int, nickname: String, f: Font) -> void:
         signs.setup(font, cfg["stage"])
     _player(preset, nickname)
     _exit_mark()
+    if side_door != Vector2.ZERO:
+        room_sign("后厅", side_door + SIDE_DOOR_SIGN, side_door.y)
     life = Life.new()
     life.name = "life"
     add_child(life)
@@ -434,6 +436,49 @@ func _door_hint_tick() -> void:
     if door_hint:
         breathe_ring(door_mark, t)
     point_edge_arrow(door_arrow, door_mark.position, door_hint)
+
+# ---------- 门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；画风页第 0 节「房间门口可以挂写房间名的牌子」）----------
+## 红底金字、金边的小匾，字用游戏字体，比世界里的字大一号（长辈看得清）。跟出口那种暖褐小木牌分开：木牌是「去哪」，红匾是「这是哪」。
+## 挂在门旁边的墙上，不压门洞；按 foot 那条线跟人排前后（走廊里的人走过去在牌子前面）。不改像素画的底图，牌子是游戏里画的
+const ROOM_SIGN_FONT := 22
+const ROOM_SIGN_BG := Color("#a8281f")
+const ROOM_SIGN_TEXT := Color("#f7e09a")
+const ROOM_SIGN_EDGE := Color("#deb550")
+const SIDE_DOOR_SIGN := Vector2(-44, -34)   # 宴会厅东侧门：匾的下沿正中在门那个点左上一点（门板上方、贴着东墙；再往东手机上会被屏幕边切掉）
+var room_signs: Array = []                   # 挂上的名字牌（测试、截图看）
+
+## 挂一块名字牌：at = 匾的下沿正中，foot = 排前后的那条线（没给就是 at.y）。回那块牌子（Node2D，字在它下面的 Label 里）
+func room_sign(text: String, at: Vector2, foot := -1.0) -> Node2D:
+    var holder := Node2D.new()
+    holder.name = "room_sign_" + text
+    var fy := at.y if foot < 0.0 else foot
+    holder.position = Vector2(at.x, fy)
+    var l := Label.new()
+    l.text = text
+    l.add_theme_font_override("font", font)
+    l.add_theme_font_size_override("font_size", ROOM_SIGN_FONT)
+    l.add_theme_color_override("font_color", ROOM_SIGN_TEXT)
+    var sb := StyleBoxFlat.new()
+    sb.bg_color = ROOM_SIGN_BG
+    sb.border_color = ROOM_SIGN_EDGE
+    sb.set_border_width_all(2)
+    sb.set_corner_radius_all(3)
+    sb.content_margin_left = 8; sb.content_margin_right = 8
+    sb.content_margin_top = 1; sb.content_margin_bottom = 2
+    sb.shadow_color = Color(0.13, 0.08, 0.06, 0.6)
+    sb.shadow_size = 0
+    sb.shadow_offset = Vector2(2, 2)
+    l.add_theme_stylebox_override("normal", sb)
+    l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    var lift := at.y - fy
+    # 字体量好以后 Label 会自己再长一点：每回变大小都重新摆，下沿正中一直钉在 at 上（不然牌子往下掉、压到走廊）
+    l.resized.connect(func(): l.position = Vector2(-l.size.x * 0.5, lift - l.size.y))
+    l.size = l.get_combined_minimum_size()
+    l.position = Vector2(-l.size.x * 0.5, lift - l.size.y)
+    holder.add_child(l)
+    world.add_child(holder)
+    room_signs.append(holder)
+    return holder
 
 # ---------- 世界里的字（体验 B2、B3、B4）----------
 ## 世界里的字（人名、桌牌、物件名）原来 12 像素（约 8.5 点），长辈看不清，字心和地面几乎同色（1.04:1），全靠描边撑着。
