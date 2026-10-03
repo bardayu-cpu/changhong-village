@@ -239,7 +239,32 @@ func run() -> void:
             issues.append("名字牌 %s 不是 %s" % [ui.name_label.text, data_people[id]["title"]])
         if b.walking_enabled:
             issues.append("说话时还能走")
-        var lines: Array = data_people[id]["talk"]
+        var lines: Array = [] if data_people[id].has("dialogue") else data_people[id]["talk"]
+        if data_people[id].has("dialogue"):
+            # 10/4 起写了 dialogue 的（奶奶）走对话插件 Dialogue Manager（02 E 改这段）：有字、有人物图、身份卡开关，
+            # 再一路点下去（有选项点第一个）直到收；台词、分支细的在 test_lounge_dialogue.gd
+            for k in 30:
+                if ui.line_label.text != "":
+                    break
+                await process_frame
+            if ui.line_label.text == "" or ui.portrait.texture == null:
+                issues.append("插件第一句没出来（%s）" % ui.line_label.text)
+            ui.card_btn.pressed.emit()
+            tick(2)
+            if ui.card == null or (ui.card.find_child("full_body", true, false) as TextureRect).texture == null:
+                issues.append("身份卡没开或没有全身图")
+            ui.close_card()
+            tick(2)
+            for k in 40:
+                if not ui.talk_box.visible:
+                    break
+                if ui.choices.visible and ui.choices.get_child_count() > 0:
+                    (ui.choices.get_child(0) as Button).pressed.emit()
+                else:
+                    ui.next_line()
+                for f in 3:
+                    await process_frame
+                tick(1)
         for j in lines.size():
             if ui.line_label.text != str(lines[j]["text"]):
                 issues.append("第 %d 句字不对：%s" % [j + 1, ui.line_label.text])

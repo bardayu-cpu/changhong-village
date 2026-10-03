@@ -1,5 +1,5 @@
 {
- "note": "休息间的人（docs/人物新做法-休息间样板-v0.1.md 第 2、4 节，01 F 10/4）：改文案只改这份。status 是「待校对」的话都是 02 拟的草稿，阿鱼在文案组校过再换、把 status 改成「定了」。people 里每位：title 是名字牌和身份卡上的称呼；relation 是身份卡上跟阿鱼什么关系（空的只写称呼，待讨论）；talk 是点他说话时一句句的话，pose 是这句用哪张人物图（front 正面、side 侧身、smile 笑、surprise 惊讶、talk 说话、sit 坐着；GPT 人物图到之前都拿现在的小图顶着）。chat 是头顶冒泡：一组几个人轮流说，几个字一句",
+ "note": "休息间的人（docs/人物新做法-休息间样板-v0.1.md 第 2、4 节，01 F 10/4）：改文案只改这份。status 是「待校对」的话都是 02 拟的草稿，阿鱼在文案组校过再换、把 status 改成「定了」。people 里每位：title 是名字牌和身份卡上的称呼；relation 是身份卡上跟阿鱼什么关系（空的只写称呼，待讨论）；talk 是点他说话时一句句的话（写了 dialogue 的走对话插件 Dialogue Manager，话在那份 .dialogue 里，有选项分支；talk 就不用了），pose 是这句用哪张人物图（front 正面、side 侧身、smile 笑、surprise 惊讶、talk 说话、sit 坐着；GPT 人物图到之前都拿现在的小图顶着）。chat 是头顶冒泡：一组几个人轮流说，几个字一句",
  "status": "待校对",
  "buttons": {"sit": "坐下", "stand": "起来", "talk": "跟%s聊聊", "card": "身份卡", "close": "关上", "next": "点一下继续"},
  "people": {
@@ -7,6 +7,7 @@
    "code": "LM-GUEST-09",
    "title": "奶奶",
    "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/lounge_09.dialogue",
    "talk": [
     {"pose": "smile", "text": "哎呀，你来啦"},
     {"pose": "talk", "text": "坐嘛，这沙发软和得很"},

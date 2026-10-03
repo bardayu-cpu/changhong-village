@@ -360,6 +360,10 @@ func _ready() -> void:
     lounge_ui = LoungeUI.new()
     ui.add_child(lounge_ui)
     lounge_ui.setup(self)
+    # 能说话的 NPC（10/4 对话插件）：哪块画布上布局给 NPC 写了 dialogue，点了走到跟前就开这个对话框
+    for c in [court, backhall, lawn, lake, orchard, parking, plaza]:
+        if c.has_signal("talk_requested"):
+            c.talk_requested.connect(func(id): lounge_ui.open_npc(c, id))
     lawn_ui = LawnUI.new()
     ui.add_child(lawn_ui)
     lawn_ui.setup(self)
@@ -3808,6 +3812,24 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
+        "lounge_dm", "lounge_dm_choice":
+            # 对话插件 Dialogue Manager（10/4）：dm 是点奶奶走过去、插件给的第一句；dm_choice 是问到「你是哪边的客人呀？」出三个选项
+            await _setup_shot("backhall")
+            var life = backhall.lounge
+            backhall.reset_to(Vector2(504, 470))
+            backhall.face = "up"
+            for i in 20: await get_tree().process_frame
+            lounge_ui.attach(life)
+            life.request_talk("lounge_09")
+            for i in 300:
+                await get_tree().process_frame
+                if lounge_ui.talk_box.visible and lounge_ui.line_label.text != "":
+                    break
+            if shot == "lounge_dm_choice":
+                for k in 2:
+                    lounge_ui.next_line()
+                    for i in 10: await get_tree().process_frame
+            for i in 20: await get_tree().process_frame
         "lounge_chat", "lounge_sit", "lounge_talk", "lounge_card", "lounge_walk_down", "lounge_walk_left", "lounge_walk_right", "lounge_walk_up":
             # 休息间人物样板（01 F 10/4）：chat 是四位坐着冒泡（两组各冒一句，停住不轮换）；sit 是玩家坐在北边沙发中间、奶奶爷爷两边；
             # talk 是坐着跟奶奶说话：对话框弹出、奶奶站起来放说话格；card 是对话框上点「身份卡」；
