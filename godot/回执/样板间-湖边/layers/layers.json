@@ -1,0 +1,587 @@
+{
+ "note": "draw_lake.py 生成，别手改。每张图左上角放在 x、y（画布坐标），1 倍、不插值；kind：flat = 平的（台面、栈道、码头，比人先画），stand = 立着的（按 foot_y 跟人排前后），anim = 会动的（鸭子，帧图见 sheet）；water 层紧贴底图，比 flat 还先画；hide = 进游戏时要藏掉的灰盒（挡人的占地照旧）",
+ "canvas": [
+  1536,
+  1280
+ ],
+ "base": {
+  "png": "bg_lake_temp.png",
+  "x": 0,
+  "y": 0,
+  "temp": true,
+  "note": "临时底图（影子、倒影已经叠进去了）；GPT 底图到了用 --base 出 bg_lake.png 换掉"
+ },
+ "shade": {
+  "png": "shade_lake.png",
+  "note": "影子和倒影：灰度 128 = 不动，每 ±40 = 沿色带挪 1 档；叠在压过色的底图上"
+ },
+ "layers": [
+  {
+   "name": "water_deco",
+   "png": "water_deco.png",
+   "x": 62,
+   "y": 451,
+   "w": 1273,
+   "h": 318,
+   "foot_y": null,
+   "kind": "water",
+   "hide": [
+    "lotus_1",
+    "lotus_2",
+    "lotus_3"
+   ]
+  },
+  {
+   "name": "pavilion_deck",
+   "png": "pavilion_deck.png",
+   "x": 618,
+   "y": 422,
+   "w": 300,
+   "h": 251,
+   "foot_y": 428,
+   "foot_x": 768,
+   "kind": "flat",
+   "hide": []
+  },
+  {
+   "name": "boardwalk",
+   "png": "boardwalk.png",
+   "x": 712,
+   "y": 651,
+   "w": 111,
+   "h": 172,
+   "foot_y": 556,
+   "foot_x": 768,
+   "kind": "flat",
+   "hide": []
+  },
+  {
+   "name": "dock",
+   "png": "dock.png",
+   "x": 310,
+   "y": 539,
+   "w": 160,
+   "h": 260,
+   "foot_y": 560,
+   "foot_x": 390,
+   "kind": "flat",
+   "hide": [
+    "dock_deck",
+    "dock_plank_0",
+    "dock_plank_1",
+    "dock_plank_2",
+    "dock_plank_3",
+    "dock_plank_4",
+    "dock_edge",
+    "dock_post_0",
+    "dock_post_1"
+   ]
+  },
+  {
+   "name": "duck_1",
+   "png": "duck_1.png",
+   "x": 977,
+   "y": 402,
+   "w": 33,
+   "h": 22,
+   "foot_y": 420,
+   "foot_x": 992,
+   "kind": "anim",
+   "hide": [
+    "duck_1"
+   ],
+   "sheet": {
+    "png": "duck_sheet.png",
+    "frame": [
+     36,
+     26
+    ],
+    "anchor": [
+     18,
+     21
+    ],
+    "frames": {
+     "left": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "right": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "fps": 4,
+    "note": "脚点 anchor 对准 (foot_x, foot_y)；静止时这张就是其中一帧"
+   }
+  },
+  {
+   "name": "duck_2",
+   "png": "duck_2.png",
+   "x": 1007,
+   "y": 413,
+   "w": 33,
+   "h": 22,
+   "foot_y": 432,
+   "foot_x": 1022,
+   "kind": "anim",
+   "hide": [
+    "duck_2"
+   ],
+   "sheet": {
+    "png": "duck_sheet.png",
+    "frame": [
+     36,
+     26
+    ],
+    "anchor": [
+     18,
+     21
+    ],
+    "frames": {
+     "left": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "right": [
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "fps": 4,
+    "note": "脚点 anchor 对准 (foot_x, foot_y)；静止时这张就是其中一帧"
+   }
+  },
+  {
+   "name": "pavilion_roof",
+   "png": "pavilion_roof.png",
+   "x": 581,
+   "y": 285,
+   "w": 375,
+   "h": 232,
+   "foot_y": 438,
+   "foot_x": 768,
+   "kind": "stand",
+   "hide": [
+    "pavilion_roof",
+    "pavilion_roof_edge",
+    "post_nw",
+    "post_ne"
+   ]
+  },
+  {
+   "name": "pavilion_rail_w",
+   "png": "pavilion_rail_w.png",
+   "x": 621,
+   "y": 425,
+   "w": 7,
+   "h": 227,
+   "foot_y": 452,
+   "foot_x": 624,
+   "kind": "stand",
+   "hide": []
+  },
+  {
+   "name": "pavilion_rail_e",
+   "png": "pavilion_rail_e.png",
+   "x": 908,
+   "y": 425,
+   "w": 7,
+   "h": 227,
+   "foot_y": 452,
+   "foot_x": 912,
+   "kind": "stand",
+   "hide": []
+  },
+  {
+   "name": "rowboat_3",
+   "png": "rowboat_3.png",
+   "x": 1081,
+   "y": 412,
+   "w": 145,
+   "h": 43,
+   "foot_y": 470,
+   "foot_x": 1152,
+   "kind": "stand",
+   "hide": [
+    "rowboat_3"
+   ]
+  },
+  {
+   "name": "rowboat_3_front",
+   "png": "rowboat_3_front.png",
+   "x": 1080,
+   "y": 430,
+   "w": 146,
+   "h": 49,
+   "foot_y": 474,
+   "foot_x": 1152,
+   "kind": "stand",
+   "hide": []
+  },
+  {
+   "name": "rowboat_2",
+   "png": "rowboat_2.png",
+   "x": 165,
+   "y": 510,
+   "w": 158,
+   "h": 44,
+   "foot_y": 556,
+   "foot_x": 238,
+   "kind": "stand",
+   "hide": [
+    "rowboat_2"
+   ]
+  },
+  {
+   "name": "swanboat_2",
+   "png": "swanboat_2.png",
+   "x": 458,
+   "y": 480,
+   "w": 134,
+   "h": 71,
+   "foot_y": 556,
+   "foot_x": 530,
+   "kind": "stand",
+   "hide": [
+    "swanboat_2"
+   ]
+  },
+  {
+   "name": "rowboat_1",
+   "png": "rowboat_1.png",
+   "x": 165,
+   "y": 545,
+   "w": 158,
+   "h": 65,
+   "foot_y": 612,
+   "foot_x": 238,
+   "kind": "stand",
+   "hide": [
+    "rowboat_1"
+   ]
+  },
+  {
+   "name": "swanboat_1",
+   "png": "swanboat_1.png",
+   "x": 458,
+   "y": 536,
+   "w": 134,
+   "h": 71,
+   "foot_y": 612,
+   "foot_x": 530,
+   "kind": "stand",
+   "hide": [
+    "swanboat_1"
+   ]
+  },
+  {
+   "name": "pavilion_front",
+   "png": "pavilion_front.png",
+   "x": 617,
+   "y": 544,
+   "w": 302,
+   "h": 108,
+   "foot_y": 652,
+   "foot_x": 768,
+   "kind": "stand",
+   "hide": [
+    "post_sw",
+    "post_se"
+   ]
+  },
+  {
+   "name": "lotus_3_flowers",
+   "png": "lotus_3_flowers.png",
+   "x": 1171,
+   "y": 702,
+   "w": 45,
+   "h": 30,
+   "foot_y": 741,
+   "foot_x": 1190,
+   "kind": "stand",
+   "hide": [
+    "lotus_flower_3"
+   ]
+  },
+  {
+   "name": "lotus_1_flowers",
+   "png": "lotus_1_flowers.png",
+   "x": 81,
+   "y": 704,
+   "w": 45,
+   "h": 30,
+   "foot_y": 743,
+   "foot_x": 100,
+   "kind": "stand",
+   "hide": [
+    "lotus_flower_1"
+   ]
+  },
+  {
+   "name": "lotus_2_flowers",
+   "png": "lotus_2_flowers.png",
+   "x": 861,
+   "y": 714,
+   "w": 45,
+   "h": 30,
+   "foot_y": 753,
+   "foot_x": 880,
+   "kind": "stand",
+   "hide": [
+    "lotus_flower_2"
+   ]
+  },
+  {
+   "name": "reed_1",
+   "png": "reed_1.png",
+   "x": 116,
+   "y": 719,
+   "w": 40,
+   "h": 82,
+   "foot_y": 800,
+   "foot_x": 130,
+   "kind": "stand",
+   "hide": [
+    "reed_1"
+   ]
+  },
+  {
+   "name": "reed_2",
+   "png": "reed_2.png",
+   "x": 661,
+   "y": 719,
+   "w": 55,
+   "h": 82,
+   "foot_y": 800,
+   "foot_x": 690,
+   "kind": "stand",
+   "hide": [
+    "reed_2"
+   ]
+  },
+  {
+   "name": "reed_3",
+   "png": "reed_3.png",
+   "x": 907,
+   "y": 719,
+   "w": 54,
+   "h": 82,
+   "foot_y": 800,
+   "foot_x": 930,
+   "kind": "stand",
+   "hide": [
+    "reed_3"
+   ]
+  },
+  {
+   "name": "fish_stool_1",
+   "png": "fish_stool_1.png",
+   "x": 1159,
+   "y": 794,
+   "w": 22,
+   "h": 29,
+   "foot_y": 822,
+   "foot_x": 1170,
+   "kind": "stand",
+   "hide": [
+    "fish_stool_1"
+   ]
+  },
+  {
+   "name": "fish_stool_2",
+   "png": "fish_stool_2.png",
+   "x": 1429,
+   "y": 794,
+   "w": 22,
+   "h": 29,
+   "foot_y": 822,
+   "foot_x": 1440,
+   "kind": "stand",
+   "hide": [
+    "fish_stool_2"
+   ]
+  },
+  {
+   "name": "fish_rod_1",
+   "png": "fish_rod_1.png",
+   "x": 1175,
+   "y": 676,
+   "w": 109,
+   "h": 117,
+   "foot_y": 823,
+   "foot_x": 1176,
+   "kind": "stand",
+   "hide": [
+    "fish_rod_1"
+   ]
+  },
+  {
+   "name": "fish_rod_2",
+   "png": "fish_rod_2.png",
+   "x": 1327,
+   "y": 676,
+   "w": 110,
+   "h": 117,
+   "foot_y": 823,
+   "foot_x": 1434,
+   "kind": "stand",
+   "hide": [
+    "fish_rod_2"
+   ]
+  },
+  {
+   "name": "fish_bucket_1",
+   "png": "fish_bucket_1.png",
+   "x": 1137,
+   "y": 800,
+   "w": 19,
+   "h": 27,
+   "foot_y": 826,
+   "foot_x": 1146,
+   "kind": "stand",
+   "hide": [
+    "fish_bucket_1"
+   ]
+  },
+  {
+   "name": "fish_bucket_2",
+   "png": "fish_bucket_2.png",
+   "x": 1455,
+   "y": 800,
+   "w": 19,
+   "h": 27,
+   "foot_y": 826,
+   "foot_x": 1464,
+   "kind": "stand",
+   "hide": [
+    "fish_bucket_2"
+   ]
+  },
+  {
+   "name": "willow_2",
+   "png": "willow_2.png",
+   "x": 961,
+   "y": 611,
+   "w": 166,
+   "h": 263,
+   "foot_y": 872,
+   "foot_x": 1044,
+   "kind": "stand",
+   "hide": [
+    "willow_2"
+   ]
+  },
+  {
+   "name": "willow_0",
+   "png": "willow_0.png",
+   "x": 152,
+   "y": 623,
+   "w": 161,
+   "h": 261,
+   "foot_y": 882,
+   "foot_x": 230,
+   "kind": "stand",
+   "hide": [
+    "willow_0"
+   ]
+  },
+  {
+   "name": "willow_1",
+   "png": "willow_1.png",
+   "x": 460,
+   "y": 626,
+   "w": 163,
+   "h": 268,
+   "foot_y": 892,
+   "foot_x": 540,
+   "kind": "stand",
+   "hide": [
+    "willow_1"
+   ]
+  },
+  {
+   "name": "willow_3",
+   "png": "willow_3.png",
+   "x": 1223,
+   "y": 648,
+   "w": 166,
+   "h": 262,
+   "foot_y": 908,
+   "foot_x": 1306,
+   "kind": "stand",
+   "hide": [
+    "willow_3"
+   ]
+  },
+  {
+   "name": "bench",
+   "png": "bench.png",
+   "x": 361,
+   "y": 915,
+   "w": 79,
+   "h": 58,
+   "foot_y": 972,
+   "foot_x": 400,
+   "kind": "stand",
+   "hide": [
+    "bench_seat",
+    "bench_leg_w",
+    "bench_leg_e",
+    "bench_back"
+   ]
+  },
+  {
+   "name": "bench2",
+   "png": "bench2.png",
+   "x": 1111,
+   "y": 915,
+   "w": 79,
+   "h": 58,
+   "foot_y": 972,
+   "foot_x": 1150,
+   "kind": "stand",
+   "hide": [
+    "bench2_seat",
+    "bench2_leg_w",
+    "bench2_leg_e",
+    "bench2_back"
+   ]
+  },
+  {
+   "name": "willow_5",
+   "png": "willow_5.png",
+   "x": 517,
+   "y": 1043,
+   "w": 166,
+   "h": 237,
+   "foot_y": 1300,
+   "foot_x": 600,
+   "kind": "stand",
+   "hide": [
+    "willow_5"
+   ]
+  },
+  {
+   "name": "willow_4",
+   "png": "willow_4.png",
+   "x": 800,
+   "y": 1044,
+   "w": 163,
+   "h": 236,
+   "foot_y": 1300,
+   "foot_x": 880,
+   "kind": "stand",
+   "hide": [
+    "willow_4"
+   ]
+  }
+ ]
+}
