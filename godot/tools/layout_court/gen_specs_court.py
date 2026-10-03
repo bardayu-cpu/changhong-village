@@ -83,7 +83,15 @@ def png_bbox(path):
 
 
 def measure(it):
-    """一件东西画出来的外框（画布坐标，连高度）和宽、前后、高（像素），跟 entrance.gd 的 _item 一个算法"""
+    """一件东西画出来的外框（画布坐标，连高度）和宽、前后、高（像素），跟 entrance.gd 的 _item 一个算法。
+    写了 art_box 的（代码画的成品，比灰盒大一圈，10/3 果园起）：外框照画出来的，宽、前后、高照旧按灰盒量"""
+    box, dims = _measure(it)
+    if box is not None and "art_box" in it:
+        box = [float(v) for v in it["art_box"]]
+    return box, dims
+
+
+def _measure(it):
     k = it.get("type")
     if k == "box":
         x0, y0, x1, y1 = [float(v) for v in it["rect"]]
