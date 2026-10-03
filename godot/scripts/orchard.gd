@@ -25,7 +25,7 @@ var farm: Dictionary = {}
 var fake_today := ""             # 不是空串就当成今天（只有季节开关打开时才用得上）
 var fake_now := -1.0             # 大于 0 就当成现在几点（秒），测试、截图拨时间用
 var save                         # orchard_save.gd，main 建好塞进来
-var plots: Array = []            # [{id, kind, dots:[Node2D], bodies:[Polygon2D]}]
+var plots: Array = []            # [{id, kind, dots:[Node2D], bodies:[Polygon2D]}]；铺了代码画的成品的多 ripe、bare 两张图
 var pick_t := 0.0                # 收的小动作还剩多久
 var _refresh_t := 0.0
 
@@ -200,7 +200,10 @@ func plot_word(kind: String) -> String:
 func basket_unit(kind: String) -> String:
     return str(_fruit(kind).get("unit", "份"))
 
-# ---------- 地里的果子（灰盒占位：垄上的点、树上的点） ----------
+# ---------- 地里的果子 ----------
+# 10/3 起铺代码画的成品（tools/pixel_art/orchard.py，阿鱼「能」）：每条垄、每棵树各有「有果」「没果」两张整图，
+# 这块地熟了显示有果那张、没熟显示没果那张（01 E：没有青果那一档）。图是 entrance.gd 的 _pixel_art() 铺的，名字 px_<地>_fruit / px_<地>_nofruit。
+# 没铺成品的（老灰盒）照旧画小圆点：垄上的点、树上的点，青果绿的小一点
 
 func _make_plots() -> void:
     var rng := RandomNumberGenerator.new()
@@ -210,7 +213,12 @@ func _make_plots() -> void:
         var id := str(it.get("id", ""))
         var dots: Array = []
         var bodies: Array = []
-        if id.begins_with("ridge_"):
+        var ripe_spr := world.get_node_or_null(NodePath("px_%s_fruit" % id))
+        var bare_spr := world.get_node_or_null(NodePath("px_%s_nofruit" % id))
+        if ripe_spr != null and bare_spr != null and (id.begins_with("ridge_") or id.begins_with("loquat_")):
+            plots.append({"id": id, "kind": "strawberry" if id.begins_with("ridge_") else "loquat", "dots": dots, "bodies": bodies,
+                "ripe": ripe_spr, "bare": bare_spr})
+        elif id.begins_with("ridge_"):
             var r: Array = it["rect"]
             var foot := float(r[3])
             for k in 9:
@@ -255,11 +263,16 @@ func _fix_clock() -> void:
         save.save()
         print("[suqi] 果园 手机时间往回拨了，地从现在重算")
 
-## 照每块地长到哪一步，把果子改成看得出来的样子：光地没有、青果绿的小一点、熟了原色
+## 照每块地长到哪一步，把果子改成看得出来的样子：成品图熟了换有果那张、没熟没果那张；
+## 灰盒的小圆点光地没有、青果绿的小一点、熟了原色
 func refresh_fruit() -> void:
     _fix_clock()
     for p in plots:
         var st := stage_of(p["id"], p["kind"])
+        if p.has("ripe"):
+            (p["ripe"] as Node2D).visible = st == 2
+            (p["bare"] as Node2D).visible = st != 2
+            continue
         var col: Color = GREEN_COL if st == 1 else RIPE_COL[p["kind"]]
         var sc := 0.7 if st == 1 else 1.0
         for i in (p["dots"] as Array).size():

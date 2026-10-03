@@ -43,6 +43,22 @@ func drawn_box(holder: Node2D) -> Rect2:
                 r = r.expand(p)
     return r
 
+## 这件灰盒换成代码画的成品以后，游戏里铺的那几张图合起来的外框（room.json 里 hide 第一个是它的）；没有回空框
+func pixel_box(c, id: String) -> Rect2:
+    var out := Rect2()
+    for path in c.cfg.get("pixel_art", []):
+        var man: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(str(path)))
+        for p in man["props"]:
+            var hide: Array = p.get("hide", [])
+            if hide.is_empty() or str(hide[0]) != id:
+                continue
+            var s: Sprite2D = c.world.get_node_or_null(NodePath(str(p["id"])))
+            if s == null:
+                continue
+            var r := Rect2(s.position + s.offset, s.texture.get_size())
+            out = r if out.size == Vector2.ZERO else out.merge(r)
+    return out
+
 func run() -> void:
     for i in 600:
         if m.state == "title":
@@ -70,6 +86,10 @@ func run() -> void:
                 continue
             var want := Rect2(Vector2(it["box"][0], it["box"][1]), Vector2(float(it["box"][2]) - float(it["box"][0]), float(it["box"][3]) - float(it["box"][1])))
             var got := drawn_box(holder)
+            # 铺了代码画的成品、layout 写了 art_box 的（10/3 果园起）：框照画出来的，量游戏里铺的那几张图（有果没果两张取并）
+            var lay: Array = (c.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == str(it["id"]))
+            if not lay.is_empty() and (lay[0] as Dictionary).has("art_box"):
+                got = pixel_box(c, str(it["id"]))
             n += 1
             if absf(got.position.x - want.position.x) > 1.5 or absf(got.position.y - want.position.y) > 1.5 or absf(got.end.x - want.end.x) > 1.5 or absf(got.end.y - want.end.y) > 1.5:
                 bad.append("%s 画的 %s 表里 %s" % [it["id"], got, want])
@@ -107,20 +127,21 @@ func run() -> void:
     var seat := drawn_box(m.lake.world.get_node("bench_seat"))
     check("湖边长凳宽 %.0f（表 72）" % seat.size.x, is_equal_approx(seat.size.x, 72.0))
 
-    print("== 果园的果子挂在树冠上")
+    print("== 果园的枇杷树（10/3 起是代码画的成品：有果没果两张整图，果子画在树冠里）")
     var off: Array = []
     for p in m.orchard.plots:
         if str(p["kind"]) != "loquat":
             continue
         var t: Dictionary = (m.orchard.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == str(p["id"]))[0]
-        var g: Dictionary = m.orchard.tree_geom(t)
-        var cr := Rect2(float(t["x"]) - float(g["rx"]), float(g["cy"]) - float(g["ry"]), 2.0 * float(g["rx"]), 2.0 * float(g["ry"]))
-        for d in p["dots"]:
-            var h: Node2D = d
-            var at: Vector2 = h.position + (h.get_child(0) as Polygon2D).polygon[0]
-            if not cr.grow(4.0).has_point(at):
-                off.append("%s %s" % [p["id"], at])
-    check("6 棵枇杷树 42 颗果子都在树冠里（不在的 %s）" % [off.slice(0, 3)], off.is_empty())
+        for key in ["ripe", "bare"]:
+            var s: Sprite2D = p[key]
+            var box := Rect2(s.position + s.offset, s.texture.get_size())
+            var ab: Array = t["art_box"]
+            # 图着地在树脚、外框就是 layout 的 art_box（画出来的树），树干正对树的 x
+            if s.position.y != float(t["y"]) or box != Rect2(float(ab[0]), float(ab[1]), float(ab[2]) - float(ab[0]), float(ab[3]) - float(ab[1])) \
+                    or absf(box.get_center().x - float(t["x"])) > 12.0:
+                off.append("%s %s %s" % [p["id"], key, box])
+    check("6 棵枇杷树的图都着地在树脚、外框跟 art_box 一样（不对的 %s）" % [off.slice(0, 3)], off.is_empty())
 
     print("RESULT PASS" if ok else "RESULT FAIL")
     quit(0 if ok else 1)

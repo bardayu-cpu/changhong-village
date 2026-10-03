@@ -3842,7 +3842,7 @@ func _setup_shot(shot: String) -> void:
                 lake.cam.position = Vector2(768, 640)
                 lake.cam.reset_smoothing()
             await get_tree().process_frame
-        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell", "orchard_sold", "orchard_north":
+        "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell", "orchard_sold", "orchard_north", "orchard_path":
             # 果园（阿鱼 9/20 定的种田玩法）：头一回进来地都是熟的。
             # pick 收草莓、sell 卖给山庄、grow 把地拨到长了六成（青果，报还有多久熟）
             nickname = "阿花"
@@ -3869,7 +3869,8 @@ func _setup_shot(shot: String) -> void:
             note_box.visible = false
             _clear_toast_back()
             var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_grow": orchard.spot_pos("strawberry"),
-                "orchard_sell": orchard.spot_pos("strawberry"), "orchard_sold": orchard.spot_pos("strawberry"), "orchard_north": Vector2(768, 500)}   # 最北边：看镜头上下跟和顶上的风景带
+                "orchard_sell": orchard.spot_pos("strawberry"), "orchard_sold": orchard.spot_pos("strawberry"), "orchard_north": Vector2(768, 500),   # 最北边：看镜头上下跟和顶上的风景带
+                "orchard_path": Vector2(768, 760)}   # 中间小路上，西边草莓垄、东边枇杷树（10/3 代码画的果园进游戏）
             if oat.has(shot):
                 orchard.reset_to(oat[shot] + Vector2(90, 0))   # 同一条空道上、交互点外头，走进去信号才会发
                 orchard.go_to(oat[shot])
