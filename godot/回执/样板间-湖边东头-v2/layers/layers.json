@@ -1,0 +1,985 @@
+{
+ "note": "draw_lake_ref2.py 生成，别手改。底图 bg 先画；其余是立着的，按 foot_y 跟人排前后（同一条着地线照 x 排）。这里是这块画布自己的坐标（0～1536）；进游戏用 layout_east.json（已经加了 1536）。1 倍不插值。",
+ "canvas": [
+  1536,
+  1280
+ ],
+ "x_offset_in_game": 1536,
+ "base": {
+  "png": "bg_lake_east.png",
+  "x": 0,
+  "y": 0
+ },
+ "layers": [
+  {
+   "name": "wall_gate",
+   "png": "wall_gate.png",
+   "x": 0,
+   "y": 860,
+   "w": 1536,
+   "h": 200,
+   "foot_y": 1040,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_1",
+   "png": "lantern_1.png",
+   "x": 662,
+   "y": 770,
+   "w": 40,
+   "h": 72,
+   "foot_y": 840,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_2",
+   "png": "lantern_2.png",
+   "x": 838,
+   "y": 770,
+   "w": 40,
+   "h": 72,
+   "foot_y": 840,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_1",
+   "png": "rock_1.png",
+   "x": 576,
+   "y": 826,
+   "w": 60,
+   "h": 86,
+   "foot_y": 908,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_2",
+   "png": "rock_2.png",
+   "x": 976,
+   "y": 848,
+   "w": 56,
+   "h": 78,
+   "foot_y": 922,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_3",
+   "png": "rock_3.png",
+   "x": 558,
+   "y": 1038,
+   "w": 64,
+   "h": 82,
+   "foot_y": 1116,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_4",
+   "png": "rock_4.png",
+   "x": 212,
+   "y": 842,
+   "w": 48,
+   "h": 64,
+   "foot_y": 902,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_5",
+   "png": "rock_5.png",
+   "x": 1262,
+   "y": 856,
+   "w": 56,
+   "h": 72,
+   "foot_y": 924,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_01",
+   "png": "bush_01.png",
+   "x": 668,
+   "y": 768,
+   "w": 58,
+   "h": 40,
+   "foot_y": 808,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_02",
+   "png": "bush_02.png",
+   "x": 812,
+   "y": 765,
+   "w": 60,
+   "h": 43,
+   "foot_y": 808,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_03",
+   "png": "bush_03.png",
+   "x": 612,
+   "y": 791,
+   "w": 57,
+   "h": 41,
+   "foot_y": 832,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_04",
+   "png": "bush_04.png",
+   "x": 573,
+   "y": 776,
+   "w": 51,
+   "h": 38,
+   "foot_y": 814,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_05",
+   "png": "bush_05.png",
+   "x": 978,
+   "y": 793,
+   "w": 55,
+   "h": 43,
+   "foot_y": 836,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_06",
+   "png": "bush_06.png",
+   "x": 624,
+   "y": 885,
+   "w": 77,
+   "h": 55,
+   "foot_y": 940,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_07",
+   "png": "bush_07.png",
+   "x": 835,
+   "y": 884,
+   "w": 80,
+   "h": 58,
+   "foot_y": 942,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_08",
+   "png": "bush_08.png",
+   "x": 550,
+   "y": 906,
+   "w": 60,
+   "h": 44,
+   "foot_y": 950,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_09",
+   "png": "bush_09.png",
+   "x": 929,
+   "y": 911,
+   "w": 65,
+   "h": 49,
+   "foot_y": 960,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_10",
+   "png": "bush_10.png",
+   "x": 586,
+   "y": 956,
+   "w": 64,
+   "h": 46,
+   "foot_y": 1002,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_11",
+   "png": "bush_11.png",
+   "x": 889,
+   "y": 957,
+   "w": 68,
+   "h": 49,
+   "foot_y": 1006,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_12",
+   "png": "bush_12.png",
+   "x": 492,
+   "y": 950,
+   "w": 55,
+   "h": 42,
+   "foot_y": 992,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_13",
+   "png": "bush_13.png",
+   "x": 992,
+   "y": 957,
+   "w": 58,
+   "h": 41,
+   "foot_y": 998,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_14",
+   "png": "bush_14.png",
+   "x": 815,
+   "y": 980,
+   "w": 54,
+   "h": 36,
+   "foot_y": 1016,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_15",
+   "png": "bush_15.png",
+   "x": 495,
+   "y": 835,
+   "w": 50,
+   "h": 37,
+   "foot_y": 872,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_16",
+   "png": "bush_16.png",
+   "x": 268,
+   "y": 915,
+   "w": 64,
+   "h": 47,
+   "foot_y": 962,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_17",
+   "png": "bush_17.png",
+   "x": 352,
+   "y": 962,
+   "w": 57,
+   "h": 40,
+   "foot_y": 1002,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_18",
+   "png": "bush_18.png",
+   "x": 115,
+   "y": 934,
+   "w": 69,
+   "h": 48,
+   "foot_y": 982,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_19",
+   "png": "bush_19.png",
+   "x": 19,
+   "y": 823,
+   "w": 80,
+   "h": 59,
+   "foot_y": 882,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_20",
+   "png": "bush_20.png",
+   "x": 220,
+   "y": 967,
+   "w": 60,
+   "h": 45,
+   "foot_y": 1012,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_21",
+   "png": "bush_21.png",
+   "x": 1015,
+   "y": 849,
+   "w": 52,
+   "h": 39,
+   "foot_y": 888,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_22",
+   "png": "bush_22.png",
+   "x": 1207,
+   "y": 941,
+   "w": 67,
+   "h": 47,
+   "foot_y": 988,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_23",
+   "png": "bush_23.png",
+   "x": 1152,
+   "y": 964,
+   "w": 56,
+   "h": 42,
+   "foot_y": 1006,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_24",
+   "png": "bush_24.png",
+   "x": 1349,
+   "y": 954,
+   "w": 67,
+   "h": 50,
+   "foot_y": 1004,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_25",
+   "png": "bush_25.png",
+   "x": 1450,
+   "y": 844,
+   "w": 81,
+   "h": 58,
+   "foot_y": 902,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_26",
+   "png": "bush_26.png",
+   "x": 1302,
+   "y": 978,
+   "w": 57,
+   "h": 40,
+   "foot_y": 1018,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_27",
+   "png": "bush_27.png",
+   "x": 622,
+   "y": 1011,
+   "w": 77,
+   "h": 55,
+   "foot_y": 1066,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_28",
+   "png": "bush_28.png",
+   "x": 842,
+   "y": 1008,
+   "w": 79,
+   "h": 60,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_29",
+   "png": "bush_29.png",
+   "x": 547,
+   "y": 1023,
+   "w": 71,
+   "h": 51,
+   "foot_y": 1074,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_30",
+   "png": "bush_30.png",
+   "x": 924,
+   "y": 1021,
+   "w": 77,
+   "h": 55,
+   "foot_y": 1076,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_31",
+   "png": "bush_31.png",
+   "x": 470,
+   "y": 1017,
+   "w": 67,
+   "h": 47,
+   "foot_y": 1064,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_32",
+   "png": "bush_32.png",
+   "x": 1003,
+   "y": 1014,
+   "w": 75,
+   "h": 52,
+   "foot_y": 1066,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_33",
+   "png": "bush_33.png",
+   "x": 383,
+   "y": 1018,
+   "w": 78,
+   "h": 54,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_34",
+   "png": "bush_34.png",
+   "x": 1083,
+   "y": 1016,
+   "w": 79,
+   "h": 56,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_35",
+   "png": "bush_35.png",
+   "x": 305,
+   "y": 1018,
+   "w": 70,
+   "h": 48,
+   "foot_y": 1066,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_36",
+   "png": "bush_36.png",
+   "x": 1166,
+   "y": 1017,
+   "w": 70,
+   "h": 51,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_37",
+   "png": "bush_37.png",
+   "x": 1252,
+   "y": 1018,
+   "w": 75,
+   "h": 54,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_38",
+   "png": "bush_38.png",
+   "x": 1342,
+   "y": 1024,
+   "w": 78,
+   "h": 54,
+   "foot_y": 1078,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_39",
+   "png": "bush_39.png",
+   "x": 1428,
+   "y": 1020,
+   "w": 66,
+   "h": 48,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_40",
+   "png": "bush_40.png",
+   "x": 44,
+   "y": 1021,
+   "w": 70,
+   "h": 51,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_41",
+   "png": "bush_41.png",
+   "x": 143,
+   "y": 1021,
+   "w": 75,
+   "h": 57,
+   "foot_y": 1078,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_42",
+   "png": "bush_42.png",
+   "x": 1445,
+   "y": 1120,
+   "w": 70,
+   "h": 52,
+   "foot_y": 1172,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_43",
+   "png": "bush_43.png",
+   "x": 27,
+   "y": 1103,
+   "w": 66,
+   "h": 49,
+   "foot_y": 1152,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_44",
+   "png": "bush_44.png",
+   "x": 661,
+   "y": 1209,
+   "w": 59,
+   "h": 41,
+   "foot_y": 1250,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_45",
+   "png": "bush_45.png",
+   "x": 820,
+   "y": 1197,
+   "w": 62,
+   "h": 45,
+   "foot_y": 1242,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_46",
+   "png": "bush_46.png",
+   "x": 569,
+   "y": 1157,
+   "w": 61,
+   "h": 43,
+   "foot_y": 1200,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_47",
+   "png": "bush_47.png",
+   "x": 917,
+   "y": 1164,
+   "w": 67,
+   "h": 48,
+   "foot_y": 1212,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_48",
+   "png": "bush_48.png",
+   "x": 1065,
+   "y": 1179,
+   "w": 70,
+   "h": 53,
+   "foot_y": 1232,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_49",
+   "png": "bush_49.png",
+   "x": 362,
+   "y": 1185,
+   "w": 76,
+   "h": 57,
+   "foot_y": 1242,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_50",
+   "png": "bush_50.png",
+   "x": 1175,
+   "y": 1111,
+   "w": 67,
+   "h": 49,
+   "foot_y": 1160,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_51",
+   "png": "bush_51.png",
+   "x": 468,
+   "y": 1115,
+   "w": 62,
+   "h": 45,
+   "foot_y": 1160,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_52",
+   "png": "bush_52.png",
+   "x": 595,
+   "y": 1103,
+   "w": 50,
+   "h": 37,
+   "foot_y": 1140,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_53",
+   "png": "bush_53.png",
+   "x": 892,
+   "y": 1103,
+   "w": 55,
+   "h": 43,
+   "foot_y": 1146,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_54",
+   "png": "bush_54.png",
+   "x": 985,
+   "y": 1146,
+   "w": 49,
+   "h": 34,
+   "foot_y": 1180,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_55",
+   "png": "bush_55.png",
+   "x": 513,
+   "y": 1198,
+   "w": 52,
+   "h": 38,
+   "foot_y": 1236,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_56",
+   "png": "bush_56.png",
+   "x": 1407,
+   "y": 1202,
+   "w": 69,
+   "h": 48,
+   "foot_y": 1250,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_57",
+   "png": "bush_57.png",
+   "x": 272,
+   "y": 1132,
+   "w": 58,
+   "h": 40,
+   "foot_y": 1172,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_58",
+   "png": "bush_58.png",
+   "x": 95,
+   "y": 1171,
+   "w": 67,
+   "h": 49,
+   "foot_y": 1220,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_59",
+   "png": "bush_59.png",
+   "x": 950,
+   "y": 1222,
+   "w": 57,
+   "h": 40,
+   "foot_y": 1262,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_60",
+   "png": "bush_60.png",
+   "x": 533,
+   "y": 876,
+   "w": 28,
+   "h": 24,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_61",
+   "png": "bush_61.png",
+   "x": 1008,
+   "y": 877,
+   "w": 29,
+   "h": 27,
+   "foot_y": 904,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_62",
+   "png": "bush_62.png",
+   "x": 678,
+   "y": 879,
+   "w": 25,
+   "h": 23,
+   "foot_y": 902,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_63",
+   "png": "bush_63.png",
+   "x": 834,
+   "y": 880,
+   "w": 25,
+   "h": 24,
+   "foot_y": 904,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_64",
+   "png": "bush_64.png",
+   "x": 450,
+   "y": 910,
+   "w": 40,
+   "h": 30,
+   "foot_y": 940,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_65",
+   "png": "bush_65.png",
+   "x": 1052,
+   "y": 915,
+   "w": 42,
+   "h": 29,
+   "foot_y": 944,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_66",
+   "png": "bush_66.png",
+   "x": 500,
+   "y": 780,
+   "w": 42,
+   "h": 32,
+   "foot_y": 812,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_67",
+   "png": "bush_67.png",
+   "x": 999,
+   "y": 781,
+   "w": 43,
+   "h": 31,
+   "foot_y": 812,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_68",
+   "png": "bush_68.png",
+   "x": 972,
+   "y": 774,
+   "w": 33,
+   "h": 26,
+   "foot_y": 800,
+   "kind": "stand"
+  },
+  {
+   "name": "bench",
+   "png": "bench.png",
+   "x": 227,
+   "y": 765,
+   "w": 79,
+   "h": 48,
+   "foot_y": 812,
+   "kind": "stand"
+  },
+  {
+   "name": "banyan_1",
+   "png": "banyan_1.png",
+   "x": 313,
+   "y": 629,
+   "w": 374,
+   "h": 289,
+   "foot_y": 912,
+   "kind": "stand"
+  },
+  {
+   "name": "banyan_2",
+   "png": "banyan_2.png",
+   "x": 892,
+   "y": 635,
+   "w": 368,
+   "h": 289,
+   "foot_y": 918,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_1",
+   "png": "willow_1.png",
+   "x": 10,
+   "y": 506,
+   "w": 191,
+   "h": 296,
+   "foot_y": 798,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_2",
+   "png": "willow_2.png",
+   "x": 1366,
+   "y": 528,
+   "w": 197,
+   "h": 294,
+   "foot_y": 818,
+   "kind": "stand"
+  },
+  {
+   "name": "tree_fg_w",
+   "png": "tree_fg_w.png",
+   "x": 59,
+   "y": 912,
+   "w": 403,
+   "h": 330,
+   "foot_y": 1236,
+   "kind": "stand"
+  },
+  {
+   "name": "pine_e",
+   "png": "pine_e.png",
+   "x": 1227,
+   "y": 748,
+   "w": 206,
+   "h": 246,
+   "foot_y": 990,
+   "kind": "stand"
+  },
+  {
+   "name": "tree_fg_e",
+   "png": "tree_fg_e.png",
+   "x": 1130,
+   "y": 978,
+   "w": 347,
+   "h": 290,
+   "foot_y": 1262,
+   "kind": "stand"
+  },
+  {
+   "name": "pavilion_back",
+   "png": "pavilion_back.png",
+   "x": 662,
+   "y": 406,
+   "w": 260,
+   "h": 177,
+   "foot_y": 523,
+   "kind": "stand"
+  },
+  {
+   "name": "pavilion_front",
+   "png": "pavilion_front.png",
+   "x": 632,
+   "y": 301,
+   "w": 320,
+   "h": 353,
+   "foot_y": 655,
+   "kind": "stand"
+  },
+  {
+   "name": "bridge_rail_A_w",
+   "png": "bridge_rail_A_w.png",
+   "x": 724,
+   "y": 683,
+   "w": 12,
+   "h": 119,
+   "foot_y": 800,
+   "kind": "stand"
+  },
+  {
+   "name": "bridge_rail_A_e",
+   "png": "bridge_rail_A_e.png",
+   "x": 800,
+   "y": 709,
+   "w": 12,
+   "h": 93,
+   "foot_y": 800,
+   "kind": "stand"
+  },
+  {
+   "name": "bridge_rail_B_nw",
+   "png": "bridge_rail_B_nw.png",
+   "x": 724,
+   "y": 644,
+   "w": 99,
+   "h": 97,
+   "foot_y": 699,
+   "kind": "stand"
+  },
+  {
+   "name": "bridge_rail_B_se",
+   "png": "bridge_rail_B_se.png",
+   "x": 800,
+   "y": 646,
+   "w": 155,
+   "h": 121,
+   "foot_y": 765,
+   "kind": "stand"
+  },
+  {
+   "name": "bridge_rail_C_sw",
+   "png": "bridge_rail_C_sw.png",
+   "x": 753,
+   "y": 616,
+   "w": 70,
+   "h": 86,
+   "foot_y": 699,
+   "kind": "stand"
+  },
+  {
+   "name": "bridge_rail_C_ne",
+   "png": "bridge_rail_C_ne.png",
+   "x": 828,
+   "y": 590,
+   "w": 127,
+   "h": 114,
+   "foot_y": 646,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_1",
+   "png": "lotus_1.png",
+   "x": 497,
+   "y": 574,
+   "w": 130,
+   "h": 60,
+   "foot_y": 635,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_2",
+   "png": "lotus_2.png",
+   "x": 950,
+   "y": 587,
+   "w": 104,
+   "h": 57,
+   "foot_y": 644,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_3",
+   "png": "lotus_3.png",
+   "x": 125,
+   "y": 590,
+   "w": 164,
+   "h": 73,
+   "foot_y": 665,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_4",
+   "png": "lotus_4.png",
+   "x": 1222,
+   "y": 605,
+   "w": 150,
+   "h": 58,
+   "foot_y": 671,
+   "kind": "stand"
+  },
+  {
+   "name": "boat",
+   "png": "boat.png",
+   "x": 941,
+   "y": 465,
+   "w": 127,
+   "h": 69,
+   "foot_y": 535,
+   "kind": "stand"
+  }
+ ]
+}
