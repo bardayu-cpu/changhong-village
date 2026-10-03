@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
-"""后厅休息间：用代码画的像素成品（01 版样板，阿鱼 10/3「就按这个标准来做」；标准见 docs/罗曼山庄画风.md 第 0 节）。
-1 倍颗粒（1 个美术像素 = 1 个画布像素）、57 色（上限 64）、硬边（只有全透明和不透明）、光从左上来、按着地线分层。
+"""后厅休息间：用代码画的像素成品，第三版（01 画，阿鱼 10/3「第三版可以」；标准见 docs/罗曼山庄画风.md 第 0 节）。
+画法整套照 01 版（1 倍颗粒、硬边、色带挪档、深褐描边、光从左上、按着地线分层），摆法照 06 v2.2 再加东西：
+东墙大电视在播晚会、游戏机和手柄、对着电视的三人沙发、西墙书架加看书长沙发、门口双人沙发、单人沙发 6 张、唱片墙；没有行李箱。
+阿鱼看完第三版又定了两处（01 F 转，阿鱼「对，两处都改」）：左下看书角那组蓝丝绒沙发换成米白（跟整间别的米白沙发同一条色带，不加色）；
+西边中间的棋桌换成小茶几（竹茶盘、青花小茶壶、盖碗，跟北边茶几一家），两张单人沙发留着，地毯还是回纹边米色心的小地毯。
 
 出游戏用的图（assets/pixel_art/backhall_lounge/）：
-  room.png        背景：北墙（剖开的墙顶、墙纸、护墙板）、地板、地毯、门口地垫和花瓣、墙上的画、钟、剪纸、地上的影子和暖光
-  props/*.png     每件家具一张（裁到画了的那块），按着地线跟人排前后
+  room.png        背景：北墙（墙顶、墙纸、护墙板、画、钟、剪纸、红绸）、地板、五块回纹地毯、门里地垫和花瓣、地上的影子和灯光
+  props/*.png     每件家具一张（裁到画了的那块），按着地线跟人排前后；跟化妆间共用的西隔墙、前沿矮墙归这份画
   room.json       放哪：背景左上角；每件左上角 x、y 和着地线 foot；要藏掉的灰盒 id。entrance.gd 的 _pixel_art() 读它
-位置只从 layout.json 取：开头先把用到的灰盒 rect / h 跟 layout.json 对一遍，摆法一改就报错停下（改了摆法要跟着改画法）。
-样板原稿在 godot/回执/样板间-休息间-01版/draw_lounge.py（01 画的，改了 6 轮）；这份是 02 收进来、改成出游戏用的图，画法一笔没动。
+位置只从 layout.json 取：开头把 PLAN 每件的 rect / h、墙、门口、交互点跟 layout.json 对一遍，对不上就停；再从门口按脚底 12×6 走一遍，
+有一件走不到跟前、站人点站不到、门口到交互点不通，也停。
+样板原稿在 godot/回执/样板间-休息间-v3/draw_lounge_v3.py（01 画，改 5 轮）；这份是 02 收进来，改了上面两处、出图改成游戏用的。
+第一版（01 版）的图换掉了，原稿还在 godot/回执/样板间-休息间-01版/。
 
-用法：python3 godot/tools/pixel_art/room_backhall_lounge.py [--preview 目录]
-      --preview 再出整间 1:1、放大 2 倍、手机竖屏（站两位定稿宾客当尺子）三张给人看
-坐标全用游戏画布坐标（1536×1024 那块画布）。
+用法：python3 godot/tools/pixel_art/room_backhall_lounge.py [--preview 目录]（跑一次约 15 秒）
+      --preview 再出整间 1:1、手机竖屏（站两位定稿宾客当尺子）、「样板 v3 | 改完」并排
+坐标全用游戏画布坐标（1536×1024 那块画布），1 个美术像素 = 1 个画布像素。
 斜俯视、没有透视：地面前后 1 米 = 32 像素，左右和高 1 米 = 48 像素。
 一件东西 = 占地（x0..x1, yf0..yf1）+ 高 z；顶面画在 y = yf - z，正面从 yf1 - z1 到 yf1 - z0。
 """
@@ -27,14 +32,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 LAYOUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_backhall", "layout.json")
 CHAR_DIR = os.path.join(GODOT, "assets", "characters", "lm") + "/"
+V3_PNG = os.path.join(GODOT, "回执", "样板间-休息间-v3", "lounge03_room.png")   # 只给 --preview 的并排图用
 OUT = os.path.join(GODOT, "assets", "pixel_art", "backhall_lounge")
 RES = "res://assets/pixel_art/backhall_lounge/"
-BG_CROP = (331, 104, 677, 696)   # 背景进游戏只要两道隔墙之间、北墙顶到前沿矮墙（外圈的深底、走廊那一条不要，隔壁照旧是灰盒）
-# 每件家具进游戏时藏掉哪几件灰盒（挡人的占地照旧）；墙是盖在灰盒的墙上，不藏（隔壁那半截还要它）
-HIDE = {"vinyl_wall": ["vinyl_wall"], "record_player": ["record_player"], "luggage_1": ["luggage_1"], "luggage_2": ["luggage_2"],
-        "sofa": ["sofa", "sofa_back"], "tea_table": ["tea_table"], "armchair_w": ["armchair_w"], "armchair_e": ["armchair_e"],
-        "tv": ["tv_unit", "tv_screen"], "floor_lamp": ["floor_lamp"], "plant_sw": ["plant"], "plant_n": ["fiddle_fig"],
-        "coat_rack": ["coat_rack"], "side_walls": [], "front_walls": []}
+BG_CROP = (331, 104, 677, 696)   # 背景进游戏只要两道隔墙之间、北墙顶到前沿矮墙
+# 每件家具进游戏时藏掉哪几件灰盒（挡人的占地照旧）；没写的就是同名那一件；墙是盖在灰盒的墙上，不藏
+HIDE = {"sofa": ["sofa", "sofa_back"], "side_walls": [], "front_walls": []}
 
 # 整间出图的范围（画布坐标）
 X0, Y0, X1, Y1 = 328, 100, 680, 700
@@ -56,6 +59,9 @@ PAL_HEX = {
     "ik0": "#110f15", "ik1": "#201c26", "ik2": "#34303d", "ik3": "#554e60",
     "pk": "#de8399", "tl": "#2c7a74", "tl2": "#5aaa9b", "pu": "#5a3c7a", "or": "#dd7a2c",
     "cl0": "#682d1e", "cl1": "#97472b", "cl2": "#bf653d", "cl3": "#db8d5f",
+    # 跟化妆间一样加的 5 色（银三档：游戏机、电视边框的冷色；粉两档）
+    "sv0": "#737a8f", "sv1": "#a3abbe", "sv2": "#d3d8e3",
+    "pk0": "#a8455e", "pk2": "#f4bfc8",
 }
 
 
@@ -76,6 +82,8 @@ RAMPS = {
     "ik": ["ik0", "ik1", "ik2", "ik3"],
     "cl": ["cl0", "cl1", "cl2", "cl3"],
     "tl": ["tl", "tl2"],
+    "sv": ["sv0", "sv1", "sv2"],
+    "pk": ["pk0", "pk", "pk2"],
 }
 RAMP_OF = {}
 for rn, names in RAMPS.items():
@@ -296,30 +304,84 @@ def load_items():
 IT = load_items()
 
 
-# 这版用到的灰盒位置（画布坐标 rect + 高 h）。家具是一件件手画的，位置照这张表；
-# 跑的时候先跟 layout.json 对一遍，摆法改了就停下来报哪件变了，不会悄悄画歪
-USED = {
-    "vinyl_wall": ([352, 226, 496, 232], 115), "record_player": ([396, 258, 452, 284], 97),
-    "luggage_1": ([356, 280, 380, 290], 36), "luggage_2": ([636, 640, 655, 648], 26),
-    "sofa_back": ([516, 236, 617, 244], 41), "sofa": ([516, 244, 617, 268], 20),
-    "tea_table": ([538, 296, 596, 314], 22), "armchair_w": ([480, 292, 523, 320], 41),
-    "armchair_e": ([604, 292, 647, 320], 41), "tv_unit": ([636, 360, 660, 418], 24),
-    "floor_lamp": ([624, 252, 634, 260], 77), "plant": ([350, 656, 370, 668], 16),
-    "wall_1": ([331, 226, 341, 684], 44), "wall_2": ([667, 226, 677, 684], 44),
-    "front_2": ([208, 684, 464, 696], 22), "front_3": ([544, 684, 800, 696], 22),
-    # 01 版新加的两件（02 补进 layout 的挡人占地，跟下面 prop_plant_n、prop_coat_rack 画的位置一样）
-    "fiddle_fig": ([497, 234, 515, 242], 82), "coat_rack": ([648, 598, 666, 606], 84),
-}
+# ------------------------------------------------------------------ 摆法（第三版）
+# PLAN 是唯一的源：画图、地上的影子、走路检查、layout 补丁都从它出。
+# (id, 名字, 区, 占地 rect [x0, y0, x1, y1]（y 是地面前后）, 高 h, 挡不挡人, 跟 layout.json 比：keep / moved / new)
+PLAN = [
+    ("vinyl_wall", "唱片墙", "唱片角", [352, 226, 496, 232], 115, True, "keep"),
+    ("record_player", "唱片机（连金喇叭）", "唱片角", [396, 258, 452, 284], 97, True, "keep"),
+    ("record_crate", "唱片箱（两只木箱叠着）", "唱片角", [356, 272, 386, 290], 22, True, "new"),
+    ("fiddle_fig", "琴叶榕", "茶座", [497, 234, 515, 242], 82, True, "keep"),
+    ("sofa_back", "三人沙发（靠背）", "茶座", [516, 236, 617, 244], 41, True, "keep"),
+    ("sofa", "三人沙发（坐垫）", "茶座", [516, 244, 617, 268], 20, True, "keep"),
+    ("tea_table", "茶几", "茶座", [538, 296, 596, 314], 22, True, "keep"),
+    ("armchair_w", "单人沙发 1（朝东）", "茶座", [480, 292, 523, 320], 41, True, "keep"),
+    ("armchair_e", "单人沙发 2（朝西）", "茶座", [604, 292, 647, 320], 41, True, "keep"),
+    ("floor_lamp", "落地灯", "茶座", [624, 252, 634, 260], 77, True, "keep"),
+    ("tv_unit", "电视柜连大电视、游戏机", "电视角", [638, 360, 664, 450], 24, True, "moved"),
+    ("tv_sofa", "三人沙发（朝东看电视）", "电视角", [548, 378, 590, 458], 41, True, "new"),
+    ("tv_table", "电视前长茶几（两个手柄）", "电视角", [598, 398, 620, 438], 18, True, "new"),
+    ("bookshelf_1", "书架 1（靠西墙）", "看书角", [342, 330, 362, 392], 86, True, "new"),
+    ("bookshelf_2", "书架 2（靠西墙）", "看书角", [342, 428, 362, 490], 86, True, "new"),
+    ("reading_lamp", "阅读落地灯", "看书角", [346, 496, 356, 502], 77, True, "new"),
+    ("reading_sofa", "看书的长沙发（朝东）", "看书角", [342, 508, 384, 588], 41, True, "new"),
+    ("book_table", "放书矮桌", "看书角", [394, 524, 420, 564], 20, True, "new"),
+    ("reading_chair", "单人沙发 3（朝西）", "看书角", [424, 528, 462, 556], 41, True, "new"),
+    ("floor_lamp_se", "落地灯 2", "门口落座", [652, 530, 662, 536], 77, True, "new"),
+    ("loveseat", "双人沙发（朝西）", "门口落座", [628, 544, 664, 592], 41, True, "new"),
+    ("se_table", "圆边几", "门口落座", [608, 558, 626, 576], 24, True, "new"),
+    ("se_chair", "单人沙发 4（朝东）", "门口落座", [568, 552, 604, 580], 41, True, "new"),
+    ("kumquat", "金桔一盆", "门口落座", [638, 630, 662, 646], 60, True, "new"),
+    ("west_chair_w", "单人沙发 5（朝东）", "西边茶座", [386, 386, 420, 414], 41, True, "new"),
+    ("west_table", "小茶几（竹茶盘、青花小茶壶、盖碗；原来是棋桌，阿鱼 10/3 换）", "西边茶座", [420, 394, 446, 412], 24, True, "new"),
+    ("west_chair_e", "单人沙发 6（朝西）", "西边茶座", [446, 386, 480, 414], 41, True, "new"),
+    ("coat_rack", "衣帽架（挂外套）", "门口", [548, 646, 566, 654], 84, True, "moved"),
+    ("sw_table", "小边几（台灯、杂志）", "看书角", [382, 626, 406, 642], 30, True, "new"),
+    ("plant", "绿植（青花盆）", "西南角", [350, 656, 370, 668], 16, True, "keep"),
+]
+PLAN_BY = {p[0]: p for p in PLAN}
+# 平铺在地上、不挡人
+FLAT = [
+    ("rug_tea", "茶座回纹地毯（01 版原样）", [470, 250, 658, 342]),
+    ("rug_tv", "电视角回纹地毯（米色心）", [540, 370, 632, 466]),
+    ("rug_read", "看书角回纹地毯（红心）", [376, 504, 468, 598]),
+    ("rug_se", "门口落座小地毯（藏青心）", [566, 538, 646, 602]),
+    ("rug_west", "西边茶座小地毯（回纹边、米色心）", [378, 374, 488, 424]),
+    ("doormat", "门里地垫", [480, 644, 528, 660]),
+]
+# 以后玩法要站人的地方（阿鱼说的：听唱片、看电视、坐下休息）
+SPOTS = [
+    ("stand_record", "唱片机前（听唱片）", (424, 312), 16),
+    ("stand_tv", "电视前（看电视、打游戏）", (616, 476), 14),
+    ("lounge", "休息间交互点（layout 原有）", (504, 420), 20),
+]
+REMOVED = [("luggage_1", "蓝色拉杆箱（休息间不要行李箱）"), ("luggage_2", "棕色皮箱（同上）")]
+# layout.json 里这版没动、要核对的东西
+KEEP_CHECK = ["vinyl_wall", "fiddle_fig", "sofa_back", "sofa", "tea_table", "armchair_w", "armchair_e", "floor_lamp",
+              "plant", "wall_1", "wall_2", "front_2", "front_3"]
 
 
 def check_layout():
+    """layout.json 里没挪的东西、墙、门口、交互点要跟这版一致，不一致就停"""
+    d = json.load(open(LAYOUT, encoding="utf-8"))
     bad = []
-    for iid, (rect, h) in USED.items():
+    want = {p[0]: (p[3], p[4]) for p in PLAN}
+    want.update({"wall_1": ([331, 226, 341, 684], 44), "wall_2": ([667, 226, 677, 684], 44),
+                 "front_2": ([208, 684, 464, 696], 22), "front_3": ([544, 684, 800, 696], 22)})
+    for iid in list(want):
+        rect, h = want[iid]
         it = IT.get(iid)
         if it is None or list(it.get("rect", [])) != rect or it.get("h") != h:
             bad.append("%s：脚本 %s h%s，布局 %s h%s" % (iid, rect, h, it and it.get("rect"), it and it.get("h")))
+    for (iid, why) in REMOVED:
+        if iid in IT:
+            bad.append("%s 还在布局里（%s）" % (iid, why))
+    pts = {p["id"]: p for p in d["points"]}
+    if (pts["lounge"]["x"], pts["lounge"]["y"]) != (504, 420):
+        bad.append("lounge 交互点挪了：%s" % pts["lounge"])
     if bad:
-        raise SystemExit("layout.json 跟这版画的位置对不上：\n" + "\n".join(bad))
+        raise SystemExit("layout.json 跟这版对不上：\n" + "\n".join(bad))
+    return d
 
 
 # 墙（画布坐标）
@@ -465,46 +527,53 @@ KEY = [
 ]
 
 
-def draw_rug(L):
-    rx0, ry0, rx1, ry1 = 470, 250, 658, 342
-    # 底：红
-    L.rect(rx0, ry0, rx1, ry1, "rd3")
+def draw_rug(L, rect=(470, 250, 658, 342), style="red", medallion=True, bw=12):
+    """回纹地毯（01 版那种）：底 + 菱形格 + 中间团花 + 四边金色带上一圈红回纹 + 两头流苏。
+    style：red（红底，01 原样）/ cream（米色底红格）/ navy（藏青底金格）；小地毯 bw 收窄"""
+    rx0, ry0, rx1, ry1 = rect
+    base, grid, dot, m1, m2, m3 = {
+        "red": ("rd3", "rd2", "gd2", "rd2", "rd4", "rd3"),
+        "cream": ("wl3", "wl2", "rd3", "wl2", "wl4", "wl3"),
+        "navy": ("bl1", "bl0", "gd2", "bl0", "bl2", "bl1"),
+    }[style]
+    L.rect(rx0, ry0, rx1, ry1, base)
     # 地毯纹：菱形格
-    for y in range(ry0 + 13, ry1 - 13):
-        for x in range(rx0 + 13, rx1 - 13):
+    for y in range(ry0 + bw + 1, ry1 - bw - 1):
+        for x in range(rx0 + bw + 1, rx1 - bw - 1):
             u = (x - rx0) % 12
             v = ((y - ry0) * 3 // 2) % 12
             if u == v or u == 11 - v:
-                L.p(x, y, "rd2")
+                L.p(x, y, grid)
             if (u, v) in ((0, 0), (6, 6)):
-                L.p(x, y, "gd2")
-    # 中心团花（大半被茶几挡住，露边）
-    cx, cy = (rx0 + rx1) // 2, (ry0 + ry1) // 2
-    L.ell(cx - 34, cy - 20, cx + 34, cy + 20, "rd2")
-    L.ell(cx - 30, cy - 17, cx + 30, cy + 17, "rd4")
-    L.ring(cx - 30, cy - 17, cx + 30, cy + 17, "gd3")
-    L.ell(cx - 18, cy - 10, cx + 18, cy + 10, "rd3")
-    L.ring(cx - 18, cy - 10, cx + 18, cy + 10, "gd2")
-    # 边：外线、米色带、回纹带、里线
-    L.rect(rx0, ry0, rx1, ry0 + 12, "gd3")
-    L.rect(rx0, ry1 - 12, rx1, ry1, "gd3")
-    L.rect(rx0, ry0, rx0 + 12, ry1, "gd3")
-    L.rect(rx1 - 12, ry0, rx1, ry1, "gd3")
-    # 横边回纹
-    for (by, flip) in ((ry0 + 3, False), (ry1 - 10, True)):
-        for x in range(rx0 + 3, rx1 - 3):
+                L.p(x, y, dot)
+    if medallion:
+        cx, cy = (rx0 + rx1) // 2, (ry0 + ry1) // 2
+        sx = min(34, (rx1 - rx0) // 2 - bw - 4)
+        sy = min(20, (ry1 - ry0) // 2 - bw - 4)
+        L.ell(cx - sx, cy - sy, cx + sx, cy + sy, m1)
+        L.ell(cx - sx + 4, cy - sy + 3, cx + sx - 4, cy + sy - 3, m2)
+        L.ring(cx - sx + 4, cy - sy + 3, cx + sx - 4, cy + sy - 3, "gd3")
+        L.ell(cx - sx // 2, cy - sy // 2, cx + sx // 2, cy + sy // 2, m3)
+        L.ring(cx - sx // 2, cy - sy // 2, cx + sx // 2, cy + sy // 2, "gd2")
+    # 边：金色带 + 红回纹
+    L.rect(rx0, ry0, rx1, ry0 + bw, "gd3")
+    L.rect(rx0, ry1 - bw, rx1, ry1, "gd3")
+    L.rect(rx0, ry0, rx0 + bw, ry1, "gd3")
+    L.rect(rx1 - bw, ry0, rx1, ry1, "gd3")
+    off = (bw - 6) // 2
+    for (by, flip) in ((ry0 + off, False), (ry1 - off - 7, True)):
+        for x in range(rx0 + off, rx1 - off):
             for r in range(7):
                 row = KEY[6 - r] if flip else KEY[r]
-                if row[(x - rx0 - 3) % 8] == "1":
+                if row[(x - rx0 - off) % 8] == "1":
                     L.p(x, by + r, "rd2")
-    # 竖边回纹（转 90 度）
-    for (bx, flip) in ((rx0 + 3, False), (rx1 - 10, True)):
-        for y in range(ry0 + 10, ry1 - 10):
+    for (bx, flip) in ((rx0 + off, False), (rx1 - off - 7, True)):
+        for y in range(ry0 + off + 7, ry1 - off - 7):
             for c in range(7):
                 row = KEY[6 - c] if flip else KEY[c]
                 if row[(y - ry0) % 8] == "1":
                     L.p(bx + c, y, "rd2")
-    for (a, b) in ((0, 1), (11, 12)):
+    for (a, b) in ((0, 1), (bw - 1, bw)):
         L.rect(rx0 + a, ry0 + a, rx1 - a, ry0 + b, "rd1")
         L.rect(rx0 + a, ry1 - b, rx1 - a, ry1 - a, "rd1")
         L.rect(rx0 + a, ry0 + a, rx0 + b, ry1 - a, "rd1")
@@ -626,6 +695,52 @@ def draw_papercut(L, cx, cy):
                 L.p(x, y, "wl1")
 
 
+KNOTS = [498, 550, 598, 642]     # 红绸的结（唱片墙东边到挂钟西边）
+
+
+def draw_swag(L):
+    """北墙上沿一段红绸（跟化妆间、宴会厅一个做法）：两个结之间垂一个弧，弧里几道褶，结上一朵金花、垂一束金穗。
+    唱片墙那一段被唱片墙挡住，只挂东边三段；弧压浅一点，不碰下面的画和挂钟"""
+    y0 = 116
+    for k in range(len(KNOTS) - 1):
+        a, b = KNOTS[k], KNOTS[k + 1]
+        wdt = b - a
+        depth = 6 + wdt * 0.05
+        for x in range(a, b):
+            t = (x + 0.5 - a) / wdt
+            sag = math.sin(math.pi * t)
+            yb = y0 + depth * sag
+            for y in range(y0, int(yb) + 1):
+                f = (y - y0) / max(1.0, yb - y0)
+                lv = 3
+                if f > 0.82:
+                    lv = 2
+                band = (y - y0 - 3 * sag)
+                if 0 <= band < 1.2 or 4.5 <= band < 5.5:
+                    lv = 2
+                if 1.2 <= band < 2.4 and 0.2 < t < 0.8:
+                    lv = 4
+                L.p(x, y, rname("rd", lv))
+            L.p(x, int(yb) + 1, "rd1")
+            if x % 2 == 0:
+                L.p(x, int(yb) + 2, "wl1")
+        L.hl(a, b, y0 - 1, "rd2")
+    for kx in KNOTS:
+        cx = kx
+        L.ell(cx - 4, 113, cx + 4, 121, "rd2")
+        L.ell(cx - 3, 114, cx + 3, 120, "gd3")
+        L.p(cx - 1, 115, "gd4")
+        L.p(cx, 117, "rd3")
+        L.p(cx + 1, 118, "gd1")
+        ln = 6 if kx in (KNOTS[0], KNOTS[-1]) else 8
+        for yy in range(121, 121 + ln):
+            L.p(cx - 1, yy, "gd2")
+            L.p(cx, yy, "gd3")
+            L.p(cx + 1, yy, "gd1")
+        L.hl(cx - 1, cx + 2, 121 + ln, "rd3")
+        L.p(cx, 122 + ln, "rd2")
+
+
 def draw_doormat(L):
     """门里一块小地垫（平的，不挡路）：深红底、金边、中间一排小菱形"""
     x0, y0, x1, y1 = 480, 644, 528, 660
@@ -656,30 +771,6 @@ def draw_petals(L):
             L.p(x, y, c1)
             L.p(x, y + 1, c1)
             L.p(x + 1, y, c2)
-
-
-def background():
-    L = Layer()
-    L.rect(X0, Y0, X1, Y1, "void")
-    draw_floor(L)
-    draw_rug(L)
-    draw_doormat(L)
-    draw_petals(L)
-    draw_north_wall(L)
-    draw_painting(L)
-    draw_clock(L)
-    draw_papercut(L, 527, 146)
-    draw_papercut(L, 606, 146)
-    # 门槛：一条浅木，前沿一道槽
-    L.rect(DOOR[0], 684, DOOR[1], 696, "wd4")
-    L.hl(DOOR[0], DOOR[1], 684, "wd2")
-    L.hl(DOOR[0], DOOR[1], 685, "wd5")
-    L.hl(DOOR[0], DOOR[1], 690, "wd3")
-    L.hl(DOOR[0], DOOR[1], 691, "wd5")
-    L.hl(DOOR[0], DOOR[1], 695, "wd2")
-    # 走廊（整间图里只露一条）
-    L.rect(X0, 696, X1, Y1, "wl2")
-    return L
 
 
 # ================================================================== 家具（每件一层）
@@ -996,82 +1087,6 @@ def prop_record_player():
     return L, yf1
 
 
-def prop_luggage_blue():
-    L = Layer()
-    x0, x1, yf0, yf1, h = 356, 380, 280, 290, 36
-    ty0, ty1 = yf0 - h, yf1 - h          # 244..254
-    # 拉杆
-    for rx in (360, 375):
-        L.vl(rx, 226, ty0 + 2, "ik2")
-        L.vl(rx + 1, 226, ty0 + 2, "ik1")
-    L.rect(359, 224, 377, 228, "ik2")
-    L.hl(359, 377, 224, "ik3")
-    # 红丝带系在把手上（认箱子用）
-    L.rect(361, 226, 365, 229, "rd3")
-    L.p(361, 226, "rd5")
-    L.line(362, 229, 360, 235, "rd3")
-    L.line(364, 229, 366, 236, "rd4")
-    # 顶面
-    L.rect(x0 + 1, ty0, x1 - 1, ty1, "bl3")
-    L.hl(x0 + 2, x1 - 2, ty0, "bl4")
-    L.vl(x1 - 2, ty0 + 1, ty1, "bl2")
-    # 提手
-    L.rect(364, ty0 + 3, 372, ty0 + 6, "ik2")
-    L.hl(364, 372, ty0 + 3, "ik3")
-    # 正面
-    L.rect(x0, ty1, x1, yf1 - 2, "bl2")
-    L.hl(x0 + 1, x1 - 1, ty1, "bl4")
-    for k, rx in enumerate(range(x0 + 4, x1 - 2, 5)):
-        L.vl(rx, ty1 + 3, yf1 - 5, "bl1")
-        L.vl(rx + 1, ty1 + 3, yf1 - 5, "bl3")
-    L.vl(x1 - 1, ty1, yf1 - 2, "bl1")
-    L.hl(x0, x1, yf1 - 3, "bl1")
-    L.vl(x0, ty1 + 1, yf1 - 2, "bl3")
-    # 护角
-    for (a, b) in ((x0, ty1), (x1 - 2, ty1), (x0, yf1 - 5), (x1 - 2, yf1 - 5)):
-        L.rect(a, b, a + 2, b + 2, "ik2")
-    # 轮子
-    for wx in (x0 + 2, x1 - 4):
-        L.rect(wx, yf1 - 2, wx + 3, yf1, "ik0")
-        L.p(wx + 1, yf1 - 2, "ik3")
-    L.p(x0, ty0, (0, 0, 0, 0))
-    L.outline()
-    return L, yf1
-
-
-def prop_luggage_brown():
-    L = Layer()
-    x0, x1, yf0, yf1, h = 636, 655, 640, 648, 26
-    ty0, ty1 = yf0 - h, yf1 - h          # 614..622
-    L.rect(x0, ty0, x1, ty1, "wd5")
-    L.hl(x0, x1, ty0, "wl3")
-    L.vl(x1 - 1, ty0, ty1, "wd4")
-    L.rect(x0, ty1, x1, yf1, "wd4")
-    L.hl(x0, x1, ty1, "wd5")
-    L.vl(x1 - 1, ty1, yf1, "wd3")
-    L.hl(x0, x1, yf1 - 1, "wd3")
-    # 提手
-    L.rect(642, ty0 - 3, 649, ty0 + 1, "wd1")
-    L.rect(643, ty0 - 2, 648, ty0, (0, 0, 0, 0))
-    L.p(643, ty0 - 3, "wd2")
-    # 两条皮带 + 铜扣
-    for sx in (640, 650):
-        L.vl(sx, ty0, yf1, "wd2")
-        L.vl(sx + 1, ty0, yf1, "wd1")
-        L.rect(sx - 1, ty1 + 4, sx + 3, ty1 + 7, "gd3")
-        L.p(sx, ty1 + 5, "gd1")
-    # 包角
-    for (a, b) in ((x0, ty1), (x1 - 2, ty1), (x0, yf1 - 2), (x1 - 2, yf1 - 2)):
-        L.rect(a, b, a + 2, b + 2, "wd1")
-    # 缝线
-    for xx in range(x0 + 2, x1 - 2, 2):
-        L.p(xx, ty1 + 2, "wd3")
-    L.p(x0, ty0, (0, 0, 0, 0))
-    L.p(x1 - 1, ty0, (0, 0, 0, 0))
-    L.outline()
-    return L, yf1
-
-
 def puff_level(u, v):
     """鼓包的明暗：左上亮、右下暗、四边往下掉；u, v 在 -1..1"""
     return -(u + v) * 0.35 + (1.0 - (u * u + v * v) * 0.5) * 0.7
@@ -1086,7 +1101,7 @@ def puff(L, x0, y0, x1, y1, ramp, lv, cuts=(0.62, 0.25, -0.15)):
             v = (y + 0.5 - y0) / h * 2 - 1
             b = puff_level(u, v)
             k = 1 if b > cuts[0] else (0 if b > cuts[1] else (-1 if b > cuts[2] else -2))
-            L.p(x, y, rname(ramp, lv + k))
+            L.p(x, y, ramp[max(0, min(len(ramp) - 1, lv + k))] if isinstance(ramp, list) else rname(ramp, lv + k))
 
 
 def pillow(L, x0, y0, w, h, ramp, pattern=None, edge="ol"):
@@ -1392,68 +1407,6 @@ def prop_tea_table():
                       (583, 284, "wt"), (588, 285, "rd5")):
         L.p(a, b, c)
         L.p(a + 1, b, c)
-    L.outline()
-    return L, yf1
-
-
-def prop_tv():
-    """电视柜连电视（东隔墙边）：矮木柜顺着墙放；电视侧着朝西、往屋里转一点，
-    看到的是一个略斜的屏幕面（黑、有一道反光）+ 右边一条机身厚度 + 底座"""
-    L = Layer()
-    x0, x1, yf0, yf1, h = 636, 660, 360, 418, 24
-    ty0, ty1 = yf0 - h, yf1 - h          # 336..394
-    # 柜子顶面：木纹顺着长边
-    L.rect(x0, ty0, x1, ty1, "wd4")
-    L.hl(x0, x1, ty0, "wd5")
-    L.vl(x0, ty0, ty1, "wd5")
-    L.vl(x1 - 1, ty0 + 1, ty1, "wd3")
-    for gx, gy0, gy1 in ((641, 340, 352), (647, 356, 372), (652, 342, 349), (644, 378, 390), (655, 377, 386)):
-        L.vl(gx, gy0, gy1, "wd3")
-    L.hl(x0, x1, ty1 - 1, "wd3")
-    # 柜子南面：上面一个抽屉、下面两扇小门，铜拉手，底下一条踢脚
-    L.rect(x0, ty1, x1, yf1 - 3, "wd3")
-    L.hl(x0, x1, ty1, "wd5")
-    L.vl(x0, ty1, yf1 - 3, "wd4")
-    L.vl(x1 - 1, ty1, yf1 - 3, "wd2")
-    L.rect(x0 + 2, ty1 + 3, x1 - 2, ty1 + 9, "wd2")
-    L.rect(x0 + 3, ty1 + 4, x1 - 3, ty1 + 8, "wd3")
-    L.hl(x0 + 3, x1 - 3, ty1 + 4, "wd4")
-    L.rect((x0 + x1) // 2 - 2, ty1 + 5, (x0 + x1) // 2 + 2, ty1 + 7, "gd3")
-    L.p((x0 + x1) // 2 - 2, ty1 + 5, "gd4")
-    for (a, b) in ((x0 + 2, (x0 + x1) // 2), ((x0 + x1) // 2 + 1, x1 - 2)):
-        L.rect(a, ty1 + 11, b, yf1 - 5, "wd2")
-        L.rect(a + 1, ty1 + 12, b - 1, yf1 - 6, "wd3")
-        L.hl(a + 1, b - 1, ty1 + 12, "wd4")
-    L.p((x0 + x1) // 2 - 2, ty1 + 15, "gd3")
-    L.p((x0 + x1) // 2 + 2, ty1 + 15, "gd3")
-    L.rect(x0, yf1 - 3, x1, yf1, "wd1")
-    L.rect(x0 + 2, yf1 - 3, x1 - 2, yf1 - 1, "wd2")
-    # 柜上南头一盆小多肉（白瓷小盆），在电视底座南边
-    L.rect(646, 386, 653, 392, "wt")
-    L.vl(652, 387, 392, "bl4")
-    L.hl(646, 653, 391, "bl4")
-    L.hl(646, 653, 388, "bl3")
-    for (a, b, c) in ((646, 383, "gr2"), (648, 381, "gr3"), (650, 382, "gr4"), (651, 384, "gr2"), (647, 384, "gr3"),
-                      (649, 383, "gr3")):
-        L.rect(a, b, a + 2, b + 2, c)
-    # 电视：外框（黑）、屏幕（深）、一道斜反光、右边机身厚度、底座
-    L.poly([(634, 318), (653, 324), (653, 370), (634, 364)], "ik0")
-    L.line(634, 318, 653, 324, "ik3")                # 外框上沿受光
-    L.vl(634, 318, 365, "ik2")                       # 外框左沿
-    L.poly([(636, 321), (651, 326), (651, 367), (636, 362)], "ik1")
-    L.poly([(636, 331), (651, 336), (651, 343), (636, 338)], "ik2")
-    L.line(636, 329, 651, 334, "ik3")
-    L.line(636, 345, 642, 347, "ik2")
-    L.line(635, 364, 652, 369, "ik2")                # 下边框受光（顺着斜边）
-    L.poly([(653, 324), (657, 322), (657, 368), (653, 370)], "ik2")
-    L.vl(654, 324, 369, "ik3")
-    L.vl(656, 323, 368, "ik1")
-    # 底座
-    L.rect(643, 369, 646, 375, "ik2")
-    L.vl(643, 369, 375, "ik3")
-    L.rect(638, 374, 652, 377, "ik2")
-    L.hl(638, 652, 374, "ik3")
-    L.hl(638, 652, 376, "ik1")
     L.outline()
     return L, yf1
 
@@ -1775,34 +1728,776 @@ def prop_front_walls():
     return L, 696
 
 
+# ================================================================== 第三版新加的家具
+def moved(L, dx, dy):
+    """把一层整体挪 dx, dy（先裁到有东西的框）"""
+    bb = L.im.getbbox()
+    N = Layer(x0=L.ox + bb[0] + dx, y0=L.oy + bb[1] + dy, w=bb[2] - bb[0], h=bb[3] - bb[1])
+    N.im = L.im.crop(bb)
+    N.px = N.im.load()
+    return N
+
+
+def recolor(L, mapping):
+    """整层换色：mapping 是 {原色名: 新色名}"""
+    m = {C[a]: C[b] for a, b in mapping.items()}
+    for y in range(L.h):
+        for x in range(L.w):
+            c = L.px[x, y]
+            if c[3] and c in m:
+                L.px[x, y] = m[c]
+    return L
+
+
+BLUE = ["ik1", "bl0", "bl1", "bl1", "bl2", "bl3"]      # 蓝丝绒（样板看书角用过，阿鱼 10/3 换成米白 wl，现在没用上）
+LEGS = {"wd": ("wd1", "wd3", "wd5", "wd3"), "gd": ("gd1", "gd3", "gd4", "gd2"), "ik": ("ik0", "ik2", "ik3", "wd2")}
+
+
+def side_sofa(rect, facing, seats, ramp="wl", legs="wd", pillows=(), tufted=False, throw=None, scroll=True):
+    """侧着放的沙发（照 01 版单人沙发的画法推广到几人位）：facing="e" 靠背在西、朝东；"w" 靠背在东、朝西。
+    从南边看是它的侧面：北扶手顶面和朝南的里侧、坐垫顶面（一人一块）、靠背顶面（长条）、靠背上的靠垫、
+    南扶手顶面和朝镜头的外侧大板（卷边扶手头）、木底座和脚。光照不跟着左右翻：都是左边亮、右边暗。
+    pillows：[(在第几人位, 色带, 花样)]；tufted：拉扣（皮沙发）；throw：搭在南扶手上的毯子色带"""
+    L = Layer()
+    x0, y0, x1, y1 = rect
+    if isinstance(ramp, list):
+        F = lambda i: ramp[max(0, min(len(ramp) - 1, i))]
+    else:
+        F = lambda i: rname(ramp, i)
+    e = facing == "e"
+    if e:
+        bx0, bx1, ax0, ax1, sx0, sx1 = x0, x0 + 11, x0 + 9, x1, x0 + 11, x1 - 2
+    else:
+        bx0, bx1, ax0, ax1, sx0, sx1 = x1 - 11, x1, x0, x1 - 9, x0 + 2, x1 - 11
+    bt0, bt1 = y0 - 42, y1 - 40          # 靠背顶面
+    na0, na1, ni1 = y0 - 29, y0 - 23, y0 - 15
+    st0, st1 = y0 - 15, y1 - 32          # 坐垫顶面
+    sa0, sa1, so1 = y1 - 33, y1 - 27, y1 - 7
+    # 1) 北扶手：顶面 + 朝南的里侧（阴影里）
+    L.rect(ax0, na0, ax1, na1, F(4))
+    L.hl(ax0 + 1, ax1 - 1, na0, F(5))
+    L.vl(ax0, na0 + 1, na1, F(5))
+    L.rect(ax0, na1, ax1, ni1, F(1))
+    L.hl(ax0, ax1, na1, F(2))
+    L.hl(ax0, ax1, ni1 - 1, F(0))
+    # 2) 坐垫：一人一块，块之间一道缝
+    seg = [st0 + round((st1 - st0) * k / seats) for k in range(seats + 1)]
+    for k in range(seats):
+        a, b = seg[k], seg[k + 1]
+        puff(L, sx0, a, sx1, b, ramp, 4, cuts=(0.7, 0.05, -0.45))
+        L.hl(sx0, sx1, a, F(3) if k == 0 else F(1))
+        if k > 0:
+            L.hl(sx0 + 1, sx1 - 1, a + 1, F(5))
+        L.hl(sx0, sx1, b - 1, F(2))
+    fe = sx1 - 1 if e else sx0           # 坐垫朝外那条边（滚边）
+    L.vl(fe, st0, st1, F(5) if not e else F(3))
+    L.vl(sx0 if e else sx1 - 1, st0, st1, F(2))          # 跟靠背接的折痕
+    # 3) 靠背：顶面长条（两头圆）
+    L.rect(bx0, bt0 + 1, bx1, bt1, F(4))
+    L.hl(bx0 + 1, bx1 - 1, bt0, F(5))
+    L.vl(bx0, bt0 + 2, bt1, F(5))
+    L.vl(bx0 + 1, bt0 + 1, bt1, F(5))
+    L.vl(bx1 - 1, bt0 + 2, bt1, F(2))
+    L.vl(bx1 - 2, bt0 + 2, bt1, F(3))
+    L.p(bx0, bt0 + 1, F(3))
+    L.p(bx1 - 1, bt0 + 1, F(2))
+    if tufted:
+        for yy in range(bt0 + 5, bt1 - 2, 6):
+            for xx in ((bx0 + 3, bx0 + 7) if ((yy - bt0) // 6) % 2 else (bx0 + 5,)):
+                L.p(xx, yy, F(1))
+                L.p(xx - 1, yy - 1, F(5))
+    # 4) 靠在靠背上的靠垫（每人一块，鼓起来，下沿一道暗缝）
+    cx0, cx1 = (bx1 - 1, bx1 + 7) if e else (bx0 - 7, bx0 + 1)
+    for k in range(seats):
+        a, b = seg[k], seg[k + 1]
+        ya, yb = a - 9 + (2 if k == 0 else 0), b - 1
+        puff(L, cx0, ya, cx1, yb, ramp, 3)
+        L.hl(cx0, cx1, ya, F(4))
+        L.vl(cx1 - 1, ya, yb, F(1))
+        L.hl(cx0, cx1, yb - 1, F(1))
+        if tufted:
+            L.p((cx0 + cx1) // 2, (ya + yb) // 2, F(0))
+    # 5) 抱枕
+    for (k, pr, pat) in pillows:
+        a, b = seg[k], seg[k + 1]
+        py = a - 11 if k == 0 else (b - 21 if k == seats - 1 else (a + b) // 2 - 13)
+        px_ = cx1 - 2 if e else cx0 - 8
+        pillow(L, px_, py, 10, 15, pr, pat)
+    # 6) 靠背朝南那一面
+    puff(L, bx0, bt1, bx1, so1, ramp, 2)
+    L.hl(bx0, bx1, bt1, F(4))
+    L.hl(bx0, bx1, bt1 + 1, F(3))
+    L.vl(bx1 - 1, bt1 + 1, so1, F(1))
+    L.vl(bx1 if e else bx0 - 1, na0 + 1, so1, F(0))          # 靠背跟扶手中间一道缝
+    # 7) 南扶手：顶面 + 朝镜头的外侧大板
+    L.rect(ax0, sa0, ax1, sa1, F(4))
+    L.hl(ax0 + 1, ax1 - 1, sa0, F(5))
+    L.vl(ax0, sa0 + 1, sa1, F(5))
+    L.hl(ax0, ax1, sa1 - 1, F(3))
+    puff(L, ax0, sa1, ax1, so1, ramp, 2)
+    L.hl(ax0, ax1, sa1, F(4))
+    L.hl(ax0, ax1, sa1 + 1, F(3))
+    L.hl(ax0, ax1, so1 - 1, F(1))
+    L.vl(ax1 - 1, sa1, so1, F(1))
+    for yy in range(sa1 + 3, so1 - 2):
+        L.p((ax0 + ax1) // 2 + (2 if e else -2), yy, F(1))
+    if tufted:
+        for yy in range(sa1 + 5, so1 - 3, 6):
+            for xx in range(ax0 + 4 + (3 if ((yy - sa1) // 6) % 2 else 0), ax1 - 3, 6):
+                L.p(xx, yy, F(1))
+                L.p(xx - 1, yy - 1, F(5))
+    if scroll:                                         # 扶手头往里卷的一道（朝外那头）
+        scx = ax1 - 6 if e else ax0 + 6
+        L.ell(scx - 6, sa0, scx + 6, sa0 + 12, F(4))
+        L.hl(scx - 4, scx + 4, sa0, F(5))
+        L.ring(scx - 6, sa0, scx + 6, sa0 + 12, F(1), only=lambda x, y: y > sa0 + 6)
+        L.ring(scx - 3, sa0 + 3, scx + 3, sa0 + 9, F(1),
+               only=lambda x, y: (x < scx + 1 if e else x > scx - 1) or y > sa0 + 6)
+        L.p(scx, sa0 + 6, F(2))
+    if throw:                                          # 南扶手上搭一条毯子（格子、下摆穗）
+        tx0, tx1 = (ax0 + 4, ax0 + 16) if e else (ax1 - 16, ax1 - 4)
+        L.rect(tx0, sa0 - 1, tx1, so1 + 3, rname(throw, 3))
+        L.vl(tx0, sa0 - 1, so1 + 3, rname(throw, 4))
+        L.vl(tx1 - 1, sa0, so1 + 3, rname(throw, 2))
+        L.hl(tx0, tx1, sa1, rname(throw, 2))
+        L.hl(tx0, tx1, sa1 - 1, rname(throw, 4))
+        for yy in range(sa1 + 3, so1 + 2, 5):
+            L.hl(tx0 + 1, tx1 - 1, yy, "wl4")
+        for xx in (tx0 + 4, tx0 + 8):
+            L.vl(xx, sa0, so1 + 3, "wl4")
+        for xx in range(tx0, tx1):
+            L.p(xx, so1 + 3 + (xx % 2), "wl3")
+    # 8) 底座、脚
+    l0, l1, l2, lb = LEGS[legs]
+    L.rect(x0, so1, x1, so1 + 3, l1)
+    L.hl(x0, x1, so1, l2)
+    L.hl(x0, x1, so1 + 2, l0)
+    for lx in (x0 + 1, x1 - 4):
+        L.rect(lx, so1 + 3, lx + 3, y1, l0)
+        L.p(lx, so1 + 3, l1)
+    L.outline()
+    return L, y1
+
+
+def prop_record_crate():
+    """唱片箱（替掉原来那只蓝箱子）：一只敞口木箱，里面竖着一排唱片（从上面看是一条条封套顶边），
+    最前面一张往上抽出一截露出封面；箱子正面是木条，中间一个提手孔"""
+    L = Layer()
+    x0, x1, yf0, yf1, h = 356, 386, 272, 290, 22
+    ty0, ty1 = yf0 - h, yf1 - h          # 250..268
+    L.rect(x0, ty0, x1, ty1, "wd1")
+    cols = ["rd3", "gd3", "bl2", "wl4", "tl", "pk", "or", "ik2", "gr2", "rd4", "bl3", "wl5", "pu", "gd2"]
+    for k, yy in enumerate(range(ty0 + 2, ty1 - 1, 2)):
+        c = cols[(k * 5) % len(cols)]
+        L.hl(x0 + 2, x1 - 2, yy, c)
+        L.p(x0 + 2, yy, shift(c, 1))
+        L.p(x1 - 3, yy, shift(c, -1))
+        L.hl(x0 + 2, x1 - 2, yy + 1, "wd0")
+    # 最前面一张抽出来一截：封面
+    T = Layer(x0=x0 + 5, y0=ty1 - 9, w=18, h=10)
+    _sleeve_art(T, x0 + 5, ty1 - 9, 0)
+    L.paste(T)
+    L.vl(x0 + 23, ty1 - 9, ty1, "ol")
+    # 箱沿
+    L.rect(x0, ty0, x1, ty0 + 1, "wd4")
+    L.vl(x0, ty0, ty1, "wd4")
+    L.vl(x1 - 1, ty0, ty1, "wd2")
+    # 正面：三条木板、提手孔
+    L.rect(x0, ty1, x1, yf1, "wd3")
+    L.hl(x0, x1, ty1, "wd5")
+    for yy in (ty1 + 7, ty1 + 14):
+        L.hl(x0, x1, yy, "wd1")
+        L.hl(x0, x1, yy + 1, "wd4")
+    L.rect((x0 + x1) // 2 - 4, ty1 + 3, (x0 + x1) // 2 + 4, ty1 + 5, "wd0")
+    L.vl(x0, ty1, yf1, "wd4")
+    L.vl(x1 - 1, ty1, yf1, "wd1")
+    L.hl(x0, x1, yf1 - 1, "wd1")
+    L.outline()
+    return L, yf1
+
+
+BOOK_COLS = ["rd2", "rd3", "bl1", "bl2", "gr1", "gr2", "gd2", "wl4", "pu", "tl", "cl1", "cl2", "ik2", "wl3", "rd4", "bl3"]
+
+
+def book_row(L, xa, xb, base, hmax, rnd, objects=True):
+    """一层书：一本本竖着（宽 2～3、高不一），偶尔一本斜靠、一摞平放、一件小摆设"""
+    x = xa
+    while x < xb:
+        r = rnd.random()
+        if objects and r < 0.07 and xb - x >= 7:         # 小摆设：白瓷瓶插红花 / 小相框 / 地球仪
+            kind = rnd.choice(["vase", "frame", "globe"])
+            if kind == "vase":
+                L.rect(x + 1, base - 6, x + 5, base, "wt")
+                L.vl(x + 4, base - 6, base, "bl4")
+                L.hl(x + 1, x + 5, base - 3, "bl2")
+                L.p(x + 2, base - 8, "rd4")
+                L.p(x + 3, base - 9, "rd3")
+                L.p(x + 3, base - 7, "gr2")
+            elif kind == "frame":
+                L.rect(x, base - 7, x + 6, base, "gd2")
+                L.rect(x + 1, base - 6, x + 5, base - 1, "bl3")
+                L.p(x + 2, base - 3, "gr2")
+                L.p(x + 3, base - 4, "gr3")
+                L.hl(x, x + 6, base - 7, "gd4")
+            else:
+                L.ell(x, base - 8, x + 6, base - 2, "bl2")
+                L.p(x + 2, base - 6, "gr3")
+                L.p(x + 3, base - 5, "gr2")
+                L.p(x + 1, base - 7, "bl4")
+                L.rect(x + 2, base - 2, x + 4, base, "gd2")
+            x += 7
+            continue
+        if r < 0.15 and xb - x >= 7:                     # 一摞平放
+            w = min(rnd.randrange(6, 9), xb - x)
+            yy = base
+            for k in range(rnd.randrange(2, 4)):
+                c = rnd.choice(BOOK_COLS)
+                L.rect(x, yy - 2, x + w - (k % 2), yy, c)
+                L.hl(x, x + w - (k % 2), yy - 2, shift(c, 1))
+                L.p(x + w - 1 - (k % 2), yy - 1, "wl4")
+                yy -= 2
+            x += w + 1
+            continue
+        w = min(rnd.choice([2, 2, 3, 3, 3]), xb - x)
+        hgt = rnd.randrange(hmax - 4, hmax + 1)
+        c = rnd.choice(BOOK_COLS)
+        if r > 0.93 and x + w + 3 <= xb:                  # 斜靠的一本
+            for k in range(hgt):
+                xx = x + (k * 3) // hgt
+                L.rect(xx, base - k - 1, xx + w, base - k, c)
+            L.p(x + 2, base - hgt, shift(c, 1))
+            x += w + 3
+            continue
+        L.rect(x, base - hgt, x + w, base, c)
+        L.vl(x, base - hgt, base, shift(c, 1))
+        L.hl(x, x + w, base - hgt, shift(c, -1))
+        if rnd.random() < 0.5:                            # 书脊上一两道金线
+            L.hl(x, x + w, base - hgt + 2, "gd3")
+            if rnd.random() < 0.5:
+                L.hl(x, x + w, base - 3, "gd2")
+        x += w
+        if rnd.random() < 0.12:
+            x += 1
+
+
+def prop_bookshelf(y0, y1, seed):
+    """靠西墙的高书架（书朝东）。正交斜俯视里朝东那面是看不见的，这里照 06 v2.2 的做法把它「掰正」画：
+    一条窄高的正面，五层，书一本本竖着；顶上一条顶板，底下踢脚。占地 x 342～362"""
+    L = Layer()
+    x0, x1 = 342, 362
+    top, bot = y1 - 92, y1
+    rnd = random.Random(seed)
+    L.rect(x0, top, x1 + 1, top + 5, "wd4")
+    L.hl(x0, x1 + 1, top, "wd5")
+    L.hl(x0, x1 + 1, top + 3, "wd3")
+    L.hl(x0, x1 + 1, top + 4, "wd1")
+    L.rect(x0, top + 5, x1, bot, "wd2")
+    L.vl(x0, top + 5, bot, "wd4")
+    L.vl(x0 + 1, top + 5, bot, "wd3")
+    L.vl(x1 - 1, top + 5, bot, "wd1")
+    L.rect(x0 + 2, top + 6, x1 - 2, bot - 6, "wd0")
+    rows = 5
+    pitch = (bot - 6 - (top + 6)) / rows
+    for r in range(rows):
+        ra = int(top + 6 + r * pitch)
+        rb = int(top + 6 + (r + 1) * pitch) - 2
+        L.hl(x0 + 2, x1 - 2, ra, "ol")
+        book_row(L, x0 + 2, x1 - 2, rb, rb - ra - 3, rnd)
+        L.rect(x0 + 2, rb, x1 - 2, rb + 2, "wd3")
+        L.hl(x0 + 2, x1 - 2, rb, "wd5")
+        L.hl(x0 + 2, x1 - 2, rb + 1, "wd2")
+    L.rect(x0, bot - 6, x1, bot, "wd2")
+    L.hl(x0, x1, bot - 6, "wd4")
+    L.hl(x0, x1, bot - 1, "wd1")
+    L.outline()
+    return L, bot
+
+
+def prop_lamp_at(cx, foot, shade=None):
+    """落地灯（01 版那盏）挪到别处；shade 给了就把布罩换成那条色带"""
+    L, _ = prop_floor_lamp()
+    if shade:
+        recolor(L, {"wl3": rname(shade, 3), "wl4": rname(shade, 4), "wl5": rname(shade, 5)})
+    return moved(L, cx - 629, foot - 260), foot
+
+
+def gala_px(u, v, U, V, conf):
+    """电视屏幕里的晚会（u 0..U、v 0..V）：两边红幕、上面红幕檐和金穗、紫色舞台背景、
+    正中一个金圈红心的大团花、两束金色追光、台上三个小小的表演者、满屏彩纸、台口红地板、
+    最下面一排观众的头、一条播到一半的进度条。返回颜色名"""
+    cx = U / 2.0
+    if v >= V - 2:                                     # 进度条
+        if v == V - 1:
+            return "ik1"
+        return "gd3" if u < U * 0.56 else "ik3"
+    if v >= V - 6:                                     # 观众的头
+        top = V - 6 + (0 if (u % 5) in (1, 2, 3) else 1)
+        return "ik0" if v >= top else "rd1"
+    stage = V - 14
+    if v >= stage:                                     # 台口
+        if v == stage:
+            return "gd3"
+        if v == stage + 1:
+            return "gd1"
+        if abs(u - cx) < 9 - (v - stage) * 0.3 and v < stage + 5:
+            return "rd4"
+        return "rd2" if (u + v) % 7 else "rd1"
+    cw = 5
+    if u < cw or u >= U - cw:                          # 两边红幕
+        k = u if u < cw else U - 1 - u
+        if k == cw - 1:
+            return "rd1"
+        return "rd4" if k % 2 == 0 else "rd3"
+    if v < 3:                                          # 幕檐
+        return "rd3" if v < 2 else ("gd3" if u % 3 else "rd2")
+    if v == 3 and u % 6 in (2, 3):
+        return "rd3"
+    if v == 4 and u % 6 == 2:
+        return "gd4"
+    for (fx, body) in ((cx - 7, "rd4"), (cx, "wt"), (cx + 7, "rd4")):     # 三个小小的表演者
+        dx = u - fx
+        if -0.5 <= dx < 1.5 and stage - 9 <= v < stage - 7:
+            return "wl3"
+        if -1.5 <= dx < 2.5 and stage - 7 <= v < stage:
+            w = 1 + (v - (stage - 7)) * 0.35
+            if abs(dx - 0.5) <= w:
+                return body
+    if ((u - cx) / 9.5) ** 2 + ((v - (stage - 1)) / 2.2) ** 2 <= 1:    # 台上一圈追光
+        return "gd4" if (u + v) % 2 else "gd3"
+    dcx, dcy = u - cx + 0.5, v - 13                    # 正中团花
+    d = math.hypot(dcx, dcy * 1.05)
+    if d <= 8.5:
+        if d >= 7.2:
+            return "gd3"
+        if d >= 6.2:
+            return "gd1"
+        if d <= 1.4:
+            return "gd4"
+        ang = math.atan2(dcy, dcx)
+        if 2.5 < d < 5.5 and math.cos(ang * 8) > 0.55:
+            return "rd5"
+        return "rd3"
+    for sx in (cw + 1, U - cw - 2):                    # 两束追光（点状）
+        t = (v - 4) / float(stage - 4)
+        if 0 <= t <= 1:
+            bx = sx + (cx - sx) * t
+            half = 1.2 + 3.5 * t
+            if abs(u - bx) <= half and (u + v) % 2 == 0:
+                return "gd4"
+    c = conf.get((u, v))                               # 彩纸
+    if c:
+        return c
+    if v < 9 and bayer(u, v) > (v - 3) / 6.0:
+        return "bl0"
+    return "pu" if (v < stage - 3 or bayer(u, v) > 0.3) else "bl1"
+
+
+def prop_tv3():
+    """电视柜连大电视、游戏机（东墙边）：矮木柜顺着墙放（抽屉、两扇小门、铜拉手）；
+    大电视侧着朝西南、往屋里转（跟 01 版一样的斜面画法，放大），屏幕亮着在播晚会；
+    柜上南头立着一台白色游戏机（中间黑芯、两边白翼，不画任何标志），一根线连到电视"""
+    L = Layer()
+    x0, x1, yf0, yf1, h = 638, 664, 360, 450, 24
+    ty0, ty1 = yf0 - h, yf1 - h          # 336..426
+    L.rect(x0, ty0, x1, ty1, "wd4")
+    L.hl(x0, x1, ty0, "wd5")
+    L.vl(x0, ty0, ty1, "wd5")
+    L.vl(x1 - 1, ty0 + 1, ty1, "wd3")
+    for gx, gy0, gy1 in ((643, 340, 356), (649, 362, 380), (655, 344, 352), (646, 392, 410), (657, 386, 398)):
+        L.vl(gx, gy0, gy1, "wd3")
+    L.hl(x0, x1, ty1 - 1, "wd3")
+    L.rect(x0, ty1, x1, yf1 - 3, "wd3")
+    L.hl(x0, x1, ty1, "wd5")
+    L.vl(x0, ty1, yf1 - 3, "wd4")
+    L.vl(x1 - 1, ty1, yf1 - 3, "wd2")
+    mx = (x0 + x1) // 2
+    L.rect(x0 + 2, ty1 + 3, x1 - 2, ty1 + 9, "wd2")
+    L.rect(x0 + 3, ty1 + 4, x1 - 3, ty1 + 8, "wd3")
+    L.hl(x0 + 3, x1 - 3, ty1 + 4, "wd4")
+    L.rect(mx - 2, ty1 + 5, mx + 2, ty1 + 7, "gd3")
+    L.p(mx - 2, ty1 + 5, "gd4")
+    for (a, b) in ((x0 + 2, mx), (mx + 1, x1 - 2)):
+        L.rect(a, ty1 + 11, b, yf1 - 5, "wd2")
+        L.rect(a + 1, ty1 + 12, b - 1, yf1 - 6, "wd3")
+        L.hl(a + 1, b - 1, ty1 + 12, "wd4")
+    L.p(mx - 2, ty1 + 15, "gd3")
+    L.p(mx + 2, ty1 + 15, "gd3")
+    L.rect(x0, yf1 - 3, x1, yf1, "wd1")
+    L.rect(x0 + 2, yf1 - 3, x1 - 2, yf1 - 1, "wd2")
+    # 柜上北头一盆白瓷小多肉
+    L.rect(646, 340, 653, 346, "wt")
+    L.vl(652, 341, 346, "bl4")
+    L.hl(646, 653, 345, "bl4")
+    L.hl(646, 653, 342, "bl3")
+    for (a, b, c) in ((646, 337, "gr2"), (648, 335, "gr3"), (650, 336, "gr4"), (651, 338, "gr2"), (647, 338, "gr3"),
+                      (649, 337, "gr3")):
+        L.rect(a, b, a + 2, b + 2, c)
+    # ---- 大电视：斜着的屏幕面（左上高、右下低），右边一条机身厚度，细脖子和底板
+    PL, PR, TOP, SL, HT = 612, 658, 322, 14, 52
+
+    def ytop(x):
+        return TOP + int(round((x - PL) * SL / float(PR - PL)))
+    L.rect(643, 372, 647, 384, "ik2")
+    L.vl(643, 372, 384, "ik3")
+    L.rect(636, 383, 656, 386, "ik2")
+    L.hl(636, 656, 383, "ik3")
+    L.hl(636, 656, 385, "ik1")
+    for x in range(PL, PR):
+        yt = ytop(x)
+        L.vl(x, yt, yt + HT, "ik0")
+    for x in range(PR, PR + 4):
+        yt = ytop(PR) - (x - PR) - 1
+        L.vl(x, yt + 1, yt + HT + 1, "ik2" if x < PR + 3 else "ik1")
+    L.vl(PR, ytop(PR) - 1, ytop(PR) + HT, "ik3")
+    U, V = PR - PL - 5, HT - 6
+    rnd = random.Random(88)
+    conf = {}
+    for _ in range(70):
+        u, v = rnd.randrange(5, U - 5), rnd.randrange(5, V - 16)
+        c = rnd.choice(["rd4", "gd4", "pk", "tl2", "bl3", "wt", "gd3", "or"])
+        conf[(u, v)] = c
+        if rnd.random() < 0.4:
+            conf[(u + 1, v + 1)] = c
+    for u in range(U):
+        for v in range(V):
+            x = PL + 2 + u
+            L.p(x, ytop(x) + 3 + v, gala_px(u, v, U, V, conf))
+    for k in range(10):                                # 屏幕玻璃一道很淡的斜反光
+        x = PL + 4 + k
+        y = ytop(x) + 4 + k * 2
+        for yy in (y, y + 1):
+            c = L.g(x, yy)
+            if c in (C["pu"], C["bl0"], C["bl1"]):
+                L.p(x, yy, "bl2" if c != C["pu"] else "bl1")
+    for x in range(PL, PR):
+        L.p(x, ytop(x), "ik3")
+    L.vl(PL, ytop(PL), ytop(PL) + HT, "ik2")
+    for x in range(PL + 1, PR):
+        L.p(x, ytop(x) + HT - 1, "ik2")
+    # ---- 游戏机：白色立式（像 PS5 那样两片白翼夹着黑芯，翼比芯高、上沿往外翘、腰往里收），
+    #      芯和左翼之间一道蓝灯，底下黑色小底座。不画任何标志、字母
+    gx0, gb = 645, 417                                 # 左边、底（柜面上 y 441 的地方）
+    gh = 26
+    prof = [1, 1, 1, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0]  # 外沿往外(+)/往里(-)
+    for k in range(gh):
+        y = gb - gh + k
+        o = prof[k]
+        L.hl(gx0 + 1 - o, gx0 + 6, y, "wt")            # 左翼（受光）
+        L.p(gx0 + 1 - o, y, "sv2" if k > 2 else "wt")
+        L.hl(gx0 + 10, gx0 + 15 + o, y, "sv2")         # 右翼（背光）
+        L.p(gx0 + 14 + o, y, "sv1")
+        if k >= 4:
+            L.hl(gx0 + 6, gx0 + 10, y, "ik1")          # 黑芯（比翼矮一截）
+            L.p(gx0 + 6, y, "bl3" if 6 <= k <= 20 else "ik2")    # 蓝灯
+    L.hl(gx0, gx0 + 6, gb - gh, "wt")
+    L.hl(gx0 + 10, gx0 + 16, gb - gh, "sv1")
+    L.hl(gx0 + 7, gx0 + 10, gb - gh + 4, "ik2")
+    L.p(gx0 + 6, gb - gh + 6, "bl4")
+    L.rect(gx0 + 3, gb, gx0 + 13, gb + 2, "ik1")     # 底座
+    L.hl(gx0 + 4, gx0 + 12, gb, "ik2")
+    L.outline()
+    return L, yf1
+
+
+def controller(L, x, y):
+    """手柄（白色、两边握把、中间黑色触控板，没有标志和字）：11×7，自带一圈深边"""
+    L.rect(x + 1, y + 1, x + 10, y + 4, "wt")
+    L.rect(x, y + 2, x + 3, y + 6, "wt")
+    L.rect(x + 8, y + 2, x + 11, y + 6, "sv2")
+    L.rect(x + 4, y + 1, x + 7, y + 3, "ik1")
+    L.p(x + 2, y + 2, "ik2")
+    L.p(x + 9, y + 2, "ik2")
+    L.p(x + 4, y + 4, "ik2")
+    L.p(x + 6, y + 4, "ik2")
+    L.hl(x + 1, x + 10, y, "ol")
+    L.vl(x - 1, y + 2, y + 6, "ol")
+    L.vl(x + 11, y + 2, y + 6, "ol")
+    L.hl(x, x + 3, y + 6, "ol")
+    L.hl(x + 8, x + 11, y + 6, "ol")
+    L.hl(x + 3, x + 8, y + 5, "ol")
+    L.p(x, y + 1, "ol")
+    L.p(x + 10, y + 1, "ol")
+
+
+def prop_tv_table():
+    """电视前的长茶几（低）：深木，桌面上两个手柄、一碗喜糖；下层一摞游戏盒"""
+    L = Layer()
+    x0, x1, yf0, yf1, h = 598, 620, 398, 438, 18
+    ty0, ty1 = yf0 - h, yf1 - h          # 380..420
+    L.rect(x0, ty0, x1, ty1, "wd2")
+    L.rect(x0 + 1, ty0 + 1, x1 - 1, ty1 - 1, "wd3")
+    L.hl(x0, x1, ty0, "wd4")
+    L.vl(x0, ty0, ty1, "wd4")
+    for k in range(5):
+        L.hl(x0 + 3 + k, x0 + 6 + k, ty0 + 20 + k * 2, "wd4")
+    L.rect(x0, ty1, x1, ty1 + 4, "wd2")
+    L.hl(x0, x1, ty1, "wd5")
+    L.hl(x0, x1, ty1 + 3, "wd1")
+    L.rect(x0 + 3, ty1 + 4, x1 - 3, yf1 - 4, "wd0")
+    for k, c in enumerate(("bl2", "rd3", "wt", "gr2")):
+        L.rect(x0 + 5 + k * 3, yf1 - 9, x0 + 7 + k * 3, yf1 - 4, c)
+    L.rect(x0 + 3, yf1 - 4, x1 - 3, yf1 - 3, "wd3")
+    for lx in (x0, x1 - 3):
+        L.rect(lx, ty1 + 4, lx + 3, yf1, "wd2")
+        L.vl(lx, ty1 + 4, yf1, "wd3")
+    controller(L, x0 + 6, ty0 + 3)
+    controller(L, x0 + 4, ty0 + 13)
+    L.ell(x0 + 4, ty0 + 26, x0 + 16, ty0 + 34, "rd1")            # 喜糖碗
+    L.ell(x0 + 5, ty0 + 26, x0 + 15, ty0 + 32, "rd3")
+    for (a, b, c) in ((7, 28, "gd4"), (9, 29, "rd5"), (11, 28, "wt"), (12, 30, "gd3"), (8, 30, "pk")):
+        L.p(x0 + a, ty0 + b, c)
+    L.hl(x0 + 6, x0 + 14, ty0 + 33, "wd1")
+    L.outline()
+    return L, yf1
+
+
+def prop_book_table():
+    """看书的矮桌：桌面上一摞书、一本摊开的书（红丝带书签）、一只青花盖碗；下层塞几本杂志"""
+    L = Layer()
+    x0, x1, yf0, yf1, h = 394, 420, 524, 564, 20
+    ty0, ty1 = yf0 - h, yf1 - h          # 504..544
+    L.rect(x0, ty0, x1, ty1, "wd3")
+    L.hl(x0, x1, ty0, "wd4")
+    L.vl(x0, ty0, ty1, "wd4")
+    L.vl(x1 - 1, ty0, ty1, "wd2")
+    for gx, a, b in ((400, 508, 522), (407, 526, 540), (414, 506, 516)):
+        L.vl(gx, a, b, "wd2")
+    L.rect(x0, ty1, x1, ty1 + 4, "wd2")
+    L.hl(x0, x1, ty1, "wd5")
+    L.hl(x0, x1, ty1 + 3, "wd1")
+    L.rect(x0 + 3, ty1 + 4, x1 - 3, yf1 - 4, "wd0")
+    for k, c in enumerate(("rd3", "wl4", "bl2", "gd2", "wl4")):
+        L.hl(x0 + 4, x1 - 5 - (k % 2) * 2, yf1 - 5 - k, c)
+    L.rect(x0 + 3, yf1 - 4, x1 - 3, yf1 - 3, "wd3")
+    for lx in (x0, x1 - 3):
+        L.rect(lx, ty1 + 4, lx + 3, yf1, "wd2")
+        L.vl(lx, ty1 + 4, yf1, "wd3")
+    yy = ty0 + 12
+    for k, (c, w) in enumerate((("bl1", 13), ("rd2", 12), ("gr1", 11))):
+        xa = x0 + 3 + k
+        L.rect(xa, yy - 3, xa + w, yy, c)
+        L.hl(xa, xa + w, yy - 3, shift(c, 1))
+        L.vl(xa + w - 1, yy - 2, yy, "wl4")
+        L.hl(xa, xa + w, yy, shift(c, -1))
+        yy -= 3
+    bx, by = x0 + 5, ty0 + 20
+    L.rect(bx, by, bx + 16, by + 10, "wl5")
+    L.vl(bx + 8, by, by + 10, "wl1")
+    L.hl(bx, bx + 16, by + 10, "wl1")
+    for k in range(4):
+        L.hl(bx + 2, bx + 7, by + 2 + k * 2, "wl2")
+        L.hl(bx + 10, bx + 15, by + 2 + k * 2, "wl2")
+    L.vl(bx + 11, by - 1, by + 5, "rd3")
+    gaiwan(L, x0 + 14, ty0 + 6)
+    L.outline()
+    return L, yf1
+
+
+def round_table(cx, foot, top_w=22, top_d=15, h=24, top_ramp="wd", item=None):
+    """圆边几：圆桌面（厚 2）、一根车木柱、圆底座。item：桌上放什么"""
+    L = Layer()
+    x0, x1 = cx - top_w // 2, cx + top_w - top_w // 2
+    ty = foot - top_d - h                # 桌面椭圆上沿
+    L.rect(cx - 1, ty + top_d, cx + 2, foot - 2, "wd2")
+    L.vl(cx - 1, ty + top_d, foot - 2, "wd4")
+    L.ell(cx - 8, foot - 5, cx + 9, foot, "wd1")
+    L.ell(cx - 7, foot - 5, cx + 8, foot - 1, "wd3")
+    L.ell(x0, ty + 2, x1, ty + top_d + 2, rname(top_ramp, 1))
+    L.ell(x0, ty, x1, ty + top_d, rname(top_ramp, 3))
+    L.ring(x0, ty, x1, ty + top_d, rname(top_ramp, 4), only=lambda x, y: y < ty + top_d / 2 and x < cx + 4)
+    L.ell(x0 + 4, ty + 2, x0 + 10, ty + 5, rname(top_ramp, 4))
+    if item == "flowers":                              # 青花小瓶插几枝红花
+        vx, vy = cx - 3, ty + top_d // 2
+        L.rect(vx, vy - 8, vx + 6, vy, "wt")
+        L.vl(vx + 5, vy - 8, vy, "bl4")
+        L.hl(vx, vx + 6, vy - 4, "bl2")
+        L.hl(vx + 1, vx + 5, vy - 9, "wt")
+        for (a, b, c) in ((-2, -13, "rd4"), (1, -15, "rd3"), (4, -13, "rd4"), (6, -11, "pk"), (-3, -10, "rd3"),
+                          (2, -12, "rd5")):
+            L.rect(vx + a, vy + b, vx + a + 2, vy + b + 2, c)
+        for (a, b) in ((0, -10), (3, -11), (5, -9)):
+            L.p(vx + a, vy + b, "gr2")
+    elif item == "lamp":                               # 小台灯 + 两本杂志
+        lx, ly = cx - 2, ty + top_d // 2
+        L.rect(x0 + 3, ly - 1, x0 + 11, ly + 3, "rd3")
+        L.hl(x0 + 3, x0 + 11, ly - 1, "rd4")
+        L.rect(x0 + 5, ly + 1, x0 + 12, ly + 4, "bl2")
+        L.hl(x0 + 5, x0 + 12, ly + 1, "bl3")
+        L.rect(lx + 3, ly - 12, lx + 5, ly, "gd2")
+        L.poly([(lx, ly - 22), (lx + 8, ly - 22), (lx + 11, ly - 13), (lx - 3, ly - 13)], "wl4")
+        L.hl(lx - 3, lx + 11, ly - 13, "gd3")
+        L.vl(lx - 2, ly - 20, ly - 13, "wl5")
+        L.vl(lx + 9, ly - 20, ly - 13, "wl3")
+        L.ell(lx + 1, ly - 3, lx + 8, ly + 1, "gd2")
+    elif item == "go":                                 # 围棋盘（浅木、格线、2×2 的黑白子）、两只棋罐
+        bx0, by0 = cx - 9, ty + 3
+        L.rect(bx0 - 1, by0 - 1, bx0 + 18, by0 + 12, "gd1")
+        L.rect(bx0, by0, bx0 + 17, by0 + 11, "gd3")
+        L.hl(bx0, bx0 + 17, by0, "gd4")
+        L.hl(bx0 - 1, bx0 + 18, by0 + 12, "wd0")
+        for k in range(1, 17, 4):
+            L.vl(bx0 + k, by0 + 1, by0 + 11, "gd2")
+        for k in range(2, 11, 3):
+            L.hl(bx0 + 1, bx0 + 17, by0 + k, "gd2")
+        for (a, b, c) in ((4, 1, "ik1"), (8, 4, "wt"), (12, 1, "ik1"), (4, 7, "wt"), (8, 7, "ik1"), (12, 4, "wt"),
+                          (0, 4, "ik1"), (12, 7, "ik1")):
+            L.rect(bx0 + a, by0 + b, bx0 + a + 2, by0 + b + 2, c)
+            if c == "wt":
+                L.p(bx0 + a + 1, by0 + b + 1, "sv2")
+            else:
+                L.p(bx0 + a, by0 + b, "ik3")
+        for (qx, c, c2) in ((x0 - 1, "ik1", "ik3"), (x1 - 4, "wt", "sv2")):
+            L.ell(qx, ty + 11, qx + 6, ty + 16, "wd1")
+            L.ell(qx, ty + 10, qx + 6, ty + 14, c)
+            L.p(qx + 2, ty + 11, c2)
+    elif item == "tea":                                # 竹茶盘、青花小茶壶、一只盖碗（跟北边茶几一家，阿鱼 10/3 棋桌换成小茶几）
+        mx0, my0 = cx - 10, ty + 5
+        L.rect(mx0, my0, mx0 + 20, my0 + 8, "wd5")
+        L.hl(mx0, mx0 + 20, my0, "wl3")
+        L.hl(mx0, mx0 + 20, my0 + 7, "wd3")
+        for xx in range(mx0 + 2, mx0 + 19, 3):
+            L.vl(xx, my0 + 1, my0 + 7, "wd4")
+        px0, py0 = mx0 + 1, my0 - 4                    # 小茶壶：圆肚子、盖钮、左边壶嘴、右边壶把
+        L.hl(px0, px0 + 8, py0 + 8, "wd3")
+        L.ell(px0, py0, px0 + 8, py0 + 8, "bl4")
+        L.ell(px0, py0, px0 + 7, py0 + 7, "wt")
+        L.hl(px0 + 1, px0 + 7, py0 + 4, "bl2")
+        L.p(px0 + 2, py0 + 1, "wt")
+        L.rect(px0 + 3, py0 - 2, px0 + 5, py0, "bl2")
+        L.p(px0 - 1, py0 + 3, "wt")
+        L.p(px0 - 2, py0 + 2, "wt")
+        L.vl(px0 + 8, py0 + 2, py0 + 6, "bl3")
+        L.hl(mx0 + 10, mx0 + 19, my0 + 6, "wd3")
+        gaiwan(L, mx0 + 10, my0 - 1)
+    elif item == "candy":                              # 一盘喜糖、一只盖碗
+        L.ell(cx - 7, ty + 3, cx + 5, ty + 10, "rd2")
+        L.ell(cx - 6, ty + 3, cx + 4, ty + 8, "rd3")
+        for (a, b, c) in ((-4, 5, "gd4"), (-2, 6, "rd5"), (0, 5, "wt"), (1, 7, "gd3"), (-3, 7, "pk")):
+            L.p(cx + a, ty + b, c)
+        gaiwan(L, cx + 3, ty + 4)
+    L.outline()
+    return L, foot
+
+
+def prop_bird_paradise():
+    """东墙边落地大盆：天堂鸟（长柄大叶往上张开），白瓷盆金口沿"""
+    L = Layer()
+    cx, foot = 654, 506
+    pot_top = foot - 20
+    for (dx, top) in ((-9, 450), (-4, 440), (2, 444), (7, 452), (11, 462), (-12, 462)):
+        L.line(cx, pot_top, cx + dx, top + 12, "gr1")
+    leaves = [(cx - 12, 456, 20, -1.95, 9, 2), (cx + 11, 458, 20, -1.15, 9, 2), (cx - 4, 440, 22, -1.68, 10, 3),
+              (cx + 7, 446, 20, -1.35, 9, 3), (cx - 9, 470, 18, -2.4, 8, 3), (cx + 12, 474, 17, -0.75, 8, 3),
+              (cx + 2, 458, 18, -1.5, 9, 3)]
+    for (lx, ly, ln, ang, wid, lv) in leaves:
+        leaf(L, lx, ly, ln, ang, wid, lv)
+        ca, sa = math.cos(ang), math.sin(ang)
+        for t in range(-int(ln / 2) + 4, int(ln / 2) - 2, 3):
+            px_, py_ = lx + ca * t, ly + sa * t
+            L.p(px_ - sa * 2, py_ + ca * 2, rname("gr", lv - 1))
+    L.poly([(cx + 3, 452), (cx + 12, 448), (cx + 10, 451)], "or")
+    L.p(cx + 9, 449, "gd4")
+    L.poly([(cx + 4, 452), (cx + 11, 453), (cx + 5, 454)], "bl2")
+    for y in range(pot_top, foot):
+        t = (y - pot_top) / float(foot - pot_top)
+        half = 10 - 3 * t
+        xa, xb = int(cx - half + 0.5), int(cx + half - 0.5)
+        L.hl(xa, xb + 1, y, "wt")
+        L.p(xb, y, "sv1")
+        L.p(xb - 1, y, "sv2")
+        L.p(xa, y, "sv2")
+    L.ell(cx - 11, pot_top - 3, cx + 11, pot_top + 3, "gd3")
+    L.ell(cx - 9, pot_top - 2, cx + 9, pot_top + 2, "wd1")
+    L.hl(cx - 9, cx + 10, pot_top + 6, "gd2")
+    L.hl(cx - 8, cx + 9, foot - 3, "gd2")
+    L.outline()
+    return L, foot
+
+
+def prop_kumquat():
+    """门口东边一盆金桔（喜庆）：圆圆一蓬小叶子、满树金黄的小桔子，红盆金边，盆上系一条红绸"""
+    L = Layer()
+    cx, foot = 650, 646
+    pot_top = foot - 16
+    rnd = random.Random(31)
+    bcx, bcy, rx, ry = cx, pot_top - 22, 14, 18
+    L.vl(cx, pot_top - 8, pot_top, "wd2")
+    L.vl(cx + 1, pot_top - 6, pot_top, "wd1")
+    L.ell(bcx - rx, bcy - ry, bcx + rx, bcy + ry, "gr1")
+    for _ in range(140):
+        a = rnd.random() * 2 * math.pi
+        r = math.sqrt(rnd.random())
+        x = bcx + math.cos(a) * r * (rx - 2)
+        y = bcy + math.sin(a) * r * (ry - 2)
+        lit = (x - bcx) + (y - bcy) < 2
+        c = "gr3" if lit else "gr2"
+        if (x - bcx) + (y - bcy) < -12:
+            c = "gr4" if rnd.random() < 0.5 else "gr3"
+        L.p(x, y, c)
+        L.p(x + 1, y, c)
+        L.p(x, y + 1, rname("gr", 1 if not lit else 2))
+    L.ring(bcx - rx, bcy - ry, bcx + rx, bcy + ry, "gr0", only=lambda x, y: (x - bcx) + (y - bcy) > -4)
+    for _ in range(19):
+        a = rnd.random() * 2 * math.pi
+        r = 0.25 + 0.7 * math.sqrt(rnd.random())
+        x = int(bcx + math.cos(a) * r * (rx - 3))
+        y = int(bcy + math.sin(a) * r * (ry - 3))
+        L.rect(x, y, x + 3, y + 3, "or")
+        L.p(x + 2, y + 2, "cl2")
+        L.p(x, y, "gd4")
+        L.p(x + 1, y, "gd3")
+    for y in range(pot_top, foot):
+        t = (y - pot_top) / float(foot - pot_top)
+        half = 11 - 3 * t
+        xa, xb = int(cx - half + 0.5), int(cx + half - 0.5)
+        L.hl(xa, xb + 1, y, "rd3")
+        L.p(xa, y, "rd4")
+        L.p(xa + 1, y, "rd4")
+        L.p(xb, y, "rd1")
+        L.p(xb - 1, y, "rd2")
+    L.ell(cx - 12, pot_top - 3, cx + 12, pot_top + 3, "gd3")
+    L.ell(cx - 10, pot_top - 2, cx + 10, pot_top + 2, "wd1")
+    L.hl(cx - 10, cx + 11, pot_top + 5, "gd2")
+    L.rect(cx - 3, pot_top + 4, cx + 3, pot_top + 8, "rd4")
+    L.p(cx - 3, pot_top + 4, "rd5")
+    L.line(cx - 1, pot_top + 8, cx - 4, pot_top + 13, "rd4")
+    L.line(cx + 1, pot_top + 8, cx + 4, pot_top + 13, "rd2")
+    L.outline()
+    return L, foot
+
+
 # ================================================================== 影子、暖光
+LAMPS = [   # (灯罩口中心 x, 灯脚 y, 地上光圈半径) —— 照地面、照旁边家具
+    (630, 263, 46, 30),       # 茶座落地灯（01 原样）
+    (373, 507, 38, 24),       # 阅读灯
+    (652, 539, 34, 22),       # 门口落座那盏
+]
+
+
 def floor_shading(props_info):
     S = ShadeMap()
-    # 北墙脚一条暗
     S.rect(WALL_W[1], FLOOR_Y, WALL_E[0], FLOOR_Y + 2, -1.5)
     S.rect(WALL_W[1], FLOOR_Y + 2, WALL_E[0], FLOOR_Y + 5, -0.5)
-    # 西墙往东投一条影（光从左上来）
     S.rect(WALL_W[1], FLOOR_Y, WALL_W[1] + 6, 662, -1.0)
     S.rect(WALL_W[1] + 6, FLOOR_Y, WALL_W[1] + 9, 662, -0.5)
-    # 东墙根一点点暗
     S.rect(WALL_E[0] - 2, FLOOR_Y, WALL_E[0], 662, -0.5)
-    # 前沿矮墙里侧
     S.rect(WALL_W[1], 659, WALL_E[0], 662, -0.5)
-    # 家具底下：贴地一圈深、往右下拖一点
     for (x0, y0, x1, y1, k) in props_info:
         S.rect(x0 + 1, y0 + 1, x1 + 2, y1 + 2, k, feather=1)
-    # 茶几底下（桌腿之间看得见的地毯）
-    S.rect(541, 296, 593, 314, -1.5)
-    # 落地灯：两圈暖光（外圈亮一档、里圈再亮一档，边上各一圈棋盘点）
-    S.ellipse(630, 266, 46, 30, 1.0, edge=1.5)
-    S.ellipse(630, 263, 24, 15, 1.0, edge=1.5)
-    # 门口走廊透进来一点光：一个往里张开的梯形，整档 + 边上一像素棋盘点
-    cone(S, 504, 683, 618, 40, 0.30, 1.0, edge=1.5)
+    S.rect(541, 296, 593, 314, -1.5)                 # 茶几底下
+    S.rect(601, 402, 617, 438, -1.0)                 # 电视茶几底下
+    S.rect(397, 528, 417, 564, -1.0)                 # 看书矮桌底下
+    for (cx, cy, rx, ry) in LAMPS:
+        S.ellipse(cx, cy + 3, rx, ry, 1.0, edge=1.5)
+        S.ellipse(cx, cy, rx * 0.52, ry * 0.5, 1.0, edge=1.5)
+    # 电视亮着：屏幕前（西南）地上一片淡光，只亮半档（棋盘点）
+    S.ellipse(604, 452, 30, 16, 0.5, edge=0)
+    cone(S, 504, 683, 618, 40, 0.30, 1.0, edge=1.5)  # 门口透进来的光
     return S
 
 
 def cone(S, cx, y_from, y_to, half0, spread, val, edge=1):
-    """灯罩上下照出来的一束光：从 y_from 往 y_to 越来越宽，两条斜边各一像素棋盘点"""
+    """一束光：从 y_from 往 y_to 越来越宽，两条斜边各一像素棋盘点"""
     step = 1 if y_to > y_from else -1
     for y in range(y_from, y_to, step):
         d = abs(y - y_from)
@@ -1816,61 +2511,111 @@ def cone(S, cx, y_from, y_to, half0, spread, val, edge=1):
 
 
 def wall_light(L):
-    """落地灯照到墙上：灯罩口往上一束、往下一束，越远越淡"""
+    """茶座落地灯照到墙上：灯罩口往上一束、往下一束，越远越淡"""
     S = ShadeMap()
-    cone(S, 629, 182, 162, 9, 0.75, 1.0)             # 往上：近处整档
-    cone(S, 629, 162, 146, 24, 0.75, 0.5)            # 再往上：一半（棋盘点）
-    cone(S, 629, 202, 226, 13, 0.55, 1.0)            # 往下照到护墙板
-    for y in range(184, 202):                         # 灯罩两边贴着的一小圈
+    cone(S, 629, 182, 162, 9, 0.75, 1.0)
+    cone(S, 629, 162, 146, 24, 0.75, 0.5)
+    cone(S, 629, 202, 226, 13, 0.55, 1.0)
+    for y in range(184, 202):
         S.add(619 - (y - 184) // 5, y, 0.5)
         S.add(639 + (y - 184) // 5, y, 0.5)
     S.apply(L, clip=lambda x, y: y < FLOOR_Y and y > CAP_Y1 and x > WALL_W[1] and x < WALL_E[0])
 
 
 # ================================================================== 组装
+def background():
+    L = Layer()
+    L.rect(X0, Y0, X1, Y1, "void")
+    draw_floor(L)
+    F = {f[0]: f[2] for f in FLAT}
+    draw_rug(L, F["rug_tea"], "red")
+    draw_rug(L, F["rug_tv"], "cream", bw=10)
+    draw_rug(L, F["rug_read"], "red", bw=10)
+    draw_rug(L, F["rug_se"], "navy", medallion=False, bw=10)
+    draw_rug(L, F["rug_west"], "cream", medallion=False, bw=10)
+    draw_doormat(L)
+    draw_petals(L)
+    draw_north_wall(L)
+    draw_painting(L)
+    draw_clock(L)
+    draw_papercut(L, 527, 146)
+    draw_papercut(L, 606, 146)
+    draw_swag(L)
+    L.rect(DOOR[0], 684, DOOR[1], 696, "wd4")
+    L.hl(DOOR[0], DOOR[1], 684, "wd2")
+    L.hl(DOOR[0], DOOR[1], 685, "wd5")
+    L.hl(DOOR[0], DOOR[1], 690, "wd3")
+    L.hl(DOOR[0], DOOR[1], 691, "wd5")
+    L.hl(DOOR[0], DOOR[1], 695, "wd2")
+    L.rect(X0, 696, X1, Y1, "wl2")
+    return L
+
+
 def build():
     bg = background()
+    R = {p[0]: p[3] for p in PLAN}
+    cr = PLAN_BY["coat_rack"][3]
     props = [
         ("vinyl_wall",) + prop_vinyl_wall(),
-        ("plant_n",) + prop_plant_n(),
+        ("fiddle_fig",) + prop_plant_n(),
         ("floor_lamp",) + prop_floor_lamp(),
         ("sofa",) + prop_sofa(),
         ("record_player",) + prop_record_player(),
-        ("luggage_1",) + prop_luggage_blue(),
+        ("record_crate",) + prop_record_crate(),
         ("tea_table",) + prop_tea_table(),
         ("armchair_w",) + prop_armchair("w"),
         ("armchair_e",) + prop_armchair("e"),
-        ("tv",) + prop_tv(),
-        ("coat_rack",) + prop_coat_rack(),
-        ("luggage_2",) + prop_luggage_brown(),
-        ("plant_sw",) + prop_plant_sw(),
+        ("bookshelf_1",) + prop_bookshelf(R["bookshelf_1"][1], R["bookshelf_1"][3], 11),
+        ("bookshelf_2",) + prop_bookshelf(R["bookshelf_2"][1], R["bookshelf_2"][3], 23),
+        ("tv_unit",) + prop_tv3(),
+        ("tv_sofa",) + side_sofa(R["tv_sofa"], "e", 3, "rd", "gd", pillows=[(0, "gd", "knot"), (2, "wl", "dot")]),
+        ("tv_table",) + prop_tv_table(),
+        ("reading_lamp",) + prop_lamp_at(373, R["reading_lamp"][3], shade="rd"),
+        ("reading_sofa",) + side_sofa(R["reading_sofa"], "e", 3, "wl", "wd", pillows=[(0, "gd", "knot")],
+                                      throw="rd"),
+        ("book_table",) + prop_book_table(),
+        ("reading_chair",) + side_sofa(R["reading_chair"], "w", 1, "wl", "wd", pillows=[(0, "rd", "dot")]),
+        ("west_chair_w",) + side_sofa(R["west_chair_w"], "e", 1, "wl", "wd", pillows=[(0, "gd", "knot")]),
+        ("west_table",) + round_table(433, R["west_table"][3], top_w=26, top_d=17, item="tea"),
+        ("west_chair_e",) + side_sofa(R["west_chair_e"], "w", 1, "wl", "wd", pillows=[(0, "rd", "dot")]),
+        ("floor_lamp_se",) + prop_lamp_at(652, R["floor_lamp_se"][3]),
+        ("loveseat",) + side_sofa(R["loveseat"], "w", 2, "rd", "gd", pillows=[(0, "wl", "dot"), (1, "gd", "knot")]),
+        ("se_table",) + round_table(616, R["se_table"][3], item="flowers"),
+        ("se_chair",) + side_sofa(R["se_chair"], "e", 1, "wl", "wd", pillows=[(0, "rd", "dot")]),
+        ("kumquat",) + prop_kumquat(),
+        ("coat_rack", moved(prop_coat_rack()[0], (cr[0] + cr[2]) // 2 - 657, cr[3] - 606), cr[3]),
+        ("sw_table",) + round_table(394, R["sw_table"][3], h=30, item="lamp"),
+        ("plant",) + prop_plant_sw(),
         ("side_walls",) + prop_side_walls(),
         ("front_walls",) + prop_front_walls(),
     ]
-    shadows = [
-        (352, 226, 496, 234, -1.0),     # 唱片墙
-        (396, 258, 452, 284, -2.0),     # 唱片机
-        (356, 280, 380, 290, -2.0),     # 蓝箱子
-        (516, 236, 617, 268, -2.0),     # 沙发
-        (480, 292, 523, 320, -2.0),
-        (604, 292, 647, 320, -2.0),
-        (538, 308, 596, 314, -1.0),     # 茶几脚
-        (636, 360, 660, 418, -1.5),     # 电视柜
-        (623, 255, 636, 261, -1.5),     # 落地灯座
-        (636, 640, 655, 648, -2.0),     # 棕箱子
-        (649, 600, 664, 606, -1.0),     # 衣帽架脚
-        (350, 656, 370, 668, -2.0),     # 绿植
-        (498, 234, 514, 242, -2.0),     # 北绿植
-    ]
+    shadows = [(352, 226, 496, 234, -1.0)]
+    thin = {"floor_lamp": (623, 255, 636, 261), "reading_lamp": (367, 502, 380, 508),
+            "floor_lamp_se": (646, 534, 659, 540), "coat_rack": (cr[0] + 1, cr[3] - 6, cr[2] - 2, cr[3])}
+    for (iid, name, zone, r, h, block, st) in PLAN:
+        if iid in ("vinyl_wall",):
+            continue
+        if iid in thin:
+            shadows.append(tuple(thin[iid]) + (-1.5,))
+        elif iid in ("tea_table", "tv_table", "book_table"):
+            shadows.append((r[0], r[3] - 6, r[2], r[3], -1.0))
+        elif iid in ("se_table", "sw_table"):
+            cx = (r[0] + r[2]) // 2
+            shadows.append((cx - 7, r[3] - 5, cx + 8, r[3], -2.0))
+        else:
+            shadows.append((r[0], r[1], r[2], r[3], -2.0))
     S = floor_shading(shadows)
     S.apply(bg, clip=lambda x, y: y >= FLOOR_Y)
     wall_light(bg)
-    # 落地灯照到旁边家具：沙发东头、东边单人沙发朝上的面亮一档
-    for name, layer, foot in props:
-        if name in ("sofa", "armchair_e"):
-            P = ShadeMap()
-            P.ellipse(632, 236, 30, 30, 1.0, edge=1)
-            P.apply(layer)
+    # 灯照到旁边的家具：朝上的面亮一档
+    near = {0: ("sofa", "armchair_e"), 1: ("reading_sofa", "book_table", "bookshelf_2"),
+            2: ("loveseat", "se_table")}
+    for k, (cx, cy, rx, ry) in enumerate(LAMPS):
+        for name, layer, foot in props:
+            if name in near[k]:
+                P = ShadeMap()
+                P.ellipse(cx + 2, cy - 24, 30, 30, 1.0, edge=1)
+                P.apply(layer)
     return bg, props
 
 
@@ -1904,22 +2649,69 @@ def palette_count(im):
     return cols
 
 
+def walk_check():
+    """从门口 (504, 680) 走得到每件东西跟前、三个站人点吗：2 像素一格，人按脚底 12×6 算；
+    能站的地 = 休息间墙里、y≥232、不压任何挡人的东西；门口只能从门洞进"""
+    step = 2
+    blocks = [p[3] for p in PLAN if p[5]]
+
+    def free(x, y):
+        if not (WALL_W[1] + 6 <= x <= WALL_E[0] - 6 and 232 <= y <= 682):
+            return False
+        if y > FRONT_TOP - 3 and not (DOOR[0] + 6 <= x <= DOOR[1] - 6):
+            return False
+        for (x0, y0, x1, y1) in blocks:
+            if x0 - 6 < x < x1 + 6 and y0 - 3 < y < y1 + 3:
+                return False
+        return True
+    start = (504, 680)
+    seen = {start}
+    todo = [start]
+    while todo:
+        x, y = todo.pop()
+        for (dx, dy) in ((step, 0), (-step, 0), (0, step), (0, -step)):
+            q = (x + dx, y + dy)
+            if q not in seen and free(*q):
+                seen.add(q)
+                todo.append(q)
+    bad = []
+    for (iid, name, zone, r, h, block, st) in PLAN:
+        x0, y0, x1, y1 = r
+        cands = [(x, y1 + 4) for x in range(x0 - 6, x1 + 8, 2)] + \
+                [(x0 - 8, y) for y in range(y0, y1 + 4, 2)] + [(x1 + 8, y) for y in range(y0, y1 + 4, 2)]
+        cands = [((c[0] // 2) * 2, (c[1] // 2) * 2) for c in cands]
+        if not any(c in seen for c in cands):
+            bad.append(iid)
+    spot_bad = []
+    for (sid, name, (sx, sy), r) in SPOTS:
+        if ((sx // 2) * 2, (sy // 2) * 2) not in seen:
+            spot_bad.append(sid)
+    # 门口往里那条路：门洞中间 x 486～522 一直走到 lounge 交互点
+    lane = all(((x // 2) * 2, (y // 2) * 2) in seen for x in (490, 504, 518) for y in range(430, 680, 2))
+    print("走得通：%d/%d 件；站人点 %s；门口到交互点的路 %s" % (
+        len(PLAN) - len(bad), len(PLAN), "都站得到" if not spot_bad else "站不到 " + "、".join(spot_bad),
+        "通" if lane else "不通"))
+    if bad:
+        print("  走不到：" + "、".join(bad))
+    return bad, spot_bad, lane
+
+
 def crop_alpha(layer):
-    """一层先裁到这间的左右范围（BG_CROP 的 x：两间共用的隔墙两边画得一模一样，各出各那半，隔壁也是像素图时不会叠两遍），
-    再裁到画了的那块：回 (图, 左上角画布 x, y)"""
-    x0, x1 = BG_CROP[0] - layer.ox, BG_CROP[2] - layer.ox
-    im = layer.im.crop((x0, 0, x1, layer.im.height))
-    box = im.getbbox()
-    return im.crop(box), BG_CROP[0] + box[0], layer.oy + box[1]
+    """一层裁到画了的那块：回 (图, 左上角画布 x, y)"""
+    box = layer.im.getbbox()
+    return layer.im.crop(box), layer.ox + box[0], layer.oy + box[1]
 
 
 def main():
     preview = sys.argv[sys.argv.index("--preview") + 1] if "--preview" in sys.argv else None
     check_layout()
+    bad, spot_bad, lane = walk_check()
+    if bad or spot_bad or not lane:
+        raise SystemExit("走路检查没过")
     bg, props = build()
     room = compose(bg, props)
     cols = palette_count(room)
-    print("整间 %s，颜色 %d 种" % (room.size, len(cols)))
+    print("整间 %s，颜色 %d 种（调色板 %d）" % (room.size, len(cols), len(PAL_HEX)))
     if len(cols) > 64:
         raise SystemExit("颜色超过 64 种（%d）" % len(cols))
     os.makedirs(os.path.join(OUT, "props"), exist_ok=True)
@@ -1936,7 +2728,11 @@ def main():
         palette_count(im)
         im.save(os.path.join(OUT, "props", name + ".png"))
         names.add(name + ".png")
-        man["props"].append({"id": "px_" + name, "png": RES + "props/%s.png" % name, "x": x, "y": y, "foot": foot, "hide": HIDE[name]})
+        hide = HIDE.get(name, [name])
+        for h in hide:
+            if h not in IT:
+                raise SystemExit("%s 要藏的灰盒 %s 布局里没有" % (name, h))
+        man["props"].append({"id": "px_" + name, "png": RES + "props/%s.png" % name, "x": x, "y": y, "foot": foot, "hide": hide})
     for f in os.listdir(os.path.join(OUT, "props")):   # 改名、删掉的家具别留旧图
         if f.endswith(".png") and f not in names:
             os.remove(os.path.join(OUT, "props", f))
@@ -1947,7 +2743,13 @@ def main():
     if preview:
         os.makedirs(preview, exist_ok=True)
         room.save(os.path.join(preview, "lounge_room.png"))
-        room.resize((W * 2, H * 2), Image.NEAREST).save(os.path.join(preview, "lounge_room_x2.png"))
+        # 样板 v3 | 改完（都是画布 1:1，再一起放大 2 倍）：看两处改对没有
+        v3 = Image.open(V3_PNG).convert("RGBA")
+        gap = 8
+        cmp_ = Image.new("RGBA", (W * 2 + gap * 3, H + gap * 2), C["void"])
+        for k, im in enumerate((v3, room)):
+            cmp_.alpha_composite(im, (gap + k * (W + gap), gap))
+        cmp_.resize((cmp_.width * 2, cmp_.height * 2), Image.NEAREST).save(os.path.join(preview, "lounge_v3_vs_new.png"))
         phone(bg, props, preview)
 
 
@@ -1955,11 +2757,10 @@ def phone(bg, props, out_dir):
     SW, SH = 540, 960
     ox, oy = 94 - X0, 80 - Y0            # 画布 → 屏幕
     scr = Image.new("RGBA", (SW, SH), C["void"])
-    # 走廊：画布 y 696..884，整屏宽
     cor = Layer(x0=-ox, y0=696, w=SW, h=200)
     draw_corridor(cor)
     scr.alpha_composite(cor.im, (0, 696 + oy))
-    people = [(guest("03"), 424, 326), (guest("09"), 506, 478)]
+    people = [(guest("03"), 424, 314), (guest("09"), 616, 478)]
     bgp = Layer()
     bgp.im = bg.im.copy()
     bgp.px = bgp.im.load()
@@ -1968,9 +2769,8 @@ def phone(bg, props, out_dir):
         S.ellipse(fx + 1, fy - 1, 12, 4, -1.5, edge=1.5)
     S.apply(bgp)
     room = compose(bgp, props, people)
-    room = room.crop((0, 0, W, FRONT_BOT - Y0))       # 走廊那一条由走廊图负责
+    room = room.crop((0, 0, W, FRONT_BOT - Y0))
     scr.alpha_composite(room, (X0 + ox, Y0 + oy))
-    # 前沿矮墙往两边接出去（隔壁房间的前墙，护墙板接着排）
     fw = Layer(x0=-ox, y0=FRONT_TOP, w=SW, h=FRONT_BOT - FRONT_TOP)
     for (a, b) in ((-ox, X0), (X1, -ox + SW)):
         fw.rect(a, FRONT_TOP, b, FRONT_FACE, "wl4")
@@ -1994,11 +2794,10 @@ def draw_corridor(L):
             L.rect(x + 1, y + 1, x + 48, y + 12, tone)
             L.hl(x + 1, x + 48, y + 1, shift(tone, 1))
             L.vl(x + 1, y + 1, y + 12, shift(tone, 1))
-            if rnd.random() < 0.3:                   # 石头上一两点斑
+            if rnd.random() < 0.3:
                 L.p(x + rnd.randrange(4, 44), y + rnd.randrange(3, 10), shift(tone, -1))
             L.vl(x, y, y + 12, "wl0")
         L.hl(x0, x1, y, "wl0")
-    # 红地毯：金边 + 两条回纹带
     L.rect(x0, 764, x1, 800, "rd3")
     L.hl(x0, x1, 764, "gd2")
     L.hl(x0, x1, 765, "gd3")
@@ -2013,12 +2812,10 @@ def draw_corridor(L):
     for x in range(x0 + 6, x1, 16):
         L.poly([(x, 779), (x + 3, 782), (x, 785), (x - 3, 782)], "gd2")
         L.p(x, 782, "gd4")
-    # 南边墙顶
     L.rect(x0, 884, x1, 896, "wl4")
     L.hl(x0, x1, 884, "ol")
     L.hl(x0, x1, 885, "wl5")
     L.hl(x0, x1, 895, "ol")
-    # 墙脚影
     for x in range(x0, x1):
         L.shade_px(x, 697, -1)
         if x % 2 == 0:

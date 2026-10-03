@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0gc8efntdylg"
-path="res://.godot/imported/plant_n.png-3b0cd8f4b6e6b5542a660489e63fcff3.ctex"
+uid="uid://bl8qjtyr24vut"
+path="res://.godot/imported/tv_sofa.png-a7590d39813e9a7b51c7c45959bda94d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixel_art/backhall_lounge/props/plant_n.png"
-dest_files=["res://.godot/imported/plant_n.png-3b0cd8f4b6e6b5542a660489e63fcff3.ctex"]
+source_file="res://assets/pixel_art/backhall_lounge/props/tv_sofa.png"
+dest_files=["res://.godot/imported/tv_sofa.png-a7590d39813e9a7b51c7c45959bda94d.ctex"]
 
 [params]
 

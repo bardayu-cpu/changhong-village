@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwv8lexkc74fv"
-path="res://.godot/imported/plant_sw.png-8cdf86977c8f8f58bcdd076976a11c30.ctex"
+uid="uid://vdo45trgl8ot"
+path="res://.godot/imported/fiddle_fig.png-09041d3bfb36211e24bca19ea5ecac76.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixel_art/backhall_lounge/props/plant_sw.png"
-dest_files=["res://.godot/imported/plant_sw.png-8cdf86977c8f8f58bcdd076976a11c30.ctex"]
+source_file="res://assets/pixel_art/backhall_lounge/props/fiddle_fig.png"
+dest_files=["res://.godot/imported/fiddle_fig.png-09041d3bfb36211e24bca19ea5ecac76.ctex"]
 
 [params]
 

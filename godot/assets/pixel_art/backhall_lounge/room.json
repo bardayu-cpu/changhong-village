@@ -21,8 +21,8 @@
    ]
   },
   {
-   "id": "px_plant_n",
-   "png": "res://assets/pixel_art/backhall_lounge/props/plant_n.png",
+   "id": "px_fiddle_fig",
+   "png": "res://assets/pixel_art/backhall_lounge/props/fiddle_fig.png",
    "x": 488,
    "y": 160,
    "foot": 242,
@@ -62,13 +62,13 @@
    ]
   },
   {
-   "id": "px_luggage_1",
-   "png": "res://assets/pixel_art/backhall_lounge/props/luggage_1.png",
+   "id": "px_record_crate",
+   "png": "res://assets/pixel_art/backhall_lounge/props/record_crate.png",
    "x": 355,
-   "y": 223,
+   "y": 249,
    "foot": 290,
    "hide": [
-    "luggage_1"
+    "record_crate"
    ]
   },
   {
@@ -102,39 +102,198 @@
    ]
   },
   {
-   "id": "px_tv",
-   "png": "res://assets/pixel_art/backhall_lounge/props/tv.png",
-   "x": 633,
-   "y": 317,
-   "foot": 418,
+   "id": "px_bookshelf_1",
+   "png": "res://assets/pixel_art/backhall_lounge/props/bookshelf_1.png",
+   "x": 341,
+   "y": 299,
+   "foot": 392,
    "hide": [
-    "tv_unit",
-    "tv_screen"
+    "bookshelf_1"
+   ]
+  },
+  {
+   "id": "px_bookshelf_2",
+   "png": "res://assets/pixel_art/backhall_lounge/props/bookshelf_2.png",
+   "x": 341,
+   "y": 397,
+   "foot": 490,
+   "hide": [
+    "bookshelf_2"
+   ]
+  },
+  {
+   "id": "px_tv_unit",
+   "png": "res://assets/pixel_art/backhall_lounge/props/tv_unit.png",
+   "x": 611,
+   "y": 321,
+   "foot": 450,
+   "hide": [
+    "tv_unit"
+   ]
+  },
+  {
+   "id": "px_tv_sofa",
+   "png": "res://assets/pixel_art/backhall_lounge/props/tv_sofa.png",
+   "x": 547,
+   "y": 335,
+   "foot": 458,
+   "hide": [
+    "tv_sofa"
+   ]
+  },
+  {
+   "id": "px_tv_table",
+   "png": "res://assets/pixel_art/backhall_lounge/props/tv_table.png",
+   "x": 597,
+   "y": 379,
+   "foot": 438,
+   "hide": [
+    "tv_table"
+   ]
+  },
+  {
+   "id": "px_reading_lamp",
+   "png": "res://assets/pixel_art/backhall_lounge/props/reading_lamp.png",
+   "x": 360,
+   "y": 424,
+   "foot": 502,
+   "hide": [
+    "reading_lamp"
+   ]
+  },
+  {
+   "id": "px_reading_sofa",
+   "png": "res://assets/pixel_art/backhall_lounge/props/reading_sofa.png",
+   "x": 341,
+   "y": 465,
+   "foot": 588,
+   "hide": [
+    "reading_sofa"
+   ]
+  },
+  {
+   "id": "px_book_table",
+   "png": "res://assets/pixel_art/backhall_lounge/props/book_table.png",
+   "x": 393,
+   "y": 503,
+   "foot": 564,
+   "hide": [
+    "book_table"
+   ]
+  },
+  {
+   "id": "px_reading_chair",
+   "png": "res://assets/pixel_art/backhall_lounge/props/reading_chair.png",
+   "x": 423,
+   "y": 485,
+   "foot": 556,
+   "hide": [
+    "reading_chair"
+   ]
+  },
+  {
+   "id": "px_west_chair_w",
+   "png": "res://assets/pixel_art/backhall_lounge/props/west_chair_w.png",
+   "x": 385,
+   "y": 343,
+   "foot": 414,
+   "hide": [
+    "west_chair_w"
+   ]
+  },
+  {
+   "id": "px_west_table",
+   "png": "res://assets/pixel_art/backhall_lounge/props/west_table.png",
+   "x": 419,
+   "y": 369,
+   "foot": 412,
+   "hide": [
+    "west_table"
+   ]
+  },
+  {
+   "id": "px_west_chair_e",
+   "png": "res://assets/pixel_art/backhall_lounge/props/west_chair_e.png",
+   "x": 445,
+   "y": 343,
+   "foot": 414,
+   "hide": [
+    "west_chair_e"
+   ]
+  },
+  {
+   "id": "px_floor_lamp_se",
+   "png": "res://assets/pixel_art/backhall_lounge/props/floor_lamp_se.png",
+   "x": 639,
+   "y": 458,
+   "foot": 536,
+   "hide": [
+    "floor_lamp_se"
+   ]
+  },
+  {
+   "id": "px_loveseat",
+   "png": "res://assets/pixel_art/backhall_lounge/props/loveseat.png",
+   "x": 627,
+   "y": 501,
+   "foot": 592,
+   "hide": [
+    "loveseat"
+   ]
+  },
+  {
+   "id": "px_se_table",
+   "png": "res://assets/pixel_art/backhall_lounge/props/se_table.png",
+   "x": 604,
+   "y": 528,
+   "foot": 576,
+   "hide": [
+    "se_table"
+   ]
+  },
+  {
+   "id": "px_se_chair",
+   "png": "res://assets/pixel_art/backhall_lounge/props/se_chair.png",
+   "x": 567,
+   "y": 509,
+   "foot": 580,
+   "hide": [
+    "se_chair"
+   ]
+  },
+  {
+   "id": "px_kumquat",
+   "png": "res://assets/pixel_art/backhall_lounge/props/kumquat.png",
+   "x": 635,
+   "y": 589,
+   "foot": 646,
+   "hide": [
+    "kumquat"
    ]
   },
   {
    "id": "px_coat_rack",
    "png": "res://assets/pixel_art/backhall_lounge/props/coat_rack.png",
-   "x": 637,
-   "y": 521,
-   "foot": 606,
+   "x": 537,
+   "y": 569,
+   "foot": 654,
    "hide": [
     "coat_rack"
    ]
   },
   {
-   "id": "px_luggage_2",
-   "png": "res://assets/pixel_art/backhall_lounge/props/luggage_2.png",
-   "x": 635,
-   "y": 610,
-   "foot": 648,
+   "id": "px_sw_table",
+   "png": "res://assets/pixel_art/backhall_lounge/props/sw_table.png",
+   "x": 382,
+   "y": 581,
+   "foot": 642,
    "hide": [
-    "luggage_2"
+    "sw_table"
    ]
   },
   {
-   "id": "px_plant_sw",
-   "png": "res://assets/pixel_art/backhall_lounge/props/plant_sw.png",
+   "id": "px_plant",
+   "png": "res://assets/pixel_art/backhall_lounge/props/plant.png",
    "x": 338,
    "y": 602,
    "foot": 668,
@@ -153,7 +312,7 @@
   {
    "id": "px_front_walls",
    "png": "res://assets/pixel_art/backhall_lounge/props/front_walls.png",
-   "x": 331,
+   "x": 328,
    "y": 657,
    "foot": 696,
    "hide": []

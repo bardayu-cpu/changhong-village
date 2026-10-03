@@ -98,6 +98,32 @@ func run() -> void:
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
         check("%s 走得到" % id, not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(pt) <= float(b.points[id]["r"]))
+    print("2c 休息间第三版（阿鱼 10/3「第三版可以」，蓝沙发换米白、棋桌换小茶几）")
+    var ids: Array = (b.cfg["items"] as Array).map(func(x): return str(x.get("id", "")))
+    check("行李箱拿掉了、棋桌换成小茶几", not ids.has("luggage_1") and not ids.has("luggage_2") and not ids.has("go_table") and ids.has("west_table"))
+    var sp: Array = (b.cfg.get("stand_points", []) as Array).map(func(x): return str(x["id"]))
+    check("唱片机前、电视前两个站人点记下了（%s），不做玩法（不是交互点）" % [sp], sp == ["stand_record", "stand_tv"] and not b.points.has("stand_record"))
+    # 走路格子只留从进场点灌得到的格子：一件东西四周 24 像素里有能站的格子，就是从门口走得到它跟前
+    var far: Array = []
+    var n_l := 0
+    for it in b.cfg["items"]:
+        if str(it.get("type")) != "box" or not it.has("rect") or str(it["id"]).begins_with("wall") or str(it["id"]).begins_with("front"):
+            continue
+        var r: Array = it["rect"]
+        if float(r[0]) < 341.0 or float(r[2]) > 667.0:
+            continue
+        n_l += 1
+        var near := false
+        for yy in range(int(r[1]) - 24, int(r[3]) + 25, 6):
+            for xx in range(int(r[0]) - 24, int(r[2]) + 25, 6):
+                if b._free(Vector2(xx, yy)):
+                    near = true
+                    break
+            if near:
+                break
+        if not near:
+            far.append(it["id"])
+    check("休息间 %d 件，从门口都走得到跟前（走不到的 %s）" % [n_l, far], n_l == 30 and far.is_empty())
     print("3 硬边、颜色数")
     check("整间的图只有全透明和不透明、一共 %d 色（≤ 64）" % cols.size(), not cols.has("半透明") and cols.size() <= 64)
     print("4 镜头 1 倍")

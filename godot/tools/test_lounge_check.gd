@@ -13,7 +13,7 @@ const DT := 1.0 / 60.0
 const STUCK_SECS := 2.0
 const MAX_LEG := 120.0
 const FIG := [497.0, 234.0, 515.0, 242.0]
-const RACK := [648.0, 598.0, 666.0, 606.0]
+var RACK: Array = [648.0, 598.0, 666.0, 606.0]   # 第一版在东南角；10/3 第三版挪到门洞东边，run() 开头照 layout 取
 const LOUNGE := Rect2(336, 226, 336, 458)   # 休息间两道隔墙之间
 
 var m
@@ -100,6 +100,9 @@ func run() -> void:
     m._goto("backhall")
     b = m.backhall
     b.walking_enabled = true
+    for it in b.cfg["items"]:
+        if str(it.get("id", "")) == "coat_rack":
+            RACK = (it["rect"] as Array).map(func(v): return float(v))
     var t_start := Time.get_ticks_msec()
     print("0 布局：像素图 %s、灰盒 琴叶榕/衣帽架 占地在 %s" % [str(b.cfg.has("pixel_art")), "obstacles"])
     check("布局写了 pixel_art", b.cfg.has("pixel_art"))
