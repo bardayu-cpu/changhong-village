@@ -60,6 +60,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
         var cf: Vector2 = Vector2(cfg["couple"][0], cfg["couple"][1])
         obstacles.append({"ellipse": [cf.x, cf.y, COUPLE_FOOT.x, COUPLE_FOOT.y]})
     _npcs()
+    _pixel_art(flat)
     _sign_mark()
     var t0 := Time.get_ticks_msec()
     cfg["walk_grid"] = compute_grid(cfg, obstacles, GRID_CELL, CLEAR)
@@ -297,6 +298,44 @@ func _item(it: Dictionary) -> void:
         var lb: Dictionary = it["label"]
         var lx2 := _item_center_x(it) + float(lb.get("dx", 0))
         _label(str(lb["text"]), Vector2(lx2, foot + float(lb.get("dy", -40))))
+
+## 代码画的像素成品（阿鱼 10/3 定：新场景照 01 版休息间的标准用代码画，docs/罗曼山庄画风.md 第 0 节；脚本在 tools/pixel_art/）：
+## 布局里写了 "pixel_art": [room.json…] 就铺上——背景（墙、地板、地毯、墙上挂的）盖在灰盒地面上；每件家具一张图，
+## 左上角放在 (x, y)、按着地线 foot 跟人排前后；hide 里的灰盒藏掉（挡人的占地、走路的格子照旧）。
+## 1 倍颗粒、不插值（像素硬边）。没写 pixel_art 的画布照旧是灰盒
+func _pixel_art(flat: Node2D) -> void:
+    for path in cfg.get("pixel_art", []):
+        var man = JSON.parse_string(FileAccess.get_file_as_string(str(path)))
+        if not man is Dictionary:
+            continue
+        var bgd: Dictionary = man["background"]
+        var bg := Sprite2D.new()
+        bg.texture = Canvas.texture(str(bgd["png"]))
+        bg.centered = false
+        bg.position = Vector2(float(bgd["x"]), float(bgd["y"]))
+        bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+        bg.name = "px_background"
+        flat.add_child(bg)
+        for p in man["props"]:
+            for id in p.get("hide", []):
+                var old := world.get_node_or_null(NodePath(str(id)))
+                if old != null:
+                    old.visible = false
+            var s := Sprite2D.new()
+            s.texture = Canvas.texture(str(p["png"]))
+            s.centered = false
+            s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+            s.position = Vector2(float(p["x"]), float(p["foot"]))
+            s.offset = Vector2(0.0, float(p["y"]) - float(p["foot"]))
+            s.name = str(p["id"])
+            world.add_child(s)
+
+## 铺了像素成品的画布，镜头放大倍数取整到 1（原来按画布高 1024 缩到 0.9375）：1 个美术像素正好 1 个画布像素，
+## 手机上再整倍放大（1080 宽的屏正好 2 倍），像素不会一行宽一行窄、也不会掉行。画布高比屏高只多 64，镜头跟着人走，看不出少了什么
+func _fit_zoom() -> void:
+    super()
+    if cfg.has("pixel_art") and cam.zoom.x > 0.85 and cam.zoom.x < 1.0:
+        cam.zoom = Vector2.ONE
 
 ## 一棵树画在哪（画树、果园往树上挂果子共用；tools/layout_court/gen_specs_court.py 照同一个算法量框）：
 ## 给了 h（整棵多高）、w（树冠多宽）的：树干占下面 TREE_TRUNK，上面是树冠，顶正好在 y - h（10/3 照「人 = 1」）；

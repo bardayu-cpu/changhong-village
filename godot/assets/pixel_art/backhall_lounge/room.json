@@ -1,0 +1,158 @@
+{
+ "note": "tools/pixel_art/room_backhall_lounge.py 生成，别手改。背景左上角放在 background.x/y（画布坐标），1 倍、不插值；每件家具左上角在 x/y，着地线 foot（跟人排前后用）；hide 是要藏掉的灰盒（挡人的占地照旧）",
+ "background": {
+  "png": "res://assets/pixel_art/backhall_lounge/room.png",
+  "x": 331,
+  "y": 104
+ },
+ "props": [
+  {
+   "id": "px_vinyl_wall",
+   "png": "res://assets/pixel_art/backhall_lounge/props/vinyl_wall.png",
+   "x": 351,
+   "y": 114,
+   "foot": 232,
+   "hide": [
+    "vinyl_wall"
+   ]
+  },
+  {
+   "id": "px_plant_n",
+   "png": "res://assets/pixel_art/backhall_lounge/props/plant_n.png",
+   "x": 488,
+   "y": 160,
+   "foot": 242,
+   "hide": [
+    "fiddle_fig"
+   ]
+  },
+  {
+   "id": "px_floor_lamp",
+   "png": "res://assets/pixel_art/backhall_lounge/props/floor_lamp.png",
+   "x": 616,
+   "y": 182,
+   "foot": 260,
+   "hide": [
+    "floor_lamp"
+   ]
+  },
+  {
+   "id": "px_sofa",
+   "png": "res://assets/pixel_art/backhall_lounge/props/sofa.png",
+   "x": 515,
+   "y": 194,
+   "foot": 268,
+   "hide": [
+    "sofa",
+    "sofa_back"
+   ]
+  },
+  {
+   "id": "px_record_player",
+   "png": "res://assets/pixel_art/backhall_lounge/props/record_player.png",
+   "x": 395,
+   "y": 187,
+   "foot": 284,
+   "hide": [
+    "record_player"
+   ]
+  },
+  {
+   "id": "px_luggage_1",
+   "png": "res://assets/pixel_art/backhall_lounge/props/luggage_1.png",
+   "x": 355,
+   "y": 223,
+   "foot": 290,
+   "hide": [
+    "luggage_1"
+   ]
+  },
+  {
+   "id": "px_tea_table",
+   "png": "res://assets/pixel_art/backhall_lounge/props/tea_table.png",
+   "x": 537,
+   "y": 268,
+   "foot": 314,
+   "hide": [
+    "tea_table"
+   ]
+  },
+  {
+   "id": "px_armchair_w",
+   "png": "res://assets/pixel_art/backhall_lounge/props/armchair_w.png",
+   "x": 479,
+   "y": 249,
+   "foot": 320,
+   "hide": [
+    "armchair_w"
+   ]
+  },
+  {
+   "id": "px_armchair_e",
+   "png": "res://assets/pixel_art/backhall_lounge/props/armchair_e.png",
+   "x": 603,
+   "y": 249,
+   "foot": 320,
+   "hide": [
+    "armchair_e"
+   ]
+  },
+  {
+   "id": "px_tv",
+   "png": "res://assets/pixel_art/backhall_lounge/props/tv.png",
+   "x": 633,
+   "y": 317,
+   "foot": 418,
+   "hide": [
+    "tv_unit",
+    "tv_screen"
+   ]
+  },
+  {
+   "id": "px_coat_rack",
+   "png": "res://assets/pixel_art/backhall_lounge/props/coat_rack.png",
+   "x": 637,
+   "y": 521,
+   "foot": 606,
+   "hide": [
+    "coat_rack"
+   ]
+  },
+  {
+   "id": "px_luggage_2",
+   "png": "res://assets/pixel_art/backhall_lounge/props/luggage_2.png",
+   "x": 635,
+   "y": 610,
+   "foot": 648,
+   "hide": [
+    "luggage_2"
+   ]
+  },
+  {
+   "id": "px_plant_sw",
+   "png": "res://assets/pixel_art/backhall_lounge/props/plant_sw.png",
+   "x": 338,
+   "y": 602,
+   "foot": 668,
+   "hide": [
+    "plant"
+   ]
+  },
+  {
+   "id": "px_side_walls",
+   "png": "res://assets/pixel_art/backhall_lounge/props/side_walls.png",
+   "x": 331,
+   "y": 104,
+   "foot": 684,
+   "hide": []
+  },
+  {
+   "id": "px_front_walls",
+   "png": "res://assets/pixel_art/backhall_lounge/props/front_walls.png",
+   "x": 328,
+   "y": 657,
+   "foot": 696,
+   "hide": []
+  }
+ ]
+}
