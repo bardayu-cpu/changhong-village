@@ -48,8 +48,8 @@
   {"type": "rect", "rect": [444, 865, 924, 868], "color": "#e8e4d8"},
   {"type": "rect", "rect": [444, 1024, 924, 1027], "color": "#e8e4d8"},
   {"type": "label", "text": "去后花园", "x": 186, "y": 282},
-  {"type": "label", "text": "去迎宾院", "x": 110, "y": 364},
-  {"type": "label", "text": "去前门", "x": 110, "y": 844}
+  {"type": "label", "text": "去迎宾院", "x": 110, "y": 480},
+  {"type": "label", "text": "去前门", "x": 110, "y": 960}
  ],
  "items": [
   {"type": "box", "id": "wall_w", "rect": [444, 238, 1024, 252], "h": 58, "top": "#c8b08a", "front": "#a08a68", "scale": {"h_m": 1.2, "name": "院墙"}, "part": "PK-W01", "inst": "PK-W01-01"},

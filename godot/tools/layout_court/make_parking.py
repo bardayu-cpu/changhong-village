@@ -108,7 +108,8 @@ def main():
             it["inst"] = it["part"] + "-%02d" % (sum(1 for x in items if x.get("part") == it["part"]) + 1)
             items.append(it)
     for (y, to) in EAST_EXITS:
-        flat.append({"type": "label", "text": {"court": "去迎宾院", "frontgate": "去前门"}[to], "x": W - 110, "y": y - 56})
+        # 方案 C：牌子挂在口的正下方（原来在口上方，跟落点上的人叠，被挪到头顶又跟「去后花园」叠；放口里边又压到路）
+        flat.append({"type": "label", "text": {"court": "去迎宾院", "frontgate": "去前门"}[to], "x": W - 110, "y": y + 60})
     mine = [it for it in items if it["id"] == "car_mine"][0]["rect"]
     mine_x = mine[2] + 22                         # 自己车的东边（司机下车那边）
     mine_y = (mine[1] + mine[3]) // 2
