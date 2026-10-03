@@ -1,6 +1,6 @@
 extends SceneTree
 ## 门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；01 F 派）
-## 1 后厅三间门口各一块：化妆间、休息间、麻将室；挂在门洞东边的墙上，不压门洞；不挡路（不加挡人的占地，走廊照样走得通）；
+## 1 后厅四个门口各一块：化妆间、休息间、麻将室、后厨（厨房也算「每个房间」，01 F）；挂在门洞东边的墙上，不压门洞；不挡路（不加挡人的占地，走廊照样走得通）；
 ##   按墙脚那条线排前后：走廊里的人画在牌子前面；字比世界里的字大一号
 ## 2 宴会厅东侧门（通后厅）一块「后厅」：在门那个点上方，不压门那个点；不挡路
 ## 用法：Godot --headless --path . --script res://tools/test_room_signs.gd ；最后一行 RESULT PASS 才算过
@@ -38,10 +38,10 @@ func run() -> void:
         await process_frame
     m.ensure_canvas("backhall")
     var b = m.backhall
-    print("1 后厅三间")
+    print("1 后厅四个门口")
     var texts: Array = b.room_signs.map(func(s): return (s.get_child(0) as Label).text)
-    check("三块牌子：%s" % [texts], texts == ["化妆间", "休息间", "麻将室"])
-    var doors := {"化妆间": [128.0, 208.0], "休息间": [464.0, 544.0], "麻将室": [800.0, 880.0]}
+    check("四块牌子：%s" % [texts], texts == ["化妆间", "休息间", "麻将室", "后厨"])
+    var doors := {"化妆间": [128.0, 208.0], "休息间": [464.0, 544.0], "麻将室": [800.0, 880.0], "后厨": [1136.0, 1216.0]}
     for s in b.room_signs:
         var l: Label = s.get_child(0)
         var box := sign_box(s)
