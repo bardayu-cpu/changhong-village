@@ -14,6 +14,7 @@ var gate_hint := false
 var car_hint := false
 var guide_arrow: Polygon2D
 var FROM_COURT := Vector2.ZERO
+var FROM_LAKE := Vector2.ZERO      # 从湖边西头月亮门出来站在哪（10/3 湖边改长湖岸）
 
 func _init() -> void:
     layout_path = "res://assets/layered/scene_luoman_parking/layout.json"
@@ -21,6 +22,8 @@ func _init() -> void:
 func build(preset: int, nickname: String, f: Font) -> void:
     super(preset, nickname, f)
     FROM_COURT = Vector2(cfg["from_court"][0], cfg["from_court"][1])
+    if cfg.has("from_lake"):
+        FROM_LAKE = Vector2(cfg["from_lake"][0], cfg["from_lake"][1])
     guide_arrow = edge_arrow()
     guide_arrow.name = "guide_arrow"
     add_child(guide_arrow)

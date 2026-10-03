@@ -31,6 +31,8 @@ LOT_X0 = 100                 # 车位从这往东排
 STALL_W, STALL_D = 120, 160  # 一个车位 2.5 米 × 5 米
 ROWS = [(290, "A"), (578, "B"), (866, "C")]   # 每排车位的北边 y（排深 160，排间车道 128 = 4 米：收窄一点，从自己车旁第一屏才看得到整座门楼）
 SHOP = [52, 270, 300, 330]   # 小卖部留的地方（地上画一块，不挡人；下一件再做）
+LAKE_WALL = (VERGE[1], VERGE[1] + 12)   # 路东草边外一道白墙（湖边园子的西墙，10/3 湖边改长湖岸）
+LAKE_GATE = (600, 680)       # 白墙上的月亮门洞（前后），出去是湖边西头
 
 # 车：(名字, 车长 m, 车宽 m, 车高 m, 车顶色, 车身色)。竖着停（车长沿前后、车宽沿左右）
 CARS = {
@@ -112,10 +114,20 @@ def main():
             it["inst"] = it["part"] + "-%02d" % (sum(1 for x in items if x.get("part") == it["part"]) + 1)
             items.append(it)
     # ---- 湖边几棵柳树（树脚在草边上，树冠伸到湖上；不挡路）
-    for k, y in enumerate([470, 760, 1050]):
-        items.append({"type": "tree", "id": "willow_%d" % k, "x": VERGE[1] + 30, "y": y, "droop": True, "trunk": "#7a5c3a",
+    for k, y in enumerate([470, 860, 1050]):
+        items.append({"type": "tree", "id": "willow_%d" % k, "x": LAKE_WALL[1] + 60, "y": y, "droop": True, "trunk": "#7a5c3a",
                       "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}, "part": "PK-P08",
                       "inst": "PK-P08-%02d" % (k + 1)})
+    # ---- 去湖边：路东草边外一道白墙（灰瓦顶，1.5 米），墙上一个月亮门洞，两根门柱标出来；出去就是湖边西头（玩家说明之后阿鱼 10/3 加：从停车场也能走进湖边）
+    wall = dict(top="#5a5f68", front="#f2efe6", part="PK-W03")
+    items.append(box("lake_wall_n", [LAKE_WALL[0], GATE_Y[1], LAKE_WALL[1], LAKE_GATE[0]], 72, **wall,
+                     scale={"h_m": 1.5, "name": "湖边园子白墙"}, inst="PK-W03-01"))
+    items.append(box("lake_wall_s", [LAKE_WALL[0], LAKE_GATE[1], LAKE_WALL[1], H], 72, **wall, inst="PK-W03-02"))
+    for k, (y0, y1) in enumerate([(LAKE_GATE[0] - 8, LAKE_GATE[0]), (LAKE_GATE[1], LAKE_GATE[1] + 8)]):
+        items.append(box("lake_gate_post_%d" % k, [LAKE_WALL[0] - 2, y0, LAKE_WALL[1] + 2, y1], 104, "#f2efe6", "#d8d4c8",
+                         part="PK-W04", inst="PK-W04-01", **({"scale": {"h_m": 2.2, "name": "月亮门门柱"}} if k == 0 else {})))
+    flat.append({"type": "rect", "rect": [VERGE[0], LAKE_GATE[0], LAKE_WALL[1] + 30, LAKE_GATE[1]], "color": "#c9c2b0"})   # 门洞那条石板
+    flat.append({"type": "label", "text": "去湖边", "x": VERGE[0] + 20, "y": LAKE_GATE[1] + 22})   # 门洞南边草边上，不压从湖边出来站的人
     mine = [it for it in items if it["id"] == "car_mine"][0]["rect"]
     mine_x = mine[2] + 22                         # 自己车的东边（司机下车那边）
     mine_y = (mine[1] + mine[3]) // 2
@@ -127,18 +139,22 @@ def main():
                 "全部代码画的占位：车是色块（照 ASSETS §15 按真车尺寸），门楼、气球拱门、湖都是色块，以后照阿鱼挑好的摆法画图。"
                 "spawn 是从自己的车上下来站的地方（开头：开屏、选形象以后，没进过迎宾院的从这里出生）；"
                 "to_court 是门楼门洞，走进去到迎宾院（迎宾院南边的大门 gate 走出来回到这里，站 from_court）；"
-                "my_car 是自己的车旁边：吃完席（大门开了）出来走到这，接结束那两句。湖只露一条当风景，不能走；小卖部先留 shop_reserved 那块，不做",
+                "my_car 是自己的车旁边：吃完席（大门开了）出来走到这，接结束那两句。湖只露一条当风景，不能走；小卖部先留 shop_reserved 那块，不做。"
+                "10/3 湖边改长湖岸：路东草边外一道白墙，墙上月亮门洞 to_lake 出去是湖边西头（湖边西头月亮门回来站 from_lake）",
         "size": [W, H],
         "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
         "spawn": [mine_x, mine_y],
         "from_court": [(GATE_OPEN[0] + GATE_OPEN[1]) // 2, GATE_Y[1] + 120],
+        "from_lake": [VERGE[0] - 30, (LAKE_GATE[0] + LAKE_GATE[1]) // 2],
         "points": [
             {"id": "to_court", "x": (GATE_OPEN[0] + GATE_OPEN[1]) // 2, "y": GATE_Y[1] + 18, "r": 40},
             {"id": "my_car", "x": mine_x, "y": mine_y, "r": 46},
+            {"id": "to_lake", "x": LAKE_WALL[1] + 10, "y": (LAKE_GATE[0] + LAKE_GATE[1]) // 2, "r": 30},
         ],
         "shop_reserved": {"rect": SHOP, "note": "玩家说明第 5 节小卖部，下一件再做；先在地上留这块，不挡人"},
         "walk": [[[40, GATE_Y[1] + 4], [VERGE[1], GATE_Y[1] + 4], [VERGE[1], H - 8], [40, H - 8]],
-                 [[GATE_OPEN[0] + 4, GATE_Y[1] - 20], [GATE_OPEN[1] - 4, GATE_Y[1] - 20], [GATE_OPEN[1] - 4, GATE_Y[1] + 10], [GATE_OPEN[0] + 4, GATE_Y[1] + 10]]],
+                 [[GATE_OPEN[0] + 4, GATE_Y[1] - 20], [GATE_OPEN[1] - 4, GATE_Y[1] - 20], [GATE_OPEN[1] - 4, GATE_Y[1] + 10], [GATE_OPEN[0] + 4, GATE_Y[1] + 10]],
+                 [[VERGE[1] - 4, LAKE_GATE[0] + 4], [LAKE_WALL[1] + 28, LAKE_GATE[0] + 4], [LAKE_WALL[1] + 28, LAKE_GATE[1] - 4], [VERGE[1] - 4, LAKE_GATE[1] - 4]]],
         "flat": flat,
         "items": items,
         "signs": signs,

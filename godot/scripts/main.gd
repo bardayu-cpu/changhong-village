@@ -36,7 +36,7 @@ const Lake = preload("res://scripts/lake.gd")
 const LakeUI = preload("res://scripts/lake_ui.gd")
 ## 蓝图 1 写迎宾院 → 湖边站 (1490, 700)，离湖边东口 (1500, 700, 50) 只有 10 像素；照 01 的规矩往里挪到离出口 60 像素。
 ## 9/20 湖边加高到 1280、玩法区整体 +256（01 派任务 11），所以这里也 +256
-const LAKE_FROM_COURT := Vector2(1440, 956)
+const LAKE_FROM_COURT := Vector2(2304, 1140)   # 10/3 长湖岸：从迎宾院西小径过来，进东头月亮门站在门里边（布局 spawn）
 const COURT_FROM_LAKE := Vector2(100, 520)       # 蓝图 1：湖边东口 → 迎宾院 (100, 520)，离西小径 60 像素
 ## 果园（蓝图 3.6，灰盒，01 9/20 派任务 10）：草坪北口通这里，果园南口回草坪
 const Orchard = preload("res://scripts/orchard.gd")
@@ -1651,7 +1651,8 @@ func _switch_canvas(to: String) -> void:
         _goto("lawn")
     elif to == "lake":
         _show_canvas("lake")
-        lake.reset_to(LAKE_FROM_COURT)
+        # 从停车场过来走西头月亮门（10/3 长湖岸），从迎宾院过来走东头月亮门
+        lake.reset_to(lake.FROM_PARKING if from == "parking" and lake.FROM_PARKING != Vector2.ZERO else LAKE_FROM_COURT)
         _goto("lake")
     elif to == "orchard":
         _show_canvas("orchard")
@@ -1661,7 +1662,7 @@ func _switch_canvas(to: String) -> void:
     elif to == "parking":
         # 出山庄大门回停车场（玩家说明第 6 节）：吃完席（大门开了）出来，金箭头指自己的车
         _show_canvas("parking")
-        parking.reset_to(parking.FROM_COURT)
+        parking.reset_to(parking.FROM_LAKE if from == "lake" and parking.FROM_LAKE != Vector2.ZERO else parking.FROM_COURT)
         parking.gate_hint = false
         parking.car_hint = court_save.gate_open()
         _goto("parking")
@@ -1790,6 +1791,9 @@ func _on_parking_spot(id: String, inside: bool) -> void:
         "to_court":
             if inside:
                 _switch_canvas("court")
+        "to_lake":
+            if inside:
+                _switch_canvas("lake")   # 白墙月亮门进湖边西头（10/3 湖边改长湖岸）
         "my_car":
             if inside and parking.car_hint:
                 parking.car_hint = false
@@ -1806,6 +1810,8 @@ func _on_lake_spot(id: String, inside: bool) -> void:
     lake_ui.spot(id, inside)
     if id == "to_entrance" and inside:
         _switch_canvas("court")
+    elif id == "to_parking" and inside:
+        _switch_canvas("parking")   # 西头月亮门出去，几步进停车场（10/3 长湖岸）
 
 ## 喜多把球放回脚边（蓝图 3.4 用户故事：踢一脚 → 球滚出去 → 喜多叼回来放脚边 → 旁边小孩喊「再踢一个」）。
 ## 01 9/20 定：踢完球那一次才喊，每回到草坪喊一次；不按人站在哪判断（草坪就这么大，在哪踢都听得见）
@@ -3896,7 +3902,7 @@ func _setup_shot(shot: String) -> void:
                     if note_box.visible:
                         break
             await get_tree().process_frame
-        "parking", "parking_overview", "parking_cars", "parking_gate":
+        "parking", "parking_overview", "parking_cars", "parking_gate", "parking_lakegate":
             # 停车场和大门灰盒（01 F 10/3）：parking 是选完形象从自己车上下来的第一屏（金箭头指大门）；
             # cars 站在车道上看靠路那两列车（四辆点名的车）；gate 走到门楼跟前看门楼、气球拱门、「罗曼山庄」牌子
             nickname = "阿花"
@@ -3907,15 +3913,18 @@ func _setup_shot(shot: String) -> void:
             await _enter_parking()
             dialog.visible = false
             note_box.visible = false
-            var pat := {"parking_cars": Vector2(520, 514), "parking_gate": Vector2(690, 440)}   # cars 站在第一、二排之间的车道上，四辆都在屏里
+            var pat := {"parking_cars": Vector2(520, 514), "parking_gate": Vector2(690, 440),   # cars 站在第一、二排之间的车道上，四辆都在屏里
+                "parking_lakegate": parking.FROM_LAKE}   # lakegate 站在路东白墙月亮门前（去湖边，10/3 长湖岸）
             if pat.has(shot):
                 parking.reset_to(pat[shot])
-                parking.face = "left" if shot == "parking_cars" else "up"
+                parking.face = {"parking_cars": "left", "parking_lakegate": "right"}.get(shot, "up")
+                if shot == "parking_lakegate":
+                    parking.gate_hint = false   # 这张只看去湖边那道门，指大门的箭头不出
             for i in 30:
                 await get_tree().process_frame
-        "lake", "lake_overview", "lake_pavilion", "lake_bench", "lake_walk":
-            # 湖边灰盒（蓝图 3.5，01 9/20 派任务 9）：lake 是从迎宾院西小径刚过来；pavilion 是站进亭子（自动出那句）；
-            # bench 是坐在长凳上（按钮变「起来」）；walk 是站在栈道中间；overview 整张（横屏 RES=1536x1024）
+        "lake", "lake_overview", "lake_pavilion", "lake_bench", "lake_walk", "lake_west":
+            # 湖边灰盒（蓝图 3.5，01 9/20 派任务 9；10/3 长湖岸）：lake 是从迎宾院西小径刚过来（东头月亮门进门第一屏）；pavilion 是站进湖心亭（自动出那句）；
+            # bench 是坐在长凳上（按钮变「起来」）；walk 是站在曲桥上；west 是走到西头湖尽头（半岛小亭、游船码头）；overview 整张
             nickname = "阿花"
             await _enter_court()
             dialog.visible = false
@@ -3926,7 +3935,8 @@ func _setup_shot(shot: String) -> void:
                     break
             note_box.visible = false
             _clear_toast_back()
-            var lat := {"lake_pavilion": lake.spot_pos("pavilion"), "lake_bench": Vector2(400, 750), "lake_walk": Vector2(768, 470)}
+            var lat := {"lake_pavilion": lake.spot_pos("pavilion"), "lake_bench": lake.spot_pos("bench"), "lake_walk": Vector2(2304, 700),
+                "lake_west": Vector2(600, 900)}
             if lat.has(shot):
                 lake.reset_to(lat[shot] + (Vector2(0, 80) if shot != "lake_bench" else Vector2(0, 0)))
                 lake.face = "up"
@@ -3945,14 +3955,15 @@ func _setup_shot(shot: String) -> void:
                 hud.visible = false
                 dialog.visible = false
                 lake_ui.hide_all()
-                lake.reset_to(Vector2(768, 620))
+                var lsz := Vector2(float(lake.cfg["size"][0]), float(lake.cfg["size"][1]))   # 10/3 起 3072×1280
+                lake.reset_to(Vector2(lsz.x * 0.5, 620))
                 lake.walking_enabled = false
                 lake.set_process(false)
                 var vk := get_viewport().get_visible_rect().size
-                var zk := minf(vk.x / 1536.0, vk.y / 1280.0)
+                var zk := minf(vk.x / lsz.x, vk.y / lsz.y)
                 lake.cam.zoom = Vector2(zk, zk)
                 lake.cam.limit_right = 100000
-                lake.cam.position = Vector2(768, 640)
+                lake.cam.position = lsz * 0.5
                 lake.cam.reset_smoothing()
             await get_tree().process_frame
         "orchard", "orchard_overview", "orchard_pick", "orchard_grow", "orchard_sell", "orchard_sold", "orchard_north", "orchard_path", "orchard_back":
