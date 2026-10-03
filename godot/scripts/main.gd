@@ -19,6 +19,7 @@ const Backhall = preload("res://scripts/backhall.gd")
 ## GPT 在自己那份副本里做新后厅，做好以后换这一行（或者新场景直接写进 backhall.gd）
 const BACKHALL_START := "res://scripts/backhall_start.gd"
 const BackhallUI = preload("res://scripts/backhall_ui.gd")
+const LoungeUI = preload("res://scripts/lounge_ui.gd")
 ## 蓝图 1 出入口表写宴会厅 → 后厅站 (50, 780)，离后厅西口 (40, 780, 50) 只有 10 像素、站在出口圈里；
 ## 01 9/19 定：到了站的点离出口至少 1 米，沿出口方向往里挪，所以是 (100, 780)
 const BACKHALL_FROM_HALL := Vector2(100, 780)
@@ -51,6 +52,7 @@ const BACKHALL_FROM_LAWN := Vector2(1440, 780)   # 蓝图 1：草坪西北口 �
 var court
 var backhall
 var backhall_ui: Control        # 后厅四个房间的按钮（backhall_ui.gd）
+var lounge_ui: Control          # 休息间：坐下、聊聊、对话框、身份卡（lounge_ui.gd，10/4 人物新做法样板）
 var lawn
 var lawn_ui: Control            # 草坪的「踢一脚」（lawn_ui.gd）
 var lake
@@ -349,6 +351,9 @@ func _ready() -> void:
     backhall_ui = BackhallUI.new()
     ui.add_child(backhall_ui)
     backhall_ui.setup(self)
+    lounge_ui = LoungeUI.new()
+    ui.add_child(lounge_ui)
+    lounge_ui.setup(self)
     lawn_ui = LawnUI.new()
     ui.add_child(lawn_ui)
     lawn_ui.setup(self)
@@ -594,6 +599,9 @@ func _process(dt: float) -> void:
             cloud.call_fn("hallPulse", {"since": pulse_since}, _on_pulse)
     if state == "banquet" and banquet_ui != null:
         banquet_ui.sync()   # 左上角「席面菜单」那块牌子：别的面板开着时让开
+    if state == "backhall" and lounge_ui != null and backhall.get("lounge") != null:
+        lounge_ui.attach(backhall.lounge)
+        lounge_ui.sync()   # 走到空座位、NPC 跟前出按钮；人自己站起来按钮跟着变
     if state == "lake" and lake_ui != null:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
@@ -1470,6 +1478,8 @@ func _goto(s: String) -> void:
         backhall.walking_enabled = (s == "backhall")
     if backhall_ui != null and s != "backhall":
         backhall_ui.hide_all()
+    if lounge_ui != null and s != "backhall":
+        lounge_ui.hide_all()
     if lawn != null:
         lawn.walking_enabled = (s == "lawn")
     if lawn_ui != null and s != "lawn":
@@ -3751,6 +3761,32 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
+        "lounge_chat", "lounge_sit", "lounge_talk", "lounge_card":
+            # 休息间人物样板（01 F 10/4）：chat 是四位在冒泡（两组各冒一句，停住不轮换）；sit 是玩家坐在北边沙发中间、奶奶爷爷两边；
+            # talk 是坐着跟奶奶说话弹的对话框；card 是对话框上点「身份卡」
+            await _setup_shot("backhall")
+            var life = backhall.lounge
+            var sofa_m: Dictionary = life.seat_by_id("sofa_m")
+            if shot == "lounge_chat":
+                backhall.reset_to(Vector2(504, 470))
+                backhall.face = "up"
+            else:
+                backhall.reset_to(sofa_m["stand"])
+                life.sit(sofa_m)
+            for i in 30: await get_tree().process_frame
+            life.frozen = true
+            for id in life.bubbles.keys():
+                life._hide_bubble(id)
+            if shot in ["lounge_chat", "lounge_sit"]:
+                life.show_bubble("lounge_10", str(life.data["chat"][0]["lines"][1][1]))
+                life.show_bubble("lounge_05", str(life.data["chat"][1]["lines"][0][1]))
+            if shot in ["lounge_talk", "lounge_card"]:
+                lounge_ui.attach(life)
+                life.request_talk("lounge_09")
+                for i in 5: await get_tree().process_frame
+                if shot == "lounge_card":
+                    lounge_ui.open_card("lounge_09")
+            for i in 20: await get_tree().process_frame
         "kitchen_play", "kitchen_play_lv4", "kitchen_result_win", "kitchen_result_lose", "k04_start", "k04_picked", "k04_added1":
             # 厨房截图（01 D 10/1，给 04 看炒菜那屏和结算卡）：先照 backhall_pot 走到大锅、点开厨房，再用厨房面板自己的开局、
             # 加料、计时摆出那一屏，不改厨房代码。play 是第 1 关一口锅正在煮；play_lv4 是第 4 关三口锅（一锅好了、一锅在煮、
@@ -4134,6 +4170,7 @@ func _open_kitchen() -> void:
     backhall.walking_enabled = false
     backhall.stick = Vector2.ZERO
     backhall_ui.hide_all()
+    lounge_ui.hide_all()
     game_host = load("res://scripts/kitchen/kitchen_panel.gd").new()
     ui.add_child(game_host)
     game_host.closed.connect(func():

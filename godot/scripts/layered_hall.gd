@@ -838,9 +838,9 @@ func _process(dt: float) -> void:
             player.hframes = 1
             player.region_enabled = true
         player.region_rect = Rect2(float(fl["idle"]) * fw, 0.0, fw, keep)
-        player.offset = Vector2(0.0, -keep * 0.5 - frame_h * SIT_LIFT)
+        player.offset = Vector2(0.0, -keep * 0.5 - frame_h * SIT_LIFT - seat_lift * frame_h / _px_h(pos.y))
         player.z_index = 1 if seat_front else 0
-        tag_anchor.position = pos - Vector2(0, _px_h(pos.y) * (SIT_KEEP + SIT_LIFT) + 2.0)
+        tag_anchor.position = pos - Vector2(0, _px_h(pos.y) * (SIT_KEEP + SIT_LIFT) + seat_lift + 2.0)
     else:
         if player.region_enabled:
             player.region_enabled = false
@@ -889,7 +889,7 @@ func _process(dt: float) -> void:
         me_ring.modulate.a *= 0.6   # 比出口那圈淡：只是让人一眼找到自己，不是「往这儿来」
     if me_mark != null:
         me_mark.visible = me_marks and player.visible
-        var head := _px_h(pos.y) * (SIT_KEEP if seated else 1.0)
+        var head := _px_h(pos.y) * (SIT_KEEP if seated else 1.0) + (seat_lift if seated else 0.0)
         me_mark.position = pos + Vector2(0, -head - 12.0 + sin(t * 2.5) * 3.0)   # 头顶上方一点，上下浮 3 像素
     if couple_armed and pos.distance_to(COUPLE_SPOT) < couple_r:
         couple_armed = false
@@ -1027,6 +1027,7 @@ var sit_from := Vector2.ZERO     # 坐下那一下从哪滑过来
 var sit_seat := Vector2.ZERO     # 滑到哪（椅位）
 var sit_t := SIT_ANIM            # 滑了多久；等于 SIT_ANIM 表示没在滑
 var seat_front := false          # 自己坐的椅子在桌子两边或前面：画在桌子前面（seat_in_front）
+var seat_lift := 0.0             # 坐着时上半身往上抬多少画布像素：排前后用 pos（家具着地线 +1），画在椅面上（休息间座位，10/4）
 
 ## 椅子在画布上的位置：绕桌子占地一圈，1 号在正后方（靠里），顺时针
 ## 这张桌几把椅子：普通桌 10 把；55 桌厅的主桌大一号 13 把（scene.json 的 seats，阿鱼 9/29）
@@ -1464,6 +1465,7 @@ func stand_up() -> void:
         return
     seated = false
     sit_t = SIT_ANIM   # 正在往椅子上滑也立刻停
+    seat_lift = 0.0
     if seat_stand_spot != Vector2.ZERO and _free(seat_stand_spot):
         pos = seat_stand_spot
 

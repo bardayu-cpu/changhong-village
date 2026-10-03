@@ -1,0 +1,71 @@
+{
+ "note": "休息间的人（docs/人物新做法-休息间样板-v0.1.md 第 2、4 节，01 F 10/4）：改文案只改这份。status 是「待校对」的话都是 02 拟的草稿，阿鱼在文案组校过再换、把 status 改成「定了」。people 里每位：title 是名字牌和身份卡上的称呼；relation 是身份卡上跟阿鱼什么关系（空的只写称呼，待讨论）；talk 是点他说话时一句句的话，pose 是这句用哪张人物图（front 正面、side 侧身、smile 笑、surprise 惊讶、talk 说话、sit 坐着；GPT 人物图到之前都拿现在的小图顶着）。chat 是头顶冒泡：一组几个人轮流说，几个字一句",
+ "status": "待校对",
+ "buttons": {"sit": "坐下", "stand": "起来", "talk": "跟%s聊聊", "card": "身份卡", "close": "关上", "next": "点一下继续"},
+ "people": {
+  "lounge_09": {
+   "code": "LM-GUEST-09",
+   "title": "奶奶",
+   "relation": "",
+   "talk": [
+    {"pose": "smile", "text": "哎呀，你来啦"},
+    {"pose": "talk", "text": "坐嘛，这沙发软和得很"},
+    {"pose": "front", "text": "喝口茶，歇一下再去吃席"}
+   ]
+  },
+  "lounge_10": {
+   "code": "LM-GUEST-10",
+   "title": "爷爷",
+   "relation": "",
+   "talk": [
+    {"pose": "front", "text": "年轻人，哪边过来的？"},
+    {"pose": "smile", "text": "今天日子好，大家都高兴"},
+    {"pose": "talk", "text": "一会儿记到多吃点"}
+   ]
+  },
+  "lounge_05": {
+   "code": "LM-GUEST-05",
+   "title": "叔叔",
+   "relation": "",
+   "talk": [
+    {"pose": "talk", "text": "你也来躲一下清静？"},
+    {"pose": "surprise", "text": "外头五十五桌，人多得很！"},
+    {"pose": "smile", "text": "等开席了一起过去"}
+   ]
+  },
+  "lounge_06": {
+   "code": "LM-GUEST-06",
+   "title": "阿姨",
+   "relation": "",
+   "talk": [
+    {"pose": "smile", "text": "你好呀"},
+    {"pose": "talk", "text": "这间屋子布置得好舒服"},
+    {"pose": "side", "text": "那边还有唱片机，去听听嘛"}
+   ]
+  }
+ },
+ "chat": [
+  {
+   "group": "sofa",
+   "lines": [
+    ["lounge_09", "这茶好香哦"],
+    ["lounge_10", "新郎官精神"],
+    ["lounge_09", "新娘子也乖"],
+    ["lounge_10", "一会儿多吃两碗"],
+    ["lounge_09", "少喝点酒哈"],
+    ["lounge_10", "晓得晓得"]
+   ]
+  },
+  {
+   "group": "tea",
+   "lines": [
+    ["lounge_05", "好多人啊"],
+    ["lounge_06", "五十五桌，热闹"],
+    ["lounge_05", "跷脚牛肉上了没"],
+    ["lounge_06", "还没开席嘛"],
+    ["lounge_05", "我先去看看"],
+    ["lounge_06", "坐到起，莫乱跑"]
+   ]
+  }
+ ]
+}

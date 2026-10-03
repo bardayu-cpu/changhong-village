@@ -209,13 +209,33 @@
   {"id": "bride", "who": "新娘（坐在中间化妆台前，背对镜头；替身）", "x": 168, "y": 269, "face": "up", "sit": true, "lm": "LM-BRIDE-01", "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": 252}},
   {"id": "makeup_1", "who": "化妆师", "x": 194, "y": 273, "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01", "standin": {"code": "LM-GUEST-03", "frame": 4}},
   {"id": "makeup_2", "who": "化妆师", "x": 212, "y": 552, "face": "right", "look": "makeup_2", "lm": "LM-MAKEUP-02", "standin": {"code": "LM-GUEST-06", "frame": 8}},
-  {"id": "tea_elder_1", "who": "喝茶的长辈", "x": 546, "y": 270, "face": "down", "look": "elder_w", "sit": true, "lm": "LM-ELDER-07"},
-  {"id": "tea_elder_2", "who": "喝茶的长辈", "x": 588, "y": 270, "face": "down", "look": "elder_s", "sit": true, "lm": "LM-ELDER-08"},
-  {"id": "cook", "who": "厨师", "x": 1350, "y": 340, "face": "left"}
+  {"id": "cook", "who": "厨师", "x": 1350, "y": 340, "face": "left"},
+  {"id": "lounge_09", "who": "奶奶（休息间人物样板，01 F 10/4；代码小人到之前先拿 GPT 宾客图顶着）", "x": 536, "y": 269, "face": "down", "sit": true, "lounge": true, "standin": {"code": "LM-GUEST-09", "frame": 0, "rows": 48, "bottom": 252}},
+  {"id": "lounge_10", "who": "爷爷（休息间人物样板，01 F 10/4；代码小人到之前先拿 GPT 宾客图顶着）", "x": 597, "y": 269, "face": "down", "sit": true, "lounge": true, "standin": {"code": "LM-GUEST-10", "frame": 0, "rows": 48, "bottom": 252}},
+  {"id": "lounge_05", "who": "叔叔（休息间人物样板，01 F 10/4；代码小人到之前先拿 GPT 宾客图顶着）", "x": 404, "y": 415, "face": "right", "sit": true, "lounge": true, "standin": {"code": "LM-GUEST-05", "frame": 8, "rows": 47, "bottom": 400}},
+  {"id": "lounge_06", "who": "阿姨（休息间人物样板，01 F 10/4；代码小人到之前先拿 GPT 宾客图顶着）", "x": 462, "y": 415, "face": "left", "sit": true, "lounge": true, "standin": {"code": "LM-GUEST-06", "frame": 4, "rows": 47, "bottom": 400}}
  ],
  "signs": [{"text": "化妆间", "x": 262, "y": 695, "foot": 697}, {"text": "休息间", "x": 598, "y": 695, "foot": 697}, {"text": "麻将室", "x": 934, "y": 695, "foot": 697}, {"text": "后厨", "x": 1258, "y": 695, "foot": 697}],
  "signs_note": "门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；厨房也挂，01 F）：x,y 是匾的下沿正中，挂在门洞东边的前沿矮墙上（不压门洞），foot 是排前后的线（墙脚 696 再往前一点，走廊里的人在牌子前面）。画法见 layered_hall.gd room_sign",
  "stand_points": [{"id": "stand_record", "name": "唱片机前（听唱片）", "x": 424, "y": 312, "r": 16}, {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 616, "y": 476, "r": 14}],
  "stand_points_note": "以后玩法要站人的地方（休息间第三版，10/3）：只记点，代码不读、没有玩法；要做先写玩家说明给阿鱼点头",
- "pixel_art": ["res://assets/pixel_art/backhall_makeup/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong/room.json"]
+ "pixel_art": ["res://assets/pixel_art/backhall_makeup/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong/room.json"],
+ "seats": [
+  {"id": "sofa_l", "x": 536, "y": 269, "seat_y": 252, "face": "down", "npc": "lounge_09"},
+  {"id": "sofa_m", "x": 566, "y": 269, "seat_y": 252, "face": "down"},
+  {"id": "sofa_r", "x": 597, "y": 269, "seat_y": 252, "face": "down", "npc": "lounge_10"},
+  {"id": "armchair_w", "x": 506, "y": 321, "seat_y": 302, "face": "right"},
+  {"id": "armchair_e", "x": 624, "y": 321, "seat_y": 302, "face": "left"},
+  {"id": "west_chair_w", "x": 404, "y": 415, "seat_y": 400, "face": "right", "npc": "lounge_05"},
+  {"id": "west_chair_e", "x": 462, "y": 415, "seat_y": 400, "face": "left", "npc": "lounge_06"},
+  {"id": "tv_sofa_n", "x": 570, "y": 459, "seat_y": 405, "face": "right"},
+  {"id": "tv_sofa_s", "x": 570, "y": 460, "seat_y": 440, "face": "right"},
+  {"id": "reading_sofa_n", "x": 364, "y": 589, "seat_y": 540, "face": "right"},
+  {"id": "reading_sofa_s", "x": 364, "y": 590, "seat_y": 575, "face": "right"},
+  {"id": "reading_chair", "x": 440, "y": 557, "seat_y": 548, "face": "left"},
+  {"id": "se_chair", "x": 587, "y": 581, "seat_y": 570, "face": "right"},
+  {"id": "loveseat_n", "x": 645, "y": 593, "seat_y": 556, "face": "left"},
+  {"id": "loveseat_s", "x": 645, "y": 594, "seat_y": 582, "face": "left"}
+ ],
+ "seats_note": "休息间每个座位都能坐（人物新做法-休息间样板 v0.1 第 3 节，01 F 10/4）：x、y 是坐着的人排前后用的点（家具图着地线 +1，坐着的人画在自己那件家具前面），seat_y 是椅面（上半身下沿画在这），face 坐下朝哪；npc 是谁占着（玩家不能坐）。起来站哪开场照能走的格子现找（座位朝向那边最近的空地）。scripts/lounge_life.gd 读"
 }
