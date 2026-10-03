@@ -5,7 +5,7 @@ extends SceneTree
 ## 3 硬边、这块画布 ≤ 64 色
 ## 4 手机竖屏 540×960 下镜头 1 倍
 ## 5 收购处那行名字挪到布篷上的空招牌（游戏里不显示，图上不叠字）；摊子、垄、树的框照画出来的（art_box）
-## 6 路口指草莓垄的金箭头（04 体验回执可以先带着第 3 条，01 F 10/3）：没收过草莓，从草坪进来第一屏就看得见、朝西指向垄沟、
+## 6 路口指草莓垄的金箭头（04 体验回执可以先带着第 3 条，01 F 10/3）：没收过草莓，从草坪进来第一屏就看得见、指向垄沟（方案 C 起朝东）、
 ##   不压「点地面走路」那块、不压摊子、没有字；收过一次草莓就不出了，出去再进来也不出
 ## 用法：Godot --headless --path . --script res://tools/test_pixel_orchard.gd ；最后一行 RESULT PASS 才算过
 
@@ -127,13 +127,14 @@ func run() -> void:
     print("5 收购处的名字、框")
     var stall: Dictionary = (o.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == "shop_stall")[0]
     var at := Vector2((float(stall["rect"][0]) + float(stall["rect"][2])) * 0.5, float(stall["rect"][3]) + float(stall["label"]["dy"]))
-    check("「山庄收购处」挪到空招牌上（%s，招牌 x 948～1012、y 902～920）" % at, Rect2(948, 902, 64, 18).has_point(at))
+    # 10/4 方案 C：摊子跟着枇杷园挪到西边（参照点 980 → 556，往西 424），招牌 x 948～1012 → 524～588
+    check("「山庄收购处」挪到空招牌上（%s，招牌 x 524～588、y 902～920）" % at, Rect2(524, 902, 64, 18).has_point(at))
     var lab_shown := false
     for l in o.labels.get_children():
         if l is Label and (l as Label).text == "山庄收购处":
             lab_shown = true
     check("游戏里不显示这行字（图上不叠字）", not lab_shown)
-    check("摊子的框照画出来的 179×188（%s）" % [stall.get("art_box")], (stall.get("art_box", []) as Array).map(func(v): return int(v)) == [889, 901, 1068, 1089])
+    check("摊子的框照画出来的 179×188（%s）" % [stall.get("art_box")], (stall.get("art_box", []) as Array).map(func(v): return int(v)) == [465, 901, 644, 1089])
     print("6 路口的金箭头")
     m.orchard_save.plots = {}
     m.orchard_save.basket = {}
@@ -153,7 +154,7 @@ func run() -> void:
     var ar: Polygon2D = o.get_node_or_null("guide_arrow")
     check("没收过草莓：箭头出来了", ar != null and ar.visible)
     if ar != null:
-        check("箭头朝西指着垄沟（转了 %.0f 度）" % rad_to_deg(ar.rotation), absf(absf(ar.rotation) - PI) < 0.05)
+        check("箭头朝东指着垄沟（方案 C 草莓地在东边；转了 %.0f 度）" % rad_to_deg(ar.rotation), absf(ar.rotation) < 0.05)
         check("箭头没有字（只有一个三角和描边）", ar.get_children().all(func(c): return not (c is Label)))
         var xf := ar.get_global_transform_with_canvas()
         var pts := PackedVector2Array()

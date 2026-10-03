@@ -72,9 +72,11 @@ var COUPLE_SPOT := Vector2.ZERO
 var couple_r := 70.0
 var door := Vector2.ZERO
 var door_r := 60.0
-## 东侧门通后厅（蓝图 3.2「东侧门 (1500, 600, 50) 通后厅」，9/19 任务 7 加进 scene.json 的 side_door）；scene.json 里没有就是 0，main 不管它
+## 侧门通后厅（蓝图 3.2「东侧门 (1500, 600, 50) 通后厅」，9/19 任务 7 加进 scene.json 的 side_door）；scene.json 里没有就是 0，main 不管它。
+## 10/4 方案 C（照阿鱼图只上下翻）：通后厅的改成西墙那道，画里那道东侧门改通后花园（写在 exits 里）。门在哪面墙，牌子、金光都往厅里挪
 var side_door := Vector2.ZERO
 var side_door_r := 0.0
+var side_arrive := Vector2.ZERO   # 从后厅回来站哪（scene.json 的 arrive；没写就是门往厅里 60 像素）
 ## 多开的门（10/4 连图：西门通后花园）：scene.json 的 points 里写了 to 的，{pos, r, to, arrive}；main 照这个切
 var exits: Array = []
 var font: Font
@@ -137,6 +139,8 @@ func build(preset: int, nickname: String, f: Font) -> void:
         elif p["id"] == "side_door":
             side_door = Vector2(p["x"], p["y"])
             side_door_r = float(p["r"])
+            var sa: Array = p.get("arrive", [])
+            side_arrive = Vector2(sa[0], sa[1]) if sa.size() == 2 else side_off(60.0, 0.0)
         elif p.has("to"):
             var ar: Array = p.get("arrive", [p["x"], p["y"]])
             exits.append({"id": str(p["id"]), "pos": Vector2(p["x"], p["y"]), "r": float(p["r"]), "to": str(p["to"]), "arrive": Vector2(ar[0], ar[1])})
@@ -150,14 +154,15 @@ func build(preset: int, nickname: String, f: Font) -> void:
     _player(preset, nickname)
     _exit_mark()
     if side_door != Vector2.ZERO:
-        room_sign("后厅", side_door + SIDE_DOOR_SIGN, side_door.y)
-    for e in exits:   # 多开的门也挂名字牌（10/4 西门「后花园」），西墙的门牌子往门里挪
+        room_sign("后厅", side_off(-SIDE_DOOR_SIGN.x, SIDE_DOOR_SIGN.y), side_door.y)
+    for e in exits:   # 多开的门也挂名字牌（10/4 方案 C 东门「后花园」），牌子往门里挪
         var lb := ""
         for p in cfg["points"]:
             if str(p["id"]) == str(e["id"]):
                 lb = str(p.get("label", ""))
         if lb != "":
-            room_sign(lb, (e["pos"] as Vector2) + Vector2(44, -34), (e["pos"] as Vector2).y)
+            var ep: Vector2 = e["pos"]
+            room_sign(lb, ep + Vector2(44.0 * _in_sign(ep), -34), ep.y)
     life = Life.new()
     life.name = "life"
     add_child(life)
@@ -438,7 +443,7 @@ func set_door_hint(on: bool) -> void:
         door_arrow = edge_arrow()
         add_child(door_arrow)
     if door_mark != null:
-        door_mark.position = side_door + Vector2(-20.0, -DOOR_MARK_UP)
+        door_mark.position = side_off(20.0, -DOOR_MARK_UP)
         door_mark.visible = door_hint
         door_arrow.visible = false
 
@@ -456,8 +461,16 @@ const ROOM_SIGN_FONT := 22
 const ROOM_SIGN_BG := Color("#a8281f")
 const ROOM_SIGN_TEXT := Color("#f7e09a")
 const ROOM_SIGN_EDGE := Color("#deb550")
-const SIDE_DOOR_SIGN := Vector2(-44, -34)   # 宴会厅东侧门：匾的下沿正中在门那个点左上一点（门板上方、贴着东墙；再往东手机上会被屏幕边切掉）
+const SIDE_DOOR_SIGN := Vector2(-44, -34)   # 宴会厅侧门：匾的下沿正中在门那个点往厅里 44、往上 34（贴着墙；再往外手机上会被屏幕边切掉）。x 是东墙的写法，西墙的门照 side_off 翻过来
 var room_signs: Array = []                   # 挂上的名字牌（测试、截图看）
+
+## 门往厅里是 +x（西墙的门）还是 -x（东墙的门）
+func _in_sign(p: Vector2) -> float:
+    return 1.0 if p.x < float(cfg["size"][0]) * 0.5 else -1.0
+
+## 侧门往厅里 dx、往下 dy 那个点（dx 正数 = 往厅里）
+func side_off(dx: float, dy: float) -> Vector2:
+    return side_door + Vector2(dx * _in_sign(side_door), dy)
 
 ## 挂一块名字牌：at = 匾的下沿正中，foot = 排前后的那条线（没给就是 at.y）。回那块牌子（Node2D，字在它下面的 Label 里）
 func room_sign(text: String, at: Vector2, foot := -1.0) -> Node2D:

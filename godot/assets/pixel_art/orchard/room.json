@@ -169,7 +169,7 @@
   {
    "id": "px_scarecrow",
    "png": "res://assets/pixel_art/orchard/props/scarecrow.png",
-   "x": 374,
+   "x": 1110,
    "y": 445,
    "foot": 530,
    "hide": [
@@ -182,7 +182,7 @@
   {
    "id": "px_basket_strawberry_field",
    "png": "res://assets/pixel_art/orchard/props/basket_strawberry_field.png",
-   "x": 647,
+   "x": 863,
    "y": 508,
    "foot": 532,
    "hide": [
@@ -192,7 +192,7 @@
   {
    "id": "px_basket_loquat_field",
    "png": "res://assets/pixel_art/orchard/props/basket_loquat_field.png",
-   "x": 1287,
+   "x": 223,
    "y": 535,
    "foot": 562,
    "hide": [
@@ -202,7 +202,7 @@
   {
    "id": "px_ridge_0_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_0_fruit.png",
-   "x": 99,
+   "x": 835,
    "y": 530,
    "foot": 572,
    "hide": [
@@ -214,7 +214,7 @@
   {
    "id": "px_ridge_0_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_0_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 530,
    "foot": 572,
    "hide": [
@@ -224,57 +224,9 @@
    "fruit": false
   },
   {
-   "id": "px_loquat_0_0_fruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_0_0_fruit.png",
-   "x": 806,
-   "y": 382,
-   "foot": 612,
-   "hide": [
-    "loquat_0_0"
-   ],
-   "plot": "loquat_0_0",
-   "fruit": true
-  },
-  {
-   "id": "px_loquat_0_0_nofruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_0_0_nofruit.png",
-   "x": 806,
-   "y": 382,
-   "foot": 612,
-   "hide": [
-    "loquat_0_0"
-   ],
-   "plot": "loquat_0_0",
-   "fruit": false
-  },
-  {
-   "id": "px_loquat_0_1_fruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_0_1_fruit.png",
-   "x": 1091,
-   "y": 386,
-   "foot": 612,
-   "hide": [
-    "loquat_0_1"
-   ],
-   "plot": "loquat_0_1",
-   "fruit": true
-  },
-  {
-   "id": "px_loquat_0_1_nofruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_0_1_nofruit.png",
-   "x": 1091,
-   "y": 386,
-   "foot": 612,
-   "hide": [
-    "loquat_0_1"
-   ],
-   "plot": "loquat_0_1",
-   "fruit": false
-  },
-  {
    "id": "px_loquat_0_2_fruit",
    "png": "res://assets/pixel_art/orchard/props/loquat_0_2_fruit.png",
-   "x": 1381,
+   "x": 41,
    "y": 378,
    "foot": 612,
    "hide": [
@@ -286,7 +238,7 @@
   {
    "id": "px_loquat_0_2_nofruit",
    "png": "res://assets/pixel_art/orchard/props/loquat_0_2_nofruit.png",
-   "x": 1381,
+   "x": 41,
    "y": 378,
    "foot": 612,
    "hide": [
@@ -296,9 +248,57 @@
    "fruit": false
   },
   {
+   "id": "px_loquat_0_1_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_1_fruit.png",
+   "x": 327,
+   "y": 386,
+   "foot": 612,
+   "hide": [
+    "loquat_0_1"
+   ],
+   "plot": "loquat_0_1",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_0_1_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_1_nofruit.png",
+   "x": 327,
+   "y": 386,
+   "foot": 612,
+   "hide": [
+    "loquat_0_1"
+   ],
+   "plot": "loquat_0_1",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_0_0_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_0_fruit.png",
+   "x": 618,
+   "y": 382,
+   "foot": 612,
+   "hide": [
+    "loquat_0_0"
+   ],
+   "plot": "loquat_0_0",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_0_0_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_0_nofruit.png",
+   "x": 618,
+   "y": 382,
+   "foot": 612,
+   "hide": [
+    "loquat_0_0"
+   ],
+   "plot": "loquat_0_0",
+   "fruit": false
+  },
+  {
    "id": "px_ridge_1_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_1_fruit.png",
-   "x": 99,
+   "x": 835,
    "y": 598,
    "foot": 640,
    "hide": [
@@ -310,7 +310,7 @@
   {
    "id": "px_ridge_1_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_1_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 598,
    "foot": 640,
    "hide": [
@@ -322,7 +322,7 @@
   {
    "id": "px_ridge_2_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_2_fruit.png",
-   "x": 99,
+   "x": 835,
    "y": 667,
    "foot": 708,
    "hide": [
@@ -334,7 +334,7 @@
   {
    "id": "px_ridge_2_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_2_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 667,
    "foot": 708,
    "hide": [
@@ -346,7 +346,7 @@
   {
    "id": "px_ridge_3_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_3_fruit.png",
-   "x": 97,
+   "x": 833,
    "y": 734,
    "foot": 776,
    "hide": [
@@ -358,7 +358,7 @@
   {
    "id": "px_ridge_3_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_3_nofruit.png",
-   "x": 97,
+   "x": 833,
    "y": 734,
    "foot": 776,
    "hide": [
@@ -370,7 +370,7 @@
   {
    "id": "px_ridge_4_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_4_fruit.png",
-   "x": 98,
+   "x": 834,
    "y": 803,
    "foot": 844,
    "hide": [
@@ -382,7 +382,7 @@
   {
    "id": "px_ridge_4_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_4_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 803,
    "foot": 844,
    "hide": [
@@ -394,7 +394,7 @@
   {
    "id": "px_ridge_5_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_5_fruit.png",
-   "x": 99,
+   "x": 835,
    "y": 871,
    "foot": 912,
    "hide": [
@@ -406,7 +406,7 @@
   {
    "id": "px_ridge_5_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_5_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 871,
    "foot": 912,
    "hide": [
@@ -418,7 +418,7 @@
   {
    "id": "px_ridge_6_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_6_fruit.png",
-   "x": 99,
+   "x": 835,
    "y": 939,
    "foot": 980,
    "hide": [
@@ -430,7 +430,7 @@
   {
    "id": "px_ridge_6_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_6_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 939,
    "foot": 980,
    "hide": [
@@ -440,57 +440,9 @@
    "fruit": false
   },
   {
-   "id": "px_loquat_1_0_fruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_1_0_fruit.png",
-   "x": 807,
-   "y": 822,
-   "foot": 1040,
-   "hide": [
-    "loquat_1_0"
-   ],
-   "plot": "loquat_1_0",
-   "fruit": true
-  },
-  {
-   "id": "px_loquat_1_0_nofruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_1_0_nofruit.png",
-   "x": 807,
-   "y": 822,
-   "foot": 1040,
-   "hide": [
-    "loquat_1_0"
-   ],
-   "plot": "loquat_1_0",
-   "fruit": false
-  },
-  {
-   "id": "px_loquat_1_1_fruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_1_1_fruit.png",
-   "x": 1093,
-   "y": 809,
-   "foot": 1040,
-   "hide": [
-    "loquat_1_1"
-   ],
-   "plot": "loquat_1_1",
-   "fruit": true
-  },
-  {
-   "id": "px_loquat_1_1_nofruit",
-   "png": "res://assets/pixel_art/orchard/props/loquat_1_1_nofruit.png",
-   "x": 1093,
-   "y": 809,
-   "foot": 1040,
-   "hide": [
-    "loquat_1_1"
-   ],
-   "plot": "loquat_1_1",
-   "fruit": false
-  },
-  {
    "id": "px_loquat_1_2_fruit",
    "png": "res://assets/pixel_art/orchard/props/loquat_1_2_fruit.png",
-   "x": 1379,
+   "x": 39,
    "y": 813,
    "foot": 1040,
    "hide": [
@@ -502,7 +454,7 @@
   {
    "id": "px_loquat_1_2_nofruit",
    "png": "res://assets/pixel_art/orchard/props/loquat_1_2_nofruit.png",
-   "x": 1379,
+   "x": 39,
    "y": 813,
    "foot": 1040,
    "hide": [
@@ -512,9 +464,57 @@
    "fruit": false
   },
   {
+   "id": "px_loquat_1_1_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_1_fruit.png",
+   "x": 329,
+   "y": 809,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_1"
+   ],
+   "plot": "loquat_1_1",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_1_1_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_1_nofruit.png",
+   "x": 329,
+   "y": 809,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_1"
+   ],
+   "plot": "loquat_1_1",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_1_0_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_0_fruit.png",
+   "x": 619,
+   "y": 822,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_0"
+   ],
+   "plot": "loquat_1_0",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_1_0_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_0_nofruit.png",
+   "x": 619,
+   "y": 822,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_0"
+   ],
+   "plot": "loquat_1_0",
+   "fruit": false
+  },
+  {
    "id": "px_ridge_7_fruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_7_fruit.png",
-   "x": 99,
+   "x": 835,
    "y": 1007,
    "foot": 1048,
    "hide": [
@@ -526,7 +526,7 @@
   {
    "id": "px_ridge_7_nofruit",
    "png": "res://assets/pixel_art/orchard/props/ridge_7_nofruit.png",
-   "x": 99,
+   "x": 835,
    "y": 1007,
    "foot": 1048,
    "hide": [
@@ -536,29 +536,9 @@
    "fruit": false
   },
   {
-   "id": "px_shop_stall",
-   "png": "res://assets/pixel_art/orchard/props/shop_stall.png",
-   "x": 889,
-   "y": 901,
-   "foot": 1088,
-   "hide": [
-    "shop_stall"
-   ]
-  },
-  {
-   "id": "px_basket_strawberry_shop",
-   "png": "res://assets/pixel_art/orchard/props/basket_strawberry_shop.png",
-   "x": 1067,
-   "y": 1064,
-   "foot": 1088,
-   "hide": [
-    "basket_strawberry_shop"
-   ]
-  },
-  {
    "id": "px_basket_loquat_shop",
    "png": "res://assets/pixel_art/orchard/props/basket_loquat_shop.png",
-   "x": 1097,
+   "x": 413,
    "y": 1061,
    "foot": 1088,
    "hide": [
@@ -566,9 +546,29 @@
    ]
   },
   {
+   "id": "px_basket_strawberry_shop",
+   "png": "res://assets/pixel_art/orchard/props/basket_strawberry_shop.png",
+   "x": 443,
+   "y": 1064,
+   "foot": 1088,
+   "hide": [
+    "basket_strawberry_shop"
+   ]
+  },
+  {
+   "id": "px_shop_stall",
+   "png": "res://assets/pixel_art/orchard/props/shop_stall.png",
+   "x": 465,
+   "y": 901,
+   "foot": 1088,
+   "hide": [
+    "shop_stall"
+   ]
+  },
+  {
    "id": "px_cart",
    "png": "res://assets/pixel_art/orchard/props/cart.png",
-   "x": 1129,
+   "x": 273,
    "y": 1007,
    "foot": 1090,
    "hide": [

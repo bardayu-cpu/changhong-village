@@ -93,8 +93,9 @@ func run() -> void:
     # 1. 布局：蓝图 3.6 的三个点没动，另加收购处
     print("1 布局")
     # 10/4 连图（02 E 改）：果园原地切成西 A 草莓、东 B 枇杷；A、B 各一个南口去草坪，A 西口去湖边，B 北口去后门
-    var want := {"strawberry": [400, 796, 60], "loquat": [1150, 756, 60], "to_lawn": [420, 1136, 60], "to_lawn_b": [1150, 1136, 60],
-        "to_lake": [40, 800, 44], "to_backgate": [1000, 470, 44]}
+    # 10/4 方案 C：重摆成西 B 枇杷、东 A 草莓（地面左右翻、东西按中心挪到 1536 − x），A 东口去湖边，B 北口去后门
+    var want := {"strawberry": [1136, 796, 60], "loquat": [386, 756, 60], "to_lawn": [1116, 1136, 60], "to_lawn_b": [386, 1136, 60],
+        "to_lake": [1496, 800, 44], "to_backgate": [536, 470, 44]}
     var same: bool = o.points.size() == 7
     for id in want:
         same = same and o.points.has(id) and o.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(o.points[id]["r"]), float(want[id][2]))
@@ -116,7 +117,7 @@ func run() -> void:
     check("八条草莓垄、六棵枇杷树，各算一块地（%d + %d = %d 块）" % [ridges, trees, o.plots.size()], ridges == 8 and trees == 6)
     var gap_walk := 0
     for y in [592, 660, 728, 796, 864, 932, 1000]:
-        if o._free(Vector2(400, y)):
+        if o._free(Vector2(1136, y)):
             gap_walk += 1
     check("垄间走得开（七条空道能站 %d 条）" % gap_walk, gap_walk == 7)
     check("北边田埂、远处的田、顶上那条风景带都不能走", not o._free(Vector2(768, 406)) and not o._free(Vector2(300, 356))
@@ -167,7 +168,7 @@ func run() -> void:
     var spy := SpyCloud.new()
     spy.calls = calls
     m.cloud = spy
-    walk_into(o, "strawberry", Vector2(490, 796))
+    walk_into(o, "strawberry", Vector2(1046, 796))
     check("垄间出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "收草莓（8 垄熟了）")
     var coins0: int = m.games_save.coins
     ui._on_act()
@@ -185,19 +186,19 @@ func run() -> void:
     # 5. 长：一半变青果，到点才熟；人站着不动地也在长
     print("5 长")
     m.note.text = ""
-    walk_into(o, "strawberry", Vector2(490, 796))
+    walk_into(o, "strawberry", Vector2(1046, 796))
     check("刚收完站过去：%s" % m.note.text, m.note.text == "草莓还有 5 分 0 秒 熟" and not ui.act_btn.visible)
     o.fake_now += 180.0                     # 长了六成
     o.refresh_fruit()
     check("六成：垄上是青果（青 %d 块、熟 %d 块）" % [stage_count(o, "strawberry", 1), o.ripe_count("strawberry")],
         stage_count(o, "strawberry", 1) == 8 and o.ripe_count("strawberry") == 0)
     m.note.text = ""
-    walk_into(o, "strawberry", Vector2(490, 796))
+    walk_into(o, "strawberry", Vector2(1046, 796))
     check("青果的时候：%s" % m.note.text, m.note.text == "草莓还有 2 分 0 秒 熟" and not ui.act_btn.visible)
     o.fake_now += 130.0                     # 到点
     tick(40)                                # 人站着不动，地自己长（main 每帧叫 sync）
     check("到点了：8 垄又熟了", o.ripe_count("strawberry") == 8)
-    walk_into(o, "strawberry", Vector2(490, 796))
+    walk_into(o, "strawberry", Vector2(1046, 796))
     check("按钮自己回来了「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "收草莓（8 垄熟了）")
 
     # 6. 人不在也长：离开果园、时间过去，回来该熟的熟了
@@ -212,7 +213,7 @@ func run() -> void:
 
     # 7. 卖给山庄（manual：跑一趟收购处）
     print("7 卖")
-    walk_into(o, "loquat", Vector2(1150, 836))
+    walk_into(o, "loquat", Vector2(386, 836))
     check("树下出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "收枇杷（6 棵熟了）")
     ui._on_act()
     tick(2)
@@ -221,7 +222,7 @@ func run() -> void:
         m.orchard_save.basket_of("strawberry") == 16 and m.orchard_save.basket_of("loquat") == 6)
     check("果篮值 %d 金（草莓 16×2 + 枇杷 6×4）" % o.basket_coins(), o.basket_coins() == 56)
     m.dialog.visible = false
-    walk_into(o, "shop", Vector2(980, 1016))
+    walk_into(o, "shop", Vector2(556, 1016))
     check("收购处出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "卖给山庄（56 金）")
     ui._on_act()
     tick(2)
@@ -233,7 +234,7 @@ func run() -> void:
     m.cloud = real_cloud
     spy.free()
     m.note.text = ""
-    walk_into(o, "shop", Vector2(980, 1016))
+    walk_into(o, "shop", Vector2(556, 1016))
     check("果篮空着再去收购处：%s，不出按钮" % m.note.text, m.note.text == "果篮是空的 先去收点果子" and not ui.act_btn.visible)
 
     # 8. 本机存着：关了游戏再开，地还是刚才那个进度
@@ -253,13 +254,13 @@ func run() -> void:
     age_all(o, 400.0)                       # 都熟了
     var coins1: int = m.games_save.coins
     m.dialog.visible = false
-    walk_into(o, "strawberry", Vector2(490, 796))
+    walk_into(o, "strawberry", Vector2(1046, 796))
     ui._on_act()
     tick(2)
     check("收完山庄直接折钱、只说「%s」不写金（蓝图 3.6）" % m.dialog_text.text, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
         and m.dialog_text.text == "收了 8 筐草莓" and not m.dialog_text.text.contains("金"))
     m.note.text = ""
-    walk_into(o, "shop", Vector2(980, 1016))
+    walk_into(o, "shop", Vector2(556, 1016))
     check("这种卖法下走到收购处：%s" % m.note.text, m.note.text == "果子山庄直接收走了 不用跑这一趟" and not ui.act_btn.visible)
 
     # 9b. 第一次收枇杷弹阿鱼一句（蓝图 3.6，9/20 定）：照阿鱼写好了的样子测（不动文件）；只弹一次，记在本机
@@ -270,7 +271,7 @@ func run() -> void:
     age_all(o, 400.0)
     m.dialog.visible = false
     m.note.text = ""
-    walk_into(o, "loquat", Vector2(1150, 836))
+    walk_into(o, "loquat", Vector2(386, 836))
     ui._on_act()
     tick(2)
     check("第一次收枇杷：对话框是阿鱼那句「%s」（%s）、收了几篮挪到顶部「%s」" % [m.dialog_text.text, m.dialog_who.text, m.note.text],
@@ -281,7 +282,7 @@ func run() -> void:
     check("弹过记在本机（%s）" % [again2.firsts], again2.firsts.get("loquat", false) == true and not again2.firsts.has("strawberry"))
     age_all(o, 400.0)
     m.dialog.visible = false
-    walk_into(o, "loquat", Vector2(1150, 836))
+    walk_into(o, "loquat", Vector2(386, 836))
     ui._on_act()
     tick(2)
     check("第二回收枇杷不再弹：%s" % m.dialog_text.text, m.dialog_text.text == "收了 6 篮枇杷")
@@ -298,7 +299,7 @@ func run() -> void:
     check("季节关着的时候不长（熟 %d 块）" % (o.ripe_count("strawberry") + o.ripe_count("loquat")),
         o.ripe_count("strawberry") == 0 and o.ripe_count("loquat") == 0)
     m.note.text = ""
-    walk_into(o, "strawberry", Vector2(490, 796))
+    walk_into(o, "strawberry", Vector2(1046, 796))
     check("出蓝图原话「%s」，不出按钮" % m.note.text, m.note.text == "还没到时候" and not ui.act_btn.visible)
     o.fake_today = "2026-12-08"             # 草莓的季节
     age_all(o, 400.0)

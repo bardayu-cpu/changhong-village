@@ -327,7 +327,7 @@ func run() -> void:
         m.court_save.door_hint and h.door_hint and h.door_mark != null and h.door_mark.visible and h.door_arrow != null)
     var side: Vector2 = h.side_door
     h.stand_up()
-    h.reset_to(side + Vector2(-90, 0))
+    h.reset_to(h.side_off(90, 0))
     tick(2)
     var mark_d: float = h.door_mark.position.distance_to(side) if h.door_mark != null else -1.0
     check("走到东侧门跟前，金光还在门口（金光离门 %.0f）" % mark_d, h.door_mark != null and h.door_mark.visible and mark_d < 120.0)
@@ -345,7 +345,7 @@ func run() -> void:
 
     # ================= 12 厨房 =================
     step("第 12 步 进厨房玩第一关")
-    walk_to(Vector2(1272, 790))
+    walk_to(Vector2(b.spot_pos("pot").x, 790))
     walk_to(b.spot_pos("pot"))
     check("走到大锅出「%s」" % m.backhall_ui.act_btn.text, m.backhall_ui.act_btn.visible and m.backhall_ui.act_btn.text == "穿上围裙 · 学做菜")
     m.backhall_ui._on_act()
@@ -372,7 +372,7 @@ func run() -> void:
 
     # ================= 13 回宴会厅 =================
     step("第 13 步 回宴会厅")
-    walk_to(Vector2(200, 790))
+    walk_to(b.spot_pos("to_hall") + Vector2(160.0 if b.spot_pos("to_hall").x < 768.0 else -160.0, 10))
     walk_to(b.spot_pos("to_hall"))
     await wait_state("banquet")
     check("回了宴会厅", m.state == "banquet" and m.cv == h)

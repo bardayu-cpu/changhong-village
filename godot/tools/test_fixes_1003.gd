@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：第 56 版前补的几处（01 E 10/3，04「第一次来整条路」godot/回执/体验-第一次来整条路.md）
-## 1 宴会厅东侧门：没进过后厅的人，进厅小卡多一行「东边侧门通后厅，厨房在那边」；第一次坐下（或玩完第一个小游戏）以后东侧门头上金光、
+## 1 宴会厅东侧门：没进过后厅的人，进厅小卡多一行「西边侧门通后厅，厨房在那边」；第一次坐下（或玩完第一个小游戏）以后东侧门头上金光、
 ##   门在屏幕外时屏幕边金箭头指着；进过一次后厅都收，存在本机，重进不再出
 ## 2 选人只出自己有图的 7 个（没有第 7 个代码画的）；以前选了第 7 个的老号用 GUEST-05 的图顶着
 ## 3 出大门最后一屏没有「【待做】」；主桌家里人话还是【待补】的不冒「和 XX 聊聊」
@@ -78,7 +78,7 @@ func run() -> void:
     await frames(1)
     check("没进过后厅：进厅小卡出「%s」那一行（%s）" % [ArrivalCard.LINE_BACKHALL, card_rows()], card_rows() == ["row_backhall"])
     var lbl: Label = m.arrival_card.rows_box.get_child(0).get_child(0) if is_instance_valid(m.arrival_card) else null
-    check("那行的字「%s」" % (lbl.text if lbl != null else ""), lbl != null and lbl.text == "东边侧门通后厅，厨房在那边")
+    check("那行的字「%s」" % (lbl.text if lbl != null else ""), lbl != null and lbl.text == "西边侧门通后厅，厨房在那边")
     m.arrival_card.queue_free()
     m._arrive({"arrival": {"first_visit": false, "hasNews": true, "rows": [{"kind": "visit", "who": "fake_wang"}]}, "names": {"fake_wang": {"nick": "老王"}}})
     await frames(1)

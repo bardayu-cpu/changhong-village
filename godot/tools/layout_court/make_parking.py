@@ -10,10 +10,14 @@
   四辆点名的车（紫色宝马双门 240、蓝色 BRZ、白色保时捷 911、黑色哈弗 H6）照真车尺寸，停在靠路的两列，第一屏看得见；
   自己的车停在最南一排靠路那个位，人从车东边出生（下车）。其余车位放几辆普通车，留几个空位。
   西北角留一块给小卖部（玩家说明第 5 节，下一件再做）。
+10/4 方案 C（阿鱼「行，C」：照阿鱼图只上下翻、左右不变）：停车场在迎宾院东边，翻成路西、车位东——下面的数照翻之前写（路东、车位西），
+写文件前整块左右翻一下（layout_io.mirror_x），所以游戏里路在西边、车位在东边、去迎宾院和前门的两个口在西边，自己的车下车站在车的西边。
 用法：python3 godot/tools/layout_court/make_parking.py
 """
 import json
 import os
+
+import layout_io
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
@@ -87,7 +91,7 @@ def main():
     items.append(box("wall_e", [GATE_OPEN[1] + 32, wall_t[0], W, wall_t[1]], 58, "#c8b08a", "#a08a68", part="PK-W01", inst="PK-W01-02"))
     flat.append({"type": "label", "text": "去后花园", "x": GATE_OPEN[1] + 70, "y": GATE_Y[1] + 30})
     # ---- 公共洗手间、垃圾杂物处：停车场南边两间小屋（01 定：看得见、门口挂牌、走近说一句，不进去）
-    for (hid, name, x0, col) in (("toilet", "公共洗手间", 120, ("#d8e4ea", "#a8b8c2")), ("trash", "垃圾杂物处", 380, ("#c8c0b0", "#988e7c"))):
+    for (hid, name, x0, col) in (("toilet", "公共洗手间", 380, ("#d8e4ea", "#a8b8c2")), ("trash", "垃圾杂物处", 120, ("#c8c0b0", "#988e7c"))):
         items.append(box("house_" + hid, [x0, H - 150, x0 + 192, H - 110], 144, col[0], col[1],
                          scale={"w_m": 4.0, "h_m": 3.0, "name": name + "小屋"}, part="PK-P09"))
         signs.append({"text": name, "x": x0 + 96, "y": H - 236, "foot": H - 109})
@@ -126,8 +130,8 @@ def main():
             {"id": "to_garden", "x": (GATE_OPEN[0] + GATE_OPEN[1]) // 2, "y": GATE_Y[1] + 18, "r": 40, "to": "garden"},
             {"id": "my_car", "x": mine_x, "y": mine_y, "r": 46},
         ] + [{"id": "to_" + to, "x": W - 36, "y": y, "r": 44, "to": to} for (y, to) in EAST_EXITS] + [
-            {"id": "toilet", "x": 216, "y": H - 80, "r": 50, "say": "toilet_wip"},
-            {"id": "trash", "x": 476, "y": H - 80, "r": 50, "say": "trash_wip"},
+            {"id": "toilet", "x": 476, "y": H - 80, "r": 50, "say": "toilet_wip"},     # 方案 C 翻完洗手间在西、杂物处在东（阿鱼图）
+            {"id": "trash", "x": 216, "y": H - 80, "r": 50, "say": "trash_wip"},
         ],
         "shop_reserved": {"rect": SHOP, "note": "玩家说明第 5 节小卖部，下一件再做；先在地上留这块，不挡人"},
         "walk": [[[40, GATE_Y[1] + 4], [W - 60, GATE_Y[1] + 4], [W - 60, H - 8], [40, H - 8]],
@@ -138,6 +142,7 @@ def main():
         "signs": signs,
         "npcs": [],
     }
+    d = layout_io.mirror_x(d)    # 方案 C：整块左右翻（路西、车位东）
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         f.write("{\n")

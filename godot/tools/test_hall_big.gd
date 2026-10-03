@@ -212,7 +212,7 @@ func run() -> void:
     for c in h.chairs:
         n_chairs += 1
     check("厅里一共 %d 把椅子（主桌 10 + 54×10）" % n_chairs, n_chairs == 550)
-    check("东侧门走得到", not h.find_path(h.SPAWN, h.side_door + Vector2(-20, 0)).is_empty())
+    check("东侧门走得到", not h.find_path(h.SPAWN, h.side_off(20, 0)).is_empty())
     check("主桌悄悄话那块（台阶前）走得到", not h.find_path(h.SPAWN, h.COUPLE_SPOT).is_empty())
     var bench_c: Vector2i = h._nearest_free(h._cell_of(h.bench_pos(0, 1)))
     check("长凳跟前走得到（离凳面 %.0f）" % h._cell_pos(bench_c).distance_to(h.bench_pos(0, 1)),

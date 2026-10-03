@@ -66,9 +66,10 @@ func run() -> void:
     check("画布拉宽成 %s" % [k.cfg["size"]], int(k.cfg["size"][0]) == 3072 and int(k.cfg["size"][1]) == 1280)
     var ids: Array = k.points.keys()
     ids.sort()
-    # 10/4 连图（02 E 改）：湖边改从后花园（西头月亮门）、果园（东头尽头）进，不再通迎宾院、停车场
+    # 10/4 连图（02 E 改）：湖边改从后花园（方案 C 起东头月亮门）、果园（方案 C 起西头尽头）进，不再通迎宾院、停车场
     check("四个交互点：%s" % [ids], ids == ["bench", "pavilion", "to_garden", "to_orchard"])
-    check("东头尽头去果园的口在东半、西头月亮门在西半、亭子在东头湖里", k.points["to_orchard"]["pos"].x > 3000.0 and k.points["to_garden"]["pos"].x < 1536.0
+    # 10/4 方案 C：西头尽头去果园 A、东头南墙月亮门去后花园
+    check("西头尽头去果园的口在西边、东头月亮门（去后花园）在东半、亭子在东头湖里", k.points["to_orchard"]["pos"].x < 100.0 and k.points["to_garden"]["pos"].x > 1536.0
         and k.points["pavilion"]["pos"].x > 1536.0 and k.points["pavilion"]["pos"].y < 784.0)
     var water := true
     for p in [Vector2(300, 556), Vector2(1200, 456), Vector2(2304, 300), Vector2(2400, 740), Vector2(2120, 760), Vector2(1500, 700),

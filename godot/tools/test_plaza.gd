@@ -91,11 +91,11 @@ func run() -> void:
     for id in want:
         var q: Vector2 = p.points[id]["pos"]
         var side := "N" if q.y < 100 else ("S" if q.y > 924 else ("W" if q.x < 100 else "E"))
-        var exp: String = {"to_backhall": "N", "to_rest2": "S", "to_shop": "S", "to_kids": "S", "to_court": "W", "to_frontgate": "W", "to_lawn": "E", "to_wkitchen": "E"}[id]
+        var exp: String = {"to_backhall": "N", "to_rest2": "S", "to_shop": "S", "to_kids": "S", "to_court": "E", "to_frontgate": "E", "to_lawn": "W", "to_wkitchen": "W"}[id]
         if side != exp:
             side_ok = false
             print("    %s 在 %s 边，该在 %s 边" % [id, side, exp])
-    check("口在哪条边照转半圈的阿鱼图：北后厅、南三块、西迎宾院前门、东草坪西餐厨房", side_ok)
+    check("口在哪条边照方案 C（阿鱼图只上下翻）：北后厅、南三块、东迎宾院前门、西草坪西餐厨房", side_ok)
     var reach := true
     for id in p.points:
         var land: Vector2 = p.arrival_at(id)

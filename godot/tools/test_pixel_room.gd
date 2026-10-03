@@ -110,7 +110,7 @@ func run() -> void:
         if str(it.get("type")) != "box" or not it.has("rect") or str(it["id"]).begins_with("wall") or str(it["id"]).begins_with("front"):
             continue
         var r: Array = it["rect"]
-        if float(r[0]) < 341.0 or float(r[2]) > 667.0:
+        if float(r[0]) < 869.0 or float(r[2]) > 1195.0:   # 休息间两道隔墙之间（10/4 方案 C 平移 +528）
             continue
         n_l += 1
         var near := false
@@ -140,7 +140,7 @@ func run() -> void:
     check("走进休息间不出按钮", not m.backhall_ui.act_btn.visible)
     m.backhall_ui.spot("lounge", false)
     print("6 化妆间的替身")
-    var want := {"bride": [168, 269, true], "makeup_1": [194, 273, false], "makeup_2": [212, 552, false]}
+    var want := {"bride": [1363, 269, true], "makeup_1": [1389, 273, false], "makeup_2": [1407, 552, false]}   # 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
     var badp: Array = []
     for id in want:
         var s: Sprite2D = b.npc_nodes.get(id)
@@ -152,7 +152,7 @@ func run() -> void:
     check("新娘坐着：只留上面 60 行，图底落在凳面 y 252", bride != null and bride.region_rect.size.y == 60.0 and is_equal_approx(bride.position.y + bride.offset.y + 60.0, 252.0))
     var free_door := true
     for y in [600, 620, 640, 660, 680]:
-        free_door = free_door and b._free(Vector2(168, y))
+        free_door = free_door and b._free(Vector2(1363, y))
     check("门口往里一段（x 168，y 600～680）没堵", free_door)
     print("RESULT PASS" if ok else "RESULT FAIL")
     quit(0 if ok else 1)

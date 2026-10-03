@@ -323,7 +323,38 @@ FLATS_USED = [[714, 442, 822, 1166], [720, 446, 816, 1162], [88, 494, 708, 1068]
               [60, 1102, 1490, 1150], [0, 406, 1536, 442], [0, 442, 1536, 456], [0, 114, 1536, 128],
               [0, 186, 1536, 200]]
 NPCS = {"farmer_1": (250, 594), "farmer_2": (560, 866), "farmer_3": (1110, 650), "farmer_4": (980, 1050)}
-POINTS = {"strawberry": (400, 796, 60), "loquat": (1150, 756, 60), "to_lawn": (768, 1136, 60), "shop": (980, 1122, 55)}
+POINTS = {"strawberry": (400, 796, 60), "loquat": (1150, 756, 60), "shop": (980, 1122, 55)}   # 口（to_*）归连图管，这里不核
+
+# 10/4 方案 C（阿鱼「行，C」：照阿鱼图只上下翻、左右不变，godot/回执/方向方案C-上下翻-1004.png）：果园 B 枇杷挪到西、A 草莓挪到东。
+# 上面这些数、下面的画法照旧是翻之前的摆法（一笔不改）；出图时：
+#   北边田埂往南（y ≥ SPLIT_Y）的地面整片左右翻（北边田野、小房子、篱笆不翻）；
+#   立着的东西（草莓垄、枇杷树、稻草人、篮子、收购摊、板车）照原样画、不翻，各按参照点 fx 挪到 W − fx（光还是从左上来）；
+#   地上的影子、落叶照挪过去的位置算。layout.json 里地面、口、牌子、人跟着翻，挡人占地跟着画一起挪（check_layout 照这个核）
+MIRROR = True
+SPLIT_Y = 412
+
+
+def dx_of(fx):
+    """参照点在 fx 的东西，方案 C 要往右挪多少（fx → W − fx）"""
+    return (W - 2 * fx) if MIRROR else 0
+
+
+def mx(x):
+    """地面上的 x 翻过去"""
+    return (W - x) if MIRROR else x
+
+
+def mrect(r):
+    return [mx(r[2]), r[1], mx(r[0]), r[3]] if MIRROR else list(r)
+
+
+def shifted(r, fx):
+    d = dx_of(fx)
+    return [r[0] + d, r[1], r[2] + d, r[3]]
+
+
+def basket_fx(rc):
+    return (rc[0] + rc[2]) // 2
 
 
 def check_layout():
@@ -338,38 +369,39 @@ def check_layout():
     want(d["size"] == [W, H], "画布大小 %s" % d["size"])
     for k, y in enumerate(RIDGE_Y):
         r = it.get("ridge_%d" % k, {})
-        want(r.get("rect") == [100, y, 700, y + 28] and r.get("h") == 10, "ridge_%d %s h%s" % (k, r.get("rect"), r.get("h")))
+        want(r.get("rect") == shifted([100, y, 700, y + 28], 400) and r.get("h") == 10, "ridge_%d %s h%s" % (k, r.get("rect"), r.get("h")))
     for tid, (x, y) in TREES.items():
         t = it.get(tid, {})
-        want((t.get("x"), t.get("y"), t.get("h"), t.get("w")) == (x, y, 252, 130), "%s (%s,%s) h%s w%s" % (
+        want((t.get("x"), t.get("y"), t.get("h"), t.get("w")) == (mx(x), y, 252, 130), "%s (%s,%s) h%s w%s" % (
             tid, t.get("x"), t.get("y"), t.get("h"), t.get("w")))
     s = it.get("shop_stall", {})
-    want(s.get("rect") == STALL and s.get("h") == 43, "shop_stall %s h%s" % (s.get("rect"), s.get("h")))
+    want(s.get("rect") == shifted(STALL, 980) and s.get("h") == 43, "shop_stall %s h%s" % (s.get("rect"), s.get("h")))
     c = it.get("cart", {})
-    want(c.get("rect") == CART and c.get("h") == 30, "cart %s h%s" % (c.get("rect"), c.get("h")))
+    want(c.get("rect") == shifted(CART, 1196) and c.get("h") == 30, "cart %s h%s" % (c.get("rect"), c.get("h")))
     for bid, rc in BASKETS.items():
         b = it.get(bid, {})
-        want(b.get("rect") == rc and b.get("h") == 14, "%s %s" % (bid, b.get("rect")))
+        want(b.get("rect") == shifted(rc, basket_fx(rc)) and b.get("h") == 14, "%s %s" % (bid, b.get("rect")))
     for i in range(1, 17):
         f = it.get("fence_%02d" % i, {})
         want(f.get("rect") == [96 * (i - 1), 398, 96 * i, 404] and f.get("h") == 48, "fence_%02d %s" % (i, f.get("rect")))
+    sd = dx_of(400)    # 稻草人跟草莓地一起挪
     p = it.get("scarecrow_post", {})
-    want(p.get("rect") == [397, 524, 403, 530] and p.get("h") == 77, "scarecrow_post %s" % p.get("rect"))
+    want(p.get("rect") == [397 + sd, 524, 403 + sd, 530] and p.get("h") == 77, "scarecrow_post %s" % p.get("rect"))
     a = it.get("scarecrow_arms", {})
-    want((a.get("x0"), a.get("x1"), a.get("top"), a.get("thick")) == (376, 424, 474, 5), "scarecrow_arms")
-    want(it.get("scarecrow_shirt", {}).get("pts") == [[388, 470], [412, 470], [416, 500], [384, 500]], "scarecrow_shirt")
-    want(it.get("scarecrow_hat", {}).get("pts") == [[384, 460], [416, 460], [408, 453], [404, 446], [396, 446], [392, 453]],
+    want((a.get("x0"), a.get("x1"), a.get("top"), a.get("thick")) == (376 + sd, 424 + sd, 474, 5), "scarecrow_arms")
+    want(it.get("scarecrow_shirt", {}).get("pts") == [[x + sd, y] for x, y in [[388, 470], [412, 470], [416, 500], [384, 500]]], "scarecrow_shirt")
+    want(it.get("scarecrow_hat", {}).get("pts") == [[x + sd, y] for x, y in [[384, 460], [416, 460], [408, 453], [404, 446], [396, 446], [392, 453]]],
          "scarecrow_hat")
     rects = [f["rect"] for f in d["flat"] if f.get("type") == "rect"]
     for r in FLATS_USED:
-        want(r in rects, "平铺 %s 不见了" % r)
+        want(mrect(r) in rects, "平铺 %s 不见了" % mrect(r))
     npcs = {n["id"]: (n["x"], n["y"]) for n in d.get("npcs", [])}
-    for k, v in NPCS.items():
-        want(npcs.get(k) == v, "%s 站位 %s" % (k, npcs.get(k)))
+    for k, (x, y) in NPCS.items():
+        want(npcs.get(k) == (mx(x), y), "%s 站位 %s" % (k, npcs.get(k)))
     pts = {p["id"]: (p["x"], p["y"], p["r"]) for p in d.get("points", [])}
-    for k, v in POINTS.items():
-        want(pts.get(k) == v, "交互点 %s %s" % (k, pts.get(k)))
-    want(d.get("walk") == [[[60, 466], [1490, 466], [1490, 1156], [60, 1156]]], "walk 变了")
+    for k, (x, y, r) in POINTS.items():
+        want(pts.get(k) == (mx(x), y, r), "交互点 %s %s" % (k, pts.get(k)))
+    want(d.get("walk") == [[[mx(1490), 466], [mx(60), 466], [mx(60), 1156], [mx(1490), 1156]]], "walk 变了")
     if bad:
         raise SystemExit("layout.json 跟这版画的位置对不上（摆法改了，先停）：\n" + "\n".join(bad))
 
@@ -2189,11 +2221,13 @@ def draw_cart():
 # ================================================================== 地上的影子（画进背景）
 def ground_shadows(bg):
     S = ShadeMap()
+    # 方案 C：影子跟着各件挪过去的位置（往右下拖的方向不变，光还是从左上来）
+    dr = dx_of(400)
     # 草莓垄：着地一行压暗 2 档，往右下拖 5 像素
     for y0 in RIDGE_Y:
-        S.rect(102, y0 + 28, 706, y0 + 30, -1.5)
-        S.rect(106, y0 + 30, 708, y0 + 34, -1.0)
-        S.rect(110, y0 + 34, 708, y0 + 35, -0.5)
+        S.rect(102 + dr, y0 + 28, 706 + dr, y0 + 30, -1.5)
+        S.rect(106 + dr, y0 + 30, 708 + dr, y0 + 34, -1.0)
+        S.rect(110 + dr, y0 + 34, 708 + dr, y0 + 35, -0.5)
     # 篱笆：田埂顶上一溜竹影（斜的条纹）
     S.rect(0, 406, W, 410, -1.0)
     for i in range(16):
@@ -2204,8 +2238,9 @@ def ground_shadows(bg):
                 for dx in range(3):
                     S.add(sx + dx + j, y, -1.0 if j < 7 else -0.5)
     # 枇杷树：树冠的影落在右下一大团，团里漏几块光斑
-    for tid, (fx, fy) in TREES.items():
-        sd = fx + fy
+    for tid, (fx0, fy) in TREES.items():
+        sd = fx0 + fy          # 影子的样子照原来的位置定（跟着树挪，不变样）
+        fx = mx(fx0)
         S.blob(fx + 18, fy + 2, 66, 26, -1.0, sd)
         S.ellipse(fx + 6, fy, 22, 8, -1.0)
         S.ellipse(fx + 2, fy, 10, 4, -0.5)
@@ -2215,29 +2250,32 @@ def ground_shadows(bg):
             r = rnd.uniform(0.3, 0.85)
             S.ellipse(fx + 18 + math.cos(a) * 60 * r, fy + 2 + math.sin(a) * 22 * r, rnd.uniform(3, 6), rnd.uniform(1.5, 3), 1.0, edge=1)
     # 收购处：柜台着地压暗、篷子的影落在前面路上
-    S.rect(901, 1088, 1062, 1090, -1.0)
-    S.ellipse(988, 1093, 86, 6, -1.0)
+    ds = dx_of(980)
+    S.rect(901 + ds, 1088, 1062 + ds, 1090, -1.0)
+    S.ellipse(988 + ds, 1093, 86, 6, -1.0)
     # 板车：车底下一片暗（看得见的就是车板和轮子中间那条）、往右下拖一点
-    S.rect(1136, 1054, 1228, 1080, -1.0)
-    S.ellipse(1186, 1081, 54, 5, -1.0)
-    S.ellipse(1182, 1081, 15, 3, -1.0)
-    S.ellipse(1250, 1050, 12, 3, -1.0)
+    dc = dx_of(1196)
+    S.rect(1136 + dc, 1054, 1228 + dc, 1080, -1.0)
+    S.ellipse(1186 + dc, 1081, 54, 5, -1.0)
+    S.ellipse(1182 + dc, 1081, 15, 3, -1.0)
+    S.ellipse(1250 + dc, 1050, 12, 3, -1.0)
     # 筐
     for rc in BASKETS.values():
-        S.ellipse(rc[0] + 14, rc[3], 14, 3.5, -1.5)
-    # 稻草人
-    S.ellipse(404, 531, 8, 3, -1.5)
+        S.ellipse(rc[0] + dx_of(basket_fx(rc)) + 14, rc[3], 14, 3.5, -1.5)
+    # 稻草人（跟草莓地一起挪）
+    S.ellipse(404 + dr, 531, 8, 3, -1.5)
     for j in range(16):
-        S.add(402 + j, 531 + j // 4, -1.0)
-        S.add(403 + j, 531 + j // 4, -1.0)
-    S.ellipse(422, 535, 14, 4, -1.0)
+        S.add(402 + dr + j, 531 + j // 4, -1.0)
+        S.add(403 + dr + j, 531 + j // 4, -1.0)
+    S.ellipse(422 + dr, 535, 14, 4, -1.0)
     S.apply(bg)
 
 
 def ground_extras(bg):
     """影子之后再撒：树下落叶"""
     rnd = random.Random(4242)
-    for (fx, fy) in TREES.values():
+    for (fx0, fy) in TREES.values():
+        fx = mx(fx0)   # 方案 C：树挪过去了，落叶跟着
         for _ in range(26):
             x = int(fx + rnd.gauss(12, 30))
             y = int(fy + rnd.gauss(2, 11))
@@ -2247,8 +2285,18 @@ def ground_extras(bg):
 
 
 # ================================================================== 组装、出图
+def flip_ground(bg):
+    """方案 C：北边田埂往南（y ≥ SPLIT_Y）的地面整片左右翻，上面的田野、小房子、篱笆不动"""
+    top = bg.im.crop((0, 0, W, SPLIT_Y))
+    bg.im = bg.im.transpose(Image.FLIP_LEFT_RIGHT)
+    bg.im.paste(top, (0, 0))
+    bg.px = bg.im.load()
+
+
 def build():
     bg = background()
+    if MIRROR:
+        flip_ground(bg)
     ground_shadows(bg)
     ground_extras(bg)
     items = []      # (name, layer, foot_y, foot_x)
@@ -2265,6 +2313,15 @@ def build():
         items.append((bid, basket(rc, "strawberry" if "strawberry" in bid else "loquat"), rc[3], (rc[0] + rc[2]) // 2, None))
     items.append(("shop_stall", draw_stall(), 1088, 980, None))
     items.append(("cart", draw_cart(), 1090, 1196, None))
+    if MIRROR:   # 方案 C：立着的照原样画、不翻，各按参照点 fx 挪到 W − fx（篱笆在北边，不动）
+        moved = []
+        for (name, L, foot, fx, fr) in items:
+            if not name.startswith("fence_"):
+                d = dx_of(fx)
+                L.ox += d
+                fx += d
+            moved.append((name, L, foot, fx, fr))
+        items = moved
     return bg, items
 
 

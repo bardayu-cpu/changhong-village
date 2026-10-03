@@ -1,7 +1,7 @@
 {
  "scene": "scene_backhall_start",
  "title": "后厅（空）",
- "note": "后厅交给 GPT 试接手的起点（01 D 10/1 派）：一块空地，只有地面、北墙、南边走廊和两个出口。出口 id、坐标跟灰盒后厅（scene_luoman_backhall）一样，main.gd 的 _on_backhall_spot 照旧认：to_hall 回宴会厅、to_lawn 去草坪。scripts/backhall_start.gd 读这份；启动参数 --backhall=start 用它代替灰盒后厅。",
+ "note": "后厅交给 GPT 试接手的起点（01 D 10/1 派）：一块空地，只有地面、北墙、南边走廊和两个出口。出口 id、坐标跟灰盒后厅（scene_luoman_backhall）一样，main.gd 的 _on_backhall_spot 照旧认：to_hall 回宴会厅、to_lawn 去草坪。scripts/backhall_start.gd 读这份；启动参数 --backhall=start 用它代替灰盒后厅。　10/4 方案 C（照阿鱼图只上下翻）：跟灰盒后厅一起对调，to_hall 回宴会厅在东头 (1496,780)、to_lawn 去草坪在西头 (40,780)，进来站 (1436,780)",
  "size": [
   1536,
   1024
@@ -13,19 +13,19 @@
   "far_h": 84
  },
  "spawn": [
-  100,
+  1436,
   780
  ],
  "points": [
   {
    "id": "to_hall",
-   "x": 40,
+   "x": 1496,
    "y": 780,
    "r": 50
   },
   {
    "id": "to_lawn",
-   "x": 1500,
+   "x": 40,
    "y": 780,
    "r": 50
   }

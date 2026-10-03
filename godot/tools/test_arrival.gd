@@ -68,7 +68,7 @@ func run() -> void:
             break
         await process_frame
     await frames(2)
-    # 这里测的是有没有新鲜事弹不弹卡：当这位进过后厅了（没进过后厅的人卡上多一行「东边侧门通后厅」，test_fixes_1003 测）
+    # 这里测的是有没有新鲜事弹不弹卡：当这位进过后厅了（没进过后厅的人卡上多一行「西边侧门通后厅」，test_fixes_1003 测）
     m.court_save.local_path = "user://test_arrival_court.json"
     m.court_save.backhall_seen = true
 

@@ -66,31 +66,31 @@ func run() -> void:
     print("1 空地")
     check("只有两个出口：%s" % [b.points.keys()], b.points.size() == 2 and b.points.has("to_hall") and b.points.has("to_lawn"))
     check("出口坐标跟灰盒后厅一样：to_hall %s、to_lawn %s" % [b.spot_pos("to_hall"), b.spot_pos("to_lawn")],
-        b.spot_pos("to_hall") == Vector2(40, 780) and b.spot_pos("to_lawn") == Vector2(1500, 780))
+        b.spot_pos("to_hall") == Vector2(1496, 780) and b.spot_pos("to_lawn") == Vector2(40, 780))   # 10/4 方案 C 对调
     check("没有家具、没有 NPC", (b.cfg.get("items", []) as Array).is_empty() and (b.cfg.get("npcs", []) as Array).is_empty() and b.obstacles.is_empty())
-    check("画布 1536×1024，进门站的地方 (100,780) 能走", Vector2(b.cfg["size"][0], b.cfg["size"][1]) == Vector2(1536, 1024) and b._free(Vector2(100, 780)))
+    check("画布 1536×1024，进门站的地方 (1436,780) 能走", Vector2(b.cfg["size"][0], b.cfg["size"][1]) == Vector2(1536, 1024) and b._free(Vector2(1436, 780)))
     check("房间里随便一处能走（北墙脚 (768,260)、中间 (768,500)）", b._free(Vector2(768, 260)) and b._free(Vector2(768, 500)))
 
-    print("2 宴会厅东侧门进空后厅")
+    print("2 宴会厅西侧门进空后厅")
     m.nickname = "小李"
     await m._enter_banquet()
     tick(2)
     var h = m.hall
-    walk_to(h.side_door + Vector2(-90, 0))
+    walk_to(h.side_off(90, 0))
     walk_to(h.side_door)
     check("进了空后厅 state=%s" % m.state, m.state == "backhall" and m.cv == b and b.visible and not h.visible)
-    check("站在 (100,780)：%s" % b.pos, b.pos == Vector2(100, 780))
+    check("站在 (1436,780)：%s" % b.pos, b.pos == Vector2(1436, 780))
     tick(60)
-    check("站在西口边 60 帧不弹回宴会厅", m.state == "backhall")
+    check("站在东口边 60 帧不弹回宴会厅", m.state == "backhall")
     check("灰盒后厅的房间按钮没出来", not m.backhall_ui.act_btn.visible)
 
-    print("3 东口去草坪、再回来")
+    print("3 西口去草坪、再回来")
     walk_to(b.spot_pos("to_lawn"), 30.0)
     check("进了草坪 state=%s" % m.state, m.state == "lawn")
     walk_to(m.lawn.spot_pos("to_backhall"), 30.0)
-    check("回到空后厅、站在厨房后门边 %s" % b.pos, m.state == "backhall" and b.pos == Vector2(1440, 780))
+    check("回到空后厅、站在厨房后门边 %s" % b.pos, m.state == "backhall" and b.pos == Vector2(100, 780))
 
-    print("4 西口回宴会厅")
+    print("4 东口回宴会厅")
     walk_to(b.spot_pos("to_hall"), 30.0)
     check("回到宴会厅 state=%s" % m.state, m.state == "banquet" and m.cv == h)
 

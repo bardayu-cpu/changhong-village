@@ -14,7 +14,7 @@ var photos: Array = []           # 收好的相纸：[{pose, preset, at}]，只�
 var whisper_done := false        # 在宴会厅给新人写过悄悄话了：大门开不开看它和签到（蓝图 3.1「大门只在悄悄话写完后开」）
 var gloss_seen := false          # 休息区老人那句的方言词弹过普通话了（只自动弹第一次，蓝图 3.1）
 var door_hint := false           # 宴会厅东侧门的金光、箭头开了（第一次坐下或玩完第一个小游戏以后，01 E 10/3）
-var backhall_seen := false       # 进过一次后厅了：东侧门的金光、箭头、进厅小卡那行「东边侧门通后厅」都收
+var backhall_seen := false       # 进过一次后厅了：东侧门的金光、箭头、进厅小卡那行「西边侧门通后厅」都收
 var court_seen := false          # 进过一次迎宾院了（10/3 停车场起）：再开游戏不从停车场出生、停车场指大门的箭头不再出
 var drive_seen := false          # 看过一次自动开车进山庄了（10/4 连图）：第二次起点一下屏幕能跳过
 

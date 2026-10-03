@@ -60,7 +60,7 @@ func run() -> void:
         rects[str(l.text)] = Rect2(tl, l.size)
         print("    牌子「%s」占 %s（下沿 y %.0f，排前后的线 y %.0f）" % [l.text, str(Rect2(tl, l.size)), tl.y + l.size.y, (h as Node2D).position.y])
     check("四块牌子都挂了（化妆间、休息间、麻将室、后厨）", rects.size() == 4)
-    var gaps := [Rect2(128, 684, 80, 12), Rect2(464, 684, 80, 12), Rect2(800, 684, 80, 12), Rect2(1136, 684, 80, 12)]   # 前沿矮墙留的四个门洞
+    var gaps := [Rect2(128, 684, 80, 12), Rect2(656, 684, 80, 12), Rect2(992, 684, 80, 12), Rect2(1323, 684, 80, 12)]   # 前沿矮墙留的四个门洞（10/4 方案 C 平移后）
     var lamps := {"mj_lamp_w": null, "mj_lamp_e": null}
     var boxes: Dictionary = {}
     var f := FileAccess.open("res://回执/零件规格/后厅/后厅-框.json", FileAccess.READ)

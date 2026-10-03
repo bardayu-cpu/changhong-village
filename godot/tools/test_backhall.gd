@@ -76,28 +76,30 @@ func run() -> void:
 
     # 1. 布局对蓝图 3.3
     print("1 布局对蓝图 3.3")
-    var want := {"dress": [168, 400, 60], "lounge": [504, 420, 60], "mahjong": [852, 420, 70], "pot": [1272, 380, 70],
-        "to_hall": [40, 780, 50], "to_lawn": [1500, 780, 50], "to_plaza": [620, 990, 40], "to_wkitchen": [1272, 990, 40]}
+    # 10/4 方案 C：四间整间平移成西→东后厨、麻将室、休息室、化妆间（化妆间 +1195、休息室 +528、麻将室 −144、后厨 −1008），
+    # 走廊东头回宴会厅、西头厨房后门去草坪
+    var want := {"dress": [1363, 400, 60], "lounge": [1032, 420, 60], "mahjong": [708, 420, 70], "pot": [264, 380, 70],
+        "to_hall": [1496, 780, 50], "to_lawn": [40, 780, 50], "to_plaza": [896, 990, 40], "to_wkitchen": [264, 990, 40]}
     var same: bool = b.points.size() == 8
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("八个交互点坐标、半径和蓝图一字不差（mahjong 展位 10/3 挪到门口空道里 (852,420)，01 E；to_plaza 10/4 新总图走廊南口去喷泉广场；to_wkitchen 10/4 连图厨房那头去西餐厨房）", same)
+    check("八个交互点坐标、半径照方案 C 平移后的位置一字不差", same)
     var doors := true
-    for dx in [168, 504, 840, 1176]:
+    for dx in [168, 696, 1032, 1363]:
         doors = doors and b._free(Vector2(dx, 690))
-    check("四个房门 (168/504/840/1176, 690) 走得通", doors)
+    check("四个房门 (168/696/1032/1363, 690) 走得通", doors)
     var walls := true
-    for p in [Vector2(60, 690), Vector2(300, 690), Vector2(650, 690), Vector2(1000, 690), Vector2(1400, 690),
-            Vector2(336, 450), Vector2(672, 450), Vector2(1008, 450)]:
+    for p in [Vector2(60, 690), Vector2(400, 690), Vector2(860, 690), Vector2(1200, 690), Vector2(1480, 690),
+            Vector2(528, 450), Vector2(864, 450), Vector2(1200, 450)]:
         walls = walls and not b._free(p)
     check("门之间的墙、房间之间的墙走不过去", walls)
-    var cross: Array = b.find_path(Vector2(168, 450), Vector2(504, 470))
+    var cross: Array = b.find_path(Vector2(1363, 450), Vector2(1032, 470))
     var deepest := 0.0
     for p in cross:
         deepest = maxf(deepest, (p as Vector2).y)
     check("化妆室到休息间要从走廊绕（最低走到 y %.0f）" % deepest, not cross.is_empty() and deepest > 696.0)
-    check("到了站的点 %s 离西口 %.0f 像素（至少 48）" % [b.SPAWN, b.SPAWN.distance_to(b.points["to_hall"]["pos"])],
-        b.SPAWN == Vector2(100, 780) and b.SPAWN.distance_to(b.points["to_hall"]["pos"]) >= 48.0 and b._free(b.SPAWN))
+    check("到了站的点 %s 离东口 %.0f 像素（至少 48）" % [b.SPAWN, b.SPAWN.distance_to(b.points["to_hall"]["pos"])],
+        b.SPAWN == Vector2(1436, 780) and b.SPAWN.distance_to(b.points["to_hall"]["pos"]) >= 48.0 and b._free(b.SPAWN))
     for id in b.points:
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
@@ -108,22 +110,22 @@ func run() -> void:
     var in_lounge := 0
     for id in b.npc_nodes:
         var s: Sprite2D = b.npc_nodes[id]
-        if str(id).begins_with("elder") and s.position.x > 672 and s.position.x < 1008 and s.region_enabled:
+        if str(id).begins_with("elder") and s.position.x > 528 and s.position.x < 864 and s.region_enabled:
             elders += 1
-        if id == "cook" and s.position.x > 1008 and not s.region_enabled:
+        if id == "cook" and s.position.x < 528 and not s.region_enabled:
             cooks += 1
-        if s.position.x > 336 and s.position.x < 672:
+        if s.position.x > 864 and s.position.x < 1200:
             in_lounge += 1
     # 展位（01 E 10/3）：麻将室三张桌，一张坐满四位长辈、一张两位长辈加两位宾客、一张空着；休息间沙发上两位喝茶的长辈（不放新郎家人，阿鱼 9/29）
     # 10/4 人物新做法样板（01 F）：休息间四位（奶奶、爷爷北边沙发喝茶，叔叔、阿姨茶座聊天），细的在 test_lounge_people.gd
     check("麻将室六个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间四位（%d）" % [elders, cooks, in_lounge], elders == 6 and cooks == 1 and in_lounge == 4)
     var coat := label_at(b, "外套")
-    check("休息间只有一件外套（标签在 %s）" % coat, coat.x > 336 and coat.x < 672)
+    check("休息间只有一件外套（标签在 %s）" % coat, coat.x > 864 and coat.x < 1200)
     # 10/3 化妆间换成 06 画的第二版：一个礼服架换成四个区的衣架、两座衣墙（BH-P15～P27），像素图在 tools/pixel_art
     var racks := 0
     for it in b.cfg["items"]:
         var iid := str(it.get("id", ""))
-        if (iid.begins_with("mk_rack_") or iid.begins_with("mk_closet_")) and float(it["rect"][2]) <= 336.0:
+        if (iid.begins_with("mk_rack_") or iid.begins_with("mk_closet_")) and float(it["rect"][0]) >= 1200.0:
             racks += 1
     check("化妆室有挂衣服的架子和衣墙（%d 个）" % racks, racks == 8)
     for room in ["化妆室", "休息间", "麻将室", "厨房"]:
@@ -156,7 +158,7 @@ func run() -> void:
     var coins0: int = m.games_save.coins
     m.games_save.clear_level("g2048", 1, 50)
     h.stand_up()
-    walk_to(h.side_door + Vector2(-90, 0))
+    walk_to(h.side_off(90, 0))
     walk_to(h.side_door)
     check("进了后厅 state=%s" % m.state, m.state == "backhall" and m.cv == b and b.visible and not h.visible)
     # 10/4 连图起落点照布局的口算（口往里 70 像素，原来写死 60）
@@ -180,7 +182,7 @@ func run() -> void:
 
     # 4. 四个房间：走进半径出按钮；点一下一句（话没定之前是【待补】），再点关掉，再点又出；走出去按钮和话都收
     print("4 四个房间")
-    walk_to(h.side_door + Vector2(-90, 0))
+    walk_to(h.side_off(90, 0))
     walk_to(h.side_door)
     check("又进了后厅", m.state == "backhall")
     var ui = m.backhall_ui
@@ -215,7 +217,7 @@ func run() -> void:
             m.game_host._close()
             check("关闭做菜后恢复后厅行走", m.game_host == null and b.walking_enabled)
             await process_frame
-            b.tap(b.get_viewport().get_canvas_transform() * Vector2(1272,258))
+            b.tap(b.get_viewport().get_canvas_transform() * Vector2(264,258))
             tick(180)
             check("直接点锅会走近并打开做菜", is_instance_valid(m.game_host))
             if is_instance_valid(m.game_host): m.game_host._close()
@@ -245,7 +247,7 @@ func run() -> void:
 
     # 6. 说话框被别的话顶掉了：再点按钮是再说一遍，不是把别人的话关掉
     print("6 别的话顶掉")
-    walk_to(Vector2(168, 790))
+    walk_to(Vector2(b.spot_pos("dress").x, 790))
     walk_to(b.spot_pos("dress"))
     ui._on_act()
     m._say("别的话", 0.0, "阿鱼")
@@ -257,7 +259,7 @@ func run() -> void:
 
     # 7. 东口（厨房后门）去草坪（9/19 任务 8 起）：站在西北口边 (100,300)；从西北口回来站在厨房后门边 (1440,780)
     print("7 厨房后门")
-    walk_to(Vector2(168, 790))
+    walk_to(Vector2(b.spot_pos("dress").x, 790))
     walk_to(b.spot_pos("to_lawn"), 30.0)
     check("厨房后门进了草坪 state=%s，站在 %s" % [m.state, m.lawn.pos], m.state == "lawn" and m.lawn.pos == m.lawn.arrival_from("backhall"))
     walk_to(m.lawn.spot_pos("to_backhall"))
@@ -265,7 +267,7 @@ func run() -> void:
 
     # 8. 离开后厅时按钮收起来：站在大锅前出着按钮，走回宴会厅
     print("8 离开后厅按钮收")
-    walk_to(Vector2(1272, 790))
+    walk_to(Vector2(b.spot_pos("pot").x, 790))
     walk_to(b.spot_pos("pot"))
     check("大锅前出按钮", ui.act_btn.visible)
     m._switch_canvas("banquet")
@@ -279,7 +281,7 @@ func run() -> void:
     walk_to(m.court.spot_pos("to_hall") + Vector2(0, 150))
     walk_to(m.court.spot_pos("to_hall"))
     steps.append(m.state)
-    walk_to(h.side_door + Vector2(-90, 0))
+    walk_to(h.side_off(90, 0))
     walk_to(h.side_door)
     steps.append(m.state)
     walk_to(b.spot_pos("to_hall"))

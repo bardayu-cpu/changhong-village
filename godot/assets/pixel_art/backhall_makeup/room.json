@@ -2,18 +2,18 @@
  "note": "tools/pixel_art/room_backhall_makeup.py 生成，别手改。背景左上角放在 background.x/y（画布坐标），1 倍、不插值；每件家具左上角在 x/y，着地线 foot（跟人排前后用）；hide 是要藏掉的灰盒（挡人的占地照旧）",
  "background": {
   "png": "res://assets/pixel_art/backhall_makeup/room.png",
-  "x": 0,
+  "x": 1195,
   "y": 104
  },
  "room": {
-  "x0": 0,
-  "x1": 331
+  "x0": 1195,
+  "x1": 1536
  },
  "props": [
   {
    "id": "px_mk_closet_cn",
    "png": "res://assets/pixel_art/backhall_makeup/props/closet_cn.png",
-   "x": 10,
+   "x": 1205,
    "y": 129,
    "foot": 242,
    "hide": [
@@ -23,7 +23,7 @@
   {
    "id": "px_mk_closet_west",
    "png": "res://assets/pixel_art/backhall_makeup/props/closet_west.png",
-   "x": 260,
+   "x": 1455,
    "y": 129,
    "foot": 242,
    "hide": [
@@ -33,7 +33,7 @@
   {
    "id": "px_mk_vanity_1",
    "png": "res://assets/pixel_art/backhall_makeup/props/vanity_1.png",
-   "x": 76,
+   "x": 1271,
    "y": 185,
    "foot": 246,
    "hide": [
@@ -43,7 +43,7 @@
   {
    "id": "px_mk_vanity_2",
    "png": "res://assets/pixel_art/backhall_makeup/props/vanity_2.png",
-   "x": 139,
+   "x": 1334,
    "y": 185,
    "foot": 246,
    "hide": [
@@ -53,7 +53,7 @@
   {
    "id": "px_mk_vanity_3",
    "png": "res://assets/pixel_art/backhall_makeup/props/vanity_3.png",
-   "x": 200,
+   "x": 1395,
    "y": 179,
    "foot": 246,
    "hide": [
@@ -63,7 +63,7 @@
   {
    "id": "px_mk_stool_1",
    "png": "res://assets/pixel_art/backhall_makeup/props/stool_1.png",
-   "x": 96,
+   "x": 1291,
    "y": 239,
    "foot": 268,
    "hide": [
@@ -73,7 +73,7 @@
   {
    "id": "px_mk_stool_2",
    "png": "res://assets/pixel_art/backhall_makeup/props/stool_2.png",
-   "x": 158,
+   "x": 1353,
    "y": 239,
    "foot": 268,
    "hide": [
@@ -83,7 +83,7 @@
   {
    "id": "px_mk_stool_3",
    "png": "res://assets/pixel_art/backhall_makeup/props/stool_3.png",
-   "x": 220,
+   "x": 1415,
    "y": 239,
    "foot": 268,
    "hide": [
@@ -93,7 +93,7 @@
   {
    "id": "px_mk_rack_cn_back",
    "png": "res://assets/pixel_art/backhall_makeup/props/rack_cn_back.png",
-   "x": 9,
+   "x": 1204,
    "y": 250,
    "foot": 344,
    "hide": [
@@ -103,7 +103,7 @@
   {
    "id": "px_mk_rack_cn_front",
    "png": "res://assets/pixel_art/backhall_makeup/props/rack_cn_front.png",
-   "x": 27,
+   "x": 1222,
    "y": 302,
    "foot": 384,
    "hide": [
@@ -113,7 +113,7 @@
   {
    "id": "px_mk_crown_stand",
    "png": "res://assets/pixel_art/backhall_makeup/props/crown_stand.png",
-   "x": 12,
+   "x": 1207,
    "y": 311,
    "foot": 388,
    "hide": [
@@ -123,7 +123,7 @@
   {
    "id": "px_mk_rack_west_back",
    "png": "res://assets/pixel_art/backhall_makeup/props/rack_west_back.png",
-   "x": 235,
+   "x": 1430,
    "y": 255,
    "foot": 344,
    "hide": [
@@ -133,7 +133,7 @@
   {
    "id": "px_mk_rack_west_front",
    "png": "res://assets/pixel_art/backhall_makeup/props/rack_west_front.png",
-   "x": 227,
+   "x": 1422,
    "y": 297,
    "foot": 376,
    "hide": [
@@ -143,7 +143,7 @@
   {
    "id": "px_mk_gown_form",
    "png": "res://assets/pixel_art/backhall_makeup/props/gown_form.png",
-   "x": 296,
+   "x": 1491,
    "y": 305,
    "foot": 388,
    "hide": [
@@ -153,7 +153,7 @@
   {
    "id": "px_mk_rack_jp_back",
    "png": "res://assets/pixel_art/backhall_makeup/props/rack_jp_back.png",
-   "x": 9,
+   "x": 1204,
    "y": 386,
    "foot": 468,
    "hide": [
@@ -163,7 +163,7 @@
   {
    "id": "px_mk_iko",
    "png": "res://assets/pixel_art/backhall_makeup/props/iko.png",
-   "x": 9,
+   "x": 1204,
    "y": 421,
    "foot": 504,
    "hide": [
@@ -173,7 +173,7 @@
   {
    "id": "px_mk_tansu",
    "png": "res://assets/pixel_art/backhall_makeup/props/tansu.png",
-   "x": 76,
+   "x": 1271,
    "y": 473,
    "foot": 520,
    "hide": [
@@ -183,7 +183,7 @@
   {
    "id": "px_mk_ethnic_wall",
    "png": "res://assets/pixel_art/backhall_makeup/props/ethnic_wall.png",
-   "x": 225,
+   "x": 1420,
    "y": 373,
    "foot": 476,
    "hide": [
@@ -193,7 +193,7 @@
   {
    "id": "px_mk_rack_ethnic",
    "png": "res://assets/pixel_art/backhall_makeup/props/rack_ethnic.png",
-   "x": 218,
+   "x": 1413,
    "y": 432,
    "foot": 508,
    "hide": [
@@ -203,7 +203,7 @@
   {
    "id": "px_mk_silver_crown",
    "png": "res://assets/pixel_art/backhall_makeup/props/silver_crown.png",
-   "x": 294,
+   "x": 1489,
    "y": 424,
    "foot": 510,
    "hide": [
@@ -213,7 +213,7 @@
   {
    "id": "px_mk_island",
    "png": "res://assets/pixel_art/backhall_makeup/props/island.png",
-   "x": 137,
+   "x": 1332,
    "y": 459,
    "foot": 528,
    "hide": [
@@ -223,7 +223,7 @@
   {
    "id": "px_mk_steamer",
    "png": "res://assets/pixel_art/backhall_makeup/props/steamer.png",
-   "x": 221,
+   "x": 1416,
    "y": 265,
    "foot": 346,
    "hide": [
@@ -233,7 +233,7 @@
   {
    "id": "px_mk_floor_vase",
    "png": "res://assets/pixel_art/backhall_makeup/props/floor_vase.png",
-   "x": 100,
+   "x": 1295,
    "y": 403,
    "foot": 456,
    "hide": [
@@ -243,7 +243,7 @@
   {
    "id": "px_mk_sofa",
    "png": "res://assets/pixel_art/backhall_makeup/props/sofa.png",
-   "x": 45,
+   "x": 1240,
    "y": 515,
    "foot": 598,
    "hide": [
@@ -253,7 +253,7 @@
   {
    "id": "px_mk_full_mirror",
    "png": "res://assets/pixel_art/backhall_makeup/props/full_mirror.png",
-   "x": 11,
+   "x": 1206,
    "y": 524,
    "foot": 606,
    "hide": [
@@ -263,7 +263,7 @@
   {
    "id": "px_mk_shoes",
    "png": "res://assets/pixel_art/backhall_makeup/props/shoes.png",
-   "x": 215,
+   "x": 1410,
    "y": 554,
    "foot": 612,
    "hide": [
@@ -273,7 +273,7 @@
   {
    "id": "px_mk_pouf",
    "png": "res://assets/pixel_art/backhall_makeup/props/pouf.png",
-   "x": 237,
+   "x": 1432,
    "y": 604,
    "foot": 632,
    "hide": [
@@ -283,7 +283,7 @@
   {
    "id": "px_mk_screen",
    "png": "res://assets/pixel_art/backhall_makeup/props/screen.png",
-   "x": 263,
+   "x": 1458,
    "y": 516,
    "foot": 606,
    "hide": [
@@ -293,7 +293,7 @@
   {
    "id": "px_mk_gifts",
    "png": "res://assets/pixel_art/backhall_makeup/props/gifts.png",
-   "x": 269,
+   "x": 1464,
    "y": 606,
    "foot": 656,
    "hide": [
@@ -303,7 +303,7 @@
   {
    "id": "px_mk_trunk",
    "png": "res://assets/pixel_art/backhall_makeup/props/trunk.png",
-   "x": 47,
+   "x": 1242,
    "y": 613,
    "foot": 656,
    "hide": [
@@ -313,7 +313,7 @@
   {
    "id": "px_mk_flowers",
    "png": "res://assets/pixel_art/backhall_makeup/props/flowers.png",
-   "x": 96,
+   "x": 1291,
    "y": 586,
    "foot": 652,
    "hide": [
@@ -323,7 +323,7 @@
   {
    "id": "px_mk_flowers_e",
    "png": "res://assets/pixel_art/backhall_makeup/props/flowers_e.png",
-   "x": 210,
+   "x": 1405,
    "y": 586,
    "foot": 652,
    "hide": [
@@ -333,7 +333,7 @@
   {
    "id": "px_mk_side_walls",
    "png": "res://assets/pixel_art/backhall_makeup/props/side_walls.png",
-   "x": 0,
+   "x": 1195,
    "y": 104,
    "foot": 684,
    "hide": []
@@ -341,7 +341,7 @@
   {
    "id": "px_mk_front_walls",
    "png": "res://assets/pixel_art/backhall_makeup/props/front_walls.png",
-   "x": 0,
+   "x": 1195,
    "y": 657,
    "foot": 696,
    "hide": []

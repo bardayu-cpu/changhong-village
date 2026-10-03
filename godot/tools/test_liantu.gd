@@ -151,17 +151,28 @@ func run() -> void:
         print("    ", b)
     check("%d 个口来回都通、落点对、不弹回去" % links, bad.is_empty() and links >= 40)
 
-    print("1b 宴会厅三道门")
+    print("1b 宴会厅三道门（方案 C：西侧门通后厅、东侧门通后花园）")
     go_canvas("garden")
     var g = m.areas["garden"]
     g.reset_to(g.arrival_at("to_banquet"))
     tick(3)
     await walk_to(g.points["to_banquet"]["pos"])
-    check("后花园东口进宴会厅，站在西门里边 %s" % m.hall.pos, m.state == "banquet" and m.hall.pos == Vector2(104, 1300))
+    check("后花园西口进宴会厅，站在东侧门里边 %s" % m.hall.pos, m.state == "banquet" and m.hall.pos == Vector2(1456, 1289))
     tick(60)
     check("站着不弹回后花园", m.state == "banquet")
+    await walk_to(Vector2(1516, 1289))
+    check("宴会厅东侧门出去回后花园，站在西口里边", m.state == "garden" and g.pos.distance_to(g.arrival_from("banquet")) < 1.0)
+    # 方案 C：宴会厅西墙那道门通后厅（化妆间挨着宴会厅）
+    go_canvas("backhall")
+    var bh = m.backhall
+    bh.reset_to(bh.arrival_at("to_hall"))
+    tick(3)
+    await walk_to(bh.points["to_hall"]["pos"])
+    check("后厅走廊东头进宴会厅，站在西侧门里边 %s" % m.hall.pos, m.state == "banquet" and m.hall.pos == Vector2(104, 1300))
+    tick(60)
+    check("站着不弹回后厅", m.state == "banquet")
     await walk_to(Vector2(40, 1300))
-    check("宴会厅西门出去回后花园，站在东口里边", m.state == "garden" and g.pos.distance_to(g.arrival_from("banquet")) < 1.0)
+    check("宴会厅西侧门出去回后厅，站在走廊东头里边", m.state == "backhall" and bh.pos.distance_to(bh.arrival_from("banquet")) < 1.0)
 
     print("2 走到头")
     go_canvas("plaza")
@@ -244,11 +255,11 @@ func run() -> void:
     print("4 湖边")
     var lk = m.lake
     var free_ok := true
-    for q in [Vector2(1000, 1150), Vector2(300, 1200), Vector2(2304, 1150), Vector2(2900, 1150), Vector2(910, 700), Vector2(900, 600), Vector2(3050, 955)]:
+    for q in [Vector2(1000, 1150), Vector2(300, 1200), Vector2(2304, 1150), Vector2(2900, 1150), Vector2(910, 700), Vector2(900, 600), Vector2(22, 821)]:
         if not lk._free(q):
             free_ok = false
             print("    走不了 ", q)
-    check("南墙外、码头、东头尽头去果园的口都能走", free_ok)
+    check("南墙外、码头、西头尽头去果园的口都能走", free_ok)
     var bm: Vector2 = Vector2(910, 640)
     check("船夫 1 跟前 72 像素内有能站的地方 %s" % lk.nearest_free(bm + Vector2(0, 30)), lk.nearest_free(bm + Vector2(0, 30)) != Vector2.ZERO
         and lk.nearest_free(bm + Vector2(0, 30)).distance_to(bm) < 72.0)

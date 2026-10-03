@@ -41,13 +41,16 @@ func run() -> void:
     print("1 后厅四个门口")
     var texts: Array = b.room_signs.map(func(s): return (s.get_child(0) as Label).text)
     check("四块牌子：%s" % [texts], texts == ["化妆间", "休息间", "麻将室", "后厨"])
-    var doors := {"化妆间": [128.0, 208.0], "休息间": [464.0, 544.0], "麻将室": [800.0, 880.0], "后厨": [1136.0, 1216.0]}
+    # 10/4 方案 C：四间整间平移，门洞跟着挪；化妆间门洞离走廊东头「回宴会厅」牌太近，牌子挂门洞西边，别的照旧挂东边
+    var doors := {"化妆间": [1323.0, 1403.0], "休息间": [992.0, 1072.0], "麻将室": [656.0, 736.0], "后厨": [128.0, 208.0]}
     for s in b.room_signs:
         var l: Label = s.get_child(0)
         var box := sign_box(s)
         var d: Array = doors[l.text]
-        check("「%s」挂在门洞东边的墙上（牌子 x %.0f～%.0f，门洞 %.0f～%.0f），下沿在墙上（%.0f）" % [l.text, box.position.x, box.end.x, d[0], d[1], box.end.y],
-            box.position.x >= float(d[1]) and box.position.x - float(d[1]) < 40.0 and box.end.y <= 696.0 and box.end.y >= 674.0)
+        var east_ok: bool = box.position.x >= float(d[1]) and box.position.x - float(d[1]) < 40.0
+        var west_ok: bool = box.end.x <= float(d[0]) and float(d[0]) - box.end.x < 40.0
+        check("「%s」挂在门洞旁边的墙上、不压门洞（牌子 x %.0f～%.0f，门洞 %.0f～%.0f），下沿在墙上（%.0f）" % [l.text, box.position.x, box.end.x, d[0], d[1], box.end.y],
+            (west_ok if l.text == "化妆间" else east_ok) and box.end.y <= 696.0 and box.end.y >= 674.0)
         check("「%s」在会排前后的那层（排在墙脚 696 前面一点：%.0f）" % [l.text, s.position.y], s.get_parent() == b.world and s.position.y > 696.0 and s.position.y < 708.0)
         check("「%s」字 %d（比世界里的字 %d 大）" % [l.text, l.get_theme_font_size("font_size"), b.WORLD_FONT], l.get_theme_font_size("font_size") > b.WORLD_FONT)
     var blocked := 0
@@ -60,14 +63,14 @@ func run() -> void:
         var path: Array = b.find_path(b.SPAWN, pt)
         check("%s 照样走得到" % id, not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(pt) <= float(b.points[id]["r"]))
 
-    print("2 宴会厅东侧门")
+    print("2 宴会厅通后厅的侧门（方案 C 在西墙）")
     var h = m.hall
     var hs: Array = h.room_signs.filter(func(s): return (s.get_child(0) as Label).text == "后厅")
-    check("东侧门有一块「后厅」", hs.size() == 1)
+    check("通后厅的侧门有一块「后厅」", hs.size() == 1)
     if hs.size() == 1:
         var box2 := sign_box(hs[0])
         check("牌子在门那个点上方、不压门（牌子 %s，门 %s）" % [box2, h.side_door], box2.end.y < h.side_door.y and not box2.has_point(h.side_door))
         check("牌子在画布里（右边 %.0f ≤ %d）" % [box2.end.x, int(h.cfg["size"][0])], box2.end.x <= float(h.cfg["size"][0]) and box2.position.x >= 0.0)
-        check("门那个点照样站得住", h._free(h.side_door + Vector2(-20, 0)))
+        check("门那个点照样站得住", h._free(h.side_off(20, 0)))
     print("RESULT PASS" if ok else "RESULT FAIL")
     quit(0 if ok else 1)

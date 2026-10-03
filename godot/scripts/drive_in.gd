@@ -1,7 +1,8 @@
 extends Node
 ## 进山庄自动开车（10/4 连图，01 G 派；阿鱼原话：「先要走大门，然后绕喷泉开一圈，去到停车场停车，然后再从停车场走出来，去到迎宾院……
 ## 开车这一步变成自动的，所以每次进来都绕着那个喷泉绕一圈，去到停车场找个车位停车」）：
-##   前门：车从山庄外头的路开进门楼 → 往东拐出去 → 喷泉广场：从西边进来，绕喷泉一圈，从西边出去 → 停车场：从东边进来，开到自己的车位停好 → 人下车
+##   前门：车从山庄外头的路开进门楼 → 往西拐出去 → 喷泉广场：从东边进来，绕喷泉一圈，从东边出去 → 停车场：从西边进来，开到自己的车位停好 → 人下车
+##   （10/4 方案 C：照阿鱼图只上下翻、左右不变，跟第 64 版东西对调）
 ## 每次进山庄都播（新号、老号都是）；看过一次以后点一下屏幕就跳过（01 默认，阿鱼看了再改）。倒车小游戏以后补，这次不做。
 ## 做法：车就是画布上的「人」——把人藏起来、在人的脚点画一辆车，脚点照路线挪，镜头照旧跟着脚点走；三块画布之间照常淡出淡入
 
@@ -21,12 +22,12 @@ var paused := false             # 截图用：车停在路上那一格不动
 var leg_t := 0.0                # 这一段开了多久（截图用）
 
 ## 三段路线（画布坐标）。喷泉那段是绕着喷泉中心转一圈的椭圆
-const GATE_ROUTE := [Vector2(768, 990), Vector2(768, 536), Vector2(1500, 536)]
-const PLAZA_IN := [Vector2(36, 720), Vector2(330, 720)]
+const GATE_ROUTE := [Vector2(768, 990), Vector2(768, 536), Vector2(36, 536)]
+const PLAZA_IN := [Vector2(1500, 720), Vector2(1206, 720)]
 const LOOP_C := Vector2(768, 540)
 const LOOP_R := Vector2(330, 220)
-const PLAZA_OUT := [Vector2(330, 720), Vector2(36, 720)]
-const PARK_ROUTE := [Vector2(1000, 900), Vector2(850, 900), Vector2(850, 800), Vector2(520, 800), Vector2(520, 1020)]   # 东口进来 → B、C 两排中间的车道 → 倒进 C 排第 4 个位（自己的车位，车头朝北）
+const PLAZA_OUT := [Vector2(1206, 720), Vector2(1500, 720)]
+const PARK_ROUTE := [Vector2(24, 900), Vector2(174, 900), Vector2(174, 800), Vector2(504, 800), Vector2(504, 1020)]   # 西口进来 → B、C 两排中间的车道 → 倒进 C 排靠路那个位（自己的车位，车头朝北）
 
 func setup(main_ref) -> void:
     m = main_ref
@@ -43,9 +44,9 @@ func play() -> void:
     await _leg("frontgate", GATE_ROUTE, [])
     if not skipped:
         var loop: Array = []
-        for i in 41:   # 从西边（180°）出发，顺时针绕一圈回到西边
+        for i in 41:   # 从东边（0°）出发，逆时针绕一圈回到东边
             var a := PI + TAU * float(i) / 40.0
-            loop.append(LOOP_C + Vector2(cos(a) * LOOP_R.x, -sin(a) * LOOP_R.y))
+            loop.append(LOOP_C + Vector2(-cos(a) * LOOP_R.x, -sin(a) * LOOP_R.y))
         await _leg("plaza", PLAZA_IN + loop + PLAZA_OUT, [])
     if not skipped:
         await _leg("parking", PARK_ROUTE, [])

@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：罗曼山庄草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 布局：四个交互点和蓝图一字不差、球 (1100,800)、喜多 (1040,760)（展位 10/3 从西边挪到竖路东边）、孩童区秋千滑梯四个小孩、西北草坪婚礼仪式区（展位，没交互）、四周的树。
-## 进出：喷泉广场西口 ↔ 草坪西南口（10/4 新总图起，原来是迎宾院东小径）、后厅厨房后门 ↔ 草坪西北口，到了站的点离出口至少 1 米、不来回弹；草坪北口 ↔ 果园南口。
+## 进出（10/4 方案 C）：喷泉广场西口 ↔ 草坪东边南头的口、后厅厨房后门 ↔ 草坪东边北头的口，到了站的点离出口至少 1 米、不来回弹；草坪北口 ↔ 果园南口。
 ## 小孩：第一次踢完球、喜多把球放回脚边时喊一句「再踢一个」，每回到草坪喊一次（01 9/20 定）。踢球（只在本机）：第一次走近喜多叼着球跑过来；走到球旁出「踢一脚」；
 ## 朝人面朝的方向滚 1 秒停住（左右 4 米 192 像素、前后 4 米 128 像素）；滚不出草坪；滚进东西弹回上一格；停了喜多叼回人脚边，
 ## 喜多被挡住直接出现在球旁；在滚、在叼的时候不出按钮；踢几次都行；不调云函数；离开草坪球和喜多回起始点
@@ -78,9 +78,10 @@ func run() -> void:
 
     # 1. 布局对蓝图 3.4
     print("1 布局对蓝图 3.4")
-    # 10/4 连图（02 E 改）：加了西南角去西餐厨房、南边去儿童乐园、北边东头去果园 B 三个口
-    var want := {"kids": [1300, 520, 70], "to_plaza": [40, 780, 50], "to_backhall": [40, 300, 50], "to_orchard": [768, 160, 60],
-        "to_wkitchen": [40, 940, 44], "to_kids": [760, 1000, 44], "to_orchard_b": [1320, 172, 50]}
+    # 10/4 连图（02 E 改）：加了去西餐厨房、南边去儿童乐园、北边去果园 B 三个口；
+    # 10/4 方案 C：去后厅、西餐厨房、喷泉广场的口挪到东边北段空当（y 450 往南全是树冠），去果园 B 挪到北边西头
+    var want := {"kids": [1300, 520, 70], "to_plaza": [1496, 430, 44], "to_backhall": [1496, 230, 44], "to_orchard": [768, 160, 60],
+        "to_wkitchen": [1496, 330, 44], "to_kids": [760, 1000, 44], "to_orchard_b": [140, 172, 50]}
     var same: bool = l.points.size() == 7
     for id in want:
         same = same and l.points.has(id) and l.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(l.points[id]["r"]), float(want[id][2]))
@@ -136,24 +137,24 @@ func run() -> void:
     # 10/4 连图起落点照布局算（口往里 70 像素），不再写死
     walk_to(c.spot_pos("to_plaza"))
     var pz = m.plaza
-    walk_to(pz.spot_pos("to_lawn") + Vector2(-120, 0))
+    walk_to(pz.arrival_at("to_lawn"))
     walk_to(pz.spot_pos("to_lawn"))
-    check("广场东口进了草坪 state=%s" % m.state, m.state == "lawn" and m.cv == l and l.visible and not pz.visible)
-    check("站在西南口边 %s，朝向没变 %s" % [l.pos, l.face], l.pos == l.arrival_at("to_plaza") and l.face == "right")
+    check("广场西口进了草坪 state=%s" % m.state, m.state == "lawn" and m.cv == l and l.visible and not pz.visible)
+    check("站在东边南头那个口边 %s，朝向没变 %s" % [l.pos, l.face], l.pos == l.arrival_at("to_plaza") and l.face == "left")
     tick(60)
     check("站着 60 帧不弹回广场", m.state == "lawn")
     walk_to(l.spot_pos("to_plaza"))
-    check("西南口回到广场，站在东口里边 %s" % pz.pos, m.state == "plaza" and pz.pos == pz.arrival_at("to_lawn"))
+    check("东边口回到广场，站在西口里边 %s" % pz.pos, m.state == "plaza" and pz.pos == pz.arrival_at("to_lawn"))
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "plaza")
     walk_to(pz.spot_pos("to_lawn"))
-    walk_to(l.spot_pos("to_backhall") + Vector2(80, 0))
+    walk_to(l.arrival_at("to_backhall"))
     walk_to(l.spot_pos("to_backhall"))
-    check("西北口去了后厅，站在厨房后门边 %s" % m.backhall.pos, m.state == "backhall" and m.backhall.pos == m.backhall.arrival_at("to_lawn"))
+    check("东边北头那个口去了后厅，站在厨房后门边 %s" % m.backhall.pos, m.state == "backhall" and m.backhall.pos == m.backhall.arrival_at("to_lawn"))
     tick(60)
     check("站着 60 帧不弹回草坪", m.state == "backhall")
     walk_to(m.backhall.spot_pos("to_lawn"))
-    check("厨房后门回到草坪，站在西北口边 %s" % l.pos, m.state == "lawn" and l.pos == l.arrival_at("to_backhall"))
+    check("厨房后门回到草坪，站在东边北头那个口边 %s" % l.pos, m.state == "lawn" and l.pos == l.arrival_at("to_backhall"))
     tick(60)
     check("站着 60 帧不弹回后厅", m.state == "lawn")
     walk_to(Vector2(768, 330))
