@@ -50,6 +50,15 @@ func tick(n: int) -> void:
         m._process(DT)
 
 ## 走到某点（点地面的走法），最多走 secs 秒；到了或者路走完就停
+## 从停车场走回迎宾院（10/3 起大门外是停车场）：走到门楼门洞
+func back_to_court() -> void:
+    if m.state != "parking":
+        return
+    var pk = m.parking
+    walk_to(pk.spot_pos("to_court") + Vector2(0, 90))
+    walk_to(pk.spot_pos("to_court"))
+    tick(5)
+
 func walk_to(target: Vector2, secs := 20.0) -> void:
     m.cv.go_to(target)
     for i in int(secs / DT):
@@ -447,28 +456,35 @@ func part4(c) -> void:
     m.dialog.gui_input.emit(tapev)
     check("点说话框出普通话：%s" % m.note.text, m.note.text == CourtCopy.text("elder_gloss"))
 
-    # 24. 大门：还没写悄悄话，走到门口不理人，没有金圈
+    # 24. 大门：还没写悄悄话，没有金圈；10/3 起大门外是停车场：走到门口就出去（不拦着），不说话、停车场里不指车
     print("24 大门没开")
     sv.whisper_done = false
     sv.signed_in = true
     m._update_gate()
     m.note.text = ""
     m.dialog_text.text = ""
+    check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("没金圈、不理人", not c.exit_mark.visible and m.note.text == "" and m.dialog_text.text == "")
+    check("走到门口出到停车场（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
+        m.state == "parking" and m.note.text == "" and m.dialog_text.text == "" and not m.parking.car_hint)
+    back_to_court()
 
-    # 25. 写了悄悄话没签到：大门不开，新娘妈妈提醒先签个到
+    # 25. 写了悄悄话没签到：大门没金圈，新娘妈妈提醒先签个到；10/3 起不拦着，照样出到停车场、不指车
     print("25 写了没签到")
     sv.whisper_done = true
     sv.signed_in = false
     m._update_gate()
+    check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("没金圈；%s：%s" % [m.dialog_who.text, m.dialog_text.text],
-        not c.exit_mark.visible and m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed"))
+    check("%s：%s；照样出到停车场、不指车" % [m.dialog_who.text, m.dialog_text.text],
+        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed") and m.state == "parking" and not m.parking.car_hint)
+    m.dialog.visible = false
+    m.dialog_text.text = ""
+    back_to_court()
 
-    # 26. 真走一遍：签过到，进厅写悄悄话，出来大门开了；走到门口「镇上的路还没修好 下次带你去」，人停下，不进结束页
+    # 26. 真走一遍：签过到，进厅写悄悄话，出来大门开了；10/3 起走出大门回停车场，金箭头指自己的车，走到车旁新娘妈妈送你，不进结束页
     print("26 写完悄悄话出大门")
     sv.signed_in = true
     sv.whisper_done = false
@@ -490,15 +506,20 @@ func part4(c) -> void:
     walk_to(m.hall.door)
     check("回到迎宾院，大门亮金圈", m.state == "court" and c.exit_mark.visible)
     m.note.text = ""
+    m.dialog_text.text = ""
     walk_to(c.spot_pos("gate"), 30.0)
-    # 01 9/23：出大门改成新娘妈妈送你——一句送别，一句明天回来能看到什么；回忆册现在是灰的，不提
+    check("走出大门回到停车场、门口不说话（%s）、金箭头指自己的车" % m.state, m.state == "parking" and m.dialog_text.text == "" and m.parking.car_hint)
+    var pk = m.parking
+    walk_to(pk.spot_pos("my_car"), 30.0)
+    # 01 9/23：出大门改成新娘妈妈送你——一句送别，一句明天回来能看到什么；回忆册现在是灰的，不提。10/3 起挪到自己车旁说
     var bye: String = m.dialog_text.text
-    check("门口新娘妈妈送你：%s" % bye.replace("\n", " / "), m.dialog.visible and m.dialog_who.text == "新娘妈妈"
+    check("车旁新娘妈妈送你：%s" % bye.replace("\n", " / "), m.dialog.visible and m.dialog_who.text == "新娘妈妈"
         and bye == CourtCopy.text("gate_bye") + "\n" + CourtCopy.text("gate_tomorrow") and not bye.contains("回忆册"))
     check("不再说路没修好", not bye.contains("路还没修好") and not m.note.text.contains("路还没修好"))
-    check("人停在门口、还在迎宾院", c.path.is_empty() and m.state == "court" and c.in_spot("gate"))
+    check("人停在车旁、还在停车场、箭头收了", pk.path.is_empty() and m.state == "parking" and pk.in_spot("my_car") and not pk.car_hint)
     tick(60)
-    check("站着不动，没进结束页", m.state == "court" and not m.screens["end"].visible)
+    check("站着不动，没进结束页", m.state == "parking" and not m.screens["end"].visible)
+    back_to_court()
     if had:
         var wf := FileAccess.open(wpath, FileAccess.WRITE)
         wf.store_string(old_w)

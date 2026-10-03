@@ -15,6 +15,7 @@ var whisper_done := false        # 在宴会厅给新人写过悄悄话了：大
 var gloss_seen := false          # 休息区老人那句的方言词弹过普通话了（只自动弹第一次，蓝图 3.1）
 var door_hint := false           # 宴会厅东侧门的金光、箭头开了（第一次坐下或玩完第一个小游戏以后，01 E 10/3）
 var backhall_seen := false       # 进过一次后厅了：东侧门的金光、箭头、进厅小卡那行「东边侧门通后厅」都收
+var court_seen := false          # 进过一次迎宾院了（10/3 停车场起）：再开游戏不从停车场出生、停车场指大门的箭头不再出
 
 func load_local() -> void:
     if not FileAccess.file_exists(local_path):
@@ -33,13 +34,15 @@ func load_local() -> void:
     gloss_seen = bool(d.get("gloss_seen", false))
     door_hint = bool(d.get("door_hint", false))
     backhall_seen = bool(d.get("backhall_seen", false))
+    court_seen = bool(d.get("court_seen", false))
 
 func save() -> void:
     var f := FileAccess.open(local_path, FileAccess.WRITE)
     if f == null:
         return
     f.store_string(JSON.stringify({"welcomed": welcomed, "signed_in": signed_in, "candy": candy, "draft": draft, "photos": photos,
-        "whisper_done": whisper_done, "gloss_seen": gloss_seen, "door_hint": door_hint, "backhall_seen": backhall_seen}))
+        "whisper_done": whisper_done, "gloss_seen": gloss_seen, "door_hint": door_hint, "backhall_seen": backhall_seen,
+        "court_seen": court_seen}))
     f.close()
 
 ## 收好一张相纸：最多留 PHOTO_KEEP 张，多了把最早的顶掉
@@ -48,6 +51,11 @@ func keep_photo(pose: String, preset: int) -> void:
     while photos.size() > PHOTO_KEEP:
         photos.pop_front()
     save()
+
+## 进没进过迎宾院（10/3 停车场：进过的再开游戏不从停车场出生，照原来从迎宾院进；「中途退出再进来从哪开始」还在待讨论，先照这个）。
+## 停车场以前的老存档没有 court_seen：迎过、签过到的也算进过
+func seen_court() -> bool:
+    return court_seen or welcomed or signed_in
 
 ## 大门开没开（蓝图 3.1、2.3）：写过悄悄话、也签过到。写了悄悄话没签到的，大门不开，新娘妈妈提醒先签到
 func gate_open() -> bool:
