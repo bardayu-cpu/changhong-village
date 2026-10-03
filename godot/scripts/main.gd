@@ -3957,6 +3957,8 @@ func _setup_shot(shot: String) -> void:
             court_save.local_path = "user://shot_drive_court.json"
             court_save.drive_seen = false
             drive_in_fast = true
+            dialog.visible = false
+            arrive_line = false
             _drive_in()
             var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 2.6], "drive_park": ["parking", 1.9]}[shot]
             for i in 3000:
@@ -3986,14 +3988,14 @@ func _setup_shot(shot: String) -> void:
             ensure_canvas(cn)
             _show_canvas(cn)
             _goto(cn)
-            var at: Vector2 = {"edge_plaza": Vector2(320, 240), "edge_lake": Vector2(2200, 1260), "lake_south": Vector2(2304, 1150),
+            var at: Vector2 = {"edge_plaza": Vector2(600, 240), "edge_lake": Vector2(2200, 1260), "lake_south": Vector2(2304, 1150),
                 "lake_dock": Vector2(910, 700), "lake_east_exit": Vector2(2960, 955)}[shot]
             cv.reset_to(at)
             cv.face = "up" if shot != "edge_lake" else "down"
             for i in 10: await get_tree().process_frame
             if shot.begins_with("edge_"):
                 cv.stick = Vector2(0, -1) if shot == "edge_plaza" else Vector2(0, 1)
-                for i in 40: await get_tree().process_frame
+                for i in 90: await get_tree().process_frame
                 cv.stick = Vector2.ZERO
             for i in 10: await get_tree().process_frame
         "lounge_dm", "lounge_dm_choice":
