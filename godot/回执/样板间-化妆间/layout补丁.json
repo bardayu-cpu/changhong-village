@@ -1,0 +1,846 @@
+{
+ "note": "化妆间新摆法（06 makeup01，2026-10-03）。只是补丁，不改 layout.json 本身：本地 02 照这份改。rect = 占地（画布坐标，y 是地面前后），h = 高（像素，1 米 48）；block=true 挡人。remove 里是原来化妆间的灰盒，换成 add 里的；墙、前沿矮墙、门口、dress 交互点都没动。part 编号没给（零件总表归 01），先空着。",
+ "room": {
+  "x": [
+   0,
+   336
+  ],
+  "door": [
+   168,
+   690
+  ],
+  "door_gap": [
+   128,
+   208
+  ],
+  "dress_point": [
+   168,
+   400
+  ]
+ },
+ "remove": [
+  "vanity_1",
+  "makeup_stool_1",
+  "vanity_2",
+  "makeup_stool_2",
+  "rack_post_w",
+  "rack_post_e",
+  "rack_rail",
+  "rack_dress_1",
+  "rack_dress_2",
+  "rack_dress_3",
+  "rack_base",
+  "screen",
+  "full_mirror"
+ ],
+ "remove_flat": [
+  {
+   "rect": [
+    54,
+    124,
+    146,
+    214
+   ],
+   "why": "原来北墙上那块金框蓝镜子（灰盒），换成三面明星镜，画在底图里"
+  },
+  {
+   "rect": [
+    60,
+    130,
+    140,
+    208
+   ],
+   "why": "同上"
+  }
+ ],
+ "add": [
+  {
+   "type": "box",
+   "id": "mk_closet_cn",
+   "rect": [
+    12,
+    228,
+    74,
+    242
+   ],
+   "h": 98,
+   "block": true,
+   "zone": "中式",
+   "scale": {
+    "name": "中式开放衣墙（上层绸缎帽盒、中间挂短褂、下层绣花鞋、挂两把团扇）",
+    "w_m": 1.29,
+    "d_m": 0.44,
+    "h_m": 2.04
+   },
+   "foot": 242,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_vanity_1",
+   "rect": [
+    78,
+    228,
+    134,
+    246
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "化妆",
+   "scale": {
+    "name": "明星化妆台 1（连墙上灯泡镜）",
+    "w_m": 1.17,
+    "d_m": 0.56,
+    "h_m": 0.75
+   },
+   "foot": 246,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_vanity_2",
+   "rect": [
+    140,
+    228,
+    196,
+    246
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "化妆",
+   "scale": {
+    "name": "明星化妆台 2（新娘这台）",
+    "w_m": 1.17,
+    "d_m": 0.56,
+    "h_m": 0.75
+   },
+   "foot": 246,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_vanity_3",
+   "rect": [
+    202,
+    228,
+    258,
+    246
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "化妆",
+   "scale": {
+    "name": "明星化妆台 3",
+    "w_m": 1.17,
+    "d_m": 0.56,
+    "h_m": 0.75
+   },
+   "foot": 246,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_stool_1",
+   "rect": [
+    97,
+    258,
+    115,
+    268
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "化妆",
+   "scale": {
+    "name": "化妆凳 1",
+    "w_m": 0.38,
+    "d_m": 0.31,
+    "h_m": 0.46
+   },
+   "foot": 268,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_stool_2",
+   "rect": [
+    159,
+    258,
+    177,
+    268
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "化妆",
+   "scale": {
+    "name": "化妆凳 2（新娘坐）",
+    "w_m": 0.38,
+    "d_m": 0.31,
+    "h_m": 0.46
+   },
+   "foot": 268,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_stool_3",
+   "rect": [
+    221,
+    258,
+    239,
+    268
+   ],
+   "h": 22,
+   "block": true,
+   "zone": "化妆",
+   "scale": {
+    "name": "化妆凳 3",
+    "w_m": 0.38,
+    "d_m": 0.31,
+    "h_m": 0.46
+   },
+   "foot": 268,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_closet_west",
+   "rect": [
+    262,
+    228,
+    328,
+    242
+   ],
+   "h": 98,
+   "block": true,
+   "zone": "西式",
+   "scale": {
+    "name": "西式开放衣墙（上层帽盒、中间挂短外套衬衫、下层一排高跟鞋）",
+    "w_m": 1.38,
+    "d_m": 0.44,
+    "h_m": 2.04
+   },
+   "foot": 242,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_rack_cn_back",
+   "rect": [
+    14,
+    332,
+    96,
+    344
+   ],
+   "h": 90,
+   "block": true,
+   "zone": "中式",
+   "scale": {
+    "name": "中式后排高架（六件：秀禾、龙凤褂、裙褂、马面裙…）",
+    "w_m": 1.71,
+    "d_m": 0.38,
+    "h_m": 1.88
+   },
+   "foot": 344,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_rack_cn_front",
+   "rect": [
+    36,
+    374,
+    104,
+    384
+   ],
+   "h": 78,
+   "block": true,
+   "zone": "中式",
+   "scale": {
+    "name": "中式前排矮架（四件旗袍）",
+    "w_m": 1.42,
+    "d_m": 0.31,
+    "h_m": 1.62
+   },
+   "foot": 384,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_crown_stand",
+   "rect": [
+    12,
+    378,
+    32,
+    388
+   ],
+   "h": 74,
+   "block": true,
+   "zone": "中式",
+   "scale": {
+    "name": "凤冠架（头模戴凤冠、披红盖头）",
+    "w_m": 0.42,
+    "d_m": 0.31,
+    "h_m": 1.54
+   },
+   "foot": 388,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_rack_west_back",
+   "rect": [
+    240,
+    332,
+    330,
+    344
+   ],
+   "h": 90,
+   "block": true,
+   "zone": "西式",
+   "scale": {
+    "name": "西式后排高架（七件：婚纱、晚礼服、西装、伴娘裙）",
+    "w_m": 1.88,
+    "d_m": 0.38,
+    "h_m": 1.88
+   },
+   "foot": 344,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_rack_west_front",
+   "rect": [
+    232,
+    366,
+    296,
+    376
+   ],
+   "h": 80,
+   "block": true,
+   "zone": "西式",
+   "scale": {
+    "name": "西式前排矮架（四件：短婚纱、小礼服、燕尾服、马甲）",
+    "w_m": 1.33,
+    "d_m": 0.31,
+    "h_m": 1.67
+   },
+   "foot": 376,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_gown_form",
+   "rect": [
+    298,
+    374,
+    330,
+    388
+   ],
+   "h": 82,
+   "block": true,
+   "zone": "西式",
+   "scale": {
+    "name": "人台上的大拖尾婚纱（带头纱）",
+    "w_m": 0.67,
+    "d_m": 0.44,
+    "h_m": 1.71
+   },
+   "foot": 388,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_rack_jp_back",
+   "rect": [
+    14,
+    456,
+    104,
+    468
+   ],
+   "h": 80,
+   "block": true,
+   "zone": "日式",
+   "scale": {
+    "name": "日式后排黑漆衣架（五件振袖、白无垢、留袖）",
+    "w_m": 1.88,
+    "d_m": 0.38,
+    "h_m": 1.67
+   },
+   "foot": 468,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_iko",
+   "rect": [
+    14,
+    494,
+    86,
+    504
+   ],
+   "h": 77,
+   "block": true,
+   "zone": "日式",
+   "scale": {
+    "name": "和服衣桁（红打褂）",
+    "w_m": 1.5,
+    "d_m": 0.31,
+    "h_m": 1.6
+   },
+   "foot": 504,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_tansu",
+   "rect": [
+    88,
+    506,
+    118,
+    520
+   ],
+   "h": 30,
+   "block": true,
+   "zone": "日式",
+   "scale": {
+    "name": "黑漆小柜（上面腰带卷、扇子、发簪盒；脚边木屐）",
+    "w_m": 0.62,
+    "d_m": 0.44,
+    "h_m": 0.62
+   },
+   "foot": 520,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_ethnic_wall",
+   "rect": [
+    226,
+    462,
+    330,
+    476
+   ],
+   "h": 88,
+   "block": true,
+   "zone": "民族",
+   "scale": {
+    "name": "民族饰品墙（帽子、银项圈银锁、绣片、彩带、绣花鞋）",
+    "w_m": 2.17,
+    "d_m": 0.44,
+    "h_m": 1.83
+   },
+   "foot": 476,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_rack_ethnic",
+   "rect": [
+    222,
+    496,
+    298,
+    508
+   ],
+   "h": 72,
+   "block": true,
+   "zone": "民族",
+   "scale": {
+    "name": "民族服装架（五件：苗、藏、彝、傣、蒙古）",
+    "w_m": 1.58,
+    "d_m": 0.38,
+    "h_m": 1.5
+   },
+   "foot": 508,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_silver_crown",
+   "rect": [
+    300,
+    500,
+    328,
+    510
+   ],
+   "h": 72,
+   "block": true,
+   "zone": "民族",
+   "scale": {
+    "name": "苗族银角头冠架",
+    "w_m": 0.58,
+    "d_m": 0.31,
+    "h_m": 1.5
+   },
+   "foot": 510,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_steamer",
+   "rect": [
+    222,
+    336,
+    236,
+    346
+   ],
+   "h": 82,
+   "block": true,
+   "zone": "西式",
+   "scale": {
+    "name": "挂烫机（白、金色挂杆、一件衬衫挂着）",
+    "w_m": 0.29,
+    "d_m": 0.31,
+    "h_m": 1.71
+   },
+   "foot": 346,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_floor_vase",
+   "rect": [
+    104,
+    444,
+    120,
+    456
+   ],
+   "h": 50,
+   "block": true,
+   "zone": "日式",
+   "scale": {
+    "name": "落地大花瓶（青花、插牡丹）",
+    "w_m": 0.33,
+    "d_m": 0.38,
+    "h_m": 1.04
+   },
+   "foot": 456,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_island",
+   "rect": [
+    138,
+    500,
+    198,
+    528
+   ],
+   "h": 40,
+   "block": true,
+   "zone": "饰品",
+   "scale": {
+    "name": "首饰中岛（玻璃台面：戒指耳环手镯项链；台上头冠、捧花、领结领带盒）",
+    "w_m": 1.25,
+    "d_m": 0.88,
+    "h_m": 0.83
+   },
+   "foot": 528,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_full_mirror",
+   "rect": [
+    14,
+    598,
+    42,
+    606
+   ],
+   "h": 82,
+   "block": true,
+   "zone": "等候",
+   "scale": {
+    "name": "落地全身镜",
+    "w_m": 0.58,
+    "d_m": 0.25,
+    "h_m": 1.71
+   },
+   "foot": 606,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_sofa",
+   "rect": [
+    46,
+    566,
+    118,
+    598
+   ],
+   "h": 41,
+   "block": true,
+   "zone": "等候",
+   "scale": {
+    "name": "等候沙发（红丝绒两人位）",
+    "w_m": 1.5,
+    "d_m": 1.0,
+    "h_m": 0.85
+   },
+   "foot": 598,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_trunk",
+   "rect": [
+    48,
+    640,
+    94,
+    656
+   ],
+   "h": 26,
+   "block": true,
+   "zone": "等候",
+   "scale": {
+    "name": "陪嫁红木箱（上面一朵红绸花）",
+    "w_m": 0.96,
+    "d_m": 0.5,
+    "h_m": 0.54
+   },
+   "foot": 656,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_flowers",
+   "rect": [
+    100,
+    642,
+    120,
+    652
+   ],
+   "h": 58,
+   "block": true,
+   "zone": "等候",
+   "scale": {
+    "name": "门口落地花架",
+    "w_m": 0.42,
+    "d_m": 0.31,
+    "h_m": 1.21
+   },
+   "foot": 652,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_shoes",
+   "rect": [
+    216,
+    598,
+    258,
+    612
+   ],
+   "h": 43,
+   "block": true,
+   "zone": "换衣",
+   "scale": {
+    "name": "鞋架（三层）",
+    "w_m": 0.88,
+    "d_m": 0.44,
+    "h_m": 0.9
+   },
+   "foot": 612,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_flowers_e",
+   "rect": [
+    214,
+    642,
+    234,
+    652
+   ],
+   "h": 58,
+   "block": true,
+   "zone": "换衣",
+   "scale": {
+    "name": "门口东边落地花架（跟西边那个一对）",
+    "w_m": 0.42,
+    "d_m": 0.31,
+    "h_m": 1.21
+   },
+   "foot": 652,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_pouf",
+   "rect": [
+    238,
+    620,
+    258,
+    632
+   ],
+   "h": 20,
+   "block": true,
+   "zone": "换衣",
+   "scale": {
+    "name": "试鞋圆墩（红丝绒）",
+    "w_m": 0.42,
+    "d_m": 0.38,
+    "h_m": 0.42
+   },
+   "foot": 632,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_screen",
+   "rect": [
+    264,
+    596,
+    328,
+    606
+   ],
+   "h": 82,
+   "block": true,
+   "zone": "换衣",
+   "scale": {
+    "name": "喜鹊登梅四扇屏风（换衣）",
+    "w_m": 1.33,
+    "d_m": 0.31,
+    "h_m": 1.71
+   },
+   "foot": 606,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  },
+  {
+   "type": "box",
+   "id": "mk_gifts",
+   "rect": [
+    270,
+    640,
+    326,
+    656
+   ],
+   "h": 36,
+   "block": true,
+   "zone": "换衣",
+   "scale": {
+    "name": "礼盒堆",
+    "w_m": 1.17,
+    "d_m": 0.5,
+    "h_m": 0.75
+   },
+   "foot": 656,
+   "art": "godot/回执/样板间-化妆间/draw_makeup.py"
+  }
+ ],
+ "flat": [
+  {
+   "id": "mk_dress_rug",
+   "name": "换装小圆毯（dress 交互点，低调）",
+   "rect": [
+    142,
+    390,
+    194,
+    418
+   ],
+   "block": false
+  },
+  {
+   "id": "mk_rug_cn",
+   "name": "中式区红毯（回纹边）",
+   "rect": [
+    12,
+    322,
+    108,
+    396
+   ],
+   "block": false
+  },
+  {
+   "id": "mk_rug_west",
+   "name": "西式区白毯（粉边、蕾丝角）",
+   "rect": [
+    228,
+    322,
+    330,
+    398
+   ],
+   "block": false
+  },
+  {
+   "id": "mk_tatami",
+   "name": "日式区榻榻米（两张，黑布边）",
+   "rect": [
+    12,
+    446,
+    120,
+    526
+   ],
+   "block": false
+  },
+  {
+   "id": "mk_rug_ethnic",
+   "name": "民族区彩织毯（条纹、流苏）",
+   "rect": [
+    218,
+    452,
+    330,
+    530
+   ],
+   "block": false
+  },
+  {
+   "id": "mk_doormat",
+   "name": "门里地垫（跟休息间那块一样）",
+   "rect": [
+    144,
+    644,
+    192,
+    660
+   ],
+   "block": false
+  }
+ ],
+ "npcs": [
+  {
+   "id": "bride",
+   "who": "新娘（坐在中间化妆台前，背对镜头）",
+   "x": 168,
+   "y": 269,
+   "face": "up",
+   "sit": true,
+   "standin": "LM-GUEST-02 第 12 格（替身，等 GPT 画）"
+  },
+  {
+   "id": "makeup_1",
+   "who": "化妆师（站在新娘右手边，侧身朝左）",
+   "x": 194,
+   "y": 273,
+   "face": "left",
+   "sit": false,
+   "standin": "LM-GUEST-03 第 4 格（替身，等 GPT 画）"
+  },
+  {
+   "id": "makeup_2",
+   "who": "化妆师 2（站在中岛和民族区之间，侧身朝右）",
+   "x": 212,
+   "y": 552,
+   "face": "right",
+   "sit": false,
+   "standin": "LM-GUEST-06 第 8 格（替身，等 GPT 画）"
+  }
+ ],
+ "keep_clear": [
+  {
+   "what": "门口往里一段（门洞 128～208，y 560 以南）",
+   "rect": [
+    128,
+    560,
+    208,
+    684
+   ]
+  },
+  {
+   "what": "dress 交互点四周 60 像素不放东西",
+   "circle": [
+    168,
+    400,
+    60
+   ]
+  }
+ ]
+}
