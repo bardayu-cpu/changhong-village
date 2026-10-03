@@ -112,6 +112,7 @@ func run() -> void:
     m.court_save.backhall_seen = false
     m.court_save.photos = []
     m.court_save.gloss_seen = false
+    m.court_save.court_seen = false   # 第一回来的：没进过迎宾院（10/3 停车场）
     m.games_save.coins = 0
     m.cloud.fake_blessings = []
     m.cloud.fake_no_news = false        # 新号第一次进厅：有「你坐 XX 那桌」那一句
@@ -143,9 +144,15 @@ func run() -> void:
     check("有「好」键", ok_btn != null)
     ok_btn.pressed.emit()
 
-    # ================= 2 进大门 =================
-    step("第 2 步 进迎宾院大门，新娘妈妈迎")
+    # ================= 2 停车场下车、进大门 =================
+    # 10/3 起：第一回来的选完形象先站在停车场自己的车旁（金箭头指大门），走进门楼才到迎宾院，「到啦～」在这时说
+    step("第 2 步 停车场下车，走进大门，新娘妈妈迎")
+    await wait_state("parking")
+    var pk = m.parking
+    check("在停车场、站自己的车旁 %s，金箭头指大门" % str(pk.pos), m.state == "parking" and pk.pos == pk.SPAWN and pk.gate_hint)
+    walk_to(pk.spot_pos("to_court"))
     await wait_state("court")
+    await frames(3)
     var c = m.court
     check("在迎宾院、站大门口 %s" % str(c.pos), m.state == "court" and m.cv == c and c.pos == c.SPAWN)
     check("大门口说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
@@ -399,10 +406,15 @@ func run() -> void:
     check("大门那圈金光亮了（签过到也写过悄悄话）", m.court_save.gate_open() and c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -150))
     walk_to(c.spot_pos("gate"))
+    await wait_state("parking")
     await frames(3)
-    check("走到大门口：新娘妈妈送「%s」" % m.dialog_text.text.replace("\n", "／"), m.dialog_who.text == CourtCopy.who("gate_bye") and m.dialog_text.text.begins_with(CourtCopy.text("gate_bye")))
+    # 10/3 起：出大门回停车场，金箭头指自己的车，走到车旁新娘妈妈送你
+    check("出大门回到停车场，金箭头指自己的车", m.state == "parking" and pk.car_hint)
+    walk_to(pk.spot_pos("my_car"))
+    await frames(3)
+    check("走到车旁：新娘妈妈送「%s」" % m.dialog_text.text.replace("\n", "／"), m.dialog_who.text == CourtCopy.who("gate_bye") and m.dialog_text.text.begins_with(CourtCopy.text("gate_bye")))
     check("没有开发字样（【待做】【待补】预留）", not m.dialog_text.text.contains("待") and not m.dialog_text.text.contains("预留"))
-    check("人停在大门口、存档 %s" % [m.court_save.signed_in], c.path.is_empty() and m.court_save.signed_in and m.court_save.whisper_done)
+    check("人停在车旁、存档 %s" % [m.court_save.signed_in], pk.path.is_empty() and m.court_save.signed_in and m.court_save.whisper_done)
 
     step("（收尾）")
     steps.append([cur, step_ok])

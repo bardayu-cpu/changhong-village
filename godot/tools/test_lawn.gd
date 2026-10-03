@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：罗曼山庄草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 布局：四个交互点和蓝图一字不差、球 (1100,800)、喜多 (1040,760)（展位 10/3 从西边挪到竖路东边）、孩童区秋千滑梯四个小孩、西北草坪婚礼仪式区（展位，没交互）、四周的树。
-## 进出：迎宾院东小径 ↔ 草坪西南口、后厅厨房后门 ↔ 草坪西北口，到了站的点离出口至少 1 米、不来回弹；草坪北口 ↔ 果园南口。
+## 进出：喷泉广场西口 ↔ 草坪西南口（10/4 新总图起，原来是迎宾院东小径）、后厅厨房后门 ↔ 草坪西北口，到了站的点离出口至少 1 米、不来回弹；草坪北口 ↔ 果园南口。
 ## 小孩：第一次踢完球、喜多把球放回脚边时喊一句「再踢一个」，每回到草坪喊一次（01 9/20 定）。踢球（只在本机）：第一次走近喜多叼着球跑过来；走到球旁出「踢一脚」；
 ## 朝人面朝的方向滚 1 秒停住（左右 4 米 192 像素、前后 4 米 128 像素）；滚不出草坪；滚进东西弹回上一格；停了喜多叼回人脚边，
 ## 喜多被挡住直接出现在球旁；在滚、在叼的时候不出按钮；踢几次都行；不调云函数；离开草坪球和喜多回起始点
@@ -78,7 +78,7 @@ func run() -> void:
 
     # 1. 布局对蓝图 3.4
     print("1 布局对蓝图 3.4")
-    var want := {"kids": [1300, 520, 70], "to_entrance": [40, 780, 50], "to_backhall": [40, 300, 50], "to_orchard": [768, 160, 60]}
+    var want := {"kids": [1300, 520, 70], "to_plaza": [40, 780, 50], "to_backhall": [40, 300, 50], "to_orchard": [768, 160, 60]}
     var same: bool = l.points.size() == 4
     for id in want:
         same = same and l.points.has(id) and l.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(l.points[id]["r"]), float(want[id][2]))
@@ -120,28 +120,30 @@ func run() -> void:
         var path: Array = l.find_path(l.SPAWN, pt)
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else l.SPAWN
         check("%s 走得到（离点 %.1f，半径 %.0f）" % [id, end.distance_to(pt), l.points[id]["r"]], end.distance_to(pt) < float(l.points[id]["r"]))
-    for pair in [[m.LAWN_FROM_COURT, "to_entrance"], [m.LAWN_FROM_BACKHALL, "to_backhall"]]:
+    for pair in [[m.LAWN_FROM_PLAZA, "to_plaza"], [m.LAWN_FROM_BACKHALL, "to_backhall"]]:
         var at: Vector2 = pair[0]
         var gap: float = at.distance_to(l.points[pair[1]]["pos"])
         check("到了站在 %s 离 %s %.0f 像素（至少 48），能站" % [at, pair[1], gap], gap >= 48.0 and l._free(at))
 
-    # 2. 进出：迎宾院东小径 ↔ 草坪西南口；草坪西北口 ↔ 后厅厨房后门；草坪北口 ↔ 果园南口
+    # 2. 进出：喷泉广场西口 ↔ 草坪西南口（10/4 新总图）；草坪西北口 ↔ 后厅厨房后门；草坪北口 ↔ 果园南口
     print("2 进出")
     m.nickname = "阿花"
     await m._enter_court()
     m.dialog.visible = false
     var c = m.court
-    walk_to(c.spot_pos("to_lawn") + Vector2(-120, 0))
-    walk_to(c.spot_pos("to_lawn"))
-    check("东小径进了草坪 state=%s" % m.state, m.state == "lawn" and m.cv == l and l.visible and not c.visible)
-    check("站在西南口边 (100,780) %s，朝向没变 %s" % [l.pos, l.face], l.pos == Vector2(100, 780) and l.face == "right")
+    walk_to(c.spot_pos("to_plaza"))
+    var pz = m.plaza
+    walk_to(pz.spot_pos("to_lawn") + Vector2(120, 0))
+    walk_to(pz.spot_pos("to_lawn"))
+    check("广场西口进了草坪 state=%s" % m.state, m.state == "lawn" and m.cv == l and l.visible and not pz.visible)
+    check("站在西南口边 (100,780) %s，朝向没变 %s" % [l.pos, l.face], l.pos == Vector2(100, 780) and l.face == "left")
     tick(60)
-    check("站着 60 帧不弹回迎宾院", m.state == "lawn")
-    walk_to(l.spot_pos("to_entrance"))
-    check("西南口回到迎宾院，站在东小径边 (1440,780) %s" % c.pos, m.state == "court" and c.pos == Vector2(1440, 780))
+    check("站着 60 帧不弹回广场", m.state == "lawn")
+    walk_to(l.spot_pos("to_plaza"))
+    check("西南口回到广场，站在西口里边 %s" % pz.pos, m.state == "plaza" and pz.pos == pz.FROM_LAWN)
     tick(60)
-    check("站着 60 帧不弹回草坪", m.state == "court")
-    walk_to(c.spot_pos("to_lawn"))
+    check("站着 60 帧不弹回草坪", m.state == "plaza")
+    walk_to(pz.spot_pos("to_lawn"))
     walk_to(l.spot_pos("to_backhall") + Vector2(80, 0))
     walk_to(l.spot_pos("to_backhall"))
     check("西北口去了后厅，站在厨房后门边 (1440,780) %s" % m.backhall.pos, m.state == "backhall" and m.backhall.pos == Vector2(1440, 780))
@@ -201,9 +203,9 @@ func run() -> void:
     l.kick()
     until_idle(l)
     check("再踢不重复喊", m.say_token == tok)
-    walk_to(l.spot_pos("to_entrance"))
-    check("先回迎宾院", m.state == "court")
-    walk_to(c.spot_pos("to_lawn"))
+    walk_to(l.spot_pos("to_plaza"))
+    check("先回广场", m.state == "plaza")
+    walk_to(pz.spot_pos("to_lawn"))
     check("又进草坪", m.state == "lawn")
     m.dialog.visible = false
     tok = m.say_token
@@ -319,7 +321,8 @@ func run() -> void:
     check("回到迎宾院", m.state == "court")
     check("球回 (1100,800)、喜多回 (1040,760)、都停着", l.ball_pos == l.BALL_START and l.dog_pos == l.DOG_START
         and l.ball_state == "rest" and l.dog_state == "idle" and not l.greeted)
-    walk_to(c.spot_pos("to_lawn"))
+    walk_to(c.spot_pos("to_plaza"))
+    walk_to(pz.spot_pos("to_lawn"))
     check("回来球还在起始点", m.state == "lawn" and l.ball_pos == l.BALL_START)
 
     DirAccess.remove_absolute("user://test_lawn_games.json")

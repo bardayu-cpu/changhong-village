@@ -152,7 +152,8 @@ func run() -> void:
     m.nickname = "阿花"
     await m._enter_court()
     m.dialog.visible = false
-    walk_to(m.court.spot_pos("to_lawn"))
+    walk_to(m.court.spot_pos("to_plaza"))   # 10/4 新总图：迎宾院 → 喷泉广场 → 草坪
+    walk_to(m.plaza.spot_pos("to_lawn"))
     walk_to(Vector2(768, 300))
     walk_to(l.spot_pos("to_orchard"))
     check("草坪北口到了果园，站在 (768,1076)", m.state == "orchard" and o.pos == m.ORCHARD_FROM_LAWN)

@@ -8,6 +8,8 @@ func _init() -> void:
 
 const CanvasAssets = preload("res://scripts/canvas_assets.gd")
 const KitchenArt = preload("res://scripts/kitchen/kitchen_art.gd")
+const LoungeLife = preload("res://scripts/lounge_life.gd")
+var lounge: Node2D   # 休息间的人：冒泡、座位、点人说话（lounge_life.gd，10/4 人物新做法样板）
 signal kitchen_requested
 var pending_cook := false
 var kitchen_walkers: Array = []
@@ -64,6 +66,9 @@ func build(preset: int, nickname: String, f: Font) -> void:
         waiter.position = Vector2(1245+i*90,565)
         world.add_child(waiter)
         kitchen_walkers.append(waiter)
+    lounge = LoungeLife.new()
+    add_child(lounge)
+    lounge.setup(self)
 
 func reset_to(p: Vector2) -> void:
     super(p)
@@ -81,6 +86,8 @@ func _process(dt: float) -> void:
         pending_cook = false
         path.clear()
         kitchen_requested.emit()
+    if lounge != null:
+        lounge.step(dt)
     for i in kitchen_walkers.size():
         var waiter: Sprite2D = kitchen_walkers[i]
         waiter.position = Vector2(1245+i*90,565+sin(t*0.7+i*PI)*52)
@@ -94,4 +101,8 @@ func tap(screen: Vector2) -> void:
         go_to(spot_pos("pot"))
         return
     pending_cook = false
+    var who: String = lounge.npc_at(at) if lounge != null else ""
+    if who != "":
+        lounge.request_talk(who)   # 点了休息间的人：走过去，到了弹对话框（lounge_ui.gd）
+        return
     super(screen)

@@ -1,0 +1,786 @@
+{
+ "note": "tools/pixel_art/lake_east.py 生成，别手改。湖边长湖岸的东半边（x 1536～3072）：背景左上角在 background.x/y，1 倍、不插值；每件左上角在 x/y，着地线 foot（跟人排前后）。灰盒那边对应的东西标了 on_art，只算挡人占地、不画，所以这里不用 hide",
+ "background": {
+  "png": "res://assets/pixel_art/lake_east/room.png",
+  "x": 1536,
+  "y": 0
+ },
+ "props": [
+  {
+   "id": "px_pavilion_back",
+   "png": "res://assets/pixel_art/lake_east/props/pavilion_back.png",
+   "x": 2198,
+   "y": 406,
+   "foot": 523,
+   "hide": []
+  },
+  {
+   "id": "px_boat",
+   "png": "res://assets/pixel_art/lake_east/props/boat.png",
+   "x": 2477,
+   "y": 465,
+   "foot": 535,
+   "hide": []
+  },
+  {
+   "id": "px_lotus_1",
+   "png": "res://assets/pixel_art/lake_east/props/lotus_1.png",
+   "x": 2033,
+   "y": 574,
+   "foot": 635,
+   "hide": []
+  },
+  {
+   "id": "px_lotus_2",
+   "png": "res://assets/pixel_art/lake_east/props/lotus_2.png",
+   "x": 2486,
+   "y": 587,
+   "foot": 644,
+   "hide": []
+  },
+  {
+   "id": "px_bridge_rail_C_ne",
+   "png": "res://assets/pixel_art/lake_east/props/bridge_rail_C_ne.png",
+   "x": 2364,
+   "y": 590,
+   "foot": 646,
+   "hide": []
+  },
+  {
+   "id": "px_pavilion_front",
+   "png": "res://assets/pixel_art/lake_east/props/pavilion_front.png",
+   "x": 2168,
+   "y": 301,
+   "foot": 655,
+   "hide": []
+  },
+  {
+   "id": "px_lotus_3",
+   "png": "res://assets/pixel_art/lake_east/props/lotus_3.png",
+   "x": 1661,
+   "y": 590,
+   "foot": 665,
+   "hide": []
+  },
+  {
+   "id": "px_lotus_4",
+   "png": "res://assets/pixel_art/lake_east/props/lotus_4.png",
+   "x": 2758,
+   "y": 605,
+   "foot": 671,
+   "hide": []
+  },
+  {
+   "id": "px_bridge_rail_B_nw",
+   "png": "res://assets/pixel_art/lake_east/props/bridge_rail_B_nw.png",
+   "x": 2260,
+   "y": 644,
+   "foot": 699,
+   "hide": []
+  },
+  {
+   "id": "px_bridge_rail_C_sw",
+   "png": "res://assets/pixel_art/lake_east/props/bridge_rail_C_sw.png",
+   "x": 2289,
+   "y": 616,
+   "foot": 699,
+   "hide": []
+  },
+  {
+   "id": "px_bridge_rail_B_se",
+   "png": "res://assets/pixel_art/lake_east/props/bridge_rail_B_se.png",
+   "x": 2336,
+   "y": 646,
+   "foot": 765,
+   "hide": []
+  },
+  {
+   "id": "px_willow_1",
+   "png": "res://assets/pixel_art/lake_east/props/willow_1.png",
+   "x": 1546,
+   "y": 506,
+   "foot": 798,
+   "hide": []
+  },
+  {
+   "id": "px_bridge_rail_A_w",
+   "png": "res://assets/pixel_art/lake_east/props/bridge_rail_A_w.png",
+   "x": 2260,
+   "y": 683,
+   "foot": 800,
+   "hide": []
+  },
+  {
+   "id": "px_bridge_rail_A_e",
+   "png": "res://assets/pixel_art/lake_east/props/bridge_rail_A_e.png",
+   "x": 2336,
+   "y": 709,
+   "foot": 800,
+   "hide": []
+  },
+  {
+   "id": "px_bush_68",
+   "png": "res://assets/pixel_art/lake_east/props/bush_68.png",
+   "x": 2508,
+   "y": 774,
+   "foot": 800,
+   "hide": []
+  },
+  {
+   "id": "px_bush_01",
+   "png": "res://assets/pixel_art/lake_east/props/bush_01.png",
+   "x": 2204,
+   "y": 768,
+   "foot": 808,
+   "hide": []
+  },
+  {
+   "id": "px_bush_02",
+   "png": "res://assets/pixel_art/lake_east/props/bush_02.png",
+   "x": 2348,
+   "y": 765,
+   "foot": 808,
+   "hide": []
+  },
+  {
+   "id": "px_bench",
+   "png": "res://assets/pixel_art/lake_east/props/bench.png",
+   "x": 1763,
+   "y": 765,
+   "foot": 812,
+   "hide": []
+  },
+  {
+   "id": "px_bush_66",
+   "png": "res://assets/pixel_art/lake_east/props/bush_66.png",
+   "x": 2036,
+   "y": 780,
+   "foot": 812,
+   "hide": []
+  },
+  {
+   "id": "px_bush_67",
+   "png": "res://assets/pixel_art/lake_east/props/bush_67.png",
+   "x": 2535,
+   "y": 781,
+   "foot": 812,
+   "hide": []
+  },
+  {
+   "id": "px_bush_04",
+   "png": "res://assets/pixel_art/lake_east/props/bush_04.png",
+   "x": 2109,
+   "y": 776,
+   "foot": 814,
+   "hide": []
+  },
+  {
+   "id": "px_willow_2",
+   "png": "res://assets/pixel_art/lake_east/props/willow_2.png",
+   "x": 2902,
+   "y": 528,
+   "foot": 818,
+   "hide": []
+  },
+  {
+   "id": "px_bush_03",
+   "png": "res://assets/pixel_art/lake_east/props/bush_03.png",
+   "x": 2148,
+   "y": 791,
+   "foot": 832,
+   "hide": []
+  },
+  {
+   "id": "px_bush_05",
+   "png": "res://assets/pixel_art/lake_east/props/bush_05.png",
+   "x": 2514,
+   "y": 793,
+   "foot": 836,
+   "hide": []
+  },
+  {
+   "id": "px_lantern_1",
+   "png": "res://assets/pixel_art/lake_east/props/lantern_1.png",
+   "x": 2198,
+   "y": 770,
+   "foot": 840,
+   "hide": []
+  },
+  {
+   "id": "px_lantern_2",
+   "png": "res://assets/pixel_art/lake_east/props/lantern_2.png",
+   "x": 2374,
+   "y": 770,
+   "foot": 840,
+   "hide": []
+  },
+  {
+   "id": "px_bush_15",
+   "png": "res://assets/pixel_art/lake_east/props/bush_15.png",
+   "x": 2031,
+   "y": 835,
+   "foot": 872,
+   "hide": []
+  },
+  {
+   "id": "px_bush_19",
+   "png": "res://assets/pixel_art/lake_east/props/bush_19.png",
+   "x": 1555,
+   "y": 823,
+   "foot": 882,
+   "hide": []
+  },
+  {
+   "id": "px_bush_21",
+   "png": "res://assets/pixel_art/lake_east/props/bush_21.png",
+   "x": 2551,
+   "y": 849,
+   "foot": 888,
+   "hide": []
+  },
+  {
+   "id": "px_bush_60",
+   "png": "res://assets/pixel_art/lake_east/props/bush_60.png",
+   "x": 2069,
+   "y": 876,
+   "foot": 900,
+   "hide": []
+  },
+  {
+   "id": "px_rock_4",
+   "png": "res://assets/pixel_art/lake_east/props/rock_4.png",
+   "x": 1748,
+   "y": 842,
+   "foot": 902,
+   "hide": []
+  },
+  {
+   "id": "px_bush_62",
+   "png": "res://assets/pixel_art/lake_east/props/bush_62.png",
+   "x": 2214,
+   "y": 879,
+   "foot": 902,
+   "hide": []
+  },
+  {
+   "id": "px_bush_25",
+   "png": "res://assets/pixel_art/lake_east/props/bush_25.png",
+   "x": 2986,
+   "y": 844,
+   "foot": 902,
+   "hide": []
+  },
+  {
+   "id": "px_bush_63",
+   "png": "res://assets/pixel_art/lake_east/props/bush_63.png",
+   "x": 2370,
+   "y": 880,
+   "foot": 904,
+   "hide": []
+  },
+  {
+   "id": "px_bush_61",
+   "png": "res://assets/pixel_art/lake_east/props/bush_61.png",
+   "x": 2544,
+   "y": 877,
+   "foot": 904,
+   "hide": []
+  },
+  {
+   "id": "px_rock_1",
+   "png": "res://assets/pixel_art/lake_east/props/rock_1.png",
+   "x": 2112,
+   "y": 826,
+   "foot": 908,
+   "hide": []
+  },
+  {
+   "id": "px_banyan_1",
+   "png": "res://assets/pixel_art/lake_east/props/banyan_1.png",
+   "x": 1849,
+   "y": 629,
+   "foot": 912,
+   "hide": []
+  },
+  {
+   "id": "px_banyan_2",
+   "png": "res://assets/pixel_art/lake_east/props/banyan_2.png",
+   "x": 2428,
+   "y": 635,
+   "foot": 918,
+   "hide": []
+  },
+  {
+   "id": "px_rock_2",
+   "png": "res://assets/pixel_art/lake_east/props/rock_2.png",
+   "x": 2512,
+   "y": 848,
+   "foot": 922,
+   "hide": []
+  },
+  {
+   "id": "px_rock_5",
+   "png": "res://assets/pixel_art/lake_east/props/rock_5.png",
+   "x": 2798,
+   "y": 856,
+   "foot": 924,
+   "hide": []
+  },
+  {
+   "id": "px_bush_64",
+   "png": "res://assets/pixel_art/lake_east/props/bush_64.png",
+   "x": 1986,
+   "y": 910,
+   "foot": 940,
+   "hide": []
+  },
+  {
+   "id": "px_bush_06",
+   "png": "res://assets/pixel_art/lake_east/props/bush_06.png",
+   "x": 2160,
+   "y": 885,
+   "foot": 940,
+   "hide": []
+  },
+  {
+   "id": "px_bush_07",
+   "png": "res://assets/pixel_art/lake_east/props/bush_07.png",
+   "x": 2371,
+   "y": 884,
+   "foot": 942,
+   "hide": []
+  },
+  {
+   "id": "px_bush_65",
+   "png": "res://assets/pixel_art/lake_east/props/bush_65.png",
+   "x": 2588,
+   "y": 915,
+   "foot": 944,
+   "hide": []
+  },
+  {
+   "id": "px_bush_08",
+   "png": "res://assets/pixel_art/lake_east/props/bush_08.png",
+   "x": 2086,
+   "y": 906,
+   "foot": 950,
+   "hide": []
+  },
+  {
+   "id": "px_bush_09",
+   "png": "res://assets/pixel_art/lake_east/props/bush_09.png",
+   "x": 2465,
+   "y": 911,
+   "foot": 960,
+   "hide": []
+  },
+  {
+   "id": "px_bush_16",
+   "png": "res://assets/pixel_art/lake_east/props/bush_16.png",
+   "x": 1804,
+   "y": 915,
+   "foot": 962,
+   "hide": []
+  },
+  {
+   "id": "px_bush_18",
+   "png": "res://assets/pixel_art/lake_east/props/bush_18.png",
+   "x": 1651,
+   "y": 934,
+   "foot": 982,
+   "hide": []
+  },
+  {
+   "id": "px_bush_22",
+   "png": "res://assets/pixel_art/lake_east/props/bush_22.png",
+   "x": 2743,
+   "y": 941,
+   "foot": 988,
+   "hide": []
+  },
+  {
+   "id": "px_pine_e",
+   "png": "res://assets/pixel_art/lake_east/props/pine_e.png",
+   "x": 2763,
+   "y": 748,
+   "foot": 990,
+   "hide": []
+  },
+  {
+   "id": "px_bush_12",
+   "png": "res://assets/pixel_art/lake_east/props/bush_12.png",
+   "x": 2028,
+   "y": 950,
+   "foot": 992,
+   "hide": []
+  },
+  {
+   "id": "px_bush_13",
+   "png": "res://assets/pixel_art/lake_east/props/bush_13.png",
+   "x": 2528,
+   "y": 957,
+   "foot": 998,
+   "hide": []
+  },
+  {
+   "id": "px_bush_17",
+   "png": "res://assets/pixel_art/lake_east/props/bush_17.png",
+   "x": 1888,
+   "y": 962,
+   "foot": 1002,
+   "hide": []
+  },
+  {
+   "id": "px_bush_10",
+   "png": "res://assets/pixel_art/lake_east/props/bush_10.png",
+   "x": 2122,
+   "y": 956,
+   "foot": 1002,
+   "hide": []
+  },
+  {
+   "id": "px_bush_24",
+   "png": "res://assets/pixel_art/lake_east/props/bush_24.png",
+   "x": 2885,
+   "y": 954,
+   "foot": 1004,
+   "hide": []
+  },
+  {
+   "id": "px_bush_11",
+   "png": "res://assets/pixel_art/lake_east/props/bush_11.png",
+   "x": 2425,
+   "y": 957,
+   "foot": 1006,
+   "hide": []
+  },
+  {
+   "id": "px_bush_23",
+   "png": "res://assets/pixel_art/lake_east/props/bush_23.png",
+   "x": 2688,
+   "y": 964,
+   "foot": 1006,
+   "hide": []
+  },
+  {
+   "id": "px_bush_20",
+   "png": "res://assets/pixel_art/lake_east/props/bush_20.png",
+   "x": 1756,
+   "y": 967,
+   "foot": 1012,
+   "hide": []
+  },
+  {
+   "id": "px_bush_14",
+   "png": "res://assets/pixel_art/lake_east/props/bush_14.png",
+   "x": 2351,
+   "y": 980,
+   "foot": 1016,
+   "hide": []
+  },
+  {
+   "id": "px_bush_26",
+   "png": "res://assets/pixel_art/lake_east/props/bush_26.png",
+   "x": 2838,
+   "y": 978,
+   "foot": 1018,
+   "hide": []
+  },
+  {
+   "id": "px_wall_gate",
+   "png": "res://assets/pixel_art/lake_east/props/wall_gate.png",
+   "x": 1536,
+   "y": 860,
+   "foot": 1040,
+   "hide": []
+  },
+  {
+   "id": "px_bush_31",
+   "png": "res://assets/pixel_art/lake_east/props/bush_31.png",
+   "x": 2006,
+   "y": 1017,
+   "foot": 1064,
+   "hide": []
+  },
+  {
+   "id": "px_bush_35",
+   "png": "res://assets/pixel_art/lake_east/props/bush_35.png",
+   "x": 1841,
+   "y": 1018,
+   "foot": 1066,
+   "hide": []
+  },
+  {
+   "id": "px_bush_27",
+   "png": "res://assets/pixel_art/lake_east/props/bush_27.png",
+   "x": 2158,
+   "y": 1011,
+   "foot": 1066,
+   "hide": []
+  },
+  {
+   "id": "px_bush_32",
+   "png": "res://assets/pixel_art/lake_east/props/bush_32.png",
+   "x": 2539,
+   "y": 1014,
+   "foot": 1066,
+   "hide": []
+  },
+  {
+   "id": "px_bush_28",
+   "png": "res://assets/pixel_art/lake_east/props/bush_28.png",
+   "x": 2378,
+   "y": 1008,
+   "foot": 1068,
+   "hide": []
+  },
+  {
+   "id": "px_bush_36",
+   "png": "res://assets/pixel_art/lake_east/props/bush_36.png",
+   "x": 2702,
+   "y": 1017,
+   "foot": 1068,
+   "hide": []
+  },
+  {
+   "id": "px_bush_39",
+   "png": "res://assets/pixel_art/lake_east/props/bush_39.png",
+   "x": 2964,
+   "y": 1020,
+   "foot": 1068,
+   "hide": []
+  },
+  {
+   "id": "px_bush_40",
+   "png": "res://assets/pixel_art/lake_east/props/bush_40.png",
+   "x": 1580,
+   "y": 1021,
+   "foot": 1072,
+   "hide": []
+  },
+  {
+   "id": "px_bush_33",
+   "png": "res://assets/pixel_art/lake_east/props/bush_33.png",
+   "x": 1919,
+   "y": 1018,
+   "foot": 1072,
+   "hide": []
+  },
+  {
+   "id": "px_bush_34",
+   "png": "res://assets/pixel_art/lake_east/props/bush_34.png",
+   "x": 2619,
+   "y": 1016,
+   "foot": 1072,
+   "hide": []
+  },
+  {
+   "id": "px_bush_37",
+   "png": "res://assets/pixel_art/lake_east/props/bush_37.png",
+   "x": 2788,
+   "y": 1018,
+   "foot": 1072,
+   "hide": []
+  },
+  {
+   "id": "px_bush_29",
+   "png": "res://assets/pixel_art/lake_east/props/bush_29.png",
+   "x": 2083,
+   "y": 1023,
+   "foot": 1074,
+   "hide": []
+  },
+  {
+   "id": "px_bush_30",
+   "png": "res://assets/pixel_art/lake_east/props/bush_30.png",
+   "x": 2460,
+   "y": 1021,
+   "foot": 1076,
+   "hide": []
+  },
+  {
+   "id": "px_bush_41",
+   "png": "res://assets/pixel_art/lake_east/props/bush_41.png",
+   "x": 1679,
+   "y": 1021,
+   "foot": 1078,
+   "hide": []
+  },
+  {
+   "id": "px_bush_38",
+   "png": "res://assets/pixel_art/lake_east/props/bush_38.png",
+   "x": 2878,
+   "y": 1024,
+   "foot": 1078,
+   "hide": []
+  },
+  {
+   "id": "px_rock_3",
+   "png": "res://assets/pixel_art/lake_east/props/rock_3.png",
+   "x": 2094,
+   "y": 1038,
+   "foot": 1116,
+   "hide": []
+  },
+  {
+   "id": "px_bush_52",
+   "png": "res://assets/pixel_art/lake_east/props/bush_52.png",
+   "x": 2131,
+   "y": 1103,
+   "foot": 1140,
+   "hide": []
+  },
+  {
+   "id": "px_bush_53",
+   "png": "res://assets/pixel_art/lake_east/props/bush_53.png",
+   "x": 2428,
+   "y": 1103,
+   "foot": 1146,
+   "hide": []
+  },
+  {
+   "id": "px_bush_43",
+   "png": "res://assets/pixel_art/lake_east/props/bush_43.png",
+   "x": 1563,
+   "y": 1103,
+   "foot": 1152,
+   "hide": []
+  },
+  {
+   "id": "px_bush_51",
+   "png": "res://assets/pixel_art/lake_east/props/bush_51.png",
+   "x": 2004,
+   "y": 1115,
+   "foot": 1160,
+   "hide": []
+  },
+  {
+   "id": "px_bush_50",
+   "png": "res://assets/pixel_art/lake_east/props/bush_50.png",
+   "x": 2711,
+   "y": 1111,
+   "foot": 1160,
+   "hide": []
+  },
+  {
+   "id": "px_bush_57",
+   "png": "res://assets/pixel_art/lake_east/props/bush_57.png",
+   "x": 1808,
+   "y": 1132,
+   "foot": 1172,
+   "hide": []
+  },
+  {
+   "id": "px_bush_42",
+   "png": "res://assets/pixel_art/lake_east/props/bush_42.png",
+   "x": 2981,
+   "y": 1120,
+   "foot": 1172,
+   "hide": []
+  },
+  {
+   "id": "px_bush_54",
+   "png": "res://assets/pixel_art/lake_east/props/bush_54.png",
+   "x": 2521,
+   "y": 1146,
+   "foot": 1180,
+   "hide": []
+  },
+  {
+   "id": "px_bush_46",
+   "png": "res://assets/pixel_art/lake_east/props/bush_46.png",
+   "x": 2105,
+   "y": 1157,
+   "foot": 1200,
+   "hide": []
+  },
+  {
+   "id": "px_bush_47",
+   "png": "res://assets/pixel_art/lake_east/props/bush_47.png",
+   "x": 2453,
+   "y": 1164,
+   "foot": 1212,
+   "hide": []
+  },
+  {
+   "id": "px_bush_58",
+   "png": "res://assets/pixel_art/lake_east/props/bush_58.png",
+   "x": 1631,
+   "y": 1171,
+   "foot": 1220,
+   "hide": []
+  },
+  {
+   "id": "px_bush_48",
+   "png": "res://assets/pixel_art/lake_east/props/bush_48.png",
+   "x": 2601,
+   "y": 1179,
+   "foot": 1232,
+   "hide": []
+  },
+  {
+   "id": "px_tree_fg_w",
+   "png": "res://assets/pixel_art/lake_east/props/tree_fg_w.png",
+   "x": 1595,
+   "y": 912,
+   "foot": 1236,
+   "hide": []
+  },
+  {
+   "id": "px_bush_55",
+   "png": "res://assets/pixel_art/lake_east/props/bush_55.png",
+   "x": 2049,
+   "y": 1198,
+   "foot": 1236,
+   "hide": []
+  },
+  {
+   "id": "px_bush_49",
+   "png": "res://assets/pixel_art/lake_east/props/bush_49.png",
+   "x": 1898,
+   "y": 1185,
+   "foot": 1242,
+   "hide": []
+  },
+  {
+   "id": "px_bush_45",
+   "png": "res://assets/pixel_art/lake_east/props/bush_45.png",
+   "x": 2356,
+   "y": 1197,
+   "foot": 1242,
+   "hide": []
+  },
+  {
+   "id": "px_bush_44",
+   "png": "res://assets/pixel_art/lake_east/props/bush_44.png",
+   "x": 2197,
+   "y": 1209,
+   "foot": 1250,
+   "hide": []
+  },
+  {
+   "id": "px_bush_56",
+   "png": "res://assets/pixel_art/lake_east/props/bush_56.png",
+   "x": 2943,
+   "y": 1202,
+   "foot": 1250,
+   "hide": []
+  },
+  {
+   "id": "px_bush_59",
+   "png": "res://assets/pixel_art/lake_east/props/bush_59.png",
+   "x": 2486,
+   "y": 1222,
+   "foot": 1262,
+   "hide": []
+  },
+  {
+   "id": "px_tree_fg_e",
+   "png": "res://assets/pixel_art/lake_east/props/tree_fg_e.png",
+   "x": 2666,
+   "y": 978,
+   "foot": 1262,
+   "hide": []
+  }
+ ]
+}

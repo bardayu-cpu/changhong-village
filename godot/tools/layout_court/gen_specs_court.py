@@ -30,6 +30,8 @@ SCENES = {
     "lawn": ("scene_luoman_lawn", "草坪"),
     "lake": ("scene_luoman_lake", "湖边"),
     "orchard": ("scene_luoman_orchard", "果园"),
+    "parking": ("scene_luoman_parking", "停车场"),   # 10/3 停车场和大门灰盒（01 F）
+    "plaza": ("scene_luoman_plaza", "喷泉广场"),     # 10/4 喷泉广场灰盒（新总图第 ② 步，01 F）
 }
 
 
@@ -60,6 +62,8 @@ NAMES = {
     "pavilion_roof": "亭子", "bench_seat": "长凳",
     # 果园
     "shop_stall": "山庄收购处",
+    # 停车场
+    "wall_w": "院墙", "gate_post_w": "门楼门柱", "arch_post_w": "气球拱门",
 }
 GROUPS = (("tea_", "茶桌"), ("stool_", "凳子"), ("lantern_", "落地宫灯"), ("tree_", "树"), ("willow_", "柳树"), ("loquat_", "枇杷树"),
           ("chair_", "白椅子"), ("ridge_", "草莓垄"), ("wall_", "隔墙"), ("front_", "前沿矮墙"))

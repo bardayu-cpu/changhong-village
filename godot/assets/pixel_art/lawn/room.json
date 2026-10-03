@@ -1,0 +1,1141 @@
+{
+ "note": "tools/pixel_art/lawn.py 生成，别手改。背景（底图 + 地面装饰层）左上角在 background.x/y，1 倍、不插值；每件左上角在 x/y，着地线 foot（跟人排前后）；hide 是要藏掉的灰盒（挡人的占地照旧）；back_* 是有人坐的椅子的椅背（foot 比椅子大 4，压在坐着的人前面）",
+ "background": {
+  "png": "res://assets/pixel_art/lawn/room.png",
+  "x": 0,
+  "y": 0
+ },
+ "props": [
+  {
+   "id": "px_tree_0",
+   "png": "res://assets/pixel_art/lawn/props/tree_0.png",
+   "x": 16,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_0"
+   ]
+  },
+  {
+   "id": "px_tree_1",
+   "png": "res://assets/pixel_art/lawn/props/tree_1.png",
+   "x": 136,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_1"
+   ]
+  },
+  {
+   "id": "px_tree_2",
+   "png": "res://assets/pixel_art/lawn/props/tree_2.png",
+   "x": 253,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_2"
+   ]
+  },
+  {
+   "id": "px_tree_3",
+   "png": "res://assets/pixel_art/lawn/props/tree_3.png",
+   "x": 377,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_3"
+   ]
+  },
+  {
+   "id": "px_tree_4",
+   "png": "res://assets/pixel_art/lawn/props/tree_4.png",
+   "x": 495,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_4"
+   ]
+  },
+  {
+   "id": "px_tree_5",
+   "png": "res://assets/pixel_art/lawn/props/tree_5.png",
+   "x": 598,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_5"
+   ]
+  },
+  {
+   "id": "px_tree_6",
+   "png": "res://assets/pixel_art/lawn/props/tree_6.png",
+   "x": 835,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_6"
+   ]
+  },
+  {
+   "id": "px_tree_7",
+   "png": "res://assets/pixel_art/lawn/props/tree_7.png",
+   "x": 957,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_7"
+   ]
+  },
+  {
+   "id": "px_tree_8",
+   "png": "res://assets/pixel_art/lawn/props/tree_8.png",
+   "x": 1071,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_8"
+   ]
+  },
+  {
+   "id": "px_tree_9",
+   "png": "res://assets/pixel_art/lawn/props/tree_9.png",
+   "x": 1198,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_9"
+   ]
+  },
+  {
+   "id": "px_tree_10",
+   "png": "res://assets/pixel_art/lawn/props/tree_10.png",
+   "x": 1322,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_10"
+   ]
+  },
+  {
+   "id": "px_tree_11",
+   "png": "res://assets/pixel_art/lawn/props/tree_11.png",
+   "x": 1415,
+   "y": 0,
+   "foot": 168,
+   "hide": [
+    "tree_11"
+   ]
+  },
+  {
+   "id": "px_tree_22",
+   "png": "res://assets/pixel_art/lawn/props/tree_22.png",
+   "x": 0,
+   "y": 0,
+   "foot": 170,
+   "hide": [
+    "tree_22"
+   ]
+  },
+  {
+   "id": "px_tree_27",
+   "png": "res://assets/pixel_art/lawn/props/tree_27.png",
+   "x": 1431,
+   "y": 0,
+   "foot": 180,
+   "hide": [
+    "tree_27"
+   ]
+  },
+  {
+   "id": "px_wed_tree",
+   "png": "res://assets/pixel_art/lawn/props/wed_tree.png",
+   "x": 275,
+   "y": 6,
+   "foot": 344,
+   "hide": [
+    "wed_tree"
+   ]
+  },
+  {
+   "id": "px_wed_arch",
+   "png": "res://assets/pixel_art/lawn/props/wed_arch.png",
+   "x": 304,
+   "y": 192,
+   "foot": 345,
+   "hide": [
+    "wed_drape_w",
+    "wed_drape_e",
+    "wed_drape_top"
+   ]
+  },
+  {
+   "id": "px_wed_stage",
+   "png": "res://assets/pixel_art/lawn/props/wed_stage.png",
+   "x": 323,
+   "y": 333,
+   "foot": 348,
+   "hide": [
+    "wed_stage"
+   ]
+  },
+  {
+   "id": "px_wed_flowers",
+   "png": "res://assets/pixel_art/lawn/props/wed_flowers.png",
+   "x": 300,
+   "y": 382,
+   "foot": 349,
+   "hide": [
+    "wed_flowers",
+    "wed_leaves"
+   ]
+  },
+  {
+   "id": "px_swing",
+   "png": "res://assets/pixel_art/lawn/props/swing.png",
+   "x": 1196,
+   "y": 261,
+   "foot": 382,
+   "hide": [
+    "swing_post_w",
+    "swing_post_e",
+    "swing_bar",
+    "swing_rope_w",
+    "swing_rope_e",
+    "swing_seat"
+   ]
+  },
+  {
+   "id": "px_dessert_table",
+   "png": "res://assets/pixel_art/lawn/props/dessert_table.png",
+   "x": 602,
+   "y": 392,
+   "foot": 470,
+   "hide": [
+    "dessert_table"
+   ]
+  },
+  {
+   "id": "px_slide",
+   "png": "res://assets/pixel_art/lawn/props/slide.png",
+   "x": 1371,
+   "y": 396,
+   "foot": 494,
+   "hide": [
+    "slide_tower",
+    "slide_chute"
+   ]
+  },
+  {
+   "id": "px_hedge_1",
+   "png": "res://assets/pixel_art/lawn/props/hedge_1.png",
+   "x": 360,
+   "y": 471,
+   "foot": 504,
+   "hide": [
+    "hedge_1"
+   ]
+  },
+  {
+   "id": "px_hedge_2",
+   "png": "res://assets/pixel_art/lawn/props/hedge_2.png",
+   "x": 447,
+   "y": 472,
+   "foot": 504,
+   "hide": [
+    "hedge_2"
+   ]
+  },
+  {
+   "id": "px_chair_0_L4",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_L4.png",
+   "x": 258,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_L4"
+   ]
+  },
+  {
+   "id": "px_back_chair_0_L4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_0_L4.png",
+   "x": 258,
+   "y": 459,
+   "foot": 510,
+   "hide": []
+  },
+  {
+   "id": "px_chair_0_L3",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_L3.png",
+   "x": 288,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_L3"
+   ]
+  },
+  {
+   "id": "px_back_chair_0_L3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_0_L3.png",
+   "x": 288,
+   "y": 459,
+   "foot": 510,
+   "hide": []
+  },
+  {
+   "id": "px_chair_0_L2",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_L2.png",
+   "x": 318,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_L2"
+   ]
+  },
+  {
+   "id": "px_back_chair_0_L2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_0_L2.png",
+   "x": 318,
+   "y": 459,
+   "foot": 510,
+   "hide": []
+  },
+  {
+   "id": "px_chair_0_L1",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_L1.png",
+   "x": 348,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_L1"
+   ]
+  },
+  {
+   "id": "px_chair_0_R1",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_R1.png",
+   "x": 465,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_R1"
+   ]
+  },
+  {
+   "id": "px_chair_0_R2",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_R2.png",
+   "x": 498,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_R2"
+   ]
+  },
+  {
+   "id": "px_back_chair_0_R2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_0_R2.png",
+   "x": 498,
+   "y": 459,
+   "foot": 510,
+   "hide": []
+  },
+  {
+   "id": "px_chair_0_R3",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_R3.png",
+   "x": 528,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_R3"
+   ]
+  },
+  {
+   "id": "px_back_chair_0_R3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_0_R3.png",
+   "x": 528,
+   "y": 459,
+   "foot": 510,
+   "hide": []
+  },
+  {
+   "id": "px_chair_0_R4",
+   "png": "res://assets/pixel_art/lawn/props/chair_0_R4.png",
+   "x": 558,
+   "y": 459,
+   "foot": 506,
+   "hide": [
+    "chair_0_R4"
+   ]
+  },
+  {
+   "id": "px_back_chair_0_R4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_0_R4.png",
+   "x": 558,
+   "y": 459,
+   "foot": 510,
+   "hide": []
+  },
+  {
+   "id": "px_chair_1_L4",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_L4.png",
+   "x": 258,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_L4"
+   ]
+  },
+  {
+   "id": "px_back_chair_1_L4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_1_L4.png",
+   "x": 258,
+   "y": 497,
+   "foot": 548,
+   "hide": []
+  },
+  {
+   "id": "px_chair_1_L3",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_L3.png",
+   "x": 288,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_L3"
+   ]
+  },
+  {
+   "id": "px_back_chair_1_L3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_1_L3.png",
+   "x": 288,
+   "y": 497,
+   "foot": 548,
+   "hide": []
+  },
+  {
+   "id": "px_chair_1_L2",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_L2.png",
+   "x": 318,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_L2"
+   ]
+  },
+  {
+   "id": "px_back_chair_1_L2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_1_L2.png",
+   "x": 318,
+   "y": 497,
+   "foot": 548,
+   "hide": []
+  },
+  {
+   "id": "px_chair_1_L1",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_L1.png",
+   "x": 348,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_L1"
+   ]
+  },
+  {
+   "id": "px_chair_1_R1",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_R1.png",
+   "x": 465,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_R1"
+   ]
+  },
+  {
+   "id": "px_chair_1_R2",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_R2.png",
+   "x": 498,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_R2"
+   ]
+  },
+  {
+   "id": "px_back_chair_1_R2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_1_R2.png",
+   "x": 498,
+   "y": 497,
+   "foot": 548,
+   "hide": []
+  },
+  {
+   "id": "px_chair_1_R3",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_R3.png",
+   "x": 528,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_R3"
+   ]
+  },
+  {
+   "id": "px_back_chair_1_R3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_1_R3.png",
+   "x": 528,
+   "y": 497,
+   "foot": 548,
+   "hide": []
+  },
+  {
+   "id": "px_chair_1_R4",
+   "png": "res://assets/pixel_art/lawn/props/chair_1_R4.png",
+   "x": 558,
+   "y": 497,
+   "foot": 544,
+   "hide": [
+    "chair_1_R4"
+   ]
+  },
+  {
+   "id": "px_back_chair_1_R4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_1_R4.png",
+   "x": 558,
+   "y": 497,
+   "foot": 548,
+   "hide": []
+  },
+  {
+   "id": "px_hedge_3",
+   "png": "res://assets/pixel_art/lawn/props/hedge_3.png",
+   "x": 362,
+   "y": 521,
+   "foot": 552,
+   "hide": [
+    "hedge_3"
+   ]
+  },
+  {
+   "id": "px_hedge_4",
+   "png": "res://assets/pixel_art/lawn/props/hedge_4.png",
+   "x": 447,
+   "y": 521,
+   "foot": 552,
+   "hide": [
+    "hedge_4"
+   ]
+  },
+  {
+   "id": "px_tree_24",
+   "png": "res://assets/pixel_art/lawn/props/tree_24.png",
+   "x": 0,
+   "y": 309,
+   "foot": 560,
+   "hide": [
+    "tree_24"
+   ]
+  },
+  {
+   "id": "px_chair_2_L4",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_L4.png",
+   "x": 258,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_L4"
+   ]
+  },
+  {
+   "id": "px_back_chair_2_L4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_2_L4.png",
+   "x": 258,
+   "y": 535,
+   "foot": 586,
+   "hide": []
+  },
+  {
+   "id": "px_chair_2_L3",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_L3.png",
+   "x": 288,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_L3"
+   ]
+  },
+  {
+   "id": "px_back_chair_2_L3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_2_L3.png",
+   "x": 288,
+   "y": 535,
+   "foot": 586,
+   "hide": []
+  },
+  {
+   "id": "px_chair_2_L2",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_L2.png",
+   "x": 318,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_L2"
+   ]
+  },
+  {
+   "id": "px_back_chair_2_L2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_2_L2.png",
+   "x": 318,
+   "y": 535,
+   "foot": 586,
+   "hide": []
+  },
+  {
+   "id": "px_chair_2_L1",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_L1.png",
+   "x": 348,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_L1"
+   ]
+  },
+  {
+   "id": "px_chair_2_R1",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_R1.png",
+   "x": 465,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_R1"
+   ]
+  },
+  {
+   "id": "px_chair_2_R2",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_R2.png",
+   "x": 498,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_R2"
+   ]
+  },
+  {
+   "id": "px_back_chair_2_R2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_2_R2.png",
+   "x": 498,
+   "y": 535,
+   "foot": 586,
+   "hide": []
+  },
+  {
+   "id": "px_chair_2_R3",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_R3.png",
+   "x": 528,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_R3"
+   ]
+  },
+  {
+   "id": "px_back_chair_2_R3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_2_R3.png",
+   "x": 528,
+   "y": 535,
+   "foot": 586,
+   "hide": []
+  },
+  {
+   "id": "px_chair_2_R4",
+   "png": "res://assets/pixel_art/lawn/props/chair_2_R4.png",
+   "x": 558,
+   "y": 535,
+   "foot": 582,
+   "hide": [
+    "chair_2_R4"
+   ]
+  },
+  {
+   "id": "px_back_chair_2_R4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_2_R4.png",
+   "x": 558,
+   "y": 535,
+   "foot": 586,
+   "hide": []
+  },
+  {
+   "id": "px_hedge_5",
+   "png": "res://assets/pixel_art/lawn/props/hedge_5.png",
+   "x": 361,
+   "y": 567,
+   "foot": 600,
+   "hide": [
+    "hedge_5"
+   ]
+  },
+  {
+   "id": "px_hedge_6",
+   "png": "res://assets/pixel_art/lawn/props/hedge_6.png",
+   "x": 450,
+   "y": 569,
+   "foot": 600,
+   "hide": [
+    "hedge_6"
+   ]
+  },
+  {
+   "id": "px_chair_3_L4",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_L4.png",
+   "x": 258,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_L4"
+   ]
+  },
+  {
+   "id": "px_back_chair_3_L4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_3_L4.png",
+   "x": 258,
+   "y": 573,
+   "foot": 624,
+   "hide": []
+  },
+  {
+   "id": "px_chair_3_L3",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_L3.png",
+   "x": 288,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_L3"
+   ]
+  },
+  {
+   "id": "px_back_chair_3_L3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_3_L3.png",
+   "x": 288,
+   "y": 573,
+   "foot": 624,
+   "hide": []
+  },
+  {
+   "id": "px_chair_3_L2",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_L2.png",
+   "x": 318,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_L2"
+   ]
+  },
+  {
+   "id": "px_back_chair_3_L2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_3_L2.png",
+   "x": 318,
+   "y": 573,
+   "foot": 624,
+   "hide": []
+  },
+  {
+   "id": "px_chair_3_L1",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_L1.png",
+   "x": 348,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_L1"
+   ]
+  },
+  {
+   "id": "px_chair_3_R1",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_R1.png",
+   "x": 465,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_R1"
+   ]
+  },
+  {
+   "id": "px_chair_3_R2",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_R2.png",
+   "x": 498,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_R2"
+   ]
+  },
+  {
+   "id": "px_back_chair_3_R2",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_3_R2.png",
+   "x": 498,
+   "y": 573,
+   "foot": 624,
+   "hide": []
+  },
+  {
+   "id": "px_chair_3_R3",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_R3.png",
+   "x": 528,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_R3"
+   ]
+  },
+  {
+   "id": "px_back_chair_3_R3",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_3_R3.png",
+   "x": 528,
+   "y": 573,
+   "foot": 624,
+   "hide": []
+  },
+  {
+   "id": "px_chair_3_R4",
+   "png": "res://assets/pixel_art/lawn/props/chair_3_R4.png",
+   "x": 558,
+   "y": 573,
+   "foot": 620,
+   "hide": [
+    "chair_3_R4"
+   ]
+  },
+  {
+   "id": "px_back_chair_3_R4",
+   "png": "res://assets/pixel_art/lawn/props/back_chair_3_R4.png",
+   "x": 558,
+   "y": 573,
+   "foot": 624,
+   "hide": []
+  },
+  {
+   "id": "px_hedge_7",
+   "png": "res://assets/pixel_art/lawn/props/hedge_7.png",
+   "x": 358,
+   "y": 618,
+   "foot": 648,
+   "hide": [
+    "hedge_7"
+   ]
+  },
+  {
+   "id": "px_hedge_8",
+   "png": "res://assets/pixel_art/lawn/props/hedge_8.png",
+   "x": 446,
+   "y": 614,
+   "foot": 648,
+   "hide": [
+    "hedge_8"
+   ]
+  },
+  {
+   "id": "px_chair_4_L4",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_L4.png",
+   "x": 258,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_L4"
+   ]
+  },
+  {
+   "id": "px_chair_4_L3",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_L3.png",
+   "x": 288,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_L3"
+   ]
+  },
+  {
+   "id": "px_chair_4_L2",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_L2.png",
+   "x": 318,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_L2"
+   ]
+  },
+  {
+   "id": "px_chair_4_L1",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_L1.png",
+   "x": 348,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_L1"
+   ]
+  },
+  {
+   "id": "px_chair_4_R1",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_R1.png",
+   "x": 465,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_R1"
+   ]
+  },
+  {
+   "id": "px_chair_4_R2",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_R2.png",
+   "x": 498,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_R2"
+   ]
+  },
+  {
+   "id": "px_chair_4_R3",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_R3.png",
+   "x": 528,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_R3"
+   ]
+  },
+  {
+   "id": "px_chair_4_R4",
+   "png": "res://assets/pixel_art/lawn/props/chair_4_R4.png",
+   "x": 558,
+   "y": 611,
+   "foot": 658,
+   "hide": [
+    "chair_4_R4"
+   ]
+  },
+  {
+   "id": "px_tree_25",
+   "png": "res://assets/pixel_art/lawn/props/tree_25.png",
+   "x": 0,
+   "y": 427,
+   "foot": 680,
+   "hide": [
+    "tree_25"
+   ]
+  },
+  {
+   "id": "px_chair_5_L4",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_L4.png",
+   "x": 258,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_L4"
+   ]
+  },
+  {
+   "id": "px_chair_5_L3",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_L3.png",
+   "x": 288,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_L3"
+   ]
+  },
+  {
+   "id": "px_chair_5_L2",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_L2.png",
+   "x": 318,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_L2"
+   ]
+  },
+  {
+   "id": "px_chair_5_L1",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_L1.png",
+   "x": 348,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_L1"
+   ]
+  },
+  {
+   "id": "px_hedge_9",
+   "png": "res://assets/pixel_art/lawn/props/hedge_9.png",
+   "x": 358,
+   "y": 664,
+   "foot": 696,
+   "hide": [
+    "hedge_9"
+   ]
+  },
+  {
+   "id": "px_hedge_10",
+   "png": "res://assets/pixel_art/lawn/props/hedge_10.png",
+   "x": 448,
+   "y": 665,
+   "foot": 696,
+   "hide": [
+    "hedge_10"
+   ]
+  },
+  {
+   "id": "px_chair_5_R1",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_R1.png",
+   "x": 465,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_R1"
+   ]
+  },
+  {
+   "id": "px_chair_5_R2",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_R2.png",
+   "x": 498,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_R2"
+   ]
+  },
+  {
+   "id": "px_chair_5_R3",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_R3.png",
+   "x": 528,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_R3"
+   ]
+  },
+  {
+   "id": "px_chair_5_R4",
+   "png": "res://assets/pixel_art/lawn/props/chair_5_R4.png",
+   "x": 558,
+   "y": 649,
+   "foot": 696,
+   "hide": [
+    "chair_5_R4"
+   ]
+  },
+  {
+   "id": "px_tree_28",
+   "png": "res://assets/pixel_art/lawn/props/tree_28.png",
+   "x": 1424,
+   "y": 456,
+   "foot": 700,
+   "hide": [
+    "tree_28"
+   ]
+  },
+  {
+   "id": "px_tree_29",
+   "png": "res://assets/pixel_art/lawn/props/tree_29.png",
+   "x": 1426,
+   "y": 567,
+   "foot": 820,
+   "hide": [
+    "tree_29"
+   ]
+  },
+  {
+   "id": "px_tree_30",
+   "png": "res://assets/pixel_art/lawn/props/tree_30.png",
+   "x": 1424,
+   "y": 681,
+   "foot": 930,
+   "hide": [
+    "tree_30"
+   ]
+  },
+  {
+   "id": "px_tree_13",
+   "png": "res://assets/pixel_art/lawn/props/tree_13.png",
+   "x": 155,
+   "y": 843,
+   "foot": 1090,
+   "hide": [
+    "tree_13"
+   ]
+  },
+  {
+   "id": "px_tree_14",
+   "png": "res://assets/pixel_art/lawn/props/tree_14.png",
+   "x": 305,
+   "y": 844,
+   "foot": 1090,
+   "hide": [
+    "tree_14"
+   ]
+  },
+  {
+   "id": "px_tree_15",
+   "png": "res://assets/pixel_art/lawn/props/tree_15.png",
+   "x": 432,
+   "y": 835,
+   "foot": 1090,
+   "hide": [
+    "tree_15"
+   ]
+  },
+  {
+   "id": "px_tree_16",
+   "png": "res://assets/pixel_art/lawn/props/tree_16.png",
+   "x": 575,
+   "y": 835,
+   "foot": 1090,
+   "hide": [
+    "tree_16"
+   ]
+  },
+  {
+   "id": "px_tree_17",
+   "png": "res://assets/pixel_art/lawn/props/tree_17.png",
+   "x": 837,
+   "y": 845,
+   "foot": 1090,
+   "hide": [
+    "tree_17"
+   ]
+  },
+  {
+   "id": "px_tree_18",
+   "png": "res://assets/pixel_art/lawn/props/tree_18.png",
+   "x": 970,
+   "y": 846,
+   "foot": 1090,
+   "hide": [
+    "tree_18"
+   ]
+  },
+  {
+   "id": "px_tree_19",
+   "png": "res://assets/pixel_art/lawn/props/tree_19.png",
+   "x": 1119,
+   "y": 841,
+   "foot": 1090,
+   "hide": [
+    "tree_19"
+   ]
+  },
+  {
+   "id": "px_tree_20",
+   "png": "res://assets/pixel_art/lawn/props/tree_20.png",
+   "x": 1254,
+   "y": 837,
+   "foot": 1090,
+   "hide": [
+    "tree_20"
+   ]
+  },
+  {
+   "id": "px_tree_21",
+   "png": "res://assets/pixel_art/lawn/props/tree_21.png",
+   "x": 1397,
+   "y": 845,
+   "foot": 1090,
+   "hide": [
+    "tree_21"
+   ]
+  }
+ ]
+}

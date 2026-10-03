@@ -25,6 +25,9 @@ import sys
 
 from PIL import Image, ImageDraw
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from backhall_floor import HW_HEX, HW_RAMP, draw_floor_v3   # 地板 v3：三间共用一份（同一个文件夹）
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 LAYOUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_backhall", "layout.json")
@@ -61,6 +64,7 @@ PAL_HEX = {
     "sv0": "#737a8f", "sv1": "#a3abbe", "sv2": "#d3d8e3",
     "pk0": "#a8455e", "pk2": "#f4bfc8",
 }
+PAL_HEX.update(HW_HEX)          # 地板 v3：蜜色木 hw0～hw6（新名字的色带，fl0～fl7 一个没改）
 
 
 def hex2rgba(h):
@@ -70,6 +74,7 @@ def hex2rgba(h):
 
 C = {k: hex2rgba(v) for k, v in PAL_HEX.items()}
 RAMPS = {
+    "hw": HW_RAMP,
     "wd": ["wd0", "wd1", "wd2", "wd3", "wd4", "wd5"],
     "fl": ["fl0", "fl1", "fl2", "fl3", "fl4", "fl5", "fl6", "fl7"],
     "wl": ["wl0", "wl1", "wl2", "wl3", "wl4", "wl5"],
@@ -735,25 +740,73 @@ def draw_lantern(L, cx, top, big=False):
     L.p(cx - 1, y1 + 6, "rd2")
 
 
+MIRROR_TOP = 136                        # v3 拱顶最高点（北墙红绸最低垂到 y 130，拱顶让开 5 像素，不顶着红绸）
+MIRROR_R = 24                           # 拱的半径 = 镜子宽 48 的一半（整半圆拱）
+MIRROR_BAND = 6                         # 金框连灯泡那一圈多宽
+
+
+def mirror_geom(a):
+    """拱形镜子的几何：中心 x、拱心 y；dist(x, y) = 这个像素离拱心多远（拱下面的直段只算左右）"""
+    cx = a + VW / 2.0
+    cy = MIRROR_TOP + MIRROR_R
+
+    def dist(x, y):
+        px, py = x + 0.5, y + 0.5
+        if py >= cy:
+            return abs(px - cx)
+        return math.hypot(px - cx, py - cy)
+
+    def normal(x, y):
+        px, py = x + 0.5, y + 0.5
+        if py >= cy:
+            return (1.0 if px > cx else -1.0), 0.0
+        d = max(0.01, math.hypot(px - cx, py - cy))
+        return (px - cx) / d, (py - cy) / d
+    return cx, cy, dist, normal
+
+
 def draw_star_mirror(L, a):
-    """墙上的明星镜：金框一圈灯泡（上 6 个、两边各 5 个），镜面浅蓝、两道斜反光；下沿被化妆台台面挡住"""
-    x0, x1 = a + 4, a + VW - 4
-    y0, y1 = 131, 200
-    # 墙上的影（右、下）
-    L.vl(x1, y0 + 2, 192, "wl1")
-    # 框
-    L.rect(x0, y0, x1, y1, "gd2")
-    L.hl(x0, x1, y0, "gd4")
-    L.vl(x0, y0, y1, "gd3")
-    L.vl(x1 - 1, y0, y1, "gd1")
-    L.hl(x0 + 1, x1 - 1, y0 + 1, "gd3")
-    # 镜面
-    gx0, gy0, gx1, gy1 = x0 + 6, y0 + 7, x1 - 6, y1
-    L.rect(gx0 - 1, gy0 - 1, gx1 + 1, gy1, "gd1")
-    L.rect(gx0, gy0, gx1, gy1, "bl4")
-    # 镜面：中蓝底、左上一块浅、下沿一条暗（台面挡光）；两道斜反光；镜子里照出对面一点暖光（一条棋盘点）
+    """墙上的明星镜（v3，阿鱼 10/3「镜子可以做成拱形的镜子，你这都看不出来是化妆镜」）：
+    上沿整半圆拱、两边直下去；金框一圈灯泡（拱上 7 个、两边直段各 3 个），镜面浅蓝、两道斜反光；下沿被化妆台台面挡住。
+    光从左上：框的左上沿亮、右下沿暗，墙上往右下落一像素影"""
+    R, B = MIRROR_R, MIRROR_BAND
+    cx, cy, dist, normal = mirror_geom(a)
+    y_top, y_bot = MIRROR_TOP, 200
+    xa, xb = int(cx - R) - 1, int(cx + R) + 2
+    inside = lambda x, y, r: y >= y_top - 1 and y < y_bot and dist(x, y) <= r
+    # 墙上的影（往右下错一像素）
+    for y in range(y_top, 194):
+        for x in range(xa, xb + 1):
+            if not inside(x, y, R) and inside(x - 1, y - 1, R):
+                L.p(x, y, shift(L.g(x, y), -1))      # 墙纸上是 wl2、护墙板上是暗一档的木头
+    # 框（金）：外沿左上亮、右下暗；第二圈左上一道浅；里口一圈暗金（镜面凹进去）
+    for y in range(y_top - 1, y_bot):
+        for x in range(xa, xb):
+            d = dist(x, y)
+            if d > R:
+                continue
+            ring = R - d
+            if ring >= B:
+                continue
+            nx, ny = normal(x, y)
+            lit = nx + ny                         # 越小越朝左上（受光）
+            if ring < 1:
+                c = "gd4" if lit < -0.35 else ("gd1" if lit > 0.45 else "gd3")
+            elif ring < 2:
+                c = "gd3" if lit < -0.2 else "gd2"
+            elif ring >= B - 1:
+                c = "gd1"
+            else:
+                c = "gd2"
+            L.p(x, y, c)
+    # 镜面：中蓝底、左上一块浅、下沿一条暗（台面挡光）；两道斜反光
+    g = R - B
+    gx0, gx1 = int(cx - g), int(cx + g)
+    gy0, gy1 = int(cy - g), y_bot
     for y in range(gy0, gy1):
-        for x in range(gx0, gx1):
+        for x in range(gx0, gx1 + 1):
+            if dist(x, y) > g:
+                continue
             u = (x - gx0) / float(gx1 - gx0)
             t = (y - gy0) / float(gy1 - gy0)
             c = "bl3"
@@ -763,18 +816,30 @@ def draw_star_mirror(L, a):
                 c = "bl2"
             L.p(x, y, c)
     for (o, wdt) in ((10, 3), (17, 1)):
-        for y in range(gy0, gy1 - 4):
-            xx = gx0 + o + (gy1 - y) // 2 - 12
-            for d in range(wdt):
-                if gx0 <= xx + d < gx1:
-                    L.p(xx + d, y, "wt")
-    L.hl(gx0, gx1, gy0, "bl2")
-    L.vl(gx0, gy0, gy1, "bl2")
-    # 灯泡
-    bulbs = [(x0 + 3 + i * (x1 - x0 - 7) / 5.0, y0 + 3) for i in range(6)]
-    bulbs += [(x0 + 3, y0 + 13 + i * 11) for i in range(5)] + [(x1 - 4, y0 + 13 + i * 11) for i in range(5)]
+        for y in range(gy0 + 2, gy1 - 4):
+            xx = gx0 + o + (gy1 - y) // 2 - 14
+            for k in range(wdt):
+                if dist(xx + k, y) <= g - 1.5:
+                    L.p(xx + k, y, "wt")
+    # 镜面上沿、左沿一线暗（框的影）
+    for y in range(gy0, gy1):
+        for x in range(gx0, gx1 + 1):
+            d = dist(x, y)
+            if g - 1 < d <= g:
+                nx, ny = normal(x, y)
+                if nx + ny < 0.2:
+                    L.p(x, y, "bl2")
+    # 灯泡：拱上 7 个（等角），两边直段各 3 个
+    rc = R - B / 2.0
+    bulbs = []
+    for k in range(7):
+        th = math.pi - k * math.pi / 6
+        bulbs.append((cx - 0.5 + rc * math.cos(th), cy - 0.5 - rc * math.sin(th)))
+    for k in range(1, 4):
+        bulbs.append((cx - 0.5 - rc, cy - 0.5 + k * 11))
+        bulbs.append((cx - 0.5 + rc, cy - 0.5 + k * 11))
     for (bx, by) in bulbs:
-        bx, by = int(round(bx)), int(by)
+        bx, by = int(round(bx)), int(round(by))
         L.ell(bx - 2, by - 2, bx + 3, by + 3, "gd4")
         L.p(bx, by, "wt")
         L.p(bx - 1, by - 1, "wt")
@@ -782,56 +847,8 @@ def draw_star_mirror(L, a):
 
 
 def draw_floor(L):
-    """横铺木地板：跟休息间同一种（一排 7 像素、板长 1～2 米错缝、木纹、节疤、倒角）"""
-    rnd = random.Random(20261004)
-    x0, x1 = WALL_W[0], X1
-    y = FLOOR_Y
-    prev_joints = []
-    while y < Y1:
-        L.hl(x0, x1, y, "fl2")
-        x = x0 - rnd.randrange(0, 70)
-        joints = []
-        last_tone = None
-        while x < x1:
-            ln = rnd.randrange(52, 112)
-            for j in prev_joints:
-                if abs(x + ln - j) < 10:
-                    ln += 14
-            tone = rnd.choice([4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6])
-            if tone == last_tone:
-                tone = 5 if tone == 4 else 4
-            last_tone = tone
-            base = "fl%d" % tone
-            a, b = max(x, x0), min(x + ln, x1)
-            if b > a:
-                L.rect(a, y + 1, b, y + 7, base)
-                if rnd.random() < 0.4:
-                    L.hl(a + 1, min(b, a + rnd.randrange(8, 30)), y + 1, "fl%d" % min(7, tone + 1))
-                for _ in range(rnd.randrange(1, 3)):
-                    gy = y + rnd.randrange(2, 6)
-                    gx = a + rnd.randrange(0, max(1, b - a - 8))
-                    gl = rnd.randrange(8, 30)
-                    for k in range(gl):
-                        xx = gx + k
-                        if xx >= b - 1:
-                            break
-                        if rnd.random() < 0.85:
-                            L.p(xx, gy, "fl%d" % (tone - 1))
-                        if rnd.random() < 0.07:
-                            gy = max(y + 2, min(y + 6, gy + rnd.choice([-1, 1])))
-                if rnd.random() < 0.07 and b - a > 14:
-                    kx = rnd.randrange(a + 4, b - 5)
-                    ky = y + rnd.randrange(3, 5)
-                    L.p(kx, ky, "fl%d" % (tone - 2))
-                    L.p(kx + 1, ky, "fl%d" % (tone - 2))
-                    for (dx, dy) in ((-1, 0), (2, 0), (0, -1), (1, 1)):
-                        L.p(kx + dx, ky + dy, "fl%d" % (tone - 1))
-                if x >= x0:
-                    L.vl(x, y + 1, y + 7, "fl2")
-                    joints.append(x)
-            x += ln
-        prev_joints = joints
-        y += 7
+    """地板 v3（阿鱼 10/3：01 版太细、06 第二版像酱油）：宽板蜜色木，三间共用 backhall_floor.py"""
+    draw_floor_v3(L, WALL_W[0], X1, Y1, seed=0)
 
 
 def draw_dress_rug(L):
@@ -1855,7 +1872,7 @@ def prop_full_mirror():
         if t > 0.55:
             c = "bl3"
         if t > 0.78:
-            c = "fl4" if (x + y) % 2 else "bl3"
+            c = "hw4" if (x + y) % 2 else "bl3"   # 镜子里照出的地板：v3 起地板是蜜色木 hw（01 F 10/3 定，原来是旧地板 fl4）
         L.p(x, y, c)
     for y in range(gy0, gy1):
         for (o, c) in ((3, "wt"), (7, "wt"), (8, "bl4")):
@@ -3371,8 +3388,16 @@ def floor_shading():
 def wall_light(L):
     """镜子一圈灯泡照到墙上、灯笼照到墙上"""
     S = ShadeMap()
-    for a in VANITY_X:
-        S.rect(a + 1, 126, a + VW - 1, 206, 1.0, feather=3)
+    for a in VANITY_X:                     # v3：灯泡照亮镜子四周一圈墙，跟着拱形走（原来是一个方块）
+        cx, cy, dist, normal = mirror_geom(a)
+        for y in range(MIRROR_TOP - 7, 207):
+            for x in range(a - 3, a + VW + 4):
+                d = max(dist(x, y) - (MIRROR_R + 3), 0.0)
+                if y > 206 - 3:
+                    d = max(d, y - (206 - 3) + 0.0)
+                f = 1.0 if d == 0 else max(0.0, 1.0 - d / 3.5)
+                if f > 0:
+                    S.add(x, y, f)
     for kx in KNOTS[1:-1]:
         S.ellipse(kx, 138, 8, 9, 1.0, edge=1.5)
     # 只照亮墙纸和木头（镜面、灯泡、红绸自己有颜色，不跟着挪）

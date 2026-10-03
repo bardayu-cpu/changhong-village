@@ -77,11 +77,11 @@ func run() -> void:
     # 1. 布局对蓝图 3.3
     print("1 布局对蓝图 3.3")
     var want := {"dress": [168, 400, 60], "lounge": [504, 420, 60], "mahjong": [852, 420, 70], "pot": [1272, 380, 70],
-        "to_hall": [40, 780, 50], "to_lawn": [1500, 780, 50]}
-    var same: bool = b.points.size() == 6
+        "to_hall": [40, 780, 50], "to_lawn": [1500, 780, 50], "to_plaza": [620, 990, 40]}
+    var same: bool = b.points.size() == 7
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("六个交互点坐标、半径和蓝图一字不差（mahjong 展位 10/3 挪到门口空道里 (852,420)，01 E）", same)
+    check("七个交互点坐标、半径和蓝图一字不差（mahjong 展位 10/3 挪到门口空道里 (852,420)，01 E；to_plaza 10/4 新总图走廊南口去喷泉广场）", same)
     var doors := true
     for dx in [168, 504, 840, 1176]:
         doors = doors and b._free(Vector2(dx, 690))
@@ -115,7 +115,8 @@ func run() -> void:
         if s.position.x > 336 and s.position.x < 672:
             in_lounge += 1
     # 展位（01 E 10/3）：麻将室三张桌，一张坐满四位长辈、一张两位长辈加两位宾客、一张空着；休息间沙发上两位喝茶的长辈（不放新郎家人，阿鱼 9/29）
-    check("麻将室六个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间两位喝茶的长辈（%d）" % [elders, cooks, in_lounge], elders == 6 and cooks == 1 and in_lounge == 2)
+    # 10/4 人物新做法样板（01 F）：休息间四位（奶奶、爷爷北边沙发喝茶，叔叔、阿姨茶座聊天），细的在 test_lounge_people.gd
+    check("麻将室六个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间四位（%d）" % [elders, cooks, in_lounge], elders == 6 and cooks == 1 and in_lounge == 4)
     var coat := label_at(b, "外套")
     check("休息间只有一件外套（标签在 %s）" % coat, coat.x > 336 and coat.x < 672)
     # 10/3 化妆间换成 06 画的第二版：一个礼服架换成四个区的衣架、两座衣墙（BH-P15～P27），像素图在 tools/pixel_art

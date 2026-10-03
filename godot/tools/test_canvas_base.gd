@@ -99,7 +99,8 @@ func run() -> void:
         for k in n.get_children():
             if k.name == "base":
                 sp2 = k
-    check("768x640 拉到 1536x1280", sp2 != null and sp2.scale.is_equal_approx(Vector2(2, 2)))
+    var want_sc := Vector2(float(c2.cfg["size"][0]) / 768.0, float(c2.cfg["size"][1]) / 640.0)   # 湖边 10/3 拉宽成 3072×1280：横 4 倍、竖 2 倍
+    check("768x640 拉到画布大小 %sx%s（缩放 %s）" % [c2.cfg["size"][0], c2.cfg["size"][1], sp2.scale if sp2 else null], sp2 != null and sp2.scale.is_equal_approx(want_sc))
     c2.queue_free()
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)

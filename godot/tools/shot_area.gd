@@ -3,7 +3,7 @@ extends SceneTree
 ## 照 shot_court.gd 的做法：起 main、走截图预设 <画布>_overview 进去，把那块子画面设成要的大小、镜头对准，存子画面；不改 main.gd。
 ## 要有窗口（headless 不出画面）：
 ##   Godot --path . --resolution 540x960 --script res://tools/shot_area.gd -- --canvas=backhall --out=图.png [--rect=x,y,w,h] [--zoom=1] [--people=1]
-##   --canvas   backhall / lawn / lake / orchard
+##   --canvas   backhall / lawn / lake / orchard / parking
 ##   --rect     画布上哪一块，默认整块
 ##   --people=0 藏人（玩家、站桩的人）；1 留着
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
@@ -38,8 +38,8 @@ func frames(n: int) -> void:
 
 func run() -> void:
     var cn := str(opt["canvas"])
-    if str(opt["out"]) == "" or not cn in ["backhall", "lawn", "lake", "orchard"]:
-        fail("要 --out= 和 --canvas=backhall|lawn|lake|orchard")
+    if str(opt["out"]) == "" or not cn in ["backhall", "lawn", "lake", "orchard", "parking"]:
+        fail("要 --out= 和 --canvas=backhall|lawn|lake|orchard|parking")
         return
     for i in 600:
         if m.state == "title":
