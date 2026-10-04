@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://b238hbm130uqb"
+path="res://.godot/imported/mj3_e.dialogue-9367d6ff743b1b7a48618fdf559a1033.tres"
+
+[deps]
+
+source_file="res://assets/backhall/dialogue/mj3_e.dialogue"
+dest_files=["res://.godot/imported/mj3_e.dialogue-9367d6ff743b1b7a48618fdf559a1033.tres"]
+
+[params]
+
+defaults=true

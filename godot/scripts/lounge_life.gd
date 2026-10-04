@@ -9,6 +9,11 @@ extends Node2D
 ##   坐着放坐姿格，脚点踩在座位前沿的地上（不截上半身）；站着不动放待机；跟玩家说话时站起来放说话格；
 ##   layout 写了 wander 的（叔叔）隔一阵起身，去唱片机、电视前各站一会，再走回来坐下（走路放四向走路格）
 ## 对话框、身份卡的人物图照旧用 GPT 宾客图（lounge.json 的 code，lounge_ui.gd）
+## 10/4 07 铺开（阿鱼：「其他房间里的 npc 也要动起来，对话起来，走动起来，灵活起来」）：一间屋一份，麻将室 mahjong.json、化妆间 makeup.json，
+##   布局里 NPC 写 "life": "mahjong" 就归那间（休息间照旧 lounge: true）。那两间的人照旧用现在的样子（GPT 宾客图当替身，entrance._standin 画的），
+##   这里接过来管：坐着的照旧坐着（说话也不起身、不转身，牌桌上的人就是扭头答你一句）；写了 wander 的起身走一圈再坐回去，走路放宾客图四向走路格；
+##   站着的（化妆师）不动时放朝向那格。approach 写了就是玩家走到哪跟他说（别站到他身前把人挡住）；stand 是起身先站哪。
+##   说不说得上话看数据里有没有 talk / dialogue：没写的只冒泡、点了不理（当路过）
 
 signal talk_ready(id: String)   # 点了某位、走到他跟前了：lounge_ui 弹对话框
 
@@ -23,6 +28,7 @@ const INK := Color("#2b1d16")
 const BUBBLE_BG := Color("#fffdf6")
 const FACE_DIR := {"down": Vector2(0, 1), "up": Vector2(0, -1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}
 const CODE_DIR := "res://assets/characters/code/chr_%s"
+const LMPeople = preload("res://scripts/lm_people.gd")
 const SIT_H := 72.0             # 坐着头顶离脚点多高（01 画的朝下坐 70～75、侧坐 65～72）：气泡挂这
 const STAND_H := 82.0           # 站着
 const WALK_M := 0.9             # 起身走动走多快（米/秒，比玩家慢，逛着走）
@@ -40,19 +46,25 @@ var my_seat := ""              # 玩家坐在哪个座位上（空的是没坐�
 var pending_talk := ""         # 点了谁、正走过去
 var talking := ""              # 正在跟谁说话（lounge_ui 开框时设、关框时清）
 var frozen := false            # 截图用：冒泡停在那，不轮换
+var room := "lounge"           # 哪间屋（lounge 休息间、mahjong 麻将室、makeup 化妆间）
 
-func setup(canvas) -> void:
+## path：这间屋的话（people、chat）；room：布局里 NPC 的 life 写的那间（休息间照旧认 lounge: true，座位也只有休息间有）
+func setup(canvas, path := DATA, room_id := "lounge") -> void:
     c = canvas
+    room = room_id
+    name = "life_" + room
     z_index = 6                # 气泡压在人、家具上面
-    var raw = JSON.parse_string(FileAccess.get_file_as_string(DATA))
+    var raw = JSON.parse_string(FileAccess.get_file_as_string(path))
     data = raw if raw is Dictionary else {}
-    for s in c.cfg.get("seats", []):
-        var seat: Dictionary = (s as Dictionary).duplicate()
-        seat["stand"] = _stand_spot(seat)
-        seats.append(seat)
+    if room == "lounge":
+        for s in c.cfg.get("seats", []):
+            var seat: Dictionary = (s as Dictionary).duplicate()
+            seat["stand"] = _stand_spot(seat)
+            seats.append(seat)
     var pdata: Dictionary = data.get("people", {})
     for n in c.cfg.get("npcs", []):
-        if not bool(n.get("lounge", false)):
+        var mine: bool = bool(n.get("lounge", false)) if room == "lounge" else str(n.get("life", "")) == room
+        if not mine:
             continue
         var id := str(n["id"])
         var p: Dictionary = (pdata.get(id, {}) as Dictionary).duplicate()
@@ -62,9 +74,16 @@ func setup(canvas) -> void:
         p["foot"] = p["home"]
         p["face"] = str(n.get("face", "down"))
         p["seat_face"] = p["face"]
-        p["mode"] = "sit"
+        p["home_mode"] = "sit" if bool(n.get("sit", false)) or n.has("code_char") else "idle"   # 在家是坐着还是站着
+        p["mode"] = p["home_mode"]
         p["phase"] = float(people.size()) * 0.37
         p["seat"] = ""
+        if n.has("approach"):
+            p["approach"] = Vector2(float(n["approach"][0]), float(n["approach"][1]))
+        if n.has("stand"):
+            p["stand"] = Vector2(float(n["stand"][0]), float(n["stand"][1]))
+        elif p["home_mode"] == "idle":
+            p["stand"] = p["home"]
         for s in seats:
             if str(s.get("npc", "")) == id:
                 p["seat"] = str(s["id"])
@@ -79,7 +98,10 @@ func setup(canvas) -> void:
         p["legs"] = []
         p["path"] = []
         p["wait"] = randf_range(WANDER_SIT.x, WANDER_SIT.y) * 0.5
-        _make_body(p, str(n.get("code_char", "")))
+        if n.has("code_char"):
+            _make_body(p, str(n.get("code_char", "")))
+        else:
+            _adopt_standin(p, n)
         _head(p)
         people[id] = p
     var k := 0
@@ -111,9 +133,54 @@ func _make_body(p: Dictionary, code: String) -> void:
     p["spr"] = s
     _pose(p, 0.0)
 
+## 替身（GPT 宾客图，entrance._standin 已经画上了）：接过来，记下坐着那格怎么截（frame、rows、bottom），走路时换整格
+func _adopt_standin(p: Dictionary, n: Dictionary) -> void:
+    var s: Sprite2D = c.npc_nodes.get(str(n["id"]))
+    var sd: Dictionary = n.get("standin", {})
+    var l: Dictionary = LMPeople.look(str(sd.get("code", "")))
+    if s == null or l.is_empty():
+        return
+    p["spr"] = s
+    p["look"] = l
+    p["sit_frame"] = int(sd.get("frame", 0))
+    p["sit_rows"] = int(sd.get("rows", int(l["fh"])))
+    p["sit_bottom"] = float(sd.get("bottom", float(n["y"]))) - float(n["y"])   # 图底比脚点高多少（坐着，凳面）
+    p["fps"] = {"walk": float(l.get("fps", 8))}
+    p["stand_h"] = float(l.get("h", STAND_H))
+
+## 替身这一帧：坐着照布局那格截上半身（不转身）；走路放四向走路格；站着、说话放朝向那格（整格）
+func _pose_standin(p: Dictionary, walk_t: float) -> void:
+    var l: Dictionary = p["look"]
+    var fw := int(l["fw"])
+    var fh := int(l["fh"])
+    var hf := int(l["hframes"])
+    var frs: Dictionary = l.get("frames", {})
+    var fr: int = int(p["sit_frame"])
+    var rows: int = fh
+    var bottom := 0.0
+    match str(p["mode"]):
+        "sit":
+            rows = int(p["sit_rows"])
+            bottom = float(p["sit_bottom"])
+        "walk":
+            var cells: Array = frs.get(str(p["face"]), [0])
+            fr = int(cells[int(walk_t * float(p["fps"]["walk"])) % cells.size()])
+        _:
+            fr = int((frs.get(str(p["face"]), [0]) as Array)[0])
+    var s: Sprite2D = p["spr"]
+    s.region_rect = Rect2(float((fr % hf) * fw), float((fr / hf) * fh), float(fw), float(rows))
+    var off := Vector2(-fw / 2.0, bottom - float(rows))
+    if s.get_meta("base_offset", Vector2.ZERO) != off:
+        s.set_meta("base_offset", off)   # entrance._breathe 照这个上下起伏
+        s.offset = off
+    s.position = p["foot"]
+
 ## 这一帧放哪格：坐着放坐姿（两格呼吸）、跟玩家说话放说话格、站着不动放待机、走路放四向走路格
 func _pose(p: Dictionary, walk_t: float) -> void:
     if not p.has("spr"):
+        return
+    if p.has("look"):
+        _pose_standin(p, walk_t)
         return
     var fr: Dictionary = p["frames"]
     var fps: Dictionary = p["fps"]
@@ -138,28 +205,41 @@ func _pose(p: Dictionary, walk_t: float) -> void:
     (p["spr"] as Sprite2D).position = p["foot"]
 
 func _head(p: Dictionary) -> void:
+    if p.has("look"):
+        var h: float = float(p["sit_rows"]) - float(p["sit_bottom"]) if str(p["mode"]) == "sit" else float(p["stand_h"])
+        p["head"] = (p["foot"] as Vector2) - Vector2(0, h)
+        return
     p["head"] = (p["foot"] as Vector2) - Vector2(0, SIT_H if str(p["mode"]) == "sit" else STAND_H)
+
+## 能不能跟他说话（数据里写了 talk 或 dialogue）；不能的只冒泡，点他当没点
+func can_talk(id: String) -> bool:
+    var p: Dictionary = people.get(id, {})
+    return not p.is_empty() and (str(p.get("dialogue", "")) != "" or not (p.get("talk", []) as Array).is_empty())
 
 ## 起身走动（layout 写了 wander 的）：坐够了 → 站到座位跟前 → 挨个去 spots 站一会 → 走回座位跟前 → 坐回去。
 ## 玩家点了他、正跟他说话：原地停下（说话时站着放说话格），说完接着走
 func _step_body(p: Dictionary, dt: float) -> void:
     var id := str(p["id"])
     var busy := talking == id or pending_talk == id
+    var at_home: bool = (p["foot"] as Vector2) == p["home"]
     if busy:
-        p["mode"] = "talk" if talking == id else ("idle" if str(p["mode"]) != "sit" else "sit")
-        if talking == id:
-            p["face"] = "down"
+        if p.has("look") and at_home and str(p["home_mode"]) == "sit":
+            p["mode"] = "sit"   # 替身坐在牌桌、化妆台前：不起身、不转身
+        else:
+            p["mode"] = "talk" if talking == id else ("idle" if str(p["mode"]) != "sit" else "sit")
+            if talking == id:
+                p["face"] = "down"
     elif str(p["mode"]) == "talk":
-        p["mode"] = "sit" if (p["foot"] as Vector2) == p["home"] else "idle"
-        if str(p["mode"]) == "sit":
+        p["mode"] = p["home_mode"] if at_home else "idle"
+        if at_home:
             p["face"] = p["seat_face"]
     if not busy and not (p["spots"] as Array).is_empty():
         p["wait"] = float(p["wait"]) - dt
         var legs: Array = p["legs"]
         var path: Array = p["path"]
         if legs.is_empty() and path.is_empty() and float(p["wait"]) <= 0.0:
-            if str(p["mode"]) == "sit":
-                # 起身：先站到座位跟前，再挨个去 spots，最后回座位跟前、坐下
+            if (p["foot"] as Vector2) == p["home"]:
+                # 起身：先站到座位跟前，再挨个去 spots，最后回座位跟前、坐下（站着的化妆师：stand 就是原地）
                 legs.append({"to": p["stand"], "direct": true})
                 for sp in p["spots"]:
                     legs.append({"to": sp, "idle": WANDER_IDLE})
@@ -185,7 +265,7 @@ func _step_body(p: Dictionary, dt: float) -> void:
                 if path.is_empty():
                     var leg: Dictionary = p.get("leg", {})
                     if bool(leg.get("sit", false)):
-                        p["mode"] = "sit"
+                        p["mode"] = p["home_mode"]
                         p["face"] = p["seat_face"]
                         p["wait"] = randf_range(WANDER_SIT.x, WANDER_SIT.y)
                     else:
@@ -209,6 +289,8 @@ func approach_of(id: String) -> Vector2:
     if p.is_empty():
         return Vector2.ZERO
     if (p["foot"] as Vector2) == p["home"]:
+        if p.has("approach"):
+            return p["approach"]   # 布局写了站哪（麻将桌、化妆台边的人：站他侧边，不挡人）
         # 坐在北边沙发上（朝下坐）的：站到她斜前方，别正挡在她身前（第 62 版截图奶奶被玩家挡住一大半，01 G 叫调）
         if str(p["seat_face"]) == "down":
             if not p.has("side_stand"):
@@ -408,6 +490,8 @@ func npc_at(at: Vector2) -> String:
     var best := ""
     var by := -INF
     for id in people:
+        if not can_talk(id):
+            continue
         var p: Dictionary = people[id]
         var r := Rect2(p["head"].x - 16.0, p["head"].y, 32.0, (p["foot"] as Vector2).y - (p["head"] as Vector2).y)
         if r.grow(4.0).has_point(at) and (p["foot"] as Vector2).y > by:
@@ -422,6 +506,8 @@ func near_npc() -> String:
     var best := ""
     var bd := TALK_NEAR
     for id in people:
+        if not can_talk(id):
+            continue
         var d: float = c.pos.distance_to(approach_of(id))
         if d < bd:
             bd = d

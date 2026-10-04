@@ -1,0 +1,132 @@
+{
+ "note": "麻将室的人（07 10/4 照休息间那套铺开，lounge_life.gd 一间一份）：改文案只改这份。格式跟 lounge.json 一样：people 里每位 code 是对话框、身份卡用哪张人物图（现在是替身那张宾客图）；title 是名字牌上的称呼；relation 空着（待讨论）；dialogue 是点他说话走哪份 .dialogue（选项在里面）。chat 是头顶冒泡，一组几个人轮流说。没写在 people 里的只冒泡、点了不理。status 待校对：都是 07 拟的草稿，阿鱼在文案组校过再换",
+ "status": "待校对",
+ "people": {
+  "elder_n": {
+   "code": "LM-GUEST-10",
+   "title": "大爷",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mj_elder_n.dialogue"
+  },
+  "elder_s": {
+   "code": "LM-GUEST-06",
+   "title": "孃孃",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mj_elder_s.dialogue"
+  },
+  "mj3_e": {
+   "code": "LM-GUEST-02",
+   "title": "姐姐",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mj3_e.dialogue"
+  },
+  "card_e": {
+   "code": "LM-GUEST-08",
+   "title": "妹妹",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mj_card_e.dialogue"
+  }
+ },
+ "chat": [
+  {
+   "group": "mj1",
+   "lines": [
+    [
+     "elder_n",
+     "该你了"
+    ],
+    [
+     "elder_e",
+     "碰！"
+    ],
+    [
+     "elder_w",
+     "慢点慢点"
+    ],
+    [
+     "elder_s",
+     "我听牌了哦"
+    ],
+    [
+     "elder_n",
+     "莫吹哦"
+    ],
+    [
+     "elder_e",
+     "胡了！"
+    ],
+    [
+     "elder_w",
+     "再来一圈"
+    ]
+   ]
+  },
+  {
+   "group": "mj2",
+   "lines": [
+    [
+     "elder_5",
+     "新娘子好乖"
+    ],
+    [
+     "mj_guest_1",
+     "该哪个了"
+    ],
+    [
+     "elder_6",
+     "你嘛"
+    ],
+    [
+     "mj_guest_2",
+     "我手气背"
+    ],
+    [
+     "elder_5",
+     "慢慢来"
+    ]
+   ]
+  },
+  {
+   "group": "mj3",
+   "lines": [
+    [
+     "mj3_w",
+     "年轻人沉住气"
+    ],
+    [
+     "mj3_e",
+     "这把稳了"
+    ],
+    [
+     "mj3_n",
+     "爷爷加油"
+    ],
+    [
+     "mj3_w",
+     "看到起"
+    ]
+   ]
+  },
+  {
+   "group": "card",
+   "lines": [
+    [
+     "card_n",
+     "发牌发牌"
+    ],
+    [
+     "card_w",
+     "我看看"
+    ],
+    [
+     "card_e",
+     "我不要了"
+    ],
+    [
+     "card_n",
+     "再来一把"
+    ]
+   ]
+  }
+ ]
+}

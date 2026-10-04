@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://dh5bseuibflmu"
+path="res://.godot/imported/mj_card_e.dialogue-27febd4a8f0aed12925854443e26397f.tres"
+
+[deps]
+
+source_file="res://assets/backhall/dialogue/mj_card_e.dialogue"
+dest_files=["res://.godot/imported/mj_card_e.dialogue-27febd4a8f0aed12925854443e26397f.tres"]
+
+[params]
+
+defaults=true
