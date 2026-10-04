@@ -475,8 +475,8 @@ func run() -> void:
         issues6.append("最后一页有选项时点对话框往下走了")
     (ui.choices.get_child(0) as Button).pressed.emit()
     await wait_line_change(line_before)
-    if ui.line_label.text != "好嘞":
-        issues6.append("点了第一个选项回的话不对（%s）" % ui.line_label.text)
+    if ui.line_raw != "好嘞":   # 比原文（屏上那句带“”，05 合第 69 版时改，同文件别处本来就用 line_raw）
+        issues6.append("点了第一个选项回的话不对（%s）" % ui.line_raw)
     ui.close_talk()
     typer.instant = inst_was
     check("长句分 %d 页：第一下点出完这一页、再点才翻页、翻到最后一页选项才露出来能点、最后一页有选项点框不往下走（%d 处不对 %s）" % [np, issues6.size(), str(issues6)], issues6.is_empty())

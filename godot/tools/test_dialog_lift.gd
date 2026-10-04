@@ -4,7 +4,7 @@ extends SceneTree
 ## 1 麻将室大爷、休息间奶奶、化妆间新娘（没头像）各点开对话：等镜头让完，说话的人头顶脚下、玩家头顶脚下在屏幕上都在框上沿上面
 ## 2 关上：镜头放回原位（偏移回 0、画布下沿限位回原值）
 ## 3 一句太长分了页：点一下先出完这一页、再点翻页、最后一页才出选项（03 以后照这个加进 test_dialogue_check）
-## 4 阿鱼说一句（没头像、一行）：框整个在屏幕里、下沿离底 40，框矮（≤ 100），名字牌和话上下居中
+## 4 阿鱼说一句（没头像、没选项；加了“”以后可能两行）：框整个在屏幕里、下沿离底 40，框只比内容高一点（≤ 内容 + 44），名字牌和话上下居中
 ## 用法：Godot --headless --path . --script res://tools/test_dialog_lift.gd
 ## 最后一行 RESULT PASS 才算过
 
@@ -111,10 +111,11 @@ func run() -> void:
         await frames(10)
         var r: Rect2 = m.dialog.get_global_rect()
         check("阿鱼的框在屏里（%s，屏高 %.0f）" % [r, vs.y], r.end.y <= vs.y - 39.0 and r.position.y > vs.y * 0.5)
-        check("阿鱼的框一行排匀（高 %.0f）" % r.size.y, r.size.y <= 100.0)
         var lay: Control = m.dialog.get_node("layer")
         var pl: Control = lay.get_node("lounge_name")
         var pg: Control = lay.get_node("page")
+        var content := maxf(pl.size.y, pg.size.y)
+        check("阿鱼的框排匀、不空一大块（高 %.0f、内容 %.0f）" % [r.size.y, content], r.size.y <= content + 44.0)
         var mid := r.size.y * 0.5
         check("名字牌、话上下居中（牌 %.0f、话 %.0f、框中 %.0f）" % [pl.position.y + pl.size.y * 0.5, pg.position.y + pg.size.y * 0.5, mid], absf(pl.position.y + pl.size.y * 0.5 - mid) <= 2.0 and absf(pg.position.y + pg.size.y * 0.5 - mid) <= 2.0)
         m.dialog.visible = false

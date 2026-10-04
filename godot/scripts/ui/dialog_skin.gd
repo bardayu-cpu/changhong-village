@@ -2,8 +2,8 @@ extends RefCounted
 ## 全游戏的对话框和头顶冒泡长什么样（05 10/4，01 H 派）。照阿鱼的定稿图一模一样（docs/参考图/对话框定稿-阿鱼10-04.png，main 48cfaa3；
 ## 阿鱼：「完全不对，我要的是这样」）。图是像素画但线不严格对格子（按钮亮边只有半格、边缘发虚），切出来会糊，所以照它用代码画，颜色从图里取：
 ##   - 框：深褐底，外一圈深色、里一圈金棕的双线，四个角金线往里收出台阶、空出来的角上一个金色小 L 角花
-##   - 头像：后面不垫底块，人直接从框上沿顶出来（头在框外、身子在框里），整数倍放大
-##   - 名字牌：深底、金棕边、黄字，前面一个白色像素对话泡（三个点）；压在头像下面、框左下角
+##   - 头像：后面不垫底块，人直接从框上沿顶出来，露上半身（阿鱼：「需要露出的是上半身」）：头整个在框外，肩膀、胸口在框里，整数倍放大
+##   - 名字牌：深底、金棕边、黄字，前面一个米白像素小身份证（阿鱼：图标是身份证的意思，不是对话泡）；压在头像下面、框左下角
 ##   - 话：米白字（带“”，07 在 map69 加），头像右边上半部分
 ##   - 按钮：红底，里一圈浅橘亮边、下面一截暗一点，深红描边，四个角各一颗金色小方钉，白字；一样宽、铺满右边那一行，中间留一道空
 ## 冒泡白底（阿鱼：「白底，注意像素风」）。全部像素硬边。先前的米白版、手画版都作废。
@@ -54,8 +54,9 @@ const CHOICE_RIGHT_TIGHT := 12.0
 const CHOICE_PADX := 6.0     # 按钮字两边至少留多少（描边 3 + 亮边 2 + 1）
 const CHOICE_MIN_W := 88.0    # 按钮最窄（01：能点的范围宽 ≥88、高 ≥44）
 const PLATE_H := 40.0        # 名字牌多高
-const FACE := Vector2(128, 150)   # 头像那块多大（不垫底、只用来裁）：定稿图头像宽 405、从框上沿往上顶 244、下沿到名字牌上沿，折成约 122×148
-const FACE_K := 4.0          # 头像放大几倍（整数倍不糊）：定稿图头带头发占满那块的宽
+const FACE := Vector2(128, 190)   # 头像那块多大（不垫底、只用来裁）：下沿接名字牌上沿，往上顶出框约 112（下巴在人物图第 35 行左右，3 倍约 105），头（连下巴）整个露在框上沿外面
+const FACE_K := 3.0          # 头像放大几倍（整数倍不糊）：阿鱼「要露出上半身」——3 倍时整个人（宽 36 格）不切边，头（32 行）在框外，
+                             # 往下露到胸口（中山装的扣子），名字牌压在胸口下面；4 倍左右会切掉、只剩脸
 const PLATE_W := 136.0       # 名字牌最窄：定稿图 450 宽，折成约 136
 const COL_W := 132.0         # 左边一栏多宽（头像、名字牌）：话从 PAD + COL_W + 12 = 160 起（定稿图左引号从 162 起）
 
@@ -204,25 +205,24 @@ static func choice_frame(down: bool) -> StyleBoxTexture:
         _tex_cache[key] = ImageTexture.create_from_image(img)
     return _sb_of(_tex_cache[key], m)
 
-## 名字前的小图标：白色像素对话泡，里面三个点，左下一个小尖（定稿图）
-static func _talk_icon(c: Color, dot: Color) -> ImageTexture:
-    var key := "talkicon %s" % c.to_html()
+## 名字前的小图标：像素小身份证（阿鱼：「名字旁边的 icon 是身份证的意思」）：米白卡片，左边一个小人（头、肩膀），右边三条横线
+static func _id_icon(c: Color, dot: Color) -> ImageTexture:
+    var key := "idicon %s" % c.to_html()
     if _tex_cache.has(key):
         return _tex_cache[key]
     var rows := [
-        "WWWWWWWWWWWW",
-        "WWWWWWWWWWWW",
-        "WW##W##W##WW",
-        "WW##W##W##WW",
-        "WWWWWWWWWWWW",
-        "WWWWWWWWWWWW",
-        ".WWW........",
-        ".WW.........",
-        ".W..........",
+        "WWWWWWWWWWWWWW",
+        "WWWWWWWWWWWWWW",
+        "WWddWWddddddWW",
+        "WWddWWWWWWWWWW",
+        "WWWWWWddddWWWW",
+        "WddddWWWWWWWWW",
+        "WddddWddddddWW",
+        "WWWWWWWWWWWWWW",
     ]
-    var img := Image.create(12 * U, rows.size() * U, false, Image.FORMAT_RGBA8)
+    var img := Image.create(14 * U, rows.size() * U, false, Image.FORMAT_RGBA8)
     for y in rows.size():
-        for x in 12:
+        for x in 14:
             var ch: String = rows[y][x]
             if ch != ".":
                 img.fill_rect(Rect2i(x * U, y * U, U, U), c if ch == "W" else dot)
@@ -335,16 +335,21 @@ static func _hint_icon(kind: String, c: Color) -> ImageTexture:
 
 ## 人头顶冒一句、过 hold 秒收（走到头的提示，04 第 9 条；跟冒泡同一个样子）。zoom 是镜头缩放，气泡反着放大，屏幕上一样大
 static func say_at(parent: Node2D, head: Vector2, text: String, f: Font, size: int, zoom: float, hold: float) -> Node2D:
+    # 同一时间只留一个（03 测出：旧的 queue_free 了还没走，新的重名被改成 @Node2D@…，第三次按名字就删不到，连顶几次叠好几个）：
+    # 先把组里的旧气泡马上摘下来再删，名字空出来，新的就叫 edge_bubble
+    for old in parent.get_tree().get_nodes_in_group("edge_bubble"):
+        if old.get_parent() != null:
+            old.get_parent().remove_child(old)
+        old.queue_free()
     var built: Dictionary = bubble(text, f, size)
     var b: Node2D = built["node"]
     b.name = "edge_bubble"
+    b.add_to_group("edge_bubble")
     b.position = head
     b.scale = Vector2.ONE / maxf(zoom, 0.2)
     b.z_index = 4
     parent.add_child(b)
-    b.get_tree().create_timer(hold).timeout.connect(func():
-        if is_instance_valid(b):
-            b.queue_free())
+    b.get_tree().create_timer(hold).timeout.connect(b.queue_free)   # 接气泡自己：提前删掉时连接跟着断，不会到点再去碰已删的
     return b
 
 # ---------- 对话框 ----------
@@ -473,7 +478,7 @@ static func _frame(p: PanelContainer, h: float) -> void:
     p.add_theme_stylebox_override("panel", box_frame())
     p.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
-## 名字牌：深底、金棕双线边、黄字，with_icon 时名字前一个白色像素对话泡（定稿图）
+## 名字牌：深底、金棕双线边、黄字，with_icon 时名字前一个米白像素小身份证
 static func _plate(font: Font, with_icon: bool) -> PanelContainer:
     var p := PanelContainer.new()
     p.name = "lounge_name"
@@ -488,14 +493,14 @@ static func _plate(font: Font, with_icon: bool) -> PanelContainer:
     p.mouse_filter = Control.MOUSE_FILTER_IGNORE
     p.visible = false
     var h := HBoxContainer.new()
-    h.add_theme_constant_override("separation", 18)   # 定稿图：对话泡和名字中间空约 20
+    h.add_theme_constant_override("separation", 18)   # 定稿图：图标和名字中间空约 20
     h.mouse_filter = Control.MOUSE_FILTER_IGNORE
     h.alignment = BoxContainer.ALIGNMENT_CENTER
     p.add_child(h)
     if with_icon:
         var ic := TextureRect.new()
-        ic.name = "card_icon"   # 名字照旧（点它开身份卡的说法不变），图换成定稿图的白色对话泡
-        ic.texture = _talk_icon(_c(PAL["icon"]), _c(PAL["plate"]["fill"]))
+        ic.name = "card_icon"   # 像素小身份证（阿鱼 10/4）；点它（或头像）开身份卡
+        ic.texture = _id_icon(_c(PAL["icon"]), _c(PAL["plate"]["fill"]))
         ic.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
         ic.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
         ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -657,7 +662,20 @@ class Typer extends Node:
     func _fit_portrait() -> void:
         var tex: Texture2D = portrait.texture
         var code := str(ui.talk_info.get("code", "")) if ui != null and ui.get("talk_info") is Dictionary else ""
-        var key := "%s %s %s" % [code, tex.get_rid(), tex.get_size()]
+        var l: Dictionary = LMPeople.look(code) if code != "" else {}
+        var at := tex as AtlasTexture
+        # lounge_ui.pose_tex 只给帧的上面 PORTRAIT_KEEP（56%），3 倍放大到名字牌上沿还差一截：对话框这里把截的那块往下放长到
+        # 头像那块要的行数（不超过这一帧），露出胸口。只换对话框里这张，pose_tex、身份卡不动。lounge_ui 每句都会换回短的，所以每帧都看
+        if at != null and not l.is_empty():
+            var want := minf(ceilf(FACE.y / FACE_K), float(int(l.get("fh", 0)) - int(l.get("top", 0))))
+            if at.region.size.y < want:
+                var at2 := AtlasTexture.new()
+                at2.atlas = at.atlas
+                at2.region = Rect2(at.region.position, Vector2(at.region.size.x, want))
+                portrait.texture = at2
+                tex = at2
+                at = at2
+        var key := "%s %s %s" % [code, at.atlas.get_rid() if at != null and at.atlas != null else tex.get_rid(), at.region if at != null else Rect2(Vector2.ZERO, tex.get_size())]
         if key == _fit_key:
             return
         _fit_key = key
@@ -665,7 +683,6 @@ class Typer extends Node:
         var full := tex.get_size()
         var used := Rect2(Vector2.ZERO, full)
         if code != "":
-            var l: Dictionary = LMPeople.look(code)
             var fr = l.get("front")
             if fr is Rect2i and int(l.get("fw", 0)) == int(full.x) and (fr as Rect2i).size.x > 0:
                 used = Rect2(float(fr.position.x), float(fr.position.y - int(l.get("top", 0))), float(fr.size.x), full.y)
@@ -742,6 +759,8 @@ class Typer extends Node:
         var col := COL_W if (has_face or plate.visible) else 0.0
         var x0 := PAD + col + (12.0 if col > 0.0 else 0.0)
         var text_w := w - x0 - PAD - 26.0          # 右边留给小三角
+        if not has_face and not (choices != null and choices.visible) and (hint == null or hint.text == ""):
+            text_w = w - x0 - PAD                  # 阿鱼的框（没头像、没选项、没有「点一下继续」）：不用留小三角，话用满宽（加了“”以后少折一行）
         var lh := (font.get_height(LINE_SIZE) if font != null else float(LINE_SIZE)) + LINE_GAP   # 一行多高：照字体实际行高
         var ch_on: bool = choices != null and choices.visible
         var row_h := (CHOICE_H + 10.0) if ch_on else 0.0
@@ -760,10 +779,10 @@ class Typer extends Node:
             shown.visible_characters = -1 if instant else 0
         var lines_here := shown.text.count("\n") + 1
         var text_h := lines_here * lh - LINE_GAP
-        var one_row: bool = not has_face and not ch_on and lines_here == 1 and pages.size() <= 1
+        var one_row: bool = not has_face and not ch_on and pages.size() <= 1   # 没头像、没选项、一页（阿鱼说话）：一行两行都收矮居中
         var h := clampf(PAD * 2.0 + text_h + row_h, MIN_H if has_face else 96.0, max_h)
         if one_row:
-            h = PAD * 2.0 + maxf(PLATE_H, text_h) + 12.0   # 没头像、一行话（阿鱼）：名字牌和话排一行、上下居中，不空一大块（04）
+            h = PAD * 2.0 + maxf(PLATE_H, text_h) + 12.0   # 没头像、没选项（阿鱼）：名字牌和话上下居中，不空一大块（04）；加了“”以后常常两行
         if pages.size() > 1:
             h = max_h
         box.offset_bottom = -BOTTOM   # 阿鱼的框：main._layout_top 还按原来顶上那条每帧设下沿（= TOP_Y），这里钉回屏幕底；main.gd 不动

@@ -42,6 +42,13 @@ func shot(name: String) -> void:
     get_root().get_texture().get_image().save_png("%s/%s-%s.png" % [opt["dir"], opt["tag"], name])
     n += 1
 
+## 换一句话：走 lounge_ui 的 _set_line（07 在那里给人说的话加“”），没有就直接写
+func say(ui, t: String) -> void:
+    if ui.has_method("_set_line"):
+        ui._set_line(t)
+    else:
+        ui.line_label.text = t
+
 func life_by(b, room: String):
     for l in b.lives:
         if l.room == room:
@@ -133,7 +140,7 @@ func run() -> void:
     ui.close_talk()
     await frames(4)
     await open_talk(b, ui, mj, "elder_n", false)
-    ui.line_label.text = "你会不会打麻将？我们这桌三缺一，你要是会就来坐一会儿，输了算我的。你阿鱼小时候在这桌上看我们打牌，看着看着就学会了，后来过年回来都要跟我们来两圈，手气比我还好。"
+    say(ui, "你会不会打麻将？我们这桌三缺一，你要是会就来坐一会儿，输了算我的。你阿鱼小时候在这桌上看我们打牌，看着看着就学会了，后来过年回来都要跟我们来两圈，手气比我还好。")
     await frames(10)
     await shot("page1")
     ui.next_line()
@@ -157,7 +164,7 @@ func run() -> void:
     typer.instant = false
     ui.line_label.text = ""
     await frames(1)
-    ui.line_label.text = "你会不会打麻将？我们这桌三缺一。"
+    say(ui, "你会不会打麻将？我们这桌三缺一。")
     await frames(4)
     await shot("type1")
     await create_timer(0.35).timeout
