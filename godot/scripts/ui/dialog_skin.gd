@@ -582,16 +582,22 @@ class Typer extends Node:
             return true
         return false
 
-    ## 照宽度一个字一个字折行（标点不放行首：跟着上一行，宁可多出半个字），再按一页几行分页
+    ## 照宽度一个字一个字折行（标点不放行首：跟着上一行，宁可多出半个字；左引号、左括号不留在行尾：带到下一行），再按一页几行分页
+    ## 说话的那句带“”（阿鱼 10/4 定的规矩，07 在 lounge_ui、main._say 里加）：右引号不放行首、左引号不落单
     func _paginate(text: String, w: float, lines_per_page: int) -> Array:
-        const NO_HEAD := "，。、！？；：）」』…—,.!?;:)"
+        const NO_HEAD := "，。、！？；：）」』”’…—,.!?;:)"
+        const NO_TAIL := "“‘「『（("
         var lines: Array = []
         for para in text.split("\n"):
             var cur := ""
             for ch in para:
                 if cur != "" and not NO_HEAD.contains(ch) and font != null and font.get_string_size(cur + ch, HORIZONTAL_ALIGNMENT_LEFT, -1, LINE_SIZE).x > w:
+                    var carry := ""
+                    while cur.length() > 1 and NO_TAIL.contains(cur[-1]):
+                        carry = cur[-1] + carry
+                        cur = cur.left(-1)
                     lines.append(cur)
-                    cur = ""
+                    cur = carry
                 cur += ch
             lines.append(cur)
         var out: Array = []
