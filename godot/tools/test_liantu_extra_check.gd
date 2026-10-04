@@ -4,7 +4,7 @@ extends SceneTree
 ##     走路范围里没被占地挡、却被圈掉不能站的格子（口袋），不比 03 记下的现状多；每个口、出生点、落点都能站、口的圈里有能站的格子
 ##   2 湖边：岸线以下（y 800～1270）看着是地面的格子，除了被占地挡的，都能走（逐格量，剩下的几格列出来）；码头、船夫跟前、小岛、曲桥、亭子前沿、南墙外这些点能站；
 ##     东头南墙月亮门去后花园、西头尽头去果园两个口能走到
-##   3 走到头：十三块（宴会厅另算）每块、四个方向各找一处真走到头的地方（出口附近不算）推摇杆：弹一句、一直顶着不重复、走开 ≥60 再回来才再弹；
+##   3 走到头：十三块（宴会厅另算）每块、四个方向各找一处真走到头的地方（出口附近不算）推摇杆：弹一句（05 10/4 新规矩：人头顶冒一个小气泡 edge_bubble，话在它的 Label 里，不再写顶上提示条，同一时间只留一个）、一直顶着不重复、走开 ≥60 再回来才再弹；
 ##     被家具、花坛挡住的地方推不弹；点范围外弹、点家具上不弹；四句话统一成一句（10/4 01 G 定）
 ##   4 牌子：每块画布每一块牌，跟站在出生点、每个口上、每个落点上的人身子（40×90，比 02 量的 32×84 大一圈）一块不叠；牌子不出画布；
 ##     手机 540×960 和长屏 585×1266 下，人站在口上，对应「去…」牌整块在屏里；宴会厅的门牌跟进厅落点不叠（第 66 版起 0 处）
@@ -90,6 +90,33 @@ func find_text(v, word: String) -> Array:
     elif v is String and (v as String).find(word) >= 0:
         out.append(str(v))
     return out
+
+
+## 走到头的小气泡（05 10/4：不再写顶上那条，改成人头顶冒一个小气泡，画布上叫 edge_bubble，话在它的 Label 里，停 1.6 秒）
+func edge_nodes(c) -> Array:
+    # 05 的 main._on_edge_bump 先 queue_free 旧的再加新的，新的会因为重名被改成「@Node2D@数字」，所以不能只认名字 edge_bubble：
+    # 名字以 edge_bubble 开头、或者里头有一个 Label 写着走到头那句话的，都算（没删的）
+    var texts: Array = []
+    for dn in ["up", "down", "left", "right"]:
+        texts.append(CourtCopy.text("edge_" + dn, CourtCopy.AREAS))
+    var out: Array = []
+    for n in c.get_children():
+        if not (n is Node2D) or n.is_queued_for_deletion():
+            continue
+        var hit: bool = str(n.name).begins_with("edge_bubble")
+        if not hit:
+            for lb in (n as Node).find_children("*", "Label", true, false):
+                if str((lb as Label).text) in texts:
+                    hit = true
+        if hit:
+            out.append(n)
+    return out
+
+func edge_text(c) -> String:
+    for n in edge_nodes(c):
+        for lb in (n as Node).find_children("*", "Label", true, false):
+            return str((lb as Label).text)
+    return ""
 
 func run() -> void:
     get_root().size = Vector2i(540, 960)
@@ -229,6 +256,8 @@ func run() -> void:
     # 10/4 04 看第 65 版、01 G 定：走到头统一成一句不分方向的（「这边过不去了」），四个键还分着存
     check("四句话都有字、统一成一句 %s" % str(texts), uniq.size() == 1 and not (texts.values() as Array).has("edge_up") and str(texts["up"]) != "")
     var bump_bad: Array = []
+    var multi_live := 0   # 同一时间留了不止一个小气泡的次数
+    var note_wrote := 0   # 还往顶上提示条写字的次数
     var edge_n := 0
     var blocked_n := 0
     var skipped_rearm := 0
@@ -285,7 +314,11 @@ func run() -> void:
                 c.stick = d
                 tick(int(1.5 / DT))
                 var first := bumps
-                var shown: String = m.note.text
+                var shown: String = edge_text(c)
+                if edge_nodes(c).size() > 1:
+                    multi_live += 1
+                if m.note_box.visible and m.note.text == str(texts[dn]):
+                    note_wrote += 1
                 tick(int(1.5 / DT))
                 var held := bumps
                 c.stick = Vector2.ZERO
@@ -355,6 +388,7 @@ func run() -> void:
         if int(cover.get(k, [0, 0])[0]) == 0:
             no_edge.append(k)
     check("每块至少有一处真走到头量过（没量到的块：%s；后厅四周全是门和墙、墙后面是屋里的地，离门 260 像素以外没有真走到头的地方，允许）" % str(no_edge), no_edge.is_empty() or no_edge == ["backhall"])
+    check("走到头不再写顶上提示条（%d 次写了）、同一时间只留一个小气泡（%d 次留了不止一个）" % [note_wrote, multi_live], note_wrote == 0 and multi_live == 0)
     for b in bump_bad:
         print("    ", b)
     check("走到头：%d 处弹一句、顶着不重复、走开再回来再弹（%d 处四周走不开没量这条）；%d 处被墙、家具挡住前面还有地不弹（其中 %d 处是湖边南墙外往北顶、算走到头弹了，话是对的）；点范围外弹（%d 处不对）" % [edge_n, skipped_rearm, blocked_n, wall_known, bump_bad.size()], bump_bad.is_empty() and edge_n >= 20)
