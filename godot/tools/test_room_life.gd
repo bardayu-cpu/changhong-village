@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：后厅麻将室、化妆间的人活起来（07 10/4，阿鱼「其他房间里的 npc 也要动起来，对话起来，走动起来，灵活起来」）。无界面跑整个 main.gd。
 ##   1 两间各一份 lounge_life（mahjong.json、makeup.json）：人数对、都接过替身那张图；休息间照旧四位
-##   2 冒泡：跑 20 秒，每组都冒过话、是 json 里那几句；气泡不挡操作（点气泡底下的地照样走过去）
+##   2 冒泡（阿鱼 10/4 新规矩，05 回执「跟新规矩冲突的 4 个测试」：后厅三间同屏最多两个冒泡，两个在冒时别的组等着）：三间一起跑 90 秒，每一帧同时在冒的 ≤ 2 个、每一组 90 秒内至少冒过一句、冒的都是 json 里那几句；气泡不挡操作（点气泡底下的地照样走过去）
 ##   3 点人对话：每位能说话的，每个选项各走一遍到底——点他 → 走到 approach → 对话框（名字牌是称呼、走插件）→ 挑选项 → 说完收、又能走；
 ##     坐着的说话不起身不转身（截的那格不变）
 ##   4 没写台词的点了不理（当点地面走路）；approach 都能站、从进场点走得到
@@ -121,23 +121,31 @@ func run() -> void:
             adopted = adopted and p.has("look") and p.get("spr") == b.npc_nodes.get(id)
     check("两间的人都接过了替身那张图（没另画一个）", adopted)
 
-    print("2 冒泡")
+    print("2 冒泡（三间一起、90 秒、同屏最多两个）")
     var seen := {}
-    for i in int(20.0 / DT):
+    var max_now := 0
+    var over_two := 0
+    for i in int(90.0 / DT):
         tick(1)
-        for lf in [mj, mk]:
+        var now := 0
+        for lf in b.lives:
             for id in lf.bubbles:
+                if is_instance_valid(lf.bubbles[id]):
+                    now += 1
                 var t: String = lf.bubble_text(id)
                 if t != "":
                     seen[lf.room + "/" + id + "/" + t] = true
-    for lf in [mj, mk]:
+        max_now = maxi(max_now, now)
+        if now > 2:
+            over_two += 1
+    check("三间一起跑 90 秒：每一帧同时在冒的最多 %d 个（要 ≤ 2；超过两个的有 %d 帧）" % [max_now, over_two], max_now <= 2 and over_two == 0 and max_now >= 1)
+    for lf in b.lives:
         for g in lf.data["chat"]:
             var got := 0
-            var bad := []
             for l in g["lines"]:
                 if seen.has(lf.room + "/" + str(l[0]) + "/" + str(l[1])):
                     got += 1
-            check("%s「%s」组 20 秒冒了 %d 句（json 里 %d 句）" % [lf.room, g["group"], got, g["lines"].size()], got >= 2)
+            check("%s「%s」组 90 秒冒了 %d 句（json 里 %d 句；要 ≥ 1）" % [lf.room, g["group"], got, g["lines"].size()], got >= 1)
     for k in seen:
         var parts: PackedStringArray = str(k).split("/")
         var lf = life_by(parts[0])
@@ -252,7 +260,7 @@ func run() -> void:
                     var tag := "%s×%s" % [rects[a][0], rects[c2][0]]
                     if not tag in worst:
                         worst.append(tag)
-    check("三间八组照常轮着冒 90 秒（最多同时 %d 个），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 3)
+    check("三间八组照常轮着冒 90 秒（最多同时 %d 个，要 ≤ 2），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 1 and most <= 2)
     for lf in b.lives:
         for id in lf.bubbles.keys():
             lf._hide_bubble(id)
