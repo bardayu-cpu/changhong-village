@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：场景动效公共架子 + 宴会厅宫灯呼吸（05 10/4，清单 回执/动效清单-1004.md）。无界面跑整个 main.gd：
 ## 1 宴会厅挂上了动效，20 盏宫灯都找到，光心在每盏灯图上 (24,40)（灯罩正中），一个节点一次画完、加法混合
-## 2 亮度在 alpha ± breathe 里起伏，各盏错开；全关档停在平均亮度
+## 2 像素光：每格全不透明或全透明、只用那几档暖色、外边棋盘格点；亮中暗整档换，各盏错开；全关停在中档
 ## 3 降级：连续 3 秒低于 50 帧降一档，低于 40 帧全关，连续 10 秒 58 帧以上升一档；强制开关
 ## 4 切到别的画布，宴会厅的动效停（不跑 _process）
 ## 5 配置里没写的场景不挂（迎宾院现在没有）
@@ -44,24 +44,55 @@ func run() -> void:
         if str(o.get("image", "")).get_file() == "art_lantern.png":
             want.append(Vector2(float(o["x"]) + 24.0, float(o["y"]) + 40.0))
     check("20 盏光心都在灯罩正中（零件左上角 + (24,40)）", want.size() == 20 and lg.points == want)
-    check("加法混合、压在零件上面一点（z 1）", lg.material is CanvasItemMaterial and lg.material.blend_mode == CanvasItemMaterial.BLEND_MODE_ADD and lg.z_index == 1)
-    # 亮度起伏
+    check("加法混合、压在零件上面一点（z 1）、整格不插值", lg.material is CanvasItemMaterial and lg.material.blend_mode == CanvasItemMaterial.BLEND_MODE_ADD and lg.z_index == 1 and lg.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST)
+    # 像素光：每格全不透明或全透明，颜色只用那几档；中心最亮，外边一格隔一格
+    var hard := true
+    var only_tiers := true
+    var allowed := []
+    for c in lg.tiers:
+        allowed.append(Color8(int(c[0]), int(c[1]), int(c[2]), 255))
+    for tx in lg.texs:
+        var img: Image = tx.get_image()
+        for y in img.get_height():
+            for x in img.get_width():
+                var px := img.get_pixel(x, y)
+                if px.a8 != 0 and px.a8 != 255:
+                    hard = false
+                if px.a8 == 255 and not allowed.has(px):
+                    only_tiers = false
+    check("光圈每格要么全不透明要么全透明（没有半透明）", hard)
+    check("光圈只用那几档暖色", only_tiers)
+    var big: Image = lg.texs[0].get_image()
+    var hc: int = lg.half
+    check("中心是最亮那档", big.get_pixel(hc, hc) == allowed[allowed.size() - 1])
+    var r0: int = int(lg.sizes[0][0])
+    check("最外圈边上一格隔一格（棋盘格点）", big.get_pixel(hc + r0, hc).a8 != big.get_pixel(hc + r0, hc + 1).a8)
+    check("光心是整数格", lg.points.all(func(p): return p == p.round()))
+    # 一明一暗：整档换，亮 → 中 → 暗 → 中
     Ambient.set_forced(-1)
-    var lo := 1.0
-    var hi := 0.0
-    for k in 200:
-        var a: float = lg.glow_alpha(0, k * 0.05)
-        lo = minf(lo, a)
-        hi = maxf(hi, a)
-    check("亮度在 0.14～0.30 里起伏（%.2f～%.2f）" % [lo, hi], lo >= 0.14 - 0.001 and hi <= 0.30 + 0.001 and hi - lo > 0.1)
-    check("各盏不同步", absf(lg.glow_alpha(0, 1.0) - lg.glow_alpha(1, 1.0)) > 0.001 or absf(lg.glow_alpha(0, 2.0) - lg.glow_alpha(1, 2.0)) > 0.001)
+    var seen := {}
+    var changes := 0
+    var last := -1
+    for k in 400:
+        var sz: int = lg.size_of(0, k * 0.05)
+        seen[sz] = true
+        if last >= 0 and sz != last:
+            changes += 1
+        last = sz
+    check("一盏灯三种大小都轮到（%d 种）" % seen.size(), seen.size() == 3)
+    check("20 秒里换档 %d 次（每档 0.8～1.15 秒）" % changes, changes >= 17 and changes <= 26)
+    var differ := false
+    for k in 40:
+        if lg.size_of(0, k * 0.25) != lg.size_of(1, k * 0.25):
+            differ = true
+    check("各盏不同步", differ)
     # 降级
     Ambient.set_forced(-1)
     for i in 3: Ambient.step(45.0)
     check("连续 3 秒 45 帧：降到 1 档", Ambient.level == 1)
     for i in 3: Ambient.step(35.0)
     check("连续 3 秒 35 帧：全关", Ambient.level == 0)
-    check("全关：亮度停在平均", is_equal_approx(lg.glow_alpha(3, 7.7), lg.alpha))
+    check("全关：停在中档", lg.size_of(3, 7.7) == 1 and lg.size_of(5, 2.2) == 1)
     for i in 9: Ambient.step(60.0)
     check("9 秒 60 帧：还不升", Ambient.level == 0)
     Ambient.step(60.0)
