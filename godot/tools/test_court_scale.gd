@@ -105,7 +105,8 @@ func run() -> void:
     print("3 站位跟着核")
     var from: Vector2 = c.SPAWN
     var miss: Array = []
-    for id in ["sign_in", "album", "blessing", "photo_wait", "photo_mark", "rest", "to_hall", "gate", "to_parking", "to_plaza"]:
+    # 第 68 版（07）：迎宾院东边去停车场的口（to_parking）不要了，大门 gate 出去就是停车场
+    for id in ["sign_in", "album", "blessing", "photo_wait", "photo_mark", "rest", "to_hall", "gate", "to_plaza"]:
         var p: Vector2 = c.spot_pos(id)
         var path: Array = c.find_path(from, p)
         if path.is_empty() or (path[path.size() - 1] as Vector2).distance_to(p) > float(c.points[id]["r"]):

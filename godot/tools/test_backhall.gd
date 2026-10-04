@@ -224,16 +224,16 @@ func run() -> void:
             await process_frame
             continue
         ui._on_act()
-        check("%s：点一下 %s「%s」" % [id, m.dialog_who.text, m.dialog_text.text],
-            m.dialog.visible and m.dialog_text.text == real[id] and m.dialog_who.text == want_who[id])
+        check("%s：点一下 %s「%s」" % [id, m.dialog_who.text, m.said_raw],
+            m.dialog.visible and m.said_raw == real[id] and m.dialog_who.text == want_who[id])
         if id == "dress":
             # 真等 3.2 秒（平常一句话 2.4 秒加每字 0.09 秒就自己收了），这句不收
             await create_timer(3.2).timeout
-            check("%s：真等 3 秒也不自己收" % id, m.dialog.visible and m.dialog_text.text == real[id])
+            check("%s：真等 3 秒也不自己收" % id, m.dialog.visible and m.said_raw == real[id])
         ui._on_act()
         check("%s：再点关掉" % id, not m.dialog.visible)
         ui._on_act()
-        check("%s：再点又出" % id, m.dialog.visible and m.dialog_text.text == real[id])
+        check("%s：再点又出" % id, m.dialog.visible and m.said_raw == real[id])
         walk_to(Vector2(sp.x, 790))
         check("%s：走出去按钮和话都收" % id, not ui.act_btn.visible and not m.dialog.visible)
 
@@ -252,7 +252,7 @@ func run() -> void:
     ui._on_act()
     m._say("别的话", 0.0, "阿鱼")
     ui._on_act()
-    check("再点是再说一遍「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == real["dress"])
+    check("再点是再说一遍「%s」" % m.said_raw, m.dialog.visible and m.said_raw == real["dress"])
     ui._on_act()
     for id in saved:
         bl[id] = saved[id]

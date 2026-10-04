@@ -1,8 +1,11 @@
 extends Node
 ## 进山庄自动开车（10/4 连图，01 G 派；阿鱼原话：「先要走大门，然后绕喷泉开一圈，去到停车场停车，然后再从停车场走出来，去到迎宾院……
 ## 开车这一步变成自动的，所以每次进来都绕着那个喷泉绕一圈，去到停车场找个车位停车」）：
-##   前门：车从山庄外头的路开进门楼 → 往西拐出去 → 喷泉广场：从东边进来，绕喷泉一圈，从东边出去 → 停车场：从西边进来，开到自己的车位停好 → 人下车
-##   （10/4 方案 C：照阿鱼图只上下翻、左右不变，跟第 64 版东西对调）
+##   10/4 第 68 版（07，阿鱼：「中国是绕右开，所以，应该是先看见喷泉广场，然后直接往右开，拐进停车场」「你的前门就要挪到正对着喷泉了，
+##   不然没有人会去故意绕一下」）：前门挪到喷泉正下方，不绕整圈——
+##   前门：车从山庄外头的路开进门楼，直直往上开 → 喷泉广场：从南边正中进来，喷泉就在正前方；开到喷泉跟前靠右、右拐，沿车道往东出 →
+##   停车场：从西边上面那个口进来（跟车道一条线），开到自己的车位倒进去停好 → 人下车
+##   （原来：前门往西拐 → 广场东进、绕一圈、东出 → 停车场西进，左右来回折腾）
 ## 每次进山庄都播（新号、老号都是）；看过一次以后点一下屏幕就跳过（01 默认，阿鱼看了再改）。倒车小游戏以后补，这次不做。
 ## 做法：车就是画布上的「人」——把人藏起来、在人的脚点画一辆车，脚点照路线挪，镜头照旧跟着脚点走；三块画布之间照常淡出淡入
 
@@ -21,14 +24,25 @@ var car: Node2D
 var paused := false             # 截图用：车停在路上那一格不动
 var leg_t := 0.0                # 这一段开了多久（截图用）
 
-## 三段路线（画布坐标）。喷泉那段是绕着喷泉中心转一圈的椭圆
-const GATE_ROUTE := [Vector2(768, 990), Vector2(768, 536), Vector2(36, 536)]
-const PLAZA_IN := [Vector2(1500, 720), Vector2(1206, 720)]
-const LOOP_C := Vector2(768, 540)
-const LOOP_R := Vector2(330, 220)
-const PLAZA_OUT := [Vector2(1206, 720), Vector2(1500, 720)]
-const PARK_ROUTE := [Vector2(24, 900), Vector2(174, 900), Vector2(174, 846), Vector2(504, 846), Vector2(504, 1020)]   # 西口进来 → B、C 两排中间的车道 → 倒进 C 排靠路那个位（自己的车位，车头朝北）
-                                       # 10/4 03 测第 65 版：车道走 y 800 时车顶压在北边那排白车上约半秒，挪到车道靠南（846）
+## 三段路线（画布坐标）
+const GATE_ROUTE := [Vector2(768, 990), Vector2(768, 36)]          # 前门：门洞正对广场，直直往上开（make_areas.py 前门北口 x 768）
+## 喷泉广场：南边正中进来（喷泉正前方）→ 开到喷泉跟前（广场车道 y 780 那条线）靠右、右拐 → 沿车道往东出（make_plaza.py 的 DRIVE_Y、东口去停车场）
+const PLAZA_ROUTE := [Vector2(768, 1010), Vector2(768, 812), Vector2(782, 788), Vector2(810, 780), Vector2(1510, 780)]
+## 停车场：西边上面那个口进来，沿 B、C 两排中间的车道开到自己车位跟前，倒进去（车头朝北）。照停车场布局算（make_parking.py 的 to_plaza、car_mine），
+## 布局改了不用改这里。10/4 03 测第 65 版：车道走 y 800 时车顶压在北边那排车上，车道定在靠南（846）
+func park_route() -> Array:
+    var cfg: Dictionary = m.parking.cfg
+    var lane_y := 846.0
+    for p in cfg.get("points", []):
+        if str(p["id"]) == "to_plaza":
+            lane_y = float(p["y"])
+    var mine := Rect2()
+    for it in cfg.get("items", []):
+        if str(it.get("id", "")) == "car_mine":
+            var r: Array = it["rect"]
+            mine = Rect2(float(r[0]), float(r[1]), float(r[2]) - float(r[0]), float(r[3]) - float(r[1]))
+    var cx := mine.get_center().x
+    return [Vector2(24, lane_y), Vector2(cx, lane_y), Vector2(cx, mine.end.y)]
 
 func setup(main_ref) -> void:
     m = main_ref
@@ -63,13 +77,9 @@ func play() -> void:
         mine.visible = false   # 自己的车开进来以前，车位是空的
     await _leg("frontgate", GATE_ROUTE, [])
     if not skipped:
-        var loop: Array = []
-        for i in 41:   # 从东边（0°）出发，逆时针绕一圈回到东边
-            var a := PI + TAU * float(i) / 40.0
-            loop.append(LOOP_C + Vector2(-cos(a) * LOOP_R.x, -sin(a) * LOOP_R.y))
-        await _leg("plaza", PLAZA_IN + loop + PLAZA_OUT, [])
+        await _leg("plaza", PLAZA_ROUTE, [])
     if not skipped:
-        await _leg("parking", PARK_ROUTE, [])
+        await _leg("parking", park_route(), [])
     if mine != null:
         mine.visible = true
     _clear_car()
@@ -93,6 +103,8 @@ func _leg(cn: String, route: Array, _extra: Array) -> void:
     var c = m.cv
     c.walking_enabled = false
     c.player.visible = false
+    if c.get("labels") != null:
+        c.labels.visible = false   # 开车时路牌先藏（04 看第 68 版：车压住「去前门 ↓」），跟走路提示、摇杆一样，下车再出
     c.reset_to(route[0])
     _make_car(c)
     await m._fade_to(0.0)
@@ -115,6 +127,8 @@ func _leg(cn: String, route: Array, _extra: Array) -> void:
         _place_car(c, to - from)
         await get_tree().process_frame
     c.player.visible = true
+    if c.get("labels") != null:
+        c.labels.visible = true
     _clear_car()
 
 func _make_car(c) -> void:

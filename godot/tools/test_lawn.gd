@@ -200,8 +200,8 @@ func run() -> void:
     place(l, Vector2(1000, 760), Vector2(970, 760), "right")
     l.kick()
     until_idle(l)
-    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text],
-        m.dialog.visible and m.dialog_who.text == "小孩" and m.dialog_text.text == "再踢一个" and m.say_token > tok)
+    check("%s：%s" % [m.dialog_who.text, m.said_raw],
+        m.dialog.visible and m.dialog_who.text == "小孩" and m.said_raw == "再踢一个" and m.say_token > tok)
     tok = m.say_token
     place(l, Vector2(1000, 760), Vector2(970, 760), "right")
     l.kick()
@@ -216,7 +216,7 @@ func run() -> void:
     place(l, Vector2(1000, 760), Vector2(970, 760), "right")
     l.kick()
     until_idle(l)
-    check("这回来又喊一次：%s" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "再踢一个" and m.say_token > tok)
+    check("这回来又喊一次：%s" % m.said_raw, m.dialog.visible and m.said_raw == "再踢一个" and m.say_token > tok)
 
     # 5. 朝人面朝的方向滚 1 秒停住：左右 4 米（192 像素）、前后 4 米（128 像素）；在滚、在叼的时候不出按钮；叼回脚边又出
     print("5 四个方向")

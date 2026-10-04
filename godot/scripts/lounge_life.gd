@@ -425,7 +425,7 @@ func _crowded(r: Rect2, skip: Node2D = null) -> bool:
     return false
 
 ## 冒泡轮换：一组一次一个人说。轮到的这句要是会跟别组正冒着的叠上，先等等再冒（挨着的两桌字放大以后会撞，04、03 看第 67 版）；
-## 正说着的人起身走着走着撞上别人的气泡，这句提前收
+## 正说着的这句跟别人的气泡叠上了（走着走着撞上、站起来抬高），这句提前收
 func _step_group(g: Dictionary, dt: float) -> void:
     var lines: Array = g["lines"]
     var paused := _anyone_talking()
@@ -440,9 +440,9 @@ func _step_group(g: Dictionary, dt: float) -> void:
         return
     g["t"] = float(g["t"]) + dt
     if g["showing"]:
+        # 正说着的这句跟别人的气泡叠上了（起身走动、站起来气泡跟着头抬高、字带了引号变宽……）：这句提前收
         var mine: Node2D = bubbles.get(str(g["who"]))
-        var walking: bool = str((people.get(str(g["who"]), {}) as Dictionary).get("mode", "")) == "walk"
-        if walking and mine != null and is_instance_valid(mine) and _crowded(bubble_rect(mine), mine):
+        if mine != null and is_instance_valid(mine) and mine.scale.x >= _bubble_scale() * 0.99 and _crowded(bubble_rect(mine), mine):
             g["t"] = BUBBLE_HOLD
         if g["t"] >= BUBBLE_HOLD:
             _hide_bubble(str(g["who"]))
@@ -484,7 +484,7 @@ func show_bubble(id: String, text: String) -> void:
     box.mouse_filter = Control.MOUSE_FILTER_IGNORE
     b.add_child(box)
     var lb := Label.new()
-    lb.text = text
+    lb.text = text   # 人头顶冒的不加引号（阿鱼 10/4：「如果这个对话是出现在人头上的就不用」，引号只给点人说话弹出来的对话卡片）
     if f != null:
         lb.add_theme_font_override("font", f)
     lb.add_theme_font_size_override("font_size", BUBBLE_FONT)

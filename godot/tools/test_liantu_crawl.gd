@@ -10,10 +10,12 @@ const Main = preload("res://scripts/main.gd")
 const DT := 1.0 / 60.0
 const SAVE := "user://test_crawl_court.json"
 ## 阿鱼「方案 C」图（godot/回执/方向方案C-上下翻-1004.png，1060×1080）上各块中心的像素（03 量的）
+## 第 68 版（07 改两块，阿鱼 10/4：前门「挪到正对着喷泉」「停车场可以稍微大一点」、01 H：停车场往左放大补上原来前门那块）：
+##   前门 (655, 897) → (480, 897)：挪到喷泉广场正下方（x 跟广场 480 一样）；停车场 (836, 792) → (745, 870)：往西放大到迎宾院正下方，中心跟着挪
 const PIC := {
     "court": Vector2(681, 741), "banquet": Vector2(663, 607), "backhall": Vector2(450, 636), "lawn": Vector2(194, 705),
     "plaza": Vector2(480, 753), "kids": Vector2(199, 867), "shop": Vector2(334, 867), "rest2": Vector2(440, 868),
-    "wkitchen": Vector2(305, 720), "garden": Vector2(829, 635), "parking": Vector2(836, 792), "frontgate": Vector2(655, 897),
+    "wkitchen": Vector2(305, 720), "garden": Vector2(829, 635), "parking": Vector2(745, 870), "frontgate": Vector2(480, 897),
     "lake": Vector2(710, 340), "orchardA": Vector2(423, 498), "orchardB": Vector2(212, 498), "backgate": Vector2(273, 398),
 }
 const NAMES := {"court": "迎宾院", "banquet": "宴会厅", "backhall": "后厅", "lawn": "草坪", "plaza": "广场", "kids": "儿童乐园", "shop": "小卖部",
@@ -171,8 +173,8 @@ func run() -> void:
             for bid in tp:
                 if str(tp[bid]["to"]) == k and (str(pt["via"]) == "" or bid == str(pt["via"])):
                     back = bid
-            if to == "court" and k == "frontgate":
-                back = "gate"   # 前门北口进迎宾院：迎宾院那头是大门（gate，不写 to）
+            if to == "court" and k == "parking":
+                back = "gate"   # 停车场北墙那道门进迎宾院：迎宾院那头是大门（gate，不写 to；第 68 版，原来是前门北口）
             if back == "":
                 bad.append("%s.%s → %s 对面没有通回来的口" % [k, pid, to])
                 continue
@@ -181,10 +183,10 @@ func run() -> void:
                 if bs != OPP[s]:
                     bad.append("%s.%s 口在%s侧，对面 %s.%s 在%s侧（该是%s侧）" % [k, pid, s, to, back, bs, OPP[s]])
             links.append([k, pid, to, back])
-    # 迎宾院大门（gate）是出去前门的，不写 to，补一条
-    links.append(["court", "gate", "frontgate", "to_court"])
-    var gv: Vector2 = PIC["frontgate"] - PIC["court"]
-    check("迎宾院大门（在南侧）出去的前门，图上在迎宾院南边（%s）" % str(gv), gv.y > 0.0 and side_of("court", m.court.spot_pos("gate")) == "S")
+    # 迎宾院大门（gate）是出去停车场的（第 68 版，原来是前门），不写 to，补一条
+    links.append(["court", "gate", "parking", "to_court"])
+    var gv: Vector2 = PIC["parking"] - PIC["court"]
+    check("迎宾院大门（在南侧）出去的停车场，图上在迎宾院南边（%s）" % str(gv), gv.y > 0.0 and side_of("court", m.court.spot_pos("gate")) == "S")
     for b in bad:
         print("    ", b)
     var undirected := {}
@@ -199,7 +201,8 @@ func run() -> void:
         undirected[key] = true
     print("    有向的口 %d 个，合成连法 %d 条" % [links.size(), undirected.size()])
     check("每个口通的那块在图上就在那一侧、过去站对面反过来的一侧（%d 处不对）" % bad.size(), bad.is_empty())
-    check("连法数：26 条（有向 52 个）", undirected.size() == 26 and links.size() == 52)
+    # 第 68 版：前门北口改通广场（原来通迎宾院大门）、广场东口改通停车场（原来通前门）、迎宾院东口去停车场拿掉、大门改通停车场、新加休息厅 2 ↔ 前门：26 → 27 条
+    check("连法数：27 条（有向 54 个）", undirected.size() == 27 and links.size() == 54)
 
     print("2 每个口走一趟：出生点走到口、切过去、站稳、再从落点走回口")
     var walk_bad: Array = []
@@ -294,7 +297,7 @@ func run() -> void:
         print("    注：", b)
     for b in walk_bad.slice(0, 20):
         print("    ", b)
-    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 52)
+    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 54)
 
     print("3 图上几处位置关系")
     var bh = m.backhall
@@ -320,7 +323,9 @@ func run() -> void:
     # 10/4 湖边西半边接图（02 E 改）：湖边西门在南墙往南出去，果园去湖边的口挪到北边（中间小路北头、靠草莓 A 那侧）
     check("果园北口（去湖）在中间小路东半、靠草莓这边，西南口 B 靠枇杷这边", orc.points["to_lake"]["pos"].y < 500.0 and orc.points["to_lake"]["pos"].x > 768.0 and absf(orc.points["to_lawn_b"]["pos"].x - orc.points["loquat"]["pos"].x) < 100.0 and absf(orc.points["to_lawn"]["pos"].x - orc.points["strawberry"]["pos"].x) < 100.0)
     var pk = m.parking
-    check("停车场在迎宾院东边：迎宾院去停车场的口在东边（x %.0f）、停车场通迎宾院的口在西边（x %.0f）" % [m.court.points["to_parking"]["pos"].x, pk.points["to_court"]["pos"].x], m.court.points["to_parking"]["pos"].x > 1400.0 and pk.points["to_court"]["pos"].x < 100.0)
+    # 第 68 版：停车场往西放大到迎宾院正下方——迎宾院南边大门出去就是停车场，停车场北墙那道门进迎宾院；迎宾院东边不再开口
+    check("停车场在迎宾院南边：迎宾院大门在南（y %.0f）、东边没口；停车场通迎宾院的门在北墙（y %.0f）" % [m.court.spot_pos("gate").y, pk.points["to_court"]["pos"].y],
+        not m.court.points.has("to_parking") and side_of("court", m.court.spot_pos("gate")) == "S" and pk.points["to_court"]["pos"].y < 300.0 and str(pk.points["to_court"]["to"]) == "court")
     var lk = m.lake
     # 10/4 湖边西半边接图（02 E 改）：南墙两道月亮门对称，西门 x 768 去果园
     check("湖边：东头月亮门（x %.0f）去后花园、西头月亮门（x %.0f）去果园" % [lk.points["to_garden"]["pos"].x, lk.points["to_orchard"]["pos"].x], str(lk.points["to_garden"]["to"]) == "garden" and str(lk.points["to_orchard"]["to"]) == "orchard" and lk.points["to_garden"]["pos"].x > 2000.0 and lk.points["to_orchard"]["pos"].x < 1536.0 and lk.points["to_orchard"]["pos"].y > 1040.0)
