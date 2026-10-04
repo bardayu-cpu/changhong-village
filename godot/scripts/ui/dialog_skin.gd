@@ -42,6 +42,9 @@ const PLATE_H := 40.0        # 名字牌多高
 const FACE := Vector2(128, 152)   # 头像框多大（含框）；底边落在名字牌中间，往上顶出对话框上沿
 const COL_W := 140.0         # 左边一栏多宽（头像、名字牌）
 
+## 画好的像素图按参数存着，同样的框、小尖只画一次（冒泡一会儿冒一个，每次都现画，测试快进时整套慢了一半多）
+static var _tex_cache := {}
+
 static func _c(s: String) -> Color:
     return Color(s)
 
@@ -54,6 +57,9 @@ static func _rim(s: Dictionary):
 ## 再往里 fill。描边按上下左右四个方向算，出来是台阶线。u 是一格几个像素。内容边距是 0（摆字由调用的人管）
 static func pixel_box(fill: Color, edge: Color, rim, r: int, u: int, ew := 1) -> StyleBoxTexture:
     var m := r + 1          # 四角留位刚好包住圆弧：留多了，矮框（冒泡）的九宫格放不下，圆角就显得小
+    var key := "box %s %s %s %d %d %d" % [fill.to_html(), edge.to_html(), rim.to_html() if rim != null else "-", r, u, ew]
+    if _tex_cache.has(key):
+        return _sb_of(_tex_cache[key], m * u)
     var n := m * 2 + 1
     var inside := func(x: int, y: int) -> bool:
         if x < 0 or y < 0 or x >= n or y >= n:
@@ -90,9 +96,14 @@ static func pixel_box(fill: Color, edge: Color, rim, r: int, u: int, ew := 1) ->
         elif layer[k] == ew and rim != null:
             c = rim
         img.fill_rect(Rect2i(k.x * u, k.y * u, u, u), c)
+    _tex_cache[key] = ImageTexture.create_from_image(img)
+    return _sb_of(_tex_cache[key], m * u)
+
+## 每次给一个新的 StyleBoxTexture（调用的人会改内容边距），图共用
+static func _sb_of(tex: Texture2D, margin: int) -> StyleBoxTexture:
     var sb := StyleBoxTexture.new()
-    sb.texture = ImageTexture.create_from_image(img)
-    sb.set_texture_margin_all(m * u)
+    sb.texture = tex
+    sb.set_texture_margin_all(margin)
     sb.set_content_margin_all(0)
     return sb
 
@@ -148,6 +159,9 @@ static func bubble(text: String, f: Font, size: int) -> Dictionary:
 
 ## 小尾巴的图（一格 BU）：. 透明、O 描边、F 填色；居中、往下收成一个尖。描边两格粗，头两行压住框下沿
 static func tail_tex(fill: Color, edge: Color) -> ImageTexture:
+    var key := "tail %s %s" % [fill.to_html(), edge.to_html()]
+    if _tex_cache.has(key):
+        return _tex_cache[key]
     var rows: Array = ["OOFFFOO", "OOFFFOO", ".OOFOO.", "..OOO..", "...O..."]
     var img := Image.create(rows[0].length() * BU, rows.size() * BU, false, Image.FORMAT_RGBA8)
     for y in rows.size():
@@ -156,7 +170,8 @@ static func tail_tex(fill: Color, edge: Color) -> ImageTexture:
             if ch == ".":
                 continue
             img.fill_rect(Rect2i(x * BU, y * BU, BU, BU), edge if ch == "O" else fill)
-    return ImageTexture.create_from_image(img)
+    _tex_cache[key] = ImageTexture.create_from_image(img)
+    return _tex_cache[key]
 
 ## 「这里能点」的小提示泡（阿鱼 10/4 参考：圆角底、描边、里面一个小图标、带小尾巴；配色跟冒泡一套）。
 ## kind：talk（能聊，三个点）、tap（能点的东西，小手）。原点是小尾巴尖，放在那个人或东西头顶；只出样子，什么时候出交 07
@@ -186,6 +201,9 @@ static func tap_hint(kind: String) -> Node2D:
     return b
 
 static func _hint_icon(kind: String, c: Color) -> ImageTexture:
+    var key := "icon %s %s" % [kind, c.to_html()]
+    if _tex_cache.has(key):
+        return _tex_cache[key]
     var rows: Array = ["XX.XX.XX", "XX.XX.XX"] if kind == "talk" else ["..X..", "..X..", ".XXXX", "XXXXX", ".XXX."]
     var w: int = (rows[0] as String).length()
     var img := Image.create(w * BU, rows.size() * BU, false, Image.FORMAT_RGBA8)
@@ -193,7 +211,8 @@ static func _hint_icon(kind: String, c: Color) -> ImageTexture:
         for x in w:
             if rows[y][x] == "X":
                 img.fill_rect(Rect2i(x * BU, y * BU, BU, BU), c)
-    return ImageTexture.create_from_image(img)
+    _tex_cache[key] = ImageTexture.create_from_image(img)
+    return _tex_cache[key]
 
 ## 人头顶冒一句、过 hold 秒收（走到头的提示，04 第 9 条；跟冒泡同一个样子）。zoom 是镜头缩放，气泡反着放大，屏幕上一样大
 static func say_at(parent: Node2D, head: Vector2, text: String, f: Font, size: int, zoom: float, hold: float) -> Node2D:
