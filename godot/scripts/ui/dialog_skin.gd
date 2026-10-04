@@ -1,6 +1,7 @@
 extends RefCounted
-## 全游戏的对话框和头顶冒泡长什么样（05 10/4，01 H 派）。阿鱼 10/4 挑了 B（喜宴配色：米白底、深红边、金线），全游戏通用，排法照阿鱼画的
-## （docs/参考图/对话框布局-阿鱼10-04.png）：
+## 全游戏的对话框和头顶冒泡长什么样（05 10/4，01 H 派）。照阿鱼画的一模一样（docs/参考图/对话框布局-阿鱼10-04.png）：
+## 深褐底白字、头像不加框直接大大地压出框上沿、深色名字牌压在头像下沿带卡片图标、红按钮一行；冒泡白底（阿鱼：「白底，注意像素风」）。
+## （先前把「B」当成了米白配色，01 10/4 更正。）阿鱼的话：
 ##   「身份卡只用 icon 放到名字前就行了，点击头像就可以展开；NPC 的话放在对话框大部分，超长可以点翻页；最后一行放选择 btn，通用一行展示完成。
 ##    其他 npc 的小气泡也用同样的配色」
 ##   - 头像在框左边、往上顶出框的上沿；名字牌压在头像下边，名字前一个身份卡小图标；点头像（或名字牌）展开身份卡
@@ -8,25 +9,25 @@ extends RefCounted
 ##   - 最后一行放选项，所有选项排一行放完
 ##   - 没头像的（新娘、阿鱼）：名字牌照旧在左下，不放图
 ## 再加 04 的 12 条（godot/回执/体验-交互-第67版.md 第四节）：只有一个底部对话框；框高不超过屏幕 1/5（有选项时放得下为止）；
-## 字一个一个出、点一下先出完、再点下一页 / 下一句；像素九宫格（台阶式圆角、深色外边、一道金线，没有平滑圆角、渐变、半透明）；
+## 字一个一个出、点一下先出完、再点下一页 / 下一句；像素九宫格（台阶式小圆角、深色外边、一道稍亮的里线，没有平滑圆角、渐变、半透明）；
 ## 冒泡圆润（阿鱼：「你现在的太紧实了，太严肃」）、同屏最多两个；走到头的提示是人头顶的小气泡；「这里能点」小提示泡只出样子（交 07）。
 ## 只管长什么样，谁先说、什么时候冒、点人走过去照旧是 07 的 lounge_life.gd、lounge_ui.gd
 
 const PAL := {
-    "bubble": {"fill": "#fff7e4", "edge": "#7a1a12", "rim": ""},
-    "hint": {"fill": "#fff7e4", "edge": "#c8902a", "icon": "#a8241c"},
-    "box": {"fill": "#fff7e4", "edge": "#5a1a12", "rim": "#e8b84a"},
-    "face": {"fill": "#f3e0c0", "edge": "#5a1a12", "rim": "#e8b84a"},
-    "plate": {"fill": "#a8241c", "edge": "#5a1a12", "rim": "#f3c45a"},
-    "name": "#fff7e4", "icon": "#f3c45a", "text": "#2a1608", "more": "#a8241c", "bubble_text": "#2a1608",
-    "choice": {"fill": "#a8241c", "edge": "#5a1a12", "rim": "#f3c45a", "text": "#fff7e4", "down": "#6e140f"},
+    "bubble": {"fill": "#ffffff", "edge": "#2b1d17", "rim": ""},
+    "hint": {"fill": "#2b1e18", "edge": "#120b08", "icon": "#fff6e6"},
+    "box": {"fill": "#2b1e18", "edge": "#120b08", "rim": "#3d2c23"},
+    "face": {"fill": "#2b1e18", "edge": "#2b1e18", "rim": ""},   # 头像不加框：底子跟对话框同色，看着是框往上长出一块
+    "plate": {"fill": "#33251d", "edge": "#9c8064", "rim": ""},
+    "name": "#f5d77e", "icon": "#e9e2d2", "icon_mark": "#6b5444", "text": "#f6efe2", "more": "#f6efe2", "bubble_text": "#1c120c",
+    "choice": {"fill": "#dc2328", "edge": "#5e0f10", "rim": "", "text": "#ffffff", "down": "#a3171b"},
 }
 const U := 2                 # 对话框里一个美术像素几个像素（界面层，540 宽算）
 const BU := 2                # 冒泡里一个美术像素几个像素（冒泡在画布上，还要按镜头反着放大）
 const BUBBLE_R := 9          # 冒泡圆角半径（格）：快到半个高，像胶囊那样圆
 const BUBBLE_EW := 2         # 冒泡描边几格粗
-const BOX_R := 8             # 对话框圆角半径（格）
-const SMALL_R := 5           # 名字牌、选项、头像框圆角半径（格）
+const BOX_R := 3             # 对话框圆角半径（格）：阿鱼画的是方角，像素风留一个小台阶
+const SMALL_R := 2           # 名字牌、选项、头像底圆角半径（格）
 const TYPE_CPS := 28.0       # 一秒打几个字
 const BOTTOM := 40.0         # 框下沿离屏幕底多少
 const SIDE := 14.0           # 框左右离屏幕边多少
@@ -37,9 +38,11 @@ const LINE_SIZE := 26        # 正文字号（像素字只能 12 的整倍清楚
 const LINE_GAP := 6.0
 const NAME_SIZE := 24
 const CHOICE_H := 48.0       # 选项多高（04：≥44，量出来按钮露在外面的约少 4）
-const CHOICE_GAP := 8.0
+const CHOICE_GAP := 8.0      # 选项之间最少空多少（三个选项挤的时候）
+const CHOICE_GAP_MAX := 100.0 # 选项之间最多空多少：照阿鱼的图，两个按钮中间空一大块（图上约按钮宽的 1.4 倍，按框宽折过来约 100）
+const CHOICE_MIN_W := 88.0    # 按钮最窄（01：两个字的按钮也不能太小，能点的范围宽 ≥88、高 ≥44）
 const PLATE_H := 40.0        # 名字牌多高
-const FACE := Vector2(128, 152)   # 头像框多大（含框）；底边落在名字牌中间，往上顶出对话框上沿
+const FACE := Vector2(136, 164)   # 头像多大（不加框，底子跟框同色）；底边落在名字牌中间，大大地顶出对话框上沿
 const COL_W := 140.0         # 左边一栏多宽（头像、名字牌）
 
 ## 画好的像素图按参数存着，同样的框、小尖只画一次（冒泡一会儿冒一个，每次都现画，测试快进时整套慢了一半多）
@@ -354,7 +357,7 @@ static func _frame(p: PanelContainer, h: float) -> void:
     p.add_theme_stylebox_override("panel", _box_of(PAL["box"], BOX_R))
     p.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
-## 名字牌：红底金线，with_icon 时名字前一个身份卡小图标
+## 名字牌：深褐底、浅褐描边、黄字，with_icon 时名字前一个身份卡小图标
 static func _plate(font: Font, with_icon: bool) -> PanelContainer:
     var p := PanelContainer.new()
     p.name = "lounge_name"
@@ -375,7 +378,7 @@ static func _plate(font: Font, with_icon: bool) -> PanelContainer:
     if with_icon:
         var ic := TextureRect.new()
         ic.name = "card_icon"
-        ic.texture = _card_icon(_c(PAL["icon"]), _c(PAL["plate"]["edge"]))
+        ic.texture = _card_icon(_c(PAL["icon"]), _c(PAL["plate"]["fill"]))
         ic.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
         ic.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
         ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -423,7 +426,7 @@ static func _card_icon(c: Color, edge: Color) -> ImageTexture:
     for y in rows.size():
         for x in (rows[y] as String).length():
             var ch: String = rows[y][x]
-            var col: Color = edge if ch == "O" else (c if ch == "C" else Color("#a8241c"))
+            var col: Color = edge if ch == "O" else (c if ch == "C" else _c(PAL["icon_mark"]))
             img.fill_rect(Rect2i(x * U, y * U, U, U), col)
     return ImageTexture.create_from_image(img)
 
@@ -449,8 +452,8 @@ static func style_choice(b: Button, font: Font) -> void:
     for k in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
         b.add_theme_color_override(k, _c(s["text"]))
     b.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    b.custom_minimum_size = Vector2(0, CHOICE_H)
-    b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    b.custom_minimum_size = Vector2(CHOICE_MIN_W, CHOICE_H)
+    b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN   # 照阿鱼的图按字宽，不平分一行
 
 ## 打字到一半吗、还有没有下一页（lounge_ui 点一下先出完、再翻页、再下一句）
 static func typing(box: Control) -> bool:
@@ -473,6 +476,7 @@ static func choices_fit(box: Control) -> Dictionary:
 
 ## 每帧：摆头像、名字牌、话、选项，算框多高，字一个个出、分页、小三角一闪一闪
 class Typer extends Node:
+    const LMPeople = preload("res://scripts/lm_people.gd")
     var box: Control
     var src: Label           # 行为写进来的整句
     var hint: Label
@@ -549,6 +553,32 @@ class Typer extends Node:
             return
         _lift_cam.limit_bottom = _lift_limit + int(ceil(_lift)) + 2
         _lift_cam.offset.y = _lift
+
+    ## 头像铺满左边一栏（阿鱼的图：头像大大的、不加框）：人物实际占的那块（帧左右有透明边）照 lm_index.json 里离线量好的 front
+    ## （tools/bake_used.py；不在游戏里读图——微信上从显存读回很慢，test_no_readback 管着），按整数倍放大（像素不糊），
+    ## 宽铺满、头顶留一点，下面超出的裁掉（头像底子 clip），名字牌压住下沿
+    var _fit_key := ""
+    func _fit_portrait() -> void:
+        var tex: Texture2D = portrait.texture
+        var code := str(ui.talk_info.get("code", "")) if ui != null and ui.get("talk_info") is Dictionary else ""
+        var key := "%s %s %s" % [code, tex.get_rid(), tex.get_size()]
+        if key == _fit_key:
+            return
+        _fit_key = key
+        face.clip_contents = true
+        var full := tex.get_size()
+        var used := Rect2(Vector2.ZERO, full)
+        if code != "":
+            var l: Dictionary = LMPeople.look(code)
+            var fr = l.get("front")
+            if fr is Rect2i and int(l.get("fw", 0)) == int(full.x) and (fr as Rect2i).size.x > 0:
+                used = Rect2(float(fr.position.x), float(fr.position.y - int(l.get("top", 0))), float(fr.size.x), full.y)
+        var k := maxf(1.0, floorf((FACE.x - 8.0) / used.size.x))
+        while k > 1.0 and used.size.y * k < FACE.y * 0.6:   # 太矮（只剩个头）就别放那么大
+            k -= 1.0
+        portrait.stretch_mode = TextureRect.STRETCH_SCALE
+        portrait.size = full * k
+        portrait.position = Vector2(roundf((FACE.x - used.size.x * k) * 0.5 - used.position.x * k), 8.0 - maxf(used.position.y, 0.0) * k)
 
     func _lift_reset() -> void:
         if _lift_cam != null and is_instance_valid(_lift_cam):
@@ -656,9 +686,8 @@ class Typer extends Node:
             if has_face:
                 face.size = FACE
                 face.position = Vector2(PAD + (col - FACE.x) * 0.5, plate.position.y + PLATE_H * 0.5 - FACE.y)
-                portrait.position = Vector2(6, 6)
-                portrait.size = FACE - Vector2(12, 12 + PLATE_H * 0.4)
-        # 选项：最后一行，从头像右边起排到右边，一行放完
+                _fit_portrait()
+        # 选项：最后一行，从话的左边起、按字宽一个个排（阿鱼的图），中间空照图、挤的时候收到 CHOICE_GAP，一行放完
         if ch_on:
             var have := w - x0 - PAD
             choices.position = Vector2(x0, h - PAD - CHOICE_H)
@@ -669,6 +698,9 @@ class Typer extends Node:
                 if c is Button and not c.is_queued_for_deletion():
                     need += (c as Button).get_combined_minimum_size().x
                     cnt += 1
+            var gap := CHOICE_GAP if cnt < 2 else clampf(floorf((have - need) / float(cnt - 1)), CHOICE_GAP, CHOICE_GAP_MAX)
+            if choices.get_theme_constant("separation") != int(gap):
+                choices.add_theme_constant_override("separation", int(gap))
             need += maxi(cnt - 1, 0) * CHOICE_GAP
             fit = {"need": need, "have": have, "ok": need <= have + 0.5, "count": cnt}
             # 最后一页才出选项
