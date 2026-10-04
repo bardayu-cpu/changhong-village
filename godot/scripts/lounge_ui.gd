@@ -44,6 +44,7 @@ var dm_busy := false          # 正在等插件给下一句（await 里）
 var choices: BoxContainer     # 选项按钮（05 10/4 起在对话框最后一行，一行排完；dialog_skin.gd）
 var talk_info: Dictionary = {}  # 正在跟谁说：{id, title, code（人物图）, dialogue, talk, relation}
 var talk_cv                     # 在哪块画布上说（说话时那块不能走，说完放开）
+var line_raw := ""              # 这句的原文（没加引号）：对话框里人说的话一律用“”框起来（阿鱼 10/4），测试比字认原文
 
 func setup(main_ref) -> void:
     m = main_ref
@@ -183,7 +184,7 @@ func _open(p: Dictionary, canvas) -> void:
     var dm = get_node_or_null("/root/DialogueManager")
     if path != "" and dm != null and ResourceLoader.exists(path):
         dm_res = load(path)
-        line_label.text = ""
+        _set_line("")
         _dm_next("start")
     else:
         _show_line()
@@ -192,10 +193,15 @@ func _open(p: Dictionary, canvas) -> void:
 func _show_line() -> void:
     var p: Dictionary = talk_info
     var l: Dictionary = (p["talk"] as Array)[line_i]
-    line_label.text = str(l.get("text", ""))
+    _set_line(str(l.get("text", "")))
     portrait.texture = pose_tex(str(p["code"]), str(l.get("pose", "front")), true)
     portrait.visible = portrait.texture != null
     portrait.set_meta("pose", str(l.get("pose", "front")))
+
+## 对话框里都是人说的话：用“”框起来（阿鱼 10/4），原文另存 line_raw
+func _set_line(t: String) -> void:
+    line_raw = t
+    line_label.text = m.quoted(t)
 
 ## 走插件：要下一句（key 是上一句的 next_id、或者选的那个选项的 next_id），到了就照这个对话框的样子摆出来；没了就收
 func _dm_next(key: String) -> void:
@@ -216,7 +222,7 @@ func _dm_next(key: String) -> void:
     var p: Dictionary = talk_info
     if str(line.character) != "":
         name_label.text = str(line.character)
-    line_label.text = str(line.text)
+    _set_line(str(line.text))
     var pose := "front"
     for tg in line.tags:
         if POSE_FRAME.has(str(tg)):

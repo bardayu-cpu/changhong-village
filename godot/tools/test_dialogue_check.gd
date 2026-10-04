@@ -69,14 +69,14 @@ func wait_talk(secs := 40.0) -> bool:
     for i in int(secs / DT):
         m.cv._process(DT)
         await process_frame
-        if ui.talk_box.visible and ui.line_label.text != "":
+        if ui.talk_box.visible and ui.line_raw != "":
             return true
     return false
 
 func wait_line_change(old: String, secs := 3.0) -> bool:
     for i in int(secs / DT):
         await process_frame
-        if ui.line_label.text != old or not ui.talk_box.visible:
+        if ui.line_raw != old or not ui.talk_box.visible:
             return true
     return false
 
@@ -137,24 +137,24 @@ func run() -> void:
             bad2.append("分支 %d：没弹对话框" % (bi + 1))
             continue
         # 第 1 句
-        if ui.line_label.text != "哎呀，你来啦" or pose_of() != "smile" or ui.name_label.text != "奶奶" or ui.portrait.texture == null:
-            issues.append("第 1 句不对（%s / %s / %s）" % [ui.line_label.text, pose_of(), ui.name_label.text])
+        if ui.line_raw != "哎呀，你来啦" or pose_of() != "smile" or ui.name_label.text != "奶奶" or ui.portrait.texture == null:
+            issues.append("第 1 句不对（%s / %s / %s）" % [ui.line_raw, pose_of(), ui.name_label.text])
         if ui.choices.visible:
             issues.append("第 1 句就出选项了")
         if b.walking_enabled:
             issues.append("说话时还能走")
         # 点对话框往下
-        var old: String = ui.line_label.text
+        var old: String = ui.line_raw
         click_box()
         await wait_line_change(old)
-        if ui.line_label.text != "坐嘛，这沙发软和得很" or pose_of() != "talk":
-            issues.append("第 2 句不对（%s / %s）" % [ui.line_label.text, pose_of()])
-        old = ui.line_label.text
+        if ui.line_raw != "坐嘛，这沙发软和得很" or pose_of() != "talk":
+            issues.append("第 2 句不对（%s / %s）" % [ui.line_raw, pose_of()])
+        old = ui.line_raw
         click_box()
         await wait_line_change(old)
         # 第 3 句：有选项
-        if ui.line_label.text != "你是哪边的客人呀？" or not ui.choices.visible:
-            issues.append("第 3 句不对（%s、选项出着 %s）" % [ui.line_label.text, ui.choices.visible])
+        if ui.line_raw != "你是哪边的客人呀？" or not ui.choices.visible:
+            issues.append("第 3 句不对（%s、选项出着 %s）" % [ui.line_raw, ui.choices.visible])
         var texts: Array = []
         for ch in ui.choices.get_children():
             if not ch.is_queued_for_deletion():
@@ -164,32 +164,32 @@ func run() -> void:
         if ui.hint_label.text != "":
             issues.append("有选项时底下还写「点一下继续」")
         # 有选项时点对话框不往下走
-        var before: String = ui.line_label.text
+        var before: String = ui.line_raw
         click_box()
         ui.next_line()
         await frames(10)
-        if ui.line_label.text != before or not ui.choices.visible:
-            issues.append("有选项时点对话框往下走了（%s）" % ui.line_label.text)
+        if ui.line_raw != before or not ui.choices.visible:
+            issues.append("有选项时点对话框往下走了（%s）" % ui.line_raw)
         # 开关身份卡，选项不丢
         ui.card_btn.pressed.emit()
         await frames(3)
         var card_open: bool = ui.card != null
         ui.close_card()
         await frames(3)
-        if not card_open or not ui.choices.visible or ui.line_label.text != before:
+        if not card_open or not ui.choices.visible or ui.line_raw != before:
             issues.append("身份卡开关把选项弄坏了（开 %s、选项 %s）" % [card_open, ui.choices.visible])
         # 点选项
         var btns: Array = ui.choices.get_children().filter(func(x): return not x.is_queued_for_deletion())
         (btns[bi] as Button).pressed.emit()
         await wait_line_change(before)
-        if ui.line_label.text != str(branches[bi][1]) or pose_of() != str(branches[bi][2]) or ui.choices.visible:
-            issues.append("选了「%s」回的话不对（%s / %s / 选项 %s）" % [branches[bi][0], ui.line_label.text, pose_of(), ui.choices.visible])
-        old = ui.line_label.text
+        if ui.line_raw != str(branches[bi][1]) or pose_of() != str(branches[bi][2]) or ui.choices.visible:
+            issues.append("选了「%s」回的话不对（%s / %s / 选项 %s）" % [branches[bi][0], ui.line_raw, pose_of(), ui.choices.visible])
+        old = ui.line_raw
         click_box()
         await wait_line_change(old)
-        if ui.line_label.text != "喝口茶，歇一下再去吃席" or pose_of() != "talk":
-            issues.append("最后一句不对（%s / %s）" % [ui.line_label.text, pose_of()])
-        old = ui.line_label.text
+        if ui.line_raw != "喝口茶，歇一下再去吃席" or pose_of() != "talk":
+            issues.append("最后一句不对（%s / %s）" % [ui.line_raw, pose_of()])
+        old = ui.line_raw
         click_box()
         await frames(20)
         if ui.talk_box.visible or ui.talk_id != "" or life.talking != "":
@@ -214,7 +214,7 @@ func run() -> void:
             bad3.append("%dx%d 没弹对话框" % [sz.x, sz.y])
             continue
         for k in 2:
-            var o: String = ui.line_label.text
+            var o: String = ui.line_raw
             click_box()
             await wait_line_change(o)
         await frames(4)
@@ -271,8 +271,8 @@ func run() -> void:
             continue
         var lines: Array = data_people[id]["talk"]
         for j in lines.size():
-            if ui.line_label.text != str(lines[j]["text"]) or ui.choices.visible:
-                issues.append("第 %d 句 %s（选项 %s）" % [j + 1, ui.line_label.text, ui.choices.visible])
+            if ui.line_raw != str(lines[j]["text"]) or ui.choices.visible:
+                issues.append("第 %d 句 %s（选项 %s）" % [j + 1, ui.line_raw, ui.choices.visible])
             ui.next_line()
             await frames(2)
         if ui.talk_box.visible or not b.walking_enabled:
@@ -295,7 +295,7 @@ func run() -> void:
     life.request_talk("lounge_09")     # 坐在奶奶旁边直接聊奶奶（近的那位可能是爷爷，所以直接点名）
     var talk_ok := await wait_talk()
     check("坐着跟奶奶聊：弹对话框（走插件）、人还坐着", talk_ok and b.seated and ui.dm_res != null)
-    check("坐着聊时第一句对（%s）" % ui.line_label.text, ui.line_label.text == "哎呀，你来啦")
+    check("坐着聊时第一句对（%s）" % ui.line_raw, ui.line_raw == "哎呀，你来啦")
     # 说话期间奶奶那一组冒泡停
     life.frozen = false
     for i in 240:
@@ -361,13 +361,13 @@ func run() -> void:
             bad5.append("%s：%s 没弹对话框（%s；他脚点 %s、玩家站 %s、走到他跟前的点 %s、寻路 %d 段；他脚点能站 %s）" % [cn, pick_id, "；".join(issues), str(foot), str(c.pos), str(ap), pth.size(), c._free(foot)])
             c.talkers.erase(pick_id)
             continue
-        if ui.name_label.text != "奶奶" or ui.line_label.text != "哎呀，你来啦":
-            issues.append("第一句不对（%s / %s）" % [ui.name_label.text, ui.line_label.text])
+        if ui.name_label.text != "奶奶" or ui.line_raw != "哎呀，你来啦":
+            issues.append("第一句不对（%s / %s）" % [ui.name_label.text, ui.line_raw])
         if c.walking_enabled:
             issues.append("说话时还能走")
         # 一路点到选项，选第一个，点完
         for k in 2:
-            var o: String = ui.line_label.text
+            var o: String = ui.line_raw
             click_box()
             await wait_line_change(o)
         var cnt := 0
@@ -377,11 +377,11 @@ func run() -> void:
         if cnt != 3:
             issues.append("没出三个选项（%d）" % cnt)
         var btns: Array = ui.choices.get_children().filter(func(x): return not x.is_queued_for_deletion())
-        var bef: String = ui.line_label.text
+        var bef: String = ui.line_raw
         (btns[0] as Button).pressed.emit()
         await wait_line_change(bef)
         for k in 2:
-            var o2: String = ui.line_label.text
+            var o2: String = ui.line_raw
             click_box()
             await wait_line_change(o2)
         await frames(10)

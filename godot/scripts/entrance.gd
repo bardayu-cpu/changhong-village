@@ -72,7 +72,6 @@ func build(preset: int, nickname: String, f: Font) -> void:
             "arrive": Vector2(float(ar[0]), float(ar[1])) if ar.size() == 2 else Vector2.ZERO, "say": str(p.get("say", "")),
             "via": str(p.get("via", ""))}
     SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
-    _keep_signs_off_people()
     couple_armed = false   # 迎宾院没有新人桌，新人只在花墙前站着（蓝图 3.1）；后厅没有新人
     if cfg.has("couple"):
         _couple()
@@ -87,6 +86,8 @@ func build(preset: int, nickname: String, f: Font) -> void:
     cfg["walk_grid"] = compute_grid(cfg, obstacles, GRID_CELL, CLEAR)
     print("[suqi] %s 能走的格子算了 %d 毫秒" % [str(cfg.get("title", "迎宾院")), Time.get_ticks_msec() - t0])
     _walk_grid()
+    _arrow_signs()            # 路牌照规矩摆：要真走一遍看照箭头能不能直走到口，得等走路格子算好（第 69 版收尾）
+    _keep_signs_off_people()
     _player(preset, nickname)
     if layout_path == LAYOUT:
         court_life = CourtLife.new()
@@ -487,9 +488,8 @@ func _inward(p: Vector2) -> Vector2:
             best = k
     return p + best * 70.0
 
-## 「去…」牌子别盖住站在口上、落点上、出生点上的人（03 测第 60、61 版报的 9 处，01 G 定这件里改）：
-## 牌子跟人身子（宽 32、高 84）叠上了，就把牌子挪到那人头顶上面；挪到画布顶还叠，就挪到人右边
-func _keep_signs_off_people() -> void:
+## 会站人的地方：出生点、每个口上、从口进来站的点、布局里的 from_*
+func _people_spots() -> Array:
     var spots: Array = [SPAWN]
     for id in points:
         if str(points[id]["to"]) != "":
@@ -498,6 +498,19 @@ func _keep_signs_off_people() -> void:
     for k in cfg:
         if str(k).begins_with("from_"):
             spots.append(Vector2(float(cfg[k][0]), float(cfg[k][1])))
+    return spots
+
+## 这块牌子会不会盖住站人的地方（人身子按 40×90 算，比 _keep_signs_off_people 的 32×84 宽一点，跟 03 的测试一样）
+func _covers_people(r: Rect2) -> bool:
+    for s in _people_spots():
+        if r.intersects(Rect2((s as Vector2).x - 20.0, (s as Vector2).y - 90.0, 40.0, 90.0)):
+            return true
+    return false
+
+## 「去…」牌子别盖住站在口上、落点上、出生点上的人（03 测第 60、61 版报的 9 处，01 G 定这件里改）：
+## 牌子跟人身子（宽 32、高 84）叠上了，就把牌子挪到那人头顶上面；挪到画布顶还叠，就挪到人右边
+func _keep_signs_off_people() -> void:
+    var spots: Array = _people_spots()
     for l in labels.get_children():
         if not l is Control:
             continue
@@ -700,12 +713,193 @@ func _label(text: String, at: Vector2) -> void:
         return
     var l := Label.new()
     l.text = text
+    l.set_meta("sign", text)   # 牌子上原来的字（加箭头前），_arrow_signs 照它找口
     name_plate(l, Color("#f3e6c8"))
     var sb := l.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
     sb.bg_color = Color(0.36, 0.23, 0.13, 0.85)   # 小木牌
     l.add_theme_stylebox_override("normal", sb)
     l.position = at - l.size * 0.5
     labels.add_child(l)
+
+## 路牌加箭头（10/4 第 68 版，阿鱼：「每一个导向导航的位置，比如说去果园去什么的，往哪个方向走，你要用在那个箭头前面去标注一下。
+## 比如向上走……箭头指向上方在前面，如果是向下走，向右走，你就把它放在字的后面，然后箭头指向右，不然的话我都不知道往哪儿走」）：
+##   箭头＝玩家在屏幕上往哪边走能到那个口：口在画布哪条边（离哪条边最近）就指哪边。往上「↑ 去果园」、往左「← 去草坪」放字前（往左 01 定跟往上一样），
+##   往右「去停车场 →」、往下「去前门 ↓」放字后。字体自带箭头字，跟牌子的字同一个风格。房间门口写名字的牌子（room_sign）不加
+## 牌子认哪个口：先照字认（「去喷泉广场」→ 通 plaza 的口，同名有几个取最近的）；认不出（「楼门」「后门」这种）取离牌子最近的出口（写了 to 的口，或迎宾院大门 gate）
+const SIGN_NAMES := {"court": ["迎宾院"], "plaza": ["喷泉广场"], "parking": ["停车场"], "banquet": ["宴会厅", "宴会楼"], "lawn": ["草坪"],
+    "lake": ["湖边"], "orchard": ["果园"], "backhall": ["后厅"], "kids": ["儿童乐园"], "shop": ["小卖部"], "rest2": ["休息厅 2"],
+    "wkitchen": ["西餐厨房"], "garden": ["后花园"], "frontgate": ["前门"], "backgate": ["后门"]}
+
+## 这块牌子指的是哪个口（回口的画布坐标；认不出回 ZERO）
+func sign_target(text: String, at: Vector2) -> Vector2:
+    var name := text.trim_prefix("去").trim_prefix("回")
+    var best := Vector2.ZERO
+    var bd := INF
+    for id in points:
+        var to := str(points[id]["to"])
+        if to != "" and name in SIGN_NAMES.get(to, []):
+            var d: float = at.distance_to(points[id]["pos"])
+            if d < bd:
+                bd = d
+                best = points[id]["pos"]
+    if best != Vector2.ZERO:
+        return best
+    for id in points:
+        if str(points[id]["to"]) != "" or id == "gate":
+            var d: float = at.distance_to(points[id]["pos"])
+            if d < bd:
+                bd = d
+                best = points[id]["pos"]
+    return best
+
+## 口的触发圈多大（走进这个圈就切画布）；迎宾院大门这种不写 to 的照 r
+func _exit_r(target: Vector2) -> float:
+    for id in points:
+        if points[id]["pos"] == target:
+            return float(points[id]["r"])
+    return 40.0
+
+## 从 p 顺着 dir 直走，能不能走进口的触发圈（碰到走不了的格子算撞；走 1200 像素还没到算走偏）
+func _walks_to(p: Vector2, dir: Vector2, target: Vector2, r: float) -> bool:
+    var q := p
+    for i in 200:
+        if q.distance_to(target) <= r:
+            return true
+        if not _free(q):
+            return false
+        q += dir * 6.0
+    return false
+
+func _hits_placed(l: Label, placed: Array) -> bool:
+    return _hits_placed_at(Rect2(l.position, l.size), placed)
+
+func _hits_placed_at(r: Rect2, placed: Array) -> bool:
+    for o in placed:
+        if r.grow(3.0).intersects(Rect2((o as Label).position, (o as Label).size)):
+            return true
+    return false
+
+## 口朝哪边：up / down / left / right。布局里口写了 dir 就照它（草坪「去果园 B」在北边西头角上，离画布左边比上边近，写了 up）；
+## 不然看口离画布哪条边最近
+func edge_of(p: Vector2) -> String:
+    for pt in cfg.get("points", []):
+        if Vector2(float(pt["x"]), float(pt["y"])) == p and pt.has("dir"):
+            return str(pt["dir"])
+    var sz: Array = cfg["size"]
+    var d := {"up": p.y, "down": float(sz[1]) - p.y, "left": p.x, "right": float(sz[0]) - p.x}
+    var best := "down"
+    for k in d:
+        if float(d[k]) < float(d[best]):
+            best = k
+    return best
+
+const SIGN_ARROW := {"up": "↑", "down": "↓", "left": "←", "right": "→"}
+static func arrow_text(text: String, dir: String) -> String:
+    var a: String = SIGN_ARROW.get(dir, "")
+    if a == "":
+        return text
+    return a + " " + text if dir == "up" or dir == "left" else text + " " + a
+
+## 牌子摆哪（第 68 版小修，04：「去小卖部 ↓」往下走是绿篱，口其实在左边；01：阿鱼最在意箭头指得准）：照箭头直走就到口——
+##   上下的口：牌子在口正前方，往画布里 SIGN_AHEAD（在从口进来站的人头顶外头，不盖人）；左右的口：牌子在口那条线紧下面一点、往里 SIGN_SIDE_IN；
+##   同一个口有两块牌（迎宾院大门：「大门」「去停车场」）依次往里排。布局里写的牌子位置只用来认是哪块牌，摆位照这个规矩算
+const SIGN_AHEAD := 180.0
+const SIGN_SIDE_IN := 74.0
+const SIGN_SIDE_DOWN := 34.0
+const DIR_V := {"up": Vector2(0, -1), "down": Vector2(0, 1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}
+
+func _arrow_signs() -> void:
+    if labels == null:
+        return
+    var used := {}
+    var placed: Array = []
+    # 先摆左右口的牌，再摆上下口的牌：叠上了上下口的牌往里退一行不吃亏（横偏还是 0），左右口的牌没处躲（后厅「← 去草坪」跟「去西餐厨房 ↓」）
+    var todo: Array = []
+    for l in labels.get_children():
+        if not l is Label or not l.has_meta("sign"):
+            continue
+        var c0: Vector2 = l.position + l.size * 0.5
+        var tg := sign_target(str(l.get_meta("sign")), c0)
+        if tg == Vector2.ZERO:
+            continue
+        var dd := edge_of(tg)
+        todo.append([0 if (dd == "left" or dd == "right") else 1, l, tg, dd])
+    todo.sort_custom(func(a, b): return int(a[0]) < int(b[0]))
+    for item in todo:
+        var l: Label = item[1]
+        var target: Vector2 = item[2]
+        var dir: String = item[3]
+        var center: Vector2
+        l.text = arrow_text(str(l.get_meta("sign")), dir)
+        l.set_meta("dir", dir)
+        l.set_meta("target", target)
+        l.size = l.get_combined_minimum_size()
+        var inward: Vector2 = -(DIR_V[dir] as Vector2)
+        var n: int = int(used.get(target, 0))
+        used[target] = n + 1
+        # 挑一个位置：不压人、不跟摆好的牌叠、站得住，而且从那儿顺着箭头直走真能走进口的触发圈（03 照真墙走量过：
+        # 原来左右口的牌挂在口线下 34，差 8～24 像素撞门框；果园「去草坪 ↓」正前方是树、草莓垄）。都不行就退回老摆法
+        var r_in := _exit_r(target)
+        var cands: Array = []
+        if dir == "up" or dir == "down":
+            var perp := Vector2(1, 0)
+            for ahead in [SIGN_AHEAD, 200.0, 160.0, 220.0, 140.0, 240.0, 120.0, 260.0]:
+                for lat in [0.0, 24.0, -24.0, 44.0, -44.0]:
+                    cands.append(target + inward * ahead + perp * lat)
+        else:
+            for extra in [0.0, 60.0, 120.0]:
+                var inx: float = SIGN_SIDE_IN + l.size.x * 0.5 - 40.0 + extra
+                for off in [8.0, 16.0, 24.0, SIGN_SIDE_DOWN, 44.0]:
+                    cands.append(target + inward * inx + Vector2(0, off))
+                    cands.append(target + inward * inx - Vector2(0, off))
+        center = Vector2.ZERO
+        for tc in cands:
+            var rr := Rect2((tc as Vector2) - l.size * 0.5, l.size)
+            if _covers_people(rr) or _hits_placed_at(rr, placed):
+                continue
+            if _walks_to(tc, DIR_V[dir], target, r_in):
+                center = tc
+                break
+        if center == Vector2.ZERO and (dir == "up" or dir == "down"):
+            # 口正前方怎么都直走不过去（果园南边两个口：枇杷那个口正上方一排树和小摊，草莓那个口上面一道道草莓垄）：真正的走法是先到口边那条横着的小路、
+            # 再顺着小路走进口——牌子挂在那条小路上口的旁边，箭头横着指口（阿鱼：「往哪个方向走，你要用在那个箭头前面去标注一下」，箭头是往哪边走）
+            # 口在走路范围右半边就把牌挂在口的左边、箭头朝右（从中间看过去方向对），左半边反过来
+            var wc := Rect2()
+            var wpoly: Array = cfg.get("walk", [[[0, 0]]])[0]
+            wc = Rect2(float(wpoly[0][0]), float(wpoly[0][1]), 0, 0)
+            for v in wpoly:
+                wc = wc.expand(Vector2(float(v[0]), float(v[1])))
+            var sides: Array = [-1.0, 1.0] if target.x > wc.get_center().x else [1.0, -1.0]
+            for side in sides:
+                for gap in [30.0, 50.0, 80.0]:
+                    for dy in [-16.0, -28.0, -6.0]:
+                        var hc: Vector2 = target + Vector2(side * (r_in + gap + l.size.x * 0.5), dy)
+                        var hdir: String = "left" if side > 0.0 else "right"
+                        var hr := Rect2(hc - l.size * 0.5, l.size)
+                        if center == Vector2.ZERO and not _covers_people(hr) and not _hits_placed_at(hr, placed) and _walks_to(hc, DIR_V[hdir], target, r_in):
+                            center = hc
+                            dir = hdir
+            if center != Vector2.ZERO:
+                l.text = arrow_text(str(l.get_meta("sign")), dir)
+                l.set_meta("dir", dir)
+                l.set_meta("along_path", true)   # 箭头指的是沿小路走的方向，不是口在画布哪条边（测试认这个）
+                l.size = l.get_combined_minimum_size()
+        if center == Vector2.ZERO:
+            center = cands[0]
+            for tc in cands:
+                if not _covers_people(Rect2((tc as Vector2) - l.size * 0.5, l.size)):
+                    center = tc
+                    break
+        l.position = center - l.size * 0.5
+        for pass_i in 4:
+            if not _hits_placed(l, placed):
+                break
+            l.position += inward * ((l.size.y + 6.0) if (dir == "up" or dir == "down") else 40.0)
+        placed.append(l)
+        # 加了箭头牌子变宽：贴着画布边的（后厅「回宴会厅」）往里收，别出画布
+        var sz: Array = cfg["size"]
+        l.position.x = clampf(l.position.x, 4.0, float(sz[0]) - l.size.x - 4.0)
+        l.position.y = clampf(l.position.y, 4.0, float(sz[1]) - l.size.y - 4.0)
 
 ## foot 不是 0 时，点的 y 减掉 foot（放进原点在着地线上的 holder 里）
 func _poly(pts: PackedVector2Array, col: Color, foot := 0.0) -> Polygon2D:

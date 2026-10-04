@@ -15,11 +15,10 @@
   {"id": "rest", "x": 320, "y": 500, "r": 60},
   {"id": "gate", "x": 768, "y": 880, "r": 60},
   {"id": "to_hall", "x": 768, "y": 200, "r": 60, "to": "banquet", "arrive": [768, 260]},
-  {"id": "to_plaza", "x": 40, "y": 334, "r": 50, "to": "plaza", "note": "西北口去喷泉广场（10/4 方案 C：照阿鱼图只上下翻，广场在迎宾院西边；第 64 版这个口去停车场）"},
-  {"id": "to_parking", "x": 1500, "y": 780, "r": 50, "to": "parking", "note": "东口（原来东小径）去停车场（10/4 方案 C：停车场在迎宾院东边；第 64 版这个口去喷泉广场）"}
+  {"id": "to_plaza", "x": 40, "y": 334, "r": 50, "to": "plaza", "note": "西北口去喷泉广场（10/4 方案 C：照阿鱼图只上下翻，广场在迎宾院西边；第 64 版这个口去停车场）"}
  ],
  "walk": [
-  [[52, 206], [1484, 206], [1484, 746], [1528, 746], [1528, 814], [1484, 814], [1484, 888], [52, 888], [52, 368], [8, 368], [8, 300], [52, 300]]
+  [[52, 206], [1484, 206], [1484, 888], [52, 888], [52, 368], [8, 368], [8, 300], [52, 300]]
  ],
  "flat": [
   {"type": "rect", "rect": [0, 0, 1536, 1024], "color": "#d9c9a8"},
@@ -37,12 +36,10 @@
   {"type": "rect", "rect": [854, 190, 864, 900], "color": "#d4af37"},
   {"type": "rect", "rect": [0, 190, 40, 300], "color": "#8a7a64"},
   {"type": "rect", "rect": [0, 368, 40, 950], "color": "#8a7a64"},
-  {"type": "rect", "rect": [1496, 190, 1536, 746], "color": "#8a7a64"},
-  {"type": "rect", "rect": [1496, 814, 1536, 950], "color": "#8a7a64"},
-  {"type": "rect", "rect": [1484, 750, 1536, 810], "color": "#c2b393"},
+  {"type": "rect", "rect": [1496, 190, 1536, 950], "color": "#8a7a64", "note": "第 68 版（07）：东墙原来在 746～814 开口去停车场，口不要了，墙连上"},
   {"type": "rect", "rect": [0, 304, 52, 364], "color": "#c2b393"},
   {"type": "label", "text": "去喷泉广场", "x": 124, "y": 284},
-  {"type": "label", "text": "去停车场", "x": 1450, "y": 730},
+  {"type": "label", "text": "去停车场", "x": 900, "y": 912, "note": "第 68 版（07）：迎宾院东边那个口去停车场不要了，南边大门出去就是停车场（停车场往西放大、在迎宾院正下方），牌子挪到大门右边"},
   {"type": "rect", "rect": [1094, 368, 1286, 432], "color": "#c0392b"},
   {"type": "rect", "rect": [1100, 374, 1280, 426], "color": "#e0a458"},
   {"type": "rect", "rect": [1106, 380, 1274, 420], "color": "#c0392b"},
@@ -53,7 +50,7 @@
   {"type": "box", "id": "wall_s_e", "rect": [884, 938, 1536, 952], "h": 58, "top": "#a8987c", "front": "#7c6d57", "scale": {"h_m": 1.2}},
   {"type": "box", "id": "gate_post_w", "rect": [616, 886, 652, 904], "h": 196, "top": "#8c2f27", "front": "#6e211b", "scale": {"h": "gate_arch_h", "gap_to": "gate_post_e", "gap": "gate_arch_w"}},
   {"type": "box", "id": "gate_post_e", "rect": [884, 886, 920, 904], "h": 196, "top": "#8c2f27", "front": "#6e211b"},
-  {"type": "beam", "id": "gate_roof", "x0": 596, "x1": 940, "foot": 904, "top": 682, "thick": 28, "color": "#3e2a24", "label": {"text": "大门", "dy": -200, "dx": 212, "note": "原来在门洞正中，人一进门就站在那，牌子压在人身上（04 第 43 版复看 2）；挪到右柱外边"}, "scale": {"w": "gate_arch_total_w"}},
+  {"type": "beam", "id": "gate_roof", "x0": 596, "x1": 940, "foot": 904, "top": 682, "thick": 28, "color": "#3e2a24", "scale": {"w": "gate_arch_total_w"}, "note_label": "第 69 版小修（04）：原来门头挂「大门 ↓」，跟大门右边「去停车场 ↓」挨着都朝下，合成一块「去停车场 ↓」，这块拿掉"},
   {"type": "image", "id": "lantern_w1", "path": "res://assets/layered/scene_roman_banquet/blk_lantern_floor.png", "x": 640, "y": 300, "anchor": [14, 66], "ellipse": [12, 6], "scale": {"h": "lamp_floor_h"}},
   {"type": "image", "id": "lantern_e1", "path": "res://assets/layered/scene_roman_banquet/blk_lantern_floor.png", "x": 896, "y": 300, "anchor": [14, 66], "ellipse": [12, 6], "scale": {"h": "lamp_floor_h"}},
   {"type": "image", "id": "lantern_w2", "path": "res://assets/layered/scene_roman_banquet/blk_lantern_floor.png", "x": 640, "y": 460, "anchor": [14, 66], "ellipse": [12, 6], "scale": {"h": "lamp_floor_h"}},

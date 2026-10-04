@@ -184,12 +184,12 @@ func run() -> void:
         and ui.portrait.texture.region.size.y < 60.0)
     tick(int(4.0 / DT))
     check("跟阿姨说话时她那组不冒泡", life.bubble_text("lounge_05") == "" and life.bubble_text("lounge_06") == "")
-    var texts: Array = [ui.line_label.text]
+    var texts: Array = [ui.line_raw]
     var side_ok := false
     var n: int = (p06["talk"] as Array).size()
     for i in n - 1:
         ui.next_line()
-        texts.append(ui.line_label.text)
+        texts.append(ui.line_raw)
         if str(ui.portrait.get_meta("pose")) == "side":
             side_ok = ui.portrait.texture.region.position.x == 4.0 * 64.0
     check("一句句点下去（%s）；侧身那句换侧身的图" % [texts], texts.size() == n and texts[0] == str(p06["talk"][0]["text"]) and side_ok)

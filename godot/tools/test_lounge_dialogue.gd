@@ -87,28 +87,28 @@ func run() -> void:
     print("2 点奶奶")
     await talk_to_grandma()
     check("对话框、名字牌「%s」、走插件" % ui.name_label.text, ui.talk_box.visible and ui.name_plate.visible and ui.name_label.text == "奶奶" and ui.dm_res != null)
-    check("第一句「%s」用笑的图（%s）" % [ui.line_label.text, ui.portrait.get_meta("pose")], ui.line_label.text == "哎呀，你来啦" and str(ui.portrait.get_meta("pose")) == "smile")
+    check("第一句「%s」用笑的图（%s）" % [ui.line_raw, ui.portrait.get_meta("pose")], ui.line_raw == "哎呀，你来啦" and str(ui.portrait.get_meta("pose")) == "smile")
     var s09: Sprite2D = b.npc_nodes["lounge_09"]
     check("奶奶站起来放说话格（第 %d 格）" % s09.frame, s09.frame == 18 or s09.frame == 19)
     ui.next_line()
     await settle()
-    check("第二句「%s」用说话的图（%s）" % [ui.line_label.text, ui.portrait.get_meta("pose")], ui.line_label.text == "坐嘛，这沙发软和得很" and str(ui.portrait.get_meta("pose")) == "talk")
+    check("第二句「%s」用说话的图（%s）" % [ui.line_raw, ui.portrait.get_meta("pose")], ui.line_raw == "坐嘛，这沙发软和得很" and str(ui.portrait.get_meta("pose")) == "talk")
     ui.next_line()
     await settle()
 
     print("3 选项")
     var opts: Array = ui.choices.get_children().map(func(x): return (x as Button).text)
-    check("问「%s」出三个选项 %s" % [ui.line_label.text, opts], ui.line_label.text == "你是哪边的客人呀？" and ui.choices.visible and opts == ["新娘那边", "新郎那边", "先不说"])
+    check("问「%s」出三个选项 %s" % [ui.line_raw, opts], ui.line_raw == "你是哪边的客人呀？" and ui.choices.visible and opts == ["新娘那边", "新郎那边", "先不说"])
     ui.next_line()
     await settle()
-    check("有选项时点对话框不往下走", ui.line_label.text == "你是哪边的客人呀？" and ui.choices.visible)
+    check("有选项时点对话框不往下走", ui.line_raw == "你是哪边的客人呀？" and ui.choices.visible)
     (ui.choices.get_child(1) as Button).pressed.emit()
     await settle()
-    check("挑「新郎那边」→「%s」用惊讶的图（%s），选项收了" % [ui.line_label.text, ui.portrait.get_meta("pose")],
-        ui.line_label.text == "欢迎欢迎，路上辛苦了" and str(ui.portrait.get_meta("pose")) == "surprise" and not ui.choices.visible)
+    check("挑「新郎那边」→「%s」用惊讶的图（%s），选项收了" % [ui.line_raw, ui.portrait.get_meta("pose")],
+        ui.line_raw == "欢迎欢迎，路上辛苦了" and str(ui.portrait.get_meta("pose")) == "surprise" and not ui.choices.visible)
     ui.next_line()
     await settle()
-    check("接着「%s」" % ui.line_label.text, ui.line_label.text == "喝口茶，歇一下再去吃席")
+    check("接着「%s」" % ui.line_raw, ui.line_raw == "喝口茶，歇一下再去吃席")
     ui.next_line()
     await settle()
     check("说完对话框收了、又能走", not ui.talk_box.visible and not ui.choices.visible and b.walking_enabled and life.talking == "")
@@ -121,7 +121,7 @@ func run() -> void:
     await settle()
     (ui.choices.get_child(0) as Button).pressed.emit()
     await settle()
-    check("挑「新娘那边」→「%s」" % ui.line_label.text, ui.line_label.text == "那我们是一家人嘛，多坐会儿")
+    check("挑「新娘那边」→「%s」" % ui.line_raw, ui.line_raw == "那我们是一家人嘛，多坐会儿")
     ui.close_talk()
 
     print("5 爷爷照旧")
@@ -131,8 +131,8 @@ func run() -> void:
         if ui.talk_box.visible:
             break
     await settle()
-    check("爷爷不走插件，念 lounge.json 的第一句「%s」" % ui.line_label.text, ui.talk_box.visible and ui.dm_res == null
-        and ui.line_label.text == str(life.data["people"]["lounge_10"]["talk"][0]["text"]))
+    check("爷爷不走插件，念 lounge.json 的第一句「%s」" % ui.line_raw, ui.talk_box.visible and ui.dm_res == null
+        and ui.line_raw == str(life.data["people"]["lounge_10"]["talk"][0]["text"]))
     ui.close_talk()
 
     print("6 别的画布上的 NPC 挂 .dialogue")
@@ -150,8 +150,8 @@ func run() -> void:
         if ui.talk_box.visible:
             break
     await settle()
-    check("迎宾院点老人：走过去、同一个对话框、名字牌「%s」、插件第一句「%s」" % [ui.name_label.text, ui.line_label.text],
-        ui.talk_box.visible and ui.dm_res != null and ui.line_label.text == "哎呀，你来啦" and not c.walking_enabled)
+    check("迎宾院点老人：走过去、同一个对话框、名字牌「%s」、插件第一句「%s」" % [ui.name_label.text, ui.line_raw],
+        ui.talk_box.visible and ui.dm_res != null and ui.line_raw == "哎呀，你来啦" and not c.walking_enabled)
     for k in 8:
         if not ui.talk_box.visible:
             break

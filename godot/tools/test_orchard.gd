@@ -173,7 +173,7 @@ func run() -> void:
     var coins0: int = m.games_save.coins
     ui._on_act()
     tick(2)
-    check("收了说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "收了 8 筐草莓 放进果篮")
+    check("收了说「%s」" % m.said_raw, m.dialog.visible and m.said_raw == "收了 8 筐草莓 放进果篮")
     check("果篮里 8 筐草莓", m.orchard_save.basket_of("strawberry") == 8)
     check("第一次收草莓那句阿鱼的话还是【待补】：不弹、也不记弹过", CourtCopy.text("first_strawberry", CourtCopy.ORCHARD) == "【待补】"
         and CourtCopy.who("first_strawberry", CourtCopy.ORCHARD) == "阿鱼" and not m.orchard_save.firsts.has("strawberry"))
@@ -226,7 +226,7 @@ func run() -> void:
     check("收购处出「%s」" % ui.act_btn.text, ui.act_btn.visible and ui.act_btn.text == "卖给山庄（56 金）")
     ui._on_act()
     tick(2)
-    check("卖了说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == "你的 草莓 16 筐 枇杷 6 篮 卖了 56 金")
+    check("卖了说「%s」" % m.said_raw, m.dialog.visible and m.said_raw == "你的 草莓 16 筐 枇杷 6 篮 卖了 56 金")
     check("金币进了和小游戏同一个钱包（%d 金）" % m.games_save.coins, m.games_save.coins == coins0 + 56)
     check("果篮空了", m.orchard_save.basket_total() == 0)
     check("按钮收了", not ui.act_btn.visible)
@@ -257,8 +257,8 @@ func run() -> void:
     walk_into(o, "strawberry", Vector2(1046, 796))
     ui._on_act()
     tick(2)
-    check("收完山庄直接折钱、只说「%s」不写金（蓝图 3.6）" % m.dialog_text.text, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
-        and m.dialog_text.text == "收了 8 筐草莓" and not m.dialog_text.text.contains("金"))
+    check("收完山庄直接折钱、只说「%s」不写金（蓝图 3.6）" % m.said_raw, m.games_save.coins == coins1 + 16 and m.orchard_save.basket_total() == 0
+        and m.said_raw == "收了 8 筐草莓" and not m.said_raw.contains("金"))
     m.note.text = ""
     walk_into(o, "shop", Vector2(556, 1016))
     check("这种卖法下走到收购处：%s" % m.note.text, m.note.text == "果子山庄直接收走了 不用跑这一趟" and not ui.act_btn.visible)
@@ -274,8 +274,8 @@ func run() -> void:
     walk_into(o, "loquat", Vector2(386, 836))
     ui._on_act()
     tick(2)
-    check("第一次收枇杷：对话框是阿鱼那句「%s」（%s）、收了几篮挪到顶部「%s」" % [m.dialog_text.text, m.dialog_who.text, m.note.text],
-        m.dialog.visible and m.dialog_text.text == "测试：第一次收枇杷这句" and m.dialog_who.text == "阿鱼" and m.note.text == "收了 6 篮枇杷")
+    check("第一次收枇杷：对话框是阿鱼那句「%s」（%s）、收了几篮挪到顶部「%s」" % [m.said_raw, m.dialog_who.text, m.note.text],
+        m.dialog.visible and m.said_raw == "测试：第一次收枇杷这句" and m.dialog_who.text == "阿鱼" and m.note.text == "收了 6 篮枇杷")
     var again2 = OrchardSave.new()
     again2.local_path = SAVE_PATH
     again2.load_local()
@@ -285,7 +285,7 @@ func run() -> void:
     walk_into(o, "loquat", Vector2(386, 836))
     ui._on_act()
     tick(2)
-    check("第二回收枇杷不再弹：%s" % m.dialog_text.text, m.dialog_text.text == "收了 6 篮枇杷")
+    check("第二回收枇杷不再弹：%s" % m.said_raw, m.said_raw == "收了 6 篮枇杷")
     m.orchard_save.firsts = {}
     m.orchard_save.load_local()
     check("关了再开（重读本机存档）也记得弹过", m.orchard_save.firsts.get("loquat", false) == true)

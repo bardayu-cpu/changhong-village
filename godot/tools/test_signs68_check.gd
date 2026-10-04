@@ -1,6 +1,6 @@
 extends SceneTree
 ## 第 68 版全游戏「去…」「回…」路牌加箭头（07 做，阿鱼：往上、往左放字前，往右、往下放字后），03 自己重测（01 H 10/4 派，不改游戏代码；不用 07 的 sign_target / edge_of）：
-##   1 数：十四块里带箭头的路牌共 52 块；所有「去…」「回…」牌、楼门、大门牌都带箭头；迎宾院里不是出口的牌（回忆册、休息区…）、房间门牌（宴会厅的后厅、后花园、后厅四间屋）不带
+##   1 数：十四块里带箭头的路牌共 51 块（第 69 版收尾 07 改：迎宾院「大门」那块照 04、01 合进「去停车场 ↓」，52 → 51）；所有「去…」「回…」牌、楼门、大门牌都带箭头；迎宾院里不是出口的牌（回忆册、休息区…）、房间门牌（宴会厅的后厅、后花园、后厅四间屋）不带
 ##   2 写法：往上、往左的箭头在字前（「↑ 去果园」「← 去草坪」）、往右、往下的在字后（「去停车场 →」「去前门 ↓」）；箭头只有 ↑ ← → ↓ 四种
 ##   3 方向对：我自己认每块牌通哪个口（从牌上的字认通哪块，同名有几个口取离牌子最近的；「楼门」认宴会厅、「大门」认迎宾院大门），
 ##     口在这块走路范围的哪一侧（离走路范围中心最远的那个方向，跟 03 的连法测试同一个量法），箭头必须跟它一样；不一样的列出来，
@@ -157,7 +157,7 @@ func run() -> void:
                 no_arrow_exit.append("%s「%s」" % [k, t])
     for x in bad_pos + bad_arrow_label + no_arrow_exit:
         print("    ", x)
-    check("十四块带箭头的路牌共 %d 块（07 说 52）；「去…」「回…」「楼门」「大门」牌都带箭头（没带的 %d 块）" % [total_arrow, no_arrow_exit.size()], total_arrow == 52 and no_arrow_exit.is_empty())
+    check("十四块带箭头的路牌共 %d 块（迎宾院「大门」合进「去停车场」后是 51）；「去…」「回…」「楼门」「大门」牌都带箭头（没带的 %d 块）" % [total_arrow, no_arrow_exit.size()], total_arrow == 51 and no_arrow_exit.is_empty())
     check("往上、往左的箭头在字前，往右、往下的在字后，每块牌一个箭头（%d 处不对）" % (bad_pos.size() + bad_arrow_label.size()), bad_pos.is_empty() and bad_arrow_label.is_empty())
     var h = m.hall
     var hall_arrow := 0
@@ -178,6 +178,7 @@ func run() -> void:
     var last_bad: Array = []
     var no_target: Array = []
     var outside: Array = []
+    var path_ok: Array = []
     for r in rows:
         var k: String = r[0]
         var c = canvas_of(k)
@@ -189,7 +190,17 @@ func run() -> void:
         var wr := walk_rect(c)
         var d: Vector2 = DIRV[r[2]]
         if mine != r[2]:
-            diff.append("%s「%s」：箭头 %s，我量口 %s 在走路范围的 %s 侧" % [k, r[1], r[2], str(tgt), mine])
+            # 第 69 版收尾（07 改，阿鱼：箭头是「往哪个方向走」）：口正前方直走不过去的（果园南边两个口，上面一排树、小摊、草莓垄），牌挂在口边横着的小路上、
+            # 箭头指沿小路走的方向。只认真能走到的：从牌子那儿顺着箭头直走（03 自己的 straight）进得了口，才算对，列出来
+            var rad3 := 40.0
+            for pid in c.points:
+                if c.points[pid]["pos"] == tgt:
+                    rad3 = float(c.points[pid]["r"])
+            var st3: Vector2 = r[3] if c._free(r[3]) else c.nearest_free(r[3])
+            if st3 != Vector2.ZERO and straight(c, st3, d, tgt, rad3)["hit"]:
+                path_ok.append("%s「%s」：口在 %s 侧，牌挂在口边小路上、箭头 %s 顺小路直走进得了口" % [k, r[1], mine, r[2]])
+            else:
+                diff.append("%s「%s」：箭头 %s，我量口 %s 在走路范围的 %s 侧" % [k, r[1], r[2], str(tgt), mine])
         if (tgt - wr.get_center()).dot(d) <= 0.0:
             half_bad.append("%s「%s」：从走路范围中心往 %s 走，口 %s 反而更远" % [k, r[1], r[2], str(tgt)])
         if (tgt - (r[3] as Vector2)).dot(d) <= 0.0:
@@ -208,7 +219,12 @@ func run() -> void:
         print("    ", x)
     print("    注：牌子画在口外边的有 %d 块 %s" % [outside.size(), str(outside.map(func(x): return str(x).split("（")[0]))])
     check("每块牌都认得出通哪个口（认不出 %d 块）" % no_target.size(), no_target.is_empty())
-    check("箭头跟我量的口所在侧一样（不一样 %d 块）" % diff.size(), diff.is_empty())
+    for x in path_ok:
+        print("    注：", x)
+    check("箭头跟我量的口所在侧一样（不一样 %d 块；沿小路直走进得了口的 %d 块另算）" % [diff.size(), path_ok.size()], diff.is_empty())
+    # 例外只给果园南边那 2 块（口正前方是树、小摊、草莓垄，牌挂在口边小路上）；再多一块就让人来看，别悄悄放过（03 10/4 补）
+    var path_ok_bad: Array = path_ok.filter(func(x): return not (str(x).begins_with("orchard「") and str(x).contains("去草坪")))
+    check("「口所在侧不一样」的例外只有果园南边那 2 块（共 %d 块、不是果园的 %d 块 %s）" % [path_ok.size(), path_ok_bad.size(), str(path_ok_bad)], path_ok.size() <= 2 and path_ok_bad.is_empty())
     print("    注：走进口的最后一段（找路拐点连线）朝的方向跟箭头不一样的 %d 块（路是沿着墙边横着走到口的，不算）" % last_bad.size())
     check("从走路范围中心往箭头那边走口更近（%d 块反了）" % half_bad.size(), half_bad.is_empty())
 
@@ -216,6 +232,7 @@ func run() -> void:
     var over_lab: Array = []
     var out_lab: Array = []
     var over_p: Array = []
+    var room_cover: Array = []
     for k in keys:
         var c = canvas_of(k)
         var rs: Array = []
@@ -224,6 +241,10 @@ func run() -> void:
                 var l := lb as Label
                 var home_x: float = float(l.get_meta("home")) if l.has_meta("home") else l.position.x
                 rs.append([str(l.text), Rect2(Vector2(home_x, l.position.y), l.size)])
+        for hs in c.room_signs:   # 小屋门口的名字牌（停车场洗手间、杂物处等）也算，跟路牌不能叠
+            var rl = (hs as Node2D).get_child(0)
+            if rl is Label:
+                rs.append([str((rl as Label).text), Rect2((hs as Node2D).position + (rl as Label).position, (rl as Label).size), true])
         var cw := float(c.cfg["size"][0])
         var ch := float(c.cfg["size"][1])
         for i in rs.size():
@@ -232,22 +253,94 @@ func run() -> void:
                 out_lab.append("%s「%s」出画布 %s" % [k, rs[i][0], str(ri)])
             for j in range(i + 1, rs.size()):
                 if ri.intersects(rs[j][1]):
-                    over_lab.append("%s「%s」×「%s」" % [k, rs[i][0], rs[j][0]])
+                    over_lab.append("%s「%s」%s ×「%s」%s" % [k, rs[i][0], str(ri), rs[j][0], str(rs[j][1])])
         var spots: Array = [c.SPAWN]
         for pid in c.points:
             if str(c.points[pid]["to"]) != "":
                 spots.append(c.points[pid]["pos"])
                 spots.append(c.arrival_at(pid))
         for rr in rs:
+            if rr.size() > 2 and rr[2]:
+                # 小屋门牌挂在门楣上，进门的人从它前面走过，不算「盖人」（只记一笔）
+                for sp in spots:
+                    var body0 := Rect2((sp as Vector2).x - 20.0, (sp as Vector2).y - 90.0, 40.0, 90.0)
+                    if (rr[1] as Rect2).intersects(body0):
+                        room_cover.append("%s「%s」" % [k, rr[0]])
+                continue
             for sp in spots:
                 var body := Rect2((sp as Vector2).x - 20.0, (sp as Vector2).y - 90.0, 40.0, 90.0)
                 if (rr[1] as Rect2).intersects(body):
                     over_p.append("%s「%s」盖 %s 站的人" % [k, rr[0], str(sp)])
     for x in over_lab + out_lab + over_p:
         print("    ", x)
+    print("    注：小屋门牌（挂门楣上）压在口 / 落点上站的人身后的有 %d 处 %s（人从牌前走过，不判）" % [room_cover.size(), str(room_cover)])
     check("同一块里牌子两两不叠（%d 对）、都在画布里（%d 块出去）、不盖出生点 / 口 / 落点上站的人（%d 处）" % [over_lab.size(), out_lab.size(), over_p.size()], over_lab.is_empty() and out_lab.is_empty() and over_p.is_empty())
+
+    print("5 照箭头直走真能到口（第 69 版：07 说挪之前有 14 块照箭头走会撞墙）")
+    # 从牌子中心那条线上，顺着箭头一步 6 像素直走；走进口的触发圈（半径 r），或走到口那条线上侧偏 ≤ r+30 算到了，中间碰到不能站的算撞墙（跟 07 只算几何不同：这里走真墙）
+    var walls: Array = []
+    var no_start: Array = []
+    var n_ok := 0
+    for r in rows:
+        var k5: String = r[0]
+        var c5 = canvas_of(k5)
+        var tgt5: Vector2 = r[4]
+        if tgt5 == Vector2.ZERO:
+            continue
+        var d5: Vector2 = DIRV[r[2]]
+        var pid5 := ""
+        var rad5 := 50.0
+        for id5 in c5.points:
+            if (c5.points[id5]["pos"] as Vector2) == tgt5:
+                pid5 = str(id5)
+                rad5 = float(c5.points[id5]["r"])
+        var lab_c: Vector2 = r[3]
+        # 从牌子那条线上出发（牌子中心；那儿是墙 / 摆设就沿着垂直箭头的方向左右 20 像素一格找最近的能站的点，最多 80），不用牌子下面 60 像素
+        var perp5 := Vector2(-d5.y, d5.x)
+        var st5: Vector2 = Vector2.ZERO
+        for off in [0, 20, -20, 40, -40, 60, -60, 80, -80]:
+            var cand: Vector2 = lab_c + perp5 * float(off)
+            if c5._free(cand):
+                st5 = cand
+                break
+        if st5 == Vector2.ZERO:
+            no_start.append("%s「%s」牌子 %s 那条线上（左右 80 内）找不到能站的点（牌子压在挡路的东西上，照箭头没法直走）" % [k5, r[1], str(lab_c)])
+            continue
+        var res5: Dictionary = straight(c5, st5, d5, tgt5, rad5)
+        if res5["hit"]:
+            n_ok += 1
+        else:
+            var fix := "挪 120 像素内都走不通"
+            for off in [8, -8, 16, -16, 24, -24, 32, -32, 40, -40, 48, -48, 60, -60, 80, -80, 100, -100, 120, -120]:
+                var sp: Vector2 = lab_c + perp5 * float(off)
+                if c5._free(sp) and straight(c5, sp, d5, tgt5, rad5)["hit"]:
+                    fix = "牌子那条线往旁边挪 %d 像素（%s）就走得通" % [absi(off), "往右 / 下" if off > 0 and perp5.x + perp5.y > 0 or off < 0 and perp5.x + perp5.y < 0 else "往左 / 上"]
+                    break
+            walls.append("%s「%s」从 %s 往 %s 直走：%s；%s" % [k5, r[1], str(st5), r[2], ("在 %s 撞墙" % str(res5["blocked_at"])) if res5["blocked_at"] != Vector2.ZERO else ("走过了口 %s（口 %s 半径 %d）" % [pid5, str(tgt5), int(rad5)]), fix])
+    for x in no_start + walls:
+        print("    ", x)
+    check("%d 块牌子，从牌子那条线上顺着箭头直走（碰到墙算撞；走进口的触发圈算到）：能走到口的 %d 块，撞墙 / 走偏 %d 块，那条线上没地方站 %d 块" % [rows.size(), n_ok, walls.size(), no_start.size()], walls.is_empty() and no_start.is_empty())
 
     DirAccess.remove_absolute("user://test_sg68_court.json")
     DirAccess.remove_absolute("user://test_sg68_games.json")
     print("RESULT ", "PASS" if ok else "FAIL")
     quit(0 if ok else 1)
+
+## 从 start 顺着 d 一步 6 像素直走：走进口的触发圈（半径 rad）或走到口那条线上侧偏 ≤ rad+30 算到，碰到不能站的算撞
+func straight(c, start: Vector2, d: Vector2, tgt: Vector2, rad: float) -> Dictionary:
+    var p: Vector2 = start
+    if (tgt - p).dot(d) < -6.0:
+        return {"hit": false, "blocked_at": Vector2.ZERO}   # 口在箭头背后：往箭头那边走只会越走越远（03 10/4 补：原来这种情况第一步就算「到了」）
+    for step in 900:
+        var rel: Vector2 = tgt - p
+        var along: float = rel.dot(d)
+        var lateral: float = absf(rel.dot(Vector2(-d.y, d.x)))
+        if p.distance_to(tgt) <= rad or (along <= 6.0 and lateral <= rad + 30.0):
+            return {"hit": true, "blocked_at": Vector2.ZERO}
+        if along <= 6.0:
+            return {"hit": false, "blocked_at": Vector2.ZERO}
+        var nxt: Vector2 = p + d * 6.0
+        if not c._free(nxt):
+            return {"hit": false, "blocked_at": nxt}
+        p = nxt
+    return {"hit": false, "blocked_at": Vector2.ZERO}

@@ -46,6 +46,7 @@ const Parking = preload("res://scripts/parking.gd")
 const Plaza = preload("res://scripts/plaza.gd")
 const Area = preload("res://scripts/area.gd")
 const DriveIn = preload("res://scripts/drive_in.gd")
+const EstateMap = preload("res://scripts/estate_map.gd")
 ## 连图（10/4，01 G 派）新加的几块灰盒，都是 area.gd，布局 tools/layout_court/make_areas.py 出
 const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate"]
 const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
@@ -71,6 +72,8 @@ var parking                     # 停车场和大门（parking.gd，10/3）：�
 var plaza                       # 喷泉广场（plaza.gd，10/4 新总图第 ② 步）：山庄正中，通迎宾院、草坪、后厅，北边三个口待做
 var areas: Dictionary = {}      # 连图新加的几块（AREA_IDS -> area.gd）
 var drive                       # 进山庄自动开车（drive_in.gd，10/4 连图）
+var estate_map                  # 左上角全景地图、点一块传送过去（estate_map.gd，10/4 蓝图第 22 条，07）
+var teleport_at := Vector2.ZERO # 地图传送：到了那块站哪（_switch_canvas 照各块原来的站法摆完，再挪到这；用完清）
 var driving := false            # 正在自动开车：各块的口、走进去说的话都不算，点屏幕是跳过
 var drive_in_fast := false      # 测试用：fast 模式下也真开一趟（默认 fast 直接到停车场下车）
 var orchard_save                # 果园存在本机的：今天摘过没有（orchard_save.gd）
@@ -657,6 +660,8 @@ func _process(dt: float) -> void:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
         orchard_ui.sync()   # 人站着不动地也在长：按钮上「几垄熟了」跟着变
+    if estate_map != null:
+        estate_map.sync()   # 名字牌上的传送门图标：签过到才出
     if driving and hint != null:
         hint.visible = false   # 04 看第 65 版：自动开车的时候「点地面走路」先不出，停好车下车再出（_enter_parking 照旧打开）
     if stick_base != null:
@@ -1046,8 +1051,14 @@ func _build_hud() -> void:
     top_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
     hud.add_child(top_row)
     var chip := PanelContainer.new()
+    chip.name = "place_chip"
     chip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
-    chip.add_child(_label("● 罗曼山庄", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
+    var chip_row := HBoxContainer.new()   # 地名 + 签到以后多一个传送门小图标（estate_map.gd 加），点名字牌开全景地图
+    chip_row.name = "row"
+    chip_row.add_theme_constant_override("separation", 8)
+    chip_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    chip.add_child(chip_row)
+    chip_row.add_child(_label("● 罗曼山庄", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
     top_row.add_child(chip)
     var cchip := PanelContainer.new()
     cchip.name = "coins_chip"
@@ -1055,6 +1066,11 @@ func _build_hud() -> void:
     coins_chip = _label("0 金", 24, GOLD1, HORIZONTAL_ALIGNMENT_RIGHT, false)
     cchip.add_child(coins_chip)
     top_row.add_child(cchip)
+    # 全景地图（10/4 蓝图第 22 条，07；阿鱼：「快捷切换地图的入口放到罗曼山庄几个字里边，加一个传送门的 icon 就行了」）：
+    # 签到以后「罗曼山庄」名字牌里多一个传送门小图标，点名字牌打开；签到前照旧只有名字、点了没反应。地图那层盖在所有界面上面
+    estate_map = EstateMap.new()
+    ui.add_child(estate_map)
+    estate_map.setup(self, chip)
     # 摇杆：原来是白 8% 的底、金边，在迎宾院这种浅色地上量到 1.02:1，几乎看不见（体验五.1）。
     # 改成深色半透明底 + 亮金边：浅地上靠深底看得见，深地上靠金边看得见
     stick_base = _ring(STICK_R * 2.0, Color(0.08, 0.06, 0.1, 0.32), Color(GOLD1, 0.9))
@@ -1696,7 +1712,7 @@ func _enter_parking() -> void:
     court.reset_to(court.SPAWN)
     parking.reset_to(parking.SPAWN)
     parking.face = "up"
-    parking.gate_hint = not court_save.seen_court()
+    parking.gate_hint = not court_save.signed_in   # 第 68 版：金箭头指迎宾院，签完到才收（原来进过一次迎宾院就收）
     parking.car_hint = false
     _show_canvas("parking")
     _goto("parking")
@@ -1704,6 +1720,10 @@ func _enter_parking() -> void:
     hint.visible = not hint_done
     await _fade_to(0.0)
     _save_profile()
+    # 第 68 版（阿鱼：「停车场出来之后，就可以去迎宾院签到。然后，有个可以有提示语……在宴会厅，在这边签到，就牵引他」）：
+    # 下车说一句，牵着去迎宾院签到；签过到的不说（话在 assets/entrance/lines.json 的 park_sign，待校对）
+    if not court_save.signed_in:
+        _say(CourtCopy.text("park_sign"), -1.0, CourtCopy.who("park_sign"))
 
 func _save_profile() -> void:
     var inv: String = cloud.inviter()
@@ -1796,8 +1816,8 @@ func _switch_canvas(to: String) -> void:
         # 出山庄大门回停车场（玩家说明第 6 节）：吃完席（大门开了）出来，金箭头指自己的车
         _show_canvas("parking")
         parking.reset_to(gen if gen != Vector2.ZERO else (parking.FROM_LAKE if from == "lake" and parking.FROM_LAKE != Vector2.ZERO else parking.FROM_COURT))
-        parking.gate_hint = false
         parking.car_hint = court_save.gate_open()
+        parking.gate_hint = not court_save.signed_in and not parking.car_hint   # 第 68 版：没签到又走回停车场，箭头照样指迎宾院
         _goto("parking")
     elif areas.has(to):
         # 连图新加的几块（儿童乐园、小卖部、休息厅 2、西餐厨房、后花园、前门、后门）：照口站
@@ -1824,6 +1844,9 @@ func _switch_canvas(to: String) -> void:
             court_save.court_seen = true   # 进过一次迎宾院：停车场指大门的箭头不再出，再开游戏也不从停车场出生
             court_save.save()
             arrive_line = true
+    if teleport_at != Vector2.ZERO:
+        cv.reset_to(teleport_at)   # 地图传送：各块照原来的站法摆完（进厅拿席位、记进过这些照旧），再挪到地图挑的门口
+        teleport_at = Vector2.ZERO
     cv.face = keep_face
     print("[suqi] 换画布 到 ", to)
     await _fade_to(0.0)
@@ -1832,6 +1855,13 @@ func _switch_canvas(to: String) -> void:
     if arrive_line:
         arrive_line = false
         _say(LINE_ARRIVE)   # 第一次从停车场走进山庄（原来开场在迎宾院大门口说的那句）
+
+## 地图传送（10/4 蓝图第 22 条，07）：跟走口子一样淡出淡入换画布，到了站 at（ZERO = 照那块原来的站法，宴会厅就是厅门口）
+func teleport_to(to: String, at: Vector2) -> void:
+    if to == state or not _in_scene():
+        return
+    teleport_at = at
+    await _switch_canvas(to)
 
 ## 进宴会厅要做的网上的事：心跳重新对表；资料存过了就直接进厅拿席位，没存上（刚才断网）先补存一次
 func _enter_hall_net() -> void:
@@ -2056,7 +2086,7 @@ func _at_gate() -> void:
         _say(CourtCopy.text("gate_not_signed"), -1.0, CourtCopy.who("gate_not_signed"))
     elif not CourtCopy.placeholder(CourtCopy.text("gate_leave_early")):
         _say(CourtCopy.text("gate_leave_early"), -1.0, CourtCopy.who("gate_leave_early"))
-    _switch_canvas("frontgate")   # 10/4 连图：大门出去是前门（门楼），往西走到停车场找自己的车
+    _switch_canvas("parking")   # 10/4 第 68 版（07）：大门出去就是停车场（停车场往西放大，在迎宾院正下方）；原来出去是前门
 
 ## 大门那圈金光跟着开没开（签完到、写完悄悄话、回到迎宾院时都对一次）
 func _update_gate() -> void:
@@ -2098,11 +2128,22 @@ static func profile_payload(nick: String, avatar: int, inviter: String, me: Stri
         d["inviter"] = inviter
     return d
 
+## 对话卡片里人说的话用“”框起来（阿鱼 10/4：「人物对话时，说的话要用“”框起来……陈述或旁边不需要加，这些要做好区分」
+## 「如果这个对话是出现在人头上的就不用……我指的是真实交互的对话卡片」）：说话框有说话人（who 不空）的加引号，顶部提示、旁白（who 空）不加；
+## 人头顶冒的话（lounge_life 的气泡）不加。台词原文照旧不带引号（校对单、测试都认原文，said_raw）
+static func quoted(text: String) -> String:
+    if text == "" or text.begins_with("“"):
+        return text
+    return "“" + text + "”"
+
+var said_raw := ""   # 说话框里这句的原文（没加引号）：测试、截图比字用
+
 func _say(text: String, hold := -1.0, who := "阿鱼", gloss := "") -> void:
     say_token += 1
     var my := say_token
     dialog_who.text = who
-    dialog_text.text = text
+    said_raw = text
+    dialog_text.text = quoted(text) if who != "" else text
     say_log.append([who, text])
     if say_log.size() > 20:
         say_log.pop_front()
@@ -3964,7 +4005,7 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
         "drive_gate", "drive_fountain", "drive_park":
-            # 自动开车进山庄（10/4 连图）：gate 是车开进前门门楼；fountain 是绕喷泉开到一半；park 是开进停车场、快停进车位
+            # 自动开车进山庄（10/4 连图）：gate 是车开进前门门楼；fountain 是刚进广场、喷泉在正前方（第 68 版不绕圈了）；park 是开进停车场、快停进车位
             nickname = "阿花"
             await _enter_court()
             court_save.local_path = "user://shot_drive_court.json"
@@ -3973,7 +4014,7 @@ func _setup_shot(shot: String) -> void:
             dialog.visible = false
             arrive_line = false
             _drive_in()
-            var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 2.6], "drive_park": ["parking", 1.9]}[shot]
+            var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 0.3], "drive_park": ["parking", 1.9]}[shot]
             for i in 3000:
                 await get_tree().process_frame
                 if drive.leg == want[0] and drive.leg_t >= float(want[1]):
@@ -4022,7 +4063,7 @@ func _setup_shot(shot: String) -> void:
             life.request_talk("lounge_09")
             for i in 300:
                 await get_tree().process_frame
-                if lounge_ui.talk_box.visible and lounge_ui.line_label.text != "":
+                if lounge_ui.talk_box.visible and lounge_ui.line_raw != "":
                     break
             if shot == "lounge_dm_choice":
                 for k in 2:
