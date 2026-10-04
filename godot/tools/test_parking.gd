@@ -113,7 +113,7 @@ func run() -> void:
     check("走进北墙那道门到了迎宾院", got)
     await frames(5)
     check("站在迎宾院大门里边（%s）" % m.court.pos, m.court.pos.distance_to(m.court.SPAWN) < 2.0)
-    check("第一次进来说「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
+    check("第一次进来说「%s」" % m.said_raw, m.dialog.visible and m.said_raw == m.LINE_ARRIVE)
     check("记下进过迎宾院了", cs.court_seen)
     m.dialog.visible = false
 
@@ -128,7 +128,7 @@ func run() -> void:
     check("金箭头这回指自己的车", p.car_hint and ar.visible and absf(angle_difference(ar.rotation, (p.points["my_car"]["pos"] - (p.pos - Vector2(0, p.GUIDE_UP))).angle())) < 0.1)
     got = await walk_in(p, "my_car", Vector2(0, -120), func(): return m.dialog.visible)
     var bye: String = CourtCopy.text("gate_bye")
-    check("走到车旁说送别：%s" % m.dialog_text.text.replace("\n", " / "), got and m.dialog_text.text.begins_with(bye))
+    check("走到车旁说送别：%s" % m.said_raw.replace("\n", " / "), got and m.said_raw.begins_with(bye))
     await frames(3)
     check("箭头收了", not p.car_hint and not ar.visible)
     m.dialog.visible = false

@@ -752,6 +752,15 @@ func sign_target(text: String, at: Vector2) -> Vector2:
                 best = points[id]["pos"]
     return best
 
+func _hits_placed(l: Label, placed: Array) -> bool:
+    return _hits_placed_at(Rect2(l.position, l.size), placed)
+
+func _hits_placed_at(r: Rect2, placed: Array) -> bool:
+    for o in placed:
+        if r.grow(3.0).intersects(Rect2((o as Label).position, (o as Label).size)):
+            return true
+    return false
+
 ## 口朝哪边：up / down / left / right。布局里口写了 dir 就照它（草坪「去果园 B」在北边西头角上，离画布左边比上边近，写了 up）；
 ## 不然看口离画布哪条边最近
 func edge_of(p: Vector2) -> String:
@@ -785,14 +794,24 @@ func _arrow_signs() -> void:
     if labels == null:
         return
     var used := {}
+    var placed: Array = []
+    # 先摆左右口的牌，再摆上下口的牌：叠上了上下口的牌往里退一行不吃亏（横偏还是 0），左右口的牌没处躲（后厅「← 去草坪」跟「去西餐厨房 ↓」）
+    var todo: Array = []
     for l in labels.get_children():
         if not l is Label or not l.has_meta("sign"):
             continue
-        var center: Vector2 = l.position + l.size * 0.5
-        var target := sign_target(str(l.get_meta("sign")), center)
-        if target == Vector2.ZERO:
+        var c0: Vector2 = l.position + l.size * 0.5
+        var tg := sign_target(str(l.get_meta("sign")), c0)
+        if tg == Vector2.ZERO:
             continue
-        var dir := edge_of(target)
+        var dd := edge_of(tg)
+        todo.append([0 if (dd == "left" or dd == "right") else 1, l, tg, dd])
+    todo.sort_custom(func(a, b): return int(a[0]) < int(b[0]))
+    for item in todo:
+        var l: Label = item[1]
+        var target: Vector2 = item[2]
+        var dir: String = item[3]
+        var center: Vector2
         l.text = arrow_text(str(l.get_meta("sign")), dir)
         l.set_meta("dir", dir)
         l.set_meta("target", target)
@@ -817,6 +836,16 @@ func _arrow_signs() -> void:
                     center = tc
                     break
         l.position = center - l.size * 0.5
+        # 跟前面摆好的牌叠上了（广场南边四个口挨着）：上下的口沿自己的方向再往里挪一行；左右的口先换到口线另一边，不行再往里挪。横偏不变大（照箭头直走照样到口）
+        if _hits_placed(l, placed) and not (dir == "up" or dir == "down"):
+            var flip: Vector2 = Vector2(l.position.x, 2.0 * target.y - (l.position.y + l.size.y))
+            if not _hits_placed_at(Rect2(flip, l.size), placed) and not _covers_people(Rect2(flip, l.size)):
+                l.position = flip
+        for pass_i in 4:
+            if not _hits_placed(l, placed):
+                break
+            l.position += inward * ((l.size.y + 6.0) if (dir == "up" or dir == "down") else 40.0)
+        placed.append(l)
         # 加了箭头牌子变宽：贴着画布边的（后厅「回宴会厅」）往里收，别出画布
         var sz: Array = cfg["size"]
         l.position.x = clampf(l.position.x, 4.0, float(sz[0]) - l.size.x - 4.0)

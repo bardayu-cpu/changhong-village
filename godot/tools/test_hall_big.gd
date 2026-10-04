@@ -403,7 +403,7 @@ func run() -> void:
     check("写好了：底下冒「%s」" % m.chat_btn.text, m.chat_btn.visible and m.chat_btn.text == "和外婆聊聊")
     m.chat_btn.emit_signal("pressed")
     await frames(1)
-    check("点了说一句：%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_who.text == "外婆" and m.dialog_text.text == "测试：外婆这句")
+    check("点了说一句：%s：%s" % [m.dialog_who.text, m.said_raw], m.dialog.visible and m.dialog_who.text == "外婆" and m.said_raw == "测试：外婆这句")
     m.main_lines_path = keep_path
     var dad: Vector2 = h.chair_world(mt, 5)
     h.reset_to(h._cell_pos(h._nearest_free(h._cell_of(dad + Vector2(20, 35)))))

@@ -2121,11 +2121,22 @@ static func profile_payload(nick: String, avatar: int, inviter: String, me: Stri
         d["inviter"] = inviter
     return d
 
+## 对话卡片里人说的话用“”框起来（阿鱼 10/4：「人物对话时，说的话要用“”框起来……陈述或旁边不需要加，这些要做好区分」
+## 「如果这个对话是出现在人头上的就不用……我指的是真实交互的对话卡片」）：说话框有说话人（who 不空）的加引号，顶部提示、旁白（who 空）不加；
+## 人头顶冒的话（lounge_life 的气泡）不加。台词原文照旧不带引号（校对单、测试都认原文，said_raw）
+static func quoted(text: String) -> String:
+    if text == "" or text.begins_with("“"):
+        return text
+    return "“" + text + "”"
+
+var said_raw := ""   # 说话框里这句的原文（没加引号）：测试、截图比字用
+
 func _say(text: String, hold := -1.0, who := "阿鱼", gloss := "") -> void:
     say_token += 1
     var my := say_token
     dialog_who.text = who
-    dialog_text.text = text
+    said_raw = text
+    dialog_text.text = quoted(text) if who != "" else text
     say_log.append([who, text])
     if say_log.size() > 20:
         say_log.pop_front()
@@ -4045,7 +4056,7 @@ func _setup_shot(shot: String) -> void:
             life.request_talk("lounge_09")
             for i in 300:
                 await get_tree().process_frame
-                if lounge_ui.talk_box.visible and lounge_ui.line_label.text != "":
+                if lounge_ui.talk_box.visible and lounge_ui.line_raw != "":
                     break
             if shot == "lounge_dm_choice":
                 for k in 2:

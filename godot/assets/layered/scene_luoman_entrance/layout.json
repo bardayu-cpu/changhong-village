@@ -50,7 +50,7 @@
   {"type": "box", "id": "wall_s_e", "rect": [884, 938, 1536, 952], "h": 58, "top": "#a8987c", "front": "#7c6d57", "scale": {"h_m": 1.2}},
   {"type": "box", "id": "gate_post_w", "rect": [616, 886, 652, 904], "h": 196, "top": "#8c2f27", "front": "#6e211b", "scale": {"h": "gate_arch_h", "gap_to": "gate_post_e", "gap": "gate_arch_w"}},
   {"type": "box", "id": "gate_post_e", "rect": [884, 886, 920, 904], "h": 196, "top": "#8c2f27", "front": "#6e211b"},
-  {"type": "beam", "id": "gate_roof", "x0": 596, "x1": 940, "foot": 904, "top": 682, "thick": 28, "color": "#3e2a24", "label": {"text": "大门", "dy": -200, "dx": 212, "note": "原来在门洞正中，人一进门就站在那，牌子压在人身上（04 第 43 版复看 2）；挪到右柱外边"}, "scale": {"w": "gate_arch_total_w"}},
+  {"type": "beam", "id": "gate_roof", "x0": 596, "x1": 940, "foot": 904, "top": 682, "thick": 28, "color": "#3e2a24", "scale": {"w": "gate_arch_total_w"}, "note_label": "第 69 版小修（04）：原来门头挂「大门 ↓」，跟大门右边「去停车场 ↓」挨着都朝下，合成一块「去停车场 ↓」，这块拿掉"},
   {"type": "image", "id": "lantern_w1", "path": "res://assets/layered/scene_roman_banquet/blk_lantern_floor.png", "x": 640, "y": 300, "anchor": [14, 66], "ellipse": [12, 6], "scale": {"h": "lamp_floor_h"}},
   {"type": "image", "id": "lantern_e1", "path": "res://assets/layered/scene_roman_banquet/blk_lantern_floor.png", "x": 896, "y": 300, "anchor": [14, 66], "ellipse": [12, 6], "scale": {"h": "lamp_floor_h"}},
   {"type": "image", "id": "lantern_w2", "path": "res://assets/layered/scene_roman_banquet/blk_lantern_floor.png", "x": 640, "y": 460, "anchor": [14, 66], "ellipse": [12, 6], "scale": {"h": "lamp_floor_h"}},

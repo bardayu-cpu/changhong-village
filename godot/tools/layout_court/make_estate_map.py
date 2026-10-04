@@ -22,6 +22,8 @@ OUT = os.path.join(GODOT, "assets", "map", "estate_map.json")
 NAMES = {"court": "迎宾院", "banquet": "宴会厅", "backhall": "后厅", "lawn": "草坪", "lake": "湖边", "orchard": "果园",
          "parking": "停车场", "plaza": "喷泉广场", "kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房",
          "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
+# 地图上写不下的用短叫法（第 69 版小修，04：别拆两三行、别垫黑底）；问「去 XX？」、到了说「到了 XX」照旧用正式名字（NAMES）
+SHORT = {"kids": "乐园", "wkitchen": "西餐", "garden": "花园", "rest2": "休息厅"}
 # 传送过去站哪个口里边（"spawn" = 那块的出生点：迎宾院是大门里边、宴会厅是厅门口）
 DOOR = {"court": "spawn", "banquet": "spawn", "backhall": "to_plaza", "lawn": "to_plaza", "lake": "to_garden", "orchard": "to_lawn",
         "parking": "to_plaza", "plaza": "to_frontgate", "kids": "to_plaza", "shop": "to_plaza", "rest2": "to_plaza", "wkitchen": "to_plaza",
@@ -40,23 +42,24 @@ MAP = {
     "backhall": (98, 140, 332, 196),
     "banquet": (346, 118, 430, 258),
     "garden": (444, 140, 512, 250),
-    "wkitchen": (98, 210, 176, 268),
-    "plaza": (190, 210, 332, 336),
+    "wkitchen": (98, 210, 186, 268),
+    "plaza": (200, 210, 336, 336),
     "court": (346, 272, 430, 336),
     "parking": (346, 350, 512, 446),
-    "frontgate": (222, 350, 300, 410),
-    "rest2": (148, 350, 214, 410),
-    "shop": (76, 350, 142, 410),
-    "kids": (0, 350, 70, 410),
+    "frontgate": (238, 350, 298, 410),
+    "rest2": (150, 350, 234, 410),
+    "shop": (62, 350, 146, 410),
+    "kids": (0, 350, 58, 410),
 }
-LINES = {"title": "罗曼山庄", "go_fmt": "去%s？", "yes": "去", "no": "不去", "here": "你就在这里", "close": "关上", "me": "你"}
+LINES = {"title": "罗曼山庄", "go_fmt": "去%s？", "yes": "去", "no": "不去", "here": "你就在这里", "close": "关上", "me": "你",
+         "arrive_fmt": "到了%s"}
 
 
 def main():
     data = {k: link_map.load(k) for k in link_map.BOXES}
     blocks = []
     for k, (_, rect) in link_map.BOXES.items():
-        blocks.append({"id": k, "name": NAMES[k], "rect": list(MAP[k]), "size": list(data[k][0]), "door": DOOR[k], "kind": KIND[k]})
+        blocks.append({"id": k, "name": NAMES[k], "short": SHORT.get(k, NAMES[k]), "rect": list(MAP[k]), "size": list(data[k][0]), "door": DOOR[k], "kind": KIND[k]})
 
     def at(k, p):
         (W, H) = data[k][0]

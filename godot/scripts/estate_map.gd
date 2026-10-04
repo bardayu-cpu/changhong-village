@@ -27,6 +27,8 @@ var confirm_label: Label
 var hint: Label
 var picked := ""                 # 点了哪块、在问去不去
 var walk_was := false            # 打开前那块画布能不能走（关了照旧）
+var flash_left := 0.0            # 传送门图标还要闪多久（秒）：签到后图标出来时闪几下，点开过一次地图就不再闪（第 69 版小修，04：图标小，长辈未必知道能点）
+const FLASH_SECS := 4.0
 
 func setup(main_ref, place_chip: Control) -> void:
     m = main_ref
@@ -144,10 +146,22 @@ func can_open() -> bool:
 func is_open() -> bool:
     return overlay.visible
 
-## main 每帧调：传送门图标签过到、人在场景里才出（说话、开车时图标照样在，点了不开——can_open 管）
+## main 每帧调：传送门图标签过到、人在场景里才出（说话、开车时图标照样在，点了不开——can_open 管）；
+## 没点开过地图的，图标每回出来闪几下（一亮一暗），点开过一次就不闪了（存档 map_used）
 func sync() -> void:
-    if icon != null:
-        icon.visible = m.court_save.signed_in and m._in_scene()
+    if icon == null:
+        return
+    var show: bool = m.court_save.signed_in and m._in_scene()
+    if show and not icon.visible and not m.court_save.map_used:
+        flash_left = FLASH_SECS
+    icon.visible = show
+    var dt := get_process_delta_time()
+    if flash_left > 0.0 and not m.court_save.map_used:
+        flash_left = maxf(flash_left - dt, 0.0)
+        icon.modulate.a = 0.3 + 0.7 * absf(cos((FLASH_SECS - flash_left) * PI * 2.0))
+    else:
+        flash_left = 0.0
+        icon.modulate.a = 1.0
 
 func open() -> void:
     if overlay.visible or not can_open():
@@ -163,6 +177,10 @@ func open() -> void:
     confirm.visible = false
     picked = ""
     overlay.visible = true
+    if not m.court_save.map_used:
+        m.court_save.map_used = true   # 点开过一次了：图标不再闪
+        m.court_save.save()
+    flash_left = 0.0
     print("[suqi] 打开地图 在 ", view.here)
 
 func close_map() -> void:
@@ -224,9 +242,12 @@ func _go() -> void:
     if id == "":
         return
     var at := target_pos(id)
+    var name := str(block(id).get("name", id))
     close_map()
     print("[suqi] 地图传送 到 ", id, " 站 ", at)
-    m.teleport_to(id, at)
+    await m.teleport_to(id, at)
+    if m.state == id:
+        m._note(_t("arrive_fmt") % name, 2.5)   # 到了说一句（第 69 版小修，04：长辈才知道自己到了哪；字待校对）
 
 ## 传送门小图标（像素硬边，跟名字牌一套金色）：一道拱门，门里一圈紫蓝的漩涡，慢慢转
 class PortalIcon extends Control:
@@ -326,8 +347,7 @@ class MapView extends Control:
         for rd in roads:
             var a := to_view(Vector2(float(rd[2]), float(rd[3])))
             var c := to_view(Vector2(float(rd[4]), float(rd[5])))
-            draw_line(a, c, Color("#3e2a24"), 7.0)
-            draw_line(a, c, Color("#e2cf9a"), 4.0)
+            draw_line(a, c, Color(0.89, 0.81, 0.6, 0.45), 3.0)   # 路淡一点、细一点（04：原来一圈深边像蜘蛛网）
         for b in blocks:
             _draw_block(b)
         # 你在这：那块里你站的位置（画布坐标换算），金圈一闪一闪 +「你」
@@ -336,8 +356,9 @@ class MapView extends Control:
                 continue
             var r := rect_of(b)
             var sz: Array = b["size"]
-            var f := Vector2(clampf(here_at.x / maxf(1.0, float(sz[0])), 0.06, 0.94), clampf(here_at.y / maxf(1.0, float(sz[1])), 0.1, 0.94))
-            var p := (r.position + r.size * f).floor()
+            # 金点放在那块的上沿（左右照你在那块里站哪），不盖住块中间的名字（04）
+            var fx := clampf(here_at.x / maxf(1.0, float(sz[0])), 0.1, 0.9)
+            var p := Vector2(r.position.x + r.size.x * fx, r.position.y).floor()
             var pulse := 5.0 + absf(sin(t * 4.0)) * 3.0
             draw_circle(p, pulse + 2.0, Color("#3e2a24"), true, -1.0, false)
             draw_circle(p, pulse, Color("#ffd75e"), true, -1.0, false)
@@ -377,24 +398,16 @@ class MapView extends Control:
         if str(b["id"]) == here:
             draw_rect(r.grow(1.0), Color("#ffd75e"), false, 2.0)
         if font != null:
-            _draw_name(str(b["name"]), inner, owner_map.TEXT.get(kind, INK))
+            _draw_name(str(b.get("short", b["name"])), inner, owner_map.TEXT.get(kind, INK))
 
-    ## 名字：放得下一行就一行；放不下拆两行（同样大，像素字 18 号以下会缩成 12 像素一格，长辈看不清，不缩字）；还放不下就压在块上面垫一条暗底
+    ## 名字：一行、18 号（像素字 18 号以下会缩成 12 像素一格，长辈看不清）、不垫底。写不下的块在地图数据里用短叫法（short，make_estate_map.py 的 SHORT）
     func _draw_name(name: String, r: Rect2, col: Color) -> void:
-        var rows: Array = [name]
         var fs := 18
-        if font.get_string_size(name, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > r.size.x - 4.0:
-            var plain := name.replace(" ", "")
-            var half := int(ceil(plain.length() / 2.0))
-            rows = [plain.substr(0, half), plain.substr(half)]
-        var lh := font.get_height(fs)        # 像素字 18 号画出来一格 24 像素高，行距照字体量的
-        var asc := font.get_ascent(fs)
-        var y0 := r.get_center().y - lh * rows.size() * 0.5
-        for i in rows.size():
-            var w := font.get_string_size(str(rows[i]), HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-            var p := Vector2(r.get_center().x - w * 0.5, y0 + lh * float(i) + asc).floor()
-            if w > r.size.x - 2.0 or lh * rows.size() > r.size.y:
-                draw_rect(Rect2(p + Vector2(-3.0, -asc), Vector2(w + 6.0, lh)), Color(0.12, 0.07, 0.06, 0.85))
-                draw_string(font, p, str(rows[i]), HORIZONTAL_ALIGNMENT_LEFT, -1, fs, PAPER)
-            else:
-                draw_string(font, p, str(rows[i]), HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
+        var w := font.get_string_size(name, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+        var p := Vector2(r.get_center().x - w * 0.5, r.get_center().y - font.get_height(fs) * 0.5 + font.get_ascent(fs)).floor()
+        draw_string(font, p, name, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
+
+    ## 名字放不放得下（测试用）
+    func name_fits(b: Dictionary) -> bool:
+        var r := rect_of(b).grow(-2.0)
+        return font.get_string_size(str(b.get("short", b["name"])), HORIZONTAL_ALIGNMENT_LEFT, -1, 18).x <= r.size.x - 2.0

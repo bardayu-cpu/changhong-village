@@ -584,7 +584,10 @@ func _keep_tags_on_screen() -> void:
                 l.visible = false   # 55 桌认桌：不是自己那桌、也没走近的桌，牌子不挂（这里每帧重算，得一起管）
             if l.has_meta("near_only") and not bool(l.get_meta("near_on")):
                 l.visible = false   # 主桌家里人的称呼：走近谁亮谁（hall_life._family_near）
-            l.position.x = clampf(home, lo, maxf(lo, hi - l.size.x))
+            if l.has_meta("dir"):
+                l.position.x = home   # 带箭头的出口牌（第 69 版）不往里收：牌子照规矩挂在口正前方，往里收会压到隔壁那块牌（喷泉广场南边一排四块）
+            else:
+                l.position.x = clampf(home, lo, maxf(lo, hi - l.size.x))
 
 func set_look(preset: int, nickname: String) -> void:
     var gl := Spr.gpt_look(preset)

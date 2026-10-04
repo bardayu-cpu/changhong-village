@@ -65,6 +65,11 @@ func run() -> void:
     var lw: Array = em.block("lawn")["rect"]
     var pz: Array = em.block("plaza")["rect"]
     check("方向照游戏：前门在喷泉下面、湖在最上面、草坪在左边", float(fg[1]) > float(pz[3]) and float(lk[1]) < float(pz[1]) and float(lw[2]) <= float(pz[0]) + 1.0)
+    var nofit: Array = []
+    for b in em.data["blocks"]:
+        if not em.view.name_fits(b):
+            nofit.append(str(b.get("short", b["name"])))
+    check("每块名字一行 18 号写得下（写不下的用短叫法：%s；放不下的 %s）" % [em.data["blocks"].filter(func(b): return str(b.get("short", "")) != str(b["name"])).map(func(b): return "%s→%s" % [b["name"], b["short"]]), nofit], nofit.is_empty())
 
     print("2 入口")
     m._enter_court()
@@ -80,14 +85,28 @@ func run() -> void:
     await frames(2)
     check("签到前点名字牌：地图不开", not em.is_open())
     m.court_save.signed_in = true
-    await frames(3)
-    check("签到后：名字牌里出传送门图标（在名字牌那一行里）", em.icon.visible and em.icon.get_parent().get_parent() == em.chip)
+    m.court_save.map_used = false
+    var alphas := {}
+    for i in 90:
+        await process_frame
+        alphas[snappedf(em.icon.modulate.a, 0.1)] = true
+    check("签到后：名字牌里出传送门图标（在名字牌那一行里），没点开过的闪着（亮暗 %d 档）" % alphas.size(), em.icon.visible and em.icon.get_parent().get_parent() == em.chip and alphas.size() >= 4)
     click(em.chip, Vector2(20, 20))
     await frames(2)
     check("点名字牌：地图开了、人不能走、标着你在迎宾院", em.is_open() and not m.court.walking_enabled and em.view.here == "court")
     em.close_map()
     await frames(2)
     check("关上：地图收了、又能走", not em.is_open() and m.court.walking_enabled)
+    var steady := true
+    for i in 60:
+        await process_frame
+        steady = steady and is_equal_approx(em.icon.modulate.a, 1.0)
+    check("点开过一次：记进存档（map_used %s）、图标不再闪" % m.court_save.map_used, m.court_save.map_used and steady)
+    var gate_signs: Array = []
+    for l in m.court.labels.get_children():
+        if l is Label and l.has_meta("target") and (l.get_meta("target") as Vector2) == m.court.spot_pos("gate"):
+            gate_signs.append((l as Label).text)
+    check("迎宾院大门只剩一块牌 %s（「大门 ↓」合进「去停车场 ↓」）" % [gate_signs], gate_signs == ["去停车场 ↓"])
 
     print("3 打不开的时候")
     m.driving = true
@@ -184,6 +203,9 @@ func run() -> void:
             issues.append("站的地方 %s 不能走" % at)
         if em.is_open():
             issues.append("地图没收")
+        var want_note: String = em._t("arrive_fmt") % str(em.block(id)["name"])
+        if m.note.text != want_note:
+            issues.append("到了没说「%s」（说的是「%s」）" % [want_note, m.note.text])
         if m.dialog.visible:
             m.dialog.visible = false
         if not c.walking_enabled:
@@ -191,7 +213,7 @@ func run() -> void:
         print("    %s：站 %s %s" % [id, at, "" if issues.is_empty() else str(issues)])
         if not issues.is_empty():
             bad.append("%s：%s" % [id, issues])
-    check("从迎宾院出发一块一块传了 14 次（%d 处不对 %s），每块都到了、站在门口能走的地上、不弹回去、地图收了、又能走" % [bad.size(), bad], bad.is_empty())
+    check("从迎宾院出发一块一块传了 14 次（%d 处不对 %s），每块都到了、站在门口能走的地上、不弹回去、地图收了、说了「到了 XX」、又能走" % [bad.size(), bad], bad.is_empty())
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_estate_map_games.json")

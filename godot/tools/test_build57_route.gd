@@ -117,7 +117,7 @@ func run() -> void:
     await frames(3)
     var c = m.court
     check("停车场北墙那道门 → 迎宾院大门里边（%s）" % str(c.pos), m.state == "court" and c.pos.distance_to(c.SPAWN) < 1.0)
-    check("第一次走进迎宾院：说「到啦～」、记 court_seen", m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE and m.court_save.court_seen)
+    check("第一次走进迎宾院：说「到啦～」、记 court_seen", m.dialog.visible and m.said_raw == m.LINE_ARRIVE and m.court_save.court_seen)
     walk_to(c.spot_pos("gate") + Vector2(0, -150))   # 进来站在大门圈里：先走开，再回大门
     walk_to(c.spot_pos("gate"))
     await wait_state("parking")
@@ -134,7 +134,7 @@ func run() -> void:
     walk_to(c.spot_pos("gate"))
     await wait_state("parking")
     check("没吃完往外走：不拦，到了停车场（%s）" % str(pk.pos), m.state == "parking" and pk.pos.distance_to(pk.arrival_from("court")) < 1.0)
-    var txt: String = m.dialog_text.text if m.dialog.visible else ""
+    var txt: String = m.said_raw if m.dialog.visible else ""
     check("没吃完弹的话不带开发字样（「%s」）" % txt.replace("\n", "／"), not txt.contains("待") and not txt.contains("预留"))
     check("没吃完回停车场：不指车（car_hint 关）；没签到箭头照样指迎宾院", not pk.car_hint and pk.gate_hint)
     walk_to(pk.spot_pos("to_court"))
@@ -149,7 +149,7 @@ func run() -> void:
     check("吃完出大门回停车场，金箭头指自己的车、不指迎宾院（%s）" % str(pk.pos), m.state == "parking" and pk.car_hint and not pk.gate_hint)
     walk_to(pk.spot_pos("my_car"))
     await frames(3)
-    check("走到车旁：说送别那两句、箭头收", m.dialog_text.text.begins_with(CourtCopy.text("gate_bye")) and not pk.car_hint)
+    check("走到车旁：说送别那两句、箭头收", m.said_raw.begins_with(CourtCopy.text("gate_bye")) and not pk.car_hint)
 
     print("RESULT " + ("PASS" if ok else "FAIL"))
     quit(0 if ok else 1)

@@ -162,7 +162,7 @@ func run() -> void:
         m.dialog.visible = false
         walk_to(ac.spot_pos("wip"))
         await frames(3)
-        var said: String = m.dialog_text.text if m.dialog.visible else ""
+        var said: String = m.said_raw if m.dialog.visible else ""
         check("%s：走到当中说「%s」、人还在那块" % [aid, said], m.state == aid and said == str(lines[aid + "_wip"]["text"]))
         var back: Vector2 = await cross(aid, "to_plaza", "plaza")
         check("%s 北口回广场（站在 %s）" % [aid, str(back)], m.state == "plaza" and back.distance_to(pz.arrival_at("to_" + aid)) < 8.0)

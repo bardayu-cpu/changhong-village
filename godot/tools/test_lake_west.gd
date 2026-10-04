@@ -137,10 +137,10 @@ func run() -> void:
     await process_frame
     for i in 30:
         await process_frame
-        if m.lounge_ui.line_label.text != "":
+        if m.lounge_ui.line_raw != "":
             break
-    check("点船夫走到跟前开对话：「%s」，站在 %s" % [m.lounge_ui.line_label.text, k.pos],
-        m.lounge_ui.talk_box.visible and m.lounge_ui.name_label.text == "船夫" and m.lounge_ui.line_label.text != "" and k.pos.distance_to(bm) < 16.0)
+    check("点船夫走到跟前开对话：「%s」，站在 %s" % [m.lounge_ui.line_raw, k.pos],
+        m.lounge_ui.talk_box.visible and m.lounge_ui.name_label.text == "船夫" and m.lounge_ui.line_raw != "" and k.pos.distance_to(bm) < 16.0)
     for i in 6:
         m.lounge_ui.next_line()
         for j in 10:

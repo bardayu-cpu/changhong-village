@@ -4,7 +4,7 @@ extends SceneTree
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
-var opt := {"out": ""}
+var opt := {"out": "", "ver": "第 69 版"}
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
@@ -41,7 +41,7 @@ func run() -> void:
     bg.set_anchors_preset(Control.PRESET_FULL_RECT)
     layer.add_child(bg)
     var title := Label.new()
-    title.text = "第 68 版路牌总表：往上、往左箭头在字前，往右、往下箭头在字后（游戏里的牌子原样复制，同字体、同底色、同大小）"
+    title.text = str(opt.get("ver", "第 69 版")) + "路牌总表：往上、往左箭头在字前，往右、往下箭头在字后（游戏里的牌子原样复制，同字体、同底色、同大小）"
     title.add_theme_font_override("font", m.font)
     title.add_theme_font_size_override("font_size", 22)
     title.add_theme_color_override("font_color", Color("#2b1d16"))

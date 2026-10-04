@@ -78,7 +78,7 @@ func run() -> void:
     m.nickname = "小李"
     await m._enter_banquet()
     await wait(2.0)
-    check("对白框说的是坐哪桌：%s" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text.contains("那桌"))
+    check("对白框说的是坐哪桌：%s" % m.said_raw, m.dialog.visible and m.said_raw.contains("那桌"))
     check("第一次进厅不弹卡", not is_instance_valid(m.arrival_card))
     check("也不出原来那一行提示", not (m.note_box.visible and m.note.text.contains("敬了你")))
 

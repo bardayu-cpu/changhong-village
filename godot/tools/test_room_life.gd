@@ -73,12 +73,12 @@ func talk_once(lf, id: String, pick: int) -> Dictionary:
     for k in 12:
         if not ui.talk_box.visible:
             break
-        out["lines"].append(ui.line_label.text)
+        out["lines"].append(ui.line_raw)
         if ui.choices.visible:
             out["choices"] = ui.choices.get_children().map(func(x): return (x as Button).text)
             ui.next_line()   # 有选项时点对话框不往下走
             await settle()
-            if ui.line_label.text != out["lines"][-1]:
+            if ui.line_raw != out["lines"][-1]:
                 out["lines"].append("（点对话框走了）")
             (ui.choices.get_child(pick) as Button).pressed.emit()
         else:

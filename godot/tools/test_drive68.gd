@@ -178,9 +178,21 @@ func run() -> void:
                 t += "（往前 %.0f、横偏 %.0f）" % [along, lat]
             if not good:
                 bad.append("%s「%s」（口 %s 朝 %s）" % [k, t, str(target), want])
+    # 同一块里两块牌不叠（第 69 版小修，04：广场南边几块牌挤在一起）——按牌子的原位置量（离开屏幕时游戏会临时往屏幕里收）
+    for k in ["court"] + keys:
+        var c = m.court if k == "court" else m._canvas_by(k)
+        var rs: Array = []
+        for l in c.labels.get_children():
+            if l is Label and l.has_meta("dir"):
+                var px: float = float(l.get_meta("home")) if l.has_meta("home") else (l as Label).position.x
+                rs.append([(l as Label).text, Rect2(Vector2(px, (l as Label).position.y), (l as Label).size)])
+        for i in rs.size():
+            for j in range(i + 1, rs.size()):
+                if (rs[i][1] as Rect2).intersects(rs[j][1]):
+                    bad.append("%s「%s」跟「%s」叠了" % [k, rs[i][0], rs[j][0]])
     for b in bad:
         print("    ", b)
-    check("十四块 %d 块「去…」「回…」牌都加了箭头、方向跟口一致、位置对（前/后）、都在画布里、照箭头直走能到口（横偏 ≤ 60）（不对 %d 块）" % [n, bad.size()], n >= 50 and bad.is_empty())
+    check("十四块 %d 块「去…」「回…」牌都加了箭头、方向跟口一致、位置对（前/后）、都在画布里、照箭头直走能到口（横偏 ≤ 60）、同一块里不互相叠（不对 %d 块）" % [n, bad.size()], n >= 50 and bad.is_empty())
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_drive68_games.json")
