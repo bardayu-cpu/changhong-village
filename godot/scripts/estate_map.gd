@@ -356,9 +356,12 @@ class MapView extends Control:
                 continue
             var r := rect_of(b)
             var sz: Array = b["size"]
-            # 金点放在那块的上沿（左右照你在那块里站哪），不盖住块中间的名字（04）
+            # 金点放在那块的上沿（左右照你在那块里站哪），不盖住块中间的名字（04）；
+            # 块在地图最上面、上头没地方挂「你」的（后门）：金点挂在块的右边沿，「你」挂在块右边（03 收尾复核：原来盖住「后门」上半截）
             var fx := clampf(here_at.x / maxf(1.0, float(sz[0])), 0.1, 0.9)
-            var p := Vector2(r.position.x + r.size.x * fx, r.position.y).floor()
+            var th0 := font.get_height(18) if font != null else 24.0
+            var no_room_above: bool = r.position.y < th0 + 10.0
+            var p := Vector2(r.end.x, r.get_center().y).floor() if no_room_above else Vector2(r.position.x + r.size.x * fx, r.position.y).floor()
             var pulse := 5.0 + absf(sin(t * 4.0)) * 3.0
             draw_circle(p, pulse + 2.0, Color("#3e2a24"), true, -1.0, false)
             draw_circle(p, pulse, Color("#ffd75e"), true, -1.0, false)
@@ -368,7 +371,11 @@ class MapView extends Control:
                 var w := font.get_string_size(me, HORIZONTAL_ALIGNMENT_LEFT, -1, 18).x
                 var th := font.get_height(18)
                 var tp := Vector2(clampf(p.x - w * 0.5 - 4.0, 0.0, size.x - w - 8.0), maxf(0.0, r.position.y - th - 6.0)).floor()
-                draw_line(Vector2(p.x, tp.y + th), p, Color("#3e2a24"), 2.0)
+                if no_room_above:
+                    tp = Vector2(p.x + pulse + 6.0, p.y - th * 0.5).floor()
+                    draw_line(Vector2(tp.x, p.y), p, Color("#3e2a24"), 2.0)
+                else:
+                    draw_line(Vector2(p.x, tp.y + th), p, Color("#3e2a24"), 2.0)
                 draw_rect(Rect2(tp, Vector2(w + 8.0, th)), Color("#3e2a24"))
                 draw_string(font, tp + Vector2(4.0, font.get_ascent(18)), me, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("#ffd75e"))
 

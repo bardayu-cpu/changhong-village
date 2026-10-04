@@ -4,8 +4,8 @@
  "lines": {"title": "罗曼山庄", "go_fmt": "去%s？", "yes": "去", "no": "不去", "here": "你就在这里", "close": "关上", "me": "你", "arrive_fmt": "到了%s"},
  "bounds": [0, 0, 512, 446],
  "blocks": [
-  {"id": "backgate", "name": "后门", "short": "后门", "rect": [64, 0, 144, 36], "size": [1152, 1024], "door": "to_orchard", "kind": "gate"},
-  {"id": "orchard", "name": "果园", "short": "果园", "rect": [0, 46, 250, 118], "size": [1536, 1280], "door": "to_lawn", "kind": "grass"},
+  {"id": "backgate", "name": "后门", "short": "后门", "rect": [64, 0, 144, 42], "size": [1152, 1024], "door": "to_orchard", "kind": "gate"},
+  {"id": "orchard", "name": "果园", "short": "果园", "rect": [0, 50, 250, 118], "size": [1536, 1280], "door": "to_lawn", "kind": "grass"},
   {"id": "lake", "name": "湖边", "short": "湖边", "rect": [268, 34, 512, 100], "size": [3072, 1280], "door": "to_garden", "kind": "water"},
   {"id": "lawn", "name": "草坪", "short": "草坪", "rect": [0, 140, 84, 336], "size": [1536, 1024], "door": "to_plaza", "kind": "grass"},
   {"id": "backhall", "name": "后厅", "short": "后厅", "rect": [98, 140, 332, 196], "size": [1536, 1024], "door": "to_plaza", "kind": "hall"},
@@ -21,10 +21,10 @@
   {"id": "frontgate", "name": "前门", "short": "前门", "rect": [238, 350, 298, 410], "size": [1536, 1024], "door": "to_plaza", "kind": "gate"}
  ],
  "roads": [
-  ["backgate", "orchard", 104.0, 34.7, 87.2, 72.4],
-  ["orchard", "lawn", 181.6, 109.9, 42.0, 168.3],
-  ["orchard", "lawn", 62.8, 109.9, 7.7, 172.9],
-  ["orchard", "lake", 130.2, 72.4, 329.0, 89.0],
+  ["backgate", "orchard", 104.0, 40.5, 87.2, 75.0],
+  ["orchard", "lawn", 181.6, 110.3, 42.0, 168.3],
+  ["orchard", "lawn", 62.8, 110.3, 7.7, 172.9],
+  ["orchard", "lake", 130.2, 75.0, 329.0, 89.0],
   ["lake", "garden", 451.0, 89.0, 479.2, 143.9],
   ["lawn", "plaza", 83.6, 245.3, 203.2, 259.2],
   ["lawn", "wkitchen", 83.6, 212.7, 100.8, 241.7],
