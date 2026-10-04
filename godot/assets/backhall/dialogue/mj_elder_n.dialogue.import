@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://cj60mb128fich"
+path="res://.godot/imported/mj_elder_n.dialogue-5c17f1a6cba947f176ebc1fe5421f57b.tres"
+
+[deps]
+
+source_file="res://assets/backhall/dialogue/mj_elder_n.dialogue"
+dest_files=["res://.godot/imported/mj_elder_n.dialogue-5c17f1a6cba947f176ebc1fe5421f57b.tres"]
+
+[params]
+
+defaults=true

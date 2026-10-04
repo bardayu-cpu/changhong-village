@@ -1,6 +1,6 @@
 extends Node2D
 ## 场景动效的总节点（05 10/4，01 G 派；清单 godot/回执/动效清单-1004.md）：每块画布搭完调一次 attach，照 data/ambient.json 里这块场景
-## 写的几样挂上去（现在只有宴会厅宫灯呼吸）。效果全用代码画，不加图。
+## 写的几样挂上去（宴会厅宫灯呼吸；湖边波光、小船起伏）。效果全用代码画，不加图。
 ## 位置照场景数据里的零件找（比如宫灯照 art_lantern.png 那几块积木），不写死坐标：场景重排、零件挪了也跟着走。
 ## 不在的画布 process_mode 是停的（main.gd），挂在下面的效果跟着停。
 ##
@@ -10,6 +10,8 @@ extends Node2D
 ##   调试版日志面板「动效」按钮、启动参数 --ambient=off / on 能强制开关；--ambient=none 一样都不挂（跟没加动效以前比、量性能用）。
 
 const LampGlow = preload("res://scripts/ambient/lamp_glow.gd")
+const WaterGlint = preload("res://scripts/ambient/water_glint.gd")
+const BoatBob = preload("res://scripts/ambient/boat_bob.gd")
 const CONFIG := "res://data/ambient.json"
 
 const LOW_FPS := 50.0
@@ -25,6 +27,7 @@ static var _off_n := 0
 static var _ok_n := 0
 
 var _acc := 0.0
+var effects: Array = []        # 挂上的每一样（有的不挂在这个节点下面，比如波光贴在背景旁边），测试、量性能用
 
 ## 画布搭完调：scene 是场景数据里的 scene 名，items 是这块画布的零件（每件有 image、x、y、foot）
 static func attach(canvas: Node2D, scene: String, items: Array) -> Node2D:
@@ -51,7 +54,36 @@ static func attach(canvas: Node2D, scene: String, items: Array) -> Node2D:
         var lg := LampGlow.new()
         lg.setup(pts, g)
         root.add_child(lg)
-    print("[suqi] 动效：%s 挂了 %d 样" % [scene, root.get_child_count()])
+        root.effects.append(lg)
+    # 湖面波光：贴在那张像素画背景的后面一个（同一层、背景上面，人和零件下面）
+    for g in conf.get("water_glint", []):
+        var bg := canvas.find_child(str(g["background"]), true, false) as Sprite2D
+        if bg == null:
+            push_warning("[suqi] 动效：%s 里找不到背景 %s，波光没挂" % [scene, g["background"]])
+            continue
+        var wg := WaterGlint.new()
+        var parts := str(g["background"]).split("_")
+        wg.name = "water_glint_" + parts[parts.size() - 1]   # px_background_lake_west → water_glint_west
+        wg.setup(bg, g)
+        bg.get_parent().add_child(wg)
+        bg.get_parent().move_child(wg, bg.get_index() + 1)
+        root.effects.append(wg)
+    # 小船起伏：照名字找船的图
+    for g in conf.get("bob", []):
+        var ss: Array = []
+        for id in g["ids"]:
+            var sp := canvas.find_child(str(id), true, false) as Sprite2D
+            if sp != null:
+                ss.append(sp)
+        if ss.size() != g["ids"].size():
+            push_warning("[suqi] 动效：%s 里船只找到 %d / %d 条" % [scene, ss.size(), g["ids"].size()])
+        if ss.is_empty():
+            continue
+        var bb := BoatBob.new()
+        bb.setup(ss, g)
+        root.add_child(bb)
+        root.effects.append(bb)
+    print("[suqi] 动效：%s 挂了 %d 样" % [scene, root.effects.size()])
     return root
 
 ## 零件里图名对得上的那几件，各取图上 at 那一点（零件左上角 + at）

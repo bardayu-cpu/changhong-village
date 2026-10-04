@@ -1,0 +1,73 @@
+{
+ "note": "化妆间的人（07 10/4 照休息间那套铺开，lounge_life.gd 一间一份）：改文案只改这份。格式跟 lounge.json 一样：people 里每位 code 是对话框、身份卡用哪张人物图（现在是替身那张宾客图）；title 是名字牌上的称呼；relation 空着（待讨论）；dialogue 是点他说话走哪份 .dialogue（选项在里面）。chat 是头顶冒泡，一组几个人轮流说。没写在 people 里的只冒泡、点了不理。status 待校对：都是 07 拟的草稿，阿鱼在文案组校过再换",
+ "status": "待校对",
+ "people": {
+  "bride": {
+   "code": "",
+   "title": "新娘",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mk_bride.dialogue",
+   "code_note": "空着：新娘不放头像、身份卡不放图（HANDOFF §0.5 新人只用阿鱼审过的图；01 H 10/4）。阿鱼点过头的新娘图到了再填"
+  },
+  "makeup_1": {
+   "code": "LM-GUEST-03",
+   "title": "化妆师",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mk_makeup_1.dialogue"
+  },
+  "makeup_2": {
+   "code": "LM-GUEST-06",
+   "title": "化妆助理",
+   "relation": "",
+   "dialogue": "res://assets/backhall/dialogue/mk_makeup_2.dialogue"
+  }
+ },
+ "chat": [
+  {
+   "group": "vanity",
+   "lines": [
+    [
+     "makeup_1",
+     "头抬高一点"
+    ],
+    [
+     "bride",
+     "这样吗"
+    ],
+    [
+     "makeup_1",
+     "对，莫动哦"
+    ],
+    [
+     "bride",
+     "有点紧张"
+    ],
+    [
+     "makeup_1",
+     "今天最漂亮"
+    ],
+    [
+     "bride",
+     "嘿嘿"
+    ]
+   ]
+  },
+  {
+   "group": "helper",
+   "lines": [
+    [
+     "makeup_2",
+     "头纱在哪"
+    ],
+    [
+     "makeup_2",
+     "找到了"
+    ],
+    [
+     "makeup_2",
+     "耳环拿来了"
+    ]
+   ]
+  }
+ ]
+}

@@ -98,6 +98,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
         door = points[mark_id]["pos"]
         door_r = points[mark_id]["r"]
     _exit_mark()
+    Ambient.attach(self, str(cfg.get("scene", "")), cfg.get("items", []))   # 场景动效（湖面波光、小船起伏…照 data/ambient.json；Ambient 是 layered_hall 里引的），05 10/4
     cam = Camera2D.new()
     cam.limit_left = 0
     cam.limit_top = 0

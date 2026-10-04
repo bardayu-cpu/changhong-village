@@ -109,8 +109,8 @@ func run() -> void:
         # 树
         var trees: Array = (c.cfg["items"] as Array).filter(func(x): return str(x.get("type", "")) == "tree")
         # pine_e：湖边东头 01 画的造型松 246 高（2.93 个人），差 6 像素；10/4 接进来时报 01 定改不改，先不算新问题（02 E）
-        # pine_w、pine_w2：10/4 西半边接图，01 画的盆景松，跟东头那棵一样 246 高，同样不算
-        var short: Array = trees.filter(func(x): return tree_h(c, x) < 3.0 * 84.0 - 1.0 and not str(x["id"]).begins_with("pine_"))
+        # pine_w、pine_w2：10/4 西半边接图，01 画的盆景松，跟东头那棵一样 246 高，同样不算（03 建议点名这三棵，别按 pine_ 开头全放过）
+        var short: Array = trees.filter(func(x): return tree_h(c, x) < 3.0 * 84.0 - 1.0 and not (str(x["id"]) in ["pine_e", "pine_w", "pine_w2"]))
         if not trees.is_empty():
             check("%s：%d 棵树都 ≥3 个人高（矮的 %s）" % [cn, trees.size(), short.map(func(x): return x["id"])], short.is_empty())
         # 走得到、不被树冠挡

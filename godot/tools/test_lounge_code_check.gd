@@ -166,12 +166,34 @@ func run() -> void:
             issues.append("放的格 %d 不是坐姿格 sit_%s" % [spr.frame, p["face"]])
         if spr.position != (p["foot"] as Vector2) or p["foot"] != p["home"]:
             issues.append("脚点 %s 家 %s 图 %s" % [str(p["foot"]), str(p["home"]), str(spr.position)])
-        var bub: Node2D = null
+        # 气泡挂头顶。10/4 07 加了「跟别的气泡叠上就往上让（lift）」，所以分两步核（01 H 照 03 的建议定）：
+        #   ① 三间屋都没别的气泡时，lift 必须是 0、正好挂在头顶上 4 像素；
+        #   ② 旁边那位先冒着一句，再冒这位：x 照旧对着头，往上让的不超过 3 个气泡高
+        for lf in b.lives:
+            lf.frozen = true
+            for oid in lf.bubbles.keys():
+                lf._hide_bubble(oid)
         life.show_bubble(id, "好")
-        bub = life.bubbles.get(id)
-        if bub == null or not bub.position.is_equal_approx((p["head"] as Vector2) + Vector2(0, -4)):
-            issues.append("气泡没挂在头顶")
+        var bub: Node2D = life.bubbles.get(id)
+        var head_at: Vector2 = (p["head"] as Vector2) + Vector2(0, -4)
+        if bub == null or float(bub.get_meta("lift", -1.0)) != 0.0 or not bub.position.is_equal_approx(head_at):
+            issues.append("没别的气泡时没挂在头顶（%s，应在 %s）" % [str(bub.position) if bub != null else "没冒", str(head_at)])
         life._hide_bubble(id)
+        var mate: String = {"lounge_09": "lounge_10", "lounge_10": "lounge_09", "lounge_05": "lounge_06", "lounge_06": "lounge_05"}[id]
+        life.show_bubble(mate, "一会儿多吃两碗")
+        life.show_bubble(id, "一会儿多吃两碗")
+        bub = life.bubbles.get(id)
+        if bub == null:
+            issues.append("旁边有气泡时没冒")
+        else:
+            var bh: float = life.bubble_rect(bub).size.y
+            var up: float = head_at.y - bub.position.y
+            if not is_equal_approx(bub.position.x, head_at.x) or up < 0.0 or up > 3.0 * bh:
+                issues.append("旁边有气泡时挂歪了（往上让了 %.0f，气泡高 %.0f；x %.0f 头 %.0f）" % [up, bh, bub.position.x, head_at.x])
+        life._hide_bubble(id)
+        life._hide_bubble(mate)
+        for lf in b.lives:
+            lf.frozen = false
         # 呼吸：两格轮着放
         var seen := {}
         for i in 240:

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://deb0mb4yatffo"
+path="res://.godot/imported/mk_makeup_1.dialogue-27130da9d9010acbba27e2d7e84cd5bb.tres"
+
+[deps]
+
+source_file="res://assets/backhall/dialogue/mk_makeup_1.dialogue"
+dest_files=["res://.godot/imported/mk_makeup_1.dialogue-27130da9d9010acbba27e2d7e84cd5bb.tres"]
+
+[params]
+
+defaults=true
