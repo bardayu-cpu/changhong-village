@@ -1,6 +1,6 @@
 extends SceneTree
 ## 第 68 版全游戏「去…」「回…」路牌加箭头（07 做，阿鱼：往上、往左放字前，往右、往下放字后），03 自己重测（01 H 10/4 派，不改游戏代码；不用 07 的 sign_target / edge_of）：
-##   1 数：十四块里带箭头的路牌共 52 块；所有「去…」「回…」牌、楼门、大门牌都带箭头；迎宾院里不是出口的牌（回忆册、休息区…）、房间门牌（宴会厅的后厅、后花园、后厅四间屋）不带
+##   1 数：十四块里带箭头的路牌共 51 块（第 69 版收尾 07 改：迎宾院「大门」那块照 04、01 合进「去停车场 ↓」，52 → 51）；所有「去…」「回…」牌、楼门、大门牌都带箭头；迎宾院里不是出口的牌（回忆册、休息区…）、房间门牌（宴会厅的后厅、后花园、后厅四间屋）不带
 ##   2 写法：往上、往左的箭头在字前（「↑ 去果园」「← 去草坪」）、往右、往下的在字后（「去停车场 →」「去前门 ↓」）；箭头只有 ↑ ← → ↓ 四种
 ##   3 方向对：我自己认每块牌通哪个口（从牌上的字认通哪块，同名有几个口取离牌子最近的；「楼门」认宴会厅、「大门」认迎宾院大门），
 ##     口在这块走路范围的哪一侧（离走路范围中心最远的那个方向，跟 03 的连法测试同一个量法），箭头必须跟它一样；不一样的列出来，
@@ -157,7 +157,7 @@ func run() -> void:
                 no_arrow_exit.append("%s「%s」" % [k, t])
     for x in bad_pos + bad_arrow_label + no_arrow_exit:
         print("    ", x)
-    check("十四块带箭头的路牌共 %d 块（07 说 52）；「去…」「回…」「楼门」「大门」牌都带箭头（没带的 %d 块）" % [total_arrow, no_arrow_exit.size()], total_arrow == 52 and no_arrow_exit.is_empty())
+    check("十四块带箭头的路牌共 %d 块（迎宾院「大门」合进「去停车场」后是 51）；「去…」「回…」「楼门」「大门」牌都带箭头（没带的 %d 块）" % [total_arrow, no_arrow_exit.size()], total_arrow == 51 and no_arrow_exit.is_empty())
     check("往上、往左的箭头在字前，往右、往下的在字后，每块牌一个箭头（%d 处不对）" % (bad_pos.size() + bad_arrow_label.size()), bad_pos.is_empty() and bad_arrow_label.is_empty())
     var h = m.hall
     var hall_arrow := 0
@@ -178,6 +178,7 @@ func run() -> void:
     var last_bad: Array = []
     var no_target: Array = []
     var outside: Array = []
+    var path_ok: Array = []
     for r in rows:
         var k: String = r[0]
         var c = canvas_of(k)
@@ -189,7 +190,17 @@ func run() -> void:
         var wr := walk_rect(c)
         var d: Vector2 = DIRV[r[2]]
         if mine != r[2]:
-            diff.append("%s「%s」：箭头 %s，我量口 %s 在走路范围的 %s 侧" % [k, r[1], r[2], str(tgt), mine])
+            # 第 69 版收尾（07 改，阿鱼：箭头是「往哪个方向走」）：口正前方直走不过去的（果园南边两个口，上面一排树、小摊、草莓垄），牌挂在口边横着的小路上、
+            # 箭头指沿小路走的方向。只认真能走到的：从牌子那儿顺着箭头直走（03 自己的 straight）进得了口，才算对，列出来
+            var rad3 := 40.0
+            for pid in c.points:
+                if c.points[pid]["pos"] == tgt:
+                    rad3 = float(c.points[pid]["r"])
+            var st3: Vector2 = r[3] if c._free(r[3]) else c.nearest_free(r[3])
+            if st3 != Vector2.ZERO and straight(c, st3, d, tgt, rad3)["hit"]:
+                path_ok.append("%s「%s」：口在 %s 侧，牌挂在口边小路上、箭头 %s 顺小路直走进得了口" % [k, r[1], mine, r[2]])
+            else:
+                diff.append("%s「%s」：箭头 %s，我量口 %s 在走路范围的 %s 侧" % [k, r[1], r[2], str(tgt), mine])
         if (tgt - wr.get_center()).dot(d) <= 0.0:
             half_bad.append("%s「%s」：从走路范围中心往 %s 走，口 %s 反而更远" % [k, r[1], r[2], str(tgt)])
         if (tgt - (r[3] as Vector2)).dot(d) <= 0.0:
@@ -208,7 +219,12 @@ func run() -> void:
         print("    ", x)
     print("    注：牌子画在口外边的有 %d 块 %s" % [outside.size(), str(outside.map(func(x): return str(x).split("（")[0]))])
     check("每块牌都认得出通哪个口（认不出 %d 块）" % no_target.size(), no_target.is_empty())
-    check("箭头跟我量的口所在侧一样（不一样 %d 块）" % diff.size(), diff.is_empty())
+    for x in path_ok:
+        print("    注：", x)
+    check("箭头跟我量的口所在侧一样（不一样 %d 块；沿小路直走进得了口的 %d 块另算）" % [diff.size(), path_ok.size()], diff.is_empty())
+    # 例外只给果园南边那 2 块（口正前方是树、小摊、草莓垄，牌挂在口边小路上）；再多一块就让人来看，别悄悄放过（03 10/4 补）
+    var path_ok_bad: Array = path_ok.filter(func(x): return not (str(x).begins_with("orchard「") and str(x).contains("去草坪")))
+    check("「口所在侧不一样」的例外只有果园南边那 2 块（共 %d 块、不是果园的 %d 块 %s）" % [path_ok.size(), path_ok_bad.size(), str(path_ok_bad)], path_ok.size() <= 2 and path_ok_bad.is_empty())
     print("    注：走进口的最后一段（找路拐点连线）朝的方向跟箭头不一样的 %d 块（路是沿着墙边横着走到口的，不算）" % last_bad.size())
     check("从走路范围中心往箭头那边走口更近（%d 块反了）" % half_bad.size(), half_bad.is_empty())
 
@@ -313,6 +329,8 @@ func run() -> void:
 ## 从 start 顺着 d 一步 6 像素直走：走进口的触发圈（半径 rad）或走到口那条线上侧偏 ≤ rad+30 算到，碰到不能站的算撞
 func straight(c, start: Vector2, d: Vector2, tgt: Vector2, rad: float) -> Dictionary:
     var p: Vector2 = start
+    if (tgt - p).dot(d) < -6.0:
+        return {"hit": false, "blocked_at": Vector2.ZERO}   # 口在箭头背后：往箭头那边走只会越走越远（03 10/4 补：原来这种情况第一步就算「到了」）
     for step in 900:
         var rel: Vector2 = tgt - p
         var along: float = rel.dot(d)
