@@ -163,7 +163,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
                 lb = str(p.get("label", ""))
         if lb != "":
             var ep: Vector2 = e["pos"]
-            room_sign(lb, ep + Vector2(44.0 * _in_sign(ep), -34), ep.y)
+            room_sign(lb, ep + Vector2(44.0 * _in_sign(ep), SIDE_DOOR_SIGN.y), ep.y)   # 跟侧门那块一样抬到人头以上
     life = Life.new()
     life.name = "life"
     add_child(life)
@@ -462,7 +462,8 @@ const ROOM_SIGN_FONT := 22
 const ROOM_SIGN_BG := Color("#a8281f")
 const ROOM_SIGN_TEXT := Color("#f7e09a")
 const ROOM_SIGN_EDGE := Color("#deb550")
-const SIDE_DOOR_SIGN := Vector2(-44, -34)   # 宴会厅侧门：匾的下沿正中在门那个点往厅里 44、往上 34（贴着墙；再往外手机上会被屏幕边切掉）。x 是东墙的写法，西墙的门照 side_off 翻过来
+const SIDE_DOOR_SIGN := Vector2(-44, -96)   # 宴会厅侧门：匾的下沿正中在门那个点往厅里 44、往上 96（贴着墙；再往外手机上会被屏幕边切掉）。x 是东墙的写法，西墙的门照 side_off 翻过来。
+                                            # 10/4 03 测第 65 版：原来往上 34，盖住刚进门站在落点上的人上半身；抬到人头（84）以上
 var room_signs: Array = []                   # 挂上的名字牌（测试、截图看）
 
 ## 10/4 方案 C（01 G 定）：通后厅的门挪到西墙，画里那儿没有门板——照东侧门（底图 x 1496～1536、y 1260～1318）的样子用代码画一扇，

@@ -290,9 +290,20 @@ func run() -> void:
             for s in spots:
                 if r.intersects(Rect2((s as Vector2).x - 16.0, (s as Vector2).y - 84.0, 32.0, 84.0)):
                     hits.append("%s「%s」盖 %s" % [k, (l as Label).text, s])
+    # 宴会厅两道侧门的门牌（layered_hall.room_sign，不在 labels 那层；03 测第 65 版报的）：不盖站在两道门落点上的人
+    var hl = m.hall
+    var hall_spots: Array = [hl.side_arrive]
+    for e in hl.exits:
+        hall_spots.append(e["arrive"])
+    for sg in hl.room_signs:
+        var lb: Label = (sg as Node2D).get_child(0)
+        var rr := Rect2((sg as Node2D).position + lb.position, lb.size)
+        for s in hall_spots:
+            if rr.intersects(Rect2((s as Vector2).x - 16.0, (s as Vector2).y - 84.0, 32.0, 84.0)):
+                hits.append("宴会厅门牌「%s」盖 %s" % [lb.text, s])
     for h in hits.slice(0, 8):
         print("    ", h)
-    check("各块「去…」牌都不盖站在口上、落点上、出生点上的人（盖了 %d 处）" % hits.size(), hits.is_empty())
+    check("各块「去…」牌、宴会厅两块门牌都不盖站在口上、落点上、出生点上的人（盖了 %d 处）" % hits.size(), hits.is_empty())
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_liantu_games.json")

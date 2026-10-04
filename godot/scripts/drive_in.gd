@@ -27,7 +27,8 @@ const PLAZA_IN := [Vector2(1500, 720), Vector2(1206, 720)]
 const LOOP_C := Vector2(768, 540)
 const LOOP_R := Vector2(330, 220)
 const PLAZA_OUT := [Vector2(1206, 720), Vector2(1500, 720)]
-const PARK_ROUTE := [Vector2(24, 900), Vector2(174, 900), Vector2(174, 800), Vector2(504, 800), Vector2(504, 1020)]   # 西口进来 → B、C 两排中间的车道 → 倒进 C 排靠路那个位（自己的车位，车头朝北）
+const PARK_ROUTE := [Vector2(24, 900), Vector2(174, 900), Vector2(174, 846), Vector2(504, 846), Vector2(504, 1020)]   # 西口进来 → B、C 两排中间的车道 → 倒进 C 排靠路那个位（自己的车位，车头朝北）
+                                       # 10/4 03 测第 65 版：车道走 y 800 时车顶压在北边那排白车上约半秒，挪到车道靠南（846）
 
 func setup(main_ref) -> void:
     m = main_ref

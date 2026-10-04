@@ -27,7 +27,11 @@ func setup(main_ref) -> void:
 ## 走进、走出交互点（main 的 _on_lake_spot 转过来）
 func spot(id: String, inside: bool) -> void:
     match id:
-        "bench":
+        "bench", "bench_w":   # 10/4 西半边接图：两张长凳都能坐，走进哪张就坐哪张
+            if inside:
+                m.lake.bench_id = id
+            elif m.lake.bench_id != id:
+                return
             near_bench = inside
             act_btn.visible = inside
             _refresh()

@@ -1765,7 +1765,7 @@ func _switch_canvas(to: String) -> void:
     elif to == "lake":
         _show_canvas("lake")
         # 从停车场过来走西头月亮门（10/3 长湖岸），从迎宾院过来走东头月亮门
-        lake.reset_to(gen if gen != Vector2.ZERO else (lake.FROM_PARKING if from == "parking" and lake.FROM_PARKING != Vector2.ZERO else LAKE_FROM_COURT))
+        lake.reset_to(gen if gen != Vector2.ZERO else (lake.FROM_ORCHARD if from == "orchard" and lake.FROM_ORCHARD != Vector2.ZERO else LAKE_FROM_COURT))
         _goto("lake")
     elif to == "orchard":
         _show_canvas("orchard")
@@ -2004,11 +2004,7 @@ func _on_lake_spot(id: String, inside: bool) -> void:
         return
     if _exit_spot(lake, id, inside):
         return
-    lake_ui.spot(id, inside)
-    if id == "to_entrance" and inside:
-        _switch_canvas("court")
-    elif id == "to_parking" and inside:
-        _switch_canvas("parking")   # 西头月亮门出去，几步进停车场（10/3 长湖岸）
+    lake_ui.spot(id, inside)   # 出口都照布局的 to 走（_exit_spot）；10/4 西半边接图起西头月亮门 to_orchard 通果园 A
 
 ## 喜多把球放回脚边（蓝图 3.4 用户故事：踢一脚 → 球滚出去 → 喜多叼回来放脚边 → 旁边小孩喊「再踢一个」）。
 ## 01 9/20 定：踢完球那一次才喊，每回到草坪喊一次；不按人站在哪判断（草坪就这么大，在哪踢都听得见）
@@ -3982,7 +3978,7 @@ func _setup_shot(shot: String) -> void:
             for i in 30: await get_tree().process_frame
         "edge_plaza", "edge_lake", "lake_south", "lake_dock", "lake_west_exit":
             # 走到头提示（10/4 连图）：edge_plaza 是喷泉广场往北顶到绿篱；edge_lake 是湖边南墙外往南顶到画布底。
-            # lake_south 是湖边东头南墙外（原来不能走）；lake_dock 是站在游船码头上、船夫 1 跟前；lake_west_exit 是西头尽头去果园那个口（10/4 方案 C；第 64 版在东头 lake_east_exit）
+            # lake_south 是湖边东头南墙外（原来不能走）；lake_dock 是站在游船码头上、船夫 1 跟前；lake_west_exit 是西头南墙月亮门前、去果园 A（10/4 西半边接图；第 64 版在东头尽头 lake_east_exit）
             nickname = "阿花"
             await _enter_court()
             dialog.visible = false
@@ -3991,9 +3987,9 @@ func _setup_shot(shot: String) -> void:
             _show_canvas(cn)
             _goto(cn)
             var at: Vector2 = {"edge_plaza": Vector2(600, 240), "edge_lake": Vector2(2200, 1260), "lake_south": Vector2(2304, 1150),
-                "lake_dock": Vector2(910, 700), "lake_west_exit": Vector2(112, 821)}[shot]
+                "lake_dock": Vector2(908, 690), "lake_west_exit": Vector2(768, 990)}[shot]
             cv.reset_to(at)
-            cv.face = "left" if shot == "lake_west_exit" else ("up" if shot != "edge_lake" else "down")
+            cv.face = "down" if shot in ["lake_west_exit", "edge_lake"] else "up"
             for i in 10: await get_tree().process_frame
             if shot.begins_with("edge_"):
                 cv.stick = Vector2(0, -1) if shot == "edge_plaza" else Vector2(0, 1)

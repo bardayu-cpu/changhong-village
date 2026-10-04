@@ -74,7 +74,7 @@
   {"type": "label", "text": "厨房", "x": 264, "y": 150},
   {"type": "label", "text": "走廊", "x": 620, "y": 866},
   {"type": "label", "text": "回宴会厅", "x": 1464, "y": 706},
-  {"type": "label", "text": "后门", "x": 62, "y": 706},
+  {"type": "label", "text": "去草坪", "x": 66, "y": 706},
   {"type": "label", "text": "外套", "x": 1154, "y": 240},
   {"type": "label", "text": "麻将桌", "x": 798, "y": 470},
   {"type": "label", "text": "大锅", "x": 264, "y": 314}
