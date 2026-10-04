@@ -195,6 +195,9 @@ def build(tier):
 
 
 def main():
+    if "--legacy" not in sys.argv and "--counts" not in sys.argv:
+        raise SystemExit("10/5 起化妆间布局由 tools/import_makeup_blocks.py 照 GPT 交付的积木出（阿鱼「让他去拆成零件给你坐标，你拼回去」），"
+                         "这份灰盒停用；真要出三档灰盒看，加 --legacy（会盖掉现在的化妆间布局）")
     tier = "多"   # 阿鱼 10/4 挑定
     for a in sys.argv[1:]:
         if a.startswith("--tier="):
