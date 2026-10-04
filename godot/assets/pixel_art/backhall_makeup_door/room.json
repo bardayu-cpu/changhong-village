@@ -1,5 +1,5 @@
 {
- "note": "tools/pixel_art/backhall_makeup_door.py 生成，别手改。后厅长条里原来那间化妆室封起来：背景是墙后面那块（涂深色），door_wall 是那面墙连门、灯笼；hide 藏掉原来那间的家具灰盒和 wall_3、front_5（只藏画，挡人的占地照旧）",
+ "note": "tools/pixel_art/backhall_makeup_door.py 生成，别手改。后厅长条里原来那间化妆室封起来：背景是墙后面那块（画成这间的屋顶），door_wall 是那面墙连门、灯笼；hide 藏掉原来那间的家具灰盒和 wall_3、front_5（只藏画，挡人的占地照旧）",
  "background": {
   "png": "res://assets/pixel_art/backhall_makeup_door/room.png",
   "x": 1195,

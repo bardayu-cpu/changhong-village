@@ -658,6 +658,9 @@ func _process(dt: float) -> void:
     if state == "backhall" and lounge_ui != null and backhall.get("lounge") != null:
         lounge_ui.attach(backhall.lounge)
         lounge_ui.sync()   # 走到空座位、NPC 跟前出按钮；人自己站起来按钮跟着变
+    elif state == "makeup" and lounge_ui != null and areas.has("makeup") and not areas["makeup"].lives.is_empty():
+        lounge_ui.attach(areas["makeup"].lives[0])   # 单独那间化妆间的人（10/4 02 F 从后厅搬过来）：聊聊按钮、对话框
+        lounge_ui.sync()
     if state == "lake" and lake_ui != null:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
@@ -1098,11 +1101,10 @@ func _build_hud() -> void:
     hud.add_child(note_box)
     # 进屋的屋名（10/4 化妆间单独成一间屋）：单独一个小框，挂在最上面「罗曼山庄 · 金币」那排下方正中——那一带在屋里是北墙墙面和镜子，
     # 不压屋里的人（借走到头提示那个框的话，它排在人那一带，会盖住北墙化妆台前坐的新娘、化妆师）
+    # 10/4 02 F 改：挪进顶上那一排，挨在「金币」右边（_show_room_title 时照金币那块摆）。化妆间铺了像素成品以后镜头取 1 倍，
+    # 进门那一眼顶上露的是北墙往下一截，原来那个位置（那排下方正中）正好压着凳子上坐着那排人的头；右上角留给微信胶囊，不放
     room_title_box = PanelContainer.new()
     room_title_box.name = "room_title"
-    room_title_box.set_anchors_preset(Control.PRESET_CENTER_TOP)
-    room_title_box.grow_horizontal = Control.GROW_DIRECTION_BOTH
-    room_title_box.offset_top = 64
     room_title_box.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.9), GOLD1, 2, 6, 10))
     room_title_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
     room_title = _label("", 26, GOLD1, HORIZONTAL_ALIGNMENT_CENTER, false)
@@ -1573,9 +1575,9 @@ func _goto(s: String) -> void:
         court_ui.hide_all()
     if backhall != null:
         backhall.walking_enabled = (s == "backhall")
-    if backhall_ui != null and s != "backhall":
+    if backhall_ui != null and s != "backhall" and s != "makeup":   # 化妆间（单独那间）也有换装点按钮、能跟人说话（10/4 02 F）
         backhall_ui.hide_all()
-    if lounge_ui != null and s != "backhall":
+    if lounge_ui != null and s != "backhall" and s != "makeup":
         lounge_ui.hide_all()
     if lawn != null:
         lawn.walking_enabled = (s == "lawn")
@@ -1997,7 +1999,10 @@ func _exit_spot(c, id: String, inside: bool) -> bool:
 func _on_area_spot(aid: String, id: String, inside: bool) -> void:
     if state != aid or switching:
         return
-    _exit_spot(areas[aid], id, inside)
+    if _exit_spot(areas[aid], id, inside):
+        return
+    if aid == "makeup":
+        backhall_ui.spot(id, inside)   # 换装点 dress（10/4 从后厅原来那间挪进化妆间，02 F）：按钮照旧在 backhall_ui.gd
 
 ## 走到头（10/4 连图）：往没路的那边顶住了、或者点了能走的范围外头，弹一句短话（按方向配，话在 assets/areas/lines.json，待校对）
 func _on_edge_bump(dir: String) -> void:
@@ -3043,6 +3048,8 @@ func _show_room_title(text: String) -> void:
     room_title_token += 1
     var my := room_title_token
     room_title.text = text
+    var cc := hud.find_child("coins_chip", true, false) as Control
+    room_title_box.position = Vector2((cc.get_global_rect().end.x + 10.0) if cc != null else 270.0, 14.0)
     room_title_box.visible = true
     await get_tree().create_timer(ROOM_TITLE_SECS).timeout
     if my == room_title_token:

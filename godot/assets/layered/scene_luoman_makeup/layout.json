@@ -1,14 +1,15 @@
 {
  "scene": "scene_luoman_makeup",
  "title": "化妆间",
- "note": "罗曼山庄 · 化妆间（单独成一间屋，进门整屏换，01 H 10/4 派；玩家说明 docs/进屋像进宴会厅-玩家说明-v0.1.md v0.2）。tools/layout_court/make_makeup_room.py 生成，别手改（--tier=少/中/多 出三档，这份是「多」档）。全部色块占位；粉色色块是多出来的人（不画新人）。原来后厅里那间化妆室还在（后厅 layout 没删），走廊化妆间门口 to_makeup 一进就换到这里。stand_points 是给 07 留的位置（化妆师站哪、递东西在哪），只记点、代码不读",
+ "note": "罗曼山庄 · 化妆间（单独成一间屋，进门整屏换，01 H 10/4 派；玩家说明 docs/进屋像进宴会厅-玩家说明-v0.1.md v0.2）。tools/layout_court/make_makeup_room.py 生成，别手改（--tier=少/中/多 出三档，这份是「多」档）。摆的东西是色块占位（铺了像素成品就藏掉）；多出来的人是宾客替身静静坐着（不画新人）。原来后厅里那间化妆室还在（后厅 layout 没删），走廊化妆间门口 to_makeup 一进就换到这里。stand_points 是给 07 留的位置（化妆师站哪、递东西在哪），只记点、代码不读",
  "tier": "多",
  "tier_counts": {"vanity": 6, "rack": 8, "island": 3, "gown": 3, "mirror": 3, "sofa": 2, "closet": 2, "crown": 2, "person": 8},
  "size": [576, 1024],
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [288, 920],
  "points": [
-  {"id": "to_backhall", "x": 288, "y": 1000, "r": 30, "to": "backhall", "note": "南边门口出去回后厅走廊化妆间门口（后厅 to_makeup 那里）"}
+  {"id": "to_backhall", "x": 288, "y": 1000, "r": 30, "to": "backhall", "note": "南边门口出去回后厅走廊化妆间门口（后厅 to_makeup 那里）"},
+  {"id": "dress", "x": 172, "y": 878, "r": 44}
  ],
  "walk": [[[28, 214], [548, 214], [548, 952], [28, 952]], [[254, 950], [322, 950], [322, 1018], [254, 1018]]],
  "flat": [
@@ -72,26 +73,29 @@
   {"type": "box", "id": "gifts", "rect": [140, 920, 196, 936], "h": 36, "top": "#c9a46a", "front": "#8a6a44", "part": "BH-P36", "scale": {"name": "礼盒堆"}},
   {"type": "box", "id": "trunk", "rect": [380, 920, 426, 936], "h": 26, "top": "#a83a30", "front": "#6e2420", "part": "BH-P32", "scale": {"name": "陪嫁红木箱"}},
   {"type": "box", "id": "flowers_w", "rect": [228, 940, 248, 950], "h": 58, "top": "#a83a30", "front": "#6e2420", "part": "BH-P33", "scale": {"name": "门口落地花架"}},
-  {"type": "box", "id": "flowers_e", "rect": [328, 940, 348, 950], "h": 58, "top": "#a83a30", "front": "#6e2420", "part": "BH-P33"},
-  {"type": "box", "id": "person_0", "rect": [119, 261, 143, 269], "h": 60, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_1", "rect": [181, 261, 205, 269], "h": 60, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_2", "rect": [243, 261, 267, 269], "h": 60, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_3", "rect": [367, 261, 391, 269], "h": 60, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_4", "rect": [429, 261, 453, 269], "h": 60, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_5", "rect": [146, 468, 170, 476], "h": 84, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_6", "rect": [282, 592, 306, 600], "h": 84, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"},
-  {"type": "box", "id": "person_7", "rect": [146, 632, 170, 640], "h": 84, "top": "#f2a7c3", "front": "#d97aa0", "block": false, "scale": {"name": "人（色块占位）"}, "part": "MK-PERSON"}
+  {"type": "box", "id": "flowers_e", "rect": [328, 940, 348, 950], "h": 58, "top": "#a83a30", "front": "#6e2420", "part": "BH-P33"}
  ],
  "npcs": [
-  {"id": "bride", "who": "新娘（坐在中间化妆台前，背对镜头；替身）", "x": 317, "y": 269, "face": "up", "sit": true, "lm": "LM-BRIDE-01", "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": 252}},
-  {"id": "makeup_1", "who": "化妆师", "x": 343, "y": 273, "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01", "standin": {"code": "LM-GUEST-03", "frame": 4}},
-  {"id": "makeup_2", "who": "化妆师", "x": 280, "y": 442, "face": "left", "look": "makeup_2", "lm": "LM-MAKEUP-02", "standin": {"code": "LM-GUEST-06", "frame": 8}}
+  {"id": "bride", "who": "新娘（坐在中间化妆台前，背对镜头；替身）", "x": 317, "y": 239, "face": "up", "sit": true, "lm": "LM-BRIDE-01", "life": "makeup", "approach": [284, 258], "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": 222}},
+  {"id": "makeup_1", "who": "化妆师", "x": 343, "y": 243, "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01", "life": "makeup", "approach": [369, 260], "standin": {"code": "LM-GUEST-03", "frame": 4}},
+  {"id": "makeup_2", "who": "化妆助理", "x": 280, "y": 442, "face": "right", "look": "makeup_2", "lm": "LM-MAKEUP-02", "life": "makeup", "approach": [248, 452], "wander": ["stand_mk_closet", "stand_mk_gown"], "standin": {"code": "LM-GUEST-06", "frame": 8}},
+  {"id": "guest_0", "who": "来化妆的客人（替身，静静坐着）", "x": 131, "y": 239, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-04", "frame": 12, "rows": 60, "bottom": 222}},
+  {"id": "guest_1", "who": "来化妆的客人（替身，静静坐着）", "x": 193, "y": 239, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-05", "frame": 12, "rows": 60, "bottom": 222}},
+  {"id": "guest_2", "who": "来化妆的客人（替身，静静坐着）", "x": 255, "y": 239, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-08", "frame": 12, "rows": 60, "bottom": 222}},
+  {"id": "guest_3", "who": "来化妆的客人（替身，静静坐着）", "x": 379, "y": 239, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-10", "frame": 12, "rows": 60, "bottom": 222}},
+  {"id": "guest_4", "who": "来化妆的客人（替身，静静坐着）", "x": 441, "y": 239, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-11", "frame": 12, "rows": 60, "bottom": 222}},
+  {"id": "guest_5", "who": "来化妆的客人（替身，静静坐着）", "x": 58, "y": 902, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-10", "frame": 0, "rows": 46, "bottom": 878}},
+  {"id": "guest_6", "who": "来化妆的客人（替身，静静坐着）", "x": 94, "y": 902, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-04", "frame": 0, "rows": 46, "bottom": 878}},
+  {"id": "guest_7", "who": "来化妆的客人（替身，静静坐着）", "x": 482, "y": 902, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-05", "frame": 0, "rows": 46, "bottom": 878}}
  ],
  "stand_points": [
-  {"id": "makeup_artist_1", "name": "化妆师 1 站这（给新娘化妆，新娘右手边）", "x": 343, "y": 273, "r": 14},
+  {"id": "makeup_artist_1", "name": "化妆师 1 站这（给新娘化妆，新娘右手边）", "x": 343, "y": 243, "r": 14},
   {"id": "makeup_artist_2", "name": "化妆师 2 站这（首饰中岛东南角，挑首饰）", "x": 280, "y": 442, "r": 14},
-  {"id": "handoff", "name": "递东西（帮化妆师递一样东西，07 做；玩家站这把东西递给化妆师 2）", "x": 226, "y": 466, "r": 20}
+  {"id": "handoff", "name": "递东西（帮化妆师递一样东西，07 做；玩家站这把东西递给化妆师 2）", "x": 226, "y": 466, "r": 20},
+  {"id": "stand_mk_closet", "name": "西式衣墙前（化妆助理取衣服，02 F 照新屋重排）", "x": 512, "y": 238, "r": 14},
+  {"id": "stand_mk_gown", "name": "东边过道、婚纱人台跟前（化妆助理看婚纱，02 F）", "x": 463, "y": 400, "r": 14}
  ],
- "stand_points_note": "给 07 留的位置（进门招呼、递东西那件小事、冒泡对话归 07）：化妆师 1、2 站哪，玩家递东西站哪。只记点，代码不读",
+ "stand_points_note": "化妆师 1、2 站哪、玩家递东西站哪（给 07 留的，只记点）；stand_mk_ 开头的是化妆助理起身走一圈去站的地方（lounge_life.gd 照 npcs 的 wander 读）",
+ "life": {"room": "makeup", "data": "res://assets/backhall/makeup.json"},
  "pixel_art": ["res://assets/pixel_art/makeup_room/room.json"]
 }

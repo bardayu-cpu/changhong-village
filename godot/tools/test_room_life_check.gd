@@ -13,6 +13,8 @@ extends SceneTree
 ##   6 7 位的名字牌、头像、身份卡：头像、身份卡用的图就是场景里他那张（同一张图集）；新娘（code 空）对话框不放头像、身份卡不放图、称呼仍叫「新娘」、场景里的样子不动；
 ##     名字跟图的男女老少对得上（大爷=老男、孃孃=老女、姐姐/妹妹=年轻女…，对着 hall_life 里那张男女老少表）
 ##   7 全项目的字里（脚本、json、.dialogue）没有「手气」「新娘子好乖」
+## 10/4 02 F：化妆间三位搬进单独那间屋（areas["makeup"] 挂的 lounge_life），测他们先切进那块画布（go()，b 跟着换成那块）；
+##   化妆助理走一圈看的门洞换成化妆间自己南墙那个门洞
 ## 用法：Godot --headless --path . --script res://tools/test_room_life_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
 const DT := 1.0 / 30.0
@@ -56,10 +58,23 @@ func settle() -> void:
     tick(1)
 
 func life_by(room: String):
-    for lf in b.lives:
+    for lf in m.backhall.lives + m.areas["makeup"].lives:
         if lf.room == room:
             return lf
     return null
+
+## 切到这份人所在的画布（化妆间是单独那间屋，别的在后厅），b 跟着换成那块
+func go(lf) -> void:
+    var cid := "makeup" if lf.room == "makeup" else "backhall"
+    if m.state != cid:
+        if ui.is_open():
+            ui.hide_all()
+        m._show_canvas(cid)
+        m._goto(cid)
+        await settle()
+    b = lf.c
+    b.walking_enabled = true
+    m.dialog.visible = false
 
 ## 把 .dialogue 文件解析成：{pre: [句], options: [{text, reply: [句]}], post: [句]}（只认这套写法：「谁: [#tag] 话」「- 选项」缩进回话、=> END）
 func parse_dialogue(path: String) -> Dictionary:
@@ -126,6 +141,7 @@ func run() -> void:
     m.court_save.local_path = "user://test_rlcheck_court.json"
     m.games_save.local_path = "user://test_rlcheck_games.json"
     m.ensure_canvas("backhall")
+    m.ensure_canvas("makeup")
     m._show_canvas("backhall")
     m._goto("backhall")
     await process_frame
@@ -151,6 +167,7 @@ func run() -> void:
         var lf = pr[0]
         var id: String = pr[1]
         var p: Dictionary = lf.people[id]
+        await go(lf)
         var dlg_path: String = str(lf.data["people"][id]["dialogue"])
         var pack_mode: bool = not FileAccess.file_exists(dlg_path)   # 导出包里 .dialogue 原文件读不到（只有导入好的资源）：只量结构，不对字
         var want: Dictionary = parse_dialogue(dlg_path) if not pack_mode else {"pre": ["", ""], "options": [{"text": "", "reply": [""]}, {"text": "", "reply": [""]}], "post": [""]}
@@ -238,6 +255,7 @@ func run() -> void:
             silent_bad.append("%s 不存在" % id)
             continue
         var p: Dictionary = lf.people[id]
+        await go(lf)
         b.reset_to(Vector2(700, 640))
         tick(2)
         if ui.is_open():
@@ -252,6 +270,7 @@ func run() -> void:
     check("4 位没写台词的：点了没开对话框、没排「走去说话」（%d 处不对 %s）" % [silent_bad.size(), str(silent_bad)], silent_bad.is_empty())
 
     print("3 走一圈的两位")
+    await go(mj)
     var gaps: Array = []
     var fronts: Array = []
     for it in b.cfg["items"]:
@@ -269,8 +288,11 @@ func run() -> void:
         var lf = pair[0]
         var id: String = pair[1]
         var p: Dictionary = lf.people[id]
+        await go(lf)
+        var gaps_here: Array = gaps if lf != mk else [Rect2(252, 940, 72, 60)]   # 化妆间：南墙那个门洞（wall_s_0、wall_s_1 之间）
         var spots: Array = p["spots"]
         for mode in ["A 玩家站远处", "B 玩家站在第一个站点上"]:
+            await go(lf)   # 化妆间：上一遍末尾推摇杆往下走，会从南门走回后厅
             (p["legs"] as Array).clear()
             (p["path"] as Array).clear()
             p["foot"] = p["home"]
@@ -303,7 +325,7 @@ func run() -> void:
                 for k in spots.size():
                     if f.distance_to(spots[k]) < 1.0:
                         visited[k] = true
-                for g in gaps:
+                for g in gaps_here:
                     if (g as Rect2).has_point(f):
                         in_gap += 1
                 if str(p["mode"]) == "walk":
@@ -326,7 +348,7 @@ func run() -> void:
                 left_home and visited.size() == spots.size() and took > 0.0 and took < 60.0 and max_stuck < 10.0 and in_gap == 0 and moved > 5.0)
 
     print("4 冒泡不压东西（手机、长屏）")
-    var BF: int = int(b.lounge.BUBBLE_FONT)
+    var BF: int = int(m.backhall.lounge.BUBBLE_FONT)
     check("气泡字号 %d（第 67 版原来 15，04 嫌小，要 ≥ 20）" % BF, BF >= 20)
     for sz in [Vector2i(540, 960), Vector2i(585, 1266)]:
         get_root().size = sz
@@ -343,6 +365,7 @@ func run() -> void:
         var most := 0
         for lf_room in ["mahjong", "makeup", "lounge"]:
             var lf = life_by(lf_room)
+            await go(lf)
             for stage in ["聊聊按钮", "对话框选项"]:
                 if ui.is_open():
                     ui.hide_all()
@@ -411,6 +434,7 @@ func run() -> void:
     get_root().size = Vector2i(540, 960)
 
     print("5 叠上了往上让")
+    await go(mj)
     for lf in b.lives:
         lf.frozen = true
         for id in lf.bubbles.keys():
@@ -456,6 +480,7 @@ func run() -> void:
         var p: Dictionary = lf.people[id]
         var code := str(p["code"])
         var spr: Sprite2D = p["spr"]
+        await go(lf)
         b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
         tick(2)
         if ui.is_open():

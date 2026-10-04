@@ -36,6 +36,7 @@ func run() -> void:
             break
         await process_frame
     m.ensure_canvas("backhall")
+    m.ensure_canvas("makeup")
     var b = m.backhall
     var paths: Array = b.cfg.get("pixel_art", [])
     check("后厅布局写了 pixel_art（%s）" % [paths], not paths.is_empty())
@@ -140,17 +141,20 @@ func run() -> void:
     m.backhall_ui.spot("lounge", true)
     check("走进休息间不出按钮", not m.backhall_ui.act_btn.visible)
     m.backhall_ui.spot("lounge", false)
-    print("6 化妆间的替身")
-    var want := {"bride": [1363, 269, true], "makeup_1": [1389, 273, false], "makeup_2": [1407, 552, false]}   # 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
+    print("6 化妆间的替身（10/4 02 F 从后厅长条搬进单独那间化妆间，跟凳子对齐）")
+    var mk = m.areas["makeup"]
+    var want := {"bride": [317, 239, true], "makeup_1": [343, 243, false], "makeup_2": [280, 442, false]}   # 中间那台化妆凳（凳脚 238）：新娘脚点凳脚 +1，化妆师 1 在她右手边
     var badp: Array = []
     for id in want:
-        var s: Sprite2D = b.npc_nodes.get(id)
+        var s: Sprite2D = mk.npc_nodes.get(id)
         var w: Array = want[id]
         if s == null or s.position != Vector2(w[0], w[1]) or not s.region_enabled or not (s.texture is AtlasTexture):
             badp.append(id)
-    check("新娘、两位化妆师用定稿宾客的图当替身、站在布局写的地方（不对的 %s）" % [badp], badp.is_empty())
-    var bride: Sprite2D = b.npc_nodes.get("bride")
-    check("新娘坐着：只留上面 60 行，图底落在凳面 y 252", bride != null and bride.region_rect.size.y == 60.0 and is_equal_approx(bride.position.y + bride.offset.y + 60.0, 252.0))
+        if b.npc_nodes.has(id):
+            badp.append(id + " 还在后厅")
+    check("新娘、化妆师、化妆助理在化妆间用定稿宾客的图当替身、站在布局写的地方，后厅长条里没了（不对的 %s）" % [badp], badp.is_empty())
+    var bride: Sprite2D = mk.npc_nodes.get("bride")
+    check("新娘坐着：只留上面 60 行，图底落在凳面 y 222（凳脚 238 往上 16，跟旧屋一样）", bride != null and bride.region_rect.size.y == 60.0 and is_equal_approx(bride.position.y + bride.offset.y + 60.0, 222.0))
     # 10/4 原来那间化妆室封起来（02 F）：门洞挡上，走廊里看是一面墙一扇关着的门；门口 to_makeup 换进单独那间（test_makeup_room 测）
     check("原来那间化妆室的门洞 (1363, 690) 挡上了", not b._free(Vector2(1363, 690)))
     var door_wall: Array = (b.world.get_children() as Array).filter(func(n): return str(n.name) == "px_makeup_door_wall")

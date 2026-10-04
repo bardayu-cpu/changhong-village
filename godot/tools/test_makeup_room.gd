@@ -127,11 +127,18 @@ func run() -> void:
                 break
     check("三条竖过道从北到南都 ≥ 2 格宽（不够的 %s）" % [lane_bad], lane_bad.is_empty())
     var st_bad: Array = []
+    var st_ids: Array = []
     for s in r.cfg.get("stand_points", []):
         var p := Vector2(float(s["x"]), float(s["y"]))
-        if r.nearest_free(p) == Vector2.ZERO or r.nearest_free(p).distance_to(p) > 20.0:
+        st_ids.append(str(s["id"]))
+        # 10/4 02 F 搬人以后化妆师 1、2 就站在自己那个点上（她们自己挡着），这种算对；别的点要空着能站
+        var taken := false
+        for nid in r.npc_nodes:
+            taken = taken or (r.npc_nodes[nid] as Node2D).position.distance_to(p) < 2.0
+        if not taken and (r.nearest_free(p) == Vector2.ZERO or r.nearest_free(p).distance_to(p) > 20.0):
             st_bad.append(str(s["id"]))
-    check("给 07 留的站点（化妆师 1、2，递东西）都能站（不行的 %s）" % [st_bad], st_bad.is_empty() and r.cfg.get("stand_points", []).size() == 3)
+    var want_ids := ["makeup_artist_1", "makeup_artist_2", "handoff", "stand_mk_closet", "stand_mk_gown"]
+    check("站点（化妆师 1、2、递东西，化妆助理走一圈的两个）都在、都能站或者正站着她（不行的 %s）" % [st_bad], st_bad.is_empty() and st_ids == want_ids)
 
     print("3 出屋")
     await walk_to(r.spot_pos("to_backhall"))

@@ -6,7 +6,6 @@
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [1436, 780],
  "points": [
-  {"id": "dress", "x": 1363, "y": 400, "r": 60},
   {"id": "lounge", "x": 1032, "y": 420, "r": 60},
   {"id": "mahjong", "x": 708, "y": 420, "r": 70},
   {"id": "pot", "x": 264, "y": 380, "r": 70},
@@ -216,9 +215,6 @@
   {"id": "card_n", "who": "打牌的客人", "x": 700, "y": 280, "face": "down", "sit": true, "block": true, "life": "mahjong", "standin": {"code": "LM-GUEST-09", "frame": 0, "rows": 47, "bottom": 261}},
   {"id": "card_w", "who": "打牌的客人", "x": 667, "y": 310, "face": "right", "sit": true, "block": true, "life": "mahjong", "standin": {"code": "LM-GUEST-06", "frame": 8, "rows": 47, "bottom": 291}},
   {"id": "card_e", "who": "打牌的客人", "x": 733, "y": 310, "face": "left", "sit": true, "block": true, "life": "mahjong", "approach": [760, 320], "stand": [760, 320], "wander": ["stand_mj_candy", "stand_mj_tea"], "standin": {"code": "LM-GUEST-08", "frame": 4, "rows": 47, "bottom": 291}},
-  {"id": "bride", "who": "新娘（坐在中间化妆台前，背对镜头；替身）", "x": 1363, "y": 269, "face": "up", "sit": true, "lm": "LM-BRIDE-01", "life": "makeup", "approach": [1330, 288], "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": 252}},
-  {"id": "makeup_1", "who": "化妆师", "x": 1389, "y": 273, "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01", "life": "makeup", "approach": [1415, 290], "standin": {"code": "LM-GUEST-03", "frame": 4}},
-  {"id": "makeup_2", "who": "化妆师", "x": 1407, "y": 552, "face": "right", "look": "makeup_2", "lm": "LM-MAKEUP-02", "life": "makeup", "approach": [1375, 560], "wander": ["stand_mk_closet", "stand_mk_island"], "standin": {"code": "LM-GUEST-06", "frame": 8}},
   {"id": "cook", "who": "厨师", "x": 342, "y": 340, "face": "left"},
   {"id": "lounge_09", "who": "奶奶（休息间人物样板，01 F 10/4；01 画的代码小人，lounge_life.gd 画；x、y 是脚点，坐着踩在座位前沿的地上）", "x": 1061, "y": 270, "face": "down", "sit": true, "lounge": true, "code_char": "CODE-GUEST-09"},
   {"id": "lounge_10", "who": "爷爷（休息间人物样板，01 F 10/4；01 画的代码小人，lounge_life.gd 画；x、y 是脚点，坐着踩在座位前沿的地上）", "x": 1128, "y": 270, "face": "down", "sit": true, "lounge": true, "code_char": "CODE-GUEST-10"},
@@ -236,9 +232,7 @@
   {"id": "stand_record", "name": "唱片机前（听唱片）", "x": 952, "y": 312, "r": 16},
   {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 1144, "y": 476, "r": 14},
   {"id": "stand_mj_candy", "name": "麻将室糖果桌前（打牌的妹妹起身拿糖，07 10/4）", "x": 806, "y": 530, "r": 14},
-  {"id": "stand_mj_tea", "name": "麻将室茶几前（倒杯茶再回去，07 10/4）", "x": 805, "y": 598, "r": 14},
-  {"id": "stand_mk_closet", "name": "化妆间衣柜前（化妆师取衣服，07 10/4）", "x": 1485, "y": 268, "r": 14},
-  {"id": "stand_mk_island", "name": "化妆间首饰中岛东边（化妆师挑首饰，07 10/4）", "x": 1408, "y": 515, "r": 14}
+  {"id": "stand_mj_tea", "name": "麻将室茶几前（倒杯茶再回去，07 10/4）", "x": 805, "y": 598, "r": 14}
  ],
  "stand_points_note": "站人的地方（休息间第三版，10/3 起记点）：NPC 起身走动去站一会（lounge_life.gd 照 npcs 的 wander 读，10/4 起休息间叔叔、麻将室打牌的妹妹、化妆间化妆师）；玩家玩法要用先写玩家说明给阿鱼点头",
  "pixel_art": ["res://assets/pixel_art/backhall_makeup_door/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong/room.json"],

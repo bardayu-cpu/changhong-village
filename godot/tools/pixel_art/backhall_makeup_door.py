@@ -5,7 +5,7 @@
 门口「化妆间」牌是游戏里的字牌（后厅布局 signs），不画进图。
 
 出 assets/pixel_art/backhall_makeup_door/（后厅布局 pixel_art 里替掉原来那间的 backhall_makeup/room.json）：
-  room.png        背景：墙后面那块（原来的屋里）涂成墙外的深色
+  room.png        背景：墙后面那块（原来的屋里）画成这间的屋顶（红陶瓦、屋脊、封檐板；01 H 10/4「手机上不能有一大块黑」）
   props/door_wall.png   那面墙连门、灯笼、休息间东边那道墙顶，着地线 696（走廊里的人在它前面）
   room.json       hide：原来那间的 32 件家具灰盒、wall_3、front_5（只藏画，挡人的占地照旧）
 原来那间的三位（新娘、两位化妆师）还在后厅布局里，07 搬；这份不管人。
@@ -135,19 +135,89 @@ def door_wall():
     return L
 
 
+RIDGE = 232                        # 屋脊（东西走向）：南坡从檐口 576 斜上到这，北坡（背光、压扁）从这到后厅北边墙顶 104
+EAVE = 576                         # 檐口压在那面墙的墙顶剖面上沿
+LANE = 12                          # 一垄瓦多宽（筒瓦 5 + 板瓦沟 7）
+
+
+def tile_slope(L, x0, x1, y0, y1, k, course):
+    """一坡瓦：竖着一垄一垄（筒瓦凸起：左边亮、右边暗；两垄之间是板瓦沟，暗一档，沟里每 course 像素一道瓦片接缝）。k：整坡挪几档（北坡背光 −1）"""
+    def c(i):
+        return mk.rname("cl", i + k)
+    L.rect(x0, y0, x1, y1, c(1))
+    for x in range(x0, x1, LANE):
+        # 板瓦沟里的接缝（错开一点，不成一条横线）
+        for y in range(y0 + (x // LANE) % 3, y1, course):
+            L.hl(x + 5, min(x + LANE, x1), y, c(0))
+            L.p(x + 6, y + 1, c(2))
+        # 筒瓦：5 像素宽，左亮右暗，每 course 一节、节头一点亮
+        L.rect(x, y0, min(x + 5, x1), y1, c(2))
+        L.vl(x, y0, y1, c(3))
+        if x + 4 < x1:
+            L.vl(x + 4, y0, y1, c(1))
+            L.vl(x + 5, y0, y1, c(0))
+        for y in range(y0 + 2 + (x // LANE) % 2 * (course // 2), y1, course):
+            L.hl(x + 1, min(x + 4, x1), y, c(3))
+            L.p(x + 3, y + 1, c(1))
+
+
+def draw_roof(L):
+    """封起来那间的屋顶（01 H 10/4：墙后那块不能是一大块黑，照「封起来的屋子从外面看」往上接屋顶）：
+    红陶筒瓦一垄一垄（cl 色带），南坡朝着镜头、北坡背光压扁暗一档；屋脊一道红脊、一排金钉、两头金色脊兽座；
+    檐口一排圆瓦当、一根木封檐板。光从左上来"""
+    x0, x1 = DIV[1], X1
+    tile_slope(L, x0, x1, TOP, RIDGE, -1, 6)
+    tile_slope(L, x0, x1, RIDGE + 8, EAVE - 6, 0, 12)
+    # 屋脊
+    L.rect(x0, RIDGE - 4, x1, RIDGE + 9, "rd2")
+    L.hl(x0, x1, RIDGE - 4, "ol")
+    L.hl(x0, x1, RIDGE - 3, "rd4")
+    L.hl(x0, x1, RIDGE - 2, "rd3")
+    L.hl(x0, x1, RIDGE + 4, "rd1")
+    L.hl(x0, x1, RIDGE + 6, "gd2")
+    L.hl(x0, x1, RIDGE + 8, "ol")
+    for x in range(x0 + 8, x1, 16):
+        L.p(x, RIDGE + 1, "gd3")
+        L.p(x - 1, RIDGE, "gd4")
+    for cx in (x0 + 14, x1 - 14):                        # 脊兽座
+        L.rect(cx - 6, RIDGE - 11, cx + 6, RIDGE + 9, "gd2")
+        L.hl(cx - 6, cx + 6, RIDGE - 11, "gd4")
+        L.vl(cx - 6, RIDGE - 11, RIDGE + 9, "gd3")
+        L.vl(cx + 5, RIDGE - 10, RIDGE + 9, "gd1")
+        L.rect(cx - 3, RIDGE - 18, cx + 3, RIDGE - 11, "gd3")
+        L.p(cx - 2, RIDGE - 17, "gd4")
+        L.vl(cx + 2, RIDGE - 17, RIDGE - 11, "gd1")
+    # 屋脊往南坡落一线影
+    for x in range(x0, x1):
+        L.shade_px(x, RIDGE + 9, -1)
+        if x % 2 == 0:
+            L.shade_px(x, RIDGE + 10, -1)
+    # 檐口：每垄筒瓦头上一个圆瓦当，下面木封檐板
+    for x in range(x0, x1, LANE):
+        cx = x + 2
+        L.ell(cx - 3, EAVE - 12, cx + 4, EAVE - 5, "cl0")
+        L.ell(cx - 2, EAVE - 11, cx + 3, EAVE - 6, "cl2")
+        L.p(cx - 1, EAVE - 10, "cl3")
+    L.rect(x0, EAVE - 6, x1, EAVE, "wd2")
+    L.hl(x0, x1, EAVE - 6, "wd4")
+    L.hl(x0, x1, EAVE - 5, "wd3")
+    L.hl(x0, x1, EAVE - 1, "wd0")
+
+
 def main():
     preview = sys.argv[sys.argv.index("--preview") + 1] if "--preview" in sys.argv else None
     mk_ids = check_layout()
     wall = door_wall()
     bg = mk.Layer(x0=X0, y0=TOP, w=X1 - X0, h=FOOT - TOP)
     bg.rect(X0, TOP, X1, FOOT, "void")
+    draw_roof(bg)
     for im in (bg.im, wall.im):
         mk.palette_count(im)
     os.makedirs(os.path.join(OUT, "props"), exist_ok=True)
     bg.im.save(os.path.join(OUT, "room.png"))
     box = wall.im.getbbox()
     wall.im.crop(box).save(os.path.join(OUT, "props", "door_wall.png"))
-    man = {"note": "tools/pixel_art/backhall_makeup_door.py 生成，别手改。后厅长条里原来那间化妆室封起来：背景是墙后面那块（涂深色），"
+    man = {"note": "tools/pixel_art/backhall_makeup_door.py 生成，别手改。后厅长条里原来那间化妆室封起来：背景是墙后面那块（画成这间的屋顶），"
                    "door_wall 是那面墙连门、灯笼；hide 藏掉原来那间的家具灰盒和 wall_3、front_5（只藏画，挡人的占地照旧）",
            "background": {"png": RES + "room.png", "x": X0, "y": TOP}, "room": {"x0": X0, "x1": X1},
            "props": [{"id": "px_makeup_door_wall", "png": RES + "props/door_wall.png", "x": X0 + box[0], "y": TOP + box[1],

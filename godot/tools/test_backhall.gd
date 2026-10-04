@@ -78,13 +78,13 @@ func run() -> void:
     print("1 布局对蓝图 3.3")
     # 10/4 方案 C：四间整间平移成西→东后厨、麻将室、休息室、化妆间（化妆间 +1195、休息室 +528、麻将室 −144、后厨 −1008），
     # 走廊东头回宴会厅、西头厨房后门去草坪
-    var want := {"dress": [1363, 400, 60], "lounge": [1032, 420, 60], "mahjong": [708, 420, 70], "pot": [264, 380, 70],
+    var want := {"lounge": [1032, 420, 60], "mahjong": [708, 420, 70], "pot": [264, 380, 70],
         "to_hall": [1496, 780, 50], "to_lawn": [40, 780, 50], "to_plaza": [896, 990, 40], "to_wkitchen": [264, 990, 40],
         "to_makeup": [1363, 702, 26]}   # 10/4 化妆间单独成一间屋：走廊化妆间门口一进就整屏换进去（01 H 派）
-    var same: bool = b.points.size() == 9
+    var same: bool = b.points.size() == 8
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("九个交互点坐标、半径照方案 C 平移后的位置一字不差（加了化妆间门口 to_makeup）", same)
+    check("八个交互点坐标、半径照方案 C 平移后的位置一字不差（加了化妆间门口 to_makeup；换装点 dress 10/4 挪进单独那间化妆间，02 F）", same)
     var doors := true
     for dx in [168, 696, 1032]:
         doors = doors and b._free(Vector2(dx, 690))
@@ -110,10 +110,6 @@ func run() -> void:
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else b.SPAWN
-        if id == "dress":
-            # 换装点在原来那间化妆室里，那间封了就走不到（话还是【待补】，本来就不出按钮；挪不挪进新屋 01 定）
-            check("dress 封在原来那间化妆室里，走不到（离点 %.1f）" % end.distance_to(pt), end.distance_to(pt) >= float(b.points[id]["r"]))
-            continue
         check("%s 走得到（离点 %.1f，半径 %.0f）" % [id, end.distance_to(pt), b.points[id]["r"]], end.distance_to(pt) < float(b.points[id]["r"]))
     var elders := 0
     var cooks := 0
@@ -270,7 +266,7 @@ func run() -> void:
 
     # 7. 东口（厨房后门）去草坪（9/19 任务 8 起）：站在西北口边 (100,300)；从西北口回来站在厨房后门边 (1440,780)
     print("7 厨房后门")
-    walk_to(Vector2(b.spot_pos("dress").x, 790))
+    walk_to(Vector2(1363, 790))   # 化妆间门口外的走廊（换装点 10/4 挪进单独那间化妆间了）
     walk_to(b.spot_pos("to_lawn"), 30.0)
     check("厨房后门进了草坪 state=%s，站在 %s" % [m.state, m.lawn.pos], m.state == "lawn" and m.lawn.pos == m.lawn.arrival_from("backhall"))
     walk_to(m.lawn.spot_pos("to_backhall"))
