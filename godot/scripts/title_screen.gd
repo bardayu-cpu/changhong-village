@@ -84,6 +84,7 @@ var shine_mat: ShaderMaterial
 var bubble: PanelContainer
 var bubble_name: Label
 var bubble_text: Label
+var _tail_tex: Texture2D
 var bubble_tip_x := 0.0     # 小尖在气泡里的横坐标
 var bubble_who := ""
 var tip: Label
@@ -300,11 +301,14 @@ func _pbtn(text: String, main: bool) -> Button:
 
 func _build_bubble() -> void:
     bubble = PanelContainer.new()
-    var sb := _box(PAPER, INK, 3, 12, 7)
-    sb.shadow_color = Color(0, 0, 0, 0.35)
-    sb.shadow_size = 1
-    sb.shadow_offset = Vector2(0, 5)
+    # 跟全游戏的冒泡一套（scripts/ui/dialog_skin.gd，阿鱼 10/4 挑的 B：米白底、深红描边、圆润）
+    var sb: StyleBoxTexture = load("res://scripts/ui/dialog_skin.gd").bubble_box()
+    sb.content_margin_left = 16
+    sb.content_margin_right = 16
+    sb.content_margin_top = 9
+    sb.content_margin_bottom = 9
     bubble.add_theme_stylebox_override("panel", sb)
+    bubble.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
     bubble.mouse_filter = Control.MOUSE_FILTER_IGNORE
     bubble.modulate.a = 0.0
     var row := HBoxContainer.new()
@@ -530,12 +534,12 @@ func _draw_bar() -> void:
 
 ## 气泡下面的小尖：三格像素，跟气泡一个色、墨色边
 func _draw_tail() -> void:
-    var tx := bubble_tip_x
-    var y0 := bubble.size.y - 3.0
-    var u := 3.0
-    bubble.draw_rect(Rect2(tx - 2.5 * u, y0, 5 * u, 3 * u + 3.0), INK)
-    bubble.draw_rect(Rect2(tx - 1.5 * u, y0, 3 * u, 3 * u), PAPER)
-    bubble.draw_rect(Rect2(tx - 1.5 * u, y0 + 3 * u, 3 * u, u), INK)
+    # 小尖：跟全游戏冒泡同一张（dialog_skin.gd 的 tail_tex），头两行压住框下沿
+    var Skin = load("res://scripts/ui/dialog_skin.gd")
+    if _tail_tex == null:
+        _tail_tex = Skin.tail_tex(Color(Skin.PAL["bubble"]["fill"]), Color(Skin.PAL["bubble"]["edge"]))
+    var bu: float = Skin.BU
+    bubble.draw_texture(_tail_tex, Vector2(bubble_tip_x - bu * 3.5, bubble.size.y - bu * Skin.BUBBLE_EW))
 
 ## 音乐开关的小音符（网页版 11×11 像素图），关了加一道红斜线
 func _draw_note() -> void:

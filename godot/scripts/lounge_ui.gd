@@ -41,7 +41,7 @@ var near_id := ""          # 「聊聊」按钮对着谁
 var dm_res: Resource = null   # 走对话插件时：这段对话（.dialogue 导入后的 DialogueResource）
 var dm_line = null            # 插件给的这一句（DialogueLine）；null 是没走插件
 var dm_busy := false          # 正在等插件给下一句（await 里）
-var choices: VBoxContainer    # 选项按钮（压在对话框右上角上面）
+var choices: BoxContainer     # 选项按钮（05 10/4 起在对话框最后一行，一行排完；dialog_skin.gd）
 var talk_info: Dictionary = {}  # 正在跟谁说：{id, title, code（人物图）, dialogue, talk, relation}
 var talk_cv                     # 在哪块画布上说（说话时那块不能走，说完放开）
 
@@ -247,8 +247,10 @@ func pick(next_id: String) -> void:
 func next_line() -> void:
     if talk_id == "" or card != null:
         return
-    if DialogSkin.typing(talk_box):   # 字还在一个个出：这一下先把整句出完，再点才下一句（04 第 4 条）
+    if DialogSkin.typing(talk_box):   # 字还在一个个出：这一下先把这一页出完（04 第 4 条）
         DialogSkin.finish(talk_box)
+        return
+    if DialogSkin.next_page(talk_box):   # 一句太长分了页：先翻到下一页（阿鱼：超长可以点翻页）
         return
     if dm_res != null:
         if dm_busy or dm_line == null or choices.visible:

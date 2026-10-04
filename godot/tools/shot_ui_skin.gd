@@ -1,17 +1,20 @@
 extends SceneTree
-## 冒泡、对话框三种样子（scripts/ui/dialog_skin.gd，05 10/4）同一机位的手机截图：每种样子跑一遍，出这几张（存整个窗口）：
+## 冒泡、对话框（scripts/ui/dialog_skin.gd，05 10/4；阿鱼挑了 B、照阿鱼画的排法）同一机位的手机截图，出这几张（存整个窗口）：
 ##   bubbles   麻将室两个人在冒泡（同屏最多两个），再加两个「这里能点」的提示泡（只出样子）
-##   talk      点大爷：对话框、名字牌、身份卡、选项开着（翻到有选项那句）
+##   talk      点大爷：两个选项（翻到有选项那句）
+##   grandma   休息间奶奶：三个选项一行
+##   page1、page2  长句一屏放不下：第一页（右下小三角）、点一下翻到第二页
+##   card      点头像展开身份卡
 ##   type1～3  大爷第一句，字一个个出来的连拍（开头、一半、出完带小三角）
 ##   bride     化妆间新娘：没头像时框怎么摆
 ##   ayu       阿鱼说话（原来屏幕上边那条，换到下面同一个框）
 ##   edge      走到头：人头顶冒一句
-## 要窗口：Godot --path . --resolution 540x960 --script res://tools/shot_ui_skin.gd -- --dir=目录 --ui_skin=A
-## 长屏用 --resolution 585x1266。每张存 <dir>/<样子>-<名字>.png，出完打「SHOT DONE n」
+## 要窗口：Godot --path . --resolution 540x960 --script res://tools/shot_ui_skin.gd -- --dir=目录 [--tag=p]
+## 长屏用 --resolution 585x1266。每张存 <dir>/<tag>-<名字>.png，出完打「SHOT DONE n」；量到的选项一行排不排得下打「FIT 名字 {…}」
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
-var opt := {"dir": "", "ui_skin": "A"}
+var opt := {"dir": "", "tag": "p"}
 var n := 0
 
 func _initialize() -> void:
@@ -36,7 +39,7 @@ func frames(k: int) -> void:
 
 func shot(name: String) -> void:
     await RenderingServer.frame_post_draw
-    get_root().get_texture().get_image().save_png("%s/%s-%s.png" % [opt["dir"], str(opt["ui_skin"]).to_upper(), name])
+    get_root().get_texture().get_image().save_png("%s/%s-%s.png" % [opt["dir"], opt["tag"], name])
     n += 1
 
 func life_by(b, room: String):
@@ -115,9 +118,37 @@ func run() -> void:
         h.queue_free()
     quiet(b)
     # 大爷：选项那句
+    var Skin2 = load("res://scripts/ui/dialog_skin.gd")
     await open_talk(b, ui, mj, "elder_n", true)
     await frames(10)
+    print("FIT 大爷 ", Skin2.choices_fit(ui.talk_box))
     await shot("talk")
+    # 点头像展开身份卡
+    ui.open_card("elder_n")
+    await frames(10)
+    await shot("card")
+    ui.close_card()
+    await frames(4)
+    # 长句翻页：大爷第一句换成一段长话
+    ui.close_talk()
+    await frames(4)
+    await open_talk(b, ui, mj, "elder_n", false)
+    ui.line_label.text = "你会不会打麻将？我们这桌三缺一，你要是会就来坐一会儿，输了算我的。你阿鱼小时候在这桌上看我们打牌，看着看着就学会了，后来过年回来都要跟我们来两圈，手气比我还好。"
+    await frames(10)
+    await shot("page1")
+    ui.next_line()
+    await frames(10)
+    await shot("page2")
+    # 休息间奶奶：三选一
+    ui.close_talk()
+    await frames(4)
+    var lg = life_by(b, "lounge")
+    if lg == null:
+        lg = b.lounge
+    await open_talk(b, ui, lg, "lounge_09", true)
+    await frames(10)
+    print("FIT 奶奶 ", Skin2.choices_fit(ui.talk_box))
+    await shot("grandma")
     # 字一个个出：大爷第一句，打字开着
     ui.close_talk()
     await frames(4)

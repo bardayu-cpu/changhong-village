@@ -98,13 +98,13 @@ func run() -> void:
 
     print("3 选项")
     var opts: Array = ui.choices.get_children().map(func(x): return (x as Button).text)
-    check("问「%s」出三个选项 %s" % [ui.line_label.text, opts], ui.line_label.text == "你是哪边的客人呀？" and ui.choices.visible and opts == ["新娘那边的", "新郎那边的", "先不说"])
+    check("问「%s」出三个选项 %s" % [ui.line_label.text, opts], ui.line_label.text == "你是哪边的客人呀？" and ui.choices.visible and opts == ["新娘那边", "新郎那边", "先不说"])
     ui.next_line()
     await settle()
     check("有选项时点对话框不往下走", ui.line_label.text == "你是哪边的客人呀？" and ui.choices.visible)
     (ui.choices.get_child(1) as Button).pressed.emit()
     await settle()
-    check("挑「新郎那边的」→「%s」用惊讶的图（%s），选项收了" % [ui.line_label.text, ui.portrait.get_meta("pose")],
+    check("挑「新郎那边」→「%s」用惊讶的图（%s），选项收了" % [ui.line_label.text, ui.portrait.get_meta("pose")],
         ui.line_label.text == "欢迎欢迎，路上辛苦了" and str(ui.portrait.get_meta("pose")) == "surprise" and not ui.choices.visible)
     ui.next_line()
     await settle()
@@ -121,7 +121,7 @@ func run() -> void:
     await settle()
     (ui.choices.get_child(0) as Button).pressed.emit()
     await settle()
-    check("挑「新娘那边的」→「%s」" % ui.line_label.text, ui.line_label.text == "那我们是一家人嘛，多坐会儿")
+    check("挑「新娘那边」→「%s」" % ui.line_label.text, ui.line_label.text == "那我们是一家人嘛，多坐会儿")
     ui.close_talk()
 
     print("5 爷爷照旧")
