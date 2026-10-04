@@ -648,9 +648,11 @@ func _process(dt: float) -> void:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
         orchard_ui.sync()   # 人站着不动地也在长：按钮上「几垄熟了」跟着变
+    if driving and hint != null:
+        hint.visible = false   # 04 看第 65 版：自动开车的时候「点地面走路」先不出，停好车下车再出（_enter_parking 照旧打开）
     if stick_base != null:
-        # 写悄悄话、说话的时候不能走，摇杆也藏起来
-        var show_stick: bool = _in_scene() and cv.walking_enabled
+        # 写悄悄话、说话的时候不能走，摇杆也藏起来；自动开车的时候也藏（04 看第 65 版）
+        var show_stick: bool = _in_scene() and cv.walking_enabled and not driving
         stick_base.visible = show_stick
         stick_knob.visible = show_stick
         if not show_stick and stick_touch != -1:

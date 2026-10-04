@@ -187,7 +187,7 @@ func run() -> void:
     tick(90)
     p.stick = Vector2.ZERO
     tick(2)
-    check("往北顶到绿篱：弹一句「%s」，一直顶着不重复（%d 次）" % [txt, bumps], first == 1 and bumps == 1 and txt == "前面过不去了")
+    check("往北顶到绿篱：弹一句「%s」，一直顶着不重复（%d 次）" % [txt, bumps], first == 1 and bumps == 1 and txt == "这边过不去了")   # 10/4 04 看第 65 版：走到头统一一句不分方向
     p.reset_to(Vector2(320, 360))
     tick(3)
     p.reset_to(Vector2(320, 240))
@@ -200,7 +200,7 @@ func run() -> void:
     p.stick = Vector2(1, 0)
     tick(60)
     p.stick = Vector2.ZERO
-    check("往东顶：「%s」" % m.note.text, bumps == 3 and m.note.text == "右边没路了")
+    check("往东顶也弹同一句：「%s」" % m.note.text, bumps == 3 and m.note.text == "这边过不去了")
     p.reset_to(Vector2(700, 300))
     tick(3)
     p.tap(p.get_viewport().get_canvas_transform() * Vector2(700, 120))
@@ -218,6 +218,8 @@ func run() -> void:
     m.court_save.drive_seen = false
     m.drive_in_fast = true
     var legs: Array = []
+    var tip_first := false
+    var shown_while_driving := false   # 开车的时候摇杆或「点地面走路」露出来过
     m._drive_in()
     for i in 6000:
         await process_frame
@@ -225,6 +227,8 @@ func run() -> void:
             legs.append(m.drive.leg)
         if not m.driving:
             break
+        tip_first = tip_first or (m.drive.tip != null and m.drive.tip.visible)
+        shown_while_driving = shown_while_driving or m.stick_base.visible or m.hint.visible
     for i in 60:
         await process_frame
         if m.state == "parking" and not m.switching:
@@ -232,10 +236,15 @@ func run() -> void:
     var mine: Node = m.parking.world.get_node("car_mine")
     check("开过三段 %s，停好在停车场、人在自己车旁 %s" % [legs, m.parking.pos], legs == ["frontgate", "plaza", "parking"] and m.state == "parking"
         and m.parking.pos == m.parking.SPAWN and mine.visible and m.court_save.drive_seen and m.parking.player.visible)
+    check("第一次开车：不出「点一下屏幕跳过」（%s），摇杆和「点地面走路」开车时都藏着（露出来过 %s）" % [tip_first, shown_while_driving], not tip_first and not shown_while_driving)
     legs.clear()
     m._drive_in()
     for i in 10:
         await process_frame
+    var tip_text := ""
+    if m.drive.tip != null and m.drive.tip.visible:
+        tip_text = (m.drive.tip.get_child(0) as Label).text
+    check("看过一次以后再开：屏幕上一行「%s」" % tip_text, tip_text == "点一下屏幕跳过")
     m.drive.skip()
     var n := 0
     for i in 6000:

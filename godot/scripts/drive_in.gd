@@ -32,9 +32,28 @@ const PARK_ROUTE := [Vector2(24, 900), Vector2(174, 900), Vector2(174, 800), Vec
 func setup(main_ref) -> void:
     m = main_ref
 
+## 看过一次以后开车时屏幕下方一行小字「点一下屏幕跳过」（04 看第 65 版，01 G 派；界面字，不画进图；待校对）
+const LINE_SKIP := "点一下屏幕跳过"
+var tip: PanelContainer
+
+func _show_tip() -> void:
+    tip = PanelContainer.new()
+    tip.name = "drive_skip_tip"
+    tip.add_theme_stylebox_override("panel", m._sb(Color(0.106, 0.078, 0.133, 0.85), m.GOLD1, 2, 6, 12))
+    tip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    tip.add_child(m._label(LINE_SKIP, 22, m.GOLD1, HORIZONTAL_ALIGNMENT_CENTER, false))
+    tip.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    tip.grow_horizontal = Control.GROW_DIRECTION_BOTH
+    tip.grow_vertical = Control.GROW_DIRECTION_BEGIN
+    tip.offset_bottom = -200
+    tip.offset_top = -200
+    m.hud.add_child(tip)
+
 ## 开一趟：可跳过的话点屏幕（main 的 _unhandled_input 调 skip）就直接到停车场下车
 func play() -> void:
     skipped = false
+    if m.court_save.drive_seen:
+        _show_tip()
     for cn in ["frontgate", "plaza", "parking"]:
         m.ensure_canvas(cn)
     var parking = m.parking
@@ -53,6 +72,9 @@ func play() -> void:
     if mine != null:
         mine.visible = true
     _clear_car()
+    if tip != null:
+        tip.queue_free()
+        tip = null
     leg = ""
     m.court_save.drive_seen = true
     m.court_save.save()
