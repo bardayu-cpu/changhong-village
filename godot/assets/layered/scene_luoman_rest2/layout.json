@@ -1,7 +1,7 @@
 {
  "scene": "scene_luoman_rest2",
- "title": "休息区 2",
- "note": "罗曼山庄 · 休息区 2灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene rest2。北口去喷泉广场、西口去小卖部；台球桌先摆色块占位置，能不能打以后再说；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "title": "休息厅 2",
+ "note": "罗曼山庄 · 休息厅 2灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene rest2。北口去喷泉广场、西口去小卖部；台球桌先摆色块占位置，能不能打以后再说；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
  "size": [1152, 1024],
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [576, 632],
@@ -34,6 +34,6 @@
  ],
  "npcs": [],
  "signs": [
-  {"text": "休息区", "x": 576, "y": 96}
+  {"text": "休息厅 2", "x": 576, "y": 96}
  ]
 }

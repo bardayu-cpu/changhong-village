@@ -1,7 +1,7 @@
 {
  "scene": "scene_luoman_shop",
  "title": "小卖部",
- "note": "罗曼山庄 · 小卖部灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene shop。北口去喷泉广场、东口去休息区 2、西口去儿童乐园；以后接「送人说句话」；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "note": "罗曼山庄 · 小卖部灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene shop。北口去喷泉广场、东口去休息厅 2、西口去儿童乐园；以后接「送人说句话」；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
  "size": [1152, 1024],
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [576, 632],
@@ -18,7 +18,7 @@
   {"type": "rect", "rect": [540, 0, 612, 60], "color": "#c2b393"},
   {"type": "label", "text": "去喷泉广场", "x": 576, "y": 128},
   {"type": "rect", "rect": [1092, 524, 1152, 596], "color": "#c2b393"},
-  {"type": "label", "text": "去休息区", "x": 1042, "y": 504},
+  {"type": "label", "text": "去休息厅 2", "x": 1042, "y": 504},
   {"type": "rect", "rect": [0, 524, 60, 596], "color": "#c2b393"},
   {"type": "label", "text": "去儿童乐园", "x": 110, "y": 504}
  ],

@@ -1,5 +1,5 @@
 {
- "note": "休息区2每件东西在画布上画出来的外框（x0, y0, x1, y1，连高度）和宽 w、前后 d、高 h（像素），gen_specs_court.py 从 layout.json 生成，别手改；给 GPT 出色块照这个",
+ "note": "休息厅2每件东西在画布上画出来的外框（x0, y0, x1, y1，连高度）和宽 w、前后 d、高 h（像素），gen_specs_court.py 从 layout.json 生成，别手改；给 GPT 出色块照这个",
  "canvas": [
   1152,
   1024

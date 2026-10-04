@@ -47,7 +47,7 @@ const Area = preload("res://scripts/area.gd")
 const DriveIn = preload("res://scripts/drive_in.gd")
 ## 连图（10/4，01 G 派）新加的几块灰盒，都是 area.gd，布局 tools/layout_court/make_areas.py 出
 const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate"]
-const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息区 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
+const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
 const OrchardUI = preload("res://scripts/orchard_ui.gd")
 const OrchardSave = preload("res://scripts/orchard_save.gd")
 ## 蓝图 1 写草坪 → 果园站 (768, 840)，离果园南口 (768, 880, 60) 只有 40 像素、还在出口圈里；照 01 的规矩往里挪。
@@ -1790,7 +1790,7 @@ func _switch_canvas(to: String) -> void:
         parking.car_hint = court_save.gate_open()
         _goto("parking")
     elif areas.has(to):
-        # 连图新加的几块（儿童乐园、小卖部、休息区 2、西餐厨房、后花园、前门、后门）：照口站
+        # 连图新加的几块（儿童乐园、小卖部、休息厅 2、西餐厨房、后花园、前门、后门）：照口站
         _show_canvas(to)
         areas[to].reset_to(gen if gen != Vector2.ZERO else areas[to].SPAWN)
         _goto(to)

@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 FONT = "/System/Library/Fonts/Hiragino Sans GB.ttc"
 CN = {"plaza": "喷泉广场", "court": "迎宾院", "lawn": "草坪", "backhall": "后厅", "kids": "儿童乐园", "shop": "小卖部",
-      "rest2": "休息区 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "parking": "停车场",
+      "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "parking": "停车场",
       "banquet": "宴会厅", "lake": "湖边", "orchard": "果园", "backgate": "后门", "entrance": "迎宾院"}
 # 布局里没写名字的，照 id 开头补个叫法
 FALLBACK = {"tree": "大树", "bench": "长椅", "tea": "茶几", "plant": "盆栽", "fridge": "冰箱", "bed": "花坛",
