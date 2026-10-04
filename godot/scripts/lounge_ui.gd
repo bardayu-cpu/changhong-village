@@ -11,6 +11,7 @@ extends Control
 ## [#smile] 这种标签就是这句用哪张人物图。没写 dialogue 的照旧一句句念 talk
 
 const LMPeople = preload("res://scripts/lm_people.gd")
+## code 空着（新娘，HANDOFF §0.5：新人只用阿鱼审过的图，01 H 10/4 定）：对话框不放头像、身份卡不放图，等阿鱼点过头的新娘图再填 code。
 ## GPT 人物图到了照这个放：assets/characters/lm/pose_<编号>.json = {"png": "res://…", "poses": {"front": [x, y, w, h], "side": […], …}}，
 ## 每张是全身；对话框截上面 PORTRAIT_KEEP，身份卡用整张。没有这份就拿宾客小图的格子顶着（POSE_FRAME）
 const POSE_DIR := "res://assets/characters/lm/pose_%s.json"
@@ -19,7 +20,9 @@ const PORTRAIT_KEEP := 0.56
 const NAME_BG := Color("#a8281f")
 
 var m                      # main.gd
-var life                   # 后厅的 lounge_life.gd
+var life                   # 后厅的 lounge_life.gd（休息间那份：座位、按钮上的字都在它）
+var lives: Array = []      # 后厅每间屋的人（休息间、麻将室、化妆间，10/4 07 铺开）：点人、聊聊、对话框都认这几份
+var near_life              # 「聊聊」按钮对着的人在哪间
 var btn_row: HBoxContainer
 var seat_btn: Button
 var talk_btn: Button
@@ -64,8 +67,8 @@ func setup(main_ref) -> void:
     talk_btn.custom_minimum_size = Vector2(200, 50)
     talk_btn.visible = false
     talk_btn.pressed.connect(func():
-        if near_id != "":
-            life.request_talk(near_id))
+        if near_id != "" and near_life != null:
+            near_life.request_talk(near_id))
     btn_row.add_child(talk_btn)
     _build_talk_box()
 
@@ -77,7 +80,19 @@ func attach(lounge) -> void:
     if life == lounge:
         return
     life = lounge
-    life.talk_ready.connect(open_talk)
+    lives = [lounge]
+    var cv = lounge.get("c")
+    if cv != null and cv.get("lives") is Array and not (cv.lives as Array).is_empty():
+        lives = cv.lives
+    for lf in lives:
+        lf.talk_ready.connect(open_talk)
+
+## 这位在哪间屋（lives 里哪份）；不在回 null
+func life_of(id: String):
+    for lf in lives:
+        if lf.people.has(id):
+            return lf
+    return null
 
 func _build_talk_box() -> void:
     talk_box = PanelContainer.new()
@@ -152,6 +167,8 @@ func _build_talk_box() -> void:
 
 ## 某位、某个 pose 的人物图：half 是对话框用的上半身，不然是身份卡用的全身
 func pose_tex(code: String, pose: String, half: bool) -> AtlasTexture:
+    if code == "":
+        return null
     var tex: Texture2D = null
     var r := Rect2()
     var pj := POSE_DIR % code
@@ -189,7 +206,9 @@ func is_open() -> bool:
 func open_talk(id: String) -> void:
     if m.state != "backhall":
         return
-    _open(life.person(id), m.backhall)
+    var lf = life_of(id)
+    if lf != null:
+        _open(lf.person(id), m.backhall)
 
 ## 别的画布上布局写了 dialogue 的 NPC（entrance.gd 的 talkers，10/4 起哪块画布都能挂）：点了、走到了
 func open_npc(canvas, id: String) -> void:
@@ -207,8 +226,9 @@ func _open(p: Dictionary, canvas) -> void:
     talk_cv = canvas
     talk_id = id
     line_i = 0
-    if life != null and life.people.has(id):
-        life.talking = id
+    var lf = life_of(id)
+    if lf != null:
+        lf.talking = id
     canvas.walking_enabled = false
     canvas.path.clear()
     canvas.stick = Vector2.ZERO
@@ -235,6 +255,7 @@ func _show_line() -> void:
     var l: Dictionary = (p["talk"] as Array)[line_i]
     line_label.text = str(l.get("text", ""))
     portrait.texture = pose_tex(str(p["code"]), str(l.get("pose", "front")), true)
+    portrait.visible = portrait.texture != null
     portrait.set_meta("pose", str(l.get("pose", "front")))
 
 ## 走插件：要下一句（key 是上一句的 next_id、或者选的那个选项的 next_id），到了就照这个对话框的样子摆出来；没了就收
@@ -262,6 +283,7 @@ func _dm_next(key: String) -> void:
         if POSE_FRAME.has(str(tg)):
             pose = str(tg)
     portrait.texture = pose_tex(str(p["code"]), pose, true)
+    portrait.visible = portrait.texture != null   # 没有人物图的（新娘：等阿鱼点过头的图）不放头像，字往左占满
     portrait.set_meta("pose", pose)
     for ch in choices.get_children():
         ch.queue_free()
@@ -305,8 +327,8 @@ func close_talk() -> void:
     dm_line = null
     talk_id = ""
     talk_info = {}
-    if life != null:
-        life.talking = ""
+    for lf in lives:
+        lf.talking = ""
     if talk_cv != null and m.cv == talk_cv and m._in_scene():
         talk_cv.walking_enabled = true
     talk_cv = null
@@ -314,7 +336,8 @@ func close_talk() -> void:
 # ---------- 身份卡 ----------
 ## 全身人物图 + 称呼（+ 关系）；点「关上」或暗处收，回到对话框
 func open_card(id: String) -> void:
-    var p: Dictionary = talk_info if id == talk_id and not talk_info.is_empty() else life.person(id)
+    var lf = life_of(id)
+    var p: Dictionary = talk_info if id == talk_id and not talk_info.is_empty() else (lf.person(id) if lf != null else {})
     if p.is_empty() or card != null:
         return
     card = Control.new()
@@ -343,7 +366,10 @@ func open_card(id: String) -> void:
     body.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     body.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     body.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    v.add_child(body)
+    if body.texture != null:
+        v.add_child(body)   # 没有人物图的（新娘）身份卡只写称呼，不放图
+    else:
+        body.free()
     v.add_child(m._label(str(p.get("title", "")), 30, m.GOLD1))
     if str(p.get("relation", "")) != "":
         var rel: Label = m._label(str(p["relation"]), 22, m.PAPER)
@@ -386,15 +412,21 @@ func sync() -> void:
     seat_btn.visible = seat_txt != ""
     seat_btn.text = seat_txt
     near_id = ""
+    near_life = null
     if not busy:
-        near_id = life.near_npc()
+        for lf in lives:
+            near_id = lf.near_npc()
+            if near_id != "":
+                near_life = lf
+                break
         if near_id == "" and c.seated:
             for id in life.people:
                 if c.pos.distance_to(life.people[id]["foot"]) < 90.0:
                     near_id = id
+                    near_life = life
     talk_btn.visible = near_id != ""
     if near_id != "":
-        talk_btn.text = _txt("talk") % str(life.person(near_id).get("title", ""))
+        talk_btn.text = _txt("talk") % str(near_life.person(near_id).get("title", ""))
     # 后厅房间那个按钮在同一排：它出着就把这一排往上让一格
     var up: bool = m.backhall_ui != null and m.backhall_ui.act_btn.visible
     btn_row.offset_top = -230 if up else -170

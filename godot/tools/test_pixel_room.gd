@@ -102,7 +102,8 @@ func run() -> void:
     var ids: Array = (b.cfg["items"] as Array).map(func(x): return str(x.get("id", "")))
     check("行李箱拿掉了、棋桌换成小茶几", not ids.has("luggage_1") and not ids.has("luggage_2") and not ids.has("go_table") and ids.has("west_table"))
     var sp: Array = (b.cfg.get("stand_points", []) as Array).map(func(x): return str(x["id"]))
-    check("唱片机前、电视前两个站人点记下了（%s），不做玩法（不是交互点）" % [sp], sp == ["stand_record", "stand_tv"] and not b.points.has("stand_record"))
+    # 10/4 07：麻将室、化妆间 NPC 走动加了 4 个站点（stand_mj_*、stand_mk_*），一样只是站人、不是交互点
+    check("唱片机前、电视前两个站人点记下了（%s），站点都不做玩法（不是交互点）" % [sp], sp.slice(0, 2) == ["stand_record", "stand_tv"] and sp.all(func(x): return not b.points.has(x)))
     # 走路格子只留从进场点灌得到的格子：一件东西四周 24 像素里有能站的格子，就是从门口走得到它跟前
     var far: Array = []
     var n_l := 0

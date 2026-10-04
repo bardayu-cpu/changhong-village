@@ -246,9 +246,10 @@ def main():
     items = west_items + east
     npcs = copy.deepcopy(WEST["npcs"]) + EAST["npcs"]
     flat = copy.deepcopy(WEST["flat"]) + EAST["flat"]
-    flat.append({"type": "label", "text": "去后花园", "x": EX, "y": WALL_Y[1] + 52})   # 方案 C：东头南墙月亮门去后花园
+    # 两道月亮门的「去…」牌挂在门洞左边（10/4 04 看第 66 版：挂在门洞正下方时，第一次走路右下那块「点地面走路」提示框会压住半个牌子）
+    flat.append({"type": "label", "text": "去后花园", "x": EX - 74, "y": WALL_Y[1] + 52})   # 方案 C：东头南墙月亮门去后花园
     wgate = [p for p in WEST["points"] if p["id"] == "to_orchard"][0]
-    flat.append({"type": "label", "text": "去果园", "x": wgate["x"], "y": WALL_Y[1] + 52})   # 西头南墙月亮门去果园 A
+    flat.append({"type": "label", "text": "去果园", "x": wgate["x"] - 74, "y": WALL_Y[1] + 52})   # 西头南墙月亮门去果园 A
     d = {
         "scene": "scene_luoman_lake",
         "title": "湖边",
