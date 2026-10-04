@@ -169,7 +169,8 @@ func run() -> void:
         var bub: Node2D = null
         life.show_bubble(id, "好")
         bub = life.bubbles.get(id)
-        if bub == null or not bub.position.is_equal_approx((p["head"] as Vector2) + Vector2(0, -4)):
+        # 10/4 07：跟别的正冒着的气泡叠上了会往上让（lift），x 照旧对着头、y 只往上挪 lift
+        if bub == null or not bub.position.is_equal_approx((p["head"] as Vector2) + Vector2(0, -4.0 - float(bub.get_meta("lift", 0.0)))):
             issues.append("气泡没挂在头顶")
         life._hide_bubble(id)
         # 呼吸：两格轮着放

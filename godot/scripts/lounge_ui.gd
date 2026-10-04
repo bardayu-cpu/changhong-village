@@ -11,6 +11,7 @@ extends Control
 ## [#smile] 这种标签就是这句用哪张人物图。没写 dialogue 的照旧一句句念 talk
 
 const LMPeople = preload("res://scripts/lm_people.gd")
+## code 空着（新娘，HANDOFF §0.5：新人只用阿鱼审过的图，01 H 10/4 定）：对话框不放头像、身份卡不放图，等阿鱼点过头的新娘图再填 code。
 ## GPT 人物图到了照这个放：assets/characters/lm/pose_<编号>.json = {"png": "res://…", "poses": {"front": [x, y, w, h], "side": […], …}}，
 ## 每张是全身；对话框截上面 PORTRAIT_KEEP，身份卡用整张。没有这份就拿宾客小图的格子顶着（POSE_FRAME）
 const POSE_DIR := "res://assets/characters/lm/pose_%s.json"
@@ -166,6 +167,8 @@ func _build_talk_box() -> void:
 
 ## 某位、某个 pose 的人物图：half 是对话框用的上半身，不然是身份卡用的全身
 func pose_tex(code: String, pose: String, half: bool) -> AtlasTexture:
+    if code == "":
+        return null
     var tex: Texture2D = null
     var r := Rect2()
     var pj := POSE_DIR % code
@@ -252,6 +255,7 @@ func _show_line() -> void:
     var l: Dictionary = (p["talk"] as Array)[line_i]
     line_label.text = str(l.get("text", ""))
     portrait.texture = pose_tex(str(p["code"]), str(l.get("pose", "front")), true)
+    portrait.visible = portrait.texture != null
     portrait.set_meta("pose", str(l.get("pose", "front")))
 
 ## 走插件：要下一句（key 是上一句的 next_id、或者选的那个选项的 next_id），到了就照这个对话框的样子摆出来；没了就收
@@ -279,6 +283,7 @@ func _dm_next(key: String) -> void:
         if POSE_FRAME.has(str(tg)):
             pose = str(tg)
     portrait.texture = pose_tex(str(p["code"]), pose, true)
+    portrait.visible = portrait.texture != null   # 没有人物图的（新娘：等阿鱼点过头的图）不放头像，字往左占满
     portrait.set_meta("pose", pose)
     for ch in choices.get_children():
         ch.queue_free()
@@ -361,7 +366,10 @@ func open_card(id: String) -> void:
     body.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     body.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     body.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    v.add_child(body)
+    if body.texture != null:
+        v.add_child(body)   # 没有人物图的（新娘）身份卡只写称呼，不放图
+    else:
+        body.free()
     v.add_child(m._label(str(p.get("title", "")), 30, m.GOLD1))
     if str(p.get("relation", "")) != "":
         var rel: Label = m._label(str(p["relation"]), 22, m.PAPER)

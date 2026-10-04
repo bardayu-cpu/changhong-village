@@ -3,10 +3,11 @@
  "status": "待校对",
  "people": {
   "bride": {
-   "code": "LM-GUEST-02",
+   "code": "",
    "title": "新娘",
    "relation": "",
-   "dialogue": "res://assets/backhall/dialogue/mk_bride.dialogue"
+   "dialogue": "res://assets/backhall/dialogue/mk_bride.dialogue",
+   "code_note": "空着：新娘不放头像、身份卡不放图（HANDOFF §0.5 新人只用阿鱼审过的图；01 H 10/4）。阿鱼点过头的新娘图到了再填"
   },
   "makeup_1": {
    "code": "LM-GUEST-03",

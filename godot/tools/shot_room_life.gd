@@ -94,10 +94,11 @@ func run() -> void:
     b.face = "up"
     b.cam.reset_smoothing()
     await frames(20)
-    mj.show_bubble("elder_e", "碰！")
-    mj.show_bubble("card_w", "我看看")
+    # 最挤的时候：四组一组一句同时冒（一组一次只有一个人说），挨着的一号桌、打牌桌都挑离得最近的人
+    mj.show_bubble("elder_n", "我听牌了哦")
+    mj.show_bubble("card_e", "再来一把")
     mj.show_bubble("mj3_e", "这把稳了")
-    mj.show_bubble("elder_6", "你嘛")
+    mj.show_bubble("elder_6", "眼睛花了，看不清")
     await shot("1-麻将室冒泡")
     quiet(b)
     # 2、3 跟大爷说话、选项
@@ -146,6 +147,27 @@ func run() -> void:
             break
     quiet(b)
     await shot("7-化妆间助理走动")
+    # 8 走到孃孃侧边：出「跟孃孃聊聊」，冒泡照常轮着（看压不压按钮）
+    for lf in b.lives:
+        lf.frozen = false
+    b.reset_to(mj.approach_of("elder_s"))
+    b.cam.reset_smoothing()
+    for i in 200:
+        await process_frame
+    quiet(b)
+    mj.show_bubble("elder_s", "我听牌了哦")
+    mj.show_bubble("mj3_w", "年轻人沉住气")
+    mj.show_bubble("elder_5", "眼睛花了，看不清")
+    await shot("8-走近孃孃出聊聊按钮")
+    # 9 休息间冒泡（一起放大了）
+    b.reset_to(Vector2(1032, 560))
+    b.face = "up"
+    b.cam.reset_smoothing()
+    await frames(20)
+    # 休息间两组，一组一句同时冒
+    b.lounge.show_bubble("lounge_10", "一会儿多吃两碗")
+    b.lounge.show_bubble("lounge_05", "跷脚牛肉上了没")
+    await shot("9-休息间冒泡")
     print("SHOT DONE ", n)
     quit()
 

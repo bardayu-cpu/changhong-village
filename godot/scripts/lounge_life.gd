@@ -23,7 +23,9 @@ const TALK_NEAR := 34.0         # 离 NPC 跟前多近算走到了（出「聊�
 const BUBBLE_HOLD := 2.6        # 一句冒多久
 const BUBBLE_GAP := 0.9         # 一句收了隔多久下一个人说
 const BUBBLE_POP := 0.12        # 冒出来那一下（从小变大）
-const BUBBLE_FONT := 15         # 屏幕上的字号（540 宽算）：气泡按镜头缩放反着放大，后厅镜头缩到 0.5 多也认得出字
+const BUBBLE_FONT := 22         # 字号（540 宽算）：气泡按镜头缩放反着放大，后厅镜头缩到 0.5 多也认得出字。
+                                # 原来 15，04 量第 67 版截图上字只有约 12 像素、长辈看不清（建议 18）；22 在 540×960 上字约 18 像素
+const BUBBLE_GAP_Y := 4.0       # 两个气泡叠上了：后冒的那个往上让开，中间留这么多（屏幕像素）
 const INK := Color("#2b1d16")
 const BUBBLE_BG := Color("#fffdf6")
 const FACE_DIR := {"down": Vector2(0, 1), "up": Vector2(0, -1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}
@@ -281,7 +283,7 @@ func _step_body(p: Dictionary, dt: float) -> void:
     _pose(p, float(p.get("walk_t", 0.0)))
     var b: Node2D = bubbles.get(id)
     if b != null and is_instance_valid(b):
-        b.position = (p["head"] as Vector2) + Vector2(0, -4)
+        b.position = (p["head"] as Vector2) + Vector2(0, -4.0 - float(b.get_meta("lift", 0.0)))
 
 ## 玩家要跟他说话走到哪：坐着的走到座位跟前，起身走动的走到他脚边最近的空地
 func approach_of(id: String) -> Vector2:
@@ -392,9 +394,41 @@ func _bubble_scale() -> float:
     var z: float = c.cam.zoom.x if c.cam != null else 1.0
     return 1.0 / maxf(z, 0.2)
 
+## 后厅三间屋里有没有谁正在跟玩家说话（对话框开着）：开着的时候哪间都不冒泡，免得气泡从选项按钮底下露出来（03 测第 67 版）
+func _anyone_talking() -> bool:
+    var all: Array = c.get("lives") if c.get("lives") is Array and not (c.get("lives") as Array).is_empty() else [self]
+    for lf in all:
+        if str(lf.talking) != "":
+            return true
+    return false
+
+## 气泡要是冒在 id 头顶、说 text，在画布上占哪块（还没冒，先量）
+func _rect_for(id: String, text: String) -> Rect2:
+    var p: Dictionary = people.get(id, {})
+    if p.is_empty():
+        return Rect2()
+    var f: Font = c.font
+    var tw: float = f.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, BUBBLE_FONT).x if f != null else float(text.length() * BUBBLE_FONT)
+    var sz := Vector2(ceilf(tw) + 12.0, float(BUBBLE_FONT) + 16.0) * _bubble_scale()
+    var at: Vector2 = (p["head"] as Vector2) + Vector2(0, -4)
+    return Rect2(at.x - sz.x * 0.5, at.y - sz.y, sz.x, sz.y)
+
+## 这块跟别的正冒着的气泡（三间屋都算，除了 skip 那个）叠不叠
+func _crowded(r: Rect2, skip: Node2D = null) -> bool:
+    var all: Array = c.get("lives") if c.get("lives") is Array and not (c.get("lives") as Array).is_empty() else [self]
+    var gap := BUBBLE_GAP_Y * _bubble_scale()
+    for lf in all:
+        for id in lf.bubbles:
+            var o: Node2D = lf.bubbles[id]
+            if o != skip and is_instance_valid(o) and r.grow(gap * 0.5).intersects(lf.bubble_rect(o)):
+                return true
+    return false
+
+## 冒泡轮换：一组一次一个人说。轮到的这句要是会跟别组正冒着的叠上，先等等再冒（挨着的两桌字放大以后会撞，04、03 看第 67 版）；
+## 正说着的人起身走着走着撞上别人的气泡，这句提前收
 func _step_group(g: Dictionary, dt: float) -> void:
     var lines: Array = g["lines"]
-    var paused := false
+    var paused := _anyone_talking()
     for l in lines:
         if str(l[0]) == talking:
             paused = true
@@ -406,6 +440,10 @@ func _step_group(g: Dictionary, dt: float) -> void:
         return
     g["t"] = float(g["t"]) + dt
     if g["showing"]:
+        var mine: Node2D = bubbles.get(str(g["who"]))
+        var walking: bool = str((people.get(str(g["who"]), {}) as Dictionary).get("mode", "")) == "walk"
+        if walking and mine != null and is_instance_valid(mine) and _crowded(bubble_rect(mine), mine):
+            g["t"] = BUBBLE_HOLD
         if g["t"] >= BUBBLE_HOLD:
             _hide_bubble(str(g["who"]))
             g["showing"] = false
@@ -413,6 +451,9 @@ func _step_group(g: Dictionary, dt: float) -> void:
             g["i"] = (int(g["i"]) + 1) % lines.size()
     elif g["t"] >= BUBBLE_GAP:
         var l: Array = lines[int(g["i"])]
+        if _crowded(_rect_for(str(l[0]), str(l[1]))):
+            g["t"] = BUBBLE_GAP - 0.5   # 旁边有人正说着：半秒后再看
+            return
         g["who"] = str(l[0])
         g["showing"] = true
         g["t"] = 0.0
@@ -467,9 +508,43 @@ func show_bubble(id: String, text: String) -> void:
     b.add_child(edge)
     b.position = (p["head"] as Vector2) + Vector2(0, -4)
     b.scale = Vector2.ONE * 0.6 * _bubble_scale()
+    b.set_meta("size", Vector2(w, h + tail))
+    _make_room(b)
     b.set_meta("text", text)
     add_child(b)
     bubbles[id] = b
+
+## 气泡在画布上占哪块（按放满了的大小算）
+func bubble_rect(b: Node2D) -> Rect2:
+    var sz: Vector2 = b.get_meta("size", Vector2.ZERO) * _bubble_scale()
+    return Rect2(b.position.x - sz.x * 0.5, b.position.y - sz.y, sz.x, sz.y)
+
+## 新冒的气泡跟别的正冒着的（三间屋都算）叠上了就往上让，一直让到不叠（挨着的两桌同时说话，04 看第 67 版）
+func _make_room(b: Node2D) -> void:
+    var others: Array = []
+    var all: Array = c.get("lives") if c.get("lives") is Array and not (c.get("lives") as Array).is_empty() else [self]
+    for lf in all:
+        for id in lf.bubbles:
+            var o: Node2D = lf.bubbles[id]
+            if o != b and is_instance_valid(o):
+                others.append(lf.bubble_rect(o))
+    var lift := 0.0
+    var gap := BUBBLE_GAP_Y * _bubble_scale()
+    var top_y: float = float(c.cfg.get("walk", [[[0, 0]]])[0][0][1]) - 8.0   # 最多让到屋子北墙这一线（布局能走范围的上沿），不顶出屋子
+    for pass_i in 6:
+        var r := bubble_rect(b)
+        r.position.y -= lift
+        var hit := false
+        for o in others:
+            if r.intersects(o):
+                lift += r.end.y - (o as Rect2).position.y + gap
+                hit = true
+                break
+        if not hit:
+            break
+    lift = minf(lift, maxf(0.0, bubble_rect(b).position.y - top_y))
+    b.set_meta("lift", lift)
+    b.position.y -= lift
 
 func _hide_bubble(id: String) -> void:
     if bubbles.has(id):

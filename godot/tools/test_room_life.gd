@@ -183,6 +183,122 @@ func run() -> void:
                 if (p["foot"] as Vector2) == p["home"] and str(p["home_mode"]) == "sit":
                     check("%s 坐着说话没起身没转身" % id, (p["spr"] as Sprite2D).region_rect == reg0)
             # 两支答的不一样
+    print("3b 头像跟名字对得上（01 H 10/4：新娘不放任何人物图）")
+    for lf in [mj, mk]:
+        for id in lf.people:
+            if not lf.can_talk(id):
+                continue
+            b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
+            tick(2)
+            lf.request_talk(id)
+            for i in int(25.0 / DT):
+                tick(1)
+                if ui.talk_box.visible:
+                    break
+            await settle()
+            var code := str(lf.people[id]["code"])
+            var sd: Dictionary = {}
+            for n in b.cfg["npcs"]:
+                if str(n["id"]) == id:
+                    sd = n.get("standin", {})
+            ui.open_card(id)
+            var body = ui.card.find_child("full_body", true, false) if ui.card != null else null
+            if id == "bride":
+                check("新娘：名字牌「%s」、对话框不放头像、身份卡不放图" % ui.name_label.text,
+                    ui.name_label.text == "新娘" and code == "" and not ui.portrait.visible and ui.card != null and body == null)
+            else:
+                check("%s「%s」：头像、身份卡用的就是场景里他那张（%s = 替身 %s）" % [id, ui.name_label.text, code, sd.get("code", "")],
+                    code == str(sd.get("code", "")) and ui.portrait.visible and ui.portrait.texture != null and body != null and (body as TextureRect).texture != null)
+            ui.close_card()
+            ui.close_talk()
+            tick(1)
+    var words := ""
+    for f in ["res://assets/backhall/mahjong.json", "res://assets/backhall/makeup.json"]:
+        words += FileAccess.get_file_as_string(f)
+    for f in DirAccess.get_files_at("res://assets/backhall/dialogue"):
+        if f.ends_with(".dialogue"):
+            words += FileAccess.get_file_as_string("res://assets/backhall/dialogue/" + f)
+    check("两间的话里没有「手气」「新娘子好乖」（麻将室只留氛围）", not ("手气" in words) and not ("新娘子好乖" in words))
+
+    print("3c 冒泡字大、不互相压")
+    var probe_lf = b.lounge
+    check("气泡字号 %d（原来 15，04 嫌小）" % probe_lf.BUBBLE_FONT, probe_lf.BUBBLE_FONT >= 20)
+    for lf in b.lives:
+        lf.frozen = true
+        for id in lf.bubbles.keys():
+            lf._hide_bubble(id)
+    # 照常跑：三间八组各自轮着冒，跑 90 秒，每一帧都看三间所有正冒着的气泡叠不叠（妹妹、化妆助理起身走动也在跑）
+    for lf in b.lives:
+        for id in lf.bubbles.keys():
+            lf._hide_bubble(id)
+        lf.frozen = false
+    mj.people["card_e"]["wait"] = 2.0
+    mk.people["makeup_2"]["wait"] = 2.0
+    b.reset_to(b.SPAWN)
+    var worst: Array = []
+    var most := 0
+    for f in int(90.0 / DT):
+        tick(1)
+        var rects: Array = []
+        for lf in b.lives:
+            for id in lf.bubbles:
+                var bb: Node2D = lf.bubbles[id]
+                if bb.scale.x >= lf._bubble_scale() * 0.99:   # 刚冒出来变大那一下不算
+                    rects.append([lf.room + "/" + id, lf.bubble_rect(bb)])
+        most = maxi(most, rects.size())
+        for a in rects.size():
+            for c2 in range(a + 1, rects.size()):
+                if (rects[a][1] as Rect2).intersects(rects[c2][1]):
+                    var tag := "%s×%s" % [rects[a][0], rects[c2][0]]
+                    if not tag in worst:
+                        worst.append(tag)
+    check("三间八组照常轮着冒 90 秒（最多同时 %d 个），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 3)
+    for lf in b.lives:
+        for id in lf.bubbles.keys():
+            lf._hide_bubble(id)
+        lf.frozen = false
+
+    print("3e 对话框开着时哪间都不冒泡（03 测第 67 版：妹妹的气泡从选项底下露出来）")
+    b.reset_to(Vector2(700, 640))
+    tick(2)
+    mj.request_talk("elder_n")
+    for i in int(25.0 / DT):
+        tick(1)
+        if ui.talk_box.visible:
+            break
+    await settle()
+    var leak := 0
+    for i in int(12.0 / DT):
+        tick(1)
+        for lf in b.lives:
+            leak += lf.bubbles.size()
+    check("跟大爷说着话的 12 秒里，三间一个气泡都没冒（%d）" % leak, ui.talk_box.visible and leak == 0)
+    ui.close_talk()
+    var back_on := 0
+    for i in int(8.0 / DT):
+        tick(1)
+        for lf in b.lives:
+            back_on += lf.bubbles.size()
+    check("说完又接着冒", back_on > 0)
+
+    print("3d 走近出「跟 XX 聊聊」")
+    var btn_ok := true
+    for pair in [[mj, "elder_s"], [mj, "mj3_e"], [mk, "makeup_1"]]:
+        b.reset_to(pair[0].approach_of(pair[1]))
+        tick(3)
+        var want: String = "跟%s聊聊" % str(pair[0].person(pair[1])["title"])
+        print("    ", pair[1], " 按钮 ", ui.talk_btn.visible, " ", ui.talk_btn.text)
+        btn_ok = btn_ok and ui.talk_btn.visible and ui.talk_btn.text == want
+    ui.talk_btn.pressed.emit()
+    for i in int(5.0 / DT):
+        tick(1)
+        if ui.talk_box.visible:
+            break
+    await settle()
+    check("走到孃孃、姐姐、化妆师跟前出「跟 XX 聊聊」，点了就开聊", btn_ok and ui.talk_box.visible and ui.name_label.text == "化妆师")
+    ui.close_talk()
+    tick(1)
+
     print("4 不说话的、站位")
     var silent := true
     for id in ["elder_w", "elder_e", "mj_guest_1", "card_n"]:

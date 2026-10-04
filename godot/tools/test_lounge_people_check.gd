@@ -393,6 +393,7 @@ func run() -> void:
             talk_bubbles += 1
     life.talking = ""
     check("先看到叔叔阿姨那组冒泡，开始跟叔叔说话后气泡收了、12 秒里没再冒（%s、%d 个）" % [tea_showing, talk_bubbles], tea_showing and talk_bubbles == 0)
-    check("说话期间别的一组（奶奶爷爷）照样冒泡", sofa_seen)
+    # 10/4 07 改规矩（03 测第 67 版第三节：对话框开着时别人的气泡从选项按钮底下露出来，01 H 派）：说话期间哪组都不冒，说完再接着冒
+    check("说话期间别的一组（奶奶爷爷）也停着不冒", not sofa_seen)
     print("RESULT " + ("PASS" if ok else "FAIL"))
     quit(0 if ok else 1)
