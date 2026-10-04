@@ -155,7 +155,7 @@ func route(label: String) -> void:
     # 东侧门：55 桌厅的侧门在东墙下半截，从红毯走过去要很久，先站到门里边 90 像素再走进去
     m.hall_side_latched = false
     h.stand_up()
-    h.reset_to(h.side_door + Vector2(-90, 0))
+    h.reset_to(h.side_off(90, 0))
     tick(2)
     walk_to(h.side_door)
     for i in 120:
@@ -169,7 +169,7 @@ func route(label: String) -> void:
     # K8（04 挡路）：进后厅厨房在屏幕外，屏幕边有个金色小箭头指着它
     check("%s：进后厅屏幕边有箭头指着厨房（%s）" % [label, b.kitchen_arrow != null and b.kitchen_arrow.visible],
         b.kitchen_arrow != null and b.kitchen_arrow.visible and absf(wrapf(b.kitchen_arrow.rotation - (b.spot_pos("pot") - b.kitchen_arrow.position).angle(), -PI, PI)) < 0.01)
-    walk_to(Vector2(1272, 790))
+    walk_to(Vector2(b.spot_pos("pot").x, 790))
     walk_to(b.spot_pos("pot"))
     tick(1)
     check("%s：走到厨房门口箭头收了" % label, not b.kitchen_arrow.visible and not b.kitchen_hint)
@@ -207,7 +207,7 @@ func route(label: String) -> void:
         m.toast_scene = null
     m.toast_queue.clear()
     check("%s：关了厨房，后厅能走" % label, m.game_host == null and b.walking_enabled)
-    walk_to(Vector2(200, 790))
+    walk_to(b.spot_pos("to_hall") + Vector2(160.0 if b.spot_pos("to_hall").x < 768.0 else -160.0, 10))
     walk_to(b.spot_pos("to_hall"))
     for i in 120:
         if m.state == "banquet" and not m.switching:

@@ -27,6 +27,7 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backhall_floor import HW_HEX, HW_RAMP, draw_floor_v3   # 地板 v3：三间共用一份（同一个文件夹）
+import backhall_plan_c   # 10/4 方案 C：后厅四间整间平移（这间 +1195），这里照旧按平移前的坐标画
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
@@ -35,7 +36,9 @@ CHAR_DIR = os.path.join(GODOT, "assets", "characters", "lm") + "/"
 LOUNGE_PNG = os.path.join(GODOT, "回执", "样板间-休息间-01版", "lounge01_room.png")
 OUT = os.path.join(GODOT, "assets", "pixel_art", "backhall_makeup")
 RES = "res://assets/pixel_art/backhall_makeup/"
-BG_CROP = (0, 104, 331, 696)   # 进游戏的范围：画布西边到共用隔墙（隔墙 331～341 跟休息间画得一模一样，归休息间那张）
+BG_CROP = (0, 104, 341, 696)   # 进游戏的范围：西外墙到东边那道墙外沿（平移前的坐标）。10/4 方案 C：化妆间挪到最东头，
+                               # 西外墙 0～10 落到跟休息室共用的隔墙上，原来归休息间画的 331～341 那道成了最东边外墙，这间自己画（多裁 10 像素）
+DX = backhall_plan_c.DX["makeup"]   # 进游戏时整间往东挪多少（出 room.json 时加上；读 layout.json 时先挪回来再核）
 
 # 整间出图的范围（画布坐标）：跟休息间一样宽 352、高 600；西边 8 像素是画布外（x<0），涂深底
 X0, Y0, X1, Y1 = -8, 100, 344, 700
@@ -582,15 +585,15 @@ STANDINS = [
 ]
 
 # 核对：没改的东西（墙、前沿矮墙、门口、换装点）跟 layout.json 对一遍，对不上就停
-KEEP = {
-    "wall_1": ([331, 226, 341, 684], 44),
-    "front_1": ([0, 684, 128, 696], 22),
-    "front_2": ([208, 684, 464, 696], 22),
+KEEP = {   # 平移前的坐标（layout.json 里的 −DX）；10/4 方案 C 起化妆间西边是休息室东墙 wall_3，门洞两边是 front_4、front_5
+    "wall_3": ([0, 226, 10, 684], 44),
+    "front_4": ([-123, 684, 128, 696], 22),
+    "front_5": ([208, 684, 341, 696], 22),
 }
 
 
 def check_layout():
-    d = json.load(open(LAYOUT, encoding="utf-8"))
+    d = backhall_plan_c.shift_layout(json.load(open(LAYOUT, encoding="utf-8")), -DX)
     items = {it["id"]: it for it in d["items"] if "id" in it}
     bad = []
     for iid, (rect, h) in KEEP.items():
@@ -3638,6 +3641,7 @@ def main():
     for f in os.listdir(os.path.join(OUT, "props")):   # 改名、删掉的家具别留旧图
         if f.endswith(".png") and f not in names:
             os.remove(os.path.join(OUT, "props", f))
+    backhall_plan_c.shift_room_json(man, DX)   # 方案 C：整间挪到最东头
     with open(os.path.join(OUT, "room.json"), "w", encoding="utf-8") as fh:
         json.dump(man, fh, ensure_ascii=False, indent=1)
         fh.write("\n")

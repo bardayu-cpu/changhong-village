@@ -15,7 +15,7 @@ const MAX_LEG := 240.0
 const CANVASES := ["parking", "lake", "lawn", "backhall"]
 const MJ := Rect2(672, 226, 336, 458)
 ## 03 测第 57 版时已报给 01 的已知现状（回执 测-build57.md）：这些圈掉的格子数、走不到跟前的件不算新问题，只守「不再多」
-const KNOWN_POCKETS := {"lawn": 6, "backhall": 84, "lake": 12}   # lake：10/4 东头换像素成品，湖岸边花丛围出的小块草地（最大一块 x 2148～2208 的 9 格），走不进去不挡路（02 E）
+const KNOWN_POCKETS := {"lawn": 6, "backhall": 84, "lake": 38}   # lake：10/4 西半边也接图后 38 格——多出来的 26 格在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，02 E 截图核过；原来：10/4 东头换像素成品，湖岸边花丛围出的小块草地（最大一块 x 2148～2208 的 9 格），走不进去不挡路（02 E）
 const KNOWN_NO_FRONT := ["mj2_chair_n", "mj_stand_2"]
 
 var m
@@ -283,31 +283,31 @@ func run() -> void:
     cname = "lake"
     cv = m.lake
     var east: Vector2 = cv.SPAWN                                   # 10/4 南墙挪到 y 1040：进出点照布局，不写死
-    var west_exit: Vector2 = cv.points["to_parking"]["pos"]
+    var west_exit: Vector2 = cv.points["to_garden"]["pos"]   # 10/4 连图：西头月亮门改去后花园（02 E 改）
     reenter()
     cv.reset_to(east)
     var rw := walk(west_exit)
     print("  东头月亮门进门处 %s → 西头出口 %s：%s，站在 %s" % [str(east), str(west_exit), str(rw), str(cv.pos)])
-    check("湖边东到西走得通（走进西头月亮门的半径里就切去停车场）", rw["ok"] and (rw.get("exit_fired", false) or (cv.pos - west_exit).length() <= 36.0))
+    check("湖边东到西走得通（走进西头月亮门的半径里就切去后花园）", rw["ok"] and (rw.get("exit_fired", false) or (cv.pos - west_exit).length() <= 36.0))
     reenter()
-    var east_exit: Vector2 = cv.points["to_entrance"]["pos"]
-    cv.reset_to(cv.FROM_PARKING)
+    var east_exit: Vector2 = cv.points["to_orchard"]["pos"]   # 10/4 连图：东头南墙月亮门不再通迎宾院，东头尽头开口去果园（02 E 改）
+    cv.reset_to(cv.arrival_from("garden"))
     var re := walk(east_exit)
-    print("  西头 %s → 东头出口 %s：%s，站在 %s" % [str(cv.FROM_PARKING), str(east_exit), str(re), str(cv.pos)])
+    print("  西头 %s → 东头出口 %s：%s，站在 %s" % [str(cv.arrival_from("garden")), str(east_exit), str(re), str(cv.pos)])
     check("湖边西到东走得通", re["ok"] and (re.get("exit_fired", false) or (cv.pos - east_exit).length() <= 36.0))
     for pt in ["pavilion", "bench"]:
         reenter()
         cv.reset_to(east)
         var r1 := walk(cv.points[pt]["pos"])
         reenter()
-        var r2 := walk(cv.FROM_PARKING)
+        var r2 := walk(cv.arrival_from("garden"))
         print("  东头 → %s：%.1f 秒；再走到西头：%.1f 秒（%s）" % [pt, float(r1.get("secs", 0.0)), float(r2.get("secs", 0.0)), str(r2["ok"])])
         check("东头走到 %s 再走到西头" % pt, r1["ok"] and r2["ok"])
     # 5 停车场
     print("== 停车场")
     cname = "parking"
     cv = m.parking
-    var pairs := [["my_car", "to_court"], ["my_car", "to_lake"], ["to_court", "my_car"], ["to_lake", "my_car"]]
+    var pairs := [["my_car", "to_court"], ["my_car", "to_garden"], ["to_court", "my_car"], ["to_garden", "my_car"], ["my_car", "to_frontgate"]]   # 10/4 连图：湖边月亮门换成去后花园、前门（02 E 改）
     var pbad := 0
     for pr in pairs:
         reenter()
@@ -318,7 +318,7 @@ func run() -> void:
         print("  %s → %s：%s" % [pr[0], pr[1], str(r)])
         if not (r["ok"] and near):
             pbad += 1
-    check("停车场：车、门楼、湖边月亮门之间走得通", pbad == 0)
+    check("停车场：车、去迎宾院、后花园、前门的口之间走得通", pbad == 0)
     print("  共 %.1f 秒" % ((Time.get_ticks_msec() - t_start) / 1000.0))
     print("RESULT " + ("PASS" if ok else "FAIL"))
     quit(0 if ok else 1)

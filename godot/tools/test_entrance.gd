@@ -52,10 +52,16 @@ func tick(n: int) -> void:
 ## 走到某点（点地面的走法），最多走 secs 秒；到了或者路走完就停
 ## 从停车场走回迎宾院（10/3 起大门外是停车场）：走到门楼门洞
 func back_to_court() -> void:
+    if m.state == "frontgate":   # 10/4 连图：大门外是前门，北口回迎宾院大门
+        var fg = m.areas["frontgate"]
+        walk_to(fg.spot_pos("to_court") + Vector2(0, 90))
+        walk_to(fg.spot_pos("to_court"))
+        tick(5)
+        return
     if m.state != "parking":
         return
     var pk = m.parking
-    walk_to(pk.spot_pos("to_court") + Vector2(0, 90))
+    walk_to(pk.spot_pos("to_court") + Vector2(-90, 0))
     walk_to(pk.spot_pos("to_court"))
     tick(5)
 
@@ -187,19 +193,19 @@ func run() -> void:
     check("金币还在 %d（原来 %d，通关加 50）" % [m.games_save.coins, coins0], m.games_save.coins == coins0 + 50)
     check("NPC 宾客还在", m.hall.life != null and not m.hall.npc_taken.is_empty())
 
-    # 8. 西小径去湖边（9/20 任务 9 起）；10/4 新总图起东小径去草坪那个口关了，西北口去喷泉广场；从那边回来都站在对应的口边上
-    print("8 东西小径")
+    # 8. 10/4 连图起（02 E 改）：游戏里各块照阿鱼图转半圈摆——迎宾院东口去喷泉广场、西北口去停车场、大门去前门，西小径去湖边那个口关了（湖边改从后花园、果园进）
+    print("8 东西两边的口")
     walk_to(m.hall.SPAWN + Vector2(0, -160))
     walk_to(m.hall.door)
-    walk_to(c.spot_pos("to_lake"))
-    check("西小径到了湖边 state=%s" % m.state, m.state == "lake")
-    walk_to(m.lake.spot_pos("to_entrance"))
-    check("湖边东口回到迎宾院、站在西小径边 %s" % str(c.pos), m.state == "court" and c.pos == Vector2(100, 520))
+    check("西小径去湖边那个口关了", not c.points.has("to_lake"))
     walk_to(c.spot_pos("to_plaza"), 30.0)
-    check("西北口进了喷泉广场 state=%s" % m.state, m.state == "plaza")
+    check("东口进了喷泉广场 state=%s" % m.state, m.state == "plaza")
     walk_to(m.plaza.spot_pos("to_court"), 30.0)
-    check("广场东口回到迎宾院、站在西北口边 %s" % str(c.pos), m.state == "court" and c.pos == m.COURT_FROM_PLAZA)
-    check("东小径那个口关了", not c.points.has("to_lawn"))
+    check("广场西口回到迎宾院、站在东口边 %s" % str(c.pos), m.state == "court" and c.pos == c.arrival_from("plaza"))
+    walk_to(c.spot_pos("to_parking"), 30.0)
+    check("西北口进了停车场 state=%s" % m.state, m.state == "parking")
+    walk_to(m.parking.spot_pos("to_court"), 30.0)
+    check("停车场东口回到迎宾院、站在西北口边 %s" % str(c.pos), m.state == "court" and c.pos == c.arrival_from("parking"))
 
     await part2(c)
     await part3(c)
@@ -467,8 +473,8 @@ func part4(c) -> void:
     check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("走到门口出到停车场（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
-        m.state == "parking" and m.note.text == "" and m.dialog_text.text == "" and not m.parking.car_hint)
+    check("走到门口出到前门（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
+        m.state == "frontgate" and m.note.text == "" and m.dialog_text.text == "" and not m.parking.car_hint)
     back_to_court()
 
     # 25. 写了悄悄话没签到：大门没金圈，新娘妈妈提醒先签个到；10/3 起不拦着，照样出到停车场、不指车
@@ -479,8 +485,8 @@ func part4(c) -> void:
     check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("%s：%s；照样出到停车场、不指车" % [m.dialog_who.text, m.dialog_text.text],
-        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed") and m.state == "parking" and not m.parking.car_hint)
+    check("%s：%s；照样出到前门、不指车" % [m.dialog_who.text, m.dialog_text.text],
+        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed") and m.state == "frontgate" and not m.parking.car_hint)
     m.dialog.visible = false
     m.dialog_text.text = ""
     back_to_court()
@@ -509,7 +515,9 @@ func part4(c) -> void:
     m.note.text = ""
     m.dialog_text.text = ""
     walk_to(c.spot_pos("gate"), 30.0)
-    check("走出大门回到停车场、门口不说话（%s）、金箭头指自己的车" % m.state, m.state == "parking" and m.dialog_text.text == "" and m.parking.car_hint)
+    check("走出大门到前门、门口不说话（%s）" % m.state, m.state == "frontgate" and m.dialog_text.text == "")
+    walk_to(m.areas["frontgate"].spot_pos("to_parking"), 30.0)
+    check("前门往西回到停车场、金箭头指自己的车（%s）" % m.state, m.state == "parking" and m.parking.car_hint)
     var pk = m.parking
     walk_to(pk.spot_pos("my_car"), 30.0)
     # 01 9/23：出大门改成新娘妈妈送你——一句送别，一句明天回来能看到什么；回忆册现在是灰的，不提。10/3 起挪到自己车旁说

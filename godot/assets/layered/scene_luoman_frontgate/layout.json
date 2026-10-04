@@ -1,0 +1,51 @@
+{
+ "scene": "scene_luoman_frontgate",
+ "title": "前门",
+ "note": "罗曼山庄 · 前门灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene frontgate。北口进迎宾院（迎宾院南边的大门）、西口去喷泉广场、东口去停车场；南边门楼外头是来山庄的路，开车进来从这进（main.gd 的自动开车），走路出不去；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "size": [1536, 1024],
+ "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
+ "spawn": [768, 632],
+ "points": [
+  {"id": "to_court", "x": 768, "y": 36, "r": 44, "to": "court"},
+  {"id": "to_plaza", "x": 36, "y": 536, "r": 44, "to": "plaza"},
+  {"id": "to_parking", "x": 1500, "y": 536, "r": 44, "to": "parking"},
+  {"id": "out", "x": 768, "y": 984, "r": 50, "say": "frontgate_out"}
+ ],
+ "walk": [[[60, 60], [1476, 60], [1476, 964], [60, 964]], [[734, 2], [802, 2], [802, 58], [734, 58]], [[2, 502], [58, 502], [58, 570], [2, 570]], [[1478, 502], [1534, 502], [1534, 570], [1478, 570]], [[700, 962], [836, 962], [836, 1018], [700, 1018]]],
+ "flat": [
+  {"type": "rect", "rect": [0, 0, 1536, 1024], "color": "#5f8f55"},
+  {"type": "rect", "rect": [60, 60, 1476, 964], "color": "#a9c88a"},
+  {"type": "rect", "rect": [732, 0, 804, 60], "color": "#c2b393"},
+  {"type": "label", "text": "去迎宾院", "x": 768, "y": 128},
+  {"type": "rect", "rect": [0, 500, 60, 572], "color": "#c2b393"},
+  {"type": "label", "text": "去喷泉广场", "x": 110, "y": 480},
+  {"type": "rect", "rect": [1476, 500, 1536, 572], "color": "#c2b393"},
+  {"type": "label", "text": "去停车场", "x": 1426, "y": 480},
+  {"type": "rect", "rect": [696, 60, 840, 1024], "color": "#8a8580"},
+  {"type": "rect", "rect": [60, 470, 1476, 600], "color": "#8a8580"}
+ ],
+ "items": [
+  {"type": "box", "id": "gate_post_w", "rect": [664, 680, 696, 700], "h": 168, "top": "#a83a30", "front": "#8c2f27", "scale": {"h_m": 3.5, "w_m": 0.67, "name": "门楼门柱"}, "part": "PK-W02"},
+  {"type": "box", "id": "gate_post_e", "rect": [840, 680, 872, 700], "h": 168, "top": "#a83a30", "front": "#8c2f27", "part": "PK-W02"},
+  {"type": "beam", "id": "gate_roof", "x0": 640, "x1": 896, "top": 462, "thick": 34, "foot": 701, "color": "#6e2420", "scale": {"w_m": 5.6, "name": "门楼门头（瓦顶）"}, "part": "PK-W02"},
+  {"type": "beam", "id": "gate_lintel", "x0": 656, "x1": 880, "top": 496, "thick": 24, "foot": 701, "color": "#a83a30", "part": "PK-W02"},
+  {"type": "box", "id": "arch_post_w", "rect": [686, 560, 698, 568], "h": 130, "top": "#f4a6c0", "front": "#e07a9a", "scale": {"h_m": 3.0, "w_m": 3.5, "group": ["arch_post_e", "arch_top"], "name": "气球拱门"}, "part": "PK-P06"},
+  {"type": "box", "id": "arch_post_e", "rect": [838, 560, 850, 568], "h": 130, "top": "#f4a6c0", "front": "#e07a9a", "part": "PK-P06"},
+  {"type": "beam", "id": "arch_top", "x0": 686, "x1": 850, "top": 422, "thick": 22, "foot": 569, "color": "#fbe3ea", "part": "PK-P06"},
+  {"type": "box", "id": "guard", "rect": [476, 600, 556, 640], "h": 110, "top": "#e8e0d0", "front": "#c8bca8", "scale": {"h_m": 2.3, "name": "门卫亭"}, "part": "FG-P01"},
+  {"type": "box", "id": "gatewall_w", "rect": [60, 686, 664, 700], "h": 58, "top": "#c8b08a", "front": "#a08a68", "scale": {"h_m": 1.2, "name": "院墙"}, "part": "PK-W01"},
+  {"type": "box", "id": "gatewall_e", "rect": [872, 686, 1476, 700], "h": 58, "top": "#c8b08a", "front": "#a08a68", "part": "PK-W01"},
+  {"type": "box", "id": "wall_n_0", "rect": [0, 46, 732, 60], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01", "scale": {"h_m": 1.2, "name": "围墙 / 绿篱"}},
+  {"type": "box", "id": "wall_n_1", "rect": [804, 46, 1536, 60], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_w_0", "rect": [46, 0, 60, 500], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_w_1", "rect": [46, 572, 60, 1024], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_0", "rect": [1476, 0, 1490, 500], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_1", "rect": [1476, 572, 1490, 1024], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_s_0", "rect": [0, 964, 696, 978], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"},
+  {"type": "box", "id": "wall_s_1", "rect": [840, 964, 1536, 978], "h": 58, "top": "#5f8f4e", "front": "#3f6a3f", "part": "AR-W01"}
+ ],
+ "npcs": [],
+ "signs": [
+  {"text": "罗曼山庄", "x": 768, "y": 486, "foot": 702}
+ ]
+}

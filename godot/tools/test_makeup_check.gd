@@ -12,8 +12,9 @@ const Ent = preload("res://scripts/entrance.gd")
 const DT := 1.0 / 60.0
 const STUCK_SECS := 2.0
 const MAX_LEG := 90.0
-const MAKEUP := Rect2(0, 226, 336, 458)
-const LOUNGE := Rect2(336, 226, 336, 458)
+# 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
+const MAKEUP := Rect2(1195, 226, 341, 458)
+const LOUNGE := Rect2(864, 226, 336, 458)
 
 var m
 var started := false
@@ -164,8 +165,8 @@ func run() -> void:
 
     # ---- 3 格子 ----
     print("3 格子")
-    var door_c: Vector2i = b._cell_of(Vector2(168, 690))
-    var door_l: Vector2i = b._cell_of(Vector2(504, 690))
+    var door_c: Vector2i = b._cell_of(Vector2(1363, 690))
+    var door_l: Vector2i = b._cell_of(Vector2(1032, 690))
     if not cell_free(door_c.x, door_c.y):
         door_c = b._nearest_free(door_c)
     if not cell_free(door_l.x, door_l.y):
@@ -228,8 +229,8 @@ func run() -> void:
             if (MAKEUP.has_point(cp) or LOUNGE.has_point(cp)) and cell_free(i, j) and int(cp.x) % 24 < 12 and int(cp.y) % 24 < 12:
                 targets.append(cp)
     for t in targets:
-        for door in [Vector2(168, 690), Vector2(504, 690)]:
-            if (MAKEUP.has_point(t) and door.x > 300) or (LOUNGE.has_point(t) and door.x < 300):
+        for door in [Vector2(1363, 690), Vector2(1032, 690)]:
+            if (MAKEUP.has_point(t) and door.x < 1200) or (LOUNGE.has_point(t) and door.x > 1200):
                 continue
             reenter()
             b.reset_to(door)
@@ -252,8 +253,8 @@ func run() -> void:
     check("从门口走到两间每个点、化妆间的点走得回来（不卡住、到得了）", bad == 0)
     # 从后厅两个口走到两个房间
     var bad2 := 0
-    for fk in [Vector2(100, 780), Vector2(1440, 780)]:
-        for t0 in [Vector2(168, 400), Vector2(504, 420), Vector2(60, 300), Vector2(160, 520), Vector2(300, 640)]:
+    for fk in [Vector2(1436, 780), Vector2(100, 780)]:
+        for t0 in [Vector2(1363, 400), Vector2(1032, 420), Vector2(1255, 300), Vector2(1355, 520), Vector2(1495, 640)]:
             var t: Vector2 = t0
             if not b._free(t):    # 点在家具占地里：换成最近能站的格子
                 var nc: Vector2i = b._nearest_free(b._cell_of(t))
@@ -287,7 +288,7 @@ func run() -> void:
             continue
         for wob in [0.0, 25.0, 45.0]:
             reenter()
-            b.reset_to(Vector2(168, 690))
+            b.reset_to(Vector2(1363, 690))
             var r := walk(far, wob)
             tried += 1
             if not (r["ok"] and (b.pos - far).length() <= 14.0):
@@ -359,7 +360,7 @@ func run() -> void:
     check("岛两边的列各有起点能直着推过去", west_ok.size() > 0 and east_ok.size() > 0)
     # 点地走：从岛北边走到岛南边（点两边）
     var tap_bad := 0
-    for pair in [[Vector2(126, 486), Vector2(126, 545)], [Vector2(210, 486), Vector2(210, 530)], [Vector2(100, 486), Vector2(240, 545)], [Vector2(240, 486), Vector2(100, 545)]]:
+    for pair in [[Vector2(1321, 486), Vector2(1321, 545)], [Vector2(1405, 486), Vector2(1405, 530)], [Vector2(1295, 486), Vector2(1435, 545)], [Vector2(1435, 486), Vector2(1295, 545)]]:
         reenter()
         b.reset_to(pair[0])
         var r := walk(pair[1])

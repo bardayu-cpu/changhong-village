@@ -30,6 +30,7 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backhall_floor import HW_HEX, HW_RAMP, draw_floor_v3   # 地板 v3：三间共用一份（同一个文件夹）
+import backhall_plan_c   # 10/4 方案 C：后厅四间整间平移（这间 +528），这里照旧按平移前的坐标画
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
@@ -38,7 +39,8 @@ CHAR_DIR = os.path.join(GODOT, "assets", "characters", "lm") + "/"
 V3_PNG = os.path.join(GODOT, "回执", "样板间-休息间-v3", "lounge03_room.png")   # 只给 --preview 的并排图用
 OUT = os.path.join(GODOT, "assets", "pixel_art", "backhall_lounge")
 RES = "res://assets/pixel_art/backhall_lounge/"
-BG_CROP = (331, 104, 677, 696)   # 背景进游戏只要两道隔墙之间、北墙顶到前沿矮墙
+BG_CROP = (331, 104, 677, 696)   # 背景进游戏只要两道隔墙之间、北墙顶到前沿矮墙（平移前的坐标）
+DX = backhall_plan_c.DX["lounge"]   # 10/4 方案 C：进游戏时整间往东挪多少（出 room.json 时加上；读 layout.json 时先挪回来再核）
 # 每件家具进游戏时藏掉哪几件灰盒（挡人的占地照旧）；没写的就是同名那一件；墙是盖在灰盒的墙上，不藏
 HIDE = {"sofa": ["sofa", "sofa_back"], "side_walls": [], "front_walls": []}
 
@@ -302,7 +304,7 @@ class ShadeMap:
 
 # ------------------------------------------------------------------ 布局
 def load_items():
-    d = json.load(open(LAYOUT, encoding="utf-8"))
+    d = backhall_plan_c.shift_layout(json.load(open(LAYOUT, encoding="utf-8")), -DX)
     return {it["id"]: it for it in d["items"] if "id" in it}
 
 
@@ -363,16 +365,16 @@ SPOTS = [
 REMOVED = [("luggage_1", "蓝色拉杆箱（休息间不要行李箱）"), ("luggage_2", "棕色皮箱（同上）")]
 # layout.json 里这版没动、要核对的东西
 KEEP_CHECK = ["vinyl_wall", "fiddle_fig", "sofa_back", "sofa", "tea_table", "armchair_w", "armchair_e", "floor_lamp",
-              "plant", "wall_1", "wall_2", "front_2", "front_3"]
+              "plant", "wall_2", "wall_3", "front_3", "front_4"]   # 10/4 方案 C 起休息间两道墙叫 wall_2、wall_3，门洞两边 front_3、front_4
 
 
 def check_layout():
     """layout.json 里没挪的东西、墙、门口、交互点要跟这版一致，不一致就停"""
-    d = json.load(open(LAYOUT, encoding="utf-8"))
+    d = backhall_plan_c.shift_layout(json.load(open(LAYOUT, encoding="utf-8")), -DX)
     bad = []
     want = {p[0]: (p[3], p[4]) for p in PLAN}
-    want.update({"wall_1": ([331, 226, 341, 684], 44), "wall_2": ([667, 226, 677, 684], 44),
-                 "front_2": ([208, 684, 464, 696], 22), "front_3": ([544, 684, 800, 696], 22)})
+    want.update({"wall_2": ([331, 226, 341, 684], 44), "wall_3": ([667, 226, 677, 684], 44),
+                 "front_3": ([208, 684, 464, 696], 22), "front_4": ([544, 684, 795, 696], 22)})
     for iid in list(want):
         rect, h = want[iid]
         it = IT.get(iid)
@@ -2687,6 +2689,7 @@ def main():
     for f in os.listdir(os.path.join(OUT, "props")):   # 改名、删掉的家具别留旧图
         if f.endswith(".png") and f not in names:
             os.remove(os.path.join(OUT, "props", f))
+    backhall_plan_c.shift_room_json(man, DX)   # 方案 C：整间往东挪
     with open(os.path.join(OUT, "room.json"), "w", encoding="utf-8") as fh:
         json.dump(man, fh, ensure_ascii=False, indent=1)
         fh.write("\n")

@@ -70,7 +70,7 @@ func run() -> void:
     var who := {}
     for id in ["lounge_09", "lounge_10", "lounge_05", "lounge_06"]:
         var s: Sprite2D = b.npc_nodes.get(id)
-        who[id] = s != null and s.hframes == 16 and s.vframes == 2 and s.frame >= 20 and s.frame <= 27 and s.position.x > 336 and s.position.x < 672
+        who[id] = s != null and s.hframes == 16 and s.vframes == 2 and s.frame >= 20 and s.frame <= 27 and s.position.x > 864 and s.position.x < 1200
     check("四位代码小人坐在休息间、放坐姿格（%s）" % [who], not who.values().has(false) and life.people.size() == 4)
     check("奶奶、爷爷在北边沙发，叔叔、阿姨在茶座", life.person("lounge_09")["seat"] == "sofa_l" and life.person("lounge_10")["seat"] == "sofa_r"
         and life.person("lounge_05")["seat"] == "west_chair_w" and life.person("lounge_06")["seat"] == "west_chair_e")
@@ -166,7 +166,7 @@ func run() -> void:
     check("坐着推摇杆就站起来，按钮跟着变（%s）" % ui.seat_btn.text, not b.seated and life.my_seat == "" and ui.seat_btn.text != "起来")
 
     print("4 说话")
-    b.reset_to(Vector2(504, 640))
+    b.reset_to(Vector2(1032, 640))   # 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
     tick(2)
     var p06: Dictionary = life.person("lounge_06")
     var at: Vector2 = (p06["head"] + p06["foot"]) * 0.5

@@ -120,7 +120,7 @@ func run() -> void:
     ui = m.lounge_ui
     ui.attach(life)
     b.walking_enabled = true
-    var door := Vector2(504, 690)
+    var door := Vector2(1032, 690)   # 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
 
     print("1 座位（%d 个）" % life.seats.size())
     check("layout 里 15 个座位、4 个有 NPC 占着", life.seats.size() == 15 and life.seats.filter(func(s): return str(s.get("npc", "")) != "").size() == 4)
@@ -366,8 +366,8 @@ func run() -> void:
     life.show_bubble("lounge_05", "好多人啊")
     var bb2: Node2D = life.bubbles["lounge_05"]
     reenter()
-    b.reset_to(Vector2(420, 480))
-    tap_world(Vector2(420, 560))
+    b.reset_to(Vector2(948, 480))
+    tap_world(Vector2(948, 560))
     check("气泡在头顶冒着，点地面照样走（路 %d 段）" % b.path.size(), b.path.size() > 0 or life.pending_talk != "")
     # 说话那一组停：先等「叔叔阿姨」这一组自然冒出一个气泡，再开始说话，气泡要收、再不冒
     for id in life.bubbles.keys():

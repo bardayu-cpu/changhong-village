@@ -2,18 +2,18 @@
  "note": "draw_mahjong.py 生成。照 tools/pixel_art 休息间、化妆间的 room.json 写法：背景左上角放在 background.x/y（画布坐标），1 倍、不插值；每件家具左上角在 x/y，着地线 foot（跟人排前后用；桌南那四把背对镜头的椅子 foot 比占地多 3，好压在坐着的人前面）；hide 是要藏掉的灰盒（挡人的占地照旧）",
  "background": {
   "png": "res://assets/pixel_art/backhall_mahjong/room.png",
-  "x": 677,
+  "x": 523,
   "y": 104
  },
  "room": {
-  "x0": 677,
-  "x1": 1008
+  "x0": 523,
+  "x1": 864
  },
  "props": [
   {
    "id": "px_mahjong_table",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mahjong_table.png",
-   "x": 920,
+   "x": 776,
    "y": 343,
    "foot": 409,
    "hide": [
@@ -23,7 +23,7 @@
   {
    "id": "px_mahjong_table_2",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mahjong_table_2.png",
-   "x": 715,
+   "x": 571,
    "y": 263,
    "foot": 329,
    "hide": [
@@ -33,7 +33,7 @@
   {
    "id": "px_mahjong_table_3",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mahjong_table_3.png",
-   "x": 715,
+   "x": 571,
    "y": 453,
    "foot": 519,
    "hide": [
@@ -43,7 +43,7 @@
   {
    "id": "px_mj1_chair_n",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj1_chair_n.png",
-   "x": 930,
+   "x": 786,
    "y": 306,
    "foot": 365,
    "hide": [
@@ -53,7 +53,7 @@
   {
    "id": "px_mj1_chair_w",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj1_chair_w.png",
-   "x": 889,
+   "x": 745,
    "y": 340,
    "foot": 397,
    "hide": [
@@ -63,7 +63,7 @@
   {
    "id": "px_mj1_chair_e",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj1_chair_e.png",
-   "x": 971,
+   "x": 827,
    "y": 340,
    "foot": 397,
    "hide": [
@@ -73,7 +73,7 @@
   {
    "id": "px_mj1_chair_s",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj1_chair_s.png",
-   "x": 930,
+   "x": 786,
    "y": 388,
    "foot": 438,
    "hide": [
@@ -83,7 +83,7 @@
   {
    "id": "px_mj2_chair_n",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj2_chair_n.png",
-   "x": 725,
+   "x": 581,
    "y": 226,
    "foot": 285,
    "hide": [
@@ -93,7 +93,7 @@
   {
    "id": "px_mj2_chair_w",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj2_chair_w.png",
-   "x": 684,
+   "x": 540,
    "y": 260,
    "foot": 317,
    "hide": [
@@ -103,7 +103,7 @@
   {
    "id": "px_mj2_chair_e",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj2_chair_e.png",
-   "x": 766,
+   "x": 622,
    "y": 260,
    "foot": 317,
    "hide": [
@@ -113,7 +113,7 @@
   {
    "id": "px_mj2_chair_s",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj2_chair_s.png",
-   "x": 725,
+   "x": 581,
    "y": 308,
    "foot": 358,
    "hide": [
@@ -123,7 +123,7 @@
   {
    "id": "px_mj3_chair_n",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj3_chair_n.png",
-   "x": 725,
+   "x": 581,
    "y": 416,
    "foot": 475,
    "hide": [
@@ -133,7 +133,7 @@
   {
    "id": "px_mj3_chair_w",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj3_chair_w.png",
-   "x": 684,
+   "x": 540,
    "y": 450,
    "foot": 507,
    "hide": [
@@ -143,7 +143,7 @@
   {
    "id": "px_mj3_chair_e",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj3_chair_e.png",
-   "x": 766,
+   "x": 622,
    "y": 450,
    "foot": 507,
    "hide": [
@@ -153,7 +153,7 @@
   {
    "id": "px_mj3_chair_s",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj3_chair_s.png",
-   "x": 725,
+   "x": 581,
    "y": 498,
    "foot": 548,
    "hide": [
@@ -163,7 +163,7 @@
   {
    "id": "px_mj_sideboard",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_sideboard.png",
-   "x": 809,
+   "x": 665,
    "y": 173,
    "foot": 242,
    "hide": [
@@ -173,7 +173,7 @@
   {
    "id": "px_mj_stand_1",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_stand_1.png",
-   "x": 965,
+   "x": 821,
    "y": 388,
    "foot": 422,
    "hide": [
@@ -183,7 +183,7 @@
   {
    "id": "px_mj_stand_2",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_stand_2.png",
-   "x": 687,
+   "x": 543,
    "y": 260,
    "foot": 296,
    "hide": [
@@ -193,7 +193,7 @@
   {
    "id": "px_mj_stand_3",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_stand_3.png",
-   "x": 687,
+   "x": 543,
    "y": 498,
    "foot": 532,
    "hide": [
@@ -203,7 +203,7 @@
   {
    "id": "px_mj_tea_1",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_tea_1.png",
-   "x": 933,
+   "x": 789,
    "y": 541,
    "foot": 580,
    "hide": [
@@ -213,7 +213,7 @@
   {
    "id": "px_mj_rest_chair_w",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_rest_chair_w.png",
-   "x": 904,
+   "x": 760,
    "y": 516,
    "foot": 574,
    "hide": [
@@ -223,7 +223,7 @@
   {
    "id": "px_mj_rest_chair_e",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_rest_chair_e.png",
-   "x": 966,
+   "x": 822,
    "y": 516,
    "foot": 574,
    "hide": [
@@ -233,7 +233,7 @@
   {
    "id": "px_mj_cage_stand",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_cage_stand.png",
-   "x": 929,
+   "x": 785,
    "y": 214,
    "foot": 304,
    "hide": [
@@ -243,7 +243,7 @@
   {
    "id": "px_card_table",
    "png": "res://assets/pixel_art/backhall_mahjong/props/card_table.png",
-   "x": 825,
+   "x": 681,
    "y": 254,
    "foot": 316,
    "hide": [
@@ -253,7 +253,7 @@
   {
    "id": "px_card_chair_n",
    "png": "res://assets/pixel_art/backhall_mahjong/props/card_chair_n.png",
-   "x": 832,
+   "x": 688,
    "y": 219,
    "foot": 278,
    "hide": [
@@ -263,7 +263,7 @@
   {
    "id": "px_card_chair_w",
    "png": "res://assets/pixel_art/backhall_mahjong/props/card_chair_w.png",
-   "x": 798,
+   "x": 654,
    "y": 251,
    "foot": 308,
    "hide": [
@@ -273,7 +273,7 @@
   {
    "id": "px_card_chair_e",
    "png": "res://assets/pixel_art/backhall_mahjong/props/card_chair_e.png",
-   "x": 865,
+   "x": 721,
    "y": 251,
    "foot": 308,
    "hide": [
@@ -283,7 +283,7 @@
   {
    "id": "px_mj_candy_table",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_candy_table.png",
-   "x": 927,
+   "x": 783,
    "y": 447,
    "foot": 506,
    "hide": [
@@ -293,7 +293,7 @@
   {
    "id": "px_mj_lamp_w",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_lamp_w.png",
-   "x": 777,
+   "x": 633,
    "y": 564,
    "foot": 648,
    "hide": [
@@ -303,7 +303,7 @@
   {
    "id": "px_mj_lamp_e",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_lamp_e.png",
-   "x": 886,
+   "x": 742,
    "y": 564,
    "foot": 648,
    "hide": [
@@ -313,7 +313,7 @@
   {
    "id": "px_mj_flower_stand",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_flower_stand.png",
-   "x": 976,
+   "x": 832,
    "y": 430,
    "foot": 524,
    "hide": [
@@ -323,7 +323,7 @@
   {
    "id": "px_mj_coat_rack",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_coat_rack.png",
-   "x": 678,
+   "x": 534,
    "y": 329,
    "foot": 416,
    "hide": [
@@ -333,7 +333,7 @@
   {
    "id": "px_mj_tea_2",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_tea_2.png",
-   "x": 681,
+   "x": 537,
    "y": 585,
    "foot": 624,
    "hide": [
@@ -343,7 +343,7 @@
   {
    "id": "px_mj_recliner",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_recliner.png",
-   "x": 713,
+   "x": 569,
    "y": 560,
    "foot": 620,
    "hide": [
@@ -353,7 +353,7 @@
   {
    "id": "px_mj_fan",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_fan.png",
-   "x": 973,
+   "x": 829,
    "y": 186,
    "foot": 248,
    "hide": [
@@ -363,7 +363,7 @@
   {
    "id": "px_mj_plant_nw",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_plant_nw.png",
-   "x": 665,
+   "x": 521,
    "y": 146,
    "foot": 242,
    "hide": [
@@ -373,7 +373,7 @@
   {
    "id": "px_mj_plant_se",
    "png": "res://assets/pixel_art/backhall_mahjong/props/mj_plant_se.png",
-   "x": 970,
+   "x": 826,
    "y": 561,
    "foot": 650,
    "hide": [
@@ -383,17 +383,17 @@
   {
    "id": "px_mj_side_walls",
    "png": "res://assets/pixel_art/backhall_mahjong/props/side_walls.png",
-   "x": 1003,
+   "x": 523,
    "y": 104,
    "foot": 684,
    "hide": [
-    "wall_3"
+    "wall_1"
    ]
   },
   {
    "id": "px_mj_front_walls",
    "png": "res://assets/pixel_art/backhall_mahjong/props/front_walls.png",
-   "x": 677,
+   "x": 523,
    "y": 657,
    "foot": 696,
    "hide": []

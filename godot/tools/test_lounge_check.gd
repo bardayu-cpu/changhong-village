@@ -12,9 +12,10 @@ const Ent = preload("res://scripts/entrance.gd")
 const DT := 1.0 / 60.0
 const STUCK_SECS := 2.0
 const MAX_LEG := 120.0
-const FIG := [497.0, 234.0, 515.0, 242.0]
+# 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
+const FIG := [1025.0, 234.0, 1043.0, 242.0]
 var RACK: Array = [648.0, 598.0, 666.0, 606.0]   # 第一版在东南角；10/3 第三版挪到门洞东边，run() 开头照 layout 取
-const LOUNGE := Rect2(336, 226, 336, 458)   # 休息间两道隔墙之间
+const LOUNGE := Rect2(864, 226, 336, 458)   # 休息间两道隔墙之间
 
 var m
 var started := false
@@ -123,8 +124,8 @@ func run() -> void:
     var targets := {}
     for id in b.points:
         targets[id] = (b.points[id]["pos"] as Vector2)
-    targets["record_front"] = Vector2(424, 320)
-    var from_pts := {"宴会厅口": Vector2(100, 780), "草坪口": Vector2(1440, 780)}
+    targets["record_front"] = Vector2(952, 320)
+    var from_pts := {"宴会厅口": Vector2(1436, 780), "草坪口": Vector2(100, 780)}
     var bad := 0
     for fk in from_pts:
         for id in targets:
@@ -243,7 +244,7 @@ func run() -> void:
 
     # 4 唱片机前
     print("4 唱片机前 (424,320)")
-    var spot := Vector2(424, 320)
+    var spot := Vector2(952, 320)
     check("站得进去（格子能走）", b._free(spot))
     var ccount := 0
     var w := 0
@@ -251,7 +252,7 @@ func run() -> void:
     for j in rows_n:
         for i in cols_n:
             var cp := Vector2((i + 0.5) * cell, (j + 0.5) * cell)
-            if Rect2(396, 290, 56, 60).has_point(cp) and b.walk[j * cols_n + i] == 1:
+            if Rect2(924, 290, 56, 60).has_point(cp) and b.walk[j * cols_n + i] == 1:
                 ccount += 1
     # 最大空地：以 spot 为中心找能站的最大方块（格数）
     for half in range(1, 9):

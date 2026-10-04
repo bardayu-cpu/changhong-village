@@ -2,10 +2,10 @@ extends SceneTree
 ## 验收：罗曼山庄湖边（蓝图 3.5，灰盒，01 9/20 派任务 9）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
 ## 10/3 阿鱼改成一条往西延伸的长湖岸（tools/layout_court/make_lake_long.py；东头照效果图 2、西头照翻转的效果图 1）：画布 3072×1280，
 ## 湖面、对岸不能走；东头曲桥三折通到湖心亭（6 米，乐手四位），湖岸石板小路连着东西两头，西头伸进水里一块小半岛；
-## 曲桥上摇杆往两边推不下水（边缘挡住，蓝图 3.5 异常处理）；柳树、长凳、亭子都在。南墙两道月亮门：东头回迎宾院、西头去停车场。
+## 曲桥上摇杆往两边推不下水（边缘挡住，蓝图 3.5 异常处理）；柳树、长凳、亭子都在。南墙两道月亮门（10/4 连图起东头那道只通南墙外，西头那道去后花园）。
 ## 亭子：走进去自动出一句、走出去收；阿鱼写好之前（「【待补】」）不出（01 E 10/3）（《世界观》4.2 记忆点只有阿鱼能写）。
 ## 长凳：走到旁边出「坐下」，点一下坐（面朝湖、换坐姿、镜头不变焦），再点起来；自己推摇杆也会站起来，按钮跟着变回「坐下」。
-## 进出：迎宾院西小径 ↔ 湖边东头月亮门、停车场白墙月亮门 ↔ 湖边西头月亮门，到了站的点离出口至少 1 米、不来回弹
+## 进出（10/4 连图）：果园 A 西口 ↔ 湖边东头尽头、后花园北口 ↔ 湖边西头月亮门，到了站的点离出口至少 1 米、不来回弹
 ## 10/4 东半边（x ≥ 1536）换成代码画的像素成品（tools/pixel_art/lake_east.py）：曲桥改成一折往东北、再折回亭子前沿；
 ## 亭子顶不透明，人只走亭子前沿那条（y 636～652）；南墙挪到 y 1040；东半边的灰盒不画、只留挡人占地（on_art）
 ## 用法：Godot --headless --path . --script res://tools/test_lake.gd
@@ -66,8 +66,10 @@ func run() -> void:
     check("画布拉宽成 %s" % [k.cfg["size"]], int(k.cfg["size"][0]) == 3072 and int(k.cfg["size"][1]) == 1280)
     var ids: Array = k.points.keys()
     ids.sort()
-    check("四个交互点：%s" % [ids], ids == ["bench", "pavilion", "to_entrance", "to_parking"])
-    check("东头月亮门在东半、西头月亮门在西半、亭子在东头湖里", k.points["to_entrance"]["pos"].x > 1536.0 and k.points["to_parking"]["pos"].x < 1536.0
+    # 10/4 连图（02 E 改）：湖边改从后花园、果园进，不再通迎宾院、停车场；10/4 西半边接图：多了码头、半岛亭子、西边长凳、湖尽头小石台
+    check("八个交互点：%s" % [ids], ids == ["bench", "bench_w", "dock", "lake_end", "pavilion", "pavilion_w", "to_garden", "to_orchard"])
+    # 南墙两道月亮门对称：西头 x 768 去果园 A、东头 x 2304 去后花园
+    check("西头月亮门（x 768）去果园、东头月亮门（x 2304）去后花园、亭子在东头湖里", k.points["to_orchard"]["pos"] == Vector2(768, 1066) and k.points["to_garden"]["pos"].x > 1536.0
         and k.points["pavilion"]["pos"].x > 1536.0 and k.points["pavilion"]["pos"].y < 784.0)
     var water := true
     for p in [Vector2(300, 556), Vector2(1200, 456), Vector2(2304, 300), Vector2(2400, 740), Vector2(2120, 760), Vector2(1500, 700),
@@ -75,28 +77,28 @@ func run() -> void:
         water = water and not k._free(p)
     check("湖面、曲桥两边、对岸都不能走", water)
     var walkable := true
-    for p in [Vector2(2304, 780), Vector2(2400, 712), Vector2(2333, 655), Vector2(2280, 644), Vector2(530, 560), Vector2(532, 760),
-            Vector2(1500, 820), Vector2(1536, 900), Vector2(1600, 838), Vector2(2304, 1000), Vector2(1000, 1000), Vector2(200, 820)]:
+    for p in [Vector2(2304, 780), Vector2(2400, 712), Vector2(2333, 655), Vector2(2280, 644), Vector2(556, 597), Vector2(908, 618),
+            Vector2(1500, 820), Vector2(1536, 900), Vector2(1600, 838), Vector2(2304, 1000), Vector2(768, 999), Vector2(62, 500)]:   # 西半边：半岛亭子前沿、码头船夫跟前、西门里边、湖尽头小石台
         if not k._free(p):
             walkable = false
             print("    走不了 ", p)
     check("曲桥、亭子前沿、半岛、湖岸小路（东西两半接得上）、园子都能走", walkable)
-    check("南墙挪到 y 1040：墙外不能走（西 %s、东 %s）" % [k._free(Vector2(1000, 1100)), k._free(Vector2(2000, 1100))],
-        not k._free(Vector2(1000, 1100)) and not k._free(Vector2(2000, 1100)))
-    check("到了站的点 %s 离东口 %.0f 像素（至少 48），能站" % [m.LAKE_FROM_COURT, m.LAKE_FROM_COURT.distance_to(k.points["to_entrance"]["pos"])],
-        k.SPAWN == m.LAKE_FROM_COURT and m.LAKE_FROM_COURT.distance_to(k.points["to_entrance"]["pos"]) >= 48.0 and k._free(m.LAKE_FROM_COURT))
-    check("回迎宾院站的点 %s 离西小径 %.0f 像素（至少 48）" % [m.COURT_FROM_LAKE, m.COURT_FROM_LAKE.distance_to(c.points["to_lake"]["pos"])],
-        m.COURT_FROM_LAKE.distance_to(c.points["to_lake"]["pos"]) >= 48.0 and c._free(m.COURT_FROM_LAKE))
+    check("南墙挪到 y 1040，墙外 10/4 起也能走（看着是草地、石板路）（西 %s、东 %s）" % [k._free(Vector2(1000, 1150)), k._free(Vector2(2304, 1150))],
+        k._free(Vector2(1000, 1150)) and k._free(Vector2(2304, 1150)))
+    for pr in [["orchard", "to_orchard"], ["garden", "to_garden"]]:
+        var at: Vector2 = k.arrival_from(pr[0])
+        var gap: float = at.distance_to(k.points[pr[1]]["pos"])
+        check("从%s过来站的点 %s 离口 %.0f 像素（至少 48），能站" % [pr[0], at, gap], gap >= 48.0 and k._free(at))
     for id in k.points:
         var pt: Vector2 = k.points[id]["pos"]
         var path: Array = k.find_path(k.SPAWN, pt)
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else k.SPAWN
         check("%s 走得到（离点 %.1f，半径 %.0f）" % [id, end.distance_to(pt), k.points[id]["r"]], end.distance_to(pt) < float(k.points[id]["r"]))
-    var willows := 0
+    var wpx := 0
     for n in k.world.get_children():
-        if str(n.name).begins_with("willow_"):
-            willows += 1
-    check("西半边灰盒的柳树（%d）在" % willows, willows >= 3)
+        if str(n.name).begins_with("px_w_"):
+            wpx += 1
+    check("西半边像素成品铺上了（底图 + 立着的 %d 张）" % wpx, wpx == 137 and k.find_child("px_background_lake_west", true, false) != null)
     var px := true
     for id in ["px_wall_gate", "px_pavilion_front", "px_pavilion_back", "px_bench", "px_willow_1", "px_willow_2", "px_banyan_1", "px_boat"]:
         px = px and k.world.has_node(id)
@@ -107,22 +109,27 @@ func run() -> void:
             gray += 1
     check("东半边不再画灰盒（剩 %d 件）" % gray, gray == 0)
 
-    # 2. 迎宾院西小径 ↔ 湖边东口：站的点、朝向、不来回弹
+    # 2. 果园（A 西口）↔ 湖边东头尽头：站的点、不来回弹（10/4 连图，02 E 改；原来是迎宾院西小径 ↔ 东头月亮门）
     print("2 进出")
     m.nickname = "阿花"
     await m._enter_court()
     m.dialog.visible = false
-    walk_to(c.spot_pos("to_lake") + Vector2(150, 0))
-    walk_to(c.spot_pos("to_lake"))
-    check("西小径到了湖边 state=%s" % m.state, m.state == "lake" and m.cv == k and k.visible and not c.visible)
-    check("站在东头月亮门里边 %s，朝向没变 %s" % [k.pos, k.face], k.pos == m.LAKE_FROM_COURT and k.face == "left")
+    m.ensure_canvas("orchard")
+    var o = m.orchard
+    m._show_canvas("orchard")
+    m._goto("orchard")
+    o.walking_enabled = true
+    o.reset_to(o.arrival_at("to_lake"))
+    walk_to(o.spot_pos("to_lake"))
+    check("果园西口到了湖边 state=%s" % m.state, m.state == "lake" and m.cv == k and k.visible and not o.visible)
+    check("站在东头尽头那个口里边 %s" % k.pos, k.pos == k.arrival_from("orchard"))
     tick(60)
-    check("站着 60 帧不弹回迎宾院", m.state == "lake")
-    walk_to(k.spot_pos("to_entrance"))
-    check("东头月亮门回到迎宾院，站在 (100,520) %s" % c.pos, m.state == "court" and c.pos == m.COURT_FROM_LAKE)
+    check("站着 60 帧不弹回果园", m.state == "lake")
+    walk_to(k.spot_pos("to_orchard"))
+    check("东头尽头回到果园，站在西口里边 %s" % o.pos, m.state == "orchard" and o.pos == o.arrival_from("lake"))
     tick(60)
-    check("站着 60 帧不弹回湖边", m.state == "court")
-    walk_to(c.spot_pos("to_lake"))
+    check("站着 60 帧不弹回湖边", m.state == "orchard")
+    walk_to(o.spot_pos("to_lake"))
     check("又到湖边", m.state == "lake")
 
     # 3. 曲桥上摇杆往两边推：掉不下去（蓝图 3.5 异常处理；10/3 起栈道换成东头三折曲桥）
@@ -198,26 +205,25 @@ func run() -> void:
     check("坐下了", k.seated)
     m._switch_canvas("court")
     check("回到迎宾院，按钮收了", m.state == "court" and not ui.act_btn.visible)
-    walk_to(c.spot_pos("to_lake"))
+    m._switch_canvas("lake")
     check("再回湖边是站着的", m.state == "lake" and not k.seated)
 
-    # 8. 西头月亮门 ↔ 停车场（10/3 长湖岸）：到了站的点离门至少 1 米、不来回弹
-    print("8 西头月亮门 ↔ 停车场")
-    m.ensure_canvas("parking")
-    var pk = m.parking
-    check("西头进来站的点 %s 离月亮门 %.0f（至少 48），能站" % [k.FROM_PARKING, k.FROM_PARKING.distance_to(k.points["to_parking"]["pos"])],
-        k.FROM_PARKING.distance_to(k.points["to_parking"]["pos"]) >= 48.0 and k._free(k.FROM_PARKING))
-    k.reset_to(k.FROM_PARKING + Vector2(0, -120))
-    walk_to(k.spot_pos("to_parking"), 30.0)
-    check("西头月亮门出去到了停车场（%s），站在白墙门洞外边 %s" % [m.state, pk.pos], m.state == "parking" and pk.pos == pk.FROM_LAKE)
+    # 8. 西头月亮门 ↔ 后花园（10/4 连图，02 E 改；原来去停车场）：到了站的点离门至少 1 米、不来回弹
+    print("8 西头月亮门 ↔ 后花园")
+    m.ensure_canvas("garden")
+    var gd = m.areas["garden"]
+    var from_g: Vector2 = k.arrival_from("garden")
+    k.reset_to(from_g + Vector2(0, -120))
+    walk_to(k.spot_pos("to_garden"), 30.0)
+    check("西头月亮门出去到了后花园（%s），站在北口里边 %s" % [m.state, gd.pos], m.state == "garden" and gd.pos == gd.arrival_from("lake"))
     tick(60)
-    check("站着 60 帧不弹回湖边", m.state == "parking")
-    walk_to(pk.spot_pos("to_lake"))
-    check("停车场白墙月亮门进来，站在西头门里边 %s" % k.pos, m.state == "lake" and k.pos == k.FROM_PARKING)
+    check("站着 60 帧不弹回湖边", m.state == "garden")
+    walk_to(gd.spot_pos("to_lake"))
+    check("后花园北口进来，站在西头门里边 %s" % k.pos, m.state == "lake" and k.pos == from_g)
     tick(60)
-    check("站着 60 帧不弹回停车场", m.state == "lake")
-    var east: Array = k.find_path(k.FROM_PARKING, k.points["to_entrance"]["pos"])
-    check("西头顺着湖岸走得到东头月亮门（整条湖岸通）", not east.is_empty() and (east[east.size() - 1] as Vector2).distance_to(k.points["to_entrance"]["pos"]) <= 36.0)
+    check("站着 60 帧不弹回后花园", m.state == "lake")
+    var east: Array = k.find_path(from_g, k.points["to_orchard"]["pos"])
+    check("西头顺着湖岸走得到东头尽头（整条湖岸通）", not east.is_empty() and (east[east.size() - 1] as Vector2).distance_to(k.points["to_orchard"]["pos"]) <= 40.0)
 
     # 9. 一路走（01 F 10/4 验收）：东头月亮门进来 → 石板路 → 曲桥 → 亭子前沿 → 下桥 → 往西小路 → 西头湖尽头，真走（推着人走、不瞬移）
     print("9 一路走：月亮门 → 曲桥 → 亭子前沿 → 往西小路 → 西头")

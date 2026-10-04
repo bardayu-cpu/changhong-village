@@ -27,6 +27,7 @@ const SIT_H := 72.0             # 坐着头顶离脚点多高（01 画的朝下�
 const STAND_H := 82.0           # 站着
 const WALK_M := 0.9             # 起身走动走多快（米/秒，比玩家慢，逛着走）
 const WANDER_SIT := Vector2(16.0, 28.0)   # 坐多久起身一次（秒）
+const SOFA_MID_X := 1094.0   # 北边三人沙发正中（sofa_m 的 x；10/4 方案 C 休息室整间 +528，原来 566）
 const WANDER_IDLE := 4.0        # 走到唱片机、电视前站多久
 
 var c                          # 后厅画布（backhall.gd）
@@ -208,6 +209,11 @@ func approach_of(id: String) -> Vector2:
     if p.is_empty():
         return Vector2.ZERO
     if (p["foot"] as Vector2) == p["home"]:
+        # 坐在北边沙发上（朝下坐）的：站到她斜前方，别正挡在她身前（第 62 版截图奶奶被玩家挡住一大半，01 G 叫调）
+        if str(p["seat_face"]) == "down":
+            if not p.has("side_stand"):
+                p["side_stand"] = _nearest_free((p["foot"] as Vector2) + Vector2(-52 if (p["foot"] as Vector2).x < SOFA_MID_X else 52, 40))
+            return p["side_stand"]
         return p["stand"]
     return _nearest_free((p["foot"] as Vector2) + Vector2(0, 30))
 

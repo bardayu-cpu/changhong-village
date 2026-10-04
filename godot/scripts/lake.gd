@@ -6,11 +6,14 @@ extends "res://scripts/entrance.gd"
 ##   镜头不做别的动作（不推远、不拉近），只照常跟着人；一推摇杆、一点地面就站起来（layered_hall 里本来的规矩）
 ## 亭子那句走进去自动出、走出去收，话在 assets/lake/lines.json，阿鱼写好之前是「【待补】」（蓝图 3.5 异常处理）
 
-## 长凳坐哪、起来站哪、从停车场过来站哪：照布局（10/3 长湖岸以后长凳挪了，tools/layout_court/make_lake_long.py 出）。
+## 长凳坐哪、起来站哪、从果园过来站哪：照布局（10/3 长湖岸以后长凳挪了，tools/layout_court/make_lake_long.py 出）。
 ## 布局没写的照第一版（蓝图 3.5：长凳 (400, 700)；9/20 加高，玩法区 +256）
-var BENCH_SEAT := Vector2(400, 956)     # 坐上去坐在哪
+var BENCH_SEAT := Vector2(400, 956)     # 坐上去坐在哪（东头那张，交互点 bench）
 var BENCH_STAND := Vector2(400, 994)    # 起来站在哪（凳子南边，能站）
-var FROM_PARKING := Vector2.ZERO        # 从停车场走西头月亮门进来站在哪
+var FROM_ORCHARD := Vector2.ZERO        # 从果园 A 走西头月亮门进来站在哪（10/4 西半边接图前叫 FROM_PARKING，通停车场）
+## 10/4 西半边接图（01 G 派）：两张长凳都能坐。交互点 id → {坐哪, 起来站哪}；东头 bench（bench_seat / bench_stand），西半边 bench_w（bench_seat_w / bench_stand_w）
+var benches := {}
+var bench_id := "bench"                 # 现在站在哪张长凳旁边（lake_ui 走进长凳交互点时设）
 
 func _init() -> void:
     layout_path = "res://assets/layered/scene_luoman_lake/layout.json"
@@ -21,8 +24,11 @@ func build(preset: int, nickname: String, f: Font) -> void:
         BENCH_SEAT = Vector2(cfg["bench_seat"][0], cfg["bench_seat"][1])
     if cfg.has("bench_stand"):
         BENCH_STAND = Vector2(cfg["bench_stand"][0], cfg["bench_stand"][1])
-    if cfg.has("from_parking"):
-        FROM_PARKING = Vector2(cfg["from_parking"][0], cfg["from_parking"][1])
+    if cfg.has("from_orchard"):
+        FROM_ORCHARD = Vector2(cfg["from_orchard"][0], cfg["from_orchard"][1])
+    benches["bench"] = {"seat": BENCH_SEAT, "stand": BENCH_STAND}
+    if cfg.has("bench_seat_w") and cfg.has("bench_stand_w"):
+        benches["bench_w"] = {"seat": Vector2(cfg["bench_seat_w"][0], cfg["bench_seat_w"][1]), "stand": Vector2(cfg["bench_stand_w"][0], cfg["bench_stand_w"][1])}
 
 ## 坐到长凳上：滑过去（和宴会厅坐椅子一样 SIT_ANIM 秒），面朝湖（朝上），只画上半身
 func sit() -> void:
@@ -31,9 +37,10 @@ func sit() -> void:
     path.clear()
     stick = Vector2.ZERO
     sit_from = pos
-    sit_seat = BENCH_SEAT
+    var bn: Dictionary = benches.get(bench_id, {"seat": BENCH_SEAT, "stand": BENCH_STAND})
+    sit_seat = bn["seat"]
     sit_t = 0.0
     face = "up"
     seated = true
     seat_front = false          # 按脚点排前后：靠背（在南边）画在人前面，看着像坐在凳子上
-    seat_stand_spot = BENCH_STAND
+    seat_stand_spot = bn["stand"]

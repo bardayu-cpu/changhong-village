@@ -32,6 +32,14 @@ SCENES = {
     "orchard": ("scene_luoman_orchard", "果园"),
     "parking": ("scene_luoman_parking", "停车场"),   # 10/3 停车场和大门灰盒（01 F）
     "plaza": ("scene_luoman_plaza", "喷泉广场"),     # 10/4 喷泉广场灰盒（新总图第 ② 步，01 F）
+    # 10/4 连图新加的七块灰盒（make_areas.py，01 G）
+    "kids": ("scene_luoman_kids", "儿童乐园"),
+    "shop": ("scene_luoman_shop", "小卖部"),
+    "rest2": ("scene_luoman_rest2", "休息厅2"),
+    "wkitchen": ("scene_luoman_wkitchen", "西餐厨房"),
+    "garden": ("scene_luoman_garden", "后花园"),
+    "frontgate": ("scene_luoman_frontgate", "前门"),
+    "backgate": ("scene_luoman_backgate", "后门"),
 }
 
 

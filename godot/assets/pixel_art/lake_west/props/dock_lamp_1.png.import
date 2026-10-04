@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2vxfpnjhpfak"
-path="res://.godot/imported/tree_28.png-a86898997b470abb9fd1258ff5534d21.ctex"
+uid="uid://coxdmmmhptftg"
+path="res://.godot/imported/dock_lamp_1.png-0f3d527f70a4ecb20c231736ac924818.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixel_art/lawn/props/tree_28.png"
-dest_files=["res://.godot/imported/tree_28.png-a86898997b470abb9fd1258ff5534d21.ctex"]
+source_file="res://assets/pixel_art/lake_west/props/dock_lamp_1.png"
+dest_files=["res://.godot/imported/dock_lamp_1.png-0f3d527f70a4ecb20c231736ac924818.ctex"]
 
 [params]
 

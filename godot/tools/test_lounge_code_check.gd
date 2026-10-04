@@ -145,7 +145,7 @@ func run() -> void:
     ui = m.lounge_ui
     ui.attach(life)
     b.walking_enabled = true
-    var door := Vector2(504, 690)
+    var door := Vector2(1032, 690)   # 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
 
     print("1 四位坐着")
     var bad1: Array = []
@@ -184,12 +184,12 @@ func run() -> void:
     for l in bad1:
         print("    ", l)
     check("四位都是代码小人、一比一、坐姿格、脚点在座位前沿、气泡挂头上、会呼吸（%d 位有问题）" % bad1.size(), bad1.is_empty())
-    var pos_expect := {"lounge_09": Vector2(533, 270), "lounge_10": Vector2(600, 270), "lounge_05": Vector2(404, 418), "lounge_06": Vector2(462, 418)}
+    var pos_expect := {"lounge_09": Vector2(1061, 270), "lounge_10": Vector2(1128, 270), "lounge_05": Vector2(932, 418), "lounge_06": Vector2(990, 418)}
     var bad_pos: Array = []
     for id in IDS:
         if (life.person(id)["home"] as Vector2).distance_to(pos_expect[id]) > 2.0:
             bad_pos.append("%s 在 %s，02 回执写 %s" % [id, str(life.person(id)["home"]), str(pos_expect[id])])
-    check("四位的位置照 02 回执（奶奶 (533,270)、爷爷 (600,270)、叔叔 (404,418)、阿姨 (462,418)）：%s" % str(bad_pos), bad_pos.is_empty())
+    check("四位的位置照 02 回执（方案 C 平移后：奶奶 (1061,270)、爷爷 (1128,270)、叔叔 (932,418)、阿姨 (990,418)）：%s" % str(bad_pos), bad_pos.is_empty())
     var sofa_m: Dictionary = life.seat_by_id("sofa_m")
     reenter()
     b.reset_to(door)
@@ -294,7 +294,7 @@ func run() -> void:
     check("走路四个方向都出现过（%s）" % str(faces_walk.keys()), faces_walk.size() == 4)
     check("走路时放的都是该方向的走路格（放错 %d 帧）" % wrong_walk_cell, wrong_walk_cell == 0)
     check("站定放待机格（朝下）", idle_cells_ok and idle_seen > 0)
-    check("站定的地方有两处（唱片机前 (424,312)、电视前 (616,476) 附近）：%s" % str(stops), stops.size() >= 2 and stops.any(func(s): return s.distance_to(Vector2(424, 312)) < 40.0) and stops.any(func(s): return s.distance_to(Vector2(616, 476)) < 40.0))
+    check("站定的地方有两处（唱片机前 (952,312)、电视前 (1144,476) 附近）：%s" % str(stops), stops.size() >= 2 and stops.any(func(s): return s.distance_to(Vector2(952, 312)) < 40.0) and stops.any(func(s): return s.distance_to(Vector2(1144, 476)) < 40.0))
     check("他走开时座位还是他的：sit() 不让玩家坐", seat_refused)
     check("走回来坐下放坐姿格", sit_after)
     check("一圈 120 秒内走完（%.1f 秒）" % (back_t - left_seat_t), back_t > 0.0 and back_t - left_seat_t < 120.0)
@@ -347,7 +347,7 @@ func run() -> void:
     check("四位站着高度对「人 = 84」都在 0.5～1.5 倍里（红 %d）" % red, red == 0)
 
     print("6 麻将室西北角")
-    var door_mj: Vector2i = b._cell_of(Vector2(840, 690))
+    var door_mj: Vector2i = b._cell_of(Vector2(696, 690))
     var reach_ok := {}
     for it in b.cfg["items"]:
         var id := str(it["id"])
@@ -360,7 +360,7 @@ func run() -> void:
                     for cnd in [Vector2(lerpf(rc.position.x, rc.end.x, t / 8.0), rc.position.y - off), Vector2(lerpf(rc.position.x, rc.end.x, t / 8.0), rc.end.y + off), Vector2(rc.position.x - off, lerpf(rc.position.y, rc.end.y, t / 8.0)), Vector2(rc.end.x + off, lerpf(rc.position.y, rc.end.y, t / 8.0))]:
                         if b._free(cnd) and not found:
                             reenter()
-                            b.reset_to(Vector2(840, 690))
+                            b.reset_to(Vector2(696, 690))
                             var w := walk(cnd)
                             if w["ok"] and (b.pos - cnd).length() <= 14.0:
                                 found = true
@@ -370,7 +370,7 @@ func run() -> void:
     var mj_clear := 0
     var mj_total := 0
     for it in b.cfg["items"]:
-        if it.has("rect") and Rect2(672, 226, 336, 458).intersects(Rect2(float(it["rect"][0]), float(it["rect"][1]), float(it["rect"][2]) - float(it["rect"][0]), float(it["rect"][3]) - float(it["rect"][1]))) and not str(it["id"]).begins_with("wall_") and not str(it["id"]).begins_with("front_"):
+        if it.has("rect") and Rect2(528, 226, 336, 458).intersects(Rect2(float(it["rect"][0]), float(it["rect"][1]), float(it["rect"][2]) - float(it["rect"][0]), float(it["rect"][3]) - float(it["rect"][1]))) and not str(it["id"]).begins_with("wall_") and not str(it["id"]).begins_with("front_"):
             mj_total += 1
             if int(it.get("clear", 12)) == 6:
                 mj_clear += 1

@@ -107,8 +107,9 @@ func run() -> void:
         ["西头色块：码头", Vector2(530, 740)],
         ["西头色块：半岛小亭", Vector2(530, 560)],
     ]
-    print("东头进门 (%s)；回停车场的口 %s；回迎宾院的口 %s" % [str(cv.SPAWN), str(cv.points["to_parking"]["pos"]), str(cv.points["to_entrance"]["pos"])])
-    check("东头进门点能站、西头进门点能站", cv._free(cv.SPAWN) and cv._free(cv.FROM_PARKING))
+    # 10/4 连图（02 E 改）：西头月亮门改去后花园，东头南墙月亮门不再通迎宾院、东头尽头开口去果园 A
+    print("东头进门 (%s)；去后花园的口 %s；去果园的口 %s" % [str(cv.SPAWN), str(cv.points["to_garden"]["pos"]), str(cv.points["to_orchard"]["pos"])])
+    check("东头进门点能站、西头进门点能站", cv._free(cv.SPAWN) and cv._free(cv.arrival_from("garden")))
     var bad := 0
     var total := 0.0
     for i in range(1, legs.size()):
@@ -130,10 +131,10 @@ func run() -> void:
     # 从东头一口气走到西头出口、再走回
     reenter()
     cv.reset_to(cv.SPAWN)
-    var rw := walk(cv.points["to_parking"]["pos"])
-    check("东头进门处一口气走到西头月亮门（%.1f 秒，切去停车场或到了半径）" % float(rw.get("secs", 0.0)), rw["ok"] and (rw.get("exit_fired", false) or (cv.pos - cv.points["to_parking"]["pos"]).length() <= 40.0))
+    var rw := walk(cv.points["to_garden"]["pos"])
+    check("东头进门处一口气走到西头月亮门（%.1f 秒，切去后花园或到了半径）" % float(rw.get("secs", 0.0)), rw["ok"] and (rw.get("exit_fired", false) or (cv.pos - cv.points["to_garden"]["pos"]).length() <= 40.0))
     reenter()
-    cv.reset_to(cv.FROM_PARKING)
+    cv.reset_to(cv.arrival_from("garden"))
     var re := walk(cv.points["pavilion"]["pos"])
     check("西头进门处一口气走到亭子前沿（%.1f 秒）" % float(re.get("secs", 0.0)), re["ok"] and (cv.pos - cv.points["pavilion"]["pos"]).length() <= 50.0)
     print("RESULT " + ("PASS" if ok else "FAIL"))

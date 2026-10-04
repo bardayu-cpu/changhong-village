@@ -11,7 +11,8 @@ const Main = preload("res://scripts/main.gd")
 const DT := 1.0 / 60.0
 const STUCK_SECS := 2.0
 const MAX_LEG := 90.0
-const LOUNGE := Rect2(336, 226, 336, 458)
+# 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
+const LOUNGE := Rect2(864, 226, 336, 458)
 
 var m
 var started := false
@@ -121,7 +122,7 @@ func run() -> void:
     b.walking_enabled = true
     var t_start := Time.get_ticks_msec()
 
-    var door: Vector2i = b._cell_of(Vector2(504, 690))
+    var door: Vector2i = b._cell_of(Vector2(1032, 690))
     if not cell_free(door.x, door.y):
         door = b._nearest_free(door)
     var reach: Dictionary = flood(door)
@@ -214,7 +215,7 @@ func run() -> void:
     var worst := 0.0
     for t in targets:
         reenter()
-        b.reset_to(Vector2(504, 690))
+        b.reset_to(Vector2(1032, 690))
         var r := walk(t)
         n_walk += 1
         worst = maxf(worst, float(r.get("secs", 0.0)))
@@ -223,15 +224,15 @@ func run() -> void:
             if bad <= 10:
                 print("    不通：→ %s %s 站在 %s" % [str(t), str(r), str(b.pos)])
         if n_walk % 6 == 0:
-            var r2 := walk(Vector2(504, 690))
+            var r2 := walk(Vector2(1032, 690))
             n_walk += 1
-            if not (r2["ok"] and (b.pos - Vector2(504, 690)).length() <= 16.0):
+            if not (r2["ok"] and (b.pos - Vector2(1032, 690)).length() <= 16.0):
                 bad += 1
                 print("    回不去：%s → 门口 %s 站在 %s" % [str(t), str(r2), str(b.pos)])
     print("    门口到休息间 %d 个点（含部分走回），共 %d 趟，最长一趟 %.1f 秒" % [targets.size(), n_walk, worst])
     check("门口到休息间每个点走得到、走得回来", bad == 0)
     var bad2 := 0
-    for fk in [Vector2(100, 780), Vector2(1440, 780)]:
+    for fk in [Vector2(1436, 780), Vector2(100, 780)]:
         for id in ["lounge"]:
             reenter()
             b.reset_to(fk)
@@ -272,7 +273,7 @@ func run() -> void:
             continue
         for wob in [0.0, 25.0, 45.0]:
             reenter()
-            b.reset_to(Vector2(504, 690))
+            b.reset_to(Vector2(1032, 690))
             var r := walk(far, wob)
             tried += 1
             if not (r["ok"] and (b.pos - far).length() <= 14.0):

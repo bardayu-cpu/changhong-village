@@ -33,6 +33,7 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backhall_floor import HW_HEX, HW_RAMP, draw_floor_v3   # 地板 v3：三间共用一份（同一个文件夹）
+import backhall_plan_c   # 10/4 方案 C：后厅四间整间平移（这间 −144），这里照旧按平移前的坐标画
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))   # 从脚本所在位置往上找仓库根
@@ -52,7 +53,8 @@ KITCHEN_PNG = os.path.join(GODOT, "assets", "kitchen", "kitchen_room_v1.png")
 BANQUET_PNG = os.path.join(GODOT, "assets", "layered", "scene_roman_banquet_55", "base.png")
 OUT = sys.argv[sys.argv.index("--preview") + 1] if "--preview" in sys.argv else None   # 预览图出到哪（不给就不出）
 LAYERS = os.path.join(GODOT, "assets", "pixel_art", "backhall_mahjong")                 # 游戏用的图层
-BG_CROP = (677, 104, 1008, 696)     # 背景进游戏的范围：休息间东隔墙外沿到厨房西边（厨房图从 x 1008 起）
+BG_CROP = (667, 104, 1008, 696)     # 背景进游戏的范围（平移前的坐标）：西墙外沿到东墙中间。10/4 方案 C 麻将室西边挨后厨，西墙 667～677 归这间画
+DX = backhall_plan_c.DX["mahjong"]   # 进游戏时整间往西挪多少（东墙 1003～1013 落到跟休息室共用的 859～869；出 room.json 时加上，读 layout.json 时先挪回来再核）
 
 # 整间出图的范围（画布坐标）：跟休息间、化妆间一样 352×600
 X0, Y0, X1, Y1 = 664, 100, 1016, 700
@@ -319,8 +321,8 @@ def cone(S, cx, y_from, y_to, half0, spread, val, edge=1):
 # ------------------------------------------------------------------ 墙（画布坐标）
 CAP_Y0, CAP_Y1 = 104, 114          # 北墙墙顶（剖开的厚度）
 FLOOR_Y = 226                      # 北墙脚 = 地板开始
-WALL_W = (667, 677)                # 跟休息间共用的隔墙（layout wall_2；游戏里归休息间那份画）
-WALL_E = (1003, 1013)              # 东墙（layout wall_3，跟厨房共用；这份画）
+WALL_W = (667, 677)                # 西墙（方案 C 起挨后厨，layout wall_1；这份画。原来跟休息间共用，归休息间画）
+WALL_E = (1003, 1013)              # 东墙（方案 C 起跟休息室共用，layout wall_2；这份、休息室那份都画，落在同一处）
 FRONT_TOP, FRONT_FACE, FRONT_BOT = 662, 674, 696
 DOOR = (800, 880)                  # 门洞
 MJ_POINT = (852, 420)              # 麻将室交互点（layout 原有）
@@ -417,12 +419,13 @@ LAYOUT_IDS = {it["id"] for it in json.load(open(LAYOUT, encoding="utf-8"))["item
 
 def check_layout():
     """三张桌、十二把椅子、两张茶几、墙、前沿矮墙、门口、交互点跟 layout.json 一致，不一致就停"""
-    d = json.load(open(LAYOUT, encoding="utf-8"))
+    d = backhall_plan_c.shift_layout(json.load(open(LAYOUT, encoding="utf-8")), -DX)
     items = {it["id"]: it for it in d["items"] if "id" in it}
     bad = []
     want = {p[0]: (p[3], p[4]) for p in PLAN if p[6] == "keep"}
-    want.update({"wall_2": ([667, 226, 677, 684], 44), "wall_3": ([1003, 226, 1013, 684], 44),
-                 "front_3": ([544, 684, 800, 696], 22), "front_4": ([880, 684, 1136, 696], 22)})
+    # 10/4 方案 C 起：西墙 wall_1、东墙 wall_2，门洞两边 front_2（西段从后厨那头接过来）、front_3
+    want.update({"wall_1": ([667, 226, 677, 684], 44), "wall_2": ([1003, 226, 1013, 684], 44),
+                 "front_2": ([352, 684, 800, 696], 22), "front_3": ([880, 684, 1136, 696], 22)})
     must = [p[0] for p in PLAN if p[0].startswith("mahjong_table") or "_chair_" in p[0] and p[0][2] in "123"]
     if len(must) != 15:
         bad.append("脚本里桌椅不是 3 + 12 件：%d" % len(must))
@@ -2329,7 +2332,7 @@ def front_wall_face(L, a, b):
 
 
 def prop_front_walls():
-    """前沿矮墙：休息间隔墙外沿（677）到门洞、门洞到东墙外沿（1013）；门洞两边一对门套（跟休息间一样）"""
+    """前沿矮墙：西墙外沿（667，方案 C 起；原来从休息间隔墙外沿 677 起）到门洞、门洞到东墙外沿（1013）；门洞两边一对门套（跟休息间一样）"""
     L = Layer()
     for (a, b) in ((WALL_W[1], DOOR[0]), (DOOR[1], WALL_E[1])):
         L.rect(a, FRONT_TOP, b, FRONT_FACE, "wl4")
@@ -2350,9 +2353,19 @@ def prop_front_walls():
         L.hl(a, b, FRONT_TOP - 3, "wd4")
         L.rect(a, FRONT_BOT - 6, b, FRONT_BOT, "wd1")
         L.hl(a, b, FRONT_BOT - 6, "wd3")
-    # 东墙顶在这里拐进前沿墙顶
+    # 10/4 方案 C：麻将室挪到后厨东边，西墙那头没有休息间的矮墙接着了——西墙脚下补一截矮墙（667～677，原来那段一笔不动），
+    # 西墙顶也拐进前沿墙顶，端头描一条边
+    a, b = WALL_W
+    L.rect(a, FRONT_TOP, b, FRONT_FACE, "wl4")
+    L.hl(a, b, FRONT_TOP, "ol")
+    L.hl(a, b, FRONT_TOP + 1, "wl5")
+    L.hl(a, b, FRONT_FACE - 1, "wl3")
+    front_wall_face(L, a, b)
+    # 东墙顶、西墙顶在这里拐进前沿墙顶
     L.rect(WALL_E[0] + 1, FRONT_TOP, WALL_E[1] - 1, FRONT_FACE - 1, "wl4")
-    L.outline(skip=lambda x, y: y >= FRONT_FACE or x < WALL_W[1] or x >= WALL_E[1])
+    L.rect(WALL_W[0] + 1, FRONT_TOP, WALL_W[1] - 1, FRONT_FACE - 1, "wl4")
+    L.outline(skip=lambda x, y: y >= FRONT_FACE or x < WALL_W[0] or x >= WALL_E[1])
+    L.vl(WALL_W[0], FRONT_TOP, FRONT_BOT, "ol")
     return L, 696
 
 
@@ -2453,7 +2466,7 @@ def build():
         ("mj_fan",) + prop_fan(R["mj_fan"]),
         ("mj_plant_nw",) + prop_plant_bamboo(R["mj_plant_nw"]),
         ("mj_plant_se",) + prop_money_tree(R["mj_plant_se"]),
-        ("side_walls",) + prop_side_walls(),
+        ("side_walls",) + prop_side_walls(with_west=True),   # 方案 C：西墙挨后厨，这间自己画
         ("front_walls",) + prop_front_walls(),
     ]
     shadows = []
@@ -2683,7 +2696,7 @@ def export_layers(bg, props):
     bgi = bg.im.crop((bx0 - X0, by0 - Y0, bx1 - X0, by1 - Y0))
     palette_count(bgi)
     bgi.save(os.path.join(LAYERS, "room.png"))
-    hide = {"side_walls": ["wall_3"], "front_walls": []}
+    hide = {"side_walls": ["wall_1"], "front_walls": []}   # 方案 C：这间画的西墙盖 wall_1（挨后厨那道）
     man = {"note": "draw_mahjong.py 生成。照 tools/pixel_art 休息间、化妆间的 room.json 写法：背景左上角放在 background.x/y（画布坐标），"
                    "1 倍、不插值；每件家具左上角在 x/y，着地线 foot（跟人排前后用；桌南那四把背对镜头的椅子 foot 比占地多 3，"
                    "好压在坐着的人前面）；hide 是要藏掉的灰盒（挡人的占地照旧）",
@@ -2702,6 +2715,7 @@ def export_layers(bg, props):
     for f in os.listdir(os.path.join(LAYERS, "props")):
         if f.endswith(".png") and f not in names:
             os.remove(os.path.join(LAYERS, "props", f))
+    backhall_plan_c.shift_room_json(man, DX)   # 方案 C：整间往西挪
     with open(os.path.join(LAYERS, "room.json"), "w", encoding="utf-8") as fh:
         json.dump(man, fh, ensure_ascii=False, indent=1)
         fh.write("\n")

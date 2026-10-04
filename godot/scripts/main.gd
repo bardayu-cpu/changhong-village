@@ -22,15 +22,15 @@ const BackhallUI = preload("res://scripts/backhall_ui.gd")
 const LoungeUI = preload("res://scripts/lounge_ui.gd")
 ## 蓝图 1 出入口表写宴会厅 → 后厅站 (50, 780)，离后厅西口 (40, 780, 50) 只有 10 像素、站在出口圈里；
 ## 01 9/19 定：到了站的点离出口至少 1 米，沿出口方向往里挪，所以是 (100, 780)
-const BACKHALL_FROM_HALL := Vector2(100, 780)
+const BACKHALL_FROM_HALL := Vector2(1436, 780)   # 10/4 方案 C：后厅东头回宴会厅那个口里边（原来西头 (100, 780)）
 const HALL_FROM_BACKHALL := Vector2(1440, 600)   # 蓝图 1：后厅西口 → 宴会厅 (1440, 600)，离东侧门 60 像素
 ## 草坪（蓝图 3.4，灰盒，01 9/19 派任务 8）：喷泉广场西口（10/4 起，原来是迎宾院东小径）、后厅厨房后门都通这里；北口通果园
 const Lawn = preload("res://scripts/lawn.gd")
 const LawnUI = preload("res://scripts/lawn_ui.gd")
 ## 蓝图 1 写迎宾院 → 草坪站 (50, 780)、后厅 → 草坪站 (50, 300)，离草坪西南口 (40, 780, 50)、西北口 (40, 300, 50) 都只有 10 像素；
 ## 照 01 9/19 的规矩（到了站的点离出口至少 1 米，沿出口方向往里挪）改成下面两个，离出口 60 像素
-const LAWN_FROM_PLAZA := Vector2(100, 780)      # 10/4 新总图：草坪西南口改通喷泉广场（原来通迎宾院，站的点不变）
-const LAWN_FROM_BACKHALL := Vector2(100, 300)
+const LAWN_FROM_PLAZA := Vector2(1496, 490)     # 10/4 方案 C：草坪东边南头那个口通喷泉广场，落在东边碎石小路上（布局 arrive；第 64 版西南 (100, 780)）
+const LAWN_FROM_BACKHALL := Vector2(1458, 210)   # 10/4 方案 C：草坪东边北头那个口通后厅（口往里 70）
 const COURT_FROM_PLAZA := Vector2(100, 334)     # 10/4 新总图：喷泉广场东口 → 迎宾院西北口里边（离口 60 像素）；原来东小径去草坪的口关了
 ## 湖边（蓝图 3.5，灰盒，01 9/20 派任务 9）：迎宾院西小径通这里，湖边东口回迎宾院
 const Lake = preload("res://scripts/lake.gd")
@@ -43,14 +43,19 @@ const COURT_FROM_LAKE := Vector2(100, 520)       # 蓝图 1：湖边东口 → �
 const Orchard = preload("res://scripts/orchard.gd")
 const Parking = preload("res://scripts/parking.gd")
 const Plaza = preload("res://scripts/plaza.gd")
+const Area = preload("res://scripts/area.gd")
+const DriveIn = preload("res://scripts/drive_in.gd")
+## 连图（10/4，01 G 派）新加的几块灰盒，都是 area.gd，布局 tools/layout_court/make_areas.py 出
+const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate"]
+const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
 const OrchardUI = preload("res://scripts/orchard_ui.gd")
 const OrchardSave = preload("res://scripts/orchard_save.gd")
 ## 蓝图 1 写草坪 → 果园站 (768, 840)，离果园南口 (768, 880, 60) 只有 40 像素、还在出口圈里；照 01 的规矩往里挪。
 ## 9/20 果园加高到 1280、玩法区整体 +256（01 派任务 11），所以这里也 +256
 const ORCHARD_FROM_LAWN := Vector2(768, 1076)
 const LAWN_FROM_ORCHARD := Vector2(768, 220)     # 蓝图 1：果园南口 → 草坪 (768, 220)，离北口 60 像素
-const BACKHALL_FROM_LAWN := Vector2(1440, 780)   # 蓝图 1：草坪西北口 → 后厅 (1440, 780)，离厨房后门 60 像素
-const BACKHALL_FROM_PLAZA := Vector2(620, 900)   # 10/4 新总图：喷泉广场南口 → 后厅走廊南边那个口里边（离口 90 像素）
+const BACKHALL_FROM_LAWN := Vector2(100, 780)    # 10/4 方案 C：草坪 → 后厅走廊西头厨房后门里边（原来东头 (1440, 780)）
+const BACKHALL_FROM_PLAZA := Vector2(896, 900)   # 10/4 方案 C：喷泉广场北口 → 后厅走廊南边那个口里边（离口 90 像素；原来 x 620）
 var court
 var backhall
 var backhall_ui: Control        # 后厅四个房间的按钮（backhall_ui.gd）
@@ -63,6 +68,10 @@ var orchard
 var orchard_ui: Control         # 果园的「摘一颗」（orchard_ui.gd）
 var parking                     # 停车场和大门（parking.gd，10/3）：开头从自己车上下来、吃完席回车上
 var plaza                       # 喷泉广场（plaza.gd，10/4 新总图第 ② 步）：山庄正中，通迎宾院、草坪、后厅，北边三个口待做
+var areas: Dictionary = {}      # 连图新加的几块（AREA_IDS -> area.gd）
+var drive                       # 进山庄自动开车（drive_in.gd，10/4 连图）
+var driving := false            # 正在自动开车：各块的口、走进去说的话都不算，点屏幕是跳过
+var drive_in_fast := false      # 测试用：fast 模式下也真开一趟（默认 fast 直接到停车场下车）
 var orchard_save                # 果园存在本机的：今天摘过没有（orchard_save.gd）
 ## 宴会厅的席面菜单 + 添一道菜（阿鱼 9/20 定的两样，banquet_ui.gd）
 const BanquetUI = preload("res://scripts/banquet_ui.gd")
@@ -73,6 +82,7 @@ var cv                          # 现在人在哪块画布（court、hall 或 ba
 var switching := false
 var hall_door_latched := true   # 刚进宴会厅时人就站在门口：先走出门的范围，门才算数（不会来回弹）
 var hall_side_latched := true   # 东侧门也一样：从后厅回来站在门边，先走出去一次才算
+var hall_exit_latched := true   # 宴会厅多开的门（10/4 西门通后花园）一样
 var profile_saved := false      # 这次打开游戏 saveProfile 成功过没有（进厅前要有住民记录）
 const CourtSave = preload("res://scripts/court_save.gd")
 const CourtUI = preload("res://scripts/court_ui.gd")
@@ -339,9 +349,18 @@ func _ready() -> void:
     plaza = Plaza.new()
     sv.add_child(plaza)
     plaza.spot.connect(_on_plaza_spot)
-    for c in [backhall, lawn, lake, orchard, parking, plaza]:
+    for aid in AREA_IDS:
+        var a = Area.new()
+        a.setup_area(aid)
+        sv.add_child(a)
+        a.spot.connect(func(pid, inside): _on_area_spot(aid, pid, inside))
+        areas[aid] = a
+    for c in _more_canvases():
         c.visible = false
         c.process_mode = Node.PROCESS_MODE_DISABLED
+    drive = DriveIn.new()
+    add_child(drive)
+    drive.setup(self)
     _show_canvas("banquet")   # 开场、起名、选形象时背后是宴会厅（和原来一样）
     _build_ui()
     court_save = CourtSave.new()
@@ -361,9 +380,11 @@ func _ready() -> void:
     ui.add_child(lounge_ui)
     lounge_ui.setup(self)
     # 能说话的 NPC（10/4 对话插件）：哪块画布上布局给 NPC 写了 dialogue，点了走到跟前就开这个对话框
-    for c in [court, backhall, lawn, lake, orchard, parking, plaza]:
+    for c in [court] + _more_canvases():
         if c.has_signal("talk_requested"):
             c.talk_requested.connect(func(id): lounge_ui.open_npc(c, id))
+        if c.has_signal("edge_bump"):
+            c.edge_bump.connect(_on_edge_bump)
     lawn_ui = LawnUI.new()
     ui.add_child(lawn_ui)
     lawn_ui.setup(self)
@@ -496,6 +517,14 @@ func _build_debug() -> void:
     h55b.text = "55 桌试验厅"
     h55b.pressed.connect(_open_hall55.bind(6))
     dv.add_child(h55b)
+    # 场景动效（宫灯呼吸等，scripts/ambient/）：量性能、比较时一键关掉（05 10/4）
+    var ambb := Button.new()
+    ambb.text = "动效：自动（点一下关）"
+    ambb.pressed.connect(func():
+        var Amb = load("res://scripts/ambient/ambient.gd")
+        Amb.set_forced(0 if Amb.forced < 0 else -1)
+        ambb.text = "动效：关（点一下恢复）" if Amb.forced == 0 else "动效：自动（点一下关）")
+    dv.add_child(ambb)
     # 宴会厅轮着切：第 44 版 → 照效果图（第 46 版）→ 55 桌大厅 → 第 44 版（包里没有第 46 版那套时跳过它）
     var bigb := Button.new()
     bigb.name = "hall55_toggle"
@@ -592,7 +621,7 @@ func _process(dt: float) -> void:
                 hall_door_latched = false
         elif dd < hall.door_r and hall.walking_enabled:
             _switch_canvas("court")
-    # 东侧门进后厅（蓝图 1、3.2），一样先走出去一次才算
+    # 侧门进后厅（蓝图 1、3.2；10/4 方案 C 在西墙），一样先走出去一次才算
     if state == "banquet" and not switching and USE_LAYERED and hall.side_door_r > 0.0:
         var sd: float = hall.pos.distance_to(hall.side_door)
         if hall_side_latched:
@@ -600,6 +629,17 @@ func _process(dt: float) -> void:
                 hall_side_latched = false
         elif sd < hall.side_door_r and hall.walking_enabled:
             _switch_canvas("backhall")
+    # 宴会厅多开的门（10/4 方案 C：画里那道东侧门通后花园），一样先走出去一次才算
+    if state == "banquet" and not switching and not hall.exits.is_empty():
+        var near := ""
+        for e in hall.exits:
+            if hall.pos.distance_to(e["pos"]) < float(e["r"]):
+                near = str(e["to"])
+        if hall_exit_latched:
+            if near == "":
+                hall_exit_latched = false
+        elif near != "" and hall.walking_enabled:
+            _switch_canvas(near)
     if state == "banquet" and hall_ready and not pulse_busy and h55 == null:   # 55 桌试验厅开着时不问（免得插图盖上来）
         pulse_t += dt
         # 进厅后先对一次表（1 秒后），之后每 PULSE_EVERY 秒问一次
@@ -616,9 +656,11 @@ func _process(dt: float) -> void:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
         orchard_ui.sync()   # 人站着不动地也在长：按钮上「几垄熟了」跟着变
+    if driving and hint != null:
+        hint.visible = false   # 04 看第 65 版：自动开车的时候「点地面走路」先不出，停好车下车再出（_enter_parking 照旧打开）
     if stick_base != null:
-        # 写悄悄话、说话的时候不能走，摇杆也藏起来
-        var show_stick: bool = _in_scene() and cv.walking_enabled
+        # 写悄悄话、说话的时候不能走，摇杆也藏起来；自动开车的时候也藏（04 看第 65 版）
+        var show_stick: bool = _in_scene() and cv.walking_enabled and not driving
         stick_base.visible = show_stick
         stick_knob.visible = show_stick
         if not show_stick and stick_touch != -1:
@@ -1382,14 +1424,35 @@ func _close_person_card() -> void:
 # ---------- 流程 ----------
 ## 人在能走路的场景里（迎宾院、宴会厅、后厅、草坪、湖边、果园），不是开场、起名这些界面
 func _in_scene() -> bool:
-    return state in ["court", "banquet", "backhall", "lawn", "lake", "orchard", "parking", "plaza"]
+    return state in ["court", "banquet", "backhall", "lawn", "lake", "orchard", "parking", "plaza"] or areas.has(state)
 
 ## 换到哪块画布：别的都藏起来、停下（宴会厅的服务员、NPC 也跟着停），镜头换过去。几块一直都在，
 ## 所以座位、NPC、敬酒这些宴会厅的状态切来切去都还在
 ## 后厅、草坪、湖边、果园第一次要用时才搭（开场不搭，见 _ready）。搭过的不再搭；搭完照现在的形象、昵称穿上
 var canvas_built := {}
+
+## 开场不搭、第一次进去才搭的那几块（迎宾院、宴会厅以外的全部）
+func _more_canvases() -> Array:
+    return [backhall, lawn, lake, orchard, parking, plaza] + areas.values()
+
+func _canvas_by(k: String):
+    var d := {"backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard, "parking": parking, "plaza": plaza}
+    return d.get(k, areas.get(k))
+
+## 连图（10/4）：从 from 那块走口子进 to，站哪——to 那块布局里通 from 的口写了 arrive 就站那，不然从口往里走 70 像素。
+## 宴会厅不是这套（它的门照旧）；to 那块没有通 from 的口回 ZERO，各块照原来的站法
+var switch_via := ""   # 这回走的那个口写的 via：到了对面站在对面哪个口里边（_exit_spot 设、_switch_canvas 用完清）
+func _arrival(to: String, from: String) -> Vector2:
+    var c = court if to == "court" else _canvas_by(to)
+    var via := switch_via
+    switch_via = ""
+    if c == null or not c.has_method("arrival_from"):
+        return Vector2.ZERO
+    if via != "":
+        return c.arrival_at(via)
+    return c.arrival_from(from)
 func ensure_canvas(which: String) -> void:
-    var c = {"backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard, "parking": parking, "plaza": plaza}.get(which)
+    var c = _canvas_by(which)
     if c == null or canvas_built.has(which):
         return
     canvas_built[which] = true
@@ -1400,17 +1463,18 @@ func ensure_canvas(which: String) -> void:
         orchard.refresh_fruit()
     if nickname != "":
         c.set_look(preset, nickname)
-    print("[suqi] %s第一次进去才搭，用了 %d 毫秒" % [{"backhall": "后厅", "lawn": "草坪", "lake": "湖边", "orchard": "果园", "parking": "停车场", "plaza": "喷泉广场"}[which], Time.get_ticks_msec() - t0])
+    print("[suqi] %s第一次进去才搭，用了 %d 毫秒" % [{"backhall": "后厅", "lawn": "草坪", "lake": "湖边", "orchard": "果园", "parking": "停车场", "plaza": "喷泉广场"}.get(which, AREA_NAMES.get(which, which)), Time.get_ticks_msec() - t0])
 
 func _built(c) -> bool:
     for k in canvas_built:
-        if {"backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard, "parking": parking, "plaza": plaza}.get(k) == c:
+        if _canvas_by(k) == c:
             return true
     return false
 
 func _show_canvas(which: String) -> void:
     ensure_canvas(which)
     var canvases := {"court": court, "banquet": hall, "backhall": backhall, "lawn": lawn, "lake": lake, "orchard": orchard, "parking": parking, "plaza": plaza}
+    canvases.merge(areas)
     for k in canvases:
         var c = canvases[k]
         if c == null:
@@ -1443,11 +1507,13 @@ func _goto(s: String) -> void:
         parking.stick = Vector2.ZERO
     if plaza != null:
         plaza.stick = Vector2.ZERO
+    for aid in areas:
+        areas[aid].stick = Vector2.ZERO
     stick_touch = -1
     touches.clear()
     for k in screens:
         screens[k].visible = (k == s)
-    hud.visible = s in ["banquet", "court", "backhall", "lawn", "lake", "orchard", "parking", "plaza"]
+    hud.visible = s in ["banquet", "court", "backhall", "lawn", "lake", "orchard", "parking", "plaza"] or areas.has(s)
     if sit_btn != null and s != "banquet":
         sit_btn.visible = false
     if person_btn != null and s != "banquet":
@@ -1508,6 +1574,8 @@ func _goto(s: String) -> void:
         parking.walking_enabled = (s == "parking")
     if plaza != null:
         plaza.walking_enabled = (s == "plaza")
+    for aid in areas:
+        areas[aid].walking_enabled = (s == aid)
     if s == "nick":
         nick_edit.grab_focus()
         _check_nick_ui()
@@ -1558,7 +1626,7 @@ func _enter_court() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
-    for c in [backhall, lawn, lake, orchard, parking, plaza]:
+    for c in _more_canvases():
         if _built(c):   # 没搭的第一次进去搭的时候再穿（ensure_canvas）
             c.set_look(preset, nickname)
     hall.couple_armed = true
@@ -1584,7 +1652,24 @@ func _enter_court() -> void:
 
 ## 选完形象往哪走（10/3 停车场，玩家说明第 1 节）：没进过迎宾院的从停车场自己的车上下来，顺着路走进山庄大门；
 ## 进过的照旧从迎宾院大门进（「中途退出再进来从哪开始」还在待讨论，先照现在的存档逻辑）
+## 进山庄（10/4 连图：每次都先自动开车——前门开进来、绕喷泉一圈、停进停车场，人下车；看过一次以后点屏幕跳过）
 func _start_play() -> void:
+    await _drive_in()
+
+func _drive_in() -> void:
+    driving = true
+    hall.set_look(preset, nickname)
+    court.set_look(preset, nickname)
+    for c in _more_canvases():
+        if _built(c):
+            c.set_look(preset, nickname)
+    if not fast or drive_in_fast:
+        await drive.play()
+    driving = false
+    await _enter_parking()
+
+## 10/4 以前的开场（没进过迎宾院的从停车场、进过的从迎宾院）；现在只有截图、测试还用
+func _start_play_old() -> void:
     if court_save.seen_court():
         await _enter_court()
     else:
@@ -1597,7 +1682,7 @@ func _enter_parking() -> void:
     ensure_canvas("parking")
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
-    for c in [backhall, lawn, lake, orchard, parking, plaza]:
+    for c in _more_canvases():
         if _built(c):
             c.set_look(preset, nickname)
     hall.couple_armed = true
@@ -1641,13 +1726,20 @@ func _switch_canvas(to: String) -> void:
     fade.color = Color(SWITCH_TINT, fade.color.a)
     await _fade_to(1.0)
     ensure_canvas(to)   # 第一次去：黑屏这一下搭，人看不见
+    # 连图（10/4）：到了站哪，先照 to 那块布局里通 from 的口算（_arrival）；算不出（老的几条路）照各块原来的站法
+    var gen := _arrival(to, from)
     if from == "lawn":
         lawn.reset_ball()
     if to == "banquet":
         _show_canvas("banquet")
-        # 55 桌大厅的东侧门挪到下面去了：从后厅回来站在侧门里边 60 像素（和 12 桌厅 HALL_FROM_BACKHALL 一个意思）
-        var from_back: Vector2 = hall.side_door + Vector2(-60, 0) if USE_LAYERED and hall.big else HALL_FROM_BACKHALL
-        hall.reset_to(from_back if from == "backhall" else hall.SPAWN)
+        # 55 桌大厅通后厅的侧门（10/4 方案 C 在西墙）：从后厅回来站在侧门里边（和 12 桌厅 HALL_FROM_BACKHALL 一个意思）
+        var from_back: Vector2 = hall.side_arrive if USE_LAYERED and hall.big else HALL_FROM_BACKHALL
+        var hall_at: Vector2 = from_back if from == "backhall" else hall.SPAWN
+        for e in hall.exits:   # 宴会厅多开的门（10/4 西门通后花园）：从那边回来站门里边
+            if str(e["to"]) == from:
+                hall_at = e["arrive"]
+                hall_exit_latched = true
+        hall.reset_to(hall_at)
         hall_door_latched = true
         hall_side_latched = true
         _goto("banquet")
@@ -1665,7 +1757,7 @@ func _switch_canvas(to: String) -> void:
             back_at = BACKHALL_FROM_LAWN
         elif from == "plaza":
             back_at = BACKHALL_FROM_PLAZA
-        backhall.reset_to(back_at)
+        backhall.reset_to(gen if gen != Vector2.ZERO else back_at)
         _goto("backhall")
     elif to == "lawn":
         _show_canvas("lawn")
@@ -1675,17 +1767,17 @@ func _switch_canvas(to: String) -> void:
             lawn_at = LAWN_FROM_BACKHALL
         elif from == "orchard":
             lawn_at = LAWN_FROM_ORCHARD
-        lawn.reset_to(lawn_at)
+        lawn.reset_to(gen if gen != Vector2.ZERO else lawn_at)
         kids_heard = false
         _goto("lawn")
     elif to == "lake":
         _show_canvas("lake")
         # 从停车场过来走西头月亮门（10/3 长湖岸），从迎宾院过来走东头月亮门
-        lake.reset_to(lake.FROM_PARKING if from == "parking" and lake.FROM_PARKING != Vector2.ZERO else LAKE_FROM_COURT)
+        lake.reset_to(gen if gen != Vector2.ZERO else (lake.FROM_ORCHARD if from == "orchard" and lake.FROM_ORCHARD != Vector2.ZERO else LAKE_FROM_COURT))
         _goto("lake")
     elif to == "orchard":
         _show_canvas("orchard")
-        orchard.reset_to(ORCHARD_FROM_LAWN)
+        orchard.reset_to(gen if gen != Vector2.ZERO else ORCHARD_FROM_LAWN)
         orchard.refresh_fruit()   # 人不在的时候地也在长：进来先对一次，该熟的已经熟了
         _goto("orchard")
     elif to == "plaza":
@@ -1696,15 +1788,20 @@ func _switch_canvas(to: String) -> void:
             pz_at = plaza.FROM_LAWN
         elif from == "backhall":
             pz_at = plaza.FROM_BACKHALL
-        plaza.reset_to(pz_at)
+        plaza.reset_to(gen if gen != Vector2.ZERO else pz_at)
         _goto("plaza")
     elif to == "parking":
         # 出山庄大门回停车场（玩家说明第 6 节）：吃完席（大门开了）出来，金箭头指自己的车
         _show_canvas("parking")
-        parking.reset_to(parking.FROM_LAKE if from == "lake" and parking.FROM_LAKE != Vector2.ZERO else parking.FROM_COURT)
+        parking.reset_to(gen if gen != Vector2.ZERO else (parking.FROM_LAKE if from == "lake" and parking.FROM_LAKE != Vector2.ZERO else parking.FROM_COURT))
         parking.gate_hint = false
         parking.car_hint = court_save.gate_open()
         _goto("parking")
+    elif areas.has(to):
+        # 连图新加的几块（儿童乐园、小卖部、休息厅 2、西餐厨房、后花园、前门、后门）：照口站
+        _show_canvas(to)
+        areas[to].reset_to(gen if gen != Vector2.ZERO else areas[to].SPAWN)
+        _goto(to)
     else:
         _show_canvas("court")
         var back_to := COURT_FROM_HALL
@@ -1712,14 +1809,16 @@ func _switch_canvas(to: String) -> void:
             back_to = COURT_FROM_PLAZA
         elif from == "lake":
             back_to = COURT_FROM_LAKE
-        elif from == "parking":
-            back_to = court.SPAWN   # 从停车场进门楼：站在迎宾院大门里边（原来开场出生的地方）
+        elif from == "parking" or from == "frontgate":
+            back_to = court.SPAWN   # 从前门（10/4 连图前是停车场）进大门：站在迎宾院大门里边（原来开场出生的地方）
+        if gen != Vector2.ZERO and from != "banquet":
+            back_to = gen
         court.reset_to(back_to)
         _goto("court")
         photo_greeted = false
         rest_heard = false
         _update_gate()
-        if from == "parking" and not court_save.court_seen:
+        if (from == "parking" or from == "frontgate") and not court_save.court_seen:
             court_save.court_seen = true   # 进过一次迎宾院：停车场指大门的箭头不再出，再开游戏也不从停车场出生
             court_save.save()
             arrive_line = true
@@ -1746,6 +1845,8 @@ func _enter_hall_net() -> void:
 ## 走到迎宾院的交互点（进、出半径各一次，见 entrance.gd）：门口迎宾、签到（按钮和面板在 court_ui.gd）、楼门进宴会厅、东西小径还没修好
 func _on_court_spot(id: String, inside: bool) -> void:
     if state != "court" or switching:
+        return
+    if _exit_spot(court, id, inside):
         return
     court_ui.spot(id, inside)
     match id:
@@ -1788,6 +1889,8 @@ func _on_court_spot(id: String, inside: bool) -> void:
 func _on_backhall_spot(id: String, inside: bool) -> void:
     if state != "backhall" or switching:
         return
+    if _exit_spot(backhall, id, inside):
+        return
     backhall_ui.spot(id, inside)
     match id:
         "to_hall":
@@ -1805,6 +1908,8 @@ func _on_backhall_spot(id: String, inside: bool) -> void:
 func _on_lawn_spot(id: String, inside: bool) -> void:
     if state != "lawn" or switching:
         return
+    if _exit_spot(lawn, id, inside):
+        return
     lawn_ui.spot(id, inside)
     match id:
         "to_plaza":
@@ -1821,6 +1926,8 @@ func _on_lawn_spot(id: String, inside: bool) -> void:
 func _on_orchard_spot(id: String, inside: bool) -> void:
     if state != "orchard" or switching:
         return
+    if _exit_spot(orchard, id, inside):
+        return
     orchard_ui.spot(id, inside)
     if id == "to_lawn" and inside:
         _switch_canvas("lawn")
@@ -1828,6 +1935,8 @@ func _on_orchard_spot(id: String, inside: bool) -> void:
 ## 走到停车场的交互点（10/3）：门楼门洞进迎宾院；自己的车旁边——吃完席出来才算到家，说送别那两句（原来在迎宾院大门口说）
 func _on_parking_spot(id: String, inside: bool) -> void:
     if state != "parking" or switching:
+        return
+    if _exit_spot(parking, id, inside):
         return
     match id:
         "to_court":
@@ -1845,10 +1954,43 @@ func _on_parking_spot(id: String, inside: bool) -> void:
                 _say(CourtCopy.text("gate_bye") + "\n" + CourtCopy.text("gate_tomorrow"), 6.0, CourtCopy.who("gate_bye"))
                 print("[suqi] 走到自己的车旁 结束")
 
+## 连图（10/4）：哪块画布的口写了 to，走进去就切过去；写了 say 的走进去说一句（还没做的地方）。各块的交互点先过这个，过了就不再往下
+func _exit_spot(c, id: String, inside: bool) -> bool:
+    if driving:
+        return true   # 自动开车开过口子、门洞：不算
+    if not c.points.has(id):
+        return false
+    var pt: Dictionary = c.points[id]
+    if str(pt["to"]) != "":
+        if inside and not switching:
+            switch_via = str(pt["via"])
+            _switch_canvas(str(pt["to"]))
+        return true
+    if str(pt["say"]) != "":
+        if inside:
+            _say(CourtCopy.text(str(pt["say"]), CourtCopy.AREAS), 3.0, CourtCopy.who(str(pt["say"]), CourtCopy.AREAS))
+        return true
+    return false
+
+## 连图新加的几块：交互点全走 _exit_spot
+func _on_area_spot(aid: String, id: String, inside: bool) -> void:
+    if state != aid or switching:
+        return
+    _exit_spot(areas[aid], id, inside)
+
+## 走到头（10/4 连图）：往没路的那边顶住了、或者点了能走的范围外头，弹一句短话（按方向配，话在 assets/areas/lines.json，待校对）
+func _on_edge_bump(dir: String) -> void:
+    if switching or not _in_scene():
+        return
+    _note(CourtCopy.text("edge_" + dir, CourtCopy.AREAS), 1.6)
+    print("[suqi] 走到头 ", dir)
+
 ## 走到喷泉广场的交互点（10/4 新总图第 ② 步）：东口迎宾院、西口草坪、南口后厅走廊；北边三个口还没做，走进去说一句还在布置
 ## （每走进去一次说一次，话在 assets/plaza/lines.json）
 func _on_plaza_spot(id: String, inside: bool) -> void:
     if state != "plaza" or switching:
+        return
+    if _exit_spot(plaza, id, inside):
         return
     match id:
         "to_court":
@@ -1868,11 +2010,9 @@ func _on_plaza_spot(id: String, inside: bool) -> void:
 func _on_lake_spot(id: String, inside: bool) -> void:
     if state != "lake" or switching:
         return
-    lake_ui.spot(id, inside)
-    if id == "to_entrance" and inside:
-        _switch_canvas("court")
-    elif id == "to_parking" and inside:
-        _switch_canvas("parking")   # 西头月亮门出去，几步进停车场（10/3 长湖岸）
+    if _exit_spot(lake, id, inside):
+        return
+    lake_ui.spot(id, inside)   # 出口都照布局的 to 走（_exit_spot）；10/4 西半边接图起西头月亮门 to_orchard 通果园 A
 
 ## 喜多把球放回脚边（蓝图 3.4 用户故事：踢一脚 → 球滚出去 → 喜多叼回来放脚边 → 旁边小孩喊「再踢一个」）。
 ## 01 9/20 定：踢完球那一次才喊，每回到草坪喊一次；不按人站在哪判断（草坪就这么大，在哪踢都听得见）
@@ -1909,7 +2049,7 @@ func _at_gate() -> void:
         _say(CourtCopy.text("gate_not_signed"), -1.0, CourtCopy.who("gate_not_signed"))
     elif not CourtCopy.placeholder(CourtCopy.text("gate_leave_early")):
         _say(CourtCopy.text("gate_leave_early"), -1.0, CourtCopy.who("gate_leave_early"))
-    _switch_canvas("parking")
+    _switch_canvas("frontgate")   # 10/4 连图：大门出去是前门（门楼），往西走到停车场找自己的车
 
 ## 大门那圈金光跟着开没开（签完到、写完悄悄话、回到迎宾院时都对一次）
 func _update_gate() -> void:
@@ -1921,7 +2061,7 @@ func _enter_banquet() -> void:
     await _fade_to(1.0)
     hall.set_look(preset, nickname)
     court.set_look(preset, nickname)
-    for c in [backhall, lawn, lake, orchard, parking, plaza]:
+    for c in _more_canvases():
         if _built(c):   # 没搭的第一次进去搭的时候再穿（ensure_canvas）
             c.set_look(preset, nickname)
     hall.couple_armed = true
@@ -2098,7 +2238,7 @@ func _refresh_door_hint() -> void:
     if USE_LAYERED and hall != null:
         hall.set_door_hint(court_save.door_hint and not court_save.backhall_seen)
 
-## 没进过后厅的人：进厅小卡多一行「东边侧门通后厅，厨房在那边」（55 桌厅、有东侧门才说）
+## 没进过后厅的人：进厅小卡多一行「西边侧门通后厅，厨房在那边」（55 桌厅、有通后厅的侧门才说）
 func _want_backhall_row() -> bool:
     return USE_LAYERED and hall.big and hall.side_door != Vector2.ZERO and not court_save.backhall_seen
 
@@ -3010,6 +3150,10 @@ func _check_whisper_ui() -> void:
 ## 触屏操作（只认触摸事件；电脑上鼠标会被当成触摸，见 project.godot）：
 ## 屏幕左下方按住拖 = 摇杆；别处左右拖 = 转镜头（宴会厅是左右挪着看全厅，9/18 晚）；轻点一下 = 走过去
 func _unhandled_input(e: InputEvent) -> void:
+    if driving:
+        if (e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed:
+            drive.skip()   # 看过一次的点一下就跳过（没看过的不让跳）
+        return
     if e is InputEventScreenTouch and not e.pressed:
         var tc = touches.get(e.index)
         touches.erase(e.index)
@@ -3161,7 +3305,7 @@ func _shot_skip_entry_toast() -> void:
             await get_tree().process_frame
 
 func _setup_shot(shot: String) -> void:
-    for cn in ["backhall", "lawn", "lake", "orchard", "parking", "plaza"]:
+    for cn in ["backhall", "lawn", "lake", "orchard", "parking", "plaza"] + AREA_IDS:
         if shot.begins_with(cn) or shot.begins_with("k") or shot == "hall_side_door":
             ensure_canvas(cn)   # 这几块开场不搭；截图预设有的在切过去之前就动它们（果园先拨地），先搭好
     if shot.begins_with("game_"):
@@ -3193,7 +3337,7 @@ func _setup_shot(shot: String) -> void:
         # 进厅先见人（01 9/23）：arrive_card 等插图放完、小卡出来再截；arrive_first 当第一次进厅
         "arrive_card", "arrive_first":
             nickname = "小李"
-            _shot_court_fresh()   # 当没进过后厅的人：卡上多「东边侧门通后厅」那行（01 E 10/3）
+            _shot_court_fresh()   # 当没进过后厅的人：卡上多「西边侧门通后厅」那行（01 E 10/3）
             cloud.fake_arrival_mode = "first" if shot == "arrive_first" else "card"
             await _enter_banquet()
             for i in 80:
@@ -3231,8 +3375,8 @@ func _setup_shot(shot: String) -> void:
                 hall.apply_change("T1", 4, cloud.openid())
             else:
                 _arm_door_hint()
-                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.side_door + Vector2(-150, 60)))))
-                hall.face = "right"
+                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.side_off(150, 60)))))
+                hall.face = "left" if hall.side_door.x < 768.0 else "right"   # 朝着侧门（方案 C 在西墙）
             for i in 20: await get_tree().process_frame
         "sit_front", "sit_back":
             # 坐下的样子（占位）两个方向：桌子前面那把（背对镜头）、桌子后面那把（面朝镜头）
@@ -3772,20 +3916,20 @@ func _setup_shot(shot: String) -> void:
                 for i in 6: await get_tree().process_frame
             elif shot == "hall_backhall_sign":
                 # 宴会厅东侧门那块「后厅」名字牌（阿鱼 10/3 门口挂牌子）：照这个厅真的东侧门站（hall_side_door 用的是第 44 版厅的坐标）
-                hall.reset_to(hall.side_door + Vector2(-110, 40))
-                hall.face = "right"
+                hall.reset_to(hall.side_off(110, 40))
+                hall.face = "left" if hall.side_door.x < 768.0 else "right"
                 for i in 30: await get_tree().process_frame
             else:
                 hall_side_latched = false
-                hall.reset_to(hall.side_door + Vector2(-20, 0))
+                hall.reset_to(hall.side_off(20, 0))
                 for i in 90:
                     await get_tree().process_frame
                     if state == "backhall" and not switching:
                         break
-                var at := {"backhall_dress": Vector2(168, 420), "backhall_lounge": Vector2(504, 440),
-                    "backhall_mahjong": Vector2(852, 440), "backhall_pot": Vector2(1272, 400), "backhall_lawn": Vector2(1490, 780)}
+                var at := {"backhall_dress": Vector2(1363, 420), "backhall_lounge": Vector2(1032, 440),   # 10/4 方案 C 四间整间平移后的位置
+                    "backhall_mahjong": Vector2(708, 440), "backhall_pot": Vector2(264, 400), "backhall_lawn": Vector2(50, 780)}
                 # 后厅三间门口的名字牌（阿鱼 10/3）：站在走廊上看，一屏 540 宽装不下三块，分两张（化妆间 + 休息间、休息间 + 麻将室）
-                var sign_at := {"backhall_signs_w": Vector2(390, 780), "backhall_signs_e": Vector2(770, 780)}
+                var sign_at := {"backhall_signs_w": Vector2(520, 780), "backhall_signs_e": Vector2(1290, 780)}   # 方案 C：西边后厨 + 麻将室、东边休息间 + 化妆间
                 if sign_at.has(shot):
                     backhall.reset_to(sign_at[shot])
                     backhall.face = "up"
@@ -3812,11 +3956,59 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.position = Vector2(768, 512)
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
+        "drive_gate", "drive_fountain", "drive_park":
+            # 自动开车进山庄（10/4 连图）：gate 是车开进前门门楼；fountain 是绕喷泉开到一半；park 是开进停车场、快停进车位
+            nickname = "阿花"
+            await _enter_court()
+            court_save.local_path = "user://shot_drive_court.json"
+            court_save.drive_seen = false
+            drive_in_fast = true
+            dialog.visible = false
+            arrive_line = false
+            _drive_in()
+            var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 2.6], "drive_park": ["parking", 1.9]}[shot]
+            for i in 3000:
+                await get_tree().process_frame
+                if drive.leg == want[0] and drive.leg_t >= float(want[1]):
+                    drive.paused = true
+                    break
+            for i in 10: await get_tree().process_frame
+        "area_kids", "area_shop", "area_rest2", "area_wkitchen", "area_garden", "area_frontgate", "area_backgate":
+            # 连图新加的七块灰盒（10/4）：站在块正中偏南，看一屏
+            nickname = "阿花"
+            await _enter_court()
+            dialog.visible = false
+            var aid := shot.trim_prefix("area_")
+            ensure_canvas(aid)
+            _show_canvas(aid)
+            _goto(aid)
+            areas[aid].reset_to(areas[aid].SPAWN)
+            for i in 30: await get_tree().process_frame
+        "edge_plaza", "edge_lake", "lake_south", "lake_dock", "lake_west_exit":
+            # 走到头提示（10/4 连图）：edge_plaza 是喷泉广场往北顶到绿篱；edge_lake 是湖边南墙外往南顶到画布底。
+            # lake_south 是湖边东头南墙外（原来不能走）；lake_dock 是站在游船码头上、船夫 1 跟前；lake_west_exit 是西头南墙月亮门前、去果园 A（10/4 西半边接图；第 64 版在东头尽头 lake_east_exit）
+            nickname = "阿花"
+            await _enter_court()
+            dialog.visible = false
+            var cn := "plaza" if shot == "edge_plaza" else "lake"
+            ensure_canvas(cn)
+            _show_canvas(cn)
+            _goto(cn)
+            var at: Vector2 = {"edge_plaza": Vector2(600, 240), "edge_lake": Vector2(2200, 1260), "lake_south": Vector2(2304, 1150),
+                "lake_dock": Vector2(908, 690), "lake_west_exit": Vector2(768, 990)}[shot]
+            cv.reset_to(at)
+            cv.face = "down" if shot in ["lake_west_exit", "edge_lake"] else "up"
+            for i in 10: await get_tree().process_frame
+            if shot.begins_with("edge_"):
+                cv.stick = Vector2(0, -1) if shot == "edge_plaza" else Vector2(0, 1)
+                for i in 90: await get_tree().process_frame
+                cv.stick = Vector2.ZERO
+            for i in 10: await get_tree().process_frame
         "lounge_dm", "lounge_dm_choice":
             # 对话插件 Dialogue Manager（10/4）：dm 是点奶奶走过去、插件给的第一句；dm_choice 是问到「你是哪边的客人呀？」出三个选项
             await _setup_shot("backhall")
             var life = backhall.lounge
-            backhall.reset_to(Vector2(504, 470))
+            backhall.reset_to(Vector2(1032, 470))
             backhall.face = "up"
             for i in 20: await get_tree().process_frame
             lounge_ui.attach(life)
@@ -3838,10 +4030,10 @@ func _setup_shot(shot: String) -> void:
             var life = backhall.lounge
             var sofa_m: Dictionary = life.seat_by_id("sofa_m")
             if shot == "lounge_chat":
-                backhall.reset_to(Vector2(504, 470))
+                backhall.reset_to(Vector2(1032, 470))
                 backhall.face = "up"
             elif shot.begins_with("lounge_walk_"):
-                backhall.reset_to(Vector2(470, 610))
+                backhall.reset_to(Vector2(998, 610))
                 backhall.face = "up"
             else:
                 backhall.reset_to(sofa_m["stand"])
@@ -4034,11 +4226,12 @@ func _setup_shot(shot: String) -> void:
             await _enter_parking()
             dialog.visible = false
             note_box.visible = false
-            var pat := {"parking_cars": Vector2(520, 514), "parking_gate": Vector2(690, 440),   # cars 站在第一、二排之间的车道上，四辆都在屏里
-                "parking_lakegate": parking.FROM_LAKE}   # lakegate 站在路东白墙月亮门前（去湖边，10/3 长湖岸）
+            # 10/4 方案 C：停车场整块左右翻（路西车位东），站位跟着翻
+            var pat := {"parking_cars": Vector2(504, 514), "parking_gate": Vector2(334, 440),   # cars 站在第一、二排之间的车道上，四辆都在屏里
+                "parking_lakegate": parking.FROM_LAKE}   # lakegate 站在路东白墙月亮门前（去湖边，10/3 长湖岸；10/4 连图起没这道门了）
             if pat.has(shot):
                 parking.reset_to(pat[shot])
-                parking.face = {"parking_cars": "left", "parking_lakegate": "right"}.get(shot, "up")
+                parking.face = {"parking_cars": "right", "parking_lakegate": "right"}.get(shot, "up")
                 if shot == "parking_lakegate":
                     parking.gate_hint = false   # 这张只看去湖边那道门，指大门的箭头不出
             for i in 30:
@@ -4060,9 +4253,9 @@ func _setup_shot(shot: String) -> void:
                     if state == go and not switching:
                         break
             var stand := {"plaza_east": [Vector2(1380, 560), "right"], "plaza_west": [Vector2(170, 560), "left"], "plaza_south": [Vector2(768, 850), "down"],
-                "plaza_kids": [Vector2(420, 260), "up"], "plaza_shop": [Vector2(768, 260), "up"], "plaza_rest": [Vector2(1116, 260), "up"],
-                "court_plaza_sign": [COURT_FROM_PLAZA + Vector2(90, 0), "left"], "lawn_plaza_sign": [Vector2(170, 780), "left"],
-                "backhall_plaza_sign": [Vector2(620, 840), "down"]}
+                "plaza_kids": [Vector2(420, 850), "down"], "plaza_shop": [Vector2(768, 850), "down"], "plaza_rest": [Vector2(1116, 850), "down"],
+                "court_plaza_sign": [COURT_FROM_PLAZA + Vector2(90, 0), "left"], "lawn_plaza_sign": [Vector2(1380, 470), "right"],
+                "backhall_plaza_sign": [Vector2(896, 840), "down"]}
             if stand.has(shot):
                 cv.reset_to(stand[shot][0])
                 cv.face = stand[shot][1]
@@ -4143,7 +4336,7 @@ func _setup_shot(shot: String) -> void:
             _clear_toast_back()
             var oat := {"orchard_pick": orchard.spot_pos("strawberry"), "orchard_grow": orchard.spot_pos("strawberry"),
                 "orchard_sell": orchard.spot_pos("strawberry"), "orchard_sold": orchard.spot_pos("strawberry"), "orchard_back": orchard.spot_pos("strawberry"), "orchard_north": Vector2(768, 500),   # 最北边：看镜头上下跟和顶上的风景带
-                "orchard_path": Vector2(768, 760)}   # 中间小路上，西边草莓垄、东边枇杷树（10/3 代码画的果园进游戏）
+                "orchard_path": Vector2(768, 760)}   # 中间小路上，西边枇杷树、东边草莓垄（10/4 方案 C 重摆；10/3 代码画的果园进游戏）
             if oat.has(shot):
                 orchard.reset_to(oat[shot] + Vector2(90, 0))   # 同一条空道上、交互点外头，走进去信号才会发
                 orchard.go_to(oat[shot])

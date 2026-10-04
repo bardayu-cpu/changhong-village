@@ -8,6 +8,7 @@ const LAWN := "res://assets/lawn/lines.json"
 const LAKE := "res://assets/lake/lines.json"
 const ORCHARD := "res://assets/orchard/lines.json"
 const PLAZA := "res://assets/plaza/lines.json"      # 喷泉广场（10/4 新总图）
+const AREAS := "res://assets/areas/lines.json"      # 连图新加的几块、走到头提示（10/4）
 
 static var _d: Dictionary = {}   # 文件路径 -> 那份的 lines
 

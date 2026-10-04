@@ -10,16 +10,20 @@
   四辆点名的车（紫色宝马双门 240、蓝色 BRZ、白色保时捷 911、黑色哈弗 H6）照真车尺寸，停在靠路的两列，第一屏看得见；
   自己的车停在最南一排靠路那个位，人从车东边出生（下车）。其余车位放几辆普通车，留几个空位。
   西北角留一块给小卖部（玩家说明第 5 节，下一件再做）。
+10/4 方案 C（阿鱼「行，C」：照阿鱼图只上下翻、左右不变）：停车场在迎宾院东边，翻成路西、车位东——下面的数照翻之前写（路东、车位西），
+写文件前整块左右翻一下（layout_io.mirror_x），所以游戏里路在西边、车位在东边、去迎宾院和前门的两个口在西边，自己的车下车站在车的西边。
 用法：python3 godot/tools/layout_court/make_parking.py
 """
 import json
 import os
 
+import layout_io
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 OUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_parking", "layout.json")
 
-W, H = 1024, 1088
+W, H = 1024, 1360     # 10/4 连图：往南加长，放公共洗手间、垃圾杂物处两间小屋（沙盒截图时发现小屋 3 米高压到最南一排车，再加长 120，屋顶离车位 40）
 PX_M, PX_M_D = 48.0, 32.0
 
 ROAD = (600, 780)            # 路（左右）
@@ -31,8 +35,7 @@ LOT_X0 = 100                 # 车位从这往东排
 STALL_W, STALL_D = 120, 160  # 一个车位 2.5 米 × 5 米
 ROWS = [(290, "A"), (578, "B"), (866, "C")]   # 每排车位的北边 y（排深 160，排间车道 128 = 4 米：收窄一点，从自己车旁第一屏才看得到整座门楼）
 SHOP = [52, 270, 300, 330]   # 小卖部留的地方（地上画一块，不挡人；下一件再做）
-LAKE_WALL = (VERGE[1], VERGE[1] + 12)   # 路东草边外一道白墙（湖边园子的西墙，10/3 湖边改长湖岸）
-LAKE_GATE = (600, 680)       # 白墙上的月亮门洞（前后），出去是湖边西头
+EAST_EXITS = [(420, "court"), (900, "frontgate")]   # 10/4 连图：路东两个口（y, 通哪）——游戏里各块照阿鱼图转半圈摆，迎宾院、前门在停车场东边
 
 # 车：(名字, 车长 m, 车宽 m, 车高 m, 车顶色, 车身色)。竖着停（车长沿前后、车宽沿左右）
 CARS = {
@@ -66,13 +69,14 @@ def main():
     items, flat, signs = [], [], []
     # ---- 地面
     flat.append({"type": "rect", "rect": [0, 0, W, H], "color": "#8fbf6a"})                 # 草
-    flat.append({"type": "rect", "rect": [0, 0, W, GATE_Y[0]], "color": "#5f8f55"})        # 门楼后面（迎宾院那边的树，不能走）
+    flat.append({"type": "rect", "rect": [0, 0, W, GATE_Y[0]], "color": "#5f8f55"})        # 北边院墙外是后花园（10/4 连图）
     flat.append({"type": "rect", "rect": [40, 262, ROAD[0], H], "color": "#6f6a66"})       # 停车场沥青
     flat.append({"type": "rect", "rect": [ROAD[0], GATE_Y[1], ROAD[1], H], "color": "#8a8580"})   # 路
     flat.append({"type": "rect", "rect": [ROAD[0] + 86, GATE_Y[1] + 30, ROAD[0] + 94, H], "color": "#e8dfc4"})  # 路中线（虚线先画成一条）
     flat.append({"type": "rect", "rect": [VERGE[0], GATE_Y[1], VERGE[1], H], "color": "#9cc874"})  # 草边
-    flat.append({"type": "rect", "rect": [LAKE_X, GATE_Y[1], W, H], "color": "#6fa7c0"})   # 湖
-    flat.append({"type": "rect", "rect": [LAKE_X, GATE_Y[1], LAKE_X + 6, H], "color": "#c9b48a"})  # 湖岸
+    # 10/4 连图：路东原来露一条湖、白墙月亮门去湖边，湖边改从后花园、果园进以后拿掉了；路东是草地，东边两个口去迎宾院、前门
+    for (y, to) in EAST_EXITS:
+        flat.append({"type": "rect", "rect": [VERGE[1], y - 36, W, y + 36], "color": "#c2b393"})
     flat.append({"type": "rect", "rect": SHOP, "color": "#d9c49a"})                         # 小卖部留的地方
     # 车位线：每排四个位，白线
     for (y0, row) in ROWS:
@@ -81,26 +85,16 @@ def main():
             flat.append({"type": "rect", "rect": [x - 1, y0, x + 2, y0 + STALL_D], "color": "#e8e4d8"})
         flat.append({"type": "rect", "rect": [LOT_X0, y0 - 1, LOT_X0 + 4 * STALL_W, y0 + 2], "color": "#e8e4d8"})
         flat.append({"type": "rect", "rect": [LOT_X0, y0 + STALL_D - 2, LOT_X0 + 4 * STALL_W, y0 + STALL_D + 1], "color": "#e8e4d8"})
-    # ---- 门楼：两根门柱、门头（横梁 + 顶）、两边院墙；门洞正对路
+    # ---- 北边院墙，门洞去后花园（10/4 连图：原来的「罗曼山庄」门楼、气球拱门挪到前门那块，make_areas.py）
     wall_t = (GATE_Y[1] - 14, GATE_Y[1])
     items.append(box("wall_w", [0, wall_t[0], GATE_OPEN[0] - 32, wall_t[1]], 58, "#c8b08a", "#a08a68", scale={"h_m": 1.2, "name": "院墙"}, part="PK-W01", inst="PK-W01-01"))
     items.append(box("wall_e", [GATE_OPEN[1] + 32, wall_t[0], W, wall_t[1]], 58, "#c8b08a", "#a08a68", part="PK-W01", inst="PK-W01-02"))
-    items.append(box("gate_post_w", [GATE_OPEN[0] - 32, wall_t[0] - 6, GATE_OPEN[0], wall_t[1]], 168, "#a83a30", "#8c2f27",
-                     scale={"h_m": 3.5, "w_m": 0.67, "name": "门楼门柱"}, part="PK-W02", inst="PK-W02-01"))
-    items.append(box("gate_post_e", [GATE_OPEN[1], wall_t[0] - 6, GATE_OPEN[1] + 32, wall_t[1]], 168, "#a83a30", "#8c2f27", part="PK-W02", inst="PK-W02-01"))
-    items.append({"type": "beam", "id": "gate_roof", "x0": GATE_OPEN[0] - 56, "x1": GATE_OPEN[1] + 56, "top": GATE_Y[0] - 70,
-                  "thick": 34, "foot": wall_t[1] + 1, "color": "#6e2420", "scale": {"w_m": 5.6, "name": "门楼门头（瓦顶）"},
-                  "part": "PK-W02", "inst": "PK-W02-01"})
-    items.append({"type": "beam", "id": "gate_lintel", "x0": GATE_OPEN[0] - 40, "x1": GATE_OPEN[1] + 40, "top": GATE_Y[0] - 36,
-                  "thick": 20, "foot": wall_t[1] + 1, "color": "#a83a30", "part": "PK-W02", "inst": "PK-W02-01"})
-    signs.append({"text": "罗曼山庄", "x": (GATE_OPEN[0] + GATE_OPEN[1]) // 2, "y": GATE_Y[0] - 16, "foot": wall_t[1] + 2})
-    # ---- 门前气球拱门（两根立柱 + 弧顶，粉白相间），立在门洞南边、路两边，不挡路
-    ay = GATE_Y[1] + 74
-    items.append(box("arch_post_w", [GATE_OPEN[0] - 10, ay - 8, GATE_OPEN[0] + 2, ay], 130, "#f4a6c0", "#e07a9a",
-                     scale={"h_m": 3.0, "w_m": 3.5, "group": ["arch_post_e", "arch_top"], "name": "气球拱门"}, part="PK-P06", inst="PK-P06-01"))
-    items.append(box("arch_post_e", [GATE_OPEN[1] - 2, ay - 8, GATE_OPEN[1] + 10, ay], 130, "#f4a6c0", "#e07a9a", part="PK-P06", inst="PK-P06-01"))
-    items.append({"type": "beam", "id": "arch_top", "x0": GATE_OPEN[0] - 10, "x1": GATE_OPEN[1] + 10, "top": ay - 146,
-                  "thick": 18, "foot": ay, "color": "#fbe3ea", "part": "PK-P06", "inst": "PK-P06-01"})
+    flat.append({"type": "label", "text": "去后花园", "x": GATE_OPEN[1] + 70, "y": GATE_Y[1] + 30})
+    # ---- 公共洗手间、垃圾杂物处：停车场南边两间小屋（01 定：看得见、门口挂牌、走近说一句，不进去）
+    for (hid, name, x0, col) in (("toilet", "公共洗手间", 380, ("#d8e4ea", "#a8b8c2")), ("trash", "垃圾杂物处", 120, ("#c8c0b0", "#988e7c"))):
+        items.append(box("house_" + hid, [x0, H - 150, x0 + 192, H - 110], 144, col[0], col[1],
+                         scale={"w_m": 4.0, "h_m": 3.0, "name": name + "小屋"}, part="PK-P09"))
+        signs.append({"text": name, "x": x0 + 96, "y": H - 236, "foot": H - 109})
     # ---- 车
     for (y0, row) in ROWS:
         for slot, cid in PARKED[row].items():
@@ -113,21 +107,9 @@ def main():
                      scale={"w_m": Wd, "d_m": L, "h_m": Hh, "name": name}, part=PART.get(cid, "PK-P07"))
             it["inst"] = it["part"] + "-%02d" % (sum(1 for x in items if x.get("part") == it["part"]) + 1)
             items.append(it)
-    # ---- 湖边几棵柳树（树脚在草边上，树冠伸到湖上；不挡路）
-    for k, y in enumerate([470, 860, 1050]):
-        items.append({"type": "tree", "id": "willow_%d" % k, "x": LAKE_WALL[1] + 60, "y": y, "droop": True, "trunk": "#7a5c3a",
-                      "leaf": "#6a9a5c", "leaf2": "#8fbf6a", "h": 264, "w": 150, "scale": {"h": "tree_h"}, "part": "PK-P08",
-                      "inst": "PK-P08-%02d" % (k + 1)})
-    # ---- 去湖边：路东草边外一道白墙（灰瓦顶，1.5 米），墙上一个月亮门洞，两根门柱标出来；出去就是湖边西头（玩家说明之后阿鱼 10/3 加：从停车场也能走进湖边）
-    wall = dict(top="#5a5f68", front="#f2efe6", part="PK-W03")
-    items.append(box("lake_wall_n", [LAKE_WALL[0], GATE_Y[1], LAKE_WALL[1], LAKE_GATE[0]], 72, **wall,
-                     scale={"h_m": 1.5, "name": "湖边园子白墙"}, inst="PK-W03-01"))
-    items.append(box("lake_wall_s", [LAKE_WALL[0], LAKE_GATE[1], LAKE_WALL[1], H], 72, **wall, inst="PK-W03-02"))
-    for k, (y0, y1) in enumerate([(LAKE_GATE[0] - 8, LAKE_GATE[0]), (LAKE_GATE[1], LAKE_GATE[1] + 8)]):
-        items.append(box("lake_gate_post_%d" % k, [LAKE_WALL[0] - 2, y0, LAKE_WALL[1] + 2, y1], 104, "#f2efe6", "#d8d4c8",
-                         part="PK-W04", inst="PK-W04-01", **({"scale": {"h_m": 2.2, "name": "月亮门门柱"}} if k == 0 else {})))
-    flat.append({"type": "rect", "rect": [VERGE[0], LAKE_GATE[0], LAKE_WALL[1] + 30, LAKE_GATE[1]], "color": "#c9c2b0"})   # 门洞那条石板
-    flat.append({"type": "label", "text": "去湖边", "x": VERGE[0] + 20, "y": LAKE_GATE[1] + 22})   # 门洞南边草边上，不压从湖边出来站的人
+    for (y, to) in EAST_EXITS:
+        # 方案 C：牌子挂在口的正下方（原来在口上方，跟落点上的人叠，被挪到头顶又跟「去后花园」叠；放口里边又压到路）
+        flat.append({"type": "label", "text": {"court": "去迎宾院", "frontgate": "去前门"}[to], "x": W - 110, "y": y + 60})
     mine = [it for it in items if it["id"] == "car_mine"][0]["rect"]
     mine_x = mine[2] + 22                         # 自己车的东边（司机下车那边）
     mine_y = (mine[1] + mine[3]) // 2
@@ -144,22 +126,24 @@ def main():
         "size": [W, H],
         "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
         "spawn": [mine_x, mine_y],
-        "from_court": [(GATE_OPEN[0] + GATE_OPEN[1]) // 2, GATE_Y[1] + 120],
-        "from_lake": [VERGE[0] - 30, (LAKE_GATE[0] + LAKE_GATE[1]) // 2],
+        "from_court": [W - 110, EAST_EXITS[0][0]],
         "points": [
-            {"id": "to_court", "x": (GATE_OPEN[0] + GATE_OPEN[1]) // 2, "y": GATE_Y[1] + 18, "r": 40},
+            {"id": "to_garden", "x": (GATE_OPEN[0] + GATE_OPEN[1]) // 2, "y": GATE_Y[1] + 18, "r": 40, "to": "garden"},
             {"id": "my_car", "x": mine_x, "y": mine_y, "r": 46},
-            {"id": "to_lake", "x": LAKE_WALL[1] + 10, "y": (LAKE_GATE[0] + LAKE_GATE[1]) // 2, "r": 30},
+        ] + [{"id": "to_" + to, "x": W - 36, "y": y, "r": 44, "to": to} for (y, to) in EAST_EXITS] + [
+            {"id": "toilet", "x": 476, "y": H - 80, "r": 50, "say": "toilet_wip"},     # 方案 C 翻完洗手间在西、杂物处在东（阿鱼图）
+            {"id": "trash", "x": 216, "y": H - 80, "r": 50, "say": "trash_wip"},
         ],
         "shop_reserved": {"rect": SHOP, "note": "玩家说明第 5 节小卖部，下一件再做；先在地上留这块，不挡人"},
-        "walk": [[[40, GATE_Y[1] + 4], [VERGE[1], GATE_Y[1] + 4], [VERGE[1], H - 8], [40, H - 8]],
-                 [[GATE_OPEN[0] + 4, GATE_Y[1] - 20], [GATE_OPEN[1] - 4, GATE_Y[1] - 20], [GATE_OPEN[1] - 4, GATE_Y[1] + 10], [GATE_OPEN[0] + 4, GATE_Y[1] + 10]],
-                 [[VERGE[1] - 4, LAKE_GATE[0] + 4], [LAKE_WALL[1] + 28, LAKE_GATE[0] + 4], [LAKE_WALL[1] + 28, LAKE_GATE[1] - 4], [VERGE[1] - 4, LAKE_GATE[1] - 4]]],
+        "walk": [[[40, GATE_Y[1] + 4], [W - 60, GATE_Y[1] + 4], [W - 60, H - 8], [40, H - 8]],
+                 [[GATE_OPEN[0] + 4, 4], [GATE_OPEN[1] - 4, 4], [GATE_OPEN[1] - 4, GATE_Y[1] + 10], [GATE_OPEN[0] + 4, GATE_Y[1] + 10]]]
+                + [[[W - 64, y - 32], [W - 4, y - 32], [W - 4, y + 32], [W - 64, y + 32]] for (y, to) in EAST_EXITS],
         "flat": flat,
         "items": items,
         "signs": signs,
         "npcs": [],
     }
+    d = layout_io.mirror_x(d)    # 方案 C：整块左右翻（路西、车位东）
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         f.write("{\n")
