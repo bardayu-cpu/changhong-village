@@ -23,7 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(os.path.dirname(HERE))
 OUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_parking", "layout.json")
 
-W, H = 1024, 1240     # 10/4 连图：往南加长 152，放公共洗手间、垃圾杂物处两间小屋
+W, H = 1024, 1360     # 10/4 连图：往南加长，放公共洗手间、垃圾杂物处两间小屋（沙盒截图时发现小屋 3 米高压到最南一排车，再加长 120，屋顶离车位 40）
 PX_M, PX_M_D = 48.0, 32.0
 
 ROAD = (600, 780)            # 路（左右）

@@ -2,7 +2,7 @@
  "scene": "scene_luoman_parking",
  "title": "停车场",
  "note": "罗曼山庄 · 停车场和大门灰盒（01 F 10/3 派；玩家说明 docs/停车场和大门-玩家说明-v0.1.md 第 1、2、3、6 节，阿鱼点头）。tools/layout_court/make_parking.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene parking。全部代码画的占位：车是色块（照 ASSETS §15 按真车尺寸），门楼、气球拱门、湖都是色块，以后照阿鱼挑好的摆法画图。spawn 是从自己的车上下来站的地方（开头：开屏、选形象以后，没进过迎宾院的从这里出生）；to_court 是门楼门洞，走进去到迎宾院（迎宾院南边的大门 gate 走出来回到这里，站 from_court）；my_car 是自己的车旁边：吃完席（大门开了）出来走到这，接结束那两句。湖只露一条当风景，不能走；小卖部先留 shop_reserved 那块，不做。10/3 湖边改长湖岸：路东草边外一道白墙，墙上月亮门洞 to_lake 出去是湖边西头（湖边西头月亮门回来站 from_lake）",
- "size": [1024, 1240],
+ "size": [1024, 1360],
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [439, 946],
  "from_court": [110, 420],
@@ -11,18 +11,18 @@
   {"id": "my_car", "x": 439, "y": 946, "r": 46},
   {"id": "to_court", "x": 36, "y": 420, "r": 44, "to": "court"},
   {"id": "to_frontgate", "x": 36, "y": 900, "r": 44, "to": "frontgate"},
-  {"id": "toilet", "x": 548, "y": 1160, "r": 50, "say": "toilet_wip"},
-  {"id": "trash", "x": 808, "y": 1160, "r": 50, "say": "trash_wip"}
+  {"id": "toilet", "x": 548, "y": 1280, "r": 50, "say": "toilet_wip"},
+  {"id": "trash", "x": 808, "y": 1280, "r": 50, "say": "trash_wip"}
  ],
  "shop_reserved": {"rect": [724, 270, 972, 330], "note": "玩家说明第 5 节小卖部，下一件再做；先在地上留这块，不挡人"},
- "walk": [[[984, 256], [60, 256], [60, 1232], [984, 1232]], [[408, 4], [260, 4], [260, 262], [408, 262]], [[64, 388], [4, 388], [4, 452], [64, 452]], [[64, 868], [4, 868], [4, 932], [64, 932]]],
+ "walk": [[[984, 256], [60, 256], [60, 1352], [984, 1352]], [[408, 4], [260, 4], [260, 262], [408, 262]], [[64, 388], [4, 388], [4, 452], [64, 452]], [[64, 868], [4, 868], [4, 932], [64, 932]]],
  "flat": [
-  {"type": "rect", "rect": [0, 0, 1024, 1240], "color": "#8fbf6a"},
+  {"type": "rect", "rect": [0, 0, 1024, 1360], "color": "#8fbf6a"},
   {"type": "rect", "rect": [0, 0, 1024, 150], "color": "#5f8f55"},
-  {"type": "rect", "rect": [424, 262, 984, 1240], "color": "#6f6a66"},
-  {"type": "rect", "rect": [244, 252, 424, 1240], "color": "#8a8580"},
-  {"type": "rect", "rect": [330, 282, 338, 1240], "color": "#e8dfc4"},
-  {"type": "rect", "rect": [204, 252, 244, 1240], "color": "#9cc874"},
+  {"type": "rect", "rect": [424, 262, 984, 1360], "color": "#6f6a66"},
+  {"type": "rect", "rect": [244, 252, 424, 1360], "color": "#8a8580"},
+  {"type": "rect", "rect": [330, 282, 338, 1360], "color": "#e8dfc4"},
+  {"type": "rect", "rect": [204, 252, 244, 1360], "color": "#9cc874"},
   {"type": "rect", "rect": [0, 384, 204, 456], "color": "#c2b393"},
   {"type": "rect", "rect": [0, 864, 204, 936], "color": "#c2b393"},
   {"type": "rect", "rect": [724, 270, 972, 330], "color": "#d9c49a"},
@@ -54,8 +54,8 @@
  "items": [
   {"type": "box", "id": "wall_w", "rect": [444, 238, 1024, 252], "h": 58, "top": "#c8b08a", "front": "#a08a68", "scale": {"h_m": 1.2, "name": "院墙"}, "part": "PK-W01", "inst": "PK-W01-01"},
   {"type": "box", "id": "wall_e", "rect": [0, 238, 224, 252], "h": 58, "top": "#c8b08a", "front": "#a08a68", "part": "PK-W01", "inst": "PK-W01-02"},
-  {"type": "box", "id": "house_toilet", "rect": [452, 1090, 644, 1130], "h": 144, "top": "#d8e4ea", "front": "#a8b8c2", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "公共洗手间小屋"}, "part": "PK-P09"},
-  {"type": "box", "id": "house_trash", "rect": [712, 1090, 904, 1130], "h": 144, "top": "#c8c0b0", "front": "#988e7c", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "垃圾杂物处小屋"}, "part": "PK-P09"},
+  {"type": "box", "id": "house_toilet", "rect": [452, 1210, 644, 1250], "h": 144, "top": "#d8e4ea", "front": "#a8b8c2", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "公共洗手间小屋"}, "part": "PK-P09"},
+  {"type": "box", "id": "house_trash", "rect": [712, 1210, 904, 1250], "h": 144, "top": "#c8c0b0", "front": "#988e7c", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "垃圾杂物处小屋"}, "part": "PK-P09"},
   {"type": "box", "id": "car_a", "rect": [820, 295, 907, 445], "h": 70, "top": "#b8bcc4", "front": "#8c9099", "scale": {"w_m": 1.82, "d_m": 4.7, "h_m": 1.46, "name": "别的客人的车（银）"}, "part": "PK-P07", "inst": "PK-P07-01"},
   {"type": "box", "id": "car_e", "rect": [701, 300, 786, 441], "h": 74, "top": "#3e6650", "front": "#2a4a38", "scale": {"w_m": 1.78, "d_m": 4.4, "h_m": 1.55, "name": "别的客人的车（墨绿）"}, "part": "PK-P07", "inst": "PK-P07-02"},
   {"type": "box", "id": "car_brz", "rect": [461, 302, 546, 438], "h": 63, "top": "#3f6fc0", "front": "#2b5196", "scale": {"w_m": 1.78, "d_m": 4.26, "h_m": 1.31, "name": "蓝色斯巴鲁 BRZ"}, "part": "PK-P02", "inst": "PK-P02-01"},
@@ -68,8 +68,8 @@
   {"type": "box", "id": "car_mine", "rect": [461, 873, 547, 1020], "h": 71, "top": "#c0392b", "front": "#8c2a20", "scale": {"w_m": 1.8, "d_m": 4.6, "h_m": 1.48, "name": "自己的车"}, "part": "PK-P05", "inst": "PK-P05-01"}
  ],
  "signs": [
-  {"text": "公共洗手间", "x": 548, "y": 1004, "foot": 1131},
-  {"text": "垃圾杂物处", "x": 808, "y": 1004, "foot": 1131}
+  {"text": "公共洗手间", "x": 548, "y": 1124, "foot": 1251},
+  {"text": "垃圾杂物处", "x": 808, "y": 1124, "foot": 1251}
  ],
  "npcs": []
 }

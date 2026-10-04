@@ -1,7 +1,7 @@
 extends SceneTree
 ## 截迎宾院：1:1、不放人、没界面、不写字（03，10/3；给 GPT 出迎宾院色块参考的「现状图」用，照 shot_canvas.gd 的做法，不改 main.gd）
 ## 要有窗口（headless 不出画面）：Godot --path . --resolution 540x960 --script res://tools/shot_court.gd -- --out=图.png [--rect=0,0,1536,1024] [--zoom=1] [--labels=0]
-##   --labels=0 藏灰盒上「签到」「花墙」那些物件名（图上不写字）；1 留着
+##   --labels=0 藏灰盒上「签到」「花墙」那些物件名、「去…」牌、块名牌（图上不写字）；1 留着
 ##   --world=0 连桌子、墙、大门、树这些物件整层都藏，只剩地面和路（量物件框时拿它跟带物件的那张做差）；1 留着
 ##   --canvas=plaza 截别的画布（喷泉广场等，10/4 02 E 加；默认 court 迎宾院）；--rect 不给就是整块
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
@@ -55,7 +55,7 @@ func run() -> void:
     await create_timer(1.0).timeout
     m.dialog.visible = false
     m.hint.visible = false
-    var c = m.court if cn == "court" else m.get(cn)
+    var c = m.court if cn == "court" else m._canvas_by(cn)   # 连图新加的几块（儿童乐园等）在 m.areas 里，_canvas_by 都找得到
     var sz: Array = c.cfg["size"]
     var r: PackedStringArray = (str(opt["rect"]) if str(opt["rect"]) != "" else "0,0,%d,%d" % [int(sz[0]), int(sz[1])]).split(",")
     if r.size() != 4:
@@ -80,6 +80,8 @@ func run() -> void:
             (ch as CanvasItem).visible = false
     if str(opt["labels"]) == "0":
         c.labels.visible = false
+        for sgn in c.get("room_signs") if c.get("room_signs") != null else []:   # 块名牌、门楼「罗曼山庄」牌也藏（沙盒截图干净版，10/4）
+            (sgn as CanvasItem).visible = false
     else:
         for l in c.labels.get_children():   # 游戏里离人远的牌子先不显示、贴屏幕边的往里收（_keep_tags_on_screen）；整块图全放回原位
             if l.has_meta("home"):
