@@ -1,5 +1,5 @@
 {
-  "_说明": "场景动效配置（scripts/ambient/ambient.gd 读）。键是场景数据里的 scene 名。lamp_glow：照图名找零件，at 是光心在这张图上的位置（像素）；像素光（画风页第 0 节）：tiers 每档往上加的暖色（从外到里），sizes 几种大小、每种从外到里每圈半径，cycle 一圈换哪几种大小，step 每盏换一档隔几秒（随机在范围里）。清单见 godot/回执/动效清单-1004.md",
+  "_说明": "场景动效配置（scripts/ambient/ambient.gd 读）。键是场景数据里的 scene 名。lamp_glow：照图名找零件，at 是光心在这张图上的位置（像素）；像素光（画风页第 0 节）：tiers 每档往上加的暖色（从外到里），sizes 几种大小、每种从外到里每圈半径，cycle 一圈换哪几种大小，step 每盏换一档隔几秒（随机在范围里）。清单见 godot/回执/动效清单-1004.md。water_glint：background 是像素画背景节点名，rect 是那张图上水面那块 [x,y,w,h]，map 是两对 [原色, 亮一档的色]（都取那张图本来有的颜色），density 每格每拍亮的机会、rate 一秒几拍、cell 格子大小。bob：ids 是船的图节点名，period 一上一下一圈几秒",
   "scene_roman_banquet_55": {
     "lamp_glow": [
       {
@@ -52,6 +52,108 @@
         "step": [
           0.8,
           1.15
+        ]
+      }
+    ]
+  },
+  "scene_luoman_lake": {
+    "_波光颜色": "主水色 (108,143,189) → 浅倒影色 (176,198,222)，深水纹 (56,90,144) → 主水色；都是 lake_west / lake_east 两张 room.png 本来的颜色",
+    "water_glint": [
+      {
+        "background": "px_background_lake_west",
+        "rect": [
+          0,
+          300,
+          1536,
+          486
+        ],
+        "map": [
+          [
+            [
+              108,
+              143,
+              189
+            ],
+            [
+              176,
+              198,
+              222
+            ]
+          ],
+          [
+            [
+              56,
+              90,
+              144
+            ],
+            [
+              108,
+              143,
+              189
+            ]
+          ]
+        ],
+        "density": 0.05,
+        "rate": 3.0,
+        "cell": [
+          12,
+          6
+        ]
+      },
+      {
+        "background": "px_background_lake_east",
+        "rect": [
+          0,
+          300,
+          1536,
+          486
+        ],
+        "map": [
+          [
+            [
+              108,
+              143,
+              189
+            ],
+            [
+              176,
+              198,
+              222
+            ]
+          ],
+          [
+            [
+              56,
+              90,
+              144
+            ],
+            [
+              108,
+              143,
+              189
+            ]
+          ]
+        ],
+        "density": 0.05,
+        "rate": 3.0,
+        "cell": [
+          12,
+          6
+        ]
+      }
+    ],
+    "bob": [
+      {
+        "ids": [
+          "px_w_rowboat_1",
+          "px_w_rowboat_2",
+          "px_w_swanboat_1",
+          "px_w_swanboat_2",
+          "px_boat"
+        ],
+        "period": [
+          1.6,
+          2.4
         ]
       }
     ]
