@@ -173,6 +173,64 @@ func run() -> void:
     var hold: float = 2.4 + txt.length() * 0.09
     check("lines.json 有 park_sign：「%s」（%d 个字、不含「待」「预留」、说 %.1f 秒）" % [txt, txt.length(), hold], txt != "" and txt.length() <= 20 and not txt.contains("待") and not txt.contains("预留") and hold >= 3.0)
 
+    print("5 下车那一屏：路牌不压「点地面走路」提示、牌子之间不叠、不盖自己（手机 540×960、长屏 585×1266 各一遍）")
+    for sz in [Vector2i(540, 960), Vector2i(585, 1266)]:
+        get_root().size = sz
+        await frames(4)
+        set_save({"welcomed": true, "court_seen": true})
+        m.hint_done = false
+        await start_play()
+        await frames(10)
+        var hint_shown: bool = m.hint != null and m.hint.visible
+        var hr: Rect2 = m.hint.get_global_rect()
+        var me: Vector2 = to_screen(pk.pos, pk)
+        var body := Rect2(me.x - 20.0, me.y - 80.0, 40.0, 80.0)
+        var scr := Rect2(Vector2.ZERO, Vector2(sz))
+        var lab_rects: Array = []
+        var hit_hint: Array = []
+        var on_body: Array = []
+        for lb in pk.labels.get_children():
+            if not lb is Label or not (lb as Label).visible:
+                continue
+            var l := lb as Label
+            var home_x: float = float(l.get_meta("home")) if l.has_meta("home") else l.position.x
+            var a: Vector2 = to_screen(Vector2(home_x, l.position.y), pk)
+            var z: Vector2 = to_screen(Vector2(home_x, l.position.y) + l.size, pk)
+            var r := Rect2(a, z - a)
+            if not r.intersects(scr):
+                continue   # 这一屏里看不到的牌不算
+            lab_rects.append([str(l.text), r])
+            if hint_shown and r.intersects(hr):
+                hit_hint.append("「%s」%s 压提示框 %s" % [l.text, str(r), str(hr)])
+            if r.intersects(body):
+                on_body.append("「%s」盖住自己" % l.text)
+        for hs in pk.room_signs:   # 小屋门口的牌（公共洗手间、垃圾杂物处）是另一种牌，不在 labels 里
+            var rl = (hs as Node2D).get_child(0)
+            if not rl is Label:
+                continue
+            var rp: Vector2 = (hs as Node2D).position + (rl as Label).position
+            var ra: Vector2 = to_screen(rp, pk)
+            var rz: Vector2 = to_screen(rp + (rl as Label).size, pk)
+            var rr := Rect2(ra, rz - ra)
+            if not rr.intersects(scr):
+                continue
+            lab_rects.append([str((rl as Label).text), rr])
+            if hint_shown and rr.intersects(hr):
+                hit_hint.append("「%s」%s 压提示框 %s" % [(rl as Label).text, str(rr), str(hr)])
+            if rr.intersects(body):
+                on_body.append("「%s」盖住自己" % (rl as Label).text)
+        var overlap: Array = []
+        for i in lab_rects.size():
+            for j in range(i + 1, lab_rects.size()):
+                if (lab_rects[i][1] as Rect2).intersects(lab_rects[j][1]):
+                    overlap.append("「%s」×「%s」" % [lab_rects[i][0], lab_rects[j][0]])
+        var names: Array = lab_rects.map(func(x): return str(x[0]))
+        var toilet_in: bool = names.has("公共洗手间") or names.has("垃圾杂物处")
+        for x in hit_hint + on_body + overlap:
+            print("    ", x)
+        check("%s：下车这一屏看得见的牌 %s，提示框在 %s；压提示框 %d、盖自己 %d、牌子互相叠 %d 对；洗手间 / 杂物处牌在这屏里 %s（只露到屏边可以，不压提示框、不盖人就行）" % [str(sz), str(names), str(hint_shown), hit_hint.size(), on_body.size(), overlap.size(), str(toilet_in)], hint_shown and hit_hint.is_empty() and on_body.is_empty() and overlap.is_empty())
+    get_root().size = Vector2i(540, 960)
+
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_ps_games.json")
     print("RESULT ", "PASS" if ok else "FAIL")
@@ -181,3 +239,11 @@ func run() -> void:
 func CourtCopy_text() -> String:
     var lj = JSON.parse_string(FileAccess.get_file_as_string("res://assets/entrance/lines.json"))
     return str(lj["lines"]["park_sign"]["text"]) if lj is Dictionary and (lj["lines"] as Dictionary).has("park_sign") else ""
+
+## 屏幕坐标（窗口像素）：世界点 → 子视口 → 窗口
+func to_screen(wp: Vector2, b) -> Vector2:
+    var sv: SubViewport = m.view.get_child(0)
+    var cc: Vector2 = b.cam.get_screen_center_position()
+    var z: float = b.cam.zoom.x
+    var in_sv := (wp - cc) * z + Vector2(sv.size) * 0.5
+    return in_sv * (Vector2(get_root().size) / Vector2(sv.size))
