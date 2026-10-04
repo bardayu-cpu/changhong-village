@@ -66,10 +66,10 @@ func run() -> void:
     check("画布拉宽成 %s" % [k.cfg["size"]], int(k.cfg["size"][0]) == 3072 and int(k.cfg["size"][1]) == 1280)
     var ids: Array = k.points.keys()
     ids.sort()
-    # 10/4 连图（02 E 改）：湖边改从后花园（方案 C 起东头月亮门）、果园（方案 C 起西头尽头）进，不再通迎宾院、停车场
-    check("四个交互点：%s" % [ids], ids == ["bench", "pavilion", "to_garden", "to_orchard"])
-    # 10/4 方案 C：西头尽头去果园 A、东头南墙月亮门去后花园
-    check("西头尽头去果园的口在西边、东头月亮门（去后花园）在东半、亭子在东头湖里", k.points["to_orchard"]["pos"].x < 100.0 and k.points["to_garden"]["pos"].x > 1536.0
+    # 10/4 连图（02 E 改）：湖边改从后花园、果园进，不再通迎宾院、停车场；10/4 西半边接图：多了码头、半岛亭子、西边长凳、湖尽头小石台
+    check("八个交互点：%s" % [ids], ids == ["bench", "bench_w", "dock", "lake_end", "pavilion", "pavilion_w", "to_garden", "to_orchard"])
+    # 南墙两道月亮门对称：西头 x 768 去果园 A、东头 x 2304 去后花园
+    check("西头月亮门（x 768）去果园、东头月亮门（x 2304）去后花园、亭子在东头湖里", k.points["to_orchard"]["pos"] == Vector2(768, 1066) and k.points["to_garden"]["pos"].x > 1536.0
         and k.points["pavilion"]["pos"].x > 1536.0 and k.points["pavilion"]["pos"].y < 784.0)
     var water := true
     for p in [Vector2(300, 556), Vector2(1200, 456), Vector2(2304, 300), Vector2(2400, 740), Vector2(2120, 760), Vector2(1500, 700),
@@ -77,8 +77,8 @@ func run() -> void:
         water = water and not k._free(p)
     check("湖面、曲桥两边、对岸都不能走", water)
     var walkable := true
-    for p in [Vector2(2304, 780), Vector2(2400, 712), Vector2(2333, 655), Vector2(2280, 644), Vector2(530, 560), Vector2(532, 760),
-            Vector2(1500, 820), Vector2(1536, 900), Vector2(1600, 838), Vector2(2304, 1000), Vector2(1000, 1000), Vector2(200, 820)]:
+    for p in [Vector2(2304, 780), Vector2(2400, 712), Vector2(2333, 655), Vector2(2280, 644), Vector2(556, 597), Vector2(908, 618),
+            Vector2(1500, 820), Vector2(1536, 900), Vector2(1600, 838), Vector2(2304, 1000), Vector2(768, 999), Vector2(62, 500)]:   # 西半边：半岛亭子前沿、码头船夫跟前、西门里边、湖尽头小石台
         if not k._free(p):
             walkable = false
             print("    走不了 ", p)
@@ -94,11 +94,11 @@ func run() -> void:
         var path: Array = k.find_path(k.SPAWN, pt)
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else k.SPAWN
         check("%s 走得到（离点 %.1f，半径 %.0f）" % [id, end.distance_to(pt), k.points[id]["r"]], end.distance_to(pt) < float(k.points[id]["r"]))
-    var willows := 0
+    var wpx := 0
     for n in k.world.get_children():
-        if str(n.name).begins_with("willow_"):
-            willows += 1
-    check("西半边灰盒的柳树（%d）在" % willows, willows >= 3)
+        if str(n.name).begins_with("px_w_"):
+            wpx += 1
+    check("西半边像素成品铺上了（底图 + 立着的 %d 张）" % wpx, wpx == 137 and k.find_child("px_background_lake_west", true, false) != null)
     var px := true
     for id in ["px_wall_gate", "px_pavilion_front", "px_pavilion_back", "px_bench", "px_willow_1", "px_willow_2", "px_banyan_1", "px_boat"]:
         px = px and k.world.has_node(id)

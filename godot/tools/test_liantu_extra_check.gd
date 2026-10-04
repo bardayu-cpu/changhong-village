@@ -5,7 +5,7 @@ extends SceneTree
 ##   2 湖边：岸线以下（y 800～1270）看着是地面的格子，除了被占地挡的，都能走（逐格量，剩下的几格列出来）；码头、船夫跟前、小岛、曲桥、亭子前沿、南墙外这些点能站；
 ##     东头南墙月亮门去后花园、西头尽头去果园两个口能走到
 ##   3 走到头：十三块（宴会厅另算）每块、四个方向各找一处真走到头的地方（出口附近不算）推摇杆：弹一句、一直顶着不重复、走开 ≥60 再回来才再弹；
-##     被家具、花坛挡住的地方推不弹；点范围外弹、点家具上不弹；四句话各不相同
+##     被家具、花坛挡住的地方推不弹；点范围外弹、点家具上不弹；四句话统一成一句（10/4 01 G 定）
 ##   4 牌子：每块画布每一块牌，跟站在出生点、每个口上、每个落点上的人身子（40×90，比 02 量的 32×84 大一圈）一块不叠；牌子不出画布；
 ##     手机 540×960 和长屏 585×1266 下，人站在口上，对应「去…」牌整块在屏里；宴会厅的门牌跟进厅落点叠几处（已知 2 处，只守不再多）
 ##   5 老的落点常量（main.gd 里没有对口的口时才用的兜底）站不站得了（只列，不判）
@@ -15,8 +15,8 @@ const Ent = preload("res://scripts/entrance.gd")
 const CourtCopy = preload("res://scripts/court_copy.gd")
 const DT := 1.0 / 60.0
 ## 03 第 65 版量到的现状（口袋格数）：只守「不再多」。口袋 = 在走路范围多边形里、没被占地挡、却因为从出生点灌不到被圈掉的格子
-const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 12}
-const LAKE_KNOWN_LEFT := 27
+const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 38}   # lake：10/4 西半边接图（02 E）多 26 格，在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，截图核过
+const LAKE_KNOWN_LEFT := 31   # 10/4 西半边接图（02 E）多 4 格：西头月亮门门洞两边的门柱（x 726、810，y 1026～1038），图里是墙，跟东头那道门一样
 
 var m
 var started := false
@@ -172,7 +172,7 @@ func run() -> void:
                     seen[n] = true
                     st.append(n)
         comp_max = maxi(comp_max, cnt)
-    print("    岸线以下（y 800～1270，x 60～3060）看着是地面、没被占地挡、却走不了的格子 %d 个，最大一块 %d 格" % [left.size(), comp_max])
+    print("    岸线以下（y 800～1270，x 60～3060）看着是地面、没被占地挡、却走不了的格子 %d 个，最大一块 %d 格 %s" % [left.size(), comp_max, str(left.filter(func(q): return q.x < 1536.0))])
     check("湖边岸线以下，除了被占地挡的，格子都能走（剩 %d 格，不比 03 记下的 %d 格多，最大一块 ≤ 9 格）" % [left.size(), LAKE_KNOWN_LEFT], left.size() <= LAKE_KNOWN_LEFT and comp_max <= 9)
     var stands := {
         "码头中间": Vector2(910, 700), "码头北头": Vector2(910, 600), "码头南头": Vector2(910, 780), "船夫 1 跟前": Vector2(910, 668),
@@ -211,7 +211,8 @@ func run() -> void:
     var uniq := {}
     for dn in texts:
         uniq[texts[dn]] = true
-    check("四句话各不相同、都有字 %s" % str(texts), uniq.size() == 4 and not (texts.values() as Array).has("edge_up"))
+    # 10/4 04 看第 65 版、01 G 定：走到头统一成一句不分方向的（「这边过不去了」），四个键还分着存
+    check("四句话都有字、统一成一句 %s" % str(texts), uniq.size() == 1 and not (texts.values() as Array).has("edge_up") and str(texts["up"]) != "")
     var bump_bad: Array = []
     var edge_n := 0
     var blocked_n := 0
@@ -435,7 +436,7 @@ func run() -> void:
         "LAWN_FROM_PLAZA": ["lawn", m.LAWN_FROM_PLAZA], "LAWN_FROM_BACKHALL": ["lawn", m.LAWN_FROM_BACKHALL], "LAWN_FROM_ORCHARD": ["lawn", m.LAWN_FROM_ORCHARD],
         "LAKE_FROM_COURT": ["lake", m.LAKE_FROM_COURT], "ORCHARD_FROM_LAWN": ["orchard", m.ORCHARD_FROM_LAWN],
         "plaza.FROM_COURT": ["plaza", m.plaza.FROM_COURT], "plaza.FROM_LAWN": ["plaza", m.plaza.FROM_LAWN], "plaza.FROM_BACKHALL": ["plaza", m.plaza.FROM_BACKHALL],
-        "parking.FROM_COURT": ["parking", m.parking.FROM_COURT], "parking.FROM_LAKE": ["parking", m.parking.FROM_LAKE], "lake.FROM_PARKING": ["lake", m.lake.FROM_PARKING],
+        "parking.FROM_COURT": ["parking", m.parking.FROM_COURT], "parking.FROM_LAKE": ["parking", m.parking.FROM_LAKE], "lake.FROM_ORCHARD": ["lake", m.lake.FROM_ORCHARD],
     }
     var old_bad: Array = []
     for k in olds:

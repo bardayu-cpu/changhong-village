@@ -264,12 +264,12 @@ func run() -> void:
     print("4 湖边")
     var lk = m.lake
     var free_ok := true
-    for q in [Vector2(1000, 1150), Vector2(300, 1200), Vector2(2304, 1150), Vector2(2900, 1150), Vector2(910, 700), Vector2(900, 600), Vector2(22, 821)]:
+    for q in [Vector2(1000, 1150), Vector2(300, 1200), Vector2(2304, 1150), Vector2(2900, 1150), Vector2(908, 618), Vector2(840, 600), Vector2(768, 1080)]:   # 10/4 西半边接图：码头平台、西头月亮门门洞
         if not lk._free(q):
             free_ok = false
             print("    走不了 ", q)
-    check("南墙外、码头、西头尽头去果园的口都能走", free_ok)
-    var bm: Vector2 = Vector2(910, 640)
+    check("南墙外、码头、西头月亮门（去果园）都能走", free_ok)
+    var bm: Vector2 = Vector2(908, 588)   # 西半边接图后船夫站在码头平台上
     check("船夫 1 跟前 72 像素内有能站的地方 %s" % lk.nearest_free(bm + Vector2(0, 30)), lk.nearest_free(bm + Vector2(0, 30)) != Vector2.ZERO
         and lk.nearest_free(bm + Vector2(0, 30)).distance_to(bm) < 72.0)
 

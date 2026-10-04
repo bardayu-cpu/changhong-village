@@ -83,12 +83,14 @@ func run() -> void:
             continue
         var bad: Array = []
         var n := 0
+        var on_art := 0   # 标了 on_art、不量外框的件数（10/4 湖边两半都是像素成品，一件灰盒都不剩）
         for it in spec["items"]:
             if str(it["type"]) == "image":
                 continue
             # 标了 on_art 的（10/4 湖边东半边像素成品）：灰盒不画、图在 pixel_art 图层里，外框这条不量（树高、长凳下面另量）
             var lay0: Array = (c.cfg["items"] as Array).filter(func(x): return str(x.get("id")) == str(it["id"]))
             if not lay0.is_empty() and bool((lay0[0] as Dictionary).get("on_art", false)):
+                on_art += 1
                 continue
             var holder: Node2D = c.world.get_node_or_null(NodePath(str(it["id"])))
             if holder == null:
@@ -103,11 +105,12 @@ func run() -> void:
             n += 1
             if absf(got.position.x - want.position.x) > 1.5 or absf(got.position.y - want.position.y) > 1.5 or absf(got.end.x - want.end.x) > 1.5 or absf(got.end.y - want.end.y) > 1.5:
                 bad.append("%s 画的 %s 表里 %s" % [it["id"], got, want])
-        check("%s：%d 件画出来的外框跟 layout.json 算的一样（不对的 %s）" % [cn, n, bad.slice(0, 4)], n > 0 and bad.is_empty())
+        check("%s：%d 件画出来的外框跟 layout.json 算的一样（不对的 %s；像素成品不量的 %d 件）" % [cn, n, bad.slice(0, 4), on_art], (n > 0 or on_art > 0) and bad.is_empty())
         # 树
         var trees: Array = (c.cfg["items"] as Array).filter(func(x): return str(x.get("type", "")) == "tree")
         # pine_e：湖边东头 01 画的造型松 246 高（2.93 个人），差 6 像素；10/4 接进来时报 01 定改不改，先不算新问题（02 E）
-        var short: Array = trees.filter(func(x): return tree_h(c, x) < 3.0 * 84.0 - 1.0 and str(x["id"]) != "pine_e")
+        # pine_w、pine_w2：10/4 西半边接图，01 画的盆景松，跟东头那棵一样 246 高，同样不算
+        var short: Array = trees.filter(func(x): return tree_h(c, x) < 3.0 * 84.0 - 1.0 and not str(x["id"]).begins_with("pine_"))
         if not trees.is_empty():
             check("%s：%d 棵树都 ≥3 个人高（矮的 %s）" % [cn, trees.size(), short.map(func(x): return x["id"])], short.is_empty())
         # 走得到、不被树冠挡

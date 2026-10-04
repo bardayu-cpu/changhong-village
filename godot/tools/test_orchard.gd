@@ -95,7 +95,7 @@ func run() -> void:
     # 10/4 连图（02 E 改）：果园原地切成西 A 草莓、东 B 枇杷；A、B 各一个南口去草坪，A 西口去湖边，B 北口去后门
     # 10/4 方案 C：重摆成西 B 枇杷、东 A 草莓（地面左右翻、东西按中心挪到 1536 − x），A 东口去湖边，B 北口去后门
     var want := {"strawberry": [1136, 796, 60], "loquat": [386, 756, 60], "to_lawn": [1116, 1136, 60], "to_lawn_b": [386, 1136, 60],
-        "to_lake": [1496, 800, 44], "to_backgate": [536, 470, 44]}
+        "to_lake": [800, 470, 40], "to_backgate": [536, 470, 44]}   # 10/4 湖边西半边接图：去湖边的口挪到北边中间小路北头
     var same: bool = o.points.size() == 7
     for id in want:
         same = same and o.points.has(id) and o.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(o.points[id]["r"]), float(want[id][2]))

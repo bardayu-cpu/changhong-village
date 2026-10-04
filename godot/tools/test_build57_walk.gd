@@ -15,7 +15,7 @@ const MAX_LEG := 240.0
 const CANVASES := ["parking", "lake", "lawn", "backhall"]
 const MJ := Rect2(672, 226, 336, 458)
 ## 03 测第 57 版时已报给 01 的已知现状（回执 测-build57.md）：这些圈掉的格子数、走不到跟前的件不算新问题，只守「不再多」
-const KNOWN_POCKETS := {"lawn": 6, "backhall": 84, "lake": 12}   # lake：10/4 东头换像素成品，湖岸边花丛围出的小块草地（最大一块 x 2148～2208 的 9 格），走不进去不挡路（02 E）
+const KNOWN_POCKETS := {"lawn": 6, "backhall": 84, "lake": 38}   # lake：10/4 西半边也接图后 38 格——多出来的 26 格在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，02 E 截图核过；原来：10/4 东头换像素成品，湖岸边花丛围出的小块草地（最大一块 x 2148～2208 的 9 格），走不进去不挡路（02 E）
 const KNOWN_NO_FRONT := ["mj2_chair_n", "mj_stand_2"]
 
 var m
