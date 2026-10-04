@@ -1,0 +1,8 @@
+{
+  "_说明": "场景动效配置（scripts/ambient/ambient.gd 读）。键是场景数据里的 scene 名；lamp_glow 照图名找零件，at 是光心在这张图上的位置（像素），r 光圈半径、alpha 平均亮度、breathe 起伏、period 一圈几秒（每盏在这个范围里随机）。清单见 godot/回执/动效清单-1004.md",
+  "scene_roman_banquet_55": {
+    "lamp_glow": [
+      {"image": "art_lantern.png", "at": [24, 40], "r": 44, "alpha": 0.22, "breathe": 0.08, "period": [3.2, 4.6]}
+    ]
+  }
+}

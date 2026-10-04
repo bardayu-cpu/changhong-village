@@ -8,6 +8,7 @@ signal reached(what: String)
 const Spr = preload("res://scripts/sprites.gd")
 const Life = preload("res://scripts/hall_life.gd")
 const Festive = preload("res://scripts/hall_festive.gd")
+const Ambient = preload("res://scripts/ambient/ambient.gd")   # 场景动效（宫灯呼吸），05 10/4
 const GameCfg = preload("res://scripts/games/game_config.gd")
 ## 画布的图（底图、积木）从哪来统一走这里（HANDOFF §0.9）：现在从包里读，远程加载真机验过以后只改那一处
 const Canvas = preload("res://scripts/canvas_assets.gd")
@@ -172,6 +173,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
         festive = Festive.new()
         add_child(festive)
         festive.build(self)
+    Ambient.attach(self, str(cfg.get("scene", "")), cfg["occluders"])
     cam = Camera2D.new()
     cam.limit_left = 0
     cam.limit_top = 0
