@@ -517,6 +517,14 @@ func _build_debug() -> void:
     h55b.text = "55 桌试验厅"
     h55b.pressed.connect(_open_hall55.bind(6))
     dv.add_child(h55b)
+    # 场景动效（宫灯呼吸等，scripts/ambient/）：量性能、比较时一键关掉（05 10/4）
+    var ambb := Button.new()
+    ambb.text = "动效：自动（点一下关）"
+    ambb.pressed.connect(func():
+        var Amb = load("res://scripts/ambient/ambient.gd")
+        Amb.set_forced(0 if Amb.forced < 0 else -1)
+        ambb.text = "动效：关（点一下恢复）" if Amb.forced == 0 else "动效：自动（点一下关）")
+    dv.add_child(ambb)
     # 宴会厅轮着切：第 44 版 → 照效果图（第 46 版）→ 55 桌大厅 → 第 44 版（包里没有第 46 版那套时跳过它）
     var bigb := Button.new()
     bigb.name = "hall55_toggle"
