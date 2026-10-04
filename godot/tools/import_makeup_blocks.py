@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """化妆间：照 GPT 交的积木拼回游戏（01 H 10/5 派，02 F 写）。
 阿鱼 10/5：「让他去拆成零件给你坐标，你拼回去就可以了」「这个坐标不用你量，应该是GPT它自己量」。
-任务原文：游戏制作中-gpt 和 claude 合作/claude-任务-化妆间拆件-1005.md；GPT 交到 …/003-后厅/化妆间-积木-v1/。
+任务原文：游戏制作中-gpt 和 claude 合作/claude-任务-拆景台-1005.md（GPT 先做拆景台，阿鱼定颗粒度再拆）；拆景包交到 …/003-后厅/拆景/化妆间-v1-20261005/。
 
-读交付目录里的 交付.json（base.png、blk_*.png、fg_*.png，坐标都是原图像素），缩到化妆间画布 576×1024（原图 ÷ 原图宽/576），出：
+读拆景包里的 placement.json（base.png、blk_*.png、fg_*.png、shadow_*.png，坐标都是原图像素；拆景台 1005 任务原文第 5、6 条），缩到化妆间画布 576×1024（原图 ÷ 原图宽/576），出：
   assets/pixel_art/makeup_room_gpt/room.png、props/*.png、room.json
       entrance.gd 的 _pixel_art() 读：底图铺地上；blk 按 foot_y 跟人排前后；fg 永远在人前面
   assets/layered/scene_luoman_makeup/layout.json（化妆间布局，这份出了就不再用 make_makeup_room.py 的灰盒）
       footprint → 挡人的占地（灰盒色块藏掉，只挡人）；seat → 坐人的点；南门、出口、进门站的地方、屋名、「回后厅」牌照旧；
       第 67 版的人（新娘、化妆师、化妆助理）连同冒泡、点人说话、助理走一圈照旧挂（life: makeup）；别的座位坐替身
 
-用法：python3 godot/tools/import_makeup_blocks.py <交付目录> [--check 拼回去对照图.png]
-交付.json 的写法以任务原文为准；字段名认几种常见写法（零件 / parts / blocks / items，原图宽高 / width height），认不出就停、说缺什么。
+用法：python3 godot/tools/import_makeup_blocks.py <拆景包目录> [--check 拼回去对照图.png] [--report 检查.md]
+placement.json 的写法以任务原文为准（格式照造景台第六节）；字段名认几种常见写法，认不出就停、说缺什么。
+导入前先做两样静态检查（footprint 画没画到 foot_y、图有没有比着地线还往南伸），有问题照样导、全写进 --report；
+人在每个能站的格子站一遍找挡错，另跑 tools/check_makeup_occlusion.py。
 """
 import json
 import os
@@ -36,54 +38,142 @@ EXIT_Y = 990             # 出口点（回后厅）
 SPAWN = (288, 900)       # 从后厅走进来站的地方
 
 
-# ================================================================== 读交付.json
+# ================================================================== 读拆景包（placement.json）
 def _first(d, keys, default=None):
     for k in keys:
-        if k in d:
+        if isinstance(d, dict) and k in d:
             return d[k]
     return default
 
 
+def _rect(v):
+    """[x, y, w, h] / {"rect": [...]} / {"x","y","w","h"} → [x, y, w, h]（原图像素）；认不出回 None"""
+    if isinstance(v, dict):
+        if "rect" in v:
+            v = v["rect"]
+        elif all(k in v for k in ("x", "y", "w", "h")):
+            v = [v["x"], v["y"], v["w"], v["h"]]
+    if isinstance(v, (list, tuple)) and len(v) == 4 and all(isinstance(t, (int, float)) for t in v):
+        return [float(t) for t in v]
+    return None
+
+
+def _points(v):
+    """seats：[x, y] / [[x, y], …] / [{"at": [x, y]} …] → [(x, y) …]"""
+    if not v:
+        return []
+    if isinstance(v, (list, tuple)) and len(v) == 2 and all(isinstance(t, (int, float)) for t in v):
+        return [(float(v[0]), float(v[1]))]
+    out = []
+    for e in v:
+        if isinstance(e, dict):
+            e = _first(e, ["at", "foot", "xy", "pos"], e)
+            if isinstance(e, dict):
+                e = [e.get("x"), e.get("y")]
+        out.append((float(e[0]), float(e[1])))
+    return out
+
+
 def load_delivery(folder):
-    path = os.path.join(folder, "交付.json")
-    d = json.load(open(path, encoding="utf-8"))
-    size = _first(d, ["原图", "原图宽高", "image", "size", "canvas"])
-    if isinstance(size, dict):
-        sw, sh = _first(size, ["w", "width", "宽"]), _first(size, ["h", "height", "高"])
-    elif isinstance(size, (list, tuple)):
-        sw, sh = size[0], size[1]
+    """读拆景包：placement.json（拆景台 1005 任务原文第 5 条；没有就退回读 交付.json）。字段名认几种写法，认不出就停、说缺什么"""
+    for fn in ("placement.json", "交付.json"):
+        path = os.path.join(folder, fn)
+        if os.path.exists(path):
+            break
     else:
-        sw, sh = _first(d, ["width", "原图宽", "w"]), _first(d, ["height", "原图高", "h"])
+        raise SystemExit("%s 里没有 placement.json" % folder)
+    d = json.load(open(path, encoding="utf-8"))
+    size = _first(d, ["image", "原图", "size", "canvas"])
+    sw = _first(size, ["w", "width", "宽"]) if isinstance(size, dict) else (size[0] if isinstance(size, (list, tuple)) else _first(d, ["width", "w", "原图宽"]))
+    sh = _first(size, ["h", "height", "高"]) if isinstance(size, dict) else (size[1] if isinstance(size, (list, tuple)) else _first(d, ["height", "h", "原图高"]))
     if not sw or not sh:
-        raise SystemExit("交付.json 里没找到原图宽高（原图 / width、height）")
-    parts = _first(d, ["零件", "parts", "blocks", "items", "pieces"])
+        raise SystemExit("%s 里没找到整张图的宽高（image.w / width …）" % fn)
+    parts = _first(d, ["items", "parts", "零件", "blocks", "pieces"])
     if parts is None:
-        raise SystemExit("交付.json 里没找到零件清单（零件 / parts / blocks / items）")
+        raise SystemExit("%s 里没找到零件清单（items / parts / 零件）" % fn)
     if isinstance(parts, dict):
-        parts = [dict(v, file=v.get("file", k)) for k, v in parts.items()]
-    base = _first(d, ["base", "底图"], "base.png")
+        parts = [dict(v, id=v.get("id", k), file=v.get("file", k)) for k, v in parts.items()]
+    files_info = _first(d, ["files"], {}) or {}
+    base = _first(d, ["base", "background", "底图"], "base.png")
     if isinstance(base, dict):
         base = base.get("file", "base.png")
-    bad, out = [], []
+    base = os.path.basename(str(base))
+    bad, out, shadows = [], [], []
     for p in parts:
-        f = str(p.get("file", ""))
-        if f == base or f.startswith("base"):
+        f = os.path.basename(str(p.get("file", "")))
+        if not f or f == base or f.startswith("base"):
             continue
-        miss = [k for k in ("file", "x", "y", "foot_y") if k not in p]
-        if f.startswith("blk_") and "footprint" not in p:
+        if str(p.get("kind", "")) == "person":
+            continue
+        q = dict(files_info.get(f, {}))
+        q.update(p)
+        q["file"] = f
+        if f.startswith("shadow_"):
+            shadows.append(q)
+            continue
+        if "foot_y" not in q:
+            ft = _first(q, ["foot", "anchor_xy"])
+            if isinstance(ft, (list, tuple)) and len(ft) == 2:
+                q["foot_y"] = ft[1]
+        fp = _rect(_first(q, ["footprint", "占地"]))
+        q["footprint"] = fp
+        q["seats"] = _points(_first(q, ["seats", "seat", "座位"]))
+        miss = [k for k in ("x", "y", "foot_y") if k not in q]
+        if f.startswith("blk_") and fp is None:
             miss.append("footprint")
         if miss:
-            bad.append("%s 缺 %s" % (f or p, "、".join(miss)))
+            bad.append("%s 缺 %s" % (f, "、".join(miss)))
             continue
         if not os.path.exists(os.path.join(folder, f)):
             bad.append("%s 文件不在" % f)
             continue
-        out.append(p)
+        out.append(q)
     if not os.path.exists(os.path.join(folder, base)):
         bad.append("底图 %s 不在" % base)
     if bad:
-        raise SystemExit("交付.json 对不上：\n" + "\n".join(bad))
-    return {"w": float(sw), "h": float(sh), "base": base, "parts": out, "raw": d}
+        raise SystemExit("%s 对不上：\n" % fn + "\n".join(bad))
+    blocked = []
+    bl = _first(d, ["blocked", "挡路"], [])
+    if isinstance(bl, dict):
+        bl = _first(bl, ["rects", "rect", "polygons", "list"], [])
+    for b in bl or []:
+        r = _rect(b)
+        if r is None and isinstance(b, (list, tuple)) and b and isinstance(b[0], (list, tuple)):   # 多边形 → 外接矩形
+            xs, ys = [float(t[0]) for t in b], [float(t[1]) for t in b]
+            r = [min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)]
+        if r is not None:
+            blocked.append(r)
+    doors = []
+    for dr in _first(d, ["doors", "门"], []) or []:
+        r = _rect(dr if not isinstance(dr, dict) or "rect" in dr or "x" in dr else dr.get("at"))
+        if r is not None:
+            doors.append(r)
+    return {"w": float(sw), "h": float(sh), "base": base, "parts": out, "shadows": shadows, "blocked": blocked, "doors": doors,
+            "name": fn, "raw": d}
+
+
+def static_checks(dl, folder):
+    """不进游戏就能查的两样（01 H 10/5）：
+    1. footprint 没画到 foot_y（下沿离着地线超过 3 像素）——人能站进家具的「影子」里，会被挡错
+    2. 零件的图比 foot_y 还往南伸（不透明像素超过着地线 4 像素以上）——人站在着地线南边会盖住它（比如前帘画进了后屏那张）
+    回 [一行一处]（原图像素）"""
+    bad = []
+    for p in dl["parts"]:
+        f = p["file"]
+        if f.startswith("fg_"):
+            continue
+        fy = float(p["foot_y"])
+        fp = p["footprint"]
+        if fp is not None and abs(fp[1] + fp[3] - fy) > 3:
+            bad.append("%s：footprint 下沿 %.0f，着地线 %.0f，差 %.0f（要画到着地线）" % (f, fp[1] + fp[3], fy, fp[1] + fp[3] - fy))
+        im = Image.open(os.path.join(folder, f)).convert("RGBA")
+        box = im.getchannel("A").point(lambda v: 255 if v >= 128 else 0).getbbox()
+        if box is not None:
+            sy = float(im.height) / float(p.get("h", im.height))
+            lowest = float(p["y"]) + box[3] / sy
+            if lowest - fy > 4:
+                bad.append("%s：图的最下沿 %.0f 比着地线 %.0f 还往南 %.0f 像素（人站在着地线南边会盖住这截）" % (f, lowest, fy, lowest - fy))
+    return bad
 
 
 # ================================================================== 缩到画布
@@ -103,12 +193,7 @@ def scaled_box(p, s):
 
 
 def seats_of(p, s):
-    st = p.get("seat")
-    if not st:
-        return []
-    if isinstance(st[0], (int, float)):
-        st = [st]
-    return [(round(float(a) * s), round(float(b) * s)) for a, b in st]
+    return [(round(a * s), round(b * s)) for (a, b) in p.get("seats", [])]
 
 
 # ================================================================== 布局
@@ -119,8 +204,11 @@ def kind_of(name):
     return ""
 
 
-def build_layout(props, s):
+def build_layout(props, s, blocked=()):
     items, npcs, stands = [], [], []
+    for k, (bx0, by0, bw, bh) in enumerate(blocked):   # 拆景包里写的「人走不过去的地方」（墙、柜子背后）
+        items.append({"type": "box", "id": "blocked_%d" % k, "rect": [round(bx0 * s), round(by0 * s), round((bx0 + bw) * s), round((by0 + bh) * s)],
+                      "h": 4, "top": "#5a3f30", "front": "#5a3f30", "note": "拆景包 blocked"})
     seats = []   # (x, y, kind, name)
     for p in props:
         if p["fg"]:
@@ -154,7 +242,6 @@ def build_layout(props, s):
     jewel = sorted([p for p in props if "jewel" in p["name"] and not p["fg"]], key=lambda p: p["foot"])
     if jewel:
         j = jewel[0]
-        jr = [round(v * s) for v in j["footprint"]]
         ax, ay = round((j["footprint"][0] + j["footprint"][2]) * s) + 14, round((j["footprint"][1] + j["footprint"][3]) * s) + 8
     else:
         ax, ay = 380, 380
@@ -244,12 +331,26 @@ def main():
         raise SystemExit(__doc__)
     folder = args[0]
     check = sys.argv[sys.argv.index("--check") + 1] if "--check" in sys.argv else None
+    report = sys.argv[sys.argv.index("--report") + 1] if "--report" in sys.argv else None
     dl = load_delivery(folder)
     s = W / dl["w"]
     if abs(dl["h"] * s - H) > 4:
         raise SystemExit("原图 %dx%d 缩到宽 576 后高 %.0f，跟化妆间画布 1024 对不上" % (dl["w"], dl["h"], dl["h"] * s))
+    bad = static_checks(dl, folder)
+    print("静态检查：%s" % ("没有问题" if not bad else "%d 处" % len(bad)))
+    for b in bad:
+        print("  " + b)
+    global DOOR
+    if dl["doors"]:   # 拆景包写了门：最南那个当南门
+        dx0, dy0, dw, dh = max(dl["doors"], key=lambda r: r[1] + r[3])
+        DOOR = (round(dx0 * s), round((dx0 + dw) * s))
+        print("南门照 placement.json：x %d～%d" % DOOR)
     os.makedirs(os.path.join(OUT, "props"), exist_ok=True)
-    base = Image.open(os.path.join(folder, dl["base"])).convert("RGBA").resize((W, H), Image.LANCZOS)
+    base = Image.open(os.path.join(folder, dl["base"])).convert("RGBA")
+    for sh in dl["shadows"]:   # 影子（可以半透明）并进底图，原图像素上贴
+        im = Image.open(os.path.join(folder, sh["file"])).convert("RGBA")
+        base.alpha_composite(im, (int(round(float(sh["x"]))), int(round(float(sh["y"])))))
+    base = base.resize((W, H), Image.LANCZOS)
     base.putalpha(255)
     base.save(os.path.join(OUT, "room.png"))
     props, names = [], set()
@@ -266,7 +367,7 @@ def main():
         names.add(f)
         props.append({"name": name, "file": f, "x": x, "y": y, "w": w, "h": h, "fg": fg,
                       "foot": 4000 if fg else round(float(p["foot_y"]) * s),   # fg 永远在人前面
-                      "footprint": [float(v) for v in p.get("footprint", [0, 0, 0, 0])], "seats": seats_of(p, s), "img": im})
+                      "footprint": p["footprint"] or [0.0, 0.0, 0.0, 0.0], "seats": seats_of(p, s), "img": im})
     for f in os.listdir(os.path.join(OUT, "props")):   # 改名、删掉的零件别留旧图
         if f.endswith(".png") and f not in names:
             os.remove(os.path.join(OUT, "props", f))
@@ -276,8 +377,8 @@ def main():
            "background": {"png": RES + "room.png", "x": 0, "y": 0}, "room": {"x0": 0, "x1": W},
            "props": [{"id": "px_" + p["name"], "png": RES + "props/" + p["file"], "x": p["x"], "y": p["y"], "foot": p["foot"],
                       "hide": [] if p["fg"] else [p["name"]]} for p in props]}
-    lay = build_layout(props, s)
-    man["props"][0]["hide"] += ["wall_s_0", "wall_s_1"]   # 南墙画在底图里
+    lay = build_layout(props, s, dl["blocked"])
+    man["props"][0]["hide"] += ["wall_s_0", "wall_s_1"] + ["blocked_%d" % k for k in range(len(dl["blocked"]))]   # 南墙、挡路的地方都画在底图里
     with open(os.path.join(OUT, "room.json"), "w", encoding="utf-8") as fh:
         json.dump(man, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
@@ -285,6 +386,12 @@ def main():
     print("拼了：底图 + %d 件（fg %d）；占地 %d 块，座位 %d 个，人 %d 位 → %s、%s" % (
         len(props), sum(1 for p in props if p["fg"]), sum(1 for p in props if not p["fg"]),
         sum(len(p["seats"]) for p in props), len(lay["npcs"]), OUT, LAYOUT))
+    if report:
+        with open(report, "w", encoding="utf-8") as fh:
+            fh.write("# 化妆间拆景包导入检查\n\n- 拆景包：`%s`（%s）\n- 零件 %d 件，影子 %d 张，挡路 %d 块，门 %d 个\n\n## 静态检查\n\n" % (
+                folder, dl["name"], len(props), len(dl["shadows"]), len(dl["blocked"]), len(dl["doors"])))
+            fh.write("没有问题。\n" if not bad else "".join("- %s\n" % b for b in bad))
+        print("检查写进 %s" % report)
     if check:
         out = base.copy()
         for p in sorted(props, key=lambda p: p["foot"]):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """试通用的假交付（02 F，10/5）：GPT 的积木还没交，先拿整张效果图当底图、照 02 F 量的坐标从同一张图上裁方块当零件，
-写一份跟任务原文同样格式的 交付.json，给 tools/import_makeup_blocks.py 试通「能拼、能走、能坐」。GPT 交了直接换真的，这份作废。
+写一份跟任务原文（拆景台 1005 第 5 条）同样格式的 placement.json，给 tools/import_makeup_blocks.py 试通「能拼、能走、能坐」。GPT 交了直接换真的，这份作废。
 零件是从底图同一处裁的方块，拼回去看不出差别；人走到它后面才被挡（方块连着一圈地板，挡人时边是直的，真零件是透明底，就没这个毛病）。
 坐标照 效果图量的坐标.md（原图像素）。占地 = 每件着地线往北一小条（斜俯视，家具只挡地上那一截）。
 
@@ -52,16 +52,17 @@ def main():
     raw = subprocess.run(["git", "show", REF], capture_output=True, check=True).stdout
     ref = Image.open(BytesIO(raw)).convert("RGBA")
     ref.save(os.path.join(out, "base.png"))
-    parts = [{"file": "base.png", "x": 0, "y": 0, "w": ref.width, "h": ref.height}]
+    items = []
     for (n, x0, y0, x1, y1, dep, seats) in PARTS:
         f = "blk_%s.png" % n
         ref.crop((x0, y0, x1, y1)).save(os.path.join(out, f))
-        p = {"file": f, "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0, "foot_y": y1, "footprint": [x0, y1 - dep, x1 - x0, dep]}
+        p = {"id": n, "file": f, "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0, "foot_y": y1, "footprint": [x0, y1 - dep, x1 - x0, dep]}
         if seats:
-            p["seat"] = [list(s) for s in seats] if len(seats) > 1 else list(seats[0])
-        parts.append(p)
-    d = {"说明": "试通用假交付（02 F）：不是 GPT 交的，GPT 交了作废", "原图": {"w": ref.width, "h": ref.height}, "base": "base.png", "零件": parts}
-    json.dump(d, open(os.path.join(out, "交付.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+            p["seats"] = [list(s) for s in seats]
+        items.append(p)
+    d = {"说明": "试通用假交付（02 F）：不是 GPT 交的，GPT 交了作废", "image": {"w": ref.width, "h": ref.height}, "base": "base.png",
+         "doors": [{"id": "south", "rect": [395, 1500, 150, 50]}], "blocked": [], "items": items}
+    json.dump(d, open(os.path.join(out, "placement.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("写了 %d 件 → %s" % (len(PARTS), out))
 
 
