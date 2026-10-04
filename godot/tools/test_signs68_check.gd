@@ -222,6 +222,9 @@ func run() -> void:
     for x in path_ok:
         print("    注：", x)
     check("箭头跟我量的口所在侧一样（不一样 %d 块；沿小路直走进得了口的 %d 块另算）" % [diff.size(), path_ok.size()], diff.is_empty())
+    # 例外只给果园南边那 2 块（口正前方是树、小摊、草莓垄，牌挂在口边小路上）；再多一块就让人来看，别悄悄放过（03 10/4 补）
+    var path_ok_bad: Array = path_ok.filter(func(x): return not (str(x).begins_with("orchard「") and str(x).contains("去草坪")))
+    check("「口所在侧不一样」的例外只有果园南边那 2 块（共 %d 块、不是果园的 %d 块 %s）" % [path_ok.size(), path_ok_bad.size(), str(path_ok_bad)], path_ok.size() <= 2 and path_ok_bad.is_empty())
     print("    注：走进口的最后一段（找路拐点连线）朝的方向跟箭头不一样的 %d 块（路是沿着墙边横着走到口的，不算）" % last_bad.size())
     check("从走路范围中心往箭头那边走口更近（%d 块反了）" % half_bad.size(), half_bad.is_empty())
 
@@ -326,6 +329,8 @@ func run() -> void:
 ## 从 start 顺着 d 一步 6 像素直走：走进口的触发圈（半径 rad）或走到口那条线上侧偏 ≤ rad+30 算到，碰到不能站的算撞
 func straight(c, start: Vector2, d: Vector2, tgt: Vector2, rad: float) -> Dictionary:
     var p: Vector2 = start
+    if (tgt - p).dot(d) < -6.0:
+        return {"hit": false, "blocked_at": Vector2.ZERO}   # 口在箭头背后：往箭头那边走只会越走越远（03 10/4 补：原来这种情况第一步就算「到了」）
     for step in 900:
         var rel: Vector2 = tgt - p
         var along: float = rel.dot(d)
