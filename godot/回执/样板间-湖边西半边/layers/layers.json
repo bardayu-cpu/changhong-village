@@ -1,0 +1,1385 @@
+{
+ "note": "draw_lake_west.py 生成，别手改。湖边长湖岸的西半边（x 0～1536）。底图 bg 先画；其余是立着的，按 foot_y 跟人排前后（同一条着地线照 x 排）。坐标就是游戏画布坐标（西半边不用加偏移）；有几张（树冠、柳条）伸出 0～1536 一点，照着放就行。1 倍不插值。",
+ "canvas": [
+  1536,
+  1280
+ ],
+ "x_offset_in_game": 0,
+ "base": {
+  "png": "bg_lake_west.png",
+  "x": 0,
+  "y": 0
+ },
+ "layers": [
+  {
+   "name": "wall_gate_w",
+   "png": "wall_gate_w.png",
+   "x": 0,
+   "y": 860,
+   "w": 1536,
+   "h": 200,
+   "foot_y": 1040,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w1",
+   "png": "lantern_w1.png",
+   "x": 816,
+   "y": 772,
+   "w": 40,
+   "h": 72,
+   "foot_y": 842,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w2",
+   "png": "lantern_w2.png",
+   "x": 960,
+   "y": 772,
+   "w": 40,
+   "h": 72,
+   "foot_y": 842,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w3",
+   "png": "lantern_w3.png",
+   "x": 630,
+   "y": 708,
+   "w": 40,
+   "h": 72,
+   "foot_y": 778,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w4",
+   "png": "lantern_w4.png",
+   "x": 450,
+   "y": 830,
+   "w": 40,
+   "h": 72,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w5",
+   "png": "lantern_w5.png",
+   "x": 130,
+   "y": 738,
+   "w": 40,
+   "h": 72,
+   "foot_y": 808,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w6",
+   "png": "lantern_w6.png",
+   "x": 56,
+   "y": 620,
+   "w": 40,
+   "h": 72,
+   "foot_y": 690,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w7",
+   "png": "lantern_w7.png",
+   "x": 18,
+   "y": 526,
+   "w": 40,
+   "h": 72,
+   "foot_y": 596,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w8",
+   "png": "lantern_w8.png",
+   "x": 1216,
+   "y": 738,
+   "w": 40,
+   "h": 72,
+   "foot_y": 808,
+   "kind": "stand"
+  },
+  {
+   "name": "lantern_w9",
+   "png": "lantern_w9.png",
+   "x": 1412,
+   "y": 738,
+   "w": 40,
+   "h": 72,
+   "foot_y": 808,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w1",
+   "png": "rock_w1.png",
+   "x": 642,
+   "y": 752,
+   "w": 52,
+   "h": 74,
+   "foot_y": 822,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w2",
+   "png": "rock_w2.png",
+   "x": 390,
+   "y": 616,
+   "w": 60,
+   "h": 82,
+   "foot_y": 694,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w3",
+   "png": "rock_w3.png",
+   "x": 1152,
+   "y": 842,
+   "w": 56,
+   "h": 76,
+   "foot_y": 914,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w4",
+   "png": "rock_w4.png",
+   "x": 182,
+   "y": 882,
+   "w": 48,
+   "h": 66,
+   "foot_y": 944,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w5",
+   "png": "rock_w5.png",
+   "x": 528,
+   "y": 1050,
+   "w": 64,
+   "h": 82,
+   "foot_y": 1128,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w6",
+   "png": "rock_w6.png",
+   "x": 1364,
+   "y": 1066,
+   "w": 52,
+   "h": 70,
+   "foot_y": 1132,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w7",
+   "png": "rock_w7.png",
+   "x": 318,
+   "y": 516,
+   "w": 40,
+   "h": 54,
+   "foot_y": 566,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w8",
+   "png": "rock_w8.png",
+   "x": 264,
+   "y": 738,
+   "w": 36,
+   "h": 48,
+   "foot_y": 782,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w9",
+   "png": "rock_w9.png",
+   "x": 141,
+   "y": 606,
+   "w": 38,
+   "h": 52,
+   "foot_y": 654,
+   "kind": "stand"
+  },
+  {
+   "name": "rock_w10",
+   "png": "rock_w10.png",
+   "x": 1430,
+   "y": 894,
+   "w": 44,
+   "h": 60,
+   "foot_y": 950,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w01",
+   "png": "bush_w01.png",
+   "x": 801,
+   "y": 776,
+   "w": 47,
+   "h": 36,
+   "foot_y": 812,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w02",
+   "png": "bush_w02.png",
+   "x": 967,
+   "y": 779,
+   "w": 46,
+   "h": 33,
+   "foot_y": 812,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w03",
+   "png": "bush_w03.png",
+   "x": 1007,
+   "y": 863,
+   "w": 54,
+   "h": 37,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w04",
+   "png": "bush_w04.png",
+   "x": 955,
+   "y": 918,
+   "w": 65,
+   "h": 44,
+   "foot_y": 962,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w05",
+   "png": "bush_w05.png",
+   "x": 675,
+   "y": 876,
+   "w": 33,
+   "h": 26,
+   "foot_y": 902,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w06",
+   "png": "bush_w06.png",
+   "x": 827,
+   "y": 880,
+   "w": 32,
+   "h": 26,
+   "foot_y": 906,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w07",
+   "png": "bush_w07.png",
+   "x": 579,
+   "y": 885,
+   "w": 64,
+   "h": 45,
+   "foot_y": 930,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w08",
+   "png": "bush_w08.png",
+   "x": 512,
+   "y": 920,
+   "w": 57,
+   "h": 40,
+   "foot_y": 960,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w09",
+   "png": "bush_w09.png",
+   "x": 892,
+   "y": 919,
+   "w": 55,
+   "h": 41,
+   "foot_y": 960,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w10",
+   "png": "bush_w10.png",
+   "x": 585,
+   "y": 956,
+   "w": 63,
+   "h": 46,
+   "foot_y": 1002,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w11",
+   "png": "bush_w11.png",
+   "x": 886,
+   "y": 957,
+   "w": 64,
+   "h": 49,
+   "foot_y": 1006,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w12",
+   "png": "bush_w12.png",
+   "x": 490,
+   "y": 954,
+   "w": 57,
+   "h": 40,
+   "foot_y": 994,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w13",
+   "png": "bush_w13.png",
+   "x": 991,
+   "y": 957,
+   "w": 60,
+   "h": 41,
+   "foot_y": 998,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w14",
+   "png": "bush_w14.png",
+   "x": 814,
+   "y": 978,
+   "w": 53,
+   "h": 38,
+   "foot_y": 1016,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w15",
+   "png": "bush_w15.png",
+   "x": 1238,
+   "y": 950,
+   "w": 59,
+   "h": 40,
+   "foot_y": 990,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w16",
+   "png": "bush_w16.png",
+   "x": 1389,
+   "y": 961,
+   "w": 61,
+   "h": 45,
+   "foot_y": 1006,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w17",
+   "png": "bush_w17.png",
+   "x": 366,
+   "y": 954,
+   "w": 66,
+   "h": 46,
+   "foot_y": 1000,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w18",
+   "png": "bush_w18.png",
+   "x": 268,
+   "y": 959,
+   "w": 64,
+   "h": 49,
+   "foot_y": 1008,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w19",
+   "png": "bush_w19.png",
+   "x": 160,
+   "y": 958,
+   "w": 57,
+   "h": 40,
+   "foot_y": 998,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w20",
+   "png": "bush_w20.png",
+   "x": 48,
+   "y": 957,
+   "w": 66,
+   "h": 47,
+   "foot_y": 1004,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w21",
+   "png": "bush_w21.png",
+   "x": 1078,
+   "y": 851,
+   "w": 42,
+   "h": 29,
+   "foot_y": 880,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w22",
+   "png": "bush_w22.png",
+   "x": 1322,
+   "y": 862,
+   "w": 54,
+   "h": 38,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w23",
+   "png": "bush_w23.png",
+   "x": 1434,
+   "y": 858,
+   "w": 50,
+   "h": 34,
+   "foot_y": 892,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w24",
+   "png": "bush_w24.png",
+   "x": 1204,
+   "y": 919,
+   "w": 52,
+   "h": 37,
+   "foot_y": 956,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w25",
+   "png": "bush_w25.png",
+   "x": 1462,
+   "y": 934,
+   "w": 33,
+   "h": 28,
+   "foot_y": 962,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w26",
+   "png": "bush_w26.png",
+   "x": 1269,
+   "y": 904,
+   "w": 43,
+   "h": 30,
+   "foot_y": 934,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w27",
+   "png": "bush_w27.png",
+   "x": 1301,
+   "y": 929,
+   "w": 32,
+   "h": 25,
+   "foot_y": 954,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w28",
+   "png": "bush_w28.png",
+   "x": 1378,
+   "y": 904,
+   "w": 57,
+   "h": 42,
+   "foot_y": 946,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w29",
+   "png": "bush_w29.png",
+   "x": 1149,
+   "y": 916,
+   "w": 31,
+   "h": 26,
+   "foot_y": 942,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w30",
+   "png": "bush_w30.png",
+   "x": 428,
+   "y": 581,
+   "w": 44,
+   "h": 29,
+   "foot_y": 610,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w31",
+   "png": "bush_w31.png",
+   "x": 476,
+   "y": 669,
+   "w": 46,
+   "h": 35,
+   "foot_y": 704,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w32",
+   "png": "bush_w32.png",
+   "x": 442,
+   "y": 716,
+   "w": 51,
+   "h": 36,
+   "foot_y": 752,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w33",
+   "png": "bush_w33.png",
+   "x": 643,
+   "y": 711,
+   "w": 29,
+   "h": 29,
+   "foot_y": 740,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w34",
+   "png": "bush_w34.png",
+   "x": 341,
+   "y": 612,
+   "w": 43,
+   "h": 30,
+   "foot_y": 642,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w35",
+   "png": "bush_w35.png",
+   "x": 367,
+   "y": 723,
+   "w": 52,
+   "h": 37,
+   "foot_y": 760,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w36",
+   "png": "bush_w36.png",
+   "x": 8,
+   "y": 645,
+   "w": 62,
+   "h": 45,
+   "foot_y": 690,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w37",
+   "png": "bush_w37.png",
+   "x": 0,
+   "y": 739,
+   "w": 57,
+   "h": 41,
+   "foot_y": 780,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w38",
+   "png": "bush_w38.png",
+   "x": 161,
+   "y": 818,
+   "w": 56,
+   "h": 42,
+   "foot_y": 860,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w39",
+   "png": "bush_w39.png",
+   "x": 76,
+   "y": 856,
+   "w": 64,
+   "h": 44,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w40",
+   "png": "bush_w40.png",
+   "x": 235,
+   "y": 862,
+   "w": 50,
+   "h": 38,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w41",
+   "png": "bush_w41.png",
+   "x": 104,
+   "y": 738,
+   "w": 30,
+   "h": 26,
+   "foot_y": 764,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w42",
+   "png": "bush_w42.png",
+   "x": 41,
+   "y": 612,
+   "w": 32,
+   "h": 28,
+   "foot_y": 640,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w43",
+   "png": "bush_w43.png",
+   "x": 219,
+   "y": 846,
+   "w": 32,
+   "h": 26,
+   "foot_y": 872,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w44",
+   "png": "bush_w44.png",
+   "x": 402,
+   "y": 873,
+   "w": 42,
+   "h": 29,
+   "foot_y": 902,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w45",
+   "png": "bush_w45.png",
+   "x": 80,
+   "y": 800,
+   "w": 42,
+   "h": 30,
+   "foot_y": 830,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w46",
+   "png": "bush_w46.png",
+   "x": 312,
+   "y": 876,
+   "w": 31,
+   "h": 24,
+   "foot_y": 900,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w47",
+   "png": "bush_w47.png",
+   "x": 16,
+   "y": 280,
+   "w": 55,
+   "h": 42,
+   "foot_y": 322,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w48",
+   "png": "bush_w48.png",
+   "x": -11,
+   "y": 305,
+   "w": 45,
+   "h": 33,
+   "foot_y": 338,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w49",
+   "png": "bush_w49.png",
+   "x": 620,
+   "y": 1013,
+   "w": 77,
+   "h": 55,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w50",
+   "png": "bush_w50.png",
+   "x": 840,
+   "y": 1011,
+   "w": 77,
+   "h": 57,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w51",
+   "png": "bush_w51.png",
+   "x": 550,
+   "y": 1026,
+   "w": 64,
+   "h": 48,
+   "foot_y": 1074,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w52",
+   "png": "bush_w52.png",
+   "x": 924,
+   "y": 1023,
+   "w": 75,
+   "h": 53,
+   "foot_y": 1076,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w53",
+   "png": "bush_w53.png",
+   "x": 468,
+   "y": 1017,
+   "w": 65,
+   "h": 47,
+   "foot_y": 1064,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w54",
+   "png": "bush_w54.png",
+   "x": 1005,
+   "y": 1014,
+   "w": 70,
+   "h": 52,
+   "foot_y": 1066,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w55",
+   "png": "bush_w55.png",
+   "x": 1100,
+   "y": 1109,
+   "w": 60,
+   "h": 41,
+   "foot_y": 1150,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w56",
+   "png": "bush_w56.png",
+   "x": 1307,
+   "y": 1136,
+   "w": 63,
+   "h": 44,
+   "foot_y": 1180,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w57",
+   "png": "bush_w57.png",
+   "x": 381,
+   "y": 1016,
+   "w": 76,
+   "h": 56,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w58",
+   "png": "bush_w58.png",
+   "x": 1080,
+   "y": 1018,
+   "w": 77,
+   "h": 54,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w59",
+   "png": "bush_w59.png",
+   "x": 307,
+   "y": 1019,
+   "w": 65,
+   "h": 47,
+   "foot_y": 1066,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w60",
+   "png": "bush_w60.png",
+   "x": 1164,
+   "y": 1015,
+   "w": 70,
+   "h": 53,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w61",
+   "png": "bush_w61.png",
+   "x": 1251,
+   "y": 1016,
+   "w": 76,
+   "h": 56,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w62",
+   "png": "bush_w62.png",
+   "x": 1344,
+   "y": 1027,
+   "w": 68,
+   "h": 49,
+   "foot_y": 1076,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w63",
+   "png": "bush_w63.png",
+   "x": 215,
+   "y": 1021,
+   "w": 69,
+   "h": 53,
+   "foot_y": 1074,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w64",
+   "png": "bush_w64.png",
+   "x": 124,
+   "y": 1021,
+   "w": 68,
+   "h": 47,
+   "foot_y": 1068,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w65",
+   "png": "bush_w65.png",
+   "x": 29,
+   "y": 1020,
+   "w": 78,
+   "h": 56,
+   "foot_y": 1076,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w66",
+   "png": "bush_w66.png",
+   "x": 1423,
+   "y": 1031,
+   "w": 59,
+   "h": 41,
+   "foot_y": 1072,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w67",
+   "png": "bush_w67.png",
+   "x": 589,
+   "y": 1109,
+   "w": 59,
+   "h": 41,
+   "foot_y": 1150,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w68",
+   "png": "bush_w68.png",
+   "x": 886,
+   "y": 1115,
+   "w": 64,
+   "h": 45,
+   "foot_y": 1160,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w69",
+   "png": "bush_w69.png",
+   "x": 630,
+   "y": 1200,
+   "w": 58,
+   "h": 40,
+   "foot_y": 1240,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w70",
+   "png": "bush_w70.png",
+   "x": 848,
+   "y": 1207,
+   "w": 64,
+   "h": 43,
+   "foot_y": 1250,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w71",
+   "png": "bush_w71.png",
+   "x": 1014,
+   "y": 1151,
+   "w": 70,
+   "h": 49,
+   "foot_y": 1200,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w72",
+   "png": "bush_w72.png",
+   "x": 437,
+   "y": 1147,
+   "w": 65,
+   "h": 43,
+   "foot_y": 1190,
+   "kind": "stand"
+  },
+  {
+   "name": "bush_w73",
+   "png": "bush_w73.png",
+   "x": 1189,
+   "y": 1200,
+   "w": 58,
+   "h": 40,
+   "foot_y": 1240,
+   "kind": "stand"
+  },
+  {
+   "name": "bench_w",
+   "png": "bench_w.png",
+   "x": 1297,
+   "y": 765,
+   "w": 79,
+   "h": 48,
+   "foot_y": 812,
+   "kind": "stand"
+  },
+  {
+   "name": "banyan_w1",
+   "png": "banyan_w1.png",
+   "x": 172,
+   "y": 317,
+   "w": 370,
+   "h": 289,
+   "foot_y": 600,
+   "kind": "stand"
+  },
+  {
+   "name": "banyan_w2",
+   "png": "banyan_w2.png",
+   "x": -145,
+   "y": 156,
+   "w": 396,
+   "h": 288,
+   "foot_y": 438,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_w1",
+   "png": "willow_w1.png",
+   "x": 252,
+   "y": 430,
+   "w": 195,
+   "h": 298,
+   "foot_y": 724,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_w2",
+   "png": "willow_w2.png",
+   "x": 26,
+   "y": 189,
+   "w": 193,
+   "h": 293,
+   "foot_y": 478,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_w4",
+   "png": "willow_w4.png",
+   "x": 342,
+   "y": 273,
+   "w": 194,
+   "h": 297,
+   "foot_y": 566,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_w3",
+   "png": "willow_w3.png",
+   "x": 1105,
+   "y": 517,
+   "w": 195,
+   "h": 295,
+   "foot_y": 808,
+   "kind": "stand"
+  },
+  {
+   "name": "tree_fg_w1",
+   "png": "tree_fg_w1.png",
+   "x": 86,
+   "y": 936,
+   "w": 400,
+   "h": 310,
+   "foot_y": 1240,
+   "kind": "stand"
+  },
+  {
+   "name": "willow_fg_w2",
+   "png": "willow_fg_w2.png",
+   "x": 1144,
+   "y": 953,
+   "w": 196,
+   "h": 297,
+   "foot_y": 1246,
+   "kind": "stand"
+  },
+  {
+   "name": "pine_w",
+   "png": "pine_w.png",
+   "x": 225,
+   "y": 735,
+   "w": 212,
+   "h": 245,
+   "foot_y": 976,
+   "kind": "stand"
+  },
+  {
+   "name": "pine_w2",
+   "png": "pine_w2.png",
+   "x": 994,
+   "y": 765,
+   "w": 213,
+   "h": 245,
+   "foot_y": 1006,
+   "kind": "stand"
+  },
+  {
+   "name": "pavilion_w_back",
+   "png": "pavilion_w_back.png",
+   "x": 445,
+   "y": 384,
+   "w": 222,
+   "h": 166,
+   "foot_y": 496,
+   "kind": "stand"
+  },
+  {
+   "name": "pavilion_w_front",
+   "png": "pavilion_w_front.png",
+   "x": 415,
+   "y": 285,
+   "w": 284,
+   "h": 325,
+   "foot_y": 611,
+   "kind": "stand"
+  },
+  {
+   "name": "rail_shore_1",
+   "png": "rail_shore_1.png",
+   "x": 1023,
+   "y": 754,
+   "w": 95,
+   "h": 50,
+   "foot_y": 802,
+   "kind": "stand"
+  },
+  {
+   "name": "rail_shore_2",
+   "png": "rail_shore_2.png",
+   "x": 1239,
+   "y": 740,
+   "w": 193,
+   "h": 50,
+   "foot_y": 788,
+   "kind": "stand"
+  },
+  {
+   "name": "rail_shore_3",
+   "png": "rail_shore_3.png",
+   "x": 733,
+   "y": 736,
+   "w": 119,
+   "h": 50,
+   "foot_y": 784,
+   "kind": "stand"
+  },
+  {
+   "name": "rail_pen_1",
+   "png": "rail_pen_1.png",
+   "x": 619,
+   "y": 602,
+   "w": 33,
+   "h": 90,
+   "foot_y": 650,
+   "kind": "stand"
+  },
+  {
+   "name": "rail_pen_2",
+   "png": "rail_pen_2.png",
+   "x": 645,
+   "y": 642,
+   "w": 47,
+   "h": 96,
+   "foot_y": 690,
+   "kind": "stand"
+  },
+  {
+   "name": "rail_pen_3",
+   "png": "rail_pen_3.png",
+   "x": 685,
+   "y": 688,
+   "w": 49,
+   "h": 88,
+   "foot_y": 736,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_lamp_1",
+   "png": "dock_lamp_1.png",
+   "x": 785,
+   "y": 459,
+   "w": 27,
+   "h": 108,
+   "foot_y": 565,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_lamp_2",
+   "png": "dock_lamp_2.png",
+   "x": 1004,
+   "y": 459,
+   "w": 27,
+   "h": 108,
+   "foot_y": 565,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_post_1",
+   "png": "dock_post_1.png",
+   "x": 801,
+   "y": 583,
+   "w": 8,
+   "h": 35,
+   "foot_y": 616,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_post_2",
+   "png": "dock_post_2.png",
+   "x": 1006,
+   "y": 583,
+   "w": 8,
+   "h": 35,
+   "foot_y": 616,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_post_3",
+   "png": "dock_post_3.png",
+   "x": 863,
+   "y": 667,
+   "w": 8,
+   "h": 35,
+   "foot_y": 700,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_post_4",
+   "png": "dock_post_4.png",
+   "x": 944,
+   "y": 667,
+   "w": 8,
+   "h": 35,
+   "foot_y": 700,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_post_5",
+   "png": "dock_post_5.png",
+   "x": 863,
+   "y": 727,
+   "w": 8,
+   "h": 35,
+   "foot_y": 760,
+   "kind": "stand"
+  },
+  {
+   "name": "dock_post_6",
+   "png": "dock_post_6.png",
+   "x": 944,
+   "y": 727,
+   "w": 8,
+   "h": 35,
+   "foot_y": 760,
+   "kind": "stand"
+  },
+  {
+   "name": "rowboat_1",
+   "png": "rowboat_1.png",
+   "x": 725,
+   "y": 661,
+   "w": 135,
+   "h": 41,
+   "foot_y": 702,
+   "kind": "stand"
+  },
+  {
+   "name": "rowboat_2",
+   "png": "rowboat_2.png",
+   "x": 712,
+   "y": 715,
+   "w": 135,
+   "h": 41,
+   "foot_y": 756,
+   "kind": "stand"
+  },
+  {
+   "name": "swanboat_1",
+   "png": "swanboat_1.png",
+   "x": 950,
+   "y": 605,
+   "w": 122,
+   "h": 99,
+   "foot_y": 702,
+   "kind": "stand"
+  },
+  {
+   "name": "swanboat_2",
+   "png": "swanboat_2.png",
+   "x": 966,
+   "y": 665,
+   "w": 122,
+   "h": 99,
+   "foot_y": 762,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_w1",
+   "png": "lotus_w1.png",
+   "x": 695,
+   "y": 584,
+   "w": 59,
+   "h": 33,
+   "foot_y": 617,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_w2",
+   "png": "lotus_w2.png",
+   "x": 213,
+   "y": 620,
+   "w": 67,
+   "h": 40,
+   "foot_y": 665,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_w3",
+   "png": "lotus_w3.png",
+   "x": 1176,
+   "y": 640,
+   "w": 164,
+   "h": 68,
+   "foot_y": 709,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_w4",
+   "png": "lotus_w4.png",
+   "x": 204,
+   "y": 489,
+   "w": 70,
+   "h": 41,
+   "foot_y": 533,
+   "kind": "stand"
+  },
+  {
+   "name": "lotus_w5",
+   "png": "lotus_w5.png",
+   "x": 1036,
+   "y": 481,
+   "w": 80,
+   "h": 47,
+   "foot_y": 536,
+   "kind": "stand"
+  },
+  {
+   "name": "reeds_w1",
+   "png": "reeds_w1.png",
+   "x": 289,
+   "y": 702,
+   "w": 48,
+   "h": 73,
+   "foot_y": 774,
+   "kind": "stand"
+  },
+  {
+   "name": "reeds_w2",
+   "png": "reeds_w2.png",
+   "x": 240,
+   "y": 698,
+   "w": 45,
+   "h": 65,
+   "foot_y": 762,
+   "kind": "stand"
+  },
+  {
+   "name": "reeds_w3",
+   "png": "reeds_w3.png",
+   "x": 109,
+   "y": 443,
+   "w": 55,
+   "h": 78,
+   "foot_y": 520,
+   "kind": "stand"
+  },
+  {
+   "name": "reeds_w4",
+   "png": "reeds_w4.png",
+   "x": 77,
+   "y": 344,
+   "w": 44,
+   "h": 67,
+   "foot_y": 410,
+   "kind": "stand"
+  },
+  {
+   "name": "reeds_w5",
+   "png": "reeds_w5.png",
+   "x": 697,
+   "y": 701,
+   "w": 38,
+   "h": 68,
+   "foot_y": 768,
+   "kind": "stand"
+  },
+  {
+   "name": "reeds_w6",
+   "png": "reeds_w6.png",
+   "x": 1466,
+   "y": 728,
+   "w": 52,
+   "h": 63,
+   "foot_y": 790,
+   "kind": "stand"
+  },
+  {
+   "name": "fishing_1",
+   "png": "fishing_1.png",
+   "x": 1123,
+   "y": 681,
+   "w": 52,
+   "h": 120,
+   "foot_y": 800,
+   "kind": "stand"
+  },
+  {
+   "name": "fishing_2",
+   "png": "fishing_2.png",
+   "x": 1438,
+   "y": 681,
+   "w": 53,
+   "h": 120,
+   "foot_y": 800,
+   "kind": "stand"
+  }
+ ]
+}
