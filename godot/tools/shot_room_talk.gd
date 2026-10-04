@@ -4,7 +4,7 @@ extends SceneTree
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
-var opt := {"dir": "", "tag": "p", "who": "mahjong:elder_n", "lines": "2", "wait": "0"}
+var opt := {"dir": "", "tag": "p", "who": "mahjong:elder_n", "lines": "2", "wait": "0", "card": "0"}   # card=1：再点「身份卡」打开身份卡截
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
@@ -67,6 +67,8 @@ func run() -> void:
             if ui.talk_box.visible and not ui.choices.visible:
                 ui.next_line()
                 await frames(8)
+        if str(opt["card"]) == "1":
+            ui.open_card(id)
         await frames(10)
         await RenderingServer.frame_post_draw
         get_root().get_texture().get_image().save_png("%s/%s-%s.png" % [opt["dir"], opt["tag"], id])

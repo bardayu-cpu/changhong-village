@@ -8,6 +8,11 @@ extends SceneTree
 ##     玩家站着不动他也走得完；走完玩家照样走得动
 ##   4 冒泡：手机 540×960 和长屏 585×1266 各跑 60 秒、每半秒量一次，所有在冒的气泡（换成屏幕坐标）整个在屏里；
 ##     对话框开着（有选项）时，气泡不压对话框、名字牌、选项按钮；站在人跟前出「聊聊」按钮时，气泡不压按钮
+##   5 （第 67 版再修，01 H 10/4）气泡字号 22；三间屋所有正冒着的气泡两两不叠（屏幕坐标，手机、长屏）；对话框开着时三间一个气泡都不冒；
+##     叠上了往上让（lift）：单独冒的 lift 为 0，两个叠着冒的后冒的让开、让开的高度不超过气泡高的 3 倍、让完不叠
+##   6 7 位的名字牌、头像、身份卡：头像、身份卡用的图就是场景里他那张（同一张图集）；新娘（code 空）对话框不放头像、身份卡不放图、称呼仍叫「新娘」、场景里的样子不动；
+##     名字跟图的男女老少对得上（大爷=老男、孃孃=老女、姐姐/妹妹=年轻女…，对着 hall_life 里那张男女老少表）
+##   7 全项目的字里（脚本、json、.dialogue）没有「手气」「新娘子好乖」
 ## 用法：Godot --headless --path . --script res://tools/test_room_life_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
 const DT := 1.0 / 30.0
@@ -189,7 +194,7 @@ func run() -> void:
                     break
                 seen.append(str(ui.line_label.text))
                 names.append(str(ui.name_label.text))
-                portrait_ok = portrait_ok and ui.portrait.texture != null
+                portrait_ok = portrait_ok and ((ui.portrait.texture != null and ui.portrait.visible) if str(p["code"]) != "" else not ui.portrait.visible)   # 新娘（code 空）不放头像
                 if ui.choices.visible:
                     opts = ui.choices.get_children().filter(func(x): return not x.is_queued_for_deletion()).map(func(x): return (x as Button).text)
                     (ui.choices.get_child(pick) as Button).pressed.emit()
@@ -213,7 +218,7 @@ func run() -> void:
             if names.any(func(x): return x != str(p["title"])):
                 err += "名字牌 %s ≠ 称呼「%s」；" % [str(names), str(p["title"])]
             if not portrait_ok:
-                err += "有一句没人物图；"
+                err += "头像该有的没有、该没有的有了（新娘不放）；"
             if ui.talk_box.visible or not b.walking_enabled or lf.talking != "":
                 err += "说完没收好；"
             if (p["foot"] as Vector2) == p["home"] and str(p["home_mode"]) == "sit" and (p["spr"] as Sprite2D).region_rect != reg0:
@@ -321,23 +326,33 @@ func run() -> void:
                 left_home and visited.size() == spots.size() and took > 0.0 and took < 60.0 and max_stuck < 10.0 and in_gap == 0 and moved > 5.0)
 
     print("4 冒泡不压东西（手机、长屏）")
+    var BF: int = int(b.lounge.BUBBLE_FONT)
+    check("气泡字号 %d（第 67 版原来 15，04 嫌小，要 ≥ 20）" % BF, BF >= 20)
     for sz in [Vector2i(540, 960), Vector2i(585, 1266)]:
         get_root().size = sz
         await frames(4)
         var screen := Rect2(Vector2.ZERO, Vector2(sz))
+        var clipped_h := 0
         var out_of: Array = []
         var over_dialog: Array = []
         var over_btn: Array = []
+        var over_bub: Array = []
+        var leak := 0
         var n_bub := 0
-        for lf_room in ["mahjong", "makeup"]:
+        var n_dialog_frames := 0
+        var most := 0
+        for lf_room in ["mahjong", "makeup", "lounge"]:
             var lf = life_by(lf_room)
-            # 站在人跟前（出「聊聊」按钮）+ 开着有选项的对话框，各量一阵
             for stage in ["聊聊按钮", "对话框选项"]:
                 if ui.is_open():
                     ui.hide_all()
                 b.walking_enabled = true
-                var tid: String = "elder_n" if lf_room == "mahjong" else "bride"
-                var tp: Dictionary = lf.people[tid]
+                var tid: String = {"mahjong": "elder_n", "makeup": "bride", "lounge": "grandma"}.get(lf_room, "elder_n")
+                if not lf.people.has(tid):
+                    for k in lf.people:
+                        if lf.can_talk(k):
+                            tid = k
+                            break
                 b.reset_to(b.nearest_free(lf.approach_of(tid)))
                 b.cam.reset_smoothing()
                 tick(3)
@@ -355,32 +370,162 @@ func run() -> void:
                     for j in 15:
                         tick(1)   # 0.5 秒
                     await frames(1)
-                    for pr in [["mahjong", life_by("mahjong")], ["makeup", life_by("makeup")]]:
-                        for rb in bubble_rects(pr[1]):
-                            n_bub += 1
-                            var r: Rect2 = rb[1]
-                            if not screen.encloses(r):
-                                out_of.append("%s %s 气泡 %s 出屏" % [sz, rb[0], str(r)])
-                            if stage == "对话框选项" and ui.talk_box.visible:
-                                if r.intersects(ui.talk_box.get_global_rect()):
-                                    over_dialog.append("%s 压对话框" % rb[0])
-                                if r.intersects(ui.name_plate.get_global_rect()):
-                                    over_dialog.append("%s 压名字牌" % rb[0])
-                                if ui.choices.visible:
-                                    for ch in ui.choices.get_children():
-                                        if not ch.is_queued_for_deletion() and r.intersects((ch as Button).get_global_rect()):
-                                            over_btn.append("%s 压选项「%s」" % [rb[0], (ch as Button).text])
-                            if stage == "聊聊按钮" and ui.talk_btn.visible and r.intersects(ui.talk_btn.get_global_rect()):
-                                over_btn.append("%s 压「聊聊」按钮" % rb[0])
+                    var all_r: Array = []
+                    for lf2 in b.lives:
+                        for rb in bubble_rects(lf2):
+                            all_r.append(rb)
+                    n_bub += all_r.size()
+                    most = maxi(most, all_r.size())
+                    if stage == "对话框选项" and ui.talk_box.visible:
+                        n_dialog_frames += 1
+                        for lf2 in b.lives:
+                            leak += lf2.bubbles.size()
+                    for a in all_r.size():
+                        var r: Rect2 = all_r[a][1]
+                        if r.position.y < 0.0 or r.end.y > float(sz.y):
+                            out_of.append("%s %s 气泡 %s 上下出屏" % [sz, all_r[a][0], str(r)])
+                        elif r.position.x < 0.0 or r.end.x > float(sz.x):
+                            clipped_h += 1   # 说话的人离屏边近，气泡横着被切掉一截：世界里的气泡都这样，不算错，数个数记着
+                        for c2 in range(a + 1, all_r.size()):
+                            if r.intersects(all_r[c2][1]):
+                                over_bub.append("%s×%s" % [all_r[a][0], all_r[c2][0]])
+                        if stage == "对话框选项" and ui.talk_box.visible:
+                            if r.intersects(ui.talk_box.get_global_rect()):
+                                over_dialog.append("%s 压对话框" % all_r[a][0])
+                            if r.intersects(ui.name_plate.get_global_rect()):
+                                over_dialog.append("%s 压名字牌" % all_r[a][0])
+                            if ui.choices.visible:
+                                for ch in ui.choices.get_children():
+                                    if not ch.is_queued_for_deletion() and r.intersects((ch as Button).get_global_rect()):
+                                        over_btn.append("%s 压选项「%s」" % [all_r[a][0], (ch as Button).text])
+                        if stage == "聊聊按钮" and ui.talk_btn.visible and r.intersects(ui.talk_btn.get_global_rect()):
+                            over_btn.append("%s 压「聊聊」按钮" % all_r[a][0])
                 if ui.is_open():
                     ui.hide_all()
-        print("    %dx%d：量了 %d 个气泡样本；出屏 %d、压对话框 %d、压按钮 %d" % [sz.x, sz.y, n_bub, out_of.size(), over_dialog.size(), over_btn.size()])
-        for x in (out_of + over_dialog + over_btn).slice(0, 6):
+        print("    %dx%d：三间屋共量了 %d 个气泡样本（同时最多 %d 个）；上下出屏 %d（另有 %d 个样本横着被屏边切掉一截，说话的人在屏边）、两两叠 %d、压对话框 / 名字牌 %d、压按钮 %d；对话框开着的 %d 次采样里冒着的气泡共 %d" % [sz.x, sz.y, n_bub, most, out_of.size(), clipped_h, over_bub.size(), over_dialog.size(), over_btn.size(), n_dialog_frames, leak])
+        for x in (out_of + over_bub + over_dialog + over_btn).slice(0, 6):
             print("      ", x)
-        var known_btn := over_btn.filter(func(x): return str(x).begins_with("card_e 压选项「会一点」"))
-        var other_btn := over_btn.filter(func(x): return not str(x).begins_with("card_e 压选项「会一点」"))
-        check("%dx%d：气泡（说话的人在屏里的）整个在屏里（%d 处出屏）、不压对话框、名字牌（%d 处）、不压聊聊按钮和别的选项（%d 处）；已知：对大爷说话、选项开着时，打牌妹妹的气泡会从「会一点」底下露出来（这次 %d 个样本，每次跑 0～5 个，只守不超过 8）" % [sz.x, sz.y, out_of.size(), over_dialog.size(), other_btn.size(), known_btn.size()],
-            n_bub >= 40 and out_of.is_empty() and over_dialog.is_empty() and other_btn.is_empty() and known_btn.size() <= 8)   # 第 67 版现状；07 把冒泡字调大后要重量
+        check("%dx%d：三间屋的气泡（说话的人在屏里的）上下不出屏、两两不叠、不压对话框 / 名字牌 / 选项 / 聊聊按钮（%d 个样本，%d 处不对）" % [sz.x, sz.y, n_bub, out_of.size() + over_bub.size() + over_dialog.size() + over_btn.size()],
+            n_bub >= 60 and out_of.is_empty() and over_bub.is_empty() and over_dialog.is_empty() and over_btn.is_empty())
+        check("%dx%d：对话框开着的 %d 次采样里，三间屋一个气泡都没冒（%d）" % [sz.x, sz.y, n_dialog_frames, leak], n_dialog_frames >= 100 and leak == 0)
+    get_root().size = Vector2i(540, 960)
+
+    print("5 叠上了往上让")
+    for lf in b.lives:
+        lf.frozen = true
+        for id in lf.bubbles.keys():
+            lf._hide_bubble(id)
+    b.reset_to(Vector2(700, 640))
+    tick(2)
+    var lone_ok := true
+    for id in ["elder_n", "elder_s", "mj3_e"]:
+        mj.show_bubble(id, "你好")
+        if float(mj.bubbles[id].get_meta("lift", 0.0)) != 0.0:
+            lone_ok = false
+        mj._hide_bubble(id)
+    check("单独冒的气泡 lift 都是 0（没别的气泡时不往上挪）", lone_ok)
+    var pe: Dictionary = mj.people["elder_n"]
+    var pf: Dictionary = mj.people["elder_s"]
+    # 把两个人的头挪到一起，同时冒，看后冒的让不让、让多少
+    var old_head: Vector2 = pf["head"]
+    var old_head_n: Vector2 = pe["head"]
+    pe["head"] = Vector2(800, 520)   # 挪到屋子中间偏南，上面有地方让
+    pf["head"] = Vector2(820, 520)
+    mj.show_bubble("elder_n", "来来来站到看嘛")
+    mj.show_bubble("elder_s", "哟来看我们打牌啊")
+    var l1: float = float(mj.bubbles["elder_n"].get_meta("lift", 0.0))
+    var l2: float = float(mj.bubbles["elder_s"].get_meta("lift", 0.0))
+    var ra: Rect2 = mj.bubble_rect(mj.bubbles["elder_n"])
+    var rb2: Rect2 = mj.bubble_rect(mj.bubbles["elder_s"])
+    var hgt: float = ra.size.y
+    check("两个头挨着、同时冒：先冒的 lift %.0f（该 0）、后冒的 lift %.0f（> 0、≤ 气泡高 %.0f 的 3 倍）、让完不叠" % [l1, l2, hgt], l1 == 0.0 and l2 > 0.0 and l2 <= 3.0 * hgt and not ra.intersects(rb2))
+    mj._hide_bubble("elder_n")
+    mj._hide_bubble("elder_s")
+    pf["head"] = old_head
+    pe["head"] = old_head_n
+    for lf in b.lives:
+        lf.frozen = false
+
+    print("6 7 位的名字牌、头像、身份卡")
+    var AGE := {"LM-GUEST-10": "m_old", "LM-GUEST-06": "f_old", "LM-GUEST-02": "f", "LM-GUEST-08": "f", "LM-GUEST-03": "f"}   # 照 hall_life 里那张男女老少表
+    var WANT_KIND := {"大爷": "m_old", "孃孃": "f_old", "姐姐": "f", "妹妹": "f", "化妆师": "f"}
+    var face_bad: Array = []
+    for pr in talkers:
+        var lf = pr[0]
+        var id: String = pr[1]
+        var p: Dictionary = lf.people[id]
+        var code := str(p["code"])
+        var spr: Sprite2D = p["spr"]
+        b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
+        tick(2)
+        if ui.is_open():
+            ui.hide_all()
+        b.walking_enabled = true
+        lf.request_talk(id)
+        for i in int(30.0 / DT):
+            tick(1)
+            if ui.talk_box.visible:
+                break
+        await settle()
+        var title := str(ui.name_label.text)
+        ui.open_card(id)
+        var body = ui.card.find_child("full_body", true, false) if ui.card != null else null
+        var card_title := ""
+        if ui.card != null:
+            for ch in ui.card.find_children("*", "Label", true, false):
+                if str((ch as Label).text) == str(p["title"]):
+                    card_title = str((ch as Label).text)
+        if id == "bride":
+            var sd_code := ""
+            for n in b.cfg["npcs"]:
+                if str(n["id"]) == "bride":
+                    sd_code = str(n.get("standin", {}).get("code", ""))
+            if title != "新娘" or code != "" or ui.portrait.visible or body != null or card_title != "新娘":
+                face_bad.append("新娘：名字牌「%s」、code「%s」、头像可见 %s、身份卡图 %s、身份卡称呼「%s」" % [title, code, str(ui.portrait.visible), str(body != null), card_title])
+            if spr == null or not spr.visible or sd_code != "LM-GUEST-02" or spr.texture == null:
+                face_bad.append("新娘在场景里的样子变了（替身 %s、精灵 %s）" % [sd_code, str(spr)])
+        else:
+            var tex_ok := false
+            var ptex = ui.portrait.texture
+            if ptex is AtlasTexture and spr != null and spr.texture != null:
+                tex_ok = (ptex as AtlasTexture).atlas == spr.texture
+            var card_ok := false
+            if body is TextureRect and (body as TextureRect).texture is AtlasTexture and spr != null:
+                card_ok = ((body as TextureRect).texture as AtlasTexture).atlas == spr.texture
+            if title != str(p["title"]) or not ui.portrait.visible or not tex_ok or not card_ok or card_title != str(p["title"]):
+                face_bad.append("%s「%s」：名字牌「%s」、头像可见 %s、头像是场景里他那张图集 %s、身份卡图是 %s、身份卡称呼「%s」" % [id, str(p["title"]), title, str(ui.portrait.visible), str(tex_ok), str(card_ok), card_title])
+            var kind: String = str(AGE.get(code, "?"))
+            if WANT_KIND.has(str(p["title"])) and kind != str(WANT_KIND[str(p["title"])]):
+                face_bad.append("%s「%s」的图 %s 是 %s，称呼要的是 %s" % [id, str(p["title"]), code, kind, str(WANT_KIND[str(p["title"])])])
+        ui.close_card()
+        ui.close_talk()
+        tick(1)
+    for x in face_bad:
+        print("    ", x)
+    check("7 位：名字牌、头像、身份卡跟场景里的人对得上，新娘不放图、称呼不变、场景里的样子不动（%d 处不对）" % face_bad.size(), face_bad.is_empty())
+    # 提醒（不判）：同一张图被两个不同称呼用了
+    var used := {}
+    for pr in talkers:
+        var cd := str(pr[0].people[pr[1]]["code"])
+        if cd != "":
+            used[cd] = (used.get(cd, []) as Array) + [str(pr[0].people[pr[1]]["title"])]
+    for cd in used:
+        if (used[cd] as Array).size() > 1:
+            print("    注：%s 这张图被 %s 一起用了" % [cd, str(used[cd])])
+
+    print("7 字里没有「手气」「新娘子好乖」")
+    var hits: Array = []
+    var stack: Array = ["res://assets", "res://scripts", "res://data"]
+    while not stack.is_empty():
+        var dir: String = stack.pop_back()
+        for fn in DirAccess.get_files_at(dir):
+            if fn.get_extension() in ["json", "gd", "dialogue", "tres", "tscn", "md", "txt"]:
+                var txt := FileAccess.get_file_as_string(dir + "/" + fn)
+                if txt.find("手气") >= 0 or txt.find("新娘子好乖") >= 0:
+                    hits.append(dir + "/" + fn)
+        for dn in DirAccess.get_directories_at(dir):
+            stack.append(dir + "/" + dn)
+    check("assets、scripts、data 里的文字、脚本、台词文件都没有这两处（%d 个文件有：%s）" % [hits.size(), str(hits)], hits.is_empty())
     get_root().size = Vector2i(540, 960)
 
     DirAccess.remove_absolute("user://test_rlcheck_court.json")
