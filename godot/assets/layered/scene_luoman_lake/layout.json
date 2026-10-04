@@ -32,8 +32,8 @@
   {"type": "rect", "rect": [2096, 846, 2546, 888], "color": "#a3abbe"},
   {"type": "rect", "rect": [2248, 886, 2360, 1080], "color": "#a3abbe"},
   {"type": "rect", "rect": [1536, 817, 2136, 859], "color": "#a3abbe", "note": "往西小路（实际是一条微弯的带子，画在底图里）"},
-  {"type": "label", "text": "去后花园", "x": 2304, "y": 1092},
-  {"type": "label", "text": "去果园", "x": 768, "y": 1092}
+  {"type": "label", "text": "去后花园", "x": 2230, "y": 1092},
+  {"type": "label", "text": "去果园", "x": 694, "y": 1092}
  ],
  "items": [
   {"type": "box", "id": "wall_s_w1", "rect": [0, 1028, 702, 1040], "h": 100, "top": "#5a5f68", "front": "#f2efe6", "scale": {"h_m": 2.1, "name": "白墙灰瓦"}, "part": "LK-W01", "art": {"png": "layers/wall_gate_w.png", "x": 0, "y": 860, "w": 1536, "h": 200}, "note": "白墙、西头月亮门、花窗、红绸红灯笼是一张图（wall_gate_w.png），着地线 1040", "on_art": true},
