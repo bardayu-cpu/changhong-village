@@ -10,7 +10,8 @@
 过道都留 ≥ 72 像素（1.5 米，6 格）：03 报过原来首饰中岛两边只有一格宽、人站进去像站进衣架（回执 测-makeup01-02d.md 第三节）。
 人：原来化妆间的新娘、两位化妆师照旧（替身站位跟原来一样的相对位置）；多出来的座位、试衣的人放粉色色块（PERSON），不画新人。
 给 07 留的位置（进门招呼、递东西归 07）写在 stand_points：化妆师站哪、递东西在哪。
-用法：python3 godot/tools/layout_court/make_makeup_room.py [--tier=少|中|多]（不给是「中」）[--counts]
+阿鱼 10/4 在 02 窗口挑了「多」档（「喜欢最多的那个，最右边」），游戏里用「多」。
+用法：python3 godot/tools/layout_court/make_makeup_room.py [--tier=少|中|多]（不给是「多」）[--counts]
 """
 import json
 import os
@@ -178,7 +179,7 @@ def build(tier):
 
 
 def main():
-    tier = "中"
+    tier = "多"   # 阿鱼 10/4 挑定
     for a in sys.argv[1:]:
         if a.startswith("--tier="):
             tier = a.split("=", 1)[1]
