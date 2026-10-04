@@ -123,6 +123,11 @@ func run() -> void:
     # 10/4 化妆间单独成一间屋（02 E 补）：走廊化妆间门口 to_makeup 一进就换到新屋；这份测的是后厅里原来那间化妆室本身能不能走，
     # 先把门口这个口拿掉（只在这份测试里），照旧从门口往里走。新屋的进出、过道见 test_makeup_room
     b.points.erase("to_makeup")
+    # 10/4 原来那间封起来（02 F）：门洞加了一块挡人的占地 makeup_door。这份照旧测那间本身，把这块也拿掉（只在这份测试里）、重算走路格子
+    b.obstacles = b.obstacles.filter(func(o): return not (o.has("rect") and o["rect"] == [1323.0, 684.0, 1403.0, 696.0]))
+    b.cfg["walk_grid"] = b.compute_grid(b.cfg, b.obstacles, b.GRID_CELL, b.CLEAR)
+    b.nav.fill_solid_region(b.nav.region, false)   # _walk_grid 只把挡住的格子设成实心，不清旧的；先清掉，门洞那几格才通
+    b._walk_grid()
     b.walking_enabled = true
     var t_start := Time.get_ticks_msec()
 

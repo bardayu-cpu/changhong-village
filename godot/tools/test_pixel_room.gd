@@ -5,7 +5,7 @@ extends SceneTree
 ## 3 图是硬边（每个像素要么全透明要么不透明），整间加起来不超过 64 色
 ## 4 手机竖屏 540×960 下镜头是 1 倍（不缩到 0.9375，像素不会掉行）
 ## 5 lounge 那句还是【待补】：走进去不出按钮
-## 6 化妆间的人用定稿宾客当替身（新娘坐、两位化妆师站），位置照布局；换装点 dress、门口走得到
+## 6 化妆间的人用定稿宾客当替身（新娘坐、两位化妆师站），位置照布局；（10/4 起原来那间封起来：门洞挡上、铺那面墙）
 ## 用法：Godot --headless --path . --script res://tools/test_pixel_room.gd ；最后一行 RESULT PASS 才算过
 
 const CourtCopy = preload("res://scripts/court_copy.gd")
@@ -94,7 +94,7 @@ func run() -> void:
         var r: Array = it["rect"]
         var mid := Vector2((float(r[0]) + float(r[2])) * 0.5, (float(r[1]) + float(r[3])) * 0.5)
         check("%s 的占地 %s 人走不进去" % [id, r], not b._free(mid))
-    for id in ["lounge", "dress", "to_hall", "to_lawn"]:
+    for id in ["lounge", "to_makeup", "to_hall", "to_lawn"]:   # 10/4 原来那间化妆室封起来（02 F），dress 在里面走不到了，换成走廊里的化妆间门口
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
         check("%s 走得到" % id, not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(pt) <= float(b.points[id]["r"]))
@@ -150,10 +150,10 @@ func run() -> void:
     check("新娘、两位化妆师用定稿宾客的图当替身、站在布局写的地方（不对的 %s）" % [badp], badp.is_empty())
     var bride: Sprite2D = b.npc_nodes.get("bride")
     check("新娘坐着：只留上面 60 行，图底落在凳面 y 252", bride != null and bride.region_rect.size.y == 60.0 and is_equal_approx(bride.position.y + bride.offset.y + 60.0, 252.0))
-    var free_door := true
-    for y in [600, 620, 640, 660, 680]:
-        free_door = free_door and b._free(Vector2(1363, y))
-    check("门口往里一段（x 168，y 600～680）没堵", free_door)
+    # 10/4 原来那间化妆室封起来（02 F）：门洞挡上，走廊里看是一面墙一扇关着的门；门口 to_makeup 换进单独那间（test_makeup_room 测）
+    check("原来那间化妆室的门洞 (1363, 690) 挡上了", not b._free(Vector2(1363, 690)))
+    var door_wall: Array = (b.world.get_children() as Array).filter(func(n): return str(n.name) == "px_makeup_door_wall")
+    check("封起来的那面墙铺上了、着地线 696（走廊里的人在它前面）", door_wall.size() == 1 and (door_wall[0] as Node2D).position.y == 696.0)
     print("RESULT PASS" if ok else "RESULT FAIL")
     quit(0 if ok else 1)
 

@@ -1,6 +1,6 @@
 extends SceneTree
 ## 验收：罗曼山庄后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）。无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据。
-## 布局：六个交互点和蓝图一字不差、四个房门走得通、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室六个长辈坐着（展位 10/3）、厨房一个厨师、
+## 布局：六个交互点和蓝图一字不差、三个房门走得通（10/4 起原来那间化妆室封起来、门洞挡上）、门之间和房间之间是墙、房间之间只能从走廊绕；麻将室六个长辈坐着（展位 10/3）、厨房一个厨师、
 ## 展位（10/3）休息间两位喝茶的长辈和一件外套、化妆室衣架衣墙。进出：宴会厅东侧门 (1500,600,50) 进后厅站 (100,780)（蓝图 (50,780)，01 定挪开 1 米），
 ## 西口回宴会厅站 (1440,600)，两头都不来回弹，座位、金币、NPC 宾客都还在。四个房间：走进半径出按钮，话还是「【待补】」的不出按钮（01 E 10/3），塞了真话的点一下一句
 ## （话没定前不空着），再点关掉，走出去按钮和话都收。东口（厨房后门）去草坪（9/19 任务 8 起）。整条路 迎宾院 → 宴会厅 → 后厅 → 宴会厅 → 迎宾院
@@ -86,25 +86,34 @@ func run() -> void:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
     check("九个交互点坐标、半径照方案 C 平移后的位置一字不差（加了化妆间门口 to_makeup）", same)
     var doors := true
-    for dx in [168, 696, 1032, 1363]:
+    for dx in [168, 696, 1032]:
         doors = doors and b._free(Vector2(dx, 690))
-    check("四个房门 (168/696/1032/1363, 690) 走得通", doors)
+    check("三个房门 (168/696/1032, 690) 走得通", doors)
+    # 10/4 后厅长条里原来那间化妆室封起来（02 F）：门洞挡上（画的是关着的门），走到门口 to_makeup 换进单独那间化妆间
+    check("原来那间化妆室的门洞 (1363, 690) 挡上了", not b._free(Vector2(1363, 690)))
     var walls := true
     for p in [Vector2(60, 690), Vector2(400, 690), Vector2(860, 690), Vector2(1200, 690), Vector2(1480, 690),
             Vector2(528, 450), Vector2(864, 450), Vector2(1200, 450)]:
         walls = walls and not b._free(p)
     check("门之间的墙、房间之间的墙走不过去", walls)
-    var cross: Array = b.find_path(Vector2(1363, 450), Vector2(1032, 470))
+    var cross: Array = b.find_path(Vector2(696, 450), Vector2(1032, 470))
     var deepest := 0.0
     for p in cross:
         deepest = maxf(deepest, (p as Vector2).y)
-    check("化妆室到休息间要从走廊绕（最低走到 y %.0f）" % deepest, not cross.is_empty() and deepest > 696.0)
+    check("麻将室到休息间要从走廊绕（最低走到 y %.0f）" % deepest, not cross.is_empty() and deepest > 696.0)
+    var sealed: Array = b.find_path(b.SPAWN, Vector2(1363, 450))
+    var sealed_end: Vector2 = sealed[sealed.size() - 1] if not sealed.is_empty() else b.SPAWN
+    check("原来那间化妆室走不进去（往屋里 (1363,450) 走，最近停在 %s）" % sealed_end, not Rect2(1205, 226, 331, 458).has_point(sealed_end))
     check("到了站的点 %s 离东口 %.0f 像素（至少 48）" % [b.SPAWN, b.SPAWN.distance_to(b.points["to_hall"]["pos"])],
         b.SPAWN == Vector2(1436, 780) and b.SPAWN.distance_to(b.points["to_hall"]["pos"]) >= 48.0 and b._free(b.SPAWN))
     for id in b.points:
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
         var end: Vector2 = path[path.size() - 1] if not path.is_empty() else b.SPAWN
+        if id == "dress":
+            # 换装点在原来那间化妆室里，那间封了就走不到（话还是【待补】，本来就不出按钮；挪不挪进新屋 01 定）
+            check("dress 封在原来那间化妆室里，走不到（离点 %.1f）" % end.distance_to(pt), end.distance_to(pt) >= float(b.points[id]["r"]))
+            continue
         check("%s 走得到（离点 %.1f，半径 %.0f）" % [id, end.distance_to(pt), b.points[id]["r"]], end.distance_to(pt) < float(b.points[id]["r"]))
     var elders := 0
     var cooks := 0

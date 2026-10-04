@@ -89,6 +89,7 @@
   {"type": "box", "id": "front_3", "rect": [736, 684, 992, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
   {"type": "box", "id": "front_4", "rect": [1072, 684, 1323, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
   {"type": "box", "id": "front_5", "rect": [1403, 684, 1536, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
+  {"type": "box", "id": "makeup_door", "rect": [1323, 684, 1403, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}, "note": "10/4 原来那间化妆室封起来（02 F）：门洞挡上，走到门口 to_makeup 换进单独那间化妆间；画的是关着的红漆双开门（tools/pixel_art/backhall_makeup_door.py）"},
   {"type": "box", "id": "mk_closet_cn", "rect": [1207, 228, 1269, 242], "h": 98, "top": "#b04a3a", "front": "#7a2e24", "scale": {"name": "中式开放衣墙（上层绸缎帽盒、中间挂短褂、下层绣花鞋、挂两把团扇）", "w_m": 1.29, "d_m": 0.44, "h_m": 2.04}, "part": "BH-P15", "inst": "BH-P15-01", "clear": 6},
   {"type": "box", "id": "mk_vanity_1", "rect": [1273, 228, 1329, 246], "h": 36, "top": "#f4ead2", "front": "#c9b28f", "scale": {"name": "明星化妆台 1（连墙上灯泡镜）", "w_m": 1.17, "d_m": 0.56, "h_m": 0.75}, "part": "BH-T01", "inst": "BH-T01-01", "clear": 6},
   {"type": "box", "id": "mk_vanity_2", "rect": [1335, 228, 1391, 246], "h": 36, "top": "#f4ead2", "front": "#c9b28f", "scale": {"name": "明星化妆台 2（新娘这台）", "w_m": 1.17, "d_m": 0.56, "h_m": 0.75}, "part": "BH-T01", "inst": "BH-T01-02", "clear": 6},
@@ -236,7 +237,7 @@
   {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 1144, "y": 476, "r": 14}
  ],
  "stand_points_note": "以后玩法要站人的地方（休息间第三版，10/3）：只记点，代码不读、没有玩法；要做先写玩家说明给阿鱼点头",
- "pixel_art": ["res://assets/pixel_art/backhall_makeup/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong/room.json"],
+ "pixel_art": ["res://assets/pixel_art/backhall_makeup_door/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong/room.json"],
  "seats": [
   {"id": "sofa_l", "x": 1061, "y": 269, "seat_y": 252, "face": "down", "npc": "lounge_09"},
   {"id": "sofa_m", "x": 1094, "y": 269, "seat_y": 252, "face": "down"},

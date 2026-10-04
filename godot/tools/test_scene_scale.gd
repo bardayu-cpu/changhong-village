@@ -120,7 +120,8 @@ func run() -> void:
         for p in c.cfg["points"]:
             var at := Vector2(float(p["x"]), float(p["y"]))
             var path: Array = c.find_path(from, at)
-            if path.is_empty() or (path[path.size() - 1] as Vector2).distance_to(at) > float(p["r"]):
+            var sealed: bool = cn == "后厅" and str(p["id"]) == "dress"   # 10/4 原来那间化妆室封起来（02 F），换装点在里面
+            if not sealed and (path.is_empty() or (path[path.size() - 1] as Vector2).distance_to(at) > float(p["r"])):
                 miss.append(str(p["id"]))
             var body := Rect2(at.x - 18.0, at.y - 84.0, 36.0, 84.0)
             for t in trees:

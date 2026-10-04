@@ -15,7 +15,9 @@ const Ent = preload("res://scripts/entrance.gd")
 const CourtCopy = preload("res://scripts/court_copy.gd")
 const DT := 1.0 / 60.0
 ## 03 第 65 版量到的现状（口袋格数）：只守「不再多」。口袋 = 在走路范围多边形里、没被占地挡、却因为从出生点灌不到被圈掉的格子
-const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 38}   # lake：10/4 西半边接图（02 E）多 26 格，在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，截图核过
+const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 38}
+## 10/4 后厅原来那间化妆室封起来（02 F）：门洞挡上、本来就不让进，那间里的格子不算口袋
+const SEALED := {"backhall": Rect2(1205, 226, 331, 458)}   # lake：10/4 西半边接图（02 E）多 26 格，在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，截图核过
 const LAKE_KNOWN_LEFT := 31   # 10/4 西半边接图（02 E）多 4 格：西头月亮门门洞两边的门柱（x 726、810，y 1026～1038），图里是墙，跟东头那道门一样
 
 var m
@@ -128,6 +130,8 @@ func run() -> void:
                     if Geometry2D.is_point_in_polygon(p, pts):
                         inside = true
                         break
+                if inside and SEALED.has(k) and (SEALED[k] as Rect2).has_point(p):
+                    inside = false
                 if inside and not Ent._blocked(p.x, p.y, c.obstacles, Ent.CLEAR):
                     pockets += 1
                     if pk_cells.size() < 3:

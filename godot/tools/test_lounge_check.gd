@@ -123,6 +123,8 @@ func run() -> void:
     print("1 从两个进口走到每个点（摇杆）")
     var targets := {}
     for id in b.points:
+        if id == "dress":
+            continue   # 10/4 原来那间化妆室封起来（02 F），换装点在里面走不到
         targets[id] = (b.points[id]["pos"] as Vector2)
     targets["record_front"] = Vector2(952, 320)
     var from_pts := {"宴会厅口": Vector2(1436, 780), "草坪口": Vector2(100, 780)}

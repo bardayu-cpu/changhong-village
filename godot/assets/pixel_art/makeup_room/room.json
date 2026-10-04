@@ -1,0 +1,459 @@
+{
+ "note": "tools/pixel_art/room_makeup.py 生成，别手改。化妆间（单独成一间屋）照「多」档灰盒画的像素成品；背景左上角放在 background.x/y，1 倍、不插值；每件家具左上角在 x/y，着地线 foot（跟人排前后用）；hide 是要藏掉的灰盒（挡人的占地照旧，粉色「人」色块也藏）",
+ "background": {
+  "png": "res://assets/pixel_art/makeup_room/room.png",
+  "x": 0,
+  "y": 0
+ },
+ "room": {
+  "x0": 0,
+  "x1": 576
+ },
+ "props": [
+  {
+   "id": "px_closet_cn",
+   "png": "res://assets/pixel_art/makeup_room/props/closet_cn.png",
+   "x": 28,
+   "y": 97,
+   "foot": 210,
+   "hide": [
+    "closet_cn"
+   ]
+  },
+  {
+   "id": "px_closet_west",
+   "png": "res://assets/pixel_art/makeup_room/props/closet_west.png",
+   "x": 478,
+   "y": 97,
+   "foot": 210,
+   "hide": [
+    "closet_west"
+   ]
+  },
+  {
+   "id": "px_vanity_0",
+   "png": "res://assets/pixel_art/makeup_room/props/vanity_0.png",
+   "x": 101,
+   "y": 149,
+   "foot": 210,
+   "hide": [
+    "vanity_0",
+    "mirror_0"
+   ]
+  },
+  {
+   "id": "px_stool_0",
+   "png": "res://assets/pixel_art/makeup_room/props/stool_0.png",
+   "x": 121,
+   "y": 209,
+   "foot": 238,
+   "hide": [
+    "stool_0"
+   ]
+  },
+  {
+   "id": "px_vanity_1",
+   "png": "res://assets/pixel_art/makeup_room/props/vanity_1.png",
+   "x": 164,
+   "y": 149,
+   "foot": 210,
+   "hide": [
+    "vanity_1",
+    "mirror_1"
+   ]
+  },
+  {
+   "id": "px_stool_1",
+   "png": "res://assets/pixel_art/makeup_room/props/stool_1.png",
+   "x": 183,
+   "y": 209,
+   "foot": 238,
+   "hide": [
+    "stool_1"
+   ]
+  },
+  {
+   "id": "px_vanity_2",
+   "png": "res://assets/pixel_art/makeup_room/props/vanity_2.png",
+   "x": 225,
+   "y": 143,
+   "foot": 210,
+   "hide": [
+    "vanity_2",
+    "mirror_2"
+   ]
+  },
+  {
+   "id": "px_stool_2",
+   "png": "res://assets/pixel_art/makeup_room/props/stool_2.png",
+   "x": 245,
+   "y": 209,
+   "foot": 238,
+   "hide": [
+    "stool_2"
+   ]
+  },
+  {
+   "id": "px_vanity_3",
+   "png": "res://assets/pixel_art/makeup_room/props/vanity_3.png",
+   "x": 287,
+   "y": 149,
+   "foot": 210,
+   "hide": [
+    "vanity_3",
+    "mirror_3"
+   ]
+  },
+  {
+   "id": "px_stool_3",
+   "png": "res://assets/pixel_art/makeup_room/props/stool_3.png",
+   "x": 307,
+   "y": 209,
+   "foot": 238,
+   "hide": [
+    "stool_3"
+   ]
+  },
+  {
+   "id": "px_vanity_4",
+   "png": "res://assets/pixel_art/makeup_room/props/vanity_4.png",
+   "x": 350,
+   "y": 149,
+   "foot": 210,
+   "hide": [
+    "vanity_4",
+    "mirror_4"
+   ]
+  },
+  {
+   "id": "px_stool_4",
+   "png": "res://assets/pixel_art/makeup_room/props/stool_4.png",
+   "x": 369,
+   "y": 209,
+   "foot": 238,
+   "hide": [
+    "stool_4"
+   ]
+  },
+  {
+   "id": "px_vanity_5",
+   "png": "res://assets/pixel_art/makeup_room/props/vanity_5.png",
+   "x": 411,
+   "y": 143,
+   "foot": 210,
+   "hide": [
+    "vanity_5",
+    "mirror_5"
+   ]
+  },
+  {
+   "id": "px_stool_5",
+   "png": "res://assets/pixel_art/makeup_room/props/stool_5.png",
+   "x": 431,
+   "y": 209,
+   "foot": 238,
+   "hide": [
+    "stool_5"
+   ]
+  },
+  {
+   "id": "px_rack_cn_back_0",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_cn_back_0.png",
+   "x": 25,
+   "y": 236,
+   "foot": 330,
+   "hide": [
+    "rack_cn_back_0"
+   ]
+  },
+  {
+   "id": "px_rack_west_back_1",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_west_back_1.png",
+   "x": 327,
+   "y": 241,
+   "foot": 330,
+   "hide": [
+    "rack_west_back_1"
+   ]
+  },
+  {
+   "id": "px_rack_jp_back_2",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_jp_back_2.png",
+   "x": 25,
+   "y": 398,
+   "foot": 480,
+   "hide": [
+    "rack_jp_back_2"
+   ]
+  },
+  {
+   "id": "px_rack_ethnic_3",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_ethnic_3.png",
+   "x": 328,
+   "y": 404,
+   "foot": 480,
+   "hide": [
+    "rack_ethnic_3"
+   ]
+  },
+  {
+   "id": "px_rack_cn_back_4",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_cn_back_4.png",
+   "x": 25,
+   "y": 536,
+   "foot": 630,
+   "hide": [
+    "rack_cn_back_4"
+   ]
+  },
+  {
+   "id": "px_rack_west_back_5",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_west_back_5.png",
+   "x": 327,
+   "y": 541,
+   "foot": 630,
+   "hide": [
+    "rack_west_back_5"
+   ]
+  },
+  {
+   "id": "px_rack_jp_back_6",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_jp_back_6.png",
+   "x": 25,
+   "y": 698,
+   "foot": 780,
+   "hide": [
+    "rack_jp_back_6"
+   ]
+  },
+  {
+   "id": "px_rack_ethnic_7",
+   "png": "res://assets/pixel_art/makeup_room/props/rack_ethnic_7.png",
+   "x": 328,
+   "y": 704,
+   "foot": 780,
+   "hide": [
+    "rack_ethnic_7"
+   ]
+  },
+  {
+   "id": "px_island_0",
+   "png": "res://assets/pixel_art/makeup_room/props/island_0.png",
+   "x": 195,
+   "y": 351,
+   "foot": 420,
+   "hide": [
+    "island_0"
+   ]
+  },
+  {
+   "id": "px_island_1",
+   "png": "res://assets/pixel_art/makeup_room/props/island_1.png",
+   "x": 195,
+   "y": 511,
+   "foot": 580,
+   "hide": [
+    "island_1"
+   ]
+  },
+  {
+   "id": "px_island_2",
+   "png": "res://assets/pixel_art/makeup_room/props/island_2.png",
+   "x": 195,
+   "y": 671,
+   "foot": 740,
+   "hide": [
+    "island_2"
+   ]
+  },
+  {
+   "id": "px_gown_form_0",
+   "png": "res://assets/pixel_art/makeup_room/props/gown_form_0.png",
+   "x": 506,
+   "y": 247,
+   "foot": 330,
+   "hide": [
+    "gown_form_0"
+   ]
+  },
+  {
+   "id": "px_gown_form_1",
+   "png": "res://assets/pixel_art/makeup_room/props/gown_form_1.png",
+   "x": 506,
+   "y": 407,
+   "foot": 490,
+   "hide": [
+    "gown_form_1"
+   ]
+  },
+  {
+   "id": "px_gown_form_2",
+   "png": "res://assets/pixel_art/makeup_room/props/gown_form_2.png",
+   "x": 506,
+   "y": 567,
+   "foot": 650,
+   "hide": [
+    "gown_form_2"
+   ]
+  },
+  {
+   "id": "px_full_mirror_0",
+   "png": "res://assets/pixel_art/makeup_room/props/full_mirror_0.png",
+   "x": 507,
+   "y": 328,
+   "foot": 410,
+   "hide": [
+    "full_mirror_0"
+   ]
+  },
+  {
+   "id": "px_full_mirror_1",
+   "png": "res://assets/pixel_art/makeup_room/props/full_mirror_1.png",
+   "x": 507,
+   "y": 488,
+   "foot": 570,
+   "hide": [
+    "full_mirror_1"
+   ]
+  },
+  {
+   "id": "px_full_mirror_2",
+   "png": "res://assets/pixel_art/makeup_room/props/full_mirror_2.png",
+   "x": 507,
+   "y": 648,
+   "foot": 730,
+   "hide": [
+    "full_mirror_2"
+   ]
+  },
+  {
+   "id": "px_crown_stand",
+   "png": "res://assets/pixel_art/makeup_room/props/crown_stand.png",
+   "x": 512,
+   "y": 713,
+   "foot": 790,
+   "hide": [
+    "crown_stand"
+   ]
+  },
+  {
+   "id": "px_silver_crown",
+   "png": "res://assets/pixel_art/makeup_room/props/silver_crown.png",
+   "x": 216,
+   "y": 760,
+   "foot": 846,
+   "hide": [
+    "silver_crown"
+   ]
+  },
+  {
+   "id": "px_sofa_0",
+   "png": "res://assets/pixel_art/makeup_room/props/sofa_0.png",
+   "x": 39,
+   "y": 817,
+   "foot": 900,
+   "hide": [
+    "sofa_0"
+   ]
+  },
+  {
+   "id": "px_sofa_1",
+   "png": "res://assets/pixel_art/makeup_room/props/sofa_1.png",
+   "x": 463,
+   "y": 817,
+   "foot": 900,
+   "hide": [
+    "sofa_1"
+   ]
+  },
+  {
+   "id": "px_screen",
+   "png": "res://assets/pixel_art/makeup_room/props/screen.png",
+   "x": 139,
+   "y": 756,
+   "foot": 846,
+   "hide": [
+    "screen"
+   ]
+  },
+  {
+   "id": "px_shoes",
+   "png": "res://assets/pixel_art/makeup_room/props/shoes.png",
+   "x": 371,
+   "y": 792,
+   "foot": 850,
+   "hide": [
+    "shoes"
+   ]
+  },
+  {
+   "id": "px_pouf",
+   "png": "res://assets/pixel_art/makeup_room/props/pouf.png",
+   "x": 383,
+   "y": 864,
+   "foot": 892,
+   "hide": [
+    "pouf"
+   ]
+  },
+  {
+   "id": "px_gifts",
+   "png": "res://assets/pixel_art/makeup_room/props/gifts.png",
+   "x": 139,
+   "y": 886,
+   "foot": 936,
+   "hide": [
+    "gifts"
+   ]
+  },
+  {
+   "id": "px_trunk",
+   "png": "res://assets/pixel_art/makeup_room/props/trunk.png",
+   "x": 379,
+   "y": 893,
+   "foot": 936,
+   "hide": [
+    "trunk"
+   ]
+  },
+  {
+   "id": "px_flowers_w",
+   "png": "res://assets/pixel_art/makeup_room/props/flowers_w.png",
+   "x": 224,
+   "y": 884,
+   "foot": 950,
+   "hide": [
+    "flowers_w"
+   ]
+  },
+  {
+   "id": "px_flowers_e",
+   "png": "res://assets/pixel_art/makeup_room/props/flowers_e.png",
+   "x": 324,
+   "y": 884,
+   "foot": 950,
+   "hide": [
+    "flowers_e"
+   ]
+  },
+  {
+   "id": "px_walls",
+   "png": "res://assets/pixel_art/makeup_room/props/walls.png",
+   "x": 14,
+   "y": 67,
+   "foot": 974,
+   "hide": [
+    "wall_s_0",
+    "wall_s_1",
+    "person_0",
+    "person_1",
+    "person_2",
+    "person_3",
+    "person_4",
+    "person_5",
+    "person_6",
+    "person_7"
+   ]
+  }
+ ]
+}

@@ -15,7 +15,9 @@ const MAX_LEG := 240.0
 const CANVASES := ["plaza", "court", "lawn", "backhall", "parking", "lake"]
 const MJ := Rect2(672, 226, 336, 458)
 ## 03 测第 57 版时已报给 01 的已知现状（回执 测-build57.md）：这些圈掉的格子数、走不到跟前的件不算新问题，只守「不再多」
-const KNOWN_POCKETS := {"lawn": 6, "backhall": 84, "lake": 38, "court": 0, "plaza": 0}   # lake：10/4 西半边也接图后 38 格——多出来的 26 格在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，02 E 截图核过；原来：10/4 东头换像素成品，花丛围出的小块草地（02 E 记的 12 格）
+const KNOWN_POCKETS := {"lawn": 6, "backhall": 36, "lake": 38, "court": 0, "plaza": 0}   # backhall：10/4 原来那间化妆室封起来（02 F），那间整间不算（见 SEALED），剩下的就是北墙脚两条各 18 格
+## 封起来的屋子：走路范围里还圈着，但门洞挡上了、本来就不让进，里面的格子不算「圈掉」，里面的交互点不算「走不到」
+const SEALED := {"backhall": {"rect": Rect2(1205, 226, 331, 458), "points": ["dress"]}}   # lake：10/4 西半边也接图后 38 格——多出来的 26 格在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，02 E 截图核过；原来：10/4 东头换像素成品，花丛围出的小块草地（02 E 记的 12 格）
 const KNOWN_NO_FRONT := ["mj2_chair_n", "mj_stand_2"]
 
 var m
@@ -170,6 +172,8 @@ func run() -> void:
                 for pts in polys:
                     if Geometry2D.is_point_in_polygon(cp, pts):
                         inside = true
+                if inside and SEALED.has(cn) and (SEALED[cn]["rect"] as Rect2).has_point(cp):
+                    inside = false
                 if inside and not Ent._blocked(cp.x, cp.y, cv.obstacles, Ent.CLEAR):
                     pockets.append(cp)
         print("  能站的格子 %d 个（每格 %d）；走路范围里没被占地挡、却被圈掉的 %d 格 %s" % [free_n, int(cv.cell), pockets.size(), str(pockets.slice(0, 5))])
@@ -232,6 +236,8 @@ func run() -> void:
         check("%s 从每个出入口走到每个能站的点、抽样走得回来" % cn, bad == 0)
         var bad2 := 0
         for id in cv.points:
+            if SEALED.has(cn) and id in SEALED[cn]["points"]:
+                continue
             var pt: Vector2 = cv.points[id]["pos"]
             for sk in starts:
                 var sp: Vector2 = starts[sk]

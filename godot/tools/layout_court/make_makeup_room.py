@@ -174,6 +174,8 @@ def build(tier):
         "npcs": npcs,
         "stand_points": stands,
         "stand_points_note": "给 07 留的位置（进门招呼、递东西那件小事、冒泡对话归 07）：化妆师 1、2 站哪，玩家递东西站哪。只记点，代码不读",
+        # 10/4 照「多」档灰盒用代码画好的像素成品（tools/pixel_art/room_makeup.py，02 F）：铺上以后灰盒色块藏掉（挡人的占地照旧），粉色「人」色块也藏
+        "pixel_art": ["res://assets/pixel_art/makeup_room/room.json"] if tier == "多" else [],
     }
     return d, counts
 
