@@ -159,6 +159,8 @@ func run() -> void:
             var raw := str(l.get_meta("sign"))
             var t := (l as Label).text
             var center: Vector2 = (l as Label).position + (l as Label).size * 0.5
+            if l.has_meta("home"):
+                center.x = float(l.get_meta("home")) + (l as Label).size.x * 0.5   # 离开屏幕时游戏会把牌子临时往屏幕里收，按原位置核
             var target: Vector2 = c.sign_target(raw, center)
             var want: String = c.edge_of(target) if target != Vector2.ZERO else ""
             var a: String = {"up": "↑", "down": "↓", "left": "←", "right": "→"}.get(want, "?")
@@ -166,11 +168,19 @@ func run() -> void:
             var r := Rect2((l as Label).position, (l as Label).size)
             if not Rect2(0, 0, float(sz[0]), float(sz[1])).encloses(r):
                 good = false
+            # 照箭头直走能到口（第 68 版小修，04：「去小卖部 ↓」往下走是绿篱）：口在牌子的箭头那边（往前 > 0），横着偏不超过 60 像素（口宽 72 上下）
+            var dv: Vector2 = {"up": Vector2(0, -1), "down": Vector2(0, 1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}.get(want, Vector2.ZERO)
+            var dd: Vector2 = target - center
+            var along: float = dd.dot(dv)
+            var lat: float = absf(dd.x * dv.y - dd.y * dv.x)
+            if along <= 0.0 or lat > 60.0:
+                good = false
+                t += "（往前 %.0f、横偏 %.0f）" % [along, lat]
             if not good:
                 bad.append("%s「%s」（口 %s 朝 %s）" % [k, t, str(target), want])
     for b in bad:
         print("    ", b)
-    check("十四块 %d 块「去…」「回…」牌都加了箭头、方向跟口一致、位置对（前/后）、都在画布里（不对 %d 块）" % [n, bad.size()], n >= 50 and bad.is_empty())
+    check("十四块 %d 块「去…」「回…」牌都加了箭头、方向跟口一致、位置对（前/后）、都在画布里、照箭头直走能到口（横偏 ≤ 60）（不对 %d 块）" % [n, bad.size()], n >= 50 and bad.is_empty())
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_drive68_games.json")

@@ -103,6 +103,8 @@ func _leg(cn: String, route: Array, _extra: Array) -> void:
     var c = m.cv
     c.walking_enabled = false
     c.player.visible = false
+    if c.get("labels") != null:
+        c.labels.visible = false   # 开车时路牌先藏（04 看第 68 版：车压住「去前门 ↓」），跟走路提示、摇杆一样，下车再出
     c.reset_to(route[0])
     _make_car(c)
     await m._fade_to(0.0)
@@ -125,6 +127,8 @@ func _leg(cn: String, route: Array, _extra: Array) -> void:
         _place_car(c, to - from)
         await get_tree().process_frame
     c.player.visible = true
+    if c.get("labels") != null:
+        c.labels.visible = true
     _clear_car()
 
 func _make_car(c) -> void:

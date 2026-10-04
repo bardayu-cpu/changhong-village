@@ -488,9 +488,8 @@ func _inward(p: Vector2) -> Vector2:
             best = k
     return p + best * 70.0
 
-## 「去…」牌子别盖住站在口上、落点上、出生点上的人（03 测第 60、61 版报的 9 处，01 G 定这件里改）：
-## 牌子跟人身子（宽 32、高 84）叠上了，就把牌子挪到那人头顶上面；挪到画布顶还叠，就挪到人右边
-func _keep_signs_off_people() -> void:
+## 会站人的地方：出生点、每个口上、从口进来站的点、布局里的 from_*
+func _people_spots() -> Array:
     var spots: Array = [SPAWN]
     for id in points:
         if str(points[id]["to"]) != "":
@@ -499,6 +498,19 @@ func _keep_signs_off_people() -> void:
     for k in cfg:
         if str(k).begins_with("from_"):
             spots.append(Vector2(float(cfg[k][0]), float(cfg[k][1])))
+    return spots
+
+## 这块牌子会不会盖住站人的地方（人身子按 40×90 算，比 _keep_signs_off_people 的 32×84 宽一点，跟 03 的测试一样）
+func _covers_people(r: Rect2) -> bool:
+    for s in _people_spots():
+        if r.intersects(Rect2((s as Vector2).x - 20.0, (s as Vector2).y - 90.0, 40.0, 90.0)):
+            return true
+    return false
+
+## 「去…」牌子别盖住站在口上、落点上、出生点上的人（03 测第 60、61 版报的 9 处，01 G 定这件里改）：
+## 牌子跟人身子（宽 32、高 84）叠上了，就把牌子挪到那人头顶上面；挪到画布顶还叠，就挪到人右边
+func _keep_signs_off_people() -> void:
+    var spots: Array = _people_spots()
     for l in labels.get_children():
         if not l is Control:
             continue
@@ -761,9 +773,18 @@ static func arrow_text(text: String, dir: String) -> String:
         return text
     return a + " " + text if dir == "up" or dir == "left" else text + " " + a
 
+## 牌子摆哪（第 68 版小修，04：「去小卖部 ↓」往下走是绿篱，口其实在左边；01：阿鱼最在意箭头指得准）：照箭头直走就到口——
+##   上下的口：牌子在口正前方，往画布里 SIGN_AHEAD（在从口进来站的人头顶外头，不盖人）；左右的口：牌子在口那条线紧下面一点、往里 SIGN_SIDE_IN；
+##   同一个口有两块牌（迎宾院大门：「大门」「去停车场」）依次往里排。布局里写的牌子位置只用来认是哪块牌，摆位照这个规矩算
+const SIGN_AHEAD := 180.0
+const SIGN_SIDE_IN := 74.0
+const SIGN_SIDE_DOWN := 34.0
+const DIR_V := {"up": Vector2(0, -1), "down": Vector2(0, 1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}
+
 func _arrow_signs() -> void:
     if labels == null:
         return
+    var used := {}
     for l in labels.get_children():
         if not l is Label or not l.has_meta("sign"):
             continue
@@ -774,7 +795,27 @@ func _arrow_signs() -> void:
         var dir := edge_of(target)
         l.text = arrow_text(str(l.get_meta("sign")), dir)
         l.set_meta("dir", dir)
+        l.set_meta("target", target)
         l.size = l.get_combined_minimum_size()
+        var inward: Vector2 = -(DIR_V[dir] as Vector2)
+        var n: int = int(used.get(target, 0))
+        used[target] = n + 1
+        if dir == "up" or dir == "down":
+            center = target + inward * (SIGN_AHEAD + float(n) * (l.size.y + 6.0))
+        else:
+            # 左右的口：先试口那条线下面；那儿站着人（草坪去西餐厨房，进来站的点写在口下面）就挂到线上面
+            # 再不行往画布里多挪一截（口上、落点上都站着人，牌子宽，横着躲开）
+            var off: float = SIGN_SIDE_DOWN + float(n) * (l.size.y + 6.0)
+            var tries: Array = []
+            for extra in [0.0, 60.0, 120.0]:
+                var inx: float = SIGN_SIDE_IN + l.size.x * 0.5 - 40.0 + extra
+                tries.append(target + inward * inx + Vector2(0, off))
+                tries.append(target + inward * inx - Vector2(0, off))
+            center = tries[0]
+            for tc in tries:
+                if not _covers_people(Rect2((tc as Vector2) - l.size * 0.5, l.size)):
+                    center = tc
+                    break
         l.position = center - l.size * 0.5
         # 加了箭头牌子变宽：贴着画布边的（后厅「回宴会厅」）往里收，别出画布
         var sz: Array = cfg["size"]

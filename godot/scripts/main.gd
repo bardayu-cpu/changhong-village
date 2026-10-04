@@ -45,6 +45,7 @@ const Parking = preload("res://scripts/parking.gd")
 const Plaza = preload("res://scripts/plaza.gd")
 const Area = preload("res://scripts/area.gd")
 const DriveIn = preload("res://scripts/drive_in.gd")
+const EstateMap = preload("res://scripts/estate_map.gd")
 ## 连图（10/4，01 G 派）新加的几块灰盒，都是 area.gd，布局 tools/layout_court/make_areas.py 出
 const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate"]
 const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
@@ -70,6 +71,8 @@ var parking                     # 停车场和大门（parking.gd，10/3）：�
 var plaza                       # 喷泉广场（plaza.gd，10/4 新总图第 ② 步）：山庄正中，通迎宾院、草坪、后厅，北边三个口待做
 var areas: Dictionary = {}      # 连图新加的几块（AREA_IDS -> area.gd）
 var drive                       # 进山庄自动开车（drive_in.gd，10/4 连图）
+var estate_map                  # 左上角全景地图、点一块传送过去（estate_map.gd，10/4 蓝图第 22 条，07）
+var teleport_at := Vector2.ZERO # 地图传送：到了那块站哪（_switch_canvas 照各块原来的站法摆完，再挪到这；用完清）
 var driving := false            # 正在自动开车：各块的口、走进去说的话都不算，点屏幕是跳过
 var drive_in_fast := false      # 测试用：fast 模式下也真开一趟（默认 fast 直接到停车场下车）
 var orchard_save                # 果园存在本机的：今天摘过没有（orchard_save.gd）
@@ -656,6 +659,8 @@ func _process(dt: float) -> void:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
         orchard_ui.sync()   # 人站着不动地也在长：按钮上「几垄熟了」跟着变
+    if estate_map != null:
+        estate_map.sync()   # 名字牌上的传送门图标：签过到才出
     if driving and hint != null:
         hint.visible = false   # 04 看第 65 版：自动开车的时候「点地面走路」先不出，停好车下车再出（_enter_parking 照旧打开）
     if stick_base != null:
@@ -1045,8 +1050,14 @@ func _build_hud() -> void:
     top_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
     hud.add_child(top_row)
     var chip := PanelContainer.new()
+    chip.name = "place_chip"
     chip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
-    chip.add_child(_label("● 罗曼山庄", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
+    var chip_row := HBoxContainer.new()   # 地名 + 签到以后多一个传送门小图标（estate_map.gd 加），点名字牌开全景地图
+    chip_row.name = "row"
+    chip_row.add_theme_constant_override("separation", 8)
+    chip_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    chip.add_child(chip_row)
+    chip_row.add_child(_label("● 罗曼山庄", 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
     top_row.add_child(chip)
     var cchip := PanelContainer.new()
     cchip.name = "coins_chip"
@@ -1054,6 +1065,11 @@ func _build_hud() -> void:
     coins_chip = _label("0 金", 24, GOLD1, HORIZONTAL_ALIGNMENT_RIGHT, false)
     cchip.add_child(coins_chip)
     top_row.add_child(cchip)
+    # 全景地图（10/4 蓝图第 22 条，07；阿鱼：「快捷切换地图的入口放到罗曼山庄几个字里边，加一个传送门的 icon 就行了」）：
+    # 签到以后「罗曼山庄」名字牌里多一个传送门小图标，点名字牌打开；签到前照旧只有名字、点了没反应。地图那层盖在所有界面上面
+    estate_map = EstateMap.new()
+    ui.add_child(estate_map)
+    estate_map.setup(self, chip)
     # 摇杆：原来是白 8% 的底、金边，在迎宾院这种浅色地上量到 1.02:1，几乎看不见（体验五.1）。
     # 改成深色半透明底 + 亮金边：浅地上靠深底看得见，深地上靠金边看得见
     stick_base = _ring(STICK_R * 2.0, Color(0.08, 0.06, 0.1, 0.32), Color(GOLD1, 0.9))
@@ -1826,6 +1842,9 @@ func _switch_canvas(to: String) -> void:
             court_save.court_seen = true   # 进过一次迎宾院：停车场指大门的箭头不再出，再开游戏也不从停车场出生
             court_save.save()
             arrive_line = true
+    if teleport_at != Vector2.ZERO:
+        cv.reset_to(teleport_at)   # 地图传送：各块照原来的站法摆完（进厅拿席位、记进过这些照旧），再挪到地图挑的门口
+        teleport_at = Vector2.ZERO
     cv.face = keep_face
     print("[suqi] 换画布 到 ", to)
     await _fade_to(0.0)
@@ -1834,6 +1853,13 @@ func _switch_canvas(to: String) -> void:
     if arrive_line:
         arrive_line = false
         _say(LINE_ARRIVE)   # 第一次从停车场走进山庄（原来开场在迎宾院大门口说的那句）
+
+## 地图传送（10/4 蓝图第 22 条，07）：跟走口子一样淡出淡入换画布，到了站 at（ZERO = 照那块原来的站法，宴会厅就是厅门口）
+func teleport_to(to: String, at: Vector2) -> void:
+    if to == state or not _in_scene():
+        return
+    teleport_at = at
+    await _switch_canvas(to)
 
 ## 进宴会厅要做的网上的事：心跳重新对表；资料存过了就直接进厅拿席位，没存上（刚才断网）先补存一次
 func _enter_hall_net() -> void:

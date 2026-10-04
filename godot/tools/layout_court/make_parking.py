@@ -119,7 +119,8 @@ def main():
     flat.append({"type": "label", "text": "去后花园", "x": GATE_OPEN[0] - 70, "y": GATE_Y[1] + 30})
     flat.append({"type": "label", "text": "去迎宾院", "x": COURT_OPEN[1] + 70, "y": GATE_Y[1] + 30})
     # ---- 公共洗手间、垃圾杂物处：停车场南边两间小屋（01 定：看得见、门口挂牌、走近说一句，不进去）
-    for (hid, name, x0, col) in (("toilet", "公共洗手间", 380, ("#d8e4ea", "#a8b8c2")), ("trash", "垃圾杂物处", 120, ("#c8c0b0", "#988e7c"))):
+    # 第 68 版小修（04：下车时右下「点地面走路」提示框压着「公共洗手间」牌）：两间小屋挪到新放大那片的南边（游戏里在西南），从自己车旁下车那一屏看不到
+    for (hid, name, x0, col) in (("toilet", "公共洗手间", 796, ("#d8e4ea", "#a8b8c2")), ("trash", "垃圾杂物处", 1016, ("#c8c0b0", "#988e7c"))):
         items.append(box("house_" + hid, [x0, H - 150, x0 + 192, H - 110], 144, col[0], col[1],
                          scale={"w_m": 4.0, "h_m": 3.0, "name": name + "小屋"}, part="PK-P09"))
         signs.append({"text": name, "x": x0 + 96, "y": H - 236, "foot": H - 109})
@@ -163,8 +164,8 @@ def main():
              "arrive": [(COURT_OPEN[0] + COURT_OPEN[1]) // 2, GATE_Y[1] + 90]},
             {"id": "my_car", "x": mine_x, "y": mine_y, "r": 46},
         ] + [{"id": "to_" + to, "x": W - 36, "y": y, "r": 44, "to": to} for (y, to) in EAST_EXITS] + [
-            {"id": "toilet", "x": 476, "y": H - 80, "r": 50, "say": "toilet_wip"},     # 方案 C 翻完洗手间在西、杂物处在东（阿鱼图）
-            {"id": "trash", "x": 216, "y": H - 80, "r": 50, "say": "trash_wip"},
+            {"id": "toilet", "x": 892, "y": H - 80, "r": 50, "say": "toilet_wip"},     # 第 68 版小修挪到新放大那片南边（翻完：洗手间靠路、杂物处靠西）
+            {"id": "trash", "x": 1112, "y": H - 80, "r": 50, "say": "trash_wip"},
         ],
         "shop_reserved": {"rect": SHOP, "note": "玩家说明第 5 节小卖部，下一件再做；先在地上留这块，不挡人"},
         "walk": [[[40, GATE_Y[1] + 4], [W - 60, GATE_Y[1] + 4], [W - 60, H - 8], [40, H - 8]],

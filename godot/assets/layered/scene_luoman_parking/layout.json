@@ -12,8 +12,8 @@
   {"id": "my_car", "x": 823, "y": 946, "r": 46},
   {"id": "to_plaza", "x": 36, "y": 846, "r": 44, "to": "plaza"},
   {"id": "to_frontgate", "x": 36, "y": 1180, "r": 44, "to": "frontgate"},
-  {"id": "toilet", "x": 932, "y": 1280, "r": 50, "say": "toilet_wip"},
-  {"id": "trash", "x": 1192, "y": 1280, "r": 50, "say": "trash_wip"}
+  {"id": "toilet", "x": 516, "y": 1280, "r": 50, "say": "toilet_wip"},
+  {"id": "trash", "x": 296, "y": 1280, "r": 50, "say": "trash_wip"}
  ],
  "shop_reserved": {"rect": [1108, 270, 1356, 330], "note": "玩家说明第 5 节小卖部，下一件再做；先在地上留这块，不挡人"},
  "walk": [[[1368, 256], [60, 256], [60, 1352], [1368, 1352]], [[792, 4], [644, 4], [644, 262], [792, 262]], [[364, 4], [216, 4], [216, 262], [364, 262]], [[64, 814], [4, 814], [4, 878], [64, 878]], [[64, 1148], [4, 1148], [4, 1212], [64, 1212]]],
@@ -83,8 +83,8 @@
   {"type": "box", "id": "post_garden_e", "rect": [608, 232, 640, 252], "h": 96, "top": "#b89a70", "front": "#987a52", "part": "PK-W01"},
   {"type": "box", "id": "post_court_w", "rect": [368, 232, 400, 252], "h": 96, "top": "#b89a70", "front": "#987a52", "part": "PK-W01"},
   {"type": "box", "id": "post_court_e", "rect": [180, 232, 212, 252], "h": 96, "top": "#b89a70", "front": "#987a52", "part": "PK-W01"},
-  {"type": "box", "id": "house_toilet", "rect": [836, 1210, 1028, 1250], "h": 144, "top": "#d8e4ea", "front": "#a8b8c2", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "公共洗手间小屋"}, "part": "PK-P09"},
-  {"type": "box", "id": "house_trash", "rect": [1096, 1210, 1288, 1250], "h": 144, "top": "#c8c0b0", "front": "#988e7c", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "垃圾杂物处小屋"}, "part": "PK-P09"},
+  {"type": "box", "id": "house_toilet", "rect": [420, 1210, 612, 1250], "h": 144, "top": "#d8e4ea", "front": "#a8b8c2", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "公共洗手间小屋"}, "part": "PK-P09"},
+  {"type": "box", "id": "house_trash", "rect": [200, 1210, 392, 1250], "h": 144, "top": "#c8c0b0", "front": "#988e7c", "scale": {"w_m": 4.0, "h_m": 3.0, "name": "垃圾杂物处小屋"}, "part": "PK-P09"},
   {"type": "box", "id": "car_a", "rect": [1204, 295, 1291, 445], "h": 70, "top": "#b8bcc4", "front": "#8c9099", "scale": {"w_m": 1.82, "d_m": 4.7, "h_m": 1.46, "name": "别的客人的车（银）"}, "part": "PK-P07", "inst": "PK-P07-01"},
   {"type": "box", "id": "car_e", "rect": [1085, 300, 1170, 441], "h": 74, "top": "#3e6650", "front": "#2a4a38", "scale": {"w_m": 1.78, "d_m": 4.4, "h_m": 1.55, "name": "别的客人的车（墨绿）"}, "part": "PK-P07", "inst": "PK-P07-02"},
   {"type": "box", "id": "car_brz", "rect": [845, 302, 930, 438], "h": 63, "top": "#3f6fc0", "front": "#2b5196", "scale": {"w_m": 1.78, "d_m": 4.26, "h_m": 1.31, "name": "蓝色斯巴鲁 BRZ"}, "part": "PK-P02", "inst": "PK-P02-01"},
@@ -101,8 +101,8 @@
   {"type": "box", "id": "car_mine", "rect": [845, 873, 931, 1020], "h": 71, "top": "#c0392b", "front": "#8c2a20", "scale": {"w_m": 1.8, "d_m": 4.6, "h_m": 1.48, "name": "自己的车"}, "part": "PK-P05", "inst": "PK-P05-01"}
  ],
  "signs": [
-  {"text": "公共洗手间", "x": 932, "y": 1124, "foot": 1251},
-  {"text": "垃圾杂物处", "x": 1192, "y": 1124, "foot": 1251}
+  {"text": "公共洗手间", "x": 516, "y": 1124, "foot": 1251},
+  {"text": "垃圾杂物处", "x": 296, "y": 1124, "foot": 1251}
  ],
  "npcs": []
 }
