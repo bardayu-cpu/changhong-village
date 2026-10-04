@@ -163,6 +163,9 @@ func run() -> void:
                 center.x = float(l.get_meta("home")) + (l as Label).size.x * 0.5   # 离开屏幕时游戏会把牌子临时往屏幕里收，按原位置核
             var target: Vector2 = c.sign_target(raw, center)
             var want: String = c.edge_of(target) if target != Vector2.ZERO else ""
+            # 沿小路的牌（第 69 版收尾：果园南边两个口正前方直走不过去，牌挂在口边那条横着的小路上，箭头指沿小路走的方向）：方向认它自己的箭头，下面照样核直走能进口
+            if l.has_meta("along_path"):
+                want = str(l.get_meta("dir"))
             var a: String = {"up": "↑", "down": "↓", "left": "←", "right": "→"}.get(want, "?")
             var good: bool = want != "" and (t == a + " " + raw if want in ["up", "left"] else t == raw + " " + a)
             var r := Rect2((l as Label).position, (l as Label).size)
@@ -173,7 +176,7 @@ func run() -> void:
             var dd: Vector2 = target - center
             var along: float = dd.dot(dv)
             var lat: float = absf(dd.x * dv.y - dd.y * dv.x)
-            if along <= 0.0 or lat > 60.0:
+            if along <= 0.0 or lat > 60.0 or not c._walks_to(center, dv, target, c._exit_r(target)):
                 good = false
                 t += "（往前 %.0f、横偏 %.0f）" % [along, lat]
             if not good:
@@ -192,7 +195,7 @@ func run() -> void:
                     bad.append("%s「%s」跟「%s」叠了" % [k, rs[i][0], rs[j][0]])
     for b in bad:
         print("    ", b)
-    check("十四块 %d 块「去…」「回…」牌都加了箭头、方向跟口一致、位置对（前/后）、都在画布里、照箭头直走能到口（横偏 ≤ 60）、同一块里不互相叠（不对 %d 块）" % [n, bad.size()], n >= 50 and bad.is_empty())
+    check("十四块 %d 块「去…」「回…」牌都加了箭头、方向跟口一致、位置对（前/后）、都在画布里、照箭头直走真能走进口（横偏 ≤ 60、路上不撞）、同一块里不互相叠（不对 %d 块）" % [n, bad.size()], n >= 50 and bad.is_empty())
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_drive68_games.json")

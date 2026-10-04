@@ -6,7 +6,7 @@
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [768, 632],
  "points": [
-  {"id": "to_plaza", "x": 768, "y": 36, "r": 44, "to": "plaza"},
+  {"id": "to_plaza", "x": 768, "y": 36, "r": 44, "to": "plaza", "arrive": [864, 124]},
   {"id": "to_rest2", "x": 36, "y": 536, "r": 44, "to": "rest2"},
   {"id": "to_parking", "x": 1500, "y": 536, "r": 44, "to": "parking"},
   {"id": "out", "x": 768, "y": 984, "r": 50, "say": "frontgate_out"}

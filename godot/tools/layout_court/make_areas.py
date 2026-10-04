@@ -58,6 +58,9 @@ def area(key, title, size, ground, wall, exits, items, extra_points=(), extra_fl
         walk.append([[r[0] + 2, r[1] + 2], [r[2] - 2, r[1] + 2], [r[2] - 2, r[3] - 2], [r[0] + 2, r[3] - 2]])
         gaps[side].append((at - STUB, at + STUB))
         p = {"id": "to_" + to, "x": pt[0], "y": pt[1], "r": 44, "to": to}
+        if side == "N" and abs(at - W // 2) < 40 and any(abs(float(sg["x"]) - at) < 80 for sg in signs):
+            # 北口正对着门口名字牌（小卖部、休息厅 2、西餐厨房）：从口进来站到牌子右边一点，别挡住牌子（03 复核第 69 版；地图传送也落在这）
+            p["arrive"] = [at + 96, inner[1] + 64]
         if via:
             p["via"] = via     # 对面那块从哪个口过来站（对面有两个口通这块时才写）
         points.append(p)
