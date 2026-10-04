@@ -8,8 +8,10 @@ D=$(mktemp -d)
 pass=0; fail=0; failed=""
 for f in tools/test_*.gd; do
   n=$(basename $f)
-  # 每个测试最多跑 5 分钟：测试脚本中途报错常常就停在那儿不退出，整套会一直挂着（10/2 test_relatives 就挂过）
-  perl -e 'alarm shift; exec @ARGV' 300 $G --headless --path . --script res://$f > "$D/$n.log" 2>&1
+  # 每个测试最多跑 5 分钟：测试脚本中途报错常常就停在那儿不退出，整套会一直挂着（10/2 test_relatives 就挂过）。
+  # 个别本来就长的测试在文件头写一行「## 时限：秒数」可以放宽（10/5：走路类测试拆小了，最长的后厅那份机器忙时可能超 5 分钟，写了 900）
+  lim=$(grep -a -m1 '^## 时限：' "$f" | grep -o '[0-9]*' | head -1)
+  perl -e 'alarm shift; exec @ARGV' ${lim:-300} $G --headless --path . --script res://$f > "$D/$n.log" 2>&1
   if grep -q "^RESULT PASS" "$D/$n.log" && ! grep -q "^RESULT FAIL" "$D/$n.log" && ! grep -aq "Parse Error\|Compile Error\|Failed to load script" "$D/$n.log"; then
     pass=$((pass+1))
   else
