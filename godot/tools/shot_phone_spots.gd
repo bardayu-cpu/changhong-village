@@ -5,7 +5,7 @@ extends SceneTree
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
-var opt := {"dir": "", "tag": "p", "canvas": "backhall", "spots": ""}
+var opt := {"dir": "", "tag": "p", "canvas": "backhall", "spots": "", "hint": "0"}   # hint=1：右下「点地面走路」提示框开着截（第一次走路那样，07 10/4）
 var SPOTS := {}
 var CANVAS := "backhall"
 
@@ -61,6 +61,8 @@ func run() -> void:
             sp = Vector2((nc.x + 0.5) * b.cell, (nc.y + 0.5) * b.cell)
         b.reset_to(sp)
         b.cam.reset_smoothing()
+        if str(opt["hint"]) == "1":
+            m.hint.visible = true
         await frames(6)
         await RenderingServer.frame_post_draw
         var img: Image = get_root().get_texture().get_image()
