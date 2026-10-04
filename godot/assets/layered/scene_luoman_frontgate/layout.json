@@ -1,13 +1,13 @@
 {
  "scene": "scene_luoman_frontgate",
  "title": "前门",
- "note": "罗曼山庄 · 前门灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene frontgate。北口进迎宾院（迎宾院南边的大门）、西口去喷泉广场、东口去停车场；南边门楼外头是来山庄的路，开车进来从这进（main.gd 的自动开车），走路出不去；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "note": "罗曼山庄 · 前门灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene frontgate。北口直通喷泉广场南边正中（第 68 版：正对喷泉）、西口去休息厅 2、东口去停车场；南边门楼外头是来山庄的路，开车进来从这进（drive_in.gd 自动开车：直直往上开进广场），走路出不去；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
  "size": [1536, 1024],
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [768, 632],
  "points": [
-  {"id": "to_court", "x": 768, "y": 36, "r": 44, "to": "court"},
-  {"id": "to_plaza", "x": 36, "y": 536, "r": 44, "to": "plaza"},
+  {"id": "to_plaza", "x": 768, "y": 36, "r": 44, "to": "plaza"},
+  {"id": "to_rest2", "x": 36, "y": 536, "r": 44, "to": "rest2"},
   {"id": "to_parking", "x": 1500, "y": 536, "r": 44, "to": "parking"},
   {"id": "out", "x": 768, "y": 984, "r": 50, "say": "frontgate_out"}
  ],
@@ -16,9 +16,9 @@
   {"type": "rect", "rect": [0, 0, 1536, 1024], "color": "#5f8f55"},
   {"type": "rect", "rect": [60, 60, 1476, 964], "color": "#a9c88a"},
   {"type": "rect", "rect": [732, 0, 804, 60], "color": "#c2b393"},
-  {"type": "label", "text": "去迎宾院", "x": 768, "y": 128},
+  {"type": "label", "text": "去喷泉广场", "x": 768, "y": 128},
   {"type": "rect", "rect": [0, 500, 60, 572], "color": "#c2b393"},
-  {"type": "label", "text": "去喷泉广场", "x": 110, "y": 480},
+  {"type": "label", "text": "去休息厅 2", "x": 110, "y": 480},
   {"type": "rect", "rect": [1476, 500, 1536, 572], "color": "#c2b393"},
   {"type": "label", "text": "去停车场", "x": 1426, "y": 480},
   {"type": "rect", "rect": [696, 60, 840, 1024], "color": "#8a8580"},

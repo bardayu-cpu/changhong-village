@@ -1694,7 +1694,7 @@ func _enter_parking() -> void:
     court.reset_to(court.SPAWN)
     parking.reset_to(parking.SPAWN)
     parking.face = "up"
-    parking.gate_hint = not court_save.seen_court()
+    parking.gate_hint = not court_save.signed_in   # 第 68 版：金箭头指迎宾院，签完到才收（原来进过一次迎宾院就收）
     parking.car_hint = false
     _show_canvas("parking")
     _goto("parking")
@@ -1702,6 +1702,10 @@ func _enter_parking() -> void:
     hint.visible = not hint_done
     await _fade_to(0.0)
     _save_profile()
+    # 第 68 版（阿鱼：「停车场出来之后，就可以去迎宾院签到。然后，有个可以有提示语……在宴会厅，在这边签到，就牵引他」）：
+    # 下车说一句，牵着去迎宾院签到；签过到的不说（话在 assets/entrance/lines.json 的 park_sign，待校对）
+    if not court_save.signed_in:
+        _say(CourtCopy.text("park_sign"), -1.0, CourtCopy.who("park_sign"))
 
 func _save_profile() -> void:
     var inv: String = cloud.inviter()
@@ -1794,8 +1798,8 @@ func _switch_canvas(to: String) -> void:
         # 出山庄大门回停车场（玩家说明第 6 节）：吃完席（大门开了）出来，金箭头指自己的车
         _show_canvas("parking")
         parking.reset_to(gen if gen != Vector2.ZERO else (parking.FROM_LAKE if from == "lake" and parking.FROM_LAKE != Vector2.ZERO else parking.FROM_COURT))
-        parking.gate_hint = false
         parking.car_hint = court_save.gate_open()
+        parking.gate_hint = not court_save.signed_in and not parking.car_hint   # 第 68 版：没签到又走回停车场，箭头照样指迎宾院
         _goto("parking")
     elif areas.has(to):
         # 连图新加的几块（儿童乐园、小卖部、休息厅 2、西餐厨房、后花园、前门、后门）：照口站
@@ -2049,7 +2053,7 @@ func _at_gate() -> void:
         _say(CourtCopy.text("gate_not_signed"), -1.0, CourtCopy.who("gate_not_signed"))
     elif not CourtCopy.placeholder(CourtCopy.text("gate_leave_early")):
         _say(CourtCopy.text("gate_leave_early"), -1.0, CourtCopy.who("gate_leave_early"))
-    _switch_canvas("frontgate")   # 10/4 连图：大门出去是前门（门楼），往西走到停车场找自己的车
+    _switch_canvas("parking")   # 10/4 第 68 版（07）：大门出去就是停车场（停车场往西放大，在迎宾院正下方）；原来出去是前门
 
 ## 大门那圈金光跟着开没开（签完到、写完悄悄话、回到迎宾院时都对一次）
 func _update_gate() -> void:
@@ -3957,7 +3961,7 @@ func _setup_shot(shot: String) -> void:
                     backhall.cam.reset_smoothing()
             await get_tree().process_frame
         "drive_gate", "drive_fountain", "drive_park":
-            # 自动开车进山庄（10/4 连图）：gate 是车开进前门门楼；fountain 是绕喷泉开到一半；park 是开进停车场、快停进车位
+            # 自动开车进山庄（10/4 连图）：gate 是车开进前门门楼；fountain 是刚进广场、喷泉在正前方（第 68 版不绕圈了）；park 是开进停车场、快停进车位
             nickname = "阿花"
             await _enter_court()
             court_save.local_path = "user://shot_drive_court.json"
@@ -3966,7 +3970,7 @@ func _setup_shot(shot: String) -> void:
             dialog.visible = false
             arrive_line = false
             _drive_in()
-            var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 2.6], "drive_park": ["parking", 1.9]}[shot]
+            var want: Array = {"drive_gate": ["frontgate", 1.0], "drive_fountain": ["plaza", 0.3], "drive_park": ["parking", 1.9]}[shot]
             for i in 3000:
                 await get_tree().process_frame
                 if drive.leg == want[0] and drive.leg_t >= float(want[1]):

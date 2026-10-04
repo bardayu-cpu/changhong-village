@@ -204,8 +204,9 @@ func run() -> void:
     check("湖边东头尽头 → 果园 A（%s）" % str(l2), m.state == "orchard" and m.orchard._free(l2))
 
     print("4 老存档、关了的口、重开的口")
-    check("迎宾院：没有去草坪、去湖边的口了，东口去广场、西北口去停车场（交互点 %s）" % str(m.court.points.keys()),
-        not m.court.points.has("to_lawn") and not m.court.points.has("to_lake") and m.court.points.has("to_plaza") and m.court.points.has("to_parking"))
+    # 第 68 版（07）：迎宾院东边去停车场的口不要了，南边大门（gate）出去就是停车场（停车场往西放大、在迎宾院正下方）
+    check("迎宾院：没有去草坪、去湖边、东边去停车场的口了，西北口去广场、南边大门去停车场（交互点 %s）" % str(m.court.points.keys()),
+        not m.court.points.has("to_lawn") and not m.court.points.has("to_lake") and m.court.points.has("to_plaza") and not m.court.points.has("to_parking") and m.court.points.has("gate"))
     check("草坪里没有回迎宾院的口了（交互点 %s）" % str(m.lawn.points.keys()), not m.lawn.points.has("to_entrance") and m.lawn.points.has("to_plaza"))
     var west_open := 0
     for y in range(486, 555, 12):

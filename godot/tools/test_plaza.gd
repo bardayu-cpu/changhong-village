@@ -80,22 +80,27 @@ func run() -> void:
     # 10/4 连图（02 E 改）：广场的口照阿鱼图转半圈换了边、北边三个「待做」口改成南边三个口通灰盒；
     # 每个口来回走、落点、不弹回去都挪到 test_liantu.gd，这里只核广场自己
     print("1 布局")
+    # 第 68 版（07，阿鱼：前门「挪到正对着喷泉」）：前门挪到南边正中（正对喷泉），东边下面那个口改通停车场——八个口变九个
     var want := {"to_backhall": "backhall", "to_rest2": "rest2", "to_shop": "shop", "to_kids": "kids", "to_court": "court",
-        "to_frontgate": "frontgate", "to_lawn": "lawn", "to_wkitchen": "wkitchen"}
+        "to_frontgate": "frontgate", "to_parking": "parking", "to_lawn": "lawn", "to_wkitchen": "wkitchen"}
     var got := {}
     for id in p.points:
         got[id] = str(p.points[id]["to"])
-    check("八个口、各通哪块 %s" % [got], got == want)
+    check("九个口、各通哪块 %s" % [got], got == want)
     check("喷泉在正中、挡路", not p._free(Vector2(768, 540)) and not p._free(Vector2(700, 540)) and p._free(Vector2(768, 700)))
     var side_ok := true
     for id in want:
         var q: Vector2 = p.points[id]["pos"]
         var side := "N" if q.y < 100 else ("S" if q.y > 924 else ("W" if q.x < 100 else "E"))
-        var exp: String = {"to_backhall": "N", "to_rest2": "S", "to_shop": "S", "to_kids": "S", "to_court": "E", "to_frontgate": "E", "to_lawn": "W", "to_wkitchen": "W"}[id]
+        var exp: String = {"to_backhall": "N", "to_rest2": "S", "to_shop": "S", "to_kids": "S", "to_court": "E", "to_frontgate": "S", "to_parking": "E", "to_lawn": "W", "to_wkitchen": "W"}[id]
         if side != exp:
             side_ok = false
             print("    %s 在 %s 边，该在 %s 边" % [id, side, exp])
-    check("口在哪条边照方案 C（阿鱼图只上下翻）：北后厅、南三块、东迎宾院前门、西草坪西餐厨房", side_ok)
+    var fx := 0.0
+    for it in p.cfg["items"]:
+        if str(it.get("id", "")) == "fountain_basin":
+            fx = float(it["x"])
+    check("口在哪条边：北后厅、南边三块 + 前门（前门正对喷泉 x %.0f = 喷泉 %.0f）、东迎宾院停车场、西草坪西餐厨房" % [p.points["to_frontgate"]["pos"].x, fx], side_ok and p.points["to_frontgate"]["pos"].x == fx)
     var reach := true
     for id in p.points:
         var land: Vector2 = p.arrival_at(id)
@@ -106,7 +111,7 @@ func run() -> void:
             print("    %s 走不到或落点不对（落点 %s）" % [id, land])
     check("每个口从出生点走得到、落点能站、离口至少 1 米", reach)
     var pl: Array = labels_of(p)
-    check("广场八块牌子 %s" % [pl], pl.size() == 8 and not pl.any(func(x): return str(x).contains("待做")))
+    check("广场九块牌子 %s" % [pl], pl.size() == 9 and not pl.any(func(x): return str(x).contains("待做")))
 
     DirAccess.remove_absolute(SAVE)
     DirAccess.remove_absolute("user://test_plaza_games.json")

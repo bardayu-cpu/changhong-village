@@ -72,6 +72,7 @@ func build(preset: int, nickname: String, f: Font) -> void:
             "arrive": Vector2(float(ar[0]), float(ar[1])) if ar.size() == 2 else Vector2.ZERO, "say": str(p.get("say", "")),
             "via": str(p.get("via", ""))}
     SPAWN = Vector2(cfg["spawn"][0], cfg["spawn"][1])
+    _arrow_signs()
     _keep_signs_off_people()
     couple_armed = false   # 迎宾院没有新人桌，新人只在花墙前站着（蓝图 3.1）；后厅没有新人
     if cfg.has("couple"):
@@ -700,12 +701,85 @@ func _label(text: String, at: Vector2) -> void:
         return
     var l := Label.new()
     l.text = text
+    l.set_meta("sign", text)   # 牌子上原来的字（加箭头前），_arrow_signs 照它找口
     name_plate(l, Color("#f3e6c8"))
     var sb := l.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
     sb.bg_color = Color(0.36, 0.23, 0.13, 0.85)   # 小木牌
     l.add_theme_stylebox_override("normal", sb)
     l.position = at - l.size * 0.5
     labels.add_child(l)
+
+## 路牌加箭头（10/4 第 68 版，阿鱼：「每一个导向导航的位置，比如说去果园去什么的，往哪个方向走，你要用在那个箭头前面去标注一下。
+## 比如向上走……箭头指向上方在前面，如果是向下走，向右走，你就把它放在字的后面，然后箭头指向右，不然的话我都不知道往哪儿走」）：
+##   箭头＝玩家在屏幕上往哪边走能到那个口：口在画布哪条边（离哪条边最近）就指哪边。往上「↑ 去果园」、往左「← 去草坪」放字前（往左 01 定跟往上一样），
+##   往右「去停车场 →」、往下「去前门 ↓」放字后。字体自带箭头字，跟牌子的字同一个风格。房间门口写名字的牌子（room_sign）不加
+## 牌子认哪个口：先照字认（「去喷泉广场」→ 通 plaza 的口，同名有几个取最近的）；认不出（「楼门」「后门」这种）取离牌子最近的出口（写了 to 的口，或迎宾院大门 gate）
+const SIGN_NAMES := {"court": ["迎宾院"], "plaza": ["喷泉广场"], "parking": ["停车场"], "banquet": ["宴会厅", "宴会楼"], "lawn": ["草坪"],
+    "lake": ["湖边"], "orchard": ["果园"], "backhall": ["后厅"], "kids": ["儿童乐园"], "shop": ["小卖部"], "rest2": ["休息厅 2"],
+    "wkitchen": ["西餐厨房"], "garden": ["后花园"], "frontgate": ["前门"], "backgate": ["后门"]}
+
+## 这块牌子指的是哪个口（回口的画布坐标；认不出回 ZERO）
+func sign_target(text: String, at: Vector2) -> Vector2:
+    var name := text.trim_prefix("去").trim_prefix("回")
+    var best := Vector2.ZERO
+    var bd := INF
+    for id in points:
+        var to := str(points[id]["to"])
+        if to != "" and name in SIGN_NAMES.get(to, []):
+            var d: float = at.distance_to(points[id]["pos"])
+            if d < bd:
+                bd = d
+                best = points[id]["pos"]
+    if best != Vector2.ZERO:
+        return best
+    for id in points:
+        if str(points[id]["to"]) != "" or id == "gate":
+            var d: float = at.distance_to(points[id]["pos"])
+            if d < bd:
+                bd = d
+                best = points[id]["pos"]
+    return best
+
+## 口朝哪边：up / down / left / right。布局里口写了 dir 就照它（草坪「去果园 B」在北边西头角上，离画布左边比上边近，写了 up）；
+## 不然看口离画布哪条边最近
+func edge_of(p: Vector2) -> String:
+    for pt in cfg.get("points", []):
+        if Vector2(float(pt["x"]), float(pt["y"])) == p and pt.has("dir"):
+            return str(pt["dir"])
+    var sz: Array = cfg["size"]
+    var d := {"up": p.y, "down": float(sz[1]) - p.y, "left": p.x, "right": float(sz[0]) - p.x}
+    var best := "down"
+    for k in d:
+        if float(d[k]) < float(d[best]):
+            best = k
+    return best
+
+const SIGN_ARROW := {"up": "↑", "down": "↓", "left": "←", "right": "→"}
+static func arrow_text(text: String, dir: String) -> String:
+    var a: String = SIGN_ARROW.get(dir, "")
+    if a == "":
+        return text
+    return a + " " + text if dir == "up" or dir == "left" else text + " " + a
+
+func _arrow_signs() -> void:
+    if labels == null:
+        return
+    for l in labels.get_children():
+        if not l is Label or not l.has_meta("sign"):
+            continue
+        var center: Vector2 = l.position + l.size * 0.5
+        var target := sign_target(str(l.get_meta("sign")), center)
+        if target == Vector2.ZERO:
+            continue
+        var dir := edge_of(target)
+        l.text = arrow_text(str(l.get_meta("sign")), dir)
+        l.set_meta("dir", dir)
+        l.size = l.get_combined_minimum_size()
+        l.position = center - l.size * 0.5
+        # 加了箭头牌子变宽：贴着画布边的（后厅「回宴会厅」）往里收，别出画布
+        var sz: Array = cfg["size"]
+        l.position.x = clampf(l.position.x, 4.0, float(sz[0]) - l.size.x - 4.0)
+        l.position.y = clampf(l.position.y, 4.0, float(sz[1]) - l.size.y - 4.0)
 
 ## foot 不是 0 时，点的 y 减掉 foot（放进原点在着地线上的 holder 里）
 func _poly(pts: PackedVector2Array, col: Color, foot := 0.0) -> Polygon2D:

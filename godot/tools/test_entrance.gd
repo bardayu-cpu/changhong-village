@@ -61,7 +61,7 @@ func back_to_court() -> void:
     if m.state != "parking":
         return
     var pk = m.parking
-    walk_to(pk.spot_pos("to_court") + Vector2(-90, 0))
+    walk_to(pk.spot_pos("to_court") + Vector2(0, 90))   # 第 68 版：去迎宾院那道门在停车场北墙，从门里边往上走进去
     walk_to(pk.spot_pos("to_court"))
     tick(5)
 
@@ -93,7 +93,7 @@ func run() -> void:
     print("1 迎宾院的格子和交互点")
     var g: Dictionary = c.cfg["walk_grid"]
     check("进场点能站 %s" % str(c.SPAWN), c._free(c.SPAWN))
-    check("交互点 11 个（10/2 加了祝福牌）", c.points.size() == 11 and c.points.has("blessing"))
+    check("交互点 10 个（10/2 加了祝福牌；第 68 版东边去停车场的口拿掉，大门出去就是停车场）", c.points.size() == 10 and c.points.has("blessing") and not c.points.has("to_parking"))
     check("B20 签到台记号：一开始亮着", c.sign_mark != null and c.sign_mark.visible)
     for id in c.points:
         var p: Vector2 = c.points[id]["pos"]
@@ -202,10 +202,11 @@ func run() -> void:
     check("东口进了喷泉广场 state=%s" % m.state, m.state == "plaza")
     walk_to(m.plaza.spot_pos("to_court"), 30.0)
     check("广场西口回到迎宾院、站在东口边 %s" % str(c.pos), m.state == "court" and c.pos == c.arrival_from("plaza"))
-    walk_to(c.spot_pos("to_parking"), 30.0)
-    check("西北口进了停车场 state=%s" % m.state, m.state == "parking")
+    walk_to(c.spot_pos("gate") + Vector2(0, -200), 30.0)
+    walk_to(c.spot_pos("gate"), 30.0)
+    check("大门出去进了停车场 state=%s" % m.state, m.state == "parking")
     walk_to(m.parking.spot_pos("to_court"), 30.0)
-    check("停车场东口回到迎宾院、站在西北口边 %s" % str(c.pos), m.state == "court" and c.pos == c.arrival_from("parking"))
+    check("停车场北墙那道门回到迎宾院、站在大门里边 %s" % str(c.pos), m.state == "court" and c.pos == c.SPAWN)
 
     await part2(c)
     await part3(c)
@@ -473,8 +474,8 @@ func part4(c) -> void:
     check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("走到门口出到前门（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
-        m.state == "frontgate" and m.note.text == "" and m.dialog_text.text == "" and not m.parking.car_hint)
+    check("走到门口出到停车场（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
+        m.state == "parking" and m.note.text == "" and m.dialog_text.text == "" and not m.parking.car_hint)
     back_to_court()
 
     # 25. 写了悄悄话没签到：大门没金圈，新娘妈妈提醒先签个到；10/3 起不拦着，照样出到停车场、不指车
@@ -485,8 +486,8 @@ func part4(c) -> void:
     check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("%s：%s；照样出到前门、不指车" % [m.dialog_who.text, m.dialog_text.text],
-        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed") and m.state == "frontgate" and not m.parking.car_hint)
+    check("%s：%s；照样出到停车场、不指车" % [m.dialog_who.text, m.dialog_text.text],
+        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed") and m.state == "parking" and not m.parking.car_hint)
     m.dialog.visible = false
     m.dialog_text.text = ""
     back_to_court()
@@ -515,9 +516,8 @@ func part4(c) -> void:
     m.note.text = ""
     m.dialog_text.text = ""
     walk_to(c.spot_pos("gate"), 30.0)
-    check("走出大门到前门、门口不说话（%s）" % m.state, m.state == "frontgate" and m.dialog_text.text == "")
-    walk_to(m.areas["frontgate"].spot_pos("to_parking"), 30.0)
-    check("前门往西回到停车场、金箭头指自己的车（%s）" % m.state, m.state == "parking" and m.parking.car_hint)
+    check("走出大门到停车场、门口不说话（%s）" % m.state, m.state == "parking" and m.dialog_text.text == "")
+    check("回到停车场、金箭头指自己的车（%s）" % m.state, m.state == "parking" and m.parking.car_hint)
     var pk = m.parking
     walk_to(pk.spot_pos("my_car"), 30.0)
     # 01 9/23：出大门改成新娘妈妈送你——一句送别，一句明天回来能看到什么；回忆册现在是灰的，不提。10/3 起挪到自己车旁说

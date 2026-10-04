@@ -170,6 +170,9 @@ func run() -> void:
             if not lf.can_talk(id):
                 continue
             var p: Dictionary = lf.people[id]
+            # 起身走动的人（妹妹、化妆助理）起身时间是随机的：先放回原位、这段里别起身，测的是在家坐着（站着）说话那段（第 68 版跑全套时撞上过一次）
+            home(lf, p)
+            p["wait"] = 9999.0
             var reg0: Rect2 = (p["spr"] as Sprite2D).region_rect
             var n_choices := 2
             for pick in n_choices:

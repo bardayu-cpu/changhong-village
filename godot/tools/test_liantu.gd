@@ -138,9 +138,9 @@ func run() -> void:
             if bid == "":
                 if to == "court":
                     await walk_to(m.court.SPAWN + Vector2(0, -120))   # 进来站在大门圈里：先走开，再回大门
-                    await walk_to(m.court.spot_pos("gate"))   # 迎宾院大门出去是前门
-                    if m.state != "frontgate":
-                        bad.append("迎宾院大门没回前门（%s）" % m.state)
+                    await walk_to(m.court.spot_pos("gate"))   # 迎宾院大门出去回到刚才那块（第 68 版 07：大门通停车场，原来通前门）
+                    if m.state != k or k != "parking":
+                        bad.append("迎宾院大门没回停车场（从 %s 来，现在在 %s）" % [k, m.state])
                     continue
                 bad.append("%s 没有通回 %s 的口" % [to, k])
                 continue
