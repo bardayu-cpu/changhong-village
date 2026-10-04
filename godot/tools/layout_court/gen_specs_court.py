@@ -36,6 +36,7 @@ SCENES = {
     "kids": ("scene_luoman_kids", "儿童乐园"),
     "shop": ("scene_luoman_shop", "小卖部"),
     "rest2": ("scene_luoman_rest2", "休息厅2"),
+    "makeup": ("scene_luoman_makeup", "化妆间"),     # 10/4 化妆间单独成一间屋（进屋像进宴会厅，01 H）
     "wkitchen": ("scene_luoman_wkitchen", "西餐厨房"),
     "garden": ("scene_luoman_garden", "后花园"),
     "frontgate": ("scene_luoman_frontgate", "前门"),

@@ -79,11 +79,12 @@ func run() -> void:
     # 10/4 方案 C：四间整间平移成西→东后厨、麻将室、休息室、化妆间（化妆间 +1195、休息室 +528、麻将室 −144、后厨 −1008），
     # 走廊东头回宴会厅、西头厨房后门去草坪
     var want := {"dress": [1363, 400, 60], "lounge": [1032, 420, 60], "mahjong": [708, 420, 70], "pot": [264, 380, 70],
-        "to_hall": [1496, 780, 50], "to_lawn": [40, 780, 50], "to_plaza": [896, 990, 40], "to_wkitchen": [264, 990, 40]}
-    var same: bool = b.points.size() == 8
+        "to_hall": [1496, 780, 50], "to_lawn": [40, 780, 50], "to_plaza": [896, 990, 40], "to_wkitchen": [264, 990, 40],
+        "to_makeup": [1363, 702, 26]}   # 10/4 化妆间单独成一间屋：走廊化妆间门口一进就整屏换进去（01 H 派）
+    var same: bool = b.points.size() == 9
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("八个交互点坐标、半径照方案 C 平移后的位置一字不差", same)
+    check("九个交互点坐标、半径照方案 C 平移后的位置一字不差（加了化妆间门口 to_makeup）", same)
     var doors := true
     for dx in [168, 696, 1032, 1363]:
         doors = doors and b._free(Vector2(dx, 690))
@@ -190,7 +191,8 @@ func run() -> void:
     var want_btn := {"dress": "礼服架", "lounge": "外套", "mahjong": "麻将桌", "pot": "穿上围裙 · 学做菜"}
     # 话还是【待补】的那几间：走进去不出按钮（01 E 10/3：开发字样不给玩家看）
     var hidden_ok := true
-    for id in ["dress", "lounge", "mahjong"]:
+    # 10/4 起化妆间门口一进就换到单独那间屋（test_makeup_room 测），原来后厅里那间化妆室走不进去了，这里只走休息间、麻将室、厨房
+    for id in ["lounge", "mahjong"]:
         var sp0: Vector2 = b.spot_pos(id)
         walk_to(Vector2(sp0.x, 790))
         walk_to(sp0)
@@ -205,7 +207,7 @@ func run() -> void:
         saved[id] = bl[id].duplicate()
         bl[id]["text"] = real[id]
     var want_who := {"dress": "阿鱼", "lounge": "阿鱼", "mahjong": "长辈", "pot": "厨师"}
-    for id in ROOMS:
+    for id in ["lounge", "mahjong", "pot"]:
         var sp: Vector2 = b.spot_pos(id)
         walk_to(Vector2(sp.x, 790))
         walk_to(sp)
@@ -226,7 +228,7 @@ func run() -> void:
         ui._on_act()
         check("%s：点一下 %s「%s」" % [id, m.dialog_who.text, m.dialog_text.text],
             m.dialog.visible and m.dialog_text.text == real[id] and m.dialog_who.text == want_who[id])
-        if id == "dress":
+        if id == "lounge":
             # 真等 3.2 秒（平常一句话 2.4 秒加每字 0.09 秒就自己收了），这句不收
             await create_timer(3.2).timeout
             check("%s：真等 3 秒也不自己收" % id, m.dialog.visible and m.dialog_text.text == real[id])
@@ -247,12 +249,12 @@ func run() -> void:
 
     # 6. 说话框被别的话顶掉了：再点按钮是再说一遍，不是把别人的话关掉
     print("6 别的话顶掉")
-    walk_to(Vector2(b.spot_pos("dress").x, 790))
-    walk_to(b.spot_pos("dress"))
+    walk_to(Vector2(b.spot_pos("lounge").x, 790))
+    walk_to(b.spot_pos("lounge"))
     ui._on_act()
     m._say("别的话", 0.0, "阿鱼")
     ui._on_act()
-    check("再点是再说一遍「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == real["dress"])
+    check("再点是再说一遍「%s」" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == real["lounge"])
     ui._on_act()
     for id in saved:
         bl[id] = saved[id]

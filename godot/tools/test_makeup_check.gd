@@ -120,6 +120,9 @@ func run() -> void:
     m._show_canvas("backhall")
     m._goto("backhall")
     b = m.backhall
+    # 10/4 化妆间单独成一间屋（02 E 补）：走廊化妆间门口 to_makeup 一进就换到新屋；这份测的是后厅里原来那间化妆室本身能不能走，
+    # 先把门口这个口拿掉（只在这份测试里），照旧从门口往里走。新屋的进出、过道见 test_makeup_room
+    b.points.erase("to_makeup")
     b.walking_enabled = true
     var t_start := Time.get_ticks_msec()
 

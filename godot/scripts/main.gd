@@ -46,8 +46,14 @@ const Plaza = preload("res://scripts/plaza.gd")
 const Area = preload("res://scripts/area.gd")
 const DriveIn = preload("res://scripts/drive_in.gd")
 ## 连图（10/4，01 G 派）新加的几块灰盒，都是 area.gd，布局 tools/layout_court/make_areas.py 出
-const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate"]
-const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门"}
+const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate", "makeup"]
+const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门", "makeup": "化妆间"}
+## 单独成一间的屋（10/4 进屋像进宴会厅，01 H 派；docs/进屋像进宴会厅-玩家说明-v0.1.md）：后厅走廊走到门口整屏换进来，进屋时画面上方出屋名一两秒（游戏里的字）
+const ROOM_TITLES := {"makeup": "化妆间"}
+const ROOM_TITLE_SECS := 1.6
+var room_title_box: PanelContainer   # 进屋时上方那个屋名框（_build_ui 建）
+var room_title: Label
+var room_title_token := 0
 const OrchardUI = preload("res://scripts/orchard_ui.gd")
 const OrchardSave = preload("res://scripts/orchard_save.gd")
 ## 蓝图 1 写草坪 → 果园站 (768, 840)，离果园南口 (768, 880, 60) 只有 40 像素、还在出口圈里；照 01 的规矩往里挪。
@@ -1090,6 +1096,19 @@ func _build_hud() -> void:
     note_box.add_child(note)
     note_box.visible = false
     hud.add_child(note_box)
+    # 进屋的屋名（10/4 化妆间单独成一间屋）：单独一个小框，挂在最上面「罗曼山庄 · 金币」那排下方正中——那一带在屋里是北墙墙面和镜子，
+    # 不压屋里的人（借走到头提示那个框的话，它排在人那一带，会盖住北墙化妆台前坐的新娘、化妆师）
+    room_title_box = PanelContainer.new()
+    room_title_box.name = "room_title"
+    room_title_box.set_anchors_preset(Control.PRESET_CENTER_TOP)
+    room_title_box.grow_horizontal = Control.GROW_DIRECTION_BOTH
+    room_title_box.offset_top = 64
+    room_title_box.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.9), GOLD1, 2, 6, 10))
+    room_title_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    room_title = _label("", 26, GOLD1, HORIZONTAL_ALIGNMENT_CENTER, false)
+    room_title_box.add_child(room_title)
+    room_title_box.visible = false
+    hud.add_child(room_title_box)
     sit_btn = Button.new()
     sit_btn.text = "坐这儿"
     sit_btn.visible = false
@@ -1798,10 +1817,12 @@ func _switch_canvas(to: String) -> void:
         parking.car_hint = court_save.gate_open()
         _goto("parking")
     elif areas.has(to):
-        # 连图新加的几块（儿童乐园、小卖部、休息厅 2、西餐厨房、后花园、前门、后门）：照口站
+        # 连图新加的几块（儿童乐园、小卖部、休息厅 2、西餐厨房、后花园、前门、后门）、单独成一间的屋（化妆间，10/4）：照口站
         _show_canvas(to)
         areas[to].reset_to(gen if gen != Vector2.ZERO else areas[to].SPAWN)
         _goto(to)
+        if ROOM_TITLES.has(to):
+            _show_room_title(ROOM_TITLES[to])   # 进屋：画面上方出屋名一两秒
     else:
         _show_canvas("court")
         var back_to := COURT_FROM_HALL
@@ -3016,6 +3037,16 @@ func _on_seat_changed(r: Dictionary) -> void:
     else:
         _note(_reason_text(r, "换桌"))
     _refresh_seat_buttons()
+
+## 进屋时上方出屋名 ROOM_TITLE_SECS 秒（游戏里的字，不画进图）
+func _show_room_title(text: String) -> void:
+    room_title_token += 1
+    var my := room_title_token
+    room_title.text = text
+    room_title_box.visible = true
+    await get_tree().create_timer(ROOM_TITLE_SECS).timeout
+    if my == room_title_token:
+        room_title_box.visible = false
 
 func _note(text: String, hold := 3.0) -> void:
     note_token += 1

@@ -2,7 +2,7 @@ extends SceneTree
 ## 第 65 版（方案 C）整座山庄连图，03 自己重走一遍（01 G 10/4 派，不改游戏代码）。不看 02 的 test_liantu，另起一套量法：
 ##   1 照阿鱼那张「方案 C」图上各块的位置（下面 PIC，我从图上量的像素中心），每个口通的那块，必须在图上就在那边
 ##     （口在这块走路范围的哪一侧，图上那块就得在哪一侧）；过了口到对面，站的那一侧必须是反过来的那一侧，而且就站在对面通回来的口里边
-##   2 每个口两头各走一趟（从出生点走到口、切过去；再从落点走回口），共 26 条连法；切过去站 60 帧不弹回、落点能站、能从落点走回本块出生点（不卡墙）
+##   2 每个口两头各走一趟（从出生点走到口、切过去；再从落点走回口），共 27 条连法（10/4 加了化妆间）；切过去站 60 帧不弹回、落点能站、能从落点走回本块出生点（不卡墙）
 ##   3 后厅四间屋（后厨、麻将室、休息室、化妆间）由西到东，化妆间挨着宴会厅；宴会厅西墙门通后厅、东侧门通后花园；果园西枇杷东草莓；停车场在迎宾院东边
 ##   4 每个「去…」口的牌子写的字，跟口通的那块的名字对得上
 ## 用法：Godot --headless --path . --script res://tools/test_liantu_crawl.gd     最后一行 RESULT PASS 才算过
@@ -15,9 +15,13 @@ const PIC := {
     "plaza": Vector2(480, 753), "kids": Vector2(199, 867), "shop": Vector2(334, 867), "rest2": Vector2(440, 868),
     "wkitchen": Vector2(305, 720), "garden": Vector2(829, 635), "parking": Vector2(836, 792), "frontgate": Vector2(655, 897),
     "lake": Vector2(710, 340), "orchardA": Vector2(423, 498), "orchardB": Vector2(212, 498), "backgate": Vector2(273, 398),
+    "makeup": Vector2(541, 635),   # 10/4 化妆间单独成一间屋（02 E 补）：方案 C 图上后厅一排最东头那间
 }
+## 屋里的门不在画布边上，照「离哪条边最近」算不准，直接写在哪侧（10/4 02 E 补）：后厅走廊化妆间门口在走廊北沿，往北进屋
+const INNER_SIDE := {"backhall.to_makeup": "N"}
 const NAMES := {"court": "迎宾院", "banquet": "宴会厅", "backhall": "后厅", "lawn": "草坪", "plaza": "广场", "kids": "儿童乐园", "shop": "小卖部",
-    "rest2": "休息厅", "wkitchen": "西餐厨房", "garden": "后花园", "parking": "停车场", "frontgate": "前门", "lake": "湖", "orchard": "果园", "backgate": "后门"}
+    "rest2": "休息厅", "wkitchen": "西餐厨房", "garden": "后花园", "parking": "停车场", "frontgate": "前门", "lake": "湖", "orchard": "果园", "backgate": "后门",
+    "makeup": "化妆间"}
 const DIRV := {"N": Vector2(0, -1), "S": Vector2(0, 1), "E": Vector2(1, 0), "W": Vector2(-1, 0)}
 const OPP := {"N": "S", "S": "N", "E": "W", "W": "E"}
 
@@ -159,7 +163,7 @@ func run() -> void:
             var to := str(pt["to"])
             if to == "":
                 continue
-            var s := side_of(k, pt["pos"])
+            var s: String = INNER_SIDE.get(k + "." + pid, side_of(k, pt["pos"]))
             var tgt := pic_target(k, pid, to, str(pt["via"]))
             var vec: Vector2 = PIC[tgt] - PIC[pic_of(k, pid)]
             var proj := vec.dot(DIRV[s])
@@ -177,7 +181,7 @@ func run() -> void:
                 bad.append("%s.%s → %s 对面没有通回来的口" % [k, pid, to])
                 continue
             if back != "":
-                var bs := side_of(to, tp[back]["pos"] if back != "gate" else m.court.spot_pos("gate"))
+                var bs: String = INNER_SIDE.get(to + "." + back, side_of(to, tp[back]["pos"] if back != "gate" else m.court.spot_pos("gate")))
                 if bs != OPP[s]:
                     bad.append("%s.%s 口在%s侧，对面 %s.%s 在%s侧（该是%s侧）" % [k, pid, s, to, back, bs, OPP[s]])
             links.append([k, pid, to, back])
@@ -199,7 +203,7 @@ func run() -> void:
         undirected[key] = true
     print("    有向的口 %d 个，合成连法 %d 条" % [links.size(), undirected.size()])
     check("每个口通的那块在图上就在那一侧、过去站对面反过来的一侧（%d 处不对）" % bad.size(), bad.is_empty())
-    check("连法数：26 条（有向 52 个）", undirected.size() == 26 and links.size() == 52)
+    check("连法数：27 条（有向 54 个；10/4 加了化妆间那对）", undirected.size() == 27 and links.size() == 54)
 
     print("2 每个口走一趟：出生点走到口、切过去、站稳、再从落点走回口")
     var walk_bad: Array = []
@@ -294,7 +298,7 @@ func run() -> void:
         print("    注：", b)
     for b in walk_bad.slice(0, 20):
         print("    ", b)
-    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 52)
+    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 54)
 
     print("3 图上几处位置关系")
     var bh = m.backhall
@@ -346,7 +350,15 @@ func run() -> void:
                 words.append("果园")
             var best := ""
             var bd := INF
-            for l in c.labels.get_children():
+            var lbls: Array = c.labels.get_children()
+            for sg in (c.room_signs if c.get("room_signs") != null else []):   # 屋名红牌也算（10/4 后厅化妆间门口挂的就是「化妆间」那块，02 E 补）
+                lbls.append(sg)
+            for l0 in lbls:
+                var l = l0
+                var off := Vector2.ZERO
+                if not l is Label and (l as Node).get_child_count() > 0 and (l as Node).get_child(0) is Label:
+                    off = (l as Node2D).position
+                    l = (l as Node).get_child(0)
                 if not l is Label:
                     continue
                 var hit := false
@@ -356,7 +368,7 @@ func run() -> void:
                 if not hit:
                     continue
                 var home: float = float(l.get_meta("home")) if l.has_meta("home") else (l as Control).position.x
-                var ctr := Vector2(home + (l as Control).size.x * 0.5, (l as Control).position.y + (l as Control).size.y * 0.5)
+                var ctr := off + Vector2(home + (l as Control).size.x * 0.5, (l as Control).position.y + (l as Control).size.y * 0.5)
                 var dd := ctr.distance_to(c.points[pid]["pos"])
                 if dd < bd:
                     bd = dd
