@@ -33,10 +33,10 @@ const SIDE := 14.0           # 框左右离屏幕边多少
 const PAD := 16.0            # 框里四边留多少
 const MAX_H_FRAC := 0.2      # 框最高屏幕高的 1/5（04 第 1 条；有选项时放得下为止）
 const MIN_H := 150.0         # 框最矮多高（头像顶出去、名字牌压在头像下边，要这么高才摆得下）
-const LINE_SIZE := 26        # 正文字号（像素字 12 的整倍渲染，26 出来是 24）
+const LINE_SIZE := 26        # 正文字号（像素字只能 12 的整倍清楚：26 出来是 24 那一档；再大一档是 36，奶奶三选一一行放不下，04 建议的 22 做不到，照旧）
 const LINE_GAP := 6.0
 const NAME_SIZE := 24
-const CHOICE_H := 46.0       # 选项多高（04：≥44）
+const CHOICE_H := 48.0       # 选项多高（04：≥44，量出来按钮露在外面的约少 4）
 const CHOICE_GAP := 8.0
 const PLATE_H := 40.0        # 名字牌多高
 const FACE := Vector2(128, 152)   # 头像框多大（含框）；底边落在名字牌中间，往上顶出对话框上沿
@@ -298,6 +298,7 @@ static func build_talk(ui, font: Font) -> void:
     t.choices = ui.choices
     t.font = font
     t.instant = ui.m != null and bool(ui.m.get("fast"))
+    t.ui = ui
     t.setup(layer)
     ui.talk_box.add_child(t)
     ui.add_child(ui.talk_box)
@@ -339,6 +340,7 @@ static func restyle_say(m) -> void:
     t.plate = plate
     t.font = m.font
     t.instant = bool(m.get("fast"))
+    t.m = m
     t.setup(layer)
     d.add_child(t)
 
@@ -348,6 +350,7 @@ static func _frame(p: PanelContainer, h: float) -> void:
     p.offset_right = -SIDE
     p.offset_bottom = -BOTTOM
     p.offset_top = -BOTTOM - h
+    p.grow_vertical = Control.GROW_DIRECTION_BEGIN
     p.add_theme_stylebox_override("panel", _box_of(PAL["box"], BOX_R))
     p.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
@@ -489,6 +492,70 @@ class Typer extends Node:
     var _last_w := -1.0
     var _t := 0.0
     var _blink := 0.0
+    var ui                   # NPC 对话框：lounge_ui（找正在说话的人、在哪块画布）
+    var m                    # 阿鱼那个框：main（找现在的画布、玩家）
+    var _lift := 0.0         # 镜头现在往下让了多少（画布像素）：框盖住人就让，让人和说话的人都露在框上面（04 第 1 条）
+    var _lift_cam: Camera2D
+    var _lift_limit := 0
+
+    ## 现在在哪块画布上、要露出来的几个点（说话的人头顶、脚下，玩家头顶、脚下）
+    func _lift_targets() -> Array:
+        var cv = null
+        var pts: Array = []
+        if ui != null and str(ui.talk_id) != "" and ui.talk_cv != null:
+            cv = ui.talk_cv
+            var lf = ui.life_of(str(ui.talk_id))
+            if lf != null:
+                var p: Dictionary = lf.people.get(str(ui.talk_id), {})
+                if p.has("foot"):
+                    pts.append(p["foot"])
+                if p.has("head"):
+                    pts.append(p["head"])
+        elif m != null and m.has_method("_in_scene") and m._in_scene():
+            cv = m.cv
+        if cv == null or cv.get("cam") == null:
+            return []
+        pts.append(cv.pos)
+        if cv.has_method("px_per_m"):
+            pts.append(cv.pos - Vector2(0, cv.px_per_m(cv.pos.y) * 1.8))
+        return [cv, pts]
+
+    ## 框开着：说话的人、玩家被框盖住了，镜头往下让（画面里的东西往上走），让到都露在框上沿上面；框收了慢慢放回去。
+    ## 镜头底边原来卡在画布下沿，让的时候下沿临时放宽这么多（多出来那块在框后面，看不见）
+    func _lift_tick(dt: float, open: bool) -> void:
+        var want := 0.0
+        var cv = null
+        if open:
+            var tg := _lift_targets()
+            if not tg.is_empty():
+                cv = tg[0]
+                var cam: Camera2D = cv.cam
+                if _lift_cam != cam:
+                    _lift_reset()
+                    _lift_cam = cam
+                    _lift_limit = cam.limit_bottom
+                var xf: Transform2D = cv.get_global_transform_with_canvas()
+                var lowest := -INF
+                for p in tg[1]:
+                    lowest = maxf(lowest, (xf * (p as Vector2)).y)
+                var top: float = box.get_global_rect().position.y
+                var z: float = maxf(cam.zoom.y, 0.2)
+                want = maxf(0.0, _lift + (lowest + 24.0 - top) / z)
+        if _lift_cam == null:
+            return
+        _lift = lerpf(_lift, want, minf(1.0, dt * 8.0))
+        if want == 0.0 and _lift < 0.5:
+            _lift_reset()
+            return
+        _lift_cam.limit_bottom = _lift_limit + int(ceil(_lift)) + 2
+        _lift_cam.offset.y = _lift
+
+    func _lift_reset() -> void:
+        if _lift_cam != null and is_instance_valid(_lift_cam):
+            _lift_cam.offset.y = 0.0
+            _lift_cam.limit_bottom = _lift_limit
+        _lift_cam = null
+        _lift = 0.0
 
     func setup(layer: Control) -> void:
         var Skin = load("res://scripts/ui/dialog_skin.gd")
@@ -536,6 +603,7 @@ class Typer extends Node:
     func _process(dt: float) -> void:
         if card != null:
             card.visible = false
+        _lift_tick(get_process_delta_time(), box.visible)
         if not box.visible:
             return
         var vs: Vector2 = box.get_viewport_rect().size
@@ -562,17 +630,21 @@ class Typer extends Node:
             shown.visible_characters = -1 if instant else 0
         var lines_here := shown.text.count("\n") + 1
         var text_h := lines_here * lh - LINE_GAP
+        var one_row: bool = not has_face and not ch_on and lines_here == 1 and pages.size() <= 1
         var h := clampf(PAD * 2.0 + text_h + row_h, MIN_H if has_face else 96.0, max_h)
+        if one_row:
+            h = PAD * 2.0 + maxf(PLATE_H, text_h) + 12.0   # 没头像、一行话（阿鱼）：名字牌和话排一行、上下居中，不空一大块（04）
         if pages.size() > 1:
             h = max_h
+        box.offset_bottom = -BOTTOM   # 阿鱼的框：main._layout_top 还按原来顶上那条每帧设下沿（= TOP_Y），这里钉回屏幕底；main.gd 不动
         box.offset_top = -BOTTOM - h
-        shown.position = Vector2(x0, PAD + 2.0)
+        shown.position = Vector2(x0, (h - text_h) * 0.5 if one_row else PAD + 2.0)
         shown.size = Vector2(text_w, text_h)
         # 名字牌：左下（头像下边）；头像：左边一栏，底边落在名字牌中间，往上顶出框
         plate.reset_size()
         var pw: float = plate.get_combined_minimum_size().x
         plate.size = Vector2(pw, PLATE_H)
-        plate.position = Vector2(PAD + maxf((col - pw) * 0.5, 0.0), h - PAD - PLATE_H + 4.0)
+        plate.position = Vector2(PAD + maxf((col - pw) * 0.5, 0.0), (h - PLATE_H) * 0.5 if one_row else h - PAD - PLATE_H + 4.0)
         if face != null:
             face.visible = has_face
             if has_face:
