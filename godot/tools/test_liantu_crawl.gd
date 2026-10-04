@@ -17,7 +17,7 @@ const PIC := {
     "lake": Vector2(710, 340), "orchardA": Vector2(423, 498), "orchardB": Vector2(212, 498), "backgate": Vector2(273, 398),
 }
 const NAMES := {"court": "迎宾院", "banquet": "宴会厅", "backhall": "后厅", "lawn": "草坪", "plaza": "广场", "kids": "儿童乐园", "shop": "小卖部",
-    "rest2": "休息区", "wkitchen": "西餐厨房", "garden": "后花园", "parking": "停车场", "frontgate": "前门", "lake": "湖", "orchard": "果园", "backgate": "后门"}
+    "rest2": "休息厅", "wkitchen": "西餐厨房", "garden": "后花园", "parking": "停车场", "frontgate": "前门", "lake": "湖", "orchard": "果园", "backgate": "后门"}
 const DIRV := {"N": Vector2(0, -1), "S": Vector2(0, 1), "E": Vector2(1, 0), "W": Vector2(-1, 0)}
 const OPP := {"N": "S", "S": "N", "E": "W", "W": "E"}
 
@@ -317,11 +317,13 @@ func run() -> void:
     check("宴会厅西墙门（x %.0f）通后厅、东侧门（x %.0f）通后花园" % [hs.side_door.x, hs.exits[0]["pos"].x], hs.side_door.x < float(hs.cfg["size"][0]) * 0.5 and hs.exits[0]["pos"].x > float(hs.cfg["size"][0]) * 0.5 and str(hs.exits[0]["to"]) == "garden")
     var orc = m.orchard
     check("果园：西边枇杷（x %.0f）、东边草莓（x %.0f）" % [orc.points["loquat"]["pos"].x, orc.points["strawberry"]["pos"].x], orc.points["loquat"]["pos"].x < orc.points["strawberry"]["pos"].x)
-    check("果园东口（去湖）靠草莓这边、西南口 B 靠枇杷这边", absf(orc.points["to_lake"]["pos"].y - orc.points["strawberry"]["pos"].y) < 100.0 and absf(orc.points["to_lawn_b"]["pos"].x - orc.points["loquat"]["pos"].x) < 100.0 and absf(orc.points["to_lawn"]["pos"].x - orc.points["strawberry"]["pos"].x) < 100.0)
+    # 10/4 湖边西半边接图（02 E 改）：湖边西门在南墙往南出去，果园去湖边的口挪到北边（中间小路北头、靠草莓 A 那侧）
+    check("果园北口（去湖）在中间小路东半、靠草莓这边，西南口 B 靠枇杷这边", orc.points["to_lake"]["pos"].y < 500.0 and orc.points["to_lake"]["pos"].x > 768.0 and absf(orc.points["to_lawn_b"]["pos"].x - orc.points["loquat"]["pos"].x) < 100.0 and absf(orc.points["to_lawn"]["pos"].x - orc.points["strawberry"]["pos"].x) < 100.0)
     var pk = m.parking
     check("停车场在迎宾院东边：迎宾院去停车场的口在东边（x %.0f）、停车场通迎宾院的口在西边（x %.0f）" % [m.court.points["to_parking"]["pos"].x, pk.points["to_court"]["pos"].x], m.court.points["to_parking"]["pos"].x > 1400.0 and pk.points["to_court"]["pos"].x < 100.0)
     var lk = m.lake
-    check("湖边：东头月亮门（x %.0f）去后花园、西头尽头（x %.0f）去果园" % [lk.points["to_garden"]["pos"].x, lk.points["to_orchard"]["pos"].x], str(lk.points["to_garden"]["to"]) == "garden" and str(lk.points["to_orchard"]["to"]) == "orchard" and lk.points["to_garden"]["pos"].x > 2000.0 and lk.points["to_orchard"]["pos"].x < 200.0)
+    # 10/4 湖边西半边接图（02 E 改）：南墙两道月亮门对称，西门 x 768 去果园
+    check("湖边：东头月亮门（x %.0f）去后花园、西头月亮门（x %.0f）去果园" % [lk.points["to_garden"]["pos"].x, lk.points["to_orchard"]["pos"].x], str(lk.points["to_garden"]["to"]) == "garden" and str(lk.points["to_orchard"]["to"]) == "orchard" and lk.points["to_garden"]["pos"].x > 2000.0 and lk.points["to_orchard"]["pos"].x < 1536.0 and lk.points["to_orchard"]["pos"].y > 1040.0)
     var lw = m.lawn
     check("草坪在西边：草坪往后厅、广场、西餐厨房的口都在东边（x≥1500）", lw.points["to_backhall"]["pos"].x > 1500.0 and lw.points["to_plaza"]["pos"].x > 1500.0 and lw.points["to_wkitchen"]["pos"].x > 1500.0)
 
@@ -342,8 +344,6 @@ func run() -> void:
                 words.append("楼门")   # 迎宾院进宴会厅那块牌写「楼门」
             if to == "orchard":
                 words.append("果园")
-            if to == "rest2":
-                words.append("休息")
             var best := ""
             var bd := INF
             for l in c.labels.get_children():

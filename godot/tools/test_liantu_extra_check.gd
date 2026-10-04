@@ -5,9 +5,9 @@ extends SceneTree
 ##   2 湖边：岸线以下（y 800～1270）看着是地面的格子，除了被占地挡的，都能走（逐格量，剩下的几格列出来）；码头、船夫跟前、小岛、曲桥、亭子前沿、南墙外这些点能站；
 ##     东头南墙月亮门去后花园、西头尽头去果园两个口能走到
 ##   3 走到头：十三块（宴会厅另算）每块、四个方向各找一处真走到头的地方（出口附近不算）推摇杆：弹一句、一直顶着不重复、走开 ≥60 再回来才再弹；
-##     被家具、花坛挡住的地方推不弹；点范围外弹、点家具上不弹；四句话各不相同
+##     被家具、花坛挡住的地方推不弹；点范围外弹、点家具上不弹；四句话统一成一句（10/4 01 G 定）
 ##   4 牌子：每块画布每一块牌，跟站在出生点、每个口上、每个落点上的人身子（40×90，比 02 量的 32×84 大一圈）一块不叠；牌子不出画布；
-##     手机 540×960 和长屏 585×1266 下，人站在口上，对应「去…」牌整块在屏里；宴会厅的门牌跟进厅落点叠几处（已知 2 处，只守不再多）
+##     手机 540×960 和长屏 585×1266 下，人站在口上，对应「去…」牌整块在屏里；宴会厅的门牌跟进厅落点不叠（第 66 版起 0 处）
 ##   5 老的落点常量（main.gd 里没有对口的口时才用的兜底）站不站得了（只列，不判）
 ## 用法：Godot --headless --path . --script res://tools/test_liantu_extra_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
@@ -15,8 +15,8 @@ const Ent = preload("res://scripts/entrance.gd")
 const CourtCopy = preload("res://scripts/court_copy.gd")
 const DT := 1.0 / 60.0
 ## 03 第 65 版量到的现状（口袋格数）：只守「不再多」。口袋 = 在走路范围多边形里、没被占地挡、却因为从出生点灌不到被圈掉的格子
-const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 12}
-const LAKE_KNOWN_LEFT := 27
+const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 38}   # lake：10/4 西半边接图（02 E）多 26 格，在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，截图核过
+const LAKE_KNOWN_LEFT := 31   # 10/4 西半边接图（02 E）多 4 格：西头月亮门门洞两边的门柱（x 726、810，y 1026～1038），图里是墙，跟东头那道门一样
 
 var m
 var started := false
@@ -75,6 +75,21 @@ func polys_of(c) -> Array:
 
 func cpos(c, i: int, j: int) -> Vector2:
     return Vector2((float(i) + 0.5) * float(c.cell), (float(j) + 0.5) * float(c.cell))
+
+## 递归找布局里含某个字的字符串（跳过 note、_ 开头的说明）
+func find_text(v, word: String) -> Array:
+    var out: Array = []
+    if v is Dictionary:
+        for k in v:
+            if str(k) == "note" or str(k).begins_with("_"):
+                continue
+            out.append_array(find_text(v[k], word))
+    elif v is Array:
+        for x in v:
+            out.append_array(find_text(x, word))
+    elif v is String and (v as String).find(word) >= 0:
+        out.append(str(v))
+    return out
 
 func run() -> void:
     get_root().size = Vector2i(540, 960)
@@ -172,7 +187,7 @@ func run() -> void:
                     seen[n] = true
                     st.append(n)
         comp_max = maxi(comp_max, cnt)
-    print("    岸线以下（y 800～1270，x 60～3060）看着是地面、没被占地挡、却走不了的格子 %d 个，最大一块 %d 格" % [left.size(), comp_max])
+    print("    岸线以下（y 800～1270，x 60～3060）看着是地面、没被占地挡、却走不了的格子 %d 个，最大一块 %d 格 %s" % [left.size(), comp_max, str(left.filter(func(q): return q.x < 1536.0))])
     check("湖边岸线以下，除了被占地挡的，格子都能走（剩 %d 格，不比 03 记下的 %d 格多，最大一块 ≤ 9 格）" % [left.size(), LAKE_KNOWN_LEFT], left.size() <= LAKE_KNOWN_LEFT and comp_max <= 9)
     var stands := {
         "码头中间": Vector2(910, 700), "码头北头": Vector2(910, 600), "码头南头": Vector2(910, 780), "船夫 1 跟前": Vector2(910, 668),
@@ -211,7 +226,8 @@ func run() -> void:
     var uniq := {}
     for dn in texts:
         uniq[texts[dn]] = true
-    check("四句话各不相同、都有字 %s" % str(texts), uniq.size() == 4 and not (texts.values() as Array).has("edge_up"))
+    # 10/4 04 看第 65 版、01 G 定：走到头统一成一句不分方向的（「这边过不去了」），四个键还分着存
+    check("四句话都有字、统一成一句 %s" % str(texts), uniq.size() == 1 and not (texts.values() as Array).has("edge_up") and str(texts["up"]) != "")
     var bump_bad: Array = []
     var edge_n := 0
     var blocked_n := 0
@@ -426,7 +442,46 @@ func run() -> void:
                 hall_over.append("宴会厅牌「%s」%s 盖 %s %s" % [(lbl as Label).text, str(r), sk, str(sp)])
     for b in hall_over:
         print("    ", b)
-    check("宴会厅门牌（后厅、后花园…）跟进厅落点站的人叠了 %d 处（03 测第 65 版时已报 01：西门「后厅」牌、东门「后花园」牌盖住刚进来的人上半身，画在人前面，共 2 处；只守「不再多」）" % hall_over.size(), hall_over.size() <= 2)
+    check("宴会厅门牌（后厅、后花园…）跟进厅落点站的人叠了 %d 处（第 65 版是 2 处：西门「后厅」牌、东门「后花园」牌盖住刚进来的人，第 66 版 02 把牌抬高后清零，从此要求 0）" % hall_over.size(), hall_over.is_empty())
+
+    # 停车场：车跟车、车跟洗手间、杂物处小屋，画出来的范围（顶面 + 前脸：y0 - 高 到 y1）两两不叠（第 65 版小屋压在最南一排 3 辆车上，第 66 版 02 把停车场往南加长）
+    var pk_items: Array = []
+    for it in m.parking.cfg["items"]:
+        if it.has("rect") and it.has("h") and (str(it["id"]).begins_with("car") or str(it["id"]).begins_with("house")):
+            pk_items.append(it)
+    var pk_over: Array = []
+    for i in pk_items.size():
+        for j in range(i + 1, pk_items.size()):
+            var ra: Array = pk_items[i]["rect"]
+            var rb: Array = pk_items[j]["rect"]
+            var ea := Rect2(float(ra[0]), float(ra[1]) - float(pk_items[i]["h"]), float(ra[2]) - float(ra[0]), float(ra[3]) - float(ra[1]) + float(pk_items[i]["h"]))
+            var eb := Rect2(float(rb[0]), float(rb[1]) - float(pk_items[j]["h"]), float(rb[2]) - float(rb[0]), float(rb[3]) - float(rb[1]) + float(pk_items[j]["h"]))
+            if ea.intersects(eb):
+                pk_over.append("%s × %s" % [pk_items[i]["id"], pk_items[j]["id"]])
+    for b in pk_over:
+        print("    停车场叠：", b)
+    check("停车场 %d 件（车 + 小屋）画出来的范围两两不叠（%d 对叠）" % [pk_items.size(), pk_over.size()], pk_over.is_empty() and pk_items.size() >= 12)
+
+    # 「休息区 2」改叫「休息厅 2」（阿鱼 10/4）：除迎宾院自己那块「休息区」（院子里的茶桌），玩家看得见的牌、标题、话里不许再出现「休息区」
+    var old_name: Array = []
+    for k in keys:
+        if k == "court":
+            continue
+        var c = canvas_of(k)
+        for hit in find_text(c.cfg, "休息区"):
+            old_name.append("%s 布局里 %s" % [k, hit])   # 标题、牌子、flat 里的字，note 说明不算
+        for lb in c.labels.get_children():
+            if lb is Label and (lb as Label).text.find("休息区") >= 0:
+                old_name.append("%s 牌「%s」" % [k, (lb as Label).text])
+    for jp in ["res://assets/areas/lines.json", "res://assets/plaza/lines.json"]:
+        var jd = JSON.parse_string(FileAccess.get_file_as_string(jp))
+        if jd is Dictionary:
+            for key in jd:
+                if jd[key] is Dictionary and str((jd[key] as Dictionary).get("text", "")).find("休息区") >= 0:
+                    old_name.append("%s 的 %s：%s" % [jp, key, str(jd[key]["text"])])   # 只看玩家看得见的 text，note 说明不算
+    for b in old_name:
+        print("    ", b)
+    check("「休息区 2」全改成「休息厅 2」：非迎宾院的标题、牌子、话里没有「休息区」残留（%d 处）" % old_name.size(), old_name.is_empty())
 
     print("5 老的落点常量（main.gd 里留着、没有对口的口时才用的兜底）")
     var olds := {
@@ -435,7 +490,7 @@ func run() -> void:
         "LAWN_FROM_PLAZA": ["lawn", m.LAWN_FROM_PLAZA], "LAWN_FROM_BACKHALL": ["lawn", m.LAWN_FROM_BACKHALL], "LAWN_FROM_ORCHARD": ["lawn", m.LAWN_FROM_ORCHARD],
         "LAKE_FROM_COURT": ["lake", m.LAKE_FROM_COURT], "ORCHARD_FROM_LAWN": ["orchard", m.ORCHARD_FROM_LAWN],
         "plaza.FROM_COURT": ["plaza", m.plaza.FROM_COURT], "plaza.FROM_LAWN": ["plaza", m.plaza.FROM_LAWN], "plaza.FROM_BACKHALL": ["plaza", m.plaza.FROM_BACKHALL],
-        "parking.FROM_COURT": ["parking", m.parking.FROM_COURT], "parking.FROM_LAKE": ["parking", m.parking.FROM_LAKE], "lake.FROM_PARKING": ["lake", m.lake.FROM_PARKING],
+        "parking.FROM_COURT": ["parking", m.parking.FROM_COURT], "parking.FROM_LAKE": ["parking", m.parking.FROM_LAKE], "lake.FROM_ORCHARD": ["lake", m.lake.FROM_ORCHARD],
     }
     var old_bad: Array = []
     for k in olds:

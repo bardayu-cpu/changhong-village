@@ -55,7 +55,10 @@ func play_once(click_at: int) -> Dictionary:
     m.dialog.visible = false
     var legs: Array = []
     var states: Array = []
-    var notes := 0
+    var drive_frames := 0
+    var tip_frames := 0
+    var hint_vis := 0
+    var stick_vis := 0
     m._start_play()
     var n := 0
     var clicked := false
@@ -66,6 +69,14 @@ func play_once(click_at: int) -> Dictionary:
             legs.append(m.drive.leg)
         if states.is_empty() or states[-1] != m.state:
             states.append(m.state)
+        if m.driving:
+            drive_frames += 1
+            if m.hud.get_node_or_null("drive_skip_tip") != null:
+                tip_frames += 1
+            if m.hint != null and m.hint.visible:
+                hint_vis += 1
+            if m.stick_base != null and m.stick_base.visible:
+                stick_vis += 1
         if click_at >= 0 and n == click_at and not clicked:
             clicked = true
             real_click()
@@ -74,7 +85,8 @@ func play_once(click_at: int) -> Dictionary:
     for i in 30:
         await process_frame
     m.drive_in_fast = false
-    return {"legs": legs, "states": states, "frames": n}
+    return {"legs": legs, "states": states, "frames": n, "drive_frames": drive_frames, "tip_frames": tip_frames, "hint_vis": hint_vis, "stick_vis": stick_vis,
+        "tip_after": m.hud.get_node_or_null("drive_skip_tip") != null, "hint_after": m.hint != null and m.hint.visible, "stick_after": m.stick_base != null and m.stick_base.visible}
 
 func after_ok(tag: String, r: Dictionary) -> bool:
     var mine: Node = m.parking.world.get_node_or_null("car_mine")
@@ -105,10 +117,14 @@ func run() -> void:
     var r1 := await play_once(-1)
     check("新号（什么都没有）：三段开完 %s，只在这三块之间切 %s" % [str(r1["legs"]), str(r1["states"])], r1["legs"] == all3 and r1["states"].size() <= 5 and not (r1["states"] as Array).has("court") and after_ok("新号", r1))
     set_save({"welcomed": true, "signed_in": true, "court_seen": true, "backhall_seen": true})
+    check("新号第一次开车：屏幕下方没有「点一下屏幕跳过」那行（%d / %d 帧出现）" % [r1["tip_frames"], r1["drive_frames"]], int(r1["tip_frames"]) == 0 and int(r1["drive_frames"]) > 600)
     var r2 := await play_once(-1)
     check("老号（进过迎宾院、后厅，没看过开车）：三段开完，停车场下车", r2["legs"] == all3 and not (r2["states"] as Array).has("court") and after_ok("老号", r2))
     var r3 := await play_once(-1)
     check("老老号（看过开车、没点屏幕）：照样三段开完", r3["legs"] == all3 and after_ok("老老号", r3))
+
+    check("看过开车以后再开：「点一下屏幕跳过」整个开车过程都在（%d / %d 帧）、停好车就收了（收后还在 %s）" % [r3["tip_frames"], r3["drive_frames"], str(r3["tip_after"])], int(r3["tip_frames"]) >= int(r3["drive_frames"]) - 5 and int(r3["drive_frames"]) > 600 and not r3["tip_after"])
+    check("开车时「点地面走路」提示和摇杆都藏着（新号出现 %d + %d 帧、老号 %d + %d 帧）；停好车下车：摇杆出来了 %s、提示 %s" % [r1["hint_vis"], r1["stick_vis"], r3["hint_vis"], r3["stick_vis"], str(r3["stick_after"]), str(r3["hint_after"])], int(r1["hint_vis"]) == 0 and int(r1["stick_vis"]) == 0 and int(r3["hint_vis"]) == 0 and int(r3["stick_vis"]) == 0 and r3["stick_after"] == true and r3["hint_after"] == (not m.hint_done))
 
     print("2 点屏幕跳过")
     set_save({"welcomed": true, "signed_in": true, "court_seen": true})
@@ -191,7 +207,7 @@ func run() -> void:
                             depth = minf(ib.size.x, ib.size.y)
                     if hit:
                         var msg := "%s 车身 %s 压到占地 %s（中心线 %s，压进 %.0f 像素深）" % [cn, str(body), str(o), str(p), depth]
-                        # 已知两类（03 看第 65 版报给 01）：① 车身边上蹭到围墙头、长椅、灯座这些矮东西（压进 ≤ 25 像素，画上车在前面盖住一角）；② 停车场拐弯倒车那 0.3 秒，竖着的车身压到北边停着的车
+                        # 已知两类（03 看第 65 版报给 01）：① 车身边上蹭到围墙头、长椅、灯座这些矮东西（压进 ≤ 25 像素，画上车在前面盖住一角）；② 停车场拐弯倒车时竖着的车身压到北边停着的车（第 66 版起要求 0）
                         if depth <= 60.0:
                             known.append("gap " + msg)
                             max_minor = maxf(max_minor, depth)
@@ -217,7 +233,7 @@ func run() -> void:
         else:
             kp += 1
     print("    已知的两类擦碰：车身边上蹭到围墙头、长椅、灯座（压进 ≤60 像素）%d 个采样点（每 10 像素一个）；停车场拐进车位那 %d 个采样点车身压到北边停着的车；蹭边最深 %.0f 像素" % [kf, kp, max_minor])
-    check("已知擦碰的量没变大（蹭边 ≤ 200 个点、停车场拐弯 ≤ 12 个点）：缺口 %d、停车场 %d" % [kf, kp], kf <= 200 and kp <= 12)
+    check("擦碰：蹭边 %d 个点（≤ 200）；停车场拐弯车身压北边停着的车 %d 个点（第 65 版是 2～5 个，第 66 版 02 把车道挪到 y 846 后清零，从此要求 0）" % [kf, kp], kf <= 200 and kp == 0)
     print("    其余不能走、或车身压到挡路占地的点共 %d 个" % pts_bad.size())
     check("除了上面两处已知的，路线中心线每一点都在能走的范围里、车身不压挡路的占地（每段头尾 60 像素在口子里、倒进车位那截不算）", pts_bad.is_empty())
     var mine_pos: Vector2 = pk.points["my_car"]["pos"]

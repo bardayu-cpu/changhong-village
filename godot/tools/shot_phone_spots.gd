@@ -48,7 +48,7 @@ func run() -> void:
         m.ensure_canvas(CANVAS)
     m._show_canvas(CANVAS)
     m._goto(CANVAS)
-    var b = {"backhall": m.backhall, "lawn": m.lawn, "lake": m.lake, "parking": m.parking, "plaza": m.plaza, "court": m.court}[CANVAS]
+    var b = {"backhall": m.backhall, "orchard": m.orchard, "lawn": m.lawn, "lake": m.lake, "parking": m.parking, "plaza": m.plaza, "court": m.court}[CANVAS]
     b.walking_enabled = false
     m.dialog.visible = false
     await create_timer(0.8).timeout
