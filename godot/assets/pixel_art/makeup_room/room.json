@@ -1,5 +1,6 @@
 {
- "note": "tools/pixel_art/room_makeup.py 生成，别手改。化妆间（单独成一间屋）照「多」档灰盒画的像素成品；背景左上角放在 background.x/y，1 倍、不插值；每件家具左上角在 x/y，着地线 foot（跟人排前后用）；hide 是要藏掉的灰盒（挡人的占地照旧，粉色「人」色块也藏）",
+ "note": "tools/import_makeup_blocks.py 照 GPT 交付.json 出，别手改。底图铺地上；每件零件左上角在 x/y，着地线 foot（跟人排前后）；fg_ 的 foot 很大（永远在人前面）；hide 藏掉同名的占地灰盒（挡人照旧）",
+ "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_ref_i4u9q7k1",
  "background": {
   "png": "res://assets/pixel_art/makeup_room/room.png",
   "x": 0,
@@ -7,444 +8,609 @@
  },
  "room": {
   "x0": 0,
-  "x1": 576
+  "x1": 540
  },
  "props": [
   {
-   "id": "px_closet_cn",
-   "png": "res://assets/pixel_art/makeup_room/props/closet_cn.png",
-   "x": 28,
-   "y": 97,
-   "foot": 210,
+   "id": "px_corner_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_corner_w.png",
+   "x": 15,
+   "y": 29,
+   "foot": 143,
    "hide": [
-    "closet_cn"
+    "corner_w",
+    "wall_s_0",
+    "wall_s_1"
    ]
   },
   {
-   "id": "px_closet_west",
-   "png": "res://assets/pixel_art/makeup_room/props/closet_west.png",
-   "x": 478,
-   "y": 97,
-   "foot": 210,
+   "id": "px_corner_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_corner_e.png",
+   "x": 463,
+   "y": 38,
+   "foot": 143,
    "hide": [
-    "closet_west"
+    "corner_e"
    ]
   },
   {
-   "id": "px_vanity_0",
-   "png": "res://assets/pixel_art/makeup_room/props/vanity_0.png",
-   "x": 101,
-   "y": 149,
-   "foot": 210,
+   "id": "px_dresser_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_1.png",
+   "x": 82,
+   "y": 88,
+   "foot": 141,
    "hide": [
-    "vanity_0",
-    "mirror_0"
+    "dresser_1"
    ]
   },
   {
-   "id": "px_stool_0",
-   "png": "res://assets/pixel_art/makeup_room/props/stool_0.png",
-   "x": 121,
-   "y": 209,
-   "foot": 238,
+   "id": "px_dresser_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_2.png",
+   "x": 181,
+   "y": 89,
+   "foot": 141,
    "hide": [
-    "stool_0"
+    "dresser_2"
    ]
   },
   {
-   "id": "px_vanity_1",
-   "png": "res://assets/pixel_art/makeup_room/props/vanity_1.png",
+   "id": "px_dresser_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_3.png",
+   "x": 274,
+   "y": 88,
+   "foot": 141,
+   "hide": [
+    "dresser_3"
+   ]
+  },
+  {
+   "id": "px_dresser_4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_4.png",
+   "x": 367,
+   "y": 88,
+   "foot": 141,
+   "hide": [
+    "dresser_4"
+   ]
+  },
+  {
+   "id": "px_vase_stand_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_1.png",
    "x": 164,
-   "y": 149,
-   "foot": 210,
+   "y": 62,
+   "foot": 141,
    "hide": [
-    "vanity_1",
-    "mirror_1"
+    "vase_stand_1"
+   ]
+  },
+  {
+   "id": "px_vase_stand_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_2.png",
+   "x": 258,
+   "y": 62,
+   "foot": 141,
+   "hide": [
+    "vase_stand_2"
+   ]
+  },
+  {
+   "id": "px_vase_stand_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_3.png",
+   "x": 351,
+   "y": 62,
+   "foot": 141,
+   "hide": [
+    "vase_stand_3"
    ]
   },
   {
    "id": "px_stool_1",
-   "png": "res://assets/pixel_art/makeup_room/props/stool_1.png",
-   "x": 183,
-   "y": 209,
-   "foot": 238,
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_1.png",
+   "x": 112,
+   "y": 121,
+   "foot": 156,
    "hide": [
     "stool_1"
    ]
   },
   {
-   "id": "px_vanity_2",
-   "png": "res://assets/pixel_art/makeup_room/props/vanity_2.png",
-   "x": 225,
-   "y": 143,
-   "foot": 210,
-   "hide": [
-    "vanity_2",
-    "mirror_2"
-   ]
-  },
-  {
    "id": "px_stool_2",
-   "png": "res://assets/pixel_art/makeup_room/props/stool_2.png",
-   "x": 245,
-   "y": 209,
-   "foot": 238,
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_2.png",
+   "x": 208,
+   "y": 121,
+   "foot": 156,
    "hide": [
     "stool_2"
    ]
   },
   {
-   "id": "px_vanity_3",
-   "png": "res://assets/pixel_art/makeup_room/props/vanity_3.png",
-   "x": 287,
-   "y": 149,
-   "foot": 210,
-   "hide": [
-    "vanity_3",
-    "mirror_3"
-   ]
-  },
-  {
    "id": "px_stool_3",
-   "png": "res://assets/pixel_art/makeup_room/props/stool_3.png",
-   "x": 307,
-   "y": 209,
-   "foot": 238,
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_3.png",
+   "x": 301,
+   "y": 121,
+   "foot": 156,
    "hide": [
     "stool_3"
    ]
   },
   {
-   "id": "px_vanity_4",
-   "png": "res://assets/pixel_art/makeup_room/props/vanity_4.png",
-   "x": 350,
-   "y": 149,
-   "foot": 210,
-   "hide": [
-    "vanity_4",
-    "mirror_4"
-   ]
-  },
-  {
    "id": "px_stool_4",
-   "png": "res://assets/pixel_art/makeup_room/props/stool_4.png",
-   "x": 369,
-   "y": 209,
-   "foot": 238,
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_4.png",
+   "x": 396,
+   "y": 121,
+   "foot": 156,
    "hide": [
     "stool_4"
    ]
   },
   {
-   "id": "px_vanity_5",
-   "png": "res://assets/pixel_art/makeup_room/props/vanity_5.png",
-   "x": 411,
-   "y": 143,
-   "foot": 210,
+   "id": "px_rack_w1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w1.png",
+   "x": 13,
+   "y": 152,
+   "foot": 270,
    "hide": [
-    "vanity_5",
-    "mirror_5"
+    "rack_w1"
    ]
   },
   {
-   "id": "px_stool_5",
-   "png": "res://assets/pixel_art/makeup_room/props/stool_5.png",
-   "x": 431,
-   "y": 209,
-   "foot": 238,
+   "id": "px_rack_w2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w2.png",
+   "x": 16,
+   "y": 273,
+   "foot": 373,
    "hide": [
-    "stool_5"
+    "rack_w2"
    ]
   },
   {
-   "id": "px_rack_cn_back_0",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_cn_back_0.png",
-   "x": 25,
-   "y": 236,
-   "foot": 330,
+   "id": "px_rack_w3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w3.png",
+   "x": 16,
+   "y": 374,
+   "foot": 479,
    "hide": [
-    "rack_cn_back_0"
+    "rack_w3"
    ]
   },
   {
-   "id": "px_rack_west_back_1",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_west_back_1.png",
-   "x": 327,
-   "y": 241,
-   "foot": 330,
+   "id": "px_rack_w4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w4.png",
+   "x": 16,
+   "y": 483,
+   "foot": 588,
    "hide": [
-    "rack_west_back_1"
+    "rack_w4"
    ]
   },
   {
-   "id": "px_rack_jp_back_2",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_jp_back_2.png",
-   "x": 25,
-   "y": 398,
-   "foot": 480,
+   "id": "px_rack_e1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e1.png",
+   "x": 375,
+   "y": 152,
+   "foot": 270,
    "hide": [
-    "rack_jp_back_2"
+    "rack_e1"
    ]
   },
   {
-   "id": "px_rack_ethnic_3",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_ethnic_3.png",
-   "x": 328,
-   "y": 404,
-   "foot": 480,
+   "id": "px_rack_e2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e2.png",
+   "x": 395,
+   "y": 273,
+   "foot": 373,
    "hide": [
-    "rack_ethnic_3"
+    "rack_e2"
    ]
   },
   {
-   "id": "px_rack_cn_back_4",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_cn_back_4.png",
-   "x": 25,
-   "y": 536,
-   "foot": 630,
+   "id": "px_rack_e3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e3.png",
+   "x": 392,
+   "y": 374,
+   "foot": 482,
    "hide": [
-    "rack_cn_back_4"
+    "rack_e3"
    ]
   },
   {
-   "id": "px_rack_west_back_5",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_west_back_5.png",
-   "x": 327,
-   "y": 541,
-   "foot": 630,
+   "id": "px_rack_e4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e4.png",
+   "x": 406,
+   "y": 483,
+   "foot": 591,
    "hide": [
-    "rack_west_back_5"
+    "rack_e4"
    ]
   },
   {
-   "id": "px_rack_jp_back_6",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_jp_back_6.png",
-   "x": 25,
-   "y": 698,
-   "foot": 780,
+   "id": "px_cab_w1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_w1.png",
+   "x": 159,
+   "y": 187,
+   "foot": 265,
    "hide": [
-    "rack_jp_back_6"
+    "cab_w1"
    ]
   },
   {
-   "id": "px_rack_ethnic_7",
-   "png": "res://assets/pixel_art/makeup_room/props/rack_ethnic_7.png",
-   "x": 328,
+   "id": "px_mirror_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_w.png",
+   "x": 151,
+   "y": 283,
+   "foot": 388,
+   "hide": [
+    "mirror_w"
+   ]
+  },
+  {
+   "id": "px_mirror_w_flowers",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_w_flowers.png",
+   "x": 156,
+   "y": 372,
+   "foot": 397,
+   "hide": [
+    "mirror_w_flowers"
+   ]
+  },
+  {
+   "id": "px_shoes_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_shoes_w.png",
+   "x": 146,
+   "y": 399,
+   "foot": 483,
+   "hide": [
+    "shoes_w"
+   ]
+  },
+  {
+   "id": "px_cab_w4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_w4.png",
+   "x": 131,
+   "y": 513,
+   "foot": 581,
+   "hide": [
+    "cab_w4"
+   ]
+  },
+  {
+   "id": "px_cab_e1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_e1.png",
+   "x": 351,
+   "y": 187,
+   "foot": 268,
+   "hide": [
+    "cab_e1"
+   ]
+  },
+  {
+   "id": "px_mirror_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_e.png",
+   "x": 360,
+   "y": 280,
+   "foot": 383,
+   "hide": [
+    "mirror_e"
+   ]
+  },
+  {
+   "id": "px_mirror_e_flowers",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_e_flowers.png",
+   "x": 363,
+   "y": 367,
+   "foot": 392,
+   "hide": [
+    "mirror_e_flowers"
+   ]
+  },
+  {
+   "id": "px_shoes_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_shoes_e.png",
+   "x": 356,
+   "y": 392,
+   "foot": 483,
+   "hide": [
+    "shoes_e"
+   ]
+  },
+  {
+   "id": "px_cab_e4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_e4.png",
+   "x": 366,
+   "y": 507,
+   "foot": 581,
+   "hide": [
+    "cab_e4"
+   ]
+  },
+  {
+   "id": "px_jewel_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_jewel_1.png",
+   "x": 229,
+   "y": 239,
+   "foot": 339,
+   "hide": [
+    "jewel_1"
+   ]
+  },
+  {
+   "id": "px_jewel_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_jewel_2.png",
+   "x": 229,
+   "y": 406,
+   "foot": 516,
+   "hide": [
+    "jewel_2"
+   ]
+  },
+  {
+   "id": "px_jewel_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_jewel_3.png",
+   "x": 229,
+   "y": 584,
+   "foot": 689,
+   "hide": [
+    "jewel_3"
+   ]
+  },
+  {
+   "id": "px_gold_vase_w1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w1.png",
+   "x": 198,
+   "y": 257,
+   "foot": 318,
+   "hide": [
+    "gold_vase_w1"
+   ]
+  },
+  {
+   "id": "px_gold_vase_e1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e1.png",
+   "x": 306,
+   "y": 258,
+   "foot": 318,
+   "hide": [
+    "gold_vase_e1"
+   ]
+  },
+  {
+   "id": "px_gold_vase_w2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w2.png",
+   "x": 198,
+   "y": 424,
+   "foot": 488,
+   "hide": [
+    "gold_vase_w2"
+   ]
+  },
+  {
+   "id": "px_gold_vase_e2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e2.png",
+   "x": 306,
+   "y": 424,
+   "foot": 488,
+   "hide": [
+    "gold_vase_e2"
+   ]
+  },
+  {
+   "id": "px_gold_vase_w3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w3.png",
+   "x": 198,
+   "y": 604,
+   "foot": 666,
+   "hide": [
+    "gold_vase_w3"
+   ]
+  },
+  {
+   "id": "px_gold_vase_e3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e3.png",
+   "x": 306,
+   "y": 604,
+   "foot": 666,
+   "hide": [
+    "gold_vase_e3"
+   ]
+  },
+  {
+   "id": "px_fit_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_w.png",
+   "x": 17,
+   "y": 589,
+   "foot": 697,
+   "hide": [
+    "fit_w"
+   ]
+  },
+  {
+   "id": "px_fit_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_e.png",
+   "x": 381,
+   "y": 589,
+   "foot": 697,
+   "hide": [
+    "fit_e"
+   ]
+  },
+  {
+   "id": "px_fit_stool_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_stool_w.png",
+   "x": 49,
+   "y": 673,
+   "foot": 705,
+   "hide": [
+    "fit_stool_w"
+   ]
+  },
+  {
+   "id": "px_fit_stool_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_stool_e.png",
+   "x": 461,
+   "y": 677,
+   "foot": 710,
+   "hide": [
+    "fit_stool_e"
+   ]
+  },
+  {
+   "id": "px_cab_fit_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_fit_w.png",
+   "x": 14,
+   "y": 638,
+   "foot": 699,
+   "hide": [
+    "cab_fit_w"
+   ]
+  },
+  {
+   "id": "px_cab_fit_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_fit_e.png",
+   "x": 493,
+   "y": 644,
+   "foot": 705,
+   "hide": [
+    "cab_fit_e"
+   ]
+  },
+  {
+   "id": "px_lamp_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_lamp_w.png",
+   "x": 18,
+   "y": 706,
+   "foot": 770,
+   "hide": [
+    "lamp_w"
+   ]
+  },
+  {
+   "id": "px_lamp_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_lamp_e.png",
+   "x": 509,
    "y": 704,
-   "foot": 780,
+   "foot": 768,
    "hide": [
-    "rack_ethnic_7"
+    "lamp_e"
    ]
   },
   {
-   "id": "px_island_0",
-   "png": "res://assets/pixel_art/makeup_room/props/island_0.png",
-   "x": 195,
-   "y": 351,
-   "foot": 420,
+   "id": "px_sofa_red",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_sofa_red.png",
+   "x": 32,
+   "y": 719,
+   "foot": 797,
    "hide": [
-    "island_0"
+    "sofa_red"
    ]
   },
   {
-   "id": "px_island_1",
-   "png": "res://assets/pixel_art/makeup_room/props/island_1.png",
-   "x": 195,
-   "y": 511,
-   "foot": 580,
+   "id": "px_sofa_cream",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_sofa_cream.png",
+   "x": 381,
+   "y": 723,
+   "foot": 797,
    "hide": [
-    "island_1"
+    "sofa_cream"
    ]
   },
   {
-   "id": "px_island_2",
-   "png": "res://assets/pixel_art/makeup_room/props/island_2.png",
-   "x": 195,
-   "y": 671,
-   "foot": 740,
+   "id": "px_cab_sofa_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_sofa_w.png",
+   "x": 152,
+   "y": 731,
+   "foot": 799,
    "hide": [
-    "island_2"
+    "cab_sofa_w"
    ]
   },
   {
-   "id": "px_gown_form_0",
-   "png": "res://assets/pixel_art/makeup_room/props/gown_form_0.png",
-   "x": 506,
-   "y": 247,
-   "foot": 330,
+   "id": "px_cab_sofa_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_sofa_e.png",
+   "x": 353,
+   "y": 731,
+   "foot": 799,
    "hide": [
-    "gown_form_0"
+    "cab_sofa_e"
    ]
   },
   {
-   "id": "px_gown_form_1",
-   "png": "res://assets/pixel_art/makeup_room/props/gown_form_1.png",
-   "x": 506,
-   "y": 407,
-   "foot": 490,
+   "id": "px_table_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_table_w.png",
+   "x": 59,
+   "y": 784,
+   "foot": 831,
    "hide": [
-    "gown_form_1"
+    "table_w"
    ]
   },
   {
-   "id": "px_gown_form_2",
-   "png": "res://assets/pixel_art/makeup_room/props/gown_form_2.png",
-   "x": 506,
-   "y": 567,
-   "foot": 650,
+   "id": "px_table_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_table_e.png",
+   "x": 405,
+   "y": 801,
+   "foot": 839,
    "hide": [
-    "gown_form_2"
+    "table_e"
    ]
   },
   {
-   "id": "px_full_mirror_0",
-   "png": "res://assets/pixel_art/makeup_room/props/full_mirror_0.png",
-   "x": 507,
-   "y": 328,
-   "foot": 410,
+   "id": "px_pouf_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_pouf_w.png",
+   "x": 23,
+   "y": 798,
+   "foot": 837,
    "hide": [
-    "full_mirror_0"
+    "pouf_w"
    ]
   },
   {
-   "id": "px_full_mirror_1",
-   "png": "res://assets/pixel_art/makeup_room/props/full_mirror_1.png",
-   "x": 507,
-   "y": 488,
-   "foot": 570,
+   "id": "px_armchair_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_armchair_e.png",
+   "x": 470,
+   "y": 781,
+   "foot": 842,
    "hide": [
-    "full_mirror_1"
+    "armchair_e"
    ]
   },
   {
-   "id": "px_full_mirror_2",
-   "png": "res://assets/pixel_art/makeup_room/props/full_mirror_2.png",
-   "x": 507,
-   "y": 648,
-   "foot": 730,
+   "id": "px_chest_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_chest_w.png",
+   "x": 144,
+   "y": 840,
+   "foot": 859,
    "hide": [
-    "full_mirror_2"
+    "chest_w"
    ]
   },
   {
-   "id": "px_crown_stand",
-   "png": "res://assets/pixel_art/makeup_room/props/crown_stand.png",
-   "x": 512,
-   "y": 713,
-   "foot": 790,
+   "id": "px_chest_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_chest_e.png",
+   "x": 356,
+   "y": 840,
+   "foot": 859,
    "hide": [
-    "crown_stand"
+    "chest_e"
    ]
   },
   {
-   "id": "px_silver_crown",
-   "png": "res://assets/pixel_art/makeup_room/props/silver_crown.png",
-   "x": 216,
-   "y": 760,
-   "foot": 846,
-   "hide": [
-    "silver_crown"
-   ]
-  },
-  {
-   "id": "px_sofa_0",
-   "png": "res://assets/pixel_art/makeup_room/props/sofa_0.png",
-   "x": 39,
-   "y": 817,
-   "foot": 900,
-   "hide": [
-    "sofa_0"
-   ]
-  },
-  {
-   "id": "px_sofa_1",
-   "png": "res://assets/pixel_art/makeup_room/props/sofa_1.png",
-   "x": 463,
-   "y": 817,
-   "foot": 900,
-   "hide": [
-    "sofa_1"
-   ]
-  },
-  {
-   "id": "px_screen",
-   "png": "res://assets/pixel_art/makeup_room/props/screen.png",
-   "x": 139,
-   "y": 756,
-   "foot": 846,
-   "hide": [
-    "screen"
-   ]
-  },
-  {
-   "id": "px_shoes",
-   "png": "res://assets/pixel_art/makeup_room/props/shoes.png",
-   "x": 371,
-   "y": 792,
+   "id": "px_door_flower_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_door_flower_w.png",
+   "x": 193,
+   "y": 804,
    "foot": 850,
    "hide": [
-    "shoes"
+    "door_flower_w"
    ]
   },
   {
-   "id": "px_pouf",
-   "png": "res://assets/pixel_art/makeup_room/props/pouf.png",
-   "x": 383,
-   "y": 864,
-   "foot": 892,
+   "id": "px_door_flower_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_door_flower_e.png",
+   "x": 308,
+   "y": 804,
+   "foot": 850,
    "hide": [
-    "pouf"
-   ]
-  },
-  {
-   "id": "px_gifts",
-   "png": "res://assets/pixel_art/makeup_room/props/gifts.png",
-   "x": 139,
-   "y": 886,
-   "foot": 936,
-   "hide": [
-    "gifts"
-   ]
-  },
-  {
-   "id": "px_trunk",
-   "png": "res://assets/pixel_art/makeup_room/props/trunk.png",
-   "x": 379,
-   "y": 893,
-   "foot": 936,
-   "hide": [
-    "trunk"
-   ]
-  },
-  {
-   "id": "px_flowers_w",
-   "png": "res://assets/pixel_art/makeup_room/props/flowers_w.png",
-   "x": 224,
-   "y": 884,
-   "foot": 950,
-   "hide": [
-    "flowers_w"
-   ]
-  },
-  {
-   "id": "px_flowers_e",
-   "png": "res://assets/pixel_art/makeup_room/props/flowers_e.png",
-   "x": 324,
-   "y": 884,
-   "foot": 950,
-   "hide": [
-    "flowers_e"
-   ]
-  },
-  {
-   "id": "px_walls",
-   "png": "res://assets/pixel_art/makeup_room/props/walls.png",
-   "x": 14,
-   "y": 67,
-   "foot": 974,
-   "hide": [
-    "wall_s_0",
-    "wall_s_1"
+    "door_flower_e"
    ]
   }
  ]

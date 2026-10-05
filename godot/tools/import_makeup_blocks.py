@@ -27,15 +27,28 @@ OUT = os.path.join(GODOT, "assets", "pixel_art", "makeup_room_gpt")
 RES = "res://assets/pixel_art/makeup_room_gpt/"
 LAYOUT = os.path.join(GODOT, "assets", "layered", "scene_luoman_makeup", "layout.json")
 
-W, H = 576, 1024
-# 墙、门（画布坐标，照效果图：南墙顶面 918～930、正面 930～946，门洞两根门柱之间 242～334；北墙脚约 125）
-FLOOR_TOP = 128          # 能走的最北一线（北墙脚往南一点）
-FLOOR_BOT = 914          # 能走的最南一线（南墙顶面往北一点）
-SIDE = (22, 554)         # 能走的东西两边
-DOOR = (244, 332)        # 门洞
-SOUTH_WALL = (930, 946)  # 南墙挡人的那一条
-EXIT_Y = 990             # 出口点（回后厅）
-SPAWN = (288, 900)       # 从后厅走进来站的地方
+W, H = 576, 1024          # 化妆间画布（--canvas=540x960 改：10/5 照效果图代码画那版用 540×960，手机一屏看完整间）
+# 墙、门照效果图（941×1672）的坐标写，按画布宽换算：南墙顶面 1500、正面 1520～1545，门洞两根门柱之间 395～545；北墙脚约 210
+REF_W = 941.0
+REF = {"floor_top": 210, "floor_bot": 1492, "side": (36, 905), "door": (395, 545), "south_wall": (1520, 1545),
+       "exit_y": 1615, "spawn": (470, 1470)}
+
+
+def set_canvas(w, h):
+    """画布多大（墙、门这几样跟着按效果图换算）"""
+    global W, H, FLOOR_TOP, FLOOR_BOT, SIDE, DOOR, SOUTH_WALL, EXIT_Y, SPAWN
+    W, H = w, h
+    k = w / REF_W
+    FLOOR_TOP = round(REF["floor_top"] * k)        # 能走的最北一线（北墙脚往南一点）
+    FLOOR_BOT = round(REF["floor_bot"] * k)        # 能走的最南一线（南墙顶面往北一点）
+    SIDE = tuple(round(v * k) for v in REF["side"])
+    DOOR = tuple(round(v * k) for v in REF["door"])
+    SOUTH_WALL = tuple(round(v * k) for v in REF["south_wall"])
+    EXIT_Y = round(REF["exit_y"] * k)
+    SPAWN = tuple(round(v * k) for v in REF["spawn"])
+
+
+set_canvas(W, H)
 
 
 # ================================================================== 读拆景包（placement.json）
@@ -148,6 +161,7 @@ def load_delivery(folder):
         r = _rect(dr if not isinstance(dr, dict) or "rect" in dr or "x" in dr else dr.get("at"))
         if r is not None:
             doors.append(r)
+    SPOTS.update(_first(d, ["spots", "点"], {}) or {})
     return {"w": float(sw), "h": float(sh), "base": base, "parts": out, "shadows": shadows, "blocked": blocked, "doors": doors,
             "name": fn, "raw": d}
 
@@ -204,6 +218,9 @@ def kind_of(name):
     return ""
 
 
+SPOTS = {}   # 拆景包里写的点（spots：dress 换装点 …），load 时填
+
+
 def build_layout(props, s, blocked=()):
     items, npcs, stands = [], [], []
     for k, (bx0, by0, bw, bh) in enumerate(blocked):   # 拆景包里写的「人走不过去的地方」（墙、柜子背后）
@@ -244,7 +261,7 @@ def build_layout(props, s, blocked=()):
         j = jewel[0]
         ax, ay = round((j["footprint"][0] + j["footprint"][2]) * s) + 14, round((j["footprint"][1] + j["footprint"][3]) * s) + 8
     else:
-        ax, ay = 380, 380
+        ax, ay = round(W * 0.66), round(H * 0.37)
     npcs.append({"id": "makeup_2", "who": "化妆助理", "x": ax, "y": ay, "face": "left", "look": "makeup_2", "lm": "LM-MAKEUP-02",
                  "life": "makeup", "approach": [ax - 20, ay + 22], "wander": ["stand_mk_gown", "stand_mk_red"],
                  "standin": {"code": "LM-GUEST-06", "frame": 4}})
@@ -256,9 +273,9 @@ def build_layout(props, s, blocked=()):
             return fallback
         p = rk[0]
         fx, fy, fw, fh = p["footprint"]
-        return [round((fx + fw * 0.5) * s), round((fy + fh) * s) + 16]
-    gx, gy = front_of("rack_e1", [470, 300])
-    rx, ry = front_of("rack_w1", [100, 300])
+        return [round((fx + fw * 0.5) * s), round((fy + fh) * s) + 26]
+    gx, gy = front_of("rack_e1", [round(W * 0.8), round(H * 0.3)])
+    rx, ry = front_of("rack_w1", [round(W * 0.17), round(H * 0.3)])
     stands.append({"id": "stand_mk_gown", "name": "婚纱那排跟前（化妆助理看婚纱）", "x": gx, "y": gy, "r": 14})
     stands.append({"id": "stand_mk_red", "name": "红喜服那排跟前（化妆助理取衣服）", "x": rx, "y": ry, "r": 14})
     # ---- 别的座位坐替身（静静坐着，不冒泡、不能点）：化妆凳、圆墩、试衣间的凳子背对镜头；沙发、单人椅脸朝外、只露到腰
@@ -274,18 +291,20 @@ def build_layout(props, s, blocked=()):
         k += 1
     # ---- 交互点：南门回后厅；换装点在试衣间（西边那间圆地毯上）
     fit = [p for p in props if "fit" in p["name"] and not p["fg"]]
-    if fit:
+    if SPOTS.get("dress"):
+        dress = [round(SPOTS["dress"][0] * s), round(SPOTS["dress"][1] * s)]
+    elif fit:
         f = sorted(fit, key=lambda p: p["footprint"][0])[0]
         fx, fy, fw, fh = f["footprint"]
         dress = [round((fx + fw) * s) + 26, round((fy + fh) * s) - 6]
     else:
-        dress = [150, 720]
+        dress = [round(W * 0.26), round(H * 0.7)]
     points = [{"id": "to_backhall", "x": (DOOR[0] + DOOR[1]) // 2, "y": EXIT_Y, "r": 30, "to": "backhall",
                "note": "南门出去回后厅走廊化妆间门口（后厅 to_makeup 那里）"},
               {"id": "dress", "x": dress[0], "y": dress[1], "r": 40,
                "note": "换装点（01 H 10/5：挪到试衣间；以后试衣服做成弹窗，像厨房那样）"}]
     walk = [[[SIDE[0], FLOOR_TOP], [SIDE[1], FLOOR_TOP], [SIDE[1], FLOOR_BOT], [SIDE[0], FLOOR_BOT]],
-            [[DOOR[0], FLOOR_BOT - 10], [DOOR[1], FLOOR_BOT - 10], [DOOR[1], 1018], [DOOR[0], 1018]]]
+            [[DOOR[0], FLOOR_BOT - 10], [DOOR[1], FLOOR_BOT - 10], [DOOR[1], H - 6], [DOOR[0], H - 6]]]
     return {
         "scene": "scene_luoman_makeup",
         "title": "化妆间",
@@ -297,7 +316,7 @@ def build_layout(props, s, blocked=()):
         "points": points,
         "walk": walk,
         "flat": [{"type": "rect", "rect": [0, 0, W, H], "color": "#2e211b"},
-                 {"type": "label", "text": "回后厅", "x": DOOR[1] + 52, "y": 996}],   # 南门外的「去…」牌（游戏里的字）
+                 {"type": "label", "text": "回后厅", "x": DOOR[1] + 52, "y": EXIT_Y}],   # 南门外的「去…」牌（游戏里的字）
         "items": items,
         "npcs": npcs,
         "stand_points": stands,
@@ -332,10 +351,18 @@ def main():
     folder = args[0]
     check = sys.argv[sys.argv.index("--check") + 1] if "--check" in sys.argv else None
     report = sys.argv[sys.argv.index("--report") + 1] if "--report" in sys.argv else None
+    global OUT, RES
+    for a in sys.argv:
+        if a.startswith("--canvas="):
+            cw, ch = a.split("=", 1)[1].split("x")
+            set_canvas(int(cw), int(ch))
+        if a.startswith("--name="):   # 出到 assets/pixel_art/<name>/
+            OUT = os.path.join(GODOT, "assets", "pixel_art", a.split("=", 1)[1])
+            RES = "res://assets/pixel_art/%s/" % a.split("=", 1)[1]
     dl = load_delivery(folder)
     s = W / dl["w"]
     if abs(dl["h"] * s - H) > 4:
-        raise SystemExit("原图 %dx%d 缩到宽 576 后高 %.0f，跟化妆间画布 1024 对不上" % (dl["w"], dl["h"], dl["h"] * s))
+        raise SystemExit("原图 %dx%d 缩到宽 %d 后高 %.0f，跟化妆间画布 %d 对不上" % (dl["w"], dl["h"], W, dl["h"] * s, H))
     bad = static_checks(dl, folder)
     print("静态检查：%s" % ("没有问题" if not bad else "%d 处" % len(bad)))
     for b in bad:

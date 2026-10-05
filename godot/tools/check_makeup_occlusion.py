@@ -23,7 +23,7 @@ from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GODOT = os.path.dirname(HERE)
-ROOM = os.path.join(GODOT, "assets", "pixel_art", "makeup_room_gpt", "room.json")
+ROOM = os.path.join(GODOT, "assets", "pixel_art", "makeup_room", "room.json")   # --name= 换（照效果图代码画那版出到 makeup_room）
 PW, PH = 32, 84          # 人多宽、多高（游戏里站着的一帧）
 MIN_PX = 20              # 盖住不到这么多像素的不算
 
@@ -38,16 +38,22 @@ def main():
     if not args:
         raise SystemExit(__doc__)
     opt = lambda k: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else None
+    global ROOM
+    for a in sys.argv:
+        if a.startswith("--name="):
+            ROOM = os.path.join(GODOT, "assets", "pixel_art", a.split("=", 1)[1], "room.json")
     grid = json.load(open(args[0], encoding="utf-8"))
     cell = float(grid["cell"])
     rows = grid["rows"]
     room = json.load(open(ROOM, encoding="utf-8"))
+    lay = json.load(open(os.path.join(GODOT, "assets", "layered", "scene_luoman_makeup", "layout.json"), encoding="utf-8"))
+    fps = {it["id"]: it["rect"] for it in lay["items"] if "rect" in it}
     props = []
     for p in room["props"]:
         im = Image.open(res_path(p["png"])).convert("RGBA")
         a = im.getchannel("A")
         props.append({"id": p["id"], "x": int(p["x"]), "y": int(p["y"]), "w": im.width, "h": im.height, "foot": float(p["foot"]),
-                      "a": a.load(), "img": im})
+                      "a": a.load(), "img": im, "fp": fps.get(p["id"][3:])})
     wrong_over, wrong_under = {}, {}   # id -> [(x, y, 盖了几像素)]
     n_cells = 0
     for j, line in enumerate(rows):
@@ -74,7 +80,9 @@ def main():
                     for xx in range(ix0, ix1):
                         if a[xx - p["x"], yy - p["y"]]:
                             south += 1
-                if p["foot"] > fy + 3 and south == 0:   # 脚离着地线不到 3 像素的是边界，不算
+                # 人站在这件底座的正后方（横着落在它占地的宽里）才算：站在旁边、被伸出来的花冠灯头盖住是对的（那截本来就在人前面）
+                behind = p["fp"] is not None and p["fp"][0] - 4 <= fx <= p["fp"][2] + 4
+                if p["foot"] > fy + 3 and south == 0 and behind:   # 脚离着地线不到 3 像素的是边界，不算
                     wrong_over.setdefault(p["id"], []).append((fx, fy, over))
                 elif p["foot"] < fy - 3 and south >= MIN_PX:
                     wrong_under.setdefault(p["id"], []).append((fx, fy, south))
