@@ -738,6 +738,10 @@ func run() -> void:
             var sa: Vector2 = to_screen(fp + Vector2(-16, -70))
             var sb: Vector2 = to_screen(fp + Vector2(16, 0))
             var body := Rect2(sa, sb - sa).abs()
+            # 10/6 庄Z2：身子在屏上露不到一半的（长屏进门顶边只露出化妆台那排人的脚，本来就被顶上那排牌子盖着）不算；露一半以上的照旧要躲开
+            var on_screen := body.intersection(Rect2(Vector2.ZERO, get_root().get_visible_rect().size))
+            if on_screen.get_area() < body.get_area() * 0.5:
+                continue
             if tb.size.x > 0.0 and tb.intersects(body):
                 cover.append("%s：屋名框 %s 压 %s 的身子 %s" % [str(sz), str(tb), str(n["id"]), str(body)])
         # 玩家自己

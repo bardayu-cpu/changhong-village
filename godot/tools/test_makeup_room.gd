@@ -113,6 +113,8 @@ func run() -> void:
     print("2 屋里")
     var far: Array = []
     for it in r.cfg["items"]:
+        if str(it["id"]).begins_with("nostand_"):
+            continue   # 第二轮划的「站进去头肩会被盖住」那几溜：不是家具
         if not it.has("rect") or str(it["id"]).begins_with("wall_") or str(it["id"]).begins_with("person_") or str(it["id"]).begins_with("mirror_"):
             continue
         var rc: Array = it["rect"]

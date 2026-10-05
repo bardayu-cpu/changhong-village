@@ -52,7 +52,7 @@ var talking := ""              # 正在跟谁说话（lounge_ui 开框时设、�
 var frozen := false            # 截图用：冒泡停在那，不轮换
 var room := "lounge"           # 哪间屋（lounge 休息间、mahjong 麻将室、makeup 化妆间）
 
-## path：这间屋的话（people、chat）；room：布局里 NPC 的 life 写的那间（休息间照旧认 lounge: true，座位也只有休息间有）
+## path：这间屋的话（people、chat）；room：布局里 NPC 的 life 写的那间（休息间照旧认 lounge: true；座位：休息间认没写 life 的，别的屋认写了自己屋名的）
 func setup(canvas, path := DATA, room_id := "lounge") -> void:
     c = canvas
     room = room_id
@@ -60,8 +60,9 @@ func setup(canvas, path := DATA, room_id := "lounge") -> void:
     z_index = 6                # 气泡压在人、家具上面
     var raw = JSON.parse_string(FileAccess.get_file_as_string(path))
     data = raw if raw is Dictionary else {}
-    if room == "lounge":
-        for s in c.cfg.get("seats", []):
+    for s in c.cfg.get("seats", []):
+        # 休息间照旧认没写 life 的座位；别的屋只认写了自己屋名的（10/6 化妆间第二轮：奶油沙发东头空一座给玩家坐）
+        if str((s as Dictionary).get("life", "lounge")) == room:
             var seat: Dictionary = (s as Dictionary).duplicate()
             seat["stand"] = _stand_spot(seat)
             seats.append(seat)

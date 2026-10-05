@@ -194,7 +194,7 @@ const VIEW_H := 1024.0
 ## 一屏铺满多高，左右、上下跟着人移动（超出画布的部分由 cam 的 limit 挡住）
 func _fit_zoom() -> void:
     var vh := float(get_viewport().get_visible_rect().size.y)
-    var z := vh / minf(float(cfg["size"][1]), float(cfg.get("view_h", VIEW_H)))   # view_h：一屏看多高（化妆间 1.25 倍：675×1200 的屋子一屏照旧 960，人跟别的屋子一样大）
+    var z := vh / minf(float(cfg["size"][1]), VIEW_H)
     cam.zoom = Vector2(z, z)
 
 ## 桌心的簿子（蓝图 3.2 桌簿）：每张摆出来的桌子一本。占位：代码画的小簿子（红封皮、米白内页、几道字迹），

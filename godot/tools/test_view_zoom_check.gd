@@ -5,6 +5,7 @@ extends SceneTree
 ##     手机 540×960、长屏 585×1266 各进一次：镜头缩放 == 我自己按老规矩算的值（一屏高 ÷ min(画布高, 1024)；铺了像素图的画布缩放落在 0.85～1 之间取整到 1），
 ##     只有化妆间按它布局写的 view_h（一屏高 ÷ view_h，铺了像素图同样取整）；别的场景一个都不能变
 ##   2 化妆间：布局写了 view_h；人在屏上多高（84 × 缩放）跟后厅比（手机屏要一样大、长屏记差多少）
+##     （10/6 庄Z2 化妆间第二轮照庄Z1 退掉 view_h，layered_hall.gd 回到跟 main 一样：这条改成「化妆间不写 view_h」，第 1 条照旧对得上）
 ##   3 化妆间 675 宽、屏只看 540 宽：人站在最左、中间、最右，人都在屏里、镜头看到的世界不超出画布（左边露到画布左沿、右边露到右沿），镜头跟着人走
 ## 用法：Godot --headless --path . --script res://tools/test_view_zoom_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
@@ -109,7 +110,7 @@ func run() -> void:
     print("2 化妆间 view_h、人在屏上多高")
     var mk = canvas_of("makeup")
     var vh_mk := float(mk.cfg.get("view_h", -1.0))
-    check("化妆间布局写了 view_h = %s（一屏看 960 高）" % str(vh_mk), absf(vh_mk - 960.0) < 0.5)
+    check("化妆间布局不写 view_h（第二轮退掉，跟别的屋一样按老规矩取整；现在 %s）" % ("没写" if vh_mk < 0.0 else str(vh_mk)), vh_mk < 0.0)
     var tall: Array = []
     for sz in [Vector2i(540, 960), Vector2i(585, 1266)]:
         var key := str(sz)

@@ -162,8 +162,9 @@ def load_delivery(folder):
         if r is not None:
             doors.append(r)
     SPOTS.update(_first(d, ["spots", "点"], {}) or {})
+    no_stand = [list(map(float, r)) for r in (d.get("no_stand") or [])]   # [x0, y0, x1, y1]：人站进来会被前面的家具盖住头肩（第二轮），只挡这块、不往外让
     return {"w": float(sw), "h": float(sh), "base": base, "parts": out, "shadows": shadows, "blocked": blocked, "doors": doors,
-            "name": fn, "raw": d}
+            "no_stand": no_stand, "empty_seat": d.get("empty_seat"), "name": fn, "raw": d}
 
 
 def static_checks(dl, folder):
@@ -222,8 +223,14 @@ VIEW_H = 0   # --view_h= 给了就写进 layout（一屏看多高；化妆间 1.
 SPOTS = {}   # 拆景包里写的点（spots：dress 换装点 …），load 时填
 
 
-def build_layout(props, s, blocked=()):
+LOOKS = ["LM-GUEST-%02d" % i for i in (1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12)]   # 现有的宾客小人（11 种）
+
+
+def build_layout(props, s, blocked=(), no_stand=(), empty_seat=None):
     items, npcs, stands = [], [], []
+    for k, r in enumerate(no_stand):   # 第二轮：高家具身后那一溜，人站进去会被盖住头肩，划成走不进（clear 0：只挡这块本身，旁边的路不跟着变窄）
+        items.append({"type": "box", "id": "nostand_%d" % k, "rect": [round(r[0] * s), round(r[1] * s), round(r[2] * s), round(r[3] * s)],
+                      "h": 1, "clear": 0, "top": "#5a3f30", "front": "#5a3f30", "note": "站进来头肩会被家具盖住"})
     for k, (bx0, by0, bw, bh) in enumerate(blocked):   # 拆景包里写的「人走不过去的地方」（墙、柜子背后）
         items.append({"type": "box", "id": "blocked_%d" % k, "rect": [round(bx0 * s), round(by0 * s), round((bx0 + bw) * s), round((by0 + bh) * s)],
                       "h": 4, "top": "#5a3f30", "front": "#5a3f30", "note": "拆景包 blocked"})
@@ -282,13 +289,26 @@ def build_layout(props, s, blocked=()):
     stands.append({"id": "stand_mk_gown", "name": "婚纱那排跟前（化妆助理看婚纱）", "x": gx, "y": gy, "r": 14})
     stands.append({"id": "stand_mk_red", "name": "红喜服那排跟前（化妆助理取衣服）", "x": rx, "y": ry, "r": 14})
     # ---- 别的座位坐替身（静静坐着，不冒泡、不能点）：化妆凳、圆墩、试衣间的凳子背对镜头；沙发、单人椅脸朝外、只露到腰
-    looks = ["LM-GUEST-04", "LM-GUEST-05", "LM-GUEST-08", "LM-GUEST-10", "LM-GUEST-11"]
+    # 样子（第二轮：原来 13 个替身只用 5 种）：11 种全用上，还没人用的先用；不够了挑「离同样子那位最远」的，重样的一南一北拉开
+    worn = [(n["standin"]["code"], n["x"], n["y"]) for n in npcs if "standin" in n]
+    player_seats = []
     k = 0
     for (x, y, kind, name) in seats:
         if (x, y) == (bx, by):
             continue
+        if empty_seat is not None and abs(x - empty_seat[0]) <= 2 and abs(y - empty_seat[1]) <= 2:
+            down0 = kind in ("sofa", "armchair", "chair")
+            player_seats.append({"id": "seat_%s_free" % name, "x": x, "y": y, "seat_y": (y - 24) if down0 else (y - 17),
+                                 "face": "down" if down0 else "up", "life": "makeup"})
+            continue   # 留给玩家坐（第二轮：原来坐满了，玩家坐不下）；lounge_life 认 life: makeup 的座位，走到跟前出「坐下」
         down = kind in ("sofa", "armchair", "chair")
-        sd = {"code": looks[k % len(looks)], "frame": 0 if down else 12, "rows": 46 if down else 60, "bottom": (y - 24) if down else (y - 17)}
+
+        def score(code):
+            same = [((x - wx) ** 2 + (y - wy) ** 2) ** 0.5 for (c, wx, wy) in worn if c == code]
+            return (len(same), -min(same) if same else 0.0)
+        look = min(LOOKS, key=score)
+        worn.append((look, x, y))
+        sd = {"code": look, "frame": 0 if down else 12, "rows": 46 if down else 60, "bottom": (y - 24) if down else (y - 17)}
         npcs.append({"id": "guest_%d" % k, "who": "来化妆的客人（替身，静静坐着；%s）" % name, "x": x, "y": y, "face": "down" if down else "up",
                      "sit": True, "standin": sd})
         k += 1
@@ -327,6 +347,8 @@ def build_layout(props, s, blocked=()):
         "life": {"room": "makeup", "data": "res://assets/backhall/makeup.json"},
         "pixel_art": [RES + "room.json"],
     }
+    if player_seats:
+        d["seats"] = player_seats
     if VIEW_H:
         d["view_h"] = VIEW_H
     return d
@@ -412,8 +434,9 @@ def main():
            "background": {"png": RES + "room.png", "x": 0, "y": 0}, "room": {"x0": 0, "x1": W},
            "props": [{"id": "px_" + p["name"], "png": RES + "props/" + p["file"], "x": p["x"], "y": p["y"], "foot": p["foot"],
                       "hide": [] if p["fg"] else [p["name"]]} for p in props]}
-    lay = build_layout(props, s, dl["blocked"])
-    man["props"][0]["hide"] += ["wall_s_0", "wall_s_1"] + ["blocked_%d" % k for k in range(len(dl["blocked"]))]   # 南墙、挡路的地方都画在底图里
+    lay = build_layout(props, s, dl["blocked"], dl["no_stand"], dl["empty_seat"])
+    man["props"][0]["hide"] += ["wall_s_0", "wall_s_1"] + ["blocked_%d" % k for k in range(len(dl["blocked"]))] \
+        + ["nostand_%d" % k for k in range(len(dl["no_stand"]))]   # 南墙、挡路的地方都画在底图里；站不了的那几溜只挡人、不画
     with open(os.path.join(OUT, "room.json"), "w", encoding="utf-8") as fh:
         json.dump(man, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
