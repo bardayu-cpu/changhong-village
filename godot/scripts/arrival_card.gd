@@ -9,8 +9,9 @@ signal toast_back(openid: String, info: Dictionary)
 signal open_book
 signal closed
 
-const GOLD1 := Color("#f4d97a")
-const PAPER := Color("#efe6d8")
+const UI = preload("res://scripts/ui/ui_kit.gd")   # 界面颜色、字号都从这里取（公共·界面组件，罗-1）
+const GOLD1 := UI.OLD_GOLD1   # 旧主题，罗-2 换掉
+const PAPER := UI.OLD_PAPER
 const NICK_MAX := 6
 ## 每一行的字，新写，等阿鱼定（收在 回执/等阿鱼定的字.md）
 const LINE_TOAST_1 := "%s 敬了你一杯"
@@ -31,7 +32,7 @@ func setup(p_font: Font, rows: Array, names: Dictionary) -> void:
     font = p_font
     mouse_filter = Control.MOUSE_FILTER_STOP
     var sb := StyleBoxFlat.new()
-    sb.bg_color = Color(0.106, 0.078, 0.133, 0.94)   # 和顶上提示框一个底色、一个金边
+    sb.bg_color = UI.OLD_PANEL   # 和顶上提示框一个底色、一个金边
     sb.border_color = GOLD1
     sb.set_border_width_all(2)
     sb.set_corner_radius_all(6)

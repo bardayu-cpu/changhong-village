@@ -12,7 +12,8 @@ const CourtCopy = preload("res://scripts/court_copy.gd")
 const TitleScreen = preload("res://scripts/title_screen.gd")
 const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")   # 冒泡、对话框长什么样（05 10/4）
 ## 切画布：0.35 秒暖色淡出淡入（蓝图 1），人保持朝向，出现在对面的「到了站在」点
-const SWITCH_TINT := Color("#3a1d12")
+const UI = preload("res://scripts/ui/ui_kit.gd")   # 界面颜色、字号都从这里取（公共·界面组件，罗-1）
+const SWITCH_TINT := UI.SWITCH_TINT
 const COURT_FROM_HALL := Vector2(768, 260)   # 蓝图 1 出入口表：宴会厅的门 → 迎宾院 (768, 260)
 ## 后厅（蓝图 3.3，灰盒，01 9/19 派任务 7）：宴会厅东侧门进去，西口出来回宴会厅
 const Backhall = preload("res://scripts/backhall.gd")
@@ -158,13 +159,14 @@ var toast_back_note := -1       # 按钮跟的是哪一句提示（note_token）
 const LINE_BOOK_EMPTY := "还没人写 你来第一句"   # 新写，等阿鱼定
 const BOOK_PLACEHOLDER := "接一句"   # 新写，等阿鱼定
 const LINE_BOOK_READONLY := "先坐下 慢慢写"   # 蓝图 3.2 9/18 定稿：不是自己现在坐的那桌，只能看
-const GOLD := Color("#d4af37")
-const GOLD1 := Color("#f4d97a")
-const RED := Color("#c0392b")
-const RED0 := Color("#8c2f27")
-const PAPER := Color("#efe6d8")
-const MUTED := Color("#b1a6ba")
-const INK := Color("#15111b")
+# 旧主题这几个名字照旧（别的脚本用 m.GOLD、m.PAPER……），值从 ui_kit.gd 取；罗-2 换成新皮
+const GOLD := UI.OLD_GOLD
+const GOLD1 := UI.OLD_GOLD1
+const RED := UI.OLD_RED
+const RED0 := UI.OLD_RED0
+const PAPER := UI.OLD_PAPER
+const MUTED := UI.OLD_MUTED
+const INK := UI.OLD_INK
 ## 缝合像素字体 12px 简体版，SIL OFL 1.1，许可证在同目录。微信里没有系统字体，只能用打包进来的
 const FONT_PATH := "res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.otf.woff2"
 
@@ -470,11 +472,11 @@ func _sb(bg: Color, border: Color, bw := 2, rad := 6, pad := 14) -> StyleBoxFlat
 func _build_debug() -> void:
     dbg = Button.new()
     dbg.add_theme_font_size_override("font_size", 24)
-    dbg.add_theme_color_override("font_color", Color("#9CFF9C"))
-    dbg.add_theme_color_override("font_hover_color", Color("#9CFF9C"))
-    dbg.add_theme_color_override("font_pressed_color", Color("#9CFF9C"))
+    dbg.add_theme_color_override("font_color", UI.DEBUG_TEXT)
+    dbg.add_theme_color_override("font_hover_color", UI.DEBUG_TEXT)
+    dbg.add_theme_color_override("font_pressed_color", UI.DEBUG_TEXT)
     for st in ["normal", "hover", "pressed", "focus"]:
-        dbg.add_theme_stylebox_override(st, _sb(Color(0, 0, 0, 0.55), Color(0, 0, 0, 0), 0, 4, 8))
+        dbg.add_theme_stylebox_override(st, _sb(UI.DEBUG_BG, Color(0, 0, 0, 0), 0, 4, 8))
     dbg.position = Vector2(12, 100)
     dbg.text = "测帧率中"
     dbg.pressed.connect(_toggle_log)
@@ -482,9 +484,9 @@ func _build_debug() -> void:
     # 走路速度两档，给阿鱼真机比一比（只有调试版有）：点一下在 3.2 和 2.4 米/秒之间切
     var spd := Button.new()
     spd.add_theme_font_size_override("font_size", 24)
-    spd.add_theme_color_override("font_color", Color("#9CFF9C"))
+    spd.add_theme_color_override("font_color", UI.DEBUG_TEXT)
     for st in ["normal", "hover", "pressed", "focus"]:
-        spd.add_theme_stylebox_override(st, _sb(Color(0, 0, 0, 0.55), Color(0, 0, 0, 0), 0, 4, 8))
+        spd.add_theme_stylebox_override(st, _sb(UI.DEBUG_BG, Color(0, 0, 0, 0), 0, 4, 8))
     spd.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
     spd.offset_left = -170; spd.offset_right = -12
     spd.offset_top = -60; spd.offset_bottom = -16
@@ -717,12 +719,12 @@ func _open_hall55(per: int) -> void:
     h55.per = per
     sv.add_child(h55)
     h55_box = PanelContainer.new()
-    h55_box.add_theme_stylebox_override("panel", _sb(Color(0, 0, 0, 0.7), Color(0, 0, 0, 0), 0, 8, 12))
+    h55_box.add_theme_stylebox_override("panel", _sb(UI.DEBUG_PANEL, Color(0, 0, 0, 0), 0, 8, 12))
     h55_box.position = Vector2(12, 160)
     var v := VBoxContainer.new()
     v.add_theme_constant_override("separation", 10)
     h55_box.add_child(v)
-    h55_info = _label(h55.report(), 24, Color("#9CFF9C"), HORIZONTAL_ALIGNMENT_LEFT)
+    h55_info = _label(h55.report(), 24, UI.DEBUG_TEXT, HORIZONTAL_ALIGNMENT_LEFT)
     v.add_child(h55_info)
     var row := HBoxContainer.new()
     row.add_theme_constant_override("separation", 10)
@@ -888,19 +890,19 @@ func _theme() -> Theme:
     t.default_font = font
     t.default_font_size = 24
     t.set_color("font_color", "Label", PAPER)
-    t.set_stylebox("panel", "PanelContainer", _sb(Color(0.106, 0.078, 0.133, 0.94), GOLD))
+    t.set_stylebox("panel", "PanelContainer", _sb(UI.OLD_PANEL, GOLD))
     t.set_stylebox("normal", "Button", _sb(RED0, GOLD, 2, 6, 18))
     t.set_stylebox("hover", "Button", _sb(RED, GOLD1, 2, 6, 18))
-    t.set_stylebox("pressed", "Button", _sb(Color("#6e211b"), GOLD1, 2, 6, 18))
-    t.set_stylebox("disabled", "Button", _sb(Color("#3b3148"), Color("#5a4e68"), 2, 6, 18))
+    t.set_stylebox("pressed", "Button", _sb(UI.OLD_RED_DOWN, GOLD1, 2, 6, 18))
+    t.set_stylebox("disabled", "Button", _sb(UI.OLD_DISABLED, UI.OLD_DISABLED_EDGE, 2, 6, 18))
     t.set_stylebox("focus", "Button", _sb(Color(0, 0, 0, 0), GOLD1, 2, 6, 18))
     t.set_color("font_color", "Button", GOLD1)
     t.set_color("font_hover_color", "Button", GOLD1)
     t.set_color("font_pressed_color", "Button", GOLD1)
     t.set_color("font_disabled_color", "Button", MUTED)
     for cls in ["LineEdit", "TextEdit"]:
-        t.set_stylebox("normal", cls, _sb(Color("#2a2235"), Color("#5a4e68"), 1, 6, 12))
-        t.set_stylebox("focus", cls, _sb(Color("#2a2235"), GOLD, 2, 6, 12))
+        t.set_stylebox("normal", cls, _sb(UI.OLD_FIELD, UI.OLD_DISABLED_EDGE, 1, 6, 12))
+        t.set_stylebox("focus", cls, _sb(UI.OLD_FIELD, GOLD, 2, 6, 12))
         t.set_color("font_color", cls, PAPER)
         t.set_color("font_placeholder_color", cls, MUTED)
         t.set_color("caret_color", cls, GOLD1)
@@ -908,7 +910,7 @@ func _theme() -> Theme:
 
 ## 压在场景图上的字：错开 2 个像素的深色硬投影，比描边清楚
 func _hard_shadow(l: Label) -> void:
-    l.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.1, 0.9))
+    l.add_theme_color_override("font_shadow_color", UI.OLD_SHADOW)
     l.add_theme_constant_override("shadow_offset_x", 2)
     l.add_theme_constant_override("shadow_offset_y", 2)
 
@@ -926,7 +928,7 @@ func _center_panel(width := 440.0) -> Array:
     root.set_anchors_preset(Control.PRESET_FULL_RECT)
     root.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var dim := ColorRect.new()
-    dim.color = Color(0.06, 0.03, 0.06, 0.55)
+    dim.color = UI.DIM
     dim.set_anchors_preset(Control.PRESET_FULL_RECT)
     root.add_child(dim)
     var cc := CenterContainer.new()
@@ -960,7 +962,7 @@ func _build_ui() -> void:
     nb.add_child(nick_edit)
     nb.add_child(_label("其他宾客会看到这个名字", 24, MUTED, HORIZONTAL_ALIGNMENT_LEFT))
     var row := HBoxContainer.new()
-    nick_err = _label("", 24, Color("#E8746A"), HORIZONTAL_ALIGNMENT_LEFT)
+    nick_err = _label("", 24, UI.OLD_ERR, HORIZONTAL_ALIGNMENT_LEFT)
     nick_err.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     nick_count = _label("0/12", 24, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, false)
     row.add_child(nick_err)
@@ -998,9 +1000,9 @@ func _build_ui() -> void:
             b.expand_icon = true
         b.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
         b.custom_minimum_size = Vector2(96, 124)
-        b.add_theme_stylebox_override("normal", _sb(Color("#2a2235"), Color("#5a4e68"), 1, 6, 6))
-        b.add_theme_stylebox_override("hover", _sb(Color("#2a2235"), GOLD, 2, 6, 6))
-        b.add_theme_stylebox_override("pressed", _sb(Color("#3b2230"), GOLD1, 3, 6, 6))
+        b.add_theme_stylebox_override("normal", _sb(UI.OLD_FIELD, UI.OLD_DISABLED_EDGE, 1, 6, 6))
+        b.add_theme_stylebox_override("hover", _sb(UI.OLD_FIELD, GOLD, 2, 6, 6))
+        b.add_theme_stylebox_override("pressed", _sb(UI.OLD_PICK_DOWN, GOLD1, 3, 6, 6))
         b.button_pressed = (i == preset)
         b.pressed.connect(func(): preset = i)
         grid.add_child(b)
@@ -1052,7 +1054,7 @@ func _build_hud() -> void:
     hud.add_child(top_row)
     var chip := PanelContainer.new()
     chip.name = "place_chip"
-    chip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
+    chip.add_theme_stylebox_override("panel", _sb(UI.OLD_CHIP, UI.OLD_CHIP_EDGE, 1, 14, 10))
     var chip_row := HBoxContainer.new()   # 地名 + 签到以后多一个传送门小图标（estate_map.gd 加），点名字牌开全景地图
     chip_row.name = "row"
     chip_row.add_theme_constant_override("separation", 8)
@@ -1062,7 +1064,7 @@ func _build_hud() -> void:
     top_row.add_child(chip)
     var cchip := PanelContainer.new()
     cchip.name = "coins_chip"
-    cchip.add_theme_stylebox_override("panel", _sb(Color(0.08, 0.06, 0.1, 0.78), Color(GOLD, 0.5), 1, 14, 10))
+    cchip.add_theme_stylebox_override("panel", _sb(UI.OLD_CHIP, UI.OLD_CHIP_EDGE, 1, 14, 10))
     coins_chip = _label("0 金", 24, GOLD1, HORIZONTAL_ALIGNMENT_RIGHT, false)
     cchip.add_child(coins_chip)
     top_row.add_child(cchip)
@@ -1073,15 +1075,15 @@ func _build_hud() -> void:
     estate_map.setup(self, chip)
     # 摇杆：原来是白 8% 的底、金边，在迎宾院这种浅色地上量到 1.02:1，几乎看不见（体验五.1）。
     # 改成深色半透明底 + 亮金边：浅地上靠深底看得见，深地上靠金边看得见
-    stick_base = _ring(STICK_R * 2.0, Color(0.08, 0.06, 0.1, 0.32), Color(GOLD1, 0.9))
-    stick_knob = _ring(56.0, Color(GOLD1, 0.55), Color(0.08, 0.06, 0.1, 0.8))
+    stick_base = _ring(STICK_R * 2.0, UI.OLD_STICK_BASE, Color(GOLD1, 0.9))
+    stick_knob = _ring(56.0, Color(GOLD1, 0.55), UI.OLD_STICK_KNOB_EDGE)
     hud.add_child(stick_base)
     hud.add_child(stick_knob)
     _stick_rest.call_deferred()
     # 走路提示：和顶上提示框一样的深色底框，挪到屏幕下面（原来在正中上方，压着喜字和新人的脸，体验 B1）
     hint = PanelContainer.new()
     hint.name = "walk_hint"
-    hint.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.94), GOLD1, 2, 6, 14))
+    hint.add_theme_stylebox_override("panel", _sb(UI.OLD_PANEL, GOLD1, 2, 6, 14))
     hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
     hint.add_child(_label(LINE_WALK_HINT, 24, GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false))
     # 放在右下角：左下是摇杆（体验第二轮 新 2：原来居中压着摇杆），屏幕中间是刚进门的人
@@ -1101,7 +1103,7 @@ func _build_hud() -> void:
     note_box = PanelContainer.new()
     note_box.set_anchors_preset(Control.PRESET_TOP_WIDE)
     note_box.offset_left = 14; note_box.offset_right = -14
-    note_box.add_theme_stylebox_override("panel", _sb(Color(0.106, 0.078, 0.133, 0.94), GOLD1, 2, 6, 14))
+    note_box.add_theme_stylebox_override("panel", _sb(UI.OLD_PANEL, GOLD1, 2, 6, 14))
     note_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
     note = _label("", 24, GOLD1)
     note_box.add_child(note)
@@ -1266,7 +1268,7 @@ func _build_person_card() -> void:
     var dim := Button.new()
     dim.set_anchors_preset(Control.PRESET_FULL_RECT)
     for st in ["normal", "hover", "pressed", "focus"]:
-        dim.add_theme_stylebox_override(st, _sb(Color(0.06, 0.03, 0.06, 0.6), Color(0, 0, 0, 0), 0, 0, 0))
+        dim.add_theme_stylebox_override(st, _sb(UI.DIM_DEEP, Color(0, 0, 0, 0), 0, 0, 0))
     dim.pressed.connect(_close_person_card)
     person_card.add_child(dim)
     var cc := CenterContainer.new()
@@ -1340,7 +1342,7 @@ func _build_book_panel() -> void:
     var dim := Button.new()
     dim.set_anchors_preset(Control.PRESET_FULL_RECT)
     for st in ["normal", "hover", "pressed", "focus"]:
-        dim.add_theme_stylebox_override(st, _sb(Color(0.06, 0.03, 0.06, 0.6), Color(0, 0, 0, 0), 0, 0, 0))
+        dim.add_theme_stylebox_override(st, _sb(UI.DIM_DEEP, Color(0, 0, 0, 0), 0, 0, 0))
     dim.pressed.connect(_close_book_panel)
     book_panel.add_child(dim)
     var cc := CenterContainer.new()
@@ -1386,7 +1388,7 @@ func _build_book_panel() -> void:
     book_edit.text_changed.connect(_check_book_ui)
     book_input_row.add_child(book_edit)
     var br := HBoxContainer.new()
-    book_err = _label("", 24, Color("#E8746A"), HORIZONTAL_ALIGNMENT_LEFT)
+    book_err = _label("", 24, UI.OLD_ERR, HORIZONTAL_ALIGNMENT_LEFT)
     book_err.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     book_count = _label("0/100", 24, MUTED, HORIZONTAL_ALIGNMENT_RIGHT, false)
     br.add_child(book_err)
@@ -2932,14 +2934,14 @@ func _open_info_card(title: String, text: String) -> void:
     story_card.set_anchors_preset(Control.PRESET_FULL_RECT)
     story_card.mouse_filter = Control.MOUSE_FILTER_STOP
     var dim := ColorRect.new()
-    dim.color = Color(0, 0, 0, 0.45)
+    dim.color = UI.DIM_BLACK
     dim.set_anchors_preset(Control.PRESET_FULL_RECT)
     dim.gui_input.connect(func(e):
         if e is InputEventMouseButton and e.pressed:
             _close_story_card())
     story_card.add_child(dim)
     var panel := PanelContainer.new()
-    panel.add_theme_stylebox_override("panel", _sb(Color(0.12, 0.07, 0.06, 0.96), Color("#d4af37"), 2, 10, 18))
+    panel.add_theme_stylebox_override("panel", _sb(UI.OLD_CARD, GOLD, 2, 10, 18))
     panel.set_anchors_preset(Control.PRESET_CENTER)
     panel.custom_minimum_size = Vector2(420, 0)
     panel.position = Vector2(-210, -160)
@@ -2998,7 +3000,7 @@ func _check_book_ui() -> void:
     var r := _check_book(book_edit.text)
     var n := _graphemes(book_edit.text.strip_edges())
     book_count.text = "%d/100" % n
-    book_count.add_theme_color_override("font_color", Color("#E8746A") if n > 100 else MUTED)
+    book_count.add_theme_color_override("font_color", UI.OLD_ERR if n > 100 else MUTED)
     book_err.text = "" if r == "empty" else r
     book_ok.disabled = r != ""
 
@@ -3191,7 +3193,7 @@ func _check_nick_ui() -> void:
 func _check_whisper_ui() -> void:
     var n := _graphemes(whisper_edit.text.strip_edges())
     whisper_count.text = "%d/200" % n
-    whisper_count.add_theme_color_override("font_color", Color("#E8746A") if n > 200 else MUTED)
+    whisper_count.add_theme_color_override("font_color", UI.OLD_ERR if n > 200 else MUTED)
     whisper_ok.disabled = n == 0 or n > 200
 
 # ---------- 输入 ----------

@@ -22,14 +22,16 @@ extends RefCounted
 
 ## 颜色都是从定稿图里量的（框外 (22,12,5)、金棕 (191,128,68)、底 (49,30,21)；按钮描边 (62,3,3)、亮边 (248,168,112)、红 (203,28,28)、下截 (164,25,26)；
 ## 钉 (255,240,178)/(255,216,66)/(240,170,40)；话、按钮字、图标 (250,242,228)；名字 (242,194,62)）
+## 色值都在 scripts/ui/ui_kit.gd（公共·界面组件，罗-1）；这里只按部位分好
+const UI = preload("res://scripts/ui/ui_kit.gd")
 const PAL := {
-    "bubble": {"fill": "#ffffff", "edge": "#2b1d17", "rim": ""},
-    "hint": {"fill": "#311e15", "edge": "#bf8044", "icon": "#faf2e4"},
-    "box": {"fill": "#311e15", "edge": "#160c05", "rim": "#bf8044"},
-    "plate": {"fill": "#311e15", "edge": "#160c05", "rim": "#bf8044"},
-    "name": "#f2c23e", "arrow": "#f2c23e", "icon": "#faf2e4", "text": "#faf2e4", "more": "#faf2e4", "bubble_text": "#1c120c",
-    "choice": {"fill": "#cb1c1c", "band": "#a4191a", "edge": "#3e0303", "rim": "#f8a870", "text": "#faf2e4", "down": "#a4191a", "down_band": "#86120f",
-        "stud_l": "#fff0b2", "stud": "#ffd842", "stud_d": "#f0aa28"},
+    "bubble": {"fill": UI.BUBBLE_BG, "edge": UI.BUBBLE_EDGE, "rim": null},
+    "hint": {"fill": UI.BG, "edge": UI.LINE, "icon": UI.TEXT},
+    "box": {"fill": UI.BG, "edge": UI.EDGE, "rim": UI.LINE},
+    "plate": {"fill": UI.BG, "edge": UI.EDGE, "rim": UI.LINE},
+    "name": UI.NAME, "arrow": UI.NAME, "icon": UI.TEXT, "text": UI.TEXT, "more": UI.TEXT, "bubble_text": UI.BUBBLE_TEXT,
+    "choice": {"fill": UI.RED, "band": UI.RED_DARK, "edge": UI.RED_EDGE, "rim": UI.RED_RIM, "text": UI.TEXT, "down": UI.RED_DARK, "down_band": UI.RED_DOWN_BAND,
+        "stud_l": UI.STUD_LIGHT, "stud": UI.STUD, "stud_d": UI.STUD_DARK},
 }
 const U := 2                 # 对话框里一个美术像素几个像素（界面层，540 宽算）
 const BU := 2                # 冒泡里一个美术像素几个像素（冒泡在画布上，还要按镜头反着放大）
@@ -65,11 +67,11 @@ const COL_W := 132.0         # 左边一栏多宽（头像、名字牌）：话�
 ## 画好的像素图按参数存着，同样的框、小尖只画一次（冒泡一会儿冒一个，每次都现画，测试快进时整套慢了一半多）
 static var _tex_cache := {}
 
-static func _c(s: String) -> Color:
-    return Color(s)
+static func _c(s) -> Color:
+    return s if s is Color else Color(str(s))
 
 static func _rim(s: Dictionary):
-    return Color(str(s["rim"])) if str(s.get("rim", "")) != "" else null
+    return s["rim"] if s.get("rim") is Color else null
 
 # ---------- 像素框（九宫格） ----------
 
