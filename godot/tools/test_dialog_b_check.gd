@@ -3,7 +3,7 @@ extends SceneTree
 ## （01 H 10/5 派，不改游戏代码；不看 05 的 test_dialog_lift，另起量法；用真输入事件点，不只发按钮信号）：
 ##   1 翻页三角：长句（3 页）手机 540×960、长屏 585×1266 各一遍：每页 ≤ 2 行；第一页只有下三角、中间页上下都有、最后一页只有上三角；三角在话右边那一列、
 ##     整个在框里、能点范围 ≥ 44×44、两个三角不叠、不压名字牌和选项；真点（push_input 按下、松开）下三角翻到下一页、点上三角翻回；翻页句子不换、选项只在最后一页；
-##     点框只把字出完、不翻页、不跳句；不到 2 行的话没有三角
+##     点框先把字出完、再点翻页（罗-11 改）、不跳句；不到 2 行的话没有三角
 ##   2 头像：每位有头像的人（休息间四位、麻将室、化妆间的人）都是 3 倍整数倍；我自己量图（读图集里那一帧的不透明像素）：头顶到胸口的 43 行里人左右不切、
 ##     不压话、头大半在框上沿外面、下巴进框里；名字牌上有身份证小图标、真点名字牌 / 头像开身份卡
 ##   3 没头像的：化妆间新娘对话框不放头像（也不留上一个人的图）；阿鱼那个说话框没有头像、话用满宽
@@ -197,13 +197,16 @@ func run() -> void:
                 bad1.append("%s 第 %d 页 选项 %s（只该在最后一页）" % [tag, pg_i + 1, "露着" if ch_vis else "没露"])
             if ui.line_label.text != line_before:
                 bad1.append("%s 翻页时句子换了" % tag)
-            # 点框：只出完字、不翻页、不跳句（不是最后一页时）
+            # 点框：不是最后一页时翻到下一页、不跳句（罗-11，阿鱼 10/5 晚「行」）；翻回来再试三角
             if pg_i < np - 1:
-                var shown_before: String = typer.shown.text
                 click_box_event()
                 await frames(3)
-                if typer.page != pg_i or ui.line_label.text != line_before or typer.shown.text != shown_before:
-                    bad1.append("%s 第 %d 页 点框翻页了 / 跳句了（页 %d）" % [tag, pg_i + 1, typer.page])
+                if typer.page != pg_i + 1 or ui.line_label.text != line_before:
+                    bad1.append("%s 第 %d 页 点框没翻到下一页 / 跳句了（页 %d）" % [tag, pg_i + 1, typer.page])
+                typer.prev_page()
+                await frames(2)
+                if typer.typing():
+                    typer.finish()
                 # 真点下三角
                 var c: Vector2 = typer.down_btn.get_global_rect().get_center()
                 await real_click(c)
@@ -239,7 +242,7 @@ func run() -> void:
         await frames(2)
     for x in bad1 + short_bad:
         print("    ", x)
-    check("长句 %d 页、手机和长屏：每页 ≤ 2 行；第一页只有下三角、中间页上下都有、最后一页只有上三角；三角在框里、≥ 44×44、不叠不压；真点下三角翻页、点上三角翻回；选项只在最后一页；点框不翻页不跳句（%d 处不对）" % [np_seen, bad1.size()], bad1.is_empty())
+    check("长句 %d 页、手机和长屏：每页 ≤ 2 行；第一页只有下三角、中间页上下都有、最后一页只有上三角；三角在框里、≥ 44×44、不叠不压；真点下三角翻页、点上三角翻回；选项只在最后一页；点框翻页不跳句（%d 处不对）" % [np_seen, bad1.size()], bad1.is_empty())
     check("不到 2 行 / 刚好 2 行的话没有三角（%d 处不对）" % short_bad.size(), short_bad.is_empty())
 
     # 关了再开同一句长话：该从第 1 页开始（不接着上回翻到的那页）

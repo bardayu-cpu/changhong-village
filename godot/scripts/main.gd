@@ -1205,7 +1205,11 @@ func _build_hud() -> void:
     dialog.visible = false
     # 带方言词的话（休息区老人）：说话框能点，点一下出普通话（《乐山话 v0.2》§2）
     dialog.gui_input.connect(func(e):
-        if dialog_gloss != "" and ((e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed):
+        if not ((e is InputEventScreenTouch or e is InputEventMouseButton) and e.pressed):
+            return
+        if DialogSkin.tap(dialog):   # 点框也翻页（罗-11）：字没出完先出完、还有下一页就翻页
+            dialog.accept_event()
+        elif dialog_gloss != "":
             _note(dialog_gloss, 2.5)
             dialog.accept_event())
     hud.add_child(dialog)
@@ -2150,6 +2154,7 @@ func _say(text: String, hold := -1.0, who := "阿鱼", gloss := "") -> void:
     if say_log.size() > 20:
         say_log.pop_front()
     dialog_gloss = gloss
+    dialog.set_meta("keep_click", gloss != "")   # 带方言注释的话：点一下出普通话；分了页的话框也接住点击（dialog_skin 的 Typer 每帧照这个摆，罗-11）
     dialog.mouse_filter = Control.MOUSE_FILTER_STOP if gloss != "" else Control.MOUSE_FILTER_IGNORE
     dialog.visible = true
     if hold == 0.0:
