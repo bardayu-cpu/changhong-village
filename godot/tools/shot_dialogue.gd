@@ -43,7 +43,7 @@ func click(ui) -> void:
 func wait_talk(ui) -> void:
     for i in 600:
         await process_frame
-        if ui.talk_box.visible and ui.line_label.text != "":
+        if ui.talk_box.visible and ui.line_raw != "":
             return
 
 func run() -> void:

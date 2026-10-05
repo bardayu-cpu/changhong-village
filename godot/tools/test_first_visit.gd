@@ -3,6 +3,7 @@ extends SceneTree
 ## 新号：选形象 → 进大门 → 新娘妈妈迎 → 签到（四屏，选一句现成祝福）→ 祝福牌 → 回忆册 → 合影出海报（码走电脑假服务端）→ 进宴会厅（55 桌，第一次来）→ 坐下
 ## → 玩一个小游戏 → 东侧门金箭头出没出 → 进后厅 → 进厨房玩第一关 → 回宴会厅 → 写悄悄话 → 回迎宾院 → 走到大门出去 → 前门 → 停车场找车。
 ## （10/4 连图 02 E 改：停车场东口进迎宾院西北口；大门出去先到前门再往西进停车场）
+## （10/4 第 68 版 07 改：停车场往西放大、在迎宾院正下方——停车场北墙那道门进迎宾院大门，大门出去直接回停车场，不过前门）
 ## 每一步断言「该出的出了」；整套按真玩的路走（点按钮、走路、点「坐这儿」「签到」），只有「走路」是点地面走（寻路），「小游戏赢一局」「厨房交一道菜」走各自的规则接口。
 ## 无界面跑整个 main.gd，云函数走 cloud.gd 的电脑假数据，存档写到测试自己的文件（不动这台电脑上游戏的真存档）。
 ## 用法：Godot --headless --path . --script res://tools/test_first_visit.gd
@@ -155,9 +156,9 @@ func run() -> void:
     await wait_state("court")
     await frames(3)
     var c = m.court
-    # 10/4 连图起：停车场东口进迎宾院西北口（停车场在迎宾院西边），站口里边
-    check("在迎宾院、站西北口里边 %s" % str(c.pos), m.state == "court" and m.cv == c and c.pos == c.arrival_from("parking"))
-    check("一进来说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
+    # 第 68 版起：停车场北墙那道门进去就是迎宾院大门里边（原来出生的地方）
+    check("在迎宾院、站大门里边 %s" % str(c.pos), m.state == "court" and m.cv == c and c.pos == c.SPAWN)
+    check("一进来说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.said_raw == m.LINE_ARRIVE)
     check("资料存了、还不拿席位", m.profile_saved and not m.hall_ready)
     check("签到台头顶有记号（还没签到）", c.sign_mark != null and c.sign_mark.visible and c.sign_needed)
     tick(600)
@@ -166,7 +167,7 @@ func run() -> void:
     m.court_save.welcomed = false
     c.reset_to(Vector2(768, 560))
     walk_to(c.spot_pos("welcome"))
-    check("走到楼门前新娘妈妈迎：「%s」" % m.dialog_text.text, m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("welcome"))
+    check("走到楼门前新娘妈妈迎：「%s」" % m.said_raw, m.dialog_who.text == "新娘妈妈" and m.said_raw == CourtCopy.text("welcome"))
 
     # ================= 3 签到四屏 =================
     step("第 3 步 签到（名字 → 礼金 → 祝福 → 确认）")
@@ -190,7 +191,7 @@ func run() -> void:
         m.court_save.signed_in and str(m.cloud.fake_check_in.get("name", "")) == "小李" and int(m.cloud.fake_check_in.get("gift_value", -1)) == 88)
     check("服务端存了那句祝福（%s）" % [m.cloud.fake_blessings], m.cloud.fake_blessings.size() == 1 and m.cloud.fake_blessings[0]["text"] == bless)
     check("喜糖弹了", m.court_save.candy and ui.candy_root.visible)
-    check("新娘妈妈接着指路：「%s」" % m.dialog_text.text.replace("\n", "／"), m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("mom_point"))
+    check("新娘妈妈接着指路：「%s」" % m.said_raw.replace("\n", "／"), m.dialog_who.text == "新娘妈妈" and m.said_raw == CourtCopy.text("mom_point"))
     ui.candy_root.visible = false
     check("签到台记号收了、按钮变「已签到」", not c.sign_needed and ui.act_btn.text == CourtCopy.text("btn_signed") and ui.act_btn.disabled)
 
@@ -219,13 +220,13 @@ func run() -> void:
     # ================= 6 合影出海报 =================
     step("第 6 步 合影 → 出相纸 → 做成海报（码走电脑假服务端）→ 发给朋友 → 收好")
     walk_to(c.spot_pos("photo_wait"))
-    check("摄影师招呼：「%s」" % m.dialog_text.text, m.dialog_who.text == "摄影师" and m.dialog_text.text == CourtCopy.text("photo_greet"))
+    check("摄影师招呼：「%s」" % m.said_raw, m.dialog_who.text == "摄影师" and m.said_raw == CourtCopy.text("photo_greet"))
     walk_to(c.spot_pos("photo_mark") + Vector2(20, 30))
     check("人吸到合影站位，出「%s」" % ui.act_btn.text, c.pos == c.spot_pos("photo_mark") and ui.act_btn.visible and ui.act_btn.text == CourtCopy.text("btn_photo"))
     ui._on_act()
     check("摆姿势", ui.pose_root.visible and not c.walking_enabled)
     ui._pick_pose("heart")
-    check("对焦：两个圈出来、摄影师倒数「%s」" % m.dialog_text.text, ui.focus_root.visible and m.dialog_text.text == CourtCopy.text("photo_count"))
+    check("对焦：两个圈出来、摄影师倒数「%s」" % m.said_raw, ui.focus_root.visible and m.said_raw == CourtCopy.text("photo_count"))
     for i in 30:
         ui._process(DT)
     ui._shutter()
@@ -257,7 +258,7 @@ func run() -> void:
     var my_tid: String = str(h.my_seat.get("table_id", ""))
     check("拿到席位（%s 桌 %s 号椅）" % [my_tid, str(h.my_seat.get("chair_no", ""))], m.hall_ready and my_tid != "" and my_tid != LayeredHall.BENCH_ID)
     await create_timer(0.5).timeout
-    var hello: String = m.dialog_text.text if m.dialog.visible else ""
+    var hello: String = m.said_raw if m.dialog.visible else ""
     var card_up: bool = is_instance_valid(m.arrival_card)
     check("第一次来有交代去哪桌（对话「%s」或进厅小卡 %s）" % [hello.replace("\n", "／"), card_up], card_up or hello.contains("那桌") or hello.contains("桌"))
     check("55 桌厅里有红绸、东侧门这些：东侧门坐标 %s" % str(h.side_door), h.side_door != Vector2.ZERO)
@@ -396,7 +397,7 @@ func run() -> void:
     m._send_whisper()
     await frames(2)
     check("写完：框收了、记下了（whisper_done=%s），出厅门那圈金光亮" % m.court_save.whisper_done, not m.whisper_box.visible and m.court_save.whisper_done and h.exit_mark.visible)
-    check("新娘说谢谢「%s」" % m.dialog_text.text, m.dialog.visible)
+    check("新娘说谢谢「%s」" % m.said_raw, m.dialog.visible)
 
     # ================= 15 出大门 =================
     step("第 15 步 回迎宾院，走到大门口出去")
@@ -408,18 +409,14 @@ func run() -> void:
     check("大门那圈金光亮了（签过到也写过悄悄话）", m.court_save.gate_open() and c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -150))
     walk_to(c.spot_pos("gate"))
-    await wait_state("frontgate")
-    # 10/4 连图起：大门出去是前门（门楼），往西进停车场；金箭头指自己的车，走到车旁新娘妈妈送你
-    var fg = m.areas["frontgate"]
-    check("出大门到前门（%s）" % m.state, m.state == "frontgate")
-    walk_to(fg.spot_pos("to_parking"))
     await wait_state("parking")
     await frames(3)
-    check("前门往西回到停车场，金箭头指自己的车", m.state == "parking" and pk.car_hint)
+    # 第 68 版起：大门出去直接回停车场（停车场在迎宾院正下方）；金箭头指自己的车，走到车旁新娘妈妈送你
+    check("出大门回到停车场，金箭头指自己的车", m.state == "parking" and pk.car_hint)
     walk_to(pk.spot_pos("my_car"))
     await frames(3)
-    check("走到车旁：新娘妈妈送「%s」" % m.dialog_text.text.replace("\n", "／"), m.dialog_who.text == CourtCopy.who("gate_bye") and m.dialog_text.text.begins_with(CourtCopy.text("gate_bye")))
-    check("没有开发字样（【待做】【待补】预留）", not m.dialog_text.text.contains("待") and not m.dialog_text.text.contains("预留"))
+    check("走到车旁：新娘妈妈送「%s」" % m.said_raw.replace("\n", "／"), m.dialog_who.text == CourtCopy.who("gate_bye") and m.said_raw.begins_with(CourtCopy.text("gate_bye")))
+    check("没有开发字样（【待做】【待补】预留）", not m.said_raw.contains("待") and not m.said_raw.contains("预留"))
     check("人停在车旁、存档 %s" % [m.court_save.signed_in], pk.path.is_empty() and m.court_save.signed_in and m.court_save.whisper_done)
 
     step("（收尾）")

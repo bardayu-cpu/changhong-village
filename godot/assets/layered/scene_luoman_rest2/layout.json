@@ -1,23 +1,26 @@
 {
  "scene": "scene_luoman_rest2",
  "title": "休息厅 2",
- "note": "罗曼山庄 · 休息厅 2灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene rest2。北口去喷泉广场、西口去小卖部；台球桌先摆色块占位置，能不能打以后再说；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "note": "罗曼山庄 · 休息厅 2灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene rest2。北口去喷泉广场、西口去小卖部、东口去前门（第 68 版前门挪到喷泉正下方，跟休息厅 2 挨着）；台球桌先摆色块占位置，能不能打以后再说；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
  "size": [1152, 1024],
  "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
  "spawn": [576, 632],
  "points": [
-  {"id": "to_plaza", "x": 576, "y": 36, "r": 44, "to": "plaza"},
+  {"id": "to_plaza", "x": 576, "y": 36, "r": 44, "to": "plaza", "arrive": [672, 124]},
   {"id": "to_shop", "x": 36, "y": 560, "r": 44, "to": "shop"},
+  {"id": "to_frontgate", "x": 1116, "y": 560, "r": 44, "to": "frontgate"},
   {"id": "wip", "x": 576, "y": 640, "r": 120, "say": "rest2_wip"}
  ],
- "walk": [[[60, 60], [1092, 60], [1092, 964], [60, 964]], [[542, 2], [610, 2], [610, 58], [542, 58]], [[2, 526], [58, 526], [58, 594], [2, 594]]],
+ "walk": [[[60, 60], [1092, 60], [1092, 964], [60, 964]], [[542, 2], [610, 2], [610, 58], [542, 58]], [[2, 526], [58, 526], [58, 594], [2, 594]], [[1094, 526], [1150, 526], [1150, 594], [1094, 594]]],
  "flat": [
   {"type": "rect", "rect": [0, 0, 1152, 1024], "color": "#5f8f55"},
   {"type": "rect", "rect": [60, 60, 1092, 964], "color": "#e9dcc0"},
   {"type": "rect", "rect": [540, 0, 612, 60], "color": "#c2b393"},
   {"type": "label", "text": "去喷泉广场", "x": 576, "y": 128},
   {"type": "rect", "rect": [0, 524, 60, 596], "color": "#c2b393"},
-  {"type": "label", "text": "去小卖部", "x": 110, "y": 504}
+  {"type": "label", "text": "去小卖部", "x": 110, "y": 504},
+  {"type": "rect", "rect": [1092, 524, 1152, 596], "color": "#c2b393"},
+  {"type": "label", "text": "去前门", "x": 1042, "y": 504}
  ],
  "items": [
   {"type": "box", "id": "pool_table", "rect": [516, 470, 636, 515], "h": 38, "top": "#2f7a4a", "front": "#6d4a38", "scale": {"w_m": 2.5, "h_m": 0.8, "name": "台球桌"}, "part": "R2-P01"},
@@ -30,7 +33,8 @@
   {"type": "box", "id": "wall_s_0", "rect": [0, 964, 1152, 978], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
   {"type": "box", "id": "wall_w_0", "rect": [46, 0, 60, 524], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
   {"type": "box", "id": "wall_w_1", "rect": [46, 596, 60, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
-  {"type": "box", "id": "wall_e_0", "rect": [1092, 0, 1106, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"}
+  {"type": "box", "id": "wall_e_0", "rect": [1092, 0, 1106, 524], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_1", "rect": [1092, 596, 1106, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"}
  ],
  "npcs": [],
  "signs": [

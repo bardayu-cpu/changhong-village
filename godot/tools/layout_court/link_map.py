@@ -28,11 +28,13 @@ BOXES = {
     "wkitchen": ("西餐厨房", (262, 694, 348, 746)),
     "plaza": ("喷泉广场", (390, 691, 551, 815)),
     "court": ("迎宾院", (600, 715, 737, 800)),
-    "parking": ("停车场", (753, 720, 918, 880)),
-    "kids": ("儿童乐园", (136, 841, 261, 893)),
-    "shop": ("小卖部", (291, 841, 377, 893)),
-    "rest2": ("休息厅 2", (396, 842, 483, 894)),
-    "frontgate": ("前门", (590, 860, 720, 930)),
+    # 第 68 版（07，阿鱼：前门「挪到正对着喷泉」「停车场可以稍微大一点」）：前门挪到喷泉广场正下方；儿童乐园、小卖部、休息厅 2 往西让；
+    # 停车场往西放大、补上原来前门那块（在迎宾院正下方，北边一道门进迎宾院大门、一道门去后花园）
+    "parking": ("停车场（第 68 版往西放大）", (560, 815, 918, 935)),
+    "kids": ("儿童乐园", (136, 841, 216, 893)),
+    "shop": ("小卖部", (226, 841, 306, 893)),
+    "rest2": ("休息厅 2", (316, 841, 396, 893)),
+    "frontgate": ("前门（正对喷泉）", (420, 850, 520, 920)),
 }
 LAYOUT = {
     "court": "scene_luoman_entrance", "backhall": "scene_luoman_backhall", "lawn": "scene_luoman_lawn",
@@ -61,7 +63,7 @@ def load(k):
     if k == "court":
         for p in d["points"]:
             if p["id"] == "gate":
-                pts.append({"id": "gate", "x": p["x"], "y": p["y"], "to": "frontgate"})
+                pts.append({"id": "gate", "x": p["x"], "y": p["y"], "to": "parking"})   # 第 68 版：迎宾院大门出去是停车场（原来是前门）
     return d["size"], pts
 
 
@@ -103,7 +105,7 @@ def main():
     dr = ImageDraw.Draw(img)
     f_big = ImageFont.truetype(FONT, 22 * Z // 2 + 8)
     f = ImageFont.truetype(FONT, 11 * Z)
-    dr.text((20, 16), "游戏里的连法（第 65 版，方案 C）：每块一个框，摆在方案 C 图那块的位置；圆点 = 布局里的口；线 = 能直接走过去（%d 条）" % len(links),
+    dr.text((20, 16), "游戏里的连法（第 68 版：前门正对喷泉、停车场往西放大）：每块一个框，摆在方案 C 图那块的位置；圆点 = 布局里的口；线 = 能直接走过去（%d 条）" % len(links),
             font=f_big, fill=(30, 30, 30))
     for k, (name, (x0, y0, x1, y1)) in BOXES.items():
         col = (210, 70, 60) if k in ("court", "backhall", "lawn", "lake", "orchard", "parking", "banquet") else (90, 140, 200)

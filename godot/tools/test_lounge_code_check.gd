@@ -144,6 +144,8 @@ func run() -> void:
     life = b.lounge
     ui = m.lounge_ui
     ui.attach(life)
+    for id in IDS:
+        life.person(id)["wait"] = 1.0e9   # 03 收尾复核：叔叔起身倒计时按游戏时间走，机器忙时准备段被拖长、他先起身了；这里先按住，测坐姿那段（03 复现过，加了就过）
     b.walking_enabled = true
     var door := Vector2(1032, 690)   # 10/4 方案 C：后厅四间整间平移（化妆间 +1195、休息室 +528、麻将室 −144），下面的坐标照平移后的写
 

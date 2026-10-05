@@ -78,7 +78,7 @@ func run() -> void:
     m.nickname = "小李"
     await m._enter_banquet()
     await wait(2.0)
-    check("对白框说的是坐哪桌：%s" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text.contains("那桌"))
+    check("对白框说的是坐哪桌：%s" % m.said_raw, m.dialog.visible and m.said_raw.contains("那桌"))
     check("第一次进厅不弹卡", not is_instance_valid(m.arrival_card))
     check("也不出原来那一行提示", not (m.note_box.visible and m.note.text.contains("敬了你")))
 
@@ -167,7 +167,8 @@ func run() -> void:
         m.ensure_canvas(cn)   # 这四块第一次进去才搭（02 10/3），这里要看它们的牌，先搭好
     for cv in [m.court, m.backhall, m.lawn, m.lake, m.orchard]:
         for l in cv.labels.get_children():
-            if not m.court.is_exit_label(str((l as Label).text)):
+            # 第 68 版（07）牌子加了箭头（「↑ 楼门」「去停车场 ↓」），认出口照加箭头前的字（label 的 sign 元数据）
+            if not m.court.is_exit_label(str((l as Label).get_meta("sign", (l as Label).text))):
                 bad.append(str((l as Label).text))
     check("不是出口的牌 %s" % [bad], bad.is_empty() and not m.court.is_exit_label("回忆册"))
 

@@ -159,11 +159,11 @@ func run() -> void:
     var keep: Dictionary = pl["pavilion"].duplicate()
     pl["pavilion"]["text"] = "测试：亭子这句"   # 照阿鱼写好了的样子测（不动文件）
     walk_to(k.spot_pos("pavilion"))
-    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog.visible and m.dialog_text.text == "测试：亭子这句" and m.dialog_who.text == "阿鱼")
+    check("%s：%s" % [m.dialog_who.text, m.said_raw], m.dialog.visible and m.said_raw == "测试：亭子这句" and m.dialog_who.text == "阿鱼")
     walk_to(Vector2(2304, 760))
     check("走出亭子，那句收了", not m.dialog.visible and not k.in_spot("pavilion"))
     walk_to(k.spot_pos("pavilion"))
-    check("再走进去又出", m.dialog.visible and m.dialog_text.text == "测试：亭子这句")
+    check("再走进去又出", m.dialog.visible and m.said_raw == "测试：亭子这句")
     pl["pavilion"] = keep
     walk_to(Vector2(2304, 900))
 

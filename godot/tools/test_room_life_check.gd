@@ -209,7 +209,7 @@ func run() -> void:
             for k in 14:
                 if not ui.talk_box.visible:
                     break
-                seen.append(str(ui.line_label.text))
+                seen.append(str(ui.line_raw))
                 names.append(str(ui.name_label.text))
                 portrait_ok = portrait_ok and ((ui.portrait.texture != null and ui.portrait.visible) if str(p["code"]) != "" else not ui.portrait.visible)   # 新娘（code 空）不放头像
                 if ui.choices.visible:

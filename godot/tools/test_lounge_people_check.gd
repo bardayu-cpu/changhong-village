@@ -244,11 +244,11 @@ func run() -> void:
             # 10/4 起写了 dialogue 的（奶奶）走对话插件 Dialogue Manager（02 E 改这段）：有字、有人物图、身份卡开关，
             # 再一路点下去（有选项点第一个）直到收；台词、分支细的在 test_lounge_dialogue.gd
             for k in 30:
-                if ui.line_label.text != "":
+                if ui.line_raw != "":
                     break
                 await process_frame
-            if ui.line_label.text == "" or ui.portrait.texture == null:
-                issues.append("插件第一句没出来（%s）" % ui.line_label.text)
+            if ui.line_raw == "" or ui.portrait.texture == null:
+                issues.append("插件第一句没出来（%s）" % ui.line_raw)
             ui.card_btn.pressed.emit()
             tick(2)
             if ui.card == null or (ui.card.find_child("full_body", true, false) as TextureRect).texture == null:
@@ -266,8 +266,8 @@ func run() -> void:
                     await process_frame
                 tick(1)
         for j in lines.size():
-            if ui.line_label.text != str(lines[j]["text"]):
-                issues.append("第 %d 句字不对：%s" % [j + 1, ui.line_label.text])
+            if ui.line_raw != str(lines[j]["text"]):
+                issues.append("第 %d 句字不对：%s" % [j + 1, ui.line_raw])
             if ui.portrait.texture == null:
                 issues.append("第 %d 句没有人物图" % (j + 1))
             if j == 0:

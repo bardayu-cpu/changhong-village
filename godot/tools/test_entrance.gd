@@ -61,7 +61,7 @@ func back_to_court() -> void:
     if m.state != "parking":
         return
     var pk = m.parking
-    walk_to(pk.spot_pos("to_court") + Vector2(-90, 0))
+    walk_to(pk.spot_pos("to_court") + Vector2(0, 90))   # 第 68 版：去迎宾院那道门在停车场北墙，从门里边往上走进去
     walk_to(pk.spot_pos("to_court"))
     tick(5)
 
@@ -93,7 +93,7 @@ func run() -> void:
     print("1 迎宾院的格子和交互点")
     var g: Dictionary = c.cfg["walk_grid"]
     check("进场点能站 %s" % str(c.SPAWN), c._free(c.SPAWN))
-    check("交互点 11 个（10/2 加了祝福牌）", c.points.size() == 11 and c.points.has("blessing"))
+    check("交互点 10 个（10/2 加了祝福牌；第 68 版东边去停车场的口拿掉，大门出去就是停车场）", c.points.size() == 10 and c.points.has("blessing") and not c.points.has("to_parking"))
     check("B20 签到台记号：一开始亮着", c.sign_mark != null and c.sign_mark.visible)
     for id in c.points:
         var p: Vector2 = c.points[id]["pos"]
@@ -154,7 +154,7 @@ func run() -> void:
     check("宴会厅停着", m.hall.process_mode == Node.PROCESS_MODE_DISABLED)
     check("站在大门口 %s" % str(c.pos), c.pos == c.SPAWN)
     check("资料存了、还没拿席位", m.profile_saved and not m.hall_ready)
-    check("大门口说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.dialog_text.text == m.LINE_ARRIVE)
+    check("大门口说「到啦～ 罗曼山庄 席还没散」", m.dialog.visible and m.said_raw == m.LINE_ARRIVE)
 
     # 5. 走到楼门进宴会厅：站在厅门口，拿到席位；朝向不变
     print("5 楼门进宴会厅")
@@ -202,10 +202,11 @@ func run() -> void:
     check("东口进了喷泉广场 state=%s" % m.state, m.state == "plaza")
     walk_to(m.plaza.spot_pos("to_court"), 30.0)
     check("广场西口回到迎宾院、站在东口边 %s" % str(c.pos), m.state == "court" and c.pos == c.arrival_from("plaza"))
-    walk_to(c.spot_pos("to_parking"), 30.0)
-    check("西北口进了停车场 state=%s" % m.state, m.state == "parking")
+    walk_to(c.spot_pos("gate") + Vector2(0, -200), 30.0)
+    walk_to(c.spot_pos("gate"), 30.0)
+    check("大门出去进了停车场 state=%s" % m.state, m.state == "parking")
     walk_to(m.parking.spot_pos("to_court"), 30.0)
-    check("停车场东口回到迎宾院、站在西北口边 %s" % str(c.pos), m.state == "court" and c.pos == c.arrival_from("parking"))
+    check("停车场北墙那道门回到迎宾院、站在大门里边 %s" % str(c.pos), m.state == "court" and c.pos == c.SPAWN)
 
     await part2(c)
     await part3(c)
@@ -226,12 +227,12 @@ func part2(c) -> void:
     sv.welcomed = false
     c.reset_to(Vector2(768, 560))
     walk_to(c.spot_pos("welcome"))
-    check("第一次走进来：%s 说「%s」" % [m.dialog_who.text, m.dialog_text.text],
-        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("welcome"))
-    m.dialog_text.text = ""
+    check("第一次走进来：%s 说「%s」" % [m.dialog_who.text, m.said_raw],
+        m.dialog_who.text == "新娘妈妈" and m.said_raw == CourtCopy.text("welcome"))
+    m.said_raw = ""
     walk_to(Vector2(768, 560))
     walk_to(c.spot_pos("welcome"))
-    check("再走进来不说了", m.dialog_text.text == "")
+    check("再走进来不说了", m.said_raw == "")
 
     # 10. 走到签到桌前出「签到」，点开是名字页，默认带昵称，人停下
     print("10 签到面板")
@@ -302,8 +303,8 @@ func part2(c) -> void:
     check("服务端存了 %s" % str(m.cloud.fake_check_in), str(m.cloud.fake_check_in.get("name", "")) == "小李" and int(m.cloud.fake_check_in.get("gift_value", -1)) == 88)
     check("面板关了、能走", not ui.sign_root.visible and c.walking_enabled)
     check("喜糖：%s" % str(ui.candy_root.visible), sv.candy and ui.candy_root.visible)
-    check("最后新娘妈妈指路：%s「%s」" % [m.dialog_who.text, m.dialog_text.text],
-        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("mom_point"))
+    check("最后新娘妈妈指路：%s「%s」" % [m.dialog_who.text, m.said_raw],
+        m.dialog_who.text == "新娘妈妈" and m.said_raw == CourtCopy.text("mom_point"))
     ui.candy_root.visible = false
 
     # 15. 签过了：按钮「已签到」、点不开
@@ -365,11 +366,11 @@ func part3(c) -> void:
     # 19. 摄影师招呼：走到地毯前说一句，同一次在院里不重复
     print("19 摄影师招呼")
     walk_to(c.spot_pos("photo_wait"))
-    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog_who.text == "摄影师" and m.dialog_text.text == CourtCopy.text("photo_greet"))
-    m.dialog_text.text = ""
+    check("%s：%s" % [m.dialog_who.text, m.said_raw], m.dialog_who.text == "摄影师" and m.said_raw == CourtCopy.text("photo_greet"))
+    m.said_raw = ""
     walk_to(c.spot_pos("photo_wait") + Vector2(0, 120))
     walk_to(c.spot_pos("photo_wait"))
-    check("再走过来不重复", m.dialog_text.text == "")
+    check("再走过来不重复", m.said_raw == "")
 
     # 20. 合影站位：人吸过去，出「拍一张」
     print("20 合影")
@@ -379,7 +380,7 @@ func part3(c) -> void:
     ui._on_act()
     check("摆姿势，人停下", ui.pose_root.visible and not c.walking_enabled and not ui.act_btn.visible)
     ui._pick_pose("wave")
-    check("对焦圈出来，摄影师倒数：%s" % m.dialog_text.text, ui.focus_root.visible and m.dialog_text.text == CourtCopy.text("photo_count"))
+    check("对焦圈出来，摄影师倒数：%s" % m.said_raw, ui.focus_root.visible and m.said_raw == CourtCopy.text("photo_count"))
     # C1：「两个圈对上的时候点一下」不再是压在场景上的光字，有深色底、金边
     var hint_sb: StyleBox = ui.focus_hint_panel.get_theme_stylebox("panel")
     check("合影提示字有底框（深色底、金边）%s" % str(hint_sb),
@@ -446,17 +447,17 @@ func part4(c) -> void:
     m.note.text = ""
     walk_to(c.spot_pos("rest") + Vector2(0, 120))
     walk_to(c.spot_pos("rest"))
-    check("%s：%s" % [m.dialog_who.text, m.dialog_text.text], m.dialog_who.text == "老人" and m.dialog_text.text == CourtCopy.text("elder"))
+    check("%s：%s" % [m.dialog_who.text, m.said_raw], m.dialog_who.text == "老人" and m.said_raw == CourtCopy.text("elder"))
     check("第一次自动弹普通话：%s" % m.note.text, m.note_box.visible and m.note.text == CourtCopy.text("elder_gloss") and sv.gloss_seen)
-    m.dialog_text.text = ""
+    m.said_raw = ""
     walk_to(c.spot_pos("rest") + Vector2(0, 120))
     walk_to(c.spot_pos("rest"))
-    check("同一次再走过来不重复", m.dialog_text.text == "")
+    check("同一次再走过来不重复", m.said_raw == "")
     m.rest_heard = false   # 当成下回再来
     m.note.text = ""
     walk_to(c.spot_pos("rest") + Vector2(0, 120))
     walk_to(c.spot_pos("rest"))
-    check("再来：老人照说，不自动弹", m.dialog_text.text == CourtCopy.text("elder") and m.note.text == "")
+    check("再来：老人照说，不自动弹", m.said_raw == CourtCopy.text("elder") and m.note.text == "")
     var tapev := InputEventMouseButton.new()
     tapev.button_index = MOUSE_BUTTON_LEFT
     tapev.pressed = true
@@ -469,12 +470,12 @@ func part4(c) -> void:
     sv.signed_in = true
     m._update_gate()
     m.note.text = ""
-    m.dialog_text.text = ""
+    m.said_raw = ""
     check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("走到门口出到前门（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
-        m.state == "frontgate" and m.note.text == "" and m.dialog_text.text == "" and not m.parking.car_hint)
+    check("走到门口出到停车场（%s）、不说话（提醒那句【待补】不出）、不指车" % m.state,
+        m.state == "parking" and m.note.text == "" and m.said_raw == "" and not m.parking.car_hint)
     back_to_court()
 
     # 25. 写了悄悄话没签到：大门没金圈，新娘妈妈提醒先签个到；10/3 起不拦着，照样出到停车场、不指车
@@ -485,10 +486,10 @@ func part4(c) -> void:
     check("没金圈", not c.exit_mark.visible)
     walk_to(c.spot_pos("gate") + Vector2(0, -200))
     walk_to(c.spot_pos("gate"))
-    check("%s：%s；照样出到前门、不指车" % [m.dialog_who.text, m.dialog_text.text],
-        m.dialog_who.text == "新娘妈妈" and m.dialog_text.text == CourtCopy.text("gate_not_signed") and m.state == "frontgate" and not m.parking.car_hint)
+    check("%s：%s；照样出到停车场、不指车" % [m.dialog_who.text, m.said_raw],
+        m.dialog_who.text == "新娘妈妈" and m.said_raw == CourtCopy.text("gate_not_signed") and m.state == "parking" and not m.parking.car_hint)
     m.dialog.visible = false
-    m.dialog_text.text = ""
+    m.said_raw = ""
     back_to_court()
 
     # 26. 真走一遍：签过到，进厅写悄悄话，出来大门开了；10/3 起走出大门回停车场，金箭头指自己的车，走到车旁新娘妈妈送你，不进结束页
@@ -508,20 +509,19 @@ func part4(c) -> void:
     m._send_whisper()
     check("写完：本机记下、厅门亮", sv.whisper_done and m.hall.exit_mark.visible)
     # 01 9/23：写完悄悄话新人先道谢，不再马上「吃好了？走」往外赶
-    check("写完新人先道谢：%s" % m.dialog_text.text, m.dialog.visible and m.dialog_text.text == m.LINE_THANKS and not m.dialog_text.text.contains("走"))
+    check("写完新人先道谢：%s" % m.said_raw, m.dialog.visible and m.said_raw == m.LINE_THANKS and not m.said_raw.contains("走"))
     walk_to(m.hall.SPAWN + Vector2(0, -160))
     walk_to(m.hall.door)
     check("回到迎宾院，大门亮金圈", m.state == "court" and c.exit_mark.visible)
     m.note.text = ""
-    m.dialog_text.text = ""
+    m.said_raw = ""
     walk_to(c.spot_pos("gate"), 30.0)
-    check("走出大门到前门、门口不说话（%s）" % m.state, m.state == "frontgate" and m.dialog_text.text == "")
-    walk_to(m.areas["frontgate"].spot_pos("to_parking"), 30.0)
-    check("前门往西回到停车场、金箭头指自己的车（%s）" % m.state, m.state == "parking" and m.parking.car_hint)
+    check("走出大门到停车场、门口不说话（%s）" % m.state, m.state == "parking" and m.said_raw == "")
+    check("回到停车场、金箭头指自己的车（%s）" % m.state, m.state == "parking" and m.parking.car_hint)
     var pk = m.parking
     walk_to(pk.spot_pos("my_car"), 30.0)
     # 01 9/23：出大门改成新娘妈妈送你——一句送别，一句明天回来能看到什么；回忆册现在是灰的，不提。10/3 起挪到自己车旁说
-    var bye: String = m.dialog_text.text
+    var bye: String = m.said_raw
     check("车旁新娘妈妈送你：%s" % bye.replace("\n", " / "), m.dialog.visible and m.dialog_who.text == "新娘妈妈"
         and bye == CourtCopy.text("gate_bye") + "\n" + CourtCopy.text("gate_tomorrow") and not bye.contains("回忆册"))
     check("不再说路没修好", not bye.contains("路还没修好") and not m.note.text.contains("路还没修好"))

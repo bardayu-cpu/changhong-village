@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：后厅麻将室、化妆间的人活起来（07 10/4，阿鱼「其他房间里的 npc 也要动起来，对话起来，走动起来，灵活起来」）。无界面跑整个 main.gd。
 ##   1 两间各一份 lounge_life（mahjong.json、makeup.json）：人数对、都接过替身那张图；休息间照旧四位
-##   2 冒泡：跑 20 秒，每组都冒过话、是 json 里那几句；气泡不挡操作（点气泡底下的地照样走过去）
+##   2 冒泡（阿鱼 10/4 新规矩，05 回执「跟新规矩冲突的 4 个测试」：后厅三间同屏最多两个冒泡，两个在冒时别的组等着）：三间一起跑 90 秒，每一帧同时在冒的 ≤ 2 个、每一组 90 秒内至少冒过一句、冒的都是 json 里那几句；气泡不挡操作（点气泡底下的地照样走过去）
 ##   3 点人对话：每位能说话的，每个选项各走一遍到底——点他 → 走到 approach → 对话框（名字牌是称呼、走插件）→ 挑选项 → 说完收、又能走；
 ##     坐着的说话不起身不转身（截的那格不变）
 ##   4 没写台词的点了不理（当点地面走路）；approach 都能站、从进场点走得到
@@ -85,12 +85,12 @@ func talk_once(lf, id: String, pick: int) -> Dictionary:
     for k in 12:
         if not ui.talk_box.visible:
             break
-        out["lines"].append(ui.line_label.text)
+        out["lines"].append(ui.line_raw)
         if ui.choices.visible:
             out["choices"] = ui.choices.get_children().map(func(x): return (x as Button).text)
             ui.next_line()   # 有选项时点对话框不往下走
             await settle()
-            if ui.line_label.text != out["lines"][-1]:
+            if ui.line_raw != out["lines"][-1]:
                 out["lines"].append("（点对话框走了）")
             (ui.choices.get_child(pick) as Button).pressed.emit()
         else:
@@ -134,26 +134,35 @@ func run() -> void:
             adopted = adopted and p.has("look") and p.get("spr") == lf.c.npc_nodes.get(id)
     check("两间的人都接过了替身那张图（没另画一个）", adopted)
 
-    print("2 冒泡")
+    print("2 冒泡（三间一起、90 秒、同屏最多两个）")
     var seen := {}
-    for lf0 in [mj, mk]:
-        await go(lf0)
-        for i in int(20.0 / DT):
+    var max_now := 0
+    var over_two := 0
+    # 同屏最多两个：后厅一屏（休息间 + 麻将室）、化妆间自己一屏，各算各的（化妆间 10/4 起是单独一间屋、单独一屏）
+    for set_lives in [m.backhall.lives, m.areas["makeup"].lives]:
+        await go(set_lives[0])
+        for i in int(90.0 / DT):
             tick(1)
-            for lf in [mj, mk]:
+            var now := 0
+            for lf in set_lives:
                 for id in lf.bubbles:
+                    if is_instance_valid(lf.bubbles[id]):
+                        now += 1
                     var t: String = lf.bubble_text(id)
                     if t != "":
                         seen[lf.room + "/" + id + "/" + t] = true
+            max_now = maxi(max_now, now)
+            if now > 2:
+                over_two += 1
+    check("每一屏一起跑 90 秒（后厅一屏、化妆间一屏）：每一帧同时在冒的最多 %d 个（要 ≤ 2；超过两个的有 %d 帧）" % [max_now, over_two], max_now <= 2 and over_two == 0 and max_now >= 1)
     await go(mj)
-    for lf in [mj, mk]:
+    for lf in m.backhall.lives + m.areas["makeup"].lives:
         for g in lf.data["chat"]:
             var got := 0
-            var bad := []
             for l in g["lines"]:
                 if seen.has(lf.room + "/" + str(l[0]) + "/" + str(l[1])):
                     got += 1
-            check("%s「%s」组 20 秒冒了 %d 句（json 里 %d 句）" % [lf.room, g["group"], got, g["lines"].size()], got >= 2)
+            check("%s「%s」组 90 秒冒了 %d 句（json 里 %d 句；要 ≥ 1）" % [lf.room, g["group"], got, g["lines"].size()], got >= 1)
     for k in seen:
         var parts: PackedStringArray = str(k).split("/")
         var lf = life_by(parts[0])
@@ -187,6 +196,9 @@ func run() -> void:
             if not lf.can_talk(id):
                 continue
             var p: Dictionary = lf.people[id]
+            # 起身走动的人（妹妹、化妆助理）起身时间是随机的：先放回原位、这段里别起身，测的是在家坐着（站着）说话那段（第 68 版跑全套时撞上过一次）
+            home(lf, p)
+            p["wait"] = 9999.0
             var reg0: Rect2 = (p["spr"] as Sprite2D).region_rect
             var n_choices := 2
             for pick in n_choices:
@@ -270,7 +282,7 @@ func run() -> void:
                     var tag := "%s×%s" % [rects[a][0], rects[c2][0]]
                     if not tag in worst:
                         worst.append(tag)
-    check("后厅两间照常轮着冒 90 秒（最多同时 %d 个），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 3)
+    check("后厅一屏照常轮着冒 90 秒（最多同时 %d 个，要 ≤ 2），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 1 and most <= 2)
     for lf in b.lives:
         for id in lf.bubbles.keys():
             lf._hide_bubble(id)

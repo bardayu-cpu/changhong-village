@@ -276,13 +276,13 @@ func run() -> void:
                 break
         for i in 30:
             await process_frame
-            if m.lounge_ui.line_label.text != "":
+            if m.lounge_ui.line_raw != "":
                 break
         var seen: Array = []
         for i in 8:
             if not m.lounge_ui.talk_box.visible:
                 break
-            seen.append(str(m.lounge_ui.line_label.text))
+            seen.append(str(m.lounge_ui.line_raw))
             m.lounge_ui.next_line()
             for j in 12:
                 await process_frame
