@@ -58,7 +58,7 @@ func run() -> void:
         if not b._free(Vector2(x, 780)):
             blocked += 1
     check("不挡路：走廊 y 780 从西走到东一路都能走（挡住的 %d 格）" % blocked, blocked == 0)
-    for id in ["dress", "lounge", "mahjong", "to_hall", "to_lawn"]:
+    for id in ["to_makeup", "lounge", "mahjong", "to_hall", "to_lawn"]:   # 10/4 原来那间化妆室封起来（02 F），dress 在里面走不到了，换成走廊里的化妆间门口
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
         check("%s 照样走得到" % id, not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(pt) <= float(b.points[id]["r"]))

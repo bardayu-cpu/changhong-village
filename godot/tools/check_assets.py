@@ -17,6 +17,8 @@
        - 零件 blk_ art_ fg_ prop_ decal_：每张 ≤ 100 KB
        - 人物动作图 chr_：≤ 300 KB
        - 背景 base_ 和场景文件夹里的 base.png、瓦片 tex_：≤ 500 KB
+       - 整间底图（像素画屋子 assets/pixel_art/<屋>/room.png，庄Z1 10/5）：按屏算，一屏（540×960）≤ 300 KB；
+         1.5 屏 450 KB、2 屏 600 KB（屏数 = 宽×高 ÷ 540×960）
        - 界面（文件名带 _ui_ 或放在 ui/ 文件夹里）：≤ 100 KB
   只提醒（退出码 0，照样能提交）：
     5. 不在上面四类里的图，进包超过 100 KB；这次提交让要进包的图（PNG 本身）一共多出 2 MB 以上
@@ -59,6 +61,8 @@ SIZE_LIMITS = [  # (类, 判断, 上限 KB)：从上往下第一个对上的算
     ("背景、瓦片", lambda n, p: n.startswith(("base_", "tex_")) or n == "base.png", 500),
     ("零件", lambda n, p: n.startswith(("blk_", "art_", "fg_", "prop_", "decal_")), 100),
 ]
+SCREEN = 540 * 960       # 一屏手机竖屏
+ROOM_KB_PER_SCREEN = 300  # 整间底图每屏上限（庄Z1 10/5）
 OTHER_WARN_KB = 100
 LOSSY_FUDGE = 1.1   # PIL 压的 WebP 比 Godot 导出的 .ctex 小约 8%（10/2 拿三张宴会厅底图量的）
 SKIP_DIRS = ("回执/", "参考/", ".godot/")   # 回执里的截图、对照图，别人的参考包，导入缓存：不查
@@ -161,10 +165,13 @@ def check_png(src: Source, path: str, raw: bytes, errors: list, warns: list) -> 
     if "assets/" in norm or not src.staged:
         size, how = shipped_size(src, path, raw, im)
         kind = next(((k, lim) for k, test, lim in SIZE_LIMITS if test(name, "/" + norm)), None)
+        if name == "room.png" and "/pixel_art/" in "/" + norm:
+            screens = w * h / SCREEN
+            kind = ("整间底图（%.1f 屏）" % screens, int(ROOM_KB_PER_SCREEN * screens))
         if kind and size > kind[1] * KB:
             errors.append((path, "%s进手机包约 %d KB（%s），上限 %d KB" % (kind[0], size // KB, how, kind[1]),
                            "照画出来的大小出图（人 84 高就别画 450 高）；GPT 的图让 GPT 改；我们自己生成的图可以在 .import 里改成有损压缩、调低质量，"
-                           "改完跑 restore_check.py 对原图看差多少"))
+                           "改完跑 restore_check.py 对原图看差多少。整间底图每屏（540×960）≤ 300 KB：1.5 屏 450 KB、2 屏 600 KB"))
         elif not kind and size > OTHER_WARN_KB * KB:
             warns.append((path, "进手机包约 %d KB（%s），不在零件／人物／背景／界面四类里" % (size // KB, how), "看看能不能缩；要定上限找 01"))
     if name == "base.png":

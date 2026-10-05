@@ -2,7 +2,7 @@
 """沙盒截图标注版（01 G 10/4 派；工作规范第三节：新地图先出沙盒截图给阿鱼，过了再让 GPT 画效果图、代码还原）。
 拿一比一干净版（tools/shot_court.gd --labels=0 截的），照这块的 layout.json 标三样：块名、每个口去哪、主要东西叫什么。
 同一种东西（同一个零件编号 part）只标一次、带件数；墙、绿篱不标（太乱）。只读布局、只写出图。
-用法：python3 godot/tools/layout_court/sandbox_annot.py <画布名，比如 plaza> <干净版.png> <标注版.png>
+用法：python3 godot/tools/layout_court/sandbox_annot.py <画布名，比如 plaza> <干净版.png> <标注版.png> [标题后面那几个字，默认「第 65 版沙盒」]
 """
 import json
 import os
@@ -15,7 +15,7 @@ GODOT = os.path.dirname(os.path.dirname(HERE))
 FONT = "/System/Library/Fonts/Hiragino Sans GB.ttc"
 CN = {"plaza": "喷泉广场", "court": "迎宾院", "lawn": "草坪", "backhall": "后厅", "kids": "儿童乐园", "shop": "小卖部",
       "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "parking": "停车场",
-      "banquet": "宴会厅", "lake": "湖边", "orchard": "果园", "backgate": "后门", "entrance": "迎宾院"}
+      "banquet": "宴会厅", "lake": "湖边", "orchard": "果园", "backgate": "后门", "entrance": "迎宾院", "makeup": "化妆间"}
 # 布局里没写名字的，照 id 开头补个叫法
 FALLBACK = {"tree": "大树", "bench": "长椅", "tea": "茶几", "plant": "盆栽", "fridge": "冰箱", "bed": "花坛",
             "gazebo": "白色凉亭柱", "fountain_ring": "喷泉一圈浅色石板", "fountain_tier": "喷泉小水盘", "lamp": "路灯",
@@ -52,6 +52,7 @@ def item_name(it):
 
 def main():
     key, src, dst = sys.argv[1], sys.argv[2], sys.argv[3]
+    tag = sys.argv[4] if len(sys.argv) > 4 else "第 65 版沙盒"
     lay = json.load(open(os.path.join(GODOT, "assets", "layered", "scene_luoman_" + key, "layout.json"), encoding="utf-8"))
     W, H = lay["size"]
     base = Image.open(src).convert("RGB")
@@ -62,8 +63,12 @@ def main():
     f_title = ImageFont.truetype(FONT, 30)
     f = ImageFont.truetype(FONT, 22)
     f_s = ImageFont.truetype(FONT, 18)
-    d.text((16, 14), "%s · 第 65 版沙盒（灰盒，全是色块占位） · 画布 %d × %d" % (CN.get(key, key), W, H), font=f_title, fill=(244, 217, 122))
-    legend = "橙圈 = 口　白牌 = 东西叫什么"
+    if W >= 1000:
+        d.text((16, 14), "%s · %s（灰盒，全是色块占位） · 画布 %d × %d" % (CN.get(key, key), tag, W, H), font=f_title, fill=(244, 217, 122))
+        legend = "橙圈 = 口　白牌 = 东西叫什么"
+    else:   # 窄画布（化妆间、停车场）：标题短一点，「色块占位」挪到底下那行
+        d.text((16, 18), "%s · %s · %d×%d" % (CN.get(key, key), tag, W, H), font=f, fill=(244, 217, 122))
+        legend = "灰盒色块占位　橙圈 = 口　白牌 = 东西叫什么"
     if W >= 1400:
         d.text((W - 16, 22), legend, font=f_s, fill=(230, 220, 200), anchor="ra")
     else:   # 窄的画布（停车场）标题占满了，图例放到底下

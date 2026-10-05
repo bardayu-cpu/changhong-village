@@ -62,6 +62,24 @@ func reenter() -> void:
         ui.hide_all()
     m.dialog.visible = false
 
+## 进这份人所在的画布（休息间、麻将室在后厅；化妆间 10/4 起是单独一间屋 areas["makeup"]）
+func enter_life(lf) -> void:
+    m.switching = false
+    if ui.is_open():
+        ui.hide_all()
+    m.dialog.visible = false
+    if lf.room == "makeup":
+        m.ensure_canvas("makeup")
+        m._show_canvas("makeup")
+        m._goto("makeup")
+        var r = m.areas["makeup"]
+        r.walking_enabled = true
+        r.reset_to(r.SPAWN)
+    else:
+        reenter()
+        b.reset_to(door)
+    await frames(4)
+
 ## 真点：把按下、松开两个鼠标事件送进视口（窗口像素坐标），走完整的界面命中
 func real_click(at_content: Vector2) -> void:
     var at: Vector2 = get_root().get_final_transform() * at_content   # push_input 要的是窗口像素；界面坐标（540 宽那套）按拉伸换过去（长屏 585 宽要乘 1.083）
@@ -126,6 +144,7 @@ func run() -> void:
     m.court_save.local_path = "user://test_dbc_court.json"
     m.games_save.local_path = "user://test_dbc_games.json"
     m.ensure_canvas("backhall")
+    m.ensure_canvas("makeup")   # 化妆间单独成屋：它的人在 areas["makeup"].lives 里，要先搭好
     m._show_canvas("backhall")
     m._goto("backhall")
     await frames(3)
@@ -277,7 +296,10 @@ func run() -> void:
     typer.instant = inst_was
     var face_bad: Array = []
     var people: Array = []
-    for lf in b.lives:
+    var all_lives: Array = b.lives.duplicate()
+    if m.areas.has("makeup") and m.areas["makeup"].get("lives") is Array:
+        all_lives += m.areas["makeup"].lives   # 化妆间单独成屋以后，它的人不在后厅 lives 里
+    for lf in all_lives:
         for id in lf.people.keys():
             var pd: Dictionary = lf.person(str(id))
             if str(pd.get("code", "")) != "" and (str(pd.get("dialogue", "")) != "" or not (pd.get("talk", []) as Array).is_empty()):
@@ -285,8 +307,7 @@ func run() -> void:
     for pr in people:
         var lf2 = pr[0]
         var id2: String = pr[1]
-        reenter()
-        b.reset_to(door)
+        await enter_life(lf2)
         tick(1)
         ui.open_talk(id2)
         for i in 200:
@@ -364,7 +385,7 @@ func run() -> void:
     print("3 没头像的")
     var nop_bad: Array = []
     var mk = null
-    for lf in b.lives:
+    for lf in all_lives:
         if lf.room == "makeup":
             mk = lf
     if mk == null:
@@ -382,7 +403,7 @@ func run() -> void:
         var had_face: bool = ui.portrait.visible and ui.portrait.texture != null
         ui.close_talk()
         await frames(2)
-        reenter()
+        await enter_life(mk)
         ui.open_talk("bride")
         for i in 200:
             await process_frame

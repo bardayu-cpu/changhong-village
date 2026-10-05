@@ -1,0 +1,58 @@
+{
+ "note": "tools/pixel_art/backhall_makeup_door.py 生成，别手改。后厅长条里原来那间化妆室封起来：背景是墙后面那块（画成这间的屋顶），door_wall 是那面墙连门、灯笼；hide 藏掉原来那间的家具灰盒和 wall_3、front_5（只藏画，挡人的占地照旧）",
+ "background": {
+  "png": "res://assets/pixel_art/backhall_makeup_door/room.png",
+  "x": 1195,
+  "y": 104
+ },
+ "room": {
+  "x0": 1195,
+  "x1": 1536
+ },
+ "props": [
+  {
+   "id": "px_makeup_door_wall",
+   "png": "res://assets/pixel_art/backhall_makeup_door/props/door_wall.png",
+   "x": 1195,
+   "y": 104,
+   "foot": 696,
+   "hide": [
+    "mk_closet_cn",
+    "mk_closet_west",
+    "mk_crown_stand",
+    "mk_ethnic_wall",
+    "mk_floor_vase",
+    "mk_flowers",
+    "mk_flowers_e",
+    "mk_full_mirror",
+    "mk_gifts",
+    "mk_gown_form",
+    "mk_iko",
+    "mk_island",
+    "mk_pouf",
+    "mk_rack_cn_back",
+    "mk_rack_cn_front",
+    "mk_rack_ethnic",
+    "mk_rack_jp_back",
+    "mk_rack_west_back",
+    "mk_rack_west_front",
+    "mk_screen",
+    "mk_shoes",
+    "mk_silver_crown",
+    "mk_sofa",
+    "mk_steamer",
+    "mk_stool_1",
+    "mk_stool_2",
+    "mk_stool_3",
+    "mk_tansu",
+    "mk_trunk",
+    "mk_vanity_1",
+    "mk_vanity_2",
+    "mk_vanity_3",
+    "wall_3",
+    "front_5",
+    "makeup_door"
+   ]
+  }
+ ]
+}

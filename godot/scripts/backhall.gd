@@ -13,7 +13,7 @@ const LoungeLife = preload("res://scripts/lounge_life.gd")
 var lounge: Node2D   # 休息间的人：冒泡、座位、点人说话（lounge_life.gd，10/4 人物新做法样板）
 ## 每间屋的人（10/4 07 铺开）：休息间 lounge 排第一，后面麻将室、化妆间，同一套 lounge_life.gd，话各在一份 json
 var lives: Array = []
-const ROOM_LIVES := [["mahjong", "res://assets/backhall/mahjong.json"], ["makeup", "res://assets/backhall/makeup.json"]]
+const ROOM_LIVES := [["mahjong", "res://assets/backhall/mahjong.json"]]   # 化妆间的人 10/4 搬进单独那间屋（area.gd 照布局 life 挂，02 F）
 signal kitchen_requested
 var pending_cook := false
 var kitchen_walkers: Array = []

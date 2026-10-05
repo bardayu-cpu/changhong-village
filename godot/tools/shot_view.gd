@@ -2,11 +2,12 @@ extends SceneTree
 ## 手机视角截一块画布（沙盒截图，01 G 10/4 派：新地图先出沙盒截图给阿鱼，过了再让 GPT 画效果图）：
 ## 进到那块、人站在 --at、朝 --face，镜头照游戏自己的跟人走，截整个窗口（带界面，跟手机上看到的一样）。不改 main.gd
 ## 要有窗口：Godot --path . --resolution 540x960 --script res://tools/shot_view.gd -- --canvas=plaza --at=768,820 [--face=up] --out=图.png
+##   --enter=backhall：「进门第一眼」——先站在那块（后厅）--at 那里，走进通 --canvas 的那个口，换进屋以后（屋名还在上方）截；不给就直接换到 --canvas
 ## 出完打一行「SHOT SAVED <路径> <宽>x<高>」；出错打「SHOT FAILED 原因」，退出码 1
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
-var opt := {"canvas": "plaza", "at": "", "face": "up", "out": ""}
+var opt := {"canvas": "plaza", "at": "", "face": "up", "out": "", "enter": ""}
 
 func _initialize() -> void:
     for a in OS.get_cmdline_user_args():
@@ -45,6 +46,9 @@ func run() -> void:
     m.cloud.fake_no_news = true
     await m._enter_court()
     var cn := str(opt["canvas"])
+    if str(opt["enter"]) != "":
+        await enter_through(str(opt["enter"]), cn)
+        return
     m.ensure_canvas(cn)
     m._show_canvas(cn)
     m._goto(cn)
@@ -66,6 +70,36 @@ func run() -> void:
     m.dialog.visible = false
     m.note_box.visible = false
     await frames(5)
+    await RenderingServer.frame_post_draw
+    var img: Image = get_root().get_texture().get_image()
+    if img.save_png(str(opt["out"])) != OK:
+        fail("存不下 %s" % opt["out"])
+        return
+    print("SHOT SAVED ", opt["out"], " ", img.get_width(), "x", img.get_height())
+    quit(0)
+
+## 进门第一眼：在 src 那块站到 --at，走进通 cn 的口（to_<cn>），换进屋、淡入完，屋名还在上方时截
+func enter_through(src: String, cn: String) -> void:
+    m.ensure_canvas(src)
+    m.ensure_canvas(cn)
+    m._show_canvas(src)
+    m._goto(src)
+    var c = m.cv
+    c.walking_enabled = true
+    var xy: PackedStringArray = str(opt["at"]).split(",")
+    c.reset_to(Vector2(float(xy[0]), float(xy[1])))
+    await frames(5)
+    m.dialog.visible = false
+    c.go_to(c.spot_pos("to_" + cn))
+    for i in 900:
+        await process_frame
+        if m.state == cn and not m.switching and m.fade.color.a < 0.01:
+            break
+    if m.state != cn:
+        fail("没走进 %s（在 %s）" % [cn, m.state])
+        return
+    m.dialog.visible = false
+    await create_timer(0.4).timeout
     await RenderingServer.frame_post_draw
     var img: Image = get_root().get_texture().get_image()
     if img.save_png(str(opt["out"])) != OK:

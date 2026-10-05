@@ -1,0 +1,731 @@
+{
+ "note": "tools/import_makeup_blocks.py 照 GPT 交付.json 出，别手改。底图铺地上；每件零件左上角在 x/y，着地线 foot（跟人排前后）；fg_ 的 foot 很大（永远在人前面）；hide 藏掉同名的占地灰盒（挡人照旧）",
+ "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_125_wb6r9q_h",
+ "background": {
+  "png": "res://assets/pixel_art/makeup_room/room.png",
+  "x": 0,
+  "y": 0
+ },
+ "room": {
+  "x0": 0,
+  "x1": 675
+ },
+ "props": [
+  {
+   "id": "px_corner_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_corner_w.png",
+   "x": 19,
+   "y": 36,
+   "foot": 179,
+   "hide": [
+    "corner_w",
+    "wall_s_0",
+    "wall_s_1",
+    "nostand_0",
+    "nostand_1",
+    "nostand_2",
+    "nostand_3",
+    "nostand_4",
+    "nostand_5",
+    "nostand_6",
+    "nostand_7",
+    "nostand_8",
+    "nostand_9",
+    "nostand_10",
+    "nostand_11",
+    "nostand_12",
+    "nostand_13",
+    "nostand_14",
+    "nostand_15",
+    "nostand_16",
+    "nostand_17",
+    "nostand_18",
+    "nostand_19",
+    "nostand_20",
+    "nostand_21",
+    "nostand_22",
+    "nostand_23",
+    "nostand_24",
+    "nostand_25",
+    "nostand_26",
+    "nostand_27",
+    "nostand_28",
+    "nostand_29",
+    "nostand_30",
+    "nostand_31",
+    "nostand_32",
+    "nostand_33",
+    "nostand_34",
+    "nostand_35",
+    "nostand_36",
+    "nostand_37",
+    "nostand_38",
+    "nostand_39",
+    "nostand_40",
+    "nostand_41",
+    "nostand_42",
+    "nostand_43",
+    "nostand_44",
+    "nostand_45",
+    "nostand_46",
+    "nostand_47",
+    "nostand_48",
+    "nostand_49",
+    "nostand_50",
+    "nostand_51",
+    "nostand_52",
+    "nostand_53",
+    "nostand_54",
+    "nostand_55",
+    "nostand_56",
+    "nostand_57",
+    "nostand_58",
+    "nostand_59",
+    "nostand_60",
+    "nostand_61",
+    "nostand_62",
+    "nostand_63",
+    "nostand_64",
+    "nostand_65",
+    "nostand_66",
+    "nostand_67",
+    "nostand_68",
+    "nostand_69",
+    "nostand_70",
+    "nostand_71",
+    "nostand_72",
+    "nostand_73",
+    "nostand_74",
+    "nostand_75",
+    "nostand_76",
+    "nostand_77",
+    "nostand_78",
+    "nostand_79",
+    "nostand_80",
+    "nostand_81",
+    "nostand_82",
+    "nostand_83",
+    "nostand_84",
+    "nostand_85",
+    "nostand_86",
+    "nostand_87",
+    "nostand_88",
+    "nostand_89",
+    "nostand_90",
+    "nostand_91",
+    "nostand_92",
+    "nostand_93",
+    "nostand_94",
+    "nostand_95",
+    "nostand_96",
+    "nostand_97",
+    "nostand_98",
+    "nostand_99",
+    "nostand_100",
+    "nostand_101",
+    "nostand_102",
+    "nostand_103",
+    "nostand_104",
+    "nostand_105",
+    "nostand_106",
+    "nostand_107",
+    "nostand_108",
+    "nostand_109",
+    "nostand_110",
+    "nostand_111",
+    "nostand_112",
+    "nostand_113"
+   ]
+  },
+  {
+   "id": "px_corner_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_corner_e.png",
+   "x": 579,
+   "y": 48,
+   "foot": 179,
+   "hide": [
+    "corner_e"
+   ]
+  },
+  {
+   "id": "px_dresser_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_1.png",
+   "x": 102,
+   "y": 110,
+   "foot": 176,
+   "hide": [
+    "dresser_1"
+   ]
+  },
+  {
+   "id": "px_dresser_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_2.png",
+   "x": 226,
+   "y": 111,
+   "foot": 176,
+   "hide": [
+    "dresser_2"
+   ]
+  },
+  {
+   "id": "px_dresser_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_3.png",
+   "x": 342,
+   "y": 110,
+   "foot": 176,
+   "hide": [
+    "dresser_3"
+   ]
+  },
+  {
+   "id": "px_dresser_4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_dresser_4.png",
+   "x": 459,
+   "y": 110,
+   "foot": 176,
+   "hide": [
+    "dresser_4"
+   ]
+  },
+  {
+   "id": "px_vase_stand_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_1.png",
+   "x": 201,
+   "y": 72,
+   "foot": 176,
+   "hide": [
+    "vase_stand_1"
+   ]
+  },
+  {
+   "id": "px_vase_stand_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_2.png",
+   "x": 319,
+   "y": 72,
+   "foot": 176,
+   "hide": [
+    "vase_stand_2"
+   ]
+  },
+  {
+   "id": "px_vase_stand_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_3.png",
+   "x": 435,
+   "y": 72,
+   "foot": 176,
+   "hide": [
+    "vase_stand_3"
+   ]
+  },
+  {
+   "id": "px_stool_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_1.png",
+   "x": 140,
+   "y": 151,
+   "foot": 195,
+   "hide": [
+    "stool_1"
+   ]
+  },
+  {
+   "id": "px_stool_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_2.png",
+   "x": 260,
+   "y": 151,
+   "foot": 195,
+   "hide": [
+    "stool_2"
+   ]
+  },
+  {
+   "id": "px_stool_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_3.png",
+   "x": 376,
+   "y": 151,
+   "foot": 195,
+   "hide": [
+    "stool_3"
+   ]
+  },
+  {
+   "id": "px_stool_4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_stool_4.png",
+   "x": 495,
+   "y": 151,
+   "foot": 195,
+   "hide": [
+    "stool_4"
+   ]
+  },
+  {
+   "id": "px_rack_w1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w1.png",
+   "x": 16,
+   "y": 189,
+   "foot": 338,
+   "hide": [
+    "rack_w1"
+   ]
+  },
+  {
+   "id": "px_rack_w2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w2.png",
+   "x": 19,
+   "y": 340,
+   "foot": 466,
+   "hide": [
+    "rack_w2"
+   ]
+  },
+  {
+   "id": "px_rack_w3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w3.png",
+   "x": 16,
+   "y": 466,
+   "foot": 599,
+   "hide": [
+    "rack_w3"
+   ]
+  },
+  {
+   "id": "px_rack_w4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w4.png",
+   "x": 19,
+   "y": 602,
+   "foot": 735,
+   "hide": [
+    "rack_w4"
+   ]
+  },
+  {
+   "id": "px_rack_e1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e1.png",
+   "x": 469,
+   "y": 189,
+   "foot": 338,
+   "hide": [
+    "rack_e1"
+   ]
+  },
+  {
+   "id": "px_rack_e2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e2.png",
+   "x": 492,
+   "y": 340,
+   "foot": 466,
+   "hide": [
+    "rack_e2"
+   ]
+  },
+  {
+   "id": "px_rack_e3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e3.png",
+   "x": 489,
+   "y": 466,
+   "foot": 602,
+   "hide": [
+    "rack_e3"
+   ]
+  },
+  {
+   "id": "px_rack_e4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e4.png",
+   "x": 506,
+   "y": 602,
+   "foot": 739,
+   "hide": [
+    "rack_e4"
+   ]
+  },
+  {
+   "id": "px_cab_w1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_w1.png",
+   "x": 194,
+   "y": 228,
+   "foot": 331,
+   "hide": [
+    "cab_w1"
+   ]
+  },
+  {
+   "id": "px_mirror_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_w.png",
+   "x": 189,
+   "y": 351,
+   "foot": 485,
+   "hide": [
+    "mirror_w"
+   ]
+  },
+  {
+   "id": "px_mirror_w_flowers",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_w_flowers.png",
+   "x": 195,
+   "y": 465,
+   "foot": 496,
+   "hide": [
+    "mirror_w_flowers"
+   ]
+  },
+  {
+   "id": "px_shoes_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_shoes_w.png",
+   "x": 182,
+   "y": 499,
+   "foot": 604,
+   "hide": [
+    "shoes_w"
+   ]
+  },
+  {
+   "id": "px_cab_w4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_w4.png",
+   "x": 160,
+   "y": 635,
+   "foot": 726,
+   "hide": [
+    "cab_w4"
+   ]
+  },
+  {
+   "id": "px_cab_e1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_e1.png",
+   "x": 434,
+   "y": 228,
+   "foot": 335,
+   "hide": [
+    "cab_e1"
+   ]
+  },
+  {
+   "id": "px_mirror_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_e.png",
+   "x": 450,
+   "y": 348,
+   "foot": 479,
+   "hide": [
+    "mirror_e"
+   ]
+  },
+  {
+   "id": "px_mirror_e_flowers",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_e_flowers.png",
+   "x": 454,
+   "y": 459,
+   "foot": 490,
+   "hide": [
+    "mirror_e_flowers"
+   ]
+  },
+  {
+   "id": "px_shoes_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_shoes_e.png",
+   "x": 445,
+   "y": 490,
+   "foot": 604,
+   "hide": [
+    "shoes_e"
+   ]
+  },
+  {
+   "id": "px_cab_e4",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_e4.png",
+   "x": 452,
+   "y": 628,
+   "foot": 726,
+   "hide": [
+    "cab_e4"
+   ]
+  },
+  {
+   "id": "px_jewel_1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_jewel_1.png",
+   "x": 286,
+   "y": 299,
+   "foot": 424,
+   "hide": [
+    "jewel_1"
+   ]
+  },
+  {
+   "id": "px_jewel_2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_jewel_2.png",
+   "x": 286,
+   "y": 508,
+   "foot": 645,
+   "hide": [
+    "jewel_2"
+   ]
+  },
+  {
+   "id": "px_jewel_3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_jewel_3.png",
+   "x": 286,
+   "y": 730,
+   "foot": 861,
+   "hide": [
+    "jewel_3"
+   ]
+  },
+  {
+   "id": "px_gold_vase_w1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w1.png",
+   "x": 245,
+   "y": 319,
+   "foot": 398,
+   "hide": [
+    "gold_vase_w1"
+   ]
+  },
+  {
+   "id": "px_gold_vase_e1",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e1.png",
+   "x": 380,
+   "y": 319,
+   "foot": 398,
+   "hide": [
+    "gold_vase_e1"
+   ]
+  },
+  {
+   "id": "px_gold_vase_w2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w2.png",
+   "x": 245,
+   "y": 528,
+   "foot": 610,
+   "hide": [
+    "gold_vase_w2"
+   ]
+  },
+  {
+   "id": "px_gold_vase_e2",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e2.png",
+   "x": 380,
+   "y": 528,
+   "foot": 610,
+   "hide": [
+    "gold_vase_e2"
+   ]
+  },
+  {
+   "id": "px_gold_vase_w3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w3.png",
+   "x": 245,
+   "y": 752,
+   "foot": 832,
+   "hide": [
+    "gold_vase_w3"
+   ]
+  },
+  {
+   "id": "px_gold_vase_e3",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e3.png",
+   "x": 380,
+   "y": 752,
+   "foot": 832,
+   "hide": [
+    "gold_vase_e3"
+   ]
+  },
+  {
+   "id": "px_fit_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_w.png",
+   "x": 21,
+   "y": 736,
+   "foot": 871,
+   "hide": [
+    "fit_w"
+   ]
+  },
+  {
+   "id": "px_fit_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_e.png",
+   "x": 476,
+   "y": 736,
+   "foot": 871,
+   "hide": [
+    "fit_e"
+   ]
+  },
+  {
+   "id": "px_fit_stool_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_stool_w.png",
+   "x": 61,
+   "y": 841,
+   "foot": 881,
+   "hide": [
+    "fit_stool_w"
+   ]
+  },
+  {
+   "id": "px_fit_stool_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_fit_stool_e.png",
+   "x": 576,
+   "y": 846,
+   "foot": 888,
+   "hide": [
+    "fit_stool_e"
+   ]
+  },
+  {
+   "id": "px_cab_fit_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_fit_w.png",
+   "x": 12,
+   "y": 791,
+   "foot": 874,
+   "hide": [
+    "cab_fit_w"
+   ]
+  },
+  {
+   "id": "px_cab_fit_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_fit_e.png",
+   "x": 611,
+   "y": 799,
+   "foot": 881,
+   "hide": [
+    "cab_fit_e"
+   ]
+  },
+  {
+   "id": "px_lamp_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_lamp_w.png",
+   "x": 18,
+   "y": 882,
+   "foot": 962,
+   "hide": [
+    "lamp_w"
+   ]
+  },
+  {
+   "id": "px_lamp_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_lamp_e.png",
+   "x": 631,
+   "y": 880,
+   "foot": 960,
+   "hide": [
+    "lamp_e"
+   ]
+  },
+  {
+   "id": "px_sofa_red",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_sofa_red.png",
+   "x": 38,
+   "y": 902,
+   "foot": 996,
+   "hide": [
+    "sofa_red"
+   ]
+  },
+  {
+   "id": "px_sofa_cream",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_sofa_cream.png",
+   "x": 474,
+   "y": 908,
+   "foot": 996,
+   "hide": [
+    "sofa_cream"
+   ]
+  },
+  {
+   "id": "px_cab_sofa_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_sofa_w.png",
+   "x": 185,
+   "y": 908,
+   "foot": 999,
+   "hide": [
+    "cab_sofa_w"
+   ]
+  },
+  {
+   "id": "px_cab_sofa_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_cab_sofa_e.png",
+   "x": 436,
+   "y": 908,
+   "foot": 999,
+   "hide": [
+    "cab_sofa_e"
+   ]
+  },
+  {
+   "id": "px_table_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_table_w.png",
+   "x": 74,
+   "y": 972,
+   "foot": 1039,
+   "hide": [
+    "table_w"
+   ]
+  },
+  {
+   "id": "px_table_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_table_e.png",
+   "x": 506,
+   "y": 994,
+   "foot": 1049,
+   "hide": [
+    "table_e"
+   ]
+  },
+  {
+   "id": "px_pouf_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_pouf_w.png",
+   "x": 29,
+   "y": 998,
+   "foot": 1046,
+   "hide": [
+    "pouf_w"
+   ]
+  },
+  {
+   "id": "px_armchair_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_armchair_e.png",
+   "x": 588,
+   "y": 975,
+   "foot": 1052,
+   "hide": [
+    "armchair_e"
+   ]
+  },
+  {
+   "id": "px_chest_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_chest_w.png",
+   "x": 180,
+   "y": 1050,
+   "foot": 1074,
+   "hide": [
+    "chest_w"
+   ]
+  },
+  {
+   "id": "px_chest_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_chest_e.png",
+   "x": 445,
+   "y": 1050,
+   "foot": 1074,
+   "hide": [
+    "chest_e"
+   ]
+  },
+  {
+   "id": "px_door_flower_w",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_door_flower_w.png",
+   "x": 238,
+   "y": 999,
+   "foot": 1062,
+   "hide": [
+    "door_flower_w"
+   ]
+  },
+  {
+   "id": "px_door_flower_e",
+   "png": "res://assets/pixel_art/makeup_room/props/blk_door_flower_e.png",
+   "x": 381,
+   "y": 999,
+   "foot": 1062,
+   "hide": [
+    "door_flower_e"
+   ]
+  }
+ ]
+}

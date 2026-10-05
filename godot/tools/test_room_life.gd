@@ -7,6 +7,7 @@ extends SceneTree
 ##   4 没写台词的点了不理（当点地面走路）；approach 都能站、从进场点走得到
 ##   5 走动：打牌的妹妹、化妆助理起身挨个去 wander 那几个点、再回原位，坐着的坐回原来那格；一圈不卡（60 秒内回来）
 ##   6 走到一半点他：停下说话，说完接着走、照样回原位
+## 10/4 02 F：化妆间三位搬进单独那间屋（areas["makeup"] 挂的 lounge_life），测他们先切进那块画布；后厅只剩休息间、麻将室两份
 ## 用法：Godot --headless --path . --script res://tools/test_room_life.gd     最后一行 RESULT PASS 才算过
 
 const Main = preload("res://scripts/main.gd")
@@ -54,10 +55,21 @@ func home(lf, p: Dictionary) -> void:
     lf._pose(p, 0.0)
 
 func life_by(room: String):
-    for lf in b.lives:
+    for lf in b.lives + m.areas["makeup"].lives:
         if lf.room == room:
             return lf
     return null
+
+## 切到这份人所在的画布（化妆间是单独那间屋，别的在后厅）
+func go(lf) -> void:
+    var cid := "makeup" if lf.room == "makeup" else "backhall"
+    if m.state != cid:
+        m._show_canvas(cid)
+        m._goto(cid)
+        await settle()
+    lf.c.walking_enabled = true
+    m.dialog.visible = false
+    tick(2)
 
 ## 跟某位说一遍，有选项挑第 pick 个；回 {opened, title, lines, choices, closed}
 func talk_once(lf, id: String, pick: int) -> Dictionary:
@@ -84,7 +96,7 @@ func talk_once(lf, id: String, pick: int) -> Dictionary:
         else:
             ui.next_line()
         await settle()
-    out["closed"] = not ui.talk_box.visible and b.walking_enabled and lf.talking == ""
+    out["closed"] = not ui.talk_box.visible and lf.c.walking_enabled and lf.talking == ""
     return out
 
 func run() -> void:
@@ -98,6 +110,7 @@ func run() -> void:
     m.court_save.local_path = "user://test_rl_court.json"
     m.games_save.local_path = "user://test_rl_games.json"
     m.ensure_canvas("backhall")
+    m.ensure_canvas("makeup")
     m._show_canvas("backhall")
     m._goto("backhall")
     await process_frame
@@ -111,35 +124,39 @@ func run() -> void:
     var mk = life_by("makeup")
 
     print("1 两间的人")
-    check("后厅三份：休息间、麻将室、化妆间（%s）" % [b.lives.map(func(x): return x.room)], b.lives.size() == 3 and mj != null and mk != null and b.lives[0] == b.lounge)
+    check("后厅两份：休息间、麻将室（%s）；化妆间那份在单独那间屋里" % [b.lives.map(func(x): return x.room)], b.lives.size() == 2 and mj != null and mk != null and b.lives[0] == b.lounge and mk.c == m.areas["makeup"])
     check("休息间照旧四位（%d）" % b.lounge.people.size(), b.lounge.people.size() == 4)
     check("麻将室 14 位、化妆间 3 位（%d、%d）" % [mj.people.size(), mk.people.size()], mj.people.size() == 14 and mk.people.size() == 3)
     var adopted := true
     for lf in [mj, mk]:
         for id in lf.people:
             var p: Dictionary = lf.people[id]
-            adopted = adopted and p.has("look") and p.get("spr") == b.npc_nodes.get(id)
+            adopted = adopted and p.has("look") and p.get("spr") == lf.c.npc_nodes.get(id)
     check("两间的人都接过了替身那张图（没另画一个）", adopted)
 
     print("2 冒泡（三间一起、90 秒、同屏最多两个）")
     var seen := {}
     var max_now := 0
     var over_two := 0
-    for i in int(90.0 / DT):
-        tick(1)
-        var now := 0
-        for lf in b.lives:
-            for id in lf.bubbles:
-                if is_instance_valid(lf.bubbles[id]):
-                    now += 1
-                var t: String = lf.bubble_text(id)
-                if t != "":
-                    seen[lf.room + "/" + id + "/" + t] = true
-        max_now = maxi(max_now, now)
-        if now > 2:
-            over_two += 1
-    check("三间一起跑 90 秒：每一帧同时在冒的最多 %d 个（要 ≤ 2；超过两个的有 %d 帧）" % [max_now, over_two], max_now <= 2 and over_two == 0 and max_now >= 1)
-    for lf in b.lives:
+    # 同屏最多两个：后厅一屏（休息间 + 麻将室）、化妆间自己一屏，各算各的（化妆间 10/4 起是单独一间屋、单独一屏）
+    for set_lives in [m.backhall.lives, m.areas["makeup"].lives]:
+        await go(set_lives[0])
+        for i in int(90.0 / DT):
+            tick(1)
+            var now := 0
+            for lf in set_lives:
+                for id in lf.bubbles:
+                    if is_instance_valid(lf.bubbles[id]):
+                        now += 1
+                    var t: String = lf.bubble_text(id)
+                    if t != "":
+                        seen[lf.room + "/" + id + "/" + t] = true
+            max_now = maxi(max_now, now)
+            if now > 2:
+                over_two += 1
+    check("每一屏一起跑 90 秒（后厅一屏、化妆间一屏）：每一帧同时在冒的最多 %d 个（要 ≤ 2；超过两个的有 %d 帧）" % [max_now, over_two], max_now <= 2 and over_two == 0 and max_now >= 1)
+    await go(mj)
+    for lf in m.backhall.lives + m.areas["makeup"].lives:
         for g in lf.data["chat"]:
             var got := 0
             for l in g["lines"]:
@@ -174,6 +191,7 @@ func run() -> void:
 
     print("3 点人对话（每个选项各走一遍）")
     for lf in [mj, mk]:
+        await go(lf)
         for id in lf.people:
             if not lf.can_talk(id):
                 continue
@@ -185,7 +203,7 @@ func run() -> void:
             var n_choices := 2
             for pick in n_choices:
                 # 走动的人先等他坐（站）回原位再说，测的是在家那段
-                b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
+                lf.c.reset_to(lf.c.SPAWN if lf == mk else Vector2(700, 640))
                 tick(2)
                 var r: Dictionary = await talk_once(lf, id, pick)
                 var ap: Vector2 = lf.approach_of(id)
@@ -196,10 +214,11 @@ func run() -> void:
             # 两支答的不一样
     print("3b 头像跟名字对得上（01 H 10/4：新娘不放任何人物图）")
     for lf in [mj, mk]:
+        await go(lf)
         for id in lf.people:
             if not lf.can_talk(id):
                 continue
-            b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
+            lf.c.reset_to(lf.c.SPAWN if lf == mk else Vector2(700, 640))
             tick(2)
             lf.request_talk(id)
             for i in int(25.0 / DT):
@@ -209,7 +228,7 @@ func run() -> void:
             await settle()
             var code := str(lf.people[id]["code"])
             var sd: Dictionary = {}
-            for n in b.cfg["npcs"]:
+            for n in lf.c.cfg["npcs"]:
                 if str(n["id"]) == id:
                     sd = n.get("standin", {})
             ui.open_card(id)
@@ -232,6 +251,7 @@ func run() -> void:
     check("两间的话里没有「手气」「新娘子好乖」（麻将室只留氛围）", not ("手气" in words) and not ("新娘子好乖" in words))
 
     print("3c 冒泡字大、不互相压")
+    await go(mj)
     var probe_lf = b.lounge
     check("气泡字号 %d（原来 15，04 嫌小）" % probe_lf.BUBBLE_FONT, probe_lf.BUBBLE_FONT >= 20)
     for lf in b.lives:
@@ -244,7 +264,6 @@ func run() -> void:
             lf._hide_bubble(id)
         lf.frozen = false
     mj.people["card_e"]["wait"] = 2.0
-    mk.people["makeup_2"]["wait"] = 2.0
     b.reset_to(b.SPAWN)
     var worst: Array = []
     var most := 0
@@ -263,11 +282,32 @@ func run() -> void:
                     var tag := "%s×%s" % [rects[a][0], rects[c2][0]]
                     if not tag in worst:
                         worst.append(tag)
-    check("三间八组照常轮着冒 90 秒（最多同时 %d 个，要 ≤ 2），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 1 and most <= 2)
+    check("后厅一屏照常轮着冒 90 秒（最多同时 %d 个，要 ≤ 2），每一帧都不叠（%s）" % [most, worst], worst.is_empty() and most >= 1 and most <= 2)
     for lf in b.lives:
         for id in lf.bubbles.keys():
             lf._hide_bubble(id)
         lf.frozen = false
+    # 单独那间化妆间：两组（化妆台前、化妆助理）跑 40 秒，也不叠
+    await go(mk)
+    mk.c.reset_to(mk.c.SPAWN)
+    var worst_mk: Array = []
+    var most_mk := 0
+    for f in int(40.0 / DT):
+        tick(1)
+        var rs: Array = []
+        for id in mk.bubbles:
+            var bb: Node2D = mk.bubbles[id]
+            if bb.scale.x >= mk._bubble_scale() * 0.99:
+                rs.append([id, mk.bubble_rect(bb)])
+        most_mk = maxi(most_mk, rs.size())
+        for a in rs.size():
+            for c2 in range(a + 1, rs.size()):
+                if (rs[a][1] as Rect2).intersects(rs[c2][1]) and not ("%s×%s" % [rs[a][0], rs[c2][0]]) in worst_mk:
+                    worst_mk.append("%s×%s" % [rs[a][0], rs[c2][0]])
+    check("化妆间两组轮着冒 40 秒（最多同时 %d 个），每一帧都不叠（%s）" % [most_mk, worst_mk], worst_mk.is_empty() and most_mk >= 1)
+    for id in mk.bubbles.keys():
+        mk._hide_bubble(id)
+    await go(mj)
 
     print("3e 对话框开着时哪间都不冒泡（03 测第 67 版：妹妹的气泡从选项底下露出来）")
     b.reset_to(Vector2(700, 640))
@@ -295,7 +335,8 @@ func run() -> void:
     print("3d 走近出「跟 XX 聊聊」")
     var btn_ok := true
     for pair in [[mj, "elder_s"], [mj, "mj3_e"], [mk, "makeup_1"]]:
-        b.reset_to(pair[0].approach_of(pair[1]))
+        await go(pair[0])
+        pair[0].c.reset_to(pair[0].approach_of(pair[1]))
         tick(3)
         var want: String = "跟%s聊聊" % str(pair[0].person(pair[1])["title"])
         print("    ", pair[1], " 按钮 ", ui.talk_btn.visible, " ", ui.talk_btn.text)
@@ -321,7 +362,7 @@ func run() -> void:
         for id in lf.people:
             if lf.can_talk(id):
                 var ap: Vector2 = lf.approach_of(id)
-                var reach: bool = b._free(ap) and not b.find_path(b.SPAWN, ap).is_empty()
+                var reach: bool = lf.c._free(ap) and not lf.c.find_path(lf.c.SPAWN, ap).is_empty()
                 if not reach:
                     print("    站不了：", id, ap)
                 ap_ok = ap_ok and reach
@@ -333,10 +374,11 @@ func run() -> void:
         var id: String = pair[1]
         var p: Dictionary = lf.people[id]
         # 前面说话时他可能正走到一半：先放回原位（坐着的坐好）再从头走一圈
+        await go(lf)
         home(lf, p)
         var reg0: Rect2 = (p["spr"] as Sprite2D).region_rect
         var spots: Array = p["spots"]
-        b.reset_to(b.SPAWN)
+        lf.c.reset_to(lf.c.SPAWN)
         tick(2)
         p["wait"] = 0.0
         var visited := {}
@@ -366,8 +408,9 @@ func run() -> void:
 
     print("6 走到一半点他")
     var p2: Dictionary = mk.people["makeup_2"]
+    await go(mk)
     home(mk, p2)
-    b.reset_to(b.SPAWN)
+    mk.c.reset_to(mk.c.SPAWN)
     tick(2)
     p2["wait"] = 0.0
     for i in int(30.0 / DT):

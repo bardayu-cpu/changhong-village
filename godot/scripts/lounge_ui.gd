@@ -75,7 +75,16 @@ func setup(main_ref) -> void:
     _build_talk_box()
 
 func _txt(k: String) -> String:
-    return str((life.data.get("buttons", {}) as Dictionary).get(k, k)) if life != null else k
+    if life == null:
+        return k
+    var b: Dictionary = life.data.get("buttons", {})
+    if b.is_empty():   # 化妆间、麻将室那几份话没写按钮上的字：借休息间那份（10/4 02 F）
+        if lounge_buttons.is_empty():
+            var raw = JSON.parse_string(FileAccess.get_file_as_string("res://assets/backhall/lounge.json"))
+            lounge_buttons = raw.get("buttons", {}) if raw is Dictionary else {}
+        b = lounge_buttons
+    return str(b.get(k, k))
+var lounge_buttons: Dictionary = {}
 
 ## 后厅搭好以后（main.ensure_canvas）接上：点了的人走到了就开对话框
 func attach(lounge) -> void:
@@ -87,7 +96,8 @@ func attach(lounge) -> void:
     if cv != null and cv.get("lives") is Array and not (cv.lives as Array).is_empty():
         lives = cv.lives
     for lf in lives:
-        lf.talk_ready.connect(open_talk)
+        if not lf.talk_ready.is_connected(open_talk):   # 后厅、化妆间来回进出会再接一次（10/4 02 F）
+            lf.talk_ready.connect(open_talk)
 
 ## 这位在哪间屋（lives 里哪份）；不在回 null
 func life_of(id: String):
@@ -142,13 +152,11 @@ func is_open() -> bool:
     return talk_box.visible or card != null
 
 # ---------- 对话框 ----------
-## 休息间四位（lounge_life 的人）：点了、走到了
+## 休息间四位（lounge_life 的人）：点了、走到了。后厅几间、单独那间化妆间（10/4 02 F）都走这里：这位在哪块画布就在哪块开
 func open_talk(id: String) -> void:
-    if m.state != "backhall":
-        return
     var lf = life_of(id)
-    if lf != null:
-        _open(lf.person(id), m.backhall)
+    if lf != null and lf.c == m.cv:
+        _open(lf.person(id), lf.c)
 
 ## 别的画布上布局写了 dialogue 的 NPC（entrance.gd 的 talkers，10/4 起哪块画布都能挂）：点了、走到了
 func open_npc(canvas, id: String) -> void:
@@ -338,7 +346,7 @@ func close_card() -> void:
 
 # ---------- 按钮 ----------
 func _on_seat() -> void:
-    var c = m.backhall
+    var c = life.c
     if c.seated:
         life.stand_up()
     else:
@@ -349,7 +357,7 @@ func _on_seat() -> void:
 func sync() -> void:
     if life == null:
         return
-    var c = m.backhall
+    var c = life.c   # 后厅，或单独那间化妆间（10/4 02 F）
     var busy: bool = is_open() or not c.walking_enabled
     var seat_txt := ""
     if not busy:
