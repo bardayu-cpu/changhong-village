@@ -3,7 +3,8 @@ extends RefCounted
 ## 阿鱼：「完全不对，我要的是这样」）。图是像素画但线不严格对格子（按钮亮边只有半格、边缘发虚），切出来会糊，所以照它用代码画，颜色从图里取：
 ##   - 框：深褐底，外一圈深色、里一圈金棕的双线，四个角金线往里收出台阶、空出来的角上一个金色小 L 角花
 ##   - 头像：后面不垫底块，人直接从框上沿顶出来，只到胸口（阿鱼：「到人物的胸部以上就好了」）：头大半在框外、肩膀和胸口上半截在框里，名字牌压在胸口下面，放大 3 倍
-##   - 话那块一页最多 2 行（阿鱼 10/5）；超过 2 行右边出一对上、下翻页小三角，玩家点着翻，点框不翻页
+##   - 话那块一页最多 2 行（阿鱼 10/5）；超过 2 行右边出一对上、下翻页小三角，点着翻；**点框任何地方也翻页**（罗-11，阿鱼 10/5 晚「行」）：
+##     字还在出先出完，这句还有下一页就翻页，没了才到下一句；三角留着当提示、也能点
 ##   - 名字牌：深底、金棕边、黄字，前面一个米白像素小身份证（阿鱼：图标是身份证的意思，不是对话泡）；压在头像下面、框左下角
 ##   - 话：米白字（带“”，07 在 map69 加），头像右边上半部分
 ##   - 按钮：红底，里一圈浅橘亮边、下面一截暗一点，深红描边，四个角各一颗金色小方钉，白字；一样宽、铺满右边那一行，中间留一道空
@@ -55,7 +56,8 @@ const CHOICE_IN := 19.0      # 按钮比话往右缩多少：定稿图话（带�
 const CHOICE_RIGHT := 26.0   # 按钮右边离框外沿多少：定稿图 85，折成约 26
 const CHOICE_GAP_TIGHT := 6.0     # 照图的间距放不下（奶奶三个四字选项）时：间距收到 6、左边跟话对齐、右边收到 12
 const CHOICE_RIGHT_TIGHT := 12.0
-const CHOICE_PADX := 6.0     # 按钮字两边至少留多少（描边 3 + 亮边 2 + 1）
+const CHOICE_GAP_MIN := 2.0       # 每个按自己字宽还放不下：只这一行间距再收到 2（庄Z4 10/5 选 A，组件库第二节第 6 条）；再放不下报文案改短，不缩字、不换行
+const CHOICE_PADX := 12.0    # 按钮字两边至少留多少（组件库第二节第 6 条「按钮左右各留至少 12 像素」，罗-11 顺带改；原来 6）
 const CHOICE_MIN_W := 88.0    # 按钮最窄（01：能点的范围宽 ≥88、高 ≥44）
 const PLATE_H := 40.0        # 名字牌多高
 const FACE := Vector2(112, 129)   # 头像那块多大（不垫底、只用来裁）：只到胸口（阿鱼 10/5）——3 倍时人物图第 0～42 行（头顶到领口下第一颗扣子）= 129 高；
@@ -469,6 +471,7 @@ static func restyle_say(m) -> void:
     t.font = m.font
     t.instant = bool(m.get("fast"))
     t.m = m
+    t.click_when_paged = true
     t.setup(layer)
     d.add_child(t)
 
@@ -586,7 +589,16 @@ static func style_choice(b: Button, font: Font) -> void:
     b.custom_minimum_size = Vector2(CHOICE_MIN_W, CHOICE_H)
     b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN   # 宽由对话框按定稿图算好（一样宽、铺满右边那一行）
 
-## 打字到一半吗、还有没有下一页（lounge_ui 点一下先出完、再翻页、再下一句）
+## 打字到一半吗、还有没有下一页（点框：先出完、再翻页、再下一句，见 tap）
+## 点了一下框（罗-11 点框也翻页）：字还在出先出完、还有下一页就翻页，回 true（这一下用掉了）；最后一页出完了回 false，由调用的往下一句走
+static func tap(box: Control) -> bool:
+    if typing(box):
+        finish(box)
+        return true
+    if not last_page(box):
+        return next_page(box)
+    return false
+
 static func typing(box: Control) -> bool:
     var t = box.get_node_or_null("typer")
     return t != null and t.typing()
@@ -604,7 +616,7 @@ static func prev_page(box: Control) -> bool:
     var t = box.get_node_or_null("typer")
     return t != null and t.prev_page()
 
-## 是不是在最后一页（没分页也算）：没到最后一页时点框既不翻页、也不往下一句走（翻页点右边的上下三角，阿鱼 10/5）
+## 是不是在最后一页（没分页也算）
 static func last_page(box: Control) -> bool:
     var t = box.get_node_or_null("typer")
     return t == null or t.last_page()
@@ -627,6 +639,7 @@ class Typer extends Node:
     var choices: Control
     var font: Font
     var instant := false     # 截图、测试（main.fast）：不打字，整页直接出
+    var click_when_paged := false   # 阿鱼那个框：平时点击穿过去（不挡走路）；这句分了页（或者带方言注释 meta keep_click）才接住点击，好点框翻页（罗-11）
     var shown: Label         # 屏上这一页
     var more: Control
     var up_btn: Button       # 翻页三角（阿鱼 10/5）
@@ -843,6 +856,10 @@ class Typer extends Node:
             _t = 0.0
             shown.visible_characters = -1 if instant else 0
         var paged := pages.size() > 1
+        if click_when_paged:
+            var want := Control.MOUSE_FILTER_STOP if paged or bool(box.get_meta("keep_click", false)) else Control.MOUSE_FILTER_IGNORE
+            if box.mouse_filter != want:
+                box.mouse_filter = want
         var lines_max := 1
         for pg in pages:
             lines_max = maxi(lines_max, (pg as String).count("\n") + 1)
@@ -897,14 +914,39 @@ class Typer extends Node:
                 gap = CHOICE_GAP_TIGHT
                 bw = (w - right - left - gap * (cnt - 1)) / cnt
             bw = floorf(bw)
+            var widths: Array = []
             for bt in btns:
-                if (bt as Button).custom_minimum_size.x != bw:
-                    (bt as Button).custom_minimum_size = Vector2(bw, CHOICE_H)
+                widths.append(bw)
+            var ok := bw >= need_w
+            var by_text := false
+            if not ok:
+                # 一样宽放不下：照组件库第二节第 6 条「宽度跟着字走」，每个按自己的字宽（左右各留 CHOICE_PADX），多出来的平分；还放不下才报 01
+                var sum := 0.0
+                var own: Array = []
+                for bt in btns:
+                    var tw2: float = font.get_string_size((bt as Button).text, HORIZONTAL_ALIGNMENT_LEFT, -1, LINE_SIZE).x if font != null else 0.0
+                    var ow := maxf(CHOICE_MIN_W, ceilf(tw2) + CHOICE_PADX * 2.0)
+                    own.append(ow)
+                    sum += ow
+                var have := w - right - left - gap * (cnt - 1)
+                if sum > have and cnt > 1:
+                    gap = CHOICE_GAP_MIN
+                    have = w - right - left - gap * (cnt - 1)
+                need_w = sum / cnt   # 报的「要多宽」按各自字宽算
+                if sum <= have:
+                    var extra := floorf((have - sum) / cnt)
+                    widths = own.map(func(x): return x + extra)
+                    ok = true
+                    by_text = true
+            for i in btns.size():
+                var bt: Button = btns[i]
+                if bt.custom_minimum_size.x != widths[i]:
+                    bt.custom_minimum_size = Vector2(widths[i], CHOICE_H)
             if choices.get_theme_constant("separation") != int(gap):
                 choices.add_theme_constant_override("separation", int(gap))
             choices.position = Vector2(left, h - PAD - CHOICE_H)
             choices.size = Vector2(w - right - left, CHOICE_H)
-            fit = {"need": need_w * cnt + gap * (cnt - 1), "have": w - right - left, "ok": bw >= need_w, "count": btns.size(), "tight": tight, "w": bw}
+            fit = {"need": need_w * cnt + gap * (cnt - 1), "have": w - right - left, "ok": ok, "count": btns.size(), "tight": tight, "w": bw, "by_text": by_text}
             # 最后一页才出选项
             var last := page >= pages.size() - 1
             choices.modulate.a = 1.0 if last else 0.0

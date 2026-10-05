@@ -3,7 +3,7 @@ extends SceneTree
 ## 无界面跑整个 main.gd，按手机屏 540×960 和长屏 540×1168 各过一遍，进后厅：
 ## 1 麻将室大爷、休息间奶奶、化妆间新娘（没头像）各点开对话：等镜头让完，说话的人头顶脚下、玩家头顶脚下在屏幕上都在框上沿上面
 ## 2 关上：镜头放回原位（偏移回 0、画布下沿限位回原值）
-## 3 一句超过 2 行分了页（阿鱼 10/5）：点框先出完这一页、再点框不翻也不跳句；点右边下三角翻到下一页、上三角翻回；第一页没有上三角、最后一页没有下三角
+## 3 一句超过 2 行分了页（阿鱼 10/5）：点框先出完这一页、再点框翻到下一页不跳句（罗-11）；点右边下三角翻到下一页、上三角翻回；第一页没有上三角、最后一页没有下三角
 ## 4 阿鱼说一句（没头像、没选项；加了“”以后可能两行）：框整个在屏幕里、下沿离底 40，框只比内容高一点（≤ 内容 + 44），名字牌和话上下居中
 ## 用法：Godot --headless --path . --script res://tools/test_dialog_lift.gd
 ## 最后一行 RESULT PASS 才算过
@@ -103,7 +103,9 @@ func run() -> void:
         check("第一页：有下三角、没有上三角", typer.down_btn.visible and not typer.up_btn.visible)
         ui.next_line()
         await frames(1)
-        check("再点框：不翻页、也不跳到下一句（页 %d）" % typer.page, typer.page == 0 and ui.line_label.text == line_before)
+        check("再点框：翻到第 2 页、还是这句话（页 %d；罗-11 点框也翻页）" % typer.page, typer.page == 1 and ui.line_label.text == line_before)
+        typer.up_btn.pressed.emit()
+        await frames(1)
         typer.down_btn.pressed.emit()
         await frames(1)
         check("点下三角：翻到第 2 页、还是这句话、出上三角", typer.page == 1 and ui.line_label.text == line_before and typer.up_btn.visible)

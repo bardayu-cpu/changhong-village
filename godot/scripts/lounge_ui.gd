@@ -253,10 +253,7 @@ func pick(next_id: String) -> void:
 func next_line() -> void:
     if talk_id == "" or card != null:
         return
-    if DialogSkin.typing(talk_box):   # 字还在一个个出：这一下先把这一页出完（04 第 4 条）
-        DialogSkin.finish(talk_box)
-        return
-    if not DialogSkin.last_page(talk_box):   # 一句超过 2 行分了页：翻页点右边的上下三角（阿鱼 10/5），点框不翻、也不跳到下一句
+    if DialogSkin.tap(talk_box):   # 字还在出先出完（04 第 4 条）；一句超过 2 行分了页：点框也翻页（罗-11，阿鱼 10/5 晚「行」），到最后一页才往下一句
         return
     if dm_res != null:
         if dm_busy or dm_line == null or choices.visible:
