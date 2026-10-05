@@ -10,6 +10,7 @@ const Entrance = preload("res://scripts/entrance.gd")
 const CourtCopy = preload("res://scripts/court_copy.gd")
 ## 开场（阿鱼 10/3 交的开屏页）：背景、logo 落下、新人和猫狗说话、「进入游戏」「玩法说明」
 const TitleScreen = preload("res://scripts/title_screen.gd")
+const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")   # 冒泡、对话框长什么样（05 10/4）
 ## 切画布：0.35 秒暖色淡出淡入（蓝图 1），人保持朝向，出现在对面的「到了站在」点
 const SWITCH_TINT := Color("#3a1d12")
 const COURT_FROM_HALL := Vector2(768, 260)   # 蓝图 1 出入口表：宴会厅的门 → 迎宾院 (768, 260)
@@ -1206,6 +1207,7 @@ func _build_hud() -> void:
             _note(dialog_gloss, 2.5)
             dialog.accept_event())
     hud.add_child(dialog)
+    DialogSkin.restyle_say(self)   # 阿鱼说话也走屏幕下面同一个框（05 10/4 冒泡和对话框换样子；04 第 2、6 条）
     whisper_box = PanelContainer.new()
     whisper_box.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
     whisper_box.offset_left = 14; whisper_box.offset_right = -14
@@ -2012,7 +2014,12 @@ func _on_area_spot(aid: String, id: String, inside: bool) -> void:
 func _on_edge_bump(dir: String) -> void:
     if switching or not _in_scene():
         return
-    _note(CourtCopy.text("edge_" + dir, CourtCopy.AREAS), 1.6)
+    # 改成人头顶的小气泡（04 第 9 条，05 10/4）：跟冒泡一个样子，停 1.6 秒；同一时间只留一个
+    var old = cv.get_node_or_null("edge_bubble")
+    if old != null:
+        old.queue_free()
+    var head: Vector2 = cv.pos + Vector2(0, -cv.px_per_m(cv.pos.y) * 1.9)
+    DialogSkin.say_at(cv, head, CourtCopy.text("edge_" + dir, CourtCopy.AREAS), font, 22, cv.cam.zoom.x if cv.cam != null else 1.0, 1.6)
     print("[suqi] 走到头 ", dir)
 
 ## 走到喷泉广场的交互点（10/4 新总图第 ② 步）：东口迎宾院、西口草坪、南口后厅走廊；北边三个口还没做，走进去说一句还在布置

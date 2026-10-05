@@ -25,9 +25,11 @@ const BUBBLE_GAP := 0.9         # 一句收了隔多久下一个人说
 const BUBBLE_POP := 0.12        # 冒出来那一下（从小变大）
 const BUBBLE_FONT := 22         # 字号（540 宽算）：气泡按镜头缩放反着放大，后厅镜头缩到 0.5 多也认得出字。
                                 # 原来 15，04 量第 67 版截图上字只有约 12 像素、长辈看不清（建议 18）；22 在 540×960 上字约 18 像素
+const MAX_BUBBLES := 2         # 同屏最多几个在冒（04 第 8 条，05 10/4）
 const BUBBLE_GAP_Y := 4.0       # 两个气泡叠上了：后冒的那个往上让开，中间留这么多（屏幕像素）
 const INK := Color("#2b1d16")
 const BUBBLE_BG := Color("#fffdf6")
+const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")   # 冒泡长什么样（05 10/4）
 const FACE_DIR := {"down": Vector2(0, 1), "up": Vector2(0, -1), "left": Vector2(-1, 0), "right": Vector2(1, 0)}
 const CODE_DIR := "res://assets/characters/code/chr_%s"
 const LMPeople = preload("res://scripts/lm_people.gd")
@@ -407,9 +409,7 @@ func _rect_for(id: String, text: String) -> Rect2:
     var p: Dictionary = people.get(id, {})
     if p.is_empty():
         return Rect2()
-    var f: Font = c.font
-    var tw: float = f.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, BUBBLE_FONT).x if f != null else float(text.length() * BUBBLE_FONT)
-    var sz := Vector2(ceilf(tw) + 12.0, float(BUBBLE_FONT) + 16.0) * _bubble_scale()
+    var sz := (DialogSkin.bubble_box_size(text, c.font, BUBBLE_FONT) + Vector2(0, DialogSkin.bubble_tail_h())) * _bubble_scale()
     var at: Vector2 = (p["head"] as Vector2) + Vector2(0, -4)
     return Rect2(at.x - sz.x * 0.5, at.y - sz.y, sz.x, sz.y)
 
@@ -450,6 +450,9 @@ func _step_group(g: Dictionary, dt: float) -> void:
             g["t"] = 0.0
             g["i"] = (int(g["i"]) + 1) % lines.size()
     elif g["t"] >= BUBBLE_GAP:
+        if _showing_count() >= MAX_BUBBLES:
+            g["t"] = BUBBLE_GAP - 0.5   # 同屏已经两个在冒：半秒后再看（04 第 8 条：同屏最多两个）
+            return
         var l: Array = lines[int(g["i"])]
         if _crowded(_rect_for(str(l[0]), str(l[1]))):
             g["t"] = BUBBLE_GAP - 0.5   # 旁边有人正说着：半秒后再看
@@ -465,54 +468,27 @@ func show_bubble(id: String, text: String) -> void:
     if p.is_empty():
         return
     _hide_bubble(id)
-    var b := Node2D.new()
+    # 长什么样交给 scripts/ui/dialog_skin.gd（05 10/4 重做样子）；冒在哪、多久、让位照旧在这里
+    var built: Dictionary = DialogSkin.bubble(text, c.font, BUBBLE_FONT)
+    var b: Node2D = built["node"]
     b.name = "bubble_" + id
-    var f: Font = c.font
-    var tw: float = f.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, BUBBLE_FONT).x if f != null else float(text.length() * BUBBLE_FONT)
-    var w := ceilf(tw) + 12.0
-    var h := float(BUBBLE_FONT) + 10.0
-    var tail := 6.0
-    var box := Panel.new()
-    var sb := StyleBoxFlat.new()
-    sb.bg_color = BUBBLE_BG
-    sb.border_color = INK
-    sb.set_border_width_all(2)
-    sb.anti_aliasing = false
-    box.add_theme_stylebox_override("panel", sb)
-    box.position = Vector2(-w * 0.5, -h - tail)
-    box.size = Vector2(w, h)
-    box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    b.add_child(box)
-    var lb := Label.new()
-    lb.text = text   # 人头顶冒的不加引号（阿鱼 10/4：「如果这个对话是出现在人头上的就不用」，引号只给点人说话弹出来的对话卡片）
-    if f != null:
-        lb.add_theme_font_override("font", f)
-    lb.add_theme_font_size_override("font_size", BUBBLE_FONT)
-    lb.add_theme_color_override("font_color", INK)
-    lb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    lb.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    lb.position = Vector2.ZERO
-    lb.size = Vector2(w, h)
-    box.add_child(lb)
-    # 小尾巴：白三角压住描边下沿，两条斜边描深色
-    var tri := Polygon2D.new()
-    tri.polygon = PackedVector2Array([Vector2(-5, -tail - 2), Vector2(5, -tail - 2), Vector2(0, 0)])
-    tri.color = BUBBLE_BG
-    tri.antialiased = false
-    b.add_child(tri)
-    var edge := Line2D.new()
-    edge.points = PackedVector2Array([Vector2(-5, -tail), Vector2(0, 0), Vector2(5, -tail)])
-    edge.width = 2.0
-    edge.default_color = INK
-    edge.antialiased = false
-    b.add_child(edge)
     b.position = (p["head"] as Vector2) + Vector2(0, -4)
     b.scale = Vector2.ONE * 0.6 * _bubble_scale()
-    b.set_meta("size", Vector2(w, h + tail))
+    b.set_meta("size", built["size"])
     _make_room(b)
     b.set_meta("text", text)
     add_child(b)
     bubbles[id] = b
+
+## 后厅三间屋里现在一共冒着几个（同屏最多 MAX_BUBBLES 个，04 第 8 条）
+func _showing_count() -> int:
+    var all: Array = c.get("lives") if c.get("lives") is Array and not (c.get("lives") as Array).is_empty() else [self]
+    var n := 0
+    for lf in all:
+        for id in lf.bubbles:
+            if is_instance_valid(lf.bubbles[id]):
+                n += 1
+    return n
 
 ## 气泡在画布上占哪块（按放满了的大小算）
 func bubble_rect(b: Node2D) -> Rect2:

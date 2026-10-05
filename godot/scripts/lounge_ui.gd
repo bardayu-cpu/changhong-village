@@ -18,6 +18,7 @@ const POSE_DIR := "res://assets/characters/lm/pose_%s.json"
 const POSE_FRAME := {"front": 0, "side": 4, "smile": 0, "surprise": 0, "talk": 0, "sit": 0}
 const PORTRAIT_KEEP := 0.56
 const NAME_BG := Color("#a8281f")
+const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")   # 冒泡、对话框长什么样（05 10/4）
 
 var m                      # main.gd
 var life                   # 后厅的 lounge_life.gd（休息间那份：座位、按钮上的字都在它）
@@ -40,7 +41,7 @@ var near_id := ""          # 「聊聊」按钮对着谁
 var dm_res: Resource = null   # 走对话插件时：这段对话（.dialogue 导入后的 DialogueResource）
 var dm_line = null            # 插件给的这一句（DialogueLine）；null 是没走插件
 var dm_busy := false          # 正在等插件给下一句（await 里）
-var choices: VBoxContainer    # 选项按钮（压在对话框右上角上面）
+var choices: BoxContainer     # 选项按钮（05 10/4 起在对话框最后一行，一行排完；dialog_skin.gd）
 var talk_info: Dictionary = {}  # 正在跟谁说：{id, title, code（人物图）, dialogue, talk, relation}
 var talk_cv                     # 在哪块画布上说（说话时那块不能走，说完放开）
 var line_raw := ""              # 这句的原文（没加引号）：对话框里人说的话一律用“”框起来（阿鱼 10/4），测试比字认原文
@@ -96,75 +97,13 @@ func life_of(id: String):
     return null
 
 func _build_talk_box() -> void:
-    talk_box = PanelContainer.new()
-    talk_box.name = "lounge_talk"
-    talk_box.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-    talk_box.offset_left = 14
-    talk_box.offset_right = -14
-    talk_box.offset_top = -300
-    talk_box.offset_bottom = -40
-    talk_box.add_theme_stylebox_override("panel", m._sb(Color(0.12, 0.07, 0.06, 1.0), m.GOLD, 3, 10, 16))   # 不透：底下「点地面走路」那块别透出来
-    talk_box.mouse_filter = Control.MOUSE_FILTER_STOP
+    # 长什么样交给 scripts/ui/dialog_skin.gd（05 10/4 重做样子，三种给阿鱼挑；行为照旧在这里）
+    DialogSkin.build_talk(self, m.font)
     talk_box.gui_input.connect(func(e):
         if (e is InputEventMouseButton or e is InputEventScreenTouch) and e.pressed:
             next_line()
             talk_box.accept_event())
-    talk_box.visible = false
-    var h := HBoxContainer.new()
-    h.add_theme_constant_override("separation", 16)
-    h.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    talk_box.add_child(h)
-    portrait = TextureRect.new()
-    portrait.custom_minimum_size = Vector2(180, 0)
-    portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-    portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-    portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-    portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    h.add_child(portrait)
-    var v := VBoxContainer.new()
-    v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-    v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    h.add_child(v)
-    line_label = m._label("", 26, m.PAPER, HORIZONTAL_ALIGNMENT_LEFT)
-    line_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-    line_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    line_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    line_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    v.add_child(line_label)
-    hint_label = m._label("", 18, m.MUTED, HORIZONTAL_ALIGNMENT_RIGHT)
-    hint_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    v.add_child(hint_label)
-    add_child(talk_box)
-    # 名字牌：压在对话框左上角上沿，红底金边（跟门口名字牌一家）；右边「身份卡」
-    name_plate = PanelContainer.new()
-    name_plate.name = "lounge_name"
-    name_plate.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-    name_plate.offset_left = 30
-    name_plate.offset_top = -340
-    name_plate.offset_bottom = -290
-    name_plate.add_theme_stylebox_override("panel", m._sb(NAME_BG, m.GOLD, 2, 6, 8))
-    name_plate.visible = false
-    var nh := HBoxContainer.new()
-    nh.add_theme_constant_override("separation", 12)
-    name_plate.add_child(nh)
-    name_label = m._label("", 24, m.GOLD1, HORIZONTAL_ALIGNMENT_LEFT, false)
-    nh.add_child(name_label)
-    card_btn = Button.new()
     card_btn.pressed.connect(func(): open_card(talk_id))
-    nh.add_child(card_btn)
-    add_child(name_plate)
-    # 选项：对话框右上角上面一列按钮（问到「你是哪边的客人」这种句子才出）
-    choices = VBoxContainer.new()
-    choices.name = "lounge_choices"
-    choices.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-    choices.offset_right = -24
-    choices.offset_left = -340
-    choices.offset_bottom = -352   # 压在名字牌（-340 起）上面，名字牌不盖按钮（03 测第 62 版报的）
-    choices.offset_top = -352
-    choices.grow_vertical = Control.GROW_DIRECTION_BEGIN
-    choices.add_theme_constant_override("separation", 10)
-    choices.visible = false
-    add_child(choices)
 
 ## 某位、某个 pose 的人物图：half 是对话框用的上半身，不然是身份卡用的全身
 func pose_tex(code: String, pose: String, half: bool) -> AtlasTexture:
@@ -299,6 +238,7 @@ func _dm_next(key: String) -> void:
         var b := Button.new()
         b.text = str(r.text)
         b.custom_minimum_size = Vector2(0, 52)
+        DialogSkin.style_choice(b, m.font)
         var nid := str(r.next_id)
         b.pressed.connect(func(): pick(nid))
         choices.add_child(b)
@@ -312,6 +252,11 @@ func pick(next_id: String) -> void:
 
 func next_line() -> void:
     if talk_id == "" or card != null:
+        return
+    if DialogSkin.typing(talk_box):   # 字还在一个个出：这一下先把这一页出完（04 第 4 条）
+        DialogSkin.finish(talk_box)
+        return
+    if not DialogSkin.last_page(talk_box):   # 一句超过 2 行分了页：翻页点右边的上下三角（阿鱼 10/5），点框不翻、也不跳到下一句
         return
     if dm_res != null:
         if dm_busy or dm_line == null or choices.visible:
