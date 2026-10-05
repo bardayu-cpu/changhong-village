@@ -1,5 +1,6 @@
 extends SceneTree
-## 宴会厅能走的格子：# 挡住，. 从门口走得到，o 空着但走不到
+## 宴会厅（12 桌老厅）能走的格子：# 挡住，. 从门口走得到，o 空着但走不到。这是打印格子的小工具，不是测试（10/5 从 test_map.gd 改名：原来叫 test_ 开头、没有 RESULT 行，全套里总显示「FAIL」）
+## 用法：Godot --headless --path . --script res://tools/dump_hall12_grid.gd
 var hall
 var started := false
 func _initialize() -> void:
