@@ -194,6 +194,9 @@ var note_token := 0
 ## 屏幕上方的对白框、提示框从这一行往下排（阿鱼 9/17：提示放屏幕上方，要看得见）。
 ## 要让开右上角微信的胶囊按钮：iPhone 16 Pro 上它的下沿约在 124
 const TOP_Y := 150.0
+var hud_top_row: Control   # 左上角地名、金币那一排（罗-12：话泡、提示泡躲开它下沿再往下 8）
+var talk_hidden := false   # 对话框开着、底下的动作按钮、摇杆、路牌字正藏着（罗-12）
+var talk_hide_on := true   # 截图对比用：false 时照旧不藏（改前的样子）
 var sit_btn: Button        # 走到空椅子旁出现；第一次点变确认文案，再点执行
 var sit_target := {"table_id": "", "chair_no": 0}
 var sit_confirming := false
@@ -615,6 +618,8 @@ func _read_js_log() -> String:
 func _process(dt: float) -> void:
     if dialog != null:
         _layout_top()
+    _update_safe_zone()
+    _talk_hide()
     if state == "banquet" and USE_LAYERED and not court_save.door_hint and hall.seated:
         _arm_door_hint()
     if coins_chip != null and _in_scene():
@@ -1048,6 +1053,7 @@ func _build_hud() -> void:
     # 左上角一排：地名、金币。金币原来在右上角，落在微信胶囊按钮底下（胶囊下沿约 y 124），看不见（体验 A1）；
     # 右上角整块留给胶囊，席面菜单也挪到左边（banquet_ui.gd）
     var top_row := HBoxContainer.new()
+    hud_top_row = top_row
     top_row.position = Vector2(14, 14)
     top_row.add_theme_constant_override("separation", 10)
     top_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -3075,6 +3081,46 @@ func _note(text: String, hold := 3.0) -> void:
     await get_tree().create_timer(hold).timeout
     if my == note_token:
         note_box.visible = false
+
+## 对话框开着（跟人说话、阿鱼说话）：场景下面的动作按钮、摇杆、地上路牌字都藏，关了再出（组件库第二节第 6 条，庄Z4 10/5 定；
+## 阿鱼说话时「跟新娘聊聊」压住了框第一行）。只调透明和能不能点，显不显示照旧归各自的代码管，不跟它们抢
+func _talk_hide() -> void:
+    var talking: bool = talk_hide_on and ((dialog != null and dialog.visible) or (lounge_ui != null and lounge_ui.is_open()))
+    if talking == talk_hidden:
+        return
+    talk_hidden = talking
+    for n in _talk_hide_nodes():
+        if not (n is CanvasItem) or not is_instance_valid(n):
+            continue
+        (n as CanvasItem).modulate.a = 0.0 if talking else 1.0
+        if n is Control:
+            var c := n as Control
+            if talking:
+                c.set_meta("mf0", c.mouse_filter)
+                c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+            elif c.has_meta("mf0"):
+                c.mouse_filter = c.get_meta("mf0")
+
+func _talk_hide_nodes() -> Array:
+    var out: Array = [stick_base, stick_knob, add_dish_btn, play_btn, sit_btn, person_btn, book_btn, rel_btn, chat_btn, story_btn]
+    if lounge_ui != null:
+        out += [lounge_ui.seat_btn, lounge_ui.talk_btn]
+    if backhall_ui != null:
+        out.append(backhall_ui.act_btn)
+    var cs: Array = [court, hall, backhall, lawn, lake, orchard, parking, plaza]
+    cs.append_array(areas.values())
+    for c in cs:
+        if c != null and c.get("labels") != null:
+            out.append(c.labels)
+    return out.filter(func(x): return x != null)
+
+## 话泡、提示泡的禁区（罗-12，组件库第二节第 5 条）：顶栏那一排下沿再往下 8；微信里右上角胶囊那块（下沿约 124、左沿约 400，game_host 量的）再放宽 8
+func _update_safe_zone() -> void:
+    var top := 0.0
+    if hud != null and hud.visible and hud_top_row != null and hud_top_row.is_visible_in_tree():
+        top = hud_top_row.get_global_rect().end.y + 8.0
+    DialogSkin.safe_top = top
+    DialogSkin.capsule = Rect2(400.0, 0.0, 140.0, 124.0).grow(8.0) if (cloud != null and cloud._in_wx) else Rect2()
 
 ## 屏幕上方从 TOP_Y 往下排：对白框在上，提示框紧跟在下面；对白框收起时提示框顶上去
 func _layout_top() -> void:
