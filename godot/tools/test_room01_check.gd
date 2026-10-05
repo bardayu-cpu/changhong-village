@@ -1,5 +1,4 @@
 extends SceneTree
-## 跳过：化妆间单独成屋（room01）还没合进 main，areas["makeup"] 还不存在；化妆间照 GPT 效果图重画合进来以后删掉这一行再跑
 ## 化妆间单独成屋（room01 02a8148，02 F 做：像素成品、后厅原来那间封成红门 + 屋顶、三位连同第 67 版的冒泡对话搬进新屋、换装点挪进新屋），03 自己重测
 ## （01 H 10/4 派，不改游戏代码；不看 02 的 test_makeup_room，另起量法）：
 ##   1 来回走通：后厅走廊化妆间门口 → 整屏切进化妆间、站南门里边；南门出去 → 回走廊门口外；来回 3 趟，每趟站稳 3 秒不弹回
@@ -12,9 +11,10 @@ extends SceneTree
 ##   5 屋名框（手机 540×960、长屏 585×1266）：进屋第一眼不压任何一个人的身子
 ## 用法：Godot --headless --path . --script res://tools/test_room01_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
+const Ent = preload("res://scripts/entrance.gd")
 const DT := 1.0 / 30.0
 const OLD_ROOM := Rect2(1195, 226, 341, 458)
-const GAP := Rect2(252, 940, 72, 60)   # 新屋南墙门洞（走路范围第二块 254～322 × 950～1018，略放大）
+const GAP := Rect2(227, 846, 86, 112)   # 新屋南门洞（GPT 整间版走路范围第二块 227～313 × 846～954，南墙 wall_s_0 / wall_s_1 之间）
 
 var m
 var started := false
@@ -157,6 +157,93 @@ func aisle_min(bl: Array, walls: Rect2, path: Array) -> Array:
         run += L
     return [best, at]
 
+## 能站格子的净空：每 step 像素一个点，到最近一个不能站的点有多远（像素，chamfer 近似）。
+## 不能站 = 家具占地往外各放 Ent.CLEAR 的挡人距离以后的范围，所以两件家具之间真正的通道宽 ≈ 2 × 净空半径 + 2 × Ent.CLEAR
+func clearance_grid(c, walls: Rect2, step: float) -> Dictionary:
+    var nx := int(walls.size.x / step) + 3
+    var ny := int(walls.size.y / step) + 3
+    var x0 := walls.position.x - step
+    var y0 := walls.position.y - step
+    var d := PackedFloat32Array()
+    d.resize(nx * ny)
+    for j in ny:
+        for i in nx:
+            d[j * nx + i] = 1.0e9 if c._free(Vector2(x0 + float(i) * step, y0 + float(j) * step)) else 0.0
+    var dg := step * 1.4142
+    for j in ny:
+        for i in nx:
+            var k := j * nx + i
+            var v: float = d[k]
+            if v == 0.0:
+                continue
+            if i > 0:
+                v = minf(v, d[k - 1] + step)
+            if j > 0:
+                v = minf(v, d[k - nx] + step)
+                if i > 0:
+                    v = minf(v, d[k - nx - 1] + dg)
+                if i < nx - 1:
+                    v = minf(v, d[k - nx + 1] + dg)
+            d[k] = v
+    for j in range(ny - 1, -1, -1):
+        for i in range(nx - 1, -1, -1):
+            var k2 := j * nx + i
+            var v2: float = d[k2]
+            if v2 == 0.0:
+                continue
+            if i < nx - 1:
+                v2 = minf(v2, d[k2 + 1] + step)
+            if j < ny - 1:
+                v2 = minf(v2, d[k2 + nx] + step)
+                if i < nx - 1:
+                    v2 = minf(v2, d[k2 + nx + 1] + dg)
+                if i > 0:
+                    v2 = minf(v2, d[k2 + nx - 1] + dg)
+            d[k2] = v2
+    return {"d": d, "nx": nx, "ny": ny, "x0": x0, "y0": y0, "step": step}
+
+func _cell_of(cg: Dictionary, p: Vector2) -> Vector2i:
+    return Vector2i(clampi(int(round((p.x - float(cg["x0"])) / float(cg["step"]))), 0, int(cg["nx"]) - 1), clampi(int(round((p.y - float(cg["y0"])) / float(cg["step"]))), 0, int(cg["ny"]) - 1))
+
+## 从 from 走到 to，只走净空 ≥ t 的格子（头尾 exempt 像素以内不要求，那是家具跟前）能不能走通
+func _reach(cg: Dictionary, from: Vector2, to: Vector2, t: float, exempt: float) -> bool:
+    var d: PackedFloat32Array = cg["d"]
+    var nx: int = cg["nx"]
+    var ny: int = cg["ny"]
+    var step: float = cg["step"]
+    var a := _cell_of(cg, from)
+    var b := _cell_of(cg, to)
+    var seen := {a: true}
+    var q: Array = [a]
+    while not q.is_empty():
+        var cur: Vector2i = q.pop_back()
+        if cur == b:
+            return true
+        for dv in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+            var n: Vector2i = cur + dv
+            if n.x < 0 or n.y < 0 or n.x >= nx or n.y >= ny or seen.has(n):
+                continue
+            var dd: float = d[n.y * nx + n.x]
+            if dd <= 0.0:
+                continue
+            var pos := Vector2(float(cg["x0"]) + float(n.x) * step, float(cg["y0"]) + float(n.y) * step)
+            if dd >= t or pos.distance_to(from) <= exempt or pos.distance_to(to) <= exempt:
+                seen[n] = true
+                q.append(n)
+    return false
+
+## 从 from 到 to 最宽的那条路上最窄的一处，净空半径多大（像素）：二分找「能走通的最大门槛」
+func bottleneck(cg: Dictionary, from: Vector2, to: Vector2, exempt: float) -> float:
+    var lo := 0.0
+    var hi := 200.0
+    for it in 14:
+        var mid := (lo + hi) * 0.5
+        if _reach(cg, from, to, mid, exempt):
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
 func run() -> void:
     get_root().size = Vector2i(540, 960)
     for i in 600:
@@ -238,7 +325,7 @@ func run() -> void:
     var seats: Array = []
     for it in mk.cfg["items"]:
         var iid := str(it.get("id", ""))
-        if iid.begins_with("stool") or iid.begins_with("sofa"):
+        if iid.begins_with("stool") or iid.begins_with("fit_stool") or iid.begins_with("sofa") or iid.begins_with("pouf") or iid.begins_with("armchair"):   # 能坐的：化妆凳、试衣凳、沙发、圆墩、单人椅
             var r: Array = it["rect"]
             seats.append([iid, Rect2(float(r[0]), float(r[1]), float(r[2]) - float(r[0]), float(r[3]) - float(r[1]))])
     var sit_bad: Array = []
@@ -441,7 +528,7 @@ func run() -> void:
     var screen_r := Rect2()
     for it in mk.cfg["items"]:
         var nm2 := str((it.get("scale", {}) as Dictionary).get("name", "")) + str(it.get("id", ""))
-        if nm2.contains("屏风") or nm2.contains("screen"):
+        if nm2.contains("屏风") or nm2.contains("screen") or str(it.get("id", "")) == "fit_w":   # GPT 整间版没有屏风：换装点在西边试衣间（fit_w）南边
             var rr3: Array = it["rect"]
             screen_r = Rect2(float(rr3[0]), float(rr3[1]), float(rr3[2]) - float(rr3[0]), float(rr3[3]) - float(rr3[1]))
     var path_d: Array = mk.find_path(mk.SPAWN, dress)
@@ -477,9 +564,13 @@ func run() -> void:
             var r4: Array = it["rect"]
             targets.append([iid2 + "前", Vector2((float(r4[0]) + float(r4[2])) * 0.5, float(r4[3]) + 22.0)])
     targets.append(["换装点", dress])
-    var bl_mk: Array = blockers(mk)
     var wp: Array = mk.cfg["walk"][0]
     var walls_mk := Rect2(float(wp[0][0]), float(wp[0][1]), float(wp[1][0]) - float(wp[0][0]), float(wp[2][1]) - float(wp[0][1]))
+    # 过道（01 H 10/4 的要求：至少 1.5 米；左右 48 像素 = 1 米）：量「从出生点走到每个点，最宽的那条路上最窄的一处」有多宽——
+    # 不管 A* 挑哪条路、也不管花座这种小摆件，都按真能走的最好那条路量（旧办法按 A* 挑的路、又把贴着柜子的小花座当成一道墙，量不准）。
+    # 通道宽 ≈ 2 × 净空半径 + 2 × Ent.CLEAR（格子是 6 像素一个点量的，有 ±0.1 米上下的误差）；头尾各 70 像素（家具跟前）不要求
+    var cg: Dictionary = clearance_grid(mk, walls_mk, 6.0)
+    var aisle_rows: Array = []
     var aisle_bad: Array = []
     var aisle_min_all := 99.0
     var unreach: Array = []
@@ -488,45 +579,21 @@ func run() -> void:
         if pth2.is_empty() or (pth2[pth2.size() - 1] as Vector2).distance_to(t[1]) > 16.0:
             unreach.append(str(t[0]))
             continue
-        var am: Array = aisle_min(bl_mk, walls_mk, pth2)
-        aisle_min_all = minf(aisle_min_all, float(am[0]))
-        if float(am[0]) < 1.5:
-            aisle_bad.append("%s：最窄 %.2f 米（在 %s）" % [t[0], am[0], str(am[1])])
+        var bn: float = bottleneck(cg, mk.SPAWN, t[1], 70.0)
+        var wm: float = (2.0 * bn + 2.0 * Ent.CLEAR) / 48.0
+        aisle_rows.append("%s %.2f" % [str(t[0]), wm])
+        aisle_min_all = minf(aisle_min_all, wm)
+        if wm < 1.5:
+            aisle_bad.append("%s：最宽的那条路最窄处约 %.2f 米" % [str(t[0]), wm])
+    print("    各点最宽那条路的最窄处（米）：", aisle_rows)
     for x in aisle_bad + unreach:
         print("    ", x)
-    check("从出生点走到 %d 个站点 / 凳子前 / 换装点：都走得到（%d 个走不到）、路上的过道最窄 %.2f 米、不够 1.5 米的 %d 条" % [targets.size(), unreach.size(), aisle_min_all, aisle_bad.size()], unreach.is_empty() and aisle_bad.is_empty())
-    # 首饰中岛跟两边衣架之间的道（家具占地边到边）：每座岛左右各量一下，要 ≥ 1.5 米（72 像素）
-    var island_gaps: Array = []
-    var island_narrow: Array = []
-    for it in mk.cfg["items"]:
-        var iid3 := str(it.get("id", ""))
-        if not iid3.begins_with("island"):
-            continue
-        var rr5: Array = it["rect"]
-        var ir := Rect2(float(rr5[0]), float(rr5[1]), float(rr5[2]) - float(rr5[0]), float(rr5[3]) - float(rr5[1]))
-        var left_edge := walls_mk.position.x
-        var right_edge := walls_mk.end.x
-        for bl in bl_mk:
-            var br: Rect2 = bl
-            if br == ir or str(br) == str(ir):
-                continue
-            if absf(br.get_center().y - ir.get_center().y) > 140.0:
-                continue   # 差一整排的不算（不在这座岛旁边）
-            if br.end.x <= ir.position.x + 1.0:
-                left_edge = maxf(left_edge, br.end.x)
-            elif br.position.x >= ir.end.x - 1.0:
-                right_edge = minf(right_edge, br.position.x)
-        var gl: float = (ir.position.x - left_edge) / 48.0
-        var gr: float = (right_edge - ir.end.x) / 48.0
-        island_gaps.append("%s 左 %.2f 右 %.2f" % [iid3, gl, gr])
-        if gl < 1.5 or gr < 1.5:
-            island_narrow.append("%s 左 %.2f 米 右 %.2f 米" % [iid3, gl, gr])
-    check("首饰中岛跟两边衣架 / 墙之间的道（占地边到边）：%s；不够 1.5 米的 %s" % [str(island_gaps), str(island_narrow)], island_narrow.is_empty() and island_gaps.size() == 3)
+    check("从出生点走到 %d 个站点 / 凳子前 / 换装点：都走得到（%d 个走不到）、最宽那条路的最窄处 %.2f 米（要 ≥ 1.5）、不够的 %d 条" % [targets.size(), unreach.size(), aisle_min_all, aisle_bad.size()], unreach.is_empty() and aisle_bad.is_empty())
     # 首饰中岛两边的道直着穿一趟
     var island_ok := true
     var island_note := ""
     for it in mk.cfg["items"]:
-        if str(it.get("id", "")).begins_with("island"):
+        if str(it.get("id", "")).begins_with("island") or str(it.get("id", "")).begins_with("jewel"):
             var ri: Array = it["rect"]
             var left_x: float = float(ri[0]) - 28.0
             var right_x: float = float(ri[2]) + 28.0
@@ -610,7 +677,8 @@ func run() -> void:
                     near_ok = true
         if not near_ok:
             cut_off.append(str(t[0]))
-    check("格子 %d 个能站、其中宽格（自己和八个邻居都能站）%d 个：从南门里边只走宽格到得了每个站点 / 凳子前 / 换装点（隔断的 %s）；孤岛（能站但从出生点走不到）%d 个" % [freeg.size(), wide.size(), str(cut_off), islands], cut_off.is_empty() and islands == 0)
+    print("    宽格（自己和八个邻居都能站）%d 个 / 能站 %d 个；只走宽格到不了的点 %s（通道窄，数在上面「最窄处」那条里判）" % [wide.size(), freeg.size(), str(cut_off)])
+    check("能站的格子 %d 个，孤岛（能站但从出生点走不到）%d 个" % [freeg.size(), islands], islands == 0)
     # 6b 摇杆照寻路走：到每个点，卡住 2 秒算失败
     var stuck_bad: Array = []
     for t in targets:

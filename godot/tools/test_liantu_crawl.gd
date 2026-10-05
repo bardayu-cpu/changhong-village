@@ -206,7 +206,8 @@ func run() -> void:
     print("    有向的口 %d 个，合成连法 %d 条" % [links.size(), undirected.size()])
     check("每个口通的那块在图上就在那一侧、过去站对面反过来的一侧（%d 处不对）" % bad.size(), bad.is_empty())
     # 第 68 版：前门北口改通广场（原来通迎宾院大门）、广场东口改通停车场（原来通前门）、迎宾院东口去停车场拿掉、大门改通停车场、新加休息厅 2 ↔ 前门：26 → 27 条
-    check("连法数：27 条（有向 54 个）", undirected.size() == 27 and links.size() == 54)
+    # 10/5 化妆间单独成屋合进来：后厅 ⇄ 化妆间多一对，27 → 28 条（有向 56 个）
+    check("连法数：28 条（有向 56 个；第 68 版 27 条 + 化妆间那一对）", undirected.size() == 28 and links.size() == 56)
 
     print("2 每个口走一趟：出生点走到口、切过去、站稳、再从落点走回口")
     var walk_bad: Array = []
@@ -301,7 +302,7 @@ func run() -> void:
         print("    注：", b)
     for b in walk_bad.slice(0, 20):
         print("    ", b)
-    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 54)
+    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 56)
 
     print("3 图上几处位置关系")
     var bh = m.backhall

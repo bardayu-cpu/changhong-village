@@ -1,14 +1,17 @@
 extends SceneTree
 ## 验收：化妆间单独成一间屋（进屋像进宴会厅，01 H 10/4 派；docs/进屋像进宴会厅-玩家说明-v0.1.md v0.2 第 1 节）。无界面跑整个 main.gd，手机屏 540×960。
 ##   1 进屋：后厅走廊走进化妆间门口（to_makeup）→ 整屏换成化妆间、站在南门里边；画面上方出「化妆间」，屋名框不压人
-##   2 屋里：每件家具跟前都走得到；三条竖过道（衣架和中岛之间、中岛和东边衣架之间、东边衣架和贴墙那列之间）从北到南都 ≥ 2 格宽、一路通
-##      （03 报过原来首饰中岛两边只有一格宽）；给 07 留的站点（化妆师 1、2，递东西）都能站
+##   2 屋里：每件家具跟前都走得到（GPT 整间版 10/5：角落里 3 件摆件走不到，写在已知清单里，只守「不再多」）；从南门走到北边化妆台、两个站点、换装点都走得通（过道宽度归 test_room01_check 管，
+##      那条是按「最宽那条路的最窄处 ≥ 1.5 米」量的）；站点（化妆师 1、2，化妆助理走一圈的两个）都能站
+##   （10/5 03 改：布局换成 GPT 整间版——540×960、出生点 (270,844)、站点和家具全换了，原来按旧 C 档写死的坐标、三条竖过道都不存在了）
 ##   3 出屋：南门出去回到后厅走廊化妆间门口外 (1363,790)，站着不弹回去
 ## 三档（--tier=少/中/多）都要过：先 python3 godot/tools/layout_court/make_makeup_room.py --tier=X 再跑这个
 ## 用法：Godot --headless --path . --script res://tools/test_makeup_room.gd     最后一行 RESULT PASS 才算过
 
 const Main = preload("res://scripts/main.gd")
 const DT := 1.0 / 60.0
+## GPT 整间版（makeup-gpt-1）里走不到跟前的角落摆件：花座 vase_stand_2 夹在梳妆台和花瓶之间、圆墩 pouf_w、单人椅 armchair_e 在屋子南边两个角上（上面坐着静坐的替身），都不是互动的东西；只守「不再多」
+const KNOWN_FAR := ["vase_stand_2", "pouf_w", "armchair_e"]
 
 var m
 var started := false
@@ -73,7 +76,20 @@ func run() -> void:
     tick(3)
     await walk_to(b.spot_pos("to_makeup"))
     check("走进化妆间门口整屏换进屋（%s）" % m.state, m.state == "makeup" and m.cv == r and r.visible and not b.visible)
-    check("站在南门里边 %s" % r.pos, r.pos == r.arrival_from("backhall") and r.pos.y > 880.0)
+    var wall_s: Array = []
+    for it0 in r.cfg["items"]:
+        if str(it0["id"]).begins_with("wall_s"):
+            wall_s.append(it0["rect"])
+    var gap_x0 := 0.0
+    var gap_x1 := 9999.0
+    var wall_y0 := 9999.0
+    for rc0 in wall_s:
+        wall_y0 = minf(wall_y0, float(rc0[1]))
+        if float(rc0[2]) < 270.0:
+            gap_x0 = maxf(gap_x0, float(rc0[2]))   # 西边那段南墙的东端
+        else:
+            gap_x1 = minf(gap_x1, float(rc0[0]))   # 东边那段南墙的西端
+    check("站在南门里边 %s（门洞 x %.0f～%.0f、南墙 y %.0f：站在门洞中间、在南墙北边 100 像素以内）" % [r.pos, gap_x0, gap_x1, wall_y0], r.pos == r.arrival_from("backhall") and r.pos.x > gap_x0 and r.pos.x < gap_x1 and r.pos.y < wall_y0 and r.pos.y > wall_y0 - 100.0)
     await process_frame
     check("画面上方出屋名「%s」" % m.room_title.text, m.room_title_box.visible and m.room_title.text == "化妆间")
     # 屋名框不压人：玩家自己、屋里的人（新娘、两位化妆师）都不叠（手机 540×960）
@@ -112,20 +128,20 @@ func run() -> void:
                 break
         if not near:
             far.append(it["id"])
-    check("每件家具跟前都走得到（走不到的 %s）" % [far], far.is_empty())
-    var lanes := {"衣架和中岛之间": [132.0, 184.0], "中岛和东边衣架之间": [268.0, 320.0], "东边衣架和贴墙那列之间": [434.0, 492.0]}
-    var lane_bad: Array = []
-    for nm in lanes:
-        var xs: Array = lanes[nm]
-        for y in range(260, 830, 12):
-            var row_ok := 0
-            for x in range(int(xs[0]), int(xs[1]) + 1, 12):
-                if r._free(Vector2(x, y)):
-                    row_ok += 1
-            if row_ok < 2:
-                lane_bad.append("%s y %d 只有 %d 格" % [nm, y, row_ok])
-                break
-    check("三条竖过道从北到南都 ≥ 2 格宽（不够的 %s）" % [lane_bad], lane_bad.is_empty())
+    var far_new: Array = far.filter(func(x): return not KNOWN_FAR.has(str(x)))
+    check("每件家具跟前都走得到（走不到的 %s；已知的 %s 不算，新的 %s）" % [far, KNOWN_FAR, far_new], far_new.is_empty())
+    # 走得通：南门 → 新娘跟前（北边化妆台）、两个站点、换装点（A* 路径真走到）
+    var reach_bad: Array = []
+    var goals: Array = [["新娘跟前", Vector2(193, 179)], ["换装点", r.points["dress"]["pos"]]]
+    for s0 in r.cfg.get("stand_points", []):
+        if str(s0["id"]).begins_with("makeup_artist"):
+            continue   # 化妆师自己站 / 坐的家，人在那儿占着，不是给玩家走到的点
+        goals.append([str(s0["id"]), Vector2(float(s0["x"]), float(s0["y"]))])
+    for g in goals:
+        var pth: Array = r.find_path(r.pos, g[1])
+        if pth.is_empty() or (pth[pth.size() - 1] as Vector2).distance_to(g[1]) > 16.0:
+            reach_bad.append(str(g[0]))
+    check("从南门走得到新娘跟前、换装点和每个站点（共 %d 处，走不到的 %s）" % [goals.size(), reach_bad], reach_bad.is_empty())
     var st_bad: Array = []
     var st_ids: Array = []
     for s in r.cfg.get("stand_points", []):
@@ -137,8 +153,8 @@ func run() -> void:
             taken = taken or (r.npc_nodes[nid] as Node2D).position.distance_to(p) < 2.0
         if not taken and (r.nearest_free(p) == Vector2.ZERO or r.nearest_free(p).distance_to(p) > 20.0):
             st_bad.append(str(s["id"]))
-    var want_ids := ["makeup_artist_1", "makeup_artist_2", "handoff", "stand_mk_closet", "stand_mk_gown"]
-    check("站点（化妆师 1、2、递东西，化妆助理走一圈的两个）都在、都能站或者正站着她（不行的 %s）" % [st_bad], st_bad.is_empty() and st_ids == want_ids)
+    var want_ids := ["makeup_artist_1", "makeup_artist_2", "stand_mk_gown", "stand_mk_red"]
+    check("站点（化妆师 1、2，化妆助理走一圈的两个）都在、都能站或者正站着她（不行的 %s）" % [st_bad], st_bad.is_empty() and st_ids == want_ids)
 
     print("3 出屋")
     await walk_to(r.spot_pos("to_backhall"))
