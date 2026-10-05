@@ -2,7 +2,8 @@ extends RefCounted
 ## 全游戏的对话框和头顶冒泡长什么样（05 10/4，01 H 派）。照阿鱼的定稿图一模一样（docs/参考图/对话框定稿-阿鱼10-04.png，main 48cfaa3；
 ## 阿鱼：「完全不对，我要的是这样」）。图是像素画但线不严格对格子（按钮亮边只有半格、边缘发虚），切出来会糊，所以照它用代码画，颜色从图里取：
 ##   - 框：深褐底，外一圈深色、里一圈金棕的双线，四个角金线往里收出台阶、空出来的角上一个金色小 L 角花
-##   - 头像：后面不垫底块，人直接从框上沿顶出来，只到胸口（阿鱼：「到人物的胸部以上就好了」）：头大半在框外、肩膀和胸口上半截在框里，名字牌压在胸口下面，整数倍放大
+##   - 头像：后面不垫底块，人直接从框上沿顶出来，只到胸口（阿鱼：「到人物的胸部以上就好了」）：头大半在框外、肩膀和胸口上半截在框里，名字牌压在胸口下面，放大 3 倍
+##   - 话那块一页最多 2 行（阿鱼 10/5）；超过 2 行右边出一对上、下翻页小三角，玩家点着翻，点框不翻页
 ##   - 名字牌：深底、金棕边、黄字，前面一个米白像素小身份证（阿鱼：图标是身份证的意思，不是对话泡）；压在头像下面、框左下角
 ##   - 话：米白字（带“”，07 在 map69 加），头像右边上半部分
 ##   - 按钮：红底，里一圈浅橘亮边、下面一截暗一点，深红描边，四个角各一颗金色小方钉，白字；一样宽、铺满右边那一行，中间留一道空
@@ -26,7 +27,7 @@ const PAL := {
     "hint": {"fill": "#311e15", "edge": "#bf8044", "icon": "#faf2e4"},
     "box": {"fill": "#311e15", "edge": "#160c05", "rim": "#bf8044"},
     "plate": {"fill": "#311e15", "edge": "#160c05", "rim": "#bf8044"},
-    "name": "#f2c23e", "icon": "#faf2e4", "text": "#faf2e4", "more": "#faf2e4", "bubble_text": "#1c120c",
+    "name": "#f2c23e", "arrow": "#f2c23e", "icon": "#faf2e4", "text": "#faf2e4", "more": "#faf2e4", "bubble_text": "#1c120c",
     "choice": {"fill": "#cb1c1c", "band": "#a4191a", "edge": "#3e0303", "rim": "#f8a870", "text": "#faf2e4", "down": "#a4191a", "down_band": "#86120f",
         "stud_l": "#fff0b2", "stud": "#ffd842", "stud_d": "#f0aa28"},
 }
@@ -40,7 +41,8 @@ const TYPE_CPS := 28.0       # 一秒打几个字
 const BOTTOM := 40.0         # 框下沿离屏幕底多少
 const SIDE := 14.0           # 框左右离屏幕边多少
 const PAD := 16.0            # 框里四边留多少
-const MAX_H_FRAC := 0.2      # 框最高屏幕高的 1/5（04 第 1 条；有选项时放得下为止）
+const PAGE_LINES := 2        # 话那块一页几行（阿鱼 10/5：「右边展示 2 行文本的位置，超过 2 行长度出现上下翻页三角形手动翻页」）
+const ARROW := 44.0          # 翻页三角能点的那块多大（≥ 44×44）；话那块右边让出这一列
 const MIN_H := 124.0         # 框最矮多高：定稿图框高 409 / 1702 宽，折成 512 宽约 123（一行话 + 一行按钮）
 const LINE_SIZE := 26        # 正文、按钮字号：定稿图字高 72 / 1702 宽，折成 512 宽约 22，正是像素字 24 那一档（像素字只能 12 的整倍清楚：26 出来是 24；上一档 36、下一档 12）
 const LINE_GAP := 6.0
@@ -54,10 +56,9 @@ const CHOICE_RIGHT_TIGHT := 12.0
 const CHOICE_PADX := 6.0     # 按钮字两边至少留多少（描边 3 + 亮边 2 + 1）
 const CHOICE_MIN_W := 88.0    # 按钮最窄（01：能点的范围宽 ≥88、高 ≥44）
 const PLATE_H := 40.0        # 名字牌多高
-const FACE := Vector2(148, 172)   # 头像那块多大（不垫底、只用来裁）：照定稿图只到胸口（阿鱼 10/5：「画面到人物的胸部以上就好了，不要出现这么长一条」）。
-                                  # 4 倍时人物图第 0～42 行（头顶到领口下第一颗扣子）= 172 高；下沿接名字牌上沿，往上顶出框约 96、下巴在框里约 36
-                                  # （定稿图约 48）；4 倍时人连肩宽 144，那块放宽到 148 不切左右
-const FACE_K := 4.0          # 头像放大几倍（整数倍不糊）：定稿图头宽约是框宽的 0.24（折成 122），人物图头宽 32 格，4 倍 128 最接近
+const FACE := Vector2(112, 129)   # 头像那块多大（不垫底、只用来裁）：只到胸口（阿鱼 10/5）——3 倍时人物图第 0～42 行（头顶到领口下第一颗扣子）= 129 高；
+                                  # 下沿接名字牌上沿，往上顶出框约 51、下巴在框里约 48（定稿图也是约 48）；3 倍时人连肩宽 108，那块 112 不切左右
+const FACE_K := 3.0          # 头像放大几倍：阿鱼 10/5「头可以小到现在的 0.8x，不要放太大就有点糊」——4 × 0.8 = 3.2 不是整数倍反而更糊，用 3 倍（约 0.75，最接近、清楚）
 const PLATE_W := 136.0       # 名字牌最窄：定稿图 450 宽，折成约 136
 const COL_W := 132.0         # 左边一栏多宽（头像、名字牌）：话从 PAD + COL_W + 12 = 160 起（定稿图左引号从 162 起）
 
@@ -522,7 +523,33 @@ static func lbl(t: String, font: Font, size: int, col: Color) -> Label:
     l.mouse_filter = Control.MOUSE_FILTER_IGNORE
     return l
 
-## 「还有」小三角：4 行台阶（宽 7、5、3、1 格），一格 U×2 宽、3 高
+## 翻页三角（阿鱼 10/5）：一个 44×44 能点的按钮，中间画一个金色像素三角（宽 7、5、3、1 格，一格 3 像素，跟名字一个金，外一圈深色）；up 尖朝上
+static func page_arrow(up: bool) -> Button:
+    var b := Button.new()
+    b.name = "page_up" if up else "page_down"
+    b.flat = true
+    b.focus_mode = Control.FOCUS_NONE
+    for k in ["normal", "hover", "pressed", "focus", "disabled"]:
+        b.add_theme_stylebox_override(k, StyleBoxEmpty.new())
+    b.custom_minimum_size = Vector2(ARROW, ARROW)
+    b.size = Vector2(ARROW, ARROW)
+    b.mouse_filter = Control.MOUSE_FILTER_STOP
+    b.visible = false
+    var c := _c(PAL["arrow"])
+    var edge := _c(PAL["box"]["edge"])
+    b.draw.connect(func():
+        # 一格 3 像素：深色一圈（每行宽 9、7、5、3、1）里面金色（宽 7、5、3、1），down 尖朝下、up 上下翻过来
+        var u := 3.0
+        var ox := (ARROW - 9.0 * u) * 0.5
+        var oy := (ARROW - 5.0 * u) * 0.5
+        for r in 5:
+            var y := oy + float(r if not up else 4 - r) * u
+            b.draw_rect(Rect2(ox + r * u, y, (9 - r * 2) * u, u), edge)
+            if r < 4:
+                b.draw_rect(Rect2(ox + (r + 1) * u, y, (7 - r * 2) * u, u), c))
+    return b
+
+## 「点一下继续」小三角：4 行台阶（宽 7、5、3、1 格），一格 U×2 宽、3 高
 static func more_tri(c: Color) -> Control:
     var more := Control.new()
     more.name = "more"
@@ -571,6 +598,15 @@ static func next_page(box: Control) -> bool:
     var t = box.get_node_or_null("typer")
     return t != null and t.next_page()
 
+static func prev_page(box: Control) -> bool:
+    var t = box.get_node_or_null("typer")
+    return t != null and t.prev_page()
+
+## 是不是在最后一页（没分页也算）：没到最后一页时点框既不翻页、也不往下一句走（翻页点右边的上下三角，阿鱼 10/5）
+static func last_page(box: Control) -> bool:
+    var t = box.get_node_or_null("typer")
+    return t == null or t.last_page()
+
 ## 一行选项排不排得下（排不下回 ok=false、需要多宽、现在多宽；阿鱼说别换成两行，排不下报 01）
 static func choices_fit(box: Control) -> Dictionary:
     var t = box.get_node_or_null("typer")
@@ -591,6 +627,9 @@ class Typer extends Node:
     var instant := false     # 截图、测试（main.fast）：不打字，整页直接出
     var shown: Label         # 屏上这一页
     var more: Control
+    var up_btn: Button       # 翻页三角（阿鱼 10/5）
+    var down_btn: Button
+    var text_w := 0.0
     var pages: Array = []    # 每页的字
     var page := 0
     var fit := {}
@@ -708,6 +747,12 @@ class Typer extends Node:
         layer.add_child(shown)
         more = Skin.more_tri(Color(PAL["more"]))
         layer.add_child(more)
+        up_btn = Skin.page_arrow(true)
+        down_btn = Skin.page_arrow(false)
+        up_btn.pressed.connect(prev_page)
+        down_btn.pressed.connect(next_page)
+        layer.add_child(up_btn)
+        layer.add_child(down_btn)
 
     func typing() -> bool:
         return shown != null and shown.visible_characters >= 0 and shown.visible_characters < shown.text.length()
@@ -715,6 +760,7 @@ class Typer extends Node:
     func finish() -> void:
         shown.visible_characters = -1
 
+    ## 翻页（点上下三角）：翻到的那页字照样一个个出；翻回去看过的那页直接整页出
     func next_page() -> bool:
         if page + 1 < pages.size():
             page += 1
@@ -723,6 +769,17 @@ class Typer extends Node:
             shown.visible_characters = -1 if instant else 0
             return true
         return false
+
+    func prev_page() -> bool:
+        if page > 0:
+            page -= 1
+            shown.text = pages[page]
+            shown.visible_characters = -1
+            return true
+        return false
+
+    func last_page() -> bool:
+        return page >= pages.size() - 1
 
     ## 照宽度一个字一个字折行（标点不放行首：跟着上一行，宁可多出半个字；左引号、左括号不留在行尾：带到下一行），再按一页几行分页
     ## 说话的那句带“”（阿鱼 10/4 定的规矩，07 在 lounge_ui、main._say 里加）：右引号不放行首、左引号不落单
@@ -759,37 +816,45 @@ class Typer extends Node:
         var has_face: bool = portrait != null and portrait.texture != null and portrait.visible
         var col := COL_W if (has_face or plate.visible) else 0.0
         var x0 := PAD + col + (12.0 if col > 0.0 else 0.0)
-        var text_w := w - x0 - PAD - 26.0          # 右边留给小三角
-        if not has_face and not (choices != null and choices.visible) and (hint == null or hint.text == ""):
-            text_w = w - x0 - PAD                  # 阿鱼的框（没头像、没选项、没有「点一下继续」）：不用留小三角，话用满宽（加了“”以后少折一行）
+        var full_w := w - x0 - PAD
         var lh := (font.get_height(LINE_SIZE) if font != null else float(LINE_SIZE)) + LINE_GAP   # 一行多高：照字体实际行高
         var ch_on: bool = choices != null and choices.visible
         var row_h := (CHOICE_H + 10.0) if ch_on else 0.0
-        # 框高：一屏最多 1/5（有选项时再加一行选项的一半，放得下为止），最矮 MIN_H；话占剩下的地方
-        var max_h := maxf(vs.y * MAX_H_FRAC, MIN_H) + row_h * 0.5
-        var avail := max_h - PAD * 2.0 - row_h
-        var per_page := maxi(int(floor((avail + LINE_GAP) / lh)), 1)
+        # 话一页最多 PAGE_LINES 行（阿鱼 10/5）：先按满宽折；超过一页，右边让出一列放上下翻页三角，再折一遍
         var txt: String = src.text
-        if txt != _last or not is_equal_approx(text_w, _last_w):
+        if txt != _last or not is_equal_approx(full_w, _last_w):
             _last = txt
-            _last_w = text_w
-            pages = _paginate(txt, text_w, per_page)
+            _last_w = full_w
+            text_w = full_w
+            pages = _paginate(txt, text_w, PAGE_LINES)
+            if pages.size() > 1:
+                text_w = full_w - ARROW
+                pages = _paginate(txt, text_w, PAGE_LINES)
             page = 0
             shown.text = pages[0] if not pages.is_empty() else ""
             _t = 0.0
             shown.visible_characters = -1 if instant else 0
-        var lines_here := shown.text.count("\n") + 1
-        var text_h := lines_here * lh - LINE_GAP
-        var one_row: bool = not has_face and not ch_on and pages.size() <= 1   # 没头像、没选项、一页（阿鱼说话）：一行两行都收矮居中
-        var h := clampf(PAD * 2.0 + text_h + row_h, MIN_H if has_face else 96.0, max_h)
+        var paged := pages.size() > 1
+        var lines_max := 1
+        for pg in pages:
+            lines_max = maxi(lines_max, (pg as String).count("\n") + 1)
+        var text_h := lines_max * lh - LINE_GAP        # 翻页时每页一样高（按最多那页、最多 2 行），框不跳
+        var one_row: bool = not has_face and not ch_on and not paged   # 没头像、没选项、一页（阿鱼说话）：一行两行都收矮居中
+        var h := maxf(PAD * 2.0 + text_h + row_h, MIN_H if has_face else 96.0)
+        if paged and not ch_on:
+            h = maxf(h, PAD + ARROW * 2.0)             # 上下两个三角（各 44）摆得下
         if one_row:
             h = PAD * 2.0 + maxf(PLATE_H, text_h) + 12.0   # 没头像、没选项（阿鱼）：名字牌和话上下居中，不空一大块（04）；加了“”以后常常两行
-        if pages.size() > 1:
-            h = max_h
         box.offset_bottom = -BOTTOM   # 阿鱼的框：main._layout_top 还按原来顶上那条每帧设下沿（= TOP_Y），这里钉回屏幕底；main.gd 不动
         box.offset_top = -BOTTOM - h
         shown.position = Vector2(x0, (h - text_h) * 0.5 if one_row else PAD + 2.0)
         shown.size = Vector2(text_w, text_h)
+        # 翻页三角：话那块右边一列，上一个贴顶、下一个接在下面；第一页不出上、最后一页不出下（阿鱼 10/5）
+        var ax := w - PAD - ARROW + 6.0
+        up_btn.position = Vector2(ax, PAD - 8.0)
+        down_btn.position = Vector2(ax, PAD - 8.0 + ARROW)
+        up_btn.visible = paged and page > 0
+        down_btn.visible = paged and page < pages.size() - 1
         # 名字牌：框左下角，贴着里面那圈金线（定稿图）；头像：名字牌上面，下沿接名字牌上沿，往上顶出框（不垫底）
         plate.reset_size()
         var pw: float = plate.get_combined_minimum_size().x
@@ -799,7 +864,7 @@ class Typer extends Node:
             face.visible = has_face
             if has_face:
                 face.size = FACE
-                face.position = Vector2(PAD - 4.0, plate.position.y + 2.0 - FACE.y)   # 往左让一点：4 倍时肩膀宽，别碰到话
+                face.position = Vector2(PAD + (col - FACE.x) * 0.5, plate.position.y + 2.0 - FACE.y)
                 _fit_portrait()
         # 选项：最后一行，照定稿图一样宽、铺满右边那一行：从话往右缩 CHOICE_IN 起，到离框右沿 CHOICE_RIGHT，中间空 CHOICE_GAP。
         # 最长那个字放不下（奶奶三个四字选项）：间距收到 CHOICE_GAP_TIGHT、左边跟话对齐、右边收到 CHOICE_RIGHT_TIGHT；还放不下 fit.ok = false（报 01）
@@ -847,6 +912,5 @@ class Typer extends Node:
         # 小三角：这一页出完了，后面还有页、或者有「点一下继续」（没选项），一闪一闪
         _blink += dt
         more.position = Vector2(w - PAD - 28.0, h - PAD - 12.0)
-        var more_pages := page < pages.size() - 1
-        var cont := hint != null and hint.text != "" and not ch_on
-        more.visible = (more_pages or cont) and not typing() and fmod(_blink, 1.0) < 0.6
+        var cont := hint != null and hint.text != "" and not ch_on   # 右下小三角只剩「点一下继续」（下一句）；翻页改成上下三角
+        more.visible = cont and page >= pages.size() - 1 and not typing() and fmod(_blink, 1.0) < 0.6

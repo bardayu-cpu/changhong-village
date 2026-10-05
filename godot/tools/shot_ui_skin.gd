@@ -3,7 +3,7 @@ extends SceneTree
 ##   bubbles   麻将室两个人在冒泡（同屏最多两个），再加两个「这里能点」的提示泡（只出样子）
 ##   talk      点大爷：两个选项（翻到有选项那句）
 ##   grandma   休息间奶奶：三个选项一行
-##   page1、page2  长句一屏放不下：第一页（右下小三角）、点一下翻到第二页
+##   page1、page2  长句超过 2 行：第一页（右边下三角）、点下三角翻到第二页（右边上三角，还有下一页时也有下三角）
 ##   card      点头像展开身份卡
 ##   type1～3  大爷第一句，字一个个出来的连拍（开头、一半、出完带小三角）
 ##   bride     化妆间新娘：没头像时框怎么摆
@@ -143,7 +143,9 @@ func run() -> void:
     say(ui, "你会不会打麻将？我们这桌三缺一，你要是会就来坐一会儿，输了算我的。你阿鱼小时候在这桌上看我们打牌，看着看着就学会了，后来过年回来都要跟我们来两圈，手气比我还好。")
     await frames(10)
     await shot("page1")
-    ui.next_line()
+    # 翻页点右边的下三角（阿鱼 10/5：超过 2 行出上下三角手动翻；点框不翻页）
+    var typ = ui.talk_box.get_node("typer")
+    typ.down_btn.pressed.emit()
     await frames(10)
     await shot("page2")
     # 休息间奶奶：三选一

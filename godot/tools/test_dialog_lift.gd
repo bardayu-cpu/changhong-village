@@ -3,7 +3,7 @@ extends SceneTree
 ## 无界面跑整个 main.gd，按手机屏 540×960 和长屏 540×1168 各过一遍，进后厅：
 ## 1 麻将室大爷、休息间奶奶、化妆间新娘（没头像）各点开对话：等镜头让完，说话的人头顶脚下、玩家头顶脚下在屏幕上都在框上沿上面
 ## 2 关上：镜头放回原位（偏移回 0、画布下沿限位回原值）
-## 3 一句太长分了页：点一下先出完这一页、再点翻页、最后一页才出选项（03 以后照这个加进 test_dialogue_check）
+## 3 一句超过 2 行分了页（阿鱼 10/5）：点框先出完这一页、再点框不翻也不跳句；点右边下三角翻到下一页、上三角翻回；第一页没有上三角、最后一页没有下三角
 ## 4 阿鱼说一句（没头像、没选项；加了“”以后可能两行）：框整个在屏幕里、下沿离底 40，框只比内容高一点（≤ 内容 + 44），名字牌和话上下居中
 ## 用法：Godot --headless --path . --script res://tools/test_dialog_lift.gd
 ## 最后一行 RESULT PASS 才算过
@@ -100,9 +100,23 @@ func run() -> void:
         ui.next_line()
         await frames(1)
         check("点一下：这一页出完、还是这句话", not DialogSkin.typing(ui.talk_box) and typer.page == 0 and ui.line_label.text == line_before)
+        check("第一页：有下三角、没有上三角", typer.down_btn.visible and not typer.up_btn.visible)
         ui.next_line()
         await frames(1)
-        check("再点：翻到第 2 页、还是这句话", typer.page == 1 and ui.line_label.text == line_before)
+        check("再点框：不翻页、也不跳到下一句（页 %d）" % typer.page, typer.page == 0 and ui.line_label.text == line_before)
+        typer.down_btn.pressed.emit()
+        await frames(1)
+        check("点下三角：翻到第 2 页、还是这句话、出上三角", typer.page == 1 and ui.line_label.text == line_before and typer.up_btn.visible)
+        typer.up_btn.pressed.emit()
+        await frames(1)
+        check("点上三角：翻回第 1 页", typer.page == 0)
+        for k in 10:
+            if typer.down_btn.visible:
+                typer.down_btn.pressed.emit()
+                await frames(1)
+        check("翻到最后一页：没有下三角（页 %d / %d）" % [typer.page + 1, typer.pages.size()], typer.page == typer.pages.size() - 1 and not typer.down_btn.visible)
+        check("每页最多 2 行", typer.pages.all(func(pg): return (pg as String).count("\n") <= 1))
+        check("三角能点的范围 ≥ 44×44（%s）" % typer.down_btn.size, typer.down_btn.size.x >= 44.0 and typer.down_btn.size.y >= 44.0)
         typer.instant = true
         ui.close_talk()
         await frames(60)

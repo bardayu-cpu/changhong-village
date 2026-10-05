@@ -409,7 +409,7 @@ func run() -> void:
     for l in bad5:
         print("    ", l)
     check("迎宾院、草坪、湖边、果园：临时挂 .dialogue 的 NPC 点他 → 走过去 → 开同一个对话框 → 走完能走；点地面照旧走路（%d 处有问题）" % bad5.size(), bad5.is_empty())
-    print("6 翻页：点一下先出完这一页、有下一页先翻页、最后一页才出选项（05 回执新规矩）")
+    print("6 翻页：一页最多 2 行，点一下先出完这一页；翻页点右边上下三角、点框不翻也不跳句；最后一页才出选项（05 回执新规矩；阿鱼 10/5 改成三角手动翻，05 改这一节）")
     var long_txt := "这一句特别特别长，长到一页根本放不下：奶奶从早上起来就一直在忙，先去厨房看了看汤，又去后院摘了些青菜，回来还要把喜糖一颗一颗装进小袋子里，装完了再把桌上的茶杯摆整齐，你说累不累呀，不过今天高兴，累也值得。"
     var res6 = dm.create_resource_from_text("~ start\n奶奶: " + long_txt + "\n- 好\n\t奶奶: 好嘞\n- 不好\n\t奶奶: 行吧\n=> END")
     var typer = ui.talk_box.get_node_or_null("typer")
@@ -425,7 +425,7 @@ func run() -> void:
     ui._dm_next("start")
     for i in 120:
         await process_frame
-        if ui.line_label.text == long_txt and typer.pages.size() >= 1:
+        if ui.line_raw == long_txt and typer.pages.size() >= 1:   # 比原文（屏上那句带“”；05 改）
             break
     await frames(3)
     var issues6: Array = []
@@ -443,12 +443,20 @@ func run() -> void:
     await frames(2)
     if DialogSkin.typing(ui.talk_box) or typer.page != 0:
         issues6.append("第一下点该只是把这一页出完（还在出 %s、页 %d）" % [str(DialogSkin.typing(ui.talk_box)), typer.page])
+    if typer.up_btn.visible or not typer.down_btn.visible:
+        issues6.append("第一页该只有下三角（上 %s、下 %s）" % [typer.up_btn.visible, typer.down_btn.visible])
+    click_box()
+    await frames(2)
+    if typer.page != 0 or ui.line_label.text != line_before:
+        issues6.append("没到最后一页时点框翻页了或跳句了（页 %d）" % typer.page)
+    if typer.pages.any(func(pg): return (pg as String).count("\n") > 1):
+        issues6.append("有一页超过 2 行")
     var flips := 0
     var early_choice := false
     for step in 12:
         if typer.page >= np - 1:
             break
-        click_box()
+        typer.down_btn.pressed.emit()   # 翻页点右边的下三角
         await frames(2)
         flips += 1
         if DialogSkin.typing(ui.talk_box):
@@ -456,6 +464,18 @@ func run() -> void:
             await frames(2)
         if typer.page < np - 1 and (ui.choices.modulate.a > 0.01 or (ui.choices.get_child(0) as Control).mouse_filter == Control.MOUSE_FILTER_STOP):
             early_choice = true
+    if typer.down_btn.visible or (np > 1 and not typer.up_btn.visible):
+        issues6.append("最后一页该只有上三角（上 %s、下 %s）" % [typer.up_btn.visible, typer.down_btn.visible])
+    if np > 1:
+        typer.up_btn.pressed.emit()
+        await frames(2)
+        if typer.page != np - 2:
+            issues6.append("点上三角没翻回上一页（页 %d）" % typer.page)
+        typer.down_btn.pressed.emit()
+        await frames(2)
+        if DialogSkin.typing(ui.talk_box):
+            click_box()
+            await frames(2)
     if typer.page != np - 1:
         issues6.append("点了 %d 次没翻到最后一页（页 %d / %d）" % [flips, typer.page, np])
     if early_choice:
@@ -479,7 +499,7 @@ func run() -> void:
         issues6.append("点了第一个选项回的话不对（%s）" % ui.line_raw)
     ui.close_talk()
     typer.instant = inst_was
-    check("长句分 %d 页：第一下点出完这一页、再点才翻页、翻到最后一页选项才露出来能点、最后一页有选项点框不往下走（%d 处不对 %s）" % [np, issues6.size(), str(issues6)], issues6.is_empty())
+    check("长句分 %d 页（每页 ≤ 2 行）：第一下点出完这一页、点框不翻页、下三角翻页上三角翻回、翻到最后一页选项才露出来能点、最后一页有选项点框不往下走（%d 处不对 %s）" % [np, issues6.size(), str(issues6)], issues6.is_empty())
 
     print("7 点头像或名字牌开身份卡")
     var issues7: Array = []
