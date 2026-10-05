@@ -1761,8 +1761,100 @@ def use_ref_pixels(bg):
         p["x"], p["y"] = x0 + box[0], y0 + box[1]
 
 
+NAMES_CN = {
+    "corner_w": "西北角柜（顶上一盆花；三层：头冠簪花、三个包、两个红首饰箱；下面两扇门）",
+    "corner_e": "东北角柜（同上，头冠、首饰盒、红包）",
+    "dresser": "化妆台（奶白台面金边、左右各两个抽屉、中间放腿；台面摆满化妆品：瓶子、刷筒、眼影盘、口红、粉饼、纸巾盒）",
+    "vase_stand": "化妆台之间的高脚花架（金色细高架、青花瓶、一捧玫瑰）",
+    "stool": "红丝绒圆凳（金边、金流苏、金腿）",
+    "rack_w1": "西 1 排衣架：中式红喜服（秀禾、龙凤褂，上褂下裙、满身金绣；一件白底红绣）",
+    "rack_w2": "西 2 排衣架：旗袍（粉、浅粉、薄荷绿、粉、藏青金绣、淡紫，一身小花）",
+    "rack_w3": "西 3 排衣架：中式彩褂（红、藏青金绣、红褂黑裙、白底彩绣、蓝、白、红）",
+    "rack_w4": "西 4 排衣架：纱裙（粉、杏、白、天蓝、薄荷、淡紫、粉），底下一排鞋",
+    "rack_e1": "东 1 排衣架：白婚纱（大拖尾、蕾丝上身）",
+    "rack_e2": "东 2 排衣架：黑、藏青西装礼服（白衬衫、领结）",
+    "rack_e3": "东 3 排衣架：男式龙凤褂 / 唐装（黑底金龙、红、红底金龙、藏青、白、酒红、白）",
+    "rack_e4": "东 4 排衣架：西装（浅灰、藏青、棕、墨绿、米白），底下一排鞋",
+    "cab_": "红木小柜，上面一个青花瓶插一大捧红粉白玫瑰",
+    "mirror_w_flowers": "落地镜脚边一束花",
+    "mirror_e_flowers": "落地镜脚边一束花",
+    "mirror_": "金框落地镜（顶上雕花冠）",
+    "shoes_w": "鞋柜（三层女鞋：白、红、粉高跟鞋），顶上一个粉包",
+    "shoes_e": "鞋柜（三层男皮鞋：黑、棕），顶上一个红包",
+    "jewel_": "玻璃首饰柜（金框、深红里衬、暖光；三层摆满头冠、红白簪花、耳坠、首饰盒、包、绣花鞋）",
+    "gold_vase": "首饰柜旁的金色高脚花瓶（插一大捧红粉白玫瑰）",
+    "fit_stool": "试衣间红圆凳",
+    "fit_": "试衣间（一排米白折屏、红框金柱；米白帘子系起来、红穗；开口里挂一件衣服）",
+    "lamp_": "宫灯落地灯（六角、暖黄亮、金杆）",
+    "sofa_red": "红丝绒沙发（金雕花框、拉扣靠背、卷扶手、三个靠垫：红金团花、米白红团花、红金团花）",
+    "sofa_cream": "米白沙发（金雕花框、三个靠垫）",
+    "table_w": "金色椭圆茶几（一盆花、点心盘、茶杯）",
+    "table_e": "白大理石圆茶几（一盆花、点心盒、茶杯）",
+    "pouf_w": "红丝绒圆墩（金箍）",
+    "armchair_e": "红丝绒单人椅（金边、卷扶手）",
+    "chest_": "小红箱（贴南墙）",
+    "door_flower": "门口花架（黑漆小柜、金瓶、一大捧玫瑰）",
+}
+
+
+def name_cn(pid):
+    for k in sorted(NAMES_CN, key=len, reverse=True):
+        if pid.startswith(k):
+            return NAMES_CN[k]
+    return pid
+
+
+def export(out, bg):
+    """导给 GPT 照格画细节（01 H 10/5；阿鱼「你把代码都固定好，然后 GPT 照着你的零件画细节……你只要把你的代码的位置说清楚」）：
+    底图、每格零件图都放大 4 倍（最近邻）；位置图 = 整间 4 倍上画出每一格的框和编号；零件表.json 写每格编号、放什么、4 倍下的 x、y、w、h、foot_y"""
+    from PIL import ImageDraw, ImageFont
+    Z = 4
+    os.makedirs(os.path.join(out, "零件参考"), exist_ok=True)
+    bg.im.resize((CW * Z, CH * Z), Image.NEAREST).save(os.path.join(out, "零件参考", "base.png"))
+    rows = [{"编号": 0, "名字": "base", "放什么": "底图：地板（蜜色宽木板）、北墙（米白竖条墙纸、红帷幔两层、红灯笼、宫灯、四面拱形灯泡镜）、"
+             "红毯（回纹金边、金团花）、试衣间圆地毯、沙发区方地毯、门口红地垫、南墙和门、门外走廊石砖。人永远在这些上面走",
+             "文件": "零件参考/base.png", "x": 0, "y": 0, "w": CW * Z, "h": CH * Z, "foot_y": None}]
+    ordered = sorted(PIECES, key=lambda p: (p["foot"], p["x"]))
+    for i, p in enumerate(ordered, 1):
+        f = "零件参考/%02d_%s.png" % (i, p["id"])
+        p["img"].resize((p["img"].width * Z, p["img"].height * Z), Image.NEAREST).save(os.path.join(out, f))
+        rows.append({"编号": i, "名字": p["id"], "放什么": name_cn(p["id"]), "文件": f,
+                     "x": p["x"] * Z, "y": p["y"] * Z, "w": p["img"].width * Z, "h": p["img"].height * Z, "foot_y": p["foot"] * Z})
+        p["_no"] = i
+    room = compose(bg).resize((CW * Z, CH * Z), Image.NEAREST)
+    d = ImageDraw.Draw(room)
+    try:
+        font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 44)
+    except Exception:
+        font = ImageFont.load_default()
+    for p in ordered:
+        x0, y0 = p["x"] * Z, p["y"] * Z
+        x1, y1 = x0 + p["img"].width * Z - 1, y0 + p["img"].height * Z - 1
+        d.rectangle([x0, y0, x1, y1], outline=(0, 230, 255), width=4)
+        d.line([x0, p["foot"] * Z, x1, p["foot"] * Z], fill=(255, 60, 200), width=3)   # 着地线
+        t = str(p["_no"])
+        d.rectangle([x0 + 4, y0 + 4, x0 + 14 + 26 * len(t), y0 + 54], fill=(0, 0, 0))
+        d.text((x0 + 9, y0 + 6), t, fill=(255, 255, 255), font=font)
+    room.convert("RGB").save(os.path.join(out, "位置图.jpg"), quality=88)
+    meta = {"说明": "化妆间代码零件（02 F，10/5，room01 cfa3462 第三稿）。整间画布 540×960，这里全部放大 4 倍（2160×3840）。"
+                    "每一格画一张合适的图：大小跟格子一样（w×h），左上角放在 x、y，底边（东西着地的那条线）落在 foot_y；透明底，"
+                    "透明只有全透和全不透。零件参考里是 Claude 代码画的那件，只是告诉你这一格放什么，样子你照效果图画得精细好看。"
+                    "位置图：每一格一个蓝框和编号，粉线是着地线。",
+            "画布": {"w": CW, "h": CH, "放大": Z}, "效果图": "苏七镇奇缘-claude 总文件/docs/参考图/化妆间效果图-GPT-阿鱼10-05.png",
+            "零件": rows}
+    with open(os.path.join(out, "零件表.json"), "w", encoding="utf-8") as fh:
+        json.dump(meta, fh, ensure_ascii=False, indent=1)
+    print("导出 %d 格（+ 底图）→ %s" % (len(ordered), out))
+
+
 def main():
     preview = sys.argv[sys.argv.index("--preview") + 1] if "--preview" in sys.argv else None
+    if "--export" in sys.argv:
+        bg = background()
+        build_all()
+        floor_shadows(bg)
+        export(sys.argv[sys.argv.index("--export") + 1], bg)
+        return
     use_ref = "--ref" in sys.argv
     bg = background()
     build_all()
