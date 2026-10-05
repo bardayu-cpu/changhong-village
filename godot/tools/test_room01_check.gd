@@ -588,7 +588,10 @@ func run() -> void:
     print("    各点最宽那条路的最窄处（米）：", aisle_rows)
     for x in aisle_bad + unreach:
         print("    ", x)
-    check("从出生点走到 %d 个站点 / 凳子前 / 换装点：都走得到（%d 个走不到）、最宽那条路的最窄处 %.2f 米（要 ≥ 1.5）、不够的 %d 条" % [targets.size(), unreach.size(), aisle_min_all, aisle_bad.size()], unreach.is_empty() and aisle_bad.is_empty())
+    # 已知、先带着（庄Z1 10/5 夜转 Z4 定：过道 0.75 米先不挪家具、布局不动）：原来要求 ≥ 1.5 米，GPT 整间版（含 1.25 倍）最宽那条路的最窄处只有约 0.75 米；
+    # 现在只守「不比 0.75 更窄」（KNOWN_AISLE_M，留 0.05 的量法误差），将来挪了家具、过道宽了，把这个数往上改回 1.5
+    const KNOWN_AISLE_M := 0.7
+    check("从出生点走到 %d 个站点 / 凳子前 / 换装点：都走得到（%d 个走不到）、最宽那条路的最窄处 %.2f 米（已知约 0.75，先带着：只守不比 %.2f 更窄；原要求 ≥ 1.5，%d 条没到）" % [targets.size(), unreach.size(), aisle_min_all, KNOWN_AISLE_M, aisle_bad.size()], unreach.is_empty() and aisle_min_all >= KNOWN_AISLE_M)
     # 首饰中岛两边的道直着穿一趟
     var island_ok := true
     var island_note := ""

@@ -61,14 +61,16 @@ func run() -> void:
     await snap("1-进门第一眼")
     n += 1
     # 2 走到最里（北边化妆台前）、3 站在首饰柜后（红毯中间）、4 沙发旁
-    var spots := {"2-走到最里化妆台前": Vector2(260, 190), "3-红毯中间首饰柜旁": Vector2(290, 480), "4-试衣间前": Vector2(138, 725), "5-沙发区": Vector2(250, 800)}
+    var kx: float = float(r.cfg["size"][0]) / 540.0   # 化妆间 1.25 倍：675×1200，机位按 540×960 那版 × 1.25
+    var ky: float = float(r.cfg["size"][1]) / 960.0
+    var spots := {"2-走到最里化妆台前": Vector2(260 * kx, 190 * ky), "3-红毯中间首饰柜旁": Vector2(290 * kx, 480 * ky), "4-试衣间前": Vector2(138 * kx, 725 * ky), "5-沙发区": Vector2(250 * kx, 800 * ky), "6-走到最左": Vector2(36 * kx, 640 * ky), "7-走到最右": Vector2(504 * kx, 640 * ky)}
     for k in spots:
         r.reset_to(spots[k])
         r.cam.reset_smoothing()
         await snap(k)
         n += 1
     # 6 跟新娘 / 化妆师 / 助理说话（对话框开着，镜头上抬）
-    for pr in [["bride", "6-跟新娘说话"], ["makeup_1", "7-跟化妆师说话"], ["makeup_2", "8-跟化妆助理说话"]]:
+    for pr in [["bride", "8-跟新娘说话"], ["makeup_1", "9-跟化妆师说话"], ["makeup_2", "10-跟化妆助理说话"]]:
         await enter_room()
         r.reset_to(r.SPAWN)
         m.lounge_ui.open_talk(pr[0])

@@ -157,7 +157,15 @@ func run() -> void:
                 no_arrow_exit.append("%s「%s」" % [k, t])
     for x in bad_pos + bad_arrow_label + no_arrow_exit:
         print("    ", x)
-    check("十四块带箭头的路牌共 %d 块（迎宾院「大门」合进「去停车场」后是 51）；「去…」「回…」「楼门」「大门」牌都带箭头（没带的 %d 块）" % [total_arrow, no_arrow_exit.size()], total_arrow == 51 and no_arrow_exit.is_empty())
+    # 10/5 化妆间单独成屋合进来：化妆间那间屋里多一块「回后厅 ↓」，路牌总数 51 → 52（别的 15 块一共 51，化妆间 1 块）
+    var mk_n := 0
+    var other_n := 0
+    for rw in rows:
+        if rw[0] == "makeup":
+            mk_n += 1
+        else:
+            other_n += 1
+    check("带箭头的路牌共 %d 块：别的场景 %d 块（迎宾院「大门」合进「去停车场」后是 51）+ 化妆间 %d 块（「回后厅 ↓」）；「去…」「回…」「楼门」「大门」牌都带箭头（没带的 %d 块）" % [total_arrow, other_n, mk_n, no_arrow_exit.size()], other_n == 51 and mk_n == 1 and no_arrow_exit.is_empty())
     check("往上、往左的箭头在字前，往右、往下的在字后，每块牌一个箭头（%d 处不对）" % (bad_pos.size() + bad_arrow_label.size()), bad_pos.is_empty() and bad_arrow_label.is_empty())
     var h = m.hall
     var hall_arrow := 0

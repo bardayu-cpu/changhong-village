@@ -71,22 +71,46 @@ func run() -> void:
         await frames(10)
         var limit0: int = b.cam.limit_bottom
         for pair in [["mahjong", "elder_n", "大爷"], ["lounge", "lounge_09", "奶奶"], ["makeup", "bride", "新娘"]]:
+            # 10/5 03：化妆间 10/4 起是单独一间屋（areas["makeup"]，自己一块画布），新娘不在后厅那几份人里了：到化妆间那块画布里找人、量镜头
+            var cv = b
             var lf = life_by(b, pair[0])
+            var want_state := "backhall"
+            if pair[0] == "makeup":
+                m.ensure_canvas("makeup")
+                cv = m.areas["makeup"]
+                lf = cv.lives[0] if not cv.lives.is_empty() else null
+                want_state = "makeup"
+            if m.state != want_state:
+                if ui.is_open():
+                    ui.hide_all()
+                m.switching = false
+                m._show_canvas(want_state)
+                m._goto(want_state)
+                await frames(10)
+                cv.walking_enabled = true
             if lf == null or not lf.people.has(pair[1]):
                 check("%s：找得到" % pair[2], false)
                 continue
-            await open_talk(b, ui, lf, pair[1])
+            var lim0: int = cv.cam.limit_bottom
+            await open_talk(cv, ui, lf, pair[1])
             check("%s：对话框开了" % pair[2], ui.talk_box.visible)
             var top: float = ui.talk_box.get_global_rect().position.y
-            var xf: Transform2D = b.get_global_transform_with_canvas()
+            var xf: Transform2D = cv.get_global_transform_with_canvas()
             var p: Dictionary = lf.people[pair[1]]
             var who_y := maxf((xf * (p["foot"] as Vector2)).y, (xf * (p.get("head", p["foot"]) as Vector2)).y)
-            var me_y := (xf * (b.pos as Vector2)).y
+            var me_y := (xf * (cv.pos as Vector2)).y
             check("%s：说话的人露在框上面（脚 %.0f < 框上沿 %.0f）" % [pair[2], who_y, top], who_y < top)
             check("%s：玩家露在框上面（脚 %.0f < 框上沿 %.0f）" % [pair[2], me_y, top], me_y < top)
             ui.close_talk()
             await frames(90)
-            check("%s：关上以后镜头放回原位（偏移 %.1f、下沿 %d）" % [pair[2], b.cam.offset.y, b.cam.limit_bottom], is_zero_approx(b.cam.offset.y) and b.cam.limit_bottom == limit0)
+            check("%s：关上以后镜头放回原位（偏移 %.1f、下沿 %d）" % [pair[2], cv.cam.offset.y, cv.cam.limit_bottom], is_zero_approx(cv.cam.offset.y) and cv.cam.limit_bottom == lim0)
+        # 回后厅继续下面的分页测试
+        if m.state != "backhall":
+            m.switching = false
+            m._show_canvas("backhall")
+            m._goto("backhall")
+            await frames(10)
+            b.walking_enabled = true
         # 分页：打字开着，点一下先出完、再点翻页
         var mj = life_by(b, "mahjong")
         await open_talk(b, ui, mj, "elder_n")
