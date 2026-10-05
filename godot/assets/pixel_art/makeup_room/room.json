@@ -1,6 +1,6 @@
 {
  "note": "tools/import_makeup_blocks.py 照 GPT 交付.json 出，别手改。底图铺地上；每件零件左上角在 x/y，着地线 foot（跟人排前后）；fg_ 的 foot 很大（永远在人前面）；hide 藏掉同名的占地灰盒（挡人照旧）",
- "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_gpt_142cixeb",
+ "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_gpt_16db4bxu",
  "background": {
   "png": "res://assets/pixel_art/makeup_room/room.png",
   "x": 0,
