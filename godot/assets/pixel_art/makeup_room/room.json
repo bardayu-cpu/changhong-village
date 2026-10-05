@@ -1,6 +1,6 @@
 {
  "note": "tools/import_makeup_blocks.py 照 GPT 交付.json 出，别手改。底图铺地上；每件零件左上角在 x/y，着地线 foot（跟人排前后）；fg_ 的 foot 很大（永远在人前面）；hide 藏掉同名的占地灰盒（挡人照旧）",
- "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_ref_t_00icvi",
+ "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_ref_2py_utlo",
  "background": {
   "png": "res://assets/pixel_art/makeup_room/room.png",
   "x": 0,
@@ -146,7 +146,7 @@
   {
    "id": "px_rack_w1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w1.png",
-   "x": 12,
+   "x": 13,
    "y": 151,
    "foot": 270,
    "hide": [
@@ -166,7 +166,7 @@
   {
    "id": "px_rack_w3",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w3.png",
-   "x": 15,
+   "x": 13,
    "y": 373,
    "foot": 479,
    "hide": [
@@ -237,7 +237,7 @@
    "id": "px_mirror_w",
    "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_w.png",
    "x": 151,
-   "y": 283,
+   "y": 281,
    "foot": 388,
    "hide": [
     "mirror_w"
@@ -287,7 +287,7 @@
    "id": "px_mirror_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_mirror_e.png",
    "x": 360,
-   "y": 280,
+   "y": 278,
    "foot": 383,
    "hide": [
     "mirror_e"
@@ -476,7 +476,7 @@
   {
    "id": "px_lamp_w",
    "png": "res://assets/pixel_art/makeup_room/props/blk_lamp_w.png",
-   "x": 18,
+   "x": 14,
    "y": 706,
    "foot": 770,
    "hide": [
@@ -486,7 +486,7 @@
   {
    "id": "px_lamp_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_lamp_e.png",
-   "x": 509,
+   "x": 505,
    "y": 704,
    "foot": 768,
    "hide": [
@@ -496,8 +496,8 @@
   {
    "id": "px_sofa_red",
    "png": "res://assets/pixel_art/makeup_room/props/blk_sofa_red.png",
-   "x": 32,
-   "y": 719,
+   "x": 30,
+   "y": 722,
    "foot": 797,
    "hide": [
     "sofa_red"
@@ -506,8 +506,8 @@
   {
    "id": "px_sofa_cream",
    "png": "res://assets/pixel_art/makeup_room/props/blk_sofa_cream.png",
-   "x": 381,
-   "y": 723,
+   "x": 379,
+   "y": 726,
    "foot": 797,
    "hide": [
     "sofa_cream"
@@ -537,7 +537,7 @@
    "id": "px_table_w",
    "png": "res://assets/pixel_art/makeup_room/props/blk_table_w.png",
    "x": 59,
-   "y": 784,
+   "y": 778,
    "foot": 831,
    "hide": [
     "table_w"
@@ -547,7 +547,7 @@
    "id": "px_table_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_table_e.png",
    "x": 405,
-   "y": 801,
+   "y": 795,
    "foot": 839,
    "hide": [
     "table_e"
@@ -567,7 +567,7 @@
    "id": "px_armchair_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_armchair_e.png",
    "x": 470,
-   "y": 781,
+   "y": 780,
    "foot": 842,
    "hide": [
     "armchair_e"
