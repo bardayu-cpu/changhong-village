@@ -92,7 +92,7 @@ func run() -> void:
         await open_talk(b, ui, mj, "elder_n")
         var typer = ui.talk_box.get_node("typer")
         typer.instant = false
-        ui.line_label.text = "你会不会打麻将？我们这桌三缺一，你要是会就来坐一会儿，输了算我的。你阿鱼小时候在这桌上看我们打牌，看着看着就学会了，后来过年回来都要跟我们来两圈，手气比我还好。"
+        ui.line_label.text = "今天这天气真好，早上还有点凉，到中午就暖和了。等下开席有红烧肉、清蒸鱼，还有一锅老鸭汤，听说炖了一上午，你待会儿多吃点，别光顾着拍照。"
         await frames(2)
         check("长句分了页（%d 页）" % typer.pages.size(), typer.pages.size() >= 2)
         check("一开始在打字", DialogSkin.typing(ui.talk_box))
