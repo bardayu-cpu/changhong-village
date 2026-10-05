@@ -322,6 +322,11 @@ func run() -> void:
     life.frozen = false
     for id in life.bubbles.keys():
         life._hide_bubble(id)
+    for lf0 in b.lives:   # 同屏最多两个冒泡（阿鱼 10/4 新规矩）：别的屋（麻将室、化妆间）自己冒着的泡不会收，休息间就没位置冒；这份只管休息间，别的先冻住、泡收掉
+        if lf0 != life:
+            lf0.frozen = true
+            for id0 in lf0.bubbles.keys():
+                lf0._hide_bubble(id0)
     var f: Font = b.font
     var bad_glyph: Array = []
     var max_per_group := 0
