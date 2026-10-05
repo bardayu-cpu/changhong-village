@@ -74,3 +74,5 @@ const DEBUG_TEXT := Color("#9CFF9C")    # 调试按钮、55 桌信息的绿字
 const DEBUG_GAME := Color("#7ee08a")    # 小游戏调试行
 const DEBUG_BG := Color(0, 0, 0, 0.55)  # 调试按钮底
 const DEBUG_PANEL := Color(0, 0, 0, 0.7)
+const OLD_RING_WHITE := Color("#f4f1ea")  # 迎宾院拍照对焦的白圈（跟相纸底一个色）
+const FLASH := Color(1, 1, 1, 0)          # 快门一闪（白，平时全透明）

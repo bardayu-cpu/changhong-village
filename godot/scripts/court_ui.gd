@@ -22,10 +22,11 @@ const BLESS_MAX := 30
 const PAGE_BLESS := 2
 const PAGE_CONFIRM := 3
 const CANDY_SECS := 2.5
-const RED_ERR := Color("#E8746A")
-const MUTED := Color("#b1a6ba")
-const GOLD1 := Color("#f4d97a")
-const PAPER := Color("#efe6d8")
+const UI = preload("res://scripts/ui/ui_kit.gd")   # 界面颜色、字号都从这里取（公共·界面组件，罗-1）
+const RED_ERR := UI.OLD_ERR   # 旧主题，罗-2 换掉
+const MUTED := UI.OLD_MUTED
+const GOLD1 := UI.OLD_GOLD1
+const PAPER := UI.OLD_PAPER
 
 var m                      # main.gd
 var font: Font
@@ -191,7 +192,7 @@ func _panel(width := 460.0) -> Array:
     root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     root.visible = false
     var dim := ColorRect.new()
-    dim.color = Color(0.06, 0.03, 0.06, 0.55)
+    dim.color = UI.DIM
     dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     root.add_child(dim)
     var cc := CenterContainer.new()
@@ -229,9 +230,9 @@ func _btn_secondary(text: String, cb: Callable) -> Button:
     b.add_theme_color_override("font_color", MUTED)
     b.add_theme_color_override("font_hover_color", PAPER)
     b.add_theme_color_override("font_pressed_color", PAPER)
-    b.add_theme_stylebox_override("normal", m._sb(Color(0.106, 0.078, 0.133, 0.5), MUTED, 1, 6, 10))
-    b.add_theme_stylebox_override("hover", m._sb(Color(0.106, 0.078, 0.133, 0.5), PAPER, 1, 6, 10))
-    b.add_theme_stylebox_override("pressed", m._sb(Color(0.106, 0.078, 0.133, 0.6), PAPER, 1, 6, 10))
+    b.add_theme_stylebox_override("normal", m._sb(UI.OLD_PANEL_HALF, MUTED, 1, 6, 10))
+    b.add_theme_stylebox_override("hover", m._sb(UI.OLD_PANEL_HALF, PAPER, 1, 6, 10))
+    b.add_theme_stylebox_override("pressed", m._sb(UI.OLD_PANEL_PRESSED, PAPER, 1, 6, 10))
     b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
     return b
 
@@ -543,7 +544,7 @@ func _build_candy() -> void:
     dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     for st in ["normal", "hover", "pressed", "focus"]:
         var sb := StyleBoxFlat.new()
-        sb.bg_color = Color(0.06, 0.03, 0.06, 0.35)
+        sb.bg_color = UI.DIM_LIGHT
         dim.add_theme_stylebox_override(st, sb)
     dim.pressed.connect(func(): candy_root.visible = false)
     candy_root.add_child(dim)
@@ -609,12 +610,12 @@ func _build_photo() -> void:
     shoot.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     for st in ["normal", "hover", "pressed", "focus"]:
         var sb := StyleBoxFlat.new()
-        sb.bg_color = Color(0.03, 0.02, 0.04, 0.35)
+        sb.bg_color = UI.DIM_DARK
         shoot.add_theme_stylebox_override(st, sb)
     shoot.pressed.connect(_shutter)
     focus_root.add_child(shoot)
-    ring_a = _ring(Color("#f4d97a"))
-    ring_b = _ring(Color("#f4f1ea"))
+    ring_a = _ring(GOLD1)
+    ring_b = _ring(UI.OLD_RING_WHITE)
     focus_root.add_child(ring_a)
     focus_root.add_child(ring_b)
     # C1（体验第一轮，阿鱼 9/23 加派）：「两个圈对上的时候点一下」原来是没底板的光字，压在场景上看不清。
@@ -627,7 +628,7 @@ func _build_photo() -> void:
     focus_hint_panel.offset_bottom = -220
     focus_hint_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var hint_sb := StyleBoxFlat.new()
-    hint_sb.bg_color = Color(0.106, 0.078, 0.133, 0.94)
+    hint_sb.bg_color = UI.OLD_PANEL
     hint_sb.border_color = GOLD1
     hint_sb.set_border_width_all(2)
     hint_sb.set_corner_radius_all(6)
@@ -671,7 +672,7 @@ func _build_photo() -> void:
     pv2.add_child(_row([_grow(rt), _grow(kp)]))
     # 快门一闪
     flash = ColorRect.new()
-    flash.color = Color(1, 1, 1, 0)
+    flash.color = UI.FLASH
     flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(flash)

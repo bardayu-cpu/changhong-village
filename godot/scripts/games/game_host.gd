@@ -32,11 +32,12 @@ const STATUS_ICON := 56.0
 ## 没过也给一点（体验评审第 12 条，阿鱼 9/20 定要给）。**新写，等阿鱼定**：
 ## 话要说清是安慰的，别让人以为过关了
 const LINE_CONSOLE := "没过 也给你 %d 金 辛苦了"
-const WINE := Color("#2a1418")
-const GOLD := Color("#d4af37")
-const GOLD1 := Color("#f4d97a")
-const PAPER := Color("#efe6d8")
-const MUTED := Color("#b1a6ba")
+const UI = preload("res://scripts/ui/ui_kit.gd")   # 界面颜色、字号都从这里取（公共·界面组件，罗-1）
+const WINE := UI.OLD_WINE     # 旧主题，罗-2 换掉
+const GOLD := UI.OLD_GOLD
+const GOLD1 := UI.OLD_GOLD1
+const PAPER := UI.OLD_PAPER
+const MUTED := UI.OLD_MUTED
 
 var save                      # game_save.gd
 var font: Font
@@ -82,7 +83,7 @@ func open(p_game_id: String, p_table_id: String, p_save, p_font: Font, p_debug :
     mouse_filter = Control.MOUSE_FILTER_STOP
     var shade := ColorRect.new()
     # 换皮时整屏垫深酒红（GPT 边框中间是空的，照预览图那样底子是深的）；不换皮照旧半透明黑，看得见后面的厅
-    shade.color = WINE if skin else Color(0, 0, 0, 0.55)
+    shade.color = WINE if skin else UI.DIM_GAME
     shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     add_child(shade)
     panel = Panel.new()
@@ -411,7 +412,7 @@ func _card(head: String, lines: Array, btns: Array, foot := "") -> void:
     card = Panel.new()
     _sync_quit()
     var sb := StyleBoxFlat.new()
-    sb.bg_color = Color("#6e1e1e")
+    sb.bg_color = UI.OLD_GAME_CARD
     sb.border_color = GOLD
     sb.set_border_width_all(2)
     sb.set_corner_radius_all(8)
@@ -436,7 +437,7 @@ func _card(head: String, lines: Array, btns: Array, foot := "") -> void:
         l.custom_minimum_size = Vector2(w - pad.x * 2.0, 0)
         box.add_child(l)
     if foot != "":
-        var f := _label(foot, 24, Color("#6a5a4a") if paper else MUTED)
+        var f := _label(foot, 24, UI.OLD_MENU_FOOT if paper else MUTED)
         f.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         f.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
         f.custom_minimum_size = Vector2(w - pad.x * 2.0, 0)
@@ -494,7 +495,7 @@ func _open_book() -> void:
         book.queue_free()
     book = Panel.new()
     var sb := StyleBoxFlat.new()
-    sb.bg_color = Color("#efe6d8")
+    sb.bg_color = UI.OLD_MENU_PAPER
     sb.border_color = GOLD
     sb.set_border_width_all(3)
     sb.set_corner_radius_all(8)
@@ -509,7 +510,7 @@ func _open_book() -> void:
     list.custom_minimum_size = Vector2(scroll.size.x - 12, 0)
     list.add_theme_constant_override("separation", 10)
     scroll.add_child(list)
-    var head := _label("菜单册", 36, Color("#6e1e1e"))
+    var head := _label("菜单册", 36, UI.OLD_GAME_CARD)
     head.position = Vector2(16, 8)
     book.add_child(head)
     var close_b := _button("合上", func(): book.queue_free())
@@ -521,12 +522,12 @@ func _open_book() -> void:
         var open_d: bool = save.dishes.has(i)
         var d: Dictionary = ds[i]
         var l := _label(("%d. %s" % [i + 1, str(d.get("name", ""))]) if open_d else ("%d. ？？？（连连看第 %d 关解锁）" % [i + 1, i + 1]),
-            24, Color("#2c1f1c") if open_d else Color("#8a7a66"))
+            24, UI.OLD_MENU_INK if open_d else UI.OLD_MENU_DIM)
         l.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
         l.custom_minimum_size = Vector2(list.custom_minimum_size.x, 0)
         list.add_child(l)
         if open_d:
-            var n := _label("　" + str(d.get("note", "")), 24, Color("#5a4a3a"))
+            var n := _label("　" + str(d.get("note", "")), 24, UI.OLD_MENU_NOTE)
             n.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
             n.custom_minimum_size = Vector2(list.custom_minimum_size.x, 0)
             list.add_child(n)
@@ -536,7 +537,7 @@ func _open_book() -> void:
 func _debug_row() -> void:
     var row := HBoxContainer.new()
     row.add_theme_constant_override("separation", 8)
-    dbg_l = _label("", 24, Color("#7ee08a"))
+    dbg_l = _label("", 24, UI.DEBUG_GAME)
     dbg_l.custom_minimum_size = Vector2(150, 0)
     row.add_child(dbg_l)
     for spec in [["难−", func(): _set_k(k - 0.1)], ["难+", func(): _set_k(k + 0.1)],

@@ -10,10 +10,11 @@ signal panel_changed(open: bool)   # 面板开、关：main 据此让人停下�
 
 const Menu = preload("res://scripts/banquet_menu.gd")
 const GameCfg = preload("res://scripts/games/game_config.gd")
-const GOLD := Color("#d4af37")
-const GOLD1 := Color("#f4d97a")
-const PAPER := Color("#efe6d8")
-const MUTED := Color("#b1a6ba")
+const UI = preload("res://scripts/ui/ui_kit.gd")   # 界面颜色、字号都从这里取（公共·界面组件，罗-1）
+const GOLD := UI.OLD_GOLD     # 旧主题，罗-2 换掉
+const GOLD1 := UI.OLD_GOLD1
+const PAPER := UI.OLD_PAPER
+const MUTED := UI.OLD_MUTED
 
 var m                        # main.gd
 var font: Font
@@ -57,8 +58,8 @@ func _build_chip() -> void:
 
 func _sb() -> StyleBoxFlat:
     var s := StyleBoxFlat.new()
-    s.bg_color = Color(0.08, 0.06, 0.1, 0.78)
-    s.border_color = Color(GOLD, 0.5)
+    s.bg_color = UI.OLD_CHIP
+    s.border_color = UI.OLD_CHIP_EDGE
     s.set_border_width_all(1)
     s.set_corner_radius_all(10)
     s.content_margin_left = 14
@@ -76,7 +77,7 @@ func _build_panel() -> void:
     dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     for st in ["normal", "hover", "pressed", "focus"]:
         var d := StyleBoxFlat.new()
-        d.bg_color = Color(0.06, 0.03, 0.06, 0.55)
+        d.bg_color = UI.DIM
         dim.add_theme_stylebox_override(st, d)
     dim.pressed.connect(close)
     root.add_child(dim)
