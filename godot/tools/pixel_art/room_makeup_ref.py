@@ -201,6 +201,39 @@ def draw_wall(L):
 
 
 def draw_curtain(L):
+    draw_curtain_layer(L, R(25) + 2, 46, 15, 0, back=True)
+    draw_curtain_layer(L, R(25), 34, 11, 17, back=False)
+
+
+def draw_curtain_layer(L, y0, span, depth, off, back):
+    x0, x1 = R(27), R(913)
+    for a in range(x0 - off, x1, span):
+        b = min(a + span, x1)
+        for x in range(max(a, x0), b):
+            t = (x - a + 0.5) / float(span)
+            sag = math.sin(math.pi * t)
+            yb = y0 + 5 + depth * sag
+            for y in range(y0 + 5, int(yb) + 1):
+                band = (y - y0 - 5 - 3 * sag)
+                lv = 2 if back else 3
+                if 0 <= band < 1 or 4 <= band < 5 or 8 <= band < 9:
+                    lv -= 1
+                if 1 <= band < 2 and 0.2 < t < 0.8:
+                    lv += 1
+                L.p(x, y, rname("rd", lv))
+            L.p(x, int(yb) + 1, "rd1" if not back else "rd0")
+        if not back and x0 <= a < x1:
+            L.ell(a - 2, y0 + 3, a + 3, y0 + 8, "gd3")
+            L.p(a, y0 + 4, "gd4")
+            for y in range(y0 + 8, y0 + 16):
+                L.p(a, y, "gd2")
+                L.p(a + (1 if y > y0 + 12 else 0), y, "gd3")
+    L.rect(x0, y0 - 2 if not back else y0, x1, y0 + 5, "rd2")
+    L.hl(x0, x1, y0 + 4, "gd3")
+    L.hl(x0, x1, y0 + 2, "gd2")
+
+
+def draw_curtain_old(L):
     """北墙上沿红帷幔：一道横楣（金边）+ 一排垂弧，每个弧里几道褶"""
     x0, x1 = R(27), R(913)
     y0 = R(25)
@@ -292,8 +325,9 @@ def arch_mirror(L, cx, top, bot, hw):
     for (bx, by) in pts:
         bx, by = int(round(bx)), int(round(by))
         if by < bot - 1:
-            L.ell(bx - 1, by - 1, bx + 2, by + 2, "gd4")
-            L.p(bx, by, "wt")
+            L.ell(bx - 2, by - 2, bx + 3, by + 3, "gd4")
+            L.rect(bx - 1, by - 1, bx + 2, by + 2, "wt")
+            L.p(bx + 1, by + 1, "gd4")
 
 
 def rug(L, x0, y0, x1, y1, ellipse=False, seed=1):
@@ -336,13 +370,13 @@ def runner(L, x0, y0, x1, y1):
             for r in range(7):
                 row = KEY[6 - r] if flip else KEY[r]
                 if row[(x - x0) % 8] == "1":
-                    L.p(x, by + r, "gd2")
+                    L.p(x, by + r, "gd3")
     for (bx, flip) in ((x0 + 2, False), (x1 - 9, True)):
         for y in range(y0 + 9, y1 - 9):
             for c in range(7):
                 row = KEY[6 - c] if flip else KEY[c]
                 if row[(y - y0) % 8] == "1":
-                    L.p(bx + c, y, "gd2")
+                    L.p(bx + c, y, "gd3")
     L.rect(x0 + bw + 1, y0 + bw + 1, x1 - bw - 1, y1 - bw - 1, "rd3")
     L.ring(x0 + bw, y0 + bw, x1 - bw, y1 - bw, "rd2") if False else None
     for x in range(x0 + bw, x1 - bw):
@@ -359,6 +393,7 @@ def runner(L, x0, y0, x1, y1):
             px_, py_ = cx + math.cos(a) * 9, y + math.sin(a) * 9
             L.ell(px_ - 4, py_ - 4, px_ + 5, py_ + 5, "gd2")
             L.ell(px_ - 2, py_ - 2, px_ + 3, py_ + 3, "gd3")
+            L.p(int(px_), int(py_), "gd4")
         L.ell(cx - 6, y - 6, cx + 7, y + 7, "gd2")
         L.ell(cx - 4, y - 4, cx + 5, y + 5, "rd3")
         L.ell(cx - 2, y - 2, cx + 3, y + 3, "gd4")
@@ -401,8 +436,10 @@ def background():
     draw_curtain(L)
     glow = mk.ShadeMap()
     for cx in (226, 388, 551, 715):   # 镜子一圈灯泡把墙照亮（暖光，挪档）
-        glow.ellipse(R(cx), R(125), R(78), R(70), 1.0, edge=3)
-        glow.ellipse(R(cx), R(125), R(60), R(55), 1.0, edge=3)
+        glow.ellipse(R(cx), R(122), R(80), R(72), 1.0, edge=3)
+        glow.ellipse(R(cx), R(122), R(62), R(58), 1.0, edge=3)
+    for cx in (280, 452, 488, 660, 150, 790):          # 灯笼、宫灯照墙
+        glow.ellipse(R(cx), R(80), R(26), R(30), 1.0, edge=2)
     glow.apply(L, clip=lambda x, y: R(25) < y < R(205) - 6 and RAMP_WALL(L.g(x, y)))
     for cx in (226, 388, 551, 715):
         arch_mirror(L, R(cx), R(75), R(170), R(46))
@@ -450,7 +487,7 @@ def corner_cabinet(name, x0, x1, top, foot, seed):
     L = L0()
     sh = top + R(55)   # 柜身从这起（上面摆花）
     L.rect(x0, sh, x1, foot - 2, "rd1")
-    L.rect(x0 + 2, sh + 2, x1 - 2, foot - 16, "wd1")
+    L.rect(x0 + 2, sh + 2, x1 - 2, foot - 16, "rd1")
     L.vl(x0, sh, foot - 2, "rd3")
     L.vl(x1 - 1, sh, foot - 2, "rd0")
     L.rect(x0 - 1, sh - 3, x1 + 1, sh + 1, "gd2")
@@ -460,13 +497,11 @@ def corner_cabinet(name, x0, x1, top, foot, seed):
         L.rect(x0 + 2, y - 2, x1 - 2, y, "rd2")
         L.hl(x0 + 2, x1 - 2, y - 2, "gd2")
     rnd = random.Random(seed)
-    # 第一层：头冠、发簪
+    # 第一层：头冠、簪花
     y = rows[1] - 3
-    for k in range(3):
-        cx = x0 + 9 + k * ((x1 - x0 - 18) // 2)
-        L.poly([(cx - 5, y), (cx - 4, y - 6), (cx - 2, y - 3), (cx, y - 8), (cx + 2, y - 3), (cx + 4, y - 6), (cx + 5, y)], "gd3")
-        L.p(cx, y - 4, "rd4")
-        L.p(cx - 3, y - 2, "pk2")
+    crown_big(L, (x0 + x1) // 2, y, (x1 - x0) // 2)
+    hairpin(L, x0 + 7, y, "rd")
+    hairpin(L, x1 - 8, y, "wt")
     # 第二层：三个包
     y = rows[2] - 3
     for k, col in enumerate(("pk", "wl4", "wl5")):
@@ -595,8 +630,8 @@ def vase_stand(name, cx, top, foot):
     L.vl(cx - 2, top + 26, foot - 2, "gd4")
     L.rect(cx - 4, foot - 3, cx + 5, foot, "gd1")
     L.rect(cx - 4, top + 24, cx + 5, top + 27, "gd3")
-    porcelain(L, cx, top + 12, top + 24, 4)
-    bouquet(L, cx, top + 7, 8, 7, cx)
+    porcelain(L, cx, top + 12, top + 24, 5)
+    bouquet(L, cx, top + 5, 11, 9, cx)
     add(name, L, foot, [cx - 4, foot - 4, cx + 5, foot])
 
 
@@ -608,8 +643,10 @@ def rack(name, x0, x1, top, foot, garments, seed, shoes=False):
     bar = top + 9
     # 背板
     L.rect(x0 + 3, top + 4, x1 - 3, foot - base_h, "rd0")
-    L.rect(x0 + 5, top + 6, x1 - 5, foot - base_h, "wd0")
-    L.hl(x0 + 5, x1 - 5, top + 6, "rd1")
+    L.rect(x0 + 5, top + 6, x1 - 5, foot - base_h, "rd1")
+    L.hl(x0 + 5, x1 - 5, top + 6, "rd2")
+    for x in range(x0 + 8, x1 - 6, 6):
+        L.vl(x, top + 7, foot - base_h, "rd0")
     # 衣服
     n = len(garments)
     step = (x1 - x0 - 22) / float(max(1, n - 1))
@@ -635,12 +672,18 @@ def rack(name, x0, x1, top, foot, garments, seed, shoes=False):
     # 架子：横杆、两根金柱
     L.rect(x0 + 2, bar - 1, x1 - 2, bar + 1, "gd2")
     L.hl(x0 + 2, x1 - 2, bar - 1, "gd4")
+    for x in range(x0 + 6, x1 - 4, 11):
+        L.p(x, bar - 1, "wt")
     for px in (x0 + 1, x1 - 4):
         L.rect(px, top + 4, px + 3, foot - 1, "gd2")
         L.vl(px, top + 4, foot - 1, "gd4")
         L.vl(px + 2, top + 4, foot - 1, "gd1")
-        L.ell(px - 1, top - 1, px + 4, top + 5, "gd3")
-        L.p(px, top, "gd4")
+        for y in range(top + 12, foot - 6, 14):   # 金柱上一道道箍
+            L.hl(px - 1, px + 4, y, "gd3")
+            L.p(px, y, "wt")
+        L.ell(px - 2, top - 2, px + 5, top + 5, "gd3")
+        L.p(px, top - 1, "wt")
+        L.p(px + 1, top, "gd4")
     # 底座抽屉
     cabinet(L, x0 + 1, x1 - 1, foot - base_h - 2, foot - base_h, foot, ramp="rd", lv=2, doors=max(2, (x1 - x0) // 34))
     add(name, L, foot, [x0, foot - base_h, x1, foot])
@@ -660,6 +703,159 @@ def qipao(ramp, lv, motif):
 
 
 G = mk.G
+
+
+def _motif(L, x, y, col, hi):
+    """一朵小金绣（十字五格 + 中心亮）"""
+    for (dx, dy) in ((0, -1), (-1, 0), (1, 0), (0, 1)):
+        L.p(x + dx, y + dy, col)
+    L.p(x, y, hi)
+
+
+def _fill(L, pts, base, ramp_l, ramp_r, cx, hw):
+    """一块布：左边亮、右边暗（光从左上），中间本色"""
+    for (x, y) in pts:
+        u = (x - cx) / float(max(1, hw))
+        L.p(x, y, ramp_l if u < -0.55 else (ramp_r if u > 0.5 else base))
+
+
+def xiuhe2(white=False, seed=0):
+    """喜服（秀禾 / 龙凤褂，女）：上褂（宽袖、对襟金边）+ 下面长裙；大块金绣：褂子两襟各一团、裙中间一竖排、下摆一圈金。
+    白的那款是白底红绣"""
+    def fn(L, cx, ty, ln):
+        rnd = random.Random(seed * 13 + cx)
+        mk.hanger(L, cx, ty)
+        base, lit, dark = ("wt", "wt", "sv1") if white else ("rd3", "rd4", "rd2")
+        gold, gold_hi = ("rd3", "rd4") if white else ("gd3", "gd4")
+        jl = int(ln * 0.42)
+        hw = 9
+        # 下裙（先画，褂子压在上面）
+        sk = mk.poly_px([(cx - 7, ty + jl - 4), (cx + 7, ty + jl - 4), (cx + hw, ty + ln), (cx - hw, ty + ln)])
+        _fill(L, sk, base, lit, dark, cx, hw)
+        # 裙：中间一竖条满金绣（棋盘点 + 一朵朵）、两边各一竖金边、下摆一道宽金边，两角一团金
+        for y in range(ty + jl, ty + ln - 3):
+            for x in range(cx - 3, cx + 4):
+                if (x + y) % 2 == 0:
+                    L.p(x, y, gold)
+            if (y - ty) % 7 == 0:
+                _motif(L, cx, y, gold, gold_hi)
+        L.vl(cx - 4, ty + jl, ty + ln - 3, gold_hi if not white else gold)
+        L.vl(cx + 4, ty + jl, ty + ln - 3, gold)
+        L.rect(cx - hw, ty + ln - 4, cx + hw + 1, ty + ln, gold)
+        L.hl(cx - hw, cx + hw + 1, ty + ln - 4, gold_hi)
+        for d in (-1, 1):
+            _motif(L, cx + d * (hw - 3), ty + ln - 8, gold, gold_hi)
+        # 上褂：宽袖
+        jk = mk.poly_px([(cx - 4, ty), (cx + 4, ty), (cx + hw + 4, ty + 4), (cx + hw + 5, ty + jl - 6), (cx + hw, ty + jl - 6),
+                         (cx + hw - 1, ty + jl), (cx - hw + 1, ty + jl), (cx - hw, ty + jl - 6), (cx - hw - 5, ty + jl - 6), (cx - hw - 4, ty + 4)])
+        _fill(L, jk, base, lit, dark, cx, hw + 4)
+        # 金边：对襟、下摆、袖口
+        L.vl(cx, ty + 2, ty + jl, gold)
+        L.line(cx - 3, ty, cx, ty + 6, gold)
+        L.line(cx + 3, ty, cx, ty + 6, gold)
+        L.hl(cx - hw + 1, cx + hw, ty + jl - 1, gold)
+        for d in (-1, 1):
+            L.rect(cx + d * (hw + 4) - (1 if d > 0 else 0), ty + 6, cx + d * (hw + 4) + (1 if d < 0 else 0) + 1, ty + jl - 6, gold)
+            # 两襟各一大块金绣（棋盘金点铺满，中间一朵亮的）
+            for y in range(ty + 7, ty + jl - 2):
+                for x in range(cx + d * 2, cx + d * 7, d):
+                    if (x + y) % 2 == 0:
+                        L.p(x, y, gold)
+            mx, my = cx + d * 5, ty + jl // 2
+            _motif(L, mx, my, gold_hi, "wt" if not white else gold_hi)
+    return {"kind": "fn", "ln": 90, "fn": fn}
+
+
+def ball_gown2(ramp="wh", lv=2, hw=12, sleeve=False, sash=None, lace=True):
+    """婚纱、纱裙：蕾丝贴身上衣（心形领、细带）、收腰、裙摆撑开；裙上竖褶（暗一档）、下面 40% 一层蕾丝（暗点）、下摆一圈花边"""
+    def fn(L, cx, ty, ln):
+        mk.hanger(L, cx, ty)
+        lo, mid, hi = mk.rn(ramp, lv - 1), mk.rn(ramp, lv), mk.rn(ramp, lv + 1)
+        bl = int(ln * 0.28)
+        wy = ty + bl
+        pts = [(cx - 4, wy)]
+        for k in range(1, 11):
+            t = k / 10.0
+            pts.append((cx - 4 - (hw - 4) * (1 - (1 - t) ** 2.4), wy + (ln - bl) * t))
+        pts += [(2 * cx - x_, y_) for (x_, y_) in reversed(pts)]
+        S = mk.poly_px(pts)
+        rows = mk.rows_of(S)
+        for (x, y) in S:
+            a, b = rows[y]
+            w = max(1, b - a)
+            u = (x - a) / float(w)
+            c = hi if u < 0.3 else (lo if u > 0.78 else mid)
+            # 竖褶：裙下面三分之二，几道竖的暗线（跟着裙摆往外散一点）
+            sx = cx + (x - cx) * 8.0 / max(8.0, (y - wy) * 0.5 + 8)
+            if y > wy + (ln - bl) * 0.3 and int(round(sx)) % 4 == 0:
+                c = lo
+            # 蕾丝：下摆一圈宽带，暗点花纹
+            if lace and y > ty + ln - (ln - bl) * 0.28 and ((x + y) % 3 == 0 or (x - y) % 5 == 0):
+                c = lo if c != lo else mid
+            L.p(x, y, c)
+        for x in range(int(cx - hw), int(cx + hw) + 1):   # 下摆花边：一排小扇贝
+            if x % 3 == 1:
+                L.p(x, ty + ln, mid)
+        # 上衣
+        bod = mk.poly_px([(cx - 4, ty + 3), (cx - 1, ty + 5), (cx, ty + 4), (cx + 1, ty + 5), (cx + 4, ty + 3), (cx + 4, wy), (cx - 4, wy)])
+        for (x, y) in bod:
+            L.p(x, y, hi if x < cx - 1 else (lo if x > cx + 2 else mid))
+            if (x + y) % 3 == 0 and lace:
+                L.p(x, y, lo)
+        for d in (-1, 1):
+            L.vl(cx + d * 3, ty, ty + 3, lo)
+            if sleeve:
+                L.rect(cx + d * 4 - (1 if d < 0 else 0), ty + 3, cx + d * 4 + (2 if d > 0 else 1), ty + 7, hi)
+        L.hl(cx - 4, cx + 5, wy, sash or lo)
+        if sash:
+            L.p(cx + 2, wy + 1, sash)
+            L.p(cx + 3, wy + 2, sash)
+    return {"kind": "fn", "ln": 96, "fn": fn}
+
+
+def dragon_robe(ramp, lv, seed=0, gold_ramp=("gd3", "gd4"), white=False):
+    """男式龙凤褂 / 唐装：立领长袍、宽袖；身上一条金龙（S 形一道粗金线、龙头一团、几朵祥云）"""
+    def fn(L, cx, ty, ln):
+        mk.hanger(L, cx, ty)
+        hw = 9
+        lo, mid, hi = mk.rn(ramp, lv - 1), mk.rn(ramp, lv), mk.rn(ramp, lv + 1)
+        S = mk.poly_px([(cx - 4, ty), (cx + 4, ty), (cx + hw + 4, ty + 4), (cx + hw + 5, ty + 28), (cx + hw, ty + 28),
+                        (cx + hw, ty + ln), (cx - hw, ty + ln), (cx - hw, ty + 28), (cx - hw - 5, ty + 28), (cx - hw - 4, ty + 4)])
+        _fill(L, S, mid, hi, lo, cx, hw + 4)
+        g, gh = gold_ramp
+        L.rect(cx - 2, ty, cx + 3, ty + 3, g)            # 立领
+        L.vl(cx + 1, ty + 3, ty + ln, lo)
+        L.hl(cx - hw, cx + hw + 1, ty + ln - 2, g)
+        for d in (-1, 1):
+            L.vl(cx + d * (hw + 4), ty + 6, ty + 28, g)   # 袖口
+        # 金龙：S 形
+        pts = []
+        for k in range(28):
+            t = k / 27.0
+            pts.append((cx + math.sin(t * 5.2 + seed) * (hw - 3), ty + 12 + t * (ln - 22)))
+        for (x, y) in pts:
+            L.rect(int(x), int(y), int(x) + 2, int(y) + 2, g)
+            L.p(int(x), int(y), gh)
+        hx, hy = pts[0]
+        L.ell(int(hx) - 3, int(hy) - 3, int(hx) + 4, int(hy) + 3, g)
+        L.p(int(hx), int(hy) - 1, gh)
+        L.p(int(hx) + 2, int(hy) - 1, "rd4")
+        rnd = random.Random(seed)
+        for _ in range(3):
+            _motif(L, cx + rnd.randint(-hw + 2, hw - 2), ty + rnd.randint(12, ln - 6), g, gh)
+    return {"kind": "fn", "ln": 90, "fn": fn}
+
+
+def qipao2(ramp, lv, motif, seed=0):
+    """旗袍：照后厅那款画，再点一身小花（几格）"""
+    def fn(L, cx, ty, ln):
+        mk.garment_qipao(L, cx, ty, ramp, lv, length=ln, motif=motif)
+        rnd = random.Random(seed + cx)
+        for _ in range(7):
+            x, y = cx + rnd.randint(-5, 5), ty + rnd.randint(10, ln - 6)
+            if L.g(x, y)[3] and L.g(x, y) != C["ol"]:
+                _motif(L, x, y, motif, "wt")
+    return {"kind": "fn", "ln": 84, "fn": fn}
 
 
 def ball_gown(ramp, lv, hw=12, lace=True, sleeve=False, sash=None):
@@ -707,7 +903,7 @@ def cab_vase(name, x0, x1, top, foot, seed, flowers=True):
     hw = max(4, (x1 - x0) // 5)
     porcelain(L, cx, ctop - 12, ctop, hw)
     if flowers:
-        bouquet(L, cx, ctop - 17, max(7, (x1 - x0) // 2 - 2), 8, seed)
+        bouquet(L, cx, ctop - 19, max(10, (x1 - x0) // 2 + 2), 11, seed)
     add(name, L, foot, [x0, foot - 8, x1, foot])
 
 
@@ -768,15 +964,53 @@ def shoe_cabinet(name, x0, x1, top, foot, seed, men=False):
     add(name, L, foot, [x0, foot - 8, x1, foot])
 
 
+def crown_big(L, cx, yb, w):
+    """大头冠：一圈金、五个尖、中间红宝石，几格白亮点"""
+    hw = w // 2
+    pts = [(cx - hw, yb)]
+    for k in range(5):
+        x = cx - hw + (k + 0.5) * w / 5.0
+        h = [6, 9, 12, 9, 6][k]
+        pts += [(x - w / 10.0, yb - h * 0.45), (x, yb - h)]
+    pts += [(cx + hw, yb - 3), (cx + hw, yb)]
+    L.poly(pts, "gd3")
+    L.rect(cx - hw, yb - 3, cx + hw + 1, yb, "gd2")
+    L.hl(cx - hw, cx + hw + 1, yb - 3, "gd4")
+    L.ell(cx - 2, yb - 9, cx + 3, yb - 4, "rd3")
+    L.p(cx - 1, yb - 8, "rd5")
+    for d in (-hw + 3, hw - 3):
+        L.ell(cx + d - 1, yb - 6, cx + d + 2, yb - 3, "rd4")
+    for (dx, dy) in ((-hw // 2, -6), (hw // 2, -6), (0, -12)):
+        L.p(cx + dx, yb + dy, "wt")
+    for x in range(cx - hw + 1, cx + hw, 3):
+        L.p(x, yb - 2, "pk2")
+
+
+def hairpin(L, cx, yb, col):
+    """簪花：一朵圆花（红 / 白 / 粉）、金心，下面一根金簪、一串金穗"""
+    ramp = {"rd": ("rd2", "rd3", "rd4"), "wt": ("sv1", "sv2", "wt"), "pk": ("pk0", "pk", "pk2")}[col]
+    fy = yb - 13
+    L.ell(cx - 4, fy - 4, cx + 5, fy + 5, ramp[0])
+    L.ell(cx - 3, fy - 3, cx + 4, fy + 4, ramp[1])
+    for (dx, dy) in ((-2, -2), (2, -2), (-2, 2), (2, 2)):
+        L.p(cx + dx, fy + dy, ramp[2])
+    L.p(cx - 1, fy - 2, "wt")
+    L.ell(cx - 1, fy - 1, cx + 2, fy + 2, "gd4")
+    L.vl(cx, fy + 3, yb, "gd2")
+    L.vl(cx + 2, fy + 3, yb - 2, "gd3")
+    L.p(cx + 2, yb - 2, "rd4")
+
+
 def jewel_case(name, x0, x1, top, foot, contents):
     """玻璃首饰柜：金框、深红木里衬、三层玻璃格摆头冠首饰包鞋；底下一层抽屉"""
     L = L0()
     base = foot - 13
     L.rect(x0, top, x1, base, "gd2")
-    L.rect(x0 + 3, top + 3, x1 - 3, base - 2, "wd2")
-    for y in range(top + 3, base - 2):
-        if (y - top) % 9 == 0:
-            L.hl(x0 + 3, x1 - 3, y, "wd1")
+    L.rect(x0 + 3, top + 3, x1 - 3, base - 2, "rd1")
+    L.rect(x0 + 3, top + 3, x1 - 3, top + 5, "rd0")
+    glow = mk.ShadeMap()
+    glow.ellipse((x0 + x1) // 2, (top + base) // 2, (x1 - x0) // 2 - 4, (base - top) // 2 - 2, 1.0, edge=3)
+    glow.apply(L, clip=lambda x, y: x0 + 3 <= x < x1 - 3 and top + 3 <= y < base - 2)
     L.hl(x0, x1, top, "gd4")
     L.vl(x0, top, base, "gd4")
     L.vl(x1 - 1, top, base, "gd1")
@@ -785,13 +1019,25 @@ def jewel_case(name, x0, x1, top, foot, contents):
         y1 = int(top + 3 + (r + 1) * h)
         if r < 2:
             L.rect(x0 + 3, y1 - 2, x1 - 3, y1, "gd1")
-            L.hl(x0 + 3, x1 - 3, y1 - 2, "gd3")
+            L.hl(x0 + 3, x1 - 3, y1 - 2, "gd4")
+            for x in range(x0 + 6, x1 - 4, 9):
+                L.p(x, y1 - 2, "wt")
         items = contents[r]
-        n = len(items)
+        wts = [2.2 if it == "crown" else 1.0 for it in items]
+        tot = sum(wts)
+        acc = 0.0
         for k, it in enumerate(items):
-            cx = int(x0 + 3 + (k + 0.5) * (x1 - x0 - 6) / float(n))
+            cx = int(x0 + 3 + (acc + wts[k] / 2.0) * (x1 - x0 - 6) / tot)
+            acc += wts[k]
             yb = y1 - 3
             if it == "crown":
+                crown_big(L, cx, yb, int(wts[k] * (x1 - x0 - 6) / tot) - 4)
+                continue
+            if it in ("pin", "pinw", "pinp"):
+                for j, dx in enumerate((-4, 3)):
+                    hairpin(L, cx + dx, yb - (j % 2) * 2, {"pin": "rd", "pinw": "wt", "pinp": "pk"}[it] if j == 0 else "rd")
+                continue
+            if it == "crown_old":
                 L.poly([(cx - 9, yb), (cx - 8, yb - 8), (cx - 4, yb - 4), (cx, yb - 12), (cx + 4, yb - 4), (cx + 8, yb - 8), (cx + 9, yb)], "gd3")
                 L.poly([(cx - 6, yb - 2), (cx, yb - 8), (cx + 6, yb - 2)], "gd4")
                 L.hl(cx - 9, cx + 10, yb - 1, "gd1")
@@ -833,8 +1079,9 @@ def jewel_case(name, x0, x1, top, foot, contents):
                     L.rect(cx + d, yb - 3, cx + d + 3, yb, "wt")
                     L.p(cx + d + 2, yb - 4, "sv2")
         # 玻璃反光：每格左上一道斜亮
-        for y in range(int(top + 4 + r * h), int(top + 4 + r * h) + 6):
-            L.p(x0 + 5 + (y - int(top + 4 + r * h)), y, "bl4")
+        for y in range(int(top + 4 + r * h), int(top + 4 + r * h) + 8):
+            L.p(x0 + 5 + (y - int(top + 4 + r * h)), y, "wt")
+            L.p(x0 + 6 + (y - int(top + 4 + r * h)), y, "bl4")
     cabinet(L, x0 + 2, x1 - 2, base, base + 1, foot, ramp="wd", lv=2, doors=2)
     add(name, L, foot, [x0, foot - R(22), x1, foot])
 
@@ -842,7 +1089,9 @@ def jewel_case(name, x0, x1, top, foot, contents):
 def gold_flower_stand(name, cx, top, foot, seed):
     L = L0()
     gold_vase(L, cx, top + 20, foot, 8)
-    bouquet(L, cx, top + 12, 14, 12, seed)
+    for y in range(top + 22, foot - 2, 4):    # 金瓶高光一道
+        L.p(cx - 3, y, "wt")
+    bouquet(L, cx, top + 11, 16, 13, seed)
     add(name, L, foot, [cx - 6, foot - 5, cx + 7, foot])
 
 
@@ -866,14 +1115,19 @@ def fitting_room(name, x0, x1, top, foot, curtain, opening, hang, flip):
             hang(s, (a + b) // 2, t + 6)
             mk.paste_ol(L, s)
             continue
-        L.rect(a, t, b, foot - 3, "wl5")
-        for xx in range(a + 2, b - 1, 3):
-            L.vl(xx, t + 8, foot - 5, "wl4")
-        L.rect(a, t, b, t + 6, "rd3")
+        L.rect(a, t, b, foot - 3, "rd3")                    # 红框
+        L.rect(a + 3, t + 7, b - 3, foot - 7, "gd2")         # 金线
+        L.rect(a + 4, t + 8, b - 4, foot - 8, "wl5")         # 米白屏面
+        for xx in range(a + 6, b - 5, 3):
+            L.vl(xx, t + 10, foot - 10, "wl4")
+        for yy in range(t + 14, foot - 12, 12):                # 屏面上一朵朵暗花
+            L.p((a + b) // 2, yy, "wl3")
+            L.p((a + b) // 2 - 1, yy + 1, "wl3")
+            L.p((a + b) // 2 + 1, yy + 1, "wl3")
         L.hl(a, b, t, "rd4")
-        L.hl(a, b, t + 5, "gd2")
-        L.vl(b - 1, t, foot - 3, "wl3")
-        L.hl(a, b, foot - 4, "rd3")
+        L.vl(a, t, foot - 3, "rd4")
+        L.vl(b - 1, t, foot - 3, "rd2")
+        L.hl(a, b, foot - 4, "rd2")
     # 帘子（米白，系起来、红穗）
     ca, cb = curtain
     for x in range(ca, cb):
@@ -1016,7 +1270,7 @@ def door_flower(name, x0, x1, top, foot, seed):
     cx = (x0 + x1) // 2
     cabinet(L, x0 + 2, x1 - 2, foot - 16, foot - 14, foot, ramp="ik", lv=1, doors=1)
     gold_vase(L, cx, foot - 26, foot - 16, 6)
-    bouquet(L, cx, foot - 33, (x1 - x0) // 2, 9, seed)
+    bouquet(L, cx, foot - 35, (x1 - x0) // 2 + 3, 12, seed)
     add(name, L, foot, [x0 + 2, foot - 8, x1 - 2, foot])
 
 
@@ -1033,13 +1287,11 @@ def build_all():
     for i, cx in enumerate((222, 388, 551, 716)):
         stool("stool_%d" % (i + 1), R(cx), R(212), R(272))
     # 西边四排
-    red = [xiuhe(), xiuhe(gold=True), xiuhe(), G("set", "rd", 3, 88, hw=7, jl=34, ramp2="rd", lv2=2, trim="gd3", panel="gd3", pat="flower", pc="gd3"),
-           xiuhe(gold=True), xiuhe(), G("robe", "rd", 3, 90, hw=7, sl=26, trim="gd3", collar="gd3", pat="flower", pc="gd3", pc2="gd4"),
-           xiuhe(white=True), xiuhe(gold=True), xiuhe(white=True), xiuhe()]
+    red = [xiuhe2(seed=k, white=(k in (5,))) for k in range(7)]
     rack("rack_w1", R(30), R(275), R(268), R(470), red, 10)
     rack("rack_w2", R(30), R(250), R(480), R(650),
-         [qipao("pk", 1, "pk2"), qipao("pk", 2, "wt"), qipao("mt", 2, "pk"), qipao("pk", 2, "pk0"), qipao("bl", 1, "gd3"), qipao("lv", 2, "lv0")], 20)
-    rack("rack_w3", R(30), R(250), R(655), R(835),
+         [qipao2("pk", 1, "pk2", 1), qipao2("pk", 2, "rd4", 2), qipao2("mt", 2, "pk", 3), qipao2("pk", 2, "pk0", 4), qipao2("bl", 1, "gd3", 5), qipao2("lv", 2, "lv0", 6)], 20)
+    rack("rack_w3", R(30), R(250), R(655), R(835),  # 中式彩褂
          [G("set", "rd", 3, 84, hw=7, jl=30, ramp2="rd", lv2=2, trim="gd3", panel="gd3"),
           G("robe", "bl", 1, 86, hw=7, sl=24, trim="gd3", collar="gd3", pat="flower", pc="gd3", pc2="gd4"),
           G("set", "rd", 3, 84, hw=7, jl=28, ramp2="ik", lv2=1, trim="gd3", pat="flower", pc="gd3"),
@@ -1048,26 +1300,21 @@ def build_all():
           G("set", "wh", 3, 84, hw=7, jl=28, ramp2="wh", lv2=2, trim="rd3", panel="rd3", pat="flower", pc="pk"),
           G("set", "rd", 3, 84, hw=7, jl=30, ramp2="rd", lv2=3, trim="gd3", pat="dots", pc="gd3")], 30)
     rack("rack_w4", R(30), R(232), R(845), R(1025),
-         [ball_gown("pk", 2, 10, sleeve=True, sash="pk0"), ball_gown("wl", 5, 10, sleeve=True, sash="pk"), ball_gown("wh", 2, 10, sash="pk"),
-          ball_gown("bl", 4, 10, sleeve=True, sash="bl2"), ball_gown("mt", 3, 10, sleeve=True, sash="mt0"),
-          ball_gown("lv", 3, 10, sleeve=True, sash="lv0"), ball_gown("pk", 1, 9, sash="pk0")], 40, shoes=True)
+         [ball_gown2("pk", 1, 10, sleeve=True, sash="pk0"), ball_gown2("wl", 4, 10, sleeve=True, sash="pk"), ball_gown2("wh", 1, 10, sash="pk"),
+          ball_gown2("bl", 3, 10, sleeve=True, sash="bl2"), ball_gown2("mt", 2, 10, sleeve=True, sash="mt0"),
+          ball_gown2("lv", 2, 10, sleeve=True, sash="lv0"), ball_gown2("pk", 1, 9, sash="pk0")], 40, shoes=True)
     # 东边四排
     rack("rack_e1", R(660), R(885), R(268), R(470),
-         [ball_gown("wh", 2, 13), ball_gown("wh", 3, 15), ball_gown("wh", 2, 12, sleeve=True), ball_gown("wh", 3, 15),
-          ball_gown("wh", 2, 11), ball_gown("wl", 5, 14), ball_gown("wh", 3, 13, sleeve=True), ball_gown("wh", 2, 10, lace=False)], 50)
+         [ball_gown2("wh", 1, 13), ball_gown2("wh", 2, 16), ball_gown2("wh", 1, 12, sleeve=True), ball_gown2("wh", 2, 16),
+          ball_gown2("wl", 4, 14), ball_gown2("wh", 1, 12, sleeve=True)], 50)
     rack("rack_e2", R(690), R(885), R(480), R(650),
          [G("suit", "ik", 1, 40, hw=8, pants=38, trim="ik0"), G("suit", "ik", 1, 40, hw=8, pants=38, trim="ik0"),
           G("suit", "bl", 1, 40, hw=8, pants=38, trim="ik0"), G("suit", "bl", 1, 40, hw=8, pants=38, trim="ik0"),
           G("suit", "wl", 2, 40, hw=8, pants=38, trim="ik0"), G("suit", "ik", 1, 40, hw=8, pants=38, trim="ik0"),
           G("suit", "wl", 4, 40, hw=8, pants=38, trim="ik0"), G("suit", "bl", 1, 40, hw=8, pants=38, trim="ik0")], 60)
     rack("rack_e3", R(690), R(865), R(655), R(840),
-         [G("robe", "ik", 1, 88, hw=8, sl=26, trim="gd3", collar="gd3", pat="flower", pc="gd3", pc2="gd4"),
-          G("robe", "rd", 3, 88, hw=7, sl=26, trim="gd3", collar="gd3"),
-          G("robe", "rd", 3, 88, hw=8, sl=26, trim="gd3", collar="gd3", pat="flower", pc="gd3", pc2="gd4"),
-          G("robe", "bl", 1, 88, hw=7, sl=24, trim="gd3", collar="gd3", pat="flower", pc="gd3"),
-          G("robe", "wh", 3, 88, hw=7, sl=24, trim="gd3", collar="gd3", pat="flower", pc="gd3"),
-          G("robe", "rd", 1, 88, hw=7, sl=24, trim="gd3", collar="gd3", pat="flower", pc="gd2"),
-          G("robe", "wh", 3, 88, hw=7, sl=24, trim="wl2", collar="wt")], 70)
+         [dragon_robe("ik", 1, 1), dragon_robe("rd", 3, 2), dragon_robe("rd", 3, 3), dragon_robe("bl", 1, 4),
+          dragon_robe("wh", 2, 5, ("rd3", "rd4")), dragon_robe("rd", 1, 6), dragon_robe("wh", 2, 7)], 70)
     rack("rack_e4", R(710), R(885), R(845), R(1030),
          [G("suit", "sv", 1, 40, hw=8, pants=36, trim="rd3"), G("suit", "bl", 1, 40, hw=8, pants=36, trim="rd3"),
           G("suit", "wd", 3, 40, hw=8, pants=36, trim="ik0"), G("suit", "gr", 1, 40, hw=8, pants=36, trim="ik0"),
@@ -1084,9 +1331,9 @@ def build_all():
     shoe_cabinet("shoes_e", R(622), R(692), R(688), R(842), 107, men=True)
     cab_vase("cab_e4", R(642), R(712), R(855), R(1012), 108)
     # 正中三个首饰柜、两边金瓶
-    jewel_case("jewel_1", R(400), R(540), R(418), R(590), [["pin", "crown", "pin", "pin"], ["crown", "pin", "crown"], ["box", "ear", "box", "ear"]])
-    jewel_case("jewel_2", R(400), R(540), R(710), R(900), [["crown", "pin", "crown"], ["pin", "ear", "pin", "pin"], ["box", "box", "ear"]])
-    jewel_case("jewel_3", R(400), R(540), R(1020), R(1200), [["pin", "crown", "pin", "pin"], ["bag", "bag", "wshoes"], ["shoes", "box", "wshoes"]])
+    jewel_case("jewel_1", R(400), R(540), R(418), R(590), [["pinw", "crown", "pin"], ["crown", "pin", "pinw"], ["pin", "ear", "pinp"]])
+    jewel_case("jewel_2", R(400), R(540), R(710), R(900), [["pin", "crown", "pinw"], ["crown", "pinp", "pin"], ["ear", "box", "pin"]])
+    jewel_case("jewel_3", R(400), R(540), R(1020), R(1200), [["pinw", "crown", "pin"], ["bag", "bag", "box"], ["shoes", "wshoes", "shoes"]])
     for k, (yt, yf) in enumerate(((455, 555), (745, 850), (1060, 1160))):
         gold_flower_stand("gold_vase_w%d" % (k + 1), R(376), R(yt), R(yf), 200 + k)
         gold_flower_stand("gold_vase_e%d" % (k + 1), R(564), R(yt), R(yf), 210 + k)

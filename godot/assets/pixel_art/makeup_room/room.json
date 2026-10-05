@@ -1,6 +1,6 @@
 {
  "note": "tools/import_makeup_blocks.py 照 GPT 交付.json 出，别手改。底图铺地上；每件零件左上角在 x/y，着地线 foot（跟人排前后）；fg_ 的 foot 很大（永远在人前面）；hide 藏掉同名的占地灰盒（挡人照旧）",
- "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_ref_i4u9q7k1",
+ "source": "/var/folders/wn/hmlhh9c57xgdd2w99smw40nw0000gn/T/makeup_ref_t_00icvi",
  "background": {
   "png": "res://assets/pixel_art/makeup_room/room.png",
   "x": 0,
@@ -76,8 +76,8 @@
   {
    "id": "px_vase_stand_1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_1.png",
-   "x": 164,
-   "y": 62,
+   "x": 161,
+   "y": 58,
    "foot": 141,
    "hide": [
     "vase_stand_1"
@@ -86,8 +86,8 @@
   {
    "id": "px_vase_stand_2",
    "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_2.png",
-   "x": 258,
-   "y": 62,
+   "x": 255,
+   "y": 58,
    "foot": 141,
    "hide": [
     "vase_stand_2"
@@ -96,8 +96,8 @@
   {
    "id": "px_vase_stand_3",
    "png": "res://assets/pixel_art/makeup_room/props/blk_vase_stand_3.png",
-   "x": 351,
-   "y": 62,
+   "x": 348,
+   "y": 58,
    "foot": 141,
    "hide": [
     "vase_stand_3"
@@ -146,8 +146,8 @@
   {
    "id": "px_rack_w1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w1.png",
-   "x": 13,
-   "y": 152,
+   "x": 12,
+   "y": 151,
    "foot": 270,
    "hide": [
     "rack_w1"
@@ -156,8 +156,8 @@
   {
    "id": "px_rack_w2",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w2.png",
-   "x": 16,
-   "y": 273,
+   "x": 15,
+   "y": 272,
    "foot": 373,
    "hide": [
     "rack_w2"
@@ -166,8 +166,8 @@
   {
    "id": "px_rack_w3",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w3.png",
-   "x": 16,
-   "y": 374,
+   "x": 15,
+   "y": 373,
    "foot": 479,
    "hide": [
     "rack_w3"
@@ -176,8 +176,8 @@
   {
    "id": "px_rack_w4",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_w4.png",
-   "x": 16,
-   "y": 483,
+   "x": 15,
+   "y": 482,
    "foot": 588,
    "hide": [
     "rack_w4"
@@ -187,7 +187,7 @@
    "id": "px_rack_e1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e1.png",
    "x": 375,
-   "y": 152,
+   "y": 151,
    "foot": 270,
    "hide": [
     "rack_e1"
@@ -196,8 +196,8 @@
   {
    "id": "px_rack_e2",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e2.png",
-   "x": 395,
-   "y": 273,
+   "x": 394,
+   "y": 272,
    "foot": 373,
    "hide": [
     "rack_e2"
@@ -206,8 +206,8 @@
   {
    "id": "px_rack_e3",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e3.png",
-   "x": 392,
-   "y": 374,
+   "x": 391,
+   "y": 373,
    "foot": 482,
    "hide": [
     "rack_e3"
@@ -216,8 +216,8 @@
   {
    "id": "px_rack_e4",
    "png": "res://assets/pixel_art/makeup_room/props/blk_rack_e4.png",
-   "x": 406,
-   "y": 483,
+   "x": 405,
+   "y": 482,
    "foot": 591,
    "hide": [
     "rack_e4"
@@ -226,8 +226,8 @@
   {
    "id": "px_cab_w1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_w1.png",
-   "x": 159,
-   "y": 187,
+   "x": 155,
+   "y": 182,
    "foot": 265,
    "hide": [
     "cab_w1"
@@ -266,8 +266,8 @@
   {
    "id": "px_cab_w4",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_w4.png",
-   "x": 131,
-   "y": 513,
+   "x": 128,
+   "y": 508,
    "foot": 581,
    "hide": [
     "cab_w4"
@@ -276,8 +276,8 @@
   {
    "id": "px_cab_e1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_e1.png",
-   "x": 351,
-   "y": 187,
+   "x": 347,
+   "y": 182,
    "foot": 268,
    "hide": [
     "cab_e1"
@@ -316,8 +316,8 @@
   {
    "id": "px_cab_e4",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_e4.png",
-   "x": 366,
-   "y": 507,
+   "x": 362,
+   "y": 502,
    "foot": 581,
    "hide": [
     "cab_e4"
@@ -356,8 +356,8 @@
   {
    "id": "px_gold_vase_w1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w1.png",
-   "x": 198,
-   "y": 257,
+   "x": 196,
+   "y": 255,
    "foot": 318,
    "hide": [
     "gold_vase_w1"
@@ -366,8 +366,8 @@
   {
    "id": "px_gold_vase_e1",
    "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e1.png",
-   "x": 306,
-   "y": 258,
+   "x": 304,
+   "y": 255,
    "foot": 318,
    "hide": [
     "gold_vase_e1"
@@ -376,8 +376,8 @@
   {
    "id": "px_gold_vase_w2",
    "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w2.png",
-   "x": 198,
-   "y": 424,
+   "x": 196,
+   "y": 422,
    "foot": 488,
    "hide": [
     "gold_vase_w2"
@@ -386,8 +386,8 @@
   {
    "id": "px_gold_vase_e2",
    "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e2.png",
-   "x": 306,
-   "y": 424,
+   "x": 304,
+   "y": 422,
    "foot": 488,
    "hide": [
     "gold_vase_e2"
@@ -396,8 +396,8 @@
   {
    "id": "px_gold_vase_w3",
    "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_w3.png",
-   "x": 198,
-   "y": 604,
+   "x": 196,
+   "y": 602,
    "foot": 666,
    "hide": [
     "gold_vase_w3"
@@ -406,8 +406,8 @@
   {
    "id": "px_gold_vase_e3",
    "png": "res://assets/pixel_art/makeup_room/props/blk_gold_vase_e3.png",
-   "x": 306,
-   "y": 604,
+   "x": 304,
+   "y": 602,
    "foot": 666,
    "hide": [
     "gold_vase_e3"
@@ -456,8 +456,8 @@
   {
    "id": "px_cab_fit_w",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_fit_w.png",
-   "x": 14,
-   "y": 638,
+   "x": 10,
+   "y": 633,
    "foot": 699,
    "hide": [
     "cab_fit_w"
@@ -466,8 +466,8 @@
   {
    "id": "px_cab_fit_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_fit_e.png",
-   "x": 493,
-   "y": 644,
+   "x": 489,
+   "y": 639,
    "foot": 705,
    "hide": [
     "cab_fit_e"
@@ -516,8 +516,8 @@
   {
    "id": "px_cab_sofa_w",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_sofa_w.png",
-   "x": 152,
-   "y": 731,
+   "x": 148,
+   "y": 726,
    "foot": 799,
    "hide": [
     "cab_sofa_w"
@@ -526,8 +526,8 @@
   {
    "id": "px_cab_sofa_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_cab_sofa_e.png",
-   "x": 353,
-   "y": 731,
+   "x": 349,
+   "y": 726,
    "foot": 799,
    "hide": [
     "cab_sofa_e"
@@ -596,8 +596,8 @@
   {
    "id": "px_door_flower_w",
    "png": "res://assets/pixel_art/makeup_room/props/blk_door_flower_w.png",
-   "x": 193,
-   "y": 804,
+   "x": 190,
+   "y": 799,
    "foot": 850,
    "hide": [
     "door_flower_w"
@@ -606,8 +606,8 @@
   {
    "id": "px_door_flower_e",
    "png": "res://assets/pixel_art/makeup_room/props/blk_door_flower_e.png",
-   "x": 308,
-   "y": 804,
+   "x": 305,
+   "y": 799,
    "foot": 850,
    "hide": [
     "door_flower_e"
