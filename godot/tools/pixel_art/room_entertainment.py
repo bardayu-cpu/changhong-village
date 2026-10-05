@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
-"""罗曼山庄后厅「娱乐室」（原麻将室）代码画 v1（庄Z4，2026-10-05 晚；场景还原规范 方案一 第 3 步）。
+"""罗曼山庄后厅「娱乐室」（原麻将室）代码画 v2（庄Z4，2026-10-05 晚；场景还原规范 方案一 第 3 步）。
 
-布局照 godot/回执/娱乐室-排法/零件表-草稿.json（阿鱼说 OK）：画布 1080×1560，人 84 高不动，家具按旧比例 ×1.25，
-1 个美术像素 = 1 个画布像素。画法、调色板借后厅麻将室 room_backhall_mahjong.py（import 进来只读，不改它）：
-深褐描边、光从左上、亮暗投影三层、贴地一行接触阴影、硬边（只有全透和不透明）、斜俯视没透视、墙顶画出剖开厚度。
+v1（提交 667cc7f）设计师看过的毛病：整间太空、桌子显得小、手机一屏大半是地板；麻将桌是窄长竖条不像四方桌；阿鱼说布局「稍微有一点少」。
+v2 改的：
+  1. 麻将桌改成四方：桌宽 78、地面前后 36、高 45（桌面 + 正面 78×81 看着方，v1 54 宽是竖条），连四把椅子整组 152 宽；
+     南北方向跟 v1 一样（坐北边的人头不被桌面压住）；牌墙跟着桌面变长（颗粒不变）
+  2. 桌子加多、排密（过道 70～90，多出来的地方留在墙边和门前）：麻将 4 列（中心 x 189、423、657、891），
+     第 1、2 排（着地线 520、748）8 张四川麻将；第 3 排（993）贰柒拾、炸金花、贰柒拾长条桌；第 4 排（1238）炸金花长条桌、
+     能玩的麻将（正对门）、炸金花长条桌。长条桌（阿鱼加的）244×52，两条长边各 3 把椅子
+  3. 墙边装饰、点心桌这回不加（阿鱼：代码版只要逻辑跑通，细节让 GPT 画）；v1 的圆桌炸金花、屋中间两张小几去掉
+  4. 麻将桌牌码法照 v1 那几样轮着用；不画钱、筹码、骰子、红包；不写字
 
-×1.25 怎么落：旧画法里 左右和高 1 米 48、地面前后 1 米 32 → 这里 60 和 40；
-旧家具有原型的（麻将桌、椅子、宫灯、观音竹、发财树、暖水瓶、衣帽架、鸟笼架、落地扇、花几）按旧尺寸 ×1.25 重画（不是放大小图）；
-旧画法里没有原型的（茶水台、茶叶柜、小几、长椅、记分板）照草稿的宽高画。
+照旧：画布 1080×1560，人 84 高不动，家具按旧比例 ×1.25，1 个美术像素 = 1 个画布像素，只许按大一号的尺寸直接画、绝不放大小图；
+画法、调色板借后厅麻将室 room_backhall_mahjong.py（import 进来只读，不改它）：深褐描边、光从左上、亮暗投影三层、贴地一行接触阴影、
+硬边（只有全透和不透明）、斜俯视没透视、墙顶画出剖开厚度。
+位置只从 godot/回执/娱乐室-排法/零件表-v2.json 取（每组中心 cx、着地线 foot_y）；那份里的 x/y/w/h 是整组实际画出来的框，脚本出图前核对，
+摆法、画法一改对不上就报错（改完用 --fill-plan 把新框写回去）。
 
-用法：python3 godot/tools/pixel_art/room_entertainment.py
-  出到 godot/回执/娱乐室-排法/代码画-v1/：room.png、props/*.png、room.json、preview.png、preview_x2.png、
-  phone_1_进门.png、phone_2_第一排.png、check_坐人.png（坐几个 NPC 看椅子朝向、遮挡，放大 2 倍）
+用法：python3 godot/tools/pixel_art/room_entertainment.py [--fill-plan]
+  出到 godot/回执/娱乐室-排法/代码画-v2/：room.png、props/*.png、room.json、preview.png、preview_x2.png、
+  phone_1_进门.png、phone_2_第一排.png、preview_坐满.png（每个坐点坐上宾客、玩家那把空着，另加站着看牌 6、端茶 2、小孩 3、长椅 4）
 """
 import json
 import math
@@ -27,8 +35,8 @@ import room_backhall_mahjong as MJ    # 只借调色板和画法小工具，不�
 
 REPO = MJ.REPO
 GODOT = os.path.join(REPO, "godot")
-DRAFT = os.path.join(GODOT, "回执", "娱乐室-排法", "零件表-草稿.json")
-OUT = os.path.join(GODOT, "回执", "娱乐室-排法", "代码画-v1")
+PLAN = os.path.join(GODOT, "回执", "娱乐室-排法", "零件表-v2.json")
+OUT = os.path.join(GODOT, "回执", "娱乐室-排法", "代码画-v2")
 CHAR_DIR = MJ.CHAR_DIR
 
 C, shift, rname, RAMP_OF = MJ.C, MJ.shift, MJ.rname, MJ.RAMP_OF
@@ -743,9 +751,12 @@ def table_frame(L, rect, top_col=None):
 MJ_VAR = {
     "mahjong_1": dict(walls=(0.55, 1.0, 1.0, 0.6), hands="nwes", cups=("nw", "se"), gap=None),
     "mahjong_2": dict(walls=(1.0, 1.0, 1.0, 1.0), hands="nwes", cups=("ne", "sw"), gap=None),
-    "mahjong_3": dict(walls=(1.0, 0.7, 0.5, 1.0), hands="nwe", cups=("nw", "ne"), gap="n"),
+    "mahjong_3": dict(walls=(1.0, 0.7, 0.5, 1.0), hands="nwes", cups=("nw", "ne"), gap="n"),
     "mahjong_4": dict(walls=(0.4, 0.85, 1.0, 0.35), hands="nwes", cups=("sw", "se"), gap="s"),
-    "mahjong_5": dict(walls=(0.85, 1.0, 0.6, 0.9), hands="wes", cups=("ne",), gap=None),
+    "mahjong_5": dict(walls=(0.85, 1.0, 0.6, 0.9), hands="nwes", cups=("ne",), gap=None),
+    "mahjong_6": dict(walls=(0.3, 0.6, 0.8, 0.5), hands="nwes", cups=("nw", "sw", "se"), gap=None),
+    "mahjong_7": dict(walls=(1.0, 0.9, 1.0, 1.0), hands="nwes", cups=("se",), gap="s"),
+    "mahjong_8": dict(walls=(0.7, 0.5, 0.9, 0.6), hands="nwes", cups=("nw", "ne"), gap="n"),
     "mahjong_play": dict(walls=(1.0, 1.0, 1.0, 1.0), hands="nwe", cups=("nw", "ne", "sw", "se"), gap=None),
 }
 
@@ -862,41 +873,45 @@ def er27_card(L, x, y, vert=True):
     L.p(x, y, "wt")
 
 
-def prop_er27_table(name, rect, seed=0):
-    """贰柒拾桌（四川长牌，只画不能玩）：红木方桌（跟麻将桌同一个木架子）、藏青桌布、
-    桌上散着窄长的字牌（只画米白的长条，不写任何字）：中间一叠牌堆、四家面前各一把扇开的、几张随手搁着的。不画钱"""
+LONG_W, LONG_D = 244, 52     # v2 长条桌：长 244、地面前后 52、高 45；两条长边各 3 把椅子（x 偏 −80、0、+80）
+LONG_SEATS = (-80, 0, 80)
+
+
+def prop_er27_long(rect, seed=0):
+    """贰柒拾长条桌（四川长牌，只画不能玩；v2 阿鱼加的「长条形」）：红木长方桌（同麻将桌的木架子）、藏青桌布一圈金点，
+    北边三家、南边三家面前各一把扇开的窄长字牌（只画米白长条，不写字），中间两叠牌堆、几张随手搁的，两三只盖碗。不画钱"""
     x0, yf0, x1, yf1 = rect
     L = sub(x0 - 3, yf0 - TABLE_H - 14, x1 + 3, yf1 + 2)
     fx0, fy0, fx1, fy1 = table_frame(L, rect, ("bl0", "bl1", "bl2"))
-    for x in range(fx0 + 2, fx1 - 1, 4):                   # 桌布一圈金线小点
+    for x in range(fx0 + 2, fx1 - 1, 4):
         L.p(x, fy0 + 2, "gd2")
         L.p(x, fy1 - 2, "gd2")
     L.outline()
     s = sub(fx0 - 4, fy0 - 4, fx1 + 4, fy1 + 4)
     cx, cy = (fx0 + fx1) // 2, (fy0 + fy1) // 2
-    for k in range(3):                                      # 牌堆（横着摞，错开一像素）
-        er27_card(s, cx - 5 + k, cy - 2 - k, vert=False)
-    rnd = random.Random(seed)
-    fans = {"n": [(cx - 9 + k * 4, fy0 - 2 - (k % 2)) for k in range(5)],
-            "s": [(cx - 9 + k * 4, fy1 - 7 + (k % 2)) for k in range(5)]}
-    for pts in fans.values():
-        for (x, y) in pts:
-            er27_card(s, x, y, vert=True)
-    for k in range(4):                                      # 西家、东家：横着一把
-        er27_card(s, fx0 - 2 + (k % 2), fy0 + 5 + k * 4, vert=False)
-        er27_card(s, fx1 - 7 - (k % 2), fy0 + 6 + k * 4, vert=False)
-    loose = [(cx + 7, cy + 1, "v"), (cx - 14, cy + 2, "h"), (cx + 2, cy - 8, "h"), (cx - 3, cy + 4, "v"),
-             (cx + 11, cy - 7, "v")]
-    rnd.shuffle(loose)
-    for (x, y, k) in loose[: 3 + seed % 2]:
-        er27_card(s, x, y, k == "v")
+    rnd = random.Random(seed * 7 + 1)
+    for k, dx in enumerate(LONG_SEATS):
+        nn = 5 - ((k + seed) % 2)
+        for j in range(nn):
+            er27_card(s, cx + dx - 9 + j * 4, fy0 - 2 - (j % 2), vert=True)
+        ns = 4 + ((k + seed) % 2)
+        for j in range(ns):
+            er27_card(s, cx + dx - 8 + j * 4, fy1 - 7 + (j % 2), vert=True)
+    for px in (cx - 40, cx + 40):
+        for j in range(3):
+            er27_card(s, px - 5 + j, cy - 2 - j, vert=False)
+    for _ in range(5 + seed):
+        x = cx + rnd.randrange(-105, 100)
+        if abs(x - cx + 40) < 10 or abs(x - cx - 40) < 10:
+            x += 16
+        er27_card(s, x, cy + rnd.randrange(-6, 4), rnd.random() < 0.5)
     s.outline()
     L.paste(s)
-    # 一只盖碗（东北角桌沿）
-    ty0 = yf0 - TABLE_H
-    c = sub(x1 - 12, ty0 - 5, x1 + 2, ty0 + 9)
-    gaiwan(c, x1 - 11, ty0 - 3)
-    paste_ol(L, c)
+    ty0, ty1 = yf0 - TABLE_H, yf1 - TABLE_H
+    for (gx, gy) in ((cx - 42, ty0 - 3), (cx + 38, ty1 - 8)) if seed == 0 else ((cx + 38, ty0 - 3), (cx - 42, ty1 - 8), (x1 - 12, ty0 - 3)):
+        c = sub(gx - 1, gy - 2, gx + 13, gy + 11)
+        gaiwan(c, gx, gy)
+        paste_ol(L, c)
     lift_wood(L)
     return L, yf1
 
@@ -909,67 +924,30 @@ def card_back(L, x, y, w=5, h=6):
         L.rect(x + 1, y + 1, x + w - 2, y + h - 2, "bl2")
 
 
-def prop_poker_table(rect):
-    """炸金花圆桌（只画不能玩）：红木圆桌、红桌布垂一圈（褶子一明一暗、金边）；六家面前各三张扣着的牌背、中间一叠，
-    两只盖碗。只画牌背（白边蓝底），不画牌面、钱、筹码、骰子"""
+def prop_poker_long(rect, seed=0):
+    """炸金花长条桌（只画不能玩；v2 换掉原来那张圆桌）：红木长方桌、红桌布一圈金点；
+    北边三家、南边三家面前各三张扣着的牌背（白边蓝底），中间一叠，两三只盖碗。只画牌背，不画牌面、钱、筹码、骰子"""
     x0, yf0, x1, yf1 = rect
-    cx = (x0 + x1) // 2
-    L = sub(x0 - 3, yf0 - TABLE_H - 12, x1 + 3, yf1 + 2)
-    ty0, ty1 = yf0 - TABLE_H, yf1 - TABLE_H
-    rx, ry = (x1 - x0) / 2.0, (yf1 - yf0) / 2.0
-    tcy = (ty0 + ty1) / 2.0
-    # 腿（桌布下面露出来四条，前两条亮、后两条暗）
-    for (lx, yb, col) in ((cx - 22, yf0 + 12, "wd1"), (cx + 19, yf0 + 12, "wd1")):
-        L.rect(lx, ty1, lx + 4, yb, col)
-    for (lx, yb) in ((cx - 30, yf1 - 10), (cx + 26, yf1 - 10)):
-        L.rect(lx, ty1, lx + 5, yb, "wd2")
-        L.vl(lx, ty1, yb, "wd3")
-        L.vl(lx + 4, ty1, yb, "wd1")
-        L.rect(lx - 1, yb - 2, lx + 6, yb, "wd2")
-        L.hl(lx - 1, lx + 6, yb - 2, "wd3")
-
-    def ey(x):          # 桌面椭圆在 x 处的下沿
-        d = (x + 0.5 - cx) / rx
-        return tcy + ry * math.sqrt(max(0.0, 1 - d * d))
-
-    # 垂下来的桌布：下沿 10 行，褶子一明一暗，金边
-    for x in range(x0, x1):
-        yb = ey(x)
-        fold = (x - x0) % 7
-        col = "rd3" if fold < 4 else "rd2"
-        for y in range(int(yb) - 2, int(yb) + 10):
-            L.p(x, y, col)
-        L.p(x, int(yb) + 10, "gd2" if fold != 6 else "gd1")
-        L.p(x, int(yb) + 9, "gd3" if fold < 4 else "gd2")
-    # 桌面（红布），一圈金线、左上亮
-    L.ell(x0, ty0, x1, ty1, "rd3")
-    L.ell(x0 + 1, ty0 + 1, x1 - 1, ty1 - 1, "rd3")
-    L.ring(x0, ty0, x1, ty1, "rd4", only=lambda x, y: x < cx + 6 and y < tcy + 4)
-    L.ring(x0 + 4, ty0 + 3, x1 - 4, ty1 - 3, "gd2")
-    for k in range(18):
-        a = k * math.pi / 9
-        L.p(cx + math.cos(a) * (rx - 8), tcy + math.sin(a) * (ry - 6), "gd3")
+    L = sub(x0 - 3, yf0 - TABLE_H - 14, x1 + 3, yf1 + 2)
+    fx0, fy0, fx1, fy1 = table_frame(L, rect, ("rd1", "rd2", "rd3"))
+    for x in range(fx0 + 2, fx1 - 1, 4):
+        L.p(x, fy0 + 2, "gd2")
+        L.p(x, fy1 - 2, "gd2")
     L.outline()
-    s = sub(x0 - 4, ty0 - 6, x1 + 4, ty1 + 4)
-    icy = int(tcy)
-    card_back(s, cx - 3, icy - 3, 7, 8)                    # 中间一叠（错开一层）+ 散着一张
-    card_back(s, cx - 4, icy - 4, 7, 8)
-    s.hl(cx - 3, cx + 4, icy + 5, "bl0")
-    s.vl(cx + 3, icy - 3, icy + 5, "bl0")
-    card_back(s, cx + 7, icy + 1, 5, 6)
-    seats = [(-16, -1), (16, -1), (-27, 0.15), (27, 0.15), (-16, 1), (16, 1)]
-    for (dx, side) in seats:
-        if abs(dx) > 20:              # 西、东两家：牌扣在桌沿，横着三张
-            bx = cx + (-int(rx) + 4 if dx < 0 else int(rx) - 11)
-            for k in range(3):
-                card_back(s, bx + (1 if k == 1 else 0), icy - 6 + k * 4, 6, 5)
-        else:
-            by = ty0 + 3 if side < 0 else ty1 - 10
-            for k in range(3):
-                card_back(s, cx + dx - 6 + k * 4, by - (1 if k == 1 else 0), 5, 6)
+    s = sub(fx0 - 4, fy0 - 4, fx1 + 4, fy1 + 4)
+    cx, cy = (fx0 + fx1) // 2, (fy0 + fy1) // 2
+    for k, dx in enumerate(LONG_SEATS):
+        for j in range(3):
+            card_back(s, cx + dx - 9 + j * 6, fy0 + 3 - (1 if j == 1 else 0))
+            card_back(s, cx + dx - 9 + j * 6, fy1 - 10 + (1 if j == 1 else 0))
+    card_back(s, cx - 3 + seed * 20, cy - 3, 7, 8)
+    card_back(s, cx - 4 + seed * 20, cy - 4, 7, 8)
+    card_back(s, cx + 10 - seed * 50, cy, 5, 6)
+    card_back(s, cx - 30 + seed * 70, cy - 1, 5, 6)
     s.outline()
     L.paste(s)
-    for (gx, gy) in ((cx - 24, int(tcy) + 2), (cx + 12, int(tcy) - 12)):
+    ty0, ty1 = yf0 - TABLE_H, yf1 - TABLE_H
+    for (gx, gy) in ((cx - 42, ty0 - 3), (cx + 38, ty1 - 8), (x0 - 1, ty1 - 8)) if seed % 2 == 0 else ((cx + 38, ty0 - 3), (cx - 42, ty1 - 8)):
         c = sub(gx - 1, gy - 2, gx + 13, gy + 11)
         gaiwan(c, gx, gy)
         paste_ol(L, c)
@@ -1693,103 +1671,88 @@ def deco_gift_pile(x0, foot, wide=True):
     return L
 
 
-# ================================================================== 摆法（唯一的源）
-DRAFT_ITEMS = {it["名字"]: it for it in json.load(open(DRAFT, encoding="utf-8"))["零件"]}
+# ================================================================== 摆法（唯一的源：零件表-v2.json）
+PLAN_DOC = json.load(open(PLAN, encoding="utf-8"))
+PLAN_ITEMS = {it["名字"]: it for it in PLAN_DOC["零件"]}
+
+MJ_NAMES = ["mahjong_%d" % k for k in range(1, 9)] + ["mahjong_play"]
+ER27_NAMES = ["er27_1", "er27_2"]
+POKER_NAMES = ["poker_1", "poker_2", "poker_3"]
 
 
 def mj_parts(cx, F):
-    """方桌连四把椅子（Y01、Y02 一样）：旧麻将室桌椅间距 ×1.25，北边椅子跟桌子的空稍收一点（16）"""
+    """四方麻将桌连四把椅子（v2）：桌宽 78、地面前后 36、高 45（桌面 + 正面 78×81 看着方，v1 54×81 是竖条）；
+    椅子离桌 10（北、南 16），南北方向跟 v1 一样，坐北边的人头不被桌面压住"""
     return {
-        "table": [cx - 27, F - 65, cx + 27, F - 29],
+        "table": [cx - 39, F - 65, cx + 39, F - 29],
         "chair_n": [cx - 14, F - 96, cx + 14, F - 81],
-        "chair_w": [cx - 64, F - 56, cx - 37, F - 43],
-        "chair_e": [cx + 37, F - 56, cx + 64, F - 43],
+        "chair_w": [cx - 76, F - 56, cx - 49, F - 43],
+        "chair_e": [cx + 49, F - 56, cx + 76, F - 43],
         "chair_s": [cx - 14, F - 13, cx + 14, F],
     }
 
 
-def poker_parts(cx, F):
-    """炸金花圆桌连六把椅子：北两把、南两把（背对镜头）、东西各一把"""
-    return {
-        "table": [cx - 36, F - 75, cx + 36, F - 27],
-        "chair_nw": [cx - 32, F - 104, cx - 4, F - 89],
-        "chair_ne": [cx + 4, F - 104, cx + 32, F - 89],
-        "chair_w": [cx - 73, F - 57, cx - 46, F - 44],
-        "chair_e": [cx + 46, F - 57, cx + 73, F - 44],
-        "chair_sw": [cx - 32, F - 13, cx - 4, F],
-        "chair_se": [cx + 4, F - 13, cx + 32, F],
-    }
+def long_parts(cx, F):
+    """长条桌连六把椅子（贰柒拾、炸金花）：桌 244×52；北边三把（人朝下）、南边三把（背对镜头），离桌 16"""
+    d = {"table": [cx - LONG_W // 2, F - 29 - LONG_D, cx + LONG_W // 2, F - 29]}
+    for k, dx in enumerate(LONG_SEATS):
+        d["chair_n%d" % (k + 1)] = [cx + dx - 14, F - 29 - LONG_D - 31, cx + dx + 14, F - 29 - LONG_D - 16]
+        d["chair_s%d" % (k + 1)] = [cx + dx - 14, F - 13, cx + dx + 14, F]
+    return d
 
 
-def draft_c(name):
-    d = DRAFT_ITEMS[name]
-    return d["x"] + d["w"] // 2, d["foot_y"]
-
-
-# 调了的位置（相对草稿）：名字 → (中心 x, 着地线, 为什么)
-ADJUST = {
-    "tea_bar": (540, 174, "草稿着地线 235 离北墙 85 行（2 米多）像飘在屋中间；往北挪 61 贴墙，跟排法图上「挨着墙」的样子对上"),
-    "cab_tea_w": (420, 170, "同茶水台：往北挪 65 贴墙"),
-    "cab_tea_e": (660, 170, "同茶水台：往北挪 65 贴墙"),
-}
+def plan_c(name):
+    d = PLAN_ITEMS[name]
+    return d["cx"], d["foot_y"]
 
 
 SIZE_NOTE = {
-    "Y01": "宽照草稿（131，草稿 140）；高 148 比草稿 120 多：桌椅按旧麻将室 ×1.25 画，北边那把椅背往上冒出草稿框 27，着地线不变",
-    "Y02": "同 Y01",
-    "Y03": "宽 149（草稿 160）；高 156 比草稿 130 多：北边两把椅背往上冒出草稿框 25，着地线不变",
-    "Y04": "大小照草稿；着地线往北挪了 61（见「调了」）",
-    "Y05": "大小照草稿；着地线往北挪了 65（见「调了」）",
-    "Y06": "照草稿（高 50，草稿 55）",
-    "Y07": "长照草稿；靠背跟椅子一样降到 48 高，整件高 50（草稿 70）——背对镜头坐的人才露得出头",
-    "Y08": "照草稿",
-    "Y09": "照草稿（观音竹按旧 86 ×1.25 = 107；门口发财树画成同样高）",
-    "Y10": "宫灯按旧 80 ×1.25 画成 100 高、22 宽（草稿 30×82 没乘 1.25）；着地线不变",
+    "Y01": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条",
+    "Y02": "贰柒拾长条桌（桌 244×52）连六把椅子，北三南三",
+    "Y03": "炸金花长条桌（桌 244×52）连六把椅子，北三南三；v1 的圆桌去掉了",
+    "Y04": "照 v1", "Y05": "照 v1", "Y06": "照 v1", "Y07": "照 v1", "Y08": "照 v1，挪到西墙第 1、2 排之间",
+    "Y09": "照 v1", "Y10": "照 v1",
 }
 
 
 def build_plan():
-    """出零件清单：(id, 编号, 组名, 占地 rect, 画法)；还有每组的草稿框"""
+    """出零件清单：(id, 编号, 组名, 占地 rect, 画法)"""
     parts = []
-    for name in ("mahjong_1", "mahjong_2", "mahjong_3", "mahjong_4", "mahjong_5", "mahjong_play"):
-        cx, F = draft_c(name)
+    for name in MJ_NAMES:
+        cx, F = plan_c(name)
         P = mj_parts(cx, F)
         parts.append((name + "_table", "Y01", name, P["table"], lambda r, n=name: prop_mj_table(n, r)))
         for side in "nwes":
             parts.append((name + "_chair_" + side, "Y01", name, P["chair_" + side], lambda r, s=side: prop_chair(r, s)))
-    for k, name in enumerate(("er27_1", "er27_2")):
-        cx, F = draft_c(name)
-        P = mj_parts(cx, F)
-        parts.append((name + "_table", "Y02", name, P["table"], lambda r, s=k: prop_er27_table("", r, seed=s)))
-        for side in "nwes":
-            parts.append((name + "_chair_" + side, "Y02", name, P["chair_" + side], lambda r, s=side: prop_chair(r, s)))
-    cx, F = draft_c("poker")
-    P = poker_parts(cx, F)
-    parts.append(("poker_table", "Y03", "poker", P["table"], prop_poker_table))
-    for key, facing in (("chair_nw", "n"), ("chair_ne", "n"), ("chair_w", "w"), ("chair_e", "e"), ("chair_sw", "s"), ("chair_se", "s")):
-        parts.append(("poker_" + key, "Y03", "poker", P[key], lambda r, f=facing: prop_chair(r, f)))
-    cx, F = ADJUST["tea_bar"][:2]
+    for code, names, fn in (("Y02", ER27_NAMES, prop_er27_long), ("Y03", POKER_NAMES, prop_poker_long)):
+        for k, name in enumerate(names):
+            cx, F = plan_c(name)
+            P = long_parts(cx, F)
+            parts.append((name + "_table", code, name, P["table"], lambda r, s=k, f=fn: f(r, s)))
+            for key in sorted(k2 for k2 in P if k2 != "table"):
+                parts.append((name + "_" + key, code, name, P[key], lambda r, f=key[6]: prop_chair(r, f)))
+    cx, F = plan_c("tea_bar")
     parts.append(("tea_bar", "Y04", "tea_bar", [cx - 73, F - 22, cx + 73, F], prop_tea_bar))
     for name, mirror in (("cab_tea_w", False), ("cab_tea_e", True)):
-        cx, F = ADJUST[name][:2]
+        cx, F = plan_c(name)
         parts.append((name, "Y05", name, [cx - 36, F - 18, cx + 36, F], lambda r, m=mirror: prop_tea_cabinet(r, m)))
-    for name, items in (("side_w", "fruit"), ("side_e", "seeds"), ("side_mid_w", "seeds"), ("side_mid_e", "fruit2")):
-        cx, F = draft_c(name)
+    for name, items in (("side_w", "fruit"), ("side_e", "seeds")):
+        cx, F = plan_c(name)
         parts.append((name, "Y06", name, [cx - 23, F - 18, cx + 23, F], lambda r, i=items: prop_side_table(r, i)))
     for name in ("bench_w", "bench_e"):
-        cx, F = draft_c(name)
+        cx, F = plan_c(name)
         parts.append((name, "Y07", name, [cx - 68, F - 18, cx + 68, F], prop_bench))
-    cx, F = draft_c("board")
+    cx, F = plan_c("board")
     parts.append(("board", "Y08", "board", [cx - 28, F - 14, cx + 28, F], prop_board))
     for name in ("plant_nw", "plant_ne"):
-        cx, F = draft_c(name)
+        cx, F = plan_c(name)
         parts.append((name, "Y09", name, [cx - 14, F - 16, cx + 14, F],
                       lambda r, s=(41 if name == "plant_nw" else 43): prop_bamboo_plant(r, s)))
     for name in ("plant_door_w", "plant_door_e"):
-        cx, F = draft_c(name)
+        cx, F = plan_c(name)
         parts.append((name, "Y09", name, [cx - 14, F - 16, cx + 14, F], lambda r: prop_money_tree(r, 1.2)))
     for name in ("lamp_1", "lamp_2", "lamp_3"):
-        cx, F = draft_c(name)
+        cx, F = plan_c(name)
         parts.append((name, "Y10", name, [cx - 8, F - 8, cx + 8, F], prop_palace_lamp))
     return parts
 
@@ -1805,7 +1768,7 @@ def seats(parts):
         if "_chair_" not in pid:
             continue
         side = pid.split("_chair_")[1]
-        facing = {"nw": "n", "ne": "n", "sw": "s", "se": "s"}.get(side, side)
+        facing = side[0]
         face, frame = FACE[facing]
         x = (r[0] + r[2]) // 2
         y = r[3] + 2
@@ -1813,7 +1776,7 @@ def seats(parts):
         out.append({"id": "seat_" + pid.replace("_chair_", "_"), "table": grp, "chair": pid, "side": side,
                     "x": x, "y": y, "face": face, "frame": frame, "who": who})
     for b in ("bench_w", "bench_e"):            # 长椅上三个座（背对镜头、面朝屋里）
-        cx, F = draft_c(b)
+        cx, F = plan_c(b)
         for k, dx in enumerate((-40, 0, 40)):
             out.append({"id": "seat_%s_%d" % (b, k + 1), "table": b, "chair": b, "side": "s", "x": cx + dx, "y": F + 1,
                         "face": "up", "frame": 12, "who": "npc"})
@@ -1825,7 +1788,7 @@ POINTS = [
     {"id": "door_in", "名字": "进门站的点（门里地垫上，朝上）", "x": ENTRY[0], "y": ENTRY[1], "face": "up"},
     {"id": "door_out", "名字": "出门的点（门外走廊）", "x": 540, "y": 1535, "face": "down"},
     {"id": "tea_bar_front", "名字": "茶水台跟前（倒茶）", "x": 540, "y": 190, "face": "up"},
-    {"id": "board_front", "名字": "记分板跟前", "x": 100, "y": 646, "face": "left"},
+    {"id": "board_front", "名字": "记分板跟前", "x": 60, "y": PLAN_ITEMS["board"]["foot_y"] + 18, "face": "up"},
 ]
 DOORMAT = (492, 1414, 588, 1452)
 DECO_ZONES = [
@@ -1839,7 +1802,7 @@ DECO_ZONES = [
 
 # ================================================================== 组装
 def decorations():
-    """装饰区里加的东西：(名字, 图层, 着地线 rect 用来画影)"""
+    """装饰区里加的东西（照 v1，v2 不加墙边装饰）：(名字, 图层, 着地线 rect 用来画影)"""
     D = []
     D.append(("衣帽架（西北，窗西边）", deco_coat_rack(120, 176), (110, 166, 132, 176)))
     D.append(("落地扇（西窗下）", deco_fan(258, 178), (248, 170, 270, 178)))
@@ -1853,7 +1816,7 @@ def decorations():
     return D
 
 
-TABLE_GROUPS = ["mahjong_1", "mahjong_2", "mahjong_3", "mahjong_4", "mahjong_5", "mahjong_play", "er27_1", "er27_2", "poker"]
+TABLE_GROUPS = MJ_NAMES + ER27_NAMES + POKER_NAMES
 
 
 def background(parts, decos):
@@ -1881,11 +1844,11 @@ def background(parts, decos):
     for (nm, dl, r) in decos:
         S.rect(r[0] + 1, r[1] + 1, r[2] + 2, r[3] + 2, -1.5, feather=1)
     for grp in TABLE_GROUPS:
-        cx, F = draft_c(grp)
-        if grp == "poker":
-            S.ellipse(cx, F - 51, 74, 48, 1.0, edge=2.5)
+        cx, F = plan_c(grp)
+        if grp.startswith("mahjong"):
+            S.ellipse(cx, F - 47, 82, 46, 1.0, edge=2.5)
         else:
-            S.ellipse(cx, F - 47, 66, 44, 1.0, edge=2.5)
+            S.ellipse(cx, F - 55, 150, 54, 1.0, edge=2.5)
     for (pid, code, grp, r, fn) in parts:
         if code == "Y10":
             S.ellipse((r[0] + r[2]) / 2, r[3] - 3, 22, 11, 1.0)
@@ -2020,17 +1983,18 @@ def felt_check(props):
                 corner = (x < x0 + 12 or x >= x1 - 12) and (y < ty0 + 10 or y >= ty1 - 11)
                 if c[3] and c not in ok and not (corner and c in cup):
                     raise SystemExit("牌面检查没过：%s (%d,%d) %s" % (p["id"], x, y, c))
-    ok_p = {C[n] for n in ("rd2", "rd3", "rd4", "gd1", "gd2", "gd3", "bl0", "bl1", "bl2", "bl4", "wt", "ol")}
+    ok_p = {C[n] for n in ("rd1", "rd2", "rd3", "gd2", "bl1", "bl2", "bl4", "wt", "ol")}
     for p in props:
-        if p["id"] != "poker_table":
+        if not (p["group"].startswith("poker") and p["id"].endswith("_table")):
             continue
         x0, yf0, x1, yf1 = p["rect"]
-        for y in range(yf0 - TABLE_H, yf1 - TABLE_H):
-            for x in range(x0, x1):
+        ty0, ty1 = yf0 - TABLE_H, yf1 - TABLE_H
+        for y in range(ty0 + 4, ty1 - 4):
+            for x in range(x0 + 4, x1 - 4):
                 c = p["layer"].g(x, y)
                 if c[3] and c not in ok_p:
-                    raise SystemExit("扑克桌检查没过 (%d,%d) %s" % (x, y, c))
-    print("牌面检查：麻将桌只有金黄牌背、象牙白侧边和空白面，角上盖碗；炸金花桌只有扑克牌背（白边蓝底），没有牌面、钱、筹码、骰子")
+                    raise SystemExit("扑克桌检查没过：%s (%d,%d) %s" % (p["id"], x, y, c))
+    print("牌面检查：麻将桌只有金黄牌背、象牙白侧边和空白面，角上盖碗；炸金花长条桌只有扑克牌背（白边蓝底）和盖碗，没有牌面、钱、筹码、骰子")
 
 
 def walk_check(parts, seats_, points):
@@ -2077,15 +2041,67 @@ def crop_alpha(layer):
     return layer.im.crop(box), layer.ox + box[0], layer.oy + box[1]
 
 
+# ================================================================== 过道、排法核对
+def group_boxes(parts, man_props):
+    """每组桌：占地框（桌椅占地合起来）和画出来的框（图的外框合起来）"""
+    out = {}
+    for grp in PLAN_ITEMS:
+        rs = [p[3] for p in parts if p[2] == grp]
+        ms = [m for m in man_props if m["组"] == grp]
+        out[grp] = ([min(r[0] for r in rs), min(r[1] for r in rs), max(r[2] for r in rs), max(r[3] for r in rs)],
+                    [min(m["x"] for m in ms), min(m["y"] for m in ms), max(m["x"] + m["w"] for m in ms),
+                     max(m["y"] + m["h"] for m in ms)])
+    return out
+
+
+def aisle_check(boxes):
+    """相邻两组桌之间的过道：左右挨着的量横向空、上下挨着的量竖向空；占地（人脚能不能过）和图（看着挤不挤）各量一遍"""
+    res = []
+    names = list(boxes)
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            for k, key in ((0, "占地"), (1, "图")):
+                A, B = boxes[a][k], boxes[b][k]
+                over_y = min(A[3], B[3]) - max(A[1], B[1])
+                over_x = min(A[2], B[2]) - max(A[0], B[0])
+                if over_y > 0:
+                    gap = max(A[0] - B[2], B[0] - A[2])
+                    res.append((key, "横", a, b, gap))
+                elif over_x > 0:
+                    gap = max(A[1] - B[3], B[1] - A[3])
+                    if gap < 200:
+                        res.append((key, "竖", a, b, gap))
+    return res
+
+
+def check_plan(boxes, fill=False):
+    """零件表-v2.json 里每组的 x/y/w/h 要跟画出来的一样；--fill-plan 时写回去"""
+    bad = []
+    for grp, (fp, im) in boxes.items():
+        d = PLAN_ITEMS[grp]
+        real = {"x": im[0], "y": im[1], "w": im[2] - im[0], "h": im[3] - im[1]}
+        if any(d.get(k) != v for k, v in real.items()):
+            bad.append((grp, {k: d.get(k) for k in real}, real))
+            if fill:
+                d.update(real)
+    if fill and bad:
+        with open(PLAN, "w", encoding="utf-8") as fh:
+            json.dump(PLAN_DOC, fh, ensure_ascii=False, indent=1)
+            fh.write("\n")
+        print("零件表-v2.json：%d 组的框写回去了" % len(bad))
+        return []
+    return bad
+
+
 # ================================================================== 主程序
 def main():
+    fill = "--fill-plan" in sys.argv
     os.makedirs(os.path.join(OUT, "props"), exist_ok=True)
     bg, props, parts, decos = build()
     parts_by = {p[0]: p for p in parts}
     felt_check(props)
     seats_ = seats(parts)
     bad = walk_check(parts, seats_, POINTS)
-    # 颜色：底图 + 全部家具合起来
     allc = colors_of(bg.im)
     crops = {}
     for p in props:
@@ -2101,39 +2117,54 @@ def main():
     unknown = [c for c in allc if c not in names]
     if unknown:
         raise SystemExit("有不在调色板里的颜色：%s" % unknown[:5])
+    man_props = []
+    for p in props:
+        im, x, y = crops[p["id"]]
+        man_props.append({"id": p["id"], "编号": p["code"], "组": p["group"], "png": "props/%s.png" % p["id"],
+                          "x": x, "y": y, "w": im.width, "h": im.height, "foot": p["foot"],
+                          "占地": p["rect"] if p["id"] != "side_walls" else None})
+    boxes = group_boxes(parts, man_props)
+    diff = check_plan(boxes, fill)
+    if diff:
+        for g, want, real in diff:
+            print("  对不上：%s 零件表 %s，画出来 %s" % (g, want, real))
+        raise SystemExit("零件表-v2.json 的框跟画出来的不一样（摆法或画法改了？确认后用 --fill-plan 写回）")
+    aisles = aisle_check({g: b for g, b in boxes.items() if g in TABLE_GROUPS})
+    for key in ("占地", "图"):
+        hs = [a for a in aisles if a[0] == key and a[1] == "横"]
+        vs = [a for a in aisles if a[0] == key and a[1] == "竖"]
+        mh, mv = min(hs, key=lambda t: t[4]), min(vs, key=lambda t: t[4])
+        print("过道（%s）：左右最窄 %d（%s—%s），上下最窄 %d（%s—%s）" % (key, mh[4], mh[2], mh[3], mv[4], mv[2], mv[3]))
+    narrow = [a for a in aisles if a[0] == "占地" and a[4] < 70]
+    if narrow:
+        raise SystemExit("过道不够 70：%s" % narrow)
     # 出图
     bg.im.save(os.path.join(OUT, "room.png"))
     for f in os.listdir(os.path.join(OUT, "props")):
         if f.endswith(".png"):
             os.remove(os.path.join(OUT, "props", f))
-    man_props = []
     for p in props:
-        im, x, y = crops[p["id"]]
-        im.save(os.path.join(OUT, "props", p["id"] + ".png"))
-        man_props.append({"id": p["id"], "编号": p["code"], "组": p["group"], "png": "props/%s.png" % p["id"],
-                          "x": x, "y": y, "w": im.width, "h": im.height, "foot": p["foot"],
-                          "占地": p["rect"] if p["id"] != "side_walls" else None})
-    # 每组跟草稿比
+        crops[p["id"]][0].save(os.path.join(OUT, "props", p["id"] + ".png"))
     groups = []
-    for name, d in DRAFT_ITEMS.items():
+    for name, d in PLAN_ITEMS.items():
         mine = [mp for mp in man_props if mp["组"] == name]
         gx0 = min(m["x"] for m in mine)
         gy0 = min(m["y"] for m in mine)
         gx1 = max(m["x"] + m["w"] for m in mine)
         gy1 = max(m["y"] + m["h"] for m in mine)
-        foot = max(max(m["占地"][3] for m in mine), 0)
-        note = ADJUST[name][2] if name in ADJUST else ""
+        foot = max(m["占地"][3] for m in mine)
         groups.append({"名字": name, "编号": d["编号"], "放什么": d["放什么"],
-                       "草稿": {"x": d["x"], "y": d["y"], "w": d["w"], "h": d["h"], "foot_y": d["foot_y"]},
+                       "排法": {"cx": d["cx"], "foot_y": d["foot_y"]},
                        "实际": {"x": gx0, "y": gy0, "w": gx1 - gx0, "h": gy1 - gy0, "foot_y": foot},
-                       "零件": [m["id"] for m in mine], "调了": note, "大小": SIZE_NOTE[d["编号"]]})
+                       "零件": [m["id"] for m in mine], "大小": SIZE_NOTE[d["编号"]]})
     man = {
-        "说明": "娱乐室代码画 v1（庄Z4 10/5 晚，tools/pixel_art/room_entertainment.py 出）。画布 1080×1560，1 倍、不插值；"
+        "说明": "娱乐室代码画 v2（庄Z4 10/5 晚，tools/pixel_art/room_entertainment.py 出；排法在 零件表-v2.json）。画布 1080×1560，1 倍、不插值；"
                "background 是底图（墙、地板、地垫、装饰区里的小东西都画在里面）；props 每件一张，x/y 是左上角，foot 是着地线（跟人按着地线排前后），"
                "占地 = 挡人的地面范围 [x0,y0,x1,y1]；桌南背对镜头的椅子 foot 比占地多 3（压在坐着的人前面）；长椅同理；"
                "side_walls 是东西墙顶那一条，底图里也有，再单出一张 foot 放最大，人贴墙走时墙顶压在人前面。"
                "seats：坐点 x/y 是人的脚点，face 朝向、frame 是宾客图第几格（0 朝下、4 朝左、8 朝右、12 朝上），"
-               "坐着的人头顶 = y − sit_lift；mahjong_play 南边那把（who=player）是玩家坐的，别的给 NPC。"
+               "坐着的人头顶 = y − sit_lift；mahjong_play 南边那把（who=player）是玩家坐的，别的给 NPC；"
+               "长条桌（er27_*、poker_*）北边 n1～n3 朝下、南边 s1～s3 朝上。"
                "deco_zones 整块走不进去；walk 是人脚能到的范围。",
         "画布": {"w": W, "h": H}, "view_h": 960, "sit_lift": SIT_LIFT,
         "background": {"png": "room.png", "x": 0, "y": 0},
@@ -2150,39 +2181,50 @@ def main():
     empty = compose(bg, props)
     empty.save(os.path.join(OUT, "preview.png"))
     empty.resize((W * 2, H * 2), Image.NEAREST).save(os.path.join(OUT, "preview_x2.png"))
-    seat_by = {s["id"]: s for s in seats_}
     shot1 = [dict(code="05", frame=12, x=ENTRY[0], y=ENTRY[1]),
-             dict(code="09", frame=4, x=636, y=1196),
-             dict(code="10", frame=0, x=330, y=1110)]
+             dict(code="09", frame=4, x=640, y=1300),
+             dict(code="10", frame=0, x=380, y=1050)]
     img1 = compose(bg, props, shot1, parts_by)
     p1, o1 = phone_shot(img1, ENTRY)
     p1.save(os.path.join(OUT, "phone_1_进门.png"))
     shot2 = [dict(code="06", frame=12, x=540, y=196),
-             dict(code="10", frame=8, x=380, y=520),
-             dict(code="05", frame=0, x=690, y=300)]
+             dict(code="10", frame=8, x=306, y=590),
+             dict(code="05", frame=0, x=540, y=360)]
     img2 = compose(bg, props, shot2, parts_by)
     p2, o2 = phone_shot(img2, (540, 300))
     p2.save(os.path.join(OUT, "phone_2_第一排.png"))
-    # 坐人检查：mahjong_2 坐满四个、mahjong_play 坐三个 NPC + 玩家、炸金花坐三个、长椅坐一个
-    sitters = []
-    codes = ["05", "06", "09", "10"]
+    # 坐满：每个桌边坐点都坐上（玩家那把空着），再加站着看牌的、端茶的、跑的小孩、长椅上坐的
+    codes = ["01", "02", "03", "04", "05", "06", "08", "09", "10"]
+    crowd = []
     k = 0
-    for sid in ["seat_mahjong_2_n", "seat_mahjong_2_w", "seat_mahjong_2_e", "seat_mahjong_2_s",
-                "seat_mahjong_play_n", "seat_mahjong_play_w", "seat_mahjong_play_e", "seat_mahjong_play_s",
-                "seat_poker_nw", "seat_poker_e", "seat_poker_sw", "seat_er27_1_n", "seat_er27_1_s", "seat_bench_w_2"]:
-        s = seat_by[sid]
-        sitters.append(dict(code=codes[k % 4], frame=s["frame"], seat=s))
+    for s in seats_:
+        if s["who"] == "player" or s["table"].startswith("bench"):
+            continue
+        crowd.append(dict(code=codes[k % len(codes)], frame=s["frame"], seat=s))
         k += 1
-    img3 = compose(bg, props, sitters, parts_by)
-    tiles = [img3.crop((380, 280, 700, 500)), img3.crop((380, 1040, 700, 1260)), img3.crop((380, 580, 700, 800)),
-             img3.crop((60, 880, 380, 1100))]
-    chk = Image.new("RGBA", (640 + 8, 440 + 8), C["void"])
-    for i, t in enumerate(tiles):
-        chk.alpha_composite(t, ((i % 2) * 328, (i // 2) * 228))
-    chk.resize((chk.width * 2, chk.height * 2), Image.NEAREST).save(os.path.join(OUT, "check_坐人.png"))
-    print("出到 %s：room.png、props/%d 张、room.json、preview、手机图两张（镜头左上 %s、%s）、坐人检查" % (OUT, len(props), o1, o2))
+    for sid in ("seat_bench_w_1", "seat_bench_w_3", "seat_bench_e_1", "seat_bench_e_2"):
+        crowd.append(dict(code=codes[k % len(codes)], frame=12, seat=[s for s in seats_ if s["id"] == sid][0]))
+        k += 1
+    for (x, y, fr) in WATCHERS + WAITERS:
+        crowd.append(dict(code=codes[k % len(codes)] if (x, y, fr) in WATCHERS else "04" if (x, y, fr) == WAITERS[0] else "03",
+                          frame=fr, x=x, y=y))
+        k += 1
+    for (x, y, fr) in KIDS:
+        crowd.append(dict(code="11", frame=fr, x=x, y=y))
+    full = compose(bg, props, crowd, parts_by)
+    full.save(os.path.join(OUT, "preview_坐满.png"))
+    n_seat = len([c for c in crowd if c.get("seat")])
+    print("坐满：坐着 %d 人（桌边 %d、长椅 4），站着看牌 %d、端茶 %d、小孩 %d" %
+          (n_seat, n_seat - 4, len(WATCHERS), len(WAITERS), len(KIDS)))
+    print("出到 %s：room.png、props/%d 张、room.json、preview、手机图两张（镜头左上 %s、%s）、坐满" % (OUT, len(props), o1, o2))
     if bad:
         raise SystemExit("走路检查没过")
+
+
+# 坐满图里站着的人：(脚点 x, y, 第几格)。看牌的站在桌角后头、端茶的在过道、小孩在过道跑
+WATCHERS = [(250, 530, 4), (365, 760, 8), (720, 530, 4), (950, 760, 4), (420, 1006, 0), (660, 1250, 12)]
+WAITERS = [(540, 620, 0), (400, 1045, 8)]
+KIDS = [(306, 660, 8), (774, 795, 4), (540, 1320, 12)]
 
 
 if __name__ == "__main__":

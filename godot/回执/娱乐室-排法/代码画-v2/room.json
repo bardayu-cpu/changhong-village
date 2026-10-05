@@ -1,0 +1,3201 @@
+{
+ "说明": "娱乐室代码画 v2（庄Z4 10/5 晚，tools/pixel_art/room_entertainment.py 出；排法在 零件表-v2.json）。画布 1080×1560，1 倍、不插值；background 是底图（墙、地板、地垫、装饰区里的小东西都画在里面）；props 每件一张，x/y 是左上角，foot 是着地线（跟人按着地线排前后），占地 = 挡人的地面范围 [x0,y0,x1,y1]；桌南背对镜头的椅子 foot 比占地多 3（压在坐着的人前面）；长椅同理；side_walls 是东西墙顶那一条，底图里也有，再单出一张 foot 放最大，人贴墙走时墙顶压在人前面。seats：坐点 x/y 是人的脚点，face 朝向、frame 是宾客图第几格（0 朝下、4 朝左、8 朝右、12 朝上），坐着的人头顶 = y − sit_lift；mahjong_play 南边那把（who=player）是玩家坐的，别的给 NPC；长条桌（er27_*、poker_*）北边 n1～n3 朝下、南边 s1～s3 朝上。deco_zones 整块走不进去；walk 是人脚能到的范围。",
+ "画布": {
+  "w": 1080,
+  "h": 1560
+ },
+ "view_h": 960,
+ "sit_lift": 71,
+ "background": {
+  "png": "room.png",
+  "x": 0,
+  "y": 0
+ },
+ "walk": {
+  "x0": 22,
+  "x1": 1058,
+  "y0": 154,
+  "y1": 1458,
+  "door_gap": [
+   470,
+   610
+  ],
+  "门外到": 1554
+ },
+ "props": [
+  {
+   "id": "mahjong_1_table",
+   "编号": "Y01",
+   "组": "mahjong_1",
+   "png": "props/mahjong_1_table.png",
+   "x": 148,
+   "y": 405,
+   "w": 82,
+   "h": 87,
+   "foot": 491,
+   "占地": [
+    150,
+    455,
+    228,
+    491
+   ]
+  },
+  {
+   "id": "mahjong_1_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_1",
+   "png": "props/mahjong_1_chair_n.png",
+   "x": 174,
+   "y": 373,
+   "w": 30,
+   "h": 67,
+   "foot": 439,
+   "占地": [
+    175,
+    424,
+    203,
+    439
+   ]
+  },
+  {
+   "id": "mahjong_1_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_1",
+   "png": "props/mahjong_1_chair_w.png",
+   "x": 111,
+   "y": 413,
+   "w": 30,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    113,
+    464,
+    140,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_1_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_1",
+   "png": "props/mahjong_1_chair_e.png",
+   "x": 237,
+   "y": 413,
+   "w": 29,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    238,
+    464,
+    265,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_1_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_1",
+   "png": "props/mahjong_1_chair_s.png",
+   "x": 174,
+   "y": 469,
+   "w": 30,
+   "h": 52,
+   "foot": 523,
+   "占地": [
+    175,
+    507,
+    203,
+    520
+   ]
+  },
+  {
+   "id": "mahjong_2_table",
+   "编号": "Y01",
+   "组": "mahjong_2",
+   "png": "props/mahjong_2_table.png",
+   "x": 382,
+   "y": 405,
+   "w": 82,
+   "h": 87,
+   "foot": 491,
+   "占地": [
+    384,
+    455,
+    462,
+    491
+   ]
+  },
+  {
+   "id": "mahjong_2_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_2",
+   "png": "props/mahjong_2_chair_n.png",
+   "x": 408,
+   "y": 373,
+   "w": 30,
+   "h": 67,
+   "foot": 439,
+   "占地": [
+    409,
+    424,
+    437,
+    439
+   ]
+  },
+  {
+   "id": "mahjong_2_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_2",
+   "png": "props/mahjong_2_chair_w.png",
+   "x": 345,
+   "y": 413,
+   "w": 30,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    347,
+    464,
+    374,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_2_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_2",
+   "png": "props/mahjong_2_chair_e.png",
+   "x": 471,
+   "y": 413,
+   "w": 29,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    472,
+    464,
+    499,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_2_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_2",
+   "png": "props/mahjong_2_chair_s.png",
+   "x": 408,
+   "y": 469,
+   "w": 30,
+   "h": 52,
+   "foot": 523,
+   "占地": [
+    409,
+    507,
+    437,
+    520
+   ]
+  },
+  {
+   "id": "mahjong_3_table",
+   "编号": "Y01",
+   "组": "mahjong_3",
+   "png": "props/mahjong_3_table.png",
+   "x": 616,
+   "y": 405,
+   "w": 82,
+   "h": 87,
+   "foot": 491,
+   "占地": [
+    618,
+    455,
+    696,
+    491
+   ]
+  },
+  {
+   "id": "mahjong_3_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_3",
+   "png": "props/mahjong_3_chair_n.png",
+   "x": 642,
+   "y": 373,
+   "w": 30,
+   "h": 67,
+   "foot": 439,
+   "占地": [
+    643,
+    424,
+    671,
+    439
+   ]
+  },
+  {
+   "id": "mahjong_3_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_3",
+   "png": "props/mahjong_3_chair_w.png",
+   "x": 579,
+   "y": 413,
+   "w": 30,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    581,
+    464,
+    608,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_3_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_3",
+   "png": "props/mahjong_3_chair_e.png",
+   "x": 705,
+   "y": 413,
+   "w": 29,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    706,
+    464,
+    733,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_3_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_3",
+   "png": "props/mahjong_3_chair_s.png",
+   "x": 642,
+   "y": 469,
+   "w": 30,
+   "h": 52,
+   "foot": 523,
+   "占地": [
+    643,
+    507,
+    671,
+    520
+   ]
+  },
+  {
+   "id": "mahjong_4_table",
+   "编号": "Y01",
+   "组": "mahjong_4",
+   "png": "props/mahjong_4_table.png",
+   "x": 850,
+   "y": 409,
+   "w": 82,
+   "h": 83,
+   "foot": 491,
+   "占地": [
+    852,
+    455,
+    930,
+    491
+   ]
+  },
+  {
+   "id": "mahjong_4_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_4",
+   "png": "props/mahjong_4_chair_n.png",
+   "x": 876,
+   "y": 373,
+   "w": 30,
+   "h": 67,
+   "foot": 439,
+   "占地": [
+    877,
+    424,
+    905,
+    439
+   ]
+  },
+  {
+   "id": "mahjong_4_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_4",
+   "png": "props/mahjong_4_chair_w.png",
+   "x": 813,
+   "y": 413,
+   "w": 30,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    815,
+    464,
+    842,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_4_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_4",
+   "png": "props/mahjong_4_chair_e.png",
+   "x": 939,
+   "y": 413,
+   "w": 29,
+   "h": 65,
+   "foot": 477,
+   "占地": [
+    940,
+    464,
+    967,
+    477
+   ]
+  },
+  {
+   "id": "mahjong_4_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_4",
+   "png": "props/mahjong_4_chair_s.png",
+   "x": 876,
+   "y": 469,
+   "w": 30,
+   "h": 52,
+   "foot": 523,
+   "占地": [
+    877,
+    507,
+    905,
+    520
+   ]
+  },
+  {
+   "id": "mahjong_5_table",
+   "编号": "Y01",
+   "组": "mahjong_5",
+   "png": "props/mahjong_5_table.png",
+   "x": 149,
+   "y": 633,
+   "w": 81,
+   "h": 87,
+   "foot": 719,
+   "占地": [
+    150,
+    683,
+    228,
+    719
+   ]
+  },
+  {
+   "id": "mahjong_5_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_5",
+   "png": "props/mahjong_5_chair_n.png",
+   "x": 174,
+   "y": 601,
+   "w": 30,
+   "h": 67,
+   "foot": 667,
+   "占地": [
+    175,
+    652,
+    203,
+    667
+   ]
+  },
+  {
+   "id": "mahjong_5_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_5",
+   "png": "props/mahjong_5_chair_w.png",
+   "x": 111,
+   "y": 641,
+   "w": 30,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    113,
+    692,
+    140,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_5_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_5",
+   "png": "props/mahjong_5_chair_e.png",
+   "x": 237,
+   "y": 641,
+   "w": 29,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    238,
+    692,
+    265,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_5_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_5",
+   "png": "props/mahjong_5_chair_s.png",
+   "x": 174,
+   "y": 697,
+   "w": 30,
+   "h": 52,
+   "foot": 751,
+   "占地": [
+    175,
+    735,
+    203,
+    748
+   ]
+  },
+  {
+   "id": "mahjong_6_table",
+   "编号": "Y01",
+   "组": "mahjong_6",
+   "png": "props/mahjong_6_table.png",
+   "x": 382,
+   "y": 633,
+   "w": 82,
+   "h": 87,
+   "foot": 719,
+   "占地": [
+    384,
+    683,
+    462,
+    719
+   ]
+  },
+  {
+   "id": "mahjong_6_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_6",
+   "png": "props/mahjong_6_chair_n.png",
+   "x": 408,
+   "y": 601,
+   "w": 30,
+   "h": 67,
+   "foot": 667,
+   "占地": [
+    409,
+    652,
+    437,
+    667
+   ]
+  },
+  {
+   "id": "mahjong_6_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_6",
+   "png": "props/mahjong_6_chair_w.png",
+   "x": 345,
+   "y": 641,
+   "w": 30,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    347,
+    692,
+    374,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_6_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_6",
+   "png": "props/mahjong_6_chair_e.png",
+   "x": 471,
+   "y": 641,
+   "w": 29,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    472,
+    692,
+    499,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_6_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_6",
+   "png": "props/mahjong_6_chair_s.png",
+   "x": 408,
+   "y": 697,
+   "w": 30,
+   "h": 52,
+   "foot": 751,
+   "占地": [
+    409,
+    735,
+    437,
+    748
+   ]
+  },
+  {
+   "id": "mahjong_7_table",
+   "编号": "Y01",
+   "组": "mahjong_7",
+   "png": "props/mahjong_7_table.png",
+   "x": 617,
+   "y": 637,
+   "w": 81,
+   "h": 83,
+   "foot": 719,
+   "占地": [
+    618,
+    683,
+    696,
+    719
+   ]
+  },
+  {
+   "id": "mahjong_7_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_7",
+   "png": "props/mahjong_7_chair_n.png",
+   "x": 642,
+   "y": 601,
+   "w": 30,
+   "h": 67,
+   "foot": 667,
+   "占地": [
+    643,
+    652,
+    671,
+    667
+   ]
+  },
+  {
+   "id": "mahjong_7_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_7",
+   "png": "props/mahjong_7_chair_w.png",
+   "x": 579,
+   "y": 641,
+   "w": 30,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    581,
+    692,
+    608,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_7_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_7",
+   "png": "props/mahjong_7_chair_e.png",
+   "x": 705,
+   "y": 641,
+   "w": 29,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    706,
+    692,
+    733,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_7_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_7",
+   "png": "props/mahjong_7_chair_s.png",
+   "x": 642,
+   "y": 697,
+   "w": 30,
+   "h": 52,
+   "foot": 751,
+   "占地": [
+    643,
+    735,
+    671,
+    748
+   ]
+  },
+  {
+   "id": "mahjong_8_table",
+   "编号": "Y01",
+   "组": "mahjong_8",
+   "png": "props/mahjong_8_table.png",
+   "x": 850,
+   "y": 633,
+   "w": 82,
+   "h": 87,
+   "foot": 719,
+   "占地": [
+    852,
+    683,
+    930,
+    719
+   ]
+  },
+  {
+   "id": "mahjong_8_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_8",
+   "png": "props/mahjong_8_chair_n.png",
+   "x": 876,
+   "y": 601,
+   "w": 30,
+   "h": 67,
+   "foot": 667,
+   "占地": [
+    877,
+    652,
+    905,
+    667
+   ]
+  },
+  {
+   "id": "mahjong_8_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_8",
+   "png": "props/mahjong_8_chair_w.png",
+   "x": 813,
+   "y": 641,
+   "w": 30,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    815,
+    692,
+    842,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_8_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_8",
+   "png": "props/mahjong_8_chair_e.png",
+   "x": 939,
+   "y": 641,
+   "w": 29,
+   "h": 65,
+   "foot": 705,
+   "占地": [
+    940,
+    692,
+    967,
+    705
+   ]
+  },
+  {
+   "id": "mahjong_8_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_8",
+   "png": "props/mahjong_8_chair_s.png",
+   "x": 876,
+   "y": 697,
+   "w": 30,
+   "h": 52,
+   "foot": 751,
+   "占地": [
+    877,
+    735,
+    905,
+    748
+   ]
+  },
+  {
+   "id": "mahjong_play_table",
+   "编号": "Y01",
+   "组": "mahjong_play",
+   "png": "props/mahjong_play_table.png",
+   "x": 499,
+   "y": 1123,
+   "w": 82,
+   "h": 87,
+   "foot": 1209,
+   "占地": [
+    501,
+    1173,
+    579,
+    1209
+   ]
+  },
+  {
+   "id": "mahjong_play_chair_n",
+   "编号": "Y01",
+   "组": "mahjong_play",
+   "png": "props/mahjong_play_chair_n.png",
+   "x": 525,
+   "y": 1091,
+   "w": 30,
+   "h": 67,
+   "foot": 1157,
+   "占地": [
+    526,
+    1142,
+    554,
+    1157
+   ]
+  },
+  {
+   "id": "mahjong_play_chair_w",
+   "编号": "Y01",
+   "组": "mahjong_play",
+   "png": "props/mahjong_play_chair_w.png",
+   "x": 462,
+   "y": 1131,
+   "w": 30,
+   "h": 65,
+   "foot": 1195,
+   "占地": [
+    464,
+    1182,
+    491,
+    1195
+   ]
+  },
+  {
+   "id": "mahjong_play_chair_e",
+   "编号": "Y01",
+   "组": "mahjong_play",
+   "png": "props/mahjong_play_chair_e.png",
+   "x": 588,
+   "y": 1131,
+   "w": 29,
+   "h": 65,
+   "foot": 1195,
+   "占地": [
+    589,
+    1182,
+    616,
+    1195
+   ]
+  },
+  {
+   "id": "mahjong_play_chair_s",
+   "编号": "Y01",
+   "组": "mahjong_play",
+   "png": "props/mahjong_play_chair_s.png",
+   "x": 525,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    526,
+    1225,
+    554,
+    1238
+   ]
+  },
+  {
+   "id": "er27_1_table",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_table.png",
+   "x": 93,
+   "y": 862,
+   "w": 246,
+   "h": 103,
+   "foot": 964,
+   "占地": [
+    94,
+    912,
+    338,
+    964
+   ]
+  },
+  {
+   "id": "er27_1_chair_n1",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_chair_n1.png",
+   "x": 121,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    122,
+    881,
+    150,
+    896
+   ]
+  },
+  {
+   "id": "er27_1_chair_n2",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_chair_n2.png",
+   "x": 201,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    202,
+    881,
+    230,
+    896
+   ]
+  },
+  {
+   "id": "er27_1_chair_n3",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_chair_n3.png",
+   "x": 281,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    282,
+    881,
+    310,
+    896
+   ]
+  },
+  {
+   "id": "er27_1_chair_s1",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_chair_s1.png",
+   "x": 121,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    122,
+    980,
+    150,
+    993
+   ]
+  },
+  {
+   "id": "er27_1_chair_s2",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_chair_s2.png",
+   "x": 201,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    202,
+    980,
+    230,
+    993
+   ]
+  },
+  {
+   "id": "er27_1_chair_s3",
+   "编号": "Y02",
+   "组": "er27_1",
+   "png": "props/er27_1_chair_s3.png",
+   "x": 281,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    282,
+    980,
+    310,
+    993
+   ]
+  },
+  {
+   "id": "er27_2_table",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_table.png",
+   "x": 741,
+   "y": 862,
+   "w": 246,
+   "h": 103,
+   "foot": 964,
+   "占地": [
+    742,
+    912,
+    986,
+    964
+   ]
+  },
+  {
+   "id": "er27_2_chair_n1",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_chair_n1.png",
+   "x": 769,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    770,
+    881,
+    798,
+    896
+   ]
+  },
+  {
+   "id": "er27_2_chair_n2",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_chair_n2.png",
+   "x": 849,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    850,
+    881,
+    878,
+    896
+   ]
+  },
+  {
+   "id": "er27_2_chair_n3",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_chair_n3.png",
+   "x": 929,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    930,
+    881,
+    958,
+    896
+   ]
+  },
+  {
+   "id": "er27_2_chair_s1",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_chair_s1.png",
+   "x": 769,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    770,
+    980,
+    798,
+    993
+   ]
+  },
+  {
+   "id": "er27_2_chair_s2",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_chair_s2.png",
+   "x": 849,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    850,
+    980,
+    878,
+    993
+   ]
+  },
+  {
+   "id": "er27_2_chair_s3",
+   "编号": "Y02",
+   "组": "er27_2",
+   "png": "props/er27_2_chair_s3.png",
+   "x": 929,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    930,
+    980,
+    958,
+    993
+   ]
+  },
+  {
+   "id": "poker_1_table",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_table.png",
+   "x": 416,
+   "y": 862,
+   "w": 247,
+   "h": 103,
+   "foot": 964,
+   "占地": [
+    418,
+    912,
+    662,
+    964
+   ]
+  },
+  {
+   "id": "poker_1_chair_n1",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_chair_n1.png",
+   "x": 445,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    446,
+    881,
+    474,
+    896
+   ]
+  },
+  {
+   "id": "poker_1_chair_n2",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_chair_n2.png",
+   "x": 525,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    526,
+    881,
+    554,
+    896
+   ]
+  },
+  {
+   "id": "poker_1_chair_n3",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_chair_n3.png",
+   "x": 605,
+   "y": 830,
+   "w": 30,
+   "h": 67,
+   "foot": 896,
+   "占地": [
+    606,
+    881,
+    634,
+    896
+   ]
+  },
+  {
+   "id": "poker_1_chair_s1",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_chair_s1.png",
+   "x": 445,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    446,
+    980,
+    474,
+    993
+   ]
+  },
+  {
+   "id": "poker_1_chair_s2",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_chair_s2.png",
+   "x": 525,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    526,
+    980,
+    554,
+    993
+   ]
+  },
+  {
+   "id": "poker_1_chair_s3",
+   "编号": "Y03",
+   "组": "poker_1",
+   "png": "props/poker_1_chair_s3.png",
+   "x": 605,
+   "y": 942,
+   "w": 30,
+   "h": 52,
+   "foot": 996,
+   "占地": [
+    606,
+    980,
+    634,
+    993
+   ]
+  },
+  {
+   "id": "poker_2_table",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_table.png",
+   "x": 93,
+   "y": 1107,
+   "w": 246,
+   "h": 103,
+   "foot": 1209,
+   "占地": [
+    94,
+    1157,
+    338,
+    1209
+   ]
+  },
+  {
+   "id": "poker_2_chair_n1",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_chair_n1.png",
+   "x": 121,
+   "y": 1075,
+   "w": 30,
+   "h": 67,
+   "foot": 1141,
+   "占地": [
+    122,
+    1126,
+    150,
+    1141
+   ]
+  },
+  {
+   "id": "poker_2_chair_n2",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_chair_n2.png",
+   "x": 201,
+   "y": 1075,
+   "w": 30,
+   "h": 67,
+   "foot": 1141,
+   "占地": [
+    202,
+    1126,
+    230,
+    1141
+   ]
+  },
+  {
+   "id": "poker_2_chair_n3",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_chair_n3.png",
+   "x": 281,
+   "y": 1075,
+   "w": 30,
+   "h": 67,
+   "foot": 1141,
+   "占地": [
+    282,
+    1126,
+    310,
+    1141
+   ]
+  },
+  {
+   "id": "poker_2_chair_s1",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_chair_s1.png",
+   "x": 121,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    122,
+    1225,
+    150,
+    1238
+   ]
+  },
+  {
+   "id": "poker_2_chair_s2",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_chair_s2.png",
+   "x": 201,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    202,
+    1225,
+    230,
+    1238
+   ]
+  },
+  {
+   "id": "poker_2_chair_s3",
+   "编号": "Y03",
+   "组": "poker_2",
+   "png": "props/poker_2_chair_s3.png",
+   "x": 281,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    282,
+    1225,
+    310,
+    1238
+   ]
+  },
+  {
+   "id": "poker_3_table",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_table.png",
+   "x": 740,
+   "y": 1107,
+   "w": 247,
+   "h": 103,
+   "foot": 1209,
+   "占地": [
+    742,
+    1157,
+    986,
+    1209
+   ]
+  },
+  {
+   "id": "poker_3_chair_n1",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_chair_n1.png",
+   "x": 769,
+   "y": 1075,
+   "w": 30,
+   "h": 67,
+   "foot": 1141,
+   "占地": [
+    770,
+    1126,
+    798,
+    1141
+   ]
+  },
+  {
+   "id": "poker_3_chair_n2",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_chair_n2.png",
+   "x": 849,
+   "y": 1075,
+   "w": 30,
+   "h": 67,
+   "foot": 1141,
+   "占地": [
+    850,
+    1126,
+    878,
+    1141
+   ]
+  },
+  {
+   "id": "poker_3_chair_n3",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_chair_n3.png",
+   "x": 929,
+   "y": 1075,
+   "w": 30,
+   "h": 67,
+   "foot": 1141,
+   "占地": [
+    930,
+    1126,
+    958,
+    1141
+   ]
+  },
+  {
+   "id": "poker_3_chair_s1",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_chair_s1.png",
+   "x": 769,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    770,
+    1225,
+    798,
+    1238
+   ]
+  },
+  {
+   "id": "poker_3_chair_s2",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_chair_s2.png",
+   "x": 849,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    850,
+    1225,
+    878,
+    1238
+   ]
+  },
+  {
+   "id": "poker_3_chair_s3",
+   "编号": "Y03",
+   "组": "poker_3",
+   "png": "props/poker_3_chair_s3.png",
+   "x": 929,
+   "y": 1187,
+   "w": 30,
+   "h": 52,
+   "foot": 1241,
+   "占地": [
+    930,
+    1225,
+    958,
+    1238
+   ]
+  },
+  {
+   "id": "tea_bar",
+   "编号": "Y04",
+   "组": "tea_bar",
+   "png": "props/tea_bar.png",
+   "x": 466,
+   "y": 83,
+   "w": 149,
+   "h": 92,
+   "foot": 174,
+   "占地": [
+    467,
+    152,
+    613,
+    174
+   ]
+  },
+  {
+   "id": "cab_tea_w",
+   "编号": "Y05",
+   "组": "cab_tea_w",
+   "png": "props/cab_tea_w.png",
+   "x": 382,
+   "y": 51,
+   "w": 76,
+   "h": 119,
+   "foot": 170,
+   "占地": [
+    384,
+    152,
+    456,
+    170
+   ]
+  },
+  {
+   "id": "cab_tea_e",
+   "编号": "Y05",
+   "组": "cab_tea_e",
+   "png": "props/cab_tea_e.png",
+   "x": 622,
+   "y": 51,
+   "w": 76,
+   "h": 119,
+   "foot": 170,
+   "占地": [
+    624,
+    152,
+    696,
+    170
+   ]
+  },
+  {
+   "id": "side_w",
+   "编号": "Y06",
+   "组": "side_w",
+   "png": "props/side_w.png",
+   "x": 231,
+   "y": 1391,
+   "w": 48,
+   "h": 50,
+   "foot": 1440,
+   "占地": [
+    232,
+    1422,
+    278,
+    1440
+   ]
+  },
+  {
+   "id": "side_e",
+   "编号": "Y06",
+   "组": "side_e",
+   "png": "props/side_e.png",
+   "x": 801,
+   "y": 1391,
+   "w": 48,
+   "h": 50,
+   "foot": 1440,
+   "占地": [
+    802,
+    1422,
+    848,
+    1440
+   ]
+  },
+  {
+   "id": "bench_w",
+   "编号": "Y07",
+   "组": "bench_w",
+   "png": "props/bench_w.png",
+   "x": 81,
+   "y": 1391,
+   "w": 138,
+   "h": 50,
+   "foot": 1443,
+   "占地": [
+    82,
+    1422,
+    218,
+    1440
+   ]
+  },
+  {
+   "id": "bench_e",
+   "编号": "Y07",
+   "组": "bench_e",
+   "png": "props/bench_e.png",
+   "x": 861,
+   "y": 1391,
+   "w": 138,
+   "h": 50,
+   "foot": 1443,
+   "占地": [
+    862,
+    1422,
+    998,
+    1440
+   ]
+  },
+  {
+   "id": "board",
+   "编号": "Y08",
+   "组": "board",
+   "png": "props/board.png",
+   "x": 29,
+   "y": 521,
+   "w": 55,
+   "h": 100,
+   "foot": 620,
+   "占地": [
+    28,
+    606,
+    84,
+    620
+   ]
+  },
+  {
+   "id": "plant_nw",
+   "编号": "Y09",
+   "组": "plant_nw",
+   "png": "props/plant_nw.png",
+   "x": 24,
+   "y": 138,
+   "w": 56,
+   "h": 113,
+   "foot": 250,
+   "占地": [
+    38,
+    234,
+    66,
+    250
+   ]
+  },
+  {
+   "id": "plant_ne",
+   "编号": "Y09",
+   "组": "plant_ne",
+   "png": "props/plant_ne.png",
+   "x": 1000,
+   "y": 138,
+   "w": 56,
+   "h": 113,
+   "foot": 250,
+   "占地": [
+    1014,
+    234,
+    1042,
+    250
+   ]
+  },
+  {
+   "id": "plant_door_w",
+   "编号": "Y09",
+   "组": "plant_door_w",
+   "png": "props/plant_door_w.png",
+   "x": 397,
+   "y": 1344,
+   "w": 46,
+   "h": 107,
+   "foot": 1450,
+   "占地": [
+    406,
+    1434,
+    434,
+    1450
+   ]
+  },
+  {
+   "id": "plant_door_e",
+   "编号": "Y09",
+   "组": "plant_door_e",
+   "png": "props/plant_door_e.png",
+   "x": 637,
+   "y": 1344,
+   "w": 46,
+   "h": 107,
+   "foot": 1450,
+   "占地": [
+    646,
+    1434,
+    674,
+    1450
+   ]
+  },
+  {
+   "id": "lamp_1",
+   "编号": "Y10",
+   "组": "lamp_1",
+   "png": "props/lamp_1.png",
+   "x": 20,
+   "y": 895,
+   "w": 22,
+   "h": 106,
+   "foot": 1000,
+   "占地": [
+    22,
+    992,
+    38,
+    1000
+   ]
+  },
+  {
+   "id": "lamp_2",
+   "编号": "Y10",
+   "组": "lamp_2",
+   "png": "props/lamp_2.png",
+   "x": 1040,
+   "y": 895,
+   "w": 22,
+   "h": 106,
+   "foot": 1000,
+   "占地": [
+    1042,
+    992,
+    1058,
+    1000
+   ]
+  },
+  {
+   "id": "lamp_3",
+   "编号": "Y10",
+   "组": "lamp_3",
+   "png": "props/lamp_3.png",
+   "x": 1040,
+   "y": 535,
+   "w": 22,
+   "h": 106,
+   "foot": 640,
+   "占地": [
+    1042,
+    632,
+    1058,
+    640
+   ]
+  },
+  {
+   "id": "side_walls",
+   "编号": "墙",
+   "组": "side_walls",
+   "png": "props/side_walls.png",
+   "x": 0,
+   "y": 0,
+   "w": 1080,
+   "h": 1475,
+   "foot": 1660,
+   "占地": null
+  }
+ ],
+ "groups": [
+  {
+   "名字": "mahjong_1",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 189,
+    "foot_y": 520
+   },
+   "实际": {
+    "x": 111,
+    "y": 373,
+    "w": 155,
+    "h": 148,
+    "foot_y": 520
+   },
+   "零件": [
+    "mahjong_1_table",
+    "mahjong_1_chair_n",
+    "mahjong_1_chair_w",
+    "mahjong_1_chair_e",
+    "mahjong_1_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_2",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 423,
+    "foot_y": 520
+   },
+   "实际": {
+    "x": 345,
+    "y": 373,
+    "w": 155,
+    "h": 148,
+    "foot_y": 520
+   },
+   "零件": [
+    "mahjong_2_table",
+    "mahjong_2_chair_n",
+    "mahjong_2_chair_w",
+    "mahjong_2_chair_e",
+    "mahjong_2_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_3",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 657,
+    "foot_y": 520
+   },
+   "实际": {
+    "x": 579,
+    "y": 373,
+    "w": 155,
+    "h": 148,
+    "foot_y": 520
+   },
+   "零件": [
+    "mahjong_3_table",
+    "mahjong_3_chair_n",
+    "mahjong_3_chair_w",
+    "mahjong_3_chair_e",
+    "mahjong_3_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_4",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 891,
+    "foot_y": 520
+   },
+   "实际": {
+    "x": 813,
+    "y": 373,
+    "w": 155,
+    "h": 148,
+    "foot_y": 520
+   },
+   "零件": [
+    "mahjong_4_table",
+    "mahjong_4_chair_n",
+    "mahjong_4_chair_w",
+    "mahjong_4_chair_e",
+    "mahjong_4_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_5",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 189,
+    "foot_y": 748
+   },
+   "实际": {
+    "x": 111,
+    "y": 601,
+    "w": 155,
+    "h": 148,
+    "foot_y": 748
+   },
+   "零件": [
+    "mahjong_5_table",
+    "mahjong_5_chair_n",
+    "mahjong_5_chair_w",
+    "mahjong_5_chair_e",
+    "mahjong_5_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_6",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 423,
+    "foot_y": 748
+   },
+   "实际": {
+    "x": 345,
+    "y": 601,
+    "w": 155,
+    "h": 148,
+    "foot_y": 748
+   },
+   "零件": [
+    "mahjong_6_table",
+    "mahjong_6_chair_n",
+    "mahjong_6_chair_w",
+    "mahjong_6_chair_e",
+    "mahjong_6_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_7",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 657,
+    "foot_y": 748
+   },
+   "实际": {
+    "x": 579,
+    "y": 601,
+    "w": 155,
+    "h": 148,
+    "foot_y": 748
+   },
+   "零件": [
+    "mahjong_7_table",
+    "mahjong_7_chair_n",
+    "mahjong_7_chair_w",
+    "mahjong_7_chair_e",
+    "mahjong_7_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "mahjong_8",
+   "编号": "Y01",
+   "放什么": "四川麻将（NPC 在打，四方桌）",
+   "排法": {
+    "cx": 891,
+    "foot_y": 748
+   },
+   "实际": {
+    "x": 813,
+    "y": 601,
+    "w": 155,
+    "h": 148,
+    "foot_y": 748
+   },
+   "零件": [
+    "mahjong_8_table",
+    "mahjong_8_chair_n",
+    "mahjong_8_chair_w",
+    "mahjong_8_chair_e",
+    "mahjong_8_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "er27_1",
+   "编号": "Y02",
+   "放什么": "贰柒拾长条桌（只画，不能玩；北三南三）",
+   "排法": {
+    "cx": 216,
+    "foot_y": 993
+   },
+   "实际": {
+    "x": 93,
+    "y": 830,
+    "w": 246,
+    "h": 164,
+    "foot_y": 993
+   },
+   "零件": [
+    "er27_1_table",
+    "er27_1_chair_n1",
+    "er27_1_chair_n2",
+    "er27_1_chair_n3",
+    "er27_1_chair_s1",
+    "er27_1_chair_s2",
+    "er27_1_chair_s3"
+   ],
+   "大小": "贰柒拾长条桌（桌 244×52）连六把椅子，北三南三"
+  },
+  {
+   "名字": "poker_1",
+   "编号": "Y03",
+   "放什么": "炸金花长条桌（只画，不能玩；北三南三）",
+   "排法": {
+    "cx": 540,
+    "foot_y": 993
+   },
+   "实际": {
+    "x": 416,
+    "y": 830,
+    "w": 247,
+    "h": 164,
+    "foot_y": 993
+   },
+   "零件": [
+    "poker_1_table",
+    "poker_1_chair_n1",
+    "poker_1_chair_n2",
+    "poker_1_chair_n3",
+    "poker_1_chair_s1",
+    "poker_1_chair_s2",
+    "poker_1_chair_s3"
+   ],
+   "大小": "炸金花长条桌（桌 244×52）连六把椅子，北三南三；v1 的圆桌去掉了"
+  },
+  {
+   "名字": "er27_2",
+   "编号": "Y02",
+   "放什么": "贰柒拾长条桌（只画，不能玩；北三南三）",
+   "排法": {
+    "cx": 864,
+    "foot_y": 993
+   },
+   "实际": {
+    "x": 741,
+    "y": 830,
+    "w": 246,
+    "h": 164,
+    "foot_y": 993
+   },
+   "零件": [
+    "er27_2_table",
+    "er27_2_chair_n1",
+    "er27_2_chair_n2",
+    "er27_2_chair_n3",
+    "er27_2_chair_s1",
+    "er27_2_chair_s2",
+    "er27_2_chair_s3"
+   ],
+   "大小": "贰柒拾长条桌（桌 244×52）连六把椅子，北三南三"
+  },
+  {
+   "名字": "poker_2",
+   "编号": "Y03",
+   "放什么": "炸金花长条桌（只画，不能玩；北三南三）",
+   "排法": {
+    "cx": 216,
+    "foot_y": 1238
+   },
+   "实际": {
+    "x": 93,
+    "y": 1075,
+    "w": 246,
+    "h": 164,
+    "foot_y": 1238
+   },
+   "零件": [
+    "poker_2_table",
+    "poker_2_chair_n1",
+    "poker_2_chair_n2",
+    "poker_2_chair_n3",
+    "poker_2_chair_s1",
+    "poker_2_chair_s2",
+    "poker_2_chair_s3"
+   ],
+   "大小": "炸金花长条桌（桌 244×52）连六把椅子，北三南三；v1 的圆桌去掉了"
+  },
+  {
+   "名字": "mahjong_play",
+   "编号": "Y01",
+   "放什么": "能坐下玩的麻将（正对门，南边那把玩家坐）",
+   "排法": {
+    "cx": 540,
+    "foot_y": 1238
+   },
+   "实际": {
+    "x": 462,
+    "y": 1091,
+    "w": 155,
+    "h": 148,
+    "foot_y": 1238
+   },
+   "零件": [
+    "mahjong_play_table",
+    "mahjong_play_chair_n",
+    "mahjong_play_chair_w",
+    "mahjong_play_chair_e",
+    "mahjong_play_chair_s"
+   ],
+   "大小": "四方麻将桌（桌 78 宽、前后 36、高 45）连四把椅子；v1 桌 54 宽是竖条"
+  },
+  {
+   "名字": "poker_3",
+   "编号": "Y03",
+   "放什么": "炸金花长条桌（只画，不能玩；北三南三）",
+   "排法": {
+    "cx": 864,
+    "foot_y": 1238
+   },
+   "实际": {
+    "x": 740,
+    "y": 1075,
+    "w": 247,
+    "h": 164,
+    "foot_y": 1238
+   },
+   "零件": [
+    "poker_3_table",
+    "poker_3_chair_n1",
+    "poker_3_chair_n2",
+    "poker_3_chair_n3",
+    "poker_3_chair_s1",
+    "poker_3_chair_s2",
+    "poker_3_chair_s3"
+   ],
+   "大小": "炸金花长条桌（桌 244×52）连六把椅子，北三南三；v1 的圆桌去掉了"
+  },
+  {
+   "名字": "tea_bar",
+   "编号": "Y04",
+   "放什么": "茶水台",
+   "排法": {
+    "cx": 540,
+    "foot_y": 174
+   },
+   "实际": {
+    "x": 466,
+    "y": 83,
+    "w": 149,
+    "h": 92,
+    "foot_y": 174
+   },
+   "零件": [
+    "tea_bar"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "cab_tea_w",
+   "编号": "Y05",
+   "放什么": "茶叶柜",
+   "排法": {
+    "cx": 420,
+    "foot_y": 170
+   },
+   "实际": {
+    "x": 382,
+    "y": 51,
+    "w": 76,
+    "h": 119,
+    "foot_y": 170
+   },
+   "零件": [
+    "cab_tea_w"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "cab_tea_e",
+   "编号": "Y05",
+   "放什么": "茶叶柜",
+   "排法": {
+    "cx": 660,
+    "foot_y": 170
+   },
+   "实际": {
+    "x": 622,
+    "y": 51,
+    "w": 76,
+    "h": 119,
+    "foot_y": 170
+   },
+   "零件": [
+    "cab_tea_e"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "bench_w",
+   "编号": "Y07",
+   "放什么": "长椅（看牌的人坐）",
+   "排法": {
+    "cx": 150,
+    "foot_y": 1440
+   },
+   "实际": {
+    "x": 81,
+    "y": 1391,
+    "w": 138,
+    "h": 50,
+    "foot_y": 1440
+   },
+   "零件": [
+    "bench_w"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "side_w",
+   "编号": "Y06",
+   "放什么": "小几（瓜子果盘）",
+   "排法": {
+    "cx": 255,
+    "foot_y": 1440
+   },
+   "实际": {
+    "x": 231,
+    "y": 1391,
+    "w": 48,
+    "h": 50,
+    "foot_y": 1440
+   },
+   "零件": [
+    "side_w"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "bench_e",
+   "编号": "Y07",
+   "放什么": "长椅（看牌的人坐）",
+   "排法": {
+    "cx": 930,
+    "foot_y": 1440
+   },
+   "实际": {
+    "x": 861,
+    "y": 1391,
+    "w": 138,
+    "h": 50,
+    "foot_y": 1440
+   },
+   "零件": [
+    "bench_e"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "side_e",
+   "编号": "Y06",
+   "放什么": "小几（瓜子果盘）",
+   "排法": {
+    "cx": 825,
+    "foot_y": 1440
+   },
+   "实际": {
+    "x": 801,
+    "y": 1391,
+    "w": 48,
+    "h": 50,
+    "foot_y": 1440
+   },
+   "零件": [
+    "side_e"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "board",
+   "编号": "Y08",
+   "放什么": "记分小黑板",
+   "排法": {
+    "cx": 56,
+    "foot_y": 620
+   },
+   "实际": {
+    "x": 29,
+    "y": 521,
+    "w": 55,
+    "h": 100,
+    "foot_y": 620
+   },
+   "零件": [
+    "board"
+   ],
+   "大小": "照 v1，挪到西墙第 1、2 排之间"
+  },
+  {
+   "名字": "plant_nw",
+   "编号": "Y09",
+   "放什么": "大盆绿植",
+   "排法": {
+    "cx": 52,
+    "foot_y": 250
+   },
+   "实际": {
+    "x": 24,
+    "y": 138,
+    "w": 56,
+    "h": 113,
+    "foot_y": 250
+   },
+   "零件": [
+    "plant_nw"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "plant_ne",
+   "编号": "Y09",
+   "放什么": "大盆绿植",
+   "排法": {
+    "cx": 1028,
+    "foot_y": 250
+   },
+   "实际": {
+    "x": 1000,
+    "y": 138,
+    "w": 56,
+    "h": 113,
+    "foot_y": 250
+   },
+   "零件": [
+    "plant_ne"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "plant_door_w",
+   "编号": "Y09",
+   "放什么": "大盆绿植",
+   "排法": {
+    "cx": 420,
+    "foot_y": 1450
+   },
+   "实际": {
+    "x": 397,
+    "y": 1344,
+    "w": 46,
+    "h": 107,
+    "foot_y": 1450
+   },
+   "零件": [
+    "plant_door_w"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "plant_door_e",
+   "编号": "Y09",
+   "放什么": "大盆绿植",
+   "排法": {
+    "cx": 660,
+    "foot_y": 1450
+   },
+   "实际": {
+    "x": 637,
+    "y": 1344,
+    "w": 46,
+    "h": 107,
+    "foot_y": 1450
+   },
+   "零件": [
+    "plant_door_e"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "lamp_1",
+   "编号": "Y10",
+   "放什么": "落地宫灯",
+   "排法": {
+    "cx": 30,
+    "foot_y": 1000
+   },
+   "实际": {
+    "x": 20,
+    "y": 895,
+    "w": 22,
+    "h": 106,
+    "foot_y": 1000
+   },
+   "零件": [
+    "lamp_1"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "lamp_2",
+   "编号": "Y10",
+   "放什么": "落地宫灯",
+   "排法": {
+    "cx": 1050,
+    "foot_y": 1000
+   },
+   "实际": {
+    "x": 1040,
+    "y": 895,
+    "w": 22,
+    "h": 106,
+    "foot_y": 1000
+   },
+   "零件": [
+    "lamp_2"
+   ],
+   "大小": "照 v1"
+  },
+  {
+   "名字": "lamp_3",
+   "编号": "Y10",
+   "放什么": "落地宫灯",
+   "排法": {
+    "cx": 1050,
+    "foot_y": 640
+   },
+   "实际": {
+    "x": 1040,
+    "y": 535,
+    "w": 22,
+    "h": 106,
+    "foot_y": 640
+   },
+   "零件": [
+    "lamp_3"
+   ],
+   "大小": "照 v1"
+  }
+ ],
+ "seats": [
+  {
+   "id": "seat_mahjong_1_n",
+   "table": "mahjong_1",
+   "chair": "mahjong_1_chair_n",
+   "side": "n",
+   "x": 189,
+   "y": 441,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_1_w",
+   "table": "mahjong_1",
+   "chair": "mahjong_1_chair_w",
+   "side": "w",
+   "x": 126,
+   "y": 479,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_1_e",
+   "table": "mahjong_1",
+   "chair": "mahjong_1_chair_e",
+   "side": "e",
+   "x": 251,
+   "y": 479,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_1_s",
+   "table": "mahjong_1",
+   "chair": "mahjong_1_chair_s",
+   "side": "s",
+   "x": 189,
+   "y": 522,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_2_n",
+   "table": "mahjong_2",
+   "chair": "mahjong_2_chair_n",
+   "side": "n",
+   "x": 423,
+   "y": 441,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_2_w",
+   "table": "mahjong_2",
+   "chair": "mahjong_2_chair_w",
+   "side": "w",
+   "x": 360,
+   "y": 479,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_2_e",
+   "table": "mahjong_2",
+   "chair": "mahjong_2_chair_e",
+   "side": "e",
+   "x": 485,
+   "y": 479,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_2_s",
+   "table": "mahjong_2",
+   "chair": "mahjong_2_chair_s",
+   "side": "s",
+   "x": 423,
+   "y": 522,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_3_n",
+   "table": "mahjong_3",
+   "chair": "mahjong_3_chair_n",
+   "side": "n",
+   "x": 657,
+   "y": 441,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_3_w",
+   "table": "mahjong_3",
+   "chair": "mahjong_3_chair_w",
+   "side": "w",
+   "x": 594,
+   "y": 479,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_3_e",
+   "table": "mahjong_3",
+   "chair": "mahjong_3_chair_e",
+   "side": "e",
+   "x": 719,
+   "y": 479,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_3_s",
+   "table": "mahjong_3",
+   "chair": "mahjong_3_chair_s",
+   "side": "s",
+   "x": 657,
+   "y": 522,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_4_n",
+   "table": "mahjong_4",
+   "chair": "mahjong_4_chair_n",
+   "side": "n",
+   "x": 891,
+   "y": 441,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_4_w",
+   "table": "mahjong_4",
+   "chair": "mahjong_4_chair_w",
+   "side": "w",
+   "x": 828,
+   "y": 479,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_4_e",
+   "table": "mahjong_4",
+   "chair": "mahjong_4_chair_e",
+   "side": "e",
+   "x": 953,
+   "y": 479,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_4_s",
+   "table": "mahjong_4",
+   "chair": "mahjong_4_chair_s",
+   "side": "s",
+   "x": 891,
+   "y": 522,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_5_n",
+   "table": "mahjong_5",
+   "chair": "mahjong_5_chair_n",
+   "side": "n",
+   "x": 189,
+   "y": 669,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_5_w",
+   "table": "mahjong_5",
+   "chair": "mahjong_5_chair_w",
+   "side": "w",
+   "x": 126,
+   "y": 707,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_5_e",
+   "table": "mahjong_5",
+   "chair": "mahjong_5_chair_e",
+   "side": "e",
+   "x": 251,
+   "y": 707,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_5_s",
+   "table": "mahjong_5",
+   "chair": "mahjong_5_chair_s",
+   "side": "s",
+   "x": 189,
+   "y": 750,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_6_n",
+   "table": "mahjong_6",
+   "chair": "mahjong_6_chair_n",
+   "side": "n",
+   "x": 423,
+   "y": 669,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_6_w",
+   "table": "mahjong_6",
+   "chair": "mahjong_6_chair_w",
+   "side": "w",
+   "x": 360,
+   "y": 707,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_6_e",
+   "table": "mahjong_6",
+   "chair": "mahjong_6_chair_e",
+   "side": "e",
+   "x": 485,
+   "y": 707,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_6_s",
+   "table": "mahjong_6",
+   "chair": "mahjong_6_chair_s",
+   "side": "s",
+   "x": 423,
+   "y": 750,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_7_n",
+   "table": "mahjong_7",
+   "chair": "mahjong_7_chair_n",
+   "side": "n",
+   "x": 657,
+   "y": 669,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_7_w",
+   "table": "mahjong_7",
+   "chair": "mahjong_7_chair_w",
+   "side": "w",
+   "x": 594,
+   "y": 707,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_7_e",
+   "table": "mahjong_7",
+   "chair": "mahjong_7_chair_e",
+   "side": "e",
+   "x": 719,
+   "y": 707,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_7_s",
+   "table": "mahjong_7",
+   "chair": "mahjong_7_chair_s",
+   "side": "s",
+   "x": 657,
+   "y": 750,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_8_n",
+   "table": "mahjong_8",
+   "chair": "mahjong_8_chair_n",
+   "side": "n",
+   "x": 891,
+   "y": 669,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_8_w",
+   "table": "mahjong_8",
+   "chair": "mahjong_8_chair_w",
+   "side": "w",
+   "x": 828,
+   "y": 707,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_8_e",
+   "table": "mahjong_8",
+   "chair": "mahjong_8_chair_e",
+   "side": "e",
+   "x": 953,
+   "y": 707,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_8_s",
+   "table": "mahjong_8",
+   "chair": "mahjong_8_chair_s",
+   "side": "s",
+   "x": 891,
+   "y": 750,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_play_n",
+   "table": "mahjong_play",
+   "chair": "mahjong_play_chair_n",
+   "side": "n",
+   "x": 540,
+   "y": 1159,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_play_w",
+   "table": "mahjong_play",
+   "chair": "mahjong_play_chair_w",
+   "side": "w",
+   "x": 477,
+   "y": 1197,
+   "face": "right",
+   "frame": 8,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_play_e",
+   "table": "mahjong_play",
+   "chair": "mahjong_play_chair_e",
+   "side": "e",
+   "x": 602,
+   "y": 1197,
+   "face": "left",
+   "frame": 4,
+   "who": "npc"
+  },
+  {
+   "id": "seat_mahjong_play_s",
+   "table": "mahjong_play",
+   "chair": "mahjong_play_chair_s",
+   "side": "s",
+   "x": 540,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "player"
+  },
+  {
+   "id": "seat_er27_1_n1",
+   "table": "er27_1",
+   "chair": "er27_1_chair_n1",
+   "side": "n1",
+   "x": 136,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_1_n2",
+   "table": "er27_1",
+   "chair": "er27_1_chair_n2",
+   "side": "n2",
+   "x": 216,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_1_n3",
+   "table": "er27_1",
+   "chair": "er27_1_chair_n3",
+   "side": "n3",
+   "x": 296,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_1_s1",
+   "table": "er27_1",
+   "chair": "er27_1_chair_s1",
+   "side": "s1",
+   "x": 136,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_1_s2",
+   "table": "er27_1",
+   "chair": "er27_1_chair_s2",
+   "side": "s2",
+   "x": 216,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_1_s3",
+   "table": "er27_1",
+   "chair": "er27_1_chair_s3",
+   "side": "s3",
+   "x": 296,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_2_n1",
+   "table": "er27_2",
+   "chair": "er27_2_chair_n1",
+   "side": "n1",
+   "x": 784,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_2_n2",
+   "table": "er27_2",
+   "chair": "er27_2_chair_n2",
+   "side": "n2",
+   "x": 864,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_2_n3",
+   "table": "er27_2",
+   "chair": "er27_2_chair_n3",
+   "side": "n3",
+   "x": 944,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_2_s1",
+   "table": "er27_2",
+   "chair": "er27_2_chair_s1",
+   "side": "s1",
+   "x": 784,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_2_s2",
+   "table": "er27_2",
+   "chair": "er27_2_chair_s2",
+   "side": "s2",
+   "x": 864,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_er27_2_s3",
+   "table": "er27_2",
+   "chair": "er27_2_chair_s3",
+   "side": "s3",
+   "x": 944,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_1_n1",
+   "table": "poker_1",
+   "chair": "poker_1_chair_n1",
+   "side": "n1",
+   "x": 460,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_1_n2",
+   "table": "poker_1",
+   "chair": "poker_1_chair_n2",
+   "side": "n2",
+   "x": 540,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_1_n3",
+   "table": "poker_1",
+   "chair": "poker_1_chair_n3",
+   "side": "n3",
+   "x": 620,
+   "y": 898,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_1_s1",
+   "table": "poker_1",
+   "chair": "poker_1_chair_s1",
+   "side": "s1",
+   "x": 460,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_1_s2",
+   "table": "poker_1",
+   "chair": "poker_1_chair_s2",
+   "side": "s2",
+   "x": 540,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_1_s3",
+   "table": "poker_1",
+   "chair": "poker_1_chair_s3",
+   "side": "s3",
+   "x": 620,
+   "y": 995,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_2_n1",
+   "table": "poker_2",
+   "chair": "poker_2_chair_n1",
+   "side": "n1",
+   "x": 136,
+   "y": 1143,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_2_n2",
+   "table": "poker_2",
+   "chair": "poker_2_chair_n2",
+   "side": "n2",
+   "x": 216,
+   "y": 1143,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_2_n3",
+   "table": "poker_2",
+   "chair": "poker_2_chair_n3",
+   "side": "n3",
+   "x": 296,
+   "y": 1143,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_2_s1",
+   "table": "poker_2",
+   "chair": "poker_2_chair_s1",
+   "side": "s1",
+   "x": 136,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_2_s2",
+   "table": "poker_2",
+   "chair": "poker_2_chair_s2",
+   "side": "s2",
+   "x": 216,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_2_s3",
+   "table": "poker_2",
+   "chair": "poker_2_chair_s3",
+   "side": "s3",
+   "x": 296,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_3_n1",
+   "table": "poker_3",
+   "chair": "poker_3_chair_n1",
+   "side": "n1",
+   "x": 784,
+   "y": 1143,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_3_n2",
+   "table": "poker_3",
+   "chair": "poker_3_chair_n2",
+   "side": "n2",
+   "x": 864,
+   "y": 1143,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_3_n3",
+   "table": "poker_3",
+   "chair": "poker_3_chair_n3",
+   "side": "n3",
+   "x": 944,
+   "y": 1143,
+   "face": "down",
+   "frame": 0,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_3_s1",
+   "table": "poker_3",
+   "chair": "poker_3_chair_s1",
+   "side": "s1",
+   "x": 784,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_3_s2",
+   "table": "poker_3",
+   "chair": "poker_3_chair_s2",
+   "side": "s2",
+   "x": 864,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_poker_3_s3",
+   "table": "poker_3",
+   "chair": "poker_3_chair_s3",
+   "side": "s3",
+   "x": 944,
+   "y": 1240,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_bench_w_1",
+   "table": "bench_w",
+   "chair": "bench_w",
+   "side": "s",
+   "x": 110,
+   "y": 1441,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_bench_w_2",
+   "table": "bench_w",
+   "chair": "bench_w",
+   "side": "s",
+   "x": 150,
+   "y": 1441,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_bench_w_3",
+   "table": "bench_w",
+   "chair": "bench_w",
+   "side": "s",
+   "x": 190,
+   "y": 1441,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_bench_e_1",
+   "table": "bench_e",
+   "chair": "bench_e",
+   "side": "s",
+   "x": 890,
+   "y": 1441,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_bench_e_2",
+   "table": "bench_e",
+   "chair": "bench_e",
+   "side": "s",
+   "x": 930,
+   "y": 1441,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  },
+  {
+   "id": "seat_bench_e_3",
+   "table": "bench_e",
+   "chair": "bench_e",
+   "side": "s",
+   "x": 970,
+   "y": 1441,
+   "face": "up",
+   "frame": 12,
+   "who": "npc"
+  }
+ ],
+ "points": [
+  {
+   "id": "door_in",
+   "名字": "进门站的点（门里地垫上，朝上）",
+   "x": 540,
+   "y": 1440,
+   "face": "up"
+  },
+  {
+   "id": "door_out",
+   "名字": "出门的点（门外走廊）",
+   "x": 540,
+   "y": 1535,
+   "face": "down"
+  },
+  {
+   "id": "tea_bar_front",
+   "名字": "茶水台跟前（倒茶）",
+   "x": 540,
+   "y": 190,
+   "face": "up"
+  },
+  {
+   "id": "board_front",
+   "名字": "记分板跟前",
+   "x": 60,
+   "y": 638,
+   "face": "up"
+  }
+ ],
+ "deco_zones": [
+  {
+   "id": "deco_north",
+   "名字": "贴北墙一条（衣帽架、落地扇、暖水瓶条凳、礼盒堆、高花几、鸟笼架）",
+   "rect": [
+    16,
+    150,
+    1064,
+    184
+   ]
+  },
+  {
+   "id": "deco_nw",
+   "名字": "西北角（大盆观音竹）",
+   "rect": [
+    16,
+    150,
+    92,
+    254
+   ]
+  },
+  {
+   "id": "deco_ne",
+   "名字": "东北角（大盆观音竹）",
+   "rect": [
+    988,
+    150,
+    1064,
+    254
+   ]
+  },
+  {
+   "id": "deco_sw",
+   "名字": "西南角（礼盒堆）",
+   "rect": [
+    16,
+    1384,
+    80,
+    1460
+   ]
+  },
+  {
+   "id": "deco_se",
+   "名字": "东南角（发财树）",
+   "rect": [
+    1000,
+    1384,
+    1064,
+    1460
+   ]
+  }
+ ],
+ "flat": [
+  {
+   "id": "doormat",
+   "名字": "门口地垫",
+   "rect": [
+    492,
+    1414,
+    588,
+    1452
+   ]
+  }
+ ],
+ "装饰（画进底图）": [
+  "衣帽架（西北，窗西边）",
+  "落地扇（西窗下）",
+  "暖水瓶条凳 + 小水桶（茶叶柜西边）",
+  "礼盒堆（茶叶柜东边）",
+  "高花几插红梅（东窗下）",
+  "鸟笼架（东北，窗东边）",
+  "礼盒堆（西南角）",
+  "发财树（东南角）",
+  "北墙：两扇雕花木窗、四只红灯笼、红绸、两只中国结、两把团扇、熊猫翠竹挂画（不写字）"
+ ]
+}
