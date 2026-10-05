@@ -1,0 +1,7 @@
+extends "res://tools/walk57_core.gd"
+## 第 57 版走路测试拆小：只测「parking」这一块（03 10/5：原来整份单跑 7～8 分钟，超过全套里每份 5 分钟的上限）。内容、判断条件都在 walk57_core.gd，这里只指定块
+## 用法：Godot --headless --path . --script res://tools/test_build57_walk_parking.gd     最后一行 RESULT PASS 才算过
+
+func _initialize() -> void:
+    only = "parking"
+    super._initialize()
