@@ -630,6 +630,7 @@ class Typer extends Node:
     var up_btn: Button       # 翻页三角（阿鱼 10/5）
     var down_btn: Button
     var text_w := 0.0
+    var _shown_before := false   # 上一帧框开着没有：关了再开就从第 1 页来
     var pages: Array = []    # 每页的字
     var page := 0
     var fit := {}
@@ -810,7 +811,12 @@ class Typer extends Node:
             card.visible = false
         _lift_tick(get_process_delta_time(), box.visible)
         if not box.visible:
+            _shown_before = false
             return
+        if not _shown_before:
+            # 框刚打开：同一句也从第 1 页重新来（03 测出：翻到后面关掉再开同一人同一句，会落在上回那页、选项也露着）
+            _shown_before = true
+            _last = ""
         var vs: Vector2 = box.get_viewport_rect().size
         var w: float = vs.x - SIDE * 2.0
         var has_face: bool = portrait != null and portrait.texture != null and portrait.visible
