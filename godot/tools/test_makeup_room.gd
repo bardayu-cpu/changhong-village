@@ -85,7 +85,7 @@ func run() -> void:
     var wall_y0 := 9999.0
     for rc0 in wall_s:
         wall_y0 = minf(wall_y0, float(rc0[1]))
-        if float(rc0[2]) < 270.0:
+        if float(rc0[2]) < float(r.cfg["size"][0]) * 0.5:   # 屋子中线（化妆间 1.25 倍 675 宽，不再写死 270）
             gap_x0 = maxf(gap_x0, float(rc0[2]))   # 西边那段南墙的东端
         else:
             gap_x1 = minf(gap_x1, float(rc0[0]))   # 东边那段南墙的西端
@@ -132,7 +132,11 @@ func run() -> void:
     check("每件家具跟前都走得到（走不到的 %s；已知的 %s 不算，新的 %s）" % [far, KNOWN_FAR, far_new], far_new.is_empty())
     # 走得通：南门 → 新娘跟前（北边化妆台）、两个站点、换装点（A* 路径真走到）
     var reach_bad: Array = []
-    var goals: Array = [["新娘跟前", Vector2(193, 179)], ["换装点", r.points["dress"]["pos"]]]
+    var bride_at := Vector2(193, 179)   # 新娘跟前：照布局里新娘的 approach（化妆间 1.25 倍以后不再写死）
+    for n0 in r.cfg.get("npcs", []):
+        if str(n0.get("id", "")) == "bride" and n0.has("approach"):
+            bride_at = Vector2(float(n0["approach"][0]), float(n0["approach"][1]))
+    var goals: Array = [["新娘跟前", bride_at], ["换装点", r.points["dress"]["pos"]]]
     for s0 in r.cfg.get("stand_points", []):
         if str(s0["id"]).begins_with("makeup_artist"):
             continue   # 化妆师自己站 / 坐的家，人在那儿占着，不是给玩家走到的点

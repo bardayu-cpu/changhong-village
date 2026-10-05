@@ -218,6 +218,7 @@ def kind_of(name):
     return ""
 
 
+VIEW_H = 0   # --view_h= 给了就写进 layout（一屏看多高；化妆间 1.25 倍写 960，人跟别的屋子一样大）
 SPOTS = {}   # 拆景包里写的点（spots：dress 换装点 …），load 时填
 
 
@@ -249,21 +250,23 @@ def build_layout(props, s, blocked=()):
     if bk + 1 < len(vanity) and vanity[bk][0] > mid_x:
         bk = max(0, bk - 1)   # 新娘坐门洞正中左边那张，化妆师站她右手边（正对红毯）
     bx, by = vanity[bk][0], vanity[bk][1]
-    nx = vanity[bk + 1][0] if bk + 1 < len(vanity) else bx + 60
+    u = W / 540.0   # 站位偏移跟着屋子大小走（化妆间 1.25 倍：675 宽 → ×1.25）；替身贴图的偏移是人的，不乘
+    U = lambda v: round(v * u)
+    nx = vanity[bk + 1][0] if bk + 1 < len(vanity) else bx + U(60)
     m1x = (bx + nx) // 2
     npcs.append({"id": "bride", "who": "新娘（坐在化妆凳上，背对镜头；替身）", "x": bx, "y": by, "face": "up", "sit": True, "lm": "LM-BRIDE-01",
-                 "life": "makeup", "approach": [bx - 30, by + 22], "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": by - 17}})
-    npcs.append({"id": "makeup_1", "who": "化妆师", "x": m1x, "y": by + 4, "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01",
-                 "life": "makeup", "approach": [m1x + 20, by + 26], "standin": {"code": "LM-GUEST-03", "frame": 4}})
-    stands.append({"id": "makeup_artist_1", "name": "化妆师 1 站这（给新娘化妆，新娘右手边）", "x": m1x, "y": by + 4, "r": 14})
+                 "life": "makeup", "approach": [bx - U(30), by + U(22)], "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 60, "bottom": by - 17}})
+    npcs.append({"id": "makeup_1", "who": "化妆师", "x": m1x, "y": by + U(4), "face": "left", "look": "makeup_1", "lm": "LM-MAKEUP-01",
+                 "life": "makeup", "approach": [m1x + U(20), by + U(26)], "standin": {"code": "LM-GUEST-03", "frame": 4}})
+    stands.append({"id": "makeup_artist_1", "name": "化妆师 1 站这（给新娘化妆，新娘右手边）", "x": m1x, "y": by + U(4), "r": 14})
     jewel = sorted([p for p in props if "jewel" in p["name"] and not p["fg"]], key=lambda p: p["foot"])
     if jewel:
         j = jewel[0]
-        ax, ay = round((j["footprint"][0] + j["footprint"][2]) * s) + 14, round((j["footprint"][1] + j["footprint"][3]) * s) + 8
+        ax, ay = round((j["footprint"][0] + j["footprint"][2]) * s) + 14, round((j["footprint"][1] + j["footprint"][3]) * s) + 8   # 助理站哪不乘（乘了挪 2 像素会把首饰柜东边那条路堵窄）
     else:
         ax, ay = round(W * 0.66), round(H * 0.37)
     npcs.append({"id": "makeup_2", "who": "化妆助理", "x": ax, "y": ay, "face": "left", "look": "makeup_2", "lm": "LM-MAKEUP-02",
-                 "life": "makeup", "approach": [ax - 20, ay + 22], "wander": ["stand_mk_gown", "stand_mk_red"],
+                 "life": "makeup", "approach": [ax - U(20), ay + U(22)], "wander": ["stand_mk_gown", "stand_mk_red"],
                  "standin": {"code": "LM-GUEST-06", "frame": 4}})
     stands.append({"id": "makeup_artist_2", "name": "化妆助理站这（第一个首饰柜东南角）", "x": ax, "y": ay, "r": 14})
     # 助理走一圈：婚纱那排跟前、红喜服那排跟前（衣架着地线往南一点，过道里）
@@ -273,7 +276,7 @@ def build_layout(props, s, blocked=()):
             return fallback
         p = rk[0]
         fx, fy, fw, fh = p["footprint"]
-        return [round((fx + fw * 0.5) * s), round((fy + fh) * s) + 26]
+        return [round((fx + fw * 0.5) * s), round((fy + fh) * s) + U(26)]
     gx, gy = front_of("rack_e1", [round(W * 0.8), round(H * 0.3)])
     rx, ry = front_of("rack_w1", [round(W * 0.17), round(H * 0.3)])
     stands.append({"id": "stand_mk_gown", "name": "婚纱那排跟前（化妆助理看婚纱）", "x": gx, "y": gy, "r": 14})
@@ -305,7 +308,7 @@ def build_layout(props, s, blocked=()):
                "note": "换装点（01 H 10/5：挪到试衣间；以后试衣服做成弹窗，像厨房那样）"}]
     walk = [[[SIDE[0], FLOOR_TOP], [SIDE[1], FLOOR_TOP], [SIDE[1], FLOOR_BOT], [SIDE[0], FLOOR_BOT]],
             [[DOOR[0], FLOOR_BOT - 10], [DOOR[1], FLOOR_BOT - 10], [DOOR[1], H - 6], [DOOR[0], H - 6]]]
-    return {
+    d = {
         "scene": "scene_luoman_makeup",
         "title": "化妆间",
         "note": "罗曼山庄 · 化妆间（单独成一间屋）：照 GPT 效果图拆的积木拼回来（阿鱼 10/5「让他去拆成零件给你坐标，你拼回去就可以了」）。"
@@ -324,6 +327,9 @@ def build_layout(props, s, blocked=()):
         "life": {"room": "makeup", "data": "res://assets/backhall/makeup.json"},
         "pixel_art": [RES + "room.json"],
     }
+    if VIEW_H:
+        d["view_h"] = VIEW_H
+    return d
 
 
 def write_layout(d):
@@ -351,11 +357,13 @@ def main():
     folder = args[0]
     check = sys.argv[sys.argv.index("--check") + 1] if "--check" in sys.argv else None
     report = sys.argv[sys.argv.index("--report") + 1] if "--report" in sys.argv else None
-    global OUT, RES
+    global OUT, RES, VIEW_H
     for a in sys.argv:
         if a.startswith("--canvas="):
             cw, ch = a.split("=", 1)[1].split("x")
             set_canvas(int(cw), int(ch))
+        if a.startswith("--view_h="):
+            VIEW_H = int(a.split("=", 1)[1])
         if a.startswith("--name="):   # 出到 assets/pixel_art/<name>/
             OUT = os.path.join(GODOT, "assets", "pixel_art", a.split("=", 1)[1])
             RES = "res://assets/pixel_art/%s/" % a.split("=", 1)[1]
