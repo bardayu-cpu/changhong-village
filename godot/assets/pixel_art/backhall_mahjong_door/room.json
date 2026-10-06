@@ -1,0 +1,62 @@
+{
+ "note": "tools/pixel_art/backhall_mahjong_door.py 生成，别手改。后厅长条里原来那间麻将室封起来：背景是墙后面那块（画成这间的屋顶），door_wall 是那面墙连门、灯笼；hide 藏掉原来那间的家具灰盒和 wall_1、门洞挡板（只藏画，挡人的占地照旧）",
+ "background": {
+  "png": "res://assets/pixel_art/backhall_mahjong_door/room.png",
+  "x": 523,
+  "y": 104
+ },
+ "room": {
+  "x0": 523,
+  "x1": 859
+ },
+ "props": [
+  {
+   "id": "px_mahjong_door_wall",
+   "png": "res://assets/pixel_art/backhall_mahjong_door/props/door_wall.png",
+   "x": 523,
+   "y": 104,
+   "foot": 696,
+   "hide": [
+    "card_chair_e",
+    "card_chair_n",
+    "card_chair_w",
+    "card_table",
+    "mahjong_door",
+    "mahjong_table",
+    "mahjong_table_2",
+    "mahjong_table_3",
+    "mj1_chair_e",
+    "mj1_chair_n",
+    "mj1_chair_s",
+    "mj1_chair_w",
+    "mj2_chair_e",
+    "mj2_chair_n",
+    "mj2_chair_s",
+    "mj2_chair_w",
+    "mj3_chair_e",
+    "mj3_chair_n",
+    "mj3_chair_s",
+    "mj3_chair_w",
+    "mj_cage_stand",
+    "mj_candy_table",
+    "mj_coat_rack",
+    "mj_fan",
+    "mj_flower_stand",
+    "mj_lamp_e",
+    "mj_lamp_w",
+    "mj_plant_nw",
+    "mj_plant_se",
+    "mj_recliner",
+    "mj_rest_chair_e",
+    "mj_rest_chair_w",
+    "mj_sideboard",
+    "mj_stand_1",
+    "mj_stand_2",
+    "mj_stand_3",
+    "mj_tea_1",
+    "mj_tea_2",
+    "wall_1"
+   ]
+  }
+ ]
+}

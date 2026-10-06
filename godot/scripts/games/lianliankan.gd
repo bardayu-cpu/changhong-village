@@ -12,6 +12,9 @@ const MAX_CELL := 128.0
 ## 格子被挤得只剩 72 以下；其实线只要画在牌外面、看得见就行，留一窄条
 const RING := 12.0
 const UISkin = preload("res://scripts/games/ui_skin.gd")
+const MJ = preload("res://scripts/games/mahjong_face.gd")   # 娱乐室「摸两把」：牌面换真麻将牌（参数 faces: mahjong）
+var mj_faces: Array = []     # 麻将牌面：第 k 种牌用哪张（空 = 照旧菜牌）
+var unlimited := false       # 不限时（参数 time 写 0：娱乐室，长辈慢慢找）
 var skin := false            # 外壳换 GPT 第 1 批（01 D 9/30）：棋盘底、格子底、选中框、连线、配对星星
 
 var cols := 4
@@ -28,19 +31,25 @@ var shuffle_msg_left := 0.0
 var line_fade := 0.25          # 消掉时那条连线多久淡没，秒（截图时拉长，好截到）
 
 func goal_text() -> String:
+    if str(params.get("faces", "")) == "mahjong":
+        return "找两张一样的牌，连得上就消掉" + ("，不限时" if p_float("time", 90.0) <= 0.0 else "，%d 秒" % roundi(p_float("time", 90.0)))
     return "%d 秒内把菜连完" % roundi(p_float("time", 90.0))
 
 func status_text() -> String:
     if shuffle_msg_left > 0.0:
         return "洗一下牌"
+    if unlimited:
+        return ""
     return "剩 %d 秒" % maxi(ceili(time_left), 0)
 
 func _build() -> void:
     cols = maxi(p_int("cols", 4), 2)
     rows = maxi(p_int("rows", 4), 2)
     var kd := clampi(p_int("kinds", 4), 1, 12)
+    unlimited = p_float("time", 90.0) <= 0.0
     time_left = maxf(p_float("time", 90.0), 1.0)
     board = make_board(cols, rows, kd, rng)
+    mj_faces = MJ.pick(kd, rng) if str(params.get("faces", "")) == "mahjong" else []
     rows = board.size()
     cols = (board[0] as Array).size() if rows > 0 else 0
     if not has_any_pair(board):
@@ -112,7 +121,8 @@ func _redraw_all() -> void:
             # 垫浅米色牌底（B8，体验第一轮）：原来菜是光板贴在底色上，看不出哪儿是一张牌、
             # 两张挨着的同种菜糊成一块。用小菜合大菜那层牌底（card），不用翻牌那种按菜换色的色块
             # （阿鱼 9/20 嫌透明图后面顶着色块怪）；图没到的照旧色块 + 一个字
-            var t := Tiles.dish_tile(v - 1, cell_px, font, fs, "", art_set, false, true)
+            var t: Panel = MJ.tile(int(mj_faces[(v - 1) % mj_faces.size()]), cell_px, font) if not mj_faces.is_empty() \
+                else Tiles.dish_tile(v - 1, cell_px, font, fs, "", art_set, false, true)
             t.position = _cell_pos(x, y)
             t.set_meta("skin", skin)
             grid.add_child(t)
@@ -227,6 +237,8 @@ func _flash_line(path: Array) -> void:
 func _game_tick(dt: float) -> void:
     if shuffle_msg_left > 0.0:
         shuffle_msg_left = maxf(shuffle_msg_left - dt, 0.0)
+    if unlimited:
+        return
     time_left -= dt
     if time_left <= 0.0:
         lose("时间到了")

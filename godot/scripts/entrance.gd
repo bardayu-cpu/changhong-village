@@ -361,6 +361,19 @@ func _pixel_art(flat: Node2D) -> void:
             s.offset = Vector2(0.0, float(p["y"]) - float(p["foot"]))
             s.name = str(p["id"])
             world.add_child(s)
+            if p.has("frames"):   # 几帧轮着放（娱乐室电视 10/6：三帧、120ms 一帧循环）
+                var texs: Array = []
+                for fp in p["frames"]:
+                    texs.append(Canvas.texture(str(fp)))
+                var tm := Timer.new()
+                tm.wait_time = maxf(float(p.get("frame_ms", 120)), 16.0) / 1000.0
+                tm.autostart = true
+                s.set_meta("frame", 0)
+                tm.timeout.connect(func():
+                    var i: int = (int(s.get_meta("frame")) + 1) % texs.size()
+                    s.set_meta("frame", i)
+                    s.texture = texs[i])
+                s.add_child(tm)
 
 ## 铺了像素成品的画布，镜头放大倍数取整到 1（原来按画布高 1024 缩到 0.9375）：1 个美术像素正好 1 个画布像素，
 ## 手机上再整倍放大（1080 宽的屏正好 2 倍），像素不会一行宽一行窄、也不会掉行。画布高比屏高只多 64，镜头跟着人走，看不出少了什么

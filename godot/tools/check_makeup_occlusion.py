@@ -39,14 +39,17 @@ def main():
         raise SystemExit(__doc__)
     opt = lambda k: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else None
     global ROOM
+    scene = "scene_luoman_makeup"
     for a in sys.argv:
         if a.startswith("--name="):
             ROOM = os.path.join(GODOT, "assets", "pixel_art", a.split("=", 1)[1], "room.json")
+        if a.startswith("--scene="):   # 别的屋（娱乐室 10/6：--name=entertainment_room --scene=scene_luoman_mahjong）
+            scene = a.split("=", 1)[1]
     grid = json.load(open(args[0], encoding="utf-8"))
     cell = float(grid["cell"])
     rows = grid["rows"]
     room = json.load(open(ROOM, encoding="utf-8"))
-    lay = json.load(open(os.path.join(GODOT, "assets", "layered", "scene_luoman_makeup", "layout.json"), encoding="utf-8"))
+    lay = json.load(open(os.path.join(GODOT, "assets", "layered", scene, "layout.json"), encoding="utf-8"))
     fps = {it["id"]: it["rect"] for it in lay["items"] if "rect" in it}
     props = []
     for p in room["props"]:
