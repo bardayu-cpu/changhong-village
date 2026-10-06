@@ -8,6 +8,7 @@ extends SceneTree
 ##   5 话泡躲顶栏：化妆间、后厅各跑 60 秒，手机 540×960、长屏各一遍：每个冒着的泡（头顶 / 身侧 / 脚下）整个在屏里（四边 ≥ 16）、不压顶栏那一排（地名、金币）
 ##   6 对话框开着时底下的按钮藏起来、关了再出：站到空座旁（「坐下」按钮出着）开跟人说话的框，按钮透明 0 且点不到，关框回来；阿鱼说话的框同样
 ##   7 点框翻页：长句分页，点框先出完字、再点翻页、到最后一页才到下一句，选项只在最后一页
+## 时限：900
 ## 用法：Godot --headless --path . --script res://tools/test_rc_makeup_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
 const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")
@@ -285,26 +286,28 @@ func run() -> void:
     check("新娘（替身 %s）是这屋的主角，别的客人不用她的脸（跟她同脸的：%s）" % [bride_code, str(bride_twins)], bride_twins.is_empty())
     check("替身共 %d 种；重样的最近一对相距 %.0f 像素（要求超过半屏 480，不然像一对挨着的复制人）；镜头居中时最多同屏 %d 对（都在屏的最上和最下两头，只记数）" % [looks.size(), near_d, worst_vis], near_d > 480.0 and looks.size() >= 9)
 
-    print("5 话泡躲顶栏、四边 16（手机、长屏；化妆间、后厅各 60 秒）")
+    print("5 话泡躲顶栏、四边 16、两只不叠（手机、长屏；化妆间 4 个站位各 20 秒、后厅 40 秒）")
     var bub_bad: Array = []
     var samples := 0
     var by_mode := {}
+    var pair_n := 0
+    var off_rows := {}   # 屋 屏 站位 -> [样本数, 离屏边最远多少像素]
+    var off_vis := 0     # 冒着、看得见，可说话的人整个在屏外的样本数（泡被拉到屏里，像是旁边的人说的）
+    var spots: Array = [["makeup", Vector2(337, 330), 20.0], ["makeup", Vector2(337, 600), 20.0], ["makeup", Vector2(500, 330), 20.0], ["makeup", Vector2(180, 330), 20.0], ["backhall", Vector2(1032, 300), 40.0]]
     for sz in [Vector2i(540, 960), Vector2i(585, 1266)]:
         get_root().size = sz
         await frames(4)
-        for room in ["makeup", "backhall"]:
+        for sp in spots:
+            var room: String = sp[0]
             await enter(room)
             var cv = m.cv
-            if room == "makeup":
-                cv.reset_to(Vector2(337, 330))   # 人往北站，镜头上去，最北那排人的泡最贴顶栏
-            else:
-                cv.reset_to(Vector2(1032, 300))
+            cv.reset_to(sp[1])
             cv.snap_cam()
             await frames(6)
             var lives: Array = mk.lives if room == "makeup" else m.backhall.lives
             for lfx in lives:
                 lfx.frozen = false
-            for step in int(60.0 / DT):
+            for step in int(float(sp[2]) / DT):
                 tick(1)
                 if step % 6 != 0:
                     continue
@@ -312,6 +315,7 @@ func run() -> void:
                 var vs: Vector2 = get_root().get_visible_rect().size
                 var vp_size: Vector2 = (m.view.get_child(0) as SubViewport).size
                 var top_edge: float = DialogSkin.safe_top
+                var vis_now: Array = []   # 这一刻看得见的泡：[标签, 框]
                 for lfx in lives:
                     for id in lfx.bubbles:
                         var bb: Node2D = lfx.bubbles[id]
@@ -329,7 +333,7 @@ func run() -> void:
                             continue
                         var r: Rect2 = node_rect(box, Rect2(Vector2.ZERO, box.size))
                         samples += 1
-                        var tag := "%dx%d %s %s" % [sz.x, sz.y, room, str(id)]
+                        var tag := "%dx%d %s@%s %s" % [sz.x, sz.y, room, str(sp[1]), str(id)]
                         if r.position.x < 15.5 or r.position.y < 15.5 or r.end.x > vp_size.x - 15.5 or r.end.y > vp_size.y - 15.5:
                             bub_bad.append("%s：泡 %s 不在屏里（四边留 16，屏 %s）" % [tag, str(r), str(vp_size)])
                         if r.position.y < top_edge - 0.5:
@@ -337,11 +341,34 @@ func run() -> void:
                         var sk = bb.get_node_or_null("safe_keep")
                         if sk != null:
                             by_mode[str(sk.mode)] = int(by_mode.get(str(sk.mode), 0)) + 1
+                        vis_now.append([tag, r])
+                        if (lfx.people as Dictionary).has(id):
+                            var fs: Vector2 = cv.get_viewport().get_canvas_transform() * ((lfx.people[id]["foot"]) as Vector2)
+                            if fs.x < 0.0 or fs.x > vp_size.x or fs.y < 0.0 or fs.y > vp_size.y or fs.y < top_edge - 20.0:
+                                off_vis += 1
+                                var far_px: float = maxf(maxf(-fs.x, fs.x - vp_size.x), maxf(-fs.y, maxf(fs.y - vp_size.y, top_edge - 20.0 - fs.y)))
+                                var ok2 := "%dx%d %s@%s" % [sz.x, sz.y, room, str(sp[1])]
+                                var rw: Array = off_rows.get(ok2, [0, 0.0, {}])
+                                rw[0] = int(rw[0]) + 1
+                                rw[1] = maxf(float(rw[1]), far_px)
+                                var mm: Dictionary = rw[2]
+                                mm[str(sk.mode) if sk != null else "-"] = int(mm.get(str(sk.mode) if sk != null else "-", 0)) + 1
+                                off_rows[ok2] = rw
+                for i1 in vis_now.size():
+                    for i2 in range(i1 + 1, vis_now.size()):
+                        if (vis_now[i1][1] as Rect2).intersects(vis_now[i2][1] as Rect2):
+                            pair_n += 1
+                            bub_bad.append("%s 和 %s 两只泡叠在一起 %s / %s" % [vis_now[i1][0], vis_now[i2][0], str(vis_now[i1][1]), str(vis_now[i2][1])])
     for x in bub_bad.slice(0, 8):
         print("    ", x)
-    print("    量到 %d 个泡的样本；放法分布 %s" % [samples, str(by_mode)])
+    var hidden_n: int = int(by_mode.get("hidden", 0))
+    var hidden_pct: float = 100.0 * float(hidden_n) / float(maxi(1, samples + hidden_n))
+    print("    量到 %d 个泡的样本；放法分布 %s；先不显示的占 %.1f%%；两只叠 %d 次；冒着、可说话的人整个在屏外的 %d 个样本（%.1f%%）" % [samples, str(by_mode), hidden_pct, pair_n, off_vis, 100.0 * float(off_vis) / float(maxi(1, samples))])
     get_root().size = Vector2i(540, 960)
-    check("两种屏、化妆间 + 后厅各 60 秒共 %d 个泡的样本：整个在屏里、不压顶栏（%d 处不对）" % [samples, bub_bad.size()], bub_bad.is_empty() and samples >= 30)
+    for ok3 in off_rows:
+        print("      说话人在屏外、泡却冒着：%s → %d 个样本，人离屏边最远 %.0f 像素，泡放法 %s" % [ok3, off_rows[ok3][0], off_rows[ok3][1], str(off_rows[ok3][2])])
+    check("两种屏、化妆间 4 个站位 + 后厅共 %d 个泡的样本：整个在屏里、不压顶栏、两只不叠（%d 处不对）" % [samples, bub_bad.size()], bub_bad.is_empty() and samples >= 100)
+    check("放不下先不显示的泡只是偶尔（%d 个，占 %.1f%%，要求 ≤ 3%%；多了说明话都被藏掉了）" % [hidden_n, hidden_pct], hidden_pct <= 3.0)
 
     print("6 对话框开着时底下的按钮藏起来、关了再出")
     await enter("makeup")

@@ -206,9 +206,12 @@ func run() -> void:
             var names: Array = []
             var opts: Array = []
             var portrait_ok := true
+            var sat_moved := false   # 10/6 庄Z3：「坐着说话不换格」要在说话时量。说完那一刻再量会撞上她正好起身（等了一会儿的起身倒计时到了），那是游戏本来的样子，不是毛病
             for k in 14:
                 if not ui.talk_box.visible:
                     break
+                if (p["foot"] as Vector2) == p["home"] and str(p["home_mode"]) == "sit" and (p["spr"] as Sprite2D).region_rect != reg0:
+                    sat_moved = true
                 seen.append(str(ui.line_raw))
                 names.append(str(ui.name_label.text))
                 portrait_ok = portrait_ok and ((ui.portrait.texture != null and ui.portrait.visible) if str(p["code"]) != "" else not ui.portrait.visible)   # 新娘（code 空）不放头像
@@ -238,8 +241,8 @@ func run() -> void:
                 err += "头像该有的没有、该没有的有了（新娘不放）；"
             if ui.talk_box.visible or not b.walking_enabled or lf.talking != "":
                 err += "说完没收好；"
-            if (p["foot"] as Vector2) == p["home"] and str(p["home_mode"]) == "sit" and (p["spr"] as Sprite2D).region_rect != reg0:
-                err += "坐着说话换了格（起身或转身了）；"
+            if sat_moved:
+                err += "坐着说话时换了格（起身或转身了）；"
             if err != "":
                 bad.append("%s 第 %d 支：%s" % [id, pick + 1, err])
     for x in bad:
