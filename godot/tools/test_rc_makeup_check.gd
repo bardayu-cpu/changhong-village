@@ -8,7 +8,6 @@ extends SceneTree
 ##   5 话泡躲顶栏：化妆间、后厅各跑 60 秒，手机 540×960、长屏各一遍：每个冒着的泡（头顶 / 身侧 / 脚下）整个在屏里（四边 ≥ 16）、不压顶栏那一排（地名、金币）
 ##   6 对话框开着时底下的按钮藏起来、关了再出：站到空座旁（「坐下」按钮出着）开跟人说话的框，按钮透明 0 且点不到，关框回来；阿鱼说话的框同样
 ##   7 点框翻页：长句分页，点框先出完字、再点翻页、到最后一页才到下一句，选项只在最后一页
-## 时限：900
 ## 用法：Godot --headless --path . --script res://tools/test_rc_makeup_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
 const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")
