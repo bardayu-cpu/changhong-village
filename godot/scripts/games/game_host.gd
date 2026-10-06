@@ -12,6 +12,7 @@ const Tiles = preload("res://scripts/games/tiles.gd")
 const UISkin = preload("res://scripts/games/ui_skin.gd")
 const SCRIPTS := {
     "lianliankan": "res://scripts/games/lianliankan.gd",
+    "mahjong_pair": "res://scripts/games/lianliankan.gd",   # 娱乐室「摸两把」：同一套连连看，牌面换麻将（minigames.json 写 faces: mahjong）
     "match3": "res://scripts/games/match3.gd",
     "g2048": "res://scripts/games/g2048.gd",
     "memory": "res://scripts/games/memory.gd",
@@ -310,7 +311,10 @@ func _make_game() -> Control:
     if path == "" or not ResourceLoader.exists(path):
         return null
     var gm: Control = load(path).new()
-    gm.setup(level, Cfg.params(g, level, k), font, int(Time.get_ticks_usec()) ^ (level * 7919))
+    var prm: Dictionary = Cfg.params(g, level, k)
+    if g.has("faces"):
+        prm["faces"] = g["faces"]   # 牌面（mahjong：真麻将牌），不分关
+    gm.setup(level, prm, font, int(Time.get_ticks_usec()) ^ (level * 7919))
     gm.art_set = str(g.get("art_set", "shared"))
     return gm
 
@@ -374,7 +378,7 @@ func _on_finished(won: bool, why: String) -> void:
                 reward = game.won_coins()
             extra = game.win_lines()
         var dish := -1
-        var lines: Array = ["+%d 金（手上 %d 金）" % [reward, save.coins + reward]]
+        var lines: Array = ["+%d 金（手上 %d 金）" % [reward, save.coins + reward]] if reward > 0 or Cfg.reward(g, level) > 0 else ["这一把摸完了"]   # 不给金币的（娱乐室，阿鱼选乙）：不出「+0 金」
         lines.append_array(extra)
         if game_id == "lianliankan" and not Cfg.dishes().is_empty():
             dish = (level - 1) % Cfg.dishes().size()

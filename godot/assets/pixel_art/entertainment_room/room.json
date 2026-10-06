@@ -1,0 +1,999 @@
+{
+ "note": "tools/pixel_art/room_entertainment_gpt.py 照 GPT 娱乐室包（加宽版）出，别手改；画面是占位（GPT 第 37 件重出整图后再跑一次就换）。底图铺地上；每件左上角在 x/y、着地线 foot 跟人排前后；frames 是电视三帧（frame_ms 一帧多久）；hide 藏掉同名的占地灰盒（挡人照旧）",
+ "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/游戏制作中-gpt 和 claude 合作/地图一-苏七镇/罗曼山庄/003-后厅/娱乐室-v1",
+ "background": {
+  "png": "res://assets/pixel_art/entertainment_room/room.png",
+  "x": 0,
+  "y": 0
+ },
+ "room": {
+  "x0": 0,
+  "x1": 1100
+ },
+ "props": [
+  {
+   "id": "px_tea_cabinet_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y09-02.png",
+   "x": 394,
+   "y": 52,
+   "foot": 170,
+   "hide": [
+    "tea_cabinet_w",
+    "nostand_0",
+    "nostand_1",
+    "nostand_2",
+    "nostand_3",
+    "nostand_4",
+    "nostand_5",
+    "nostand_6",
+    "nostand_7",
+    "nostand_8",
+    "nostand_9",
+    "nostand_10",
+    "nostand_11",
+    "nostand_12",
+    "nostand_13",
+    "nostand_14",
+    "nostand_15",
+    "nostand_16",
+    "nostand_17",
+    "nostand_18",
+    "nostand_19",
+    "nostand_20",
+    "nostand_21",
+    "nostand_22",
+    "nostand_23",
+    "nostand_24",
+    "nostand_25",
+    "nostand_26",
+    "nostand_27",
+    "nostand_28",
+    "nostand_29",
+    "nostand_30",
+    "nostand_31",
+    "nostand_32",
+    "nostand_33",
+    "nostand_34",
+    "nostand_35",
+    "nostand_36",
+    "nostand_37",
+    "nostand_38",
+    "nostand_39",
+    "nostand_40",
+    "nostand_41",
+    "nostand_42",
+    "nostand_43",
+    "nostand_44",
+    "nostand_45",
+    "nostand_46",
+    "nostand_47",
+    "nostand_48",
+    "nostand_49",
+    "nostand_50",
+    "nostand_51",
+    "nostand_52",
+    "nostand_53",
+    "nostand_54",
+    "nostand_55",
+    "nostand_56",
+    "nostand_57",
+    "nostand_58",
+    "nostand_59",
+    "nostand_60",
+    "nostand_61",
+    "nostand_62",
+    "nostand_63",
+    "nostand_64",
+    "nostand_65",
+    "nostand_66",
+    "nostand_67",
+    "nostand_68",
+    "nostand_69",
+    "nostand_70",
+    "nostand_71"
+   ]
+  },
+  {
+   "id": "px_tea_cabinet_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y09-02.png",
+   "x": 630,
+   "y": 52,
+   "foot": 170,
+   "hide": [
+    "tea_cabinet_e"
+   ]
+  },
+  {
+   "id": "px_tea_bar",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y09-01.png",
+   "x": 476,
+   "y": 83,
+   "foot": 174,
+   "hide": [
+    "tea_bar"
+   ]
+  },
+  {
+   "id": "px_lamp_w_200",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-02.png",
+   "x": 97,
+   "y": 95,
+   "foot": 200,
+   "hide": [
+    "lamp_w_200"
+   ]
+  },
+  {
+   "id": "px_lamp_e_200",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-02.png",
+   "x": 981,
+   "y": 95,
+   "foot": 200,
+   "hide": [
+    "lamp_e_200"
+   ]
+  },
+  {
+   "id": "px_plant_nw",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-01.png",
+   "x": 64,
+   "y": 138,
+   "foot": 250,
+   "hide": [
+    "plant_nw"
+   ]
+  },
+  {
+   "id": "px_plant_ne",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-01.png",
+   "x": 980,
+   "y": 138,
+   "foot": 250,
+   "hide": [
+    "plant_ne"
+   ]
+  },
+  {
+   "id": "px_tv_cabinet",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y06-01.png",
+   "x": 770,
+   "y": 191,
+   "foot": 290,
+   "hide": [
+    "tv_cabinet"
+   ]
+  },
+  {
+   "id": "px_sofa_long",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y05-01.png",
+   "x": 125,
+   "y": 231,
+   "foot": 300,
+   "hide": [
+    "sofa_long"
+   ]
+  },
+  {
+   "id": "px_sofa_single",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y05-02.png",
+   "x": 295,
+   "y": 236,
+   "foot": 300,
+   "hide": [
+    "sofa_single"
+   ]
+  },
+  {
+   "id": "px_stool",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y08-01.png",
+   "x": 815,
+   "y": 306,
+   "foot": 335,
+   "hide": [
+    "stool"
+   ]
+  },
+  {
+   "id": "px_coffee",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y05-03.png",
+   "x": 170,
+   "y": 301,
+   "foot": 345,
+   "hide": [
+    "coffee"
+   ]
+  },
+  {
+   "id": "px_beanbag",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y08-02.png",
+   "x": 900,
+   "y": 301,
+   "foot": 345,
+   "hide": [
+    "beanbag"
+   ]
+  },
+  {
+   "id": "px_mahjong_01_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 190,
+   "y": 332,
+   "foot": 398,
+   "hide": [
+    "mahjong_01_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_02_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 420,
+   "y": 332,
+   "foot": 398,
+   "hide": [
+    "mahjong_02_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_03_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 650,
+   "y": 332,
+   "foot": 398,
+   "hide": [
+    "mahjong_03_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_04_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 880,
+   "y": 332,
+   "foot": 398,
+   "hide": [
+    "mahjong_04_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_01_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 139,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_01_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_01_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 241,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_01_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_02_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 369,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_02_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_02_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 471,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_02_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_03_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 599,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_03_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_03_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 701,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_03_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_04_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 829,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_04_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_04_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 931,
+   "y": 372,
+   "foot": 436,
+   "hide": [
+    "mahjong_04_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_01_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-01.png",
+   "x": 164,
+   "y": 364,
+   "foot": 450,
+   "hide": [
+    "mahjong_01_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_02_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-02.png",
+   "x": 394,
+   "y": 364,
+   "foot": 450,
+   "hide": [
+    "mahjong_02_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_03_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-03.png",
+   "x": 624,
+   "y": 364,
+   "foot": 450,
+   "hide": [
+    "mahjong_03_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_04_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-01.png",
+   "x": 854,
+   "y": 364,
+   "foot": 450,
+   "hide": [
+    "mahjong_04_table"
+   ]
+  },
+  {
+   "id": "px_lamp_w_470",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-02.png",
+   "x": 97,
+   "y": 365,
+   "foot": 470,
+   "hide": [
+    "lamp_w_470"
+   ]
+  },
+  {
+   "id": "px_lamp_e_470",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-02.png",
+   "x": 981,
+   "y": 365,
+   "foot": 470,
+   "hide": [
+    "lamp_e_470"
+   ]
+  },
+  {
+   "id": "px_mahjong_01_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 190,
+   "y": 431,
+   "foot": 482,
+   "hide": [
+    "mahjong_01_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_02_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 420,
+   "y": 431,
+   "foot": 482,
+   "hide": [
+    "mahjong_02_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_03_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 650,
+   "y": 431,
+   "foot": 482,
+   "hide": [
+    "mahjong_03_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_04_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 880,
+   "y": 431,
+   "foot": 482,
+   "hide": [
+    "mahjong_04_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_05_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 190,
+   "y": 542,
+   "foot": 608,
+   "hide": [
+    "mahjong_05_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_06_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 535,
+   "y": 542,
+   "foot": 608,
+   "hide": [
+    "mahjong_06_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_07_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 880,
+   "y": 542,
+   "foot": 608,
+   "hide": [
+    "mahjong_07_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_05_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 139,
+   "y": 582,
+   "foot": 646,
+   "hide": [
+    "mahjong_05_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_05_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 241,
+   "y": 582,
+   "foot": 646,
+   "hide": [
+    "mahjong_05_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_06_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 484,
+   "y": 582,
+   "foot": 646,
+   "hide": [
+    "mahjong_06_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_06_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 586,
+   "y": 582,
+   "foot": 646,
+   "hide": [
+    "mahjong_06_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_07_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 829,
+   "y": 582,
+   "foot": 646,
+   "hide": [
+    "mahjong_07_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_07_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 931,
+   "y": 582,
+   "foot": 646,
+   "hide": [
+    "mahjong_07_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_05_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-02.png",
+   "x": 164,
+   "y": 574,
+   "foot": 660,
+   "hide": [
+    "mahjong_05_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_06_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-03.png",
+   "x": 509,
+   "y": 574,
+   "foot": 660,
+   "hide": [
+    "mahjong_06_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_07_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-01.png",
+   "x": 854,
+   "y": 574,
+   "foot": 660,
+   "hide": [
+    "mahjong_07_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_05_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 190,
+   "y": 641,
+   "foot": 692,
+   "hide": [
+    "mahjong_05_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_06_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 535,
+   "y": 641,
+   "foot": 692,
+   "hide": [
+    "mahjong_06_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_07_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 880,
+   "y": 641,
+   "foot": 692,
+   "hide": [
+    "mahjong_07_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_08_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 190,
+   "y": 782,
+   "foot": 848,
+   "hide": [
+    "mahjong_08_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_09_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 420,
+   "y": 782,
+   "foot": 848,
+   "hide": [
+    "mahjong_09_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_10_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 650,
+   "y": 782,
+   "foot": 848,
+   "hide": [
+    "mahjong_10_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_11_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 880,
+   "y": 782,
+   "foot": 848,
+   "hide": [
+    "mahjong_11_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_08_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 139,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_08_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_08_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 241,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_08_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_09_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 369,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_09_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_09_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 471,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_09_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_10_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 599,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_10_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_10_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 701,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_10_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_11_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 829,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_11_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_11_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 931,
+   "y": 822,
+   "foot": 886,
+   "hide": [
+    "mahjong_11_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_08_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-02.png",
+   "x": 164,
+   "y": 814,
+   "foot": 900,
+   "hide": [
+    "mahjong_08_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_09_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-03.png",
+   "x": 394,
+   "y": 814,
+   "foot": 900,
+   "hide": [
+    "mahjong_09_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_10_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-01.png",
+   "x": 624,
+   "y": 814,
+   "foot": 900,
+   "hide": [
+    "mahjong_10_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_11_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-02.png",
+   "x": 854,
+   "y": 814,
+   "foot": 900,
+   "hide": [
+    "mahjong_11_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_08_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 190,
+   "y": 881,
+   "foot": 932,
+   "hide": [
+    "mahjong_08_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_09_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 420,
+   "y": 881,
+   "foot": 932,
+   "hide": [
+    "mahjong_09_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_10_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 650,
+   "y": 881,
+   "foot": 932,
+   "hide": [
+    "mahjong_10_s"
+   ]
+  },
+  {
+   "id": "px_mahjong_11_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 880,
+   "y": 881,
+   "foot": 932,
+   "hide": [
+    "mahjong_11_s"
+   ]
+  },
+  {
+   "id": "px_lamp_w_1040",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-02.png",
+   "x": 97,
+   "y": 935,
+   "foot": 1040,
+   "hide": [
+    "lamp_w_1040"
+   ]
+  },
+  {
+   "id": "px_lamp_e_1040",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-02.png",
+   "x": 981,
+   "y": 935,
+   "foot": 1040,
+   "hide": [
+    "lamp_e_1040"
+   ]
+  },
+  {
+   "id": "px_mahjong_12_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 535,
+   "y": 1022,
+   "foot": 1088,
+   "hide": [
+    "mahjong_12_n"
+   ]
+  },
+  {
+   "id": "px_poker_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 185,
+   "y": 1022,
+   "foot": 1088,
+   "hide": [
+    "poker_n"
+   ]
+  },
+  {
+   "id": "px_long_cards_n",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-01.png",
+   "x": 885,
+   "y": 1022,
+   "foot": 1088,
+   "hide": [
+    "long_cards_n"
+   ]
+  },
+  {
+   "id": "px_mahjong_12_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 484,
+   "y": 1062,
+   "foot": 1126,
+   "hide": [
+    "mahjong_12_w"
+   ]
+  },
+  {
+   "id": "px_mahjong_12_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 586,
+   "y": 1062,
+   "foot": 1126,
+   "hide": [
+    "mahjong_12_e"
+   ]
+  },
+  {
+   "id": "px_poker_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 126,
+   "y": 1062,
+   "foot": 1126,
+   "hide": [
+    "poker_w"
+   ]
+  },
+  {
+   "id": "px_poker_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 244,
+   "y": 1062,
+   "foot": 1126,
+   "hide": [
+    "poker_e"
+   ]
+  },
+  {
+   "id": "px_long_cards_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-03.png",
+   "x": 826,
+   "y": 1062,
+   "foot": 1126,
+   "hide": [
+    "long_cards_w"
+   ]
+  },
+  {
+   "id": "px_long_cards_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-04.png",
+   "x": 944,
+   "y": 1062,
+   "foot": 1126,
+   "hide": [
+    "long_cards_e"
+   ]
+  },
+  {
+   "id": "px_mahjong_12_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y01-03.png",
+   "x": 509,
+   "y": 1054,
+   "foot": 1140,
+   "hide": [
+    "mahjong_12_table"
+   ]
+  },
+  {
+   "id": "px_poker_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y03-01.png",
+   "x": 150,
+   "y": 1061,
+   "foot": 1140,
+   "hide": [
+    "poker_table"
+   ]
+  },
+  {
+   "id": "px_long_cards_table",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y04-01.png",
+   "x": 850,
+   "y": 1061,
+   "foot": 1140,
+   "hide": [
+    "long_cards_table"
+   ]
+  },
+  {
+   "id": "px_mahjong_12_s",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y02-02.png",
+   "x": 535,
+   "y": 1121,
+   "foot": 1172,
+   "hide": [
+    "mahjong_12_s"
+   ]
+  },
+  {
+   "id": "px_bench_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y10-01.png",
+   "x": 131,
+   "y": 1191,
+   "foot": 1240,
+   "hide": [
+    "bench_w"
+   ]
+  },
+  {
+   "id": "px_bench_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y10-01.png",
+   "x": 831,
+   "y": 1191,
+   "foot": 1240,
+   "hide": [
+    "bench_e"
+   ]
+  },
+  {
+   "id": "px_plant_door_w",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-01.png",
+   "x": 432,
+   "y": 1133,
+   "foot": 1245,
+   "hide": [
+    "plant_door_w"
+   ]
+  },
+  {
+   "id": "px_plant_door_e",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y11-01.png",
+   "x": 612,
+   "y": 1133,
+   "foot": 1245,
+   "hide": [
+    "plant_door_e"
+   ]
+  },
+  {
+   "id": "px_tv_game_console",
+   "png": "res://assets/pixel_art/entertainment_room/props/blk_y06-02.png",
+   "x": 838,
+   "y": 245,
+   "foot": 291,
+   "hide": []
+  },
+  {
+   "id": "px_tv_screen",
+   "png": "res://assets/pixel_art/entertainment_room/props/tv_y07-01.png",
+   "frames": [
+    "res://assets/pixel_art/entertainment_room/props/tv_y07-01.png",
+    "res://assets/pixel_art/entertainment_room/props/tv_y07-02.png",
+    "res://assets/pixel_art/entertainment_room/props/tv_y07-03.png"
+   ],
+   "frame_ms": 120,
+   "x": 808,
+   "y": 205,
+   "foot": 291,
+   "hide": []
+  }
+ ]
+}

@@ -18,12 +18,13 @@ const PIC := {
     "wkitchen": Vector2(305, 720), "garden": Vector2(829, 635), "parking": Vector2(745, 870), "frontgate": Vector2(480, 897),
     "lake": Vector2(710, 340), "orchardA": Vector2(423, 498), "orchardB": Vector2(212, 498), "backgate": Vector2(273, 398),
     "makeup": Vector2(541, 635),   # 10/4 化妆间单独成一间屋（02 E 补）：方案 C 图上后厅一排最东头那间
+    "mahjong": Vector2(439, 635),  # 10/6 麻将室单独成一间娱乐室（庄Z2）：后厅一排西数第二间（门 x 696，照化妆间那样按后厅 1 像素 = 图上 0.153 折）
 }
 ## 屋里的门不在画布边上，照「离哪条边最近」算不准，直接写在哪侧（10/4 02 E 补）：后厅走廊化妆间门口在走廊北沿，往北进屋
-const INNER_SIDE := {"backhall.to_makeup": "N"}
+const INNER_SIDE := {"backhall.to_makeup": "N", "backhall.to_mahjong": "N"}
 const NAMES := {"court": "迎宾院", "banquet": "宴会厅", "backhall": "后厅", "lawn": "草坪", "plaza": "广场", "kids": "儿童乐园", "shop": "小卖部",
     "rest2": "休息厅", "wkitchen": "西餐厨房", "garden": "后花园", "parking": "停车场", "frontgate": "前门", "lake": "湖", "orchard": "果园", "backgate": "后门",
-    "makeup": "化妆间"}
+    "makeup": "化妆间", "mahjong": "娱乐室"}
 const DIRV := {"N": Vector2(0, -1), "S": Vector2(0, 1), "E": Vector2(1, 0), "W": Vector2(-1, 0)}
 const OPP := {"N": "S", "S": "N", "E": "W", "W": "E"}
 
@@ -207,7 +208,7 @@ func run() -> void:
     check("每个口通的那块在图上就在那一侧、过去站对面反过来的一侧（%d 处不对）" % bad.size(), bad.is_empty())
     # 第 68 版：前门北口改通广场（原来通迎宾院大门）、广场东口改通停车场（原来通前门）、迎宾院东口去停车场拿掉、大门改通停车场、新加休息厅 2 ↔ 前门：26 → 27 条
     # 10/5 化妆间单独成屋合进来：后厅 ⇄ 化妆间多一对，27 → 28 条（有向 56 个）
-    check("连法数：28 条（有向 56 个；第 68 版 27 条 + 化妆间那一对）", undirected.size() == 28 and links.size() == 56)
+    check("连法数：29 条（有向 58 个；第 68 版 27 条 + 化妆间、娱乐室各一对）", undirected.size() == 29 and links.size() == 58)
 
     print("2 每个口走一趟：出生点走到口、切过去、站稳、再从落点走回口")
     var walk_bad: Array = []
@@ -302,7 +303,7 @@ func run() -> void:
         print("    注：", b)
     for b in walk_bad.slice(0, 20):
         print("    ", b)
-    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 56)
+    check("%d 个口都从出生点走得到、切过去站得稳、从落点走得回来（%d 处不对）" % [walked, walk_bad.size()], walk_bad.is_empty() and walked == 58)   # 10/6 加娱乐室进出一对（庄Z2）
 
     print("3 图上几处位置关系")
     var bh = m.backhall
@@ -311,14 +312,14 @@ func run() -> void:
         var l: Label = (h as Node2D).get_child(0)
         xs[str(l.text)] = (h as Node2D).position.x
     print("    后厅牌子 x：", xs)
-    var want := ["后厨", "麻将室", "休息间", "化妆间"]
+    var want := ["后厨", "娱乐室", "休息间", "化妆间"]   # 10/6 门牌「麻将室」→「娱乐室」（庄Z2，搬成单独一间）
     var names := {}
     for t in xs:
         var nm := str(t)
         for w in want:
             if nm.find(w) >= 0 or (w == "休息间" and nm.find("休息") >= 0):
                 names[w] = float(xs[t])
-    check("后厅牌子由西到东：后厨 < 麻将室 < 休息间 < 化妆间（%s）" % str(names), names.size() == 4 and float(names["后厨"]) < float(names["麻将室"]) and float(names["麻将室"]) < float(names["休息间"]) and float(names["休息间"]) < float(names["化妆间"]))
+    check("后厅牌子由西到东：后厨 < 娱乐室 < 休息间 < 化妆间（%s）" % str(names), names.size() == 4 and float(names["后厨"]) < float(names["娱乐室"]) and float(names["娱乐室"]) < float(names["休息间"]) and float(names["休息间"]) < float(names["化妆间"]))
     var hs = m.hall
     var tohall: Vector2 = bh.points["to_hall"]["pos"]
     check("化妆间牌子在走廊东头去宴会厅的口西边、最近（口 x %.0f，化妆间 %.0f，休息间 %.0f）" % [tohall.x, float(names["化妆间"]), float(names["休息间"])], float(names["化妆间"]) < tohall.x and float(names["化妆间"]) > float(names["休息间"]))

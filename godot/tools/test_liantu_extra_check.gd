@@ -19,7 +19,7 @@ const DT := 1.0 / 60.0
 # 10/5 晚 庄Z2：化妆间家具 1.25 倍（675×1200），同一条沙发前的窄缝跟着放大（y≈1014），16 → 21 格
 const KNOWN_POCKETS := {"backhall": 46, "lawn": 6, "lake": 38, "makeup": 21}
 ## 10/4 后厅原来那间化妆室封起来（02 F）：门洞挡上、本来就不让进，那间里的格子不算口袋
-const SEALED := {"backhall": Rect2(1205, 226, 331, 458)}   # lake：10/4 西半边接图（02 E）多 26 格，在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，截图核过
+const SEALED := {"backhall": [Rect2(1205, 226, 331, 458), Rect2(523, 226, 336, 458)]}   # 10/6 原来那间麻将室也封起来（庄Z2，搬去单独那间娱乐室）；   # lake：10/4 西半边接图（02 E）多 26 格，在半岛柳树树冠底下（看不见的地）和亭子栏杆边角，截图核过
 const LAKE_KNOWN_LEFT := 31   # 10/4 西半边接图（02 E）多 4 格：西头月亮门门洞两边的门柱（x 726、810，y 1026～1038），图里是墙，跟东头那道门一样
 
 var m
@@ -159,7 +159,7 @@ func run() -> void:
                     if Geometry2D.is_point_in_polygon(p, pts):
                         inside = true
                         break
-                if inside and SEALED.has(k) and (SEALED[k] as Rect2).has_point(p):
+                if inside and SEALED.has(k) and (SEALED[k] as Array).any(func(r): return (r as Rect2).has_point(p)):
                     inside = false
                 if inside and not Ent._blocked(p.x, p.y, c.obstacles, Ent.CLEAR):
                     pockets += 1

@@ -7,19 +7,15 @@
  "spawn": [1436, 780],
  "points": [
   {"id": "lounge", "x": 1032, "y": 420, "r": 60},
-  {"id": "mahjong", "x": 708, "y": 420, "r": 70},
   {"id": "pot", "x": 264, "y": 380, "r": 70},
   {"id": "to_hall", "x": 1496, "y": 780, "r": 50, "to": "banquet", "note": "走廊东头回宴会厅（10/4 方案 C：化妆间挨宴会厅，进宴会厅西侧门）"},
   {"id": "to_lawn", "x": 40, "y": 780, "r": 50, "to": "lawn", "note": "走廊西头厨房后门去草坪（10/4 方案 C）"},
   {"id": "to_plaza", "x": 896, "y": 990, "r": 40, "to": "plaza", "note": "走廊南边开一个口去喷泉广场（10/4 方案 C：挪到休息室门口西边，正对广场北口）"},
   {"id": "to_wkitchen", "x": 264, "y": 990, "r": 40, "to": "wkitchen", "note": "走廊南边厨房那头开一个口去西餐厨房（10/4 方案 C：厨房挪到最西头，口跟着挪）"},
-  {"id": "to_makeup", "x": 1363, "y": 702, "r": 26, "to": "makeup", "arrive": [1363, 790], "note": "化妆间门口：一走进门洞就整屏换进化妆间（10/4 进屋像进宴会厅，01 H 派）；从屋里出来站在门口外的走廊上 (1363,790)"}
+  {"id": "to_makeup", "x": 1363, "y": 702, "r": 26, "to": "makeup", "arrive": [1363, 790], "note": "化妆间门口：一走进门洞就整屏换进化妆间（10/4 进屋像进宴会厅，01 H 派）；从屋里出来站在门口外的走廊上 (1363,790)"},
+  {"id": "to_mahjong", "x": 696, "y": 702, "r": 26, "to": "mahjong", "arrive": [696, 790], "note": "娱乐室门口：一走进门洞就整屏换进娱乐室（10/6 庄Z2，照化妆间那扇）；从屋里出来站在门口外的走廊上"}
  ],
- "walk": [
-  [[16, 232], [1520, 232], [1520, 878], [16, 878]],
-  [[868, 870], [924, 870], [924, 1016], [868, 1016]],
-  [[236, 870], [292, 870], [292, 1016], [236, 1016]]
- ],
+ "walk": [[[16, 232], [1520, 232], [1520, 878], [16, 878]], [[868, 870], [924, 870], [924, 1016], [868, 1016]], [[236, 870], [292, 870], [292, 1016], [236, 1016]]],
  "flat": [
   {"type": "rect", "rect": [0, 0, 1536, 1024], "color": "#2e211b"},
   {"type": "rect", "rect": [0, 104, 1536, 226], "color": "#6b4a36"},
@@ -85,6 +81,7 @@
   {"type": "box", "id": "wall_3", "rect": [1195, 226, 1205, 684], "h": 44, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.9}},
   {"type": "box", "id": "front_1", "rect": [0, 684, 128, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
   {"type": "box", "id": "front_2", "rect": [208, 684, 656, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
+  {"type": "box", "id": "mahjong_door", "rect": [656, 684, 736, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}, "note": "10/6 原来那间麻将室封起来（庄Z2）：门洞挡上，走到门口 to_mahjong 换进单独那间娱乐室"},
   {"type": "box", "id": "front_3", "rect": [736, 684, 992, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
   {"type": "box", "id": "front_4", "rect": [1072, 684, 1323, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
   {"type": "box", "id": "front_5", "rect": [1403, 684, 1536, 696], "h": 22, "top": "#8a6048", "front": "#5a3f30", "scale": {"h_m": 0.45}},
@@ -201,20 +198,6 @@
   {"type": "box", "id": "bowl_table", "rect": [372, 430, 432, 456], "h": 36, "top": "#a0714a", "front": "#6d4a38", "deco": [{"rect": [390, 396, 414, 412], "color": "#f4f1ea"}, {"rect": [390, 401, 414, 403], "color": "#c0392b"}, {"rect": [390, 406, 414, 408], "color": "#c0392b"}], "label": {"text": "碗", "dy": -66}, "scale": {"w_m": 1.25, "d_m": 0.8, "h_m": 0.75}}
  ],
  "npcs": [
-  {"id": "elder_n", "who": "长辈", "x": 798, "y": 367, "face": "down", "sit": true, "block": true, "lm": "LM-ELDER-01", "life": "mahjong", "approach": [835, 360], "standin": {"code": "LM-GUEST-10", "frame": 0, "rows": 48, "bottom": 349}},
-  {"id": "elder_w", "who": "长辈", "x": 758, "y": 399, "face": "right", "sit": true, "block": true, "lm": "LM-ELDER-02", "life": "mahjong", "standin": {"code": "LM-GUEST-09", "frame": 8, "rows": 47, "bottom": 380}},
-  {"id": "elder_e", "who": "长辈", "x": 839, "y": 399, "face": "left", "sit": true, "block": true, "lm": "LM-ELDER-03", "life": "mahjong", "standin": {"code": "LM-GUEST-05", "frame": 4, "rows": 47, "bottom": 380}},
-  {"id": "elder_s", "who": "长辈", "x": 798, "y": 437, "face": "up", "sit": true, "block": true, "lm": "LM-ELDER-04", "life": "mahjong", "approach": [835, 448], "standin": {"code": "LM-GUEST-06", "frame": 12, "rows": 47, "bottom": 418}},
-  {"id": "elder_5", "who": "长辈", "x": 593, "y": 287, "face": "down", "sit": true, "block": true, "lm": "LM-ELDER-05", "life": "mahjong", "standin": {"code": "LM-GUEST-03", "frame": 0, "rows": 48, "bottom": 269}},
-  {"id": "elder_6", "who": "长辈", "x": 553, "y": 319, "face": "right", "sit": true, "block": true, "lm": "LM-ELDER-06", "life": "mahjong", "standin": {"code": "LM-GUEST-04", "frame": 8, "rows": 47, "bottom": 300}},
-  {"id": "mj_guest_1", "who": "宾客", "x": 634, "y": 319, "face": "left", "sit": true, "block": true, "lm": "LM-GUEST", "life": "mahjong", "standin": {"code": "LM-GUEST-01", "frame": 4, "rows": 47, "bottom": 300}},
-  {"id": "mj_guest_2", "who": "宾客", "x": 593, "y": 357, "face": "up", "sit": true, "block": true, "lm": "LM-GUEST", "life": "mahjong", "standin": {"code": "LM-GUEST-02", "frame": 12, "rows": 47, "bottom": 338}},
-  {"id": "mj3_n", "who": "长辈", "x": 593, "y": 477, "face": "down", "sit": true, "block": true, "life": "mahjong", "standin": {"code": "LM-GUEST-08", "frame": 0, "rows": 48, "bottom": 459}},
-  {"id": "mj3_w", "who": "长辈", "x": 553, "y": 509, "face": "right", "sit": true, "block": true, "life": "mahjong", "standin": {"code": "LM-GUEST-10", "frame": 8, "rows": 47, "bottom": 490}},
-  {"id": "mj3_e", "who": "长辈", "x": 634, "y": 509, "face": "left", "sit": true, "block": true, "life": "mahjong", "approach": [662, 500], "standin": {"code": "LM-GUEST-02", "frame": 4, "rows": 47, "bottom": 490}},
-  {"id": "card_n", "who": "打牌的客人", "x": 700, "y": 280, "face": "down", "sit": true, "block": true, "life": "mahjong", "standin": {"code": "LM-GUEST-09", "frame": 0, "rows": 47, "bottom": 261}},
-  {"id": "card_w", "who": "打牌的客人", "x": 667, "y": 310, "face": "right", "sit": true, "block": true, "life": "mahjong", "standin": {"code": "LM-GUEST-06", "frame": 8, "rows": 47, "bottom": 291}},
-  {"id": "card_e", "who": "打牌的客人", "x": 733, "y": 310, "face": "left", "sit": true, "block": true, "life": "mahjong", "approach": [760, 320], "stand": [760, 320], "wander": ["stand_mj_candy", "stand_mj_tea"], "standin": {"code": "LM-GUEST-08", "frame": 4, "rows": 47, "bottom": 291}},
   {"id": "cook", "who": "厨师", "x": 342, "y": 340, "face": "left"},
   {"id": "lounge_09", "who": "奶奶（休息间人物样板，01 F 10/4；01 画的代码小人，lounge_life.gd 画；x、y 是脚点，坐着踩在座位前沿的地上）", "x": 1061, "y": 270, "face": "down", "sit": true, "lounge": true, "code_char": "CODE-GUEST-09"},
   {"id": "lounge_10", "who": "爷爷（休息间人物样板，01 F 10/4；01 画的代码小人，lounge_life.gd 画；x、y 是脚点，坐着踩在座位前沿的地上）", "x": 1128, "y": 270, "face": "down", "sit": true, "lounge": true, "code_char": "CODE-GUEST-10"},
@@ -224,18 +207,16 @@
  "signs": [
   {"text": "化妆间", "x": 1269, "y": 695, "foot": 697},
   {"text": "休息间", "x": 1126, "y": 695, "foot": 697},
-  {"text": "麻将室", "x": 790, "y": 695, "foot": 697},
+  {"text": "娱乐室", "x": 790, "y": 695, "foot": 697},
   {"text": "后厨", "x": 250, "y": 695, "foot": 697}
  ],
  "signs_note": "门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；厨房也挂，01 F）：x,y 是匾的下沿正中，挂在门洞东边的前沿矮墙上（不压门洞），foot 是排前后的线（墙脚 696 再往前一点，走廊里的人在牌子前面）。画法见 layered_hall.gd room_sign。10/4 方案 C：化妆间挪到最东头，门洞东边离走廊东头「回宴会厅」牌太近，这块挂到门洞西边",
  "stand_points": [
   {"id": "stand_record", "name": "唱片机前（听唱片）", "x": 952, "y": 312, "r": 16},
-  {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 1144, "y": 476, "r": 14},
-  {"id": "stand_mj_candy", "name": "麻将室糖果桌前（打牌的妹妹起身拿糖，07 10/4）", "x": 806, "y": 530, "r": 14},
-  {"id": "stand_mj_tea", "name": "麻将室茶几前（倒杯茶再回去，07 10/4）", "x": 805, "y": 598, "r": 14}
+  {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 1144, "y": 476, "r": 14}
  ],
  "stand_points_note": "站人的地方（休息间第三版，10/3 起记点）：NPC 起身走动去站一会（lounge_life.gd 照 npcs 的 wander 读，10/4 起休息间叔叔、麻将室打牌的妹妹、化妆间化妆师）；玩家玩法要用先写玩家说明给阿鱼点头",
- "pixel_art": ["res://assets/pixel_art/backhall_makeup_door/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong/room.json"],
+ "pixel_art": ["res://assets/pixel_art/backhall_makeup_door/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong_door/room.json"],
  "seats": [
   {"id": "sofa_l", "x": 1061, "y": 269, "seat_y": 252, "face": "down", "npc": "lounge_09"},
   {"id": "sofa_m", "x": 1094, "y": 269, "seat_y": 252, "face": "down"},

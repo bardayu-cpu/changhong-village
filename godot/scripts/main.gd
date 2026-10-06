@@ -49,10 +49,10 @@ const Area = preload("res://scripts/area.gd")
 const DriveIn = preload("res://scripts/drive_in.gd")
 const EstateMap = preload("res://scripts/estate_map.gd")
 ## 连图（10/4，01 G 派）新加的几块灰盒，都是 area.gd，布局 tools/layout_court/make_areas.py 出
-const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate", "makeup"]
-const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门", "makeup": "化妆间"}
+const AREA_IDS := ["kids", "shop", "rest2", "wkitchen", "garden", "frontgate", "backgate", "makeup", "mahjong"]
+const AREA_NAMES := {"kids": "儿童乐园", "shop": "小卖部", "rest2": "休息厅 2", "wkitchen": "西餐厨房", "garden": "后花园", "frontgate": "前门", "backgate": "后门", "makeup": "化妆间", "mahjong": "娱乐室"}
 ## 单独成一间的屋（10/4 进屋像进宴会厅，01 H 派；docs/进屋像进宴会厅-玩家说明-v0.1.md）：后厅走廊走到门口整屏换进来，进屋时画面上方出屋名一两秒（游戏里的字）
-const ROOM_TITLES := {"makeup": "化妆间"}
+const ROOM_TITLES := {"makeup": "化妆间", "mahjong": "娱乐室"}
 const ROOM_TITLE_SECS := 1.6
 var room_title_box: PanelContainer   # 进屋时上方那个屋名框（_build_ui 建）
 var room_title: Label
@@ -669,9 +669,11 @@ func _process(dt: float) -> void:
     if state == "backhall" and lounge_ui != null and backhall.get("lounge") != null:
         lounge_ui.attach(backhall.lounge)
         lounge_ui.sync()   # 走到空座位、NPC 跟前出按钮；人自己站起来按钮跟着变
-    elif state == "makeup" and lounge_ui != null and areas.has("makeup") and not areas["makeup"].lives.is_empty():
-        lounge_ui.attach(areas["makeup"].lives[0])   # 单独那间化妆间的人（10/4 02 F 从后厅搬过来）：聊聊按钮、对话框
+    elif ROOM_TITLES.has(state) and lounge_ui != null and areas.has(state) and not areas[state].lives.is_empty():
+        lounge_ui.attach(areas[state].lives[0])   # 单独成一间的屋（化妆间、娱乐室）里的人：聊聊按钮、坐下、对话框
         lounge_ui.sync()
+        if state == "mahjong":
+            _mahjong_tick()
     if state == "lake" and lake_ui != null:
         lake_ui.sync()   # 人自己从长凳上站起来时，按钮的字跟着变回「坐下」
     if state == "orchard" and orchard_ui != null:
@@ -1607,7 +1609,7 @@ func _goto(s: String) -> void:
         backhall.walking_enabled = (s == "backhall")
     if backhall_ui != null and s != "backhall" and s != "makeup":   # 化妆间（单独那间）也有换装点按钮、能跟人说话（10/4 02 F）
         backhall_ui.hide_all()
-    if lounge_ui != null and s != "backhall" and s != "makeup":
+    if lounge_ui != null and s != "backhall" and not ROOM_TITLES.has(s):
         lounge_ui.hide_all()
     if lawn != null:
         lawn.walking_enabled = (s == "lawn")
@@ -2782,6 +2784,29 @@ func _open_game(table_id: String) -> void:
     game_host.open(str(g["id"]), table_id, games_save, font, OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args())
     print("[suqi] 开小游戏 ", g["id"], " 在 ", table_id)
     _refresh_seat_buttons()
+
+## 娱乐室「摸两把」（庄Z1 10/6；玩家说明 docs/娱乐室-麻将配对-玩家说明-v0.1.md）：坐上玩家那把（布局 seats 里 seat_mahjong_play）就开一把；
+## 玩完点「离开」起身回屋。坐着关掉以后不马上又开：起身再坐才开（mahjong_armed）
+var mahjong_armed := true
+func _mahjong_tick() -> void:
+    var a = areas["mahjong"]
+    var lf = a.lives[0]
+    var on_play: bool = a.seated and str(lf.my_seat) == "seat_mahjong_play"
+    if not on_play:
+        mahjong_armed = true
+        return
+    if mahjong_armed and not is_instance_valid(game_host):
+        mahjong_armed = false
+        game_host = GameHost.new()
+        ui.add_child(game_host)
+        game_host.closed.connect(_on_mahjong_closed)
+        game_host.open("mahjong_pair", "mahjong", games_save, font, OS.has_feature("suqi_debug") or "--hud" in OS.get_cmdline_user_args())
+        print("[suqi] 娱乐室 坐下摸两把")
+
+func _on_mahjong_closed() -> void:
+    game_host = null
+    if state == "mahjong" and areas["mahjong"].seated:
+        areas["mahjong"].lives[0].stand_up()   # 点了「离开」就起身回屋（玩家说明第 1 节）
 
 func _on_game_closed() -> void:
     game_host = null

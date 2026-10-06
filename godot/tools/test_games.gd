@@ -33,7 +33,10 @@ func run() -> void:
             tables_ok = false
     var off_ok: bool = ["memory", "whack", "catch"].all(func(x): return (Cfg.game(x)["tables"] as Array).is_empty())
     print("1 游戏 ", ids, " 1～6 号桌三个游戏、7～12 号没有 ", tables_ok, "；记菜名、护菜、接彩头在厅里关了 ", off_ok)
-    ok = ok and ids.size() == 6 and tables_ok and off_ok
+    # 10/6 加娱乐室「摸两把」（mahjong_pair，庄Z2）：不放宴会厅桌上，坐娱乐室那把椅子开（test_mahjong_room 测）
+    var mj_ok: bool = ids.has("mahjong_pair") and (Cfg.game("mahjong_pair")["tables"] as Array).is_empty()
+    print("  娱乐室摸两把在、不占宴会厅桌 ", mj_ok)
+    ok = ok and ids.size() == 7 and tables_ok and off_ok and mj_ok
 
     # 2. 难度：第 1 关、第 5 关、第 30 关的参数；难度倍数 1.5 时 hard=1 的变大、hard=-1 的变小，都不出 min/max
     var llk := Cfg.game("lianliankan")

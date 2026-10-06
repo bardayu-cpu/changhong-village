@@ -47,7 +47,7 @@ func run() -> void:
     b = m.backhall
     var sv: SubViewport = m.view.get_child(0)
     var spots := {"进场(宴会厅口)": Vector2(100, 780), "草坪口": Vector2(1440, 780), "化妆间门口 to_makeup": b.points["to_makeup"]["pos"], "休息间 lounge": b.points["lounge"]["pos"],
-        "麻将室 mahjong": b.points["mahjong"]["pos"], "厨房 pot": b.points["pot"]["pos"], "回宴会厅 to_hall": b.points["to_hall"]["pos"], "去草坪 to_lawn": b.points["to_lawn"]["pos"],
+        "娱乐室门口 to_mahjong": b.points["to_mahjong"]["pos"], "厨房 pot": b.points["pot"]["pos"], "回宴会厅 to_hall": b.points["to_hall"]["pos"], "去草坪 to_lawn": b.points["to_lawn"]["pos"],
         "最北(休息间顶)": Vector2(504, 244), "最南(走廊下沿)": Vector2(768, 870), "厨房东头": Vector2(1500, 300)}
     for win in [Vector2i(540, 960), Vector2i(585, 1266), Vector2i(1080, 1920), Vector2i(1080, 2340), Vector2i(1170, 2532)]:
         get_root().size = win
