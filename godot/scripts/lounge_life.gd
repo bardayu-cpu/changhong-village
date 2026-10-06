@@ -306,6 +306,9 @@ func approach_of(id: String) -> Vector2:
 
 ## 座位跟前那块空地（起来站这、走到这出「坐下」）：座位朝向那边一步，找最近的能站的点
 func _stand_spot(seat: Dictionary) -> Vector2:
+    if seat.has("stand"):
+        var spot: Array = seat["stand"]
+        return _nearest_free(Vector2(float(spot[0]), float(spot[1])))
     var d: Vector2 = FACE_DIR.get(str(seat["face"]), Vector2(0, 1))
     return _nearest_free(Vector2(float(seat["x"]), float(seat["seat_y"])) + d * 30.0)
 

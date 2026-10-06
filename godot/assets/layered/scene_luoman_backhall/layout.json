@@ -195,7 +195,8 @@
   {"type": "cyl", "id": "pot", "x": 264, "y": 258, "rx": 44, "ry": 17, "h": 38, "top": "#b5651d", "front": "#2b2b2b", "foot": 297, "scale": {"w_m": 1.8, "h_m": 0.8}},
   {"type": "puffs", "id": "steam", "keep_on_base": true, "y": 298, "e": [[250, 206, 13, 9], [276, 188, 15, 10], [256, 170, 11, 8]], "color": "#ffffff59"},
   {"type": "box", "id": "board", "rect": [82, 426, 182, 452], "h": 38, "top": "#d9b98a", "front": "#8a6a48", "label": {"text": "案板", "dy": -46}, "scale": {"w_m": 2.1, "d_m": 0.8, "h_m": 0.8}},
-  {"type": "box", "id": "bowl_table", "rect": [372, 430, 432, 456], "h": 36, "top": "#a0714a", "front": "#6d4a38", "deco": [{"rect": [390, 396, 414, 412], "color": "#f4f1ea"}, {"rect": [390, 401, 414, 403], "color": "#c0392b"}, {"rect": [390, 406, 414, 408], "color": "#c0392b"}], "label": {"text": "碗", "dy": -66}, "scale": {"w_m": 1.25, "d_m": 0.8, "h_m": 0.75}}
+  {"type": "box", "id": "bowl_table", "rect": [372, 430, 432, 456], "h": 36, "top": "#a0714a", "front": "#6d4a38", "deco": [{"rect": [390, 396, 414, 412], "color": "#f4f1ea"}, {"rect": [390, 401, 414, 403], "color": "#c0392b"}, {"rect": [390, 406, 414, 408], "color": "#c0392b"}], "label": {"text": "碗", "dy": -66}, "scale": {"w_m": 1.25, "d_m": 0.8, "h_m": 0.75}},
+  {"type": "box", "id": "mahjong_closed_room", "rect": [534, 0, 858, 696], "h": 1, "clear": 0, "on_art": true, "note": "独立娱乐室接入后，封闭的旧屋内部不再保留可走格子", "top": "#5a3f30", "front": "#5a3f30"}
  ],
  "npcs": [
   {"id": "cook", "who": "厨师", "x": 342, "y": 340, "face": "left"},

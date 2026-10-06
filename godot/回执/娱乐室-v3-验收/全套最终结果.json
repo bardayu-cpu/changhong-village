@@ -1,0 +1,686 @@
+[
+  {
+    "test": "test_ambient.gd",
+    "status": "PASS",
+    "seconds": 3.0,
+    "exit": 0
+  },
+  {
+    "test": "test_ambient_check.gd",
+    "status": "PASS",
+    "seconds": 3.1,
+    "exit": 0
+  },
+  {
+    "test": "test_ambient_lake.gd",
+    "status": "PASS",
+    "seconds": 3.4,
+    "exit": 0
+  },
+  {
+    "test": "test_ambient_lake_check.gd",
+    "status": "PASS",
+    "seconds": 3.8,
+    "exit": 0
+  },
+  {
+    "test": "test_arrival.gd",
+    "status": "PASS",
+    "seconds": 15.3,
+    "exit": 0
+  },
+  {
+    "test": "test_backhall.gd",
+    "status": "PASS",
+    "seconds": 6.5,
+    "exit": 0
+  },
+  {
+    "test": "test_backhall_start.gd",
+    "status": "PASS",
+    "seconds": 2.2,
+    "exit": 0
+  },
+  {
+    "test": "test_banquet_menu.gd",
+    "status": "PASS",
+    "seconds": 5.7,
+    "exit": 0
+  },
+  {
+    "test": "test_bench.gd",
+    "status": "PASS",
+    "seconds": 5.5,
+    "exit": 0
+  },
+  {
+    "test": "test_bridge.gd",
+    "status": "PASS",
+    "seconds": 1.7,
+    "exit": 0
+  },
+  {
+    "test": "test_build57_misc.gd",
+    "status": "PASS",
+    "seconds": 2.7,
+    "exit": 0
+  },
+  {
+    "test": "test_build57_route.gd",
+    "status": "PASS",
+    "seconds": 2.7,
+    "exit": 0
+  },
+  {
+    "test": "test_build57_walk_backhall.gd",
+    "status": "PASS",
+    "seconds": 35.3,
+    "exit": 0
+  },
+  {
+    "test": "test_build57_walk_lake.gd",
+    "status": "PASS",
+    "seconds": 20.1,
+    "exit": 0
+  },
+  {
+    "test": "test_build57_walk_lawn.gd",
+    "status": "PASS",
+    "seconds": 74.4,
+    "exit": 0
+  },
+  {
+    "test": "test_build57_walk_parking.gd",
+    "status": "PASS",
+    "seconds": 18.9,
+    "exit": 0
+  },
+  {
+    "test": "test_build60_walk_backhall.gd",
+    "status": "PASS",
+    "seconds": 42.6,
+    "exit": 0
+  },
+  {
+    "test": "test_build60_walk_court.gd",
+    "status": "PASS",
+    "seconds": 36.9,
+    "exit": 0
+  },
+  {
+    "test": "test_build60_walk_lake.gd",
+    "status": "PASS",
+    "seconds": 18.0,
+    "exit": 0
+  },
+  {
+    "test": "test_build60_walk_lawn.gd",
+    "status": "PASS",
+    "seconds": 73.7,
+    "exit": 0
+  },
+  {
+    "test": "test_build60_walk_parking.gd",
+    "status": "PASS",
+    "seconds": 14.9,
+    "exit": 0
+  },
+  {
+    "test": "test_build60_walk_plaza.gd",
+    "status": "PASS",
+    "seconds": 13.6,
+    "exit": 0
+  },
+  {
+    "test": "test_canvas_base.gd",
+    "status": "PASS",
+    "seconds": 6.8,
+    "exit": 0
+  },
+  {
+    "test": "test_court_bless.gd",
+    "status": "PASS",
+    "seconds": 4.2,
+    "exit": 0
+  },
+  {
+    "test": "test_court_life.gd",
+    "status": "PASS",
+    "seconds": 4.7,
+    "exit": 0
+  },
+  {
+    "test": "test_court_poster.gd",
+    "status": "PASS",
+    "seconds": 3.5,
+    "exit": 0
+  },
+  {
+    "test": "test_court_scale.gd",
+    "status": "PASS",
+    "seconds": 3.7,
+    "exit": 0
+  },
+  {
+    "test": "test_dialog_b_check.gd",
+    "status": "PASS",
+    "seconds": 8.9,
+    "exit": 0
+  },
+  {
+    "test": "test_dialog_lift.gd",
+    "status": "PASS",
+    "seconds": 14.7,
+    "exit": 0
+  },
+  {
+    "test": "test_dialogue_check.gd",
+    "status": "PASS",
+    "seconds": 16.2,
+    "exit": 0
+  },
+  {
+    "test": "test_drive68.gd",
+    "status": "PASS",
+    "seconds": 34.7,
+    "exit": 0
+  },
+  {
+    "test": "test_drive_check.gd",
+    "status": "PASS",
+    "seconds": 21.8,
+    "exit": 0
+  },
+  {
+    "test": "test_drive_labels_check.gd",
+    "status": "PASS",
+    "seconds": 14.9,
+    "exit": 0
+  },
+  {
+    "test": "test_entrance.gd",
+    "status": "PASS",
+    "seconds": 7.8,
+    "exit": 0
+  },
+  {
+    "test": "test_estate_map.gd",
+    "status": "PASS",
+    "seconds": 19.4,
+    "exit": 0
+  },
+  {
+    "test": "test_estate_map_check.gd",
+    "status": "PASS",
+    "seconds": 45.9,
+    "exit": 0
+  },
+  {
+    "test": "test_festive.gd",
+    "status": "PASS",
+    "seconds": 7.0,
+    "exit": 0
+  },
+  {
+    "test": "test_first_visit.gd",
+    "status": "PASS",
+    "seconds": 10.6,
+    "exit": 0
+  },
+  {
+    "test": "test_fixes_1003.gd",
+    "status": "PASS",
+    "seconds": 5.0,
+    "exit": 0
+  },
+  {
+    "test": "test_game_catch.gd",
+    "status": "PASS",
+    "seconds": 2.0,
+    "exit": 0
+  },
+  {
+    "test": "test_game_lianliankan.gd",
+    "status": "PASS",
+    "seconds": 1.7,
+    "exit": 0
+  },
+  {
+    "test": "test_game_match3.gd",
+    "status": "PASS",
+    "seconds": 1.1,
+    "exit": 0
+  },
+  {
+    "test": "test_game_memory.gd",
+    "status": "PASS",
+    "seconds": 1.0,
+    "exit": 0
+  },
+  {
+    "test": "test_game_whack.gd",
+    "status": "PASS",
+    "seconds": 1.2,
+    "exit": 0
+  },
+  {
+    "test": "test_games.gd",
+    "status": "PASS",
+    "seconds": 1.4,
+    "exit": 0
+  },
+  {
+    "test": "test_hall.gd",
+    "status": "PASS",
+    "seconds": 2.2,
+    "exit": 0
+  },
+  {
+    "test": "test_hall55.gd",
+    "status": "PASS",
+    "seconds": 18.4,
+    "exit": 0
+  },
+  {
+    "test": "test_hall55_walk.gd",
+    "status": "PASS",
+    "seconds": 111.7,
+    "exit": 0
+  },
+  {
+    "test": "test_hall_big.gd",
+    "status": "PASS",
+    "seconds": 42.3,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_buttons.gd",
+    "status": "PASS",
+    "seconds": 1.4,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_configuration.gd",
+    "status": "PASS",
+    "seconds": 2.4,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_identity.gd",
+    "status": "PASS",
+    "seconds": 2.0,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_menu_ui.gd",
+    "status": "PASS",
+    "seconds": 2.6,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_panel.gd",
+    "status": "PASS",
+    "seconds": 1.0,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_playthrough.gd",
+    "status": "PASS",
+    "seconds": 1.7,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_registry.gd",
+    "status": "PASS",
+    "seconds": 0.8,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_route.gd",
+    "status": "PASS",
+    "seconds": 5.1,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_rules.gd",
+    "status": "PASS",
+    "seconds": 3.4,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_service_flow.gd",
+    "status": "PASS",
+    "seconds": 1.5,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_touch.gd",
+    "status": "PASS",
+    "seconds": 1.7,
+    "exit": 0
+  },
+  {
+    "test": "test_kitchen_v3_assets.gd",
+    "status": "PASS",
+    "seconds": 1.6,
+    "exit": 0
+  },
+  {
+    "test": "test_lake.gd",
+    "status": "PASS",
+    "seconds": 4.1,
+    "exit": 0
+  },
+  {
+    "test": "test_lake_chain.gd",
+    "status": "PASS",
+    "seconds": 2.5,
+    "exit": 0
+  },
+  {
+    "test": "test_lake_west.gd",
+    "status": "PASS",
+    "seconds": 3.8,
+    "exit": 0
+  },
+  {
+    "test": "test_lake_west_check.gd",
+    "status": "PASS",
+    "seconds": 3.5,
+    "exit": 0
+  },
+  {
+    "test": "test_lawn.gd",
+    "status": "PASS",
+    "seconds": 5.7,
+    "exit": 0
+  },
+  {
+    "test": "test_layered.gd",
+    "status": "PASS",
+    "seconds": 2.8,
+    "exit": 0
+  },
+  {
+    "test": "test_liantu.gd",
+    "status": "PASS",
+    "seconds": 10.7,
+    "exit": 0
+  },
+  {
+    "test": "test_liantu_crawl.gd",
+    "status": "PASS",
+    "seconds": 9.5,
+    "exit": 0
+  },
+  {
+    "test": "test_liantu_extra_check.gd",
+    "status": "PASS",
+    "seconds": 21.9,
+    "exit": 0
+  },
+  {
+    "test": "test_liantu_fix_check.gd",
+    "status": "PASS",
+    "seconds": 5.0,
+    "exit": 0
+  },
+  {
+    "test": "test_life.gd",
+    "status": "PASS",
+    "seconds": 10.5,
+    "exit": 0
+  },
+  {
+    "test": "test_lm_people.gd",
+    "status": "PASS",
+    "seconds": 3.8,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge03_check.gd",
+    "status": "PASS",
+    "seconds": 13.7,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge_check.gd",
+    "status": "PASS",
+    "seconds": 5.7,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge_code_check.gd",
+    "status": "PASS",
+    "seconds": 3.8,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge_dialogue.gd",
+    "status": "PASS",
+    "seconds": 3.3,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge_people.gd",
+    "status": "PASS",
+    "seconds": 4.1,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge_people_check.gd",
+    "status": "PASS",
+    "seconds": 5.6,
+    "exit": 0
+  },
+  {
+    "test": "test_lounge_view.gd",
+    "status": "PASS",
+    "seconds": 3.4,
+    "exit": 0
+  },
+  {
+    "test": "test_mahjong_room.gd",
+    "status": "PASS",
+    "seconds": 5.3,
+    "exit": 0
+  },
+  {
+    "test": "test_makeup_room.gd",
+    "status": "PASS",
+    "seconds": 4.4,
+    "exit": 0
+  },
+  {
+    "test": "test_map69b_check.gd",
+    "status": "PASS",
+    "seconds": 50.5,
+    "exit": 0
+  },
+  {
+    "test": "test_meet.gd",
+    "status": "PASS",
+    "seconds": 2.0,
+    "exit": 0
+  },
+  {
+    "test": "test_minigames_fix1.gd",
+    "status": "PASS",
+    "seconds": 1.6,
+    "exit": 0
+  },
+  {
+    "test": "test_no_dev_text.gd",
+    "status": "PASS",
+    "seconds": 33.0,
+    "exit": 0
+  },
+  {
+    "test": "test_no_readback.gd",
+    "status": "PASS",
+    "seconds": 1.3,
+    "exit": 0
+  },
+  {
+    "test": "test_orchard.gd",
+    "status": "PASS",
+    "seconds": 4.2,
+    "exit": 0
+  },
+  {
+    "test": "test_orchard_check.gd",
+    "status": "PASS",
+    "seconds": 13.8,
+    "exit": 0
+  },
+  {
+    "test": "test_park_sign_check.gd",
+    "status": "PASS",
+    "seconds": 2.4,
+    "exit": 0
+  },
+  {
+    "test": "test_parking.gd",
+    "status": "PASS",
+    "seconds": 3.7,
+    "exit": 0
+  },
+  {
+    "test": "test_perf_guards.gd",
+    "status": "PASS",
+    "seconds": 2.3,
+    "exit": 0
+  },
+  {
+    "test": "test_pixel_orchard.gd",
+    "status": "PASS",
+    "seconds": 3.4,
+    "exit": 0
+  },
+  {
+    "test": "test_pixel_room.gd",
+    "status": "PASS",
+    "seconds": 2.6,
+    "exit": 0
+  },
+  {
+    "test": "test_plaza.gd",
+    "status": "PASS",
+    "seconds": 1.8,
+    "exit": 0
+  },
+  {
+    "test": "test_plaza_check.gd",
+    "status": "PASS",
+    "seconds": 5.5,
+    "exit": 0
+  },
+  {
+    "test": "test_polish1.gd",
+    "status": "PASS",
+    "seconds": 3.6,
+    "exit": 0
+  },
+  {
+    "test": "test_quotes_check.gd",
+    "status": "PASS",
+    "seconds": 4.0,
+    "exit": 0
+  },
+  {
+    "test": "test_rc_edge_check.gd",
+    "status": "PASS",
+    "seconds": 61.6,
+    "exit": 0
+  },
+  {
+    "test": "test_rc_makeup_check.gd",
+    "status": "PASS",
+    "seconds": 18.4,
+    "exit": 0
+  },
+  {
+    "test": "test_relatives.gd",
+    "status": "PASS",
+    "seconds": 7.0,
+    "exit": 0
+  },
+  {
+    "test": "test_remote_probe.gd",
+    "status": "PASS",
+    "seconds": 1.0,
+    "exit": 0
+  },
+  {
+    "test": "test_room01_check.gd",
+    "status": "PASS",
+    "seconds": 12.0,
+    "exit": 0
+  },
+  {
+    "test": "test_room_life.gd",
+    "status": "PASS",
+    "seconds": 19.0,
+    "exit": 0
+  },
+  {
+    "test": "test_room_life_check.gd",
+    "status": "PASS",
+    "seconds": 23.5,
+    "exit": 0
+  },
+  {
+    "test": "test_room_signs.gd",
+    "status": "PASS",
+    "seconds": 1.8,
+    "exit": 0
+  },
+  {
+    "test": "test_safe_zone.gd",
+    "status": "PASS",
+    "seconds": 1.0,
+    "exit": 0
+  },
+  {
+    "test": "test_scene_scale.gd",
+    "status": "PASS",
+    "seconds": 2.4,
+    "exit": 0
+  },
+  {
+    "test": "test_signs68_check.gd",
+    "status": "PASS",
+    "seconds": 3.0,
+    "exit": 0
+  },
+  {
+    "test": "test_signs_invite.gd",
+    "status": "PASS",
+    "seconds": 1.8,
+    "exit": 0
+  },
+  {
+    "test": "test_title_screen.gd",
+    "status": "PASS",
+    "seconds": 2.6,
+    "exit": 0
+  },
+  {
+    "test": "test_toast_back.gd",
+    "status": "PASS",
+    "seconds": 6.2,
+    "exit": 0
+  },
+  {
+    "test": "test_toast_card.gd",
+    "status": "PASS",
+    "seconds": 3.3,
+    "exit": 0
+  },
+  {
+    "test": "test_view_zoom_check.gd",
+    "status": "PASS",
+    "seconds": 3.5,
+    "exit": 0
+  }
+]

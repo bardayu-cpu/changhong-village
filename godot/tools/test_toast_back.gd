@@ -56,6 +56,7 @@ func run() -> void:
     #    「老王敬了你一杯」那一行右边就是「回敬一杯」。原来顶上那一行提示 + 旁边的按钮并进了卡里（体验 B6）
     print("1 进厅小卡")
     m.nickname = "小李"
+    m.court_save.backhall_seen = true   # 本测试验回访敬酒卡；首次后厅提示由 test_first_visit 验
     await m._enter_banquet()
     var waited := 0.0
     while not is_instance_valid(m.arrival_card) and waited < 8.0:

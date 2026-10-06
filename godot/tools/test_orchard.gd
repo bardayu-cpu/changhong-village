@@ -372,6 +372,7 @@ func run() -> void:
 
 ## 只记下调了哪个云函数、不回话
 class SpyCloud extends Node:
+    var _in_wx := false   # 主界面按云桥是否在微信中设置顶部安全区
     var calls: Array
     func call_fn(name: String, _data: Dictionary, _cb: Callable, _timeout := 12.0) -> void:
         calls.append(name)

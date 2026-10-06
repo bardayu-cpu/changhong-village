@@ -1,6 +1,6 @@
 extends SceneTree
 ## 门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；01 F 派）
-## 1 后厅四个门口各一块：化妆间、休息间、麻将室、后厨（厨房也算「每个房间」，01 F）；挂在门洞东边的墙上，不压门洞；不挡路（不加挡人的占地，走廊照样走得通）；
+## 1 后厅四个门口各一块：化妆间、休息间、娱乐室、后厨（厨房也算「每个房间」，01 F）；挂在门洞东边的墙上，不压门洞；不挡路（不加挡人的占地，走廊照样走得通）；
 ##   按墙脚那条线排前后：走廊里的人画在牌子前面；字比世界里的字大一号
 ## 2 宴会厅东侧门（通后厅）一块「后厅」：在门那个点上方，不压门那个点；不挡路
 ## 用法：Godot --headless --path . --script res://tools/test_room_signs.gd ；最后一行 RESULT PASS 才算过
@@ -40,9 +40,9 @@ func run() -> void:
     var b = m.backhall
     print("1 后厅四个门口")
     var texts: Array = b.room_signs.map(func(s): return (s.get_child(0) as Label).text)
-    check("四块牌子：%s" % [texts], texts == ["化妆间", "休息间", "麻将室", "后厨"])
+    check("四块牌子：%s" % [texts], texts == ["化妆间", "休息间", "娱乐室", "后厨"])
     # 10/4 方案 C：四间整间平移，门洞跟着挪；化妆间门洞离走廊东头「回宴会厅」牌太近，牌子挂门洞西边，别的照旧挂东边
-    var doors := {"化妆间": [1323.0, 1403.0], "休息间": [992.0, 1072.0], "麻将室": [656.0, 736.0], "后厨": [128.0, 208.0]}
+    var doors := {"化妆间": [1323.0, 1403.0], "休息间": [992.0, 1072.0], "娱乐室": [656.0, 736.0], "后厨": [128.0, 208.0]}
     for s in b.room_signs:
         var l: Label = s.get_child(0)
         var box := sign_box(s)
@@ -58,7 +58,7 @@ func run() -> void:
         if not b._free(Vector2(x, 780)):
             blocked += 1
     check("不挡路：走廊 y 780 从西走到东一路都能走（挡住的 %d 格）" % blocked, blocked == 0)
-    for id in ["to_makeup", "lounge", "mahjong", "to_hall", "to_lawn"]:   # 10/4 原来那间化妆室封起来（02 F），dress 在里面走不到了，换成走廊里的化妆间门口
+    for id in ["to_makeup", "lounge", "to_mahjong", "to_hall", "to_lawn"]:   # 10/4 原来那间化妆室封起来（02 F），dress 在里面走不到了，换成走廊里的化妆间门口
         var pt: Vector2 = b.points[id]["pos"]
         var path: Array = b.find_path(b.SPAWN, pt)
         check("%s 照样走得到" % id, not path.is_empty() and (path[path.size() - 1] as Vector2).distance_to(pt) <= float(b.points[id]["r"]))

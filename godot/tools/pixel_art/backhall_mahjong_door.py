@@ -64,6 +64,12 @@ def edit_layout(hide_ids):
         d["items"].insert(i, {"type": "box", "id": "mahjong_door", "rect": [bd.DOOR[0], 684, bd.DOOR[1], 696], "h": 22, "top": "#8a6048",
                               "front": "#5a3f30", "scale": {"h_m": 0.45},
                               "note": "10/6 原来那间麻将室封起来（庄Z2）：门洞挡上，走到门口 to_mahjong 换进单独那间娱乐室"})
+    if "mahjong_closed_room" not in items:
+        d["items"].append({"type": "box", "id": "mahjong_closed_room", "rect": [534, 0, 858, 696], "h": 1,
+                           "clear": 0, "top": "#5a3f30", "front": "#5a3f30", "on_art": True, "note": "独立娱乐室接入后，封闭的旧屋内部不再保留可走格子"})
+    for it in d["items"]:
+        if it.get("id") == "mahjong_closed_room":
+            it.update({"top": "#5a3f30", "front": "#5a3f30"})
     d["points"] = [p for p in d["points"] if p["id"] != "mahjong"]
     if not any(p["id"] == "to_mahjong" for p in d["points"]):
         mid = (bd.DOOR[0] + bd.DOOR[1]) // 2

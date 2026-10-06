@@ -1,7 +1,7 @@
 extends SceneTree
 ## 验收：娱乐室（原麻将室）单独成一间屋、坐下摸两把（庄Z2 10/6；回执 godot/回执/娱乐室-接入.md）。无界面跑整个 main.gd，手机屏 540×960。
 ##   1 进屋：后厅走廊走进娱乐室门口（to_mahjong）→ 整屏换成娱乐室；画面上方出「娱乐室」
-##   2 屋里：坐满（座位 65 个，玩家那把空着），原来后厅麻将室那几位（能聊的长辈）搬进来了；电视三帧在换；从门走得到玩家那把
+##   2 屋里：坐满（座位 76 个，玩家那把空着），原来后厅麻将室那几位（能聊的长辈）搬进来了；电视三帧在换；从门走得到玩家那把
 ##   3 摸两把：走到玩家那把出「坐下」，坐下开「摸两把」：真麻将牌面、第一把 4×4 = 16 张、不限时；消完一把不给金币（出「这一把摸完了」）；点「离开」起身回屋
 ##   4 出屋：南门出去回到后厅走廊娱乐室门口外，站着不弹回去
 ##   5 后厅：原来那间封起来（门洞挡上、门牌「娱乐室」），那 14 位不在后厅了
@@ -100,7 +100,7 @@ func run() -> void:
             seats_n += 1
         if str(n.get("life", "")) == "mahjong":
             movers += 1
-    check("坐满：%d 位坐着（座位 65 个，玩家那把空着）" % seats_n, seats_n == 64)
+    check("坐满：%d 位坐着（座位 76 个，玩家那把空着）" % seats_n, seats_n == 75)
     check("原来后厅麻将室那几位搬进来了（%d 位挂 life: mahjong）" % movers, movers == 14)
     check("能聊的那几位归娱乐室管（%d 位）" % r.lives[0].people.size(), not r.lives.is_empty() and r.lives[0].people.size() == 14)
     var tv: Sprite2D = r.world.get_node_or_null("px_tv_screen")
@@ -111,11 +111,18 @@ func run() -> void:
         await create_timer(1.0 / 60.0).timeout
     check("电视三帧在换（半秒里见到 %d 种）" % seen.size(), tv != null and seen.size() >= 2)
 
+    for id in r.lives[0].people:
+        var ap: Vector2 = r.lives[0].approach_of(str(id))
+        check("%s 说话位置可达（%s）" % [id, str(ap)], ap != Vector2.ZERO and r._free(ap))
+    for p in r.cfg.get("stand_points", []):
+        var at := Vector2(float(p["x"]), float(p["y"]))
+        check("%s 走动站点可达" % p["id"], r._free(at))
     print("3 摸两把")
     var seat: Dictionary = {}
     for s in r.lives[0].seats:
         if str(s["id"]) == "seat_mahjong_play":
             seat = s
+    check("坐下位置在南椅旁的过道", not seat.is_empty() and seat["stand"].y > float(seat["y"]))
     check("玩家那把在（%s）" % str(seat.get("stand", "没有")), not seat.is_empty() and seat["stand"] != Vector2.ZERO)
     await walk_to(seat["stand"])
     tick(3)

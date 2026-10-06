@@ -1,8 +1,8 @@
 extends SceneTree
-## 娱乐室截图（庄Z2 10/6，画面是占位图）：从后厅走廊走进门、用游戏寻路走过去拍：1 进门、2 走到地毯那桌、3 坐下摸两把、4 北边电视那块、5 西北沙发区；
-## --full=1：窗口开成整间大小（1100×1440），镜头放中间、1 倍，拍坐满人的整间一张（6-坐满整间）。要窗口：
+## 娱乐室截图（庄Z2 10/6，采用 v3 画面）：从后厅走廊走进门、用游戏寻路走过去拍：1 进门、2 走到地毯那桌、3 坐下摸两把、4 北边电视那块、5 西北沙发区；
+## --full=1：窗口开成整间大小（1152×960），镜头放中间、1 倍，拍坐满人的整间一张（6-坐满整间）。要窗口：
 ## Godot --path . --resolution 540x960 --script res://tools/shot_mahjong_room.gd -- --dir=目录 [--tag=手机]
-## Godot --path . --resolution 1100x1440 --script res://tools/shot_mahjong_room.gd -- --dir=目录 --full=1
+## Godot --path . --resolution 1152x960 --script res://tools/shot_mahjong_room.gd -- --dir=目录 --full=1
 const Main = preload("res://scripts/main.gd")
 var m
 var started := false
@@ -79,7 +79,7 @@ func run() -> void:
         c.cam.limit_right = 10000
         c.cam.limit_bottom = 10000
         c.set_process(false)
-        c.cam.global_position = Vector2(550, 720)
+        c.cam.global_position = Vector2(float(c.cfg["size"][0]), float(c.cfg["size"][1])) / 2.0
         m.hud.visible = false
         await frames(6)
         await snap("6-坐满整间")
@@ -110,9 +110,9 @@ func run() -> void:
     if is_instance_valid(m.game_host):
         m.game_host._close()
     await create_timer(0.5).timeout
-    await walk(c, Vector2(830, 360))
+    await walk(c, Vector2(790, 204))
     await snap("4-北边电视那块")
-    await walk(c, Vector2(200, 360))
+    await walk(c, Vector2(270, 205))
     await snap("5-西北沙发区")
     print("SHOT DONE 窗口 ", get_root().size)
     quit(0)

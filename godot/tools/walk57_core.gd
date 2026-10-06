@@ -251,43 +251,51 @@ func run() -> void:
         check("%s 每个交互点（%s）从各出入口都走得到" % [cn, str(cv.points.keys())], bad2 == 0)
         # 3 麻将室
         if cn == "backhall":
-            var door: Vector2i = cv._cell_of(Vector2(840, 690))
-            if not cell_free(door.x, door.y):
-                door = cv._nearest_free(door)
-            var reach: Dictionary = flood(door)
-            var items_n := 0
-            var no_front: Array = []
-            for it in cv.cfg["items"]:
-                if not it.has("rect"):
-                    continue
-                var r: Array = it["rect"]
-                var rc := Rect2(float(r[0]), float(r[1]), float(r[2]) - float(r[0]), float(r[3]) - float(r[1]))
-                if not MJ.intersects(rc) or str(it["id"]).begins_with("wall_") or str(it["id"]).begins_with("front_"):
-                    continue
-                items_n += 1
-                var found := false
-                for off in [14.0, 24.0]:
-                    for t in range(0, 9):
-                        var fx := lerpf(rc.position.x, rc.end.x, t / 8.0)
-                        var fy := lerpf(rc.position.y, rc.end.y, t / 8.0)
-                        for c in [Vector2(fx, rc.position.y - off), Vector2(fx, rc.end.y + off), Vector2(rc.position.x - off, fy), Vector2(rc.end.x + off, fy)]:
-                            if cv._free(c) and reach.has(cv._cell_of(c)):
-                                found = true
-                    if found:
-                        break
-                if not found:
-                    no_front.append("%s %s" % [it["id"], str(it["rect"])])
-            print("  麻将室家具 %d 件；四周 14（放宽 24）像素走不到跟前的：%s" % [items_n, str(no_front)])
-            var new_bad: Array = no_front.filter(func(x): return not KNOWN_NO_FRONT.any(func(k): return str(x).begins_with(k)))
-            check("麻将室每件家具跟前走得到（%d 件；已知走不到跟前的 %s 不算，新的 %s）" % [items_n, str(KNOWN_NO_FRONT), str(new_bad)], new_bad.is_empty())
-            var chokes: Array = []
-            for c in reach.keys():
-                if not MJ.has_point(cpos(c)):
-                    continue
-                var lost: int = reach.size() - 1 - flood(door, c).size()
-                if lost >= 3:
-                    chokes.append([int(cpos(c).x), int(cpos(c).y), lost])
-            print("  麻将室单格窄道（拿掉会隔断 ≥3 格）%d 处：%s" % [chokes.size(), str(chokes.slice(0, 16))])
+            if cv.cfg["items"].any(func(it): return str(it.get("id", "")) == "mahjong_closed_room"):
+                var leaked := 0
+                for yy in range(12, 684, 12):
+                    for xx in range(546, 846, 12):
+                        if cv._free(Vector2(xx, yy)):
+                            leaked += 1
+                check("麻将搬到独立娱乐室后，旧屋封闭区域没有可走格子（%d）" % leaked, leaked == 0)
+            else:
+                var door: Vector2i = cv._cell_of(Vector2(840, 690))
+                if not cell_free(door.x, door.y):
+                    door = cv._nearest_free(door)
+                var reach: Dictionary = flood(door)
+                var items_n := 0
+                var no_front: Array = []
+                for it in cv.cfg["items"]:
+                    if not it.has("rect"):
+                        continue
+                    var r: Array = it["rect"]
+                    var rc := Rect2(float(r[0]), float(r[1]), float(r[2]) - float(r[0]), float(r[3]) - float(r[1]))
+                    if not MJ.intersects(rc) or str(it["id"]).begins_with("wall_") or str(it["id"]).begins_with("front_"):
+                        continue
+                    items_n += 1
+                    var found := false
+                    for off in [14.0, 24.0]:
+                        for t in range(0, 9):
+                            var fx := lerpf(rc.position.x, rc.end.x, t / 8.0)
+                            var fy := lerpf(rc.position.y, rc.end.y, t / 8.0)
+                            for c in [Vector2(fx, rc.position.y - off), Vector2(fx, rc.end.y + off), Vector2(rc.position.x - off, fy), Vector2(rc.end.x + off, fy)]:
+                                if cv._free(c) and reach.has(cv._cell_of(c)):
+                                    found = true
+                        if found:
+                            break
+                    if not found:
+                        no_front.append("%s %s" % [it["id"], str(it["rect"])])
+                print("  麻将室家具 %d 件；四周 14（放宽 24）像素走不到跟前的：%s" % [items_n, str(no_front)])
+                var new_bad: Array = no_front.filter(func(x): return not KNOWN_NO_FRONT.any(func(k): return str(x).begins_with(k)))
+                check("麻将室每件家具跟前走得到（%d 件；已知走不到跟前的 %s 不算，新的 %s）" % [items_n, str(KNOWN_NO_FRONT), str(new_bad)], new_bad.is_empty())
+                var chokes: Array = []
+                for c in reach.keys():
+                    if not MJ.has_point(cpos(c)):
+                        continue
+                    var lost: int = reach.size() - 1 - flood(door, c).size()
+                    if lost >= 3:
+                        chokes.append([int(cpos(c).x), int(cpos(c).y), lost])
+                print("  麻将室单格窄道（拿掉会隔断 ≥3 格）%d 处：%s" % [chokes.size(), str(chokes.slice(0, 16))])
     if only == "" or only == "lake":
         # 4 湖边整条
         print("== 湖边整条从东到西")

@@ -127,8 +127,8 @@ func run() -> void:
         await frames(2)
         var c = m.cv
         var ids: Array = []
-        if k == "backhall":
-            m.lounge_ui.attach(m.backhall.lounge)
+        if k in ["backhall", "makeup", "mahjong"]:
+            m.lounge_ui.attach(m.backhall.lounge if k == "backhall" else c.lives[0])
             for lfx in m.lounge_ui.lives:   # 休息间四位、麻将室、化妆间的人各是一个 life
                 for id in (lfx.people as Dictionary).keys():
                     var pd: Dictionary = lfx.person(str(id))
@@ -141,8 +141,8 @@ func run() -> void:
                 ids.append(["npc", str(id)])
         for pr in ids:
             var ui = m.lounge_ui
-            if k == "backhall":
-                ui.attach(m.backhall.lounge)
+            if k in ["backhall", "makeup", "mahjong"]:
+                ui.attach(m.backhall.lounge if k == "backhall" else c.lives[0])
             if pr[0] == "lounge":
                 ui.open_talk(pr[1])
             else:

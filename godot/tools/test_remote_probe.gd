@@ -22,7 +22,7 @@ func probe_once(c: Node, file_id := "cloud://test-env.test-bucket/canvas/scene_r
     p.run(c, func(r): box["r"] = r)
     return box.get("r", {})
 
-func _init() -> void:
+func _initialize() -> void:
     var c: Node = Cloud.new()
     c._ready()
     var p0 = Probe.new()
