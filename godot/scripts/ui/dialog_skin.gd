@@ -1071,8 +1071,13 @@ class SafeKeep extends Node:
             return qt if rt.position.x >= lo.x - 0.5 and rt.end.x <= hi.x + 0.5 else q
         var cy := head_dy * px - bs.y * 0.5
         var gap: float = body_half * px + th - Skin.BU * Skin.BUBBLE_EW   # 尾巴横过来以后占 th 宽，压住框边一格
-        var cands: Array = [[push.call(box0), "up"], [Vector2(gap, cy), "side"], [Vector2(-gap - bs.x, cy), "side"],
-            [push.call(Vector2(box0.x, foot_dy * px + th - Skin.BU * Skin.BUBBLE_EW)), "down"]]
+        var down: Vector2 = push.call(Vector2(box0.x, foot_dy * px + th - Skin.BU * Skin.BUBBLE_EW))
+        var cands: Array = [[push.call(box0), "up"], [Vector2(gap, cy), "side"], [Vector2(-gap - bs.x, cy), "side"], [down, "down"]]
+        # 人站进顶栏那一条（顶到画布最上沿）：脚下也在顶栏里，整只往下挪到顶栏线下，尖照样朝上对着人；跟别的泡叠就再往下挪几档（庄Z1 10/6：走到头那句要照样出）
+        var below: float = (lo.y - scr.call(down).position.y) / sc
+        if below > 0.0:
+            for k in 4:
+                cands.append([down + Vector2(0, below + k * (bs.y + 4.0 / sc)), "down"])
         var pos := box0
         var m := "hidden"
         for cd in cands:
@@ -1096,7 +1101,7 @@ class SafeKeep extends Node:
                 tail.position = Vector2(tail0.x + tail_x, tail0.y)
             "down":
                 tail.rotation = PI   # 尖朝上：转半圈以后图在原点左上，尖落在 (−tw/2, −th) 处
-                tail.position = Vector2(tw * 0.5 + tail_x, foot_dy * px + th)
+                tail.position = Vector2(tw * 0.5 + tail_x, pos.y + Skin.BU * Skin.BUBBLE_EW)   # 贴着框上沿（挪到顶栏线下时跟着框走）
             "side":
                 var cy2 := pos.y + bs.y * 0.5
                 if pos.x > 0.0:   # 框在右边：尖朝左
