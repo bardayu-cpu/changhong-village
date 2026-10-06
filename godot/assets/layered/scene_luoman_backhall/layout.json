@@ -213,9 +213,7 @@
  "signs_note": "门口的名字牌（阿鱼 10/3「每个房间的门口需要用牌子写明这是哪里」；厨房也挂，01 F）：x,y 是匾的下沿正中，挂在门洞东边的前沿矮墙上（不压门洞），foot 是排前后的线（墙脚 696 再往前一点，走廊里的人在牌子前面）。画法见 layered_hall.gd room_sign。10/4 方案 C：化妆间挪到最东头，门洞东边离走廊东头「回宴会厅」牌太近，这块挂到门洞西边",
  "stand_points": [
   {"id": "stand_record", "name": "唱片机前（听唱片）", "x": 952, "y": 312, "r": 16},
-  {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 1144, "y": 476, "r": 14},
-  {"id": "stand_mj_candy", "name": "麻将室糖果桌前（打牌的妹妹起身拿糖，07 10/4）", "x": 806, "y": 530, "r": 14},
-  {"id": "stand_mj_tea", "name": "麻将室茶几前（倒杯茶再回去，07 10/4）", "x": 805, "y": 598, "r": 14}
+  {"id": "stand_tv", "name": "电视前（看电视、打游戏）", "x": 1144, "y": 476, "r": 14}
  ],
  "stand_points_note": "站人的地方（休息间第三版，10/3 起记点）：NPC 起身走动去站一会（lounge_life.gd 照 npcs 的 wander 读，10/4 起休息间叔叔、麻将室打牌的妹妹、化妆间化妆师）；玩家玩法要用先写玩家说明给阿鱼点头",
  "pixel_art": ["res://assets/pixel_art/backhall_makeup_door/room.json", "res://assets/pixel_art/backhall_lounge/room.json", "res://assets/pixel_art/backhall_mahjong_door/room.json"],

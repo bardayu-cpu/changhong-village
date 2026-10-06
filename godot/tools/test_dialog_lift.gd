@@ -75,11 +75,12 @@ func run() -> void:
             var cv = b
             var lf = life_by(b, pair[0])
             var want_state := "backhall"
-            if pair[0] == "makeup":
-                m.ensure_canvas("makeup")
-                cv = m.areas["makeup"]
+            # 10/6 庄Z2：麻将室也搬成单独一间（娱乐室，areas["mahjong"]），大爷跟着搬过去了
+            if pair[0] in ["makeup", "mahjong"]:
+                m.ensure_canvas(pair[0])
+                cv = m.areas[pair[0]]
                 lf = cv.lives[0] if not cv.lives.is_empty() else null
-                want_state = "makeup"
+                want_state = pair[0]
             if m.state != want_state:
                 if ui.is_open():
                     ui.hide_all()
@@ -112,8 +113,8 @@ func run() -> void:
             await frames(10)
             b.walking_enabled = true
         # 分页：打字开着，点一下先出完、再点翻页
-        var mj = life_by(b, "mahjong")
-        await open_talk(b, ui, mj, "elder_n")
+        var mj = life_by(b, "lounge")   # 10/6 大爷搬去娱乐室了，分页拿后厅休息间奶奶测
+        await open_talk(b, ui, mj, "lounge_09")
         var typer = ui.talk_box.get_node("typer")
         typer.instant = false
         ui.line_label.text = "今天这天气真好，早上还有点凉，到中午就暖和了。等下开席有红烧肉、清蒸鱼，还有一锅老鸭汤，听说炖了一上午，你待会儿多吃点，别光顾着拍照。"

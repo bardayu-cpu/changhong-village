@@ -55,14 +55,14 @@ func home(lf, p: Dictionary) -> void:
     lf._pose(p, 0.0)
 
 func life_by(room: String):
-    for lf in b.lives + m.areas["makeup"].lives:
+    for lf in b.lives + m.areas["makeup"].lives + m.areas["mahjong"].lives:   # 10/6 麻将室也单独成一间（娱乐室，庄Z2）
         if lf.room == room:
             return lf
     return null
 
 ## 切到这份人所在的画布（化妆间是单独那间屋，别的在后厅）
 func go(lf) -> void:
-    var cid := "makeup" if lf.room == "makeup" else "backhall"
+    var cid: String = lf.room if lf.room in ["makeup", "mahjong"] else "backhall"
     if m.state != cid:
         m._show_canvas(cid)
         m._goto(cid)
@@ -111,6 +111,7 @@ func run() -> void:
     m.games_save.local_path = "user://test_rl_games.json"
     m.ensure_canvas("backhall")
     m.ensure_canvas("makeup")
+    m.ensure_canvas("mahjong")
     m._show_canvas("backhall")
     m._goto("backhall")
     await process_frame
@@ -124,7 +125,7 @@ func run() -> void:
     var mk = life_by("makeup")
 
     print("1 两间的人")
-    check("后厅两份：休息间、麻将室（%s）；化妆间那份在单独那间屋里" % [b.lives.map(func(x): return x.room)], b.lives.size() == 2 and mj != null and mk != null and b.lives[0] == b.lounge and mk.c == m.areas["makeup"])
+    check("后厅一份：休息间（%s）；麻将室（娱乐室）、化妆间那两份各在单独那间屋里" % [b.lives.map(func(x): return x.room)], b.lives.size() == 1 and mj != null and mk != null and b.lives[0] == b.lounge and mj.c == m.areas["mahjong"] and mk.c == m.areas["makeup"])
     check("休息间照旧四位（%d）" % b.lounge.people.size(), b.lounge.people.size() == 4)
     check("麻将室 14 位、化妆间 3 位（%d、%d）" % [mj.people.size(), mk.people.size()], mj.people.size() == 14 and mk.people.size() == 3)
     var adopted := true
@@ -139,7 +140,7 @@ func run() -> void:
     var max_now := 0
     var over_two := 0
     # 同屏最多两个：后厅一屏（休息间 + 麻将室）、化妆间自己一屏，各算各的（化妆间 10/4 起是单独一间屋、单独一屏）
-    for set_lives in [m.backhall.lives, m.areas["makeup"].lives]:
+    for set_lives in [m.backhall.lives, m.areas["mahjong"].lives, m.areas["makeup"].lives]:
         await go(set_lives[0])
         for i in int(90.0 / DT):
             tick(1)
@@ -154,9 +155,9 @@ func run() -> void:
             max_now = maxi(max_now, now)
             if now > 2:
                 over_two += 1
-    check("每一屏一起跑 90 秒（后厅一屏、化妆间一屏）：每一帧同时在冒的最多 %d 个（要 ≤ 2；超过两个的有 %d 帧）" % [max_now, over_two], max_now <= 2 and over_two == 0 and max_now >= 1)
+    check("每一屏一起跑 90 秒（后厅一屏、娱乐室一屏、化妆间一屏）：每一帧同时在冒的最多 %d 个（要 ≤ 2；超过两个的有 %d 帧）" % [max_now, over_two], max_now <= 2 and over_two == 0 and max_now >= 1)
     await go(mj)
-    for lf in m.backhall.lives + m.areas["makeup"].lives:
+    for lf in m.backhall.lives + m.areas["mahjong"].lives + m.areas["makeup"].lives:
         for g in lf.data["chat"]:
             var got := 0
             for l in g["lines"]:
@@ -177,17 +178,19 @@ func run() -> void:
     for id in mj.bubbles.keys():
         mj._hide_bubble(id)
     mj.show_bubble("elder_n", "该你了")
-    b.reset_to(Vector2(700, 640))
+    var jc = mj.c   # 10/6 起大爷在单独那间娱乐室：站到他桌子南边一点，气泡在屏里
+    jc.reset_to(jc.nearest_free(mj.approach_of("elder_n") + Vector2(0, 90)))
+    jc.cam.reset_smoothing()
     tick(2)
     var bub: Node2D = mj.bubbles["elder_n"]
     var under: Vector2 = bub.position + Vector2(0, -12)
-    var free_under: Vector2 = b.nearest_free(under)
-    var scr: Vector2 = b.get_viewport().get_canvas_transform() * free_under
-    b.tap(scr)
+    var free_under: Vector2 = jc.nearest_free(under)
+    var scr: Vector2 = jc.get_viewport().get_canvas_transform() * free_under
+    jc.tap(scr)
     tick(1)
-    check("点气泡底下那块地（%s）照样走过去，没被气泡、没被大爷拦" % [free_under], not b.path.is_empty() and b.pending_talker == "" and mj.pending_talk == "")
+    check("点气泡底下那块地（%s）照样走过去，没被气泡、没被大爷拦" % [free_under], not jc.path.is_empty() and jc.pending_talker == "" and mj.pending_talk == "")
     mj.frozen = false
-    b.path.clear()
+    jc.path.clear()
 
     print("3 点人对话（每个选项各走一遍）")
     for lf in [mj, mk]:
@@ -203,7 +206,7 @@ func run() -> void:
             var n_choices := 2
             for pick in n_choices:
                 # 走动的人先等他坐（站）回原位再说，测的是在家那段
-                lf.c.reset_to(lf.c.SPAWN if lf == mk else Vector2(700, 640))
+                lf.c.reset_to(lf.c.SPAWN)
                 tick(2)
                 var r: Dictionary = await talk_once(lf, id, pick)
                 var ap: Vector2 = lf.approach_of(id)
@@ -218,7 +221,7 @@ func run() -> void:
         for id in lf.people:
             if not lf.can_talk(id):
                 continue
-            lf.c.reset_to(lf.c.SPAWN if lf == mk else Vector2(700, 640))
+            lf.c.reset_to(lf.c.SPAWN)
             tick(2)
             lf.request_talk(id)
             for i in int(25.0 / DT):
@@ -251,7 +254,7 @@ func run() -> void:
     check("两间的话里没有「手气」「新娘子好乖」（麻将室只留氛围）", not ("手气" in words) and not ("新娘子好乖" in words))
 
     print("3c 冒泡字大、不互相压")
-    await go(mj)
+    await go(b.lounge)   # 10/6 后厅只剩休息间那份；娱乐室、化妆间在下面各跑各的
     var probe_lf = b.lounge
     check("气泡字号 %d（原来 15，04 嫌小）" % probe_lf.BUBBLE_FONT, probe_lf.BUBBLE_FONT >= 20)
     for lf in b.lives:
@@ -263,7 +266,6 @@ func run() -> void:
         for id in lf.bubbles.keys():
             lf._hide_bubble(id)
         lf.frozen = false
-    mj.people["card_e"]["wait"] = 2.0
     b.reset_to(b.SPAWN)
     var worst: Array = []
     var most := 0
@@ -287,30 +289,33 @@ func run() -> void:
         for id in lf.bubbles.keys():
             lf._hide_bubble(id)
         lf.frozen = false
-    # 单独那间化妆间：两组（化妆台前、化妆助理）跑 40 秒，也不叠
-    await go(mk)
-    mk.c.reset_to(mk.c.SPAWN)
-    var worst_mk: Array = []
-    var most_mk := 0
-    for f in int(40.0 / DT):
-        tick(1)
-        var rs: Array = []
-        for id in mk.bubbles:
-            var bb: Node2D = mk.bubbles[id]
-            if bb.scale.x >= mk._bubble_scale() * 0.99:
-                rs.append([id, mk.bubble_rect(bb)])
-        most_mk = maxi(most_mk, rs.size())
-        for a in rs.size():
-            for c2 in range(a + 1, rs.size()):
-                if (rs[a][1] as Rect2).intersects(rs[c2][1]) and not ("%s×%s" % [rs[a][0], rs[c2][0]]) in worst_mk:
-                    worst_mk.append("%s×%s" % [rs[a][0], rs[c2][0]])
-    check("化妆间两组轮着冒 40 秒（最多同时 %d 个），每一帧都不叠（%s）" % [most_mk, worst_mk], worst_mk.is_empty() and most_mk >= 1)
-    for id in mk.bubbles.keys():
-        mk._hide_bubble(id)
+    # 单独那两间：娱乐室（四组，打牌的妹妹起身走动也在跑）、化妆间（化妆台前、化妆助理两组）各跑 40 秒，也不叠
+    for one in [mj, mk]:
+        await go(one)
+        one.c.reset_to(one.c.SPAWN)
+        if one == mj:
+            mj.people["card_e"]["wait"] = 2.0
+        var worst_mk: Array = []
+        var most_mk := 0
+        for f in int(40.0 / DT):
+            tick(1)
+            var rs: Array = []
+            for id in one.bubbles:
+                var bb: Node2D = one.bubbles[id]
+                if bb.scale.x >= one._bubble_scale() * 0.99:
+                    rs.append([id, one.bubble_rect(bb)])
+            most_mk = maxi(most_mk, rs.size())
+            for a in rs.size():
+                for c2 in range(a + 1, rs.size()):
+                    if (rs[a][1] as Rect2).intersects(rs[c2][1]) and not ("%s×%s" % [rs[a][0], rs[c2][0]]) in worst_mk:
+                        worst_mk.append("%s×%s" % [rs[a][0], rs[c2][0]])
+        check("%s 轮着冒 40 秒（最多同时 %d 个，要 ≤ 2），每一帧都不叠（%s）" % [one.room, most_mk, worst_mk], worst_mk.is_empty() and most_mk >= 1 and most_mk <= 2)
+        for id in one.bubbles.keys():
+            one._hide_bubble(id)
     await go(mj)
 
     print("3e 对话框开着时哪间都不冒泡（03 测第 67 版：妹妹的气泡从选项底下露出来）")
-    b.reset_to(Vector2(700, 640))
+    mj.c.reset_to(mj.c.nearest_free(mj.approach_of("elder_n") + Vector2(0, 90)))   # 10/6 大爷在单独那间娱乐室
     tick(2)
     mj.request_talk("elder_n")
     for i in int(25.0 / DT):
@@ -319,16 +324,17 @@ func run() -> void:
             break
     await settle()
     var leak := 0
+    var here: Array = mj.c.lives   # 10/6 起大爷在单独那间娱乐室：看这一屏冒没冒
     for i in int(12.0 / DT):
         tick(1)
-        for lf in b.lives:
+        for lf in here:
             leak += lf.bubbles.size()
-    check("跟大爷说着话的 12 秒里，三间一个气泡都没冒（%d）" % leak, ui.talk_box.visible and leak == 0)
+    check("跟大爷说着话的 12 秒里，娱乐室一个气泡都没冒（%d）" % leak, ui.talk_box.visible and leak == 0)
     ui.close_talk()
     var back_on := 0
     for i in int(8.0 / DT):
         tick(1)
-        for lf in b.lives:
+        for lf in here:
             back_on += lf.bubbles.size()
     check("说完又接着冒", back_on > 0)
 

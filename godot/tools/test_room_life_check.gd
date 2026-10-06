@@ -58,14 +58,14 @@ func settle() -> void:
     tick(1)
 
 func life_by(room: String):
-    for lf in m.backhall.lives + m.areas["makeup"].lives:
+    for lf in m.backhall.lives + m.areas["makeup"].lives + m.areas["mahjong"].lives:   # 10/6 麻将室也单独成一间（娱乐室，庄Z2）
         if lf.room == room:
             return lf
     return null
 
 ## 切到这份人所在的画布（化妆间是单独那间屋，别的在后厅），b 跟着换成那块
 func go(lf) -> void:
-    var cid := "makeup" if lf.room == "makeup" else "backhall"
+    var cid: String = lf.room if lf.room in ["makeup", "mahjong"] else "backhall"
     if m.state != cid:
         if ui.is_open():
             ui.hide_all()
@@ -142,6 +142,7 @@ func run() -> void:
     m.games_save.local_path = "user://test_rlcheck_games.json"
     m.ensure_canvas("backhall")
     m.ensure_canvas("makeup")
+    m.ensure_canvas("mahjong")
     m._show_canvas("backhall")
     m._goto("backhall")
     await process_frame
@@ -185,7 +186,7 @@ func run() -> void:
             lf._head(p)
             lf._pose(p, 0.0)
             var reg0: Rect2 = (p["spr"] as Sprite2D).region_rect   # 放回原位摆好以后那一格
-            b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
+            b.reset_to(b.SPAWN)   # 10/6 麻将室也单独成屋：两份人都从各自屋的进门处开始
             tick(2)
             if ui.is_open():
                 ui.hide_all()
@@ -270,10 +271,9 @@ func run() -> void:
     check("4 位没写台词的：点了没开对话框、没排「走去说话」（%d 处不对 %s）" % [silent_bad.size(), str(silent_bad)], silent_bad.is_empty())
 
     print("3 走一圈的两位")
-    await go(mj)
     var gaps: Array = []
     var fronts: Array = []
-    for it in b.cfg["items"]:
+    for it in m.backhall.cfg["items"]:
         if str(it.get("id", "")).begins_with("front_") and it.has("rect"):
             fronts.append(it["rect"])
     fronts.sort_custom(func(x, y): return float(x[0]) < float(y[0]))
@@ -289,7 +289,7 @@ func run() -> void:
         var id: String = pair[1]
         var p: Dictionary = lf.people[id]
         await go(lf)
-        var gaps_here: Array = gaps if lf != mk else [Rect2(252, 940, 72, 60)]   # 化妆间：南墙那个门洞（wall_s_0、wall_s_1 之间）
+        var gaps_here: Array = [Rect2(252, 940, 72, 60)] if lf == mk else [Rect2(512, 1220, 76, 60)]   # 化妆间：南墙那个门洞（wall_s_0、wall_s_1 之间）；娱乐室（10/6）：南墙门洞 x 512～588
         var spots: Array = p["spots"]
         for mode in ["A 玩家站远处", "B 玩家站在第一个站点上"]:
             await go(lf)   # 化妆间：上一遍末尾推摇杆往下走，会从南门走回后厅
@@ -481,7 +481,7 @@ func run() -> void:
         var code := str(p["code"])
         var spr: Sprite2D = p["spr"]
         await go(lf)
-        b.reset_to(b.SPAWN if lf == mk else Vector2(700, 640))
+        b.reset_to(b.SPAWN)   # 10/6 麻将室也单独成屋：两份人都从各自屋的进门处开始
         tick(2)
         if ui.is_open():
             ui.hide_all()

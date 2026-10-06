@@ -371,33 +371,37 @@ func run() -> void:
     check("四位站着高度对「人 = 84」都在 0.5～1.5 倍里（红 %d）" % red, red == 0)
 
     print("6 麻将室西北角")
-    var door_mj: Vector2i = b._cell_of(Vector2(696, 690))
-    var reach_ok := {}
-    for it in b.cfg["items"]:
-        var id := str(it["id"])
-        if id in ["mj_plant_nw", "mj2_chair_n", "mj_stand_2"]:
-            var r: Array = it["rect"]
-            var rc := Rect2(float(r[0]), float(r[1]), float(r[2]) - float(r[0]), float(r[3]) - float(r[1]))
-            var found := false
-            for off in [14.0, 24.0]:
-                for t in range(0, 9):
-                    for cnd in [Vector2(lerpf(rc.position.x, rc.end.x, t / 8.0), rc.position.y - off), Vector2(lerpf(rc.position.x, rc.end.x, t / 8.0), rc.end.y + off), Vector2(rc.position.x - off, lerpf(rc.position.y, rc.end.y, t / 8.0)), Vector2(rc.end.x + off, lerpf(rc.position.y, rc.end.y, t / 8.0))]:
-                        if b._free(cnd) and not found:
-                            reenter()
-                            b.reset_to(Vector2(696, 690))
-                            var w := walk(cnd)
-                            if w["ok"] and (b.pos - cnd).length() <= 14.0:
-                                found = true
-            reach_ok[id] = {"clear": it.get("clear", "默认"), "走得到跟前": found}
-    print("    %s" % str(reach_ok))
-    check("绿植、2 号桌北边椅子、茶凳：clear 都是 6、跟前走得到", reach_ok.size() == 3 and reach_ok.values().all(func(v): return v["走得到跟前"] and int(v["clear"]) == 6))
-    var mj_clear := 0
-    var mj_total := 0
-    for it in b.cfg["items"]:
-        if it.has("rect") and Rect2(528, 226, 336, 458).intersects(Rect2(float(it["rect"][0]), float(it["rect"][1]), float(it["rect"][2]) - float(it["rect"][0]), float(it["rect"][3]) - float(it["rect"][1]))) and not str(it["id"]).begins_with("wall_") and not str(it["id"]).begins_with("front_"):
-            mj_total += 1
-            if int(it.get("clear", 12)) == 6:
-                mj_clear += 1
-    check("麻将室 %d 件家具里 clear 6 的有 %d 件（应全是）" % [mj_total, mj_clear], mj_clear == mj_total)
+    # 10/6 麻将室搬成单独一间娱乐室（庄Z2）：后厅原来那间封起来走不进去，西北角那几件跟前不用走得到了；娱乐室里的在 test_mahjong_room、test_liantu_extra_check 测
+    if b.points.has("to_mahjong"):
+        check("原来那间麻将室封起来了（门洞 (696, 690) 挡上）", not b._free(Vector2(696, 690)))
+    else:
+        var door_mj: Vector2i = b._cell_of(Vector2(696, 690))
+        var reach_ok := {}
+        for it in b.cfg["items"]:
+            var id := str(it["id"])
+            if id in ["mj_plant_nw", "mj2_chair_n", "mj_stand_2"]:
+                var r: Array = it["rect"]
+                var rc := Rect2(float(r[0]), float(r[1]), float(r[2]) - float(r[0]), float(r[3]) - float(r[1]))
+                var found := false
+                for off in [14.0, 24.0]:
+                    for t in range(0, 9):
+                        for cnd in [Vector2(lerpf(rc.position.x, rc.end.x, t / 8.0), rc.position.y - off), Vector2(lerpf(rc.position.x, rc.end.x, t / 8.0), rc.end.y + off), Vector2(rc.position.x - off, lerpf(rc.position.y, rc.end.y, t / 8.0)), Vector2(rc.end.x + off, lerpf(rc.position.y, rc.end.y, t / 8.0))]:
+                            if b._free(cnd) and not found:
+                                reenter()
+                                b.reset_to(Vector2(696, 690))
+                                var w := walk(cnd)
+                                if w["ok"] and (b.pos - cnd).length() <= 14.0:
+                                    found = true
+                reach_ok[id] = {"clear": it.get("clear", "默认"), "走得到跟前": found}
+        print("    %s" % str(reach_ok))
+        check("绿植、2 号桌北边椅子、茶凳：clear 都是 6、跟前走得到", reach_ok.size() == 3 and reach_ok.values().all(func(v): return v["走得到跟前"] and int(v["clear"]) == 6))
+        var mj_clear := 0
+        var mj_total := 0
+        for it in b.cfg["items"]:
+            if it.has("rect") and Rect2(528, 226, 336, 458).intersects(Rect2(float(it["rect"][0]), float(it["rect"][1]), float(it["rect"][2]) - float(it["rect"][0]), float(it["rect"][3]) - float(it["rect"][1]))) and not str(it["id"]).begins_with("wall_") and not str(it["id"]).begins_with("front_"):
+                mj_total += 1
+                if int(it.get("clear", 12)) == 6:
+                    mj_clear += 1
+        check("麻将室 %d 件家具里 clear 6 的有 %d 件（应全是）" % [mj_total, mj_clear], mj_clear == mj_total)
     print("RESULT " + ("PASS" if ok else "FAIL"))
     quit(0 if ok else 1)

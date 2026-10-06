@@ -190,7 +190,7 @@
   {"id": "mj3_e", "who": "长辈", "sit": true, "life": "mahjong", "x": 946, "y": 648, "face": "left", "standin": {"code": "LM-GUEST-02", "frame": 4, "rows": 47, "bottom": 624}, "approach": [992, 640]},
   {"id": "card_n", "who": "打牌的客人", "sit": true, "life": "mahjong", "x": 200, "y": 1090, "face": "down", "standin": {"code": "LM-GUEST-09", "frame": 0, "rows": 48, "bottom": 1067}},
   {"id": "card_w", "who": "打牌的客人", "sit": true, "life": "mahjong", "x": 141, "y": 1128, "face": "right", "standin": {"code": "LM-GUEST-06", "frame": 8, "rows": 47, "bottom": 1104}},
-  {"id": "card_e", "who": "打牌的客人", "sit": true, "life": "mahjong", "stand": [760, 320], "wander": ["stand_mj_candy", "stand_mj_tea"], "x": 259, "y": 1128, "face": "left", "standin": {"code": "LM-GUEST-08", "frame": 4, "rows": 47, "bottom": 1104}, "approach": [305, 1120]},
+  {"id": "card_e", "who": "打牌的客人", "sit": true, "life": "mahjong", "wander": ["stand_er_candy", "stand_er_tea"], "x": 259, "y": 1128, "face": "left", "standin": {"code": "LM-GUEST-08", "frame": 4, "rows": 47, "bottom": 1104}, "approach": [305, 1120]},
   {"id": "eg_0", "who": "来玩的客人（替身，静静坐着；mahjong_01_n）", "x": 205, "y": 400, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-11", "frame": 0, "rows": 48, "bottom": 377}},
   {"id": "eg_1", "who": "来玩的客人（替身，静静坐着；mahjong_01_s）", "x": 205, "y": 481, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-12", "frame": 12, "rows": 47, "bottom": 457}},
   {"id": "eg_2", "who": "来玩的客人（替身，静静坐着；mahjong_01_w）", "x": 154, "y": 438, "face": "right", "sit": true, "standin": {"code": "LM-GUEST-05", "frame": 8, "rows": 47, "bottom": 414}},
@@ -245,6 +245,11 @@
  "seats": [
   {"id": "seat_mahjong_play", "x": 550, "y": 691, "seat_y": 667, "face": "up", "life": "mahjong", "game": "mahjong_pair", "note": "玩家那把：地毯那桌朝南那把（庄Z1 10/6）；坐下开「摸两把」（minigames.json 的 mahjong_pair）"}
  ],
+ "stand_points": [
+  {"id": "stand_er_tea", "name": "茶台前（倒杯茶再回去）", "x": 570, "y": 196, "r": 14},
+  {"id": "stand_er_candy", "name": "东边柜子前（拿糖）", "x": 668, "y": 192, "r": 14}
+ ],
+ "stand_points_note": "站人的地方：NPC 起身走动去站一会（lounge_life.gd 照 npcs 的 wander 读）；打牌的妹妹原来在后厅去糖果桌、茶几，搬来以后去茶台、东边柜子",
  "life": {"room": "mahjong", "data": "res://assets/backhall/mahjong.json"},
  "pixel_art": ["res://assets/pixel_art/entertainment_room/room.json"]
 }

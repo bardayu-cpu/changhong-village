@@ -78,17 +78,19 @@ func run() -> void:
     print("1 布局对蓝图 3.3")
     # 10/4 方案 C：四间整间平移成西→东后厨、麻将室、休息室、化妆间（化妆间 +1195、休息室 +528、麻将室 −144、后厨 −1008），
     # 走廊东头回宴会厅、西头厨房后门去草坪
-    var want := {"lounge": [1032, 420, 60], "mahjong": [708, 420, 70], "pot": [264, 380, 70],
+    # 10/6 麻将室搬去单独那间娱乐室（庄Z2）：原来那间的 mahjong 点去掉，门口加 to_mahjong
+    var want := {"lounge": [1032, 420, 60], "to_mahjong": [696, 702, 26], "pot": [264, 380, 70],
         "to_hall": [1496, 780, 50], "to_lawn": [40, 780, 50], "to_plaza": [896, 990, 40], "to_wkitchen": [264, 990, 40],
         "to_makeup": [1363, 702, 26]}   # 10/4 化妆间单独成一间屋：走廊化妆间门口一进就整屏换进去（01 H 派）
     var same: bool = b.points.size() == 8
     for id in want:
         same = same and b.points.has(id) and b.points[id]["pos"] == Vector2(want[id][0], want[id][1]) and is_equal_approx(float(b.points[id]["r"]), float(want[id][2]))
-    check("八个交互点坐标、半径照方案 C 平移后的位置一字不差（加了化妆间门口 to_makeup；换装点 dress 10/4 挪进单独那间化妆间，02 F）", same)
+    check("八个交互点坐标、半径照方案 C 平移后的位置一字不差（加了化妆间门口 to_makeup、娱乐室门口 to_mahjong；换装点 dress 10/4 挪进单独那间化妆间，02 F；麻将室 mahjong 10/6 搬走）", same)
     var doors := true
-    for dx in [168, 696, 1032]:
+    for dx in [168, 1032]:
         doors = doors and b._free(Vector2(dx, 690))
-    check("三个房门 (168/696/1032, 690) 走得通", doors)
+    check("两个房门 (168/1032, 690) 走得通", doors)
+    check("原来那间麻将室的门洞 (696, 690) 挡上了（10/6 搬去单独那间娱乐室）", not b._free(Vector2(696, 690)))
     # 10/4 后厅长条里原来那间化妆室封起来（02 F）：门洞挡上（画的是关着的门），走到门口 to_makeup 换进单独那间化妆间
     check("原来那间化妆室的门洞 (1363, 690) 挡上了", not b._free(Vector2(1363, 690)))
     var walls := true
@@ -96,11 +98,9 @@ func run() -> void:
             Vector2(528, 450), Vector2(864, 450), Vector2(1200, 450)]:
         walls = walls and not b._free(p)
     check("门之间的墙、房间之间的墙走不过去", walls)
-    var cross: Array = b.find_path(Vector2(696, 450), Vector2(1032, 470))
-    var deepest := 0.0
-    for p in cross:
-        deepest = maxf(deepest, (p as Vector2).y)
-    check("麻将室到休息间要从走廊绕（最低走到 y %.0f）" % deepest, not cross.is_empty() and deepest > 696.0)
+    var mj_in: Array = b.find_path(b.SPAWN, Vector2(696, 450))
+    var mj_end: Vector2 = mj_in[mj_in.size() - 1] if not mj_in.is_empty() else b.SPAWN
+    check("原来那间麻将室走不进去（往屋里 (696,450) 走，最近停在 %s）" % mj_end, not Rect2(523, 226, 336, 458).has_point(mj_end))
     var sealed: Array = b.find_path(b.SPAWN, Vector2(1363, 450))
     var sealed_end: Vector2 = sealed[sealed.size() - 1] if not sealed.is_empty() else b.SPAWN
     check("原来那间化妆室走不进去（往屋里 (1363,450) 走，最近停在 %s）" % sealed_end, not Rect2(1205, 226, 331, 458).has_point(sealed_end))
@@ -124,7 +124,8 @@ func run() -> void:
             in_lounge += 1
     # 展位（01 E 10/3）：麻将室三张桌，一张坐满四位长辈、一张两位长辈加两位宾客、一张空着；休息间沙发上两位喝茶的长辈（不放新郎家人，阿鱼 9/29）
     # 10/4 人物新做法样板（01 F）：休息间四位（奶奶、爷爷北边沙发喝茶，叔叔、阿姨茶座聊天），细的在 test_lounge_people.gd
-    check("麻将室六个长辈坐着（%d）、厨房一个厨师站着（%d）、休息间四位（%d）" % [elders, cooks, in_lounge], elders == 6 and cooks == 1 and in_lounge == 4)
+    # 10/6 麻将室那几位搬去单独那间娱乐室（test_mahjong_room 测），原来那间不留人
+    check("原来那间麻将室没人了（%d）、厨房一个厨师站着（%d）、休息间四位（%d）" % [elders, cooks, in_lounge], elders == 0 and cooks == 1 and in_lounge == 4)
     var coat := label_at(b, "外套")
     check("休息间只有一件外套（标签在 %s）" % coat, coat.x > 864 and coat.x < 1200)
     # 10/3 化妆间换成 06 画的第二版：一个礼服架换成四个区的衣架、两座衣墙（BH-P15～P27），像素图在 tools/pixel_art
@@ -197,12 +198,12 @@ func run() -> void:
     # 话还是【待补】的那几间：走进去不出按钮（01 E 10/3：开发字样不给玩家看）
     var hidden_ok := true
     # 10/4 起化妆间门口一进就换到单独那间屋（test_makeup_room 测），原来后厅里那间化妆室走不进去了，这里只走休息间、麻将室、厨房
-    for id in ["lounge", "mahjong"]:
+    for id in ["lounge"]:
         var sp0: Vector2 = b.spot_pos(id)
         walk_to(Vector2(sp0.x, 790))
         walk_to(sp0)
         hidden_ok = hidden_ok and b.in_spot(id) and not ui.act_btn.visible
-    check("话还是【待补】的三间，走进去不出按钮", hidden_ok)
+    check("话还是【待补】的休息间，走进去不出按钮", hidden_ok)
     walk_to(Vector2(b.spot_pos("lounge").x, 790))
     # 下面照阿鱼写好了的样子测：往读进来的话里塞三句（不动文件）
     var real := {"dress": "测试：礼服架这句", "lounge": "测试：外套这句", "mahjong": "测试：打两圈这句"}
@@ -212,7 +213,7 @@ func run() -> void:
         saved[id] = bl[id].duplicate()
         bl[id]["text"] = real[id]
     var want_who := {"dress": "阿鱼", "lounge": "阿鱼", "mahjong": "长辈", "pot": "厨师"}
-    for id in ["lounge", "mahjong", "pot"]:
+    for id in ["lounge", "pot"]:   # 麻将室 10/6 搬去单独那间娱乐室
         var sp: Vector2 = b.spot_pos(id)
         walk_to(Vector2(sp.x, 790))
         walk_to(sp)

@@ -104,9 +104,12 @@ func run() -> void:
     check("原来后厅麻将室那几位搬进来了（%d 位挂 life: mahjong）" % movers, movers == 14)
     check("能聊的那几位归娱乐室管（%d 位）" % r.lives[0].people.size(), not r.lives.is_empty() and r.lives[0].people.size() == 14)
     var tv: Sprite2D = r.world.get_node_or_null("px_tv_screen")
-    var t0 = tv.texture if tv != null else null
-    await create_timer(0.3).timeout
-    check("电视三帧在换（%s）" % ("换了" if tv != null and tv.texture != t0 else "没换"), tv != null and tv.texture != t0)
+    var seen := {}   # 半秒里每帧记一下放的是哪张（只等一下再比一次，机器卡的时候正好转一圈回原帧会误判）
+    for i in 30:
+        if tv != null:
+            seen[tv.texture] = true
+        await create_timer(1.0 / 60.0).timeout
+    check("电视三帧在换（半秒里见到 %d 种）" % seen.size(), tv != null and seen.size() >= 2)
 
     print("3 摸两把")
     var seat: Dictionary = {}

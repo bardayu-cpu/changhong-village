@@ -50,6 +50,10 @@ FP = {"Y01": (34, 8), "Y02": (12, 5), "Y03": (32, 8), "Y04": (32, 8), "Y05-01": 
       "Y06-01": (30, 6), "Y08-01": (12, 6), "Y08-02": (22, 8), "Y09-01": (34, 0), "Y09-02": (24, 0), "Y10-01": (20, 6),
       "Y11-01": (14, 18), "Y11-02": (10, 6)}
 LOOKS = ["LM-GUEST-%02d" % i for i in (1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12)]
+# 打牌的妹妹（card_e）原来在后厅起身去糖果桌、茶几站一会：搬来以后换成北墙茶台前（倒杯茶）、东边柜子前（拿糖），站点在家具着地线往下 22
+STAND_POINTS = [{"id": "stand_er_tea", "name": "茶台前（倒杯茶再回去）", "x": 570, "y": 196, "r": 14},
+                {"id": "stand_er_candy", "name": "东边柜子前（拿糖）", "x": 668, "y": 192, "r": 14}]
+WANDER = {"stand_mj_candy": "stand_er_candy", "stand_mj_tea": "stand_er_tea"}
 MOVERS_FROM = "589aa37"   # 后厅麻将室那 14 位还在后厅布局里的那一版（rc-makeup）
 CHAIR = {"Y02-01": "n", "Y02-02": "s", "Y02-03": "w", "Y02-04": "e"}
 # 原来后厅麻将室那几位（id、坐哪把）：长辈四位坐地毯那桌的北西东（南那把留玩家），其余坐地毯两边那两桌
@@ -212,7 +216,9 @@ def main():
             continue
         _, x, y, face, rows, bottom = seat_at[seat]
         code = n["standin"]["code"]
-        m = {k: v for k, v in n.items() if k not in ("x", "y", "face", "standin", "approach", "block")}
+        m = {k: v for k, v in n.items() if k not in ("x", "y", "face", "standin", "approach", "block", "stand")}   # stand 是后厅的坐标，这里按座位重算
+        if "wander" in m:   # 起身走动去的站点换成这间屋里的
+            m["wander"] = [WANDER[w] for w in m["wander"] if w in WANDER]
         m.update({"x": x, "y": y, "face": face, "sit": True, "standin": {"code": code, "frame": FRAME[face], "rows": rows, "bottom": bottom}})
         if "approach" in n:   # 走到哪跟他说话：桌角外边
             m["approach"] = [x + 46, y + (14 if face == "up" else -8)]
@@ -265,6 +271,8 @@ def main():
                  [[DOOR[0], FLOOR[3] - 10], [DOOR[1], FLOOR[3] - 10], [DOOR[1], H - 6], [DOOR[0], H - 6]]],
         "flat": [{"type": "rect", "rect": [0, 0, W, H], "color": "#2e211b"}, {"type": "label", "text": "回后厅", "x": DOOR[1] + 70, "y": EXIT_Y}],
         "items": items, "npcs": npcs, "seats": [player],
+        "stand_points": STAND_POINTS,
+        "stand_points_note": "站人的地方：NPC 起身走动去站一会（lounge_life.gd 照 npcs 的 wander 读）；打牌的妹妹原来在后厅去糖果桌、茶几，搬来以后去茶台、东边柜子",
         "life": {"room": "mahjong", "data": "res://assets/backhall/mahjong.json"},
         "pixel_art": [RES + "room.json"],
     }

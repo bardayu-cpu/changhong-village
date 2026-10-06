@@ -69,6 +69,7 @@ def edit_layout(hide_ids):
         mid = (bd.DOOR[0] + bd.DOOR[1]) // 2
         d["points"].append({"id": "to_mahjong", "x": mid, "y": 702, "r": 26, "to": "mahjong", "arrive": [mid, 790],
                             "note": "娱乐室门口：一走进门洞就整屏换进娱乐室（10/6 庄Z2，照化妆间那扇）；从屋里出来站在门口外的走廊上"})
+    d["stand_points"] = [p for p in d.get("stand_points", []) if not str(p["id"]).startswith("stand_mj_")]   # 打牌的妹妹走动去的两个点跟着搬走（娱乐室里另配）
     moved = [n["id"] for n in d["npcs"] if str(n.get("life", "")) == "mahjong"]
     d["npcs"] = [n for n in d["npcs"] if str(n.get("life", "")) != "mahjong"]
     for sg in d.get("signs", []):

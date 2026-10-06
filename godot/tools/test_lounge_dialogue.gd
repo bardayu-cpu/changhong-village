@@ -49,7 +49,7 @@ func settle() -> void:
 
 ## 点奶奶、走过去、等对话框出第一句
 func talk_to_grandma() -> void:
-    b.reset_to(Vector2(504, 470))
+    b.reset_to(b.nearest_free(life.approach_of("lounge_09") + Vector2(0, 60)))   # 10/6 庄Z2：原来站 (504,470) 是方案 C 平移前的休息间，现在走去奶奶那会路过娱乐室门口、被换进娱乐室；改成站在奶奶跟前
     tick(2)
     life.request_talk("lounge_09")
     for i in int(20.0 / DT):
