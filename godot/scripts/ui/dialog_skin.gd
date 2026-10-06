@@ -976,24 +976,33 @@ class Typer extends Node:
         more.visible = cont and page >= pages.size() - 1 and not typing() and fmod(_blink, 1.0) < 0.6
 
 
-## 话泡、提示泡躲开屏幕禁区（罗-12，组件库第二节第 5 条）。挂在泡里，每帧按屏幕位置算（镜头一动屏上位置就变）：
-##   1 照旧冒在头顶；左右碰到四边 16 就把框往里推，尾巴不动、照旧指着人
-##   2 头顶碰到顶栏（或胶囊）：挪到人身侧（右边放得下放右边，不然左边），尾巴横过来指着人
-##   3 身侧也碰：放到人脚下，尾巴朝上
+## 话泡、提示泡躲开屏幕禁区（罗-12，组件库第二节第 5 条）。挂在泡里，每帧按屏幕位置算（镜头一动屏上位置就变）。
+## 10/6 庄Z3 测 rc-makeup 后改（庄Z1 派）：先保证两个泡不叠，再守禁区——同一帧里后挑位置的泡躲开前面已经摆好的泡；
+## 说话的人站在顶栏那一条里时只放身侧或脚下，不再「压到顶栏线下面」（离人太远，像是旁边的人说的）。挑的顺序：
+##   1 头顶（左右碰到四边 16 就把框往里推，尾巴不动、照旧指着人）
+##   2 人身侧（右边放得下放右边，不然左边），尾巴横过来指着人
+##   3 人脚下，尾巴朝上
+##   都不行（碰禁区、或者跟别的泡叠）：这只泡先不显示（visible 关掉），等有地方了再出来
 ## 父节点（泡）原点是尾巴尖、对着人头顶；人脚在原点往下 foot_dy 个画布像素（不写照 84 人高 + 8）
 class SafeKeep extends Node:
     var foot_dy := 92.0
     var head_dy := 22.0     # 身侧放时框的中线对着人哪儿（原点往下多少画布像素：脸那一带）
     var body_half := 18.0   # 人身子半宽（画布像素）：身侧放时尾巴尖落在身子外面
-    var mode := "up"        # 现在放在哪：up 头顶、side 身侧、down 脚下、low 人在最顶上时压到顶栏线下面（测试读）
+    var mode := "up"        # 现在放在哪：up 头顶、side 身侧、down 脚下、hidden 放不下先不显示（测试读）
+    static var _taken := {}  # 这一帧已经摆好的泡在屏幕上占哪：实例号 → [框, 第几帧]
 
     func _ready() -> void:
         name = "safe_keep"
         process_priority = 100   # 别人摆完、镜头动完再看
 
+    func _exit_tree() -> void:
+        _taken.erase(get_instance_id())
+
     func _process(_dt: float) -> void:
         var b := get_parent() as Node2D
-        if b == null or not b.is_visible_in_tree():
+        var holder := b.get_parent() as CanvasItem if b != null else null
+        if b == null or holder == null or not holder.is_visible_in_tree():
+            _taken.erase(get_instance_id())
             return
         var box: Control = null
         var tail: Node2D = b.get_node_or_null("tail")
@@ -1021,6 +1030,7 @@ class SafeKeep extends Node:
             box.position = box0
             tail.position = tail0
             tail.rotation = 0.0
+            b.visible = true
             mode = "up"
             return
         var lo := Vector2(float(Skin.SAFE_EDGE), maxf(float(Skin.SAFE_EDGE), float(Skin.safe_top)))
@@ -1029,23 +1039,26 @@ class SafeKeep extends Node:
         var bs := box.size
         var tw: float = 7.0 * Skin.BU                    # 尾巴宽（7 格）
         var th: float = 5.0 * Skin.BU                    # 尾巴高（5 格）
-        var px := 1.0 / maxf(b.scale.x, 0.001)       # 一个画布像素是泡里几个单位
+        var px := 1.0 / maxf(b.scale.x, 0.001)           # 一个画布像素是泡里几个单位
         var o := xf.origin
+        var me := get_instance_id()
+        var frame := Engine.get_process_frames()
+        var others: Array = []
+        for k in _taken.keys():
+            if k != me and int(_taken[k][1]) >= frame - 1:
+                others.append(_taken[k][0])
         var scr := func(p: Vector2) -> Rect2: return Rect2(o + p * sc, bs * sc)
         var bad := func(r: Rect2) -> bool:
-            return r.position.y < lo.y or r.end.y > hi.y or (cap.size.x > 0.0 and r.intersects(cap))
-        # 身侧：框的中线对着脸，右边放得下放右边；都放不下回 null
-        var cy := head_dy * px - bs.y * 0.5
-        var gap: float = body_half * px + th - Skin.BU * Skin.BUBBLE_EW   # 尾巴横过来以后占 th 宽，压住框边一格
-        var side_pos = null
-        var right := Vector2(gap, cy)
-        var left := Vector2(-gap - bs.x, cy)
-        if scr.call(right).end.x <= hi.x and scr.call(right).position.x >= lo.x and not bad.call(scr.call(right)):
-            side_pos = right
-        elif scr.call(left).position.x >= lo.x and scr.call(left).end.x <= hi.x and not bad.call(scr.call(left)):
-            side_pos = left
-        # 左右碰边：框往里推，尾巴留在框下沿 / 上沿里面（离框角至少 8）；推到头还碰边回 false
-        var push := func(p: Vector2) -> Array:
+            if r.position.x < lo.x - 0.5 or r.end.x > hi.x + 0.5 or r.position.y < lo.y or r.end.y > hi.y:
+                return true
+            if cap.size.x > 0.0 and r.intersects(cap):
+                return true
+            for q in others:
+                if r.grow(2.0).intersects(q):
+                    return true
+            return false
+        # 左右碰边：框往里推，尾巴尽量留在框下沿 / 上沿里面（离框角至少 8）
+        var push := func(p: Vector2) -> Vector2:
             var r: Rect2 = scr.call(p)
             var q := p
             if r.position.x < lo.x:
@@ -1053,31 +1066,29 @@ class SafeKeep extends Node:
             elif r.end.x > hi.x:
                 q.x += (hi.x - r.end.x) / sc
             var qt := q
-            qt.x = clampf(q.x, -bs.x + tw * 0.5 + 8.0, -tw * 0.5 - 8.0)   # 尾巴留在框里、离框角至少 8
+            qt.x = clampf(q.x, -bs.x + tw * 0.5 + 8.0, -tw * 0.5 - 8.0)
             var rt: Rect2 = scr.call(qt)
-            if rt.position.x >= lo.x - 0.5 and rt.end.x <= hi.x + 0.5:
-                return [qt, true]
-            return [q, true]   # 人离屏幕边太近：框守住四边 16，尾巴在框边上尽量靠近人（下面 tail_x 夹）
-        # 1 头顶（左右推一推）→ 2 身侧 → 3 脚下（左右推一推）
+            return qt if rt.position.x >= lo.x - 0.5 and rt.end.x <= hi.x + 0.5 else q
+        var cy := head_dy * px - bs.y * 0.5
+        var gap: float = body_half * px + th - Skin.BU * Skin.BUBBLE_EW   # 尾巴横过来以后占 th 宽，压住框边一格
+        var cands: Array = [[push.call(box0), "up"], [Vector2(gap, cy), "side"], [Vector2(-gap - bs.x, cy), "side"],
+            [push.call(Vector2(box0.x, foot_dy * px + th - Skin.BU * Skin.BUBBLE_EW)), "down"]]
         var pos := box0
-        var m := "up"
-        var up: Array = push.call(box0)
-        if not bad.call(scr.call(up[0])) and bool(up[1]):
-            pos = up[0]
-        elif side_pos != null:
-            pos = side_pos
-            m = "side"
-        else:
-            var dn: Array = push.call(Vector2(box0.x, foot_dy * px + th - Skin.BU * Skin.BUBBLE_EW))   # 尾巴尖对着脚，头两行压住框上沿
-            pos = dn[0]
-            m = "down"
-            var rd: Rect2 = scr.call(pos)
-            if rd.position.y < lo.y:
-                pos.y += (lo.y - rd.position.y) / sc   # 人站在最顶上（头都出屏了）：框整个放到顶栏线下面，尾巴朝上指着人
-                m = "low"
+        var m := "hidden"
+        for cd in cands:
+            if not bad.call(scr.call(cd[0])):
+                pos = cd[0]
+                m = cd[1]
+                break
+        mode = m
+        if m == "hidden":
+            b.visible = false
+            _taken.erase(me)
+            return
+        b.visible = true
         if box.position != pos:
             box.position = pos
-        mode = m
+        _taken[me] = [scr.call(pos), frame]
         var tail_x := clampf(0.0, pos.x + tw * 0.5 + 8.0, pos.x + bs.x - tw * 0.5 - 8.0)   # 尾巴尖的横坐标：对着人，出不了框
         match m:
             "up":
@@ -1086,9 +1097,6 @@ class SafeKeep extends Node:
             "down":
                 tail.rotation = PI   # 尖朝上：转半圈以后图在原点左上，尖落在 (−tw/2, −th) 处
                 tail.position = Vector2(tw * 0.5 + tail_x, foot_dy * px + th)
-            "low":
-                tail.rotation = PI   # 框压到顶栏线下面了：尾巴贴着框上沿、朝上，对着人那一竖
-                tail.position = Vector2(tw * 0.5 + tail_x, pos.y + Skin.BU * Skin.BUBBLE_EW)
             "side":
                 var cy2 := pos.y + bs.y * 0.5
                 if pos.x > 0.0:   # 框在右边：尖朝左
