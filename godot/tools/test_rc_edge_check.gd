@@ -6,6 +6,7 @@ extends SceneTree
 ##   × 四个方向 × 每个方向两处（最靠那一边的点、中间的点；都是「推过去前面 30 像素没有能走的地」的真走到头）
 ##   × 手机 540×960 和长屏 585×1266：真推摇杆顶着不放，让游戏自己的帧跑几帧，量气泡：
 ##   弹了、节点在、visible、整只框在屏里（四边 16、顶栏线 safe_top 以下）、离人不太远（框中心离人 ≤ 屏高的 40%）
+## 时限：600
 ## 用法：Godot --headless --path . --script res://tools/test_rc_edge_check.gd     最后一行 RESULT PASS 才算过
 const Main = preload("res://scripts/main.gd")
 const DialogSkin = preload("res://scripts/ui/dialog_skin.gd")

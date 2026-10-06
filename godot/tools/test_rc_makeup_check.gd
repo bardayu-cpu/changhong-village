@@ -286,14 +286,14 @@ func run() -> void:
     check("新娘（替身 %s）是这屋的主角，别的客人不用她的脸（跟她同脸的：%s）" % [bride_code, str(bride_twins)], bride_twins.is_empty())
     check("替身共 %d 种；重样的最近一对相距 %.0f 像素（要求超过半屏 480，不然像一对挨着的复制人）；镜头居中时最多同屏 %d 对（都在屏的最上和最下两头，只记数）" % [looks.size(), near_d, worst_vis], near_d > 480.0 and looks.size() >= 9)
 
-    print("5 话泡躲顶栏、四边 16、两只不叠（手机、长屏；化妆间 4 个站位各 20 秒、后厅 40 秒）")
+    print("5 话泡躲顶栏、四边 16、两只不叠（手机、长屏；化妆间 7 个站位各 20 秒、后厅 40 秒）")
     var bub_bad: Array = []
     var samples := 0
     var by_mode := {}
     var pair_n := 0
     var off_rows := {}   # 屋 屏 站位 -> [样本数, 离屏边最远多少像素]
     var off_vis := 0     # 冒着、看得见，可说话的人整个在屏外的样本数（泡被拉到屏里，像是旁边的人说的）
-    var spots: Array = [["makeup", Vector2(337, 330), 20.0], ["makeup", Vector2(337, 600), 20.0], ["makeup", Vector2(500, 330), 20.0], ["makeup", Vector2(180, 330), 20.0], ["backhall", Vector2(1032, 300), 40.0]]
+    var spots: Array = [["makeup", Vector2(337, 330), 20.0], ["makeup", Vector2(337, 600), 20.0], ["makeup", Vector2(500, 330), 20.0], ["makeup", Vector2(180, 330), 20.0], ["makeup", Vector2(630, 700), 20.0], ["makeup", Vector2(45, 700), 20.0], ["makeup", Vector2(337, 900), 20.0], ["backhall", Vector2(1032, 300), 40.0]]
     for sz in [Vector2i(540, 960), Vector2i(585, 1266)]:
         get_root().size = sz
         await frames(4)
@@ -367,7 +367,7 @@ func run() -> void:
     get_root().size = Vector2i(540, 960)
     for ok3 in off_rows:
         print("      说话人在屏外、泡却冒着：%s → %d 个样本，人离屏边最远 %.0f 像素，泡放法 %s" % [ok3, off_rows[ok3][0], off_rows[ok3][1], str(off_rows[ok3][2])])
-    check("两种屏、化妆间 4 个站位 + 后厅共 %d 个泡的样本：整个在屏里、不压顶栏、两只不叠（%d 处不对）" % [samples, bub_bad.size()], bub_bad.is_empty() and samples >= 100)
+    check("两种屏、化妆间 7 个站位 + 后厅共 %d 个泡的样本：整个在屏里、不压顶栏、两只不叠（%d 处不对）" % [samples, bub_bad.size()], bub_bad.is_empty() and samples >= 100)
     check("放不下先不显示的泡只是偶尔（%d 个，占 %.1f%%，要求 ≤ 3%%；多了说明话都被藏掉了）" % [hidden_n, hidden_pct], hidden_pct <= 3.0)
 
     print("6 对话框开着时底下的按钮藏起来、关了再出")
