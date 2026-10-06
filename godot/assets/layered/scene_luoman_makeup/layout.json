@@ -202,11 +202,11 @@
   {"id": "guest_3", "who": "来化妆的客人（替身，静静坐着；fit_stool_w）", "x": 80, "y": 882, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-08", "frame": 12, "rows": 60, "bottom": 865}},
   {"id": "guest_4", "who": "来化妆的客人（替身，静静坐着；fit_stool_e）", "x": 595, "y": 889, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-09", "frame": 12, "rows": 60, "bottom": 872}},
   {"id": "guest_5", "who": "来化妆的客人（替身，静静坐着；sofa_red）", "x": 80, "y": 999, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-10", "frame": 0, "rows": 46, "bottom": 975}},
-  {"id": "guest_6", "who": "来化妆的客人（替身，静静坐着；sofa_red）", "x": 118, "y": 999, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-11", "frame": 0, "rows": 46, "bottom": 975}},
-  {"id": "guest_7", "who": "来化妆的客人（替身，静静坐着；sofa_red）", "x": 155, "y": 999, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-12", "frame": 0, "rows": 46, "bottom": 975}},
+  {"id": "guest_6", "who": "来化妆的客人（替身，静静坐着；sofa_red）", "x": 118, "y": 999, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-11", "frame": 0, "rows": 77, "bottom": 975}},
+  {"id": "guest_7", "who": "来化妆的客人（替身，静静坐着；sofa_red）", "x": 155, "y": 999, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-12", "frame": 0, "rows": 77, "bottom": 975}},
   {"id": "guest_8", "who": "来化妆的客人（替身，静静坐着；sofa_cream）", "x": 518, "y": 999, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-01", "frame": 0, "rows": 46, "bottom": 975}},
   {"id": "guest_9", "who": "来化妆的客人（替身，静静坐着；pouf_w）", "x": 56, "y": 1048, "face": "up", "sit": true, "standin": {"code": "LM-GUEST-05", "frame": 12, "rows": 60, "bottom": 1031}},
-  {"id": "guest_10", "who": "来化妆的客人（替身，静静坐着；armchair_e）", "x": 621, "y": 1055, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-02", "frame": 0, "rows": 46, "bottom": 1031}}
+  {"id": "guest_10", "who": "来化妆的客人（替身，静静坐着；armchair_e）", "x": 621, "y": 1055, "face": "down", "sit": true, "standin": {"code": "LM-GUEST-03", "frame": 0, "rows": 46, "bottom": 1031}}
  ],
  "stand_points": [
   {"id": "makeup_artist_1", "name": "化妆师 1 站这（给新娘化妆，新娘右手边）", "x": 337, "y": 201, "r": 14},

@@ -317,6 +317,9 @@ func run() -> void:
                         var bb: Node2D = lfx.bubbles[id]
                         if not is_instance_valid(bb) or bb.scale.x < 0.9 * (lfx._bubble_scale() if lfx.has_method("_bubble_scale") else 1.0):
                             continue   # 刚冒出来变大的那一下不算
+                        if not bb.visible:
+                            by_mode["hidden"] = int(by_mode.get("hidden", 0)) + 1
+                            continue   # 10/6 庄Z2：放不下（碰禁区或跟别的泡叠）先不显示的泡，屏上看不见，不量框
                         var box: Control = null
                         for c2 in bb.get_children():
                             if c2 is Control:

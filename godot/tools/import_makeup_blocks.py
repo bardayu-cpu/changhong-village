@@ -224,6 +224,19 @@ SPOTS = {}   # 拆景包里写的点（spots：dress 换装点 …），load 时
 
 
 LOOKS = ["LM-GUEST-%02d" % i for i in (1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12)]   # 现有的宾客小人（11 种）
+_TOP = {}
+
+
+def top_row(code, frame):
+    """这张小人图这一帧从第几行开始有像素（小孩 11、12 号从第 31 行起；大人 0）：坐着截前几行时要加上，不然小孩只露半个头（庄Z3 测 rc-makeup 第 8 节）"""
+    key = (code, frame)
+    if key not in _TOP:
+        im = Image.open(os.path.join(GODOT, "assets", "characters", "lm", "chr_%s.png" % code)).getchannel("A")
+        cols = max(1, im.width // 64)
+        fx, fy = (frame % cols) * 64, (frame // cols) * 84
+        bb = im.crop((fx, fy, fx + 64, fy + 84)).getbbox()
+        _TOP[key] = bb[1] if bb else 0
+    return _TOP[key]
 
 
 def build_layout(props, s, blocked=(), no_stand=(), empty_seat=None):
@@ -306,9 +319,13 @@ def build_layout(props, s, blocked=(), no_stand=(), empty_seat=None):
         def score(code):
             same = [((x - wx) ** 2 + (y - wy) ** 2) ** 0.5 for (c, wx, wy) in worn if c == code]
             return (len(same), -min(same) if same else 0.0)
-        look = min(LOOKS, key=score)
+        # 新娘的脸只给新娘本人（庄Z3 测 rc-makeup：扶手椅上那位跟新娘同脸，比真新娘还显眼）
+        bride_code = next((n["standin"]["code"] for n in npcs if n["id"] == "bride" and "standin" in n), "")
+        look = min([c for c in LOOKS if c != bride_code], key=score)
         worn.append((look, x, y))
-        sd = {"code": look, "frame": 0 if down else 12, "rows": 46 if down else 60, "bottom": (y - 24) if down else (y - 17)}
+        fr = 0 if down else 12
+        rows = min(84, (46 if down else 60) + top_row(look, fr))   # 小孩图从第 31 行起：多截这么多行，露出来的身子跟大人一样多
+        sd = {"code": look, "frame": fr, "rows": rows, "bottom": (y - 24) if down else (y - 17)}
         npcs.append({"id": "guest_%d" % k, "who": "来化妆的客人（替身，静静坐着；%s）" % name, "x": x, "y": y, "face": "down" if down else "up",
                      "sit": True, "standin": sd})
         k += 1
