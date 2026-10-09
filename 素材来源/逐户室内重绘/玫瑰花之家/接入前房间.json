@@ -1,0 +1,262 @@
+{
+  "id": "v_rose",
+  "title": "玫瑰花之家 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    820,
+    760
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_rose.png",
+  "props": [
+    {
+      "id": "bench0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        60,
+        125
+      ],
+      "foot": 198,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "table1",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        65,
+        405
+      ],
+      "foot": 480,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "sofa2",
+      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
+      "pos": [
+        470,
+        125
+      ],
+      "foot": 210,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "kitchen3",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        485,
+        430
+      ],
+      "foot": 513,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        312,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        710,
+        460
+      ],
+      "foot": 600,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        380,
+        487
+      ],
+      "foot": 520,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      310,
+      90,
+      12,
+      235
+    ],
+    [
+      310,
+      475,
+      12,
+      235
+    ],
+    [
+      322,
+      350,
+      225,
+      12
+    ],
+    [
+      65,
+      171.8,
+      116,
+      31.200000000000003
+    ],
+    [
+      70,
+      453.0,
+      110,
+      32.0
+    ],
+    [
+      475,
+      179.0,
+      125,
+      36.0
+    ],
+    [
+      490,
+      482.8,
+      145,
+      35.2
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        590
+      ],
+      "approach": [
+        95,
+        635
+      ],
+      "kind": "village",
+      "copy": "左侧长廊连着插花桌，右边才是起居间和灶屋。住户为虚构邻居。"
+    },
+    {
+      "id": "house_help",
+      "label": "换掉花瓶里的水",
+      "pos": [
+        490,
+        570
+      ],
+      "approach": [
+        490,
+        645
+      ],
+      "kind": "village",
+      "house": "rose",
+      "copy": "花瓶换好水了，一枝玫瑰留在你坐过的桌边。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        410,
+        500
+      ],
+      "approach": [
+        410,
+        540
+      ],
+      "kind": "seat",
+      "seat": [
+        410,
+        510
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        410,
+        706
+      ],
+      "approach": [
+        410,
+        724
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "up"
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_rose_up",
+      "pos": [
+        755,
+        605
+      ],
+      "approach": [
+        755,
+        635
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "down"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      410,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    410,
+    675
+  ],
+  "walk_rect": [
+    22,
+    96,
+    776,
+    642
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

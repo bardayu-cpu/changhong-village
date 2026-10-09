@@ -1,0 +1,380 @@
+{
+  "id": "garden",
+  "title": "后花园 · 果园 · 菜地",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "garden.png",
+  "size": [
+    1448,
+    1086
+  ],
+  "source_crop": [
+    0,
+    0,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "props": [],
+  "obstacles": [
+    [
+      77,
+      226,
+      366,
+      150
+    ],
+    [
+      75,
+      414,
+      368,
+      144
+    ],
+    [
+      77,
+      589,
+      367,
+      154
+    ],
+    [
+      84,
+      65,
+      260,
+      77
+    ],
+    [
+      580,
+      133,
+      210,
+      214
+    ],
+    [
+      827,
+      132,
+      177,
+      214
+    ],
+    [
+      1107,
+      131,
+      185,
+      213
+    ],
+    [
+      581,
+      438,
+      215,
+      207
+    ],
+    [
+      827,
+      438,
+      181,
+      205
+    ],
+    [
+      1108,
+      439,
+      185,
+      205
+    ],
+    [
+      71,
+      844,
+      558,
+      94
+    ],
+    [
+      814,
+      841,
+      488,
+      107
+    ],
+    [
+      1050,
+      754,
+      324,
+      153
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "vegetables",
+      "label": "当季种子盒",
+      "pos": [
+        498,
+        764
+      ],
+      "approach": [
+        520,
+        758
+      ],
+      "kind": "seedbox",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "flowers",
+      "label": "种一畦花",
+      "pos": [
+        298,
+        197
+      ],
+      "approach": [
+        347,
+        203
+      ],
+      "kind": "flower_garden",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "bees",
+      "label": "观察蜜蜂访花",
+      "pos": [
+        272,
+        161
+      ],
+      "approach": [
+        347,
+        189
+      ],
+      "kind": "bees",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "fruit",
+      "label": "摘当季的果子",
+      "pos": [
+        707,
+        279
+      ],
+      "approach": [
+        805,
+        344
+      ],
+      "kind": "fruit",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "pond",
+      "label": "小溪里捞鱼",
+      "pos": [
+        1184,
+        783
+      ],
+      "approach": [
+        1060,
+        735
+      ],
+      "kind": "net",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "garden_play",
+      "label": "六畦自己的小菜地",
+      "pos": [
+        435,
+        707
+      ],
+      "approach": [
+        486,
+        711
+      ],
+      "kind": "garden",
+      "effect": "",
+      "copy": ""
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_cats",
+      "target": "cats",
+      "pos": [
+        698,
+        1010
+      ],
+      "approach": [
+        698,
+        1010
+      ],
+      "face": "up",
+      "label": "回楼梯旁猫窝走道",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true,
+      "span": [
+        100
+      ]
+    },
+    {
+      "id": "to_grove",
+      "target": "grove",
+      "pos": [
+        544,
+        111
+      ],
+      "approach": [
+        544,
+        124
+      ],
+      "face": "down",
+      "label": "穿过小门去树林",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_oldhouse",
+      "target": "oldhouse",
+      "pos": [
+        1412,
+        371
+      ],
+      "approach": [
+        1412,
+        371
+      ],
+      "face": "left",
+      "label": "过小木桥去老屋",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_side_path",
+      "target": "side_path",
+      "pos": [
+        46,
+        1000
+      ],
+      "approach": [
+        74,
+        1000
+      ],
+      "face": "right",
+      "label": "沿小路回院外小道",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      552,
+      724,
+      170
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      518,
+      342
+    ],
+    "father": [
+      1014,
+      319
+    ],
+    "ayu": [
+      788,
+      735
+    ]
+  },
+  "walk_rect": [
+    57,
+    108,
+    1368,
+    922
+  ],
+  "walk_polygons": [
+    [
+      [
+        75,
+        108
+      ],
+      [
+        576,
+        108
+      ],
+      [
+        577,
+        350
+      ],
+      [
+        1282,
+        350
+      ],
+      [
+        1282,
+        342
+      ],
+      [
+        1422,
+        342
+      ],
+      [
+        1422,
+        400
+      ],
+      [
+        1284,
+        416
+      ],
+      [
+        1275,
+        715
+      ],
+      [
+        789,
+        746
+      ],
+      [
+        789,
+        944
+      ],
+      [
+        1405,
+        950
+      ],
+      [
+        1405,
+        1030
+      ],
+      [
+        40,
+        1030
+      ],
+      [
+        40,
+        970
+      ],
+      [
+        650,
+        936
+      ],
+      [
+        650,
+        742
+      ],
+      [
+        65,
+        743
+      ]
+    ]
+  ],
+  "spawn": [
+    738,
+    938
+  ],
+  "camera_ahead": 100,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "new_gates": [],
+  "navigation_version": 4
+}

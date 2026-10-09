@@ -1,0 +1,378 @@
+{
+  "size": [
+    316,
+    390
+  ],
+  "source_crop": [
+    390,
+    16,
+    706,
+    406
+  ],
+  "props": [
+    {
+      "id": "north_wall",
+      "file": "dining_north_wall.png",
+      "pos": [
+        0,
+        0
+      ],
+      "foot": 83,
+      "front": false,
+      "source_box": [
+        390,
+        16,
+        706,
+        99
+      ]
+    },
+    {
+      "id": "sideboard",
+      "file": "dining_sideboard.png",
+      "pos": [
+        87,
+        53
+      ],
+      "foot": 110,
+      "front": false,
+      "source_box": [
+        477,
+        69,
+        615,
+        127
+      ]
+    },
+    {
+      "id": "plant",
+      "file": "dining_plant.png",
+      "pos": [
+        239,
+        34
+      ],
+      "foot": 103,
+      "front": false,
+      "source_box": [
+        629,
+        50,
+        676,
+        120
+      ]
+    },
+    {
+      "id": "chair_spare",
+      "file": "dining_chair_spare.png",
+      "pos": [
+        138,
+        116
+      ],
+      "foot": 168,
+      "front": false,
+      "source_box": [
+        528,
+        132,
+        564,
+        193
+      ]
+    },
+    {
+      "id": "chair_father",
+      "file": "dining_chair_father.png",
+      "pos": [
+        80,
+        135
+      ],
+      "foot": 197,
+      "front": false,
+      "source_box": [
+        470,
+        151,
+        500,
+        216
+      ]
+    },
+    {
+      "id": "chair_mother",
+      "file": "dining_chair_mother.png",
+      "pos": [
+        198,
+        139
+      ],
+      "foot": 206,
+      "front": false,
+      "source_box": [
+        588,
+        155,
+        615,
+        224
+      ]
+    },
+    {
+      "id": "chair_sw",
+      "file": "dining_chair_sw.png",
+      "pos": [
+        75,
+        186
+      ],
+      "foot": 241,
+      "front": false,
+      "source_box": [
+        465,
+        202,
+        498,
+        260
+      ]
+    },
+    {
+      "id": "chair_se",
+      "file": "dining_chair_se.png",
+      "pos": [
+        201,
+        184
+      ],
+      "foot": 243,
+      "front": false,
+      "source_box": [
+        591,
+        200,
+        625,
+        262
+      ]
+    },
+    {
+      "id": "chair_ayu",
+      "file": "dining_chair_ayu.png",
+      "pos": [
+        118,
+        223
+      ],
+      "foot": 268,
+      "front": false,
+      "source_box": [
+        508,
+        239,
+        585,
+        288
+      ]
+    },
+    {
+      "id": "round_table",
+      "file": "dining_round_table.png",
+      "pos": [
+        88,
+        142
+      ],
+      "foot": 244,
+      "front": false,
+      "source_box": [
+        478,
+        158,
+        611,
+        276
+      ]
+    },
+    {
+      "id": "kitchen_door",
+      "file": "dining_kitchen_door.png",
+      "pos": [
+        0,
+        83
+      ],
+      "foot": 175,
+      "front": false,
+      "source_box": [
+        390,
+        99,
+        414,
+        186
+      ]
+    },
+    {
+      "id": "south_door",
+      "file": "dining_south_door.png",
+      "pos": [
+        229,
+        319
+      ],
+      "foot": 389,
+      "front": false,
+      "source_box": [
+        619,
+        335,
+        675,
+        405
+      ]
+    },
+    {
+      "id": "south_wall",
+      "file": "dining_south_wall.png",
+      "pos": [
+        75,
+        315
+      ],
+      "foot": 339,
+      "front": false,
+      "source_box": [
+        465,
+        331,
+        620,
+        355
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      92,
+      192,
+      123,
+      60
+    ],
+    [
+      87,
+      91,
+      139,
+      19
+    ],
+    [
+      250,
+      78,
+      32,
+      24
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "meal",
+      "label": "坐下来吃饭",
+      "pos": [
+        156,
+        195
+      ],
+      "approach": [
+        246,
+        270
+      ]
+    },
+    {
+      "id": "tea",
+      "label": "倒一杯温水",
+      "pos": [
+        110,
+        71
+      ],
+      "approach": [
+        57,
+        125
+      ]
+    },
+    {
+      "id": "recipe",
+      "label": "翻翻食谱",
+      "pos": [
+        196,
+        75
+      ],
+      "approach": [
+        232,
+        138
+      ]
+    },
+    {
+      "id": "cook",
+      "label": "看看厨房",
+      "pos": [
+        14,
+        135
+      ],
+      "approach": [
+        43,
+        161
+      ]
+    },
+    {
+      "id": "living",
+      "label": "回到客厅",
+      "pos": [
+        256,
+        353
+      ],
+      "approach": [
+        262,
+        313
+      ]
+    }
+  ],
+  "windows": [
+    [
+      12,
+      99,
+      8,
+      52
+    ]
+  ],
+  "lamps": [
+    [
+      159,
+      148,
+      220
+    ],
+    [
+      89,
+      68,
+      90
+    ]
+  ],
+  "anchors": {
+    "father_meal": [
+      90,
+      249
+    ],
+    "mother_meal": [
+      222,
+      249
+    ],
+    "ayu_meal": [
+      158,
+      274
+    ],
+    "guest_meal": [
+      155,
+      169
+    ],
+    "cook": [
+      44,
+      162
+    ],
+    "mother_read": [
+      217,
+      219
+    ],
+    "father_read": [
+      97,
+      216
+    ],
+    "clean": [
+      237,
+      293
+    ],
+    "qiuqiu": [
+      56,
+      287
+    ]
+  },
+  "walk_polygons": [],
+  "steam": [
+    14,
+    148
+  ],
+  "camera_ahead": 65,
+  "spawn": [
+    260,
+    306
+  ],
+  "walk_rect": [
+    29,
+    118,
+    257,
+    200
+  ]
+}

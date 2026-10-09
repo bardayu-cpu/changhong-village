@@ -1,0 +1,132 @@
+{
+  "id": "workshop",
+  "title": "爸爸的手作房",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    70,
+    365,
+    228,
+    747
+  ],
+  "source_offset": [
+    81,
+    48
+  ],
+  "background": "workshop_floor.png",
+  "props": [
+    {
+      "id": "bench",
+      "file": "workshop_bench.png",
+      "pos": [
+        92,
+        59
+      ],
+      "foot": 243,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      97,
+      186,
+      92,
+      58
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "wood",
+      "label": "磨一只木鸟",
+      "pos": [
+        156,
+        177
+      ],
+      "approach": [
+        174,
+        266
+      ],
+      "kind": "workbench",
+      "effect": "spark",
+      "copy": ""
+    },
+    {
+      "id": "tools",
+      "label": "收好工具",
+      "pos": [
+        152,
+        118
+      ],
+      "approach": [
+        204,
+        243
+      ],
+      "kind": "reaction",
+      "effect": "tools",
+      "copy": "工具一件件挂回自己的位置。"
+    },
+    {
+      "id": "lamp",
+      "label": "工作台小灯",
+      "pos": [
+        166,
+        75
+      ],
+      "approach": [
+        204,
+        264
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "工作台被暖光照亮了。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        156,
+        389
+      ],
+      "approach": [
+        170,
+        358
+      ],
+      "face": "up",
+      "label": "回到院子",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      165,
+      75,
+      150
+    ]
+  ],
+  "anchors": {
+    "father": [
+      157,
+      258
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    120,
+    220,
+    100,
+    152
+  ],
+  "spawn": [
+    174,
+    337
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

@@ -1,0 +1,219 @@
+{
+  "id": "v_whitebrick_up",
+  "title": "白砖小院 · 二楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    900,
+    740
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_whitebrick_up.png",
+  "props": [
+    {
+      "id": "bed0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        75,
+        130
+      ],
+      "foot": 340,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "bed1",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        590,
+        125
+      ],
+      "foot": 335,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "bench2",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        85,
+        435
+      ],
+      "foot": 508,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        352,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        790,
+        440
+      ],
+      "foot": 580,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        420,
+        467
+      ],
+      "foot": 500,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      390,
+      100,
+      12,
+      245
+    ],
+    [
+      390,
+      490,
+      12,
+      190
+    ],
+    [
+      80,
+      259.0,
+      140,
+      86.0
+    ],
+    [
+      595,
+      254.0,
+      140,
+      86.0
+    ],
+    [
+      90,
+      481.8,
+      116,
+      31.200000000000003
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        570
+      ],
+      "approach": [
+        95,
+        615
+      ],
+      "kind": "village",
+      "copy": "两间卧房围着二楼小厅，栏杆外能看见村路转弯。"
+    },
+    {
+      "id": "house_help",
+      "label": "整理阳台花盆",
+      "pos": [
+        530,
+        550
+      ],
+      "approach": [
+        530,
+        625
+      ],
+      "kind": "village",
+      "house": "whitebrick",
+      "copy": "花盆挪开了门口，阳台有了更宽的落脚处。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        450,
+        480
+      ],
+      "approach": [
+        450,
+        520
+      ],
+      "kind": "seat",
+      "seat": [
+        450,
+        490
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "downstairs",
+      "label": "下到一楼",
+      "target": "v_whitebrick",
+      "pos": [
+        835,
+        585
+      ],
+      "approach": [
+        835,
+        615
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "down"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      450,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    450,
+    655
+  ],
+  "walk_rect": [
+    22,
+    96,
+    856,
+    622
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

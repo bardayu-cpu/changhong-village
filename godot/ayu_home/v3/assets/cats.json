@@ -1,0 +1,122 @@
+{
+  "id": "cats",
+  "title": "猫房",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    708,
+    77,
+    874,
+    325
+  ],
+  "source_offset": [
+    77,
+    48
+  ],
+  "background": "cats_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "nest",
+      "label": "猫窝",
+      "pos": [
+        122,
+        206
+      ],
+      "approach": [
+        119,
+        263
+      ],
+      "kind": "reaction",
+      "effect": "pet",
+      "copy": "猫窝软软的，等它们睡醒再摸摸。"
+    },
+    {
+      "id": "scratch",
+      "label": "猫抓柱",
+      "pos": [
+        182,
+        225
+      ],
+      "approach": [
+        157,
+        263
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "轻轻拨动逗猫绳。"
+    },
+    {
+      "id": "bowls",
+      "label": "添水和猫粮",
+      "pos": [
+        148,
+        256
+      ],
+      "approach": [
+        195,
+        263
+      ],
+      "kind": "reaction",
+      "effect": "food",
+      "copy": "水碗添满了，三只猫都围过来。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        207,
+        257
+      ],
+      "approach": [
+        207,
+        257
+      ],
+      "face": "left",
+      "label": "去一楼楼梯与过道",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      151,
+      100,
+      150
+    ]
+  ],
+  "anchors": {
+    "qiuqiu": [
+      116,
+      202
+    ],
+    "luoluo": [
+      164,
+      209
+    ],
+    "tiantian": [
+      155,
+      257
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    92,
+    216,
+    131,
+    64
+  ],
+  "spawn": [
+    196,
+    259
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

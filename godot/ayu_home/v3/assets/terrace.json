@@ -1,0 +1,163 @@
+{
+  "id": "terrace",
+  "title": "二楼露台",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    909,
+    643
+  ],
+  "source_crop": [
+    31,
+    490,
+    940,
+    1037
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "terrace_floor.png",
+  "props": [
+    {
+      "id": "umbrella",
+      "file": "terrace_umbrella.png",
+      "pos": [
+        177,
+        147
+      ],
+      "foot": 357,
+      "front": false
+    },
+    {
+      "id": "lounge",
+      "file": "terrace_lounge.png",
+      "pos": [
+        293,
+        325
+      ],
+      "foot": 435,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      195,
+      282,
+      183,
+      74
+    ],
+    [
+      299,
+      389,
+      112,
+      38
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "tea",
+      "label": "露台喝茶",
+      "pos": [
+        393,
+        284
+      ],
+      "approach": [
+        441,
+        325
+      ],
+      "kind": "reaction",
+      "effect": "steam",
+      "copy": "端着一杯温茶，听听风。"
+    },
+    {
+      "id": "stars",
+      "label": "躺椅上看星星",
+      "pos": [
+        353,
+        374
+      ],
+      "approach": [
+        461,
+        415
+      ],
+      "kind": "stars",
+      "effect": "spark",
+      "copy": ""
+    },
+    {
+      "id": "flower",
+      "label": "照顾花盆",
+      "pos": [
+        143,
+        161
+      ],
+      "approach": [
+        183,
+        148
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "花盆里的泥土润湿了。"
+    },
+    {
+      "id": "bench",
+      "label": "看看村子",
+      "pos": [
+        449,
+        467
+      ],
+      "approach": [
+        527,
+        428
+      ],
+      "kind": "reaction",
+      "effect": "sit",
+      "copy": "坐下来，远处的村子安安静静。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        830,
+        93
+      ],
+      "approach": [
+        815,
+        121
+      ],
+      "face": "down",
+      "label": "去二楼楼梯与过道",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      874,
+      462,
+      150
+    ]
+  ],
+  "anchors": {
+    "ayu": [
+      527,
+      428
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    67,
+    98,
+    806,
+    380
+  ],
+  "spawn": [
+    808,
+    149
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

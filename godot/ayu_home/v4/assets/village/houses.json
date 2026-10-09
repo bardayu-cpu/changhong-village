@@ -1,0 +1,363 @@
+[
+  {
+    "id": "erba",
+    "title": "二爸家",
+    "subtitle": "北坡的灯",
+    "floors": 2,
+    "at": [
+      1963,
+      544
+    ],
+    "target": "v_erba",
+    "fictional": false,
+    "bounds": [
+      1640,
+      0,
+      850,
+      567
+    ],
+    "art": "house_erba.png"
+  },
+  {
+    "id": "laowu",
+    "title": "老屋",
+    "subtitle": "旧书与风",
+    "floors": 1,
+    "at": [
+      828,
+      496
+    ],
+    "target": "v_laowu",
+    "fictional": false,
+    "bounds": [
+      420,
+      30,
+      800,
+      533
+    ],
+    "art": "house_laowu.png"
+  },
+  {
+    "id": "daba",
+    "title": "大爸家",
+    "subtitle": "竹编小院",
+    "floors": 2,
+    "at": [
+      2528,
+      1327
+    ],
+    "target": "v_daba",
+    "fictional": false,
+    "bounds": [
+      2120,
+      800,
+      850,
+      567
+    ],
+    "art": "house_daba.png"
+  },
+  {
+    "id": "h5",
+    "title": "5A · 养蜂小院",
+    "subtitle": "阿禾的蜂蜜",
+    "floors": 1,
+    "at": [
+      308,
+      1703
+    ],
+    "target": "v_h5",
+    "fictional": true,
+    "bounds": [
+      95,
+      1170,
+      850,
+      567
+    ],
+    "art": "house_h5.png"
+  },
+  {
+    "id": "ayu",
+    "title": "0A · 阿鱼家",
+    "subtitle": "阿鱼家的院门",
+    "floors": 2,
+    "at": [
+      1490,
+      2122
+    ],
+    "target": "exterior",
+    "fictional": false,
+    "bounds": [
+      1090,
+      1470,
+      800,
+      600
+    ],
+    "art": "house_ayu.png"
+  },
+  {
+    "id": "h2",
+    "title": "2A · 缝补人家",
+    "subtitle": "一针一线",
+    "floors": 2,
+    "at": [
+      2709,
+      2316
+    ],
+    "target": "v_h2",
+    "fictional": true,
+    "bounds": [
+      2250,
+      1760,
+      900,
+      600
+    ],
+    "art": "house_h2.png"
+  },
+  {
+    "id": "h3",
+    "title": "3A · 磨坊人家",
+    "subtitle": "青叔的小石磨",
+    "floors": 2,
+    "at": [
+      614,
+      2689
+    ],
+    "target": "v_h3",
+    "fictional": true,
+    "bounds": [
+      80,
+      2130,
+      875,
+      583
+    ],
+    "art": "house_h3.png"
+  },
+  {
+    "id": "mayor",
+    "title": "村公所",
+    "subtitle": "村长 · 林伯",
+    "floors": 2,
+    "at": [
+      1698,
+      2792
+    ],
+    "target": "v_mayor",
+    "fictional": true,
+    "bounds": [
+      1130,
+      2290,
+      835,
+      557
+    ],
+    "art": "house_mayor.png"
+  },
+  {
+    "id": "h6",
+    "title": "6A · 花窗人家",
+    "subtitle": "窗前花事",
+    "floors": 2,
+    "at": [
+      2912,
+      3346
+    ],
+    "target": "v_h6",
+    "fictional": true,
+    "bounds": [
+      2500,
+      2730,
+      825,
+      619
+    ],
+    "art": "house_h6.png"
+  },
+  {
+    "id": "h8",
+    "title": "8A · 茶香小院",
+    "subtitle": "慢慢喝杯茶",
+    "floors": 1,
+    "at": [
+      224,
+      3405
+    ],
+    "target": "v_h8",
+    "fictional": true,
+    "bounds": [
+      80,
+      2940,
+      850,
+      567
+    ],
+    "art": "house_h8.png"
+  },
+  {
+    "id": "h7",
+    "title": "7A · 窄巷人家",
+    "subtitle": "小院里的晾晒绳",
+    "floors": 2,
+    "at": [
+      1874,
+      3580
+    ],
+    "target": "v_h7",
+    "fictional": true,
+    "bounds": [
+      1590,
+      3030,
+      430,
+      645
+    ],
+    "art": "house_h7.png"
+  },
+  {
+    "id": "h4",
+    "title": "4A · 田边平房",
+    "subtitle": "收成的便签",
+    "floors": 1,
+    "at": [
+      558,
+      4183
+    ],
+    "target": "v_h4",
+    "fictional": true,
+    "bounds": [
+      120,
+      3630,
+      875,
+      583
+    ],
+    "art": "house_h4.png"
+  },
+  {
+    "id": "h1",
+    "title": "1A · 蓝瓦人家",
+    "subtitle": "相聚的长桌",
+    "floors": 2,
+    "at": [
+      3145,
+      4174
+    ],
+    "target": "v_h1",
+    "fictional": true,
+    "bounds": [
+      2720,
+      3630,
+      850,
+      567
+    ],
+    "art": "house_h1.png"
+  },
+  {
+    "id": "flower",
+    "title": "花房小楼",
+    "subtitle": "晴雨之间的花事",
+    "floors": 2,
+    "target": "v_flower",
+    "fictional": true,
+    "bounds": [
+      60,
+      585,
+      785,
+      523
+    ],
+    "art": "house_flower.png",
+    "at": [
+      539,
+      1090
+    ]
+  },
+  {
+    "id": "whitebrick",
+    "title": "白砖小院",
+    "subtitle": "窗前球架与绿意",
+    "floors": 2,
+    "target": "v_whitebrick",
+    "fictional": true,
+    "bounds": [
+      2720,
+      20,
+      850,
+      567
+    ],
+    "art": "house_whitebrick.png",
+    "at": [
+      3247,
+      570
+    ]
+  },
+  {
+    "id": "grape",
+    "title": "葡萄架小院",
+    "subtitle": "藤影下的一张桌",
+    "floors": 1,
+    "target": "v_grape",
+    "fictional": true,
+    "bounds": [
+      3780,
+      120,
+      875,
+      583
+    ],
+    "art": "house_grape.png",
+    "at": [
+      4060,
+      661
+    ]
+  },
+  {
+    "id": "sunflower",
+    "title": "向日葵之家",
+    "subtitle": "向着太阳慢慢长",
+    "floors": 2,
+    "target": "v_sunflower",
+    "fictional": true,
+    "bounds": [
+      3840,
+      1260,
+      825,
+      550
+    ],
+    "art": "house_sunflower.png",
+    "at": [
+      4079,
+      1800
+    ]
+  },
+  {
+    "id": "persimmon",
+    "title": "柿树老院",
+    "subtitle": "树下留一张石凳",
+    "floors": 1,
+    "target": "v_persimmon",
+    "fictional": true,
+    "bounds": [
+      3730,
+      2450,
+      920,
+      613
+    ],
+    "art": "house_persimmon.png",
+    "at": [
+      4328,
+      3042
+    ]
+  },
+  {
+    "id": "rose",
+    "title": "玫瑰花之家",
+    "subtitle": "花篱边的小路",
+    "floors": 2,
+    "target": "v_rose",
+    "fictional": true,
+    "bounds": [
+      3820,
+      3690,
+      850,
+      567
+    ],
+    "art": "house_rose.png",
+    "at": [
+      4449,
+      4234
+    ]
+  }
+]

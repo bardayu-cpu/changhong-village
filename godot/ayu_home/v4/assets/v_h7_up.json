@@ -1,0 +1,152 @@
+{
+  "id": "v_h7_up",
+  "title": "7A · 窄巷人家 · 二楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    800,
+    740
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h7.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        690,
+        430
+      ],
+      "foot": 580,
+      "front": false
+    },
+    {
+      "id": "bed",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        45,
+        110
+      ],
+      "foot": 310,
+      "front": false
+    },
+    {
+      "id": "desk",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        580,
+        125
+      ],
+      "foot": 195,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        302,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      35,
+      340,
+      255,
+      12
+    ],
+    [
+      440,
+      340,
+      325,
+      12
+    ],
+    [
+      50,
+      175,
+      140,
+      135
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "window_note",
+      "label": "看看窗边书页",
+      "pos": [
+        660,
+        225
+      ],
+      "approach": [
+        660,
+        280
+      ],
+      "kind": "village",
+      "copy": "河边的鱼篓。窗外的路通往每一位邻居；回来时书签还在这里。"
+    },
+    {
+      "id": "rest_seat",
+      "label": "在床边歇脚",
+      "pos": [
+        150,
+        380
+      ],
+      "approach": [
+        155,
+        405
+      ],
+      "kind": "seat",
+      "seat": [
+        150,
+        365
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "downstairs",
+      "label": "下到一楼",
+      "target": "v_h7",
+      "pos": [
+        735,
+        585
+      ],
+      "approach": [
+        735,
+        615
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      300,
+      280,
+      280
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    655,
+    625
+  ],
+  "walk_rect": [
+    22,
+    100,
+    756,
+    620
+  ],
+  "outdoor": false,
+  "view_scale": 1.2
+}

@@ -1,0 +1,278 @@
+{
+  "id": "v_h3",
+  "title": "3A · 磨坊人家 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    820,
+    700
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h3.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "bench0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        50,
+        160
+      ],
+      "foot": 233,
+      "front": false
+    },
+    {
+      "id": "cabinet1",
+      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
+      "pos": [
+        240,
+        165
+      ],
+      "foot": 272,
+      "front": false
+    },
+    {
+      "id": "kitchen2",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        595,
+        140
+      ],
+      "foot": 223,
+      "front": false
+    },
+    {
+      "id": "table3",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        120,
+        405
+      ],
+      "foot": 480,
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        710,
+        390
+      ],
+      "foot": 540,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        312,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        470
+      ],
+      "foot": 538,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        748,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        380,
+        442
+      ],
+      "foot": 475,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      500,
+      90,
+      12,
+      220
+    ],
+    [
+      500,
+      450,
+      12,
+      190
+    ],
+    [
+      54,
+      202.9,
+      118,
+      35.1
+    ],
+    [
+      244,
+      226.60000000000002,
+      90,
+      50.4
+    ],
+    [
+      599,
+      188.4,
+      147,
+      39.6
+    ],
+    [
+      124,
+      449.0,
+      112,
+      36.0
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        310,
+        580
+      ],
+      "approach": [
+        310,
+        620
+      ],
+      "kind": "village",
+      "copy": "青叔是本村虚构住户。他做谷粉，也爱泡茶。"
+    },
+    {
+      "id": "house_help",
+      "label": "扫净磨坊台面",
+      "pos": [
+        500,
+        550
+      ],
+      "approach": [
+        500,
+        590
+      ],
+      "kind": "village",
+      "copy": "谷壳扫好了，青叔把茶杯推到你手边。",
+      "house": "h3"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        410,
+        455
+      ],
+      "approach": [
+        410,
+        510
+      ],
+      "kind": "seat",
+      "seat": [
+        410,
+        465
+      ],
+      "face": "down"
+    },
+    {
+      "id": "mill",
+      "label": "青叔 · 石磨和订单",
+      "pos": [
+        600,
+        390
+      ],
+      "approach": [
+        600,
+        440
+      ],
+      "kind": "village"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        410,
+        646
+      ],
+      "approach": [
+        410,
+        664
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_h3_up",
+      "pos": [
+        755,
+        545
+      ],
+      "approach": [
+        755,
+        575
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      262,
+      115,
+      240
+    ],
+    [
+      590,
+      489,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    410,
+    595
+  ],
+  "walk_rect": [
+    22,
+    100,
+    776,
+    580
+  ],
+  "outdoor": false,
+  "view_scale": 1.15,
+  "npc": {
+    "name": "青叔",
+    "pos": [
+      600,
+      390
+    ],
+    "preset": 1
+  }
+}

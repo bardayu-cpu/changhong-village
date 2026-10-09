@@ -1,0 +1,103 @@
+{
+  "tea": {
+    "source_sha256": "dea2a4cfbb5e1f94d58f185d0c512fc98742ad07dc3d77f3978d49344d728615",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "soup": {
+    "source_sha256": "e7ef8efbb570b66bd962d096093742e576c8391a467f378bb4d55e31b5f94a27",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "laundry": {
+    "source_sha256": "2255ee5aa83b4b81b89abbf9b9d3299f33e2b366266dacfbd5eab773b9d37b7f",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "wood": {
+    "source_sha256": "72684217350ba1cec64ded5417860ac30b7ebef2c8f9f2e15cfdea24c6355870",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "pairs": {
+    "source_sha256": "b0727b7623bd0cf7c58012b897e9c7b9b571876480078c3511aad3e9c6439764",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "stars-day": {
+    "source_sha256": "40f8986316e45b557210ccb6a5ebf3391f64e0618f4a35d8a986aa19c1486d8c",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "stars-night": {
+    "source_sha256": "50802a0786fd93d8a379c3c9c68daa186a5fa17d6753c332ef2ef7d18a07f85a",
+    "source_size": [
+      1122,
+      1402
+    ],
+    "logical_pixels": [
+      154,
+      188
+    ]
+  },
+  "household": {
+    "source_sha256": "4cc96616f2ff1f3c7bbb58eff180ad0d6cf1ee52f99c69b375e983d484f831d1",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "sprites": 16
+  },
+  "botanical": {
+    "source_sha256": "a4cbd419f46c0278f8455a4c1bcdf951dccf2328bde3b4f8d6859b3949e0c9f1",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "sprites": 16
+  },
+  "meals": {
+    "source_sha256": "e8ccf5394c64c83d1d73b67bd7380b2b742f50cebe0a9235ecf1b851db7fc5e2",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "sprites": 16
+  }
+}

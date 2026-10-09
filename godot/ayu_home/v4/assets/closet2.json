@@ -1,0 +1,143 @@
+{
+  "id": "closet2",
+  "title": "阿鱼的衣柜",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1025,
+    369,
+    1163,
+    511
+  ],
+  "source_offset": [
+    91,
+    48
+  ],
+  "background": "closet2_floor.png",
+  "props": [],
+  "obstacles": [
+    [
+      96,
+      59,
+      119,
+      80
+    ],
+    [
+      167,
+      150,
+      51,
+      29
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "hanger",
+      "label": "挑一件外套",
+      "pos": [
+        172,
+        90
+      ],
+      "approach": [
+        116,
+        168
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "摸摸布料，选一件适合今天温度的外套。"
+    },
+    {
+      "id": "drawer",
+      "label": "看看抽屉",
+      "pos": [
+        199,
+        166
+      ],
+      "approach": [
+        154,
+        168
+      ],
+      "kind": "reaction",
+      "effect": "open",
+      "copy": "袜子成双卷好，抽屉里留着一点香皂的味道。"
+    },
+    {
+      "id": "clothes",
+      "label": "叠好换洗衣服",
+      "pos": [
+        134,
+        158
+      ],
+      "approach": [
+        192,
+        168
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "衣角折进去，叠好的衣服一摞一摞排整齐。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        104,
+        168
+      ],
+      "approach": [
+        104,
+        168
+      ],
+      "face": "right",
+      "label": "去二楼楼梯与过道",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_bath2",
+      "target": "bath2",
+      "pos": [
+        216,
+        169
+      ],
+      "approach": [
+        216,
+        169
+      ],
+      "face": "left",
+      "label": "去阿鱼的浴室",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      169,
+      70,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    102,
+    137,
+    112,
+    40
+  ],
+  "spawn": [
+    151,
+    166
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

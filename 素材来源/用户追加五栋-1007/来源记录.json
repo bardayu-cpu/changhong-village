@@ -1,0 +1,52 @@
+[
+  {
+    "id": "whitebrick",
+    "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/可用的素材参考/房屋 2.png",
+    "copy": "/Users/kayra_ayu/Desktop/苏七镇奇缘/七缘-gpt接手1006/工作工程/裳泓村-完整村庄-1006/素材来源/用户追加五栋-1007/whitebrick.png",
+    "sha256": "79705abe99ea0bcd6af181f67691f546f53dc23cba009a560a841761418f43a0",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "id": "ref2",
+    "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/房屋/房屋 2.png",
+    "copy": "/Users/kayra_ayu/Desktop/苏七镇奇缘/七缘-gpt接手1006/工作工程/裳泓村-完整村庄-1006/素材来源/用户追加五栋-1007/ref2.png",
+    "sha256": "bce92362d839904272606221b421dab7e0a62d0f8c0e0461de2aad29d2ce6d5f",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "id": "ref6",
+    "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/房屋/房屋 6.png",
+    "copy": "/Users/kayra_ayu/Desktop/苏七镇奇缘/七缘-gpt接手1006/工作工程/裳泓村-完整村庄-1006/素材来源/用户追加五栋-1007/ref6.png",
+    "sha256": "e0c6d88fe4642223a71d0b15b5696b0892de62a5f87a913f921c6298ed05adde",
+    "size": [
+      1448,
+      1086
+    ]
+  },
+  {
+    "id": "ref1",
+    "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/房屋/房屋 1.png",
+    "copy": "/Users/kayra_ayu/Desktop/苏七镇奇缘/七缘-gpt接手1006/工作工程/裳泓村-完整村庄-1006/素材来源/用户追加五栋-1007/ref1.png",
+    "sha256": "e0f4e986098150264ce35d95b7701f431623ef468845adda1f57a171be39c9c6",
+    "size": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "id": "ref5",
+    "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/房屋/房屋 5.png",
+    "copy": "/Users/kayra_ayu/Desktop/苏七镇奇缘/七缘-gpt接手1006/工作工程/裳泓村-完整村庄-1006/素材来源/用户追加五栋-1007/ref5.png",
+    "sha256": "0562161bfa738151649f2425d0ed4d552fce88e2d45c18f90c0b4d932570c041",
+    "size": [
+      1448,
+      1086
+    ]
+  }
+]

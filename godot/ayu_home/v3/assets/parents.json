@@ -1,0 +1,143 @@
+{
+  "id": "parents",
+  "title": "爸妈卧室",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    350,
+    600
+  ],
+  "source_crop": [
+    1056,
+    430,
+    1406,
+    705
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "parents_floor.png",
+  "props": [
+    {
+      "id": "bed",
+      "file": "parents_bed.png",
+      "pos": [
+        73,
+        83
+      ],
+      "foot": 240,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      76,
+      137,
+      132,
+      100
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "lamp",
+      "label": "开关床头灯",
+      "pos": [
+        82,
+        114
+      ],
+      "approach": [
+        44,
+        151
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "床头灯暖暖地亮着。"
+    },
+    {
+      "id": "bed",
+      "label": "把被子铺好",
+      "pos": [
+        140,
+        167
+      ],
+      "approach": [
+        226,
+        193
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "拉平被角，枕头也摆整齐。"
+    },
+    {
+      "id": "window",
+      "label": "听听窗外",
+      "pos": [
+        154,
+        317
+      ],
+      "approach": [
+        249,
+        278
+      ],
+      "kind": "reaction",
+      "effect": "window",
+      "copy": "窗外有风，窗帘轻轻晃动。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        34,
+        77
+      ],
+      "approach": [
+        39,
+        106
+      ],
+      "face": "down",
+      "label": "去一楼楼梯与过道",
+      "kind": "door"
+    }
+  ],
+  "windows": [
+    [
+      99,
+      316,
+      147,
+      40
+    ]
+  ],
+  "lamps": [
+    [
+      83,
+      106,
+      150
+    ]
+  ],
+  "anchors": {
+    "father": [
+      114,
+      175
+    ],
+    "mother": [
+      168,
+      176
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    14,
+    113,
+    317,
+    181
+  ],
+  "spawn": [
+    36,
+    172
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

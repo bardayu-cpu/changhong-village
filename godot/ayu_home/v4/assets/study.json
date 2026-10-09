@@ -1,0 +1,265 @@
+{
+  "id": "study",
+  "title": "书房",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    423,
+    600
+  ],
+  "source_crop": [
+    951,
+    99,
+    1374,
+    395
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "study_floor.png",
+  "props": [
+    {
+      "id": "desk",
+      "file": "study_desk.png",
+      "pos": [
+        65,
+        86
+      ],
+      "foot": 196,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      68,
+      94,
+      213,
+      122
+    ],
+    [
+      9,
+      67,
+      54,
+      128
+    ],
+    [
+      314,
+      186,
+      53,
+      74
+    ],
+    [
+      360,
+      216,
+      49,
+      57
+    ],
+    [
+      332,
+      72,
+      52,
+      102
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "computer",
+      "label": "阿鱼的书桌",
+      "pos": [
+        164,
+        112
+      ],
+      "approach": [
+        175,
+        233
+      ],
+      "kind": "work",
+      "effect": "computer",
+      "copy": "阿鱼的书桌，这里又留下一点你的日常。"
+    },
+    {
+      "id": "guitar",
+      "label": "弹一首小旋律",
+      "pos": [
+        344,
+        115
+      ],
+      "approach": [
+        304,
+        245
+      ],
+      "kind": "guitar",
+      "effect": "spark",
+      "copy": "弹一首小旋律，这里又留下一点你的日常。"
+    },
+    {
+      "id": "puzzle",
+      "label": "书架里的拼图",
+      "pos": [
+        35,
+        148
+      ],
+      "approach": [
+        53,
+        239
+      ],
+      "kind": "puzzle",
+      "effect": "spark",
+      "copy": "书架里的拼图，这里又留下一点你的日常。"
+    },
+    {
+      "id": "chair",
+      "label": "靠窗读书",
+      "pos": [
+        343,
+        223
+      ],
+      "approach": [
+        307,
+        264
+      ],
+      "kind": "read",
+      "effect": "book",
+      "copy": "靠在小椅上，慢慢读两页。"
+    },
+    {
+      "id": "music",
+      "label": "听一段原创音乐",
+      "pos": [
+        231,
+        148
+      ],
+      "approach": [
+        288,
+        236
+      ],
+      "kind": "music",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        342,
+        234
+      ],
+      "approach": [
+        342,
+        270
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        342,
+        234
+      ],
+      "face": "left"
+    },
+    {
+      "id": "seat_1",
+      "label": "坐在这里",
+      "pos": [
+        172,
+        201
+      ],
+      "approach": [
+        172,
+        237
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        172,
+        201
+      ],
+      "face": "up"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        32,
+        313
+      ],
+      "approach": [
+        78,
+        265
+      ],
+      "face": "up",
+      "label": "去二楼楼梯与过道",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      98,
+      98,
+      150
+    ],
+    [
+      378,
+      213,
+      150
+    ]
+  ],
+  "anchors": {
+    "ayu": [
+      149,
+      211
+    ],
+    "father": [
+      264,
+      234
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    24,
+    194,
+    377,
+    93
+  ],
+  "spawn": [
+    107,
+    255
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "source_polygon": [
+    [
+      951,
+      99
+    ],
+    [
+      1374,
+      99
+    ],
+    [
+      1374,
+      368
+    ],
+    [
+      1020,
+      368
+    ],
+    [
+      1020,
+      395
+    ],
+    [
+      951,
+      395
+    ]
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

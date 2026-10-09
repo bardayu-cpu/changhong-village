@@ -1,0 +1,251 @@
+{
+  "id": "v_h5",
+  "title": "5A · 养蜂小院 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    730,
+    720
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h5.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "cabinet0",
+      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
+      "pos": [
+        75,
+        145
+      ],
+      "foot": 252,
+      "front": false
+    },
+    {
+      "id": "kitchen1",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        450,
+        135
+      ],
+      "foot": 218,
+      "front": false
+    },
+    {
+      "id": "table2",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        65,
+        395
+      ],
+      "foot": 470,
+      "front": false
+    },
+    {
+      "id": "bed3",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        440,
+        390
+      ],
+      "foot": 600,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        267,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        490
+      ],
+      "foot": 558,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        658,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        335,
+        462
+      ],
+      "foot": 495,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      345,
+      90,
+      12,
+      250
+    ],
+    [
+      345,
+      460,
+      12,
+      220
+    ],
+    [
+      79,
+      206.60000000000002,
+      90,
+      50.4
+    ],
+    [
+      454,
+      183.4,
+      147,
+      39.6
+    ],
+    [
+      69,
+      439.0,
+      112,
+      36.0
+    ],
+    [
+      444,
+      508.25,
+      142,
+      96.75
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        265,
+        600
+      ],
+      "approach": [
+        265,
+        640
+      ],
+      "kind": "village",
+      "copy": "阿禾是本村虚构住户。她照料花圃和蜂箱。"
+    },
+    {
+      "id": "house_help",
+      "label": "整理晒花架",
+      "pos": [
+        455,
+        570
+      ],
+      "approach": [
+        455,
+        610
+      ],
+      "kind": "village",
+      "copy": "晒花架腾好了，蜜香里添了花香。",
+      "house": "h5"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        365,
+        475
+      ],
+      "approach": [
+        365,
+        530
+      ],
+      "kind": "seat",
+      "seat": [
+        365,
+        485
+      ],
+      "face": "down"
+    },
+    {
+      "id": "honey",
+      "label": "阿禾 · 养蜂人的小事",
+      "pos": [
+        520,
+        340
+      ],
+      "approach": [
+        520,
+        385
+      ],
+      "kind": "village"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        365,
+        666
+      ],
+      "approach": [
+        365,
+        684
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      233,
+      115,
+      240
+    ],
+    [
+      525,
+      503,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    365,
+    615
+  ],
+  "walk_rect": [
+    22,
+    100,
+    686,
+    600
+  ],
+  "outdoor": false,
+  "view_scale": 1.15,
+  "npc": {
+    "name": "阿禾",
+    "pos": [
+      520,
+      340
+    ],
+    "preset": 4
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "version": 4,
+  "files": {
+    "approved-floor1.png": {
+      "bytes": 1765180,
+      "sha256": "1299043886b7a272d634c83e35853eda4349c22a56d2bdbcbc1b1612cfd169e0"
+    },
+    "ayu_room.nav": {
+      "bytes": 15900,
+      "sha256": "35aa2ed8e3bf8574021e9c1fa4dbfb3bb461b8dda2a367ee9fab2df8c6bc7962"
+    },
+    "bath1.nav": {
+      "bytes": 12000,
+      "sha256": "88086bbaef274e567c68c2e22bf6fc4b527908ab8c26a13feab6dbd7440f741f"
+    },
+    "bath1_floor.png": {
+      "bytes": 37050,
+      "sha256": "f798c4148ef1e57eb771639ba77381628badf526cc24d1fe7b2a09a9005962cb"
+    },
+    "bath2.nav": {
+      "bytes": 12000,
+      "sha256": "079cbd360d30b695778032df4b82cd598b4cc7683e7e8c61d3d52aa16562b876"
+    },
+    "bridge.nav": {
+      "bytes": 98102,
+      "sha256": "4d31e0bc1a78c0fed779661e739968fd04c68fd19c856ec9a804a2cb31efe515"
+    },
+    "cats.nav": {
+      "bytes": 12000,
+      "sha256": "98b4a85f1154ef4d76df15d5fa650cc86f51d149bbf6d3b52bd9dfc76b47c417"
+    },
+    "cats_floor.png": {
+      "bytes": 59661,
+      "sha256": "cd95461ee81dec22fbe876353e809f46d34187c31c0854a87ab2df8ed783ca50"
+    },
+    "closet1.nav": {
+      "bytes": 12000,
+      "sha256": "31e73f5b7ad75d13a3089d4bb1a816aeefc53c12906452bf6554697fd777987c"
+    },
+    "closet1_floor.png": {
+      "bytes": 23442,
+      "sha256": "4912d2ff9875ac0f1cf805879b20fa77ddc9d635e8fdc4ee08ba5dfa17ebd3a3"
+    },
+    "closet2.nav": {
+      "bytes": 12000,
+      "sha256": "cf4021a6edbe88352ab0a84644a6259eb6d02e37dec582b73396e5971ea3a894"
+    },
+    "dining.nav": {
+      "bytes": 12000,
+      "sha256": "e512a5eecaa1172b1d784631441ff66b4da9ea25d6dcc50e46b0fb488a1c6a72"
+    },
+    "dining_chair_ayu.png": {
+      "bytes": 6239,
+      "sha256": "fea3faf05053d0364f685bfbb6aa00d468ff0fa16ee1442b86e05ad8eb8153e4"
+    },
+    "dining_chair_father.png": {
+      "bytes": 3363,
+      "sha256": "8e7b657d9b82c0027137e44870d1a67e17697923036d6db60f7d41c3eacffd19"
+    },
+    "dining_chair_mother.png": {
+      "bytes": 3213,
+      "sha256": "3a8fe22f85fb328f6700033fc31f20e2534fce5b6c44f94a0623ba75d3707c0d"
+    },
+    "dining_chair_se.png": {
+      "bytes": 3745,
+      "sha256": "67a84ea83f93fb158e2f32a0a41723902b88ab70280a9b1f8e6cff16448c276a"
+    },
+    "dining_chair_spare.png": {
+      "bytes": 3340,
+      "sha256": "e7f01b75171a25b4c7daefe214be41358185795de6a2125364f0f34d9e66cb76"
+    },
+    "dining_chair_sw.png": {
+      "bytes": 3331,
+      "sha256": "eabfbe1f4c0e7aa934fb451ca97f8d9e5df2a7b12b0f2e8ee58e90d4d6de8bcc"
+    },
+    "dining_floor.png": {
+      "bytes": 155795,
+      "sha256": "82b16f634433e846005ac84586fe8f2bd63e78225cfa912865fda6a4c345c3d6"
+    },
+    "dining_kitchen_door.png": {
+      "bytes": 3125,
+      "sha256": "4860e0fd8b99e16548973dd41b03dab08c3289e3fbee3390245beafc00060869"
+    },
+    "dining_north_wall.png": {
+      "bytes": 31882,
+      "sha256": "c38acc284a6c4dde45c1e7585a96c5f548fa2f8c8facac60cd91fe8cbdaebb66"
+    },
+    "dining_plant.png": {
+      "bytes": 6011,
+      "sha256": "adc3a6ea42a82bc4df80e4e0516406c6e5194f2eb713b394ac65e8178413f452"
+    },
+    "dining_round_table.png": {
+      "bytes": 23689,
+      "sha256": "2106940abfe2eedda76deb67f03bdcce14347115d11149be5dc173e11a33801c"
+    },
+    "dining_sideboard.png": {
+      "bytes": 12076,
+      "sha256": "0066c576e85bb2c6013bd6d2be749175a8c309501729a95381470331f7dca951"
+    },
+    "dining_south_door.png": {
+      "bytes": 6103,
+      "sha256": "81fe010654eae8e1b4088c9628293623b9c03b240381c5cfb356fafe8dc1c991"
+    },
+    "dining_south_wall.png": {
+      "bytes": 4535,
+      "sha256": "645a01e7e9920e0a6c60b2ab81af8636d13ca5ec5a91c58c9ec1ac7f1b9e0ed8"
+    },
+    "exterior.nav": {
+      "bytes": 98102,
+      "sha256": "a8ef5964ba25b5f3250c5735e72a9f86decacedcc24e9cc4b5b026bd768a5fba"
+    },
+    "floor1-v3-approved-clarity.png": {
+      "bytes": 2446144,
+      "sha256": "96853da4a37051e10e0ee84e59fe39d9e8a6cccff6dbf6837005e627ae4bab6c"
+    },
+    "garage.nav": {
+      "bytes": 12000,
+      "sha256": "9374c01e68b46703d05f536d2021fb540bf283a9176e3a9ed1809a78191e1235"
+    },
+    "garage_car.png": {
+      "bytes": 54391,
+      "sha256": "63a529515a872cfbac2583fc01c3f1e94b40a881f1982a5ee2cf6b5e1c2b3bd0"
+    },
+    "garage_floor.png": {
+      "bytes": 167658,
+      "sha256": "0b404fad9d70e1ddee27f71b4637748f709384fbe8aecdfb5a60ee9425fda39f"
+    },
+    "garden.nav": {
+      "bytes": 98102,
+      "sha256": "afd66d1bf11718ba348eb580c47aff6a6dabd723d13d9c15b7e1d546a51aa239"
+    },
+    "grove.nav": {
+      "bytes": 98102,
+      "sha256": "3fb7eb41c9a4f585c947acfeab474f481cc722ddfb7c7475d8eaec9b0a056cfc"
+    },
+    "grove.png": {
+      "bytes": 2609216,
+      "sha256": "3a7715df8231458e70b1eff7b5043700d083f76d46f4d87a9475da7851634f49"
+    },
+    "guest.nav": {
+      "bytes": 15150,
+      "sha256": "d6290937ab59c27aceeae463a38dab775e2c7490b187d4f5ef8346c96eeb7906"
+    },
+    "guest_bath.nav": {
+      "bytes": 12000,
+      "sha256": "d78b064f9091604a9cea09e7d9f70238b5e0218733b648461bf3c38188768dd3"
+    },
+    "guest_closet.nav": {
+      "bytes": 12000,
+      "sha256": "a7defc2a5310dfd847d23d3e19223f1108ad9e86f5babbfda6dab68dd834089d"
+    },
+    "guitar-corner.png": {
+      "bytes": 1709362,
+      "sha256": "b25d3318265c8dc71d11ac098cac9e8447d2c6436efe2ad6e0f606b4da0094ad"
+    },
+    "kitchen.nav": {
+      "bytes": 12000,
+      "sha256": "1b5705d8d71fff9cce2620b790bf93ea05c9660323428e788db94251f12d6334"
+    },
+    "kitchen_counter.png": {
+      "bytes": 37915,
+      "sha256": "62b46b06a68a0aefe608968ce036bbd89c9947a33f4f608bf3de8f2c8bd545fe"
+    },
+    "kitchen_floor.png": {
+      "bytes": 68316,
+      "sha256": "f1f9d3ec7a1feab3333de6ae642a1dd419f78982221186612271936b627e1d85"
+    },
+    "laundry.nav": {
+      "bytes": 12000,
+      "sha256": "dc87f82320658936c42e98290b9a1bc308e15a37a6269d09ac79f4a6783d3b64"
+    },
+    "laundry_floor.png": {
+      "bytes": 55266,
+      "sha256": "0ba9599e7e0db3b06f16b55b87176b313a77d5a6364e95814f69e12f11ce8f2a"
+    },
+    "laundry_washer.png": {
+      "bytes": 4419,
+      "sha256": "204fca6f93b5537b9c8cec8c43f8edf0c423831568f848f234a2980c581db3f9"
+    },
+    "life-props.png": {
+      "bytes": 1684453,
+      "sha256": "7b8d1f7d2501f9bd8ef7fbc58841d75cc6dc5e0e37889a32d8c9c514b8b16424"
+    },
+    "life-scenes.png": {
+      "bytes": 2813257,
+      "sha256": "4a531c4ce038cd73830dc90402516113417e5d3613be729460316be6bac1798b"
+    },
+    "living.nav": {
+      "bytes": 18000,
+      "sha256": "40ac2606459ddf025c38ab524c819a7d167c59b591b0859454f12e8c4404f454"
+    },
+    "living_aquarium.png": {
+      "bytes": 8955,
+      "sha256": "d7a1b86b7ae0c9336dee3930b7f51a01a0e7409447ca5891060ad2fbc00349ae"
+    },
+    "living_doorframe.png": {
+      "bytes": 15758,
+      "sha256": "931683077131abcc3164c94c60f3b389cb01d1c0fcc0eda49d29aa742c7abc0e"
+    },
+    "living_floor.png": {
+      "bytes": 303758,
+      "sha256": "3a7a58c8c25978876719f8c014290220f5093575ca976e4a64ccbfec30235b37"
+    },
+    "living_lamp.png": {
+      "bytes": 3283,
+      "sha256": "734372f1ebc495f603d4419ddf63b0f5d4df51ec228dd9b7a5370dea54c0c63e"
+    },
+    "living_landscape.png": {
+      "bytes": 4136,
+      "sha256": "d076d16d8410cdfe552561adee8be8007a47431aea514b2b9241aa729d1b06bd"
+    },
+    "living_north_wall.png": {
+      "bytes": 48535,
+      "sha256": "76f857cd8b147e89cb7245154bcad96db9ba9c76cd17b00f473006da9d86af0c"
+    },
+    "living_plant.png": {
+      "bytes": 5770,
+      "sha256": "c9b195d74e096a8b11a91daac9d917408152eb4417173bd85dee3339dec5a25b"
+    },
+    "living_plant_northeast.png": {
+      "bytes": 6645,
+      "sha256": "e8bf704c3cd93033bdea9e0ca453e303ac7555e323af619caff267c266d122e2"
+    },
+    "living_plant_northwest.png": {
+      "bytes": 3458,
+      "sha256": "a22561fb88b6873369c9f37dc29441bf1175e310dab77cba701d2414cf1a8302"
+    },
+    "living_plant_tv.png": {
+      "bytes": 4071,
+      "sha256": "8b9ec405c0c903545e4a21b12422aad3731047dce7a5004c859db443ee7a8c0c"
+    },
+    "living_sofa_north.png": {
+      "bytes": 24960,
+      "sha256": "340f321a1d398119933bba347ac6203f3852a19fdbff76afb0462b191eafde7a"
+    },
+    "living_sofa_west.png": {
+      "bytes": 14842,
+      "sha256": "7a740edb7cda300ad550f1ae0e91fb5fc960cd2cfee3e429ac682500d426cfe2"
+    },
+    "living_south_wall_left.png": {
+      "bytes": 10834,
+      "sha256": "1c665f818496c313e8470090388bc871751ba363660eb7f6aace83d532aa3024"
+    },
+    "living_south_wall_middle.png": {
+      "bytes": 4292,
+      "sha256": "88a815efd77beb36381393837b619fd68bac9e5e9a32eccef0ad1e55736f4df6"
+    },
+    "living_south_wall_right.png": {
+      "bytes": 16593,
+      "sha256": "ecb5a876efb20cb83c27d64635a683d5cf98eb0eda58482e36652e0638c6991a"
+    },
+    "living_south_window.png": {
+      "bytes": 37226,
+      "sha256": "fdc0c559a4bfe6cc02217aa09af8df8fe3264774f4fb313be03bc01430e75ab9"
+    },
+    "living_square_tea.png": {
+      "bytes": 14786,
+      "sha256": "b09b5b483f0a67c41032ce4003d30a83568ee163213d7927d0a39c3158059852"
+    },
+    "living_tv.png": {
+      "bytes": 14008,
+      "sha256": "6869df65a2cd3cae82ed58ea8abd27654b7217a5cb3cc61f5042c74f18645f35"
+    },
+    "mahjong.nav": {
+      "bytes": 12750,
+      "sha256": "5a77e5cc73e214068025bea737207a3ff106bec989d4a42247a8cbae029f1acf"
+    },
+    "mahjong_floor.png": {
+      "bytes": 130121,
+      "sha256": "2286b836657ce0ce1fb8be9594b50ddc6eb189291f49a1c25f2669602e247bff"
+    },
+    "mahjong_table.png": {
+      "bytes": 34300,
+      "sha256": "f074e1933ff5c956f424ebfea76f4a37907e168ef6da3264ca13c8572959341f"
+    },
+    "oldhouse.nav": {
+      "bytes": 98102,
+      "sha256": "1f7832cf2227bc39822dcafddc4e19b2b73a3a9bba68874f365bb67abd2fc92f"
+    },
+    "parents.nav": {
+      "bytes": 13050,
+      "sha256": "f6afcacf66e409a94861adad3501d96ec6d1cfd0153827496fdf474d467fcf9e"
+    },
+    "parents_bed.png": {
+      "bytes": 25193,
+      "sha256": "cb19445180879b536678f81abd4e53c43d2068052f0cc2c5fabe668c6871c98e"
+    },
+    "parents_floor.png": {
+      "bytes": 129640,
+      "sha256": "cdad7cd61d8b7f3ed90c5b5f94b6b152ffb625b19a96a5abd8b14ffa370da73f"
+    },
+    "portraits.png": {
+      "bytes": 1709079,
+      "sha256": "343b25c18ed03c2fdc9e42e242529b6cd6f1e30c0d30663950307422bbce4039"
+    },
+    "rain.wav": {
+      "bytes": 176444,
+      "sha256": "0273edb39a4cca6f262dff6ef1f8678ff04fb324b179a4ec17ea457c22c6a7cd"
+    },
+    "side_path.nav": {
+      "bytes": 98102,
+      "sha256": "89da31aeb104d14144269e97251f73dc36939db9f70935c8d12840cbb4d4d93b"
+    },
+    "stairs1.nav": {
+      "bytes": 12000,
+      "sha256": "bdfd4b4d6921e8b54ae5ab65414db1dbcf5e30ef12d4dc30a7015db0f87d2bd3"
+    },
+    "stairs1_floor.png": {
+      "bytes": 120135,
+      "sha256": "84fb3687685466c8528c62c41affbe4549f414ae5a6479242a70b3f1432509a4"
+    },
+    "stairs2.nav": {
+      "bytes": 14400,
+      "sha256": "8a62174b44c9f2073c5be3f8b2c8acfe83fac5bb0db8762c32ecbcdcb40df47a"
+    },
+    "study.nav": {
+      "bytes": 15750,
+      "sha256": "565e7e578304dd5d4aedbf1a6f6a5712534ba6c911d330502daf45fcee47c0a8"
+    },
+    "terrace.nav": {
+      "bytes": 36320,
+      "sha256": "4fd8ea2689a81c19c42f9f25f6440b40265a3b993adcfc124bd39c9ec62d340d"
+    },
+    "workshop.nav": {
+      "bytes": 12000,
+      "sha256": "884dffcb645f5fb0631b969d740e3440f8230434956d903930a314cb86e77a0a"
+    },
+    "workshop_bench.png": {
+      "bytes": 36482,
+      "sha256": "8973f620d8a7f92727d5f15a528a472f6858a620f3f70e58d34696e9a0f18467"
+    },
+    "workshop_floor.png": {
+      "bytes": 134457,
+      "sha256": "ab26d705ba5a6f2e39768dc6807431387191cb9d63fd3317663b26d5097dc4db"
+    }
+  }
+}

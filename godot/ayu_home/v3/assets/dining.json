@@ -1,0 +1,500 @@
+{
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    390,
+    16,
+    706,
+    406
+  ],
+  "props": [
+    {
+      "id": "north_wall",
+      "file": "dining_north_wall.png",
+      "pos": [
+        2,
+        48
+      ],
+      "foot": 131,
+      "front": false,
+      "source_box": [
+        390,
+        16,
+        706,
+        99
+      ]
+    },
+    {
+      "id": "sideboard",
+      "file": "dining_sideboard.png",
+      "pos": [
+        89,
+        101
+      ],
+      "foot": 158,
+      "front": false,
+      "source_box": [
+        477,
+        69,
+        615,
+        127
+      ]
+    },
+    {
+      "id": "plant",
+      "file": "dining_plant.png",
+      "pos": [
+        241,
+        82
+      ],
+      "foot": 151,
+      "front": false,
+      "source_box": [
+        629,
+        50,
+        676,
+        120
+      ]
+    },
+    {
+      "id": "chair_spare",
+      "file": "dining_chair_spare.png",
+      "pos": [
+        140,
+        164
+      ],
+      "foot": 216,
+      "front": false,
+      "source_box": [
+        528,
+        132,
+        564,
+        193
+      ]
+    },
+    {
+      "id": "chair_father",
+      "file": "dining_chair_father.png",
+      "pos": [
+        82,
+        183
+      ],
+      "foot": 245,
+      "front": false,
+      "source_box": [
+        470,
+        151,
+        500,
+        216
+      ]
+    },
+    {
+      "id": "chair_mother",
+      "file": "dining_chair_mother.png",
+      "pos": [
+        200,
+        187
+      ],
+      "foot": 254,
+      "front": false,
+      "source_box": [
+        588,
+        155,
+        615,
+        224
+      ]
+    },
+    {
+      "id": "chair_sw",
+      "file": "dining_chair_sw.png",
+      "pos": [
+        77,
+        234
+      ],
+      "foot": 289,
+      "front": false,
+      "source_box": [
+        465,
+        202,
+        498,
+        260
+      ]
+    },
+    {
+      "id": "chair_se",
+      "file": "dining_chair_se.png",
+      "pos": [
+        203,
+        232
+      ],
+      "foot": 291,
+      "front": false,
+      "source_box": [
+        591,
+        200,
+        625,
+        262
+      ]
+    },
+    {
+      "id": "chair_ayu",
+      "file": "dining_chair_ayu.png",
+      "pos": [
+        120,
+        271
+      ],
+      "foot": 316,
+      "front": false,
+      "source_box": [
+        508,
+        239,
+        585,
+        288
+      ]
+    },
+    {
+      "id": "round_table",
+      "file": "dining_round_table.png",
+      "pos": [
+        90,
+        190
+      ],
+      "foot": 292,
+      "front": false,
+      "source_box": [
+        478,
+        158,
+        611,
+        276
+      ]
+    },
+    {
+      "id": "kitchen_door",
+      "file": "dining_kitchen_door.png",
+      "pos": [
+        2,
+        131
+      ],
+      "foot": 223,
+      "front": false,
+      "source_box": [
+        390,
+        99,
+        414,
+        186
+      ]
+    },
+    {
+      "id": "south_door",
+      "file": "dining_south_door.png",
+      "pos": [
+        231,
+        367
+      ],
+      "foot": 437,
+      "front": false,
+      "source_box": [
+        619,
+        335,
+        675,
+        405
+      ]
+    },
+    {
+      "id": "south_wall",
+      "file": "dining_south_wall.png",
+      "pos": [
+        77,
+        363
+      ],
+      "foot": 387,
+      "front": false,
+      "source_box": [
+        465,
+        331,
+        620,
+        355
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      94,
+      240,
+      123,
+      60
+    ],
+    [
+      89,
+      139,
+      139,
+      19
+    ],
+    [
+      252,
+      126,
+      32,
+      24
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "meal",
+      "label": "坐下来吃饭",
+      "pos": [
+        158,
+        243
+      ],
+      "approach": [
+        248,
+        318
+      ],
+      "kind": "reaction",
+      "effect": "sit",
+      "copy": ""
+    },
+    {
+      "id": "tea",
+      "label": "倒一杯温水",
+      "pos": [
+        112,
+        119
+      ],
+      "approach": [
+        59,
+        173
+      ],
+      "kind": "reaction",
+      "effect": "steam",
+      "copy": ""
+    },
+    {
+      "id": "recipe",
+      "label": "翻翻食谱",
+      "pos": [
+        198,
+        123
+      ],
+      "approach": [
+        234,
+        186
+      ],
+      "kind": "puzzle",
+      "effect": "spark",
+      "copy": ""
+    },
+    {
+      "id": "flowers",
+      "label": "照顾桌上的花",
+      "pos": [
+        159,
+        222
+      ],
+      "approach": [
+        61,
+        233
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "给桌上的小花换一点清水。"
+    }
+  ],
+  "windows": [
+    [
+      14,
+      147,
+      8,
+      52
+    ]
+  ],
+  "lamps": [
+    [
+      161,
+      196,
+      220
+    ],
+    [
+      91,
+      116,
+      90
+    ]
+  ],
+  "anchors": {
+    "father_meal": [
+      92,
+      297
+    ],
+    "mother_meal": [
+      224,
+      297
+    ],
+    "ayu_meal": [
+      160,
+      322
+    ],
+    "guest_meal": [
+      157,
+      217
+    ],
+    "cook": [
+      46,
+      210
+    ],
+    "mother_read": [
+      219,
+      267
+    ],
+    "father_read": [
+      99,
+      264
+    ],
+    "clean": [
+      239,
+      341
+    ],
+    "qiuqiu": [
+      58,
+      335
+    ]
+  },
+  "walk_polygons": [],
+  "steam": [
+    16,
+    196
+  ],
+  "camera_ahead": 65,
+  "spawn": [
+    262,
+    354
+  ],
+  "walk_rect": [
+    19,
+    157,
+    268,
+    207
+  ],
+  "id": "dining",
+  "title": "餐厅",
+  "group": "一楼",
+  "floor": 1,
+  "outdoor": false,
+  "doors": [
+    {
+      "id": "to_living",
+      "target": "living",
+      "pos": [
+        258,
+        403
+      ],
+      "approach": [
+        261,
+        355
+      ],
+      "face": "up",
+      "label": "去客厅",
+      "kind": "door"
+    },
+    {
+      "id": "to_kitchen",
+      "target": "kitchen",
+      "pos": [
+        5,
+        175
+      ],
+      "approach": [
+        35,
+        205
+      ],
+      "face": "right",
+      "label": "去厨房",
+      "kind": "door"
+    },
+    {
+      "id": "to_laundry",
+      "target": "laundry",
+      "pos": [
+        1,
+        300
+      ],
+      "approach": [
+        35,
+        316
+      ],
+      "face": "right",
+      "label": "去卫生间与洗衣",
+      "kind": "door"
+    },
+    {
+      "id": "to_garage",
+      "target": "garage",
+      "pos": [
+        57,
+        401
+      ],
+      "approach": [
+        56,
+        354
+      ],
+      "face": "up",
+      "label": "去车库",
+      "kind": "door"
+    }
+  ],
+  "background": "dining_floor.png",
+  "source_offset": [
+    2,
+    48
+  ],
+  "source_polygon": [
+    [
+      390,
+      16
+    ],
+    [
+      706,
+      16
+    ],
+    [
+      706,
+      350
+    ],
+    [
+      670,
+      350
+    ],
+    [
+      670,
+      401
+    ],
+    [
+      615,
+      401
+    ],
+    [
+      615,
+      353
+    ],
+    [
+      474,
+      353
+    ],
+    [
+      474,
+      401
+    ],
+    [
+      410,
+      401
+    ],
+    [
+      410,
+      353
+    ],
+    [
+      390,
+      353
+    ]
+  ]
+}

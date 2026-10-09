@@ -1,0 +1,33 @@
+{
+ "scene": "scene_luoman_backgate",
+ "title": "后门",
+ "note": "罗曼山庄 · 后门灰盒（连图，01 G 10/4 派）。tools/layout_court/make_areas.py 生成，别手改；改数重跑，再跑 gen_specs_court.py --scene backgate。南口去果园（果园 B 北边那个口）；北边门外是小山，这次不做，走到门口说一句；口写了 to 的走进去就到那块（main.gd），from 那块过来站在口里边 70 像素；写了 say 的走进去说一句。全部色块占位，阿鱼挑过摆法再画",
+ "size": [1152, 1024],
+ "person_px": {"near_y": 1024, "near_h": 84, "far_y": 0, "far_h": 84},
+ "spawn": [576, 632],
+ "points": [
+  {"id": "to_orchard", "x": 576, "y": 988, "r": 44, "to": "orchard"},
+  {"id": "out", "x": 576, "y": 260, "r": 50, "say": "backgate_out"}
+ ],
+ "walk": [[[60, 60], [1092, 60], [1092, 964], [60, 964]], [[542, 966], [610, 966], [610, 1022], [542, 1022]]],
+ "flat": [
+  {"type": "rect", "rect": [0, 0, 1152, 1024], "color": "#5f8f55"},
+  {"type": "rect", "rect": [60, 60, 1092, 964], "color": "#c9c2b0"},
+  {"type": "rect", "rect": [540, 964, 612, 1024], "color": "#c2b393"},
+  {"type": "label", "text": "去果园", "x": 672, "y": 924},
+  {"type": "rect", "rect": [0, 0, 1152, 60], "color": "#7a8a6a"}
+ ],
+ "items": [
+  {"type": "box", "id": "backgate_post_w", "rect": [500, 220, 532, 240], "h": 140, "top": "#8c5f3c", "front": "#6d4a38", "scale": {"h_m": 2.9, "name": "后门门柱"}, "part": "BG-W01"},
+  {"type": "box", "id": "backgate_post_e", "rect": [620, 220, 652, 240], "h": 140, "top": "#8c5f3c", "front": "#6d4a38", "part": "BG-W01"},
+  {"type": "box", "id": "wall_n_0", "rect": [0, 46, 1152, 60], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01", "scale": {"h_m": 1.2, "name": "围墙 / 绿篱"}},
+  {"type": "box", "id": "wall_s_0", "rect": [0, 964, 540, 978], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_s_1", "rect": [612, 964, 1152, 978], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_w_0", "rect": [46, 0, 60, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"},
+  {"type": "box", "id": "wall_e_0", "rect": [1092, 0, 1106, 1024], "h": 58, "top": "#d8cdb8", "front": "#b8ab92", "part": "AR-W01"}
+ ],
+ "npcs": [],
+ "signs": [
+  {"text": "后门", "x": 576, "y": 120}
+ ]
+}

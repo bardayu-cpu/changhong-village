@@ -1,0 +1,168 @@
+{
+  "id": "bridge",
+  "title": "溪边小桥",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "approved-0.png",
+  "source_crop": [
+    0,
+    0,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "size": [
+    1448,
+    1086
+  ],
+  "props": [],
+  "obstacles": [
+    [
+      1307,
+      535,
+      119,
+      40
+    ],
+    [
+      1344,
+      650,
+      98,
+      142
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "water",
+      "label": "在浅水里捞小鱼",
+      "pos": [
+        1360,
+        632
+      ],
+      "approach": [
+        1355,
+        613
+      ],
+      "kind": "net",
+      "effect": "",
+      "copy": "水流绕过石头，荡开小小波纹。"
+    },
+    {
+      "id": "fish",
+      "label": "在桥边钓一尾鱼",
+      "pos": [
+        1345,
+        561
+      ],
+      "approach": [
+        1355,
+        613
+      ],
+      "kind": "fishing",
+      "effect": "",
+      "copy": "小鱼从桥下游过去。"
+    },
+    {
+      "id": "rail",
+      "label": "靠一靠木栏杆",
+      "pos": [
+        1367,
+        602
+      ],
+      "approach": [
+        1355,
+        613
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "手心顺着木纹滑过去，脚步慢了下来。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_side_path",
+      "target": "side_path",
+      "pos": [
+        1431,
+        619
+      ],
+      "approach": [
+        1431,
+        619
+      ],
+      "face": "left",
+      "label": "沿小道回家",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_oldhouse",
+      "target": "oldhouse",
+      "pos": [
+        1279,
+        547
+      ],
+      "approach": [
+        1279,
+        547
+      ],
+      "face": "down",
+      "label": "沿小桥去老屋",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [],
+  "anchors": {},
+  "walk_rect": [
+    1250,
+    535,
+    198,
+    120
+  ],
+  "walk_polygons": [
+    [
+      [
+        1253,
+        535
+      ],
+      [
+        1323,
+        535
+      ],
+      [
+        1323,
+        582
+      ],
+      [
+        1444,
+        582
+      ],
+      [
+        1444,
+        647
+      ],
+      [
+        1320,
+        647
+      ],
+      [
+        1274,
+        583
+      ]
+    ]
+  ],
+  "spawn": [
+    1384,
+    610
+  ],
+  "camera_ahead": 80,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

@@ -1,0 +1,158 @@
+{
+  "id": "v_h1_up",
+  "title": "1A · 蓝瓦人家 · 二楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    790,
+    800
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h1.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        680,
+        490
+      ],
+      "foot": 640,
+      "front": false
+    },
+    {
+      "id": "bed",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        45,
+        110
+      ],
+      "foot": 310,
+      "front": false
+    },
+    {
+      "id": "desk",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        570,
+        125
+      ],
+      "foot": 195,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        297,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      420,
+      90,
+      12,
+      250
+    ],
+    [
+      420,
+      480,
+      12,
+      270
+    ],
+    [
+      430,
+      375,
+      160,
+      12
+    ],
+    [
+      50,
+      175,
+      140,
+      135
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "window_note",
+      "label": "看看窗边书页",
+      "pos": [
+        650,
+        225
+      ],
+      "approach": [
+        650,
+        280
+      ],
+      "kind": "village",
+      "copy": "相聚的长桌。窗外的路通往每一位邻居；回来时书签还在这里。"
+    },
+    {
+      "id": "rest_seat",
+      "label": "在床边歇脚",
+      "pos": [
+        150,
+        380
+      ],
+      "approach": [
+        155,
+        405
+      ],
+      "kind": "seat",
+      "seat": [
+        150,
+        365
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "downstairs",
+      "label": "下到一楼",
+      "target": "v_h1",
+      "pos": [
+        725,
+        645
+      ],
+      "approach": [
+        725,
+        675
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      300,
+      280,
+      280
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    645,
+    685
+  ],
+  "walk_rect": [
+    22,
+    100,
+    746,
+    680
+  ],
+  "outdoor": false,
+  "view_scale": 1.2
+}

@@ -1,0 +1,164 @@
+{
+  "id": "guest",
+  "title": "客房",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    405,
+    600
+  ],
+  "source_crop": [
+    221,
+    99,
+    626,
+    535
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "guest_floor.png",
+  "props": [
+    {
+      "id": "bed",
+      "file": "guest_bed.png",
+      "pos": [
+        103,
+        100
+      ],
+      "foot": 317,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      111,
+      177,
+      160,
+      132
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "bed",
+      "label": "躺下休息",
+      "pos": [
+        188,
+        241
+      ],
+      "approach": [
+        291,
+        316
+      ],
+      "kind": "relax",
+      "effect": "spark",
+      "copy": ""
+    },
+    {
+      "id": "lamp",
+      "label": "开关床头灯",
+      "pos": [
+        85,
+        113
+      ],
+      "approach": [
+        60,
+        171
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "床头灯晕开一圈暖色。"
+    },
+    {
+      "id": "book",
+      "label": "翻一本书",
+      "pos": [
+        363,
+        133
+      ],
+      "approach": [
+        348,
+        177
+      ],
+      "kind": "reaction",
+      "effect": "book",
+      "copy": "翻过一页，纸张沙沙地响。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        385,
+        361
+      ],
+      "approach": [
+        357,
+        362
+      ],
+      "face": "left",
+      "label": "去二楼楼梯与过道",
+      "kind": "door"
+    },
+    {
+      "id": "to_guest_closet",
+      "target": "guest_closet",
+      "pos": [
+        2,
+        181
+      ],
+      "approach": [
+        38,
+        205
+      ],
+      "face": "right",
+      "label": "去客房衣帽间",
+      "kind": "door"
+    },
+    {
+      "id": "to_guest_bath",
+      "target": "guest_bath",
+      "pos": [
+        14,
+        365
+      ],
+      "approach": [
+        39,
+        367
+      ],
+      "face": "right",
+      "label": "去客房浴室",
+      "kind": "door"
+    }
+  ],
+  "windows": [
+    [
+      75,
+      405,
+      224,
+      44
+    ]
+  ],
+  "lamps": [
+    [
+      85,
+      114,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    26,
+    153,
+    355,
+    229
+  ],
+  "spawn": [
+    356,
+    362
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

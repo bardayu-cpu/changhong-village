@@ -1,0 +1,231 @@
+{
+  "id": "stairs2",
+  "title": "二楼楼梯与过道",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    386,
+    600
+  ],
+  "source_crop": [
+    641,
+    98,
+    1027,
+    547
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "stairs2_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "rail",
+      "label": "木扶手",
+      "pos": [
+        147,
+        203
+      ],
+      "approach": [
+        206,
+        289
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "沿着扶手，慢慢上下楼。"
+    },
+    {
+      "id": "fern",
+      "label": "照顾楼梯绿植",
+      "pos": [
+        169,
+        257
+      ],
+      "approach": [
+        208,
+        296
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "叶片接住几滴水。"
+    },
+    {
+      "id": "table",
+      "label": "过道的小花",
+      "pos": [
+        118,
+        326
+      ],
+      "approach": [
+        158,
+        370
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "花朵在过道里晒太阳。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        218,
+        254
+      ],
+      "approach": [
+        214,
+        288
+      ],
+      "face": "down",
+      "label": "下一楼",
+      "kind": "stairs"
+    },
+    {
+      "id": "to_guest",
+      "target": "guest",
+      "pos": [
+        16,
+        366
+      ],
+      "approach": [
+        25,
+        371
+      ],
+      "face": "right",
+      "label": "去客房",
+      "kind": "door"
+    },
+    {
+      "id": "to_study",
+      "target": "study",
+      "pos": [
+        344,
+        318
+      ],
+      "approach": [
+        345,
+        368
+      ],
+      "face": "down",
+      "label": "去书房",
+      "kind": "door"
+    },
+    {
+      "id": "to_closet2",
+      "target": "closet2",
+      "pos": [
+        376,
+        427
+      ],
+      "approach": [
+        362,
+        427
+      ],
+      "face": "left",
+      "label": "去阿鱼的衣柜",
+      "kind": "door"
+    },
+    {
+      "id": "to_ayu_room",
+      "target": "ayu_room",
+      "pos": [
+        358,
+        474
+      ],
+      "approach": [
+        342,
+        452
+      ],
+      "face": "up",
+      "label": "去阿鱼卧室",
+      "kind": "door"
+    },
+    {
+      "id": "to_terrace",
+      "target": "terrace",
+      "pos": [
+        221,
+        459
+      ],
+      "approach": [
+        220,
+        452
+      ],
+      "face": "up",
+      "label": "去二楼露台",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      176,
+      161,
+      150
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      224,
+      376
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    17,
+    277,
+    350,
+    191
+  ],
+  "spawn": [
+    250,
+    314
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "source_polygon": [
+    [
+      647,
+      103
+    ],
+    [
+      919,
+      103
+    ],
+    [
+      919,
+      396
+    ],
+    [
+      1024,
+      397
+    ],
+    [
+      1024,
+      546
+    ],
+    [
+      956,
+      546
+    ],
+    [
+      956,
+      462
+    ],
+    [
+      819,
+      462
+    ],
+    [
+      819,
+      518
+    ],
+    [
+      646,
+      458
+    ]
+  ]
+}

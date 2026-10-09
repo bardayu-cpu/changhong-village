@@ -1,0 +1,132 @@
+{
+  "id": "guest_closet",
+  "title": "客房衣帽间",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    54,
+    102,
+    226,
+    292
+  ],
+  "source_offset": [
+    74,
+    48
+  ],
+  "background": "guest_closet_floor.png",
+  "props": [],
+  "obstacles": [
+    [
+      83,
+      61,
+      116,
+      88
+    ],
+    [
+      98,
+      176,
+      45,
+      49
+    ],
+    [
+      180,
+      188,
+      30,
+      35
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "coat",
+      "label": "挂外套",
+      "pos": [
+        136,
+        105
+      ],
+      "approach": [
+        162,
+        180
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "空衣架给你留着，把一路带来的外套挂好。"
+    },
+    {
+      "id": "bag",
+      "label": "整理旅行包",
+      "pos": [
+        132,
+        208
+      ],
+      "approach": [
+        150,
+        210
+      ],
+      "kind": "tidy",
+      "effect": "open",
+      "copy": "旅行包靠墙放，鞋子和换洗衣物分开放。"
+    },
+    {
+      "id": "basket",
+      "label": "放好收纳盒",
+      "pos": [
+        188,
+        197
+      ],
+      "approach": [
+        193,
+        210
+      ],
+      "kind": "tidy",
+      "effect": "fold",
+      "copy": "把零碎小物放进收纳盒，明早就不必四处找了。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_guest",
+      "target": "guest",
+      "pos": [
+        227,
+        212
+      ],
+      "approach": [
+        227,
+        212
+      ],
+      "face": "left",
+      "label": "去客房",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      183,
+      92,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    94,
+    178,
+    119,
+    45
+  ],
+  "spawn": [
+    197,
+    199
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

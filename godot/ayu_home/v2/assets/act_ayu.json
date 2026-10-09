@@ -1,0 +1,189 @@
+{
+  "frame": [
+    64,
+    84
+  ],
+  "frames": {
+    "eat_down": [
+      0,
+      1
+    ],
+    "eat_left": [
+      2,
+      3
+    ],
+    "eat_right": [
+      4,
+      5
+    ],
+    "eat_up": [
+      6,
+      7
+    ],
+    "tv_down": [
+      8,
+      9
+    ],
+    "tv_left": [
+      10,
+      11
+    ],
+    "tv_right": [
+      12,
+      13
+    ],
+    "tv_up": [
+      14,
+      15
+    ],
+    "clean_down": [
+      16,
+      17
+    ],
+    "clean_left": [
+      18,
+      19
+    ],
+    "clean_right": [
+      20,
+      21
+    ],
+    "clean_up": [
+      22,
+      23
+    ],
+    "fish_down": [
+      24,
+      25
+    ],
+    "fish_left": [
+      26,
+      27
+    ],
+    "fish_right": [
+      28,
+      29
+    ],
+    "fish_up": [
+      30,
+      31
+    ],
+    "cook_down": [
+      32,
+      33
+    ],
+    "cook_left": [
+      34,
+      35
+    ],
+    "cook_right": [
+      36,
+      37
+    ],
+    "cook_up": [
+      38,
+      39
+    ],
+    "guitar_down": [
+      40,
+      41
+    ],
+    "guitar_left": [
+      42,
+      43
+    ],
+    "guitar_right": [
+      44,
+      45
+    ],
+    "guitar_up": [
+      46,
+      47
+    ],
+    "computer_down": [
+      48,
+      49
+    ],
+    "computer_left": [
+      50,
+      51
+    ],
+    "computer_right": [
+      52,
+      53
+    ],
+    "computer_up": [
+      54,
+      55
+    ],
+    "read_down": [
+      56,
+      57
+    ],
+    "read_left": [
+      58,
+      59
+    ],
+    "read_right": [
+      60,
+      61
+    ],
+    "read_up": [
+      62,
+      63
+    ],
+    "lie_down": [
+      64,
+      65
+    ],
+    "lie_left": [
+      66,
+      67
+    ],
+    "lie_right": [
+      68,
+      69
+    ],
+    "lie_up": [
+      70,
+      71
+    ],
+    "work_down": [
+      72,
+      73
+    ],
+    "work_left": [
+      74,
+      75
+    ],
+    "work_right": [
+      76,
+      77
+    ],
+    "work_up": [
+      78,
+      79
+    ],
+    "record_down": [
+      80,
+      81
+    ],
+    "record_left": [
+      82,
+      83
+    ],
+    "record_right": [
+      84,
+      85
+    ],
+    "record_up": [
+      86,
+      87
+    ]
+  },
+  "fps": 2,
+  "anchor": [
+    32,
+    84
+  ]
+}

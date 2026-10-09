@@ -1,0 +1,727 @@
+{
+  "size": [
+    1448,
+    1086
+  ],
+  "source_crop": [
+    0,
+    0,
+    1448,
+    1086
+  ],
+  "props": [
+    {
+      "id": "neighbour_house",
+      "file": "exterior_neighbour_house.png",
+      "pos": [
+        1150,
+        11
+      ],
+      "foot": 198,
+      "front": false,
+      "source_box": [
+        1150,
+        11,
+        1401,
+        197
+      ]
+    },
+    {
+      "id": "rear_tree",
+      "file": "exterior_rear_tree.png",
+      "pos": [
+        588,
+        0
+      ],
+      "foot": 183,
+      "front": false,
+      "source_box": [
+        588,
+        0,
+        939,
+        183
+      ]
+    },
+    {
+      "id": "rear_tree_left",
+      "file": "exterior_rear_tree_left.png",
+      "pos": [
+        478,
+        44
+      ],
+      "foot": 182,
+      "front": false,
+      "source_box": [
+        478,
+        44,
+        616,
+        182
+      ]
+    },
+    {
+      "id": "rear_grove_right",
+      "file": "exterior_rear_grove_right.png",
+      "pos": [
+        974,
+        115
+      ],
+      "foot": 397,
+      "front": false,
+      "source_box": [
+        974,
+        115,
+        1154,
+        397
+      ]
+    },
+    {
+      "id": "flower_fence",
+      "file": "exterior_flower_fence.png",
+      "pos": [
+        24,
+        248
+      ],
+      "foot": 291,
+      "front": false,
+      "source_box": [
+        24,
+        248,
+        347,
+        291
+      ]
+    },
+    {
+      "id": "garden_fence",
+      "file": "exterior_garden_fence.png",
+      "pos": [
+        16,
+        430
+      ],
+      "foot": 476,
+      "front": false,
+      "source_box": [
+        16,
+        430,
+        202,
+        476
+      ]
+    },
+    {
+      "id": "beehive_0",
+      "file": "exterior_beehive_0.png",
+      "pos": [
+        71,
+        44
+      ],
+      "foot": 88,
+      "front": false,
+      "source_box": [
+        71,
+        44,
+        111,
+        88
+      ]
+    },
+    {
+      "id": "beehive_1",
+      "file": "exterior_beehive_1.png",
+      "pos": [
+        129,
+        42
+      ],
+      "foot": 86,
+      "front": false,
+      "source_box": [
+        129,
+        42,
+        169,
+        86
+      ]
+    },
+    {
+      "id": "beehive_2",
+      "file": "exterior_beehive_2.png",
+      "pos": [
+        190,
+        41
+      ],
+      "foot": 85,
+      "front": false,
+      "source_box": [
+        190,
+        41,
+        230,
+        85
+      ]
+    },
+    {
+      "id": "beehive_3",
+      "file": "exterior_beehive_3.png",
+      "pos": [
+        247,
+        41
+      ],
+      "foot": 85,
+      "front": false,
+      "source_box": [
+        247,
+        41,
+        287,
+        85
+      ]
+    },
+    {
+      "id": "beehive_4",
+      "file": "exterior_beehive_4.png",
+      "pos": [
+        305,
+        40
+      ],
+      "foot": 84,
+      "front": false,
+      "source_box": [
+        305,
+        40,
+        345,
+        84
+      ]
+    },
+    {
+      "id": "beehive_5",
+      "file": "exterior_beehive_5.png",
+      "pos": [
+        365,
+        44
+      ],
+      "foot": 88,
+      "front": false,
+      "source_box": [
+        365,
+        44,
+        405,
+        88
+      ]
+    },
+    {
+      "id": "tool_corner",
+      "file": "exterior_tool_corner.png",
+      "pos": [
+        147,
+        522
+      ],
+      "foot": 593,
+      "front": false,
+      "source_box": [
+        147,
+        522,
+        259,
+        594
+      ]
+    },
+    {
+      "id": "house",
+      "file": "exterior_house.png",
+      "pos": [
+        353,
+        147
+      ],
+      "foot": 592,
+      "front": false,
+      "source_box": [
+        353,
+        147,
+        1004,
+        625
+      ]
+    },
+    {
+      "id": "garage",
+      "file": "exterior_garage.png",
+      "pos": [
+        172,
+        395
+      ],
+      "foot": 593,
+      "front": false,
+      "source_box": [
+        172,
+        395,
+        361,
+        600
+      ]
+    },
+    {
+      "id": "car",
+      "file": "exterior_car.png",
+      "pos": [
+        246,
+        570
+      ],
+      "foot": 677,
+      "front": false,
+      "source_box": [
+        246,
+        570,
+        500,
+        686
+      ]
+    },
+    {
+      "id": "shed",
+      "file": "exterior_shed.png",
+      "pos": [
+        982,
+        392
+      ],
+      "foot": 625,
+      "front": false,
+      "source_box": [
+        982,
+        392,
+        1185,
+        639
+      ]
+    },
+    {
+      "id": "left_tree",
+      "file": "exterior_left_tree.png",
+      "pos": [
+        0,
+        471
+      ],
+      "foot": 760,
+      "front": false,
+      "source_box": [
+        0,
+        471,
+        151,
+        782
+      ]
+    },
+    {
+      "id": "right_tree",
+      "file": "exterior_right_tree.png",
+      "pos": [
+        1054,
+        603
+      ],
+      "foot": 748,
+      "front": false,
+      "source_box": [
+        1054,
+        603,
+        1247,
+        756
+      ]
+    },
+    {
+      "id": "left_wall",
+      "file": "exterior_left_wall.png",
+      "pos": [
+        46,
+        697
+      ],
+      "foot": 938,
+      "front": false,
+      "source_box": [
+        46,
+        697,
+        645,
+        939
+      ]
+    },
+    {
+      "id": "right_wall",
+      "file": "exterior_right_wall.png",
+      "pos": [
+        844,
+        521
+      ],
+      "foot": 938,
+      "front": false,
+      "source_box": [
+        844,
+        521,
+        1244,
+        938
+      ]
+    },
+    {
+      "id": "left_border_flowers",
+      "file": "exterior_left_border_flowers.png",
+      "pos": [
+        131,
+        622
+      ],
+      "foot": 811,
+      "front": false,
+      "source_box": [
+        131,
+        622,
+        622,
+        818
+      ]
+    },
+    {
+      "id": "right_border_flowers",
+      "file": "exterior_right_border_flowers.png",
+      "pos": [
+        845,
+        645
+      ],
+      "foot": 816,
+      "front": false,
+      "source_box": [
+        845,
+        645,
+        1198,
+        817
+      ]
+    },
+    {
+      "id": "pot_garage",
+      "file": "exterior_pot_garage.png",
+      "pos": [
+        314,
+        529
+      ],
+      "foot": 599,
+      "front": false,
+      "source_box": [
+        314,
+        529,
+        360,
+        600
+      ]
+    },
+    {
+      "id": "pot_window_left",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        495,
+        535
+      ],
+      "foot": 602,
+      "front": false,
+      "source_box": [
+        495,
+        535,
+        539,
+        603
+      ]
+    },
+    {
+      "id": "pot_window_right",
+      "file": "exterior_pot_window_right.png",
+      "pos": [
+        659,
+        528
+      ],
+      "foot": 603,
+      "front": false,
+      "source_box": [
+        659,
+        528,
+        700,
+        604
+      ]
+    },
+    {
+      "id": "pot_door_left",
+      "file": "exterior_pot_door_left.png",
+      "pos": [
+        712,
+        515
+      ],
+      "foot": 584,
+      "front": false,
+      "source_box": [
+        712,
+        515,
+        749,
+        585
+      ]
+    },
+    {
+      "id": "pot_door_right",
+      "file": "exterior_pot_door_right.png",
+      "pos": [
+        857,
+        537
+      ],
+      "foot": 607,
+      "front": false,
+      "source_box": [
+        857,
+        537,
+        900,
+        608
+      ]
+    },
+    {
+      "id": "pot_shed",
+      "file": "exterior_pot_shed.png",
+      "pos": [
+        922,
+        539
+      ],
+      "foot": 606,
+      "front": false,
+      "source_box": [
+        922,
+        539,
+        964,
+        607
+      ]
+    },
+    {
+      "id": "bench",
+      "file": "exterior_bench.png",
+      "pos": [
+        1218,
+        524
+      ],
+      "foot": 559,
+      "front": false,
+      "source_box": [
+        1218,
+        524,
+        1279,
+        560
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      248,
+      610,
+      245,
+      67
+    ],
+    [
+      1095,
+      606,
+      68,
+      30
+    ],
+    [
+      507,
+      576,
+      28,
+      25
+    ],
+    [
+      667,
+      579,
+      25,
+      25
+    ],
+    [
+      868,
+      582,
+      26,
+      25
+    ],
+    [
+      932,
+      585,
+      27,
+      25
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "door",
+      "label": "敲门拜访",
+      "pos": [
+        782,
+        541
+      ],
+      "approach": [
+        782,
+        651
+      ]
+    },
+    {
+      "id": "xiduo",
+      "label": "和喜多打招呼",
+      "pos": [
+        949,
+        728
+      ],
+      "approach": [
+        919,
+        744
+      ]
+    },
+    {
+      "id": "bench",
+      "label": "坐在门前台阶",
+      "pos": [
+        780,
+        615
+      ],
+      "approach": [
+        821,
+        675
+      ]
+    },
+    {
+      "id": "flowers",
+      "label": "看看院里的花",
+      "pos": [
+        493,
+        764
+      ],
+      "approach": [
+        528,
+        737
+      ]
+    },
+    {
+      "id": "gate",
+      "label": "回到镇上",
+      "pos": [
+        739,
+        970
+      ],
+      "approach": [
+        739,
+        972
+      ]
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      817,
+      494,
+      180
+    ],
+    [
+      591,
+      502,
+      140
+    ]
+  ],
+  "anchors": {
+    "dog": [
+      953,
+      738
+    ],
+    "work": [
+      1077,
+      649
+    ],
+    "bench": [
+      788,
+      625
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        135,
+        593
+      ],
+      [
+        692,
+        593
+      ],
+      [
+        692,
+        629
+      ],
+      [
+        852,
+        629
+      ],
+      [
+        852,
+        602
+      ],
+      [
+        1107,
+        603
+      ],
+      [
+        1165,
+        646
+      ],
+      [
+        1146,
+        723
+      ],
+      [
+        1040,
+        777
+      ],
+      [
+        902,
+        810
+      ],
+      [
+        834,
+        820
+      ],
+      [
+        815,
+        936
+      ],
+      [
+        813,
+        1009
+      ],
+      [
+        665,
+        1009
+      ],
+      [
+        665,
+        934
+      ],
+      [
+        643,
+        821
+      ],
+      [
+        565,
+        807
+      ],
+      [
+        449,
+        769
+      ],
+      [
+        332,
+        768
+      ],
+      [
+        238,
+        724
+      ],
+      [
+        134,
+        677
+      ]
+    ]
+  ],
+  "dog_roam": [
+    889,
+    654,
+    172,
+    116
+  ],
+  "camera_ahead": 170,
+  "phone_world_height": 720,
+  "spawn": [
+    753,
+    897
+  ],
+  "walk_rect": [
+    120,
+    594,
+    1068,
+    421
+  ]
+}

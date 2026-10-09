@@ -1,0 +1,118 @@
+{
+  "id": "bridge",
+  "title": "溪边小桥",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "bridge_floor.png",
+  "source_crop": [
+    1090,
+    410,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "size": [
+    358,
+    676
+  ],
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "water",
+      "label": "听桥下的水",
+      "pos": [
+        270,
+        222
+      ],
+      "approach": [
+        265,
+        203
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "水流绕过石头，荡开小小波纹。"
+    },
+    {
+      "id": "fish",
+      "label": "看看小鱼",
+      "pos": [
+        255,
+        151
+      ],
+      "approach": [
+        265,
+        203
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "小鱼从桥下游过去。"
+    },
+    {
+      "id": "rail",
+      "label": "靠一靠木栏杆",
+      "pos": [
+        277,
+        192
+      ],
+      "approach": [
+        265,
+        203
+      ],
+      "kind": "reaction",
+      "effect": "sit",
+      "copy": "木桥被太阳晒得暖暖的。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_side_path",
+      "target": "side_path",
+      "pos": [
+        299,
+        219
+      ],
+      "approach": [
+        299,
+        219
+      ],
+      "face": "up",
+      "label": "沿小道回家",
+      "kind": "door"
+    },
+    {
+      "id": "to_oldhouse",
+      "target": "oldhouse",
+      "pos": [
+        304,
+        156
+      ],
+      "approach": [
+        304,
+        156
+      ],
+      "face": "down",
+      "label": "沿小桥去老屋",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [],
+  "anchors": {},
+  "walk_rect": [
+    168,
+    142,
+    181,
+    98
+  ],
+  "walk_polygons": [],
+  "spawn": [
+    294,
+    200
+  ],
+  "camera_ahead": 80
+}

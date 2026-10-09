@@ -1,0 +1,247 @@
+{
+  "id": "laundry",
+  "title": "卫生间与洗衣",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    329,
+    600
+  ],
+  "source_crop": [
+    36,
+    277,
+    365,
+    439
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "laundry-fixtures.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/laundry-fixtures.png",
+      "pos": [
+        69,
+        64
+      ],
+      "foot": 148,
+      "front": false
+    },
+    {
+      "id": "laundry-cabinet.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/laundry-cabinet.png",
+      "pos": [
+        239,
+        125
+      ],
+      "foot": 190,
+      "front": false
+    },
+    {
+      "id": "laundry-south-wall.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/laundry-south-wall.png",
+      "pos": [
+        -3,
+        191
+      ],
+      "foot": 214,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      128,
+      80,
+      37,
+      65
+    ],
+    [
+      176,
+      63,
+      49,
+      61
+    ],
+    [
+      239,
+      127,
+      40,
+      60
+    ],
+    [
+      15,
+      66,
+      43,
+      120
+    ],
+    [
+      64,
+      148,
+      34,
+      41
+    ],
+    [
+      235,
+      61,
+      51,
+      58
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "wash",
+      "label": "洗一筐衣服",
+      "pos": [
+        32,
+        164
+      ],
+      "approach": [
+        114,
+        164
+      ],
+      "kind": "laundry",
+      "effect": "",
+      "copy": "洗衣机转起来了，泡泡绕着衣服转。"
+    },
+    {
+      "id": "basin",
+      "label": "拧开水龙头",
+      "pos": [
+        145,
+        108
+      ],
+      "approach": [
+        192,
+        147
+      ],
+      "kind": "tap",
+      "effect": "water",
+      "copy": "洗干净双手，水声渐渐停了。",
+      "spout": [
+        145,
+        101
+      ],
+      "basin": [
+        145,
+        113
+      ]
+    },
+    {
+      "id": "towel",
+      "label": "整理毛巾",
+      "pos": [
+        239,
+        91
+      ],
+      "approach": [
+        239,
+        150
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "把毛巾叠成整齐的小方块。"
+    },
+    {
+      "id": "drying",
+      "label": "晾衣 / 收衣",
+      "pos": [
+        186,
+        167
+      ],
+      "approach": [
+        219,
+        170
+      ],
+      "kind": "drying",
+      "effect": "fold",
+      "copy": ""
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        311,
+        172
+      ],
+      "approach": [
+        311,
+        172
+      ],
+      "face": "left",
+      "label": "去餐厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      216,
+      151,
+      110
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      210,
+      164
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        67,
+        61
+      ],
+      [
+        289,
+        61
+      ],
+      [
+        289,
+        187
+      ],
+      [
+        67,
+        187
+      ]
+    ],
+    [
+      [
+        280,
+        152
+      ],
+      [
+        323,
+        152
+      ],
+      [
+        323,
+        188
+      ],
+      [
+        280,
+        188
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    329,
+    600
+  ],
+  "spawn": [
+    216,
+    151
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

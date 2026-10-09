@@ -1,0 +1,109 @@
+{
+  "id": "bath2",
+  "title": "阿鱼的浴室",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1174,
+    369,
+    1386,
+    510
+  ],
+  "source_offset": [
+    54,
+    48
+  ],
+  "background": "bath2_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "basin",
+      "label": "洗手",
+      "pos": [
+        78,
+        131
+      ],
+      "approach": [
+        83,
+        162
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "把日常的小事慢慢做好。"
+    },
+    {
+      "id": "shower",
+      "label": "淋浴水声",
+      "pos": [
+        214,
+        96
+      ],
+      "approach": [
+        146,
+        162
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "把日常的小事慢慢做好。"
+    },
+    {
+      "id": "mat",
+      "label": "晒晒浴垫",
+      "pos": [
+        151,
+        167
+      ],
+      "approach": [
+        209,
+        162
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "把日常的小事慢慢做好。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_closet2",
+      "target": "closet2",
+      "pos": [
+        80,
+        161
+      ],
+      "approach": [
+        80,
+        161
+      ],
+      "face": "right",
+      "label": "去阿鱼的衣柜",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      81,
+      76,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    71,
+    123,
+    171,
+    47
+  ],
+  "spawn": [
+    149,
+    157
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

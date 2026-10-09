@@ -1,0 +1,8 @@
+.DS_Store
+godot/.godot/
+godot/**/.godot/
+构建/
+运行数据/
+测试数据/
+交付/
+godot/回执/

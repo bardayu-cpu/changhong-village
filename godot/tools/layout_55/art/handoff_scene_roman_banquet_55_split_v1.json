@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "scene": "scene_roman_banquet",
+  "module": "banquet55_split",
+  "batch": "banquet55_north_v1",
+  "source": "素材图/preview_banquet55_north_d_v1.png",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "files": [
+    {
+      "path": "积木/base_banquet55_north_v1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "6d17d06e25596bb85e45e9dd439c27697dc32d44ada55db9305f0f1eacee722a",
+      "transparent_background": false,
+      "footpoint": null
+    },
+    {
+      "path": "素材图/base_banquet55_north_v1_ruler.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "0efba2477ebad2352b155a5f61e44d938c4f97ebef442c262dbf194f5d96e829",
+      "transparent_background": false,
+      "footpoint": [
+        768,
+        535
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_table_v1.png",
+      "size": [
+        140,
+        138
+      ],
+      "sha256": "8baaac889f4824304765a7b139f9c40d5b1dc71728ed160abcda67842d89b3fb",
+      "transparent_background": true,
+      "footpoint": [
+        70,
+        137
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_table_main_v1.png",
+      "size": [
+        140,
+        138
+      ],
+      "sha256": "ef9a94800eca7e8825c2cc20c96eae79bb7ede21bae239ff43dd33094cd5c7d5",
+      "transparent_background": true,
+      "footpoint": [
+        70,
+        137
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_bench_v1.png",
+      "size": [
+        72,
+        54
+      ],
+      "sha256": "48424e3643d50045a262c5871413d6722f9e7dd575c7bed684eca4dff0da9fa5",
+      "transparent_background": true,
+      "footpoint": [
+        36,
+        53
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_lantern_v1.png",
+      "size": [
+        24,
+        80
+      ],
+      "sha256": "79a620c7d787a103e811d2abe53712d956a4b8e0be5b93c2565ee704affb6253",
+      "transparent_background": true,
+      "footpoint": [
+        12,
+        79
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_flowerpot_v1.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "529c7be86bf6d19f10283082b2d50fabd62877562ac213c17c8173958334876e",
+      "transparent_background": true,
+      "footpoint": [
+        16,
+        31
+      ]
+    }
+  ],
+  "rules": [
+    "空厅背景不含桌子、长凳、红毯两边落地宫灯、花盆和尺子人",
+    "红毯为 144px 等宽直条",
+    "透明零件 alpha 仅 0 或 255，脚点落在画布下沿",
+    "不使用 2026-09-20 旧积木"
+  ]
+}

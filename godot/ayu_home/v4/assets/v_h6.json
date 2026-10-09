@@ -1,0 +1,241 @@
+{
+  "id": "v_h6",
+  "title": "6A · 花窗人家 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    710,
+    790
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h6.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "kitchen0",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        65,
+        140
+      ],
+      "foot": 223,
+      "front": false
+    },
+    {
+      "id": "sofa1",
+      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
+      "pos": [
+        405,
+        140
+      ],
+      "foot": 225,
+      "front": false
+    },
+    {
+      "id": "table2",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        425,
+        425
+      ],
+      "foot": 500,
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        600,
+        480
+      ],
+      "foot": 630,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        257,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        560
+      ],
+      "foot": 628,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        638,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        325,
+        532
+      ],
+      "foot": 565,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      300,
+      90,
+      12,
+      260
+    ],
+    [
+      300,
+      480,
+      12,
+      270
+    ],
+    [
+      69,
+      188.4,
+      147,
+      39.6
+    ],
+    [
+      409,
+      189.5,
+      127,
+      40.5
+    ],
+    [
+      429,
+      469.0,
+      112,
+      36.0
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        255,
+        670
+      ],
+      "approach": [
+        255,
+        710
+      ],
+      "kind": "village",
+      "copy": "花窗里有四季轮换的小盆栽。"
+    },
+    {
+      "id": "house_help",
+      "label": "给窗边花浇水",
+      "pos": [
+        445,
+        640
+      ],
+      "approach": [
+        445,
+        680
+      ],
+      "kind": "village",
+      "copy": "叶尖亮亮的，花盆旁留了一滴水。",
+      "house": "h6"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        355,
+        545
+      ],
+      "approach": [
+        355,
+        600
+      ],
+      "kind": "seat",
+      "seat": [
+        355,
+        555
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        355,
+        736
+      ],
+      "approach": [
+        355,
+        754
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_h6_up",
+      "pos": [
+        645,
+        635
+      ],
+      "approach": [
+        645,
+        665
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      227,
+      115,
+      240
+    ],
+    [
+      511,
+      553,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    355,
+    685
+  ],
+  "walk_rect": [
+    22,
+    100,
+    666,
+    670
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

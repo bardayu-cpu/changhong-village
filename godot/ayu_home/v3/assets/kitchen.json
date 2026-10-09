@@ -1,0 +1,154 @@
+{
+  "id": "kitchen",
+  "title": "厨房",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    130,
+    26,
+    408,
+    193
+  ],
+  "source_offset": [
+    21,
+    48
+  ],
+  "background": "kitchen_floor.png",
+  "props": [
+    {
+      "id": "counter",
+      "file": "kitchen_counter.png",
+      "pos": [
+        31,
+        57
+      ],
+      "foot": 175,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      31,
+      148,
+      226,
+      26
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "stove",
+      "label": "煮一锅汤",
+      "pos": [
+        195,
+        124
+      ],
+      "approach": [
+        212,
+        192
+      ],
+      "kind": "reaction",
+      "effect": "steam",
+      "copy": "小火咕嘟着，汤香慢慢飘出来。"
+    },
+    {
+      "id": "fridge",
+      "label": "开冰箱",
+      "pos": [
+        55,
+        113
+      ],
+      "approach": [
+        90,
+        194
+      ],
+      "kind": "reaction",
+      "effect": "open",
+      "copy": "冰箱亮起小灯，食材整齐地放着。"
+    },
+    {
+      "id": "sink",
+      "label": "洗洗手",
+      "pos": [
+        125,
+        123
+      ],
+      "approach": [
+        138,
+        194
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "水流落进水槽，洗完轻轻关好。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        282,
+        161
+      ],
+      "approach": [
+        262,
+        195
+      ],
+      "face": "left",
+      "label": "去餐厅",
+      "kind": "door"
+    },
+    {
+      "id": "to_garden",
+      "target": "garden",
+      "pos": [
+        41,
+        199
+      ],
+      "approach": [
+        82,
+        192
+      ],
+      "face": "right",
+      "label": "后门 · 去花园",
+      "kind": "door"
+    }
+  ],
+  "windows": [
+    [
+      106,
+      62,
+      49,
+      40
+    ]
+  ],
+  "lamps": [
+    [
+      180,
+      120,
+      150
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      180,
+      193
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    62,
+    173,
+    210,
+    32
+  ],
+  "spawn": [
+    237,
+    192
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

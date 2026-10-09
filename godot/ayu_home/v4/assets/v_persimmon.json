@@ -1,0 +1,358 @@
+{
+  "id": "v_persimmon",
+  "title": "柿树老院",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    880,
+    680
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_persimmon.png",
+  "props": [
+    {
+      "id": "bed0",
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "pos": [
+        36.688,
+        185.0
+      ],
+      "foot": 340,
+      "scale": [
+        0.5194805194805194,
+        0.5194805194805194
+      ],
+      "front": false,
+      "atlas_region": [
+        720,
+        144,
+        417,
+        308
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "table1",
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "pos": [
+        403.816,
+        220.0
+      ],
+      "foot": 295,
+      "scale": [
+        0.2631578947368421,
+        0.2631578947368421
+      ],
+      "front": false,
+      "atlas_region": [
+        23,
+        153,
+        351,
+        304
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "cabinet2",
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "pos": [
+        690.0,
+        160.424
+      ],
+      "foot": 227,
+      "scale": [
+        0.25654450261780104,
+        0.25654450261780104
+      ],
+      "front": false,
+      "atlas_region": [
+        1140,
+        167,
+        382,
+        279
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "bench3",
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "pos": [
+        707.27,
+        410.0
+      ],
+      "foot": 483,
+      "scale": [
+        0.18795180722891566,
+        0.18795180722891566
+      ],
+      "front": false,
+      "atlas_region": [
+        913,
+        527,
+        327,
+        415
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        342,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "pos": [
+        416.0,
+        400.971
+      ],
+      "foot": 429,
+      "front": false,
+      "atlas_region": [
+        393,
+        265,
+        315,
+        174
+      ],
+      "scale": [
+        0.3047619047619048,
+        0.3047619047619048
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "new_brick_stove",
+      "pos": [
+        79.598,
+        350.0
+      ],
+      "foot": 490,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "atlas_region": [
+        23,
+        510,
+        387,
+        429
+      ],
+      "scale": [
+        0.337995337995338,
+        0.337995337995338
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "new_reed_daybed",
+      "pos": [
+        325.0,
+        105.0
+      ],
+      "foot": 195,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "atlas_region": [
+        419,
+        663,
+        490,
+        266
+      ],
+      "scale": [
+        0.35714285714285715,
+        0.35714285714285715
+      ],
+      "interior_set": "persimmon-v1"
+    },
+    {
+      "id": "new_oil_lamp",
+      "pos": [
+        765.868,
+        280.0
+      ],
+      "foot": 353,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/persimmon-v1.png",
+      "atlas_region": [
+        1301,
+        572,
+        208,
+        375
+      ],
+      "scale": [
+        0.208,
+        0.208
+      ],
+      "interior_set": "persimmon-v1"
+    }
+  ],
+  "obstacles": [
+    [
+      285,
+      100,
+      12,
+      230
+    ],
+    [
+      285,
+      460,
+      12,
+      175
+    ],
+    [
+      560,
+      100,
+      12,
+      170
+    ],
+    [
+      560,
+      405,
+      12,
+      230
+    ],
+    [
+      40.688,
+      281.0,
+      208.623,
+      64.0
+    ],
+    [
+      407.816,
+      268.0,
+      84.368,
+      32.0
+    ],
+    [
+      694.0,
+      203.37,
+      90.0,
+      28.63
+    ],
+    [
+      711.27,
+      456.8,
+      53.46,
+      31.2
+    ],
+    [
+      83.598,
+      437.0,
+      122.804,
+      58.0
+    ],
+    [
+      329.0,
+      162.0,
+      167.0,
+      38.0
+    ],
+    [
+      769.868,
+      326.8,
+      35.264,
+      31.2
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        510
+      ],
+      "approach": [
+        95,
+        555
+      ],
+      "kind": "village",
+      "copy": "过厅围着树下的院子展开，右边粮房较高。住户为虚构邻居。"
+    },
+    {
+      "id": "house_help",
+      "label": "收好树下的竹篮",
+      "pos": [
+        520,
+        490
+      ],
+      "approach": [
+        520,
+        565
+      ],
+      "kind": "village",
+      "house": "persimmon",
+      "copy": "竹篮摆进廊下，落果的位置也扫干净了。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        440,
+        420
+      ],
+      "approach": [
+        440,
+        460
+      ],
+      "kind": "seat",
+      "seat": [
+        440,
+        430
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        440,
+        626
+      ],
+      "approach": [
+        440,
+        644
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "up"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      440,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    440,
+    595
+  ],
+  "walk_rect": [
+    22,
+    96,
+    836,
+    562
+  ],
+  "outdoor": false,
+  "view_scale": 1.15,
+  "interior_art_status": "new_household_set_pending_graphical_acceptance"
+}

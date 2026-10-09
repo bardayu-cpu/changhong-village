@@ -1,0 +1,228 @@
+{
+  "id": "workshop",
+  "title": "爸爸的手作房",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    31,
+    437,
+    198,
+    837
+  ],
+  "source_offset": [
+    76,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "workshop-bench.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/workshop-bench.png",
+      "pos": [
+        87,
+        156
+      ],
+      "foot": 239,
+      "front": false
+    },
+    {
+      "id": "workshop-cabinet.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/workshop-cabinet.png",
+      "pos": [
+        191,
+        269
+      ],
+      "foot": 395,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      87,
+      62,
+      149,
+      175
+    ],
+    [
+      191,
+      269,
+      40,
+      104
+    ],
+    [
+      86,
+      295,
+      39,
+      96
+    ],
+    [
+      139,
+      216,
+      40,
+      51
+    ],
+    [
+      95,
+      222,
+      34,
+      42
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "wood",
+      "label": "磨一只木鸟",
+      "pos": [
+        157,
+        191
+      ],
+      "approach": [
+        184,
+        258
+      ],
+      "kind": "wood",
+      "effect": "",
+      "copy": "磨一只木鸟，这里又留下一点你的日常。"
+    },
+    {
+      "id": "tools",
+      "label": "收好工具",
+      "pos": [
+        163,
+        126
+      ],
+      "approach": [
+        200,
+        252
+      ],
+      "kind": "tidy",
+      "effect": "tools",
+      "copy": "工具一件件挂回自己的位置。"
+    },
+    {
+      "id": "lamp",
+      "label": "工作台小灯",
+      "pos": [
+        126,
+        84
+      ],
+      "approach": [
+        116,
+        272
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "工作台被暖光照亮了。"
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        159,
+        243
+      ],
+      "approach": [
+        169,
+        274
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        159,
+        243
+      ],
+      "face": "up"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        162,
+        416
+      ],
+      "approach": [
+        162,
+        416
+      ],
+      "face": "up",
+      "label": "去门前院子",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      184,
+      310,
+      110
+    ]
+  ],
+  "anchors": {
+    "father": [
+      176,
+      330
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        110,
+        239
+      ],
+      [
+        211,
+        239
+      ],
+      [
+        211,
+        404
+      ],
+      [
+        110,
+        404
+      ]
+    ],
+    [
+      [
+        130,
+        397
+      ],
+      [
+        191,
+        397
+      ],
+      [
+        191,
+        437
+      ],
+      [
+        130,
+        437
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    184,
+    310
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

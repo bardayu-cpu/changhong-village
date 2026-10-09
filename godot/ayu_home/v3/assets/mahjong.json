@@ -1,0 +1,136 @@
+{
+  "id": "mahjong",
+  "title": "茶桌与麻将室",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    341,
+    600
+  ],
+  "source_crop": [
+    1050,
+    30,
+    1391,
+    310
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "mahjong_floor.png",
+  "props": [
+    {
+      "id": "table",
+      "file": "mahjong_table.png",
+      "pos": [
+        71,
+        152
+      ],
+      "foot": 284,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      100,
+      222,
+      112,
+      42
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "tea",
+      "label": "沏茶",
+      "pos": [
+        152,
+        110
+      ],
+      "approach": [
+        250,
+        150
+      ],
+      "kind": "reaction",
+      "effect": "steam",
+      "copy": "只摆茶杯，坐下来喝茶聊天。"
+    },
+    {
+      "id": "chair",
+      "label": "坐下聊会儿",
+      "pos": [
+        69,
+        223
+      ],
+      "approach": [
+        47,
+        232
+      ],
+      "kind": "reaction",
+      "effect": "sit",
+      "copy": "在茶桌旁坐了一会儿。"
+    },
+    {
+      "id": "plant",
+      "label": "照顾绿植",
+      "pos": [
+        280,
+        117
+      ],
+      "approach": [
+        282,
+        180
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "叶子上落了几滴水。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        40,
+        291
+      ],
+      "approach": [
+        54,
+        289
+      ],
+      "face": "up",
+      "label": "去一楼楼梯与过道",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      155,
+      93,
+      150
+    ]
+  ],
+  "anchors": {
+    "father": [
+      73,
+      270
+    ],
+    "mother": [
+      251,
+      268
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    24,
+    147,
+    294,
+    155
+  ],
+  "spawn": [
+    50,
+    287
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

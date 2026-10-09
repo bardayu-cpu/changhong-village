@@ -1,0 +1,160 @@
+{
+  "id": "my_cabin",
+  "title": "自己的小屋",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    780,
+    710
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_my_cabin.png",
+  "props": [
+    {
+      "id": "bed0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        65,
+        130
+      ],
+      "foot": 340,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "kitchen1",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        545,
+        120
+      ],
+      "foot": 203,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        292,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      70,
+      259.0,
+      140,
+      86.0
+    ],
+    [
+      550,
+      172.8,
+      145,
+      35.2
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "yard",
+      "label": "摆放家具",
+      "pos": [
+        415,
+        420
+      ],
+      "approach": [
+        415,
+        470
+      ],
+      "kind": "village"
+    },
+    {
+      "id": "diary",
+      "label": "写在这里的日子",
+      "pos": [
+        240,
+        390
+      ],
+      "approach": [
+        240,
+        430
+      ],
+      "kind": "village"
+    },
+    {
+      "id": "rest_seat",
+      "label": "坐在床边",
+      "pos": [
+        145,
+        345
+      ],
+      "approach": [
+        145,
+        380
+      ],
+      "kind": "seat",
+      "seat": [
+        145,
+        330
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "yard",
+      "label": "到自己的院子",
+      "target": "my_yard",
+      "pos": [
+        390,
+        656
+      ],
+      "approach": [
+        390,
+        680
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      390,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    390,
+    625
+  ],
+  "walk_rect": [
+    22,
+    96,
+    736,
+    592
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

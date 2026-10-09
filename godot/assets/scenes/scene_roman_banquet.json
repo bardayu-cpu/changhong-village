@@ -1,0 +1,66 @@
+{
+  "id": "scene_roman_banquet",
+  "objects": [
+    {
+      "asset": "prop_flower_basket",
+      "x": -3.2,
+      "z": -15.8,
+      "rot": 0,
+      "scale": 1
+    },
+    {
+      "asset": "prop_flower_basket",
+      "x": 3.2,
+      "z": -15.8,
+      "rot": 0,
+      "scale": 1
+    },
+    {
+      "asset": "prop_candy_box",
+      "x": -4.8,
+      "z": -8.2,
+      "rot": 0,
+      "scale": 1
+    },
+    {
+      "asset": "prop_candy_box",
+      "x": 4.8,
+      "z": -8.2,
+      "rot": 0,
+      "scale": 1
+    },
+    {
+      "asset": "prop_potted_plant",
+      "x": -6,
+      "z": 1.8,
+      "rot": 0,
+      "scale": 1
+    },
+    {
+      "asset": "prop_potted_plant",
+      "x": 6,
+      "z": 1.8,
+      "rot": 0,
+      "scale": 1
+    }
+  ],
+  "points": [
+    {
+      "id": "couple_table",
+      "x": 0,
+      "z": -15.4,
+      "r": 1.7,
+      "kind": "talk",
+      "line": "table"
+    },
+    {
+      "id": "door",
+      "x": 0,
+      "z": 3,
+      "r": 1.5,
+      "kind": "door",
+      "line": "leave"
+    }
+  ],
+  "coordinate_check": "Claude verifies every x/z position in Godot before integration."
+}

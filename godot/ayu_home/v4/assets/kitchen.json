@@ -1,0 +1,192 @@
+{
+  "id": "kitchen",
+  "title": "厨房",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    171,
+    89,
+    366,
+    278
+  ],
+  "source_offset": [
+    62,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "kitchen-counter.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/kitchen-counter.png",
+      "pos": [
+        82,
+        65
+      ],
+      "foot": 156,
+      "front": false
+    },
+    {
+      "id": "kitchen-south-wall.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/kitchen-south-wall.png",
+      "pos": [
+        50,
+        214
+      ],
+      "foot": 240,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      85,
+      67,
+      136,
+      84
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "stove",
+      "label": "煮一锅汤",
+      "pos": [
+        173,
+        109
+      ],
+      "approach": [
+        180,
+        179
+      ],
+      "kind": "soup",
+      "effect": "",
+      "copy": "小火咕嘟着，汤香慢慢飘出来。"
+    },
+    {
+      "id": "fridge",
+      "label": "开冰箱",
+      "pos": [
+        98,
+        131
+      ],
+      "approach": [
+        118,
+        181
+      ],
+      "kind": "pantry",
+      "effect": "open",
+      "copy": "冰箱亮起小灯，食材整齐地放着。"
+    },
+    {
+      "id": "sink",
+      "label": "洗洗手",
+      "pos": [
+        132,
+        133
+      ],
+      "approach": [
+        149,
+        177
+      ],
+      "kind": "tap",
+      "effect": "water",
+      "copy": "水流落进水槽，洗完轻轻关好。",
+      "spout": [
+        198,
+        98
+      ],
+      "basin": [
+        200,
+        108
+      ]
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        238,
+        179
+      ],
+      "approach": [
+        238,
+        179
+      ],
+      "face": "left",
+      "label": "去餐厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      191,
+      186,
+      110
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      183,
+      178
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        103,
+        151
+      ],
+      [
+        230,
+        151
+      ],
+      [
+        230,
+        215
+      ],
+      [
+        103,
+        215
+      ]
+    ],
+    [
+      [
+        213,
+        150
+      ],
+      [
+        250,
+        150
+      ],
+      [
+        250,
+        211
+      ],
+      [
+        213,
+        211
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    191,
+    186
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "new_gates": [],
+  "navigation_version": 5
+}

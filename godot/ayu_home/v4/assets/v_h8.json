@@ -1,0 +1,214 @@
+{
+  "id": "v_h8",
+  "title": "8A · 茶香小院 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    660,
+    670
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h8.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "table0",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        65,
+        145
+      ],
+      "foot": 220,
+      "front": false
+    },
+    {
+      "id": "kitchen1",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        485,
+        145
+      ],
+      "foot": 228,
+      "front": false
+    },
+    {
+      "id": "bed2",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        65,
+        410
+      ],
+      "foot": 620,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        232,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        440
+      ],
+      "foot": 508,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        588,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        300,
+        412
+      ],
+      "foot": 445,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      410,
+      90,
+      12,
+      140
+    ],
+    [
+      410,
+      380,
+      12,
+      230
+    ],
+    [
+      69,
+      189.0,
+      112,
+      36.0
+    ],
+    [
+      489,
+      193.4,
+      147,
+      39.6
+    ],
+    [
+      69,
+      528.25,
+      142,
+      96.75
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        230,
+        550
+      ],
+      "approach": [
+        230,
+        590
+      ],
+      "kind": "village",
+      "copy": "炉边一张竹椅，雨天正好听水声。"
+    },
+    {
+      "id": "house_help",
+      "label": "沏一壶家常茶",
+      "pos": [
+        420,
+        520
+      ],
+      "approach": [
+        420,
+        560
+      ],
+      "kind": "village",
+      "copy": "茶泡好了，随时可以坐下喝。",
+      "house": "h8"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        330,
+        425
+      ],
+      "approach": [
+        330,
+        480
+      ],
+      "kind": "seat",
+      "seat": [
+        330,
+        435
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        330,
+        616
+      ],
+      "approach": [
+        330,
+        634
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      211,
+      115,
+      240
+    ],
+    [
+      475,
+      468,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    330,
+    565
+  ],
+  "walk_rect": [
+    22,
+    100,
+    616,
+    550
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

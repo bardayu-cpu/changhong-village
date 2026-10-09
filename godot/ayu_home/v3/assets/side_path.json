@@ -1,0 +1,118 @@
+{
+  "id": "side_path",
+  "title": "院外小道",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "side_path_floor.png",
+  "source_crop": [
+    0,
+    790,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "size": [
+    1448,
+    296
+  ],
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "leaf",
+      "label": "路边的落叶",
+      "pos": [
+        532,
+        218
+      ],
+      "approach": [
+        532,
+        218
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "收起一片落叶，夹进生活册。"
+    },
+    {
+      "id": "flower",
+      "label": "小路边的野花",
+      "pos": [
+        230,
+        176
+      ],
+      "approach": [
+        230,
+        176
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "野花把头抬起来了。"
+    },
+    {
+      "id": "listen",
+      "label": "听溪水",
+      "pos": [
+        1183,
+        215
+      ],
+      "approach": [
+        1183,
+        215
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "沿着小路，能听到远处流水。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        742,
+        178
+      ],
+      "approach": [
+        742,
+        178
+      ],
+      "face": "down",
+      "label": "回院子",
+      "kind": "door"
+    },
+    {
+      "id": "to_bridge",
+      "target": "bridge",
+      "pos": [
+        1379,
+        207
+      ],
+      "approach": [
+        1379,
+        207
+      ],
+      "face": "left",
+      "label": "沿溪去小桥",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [],
+  "anchors": {},
+  "walk_rect": [
+    80,
+    166,
+    1338,
+    79
+  ],
+  "walk_polygons": [],
+  "spawn": [
+    742,
+    205
+  ],
+  "camera_ahead": 80
+}

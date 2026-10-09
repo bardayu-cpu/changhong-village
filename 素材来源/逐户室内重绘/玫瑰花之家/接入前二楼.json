@@ -1,0 +1,219 @@
+{
+  "id": "v_rose_up",
+  "title": "玫瑰花之家 · 二楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    820,
+    760
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_rose_up.png",
+  "props": [
+    {
+      "id": "bed0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        490,
+        120
+      ],
+      "foot": 330,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "bench1",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        80,
+        155
+      ],
+      "foot": 228,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "cabinet2",
+      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
+      "pos": [
+        85,
+        410
+      ],
+      "foot": 517,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        312,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        710,
+        460
+      ],
+      "foot": 600,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        380,
+        487
+      ],
+      "foot": 520,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      365,
+      100,
+      12,
+      210
+    ],
+    [
+      365,
+      465,
+      12,
+      240
+    ],
+    [
+      495,
+      249.0,
+      140,
+      86.0
+    ],
+    [
+      85,
+      201.8,
+      116,
+      31.200000000000003
+    ],
+    [
+      90,
+      477.2,
+      88,
+      44.800000000000004
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        590
+      ],
+      "approach": [
+        95,
+        635
+      ],
+      "kind": "village",
+      "copy": "楼上小书桌正对侧廊，花篱的颜色从窗外一直延进来。"
+    },
+    {
+      "id": "house_help",
+      "label": "夹好窗边的花瓣书签",
+      "pos": [
+        490,
+        570
+      ],
+      "approach": [
+        490,
+        645
+      ],
+      "kind": "village",
+      "house": "rose",
+      "copy": "花瓣压进旧书，等下次串门再翻开。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        410,
+        500
+      ],
+      "approach": [
+        410,
+        540
+      ],
+      "kind": "seat",
+      "seat": [
+        410,
+        510
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "downstairs",
+      "label": "下到一楼",
+      "target": "v_rose",
+      "pos": [
+        755,
+        605
+      ],
+      "approach": [
+        755,
+        635
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "down"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      410,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    410,
+    675
+  ],
+  "walk_rect": [
+    22,
+    96,
+    776,
+    642
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

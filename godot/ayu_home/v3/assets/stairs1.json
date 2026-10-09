@@ -1,0 +1,314 @@
+{
+  "id": "stairs1",
+  "title": "一楼楼梯与过道",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    874,
+    40,
+    1144,
+    489
+  ],
+  "source_offset": [
+    25,
+    48
+  ],
+  "background": "stairs1_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "rail",
+      "label": "摸摸木扶手",
+      "pos": [
+        123,
+        202
+      ],
+      "approach": [
+        136,
+        293
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "木扶手被日常摸得很光滑。"
+    },
+    {
+      "id": "plant",
+      "label": "浇一小杯水",
+      "pos": [
+        38,
+        233
+      ],
+      "approach": [
+        49,
+        289
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "水慢慢渗进泥土。"
+    },
+    {
+      "id": "picture",
+      "label": "看看小画",
+      "pos": [
+        96,
+        76
+      ],
+      "approach": [
+        115,
+        287
+      ],
+      "kind": "reaction",
+      "effect": "picture",
+      "copy": "一幅没有题字的小画。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_living",
+      "target": "living",
+      "pos": [
+        108,
+        344
+      ],
+      "approach": [
+        105,
+        320
+      ],
+      "face": "up",
+      "label": "去客厅",
+      "kind": "door"
+    },
+    {
+      "id": "to_cats",
+      "target": "cats",
+      "pos": [
+        7,
+        278
+      ],
+      "approach": [
+        42,
+        293
+      ],
+      "face": "right",
+      "label": "去猫房",
+      "kind": "door"
+    },
+    {
+      "id": "to_mahjong",
+      "target": "mahjong",
+      "pos": [
+        241,
+        315
+      ],
+      "approach": [
+        242,
+        323
+      ],
+      "face": "down",
+      "label": "去茶桌与麻将室",
+      "kind": "door"
+    },
+    {
+      "id": "to_parents",
+      "target": "parents",
+      "pos": [
+        241,
+        459
+      ],
+      "approach": [
+        241,
+        427
+      ],
+      "face": "up",
+      "label": "去爸妈卧室",
+      "kind": "door"
+    },
+    {
+      "id": "to_closet1",
+      "target": "closet1",
+      "pos": [
+        274,
+        412
+      ],
+      "approach": [
+        253,
+        412
+      ],
+      "face": "left",
+      "label": "去一楼衣柜间",
+      "kind": "door"
+    },
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        102,
+        252
+      ],
+      "approach": [
+        98,
+        275
+      ],
+      "face": "down",
+      "label": "上二楼",
+      "kind": "stairs"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      91,
+      91,
+      150
+    ]
+  ],
+  "anchors": {
+    "father": [
+      142,
+      305
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        31,
+        269
+      ],
+      [
+        168,
+        269
+      ],
+      [
+        168,
+        360
+      ],
+      [
+        231,
+        360
+      ],
+      [
+        231,
+        310
+      ],
+      [
+        264,
+        310
+      ],
+      [
+        264,
+        430
+      ],
+      [
+        278,
+        430
+      ],
+      [
+        278,
+        485
+      ],
+      [
+        209,
+        485
+      ],
+      [
+        209,
+        382
+      ],
+      [
+        106,
+        382
+      ],
+      [
+        106,
+        338
+      ],
+      [
+        31,
+        338
+      ]
+    ]
+  ],
+  "walk_rect": [
+    31,
+    269,
+    248,
+    212
+  ],
+  "spawn": [
+    104,
+    321
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "source_polygon": [
+    [
+      874,
+      40
+    ],
+    [
+      1035,
+      40
+    ],
+    [
+      1035,
+      337
+    ],
+    [
+      1057,
+      337
+    ],
+    [
+      1057,
+      298
+    ],
+    [
+      1119,
+      298
+    ],
+    [
+      1119,
+      390
+    ],
+    [
+      1143,
+      390
+    ],
+    [
+      1143,
+      420
+    ],
+    [
+      1119,
+      420
+    ],
+    [
+      1119,
+      489
+    ],
+    [
+      1057,
+      489
+    ],
+    [
+      1057,
+      401
+    ],
+    [
+      1018,
+      401
+    ],
+    [
+      1018,
+      340
+    ],
+    [
+      874,
+      340
+    ]
+  ]
+}

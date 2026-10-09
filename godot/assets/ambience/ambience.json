@@ -1,0 +1,428 @@
+{
+ "note": "宴会厅氛围的摆放，tools/make_ambience_layout.py 生成，别手改",
+ "decals": [
+  {
+   "art": "amb_streamer_4",
+   "x": 368,
+   "y": 685,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 588,
+   "y": 812,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 652,
+   "y": 826,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_2",
+   "x": 1206,
+   "y": 515,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_3",
+   "x": 378,
+   "y": 525,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 290,
+   "y": 458,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_3",
+   "x": 368,
+   "y": 422,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_3",
+   "x": 603,
+   "y": 450,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 129,
+   "y": 709,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_2",
+   "x": 1402,
+   "y": 412,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 601,
+   "y": 675,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 129,
+   "y": 367,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 362,
+   "y": 331,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_6",
+   "x": 884,
+   "y": 749,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_4",
+   "x": 1174,
+   "y": 350,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_6",
+   "x": 1405,
+   "y": 710,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 1015,
+   "y": 845,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 472,
+   "y": 839,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 887,
+   "y": 841,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 1116,
+   "y": 505,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_2",
+   "x": 634,
+   "y": 749,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_6",
+   "x": 940,
+   "y": 638,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_1",
+   "x": 1065,
+   "y": 459,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 422,
+   "y": 607,
+   "flip": true
+  },
+  {
+   "art": "amb_streamer_4",
+   "x": 341,
+   "y": 621,
+   "flip": false
+  },
+  {
+   "art": "amb_streamer_5",
+   "x": 1408,
+   "y": 482,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 357,
+   "y": 737,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 1176,
+   "y": 402,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_1",
+   "x": 935,
+   "y": 745,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 893,
+   "y": 398,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 924,
+   "y": 793,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 213,
+   "y": 457,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_1",
+   "x": 1185,
+   "y": 635,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_1",
+   "x": 333,
+   "y": 488,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 1215,
+   "y": 582,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_1",
+   "x": 1141,
+   "y": 609,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 652,
+   "y": 603,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 1197,
+   "y": 683,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 648,
+   "y": 375,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_2",
+   "x": 331,
+   "y": 551,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 978,
+   "y": 804,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 145,
+   "y": 417,
+   "flip": false
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 1433,
+   "y": 541,
+   "flip": true
+  },
+  {
+   "art": "amb_confetti_3",
+   "x": 883,
+   "y": 599,
+   "flip": false
+  }
+ ],
+ "glows": [
+  [
+   520,
+   32,
+   64,
+   0.42
+  ],
+  [
+   953,
+   31,
+   64,
+   0.42
+  ],
+  [
+   315,
+   82,
+   64,
+   0.42
+  ],
+  [
+   1157,
+   81,
+   64,
+   0.42
+  ],
+  [
+   98,
+   124,
+   64,
+   0.42
+  ],
+  [
+   1373,
+   123,
+   64,
+   0.42
+  ],
+  [
+   20,
+   224,
+   64,
+   0.42
+  ],
+  [
+   1453,
+   224,
+   64,
+   0.42
+  ],
+  [
+   1485,
+   289,
+   64,
+   0.42
+  ],
+  [
+   90,
+   430,
+   46,
+   0.4
+  ],
+  [
+   90,
+   610,
+   46,
+   0.4
+  ],
+  [
+   1443,
+   430,
+   46,
+   0.4
+  ],
+  [
+   1443,
+   610,
+   46,
+   0.4
+  ],
+  [
+   650,
+   488,
+   46,
+   0.4
+  ],
+  [
+   883,
+   305,
+   46,
+   0.4
+  ],
+  [
+   883,
+   660,
+   46,
+   0.4
+  ]
+ ],
+ "gifts": [
+  410,
+  302
+ ],
+ "band": {
+  "piano": [
+   1082,
+   298
+  ],
+  "bench": [
+   1006,
+   300
+  ],
+  "cello": [
+   1178,
+   300
+  ],
+  "violin1": [
+   1250,
+   298
+  ],
+  "violin2": [
+   1322,
+   300
+  ],
+  "stands": [
+   [
+    1230,
+    306
+   ],
+   [
+    1302,
+    308
+   ]
+  ]
+ },
+ "npc_tables": {
+  "T1": 6,
+  "T2": 6,
+  "T3": 8,
+  "T4": 7,
+  "T5": 8,
+  "T6": 7,
+  "T7": 8,
+  "T8": 9,
+  "T9": 8,
+  "T10": 9,
+  "T11": 7,
+  "T12": 8
+ },
+ "waiters": {
+  "count": 4,
+  "door": [
+   1448,
+   800
+  ],
+  "speed_m": 1.5
+ },
+ "petals": {
+  "amount": 26
+ }
+}

@@ -1,0 +1,146 @@
+{
+  "id": "guest_bath",
+  "title": "客房浴室",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    49,
+    320,
+    245,
+    477
+  ],
+  "source_offset": [
+    62,
+    48
+  ],
+  "background": "guest_bath_floor.png",
+  "props": [],
+  "obstacles": [
+    [
+      74,
+      51,
+      59,
+      91
+    ],
+    [
+      132,
+      65,
+      42,
+      68
+    ],
+    [
+      184,
+      70,
+      62,
+      60
+    ],
+    [
+      68,
+      129,
+      40,
+      60
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "water",
+      "label": "拧开水龙头",
+      "pos": [
+        202,
+        85
+      ],
+      "approach": [
+        137,
+        163
+      ],
+      "kind": "tap",
+      "effect": "water",
+      "copy": "水声轻轻响起，又慢慢停下。",
+      "spout": [
+        197,
+        61
+      ],
+      "basin": [
+        197,
+        78
+      ]
+    },
+    {
+      "id": "shower",
+      "label": "试试温水",
+      "pos": [
+        99,
+        100
+      ],
+      "approach": [
+        172,
+        163
+      ],
+      "kind": "shower",
+      "effect": "water",
+      "copy": "水声轻轻响起，又慢慢停下。"
+    },
+    {
+      "id": "plant",
+      "label": "给盆栽浇水",
+      "pos": [
+        82,
+        172
+      ],
+      "approach": [
+        207,
+        163
+      ],
+      "kind": "tend",
+      "effect": "water",
+      "copy": "清水沿着花盆边慢慢倒，别弄湿刚擦好的台面。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_guest",
+      "target": "guest",
+      "pos": [
+        238,
+        160
+      ],
+      "approach": [
+        238,
+        160
+      ],
+      "face": "left",
+      "label": "去客房",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      212,
+      67,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    117,
+    121,
+    112,
+    53
+  ],
+  "spawn": [
+    212,
+    160
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

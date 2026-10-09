@@ -1,0 +1,160 @@
+{
+  "preserve_all_versions": true,
+  "files": [
+    {
+      "file": "素材来源/逐户原创设计/输出/cabin-v1.png",
+      "bytes": 1550509,
+      "sha256": "4295b519f4744183ec43ff3077a5b0f334b499f3f3f573c4b1a6a2c67e755d8b"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/daba-v1.png",
+      "bytes": 2338456,
+      "sha256": "8032b97199b856a1da9f05c6a7203e90c4801bd707c7270ced75586566a4d015"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/daba-v2.png",
+      "bytes": 1956894,
+      "sha256": "72d2127a4d4e74f204afa1e3cee54f99d21186b9873c23072a12cd0403c9412f"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/erba-v1.png",
+      "bytes": 2369665,
+      "sha256": "d00d2d8da5e9640f68926d9ee590a2a036de848a8c186ee09ccf78ffaa1e9ecc"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/erba-v2.png",
+      "bytes": 1990285,
+      "sha256": "8ec21fc1caac49bed8d812445d09b50a03d5f05669ae3dae29463b9765e45d5c"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/grape-v1.png",
+      "bytes": 2210907,
+      "sha256": "67e0826d054a9d83086b7e0a51b66d85e548c76796dce3af148322104c8fd600"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h2-v1.png",
+      "bytes": 2093340,
+      "sha256": "0894f28bda6804a4c88e8f48ea565aec539b068b1fc9d3d31479476d982274d6"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h2-v2.png",
+      "bytes": 1682875,
+      "sha256": "bd30f20ad6fc93e3e781e69b507d5c430f5bbb66948cfe06ee32c53e8ebd8830"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h3-v1.png",
+      "bytes": 2342067,
+      "sha256": "c501ed177cd5ef347884f5502e7c063feee7557b71b0fbd327b14497580ed671"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h3-v2.png",
+      "bytes": 1946836,
+      "sha256": "d9959717baf249103907d879254fa1170c5ef54c8531825cad7d4a1c624d767b"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h5-v1.png",
+      "bytes": 2334389,
+      "sha256": "d223dbc673394ad1101c2659fa9ffaac70b4159e4a26938633e9eb30afb43325"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h5-v2.png",
+      "bytes": 2047463,
+      "sha256": "975c40f090767437665f43563010a9f34951e4c3483f1fe1256cccccf4f913c1"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h6-v1.png",
+      "bytes": 2427906,
+      "sha256": "da43004aae582bd2b0fce08bb25225006188f6f144726c93ac0d0669e4f1225b"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h6-v2.png",
+      "bytes": 1969886,
+      "sha256": "0c6481f62f5431db16011da25def16f879301f02d1d9511cd9a4bf7cdeedcef7"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h8-v1.png",
+      "bytes": 2194777,
+      "sha256": "5850cafc357dd0826f02546b158f97bc8d655cc9cff49ba32bd7ba39f5ddee22"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/h8-v2.png",
+      "bytes": 1774407,
+      "sha256": "5bae51817fe88e8d743cc1f026d3d02a0fa4431a3203dce85eb6296cd45724e1"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/laowu-v1.png",
+      "bytes": 2115809,
+      "sha256": "9fe12ad7baef36b66fc3af7c0d3773f1a1ef653aba148caee253980b56ec7461"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/laowu-v2.png",
+      "bytes": 1839492,
+      "sha256": "12a20ab685b84da2a9ec3aedfc7db1bc9375daaea52cc10a83a56543e022cb29"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/mayor-v1.png",
+      "bytes": 2089596,
+      "sha256": "b7a21a4376b5a6cc57d2d411825cf28644d9f2e798b2cbe0ef3e53076c76616e"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/mayor-v2.png",
+      "bytes": 1739350,
+      "sha256": "4ba335dc38db03e0dc799c39bfd1ed87edf144baa7c285d26fda73566f1e63e5"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/persimmon-v1.png",
+      "bytes": 2211418,
+      "sha256": "cb0b42871935e05871bf1fdf61092c85c21bf7183b92a4092ea47d0d8f841cc7"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/ref1-v1.png",
+      "bytes": 1788237,
+      "sha256": "b85d6f5da9e13988ad0ffb221a93f6e623fd6936c335846a3a3537362aef71b7"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/ref2-v1.png",
+      "bytes": 1888992,
+      "sha256": "b5edb36920da5a4c98e1c7d32b8973eb5e75e8ef044ccd14c51e93b57fc25b0e"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/ref5-v1.png",
+      "bytes": 2405674,
+      "sha256": "256ee8d4833a0ef8850deb5fbd65170a9b99db1356caa2f005ba5f1e55929dfe"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/ref5-v2.png",
+      "bytes": 1988267,
+      "sha256": "f58c8b8185e1c0e08c8b3ba93664c028281bcb42ca5dbd16990966799c83a83e"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/ref6-v1.png",
+      "bytes": 2011051,
+      "sha256": "cea56ee9212a1d877fdf612e36bb160311df46743c424d64f773be12cfa78a0b"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/ref6-v2.png",
+      "bytes": 1742858,
+      "sha256": "d00a5daf74eb5859e3d07314d816e9ef6aa335f727a1a7da22775ae7d63b2271"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/rose-v1.png",
+      "bytes": 2127880,
+      "sha256": "6b7c2bb400bfe84a32fe0e62933702772e119c2c6f971bbe72ca80adc7f9f295"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/sunflower-v1.png",
+      "bytes": 2101326,
+      "sha256": "8494e494f9ca2e0ae9d2e6754cff82d647ff87c0ceeed87c7d322cd1cea1d776"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/whitebrick-v1.png",
+      "bytes": 2713094,
+      "sha256": "263a4103f57de163d85701bf902110d32397a0278c1c7db918043a42e90332e9"
+    },
+    {
+      "file": "素材来源/逐户原创设计/输出/whitebrick-v2.png",
+      "bytes": 1985767,
+      "sha256": "1824c16ef829fffd73e217d7a7e9aeda263da1ff94b80195368cd062c9fb590a"
+    }
+  ]
+}

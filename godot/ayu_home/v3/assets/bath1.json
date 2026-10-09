@@ -1,0 +1,109 @@
+{
+  "id": "bath1",
+  "title": "一楼浴室",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1226,
+    306,
+    1410,
+    421
+  ],
+  "source_offset": [
+    68,
+    48
+  ],
+  "background": "bath1_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "sink",
+      "label": "洗手台",
+      "pos": [
+        96,
+        93
+      ],
+      "approach": [
+        134,
+        141
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "细细的水流落下。"
+    },
+    {
+      "id": "shower",
+      "label": "打开淋浴",
+      "pos": [
+        213,
+        90
+      ],
+      "approach": [
+        191,
+        141
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "水珠敲着玻璃，随后关好。"
+    },
+    {
+      "id": "towel",
+      "label": "整理浴巾",
+      "pos": [
+        173,
+        142
+      ],
+      "approach": [
+        152,
+        141
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "浴巾叠好，留在伸手就能拿到的地方。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_closet1",
+      "target": "closet1",
+      "pos": [
+        81,
+        141
+      ],
+      "approach": [
+        81,
+        141
+      ],
+      "face": "right",
+      "label": "去一楼衣柜间",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      196,
+      70,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    78,
+    119,
+    153,
+    35
+  ],
+  "spawn": [
+    137,
+    140
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

@@ -1,0 +1,1215 @@
+{
+  "id": "village",
+  "title": "裳泓村",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    3600,
+    4700
+  ],
+  "background": "res://ayu_home/v4/assets/village/ground.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "erba",
+      "file": "res://ayu_home/v4/assets/village/house_erba.png",
+      "pos": [
+        1800,
+        40
+      ],
+      "foot": 580,
+      "front": false
+    },
+    {
+      "id": "tree_erba-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1785,
+        490
+      ],
+      "foot": 640,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_erba668",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        2468,
+        475
+      ],
+      "foot": 625,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "laowu",
+      "file": "res://ayu_home/v4/assets/village/house_laowu.png",
+      "pos": [
+        500,
+        110
+      ],
+      "foot": 585,
+      "front": false
+    },
+    {
+      "id": "tree_laowu-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        485,
+        495
+      ],
+      "foot": 645,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_laowu648",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        1148,
+        480
+      ],
+      "foot": 630,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "daba",
+      "file": "res://ayu_home/v4/assets/village/house_daba.png",
+      "pos": [
+        2120,
+        800
+      ],
+      "foot": 1385,
+      "front": false
+    },
+    {
+      "id": "tree_daba-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        2105,
+        1295
+      ],
+      "foot": 1445,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_daba778",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        2898,
+        1280
+      ],
+      "foot": 1430,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h5",
+      "file": "res://ayu_home/v4/assets/village/house_h5.png",
+      "pos": [
+        95,
+        1170
+      ],
+      "foot": 1705,
+      "front": false
+    },
+    {
+      "id": "tree_h5-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        80,
+        1615
+      ],
+      "foot": 1765,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h5698",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        793,
+        1600
+      ],
+      "foot": 1750,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "ayu",
+      "file": "res://ayu_home/v4/assets/village/house_ayu.png",
+      "pos": [
+        1090,
+        1470
+      ],
+      "foot": 2055,
+      "front": false
+    },
+    {
+      "id": "tree_ayu-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1075,
+        1965
+      ],
+      "foot": 2115,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_ayu728",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        1818,
+        1950
+      ],
+      "foot": 2100,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h2",
+      "file": "res://ayu_home/v4/assets/village/house_h2.png",
+      "pos": [
+        2250,
+        1760
+      ],
+      "foot": 2340,
+      "front": false
+    },
+    {
+      "id": "tree_h2-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        2235,
+        2250
+      ],
+      "foot": 2400,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h2778",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        3028,
+        2235
+      ],
+      "foot": 2385,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h3",
+      "file": "res://ayu_home/v4/assets/village/house_h3.png",
+      "pos": [
+        80,
+        2130
+      ],
+      "foot": 2695,
+      "front": false
+    },
+    {
+      "id": "tree_h3-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        65,
+        2605
+      ],
+      "foot": 2755,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h3753",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        833,
+        2590
+      ],
+      "foot": 2740,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "mayor",
+      "file": "res://ayu_home/v4/assets/village/house_mayor.png",
+      "pos": [
+        1130,
+        2290
+      ],
+      "foot": 2820,
+      "front": false
+    },
+    {
+      "id": "tree_mayor-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1115,
+        2730
+      ],
+      "foot": 2880,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_mayor673",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        1803,
+        2715
+      ],
+      "foot": 2865,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h6",
+      "file": "res://ayu_home/v4/assets/village/house_h6.png",
+      "pos": [
+        2500,
+        2730
+      ],
+      "foot": 3270,
+      "front": false
+    },
+    {
+      "id": "tree_h6-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        2485,
+        3180
+      ],
+      "foot": 3330,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h6688",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        3188,
+        3165
+      ],
+      "foot": 3315,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h8",
+      "file": "res://ayu_home/v4/assets/village/house_h8.png",
+      "pos": [
+        80,
+        2940
+      ],
+      "foot": 3460,
+      "front": false
+    },
+    {
+      "id": "tree_h8-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        65,
+        3370
+      ],
+      "foot": 3520,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h8678",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        758,
+        3355
+      ],
+      "foot": 3505,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h7",
+      "file": "res://ayu_home/v4/assets/village/house_h7.png",
+      "pos": [
+        1590,
+        3200
+      ],
+      "foot": 3755,
+      "front": false
+    },
+    {
+      "id": "tree_h7-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1575,
+        3665
+      ],
+      "foot": 3815,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h7718",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        2308,
+        3650
+      ],
+      "foot": 3800,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h4",
+      "file": "res://ayu_home/v4/assets/village/house_h4.png",
+      "pos": [
+        120,
+        3630
+      ],
+      "foot": 4155,
+      "front": false
+    },
+    {
+      "id": "tree_h4-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        105,
+        4065
+      ],
+      "foot": 4215,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h4728",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        848,
+        4050
+      ],
+      "foot": 4200,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "h1",
+      "file": "res://ayu_home/v4/assets/village/house_h1.png",
+      "pos": [
+        2720,
+        3630
+      ],
+      "foot": 4225,
+      "front": false
+    },
+    {
+      "id": "tree_h1-15",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        2705,
+        4135
+      ],
+      "foot": 4285,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "tree_h1778",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        3498,
+        4120
+      ],
+      "foot": 4270,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "wildtree1",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        3303,
+        354
+      ],
+      "foot": 504,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree4",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        2550,
+        3786
+      ],
+      "foot": 3936,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree9",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        3163,
+        2539
+      ],
+      "foot": 2689,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "wildtree13",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        263,
+        4450
+      ],
+      "foot": 4600,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree16",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1148,
+        3196
+      ],
+      "foot": 3346,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree19",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        3409,
+        630
+      ],
+      "foot": 780,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree22",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        2040,
+        1384
+      ],
+      "foot": 1534,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree23",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        2791,
+        4519
+      ],
+      "foot": 4669,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree24",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        600,
+        726
+      ],
+      "foot": 876,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "wildtree26",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        2005,
+        4404
+      ],
+      "foot": 4554,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree29",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1148,
+        3335
+      ],
+      "foot": 3485,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree31",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        1590,
+        3073
+      ],
+      "foot": 3223,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree35",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        1160,
+        1342
+      ],
+      "foot": 1492,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree36",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        1618,
+        295
+      ],
+      "foot": 445,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "wildtree57",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        1422,
+        3028
+      ],
+      "foot": 3178,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "wildtree62",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        212,
+        642
+      ],
+      "foot": 792,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree63",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        1551,
+        4056
+      ],
+      "foot": 4206,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "wildtree65",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        2844,
+        451
+      ],
+      "foot": 601,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree67",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        2633,
+        1613
+      ],
+      "foot": 1763,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree69",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        1588,
+        3903
+      ],
+      "foot": 4053,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "wildtree70",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        382,
+        57
+      ],
+      "foot": 207,
+      "front": false,
+      "plant_type": "deciduous"
+    },
+    {
+      "id": "wildtree72",
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "pos": [
+        3291,
+        869
+      ],
+      "foot": 1019,
+      "front": false,
+      "plant_type": "evergreen"
+    },
+    {
+      "id": "honeybox",
+      "file": "exterior_beehive_1.png",
+      "pos": [
+        825,
+        1085
+      ],
+      "foot": 1130,
+      "front": false
+    },
+    {
+      "id": "notice",
+      "file": "res://ayu_home/v4/assets/village/board.png",
+      "pos": [
+        1955,
+        2085
+      ],
+      "foot": 2170,
+      "front": false
+    },
+    {
+      "id": "orchard0",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        1510,
+        1130
+      ],
+      "foot": 1300,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "orchard1",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1650,
+        1130
+      ],
+      "foot": 1300,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "orchard2",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        1790,
+        1130
+      ],
+      "foot": 1300,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "public_pond",
+      "file": "res://ayu_home/v4/assets/village/pond.png",
+      "pos": [
+        1035,
+        1000
+      ],
+      "foot": 1210,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      1818,
+      60,
+      704,
+      545
+    ],
+    [
+      518,
+      130,
+      684,
+      480
+    ],
+    [
+      2138,
+      820,
+      814,
+      590
+    ],
+    [
+      113,
+      1190,
+      734,
+      540
+    ],
+    [
+      1108,
+      1490,
+      764,
+      590
+    ],
+    [
+      2268,
+      1780,
+      814,
+      585
+    ],
+    [
+      98,
+      2150,
+      789,
+      570
+    ],
+    [
+      1148,
+      2310,
+      709,
+      535
+    ],
+    [
+      2518,
+      2750,
+      724,
+      545
+    ],
+    [
+      98,
+      2960,
+      714,
+      525
+    ],
+    [
+      1608,
+      3220,
+      754,
+      560
+    ],
+    [
+      138,
+      3650,
+      764,
+      530
+    ],
+    [
+      2738,
+      3650,
+      814,
+      600
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "mayor",
+      "label": "村长林伯",
+      "kind": "village",
+      "pos": [
+        1530,
+        2860
+      ],
+      "approach": [
+        1530,
+        2890
+      ]
+    },
+    {
+      "id": "honey",
+      "label": "阿禾 · 蜂蜜箱",
+      "kind": "village",
+      "pos": [
+        890,
+        1130
+      ],
+      "approach": [
+        890,
+        1160
+      ]
+    },
+    {
+      "id": "pond",
+      "label": "池塘 · 喂鱼",
+      "kind": "village",
+      "pos": [
+        1450,
+        1250
+      ],
+      "approach": [
+        1450,
+        1280
+      ]
+    },
+    {
+      "id": "chicken",
+      "label": "鸡圈 · 添谷子",
+      "kind": "village",
+      "pos": [
+        1080,
+        1340
+      ],
+      "approach": [
+        1080,
+        1370
+      ]
+    },
+    {
+      "id": "orchard",
+      "label": "时令果树",
+      "kind": "village",
+      "pos": [
+        1690,
+        1310
+      ],
+      "approach": [
+        1690,
+        1340
+      ]
+    },
+    {
+      "id": "market",
+      "label": "村口货郎",
+      "kind": "village",
+      "pos": [
+        2330,
+        4310
+      ],
+      "approach": [
+        2330,
+        4340
+      ]
+    },
+    {
+      "id": "home_site",
+      "label": "看看自己的地",
+      "kind": "village",
+      "pos": [
+        1350,
+        4050
+      ],
+      "approach": [
+        1350,
+        4080
+      ]
+    },
+    {
+      "id": "map",
+      "label": "村里的路牌",
+      "kind": "village",
+      "pos": [
+        1980,
+        2140
+      ],
+      "approach": [
+        1980,
+        2170
+      ]
+    },
+    {
+      "id": "mill",
+      "label": "青叔 · 石磨与小事",
+      "kind": "village",
+      "pos": [
+        615,
+        2810
+      ],
+      "approach": [
+        615,
+        2840
+      ]
+    }
+  ],
+  "doors": [
+    {
+      "id": "visit_erba",
+      "target": "v_erba",
+      "label": "拜访二爸家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        2170,
+        625
+      ],
+      "approach": [
+        2170,
+        647
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_laowu",
+      "target": "v_laowu",
+      "label": "拜访老屋",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        860,
+        630
+      ],
+      "approach": [
+        860,
+        652
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_daba",
+      "target": "v_daba",
+      "label": "拜访大爸家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        2545,
+        1430
+      ],
+      "approach": [
+        2545,
+        1452
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h5",
+      "target": "v_h5",
+      "label": "拜访5A · 养蜂小院",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        480,
+        1750
+      ],
+      "approach": [
+        480,
+        1772
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_ayu",
+      "target": "exterior",
+      "label": "拜访0A · 阿鱼家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1490,
+        2100
+      ],
+      "approach": [
+        1490,
+        2122
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h2",
+      "target": "v_h2",
+      "label": "拜访2A · 缝补人家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        2675,
+        2385
+      ],
+      "approach": [
+        2675,
+        2407
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h3",
+      "target": "v_h3",
+      "label": "拜访3A · 磨坊人家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        492,
+        2740
+      ],
+      "approach": [
+        492,
+        2762
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_mayor",
+      "target": "v_mayor",
+      "label": "拜访村公所",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1502,
+        2865
+      ],
+      "approach": [
+        1502,
+        2887
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h6",
+      "target": "v_h6",
+      "label": "拜访6A · 花窗人家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        2880,
+        3315
+      ],
+      "approach": [
+        2880,
+        3337
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h8",
+      "target": "v_h8",
+      "label": "拜访8A · 茶香小院",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        455,
+        3505
+      ],
+      "approach": [
+        455,
+        3527
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h7",
+      "target": "v_h7",
+      "label": "拜访7A · 河风人家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1985,
+        3800
+      ],
+      "approach": [
+        1985,
+        3822
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h4",
+      "target": "v_h4",
+      "label": "拜访4A · 田边平房",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        520,
+        4200
+      ],
+      "approach": [
+        520,
+        4222
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h1",
+      "target": "v_h1",
+      "label": "拜访1A · 蓝瓦人家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        3145,
+        4270
+      ],
+      "approach": [
+        3145,
+        4292
+      ],
+      "width": 64,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    1500,
+    2150
+  ],
+  "walk_rect": [
+    30,
+    30,
+    3540,
+    4640
+  ],
+  "outdoor": true,
+  "view_scale": 1.15,
+  "nav_cell": 16,
+  "npcs": [
+    {
+      "id": "mayor",
+      "name": "林伯",
+      "pos": [
+        1530,
+        2860
+      ],
+      "preset": 0
+    },
+    {
+      "id": "honey",
+      "name": "阿禾",
+      "pos": [
+        890,
+        1130
+      ],
+      "preset": 4
+    },
+    {
+      "id": "mill",
+      "name": "青叔",
+      "pos": [
+        615,
+        2810
+      ],
+      "preset": 1
+    },
+    {
+      "id": "market",
+      "name": "货郎",
+      "pos": [
+        2330,
+        4310
+      ],
+      "preset": 3
+    }
+  ]
+}

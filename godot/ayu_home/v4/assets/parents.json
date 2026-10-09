@@ -1,0 +1,272 @@
+{
+  "id": "parents",
+  "title": "爸妈卧室",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    354,
+    600
+  ],
+  "source_crop": [
+    1051,
+    521,
+    1405,
+    817
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "parents-bed.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/parents-bed.png",
+      "pos": [
+        92,
+        117
+      ],
+      "foot": 310,
+      "front": false
+    },
+    {
+      "id": "parents-south-wall.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/parents-south-wall.png",
+      "pos": [
+        -1,
+        317
+      ],
+      "foot": 345,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      93,
+      118,
+      169,
+      186
+    ],
+    [
+      8,
+      117,
+      51,
+      128
+    ],
+    [
+      304,
+      88,
+      40,
+      117
+    ],
+    [
+      70,
+      259,
+      29,
+      56
+    ],
+    [
+      260,
+      259,
+      29,
+      56
+    ],
+    [
+      10,
+      264,
+      40,
+      56
+    ],
+    [
+      92,
+      62,
+      38,
+      38
+    ],
+    [
+      278,
+      150,
+      30,
+      42
+    ],
+    [
+      306,
+      250,
+      32,
+      42
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "lamp",
+      "label": "开关床头灯",
+      "pos": [
+        83,
+        273
+      ],
+      "approach": [
+        70,
+        220
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "床头灯暖暖地亮着。"
+    },
+    {
+      "id": "bed",
+      "label": "把被子铺好",
+      "pos": [
+        171,
+        221
+      ],
+      "approach": [
+        292,
+        214
+      ],
+      "kind": "bed",
+      "effect": "sleep",
+      "copy": "拉平被角，枕头也摆整齐。",
+      "head_dir": "down"
+    },
+    {
+      "id": "window",
+      "label": "听听窗外",
+      "pos": [
+        330,
+        219
+      ],
+      "approach": [
+        292,
+        237
+      ],
+      "kind": "window",
+      "effect": "window",
+      "copy": "窗外有风，窗帘轻轻晃动。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_closet1",
+      "target": "closet1",
+      "pos": [
+        53,
+        64
+      ],
+      "approach": [
+        53,
+        64
+      ],
+      "face": "down",
+      "label": "去一楼衣柜间",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_bath1",
+      "target": "bath1",
+      "pos": [
+        215,
+        63
+      ],
+      "approach": [
+        215,
+        63
+      ],
+      "face": "down",
+      "label": "去一楼浴室",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      299,
+      213,
+      110
+    ]
+  ],
+  "anchors": {
+    "father": [
+      149,
+      218
+    ],
+    "mother": [
+      207,
+      218
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        37,
+        77
+      ],
+      [
+        327,
+        77
+      ],
+      [
+        327,
+        307
+      ],
+      [
+        37,
+        307
+      ]
+    ],
+    [
+      [
+        26,
+        42
+      ],
+      [
+        85,
+        42
+      ],
+      [
+        85,
+        94
+      ],
+      [
+        26,
+        94
+      ]
+    ],
+    [
+      [
+        195,
+        45
+      ],
+      [
+        243,
+        45
+      ],
+      [
+        243,
+        93
+      ],
+      [
+        195,
+        93
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    354,
+    600
+  ],
+  "spawn": [
+    299,
+    213
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

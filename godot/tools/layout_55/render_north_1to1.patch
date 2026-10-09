@@ -1,0 +1,43 @@
+临时补丁（03，10/2）：给 main.gd 加截图预设 north_1to1（55 桌厅北边 1536×1024 一比一真渲染，不放人、不要界面），只在独立 worktree 里用，不进游戏代码。
+基于 58c1a7f。用法：git apply 这份补丁 → Godot --headless --editor --quit-after 600 --path godot（先导入）→
+  NORTH_OUT=输出.png Godot --path godot --resolution 540x960 -- --capture=某目录 --shot=north_1to1
+之后在 export_north_for_gpt.py 里 --real 输出.png。
+
+diff --git a/godot/scripts/main.gd b/godot/scripts/main.gd
+index 9c67199..dfee878 100644
+--- a/godot/scripts/main.gd
++++ b/godot/scripts/main.gd
+@@ -3131,7 +3131,7 @@ func _setup_shot(shot: String) -> void:
+             # 等到碰杯之后再截（插图 0.95 秒碰杯、「干杯」弹出来）；截图模式下一帧不一定是 1/60 秒，按插图自己的钟等
+             while is_instance_valid(toast_scene) and toast_scene.t < 1.3:
+                 await get_tree().process_frame
+-        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast", "big_rel_card", "big_empty_stage", "big_empty_overview", "big_middle":
++        "big_door", "big_stage", "big_table", "big_overview", "big_main", "big_pre", "big_feast", "big_rel_card", "big_empty_stage", "big_empty_overview", "big_middle", "north_1to1":
+             # 55 桌大厅灰盒（01 D 9/29 要的三张）：big_door 进门（站大门口看全场）；big_table 第一次进厅，镜头滑到自己那桌以后；
+             # big_stage 走到婚礼台前（红毯上、台阶前面）；big_overview 整个厅缩进一张图（和摆位图对照，没有界面）；
+             # big_main 站到主桌外婆跟前（阿鱼 9/29：主桌 10 座，称呼走近谁亮谁）；
+@@ -3164,6 +3164,24 @@ func _setup_shot(shot: String) -> void:
+                 hall.couple_armed = false
+                 hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(Vector2(768, float(hall.cfg["size"][1]) * 0.55)))))
+                 hall.snap_cam()
++            elif shot == "north_1to1":
++                hall.couple_armed = false
++                hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.COUPLE_SPOT + Vector2(0, 80)))))
++                _hide_people_for_shot()
++                hall.set_process(false)
++                var sv: SubViewport = view.get_child(0)
++                view.stretch = false
++                sv.size = Vector2i(1536, 1024)
++                for i in 5: await get_tree().process_frame
++                hall.cam.limit_bottom = 100000
++                hall.cam.limit_right = 100000
++                hall.cam.zoom = Vector2(1, 1)
++                hall.cam.position = Vector2(768, 512)
++                hall.cam.reset_smoothing()
++                for i in 10: await get_tree().process_frame
++                await RenderingServer.frame_post_draw
++                sv.get_texture().get_image().save_png(OS.get_environment("NORTH_OUT"))
++                print("NORTH SAVED ", sv.size, " zoom ", hall.cam.zoom)
+             elif shot == "big_empty_stage" or shot == "big_empty_overview":
+                 hall.couple_armed = false
+                 hall.reset_to(hall._cell_pos(hall._nearest_free(hall._cell_of(hall.COUPLE_SPOT + Vector2(0, 80)))))

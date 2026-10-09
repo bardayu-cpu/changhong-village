@@ -1,0 +1,352 @@
+{
+  "id": "v_grape",
+  "title": "葡萄架小院",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    850,
+    640
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_grape.png",
+  "props": [
+    {
+      "id": "kitchen0",
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "pos": [
+        73.887,
+        130.0
+      ],
+      "foot": 213,
+      "scale": [
+        0.23655913978494625,
+        0.23655913978494625
+      ],
+      "front": false,
+      "atlas_region": [
+        22,
+        567,
+        411,
+        372
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "table1",
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "pos": [
+        359.603,
+        160.0
+      ],
+      "foot": 235,
+      "scale": [
+        0.2888086642599278,
+        0.2888086642599278
+      ],
+      "front": false,
+      "atlas_region": [
+        38,
+        193,
+        349,
+        277
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "bed2",
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "pos": [
+        615.0,
+        139.474
+      ],
+      "foot": 320,
+      "scale": [
+        0.43859649122807015,
+        0.43859649122807015
+      ],
+      "front": false,
+      "atlas_region": [
+        830,
+        61,
+        342,
+        423
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "bench3",
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "pos": [
+        379.924,
+        335.0
+      ],
+      "foot": 408,
+      "scale": [
+        0.2582781456953642,
+        0.2582781456953642
+      ],
+      "front": false,
+      "atlas_region": [
+        846,
+        632,
+        411,
+        302
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        327,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "pos": [
+        379.543,
+        430.0
+      ],
+      "foot": 479,
+      "front": false,
+      "atlas_region": [
+        414,
+        147,
+        387,
+        315
+      ],
+      "scale": [
+        0.23492063492063492,
+        0.23492063492063492
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "new_pantry",
+      "pos": [
+        706.303,
+        365.0
+      ],
+      "foot": 472,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "atlas_region": [
+        1229,
+        25,
+        268,
+        459
+      ],
+      "scale": [
+        0.2440087145969499,
+        0.2440087145969499
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "new_rattan_sofa",
+      "pos": [
+        66.035,
+        410.0
+      ],
+      "foot": 495,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "atlas_region": [
+        446,
+        617,
+        394,
+        314
+      ],
+      "scale": [
+        0.28662420382165604,
+        0.28662420382165604
+      ],
+      "interior_set": "grape-v2"
+    },
+    {
+      "id": "new_lantern",
+      "pos": [
+        564.429,
+        414.0
+      ],
+      "foot": 463,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/grape-v2.png",
+      "atlas_region": [
+        1301,
+        631,
+        205,
+        315
+      ],
+      "scale": [
+        0.17142857142857143,
+        0.17142857142857143
+      ],
+      "interior_set": "grape-v2"
+    }
+  ],
+  "obstacles": [
+    [
+      235,
+      100,
+      12,
+      170
+    ],
+    [
+      235,
+      410,
+      12,
+      180
+    ],
+    [
+      500,
+      100,
+      12,
+      160
+    ],
+    [
+      77.887,
+      182.8,
+      89.226,
+      35.2
+    ],
+    [
+      363.603,
+      208.0,
+      92.794,
+      32.0
+    ],
+    [
+      619.0,
+      250.789,
+      142.0,
+      74.211
+    ],
+    [
+      383.924,
+      381.8,
+      98.152,
+      31.2
+    ],
+    [
+      710.303,
+      432.2,
+      57.394,
+      44.8
+    ],
+    [
+      70.035,
+      464.0,
+      104.93,
+      36.0
+    ],
+    [
+      568.429,
+      446.4,
+      27.143,
+      21.6
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        470
+      ],
+      "approach": [
+        95,
+        515
+      ],
+      "kind": "village",
+      "copy": "一侧是灶屋，一侧是卧房，中间的过厅正对葡萄架。住户为虚构邻居。"
+    },
+    {
+      "id": "house_help",
+      "label": "扶好藤架的小竹竿",
+      "pos": [
+        505,
+        450
+      ],
+      "approach": [
+        505,
+        525
+      ],
+      "kind": "village",
+      "house": "grape",
+      "copy": "小竹竿扎好了，藤影下多出一处可坐的空位。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        425,
+        460
+      ],
+      "approach": [
+        425,
+        520
+      ],
+      "kind": "seat",
+      "seat": [
+        425,
+        480
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        425,
+        586
+      ],
+      "approach": [
+        425,
+        604
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "up"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      425,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    425,
+    555
+  ],
+  "walk_rect": [
+    22,
+    96,
+    806,
+    522
+  ],
+  "outdoor": false,
+  "view_scale": 1.15,
+  "interior_art_status": "new_household_set_pending_graphical_acceptance"
+}

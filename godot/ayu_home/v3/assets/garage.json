@@ -1,0 +1,147 @@
+{
+  "id": "garage",
+  "title": "车库",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    254,
+    350,
+    535,
+    802
+  ],
+  "source_offset": [
+    19,
+    48
+  ],
+  "background": "garage_floor.png",
+  "props": [
+    {
+      "id": "car",
+      "file": "garage_car.png",
+      "pos": [
+        83,
+        116
+      ],
+      "foot": 391,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      94,
+      193,
+      148,
+      191
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "car",
+      "label": "擦一擦车窗",
+      "pos": [
+        164,
+        164
+      ],
+      "approach": [
+        261,
+        191
+      ],
+      "kind": "reaction",
+      "effect": "wipe",
+      "copy": "车窗映出一点明亮的天光。"
+    },
+    {
+      "id": "bike",
+      "label": "转转自行车铃",
+      "pos": [
+        60,
+        250
+      ],
+      "approach": [
+        54,
+        327
+      ],
+      "kind": "reaction",
+      "effect": "bell",
+      "copy": "叮铃，车铃清清脆脆。"
+    },
+    {
+      "id": "shelf",
+      "label": "整理杂物架",
+      "pos": [
+        272,
+        112
+      ],
+      "approach": [
+        261,
+        154
+      ],
+      "kind": "reaction",
+      "effect": "tools",
+      "copy": "杂物架空出一个整齐的小角落。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        210,
+        67
+      ],
+      "approach": [
+        210,
+        101
+      ],
+      "face": "down",
+      "label": "去餐厅",
+      "kind": "door"
+    },
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        262,
+        419
+      ],
+      "approach": [
+        260,
+        378
+      ],
+      "face": "up",
+      "label": "回到院子",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      63,
+      79,
+      150
+    ]
+  ],
+  "anchors": {
+    "father": [
+      53,
+      154
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    32,
+    90,
+    253,
+    305
+  ],
+  "spawn": [
+    258,
+    372
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

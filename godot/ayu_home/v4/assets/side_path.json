@@ -1,0 +1,157 @@
+{
+  "id": "side_path",
+  "title": "院外小道",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "approved-0.png",
+  "source_crop": [
+    0,
+    0,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "size": [
+    1448,
+    1086
+  ],
+  "props": [],
+  "obstacles": [
+    [
+      90,
+      923,
+      556,
+      32
+    ],
+    [
+      846,
+      923,
+      352,
+      32
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "leaf",
+      "label": "路边的落叶",
+      "pos": [
+        532,
+        1008
+      ],
+      "approach": [
+        532,
+        1008
+      ],
+      "kind": "leaf",
+      "effect": "leaf",
+      "copy": "收起一片落叶，夹进生活册。"
+    },
+    {
+      "id": "flower",
+      "label": "小路边的野花",
+      "pos": [
+        230,
+        966
+      ],
+      "approach": [
+        230,
+        966
+      ],
+      "kind": "pick_flowers",
+      "effect": "",
+      "copy": "野花把头抬起来了。"
+    },
+    {
+      "id": "listen",
+      "label": "听溪水",
+      "pos": [
+        1183,
+        1005
+      ],
+      "approach": [
+        1183,
+        1005
+      ],
+      "kind": "listen",
+      "effect": "water",
+      "copy": "沿着小路，能听到远处流水。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        742,
+        933
+      ],
+      "approach": [
+        742,
+        933
+      ],
+      "face": "down",
+      "label": "回院子",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true,
+      "span": [
+        150
+      ]
+    },
+    {
+      "id": "to_bridge",
+      "target": "bridge",
+      "pos": [
+        1393,
+        997
+      ],
+      "approach": [
+        1393,
+        997
+      ],
+      "face": "left",
+      "label": "沿溪去小桥",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_garden",
+      "target": "garden",
+      "pos": [
+        46,
+        988
+      ],
+      "approach": [
+        72,
+        988
+      ],
+      "face": "right",
+      "label": "沿小路去后园",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [],
+  "anchors": {},
+  "walk_rect": [
+    40,
+    928,
+    1376,
+    102
+  ],
+  "walk_polygons": [],
+  "spawn": [
+    742,
+    995
+  ],
+  "camera_ahead": 80,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

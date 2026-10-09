@@ -1,0 +1,138 @@
+extends Control
+## 果园的按钮和话（阿鱼 9/20 定的种田玩法）：
+##   走到垄间、树下：有熟的出「收草莓（3 垄熟了）」，点一下把熟了的一次收完，进果篮；
+##                   没熟顶部报「草莓还有 2 分 10 秒」；季节开关打开又不在季节，才是老话「还没到时候」
+##   走到山庄收购处：果篮有东西出「卖给山庄（14 金）」，点了加金币、说一句；空着顶部报「果篮是空的」
+##   第一次收草莓、第一次收枇杷各弹阿鱼一句（蓝图 3.6，9/20 定）：话没定（【待补】）之前不弹；弹过一次记在本机，以后不再弹。
+##   弹的时候「收了几筐」挪到顶部那条小字，对话框留给阿鱼那句
+##   farm.json 里 sell_mode = auto（默认）：收完直接折钱，不用跑收购处；收的时候只说「收了 6 筐草莓」不写金（蓝图 3.6）
+## 话在 assets/orchard/lines.json，数在 assets/orchard/farm.json
+
+const Copy = preload("res://scripts/court_copy.gd")
+const KINDS := ["strawberry", "loquat"]
+
+var m                      # main.gd
+var act_btn: Button
+var act_kind := ""         # 按钮现在对着哪种果子（空串表示对着收购处或者没按钮）
+var at_shop := false       # 人是不是站在收购处
+
+func setup(main_ref) -> void:
+    m = main_ref
+    set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    mouse_filter = Control.MOUSE_FILTER_IGNORE
+    act_btn = Button.new()
+    act_btn.visible = false
+    act_btn.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+    act_btn.offset_top = -170
+    act_btn.offset_bottom = -120
+    act_btn.offset_left = -220
+    act_btn.offset_right = 220
+    act_btn.pressed.connect(_on_act)
+    add_child(act_btn)
+
+## 走进、走出交互点（main 的 _on_orchard_spot 转过来）
+func spot(id: String, inside: bool) -> void:
+    if id == "shop":
+        at_shop = inside
+        if not inside and act_kind == "":
+            act_btn.visible = false
+        sync()
+        if inside and m.orchard.save.basket_total() <= 0:
+            # 山庄直接收的时候果篮本来就空，别让人以为摊子坏了
+            m._note(Copy.text("shop_auto" if m.orchard.auto_sell() else "basket_empty", Copy.ORCHARD), 3.0)
+        return
+    if not id in KINDS:
+        return
+    if not inside:
+        if act_kind == id:
+            act_kind = ""
+            act_btn.visible = false
+        return
+    var o = m.orchard
+    if o.ripe_count(id) > 0:
+        act_kind = id
+        sync()
+        return
+    act_kind = ""
+    act_btn.visible = false
+    # 季节开关打开、又不在季节，才是蓝图 3.6 那句；平常报还有多久熟
+    if not o.kind_on(id):
+        m._note(Copy.text("not_season", Copy.ORCHARD), 3.0)
+    else:
+        m._note(Copy.text("growing", Copy.ORCHARD).format(
+            {"fruit": o.fruit_name(id), "left": o.left_text(o.secs_left(id))}), 3.0)
+
+## 每帧由 main 叫一次（人站着不动地也在长，按钮上的数要跟着变）
+func sync() -> void:
+    var o = m.orchard
+    if act_kind != "":
+        var n: int = o.ripe_count(act_kind)
+        if n <= 0:                      # 刚收完：按钮收起来，改成报还有多久
+            act_kind = ""
+            act_btn.visible = false
+            if not at_shop:
+                return
+        else:
+            act_btn.text = Copy.text("btn_harvest", Copy.ORCHARD).format(
+                {"fruit": o.fruit_name(act_kind), "n": n, "plot": o.plot_word(act_kind)})
+            act_btn.visible = true
+            return
+    if at_shop and o.save.basket_total() > 0:
+        act_btn.text = Copy.text("btn_sell", Copy.ORCHARD).format({"coins": o.basket_coins()})
+        act_btn.visible = true
+        return
+    if act_kind == "":
+        act_btn.visible = false
+
+func _on_act() -> void:
+    var o = m.orchard
+    if act_kind != "":
+        var got: int = o.harvest(act_kind)
+        if got <= 0:
+            return
+        var kind := act_kind
+        act_kind = ""
+        act_btn.visible = false
+        if o.auto_sell():
+            # 山庄直接收走折钱：金币照加，但这时只说「收了 6 筐草莓」，不写金——钱的事让收购处去说，
+            # 保住一筐一筐收的味道（蓝图 3.6 交互说明 9/20 定；04 10/3 看到原来这里说「卖了 16 金」，歪了）
+            var r: Dictionary = o.sell()
+            if int(r["coins"]) > 0:
+                m.games_save.earn(int(r["coins"]))
+        var said := Copy.text("harvested_auto" if o.auto_sell() else "harvested", Copy.ORCHARD).format(
+            {"fruit": o.fruit_name(kind), "n": got, "unit": o.basket_unit(kind)})
+        if not _first_line(kind, said):
+            m._say(said, -1.0, "")
+        sync()
+        return
+    if at_shop:
+        _sell()
+        sync()
+
+## 第一次收这种果子：阿鱼那句写好了、本机没弹过，就弹（收了几筐挪到顶部小字），记下弹过了；回 true 表示弹了。
+## 话还是【待补】的不弹、也不记——阿鱼定了句子以后，没见过的人下一回收的时候看得到
+func _first_line(kind: String, harvested_text: String) -> bool:
+    var key := "first_" + kind
+    var line := Copy.text(key, Copy.ORCHARD)
+    if not Copy.has(key, Copy.ORCHARD) or Copy.placeholder(line) or bool(m.orchard_save.firsts.get(kind, false)):
+        return false
+    m.orchard_save.firsts[kind] = true
+    m.orchard_save.save()
+    m._note(harvested_text, 3.0)
+    m._say(line, -1.0, Copy.who(key, Copy.ORCHARD))
+    return true
+
+func _sell() -> void:
+    var o = m.orchard
+    var r: Dictionary = o.sell()
+    if int(r["coins"]) <= 0:
+        return
+    m.games_save.earn(int(r["coins"]))
+    m._say(Copy.text("sold", Copy.ORCHARD).format(
+        {"what": r["text"], "coins": r["coins"], "total": m.games_save.coins}), -1.0, "")
+
+## 离开果园：按钮收起来
+func hide_all() -> void:
+    act_kind = ""
+    at_shop = false
+    act_btn.visible = false

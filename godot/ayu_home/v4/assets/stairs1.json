@@ -1,0 +1,245 @@
+{
+  "id": "stairs1",
+  "title": "一楼楼梯",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    874,
+    99,
+    1035,
+    453
+  ],
+  "source_offset": [
+    79,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "stairs1-rail.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/stairs1-rail.png",
+      "pos": [
+        80,
+        63
+      ],
+      "foot": 64,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      181,
+      291,
+      40,
+      64
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "rail",
+      "label": "摸摸木扶手",
+      "pos": [
+        84,
+        231
+      ],
+      "approach": [
+        136,
+        233
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "手心顺着木纹滑过去，脚步慢了下来。"
+    },
+    {
+      "id": "plant",
+      "label": "浇一小杯水",
+      "pos": [
+        199,
+        320
+      ],
+      "approach": [
+        145,
+        348
+      ],
+      "kind": "tend",
+      "effect": "water",
+      "copy": "拨开叶片，把清水浇在根边。"
+    },
+    {
+      "id": "picture",
+      "label": "看看小画",
+      "pos": [
+        187,
+        95
+      ],
+      "approach": [
+        146,
+        114
+      ],
+      "kind": "reaction",
+      "effect": "picture",
+      "copy": "这幅小画里，也有一扇亮着灯的窗。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_living",
+      "target": "living",
+      "pos": [
+        139,
+        381
+      ],
+      "approach": [
+        139,
+        381
+      ],
+      "face": "up",
+      "label": "去客厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        140,
+        92
+      ],
+      "approach": [
+        140,
+        92
+      ],
+      "face": "down",
+      "label": "去二楼楼梯与过道",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      141,
+      326,
+      110
+    ]
+  ],
+  "anchors": {
+    "father": [
+      141,
+      329
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        96,
+        74
+      ],
+      [
+        184,
+        74
+      ],
+      [
+        184,
+        383
+      ],
+      [
+        96,
+        383
+      ]
+    ],
+    [
+      [
+        93,
+        359
+      ],
+      [
+        189,
+        359
+      ],
+      [
+        189,
+        398
+      ],
+      [
+        93,
+        398
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    141,
+    326
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": [],
+  "stair_path": [
+    [
+      140,
+      345
+    ],
+    [
+      140,
+      322
+    ],
+    [
+      140,
+      299
+    ],
+    [
+      140,
+      276
+    ],
+    [
+      140,
+      253
+    ],
+    [
+      140,
+      230
+    ],
+    [
+      140,
+      207
+    ],
+    [
+      140,
+      184
+    ],
+    [
+      140,
+      161
+    ],
+    [
+      140,
+      138
+    ],
+    [
+      140,
+      115
+    ],
+    [
+      140,
+      92
+    ],
+    [
+      140,
+      92
+    ]
+  ]
+}

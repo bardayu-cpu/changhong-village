@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "scene": "scene_roman_banquet",
+  "module": "banquet55_south",
+  "batch": "banquet55_south_v1",
+  "source_references": [
+    "积木/base_banquet55_north_v1.png",
+    "素材图/preview_banquet55_north_d_v1.png"
+  ],
+  "canvas": [
+    1536,
+    1024
+  ],
+  "files": [
+    {
+      "path": "积木/base_banquet55_south_v1.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "3bf1157e5fce9af74420e430ea0cfc047fee5626cf9795e1add8eabfb3cb882d",
+      "transparent_background": false,
+      "footpoint": null
+    },
+    {
+      "path": "素材图/base_banquet55_south_v1_ruler.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "256e889584baa6bda7b2f0a7a4bbd37ae35226011d70af55b48a641b54b557d4",
+      "transparent_background": false,
+      "footpoint": [
+        768,
+        870
+      ]
+    },
+    {
+      "path": "积木/tex_banquet55_wall_west_v1.png",
+      "size": [
+        40,
+        240
+      ],
+      "sha256": "153910afd56c16879809e8d12816915157b1304d5af17133425d9d9928fe180c",
+      "transparent_background": false,
+      "footpoint": null
+    },
+    {
+      "path": "积木/tex_banquet55_wall_east_v1.png",
+      "size": [
+        40,
+        240
+      ],
+      "sha256": "5558606815413745c0537a9b51b2468bcef88a5b3fd8c12813b8dbaee1888f64",
+      "transparent_background": false,
+      "footpoint": null
+    },
+    {
+      "path": "积木/blk_banquet55_table_v2.png",
+      "size": [
+        180,
+        150
+      ],
+      "sha256": "1f77bb64a541a73e5918c54e02b0cad234624ae6e31937fb8690cdbf86311f20",
+      "transparent_background": true,
+      "footpoint": [
+        90,
+        149
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_table_main_v2.png",
+      "size": [
+        180,
+        150
+      ],
+      "sha256": "ee1a85162436180af02c7e9d3fdf327b84b3b9f18b86816bf94bf260de963d09",
+      "transparent_background": true,
+      "footpoint": [
+        90,
+        149
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_lantern_v2.png",
+      "size": [
+        48,
+        112
+      ],
+      "sha256": "82537e8ce053d46c8cedbb2f0d2c8df10ee95fe79e647ef915da7a004b595583",
+      "transparent_background": true,
+      "footpoint": [
+        24,
+        111
+      ]
+    },
+    {
+      "path": "积木/blk_banquet55_flowerstand_v2.png",
+      "size": [
+        56,
+        112
+      ],
+      "sha256": "07333c5ab45e4afa0eaa07d2b7509bd7f02ce6b9490051c38414152b3ea86053",
+      "transparent_background": true,
+      "footpoint": [
+        28,
+        111
+      ]
+    }
+  ],
+  "rules": [
+    "南端背景不含桌子、长凳、宫灯、花盆或人物",
+    "红毯 x=696..839，为 144px 等宽直条并正对南门",
+    "西墙 x=0..39，东墙 x=1496..1535，均严格竖直",
+    "两条 40x240 墙纹理可沿竖直方向循环拼接",
+    "四件 v2 零件按 d 原样比例重画，透明 alpha 仅 0 或 255，脚点落在画布下沿",
+    "v1 文件保留，不覆盖；不使用 2026-09-20 旧积木"
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "id": "garage",
+  "title": "车库",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    211,
+    437,
+    524,
+    836
+  ],
+  "source_offset": [
+    3,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "garage-car.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/garage-car.png",
+      "pos": [
+        93,
+        131
+      ],
+      "foot": 382,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      94,
+      131,
+      156,
+      251
+    ],
+    [
+      22,
+      142,
+      53,
+      150
+    ],
+    [
+      21,
+      64,
+      60,
+      75
+    ],
+    [
+      27,
+      330,
+      40,
+      69
+    ],
+    [
+      272,
+      200,
+      31,
+      133
+    ],
+    [
+      93,
+      62,
+      39,
+      45
+    ],
+    [
+      270,
+      59,
+      32,
+      64
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "car",
+      "label": "擦一擦车窗",
+      "pos": [
+        177,
+        262
+      ],
+      "approach": [
+        267,
+        253
+      ],
+      "kind": "wipe",
+      "effect": "wipe",
+      "copy": "车窗映出一点明亮的天光。"
+    },
+    {
+      "id": "bike",
+      "label": "转转自行车铃",
+      "pos": [
+        50,
+        202
+      ],
+      "approach": [
+        80,
+        306
+      ],
+      "kind": "bell",
+      "effect": "bell",
+      "copy": "叮铃，车铃清清脆脆。"
+    },
+    {
+      "id": "shelf",
+      "label": "整理杂物架",
+      "pos": [
+        59,
+        89
+      ],
+      "approach": [
+        146,
+        97
+      ],
+      "kind": "tidy",
+      "effect": "tools",
+      "copy": "杂物架空出一个整齐的小角落。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        212,
+        58
+      ],
+      "approach": [
+        212,
+        58
+      ],
+      "face": "down",
+      "label": "去餐厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        157,
+        415
+      ],
+      "approach": [
+        157,
+        415
+      ],
+      "face": "up",
+      "label": "去门前院子",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      266,
+      102,
+      110
+    ]
+  ],
+  "anchors": {
+    "father": [
+      267,
+      281
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        54,
+        64
+      ],
+      [
+        286,
+        64
+      ],
+      [
+        286,
+        402
+      ],
+      [
+        54,
+        402
+      ]
+    ],
+    [
+      [
+        181,
+        40
+      ],
+      [
+        251,
+        40
+      ],
+      [
+        251,
+        75
+      ],
+      [
+        181,
+        75
+      ]
+    ],
+    [
+      [
+        58,
+        392
+      ],
+      [
+        259,
+        392
+      ],
+      [
+        259,
+        433
+      ],
+      [
+        58,
+        433
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    266,
+    102
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

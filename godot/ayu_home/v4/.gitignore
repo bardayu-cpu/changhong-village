@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+# Raw QA frame sequences are retained locally; share compact clips instead.
+evidence/play/
+evidence/**/*.import
+# Early layout probes are superseded by the final panels and runtime galleries.
+evidence/visual/
+evidence/panels/clarity-bounded.png
+evidence/panels/clarity-guide.png

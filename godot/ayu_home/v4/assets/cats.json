@@ -1,0 +1,245 @@
+{
+  "id": "cats",
+  "title": "楼梯旁猫窝走道",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    706,
+    81,
+    876,
+    451
+  ],
+  "source_offset": [
+    75,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "cats-nests.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/cats-nests.png",
+      "pos": [
+        187,
+        115
+      ],
+      "foot": 337,
+      "front": false
+    },
+    {
+      "id": "cats-shelf.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/cats-shelf.png",
+      "pos": [
+        85,
+        116
+      ],
+      "foot": 371,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      85,
+      115,
+      34,
+      253
+    ],
+    [
+      187,
+      116,
+      50,
+      219
+    ],
+    [
+      97,
+      349,
+      40,
+      30
+    ],
+    [
+      198,
+      356,
+      40,
+      30
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "nest",
+      "label": "猫窝",
+      "pos": [
+        213,
+        243
+      ],
+      "approach": [
+        157,
+        245
+      ],
+      "kind": "pet_scene",
+      "effect": "pet",
+      "copy": "猫窝软软的，等它们睡醒再摸摸。"
+    },
+    {
+      "id": "scratch",
+      "label": "猫抓柱",
+      "pos": [
+        108,
+        282
+      ],
+      "approach": [
+        158,
+        301
+      ],
+      "kind": "pet_play",
+      "effect": "pet",
+      "copy": "轻轻拨动逗猫绳。"
+    },
+    {
+      "id": "bowls",
+      "label": "添水和猫粮",
+      "pos": [
+        144,
+        366
+      ],
+      "approach": [
+        157,
+        345
+      ],
+      "kind": "pet_food",
+      "effect": "food",
+      "copy": "水碗添满了，三只猫都围过来。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_living",
+      "target": "living",
+      "pos": [
+        165,
+        394
+      ],
+      "approach": [
+        165,
+        394
+      ],
+      "face": "up",
+      "label": "去客厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_garden",
+      "target": "garden",
+      "pos": [
+        139,
+        98
+      ],
+      "approach": [
+        139,
+        98
+      ],
+      "face": "down",
+      "label": "穿过北门去后花园",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      160,
+      341,
+      110
+    ]
+  ],
+  "anchors": {
+    "qiuqiu": [
+      155,
+      155
+    ],
+    "luoluo": [
+      155,
+      245
+    ],
+    "tiantian": [
+      155,
+      323
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        123,
+        104
+      ],
+      [
+        186,
+        104
+      ],
+      [
+        186,
+        381
+      ],
+      [
+        123,
+        381
+      ]
+    ],
+    [
+      [
+        131,
+        377
+      ],
+      [
+        193,
+        377
+      ],
+      [
+        193,
+        411
+      ],
+      [
+        131,
+        411
+      ]
+    ],
+    [
+      [
+        87,
+        85
+      ],
+      [
+        186,
+        85
+      ],
+      [
+        186,
+        116
+      ],
+      [
+        87,
+        116
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    160,
+    341
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

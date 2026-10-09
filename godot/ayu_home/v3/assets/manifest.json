@@ -1,0 +1,659 @@
+{
+  "version": 3,
+  "files": {
+    "side_path_floor.png": {
+      "bytes": 646914,
+      "sha256": "08455b8a582c81dae6ca994e6de2684884e0f4ef0044e1155f3b2b859af49c71"
+    },
+    "bridge.json": {
+      "bytes": 1843,
+      "sha256": "dbebf536d35ae9844f8a9cec0e32401acfc6d1422971afcd6a821b26f9b44109"
+    },
+    "exterior_garage.png": {
+      "bytes": 66183,
+      "sha256": "d4cb73e3a6c32127c9ce35f0596ac97e2c1dcf8582559286e9d77408f458472e"
+    },
+    "garden_winter.png": {
+      "bytes": 2870240,
+      "sha256": "0d6b3af758e0125a214a89183ba7c9c25b24065648a7a8f50e1012cb94fa6dc7"
+    },
+    "workshop.json": {
+      "bytes": 1868,
+      "sha256": "3bdd7581aec713b09531a359827b098e0fa1e83591c65c0fc392850d94e8605f"
+    },
+    "thumb_stairs1.png": {
+      "bytes": 31299,
+      "sha256": "21c2659de812afb96064d556dda1dfdd13c9c1e83eb2f62714729f559751b746"
+    },
+    "mahjong_table.png": {
+      "bytes": 41123,
+      "sha256": "1a1f0f43b8b0127fcdf6620b2d5c0d70aa127899a29c746692649a6e268d2548"
+    },
+    "thumb_mahjong.png": {
+      "bytes": 65166,
+      "sha256": "cd9d38adbd4ac835456dc6a2c41986ba027755fa91b19ccc187def005d5e132a"
+    },
+    "dining_north_wall.png": {
+      "bytes": 36367,
+      "sha256": "1d10b535881d3cca2979b7fb38ddc97bdfeacd0be46d12a221aa7299bea00faf"
+    },
+    "closet2_floor.png": {
+      "bytes": 42565,
+      "sha256": "5f6ba5e797fda35e22e04ba6ca8aed06a7e81b7747c21c2bfb4b6e890eef8e22"
+    },
+    "thumb_living.png": {
+      "bytes": 68444,
+      "sha256": "a032d1a62753c551613c4fdc031209fe5f2935a453ef13c2316168ce76a162e1"
+    },
+    "stairs2_floor.png": {
+      "bytes": 194795,
+      "sha256": "cdc971ea05a0bb94b4122d409d893913cc33ecd1fdcbf03e2c65747f0699e37c"
+    },
+    "parents_floor.png": {
+      "bytes": 139468,
+      "sha256": "35365af119b215064fdecdd7a6584611782396026099e87a7aced000ee19d9bf"
+    },
+    "living_square_tea.png": {
+      "bytes": 19114,
+      "sha256": "186f84e5f633f4675dc9666bdeb72c8ca4312d30d64f6cfa44056b3227d3321d"
+    },
+    "dining_chair_se.png": {
+      "bytes": 4904,
+      "sha256": "1501553119d34b185223daa1c893ea777182ebf25d00b217f4fca4e7b9e5acce"
+    },
+    "dining_chair_spare.png": {
+      "bytes": 4740,
+      "sha256": "177f03cfe013c3901dd2fb4337ce1eb67da0b32042609411a890639f57674c70"
+    },
+    "exterior_rear_tree_left.png": {
+      "bytes": 36261,
+      "sha256": "8afeba8ede6d4fbcb7dbb46efe09734ab2d1fe2e6c3f71b263456ab548ff9c0b"
+    },
+    "laundry.json": {
+      "bytes": 1914,
+      "sha256": "cedd72feaece3c6e203a56c1afd72b517fb9433115aba615e205bc00d44d8b2b"
+    },
+    "thumb_stairs2.png": {
+      "bytes": 38827,
+      "sha256": "d2f3ca70308aba85df3bb373d306e52c587cd291ecb704c57d84fa3690696eb7"
+    },
+    "exterior_pot_window_left.png": {
+      "bytes": 6365,
+      "sha256": "7c847d455253d41547cfbaea3edb4a9c4b2e05f74aaa2d3bdd2efd88489a682f"
+    },
+    "garden_spring.png": {
+      "bytes": 2930351,
+      "sha256": "10b7ab5177a7389ce4109e7cd4448b7cb4939b59657b397ec4ba302774e5eec8"
+    },
+    "workshop_bench.png": {
+      "bytes": 49360,
+      "sha256": "b56217a0574ab762700830c0590d09edd4ea6e0af31c0dbe805db949b9091b19"
+    },
+    "guest_closet_floor.png": {
+      "bytes": 67643,
+      "sha256": "eb84ecc140c5587b1568ee7e19c79ffaa5bd06e3861e96474a29b7594230fcba"
+    },
+    "study.json": {
+      "bytes": 2380,
+      "sha256": "e46f5cdab6512a432ab54562ed41e7df380aaf907fe418292ad98443bb9f53b7"
+    },
+    "exterior_rear_tree.png": {
+      "bytes": 111559,
+      "sha256": "048108e1e9d9b9bf6fc15255c70a7d8ab061016012b8d0bbf35816e26fc64bb2"
+    },
+    "oldhouse_floor.png": {
+      "bytes": 373736,
+      "sha256": "60d7d67c530d19f560bfc042434e3d4e25868261b7e0fc8e15c28d1e9b475a6d"
+    },
+    "thumb_bath1.png": {
+      "bytes": 38900,
+      "sha256": "8b3f38fd5142da5496060abdceec779660d9067ce5cb062eea198a5e06bbe426"
+    },
+    "living_plant_tv.png": {
+      "bytes": 5598,
+      "sha256": "220db1ee52210254e55b3780a6ea90a4b2d86607a253d1eb8d71d3736ca6fb5c"
+    },
+    "cats_floor.png": {
+      "bytes": 76501,
+      "sha256": "939a798f1d4bb20c594ae718364137696b451c779b3367929875de0bb993d3cb"
+    },
+    "living_south_wall_right.png": {
+      "bytes": 19743,
+      "sha256": "cf451b8310e6bd8d761e2e36bcf50255b7cd461ea2db1dabeed3cde92fd03ab2"
+    },
+    "living_south_wall_middle.png": {
+      "bytes": 4793,
+      "sha256": "3aadbe0df456065ea80edd6f07bea28ff9dfb1da8575fedab94e2fd304cb464b"
+    },
+    "bath2.json": {
+      "bytes": 1620,
+      "sha256": "ac16cf0845e54277383fe4847838241992030b393582045a72842cefa8d9ca42"
+    },
+    "dining_chair_father.png": {
+      "bytes": 4468,
+      "sha256": "21f1e039bd72e695b67e519cdea6c6ab9e717dbb4d20f18d92a8b8cab3e854a2"
+    },
+    "living_north_wall.png": {
+      "bytes": 58636,
+      "sha256": "67b526278cab58be2fff5a5e293d43b0d069f8c9067aaeaa9c28100c55ced944"
+    },
+    "living_aquarium.png": {
+      "bytes": 11460,
+      "sha256": "7df714eb739b2330bb6e5bc13d6c4b8779d272a8b8f124257029e856380f2553"
+    },
+    "stairs1.json": {
+      "bytes": 4070,
+      "sha256": "ef3db452471d7cfb8f7079a4755de4dc5cec0f03a1472de4b34635d570cb2c34"
+    },
+    "ayu_room_bed.png": {
+      "bytes": 90989,
+      "sha256": "5beddb779748c043b8ca57249ed1d3f387dc5b4b5252841db8f8c3b3b4e4d0fc"
+    },
+    "parents_bed.png": {
+      "bytes": 35727,
+      "sha256": "5ec57d807fcc520472159830495fb8639d3b867a02a3fce580d92f3c7e8c422b"
+    },
+    "living_view_1.png": {
+      "bytes": 3772,
+      "sha256": "5646a29e279e6a1d4c1e4351013a9599c3a4dfd1b5611cb582a282e48e1eb5a8"
+    },
+    "thumb_bath2.png": {
+      "bytes": 57757,
+      "sha256": "6d6527c8f48fb252ccad49558813369ad78cbb7debb1562f9136ae0cc22d5663"
+    },
+    "exterior_pot_garage.png": {
+      "bytes": 7156,
+      "sha256": "462ebdbfa9fb0d5e8ce40bfa7f7597f60c4d2b842b80040430ba4727585d234f"
+    },
+    "luoluo.png": {
+      "bytes": 25170,
+      "sha256": "6c2942f77e9d747d48cc710acfd10640938c057e32c406f746b9ee2f8a310044"
+    },
+    "mahjong.json": {
+      "bytes": 1933,
+      "sha256": "e38c8013738d1474a0cb0643cc03f2c7fcddfb6bbbe7cfd82c686c9d978bf06d"
+    },
+    "study_desk.png": {
+      "bytes": 47383,
+      "sha256": "87bd6a39a08c6e69f673d543e865cd3973e6ad7459345813e700c7c4b5bc8717"
+    },
+    "living_view_0.png": {
+      "bytes": 3712,
+      "sha256": "ae5eb0686e34d3d5d8c534622a05cd54475fdbd879dcb57d02c9e57e773c09c8"
+    },
+    "exterior_pot_door_right.png": {
+      "bytes": 6660,
+      "sha256": "a7f020029bc973af13a6ed90adb3d2ec1261a388745ddaed6f2c902e6060514c"
+    },
+    "exterior_bench.png": {
+      "bytes": 4009,
+      "sha256": "467d76add00dade6b2cfb826b6ada2e71d4bd67bdc2ae242144a6dacc171df5c"
+    },
+    "bridge_floor.png": {
+      "bytes": 436480,
+      "sha256": "e401ef8680d38915a401f28ef4dc39bd18135bc3cb0e5ba771ffc2e8230e6982"
+    },
+    "dining_chair_sw.png": {
+      "bytes": 4344,
+      "sha256": "542a600e63d750b5e10caa9dda0f6c0ee69080beccfa892aed87f6976628a12f"
+    },
+    "thumb_garage.png": {
+      "bytes": 40903,
+      "sha256": "ce0f3b24aa52b3d0533abbc68f598b564ab67b50bb2551b36ea472faa3c7c124"
+    },
+    "dining_round_table.png": {
+      "bytes": 32631,
+      "sha256": "9478bbedabf9ce2c828e804de3d9539f49651fbc6557f11d470b7e5652638c03"
+    },
+    "dining_plant.png": {
+      "bytes": 8013,
+      "sha256": "153181103de92623d7802f283a33c52985a25243c9f3aa33b09015066b0a5502"
+    },
+    "exterior_beehive_1.png": {
+      "bytes": 3654,
+      "sha256": "83fd7ce7ab16407c4e2c32ffbd9c368e4987ff7b612bceb6f2414c2b0bbc20bf"
+    },
+    "thumb_garden.png": {
+      "bytes": 121999,
+      "sha256": "0d93efc03c133ecf56d0cae63106b02c0291829dc3369287b96e2fb09174fe8d"
+    },
+    "garden.json": {
+      "bytes": 3364,
+      "sha256": "cbd8d9f22ec57fc24fc0fad1556c5ccac79d131ef080dd7a5d7dddd973d68edc"
+    },
+    "ayu_room.json": {
+      "bytes": 2272,
+      "sha256": "ad52dcd583710c4721af2114faf1151e43d6551265b8ef30cc74f41832463891"
+    },
+    "tv-room.png": {
+      "bytes": 1272050,
+      "sha256": "9cd6a36e37332fd0247dfbb228058e0f849b1dd82505b285df34f7e85668d2f5"
+    },
+    "exterior_right_tree.png": {
+      "bytes": 55685,
+      "sha256": "3f6a72b324526eb5fc16e020f810c9ea27da5d45c34ed9575782038b33ae2f3b"
+    },
+    "thumb_parents.png": {
+      "bytes": 74335,
+      "sha256": "b49fd89be4603c7d400c7190d9e643a90f409a9354069dccbe547433b1bf68c6"
+    },
+    "bath2_floor.png": {
+      "bytes": 63272,
+      "sha256": "eb0a1193cd7824b1b8bdd6129dc4847dddc5db6dd5a18b9a2f11fa940ba18e18"
+    },
+    "exterior_pot_window_right.png": {
+      "bytes": 6719,
+      "sha256": "2aa2258c864f388423d1fcefa8c23f3408448d82adebfa2c7855f4ec06e25f08"
+    },
+    "living_south_wall_left.png": {
+      "bytes": 13526,
+      "sha256": "eb1b1e27c761534fdb473cbce31f079f7a5a5c5f6aa2a6e91e443f916b4d0e05"
+    },
+    "exterior_beehive_0.png": {
+      "bytes": 3734,
+      "sha256": "1f0e0318c1003c7a77c9e09d4917e2031d56f7c605004a0bc23e186be81469a3"
+    },
+    "exterior_beehive_2.png": {
+      "bytes": 3694,
+      "sha256": "fee23e67c47bff513a4c87f7aa0e396564eae74229383d46040ce91fcf2a5caf"
+    },
+    "exterior_right_wall.png": {
+      "bytes": 271773,
+      "sha256": "4860f2fb53bd5e17663a17e4736c13850131fe53b915fd426912a8923ee86eb4"
+    },
+    "thumb_guest_bath.png": {
+      "bytes": 57299,
+      "sha256": "6885ad91b9837717f0ba549c85c905b703bdb9e99f642ead1b07ee9f9646206a"
+    },
+    "mahjong_floor.png": {
+      "bytes": 120477,
+      "sha256": "c3827a926b51da57212f4e35b7bbff889d1d9aec73d703f64b182eea4a8eaba6"
+    },
+    "living_plant.png": {
+      "bytes": 7419,
+      "sha256": "bd16be1017202860fcf360d21bd1e0fbd06e5f97e6c715897501adf860e9f5da"
+    },
+    "terrace_floor.png": {
+      "bytes": 649539,
+      "sha256": "b3478ab38a3164873865fb04ac31c920c3b5946b65108a59e791230c0b681d1b"
+    },
+    "exterior_beehive_3.png": {
+      "bytes": 3612,
+      "sha256": "92f2290f3307a5352cd5a249fb54ce73f5f0e3d2d91589be84f665212c0ea8cc"
+    },
+    "study-detail.png": {
+      "bytes": 1746299,
+      "sha256": "a11f3ac82bce008ca585bcec26fb1ddcce93c5f4000cf5d7feaedf3e2386b5c3"
+    },
+    "thumb_cats.png": {
+      "bytes": 39759,
+      "sha256": "2b008be2e97c5d7cd4eadb24d0c4ccb6004cb34363fce90c68f79d08916616b3"
+    },
+    "exterior_pot_shed.png": {
+      "bytes": 6073,
+      "sha256": "9929d591a256de2b167afe79da25899a934e97599e8d078f043222dd35742b97"
+    },
+    "dining_kitchen_door.png": {
+      "bytes": 4200,
+      "sha256": "cf08caea8725f3757ee858fde7141f60312b55195a5f57efb3bcc5017f0d66ed"
+    },
+    "kitchen_counter.png": {
+      "bytes": 47686,
+      "sha256": "f5c7c17d0d8e190f32c699f55065d84b90ae205ae787dca16d1de9a4592ce4b0"
+    },
+    "kitchen_floor.png": {
+      "bytes": 37447,
+      "sha256": "8aaf155a9c1a62275d472a281da936671881a1054dd611bae4d009f74a9c3156"
+    },
+    "living_doorframe.png": {
+      "bytes": 20521,
+      "sha256": "40f0858a4fcf104df347220f7faaaa2b77d02f3476e6ffdab466c6f50bebcf1b"
+    },
+    "exterior_flower_fence.png": {
+      "bytes": 24824,
+      "sha256": "42fb701ee173e733e7efb683b45c9c28bda4da3394e34fa9344b63e5dfa6d396"
+    },
+    "laundry_washer.png": {
+      "bytes": 5726,
+      "sha256": "35a8a4228817e7783b2bbf82fd36c35289ec04aec445e3d883af8c61d7e2471f"
+    },
+    "exterior_house.png": {
+      "bytes": 487543,
+      "sha256": "de6d7daf624890dd3f86258d2d4137409653e47c235e73d3f611b29e5a425c4b"
+    },
+    "exterior_beehive_4.png": {
+      "bytes": 3594,
+      "sha256": "31ed833c04bcf7e62fe608c1e308fd16f09461e7bac2a4f28694e70e632b4cbe"
+    },
+    "closet1.json": {
+      "bytes": 1873,
+      "sha256": "80995807d44fbc270a92669a134036a27d9fbca8e3c4e16de04c4d0157aa11ad"
+    },
+    "exterior_garden_fence.png": {
+      "bytes": 16112,
+      "sha256": "939dead16be05b38a917b78aef36cb6b4449563cfdcf79eb6b28b56074a5bf1f"
+    },
+    "dining_sideboard.png": {
+      "bytes": 15541,
+      "sha256": "89b3df21529f10801b71e01317084df93c4775d91c9261a5b53710f300365ef1"
+    },
+    "garden_summer.png": {
+      "bytes": 2877834,
+      "sha256": "746bd9eb059dca31322bebab88443ad9a6ca41d1e94cf9a1827905703d84215a"
+    },
+    "rooms.json": {
+      "bytes": 98767,
+      "sha256": "118d2a27da67059f4909cb2e3a811270a8efc8084098ec79b1c3117f5167a784"
+    },
+    "kitchen.json": {
+      "bytes": 2202,
+      "sha256": "9a6c01bb550eb5441eb218434fdf242487b4258d709003f41913d176b9c3204c"
+    },
+    "garage_floor.png": {
+      "bytes": 147642,
+      "sha256": "c697620cb12fa9a777c19be02e49289eb22b94e3e71c4e18f0c856501de82960"
+    },
+    "parents.json": {
+      "bytes": 1994,
+      "sha256": "f80fd96a89545742ecf2b67fef2f676ed3ebe9b3d7c12434c9d76d5cfabe5053"
+    },
+    "cats.json": {
+      "bytes": 1766,
+      "sha256": "9c43c9b12e512cfd88fa57eb3fa4dcafae3665a1151de06e9c9d1d67452a87ea"
+    },
+    "exterior_pot_door_left.png": {
+      "bytes": 5177,
+      "sha256": "b8d291b51e7921bf1b310af9ae374b57f0babf2e3587ba6002f724425f7af782"
+    },
+    "exterior_tool_corner.png": {
+      "bytes": 15359,
+      "sha256": "03ffe9610626b4d74bbb58374486e7ff8c7e504a7ef693b909a572e66eded0b5"
+    },
+    "exterior_beehive_5.png": {
+      "bytes": 3642,
+      "sha256": "c320b956633bf2783069a7ef26bb2a1550948a001f373b45dcbae81975e41b7e"
+    },
+    "terrace.json": {
+      "bytes": 2360,
+      "sha256": "f6ed0d4577b8a3ef84040393e5eb8d545fb3c4d904e787129713778c8f4ee0ba"
+    },
+    "closet2.json": {
+      "bytes": 1908,
+      "sha256": "4b673497b601571a75ac57afc60ddaac0825a5299d3c60694e26e9d213d25e7c"
+    },
+    "guest_bath.json": {
+      "bytes": 1647,
+      "sha256": "b77129fd1ac16990fbc3b039be280607680de3ac1813614f78c73c34e2ed62b7"
+    },
+    "living_sofa_north.png": {
+      "bytes": 32946,
+      "sha256": "09f5cb2c66f056a072428882b35fe010646e7e9ca76166bd4eed0a8c74d5755a"
+    },
+    "side_path.json": {
+      "bytes": 1843,
+      "sha256": "7d74dc4d8ce64360d41928db91e5be1a22ea9f0def42af7c304e857106cc956d"
+    },
+    "bath1_floor.png": {
+      "bytes": 45648,
+      "sha256": "2645b958d928c7b922ddb31217c0968075420646c446f963b1ebbede8536a31c"
+    },
+    "exterior_left_wall.png": {
+      "bytes": 239101,
+      "sha256": "23cd2b58a42a71d0ef444b096ffb1b8d3f840c5e90b76ff22a8da475becafaaf"
+    },
+    "dining_south_wall.png": {
+      "bytes": 4501,
+      "sha256": "c36189c52302b7890983cacd6b2d7e4c31259042daa49c8b6dd558ee8b81ff22"
+    },
+    "garden.png": {
+      "bytes": 2746532,
+      "sha256": "3552eed403fe8693efe52093e5a7a2f52dcd31f39b24114273a6f3c2252c48f9"
+    },
+    "xiduo.png": {
+      "bytes": 24939,
+      "sha256": "ac58ff0b7a347e4067936f4f3f0a2ef4e32f29028c85f6a214388b2fb81cb171"
+    },
+    "thumb_bridge.png": {
+      "bytes": 45821,
+      "sha256": "d65a15db0273baba83bc33fc6a06ca6b0a9d3af5ba699693ac9a6341ca15be61"
+    },
+    "garage_car.png": {
+      "bytes": 76743,
+      "sha256": "d091573787e52fb0cb7317eeacdd20576944f3b343ba0a81b87624ea6c0bf284"
+    },
+    "living_south_window.png": {
+      "bytes": 45950,
+      "sha256": "9d051aabaf3ef54761280747030dcc0934097da1bca8e0780d9d88b73abab84f"
+    },
+    "thumb_closet2.png": {
+      "bytes": 36283,
+      "sha256": "a3379b9b1efdff99e11e59bac34689775bdf9c310f4241c5483a838b674d9808"
+    },
+    "thumb_ayu_room.png": {
+      "bytes": 75918,
+      "sha256": "56b26f548fe82915be93323d24217a51ff09d192dc6f222b41e2564dce477185"
+    },
+    "workshop_floor.png": {
+      "bytes": 106989,
+      "sha256": "a2f1509f14854704435e6961ced67dd5dc7d3f81b3151860e774c13df69e35bf"
+    },
+    "ayu_room_floor.png": {
+      "bytes": 283542,
+      "sha256": "3d86b47dff586fcbbd7d0e357989576e158ac2cec5687df7a04a3119ab69c8b2"
+    },
+    "living_landscape.png": {
+      "bytes": 5354,
+      "sha256": "4be07fbe9be76d10fcdba36e60977d6e4bb2ee58cdafa3cef56f35d16b542547"
+    },
+    "dining_south_door.png": {
+      "bytes": 7630,
+      "sha256": "0d6aa054dcd49cbd73994e0560502e6593fd0156f32819ad8ca1fcd20d1b204c"
+    },
+    "living_plant_northeast.png": {
+      "bytes": 8592,
+      "sha256": "b54983e33b4fc021f9b2dfaf8fd1173e2e2ecae0b337f35979dfd074448ab753"
+    },
+    "thumb_closet1.png": {
+      "bytes": 20693,
+      "sha256": "3be5cfdaa46e081e309532b3827ea243aa2091d223fb02c5172d708538e00474"
+    },
+    "exterior.json": {
+      "bytes": 11643,
+      "sha256": "bd7dd7f56c1f09cc68c0674c13cd7a2a45358752a58d6903b4d65bae609ea127"
+    },
+    "tiantian.png": {
+      "bytes": 26445,
+      "sha256": "20f75696ddc06996ea5d47ef2d84f0c783914fd4f7f22574509ef4ee68e7531c"
+    },
+    "exterior_left_tree.png": {
+      "bytes": 86744,
+      "sha256": "f229b398ffceeedf32d78a91d56b8b8a4124f36d13c1128c8eb884083041ff00"
+    },
+    "dining.json": {
+      "bytes": 6873,
+      "sha256": "4cf5d5c6a8b791218b80fa5fcbb750cb61f558b0d4d259aec8d41c641ecb6691"
+    },
+    "exterior_car.png": {
+      "bytes": 47841,
+      "sha256": "b59eea9accda3df4a04fbf912449de9c79665e4c95fc3ba6dcc6a01ef6af9567"
+    },
+    "terrace_umbrella.png": {
+      "bytes": 95470,
+      "sha256": "c6af02c8ec91591c85f97b45ab70189ae6854077762cb5208762c8616d857174"
+    },
+    "thumb_dining.png": {
+      "bytes": 47789,
+      "sha256": "1d20809890460ca553ba18174011e3e4b4404a0e78b9ff32500eb28544464b27"
+    },
+    "guest_floor.png": {
+      "bytes": 273829,
+      "sha256": "13b91c80ebb727e6a9650c9a033413361b67047934cf795b02fefc683d568a29"
+    },
+    "guest_bath_floor.png": {
+      "bytes": 64347,
+      "sha256": "d4d80096fb848233820cdfa7756c2b18bb198137eb621c2e76d4c21f35bc9053"
+    },
+    "aquarium.png": {
+      "bytes": 1614987,
+      "sha256": "f62abb13b1ea570353ecbb2d7c7449000bd4e2571ed375a8b696bae9ca51fbcb"
+    },
+    "thumb_kitchen.png": {
+      "bytes": 60300,
+      "sha256": "cfd8c471d68a1bda3193d57e6148c273918ddc1017b39d284e8a9423c98419e4"
+    },
+    "dining_chair_ayu.png": {
+      "bytes": 8118,
+      "sha256": "aa3aeb3c6b94d905f852a5310a1547a0fb748e77d5992590779b67137705bda2"
+    },
+    "dining_chair_mother.png": {
+      "bytes": 4477,
+      "sha256": "402bb2cd532c498e7df49dbb0613b855c6d66a37bd4252894205677468baf71a"
+    },
+    "study_floor.png": {
+      "bytes": 190559,
+      "sha256": "62447634d90a10e467d0857a27322b412d3cd57eb49413d2598b448e5a374848"
+    },
+    "living.json": {
+      "bytes": 8016,
+      "sha256": "c7785959f5fdd16d8486142d1ae65c35a8c592903485e1139e1b84fe5c0ee2a2"
+    },
+    "guest.json": {
+      "bytes": 2362,
+      "sha256": "573ccab2adf39743b99568132088e9a8a1b5c8789e4cf8fa873fc6bec38a6f43"
+    },
+    "living_sofa_west.png": {
+      "bytes": 19607,
+      "sha256": "1bf6ac9b71badd74d89aa4df0a89247cc8e342dd5fa0714e2f383bdf3a916dfb"
+    },
+    "exterior_floor.png": {
+      "bytes": 1494242,
+      "sha256": "d667d34181acf40aaf0098beea2a4603513d8d5d339f158efccc65390cc08fe0"
+    },
+    "exterior_shed.png": {
+      "bytes": 86381,
+      "sha256": "91335a5ac1691a148b7864da9122aa465ae0d80b97902ad70b681c4efea049e6"
+    },
+    "stairs2.json": {
+      "bytes": 3251,
+      "sha256": "6e68550e6f2c38aea2ce0892547264252cf607a84ec8e27525f792cfba44def8"
+    },
+    "stairs1_floor.png": {
+      "bytes": 136322,
+      "sha256": "f4c8bc00a0d68266620ee8a5f746b6840cbc84f03d8e48a4e8be9542d5562649"
+    },
+    "exterior_neighbour_house.png": {
+      "bytes": 82743,
+      "sha256": "f16d8b88031ec96a3db73dd6d3b0bc4b99a5f5df31f2d8bbf082d68cd15cd554"
+    },
+    "thumb_oldhouse.png": {
+      "bytes": 57449,
+      "sha256": "4fbf759730e5bd206b7dcbb35952ab1499dbf8e5a4bc1202538b2e22546d6c6c"
+    },
+    "closet1_floor.png": {
+      "bytes": 27239,
+      "sha256": "c87953c7056bf72adb610765a22a314b0ff211d5d9a1d20ccefd1c62e7140b10"
+    },
+    "approved-0.png": {
+      "bytes": 2615248,
+      "sha256": "0440caf0c9c1a672c5381ae7ea579d76645050bfb9a39289eb0b0524da8d9cae"
+    },
+    "thumb_side_path.png": {
+      "bytes": 30447,
+      "sha256": "04c8b28186c9229615a38837bbda5adc82e50c7c404ca5f927a4cca5e26531b9"
+    },
+    "exterior_right_border_flowers.png": {
+      "bytes": 101874,
+      "sha256": "a245ebf37defb6928d396bdd87b3020407d00fba850a5b25a95a71282817d610"
+    },
+    "garage.json": {
+      "bytes": 2124,
+      "sha256": "9fb0338e054f264918a75e3a19d240f974f3095cd470d13f6e2d3a398a3c1c21"
+    },
+    "exterior_left_border_flowers.png": {
+      "bytes": 162872,
+      "sha256": "db4f54d5fdb09a561b8b63c7bf34a86e8df6967893134e1c4f243681801ae736"
+    },
+    "guest_closet.json": {
+      "bytes": 1683,
+      "sha256": "c98392acae29b4abb321624f39bca688c1480ab4496a096c4a36ef89f8128fa5"
+    },
+    "bath1.json": {
+      "bytes": 1634,
+      "sha256": "90eee66c2c19562a41991d4ba32f9f13e6d411127b4440c34634d0278955954b"
+    },
+    "terrace_lounge.png": {
+      "bytes": 27748,
+      "sha256": "45a2afa4999eb1d18903bc8081c8d98e0b3406ba7249071e7b56c3d61a1533dc"
+    },
+    "thumb_guest.png": {
+      "bytes": 68941,
+      "sha256": "a91584829692c684e1b73985adfc793a11a258d44ac978fe9b42885755cde690"
+    },
+    "living_tv.png": {
+      "bytes": 18256,
+      "sha256": "eb5a9fefd88bb745907f4afa530817cce55cc6992f790298ba825add4066c810"
+    },
+    "laundry_floor.png": {
+      "bytes": 66322,
+      "sha256": "cb7bb5e8a8c573c568f2c6bc4b260310efda34bce4829bdfcdb3b3a77739f548"
+    },
+    "thumb_terrace.png": {
+      "bytes": 69915,
+      "sha256": "899639d32d339169b6823291563b886b861e6c7d25cc1471e8571a7d1b3b00d2"
+    },
+    "exterior_rear_grove_right.png": {
+      "bytes": 97463,
+      "sha256": "8816063507179fcf49c1f3e601be72a0ddfc9363218034f2c47bf4276b8bf641"
+    },
+    "dining_floor.png": {
+      "bytes": 115673,
+      "sha256": "270cea4ed141f6d8de3c4538da5701923de9da849a3927b702ea5f1ed0443ff3"
+    },
+    "guest_bed.png": {
+      "bytes": 77813,
+      "sha256": "46cdab2d1a45c9e9e1dfad2e618ee3961284f9568ce11a1251571395883b8956"
+    },
+    "thumb_workshop.png": {
+      "bytes": 28931,
+      "sha256": "d2888662ba1d8d7a61ff1677087c1a8f8998c228d8d2e46c7505ad09f0573e46"
+    },
+    "qiuqiu.png": {
+      "bytes": 25960,
+      "sha256": "db4ce6889042ba68b7dfcfa7cdf35fa98aadd0a9a2d1405acc955adab1234f1e"
+    },
+    "thumb_laundry.png": {
+      "bytes": 53730,
+      "sha256": "75031e3afab1699ff5bd993851832bd33ff83d5b020bc451d53508a76c65e23e"
+    },
+    "thumb_exterior.png": {
+      "bytes": 118297,
+      "sha256": "90e64f7c96d34ee8a233bbadd24c155e565cf6f749522e572f51dd8e50ff72b3"
+    },
+    "living_plant_northwest.png": {
+      "bytes": 4755,
+      "sha256": "ff61c88ac3ec131518d4ee59be372486d042b2cf2d87e8d633f490d8bd2657eb"
+    },
+    "living_floor.png": {
+      "bytes": 189269,
+      "sha256": "19d1d8a7e3ef52cc9150bd06b3af0ce1f64bdc411ca420037090a6e23eb80065"
+    },
+    "living_lamp.png": {
+      "bytes": 4064,
+      "sha256": "1f6802f88dc14f37c7b512619f478a33ff65eda48a2d08e33b29a3eaffcd1f91"
+    },
+    "thumb_guest_closet.png": {
+      "bytes": 55644,
+      "sha256": "a1d502dab06e37481460c55c9455913274dbcde13bb2bee7fa110e7c1a2ff30f"
+    },
+    "thumb_study.png": {
+      "bytes": 83061,
+      "sha256": "eb6b127cf7db8c661819daa371d0c333d690fdc9221a3d9b67078df7908d1533"
+    },
+    "oldhouse.json": {
+      "bytes": 2177,
+      "sha256": "a48d57ee51ed4a53e1d075055dde6b7ca56e422f79cfa8a47c381e09589c3d60"
+    }
+  },
+  "total_bytes": 29527736,
+  "note": "Runtime file hashes; generated candidates and original-art comparisons are excluded."
+}

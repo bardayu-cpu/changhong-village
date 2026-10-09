@@ -1,0 +1,520 @@
+{
+  "size": [
+    483,
+    480
+  ],
+  "source_crop": [
+    555,
+    330,
+    1038,
+    810
+  ],
+  "props": [
+    {
+      "id": "north_wall",
+      "file": "living_north_wall.png",
+      "pos": [
+        3,
+        0
+      ],
+      "foot": 73,
+      "front": false,
+      "source_box": [
+        558,
+        330,
+        1037,
+        406
+      ]
+    },
+    {
+      "id": "aquarium",
+      "file": "living_aquarium.png",
+      "pos": [
+        113,
+        19
+      ],
+      "foot": 72,
+      "front": false,
+      "source_box": [
+        668,
+        349,
+        766,
+        403
+      ]
+    },
+    {
+      "id": "landscape",
+      "file": "living_landscape.png",
+      "pos": [
+        247,
+        32
+      ],
+      "foot": 67,
+      "front": false,
+      "source_box": [
+        802,
+        362,
+        869,
+        400
+      ]
+    },
+    {
+      "id": "lamp",
+      "file": "living_lamp.png",
+      "pos": [
+        329,
+        46
+      ],
+      "foot": 111,
+      "front": false,
+      "source_box": [
+        884,
+        376,
+        912,
+        442
+      ]
+    },
+    {
+      "id": "sofa_north",
+      "file": "living_sofa_north.png",
+      "pos": [
+        53,
+        71
+      ],
+      "foot": 141,
+      "front": false,
+      "source_box": [
+        608,
+        401,
+        837,
+        479
+      ]
+    },
+    {
+      "id": "sofa_west",
+      "file": "living_sofa_west.png",
+      "pos": [
+        45,
+        102
+      ],
+      "foot": 261,
+      "front": false,
+      "source_box": [
+        600,
+        432,
+        667,
+        598
+      ]
+    },
+    {
+      "id": "square_tea",
+      "file": "living_square_tea.png",
+      "pos": [
+        131,
+        157
+      ],
+      "foot": 244,
+      "front": false,
+      "source_box": [
+        686,
+        487,
+        792,
+        581
+      ]
+    },
+    {
+      "id": "tv",
+      "file": "living_tv.png",
+      "pos": [
+        415,
+        139
+      ],
+      "foot": 319,
+      "front": false,
+      "source_box": [
+        970,
+        469,
+        1020,
+        657
+      ]
+    },
+    {
+      "id": "plant_northwest",
+      "file": "living_plant_northwest.png",
+      "pos": [
+        21,
+        53
+      ],
+      "foot": 108,
+      "front": false,
+      "source_box": [
+        576,
+        383,
+        609,
+        439
+      ]
+    },
+    {
+      "id": "plant_northeast",
+      "file": "living_plant_northeast.png",
+      "pos": [
+        413,
+        54
+      ],
+      "foot": 121,
+      "front": false,
+      "source_box": [
+        968,
+        384,
+        1020,
+        453
+      ]
+    },
+    {
+      "id": "plant",
+      "file": "living_plant.png",
+      "pos": [
+        60,
+        271
+      ],
+      "foot": 330,
+      "front": true,
+      "source_box": [
+        615,
+        601,
+        663,
+        664
+      ]
+    },
+    {
+      "id": "plant_tv",
+      "file": "living_plant_tv.png",
+      "pos": [
+        425,
+        256
+      ],
+      "foot": 313,
+      "front": false,
+      "source_box": [
+        980,
+        586,
+        1020,
+        644
+      ]
+    },
+    {
+      "id": "south_window",
+      "file": "living_south_window.png",
+      "pos": [
+        56,
+        342
+      ],
+      "foot": 452,
+      "front": false,
+      "source_box": [
+        611,
+        672,
+        836,
+        782
+      ]
+    },
+    {
+      "id": "doorframe",
+      "file": "living_doorframe.png",
+      "pos": [
+        295,
+        342
+      ],
+      "foot": 461,
+      "front": false,
+      "source_box": [
+        850,
+        672,
+        952,
+        787
+      ]
+    },
+    {
+      "id": "south_wall_left",
+      "file": "living_south_wall_left.png",
+      "pos": [
+        0,
+        351
+      ],
+      "foot": 480,
+      "front": false,
+      "source_box": [
+        555,
+        681,
+        613,
+        810
+      ]
+    },
+    {
+      "id": "south_wall_middle",
+      "file": "living_south_wall_middle.png",
+      "pos": [
+        279,
+        351
+      ],
+      "foot": 480,
+      "front": false,
+      "source_box": [
+        834,
+        681,
+        857,
+        810
+      ]
+    },
+    {
+      "id": "south_wall_right",
+      "file": "living_south_wall_right.png",
+      "pos": [
+        395,
+        351
+      ],
+      "foot": 480,
+      "front": false,
+      "source_box": [
+        950,
+        681,
+        1038,
+        810
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      51,
+      121,
+      226,
+      22
+    ],
+    [
+      48,
+      144,
+      61,
+      119
+    ],
+    [
+      133,
+      209,
+      104,
+      39
+    ],
+    [
+      418,
+      164,
+      40,
+      161
+    ],
+    [
+      67,
+      311,
+      32,
+      21
+    ],
+    [
+      331,
+      94,
+      24,
+      17
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "fish",
+      "label": "喂一撮鱼食",
+      "pos": [
+        162,
+        46
+      ],
+      "approach": [
+        302,
+        85
+      ]
+    },
+    {
+      "id": "tv",
+      "label": "开关电视",
+      "pos": [
+        439,
+        196
+      ],
+      "approach": [
+        380,
+        219
+      ]
+    },
+    {
+      "id": "sofa",
+      "label": "坐一会儿",
+      "pos": [
+        153,
+        111
+      ],
+      "approach": [
+        280,
+        177
+      ]
+    },
+    {
+      "id": "album",
+      "label": "翻开相册",
+      "pos": [
+        195,
+        201
+      ],
+      "approach": [
+        266,
+        247
+      ]
+    },
+    {
+      "id": "lamp",
+      "label": "开关落地灯",
+      "pos": [
+        343,
+        65
+      ],
+      "approach": [
+        371,
+        117
+      ]
+    },
+    {
+      "id": "dining",
+      "label": "去餐厅",
+      "pos": [
+        91,
+        41
+      ],
+      "approach": [
+        306,
+        69
+      ]
+    },
+    {
+      "id": "exit",
+      "label": "回到院子",
+      "pos": [
+        346,
+        410
+      ],
+      "approach": [
+        347,
+        337
+      ]
+    }
+  ],
+  "windows": [
+    [
+      89,
+      369,
+      139,
+      54
+    ]
+  ],
+  "lamps": [
+    [
+      344,
+      60,
+      170
+    ],
+    [
+      420,
+      389,
+      100
+    ]
+  ],
+  "anchors": {
+    "ayu_seat": [
+      225,
+      136
+    ],
+    "father_seat": [
+      80,
+      186
+    ],
+    "mother_seat": [
+      82,
+      248
+    ],
+    "guest_seat": [
+      141,
+      136
+    ],
+    "fish": [
+      301,
+      85
+    ],
+    "clean": [
+      310,
+      283
+    ],
+    "qiuqiu": [
+      164,
+      324
+    ],
+    "luoluo": [
+      155,
+      125
+    ],
+    "tiantian": [
+      72,
+      250
+    ],
+    "qiuqiu_evening": [
+      260,
+      319
+    ],
+    "luoluo_evening": [
+      141,
+      127
+    ],
+    "tiantian_evening": [
+      122,
+      320
+    ]
+  },
+  "walk_polygons": [],
+  "window_panes": [
+    {
+      "file": "living_view_0.png",
+      "pos": [
+        108,
+        372
+      ]
+    },
+    {
+      "file": "living_view_1.png",
+      "pos": [
+        160,
+        372
+      ]
+    }
+  ],
+  "fish_rect": [
+    128,
+    30,
+    66,
+    33
+  ],
+  "tv_rect": [
+    427,
+    151,
+    15,
+    98
+  ],
+  "camera_ahead": 80,
+  "spawn": [
+    347,
+    331
+  ],
+  "walk_rect": [
+    24,
+    68,
+    435,
+    274
+  ]
+}

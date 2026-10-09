@@ -1,0 +1,475 @@
+{
+ "scene": "scene_roman_banquet_55",
+ "revision": "v1-55tables",
+ "note": "55 桌大厅（新场景，和 12 桌厅并存，开关切）。底图是 GPT 21:30 空地面底图上下拉长的占位（make_base55.py），桌子是 GPT 21:30 的 A04 积木摆 55 遍",
+ "canvas": [
+  1536,
+  2044
+ ],
+ "person_h": 84,
+ "base": "base.png",
+ "blocks": {
+  "blk_table_round": {
+   "anchor": [
+    82,
+    124
+   ],
+   "footprint": {
+    "ellipse": [
+     70,
+     52
+    ]
+   }
+  },
+  "fg_rail_left": {
+   "anchor": [
+    0,
+    261
+   ]
+  },
+  "fg_rail_right": {
+   "anchor": [
+    0,
+    272
+   ]
+  }
+ },
+ "place": [
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 370
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 370
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 370,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 370,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 518
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 518
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 518
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 518,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 518,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 518,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 666
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 666
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 666
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 666,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 666,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 666,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 814
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 814
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 814
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 814,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 814,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 814,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 962
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 962
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 962
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 962,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 962,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 962,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 1110
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 1110
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 1110
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 1110,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 1110,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 1110,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 1258
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 1258
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 1258
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 1258,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 1258,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 1258,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 1406
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 1406
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 1406
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 1406,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 1406,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 1406,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 1554
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 1554
+  },
+  {
+   "block": "blk_table_round",
+   "x": 588,
+   "y": 1554
+  },
+  {
+   "block": "blk_table_round",
+   "x": 908,
+   "y": 1554,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 1554,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1314,
+   "y": 1554,
+   "flip": true
+  },
+  {
+   "block": "blk_table_round",
+   "x": 182,
+   "y": 1702
+  },
+  {
+   "block": "blk_table_round",
+   "x": 385,
+   "y": 1702
+  },
+  {
+   "block": "blk_table_round",
+   "x": 1111,
+   "y": 1702,
+   "flip": true
+  },
+  {
+   "block": "fg_rail_left",
+   "x": 0,
+   "y": 2033,
+   "front": true
+  },
+  {
+   "block": "fg_rail_right",
+   "x": 1066,
+   "y": 2032,
+   "front": true
+  }
+ ],
+ "walk": [
+  [
+   [
+    80,
+    270
+   ],
+   [
+    505,
+    270
+   ],
+   [
+    505,
+    320
+   ],
+   [
+    985,
+    320
+   ],
+   [
+    985,
+    300
+   ],
+   [
+    1400,
+    300
+   ],
+   [
+    1400,
+    270
+   ],
+   [
+    1456,
+    270
+   ],
+   [
+    1456,
+    1880
+   ],
+   [
+    80,
+    1880
+   ]
+  ],
+  [
+   [
+    1450,
+    1616
+   ],
+   [
+    1500,
+    1616
+   ],
+   [
+    1500,
+    1666
+   ],
+   [
+    1450,
+    1666
+   ]
+  ]
+ ],
+ "spawn": [
+  768,
+  1860
+ ],
+ "couple": [
+  600,
+  330
+ ],
+ "ambience": "ambience_55.json",
+ "stage": {
+  "banner": {
+   "rect": [
+    576,
+    140,
+    344,
+    50
+   ],
+   "font_size": 18,
+   "lines": [
+    "开席时间：2025 年 06 月 15 日",
+    "爱女：阿鱼 & 贤婿：Toretto"
+   ]
+  },
+  "led": {
+   "rect": [
+    556,
+    216,
+    384,
+    30
+   ],
+   "font_size": 18,
+   "speed": 40
+  }
+ },
+ "points": [
+  {
+   "id": "couple_table",
+   "x": 620,
+   "y": 420,
+   "r": 70,
+   "kind": "talk",
+   "line": "table"
+  },
+  {
+   "id": "door",
+   "x": 768,
+   "y": 1860,
+   "r": 60,
+   "kind": "door",
+   "line": "leave"
+  },
+  {
+   "id": "side_door",
+   "x": 1500,
+   "y": 1620,
+   "r": 50,
+   "kind": "door",
+   "line": "backhall"
+  }
+ ]
+}

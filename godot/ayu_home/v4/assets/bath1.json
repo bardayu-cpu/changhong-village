@@ -1,0 +1,193 @@
+{
+  "id": "bath1",
+  "title": "爸妈卧室浴室",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1193,
+    380,
+    1404,
+    553
+  ],
+  "source_offset": [
+    54,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "bath1-fixtures.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/bath1-fixtures.png",
+      "pos": [
+        73,
+        70
+      ],
+      "foot": 147,
+      "front": false
+    },
+    {
+      "id": "bath1-shower.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/bath1-shower.png",
+      "pos": [
+        177,
+        62
+      ],
+      "foot": 185,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      73,
+      68,
+      98,
+      34
+    ],
+    [
+      177,
+      64,
+      82,
+      117
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "sink",
+      "label": "洗手台",
+      "pos": [
+        130,
+        98
+      ],
+      "approach": [
+        125,
+        161
+      ],
+      "kind": "tap",
+      "effect": "water",
+      "copy": "细细的水流落下。",
+      "spout": [
+        125,
+        89
+      ],
+      "basin": [
+        125,
+        97
+      ]
+    },
+    {
+      "id": "shower",
+      "label": "打开淋浴",
+      "pos": [
+        225,
+        121
+      ],
+      "approach": [
+        156,
+        162
+      ],
+      "kind": "shower",
+      "effect": "water",
+      "copy": "水珠敲着玻璃，随后关好。"
+    },
+    {
+      "id": "towel",
+      "label": "整理浴巾",
+      "pos": [
+        79,
+        140
+      ],
+      "approach": [
+        106,
+        159
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "把浴巾折成三折，柔软的一边朝外。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_parents",
+      "target": "parents",
+      "pos": [
+        127,
+        200
+      ],
+      "approach": [
+        127,
+        200
+      ],
+      "face": "up",
+      "label": "去爸妈卧室",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      122,
+      155,
+      110
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [
+    [
+      [
+        89,
+        104
+      ],
+      [
+        179,
+        104
+      ],
+      [
+        179,
+        189
+      ],
+      [
+        89,
+        189
+      ]
+    ],
+    [
+      [
+        103,
+        184
+      ],
+      [
+        153,
+        184
+      ],
+      [
+        153,
+        211
+      ],
+      [
+        103,
+        211
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    122,
+    155
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

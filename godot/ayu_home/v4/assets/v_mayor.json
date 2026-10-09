@@ -1,0 +1,262 @@
+{
+  "id": "v_mayor",
+  "title": "村公所 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    710,
+    710
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_mayor.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "cabinet0",
+      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
+      "pos": [
+        65,
+        140
+      ],
+      "foot": 247,
+      "front": false
+    },
+    {
+      "id": "table1",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        390,
+        200
+      ],
+      "foot": 275,
+      "front": false
+    },
+    {
+      "id": "sofa2",
+      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
+      "pos": [
+        335,
+        445
+      ],
+      "foot": 530,
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        600,
+        400
+      ],
+      "foot": 550,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        257,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        480
+      ],
+      "foot": 548,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        638,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        325,
+        452
+      ],
+      "foot": 485,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      270,
+      95,
+      12,
+      180
+    ],
+    [
+      270,
+      430,
+      12,
+      225
+    ],
+    [
+      69,
+      201.60000000000002,
+      90,
+      50.4
+    ],
+    [
+      394,
+      244.0,
+      112,
+      36.0
+    ],
+    [
+      339,
+      494.5,
+      127,
+      40.5
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        255,
+        590
+      ],
+      "approach": [
+        255,
+        630
+      ],
+      "kind": "village",
+      "copy": "林伯是虚构村长，在榕树旁替新邻居安家。"
+    },
+    {
+      "id": "house_help",
+      "label": "理好公告栏",
+      "pos": [
+        445,
+        560
+      ],
+      "approach": [
+        445,
+        600
+      ],
+      "kind": "village",
+      "copy": "旧便条收妥，新消息能看清了。",
+      "house": "mayor"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        355,
+        465
+      ],
+      "approach": [
+        355,
+        520
+      ],
+      "kind": "seat",
+      "seat": [
+        355,
+        475
+      ],
+      "face": "down"
+    },
+    {
+      "id": "mayor",
+      "label": "林伯 · 申请住下",
+      "pos": [
+        485,
+        470
+      ],
+      "approach": [
+        485,
+        550
+      ],
+      "kind": "village"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        355,
+        656
+      ],
+      "approach": [
+        355,
+        674
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_mayor_up",
+      "pos": [
+        645,
+        555
+      ],
+      "approach": [
+        645,
+        585
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      227,
+      115,
+      240
+    ],
+    [
+      511,
+      496,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    355,
+    605
+  ],
+  "walk_rect": [
+    22,
+    100,
+    666,
+    590
+  ],
+  "outdoor": false,
+  "view_scale": 1.15,
+  "npc": {
+    "name": "林伯",
+    "pos": [
+      485,
+      500
+    ],
+    "preset": 0
+  }
+}

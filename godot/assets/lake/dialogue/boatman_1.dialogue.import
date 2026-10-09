@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://bbpqck1sg4xye"
+path="res://.godot/imported/boatman_1.dialogue-bcdb128f9c43b29905bbdbbb15d0f84b.tres"
+
+[deps]
+
+source_file="res://assets/lake/dialogue/boatman_1.dialogue"
+dest_files=["res://.godot/imported/boatman_1.dialogue-bcdb128f9c43b29905bbdbbb15d0f84b.tres"]
+
+[params]
+
+defaults=true

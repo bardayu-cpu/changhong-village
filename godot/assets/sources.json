@@ -1,0 +1,122 @@
+{
+  "textures/tex_floor_wood.png": {
+    "from": "textures/tex_floor_wood_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_carpet_red.png": {
+    "from": "textures/tex_carpet_red_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_cloth_red.png": {
+    "from": "textures/tex_cloth_red_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_wall_red.png": {
+    "from": "textures/tex_wall_red_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_drape_red.png": {
+    "from": "textures/tex_drape_red_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_lattice.png": {
+    "from": "textures/tex_lattice_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_gold.png": {
+    "from": "textures/tex_gold_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "characters/chr_guest03.png": {
+    "from": "characters/chr_guest03_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "characters/chr_guest03.json": {
+    "from": "characters/chr_guest03_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_dish.png": {
+    "from": "props/prop_dish_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_dish.json": {
+    "from": "props/prop_dish_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_wine_glass.png": {
+    "from": "props/prop_wine_glass_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_wine_glass.json": {
+    "from": "props/prop_wine_glass_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_candy_box.png": {
+    "from": "props/prop_candy_box_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_candy_box.json": {
+    "from": "props/prop_candy_box_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_flower_basket.png": {
+    "from": "props/prop_flower_basket_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_flower_basket.json": {
+    "from": "props/prop_flower_basket_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_potted_plant.png": {
+    "from": "props/prop_potted_plant_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "props/prop_potted_plant.json": {
+    "from": "props/prop_potted_plant_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "decals/decal_xi_gold.png": {
+    "from": "decals/decal_xi_gold_v4.png",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "scenes/scene_roman_banquet.json": {
+    "from": "scenes/scene_roman_banquet_v4.json",
+    "batch": "A01",
+    "revision": "v4"
+  },
+  "textures/tex_floor_stone.png": {
+    "from": "textures/tex_floor_stone_v5.png",
+    "batch": "A02-pilot",
+    "revision": "v5"
+  },
+  "decals/decal_tabletop.png": {
+    "from": "decals/decal_tabletop_v5.png",
+    "batch": "A02-pilot",
+    "revision": "v5"
+  },
+  "textures/tex_chair_back.png": {
+    "from": "textures/tex_chair_back_v5.png",
+    "batch": "A02-pilot",
+    "revision": "v5"
+  }
+}

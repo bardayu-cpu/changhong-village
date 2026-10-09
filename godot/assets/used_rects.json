@@ -1,0 +1,845 @@
+{
+ "note": "tools/bake_used_rects.gd 生成，别手改：导入以后的图不透明的那块 [x, y, w, h]（跟 Image.get_used_rect 一样），手机上裁边、量大小照这份，不从显卡读图",
+ "rects": {
+  "res://assets/couple.png": [
+   0,
+   0,
+   224,
+   320
+  ],
+  "res://assets/kitchen/kitchen_atlas_v1.png": [
+   20,
+   19,
+   472,
+   477
+  ],
+  "res://assets/kitchen/kitchen_room_v1.png": [
+   0,
+   0,
+   512,
+   768
+  ],
+  "res://assets/kitchen/kitchen_tables_v1.png": [
+   16,
+   17,
+   474,
+   230
+  ],
+  "res://assets/kitchen/mobile/background/base_kitchen_no_fire.png": [
+   0,
+   0,
+   540,
+   960
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_1_carry.png": [
+   27,
+   35,
+   239,
+   423
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_1_confirm.png": [
+   48,
+   33,
+   192,
+   424
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_1_leave.png": [
+   34,
+   37,
+   222,
+   420
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_1_wait.png": [
+   65,
+   37,
+   160,
+   421
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_2_carry.png": [
+   38,
+   48,
+   217,
+   410
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_2_confirm.png": [
+   55,
+   46,
+   180,
+   412
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_2_leave.png": [
+   53,
+   47,
+   185,
+   410
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_2_wait.png": [
+   64,
+   48,
+   162,
+   410
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_3_carry.png": [
+   38,
+   30,
+   215,
+   428
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_3_confirm.png": [
+   55,
+   25,
+   181,
+   434
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_3_leave.png": [
+   51,
+   30,
+   187,
+   428
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_female_3_wait.png": [
+   64,
+   29,
+   162,
+   429
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_1_carry.png": [
+   38,
+   50,
+   194,
+   407
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_1_confirm.png": [
+   29,
+   47,
+   211,
+   409
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_1_leave.png": [
+   25,
+   50,
+   220,
+   406
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_1_wait.png": [
+   48,
+   48,
+   174,
+   409
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_2_carry.png": [
+   38,
+   65,
+   195,
+   392
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_2_confirm.png": [
+   41,
+   57,
+   189,
+   398
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_2_leave.png": [
+   26,
+   58,
+   219,
+   398
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_2_wait.png": [
+   44,
+   53,
+   183,
+   401
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_3_carry.png": [
+   28,
+   33,
+   212,
+   422
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_3_confirm.png": [
+   25,
+   26,
+   220,
+   429
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_3_leave.png": [
+   26,
+   29,
+   217,
+   427
+  ],
+  "res://assets/kitchen/mobile/characters/chr_server_male_3_wait.png": [
+   45,
+   29,
+   180,
+   428
+  ],
+  "res://assets/kitchen/mobile/components/blk_candy_press_burnt.png": [
+   22,
+   36,
+   212,
+   190
+  ],
+  "res://assets/kitchen/mobile/components/blk_candy_press_cooking.png": [
+   22,
+   34,
+   212,
+   192
+  ],
+  "res://assets/kitchen/mobile/components/blk_candy_press_prep.png": [
+   22,
+   113,
+   212,
+   113
+  ],
+  "res://assets/kitchen/mobile/components/blk_candy_press_ready.png": [
+   22,
+   58,
+   212,
+   168
+  ],
+  "res://assets/kitchen/mobile/components/blk_cold_mix_burnt.png": [
+   31,
+   64,
+   194,
+   162
+  ],
+  "res://assets/kitchen/mobile/components/blk_cold_mix_cooking.png": [
+   31,
+   25,
+   194,
+   201
+  ],
+  "res://assets/kitchen/mobile/components/blk_cold_mix_prep.png": [
+   31,
+   84,
+   194,
+   142
+  ],
+  "res://assets/kitchen/mobile/components/blk_cold_mix_ready.png": [
+   31,
+   42,
+   194,
+   184
+  ],
+  "res://assets/kitchen/mobile/components/blk_empty_plate.png": [
+   5,
+   6,
+   373,
+   173
+  ],
+  "res://assets/kitchen/mobile/components/blk_grill_burnt.png": [
+   31,
+   56,
+   194,
+   170
+  ],
+  "res://assets/kitchen/mobile/components/blk_grill_cooking.png": [
+   31,
+   22,
+   194,
+   204
+  ],
+  "res://assets/kitchen/mobile/components/blk_grill_prep.png": [
+   31,
+   84,
+   194,
+   142
+  ],
+  "res://assets/kitchen/mobile/components/blk_grill_ready.png": [
+   31,
+   27,
+   194,
+   199
+  ],
+  "res://assets/kitchen/mobile/components/blk_steamer_burnt.png": [
+   31,
+   44,
+   194,
+   182
+  ],
+  "res://assets/kitchen/mobile/components/blk_steamer_cooking.png": [
+   31,
+   22,
+   194,
+   204
+  ],
+  "res://assets/kitchen/mobile/components/blk_steamer_prep.png": [
+   31,
+   82,
+   194,
+   144
+  ],
+  "res://assets/kitchen/mobile/components/blk_steamer_ready.png": [
+   31,
+   22,
+   194,
+   204
+  ],
+  "res://assets/kitchen/mobile/components/blk_stock_wok_burnt.png": [
+   22,
+   36,
+   212,
+   190
+  ],
+  "res://assets/kitchen/mobile/components/blk_stock_wok_cooking.png": [
+   25,
+   22,
+   206,
+   204
+  ],
+  "res://assets/kitchen/mobile/components/blk_stock_wok_prep.png": [
+   25,
+   67,
+   206,
+   159
+  ],
+  "res://assets/kitchen/mobile/components/blk_stock_wok_ready.png": [
+   25,
+   22,
+   206,
+   204
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_bbq_skewers_burnt.png": [
+   18,
+   16,
+   220,
+   194
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_bbq_skewers_cooking.png": [
+   16,
+   18,
+   224,
+   192
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_bbq_skewers_prep.png": [
+   18,
+   27,
+   220,
+   183
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_bobo_chicken_burnt.png": [
+   18,
+   19,
+   219,
+   176
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_bobo_chicken_cooking.png": [
+   18,
+   16,
+   219,
+   179
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_bobo_chicken_prep.png": [
+   22,
+   29,
+   212,
+   166
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_feichang_noodles_burnt.png": [
+   18,
+   45,
+   220,
+   165
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_feichang_noodles_cooking.png": [
+   16,
+   46,
+   223,
+   164
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_feichang_noodles_prep.png": [
+   18,
+   43,
+   220,
+   167
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_ice_jelly_burnt.png": [
+   21,
+   63,
+   214,
+   155
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_ice_jelly_cooking.png": [
+   20,
+   71,
+   216,
+   147
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_ice_jelly_prep.png": [
+   20,
+   75,
+   215,
+   143
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_lianggao_burnt.png": [
+   18,
+   63,
+   219,
+   147
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_lianggao_cooking.png": [
+   18,
+   59,
+   220,
+   151
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_lianggao_prep.png": [
+   18,
+   46,
+   219,
+   164
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_malatang_burnt.png": [
+   19,
+   42,
+   218,
+   176
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_malatang_cooking.png": [
+   16,
+   16,
+   224,
+   202
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_malatang_prep.png": [
+   18,
+   55,
+   220,
+   163
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_qiaojiao_beef_burnt.png": [
+   18,
+   45,
+   219,
+   150
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_qiaojiao_beef_cooking.png": [
+   18,
+   47,
+   219,
+   148
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_qiaojiao_beef_prep.png": [
+   21,
+   48,
+   214,
+   147
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_rice_candy_burnt.png": [
+   17,
+   51,
+   222,
+   159
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_rice_candy_cooking.png": [
+   21,
+   37,
+   214,
+   173
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_rice_candy_prep.png": [
+   18,
+   30,
+   220,
+   180
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_sweet_skin_duck_burnt.png": [
+   18,
+   33,
+   219,
+   162
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_sweet_skin_duck_cooking.png": [
+   18,
+   19,
+   219,
+   176
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_sweet_skin_duck_prep.png": [
+   23,
+   39,
+   210,
+   156
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_tofu_pudding_burnt.png": [
+   16,
+   49,
+   224,
+   146
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_tofu_pudding_cooking.png": [
+   18,
+   44,
+   220,
+   151
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_tofu_pudding_prep.png": [
+   24,
+   56,
+   209,
+   139
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_xiba_tofu_burnt.png": [
+   20,
+   60,
+   214,
+   158
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_xiba_tofu_cooking.png": [
+   20,
+   68,
+   216,
+   150
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_xiba_tofu_prep.png": [
+   22,
+   85,
+   212,
+   133
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_yeerba_burnt.png": [
+   19,
+   59,
+   217,
+   159
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_yeerba_cooking.png": [
+   21,
+   16,
+   214,
+   202
+  ],
+  "res://assets/kitchen/mobile/dish_states/blk_dish_state_yeerba_prep.png": [
+   17,
+   70,
+   222,
+   148
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_bbq_skewers.png": [
+   16,
+   62,
+   224,
+   175
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_bobo_chicken.png": [
+   28,
+   38,
+   200,
+   199
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_feichang_noodles.png": [
+   20,
+   59,
+   214,
+   178
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_ice_jelly.png": [
+   26,
+   77,
+   204,
+   159
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_lianggao.png": [
+   23,
+   102,
+   212,
+   134
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_malatang.png": [
+   17,
+   16,
+   221,
+   219
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_qiaojiao_beef.png": [
+   26,
+   84,
+   205,
+   153
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_rice_candy.png": [
+   19,
+   81,
+   218,
+   155
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_sweet_skin_duck.png": [
+   20,
+   109,
+   215,
+   127
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_tofu_pudding.png": [
+   26,
+   82,
+   204,
+   155
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_xiba_tofu.png": [
+   25,
+   74,
+   207,
+   163
+  ],
+  "res://assets/kitchen/mobile/dishes/blk_dish_yeerba.png": [
+   25,
+   46,
+   206,
+   191
+  ],
+  "res://assets/kitchen/mobile/effects/decal_cold_glint.png": [
+   16,
+   83,
+   158,
+   164
+  ],
+  "res://assets/kitchen/mobile/effects/decal_flame.png": [
+   12,
+   91,
+   169,
+   156
+  ],
+  "res://assets/kitchen/mobile/effects/decal_ready_sparkle.png": [
+   19,
+   82,
+   154,
+   165
+  ],
+  "res://assets/kitchen/mobile/effects/decal_sizzle.png": [
+   14,
+   100,
+   163,
+   146
+  ],
+  "res://assets/kitchen/mobile/effects/decal_smoke.png": [
+   22,
+   11,
+   148,
+   236
+  ],
+  "res://assets/kitchen/mobile/effects/decal_steam.png": [
+   20,
+   33,
+   152,
+   214
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_assorted_skewers.png": [
+   14,
+   12,
+   164,
+   169
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_beef.png": [
+   21,
+   39,
+   149,
+   124
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_beef_gravy.png": [
+   20,
+   32,
+   152,
+   130
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_broth.png": [
+   21,
+   43,
+   150,
+   119
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_brown_sugar_syrup.png": [
+   18,
+   51,
+   156,
+   129
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_chili_oil.png": [
+   23,
+   45,
+   146,
+   117
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_cilantro.png": [
+   24,
+   23,
+   144,
+   139
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_cooked_chicken_skewers.png": [
+   11,
+   12,
+   170,
+   150
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_duck.png": [
+   13,
+   17,
+   166,
+   145
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_ice_jelly.png": [
+   15,
+   42,
+   160,
+   138
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_maltose_glaze.png": [
+   28,
+   53,
+   134,
+   109
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_peanuts.png": [
+   15,
+   50,
+   161,
+   131
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_pork_intestine.png": [
+   13,
+   41,
+   166,
+   140
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_puffed_rice.png": [
+   18,
+   52,
+   155,
+   129
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_raw_bbq_skewers.png": [
+   12,
+   17,
+   168,
+   164
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_red_chili.png": [
+   13,
+   21,
+   165,
+   160
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_rice_cake_dough.png": [
+   20,
+   35,
+   152,
+   127
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_rice_jelly.png": [
+   15,
+   47,
+   163,
+   134
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_scallion.png": [
+   21,
+   40,
+   149,
+   123
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_sesame.png": [
+   16,
+   53,
+   158,
+   128
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_sweet_potato_noodles.png": [
+   13,
+   41,
+   166,
+   140
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_tofu.png": [
+   15,
+   50,
+   160,
+   130
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_tofu_pudding_curds.png": [
+   21,
+   34,
+   150,
+   128
+  ],
+  "res://assets/kitchen/mobile/ingredients/blk_ingredient_wrapping_leaves.png": [
+   18,
+   27,
+   155,
+   135
+  ],
+  "res://assets/kitchen/mobile/stations/blk_station_candy_press.png": [
+   8,
+   8,
+   336,
+   187
+  ],
+  "res://assets/kitchen/mobile/stations/blk_station_cold_mix.png": [
+   8,
+   8,
+   336,
+   201
+  ],
+  "res://assets/kitchen/mobile/stations/blk_station_grill.png": [
+   8,
+   8,
+   336,
+   193
+  ],
+  "res://assets/kitchen/mobile/stations/blk_station_steamer.png": [
+   10,
+   10,
+   332,
+   259
+  ],
+  "res://assets/kitchen/mobile/stations/blk_station_stock_wok.png": [
+   9,
+   9,
+   334,
+   210
+  ],
+  "res://assets/kitchen/mobile/ui/base_ui_button_deliver.png": [
+   0,
+   0,
+   181,
+   220
+  ],
+  "res://assets/kitchen/mobile/ui/base_ui_button_serve.png": [
+   0,
+   0,
+   169,
+   220
+  ],
+  "res://assets/kitchen/mobile/ui/kitchen_ui_coin_frame.png": [
+   0,
+   0,
+   310,
+   71
+  ],
+  "res://assets/kitchen/mobile/ui/kitchen_ui_coin_icon.png": [
+   0,
+   0,
+   51,
+   44
+  ],
+  "res://assets/kitchen/mobile/ui/kitchen_ui_hat_icon.png": [
+   0,
+   0,
+   59,
+   43
+  ],
+  "res://assets/kitchen/mobile/ui/kitchen_ui_rank_frame.png": [
+   0,
+   0,
+   291,
+   71
+  ],
+  "res://assets/kitchen/mobile/ui/kitchen_ui_sign.png": [
+   0,
+   0,
+   263,
+   148
+  ]
+ }
+}

@@ -1,0 +1,337 @@
+{
+  "id": "mahjong",
+  "title": "茶桌与麻将室",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    355,
+    600
+  ],
+  "source_crop": [
+    1049,
+    99,
+    1404,
+    404
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "mahjong-table.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/mahjong-table.png",
+      "pos": [
+        120,
+        125
+      ],
+      "foot": 217,
+      "front": false
+    },
+    {
+      "id": "mahjong-south-wall.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/mahjong-south-wall.png",
+      "pos": [
+        94,
+        315
+      ],
+      "foot": 339,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      120,
+      118,
+      90,
+      90
+    ],
+    [
+      143,
+      86,
+      44,
+      32
+    ],
+    [
+      143,
+      205,
+      44,
+      48
+    ],
+    [
+      88,
+      138,
+      34,
+      44
+    ],
+    [
+      208,
+      138,
+      36,
+      44
+    ],
+    [
+      57,
+      59,
+      76,
+      48
+    ],
+    [
+      291,
+      95,
+      47,
+      132
+    ],
+    [
+      293,
+      230,
+      51,
+      83
+    ],
+    [
+      4,
+      64,
+      30,
+      245
+    ],
+    [
+      256,
+      270,
+      34,
+      38
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "tea",
+      "label": "沏茶",
+      "pos": [
+        88,
+        77
+      ],
+      "approach": [
+        58,
+        142
+      ],
+      "kind": "tea",
+      "effect": "",
+      "copy": "只摆茶杯，坐下来喝茶聊天。"
+    },
+    {
+      "id": "chair",
+      "label": "坐下聊会儿",
+      "pos": [
+        102,
+        173
+      ],
+      "approach": [
+        55,
+        188
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "在茶桌旁坐了一会儿。"
+    },
+    {
+      "id": "plant",
+      "label": "照顾绿植",
+      "pos": [
+        319,
+        285
+      ],
+      "approach": [
+        267,
+        272
+      ],
+      "kind": "tend",
+      "effect": "water",
+      "copy": "拨开叶片，把清水浇在根边。"
+    },
+    {
+      "id": "pairs",
+      "label": "花纹翻牌",
+      "pos": [
+        175,
+        173
+      ],
+      "approach": [
+        274,
+        203
+      ],
+      "kind": "pairs",
+      "effect": "",
+      "copy": ""
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        108,
+        173
+      ],
+      "approach": [
+        59,
+        218
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        108,
+        173
+      ],
+      "face": "right"
+    },
+    {
+      "id": "seat_1",
+      "label": "坐在这里",
+      "pos": [
+        232,
+        173
+      ],
+      "approach": [
+        273,
+        204
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        232,
+        173
+      ],
+      "face": "left"
+    },
+    {
+      "id": "seat_2",
+      "label": "坐在这里",
+      "pos": [
+        170,
+        108
+      ],
+      "approach": [
+        281,
+        133
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        170,
+        108
+      ],
+      "face": "down"
+    },
+    {
+      "id": "seat_3",
+      "label": "坐在这里",
+      "pos": [
+        170,
+        247
+      ],
+      "approach": [
+        191,
+        290
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        170,
+        247
+      ],
+      "face": "up"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_closet1",
+      "target": "closet1",
+      "pos": [
+        64,
+        328
+      ],
+      "approach": [
+        64,
+        328
+      ],
+      "face": "up",
+      "label": "去一楼衣柜间",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      296,
+      267,
+      110
+    ]
+  ],
+  "anchors": {
+    "father": [
+      56,
+      218
+    ],
+    "mother": [
+      272,
+      241
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        41,
+        109
+      ],
+      [
+        339,
+        109
+      ],
+      [
+        339,
+        300
+      ],
+      [
+        41,
+        300
+      ]
+    ],
+    [
+      [
+        41,
+        296
+      ],
+      [
+        92,
+        296
+      ],
+      [
+        92,
+        345
+      ],
+      [
+        41,
+        345
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    355,
+    600
+  ],
+  "spawn": [
+    296,
+    267
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

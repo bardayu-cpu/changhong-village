@@ -1,0 +1,241 @@
+{
+  "id": "v_daba",
+  "title": "大爸家 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    780,
+    680
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_daba.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "bench0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        75,
+        125
+      ],
+      "foot": 198,
+      "front": false
+    },
+    {
+      "id": "kitchen1",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        555,
+        120
+      ],
+      "foot": 203,
+      "front": false
+    },
+    {
+      "id": "table2",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        205,
+        360
+      ],
+      "foot": 435,
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        670,
+        370
+      ],
+      "foot": 520,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        292,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        450
+      ],
+      "foot": 518,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        708,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        360,
+        422
+      ],
+      "foot": 455,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      480,
+      95,
+      12,
+      190
+    ],
+    [
+      480,
+      420,
+      12,
+      205
+    ],
+    [
+      79,
+      167.9,
+      118,
+      35.1
+    ],
+    [
+      559,
+      168.4,
+      147,
+      39.6
+    ],
+    [
+      209,
+      404.0,
+      112,
+      36.0
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        290,
+        560
+      ],
+      "approach": [
+        290,
+        600
+      ],
+      "kind": "village",
+      "copy": "门边的竹篮适合装一趟新鲜菜。"
+    },
+    {
+      "id": "house_help",
+      "label": "修好竹篮提手",
+      "pos": [
+        480,
+        530
+      ],
+      "approach": [
+        480,
+        570
+      ],
+      "kind": "village",
+      "copy": "提手扎紧了，下次装菜就稳当了。",
+      "house": "daba"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        390,
+        435
+      ],
+      "approach": [
+        390,
+        490
+      ],
+      "kind": "seat",
+      "seat": [
+        390,
+        445
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        390,
+        626
+      ],
+      "approach": [
+        390,
+        644
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_daba_up",
+      "pos": [
+        715,
+        525
+      ],
+      "approach": [
+        715,
+        555
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      249,
+      115,
+      240
+    ],
+    [
+      561,
+      475,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    390,
+    575
+  ],
+  "walk_rect": [
+    22,
+    100,
+    736,
+    560
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

@@ -1,0 +1,234 @@
+{
+  "id": "garden",
+  "title": "后花园 · 果园 · 菜地",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "garden.png",
+  "size": [
+    1448,
+    1086
+  ],
+  "source_crop": [
+    0,
+    0,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "props": [],
+  "obstacles": [
+    [
+      590,
+      251,
+      173,
+      91
+    ],
+    [
+      834,
+      253,
+      136,
+      91
+    ],
+    [
+      1123,
+      259,
+      147,
+      78
+    ],
+    [
+      586,
+      553,
+      175,
+      84
+    ],
+    [
+      832,
+      552,
+      154,
+      83
+    ],
+    [
+      1125,
+      552,
+      147,
+      81
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "vegetables",
+      "label": "给菜地浇水",
+      "pos": [
+        394,
+        490
+      ],
+      "approach": [
+        497,
+        493
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "菜叶抖落了几滴水。"
+    },
+    {
+      "id": "flowers",
+      "label": "看看花田",
+      "pos": [
+        284,
+        173
+      ],
+      "approach": [
+        500,
+        181
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "花田里有细细的虫鸣。"
+    },
+    {
+      "id": "bees",
+      "label": "观察蜂箱",
+      "pos": [
+        321,
+        111
+      ],
+      "approach": [
+        506,
+        146
+      ],
+      "kind": "reaction",
+      "effect": "bees",
+      "copy": "蜜蜂在花与蜂箱间来回忙碌。"
+    },
+    {
+      "id": "fruit",
+      "label": "照顾果树",
+      "pos": [
+        928,
+        235
+      ],
+      "approach": [
+        1020,
+        325
+      ],
+      "kind": "reaction",
+      "effect": "fruit",
+      "copy": "果树跟着季节慢慢变化。"
+    },
+    {
+      "id": "pond",
+      "label": "看看溪边",
+      "pos": [
+        1221,
+        786
+      ],
+      "approach": [
+        1138,
+        719
+      ],
+      "kind": "fish",
+      "effect": "water",
+      "copy": ""
+    },
+    {
+      "id": "garden_play",
+      "label": "照料一块小菜地",
+      "pos": [
+        257,
+        700
+      ],
+      "approach": [
+        493,
+        697
+      ],
+      "kind": "garden",
+      "effect": "water",
+      "copy": ""
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        738,
+        938
+      ],
+      "approach": [
+        738,
+        938
+      ],
+      "face": "up",
+      "label": "回院子",
+      "kind": "door"
+    },
+    {
+      "id": "to_kitchen",
+      "target": "kitchen",
+      "pos": [
+        545,
+        711
+      ],
+      "approach": [
+        545,
+        711
+      ],
+      "face": "down",
+      "label": "从后门回厨房",
+      "kind": "door"
+    },
+    {
+      "id": "to_oldhouse",
+      "target": "oldhouse",
+      "pos": [
+        1255,
+        372
+      ],
+      "approach": [
+        1255,
+        372
+      ],
+      "face": "left",
+      "label": "沿果园小路去老屋",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      552,
+      724,
+      170
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      518,
+      342
+    ],
+    "father": [
+      1014,
+      319
+    ],
+    "ayu": [
+      788,
+      735
+    ]
+  },
+  "walk_rect": [
+    460,
+    111,
+    835,
+    909
+  ],
+  "walk_polygons": [],
+  "spawn": [
+    738,
+    938
+  ],
+  "camera_ahead": 100
+}

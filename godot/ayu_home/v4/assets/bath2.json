@@ -1,0 +1,140 @@
+{
+  "id": "bath2",
+  "title": "阿鱼的浴室",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1174,
+    369,
+    1386,
+    510
+  ],
+  "source_offset": [
+    54,
+    48
+  ],
+  "background": "bath2_floor.png",
+  "props": [],
+  "obstacles": [
+    [
+      59,
+      62,
+      45,
+      97
+    ],
+    [
+      120,
+      76,
+      40,
+      55
+    ],
+    [
+      151,
+      60,
+      102,
+      102
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "basin",
+      "label": "洗手",
+      "pos": [
+        78,
+        131
+      ],
+      "approach": [
+        83,
+        162
+      ],
+      "kind": "tap",
+      "effect": "water",
+      "copy": "水流落进白瓷盆，搓搓掌心，再冲掉泡沫。",
+      "spout": [
+        78,
+        114
+      ],
+      "basin": [
+        78,
+        127
+      ]
+    },
+    {
+      "id": "shower",
+      "label": "淋浴水声",
+      "pos": [
+        214,
+        96
+      ],
+      "approach": [
+        146,
+        162
+      ],
+      "kind": "shower",
+      "effect": "water",
+      "copy": "热水敲着玻璃，洗好后把开关拧紧。"
+    },
+    {
+      "id": "mat",
+      "label": "晒晒浴垫",
+      "pos": [
+        151,
+        167
+      ],
+      "approach": [
+        209,
+        162
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "抖开浴垫，湿的一面朝外，等风把它吹干。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_closet2",
+      "target": "closet2",
+      "pos": [
+        69,
+        169
+      ],
+      "approach": [
+        69,
+        169
+      ],
+      "face": "right",
+      "label": "去阿鱼的衣柜",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      81,
+      76,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    71,
+    123,
+    171,
+    47
+  ],
+  "spawn": [
+    149,
+    157
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

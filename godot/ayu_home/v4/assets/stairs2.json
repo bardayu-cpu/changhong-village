@@ -1,0 +1,343 @@
+{
+  "id": "stairs2",
+  "title": "二楼楼梯与过道",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    386,
+    600
+  ],
+  "source_crop": [
+    641,
+    98,
+    1027,
+    547
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "stairs2_floor.png",
+  "props": [],
+  "obstacles": [
+    [
+      129,
+      64,
+      43,
+      208
+    ],
+    [
+      97,
+      303,
+      39,
+      80
+    ],
+    [
+      0,
+      412,
+      180,
+      56
+    ],
+    [
+      165,
+      220,
+      35,
+      59
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "rail",
+      "label": "木扶手",
+      "pos": [
+        147,
+        203
+      ],
+      "approach": [
+        206,
+        289
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "手心顺着木纹滑过去，脚步慢了下来。"
+    },
+    {
+      "id": "fern",
+      "label": "照顾楼梯绿植",
+      "pos": [
+        169,
+        257
+      ],
+      "approach": [
+        208,
+        296
+      ],
+      "kind": "tend",
+      "effect": "water",
+      "copy": "蕨叶舒展开来，接住了一点水。"
+    },
+    {
+      "id": "table",
+      "label": "过道的小花",
+      "pos": [
+        118,
+        326
+      ],
+      "approach": [
+        158,
+        370
+      ],
+      "kind": "reaction",
+      "effect": "spark",
+      "copy": "花瓶转了半圈，花朵朝着窗光。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        45,
+        130
+      ],
+      "approach": [
+        45,
+        130
+      ],
+      "face": "down",
+      "label": "下一楼",
+      "kind": "stairs",
+      "width": 22,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_guest",
+      "target": "guest",
+      "pos": [
+        16,
+        366
+      ],
+      "approach": [
+        25,
+        371
+      ],
+      "face": "right",
+      "label": "去客房",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_study",
+      "target": "study",
+      "pos": [
+        354,
+        336
+      ],
+      "approach": [
+        354,
+        336
+      ],
+      "face": "down",
+      "label": "去书房",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_closet2",
+      "target": "closet2",
+      "pos": [
+        376,
+        427
+      ],
+      "approach": [
+        362,
+        427
+      ],
+      "face": "left",
+      "label": "去阿鱼的衣柜",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_ayu_room",
+      "target": "ayu_room",
+      "pos": [
+        358,
+        474
+      ],
+      "approach": [
+        342,
+        452
+      ],
+      "face": "up",
+      "label": "去阿鱼卧室",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_terrace",
+      "target": "terrace",
+      "pos": [
+        221,
+        459
+      ],
+      "approach": [
+        220,
+        452
+      ],
+      "face": "up",
+      "label": "去二楼露台",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      176,
+      161,
+      150
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      224,
+      376
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        27,
+        121
+      ],
+      [
+        266,
+        121
+      ],
+      [
+        266,
+        343
+      ],
+      [
+        325,
+        343
+      ],
+      [
+        325,
+        325
+      ],
+      [
+        375,
+        325
+      ],
+      [
+        375,
+        460
+      ],
+      [
+        184,
+        460
+      ],
+      [
+        184,
+        410
+      ],
+      [
+        20,
+        401
+      ]
+    ]
+  ],
+  "walk_rect": [
+    18,
+    121,
+    357,
+    346
+  ],
+  "spawn": [
+    250,
+    314
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "source_polygon": [
+    [
+      647,
+      103
+    ],
+    [
+      919,
+      103
+    ],
+    [
+      919,
+      396
+    ],
+    [
+      1024,
+      397
+    ],
+    [
+      1024,
+      546
+    ],
+    [
+      956,
+      546
+    ],
+    [
+      956,
+      462
+    ],
+    [
+      819,
+      462
+    ],
+    [
+      819,
+      518
+    ],
+    [
+      646,
+      458
+    ]
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "stair_path": [
+    [
+      49,
+      250
+    ],
+    [
+      49,
+      230
+    ],
+    [
+      49,
+      210
+    ],
+    [
+      49,
+      190
+    ],
+    [
+      49,
+      170
+    ],
+    [
+      45,
+      150
+    ],
+    [
+      45,
+      130
+    ]
+  ],
+  "navigation_version": 4
+}

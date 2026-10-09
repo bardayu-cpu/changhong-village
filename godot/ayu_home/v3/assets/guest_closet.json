@@ -1,0 +1,109 @@
+{
+  "id": "guest_closet",
+  "title": "客房衣帽间",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    54,
+    102,
+    226,
+    292
+  ],
+  "source_offset": [
+    74,
+    48
+  ],
+  "background": "guest_closet_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "coat",
+      "label": "挂外套",
+      "pos": [
+        136,
+        105
+      ],
+      "approach": [
+        107,
+        210
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "给下一次来做客的人留个干净的位置。"
+    },
+    {
+      "id": "bag",
+      "label": "整理旅行包",
+      "pos": [
+        132,
+        208
+      ],
+      "approach": [
+        150,
+        210
+      ],
+      "kind": "reaction",
+      "effect": "open",
+      "copy": "给下一次来做客的人留个干净的位置。"
+    },
+    {
+      "id": "basket",
+      "label": "放好收纳盒",
+      "pos": [
+        188,
+        197
+      ],
+      "approach": [
+        193,
+        210
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "给下一次来做客的人留个干净的位置。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_guest",
+      "target": "guest",
+      "pos": [
+        233,
+        178
+      ],
+      "approach": [
+        201,
+        208
+      ],
+      "face": "left",
+      "label": "去客房",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      183,
+      92,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    94,
+    178,
+    119,
+    45
+  ],
+  "spawn": [
+    197,
+    199
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

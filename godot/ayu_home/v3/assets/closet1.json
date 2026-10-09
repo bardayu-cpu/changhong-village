@@ -1,0 +1,124 @@
+{
+  "id": "closet1",
+  "title": "一楼衣柜间",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1115,
+    307,
+    1220,
+    422
+  ],
+  "source_offset": [
+    107,
+    48
+  ],
+  "background": "closet1_floor.png",
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "hang",
+      "label": "挂好外套",
+      "pos": [
+        152,
+        89
+      ],
+      "approach": [
+        130,
+        143
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "衣服和小物各归其位。"
+    },
+    {
+      "id": "drawer",
+      "label": "打开抽屉",
+      "pos": [
+        182,
+        126
+      ],
+      "approach": [
+        154,
+        143
+      ],
+      "kind": "reaction",
+      "effect": "open",
+      "copy": "衣服和小物各归其位。"
+    },
+    {
+      "id": "tidy",
+      "label": "整理衣柜",
+      "pos": [
+        142,
+        124
+      ],
+      "approach": [
+        178,
+        143
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "衣服和小物各归其位。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        129,
+        136
+      ],
+      "approach": [
+        133,
+        140
+      ],
+      "face": "right",
+      "label": "去一楼楼梯与过道",
+      "kind": "door"
+    },
+    {
+      "id": "to_bath1",
+      "target": "bath1",
+      "pos": [
+        183,
+        141
+      ],
+      "approach": [
+        183,
+        141
+      ],
+      "face": "left",
+      "label": "去一楼浴室",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      152,
+      71,
+      150
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [],
+  "walk_rect": [
+    121,
+    126,
+    76,
+    29
+  ],
+  "spawn": [
+    141,
+    141
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

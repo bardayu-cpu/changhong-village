@@ -1,0 +1,374 @@
+{
+  "frame": [
+    64,
+    84
+  ],
+  "frames": {
+    "eat_down": [
+      0,
+      1
+    ],
+    "eat_left": [
+      2,
+      3
+    ],
+    "eat_right": [
+      4,
+      5
+    ],
+    "eat_up": [
+      6,
+      7
+    ],
+    "tv_down": [
+      8,
+      9
+    ],
+    "tv_left": [
+      10,
+      11
+    ],
+    "tv_right": [
+      12,
+      13
+    ],
+    "tv_up": [
+      14,
+      15
+    ],
+    "clean_down": [
+      16,
+      17
+    ],
+    "clean_left": [
+      18,
+      19
+    ],
+    "clean_right": [
+      20,
+      21
+    ],
+    "clean_up": [
+      22,
+      23
+    ],
+    "fish_down": [
+      24,
+      25
+    ],
+    "fish_left": [
+      26,
+      27
+    ],
+    "fish_right": [
+      28,
+      29
+    ],
+    "fish_up": [
+      30,
+      31
+    ],
+    "cook_down": [
+      32,
+      33
+    ],
+    "cook_left": [
+      34,
+      35
+    ],
+    "cook_right": [
+      36,
+      37
+    ],
+    "cook_up": [
+      38,
+      39
+    ],
+    "guitar_down": [
+      40,
+      41
+    ],
+    "guitar_left": [
+      42,
+      43
+    ],
+    "guitar_right": [
+      44,
+      45
+    ],
+    "guitar_up": [
+      46,
+      47
+    ],
+    "computer_down": [
+      48,
+      49
+    ],
+    "computer_left": [
+      50,
+      51
+    ],
+    "computer_right": [
+      52,
+      53
+    ],
+    "computer_up": [
+      54,
+      55
+    ],
+    "read_down": [
+      56,
+      57
+    ],
+    "read_left": [
+      58,
+      59
+    ],
+    "read_right": [
+      60,
+      61
+    ],
+    "read_up": [
+      62,
+      63
+    ],
+    "lie_down": [
+      64,
+      65
+    ],
+    "lie_left": [
+      66,
+      67
+    ],
+    "lie_right": [
+      68,
+      69
+    ],
+    "lie_up": [
+      70,
+      71
+    ],
+    "work_down": [
+      72,
+      73
+    ],
+    "work_left": [
+      74,
+      75
+    ],
+    "work_right": [
+      76,
+      77
+    ],
+    "work_up": [
+      78,
+      79
+    ],
+    "record_down": [
+      80,
+      81
+    ],
+    "record_left": [
+      82,
+      83
+    ],
+    "record_right": [
+      84,
+      85
+    ],
+    "record_up": [
+      86,
+      87
+    ],
+    "drink_down": [
+      88,
+      89
+    ],
+    "drink_left": [
+      90,
+      91
+    ],
+    "drink_right": [
+      92,
+      93
+    ],
+    "drink_up": [
+      94,
+      95
+    ],
+    "mahjong_down": [
+      96,
+      97
+    ],
+    "mahjong_left": [
+      98,
+      99
+    ],
+    "mahjong_right": [
+      100,
+      101
+    ],
+    "mahjong_up": [
+      102,
+      103
+    ],
+    "water_down": [
+      104,
+      105
+    ],
+    "water_left": [
+      106,
+      107
+    ],
+    "water_right": [
+      108,
+      109
+    ],
+    "water_up": [
+      110,
+      111
+    ],
+    "wash_down": [
+      112,
+      113
+    ],
+    "wash_left": [
+      114,
+      115
+    ],
+    "wash_right": [
+      116,
+      117
+    ],
+    "wash_up": [
+      118,
+      119
+    ],
+    "laundry_down": [
+      120,
+      121
+    ],
+    "laundry_left": [
+      122,
+      123
+    ],
+    "laundry_right": [
+      124,
+      125
+    ],
+    "laundry_up": [
+      126,
+      127
+    ],
+    "call_down": [
+      128,
+      129
+    ],
+    "call_left": [
+      130,
+      131
+    ],
+    "call_right": [
+      132,
+      133
+    ],
+    "call_up": [
+      134,
+      135
+    ],
+    "happy_down": [
+      136,
+      137
+    ],
+    "happy_left": [
+      138,
+      139
+    ],
+    "happy_right": [
+      140,
+      141
+    ],
+    "happy_up": [
+      142,
+      143
+    ],
+    "sleep_up": [
+      144,
+      145
+    ],
+    "sleep_down": [
+      146,
+      147
+    ],
+    "photo_down": [
+      148,
+      149
+    ],
+    "sleep_left": [
+      144,
+      145
+    ],
+    "sleep_right": [
+      144,
+      145
+    ],
+    "photo_left": [
+      148,
+      149
+    ],
+    "photo_right": [
+      148,
+      149
+    ],
+    "photo_up": [
+      148,
+      149
+    ]
+  },
+  "fps": 2,
+  "anchor": [
+    32,
+    84
+  ],
+  "columns": 16,
+  "bed_anchors": {
+    "sleep_up": [
+      32,
+      23
+    ],
+    "sleep_down": [
+      32,
+      62
+    ],
+    "lie_up": [
+      32,
+      23
+    ],
+    "lie_down": [
+      32,
+      62
+    ]
+  },
+  "adaptation": {
+    "source_frames": 106,
+    "source_sheets": 7,
+    "retained_legacy_actions": [
+      "fish",
+      "guitar",
+      "computer",
+      "work",
+      "record"
+    ],
+    "direction_aliases": {
+      "sleep_left": "sleep_up",
+      "sleep_right": "sleep_up",
+      "lie_left": "lie_up",
+      "lie_right": "lie_up",
+      "photo_left": "photo_down",
+      "photo_right": "photo_down",
+      "photo_up": "photo_down"
+    },
+    "report": "交付/素材适配/帧对齐报告.json",
+    "alpha_threshold": 180
+  }
+}

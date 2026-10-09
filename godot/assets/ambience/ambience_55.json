@@ -1,0 +1,285 @@
+{
+ "note": "55 桌大厅灰盒的热闹摆放，tools/layout_55/build_graybox55.py 生成，别手改",
+ "decals": [],
+ "glows": [],
+ "npc_tables": {
+  "T1": 9,
+  "T2": 9,
+  "T3": 9,
+  "T4": 10,
+  "T5": 9,
+  "T6": 9,
+  "T7": 5,
+  "T8": 9,
+  "T9": 3,
+  "T10": 10,
+  "T11": 4,
+  "T12": 10,
+  "T13": 10,
+  "T14": 10,
+  "T15": 10,
+  "T16": 9,
+  "T17": 10,
+  "T18": 9,
+  "T19": 9,
+  "T20": 9,
+  "T21": 10,
+  "T22": 9,
+  "T23": 9,
+  "T24": 10,
+  "T25": 9,
+  "T26": 9,
+  "T27": 10,
+  "T28": 9,
+  "T29": 9,
+  "T30": 9,
+  "T31": 10,
+  "T32": 9,
+  "T33": 10,
+  "T34": 10,
+  "T35": 9,
+  "T36": 9,
+  "T37": 10,
+  "T38": 10,
+  "T39": 10,
+  "T40": 10,
+  "T41": 9,
+  "T42": 9,
+  "T43": 10,
+  "T44": 9,
+  "T45": 9,
+  "T46": 9,
+  "T47": 10,
+  "T48": 9,
+  "T49": 10,
+  "T50": 9,
+  "T51": 10,
+  "T52": 9,
+  "T53": 10,
+  "T54": 10
+ },
+ "family": {
+  "table": "MAIN",
+  "reserved": {
+   "1": "阿鱼",
+   "2": "Toretto"
+  },
+  "seats": [
+   {
+    "chair": 3,
+    "title": "爷爷",
+    "sex": "m",
+    "elder": true
+   },
+   {
+    "chair": 4,
+    "title": "奶奶",
+    "sex": "f",
+    "elder": true
+   },
+   {
+    "chair": 5,
+    "title": "爸爸",
+    "sex": "m"
+   },
+   {
+    "chair": 6,
+    "title": "妈妈",
+    "sex": "f"
+   },
+   {
+    "chair": 7,
+    "title": "弟弟",
+    "sex": "m"
+   },
+   {
+    "chair": 8,
+    "title": "弟妹",
+    "sex": "f"
+   },
+   {
+    "chair": 9,
+    "title": "外公",
+    "sex": "m",
+    "elder": true
+   },
+   {
+    "chair": 10,
+    "title": "外婆",
+    "sex": "f",
+    "elder": true
+   }
+  ]
+ },
+ "relatives": {
+  "feast": [
+   [
+    12,
+    14
+   ],
+   [
+    17,
+    19
+   ]
+  ],
+  "tz_hours": 8,
+  "cards_table": "T11",
+  "people": [
+   {
+    "title": "大爸",
+    "sex": "m",
+    "relation": "爸爸的大哥",
+    "group": "大爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "大娘",
+    "sex": "f",
+    "relation": "大哥的爱人",
+    "group": "大爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "小虎哥",
+    "sex": "m",
+    "relation": "大爸的大儿子",
+    "group": "大爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "大嫂",
+    "sex": "f",
+    "relation": "小虎哥的爱人",
+    "group": "大爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "二爸",
+    "sex": "m",
+    "relation": "爸爸的二哥",
+    "group": "二爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "二娘",
+    "sex": "f",
+    "relation": "二哥的爱人",
+    "group": "二爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "二孃",
+    "sex": "f",
+    "relation": "妈妈的堂姐",
+    "group": "二爸家",
+    "table": "T9",
+    "toast": true
+   },
+   {
+    "title": "四孃",
+    "sex": "f",
+    "relation": "",
+    "group": "四孃家",
+    "table": "T11",
+    "cards": true
+   },
+   {
+    "title": "四姑爷",
+    "sex": "m",
+    "relation": "",
+    "group": "四孃家",
+    "table": "T11",
+    "cards": true
+   },
+   {
+    "title": "六孃",
+    "sex": "f",
+    "relation": "",
+    "group": "六孃家",
+    "table": "T11",
+    "cards": true
+   },
+   {
+    "title": "六姑爷",
+    "sex": "m",
+    "relation": "",
+    "group": "六孃家",
+    "table": "T11",
+    "cards": true
+   },
+   {
+    "title": "小舅",
+    "sex": "m",
+    "relation": "",
+    "group": "小舅家",
+    "table": "T11",
+    "toast": true
+   },
+   {
+    "title": "小舅妈",
+    "sex": "f",
+    "relation": "",
+    "group": "小舅家",
+    "table": "T11",
+    "toast": true
+   },
+   {
+    "title": "周叔",
+    "sex": "m",
+    "relation": "阿鱼爸爸最好的朋友",
+    "group": "爸爸的朋友",
+    "table": "T7",
+    "toast": true
+   },
+   {
+    "title": "李叔",
+    "sex": "m",
+    "relation": "阿鱼爸爸最好的朋友",
+    "group": "爸爸的朋友",
+    "table": "T7",
+    "toast": true
+   },
+   {
+    "title": "丹孃",
+    "sex": "f",
+    "relation": "周叔的爱人",
+    "group": "爸爸的朋友",
+    "table": "T7",
+    "toast": true
+   },
+   {
+    "title": "小江",
+    "sex": "m",
+    "relation": "阿鱼初中起的好朋友，男生，现在最熟的老朋友",
+    "group": "阿鱼的朋友",
+    "table": "T7",
+    "toast": true
+   },
+   {
+    "title": "表弟媳",
+    "sex": "f",
+    "relation": "阿鱼表弟的媳妇，有两个女儿",
+    "group": "阿鱼的朋友",
+    "table": "T7",
+    "toast": true
+   }
+  ]
+ },
+ "waiters": {
+  "count": 6,
+  "door": [
+   70,
+   1300
+  ],
+  "speed_m": 1.5
+ },
+ "petals": {
+  "amount": 0
+ }
+}

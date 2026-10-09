@@ -1,0 +1,219 @@
+{
+  "id": "v_sunflower_up",
+  "title": "向日葵之家 · 二楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    650,
+    830
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_sunflower_up.png",
+  "props": [
+    {
+      "id": "bed0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        65,
+        120
+      ],
+      "foot": 330,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "bench1",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        380,
+        130
+      ],
+      "foot": 203,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "cabinet2",
+      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
+      "pos": [
+        70,
+        460
+      ],
+      "foot": 567,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        227,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        540,
+        530
+      ],
+      "foot": 670,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        295,
+        557
+      ],
+      "foot": 590,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      295,
+      100,
+      12,
+      245
+    ],
+    [
+      295,
+      490,
+      12,
+      275
+    ],
+    [
+      70,
+      249.0,
+      140,
+      86.0
+    ],
+    [
+      385,
+      176.8,
+      116,
+      31.200000000000003
+    ],
+    [
+      75,
+      527.2,
+      88,
+      44.800000000000004
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        660
+      ],
+      "approach": [
+        95,
+        705
+      ],
+      "kind": "village",
+      "copy": "楼上的窗面向花田，桌边放着一幅未完成的画。"
+    },
+    {
+      "id": "house_help",
+      "label": "放平窗前的小画纸",
+      "pos": [
+        405,
+        640
+      ],
+      "approach": [
+        405,
+        715
+      ],
+      "kind": "village",
+      "house": "sunflower",
+      "copy": "画纸压在书下面，等主人回来继续画。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        325,
+        570
+      ],
+      "approach": [
+        325,
+        610
+      ],
+      "kind": "seat",
+      "seat": [
+        325,
+        580
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "downstairs",
+      "label": "下到一楼",
+      "target": "v_sunflower",
+      "pos": [
+        585,
+        675
+      ],
+      "approach": [
+        585,
+        705
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "down"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      325,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    325,
+    745
+  ],
+  "walk_rect": [
+    22,
+    96,
+    606,
+    712
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

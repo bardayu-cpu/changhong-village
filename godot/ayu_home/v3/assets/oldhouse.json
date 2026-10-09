@@ -1,0 +1,149 @@
+{
+  "id": "oldhouse",
+  "title": "老屋门口",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "oldhouse_floor.png",
+  "source_crop": [
+    1070,
+    0,
+    1448,
+    545
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "size": [
+    378,
+    545
+  ],
+  "props": [],
+  "obstacles": [],
+  "hotspots": [
+    {
+      "id": "knock",
+      "label": "敲敲老屋的门",
+      "pos": [
+        156,
+        177
+      ],
+      "approach": [
+        164,
+        221
+      ],
+      "kind": "reaction",
+      "effect": "bell",
+      "copy": "轻敲两下木门。老屋门口是这次散步最远的地方。"
+    },
+    {
+      "id": "pot",
+      "label": "门前的花盆",
+      "pos": [
+        200,
+        178
+      ],
+      "approach": [
+        164,
+        221
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "给老屋门前的花浇一点水。"
+    },
+    {
+      "id": "step",
+      "label": "坐在老屋台阶",
+      "pos": [
+        163,
+        211
+      ],
+      "approach": [
+        164,
+        221
+      ],
+      "kind": "reaction",
+      "effect": "sit",
+      "copy": "在这里坐一会儿，再沿原路回家。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_bridge",
+      "target": "bridge",
+      "pos": [
+        321,
+        432
+      ],
+      "approach": [
+        321,
+        432
+      ],
+      "face": "up",
+      "label": "回小桥",
+      "kind": "door"
+    },
+    {
+      "id": "to_garden",
+      "target": "garden",
+      "pos": [
+        175,
+        232
+      ],
+      "approach": [
+        175,
+        232
+      ],
+      "face": "down",
+      "label": "去果园",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [],
+  "anchors": {},
+  "walk_rect": [
+    130,
+    199,
+    213,
+    296
+  ],
+  "walk_polygons": [
+    [
+      [
+        130,
+        199
+      ],
+      [
+        190,
+        199
+      ],
+      [
+        343,
+        401
+      ],
+      [
+        343,
+        495
+      ],
+      [
+        321,
+        495
+      ],
+      [
+        227,
+        326
+      ],
+      [
+        130,
+        235
+      ]
+    ]
+  ],
+  "spawn": [
+    322,
+    427
+  ],
+  "camera_ahead": 80
+}

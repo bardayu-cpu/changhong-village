@@ -1,0 +1,247 @@
+{
+  "id": "v_erba",
+  "title": "二爸家 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    760,
+    720
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_erba.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "kitchen0",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        60,
+        130
+      ],
+      "foot": 213,
+      "front": false
+    },
+    {
+      "id": "sofa1",
+      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
+      "pos": [
+        415,
+        175
+      ],
+      "foot": 260,
+      "front": false
+    },
+    {
+      "id": "table2",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        470,
+        400
+      ],
+      "foot": 475,
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        650,
+        410
+      ],
+      "foot": 560,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        282,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        490
+      ],
+      "foot": 558,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        688,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        350,
+        462
+      ],
+      "foot": 495,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      310,
+      100,
+      12,
+      210
+    ],
+    [
+      310,
+      440,
+      12,
+      240
+    ],
+    [
+      322,
+      350,
+      260,
+      12
+    ],
+    [
+      64,
+      178.4,
+      147,
+      39.6
+    ],
+    [
+      419,
+      224.5,
+      127,
+      40.5
+    ],
+    [
+      474,
+      444.0,
+      112,
+      36.0
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        280,
+        600
+      ],
+      "approach": [
+        280,
+        640
+      ],
+      "kind": "village",
+      "copy": "这盏灯总留给晚归的人。"
+    },
+    {
+      "id": "house_help",
+      "label": "把窗边的小灯点亮",
+      "pos": [
+        470,
+        570
+      ],
+      "approach": [
+        470,
+        610
+      ],
+      "kind": "village",
+      "copy": "灯已经亮了，回村的路也暖了一些。",
+      "house": "erba"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        380,
+        475
+      ],
+      "approach": [
+        380,
+        530
+      ],
+      "kind": "seat",
+      "seat": [
+        380,
+        485
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        380,
+        666
+      ],
+      "approach": [
+        380,
+        684
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_erba_up",
+      "pos": [
+        695,
+        565
+      ],
+      "approach": [
+        695,
+        595
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      243,
+      115,
+      240
+    ],
+    [
+      547,
+      503,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    380,
+    615
+  ],
+  "walk_rect": [
+    22,
+    100,
+    716,
+    600
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "registry_path": "res://data/kitchen/recipe_registry.json",
+  "recipe_schema_path": "res://data/kitchen/recipe_schema.json",
+  "development_overrides_path": "res://data/kitchen/development_overrides.json",
+  "legacy_candidates_path": "res://data/kitchen/legacy_candidates.json",
+  "allow_development_overrides": false,
+  "release_status": "integration_placeholder_approved_2026-10-02",
+  "characters": [
+    {
+      "id": "server_male_1",
+      "gender": "male"
+    },
+    {
+      "id": "server_male_2",
+      "gender": "male"
+    },
+    {
+      "id": "server_male_3",
+      "gender": "male"
+    },
+    {
+      "id": "server_female_1",
+      "gender": "female"
+    },
+    {
+      "id": "server_female_2",
+      "gender": "female"
+    },
+    {
+      "id": "server_female_3",
+      "gender": "female"
+    }
+  ],
+  "components_path": "res://data/kitchen/components.json"
+}

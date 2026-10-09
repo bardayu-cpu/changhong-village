@@ -1,0 +1,234 @@
+{
+  "id": "ayu_room",
+  "title": "阿鱼卧室",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    426,
+    600
+  ],
+  "source_crop": [
+    966,
+    532,
+    1392,
+    964
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "ayu_room_floor.png",
+  "props": [
+    {
+      "id": "bed",
+      "file": "ayu_room_bed.png",
+      "pos": [
+        77,
+        100
+      ],
+      "foot": 333,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      84,
+      103,
+      192,
+      231
+    ],
+    [
+      333,
+      89,
+      71,
+      173
+    ],
+    [
+      267,
+      84,
+      56,
+      67
+    ],
+    [
+      66,
+      85,
+      45,
+      67
+    ],
+    [
+      14,
+      181,
+      54,
+      124
+    ],
+    [
+      19,
+      320,
+      51,
+      57
+    ],
+    [
+      344,
+      270,
+      67,
+      75
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "bunny",
+      "label": "摸摸兔子玩偶",
+      "pos": [
+        238,
+        295
+      ],
+      "approach": [
+        283,
+        325
+      ],
+      "kind": "bunny",
+      "effect": "pet",
+      "copy": "兔子玩偶轻轻晃了晃耳朵。"
+    },
+    {
+      "id": "mirror",
+      "label": "梳妆镜",
+      "pos": [
+        397,
+        301
+      ],
+      "approach": [
+        344,
+        328
+      ],
+      "kind": "mirror",
+      "effect": "mirror",
+      "copy": "镜子里映出房间的粉色与暖光。"
+    },
+    {
+      "id": "lamp",
+      "label": "开关床头灯",
+      "pos": [
+        88,
+        97
+      ],
+      "approach": [
+        63,
+        159
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "小灯亮起来了。"
+    },
+    {
+      "id": "window",
+      "label": "看一眼窗外",
+      "pos": [
+        204,
+        425
+      ],
+      "approach": [
+        311,
+        367
+      ],
+      "kind": "window",
+      "effect": "window",
+      "copy": "窗外的花随着风轻轻动。"
+    },
+    {
+      "id": "bed",
+      "label": "躺下歇一会儿",
+      "pos": [
+        192,
+        226
+      ],
+      "approach": [
+        306,
+        333
+      ],
+      "kind": "bed",
+      "effect": "sleep",
+      "copy": ""
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        372,
+        325
+      ],
+      "approach": [
+        372,
+        361
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        372,
+        325
+      ],
+      "face": "up"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        33,
+        81
+      ],
+      "approach": [
+        44,
+        134
+      ],
+      "face": "down",
+      "label": "去二楼楼梯与过道",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [
+    [
+      132,
+      396,
+      166,
+      45
+    ]
+  ],
+  "lamps": [
+    [
+      89,
+      100,
+      150
+    ],
+    [
+      284,
+      100,
+      150
+    ]
+  ],
+  "anchors": {
+    "ayu": [
+      169,
+      247
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    18,
+    96,
+    386,
+    280
+  ],
+  "spawn": [
+    50,
+    148
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

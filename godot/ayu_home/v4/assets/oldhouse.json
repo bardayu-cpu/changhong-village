@@ -1,0 +1,208 @@
+{
+  "id": "oldhouse",
+  "title": "老屋门口",
+  "group": "屋外",
+  "floor": 0,
+  "outdoor": true,
+  "background": "approved-0.png",
+  "source_crop": [
+    0,
+    0,
+    1448,
+    1086
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "size": [
+    1448,
+    1086
+  ],
+  "props": [],
+  "obstacles": [
+    [
+      1170,
+      31,
+      219,
+      161
+    ],
+    [
+      1180,
+      231,
+      77,
+      55
+    ],
+    [
+      1272,
+      281,
+      26,
+      52
+    ],
+    [
+      1414,
+      413,
+      30,
+      117
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "knock",
+      "label": "敲敲老屋的门",
+      "pos": [
+        1226,
+        177
+      ],
+      "approach": [
+        1234,
+        221
+      ],
+      "kind": "knock_old",
+      "effect": "bell",
+      "copy": "轻敲两下木门。老屋门口是这次散步最远的地方。"
+    },
+    {
+      "id": "pot",
+      "label": "门前的花盆",
+      "pos": [
+        1270,
+        178
+      ],
+      "approach": [
+        1234,
+        221
+      ],
+      "kind": "pick_flowers",
+      "effect": "",
+      "copy": "给老屋门前的花浇一点水。"
+    },
+    {
+      "id": "step",
+      "label": "坐在老屋台阶",
+      "pos": [
+        1233,
+        211
+      ],
+      "approach": [
+        1234,
+        221
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "在这里坐一会儿，再沿原路回家。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_bridge",
+      "target": "bridge",
+      "pos": [
+        1398,
+        460
+      ],
+      "approach": [
+        1398,
+        460
+      ],
+      "face": "up",
+      "label": "回小桥",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_garden",
+      "target": "garden",
+      "pos": [
+        1140,
+        160
+      ],
+      "approach": [
+        1140,
+        160
+      ],
+      "face": "down",
+      "label": "沿篱笆小路去果园",
+      "kind": "door",
+      "width": 34,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [],
+  "anchors": {},
+  "walk_rect": [
+    1110,
+    140,
+    303,
+    361
+  ],
+  "walk_polygons": [
+    [
+      [
+        1128,
+        150
+      ],
+      [
+        1152,
+        150
+      ],
+      [
+        1176,
+        190
+      ],
+      [
+        1191,
+        190
+      ],
+      [
+        1324,
+        190
+      ],
+      [
+        1310,
+        224
+      ],
+      [
+        1353,
+        282
+      ],
+      [
+        1412,
+        373
+      ],
+      [
+        1412,
+        498
+      ],
+      [
+        1388,
+        498
+      ],
+      [
+        1279,
+        317
+      ],
+      [
+        1191,
+        236
+      ],
+      [
+        1165,
+        232
+      ],
+      [
+        1128,
+        175
+      ]
+    ]
+  ],
+  "spawn": [
+    1392,
+    427
+  ],
+  "camera_ahead": 80,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

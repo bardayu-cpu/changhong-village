@@ -1,0 +1,132 @@
+{
+  "id": "laundry",
+  "title": "卫生间与洗衣",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    133,
+    204,
+    401,
+    342
+  ],
+  "source_offset": [
+    26,
+    48
+  ],
+  "background": "laundry_floor.png",
+  "props": [
+    {
+      "id": "washer",
+      "file": "laundry_washer.png",
+      "pos": [
+        36,
+        120
+      ],
+      "foot": 174,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      37,
+      155,
+      46,
+      19
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "wash",
+      "label": "洗一筐衣服",
+      "pos": [
+        59,
+        147
+      ],
+      "approach": [
+        102,
+        154
+      ],
+      "kind": "reaction",
+      "effect": "wash",
+      "copy": "洗衣机转起来了，泡泡绕着衣服转。"
+    },
+    {
+      "id": "basin",
+      "label": "拧开水龙头",
+      "pos": [
+        217,
+        93
+      ],
+      "approach": [
+        187,
+        151
+      ],
+      "kind": "reaction",
+      "effect": "water",
+      "copy": "洗干净双手，水声渐渐停了。"
+    },
+    {
+      "id": "towel",
+      "label": "整理毛巾",
+      "pos": [
+        144,
+        160
+      ],
+      "approach": [
+        167,
+        154
+      ],
+      "kind": "reaction",
+      "effect": "fold",
+      "copy": "把毛巾叠成整齐的小方块。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        281,
+        114
+      ],
+      "approach": [
+        254,
+        152
+      ],
+      "face": "left",
+      "label": "去餐厅",
+      "kind": "door"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      211,
+      79,
+      150
+    ]
+  ],
+  "anchors": {
+    "mother": [
+      146,
+      154
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    80,
+    124,
+    184,
+    40
+  ],
+  "spawn": [
+    243,
+    151
+  ],
+  "camera_ahead": 45,
+  "outdoor": false
+}

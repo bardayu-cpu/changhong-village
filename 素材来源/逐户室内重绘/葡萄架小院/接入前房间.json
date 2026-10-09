@@ -1,0 +1,231 @@
+{
+  "id": "v_grape",
+  "title": "葡萄架小院",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    850,
+    640
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_grape.png",
+  "props": [
+    {
+      "id": "kitchen0",
+      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
+      "pos": [
+        45,
+        130
+      ],
+      "foot": 213,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "table1",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        350,
+        160
+      ],
+      "foot": 235,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "bed2",
+      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
+      "pos": [
+        615,
+        110
+      ],
+      "foot": 320,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "bench3",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        370,
+        370
+      ],
+      "foot": 443,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        327,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        395,
+        457
+      ],
+      "foot": 490,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      235,
+      100,
+      12,
+      170
+    ],
+    [
+      235,
+      410,
+      12,
+      180
+    ],
+    [
+      500,
+      100,
+      12,
+      160
+    ],
+    [
+      50,
+      182.8,
+      145,
+      35.2
+    ],
+    [
+      355,
+      208.0,
+      110,
+      32.0
+    ],
+    [
+      620,
+      239.0,
+      140,
+      86.0
+    ],
+    [
+      375,
+      416.8,
+      116,
+      31.200000000000003
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        470
+      ],
+      "approach": [
+        95,
+        515
+      ],
+      "kind": "village",
+      "copy": "一侧是灶屋，一侧是卧房，中间的过厅正对葡萄架。住户为虚构邻居。"
+    },
+    {
+      "id": "house_help",
+      "label": "扶好藤架的小竹竿",
+      "pos": [
+        505,
+        450
+      ],
+      "approach": [
+        505,
+        525
+      ],
+      "kind": "village",
+      "house": "grape",
+      "copy": "小竹竿扎好了，藤影下多出一处可坐的空位。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        425,
+        460
+      ],
+      "approach": [
+        425,
+        520
+      ],
+      "kind": "seat",
+      "seat": [
+        425,
+        480
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        425,
+        586
+      ],
+      "approach": [
+        425,
+        604
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "up"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      425,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    425,
+    555
+  ],
+  "walk_rect": [
+    22,
+    96,
+    806,
+    522
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

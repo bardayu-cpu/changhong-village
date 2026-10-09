@@ -1,0 +1,93 @@
+{
+  "version": 2,
+  "files": {
+    "ayu_walk.png": {
+      "bytes": 1922575,
+      "sha256": "ef8f18f58583d21613ab555d423d4e5b195df5a330b3731f6e48daeb7414e7cc",
+      "width": 1024,
+      "height": 1536,
+      "file_id": "",
+      "via": "function"
+    },
+    "exterior.png": {
+      "bytes": 2324226,
+      "sha256": "ffb729c9480e4b25060e2dec456e7fbb3f2609b7dc4dd50f2cd451bdd2c2c7b1",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "father_walk.png": {
+      "bytes": 1807874,
+      "sha256": "8d47106c9785fda837787ae8d7e339b0873958017f16b0c701069b04ec0dd034",
+      "width": 1024,
+      "height": 1536,
+      "file_id": "",
+      "via": "function"
+    },
+    "floor1.png": {
+      "bytes": 1765180,
+      "sha256": "1299043886b7a272d634c83e35853eda4349c22a56d2bdbcbc1b1612cfd169e0",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "floor2.png": {
+      "bytes": 2174010,
+      "sha256": "49c1c50de1678aed6d4ecd62436451543d080f63c5b3cf28863b0320dc3f2a5c",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "garden.png": {
+      "bytes": 2746532,
+      "sha256": "3552eed403fe8693efe52093e5a7a2f52dcd31f39b24114273a6f3c2252c48f9",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "garden_spring.png": {
+      "bytes": 2930351,
+      "sha256": "10b7ab5177a7389ce4109e7cd4448b7cb4939b59657b397ec4ba302774e5eec8",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "garden_summer.png": {
+      "bytes": 2877834,
+      "sha256": "746bd9eb059dca31322bebab88443ad9a6ca41d1e94cf9a1827905703d84215a",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "garden_winter.png": {
+      "bytes": 2870240,
+      "sha256": "0d6b3af758e0125a214a89183ba7c9c25b24065648a7a8f50e1012cb94fa6dc7",
+      "width": 1448,
+      "height": 1086,
+      "file_id": "",
+      "via": "function"
+    },
+    "mother_walk.png": {
+      "bytes": 1899389,
+      "sha256": "bafa1dc726bbdca74e99b8ab46c56296dabc2174508d6fc9f2a2fa37ae1d6b8d",
+      "width": 1024,
+      "height": 1536,
+      "file_id": "",
+      "via": "function"
+    },
+    "pets.png": {
+      "bytes": 1681969,
+      "sha256": "2ed4b676635b1b88e6aaee13ad60919ffb50bd7c1dce3e1d4b612297eab0f208",
+      "width": 1024,
+      "height": 1536,
+      "file_id": "",
+      "via": "function"
+    }
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "id": "terrace",
+  "title": "二楼露台",
+  "floor": 2,
+  "group": "二楼",
+  "size": [
+    909,
+    643
+  ],
+  "source_crop": [
+    31,
+    490,
+    940,
+    1037
+  ],
+  "source_offset": [
+    0,
+    48
+  ],
+  "background": "terrace_floor.png",
+  "props": [
+    {
+      "id": "umbrella",
+      "file": "terrace_umbrella.png",
+      "pos": [
+        177,
+        147
+      ],
+      "foot": 357,
+      "front": false
+    },
+    {
+      "id": "lounge",
+      "file": "terrace_lounge.png",
+      "pos": [
+        293,
+        325
+      ],
+      "foot": 435,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      201,
+      272,
+      179,
+      88
+    ],
+    [
+      293,
+      329,
+      124,
+      105
+    ],
+    [
+      365,
+      259,
+      54,
+      51
+    ],
+    [
+      378,
+      438,
+      154,
+      45
+    ],
+    [
+      16,
+      80,
+      226,
+      118
+    ],
+    [
+      22,
+      200,
+      134,
+      256
+    ],
+    [
+      677,
+      93,
+      62,
+      52
+    ],
+    [
+      817,
+      396,
+      78,
+      84
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "tea",
+      "label": "露台喝茶",
+      "pos": [
+        393,
+        284
+      ],
+      "approach": [
+        441,
+        325
+      ],
+      "kind": "tea",
+      "effect": "",
+      "copy": "端着一杯温茶，听听风。"
+    },
+    {
+      "id": "stars",
+      "label": "躺椅上看星星",
+      "pos": [
+        353,
+        374
+      ],
+      "approach": [
+        461,
+        415
+      ],
+      "kind": "stars",
+      "effect": "",
+      "copy": "躺椅上看星星，这里又留下一点你的日常。"
+    },
+    {
+      "id": "flower",
+      "label": "照顾花盆",
+      "pos": [
+        143,
+        161
+      ],
+      "approach": [
+        183,
+        148
+      ],
+      "kind": "tend",
+      "effect": "water",
+      "copy": "花盆里的泥土润湿了。"
+    },
+    {
+      "id": "bench",
+      "label": "看看村子",
+      "pos": [
+        449,
+        467
+      ],
+      "approach": [
+        527,
+        428
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "坐下来，远处的村子安安静静。"
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        205,
+        301
+      ],
+      "approach": [
+        205,
+        337
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        205,
+        301
+      ],
+      "face": "right"
+    },
+    {
+      "id": "seat_1",
+      "label": "坐在这里",
+      "pos": [
+        319,
+        316
+      ],
+      "approach": [
+        319,
+        352
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        319,
+        316
+      ],
+      "face": "up"
+    },
+    {
+      "id": "seat_2",
+      "label": "坐在这里",
+      "pos": [
+        357,
+        372
+      ],
+      "approach": [
+        357,
+        408
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        357,
+        372
+      ],
+      "face": "up"
+    },
+    {
+      "id": "seat_3",
+      "label": "坐在这里",
+      "pos": [
+        442,
+        469
+      ],
+      "approach": [
+        442,
+        505
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        442,
+        469
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_stairs2",
+      "target": "stairs2",
+      "pos": [
+        830,
+        93
+      ],
+      "approach": [
+        815,
+        121
+      ],
+      "face": "down",
+      "label": "去二楼楼梯与过道",
+      "kind": "door",
+      "width": 22,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      874,
+      462,
+      150
+    ]
+  ],
+  "anchors": {
+    "ayu": [
+      527,
+      428
+    ]
+  },
+  "walk_polygons": [],
+  "walk_rect": [
+    67,
+    98,
+    806,
+    380
+  ],
+  "spawn": [
+    808,
+    149
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v3/assets/",
+  "navigation_version": 4
+}

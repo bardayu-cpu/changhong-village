@@ -1,0 +1,836 @@
+{
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘-claude 总文件/裳泓村-工程-claude/上传云存储/ayu_home",
+  "purpose": "只读来源复制，下载适配器隔离测试输入",
+  "files": [
+    {
+      "name": "v3-ayu_room_bed.webp",
+      "sha256": "3ecb56140e38f2b7f83a5937173c0e058c70b5bc081108ec9002c174abae5602",
+      "bytes": 63480
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-13.webp",
+      "sha256": "269ec2b61b1b49bd91c436357973a3fc75ab272a7fda8db52dd60b4bce697948",
+      "bytes": 1840
+    },
+    {
+      "name": "v4-floor1-redraw-mahjong-south-wall.webp",
+      "sha256": "0364d214589e41e64f2689ca6d33f02e15b920f45eb7ba8a8c10da846d56110d",
+      "bytes": 2464
+    },
+    {
+      "name": "v3-exterior_neighbour_house.webp",
+      "sha256": "71d915f31b95dcd6d96e4853941de054182066dc846191a0c2e378a8e4a4e557",
+      "bytes": 60702
+    },
+    {
+      "name": "v3-exterior_flower_fence.webp",
+      "sha256": "d8fb486be1edf259802dc136929f24c62e8a0b33055bb2df881895cd718aa878",
+      "bytes": 18920
+    },
+    {
+      "name": "v4-floor1-redraw-living-south-wall-left.webp",
+      "sha256": "7b0e96c1292990d0c29d506089d66c278e5a7a936d3ba81277b11df70f76eb09",
+      "bytes": 5040
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-5.webp",
+      "sha256": "cfa99ab4c03a96bbba7ef7f5f3c47d8a8d14fe7da4d5be312a149d83c7cf3857",
+      "bytes": 3832
+    },
+    {
+      "name": "v3-thumb_bath2.webp",
+      "sha256": "7b09c900f11a91a4c2b318c64d064211bd6ce2585e970eb80e8dd014653bd033",
+      "bytes": 39792
+    },
+    {
+      "name": "v3-thumb_guest_closet.webp",
+      "sha256": "62ddda8f9d72b69448945a3fc90aa75f5fcb962302597fe8a91d19e05e651ccf",
+      "bytes": 39538
+    },
+    {
+      "name": "v3-thumb_garden.webp",
+      "sha256": "a64693a2252ef036fd58323901abe572551b20a0e0e10100d1cd19d562f7c1f8",
+      "bytes": 99692
+    },
+    {
+      "name": "v3-exterior_shed.webp",
+      "sha256": "54528a5fcbbf129722fabaea600f70a31fc73175290a6721555a41f18cfbe769",
+      "bytes": 54448
+    },
+    {
+      "name": "v3-exterior_beehive_1.webp",
+      "sha256": "baeac8b1bb7e446cb93de81f4b770136c42b707a3c742247e547426751b19af0",
+      "bytes": 2864
+    },
+    {
+      "name": "v4-floor1-redraw-kitchen-south-wall.webp",
+      "sha256": "b2d2d86b83bd486f63ce489787aa15ca36c23027af24ad5be9a1ba2af3b71ba9",
+      "bytes": 2190
+    },
+    {
+      "name": "v4-floor1-redraw-dining-south-wall.webp",
+      "sha256": "b9954405672df6ef9bf72b0977d643c1dd8abc76bbf632466f2296781cb29f1e",
+      "bytes": 2314
+    },
+    {
+      "name": "v4-exterior-nocar-exterior_pot_garage.webp",
+      "sha256": "bdfff19540fdbc47e8663602d30b0b6dee96cb69baba399b03b335dc5fcaf995",
+      "bytes": 4488
+    },
+    {
+      "name": "v4-floor1-redraw-household-1.webp",
+      "sha256": "401363baf3cd8536f7351bda06ce4ba5b686649db1744736e2b11b48952d6d09",
+      "bytes": 2432
+    },
+    {
+      "name": "v4-floor1-redraw-workshop-bench.webp",
+      "sha256": "e49a2b2a723c6218ec665d5e56b0f04c9629be2db8457c4d857929bd892226e8",
+      "bytes": 6952
+    },
+    {
+      "name": "v4-floor1-redraw-living-aquarium.webp",
+      "sha256": "b20b191854388514e35f0921cd94b4494d9681082571de35ce882eb835e3ff57",
+      "bytes": 5394
+    },
+    {
+      "name": "v4-guitar-corner.webp",
+      "sha256": "c74026e02ba0d3ed29ddeb448b6fe97f65a6dadbce6f26464f24d090434bfb24",
+      "bytes": 1397752
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_living.webp",
+      "sha256": "2fa3a93f2f4d448534ca21cbf7dddf2984f6067455246287d19b45ca54878d44",
+      "bytes": 62964
+    },
+    {
+      "name": "v3-exterior_tool_corner.webp",
+      "sha256": "079c2f247b5d4690f5478f16fbac982a7db5fc67d9773c805aa07e86cadf02ea",
+      "bytes": 9662
+    },
+    {
+      "name": "v4-floor1-redraw-flowers.webp",
+      "sha256": "696b42a39678914e36a16af67ccfae4779d3fe793f5b2695b5839de2889c4a5a",
+      "bytes": 43768
+    },
+    {
+      "name": "v4-talk-faces-mother.webp",
+      "sha256": "c9d0d8dba4666518dae74267ac1f5a216b52e3d9bba4891b8ca439bd7472bf73",
+      "bytes": 15960
+    },
+    {
+      "name": "v4-floor1-redraw-pairs.webp",
+      "sha256": "5abc85e123c6b09068235fcc07359dd97c5849414d737c7c5bf0950707327e39",
+      "bytes": 46064
+    },
+    {
+      "name": "v2-dining_amb.wav",
+      "sha256": "fe491c5ba9e990d80b1f72380a89b620db61c082bfd62520b54f503e8e95b518",
+      "bytes": 176444
+    },
+    {
+      "name": "v3-exterior_rear_tree.webp",
+      "sha256": "549b622de8e066cbcca29dea6063df5617ad515777d0c3af4b2845928f8342ef",
+      "bytes": 74090
+    },
+    {
+      "name": "v3-garden.webp",
+      "sha256": "3fadcf9d4bf219ea00919dc813780a2cfb82aba980ec2e0cadc99eab95855685",
+      "bytes": 2343822
+    },
+    {
+      "name": "v4-floor1-redraw-household-12.webp",
+      "sha256": "b08b05a9096e4a34acd8e70d79f661d38233ee9454881a9ad598dc8e1ec0fe7d",
+      "bytes": 1210
+    },
+    {
+      "name": "v4-floor1-redraw-household-0.webp",
+      "sha256": "a2aa4baea3c17cc01d1aaa92cb90624b29a7165bb94d7828b5a0d2d7eb736d58",
+      "bytes": 4678
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-8.webp",
+      "sha256": "35ff945e8aa7c6289cd619c80d9ed8737855696f41f0e3dd8b409136ec98d4dc",
+      "bytes": 2858
+    },
+    {
+      "name": "v3-exterior_beehive_0.webp",
+      "sha256": "df98223b1bab08c449de72ca91c26ff9740e86d356a5269d5fa265c418bbf91b",
+      "bytes": 2848
+    },
+    {
+      "name": "v4-floor1-redraw-living-chair.webp",
+      "sha256": "f2a64eaae989c64ad776ab7591a947e4070958dea2946365900549f95c4ab93f",
+      "bytes": 3380
+    },
+    {
+      "name": "v4-floor1-redraw-living-south-wall-right.webp",
+      "sha256": "03422577585f9896f96156766e500ba823ad0bb08db51579224b3ddba2955746",
+      "bytes": 1384
+    },
+    {
+      "name": "v3-thumb_exterior.webp",
+      "sha256": "545a5298f4d7c9fddb65428e2f6cd575082e2a9255d714cb4bd0da7d1b63d37b",
+      "bytes": 98294
+    },
+    {
+      "name": "v3-thumb_stairs2.webp",
+      "sha256": "53c4089306dcc43ac51390a3877acd3ebb54dc07a7b6c39bc6b5f2553662b4cd",
+      "bytes": 30546
+    },
+    {
+      "name": "v3-exterior_rear_grove_right.webp",
+      "sha256": "6ac6570b43d06f5b10fbfc6f66c794c55274616feb0f5269692af12c27275044",
+      "bytes": 55316
+    },
+    {
+      "name": "v3-terrace_lounge.webp",
+      "sha256": "955806562f06f10cebc756ffbdf2694685d80337985c7cc25baa751a367bebd7",
+      "bytes": 18686
+    },
+    {
+      "name": "v4-life-scenes.webp",
+      "sha256": "582784b2e5b95056bde7d4095ddcf441d6315eebddbf88ae253826ac6ac582d7",
+      "bytes": 2314948
+    },
+    {
+      "name": "v4-floor1-redraw-laundry-fixtures.webp",
+      "sha256": "e84d306a80d6c09264d4f57160c598cbaf87d04ea681397c43b7161504b1c85b",
+      "bytes": 4084
+    },
+    {
+      "name": "v4-grove.webp",
+      "sha256": "613b9b66776c6d5b1cbd90cbd910ac07432f92a7ee9ad232345f75ae69f98816",
+      "bytes": 2331482
+    },
+    {
+      "name": "v3-exterior_left_border_flowers.webp",
+      "sha256": "29635c0b4f0d2612b14b7ffb16c7075f74fcaf8de3378bccdef291dbaaabf36b",
+      "bytes": 80598
+    },
+    {
+      "name": "v3-xiduo.webp",
+      "sha256": "ffe9b30ef0900dd371ebe42c9c7a8782eb3e895a7d0359da1779c5299eccf37f",
+      "bytes": 20660
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-4.webp",
+      "sha256": "c9e7b602cd6db27426c2583365693dd05457926de4d9a891188f7c31223fdc14",
+      "bytes": 1358
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_dining.webp",
+      "sha256": "199544f8b6109ceefd7427ae5643c971bf922beac1fb12f35da781cce33d3c99",
+      "bytes": 49822
+    },
+    {
+      "name": "v3-garden_spring.webp",
+      "sha256": "023adb8ccf8fd120555d27d5993baf4e8ce85d0623c3f19a91f52b13c5579cc0",
+      "bytes": 2499954
+    },
+    {
+      "name": "v3-thumb_study.webp",
+      "sha256": "0b67648694fc489e142d8ce31e64eae96006ea1b17bcbc74c09a71144a1e1fc2",
+      "bytes": 62326
+    },
+    {
+      "name": "v3-exterior_bench.webp",
+      "sha256": "fa56070159bb634cb9370e9bde50a660f7dda10a061d62d46115551625c56167",
+      "bytes": 2958
+    },
+    {
+      "name": "v3-exterior_right_border_flowers.webp",
+      "sha256": "412514cc34482eb8fbf421c024951095fe261ce0c83f94101c65f12f77ef28fa",
+      "bytes": 58848
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-12.webp",
+      "sha256": "47c5fa288da0fd85d87d3bc6927ac770cb96869fdc007e6d33c03e76e6bf45c8",
+      "bytes": 2040
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_cats.webp",
+      "sha256": "c024270f03d7e40025a7d28e21e95b5f06bfcb787159db9fc47669fe3691026a",
+      "bytes": 23196
+    },
+    {
+      "name": "v3-garden_summer.webp",
+      "sha256": "6cf09fe21beac1d0f35d265daf681b87e9ce11f38f56616c96413713c8653d01",
+      "bytes": 2471126
+    },
+    {
+      "name": "v3-exterior_right_tree.webp",
+      "sha256": "a52dda6161cffac3d437c5ca63b6bd7840d48c93ef9a404d90d0a2a3c35ca984",
+      "bytes": 35446
+    },
+    {
+      "name": "v2-act_mother.webp",
+      "sha256": "8b01888e64680f8c7c20d400d93cfead4aafb824a44fbc1ddfd6b61a5185d875",
+      "bytes": 16862
+    },
+    {
+      "name": "v3-exterior_left_tree.webp",
+      "sha256": "54ddcec955cf2ce6db951de44cfe3368359e310476f60e017cc5d55f6628e8b3",
+      "bytes": 52226
+    },
+    {
+      "name": "v4-floor1-redraw-household-7.webp",
+      "sha256": "9f440b62ab6e910eabaa40ba3aa00d7c91fa1685e7d21fab54001683d31c40f2",
+      "bytes": 814
+    },
+    {
+      "name": "v4-floor1-redraw-household-15.webp",
+      "sha256": "d8ad58a60a655b3f733be84701fcb83b4b050222a49dfb7e6014af0f5653e95c",
+      "bytes": 2990
+    },
+    {
+      "name": "v2-act_ayu.webp",
+      "sha256": "d946fa869088cab45d825c72905e21869094185d3e536909281e3ae4876bc967",
+      "bytes": 13508
+    },
+    {
+      "name": "v4-floor1-redraw-stairs1-rail.webp",
+      "sha256": "2c9383855b5d8cb260cffc02adffe76fb4548f9563effe124008f708ae816218",
+      "bytes": 2964
+    },
+    {
+      "name": "v3-tv-room.webp",
+      "sha256": "8eaf47b8cbd424fe15ec6cefa4dd7595d2cf6c615fb026f7e3df1392ee48e3b7",
+      "bytes": 1013862
+    },
+    {
+      "name": "v4-life-props.webp",
+      "sha256": "88af8f6e4f1eb54a596c6422ea07b0557083f9eed096c009e495a03800005246",
+      "bytes": 1296456
+    },
+    {
+      "name": "v3-thumb_oldhouse.webp",
+      "sha256": "eb6ccd995466faf63846fd9ffed4e0e5499e88d35c5fece859be1f6734ef64b5",
+      "bytes": 47516
+    },
+    {
+      "name": "v3-thumb_bridge.webp",
+      "sha256": "f8ace91c09d54809d0106cd83970d49b8b04182447902bf6430986cdb4af7da4",
+      "bytes": 38302
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-3.webp",
+      "sha256": "866cfa0922dd52397079df8dcf4f9364983661b56c7f3c5dac47cba06a63b835",
+      "bytes": 2112
+    },
+    {
+      "name": "v2-chr_ayu.webp",
+      "sha256": "c9ad388db18fd3f1d01a56dfd6fac2f2146a64f92bafc81c210e97966d335746",
+      "bytes": 7384
+    },
+    {
+      "name": "v4-floor1-redraw-meal-10.webp",
+      "sha256": "cc5b52ef5299b98b1959b2cf2a4b805d19201e398377cdf2b50277b7da738621",
+      "bytes": 1684
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_workshop.webp",
+      "sha256": "61ef26af45887e16ae4aab0d6127efdc847821c1139b776e4c1f7a5b9e601ff4",
+      "bytes": 22446
+    },
+    {
+      "name": "v3-approved-0.webp",
+      "sha256": "cb9511bf68a0a41c5888507d978ba2164652a208d328114837a18a0d4aa54c37",
+      "bytes": 2071812
+    },
+    {
+      "name": "v4-floor1-redraw-wood.webp",
+      "sha256": "07789e225149dbc28c9a35b45ee9ef033dde20f3843e3816066cf84b21b66684",
+      "bytes": 51614
+    },
+    {
+      "name": "v4-floor1-redraw-meal-11.webp",
+      "sha256": "f9b217e40e75463f1076d199b22133cff4ddced8ffc8c18bdd58182706efa013",
+      "bytes": 2042
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-2.webp",
+      "sha256": "ff2df0c62ed0e8b1dcf199472970f81a6dd2f5ed9c6e2f0bb234a1c1d2cdf229",
+      "bytes": 1970
+    },
+    {
+      "name": "v3-qiuqiu.webp",
+      "sha256": "034ed6012b718978ff90aaf3ecd493688cd0a46b9983a963d174687b8b2ffbf8",
+      "bytes": 18982
+    },
+    {
+      "name": "v4-floor1-redraw-closet1-cabinet.webp",
+      "sha256": "0f875fedeb3e0ec3d587fe63be16aa34be9a8adcd2a25e26dfe1776cc118f80f",
+      "bytes": 2594
+    },
+    {
+      "name": "v4-floor1-redraw-meal-7.webp",
+      "sha256": "9277fa4e3b4e31eaafcc6e0019fd709c2cf599c1e0146a8623f4c2de0b01b7a6",
+      "bytes": 2148
+    },
+    {
+      "name": "v4-floor1-redraw-stars-night.webp",
+      "sha256": "6d244f36d0d749a8cb31ad5d607ff830d40389be47e53b5f967fa70602706ee6",
+      "bytes": 50466
+    },
+    {
+      "name": "v2-living_amb.wav",
+      "sha256": "05fc32debd20787d5145a2438421436ed5eb5d90dcbe33262095cc7c600d5fbe",
+      "bytes": 176444
+    },
+    {
+      "name": "v3-thumb_terrace.webp",
+      "sha256": "05cea508e64afd339558f16a0bdfa8923f3e552408fc33b5a88b3b5ac4376869",
+      "bytes": 50990
+    },
+    {
+      "name": "v3-study_floor.webp",
+      "sha256": "3e395c2cfb1b49ea9edddcb057c96352be7c39db32f8ec014d3b39884e4d19a7",
+      "bytes": 143156
+    },
+    {
+      "name": "v3-thumb_closet2.webp",
+      "sha256": "c2810ce8441e8e2b4d2d142ce4d07ae004fae7cc441bfbafc0a8ff8c56c5cde4",
+      "bytes": 25736
+    },
+    {
+      "name": "v3-exterior_pot_shed.webp",
+      "sha256": "97ca4dd596129d0dfbb1facf5435655713c3ced7f4b4e0d937a56f1b05a0655d",
+      "bytes": 4096
+    },
+    {
+      "name": "v4-floor1-redraw-household-14.webp",
+      "sha256": "10bd3e18761645ca68ac4632232374d45b164a1ce138cc56a9914923e494cc37",
+      "bytes": 1156
+    },
+    {
+      "name": "v4-floor1-redraw-household-6.webp",
+      "sha256": "1cf6484d4d0ebf0f14f27822b03e8a258990d627a2142290995e4a06e6c47d86",
+      "bytes": 6298
+    },
+    {
+      "name": "v4-floor1-redraw-bath1-fixtures.webp",
+      "sha256": "2f804bd1cf9d3ef7c0c581bfadf1c897c42d4cd1d3608af7a806fb62bb6d98b5",
+      "bytes": 4400
+    },
+    {
+      "name": "v3-aquarium.webp",
+      "sha256": "64d7cf32ffed247a23e9069958170c7dd3de2021335f53c0e255ac105b877c71",
+      "bytes": 1348174
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_garage.webp",
+      "sha256": "009d5a29c475a6c0de7b9c9bf1b38e3e888906f6767e2787ac0cffb792fe5f8e",
+      "bytes": 36256
+    },
+    {
+      "name": "v3-study_desk.webp",
+      "sha256": "54ec35d9635fe85806a37f801575f9301918adfd148163457eafeec52163605f",
+      "bytes": 34462
+    },
+    {
+      "name": "v3-study-detail.webp",
+      "sha256": "890b95d2f751c053eb69d5e1db1676a9c3e95fdad8bbc8fa2871dc1b4d6388e7",
+      "bytes": 1331898
+    },
+    {
+      "name": "v2-chr_father.webp",
+      "sha256": "07ae94f5eaa374f578bfe5975feab3d8480733b166571a0114a35a84b520248e",
+      "bytes": 5736
+    },
+    {
+      "name": "v2-chr_mother.webp",
+      "sha256": "5f69e3a83bd860575379ac4b2d78d00862d2fa19e85ca13651ddab8089b4e618",
+      "bytes": 9762
+    },
+    {
+      "name": "v4-floor1-redraw-household-5.webp",
+      "sha256": "17732c527c21c094f7ace518adc8076a1029179a4aeae09ce17c3e70fd693676",
+      "bytes": 5748
+    },
+    {
+      "name": "v4-floor1-redraw-floor1.webp",
+      "sha256": "2e31d601d30de7e27de20c71f8a1dfa830d21d0414f5e2d83f4a43a7692ccaa0",
+      "bytes": 796900
+    },
+    {
+      "name": "v3-thumb_guest_bath.webp",
+      "sha256": "a40f55ac9394a5b408266a19feadabcd632301517d950921d32c87e80311b439",
+      "bytes": 39312
+    },
+    {
+      "name": "v3-exterior_beehive_5.webp",
+      "sha256": "c1f028af451d7875a405fa3c271c04f2b174c34af83abe536bb983ac719dd3ad",
+      "bytes": 2852
+    },
+    {
+      "name": "v3-thumb_side_path.webp",
+      "sha256": "1c95737c87c71534008af39c5251776f7176082b6c97523ce68ca2e6f4580815",
+      "bytes": 25514
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_laundry.webp",
+      "sha256": "e62f5226b21a07baa04f1557a2433cc9c9c76620a28715063f81db4a83709ce9",
+      "bytes": 23018
+    },
+    {
+      "name": "v3-exterior_pot_door_left.webp",
+      "sha256": "161085c0b0d69ab1c93905f57683ca3734861b9f475b77488d0b784697569817",
+      "bytes": 3682
+    },
+    {
+      "name": "v3-approved-2.webp",
+      "sha256": "4f51f252e805a9e0b7eb9f182bea1cf005dcbafdded7e6ea8e3723b23e898f28",
+      "bytes": 1738142
+    },
+    {
+      "name": "v4-floor1-redraw-meal-12.webp",
+      "sha256": "0f004fd25e7aa1cff22f63cd853e727ffc8208cc7089a3f08ad5cd856881f39e",
+      "bytes": 2054
+    },
+    {
+      "name": "v4-floor1-redraw-parents-bed.webp",
+      "sha256": "51881fe1c2d2164994a7f5939095557a1636816c5a1f3227deec99ec14fb74d4",
+      "bytes": 20302
+    },
+    {
+      "name": "v3-thumb_guest.webp",
+      "sha256": "4b7e0cf8c54c5810304c772278080d5e184868995a8ae55d7145ba7dd55a6529",
+      "bytes": 51524
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-1.webp",
+      "sha256": "2963709762496a800d6cf1c9317300432818c8daad7c44ca533009dd3818514a",
+      "bytes": 1826
+    },
+    {
+      "name": "v4-floor1-redraw-household-9.webp",
+      "sha256": "452149a3ca762393f4f792caf66acd5b1267185368355344092c4b48ba371ae7",
+      "bytes": 868
+    },
+    {
+      "name": "v4-floor1-redraw-tea.webp",
+      "sha256": "229b7ecf9cd36736edb5f862a80e7df1e642d0c3b49fd7d99f054cd2c52e5a94",
+      "bytes": 56520
+    },
+    {
+      "name": "v4-floor1-redraw-cats-nests.webp",
+      "sha256": "ebc132851d7f2439d9873da58cbba2d229d2a6106cd6fcc2e7face3f37ab9c30",
+      "bytes": 7358
+    },
+    {
+      "name": "v3-exterior_pot_window_left.webp",
+      "sha256": "9069f56acd1212cfaef0ac4162172649676ad2807e921ef5f74d4163fc69aabd",
+      "bytes": 4310
+    },
+    {
+      "name": "v3-terrace_umbrella.webp",
+      "sha256": "88b647a92bbff983c67bd6d511bc58c3a4ddb3b8e03cb14026abd3af8b16cfbf",
+      "bytes": 65868
+    },
+    {
+      "name": "v4-rain.wav",
+      "sha256": "0273edb39a4cca6f262dff6ef1f8678ff04fb324b179a4ec17ea457c22c6a7cd",
+      "bytes": 176444
+    },
+    {
+      "name": "v4-floor1-redraw-living-table.webp",
+      "sha256": "8b382eadeb0c79dea242642bb20d43c14cea1a6af87c08adb452d7820865ef3a",
+      "bytes": 7048
+    },
+    {
+      "name": "v4-exterior-nocar-exterior_garage.webp",
+      "sha256": "ed6348da2d92f8f8089b112202db294a921868f4ce73c5c346afd0101d429885",
+      "bytes": 41662
+    },
+    {
+      "name": "v4-floor1-redraw-meal-5.webp",
+      "sha256": "b54373e7a764f6ef96d792e918198dff4e1d1a4e1e38e6994796aad2ed38733c",
+      "bytes": 1692
+    },
+    {
+      "name": "v4-floor1-redraw-household-8.webp",
+      "sha256": "f363f5e9627b4347fe0e788470f3fa21433ce6cc8226e0bf039eef809aa97c50",
+      "bytes": 746
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-0.webp",
+      "sha256": "f7f82cc0518f37e2785ad9c6382e3433797657a4bd1c368cf7b060190fdf7b9f",
+      "bytes": 2050
+    },
+    {
+      "name": "v3-garden_winter.webp",
+      "sha256": "d315ec49837b4f0e8c0efc8c9447c8af375449014d72c5062126ec1f0ad3a0f6",
+      "bytes": 2431758
+    },
+    {
+      "name": "v3-tiantian.webp",
+      "sha256": "0b0141122bd48d2b6816075efb860735ed08e872e829d16681f486696cf875ed",
+      "bytes": 20962
+    },
+    {
+      "name": "v4-floor1-redraw-mahjong-table.webp",
+      "sha256": "27864f32845c337c65205e0f6aa42982a9b7c3d16063ec15981c200045278452",
+      "bytes": 4254
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_stairs1.webp",
+      "sha256": "c624307a59a261630fe14a421a421a9df56eb6084198b3c916140b68f9c67093",
+      "bytes": 17910
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_mahjong.webp",
+      "sha256": "f8a4a8b440673d83d4312f4223f8fe576d32569a1eb557a929e1c8528d2d8d5f",
+      "bytes": 46486
+    },
+    {
+      "name": "v4-floor1-redraw-meal-13.webp",
+      "sha256": "0afcc0132f4d673f46fac7b4ddd034ebf42511564f0186d77faedeffb05e0516",
+      "bytes": 1878
+    },
+    {
+      "name": "v3-exterior_pot_door_right.webp",
+      "sha256": "cffcb685dc43570c7e001cf12d551b45d261048c1d2bf5b3af7a669ee6e9e218",
+      "bytes": 4136
+    },
+    {
+      "name": "v4-floor1-redraw-cats-shelf.webp",
+      "sha256": "7071c6022997af57f011369794c12bf3f96917c3a50feceba7a2fcca5fc213d9",
+      "bytes": 5944
+    },
+    {
+      "name": "v3-exterior_beehive_4.webp",
+      "sha256": "99cf5118a7e6dca5036c26e8e95aba279c1f249a059e85624e57d9687a190c08",
+      "bytes": 2846
+    },
+    {
+      "name": "v4-floor1-redraw-meal-9.webp",
+      "sha256": "3ed8b7c1c1cd90ef13851d95a314ecd15c39abf2e832b4af3d0df07ff55a628d",
+      "bytes": 1734
+    },
+    {
+      "name": "v3-exterior_garden_fence.webp",
+      "sha256": "282f7e4c3f644e85f8e0214234a6ac1880fef00d2dbab1e48927da2de749b418",
+      "bytes": 12498
+    },
+    {
+      "name": "v3-guest_bed.webp",
+      "sha256": "60a2d7a46fcb146a72cb44d778b58237739c594acb7aecd9e48d8a41881200ef",
+      "bytes": 57332
+    },
+    {
+      "name": "v2-act_father.webp",
+      "sha256": "20df275c069f66165d8ae4f214c361aa8f84db77506d62f80a7737c88bac4cde",
+      "bytes": 11234
+    },
+    {
+      "name": "v4-floor1-redraw-household-4.webp",
+      "sha256": "1c35bebb779e4480708965054e9e67e7d40443d8e28ab0226a21d21a942a10f3",
+      "bytes": 5556
+    },
+    {
+      "name": "v4-floor1-redraw-laundry-cabinet.webp",
+      "sha256": "cee79731943be33e60254e6dac919ce00b2ae7e40c8df7ac469b0e77c2f0549d",
+      "bytes": 1934
+    },
+    {
+      "name": "v4-floor1-redraw-laundry.webp",
+      "sha256": "15617755a57d5ef114251baa22d869dac99bb1017b99994945870fc5bb5956e9",
+      "bytes": 55612
+    },
+    {
+      "name": "v4-floor1-redraw-laundry-south-wall.webp",
+      "sha256": "78ca74740d93336561f6f10ea77350a2b601dd92b02ce17f5f9aeb278ead5d57",
+      "bytes": 2454
+    },
+    {
+      "name": "v4-floor1-redraw-meal-14.webp",
+      "sha256": "e4375fdc963d8dbc0730db23adf165f9267b7b4638689b5c26d1c6e52587cfd2",
+      "bytes": 1812
+    },
+    {
+      "name": "v4-floor1-redraw-kitchen-counter.webp",
+      "sha256": "b63ebb37b6f057ee712ef67a4a788dc2292c49e000b4b3ba2731c960ffb0ffdc",
+      "bytes": 7464
+    },
+    {
+      "name": "v4-exterior-nocar-exterior_house.webp",
+      "sha256": "87532a1ed9da77a4336d6adf3c1ee591dd0e18632f17a4847aa814cea2da0d3f",
+      "bytes": 319464
+    },
+    {
+      "name": "v4-floor1-redraw-workshop-cabinet.webp",
+      "sha256": "51f27c566fcda0ebbb7083bfbf1b4f53a0c0a63c2277584cea2aa32c9b6285ef",
+      "bytes": 3346
+    },
+    {
+      "name": "v4-portraits.webp",
+      "sha256": "1e54f1872d3b7aaf08d6dca26a5194118b3a24dd81a75e5fa038a4e96510efc2",
+      "bytes": 661296
+    },
+    {
+      "name": "v3-luoluo.webp",
+      "sha256": "265f08b57a116eec67ed4ca8bcbe78d481fdf0385fd7a3c38ea69f6083c776af",
+      "bytes": 20332
+    },
+    {
+      "name": "v2-yard_amb.wav",
+      "sha256": "7ff52a154fadb7b8bbd90f5e31c5714b14e8e8b6aec7c3cfd421778e6c57423c",
+      "bytes": 176444
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-11.webp",
+      "sha256": "8d8e1ac3e5edc2fae13f1831f90eafd1511db36be9ec918524c80eca3c337fe5",
+      "bytes": 1572
+    },
+    {
+      "name": "v4-floor1-redraw-garage-car.webp",
+      "sha256": "113c85dad6279cf86ee4f03654638a176fa70d5af440ca2573223d96f499d2d1",
+      "bytes": 17044
+    },
+    {
+      "name": "v4-floor1-redraw-household-11.webp",
+      "sha256": "25a92dddd8b70af5fbe95f89dc825f6e0743ac64346c7a91d27610257c6a503c",
+      "bytes": 1144
+    },
+    {
+      "name": "v4-floor1-redraw-household-3.webp",
+      "sha256": "6ad944e916e41f252cefd50cc9f46473cc600fb6014b3ecc718b972250e1bdbb",
+      "bytes": 3458
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_bath1.webp",
+      "sha256": "da88a26467ecc6340789206ab5841e04c95051ddf117d9c3522222f676490364",
+      "bytes": 18382
+    },
+    {
+      "name": "v3-exterior_rear_tree_left.webp",
+      "sha256": "a99865fba3f3881c24bbb07ea88ed2cb1873f21b77d5f7cd66bdc506175be242",
+      "bytes": 24094
+    },
+    {
+      "name": "v3-exterior_beehive_3.webp",
+      "sha256": "8cb17c6808e4671a3e369ad683f2a85f62c8ba9b5741c0f17d94d36b974ba773",
+      "bytes": 2822
+    },
+    {
+      "name": "v4-exterior-nocar-exterior_floor.webp",
+      "sha256": "6e2955553dbe90752016b8de39fd26aad28473fb9d7bd4289b7adf4be6392cb8",
+      "bytes": 1157228
+    },
+    {
+      "name": "v4-floor1-redraw-dining-table.webp",
+      "sha256": "f6effae68cf39d978f80d5ea4c4e2b71494b686d6aecf7dd533287df4ac5651c",
+      "bytes": 10952
+    },
+    {
+      "name": "v4-talk-faces-father.webp",
+      "sha256": "96a9f46e06e3eaa583b6d28be196f9a3810a1487ec9efbf587dff0399c2ac73d",
+      "bytes": 14460
+    },
+    {
+      "name": "v4-talk-faces-ayu.webp",
+      "sha256": "279065f0c3021c21ca31f6205be6e565df06e5cc8bd61864d07a10bc77c2560e",
+      "bytes": 16844
+    },
+    {
+      "name": "v3-exterior_pot_window_right.webp",
+      "sha256": "f7b6b72aacb643a24096ba059ce1e3dcb4e89f1161506c041d4682a4c83314f8",
+      "bytes": 4478
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_parents.webp",
+      "sha256": "e06c6ceee6198174affbe2affefff97afd8befdb0eb562f0cb0d3603859bb0c1",
+      "bytes": 47692
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_kitchen.webp",
+      "sha256": "bf937a462e994aca4158700e191a1662e919e103ad5580896f29f8d942e2dcf2",
+      "bytes": 17794
+    },
+    {
+      "name": "v3-exterior_beehive_2.webp",
+      "sha256": "63734ddc78d028b80d4a0a0f08af297c64c85aedc3859bb965a971d211f0a1db",
+      "bytes": 2918
+    },
+    {
+      "name": "v4-floor1-redraw-household-2.webp",
+      "sha256": "62948557170e965860dc3ac6731d229286db5c9222eaee84c62f97eb14d3ce6a",
+      "bytes": 7892
+    },
+    {
+      "name": "v4-floor1-redraw-household-10.webp",
+      "sha256": "dad6be12128ba0249fb7c4b95ca0b18dd2ff0488502d1cccaefd219a02d721f2",
+      "bytes": 842
+    },
+    {
+      "name": "v4-floor1-redraw-thumb_closet1.webp",
+      "sha256": "36f60949dc2387ecec32a874989d562f26c3270265480c204a1931d56e5b4fc6",
+      "bytes": 13894
+    },
+    {
+      "name": "v4-floor1-redraw-living-sofa.webp",
+      "sha256": "2180611d1aa8c974ce6e064d089577655628ee18d7316bb4ea995f0cfa7ad2c8",
+      "bytes": 15996
+    },
+    {
+      "name": "v4-floor1-redraw-dining-chairs.webp",
+      "sha256": "05211e63a0a56327f9e0d3d613119542de77e8f2abfbd2fb8e9afabd842ac315",
+      "bytes": 1968
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-10.webp",
+      "sha256": "386af54485ead94d8e0f92b3516524c8e2ea7765d0256fd6ff48a3f78d4f1a00",
+      "bytes": 1614
+    },
+    {
+      "name": "v4-floor1-redraw-soup.webp",
+      "sha256": "f6a8284d771365c00f26f458f34c737a10c8b432d5d9f373d56fcb5f78b7c8dc",
+      "bytes": 54656
+    },
+    {
+      "name": "v3-exterior_left_wall.webp",
+      "sha256": "c08d9b3090dfe42df47171da1a9e3b1ea87d03d661e00516609c6438602510a4",
+      "bytes": 65162
+    },
+    {
+      "name": "v3-thumb_ayu_room.webp",
+      "sha256": "fd91a455a239e640bd94affdd41ec68f6185735b85dfe98cd680a50a150f844f",
+      "bytes": 56242
+    },
+    {
+      "name": "v4-floor1-redraw-meal-3.webp",
+      "sha256": "754f32398206cb069d61f4d2b9506e404236efa7863a294251887add0fe4181b",
+      "bytes": 2068
+    },
+    {
+      "name": "v4-floor1-redraw-botanical-6.webp",
+      "sha256": "bd3e3568f7e087424d83df40b0c8cf3eba55f49c784d5cc7008fe2a567334968",
+      "bytes": 1106
+    },
+    {
+      "name": "v4-floor1-redraw-living-tv.webp",
+      "sha256": "d19efc7419b248365be6e6973a84efaedce99f02a23c51eb3d83b2eb2ea302ee",
+      "bytes": 2676
+    },
+    {
+      "name": "v4-floor1-redraw-bath1-shower.webp",
+      "sha256": "af28e2f702a2e02d64d266955906928689be855c4ae133982b4a5ef652981491",
+      "bytes": 6182
+    },
+    {
+      "name": "v4-floor1-redraw-stars-day.webp",
+      "sha256": "cd3db4998f24e7d2ac19e31b325b090b351db74ab641138795e966111294b260",
+      "bytes": 51770
+    },
+    {
+      "name": "v4-floor1-redraw-parents-south-wall.webp",
+      "sha256": "88ff22c8037fc5d0ed89d517e467b750c2e3d23df913105ec24ce8f01eeb9020",
+      "bytes": 2984
+    },
+    {
+      "name": "v3-exterior_right_wall.webp",
+      "sha256": "10c94238e1921e87b46b4959d36b6998598a25c2b4755839ab537d071277396f",
+      "bytes": 71134
+    }
+  ]
+}

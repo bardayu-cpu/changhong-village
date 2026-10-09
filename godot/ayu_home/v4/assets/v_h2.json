@@ -1,0 +1,257 @@
+{
+  "id": "v_h2",
+  "title": "2A · 缝补人家 · 一楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    660,
+    760
+  ],
+  "background": "res://ayu_home/v4/assets/village/interior_h2.png",
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "bench0",
+      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
+      "pos": [
+        60,
+        130
+      ],
+      "foot": 203,
+      "front": false
+    },
+    {
+      "id": "cabinet1",
+      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
+      "pos": [
+        390,
+        150
+      ],
+      "foot": 257,
+      "front": false
+    },
+    {
+      "id": "sofa2",
+      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
+      "pos": [
+        85,
+        405
+      ],
+      "foot": 490,
+      "front": false
+    },
+    {
+      "id": "table3",
+      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
+      "pos": [
+        380,
+        460
+      ],
+      "foot": 535,
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        550,
+        450
+      ],
+      "foot": 600,
+      "front": false
+    },
+    {
+      "id": "detail_window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        232,
+        21
+      ],
+      "foot": 75,
+      "front": false
+    },
+    {
+      "id": "detail_plant0",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        25,
+        530
+      ],
+      "foot": 598,
+      "front": false
+    },
+    {
+      "id": "detail_plant1",
+      "file": "exterior_pot_window_left.png",
+      "pos": [
+        588,
+        90
+      ],
+      "foot": 158,
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v3/assets/exterior_bench.png",
+      "pos": [
+        300,
+        502
+      ],
+      "foot": 535,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      40,
+      325,
+      190,
+      12
+    ],
+    [
+      385,
+      325,
+      215,
+      12
+    ],
+    [
+      64,
+      172.9,
+      118,
+      35.1
+    ],
+    [
+      394,
+      211.60000000000002,
+      90,
+      50.4
+    ],
+    [
+      89,
+      454.5,
+      127,
+      40.5
+    ],
+    [
+      384,
+      504.0,
+      112,
+      36.0
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "门边的生活便签",
+      "pos": [
+        230,
+        640
+      ],
+      "approach": [
+        230,
+        680
+      ],
+      "kind": "village",
+      "copy": "桌边放着针线和折好的布料。"
+    },
+    {
+      "id": "house_help",
+      "label": "把布料叠好",
+      "pos": [
+        420,
+        610
+      ],
+      "approach": [
+        420,
+        650
+      ],
+      "kind": "village",
+      "copy": "布料叠好了，椅背上多了一块干净坐垫。",
+      "house": "h2"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        330,
+        515
+      ],
+      "approach": [
+        330,
+        570
+      ],
+      "kind": "seat",
+      "seat": [
+        330,
+        525
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        330,
+        706
+      ],
+      "approach": [
+        330,
+        724
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    },
+    {
+      "id": "upstairs",
+      "label": "上二楼",
+      "target": "v_h2_up",
+      "pos": [
+        595,
+        605
+      ],
+      "approach": [
+        595,
+        635
+      ],
+      "face": "down",
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      211,
+      115,
+      240
+    ],
+    [
+      475,
+      532,
+      220
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    330,
+    655
+  ],
+  "walk_rect": [
+    22,
+    100,
+    616,
+    640
+  ],
+  "outdoor": false,
+  "view_scale": 1.15
+}

@@ -1,0 +1,279 @@
+{
+  "id": "v_rose_up",
+  "title": "玫瑰花之家 · 二楼",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    820,
+    760
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "background": "res://ayu_home/v4/assets/village/interior_v_rose_up.png",
+  "props": [
+    {
+      "id": "bed0",
+      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
+      "pos": [
+        490.0,
+        150.476
+      ],
+      "foot": 330,
+      "scale": [
+        0.3968253968253968,
+        0.3968253968253968
+      ],
+      "front": false,
+      "atlas_region": [
+        830,
+        67,
+        378,
+        465
+      ],
+      "interior_set": "rose-v1"
+    },
+    {
+      "id": "bench1",
+      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
+      "pos": [
+        112.116,
+        155.0
+      ],
+      "foot": 228,
+      "scale": [
+        0.21081081081081082,
+        0.21081081081081082
+      ],
+      "front": false,
+      "atlas_region": [
+        43,
+        129,
+        293,
+        370
+      ],
+      "interior_set": "rose-v1"
+    },
+    {
+      "id": "cabinet2",
+      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
+      "pos": [
+        106.115,
+        410.0
+      ],
+      "foot": 517,
+      "scale": [
+        0.23045267489711935,
+        0.23045267489711935
+      ],
+      "front": false,
+      "atlas_region": [
+        1251,
+        32,
+        242,
+        486
+      ],
+      "interior_set": "rose-v1"
+    },
+    {
+      "id": "window",
+      "file": "res://ayu_home/v4/assets/village/window.png",
+      "pos": [
+        312,
+        21
+      ],
+      "foot": 75,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "stairs",
+      "file": "res://ayu_home/v4/assets/village/stairs.png",
+      "pos": [
+        710,
+        460
+      ],
+      "foot": 600,
+      "scale": [
+        1,
+        1
+      ],
+      "front": false
+    },
+    {
+      "id": "tea_bench",
+      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
+      "pos": [
+        407.465,
+        460.0
+      ],
+      "foot": 509,
+      "front": false,
+      "atlas_region": [
+        391,
+        116,
+        415,
+        361
+      ],
+      "scale": [
+        0.20498614958448755,
+        0.20498614958448755
+      ],
+      "interior_set": "rose-v1"
+    },
+    {
+      "id": "new_glass_lamp",
+      "pos": [
+        665.859,
+        190.0
+      ],
+      "foot": 255,
+      "front": false,
+      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
+      "atlas_region": [
+        1334,
+        658,
+        140,
+        256
+      ],
+      "scale": [
+        0.2734375,
+        0.2734375
+      ],
+      "interior_set": "rose-v1"
+    }
+  ],
+  "obstacles": [
+    [
+      365,
+      100,
+      12,
+      210
+    ],
+    [
+      365,
+      465,
+      12,
+      240
+    ],
+    [
+      494.0,
+      261.19,
+      142.0,
+      73.81
+    ],
+    [
+      116.116,
+      201.8,
+      53.768,
+      31.2
+    ],
+    [
+      110.115,
+      477.2,
+      47.77,
+      44.8
+    ],
+    [
+      669.859,
+      232.0,
+      30.281,
+      28.0
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "resident_note",
+      "label": "看看生活便签",
+      "pos": [
+        95,
+        590
+      ],
+      "approach": [
+        95,
+        635
+      ],
+      "kind": "village",
+      "copy": "楼上小书桌正对侧廊，花篱的颜色从窗外一直延进来。"
+    },
+    {
+      "id": "house_help",
+      "label": "夹好窗边的花瓣书签",
+      "pos": [
+        490,
+        570
+      ],
+      "approach": [
+        490,
+        645
+      ],
+      "kind": "village",
+      "house": "rose",
+      "copy": "花瓣压进旧书，等下次串门再翻开。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        450,
+        500
+      ],
+      "approach": [
+        450,
+        540
+      ],
+      "kind": "seat",
+      "seat": [
+        450,
+        510
+      ],
+      "face": "down"
+    }
+  ],
+  "doors": [
+    {
+      "id": "downstairs",
+      "label": "下到一楼",
+      "target": "v_rose",
+      "pos": [
+        755,
+        605
+      ],
+      "approach": [
+        755,
+        635
+      ],
+      "kind": "door",
+      "width": 60,
+      "explicit_opening": true,
+      "face": "down"
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [
+    [
+      410,
+      170,
+      260
+    ]
+  ],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    410,
+    675
+  ],
+  "walk_rect": [
+    22,
+    96,
+    776,
+    642
+  ],
+  "outdoor": false,
+  "view_scale": 1.15,
+  "interior_art_status": "new_household_set_pending_graphical_acceptance"
+}

@@ -1,0 +1,607 @@
+{
+  "size": [
+    508,
+    600
+  ],
+  "source_crop": [
+    538,
+    411,
+    1046,
+    836
+  ],
+  "props": [
+    {
+      "id": "living-sofa.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-sofa.png",
+      "pos": [
+        75,
+        167
+      ],
+      "foot": 376,
+      "front": false
+    },
+    {
+      "id": "living-table.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-table.png",
+      "pos": [
+        155,
+        263
+      ],
+      "foot": 360,
+      "front": false
+    },
+    {
+      "id": "living-chair.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-chair.png",
+      "pos": [
+        278,
+        337
+      ],
+      "foot": 416,
+      "front": false
+    },
+    {
+      "id": "living-aquarium.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-aquarium.png",
+      "pos": [
+        9,
+        148
+      ],
+      "foot": 335,
+      "front": false
+    },
+    {
+      "id": "living-tv.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-tv.png",
+      "pos": [
+        456,
+        198
+      ],
+      "foot": 345,
+      "front": false
+    },
+    {
+      "id": "living-south-wall-left.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-south-wall-left.png",
+      "pos": [
+        1,
+        427
+      ],
+      "foot": 472,
+      "front": false
+    },
+    {
+      "id": "living-south-wall-right.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/living-south-wall-right.png",
+      "pos": [
+        448,
+        427
+      ],
+      "foot": 472,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      73,
+      166,
+      271,
+      82
+    ],
+    [
+      304,
+      188,
+      49,
+      87
+    ],
+    [
+      120,
+      366,
+      40,
+      39
+    ],
+    [
+      73,
+      239,
+      71,
+      135
+    ],
+    [
+      154,
+      266,
+      111,
+      96
+    ],
+    [
+      279,
+      344,
+      78,
+      69
+    ],
+    [
+      206,
+      372,
+      54,
+      47
+    ],
+    [
+      440,
+      188,
+      41,
+      216
+    ],
+    [
+      10,
+      149,
+      41,
+      255
+    ],
+    [
+      14,
+      95,
+      37,
+      41
+    ],
+    [
+      438,
+      149,
+      42,
+      40
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "fish",
+      "label": "喂一撮鱼食",
+      "pos": [
+        30,
+        200
+      ],
+      "approach": [
+        66,
+        140
+      ],
+      "kind": "fish",
+      "effect": "",
+      "copy": "喂一撮鱼食，这里又留下一点你的日常。"
+    },
+    {
+      "id": "tv",
+      "label": "开关电视",
+      "pos": [
+        470,
+        263
+      ],
+      "approach": [
+        405,
+        303
+      ],
+      "kind": "tv_scene",
+      "effect": "tv",
+      "copy": "开关电视，这里又留下一点你的日常。"
+    },
+    {
+      "id": "sofa",
+      "label": "坐一会儿",
+      "pos": [
+        169,
+        216
+      ],
+      "approach": [
+        174,
+        255
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "坐一会儿，这里又留下一点你的日常。"
+    },
+    {
+      "id": "album",
+      "label": "翻开相册",
+      "pos": [
+        224,
+        303
+      ],
+      "approach": [
+        276,
+        292
+      ],
+      "kind": "album",
+      "effect": "",
+      "copy": "翻开相册，这里又留下一点你的日常。"
+    },
+    {
+      "id": "lamp",
+      "label": "开关落地灯",
+      "pos": [
+        462,
+        371
+      ],
+      "approach": [
+        406,
+        401
+      ],
+      "kind": "reaction",
+      "effect": "lamp",
+      "copy": "开关落地灯，这里又留下一点你的日常。"
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        140,
+        216
+      ],
+      "approach": [
+        166,
+        257
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        140,
+        216
+      ],
+      "face": "down"
+    },
+    {
+      "id": "seat_1",
+      "label": "坐在这里",
+      "pos": [
+        262,
+        216
+      ],
+      "approach": [
+        298,
+        277
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        262,
+        216
+      ],
+      "face": "down"
+    },
+    {
+      "id": "seat_2",
+      "label": "坐在这里",
+      "pos": [
+        110,
+        310
+      ],
+      "approach": [
+        172,
+        393
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        110,
+        310
+      ],
+      "face": "right"
+    }
+  ],
+  "windows": [
+    [
+      62,
+      433,
+      187,
+      25
+    ]
+  ],
+  "lamps": [
+    [
+      297,
+      157,
+      110
+    ]
+  ],
+  "anchors": {
+    "ayu_seat": [
+      248,
+      218
+    ],
+    "father_seat": [
+      114,
+      284
+    ],
+    "mother_seat": [
+      115,
+      337
+    ],
+    "guest_seat": [
+      151,
+      218
+    ],
+    "fish": [
+      66,
+      140
+    ],
+    "clean": [
+      380,
+      420
+    ],
+    "qiuqiu": [
+      187,
+      408
+    ],
+    "luoluo": [
+      247,
+      217
+    ],
+    "tiantian": [
+      113,
+      340
+    ],
+    "qiuqiu_evening": [
+      183,
+      405
+    ],
+    "luoluo_evening": [
+      247,
+      217
+    ],
+    "tiantian_evening": [
+      144,
+      387
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        49,
+        88
+      ],
+      [
+        460,
+        88
+      ],
+      [
+        460,
+        432
+      ],
+      [
+        49,
+        432
+      ]
+    ],
+    [
+      [
+        57,
+        65
+      ],
+      [
+        130,
+        65
+      ],
+      [
+        130,
+        99
+      ],
+      [
+        57,
+        99
+      ]
+    ],
+    [
+      [
+        228,
+        65
+      ],
+      [
+        291,
+        65
+      ],
+      [
+        291,
+        102
+      ],
+      [
+        228,
+        102
+      ]
+    ],
+    [
+      [
+        356,
+        63
+      ],
+      [
+        438,
+        63
+      ],
+      [
+        438,
+        100
+      ],
+      [
+        356,
+        100
+      ]
+    ],
+    [
+      [
+        450,
+        88
+      ],
+      [
+        525,
+        88
+      ],
+      [
+        525,
+        135
+      ],
+      [
+        450,
+        135
+      ]
+    ],
+    [
+      [
+        266,
+        415
+      ],
+      [
+        444,
+        415
+      ],
+      [
+        444,
+        457
+      ],
+      [
+        266,
+        457
+      ]
+    ]
+  ],
+  "window_panes": [
+    {
+      "file": "living_view_0.png",
+      "pos": [
+        108,
+        372
+      ]
+    },
+    {
+      "file": "living_view_1.png",
+      "pos": [
+        160,
+        372
+      ]
+    }
+  ],
+  "fish_rect": [
+    13,
+    163,
+    27,
+    81
+  ],
+  "tv_rect": [
+    456,
+    223,
+    11,
+    98
+  ],
+  "camera_ahead": 80,
+  "spawn": [
+    297,
+    157
+  ],
+  "walk_rect": [
+    0,
+    0,
+    508,
+    600
+  ],
+  "id": "living",
+  "title": "客厅",
+  "group": "一楼",
+  "floor": 1,
+  "outdoor": false,
+  "doors": [
+    {
+      "id": "to_dining",
+      "target": "dining",
+      "pos": [
+        94,
+        78
+      ],
+      "approach": [
+        94,
+        78
+      ],
+      "face": "down",
+      "label": "去餐厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_cats",
+      "target": "cats",
+      "pos": [
+        258,
+        85
+      ],
+      "approach": [
+        258,
+        85
+      ],
+      "face": "down",
+      "label": "去猫房",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_stairs1",
+      "target": "stairs1",
+      "pos": [
+        396,
+        85
+      ],
+      "approach": [
+        396,
+        85
+      ],
+      "face": "down",
+      "label": "去一楼楼梯与过道",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_closet1",
+      "target": "closet1",
+      "pos": [
+        508,
+        107
+      ],
+      "approach": [
+        508,
+        107
+      ],
+      "face": "left",
+      "label": "去一楼衣柜间",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_exterior",
+      "target": "exterior",
+      "pos": [
+        331,
+        440
+      ],
+      "approach": [
+        331,
+        440
+      ],
+      "face": "up",
+      "label": "去门前院子",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "source_offset": [
+    0,
+    48
+  ],
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": [],
+  "vase_position": [
+    213,
+    288
+  ]
+}

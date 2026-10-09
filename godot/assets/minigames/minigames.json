@@ -1,0 +1,423 @@
+{
+ "note": "席间小游戏（蓝图 3.2，阿鱼 9/19 定）：两桌一个、换桌换游戏。levels 里每个参数第 N 关 = base + step×(N-1)，夹在 min～max；hard=1 表示越大越难（乘调试版的难度倍数），hard=-1 表示越大越容易（除以难度倍数），0 不随难度变；int=true 取整。reward 同样算法：每关通关得的金币。改难度就改这里，不用改代码",
+ "games": [
+  {
+   "id": "lianliankan",
+   "tables": [
+    "T1",
+    "T2"
+   ],
+   "title": "连连看",
+   "kind": "连连看",
+   "goal": "把一样的菜连起来消掉，拐弯不超过两次",
+   "levels": {
+    "cols": {
+     "base": 4,
+     "step": 0.34,
+     "max": 7,
+     "int": true
+    },
+    "rows": {
+     "base": 4,
+     "step": 0.34,
+     "max": 7,
+     "int": true
+    },
+    "kinds": {
+     "base": 4,
+     "step": 1,
+     "max": 12,
+     "int": true,
+     "hard": 1
+    },
+    "time": {
+     "base": 90,
+     "step": 6,
+     "max": 180,
+     "hard": -1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 5,
+    "max": 80
+   },
+   "art_set": "shared"
+  },
+  {
+   "id": "match3",
+   "tables": [
+    "T3",
+    "T4"
+   ],
+   "title": "川菜消消乐",
+   "kind": "三消",
+   "goal": "换相邻两道菜，凑成三个一样的消掉，步数用完前凑够分",
+   "levels": {
+    "size": {
+     "base": 7,
+     "step": 0,
+     "int": true
+    },
+    "kinds": {
+     "base": 4,
+     "step": 0.34,
+     "max": 6,
+     "int": true,
+     "hard": 1
+    },
+    "moves": {
+     "base": 20,
+     "step": 0,
+     "min": 12,
+     "int": true,
+     "hard": -1
+    },
+    "target": {
+     "base": 300,
+     "step": 40,
+     "max": 3000,
+     "int": true,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   },
+   "art_set": "shared"
+  },
+  {
+   "id": "g2048",
+   "tables": [
+    "T5",
+    "T6"
+   ],
+   "title": "小菜合大菜",
+   "kind": "2048",
+   "goal": "上下左右滑，一样的菜碰到一起合成更大的菜",
+   "levels": {
+    "size": {
+     "base": 4,
+     "step": 0,
+     "int": true
+    },
+    "target_pow": {
+     "base": 5,
+     "step": 0.25,
+     "max": 9,
+     "int": true,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 5,
+    "max": 60
+   },
+   "art_set": "crop_01",
+   "art_set_note": "兜底而已：这个游戏实际用哪套由 ladder.json 按关数定（每关一种作物），这里写的只在 ladder.json 读不到时才用"
+  },
+  {
+   "id": "memory",
+   "tables": [],
+   "title": "记菜名",
+   "kind": "翻牌配对",
+   "goal": "翻两张牌，一样的菜就配成一对；翻错的次数有限",
+   "levels": {
+    "pairs": {
+     "base": 3,
+     "step": 1,
+     "max": 12,
+     "int": true,
+     "hard": 1
+    },
+    "preview": {
+     "base": 3.0,
+     "step": 0.25,
+     "hard": -1,
+     "max": 6.0
+    },
+    "misses": {
+     "base": 8,
+     "step": 0.6,
+     "max": 20,
+     "int": true,
+     "hard": -1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   },
+   "art_set": "shared",
+   "art_set_note": "喜庆纹样那套（pattern）GPT 还没交，先用回共用菜牌；图到了把这里改成 pattern 就换过去（01 9/20）",
+   "was_tables": [
+    "T7",
+    "T8"
+   ],
+   "hall_off": "阿鱼 9/24 定（宴会厅收尾清单第四节）：宴会厅只留吃席、川菜消消乐、小菜合大菜在 1～6 号桌，7～12 号只吃席、敬酒、聊天。这个游戏在厅里关掉（tables 清空），代码留着，以后接到后厅厨房"
+  },
+  {
+   "id": "whack",
+   "tables": [],
+   "title": "护菜",
+   "kind": "护菜",
+   "goal": "小松鼠从菜后面探头就点它\n把它挡回去，别点到辣椒",
+   "levels": {
+    "holes": {
+     "base": 6,
+     "step": 0.5,
+     "max": 9,
+     "int": true
+    },
+    "duration": {
+     "base": 30,
+     "step": 0
+    },
+    "target": {
+     "base": 12,
+     "step": 3,
+     "max": 45,
+     "int": true,
+     "hard": 1
+    },
+    "show": {
+     "base": 1.3,
+     "step": -0.07,
+     "min": 0.5,
+     "hard": -1
+    },
+    "interval": {
+     "base": 0.9,
+     "step": -0.05,
+     "min": 0.35,
+     "hard": -1
+    },
+    "bad": {
+     "base": 0.0,
+     "step": 0.02,
+     "max": 0.15,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   },
+   "art_set": "shared",
+   "title_note": "暂名，正式名字等阿鱼给（01 9/23）",
+   "was_tables": [
+    "T9",
+    "T10"
+   ],
+   "hall_off": "阿鱼 9/24 定（宴会厅收尾清单第四节）：宴会厅只留吃席、川菜消消乐、小菜合大菜在 1～6 号桌，7～12 号只吃席、敬酒、聊天。这个游戏在厅里关掉（tables 清空），代码留着，以后接到后厅厨房"
+  },
+  {
+   "id": "catch",
+   "tables": [],
+   "title": "接彩头",
+   "kind": "接彩头",
+   "goal": "左右跑着用篮子接喜糖和红包",
+   "levels": {
+    "duration": {
+     "base": 30,
+     "step": 0
+    },
+    "target": {
+     "base": 10,
+     "step": 4,
+     "max": 58,
+     "int": true,
+     "hard": 1
+    },
+    "speed": {
+     "base": 130,
+     "step": 18,
+     "max": 380,
+     "hard": 1
+    },
+    "interval": {
+     "base": 2.3,
+     "step": -0.17,
+     "min": 0.55,
+     "hard": -1
+    },
+    "misses": {
+     "base": 3,
+     "step": 0,
+     "min": 3,
+     "int": true,
+     "hard": -1
+    },
+    "bad": {
+     "base": 0.0,
+     "step": 0.03,
+     "max": 0.28,
+     "hard": 1
+    }
+   },
+   "reward": {
+    "base": 10,
+    "step": 4,
+    "max": 60
+   },
+   "art_set": "shared",
+   "levels_note": "01 9/23 起步值：target 是这关要接够多少金（攒够马上过关、接到的全拿走），调到和 reward 表差不多；03 模拟以后调",
+   "drops": [
+    {
+     "id": "candy_a",
+     "coins": 1,
+     "weight": 40
+    },
+    {
+     "id": "candy_b",
+     "coins": 2,
+     "weight": 25
+    },
+    {
+     "id": "candy_c",
+     "coins": 3,
+     "weight": 15
+    },
+    {
+     "id": "candy_d",
+     "coins": 4,
+     "weight": 10
+    },
+    {
+     "id": "hongbao_s",
+     "coins": 5,
+     "weight": 7
+    },
+    {
+     "id": "hongbao_l",
+     "coins": 10,
+     "weight": 3
+    }
+   ],
+   "drops_note": "四种喜糖 1～4 金、小红包 5 金、大红包 10 金（01 9/23 定）；weight 是出现多少，03 调。鞭炮的比例看 levels 里的 bad",
+   "sayings": [
+    "接好彩头 人生好彩",
+    "红包接住 好事成双",
+    "彩头接满怀",
+    "喜上加喜",
+    "年年有余 岁岁欢喜",
+    "大吉大利 百年好合"
+   ],
+   "sayings_note": "接到小红包、大红包时篮子上方冒一句，过关结算卡也说一句。第一句是阿鱼给的，其余五句 02 新写，等阿鱼定（见 回执/等阿鱼定的字.md）",
+   "misses_note": "接到第 misses 个鞭炮就输（01 9/23 定 3）",
+   "was_tables": [
+    "T11",
+    "T12"
+   ],
+   "hall_off": "阿鱼 9/24 定（宴会厅收尾清单第四节）：宴会厅只留吃席、川菜消消乐、小菜合大菜在 1～6 号桌，7～12 号只吃席、敬酒、聊天。这个游戏在厅里关掉（tables 清空），代码留着，以后接到迎宾院"
+  }
+ ],
+ "dishes_note": "连连看每过一关解锁一道乐山菜进「菜单册」（蓝图 3.2）。菜名先占位、阿鱼可改；短评只有阿鱼能写（世界观 4.2），没写的显示「待阿鱼写」。游戏里不出现真实地名，一律写苏七。9/24 短评 01 写（阿鱼交给 01：乐山话，一句最多一个方言词），见 回执/菜单册短评-12道.md，阿鱼要改在文案总表里改",
+ "dishes": [
+  {
+   "name": "跷脚牛肉",
+   "note": "苏七镇的老汤锅，牛骨熬大半天，喝口巴适"
+  },
+  {
+   "name": "甜皮鸭",
+   "note": "皮又甜又脆，肉还是嫩的，安逸"
+  },
+  {
+   "name": "钵钵鸡",
+   "note": "一钵红油泡串串，冷的也好好吃"
+  },
+  {
+   "name": "豆腐脑",
+   "note": "咸的！骨汤勾芡盖牛肉，早上来一碗"
+  },
+  {
+   "name": "叶儿粑",
+   "note": "叶子一揭糯米香，甜的咸的都要得"
+  },
+  {
+   "name": "冰粉",
+   "note": "手搓冰粉浇红糖水，热天吃得巴巴适适"
+  },
+  {
+   "name": "西坝豆腐",
+   "note": "西坝的豆腐又白又嫩，回口还带甜"
+  },
+  {
+   "name": "麻辣烫",
+   "note": "牛肉牛杂穿成串红汤烫，外头的莫得这个味"
+  },
+  {
+   "name": "烧烤",
+   "note": "小串烤得焦香，夜宵配着摆龙门阵"
+  },
+  {
+   "name": "米花糖",
+   "note": "苏七镇的米花糖，米花花生芝麻，一咬就酥"
+  },
+  {
+   "name": "凉糕",
+   "note": "米浆熬好放凉，浇一勺红糖水，甜丝丝"
+  },
+  {
+   "name": "肥肠粉",
+   "note": "粉滑肠香，汤要辣才对味"
+  }
+ ],
+ "tiles_note": "菜牌占位：一种菜一个颜色加一个字，正式美术到了换成图。前几种颜色要一眼分得开（三消第 1 关只用前 4 种）：橙、绿、白、紫、黄、粉橙……；10 号是「糖」（接喜糖用），别挪",
+ "tiles": [
+  {
+   "ch": "鱼",
+   "bg": "#e0703a"
+  },
+  {
+   "ch": "菜",
+   "bg": "#5c9a6a"
+  },
+  {
+   "ch": "豆",
+   "bg": "#f4efe6"
+  },
+  {
+   "ch": "酒",
+   "bg": "#9b7ad6"
+  },
+  {
+   "ch": "鸡",
+   "bg": "#e6c34a"
+  },
+  {
+   "ch": "虾",
+   "bg": "#f28f7a"
+  },
+  {
+   "ch": "粑",
+   "bg": "#8fc06f"
+  },
+  {
+   "ch": "鸭",
+   "bg": "#b5651d"
+  },
+  {
+   "ch": "面",
+   "bg": "#e8d8a2"
+  },
+  {
+   "ch": "汤",
+   "bg": "#c8b8a0"
+  },
+  {
+   "ch": "糖",
+   "bg": "#f2a7c3"
+  },
+  {
+   "ch": "肉",
+   "bg": "#a3262b"
+  }
+ ],
+ "art_set_note": "每个游戏用哪一套菜牌图（tiles.gd 的 ART）：shared 五个游戏共用那 12 张、ladder 小菜合大菜的成长阶梯（具体哪一关哪种作物看 ladder.json）、pattern 翻牌配对的喜庆纹样。图还没交的那套自动退回「色块 + 一个字」"
+}

@@ -1,0 +1,579 @@
+{
+ "note": "tools/pixel_art/orchard.py 生成，别手改。背景左上角放在 background.x/y（画布坐标），1 倍、不插值；每件左上角在 x/y，着地线 foot（跟人排前后用）；hide 是要藏掉的灰盒（挡人的占地照旧）；plot + fruit：这块地熟了显示 fruit=true 那张，没熟显示 fruit=false 那张（orchard.gd）",
+ "background": {
+  "png": "res://assets/pixel_art/orchard/room.png",
+  "x": 0,
+  "y": 0
+ },
+ "props": [
+  {
+   "id": "px_fence_01",
+   "png": "res://assets/pixel_art/orchard/props/fence_01.png",
+   "x": 0,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_01"
+   ]
+  },
+  {
+   "id": "px_fence_02",
+   "png": "res://assets/pixel_art/orchard/props/fence_02.png",
+   "x": 95,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_02"
+   ]
+  },
+  {
+   "id": "px_fence_03",
+   "png": "res://assets/pixel_art/orchard/props/fence_03.png",
+   "x": 191,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_03"
+   ]
+  },
+  {
+   "id": "px_fence_04",
+   "png": "res://assets/pixel_art/orchard/props/fence_04.png",
+   "x": 287,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_04"
+   ]
+  },
+  {
+   "id": "px_fence_05",
+   "png": "res://assets/pixel_art/orchard/props/fence_05.png",
+   "x": 383,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_05"
+   ]
+  },
+  {
+   "id": "px_fence_06",
+   "png": "res://assets/pixel_art/orchard/props/fence_06.png",
+   "x": 479,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_06"
+   ]
+  },
+  {
+   "id": "px_fence_07",
+   "png": "res://assets/pixel_art/orchard/props/fence_07.png",
+   "x": 575,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_07"
+   ]
+  },
+  {
+   "id": "px_fence_08",
+   "png": "res://assets/pixel_art/orchard/props/fence_08.png",
+   "x": 671,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_08"
+   ]
+  },
+  {
+   "id": "px_fence_09",
+   "png": "res://assets/pixel_art/orchard/props/fence_09.png",
+   "x": 763,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_09"
+   ]
+  },
+  {
+   "id": "px_fence_10",
+   "png": "res://assets/pixel_art/orchard/props/fence_10.png",
+   "x": 863,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_10"
+   ]
+  },
+  {
+   "id": "px_fence_11",
+   "png": "res://assets/pixel_art/orchard/props/fence_11.png",
+   "x": 959,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_11"
+   ]
+  },
+  {
+   "id": "px_fence_12",
+   "png": "res://assets/pixel_art/orchard/props/fence_12.png",
+   "x": 1055,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_12"
+   ]
+  },
+  {
+   "id": "px_fence_13",
+   "png": "res://assets/pixel_art/orchard/props/fence_13.png",
+   "x": 1151,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_13"
+   ]
+  },
+  {
+   "id": "px_fence_14",
+   "png": "res://assets/pixel_art/orchard/props/fence_14.png",
+   "x": 1247,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_14"
+   ]
+  },
+  {
+   "id": "px_fence_15",
+   "png": "res://assets/pixel_art/orchard/props/fence_15.png",
+   "x": 1343,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_15"
+   ]
+  },
+  {
+   "id": "px_fence_16",
+   "png": "res://assets/pixel_art/orchard/props/fence_16.png",
+   "x": 1439,
+   "y": 344,
+   "foot": 404,
+   "hide": [
+    "fence_16"
+   ]
+  },
+  {
+   "id": "px_scarecrow",
+   "png": "res://assets/pixel_art/orchard/props/scarecrow.png",
+   "x": 1110,
+   "y": 445,
+   "foot": 530,
+   "hide": [
+    "scarecrow_post",
+    "scarecrow_arms",
+    "scarecrow_shirt",
+    "scarecrow_hat"
+   ]
+  },
+  {
+   "id": "px_basket_strawberry_field",
+   "png": "res://assets/pixel_art/orchard/props/basket_strawberry_field.png",
+   "x": 863,
+   "y": 508,
+   "foot": 532,
+   "hide": [
+    "basket_strawberry_field"
+   ]
+  },
+  {
+   "id": "px_basket_loquat_field",
+   "png": "res://assets/pixel_art/orchard/props/basket_loquat_field.png",
+   "x": 223,
+   "y": 535,
+   "foot": 562,
+   "hide": [
+    "basket_loquat_field"
+   ]
+  },
+  {
+   "id": "px_ridge_0_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_0_fruit.png",
+   "x": 835,
+   "y": 530,
+   "foot": 572,
+   "hide": [
+    "ridge_0"
+   ],
+   "plot": "ridge_0",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_0_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_0_nofruit.png",
+   "x": 835,
+   "y": 530,
+   "foot": 572,
+   "hide": [
+    "ridge_0"
+   ],
+   "plot": "ridge_0",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_0_2_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_2_fruit.png",
+   "x": 41,
+   "y": 378,
+   "foot": 612,
+   "hide": [
+    "loquat_0_2"
+   ],
+   "plot": "loquat_0_2",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_0_2_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_2_nofruit.png",
+   "x": 41,
+   "y": 378,
+   "foot": 612,
+   "hide": [
+    "loquat_0_2"
+   ],
+   "plot": "loquat_0_2",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_0_1_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_1_fruit.png",
+   "x": 327,
+   "y": 386,
+   "foot": 612,
+   "hide": [
+    "loquat_0_1"
+   ],
+   "plot": "loquat_0_1",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_0_1_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_1_nofruit.png",
+   "x": 327,
+   "y": 386,
+   "foot": 612,
+   "hide": [
+    "loquat_0_1"
+   ],
+   "plot": "loquat_0_1",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_0_0_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_0_fruit.png",
+   "x": 618,
+   "y": 382,
+   "foot": 612,
+   "hide": [
+    "loquat_0_0"
+   ],
+   "plot": "loquat_0_0",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_0_0_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_0_0_nofruit.png",
+   "x": 618,
+   "y": 382,
+   "foot": 612,
+   "hide": [
+    "loquat_0_0"
+   ],
+   "plot": "loquat_0_0",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_1_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_1_fruit.png",
+   "x": 835,
+   "y": 598,
+   "foot": 640,
+   "hide": [
+    "ridge_1"
+   ],
+   "plot": "ridge_1",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_1_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_1_nofruit.png",
+   "x": 835,
+   "y": 598,
+   "foot": 640,
+   "hide": [
+    "ridge_1"
+   ],
+   "plot": "ridge_1",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_2_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_2_fruit.png",
+   "x": 835,
+   "y": 667,
+   "foot": 708,
+   "hide": [
+    "ridge_2"
+   ],
+   "plot": "ridge_2",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_2_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_2_nofruit.png",
+   "x": 835,
+   "y": 667,
+   "foot": 708,
+   "hide": [
+    "ridge_2"
+   ],
+   "plot": "ridge_2",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_3_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_3_fruit.png",
+   "x": 833,
+   "y": 734,
+   "foot": 776,
+   "hide": [
+    "ridge_3"
+   ],
+   "plot": "ridge_3",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_3_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_3_nofruit.png",
+   "x": 833,
+   "y": 734,
+   "foot": 776,
+   "hide": [
+    "ridge_3"
+   ],
+   "plot": "ridge_3",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_4_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_4_fruit.png",
+   "x": 834,
+   "y": 803,
+   "foot": 844,
+   "hide": [
+    "ridge_4"
+   ],
+   "plot": "ridge_4",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_4_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_4_nofruit.png",
+   "x": 835,
+   "y": 803,
+   "foot": 844,
+   "hide": [
+    "ridge_4"
+   ],
+   "plot": "ridge_4",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_5_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_5_fruit.png",
+   "x": 835,
+   "y": 871,
+   "foot": 912,
+   "hide": [
+    "ridge_5"
+   ],
+   "plot": "ridge_5",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_5_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_5_nofruit.png",
+   "x": 835,
+   "y": 871,
+   "foot": 912,
+   "hide": [
+    "ridge_5"
+   ],
+   "plot": "ridge_5",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_6_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_6_fruit.png",
+   "x": 835,
+   "y": 939,
+   "foot": 980,
+   "hide": [
+    "ridge_6"
+   ],
+   "plot": "ridge_6",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_6_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_6_nofruit.png",
+   "x": 835,
+   "y": 939,
+   "foot": 980,
+   "hide": [
+    "ridge_6"
+   ],
+   "plot": "ridge_6",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_1_2_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_2_fruit.png",
+   "x": 39,
+   "y": 813,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_2"
+   ],
+   "plot": "loquat_1_2",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_1_2_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_2_nofruit.png",
+   "x": 39,
+   "y": 813,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_2"
+   ],
+   "plot": "loquat_1_2",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_1_1_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_1_fruit.png",
+   "x": 329,
+   "y": 809,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_1"
+   ],
+   "plot": "loquat_1_1",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_1_1_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_1_nofruit.png",
+   "x": 329,
+   "y": 809,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_1"
+   ],
+   "plot": "loquat_1_1",
+   "fruit": false
+  },
+  {
+   "id": "px_loquat_1_0_fruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_0_fruit.png",
+   "x": 619,
+   "y": 822,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_0"
+   ],
+   "plot": "loquat_1_0",
+   "fruit": true
+  },
+  {
+   "id": "px_loquat_1_0_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/loquat_1_0_nofruit.png",
+   "x": 619,
+   "y": 822,
+   "foot": 1040,
+   "hide": [
+    "loquat_1_0"
+   ],
+   "plot": "loquat_1_0",
+   "fruit": false
+  },
+  {
+   "id": "px_ridge_7_fruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_7_fruit.png",
+   "x": 835,
+   "y": 1007,
+   "foot": 1048,
+   "hide": [
+    "ridge_7"
+   ],
+   "plot": "ridge_7",
+   "fruit": true
+  },
+  {
+   "id": "px_ridge_7_nofruit",
+   "png": "res://assets/pixel_art/orchard/props/ridge_7_nofruit.png",
+   "x": 835,
+   "y": 1007,
+   "foot": 1048,
+   "hide": [
+    "ridge_7"
+   ],
+   "plot": "ridge_7",
+   "fruit": false
+  },
+  {
+   "id": "px_basket_loquat_shop",
+   "png": "res://assets/pixel_art/orchard/props/basket_loquat_shop.png",
+   "x": 413,
+   "y": 1061,
+   "foot": 1088,
+   "hide": [
+    "basket_loquat_shop"
+   ]
+  },
+  {
+   "id": "px_basket_strawberry_shop",
+   "png": "res://assets/pixel_art/orchard/props/basket_strawberry_shop.png",
+   "x": 443,
+   "y": 1064,
+   "foot": 1088,
+   "hide": [
+    "basket_strawberry_shop"
+   ]
+  },
+  {
+   "id": "px_shop_stall",
+   "png": "res://assets/pixel_art/orchard/props/shop_stall.png",
+   "x": 465,
+   "y": 901,
+   "foot": 1088,
+   "hide": [
+    "shop_stall"
+   ]
+  },
+  {
+   "id": "px_cart",
+   "png": "res://assets/pixel_art/orchard/props/cart.png",
+   "x": 273,
+   "y": 1007,
+   "foot": 1090,
+   "hide": [
+    "cart"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,239 @@
+{
+  "id": "closet1",
+  "title": "东侧过道与次净衣柜",
+  "floor": 1,
+  "group": "一楼",
+  "size": [
+    320,
+    600
+  ],
+  "source_crop": [
+    1027,
+    345,
+    1200,
+    552
+  ],
+  "source_offset": [
+    73,
+    48
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "props": [
+    {
+      "id": "closet1-cabinet.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/closet1-cabinet.png",
+      "pos": [
+        186,
+        97
+      ],
+      "foot": 213,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      189,
+      100,
+      31,
+      110
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "hang",
+      "label": "叠好次净衣",
+      "pos": [
+        203,
+        141
+      ],
+      "approach": [
+        149,
+        145
+      ],
+      "kind": "fold",
+      "effect": "fold",
+      "copy": "肩缝对齐衣架，袖子顺着垂下来。"
+    },
+    {
+      "id": "drawer",
+      "label": "打开抽屉",
+      "pos": [
+        204,
+        192
+      ],
+      "approach": [
+        149,
+        188
+      ],
+      "kind": "reaction",
+      "effect": "open",
+      "copy": "抽屉里收着备用纽扣和软尺，用完轻轻推回去。"
+    },
+    {
+      "id": "tidy",
+      "label": "整理衣柜",
+      "pos": [
+        204,
+        117
+      ],
+      "approach": [
+        151,
+        126
+      ],
+      "kind": "tidy",
+      "effect": "fold",
+      "copy": "厚衣服放下层，常穿的留在伸手就够到的位置。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "to_living",
+      "target": "living",
+      "pos": [
+        96,
+        173
+      ],
+      "approach": [
+        96,
+        173
+      ],
+      "face": "right",
+      "label": "去客厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_mahjong",
+      "target": "mahjong",
+      "pos": [
+        159,
+        95
+      ],
+      "approach": [
+        159,
+        95
+      ],
+      "face": "down",
+      "label": "去茶桌与麻将室",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_parents",
+      "target": "parents",
+      "pos": [
+        150,
+        228
+      ],
+      "approach": [
+        150,
+        228
+      ],
+      "face": "up",
+      "label": "去爸妈卧室",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      146,
+      164,
+      110
+    ]
+  ],
+  "anchors": {},
+  "walk_polygons": [
+    [
+      [
+        107,
+        103
+      ],
+      [
+        184,
+        103
+      ],
+      [
+        184,
+        207
+      ],
+      [
+        107,
+        207
+      ]
+    ],
+    [
+      [
+        134,
+        70
+      ],
+      [
+        184,
+        70
+      ],
+      [
+        184,
+        123
+      ],
+      [
+        134,
+        123
+      ]
+    ],
+    [
+      [
+        80,
+        150
+      ],
+      [
+        150,
+        150
+      ],
+      [
+        150,
+        200
+      ],
+      [
+        80,
+        200
+      ]
+    ],
+    [
+      [
+        124,
+        200
+      ],
+      [
+        182,
+        200
+      ],
+      [
+        182,
+        243
+      ],
+      [
+        124,
+        243
+      ]
+    ]
+  ],
+  "walk_rect": [
+    0,
+    0,
+    320,
+    600
+  ],
+  "spawn": [
+    146,
+    164
+  ],
+  "camera_ahead": 45,
+  "outdoor": false,
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": []
+}

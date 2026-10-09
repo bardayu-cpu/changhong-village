@@ -1,0 +1,504 @@
+{
+  "size": [
+    348,
+    600
+  ],
+  "source_crop": [
+    359,
+    90,
+    707,
+    455
+  ],
+  "props": [
+    {
+      "id": "dining-table.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/dining-table.png",
+      "pos": [
+        103,
+        153
+      ],
+      "foot": 278,
+      "front": false
+    },
+    {
+      "id": "dining-chairs.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/dining-chairs.png",
+      "pos": [
+        90,
+        243
+      ],
+      "foot": 301,
+      "front": false
+    },
+    {
+      "id": "dining-south-wall.png",
+      "file": "res://ayu_home/v4/assets/floor1-redraw/dining-south-wall.png",
+      "pos": [
+        110,
+        368
+      ],
+      "foot": 412,
+      "front": false
+    }
+  ],
+  "obstacles": [
+    [
+      122,
+      160,
+      120,
+      112
+    ],
+    [
+      160,
+      128,
+      44,
+      32
+    ],
+    [
+      160,
+      270,
+      44,
+      32
+    ],
+    [
+      90,
+      164,
+      40,
+      112
+    ],
+    [
+      234,
+      164,
+      40,
+      112
+    ],
+    [
+      85,
+      70,
+      192,
+      58
+    ],
+    [
+      12,
+      63,
+      31,
+      113
+    ],
+    [
+      8,
+      269,
+      39,
+      77
+    ],
+    [
+      144,
+      343,
+      74,
+      29
+    ],
+    [
+      287,
+      68,
+      40,
+      97
+    ],
+    [
+      291,
+      306,
+      36,
+      40
+    ],
+    [
+      291,
+      159,
+      37,
+      30
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "meal",
+      "label": "坐下来吃饭",
+      "pos": [
+        180,
+        214
+      ],
+      "approach": [
+        291,
+        243
+      ],
+      "kind": "meal",
+      "effect": "eat",
+      "copy": "坐下来吃饭，这里又留下一点你的日常。"
+    },
+    {
+      "id": "tea",
+      "label": "倒一杯温水",
+      "pos": [
+        107,
+        98
+      ],
+      "approach": [
+        60,
+        138
+      ],
+      "kind": "drink",
+      "effect": "drink",
+      "copy": "倒一杯温水，这里又留下一点你的日常。"
+    },
+    {
+      "id": "recipe",
+      "label": "翻翻食谱",
+      "pos": [
+        236,
+        97
+      ],
+      "approach": [
+        283,
+        207
+      ],
+      "kind": "recipe",
+      "effect": "book",
+      "copy": "翻翻食谱，这里又留下一点你的日常。"
+    },
+    {
+      "id": "flowers",
+      "label": "照顾桌上的花",
+      "pos": [
+        194,
+        190
+      ],
+      "approach": [
+        54,
+        230
+      ],
+      "kind": "flowers",
+      "effect": "",
+      "copy": "给桌上的小花换一点清水。"
+    },
+    {
+      "id": "seat_0",
+      "label": "坐在这里",
+      "pos": [
+        113,
+        226
+      ],
+      "approach": [
+        57,
+        228
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        113,
+        226
+      ],
+      "face": "right"
+    },
+    {
+      "id": "seat_1",
+      "label": "坐在这里",
+      "pos": [
+        246,
+        225
+      ],
+      "approach": [
+        292,
+        232
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        246,
+        225
+      ],
+      "face": "left"
+    },
+    {
+      "id": "seat_2",
+      "label": "坐在这里",
+      "pos": [
+        182,
+        148
+      ],
+      "approach": [
+        58,
+        143
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        182,
+        148
+      ],
+      "face": "down"
+    },
+    {
+      "id": "seat_3",
+      "label": "坐在这里",
+      "pos": [
+        182,
+        287
+      ],
+      "approach": [
+        186,
+        322
+      ],
+      "kind": "seat",
+      "effect": "sit",
+      "copy": "",
+      "seat": [
+        182,
+        287
+      ],
+      "face": "up"
+    }
+  ],
+  "windows": [],
+  "lamps": [
+    [
+      296,
+      323,
+      110
+    ]
+  ],
+  "anchors": {
+    "father_meal": [
+      113,
+      228
+    ],
+    "mother_meal": [
+      245,
+      228
+    ],
+    "ayu_meal": [
+      179,
+      288
+    ],
+    "guest_meal": [
+      179,
+      151
+    ],
+    "cook": [
+      56,
+      172
+    ],
+    "mother_read": [
+      294,
+      288
+    ],
+    "father_read": [
+      57,
+      288
+    ],
+    "clean": [
+      292,
+      336
+    ],
+    "qiuqiu": [
+      53,
+      335
+    ]
+  },
+  "walk_polygons": [
+    [
+      [
+        12,
+        121
+      ],
+      [
+        325,
+        121
+      ],
+      [
+        325,
+        369
+      ],
+      [
+        12,
+        369
+      ]
+    ],
+    [
+      [
+        -31,
+        150
+      ],
+      [
+        21,
+        150
+      ],
+      [
+        21,
+        205
+      ],
+      [
+        -31,
+        205
+      ]
+    ],
+    [
+      [
+        -32,
+        339
+      ],
+      [
+        21,
+        339
+      ],
+      [
+        21,
+        373
+      ],
+      [
+        -32,
+        373
+      ]
+    ],
+    [
+      [
+        28,
+        359
+      ],
+      [
+        98,
+        359
+      ],
+      [
+        98,
+        399
+      ],
+      [
+        28,
+        399
+      ]
+    ],
+    [
+      [
+        243,
+        359
+      ],
+      [
+        306,
+        359
+      ],
+      [
+        306,
+        399
+      ],
+      [
+        243,
+        399
+      ]
+    ]
+  ],
+  "steam": [
+    182,
+    208
+  ],
+  "camera_ahead": 65,
+  "spawn": [
+    296,
+    323
+  ],
+  "walk_rect": [
+    0,
+    0,
+    348,
+    600
+  ],
+  "id": "dining",
+  "title": "餐厅",
+  "group": "一楼",
+  "floor": 1,
+  "outdoor": false,
+  "doors": [
+    {
+      "id": "to_living",
+      "target": "living",
+      "pos": [
+        273,
+        383
+      ],
+      "approach": [
+        273,
+        383
+      ],
+      "face": "up",
+      "label": "去客厅",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_kitchen",
+      "target": "kitchen",
+      "pos": [
+        -8,
+        178
+      ],
+      "approach": [
+        -8,
+        178
+      ],
+      "face": "right",
+      "label": "去厨房",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_laundry",
+      "target": "laundry",
+      "pos": [
+        -8,
+        359
+      ],
+      "approach": [
+        -8,
+        359
+      ],
+      "face": "right",
+      "label": "去卫生间与洗衣",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    },
+    {
+      "id": "to_garage",
+      "target": "garage",
+      "pos": [
+        61,
+        383
+      ],
+      "approach": [
+        61,
+        383
+      ],
+      "face": "up",
+      "label": "去车库",
+      "kind": "door",
+      "width": 30,
+      "explicit_opening": true
+    }
+  ],
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "source_offset": [
+    0,
+    48
+  ],
+  "asset_root": "res://ayu_home/v4/assets/floor1-redraw/",
+  "navigation_version": 5,
+  "new_gates": [],
+  "meal_center": [
+    180,
+    215
+  ],
+  "vase_position": [
+    215,
+    183
+  ]
+}
