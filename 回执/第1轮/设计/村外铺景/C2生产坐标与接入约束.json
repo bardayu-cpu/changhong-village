@@ -1,0 +1,1390 @@
+{
+  "responsibility": "C4 owns artwork/composition/layout; C2 integrates explicit files and coordinates. No new C2 visual design.",
+  "current_production_commit": "488b7c2",
+  "world_size": [
+    4800,
+    4700
+  ],
+  "pixel_filter": "nearest",
+  "character_source_height": 84,
+  "view_scale": 1.15,
+  "nav_cell": 16,
+  "walk_rect": [
+    30,
+    30,
+    4740,
+    4640
+  ],
+  "spawn": [
+    1500,
+    2150
+  ],
+  "houses": [
+    {
+      "id": "erba",
+      "title": "二爸家",
+      "subtitle": "门闩落下了 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        1963,
+        544
+      ],
+      "target": "v_erba",
+      "fictional": false,
+      "bounds": [
+        1640,
+        0,
+        850,
+        567
+      ],
+      "art": "house_erba.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "laowu",
+      "title": "老屋",
+      "subtitle": "旧书与风",
+      "floors": 1,
+      "at": [
+        828,
+        496
+      ],
+      "target": "v_laowu",
+      "fictional": false,
+      "bounds": [
+        420,
+        30,
+        800,
+        533
+      ],
+      "art": "house_laowu.png"
+    },
+    {
+      "id": "daba",
+      "title": "大爸家",
+      "subtitle": "竹帘放下了 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        2528,
+        1327
+      ],
+      "target": "v_daba",
+      "fictional": false,
+      "bounds": [
+        2120,
+        800,
+        850,
+        567
+      ],
+      "art": "house_daba.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h5",
+      "title": "凯凯蜂蜜小院",
+      "subtitle": "凯凯的蜂蜜",
+      "floors": 1,
+      "at": [
+        308,
+        1703
+      ],
+      "target": "v_h5",
+      "fictional": true,
+      "bounds": [
+        95,
+        1170,
+        850,
+        567
+      ],
+      "art": "house_h5.png"
+    },
+    {
+      "id": "ayu",
+      "title": "0A · 阿鱼家",
+      "subtitle": "阿鱼家的院门",
+      "floors": 2,
+      "at": [
+        1490,
+        2122
+      ],
+      "target": "exterior",
+      "fictional": false,
+      "bounds": [
+        1090,
+        1470,
+        800,
+        600
+      ],
+      "art": "house_ayu.png"
+    },
+    {
+      "id": "h2",
+      "title": "2A · 缝补人家",
+      "subtitle": "活动中心值日 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        2709,
+        2316
+      ],
+      "target": "v_h2",
+      "fictional": true,
+      "bounds": [
+        2250,
+        1760,
+        900,
+        600
+      ],
+      "art": "house_h2.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h3",
+      "title": "小涛磨坊",
+      "subtitle": "小涛的小石磨",
+      "floors": 2,
+      "at": [
+        614,
+        2689
+      ],
+      "target": "v_h3",
+      "fictional": true,
+      "bounds": [
+        80,
+        2130,
+        875,
+        583
+      ],
+      "art": "house_h3.png"
+    },
+    {
+      "id": "mayor",
+      "title": "村委会",
+      "subtitle": "村长 · 林伯",
+      "floors": 2,
+      "at": [
+        1698,
+        2792
+      ],
+      "target": "v_mayor",
+      "fictional": true,
+      "bounds": [
+        1130,
+        2290,
+        835,
+        557
+      ],
+      "art": "house_mayor.png"
+    },
+    {
+      "id": "h6",
+      "title": "6A · 花窗人家",
+      "subtitle": "门帘已放下 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        2912,
+        3346
+      ],
+      "target": "v_h6",
+      "fictional": true,
+      "bounds": [
+        2500,
+        2730,
+        825,
+        619
+      ],
+      "art": "house_h6.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h8",
+      "title": "8A · 茶香小院",
+      "subtitle": "烟囱旁留了条 · 门边帮忙",
+      "floors": 1,
+      "at": [
+        224,
+        3405
+      ],
+      "target": "v_h8",
+      "fictional": true,
+      "bounds": [
+        80,
+        2940,
+        850,
+        567
+      ],
+      "art": "house_h8.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h7",
+      "title": "7A · 窄巷人家",
+      "subtitle": "今天下田去了 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        1874,
+        3580
+      ],
+      "target": "v_h7",
+      "fictional": true,
+      "bounds": [
+        1590,
+        3030,
+        430,
+        645
+      ],
+      "art": "house_h7.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h4",
+      "title": "4A · 田边平房",
+      "subtitle": "全家去赶集 · 门边帮忙",
+      "floors": 1,
+      "at": [
+        558,
+        4183
+      ],
+      "target": "v_h4",
+      "fictional": true,
+      "bounds": [
+        120,
+        3630,
+        875,
+        583
+      ],
+      "art": "house_h4.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h1",
+      "title": "1A · 蓝瓦人家",
+      "subtitle": "屋里在午睡 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        3145,
+        4174
+      ],
+      "target": "v_h1",
+      "fictional": true,
+      "bounds": [
+        2720,
+        3630,
+        850,
+        567
+      ],
+      "art": "house_h1.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "flower",
+      "title": "花房小楼",
+      "subtitle": "一家出门赏花 · 门边帮忙",
+      "floors": 2,
+      "target": "v_flower",
+      "fictional": true,
+      "bounds": [
+        60,
+        585,
+        785,
+        523
+      ],
+      "art": "house_flower.png",
+      "at": [
+        539,
+        1090
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "whitebrick",
+      "title": "白砖小院",
+      "subtitle": "门内传来琴声 · 门边帮忙",
+      "floors": 2,
+      "target": "v_whitebrick",
+      "fictional": true,
+      "bounds": [
+        2720,
+        20,
+        850,
+        567
+      ],
+      "art": "house_whitebrick.png",
+      "at": [
+        3247,
+        570
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "grape",
+      "title": "葡萄架小院",
+      "subtitle": "藤帘放下了 · 门边帮忙",
+      "floors": 1,
+      "target": "v_grape",
+      "fictional": true,
+      "bounds": [
+        3780,
+        120,
+        875,
+        583
+      ],
+      "art": "house_grape.png",
+      "at": [
+        4060,
+        661
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "sunflower",
+      "title": "向日葵之家",
+      "subtitle": "主人去看蜂了 · 门边帮忙",
+      "floors": 2,
+      "target": "v_sunflower",
+      "fictional": true,
+      "bounds": [
+        3840,
+        1260,
+        825,
+        550
+      ],
+      "art": "house_sunflower.png",
+      "at": [
+        4079,
+        1800
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "persimmon",
+      "title": "柿树老院",
+      "subtitle": "家里在晒柿饼 · 门边帮忙",
+      "floors": 1,
+      "target": "v_persimmon",
+      "fictional": true,
+      "bounds": [
+        3730,
+        2450,
+        920,
+        613
+      ],
+      "art": "house_persimmon.png",
+      "at": [
+        4328,
+        3042
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "rose",
+      "title": "玫瑰花之家",
+      "subtitle": "午后歇一会儿 · 门边帮忙",
+      "floors": 2,
+      "target": "v_rose",
+      "fictional": true,
+      "bounds": [
+        3820,
+        3690,
+        850,
+        567
+      ],
+      "art": "house_rose.png",
+      "at": [
+        4449,
+        4234
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "community",
+      "title": "村民活动中心",
+      "subtitle": "方婆婆值日 · 共桌与手作",
+      "floors": 1,
+      "at": [
+        1280,
+        3780
+      ],
+      "target": "my_cabin",
+      "fictional": true,
+      "bounds": [
+        1060,
+        3500,
+        461,
+        307
+      ],
+      "art": "cabin.png"
+    }
+  ],
+  "roads": [
+    [
+      [
+        3400,
+        4480
+      ],
+      [
+        2430,
+        4420
+      ],
+      [
+        2180,
+        4200
+      ],
+      [
+        2090,
+        3910
+      ],
+      [
+        2250,
+        3900
+      ],
+      [
+        2430,
+        3410
+      ],
+      [
+        2320,
+        3010
+      ],
+      [
+        2090,
+        2980
+      ],
+      [
+        2010,
+        2520
+      ],
+      [
+        1990,
+        2150
+      ],
+      [
+        2080,
+        1720
+      ],
+      [
+        1910,
+        1480
+      ],
+      [
+        1640,
+        1260
+      ],
+      [
+        1510,
+        920
+      ],
+      [
+        1370,
+        750
+      ],
+      [
+        1750,
+        720
+      ],
+      [
+        2160,
+        690
+      ]
+    ],
+    [
+      [
+        1370,
+        750
+      ],
+      [
+        970,
+        790
+      ],
+      [
+        820,
+        695
+      ]
+    ],
+    [
+      [
+        1940,
+        2140
+      ],
+      [
+        1050,
+        2140
+      ],
+      [
+        970,
+        1830
+      ],
+      [
+        480,
+        1800
+      ]
+    ],
+    [
+      [
+        2090,
+        2975
+      ],
+      [
+        1070,
+        2880
+      ],
+      [
+        492,
+        2820
+      ]
+    ],
+    [
+      [
+        1070,
+        2880
+      ],
+      [
+        1000,
+        3410
+      ],
+      [
+        980,
+        3580
+      ],
+      [
+        470,
+        3570
+      ]
+    ],
+    [
+      [
+        980,
+        3580
+      ],
+      [
+        990,
+        4300
+      ],
+      [
+        1750,
+        4320
+      ],
+      [
+        2180,
+        4200
+      ]
+    ],
+    [
+      [
+        2010,
+        2520
+      ],
+      [
+        2645,
+        2460
+      ]
+    ],
+    [
+      [
+        2320,
+        3010
+      ],
+      [
+        2300,
+        3380
+      ],
+      [
+        2890,
+        3380
+      ]
+    ],
+    [
+      [
+        2430,
+        4420
+      ],
+      [
+        3145,
+        4380
+      ]
+    ],
+    [
+      [
+        970,
+        790
+      ],
+      [
+        900,
+        1040
+      ],
+      [
+        970,
+        1260
+      ]
+    ],
+    [
+      [
+        820,
+        695
+      ],
+      [
+        910,
+        960
+      ],
+      [
+        620,
+        1100
+      ],
+      [
+        460,
+        1115
+      ]
+    ],
+    [
+      [
+        2160,
+        690
+      ],
+      [
+        2650,
+        660
+      ],
+      [
+        3200,
+        680
+      ]
+    ],
+    [
+      [
+        2000,
+        3700
+      ],
+      [
+        2300,
+        3790
+      ]
+    ],
+    [
+      [
+        940,
+        1100
+      ],
+      [
+        1060,
+        1370
+      ],
+      [
+        1630,
+        1400
+      ]
+    ],
+    [
+      [
+        3200,
+        680
+      ],
+      [
+        3470,
+        750
+      ],
+      [
+        3680,
+        750
+      ],
+      [
+        4260,
+        820
+      ],
+      [
+        4670,
+        910
+      ],
+      [
+        4710,
+        1800
+      ],
+      [
+        4610,
+        2330
+      ],
+      [
+        4700,
+        3020
+      ],
+      [
+        4690,
+        4280
+      ],
+      [
+        4300,
+        4350
+      ]
+    ],
+    [
+      [
+        3150,
+        2460
+      ],
+      [
+        3220,
+        1980
+      ],
+      [
+        3450,
+        1900
+      ],
+      [
+        3690,
+        1900
+      ],
+      [
+        4090,
+        1970
+      ]
+    ],
+    [
+      [
+        3260,
+        3380
+      ],
+      [
+        3380,
+        3050
+      ],
+      [
+        3660,
+        3050
+      ],
+      [
+        4300,
+        3140
+      ]
+    ],
+    [
+      [
+        3145,
+        4380
+      ],
+      [
+        3460,
+        4320
+      ],
+      [
+        3670,
+        4320
+      ],
+      [
+        4310,
+        4350
+      ]
+    ]
+  ],
+  "doors": [
+    {
+      "id": "visit_ayu",
+      "target": "exterior",
+      "label": "拜访0A · 阿鱼家",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1490,
+        2100
+      ],
+      "approach": [
+        1490,
+        2122
+      ],
+      "width": 64,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_laowu",
+      "target": "v_laowu",
+      "label": "拜访老屋",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        828,
+        462
+      ],
+      "approach": [
+        828,
+        496
+      ],
+      "width": 68,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h5",
+      "target": "v_h5",
+      "label": "拜访5A · 养蜂小院",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        308,
+        1669
+      ],
+      "approach": [
+        308,
+        1703
+      ],
+      "width": 68,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_h3",
+      "target": "v_h3",
+      "label": "拜访小涛磨坊",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        614,
+        2655
+      ],
+      "approach": [
+        614,
+        2689
+      ],
+      "width": 68,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_mayor",
+      "target": "v_mayor",
+      "label": "拜访村委会",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1698,
+        2758
+      ],
+      "approach": [
+        1698,
+        2792
+      ],
+      "width": 68,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_community",
+      "target": "my_cabin",
+      "label": "到村民活动中心",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1280,
+        3748
+      ],
+      "approach": [
+        1280,
+        3780
+      ],
+      "arrival": [
+        1288,
+        3784
+      ],
+      "width": 68,
+      "explicit_opening": true
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "mayor",
+      "label": "村长林伯",
+      "kind": "village",
+      "pos": [
+        1530,
+        2860
+      ],
+      "approach": [
+        1530,
+        2890
+      ]
+    },
+    {
+      "id": "honey",
+      "label": "凯凯 · 蜂蜜箱",
+      "kind": "village",
+      "pos": [
+        890,
+        1130
+      ],
+      "approach": [
+        890,
+        1160
+      ]
+    },
+    {
+      "id": "pond",
+      "label": "池塘 · 喂鱼",
+      "kind": "village",
+      "pos": [
+        1450,
+        1250
+      ],
+      "approach": [
+        1450,
+        1280
+      ]
+    },
+    {
+      "id": "chicken",
+      "label": "鸡圈 · 添谷子",
+      "kind": "village",
+      "pos": [
+        1080,
+        1340
+      ],
+      "approach": [
+        1080,
+        1370
+      ]
+    },
+    {
+      "id": "orchard",
+      "label": "时令果树",
+      "kind": "village",
+      "pos": [
+        1690,
+        1310
+      ],
+      "approach": [
+        1690,
+        1340
+      ]
+    },
+    {
+      "id": "market",
+      "label": "村口货郎",
+      "kind": "village",
+      "pos": [
+        2330,
+        4310
+      ],
+      "approach": [
+        2330,
+        4340
+      ]
+    },
+    {
+      "id": "home_site",
+      "label": "看看自己的地",
+      "kind": "village",
+      "pos": [
+        1350,
+        4050
+      ],
+      "approach": [
+        1350,
+        4080
+      ]
+    },
+    {
+      "id": "map",
+      "label": "村里的路牌",
+      "kind": "village",
+      "pos": [
+        1980,
+        2140
+      ],
+      "approach": [
+        1980,
+        2170
+      ]
+    },
+    {
+      "id": "mill",
+      "label": "小涛 · 石磨与小事",
+      "kind": "village",
+      "pos": [
+        615,
+        2810
+      ],
+      "approach": [
+        615,
+        2840
+      ]
+    },
+    {
+      "id": "visit_erba",
+      "house": "erba",
+      "label": "门口 · 点亮门边灯",
+      "pos": [
+        2027,
+        510
+      ],
+      "approach": [
+        1963,
+        544
+      ],
+      "kind": "door_chore",
+      "closed_note": "门闩落下了"
+    },
+    {
+      "id": "visit_daba",
+      "house": "daba",
+      "label": "门口 · 收齐散竹条",
+      "pos": [
+        2592,
+        1293
+      ],
+      "approach": [
+        2528,
+        1327
+      ],
+      "kind": "door_chore",
+      "closed_note": "竹帘放下了"
+    },
+    {
+      "id": "visit_h2",
+      "house": "h2",
+      "label": "门口 · 理顺门边线筐",
+      "pos": [
+        2773,
+        2282
+      ],
+      "approach": [
+        2709,
+        2316
+      ],
+      "kind": "door_chore",
+      "closed_note": "活动中心值日"
+    },
+    {
+      "id": "visit_h6",
+      "house": "h6",
+      "label": "门口 · 给窗下花浇水",
+      "pos": [
+        2976,
+        3312
+      ],
+      "approach": [
+        2912,
+        3346
+      ],
+      "kind": "door_chore",
+      "closed_note": "门帘已放下"
+    },
+    {
+      "id": "visit_h8",
+      "house": "h8",
+      "label": "门口 · 码好门旁柴段",
+      "pos": [
+        288,
+        3371
+      ],
+      "approach": [
+        224,
+        3405
+      ],
+      "kind": "door_chore",
+      "closed_note": "烟囱旁留了条"
+    },
+    {
+      "id": "visit_h7",
+      "house": "h7",
+      "label": "门口 · 翻一翻晒粮盘",
+      "pos": [
+        1938,
+        3546
+      ],
+      "approach": [
+        1874,
+        3580
+      ],
+      "kind": "door_chore",
+      "closed_note": "今天下田去了"
+    },
+    {
+      "id": "visit_h4",
+      "house": "h4",
+      "label": "门口 · 扫净门前落叶",
+      "pos": [
+        622,
+        4149
+      ],
+      "approach": [
+        558,
+        4183
+      ],
+      "kind": "door_chore",
+      "closed_note": "全家去赶集"
+    },
+    {
+      "id": "visit_h1",
+      "house": "h1",
+      "label": "门口 · 把报纸卷进筒",
+      "pos": [
+        3209,
+        4140
+      ],
+      "approach": [
+        3145,
+        4174
+      ],
+      "kind": "door_chore",
+      "closed_note": "屋里在午睡"
+    },
+    {
+      "id": "visit_flower",
+      "house": "flower",
+      "label": "门口 · 给鸟饮盆添水",
+      "pos": [
+        603,
+        1056
+      ],
+      "approach": [
+        539,
+        1090
+      ],
+      "kind": "door_chore",
+      "closed_note": "一家出门赏花"
+    },
+    {
+      "id": "visit_whitebrick",
+      "house": "whitebrick",
+      "label": "门口 · 擦亮铜铃",
+      "pos": [
+        3311,
+        536
+      ],
+      "approach": [
+        3247,
+        570
+      ],
+      "kind": "door_chore",
+      "closed_note": "门内传来琴声"
+    },
+    {
+      "id": "visit_grape",
+      "house": "grape",
+      "label": "门口 · 扶好葡萄藤",
+      "pos": [
+        4124,
+        627
+      ],
+      "approach": [
+        4060,
+        661
+      ],
+      "kind": "door_chore",
+      "closed_note": "藤帘放下了"
+    },
+    {
+      "id": "visit_sunflower",
+      "house": "sunflower",
+      "label": "门口 · 收拢葵籽盘",
+      "pos": [
+        4143,
+        1766
+      ],
+      "approach": [
+        4079,
+        1800
+      ],
+      "kind": "door_chore",
+      "closed_note": "主人去看蜂了"
+    },
+    {
+      "id": "visit_persimmon",
+      "house": "persimmon",
+      "label": "门口 · 捡起落地柿子",
+      "pos": [
+        4392,
+        3008
+      ],
+      "approach": [
+        4328,
+        3042
+      ],
+      "kind": "door_chore",
+      "closed_note": "家里在晒柿饼"
+    },
+    {
+      "id": "visit_rose",
+      "house": "rose",
+      "label": "门口 · 摘去枯花瓣",
+      "pos": [
+        4513,
+        4200
+      ],
+      "approach": [
+        4449,
+        4234
+      ],
+      "kind": "door_chore",
+      "closed_note": "午后歇一会儿"
+    }
+  ],
+  "original_solid_rects": [
+    [
+      1108,
+      1490,
+      764,
+      590
+    ],
+    [
+      1654,
+      16,
+      822,
+      452
+    ],
+    [
+      434,
+      46,
+      772,
+      374
+    ],
+    [
+      2134,
+      816,
+      822,
+      435
+    ],
+    [
+      109,
+      1186,
+      822,
+      441
+    ],
+    [
+      2264,
+      1776,
+      872,
+      464
+    ],
+    [
+      94,
+      2146,
+      847,
+      467
+    ],
+    [
+      1144,
+      2306,
+      807,
+      410
+    ],
+    [
+      2514,
+      2746,
+      797,
+      524
+    ],
+    [
+      94,
+      2956,
+      822,
+      373
+    ],
+    [
+      1604,
+      3046,
+      402,
+      458
+    ],
+    [
+      134,
+      3646,
+      847,
+      461
+    ],
+    [
+      2734,
+      3646,
+      822,
+      452
+    ],
+    [
+      74,
+      601,
+      757,
+      413
+    ],
+    [
+      2734,
+      36,
+      822,
+      458
+    ],
+    [
+      3794,
+      136,
+      847,
+      449
+    ],
+    [
+      3854,
+      1276,
+      797,
+      448
+    ],
+    [
+      3744,
+      2466,
+      892,
+      500
+    ],
+    [
+      3834,
+      3706,
+      822,
+      452
+    ],
+    [
+      3480,
+      0,
+      90,
+      660
+    ],
+    [
+      3480,
+      850,
+      90,
+      970
+    ],
+    [
+      3480,
+      1990,
+      90,
+      980
+    ],
+    [
+      3480,
+      3150,
+      90,
+      1080
+    ],
+    [
+      3480,
+      4420,
+      90,
+      280
+    ],
+    [
+      1120,
+      3550,
+      350,
+      190
+    ]
+  ],
+  "protected_dynamic_site": [
+    1050,
+    3850,
+    900,
+    800
+  ],
+  "prop_contract": {
+    "file": "res:// path or cfg.asset_root relative path",
+    "pos": "world image top-left [x,y]",
+    "scale": "uniform scale [s,s] when necessary",
+    "atlas_region": "optional [source_x,source_y,width,height], NOT xyxy",
+    "foot": "world ground-contact Y for character occlusion sorting",
+    "ground": "true for low crops/borders below actors; false for raised trees",
+    "plant_type": "deciduous / fruit / evergreen use existing spring/summer/autumn/winter shader"
+  },
+  "collision_contract": "Solid root-only rectangles [x,y,width,height]; world inflates by3px and navigates16px cells. Avoid whole-canopy rectangles. Door/hotspot approach points must remain reachable. Low banks may remain walkable.",
+  "deliverables": "C4 final opaque4800x4700 ground PNG or explicit layer plan, alpha raised props, world coordinate/foot/collision list, and source provenance. C2 updates both village.json and rooms.json.rooms.village and bakes only village navigation.",
+  "preserve": "Do not edit any Ayu room/art, house position, door/14 doorstep action/NPC configuration, original test assertions, or old workspaces.",
+  "c2_reference_only": [
+    "工具/plan_landscape.py",
+    "工具/assemble_landscape.py",
+    "工具/build_ground_only.py",
+    "工具/texture_landscape.gd"
+  ],
+  "reference_warning": "Existing scripts record the pre-role-correction build, not authority to continue artistic changes. C4 may reuse the current output or replace it with an explicit design; C2 must not rerun them creatively."
+}
