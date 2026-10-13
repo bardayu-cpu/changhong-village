@@ -1,0 +1,52 @@
+[
+  {
+    "file": "最终-0846985-060-村委会-任务卡正常走近.json",
+    "bamboo": 8.0,
+    "coins": 0.0,
+    "game": {
+      "finished": false,
+      "message": "读一读事务卡，把它放到灌渠、修桥或补路的对应格子。三张理齐可带走一份竹材。",
+      "progress": 0,
+      "run": ""
+    }
+  },
+  {
+    "file": "最终-0846985-061-村委会-H4-进行一张待中退.json",
+    "bamboo": 8.0,
+    "coins": 0.0,
+    "game": {
+      "finished": false,
+      "message": "这张归好类了，再看看下一张。",
+      "progress": 1,
+      "run": "3"
+    }
+  },
+  {
+    "file": "最终-0846985-062-村委会-H4-中退库存不变.json",
+    "bamboo": 8.0,
+    "coins": 0.0,
+    "game": {}
+  },
+  {
+    "file": "最终-0846985-063-村委会-H4-完整待领.json",
+    "bamboo": 8.0,
+    "coins": 0.0,
+    "game": {
+      "finished": false,
+      "message": "三张卡归好类了，收好这一份修缮竹材。",
+      "progress": 3,
+      "run": "4"
+    }
+  },
+  {
+    "file": "最终-0846985-064-村委会-H4-竹材到账.json",
+    "bamboo": 9,
+    "coins": 0.0,
+    "game": {
+      "finished": true,
+      "message": "收好了：竹材×1，已放进同一个篮子",
+      "progress": 3,
+      "run": "4"
+    }
+  }
+]

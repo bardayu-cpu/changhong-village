@@ -1,0 +1,68 @@
+[
+  {
+    "file": "最终-0846985-024-H5-走近自然问候-v_h5-13.0点.json",
+    "at": 1791905077.3809,
+    "hour": 13.0,
+    "player": [
+      354.0,
+      378.0
+    ],
+    "resident": {
+      "action": "honey",
+      "bubble": "绕着桶慢慢摇，蜜就顺着小嘴流到罐里。",
+      "bubble_visible": true,
+      "face": "left",
+      "lift": 0.0,
+      "position": [
+        343.0,
+        278.0
+      ],
+      "slot": 1,
+      "walking": false
+    }
+  },
+  {
+    "file": "最终-0846985-036-H5-走近自然问候-v_h5-9.0点.json",
+    "at": 1791905856.294,
+    "hour": 9.0,
+    "player": [
+      147.7,
+      387.7
+    ],
+    "resident": {
+      "action": "wash",
+      "bubble": "蜂具先洗净，等下摇蜜就不会把碎蜡带进瓶里。",
+      "bubble_visible": true,
+      "face": "left",
+      "lift": 0.0,
+      "position": [
+        148.0,
+        277.0
+      ],
+      "slot": 0,
+      "walking": false
+    }
+  },
+  {
+    "file": "最终-0846985-051-H5-走近自然问候-v_h5-19.0点.json",
+    "at": 1791906266.31084,
+    "hour": 19.0,
+    "player": [
+      314.0,
+      490.0
+    ],
+    "resident": {
+      "action": "drink",
+      "bubble": "今天的蜜已封好，最后留这一杯给歇脚的人。",
+      "bubble_visible": true,
+      "face": "left",
+      "lift": 0.0,
+      "position": [
+        263.0,
+        475.0
+      ],
+      "slot": 2,
+      "walking": false
+    }
+  }
+]

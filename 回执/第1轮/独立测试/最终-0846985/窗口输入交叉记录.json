@@ -1,0 +1,207 @@
+{
+  "recorded_at": 1791904859.3970869,
+  "method": "只读实时轨迹；C3此段未发送游戏W/S/鼠标坐标输入",
+  "events": [
+    {
+      "at": 1791904844.52097,
+      "event": "Left Mouse Button",
+      "position": [
+        475.0,
+        1478.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904844.60299,
+      "event": "Left Mouse Button",
+      "position": [
+        475.0,
+        1478.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904846.18087,
+      "event": "Left Mouse Button",
+      "position": [
+        1342.0,
+        1243.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904846.25394,
+      "event": "Left Mouse Button",
+      "position": [
+        1342.0,
+        1243.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904847.30433,
+      "event": "Left Mouse Button",
+      "position": [
+        1248.0,
+        1274.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904847.45302,
+      "event": "Left Mouse Button",
+      "position": [
+        1249.0,
+        1274.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904848.13818,
+      "event": "Left Mouse Button",
+      "position": [
+        1732.0,
+        1265.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904848.3102,
+      "event": "Left Mouse Button",
+      "position": [
+        1733.0,
+        1265.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904848.94379,
+      "event": "Left Mouse Button",
+      "position": [
+        1730.0,
+        1264.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904849.18646,
+      "event": "Left Mouse Button",
+      "position": [
+        1730.0,
+        1264.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904851.76006,
+      "event": "Left Mouse Button",
+      "position": [
+        520.0,
+        1478.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904851.96007,
+      "event": "Left Mouse Button",
+      "position": [
+        520.0,
+        1478.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904853.14575,
+      "event": "Left Mouse Button",
+      "position": [
+        1340.0,
+        1242.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904853.2531,
+      "event": "Left Mouse Button",
+      "position": [
+        1340.0,
+        1242.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904853.93623,
+      "event": "Left Mouse Button",
+      "position": [
+        1340.0,
+        1242.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904854.04744,
+      "event": "Left Mouse Button",
+      "position": [
+        1340.0,
+        1242.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904855.54493,
+      "event": "Left Mouse Button",
+      "position": [
+        506.0,
+        1482.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904855.71927,
+      "event": "Left Mouse Button",
+      "position": [
+        506.0,
+        1482.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904856.62682,
+      "event": "Left Mouse Button",
+      "position": [
+        1356.0,
+        1224.0
+      ],
+      "pressed": true,
+      "type": "native_input"
+    },
+    {
+      "at": 1791904856.74084,
+      "event": "Left Mouse Button",
+      "position": [
+        1358.0,
+        1225.0
+      ],
+      "pressed": false,
+      "type": "native_input"
+    }
+  ],
+  "qualification": "此段不计独立连续试玩或首日专注计时"
+}

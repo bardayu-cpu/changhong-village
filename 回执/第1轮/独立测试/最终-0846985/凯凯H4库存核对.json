@@ -1,0 +1,52 @@
+[
+  {
+    "file": "最终-0846985-028-凯凯-H4-开始.json",
+    "honey": 0,
+    "coins": 0.0,
+    "game": {
+      "finished": false,
+      "message": "按亮起的位置压好六块蜜脾，蜜会慢慢接进罐里。今天可收一瓶。",
+      "progress": 0,
+      "run": ""
+    }
+  },
+  {
+    "file": "最终-0846985-029-凯凯-H4-进行1块待中退.json",
+    "honey": 0,
+    "coins": 0.0,
+    "game": {
+      "finished": false,
+      "message": "已压好 1 / 6 块蜜脾，蜜罐慢慢满起来了。",
+      "progress": 1,
+      "run": "1"
+    }
+  },
+  {
+    "file": "最终-0846985-030-凯凯-H4-中退库存.json",
+    "honey": 0,
+    "coins": 0.0,
+    "game": {}
+  },
+  {
+    "file": "最终-0846985-031-凯凯-H4-完成待封瓶.json",
+    "honey": 0,
+    "coins": 0.0,
+    "game": {
+      "finished": false,
+      "message": "这一瓶接满了，封好蜡口带回去吧。",
+      "progress": 6,
+      "run": "2"
+    }
+  },
+  {
+    "file": "最终-0846985-032-凯凯-H4-封瓶到账.json",
+    "honey": 1,
+    "coins": 0.0,
+    "game": {
+      "finished": true,
+      "message": "收好了：蜂蜜×1，已放进同一个篮子",
+      "progress": 6,
+      "run": "2"
+    }
+  }
+]
