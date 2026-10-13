@@ -918,6 +918,20 @@
         1.25
       ],
       "front": false
+    },
+    {
+      "id": "house_community",
+      "file": "res://ayu_home/v4/assets/village/cabin.png",
+      "pos": [
+        1060,
+        3500
+      ],
+      "foot": 3748,
+      "scale": [
+        0.3,
+        0.3
+      ],
+      "front": false
     }
   ],
   "obstacles": [
@@ -1064,6 +1078,12 @@
       4420,
       90,
       280
+    ],
+    [
+      1120,
+      3550,
+      350,
+      190
     ]
   ],
   "hotspots": [
@@ -1505,6 +1525,27 @@
       "approach": [
         4449,
         4234
+      ],
+      "width": 68,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_community",
+      "target": "my_cabin",
+      "label": "到村民活动中心",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        1280,
+        3748
+      ],
+      "approach": [
+        1280,
+        3780
+      ],
+      "arrival": [
+        1288,
+        3784
       ],
       "width": 68,
       "explicit_opening": true

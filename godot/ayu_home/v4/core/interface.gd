@@ -193,7 +193,7 @@ func mayor() -> void:
 		button("去看邻里订单",show_page.bind("牌子"))
 	elif v.location.is_empty():
 		title("先看看，再决定住哪里")
-		text("这几处空地都是村里预留的。阿鱼家的动物仍住阿鱼家，会继续替你带东西；自留地和库存沿用你做客时的积累。第一块地开好才搭起小屋。")
+		text("这几处空地都是村里预留的。阿鱼家的动物仍住阿鱼家，会继续替你带东西；自留地和库存沿用你做客时的积累。第一块地开好后就能摆放家具。")
 		for id in C.LOCATIONS:button("预览 · "+C.LOCATIONS[id],func():preview_location=id;show_page("选址预览"))
 	else:
 		text("你的家在"+C.LOCATIONS[v.location]+"。生活过的地方都会记着你；有空也来村委会坐坐。")
@@ -262,8 +262,6 @@ func entered() -> void:
 	if state.blocked:return
 	institution_room=null
 	var cfg:Dictionary=home.world.cfg
-	for d in cfg.doors:
-		if d.target=="my_cabin" and float(state.data.village.land[0])<=0:d.label="先开第一块地，搭起小屋"
 	if home.area=="village" and not state.data.village.location.is_empty():
 		var xy:Array=C.LOCATION_POINTS[state.data.village.location]
 		for h in cfg.hotspots:
@@ -285,9 +283,11 @@ func open_institution_game(id:String) -> void:
 func talk_resident(id:String) -> bool:
 	return is_instance_valid(institution_room) and institution_room.talk(id)
 func resident_card(id:String) -> bool:
-	if not id in ["xiaotao","kaikai","linbo"]:return false
-	var name:String={"xiaotao":"小涛","kaikai":"凯凯","linbo":"林伯"}[id]
+	if not id in ["xiaotao","kaikai","linbo","fang"]:return false
+	var name:String={"xiaotao":"小涛","kaikai":"凯凯","linbo":"林伯","fang":"方婆婆"}[id]
 	var col:VBoxContainer=home.modal_shell(name+"的小卡片")
+	if id=="fang":
+		col.add_child(UI.label("方婆婆 · 活动中心值日",26));col.add_child(UI.paragraph("早上洗菜摆桌，中午招呼大家拌菜，晚上收好共用品坐下翻故事册。这里第一天就能来。"));return true
 	if id=="linbo":
 		col.add_child(UI.label("林伯 · 村委会",26));col.add_child(UI.paragraph("早上核对住户名册，中午办理村务，傍晚到议事桌听大家的意见。"));return true
 	if id=="kaikai":

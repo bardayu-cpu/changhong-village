@@ -58,7 +58,7 @@
   },
   {
     "id": "h5",
-    "title": "5A · 养蜂小院",
+    "title": "凯凯蜂蜜小院",
     "subtitle": "凯凯的蜂蜜",
     "floors": 1,
     "at": [
@@ -359,5 +359,24 @@
       4449,
       4234
     ]
+  },
+  {
+    "id": "community",
+    "title": "村民活动中心",
+    "subtitle": "方婆婆值日 · 共桌与手作",
+    "floors": 1,
+    "at": [
+      1280,
+      3780
+    ],
+    "target": "my_cabin",
+    "fictional": true,
+    "bounds": [
+      1060,
+      3500,
+      461,
+      307
+    ],
+    "art": "cabin.png"
   }
 ]

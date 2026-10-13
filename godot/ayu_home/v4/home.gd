@@ -506,8 +506,6 @@ func continue_into_room() -> void:
 	go("to_"+hop)
 func cross(d:Dictionary) -> void:
 	if transition:return
-	if d.target=="my_cabin" and village_ui!=null and float(village_ui.state.data.village.land[0])<=0:
-		village_ui.show_page("院子");return
 	pending="";player.route.clear()
 	if area=="exterior" and d.target=="living" and not admitted and not life.data.resident:knock();cooldown=2;return
 	transition_log.append({"from":area,"to":d.target,"at":elapsed,"position":[player.position.x,player.position.y],"steps":stair_steps})

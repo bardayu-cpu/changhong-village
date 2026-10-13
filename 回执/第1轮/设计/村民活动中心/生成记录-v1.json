@@ -1,0 +1,6 @@
+{
+  "tool": "内置imagegen",
+  "asset": "方婆婆-值日头像-source-v1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: transparent dialogue bust for Fang Popo (方婆婆), fictional resident of the village's sewing household and community-center duty volunteer.\nInput image1: identity reference, preserve the FIRST elderly WOMAN on spritesheet: silver grey hair in a neat low bun, elderly warm face, muted plum-purple cardigan with gold-brown piping and clasp, dark blouse, dark long skirt not seen in bust. Clearly same person; do not change clothes, sex or hairstyle.\nInput image2: game pixel art style only, not woman's identity.\nPrimary request: exactly one chest-up bust, gently turned3/4 facing screen-left, calm welcoming smile, elderly female features and subtle wrinkles, whole head, shoulders and upper arms with padding.\nStyle: chunky coarse sharp pixel blocks, hard edges, thick dark brown outlines, restrained stepped warm highlights, no smooth vector gradient, no photo or blur.\nConstraints: genuinely transparent alpha background, NO checkerboard painted into pixels, no names, text, room, floor shadow, props held, border, watermark or UI. Not a spritesheet. Fictional ordinary villager, do not make any real relative. Intended reduction to188x220 dialogue UI.",
+  "review": "与LM-GUEST-09灰发髻、紫红滚边上衣同身份，已实际检查，真实透明alpha；不与三位主人分身"
+}

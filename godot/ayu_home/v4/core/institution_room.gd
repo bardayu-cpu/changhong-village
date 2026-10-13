@@ -59,27 +59,31 @@ func draw_work() -> void:
 		work_layer.draw_rect(Rect2(-23,-44+phase,9,12),Color("e8b780"));work_layer.draw_rect(Rect2(-24,-35+phase,10,5),Color("b37c38"))
 	elif actor.action=="mill":
 		for x in [-19,12]:work_layer.draw_rect(Rect2(x,-46+phase,8,10),Color("d7a26e"))
+	elif actor.action=="stir":
+		work_layer.draw_line(Vector2(-13,-39),Vector2(-23+phase*2,-25),Color("b88853"),4);work_layer.draw_rect(Rect2(-28,-24,22,7),Color("d8bd87"))
 func talk(id:String) -> bool:
 	if id!="resident:"+str(record.id):return false
 	actor.face="down";ui.home.dialogue(str(record.name),str(record.schedule[slot_index].line),str(record.portrait));return true
 func handle(h:Dictionary) -> bool:
-	if str(h.get("kind","")) in ["mill_game","honey_game","civic_game"]:ui.open_institution_game(str(ui.home.world.cfg.institution));return true
+	if str(h.get("kind","")) in ["mill_game","honey_game","civic_game","community_game"]:ui.open_institution_game(str(ui.home.world.cfg.institution));return true
 	if h.get("kind","")=="seat" and actor.visible and actor.action in ["drink","read"] and actor.position.distance_to(Vector2(h.pos[0],h.pos[1]))<60:
 		ui.home.player.say(str(record.name)+"正坐着喝茶，桌边还有热茶。")
 		return true
 	var id:=str(h.get("action",h.id))
-	if not id in ["sift","tea","sweep","wash","filter","bottle","register","counter","notice","bundle"]:return false
-	var copy:String={"sift":"谷壳簸开了，剩下金黄的谷粒。","tea":"续上一杯热茶，茶香慢慢冒起来。","sweep":"谷壳收进篮里，走道扫干净了。","wash":"水花带走碎蜡，蜂具洗得亮亮的。","filter":"滤布轻轻压下，细碎蜂蜡留在上面。","bottle":"蜜罐封好蜡口，留住花朵的香味。","register":"翻开名册，今天的住户记录核对好了。","counter":"申请表放在柜台了，材料齐了再请林伯确认。","notice":"意见条夹进篮里，晚些和大家一起商量。","bundle":"系上红记号，修缮包就不会拿错了。"}[id]
+	if not id in ["sift","tea","sweep","wash","filter","bottle","register","counter","notice","bundle","weave","table","read","tidy"]:return false
+	var copy:String={"sift":"谷壳簸开了，剩下金黄的谷粒。","tea":"续上一杯热茶，茶香慢慢冒起来。","sweep":"谷壳收进篮里，走道扫干净了。","wash":"水花带走碎蜡，蜂具洗得亮亮的。","filter":"滤布轻轻压下，细碎蜂蜡留在上面。","bottle":"蜜罐封好蜡口，留住花朵的香味。","register":"翻开名册，今天的住户记录核对好了。","counter":"申请表放在柜台了，材料齐了再请林伯确认。","notice":"意见条夹进篮里，晚些和大家一起商量。","bundle":"系上红记号，修缮包就不会拿错了。","weave":"横一条，竖一条，竹片编成一小块。","table":"每个座位都摆好碗了，等大家来坐。","read":"翻开图画，听方婆婆讲共桌的故事。","tidy":"球归球篮，棋盒收进格子，走道空出来了。"}[id]
 	var result:Dictionary=ui.state.act("institution_effect",{"room":ui.home.area,"spot":id,"message":copy})
 	if result.ok:changed_at[id]=elapsed;ui.home.player.face="up"
 	ui.home.player.say(result.message);ui.home.note=result.message
 	if id=="counter" and result.ok:ui.show_page("村长")
+	if id=="read" and result.ok:open_story()
 	return true
 func _draw() -> void:
 	if not is_instance_valid(ui):return
 	var effects:Dictionary=ui.state.data.village.institutions.get(ui.home.area,{})
 	if ui.home.area=="v_h5":draw_honey(effects);return
 	if ui.home.area=="v_mayor":draw_civic(effects);return
+	if ui.home.area=="my_cabin":draw_community(effects);return
 	if ui.home.area!="v_h3":return
 	if int(effects.get("sweep",0))==0:
 		for n in 16:draw_rect(Rect2(288+(n*13)%29,430+(n*7)%39,3,2),Color("d9b464"))
@@ -122,3 +126,44 @@ func draw_civic(effects:Dictionary) -> void:
 	if int(effects.get("notice",0))>0:
 		for n in 3:draw_rect(Rect2(133+n*6,329-n*2,5,12),Color("edcf8b"))
 	if int(effects.get("bundle",0))>0:draw_rect(Rect2(424,391,12,5),Color("af4733"));draw_rect(Rect2(428,393,5,11),Color("b84c35"))
+
+func draw_community(effects:Dictionary) -> void:
+	var woven:int=mini(7,int((elapsed-float(changed_at.get("weave",-20.0)))*2)) if int(effects.get("weave",0))>0 else 0
+	for n in 7:
+		draw_rect(Rect2(312+n*4,137,2,18),Color("b89851"))
+		if n<woven:draw_rect(Rect2(310,138+n*2,31,1),Color("ead39a"))
+	var laid:bool=int(effects.get("table",0))>0
+	for n in 4:
+		var p:=Vector2(213+n*24,281) if laid else Vector2(293+n%2*14,274+n/2*11)
+		draw_rect(Rect2(p,Vector2(10,6)),Color("eadbbe"));draw_rect(Rect2(p+Vector2(2,1),Vector2(6,2)),Color("a9bdb2"))
+	var tidy:bool=int(effects.get("tidy",0))>0
+	for n in 3:
+		var p:=Vector2(438+n*10,316) if tidy else Vector2(393+n*9,360+n%2*9)
+		draw_rect(Rect2(p,Vector2(7,7)),[Color("bd6650"),Color("d8b868"),Color("76a295")][n])
+	if int(effects.get("read",0))>0:
+		draw_rect(Rect2(130,450,26,16),Color("e5cfa5"));draw_line(Vector2(143,450),Vector2(143,466),Color("916a45"),2)
+	if slot_index==0 and actor.visible:
+		for n in 5:draw_rect(Rect2(Vector2(64+n*5,224+sin(elapsed*4+n)*3).round(),Vector2(3,3)),Color("b8ded2"))
+
+func open_story(page:=0) -> void:
+	var col:VBoxContainer=ui.home.modal_shell("方婆婆的共桌故事")
+	var picture:=StoryPicture.new();picture.page=page;picture.custom_minimum_size=Vector2(360,210);col.add_child(picture)
+	col.add_child(UI.paragraph(["第一回 · 春天\n大家把小苗栽在渠边，轮流提水，等第一片嫩叶长出来。","第二回 · 夏天\n青菜和海椒洗净了，长桌摆上碗，谁路过都可以坐下吃一口。","第三回 · 秋天\n果子装满竹篮，孩子把风筝收回来，明天还在这张桌边见。"][page]))
+	var row:=HBoxContainer.new();col.add_child(row)
+	row.add_child(UI.button("翻到下一页",func():open_story((page+1)%3),true));row.add_child(UI.button("合上故事册",func():ui.home.close_modal()))
+class StoryPicture extends Control:
+	var page:=0
+	func _draw() -> void:
+		draw_rect(Rect2(6,8,size.x-12,190),Color("7e593d"));draw_rect(Rect2(12,14,size.x-24,178),Color("e6d0a1"));draw_rect(Rect2(size.x*.5-2,16,4,174),Color("b7976b"))
+		var start:=Vector2(34,125)
+		for n in 5:
+			var p:=start+Vector2(n*26,0)
+			if page==0:
+				draw_rect(Rect2(p,Vector2(19,5)),Color("947349"));draw_rect(Rect2(p+Vector2(7,-25),Vector2(4,25)),Color("698c51"));draw_rect(Rect2(p+Vector2(1,-20),Vector2(17,5)),Color("85a458"))
+			elif page==1:
+				draw_rect(Rect2(p+Vector2(0,-28),Vector2(25,9)),Color("a77848"));draw_rect(Rect2(p+Vector2(4,-35),Vector2(15,6)),Color("f0e0b6"));draw_rect(Rect2(p+Vector2(1,-19),Vector2(4,22)),Color("875d39"))
+			else:
+				draw_rect(Rect2(p+Vector2(0,-20),Vector2(23,20)),Color("ad8450"));draw_rect(Rect2(p+Vector2(3,-27),Vector2(7,8)),Color("d59146"));draw_rect(Rect2(p+Vector2(12,-30),Vector2(8,10)),Color("c8793e"))
+		for n in 3:
+			var p:=Vector2(size.x*.5+29+n*37,105+n%2*10)
+			draw_rect(Rect2(p,Vector2(12,12)),Color("d7aa76"));draw_rect(Rect2(p+Vector2(-2,12),Vector2(17,22)),[Color("688c7d"),Color("bd7659"),Color("9585a2")][n]);draw_rect(Rect2(p+Vector2(0,34),Vector2(5,12)),Color("645746"));draw_rect(Rect2(p+Vector2(9,34),Vector2(5,12)),Color("645746"))

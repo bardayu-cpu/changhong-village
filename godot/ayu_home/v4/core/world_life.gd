@@ -22,8 +22,6 @@ func _draw() -> void:
 			var q:=c+Vector2(-55+i*48,16);draw_rect(Rect2(q,Vector2(20,16)),Color("eee1b4"));draw_rect(Rect2(q+Vector2(15,-6),Vector2(9,12)),Color("f3e8c8"));draw_rect(Rect2(q+Vector2(15,-10),Vector2(8,5)),Color("b85442"));draw_rect(Rect2(q+Vector2(20,-3),Vector2(3,3)),Color("312c26"))
 		if int(v.helped.get("honey",0))>0:draw_texture(Assets.texture("res://ayu_home/v3/assets/exterior_pot_window_left.png"),Vector2(830,1100))
 	elif h.area=="my_yard":
-		for p in h.world.props:
-			if p.config.id=="cabin":p.root.visible=float(v.land[0])>0
 		for y in 9:
 			for x in 4:
 				var at:=Vector2(665+x*28,530+y*25);var open:bool=float(v.land[y/3])>0

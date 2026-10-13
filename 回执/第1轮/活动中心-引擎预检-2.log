@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS fresh public visitor without residency or land
+PASS public village approach has a path
+PASS public entrance cross permits first-day visitor
+PASS public entrance arrival matches right-bottom door
+PASS approach path: community_meal
+PASS approach path: craft_demo
+PASS approach path: shared_table
+PASS approach path: story_book
+PASS approach path: return_box
+PASS approach path: rest_seat
+PASS approach path: outside
+PASS three duty zones and actions
+PASS visible effect persisted: weave
+PASS visible effect persisted: table
+PASS visible effect persisted: read
+PASS visible effect persisted: tidy
+PASS picture story opens its own second page
+PASS meal session begins
+PASS cancel preserves both inputs and gives no meal
+PASS cannot stir unwashed food
+PASS wash chop stir enables completion
+PASS completion atomically trades real crops for shared meal
+PASS repeat collection cannot duplicate meal
+PUBLIC_EXIT_ACTUAL (1288.0, 3784.0) goal (1288.0, 3784.0)
+FAIL exit returns to its public outside entrance
+PASS private yard has no route gating the public institution
+COMMUNITY_RUNTIME FAIL

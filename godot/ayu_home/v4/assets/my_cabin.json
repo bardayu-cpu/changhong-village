@@ -1,134 +1,203 @@
 {
   "id": "my_cabin",
-  "title": "自己的小屋",
+  "title": "村民活动中心",
   "group": "村庄",
   "floor": 0,
   "size": [
-    780,
-    710
+    508,
+    600
   ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "background": "res://ayu_home/v4/assets/village/interior_my_cabin.png",
-  "props": [
-    {
-      "id": "bed0",
-      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-      "pos": [
-        65,
-        130
-      ],
-      "foot": 340,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "kitchen1",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        545,
-        120
-      ],
-      "foot": 203,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        292,
-        21
-      ],
-      "foot": 75,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    }
-  ],
+  "background": "res://ayu_home/v4/assets/institutions/community-v1.png",
+  "props": [],
   "obstacles": [
     [
-      70,
-      259.0,
-      140,
-      86.0
+      27,
+      151,
+      84,
+      141
     ],
     [
-      550,
-      172.8,
-      145,
-      35.2
+      27,
+      296,
+      60,
+      65
+    ],
+    [
+      36,
+      328,
+      47,
+      36
+    ],
+    [
+      195,
+      113,
+      281,
+      67
+    ],
+    [
+      219,
+      159,
+      32,
+      21
+    ],
+    [
+      154,
+      245,
+      204,
+      89
+    ],
+    [
+      174,
+      218,
+      163,
+      26
+    ],
+    [
+      174,
+      340,
+      163,
+      39
+    ],
+    [
+      430,
+      236,
+      47,
+      163
+    ],
+    [
+      28,
+      377,
+      94,
+      61
+    ],
+    [
+      28,
+      431,
+      51,
+      57
+    ],
+    [
+      123,
+      420,
+      51,
+      47
     ]
   ],
   "hotspots": [
     {
-      "id": "yard",
-      "label": "摆放家具",
+      "id": "community_meal",
       "pos": [
-        415,
-        420
+        76,
+        207
       ],
       "approach": [
-        415,
-        470
+        137,
+        207
       ],
-      "kind": "village"
+      "kind": "community_game",
+      "label": "一起备共桌餐"
     },
     {
-      "id": "diary",
-      "label": "写在这里的日子",
+      "id": "craft_demo",
       "pos": [
-        240,
-        390
+        333,
+        123
       ],
       "approach": [
-        240,
-        430
+        333,
+        204
       ],
-      "kind": "village"
+      "kind": "bamboo_weave",
+      "label": "编一片竹席",
+      "action": "weave"
+    },
+    {
+      "id": "shared_table",
+      "pos": [
+        271,
+        290
+      ],
+      "approach": [
+        403,
+        290
+      ],
+      "kind": "communal_table",
+      "label": "摆好共桌碗碟",
+      "action": "table"
+    },
+    {
+      "id": "story_book",
+      "pos": [
+        148,
+        487
+      ],
+      "approach": [
+        96,
+        449
+      ],
+      "kind": "story_album",
+      "label": "翻翻图画故事册",
+      "action": "read"
+    },
+    {
+      "id": "return_box",
+      "pos": [
+        454,
+        310
+      ],
+      "approach": [
+        403,
+        315
+      ],
+      "kind": "activity_tidy",
+      "label": "收好棋盒和球",
+      "action": "tidy"
     },
     {
       "id": "rest_seat",
-      "label": "坐在床边",
       "pos": [
-        145,
-        345
+        53,
+        458
       ],
       "approach": [
-        145,
-        380
+        96,
+        449
       ],
       "kind": "seat",
+      "label": "坐在茶角歇脚",
       "seat": [
-        145,
-        330
+        53,
+        458
       ],
-      "face": "down"
+      "face": "right"
     }
   ],
   "doors": [
     {
-      "id": "yard",
-      "label": "到自己的院子",
-      "target": "my_yard",
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
       "pos": [
-        390,
-        656
+        347,
+        552
       ],
       "approach": [
-        390,
-        680
+        347,
+        499
+      ],
+      "arrival": [
+        347,
+        499
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
+      "span": [
+        347,
+        510,
+        89
+      ],
+      "width": 89,
       "explicit_opening": true
     }
   ],
@@ -136,9 +205,14 @@
   "windows": [],
   "lamps": [
     [
-      390,
-      170,
-      260
+      100,
+      105,
+      170
+    ],
+    [
+      340,
+      92,
+      170
     ]
   ],
   "source_offset": [
@@ -146,15 +220,102 @@
     0
   ],
   "spawn": [
-    390,
-    625
+    347,
+    499
   ],
   "walk_rect": [
-    22,
+    24,
     96,
-    736,
-    592
+    460,
+    490
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "walk_polygons": [
+    [
+      [
+        24,
+        96
+      ],
+      [
+        484,
+        96
+      ],
+      [
+        484,
+        510
+      ],
+      [
+        392,
+        510
+      ],
+      [
+        392,
+        585
+      ],
+      [
+        303,
+        585
+      ],
+      [
+        303,
+        510
+      ],
+      [
+        24,
+        510
+      ]
+    ]
+  ],
+  "nav_cell": 4,
+  "institution": "community",
+  "npc": {
+    "id": "fang",
+    "character_id": "fang",
+    "name": "方婆婆",
+    "portrait": "fang",
+    "preset": 9,
+    "pos": [
+      137,
+      207
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          137,
+          207
+        ],
+        "face": "left",
+        "action": "wash",
+        "line": "我在这里值日，先把菜洗好，再摆大家的碗。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          403,
+          290
+        ],
+        "face": "left",
+        "action": "stir",
+        "line": "共桌的菜一起拌，竹条等会儿也教你编。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          53,
+          458
+        ],
+        "approach": [
+          96,
+          449
+        ],
+        "face": "right",
+        "action": "read",
+        "line": "今天的物件都收齐了，我把故事册这一页合上。"
+      }
+    ]
+  }
 }
