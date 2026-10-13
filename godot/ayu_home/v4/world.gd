@@ -4,6 +4,8 @@ const Art = preload("res://ayu_home/v4/redraw_art.gd")
 const Actor = preload("res://ayu_home/v4/actor.gd")
 const P := "res://ayu_home/v3/assets/"
 const ROOMS := "res://ayu_home/v4/assets/"
+const SPRING_SHADER = preload("res://ayu_home/v4/assets/village/c4-spring-v1/season-material.gdshader")
+const SPRING_BINDINGS := "res://ayu_home/v4/assets/village/c4-spring-v1/bindings.json"
 var CELL := 4
 static var shared_light_texture:Texture2D
 var life
@@ -42,6 +44,9 @@ var light_rect:=Rect2()
 var table_top:Node2D
 var plane_cache:Dictionary={}
 static var season_shader:Shader
+static var village_spring_bindings:Dictionary={}
+static var black_spring_mask:Texture2D
+var village_material_cache:Dictionary={}
 var plant_materials:Array=[]
 var season_material:ShaderMaterial
 var sharp_material:ShaderMaterial
@@ -69,8 +74,10 @@ func load_room(which: String) -> void:
 	else:bg.texture = art(asset_path(str(cfg.get("background",area+"_floor.png"))))
 	if cfg.get("floor",0)==1 and sharp:bg.material=sharpen_material()
 	# 屋外的季节和雨：冬天草和树叶上盖一层雪，秋天叶子泛黄，雨天地面发暗发凉（后花园有四季原图，不叠）
-	season_material=null;plant_materials.clear()
-	if cfg.get("outdoor",false) and area!="garden":season_material=make_season_material();bg.material=season_material
+	season_material=null;plant_materials.clear();village_material_cache.clear()
+	if cfg.get("outdoor",false) and area!="garden":
+		season_material=make_village_season_material(asset_path(str(cfg.background)),0,0) if area=="village" else make_season_material()
+		bg.material=season_material
 	ground = Node2D.new();ground.draw.connect(_ground_draw);add_child(ground)
 	actors = Node2D.new();actors.y_sort_enabled = true;add_child(actors)
 	for p in cfg.props:
@@ -84,7 +91,16 @@ func load_room(which: String) -> void:
 		if cfg.get("floor",0)==1 and sharp:
 			var mat:=sharpen_material().duplicate();var src_origin:=v(cfg.source_crop)+v(p.pos)-v(cfg.source_offset);mat.set_shader_parameter("source_origin",src_origin);sp.material=mat
 		if season_material:
-			if p.has("plant_type"):
+			if area=="village":
+				var source:=asset_path(p.file)
+				var binding:Dictionary=get_village_spring_bindings().get("props",{}).get(str(p.id),{})
+				# 当前接口无图集；源图或UV变化时用黑遮罩，不能误把背景掩区套到房屋上。
+				var matched:bool=binding.get("texture","")==source and not p.has("atlas_region")
+				var kind:int=int(binding.plant_kind) if matched else int({"fruit":3,"deciduous":1,"evergreen":2}.get(str(p.get("plant_type","")),0))
+				var sm:=make_village_season_material(source,kind,int(binding.get("spring_layer_kind",1)),matched)
+				sp.material=sm
+				if not plant_materials.has(sm):plant_materials.append(sm)
+			elif p.has("plant_type"):
 				var sm:=make_season_material();sm.set_shader_parameter("plant_kind",{"fruit":3,"deciduous":1,"evergreen":2}.get(str(p.plant_type),0));sp.material=sm;plant_materials.append(sm)
 			else:sp.material=season_material
 		props.append({"root":base,"sprite":sp,"origin":sp.position,"config":p})
@@ -254,6 +270,31 @@ func make_season_material() -> ShaderMaterial:
 		season_shader=Shader.new()
 		season_shader.code="shader_type canvas_item;uniform int season=2;uniform float rain=0.0;uniform int plant_kind=0;void fragment(){vec4 c=texture(TEXTURE,UV);vec3 col=c.rgb;float green=clamp((col.g-max(col.r,col.b))*5.0,0.0,1.0);float lum=dot(col,vec3(.3,.59,.11));if(season==3){vec3 snow=vec3(.86,.9,.96)*(.72+lum*.55);col=mix(col,snow,green*.8);col*=vec3(.94,.97,1.04);}else if(season==2){float k=plant_kind==2?.04:(plant_kind==1?.88:(plant_kind==3?.68:.52));col=mix(col,vec3(col.g*1.22,col.g*.70,col.b*.46),green*k);}else if(season==0){col=mix(col,vec3(col.r*.9+.13,col.g*.88+.17,col.b*.85+.07),green*.82);}if(rain>0.0){col*=mix(vec3(1.0),vec3(.8,.86,.95),rain);}COLOR=vec4(col,c.a);}"
 	var m:=ShaderMaterial.new();m.shader=season_shader;return m
+func get_village_spring_bindings() -> Dictionary:
+	if village_spring_bindings.is_empty():
+		var parsed=JSON.parse_string(FileAccess.get_file_as_string(SPRING_BINDINGS))
+		if parsed is Dictionary:village_spring_bindings=parsed
+	return village_spring_bindings
+func make_village_season_material(source:String,plant_kind:int,layer_kind:int,mask_allowed:=true) -> ShaderMaterial:
+	var key:=source+"|"+str(plant_kind)+"|"+str(layer_kind)+"|"+str(mask_allowed)
+	if village_material_cache.has(key):return village_material_cache[key]
+	var binding:Dictionary=get_village_spring_bindings().get("textures",{}).get(source,{})
+	var mask:Texture2D
+	if mask_allowed and not nav_only:
+		var path:String=str(binding.get("mask",""))
+		if not path.is_empty() and (FileAccess.file_exists(path) or ResourceLoader.exists(path)):mask=art(path)
+	if mask==null:
+		if black_spring_mask==null:
+			var im:=Image.create(1,1,false,Image.FORMAT_RGB8);im.fill(Color.BLACK)
+			black_spring_mask=ImageTexture.create_from_image(im)
+		mask=black_spring_mask
+	var m:=ShaderMaterial.new();m.shader=SPRING_SHADER
+	m.set_shader_parameter("spring_plant_mask",mask)
+	m.set_shader_parameter("spring_mask_enabled",true)
+	m.set_shader_parameter("spring_layer_kind",layer_kind)
+	m.set_shader_parameter("plant_kind",plant_kind)
+	village_material_cache[key]=m
+	return m
 func update_light() -> void:
 	if not ambient:return
 	for pm in plant_materials:
