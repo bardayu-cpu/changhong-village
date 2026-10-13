@@ -101,6 +101,7 @@ var blocked_notice_until:=0.0
 var scene_until:=0.0
 var scene_action:=""
 var scene_progress:=0.0
+var scene_book_pages:Array=[]
 var ball_position:=Vector2(1000,719)
 var ball_velocity:=Vector2.ZERO
 var ball_phase:="idle"
@@ -197,7 +198,7 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 	player=Actor.new();player.preset=player_preset;world.actors.add_child(player);player.setup("visitor");player.position=world.spawn()
 	for d in world.cfg.doors:
 		if d.target==from:
-			player.face=d.face;player.position=world.nearest(World.v(d.approach)+dir(d.face)*(64 if world.cfg.get("outdoor",false) else 25));break
+			player.face=d.face;player.position=world.nearest(World.v(d.arrival)) if d.has("arrival") else world.nearest(World.v(d.approach)+dir(d.face)*(64 if world.cfg.get("outdoor",false) else 25));break
 	if which=="village" and from=="my_yard" and village_ui!=null:
 		var location:String=str(village_ui.state.data.village.location)
 		if village_ui.C.LOCATION_POINTS.has(location):player.position=world.nearest(World.v(village_ui.C.LOCATION_POINTS[location])+Vector2(0,64))
@@ -1400,9 +1401,10 @@ func update_ball(dt:float) -> void:
 		if dog.route.is_empty():ball_position=world.nearest(player.position+Vector2(27,8));ball_phase="idle";ball_return_count+=1;dog.say("汪！再来一次？" );life.event("football")
 func read_book(h:Dictionary) -> void:
 	if not sit_at(h):return
-	player.action="read";scene_progress=0;book_page()
+	player.action="read";scene_progress=0;scene_book_pages=h.get("pages",[]).duplicate();book_page()
 func book_page() -> void:
 	var pages:=["窗边的观察笔记：一只麻雀落在枝头，歪着头看了一会儿。","把一颗种子放进土里，也把一点期待留给了明天。","树影慢慢挪过地板，猫把自己翻到另一面晒太阳。","不赶时间的时候，连一杯水都能慢慢喝完。"]
+	if not scene_book_pages.is_empty():pages=scene_book_pages
 	player.say(pages[int(scene_progress)%pages.size()]);scene_progress+=1
 	scene_buttons([["翻下一页",book_page],["夹好书签",func():life.event("read");life.data.effects.bookmark=int(scene_progress);life.save();stand_up()]])
 func start_work(h:Dictionary) -> void:

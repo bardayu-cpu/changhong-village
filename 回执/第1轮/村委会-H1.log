@@ -1,0 +1,13 @@
+房间            占地    下限   种类  下限  禁用家具  结果
+小涛磨坊一楼             28%    25%   5     4   无                 过
+  能点种类: mill_game, seat, sift_grain, sweep_mill, tea_pour
+凯凯蜂蜜小院             29%    25%   6     4   无                 过
+  能点种类: bee_tool_wash, honey_filter, honey_game, honey_taste, seat, wax_seal
+村委会一楼              31%    25%   6     4   无                 过
+  能点种类: civic_game, material_sort, opinion_note, registry_book, residency_counter, seat
+村民活动中心              4%    25%   2     4   furniture_kitchen.png  没过
+  能点种类: seat, village
+阿鱼家客厅（对照，应过）       30%    22%   5     3   无                 过
+  能点种类: album, fish, reaction, seat, tv_scene
+
+没过（1 间）

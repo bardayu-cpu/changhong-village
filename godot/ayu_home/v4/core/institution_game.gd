@@ -14,6 +14,11 @@ var collect_button:Button
 var exit_button:Button
 var board
 const HONEY_SEQUENCE=[0,3,1,4,2,5]
+const CIVIC_SEQUENCE=[1,0,2]
+const COPY={
+ "mill":["沿亮起的推杆位置慢慢推三圈。完成后用谷子 2 份换谷粉 1 份。","握住推杆","收好谷粉","谷粉落满了粉槽，可以收好这一份。"],
+ "honey":["按亮起的位置压好六块蜜脾，蜜会慢慢接进罐里。今天可收一瓶。","摆好蜜脾","封好这瓶蜜","这一瓶接满了，封好蜡口带回去吧。"],
+ "civic":["读一读事务卡，把它放到灌渠、修桥或补路的对应格子。三张理齐可带走一份竹材。","摊开事务卡","收好修缮竹材","三张卡归好类了，收好这一份修缮竹材。"]}
 func setup(owner,id:String) -> void:
 	ui=owner;game_id=id;set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);theme=UI.theme();mouse_filter=Control.MOUSE_FILTER_STOP
 	var bg:=ColorRect.new();bg.color=UI.DEEP;bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);add_child(bg)
@@ -21,11 +26,11 @@ func setup(owner,id:String) -> void:
 	for side in ["left","right","top","bottom"]:margin.add_theme_constant_override("margin_"+side,24)
 	var col:=VBoxContainer.new();col.add_theme_constant_override("separation",14);margin.add_child(col)
 	col.add_child(UI.label(str(C.INSTITUTION_GAMES[id].title),28))
-	message=UI.paragraph("沿亮起的推杆位置慢慢推三圈。完成后用谷子 2 份换谷粉 1 份。" if id=="mill" else "按亮起的位置压好六块蜜脾，蜜会慢慢接进罐里。今天可收一瓶。",22);message.custom_minimum_size.y=78;col.add_child(message)
+	message=UI.paragraph(COPY[id][0],22);message.custom_minimum_size.y=78;col.add_child(message)
 	meter=ProgressBar.new();meter.max_value=C.INSTITUTION_GAMES[id].steps;meter.custom_minimum_size.y=24;meter.show_percentage=false;col.add_child(meter)
-	board=MillBoard.new() if id=="mill" else HoneyBoard.new();board.game=self;board.size_flags_vertical=Control.SIZE_EXPAND_FILL;board.custom_minimum_size=Vector2(280,380);col.add_child(board)
-	start_button=UI.button("握住推杆" if id=="mill" else "摆好蜜脾",begin,true);col.add_child(start_button)
-	collect_button=UI.button("收好谷粉" if id=="mill" else "封好这瓶蜜",collect,true);collect_button.visible=false;col.add_child(collect_button)
+	board=MillBoard.new() if id=="mill" else (HoneyBoard.new() if id=="honey" else CivicBoard.new());board.game=self;board.size_flags_vertical=Control.SIZE_EXPAND_FILL;board.custom_minimum_size=Vector2(280,380);col.add_child(board)
+	start_button=UI.button(COPY[id][1],begin,true);col.add_child(start_button)
+	collect_button=UI.button(COPY[id][2],collect,true);collect_button.visible=false;col.add_child(collect_button)
 	exit_button=UI.button("先放下，回屋里",cancel);col.add_child(exit_button)
 	start_button.grab_focus()
 func begin() -> void:
@@ -33,14 +38,18 @@ func begin() -> void:
 	message.text=result.message
 	if not result.ok:return
 	run_id=str(ui.state.data.village.active_institution.run);start_button.visible=false;board.refresh()
-func expected_index() -> int:return progress%4 if game_id=="mill" else int(HONEY_SEQUENCE[mini(progress,5)])
+func expected_index() -> int:
+	if game_id=="mill":return progress%4
+	if game_id=="honey":return int(HONEY_SEQUENCE[mini(progress,5)])
+	return int(CIVIC_SEQUENCE[mini(progress,2)])
 func step(index:int) -> void:
-	if run_id.is_empty() or finished or index!=expected_index():return
+	if run_id.is_empty() or finished:return
+	if index!=expected_index():message.text="看看当前这张卡，再放进对应的格子。" if game_id=="civic" else "顺着亮起的那一处继续。";return
 	var result:Dictionary=ui.state.act("institution_step",{"run":run_id,"step":progress})
 	if not result.ok:message.text=result.message;return
 	progress+=1;meter.value=progress;board.refresh()
-	message.text=("第 %d 圈 · 顺着亮起的位置继续推"%mini(3,progress/4+1)) if game_id=="mill" else ("已压好 %d / 6 块蜜脾，蜜罐慢慢满起来了。"%progress)
-	if progress>=int(C.INSTITUTION_GAMES[game_id].steps):message.text="谷粉落满了粉槽，可以收好这一份。" if game_id=="mill" else "这一瓶接满了，封好蜡口带回去吧。";collect_button.visible=true;collect_button.grab_focus()
+	message.text=("第 %d 圈 · 顺着亮起的位置继续推"%mini(3,progress/4+1)) if game_id=="mill" else (("已压好 %d / 6 块蜜脾，蜜罐慢慢满起来了。"%progress) if game_id=="honey" else "这张归好类了，再看看下一张。")
+	if progress>=int(C.INSTITUTION_GAMES[game_id].steps):message.text=COPY[game_id][3];collect_button.visible=true;collect_button.grab_focus()
 func collect() -> void:
 	if finished:return
 	var result:Dictionary=ui.state.act("institution_complete",{"run":run_id})
@@ -118,3 +127,31 @@ class HoneyBoard extends Control:
 		if game.progress>0 and game.progress<6 and not game.run_id.is_empty():
 			for n in 4:draw_rect(Rect2(jar+Vector2(40,-33+fmod(elapsed*35+n*9,38)),Vector2(5,7)),Color("ffd665"))
 		if game.finished:draw_rect(Rect2(jar+Vector2(-3,-3),Vector2(90,10)),Color("b34f38"))
+
+class CivicBoard extends Control:
+	var game
+	var card:Label
+	var bins:Array[Button]=[]
+	const TITLES=["灌渠","修桥","补路"]
+	const CARDS=["小桥的木板松了\n请把这张卡交到修桥格","菜地渠口堵住了\n请把这张卡交到灌渠格","村口路面有个小坑\n请把这张卡交到补路格"]
+	func _ready() -> void:
+		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		card=UI.paragraph("等你把事务卡摊开",24);card.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;add_child(card)
+		for n in 3:
+			var b:=UI.button(TITLES[n],func():game.step(n),true);b.custom_minimum_size=Vector2(124,74);b.size=Vector2(124,74);add_child(b);bins.append(b)
+		resized.connect(refresh);refresh()
+	func refresh() -> void:
+		if bins.is_empty():return
+		card.position=Vector2(20,60);card.size=Vector2(size.x-40,100)
+		card.text="三张事务卡都收好了" if game.progress>=3 else (CARDS[game.progress] if not game.run_id.is_empty() else "等你把事务卡摊开")
+		for n in 3:
+			bins[n].position=Vector2(size.x*.5-198+n*136,245);bins[n].disabled=game.run_id.is_empty() or game.progress>=3
+			bins[n].text=TITLES[n]+(" · 已收" if game.CIVIC_SEQUENCE.find(n)<game.progress else "")
+		queue_redraw()
+	func _draw() -> void:
+		draw_rect(Rect2(12,20,size.x-24,196),Color("75513b"));draw_rect(Rect2(18,26,size.x-36,184),Color("e8d6aa"))
+		var ink:=Color("668367")
+		for n in 3:
+			var p:=Vector2(size.x*.5-150+n*136,335)
+			if game.CIVIC_SEQUENCE.find(n)<game.progress:
+				draw_rect(Rect2(p,Vector2(30,20)),Color("ebd5a2"));draw_line(p+Vector2(5,10),p+Vector2(13,15),ink,3);draw_line(p+Vector2(13,15),p+Vector2(25,4),ink,3)

@@ -1,136 +1,133 @@
 {
   "id": "v_mayor_up",
-  "title": "村公所 · 二楼",
+  "title": "村委会 · 二楼资料室",
   "group": "村庄",
   "floor": 0,
   "size": [
-    710,
-    710
+    508,
+    600
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_mayor.png",
+  "background": "res://ayu_home/v4/assets/institutions/civic-up-v2.png",
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        600,
-        400
-      ],
-      "foot": 550,
-      "front": false
-    },
-    {
-      "id": "bed",
-      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-      "pos": [
-        45,
-        110
-      ],
-      "foot": 310,
-      "front": false
-    },
-    {
-      "id": "desk",
-      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
-      "pos": [
-        490,
-        125
-      ],
-      "foot": 195,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        257,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      270,
-      95,
-      12,
-      180
+      31,
+      114,
+      447,
+      71
     ],
     [
-      270,
-      430,
-      12,
-      225
+      27,
+      226,
+      103,
+      51
     ],
     [
-      50,
-      175,
-      140,
-      135
+      195,
+      281,
+      169,
+      88
+    ],
+    [
+      414,
+      327,
+      68,
+      48
+    ],
+    [
+      432,
+      379,
+      47,
+      44
+    ],
+    [
+      26,
+      354,
+      112,
+      134
     ]
   ],
   "hotspots": [
     {
-      "id": "window_note",
-      "label": "看看窗边书页",
+      "id": "archive_read",
+      "label": "坐下翻资料",
+      "kind": "read",
       "pos": [
-        570,
-        225
+        451,
+        395
       ],
       "approach": [
-        570,
-        280
+        392,
+        413
       ],
-      "kind": "village",
-      "copy": "村长 · 林伯。窗外的路通往每一位邻居；回来时书签还在这里。"
+      "seat": [
+        451,
+        404
+      ],
+      "face": "up",
+      "pages": [
+        "资料室 · 老村路沿小溪伸到各家门前，桥头与渠口每月查看一次。",
+        "资料室 · 入驻先核对住户名册，再确认地块；所有材料当面点清。",
+        "资料室 · 大家的意见归在同一册，修桥、灌渠、补路分开记。"
+      ]
     },
     {
-      "id": "rest_seat",
-      "label": "在床边歇脚",
+      "id": "archive_lamp",
+      "label": "开关资料室的灯",
+      "kind": "reaction",
+      "effect": "lamp",
       "pos": [
-        150,
-        380
+        470,
+        308
       ],
       "approach": [
-        155,
-        405
+        392,
+        320
       ],
-      "kind": "seat",
-      "seat": [
-        150,
-        365
-      ],
-      "face": "down"
+      "copy": "灯亮一些，旧地图上的村路看得更清楚。"
     }
   ],
   "doors": [
     {
       "id": "downstairs",
-      "label": "下到一楼",
+      "label": "下到办理间",
       "target": "v_mayor",
+      "kind": "door",
       "pos": [
-        645,
-        555
+        82,
+        334
       ],
       "approach": [
-        645,
-        585
+        82,
+        301
       ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
-      "explicit_opening": true
+      "face": "up",
+      "span": [
+        82,
+        334,
+        76
+      ],
+      "width": 76,
+      "explicit_opening": true,
+      "arrival": [
+        164,
+        307
+      ]
     }
   ],
   "anchors": {},
   "windows": [],
   "lamps": [
     [
-      300,
-      280,
-      280
+      164,
+      65,
+      170
+    ],
+    [
+      374,
+      65,
+      170
     ]
   ],
   "source_offset": [
@@ -138,15 +135,16 @@
     0
   ],
   "spawn": [
-    565,
-    595
+    164,
+    307
   ],
   "walk_rect": [
-    22,
-    100,
-    666,
-    590
+    24,
+    96,
+    460,
+    413
   ],
   "outdoor": false,
-  "view_scale": 1.2
+  "view_scale": 2.0,
+  "nav_cell": 4
 }

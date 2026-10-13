@@ -1308,7 +1308,7 @@
     {
       "id": "visit_mayor",
       "target": "v_mayor",
-      "label": "拜访村公所",
+      "label": "拜访村委会",
       "kind": "door",
       "face": "down",
       "pos": [
@@ -1538,7 +1538,9 @@
         1530,
         2860
       ],
-      "preset": 0
+      "preset": 9,
+      "character_id": "linbo",
+      "portrait": "linbo"
     },
     {
       "id": "honey",

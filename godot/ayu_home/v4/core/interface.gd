@@ -196,7 +196,7 @@ func mayor() -> void:
 		text("这几处空地都是村里预留的。阿鱼家的动物仍住阿鱼家，会继续替你带东西；自留地和库存沿用你做客时的积累。第一块地开好才搭起小屋。")
 		for id in C.LOCATIONS:button("预览 · "+C.LOCATIONS[id],func():preview_location=id;show_page("选址预览"))
 	else:
-		text("你的家在"+C.LOCATIONS[v.location]+"。生活过的地方都会记着你；有空也来公所坐坐。")
+		text("你的家在"+C.LOCATIONS[v.location]+"。生活过的地方都会记着你；有空也来村委会坐坐。")
 		button("沿村路回自己的地",func():travel("village","home_site"))
 	button("先回村里走走",close)
 func location_preview() -> void:
@@ -271,7 +271,7 @@ func entered() -> void:
 	for record in cfg.get("npcs",[cfg.npc] if cfg.has("npc") else []):
 		if cfg.has("resident"):continue # 机构主人交给作息组件，只创建一次。
 		if record.get("id","")=="market" and not state.isMarketDay():continue
-		if record.get("character_id","") in ["xiaotao","kaikai"] and not (home.hour>=5 and home.hour<7):continue
+		if record.get("character_id","") in ["xiaotao","kaikai","linbo"] and not (home.hour>=5 and home.hour<7):continue
 		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.get("preset",0));actor.look_override=Residents.look(str(record.get("character_id","")));home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.set_process(false)
 		var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",16);nameplate.add_theme_color_override("font_shadow_color",Color("392f24"));nameplate.add_theme_constant_override("shadow_offset_x",1);nameplate.add_theme_constant_override("shadow_offset_y",1);nameplate.position=Vector2(-24,-108);actor.add_child(nameplate)
 	if cfg.has("resident"):
@@ -285,9 +285,11 @@ func open_institution_game(id:String) -> void:
 func talk_resident(id:String) -> bool:
 	return is_instance_valid(institution_room) and institution_room.talk(id)
 func resident_card(id:String) -> bool:
-	if not id in ["xiaotao","kaikai"]:return false
-	var name:String={"xiaotao":"小涛","kaikai":"凯凯"}[id]
+	if not id in ["xiaotao","kaikai","linbo"]:return false
+	var name:String={"xiaotao":"小涛","kaikai":"凯凯","linbo":"林伯"}[id]
 	var col:VBoxContainer=home.modal_shell(name+"的小卡片")
+	if id=="linbo":
+		col.add_child(UI.label("林伯 · 村委会",26));col.add_child(UI.paragraph("早上核对住户名册，中午办理村务，傍晚到议事桌听大家的意见。"));return true
 	if id=="kaikai":
 		col.add_child(UI.label("凯凯 · 蜂蜜小院",26));col.add_child(UI.paragraph("清早洗净蜂具，中午摇蜜装瓶，傍晚在窗下留一杯蜜茶。"));return true
 	col.add_child(UI.label("小涛 · 小涛磨坊",26));col.add_child(UI.paragraph("早上簸谷，中午推磨，傍晚在茶席歇脚。五点到七点在村路上转一圈，其余时间能在磨坊找到他。"))
@@ -320,7 +322,7 @@ func daily() -> void:
 	title("这是你来村里的第 %d 个日子"%state.day_number())
 	if v.order_total<3:
 		text("阿鱼：先种菜、做点吃的。三件订单交好，我就介绍你去找林伯。动物趁你串门时往返一趟，收获不着急。")
-	elif not v.resident:text("阿鱼：大家都认识你了。村公所就在院门往南的路上，林伯等你聊安家的事。")
+	elif not v.resident:text("阿鱼：大家都认识你了。村委会就在院门往南的路上，林伯等你聊安家的事。")
 	elif v.location.is_empty():text("今天可以慢慢选一处喜欢的位置。看完预览，再把家安下来。")
 	else:text("你的小院在"+C.LOCATIONS[v.location]+"。昨天留下的收获都还在，今天想开地、做家具，还是串门，由你安排。")
 	button("照料动物与自留地",show_page.bind("田边"),true)

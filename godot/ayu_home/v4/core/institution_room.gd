@@ -22,7 +22,7 @@ func setup(owner) -> void:
 func current_slot() -> int:return 0 if ui.home.hour<11 else (1 if ui.home.hour<17 else 2)
 func sync_schedule(first:=false) -> void:
 	var next:=current_slot()
-	actor.visible=not (record.id in ["xiaotao","kaikai"] and ui.home.hour>=5 and ui.home.hour<7)
+	actor.visible=not (record.id in ["xiaotao","kaikai","linbo"] and ui.home.hour>=5 and ui.home.hour<7)
 	if next==slot_index:return
 	slot_index=next;settled=false;actor.lift=0;actor.action="idle"
 	var s:Dictionary=record.schedule[slot_index];var goal:=Vector2(s.pos[0],s.pos[1])
@@ -33,7 +33,7 @@ func sync_schedule(first:=false) -> void:
 	actor.route=ui.home.world.path(actor.position,approach);actor.destination_action="idle";actor.destination_face=str(s.face)
 func settle() -> void:
 	var s:Dictionary=record.schedule[slot_index];actor.position=Vector2(s.pos[0],s.pos[1]);actor.face=str(s.face)
-	actor.action=str(s.action);actor.lift=ui.home.seat_lift(actor.position) if s.action=="drink" else 0.0;actor.position.y+=actor.lift;settled=true
+	actor.action=str(s.action);actor.lift=ui.home.seat_lift(actor.position) if s.action in ["drink","read"] else 0.0;actor.position.y+=actor.lift;settled=true
 func _process(dt:float) -> void:
 	if not is_instance_valid(ui) or not is_instance_valid(actor):return
 	elapsed+=dt;sync_schedule()
@@ -49,6 +49,10 @@ func draw_work() -> void:
 	if actor.action=="sift":
 		work_layer.draw_rect(Rect2(-19,-39+phase,38,11),Color("714a29"));work_layer.draw_rect(Rect2(-16,-39+phase,32,6),Color("d9ac51"))
 		for n in 7:work_layer.draw_rect(Rect2(-13+n*4,-37+phase,2,2),Color("f7d56d"))
+	elif actor.action=="registry":
+		work_layer.draw_rect(Rect2(-16,-40,32,19),Color("eedcb0"));work_layer.draw_line(Vector2(0,-40),Vector2(0,-21),Color("765037"),2)
+	elif actor.action=="stamp":
+		work_layer.draw_rect(Rect2(13,-35+phase*2,9,9),Color("a04a30"));work_layer.draw_rect(Rect2(15,-41+phase*2,5,8),Color("684530"))
 	elif actor.action=="wash":
 		for n in 5:work_layer.draw_rect(Rect2(-12+n*5,-30+phase,3,3),Color("a4dde1"))
 	elif actor.action=="honey":
@@ -59,20 +63,23 @@ func talk(id:String) -> bool:
 	if id!="resident:"+str(record.id):return false
 	actor.face="down";ui.home.dialogue(str(record.name),str(record.schedule[slot_index].line),str(record.portrait));return true
 func handle(h:Dictionary) -> bool:
-	if str(h.get("kind","")) in ["mill_game","honey_game"]:ui.open_institution_game(str(ui.home.world.cfg.institution));return true
-	if h.get("kind","")=="seat" and actor.visible and actor.action=="drink" and actor.position.distance_to(Vector2(h.pos[0],h.pos[1]))<60:
+	if str(h.get("kind","")) in ["mill_game","honey_game","civic_game"]:ui.open_institution_game(str(ui.home.world.cfg.institution));return true
+	if h.get("kind","")=="seat" and actor.visible and actor.action in ["drink","read"] and actor.position.distance_to(Vector2(h.pos[0],h.pos[1]))<60:
 		ui.home.player.say(str(record.name)+"正坐着喝茶，桌边还有热茶。")
 		return true
 	var id:=str(h.get("action",h.id))
-	if not id in ["sift","tea","sweep","wash","filter","bottle"]:return false
-	var copy:String={"sift":"谷壳簸开了，剩下金黄的谷粒。","tea":"续上一杯热茶，茶香慢慢冒起来。","sweep":"谷壳收进篮里，走道扫干净了。","wash":"水花带走碎蜡，蜂具洗得亮亮的。","filter":"滤布轻轻压下，细碎蜂蜡留在上面。","bottle":"蜜罐封好蜡口，留住花朵的香味。"}[id]
+	if not id in ["sift","tea","sweep","wash","filter","bottle","register","counter","notice","bundle"]:return false
+	var copy:String={"sift":"谷壳簸开了，剩下金黄的谷粒。","tea":"续上一杯热茶，茶香慢慢冒起来。","sweep":"谷壳收进篮里，走道扫干净了。","wash":"水花带走碎蜡，蜂具洗得亮亮的。","filter":"滤布轻轻压下，细碎蜂蜡留在上面。","bottle":"蜜罐封好蜡口，留住花朵的香味。","register":"翻开名册，今天的住户记录核对好了。","counter":"申请表放在柜台了，材料齐了再请林伯确认。","notice":"意见条夹进篮里，晚些和大家一起商量。","bundle":"系上红记号，修缮包就不会拿错了。"}[id]
 	var result:Dictionary=ui.state.act("institution_effect",{"room":ui.home.area,"spot":id,"message":copy})
 	if result.ok:changed_at[id]=elapsed;ui.home.player.face="up"
-	ui.home.player.say(result.message);ui.home.note=result.message;return true
+	ui.home.player.say(result.message);ui.home.note=result.message
+	if id=="counter" and result.ok:ui.show_page("村长")
+	return true
 func _draw() -> void:
 	if not is_instance_valid(ui):return
 	var effects:Dictionary=ui.state.data.village.institutions.get(ui.home.area,{})
 	if ui.home.area=="v_h5":draw_honey(effects);return
+	if ui.home.area=="v_mayor":draw_civic(effects);return
 	if ui.home.area!="v_h3":return
 	if int(effects.get("sweep",0))==0:
 		for n in 16:draw_rect(Rect2(288+(n*13)%29,430+(n*7)%39,3,2),Color("d9b464"))
@@ -106,3 +113,11 @@ func draw_honey(effects:Dictionary) -> void:
 	if int(effects.get("tea",0))>0:
 		for n in 4:
 			var rise:=fmod(elapsed*10+n*7,23.0);draw_rect(Rect2(Vector2(202+sin(elapsed+n)*3,443-rise).round(),Vector2(2,4)),Color(1,.94,.78,(1-rise/23)*.8))
+
+func draw_civic(effects:Dictionary) -> void:
+	if int(effects.get("register",0))>0:
+		draw_rect(Rect2(296,128,30,16),Color("e4d1a5"));draw_line(Vector2(311,128),Vector2(311,144),Color("714c33"),2);draw_rect(Rect2(315,137,5,4),Color("a44333"))
+	if int(effects.get("counter",0))>0:draw_rect(Rect2(201,199,11,14),Color("f2e0b1"));draw_rect(Rect2(205,204,4,4),Color("a44333"))
+	if int(effects.get("notice",0))>0:
+		for n in 3:draw_rect(Rect2(133+n*6,329-n*2,5,12),Color("edcf8b"))
+	if int(effects.get("bundle",0))>0:draw_rect(Rect2(424,391,12,5),Color("af4733"));draw_rect(Rect2(428,393,5,11),Color("b84c35"))

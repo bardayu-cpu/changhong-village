@@ -1,0 +1,423 @@
+{
+  "room_id": "v_mayor",
+  "display_name": "村委会",
+  "design_size": [
+    508,
+    600
+  ],
+  "character_height": 84,
+  "status": "v2分区已866f347先提交；专用底图v1静态检查可接，实图接口v3待C2校准",
+  "host": {
+    "name": "林伯",
+    "existing_preset": 0,
+    "identity_policy": "凯凯保留现有LM-GUEST-05；林伯选择灰发男性LM-GUEST-10；只给C2接入，不改原图。",
+    "proposed_code": "LM-GUEST-10",
+    "sprite_source": "林伯-老人形象84px.png"
+  },
+  "walk_rect": [
+    24,
+    95,
+    460,
+    375
+  ],
+  "zones": [
+    {
+      "id": "zone_1",
+      "label": "左侧资料楼梯",
+      "rect": [
+        28,
+        40,
+        82,
+        183
+      ],
+      "use": "左墙真楼梯、厚门框",
+      "host": "晚后：上楼归册"
+    },
+    {
+      "id": "zone_2",
+      "label": "北墙名册档案",
+      "rect": [
+        152,
+        50,
+        327,
+        100
+      ],
+      "use": "整排档案格、住户册",
+      "host": "早：查名册"
+    },
+    {
+      "id": "zone_3",
+      "label": "横向办理柜台",
+      "rect": [
+        172,
+        177,
+        294,
+        99
+      ],
+      "use": "印章托、申请篮、柜台",
+      "host": "中：办入驻"
+    },
+    {
+      "id": "zone_4",
+      "label": "公共等候带",
+      "rect": [
+        38,
+        290,
+        116,
+        78
+      ],
+      "use": "两把木椅、意见篮",
+      "host": "早中：村民等候"
+    },
+    {
+      "id": "zone_5",
+      "label": "独立议事长桌",
+      "rect": [
+        242,
+        339,
+        235,
+        133
+      ],
+      "use": "长桌、三张村务卡、修缮包",
+      "host": "晚：听意见"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "village_tasks",
+      "kind_suggested": "civic_game",
+      "pos": [
+        316,
+        402
+      ],
+      "approach": [
+        317,
+        322
+      ],
+      "visible_change": "任务卡入格、修缮包绑好",
+      "inventory": "bamboo:1，每日一次"
+    },
+    {
+      "id": "register_book",
+      "kind_suggested": "registry_book",
+      "pos": [
+        313,
+        100
+      ],
+      "approach": [
+        313,
+        163
+      ],
+      "visible_change": "名册展开、页上盖章；入驻仍经确认",
+      "inventory": "申请条件遵循经济表"
+    },
+    {
+      "id": "residency_counter",
+      "kind_suggested": "residency_counter",
+      "pos": [
+        319,
+        224
+      ],
+      "approach": [
+        319,
+        309
+      ],
+      "visible_change": "申请篮移出一份表、印章变化",
+      "inventory": "无额外奖励"
+    },
+    {
+      "id": "opinion_basket",
+      "kind_suggested": "opinion_note",
+      "pos": [
+        141,
+        345
+      ],
+      "approach": [
+        172,
+        383
+      ],
+      "visible_change": "意见条投篮，夹条变多",
+      "inventory": "只记人情"
+    },
+    {
+      "id": "material_sort",
+      "kind_suggested": "material_sort",
+      "pos": [
+        429,
+        404
+      ],
+      "approach": [
+        475,
+        413
+      ],
+      "visible_change": "修缮包散束变绑好",
+      "inventory": "玩法外不重复发材料"
+    },
+    {
+      "id": "rest_seat",
+      "kind_suggested": "seat",
+      "pos": [
+        259,
+        401
+      ],
+      "approach": [
+        220,
+        403
+      ],
+      "seat": [
+        259,
+        401
+      ],
+      "foot_sort": 433,
+      "visible_change": "实际坐下，前沿按最后实物裁透明层"
+    }
+  ],
+  "entrance": {
+    "opening": [
+      87,
+      468,
+      82,
+      117
+    ],
+    "pos": [
+      136,
+      500
+    ],
+    "approach": [
+      136,
+      450
+    ],
+    "spawn": [
+      136,
+      450
+    ],
+    "target": "village",
+    "side": "bottom-left",
+    "note": "实际门洞在左下，斜开门扇在近景；只固定门框脚印，不用大盒封掉整个门洞"
+  },
+  "stairs": {
+    "pos": [
+      68,
+      223
+    ],
+    "approach": [
+      130,
+      226
+    ],
+    "target": "v_mayor_up",
+    "return_spawn": [
+      130,
+      226
+    ],
+    "note": "实际左梯脚较概念上移，楼上target_spawn同步130,226"
+  },
+  "obstacles_suggested": [
+    [
+      152,
+      73,
+      268,
+      72
+    ],
+    [
+      28,
+      74,
+      82,
+      147
+    ],
+    [
+      172,
+      196,
+      294,
+      80
+    ],
+    [
+      225,
+      177,
+      34,
+      21
+    ],
+    [
+      327,
+      177,
+      34,
+      21
+    ],
+    [
+      38,
+      311,
+      40,
+      56
+    ],
+    [
+      86,
+      311,
+      42,
+      56
+    ],
+    [
+      128,
+      328,
+      26,
+      32
+    ],
+    [
+      272,
+      379,
+      183,
+      68
+    ],
+    [
+      242,
+      386,
+      31,
+      47
+    ],
+    [
+      303,
+      340,
+      44,
+      38
+    ],
+    [
+      373,
+      340,
+      38,
+      38
+    ],
+    [
+      36,
+      246,
+      30,
+      38
+    ],
+    [
+      435,
+      101,
+      45,
+      47
+    ]
+  ],
+  "path_centerlines": [
+    [
+      [
+        136,
+        450
+      ],
+      [
+        161,
+        299
+      ],
+      [
+        161,
+        163
+      ],
+      [
+        313,
+        163
+      ]
+    ],
+    [
+      [
+        161,
+        225
+      ],
+      [
+        130,
+        226
+      ]
+    ],
+    [
+      [
+        161,
+        309
+      ],
+      [
+        319,
+        309
+      ]
+    ],
+    [
+      [
+        161,
+        403
+      ],
+      [
+        220,
+        403
+      ]
+    ],
+    [
+      [
+        319,
+        309
+      ],
+      [
+        475,
+        309
+      ],
+      [
+        475,
+        413
+      ]
+    ]
+  ],
+  "schedule": [
+    {
+      "slot": "早",
+      "pos": [
+        313,
+        163
+      ],
+      "face": "up",
+      "action": "查住户名册",
+      "line": "先查好名册，今天办事就不用翻来翻去。"
+    },
+    {
+      "slot": "中",
+      "pos": [
+        158,
+        225
+      ],
+      "face": "right",
+      "action": "办理村务",
+      "line": "把申请放进篮里，我到柜台这边帮你看。"
+    },
+    {
+      "slot": "晚",
+      "pos": [
+        259,
+        401
+      ],
+      "face": "right",
+      "action": "坐下议事",
+      "line": "手续都收好了，这张桌留给大家慢慢说事。"
+    }
+  ],
+  "full_screen_game": "村务任务卡分类：灌渠/修桥/补路送到图案对应格，三张完成整理一份修缮包；不代办入驻，不用麻将。",
+  "asset_policy": {
+    "background": "全部墙、门、地面、固定陈设和真楼梯画进一张底图，不用通用四件家具拼屋",
+    "dynamic": "只交变化和前沿遮挡层；C2由最终图裁，不重复叠完整家具",
+    "collision": "只对应画上实体脚印，不计地毯阴影和空地；最后需实走"
+  },
+  "layout_concept": "左下公共入口，中央办理柜台、后档案、右下议事，左梯",
+  "design_footprint_ratio": 0.2764,
+  "footprint_note": "仅设计物体脚印精确并集，不是H1结果；最后按画上真有的物体校准，不计地毯/阴影/空走道",
+  "background_source": "村委会-专用整屋-source-v1.png",
+  "source_size": [
+    1154,
+    1363
+  ],
+  "target_size": [
+    508,
+    600
+  ],
+  "image_note": "左梯、北册架、横办理柜台、左等候、右下议事桌成组；门左下，无磨坊物件。地毯不碰撞，椅子与桌拆实体脚印。后台路径/桌旁说话位按实图改，柜台正前留公共通道。",
+  "dynamic_plan": {
+    "registry": "账册翻页、已办页印章变化；入驻仍确认条件",
+    "counter": "申请篮可局部移表，不另叠整柜台",
+    "civic_game": "议事桌三张卡与修缮包变化；产bamboo:1每日一次",
+    "opinion": "意见条入篮、篮边夹条变多",
+    "seating": "议事桌左端木椅用right坐姿，最后按实际chair前沿拆遮挡"
+  },
+  "zone_rect_note": "实图用途区域，不直接用作碰撞；碰撞仅obstacles_suggested中的实体脚印，仍由C2实物校核。"
+}
