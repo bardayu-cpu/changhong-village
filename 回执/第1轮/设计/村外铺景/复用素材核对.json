@@ -1,0 +1,55 @@
+{
+  "scope": "原素材只读检查，未重画或复制全建筑",
+  "files": [
+    {
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "size": [
+        125,
+        175
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "size": [
+        150,
+        168
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "res://ayu_home/v3/assets/exterior_left_border_flowers.png",
+      "size": [
+        491,
+        196
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "res://ayu_home/v3/assets/exterior_garden_fence.png",
+      "size": [
+        186,
+        46
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        255,
+        255
+      ]
+    }
+  ],
+  "note": "已有树/果树/花带/低栏同画风；只给接入引用，不改godot。",
+  "visual_correction": "实际打开green_tree/fruit_tree后发现有原院景底草、花、邮箱/围栏附带物；只可作为局部院景组合候选，不作干净树精灵满村散铺。garden_fence alpha全255，也不直接重复当透明栏。原建筑仍复用，另补最少一张干净树图。"
+}

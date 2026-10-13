@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-13",
+  "quota_start_remaining": 12,
+  "quota_exception": "阿鱼本轮可用完再停，已读本轮额度例外-1013.md；不重置/付费/换模型",
+  "world_size": [
+    4800,
+    4700
+  ],
+  "person_height": 84,
+  "preserve": "现有房屋bounds、houses.at入口、完整road线网、14户小事和动态玩家田地，不改阿鱼家配置",
+  "zones": [
+    {
+      "id": "north_field",
+      "rect": [
+        1240,
+        100,
+        350,
+        430
+      ],
+      "use": "小块菜田、低田埂、靠边小花，不遮北入户路"
+    },
+    {
+      "id": "east_field",
+      "rect": [
+        3020,
+        850,
+        480,
+        830
+      ],
+      "use": "成组菜田与果树边缘，保持东路与边沟"
+    },
+    {
+      "id": "central_green",
+      "rect": [
+        2450,
+        2390,
+        950,
+        320
+      ],
+      "use": "院外菜畦、低绿篱；必须扣除入户支路"
+    },
+    {
+      "id": "south_field",
+      "rect": [
+        2250,
+        3350,
+        1450,
+        280
+      ],
+      "use": "依地形错开的小田块、田埂；扣除道路/住宅"
+    },
+    {
+      "id": "outer_grove",
+      "rect": [
+        20,
+        150,
+        450,
+        4420
+      ],
+      "use": "西外缘树组/竹丛，只在扣除房屋道路后放置"
+    },
+    {
+      "id": "canal_green",
+      "rect": [
+        3420,
+        50,
+        290,
+        4400
+      ],
+      "use": "沿既有渠的断续竹丛、低草，桥头留空"
+    }
+  ],
+  "region_rule": "这些是候选用途域，不是整块碰撞。扣除房屋bounds外扩24、道路整段距离保护、入口保护和生产/田地保护后才生成田块/树。",
+  "road_protection": {
+    "main_width": 130,
+    "clear_half_width": 110,
+    "distance_method": "距每条折线的每条线段最近距离；不能只看折线顶点",
+    "door_radius": 110,
+    "public_radius": 120,
+    "bridge_radius": 140
+  },
+  "dynamic_plot_exclusion": [
+    1050,
+    3850,
+    900,
+    800
+  ],
+  "garden_per_house": {
+    "road_side": "门两侧低花/盆栽/菜畦，门正前留空",
+    "back_or_side": "树组在房后/侧空地，树干不堵路；最多小片竹丛",
+    "variations": [
+      "菜畦+竹边",
+      "果树+草花",
+      "石盆+低绿篱",
+      "留白晾晒区+花盆"
+    ]
+  },
+  "reuse": [
+    {
+      "file": "res://ayu_home/v4/assets/village/green_tree.png",
+      "size": [
+        125,
+        175
+      ],
+      "target_size": [
+        160,
+        224
+      ],
+      "anchor": [
+        80,
+        224
+      ],
+      "collision": "仅树干/根部约[68,205,24,16]，不把整个树冠封路",
+      "season_kind": "evergreen",
+      "safe_for_free_placement": false,
+      "usage": "保留原已认可本地院景，不作为干净单物件散铺；村外新散点树/花园使用本包干净源图，不改原图"
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "size": [
+        150,
+        168
+      ],
+      "target_size": [
+        180,
+        202
+      ],
+      "anchor": [
+        90,
+        202
+      ],
+      "collision": "树干约[78,184,24,16]",
+      "season_kind": "fruit",
+      "safe_for_free_placement": false,
+      "usage": "保留原已认可本地院景，不作为干净单物件散铺；村外新散点树/花园使用本包干净源图，不改原图"
+    },
+    {
+      "file": "res://ayu_home/v3/assets/exterior_left_border_flowers.png",
+      "size": [
+        491,
+        196
+      ],
+      "target_size": "C2裁主要花带成2～3变化块，不拉成长墙",
+      "collision": "低花不挡路",
+      "safe_for_free_placement": false,
+      "usage": "保留原已认可本地院景，不作为干净单物件散铺；村外新散点树/花园使用本包干净源图，不改原图"
+    },
+    {
+      "file": "res://ayu_home/v3/assets/exterior_garden_fence.png",
+      "size": [
+        186,
+        46
+      ],
+      "target_size": [
+        186,
+        46
+      ],
+      "collision": "实体低栏仅有栏杆的位置；两端接路时留开口",
+      "safe_for_free_placement": false,
+      "usage": "保留原已认可本地院景，不作为干净单物件散铺；村外新散点树/花园使用本包干净源图，不改原图"
+    }
+  ],
+  "new_atlas_plan": [
+    "路面材质",
+    "草面材质",
+    "耕土材质",
+    "田埂直段",
+    "边沟直段",
+    "菜畦组",
+    "竹丛",
+    "草花组",
+    "低灌木组"
+  ],
+  "edge_policy": "纹理样片只在世界连续面内采样，端边不直接当闭合拼接块。路口用完整road union连续蒙版，田埂拐角/T用连续土脊蒙版，不重复黑描边。内纹理交错/混合取样；草土过渡用6～12世界px阶梯羽化，边缘近景由C3验证。",
+  "seasons": {
+    "spring": "草嫩绿、增加白黄花；crop/deciduous用现有春季绿key shader",
+    "summer": "新图浓绿作基准，不统一罩黄；竹、常绿保持浓绿",
+    "autumn": "菜田赭土+金黄收获区、果树绿key金赭；竹和常绿大多保绿",
+    "winter": "沿用现有冬季材质/积雪与花少策略，不重画已认可冬景"
+  },
+  "weather_handoff": "C2按实际viewport矩形/缩放调整天气粒子；户外全游戏视口覆盖、UI透明保护；室内只窗外雨雪和环境光，不向房间内整屏落雨。不绘固定540×960天气大图。",
+  "status": "铺景先行分区、九格图集、干净树、切片/锚点/拼接/季节/天气接口已齐；交C2提交接入，未N1～N5运行通过",
+  "reuse_policy_revision": "现有树图附带原院景底草/花/邮箱，不能按纯树根碰撞散铺；仅在已认可局部庭院里保留。新增干净树替代村外树组，原房屋不重画。低栏全不透明不直接重复，改用自然田埂/新竹丛/现有本地院景。",
+  "clean_tree_needed": false,
+  "new_atlas": "村外地表田埂竹花-九格source-v1.png",
+  "atlas_interface": "图集切片-v1.json",
+  "clean_tree": "村外干净树-source-v1.png",
+  "clean_tree_interface": "干净树接口-v1.json",
+  "tree_visibility_rule": "候选树的完整绘制矩形/树冠不得盖门口和招牌视线；门前[gate_x-125,gate_y-40,250,280]额外避让树，不只保护根部导航。"
+}

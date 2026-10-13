@@ -1,0 +1,40 @@
+{
+  "source": "村外干净树-source-v1.png",
+  "size": [
+    1086,
+    1448
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bbox_128": [
+    25,
+    92,
+    1059,
+    1333
+  ],
+  "target_canvas": [
+    180,
+    240
+  ],
+  "uniform_fit_size": [
+    180,
+    216
+  ],
+  "foot_anchor": [
+    90,
+    240
+  ],
+  "root_collision_local": [
+    75,
+    221,
+    30,
+    18
+  ],
+  "sort": "脚锚Y排序，树冠不作为整个障碍",
+  "season_kind": "deciduous，0春/1夏/2秋/3冬沿现有绿keyshader",
+  "variation": "只允许水平镜像和0.88～1.08等比尺寸，3～5棵错位组团；不要整片等间距棋盘树",
+  "visual_check": "已实际看图：只有干净树与小根土，无邮箱/花/围栏/方形地面，真实alpha"
+}
