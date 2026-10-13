@@ -68,6 +68,7 @@ var sound_on:=true
 var amb:AudioStreamPlayer
 var sfx:AudioStreamPlayer
 var water_audio:AudioStreamPlayer
+var cicada_audio:AudioStreamPlayer
 var activities
 var immersive
 var rest_position:=Vector2.ZERO
@@ -179,6 +180,7 @@ func read_clock() -> void:
 		var season_key:String=["spring","summer","autumn","winter"][Life.season(month)];var weather_key:="winter" if weather=="snow" else ("rain" if weather=="rain" else "sun")
 		if season_icon.get_meta("key","")!=season_key:season_icon.texture=UI.icon(season_key,26,Color(DSkin.PAL.text)).texture;season_icon.set_meta("key",season_key)
 		if weather_icon.get_meta("key","")!=weather_key:weather_icon.texture=UI.icon(weather_key,26,Color(DSkin.PAL.text)).texture;weather_icon.set_meta("key",weather_key)
+	update_cicada_audio()
 func set_test_clock(h:float,m:=10,w:="clear") -> void:
 	test_hour=h;test_month=m;test_weather=w;read_clock();family_state.clear();sync_family(true);play_ambience();note="时间、季节、天气换好了"
 func set_identity(owner:bool) -> void:is_owner=owner
@@ -666,12 +668,23 @@ func play_fx(which:String) -> void:
 	if not sound_on:return
 	sfx.stream=preload("res://ayu_home/v4/sfx.gd").get_sound(which);sfx.play()
 func play_ambience() -> void:
-	if not sound_on:amb.stop();return
+	if not sound_on:amb.stop();update_cicada_audio();return
 	var track:="rain" if weather=="rain" else ("outdoor" if world.cfg.get("outdoor",false) else ("living" if area=="living" else "dining"))
 	var file:="res://ayu_home/v4/assets/rain.wav" if track=="rain" else "res://ayu_home/v2/assets/"+("yard" if track=="outdoor" else track)+"_amb.wav"
 	if not FileAccess.file_exists(file):file="res://ayu_home/v2/assets/living_amb.wav"
 	amb.stream=Assets.sound(file)
 	if amb.stream:amb.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD;amb.volume_db=-15;amb.play()
+	update_cicada_audio()
+func update_cicada_audio() -> void:
+	var active:bool=sound_on and world!=null and bool(world.cfg.get("outdoor",false)) and month in [6,7,8] and hour>=6 and hour<18 and weather=="clear"
+	if not active:
+		if cicada_audio and cicada_audio.playing:cicada_audio.stop()
+		return
+	if amb==null:return
+	if cicada_audio==null:
+		cicada_audio=AudioStreamPlayer.new();cicada_audio.stream=preload("res://ayu_home/v4/sfx.gd").get_sound("cicada");add_child(cicada_audio)
+	cicada_audio.bus=amb.bus;cicada_audio.volume_db=amb.volume_db-3.0
+	if not cicada_audio.playing:cicada_audio.play()
 ## 界面（阿鱼 10/5）：屏幕上大部分是阿鱼家的画。顶上只留一行地点、一行小图标和一行今日小事，
 ## 不要大框；提示在上方亮一下就收；相机、生活册、地图收进右下角的小包；要点的操作出现在人旁边。
 func make_ui() -> void:
@@ -1139,7 +1152,7 @@ func calendar_page() -> void:
 func detail_view() -> void:
 	immersive.open("detail" if area=="study" else "room_detail",{"room":area,"title":world.cfg.title,"hour":hour,"month":month,"weather":weather,"cfg":world.cfg})
 func stop_audio() -> void:
-	for a in [amb,sfx,water_audio]:
+	for a in [amb,sfx,water_audio,cicada_audio]:
 		if a:a.stop();a.stream=null
 func _exit_tree() -> void:
 	if is_instance_valid(village_ui):village_ui.checkpoint()

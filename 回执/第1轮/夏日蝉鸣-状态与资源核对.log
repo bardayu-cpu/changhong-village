@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS 8-second mono PCM cicada stream is nonempty and unclipped
+PASS loop range and zero-valued endpoints avoid a boundary jump
+PASS generated stream cached and reused
+PASS exact generated stream exported for later listening
+PASS summer clear outdoor daytime layers cicadas over original ambience
+PASS clock updates do not restart or regenerate an active loop
+PASS cicadas follow existing ambience gain and audio bus
+PASS no cicadas: spring
+PASS no cicadas: autumn
+PASS no cicadas: winter
+PASS no cicadas: rain
+PASS no cicadas: cloud
+PASS no cicadas: snow
+PASS no cicadas: before dawn
+PASS no cicadas: evening
+PASS no cicadas: night
+PASS no cicadas: indoors
+PASS return to summer outdoor daytime resumes the cached stream
+PASS existing sound-off path stops both ambience layers
+PASS existing sound-on path resumes both ambience layers
+PASS existing exit cleanup stops and releases cicada playback
+CICADA PASS 21 checks; normal listening pending C3

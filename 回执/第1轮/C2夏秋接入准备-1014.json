@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-14",
+  "phase": "Summer cicada audio ready; C4 final summer/autumn/lotus contract pending",
+  "brief": "回执/第1轮/追加-夏秋季节与荷塘-1014.md",
+  "brief_sha256": "4f3a2086423a9c5c1ba18f76a8264140cfa4ca2824c9c450b15ba5253e4e9a87",
+  "production_baseline": "c0c80e0f45c669e404bfffeae93eb93ba74c9863",
+  "quota_remaining_percent": {
+    "start": 41,
+    "end": 39
+  },
+  "world_interface": {
+    "script": "res://ayu_home/v4/world.gd",
+    "season_index": {
+      "spring": 0,
+      "summer": 1,
+      "autumn": 2,
+      "winter": 3
+    },
+    "clock_inputs": [
+      "month",
+      "hour",
+      "weather",
+      "effects_enabled"
+    ],
+    "season_materials": [
+      "season_material background",
+      "plant_materials props"
+    ],
+    "village_material_shader": "res://ayu_home/v4/assets/village/c4-spring-v1/season-material.gdshader",
+    "village_binding_manifest": "res://ayu_home/v4/assets/village/c4-spring-v1/bindings.json",
+    "uniforms": [
+      "season",
+      "rain",
+      "plant_kind",
+      "spring_plant_mask",
+      "spring_mask_enabled",
+      "spring_layer_kind"
+    ],
+    "ambient_update": "world.update_light(): existing night/evening/morning/weather handling; do not bake full-screen summer exposure into all hours or indoors",
+    "position_and_navigation": "village.json plus rooms.json .rooms.village must remain synchronized; future C4 pond contract must explicitly identify sprites/position/foot/layer/collision changes before any navigation rebake"
+  },
+  "audio_interface": {
+    "script": "res://ayu_home/v4/home.gd",
+    "update": "update_cicada_audio() from existing read_clock() and play_ambience(); stopped by stop_audio()",
+    "stream": "res://ayu_home/v4/sfx.gd get_sound(cicada), cached local synthesis",
+    "requires": "sound_on, outdoor=true, June-August, clear, 06:00 <= hour < 18:00",
+    "gain": "same bus as amb; amb.volume_db - 3dB; existing Master/system output volume applies",
+    "settings": "existing settings.sound toggle only; no new settings field, save schema or slider",
+    "tests": "21 new state/resource checks and unchanged original 23-sound test passed; actual listening pending C3"
+  },
+  "C4_status": "Only design/夏秋荷塘/v1/接单.md available; public pond selected by C4, no final import JSON/assets yet",
+  "protected": {
+    "spring_shader_sha256": "999893536e3c0ad9f306ffb146ca71ef45778ba0ce68cecb862031551f5d6d67",
+    "village_scene_sha256": "5780ccdac5d25934358a6e58d3ae61c09c95ec4f7dfdb46696fc05e4a8737cf9",
+    "world_script_sha256": "0a8ea61b081d4c17d79e2c0e68c3d933c51fdf3f55c38802efa0a2a5851c2104",
+    "yard_fix_script_sha256": "c0b09cc8e929de6d95e3b7361b9ca585eea6b038ab27ea369200f32eac13a2bd",
+    "cost_config_sha256": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735",
+    "state_save_script_sha256": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e"
+  },
+  "not_complete": [
+    "summer sunshine/flowers",
+    "stronger autumn natural vegetation",
+    "lotus scenery/shore navigation",
+    "C3 visual and audio acceptance",
+    "previous unresolved basket touch acceptance"
+  ],
+  "inspection_fixture": "测试数据/C2-夏日蝉鸣核对.gd (isolated; no save access or actual audio output)"
+}

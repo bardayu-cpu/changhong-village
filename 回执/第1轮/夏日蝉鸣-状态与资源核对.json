@@ -1,0 +1,114 @@
+{
+	"checks": [
+		{
+			"check": "8-second mono PCM cicada stream is nonempty and unclipped",
+			"pass": true
+		},
+		{
+			"check": "loop range and zero-valued endpoints avoid a boundary jump",
+			"pass": true
+		},
+		{
+			"check": "generated stream cached and reused",
+			"pass": true
+		},
+		{
+			"check": "exact generated stream exported for later listening",
+			"pass": true
+		},
+		{
+			"check": "summer clear outdoor daytime layers cicadas over original ambience",
+			"pass": true
+		},
+		{
+			"check": "clock updates do not restart or regenerate an active loop",
+			"pass": true
+		},
+		{
+			"check": "cicadas follow existing ambience gain and audio bus",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: spring",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: autumn",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: winter",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: rain",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: cloud",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: snow",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: before dawn",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: evening",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: night",
+			"pass": true
+		},
+		{
+			"check": "no cicadas: indoors",
+			"pass": true
+		},
+		{
+			"check": "return to summer outdoor daytime resumes the cached stream",
+			"pass": true
+		},
+		{
+			"check": "existing sound-off path stops both ambience layers",
+			"pass": true
+		},
+		{
+			"check": "existing sound-on path resumes both ambience layers",
+			"pass": true
+		},
+		{
+			"check": "existing exit cleanup stops and releases cicada playback",
+			"pass": true
+		}
+	],
+	"failures": 0,
+	"mode": "headless + Dummy audio driver; no system playback and no user save opened",
+	"pending": "C3 normal listening and original sound toggle/season/weather/room transitions; summer/autumn/lotus visuals still awaiting C4",
+	"policy": {
+		"bus": "same as existing ambience",
+		"gain_relative_to_existing_ambience_db": -3,
+		"hours": "6 <= hour < 18",
+		"months": [
+			6,
+			7,
+			8
+		],
+		"outdoor_required": true,
+		"sound_on_required": true,
+		"weather": "clear"
+	},
+	"stream": {
+		"cached": true,
+		"first_synthesis_ms": 248,
+		"origin": "local procedural synthesis; no external recording or paid service",
+		"pcm_bytes": 352800,
+		"peak_s16": 15806,
+		"rate": 22050,
+		"rms_s16": 2246.13614100873,
+		"seconds": 8
+	}
+}
