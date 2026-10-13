@@ -352,8 +352,10 @@
       "滤布压下",
       "封蜡变完整"
     ],
-    "fixed_art_warning": "源图包含静止蜜流；C2需在初始态局部遮去/以同色修补，并只绘动的蜜流；不能叠第二套摇蜜桶或旋转整张底图",
+    "fixed_art_warning": "静止底层v2已补齐：桶口无横架、无蜜流、接蜜罐空。C2机械取中央局部与原图对齐，三个活动层由代码绘制；退出关闭活动层，外围/碰撞/坐标不改。",
     "seating": "竹椅座面斜向左，建议side坐姿，最后C2实坐校锚与遮挡"
   },
-  "zone_rect_note": "实图用途区域，不直接用作碰撞；碰撞仅obstacles_suggested中的实体脚印，仍由C2实物校核。"
+  "zone_rect_note": "实图用途区域，不直接用作碰撞；碰撞仅obstacles_suggested中的实体脚印，仍由C2实物校核。",
+  "idle_source": "凯凯蜂蜜小院-无蜜流空罐无横架-source-v2.png",
+  "idle_alignment": "静止底层对齐-v2.json"
 }

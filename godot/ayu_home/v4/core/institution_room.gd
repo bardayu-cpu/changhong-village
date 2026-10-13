@@ -103,6 +103,7 @@ func draw_honey(effects:Dictionary) -> void:
 			var a:=elapsed*1.6+n*TAU/5
 			draw_line(Vector2(247,245),(Vector2(247,245)+Vector2(cos(a)*33,sin(a)*17)).round(),Color("716451"),3)
 		for n in 4:draw_rect(Rect2(245,318+fmod(elapsed*20+n*5,18),3,3),Color("ffd461"))
+		var level:=fmod(elapsed*.9,10.0);draw_rect(Rect2(240,352-level,13,level),Color("d6a338"))
 	if int(effects.get("wash",0))>0 or slot_index==0:
 		for n in 5:draw_rect(Rect2(Vector2(66+n*4,267+sin(elapsed*3+n)*3).round(),Vector2(3,2)),Color("bfe2db"))
 	if int(effects.get("filter",0))==0:
