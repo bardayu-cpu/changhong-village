@@ -1203,6 +1203,216 @@
         615,
         2840
       ]
+    },
+    {
+      "id": "visit_erba",
+      "house": "erba",
+      "label": "门口 · 点亮门边灯",
+      "pos": [
+        2027,
+        510
+      ],
+      "approach": [
+        1963,
+        544
+      ],
+      "kind": "door_chore",
+      "closed_note": "门闩落下了"
+    },
+    {
+      "id": "visit_daba",
+      "house": "daba",
+      "label": "门口 · 收齐散竹条",
+      "pos": [
+        2592,
+        1293
+      ],
+      "approach": [
+        2528,
+        1327
+      ],
+      "kind": "door_chore",
+      "closed_note": "竹帘放下了"
+    },
+    {
+      "id": "visit_h2",
+      "house": "h2",
+      "label": "门口 · 理顺门边线筐",
+      "pos": [
+        2773,
+        2282
+      ],
+      "approach": [
+        2709,
+        2316
+      ],
+      "kind": "door_chore",
+      "closed_note": "活动中心值日"
+    },
+    {
+      "id": "visit_h6",
+      "house": "h6",
+      "label": "门口 · 给窗下花浇水",
+      "pos": [
+        2976,
+        3312
+      ],
+      "approach": [
+        2912,
+        3346
+      ],
+      "kind": "door_chore",
+      "closed_note": "门帘已放下"
+    },
+    {
+      "id": "visit_h8",
+      "house": "h8",
+      "label": "门口 · 码好门旁柴段",
+      "pos": [
+        288,
+        3371
+      ],
+      "approach": [
+        224,
+        3405
+      ],
+      "kind": "door_chore",
+      "closed_note": "烟囱旁留了条"
+    },
+    {
+      "id": "visit_h7",
+      "house": "h7",
+      "label": "门口 · 翻一翻晒粮盘",
+      "pos": [
+        1938,
+        3546
+      ],
+      "approach": [
+        1874,
+        3580
+      ],
+      "kind": "door_chore",
+      "closed_note": "今天下田去了"
+    },
+    {
+      "id": "visit_h4",
+      "house": "h4",
+      "label": "门口 · 扫净门前落叶",
+      "pos": [
+        622,
+        4149
+      ],
+      "approach": [
+        558,
+        4183
+      ],
+      "kind": "door_chore",
+      "closed_note": "全家去赶集"
+    },
+    {
+      "id": "visit_h1",
+      "house": "h1",
+      "label": "门口 · 把报纸卷进筒",
+      "pos": [
+        3209,
+        4140
+      ],
+      "approach": [
+        3145,
+        4174
+      ],
+      "kind": "door_chore",
+      "closed_note": "屋里在午睡"
+    },
+    {
+      "id": "visit_flower",
+      "house": "flower",
+      "label": "门口 · 给鸟饮盆添水",
+      "pos": [
+        603,
+        1056
+      ],
+      "approach": [
+        539,
+        1090
+      ],
+      "kind": "door_chore",
+      "closed_note": "一家出门赏花"
+    },
+    {
+      "id": "visit_whitebrick",
+      "house": "whitebrick",
+      "label": "门口 · 擦亮铜铃",
+      "pos": [
+        3311,
+        536
+      ],
+      "approach": [
+        3247,
+        570
+      ],
+      "kind": "door_chore",
+      "closed_note": "门内传来琴声"
+    },
+    {
+      "id": "visit_grape",
+      "house": "grape",
+      "label": "门口 · 扶好葡萄藤",
+      "pos": [
+        4124,
+        627
+      ],
+      "approach": [
+        4060,
+        661
+      ],
+      "kind": "door_chore",
+      "closed_note": "藤帘放下了"
+    },
+    {
+      "id": "visit_sunflower",
+      "house": "sunflower",
+      "label": "门口 · 收拢葵籽盘",
+      "pos": [
+        4143,
+        1766
+      ],
+      "approach": [
+        4079,
+        1800
+      ],
+      "kind": "door_chore",
+      "closed_note": "主人去看蜂了"
+    },
+    {
+      "id": "visit_persimmon",
+      "house": "persimmon",
+      "label": "门口 · 捡起落地柿子",
+      "pos": [
+        4392,
+        3008
+      ],
+      "approach": [
+        4328,
+        3042
+      ],
+      "kind": "door_chore",
+      "closed_note": "家里在晒柿饼"
+    },
+    {
+      "id": "visit_rose",
+      "house": "rose",
+      "label": "门口 · 摘去枯花瓣",
+      "pos": [
+        4513,
+        4200
+      ],
+      "approach": [
+        4449,
+        4234
+      ],
+      "kind": "door_chore",
+      "closed_note": "午后歇一会儿"
     }
   ],
   "doors": [
@@ -1224,23 +1434,6 @@
       "explicit_opening": true
     },
     {
-      "id": "visit_erba",
-      "target": "v_erba",
-      "label": "拜访二爸家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        1963,
-        510
-      ],
-      "approach": [
-        1963,
-        544
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
       "id": "visit_laowu",
       "target": "v_laowu",
       "label": "拜访老屋",
@@ -1258,23 +1451,6 @@
       "explicit_opening": true
     },
     {
-      "id": "visit_daba",
-      "target": "v_daba",
-      "label": "拜访大爸家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        2528,
-        1293
-      ],
-      "approach": [
-        2528,
-        1327
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
       "id": "visit_h5",
       "target": "v_h5",
       "label": "拜访5A · 养蜂小院",
@@ -1287,23 +1463,6 @@
       "approach": [
         308,
         1703
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_h2",
-      "target": "v_h2",
-      "label": "拜访2A · 缝补人家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        2709,
-        2282
-      ],
-      "approach": [
-        2709,
-        2316
       ],
       "width": 68,
       "explicit_opening": true
@@ -1338,193 +1497,6 @@
       "approach": [
         1698,
         2792
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_h6",
-      "target": "v_h6",
-      "label": "拜访6A · 花窗人家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        2912,
-        3312
-      ],
-      "approach": [
-        2912,
-        3346
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_h8",
-      "target": "v_h8",
-      "label": "拜访8A · 茶香小院",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        224,
-        3371
-      ],
-      "approach": [
-        224,
-        3405
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_h7",
-      "target": "v_h7",
-      "label": "拜访7A · 窄巷人家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        1874,
-        3546
-      ],
-      "approach": [
-        1874,
-        3580
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_h4",
-      "target": "v_h4",
-      "label": "拜访4A · 田边平房",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        558,
-        4149
-      ],
-      "approach": [
-        558,
-        4183
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_h1",
-      "target": "v_h1",
-      "label": "拜访1A · 蓝瓦人家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        3145,
-        4140
-      ],
-      "approach": [
-        3145,
-        4174
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_flower",
-      "target": "v_flower",
-      "label": "拜访花房小楼",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        539,
-        1056
-      ],
-      "approach": [
-        539,
-        1090
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_whitebrick",
-      "target": "v_whitebrick",
-      "label": "拜访白砖小院",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        3247,
-        536
-      ],
-      "approach": [
-        3247,
-        570
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_grape",
-      "target": "v_grape",
-      "label": "拜访葡萄架小院",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        4060,
-        627
-      ],
-      "approach": [
-        4060,
-        661
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_sunflower",
-      "target": "v_sunflower",
-      "label": "拜访向日葵之家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        4079,
-        1766
-      ],
-      "approach": [
-        4079,
-        1800
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_persimmon",
-      "target": "v_persimmon",
-      "label": "拜访柿树老院",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        4328,
-        3008
-      ],
-      "approach": [
-        4328,
-        3042
-      ],
-      "width": 68,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_rose",
-      "target": "v_rose",
-      "label": "拜访玫瑰花之家",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        4449,
-        4200
-      ],
-      "approach": [
-        4449,
-        4234
       ],
       "width": 68,
       "explicit_opening": true

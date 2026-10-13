@@ -12727,6 +12727,20 @@
             1.25
           ],
           "front": false
+        },
+        {
+          "id": "house_community",
+          "file": "res://ayu_home/v4/assets/village/cabin.png",
+          "pos": [
+            1060,
+            3500
+          ],
+          "foot": 3748,
+          "scale": [
+            0.3,
+            0.3
+          ],
+          "front": false
         }
       ],
       "obstacles": [
@@ -12873,6 +12887,12 @@
           4420,
           90,
           280
+        ],
+        [
+          1120,
+          3550,
+          350,
+          190
         ]
       ],
       "hotspots": [
@@ -12992,6 +13012,216 @@
             615,
             2840
           ]
+        },
+        {
+          "id": "visit_erba",
+          "house": "erba",
+          "label": "门口 · 点亮门边灯",
+          "pos": [
+            2027,
+            510
+          ],
+          "approach": [
+            1963,
+            544
+          ],
+          "kind": "door_chore",
+          "closed_note": "门闩落下了"
+        },
+        {
+          "id": "visit_daba",
+          "house": "daba",
+          "label": "门口 · 收齐散竹条",
+          "pos": [
+            2592,
+            1293
+          ],
+          "approach": [
+            2528,
+            1327
+          ],
+          "kind": "door_chore",
+          "closed_note": "竹帘放下了"
+        },
+        {
+          "id": "visit_h2",
+          "house": "h2",
+          "label": "门口 · 理顺门边线筐",
+          "pos": [
+            2773,
+            2282
+          ],
+          "approach": [
+            2709,
+            2316
+          ],
+          "kind": "door_chore",
+          "closed_note": "活动中心值日"
+        },
+        {
+          "id": "visit_h6",
+          "house": "h6",
+          "label": "门口 · 给窗下花浇水",
+          "pos": [
+            2976,
+            3312
+          ],
+          "approach": [
+            2912,
+            3346
+          ],
+          "kind": "door_chore",
+          "closed_note": "门帘已放下"
+        },
+        {
+          "id": "visit_h8",
+          "house": "h8",
+          "label": "门口 · 码好门旁柴段",
+          "pos": [
+            288,
+            3371
+          ],
+          "approach": [
+            224,
+            3405
+          ],
+          "kind": "door_chore",
+          "closed_note": "烟囱旁留了条"
+        },
+        {
+          "id": "visit_h7",
+          "house": "h7",
+          "label": "门口 · 翻一翻晒粮盘",
+          "pos": [
+            1938,
+            3546
+          ],
+          "approach": [
+            1874,
+            3580
+          ],
+          "kind": "door_chore",
+          "closed_note": "今天下田去了"
+        },
+        {
+          "id": "visit_h4",
+          "house": "h4",
+          "label": "门口 · 扫净门前落叶",
+          "pos": [
+            622,
+            4149
+          ],
+          "approach": [
+            558,
+            4183
+          ],
+          "kind": "door_chore",
+          "closed_note": "全家去赶集"
+        },
+        {
+          "id": "visit_h1",
+          "house": "h1",
+          "label": "门口 · 把报纸卷进筒",
+          "pos": [
+            3209,
+            4140
+          ],
+          "approach": [
+            3145,
+            4174
+          ],
+          "kind": "door_chore",
+          "closed_note": "屋里在午睡"
+        },
+        {
+          "id": "visit_flower",
+          "house": "flower",
+          "label": "门口 · 给鸟饮盆添水",
+          "pos": [
+            603,
+            1056
+          ],
+          "approach": [
+            539,
+            1090
+          ],
+          "kind": "door_chore",
+          "closed_note": "一家出门赏花"
+        },
+        {
+          "id": "visit_whitebrick",
+          "house": "whitebrick",
+          "label": "门口 · 擦亮铜铃",
+          "pos": [
+            3311,
+            536
+          ],
+          "approach": [
+            3247,
+            570
+          ],
+          "kind": "door_chore",
+          "closed_note": "门内传来琴声"
+        },
+        {
+          "id": "visit_grape",
+          "house": "grape",
+          "label": "门口 · 扶好葡萄藤",
+          "pos": [
+            4124,
+            627
+          ],
+          "approach": [
+            4060,
+            661
+          ],
+          "kind": "door_chore",
+          "closed_note": "藤帘放下了"
+        },
+        {
+          "id": "visit_sunflower",
+          "house": "sunflower",
+          "label": "门口 · 收拢葵籽盘",
+          "pos": [
+            4143,
+            1766
+          ],
+          "approach": [
+            4079,
+            1800
+          ],
+          "kind": "door_chore",
+          "closed_note": "主人去看蜂了"
+        },
+        {
+          "id": "visit_persimmon",
+          "house": "persimmon",
+          "label": "门口 · 捡起落地柿子",
+          "pos": [
+            4392,
+            3008
+          ],
+          "approach": [
+            4328,
+            3042
+          ],
+          "kind": "door_chore",
+          "closed_note": "家里在晒柿饼"
+        },
+        {
+          "id": "visit_rose",
+          "house": "rose",
+          "label": "门口 · 摘去枯花瓣",
+          "pos": [
+            4513,
+            4200
+          ],
+          "approach": [
+            4449,
+            4234
+          ],
+          "kind": "door_chore",
+          "closed_note": "午后歇一会儿"
         }
       ],
       "doors": [
@@ -13013,23 +13243,6 @@
           "explicit_opening": true
         },
         {
-          "id": "visit_erba",
-          "target": "v_erba",
-          "label": "拜访二爸家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            1963,
-            510
-          ],
-          "approach": [
-            1963,
-            544
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
           "id": "visit_laowu",
           "target": "v_laowu",
           "label": "拜访老屋",
@@ -13047,23 +13260,6 @@
           "explicit_opening": true
         },
         {
-          "id": "visit_daba",
-          "target": "v_daba",
-          "label": "拜访大爸家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            2528,
-            1293
-          ],
-          "approach": [
-            2528,
-            1327
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
           "id": "visit_h5",
           "target": "v_h5",
           "label": "拜访5A · 养蜂小院",
@@ -13076,23 +13272,6 @@
           "approach": [
             308,
             1703
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_h2",
-          "target": "v_h2",
-          "label": "拜访2A · 缝补人家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            2709,
-            2282
-          ],
-          "approach": [
-            2709,
-            2316
           ],
           "width": 68,
           "explicit_opening": true
@@ -13132,188 +13311,22 @@
           "explicit_opening": true
         },
         {
-          "id": "visit_h6",
-          "target": "v_h6",
-          "label": "拜访6A · 花窗人家",
+          "id": "visit_community",
+          "target": "my_cabin",
+          "label": "到村民活动中心",
           "kind": "door",
           "face": "down",
           "pos": [
-            2912,
-            3312
+            1280,
+            3748
           ],
           "approach": [
-            2912,
-            3346
+            1280,
+            3780
           ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_h8",
-          "target": "v_h8",
-          "label": "拜访8A · 茶香小院",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            224,
-            3371
-          ],
-          "approach": [
-            224,
-            3405
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_h7",
-          "target": "v_h7",
-          "label": "拜访7A · 窄巷人家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            1874,
-            3546
-          ],
-          "approach": [
-            1874,
-            3580
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_h4",
-          "target": "v_h4",
-          "label": "拜访4A · 田边平房",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            558,
-            4149
-          ],
-          "approach": [
-            558,
-            4183
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_h1",
-          "target": "v_h1",
-          "label": "拜访1A · 蓝瓦人家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            3145,
-            4140
-          ],
-          "approach": [
-            3145,
-            4174
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_flower",
-          "target": "v_flower",
-          "label": "拜访花房小楼",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            539,
-            1056
-          ],
-          "approach": [
-            539,
-            1090
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_whitebrick",
-          "target": "v_whitebrick",
-          "label": "拜访白砖小院",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            3247,
-            536
-          ],
-          "approach": [
-            3247,
-            570
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_grape",
-          "target": "v_grape",
-          "label": "拜访葡萄架小院",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            4060,
-            627
-          ],
-          "approach": [
-            4060,
-            661
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_sunflower",
-          "target": "v_sunflower",
-          "label": "拜访向日葵之家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            4079,
-            1766
-          ],
-          "approach": [
-            4079,
-            1800
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_persimmon",
-          "target": "v_persimmon",
-          "label": "拜访柿树老院",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            4328,
-            3008
-          ],
-          "approach": [
-            4328,
-            3042
-          ],
-          "width": 68,
-          "explicit_opening": true
-        },
-        {
-          "id": "visit_rose",
-          "target": "v_rose",
-          "label": "拜访玫瑰花之家",
-          "kind": "door",
-          "face": "down",
-          "pos": [
-            4449,
-            4200
-          ],
-          "approach": [
-            4449,
-            4234
+          "arrival": [
+            1288,
+            3784
           ],
           "width": 68,
           "explicit_opening": true
@@ -13397,20 +13410,6 @@
       "asset_root": "res://ayu_home/v3/assets/",
       "props": [
         {
-          "id": "cabin",
-          "file": "res://ayu_home/v4/assets/village/cabin.png",
-          "pos": [
-            150,
-            45
-          ],
-          "foot": 405,
-          "scale": [
-            0.45,
-            0.45
-          ],
-          "front": false
-        },
-        {
           "id": "yard_tree1",
           "file": "res://ayu_home/v4/assets/village/green_tree.png",
           "pos": [
@@ -13456,14 +13455,7 @@
           "plant_type": "fruit"
         }
       ],
-      "obstacles": [
-        [
-          230,
-          90,
-          560,
-          277
-        ]
-      ],
+      "obstacles": [],
       "hotspots": [
         {
           "id": "yard",
@@ -13509,23 +13501,6 @@
           "kind": "door",
           "width": 60,
           "explicit_opening": true
-        },
-        {
-          "id": "cabin",
-          "label": "进自己的小屋",
-          "target": "my_cabin",
-          "pos": [
-            486,
-            410
-          ],
-          "approach": [
-            486,
-            445
-          ],
-          "face": "down",
-          "kind": "door",
-          "width": 60,
-          "explicit_opening": true
         }
       ],
       "anchors": {},
@@ -13547,144 +13522,213 @@
       ],
       "walk_rect": [
         35,
-        360,
+        70,
         980,
-        500
+        790
       ],
       "outdoor": true,
       "view_scale": 1.25
     },
     "my_cabin": {
       "id": "my_cabin",
-      "title": "自己的小屋",
+      "title": "村民活动中心",
       "group": "村庄",
       "floor": 0,
       "size": [
-        780,
-        710
+        508,
+        600
       ],
       "asset_root": "res://ayu_home/v3/assets/",
-      "background": "res://ayu_home/v4/assets/village/interior_my_cabin.png",
-      "props": [
-        {
-          "id": "bed0",
-          "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-          "pos": [
-            65,
-            130
-          ],
-          "foot": 340,
-          "scale": [
-            1,
-            1
-          ],
-          "front": false
-        },
-        {
-          "id": "kitchen1",
-          "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-          "pos": [
-            545,
-            120
-          ],
-          "foot": 203,
-          "scale": [
-            1,
-            1
-          ],
-          "front": false
-        },
-        {
-          "id": "window",
-          "file": "res://ayu_home/v4/assets/village/window.png",
-          "pos": [
-            292,
-            21
-          ],
-          "foot": 75,
-          "scale": [
-            1,
-            1
-          ],
-          "front": false
-        }
-      ],
+      "background": "res://ayu_home/v4/assets/institutions/community-v1.png",
+      "props": [],
       "obstacles": [
         [
-          70,
-          259.0,
-          140,
-          86.0
+          27,
+          151,
+          84,
+          141
         ],
         [
-          550,
-          172.8,
-          145,
-          35.2
+          27,
+          296,
+          60,
+          65
+        ],
+        [
+          36,
+          328,
+          47,
+          36
+        ],
+        [
+          195,
+          113,
+          281,
+          67
+        ],
+        [
+          219,
+          159,
+          32,
+          21
+        ],
+        [
+          154,
+          245,
+          204,
+          89
+        ],
+        [
+          174,
+          218,
+          163,
+          26
+        ],
+        [
+          174,
+          340,
+          163,
+          39
+        ],
+        [
+          430,
+          236,
+          47,
+          163
+        ],
+        [
+          28,
+          377,
+          94,
+          61
+        ],
+        [
+          28,
+          431,
+          51,
+          57
+        ],
+        [
+          123,
+          420,
+          51,
+          47
         ]
       ],
       "hotspots": [
         {
-          "id": "yard",
-          "label": "摆放家具",
+          "id": "community_meal",
           "pos": [
-            415,
-            420
+            76,
+            207
           ],
           "approach": [
-            415,
-            470
+            137,
+            207
           ],
-          "kind": "village"
+          "kind": "community_game",
+          "label": "一起备共桌餐"
         },
         {
-          "id": "diary",
-          "label": "写在这里的日子",
+          "id": "craft_demo",
           "pos": [
-            240,
-            390
+            333,
+            123
           ],
           "approach": [
-            240,
-            430
+            333,
+            204
           ],
-          "kind": "village"
+          "kind": "bamboo_weave",
+          "label": "编一片竹席",
+          "action": "weave"
+        },
+        {
+          "id": "shared_table",
+          "pos": [
+            271,
+            290
+          ],
+          "approach": [
+            403,
+            290
+          ],
+          "kind": "communal_table",
+          "label": "摆好共桌碗碟",
+          "action": "table"
+        },
+        {
+          "id": "story_book",
+          "pos": [
+            148,
+            487
+          ],
+          "approach": [
+            96,
+            449
+          ],
+          "kind": "story_album",
+          "label": "翻翻图画故事册",
+          "action": "read"
+        },
+        {
+          "id": "return_box",
+          "pos": [
+            454,
+            310
+          ],
+          "approach": [
+            403,
+            315
+          ],
+          "kind": "activity_tidy",
+          "label": "收好棋盒和球",
+          "action": "tidy"
         },
         {
           "id": "rest_seat",
-          "label": "坐在床边",
           "pos": [
-            145,
-            345
+            53,
+            458
           ],
           "approach": [
-            145,
-            380
+            96,
+            449
           ],
           "kind": "seat",
+          "label": "坐在茶角歇脚",
           "seat": [
-            145,
-            330
+            53,
+            458
           ],
-          "face": "down"
+          "face": "right"
         }
       ],
       "doors": [
         {
-          "id": "yard",
-          "label": "到自己的院子",
-          "target": "my_yard",
+          "id": "outside",
+          "label": "回到村路",
+          "target": "village",
           "pos": [
-            390,
-            656
+            347,
+            552
           ],
           "approach": [
-            390,
-            680
+            347,
+            499
+          ],
+          "arrival": [
+            347,
+            499
           ],
           "face": "up",
           "kind": "door",
-          "width": 60,
+          "span": [
+            347,
+            510,
+            89
+          ],
+          "width": 89,
           "explicit_opening": true
         }
       ],
@@ -13692,9 +13736,14 @@
       "windows": [],
       "lamps": [
         [
-          390,
-          170,
-          260
+          100,
+          105,
+          170
+        ],
+        [
+          340,
+          92,
+          170
         ]
       ],
       "source_offset": [
@@ -13702,17 +13751,104 @@
         0
       ],
       "spawn": [
-        390,
-        625
+        347,
+        499
       ],
       "walk_rect": [
-        22,
+        24,
         96,
-        736,
-        592
+        460,
+        490
       ],
       "outdoor": false,
-      "view_scale": 1.15
+      "view_scale": 2.0,
+      "walk_polygons": [
+        [
+          [
+            24,
+            96
+          ],
+          [
+            484,
+            96
+          ],
+          [
+            484,
+            510
+          ],
+          [
+            392,
+            510
+          ],
+          [
+            392,
+            585
+          ],
+          [
+            303,
+            585
+          ],
+          [
+            303,
+            510
+          ],
+          [
+            24,
+            510
+          ]
+        ]
+      ],
+      "nav_cell": 4,
+      "institution": "community",
+      "npc": {
+        "id": "fang",
+        "character_id": "fang",
+        "name": "方婆婆",
+        "portrait": "fang",
+        "preset": 9,
+        "pos": [
+          137,
+          207
+        ]
+      },
+      "resident": {
+        "schedule": [
+          {
+            "slot": "早",
+            "pos": [
+              137,
+              207
+            ],
+            "face": "left",
+            "action": "wash",
+            "line": "我在这里值日，先把菜洗好，再摆大家的碗。"
+          },
+          {
+            "slot": "中",
+            "pos": [
+              403,
+              290
+            ],
+            "face": "left",
+            "action": "stir",
+            "line": "共桌的菜一起拌，竹条等会儿也教你编。"
+          },
+          {
+            "slot": "晚",
+            "pos": [
+              53,
+              458
+            ],
+            "approach": [
+              96,
+              449
+            ],
+            "face": "right",
+            "action": "read",
+            "line": "今天的物件都收齐了，我把故事册这一页合上。"
+          }
+        ]
+      }
     },
     "v_flower": {
       "id": "v_flower",
@@ -16664,2076 +16800,5 @@
     "oldhouse",
     "garden",
     "grove"
-  ],
-  "my_cabin": {
-    "id": "my_cabin",
-    "title": "村民活动中心",
-    "group": "村庄",
-    "floor": 0,
-    "size": [
-      508,
-      600
-    ],
-    "asset_root": "res://ayu_home/v3/assets/",
-    "background": "res://ayu_home/v4/assets/institutions/community-v1.png",
-    "props": [],
-    "obstacles": [
-      [
-        27,
-        151,
-        84,
-        141
-      ],
-      [
-        27,
-        296,
-        60,
-        65
-      ],
-      [
-        36,
-        328,
-        47,
-        36
-      ],
-      [
-        195,
-        113,
-        281,
-        67
-      ],
-      [
-        219,
-        159,
-        32,
-        21
-      ],
-      [
-        154,
-        245,
-        204,
-        89
-      ],
-      [
-        174,
-        218,
-        163,
-        26
-      ],
-      [
-        174,
-        340,
-        163,
-        39
-      ],
-      [
-        430,
-        236,
-        47,
-        163
-      ],
-      [
-        28,
-        377,
-        94,
-        61
-      ],
-      [
-        28,
-        431,
-        51,
-        57
-      ],
-      [
-        123,
-        420,
-        51,
-        47
-      ]
-    ],
-    "hotspots": [
-      {
-        "id": "community_meal",
-        "pos": [
-          76,
-          207
-        ],
-        "approach": [
-          137,
-          207
-        ],
-        "kind": "community_game",
-        "label": "一起备共桌餐"
-      },
-      {
-        "id": "craft_demo",
-        "pos": [
-          333,
-          123
-        ],
-        "approach": [
-          333,
-          204
-        ],
-        "kind": "bamboo_weave",
-        "label": "编一片竹席",
-        "action": "weave"
-      },
-      {
-        "id": "shared_table",
-        "pos": [
-          271,
-          290
-        ],
-        "approach": [
-          403,
-          290
-        ],
-        "kind": "communal_table",
-        "label": "摆好共桌碗碟",
-        "action": "table"
-      },
-      {
-        "id": "story_book",
-        "pos": [
-          148,
-          487
-        ],
-        "approach": [
-          96,
-          449
-        ],
-        "kind": "story_album",
-        "label": "翻翻图画故事册",
-        "action": "read"
-      },
-      {
-        "id": "return_box",
-        "pos": [
-          454,
-          310
-        ],
-        "approach": [
-          403,
-          315
-        ],
-        "kind": "activity_tidy",
-        "label": "收好棋盒和球",
-        "action": "tidy"
-      },
-      {
-        "id": "rest_seat",
-        "pos": [
-          53,
-          458
-        ],
-        "approach": [
-          96,
-          449
-        ],
-        "kind": "seat",
-        "label": "坐在茶角歇脚",
-        "seat": [
-          53,
-          458
-        ],
-        "face": "right"
-      }
-    ],
-    "doors": [
-      {
-        "id": "outside",
-        "label": "回到村路",
-        "target": "village",
-        "pos": [
-          347,
-          552
-        ],
-        "approach": [
-          347,
-          499
-        ],
-        "arrival": [
-          347,
-          499
-        ],
-        "face": "up",
-        "kind": "door",
-        "span": [
-          347,
-          510,
-          89
-        ],
-        "width": 89,
-        "explicit_opening": true
-      }
-    ],
-    "anchors": {},
-    "windows": [],
-    "lamps": [
-      [
-        100,
-        105,
-        170
-      ],
-      [
-        340,
-        92,
-        170
-      ]
-    ],
-    "source_offset": [
-      0,
-      0
-    ],
-    "spawn": [
-      347,
-      499
-    ],
-    "walk_rect": [
-      24,
-      96,
-      460,
-      490
-    ],
-    "outdoor": false,
-    "view_scale": 2.0,
-    "walk_polygons": [
-      [
-        [
-          24,
-          96
-        ],
-        [
-          484,
-          96
-        ],
-        [
-          484,
-          510
-        ],
-        [
-          392,
-          510
-        ],
-        [
-          392,
-          585
-        ],
-        [
-          303,
-          585
-        ],
-        [
-          303,
-          510
-        ],
-        [
-          24,
-          510
-        ]
-      ]
-    ],
-    "nav_cell": 4,
-    "institution": "community",
-    "npc": {
-      "id": "fang",
-      "character_id": "fang",
-      "name": "方婆婆",
-      "portrait": "fang",
-      "preset": 9,
-      "pos": [
-        137,
-        207
-      ]
-    },
-    "resident": {
-      "schedule": [
-        {
-          "slot": "早",
-          "pos": [
-            137,
-            207
-          ],
-          "face": "left",
-          "action": "wash",
-          "line": "我在这里值日，先把菜洗好，再摆大家的碗。"
-        },
-        {
-          "slot": "中",
-          "pos": [
-            403,
-            290
-          ],
-          "face": "left",
-          "action": "stir",
-          "line": "共桌的菜一起拌，竹条等会儿也教你编。"
-        },
-        {
-          "slot": "晚",
-          "pos": [
-            53,
-            458
-          ],
-          "approach": [
-            96,
-            449
-          ],
-          "face": "right",
-          "action": "read",
-          "line": "今天的物件都收齐了，我把故事册这一页合上。"
-        }
-      ]
-    }
-  },
-  "my_yard": {
-    "id": "my_yard",
-    "title": "自己的小院",
-    "group": "村庄",
-    "floor": 0,
-    "size": [
-      1050,
-      900
-    ],
-    "background": "res://ayu_home/v4/assets/village/yard_ground.png",
-    "asset_root": "res://ayu_home/v3/assets/",
-    "props": [
-      {
-        "id": "yard_tree1",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          45,
-          450
-        ],
-        "foot": 600,
-        "scale": [
-          1.3,
-          1.3
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "yard_tree2",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          880,
-          290
-        ],
-        "foot": 450,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "yard_tree3",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          865,
-          650
-        ],
-        "foot": 810,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      }
-    ],
-    "obstacles": [],
-    "hotspots": [
-      {
-        "id": "yard",
-        "label": "布置与开地",
-        "pos": [
-          680,
-          585
-        ],
-        "approach": [
-          680,
-          615
-        ],
-        "kind": "village"
-      },
-      {
-        "id": "farm",
-        "label": "自留地与动物帮忙",
-        "pos": [
-          365,
-          650
-        ],
-        "approach": [
-          365,
-          680
-        ],
-        "kind": "village"
-      }
-    ],
-    "doors": [
-      {
-        "id": "village",
-        "label": "回村里走走",
-        "target": "village",
-        "pos": [
-          550,
-          793
-        ],
-        "approach": [
-          550,
-          815
-        ],
-        "face": "up",
-        "kind": "door",
-        "width": 60,
-        "explicit_opening": true
-      }
-    ],
-    "anchors": {},
-    "windows": [],
-    "lamps": [
-      [
-        300,
-        280,
-        280
-      ]
-    ],
-    "source_offset": [
-      0,
-      0
-    ],
-    "spawn": [
-      550,
-      760
-    ],
-    "walk_rect": [
-      35,
-      70,
-      980,
-      790
-    ],
-    "outdoor": true,
-    "view_scale": 1.25
-  },
-  "village": {
-    "id": "village",
-    "title": "裳泓村",
-    "group": "村庄",
-    "floor": 0,
-    "size": [
-      4800,
-      4700
-    ],
-    "background": "res://ayu_home/v4/assets/village/ground.png",
-    "asset_root": "res://ayu_home/v3/assets/",
-    "props": [
-      {
-        "id": "ayu",
-        "file": "res://ayu_home/v4/assets/village/house_ayu.png",
-        "pos": [
-          1090,
-          1470
-        ],
-        "foot": 2055,
-        "front": false
-      },
-      {
-        "id": "honeybox",
-        "file": "exterior_beehive_1.png",
-        "pos": [
-          825,
-          1085
-        ],
-        "foot": 1130,
-        "front": false
-      },
-      {
-        "id": "notice",
-        "file": "res://ayu_home/v4/assets/village/board.png",
-        "pos": [
-          1955,
-          2085
-        ],
-        "foot": 2170,
-        "front": false
-      },
-      {
-        "id": "orchard0",
-        "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
-        "pos": [
-          1510,
-          1130
-        ],
-        "foot": 1300,
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "orchard1",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          1650,
-          1130
-        ],
-        "foot": 1300,
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "orchard2",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          1790,
-          1130
-        ],
-        "foot": 1300,
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "public_pond",
-        "file": "res://ayu_home/v4/assets/village/pond.png",
-        "pos": [
-          1035,
-          1000
-        ],
-        "foot": 1210,
-        "front": false
-      },
-      {
-        "id": "erba",
-        "file": "res://ayu_home/v4/assets/village/house_erba.png",
-        "pos": [
-          1640,
-          0
-        ],
-        "foot": 485,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "laowu",
-        "file": "res://ayu_home/v4/assets/village/house_laowu.png",
-        "pos": [
-          420,
-          30
-        ],
-        "foot": 437,
-        "scale": [
-          0.5208333333333334,
-          0.5208333333333334
-        ],
-        "front": false
-      },
-      {
-        "id": "daba",
-        "file": "res://ayu_home/v4/assets/village/house_daba.png",
-        "pos": [
-          2120,
-          800
-        ],
-        "foot": 1268,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "h5",
-        "file": "res://ayu_home/v4/assets/village/house_h5.png",
-        "pos": [
-          95,
-          1170
-        ],
-        "foot": 1644,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "h2",
-        "file": "res://ayu_home/v4/assets/village/house_h2.png",
-        "pos": [
-          2250,
-          1760
-        ],
-        "foot": 2257,
-        "scale": [
-          0.5859375,
-          0.5859375
-        ],
-        "front": false
-      },
-      {
-        "id": "h3",
-        "file": "res://ayu_home/v4/assets/village/house_h3.png",
-        "pos": [
-          80,
-          2130
-        ],
-        "foot": 2630,
-        "scale": [
-          0.5696614583333334,
-          0.5696614583333334
-        ],
-        "front": false
-      },
-      {
-        "id": "mayor",
-        "file": "res://ayu_home/v4/assets/village/house_mayor.png",
-        "pos": [
-          1130,
-          2290
-        ],
-        "foot": 2733,
-        "scale": [
-          0.5436197916666666,
-          0.5436197916666666
-        ],
-        "front": false
-      },
-      {
-        "id": "h6",
-        "file": "res://ayu_home/v4/assets/village/house_h6.png",
-        "pos": [
-          2500,
-          2730
-        ],
-        "foot": 3287,
-        "scale": [
-          0.5697513812154696,
-          0.5697513812154696
-        ],
-        "front": false
-      },
-      {
-        "id": "h8",
-        "file": "res://ayu_home/v4/assets/village/house_h8.png",
-        "pos": [
-          80,
-          2940
-        ],
-        "foot": 3346,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "h7",
-        "file": "res://ayu_home/v4/assets/village/house_h7.png",
-        "pos": [
-          1590,
-          3030
-        ],
-        "foot": 3521,
-        "scale": [
-          0.419921875,
-          0.419921875
-        ],
-        "front": false
-      },
-      {
-        "id": "h4",
-        "file": "res://ayu_home/v4/assets/village/house_h4.png",
-        "pos": [
-          120,
-          3630
-        ],
-        "foot": 4124,
-        "scale": [
-          0.5696614583333334,
-          0.5696614583333334
-        ],
-        "front": false
-      },
-      {
-        "id": "h1",
-        "file": "res://ayu_home/v4/assets/village/house_h1.png",
-        "pos": [
-          2720,
-          3630
-        ],
-        "foot": 4115,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "flower",
-        "file": "res://ayu_home/v4/assets/village/house_flower.png",
-        "pos": [
-          60,
-          585
-        ],
-        "foot": 1031,
-        "scale": [
-          0.5110677083333334,
-          0.5110677083333334
-        ],
-        "front": false
-      },
-      {
-        "id": "whitebrick",
-        "file": "res://ayu_home/v4/assets/village/house_whitebrick.png",
-        "pos": [
-          2720,
-          20
-        ],
-        "foot": 511,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "grape",
-        "file": "res://ayu_home/v4/assets/village/house_grape.png",
-        "pos": [
-          3780,
-          120
-        ],
-        "foot": 602,
-        "scale": [
-          0.5696614583333334,
-          0.5696614583333334
-        ],
-        "front": false
-      },
-      {
-        "id": "sunflower",
-        "file": "res://ayu_home/v4/assets/village/house_sunflower.png",
-        "pos": [
-          3840,
-          1260
-        ],
-        "foot": 1741,
-        "scale": [
-          0.537109375,
-          0.537109375
-        ],
-        "front": false
-      },
-      {
-        "id": "persimmon",
-        "file": "res://ayu_home/v4/assets/village/house_persimmon.png",
-        "pos": [
-          3730,
-          2450
-        ],
-        "foot": 2983,
-        "scale": [
-          0.5989583333333334,
-          0.5989583333333334
-        ],
-        "front": false
-      },
-      {
-        "id": "rose",
-        "file": "res://ayu_home/v4/assets/village/house_rose.png",
-        "pos": [
-          3820,
-          3690
-        ],
-        "foot": 4175,
-        "scale": [
-          0.5533854166666666,
-          0.5533854166666666
-        ],
-        "front": false
-      },
-      {
-        "id": "wildtree2",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          2072,
-          1811
-        ],
-        "foot": 1961,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree5",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3751,
-          1614
-        ],
-        "foot": 1764,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree6",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          2180,
-          2485
-        ],
-        "foot": 2635,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree9",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          3421,
-          3500
-        ],
-        "foot": 3650,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree14",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3138,
-          2474
-        ],
-        "foot": 2624,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree16",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          296,
-          1980
-        ],
-        "foot": 2130,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree21",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          3723,
-          2145
-        ],
-        "foot": 2295,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree23",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          4049,
-          1929
-        ],
-        "foot": 2079,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree25",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          2285,
-          4374
-        ],
-        "foot": 4524,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree35",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          1841,
-          694
-        ],
-        "foot": 844,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree42",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          2226,
-          3969
-        ],
-        "foot": 4119,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree44",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          4405,
-          4403
-        ],
-        "foot": 4553,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree45",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          4146,
-          855
-        ],
-        "foot": 1005,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree48",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          613,
-          1901
-        ],
-        "foot": 2051,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree56",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          4320,
-          1964
-        ],
-        "foot": 2114,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree58",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          2962,
-          2504
-        ],
-        "foot": 2654,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree68",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3969,
-          4470
-        ],
-        "foot": 4620,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree76",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          4262,
-          3302
-        ],
-        "foot": 3452,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree77",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3463,
-          982
-        ],
-        "foot": 1132,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree82",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          2697,
-          1538
-        ],
-        "foot": 1688,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree83",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          1639,
-          910
-        ],
-        "foot": 1060,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree85",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          1497,
-          250
-        ],
-        "foot": 400,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree86",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          182,
-          189
-        ],
-        "foot": 339,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree92",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3609,
-          2475
-        ],
-        "foot": 2625,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree105",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          4175,
-          2102
-        ],
-        "foot": 2252,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree106",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          1661,
-          1352
-        ],
-        "foot": 1502,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree110",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          1325,
-          433
-        ],
-        "foot": 583,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree113",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3636,
-          1639
-        ],
-        "foot": 1789,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree114",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          1989,
-          1181
-        ],
-        "foot": 1331,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree116",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          1024,
-          2602
-        ],
-        "foot": 2752,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree117",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          3370,
-          1569
-        ],
-        "foot": 1719,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree120",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          4062,
-          2339
-        ],
-        "foot": 2489,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree128",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          2547,
-          3565
-        ],
-        "foot": 3715,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree130",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          3249,
-          1318
-        ],
-        "foot": 1468,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree132",
-        "file": "res://ayu_home/v4/assets/village/green_tree.png",
-        "pos": [
-          3585,
-          2381
-        ],
-        "foot": 2531,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "evergreen"
-      },
-      {
-        "id": "wildtree134",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          1441,
-          3692
-        ],
-        "foot": 3842,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "wildtree139",
-        "file": "res://ayu_home/v4/assets/village/pear_tree.png",
-        "pos": [
-          3426,
-          4434
-        ],
-        "foot": 4584,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "deciduous"
-      },
-      {
-        "id": "wildtree143",
-        "file": "res://ayu_home/v4/assets/village/apple_tree.png",
-        "pos": [
-          3459,
-          2447
-        ],
-        "foot": 2597,
-        "scale": [
-          1,
-          1
-        ],
-        "front": false,
-        "plant_type": "fruit"
-      },
-      {
-        "id": "site_pond",
-        "file": "res://ayu_home/v4/assets/village/pond.png",
-        "pos": [
-          910,
-          3810
-        ],
-        "foot": 4040,
-        "scale": [
-          1.25,
-          1.25
-        ],
-        "front": false
-      },
-      {
-        "id": "house_community",
-        "file": "res://ayu_home/v4/assets/village/cabin.png",
-        "pos": [
-          1060,
-          3500
-        ],
-        "foot": 3748,
-        "scale": [
-          0.3,
-          0.3
-        ],
-        "front": false
-      }
-    ],
-    "obstacles": [
-      [
-        1108,
-        1490,
-        764,
-        590
-      ],
-      [
-        1654,
-        16,
-        822,
-        452
-      ],
-      [
-        434,
-        46,
-        772,
-        374
-      ],
-      [
-        2134,
-        816,
-        822,
-        435
-      ],
-      [
-        109,
-        1186,
-        822,
-        441
-      ],
-      [
-        2264,
-        1776,
-        872,
-        464
-      ],
-      [
-        94,
-        2146,
-        847,
-        467
-      ],
-      [
-        1144,
-        2306,
-        807,
-        410
-      ],
-      [
-        2514,
-        2746,
-        797,
-        524
-      ],
-      [
-        94,
-        2956,
-        822,
-        373
-      ],
-      [
-        1604,
-        3046,
-        402,
-        458
-      ],
-      [
-        134,
-        3646,
-        847,
-        461
-      ],
-      [
-        2734,
-        3646,
-        822,
-        452
-      ],
-      [
-        74,
-        601,
-        757,
-        413
-      ],
-      [
-        2734,
-        36,
-        822,
-        458
-      ],
-      [
-        3794,
-        136,
-        847,
-        449
-      ],
-      [
-        3854,
-        1276,
-        797,
-        448
-      ],
-      [
-        3744,
-        2466,
-        892,
-        500
-      ],
-      [
-        3834,
-        3706,
-        822,
-        452
-      ],
-      [
-        3480,
-        0,
-        90,
-        660
-      ],
-      [
-        3480,
-        850,
-        90,
-        970
-      ],
-      [
-        3480,
-        1990,
-        90,
-        980
-      ],
-      [
-        3480,
-        3150,
-        90,
-        1080
-      ],
-      [
-        3480,
-        4420,
-        90,
-        280
-      ],
-      [
-        1120,
-        3550,
-        350,
-        190
-      ]
-    ],
-    "hotspots": [
-      {
-        "id": "mayor",
-        "label": "村长林伯",
-        "kind": "village",
-        "pos": [
-          1530,
-          2860
-        ],
-        "approach": [
-          1530,
-          2890
-        ]
-      },
-      {
-        "id": "honey",
-        "label": "凯凯 · 蜂蜜箱",
-        "kind": "village",
-        "pos": [
-          890,
-          1130
-        ],
-        "approach": [
-          890,
-          1160
-        ]
-      },
-      {
-        "id": "pond",
-        "label": "池塘 · 喂鱼",
-        "kind": "village",
-        "pos": [
-          1450,
-          1250
-        ],
-        "approach": [
-          1450,
-          1280
-        ]
-      },
-      {
-        "id": "chicken",
-        "label": "鸡圈 · 添谷子",
-        "kind": "village",
-        "pos": [
-          1080,
-          1340
-        ],
-        "approach": [
-          1080,
-          1370
-        ]
-      },
-      {
-        "id": "orchard",
-        "label": "时令果树",
-        "kind": "village",
-        "pos": [
-          1690,
-          1310
-        ],
-        "approach": [
-          1690,
-          1340
-        ]
-      },
-      {
-        "id": "market",
-        "label": "村口货郎",
-        "kind": "village",
-        "pos": [
-          2330,
-          4310
-        ],
-        "approach": [
-          2330,
-          4340
-        ]
-      },
-      {
-        "id": "home_site",
-        "label": "看看自己的地",
-        "kind": "village",
-        "pos": [
-          1350,
-          4050
-        ],
-        "approach": [
-          1350,
-          4080
-        ]
-      },
-      {
-        "id": "map",
-        "label": "村里的路牌",
-        "kind": "village",
-        "pos": [
-          1980,
-          2140
-        ],
-        "approach": [
-          1980,
-          2170
-        ]
-      },
-      {
-        "id": "mill",
-        "label": "小涛 · 石磨与小事",
-        "kind": "village",
-        "pos": [
-          615,
-          2810
-        ],
-        "approach": [
-          615,
-          2840
-        ]
-      }
-    ],
-    "doors": [
-      {
-        "id": "visit_ayu",
-        "target": "exterior",
-        "label": "拜访0A · 阿鱼家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          1490,
-          2100
-        ],
-        "approach": [
-          1490,
-          2122
-        ],
-        "width": 64,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_erba",
-        "target": "v_erba",
-        "label": "拜访二爸家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          1963,
-          510
-        ],
-        "approach": [
-          1963,
-          544
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_laowu",
-        "target": "v_laowu",
-        "label": "拜访老屋",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          828,
-          462
-        ],
-        "approach": [
-          828,
-          496
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_daba",
-        "target": "v_daba",
-        "label": "拜访大爸家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          2528,
-          1293
-        ],
-        "approach": [
-          2528,
-          1327
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h5",
-        "target": "v_h5",
-        "label": "拜访5A · 养蜂小院",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          308,
-          1669
-        ],
-        "approach": [
-          308,
-          1703
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h2",
-        "target": "v_h2",
-        "label": "拜访2A · 缝补人家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          2709,
-          2282
-        ],
-        "approach": [
-          2709,
-          2316
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h3",
-        "target": "v_h3",
-        "label": "拜访小涛磨坊",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          614,
-          2655
-        ],
-        "approach": [
-          614,
-          2689
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_mayor",
-        "target": "v_mayor",
-        "label": "拜访村委会",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          1698,
-          2758
-        ],
-        "approach": [
-          1698,
-          2792
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h6",
-        "target": "v_h6",
-        "label": "拜访6A · 花窗人家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          2912,
-          3312
-        ],
-        "approach": [
-          2912,
-          3346
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h8",
-        "target": "v_h8",
-        "label": "拜访8A · 茶香小院",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          224,
-          3371
-        ],
-        "approach": [
-          224,
-          3405
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h7",
-        "target": "v_h7",
-        "label": "拜访7A · 窄巷人家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          1874,
-          3546
-        ],
-        "approach": [
-          1874,
-          3580
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h4",
-        "target": "v_h4",
-        "label": "拜访4A · 田边平房",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          558,
-          4149
-        ],
-        "approach": [
-          558,
-          4183
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_h1",
-        "target": "v_h1",
-        "label": "拜访1A · 蓝瓦人家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          3145,
-          4140
-        ],
-        "approach": [
-          3145,
-          4174
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_flower",
-        "target": "v_flower",
-        "label": "拜访花房小楼",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          539,
-          1056
-        ],
-        "approach": [
-          539,
-          1090
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_whitebrick",
-        "target": "v_whitebrick",
-        "label": "拜访白砖小院",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          3247,
-          536
-        ],
-        "approach": [
-          3247,
-          570
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_grape",
-        "target": "v_grape",
-        "label": "拜访葡萄架小院",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          4060,
-          627
-        ],
-        "approach": [
-          4060,
-          661
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_sunflower",
-        "target": "v_sunflower",
-        "label": "拜访向日葵之家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          4079,
-          1766
-        ],
-        "approach": [
-          4079,
-          1800
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_persimmon",
-        "target": "v_persimmon",
-        "label": "拜访柿树老院",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          4328,
-          3008
-        ],
-        "approach": [
-          4328,
-          3042
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_rose",
-        "target": "v_rose",
-        "label": "拜访玫瑰花之家",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          4449,
-          4200
-        ],
-        "approach": [
-          4449,
-          4234
-        ],
-        "width": 68,
-        "explicit_opening": true
-      },
-      {
-        "id": "visit_community",
-        "target": "my_cabin",
-        "label": "到村民活动中心",
-        "kind": "door",
-        "face": "down",
-        "pos": [
-          1280,
-          3748
-        ],
-        "approach": [
-          1280,
-          3780
-        ],
-        "arrival": [
-          1288,
-          3784
-        ],
-        "width": 68,
-        "explicit_opening": true
-      }
-    ],
-    "anchors": {},
-    "windows": [],
-    "lamps": [],
-    "source_offset": [
-      0,
-      0
-    ],
-    "spawn": [
-      1500,
-      2150
-    ],
-    "walk_rect": [
-      30,
-      30,
-      4740,
-      4640
-    ],
-    "outdoor": true,
-    "view_scale": 1.15,
-    "nav_cell": 16,
-    "npcs": [
-      {
-        "id": "mayor",
-        "name": "林伯",
-        "pos": [
-          1530,
-          2860
-        ],
-        "preset": 9,
-        "character_id": "linbo",
-        "portrait": "linbo"
-      },
-      {
-        "id": "honey",
-        "name": "凯凯",
-        "pos": [
-          890,
-          1130
-        ],
-        "preset": 4,
-        "character_id": "kaikai",
-        "portrait": "kaikai"
-      },
-      {
-        "id": "mill",
-        "name": "小涛",
-        "pos": [
-          615,
-          2810
-        ],
-        "preset": 1,
-        "character_id": "xiaotao",
-        "portrait": "xiaotao"
-      },
-      {
-        "id": "market",
-        "name": "货郎",
-        "pos": [
-          2330,
-          4310
-        ],
-        "preset": 3
-      }
-    ]
-  }
+  ]
 }

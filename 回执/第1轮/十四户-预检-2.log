@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS exactly 14 doorstep households
+PASS door replaced by visible outside chore erba
+PASS real doorstep approach erba
+PASS interaction remains outside and persists erba
+PASS same-day repeat gives no duplicate relationship erba
+PASS door replaced by visible outside chore daba
+PASS real doorstep approach daba
+PASS interaction remains outside and persists daba
+PASS same-day repeat gives no duplicate relationship daba
+PASS door replaced by visible outside chore h1
+PASS real doorstep approach h1
+PASS interaction remains outside and persists h1
+PASS same-day repeat gives no duplicate relationship h1
+PASS door replaced by visible outside chore h2
+PASS real doorstep approach h2
+PASS interaction remains outside and persists h2
+PASS same-day repeat gives no duplicate relationship h2
+PASS door replaced by visible outside chore h4
+PASS real doorstep approach h4
+PASS interaction remains outside and persists h4
+PASS same-day repeat gives no duplicate relationship h4
+PASS door replaced by visible outside chore h6
+PASS real doorstep approach h6
+PASS interaction remains outside and persists h6
+PASS same-day repeat gives no duplicate relationship h6
+PASS door replaced by visible outside chore h7
+PASS real doorstep approach h7
+PASS interaction remains outside and persists h7
+PASS same-day repeat gives no duplicate relationship h7
+PASS door replaced by visible outside chore h8
+PASS real doorstep approach h8
+PASS interaction remains outside and persists h8
+PASS same-day repeat gives no duplicate relationship h8
+PASS door replaced by visible outside chore flower
+PASS real doorstep approach flower
+PASS interaction remains outside and persists flower
+PASS same-day repeat gives no duplicate relationship flower
+PASS door replaced by visible outside chore whitebrick
+PASS real doorstep approach whitebrick
+PASS interaction remains outside and persists whitebrick
+PASS same-day repeat gives no duplicate relationship whitebrick
+PASS door replaced by visible outside chore grape
+PASS real doorstep approach grape
+PASS interaction remains outside and persists grape
+PASS same-day repeat gives no duplicate relationship grape
+PASS door replaced by visible outside chore sunflower
+PASS real doorstep approach sunflower
+PASS interaction remains outside and persists sunflower
+PASS same-day repeat gives no duplicate relationship sunflower
+PASS door replaced by visible outside chore persimmon
+PASS real doorstep approach persimmon
+PASS interaction remains outside and persists persimmon
+PASS same-day repeat gives no duplicate relationship persimmon
+PASS door replaced by visible outside chore rose
+PASS real doorstep approach rose
+PASS interaction remains outside and persists rose
+PASS same-day repeat gives no duplicate relationship rose
+PASS 14 distinct spoken or written responses
+PASS all 14 award only one relationship each, no coins/items
+PASS unknown household cannot mint relationships
+PASS four institutions plus approved Ayu and old home still connected
+PASS legacy closed interior resumes at its own doorstep
+PASS all doorstep progress and actual room checkpoint survive reopen
+DOORSTEPS_ROUND1 PASS 63 checks

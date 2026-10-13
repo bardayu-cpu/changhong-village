@@ -305,6 +305,10 @@ func resident_card(id:String) -> bool:
 func interact(h:Dictionary) -> bool:
 	if is_instance_valid(institution_room) and institution_room.handle(h):return true
 	var id:=str(h.id)
+	if h.get("kind","")=="door_chore":
+		var result:Dictionary=state.act("door_chore",{"id":h.house});home.player.face="up";home.player.say(result.message);home.note=result.message
+		if is_instance_valid(overlay):overlay.queue_redraw()
+		return true
 	if h.get("kind","")!="village":return false
 	context_id=id
 	match id:

@@ -11,6 +11,10 @@ func _draw() -> void:
 			var id:=str(p.id);var at:=Vector2(p.approach[0],p.approach[1])
 			if C.PRODUCERS.has(id) and not v.producers[id].is_empty() and s.remaining(v.producers[id].due)==0:
 				draw_circle(at+Vector2(30,-42),6,Color("ffdc85"));draw_string(UI.FONT,at+Vector2(-22,-65),"可收",HORIZONTAL_ALIGNMENT_CENTER,44,16,Color("fff3d8"))
+		for spot in h.world.cfg.hotspots:
+			if spot.get("kind","")=="door_chore":
+				var done:bool=v.chores.has(s.date_key()+":house:"+str(spot.house))
+				preload("res://ayu_home/v4/core/doorstep_draw.gd").paint(self,str(spot.house),Vector2(spot.pos[0],spot.pos[1]),done)
 		for id in C.LOCATION_POINTS:
 			var a:Array=C.LOCATION_POINTS[id];var at:=Vector2(a[0],a[1])
 			draw_string(UI.FONT,at+Vector2(-70,40),("你的家 · " if v.location==id else "空地 · ")+C.LOCATIONS[id],HORIZONTAL_ALIGNMENT_CENTER,150,18,Color("fff4cf"))

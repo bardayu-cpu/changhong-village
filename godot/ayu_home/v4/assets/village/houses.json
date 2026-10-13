@@ -2,7 +2,7 @@
   {
     "id": "erba",
     "title": "二爸家",
-    "subtitle": "北坡的灯",
+    "subtitle": "门闩落下了 · 门边帮忙",
     "floors": 2,
     "at": [
       1963,
@@ -16,7 +16,8 @@
       850,
       567
     ],
-    "art": "house_erba.png"
+    "art": "house_erba.png",
+    "doorstep_only": true
   },
   {
     "id": "laowu",
@@ -40,7 +41,7 @@
   {
     "id": "daba",
     "title": "大爸家",
-    "subtitle": "竹编小院",
+    "subtitle": "竹帘放下了 · 门边帮忙",
     "floors": 2,
     "at": [
       2528,
@@ -54,7 +55,8 @@
       850,
       567
     ],
-    "art": "house_daba.png"
+    "art": "house_daba.png",
+    "doorstep_only": true
   },
   {
     "id": "h5",
@@ -97,7 +99,7 @@
   {
     "id": "h2",
     "title": "2A · 缝补人家",
-    "subtitle": "一针一线",
+    "subtitle": "活动中心值日 · 门边帮忙",
     "floors": 2,
     "at": [
       2709,
@@ -111,7 +113,8 @@
       900,
       600
     ],
-    "art": "house_h2.png"
+    "art": "house_h2.png",
+    "doorstep_only": true
   },
   {
     "id": "h3",
@@ -154,7 +157,7 @@
   {
     "id": "h6",
     "title": "6A · 花窗人家",
-    "subtitle": "窗前花事",
+    "subtitle": "门帘已放下 · 门边帮忙",
     "floors": 2,
     "at": [
       2912,
@@ -168,12 +171,13 @@
       825,
       619
     ],
-    "art": "house_h6.png"
+    "art": "house_h6.png",
+    "doorstep_only": true
   },
   {
     "id": "h8",
     "title": "8A · 茶香小院",
-    "subtitle": "慢慢喝杯茶",
+    "subtitle": "烟囱旁留了条 · 门边帮忙",
     "floors": 1,
     "at": [
       224,
@@ -187,12 +191,13 @@
       850,
       567
     ],
-    "art": "house_h8.png"
+    "art": "house_h8.png",
+    "doorstep_only": true
   },
   {
     "id": "h7",
     "title": "7A · 窄巷人家",
-    "subtitle": "小院里的晾晒绳",
+    "subtitle": "今天下田去了 · 门边帮忙",
     "floors": 2,
     "at": [
       1874,
@@ -206,12 +211,13 @@
       430,
       645
     ],
-    "art": "house_h7.png"
+    "art": "house_h7.png",
+    "doorstep_only": true
   },
   {
     "id": "h4",
     "title": "4A · 田边平房",
-    "subtitle": "收成的便签",
+    "subtitle": "全家去赶集 · 门边帮忙",
     "floors": 1,
     "at": [
       558,
@@ -225,12 +231,13 @@
       875,
       583
     ],
-    "art": "house_h4.png"
+    "art": "house_h4.png",
+    "doorstep_only": true
   },
   {
     "id": "h1",
     "title": "1A · 蓝瓦人家",
-    "subtitle": "相聚的长桌",
+    "subtitle": "屋里在午睡 · 门边帮忙",
     "floors": 2,
     "at": [
       3145,
@@ -244,12 +251,13 @@
       850,
       567
     ],
-    "art": "house_h1.png"
+    "art": "house_h1.png",
+    "doorstep_only": true
   },
   {
     "id": "flower",
     "title": "花房小楼",
-    "subtitle": "晴雨之间的花事",
+    "subtitle": "一家出门赏花 · 门边帮忙",
     "floors": 2,
     "target": "v_flower",
     "fictional": true,
@@ -263,12 +271,13 @@
     "at": [
       539,
       1090
-    ]
+    ],
+    "doorstep_only": true
   },
   {
     "id": "whitebrick",
     "title": "白砖小院",
-    "subtitle": "窗前球架与绿意",
+    "subtitle": "门内传来琴声 · 门边帮忙",
     "floors": 2,
     "target": "v_whitebrick",
     "fictional": true,
@@ -282,12 +291,13 @@
     "at": [
       3247,
       570
-    ]
+    ],
+    "doorstep_only": true
   },
   {
     "id": "grape",
     "title": "葡萄架小院",
-    "subtitle": "藤影下的一张桌",
+    "subtitle": "藤帘放下了 · 门边帮忙",
     "floors": 1,
     "target": "v_grape",
     "fictional": true,
@@ -301,12 +311,13 @@
     "at": [
       4060,
       661
-    ]
+    ],
+    "doorstep_only": true
   },
   {
     "id": "sunflower",
     "title": "向日葵之家",
-    "subtitle": "向着太阳慢慢长",
+    "subtitle": "主人去看蜂了 · 门边帮忙",
     "floors": 2,
     "target": "v_sunflower",
     "fictional": true,
@@ -320,12 +331,13 @@
     "at": [
       4079,
       1800
-    ]
+    ],
+    "doorstep_only": true
   },
   {
     "id": "persimmon",
     "title": "柿树老院",
-    "subtitle": "树下留一张石凳",
+    "subtitle": "家里在晒柿饼 · 门边帮忙",
     "floors": 1,
     "target": "v_persimmon",
     "fictional": true,
@@ -339,12 +351,13 @@
     "at": [
       4328,
       3042
-    ]
+    ],
+    "doorstep_only": true
   },
   {
     "id": "rose",
     "title": "玫瑰花之家",
-    "subtitle": "花篱边的小路",
+    "subtitle": "午后歇一会儿 · 门边帮忙",
     "floors": 2,
     "target": "v_rose",
     "fictional": true,
@@ -358,7 +371,8 @@
     "at": [
       4449,
       4234
-    ]
+    ],
+    "doorstep_only": true
   },
   {
     "id": "community",
