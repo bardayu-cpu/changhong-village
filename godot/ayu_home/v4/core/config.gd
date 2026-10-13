@@ -34,5 +34,5 @@ const PRODUCERS={
  "orchard":{"name":"果树","seconds":300,"input":{},"output":"fruit","yield":3}}
 const NEIGHBOURS={
  "honey":{"name":"阿禾","house":"h5","request":{"honey":1},"coins":35,"gift":{"bamboo":2},"first":"花架还空着。帮我收一瓶蜜，摆盆花在这里吧。","again":"你上次留下的蜜很香。花架一直给你留着位置。"},
- "mill":{"name":"青叔","house":"h3","request":{"flour":1},"coins":40,"gift":{"stone":2},"first":"谷子磨成粉，便能煮粥。帮我带一袋，石磨随时借你。","again":"上次的谷粉派上用场了。坐下，我再泡壶茶。"}}
+ "mill":{"name":"小涛","house":"h3","request":{"flour":1},"coins":40,"gift":{"stone":2},"first":"谷子磨成粉，便能煮粥。帮我带一袋，石磨随时借你。","again":"上次的谷粉派上用场了。坐下，我再泡壶茶。"}}
 const LOCATION_POINTS={"lake":[1300,4080],"bamboo":[1750,4080],"hill":[1300,4480],"garden":[1750,4480]}

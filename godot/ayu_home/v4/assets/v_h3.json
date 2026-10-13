@@ -1,6 +1,6 @@
 {
   "id": "v_h3",
-  "title": "3A · 磨坊人家 · 一楼",
+  "title": "小涛磨坊 · 一楼",
   "group": "村庄",
   "floor": 0,
   "size": [
@@ -152,7 +152,7 @@
         620
       ],
       "kind": "village",
-      "copy": "青叔是本村虚构住户。他做谷粉，也爱泡茶。"
+      "copy": "小涛是本村虚构住户。他做谷粉，也爱泡茶。"
     },
     {
       "id": "house_help",
@@ -166,7 +166,7 @@
         590
       ],
       "kind": "village",
-      "copy": "谷壳扫好了，青叔把茶杯推到你手边。",
+      "copy": "谷壳扫好了，小涛把茶杯推到你手边。",
       "house": "h3"
     },
     {
@@ -189,7 +189,7 @@
     },
     {
       "id": "mill",
-      "label": "青叔 · 石磨和订单",
+      "label": "小涛 · 石磨和订单",
       "pos": [
         600,
         390
@@ -268,11 +268,13 @@
   "outdoor": false,
   "view_scale": 1.15,
   "npc": {
-    "name": "青叔",
+    "name": "小涛",
     "pos": [
       600,
       390
     ],
-    "preset": 1
+    "preset": 1,
+    "character_id": "xiaotao",
+    "portrait": "xiaotao"
   }
 }

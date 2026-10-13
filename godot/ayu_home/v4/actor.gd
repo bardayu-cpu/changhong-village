@@ -7,6 +7,7 @@ const DIRS := ["down","left","right","up"]
 var id := "ayu"
 var preset := 2
 var chosen_look:Dictionary={}
+var look_override:Dictionary={}
 var movement_distance:=0.0
 var face := "down"
 var action := "idle"
@@ -49,7 +50,7 @@ func setup(who: String) -> void:
 	if pet:
 		sheet=Assets.texture("res://ayu_home/v3/assets/"+id+".png")
 	elif id == "visitor":
-		chosen_look=Spr.gpt_look(preset)
+		chosen_look=look_override if not look_override.is_empty() else Spr.gpt_look(preset)
 		sheet = chosen_look.tex if chosen_look.has("tex") else ImageTexture.create_from_image(Spr.sheet(preset))
 	else:
 		sheet = Assets.texture("res://ayu_home/v2/assets/chr_%s.png" % id)

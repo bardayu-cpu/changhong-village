@@ -1173,7 +1173,7 @@
     },
     {
       "id": "mill",
-      "label": "青叔 · 石磨与小事",
+      "label": "小涛 · 石磨与小事",
       "kind": "village",
       "pos": [
         615,
@@ -1291,7 +1291,7 @@
     {
       "id": "visit_h3",
       "target": "v_h3",
-      "label": "拜访3A · 磨坊人家",
+      "label": "拜访小涛磨坊",
       "kind": "door",
       "face": "down",
       "pos": [
@@ -1551,12 +1551,14 @@
     },
     {
       "id": "mill",
-      "name": "青叔",
+      "name": "小涛",
       "pos": [
         615,
         2810
       ],
-      "preset": 1
+      "preset": 1,
+      "character_id": "xiaotao",
+      "portrait": "xiaotao"
     },
     {
       "id": "market",

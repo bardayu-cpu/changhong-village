@@ -3,6 +3,7 @@ const UI=preload("res://ayu_home/v4/pixel_ui.gd")
 const C=preload("res://ayu_home/v4/core/config.gd")
 const State=preload("res://ayu_home/v4/core/state.gd")
 const Yard=preload("res://ayu_home/v4/core/yard.gd")
+const Residents=preload("res://ayu_home/v4/core/residents.gd")
 var state
 var home
 var opened:=false
@@ -265,7 +266,7 @@ func entered() -> void:
 			if h.id=="home_site":h.approach=xy;h.pos=[xy[0],xy[1]-30]
 	for record in cfg.get("npcs",[cfg.npc] if cfg.has("npc") else []):
 		if record.get("id","")=="market" and not state.isMarketDay():continue
-		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.preset);home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.set_process(false)
+		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.get("preset",0));actor.look_override=Residents.look(str(record.get("character_id","")));home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.set_process(false)
 		var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",16);nameplate.add_theme_color_override("font_shadow_color",Color("392f24"));nameplate.add_theme_constant_override("shadow_offset_x",1);nameplate.add_theme_constant_override("shadow_offset_y",1);nameplate.position=Vector2(-24,-108);actor.add_child(nameplate)
 	overlay=preload("res://ayu_home/v4/core/world_life.gd").new();overlay.ui=self;home.world.add_child(overlay)
 	checkpoint()
@@ -276,7 +277,8 @@ func interact(h:Dictionary) -> bool:
 	match id:
 		"map":show_page("地图")
 		"mayor":show_page("村长")
-		"mill","honey":show_page("村民")
+		"mill":home.dialogue("小涛",C.NEIGHBOURS.mill.first,"xiaotao",func():show_page("村民"))
+		"honey":show_page("村民")
 		"pond","chicken","orchard":show_page("生产")
 		"market":show_page("货郎")
 		"yard":show_page("院子")
@@ -363,7 +365,7 @@ func map_page() -> void:
 	m.house_selected.connect(func(id:String):travel("village","visit_"+id))
 	text("点图上的房屋或下方地点，就会沿路步行。途中点地面可改道；屋内先走到门，再接着往村路上走。")
 	for h in houses:button(h.title+" · "+h.subtitle,func():travel("village","visit_"+h.id))
-	for item in [["阿禾的蜂箱","honey"],["青叔的小石磨","mill"],["池塘","pond"],["鸡圈","chicken"],["果园","orchard"],["村口货郎","market"],["自己的地","home_site"]]:button(item[0],func():travel("village",item[1]))
+	for item in [["阿禾的蜂箱","honey"],["小涛的小石磨","mill"],["池塘","pond"],["鸡圈","chicken"],["果园","orchard"],["村口货郎","market"],["自己的地","home_site"]]:button(item[0],func():travel("village",item[1]))
 	button("阿鱼家楼层图",func():close();home.navigation("一楼"))
 func travel(room:String,spot:="") -> void:
 	close();route_target=room;route_spot=spot;home.note="沿路慢慢走。点地面或方向键可停下。";follow_route()

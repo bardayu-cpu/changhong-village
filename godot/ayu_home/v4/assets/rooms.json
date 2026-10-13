@@ -9153,7 +9153,7 @@
     },
     "v_h3_up": {
       "id": "v_h3_up",
-      "title": "3A · 磨坊人家 · 二楼",
+      "title": "小涛磨坊 · 二楼",
       "group": "村庄",
       "floor": 0,
       "size": [
@@ -9237,7 +9237,7 @@
             280
           ],
           "kind": "village",
-          "copy": "青叔的小石磨。窗外的路通往每一位邻居；回来时书签还在这里。"
+          "copy": "小涛的小石磨。窗外的路通往每一位邻居；回来时书签还在这里。"
         },
         {
           "id": "rest_seat",
@@ -9305,7 +9305,7 @@
     },
     "v_h3": {
       "id": "v_h3",
-      "title": "3A · 磨坊人家 · 一楼",
+      "title": "小涛磨坊 · 一楼",
       "group": "村庄",
       "floor": 0,
       "size": [
@@ -9457,7 +9457,7 @@
             620
           ],
           "kind": "village",
-          "copy": "青叔是本村虚构住户。他做谷粉，也爱泡茶。"
+          "copy": "小涛是本村虚构住户。他做谷粉，也爱泡茶。"
         },
         {
           "id": "house_help",
@@ -9471,7 +9471,7 @@
             590
           ],
           "kind": "village",
-          "copy": "谷壳扫好了，青叔把茶杯推到你手边。",
+          "copy": "谷壳扫好了，小涛把茶杯推到你手边。",
           "house": "h3"
         },
         {
@@ -9494,7 +9494,7 @@
         },
         {
           "id": "mill",
-          "label": "青叔 · 石磨和订单",
+          "label": "小涛 · 石磨和订单",
           "pos": [
             600,
             390
@@ -9573,12 +9573,14 @@
       "outdoor": false,
       "view_scale": 1.15,
       "npc": {
-        "name": "青叔",
+        "name": "小涛",
         "pos": [
           600,
           390
         ],
-        "preset": 1
+        "preset": 1,
+        "character_id": "xiaotao",
+        "portrait": "xiaotao"
       }
     },
     "v_mayor_up": {
@@ -12821,7 +12823,7 @@
         },
         {
           "id": "mill",
-          "label": "青叔 · 石磨与小事",
+          "label": "小涛 · 石磨与小事",
           "kind": "village",
           "pos": [
             615,
@@ -12939,7 +12941,7 @@
         {
           "id": "visit_h3",
           "target": "v_h3",
-          "label": "拜访3A · 磨坊人家",
+          "label": "拜访小涛磨坊",
           "kind": "door",
           "face": "down",
           "pos": [
@@ -13199,12 +13201,14 @@
         },
         {
           "id": "mill",
-          "name": "青叔",
+          "name": "小涛",
           "pos": [
             615,
             2810
           ],
-          "preset": 1
+          "preset": 1,
+          "character_id": "xiaotao",
+          "portrait": "xiaotao"
         },
         {
           "id": "market",
