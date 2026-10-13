@@ -1,0 +1,107 @@
+{
+  "checks": [
+    {
+      "check": "C3 saved player position lies inside the opaque land grid",
+      "pass": true
+    },
+    {
+      "check": "opaque yard ground renders before the actual player actor",
+      "pass": true
+    },
+    {
+      "check": "furniture/production overlay keeps its original z=2 parent and layer",
+      "pass": true
+    },
+    {
+      "check": "yard ground attaches exactly one draw callback to existing ground",
+      "pass": true
+    },
+    {
+      "check": "drawing open state [0, 0, 0] refreshes ground without writing state or save",
+      "pass": true
+    },
+    {
+      "check": "drawing open state [1, 0, 0] refreshes ground without writing state or save",
+      "pass": true
+    },
+    {
+      "check": "drawing open state [1, 1, 1] refreshes ground without writing state or save",
+      "pass": true
+    },
+    {
+      "check": "redraws add no scene nodes or furniture instances",
+      "pass": true
+    },
+    {
+      "check": "room switch keeps original overlay and expected ground connection: living",
+      "pass": true
+    },
+    {
+      "check": "room switch keeps original overlay and expected ground connection: village",
+      "pass": true
+    },
+    {
+      "check": "room switch keeps original overlay and expected ground connection: my_yard",
+      "pass": true
+    }
+  ],
+  "failures": 0,
+  "mode": "headless draw-order/signal inspection with memory-only fixture; not GUI acceptance",
+  "no_persistent_save_opened_or_written": true,
+  "pending": "C3 original same-identity opened-land/wash-basin normal reopen, stand/walk across land, retained furniture/prompt and normal exit",
+  "saved_position_from_C3": [
+    682,
+    614
+  ],
+  "scenarios": [
+    {
+      "ground_draw_events": 1,
+      "land": [
+        0,
+        0,
+        0
+      ],
+      "state_unchanged": true
+    },
+    {
+      "ground_draw_events": 1,
+      "land": [
+        1,
+        0,
+        0
+      ],
+      "state_unchanged": true
+    },
+    {
+      "ground_draw_events": 1,
+      "land": [
+        1,
+        1,
+        1
+      ],
+      "state_unchanged": true
+    }
+  ],
+  "static_diff_review": {
+    "ground_coordinates_dimensions_colors_exactly_preserved": true,
+    "all_remaining_draw_code_byte_identical": true,
+    "only_production_file_changed": "godot/ayu_home/v4/core/world_life.gd",
+    "protected_unchanged_files_sha256": {
+      "godot/ayu_home/v4/core/config.gd": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735",
+      "godot/ayu_home/v4/core/state.gd": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+      "godot/ayu_home/v4/core/interface.gd": "6caf652f1eb07c01eb87bc60f5fbb08140fd9e41ed77f6b7aa048fa3bfc2bc71",
+      "godot/ayu_home/v4/core/yard.gd": "cb6c84292dd6f167bb67e55c0002dcad6853c9c9f73a5134610c27ef7f411df0",
+      "godot/ayu_home/v4/core/furniture_draw.gd": "e994900b438cab6321c283be6b5a0eba9f4a1a1d4c2ce5c5a7ee0ec1fb2663f7",
+      "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d",
+      "godot/ayu_home/v4/core/test_touch_flow.gd": "6c6f6e79c7335982737a4f420c8be2fe3b6987cdc6fd57d64355fa42950bf46c",
+      "godot/ayu_home/v4/world.gd": "0a8ea61b081d4c17d79e2c0e68c3d933c51fdf3f55c38802efa0a2a5851c2104",
+      "godot/ayu_home/v4/home.gd": "d35a83cc210fa7d5c717e8c21abcc05d48d53a8ff3c09e2110422791f1fa5f70",
+      "godot/ayu_home/v4/assets/my_yard.json": "37b696e9a3a4def99a6702164bf93ae1372860bd9ca401876dde2c8988637567",
+      "godot/ayu_home/v4/assets/rooms.json": "cca37a65ca929900f372de59a7813cf7f987b02cf0c6f0a710fd13ca0bff28e8"
+    },
+    "evidence_archive_commit": "bab4cdfbd1a560b6c76ce51277644f1013d206e4",
+    "source_sha256": "c0b09cc8e929de6d95e3b7361b9ca585eea6b038ab27ea369200f32eac13a2bd",
+    "inspection_script": "测试数据/C2-YARD-01层级核对.gd",
+    "inspection_script_sha256": "35c240e3b8235c4236e8fe4bbab6884d1f732ac507601eb6b9308f8beb16ac3f"
+  }
+}

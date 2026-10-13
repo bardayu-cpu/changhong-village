@@ -3,7 +3,20 @@ const C=preload("res://ayu_home/v4/core/config.gd")
 const UI=preload("res://ayu_home/v4/pixel_ui.gd")
 const Assets=preload("res://ayu_home/v2/assets.gd")
 var ui
-func _ready() -> void:z_index=2;texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+func _ready() -> void:
+	z_index=2;texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+	# 院子的不透明地面跟随现有 ground 重画，排在 actors 前；家具和提示仍留在原效果层。
+	if ui.home.area=="my_yard":ui.home.world.ground.draw.connect(_draw_yard_ground.bind(ui.home.world.ground))
+func _draw_yard_ground(surface:Node2D) -> void:
+	var v:Dictionary=ui.state.data.village
+	for y in 9:
+		for x in 4:
+			var at:=Vector2(665+x*28,530+y*25);var open:bool=float(v.land[y/3])>0
+			surface.draw_rect(Rect2(at,Vector2(25,22)),Color("b89a6c") if open else Color("6f8244"))
+	for n in 6:
+		var at:=Vector2(75+(n%3)*100,635+(n/3)*85)
+		surface.draw_rect(Rect2(at,Vector2(85,65)),Color("76563b"))
+		for row in 4:surface.draw_rect(Rect2(at+Vector2(4,8+row*14),Vector2(77,4)),Color("98704b"))
 func _draw() -> void:
 	var s=ui.state;var h=ui.home;var v:Dictionary=s.data.village
 	if h.area=="village":
@@ -26,18 +39,12 @@ func _draw() -> void:
 			var q:=c+Vector2(-55+i*48,16);draw_rect(Rect2(q,Vector2(20,16)),Color("eee1b4"));draw_rect(Rect2(q+Vector2(15,-6),Vector2(9,12)),Color("f3e8c8"));draw_rect(Rect2(q+Vector2(15,-10),Vector2(8,5)),Color("b85442"));draw_rect(Rect2(q+Vector2(20,-3),Vector2(3,3)),Color("312c26"))
 		if int(v.helped.get("honey",0))>0:draw_texture(Assets.texture("res://ayu_home/v3/assets/exterior_pot_window_left.png"),Vector2(830,1100))
 	elif h.area=="my_yard":
-		for y in 9:
-			for x in 4:
-				var at:=Vector2(665+x*28,530+y*25);var open:bool=float(v.land[y/3])>0
-				draw_rect(Rect2(at,Vector2(25,22)),Color("b89a6c") if open else Color("6f8244"))
 		for f in v.furniture:
 			if int(f.x)<0:continue
 			var at:=Vector2(666+int(f.x)*28,516+int(f.y)*25)
 			preload("res://ayu_home/v4/core/furniture_draw.gd").paint(self,str(f.kind),Rect2(at,Vector2(26,34)))
 		for n in 6:
 			var at:=Vector2(75+(n%3)*100,635+(n/3)*85)
-			draw_rect(Rect2(at,Vector2(85,65)),Color("76563b"))
-			for row in 4:draw_rect(Rect2(at+Vector2(4,8+row*14),Vector2(77,4)),Color("98704b"))
 			var crop:Dictionary=v.crops[n]
 			if crop.is_empty():continue
 			for j in 3:

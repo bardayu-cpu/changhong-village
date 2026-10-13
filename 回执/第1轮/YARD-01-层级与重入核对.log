@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS C3 saved player position lies inside the opaque land grid
+PASS opaque yard ground renders before the actual player actor
+PASS furniture/production overlay keeps its original z=2 parent and layer
+PASS yard ground attaches exactly one draw callback to existing ground
+PASS drawing open state [0, 0, 0] refreshes ground without writing state or save
+PASS drawing open state [1, 0, 0] refreshes ground without writing state or save
+PASS drawing open state [1, 1, 1] refreshes ground without writing state or save
+PASS redraws add no scene nodes or furniture instances
+PASS room switch keeps original overlay and expected ground connection: living
+PASS room switch keeps original overlay and expected ground connection: village
+PASS room switch keeps original overlay and expected ground connection: my_yard
+YARD-01 PASS 11 checks; C3 real-window retest pending
