@@ -1,0 +1,38 @@
+{
+  "scope": "设计数据审核，未游戏通过",
+  "rooms": [
+    {
+      "room": "v_h3",
+      "interface": "小涛磨坊/底图接口-v2.json",
+      "precise_design_union": 0.2547,
+      "8px_design_grid_estimate": 0.2843,
+      "non_door_kind_count": 5,
+      "method": "仅建议实体脚印数据算术，不运行官方检查脚本，不是工程H1结果"
+    },
+    {
+      "room": "v_h5",
+      "interface": "凯凯蜂蜜小院/实图接口-v3.json",
+      "precise_design_union": 0.2555,
+      "8px_design_grid_estimate": 0.2898,
+      "non_door_kind_count": 6,
+      "method": "仅建议实体脚印数据算术，不运行官方检查脚本，不是工程H1结果"
+    },
+    {
+      "room": "v_mayor",
+      "interface": "村委会/实图接口-v3.json",
+      "precise_design_union": 0.2684,
+      "8px_design_grid_estimate": 0.3122,
+      "non_door_kind_count": 6,
+      "method": "仅建议实体脚印数据算术，不运行官方检查脚本，不是工程H1结果"
+    },
+    {
+      "room": "my_cabin",
+      "interface": "村民活动中心/实图接口-v3.json",
+      "precise_design_union": 0.2684,
+      "8px_design_grid_estimate": 0.3068,
+      "non_door_kind_count": 6,
+      "method": "仅建议实体脚印数据算术，不运行官方检查脚本，不是工程H1结果"
+    }
+  ],
+  "notes": "不把地毯/阴影/空走道算障碍；C2照实际家具轮廓校核，C3正式检查与实走。"
+}

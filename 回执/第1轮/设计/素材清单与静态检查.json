@@ -1,0 +1,16 @@
+{
+  "scope": "C4设计文件可读性和尺寸核对，非游戏验收",
+  "png_readable": 29,
+  "json_readable": 44,
+  "main_background_count": 4,
+  "upper_background_count": 2,
+  "portraits": 4,
+  "new_furniture_keys": 9,
+  "excluded_candidates": [
+    "附属二楼/v_h3_up-二楼候选-不接入-v1.png",
+    "附属二楼/v_mayor_up-资料室窄道候选-不接入-v1.png"
+  ],
+  "preferred_manifest": "最终素材索引.json",
+  "game_pass_claim": false,
+  "honey_idle_update": "新增source-v2和两图机械对齐说明可读；已看三项移除，未运行验收"
+}

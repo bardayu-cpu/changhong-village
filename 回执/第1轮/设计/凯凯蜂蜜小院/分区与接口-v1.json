@@ -1,0 +1,299 @@
+{
+  "room_id": "v_h5",
+  "display_name": "凯凯蜂蜜小院",
+  "design_size": [
+    508,
+    600
+  ],
+  "character_height": 84,
+  "status": "分区先行草案；待C2提交，底图尚未生成，未游戏验收",
+  "host": {
+    "name": "凯凯",
+    "existing_preset": 4,
+    "identity_policy": "凯凯保留现有LM-GUEST-05；林伯选择灰发男性LM-GUEST-10；只给C2接入，不改原图。",
+    "proposed_code": "LM-GUEST-05",
+    "sprite_source": "凯凯-现有形象84px.png"
+  },
+  "walk_rect": [
+    24,
+    112,
+    460,
+    450
+  ],
+  "zones": [
+    {
+      "id": "zone_1",
+      "label": "蜂具清理",
+      "rect": [
+        28,
+        118,
+        144,
+        182
+      ],
+      "use": "蜂衣、烟壶和洗盆成组",
+      "host": "早：清理蜂具"
+    },
+    {
+      "id": "zone_2",
+      "label": "摇蜜装瓶",
+      "rect": [
+        228,
+        136,
+        158,
+        162
+      ],
+      "use": "专用摇蜜桶、压蜜槽和罐瓶",
+      "host": "中：过滤、装瓶"
+    },
+    {
+      "id": "zone_3",
+      "label": "品蜜歇脚",
+      "rect": [
+        28,
+        364,
+        145,
+        138
+      ],
+      "use": "蜜茶矮桌、竹椅和花盆",
+      "host": "晚：品蜜泡茶"
+    },
+    {
+      "id": "zone_4",
+      "label": "封蜡归架",
+      "rect": [
+        350,
+        393,
+        130,
+        134
+      ],
+      "use": "蜜罐架、蜡模和封口台",
+      "host": "收工：封瓶归架"
+    },
+    {
+      "id": "zone_5",
+      "label": "花粉与蜜脾",
+      "rect": [
+        410,
+        122,
+        70,
+        166
+      ],
+      "use": "窄墙架、空蜜脾和花粉盒",
+      "host": "早：挑选蜜脾"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "press_honey",
+      "kind_suggested": "honey_game",
+      "pos": [
+        307,
+        246
+      ],
+      "approach": [
+        307,
+        326
+      ],
+      "visible_change": "蜜脾格压下、透明蜜流接入罐中",
+      "inventory": "honey:1，每日一次"
+    },
+    {
+      "id": "clean_tools",
+      "kind_suggested": "bee_tool_wash",
+      "pos": [
+        102,
+        255
+      ],
+      "approach": [
+        102,
+        326
+      ],
+      "visible_change": "烟壶变净、蜂具挂回钩位",
+      "inventory": "只记人情"
+    },
+    {
+      "id": "taste_honey",
+      "kind_suggested": "honey_taste",
+      "pos": [
+        126,
+        422
+      ],
+      "approach": [
+        198,
+        446
+      ],
+      "visible_change": "杯中蜜茶渐满、像素蒸汽升起",
+      "inventory": "无金币"
+    },
+    {
+      "id": "seal_jar",
+      "kind_suggested": "wax_seal",
+      "pos": [
+        410,
+        457
+      ],
+      "approach": [
+        310,
+        478
+      ],
+      "visible_change": "瓶口封蜡由散到完整",
+      "inventory": "无重复蜜奖励"
+    },
+    {
+      "id": "rest_seat",
+      "kind_suggested": "seat",
+      "pos": [
+        74,
+        452
+      ],
+      "approach": [
+        198,
+        446
+      ],
+      "seat": [
+        74,
+        452
+      ],
+      "foot_sort": 484,
+      "visible_change": "实际坐下，透明前沿遮挡由C2裁出"
+    }
+  ],
+  "entrance": {
+    "opening": [
+      208,
+      558,
+      92,
+      42
+    ],
+    "pos": [
+      254,
+      580
+    ],
+    "approach": [
+      254,
+      540
+    ],
+    "spawn": [
+      254,
+      526
+    ],
+    "target": "village"
+  },
+  "stairs": null,
+  "obstacles_suggested": [
+    [
+      28,
+      118,
+      144,
+      182
+    ],
+    [
+      228,
+      160,
+      158,
+      138
+    ],
+    [
+      28,
+      390,
+      145,
+      112
+    ],
+    [
+      350,
+      418,
+      130,
+      109
+    ],
+    [
+      410,
+      142,
+      70,
+      146
+    ]
+  ],
+  "path_centerlines": [
+    [
+      [
+        254,
+        540
+      ],
+      [
+        254,
+        326
+      ],
+      [
+        102,
+        326
+      ]
+    ],
+    [
+      [
+        254,
+        326
+      ],
+      [
+        444,
+        326
+      ]
+    ],
+    [
+      [
+        254,
+        540
+      ],
+      [
+        310,
+        478
+      ]
+    ],
+    [
+      [
+        254,
+        540
+      ],
+      [
+        198,
+        446
+      ]
+    ]
+  ],
+  "schedule": [
+    {
+      "slot": "早",
+      "pos": [
+        102,
+        326
+      ],
+      "face": "up",
+      "action": "清洗蜂具",
+      "line": "先把蜂具收拾干净，再去看今天的蜜脾。"
+    },
+    {
+      "slot": "中",
+      "pos": [
+        307,
+        326
+      ],
+      "face": "up",
+      "action": "装蜜",
+      "line": "这一罐慢慢接，蜜线细一点，瓶口才不沾手。"
+    },
+    {
+      "slot": "晚",
+      "pos": [
+        74,
+        452
+      ],
+      "face": "down",
+      "action": "坐下品蜜茶",
+      "line": "花香还留在杯里。今天的蜜，尝一小口就知道了。"
+    }
+  ],
+  "full_screen_game": "按亮起蜜脾格依次压蜜，三轮接满一瓶；全屏画蜜脾、蜂巢纹、摇蜜桶和蜜流，随时退出。",
+  "asset_policy": {
+    "background": "全部墙、门、地面、固定陈设和真楼梯画进一张底图，不用通用四件家具拼屋",
+    "dynamic": "只交变化和前沿遮挡层；C2由最终图裁，不重复叠完整家具",
+    "collision": "只对应画上实体脚印，不计地毯阴影和空地；最后需实走"
+  }
+}

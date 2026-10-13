@@ -1,0 +1,313 @@
+{
+  "room_id": "v_mayor",
+  "display_name": "村委会",
+  "design_size": [
+    508,
+    600
+  ],
+  "character_height": 84,
+  "status": "分区先行草案；待C2提交，底图尚未生成，未游戏验收",
+  "host": {
+    "name": "林伯",
+    "existing_preset": 0,
+    "identity_policy": "凯凯保留现有LM-GUEST-05；林伯选择灰发男性LM-GUEST-10；只给C2接入，不改原图。",
+    "proposed_code": "LM-GUEST-10",
+    "sprite_source": "林伯-老人形象84px.png"
+  },
+  "walk_rect": [
+    24,
+    112,
+    460,
+    450
+  ],
+  "zones": [
+    {
+      "id": "zone_1",
+      "label": "档案与名册",
+      "rect": [
+        28,
+        118,
+        144,
+        182
+      ],
+      "use": "厚木档案格、住户册、卷宗盒",
+      "host": "早：整理名册"
+    },
+    {
+      "id": "zone_2",
+      "label": "村务办理",
+      "rect": [
+        228,
+        136,
+        158,
+        162
+      ],
+      "use": "厚桌、印章托、申请篮与椅",
+      "host": "中：办入驻、盖章"
+    },
+    {
+      "id": "zone_3",
+      "label": "议事与歇脚",
+      "rect": [
+        28,
+        364,
+        145,
+        138
+      ],
+      "use": "两张木椅、茶盘、意见篮",
+      "host": "晚：听村民说事"
+    },
+    {
+      "id": "zone_4",
+      "label": "公用修缮物料",
+      "rect": [
+        350,
+        393,
+        130,
+        134
+      ],
+      "use": "竹材包、绳圈、修缮架",
+      "host": "收工：清点修缮包"
+    },
+    {
+      "id": "zone_5",
+      "label": "资料楼梯",
+      "rect": [
+        410,
+        122,
+        70,
+        166
+      ],
+      "use": "沿右墙真实楼梯与厚门框",
+      "host": "晚后：上楼收卷宗"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "village_tasks",
+      "kind_suggested": "civic_game",
+      "pos": [
+        307,
+        246
+      ],
+      "approach": [
+        307,
+        326
+      ],
+      "visible_change": "3张任务卡进入对应格，修缮包绑好",
+      "inventory": "bamboo:1，每日一次"
+    },
+    {
+      "id": "register_book",
+      "kind_suggested": "registry_book",
+      "pos": [
+        103,
+        252
+      ],
+      "approach": [
+        103,
+        326
+      ],
+      "visible_change": "名册展开，已办页盖章；入驻沿现有确认流程",
+      "inventory": "申请需经济表条件，不凭空给钱"
+    },
+    {
+      "id": "opinion_basket",
+      "kind_suggested": "opinion_note",
+      "pos": [
+        126,
+        422
+      ],
+      "approach": [
+        198,
+        446
+      ],
+      "visible_change": "意见条投入竹篮，篮边夹条变多",
+      "inventory": "只记人情"
+    },
+    {
+      "id": "material_sort",
+      "kind_suggested": "material_sort",
+      "pos": [
+        410,
+        457
+      ],
+      "approach": [
+        310,
+        478
+      ],
+      "visible_change": "竹材散束整理为捆、绳圈归钩",
+      "inventory": "小游戏结算外不再重复发材料"
+    },
+    {
+      "id": "rest_seat",
+      "kind_suggested": "seat",
+      "pos": [
+        74,
+        452
+      ],
+      "approach": [
+        198,
+        446
+      ],
+      "seat": [
+        74,
+        452
+      ],
+      "foot_sort": 484,
+      "visible_change": "实际坐下，透明前沿遮挡由C2裁出"
+    }
+  ],
+  "entrance": {
+    "opening": [
+      208,
+      558,
+      92,
+      42
+    ],
+    "pos": [
+      254,
+      580
+    ],
+    "approach": [
+      254,
+      540
+    ],
+    "spawn": [
+      254,
+      526
+    ],
+    "target": "village"
+  },
+  "stairs": {
+    "pos": [
+      444,
+      290
+    ],
+    "approach": [
+      444,
+      330
+    ],
+    "target": "v_mayor_up",
+    "return_spawn": [
+      444,
+      330
+    ]
+  },
+  "obstacles_suggested": [
+    [
+      28,
+      118,
+      144,
+      182
+    ],
+    [
+      228,
+      160,
+      158,
+      138
+    ],
+    [
+      28,
+      390,
+      145,
+      112
+    ],
+    [
+      350,
+      418,
+      130,
+      109
+    ],
+    [
+      410,
+      142,
+      70,
+      146
+    ]
+  ],
+  "path_centerlines": [
+    [
+      [
+        254,
+        540
+      ],
+      [
+        254,
+        326
+      ],
+      [
+        102,
+        326
+      ]
+    ],
+    [
+      [
+        254,
+        326
+      ],
+      [
+        444,
+        326
+      ]
+    ],
+    [
+      [
+        254,
+        540
+      ],
+      [
+        310,
+        478
+      ]
+    ],
+    [
+      [
+        254,
+        540
+      ],
+      [
+        198,
+        446
+      ]
+    ]
+  ],
+  "schedule": [
+    {
+      "slot": "早",
+      "pos": [
+        103,
+        326
+      ],
+      "face": "up",
+      "action": "整理名册",
+      "line": "先把昨天的名册归好，今天办事就不用等着找。"
+    },
+    {
+      "slot": "中",
+      "pos": [
+        307,
+        326
+      ],
+      "face": "up",
+      "action": "办理村务",
+      "line": "入驻的材料齐了就来这儿，我把这一页给你办好。"
+    },
+    {
+      "slot": "晚",
+      "pos": [
+        74,
+        452
+      ],
+      "face": "down",
+      "action": "坐下听意见",
+      "line": "这一会儿不忙盖章，大家有什么想法，坐着说。"
+    }
+  ],
+  "full_screen_game": "村务任务卡分类：灌渠/修桥/补路送到图案对应格，三张完成整理一份修缮包；不代办入驻，不用麻将。",
+  "asset_policy": {
+    "background": "全部墙、门、地面、固定陈设和真楼梯画进一张底图，不用通用四件家具拼屋",
+    "dynamic": "只交变化和前沿遮挡层；C2由最终图裁，不重复叠完整家具",
+    "collision": "只对应画上实体脚印，不计地毯阴影和空地；最后需实走"
+  }
+}

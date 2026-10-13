@@ -1,0 +1,349 @@
+{
+  "date": "2026-10-13",
+  "role": "村C4设计师",
+  "status": "设计源图与接口齐，交C2提交及接入，未游戏通过",
+  "branch": "village-deep-1010",
+  "plan_commit_confirmations": {
+    "小涛": "7d057b7",
+    "其余三处v2": "866f347（C1已核对远端）"
+  },
+  "scenes": [
+    {
+      "name": "小涛磨坊",
+      "source": {
+        "file": "小涛磨坊/小涛磨坊-无杆无谷流-source-v2.png",
+        "size": [
+          1154,
+          1363
+        ],
+        "mode": "RGB",
+        "bytes": 2068695,
+        "alpha_range": null
+      },
+      "preferred_interface": "小涛磨坊/底图接口-v2.json",
+      "target_size": [
+        508,
+        600
+      ],
+      "person_height": 84,
+      "status": "静态美术可接；未游戏验收",
+      "room_id": "v_h3"
+    },
+    {
+      "name": "凯凯蜂蜜小院",
+      "source": {
+        "file": "凯凯蜂蜜小院/凯凯蜂蜜小院-专用整屋-source-v1.png",
+        "size": [
+          1159,
+          1358
+        ],
+        "mode": "RGB",
+        "bytes": 1957642,
+        "alpha_range": null
+      },
+      "preferred_interface": "凯凯蜂蜜小院/实图接口-v3.json",
+      "target_size": [
+        508,
+        600
+      ],
+      "person_height": 84,
+      "status": "静态美术可接；未游戏验收",
+      "room_id": "v_h5",
+      "idle_component_source": {
+        "file": "凯凯蜂蜜小院/凯凯蜂蜜小院-无蜜流空罐无横架-source-v2.png",
+        "size": [
+          1163,
+          1353
+        ],
+        "mode": "RGB",
+        "bytes": 1906644
+      },
+      "idle_alignment": "凯凯蜂蜜小院/静止底层对齐-v2.json",
+      "note": "中央局部用idle v2，外围保持原v1，坐标仍实图接口v3"
+    },
+    {
+      "name": "村委会",
+      "source": {
+        "file": "村委会/村委会-专用整屋-source-v1.png",
+        "size": [
+          1154,
+          1363
+        ],
+        "mode": "RGB",
+        "bytes": 1968138,
+        "alpha_range": null
+      },
+      "preferred_interface": "村委会/实图接口-v3.json",
+      "target_size": [
+        508,
+        600
+      ],
+      "person_height": 84,
+      "status": "静态美术可接；未游戏验收",
+      "room_id": "v_mayor"
+    },
+    {
+      "name": "村民活动中心",
+      "source": {
+        "file": "村民活动中心/村民活动中心-共桌专用整屋-source-v1.png",
+        "size": [
+          1154,
+          1363
+        ],
+        "mode": "RGB",
+        "bytes": 2004179,
+        "alpha_range": null
+      },
+      "preferred_interface": "村民活动中心/实图接口-v3.json",
+      "target_size": [
+        508,
+        600
+      ],
+      "person_height": 84,
+      "status": "静态美术可接；未游戏验收",
+      "room_id": "my_cabin"
+    },
+    {
+      "name": "小涛休息储物二楼",
+      "source": {
+        "file": "附属二楼/v_h3_up-休息储物专用底图-source-v2.png",
+        "size": [
+          1154,
+          1363
+        ],
+        "mode": "RGB",
+        "bytes": 1910106,
+        "alpha_range": null
+      },
+      "preferred_interface": "附属二楼/v_h3_up-实图接口-v2.json",
+      "target_size": [
+        508,
+        600
+      ],
+      "person_height": 84,
+      "status": "静态美术可接；未游戏验收",
+      "room_id": "v_h3_up"
+    },
+    {
+      "name": "村委会资料室二楼",
+      "source": {
+        "file": "附属二楼/v_mayor_up-资料室专用底图-source-v2.png",
+        "size": [
+          1154,
+          1363
+        ],
+        "mode": "RGB",
+        "bytes": 1872837,
+        "alpha_range": null
+      },
+      "preferred_interface": "附属二楼/v_mayor_up-实图接口-v2.json",
+      "target_size": [
+        508,
+        600
+      ],
+      "person_height": 84,
+      "status": "静态美术可接；未游戏验收",
+      "room_id": "v_mayor_up"
+    }
+  ],
+  "people": [
+    {
+      "name": "小涛",
+      "identity": "本轮新男性",
+      "sprite": {
+        "file": "小涛磨坊/小涛-男性九帧-source-v1.png",
+        "size": [
+          1095,
+          1437
+        ],
+        "mode": "RGBA",
+        "bytes": 800954,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "portrait": {
+        "file": "小涛磨坊/小涛-男性头像-source-v1.png",
+        "size": [
+          1161,
+          1355
+        ],
+        "mode": "RGBA",
+        "bytes": 909420,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "note": "小涛源图由C2规范化为576×84；其余复用现有行走图，不冒称本轮新验动画"
+    },
+    {
+      "name": "凯凯",
+      "identity": "LM-GUEST-05",
+      "sprite": {
+        "file": "凯凯蜂蜜小院/凯凯-现有形象84px.png",
+        "size": [
+          1024,
+          84
+        ],
+        "mode": "RGBA",
+        "bytes": 116411,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "portrait": {
+        "file": "凯凯蜂蜜小院/凯凯-现有身份头像-source-v1.png",
+        "size": [
+          1194,
+          1317
+        ],
+        "mode": "RGBA",
+        "bytes": 1203460,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "note": "小涛源图由C2规范化为576×84；其余复用现有行走图，不冒称本轮新验动画"
+    },
+    {
+      "name": "林伯",
+      "identity": "LM-GUEST-10",
+      "sprite": {
+        "file": "村委会/林伯-老人形象84px.png",
+        "size": [
+          1024,
+          84
+        ],
+        "mode": "RGBA",
+        "bytes": 94890,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "portrait": {
+        "file": "村委会/林伯-老人头像-source-v1.png",
+        "size": [
+          1161,
+          1355
+        ],
+        "mode": "RGBA",
+        "bytes": 967033,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "note": "小涛源图由C2规范化为576×84；其余复用现有行走图，不冒称本轮新验动画"
+    },
+    {
+      "name": "方婆婆",
+      "identity": "LM-GUEST-09",
+      "sprite": {
+        "file": "村民活动中心/方婆婆-值日形象84px.png",
+        "size": [
+          1024,
+          84
+        ],
+        "mode": "RGBA",
+        "bytes": 109273,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "portrait": {
+        "file": "村民活动中心/方婆婆-值日头像-source-v1.png",
+        "size": [
+          1160,
+          1356
+        ],
+        "mode": "RGBA",
+        "bytes": 1095124,
+        "alpha_range": [
+          0,
+          255
+        ]
+      },
+      "note": "小涛源图由C2规范化为576×84；其余复用现有行走图，不冒称本轮新验动画"
+    }
+  ],
+  "dynamic": {
+    "rod": {
+      "file": "小涛磨坊/独立透明磨杆-source-v1.png",
+      "size": [
+        1514,
+        1039
+      ],
+      "mode": "RGBA",
+      "bytes": 395638,
+      "alpha_range": [
+        0,
+        255
+      ]
+    },
+    "interface": "小涛磨坊/动作层接口-v2.json"
+  },
+  "craft_furniture": {
+    "atlas": {
+      "file": "可制作家具/新增九件-透明九格-source-v1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "bytes": 967983,
+      "alpha_range": [
+        0,
+        255
+      ]
+    },
+    "interface": "可制作家具/切片与脚锚-v1.json",
+    "count_new": 9,
+    "old_keys_preserved": [
+      "chair",
+      "table",
+      "planter"
+    ]
+  },
+  "economy": [
+    "经济可改表/经济可改表-v1.md",
+    "经济可改表/参数与订单-v1.json",
+    "经济可改表/静态核对-v1.json"
+  ],
+  "review_data": [
+    "四处实图接口静态核对.json",
+    "人物身份与作息交接-v1.md",
+    "活动中心作息修订-v2.md"
+  ],
+  "prompt_records": [
+    "村民活动中心/底图生成记录-v1.json",
+    "村民活动中心/生成记录-v1.json",
+    "附属二楼/v_mayor_up-生成记录-v2.json",
+    "附属二楼/v_h3_up-生成记录-v2.json",
+    "村委会/底图生成记录-v1.json",
+    "村委会/生成记录-v1.json",
+    "小涛磨坊/无杆底图生成记录-v2.json",
+    "小涛磨坊/磨杆生成记录-v1.json",
+    "小涛磨坊/生成记录-v1.json",
+    "凯凯蜂蜜小院/底图生成记录-v1.json",
+    "凯凯蜂蜜小院/生成记录-v1.json",
+    "可制作家具/生成记录-v1.json",
+    "凯凯蜂蜜小院/静止底层生成记录-v2.json"
+  ],
+  "excluded_candidates": [
+    "附属二楼/v_h3_up-二楼候选-不接入-v1.png",
+    "附属二楼/v_mayor_up-资料室窄道候选-不接入-v1.png"
+  ],
+  "history_not_runtime": [
+    "凯凯蜂蜜小院/分区与接口-v1.json",
+    "村委会/分区与接口-v1.json",
+    "村民活动中心/分区与接口-v1.json",
+    "小涛磨坊/小涛磨坊-整屋底图-source-v1.png"
+  ],
+  "handoff": "C2只接优先实图接口并按实体再校；仅选择稳定素材提交，不能把候选加载成成品。C3新游戏证据单张≤2MB；源图不当游戏截图。"
+}

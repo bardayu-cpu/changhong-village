@@ -1,0 +1,24 @@
+{
+  "commit": "0b8a580f70d04c632112c233b8c1390bdb30f173",
+  "base": "C3 fbed01a已冻结副本",
+  "overlay_sha256": {
+    "godot/ayu_home/v4/assets/institutions/mill-rod-v1.png": "9c19dadc38b9fa7d5aa0887921177e0b0040aec1e49539049aa99569e8e7ea2b",
+    "godot/ayu_home/v4/assets/institutions/mill-up-v2.png": "ed620118c9f81be089bed0b3320b70cf76c43c73d20b22437ffe15ad531c721d",
+    "godot/ayu_home/v4/assets/institutions/mill-v1.png": "f86d16d5d26a73c2810a3e995e30a964f613bf492dc072b03ad4e0e8f595a1af",
+    "godot/ayu_home/v4/assets/institutions/mill-v2.png": "7f01c12f9b18a3c7587dc9f08bef13a745c6e1e2f010915c3733c135cb141758",
+    "godot/ayu_home/v4/assets/rooms.json": "02375e8c3f1c20114ce9078967eae73008dd974f9359ee2c2631c98bfda5123b",
+    "godot/ayu_home/v4/assets/v_h3.json": "709eaec425c93b4c7e29dcfb7f038fdfea7c2df25f55db077cc5b295a259ae23",
+    "godot/ayu_home/v4/assets/v_h3_up.json": "ec9e4399160307d56bcdfe3fe68c1db07733c06d18b8f0c561e3b76f091eba25",
+    "godot/ayu_home/v4/core/config.gd": "21fa029c8cdc0d93387a32b204dffdd5971dbcb589a09b4ae302a4a9606f83a4",
+    "godot/ayu_home/v4/core/institution_game.gd": "824ae89b5c26c0e2d330aaeb402e07722ea02236509e4679495ebbc011c79901",
+    "godot/ayu_home/v4/core/institution_room.gd": "dee20dfbc5b2e62e880d7cd29b2f987483ba0da831310cfdd36a5837d28fe0f3",
+    "godot/ayu_home/v4/core/interface.gd": "cdb6890df37abe56e792c9aeddb73237e4a68343dabf8e423a9dbaf77be1515c",
+    "godot/ayu_home/v4/core/state.gd": "d5c167623b83ba6ba54b613be6c4ce8f168dd233770bb05f3c8958c61dc125b7",
+    "godot/ayu_home/v4/home.gd": "d8960a6d87d104c3fd3c8561c6a3ffc82ed520c151defc5d76eea513b2461bd0"
+  },
+  "remaining_percent": 61,
+  "profile": "c3-mill-0b8a580",
+  "save": "独立全新存档，不复制旧房间/位置；正常默认阿鱼家门前起点",
+  "time": "初始仅home展示时钟13点；测试clock请求只调用原set_test_clock，不改变共用生产/农作物真实秒数",
+  "fixture": "当前无材料fixture，计划正常种收谷子"
+}
