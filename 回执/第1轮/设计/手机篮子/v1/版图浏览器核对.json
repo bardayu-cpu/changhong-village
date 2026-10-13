@@ -1,0 +1,499 @@
+{
+  "scope": "C4 standalone design layout, not production runtime or N6 validation",
+  "cases": [
+    {
+      "mode": "items",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        375.21875
+      ],
+      "scrollContentHeight": 842,
+      "details": [
+        16,
+        721.609375,
+        508,
+        212.390625
+      ],
+      "actions": [
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            30,
+            871.203125,
+            480,
+            48.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "楼卜",
+      "quantity": "18件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "radish",
+      "scrollBottom": 467,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "check": "prototype selection and keyboard focus",
+      "selected": "蜂蜜",
+      "focusTag": "BUTTON"
+    },
+    {
+      "mode": "items",
+      "viewport": [
+        540,
+        1200
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        615.21875
+      ],
+      "scrollContentHeight": 842,
+      "details": [
+        16,
+        961.609375,
+        508,
+        212.390625
+      ],
+      "actions": [
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            30,
+            1111.203125,
+            480,
+            48.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "楼卜",
+      "quantity": "18件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "radish",
+      "scrollBottom": 227,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "items",
+      "viewport": [
+        360,
+        800
+      ],
+      "pageOverflow": false,
+      "columns": 3,
+      "gridViewport": [
+        16,
+        338.390625,
+        328,
+        215.21875
+      ],
+      "scrollContentHeight": 1010,
+      "details": [
+        16,
+        561.609375,
+        328,
+        212.390625
+      ],
+      "actions": [
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            30,
+            711.203125,
+            300,
+            48.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "楼卜",
+      "quantity": "18件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "radish",
+      "scrollBottom": 795,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "parcel",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        373.21875
+      ],
+      "scrollContentHeight": 842,
+      "details": [
+        16,
+        719.609375,
+        508,
+        214.390625
+      ],
+      "actions": [
+        {
+          "label": "打开动物包",
+          "rect": [
+            30,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        },
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            274,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "动物包",
+      "quantity": "3件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "parcel",
+      "scrollBottom": 469,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "missing",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        373.21875
+      ],
+      "scrollContentHeight": 506,
+      "details": [
+        16,
+        719.609375,
+        508,
+        214.390625
+      ],
+      "actions": [
+        {
+          "label": "制作蜂蜜小架",
+          "rect": [
+            30,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": true
+        },
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            274,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "蜂蜜小架图纸",
+      "quantity": "已学会",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "honey_rack",
+      "scrollBottom": 133,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "seeds",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        373.21875
+      ],
+      "scrollContentHeight": 373,
+      "details": [
+        16,
+        719.609375,
+        508,
+        214.390625
+      ],
+      "actions": [
+        {
+          "label": "换一包海椒种",
+          "rect": [
+            30,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        },
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            274,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "海椒种",
+      "quantity": "2件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "pepper_seed",
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "plans",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        373.21875
+      ],
+      "scrollContentHeight": 506,
+      "details": [
+        16,
+        719.609375,
+        508,
+        214.390625
+      ],
+      "actions": [
+        {
+          "label": "制作蜂蜜小架",
+          "rect": [
+            30,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        },
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            274,
+            869.203125,
+            236,
+            50.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "蜂蜜小架图纸",
+      "quantity": "已学会",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "honey_rack",
+      "scrollBottom": 133,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "stress",
+      "viewport": [
+        360,
+        800
+      ],
+      "pageOverflow": false,
+      "columns": 3,
+      "gridViewport": [
+        16,
+        338.390625,
+        328,
+        186.421875
+      ],
+      "scrollContentHeight": 1010,
+      "details": [
+        16,
+        532.8125,
+        328,
+        241.1875
+      ],
+      "actions": [
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            30,
+            711.203125,
+            300,
+            48.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "庭院修缮用的整捆长节竹材",
+      "quantity": "999999件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "bamboo",
+      "scrollBottom": 824,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "empty",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        338.390625,
+        508,
+        380.8125
+      ],
+      "scrollContentHeight": 381,
+      "details": [
+        16,
+        727.203125,
+        508,
+        206.796875
+      ],
+      "actions": [
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            30,
+            871.203125,
+            480,
+            48.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "暂无选中物品",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": null,
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "locked",
+      "viewport": [
+        360,
+        800
+      ],
+      "pageOverflow": false,
+      "columns": 3,
+      "gridViewport": [
+        16,
+        338.390625,
+        328,
+        156.421875
+      ],
+      "scrollContentHeight": 674,
+      "details": [
+        16,
+        502.8125,
+        328,
+        271.1875
+      ],
+      "actions": [
+        {
+          "label": "制作留言画架",
+          "rect": [
+            30,
+            652.40625,
+            300,
+            50.796875
+          ],
+          "disabled": true
+        },
+        {
+          "label": "盲盒 · 30金币",
+          "rect": [
+            30,
+            711.203125,
+            300,
+            48.796875
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "留言画架图纸",
+      "quantity": "未获得",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "notice_easel",
+      "scrollBottom": 518,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+radish card (116.0, 120.0) stack (108.0, 108.0) label (108.0, 24.0) min (1.0, 24.0) lines 1 visible 1 qty (108.0, 24.0) fontheight 24.0 line 24
+radish_seed card (116.0, 120.0) stack (108.0, 108.0) label (108.0, 24.0) min (1.0, 24.0) lines 1 visible 1 qty (108.0, 24.0) fontheight 24.0 line 24
+meal card (116.0, 144.0) stack (108.0, 132.0) label (108.0, 48.0) min (1.0, 48.0) lines 2 visible 2 qty (108.0, 24.0) fontheight 24.0 line 24
+egg card (116.0, 120.0) stack (108.0, 108.0) label (108.0, 24.0) min (1.0, 24.0) lines 1 visible 1 qty (108.0, 24.0) fontheight 24.0 line 24
+scroll [P: (16.0, 220.0), S: (508.0, 614.0)] grid [P: (16.0, 220.0), S: (488.0, 656.0)] details [P: (16.0, 840.0), S: (508.0, 94.0)]

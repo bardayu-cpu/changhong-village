@@ -4,6 +4,8 @@ const C=preload("res://ayu_home/v4/core/config.gd")
 const State=preload("res://ayu_home/v4/core/state.gd")
 const Yard=preload("res://ayu_home/v4/core/yard.gd")
 const Residents=preload("res://ayu_home/v4/core/residents.gd")
+const InventoryView=preload("res://ayu_home/v4/core/inventory_view.gd")
+var basket_memory:Dictionary={}
 var state
 var home
 var opened:=false
@@ -87,11 +89,16 @@ func close() -> void:
 	if is_instance_valid(institution_game):institution_game.cancel();return
 	if root:remove_child(root);root.queue_free();root=null
 	opened=false;home.ui.visible=true;home.cooldown=.8;yard=null;counters.clear()
+	if page=="篮子" and is_instance_valid(order_button):order_button.grab_focus()
 func _unhandled_input(e:InputEvent) -> void:
 	if opened and e.is_action_pressed("ui_cancel"):close();get_viewport().set_input_as_handled()
 func show_page(which:String) -> void:
 	if root:remove_child(root);root.queue_free()
 	opened=true;home.close_modal();home.ui.visible=false;page=which;counters.clear();yard=null;farm_canvas=null
+	if which=="篮子" and not state.blocked:
+		root=InventoryView.new();add_child(root);root.setup(state,basket_memory)
+		root.close_requested.connect(close);root.page_requested.connect(show_page);root.action_requested.connect(inventory_action)
+		return
 	root=Control.new();root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.theme=UI.theme();add_child(root)
 	var bg:=ColorRect.new();bg.color=UI.DEEP;bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.add_child(bg)
 	var outer:=MarginContainer.new();outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.add_child(outer)
@@ -127,7 +134,6 @@ func show_page(which:String) -> void:
 		"牌子":orders()
 		"村长":mayor()
 		"院子":my_yard()
-		"篮子":inventory()
 		"开地":land_confirmation()
 	back.grab_focus();tick()
 func text(copy:String) -> void:content.add_child(UI.paragraph(copy))
@@ -232,21 +238,10 @@ func my_yard() -> void:
 		button(C.FURNITURE[f.kind].name+" #%d · "%f.id+("已摆" if f.x>=0 else "待摆"),func():selected_furniture=int(f.id);notice="选好家具，点上面开好的空格放下";show_page(page),int(f.id)==selected_furniture)
 	if selected_furniture>=0:button("收起选中的家具",action.bind("store",{"id":selected_furniture}))
 	button("去看图纸与材料",show_page.bind("篮子"))
-func inventory() -> void:
-	title("随身篮子")
-	text(state.describe(state.data.village.items))
-	title("种子篮 · 每包 %d 金币"%C.SEED_COST)
-	for crop in C.CROPS:button("换一包"+C.CROPS[crop].name+"种",action.bind("seed",{"crop":crop}))
-	title("图纸与小包")
-	text("金币盲盒和动物包：%d%% 出旧锄头，其余出图纸；连续 %d 次没工具，下一次保底。已有图纸换 %d 根竹材。"%[roundi(C.BOX_TOOL_CHANCE*100),C.BOX_TOOL_MISSES,C.DUPLICATE_BLUEPRINT_BAMBOO])
-	button("金币盲盒 · %d 金币"%C.BOX_COST,action.bind("box"))
-	button("打开动物包（%d）"%state.count("parcel"),action.bind("parcel"))
-	for id in C.FURNITURE:
-		var cfg:Dictionary=C.FURNITURE[id]
-		var row:=HBoxContainer.new();row.add_theme_constant_override("separation",16);content.add_child(row)
-		var sample:=FurnitureSample.new();sample.kind=id;sample.custom_minimum_size=Vector2(76,76);row.add_child(sample)
-		var copy:=UI.paragraph(cfg.name+"图纸 · "+("已学会" if id in state.data.village.blueprints else "未获得")+"\n制作需要："+state.describe(cfg.items));copy.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(copy)
-		var b:=button("制作"+cfg.name,action.bind("craft",{"id":id}));b.disabled=not id in state.data.village.blueprints
+func inventory_action(command:String,args:Dictionary) -> void:
+	var result:Dictionary=state.act(command,args);notice=result.message
+	if result.ok:home.play_sound("switch")
+	if is_instance_valid(root) and root is InventoryView:root.show_feedback(result.message)
 
 class FurnitureSample extends Control:
 	var kind:="chair"

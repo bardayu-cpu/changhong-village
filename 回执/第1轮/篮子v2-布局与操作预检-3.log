@@ -1,0 +1,82 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS isolated state opens
+PASS all positive real inventory keys listed
+PASS ordinary food has no invented action
+PASS basket alone matches final window (540, 960)
+PASS columns from final usable width (540, 960)
+PASS no page overflow (540, 960)
+PASS details above bottom safe edge (540, 960)
+PASS all button touch targets at least 44px (540, 960)
+PASS 540 first screen shows at least sixteen complete cards
+PASS last card scrolls fully into view (540, 960)
+PASS scroll never moves/overlaps fixed details (540, 960)
+GEOMETRY {"basket_size":[540.0,960.0],"columns":4,"details_height":94.0,"first_screen_complete_cards":16,"screen":[540,960],"scroll_height":614.0}
+PASS basket alone matches final window (540, 1200)
+PASS columns from final usable width (540, 1200)
+PASS no page overflow (540, 1200)
+PASS details above bottom safe edge (540, 1200)
+PASS all button touch targets at least 44px (540, 1200)
+PASS last card scrolls fully into view (540, 1200)
+PASS scroll never moves/overlaps fixed details (540, 1200)
+GEOMETRY {"basket_size":[540.0,1200.0],"columns":4,"details_height":94.0,"first_screen_complete_cards":17,"screen":[540,1200],"scroll_height":854.0}
+PASS basket alone matches final window (360, 800)
+PASS columns from final usable width (360, 800)
+PASS no page overflow (360, 800)
+PASS details above bottom safe edge (360, 800)
+PASS all button touch targets at least 44px (360, 800)
+PASS 360 first screen shows at least nine complete cards
+PASS last card scrolls fully into view (360, 800)
+PASS scroll never moves/overlaps fixed details (360, 800)
+GEOMETRY {"basket_size":[360.0,800.0],"columns":3,"details_height":94.0,"first_screen_complete_cards":9,"screen":[360,800],"scroll_height":454.0}
+PASS basket alone matches final window (320, 720)
+PASS columns from final usable width (320, 720)
+PASS no page overflow (320, 720)
+PASS details above bottom safe edge (320, 720)
+PASS all button touch targets at least 44px (320, 720)
+PASS last card scrolls fully into view (320, 720)
+PASS scroll never moves/overlaps fixed details (320, 720)
+GEOMETRY {"basket_size":[320.0,720.0],"columns":3,"details_height":94.0,"first_screen_complete_cards":6,"screen":[320,720],"scroll_height":374.0}
+PASS keyboard moves by current columns and updates selected detail
+PASS selection never consumes
+PASS context action available
+PASS action and detail fit narrow screen without shrinking touch targets
+PASS animal parcel consumes exactly one, no coins
+PASS action preserves valid selection and scroll
+PASS action restores card focus
+PASS context action available
+PASS action and detail fit narrow screen without shrinking touch targets
+PASS seed command uses selected crop and real price
+PASS twelve plans plus virtual box; default first furniture
+PASS context action available
+PASS action and detail fit narrow screen without shrinking touch targets
+PASS craft consumes exact materials and adds one furniture
+PASS unknown blueprint disabled
+PASS context action available
+PASS action and detail fit narrow screen without shrinking touch targets
+PASS box command charges original price only on button
+PASS virtual service never becomes inventory or blueprint
+PASS box disabled when funds insufficient
+PASS learned blueprint with missing materials disabled
+PASS group restores selection and insufficient seed funds disabled
+PASS unknown long saved key retained and exact quantity available
+PASS basket alone matches final window (360, 800)
+PASS columns from final usable width (360, 800)
+PASS no page overflow (360, 800)
+PASS details above bottom safe edge (360, 800)
+PASS all button touch targets at least 44px (360, 800)
+PASS 360 first screen shows at least nine complete cards
+PASS last card scrolls fully into view (360, 800)
+PASS scroll never moves/overlaps fixed details (360, 800)
+GEOMETRY {"basket_size":[360.0,800.0],"columns":3,"details_height":94.0,"first_screen_complete_cards":9,"screen":[360,800],"scroll_height":454.0}
+PASS drag gesture cannot select another card
+PASS tap selects without consuming
+PASS closing returns focus to basket launcher
+PASS reopen restores valid selected item
+PASS empty inventory has no fake cards or empty action row
+PASS zero seed counts still visible
+PASS empty inventory retains plan/service group
+PASS all five geometry cases completed without early abort
+BASKET_V2 PASS 72 checks []

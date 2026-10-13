@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-14",
+  "scope": "2期 C4篮子v2容器接入；静态版式已获C1批准；N6待C3实机",
+  "contract": "回执/第1轮/设计/手机篮子/v2/C2篮子接入-v2.json",
+  "contract_sha256": "baed1769b346f8d2b4bf3c8f61d9c5a56644294b37810f2c11d2e671fe356401",
+  "production_files": [
+    "godot/ayu_home/v4/core/interface.gd",
+    "godot/ayu_home/v4/core/inventory_view.gd",
+    "godot/ayu_home/v4/core/inventory_icon_draw.gd",
+    "godot/ayu_home/v4/assets/ui/inventory-icons-v1.json"
+  ],
+  "copied_assets": [
+    {
+      "target": "res://ayu_home/v4/assets/ui/inventory-icons-v1.json",
+      "sha256": "9cda3bd3cbb3eb2d3559fda1b9d27ec25d6502e63de1512aab662c15af0b6741"
+    },
+    {
+      "target": "res://ayu_home/v4/core/inventory_icon_draw.gd",
+      "sha256": "94fba817c4c562487ab4675e3e5270f219cd39ea0b86745705572c9cffa0d94d"
+    }
+  ],
+  "behavior": [
+    "真实items正数键按C.ITEMS顺序，未知旧键保留并用原篮子图标",
+    "种子组保留0数量；图纸组12家具加既有盲盒服务，默认第一家具",
+    "点击格子只选中；seed/parcel/craft/box调用原state.act，成本概率保底来自config",
+    "主导航/返回沿原接口；各组选择、滚动、操作后焦点与关闭返回篮子入口保留",
+    "只有篮子根补偿现有canvas伸缩，按最终可用宽4/3列，世界与其他页不改",
+    "C4规定24px行高，篮子内FontVariation上下各减4px额外行距，字形/字号/原字体文件不改",
+    "固定详情随内容，长名上限72、说明上限48可独立滚动；无动作不留空行"
+  ],
+  "headless_precheck": {
+    "checks": 72,
+    "failures": [],
+    "log": "篮子v2-布局与操作预检-3.log",
+    "isolated_fixtures_only": true,
+    "measurements": [
+      {
+        "basket_size": [
+          540.0,
+          960.0
+        ],
+        "columns": 4,
+        "details_height": 94.0,
+        "first_screen_complete_cards": 16,
+        "screen": [
+          540,
+          960
+        ],
+        "scroll_height": 614.0
+      },
+      {
+        "basket_size": [
+          540.0,
+          1200.0
+        ],
+        "columns": 4,
+        "details_height": 94.0,
+        "first_screen_complete_cards": 17,
+        "screen": [
+          540,
+          1200
+        ],
+        "scroll_height": 854.0
+      },
+      {
+        "basket_size": [
+          360.0,
+          800.0
+        ],
+        "columns": 3,
+        "details_height": 94.0,
+        "first_screen_complete_cards": 9,
+        "screen": [
+          360,
+          800
+        ],
+        "scroll_height": 454.0
+      },
+      {
+        "basket_size": [
+          320.0,
+          720.0
+        ],
+        "columns": 3,
+        "details_height": 94.0,
+        "first_screen_complete_cards": 6,
+        "screen": [
+          320,
+          720
+        ],
+        "scroll_height": 374.0
+      },
+      {
+        "basket_size": [
+          360.0,
+          800.0
+        ],
+        "columns": 3,
+        "details_height": 94.0,
+        "first_screen_complete_cards": 9,
+        "screen": [
+          360,
+          800
+        ],
+        "scroll_height": 454.0
+      }
+    ]
+  },
+  "core_regression": {
+    "checks": 87,
+    "result": "PASS",
+    "log": "篮子v2-原test_core.log",
+    "original_assertions_unchanged": true
+  },
+  "initial_attempts": [
+    "预检-1测试脚本误调用Control.to_local，几何分支提前退出；其43项PASS不构成完整预检，错误日志保留",
+    "预检-2边界与指令64项通过，但发现字体默认32px行高影响C4紧凑目标；完成局部行距适配后预检-3共72项通过"
+  ],
+  "limits": [
+    "保留Godot macOS系统证书读取提示；最终预检无SCRIPT ERROR",
+    "所有边界库存只存在测试数据隔离档；未载入C4设计样例到生产",
+    "无图形窗口/真实触摸/存档实玩验收声明，N6须C3在此稳定提交另测；N1-N5仍沿C3独立结论"
+  ],
+  "quota": {
+    "start_remaining_percent": 81,
+    "end_remaining_percent": 76,
+    "freeze_at_percent": 30,
+    "stop_at_percent": 15
+  },
+  "C3_focus": [
+    "540x960 / 540x1200 / 窄屏实际截图；像素字形与粗颗粒图标肉眼核对",
+    "真实库存选中、列表拖动/末项、详情固定和长名完整可读",
+    "换种/动物包/制作/盲盒正常扣发，禁用原因、返回和键盘焦点"
+  ]
+}

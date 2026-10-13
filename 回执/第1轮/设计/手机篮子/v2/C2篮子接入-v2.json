@@ -1,0 +1,590 @@
+{
+  "version": "C4-basket-v2-2026-10-14",
+  "scope": "C1 static layout approved. C2 assigned integration using this v2-only interface. C4 standby, fixes only concrete integration/validation issues. N6 not tested.",
+  "copy_assets": [
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/手机篮子/v2/物品图标接口.json",
+      "target": "res://ayu_home/v4/assets/ui/inventory-icons-v1.json",
+      "sha256": "9cda3bd3cbb3eb2d3559fda1b9d27ec25d6502e63de1512aab662c15af0b6741"
+    },
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/手机篮子/v2/物品小图标.gd",
+      "target": "res://ayu_home/v4/core/inventory_icon_draw.gd",
+      "sha256": "94fba817c4c562487ab4675e3e5270f219cd39ea0b86745705572c9cffa0d94d"
+    }
+  ],
+  "asset_policy": "Exactly reuse vector blocks/source refs. Existing PNGs/font unchanged. Native helper makes SVG imports optional.",
+  "read_sources": [
+    "interface.gd inventory/show_page",
+    "config.gd ITEMS/CROPS/FURNITURE/SEED_COST/BOX_COST/BOX_TOOL_CHANCE/BOX_TOOL_MISSES/DUPLICATE_BLUEPRINT_BAMBOO",
+    "state.gd count/act/item_name",
+    "pixel_ui.gd",
+    "dialog_skin.gd"
+  ],
+  "layout": {
+    "containers": [
+      "header HBox: title/wallet/back",
+      "original main navigation Grid3",
+      "inventory groups Grid3",
+      "summary/date HBox",
+      "ScrollContainer > GridContainer, vertical expand",
+      "fixed detail PanelContainer > VBox: selected/related explanation/conditional context action"
+    ],
+    "breakpoint": 420,
+    "columns_below_breakpoint": 3,
+    "columns_other": 4,
+    "margins_left_top_right_bottom": [
+      16,
+      28,
+      16,
+      26
+    ],
+    "spacing": 6,
+    "grid_spacing": 8,
+    "scrollbar_reserve": 12,
+    "cell_minimum_height": 120,
+    "cell_height_policy": "Flow to actual 1/2-line name; longest card sets row height. Typical long-name row144. No fixed160 or fixed58 name gap.",
+    "cell_padding_horizontal_vertical": [
+      4,
+      6
+    ],
+    "icon_rect": [
+      48,
+      48
+    ],
+    "name_line_height": 24,
+    "name_maximum_lines": 2,
+    "badge_height": 24,
+    "font_body": 24,
+    "font_title": 36,
+    "detail_padding": 8,
+    "detail_spacing": 6,
+    "selected_header_minimum_height": 48,
+    "selected_name_quantity": "same line when fits, wrap for long name",
+    "full_name_maximum_height": 72,
+    "detail_max_height": 264,
+    "description_line_height": 24,
+    "description_maximum_height": 48,
+    "description_policy": "related content only, show reason before material list; scroll only on overflow",
+    "action_minimum_height": 48,
+    "final_touch_minimum": [
+      44,
+      44
+    ],
+    "action_columns": 1,
+    "no_action": "No action control and no reserved empty row.",
+    "no_absolute_container_children": true,
+    "scaling": "Local basket only: adapt to final available width, retain font24 and final touch44. No global stretch change."
+  },
+  "groups": {
+    "items": {
+      "source": "state.data.village.items, count > 0",
+      "order": "C.ITEMS then unknown save keys",
+      "selection": "first existing id; preserve current valid id",
+      "ordinary_action": "none"
+    },
+    "seeds": {
+      "source": "C.CROPS",
+      "show_zero": true,
+      "action": {
+        "command": "seed",
+        "args": {
+          "crop": "selected crop key"
+        }
+      },
+      "enabled": "coins >= C.SEED_COST"
+    },
+    "plans": {
+      "source": "Virtual existing box service card first, then all12 C.FURNITURE entries; service is not owned item or blueprint.",
+      "known": "id in state.data.village.blueprints",
+      "materials": "cfg.items with state.count(id) numerator",
+      "action": {
+        "command": "craft",
+        "args": {
+          "id": "selected furniture key"
+        }
+      },
+      "enabled": "blueprint learned AND all materials available",
+      "selection": "Preserve valid id; default first furniture (chair), not box service.",
+      "service": {
+        "id": "box",
+        "display": "Gold blind box, C.BOX_COST price",
+        "icon": "reuse parcel artwork",
+        "not_inventory": true,
+        "not_blueprint": true,
+        "selection_does_not_consume": true
+      }
+    }
+  },
+  "fixed_actions": {
+    "parcel": {
+      "when": "selected item == parcel",
+      "command": "parcel",
+      "args": {},
+      "enabled": "state.count(parcel) > 0"
+    },
+    "box": {
+      "when": "plans group AND selected virtual service id == box; no global box button in ordinary selected details.",
+      "command": "box",
+      "args": {},
+      "enabled": "coins >= C.BOX_COST"
+    },
+    "return": "existing close()"
+  },
+  "content_rules": {
+    "quantity_slot": "exact through 9999, then 9999+",
+    "quantity_detail": "full exact integer",
+    "long_name": "2 lines ellipsis in grid; full name in independently scrollable detail",
+    "empty": "no fake slots; seed/plan groups remain available",
+    "box_info": "Original probability/pity/duplicate info shown only for selected box service or animal parcel. Read config.",
+    "fixture_data": "Never copy fixture inventory/blueprint states to production"
+  },
+  "design_observations": [
+    {
+      "mode": "items",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        606
+      ],
+      "scrollContentHeight": 664,
+      "details": [
+        16,
+        836,
+        508,
+        98
+      ],
+      "actions": [],
+      "fullname": "楼卜",
+      "quantity": "18件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "radish",
+      "scrollBottom": 58,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "items",
+      "viewport": [
+        540,
+        1200
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        846
+      ],
+      "scrollContentHeight": 846,
+      "details": [
+        16,
+        1076,
+        508,
+        98
+      ],
+      "actions": [],
+      "fullname": "楼卜",
+      "quantity": "18件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "radish",
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "items",
+      "viewport": [
+        360,
+        800
+      ],
+      "pageOverflow": false,
+      "columns": 3,
+      "gridViewport": [
+        16,
+        224,
+        328,
+        446
+      ],
+      "scrollContentHeight": 792,
+      "details": [
+        16,
+        676,
+        328,
+        98
+      ],
+      "actions": [],
+      "fullname": "楼卜",
+      "quantity": "18件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "radish",
+      "scrollBottom": 346,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "box",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        528
+      ],
+      "scrollContentHeight": 528,
+      "details": [
+        16,
+        758,
+        508,
+        176
+      ],
+      "actions": [
+        {
+          "label": "买盲盒 · 30金币",
+          "rect": [
+            26,
+            876,
+            488,
+            48
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "金币盲盒",
+      "quantity": "30金币",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "box",
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "parcel",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        528
+      ],
+      "scrollContentHeight": 664,
+      "details": [
+        16,
+        758,
+        508,
+        176
+      ],
+      "actions": [
+        {
+          "label": "打开动物包",
+          "rect": [
+            26,
+            876,
+            488,
+            48
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "动物包",
+      "quantity": "3件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "parcel",
+      "scrollBottom": 136,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "missing",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        528
+      ],
+      "scrollContentHeight": 528,
+      "details": [
+        16,
+        758,
+        508,
+        176
+      ],
+      "actions": [
+        {
+          "label": "制作蜂蜜小架",
+          "rect": [
+            26,
+            876,
+            488,
+            48
+          ],
+          "disabled": true
+        }
+      ],
+      "fullname": "蜂蜜小架图纸",
+      "quantity": "已学会",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "honey_rack",
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "seeds",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        552
+      ],
+      "scrollContentHeight": 552,
+      "details": [
+        16,
+        782,
+        508,
+        152
+      ],
+      "actions": [
+        {
+          "label": "换一包海椒种 · 3金币",
+          "rect": [
+            26,
+            876,
+            488,
+            48
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "海椒种",
+      "quantity": "2件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "pepper_seed",
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "plans",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        552
+      ],
+      "scrollContentHeight": 552,
+      "details": [
+        16,
+        782,
+        508,
+        152
+      ],
+      "actions": [
+        {
+          "label": "制作蜂蜜小架",
+          "rect": [
+            26,
+            876,
+            488,
+            48
+          ],
+          "disabled": false
+        }
+      ],
+      "fullname": "蜂蜜小架图纸",
+      "quantity": "已学会",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "honey_rack",
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "stress",
+      "viewport": [
+        360,
+        800
+      ],
+      "pageOverflow": false,
+      "columns": 3,
+      "gridViewport": [
+        16,
+        224,
+        328,
+        418
+      ],
+      "scrollContentHeight": 816,
+      "details": [
+        16,
+        648,
+        328,
+        126
+      ],
+      "actions": [],
+      "fullname": "庭院修缮用的整捆长节竹材",
+      "quantity": "999999件",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "bamboo",
+      "scrollBottom": 398,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "empty",
+      "viewport": [
+        540,
+        960
+      ],
+      "pageOverflow": false,
+      "columns": 4,
+      "gridViewport": [
+        16,
+        224,
+        508,
+        636
+      ],
+      "scrollContentHeight": 636,
+      "details": [
+        16,
+        866,
+        508,
+        68
+      ],
+      "actions": [],
+      "fullname": "暂无选中物品",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": null,
+      "scrollBottom": 0,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    },
+    {
+      "mode": "locked",
+      "viewport": [
+        360,
+        800
+      ],
+      "pageOverflow": false,
+      "columns": 3,
+      "gridViewport": [
+        16,
+        224,
+        328,
+        368
+      ],
+      "scrollContentHeight": 736,
+      "details": [
+        16,
+        598,
+        328,
+        176
+      ],
+      "actions": [
+        {
+          "label": "制作留言画架",
+          "rect": [
+            26,
+            716,
+            308,
+            48
+          ],
+          "disabled": true
+        }
+      ],
+      "fullname": "留言画架图纸",
+      "quantity": "未获得",
+      "fontSize": "24px",
+      "fontLoaded": true,
+      "selected": "notice_easel",
+      "scrollBottom": 368,
+      "detailUnmoved": true,
+      "scrollAboveDetails": true,
+      "touchMinimum": true,
+      "lastItemReachable": true
+    }
+  ],
+  "pending": [
+    "C2 production compilation/integration",
+    "C3 real inventory/action N6 validation"
+  ],
+  "handoff": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/手机篮子/v2/C4手机篮子修稿.md",
+  "preview": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/手机篮子/v2/手机篮子-可点版图.html",
+  "feedback": "After existing action, display notice in related description; no generic permanent top notice.",
+  "first_screen_complete_cards": {
+    "540x960_items": 16,
+    "360x800_items": 9,
+    "360x800_stress": 9,
+    "v1_comparison": {
+      "540x960_items": 8,
+      "360x800_items": 3,
+      "360x800_stress": 3
+    },
+    "scope": "Design fixtures, not live game inventory."
+  }
+}

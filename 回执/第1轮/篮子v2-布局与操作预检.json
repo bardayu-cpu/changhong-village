@@ -1,0 +1,77 @@
+{
+  "checks": 72,
+  "failures": [],
+  "measurements": [
+    {
+      "basket_size": [
+        540.0,
+        960.0
+      ],
+      "columns": 4,
+      "details_height": 94.0,
+      "first_screen_complete_cards": 16,
+      "screen": [
+        540,
+        960
+      ],
+      "scroll_height": 614.0
+    },
+    {
+      "basket_size": [
+        540.0,
+        1200.0
+      ],
+      "columns": 4,
+      "details_height": 94.0,
+      "first_screen_complete_cards": 17,
+      "screen": [
+        540,
+        1200
+      ],
+      "scroll_height": 854.0
+    },
+    {
+      "basket_size": [
+        360.0,
+        800.0
+      ],
+      "columns": 3,
+      "details_height": 94.0,
+      "first_screen_complete_cards": 9,
+      "screen": [
+        360,
+        800
+      ],
+      "scroll_height": 454.0
+    },
+    {
+      "basket_size": [
+        320.0,
+        720.0
+      ],
+      "columns": 3,
+      "details_height": 94.0,
+      "first_screen_complete_cards": 6,
+      "screen": [
+        320,
+        720
+      ],
+      "scroll_height": 374.0
+    },
+    {
+      "basket_size": [
+        360.0,
+        800.0
+      ],
+      "columns": 3,
+      "details_height": 94.0,
+      "first_screen_complete_cards": 9,
+      "screen": [
+        360,
+        800
+      ],
+      "scroll_height": 454.0
+    }
+  ],
+  "scope": "headless boundary fixtures only; C3 actual N6 pending"
+}
