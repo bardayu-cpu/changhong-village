@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS new independent save
+PASS first animal xiduo
+PASS first animal qiuqiu
+PASS first animal luoluo
+PASS first animal tiantian
+PASS first 16 slots guarantee only replaces slots
+PASS reopen cannot replay starting supply
+PASS four dated orders day 0
+PASS four dated orders day 1
+PASS four dated orders day 2
+PASS rolling three-day uniqueness ending 2
+PASS four dated orders day 3
+PASS rolling three-day uniqueness ending 3
+PASS four dated orders day 4
+PASS rolling three-day uniqueness ending 4
+PASS four dated orders day 5
+PASS rolling three-day uniqueness ending 5
+PASS four dated orders day 6
+PASS rolling three-day uniqueness ending 6
+PASS four dated orders day 7
+PASS rolling three-day uniqueness ending 7
+PASS four dated orders day 8
+PASS rolling three-day uniqueness ending 8
+PASS 12 distinct stable order cards
+PASS 12 craftable furniture definitions
+PASS real transparent cutout grain_crate
+PASS real transparent cutout tea_stool
+PASS real transparent cutout bamboo_screen
+PASS real transparent cutout honey_rack
+PASS real transparent cutout clay_pot
+PASS real transparent cutout hanging_lamp
+PASS real transparent cutout wash_basin
+PASS real transparent cutout picnic_mat
+PASS real transparent cutout notice_easel
+PASS nine new furniture artworks are distinct
+PASS visits and neighbour/season favours grant only relationships
+PASS craft place store chair
+PASS craft place store table
+PASS craft place store planter
+PASS craft place store grain_crate
+PASS craft place store tea_stool
+PASS craft place store bamboo_screen
+PASS craft place store honey_rack
+PASS craft place store clay_pot
+PASS craft place store hanging_lamp
+PASS craft place store wash_basin
+PASS craft place store picnic_mat
+PASS craft place store notice_easel
+PASS economy and all furniture survive reopen
+ECONOMY_ROUND1 PASS 49 checks; headless only, no first-day real-time claim

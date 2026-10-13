@@ -1,0 +1,274 @@
+{
+  "status": "设计参数，未接入未游戏验收",
+  "ANIMAL_SECONDS": 300,
+  "ANIMAL_ITEMS": 4,
+  "ORDERS": [
+    {
+      "key": "o01",
+      "who": "妈妈",
+      "title": "一碟海椒",
+      "items": {
+        "pepper": 2
+      },
+      "coins": 60,
+      "family": true
+    },
+    {
+      "key": "o02",
+      "who": "小涛",
+      "title": "磨坊添谷",
+      "items": {
+        "grain": 3
+      },
+      "coins": 64,
+      "family": false
+    },
+    {
+      "key": "o03",
+      "who": "林伯",
+      "title": "午饭楼卜",
+      "items": {
+        "radish": 2
+      },
+      "coins": 62,
+      "family": false
+    },
+    {
+      "key": "o04",
+      "who": "凯凯",
+      "title": "蜂蜜糕用粉",
+      "items": {
+        "flour": 1
+      },
+      "coins": 72,
+      "family": false
+    },
+    {
+      "key": "o05",
+      "who": "阿鱼",
+      "title": "拌菜一碗",
+      "items": {
+        "meal": 1
+      },
+      "coins": 75,
+      "family": true
+    },
+    {
+      "key": "o06",
+      "who": "村民活动中心",
+      "title": "聚餐配菜",
+      "items": {
+        "radish": 1,
+        "pepper": 1
+      },
+      "coins": 62,
+      "family": false
+    },
+    {
+      "key": "o07",
+      "who": "隔壁婆婆",
+      "title": "热粥一碗",
+      "items": {
+        "porridge": 1
+      },
+      "coins": 78,
+      "family": false
+    },
+    {
+      "key": "o08",
+      "who": "小涛",
+      "title": "谷粮和菜",
+      "items": {
+        "grain": 2,
+        "radish": 1
+      },
+      "coins": 66,
+      "family": false
+    },
+    {
+      "key": "o09",
+      "who": "妈妈",
+      "title": "晒楼卜干",
+      "items": {
+        "radish": 3
+      },
+      "coins": 65,
+      "family": true
+    },
+    {
+      "key": "o10",
+      "who": "凯凯",
+      "title": "邻里分海椒",
+      "items": {
+        "pepper": 3
+      },
+      "coins": 64,
+      "family": false
+    },
+    {
+      "key": "o11",
+      "who": "林伯",
+      "title": "储粮补一袋",
+      "items": {
+        "grain": 4
+      },
+      "coins": 70,
+      "family": false
+    },
+    {
+      "key": "o12",
+      "who": "村民活动中心",
+      "title": "蒸糕配料",
+      "items": {
+        "flour": 1,
+        "radish": 1
+      },
+      "coins": 80,
+      "family": false
+    }
+  ],
+  "FURNITURE": {
+    "chair": {
+      "name": "竹椅",
+      "items": {
+        "bamboo": 2
+      },
+      "visual": "低竹椅、藤色座面；休息"
+    },
+    "table": {
+      "name": "小木桌",
+      "items": {
+        "bamboo": 3,
+        "stone": 1
+      },
+      "visual": "四脚小桌、深木边；摆物"
+    },
+    "planter": {
+      "name": "花架",
+      "items": {
+        "bamboo": 2,
+        "stone": 2
+      },
+      "visual": "两层竹格架；绿植"
+    },
+    "grain_crate": {
+      "name": "谷粮小箱",
+      "items": {
+        "bamboo": 3
+      },
+      "visual": "谷穗刻线小箱；储物"
+    },
+    "tea_stool": {
+      "name": "矮茶凳",
+      "items": {
+        "bamboo": 2,
+        "stone": 1
+      },
+      "visual": "方矮凳配茶垫；歇脚"
+    },
+    "bamboo_screen": {
+      "name": "竹屏风",
+      "items": {
+        "bamboo": 5
+      },
+      "visual": "横编竹屏与矮脚；分区"
+    },
+    "honey_rack": {
+      "name": "蜂蜜小架",
+      "items": {
+        "bamboo": 4,
+        "stone": 1
+      },
+      "visual": "蜂巢形侧板；摆物"
+    },
+    "clay_pot": {
+      "name": "陶花盆",
+      "items": {
+        "stone": 3
+      },
+      "visual": "红褐粗陶圆盆；绿植"
+    },
+    "hanging_lamp": {
+      "name": "暖灯架",
+      "items": {
+        "bamboo": 3,
+        "stone": 2
+      },
+      "visual": "竹杆悬暖灯；照明"
+    },
+    "wash_basin": {
+      "name": "石洗盆",
+      "items": {
+        "stone": 4,
+        "bamboo": 1
+      },
+      "visual": "浅石盆与短木托；清洁"
+    },
+    "picnic_mat": {
+      "name": "野餐席",
+      "items": {
+        "bamboo": 4
+      },
+      "visual": "竹编席、深绿包边；活动"
+    },
+    "notice_easel": {
+      "name": "留言画架",
+      "items": {
+        "bamboo": 5,
+        "stone": 2
+      },
+      "visual": "木脚架夹留言板；活动"
+    }
+  },
+  "DAILY_ORDER_COUNT": 4,
+  "ORDER_ROTATION_DAYS": 3,
+  "RESIDENCY": {
+    "coins": 100,
+    "items": {
+      "radish": 2,
+      "bamboo": 2
+    },
+    "orders": 3
+  },
+  "LAND": [
+    {
+      "coins": 60,
+      "items": {
+        "stone": 2,
+        "bamboo": 1,
+        "tool": 1
+      }
+    },
+    {
+      "coins": 120,
+      "items": {
+        "stone": 3,
+        "bamboo": 2,
+        "tool": 1
+      }
+    },
+    {
+      "coins": 180,
+      "items": {
+        "stone": 4,
+        "bamboo": 3,
+        "tool": 1
+      }
+    }
+  ],
+  "SEED_COST": 3,
+  "BOX_COST": 30,
+  "VISIT_COINS": 0,
+  "HOUSE_HELP_COINS": 0,
+  "DOOR_CHORE_COINS": 0,
+  "SEASON_HELP_COINS": 0,
+  "NEIGHBOUR_GIFT_COINS": 0,
+  "FIRST_TRIP_GUARANTEE": {
+    "total_minimum": {
+      "stone": 2,
+      "bamboo": 3,
+      "tool": 1
+    },
+    "scope": "仅新档首批16件内替换，不增加件数，一次保存标记"
+  }
+}

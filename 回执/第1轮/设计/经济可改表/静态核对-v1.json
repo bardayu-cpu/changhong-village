@@ -1,0 +1,13 @@
+{
+  "scope": "只核设计表，不跑工程",
+  "order_count": 12,
+  "furniture_count": 12,
+  "sliding_three_day_nonrepeat": true,
+  "minimum_three_order_revenue": [
+    186,
+    203,
+    199
+  ],
+  "residency_plus_land_cost": 160,
+  "game_timing": "未测"
+}

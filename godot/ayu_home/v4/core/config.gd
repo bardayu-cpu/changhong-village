@@ -18,15 +18,11 @@ const RECIPES={
  "flour":{"name":"谷粉","station":"mill","seconds":60,"input":{"grain":2},"output":"flour"},
  "porridge":{"name":"谷香粥","station":"stove","seconds":90,"input":{"flour":1},"output":"porridge"}}
 const ITEMS={"radish":"楼卜","pepper":"海椒","grain":"谷子","radish_seed":"楼卜种","pepper_seed":"海椒种","grain_seed":"谷种","stone":"石头","bamboo":"竹材","tool":"旧锄头","parcel":"动物包","meal":"海椒拌楼卜","flour":"谷粉","porridge":"谷香粥","honey":"蜂蜜","fish":"鲜鱼","egg":"鸡蛋","fruit":"时令果"}
-const ORDERS=[
- {"who":"妈妈","items":{"pepper":2},"coins":55,"family":true},
- {"who":"隔壁婆婆","items":{"porridge":1},"coins":70,"family":false},
- {"who":"牛肉店伙计","items":{"grain":3},"coins":60,"family":false},
- {"who":"阿鱼","items":{"meal":1},"coins":75,"family":true}]
+const ORDERS=[{"key":"o01","who":"妈妈","title":"一碟海椒","items":{"pepper":2},"coins":55,"family":true},{"key":"o07","who":"隔壁婆婆","title":"热粥一碗","items":{"porridge":1},"coins":70,"family":false},{"key":"o02","who":"牛肉店伙计","title":"磨坊添谷","items":{"grain":3},"coins":60,"family":false},{"key":"o05","who":"阿鱼","title":"拌菜一碗","items":{"meal":1},"coins":75,"family":true},{"key":"o03","who":"林伯","title":"午饭楼卜","items":{"radish":2},"coins":62,"family":false},{"key":"o04","who":"凯凯","title":"蜂蜜糕用粉","items":{"flour":1},"coins":72,"family":false},{"key":"o06","who":"村民活动中心","title":"聚餐配菜","items":{"radish":1,"pepper":1},"coins":62,"family":false},{"key":"o08","who":"小涛","title":"谷粮和菜","items":{"grain":2,"radish":1},"coins":66,"family":false},{"key":"o09","who":"妈妈","title":"晒楼卜干","items":{"radish":3},"coins":65,"family":true},{"key":"o10","who":"凯凯","title":"邻里分海椒","items":{"pepper":3},"coins":64,"family":false},{"key":"o11","who":"林伯","title":"储粮补一袋","items":{"grain":4},"coins":70,"family":false},{"key":"o12","who":"村民活动中心","title":"蒸糕配料","items":{"flour":1,"radish":1},"coins":80,"family":false}]
 const RESIDENCY={"coins":100,"items":{"radish":2,"bamboo":2},"orders":3}
 const LOCATIONS={"lake":"湖边","bamboo":"竹林里","hill":"山坡上","garden":"花园中间"}
-const LAND=[{"coins":60,"items":{"stone":2,"bamboo":1,"tool":1}},{"coins":100,"items":{"stone":3,"bamboo":2,"tool":1}},{"coins":150,"items":{"stone":4,"bamboo":3,"tool":1}}]
-const FURNITURE={"chair":{"name":"竹椅","items":{"bamboo":2}},"table":{"name":"小木桌","items":{"bamboo":3,"stone":1}},"planter":{"name":"花架","items":{"bamboo":2,"stone":2}}}
+const LAND=[{"coins":60,"items":{"stone":2,"bamboo":1,"tool":1}},{"coins":120,"items":{"stone":3,"bamboo":2,"tool":1}},{"coins":180,"items":{"stone":4,"bamboo":3,"tool":1}}]
+const FURNITURE={"chair":{"name":"竹椅","items":{"bamboo":2},"visual":"低竹椅、藤色座面；休息"},"table":{"name":"小木桌","items":{"bamboo":3,"stone":1},"visual":"四脚小桌、深木边；摆物"},"planter":{"name":"花架","items":{"bamboo":2,"stone":2},"visual":"两层竹格架；绿植"},"grain_crate":{"name":"谷粮小箱","items":{"bamboo":3},"visual":"谷穗刻线小箱；储物","texture":"res://ayu_home/v4/assets/craft/grain_crate.png"},"tea_stool":{"name":"矮茶凳","items":{"bamboo":2,"stone":1},"visual":"方矮凳配茶垫；歇脚","texture":"res://ayu_home/v4/assets/craft/tea_stool.png"},"bamboo_screen":{"name":"竹屏风","items":{"bamboo":5},"visual":"横编竹屏与矮脚；分区","texture":"res://ayu_home/v4/assets/craft/bamboo_screen.png"},"honey_rack":{"name":"蜂蜜小架","items":{"bamboo":4,"stone":1},"visual":"蜂巢形侧板；摆物","texture":"res://ayu_home/v4/assets/craft/honey_rack.png"},"clay_pot":{"name":"陶花盆","items":{"stone":3},"visual":"红褐粗陶圆盆；绿植","texture":"res://ayu_home/v4/assets/craft/clay_pot.png"},"hanging_lamp":{"name":"暖灯架","items":{"bamboo":3,"stone":2},"visual":"竹杆悬暖灯；照明","texture":"res://ayu_home/v4/assets/craft/hanging_lamp.png"},"wash_basin":{"name":"石洗盆","items":{"stone":4,"bamboo":1},"visual":"浅石盆与短木托；清洁","texture":"res://ayu_home/v4/assets/craft/wash_basin.png"},"picnic_mat":{"name":"野餐席","items":{"bamboo":4},"visual":"竹编席、深绿包边；活动","texture":"res://ayu_home/v4/assets/craft/picnic_mat.png"},"notice_easel":{"name":"留言画架","items":{"bamboo":5,"stone":2},"visual":"木脚架夹留言板；活动","texture":"res://ayu_home/v4/assets/craft/notice_easel.png"}}
 const BOX_COST=30
 ## 每件抽取：工具 12%，动物包 8%，石头 20%，竹材 20%，三种种子共 40%。
 const LOOT=[{"id":"tool","weight":12},{"id":"parcel","weight":8},{"id":"stone","weight":20},{"id":"bamboo","weight":20},{"id":"radish_seed","weight":14},{"id":"pepper_seed","weight":13},{"id":"grain_seed","weight":13}]
@@ -39,6 +35,21 @@ const PRODUCERS={
  "chicken":{"name":"鸡圈","seconds":180,"input":{"grain":1},"output":"egg","yield":2},
  "orchard":{"name":"果树","seconds":300,"input":{},"output":"fruit","yield":3}}
 const NEIGHBOURS={
- "honey":{"name":"凯凯","house":"h5","request":{"honey":1},"coins":35,"gift":{"bamboo":2},"first":"花架还空着。帮我收一瓶蜜，摆盆花在这里吧。","again":"你上次留下的蜜很香。花架一直给你留着位置。"},
- "mill":{"name":"小涛","house":"h3","request":{"flour":1},"coins":40,"gift":{"stone":2},"first":"谷子磨成粉，便能煮粥。帮我带一袋，石磨随时借你。","again":"上次的谷粉派上用场了。坐下，我再泡壶茶。"}}
+ "honey":{"name":"凯凯","house":"h5","request":{"honey":1},"coins":0,"gift":{},"first":"花架还空着。帮我收一瓶蜜，摆盆花在这里吧。","again":"你上次留下的蜜很香。花架一直给你留着位置。"},
+ "mill":{"name":"小涛","house":"h3","request":{"flour":1},"coins":0,"gift":{},"first":"谷子磨成粉，便能煮粥。帮我带一袋，石磨随时借你。","again":"上次的谷粉派上用场了。坐下，我再泡壶茶。"}}
 const LOCATION_POINTS={"lake":[1300,4080],"bamboo":[1750,4080],"hill":[1300,4480],"garden":[1750,4480]}
+
+const DAILY_ORDER_COUNT=4
+const ORDER_ROTATION_DAYS=3
+const ORDER_EPOCH="2026-10-06"
+const FIRST_TRIP_GUARANTEE=["stone","stone","bamboo","bamboo","bamboo","tool"]
+const FIRST_TRIP_SLOTS=16
+const ANIMAL_TOOL_MISSES=5
+const BOX_TOOL_CHANCE=0.25
+const BOX_TOOL_MISSES=3
+const DUPLICATE_BLUEPRINT_BAMBOO=3
+const FOOD_SALE_COINS=12
+const LAND_SECONDS=3
+const MARKET_GOODS=[{"bamboo":9,"radish_seed":2,"honey":18},{"stone":10,"pepper_seed":2,"egg":18},{"bamboo":9,"grain_seed":2,"fruit":18}]
+const NEIGHBOUR_REQUESTS={"honey":[{"honey":1},{"fruit":2},{"egg":2}],"mill":[{"flour":1},{"grain":3},{"porridge":1}]}
+const SEASON_REQUESTS={"wet":{"grain":1},"dry":{"fruit":1}}

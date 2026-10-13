@@ -1,0 +1,375 @@
+{
+  "schema": "craft-furniture-atlas-v1",
+  "source": "新增九件-透明九格-source-v1.png",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "reference_person_height": 84,
+  "items": [
+    {
+      "key": "grain_crate",
+      "name": "谷粮小箱",
+      "index": 0,
+      "cell_xywh": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        92,
+        121,
+        347,
+        364
+      ],
+      "source_crop_size": [
+        255,
+        243
+      ],
+      "suggested_canvas": [
+        54,
+        48
+      ],
+      "uniform_fit_size": [
+        50,
+        48
+      ],
+      "foot_anchor": [
+        27,
+        48
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 49862
+    },
+    {
+      "key": "tea_stool",
+      "name": "矮茶凳",
+      "index": 1,
+      "cell_xywh": [
+        418,
+        0,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        511,
+        148,
+        744,
+        359
+      ],
+      "source_crop_size": [
+        233,
+        211
+      ],
+      "suggested_canvas": [
+        48,
+        38
+      ],
+      "uniform_fit_size": [
+        42,
+        38
+      ],
+      "foot_anchor": [
+        24,
+        38
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 30583
+    },
+    {
+      "key": "bamboo_screen",
+      "name": "竹屏风",
+      "index": 2,
+      "cell_xywh": [
+        836,
+        0,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        870,
+        60,
+        1194,
+        377
+      ],
+      "source_crop_size": [
+        324,
+        317
+      ],
+      "suggested_canvas": [
+        110,
+        100
+      ],
+      "uniform_fit_size": [
+        102,
+        100
+      ],
+      "foot_anchor": [
+        55,
+        100
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 67642
+    },
+    {
+      "key": "honey_rack",
+      "name": "蜂蜜小架",
+      "index": 3,
+      "cell_xywh": [
+        0,
+        418,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        83,
+        462,
+        352,
+        786
+      ],
+      "source_crop_size": [
+        269,
+        324
+      ],
+      "suggested_canvas": [
+        92,
+        96
+      ],
+      "uniform_fit_size": [
+        80,
+        96
+      ],
+      "foot_anchor": [
+        46,
+        96
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 69587
+    },
+    {
+      "key": "clay_pot",
+      "name": "陶花盆",
+      "index": 4,
+      "cell_xywh": [
+        418,
+        418,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        525,
+        493,
+        731,
+        776
+      ],
+      "source_crop_size": [
+        206,
+        283
+      ],
+      "suggested_canvas": [
+        46,
+        58
+      ],
+      "uniform_fit_size": [
+        42,
+        58
+      ],
+      "foot_anchor": [
+        23,
+        58
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 39360
+    },
+    {
+      "key": "hanging_lamp",
+      "name": "暖灯架",
+      "index": 5,
+      "cell_xywh": [
+        836,
+        418,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        947,
+        428,
+        1122,
+        789
+      ],
+      "source_crop_size": [
+        175,
+        361
+      ],
+      "suggested_canvas": [
+        54,
+        110
+      ],
+      "uniform_fit_size": [
+        53,
+        110
+      ],
+      "foot_anchor": [
+        27,
+        110
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 28413
+    },
+    {
+      "key": "wash_basin",
+      "name": "石洗盆",
+      "index": 6,
+      "cell_xywh": [
+        0,
+        836,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        62,
+        926,
+        369,
+        1167
+      ],
+      "source_crop_size": [
+        307,
+        241
+      ],
+      "suggested_canvas": [
+        82,
+        58
+      ],
+      "uniform_fit_size": [
+        74,
+        58
+      ],
+      "foot_anchor": [
+        41,
+        58
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 53436
+    },
+    {
+      "key": "picnic_mat",
+      "name": "野餐席",
+      "index": 7,
+      "cell_xywh": [
+        418,
+        836,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        437,
+        945,
+        833,
+        1127
+      ],
+      "source_crop_size": [
+        396,
+        182
+      ],
+      "suggested_canvas": [
+        106,
+        58
+      ],
+      "uniform_fit_size": [
+        106,
+        49
+      ],
+      "foot_anchor": [
+        53,
+        58
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "铺地席不当墙、不新增整块障碍",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 45805
+    },
+    {
+      "key": "notice_easel",
+      "name": "留言画架",
+      "index": 8,
+      "cell_xywh": [
+        836,
+        836,
+        418,
+        418
+      ],
+      "alpha_bbox_xyxy": [
+        953,
+        833,
+        1155,
+        1203
+      ],
+      "source_crop_size": [
+        202,
+        370
+      ],
+      "suggested_canvas": [
+        72,
+        108
+      ],
+      "uniform_fit_size": [
+        59,
+        108
+      ],
+      "foot_anchor": [
+        36,
+        108
+      ],
+      "fit_policy": "C2按alpha边界裁，同倍率nearest缩放至画布内；底部对齐脚锚，不非等比拉伸",
+      "dynamic": "暖灯可单独亮暗，留言板可贴图，盆中水可波纹；本轮摆设不强制互动",
+      "collision": "只按实际腿脚/盆底/架底占地；上部轮廓不整块封路，C2实摆核对",
+      "bbox_alpha_threshold": 128,
+      "boundary_method": "alpha>=128主要连通物体；不是盲按九格边线，防邻件跨格污染",
+      "source_component_pixels": 42809
+    }
+  ],
+  "status": "C4已看9个不同轮廓、真实alpha；未切片未接入，非家具制作摆放保存验收",
+  "old_keys": [
+    "chair",
+    "table",
+    "planter"
+  ],
+  "old_keys_policy": "旧三件保留，不重画；新增9件是玩家小院物件，不能覆盖四处底图已有陈设",
+  "alpha_note": "九格只是索引，notice_easel顶部略越过九格行线；切片用主要连通物体边界，不按行线截断或误带到lamp。源图低alpha噪点排除出量边界，裁后保留原alpha。"
+}

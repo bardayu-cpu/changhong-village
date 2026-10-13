@@ -1,6 +1,11 @@
 extends RefCounted
+const C=preload("res://ayu_home/v4/core/config.gd")
+const Assets=preload("res://ayu_home/v2/assets.gd")
 ## 家具的实际摆放形象，以整数像素小块绘制，院子和布置页共用。
 static func paint(node:CanvasItem,kind:String,rect:Rect2) -> void:
+	if C.FURNITURE.has(kind) and C.FURNITURE[kind].has("texture"):
+		var tex:=Assets.texture(C.FURNITURE[kind].texture);var scale_factor:=minf(rect.size.x/tex.get_width(),rect.size.y/tex.get_height());var fit:=tex.get_size()*scale_factor
+		node.draw_texture_rect(tex,Rect2((rect.position+Vector2((rect.size.x-fit.x)/2,rect.size.y-fit.y)).round(),fit),false);return
 	var unit:=rect.size/Vector2(48,48)
 	var blocks:Array=[]
 	if kind=="table":

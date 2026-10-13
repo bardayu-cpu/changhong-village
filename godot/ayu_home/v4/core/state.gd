@@ -30,7 +30,7 @@ func open(profile:Dictionary,override_path:="") -> bool:
 			blocked=true;error="存档版本或玩家身份不匹配";return false
 		data=disk;upgrade();return true
 	rng.randomize()
-	data={"version":1,"openid":identity,"profile":profile.duplicate(true),"wallet":{"coins":0,"ledger":[]},"calendar":{"test_clock":{"enabled":false},"events":[]},"renqing":[],"manor":{},"town":{},"village":{"version":1,"revision":0,"clock":raw_now(),"rng":str(rng.state),"items":C.START_ITEMS.duplicate(true),"animals":{},"crops":[{},{},{},{},{},{}],"stations":{"stove":{},"mill":{}},"orders":{},"order_total":0,"resident":false,"location":"","land":[0,0,0],"blueprints":[],"furniture":[],"next_id":1,"visits":[],"history":[]}}
+	data={"version":1,"openid":identity,"profile":profile.duplicate(true),"wallet":{"coins":0,"ledger":[]},"calendar":{"test_clock":{"enabled":false},"events":[]},"renqing":[],"manor":{},"town":{},"village":{"version":1,"revision":0,"clock":raw_now(),"rng":str(rng.state),"items":C.START_ITEMS.duplicate(true),"animals":{},"crops":[{},{},{},{},{},{}],"stations":{"stove":{},"mill":{}},"orders":{},"order_total":0,"resident":false,"location":"","land":[0,0,0],"blueprints":[],"furniture":[],"next_id":1,"visits":[],"history":[],"first_supply":0}}
 	# 初次到家时动物已经从上一趟回来；收取后严格等 300 秒，离线最多一趟。
 	for pet in C.PETS:data.village.animals[pet]={"due":raw_now(),"trips":0}
 	upgrade()
@@ -41,6 +41,7 @@ func upgrade() -> void:
 		if not data.village.has(key):data.village[key]=defaults[key]
 	for key in ["institutions","active_institution"]:
 		if not data.village.has(key):data.village[key]={}
+	if not data.village.has("first_supply"):data.village.first_supply=C.FIRST_TRIP_SLOTS # 旧档不补发新档保底。
 	if not data.village.has("institution_runs"):data.village.institution_runs=0
 	if int(data.village.get("version",1))<2:data.village.version=2
 func read_latest() -> Dictionary:
@@ -85,8 +86,15 @@ func renqing_add(who:String,what:String) -> void:data.renqing.append({"with":who
 func remaining(due:float) -> int:return maxi(0,int(ceil(due-now())))
 func orders() -> Array:
 	var list:Array=[];var day:=date_key()
-	for i in C.ORDERS.size():
-		var order:Dictionary=C.ORDERS[i].duplicate(true);order.id=day+":"+str(i);order.done=data.village.orders.has(order.id);list.append(order)
+	var serial:=int(Time.get_unix_time_from_datetime_string(day+"T00:00:00")/86400)
+	var epoch:=int(Time.get_unix_time_from_datetime_string(C.ORDER_EPOCH+"T00:00:00")/86400)
+	var cohort:=posmod(serial-epoch,C.ORDER_ROTATION_DAYS)
+	for offset in C.DAILY_ORDER_COUNT:
+		var i:int=cohort*C.DAILY_ORDER_COUNT+offset
+		var order:Dictionary=C.ORDERS[i].duplicate(true);order.id=day+":"+str(order.key)
+		# 原四单数组索引历史继续有效，升级不让当日已经交过的单重领。
+		var legacy:=day+":"+str(i) if i<4 else ""
+		order.done=data.village.orders.has(order.id) or (not legacy.is_empty() and data.village.orders.has(legacy));list.append(order)
 	return list
 func act(command:String,args:Dictionary={}) -> Dictionary:
 	if blocked:return {"ok":false,"message":error}
@@ -187,9 +195,8 @@ func execute(command:String,a:Dictionary) -> Dictionary:
 			var c:Dictionary=C.NEIGHBOURS[id].duplicate(true);c.request=neighbour_request(id);var key:=date_key()+":"+id
 			if v.chores.has(key):return fail("今天已经帮过忙了，坐下来聊一会儿吧")
 			if not has_items(c.request):return fail("还缺："+missing_text(c.request))
-			take(c.request);wallet_add(c.coins,"order");v.chores[key]=true;v.helped[id]=int(v.helped.get(id,0))+1
-			for item in c.gift:put(item,c.gift[item])
-			renqing_add(c.name,"收到了你带来的"+describe(c.request));return success(c.name+"记住了你的帮助，收到金币和"+describe(c.gift))
+			take(c.request);v.chores[key]=true;v.helped[id]=int(v.helped.get(id,0))+1
+			renqing_add(c.name,"收到了你带来的"+describe(c.request));return success(c.name+"记住了你的帮助，这份人情留在村里")
 		"house_help":
 			var id:=str(a.get("id",""));var key:=date_key()+":house:"+id
 			if v.chores.has(key):return fail("今天已经收拾好了。你的来访记在这里")
@@ -199,13 +206,13 @@ func execute(command:String,a:Dictionary) -> Dictionary:
 		"season_help":
 			var key:=date_key()+":season"
 			if v.chores.has(key):return fail("今天的季节小事已经做完，明天还会有新的便签")
-			var wet:bool=str(a.get("weather","")) in ["rain","snow"];var need:Dictionary={"grain":1} if wet else {"fruit":1}
+			var wet:bool=str(a.get("weather","")) in ["rain","snow"];var need:Dictionary=C.SEASON_REQUESTS.wet if wet else C.SEASON_REQUESTS.dry
 			if not has_items(need):return fail("今天"+("给鸟留一把谷子：" if wet else "分享一份时令果：")+missing_text(need))
-			take(need);wallet_add(25,"order");put("bamboo",1);v.chores[key]=true;renqing_add("村里的邻居","雨雪天添谷子" if wet else "分享了"+str(a.get("season",""))+"的果子");return success("这件小事记下了，收到 25 金币和一根竹材")
+			take(need);v.chores[key]=true;renqing_add("村里的邻居","雨雪天添谷子" if wet else "分享了"+str(a.get("season",""))+"的果子");return success("这件小事记下了，邻居记着这份人情")
 		"sell":
 			var id:=str(a.get("id",""))
 			if not id in ["radish","pepper","grain","honey","fish","egg","fruit"] or count(id)<1:return fail("篮子里还没有这份收获")
-			put(id,-1);wallet_add(12,"order");return success("放进邻里食材柜，收到 12 金币")
+			put(id,-1);wallet_add(C.FOOD_SALE_COINS,"order");return success("放进邻里食材柜，收到 %d 金币"%C.FOOD_SALE_COINS)
 		"market_buy":
 			if not isMarketDay():return fail("今天歇场；普通种子可在种子篮换")
 			var goods:=market_goods();var id:=str(a.get("id",""))
@@ -233,11 +240,13 @@ func execute(command:String,a:Dictionary) -> Dictionary:
 			if remaining(v.animals[id].due)>0:return fail("它还在路上，回来后再收")
 			var got:Dictionary={}
 			for i in C.ANIMAL_ITEMS:
-				var roll:=rng.randi_range(1,100);var total:=0
-				if i==3 and int(v.animal_misses)>=5:roll=1
+				var roll:=rng.randi_range(1,100);var total:=0;var picked:=""
+				if i==3 and int(v.animal_misses)>=C.ANIMAL_TOOL_MISSES:roll=1
 				for entry in C.LOOT:
 					total+=entry.weight
-					if roll<=total:put(entry.id,1);got[entry.id]=int(got.get(entry.id,0))+1;break
+					if roll<=total:picked=entry.id;break
+				if int(v.first_supply)<C.FIRST_TRIP_GUARANTEE.size():picked=C.FIRST_TRIP_GUARANTEE[int(v.first_supply)]
+				put(picked,1);got[picked]=int(got.get(picked,0))+1;v.first_supply=mini(C.FIRST_TRIP_SLOTS,int(v.first_supply)+1)
 			v.animal_misses=0 if got.has("tool") else int(v.animal_misses)+1
 			v.animals[id]={"due":now()+C.ANIMAL_SECONDS,"trips":int(v.animals[id].trips)+1}
 			v.history.append({"kind":"animal","who":id,"items":got,"at":now()})
@@ -299,18 +308,18 @@ func execute(command:String,a:Dictionary) -> Dictionary:
 			var cost:Dictionary=C.LAND[i]
 			if not has_items(cost.items):return fail("还缺："+missing_text(cost.items)+"。动物会带材料和工具，盲盒也有工具")
 			if not wallet_spend(cost.coins,"decor"):return fail("金币不够，多交几件门口订单")
-			take(cost.items);v.land[i]=now()+3;return success("杂草收走，石头搬开…三秒后可以摆家具")
+			take(cost.items);v.land[i]=now()+C.LAND_SECONDS;return success("杂草收走，石头搬开…%d 秒后可以摆家具"%C.LAND_SECONDS)
 		"box","parcel":
 			if command=="box":
 				if not wallet_spend(C.BOX_COST,"decor"):return fail("金币不够")
 			else:
 				if count("parcel")<1:return fail("还没有动物包")
 				put("parcel",-1)
-			if rng.randf()<0.25 or int(v.box_misses)>=3:
+			if rng.randf()<C.BOX_TOOL_CHANCE or int(v.box_misses)>=C.BOX_TOOL_MISSES:
 				v.box_misses=0;put("tool",1);return success("打开得到一把旧锄头")
 			v.box_misses+=1
 			var keys:=C.FURNITURE.keys();var id:String=keys[rng.randi_range(0,keys.size()-1)]
-			if id in v.blueprints:put("bamboo",3);return success("这张图纸已有，换成了 3 根竹材")
+			if id in v.blueprints:put("bamboo",C.DUPLICATE_BLUEPRINT_BAMBOO);return success("这张图纸已有，换成了 %d 根竹材"%C.DUPLICATE_BLUEPRINT_BAMBOO)
 			v.blueprints.append(id);return success("得到"+C.FURNITURE[id].name+"图纸")
 		"craft":
 			var id:=str(a.get("id",""))
@@ -351,7 +360,7 @@ func shared_action(action:String,a:Dictionary) -> Dictionary:
 
 func market_goods() -> Dictionary:
 	var d:=local_date();var rotation:=int(d.day/2)%3
-	return [{"bamboo":9,"radish_seed":2,"honey":18},{"stone":10,"pepper_seed":2,"egg":18},{"bamboo":9,"grain_seed":2,"fruit":18}][rotation]
+	return C.MARKET_GOODS[rotation]
 func day_number() -> int:return maxi(1,data.village.visits.size())
 
 func item_name(id:String) -> String:
@@ -361,5 +370,4 @@ func item_name(id:String) -> String:
 	return str(old.CROPS[key].name)+("种" if id.ends_with("_seed") else "") if old.CROPS.has(key) else id
 func neighbour_request(id:String) -> Dictionary:
 	var visits:=int(data.village.helped.get(id,0))
-	if id=="honey":return [{"honey":1},{"fruit":2},{"egg":2}][visits%3]
-	return [{"flour":1},{"grain":3},{"porridge":1}][visits%3]
+	return C.NEIGHBOUR_REQUESTS[id][visits%C.NEIGHBOUR_REQUESTS[id].size()]

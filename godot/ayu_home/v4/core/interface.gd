@@ -174,9 +174,9 @@ func kitchen() -> void:
 	button("去村里的生产场所",show_page.bind("地图"))
 
 func orders() -> void:
-	title("门口的小牌子")
+	title("门口的小牌子 · "+state.date_key())
 	for order in state.orders():
-		text("%s想要 %s\n酬谢 %d 金币%s"%[order.who,state.describe(order.items),order.coins," · 记人情簿" if order.family else ""])
+		text("%s · %s\n想要 %s，酬谢 %d 金币%s"%[order.who,order.title,state.describe(order.items),order.coins," · 记人情簿" if order.family else ""])
 		var b:=button("今天已交" if order.done else "交给"+order.who,action.bind("order",{"id":order.id}),not order.done);b.disabled=order.done
 	title("家人的人情簿")
 	if state.data.renqing.is_empty():text("帮家人交了订单，这里就留下一行来往。")
@@ -188,7 +188,7 @@ func mayor() -> void:
 	if not v.resident:
 		text("阿鱼说你常来帮忙。住下需要三件邻里订单，再备好一点起家物资。客房仍可以住。")
 		text("已交 %d / %d 件订单\n入驻：%d 金币、%s"%[v.order_total,C.RESIDENCY.orders,C.RESIDENCY.coins,state.describe(C.RESIDENCY.items)])
-		text("还缺材料："+(state.missing_text(C.RESIDENCY.items) if not state.has_items(C.RESIDENCY.items) else "材料已齐")+"。楼卜自己种，竹材让动物带回，或帮凯凯收蜜。")
+		text("还缺材料："+(state.missing_text(C.RESIDENCY.items) if not state.has_items(C.RESIDENCY.items) else "材料已齐")+"。楼卜自己种，竹材让动物带回，或在村委会整理事务卡。")
 		button("提交物资，申请入驻",action.bind("reside"),true)
 		button("去看邻里订单",show_page.bind("牌子"))
 	elif v.location.is_empty():
@@ -238,13 +238,21 @@ func inventory() -> void:
 	title("种子篮 · 每包 %d 金币"%C.SEED_COST)
 	for crop in C.CROPS:button("换一包"+C.CROPS[crop].name+"种",action.bind("seed",{"crop":crop}))
 	title("图纸与小包")
-	text("金币盲盒和动物包：25% 出旧锄头，其余出图纸；连续三次没工具，第四次保底。已有图纸换 3 根竹材。")
+	text("金币盲盒和动物包：%d%% 出旧锄头，其余出图纸；连续 %d 次没工具，下一次保底。已有图纸换 %d 根竹材。"%[roundi(C.BOX_TOOL_CHANCE*100),C.BOX_TOOL_MISSES,C.DUPLICATE_BLUEPRINT_BAMBOO])
 	button("金币盲盒 · %d 金币"%C.BOX_COST,action.bind("box"))
 	button("打开动物包（%d）"%state.count("parcel"),action.bind("parcel"))
 	for id in C.FURNITURE:
 		var cfg:Dictionary=C.FURNITURE[id]
-		text(cfg.name+"图纸 · "+("已学会" if id in state.data.village.blueprints else "未获得")+"\n制作需要："+state.describe(cfg.items))
+		var row:=HBoxContainer.new();row.add_theme_constant_override("separation",16);content.add_child(row)
+		var sample:=FurnitureSample.new();sample.kind=id;sample.custom_minimum_size=Vector2(76,76);row.add_child(sample)
+		var copy:=UI.paragraph(cfg.name+"图纸 · "+("已学会" if id in state.data.village.blueprints else "未获得")+"\n制作需要："+state.describe(cfg.items));copy.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(copy)
 		var b:=button("制作"+cfg.name,action.bind("craft",{"id":id}));b.disabled=not id in state.data.village.blueprints
+
+class FurnitureSample extends Control:
+	var kind:="chair"
+	func _draw() -> void:
+		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		preload("res://ayu_home/v4/core/furniture_draw.gd").paint(self,kind,Rect2(4,4,68,68))
 
 func confirm_land(index:int) -> void:
 	land_choice=index;notice="先看看要用的东西，够了再开这块地。";show_page("开地")
@@ -352,12 +360,12 @@ func neighbour() -> void:
 	var c:Dictionary=C.NEIGHBOURS[context_id].duplicate(true);c.request=state.neighbour_request(context_id);var v:Dictionary=state.data.village
 	title(c.name)
 	text(c.again if int(v.helped.get(context_id,0))>0 else c.first)
-	text("帮忙次数：%d。今天想要 %s，酬谢 %d 金币和 %s。"%[int(v.helped.get(context_id,0)),state.describe(c.request),c.coins,state.describe(c.gift)])
+	text("帮忙次数：%d。今天想要 %s，这份来往记在人情簿里。"%[int(v.helped.get(context_id,0)),state.describe(c.request)])
 	button("把东西交给"+c.name,action.bind("neighbour",{"id":context_id}),true)
 	if context_id=="mill":button("借用石磨",show_page.bind("灶屋"))
 	else:button("照料蜂蜜箱",show_page.bind("生产"))
 	title("窗外的小事")
-	text("雨雪天给鸟留一把谷子；晴阴天分享一个当季果子。帮完收到 25 金币和一根竹材。每天任选一回。")
+	text("雨雪天给鸟留一把谷子；晴阴天分享一个当季果子。邻居记着这份人情。每天任选一回。")
 	button("做今天的小事",action.bind("season_help",{"weather":home.weather,"season":home.Data.SEASONS[home.Data.season(home.month)]}))
 	button("坐会儿再走",func():close();home.player.action="sit";home.note="坐一会儿，点地面起身。")
 func market() -> void:
