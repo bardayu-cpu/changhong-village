@@ -1,11 +1,37 @@
 {
-  "checked_at": "2026-10-13T22:13:06.686034",
-  "checked_head": "7b085c9da2f2c499e92a755f2f1b4df97a4aca57",
-  "scope": "本轮新增和修改、非忽略文件；只报告路径，不输出凭证内容",
-  "file_count": 475,
-  "over_50MB": [],
-  "package_or_key_filename": [],
-  "credential_pattern_flags": [],
-  "screenshots_over_2MB": [],
-  "note": "模式扫描不保证发现所有秘密；隔离测试数据与运行缓存继续由.gitignore排除。"
+  "date": "2026-10-14",
+  "code_commit": "452b45a04b99b9f55576f54b97f6770c3e748781",
+  "tracked_files": 5112,
+  "large_over_50mb": [],
+  "package_or_key_candidates": [],
+  "credential_pattern_candidates": [],
+  "receipt_png_over_2mb": [],
+  "protected_originals": [
+    {
+      "file": "给Claude审查/check_room_standard.py",
+      "sha256": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+      "matches": true
+    },
+    {
+      "file": "godot/ayu_home/v4/core/test_core.gd",
+      "sha256": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d",
+      "matches": true
+    }
+  ],
+  "limits": [
+    "只核对当前跟踪文件及常见凭据特征，不能证明任意格式不存在秘密；不输出匹配内容。",
+    "C3运行目录和用户存档不归档，最终新增归档文件仍由唯一Git操作者C2逐项审查。"
+  ],
+  "credential_pattern_false_positives": [
+    {
+      "file": "回执/第1轮/设计/手机篮子/v1/手机篮子-可点版图.html",
+      "matches": 3,
+      "resolution": "误报：全部位于已解码验证wOF2头的内嵌字体base64内容，非凭据文本。"
+    },
+    {
+      "file": "回执/第1轮/设计/手机篮子/v2/手机篮子-可点版图.html",
+      "matches": 3,
+      "resolution": "误报：全部位于已解码验证wOF2头的内嵌字体base64内容，非凭据文本。"
+    }
+  ]
 }
