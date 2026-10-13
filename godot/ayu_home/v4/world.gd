@@ -307,6 +307,14 @@ func soft_shadow(at:Vector2,width:float,opacity:float) -> void:
 			var angle:=TAU*i/24.0
 			pts.append(at+sv*.3+Vector2(cos(angle)*width*spread+sin(angle)*sv.x*.35,sin(angle)*(5+absf(sv.y)*.25)*spread))
 		ground.draw_colored_polygon(pts,Color(.08,.09,.15,opacity*.25))
+func weather_view() -> Rect2:
+	# 实际视口经画布逆变换落回世界；窗口缩放、横屏和镜头缩放共用同一范围。
+	var screen:=get_viewport_rect();var inverse:=get_global_transform_with_canvas().affine_inverse()
+	var bounds:=Rect2(inverse*screen.position,Vector2.ZERO)
+	for corner in [Vector2(screen.end.x,screen.position.y),screen.end,Vector2(screen.position.x,screen.end.y)]:bounds=bounds.expand(inverse*corner)
+	return bounds.grow(20.0)
+func weather_count(base_count:int,base_area:=156000.0) -> int:
+	return clampi(roundi(base_count*weather_view().get_area()/base_area),1,1600)
 func _air_draw() -> void:
 	if not effects_enabled:return
 	if area=="living":
@@ -337,8 +345,9 @@ func _air_draw() -> void:
 					var p := Vector2(rect.position.x+fposmod(i*19+elapsed*2,rect.size.x),rect.end.y+fposmod(i*15-elapsed*3,250)*(-1 if rect.position.y>float(cfg.size[1])*.5 else 1))
 					if light_rect.has_point(p):atmosphere.draw_rect(Rect2(p,Vector2.ONE),Color(1,.9,.64,.5))
 	else:
-		for i in (100 if weather in ["rain","snow"] else 32):
-			var p := camera_center-Vector2(600,650)+Vector2(fposmod(i*79+elapsed*(30 if weather=="rain" else 8),1200.0),fposmod(i*137+elapsed*(160 if weather=="rain" else 20),1300.0))
+		var full_view:=weather_view()
+		for i in weather_count(100 if weather in ["rain","snow"] else 32,1560000.0):
+			var p := full_view.position+Vector2(fposmod(i*79+elapsed*(30 if weather=="rain" else 8),full_view.size.x),fposmod(i*137+elapsed*(160 if weather=="rain" else 20),full_view.size.y))
 			if weather=="rain":atmosphere.draw_line(p,p+Vector2(-3,10),Color(.7,.85,.9,.4),1)
 			else:atmosphere.draw_rect(Rect2(p,Vector2(3,3) if weather=="snow" else Vector2(2,2)),Color(.94,.97,1,.7) if weather=="snow" else season_particle())
 	# Every reaction changes the scene at the object, even in daylight.
@@ -539,21 +548,21 @@ func _life_draw() -> void:
 			if str(d.target) in ["exterior","side_path","bridge","oldhouse","garden","grove"]:exit_arrows(d)
 	if cfg.get("outdoor",false):
 		# 雪、花瓣、雨都只画在镜头看得到的地方，密一点，一眼看得出季节和天气
-		var view:=Rect2(camera_center-Vector2(150,260),Vector2(300,520))
-		var winter:=month in [12,1,2]
+		var view:=weather_view()
+		var winter:=month in [12,1,2] or weather=="snow"
 		if winter:
-			for i in 90:
+			for i in weather_count(90):
 				var p:=view.position+Vector2(fposmod(i*37.0+sin(elapsed*.7+i)*14+elapsed*6,view.size.x),fposmod(i*53.0+elapsed*(22+i%5*5),view.size.y))
 				pixel(Rect2(p,Vector2(3,3) if i%3 else Vector2(2,2)),Color(.97,.98,1,.9))
 		elif month in [3,4,5]:
-			for i in 30:pixel(Rect2(view.position+Vector2(fposmod(i*47.0+elapsed*12,view.size.x),fposmod(i*61.0+elapsed*16,view.size.y)),Vector2(4,3)),Color("efb9b1"))
+			for i in weather_count(30):pixel(Rect2(view.position+Vector2(fposmod(i*47.0+elapsed*12,view.size.x),fposmod(i*61.0+elapsed*16,view.size.y)),Vector2(4,3)),Color("efb9b1"))
 		elif month in [9,10,11]:
-			for i in 22:pixel(Rect2(view.position+Vector2(fposmod(i*59.0+sin(elapsed+i)*20+elapsed*10,view.size.x),fposmod(i*71.0+elapsed*18,view.size.y)),Vector2(4,3)),[Color("d58a3a"),Color("c5652e"),Color("e2b04a")][i%3])
+			for i in weather_count(22):pixel(Rect2(view.position+Vector2(fposmod(i*59.0+sin(elapsed+i)*20+elapsed*10,view.size.x),fposmod(i*71.0+elapsed*18,view.size.y)),Vector2(4,3)),[Color("d58a3a"),Color("c5652e"),Color("e2b04a")][i%3])
 		if weather=="rain":
-			for i in 110:
+			for i in weather_count(110):
 				var p:=view.position+Vector2(fposmod(i*29.0-elapsed*60,view.size.x),fposmod(i*47.0+elapsed*420,view.size.y))
 				atmosphere.draw_line(p,p+Vector2(-4,14),Color(.78,.88,.96,.55),1)
-			for i in 26:
+			for i in weather_count(26):
 				var p:=view.position+Vector2(fposmod(i*83.0,view.size.x),fposmod(i*131.0,view.size.y));var age:=fposmod(elapsed*1.6+i*.37,1.0)
 				if walkable(p):atmosphere.draw_arc(p,2+age*7,0,TAU,10,Color(.82,.9,.95,(1-age)*.7),1)
 			for i in 15:
