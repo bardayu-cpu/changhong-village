@@ -64,8 +64,8 @@ def line(points,width,color):
 def rect(b,c):d.rectangle(tuple(int(a/3) for a in b),fill=c)
 roads=roads+[[(820,695),(910,960),(620,1100),(460,1115)],[(2160,690),(2650,660),(3200,680)],[(2000,3700),(2300,3790)],[(940,1100),(1060,1370),(1630,1400)]]
 roads += [[(3200,680),(3470,750),(3680,750),(4260,820),(4670,910),(4710,1800),(4610,2330),(4700,3020),(4690,4280),(4300,4350)],[(3150,2460),(3220,1980),(3450,1900),(3690,1900),(4090,1970)],[(3260,3380),(3380,3050),(3660,3050),(4300,3140)],[(3145,4380),(3460,4320),(3670,4320),(4310,4350)]]
-for rd in roads:
-    line(rd,126,'#a88956');line(rd,113,'#cfb17b');line(rd,94,'#ddc08a')
+for width,color in [(126,'#a88956'),(113,'#cfb17b'),(94,'#ddc08a')]:
+    for rd in roads:line(rd,width,color)
 for row in houses.values():
     x,y,w,h=row['bounds'];gate=row['at']; points=[pt for rd in roads for pt in rd]
     near=min(points,key=lambda p:(p[0]-gate[0])**2+(p[1]-gate[1])**2)
