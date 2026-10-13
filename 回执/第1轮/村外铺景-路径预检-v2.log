@@ -1,0 +1,153 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS asset exists land_field_0_row0_1273
+PASS asset exists land_field_0_row0_1431.4
+PASS asset exists land_field_0_row1_1279
+PASS asset exists land_field_0_row1_1437.4
+PASS asset exists land_field_0_row2_1273
+PASS asset exists land_field_0_row2_1431.4
+PASS asset exists land_field_0_row3_1279
+PASS asset exists land_field_0_row3_1437.4
+PASS asset exists land_field_0_row4_1273
+PASS asset exists land_field_0_row4_1431.4
+PASS asset exists land_field_0_row5_1279
+PASS asset exists land_field_0_row5_1437.4
+PASS asset exists land_field_1_row0_3033
+PASS asset exists land_field_1_row0_3191.4
+PASS asset exists land_field_1_row1_3039
+PASS asset exists land_field_1_row1_3197.4
+PASS asset exists land_field_1_row2_3033
+PASS asset exists land_field_1_row2_3191.4
+PASS asset exists land_field_1_row3_3039
+PASS asset exists land_field_1_row3_3197.4
+PASS asset exists land_field_2_row0_3043
+PASS asset exists land_field_2_row0_3201.4
+PASS asset exists land_field_2_row1_3049
+PASS asset exists land_field_2_row1_3207.4
+PASS asset exists land_field_2_row2_3043
+PASS asset exists land_field_2_row2_3201.4
+PASS asset exists land_field_2_row3_3049
+PASS asset exists land_field_2_row3_3207.4
+PASS asset exists land_field_2_row4_3043
+PASS asset exists land_field_2_row4_3201.4
+PASS asset exists land_field_2_row5_3049
+PASS asset exists land_field_2_row5_3207.4
+PASS asset exists land_field_3_row0_3893
+PASS asset exists land_field_3_row0_4051.4
+PASS asset exists land_field_3_row0_4209.8
+PASS asset exists land_field_3_row1_3899
+PASS asset exists land_field_3_row1_4057.4
+PASS asset exists land_field_3_row1_4215.8
+PASS asset exists land_field_3_row2_3893
+PASS asset exists land_field_3_row2_4051.4
+PASS asset exists land_field_3_row2_4209.8
+PASS asset exists land_field_3_row3_3899
+PASS asset exists land_field_3_row3_4057.4
+PASS asset exists land_field_3_row3_4215.8
+PASS asset exists land_field_4_row0_3863
+PASS asset exists land_field_4_row0_4021.4
+PASS asset exists land_field_4_row0_4179.8
+PASS asset exists land_field_4_row1_3869
+PASS asset exists land_field_4_row1_4027.4
+PASS asset exists land_field_4_row1_4185.8
+PASS asset exists land_field_4_row2_3863
+PASS asset exists land_field_4_row2_4021.4
+PASS asset exists land_field_4_row2_4179.8
+PASS asset exists land_field_4_row3_3869
+PASS asset exists land_field_4_row3_4027.4
+PASS asset exists land_field_4_row3_4185.8
+PASS asset exists land_field_5_row0_4363
+PASS asset exists land_field_5_row1_4369
+PASS asset exists land_field_5_row2_4363
+PASS asset exists land_field_5_row3_4369
+PASS asset exists land_87_garden_laowu
+PASS asset exists land_88_garden_daba
+PASS asset exists land_89_garden_daba
+PASS asset exists land_90_garden_h5
+PASS asset exists land_91_garden_h3
+PASS asset exists land_92_garden_h8
+PASS asset exists land_93_garden_h7
+PASS asset exists land_94_garden_h4
+PASS asset exists land_95_garden_h1
+PASS asset exists land_96_plant_9
+PASS asset exists land_97_plant_10
+PASS asset exists land_98_plant_11
+PASS asset exists land_99_plant_14
+PASS asset exists land_100_plant_15
+PASS asset exists land_101_plant_16
+PASS asset exists land_102_plant_17
+PASS asset exists land_103_plant_18
+PASS asset exists land_104_plant_19
+PASS asset exists land_105_plant_20
+PASS asset exists land_106_plant_21
+PASS asset exists land_107_plant_23
+PASS asset exists land_108_plant_24
+PASS asset exists land_109_plant_25
+PASS asset exists land_110_plant_26
+PASS asset exists land_111_plant_27
+PASS asset exists land_112_plant_29
+PASS asset exists land_113_plant_30
+PASS asset exists land_tree_0
+PASS asset exists land_tree_1
+PASS asset exists land_tree_2
+PASS asset exists land_tree_3
+PASS asset exists land_tree_4
+PASS asset exists land_tree_5
+PASS asset exists land_tree_6
+PASS asset exists land_tree_7
+PASS asset exists land_tree_8
+PASS asset exists land_tree_12
+PASS asset exists land_tree_13
+PASS asset exists land_tree_22
+PASS asset exists land_tree_28
+PASS ground decorations and sorted raised plants both attached
+PASS master index exactly matches village file
+PASS preserved reachable approach visit_ayu
+PASS preserved reachable approach visit_laowu
+PASS preserved reachable approach visit_h5
+PASS preserved reachable approach visit_h3
+PASS preserved reachable approach visit_mayor
+PASS preserved reachable approach visit_community
+PASS preserved reachable approach mayor
+PASS preserved reachable approach honey
+PASS preserved reachable approach pond
+PASS preserved reachable approach chicken
+PASS preserved reachable approach orchard
+PASS preserved reachable approach market
+PASS preserved reachable approach home_site
+PASS preserved reachable approach map
+PASS preserved reachable approach mill
+PASS preserved reachable approach visit_erba
+PASS preserved reachable approach visit_daba
+PASS preserved reachable approach visit_h2
+PASS preserved reachable approach visit_h6
+PASS preserved reachable approach visit_h8
+PASS preserved reachable approach visit_h7
+PASS preserved reachable approach visit_h4
+PASS preserved reachable approach visit_h1
+PASS preserved reachable approach visit_flower
+PASS preserved reachable approach visit_whitebrick
+PASS preserved reachable approach visit_grape
+PASS preserved reachable approach visit_sunflower
+PASS preserved reachable approach visit_persimmon
+PASS preserved reachable approach visit_rose
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+LANDSCAPE PASS; headless path/asset precheck; N1-N5 screenshots remain C3

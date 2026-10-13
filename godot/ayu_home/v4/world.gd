@@ -74,7 +74,8 @@ func load_room(which: String) -> void:
 	ground = Node2D.new();ground.draw.connect(_ground_draw);add_child(ground)
 	actors = Node2D.new();actors.y_sort_enabled = true;add_child(actors)
 	for p in cfg.props:
-		var base := Node2D.new();base.position = Vector2(0,float(p.foot));actors.add_child(base)
+		var base := Node2D.new();base.position = Vector2(0,float(p.foot))
+		(ground if p.get("ground",false) else actors).add_child(base)
 		var sp := Sprite2D.new();sp.centered = false;sp.texture = art(asset_path(p.file));sp.position = v(p.pos)-base.position;base.add_child(sp)
 		if p.has("atlas_region"):
 			var region_texture:=AtlasTexture.new();region_texture.atlas=sp.texture

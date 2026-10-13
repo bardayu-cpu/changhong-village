@@ -17,6 +17,23 @@ def line(points,width,color):
     q=[(int(x/3),int(y/3)) for x,y in points];d.line(q,fill=color,width=max(1,int(width/3)),joint='curve')
     for x,y in q:d.ellipse((x-width/6,y-width/6,x+width/6,y+width/6),fill=color)
 def rect(b,c):d.rectangle(tuple(int(a/3) for a in b),fill=c)
+# Narrow paths connect the new kitchen gardens to the unchanged village road network.
+# All edges are drawn before all fills, including their joins; no closed tile outlines.
+landscape=V/'landscape-layout.json'
+if landscape.exists():
+    paths=json.loads(landscape.read_text()).get('field_paths',[])
+    for width,color in [(34,'#aa925d'),(25,'#c4aa74')]:
+        for path in paths:line(path,width,color)
+if landscape.exists():
+    for field in json.loads(landscape.read_text()).get('fields',[]):
+        x,y,w,h=field['rect']
+        # One enclosing earth ridge, an inner soil face, and a continuous shallow drain on two sides.
+        outline=[(x-5,y-5),(x+w+5,y-5),(x+w+5,y+h+5),(x-5,y+h+5),(x-5,y-5)]
+        line(outline,19,'#708a49');line(outline,11,'#b28d54')
+        rect((x+3,y+3,x+w-3,y+h-3),'#986940')
+        if field['crop'] in (1,2):
+            drain=[(x+w+13,y-6),(x+w+13,y+h+18),(x-19,y+h+18)]
+            line(drain,12,'#7f826f');line(drain,5,'#516f62')
 for width,color in [(126,'#a88956'),(113,'#cfb17b'),(94,'#ddc08a')]:
     for rd in roads:line(rd,width,color)
 for row in houses.values():
@@ -33,16 +50,8 @@ for yy in [750,1900,3050,4320]:
     rect((3440,yy-38,3630,yy+38),'#8e6745')
     for xx in range(3444,3628,12):rect((xx,yy-34,xx+9,yy+34),'#c49b63')
     rect((3434,yy-45,3636,yy-40),'#5f4937');rect((3434,yy+40,3636,yy+45),'#5f4937')
-# Kitchen gardens on terraces; earth, golden grain and varied flowers punctuate the green.
-for idx,(x,y) in enumerate([(2500,660),(20,1880),(2750,2530),(50,4380),(2720,3400)]):
-    for j in range(4):
-        line([(x+j*8,y+j*28),(x+210+j*8,y+j*28+10)],15,'#986940')
-        for k in range(10):
-            rect((x+k*21+j*8,y+j*28-5,x+k*21+j*8+8,y+j*28+1),['#4a7a3e','#d3b85c','#67964c'][idx%3])
-for xx,yy in [(1130,3900),(1580,3900),(1130,4300),(1580,4300)]:
-    d.polygon([(xx//3,yy//3),((xx+345)//3,(yy-12)//3),((xx+360)//3,(yy+230)//3),((xx-6)//3,(yy+245)//3)],fill='#b1a575')
-    for i in range(100):
-        px=random.randrange(xx,xx+340);py=random.randrange(yy,yy+225);rect((px,py,px+4,py+9),'#7d984f')
+# Former unconditional prototype rows and four square site patches are removed.
+# The playable crop grid is still driven by state in the private yard, not these old marks.
 # Flower verge around the southern garden site, bamboo behind its northern neighbour.
 for i in range(80):
     x=1900+random.randrange(30);y=4330+random.randrange(210);rect((x,y,x+4,y+6),'#4e8249');rect((x-2,y-3,x+5,y+1),random.choice(['#e8a7ba','#e6c85e','#9b81ba','#f1e8c3']))
