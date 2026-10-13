@@ -1,0 +1,12 @@
+{
+  "start_unix": 1791911120.69471,
+  "commit": "85b78db",
+  "profile": "c3-focused-third-85b78db-1014",
+  "start_area": "exterior",
+  "start_coins": 0,
+  "method": "第三次全新真实场景，正常输入，无注入/加速/跨验收",
+  "status": "中断：游戏窗口正常退出，第三次未完成，不能判过",
+  "last_recorded_unix": 1791911424.72234,
+  "elapsed_at_last_recorded_min": 5.067,
+  "exit_code": 0
+}

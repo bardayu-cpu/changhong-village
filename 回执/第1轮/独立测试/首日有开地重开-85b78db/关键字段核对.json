@@ -1,0 +1,164 @@
+{
+  "area": {
+    "before": "my_yard",
+    "after": "my_yard",
+    "equal": true
+  },
+  "resident": {
+    "before": true,
+    "after": true,
+    "equal": true
+  },
+  "location": {
+    "before": "lake",
+    "after": "lake",
+    "equal": true
+  },
+  "land": {
+    "before": [
+      1791910710.75773,
+      0,
+      0
+    ],
+    "after": [
+      1791910710.75773,
+      0.0,
+      0.0
+    ],
+    "equal": true
+  },
+  "order_total": {
+    "before": 3,
+    "after": 3.0,
+    "equal": true
+  },
+  "items": {
+    "before": {
+      "apple": 2,
+      "apple_seed": 2,
+      "aster": 3,
+      "aster_seed": 6,
+      "bamboo": 0,
+      "carrot": 3,
+      "carrot_seed": 6,
+      "chrysanthemum": 3,
+      "chrysanthemum_seed": 6,
+      "cosmos": 3,
+      "cosmos_seed": 6,
+      "grain": 4,
+      "grain_seed": 4,
+      "parcel": 1,
+      "pepper": 3,
+      "pepper_seed": 4,
+      "pumpkin": 3,
+      "pumpkin_seed": 6,
+      "radish": 1,
+      "radish_seed": 2,
+      "stone": 2,
+      "tool": 1
+    },
+    "after": {
+      "apple": 2.0,
+      "apple_seed": 2.0,
+      "aster": 3.0,
+      "aster_seed": 6.0,
+      "bamboo": 0.0,
+      "carrot": 3.0,
+      "carrot_seed": 6.0,
+      "chrysanthemum": 3.0,
+      "chrysanthemum_seed": 6.0,
+      "cosmos": 3.0,
+      "cosmos_seed": 6.0,
+      "grain": 4.0,
+      "grain_seed": 4.0,
+      "parcel": 1.0,
+      "pepper": 3.0,
+      "pepper_seed": 4.0,
+      "pumpkin": 3.0,
+      "pumpkin_seed": 6.0,
+      "radish": 1.0,
+      "radish_seed": 2.0,
+      "stone": 2.0,
+      "tool": 1.0
+    },
+    "equal": true
+  },
+  "institutions": {
+    "before": {},
+    "after": {},
+    "equal": true
+  },
+  "wallet": {
+    "before": {
+      "coins": 39,
+      "ledger": [
+        {
+          "delta": 65,
+          "line": "village",
+          "src": "order",
+          "t": 1791910069.36208
+        },
+        {
+          "delta": 64,
+          "line": "village",
+          "src": "order",
+          "t": 1791910113.52867
+        },
+        {
+          "delta": 70,
+          "line": "village",
+          "src": "order",
+          "t": 1791910272.40878
+        },
+        {
+          "delta": -100,
+          "line": "village",
+          "src": "decor",
+          "t": 1791910398.52143
+        },
+        {
+          "delta": -60,
+          "line": "village",
+          "src": "decor",
+          "t": 1791910707.75772
+        }
+      ]
+    },
+    "after": {
+      "coins": 39.0,
+      "ledger": [
+        {
+          "delta": 65.0,
+          "line": "village",
+          "src": "order",
+          "t": 1791910069.36208
+        },
+        {
+          "delta": 64.0,
+          "line": "village",
+          "src": "order",
+          "t": 1791910113.52867
+        },
+        {
+          "delta": 70.0,
+          "line": "village",
+          "src": "order",
+          "t": 1791910272.40878
+        },
+        {
+          "delta": -100.0,
+          "line": "village",
+          "src": "decor",
+          "t": 1791910398.52143
+        },
+        {
+          "delta": -60.0,
+          "line": "village",
+          "src": "decor",
+          "t": 1791910707.75772
+        }
+      ]
+    },
+    "equal": true
+  }
+}

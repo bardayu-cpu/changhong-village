@@ -1,0 +1,62 @@
+[
+  {
+    "file": "首日-85b78db-021-活动中心-H4-开始.json",
+    "radish": 1,
+    "pepper": 3,
+    "meal": 0,
+    "coins": 39,
+    "game": {
+      "finished": false,
+      "message": "洗净楼卜、切好海椒，再把它们拌匀。完成时用各 1 份食材做成一碗共桌菜。",
+      "progress": 0,
+      "run": ""
+    }
+  },
+  {
+    "file": "首日-85b78db-022-活动中心-H4-进行洗菜后.json",
+    "radish": 1,
+    "pepper": 3,
+    "meal": 0,
+    "coins": 39,
+    "game": {
+      "finished": false,
+      "message": "楼卜洗净了，再切好海椒。",
+      "progress": 1,
+      "run": "1"
+    }
+  },
+  {
+    "file": "首日-85b78db-023-活动中心-H4-中退库存.json",
+    "radish": 1,
+    "pepper": 3,
+    "meal": 0,
+    "coins": 39,
+    "game": {}
+  },
+  {
+    "file": "首日-85b78db-024-活动中心-H4-完成待端碗.json",
+    "radish": 1,
+    "pepper": 3,
+    "meal": 0,
+    "coins": 39,
+    "game": {
+      "finished": false,
+      "message": "香气出来了，端上这碗海椒拌楼卜。",
+      "progress": 3,
+      "run": "2"
+    }
+  },
+  {
+    "file": "首日-85b78db-025-活动中心-H4-共桌菜到账.json",
+    "radish": 0,
+    "pepper": 2,
+    "meal": 1,
+    "coins": 39,
+    "game": {
+      "finished": true,
+      "message": "收好了：海椒拌楼卜×1，已放进同一个篮子",
+      "progress": 3,
+      "run": "2"
+    }
+  }
+]
