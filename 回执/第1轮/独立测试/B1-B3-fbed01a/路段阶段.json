@@ -1,0 +1,18 @@
+[
+  {
+    "phase": "小涛磨坊到村委会主路",
+    "from": "v_h3",
+    "to": "v_mayor",
+    "start": 1791894225.9992,
+    "end": 1791894331.4352798,
+    "observed_destination": "v_mayor"
+  },
+  {
+    "phase": "村委会经西侧分岔到8A",
+    "from": "v_mayor",
+    "to": "v_h8",
+    "start": 1791894331.4352808,
+    "end": 1791894473.8325288,
+    "observed_destination": "v_h8"
+  }
+]

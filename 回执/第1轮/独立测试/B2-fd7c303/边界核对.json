@@ -1,0 +1,66 @@
+[
+  {
+    "case": "文字牌-回到村路",
+    "size": "540x1200",
+    "gap_pixels": 146.60003662109398,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x1200-文字牌-回到村路.json"
+  },
+  {
+    "case": "文字牌-坐一会儿",
+    "size": "540x1200",
+    "gap_pixels": 366.25,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x1200-文字牌-坐一会儿.json"
+  },
+  {
+    "case": "文字牌-拜访老屋",
+    "size": "540x1200",
+    "gap_pixels": 503.700012207031,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x1200-文字牌-拜访老屋.json"
+  },
+  {
+    "case": "起身",
+    "size": "540x1200",
+    "gap_pixels": 325.0,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x1200-起身.json"
+  },
+  {
+    "case": "文字牌-回到村路",
+    "size": "540x960",
+    "gap_pixels": 51.60003662109398,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x960-文字牌-回到村路.json"
+  },
+  {
+    "case": "文字牌-坐一会儿",
+    "size": "540x960",
+    "gap_pixels": 271.25,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x960-文字牌-坐一会儿.json"
+  },
+  {
+    "case": "文字牌-拜访老屋",
+    "size": "540x960",
+    "gap_pixels": 384.700012207031,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x960-文字牌-拜访老屋.json"
+  },
+  {
+    "case": "起身",
+    "size": "540x960",
+    "gap_pixels": 230.0,
+    "no_overlap": true,
+    "within_viewport": true,
+    "evidence": "最近底沿-540x960-起身.json"
+  }
+]

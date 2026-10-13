@@ -1,0 +1,21 @@
+{
+  "commit": "fbed01a636c9d5db3fc4a278bf2b16f715b25aea",
+  "base": "47803de冻结副本",
+  "overlay_sha256": {
+    "godot/ayu_home/v4/actor.gd": "f05226046f40e0495664481b830bd2eccfa5cc67d6826950bf485ddb426f2980",
+    "godot/ayu_home/v4/assets/residents/xiaotao-v1.png": "cc15de99125ba1f61614ea7382cf743bf9eb4eda526168145acdd1c1927a5768",
+    "godot/ayu_home/v4/assets/rooms.json": "d5e2fc079f3ffdbca1d5cb061b7a3287ef80845b6a7f60e1a440c73181b84934",
+    "godot/ayu_home/v4/assets/talk-faces/xiaotao.png": "99008ec0aefe681a93addc05c52cf20f45b3dd7e6c892d00438ff030812045b2",
+    "godot/ayu_home/v4/assets/v_h3.json": "3c35a976e1ba887ac815bbef88cdd82573a3c14012618a465dc5b3e4385de507",
+    "godot/ayu_home/v4/assets/v_h3_up.json": "c07fc741fe7ce0245da5a7edde95ef45e9c88381685021b5a5844c8642a7280d",
+    "godot/ayu_home/v4/assets/village.json": "d6f36a56e70967e6ccc697bfc59238bcbccda93ce9241dcfe788799041fd4fce",
+    "godot/ayu_home/v4/assets/village/ground.png": "01052e703ec7e11695026946aec3dcecf1bb364f96d94a6c66e6726be3d82f0a",
+    "godot/ayu_home/v4/assets/village/houses.json": "e04bf6f0d913e0f8a713d50b47a3146e83edef11993d0a3cf5472c1e8b2b9c3e",
+    "godot/ayu_home/v4/core/config.gd": "6c83d49b989e705b6e738aa56bd5b5ff2028fb3d7c7d97be6522b13743c354b3",
+    "godot/ayu_home/v4/core/interface.gd": "e081d27c200dea16ee4d478aaf1785db24163496244e553474462c80853f17d5",
+    "godot/ayu_home/v4/core/residents.gd": "6be2ef518962459c7c9a388dc6c5b070db2236297961fd7f67cff6277a777d03"
+  },
+  "remaining_percent": 79,
+  "scope": "B1村路/旧磨坊/头像；B3小涛到村委会、西侧分岔正常步行；不判新屋H1-H6",
+  "save_source": "C3前次正常操作、正常关闭后的隔离存档副本；无房间/位置/时钟注入"
+}

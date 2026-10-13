@@ -1,0 +1,28 @@
+{
+  "source_commit": "b964ea57a4680c7378956d3f8edf7e0e6032318d",
+  "before_revision": 26,
+  "after_revision": 34,
+  "before_area": "v_laowu",
+  "reopened_area": "v_laowu",
+  "before_position": [
+    345.0,
+    427.0
+  ],
+  "reopened_position": [
+    346.0,
+    426.0
+  ],
+  "checks": {
+    "same_room": true,
+    "same_inventory": true,
+    "same_wallet": true,
+    "same_resident": true,
+    "same_location": true,
+    "same_land": true,
+    "same_orders": true,
+    "same_order_total": true,
+    "same_blueprints": true,
+    "same_furniture": true
+  },
+  "limitation": "基线未入驻、未开地、未新增物品；此环境核对不能替代C2最终版本有进度的新档关闭重开验收。位置从[345,427]恢复到[346,426]，最近可走点有1px坐标偏差，仅房间和进度库存判一致。"
+}

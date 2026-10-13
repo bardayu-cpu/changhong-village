@@ -1,0 +1,197 @@
+{
+  "controls": [
+    {
+      "rect": [
+        24.0,
+        20.0,
+        432.0,
+        32.0
+      ],
+      "text": "裳泓村 · 老屋 · 一楼",
+      "type": "Label"
+    },
+    {
+      "rect": [
+        54.0,
+        54.0,
+        56.0,
+        32.0
+      ],
+      "text": "20:10",
+      "type": "Label"
+    },
+    {
+      "rect": [
+        158.0,
+        54.0,
+        24.0,
+        32.0
+      ],
+      "text": "秋",
+      "type": "Label"
+    },
+    {
+      "rect": [
+        274.0,
+        54.0,
+        36.0,
+        32.0
+      ],
+      "text": "0/3",
+      "type": "Label"
+    },
+    {
+      "rect": [
+        328.0,
+        54.0,
+        96.0,
+        32.0
+      ],
+      "text": "小事 0/3",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        322.0,
+        46.0,
+        108.0,
+        48.0
+      ],
+      "text": "",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        482.0,
+        12.0,
+        44.0,
+        44.0
+      ],
+      "text": "",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        193.75,
+        454.75,
+        48.0,
+        54.0
+      ],
+      "text": "",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        157.75,
+        506.75,
+        120.0,
+        42.0
+      ],
+      "text": "坐一会儿",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        157.75,
+        502.75,
+        120.0,
+        50.0
+      ],
+      "text": "",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        126.0,
+        120.0,
+        288.0,
+        32.0
+      ],
+      "text": "走近东西，点气泡就能做事",
+      "type": "Label"
+    },
+    {
+      "rect": [
+        470.0,
+        886.0,
+        56.0,
+        56.0
+      ],
+      "text": "",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        14.0,
+        824.0,
+        152.0,
+        56.0
+      ],
+      "text": "日常",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        174.0,
+        824.0,
+        152.0,
+        56.0
+      ],
+      "text": "村庄地图",
+      "type": "Button"
+    },
+    {
+      "rect": [
+        334.0,
+        824.0,
+        180.0,
+        56.0
+      ],
+      "text": "随身篮子",
+      "type": "Button"
+    }
+  ],
+  "observation": {
+    "action": "idle",
+    "area": "v_laowu",
+    "at": 1791893459.6753,
+    "elapsed": 91.3509800434113,
+    "fps": 119.0,
+    "items": {
+      "apple": 2.0,
+      "apple_seed": 2.0,
+      "aster": 3.0,
+      "aster_seed": 6.0,
+      "carrot": 3.0,
+      "carrot_seed": 6.0,
+      "chrysanthemum": 3.0,
+      "chrysanthemum_seed": 6.0,
+      "cosmos": 3.0,
+      "cosmos_seed": 6.0,
+      "grain_seed": 4.0,
+      "pepper_seed": 3.0,
+      "pumpkin": 3.0,
+      "pumpkin_seed": 6.0,
+      "radish_seed": 3.0
+    },
+    "lift": 0.0,
+    "memory": 129594389,
+    "note": "走近东西，点气泡就能做事",
+    "page": "world",
+    "position": [
+      345.1767578125,
+      433.456939697266
+    ],
+    "route_size": 0,
+    "type": "observation",
+    "wallet": {
+      "coins": 0.0,
+      "ledger": []
+    }
+  },
+  "seq": 1,
+  "size": [
+    540,
+    960
+  ]
+}

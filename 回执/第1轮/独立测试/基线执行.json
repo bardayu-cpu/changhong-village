@@ -1,0 +1,25 @@
+[
+  {
+    "log": "基线-房间标准.log",
+    "started": "2026-10-13T19:40:38.778696+08:00",
+    "exit_code": 1,
+    "command": [
+      "python3",
+      "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/给Claude审查/check_room_standard.py",
+      "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/baseline-b964ea5/godot"
+    ]
+  },
+  {
+    "log": "基线-test_core.log",
+    "started": "2026-10-13T19:40:38.944392+08:00",
+    "exit_code": 0,
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--headless",
+      "--path",
+      "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/baseline-b964ea5/godot",
+      "--script",
+      "res://ayu_home/v4/core/test_core.gd"
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "commit": "fd7c3031cf7348b7c79e7ec893428431cf3a250f",
+  "source": "冻结b964ea5副本 + fd7c303唯一godot变更home.gd；其余5864来源文件哈希一致",
+  "changed": [
+    "godot/ayu_home/v4/home.gd"
+  ],
+  "home_sha256": "0905da6d497631d7d410f04d4ecc40f4437ce8c2684172743d35dd0221496b60",
+  "remaining_percent": 87,
+  "save_source": "C3基线正常走入老屋并关闭后的隔离存档副本，无位置状态注入",
+  "profile": "c3-baseline-1013"
+}

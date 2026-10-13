@@ -1,0 +1,12 @@
+{
+  "godot/ayu_home/v4/core/test_core.gd": {
+    "current_sha256": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d",
+    "baseline_sha256": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d",
+    "equals_baseline": true
+  },
+  "给Claude审查/check_room_standard.py": {
+    "current_sha256": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+    "baseline_sha256": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+    "equals_baseline": true
+  }
+}
