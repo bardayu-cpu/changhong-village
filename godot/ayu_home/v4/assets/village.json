@@ -1082,7 +1082,7 @@
     },
     {
       "id": "honey",
-      "label": "阿禾 · 蜂蜜箱",
+      "label": "凯凯 · 蜂蜜箱",
       "kind": "village",
       "pos": [
         890,
@@ -1542,12 +1542,14 @@
     },
     {
       "id": "honey",
-      "name": "阿禾",
+      "name": "凯凯",
       "pos": [
         890,
         1130
       ],
-      "preset": 4
+      "preset": 4,
+      "character_id": "kaikai",
+      "portrait": "kaikai"
     },
     {
       "id": "mill",

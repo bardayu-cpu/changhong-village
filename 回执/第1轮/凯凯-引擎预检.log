@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS real approach path: press_honey
+PASS real approach path: clean_tools
+PASS real approach path: filter_honey
+PASS real approach path: seal_jar
+PASS real approach path: taste_honey
+PASS real approach path: rest_seat
+PASS real approach path: outside
+PASS host moves among three zones
+PASS three distinct host activities
+SCRIPT ERROR: Invalid access to property or key 'v_h5' on a base object of type 'Dictionary'.
+   at: run (res://../工具/test_honey_runtime.gd:28)
+   GDScript backtrace (most recent call first):
+       [0] run (res://../工具/test_honey_runtime.gd:28)

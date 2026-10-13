@@ -8493,195 +8493,153 @@
     },
     "v_h5": {
       "id": "v_h5",
-      "title": "5A · 养蜂小院 · 一楼",
+      "title": "凯凯蜂蜜小院",
       "group": "村庄",
       "floor": 0,
       "size": [
-        730,
-        720
+        508,
+        600
       ],
-      "background": "res://ayu_home/v4/assets/village/interior_h5.png",
+      "background": "res://ayu_home/v4/assets/institutions/honey-v1.png",
       "asset_root": "res://ayu_home/v3/assets/",
-      "props": [
-        {
-          "id": "cabinet0",
-          "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-          "pos": [
-            75,
-            145
-          ],
-          "foot": 252,
-          "front": false
-        },
-        {
-          "id": "kitchen1",
-          "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-          "pos": [
-            450,
-            135
-          ],
-          "foot": 218,
-          "front": false
-        },
-        {
-          "id": "table2",
-          "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-          "pos": [
-            65,
-            395
-          ],
-          "foot": 470,
-          "front": false
-        },
-        {
-          "id": "bed3",
-          "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-          "pos": [
-            440,
-            390
-          ],
-          "foot": 600,
-          "front": false
-        },
-        {
-          "id": "detail_window",
-          "file": "res://ayu_home/v4/assets/village/window.png",
-          "pos": [
-            267,
-            21
-          ],
-          "foot": 75,
-          "front": false
-        },
-        {
-          "id": "detail_plant0",
-          "file": "exterior_pot_window_left.png",
-          "pos": [
-            25,
-            490
-          ],
-          "foot": 558,
-          "front": false
-        },
-        {
-          "id": "detail_plant1",
-          "file": "exterior_pot_window_left.png",
-          "pos": [
-            658,
-            90
-          ],
-          "foot": 158,
-          "front": false
-        },
-        {
-          "id": "tea_bench",
-          "file": "res://ayu_home/v3/assets/exterior_bench.png",
-          "pos": [
-            335,
-            462
-          ],
-          "foot": 495,
-          "front": false
-        }
-      ],
+      "props": [],
       "obstacles": [
         [
-          345,
-          90,
-          12,
-          250
-        ],
-        [
-          345,
-          460,
-          12,
-          220
-        ],
-        [
-          79,
-          206.60000000000002,
-          90,
-          50.4
-        ],
-        [
-          454,
-          183.4,
-          147,
-          39.6
-        ],
-        [
-          69,
-          439.0,
+          45,
           112,
-          36.0
+          402,
+          52
         ],
         [
-          444,
-          508.25,
-          142,
-          96.75
+          27,
+          218,
+          96,
+          149
+        ],
+        [
+          188,
+          243,
+          121,
+          113
+        ],
+        [
+          228,
+          354,
+          36,
+          22
+        ],
+        [
+          392,
+          202,
+          86,
+          180
+        ],
+        [
+          51,
+          443,
+          181,
+          47
+        ],
+        [
+          245,
+          450,
+          51,
+          63
+        ],
+        [
+          28,
+          373,
+          32,
+          34
         ]
       ],
       "hotspots": [
         {
-          "id": "resident_note",
-          "label": "门边的生活便签",
+          "id": "press_honey",
           "pos": [
-            265,
-            600
+            250,
+            278
           ],
           "approach": [
-            265,
-            640
+            343,
+            278
           ],
-          "kind": "village",
-          "copy": "阿禾是本村虚构住户。她照料花圃和蜂箱。"
+          "kind": "honey_game",
+          "label": "压蜜装一瓶"
         },
         {
-          "id": "house_help",
-          "label": "整理晒花架",
+          "id": "clean_tools",
           "pos": [
-            455,
-            570
+            70,
+            285
           ],
           "approach": [
-            455,
-            610
+            148,
+            277
           ],
-          "kind": "village",
-          "copy": "晒花架腾好了，蜜香里添了花香。",
-          "house": "h5"
+          "kind": "bee_tool_wash",
+          "label": "洗净蜂具",
+          "action": "wash"
         },
         {
-          "id": "tea_seat",
-          "label": "坐一会儿",
+          "id": "filter_honey",
           "pos": [
-            365,
+            205,
+            115
+          ],
+          "approach": [
+            205,
+            183
+          ],
+          "kind": "honey_filter",
+          "label": "滤去细碎蜂蜡",
+          "action": "filter"
+        },
+        {
+          "id": "seal_jar",
+          "pos": [
+            434,
+            291
+          ],
+          "approach": [
+            343,
+            310
+          ],
+          "kind": "wax_seal",
+          "label": "封好蜜罐",
+          "action": "bottle"
+        },
+        {
+          "id": "taste_honey",
+          "pos": [
+            177,
+            456
+          ],
+          "approach": [
+            314,
+            489
+          ],
+          "kind": "honey_taste",
+          "label": "添一杯蜜茶",
+          "action": "tea"
+        },
+        {
+          "id": "rest_seat",
+          "pos": [
+            263,
             475
           ],
           "approach": [
-            365,
-            530
+            314,
+            489
           ],
           "kind": "seat",
+          "label": "坐着歇一歇",
           "seat": [
-            365,
-            485
+            263,
+            475
           ],
-          "face": "down"
-        },
-        {
-          "id": "honey",
-          "label": "阿禾 · 养蜂人的小事",
-          "pos": [
-            520,
-            340
-          ],
-          "approach": [
-            520,
-            385
-          ],
-          "kind": "village"
+          "face": "left"
         }
       ],
       "doors": [
@@ -8690,16 +8648,21 @@
           "label": "回到村路",
           "target": "village",
           "pos": [
-            365,
-            666
+            493,
+            412
           ],
           "approach": [
-            365,
-            684
+            488,
+            412
           ],
-          "face": "up",
+          "face": "left",
           "kind": "door",
-          "width": 60,
+          "span": [
+            485,
+            412,
+            65
+          ],
+          "width": 65,
           "explicit_opening": true
         }
       ],
@@ -8707,14 +8670,14 @@
       "windows": [],
       "lamps": [
         [
-          233,
-          115,
-          240
+          133,
+          62,
+          170
         ],
         [
-          525,
-          503,
-          220
+          350,
+          62,
+          170
         ]
       ],
       "source_offset": [
@@ -8722,24 +8685,103 @@
         0
       ],
       "spawn": [
-        365,
-        615
+        451,
+        412
       ],
       "walk_rect": [
-        22,
-        100,
-        686,
-        600
+        24,
+        94,
+        484,
+        426
       ],
       "outdoor": false,
-      "view_scale": 1.15,
+      "view_scale": 2.0,
       "npc": {
-        "name": "阿禾",
+        "id": "kaikai",
+        "name": "凯凯",
+        "character_id": "kaikai",
+        "portrait": "kaikai",
+        "preset": 4,
         "pos": [
-          520,
-          340
-        ],
-        "preset": 4
+          148,
+          277
+        ]
+      },
+      "nav_cell": 4,
+      "institution": "honey",
+      "walk_polygons": [
+        [
+          [
+            24,
+            94
+          ],
+          [
+            484,
+            94
+          ],
+          [
+            484,
+            376
+          ],
+          [
+            508,
+            376
+          ],
+          [
+            508,
+            445
+          ],
+          [
+            484,
+            445
+          ],
+          [
+            484,
+            520
+          ],
+          [
+            24,
+            520
+          ]
+        ]
+      ],
+      "resident": {
+        "schedule": [
+          {
+            "slot": "早",
+            "pos": [
+              148,
+              277
+            ],
+            "face": "up",
+            "action": "wash",
+            "line": "蜂具先洗净，等下摇蜜就不会把碎蜡带进瓶里。"
+          },
+          {
+            "slot": "中",
+            "pos": [
+              343,
+              278
+            ],
+            "face": "left",
+            "action": "honey",
+            "line": "绕着桶慢慢摇，蜜就顺着小嘴流到罐里。"
+          },
+          {
+            "slot": "晚",
+            "pos": [
+              263,
+              475
+            ],
+            "face": "left",
+            "action": "drink",
+            "line": "今天的蜜已封好，最后留这一杯给歇脚的人。",
+            "approach": [
+              314,
+              489
+            ]
+          }
+        ]
       }
     },
     "v_h2_up": {
@@ -9580,7 +9622,11 @@
             ],
             "face": "down",
             "action": "drink",
-            "line": "磨坊歇下来了。坐一会儿，茶刚续上。"
+            "line": "磨坊歇下来了。坐一会儿，茶刚续上。",
+            "approach": [
+              188,
+              438
+            ]
           }
         ]
       },
@@ -12745,7 +12791,7 @@
         },
         {
           "id": "honey",
-          "label": "阿禾 · 蜂蜜箱",
+          "label": "凯凯 · 蜂蜜箱",
           "kind": "village",
           "pos": [
             890,
@@ -13205,12 +13251,14 @@
         },
         {
           "id": "honey",
-          "name": "阿禾",
+          "name": "凯凯",
           "pos": [
             890,
             1130
           ],
-          "preset": 4
+          "preset": 4,
+          "character_id": "kaikai",
+          "portrait": "kaikai"
         },
         {
           "id": "mill",

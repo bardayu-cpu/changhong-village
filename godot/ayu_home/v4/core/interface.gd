@@ -188,7 +188,7 @@ func mayor() -> void:
 	if not v.resident:
 		text("阿鱼说你常来帮忙。住下需要三件邻里订单，再备好一点起家物资。客房仍可以住。")
 		text("已交 %d / %d 件订单\n入驻：%d 金币、%s"%[v.order_total,C.RESIDENCY.orders,C.RESIDENCY.coins,state.describe(C.RESIDENCY.items)])
-		text("还缺材料："+(state.missing_text(C.RESIDENCY.items) if not state.has_items(C.RESIDENCY.items) else "材料已齐")+"。楼卜自己种，竹材让动物带回，或帮阿禾收蜜。")
+		text("还缺材料："+(state.missing_text(C.RESIDENCY.items) if not state.has_items(C.RESIDENCY.items) else "材料已齐")+"。楼卜自己种，竹材让动物带回，或帮凯凯收蜜。")
 		button("提交物资，申请入驻",action.bind("reside"),true)
 		button("去看邻里订单",show_page.bind("牌子"))
 	elif v.location.is_empty():
@@ -271,7 +271,7 @@ func entered() -> void:
 	for record in cfg.get("npcs",[cfg.npc] if cfg.has("npc") else []):
 		if cfg.has("resident"):continue # 机构主人交给作息组件，只创建一次。
 		if record.get("id","")=="market" and not state.isMarketDay():continue
-		if record.get("character_id","")=="xiaotao" and not (home.hour>=5 and home.hour<7):continue
+		if record.get("character_id","") in ["xiaotao","kaikai"] and not (home.hour>=5 and home.hour<7):continue
 		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.get("preset",0));actor.look_override=Residents.look(str(record.get("character_id","")));home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.set_process(false)
 		var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",16);nameplate.add_theme_color_override("font_shadow_color",Color("392f24"));nameplate.add_theme_constant_override("shadow_offset_x",1);nameplate.add_theme_constant_override("shadow_offset_y",1);nameplate.position=Vector2(-24,-108);actor.add_child(nameplate)
 	if cfg.has("resident"):
@@ -285,8 +285,11 @@ func open_institution_game(id:String) -> void:
 func talk_resident(id:String) -> bool:
 	return is_instance_valid(institution_room) and institution_room.talk(id)
 func resident_card(id:String) -> bool:
-	if id!="xiaotao":return false
-	var col:VBoxContainer=home.modal_shell("小涛的小卡片")
+	if not id in ["xiaotao","kaikai"]:return false
+	var name:String={"xiaotao":"小涛","kaikai":"凯凯"}[id]
+	var col:VBoxContainer=home.modal_shell(name+"的小卡片")
+	if id=="kaikai":
+		col.add_child(UI.label("凯凯 · 蜂蜜小院",26));col.add_child(UI.paragraph("清早洗净蜂具，中午摇蜜装瓶，傍晚在窗下留一杯蜜茶。"));return true
 	col.add_child(UI.label("小涛 · 小涛磨坊",26));col.add_child(UI.paragraph("早上簸谷，中午推磨，傍晚在茶席歇脚。五点到七点在村路上转一圈，其余时间能在磨坊找到他。"))
 	return true
 func interact(h:Dictionary) -> bool:
@@ -298,7 +301,7 @@ func interact(h:Dictionary) -> bool:
 		"map":show_page("地图")
 		"mayor":show_page("村长")
 		"mill":home.dialogue("小涛",C.NEIGHBOURS.mill.first,"xiaotao",func():show_page("村民"))
-		"honey":show_page("村民")
+		"honey":home.dialogue("凯凯",C.NEIGHBOURS.honey.first,"kaikai",func():show_page("村民"))
 		"pond","chicken","orchard":show_page("生产")
 		"market":show_page("货郎")
 		"yard":show_page("院子")
@@ -385,7 +388,7 @@ func map_page() -> void:
 	m.house_selected.connect(func(id:String):travel("village","visit_"+id))
 	text("点图上的房屋或下方地点，就会沿路步行。途中点地面可改道；屋内先走到门，再接着往村路上走。")
 	for h in houses:button(h.title+" · "+h.subtitle,func():travel("village","visit_"+h.id))
-	for item in [["阿禾的蜂箱","honey"],["小涛的小石磨","mill"],["池塘","pond"],["鸡圈","chicken"],["果园","orchard"],["村口货郎","market"],["自己的地","home_site"]]:button(item[0],func():travel("village",item[1]))
+	for item in [["凯凯的蜂箱","honey"],["小涛的小石磨","mill"],["池塘","pond"],["鸡圈","chicken"],["果园","orchard"],["村口货郎","market"],["自己的地","home_site"]]:button(item[0],func():travel("village",item[1]))
 	button("阿鱼家楼层图",func():close();home.navigation("一楼"))
 func travel(room:String,spot:="") -> void:
 	close();route_target=room;route_spot=spot;home.note="沿路慢慢走。点地面或方向键可停下。";follow_route()
