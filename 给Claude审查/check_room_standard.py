@@ -20,7 +20,7 @@ BANNED_FURNITURE = {
 # room id -> (min occupancy, min hotspot kinds excluding door, label)
 RULES = {
     "v_h3": (0.25, 4, "小涛磨坊一楼"),
-    "v_h5": (0.25, 4, "凯凯小院"),
+    "v_h5": (0.25, 4, "凯凯蜂蜜小院"),
     "v_mayor": (0.25, 4, "村委会一楼"),
     "my_cabin": (0.25, 4, "村民活动中心"),
     "living": (0.22, 3, "阿鱼家客厅（对照，应过）"),
