@@ -110,14 +110,21 @@ func draw_honey(effects:Dictionary) -> void:
 		var level:=fmod(elapsed*.9,10.0);draw_rect(Rect2(240,352-level,13,level),Color("d6a338"))
 	if int(effects.get("wash",0))>0 or slot_index==0:
 		for n in 5:draw_rect(Rect2(Vector2(66+n*4,267+sin(elapsed*3+n)*3).round(),Vector2(3,2)),Color("bfe2db"))
+	# honey-v2 的盆内为 (54,255)～(106,287)；清洗后碎蜡消失，不与早间水纹混淆。
+	if int(effects.get("wash",0))==0:
+		for p in [Vector2(60,279),Vector2(82,261),Vector2(93,279)]:draw_rect(Rect2(p,Vector2(3,2)),Color("c79b46"))
 	if int(effects.get("filter",0))==0:
 		for n in 5:draw_rect(Rect2(197+n*3,115+n%2*3,2,2),Color("705235"))
-	else:draw_rect(Rect2(197,131,11,5),Color("ead7a8"))
+	else:
+		draw_rect(Rect2(190,130,17,5),Color("ead7a8"));draw_rect(Rect2(190,134,17,2),Color("a8936f"))
 	if int(effects.get("bottle",0))>0:
-		draw_rect(Rect2(425,284,10,4),Color("a1352d"));draw_rect(Rect2(428,288,4,3),Color("cf6741"))
+		# 右架下层左侧蜜罐口；旧 (425,284) 实为上一层架板边。
+		draw_rect(Rect2(407,307,12,4),Color("a1352d"));draw_rect(Rect2(409,307,8,2),Color("df7957"));draw_rect(Rect2(413,311,3,5),Color("b44935"))
 	if int(effects.get("tea",0))>0:
 		for n in 4:
-			var rise:=fmod(elapsed*10+n*7,23.0);draw_rect(Rect2(Vector2(202+sin(elapsed+n)*3,443-rise).round(),Vector2(2,4)),Color(1,.94,.78,(1-rise/23)*.8))
+			# 右茶杯上沿 y=436，灰蓝外沿让蒸汽在米白桌布前仍可辨认。
+			var rise:=fmod(elapsed*10+n*7,25.0);var steam:=Vector2(201+sin(elapsed+n)*3,435-rise).round();var opacity:float=(1-rise/25)*.9
+			draw_rect(Rect2(steam+Vector2(-1,0),Vector2(4,5)),Color(.40,.54,.54,opacity*.65));draw_rect(Rect2(steam,Vector2(2,4)),Color(1,.96,.84,opacity))
 
 func draw_civic(effects:Dictionary) -> void:
 	if int(effects.get("register",0))>0:
