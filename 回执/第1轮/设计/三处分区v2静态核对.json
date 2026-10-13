@@ -1,0 +1,8 @@
+{
+  "scope": "v2设计接口核对，非游戏验收",
+  "distinct_zone_layouts": true,
+  "distinct_entrances": true,
+  "community_one_resident": "方婆婆(h2_duty,LM-GUEST-09)",
+  "community_no_host_duplication": true,
+  "status": "C2只接v2，待分区提交和首处人物比例图；未接入"
+}
