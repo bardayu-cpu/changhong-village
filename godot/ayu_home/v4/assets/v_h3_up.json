@@ -4,123 +4,110 @@
   "group": "村庄",
   "floor": 0,
   "size": [
-    820,
-    700
+    508,
+    600
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h3.png",
+  "background": "res://ayu_home/v4/assets/institutions/mill-up-v2.png",
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        710,
-        390
-      ],
-      "foot": 540,
-      "front": false
-    },
-    {
-      "id": "bed",
-      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-      "pos": [
-        45,
-        110
-      ],
-      "foot": 310,
-      "front": false
-    },
-    {
-      "id": "desk",
-      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
-      "pos": [
-        600,
-        125
-      ],
-      "foot": 195,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        312,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      500,
-      90,
-      12,
-      220
+      33,
+      114,
+      145,
+      173
     ],
     [
-      500,
-      450,
-      12,
-      190
+      259,
+      139,
+      154,
+      72
     ],
     [
-      50,
-      175,
-      140,
-      135
+      295,
+      189,
+      55,
+      52
+    ],
+    [
+      28,
+      347,
+      120,
+      139
+    ],
+    [
+      176,
+      401,
+      132,
+      85
+    ],
+    [
+      350,
+      353,
+      125,
+      133
     ]
   ],
   "hotspots": [
     {
-      "id": "window_note",
-      "label": "看看窗边书页",
+      "id": "up_book",
+      "label": "坐下看记账本",
+      "kind": "read",
       "pos": [
-        680,
-        225
+        322,
+        210
       ],
       "approach": [
-        680,
-        280
+        355,
+        277
       ],
-      "kind": "village",
-      "copy": "小涛的小石磨。窗外的路通往每一位邻居；回来时书签还在这里。"
+      "seat": [
+        322,
+        230
+      ],
+      "face": "up",
+      "copy": "秋收谷子两袋，今日磨粉一斗。"
     },
     {
-      "id": "rest_seat",
-      "label": "在床边歇脚",
+      "id": "up_bed",
+      "label": "在床边歇一歇",
+      "kind": "seat",
       "pos": [
-        150,
-        380
+        106,
+        268
       ],
       "approach": [
-        155,
-        405
+        211,
+        278
       ],
-      "kind": "seat",
+      "face": "down",
       "seat": [
-        150,
-        365
-      ],
-      "face": "down"
+        106,
+        268
+      ]
     }
   ],
   "doors": [
     {
       "id": "downstairs",
-      "label": "下到一楼",
+      "label": "下到磨坊一楼",
       "target": "v_h3",
+      "kind": "door",
       "pos": [
-        755,
-        545
+        421,
+        332
       ],
       "approach": [
-        755,
-        575
+        420,
+        300
       ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
+      "face": "up",
+      "span": [
+        421,
+        332,
+        84
+      ],
+      "width": 84,
       "explicit_opening": true
     }
   ],
@@ -128,9 +115,14 @@
   "windows": [],
   "lamps": [
     [
-      300,
-      280,
-      280
+      164,
+      65,
+      160
+    ],
+    [
+      418,
+      65,
+      160
     ]
   ],
   "source_offset": [
@@ -138,15 +130,16 @@
     0
   ],
   "spawn": [
-    675,
-    585
+    420,
+    300
   ],
   "walk_rect": [
-    22,
-    100,
-    776,
-    580
+    24,
+    96,
+    460,
+    412
   ],
   "outdoor": false,
-  "view_scale": 1.2
+  "view_scale": 2.0,
+  "nav_cell": 4
 }

@@ -39,6 +39,9 @@ func upgrade() -> void:
 	var defaults={"household":{},"producers":{"honey":{},"pond":{},"chicken":{},"orchard":{}},"helped":{},"chores":{},"memories":[],"market":{},"box_misses":0,"animal_misses":0,"first_day":date_key(),"last_area":"exterior","last_position":[],"season":"","weather":"","migration":{}}
 	for key in defaults:
 		if not data.village.has(key):data.village[key]=defaults[key]
+	for key in ["institutions","active_institution"]:
+		if not data.village.has(key):data.village[key]={}
+	if not data.village.has("institution_runs"):data.village.institution_runs=0
 	if int(data.village.get("version",1))<2:data.village.version=2
 func read_latest() -> Dictionary:
 	var latest:Dictionary={}
@@ -102,6 +105,50 @@ func success(message:String) -> Dictionary:return {"ok":true,"message":message}
 func execute(command:String,a:Dictionary) -> Dictionary:
 	var v:Dictionary=data.village
 	match command:
+		"institution_begin":
+			var id:=str(a.get("game",""))
+			if not C.INSTITUTION_GAMES.has(id):return fail("这里没有这项小玩法")
+			var game:Dictionary=C.INSTITUTION_GAMES[id]
+			if not has_items(game.input):return fail("还缺："+missing_text(game.input))
+			if game.daily and v.orders.has("institution-day:"+id+":"+date_key()):return fail("今天的这份已经收好，明天再来帮忙")
+			v.institution_runs=int(v.institution_runs)+1
+			v.active_institution={"game":id,"run":str(v.institution_runs),"progress":0}
+			return success("准备好了，做完再收进篮子")
+		"institution_step":
+			var run:Dictionary=v.active_institution
+			if run.is_empty() or str(a.get("run",""))!=str(run.run):return fail("这次小玩法已经结束")
+			if int(a.get("step",-1))!=int(run.progress):return fail("这一步已经做过了")
+			if int(run.progress)>=int(C.INSTITUTION_GAMES[run.game].steps):return fail("已经做好，可以收起了")
+			run.progress=int(run.progress)+1;return success("再慢慢做下一步")
+		"institution_cancel":
+			if v.active_institution.is_empty() or str(a.get("run",""))!=str(v.active_institution.run):return fail("这次小玩法已经结束")
+			v.active_institution={};return success("先放下，原料和篮子都没有变化")
+		"institution_complete":
+			var run:Dictionary=v.active_institution
+			if run.is_empty() or str(a.get("run",""))!=str(run.run):return fail("这一份已经收好或放下了")
+			var game:Dictionary=C.INSTITUTION_GAMES[run.game];var tx:="institution:"+str(run.run)
+			if int(run.progress)<int(game.steps):return fail("还没做完，先继续手里的活")
+			if v.orders.has(tx):return fail("这一份已经收好")
+			if not has_items(game.input):return fail("篮子变化了，还缺："+missing_text(game.input))
+			var day_key:="institution-day:"+str(run.game)+":"+date_key()
+			if game.daily and v.orders.has(day_key):return fail("今天的这份已经收好")
+			take(game.input)
+			for item in game.output:put(item,int(game.output[item]))
+			v.orders[tx]=now()
+			if game.daily:v.orders[day_key]=now()
+			var id:=str(run.game)
+			if not v.institutions.has(id):v.institutions[id]={}
+			v.institutions[id].completed=int(v.institutions[id].get("completed",0))+1
+			renqing_add(game.host,"一起做完了"+str(game.title));v.active_institution={}
+			return success("收好了："+describe(game.output)+"，已放进同一个篮子")
+		"institution_effect":
+			var room:=str(a.get("room",""));var spot:=str(a.get("spot",""))
+			if not C.INSTITUTION_ROOMS.has(room) or not spot in C.INSTITUTION_ROOMS[room].actions:return fail("这里没有这件事")
+			if not v.institutions.has(room):v.institutions[room]={}
+			var effects:Dictionary=v.institutions[room];effects[spot]=int(effects.get(spot,0))+1
+			var daily_key:=date_key()+":"+room+":"+spot
+			if not v.chores.has(daily_key):renqing_add(C.INSTITUTION_ROOMS[room].host,"在这里帮忙："+spot);v.chores[daily_key]=true
+			return success(str(a.get("message","这件小事收拾好了")))
 		"import_household_inventory":
 			if v.get("inventory_migrated",false):return fail("家庭物品已迁入")
 			var household:Dictionary=a.get("data",{})

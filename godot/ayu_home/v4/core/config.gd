@@ -1,4 +1,10 @@
 extends RefCounted
+const INSTITUTION_GAMES={
+ "mill":{"title":"推石磨 · 磨谷粉","steps":12,"input":{"grain":2},"output":{"flour":1},"daily":false,"host":"小涛"},
+ "honey":{"title":"压蜜装瓶","steps":6,"input":{},"output":{"honey":1},"daily":true,"host":"凯凯"},
+ "civic":{"title":"整理村务卡","steps":3,"input":{},"output":{"bamboo":1},"daily":true,"host":"林伯"},
+ "community":{"title":"张罗共桌","steps":3,"input":{"radish":1,"pepper":1},"output":{"meal":1},"daily":false,"host":"方婆婆"}}
+const INSTITUTION_ROOMS={"v_h3":{"game":"mill","host":"小涛","actions":["sift","tea","sweep"]},"v_h5":{"game":"honey","host":"凯凯","actions":["wash","bottle","tea"]},"v_mayor":{"game":"civic","host":"林伯","actions":["register","notice","tea"]},"my_cabin":{"game":"community","host":"方婆婆","actions":["wash","weave","read"]}}
 ## 本轮可改表的唯一数值源；所有秒数都是现实时间，无玩家付费加速。
 const ANIMAL_SECONDS=300
 const ANIMAL_ITEMS=4

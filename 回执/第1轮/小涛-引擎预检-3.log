@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS actual Home booted in mill
+PASS approach is on real walkable floor: mill
+PASS entrance path to mill
+PASS approach is on real walkable floor: sift
+PASS entrance path to sift
+PASS approach is on real walkable floor: tea
+PASS entrance path to tea
+PASS approach is on real walkable floor: sweep
+PASS entrance path to sweep
+PASS approach is on real walkable floor: tea_seat
+PASS entrance path to tea_seat
+PASS approach is on real walkable floor: outside
+PASS entrance path to outside
+PASS approach is on real walkable floor: upstairs
+PASS entrance path to upstairs
+PASS three daily positions differ
+PASS evening owner actually sits and drinks
+PASS owner dialogue opens
+PASS male portrait card opens without family lookup
+PASS full-screen cancel restores room with unchanged inventory
+PASS completion shows collect button
+PASS full-screen finish saves one flour
+PASS completion returns to room
+PASS dedicated upstairs loads
+PASS upstairs arrival on walkable landing
+PASS upstairs path to up_book
+PASS upstairs path to up_bed
+PASS upstairs path to downstairs
+PASS downstairs returns beside correct staircase
+MILL_RUNTIME PASS

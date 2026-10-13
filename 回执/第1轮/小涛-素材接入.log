@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+MILL_ASSETS: mill-v2 508x600 clean local patch; alpha rod 70x48, pivot (6,17); dedicated upstairs 508x600

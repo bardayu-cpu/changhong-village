@@ -320,7 +320,7 @@ func _process(dt:float) -> void:
 		if d<distance:distance=d;near_id=h.id
 	for id in people:
 		if people[id].visible and people[id].position.distance_to(player.position)<minf(distance,68):distance=people[id].position.distance_to(player.position);near_id="person:"+id
-	var caption:String="起身" if player.action in ["sit","sleep","lie","eat","read","tv","swing"] else ("和"+NAMES[near_id.substr(7)]+"说说话" if near_id.begins_with("person:") else str(world.spot(near_id).get("label","走近看看")))
+	var caption:String="起身" if player.action in ["sit","sleep","lie","eat","read","tv","swing"] else ("和"+str(NAMES.get(near_id.substr(7),people[near_id.substr(7)].get_meta("display_name","邻居")))+"说说话" if near_id.begins_with("person:") else str(world.spot(near_id).get("label","走近看看")))
 	if near_button.text!=caption:near_button.text=caption
 	near_button.disabled=near_id.is_empty() and player.action=="idle"
 	if note!=shown_note:shown_note=note;show_toast(note)
@@ -603,6 +603,7 @@ func knock() -> void:
 func admit() -> void:
 	admitted=true;phase="inside";close_modal();enter_room("living",true,"exterior")
 func talk(id:String) -> void:
+	if village_ui!=null and village_ui.talk_resident(id):return
 	if people[id].pet:pet_scene(id);return
 	var text:="欢迎回来，房间还是给你留着的。" if life.data.resident else "来做客不用拘束，想做什么就慢慢试。"
 	for task in life.daily_tasks():
@@ -999,6 +1000,7 @@ func show_talk_line() -> void:
 	talk_ui.skip.visible=talk_lines.size()-1-talk_index>=2
 ## 人物卡：从对话里点头像、名字牌打开，「继续聊天」回到刚才那一句
 func talk_card(id:String) -> void:
+	if village_ui!=null and village_ui.resident_card(id):return
 	var who:=talk_who;var lines:=talk_lines;var at:=talk_index;var next:=talk_next
 	family_card(id,func():say_lines(who,lines,id,next,at))
 func advance_dialogue() -> void:

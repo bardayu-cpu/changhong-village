@@ -1,0 +1,77 @@
+{
+  "static_source": "小涛磨坊-无杆无谷流-source-v2.png",
+  "static_source_size": [
+    1154,
+    1363
+  ],
+  "target_room": [
+    508,
+    600
+  ],
+  "static_local_rect_suggested": [
+    188,
+    68,
+    155,
+    180
+  ],
+  "static_merge_note": "优先只替换已有底图这个磨台局部，以保护已校外围；尺寸按同坐标nearest对齐，不移墙门梯与茶席",
+  "rod": {
+    "source": "独立透明磨杆-source-v1.png",
+    "source_size": [
+      1514,
+      1039
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "alpha_bbox_128": [
+      261,
+      226,
+      1322,
+      915
+    ],
+    "suggested_canvas": [
+      70,
+      48
+    ],
+    "uniform_fit_size": [
+      70,
+      45
+    ],
+    "pivot_local_suggested": [
+      6,
+      17
+    ],
+    "pivot_world_suggested": [
+      268,
+      111
+    ],
+    "draw_pos_suggested": [
+      262,
+      94
+    ],
+    "sort": "高于静态磨盘，低于必要粮斗前沿；不另叠整磨台",
+    "motion": "室内小幅摆动/相位变化，小游戏独立显示推杆转动；C2校枢轴避免横移",
+    "note": "只有横木臂和右侧握柄，无磨盘、粮斗、台脚或地板；枢轴用左端附着点，最后按C2原图校准"
+  },
+  "flour_stream": {
+    "start": [
+      266,
+      173
+    ],
+    "end": [
+      266,
+      218
+    ],
+    "trough_rect": [
+      229,
+      192,
+      76,
+      47
+    ],
+    "method": "独立细白粉粒、局部槽面填充；静止/退出时关闭，不留静止谷流"
+  },
+  "status": "C4已静态检查，无杆底层和真实alpha独立杆已齐；未运行，H3/H4未判"
+}

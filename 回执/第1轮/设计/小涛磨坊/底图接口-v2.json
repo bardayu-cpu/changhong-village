@@ -5,7 +5,7 @@
     508,
     600
   ],
-  "status": "整屋源图已出，v2按实际图重标；待C2叠84px人物校核，未实走",
+  "status": "C2@866f347原84px人物比例预检可继续接入；未运行验收",
   "style_reference": "游戏制作中-gpt 和 claude 合作/gpt-astra-湖景专属/astra-一楼统一质感-1005-图片/living-portrait.png",
   "character_height": 84,
   "foot_anchor": [
@@ -283,7 +283,7 @@
       "kind_suggested": "seat",
       "pos": [
         92,
-        436
+        415
       ],
       "approach": [
         220,
@@ -291,10 +291,11 @@
       ],
       "seat": [
         92,
-        436
+        415
       ],
       "foot_sort": 465,
-      "visible_change": "实际坐下；座面后沿与前沿分别排序，C2实坐校核"
+      "visible_change": "实际坐下；座面后沿与前沿分别排序，C2实坐校核",
+      "seat_note": "按C2原人物叠图把座面y436上移到415；脚锚/排序仍需实坐微调"
     }
   ],
   "schedule": [
@@ -322,7 +323,7 @@
       "slot": "晚",
       "pos": [
         92,
-        436
+        415
       ],
       "face": "down",
       "action": "坐下喝茶",
@@ -355,5 +356,7 @@
   },
   "collision_note": "只覆盖画上实物：粮架底部、磨台脚印、实体梯段、茶桌、竹椅、茶罐、装粉架、前袋、谷壳篮；不计地毯、阴影、蒸汽、空走道。C2逐边看图校准，不为25%扩大。",
   "design_footprint_union_pixels": 77634,
-  "design_footprint_union_ratio": 0.2547
+  "design_footprint_union_ratio": 0.2547,
+  "preferred_static_source": "小涛磨坊-无杆无谷流-source-v2.png",
+  "static_revision_note": "v2去掉推杆与谷粉流，固定石磨与空槽保留。C2按原508×600对齐；如边缘差异影响已经校过的陈设，仅用此图磨台局部替换，保持原外围。"
 }

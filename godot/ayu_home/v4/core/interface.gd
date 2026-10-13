@@ -30,6 +30,8 @@ var route_spot:=""
 var overlay
 var ticks:=0
 var houses:Array=[]
+var institution_room
+var institution_game
 func setup(h:Node) -> void:
 	home=h;layer=45;state=State.new()
 	var override_path:=""
@@ -82,6 +84,7 @@ func tick() -> void:
 	if is_instance_valid(farm_canvas):farm_canvas.refresh()
 func time_text(seconds:int) -> String:return "%d:%02d"%[seconds/60,seconds%60]
 func close() -> void:
+	if is_instance_valid(institution_game):institution_game.cancel();return
 	if root:remove_child(root);root.queue_free();root=null
 	opened=false;home.ui.visible=true;home.cooldown=.8;yard=null;counters.clear()
 func _unhandled_input(e:InputEvent) -> void:
@@ -257,6 +260,7 @@ func checkpoint() -> void:
 	if not state.blocked and is_instance_valid(home.player):state.act("checkpoint",{"area":home.area,"position":[home.player.position.x,home.player.position.y]})
 func entered() -> void:
 	if state.blocked:return
+	institution_room=null
 	var cfg:Dictionary=home.world.cfg
 	for d in cfg.doors:
 		if d.target=="my_cabin" and float(state.data.village.land[0])<=0:d.label="先开第一块地，搭起小屋"
@@ -265,12 +269,28 @@ func entered() -> void:
 		for h in cfg.hotspots:
 			if h.id=="home_site":h.approach=xy;h.pos=[xy[0],xy[1]-30]
 	for record in cfg.get("npcs",[cfg.npc] if cfg.has("npc") else []):
+		if cfg.has("resident"):continue # 机构主人交给作息组件，只创建一次。
 		if record.get("id","")=="market" and not state.isMarketDay():continue
+		if record.get("character_id","")=="xiaotao" and not (home.hour>=5 and home.hour<7):continue
 		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.get("preset",0));actor.look_override=Residents.look(str(record.get("character_id","")));home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.set_process(false)
 		var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",16);nameplate.add_theme_color_override("font_shadow_color",Color("392f24"));nameplate.add_theme_constant_override("shadow_offset_x",1);nameplate.add_theme_constant_override("shadow_offset_y",1);nameplate.position=Vector2(-24,-108);actor.add_child(nameplate)
+	if cfg.has("resident"):
+		institution_room=preload("res://ayu_home/v4/core/institution_room.gd").new();home.world.add_child(institution_room);home.world.move_child(institution_room,home.world.actors.get_index());institution_room.setup(self)
 	overlay=preload("res://ayu_home/v4/core/world_life.gd").new();overlay.ui=self;home.world.add_child(overlay)
 	checkpoint()
+func open_institution_game(id:String) -> void:
+	if is_instance_valid(institution_game):return
+	home.close_modal();opened=true;home.ui.visible=false
+	institution_game=preload("res://ayu_home/v4/core/institution_game.gd").new();add_child(institution_game);institution_game.setup(self,id)
+func talk_resident(id:String) -> bool:
+	return is_instance_valid(institution_room) and institution_room.talk(id)
+func resident_card(id:String) -> bool:
+	if id!="xiaotao":return false
+	var col:VBoxContainer=home.modal_shell("小涛的小卡片")
+	col.add_child(UI.label("小涛 · 小涛磨坊",26));col.add_child(UI.paragraph("早上簸谷，中午推磨，傍晚在茶席歇脚。五点到七点在村路上转一圈，其余时间能在磨坊找到他。"))
+	return true
 func interact(h:Dictionary) -> bool:
+	if is_instance_valid(institution_room) and institution_room.handle(h):return true
 	var id:=str(h.id)
 	if h.get("kind","")!="village":return false
 	context_id=id
