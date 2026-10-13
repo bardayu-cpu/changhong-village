@@ -733,6 +733,12 @@ func toggle_tools(open=null) -> void:
 func hud_bottom() -> float:
 	var words:Control=ui.get_node("Top/Words")
 	return 10+words.get_combined_minimum_size().y+4
+## 底栏实际顶边留出间隙；气泡、文字牌和坐姿操作共用这一条边界。
+func interaction_bottom() -> float:
+	var edge:=get_viewport_rect().size.y-136.0
+	if is_instance_valid(village_ui) and is_instance_valid(village_ui.hud_button):
+		edge=minf(edge,village_ui.hud_button.get_global_rect().position.y)
+	return edge-16.0
 func layout() -> void:
 	if not ui:return
 	var size:=get_viewport_rect().size;ui.size=size;ui_scale=size.x/540.0
@@ -786,7 +792,7 @@ func make_markers() -> void:
 const DOOR_NEAR:=64.0 # 门前几步：人走一步约 16 画布像素，四步以内
 func layout_markers() -> void:
 	if not markers:return
-	var size:=get_viewport_rect().size;var candidates:Array=[];var used:Array[Rect2]=[];var top_limit:=hud_bottom()+4;var bottom_limit:=size.y-152
+	var size:=get_viewport_rect().size;var candidates:Array=[];var used:Array[Rect2]=[];var top_limit:=hud_bottom()+4;var bottom_limit:=interaction_bottom()
 	if toast and toast.modulate.a>.05:top_limit=maxf(top_limit,toast.position.y+toast.size.y+6) # 上面的提示亮着时，话泡往下让
 	for m in marker_nodes:
 		if str(m.hot.id).begins_with("person:"):
@@ -847,7 +853,11 @@ func layout_markers() -> void:
 		for other in speech:
 			if other.grow(4).intersects(Rect2(p,b.size)):behind_speech=true
 		if behind_speech:continue # 有人在说话时，压在话泡上的提示先藏一下
-		b.position=p.clamp(Vector2(6,top_limit),size-Vector2(54,size.y-bottom_limit+54));m.bubble.selected=true;m.bubble.queue_redraw()
+		var tag_height:=0.0
+		if not is_person and player.action=="idle":
+			near_tag.text=str(h.get("label",""));near_tag.reset_size()
+			tag_height=near_tag.get_combined_minimum_size().y+2.0 # 名字牌与气泡重叠2px，点击区再向外4px。
+		b.position=p.clamp(Vector2(6,top_limit),Vector2(size.x-54,maxf(top_limit,bottom_limit-b.size.y-tag_height)));m.bubble.selected=true;m.bubble.queue_redraw()
 		visible_marker=b
 		if not is_person and player.action=="idle":tag_for=b;tag_hot=h
 	# 只在最终状态变化时切换可见性，避免每帧隐藏按钮取消正在进行的按下/松开。
@@ -907,7 +917,7 @@ func place_scene_controls(size:Vector2,top_limit:float,bottom_limit:float,speech
 	if p.y+s.y>bottom_limit:p.y=(xf*(player.position+Vector2(0,player.head_top()))).y-s.y-8
 	for r in speech:
 		if r.intersects(Rect2(p,s)):p.y=r.end.y+6
-	scene_controls.position=Vector2(clampf(p.x,8,size.x-s.x-8),clampf(p.y,top_limit,size.y-s.y-80)).round()
+	scene_controls.position=Vector2(clampf(p.x,8,size.x-s.x-8),clampf(p.y,top_limit,maxf(top_limit,bottom_limit-s.y))).round()
 
 func close_modal() -> void:
 	if modal:modal.queue_free();modal=null
