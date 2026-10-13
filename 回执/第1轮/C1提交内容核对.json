@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-10-13T22:13:06.686034",
+  "checked_head": "7b085c9da2f2c499e92a755f2f1b4df97a4aca57",
+  "scope": "本轮新增和修改、非忽略文件；只报告路径，不输出凭证内容",
+  "file_count": 475,
+  "over_50MB": [],
+  "package_or_key_filename": [],
+  "credential_pattern_flags": [],
+  "screenshots_over_2MB": [],
+  "note": "模式扫描不保证发现所有秘密；隔离测试数据与运行缓存继续由.gitignore排除。"
+}

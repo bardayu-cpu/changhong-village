@@ -1,0 +1,46 @@
+{
+  "baseline": "0bd53c0",
+  "checked_head": "5263e66699fa1d4761ea6b4b49663871e9329323",
+  "checked_at": "2026-10-13T22:00:37.934388",
+  "scope": "本次工作区保护项核对；不是玩法测试或最终验收",
+  "ayu_room_ids": [
+    "living",
+    "dining",
+    "kitchen",
+    "laundry",
+    "cats",
+    "stairs1",
+    "mahjong",
+    "parents",
+    "workshop",
+    "garage",
+    "closet1",
+    "bath1",
+    "guest",
+    "guest_closet",
+    "guest_bath",
+    "stairs2",
+    "study",
+    "closet2",
+    "bath2",
+    "ayu_room",
+    "terrace",
+    "exterior",
+    "side_path",
+    "bridge",
+    "oldhouse",
+    "garden",
+    "grove"
+  ],
+  "ayu_changed": [],
+  "protected_files": {
+    "给Claude审查/check_room_standard.py": {
+      "same_as_baseline": true,
+      "sha256": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971"
+    },
+    "godot/ayu_home/v4/core/test_core.gd": {
+      "same_as_baseline": true,
+      "sha256": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+    }
+  }
+}
