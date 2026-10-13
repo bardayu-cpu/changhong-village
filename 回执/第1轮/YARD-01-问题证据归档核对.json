@@ -1,0 +1,188 @@
+{
+  "date": "2026-10-14",
+  "issue": "YARD-01",
+  "tested_version": "4127b2a",
+  "production_base_before_fix": "c1f985a584c81b7b88497e0c0ae0e5752cfcf2ea",
+  "scope": "Archive stable issue, named 004/005 occlusion comparison, same-profile reopen 001-003 and explicit 045-047 placement/before-close evidence before repair",
+  "quota_start_remaining_percent": 52,
+  "source_files": 21,
+  "png_count": 8,
+  "max_png_bytes": 50415,
+  "credential_pattern_hits": [],
+  "persisted_saves_or_live_request_observation_files_included": false,
+  "same_profile_and_wash_basin_1_at_1_1_confirmed": true,
+  "files": [
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/YARD-01-地块遮住玩家.md",
+      "bytes": 887,
+      "sha256": "a794acb0be63dbe36968dbe46926dd1a45983d82e7937abdb6b87222723ea61c"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/关键字段核对.json",
+      "bytes": 3016,
+      "sha256": "8b1547865031b7a6ad0966b2de5262b95a5fcd00d3b0e821e8876aa7bb64ffbb"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/受测版本.json",
+      "bytes": 190,
+      "sha256": "da547a4d31a376b50c1a5c63e87c2fd1e5e5852333f5c988b7b81fdf6a39735c"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/图文件归档清单.json",
+      "bytes": 1228,
+      "sha256": "573e62d2117d72d868751ffe3f59e3824fe8a0ed81ab7ebd1c2627433fb2b562"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/正常验收轨迹.jsonl",
+      "bytes": 5340,
+      "sha256": "f0dcbfaf933618d896b4b9d2f7604613931213ad0ee4ae634c693a155bdb47d1",
+      "events": 16
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/最终-4127b2a-001-H6-入区-my_yard.json",
+      "bytes": 12491,
+      "sha256": "1ab56621049a7473b16afebc4d6e5bb3af3e00371edaa50ebf870aa766058311",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/最终-4127b2a-002-S1-同身份正常重开后.json",
+      "bytes": 12503,
+      "sha256": "2fa03de935afd0afa75dbfa017aa8043aadcc61f45c3dd081fa54adfafb27d4a",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/最终-4127b2a-003-S1-重开后石洗盆仍在原格.json",
+      "bytes": 12196,
+      "sha256": "5e3ac153cb92504f3656c8cfee716e6b57e0ef45fa5e06f024e7e5c5603cf73e",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/最终-4127b2a-004-疑点-布置牌旁玩家可能被遮挡.json",
+      "bytes": 12502,
+      "sha256": "1449d5ee35fea7619406445fc492bbad2aa675c72cac069f3fddbf5195f9ebb5",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/独立测试/有家具重开-4127b2a/最终-4127b2a-005-疑点-离开地块后玩家显示.json",
+      "bytes": 12274,
+      "sha256": "cef4a3896f5e74b319ebae8d80f9a70df9bb55e2c6b172a93cbe848ef8242d6b",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/图/有家具重开-4127b2a-最终-4127b2a-001-H6-入区-my_yard.png",
+      "bytes": 47941,
+      "sha256": "4b0bc9a85eff18d0555fb8a412e39071a6bdf7bf09e5e5511f9f3a0d15cd0435",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/图/有家具重开-4127b2a-最终-4127b2a-002-S1-同身份正常重开后.png",
+      "bytes": 48587,
+      "sha256": "222a9c0f0bc0223ac03560aac528da84167bacf9cdb60786de2c0eada54ae1cc",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/图/有家具重开-4127b2a-最终-4127b2a-003-S1-重开后石洗盆仍在原格.png",
+      "bytes": 18051,
+      "sha256": "236a9d2203d12de0014e847bffacd2c148815f6e1eac710e54fb85d7cabcd498",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/图/有家具重开-4127b2a-最终-4127b2a-004-疑点-布置牌旁玩家可能被遮挡.png",
+      "bytes": 48723,
+      "sha256": "7037a6a0b2a61353256fe93e33630ab769571cbd6138d7d99679806fcfd9e355",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/图/有家具重开-4127b2a-最终-4127b2a-005-疑点-离开地块后玩家显示.png",
+      "bytes": 50415,
+      "sha256": "283292892f5670462cd8c129374e0daccfb7e446ca0d05340c1e1e014d8ae5dd",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-4127b2a/最终-4127b2a-045-E3-已开地真实摆放前.json",
+      "bytes": 12099,
+      "sha256": "48385e6f8c58e2bcbbcafce74262f93f07b670498e07c4f124d5a0cca0c7d9ea",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/图/最终-4127b2a-045-E3-已开地真实摆放前.png",
+      "bytes": 10445,
+      "sha256": "582a32f9cdbfca783967c59feb261f3a75d50d22ca45b983ce0c432dabb7c341",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-4127b2a/最终-4127b2a-046-E3-石洗盆真实已摆放.json",
+      "bytes": 12091,
+      "sha256": "60384fc3c385f2674c9587b61b4f1014582bd3ecec8511477f55899858040d13",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/图/最终-4127b2a-046-E3-石洗盆真实已摆放.png",
+      "bytes": 17540,
+      "sha256": "c179da86c403ae48b14a7e35a96420d317b09c66661dc038609497a2dd8fe7f3",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-4127b2a/最终-4127b2a-047-S1-新增家具与全部进度-关闭前.json",
+      "bytes": 12436,
+      "sha256": "353b0e5c329ef7eaa93cd1b38bab00bb1a93ac2a4072ee2de6cd13467f44247c",
+      "type": "C3 screenshot observation, not a persisted game save"
+    },
+    {
+      "file": "回执/第1轮/图/最终-4127b2a-047-S1-新增家具与全部进度-关闭前.png",
+      "bytes": 48062,
+      "sha256": "63f99bf7550517b34628fff94e674fa3ab1ebfea5ff3e7ca539ba6402a49bc86",
+      "size": [
+        540,
+        960
+      ],
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": []
+    }
+  ],
+  "not_included": [
+    "capture-request.json",
+    "实时控件.json",
+    "最新观测.json",
+    "图形启动.log",
+    "工具中断与当前断点.md",
+    "other current 最终-4127b2a evidence",
+    "all runtime household/shared saves and caches"
+  ],
+  "note": "Problem archive only; no production changes or new game tests; native mouse tool interruption kept separate from confirmed draw-order problem"
+}

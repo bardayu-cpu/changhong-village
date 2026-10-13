@@ -1,0 +1,147 @@
+{
+  "status": "过",
+  "equal": true,
+  "version": "4127b2a",
+  "before": {
+    "area": "my_yard",
+    "profile": {
+      "avatar": 2.0,
+      "id": "c3-focused-third-85b78db-1014",
+      "nick": "来做客的你"
+    },
+    "coins": 6,
+    "items": {
+      "apple": 2.0,
+      "apple_seed": 2.0,
+      "aster": 3.0,
+      "aster_seed": 6.0,
+      "bamboo": 4,
+      "carrot": 3.0,
+      "carrot_seed": 6.0,
+      "chrysanthemum": 3.0,
+      "chrysanthemum_seed": 6.0,
+      "cosmos": 3.0,
+      "cosmos_seed": 6.0,
+      "grain": 4.0,
+      "grain_seed": 3,
+      "meal": 1.0,
+      "parcel": 0,
+      "pepper": 2.0,
+      "pepper_seed": 3,
+      "pumpkin": 3.0,
+      "pumpkin_seed": 6.0,
+      "radish": 0.0,
+      "radish_seed": 6,
+      "stone": 0,
+      "tool": 2
+    },
+    "resident": true,
+    "location": "lake",
+    "land": [
+      1791912055.0138,
+      0.0,
+      0.0
+    ],
+    "blueprints": [
+      "wash_basin"
+    ],
+    "furniture": [
+      {
+        "id": 1,
+        "kind": "wash_basin",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "orders": {
+      "2026-10-14:o09": 1791911848.41114,
+      "2026-10-14:o10": 1791911850.29393,
+      "2026-10-14:o11": 1791911852.14414,
+      "institution:2": 1791912758.98499
+    },
+    "institution": {
+      "community": {
+        "completed": 1.0
+      },
+      "my_cabin": {
+        "read": 1.0,
+        "table": 1.0,
+        "tidy": 1.0,
+        "weave": 1.0
+      }
+    },
+    "puzzle": 1.0
+  },
+  "after": {
+    "area": "my_yard",
+    "profile": {
+      "avatar": 2.0,
+      "id": "c3-focused-third-85b78db-1014",
+      "nick": "来做客的你"
+    },
+    "coins": 6.0,
+    "items": {
+      "apple": 2.0,
+      "apple_seed": 2.0,
+      "aster": 3.0,
+      "aster_seed": 6.0,
+      "bamboo": 4.0,
+      "carrot": 3.0,
+      "carrot_seed": 6.0,
+      "chrysanthemum": 3.0,
+      "chrysanthemum_seed": 6.0,
+      "cosmos": 3.0,
+      "cosmos_seed": 6.0,
+      "grain": 4.0,
+      "grain_seed": 3.0,
+      "meal": 1.0,
+      "parcel": 0.0,
+      "pepper": 2.0,
+      "pepper_seed": 3.0,
+      "pumpkin": 3.0,
+      "pumpkin_seed": 6.0,
+      "radish": 0.0,
+      "radish_seed": 6.0,
+      "stone": 0.0,
+      "tool": 2.0
+    },
+    "resident": true,
+    "location": "lake",
+    "land": [
+      1791912055.0138,
+      0.0,
+      0.0
+    ],
+    "blueprints": [
+      "wash_basin"
+    ],
+    "furniture": [
+      {
+        "id": 1.0,
+        "kind": "wash_basin",
+        "x": 1.0,
+        "y": 1.0
+      }
+    ],
+    "orders": {
+      "2026-10-14:o09": 1791911848.41114,
+      "2026-10-14:o10": 1791911850.29393,
+      "2026-10-14:o11": 1791911852.14414,
+      "institution:2": 1791912758.98499
+    },
+    "institution": {
+      "community": {
+        "completed": 1.0
+      },
+      "my_cabin": {
+        "read": 1.0,
+        "table": 1.0,
+        "tidy": 1.0,
+        "weave": 1.0
+      }
+    },
+    "puzzle": 1.0
+  },
+  "same_profile_and_file": true,
+  "operation": "正常原生关闭exit0，同一identity/相同save重新启动，无状态补写"
+}
