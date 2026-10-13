@@ -1237,17 +1237,9 @@ func scene_buttons(actions:Array) -> void:
 func prop_covers(p:Dictionary,at:Vector2) -> bool:
 	var tex:Texture2D=p.sprite.texture
 	if tex==null:return false
-	var origin:=World.v(p.config.pos);var scale:Vector2=p.sprite.scale
-	var r:=Rect2(origin,tex.get_size()*scale)
-	if not r.has_point(at):return false
-	var source:Texture2D=tex.atlas if tex is AtlasTexture else tex
-	var offset:Vector2=tex.region.position if tex is AtlasTexture else Vector2.ZERO
-	var key:=source.get_instance_id()
-	if not prop_images.has(key):prop_images[key]=source.get_image()
-	var img:Image=prop_images[key]
-	if img==null:return true
-	var q:=Vector2i((at-origin)/scale+offset).clamp(Vector2i.ZERO,img.get_size()-Vector2i.ONE)
-	return img.get_pixelv(q).a>.2
+	# 床面取色仍缓存原贴图；图集、缩放、翻转和家具轻微位移按 Sprite2D 的真实像素检测。
+	if not tex is AtlasTexture and not prop_images.has(tex.get_instance_id()):prop_images[tex.get_instance_id()]=tex.get_image()
+	return p.sprite.is_pixel_opaque(p.sprite.to_local(world.to_global(at)))
 ## 坐点被哪件家具画着、而那件家具的前沿比坐点靠下：人要排到它前面，再把画面抬回坐点。
 func seat_lift(at:Vector2) -> float:
 	var lift:=0.0
