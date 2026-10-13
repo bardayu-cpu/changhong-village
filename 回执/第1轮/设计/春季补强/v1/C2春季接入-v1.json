@@ -1,0 +1,1305 @@
+{
+  "version": "C4-spring-v1",
+  "scope": "Only village spring vegetation. Summer/autumn/winter/rain existing behavior retained. No production/Git edits. N3 not passed.",
+  "shader_source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/春季植物材质.gdshader",
+  "shader_target": "res://ayu_home/v4/assets/village/c4-spring-v1/season-material.gdshader",
+  "source_scene_sha256": "5780ccdac5d25934358a6e58d3ae61c09c95ec4f7dfdb46696fc05e4a8737cf9",
+  "source_world": "7d87d81 scene asset state; later C1 task commit a9868f0",
+  "texture_bindings": [
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/ground-c4-v2.png",
+      "source_sha256": "b37d973cad75655231b68b07f55d00a56a15f5352e06c9d438f37a0d657b8042",
+      "source_size": [
+        4800,
+        4700
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/ground-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/ground-spring-mask.png",
+      "mask_size": [
+        1600,
+        1567
+      ],
+      "sha256": "97a1cb64cb65c1832563c528de68a547fbbe7691faab358b72e61676d467f292",
+      "spring_layer_kind": 0,
+      "eligible_mask_pixels": 1940979,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_ayu.png",
+      "source_sha256": "6ce40dbceda7088b70402f0b4d324b71bce25d21a911dd0102b07ce694dc6047",
+      "source_size": [
+        800,
+        600
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_ayu-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_ayu-spring-mask.png",
+      "mask_size": [
+        267,
+        200
+      ],
+      "sha256": "5d6dc3de95dba9ffddee8ec8d1d63a8890fd42cd68317d2a4011cbc544094bdf",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 1099,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "exterior_beehive_1.png",
+      "source_sha256": "83fd7ce7ab16407c4e2c32ffbd9c368e4987ff7b612bceb6f2414c2b0bbc20bf",
+      "source_size": [
+        40,
+        44
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/exterior_beehive_1-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/exterior_beehive_1-spring-mask.png",
+      "mask_size": [
+        14,
+        15
+      ],
+      "sha256": "32dbfbaa989d0c55242cc3cd0f1b0e9128676cfd55694317254947a5fba204b9",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 39,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/board.png",
+      "source_sha256": "fd386f700f1065731ff7e75e4c87b779dc408c73f58847e6d103a7b1a186cfc8",
+      "source_size": [
+        76,
+        95
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/board-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/board-spring-mask.png",
+      "mask_size": [
+        26,
+        32
+      ],
+      "sha256": "6d17dcf84bc9b17c8d505c9c8dd49ec4a4e5f300821f0e58ff302faf54b49bd6",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 0,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "source_sha256": "355641fc82d2243077767e84c2458541d4d0df7df9d9e766aff53dcb28667456",
+      "source_size": [
+        150,
+        168
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/fruit_tree-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/fruit_tree-spring-mask.png",
+      "mask_size": [
+        50,
+        56
+      ],
+      "sha256": "21e77d2c3bd90d55047e3f1c2ad5775f7334ed328c1807cbbd228dada6b3e171",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 1342,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "source_sha256": "4e20e580fc33a7f1f8cac210ec418be246bf02217b1e21a5ad7c05c1c0eb521a",
+      "source_size": [
+        150,
+        168
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/apple_tree-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/apple_tree-spring-mask.png",
+      "mask_size": [
+        50,
+        56
+      ],
+      "sha256": "f2538ca92dc86cfa35b1823dfa2f8876526603756d06da55c9384e52c7412e26",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 1300,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "source_sha256": "6a092d4cee8e60ab47495f4952ce4c9a28fbeaf06bba28b6f6f28339a8c60073",
+      "source_size": [
+        150,
+        168
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/pear_tree-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/pear_tree-spring-mask.png",
+      "mask_size": [
+        50,
+        56
+      ],
+      "sha256": "c7ac263c5c8772ff7e9304ae3489d830adf847f846ee673c715291ca12c93bf4",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 1285,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/pond.png",
+      "source_sha256": "7a364d6c8225bfa89aab9ae135389c530329163dd8fc6bd797b63b4cba584520",
+      "source_size": [
+        435,
+        245
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/pond-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/pond-spring-mask.png",
+      "mask_size": [
+        145,
+        82
+      ],
+      "sha256": "362e21d6b81a3606737508811bf7663d3d5a35e9df7630ad8e3ab5cbfac27d50",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 2347,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_erba.png",
+      "source_sha256": "8ec21fc1caac49bed8d812445d09b50a03d5f05669ae3dae29463b9765e45d5c",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_erba-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_erba-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "92bcfa06c9c8f03b3e0907bcedac9382103444d0635feefc0c938e3a2d1d06c5",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 25226,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_laowu.png",
+      "source_sha256": "12a20ab685b84da2a9ec3aedfc7db1bc9375daaea52cc10a83a56543e022cb29",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_laowu-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_laowu-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "9430aedd97ac837ffbbe675fe8c60ba7edb368ac0db9dba3cdbac12f56c651ee",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 21535,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_daba.png",
+      "source_sha256": "72d2127a4d4e74f204afa1e3cee54f99d21186b9873c23072a12cd0403c9412f",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_daba-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_daba-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "db09317209641658a7f2d18bfb2425b79c2e8e7beea9a38d2e733c12e90432ba",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 19037,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h5.png",
+      "source_sha256": "975c40f090767437665f43563010a9f34951e4c3483f1fe1256cccccf4f913c1",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h5-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h5-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "0feeba8dc3487911f8386a9962c211dab3e8a397ed226e35aeeb25cf859f264e",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 19003,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h2.png",
+      "source_sha256": "b5edb36920da5a4c98e1c7d32b8973eb5e75e8ef044ccd14c51e93b57fc25b0e",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h2-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h2-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "015112817cbb2c7431336fbc20c3f2cfdbfb2be438571dddc31663ab248c4242",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 17956,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h3.png",
+      "source_sha256": "d9959717baf249103907d879254fa1170c5ef54c8531825cad7d4a1c624d767b",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h3-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h3-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "c9d2c082e58da49933315781ca325c6feb60deb2da6b47a74b453be6fa340651",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 17065,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_mayor.png",
+      "source_sha256": "4ba335dc38db03e0dc799c39bfd1ed87edf144baa7c285d26fda73566f1e63e5",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_mayor-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_mayor-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "6df93acf6434aa910b877714af1522763037e3fd9777699a02495fc07c3e6ebd",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 15590,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h6.png",
+      "source_sha256": "d00a5daf74eb5859e3d07314d816e9ef6aa335f727a1a7da22775ae7d63b2271",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h6-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h6-spring-mask.png",
+      "mask_size": [
+        483,
+        362
+      ],
+      "sha256": "7cc3d5446ed5b6850a5c44decdf012e588f69b0a86ee6988fa4cf9d1e9ace65c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 21605,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h8.png",
+      "source_sha256": "5bae51817fe88e8d743cc1f026d3d02a0fa4431a3203dce85eb6296cd45724e1",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h8-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h8-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "48e358b10e5a6fab967eb4a9b70aff62252c23a365a295721d62be786224cd96",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 12852,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h7.png",
+      "source_sha256": "bd30f20ad6fc93e3e781e69b507d5c430f5bbb66948cfe06ee32c53e8ebd8830",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h7-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h7-spring-mask.png",
+      "mask_size": [
+        342,
+        512
+      ],
+      "sha256": "ccaba5d0eaa578678bbea7503c8c37aa175ca7cda0f3bff302a7db3d8edca569",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 13791,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h4.png",
+      "source_sha256": "f58c8b8185e1c0e08c8b3ba93664c028281bcb42ca5dbd16990966799c83a83e",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h4-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h4-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "9a7654d56ea8492ae6301c530bd35b001076df328e09f399551db40188ba79de",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 21788,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_h1.png",
+      "source_sha256": "b85d6f5da9e13988ad0ffb221a93f6e623fd6936c335846a3a3537362aef71b7",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_h1-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h1-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "cd693d5782d2031f4e0dc582afe8e242f4e076013159b941c5951883824fc8e9",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 8303,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_flower.png",
+      "source_sha256": "0c6481f62f5431db16011da25def16f879301f02d1d9511cd9a4bf7cdeedcef7",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_flower-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_flower-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "59eb1736e47655f042e750e1725b158cf63612ad34fe600a183ecad7f48f7a86",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 22047,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_whitebrick.png",
+      "source_sha256": "1824c16ef829fffd73e217d7a7e9aeda263da1ff94b80195368cd062c9fb590a",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_whitebrick-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_whitebrick-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "d7d38b6b57d8ffc10507c1a3e4547b097bf0fa4770d2374b0a208c0e40cbe433",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 14672,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_grape.png",
+      "source_sha256": "67e0826d054a9d83086b7e0a51b66d85e548c76796dce3af148322104c8fd600",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_grape-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_grape-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "553367016d8ecf2252ae1119a8d2c8833baeaaf98c72e7ed5c20b23a5ed88ec6",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 29193,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_sunflower.png",
+      "source_sha256": "8494e494f9ca2e0ae9d2e6754cff82d647ff87c0ceeed87c7d322cd1cea1d776",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_sunflower-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_sunflower-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "e145d0d2a0128e7dcb171c93107755ab60648277add4269136b04b5184e9af40",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 31199,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_persimmon.png",
+      "source_sha256": "cb0b42871935e05871bf1fdf61092c85c21bf7183b92a4092ea47d0d8f841cc7",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_persimmon-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_persimmon-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "04cd5e06a1139b29d2410442fa664331f6cb8595b41357fb5829c146800eb67d",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 21882,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/house_rose.png",
+      "source_sha256": "6b7c2bb400bfe84a32fe0e62933702772e119c2c6f971bbe72ca80adc7f9f295",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/house_rose-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/house_rose-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "dd805a77ea084b48dbeac9225760dbfc2f47ef479911edbc5b79e350c163fd9a",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 36160,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/cabin.png",
+      "source_sha256": "4295b519f4744183ec43ff3077a5b0f334b499f3f3f573c4b1a6a2c67e755d8b",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/cabin-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/cabin-spring-mask.png",
+      "mask_size": [
+        512,
+        342
+      ],
+      "sha256": "da7dd9e2af24d6bce01881dc459f8fd8255c1cfbd77dbfbba65683723a234f01",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 6456,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_0-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_0-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "source_sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_1-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_1-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_2-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_2-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_3-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_3-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "source_sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d",
+      "source_size": [
+        126,
+        166
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_bamboo_4-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_4-spring-mask.png",
+      "mask_size": [
+        42,
+        56
+      ],
+      "sha256": "5612fec1f902bdb51fa557ab0acd2302f3663b0d6881563c85a1b9b5ad4430f0",
+      "spring_layer_kind": 2,
+      "eligible_mask_pixels": 1043,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_5-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_5-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_6-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_6-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "source_sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d",
+      "source_size": [
+        126,
+        166
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_bamboo_7-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_7-spring-mask.png",
+      "mask_size": [
+        42,
+        56
+      ],
+      "sha256": "5612fec1f902bdb51fa557ab0acd2302f3663b0d6881563c85a1b9b5ad4430f0",
+      "spring_layer_kind": 2,
+      "eligible_mask_pixels": 1043,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_8-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_8-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_9-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_9-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "source_sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d",
+      "source_size": [
+        126,
+        166
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_bamboo_10-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_10-spring-mask.png",
+      "mask_size": [
+        42,
+        56
+      ],
+      "sha256": "5612fec1f902bdb51fa557ab0acd2302f3663b0d6881563c85a1b9b5ad4430f0",
+      "spring_layer_kind": 2,
+      "eligible_mask_pixels": 1043,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_11-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_11-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_12-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_12-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "source_sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_13-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_13-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_14-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_14-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_15-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_15-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "source_sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_16-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_16-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_17-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_17-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "source_sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_18-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_18-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "source_sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef",
+      "source_size": [
+        150,
+        180
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_tree_19-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_19-spring-mask.png",
+      "mask_size": [
+        50,
+        60
+      ],
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 958,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "source_sha256": "183865501afce24c7defa4651f1b3651b82daeb1ddf9bac11c007b0fe6e2c13d",
+      "source_size": [
+        99,
+        66
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_shrub_20-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_20-spring-mask.png",
+      "mask_size": [
+        33,
+        22
+      ],
+      "sha256": "a74fa72b067a8dbd0fbe86832ece843e87a6ae0668338589dd1f8ea0bfad7bdf",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 318,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "source_sha256": "183865501afce24c7defa4651f1b3651b82daeb1ddf9bac11c007b0fe6e2c13d",
+      "source_size": [
+        99,
+        66
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_shrub_21-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_21-spring-mask.png",
+      "mask_size": [
+        33,
+        22
+      ],
+      "sha256": "a74fa72b067a8dbd0fbe86832ece843e87a6ae0668338589dd1f8ea0bfad7bdf",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 318,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    },
+    {
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "source_sha256": "e43c5a51079d38f11cb79797e15bdcb53e76dea045f0cc05e539e09d367a0990",
+      "source_size": [
+        99,
+        66
+      ],
+      "mask_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/masks/c4_shrub_22-spring-mask.png",
+      "mask_target": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_22-spring-mask.png",
+      "mask_size": [
+        33,
+        22
+      ],
+      "sha256": "4cb148ea770f93263ec27ce6d2af06bb704dbcd66d87ed78055f83bb30abd388",
+      "spring_layer_kind": 1,
+      "eligible_mask_pixels": 318,
+      "mask_channels": "R eligible vegetation, G64 pink/G192 cream petals, B255 yellow centre; zero elsewhere",
+      "filter": "nearest, repeat disabled, same UV as source; no atlas regions in current village"
+    }
+  ],
+  "prop_bindings": [
+    {
+      "id": "ayu",
+      "source_texture": "res://ayu_home/v4/assets/village/house_ayu.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "honeybox",
+      "source_texture": "exterior_beehive_1.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "notice",
+      "source_texture": "res://ayu_home/v4/assets/village/board.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "orchard0",
+      "source_texture": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "plant_kind": 3,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "orchard1",
+      "source_texture": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "plant_kind": 3,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "orchard2",
+      "source_texture": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "plant_kind": 3,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "public_pond",
+      "source_texture": "res://ayu_home/v4/assets/village/pond.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "erba",
+      "source_texture": "res://ayu_home/v4/assets/village/house_erba.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "laowu",
+      "source_texture": "res://ayu_home/v4/assets/village/house_laowu.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "daba",
+      "source_texture": "res://ayu_home/v4/assets/village/house_daba.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h5",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h5.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h2",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h2.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h3",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h3.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "mayor",
+      "source_texture": "res://ayu_home/v4/assets/village/house_mayor.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h6",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h6.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h8",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h8.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h7",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h7.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h4",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h4.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "h1",
+      "source_texture": "res://ayu_home/v4/assets/village/house_h1.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "flower",
+      "source_texture": "res://ayu_home/v4/assets/village/house_flower.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "whitebrick",
+      "source_texture": "res://ayu_home/v4/assets/village/house_whitebrick.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "grape",
+      "source_texture": "res://ayu_home/v4/assets/village/house_grape.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "sunflower",
+      "source_texture": "res://ayu_home/v4/assets/village/house_sunflower.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "persimmon",
+      "source_texture": "res://ayu_home/v4/assets/village/house_persimmon.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "rose",
+      "source_texture": "res://ayu_home/v4/assets/village/house_rose.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "site_pond",
+      "source_texture": "res://ayu_home/v4/assets/village/pond.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "house_community",
+      "source_texture": "res://ayu_home/v4/assets/village/cabin.png",
+      "plant_kind": 0,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_0",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_1",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_2",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_3",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_bamboo_4",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "plant_kind": 2,
+      "spring_layer_kind": 2
+    },
+    {
+      "id": "c4_tree_5",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_6",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_bamboo_7",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "plant_kind": 2,
+      "spring_layer_kind": 2
+    },
+    {
+      "id": "c4_tree_8",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_9",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_bamboo_10",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "plant_kind": 2,
+      "spring_layer_kind": 2
+    },
+    {
+      "id": "c4_tree_11",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_12",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_13",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_14",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_15",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_16",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_17",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_18",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_tree_19",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_shrub_20",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_shrub_21",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    },
+    {
+      "id": "c4_shrub_22",
+      "source_texture": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "plant_kind": 1,
+      "spring_layer_kind": 1
+    }
+  ],
+  "material_rules": [
+    "Use new shader only for village. Bind background ground mask/layer0 to base_sprite.",
+    "Each unique texture+plant-kind must get material with corresponding mask. Never share background material with house sprites.",
+    "spring_mask_enabled=true for village; missing masks fail closed using a black mask, never broad whole-sprite tint.",
+    "Retain plant_kind for original autumn difference. Register every material for existing season/rain parameter updates.",
+    "Do not change weather/ambient/effects_enabled or other outdoor areas. Non-spring shader branches retain original formulas.",
+    "mask sampler nearest/repeat disabled. Source UV equals mask UV. No current atlas-region props; future atlas sprites require matching region UV.",
+    "No new sprites/collisions/navigation/scene positions. Flower accents encoded in mask and active only for spring.",
+    "Copy masks and shader mechanically; do not redraw source PNGs or regenerate summer ground."
+  ],
+  "protected": {
+    "ground": "main roads/gate paths/field paths/river/drains excluded",
+    "house_sunflower": "three exact roof polygons excluded; all transparent glows excluded",
+    "pond": "water centre excluded",
+    "all": "runtime full-resolution green/alpha guard prevents mask bleed onto non-green wall/road pixels"
+  },
+  "preview": {
+    "file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/春季补强/v1/同机位-左春右夏-设计预览.png",
+    "left": "proposed spring",
+    "right": "existing summer",
+    "camera": [
+      1880,
+      3511
+    ],
+    "scale": 1.15,
+    "world_viewport": [
+      540,
+      696
+    ],
+    "hour": 13,
+    "weather": "rain",
+    "type": "independent native shader/asset composition, no player/HUD/weather particles, not a runtime screenshot"
+  },
+  "cost": {
+    "masks": 50,
+    "compressed_bytes": 150950,
+    "rgb_gpu_bytes": 23875536,
+    "shader_extra_sampler": 1,
+    "extra_scene_nodes": 0,
+    "spring_flower_centres": 182
+  },
+  "pending": "C1 visual review -> C2 integration -> C3 actual same-camera N3 spring/summer/field group; old summer and winter regression.",
+  "shader_sha256": "999893536e3c0ad9f306ffb146ca71ef45778ba0ce68cecb862031551f5d6d67"
+}
