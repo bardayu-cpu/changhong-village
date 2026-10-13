@@ -176,7 +176,7 @@ func read_clock() -> void:
 	if time_label:
 		time_label.text="%02d:%02d"%[int(hour),int(hour*60)%60]
 		season_label.text=Data.SEASONS[Data.season(month)] # 第二行只放图标和短数字（组件库第 7 条），试玩时钟不另标
-		var season_key:String=["spring","summer","autumn","winter"][Life.season(month)];var weather_key:="rain" if weather=="rain" else "sun"
+		var season_key:String=["spring","summer","autumn","winter"][Life.season(month)];var weather_key:="winter" if weather=="snow" else ("rain" if weather=="rain" else "sun")
 		if season_icon.get_meta("key","")!=season_key:season_icon.texture=UI.icon(season_key,26,Color(DSkin.PAL.text)).texture;season_icon.set_meta("key",season_key)
 		if weather_icon.get_meta("key","")!=weather_key:weather_icon.texture=UI.icon(weather_key,26,Color(DSkin.PAL.text)).texture;weather_icon.set_meta("key",weather_key)
 func set_test_clock(h:float,m:=10,w:="clear") -> void:
