@@ -345,5 +345,16 @@
     "村民活动中心/分区与接口-v1.json",
     "小涛磨坊/小涛磨坊-整屋底图-source-v1.png"
   ],
-  "handoff": "C2只接优先实图接口并按实体再校；仅选择稳定素材提交，不能把候选加载成成品。C3新游戏证据单张≤2MB；源图不当游戏截图。"
+  "handoff": "C2只接优先实图接口并按实体再校；仅选择稳定素材提交，不能把候选加载成成品。C3新游戏证据单张≤2MB；源图不当游戏截图。",
+  "outdoor_addition": {
+    "handoff": "村外铺景/C4追加交付回执.md",
+    "preview": "村外铺景/预览.md",
+    "zoning": "村外铺景/铺景接口-v1.json",
+    "atlas": "村外铺景/村外地表田埂竹花-九格source-v1.png",
+    "atlas_interface": "村外铺景/图集切片-v1.json",
+    "clean_tree": "村外铺景/村外干净树-source-v1.png",
+    "tree_interface": "村外铺景/干净树接口-v1.json",
+    "runtime_N1_N5": "未验，交C2/C3",
+    "last_checked_remaining": 5
+  }
 }
