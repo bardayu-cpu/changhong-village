@@ -1,0 +1,2948 @@
+{
+  "version": "C4-outdoor-v2",
+  "date": "2026-10-14",
+  "world_size": [
+    4800,
+    4700
+  ],
+  "grid_pixel": 3,
+  "owner": "C4",
+  "base_props": [
+    {
+      "id": "ayu",
+      "file": "res://ayu_home/v4/assets/village/house_ayu.png",
+      "pos": [
+        1090,
+        1470
+      ],
+      "foot": 2055,
+      "front": false
+    },
+    {
+      "id": "honeybox",
+      "file": "exterior_beehive_1.png",
+      "pos": [
+        825,
+        1085
+      ],
+      "foot": 1130,
+      "front": false
+    },
+    {
+      "id": "notice",
+      "file": "res://ayu_home/v4/assets/village/board.png",
+      "pos": [
+        1955,
+        2085
+      ],
+      "foot": 2170,
+      "front": false
+    },
+    {
+      "id": "orchard0",
+      "file": "res://ayu_home/v4/assets/village/fruit_tree.png",
+      "pos": [
+        1510,
+        1130
+      ],
+      "foot": 1300,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "orchard1",
+      "file": "res://ayu_home/v4/assets/village/apple_tree.png",
+      "pos": [
+        1650,
+        1130
+      ],
+      "foot": 1300,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "orchard2",
+      "file": "res://ayu_home/v4/assets/village/pear_tree.png",
+      "pos": [
+        1790,
+        1130
+      ],
+      "foot": 1300,
+      "front": false,
+      "plant_type": "fruit"
+    },
+    {
+      "id": "public_pond",
+      "file": "res://ayu_home/v4/assets/village/pond.png",
+      "pos": [
+        1035,
+        1000
+      ],
+      "foot": 1210,
+      "front": false
+    },
+    {
+      "id": "erba",
+      "file": "res://ayu_home/v4/assets/village/house_erba.png",
+      "pos": [
+        1640,
+        0
+      ],
+      "foot": 485,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "laowu",
+      "file": "res://ayu_home/v4/assets/village/house_laowu.png",
+      "pos": [
+        420,
+        30
+      ],
+      "foot": 437,
+      "scale": [
+        0.5208333333333334,
+        0.5208333333333334
+      ],
+      "front": false
+    },
+    {
+      "id": "daba",
+      "file": "res://ayu_home/v4/assets/village/house_daba.png",
+      "pos": [
+        2120,
+        800
+      ],
+      "foot": 1268,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "h5",
+      "file": "res://ayu_home/v4/assets/village/house_h5.png",
+      "pos": [
+        95,
+        1170
+      ],
+      "foot": 1644,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "h2",
+      "file": "res://ayu_home/v4/assets/village/house_h2.png",
+      "pos": [
+        2250,
+        1760
+      ],
+      "foot": 2257,
+      "scale": [
+        0.5859375,
+        0.5859375
+      ],
+      "front": false
+    },
+    {
+      "id": "h3",
+      "file": "res://ayu_home/v4/assets/village/house_h3.png",
+      "pos": [
+        80,
+        2130
+      ],
+      "foot": 2630,
+      "scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "front": false
+    },
+    {
+      "id": "mayor",
+      "file": "res://ayu_home/v4/assets/village/house_mayor.png",
+      "pos": [
+        1130,
+        2290
+      ],
+      "foot": 2733,
+      "scale": [
+        0.5436197916666666,
+        0.5436197916666666
+      ],
+      "front": false
+    },
+    {
+      "id": "h6",
+      "file": "res://ayu_home/v4/assets/village/house_h6.png",
+      "pos": [
+        2500,
+        2730
+      ],
+      "foot": 3287,
+      "scale": [
+        0.5697513812154696,
+        0.5697513812154696
+      ],
+      "front": false
+    },
+    {
+      "id": "h8",
+      "file": "res://ayu_home/v4/assets/village/house_h8.png",
+      "pos": [
+        80,
+        2940
+      ],
+      "foot": 3346,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "h7",
+      "file": "res://ayu_home/v4/assets/village/house_h7.png",
+      "pos": [
+        1590,
+        3030
+      ],
+      "foot": 3521,
+      "scale": [
+        0.419921875,
+        0.419921875
+      ],
+      "front": false
+    },
+    {
+      "id": "h4",
+      "file": "res://ayu_home/v4/assets/village/house_h4.png",
+      "pos": [
+        120,
+        3630
+      ],
+      "foot": 4124,
+      "scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "front": false
+    },
+    {
+      "id": "h1",
+      "file": "res://ayu_home/v4/assets/village/house_h1.png",
+      "pos": [
+        2720,
+        3630
+      ],
+      "foot": 4115,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "flower",
+      "file": "res://ayu_home/v4/assets/village/house_flower.png",
+      "pos": [
+        60,
+        585
+      ],
+      "foot": 1031,
+      "scale": [
+        0.5110677083333334,
+        0.5110677083333334
+      ],
+      "front": false
+    },
+    {
+      "id": "whitebrick",
+      "file": "res://ayu_home/v4/assets/village/house_whitebrick.png",
+      "pos": [
+        2720,
+        20
+      ],
+      "foot": 511,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "grape",
+      "file": "res://ayu_home/v4/assets/village/house_grape.png",
+      "pos": [
+        3780,
+        120
+      ],
+      "foot": 602,
+      "scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "front": false
+    },
+    {
+      "id": "sunflower",
+      "file": "res://ayu_home/v4/assets/village/house_sunflower.png",
+      "pos": [
+        3840,
+        1260
+      ],
+      "foot": 1741,
+      "scale": [
+        0.537109375,
+        0.537109375
+      ],
+      "front": false
+    },
+    {
+      "id": "persimmon",
+      "file": "res://ayu_home/v4/assets/village/house_persimmon.png",
+      "pos": [
+        3730,
+        2450
+      ],
+      "foot": 2983,
+      "scale": [
+        0.5989583333333334,
+        0.5989583333333334
+      ],
+      "front": false
+    },
+    {
+      "id": "rose",
+      "file": "res://ayu_home/v4/assets/village/house_rose.png",
+      "pos": [
+        3820,
+        3690
+      ],
+      "foot": 4175,
+      "scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "front": false
+    },
+    {
+      "id": "site_pond",
+      "file": "res://ayu_home/v4/assets/village/pond.png",
+      "pos": [
+        910,
+        3810
+      ],
+      "foot": 4040,
+      "scale": [
+        1.25,
+        1.25
+      ],
+      "front": false
+    },
+    {
+      "id": "house_community",
+      "file": "res://ayu_home/v4/assets/village/cabin.png",
+      "pos": [
+        1060,
+        3500
+      ],
+      "foot": 3748,
+      "scale": [
+        0.3,
+        0.3
+      ],
+      "front": false
+    }
+  ],
+  "house_gate_contract": [
+    {
+      "id": "erba",
+      "title": "二爸家",
+      "subtitle": "门闩落下了 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        1963,
+        544
+      ],
+      "target": "v_erba",
+      "fictional": false,
+      "bounds": [
+        1640,
+        0,
+        850,
+        567
+      ],
+      "art": "house_erba.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "laowu",
+      "title": "老屋",
+      "subtitle": "旧书与风",
+      "floors": 1,
+      "at": [
+        828,
+        496
+      ],
+      "target": "v_laowu",
+      "fictional": false,
+      "bounds": [
+        420,
+        30,
+        800,
+        533
+      ],
+      "art": "house_laowu.png"
+    },
+    {
+      "id": "daba",
+      "title": "大爸家",
+      "subtitle": "竹帘放下了 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        2528,
+        1327
+      ],
+      "target": "v_daba",
+      "fictional": false,
+      "bounds": [
+        2120,
+        800,
+        850,
+        567
+      ],
+      "art": "house_daba.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h5",
+      "title": "凯凯蜂蜜小院",
+      "subtitle": "凯凯的蜂蜜",
+      "floors": 1,
+      "at": [
+        308,
+        1703
+      ],
+      "target": "v_h5",
+      "fictional": true,
+      "bounds": [
+        95,
+        1170,
+        850,
+        567
+      ],
+      "art": "house_h5.png"
+    },
+    {
+      "id": "ayu",
+      "title": "0A · 阿鱼家",
+      "subtitle": "阿鱼家的院门",
+      "floors": 2,
+      "at": [
+        1490,
+        2122
+      ],
+      "target": "exterior",
+      "fictional": false,
+      "bounds": [
+        1090,
+        1470,
+        800,
+        600
+      ],
+      "art": "house_ayu.png"
+    },
+    {
+      "id": "h2",
+      "title": "2A · 缝补人家",
+      "subtitle": "活动中心值日 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        2709,
+        2316
+      ],
+      "target": "v_h2",
+      "fictional": true,
+      "bounds": [
+        2250,
+        1760,
+        900,
+        600
+      ],
+      "art": "house_h2.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h3",
+      "title": "小涛磨坊",
+      "subtitle": "小涛的小石磨",
+      "floors": 2,
+      "at": [
+        614,
+        2689
+      ],
+      "target": "v_h3",
+      "fictional": true,
+      "bounds": [
+        80,
+        2130,
+        875,
+        583
+      ],
+      "art": "house_h3.png"
+    },
+    {
+      "id": "mayor",
+      "title": "村委会",
+      "subtitle": "村长 · 林伯",
+      "floors": 2,
+      "at": [
+        1698,
+        2792
+      ],
+      "target": "v_mayor",
+      "fictional": true,
+      "bounds": [
+        1130,
+        2290,
+        835,
+        557
+      ],
+      "art": "house_mayor.png"
+    },
+    {
+      "id": "h6",
+      "title": "6A · 花窗人家",
+      "subtitle": "门帘已放下 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        2912,
+        3346
+      ],
+      "target": "v_h6",
+      "fictional": true,
+      "bounds": [
+        2500,
+        2730,
+        825,
+        619
+      ],
+      "art": "house_h6.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h8",
+      "title": "8A · 茶香小院",
+      "subtitle": "烟囱旁留了条 · 门边帮忙",
+      "floors": 1,
+      "at": [
+        224,
+        3405
+      ],
+      "target": "v_h8",
+      "fictional": true,
+      "bounds": [
+        80,
+        2940,
+        850,
+        567
+      ],
+      "art": "house_h8.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h7",
+      "title": "7A · 窄巷人家",
+      "subtitle": "今天下田去了 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        1874,
+        3580
+      ],
+      "target": "v_h7",
+      "fictional": true,
+      "bounds": [
+        1590,
+        3030,
+        430,
+        645
+      ],
+      "art": "house_h7.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h4",
+      "title": "4A · 田边平房",
+      "subtitle": "全家去赶集 · 门边帮忙",
+      "floors": 1,
+      "at": [
+        558,
+        4183
+      ],
+      "target": "v_h4",
+      "fictional": true,
+      "bounds": [
+        120,
+        3630,
+        875,
+        583
+      ],
+      "art": "house_h4.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "h1",
+      "title": "1A · 蓝瓦人家",
+      "subtitle": "屋里在午睡 · 门边帮忙",
+      "floors": 2,
+      "at": [
+        3145,
+        4174
+      ],
+      "target": "v_h1",
+      "fictional": true,
+      "bounds": [
+        2720,
+        3630,
+        850,
+        567
+      ],
+      "art": "house_h1.png",
+      "doorstep_only": true
+    },
+    {
+      "id": "flower",
+      "title": "花房小楼",
+      "subtitle": "一家出门赏花 · 门边帮忙",
+      "floors": 2,
+      "target": "v_flower",
+      "fictional": true,
+      "bounds": [
+        60,
+        585,
+        785,
+        523
+      ],
+      "art": "house_flower.png",
+      "at": [
+        539,
+        1090
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "whitebrick",
+      "title": "白砖小院",
+      "subtitle": "门内传来琴声 · 门边帮忙",
+      "floors": 2,
+      "target": "v_whitebrick",
+      "fictional": true,
+      "bounds": [
+        2720,
+        20,
+        850,
+        567
+      ],
+      "art": "house_whitebrick.png",
+      "at": [
+        3247,
+        570
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "grape",
+      "title": "葡萄架小院",
+      "subtitle": "藤帘放下了 · 门边帮忙",
+      "floors": 1,
+      "target": "v_grape",
+      "fictional": true,
+      "bounds": [
+        3780,
+        120,
+        875,
+        583
+      ],
+      "art": "house_grape.png",
+      "at": [
+        4060,
+        661
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "sunflower",
+      "title": "向日葵之家",
+      "subtitle": "主人去看蜂了 · 门边帮忙",
+      "floors": 2,
+      "target": "v_sunflower",
+      "fictional": true,
+      "bounds": [
+        3840,
+        1260,
+        825,
+        550
+      ],
+      "art": "house_sunflower.png",
+      "at": [
+        4079,
+        1800
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "persimmon",
+      "title": "柿树老院",
+      "subtitle": "家里在晒柿饼 · 门边帮忙",
+      "floors": 1,
+      "target": "v_persimmon",
+      "fictional": true,
+      "bounds": [
+        3730,
+        2450,
+        920,
+        613
+      ],
+      "art": "house_persimmon.png",
+      "at": [
+        4328,
+        3042
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "rose",
+      "title": "玫瑰花之家",
+      "subtitle": "午后歇一会儿 · 门边帮忙",
+      "floors": 2,
+      "target": "v_rose",
+      "fictional": true,
+      "bounds": [
+        3820,
+        3690,
+        850,
+        567
+      ],
+      "art": "house_rose.png",
+      "at": [
+        4449,
+        4234
+      ],
+      "doorstep_only": true
+    },
+    {
+      "id": "community",
+      "title": "村民活动中心",
+      "subtitle": "方婆婆值日 · 共桌与手作",
+      "floors": 1,
+      "at": [
+        1280,
+        3780
+      ],
+      "target": "my_cabin",
+      "fictional": true,
+      "bounds": [
+        1060,
+        3500,
+        461,
+        307
+      ],
+      "art": "cabin.png"
+    }
+  ],
+  "main_roads": [
+    [
+      [
+        3400,
+        4480
+      ],
+      [
+        2430,
+        4420
+      ],
+      [
+        2180,
+        4200
+      ],
+      [
+        2090,
+        3910
+      ],
+      [
+        2250,
+        3900
+      ],
+      [
+        2430,
+        3410
+      ],
+      [
+        2320,
+        3010
+      ],
+      [
+        2090,
+        2980
+      ],
+      [
+        2010,
+        2520
+      ],
+      [
+        1990,
+        2150
+      ],
+      [
+        2080,
+        1720
+      ],
+      [
+        1910,
+        1480
+      ],
+      [
+        1640,
+        1260
+      ],
+      [
+        1510,
+        920
+      ],
+      [
+        1370,
+        750
+      ],
+      [
+        1750,
+        720
+      ],
+      [
+        2160,
+        690
+      ]
+    ],
+    [
+      [
+        1370,
+        750
+      ],
+      [
+        970,
+        790
+      ],
+      [
+        820,
+        695
+      ]
+    ],
+    [
+      [
+        1940,
+        2140
+      ],
+      [
+        1050,
+        2140
+      ],
+      [
+        970,
+        1830
+      ],
+      [
+        480,
+        1800
+      ]
+    ],
+    [
+      [
+        2090,
+        2975
+      ],
+      [
+        1070,
+        2880
+      ],
+      [
+        492,
+        2820
+      ]
+    ],
+    [
+      [
+        1070,
+        2880
+      ],
+      [
+        1000,
+        3410
+      ],
+      [
+        980,
+        3580
+      ],
+      [
+        470,
+        3570
+      ]
+    ],
+    [
+      [
+        980,
+        3580
+      ],
+      [
+        990,
+        4300
+      ],
+      [
+        1750,
+        4320
+      ],
+      [
+        2180,
+        4200
+      ]
+    ],
+    [
+      [
+        2010,
+        2520
+      ],
+      [
+        2645,
+        2460
+      ]
+    ],
+    [
+      [
+        2320,
+        3010
+      ],
+      [
+        2300,
+        3380
+      ],
+      [
+        2890,
+        3380
+      ]
+    ],
+    [
+      [
+        2430,
+        4420
+      ],
+      [
+        3145,
+        4380
+      ]
+    ],
+    [
+      [
+        970,
+        790
+      ],
+      [
+        900,
+        1040
+      ],
+      [
+        970,
+        1260
+      ]
+    ],
+    [
+      [
+        820,
+        695
+      ],
+      [
+        910,
+        960
+      ],
+      [
+        620,
+        1100
+      ],
+      [
+        460,
+        1115
+      ]
+    ],
+    [
+      [
+        2160,
+        690
+      ],
+      [
+        2650,
+        660
+      ],
+      [
+        3200,
+        680
+      ]
+    ],
+    [
+      [
+        2000,
+        3700
+      ],
+      [
+        2300,
+        3790
+      ]
+    ],
+    [
+      [
+        940,
+        1100
+      ],
+      [
+        1060,
+        1370
+      ],
+      [
+        1630,
+        1400
+      ]
+    ],
+    [
+      [
+        3200,
+        680
+      ],
+      [
+        3470,
+        750
+      ],
+      [
+        3680,
+        750
+      ],
+      [
+        4260,
+        820
+      ],
+      [
+        4670,
+        910
+      ],
+      [
+        4710,
+        1800
+      ],
+      [
+        4610,
+        2330
+      ],
+      [
+        4700,
+        3020
+      ],
+      [
+        4690,
+        4280
+      ],
+      [
+        4300,
+        4350
+      ]
+    ],
+    [
+      [
+        3150,
+        2460
+      ],
+      [
+        3220,
+        1980
+      ],
+      [
+        3450,
+        1900
+      ],
+      [
+        3690,
+        1900
+      ],
+      [
+        4090,
+        1970
+      ]
+    ],
+    [
+      [
+        3260,
+        3380
+      ],
+      [
+        3380,
+        3050
+      ],
+      [
+        3660,
+        3050
+      ],
+      [
+        4300,
+        3140
+      ]
+    ],
+    [
+      [
+        3145,
+        4380
+      ],
+      [
+        3460,
+        4320
+      ],
+      [
+        3670,
+        4320
+      ],
+      [
+        4310,
+        4350
+      ]
+    ]
+  ],
+  "gate_connectors": [
+    [
+      [
+        1963,
+        544
+      ],
+      [
+        1963,
+        580
+      ],
+      [
+        2160,
+        690
+      ]
+    ],
+    [
+      [
+        828,
+        496
+      ],
+      [
+        828,
+        532
+      ],
+      [
+        820,
+        695
+      ]
+    ],
+    [
+      [
+        2528,
+        1327
+      ],
+      [
+        2528,
+        1363
+      ],
+      [
+        2080,
+        1720
+      ]
+    ],
+    [
+      [
+        308,
+        1703
+      ],
+      [
+        308,
+        1739
+      ],
+      [
+        480,
+        1800
+      ]
+    ],
+    [
+      [
+        1490,
+        2122
+      ],
+      [
+        1490,
+        2158
+      ],
+      [
+        1050,
+        2140
+      ]
+    ],
+    [
+      [
+        2709,
+        2316
+      ],
+      [
+        2709,
+        2352
+      ],
+      [
+        2645,
+        2460
+      ]
+    ],
+    [
+      [
+        614,
+        2689
+      ],
+      [
+        614,
+        2725
+      ],
+      [
+        492,
+        2820
+      ]
+    ],
+    [
+      [
+        1698,
+        2792
+      ],
+      [
+        1698,
+        2828
+      ],
+      [
+        2010,
+        2520
+      ]
+    ],
+    [
+      [
+        2912,
+        3346
+      ],
+      [
+        2912,
+        3382
+      ],
+      [
+        2890,
+        3380
+      ]
+    ],
+    [
+      [
+        224,
+        3405
+      ],
+      [
+        224,
+        3441
+      ],
+      [
+        470,
+        3570
+      ]
+    ],
+    [
+      [
+        1874,
+        3580
+      ],
+      [
+        1874,
+        3616
+      ],
+      [
+        2000,
+        3700
+      ]
+    ],
+    [
+      [
+        558,
+        4183
+      ],
+      [
+        558,
+        4219
+      ],
+      [
+        990,
+        4300
+      ]
+    ],
+    [
+      [
+        3145,
+        4174
+      ],
+      [
+        3145,
+        4210
+      ],
+      [
+        3145,
+        4380
+      ]
+    ],
+    [
+      [
+        539,
+        1090
+      ],
+      [
+        539,
+        1126
+      ],
+      [
+        620,
+        1100
+      ]
+    ],
+    [
+      [
+        3247,
+        570
+      ],
+      [
+        3247,
+        606
+      ],
+      [
+        3200,
+        680
+      ]
+    ],
+    [
+      [
+        4060,
+        661
+      ],
+      [
+        4060,
+        697
+      ],
+      [
+        4260,
+        820
+      ]
+    ],
+    [
+      [
+        4079,
+        1800
+      ],
+      [
+        4079,
+        1836
+      ],
+      [
+        4090,
+        1970
+      ]
+    ],
+    [
+      [
+        4328,
+        3042
+      ],
+      [
+        4328,
+        3078
+      ],
+      [
+        4300,
+        3140
+      ]
+    ],
+    [
+      [
+        4449,
+        4234
+      ],
+      [
+        4449,
+        4270
+      ],
+      [
+        4310,
+        4350
+      ]
+    ],
+    [
+      [
+        1280,
+        3780
+      ],
+      [
+        1280,
+        3816
+      ],
+      [
+        980,
+        3580
+      ]
+    ]
+  ],
+  "river": [
+    [
+      3570,
+      0
+    ],
+    [
+      3550,
+      900
+    ],
+    [
+      3450,
+      1560
+    ],
+    [
+      3550,
+      2100
+    ],
+    [
+      3520,
+      2870
+    ],
+    [
+      3560,
+      3520
+    ],
+    [
+      3510,
+      4050
+    ],
+    [
+      3550,
+      4700
+    ]
+  ],
+  "bridge_y": [
+    750,
+    1900,
+    3050,
+    4320
+  ],
+  "fields": [
+    {
+      "id": "c4_field_0",
+      "label": "北巷长田",
+      "rect": [
+        1260,
+        85,
+        305,
+        430
+      ],
+      "polygon": [
+        [
+          1270,
+          85
+        ],
+        [
+          1553,
+          90
+        ],
+        [
+          1565,
+          502
+        ],
+        [
+          1557,
+          515
+        ],
+        [
+          1266,
+          511
+        ],
+        [
+          1260,
+          99
+        ]
+      ],
+      "spacing": 34,
+      "row_gap": 28,
+      "kind": "dense",
+      "rows": 13,
+      "columns": 7,
+      "perimeter": [
+        [
+          1270,
+          85
+        ],
+        [
+          1553,
+          90
+        ],
+        [
+          1565,
+          502
+        ],
+        [
+          1557,
+          515
+        ],
+        [
+          1266,
+          511
+        ],
+        [
+          1260,
+          99
+        ],
+        [
+          1270,
+          85
+        ]
+      ],
+      "bank_width": 16,
+      "entry_gap": "south-west",
+      "crop_scale": 0.69
+    },
+    {
+      "id": "c4_field_1",
+      "label": "东田北块",
+      "rect": [
+        3020,
+        855,
+        325,
+        340
+      ],
+      "polygon": [
+        [
+          3030,
+          855
+        ],
+        [
+          3333,
+          860
+        ],
+        [
+          3345,
+          1182
+        ],
+        [
+          3337,
+          1195
+        ],
+        [
+          3026,
+          1191
+        ],
+        [
+          3020,
+          869
+        ]
+      ],
+      "spacing": 38,
+      "row_gap": 32,
+      "kind": "dense",
+      "rows": 9,
+      "columns": 7,
+      "perimeter": [
+        [
+          3030,
+          855
+        ],
+        [
+          3333,
+          860
+        ],
+        [
+          3345,
+          1182
+        ],
+        [
+          3337,
+          1195
+        ],
+        [
+          3026,
+          1191
+        ],
+        [
+          3020,
+          869
+        ],
+        [
+          3030,
+          855
+        ]
+      ],
+      "bank_width": 16,
+      "entry_gap": "south-west",
+      "crop_scale": 0.69
+    },
+    {
+      "id": "c4_field_2",
+      "label": "东田南块",
+      "rect": [
+        3020,
+        1250,
+        300,
+        405
+      ],
+      "polygon": [
+        [
+          3030,
+          1250
+        ],
+        [
+          3308,
+          1255
+        ],
+        [
+          3320,
+          1642
+        ],
+        [
+          3312,
+          1655
+        ],
+        [
+          3026,
+          1651
+        ],
+        [
+          3020,
+          1264
+        ]
+      ],
+      "spacing": 42,
+      "row_gap": 34,
+      "kind": "spaced",
+      "rows": 10,
+      "columns": 6,
+      "perimeter": [
+        [
+          3030,
+          1250
+        ],
+        [
+          3308,
+          1255
+        ],
+        [
+          3320,
+          1642
+        ],
+        [
+          3312,
+          1655
+        ],
+        [
+          3026,
+          1651
+        ],
+        [
+          3020,
+          1264
+        ],
+        [
+          3030,
+          1250
+        ]
+      ],
+      "bank_width": 16,
+      "entry_gap": "south-west",
+      "crop_scale": 0.69
+    },
+    {
+      "id": "c4_field_3",
+      "label": "东岸长田",
+      "rect": [
+        3825,
+        2120,
+        510,
+        215
+      ],
+      "polygon": [
+        [
+          3835,
+          2120
+        ],
+        [
+          4323,
+          2125
+        ],
+        [
+          4335,
+          2322
+        ],
+        [
+          4327,
+          2335
+        ],
+        [
+          3831,
+          2331
+        ],
+        [
+          3825,
+          2134
+        ]
+      ],
+      "spacing": 36,
+      "row_gap": 30,
+      "kind": "mixed",
+      "rows": 5,
+      "columns": 13,
+      "perimeter": [
+        [
+          3835,
+          2120
+        ],
+        [
+          4323,
+          2125
+        ],
+        [
+          4335,
+          2322
+        ],
+        [
+          4327,
+          2335
+        ],
+        [
+          3831,
+          2331
+        ],
+        [
+          3825,
+          2134
+        ],
+        [
+          3835,
+          2120
+        ]
+      ],
+      "bank_width": 16,
+      "entry_gap": "south-west",
+      "crop_scale": 0.69
+    },
+    {
+      "id": "c4_field_4",
+      "label": "东岸南田",
+      "rect": [
+        3830,
+        3300,
+        625,
+        255
+      ],
+      "polygon": [
+        [
+          3840,
+          3300
+        ],
+        [
+          4443,
+          3305
+        ],
+        [
+          4455,
+          3542
+        ],
+        [
+          4447,
+          3555
+        ],
+        [
+          3836,
+          3551
+        ],
+        [
+          3830,
+          3314
+        ]
+      ],
+      "spacing": 40,
+      "row_gap": 30,
+      "kind": "dense",
+      "rows": 7,
+      "columns": 14,
+      "perimeter": [
+        [
+          3840,
+          3300
+        ],
+        [
+          4443,
+          3305
+        ],
+        [
+          4455,
+          3542
+        ],
+        [
+          4447,
+          3555
+        ],
+        [
+          3836,
+          3551
+        ],
+        [
+          3830,
+          3314
+        ],
+        [
+          3840,
+          3300
+        ]
+      ],
+      "bank_width": 16,
+      "entry_gap": "south-west",
+      "crop_scale": 0.69
+    },
+    {
+      "id": "c4_field_5",
+      "label": "村西菜田",
+      "rect": [
+        35,
+        1930,
+        390,
+        125
+      ],
+      "polygon": [
+        [
+          45,
+          1930
+        ],
+        [
+          413,
+          1935
+        ],
+        [
+          425,
+          2042
+        ],
+        [
+          417,
+          2055
+        ],
+        [
+          41,
+          2051
+        ],
+        [
+          35,
+          1944
+        ]
+      ],
+      "spacing": 34,
+      "row_gap": 28,
+      "kind": "mixed",
+      "rows": 2,
+      "columns": 10,
+      "perimeter": [
+        [
+          45,
+          1930
+        ],
+        [
+          413,
+          1935
+        ],
+        [
+          425,
+          2042
+        ],
+        [
+          417,
+          2055
+        ],
+        [
+          41,
+          2051
+        ],
+        [
+          35,
+          1944
+        ],
+        [
+          45,
+          1930
+        ]
+      ],
+      "bank_width": 16,
+      "entry_gap": "south-west",
+      "crop_scale": 0.69
+    }
+  ],
+  "field_paths": [
+    {
+      "field": "c4_field_2",
+      "points": [
+        [
+          3220,
+          1980
+        ],
+        [
+          3220,
+          1688
+        ],
+        [
+          2991,
+          1688
+        ],
+        [
+          3046,
+          1688
+        ]
+      ],
+      "width": 42
+    },
+    {
+      "field": "c4_field_3",
+      "points": [
+        [
+          3872,
+          1932
+        ],
+        [
+          3796,
+          1932
+        ],
+        [
+          3796,
+          2368
+        ],
+        [
+          3851,
+          2368
+        ]
+      ],
+      "width": 42
+    },
+    {
+      "field": "c4_field_5",
+      "points": [
+        [
+          480,
+          1800
+        ],
+        [
+          454,
+          1800
+        ],
+        [
+          454,
+          2088
+        ],
+        [
+          399,
+          2088
+        ]
+      ],
+      "width": 42
+    },
+    {
+      "field": "east_shared",
+      "points": [
+        [
+          3050,
+          676
+        ],
+        [
+          2982,
+          784
+        ],
+        [
+          2982,
+          1718
+        ],
+        [
+          3060,
+          1718
+        ]
+      ],
+      "width": 30
+    },
+    {
+      "field": "east_north_access",
+      "points": [
+        [
+          2982,
+          1215
+        ],
+        [
+          3060,
+          1215
+        ]
+      ],
+      "width": 34
+    }
+  ],
+  "drains": [
+    {
+      "field": "c4_field_0",
+      "boundary_path": [
+        [
+          1240,
+          73
+        ],
+        [
+          1583,
+          73
+        ],
+        [
+          1583,
+          532
+        ],
+        [
+          1241,
+          532
+        ]
+      ],
+      "outlet_path": [],
+      "width": 11,
+      "end": "soak_pit",
+      "pit": [
+        1241,
+        532,
+        36,
+        24
+      ],
+      "walkable": true
+    },
+    {
+      "field": "c4_field_1",
+      "boundary_path": [
+        [
+          3000,
+          843
+        ],
+        [
+          3363,
+          843
+        ],
+        [
+          3363,
+          1212
+        ],
+        [
+          3001,
+          1212
+        ]
+      ],
+      "outlet_path": [
+        [
+          3363,
+          1025
+        ],
+        [
+          3531,
+          1025
+        ]
+      ],
+      "width": 13,
+      "end": "river",
+      "walkable": "shallow",
+      "bank_collision": false
+    },
+    {
+      "field": "c4_field_2",
+      "boundary_path": [
+        [
+          3000,
+          1238
+        ],
+        [
+          3338,
+          1238
+        ],
+        [
+          3338,
+          1672
+        ],
+        [
+          3001,
+          1672
+        ]
+      ],
+      "outlet_path": [
+        [
+          3338,
+          1452
+        ],
+        [
+          3466,
+          1452
+        ]
+      ],
+      "width": 13,
+      "end": "river",
+      "walkable": "shallow",
+      "bank_collision": false
+    },
+    {
+      "field": "c4_field_3",
+      "boundary_path": [
+        [
+          3805,
+          2108
+        ],
+        [
+          3805,
+          2352
+        ],
+        [
+          4353,
+          2352
+        ]
+      ],
+      "outlet_path": [
+        [
+          3805,
+          2227
+        ],
+        [
+          3545,
+          2227
+        ]
+      ],
+      "width": 13,
+      "end": "river",
+      "walkable": "shallow",
+      "bank_collision": false
+    },
+    {
+      "field": "c4_field_4",
+      "boundary_path": [
+        [
+          3810,
+          3288
+        ],
+        [
+          3810,
+          3572
+        ],
+        [
+          4473,
+          3572
+        ]
+      ],
+      "outlet_path": [
+        [
+          3810,
+          3427
+        ],
+        [
+          3554,
+          3427
+        ]
+      ],
+      "width": 13,
+      "end": "river",
+      "walkable": "shallow",
+      "bank_collision": false
+    },
+    {
+      "field": "c4_field_5",
+      "boundary_path": [
+        [
+          15,
+          1918
+        ],
+        [
+          443,
+          1918
+        ],
+        [
+          443,
+          2072
+        ],
+        [
+          16,
+          2072
+        ]
+      ],
+      "outlet_path": [],
+      "width": 11,
+      "end": "soak_pit",
+      "pit": [
+        16,
+        2072,
+        36,
+        24
+      ],
+      "walkable": true
+    }
+  ],
+  "gardens": [
+    {
+      "id": "garden_erba_0",
+      "house": "erba",
+      "rect": [
+        2506,
+        332,
+        90,
+        205
+      ],
+      "variant": 0,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_laowu_0",
+      "house": "laowu",
+      "rect": [
+        315,
+        328,
+        90,
+        205
+      ],
+      "variant": 1,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_laowu_1",
+      "house": "laowu",
+      "rect": [
+        966,
+        586,
+        230,
+        86
+      ],
+      "variant": 2,
+      "axis": "horizontal",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_daba_0",
+      "house": "daba",
+      "rect": [
+        2015,
+        1132,
+        90,
+        205
+      ],
+      "variant": 2,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_daba_1",
+      "house": "daba",
+      "rect": [
+        2716,
+        1390,
+        230,
+        86
+      ],
+      "variant": 3,
+      "axis": "horizontal",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h5_0",
+      "house": "h5",
+      "rect": [
+        961,
+        1502,
+        90,
+        205
+      ],
+      "variant": 3,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h2_0",
+      "house": "h2",
+      "rect": [
+        2145,
+        2125,
+        90,
+        205
+      ],
+      "variant": 1,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h3_0",
+      "house": "h3",
+      "rect": [
+        104,
+        2736,
+        230,
+        86
+      ],
+      "variant": 2,
+      "axis": "horizontal",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h3_1",
+      "house": "h3",
+      "rect": [
+        971,
+        2478,
+        90,
+        205
+      ],
+      "variant": 3,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h7_0",
+      "house": "h7",
+      "rect": [
+        1614,
+        3698,
+        230,
+        86
+      ],
+      "variant": 2,
+      "axis": "horizontal",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h4_0",
+      "house": "h4",
+      "rect": [
+        144,
+        4236,
+        230,
+        86
+      ],
+      "variant": 3,
+      "axis": "horizontal",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h4_1",
+      "house": "h4",
+      "rect": [
+        15,
+        3978,
+        90,
+        205
+      ],
+      "variant": 0,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h1_0",
+      "house": "h1",
+      "rect": [
+        2744,
+        4220,
+        230,
+        86
+      ],
+      "variant": 0,
+      "axis": "horizontal",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_h1_1",
+      "house": "h1",
+      "rect": [
+        2615,
+        3962,
+        90,
+        205
+      ],
+      "variant": 1,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_whitebrick_0",
+      "house": "whitebrick",
+      "rect": [
+        2615,
+        352,
+        90,
+        205
+      ],
+      "variant": 2,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_grape_0",
+      "house": "grape",
+      "rect": [
+        4671,
+        468,
+        90,
+        205
+      ],
+      "variant": 3,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_sunflower_0",
+      "house": "sunflower",
+      "rect": [
+        3735,
+        1575,
+        90,
+        205
+      ],
+      "variant": 0,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    },
+    {
+      "id": "garden_rose_0",
+      "house": "rose",
+      "rect": [
+        3715,
+        4022,
+        90,
+        205
+      ],
+      "variant": 2,
+      "axis": "vertical",
+      "pieces": 3,
+      "connection": "low packed-earth verge tied to courtyard edge; central door approach clear"
+    }
+  ],
+  "plants": [
+    {
+      "id": "c4_tree_0",
+      "kind": "tree",
+      "rect": [
+        1415,
+        430,
+        150,
+        180
+      ],
+      "group": "北巷树组",
+      "mirror": false,
+      "foot": [
+        1490,
+        610
+      ],
+      "root_collision": [
+        1476,
+        595,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_1",
+      "kind": "tree",
+      "rect": [
+        1255,
+        430,
+        150,
+        180
+      ],
+      "group": "北巷树组",
+      "mirror": true,
+      "foot": [
+        1330,
+        610
+      ],
+      "root_collision": [
+        1316,
+        595,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_2",
+      "kind": "tree",
+      "rect": [
+        3275,
+        1550,
+        150,
+        180
+      ],
+      "group": "东田岸林",
+      "mirror": false,
+      "foot": [
+        3350,
+        1730
+      ],
+      "root_collision": [
+        3336,
+        1715,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_3",
+      "kind": "tree",
+      "rect": [
+        3655,
+        900,
+        150,
+        180
+      ],
+      "group": "东渠北岸",
+      "mirror": false,
+      "foot": [
+        3730,
+        1080
+      ],
+      "root_collision": [
+        3716,
+        1065,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_bamboo_4",
+      "kind": "bamboo",
+      "rect": [
+        3697,
+        1024,
+        126,
+        176
+      ],
+      "group": "东渠北岸",
+      "mirror": true,
+      "foot": [
+        3760,
+        1200
+      ],
+      "root_collision": [
+        3746,
+        1185,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_5",
+      "kind": "tree",
+      "rect": [
+        3645,
+        1280,
+        150,
+        180
+      ],
+      "group": "东渠北岸",
+      "mirror": false,
+      "foot": [
+        3720,
+        1460
+      ],
+      "root_collision": [
+        3706,
+        1445,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_6",
+      "kind": "tree",
+      "rect": [
+        3610,
+        2130,
+        150,
+        180
+      ],
+      "group": "东渠中岸",
+      "mirror": false,
+      "foot": [
+        3685,
+        2310
+      ],
+      "root_collision": [
+        3671,
+        2295,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_bamboo_7",
+      "kind": "bamboo",
+      "rect": [
+        3627,
+        2424,
+        126,
+        176
+      ],
+      "group": "东渠中岸",
+      "mirror": true,
+      "foot": [
+        3690,
+        2600
+      ],
+      "root_collision": [
+        3676,
+        2585,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_8",
+      "kind": "tree",
+      "rect": [
+        3575,
+        2590,
+        150,
+        180
+      ],
+      "group": "东渠中岸",
+      "mirror": false,
+      "foot": [
+        3650,
+        2770
+      ],
+      "root_collision": [
+        3636,
+        2755,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_9",
+      "kind": "tree",
+      "rect": [
+        3595,
+        3410,
+        150,
+        180
+      ],
+      "group": "东渠南岸",
+      "mirror": false,
+      "foot": [
+        3670,
+        3590
+      ],
+      "root_collision": [
+        3656,
+        3575,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_bamboo_10",
+      "kind": "bamboo",
+      "rect": [
+        3577,
+        3714,
+        126,
+        176
+      ],
+      "group": "东渠南岸",
+      "mirror": true,
+      "foot": [
+        3640,
+        3890
+      ],
+      "root_collision": [
+        3626,
+        3875,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_11",
+      "kind": "tree",
+      "rect": [
+        3595,
+        3920,
+        150,
+        180
+      ],
+      "group": "东渠南岸",
+      "mirror": false,
+      "foot": [
+        3670,
+        4100
+      ],
+      "root_collision": [
+        3656,
+        4085,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_12",
+      "kind": "tree",
+      "rect": [
+        4415,
+        870,
+        150,
+        180
+      ],
+      "group": "东侧边林",
+      "mirror": false,
+      "foot": [
+        4490,
+        1050
+      ],
+      "root_collision": [
+        4476,
+        1035,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_13",
+      "kind": "tree",
+      "rect": [
+        4445,
+        980,
+        150,
+        180
+      ],
+      "group": "东侧边林",
+      "mirror": true,
+      "foot": [
+        4520,
+        1160
+      ],
+      "root_collision": [
+        4506,
+        1145,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_14",
+      "kind": "tree",
+      "rect": [
+        4345,
+        970,
+        150,
+        180
+      ],
+      "group": "东侧边林",
+      "mirror": false,
+      "foot": [
+        4420,
+        1150
+      ],
+      "root_collision": [
+        4406,
+        1135,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_15",
+      "kind": "tree",
+      "rect": [
+        2005,
+        3130,
+        150,
+        180
+      ],
+      "group": "西南田边",
+      "mirror": false,
+      "foot": [
+        2080,
+        3310
+      ],
+      "root_collision": [
+        2066,
+        3295,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_16",
+      "kind": "tree",
+      "rect": [
+        2075,
+        3210,
+        150,
+        180
+      ],
+      "group": "西南田边",
+      "mirror": true,
+      "foot": [
+        2150,
+        3390
+      ],
+      "root_collision": [
+        2136,
+        3375,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_17",
+      "kind": "tree",
+      "rect": [
+        4485,
+        3100,
+        150,
+        180
+      ],
+      "group": "东南田边",
+      "mirror": false,
+      "foot": [
+        4560,
+        3280
+      ],
+      "root_collision": [
+        4546,
+        3265,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_18",
+      "kind": "tree",
+      "rect": [
+        4465,
+        3310,
+        150,
+        180
+      ],
+      "group": "东南田边",
+      "mirror": false,
+      "foot": [
+        4540,
+        3490
+      ],
+      "root_collision": [
+        4526,
+        3475,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_tree_19",
+      "kind": "tree",
+      "rect": [
+        4265,
+        3440,
+        150,
+        180
+      ],
+      "group": "东南田边",
+      "mirror": true,
+      "foot": [
+        4340,
+        3620
+      ],
+      "root_collision": [
+        4326,
+        3605,
+        28,
+        13
+      ]
+    },
+    {
+      "id": "c4_shrub_20",
+      "kind": "shrub",
+      "rect": [
+        167,
+        2816,
+        140,
+        66
+      ],
+      "group": "西外缘",
+      "mirror": false,
+      "foot": [
+        237,
+        2882
+      ],
+      "root_collision": null
+    },
+    {
+      "id": "c4_shrub_21",
+      "kind": "shrub",
+      "rect": [
+        4322,
+        2096,
+        140,
+        66
+      ],
+      "group": "东外缘",
+      "mirror": false,
+      "foot": [
+        4392,
+        2162
+      ],
+      "root_collision": null
+    },
+    {
+      "id": "c4_shrub_22",
+      "kind": "shrub",
+      "rect": [
+        2338,
+        1623,
+        140,
+        66
+      ],
+      "group": "中心缓冲",
+      "mirror": true,
+      "foot": [
+        2408,
+        1689
+      ],
+      "root_collision": null
+    }
+  ],
+  "remove_prop_prefixes": [
+    "land_",
+    "wildtree"
+  ],
+  "preserve_doors_hotspots_spawn": true,
+  "dynamic_site": [
+    1050,
+    3850,
+    900,
+    800
+  ],
+  "collision_policy": "only listed tree/bamboo roots; banks/crops/flowers shallow walkable; original solids unchanged",
+  "source_policy": "existing atlas and transparent tree rendered in code-native world composition; original images immutable",
+  "art_status": "C4已逐图复核与修正；精确地面/物件已输出，待C1核图批准；N1/N2等未实机通过"
+}

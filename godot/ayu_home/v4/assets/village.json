@@ -7,7 +7,7 @@
     4800,
     4700
   ],
-  "background": "res://ayu_home/v4/assets/village/ground.png",
+  "background": "res://ayu_home/v4/assets/village/ground-c4-v2.png",
   "asset_root": "res://ayu_home/v3/assets/",
   "props": [
     {
@@ -364,2191 +364,280 @@
       "front": false
     },
     {
-      "id": "land_field_0_row0_1273",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1273,
-        134
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "foot": 610.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_0",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        1415,
+        430
+      ]
     },
     {
-      "id": "land_field_0_row0_1431.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1431.4,
-        134
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "foot": 610.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_1",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        1255,
+        430
+      ]
     },
     {
-      "id": "land_field_0_row1_1279",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1279,
-        166
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "foot": 1730.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_2",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        3275,
+        1550
+      ]
     },
     {
-      "id": "land_field_0_row1_1437.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1437.4,
-        166
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "foot": 1080.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_3",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        3655,
+        900
+      ]
     },
     {
-      "id": "land_field_0_row2_1273",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "foot": 1200.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_bamboo_4",
+      "plant_type": "evergreen",
       "pos": [
-        1273,
-        198
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+        3697,
+        1034
+      ]
     },
     {
-      "id": "land_field_0_row2_1431.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1431.4,
-        198
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "foot": 1460.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_5",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        3645,
+        1280
+      ]
     },
     {
-      "id": "land_field_0_row3_1279",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1279,
-        230
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "foot": 2310.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_6",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        3610,
+        2130
+      ]
     },
     {
-      "id": "land_field_0_row3_1437.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "foot": 2600.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_bamboo_7",
+      "plant_type": "evergreen",
       "pos": [
-        1437.4,
-        230
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+        3627,
+        2434
+      ]
     },
     {
-      "id": "land_field_0_row4_1273",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1273,
-        262
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "foot": 2770.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_8",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      "pos": [
+        3575,
+        2590
+      ]
     },
     {
-      "id": "land_field_0_row4_1431.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1431.4,
-        262
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "foot": 3590.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_9",
       "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_0_row5_1279",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
       "pos": [
-        1279,
-        294
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_0_row5_1437.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1437.4,
-        294
-      ],
-      "foot": 350,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row0_3033",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3033,
-        1124
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row0_3191.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3191.4,
-        1124
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row1_3039",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3039,
-        1156
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row1_3197.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3197.4,
-        1156
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row2_3033",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3033,
-        1188
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row2_3191.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3191.4,
-        1188
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row3_3039",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3039,
-        1220
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_1_row3_3197.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3197.4,
-        1220
-      ],
-      "foot": 1290,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row0_3043",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3043,
-        1384
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row0_3201.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3201.4,
-        1384
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row1_3049",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3049,
-        1416
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row1_3207.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3207.4,
-        1416
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row2_3043",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3043,
-        1448
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row2_3201.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3201.4,
-        1448
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row3_3049",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3049,
-        1480
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row3_3207.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3207.4,
-        1480
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row4_3043",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3043,
-        1512
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row4_3201.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3201.4,
-        1512
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row5_3049",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3049,
-        1544
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_2_row5_3207.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3207.4,
-        1544
-      ],
-      "foot": 1600,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row0_3893",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3893,
-        2164
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row0_4051.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4051.4,
-        2164
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row0_4209.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4209.8,
-        2164
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row1_3899",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3899,
-        2196
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row1_4057.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4057.4,
-        2196
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row1_4215.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4215.8,
-        2196
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row2_3893",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3893,
-        2228
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row2_4051.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4051.4,
-        2228
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row2_4209.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4209.8,
-        2228
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row3_3899",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3899,
-        2260
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row3_4057.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4057.4,
-        2260
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_3_row3_4215.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4215.8,
-        2260
-      ],
-      "foot": 2320,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        88,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row0_3863",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3863,
-        3314
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row0_4021.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4021.4,
-        3314
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row0_4179.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4179.8,
-        3314
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row1_3869",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3869,
-        3346
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row1_4027.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4027.4,
-        3346
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row1_4185.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4185.8,
-        3346
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row2_3863",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3863,
-        3378
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row2_4021.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4021.4,
-        3378
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row2_4179.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4179.8,
-        3378
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row3_3869",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3869,
+        3595,
         3410
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
+      ]
     },
     {
-      "id": "land_field_4_row3_4027.4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4027.4,
-        3410
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_4_row3_4185.8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4185.8,
-        3410
-      ],
-      "foot": 3470,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        132,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_5_row0_4363",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4363,
-        3384
-      ],
-      "foot": 3530,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_5_row1_4369",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4369,
-        3416
-      ],
-      "foot": 3530,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_5_row2_4363",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4363,
-        3448
-      ],
-      "foot": 3530,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_field_5_row3_4369",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4369,
-        3480
-      ],
-      "foot": 3530,
-      "scale": [
-        0.6,
-        0.6
-      ],
-      "atlas_region": [
-        909,
-        531,
-        264,
-        39
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_87_garden_laowu",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1084,
-        601
-      ],
-      "foot": 643,
-      "scale": [
-        0.18907563025210083,
-        0.18907563025210083
-      ],
-      "atlas_region": [
-        861,
-        495,
-        346,
-        238
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_88_garden_daba",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        2100,
-        1405
-      ],
-      "foot": 1447,
-      "scale": [
-        0.18907563025210083,
-        0.18907563025210083
-      ],
-      "atlas_region": [
-        861,
-        495,
-        346,
-        238
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_89_garden_daba",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        2819,
-        1405
-      ],
-      "foot": 1447,
-      "scale": [
-        0.25862068965517243,
-        0.25862068965517243
-      ],
-      "atlas_region": [
-        436,
-        935,
-        375,
-        174
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_90_garden_h5",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        60,
-        1775
-      ],
-      "foot": 1817,
-      "scale": [
-        0.25862068965517243,
-        0.25862068965517243
-      ],
-      "atlas_region": [
-        436,
-        935,
-        375,
-        174
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_91_garden_h3",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        135,
-        2751
-      ],
-      "foot": 2793,
-      "scale": [
-        0.25862068965517243,
-        0.25862068965517243
-      ],
-      "atlas_region": [
-        436,
-        935,
-        375,
-        174
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_92_garden_h8",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        45,
-        3545
-      ],
-      "foot": 3587,
-      "scale": [
-        0.25862068965517243,
-        0.25862068965517243
-      ],
-      "atlas_region": [
-        436,
-        935,
-        375,
-        174
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_93_garden_h7",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1659,
-        3713
-      ],
-      "foot": 3755,
-      "scale": [
-        0.1906779661016949,
-        0.1906779661016949
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_94_garden_h4",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        190,
-        4251
-      ],
-      "foot": 4293,
-      "scale": [
-        0.18907563025210083,
-        0.18907563025210083
-      ],
-      "atlas_region": [
-        861,
-        495,
-        346,
-        238
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_95_garden_h1",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        2775,
-        4235
-      ],
-      "foot": 4277,
-      "scale": [
-        0.25862068965517243,
-        0.25862068965517243
-      ],
-      "atlas_region": [
-        436,
-        935,
-        375,
-        174
-      ],
-      "plant_type": "deciduous",
-      "ground": true,
-      "front": false
-    },
-    {
-      "id": "land_96_plant_9",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        30,
-        273
-      ],
-      "foot": 318,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "foot": 3890.0,
+      "front": false,
       "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_97_plant_10",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        34,
-        403
-      ],
-      "foot": 448,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
-      "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_98_plant_11",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3637,
-        473
-      ],
-      "foot": 591,
-      "scale": [
-        0.304635761589404,
-        0.304635761589404
-      ],
-      "atlas_region": [
-        72,
-        792,
-        302,
-        398
-      ],
+      "id": "c4_bamboo_10",
       "plant_type": "evergreen",
+      "pos": [
+        3577,
+        3724
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "foot": 4100.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_11",
+      "plant_type": "deciduous",
+      "pos": [
+        3595,
+        3920
+      ]
     },
     {
-      "id": "land_99_plant_14",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4384,
-        1030
-      ],
-      "foot": 1075,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "foot": 1050.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_12",
+      "plant_type": "deciduous",
+      "pos": [
+        4415,
+        870
+      ]
     },
     {
-      "id": "land_100_plant_15",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3329,
-        1352
-      ],
-      "foot": 1397,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "foot": 1160.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_13",
+      "plant_type": "deciduous",
+      "pos": [
+        4445,
+        980
+      ]
     },
     {
-      "id": "land_101_plant_16",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3650,
-        1258
-      ],
-      "foot": 1376,
-      "scale": [
-        0.304635761589404,
-        0.304635761589404
-      ],
-      "atlas_region": [
-        72,
-        792,
-        302,
-        398
-      ],
-      "plant_type": "evergreen",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "foot": 1150.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_14",
+      "plant_type": "deciduous",
+      "pos": [
+        4345,
+        970
+      ]
     },
     {
-      "id": "land_102_plant_17",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3151,
-        1642
-      ],
-      "foot": 1687,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "foot": 3310.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_15",
+      "plant_type": "deciduous",
+      "pos": [
+        2005,
+        3130
+      ]
     },
     {
-      "id": "land_103_plant_18",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        211,
-        1972
-      ],
-      "foot": 2017,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "foot": 3390.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_16",
+      "plant_type": "deciduous",
+      "pos": [
+        2075,
+        3210
+      ]
     },
     {
-      "id": "land_104_plant_19",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3316,
-        2289
-      ],
-      "foot": 2334,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "foot": 3280.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_17",
+      "plant_type": "deciduous",
+      "pos": [
+        4485,
+        3100
+      ]
     },
     {
-      "id": "land_105_plant_20",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        2430,
-        2617
-      ],
-      "foot": 2662,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "foot": 3490.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_18",
+      "plant_type": "deciduous",
+      "pos": [
+        4465,
+        3310
+      ]
     },
     {
-      "id": "land_106_plant_21",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        2952,
-        2574
-      ],
-      "foot": 2619,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "foot": 3620.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_tree_19",
+      "plant_type": "deciduous",
+      "pos": [
+        4265,
+        3440
+      ]
     },
     {
-      "id": "land_107_plant_23",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1211,
-        3228
-      ],
-      "foot": 3273,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "foot": 2882.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_shrub_20",
+      "plant_type": "deciduous",
+      "pos": [
+        188,
+        2816
+      ]
     },
     {
-      "id": "land_108_plant_24",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        1424,
-        3365
-      ],
-      "foot": 3410,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "foot": 2162.0,
+      "front": false,
       "ground": false,
-      "front": false
+      "id": "c4_shrub_21",
+      "plant_type": "deciduous",
+      "pos": [
+        4343,
+        2096
+      ]
     },
     {
-      "id": "land_109_plant_25",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        3639,
-        3485
-      ],
-      "foot": 3603,
-      "scale": [
-        0.304635761589404,
-        0.304635761589404
-      ],
-      "atlas_region": [
-        72,
-        792,
-        302,
-        398
-      ],
-      "plant_type": "evergreen",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "foot": 1689.0,
+      "front": false,
       "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_110_plant_26",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        4188,
-        3513
-      ],
-      "foot": 3558,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
+      "id": "c4_shrub_22",
       "plant_type": "deciduous",
-      "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_111_plant_27",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
       "pos": [
-        3657,
-        3755
-      ],
-      "foot": 3873,
-      "scale": [
-        0.304635761589404,
-        0.304635761589404
-      ],
-      "atlas_region": [
-        72,
-        792,
-        302,
-        398
-      ],
-      "plant_type": "evergreen",
-      "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_112_plant_29",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        342,
-        4453
-      ],
-      "foot": 4498,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
-      "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_113_plant_30",
-      "file": "res://ayu_home/v4/assets/village/landscape-atlas-v1.png",
-      "pos": [
-        2096,
-        4455
-      ],
-      "foot": 4500,
-      "scale": [
-        0.2033898305084746,
-        0.2033898305084746
-      ],
-      "atlas_region": [
-        854,
-        903,
-        355,
-        236
-      ],
-      "plant_type": "deciduous",
-      "ground": false,
-      "front": false
-    },
-    {
-      "id": "land_tree_0",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        4224,
-        1887
-      ],
-      "foot": 2075,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_1",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        2401,
-        3927
-      ],
-      "foot": 4115,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_2",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        4141,
-        993
-      ],
-      "foot": 1181,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_3",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        3638,
-        940
-      ],
-      "foot": 1128,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_4",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        2692,
-        1496
-      ],
-      "foot": 1684,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_5",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        1814,
-        868
-      ],
-      "foot": 1056,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_6",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        177,
-        147
-      ],
-      "foot": 335,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_7",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        1320,
-        391
-      ],
-      "foot": 579,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_8",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        3631,
-        1417
-      ],
-      "foot": 1605,
-      "scale": [
-        0.15471394037066882,
-        0.15471394037066882
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_12",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        3298,
-        927
-      ],
-      "foot": 1081,
-      "scale": [
-        0.1276595744680851,
-        0.1276595744680851
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_13",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        3962,
-        946
-      ],
-      "foot": 1100,
-      "scale": [
-        0.1276595744680851,
-        0.1276595744680851
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_22",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        3287,
-        2507
-      ],
-      "foot": 2661,
-      "scale": [
-        0.1276595744680851,
-        0.1276595744680851
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
-    },
-    {
-      "id": "land_tree_28",
-      "file": "res://ayu_home/v4/assets/village/landscape-tree-v1.png",
-      "pos": [
-        144,
-        4343
-      ],
-      "foot": 4497,
-      "scale": [
-        0.1276595744680851,
-        0.1276595744680851
-      ],
-      "atlas_region": [
-        25,
-        92,
-        1034,
-        1241
-      ],
-      "plant_type": "deciduous",
-      "front": false
+        2359,
+        1623
+      ]
     }
   ],
   "obstacles": [
@@ -2703,106 +792,124 @@
       190
     ],
     [
+      1476.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      1316.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      3336.0,
+      1715.0,
+      28.0,
+      13.0
+    ],
+    [
+      3716.0,
+      1065.0,
+      28.0,
+      13.0
+    ],
+    [
+      3746.0,
+      1185.0,
+      28.0,
+      13.0
+    ],
+    [
+      3706.0,
+      1445.0,
+      28.0,
+      13.0
+    ],
+    [
       3671.0,
-      581,
-      24,
-      10
+      2295.0,
+      28.0,
+      13.0
     ],
     [
-      3684.0,
-      1366,
-      24,
-      10
+      3676.0,
+      2585.0,
+      28.0,
+      13.0
     ],
     [
-      3673.0,
-      3593,
-      24,
-      10
+      3636.0,
+      2755.0,
+      28.0,
+      13.0
     ],
     [
-      3691.0,
-      3863,
-      24,
-      10
+      3656.0,
+      3575.0,
+      28.0,
+      13.0
     ],
     [
-      4291.0,
-      2063,
-      26,
-      13
+      3626.0,
+      3875.0,
+      28.0,
+      13.0
     ],
     [
-      2468.0,
-      4103,
-      26,
-      13
+      3656.0,
+      4085.0,
+      28.0,
+      13.0
     ],
     [
-      4208.0,
-      1169,
-      26,
-      13
+      4476.0,
+      1035.0,
+      28.0,
+      13.0
     ],
     [
-      3705.0,
-      1116,
-      26,
-      13
+      4506.0,
+      1145.0,
+      28.0,
+      13.0
     ],
     [
-      2759.0,
-      1672,
-      26,
-      13
+      4406.0,
+      1135.0,
+      28.0,
+      13.0
     ],
     [
-      1881.0,
-      1044,
-      26,
-      13
+      2066.0,
+      3295.0,
+      28.0,
+      13.0
     ],
     [
-      244.0,
-      323,
-      26,
-      13
+      2136.0,
+      3375.0,
+      28.0,
+      13.0
     ],
     [
-      1387.0,
-      567,
-      26,
-      13
+      4546.0,
+      3265.0,
+      28.0,
+      13.0
     ],
     [
-      3698.0,
-      1593,
-      26,
-      13
+      4526.0,
+      3475.0,
+      28.0,
+      13.0
     ],
     [
-      3351.0,
-      1069,
-      26,
-      13
-    ],
-    [
-      4015.0,
-      1088,
-      26,
-      13
-    ],
-    [
-      3340.0,
-      2649,
-      26,
-      13
-    ],
-    [
-      197.0,
-      4485,
-      26,
-      13
+      4326.0,
+      3605.0,
+      28.0,
+      13.0
     ]
   ],
   "hotspots": [
@@ -3308,106 +1415,124 @@
   ],
   "landscape_obstacles": [
     [
+      1476.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      1316.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      3336.0,
+      1715.0,
+      28.0,
+      13.0
+    ],
+    [
+      3716.0,
+      1065.0,
+      28.0,
+      13.0
+    ],
+    [
+      3746.0,
+      1185.0,
+      28.0,
+      13.0
+    ],
+    [
+      3706.0,
+      1445.0,
+      28.0,
+      13.0
+    ],
+    [
       3671.0,
-      581,
-      24,
-      10
+      2295.0,
+      28.0,
+      13.0
     ],
     [
-      3684.0,
-      1366,
-      24,
-      10
+      3676.0,
+      2585.0,
+      28.0,
+      13.0
     ],
     [
-      3673.0,
-      3593,
-      24,
-      10
+      3636.0,
+      2755.0,
+      28.0,
+      13.0
     ],
     [
-      3691.0,
-      3863,
-      24,
-      10
+      3656.0,
+      3575.0,
+      28.0,
+      13.0
     ],
     [
-      4291.0,
-      2063,
-      26,
-      13
+      3626.0,
+      3875.0,
+      28.0,
+      13.0
     ],
     [
-      2468.0,
-      4103,
-      26,
-      13
+      3656.0,
+      4085.0,
+      28.0,
+      13.0
     ],
     [
-      4208.0,
-      1169,
-      26,
-      13
+      4476.0,
+      1035.0,
+      28.0,
+      13.0
     ],
     [
-      3705.0,
-      1116,
-      26,
-      13
+      4506.0,
+      1145.0,
+      28.0,
+      13.0
     ],
     [
-      2759.0,
-      1672,
-      26,
-      13
+      4406.0,
+      1135.0,
+      28.0,
+      13.0
     ],
     [
-      1881.0,
-      1044,
-      26,
-      13
+      2066.0,
+      3295.0,
+      28.0,
+      13.0
     ],
     [
-      244.0,
-      323,
-      26,
-      13
+      2136.0,
+      3375.0,
+      28.0,
+      13.0
     ],
     [
-      1387.0,
-      567,
-      26,
-      13
+      4546.0,
+      3265.0,
+      28.0,
+      13.0
     ],
     [
-      3698.0,
-      1593,
-      26,
-      13
+      4526.0,
+      3475.0,
+      28.0,
+      13.0
     ],
     [
-      3351.0,
-      1069,
-      26,
-      13
-    ],
-    [
-      4015.0,
-      1088,
-      26,
-      13
-    ],
-    [
-      3340.0,
-      2649,
-      26,
-      13
-    ],
-    [
-      197.0,
-      4485,
-      26,
-      13
+      4326.0,
+      3605.0,
+      28.0,
+      13.0
     ]
   ],
   "landscape_legacy_trees": [

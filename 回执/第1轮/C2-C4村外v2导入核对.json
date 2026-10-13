@@ -1,0 +1,267 @@
+{
+  "scope": "Mechanical C4 import only; headless and C3 acceptance recorded separately",
+  "contract_sha256": "02c3c8c1179e34aaf0ae835042e4692976d61ce7a3ad0094e94528bc1996cd9f",
+  "village_before_sha256": "7ad75e04024d36596955468225abd74ba0c943df84b5e158f75b40834f34ae60",
+  "village_after_sha256": "5780ccdac5d25934358a6e58d3ae61c09c95ec4f7dfdb46696fc05e4a8737cf9",
+  "already_imported": false,
+  "changed_fields": [
+    "background",
+    "props",
+    "obstacles",
+    "landscape_obstacles"
+  ],
+  "preserved_prop_ids": [
+    "ayu",
+    "honeybox",
+    "notice",
+    "orchard0",
+    "orchard1",
+    "orchard2",
+    "public_pond",
+    "erba",
+    "laowu",
+    "daba",
+    "h5",
+    "h2",
+    "h3",
+    "mayor",
+    "h6",
+    "h8",
+    "h7",
+    "h4",
+    "h1",
+    "flower",
+    "whitebrick",
+    "grape",
+    "sunflower",
+    "persimmon",
+    "rose",
+    "site_pond",
+    "house_community"
+  ],
+  "preserved_base_solid_count": 25,
+  "removed_prop_ids": [
+    "land_field_0_row0_1273",
+    "land_field_0_row0_1431.4",
+    "land_field_0_row1_1279",
+    "land_field_0_row1_1437.4",
+    "land_field_0_row2_1273",
+    "land_field_0_row2_1431.4",
+    "land_field_0_row3_1279",
+    "land_field_0_row3_1437.4",
+    "land_field_0_row4_1273",
+    "land_field_0_row4_1431.4",
+    "land_field_0_row5_1279",
+    "land_field_0_row5_1437.4",
+    "land_field_1_row0_3033",
+    "land_field_1_row0_3191.4",
+    "land_field_1_row1_3039",
+    "land_field_1_row1_3197.4",
+    "land_field_1_row2_3033",
+    "land_field_1_row2_3191.4",
+    "land_field_1_row3_3039",
+    "land_field_1_row3_3197.4",
+    "land_field_2_row0_3043",
+    "land_field_2_row0_3201.4",
+    "land_field_2_row1_3049",
+    "land_field_2_row1_3207.4",
+    "land_field_2_row2_3043",
+    "land_field_2_row2_3201.4",
+    "land_field_2_row3_3049",
+    "land_field_2_row3_3207.4",
+    "land_field_2_row4_3043",
+    "land_field_2_row4_3201.4",
+    "land_field_2_row5_3049",
+    "land_field_2_row5_3207.4",
+    "land_field_3_row0_3893",
+    "land_field_3_row0_4051.4",
+    "land_field_3_row0_4209.8",
+    "land_field_3_row1_3899",
+    "land_field_3_row1_4057.4",
+    "land_field_3_row1_4215.8",
+    "land_field_3_row2_3893",
+    "land_field_3_row2_4051.4",
+    "land_field_3_row2_4209.8",
+    "land_field_3_row3_3899",
+    "land_field_3_row3_4057.4",
+    "land_field_3_row3_4215.8",
+    "land_field_4_row0_3863",
+    "land_field_4_row0_4021.4",
+    "land_field_4_row0_4179.8",
+    "land_field_4_row1_3869",
+    "land_field_4_row1_4027.4",
+    "land_field_4_row1_4185.8",
+    "land_field_4_row2_3863",
+    "land_field_4_row2_4021.4",
+    "land_field_4_row2_4179.8",
+    "land_field_4_row3_3869",
+    "land_field_4_row3_4027.4",
+    "land_field_4_row3_4185.8",
+    "land_field_5_row0_4363",
+    "land_field_5_row1_4369",
+    "land_field_5_row2_4363",
+    "land_field_5_row3_4369",
+    "land_87_garden_laowu",
+    "land_88_garden_daba",
+    "land_89_garden_daba",
+    "land_90_garden_h5",
+    "land_91_garden_h3",
+    "land_92_garden_h8",
+    "land_93_garden_h7",
+    "land_94_garden_h4",
+    "land_95_garden_h1",
+    "land_96_plant_9",
+    "land_97_plant_10",
+    "land_98_plant_11",
+    "land_99_plant_14",
+    "land_100_plant_15",
+    "land_101_plant_16",
+    "land_102_plant_17",
+    "land_103_plant_18",
+    "land_104_plant_19",
+    "land_105_plant_20",
+    "land_106_plant_21",
+    "land_107_plant_23",
+    "land_108_plant_24",
+    "land_109_plant_25",
+    "land_110_plant_26",
+    "land_111_plant_27",
+    "land_112_plant_29",
+    "land_113_plant_30",
+    "land_tree_0",
+    "land_tree_1",
+    "land_tree_2",
+    "land_tree_3",
+    "land_tree_4",
+    "land_tree_5",
+    "land_tree_6",
+    "land_tree_7",
+    "land_tree_8",
+    "land_tree_12",
+    "land_tree_13",
+    "land_tree_22",
+    "land_tree_28"
+  ],
+  "new_prop_count": 23,
+  "new_root_count": 20,
+  "all_other_village_fields_unchanged": true,
+  "all_other_room_records_unchanged": true,
+  "assets": [
+    {
+      "file": "ayu_home/v4/assets/village/ground-c4-v2.png",
+      "sha256": "b37d973cad75655231b68b07f55d00a56a15f5352e06c9d438f37a0d657b8042"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "sha256": "183865501afce24c7defa4651f1b3651b82daeb1ddf9bac11c007b0fe6e2c13d"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "sha256": "183865501afce24c7defa4651f1b3651b82daeb1ddf9bac11c007b0fe6e2c13d"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "sha256": "e43c5a51079d38f11cb79797e15bdcb53e76dea045f0cc05e539e09d367a0990"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    }
+  ],
+  "verification": {
+    "assets_and_paths": {
+      "log": "C4村外v2-资源与通路预检.log",
+      "checks": 77,
+      "result": "PASS",
+      "reachable_approaches": 29
+    },
+    "original_test_core": {
+      "log": "C4村外v2-原test_core.log",
+      "checks": 87,
+      "result": "PASS",
+      "assertions_modified": false
+    },
+    "navigation": {
+      "room": "village",
+      "bytes": 87900,
+      "sha256": "cc71a8e4b7dee90dedf7423e5c20517a3c5b4e6ab1bec7214835cf1c0b4c5207"
+    },
+    "N1-N5": "C3 actual-game acceptance pending"
+  }
+}
