@@ -9354,7 +9354,23 @@
       ],
       "background": "res://ayu_home/v4/assets/institutions/mill-v2.png",
       "asset_root": "res://ayu_home/v3/assets/",
-      "props": [],
+      "props": [
+        {
+          "id": "mill_tea_chair",
+          "file": "res://ayu_home/v4/assets/institutions/mill-v2.png",
+          "atlas_region": [
+            44,
+            367,
+            86,
+            94
+          ],
+          "pos": [
+            44,
+            367
+          ],
+          "foot": 460
+        }
+      ],
       "obstacles": [
         [
           26,

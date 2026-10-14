@@ -1,0 +1,12 @@
+{
+	"checks": {
+		"actual_seat_lift_uses_chair_depth": true,
+		"actual_sprite_alpha_covers_original_seat": true,
+		"displayed_seat_anchor_unchanged": true,
+		"existing_background_atlas_no_new_raster": true,
+		"one_independent_chair_prop": true,
+		"seated_actor_sorted_after_chair_front": true
+	},
+	"failures": 0,
+	"mode": "headless real sprite alpha/seat-depth; C3 actual sitting image pending"
+}

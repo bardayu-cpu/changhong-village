@@ -1,0 +1,10 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS one_independent_chair_prop
+PASS existing_background_atlas_no_new_raster
+PASS actual_sprite_alpha_covers_original_seat
+PASS actual_seat_lift_uses_chair_depth
+PASS displayed_seat_anchor_unchanged
+PASS seated_actor_sorted_after_chair_front
