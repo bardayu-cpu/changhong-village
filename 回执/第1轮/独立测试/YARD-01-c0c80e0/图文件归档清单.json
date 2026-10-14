@@ -1,0 +1,47 @@
+[
+  {
+    "name": "YARD-01-c0c80e0-最终-c0c80e0-001-H6-入区-my_yard.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 44085,
+    "sha256": "22a3b9c4a2d116e960255a60778a9ea1695f3552a58f7f6050c685600aedf0f0"
+  },
+  {
+    "name": "YARD-01-c0c80e0-最终-c0c80e0-002-YARD-01-同档重开地块家具库存.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 45618,
+    "sha256": "5d175722c1fd5359fdbec25df0e3e3295bbf73c11d7fbdb4e66ee18425c624c4"
+  },
+  {
+    "name": "YARD-01-c0c80e0-最终-c0c80e0-003-YARD-01-实际走入地块人物完整显示.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 50753,
+    "sha256": "d00edcf7f32d15a6ed06c25658feaa88c41f3779b3a7dc0e674566ece61ecf97"
+  },
+  {
+    "name": "YARD-01-c0c80e0-最终-c0c80e0-004-YARD-01-地块内离开提示牌后全身.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 114537,
+    "sha256": "8d07119ff05c2925afcd28baa77f1ce47a7ecef16e4437438ea04927c88e1089"
+  },
+  {
+    "name": "YARD-01-c0c80e0-最终-c0c80e0-005-YARD-01-地块走出后角色正常.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 50246,
+    "sha256": "59870af110a8f2f6345ea4f17114a205f63d63792577975e981a5e2919d1f8d5"
+  }
+]

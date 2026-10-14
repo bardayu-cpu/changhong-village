@@ -1,0 +1,34 @@
+{
+  "before": "最终-4127b2a-089-同档院子-正常导航到达.json",
+  "after": "最终-c0c80e0-002-YARD-01-同档重开地块家具库存.json",
+  "equal": {
+    "wallet": true,
+    "profile": true,
+    "items": true,
+    "resident": true,
+    "location": true,
+    "land": true,
+    "blueprints": true,
+    "furniture": true,
+    "orders": true,
+    "institutions": true,
+    "household": false
+  },
+  "land": [
+    1791912055.0138,
+    0.0,
+    0.0
+  ],
+  "furniture": [
+    {
+      "id": 1.0,
+      "kind": "wash_basin",
+      "x": 1.0,
+      "y": 1.0
+    }
+  ],
+  "household_changed_only": [
+    "last_seen"
+  ],
+  "household_except_last_seen_equal": true
+}

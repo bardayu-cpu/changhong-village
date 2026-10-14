@@ -1,0 +1,20 @@
+{
+  "version": "7d87d81",
+  "status": "过",
+  "success_ui": [
+    "裳泓村 · 书房",
+    "13:00",
+    "秋",
+    "0/3",
+    "时间、季节、天气换好了",
+    "书架 · 九格花园",
+    "拼好了！院子又完整了，已记入生活册。"
+  ],
+  "completed": {
+    "puzzle": 1,
+    "sit": 1.0
+  },
+  "close_requested_at": 1791922128.10591,
+  "exit_code": 0,
+  "remaining_percent": 60
+}

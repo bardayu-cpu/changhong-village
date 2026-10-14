@@ -1,0 +1,88 @@
+[
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-001-H6-入区-my_yard.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 49707,
+    "sha256": "bf5280c2c2e185ed02648a9dbdafea2b1a27986e6703913b1345fcb8a104aedd"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-002-E2-日期15实际四单与材料酬谢.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 14324,
+    "sha256": "061a3381ae9b0d3bf6e881154212ee07d49ddc6f3cdab2e626a7b91b42141f56"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-003-H6-入区-village.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 179945,
+    "sha256": "ee049482c3f79adcbf1793f415109ad2a463fddc391f38371b6815b8acf7dc09"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-004-D-日期15-erba-首次门边小事对白.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 364827,
+    "sha256": "c2acf32b4e5b84d8dd22e666f1038a9034f97ee1128bfc4cbf95bd533b379432"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-005-H6-入区-v_mayor.png",
+    "pixels": [
+      2002,
+      1558
+    ],
+    "bytes": 471532,
+    "sha256": "34d295b880b07230ee689f2b1d63d70af2ba20e295cef904f8098fadcf4c6c2b",
+    "use": "保留手动试玩段原图，不作为自动验收通过依据"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-006-H5-走近自然问候-v_mayor-13.0点.png",
+    "pixels": [
+      2002,
+      1558
+    ],
+    "bytes": 570233,
+    "sha256": "6f07954e25de675515aa030672c5ef190f62956a81b88a812af5625550d8ed5c",
+    "use": "保留手动试玩段原图，不作为自动验收通过依据"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-007-H6-入区-v_mayor_up.png",
+    "pixels": [
+      2002,
+      1558
+    ],
+    "bytes": 519292,
+    "sha256": "2da5a5d5e3eeeb062dd46a1c56fd414309cbf7c095f437df45cb8ff4e5934c30",
+    "use": "保留手动试玩段原图，不作为自动验收通过依据"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-008-H6-入区-v_mayor.png",
+    "pixels": [
+      2002,
+      1558
+    ],
+    "bytes": 602144,
+    "sha256": "3bd102705f69a31e08d00e29615cd479055e66f3179e1c014577b11ee492de53",
+    "use": "保留手动试玩段原图，不作为自动验收通过依据"
+  },
+  {
+    "name": "E2日期15-c0c80e0-最终-c0c80e0-009-H6-入区-village.png",
+    "pixels": [
+      2002,
+      1558
+    ],
+    "bytes": 1100426,
+    "sha256": "dfacb11c4bd83cba889ff95102fdef5b1302f0168c44763fdf34a92f55b879a4",
+    "use": "保留手动试玩段原图，不作为自动验收通过依据"
+  }
+]

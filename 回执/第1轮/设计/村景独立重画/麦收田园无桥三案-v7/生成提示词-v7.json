@@ -1,0 +1,30 @@
+{
+  "version": "c4-wheat-harvest-no-bridge-v7",
+  "date": "2026-10-14",
+  "mode": "built-in image_gen edit, three variants from style 4 reference",
+  "reference": "../宁静田园五风格-v6/风格4-麦收夏风-无房底图-v6.png",
+  "common_prompt": "Use the reference only as the approved general direction: a serene Sichuan early-summer agricultural valley with pale straw-gold post-harvest wheat fields, green rice seedlings, corn, soybeans, vegetables, orchards and Mount Emei far away. Create a newly painted 1024x1536 portrait pixel-art village master-plan background. Improve the reference substantially: quieter, more harmonious, more coherent field geometry, fewer scattered flower dots, stronger large-scale rhythm, and no purposeless empty land. The village is on flat valley land. Roads are clearly readable, softly curved, continuous and restrained. Every future house pocket is integrated at a field edge or within an orchard shelterbelt, never an empty beige circle. ABSOLUTE LOCAL FACT: this village has NO BRIDGES. Draw no stone bridge, no arched bridge, no timber bridge, no footbridge, no causeway, and no road deck over water. Do not let a river or stream cut across a road. Water is limited to narrow irrigation ditches running alongside fields and roads, with crossings hidden underground in small culverts that show no bridge structure, plus at most one isolated pond away from roads. No large through-river. Summer crop truth: no blooming rapeseed sea. Pale gold means harvested wheat stubble, drying straw or small threshing areas, balanced with vigorous summer green crops. Distant Mount Emei is a broad blue-green layered silhouette with a high shoulder and a thin cloud belt, not snowy Alps. Draw NO houses or residential buildings yet; this round selects the agricultural layout before the approved house sprites are composited. No labels, UI, people, animals, vehicles, watermark or vignette. Crisp cozy 16/32-bit pixel art, elevated near-orthographic view. Independently repaint rather than copying pixels from the reference.",
+  "variants": [
+    {
+      "id": "A",
+      "name": "稻麦田野节奏",
+      "specific_prompt": "Use one broad S-curving main village road from the south entrance toward the north-west, with only two calm side lanes. Arrange large alternating bands of pale wheat stubble, emerald rice seedlings and deep-green corn. Add a small threshing floor with neat straw stacks, low irrigation ditches, orderly kitchen-garden strips and orchard windbreaks. Keep the scene open but fully cultivated, sunlit and quietly breezy.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-38fdc2cb-6d62-4481-8e63-ef32b830066f.png",
+      "saved_output": "方案A-稻麦田野节奏-v7.png"
+    },
+    {
+      "id": "B",
+      "name": "果林晒场林盘",
+      "specific_prompt": "Organize the future homes as several sheltered orchard clusters surrounded by bamboo, pear, loquat and citrus trees. A single gently bending road links the clusters; short entry lanes end inside the tree belts. Place one modest communal threshing yard, a granary shelter, straw stacks, vegetable plots and rice fields between clusters. Make shade masses broad and calm, with fewer but more intentional details.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-71f17970-b517-40bc-a394-f0cee549d33b.png",
+      "saved_output": "方案B-果林晒场林盘-v7.png"
+    },
+    {
+      "id": "C",
+      "name": "田边Y形路",
+      "specific_prompt": "Use a clean Y-shaped dirt-lane system with no crossings over water. Place one small lotus pond off to the far eastern field edge, completely separated from roads, with no bridge or walkway over it. Alternate post-harvest wheat plots, rice paddies, corn rows, soybean patches, orchards and bamboo screens. Use strong sunny field bands and cool tree shade for a balanced, peaceful summer countryside.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-e89ea030-4f96-4d40-96fc-c559dee384c1.png",
+      "saved_output": "方案C-田边Y形路-v7.png"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "commit": "c0c80e0f45c669e404bfffeae93eb93ba74c9863",
+  "base": "4127b2a0d553d717a865b62c3a96a9e187f477d3",
+  "only_production_delta": "godot/ayu_home/v4/core/world_life.gd",
+  "sha256": "c0b09cc8e929de6d95e3b7361b9ca585eea6b038ab27ea369200f32eac13a2bd",
+  "profile": "c3-focused-third-85b78db-1014",
+  "save": "原真实third_shared.a/b，不改余额/道具/土地/家具"
+}

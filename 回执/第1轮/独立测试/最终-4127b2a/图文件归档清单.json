@@ -1,0 +1,452 @@
+[
+  {
+    "name": "N3-东田-上春下夏-原像素.png",
+    "pixels": [
+      1280,
+      1440
+    ],
+    "bytes": 971404,
+    "sha256": "ccf46ae080427229a09a9c2968b62935f65a8001791fe40ce08a64a69dd3ae8a"
+  },
+  {
+    "name": "N3-门前-左春右夏-原像素并排.png",
+    "pixels": [
+      1080,
+      992
+    ],
+    "bytes": 584859,
+    "sha256": "682858961f5d72541b8e74ed64d5167267f86a9f9e87989cde0b18064beeee88"
+  },
+  {
+    "name": "WTH01-雪晴雨-HUD原像素.png",
+    "pixels": [
+      540,
+      240
+    ],
+    "bytes": 14349,
+    "sha256": "f15a6a32954b13578dab8d094d51a55c5c40b7276143889d093911bef191ab6e"
+  },
+  {
+    "name": "最终-4127b2a-001-H6-入区-living.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 116320,
+    "sha256": "88c004e3e306dc7891444cda1751e7c9b7a445eb9a7f81b1dba50a8d1718c194"
+  },
+  {
+    "name": "最终-4127b2a-002-H6-入区-exterior.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 172517,
+    "sha256": "4f28d2c9fe47a04b39a6b5ab56202d1f6d512024cf11201f8b639dfa5508294e"
+  },
+  {
+    "name": "最终-4127b2a-003-H6-入区-village.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 183258,
+    "sha256": "c8d0f159a1f1a2f0813656a4049c05fefa845774566db98e2c7790cccd5e4004"
+  },
+  {
+    "name": "最终-4127b2a-004-N3-门前同机位基准.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 226629,
+    "sha256": "28db77085e8f6ab8d12b4e5cb93cfe1f83d1e07960203934acee58b87a63c15d"
+  },
+  {
+    "name": "最终-4127b2a-005-N3-门前春-实际运行.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 330215,
+    "sha256": "f9a2edd0bbc8186286e52048a47a3add24bfbb5b71d9e7516ecd55e2abadf76e"
+  },
+  {
+    "name": "最终-4127b2a-006-N3-门前夏-实际运行.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 345152,
+    "sha256": "9759208ab746c54e89122621ca3e65361a67c3d883d34343e162e61a2a636e8a"
+  },
+  {
+    "name": "最终-4127b2a-007-N3-门前秋-实际运行.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 342914,
+    "sha256": "93a5289a23d3a597c2b8bc44cdc8a6d42ac1e678b64ff3f82886efef1e40b301"
+  },
+  {
+    "name": "最终-4127b2a-008-N3-门前冬-实际运行.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 350878,
+    "sha256": "53cf1e070885968004e2b45ebd967baeec94f914a1d25e9e0fc3869a4cb3b3b8"
+  },
+  {
+    "name": "最终-4127b2a-009-WTH01-原生雪天图标修复复验.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 358916,
+    "sha256": "1ec30c9b366266a265a6fb26886250697b8e02dd5ae78b96b72089f20534a717"
+  },
+  {
+    "name": "最终-4127b2a-010-WTH01-原生晴天映射复验.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 364753,
+    "sha256": "25ff6fb7af640780535fb772f61c39c67cae6a8d8617ab75667956e35dbdf4e9"
+  },
+  {
+    "name": "最终-4127b2a-011-WTH01-原生雨天映射复验.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 350979,
+    "sha256": "bea16fbd2b0d4345009b270aec48a0a19d081b5641da02fa6df46c8f2ac3faad"
+  },
+  {
+    "name": "最终-4127b2a-012-N1N2-东田沟渠-实际走近.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 583471,
+    "sha256": "da068ea46e43b99238e6d9a22a898311ed6cdbfc732fefbf5ac09817fc5bae6d"
+  },
+  {
+    "name": "最终-4127b2a-013-N3-东田春-同机位.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 515244,
+    "sha256": "ac6847bb59e19c12281176a02dfe407a90545b7dad665b541f0a381ab0b0eeb4"
+  },
+  {
+    "name": "最终-4127b2a-014-N3-东田夏-同机位.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 547551,
+    "sha256": "49cb5c43ab6880ec998a55cbfc8b90e9858563fc713bad8d98b5b4afe317f7f0"
+  },
+  {
+    "name": "最终-4127b2a-015-N3-东田秋-同机位.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 545710,
+    "sha256": "7dfdfd228111525f9c13a0bae556b25782119921dd2f65c2a9278589ff5373b0"
+  },
+  {
+    "name": "最终-4127b2a-016-N3-东田冬-同机位.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 567010,
+    "sha256": "3219a91e0b88f9684bcdf180a7ddee0f4c00d9385f5cdf40f55e0abb1e052298"
+  },
+  {
+    "name": "最终-4127b2a-017-N1N2-田埂转角-岸林实走.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 466395,
+    "sha256": "0d195725a3376f5df046f6155382e0834dbaf3744df594e11b9c8aaa5cf38301"
+  },
+  {
+    "name": "最终-4127b2a-018-N6-540x960-真实篮子首屏.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 13713,
+    "sha256": "ec3b0326beeae22036d9d07bed99b4d0033aba98c82b9301b5ed03a509f6cf84"
+  },
+  {
+    "name": "最终-4127b2a-019-N6-拖动滚动-末项与固定详情.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 14436,
+    "sha256": "b8a590ed72feb4bfdb49dd882297ba20efba3f2fdad49032aa2754adfef151af"
+  },
+  {
+    "name": "最终-4127b2a-020-N6-拖动滚动-已聚焦复验.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 14436,
+    "sha256": "b8a590ed72feb4bfdb49dd882297ba20efba3f2fdad49032aa2754adfef151af"
+  },
+  {
+    "name": "最终-4127b2a-021-N6-540x960-末项选中.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 12549,
+    "sha256": "8bc543a462455243e117d27aef889911cdce74ab3105ee296bc628d8c7b19c80"
+  },
+  {
+    "name": "最终-4127b2a-022-N6-真实换种-操作前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 9471,
+    "sha256": "e6dd409fcc85c81cb65bf43c8c44b6f675e7824d3b9f10414719a16a1a39c4aa"
+  },
+  {
+    "name": "最终-4127b2a-023-N6-真实换种-操作后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 9842,
+    "sha256": "0b66ce8c83d1ec770808107d1d5ac4c1e4f80d9c2327ea289438f70202e2bfcd"
+  },
+  {
+    "name": "最终-4127b2a-024-N6-动物包真实库存-打开前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 14639,
+    "sha256": "6bed1ddfa2be918605846a9e1fd278b9fa4e3f8be8597a9abdc0cc99efbbc244"
+  },
+  {
+    "name": "最终-4127b2a-025-N6-动物包真实库存-打开后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 14612,
+    "sha256": "45792a38ce93e5f56ce1cab4707e15de755f88a89a1cfabe8a8edd55aaa3a6e7"
+  },
+  {
+    "name": "最终-4127b2a-026-N6-动物包用完-选择与焦点.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 13654,
+    "sha256": "d5d75925f3cef6ef6fe026a878819c1d22b39271d5168ecd54b6f2e4b7d229ad"
+  },
+  {
+    "name": "最终-4127b2a-027-N6E3-全部12图纸与盲盒操作前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 49193,
+    "sha256": "df6eeb358a91346d4cb66fd7b6f8db43fb96f1949c43b10db43b5081e50b7560"
+  },
+  {
+    "name": "最终-4127b2a-028-N6-真实盲盒扣发与不足禁用.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 49375,
+    "sha256": "880ffa57b6626e6c70e08dda91c53ae6f56c6f27696681578e32ddbe332cfafc"
+  },
+  {
+    "name": "最终-4127b2a-029-N6E3-动物回村待领取入口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 12950,
+    "sha256": "d87262955ba220429eb4343df61fb36fa42b79574c5255fe7a963cbb9313a339"
+  },
+  {
+    "name": "最终-4127b2a-030-E3-动物真实材料-领取前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 29963,
+    "sha256": "0f9d88ea4409a1e2e6f9c81100ffd90b3979fc95c55a392c37a60d6fbbb29af0"
+  },
+  {
+    "name": "最终-4127b2a-031-E3-喜多真实材料领取后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 29390,
+    "sha256": "7892cf3944fe211249ae0d229a0953b36950713df3cdb8c155c33e385f88fd24"
+  },
+  {
+    "name": "最终-4127b2a-032-E3-求求真实材料领取后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 29024,
+    "sha256": "7228477238af3a33fc5486a23c10c6df77c976f18935aa0a1ecd2725e7b86a4f"
+  },
+  {
+    "name": "最终-4127b2a-033-N6E3-石洗盆真实制作前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 52608,
+    "sha256": "5f47574704bc2c368570817ae93c8b4f437c99308628be9fb94ccf7cd83383b3"
+  },
+  {
+    "name": "最终-4127b2a-034-N6E3-石洗盆真实制作后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 52803,
+    "sha256": "efdca3e9ac1f14510d09d617267a08a7712d5f6b89eec883e968db0b6050e22b"
+  },
+  {
+    "name": "最终-4127b2a-035-N6-540x1200-全图纸材料不足与固定详情.png",
+    "pixels": [
+      540,
+      1200
+    ],
+    "bytes": 54491,
+    "sha256": "05f1f04fb2daf1c1890f452a826d34d2d5a36579fbd0ea69d1e83189585a78dd"
+  },
+  {
+    "name": "最终-4127b2a-036-N6-360x800-真实图纸.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 65745,
+    "sha256": "1605de8dcfc43547a5548fb315c7578071f74fa80747a6e60fd36323665d16d9"
+  },
+  {
+    "name": "最终-4127b2a-037-N6-360x800-末项及材料不足详情.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 55807,
+    "sha256": "09fe4100f017f02e5b55c5acaabc46da27ed4a409e70240b148e6c48ff28d79d"
+  },
+  {
+    "name": "最终-4127b2a-038-N6-360x800-键盘右移选中野餐席.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 57065,
+    "sha256": "4911488cae1e0ffe0cebb524b64d45fc1094f1800f73da587e5b2598e5029581"
+  },
+  {
+    "name": "最终-4127b2a-039-N6-键盘返回正常关闭.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 125568,
+    "sha256": "a9a95452b64f8c8731ecec357c6d2ca5a2b35973facb966209f66bf5729f5001"
+  },
+  {
+    "name": "最终-4127b2a-040-N6-360x800-真实物品首屏9格.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 34003,
+    "sha256": "5d121b9a62203ac7b0b61d8c3a654c10fc9775b6f553acfde5fc5818996442fd"
+  },
+  {
+    "name": "最终-4127b2a-041-E3-真实家具库前的日常入口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 13110,
+    "sha256": "676c6dc91644f8370038fde546c9bc53a7ae5945e7ecdfcf473c121012e6e277"
+  },
+  {
+    "name": "最终-4127b2a-042-H6-入区-my_yard.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 39918,
+    "sha256": "885749ecee7307944c9dc290e436ae8f7f353c6b3122b4dc7e8380586101071c"
+  },
+  {
+    "name": "最终-4127b2a-043-E3-湖边已开地正常到达.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 42411,
+    "sha256": "8b59900f81a5857858f041f04a27a24304868a8ec663178be9c205b6888f2e44"
+  },
+  {
+    "name": "最终-4127b2a-044-E3-院子布置页.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 10373,
+    "sha256": "97f09fb625ae5e21e736d91efa7d3b2519b48b80f020fabe19e72b5d561f2c80"
+  },
+  {
+    "name": "最终-4127b2a-045-E3-已开地真实摆放前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 10445,
+    "sha256": "582a32f9cdbfca783967c59feb261f3a75d50d22ca45b983ce0c432dabb7c341"
+  },
+  {
+    "name": "最终-4127b2a-046-E3-石洗盆真实已摆放.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 17540,
+    "sha256": "c179da86c403ae48b14a7e35a96420d317b09c66661dc038609497a2dd8fe7f3"
+  },
+  {
+    "name": "最终-4127b2a-047-S1-新增家具与全部进度-关闭前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 48062,
+    "sha256": "63f99bf7550517b34628fff94e674fa3ab1ebfea5ff3e7ca539ba6402a49bc86"
+  }
+]

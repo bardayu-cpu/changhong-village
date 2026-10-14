@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-14",
+  "scope": "二期设计收尾归档",
+  "checks": {
+    "archive_manifest_json_parse": true,
+    "manifest_referenced_paths_checked": 41,
+    "manifest_referenced_paths_missing": 0,
+    "key_delivery_files_present": true,
+    "new_drawing_or_map_generation": false,
+    "production_directory_modified": false,
+    "git_modified_by_c4": false,
+    "runtime_opened_by_c4": false
+  },
+  "locked_status": {
+    "v7_bridge_count": 0,
+    "v7_selected_by_ayu": false,
+    "v7_is_final_game_map": false,
+    "ayu_home_v4_usage": "建筑身份与院落层次参考；不继承水体、小桥和旧地图布局",
+    "wrong_ayu_home_v3": "作废且禁止接入"
+  },
+  "quota": {
+    "known_before_closeout_remaining_percent": 32,
+    "closeout_end_remaining_percent": 29,
+    "ordinary_usage_allowed": true,
+    "action": "冻结新增绘图与开发，只完成归档静态核对"
+  },
+  "acceptance_boundary": "仅二期设计交工，不代表生产接入、运行验收或整个Claude第1轮验收通过。"
+}

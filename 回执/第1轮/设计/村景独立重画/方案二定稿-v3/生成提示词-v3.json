@@ -1,0 +1,20 @@
+{
+  "mode": "built-in image_gen",
+  "generated": [
+    {
+      "file": "方案二-无房屋新画底图-v3.png",
+      "source": "exec-0e547b52-9bc7-40a6-bcc9-2992b9aa45d2.png",
+      "intent": "precise-object-edit",
+      "input_role": "方案二为编辑目标；移除生成的泛化房屋，保留平地/弯路/树林/塘/河/麦田",
+      "prompt": "Use case: precise-object-edit\nAsset type: clean house-free landscape base for a clickable village minimap\nInput image 1 is the selected \"Plan 2: branching lanes through groves\" design and is the edit target.\nPrimary request: preserve the selected plan's portrait composition, continuous FLAT valley floor, gentle branching pale-ochre village roads, east-edge shallow stream, communal lotus pond, distant perimeter hills, summer sunlight, golden wheat fields and lush grove structure. Remove every house and every household prop from the scene. Replace each removed house and courtyard with a coherent empty flat grass/dirt building lot that follows the existing road branch, leaving enough clear space to overlay individually authored house sprites. Keep about twenty irregular empty lots across the village, including a large central-left lot for Ayu and a specific neighborhood pattern: one empty lot immediately behind/north of Ayu's lot; two small empty lots directly west of Ayu along the branch road. The farthest-left of those two western lots will be Kaikai's. Preserve the organic branching road network and flat geography. Roads must meet each empty lot with a short entrance, remain naturally curved and connected. Do not invent terraces, stairways, retaining walls or hillside homes.\nConstraints: remove houses only and heal the landscape beneath them; no buildings, sheds, roofs, walls, gates, furniture, characters, labels, icons, text, UI or watermark. Keep pond and stream. Keep strong summer lighting. The final should be a coherent newly painted pixel-art ground layer, not a blurred inpaint or collage."
+    },
+    {
+      "file": "阿鱼家完整地块-独立新画-v3.png",
+      "source": "exec-b98d5937-dbb5-4e6d-b36c-2767dd48666b.png",
+      "intent": "generate",
+      "input_role": "阿鱼建筑参考只用于识别蓝瓦、米墙、阳台、红砖、左车库、右家门；不抠图不贴图",
+      "prompt": "Use case: stylized-concept\nAsset type: NEW independently drawn transparent pixel-art house-and-yard sprite for both the full village map and the entered Ayu property view.\nInput image 1 is an ARCHITECTURAL IDENTITY REFERENCE ONLY. Independently redraw the identity: two-storey rural home, blue tile roofs, cream upper walls with balcony, red-brick ground floor, left garage, right front entry. Do not extract, trace, paste, clone or reuse pixels from the reference.\nPrimary request: one coherent complete Ayu home property viewed in the same elevated near-orthographic pixel-art angle as the village minimap. Main house centered and facing down/front. Behind the house: a substantial dense grove and rear fruit orchard that remain visibly part of the same property. In front and on both sides: several fruit trees, flowers and grassy edges, but keep the front entrance and left garage access unobstructed. Include a clear side footpath from front yard to rear orchard, without passing through the building. Low irregular rural fence and one front gate. Strong bright summer sunlight from upper left, lush thick canopies and cool shadows. The entire house, yard, front/back orchard, grove and boundary must be visible as one geographic plot.\nComposition: isolated complete property sprite, approximately square-to-wide, generous transparent margin, no neighboring houses or roads. Coarse crisp pixel clusters and hard stepped edges consistent with the selected village map, readable when reduced to a minimap thumbnail.\nConstraints: genuinely transparent background outside the plot; no terrain rectangle behind it, no black vignette, no glow, no distant landscape, no other building, no pond, no people, no animals, no vehicles, no text, no label, no icon, no watermark. This is newly painted art and must not contain cut pieces from the old Ayu maps.",
+      "transparent_background": true
+    }
+  ]
+}

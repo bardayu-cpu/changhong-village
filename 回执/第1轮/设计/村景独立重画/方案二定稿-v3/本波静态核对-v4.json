@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-14",
+  "authoritative_version": "v4",
+  "invalid_version": "v3 mistaken Ayu house",
+  "images": {
+    "方案二-真实房屋缩小地图-v4.png": {
+      "size": [1024, 1536],
+      "mode": "RGBA",
+      "sha256": "cb6adbe0b2999227418b060e300c22238d8de963689bf56afe552351615712fd"
+    },
+    "阿鱼家完整地块-独立新画-v4.png": {
+      "size": [1447, 1087],
+      "mode": "RGBA",
+      "sha256": "6148cad04471efc0931b5e4da333a8c5fbe9a083d916c1dc1340e5cea02538a6",
+      "transparent_pixels": 291639
+    },
+    "凯凯家-点击态预览-v4.png": {
+      "size": [1024, 1536],
+      "mode": "RGBA",
+      "sha256": "705edba40ce339ffea936d7901ac23eefb1ae367696ec84d334d93de223803ec"
+    }
+  },
+  "interaction_checks": {
+    "hotspot_count": 20,
+    "unique_ids": true,
+    "all_hotspots_inside_canvas": true,
+    "prototype_ids_match_hotspot_json": true,
+    "prototype_titles_match_hotspot_json": true,
+    "prototype_rects_match_hotspot_json": true,
+    "prototype_uses_v4_map": true,
+    "prototype_references_invalid_v3": false
+  },
+  "spatial_checks": {
+    "ayu_full_plot_used": true,
+    "rear_small_house_embedded_once": true,
+    "ayu_west_houses_left_to_right": ["h5", "h2"],
+    "kaikai_is_leftmost": true,
+    "village_is_flat_between_outer_hills": true,
+    "roads_are_curved_and_branching": true,
+    "summer_wheat_and_dense_tree_canopy_present": true
+  },
+  "quota_check": {
+    "start_remaining_percent": 35,
+    "end_remaining_percent": 34,
+    "ordinary_usage_allowed": true,
+    "freeze_threshold_percent": 30,
+    "stop_threshold_percent": 15
+  },
+  "scope": "C4 static design validation only; production integration and runtime acceptance remain with C2/C3."
+}

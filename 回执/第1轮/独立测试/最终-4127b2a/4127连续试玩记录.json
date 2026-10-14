@@ -1,0 +1,29 @@
+{
+  "version": "4127b2a",
+  "status": "过：连续真实操作稳定性，低FPS如实保留",
+  "start": 1791922395.9624,
+  "end": 1791925387.40803,
+  "minutes": 49.85742716789245,
+  "states": 209,
+  "native_inputs": 184,
+  "fps_min": 17.0,
+  "fps_max": 120.0,
+  "fps_median": 87.0,
+  "fps_below30": [
+    {
+      "offset_seconds": 0.0,
+      "fps": 29.0,
+      "area": "living",
+      "page": "world"
+    },
+    {
+      "offset_seconds": 126.9,
+      "fps": 17.0,
+      "area": "living",
+      "page": "地图"
+    }
+  ],
+  "exit_code": 0,
+  "method": "现有状态变化采样，不是逐帧探针；地图页126.9秒一次17FPS，未隐去/归为启动帧",
+  "no_dedicated_rerun": true
+}

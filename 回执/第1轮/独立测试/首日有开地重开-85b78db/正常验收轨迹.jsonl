@@ -1,0 +1,8 @@
+{"action":"idle","active":{},"area":"my_yard","at":1791910971.89306,"coins":39.0,"effects":{},"fps":1.0,"game":{},"hour":13.0,"items":{"apple":2.0,"apple_seed":2.0,"aster":3.0,"aster_seed":6.0,"bamboo":0.0,"carrot":3.0,"carrot_seed":6.0,"chrysanthemum":3.0,"chrysanthemum_seed":6.0,"cosmos":3.0,"cosmos_seed":6.0,"grain":4.0,"grain_seed":4.0,"parcel":1.0,"pepper":3.0,"pepper_seed":4.0,"pumpkin":3.0,"pumpkin_seed":6.0,"radish":1.0,"radish_seed":2.0,"stone":2.0,"tool":1.0},"lift":0.0,"page":"world","position":[682.0,614.0],"resident":{},"type":"state"}
+{"at":1791910983.09594,"event":"A","pressed":true,"type":"native_input"}
+{"at":1791910983.10872,"event":"I","pressed":true,"type":"native_input"}
+{"at":1791910983.14206,"event":"A","pressed":false,"type":"native_input"}
+{"at":1791910983.22536,"event":"I","pressed":false,"type":"native_input"}
+{"at":1791910983.30874,"event":"D","pressed":true,"type":"native_input"}
+{"at":1791910983.40872,"event":"D","pressed":false,"type":"native_input"}
+{"action":"idle","active":{},"area":"my_yard","at":1791910983.45928,"coins":39.0,"effects":{},"fps":118.0,"game":{},"hour":13.0,"items":{"apple":2.0,"apple_seed":2.0,"aster":3.0,"aster_seed":6.0,"bamboo":0.0,"carrot":3.0,"carrot_seed":6.0,"chrysanthemum":3.0,"chrysanthemum_seed":6.0,"cosmos":3.0,"cosmos_seed":6.0,"grain":4.0,"grain_seed":4.0,"parcel":1.0,"pepper":3.0,"pepper_seed":4.0,"pumpkin":3.0,"pumpkin_seed":6.0,"radish":1.0,"radish_seed":2.0,"stone":2.0,"tool":1.0},"lift":0.0,"page":"world","position":[680.9,614.0],"resident":{},"type":"state"}

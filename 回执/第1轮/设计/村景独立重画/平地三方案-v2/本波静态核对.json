@@ -1,0 +1,39 @@
+{
+  "status": "three independent layout concepts, awaiting user choice",
+  "original_real_map_inspected": "/Users/kayra_ayu/Desktop/苏七镇奇缘/游戏制作中-gpt 和 claude 合作/画风地图参考/4-裳泓村各家位置地图示意图（真实地图）.png",
+  "v1_hillside_design_superseded": true,
+  "flat_valley_floor_all_three_visual_review": true,
+  "distant_hills_outside_settlement": true,
+  "different_road_and_open_space_layouts": true,
+  "old_map_pixels_cut_or_pasted": false,
+  "runtime_integrated": false,
+  "files": [
+    {
+      "name": "方案1-院前弯路与小路口",
+      "size": [
+        1024,
+        1536
+      ],
+      "bytes": 3805573,
+      "sha256": "19fd9cb9ab8b4b91d6450c2b2ebd01d316caf22ab8c28113aafd07a2d3458150"
+    },
+    {
+      "name": "方案2-树林间的分岔村巷",
+      "size": [
+        1024,
+        1536
+      ],
+      "bytes": 3700184,
+      "sha256": "ec1b9f2ca57fcfb395e1076b55431a0087879a1162b25af5839db30fb4356b8b"
+    },
+    {
+      "name": "方案3-开阔田边村路",
+      "size": [
+        1024,
+        1536
+      ],
+      "bytes": 3562489,
+      "sha256": "8d195aefdeff489585d83ee29cc57e8d856f8393afa30867aaf6e1cfa76b43b5"
+    }
+  ]
+}

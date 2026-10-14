@@ -1,0 +1,28 @@
+{
+  "commit": "d093c3ca33c6dae2aec86981845de4cf58e9c33c",
+  "base": "0b8a580→ac029a2→d093c3c完整godot冻结叠加",
+  "latest_overlays": {
+    "godot/ayu_home/v4/assets/institutions/community-v1.png": "eee75f7ca71ae5da6f73793e43aa75afc21e8931aa282f0336084f3b05445f13",
+    "godot/ayu_home/v4/assets/institutions/honey-v2.png": "a48035f8afe711eab5acdc0bab5c08e3992bb8fe6665034fcfb569b259badfa7",
+    "godot/ayu_home/v4/assets/my_cabin.json": "bea11163a9917e60d3d3eae3b650c483c3077190e446604d5d706312e903b837",
+    "godot/ayu_home/v4/assets/my_yard.json": "37b696e9a3a4def99a6702164bf93ae1372860bd9ca401876dde2c8988637567",
+    "godot/ayu_home/v4/assets/residents/fang-v1.png": "c519c2fb2d7a38cdbaf4e3e60eb1da63e462fa808607fa6aa4e21a1080f57874",
+    "godot/ayu_home/v4/assets/rooms.json": "964108151e86342ce64bb9806336e1f01fc0fed05fe62e4bdff911436e6b78c4",
+    "godot/ayu_home/v4/assets/talk-faces/fang.png": "a812e2e6dcb6e4cd34530ad973470c2b56b2460e49519eee8a3c591921a42d56",
+    "godot/ayu_home/v4/assets/v_h5.json": "ec39c2155e9072465d35348b9676db01ddede7ec93990045feab4f9f171a13a0",
+    "godot/ayu_home/v4/assets/village.json": "91b5e14140d5a1339e5ed4dbe0d7c6b98ebccbc5378b16bd00c76b7d8d6230c3",
+    "godot/ayu_home/v4/assets/village/ground.png": "ec3a835ce0b4536955c5d2a1f236411df14e06dcf6dca8069fcb5e60a2729e95",
+    "godot/ayu_home/v4/assets/village/houses.json": "43fb1fc14338c39f0621377e2ede7ba1e84099166525775ad3cd23a960b73452",
+    "godot/ayu_home/v4/core/config.gd": "bf700487b114067c47c2fbbdff6d490d996b7fd9fbbf77265dd02b6a26a83ee3",
+    "godot/ayu_home/v4/core/institution_game.gd": "d467f1e8cc04428187603fa1d855a3a2ceb726ba106d6ecfc8436bdbdba23d43",
+    "godot/ayu_home/v4/core/institution_room.gd": "3de7cc4e647213ede6988617632e9cbc35fefc8e05e279a237fd82b1556ecf2e",
+    "godot/ayu_home/v4/core/interface.gd": "321092f5f09433fba51b9c31184c7b507fdc513dd2cb8900982713c3fd0fceb3",
+    "godot/ayu_home/v4/core/residents.gd": "c21f1946d96cc1ca9b5fc1f4c6f2dbc06ae060086c0566c2a8c4bcd0d2624c82",
+    "godot/ayu_home/v4/core/world_life.gd": "3e75afe9e3e9e1e51bd8c9df6453b4bcc11eceeb99b1e238e158ac7f9d5430df",
+    "godot/ayu_home/v4/home.gd": "6ee3cba92c88149d420c96494cff8d5a98b9306d6cb056c8422bf9f3b64aa65a"
+  },
+  "scope": "MILL-01最小复验及后三处H1-H6；原已验且未改部分不重复全套",
+  "profile": "c3-mill-0b8a580",
+  "save": "正常种收/推磨后的独立存档复制；无位置/物品注入，不计最终首日经济",
+  "remaining_percent": 38
+}

@@ -1,0 +1,15 @@
+{
+  "scope": "Static design asset/geometry/shader branch verification, not gameplay/weather/sound/heat/performance pass",
+  "asset_shader_hashes_match": true,
+  "spring_block_exact_current": true,
+  "winter_block_exact_current": true,
+  "summer_low_flowers_within_18_garden_rects": true,
+  "lotus_within_existing_pond_rect": true,
+  "wheat_keeps_20px_perimeter": true,
+  "new_tree_roots": 0,
+  "root_collisions_unchanged_for_crowns": true,
+  "shader_parse": "see native log; production runtime compile remains C2 responsibility",
+  "heat_preview_frames": 20,
+  "heat_preview_bytes": 344813,
+  "pending": "C1 visual review, C2 integration, C3 live checks"
+}

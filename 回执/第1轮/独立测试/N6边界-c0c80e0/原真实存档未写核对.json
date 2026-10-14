@@ -1,0 +1,11 @@
+{
+  "before": {
+    "third_shared.a": "ab02182e516a3e5ba7ee4d57dfb8310b78e106193d64e04cb3e015bb0c78a66b",
+    "third_shared.b": "a65a9ae33e2fd6586b8e2139c48de258a9d13b472bfc12bd223aef6eb9ccc571"
+  },
+  "after": {
+    "third_shared.a": "ab02182e516a3e5ba7ee4d57dfb8310b78e106193d64e04cb3e015bb0c78a66b",
+    "third_shared.b": "a65a9ae33e2fd6586b8e2139c48de258a9d13b472bfc12bd223aef6eb9ccc571"
+  },
+  "equal": true
+}

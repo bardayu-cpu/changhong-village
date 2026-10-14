@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-14",
+  "image_count": 5,
+  "canvas": [1024, 1536],
+  "mode": "RGB",
+  "style_stage_has_houses": false,
+  "reason_without_houses": "先单独确认田园基调和土地组织，避免19栋房屋再次干扰风格判断；选定后再使用已确认房屋图合成。",
+  "checks": {
+    "blank_residential_clearings_removed": true,
+    "all_land_has_visible_agricultural_or_landscape_use": true,
+    "blooming_rapeseed_sea_removed": true,
+    "summer_crops_or_post_harvest_fields_present": true,
+    "mount_emei_horizon_present": true,
+    "roads_continuous_and_readable": true,
+    "old_ayu_map_cutout_used": false
+  },
+  "sha256": {
+    "风格1-稻田水渠-无房底图-v6.png": "bb888688d871fd80a83d82ebafd32f3de62baa2330b10db6ca72f1318ecb7170",
+    "风格2-竹溪石桥-无房底图-v6.png": "219318b97b98e072b8fe517d15f7db77b4e0f1150c51612ff5c8d87436bbb3af",
+    "风格3-荷塘果园-无房底图-v6.png": "6a5461c616687898d11b760eec6857206192a0ed9916fafbc59129cb78dfae93",
+    "风格4-麦收夏风-无房底图-v6.png": "8253646561b3657dba9142231b5393a6a9f69c6967f9bb507ff9fb4d9cc5d9a1",
+    "风格5-峨眉晨雾-无房底图-v6.png": "79b47486eaa22dca1362207bc84e644da8832b652d38a50c390edbc17b0adf88"
+  },
+  "quota_check": {
+    "start_remaining_percent": 33,
+    "end_remaining_percent": 32,
+    "ordinary_usage_allowed": true,
+    "freeze_threshold_percent": 30,
+    "stop_threshold_percent": 15
+  },
+  "scope": "C4 visual direction selection only; no production integration or runtime acceptance."
+}

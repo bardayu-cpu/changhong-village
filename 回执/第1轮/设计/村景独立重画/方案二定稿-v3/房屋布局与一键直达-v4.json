@@ -1,0 +1,48 @@
+{
+  "version": "c4-plan2-real-house-minimap-v4",
+  "canvas": [1024, 1536],
+  "selected_plan": "方案2-树林间的分岔村巷",
+  "ground": "方案二-无房屋新画底图-v3.png",
+  "interaction": {
+    "action": "click_house_to_fast_travel",
+    "confirmation": false,
+    "arrival_rule": "outside_door_approach",
+    "do_not_bypass_locked_interior": true,
+    "hover_or_focus": "outline selected household and show name",
+    "keyboard": "Tab/方向键切换房屋，Enter直达，Esc关闭地图",
+    "controller": "方向键切换房屋，确认键直达，取消键关闭地图",
+    "touch": "点房屋一次直接到门前",
+    "note": "热区覆盖房屋实图轮廓并外扩12px，重叠时按可见上层及最近门口判定；不设置第二个确认按钮。"
+  },
+  "ayu_neighborhood_invariants": {
+    "ayu_center": [505, 655],
+    "rear_small_house": "laowu",
+    "rear_small_house_center": [615, 550],
+    "rear_small_house_embedded_in_ayu_plot": true,
+    "west_small_houses_left_to_right": ["h5", "h2"],
+    "kaikai_is_leftmost": true,
+    "ayu_plot_same_source_for_village_and_entered_view": true
+  },
+  "houses": [
+    {"id":"erba","title":"二爸家","source":"godot/ayu_home/v4/assets/village/house_erba.png","center":[565,145],"max_size":[150,100],"target":"v_erba"},
+    {"id":"daba","title":"大爸家","source":"godot/ayu_home/v4/assets/village/house_daba.png","center":[330,285],"max_size":[145,98],"target":"v_daba"},
+    {"id":"flower","title":"花房小楼","source":"godot/ayu_home/v4/assets/village/house_flower.png","center":[680,290],"max_size":[145,98],"target":"v_flower"},
+    {"id":"whitebrick","title":"白砖小院","source":"godot/ayu_home/v4/assets/village/house_whitebrick.png","center":[835,415],"max_size":[145,98],"target":"v_whitebrick"},
+    {"id":"grape","title":"葡萄架小院","source":"godot/ayu_home/v4/assets/village/house_grape.png","center":[165,390],"max_size":[145,98],"target":"v_grape"},
+    {"id":"sunflower","title":"向日葵之家","source":"godot/ayu_home/v4/assets/village/house_sunflower.png","center":[785,555],"max_size":[145,98],"target":"v_sunflower"},
+    {"id":"laowu","title":"阿鱼家后方老屋小楼","center":[615,550],"target":"v_laowu","role":"ayu_rear_small_house","render":false,"embedded_in":"ayu"},
+    {"id":"h5","title":"凯凯蜂蜜小院","source":"godot/ayu_home/v4/assets/village/house_h5.png","center":[120,625],"max_size":[155,104],"target":"v_h5","role":"ayu_west_1_leftmost_kaikai"},
+    {"id":"h2","title":"2A · 缝补人家","source":"godot/ayu_home/v4/assets/village/house_h2.png","center":[285,625],"max_size":[145,98],"target":"v_h2","role":"ayu_west_2"},
+    {"id":"ayu","title":"0A · 阿鱼家","source":"回执/第1轮/设计/村景独立重画/方案二定稿-v3/阿鱼家完整地块-独立新画-v4.png","center":[505,655],"max_size":[330,265],"target":"exterior","role":"same_complete_plot_source"},
+    {"id":"h6","title":"6A · 花窗人家","source":"godot/ayu_home/v4/assets/village/house_h6.png","center":[805,720],"max_size":[145,104],"target":"v_h6"},
+    {"id":"h3","title":"小涛磨坊","source":"godot/ayu_home/v4/assets/village/house_h3.png","center":[225,815],"max_size":[155,105],"target":"v_h3"},
+    {"id":"mayor","title":"村委会","source":"godot/ayu_home/v4/assets/village/house_mayor.png","center":[500,865],"max_size":[160,108],"target":"v_mayor"},
+    {"id":"h7","title":"7A · 窄巷人家","source":"godot/ayu_home/v4/assets/village/house_h7.png","center":[885,850],"max_size":[90,125],"target":"v_h7"},
+    {"id":"h8","title":"8A · 茶香小院","source":"godot/ayu_home/v4/assets/village/house_h8.png","center":[745,920],"max_size":[145,98],"target":"v_h8"},
+    {"id":"h4","title":"4A · 田边平房","source":"godot/ayu_home/v4/assets/village/house_h4.png","center":[250,1055],"max_size":[150,102],"target":"v_h4"},
+    {"id":"community","title":"村民活动中心","source":"godot/ayu_home/v4/assets/village/cabin.png","center":[500,1075],"max_size":[145,105],"target":"my_cabin"},
+    {"id":"h1","title":"1A · 蓝瓦人家","source":"godot/ayu_home/v4/assets/village/house_h1.png","center":[760,1080],"max_size":[150,102],"target":"v_h1"},
+    {"id":"persimmon","title":"柿树老院","source":"godot/ayu_home/v4/assets/village/house_persimmon.png","center":[180,1220],"max_size":[155,105],"target":"v_persimmon"},
+    {"id":"rose","title":"玫瑰花之家","source":"godot/ayu_home/v4/assets/village/house_rose.png","center":[745,1245],"max_size":[150,102],"target":"v_rose"}
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "version": "c4-spacious-emei-layouts-v5",
+  "canvas": [1024, 1536],
+  "base": "峨眉山实景路网-无房屋底图-v5.png",
+  "road_reference": {
+    "sources": [
+      "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/参考素材/3-各家厅相对位置地图.png",
+      "/Users/kayra_ayu/Desktop/苏七镇奇缘/苏七镇奇缘 -gpt 总文件夹/七缘地图2-裳泓村参考图/参考素材/村子房子实景参考/村子卫星地图局部.png"
+    ],
+    "locked_topology": "东西主路经过阿鱼家附近斜向路口；西北支路弯曲上行并在北侧分岔；南侧仅保留短支路和入户路。"
+  },
+  "landscape": {
+    "terrain": "山丘之间的平地村落",
+    "distant_landmark": "四川峨眉山横向层叠剪影与薄云带",
+    "summer": "强烈晴午阳光、繁盛树木、麦田与热浪感",
+    "fixed_decorative_nodes": [
+      "路口休息亭",
+      "村民小戏台与硬化晒坝",
+      "水井与洗衣台",
+      "东侧候车棚",
+      "村口门楼",
+      "过溪木桥",
+      "粮仓与晒架",
+      "石龛、长椅、公告栏和灌溉水闸"
+    ]
+  },
+  "invariants": {
+    "same_house_art": true,
+    "ayu_complete_plot_source": "../方案二定稿-v3/阿鱼家完整地块-独立新画-v4.png",
+    "ayu_rear_old_house_embedded": true,
+    "ayu_west_houses_left_to_right": ["h5", "h2"],
+    "kaikai_is_leftmost": true,
+    "no_old_ayu_map_cutouts": true
+  },
+  "houses": [
+    {"id":"erba","title":"二爸家","source":"godot/ayu_home/v4/assets/village/house_erba.png","max_size":[112,78]},
+    {"id":"daba","title":"大爸家","source":"godot/ayu_home/v4/assets/village/house_daba.png","max_size":[112,74]},
+    {"id":"flower","title":"花房小楼","source":"godot/ayu_home/v4/assets/village/house_flower.png","max_size":[112,78]},
+    {"id":"whitebrick","title":"白砖小院","source":"godot/ayu_home/v4/assets/village/house_whitebrick.png","max_size":[108,76]},
+    {"id":"grape","title":"葡萄架小院","source":"godot/ayu_home/v4/assets/village/house_grape.png","max_size":[112,72]},
+    {"id":"sunflower","title":"向日葵之家","source":"godot/ayu_home/v4/assets/village/house_sunflower.png","max_size":[112,76]},
+    {"id":"h5","title":"凯凯蜂蜜小院","source":"godot/ayu_home/v4/assets/village/house_h5.png","max_size":[120,78]},
+    {"id":"h2","title":"2A · 缝补人家","source":"godot/ayu_home/v4/assets/village/house_h2.png","max_size":[112,76]},
+    {"id":"ayu","title":"0A · 阿鱼家","source":"回执/第1轮/设计/村景独立重画/方案二定稿-v3/阿鱼家完整地块-独立新画-v4.png","max_size":[275,212]},
+    {"id":"h6","title":"6A · 花窗人家","source":"godot/ayu_home/v4/assets/village/house_h6.png","max_size":[110,78]},
+    {"id":"h3","title":"小涛磨坊","source":"godot/ayu_home/v4/assets/village/house_h3.png","max_size":[118,78]},
+    {"id":"mayor","title":"村委会","source":"godot/ayu_home/v4/assets/village/house_mayor.png","max_size":[122,80]},
+    {"id":"h7","title":"7A · 窄巷人家","source":"godot/ayu_home/v4/assets/village/house_h7.png","max_size":[72,92]},
+    {"id":"h8","title":"8A · 茶香小院","source":"godot/ayu_home/v4/assets/village/house_h8.png","max_size":[112,72]},
+    {"id":"h4","title":"4A · 田边平房","source":"godot/ayu_home/v4/assets/village/house_h4.png","max_size":[112,76]},
+    {"id":"community","title":"村民活动中心","source":"godot/ayu_home/v4/assets/village/cabin.png","max_size":[116,76]},
+    {"id":"h1","title":"1A · 蓝瓦人家","source":"godot/ayu_home/v4/assets/village/house_h1.png","max_size":[116,78]},
+    {"id":"persimmon","title":"柿树老院","source":"godot/ayu_home/v4/assets/village/house_persimmon.png","max_size":[118,80]},
+    {"id":"rose","title":"玫瑰花之家","source":"godot/ayu_home/v4/assets/village/house_rose.png","max_size":[116,78]}
+  ],
+  "layouts": [
+    {
+      "id": "A",
+      "name": "沿实景主路舒展",
+      "idea": "最贴近实景路网；各户沿东西主路和西北支路退让布置，路口、晒坝和水井周围留白最大。",
+      "output": "布局A-沿实景主路舒展-v5.png",
+      "centers": {
+        "erba":[365,205], "daba":[250,395], "flower":[610,245], "whitebrick":[825,355],
+        "grape":[125,455], "sunflower":[790,500], "h5":[150,685], "h2":[325,675],
+        "ayu":[585,690], "h6":[855,720], "h3":[165,870], "mayor":[405,885],
+        "h7":[875,930], "h8":[665,950], "h4":[210,1055], "community":[440,1085],
+        "h1":[760,1090], "persimmon":[255,1210], "rose":[720,1220]
+      }
+    },
+    {
+      "id": "B",
+      "name": "南北双组团",
+      "idea": "北侧老住区和南侧新住区分成两组，中部保留连续果树林、戏台、晒坝和荷塘公共带。",
+      "output": "布局B-南北双组团-v5.png",
+      "centers": {
+        "erba":[165,185], "daba":[350,235], "flower":[560,225], "whitebrick":[785,300],
+        "grape":[165,410], "sunflower":[610,410], "h6":[830,470], "h5":[165,740],
+        "h2":[340,725], "ayu":[610,755], "h3":[135,930], "mayor":[820,825],
+        "h8":[350,965], "h7":[900,940], "h4":[190,1125], "community":[485,1100],
+        "h1":[775,1090], "persimmon":[275,1255], "rose":[710,1260]
+      }
+    },
+    {
+      "id": "C",
+      "name": "果树林环村",
+      "idea": "住宅沿外围果树林形成疏落环带，中部只保留阿鱼家邻里组和公共路口，视线最开阔。",
+      "output": "布局C-果树林环村-v5.png",
+      "centers": {
+        "erba":[165,205], "daba":[400,205], "flower":[650,235], "whitebrick":[850,360],
+        "grape":[125,470], "sunflower":[845,535], "h6":[875,700], "h5":[140,650],
+        "h2":[310,625], "ayu":[560,640], "h3":[105,875], "mayor":[780,1060],
+        "h8":[650,930], "h7":[900,920], "h4":[130,1080], "community":[350,1100],
+        "h1":[520,1230], "persimmon":[250,1270], "rose":[735,1270]
+      }
+    }
+  ]
+}

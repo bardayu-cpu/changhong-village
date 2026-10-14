@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-14",
+  "image_count": 3,
+  "canvas": [1024, 1536],
+  "mode": "RGB",
+  "local_facts": {
+    "visible_bridge_count": 0,
+    "through_river_count": 0,
+    "road_water_crossing_count": 0,
+    "irrigation": "narrow field-edge ditches with hidden culverts only",
+    "blooming_rapeseed_sea": false,
+    "pale_gold_meaning": "post-harvest wheat stubble, drying straw and threshing areas"
+  },
+  "style_stage_has_houses": false,
+  "sha256": {
+    "方案A-稻麦田野节奏-v7.png": "a03f989f81aafc39db7a106990c2d6ca7fa86a603d42234501d2376ed80bf77a",
+    "方案B-果林晒场林盘-v7.png": "3d471c9dca48a1de3d5a9e6181b301475c84130a0738aface27ad4691db61c08",
+    "方案C-田边Y形路-v7.png": "1f2be74ad5b50a72671c202def7847341a8a993652a36af58503debd6600d2de"
+  },
+  "quota_check": {
+    "start_remaining_percent": 32,
+    "end_remaining_percent": 32,
+    "ordinary_usage_allowed": true,
+    "freeze_threshold_percent": 30,
+    "stop_threshold_percent": 15
+  },
+  "scope": "C4 style refinement only; no production integration, house composition or runtime acceptance."
+}

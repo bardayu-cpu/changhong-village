@@ -1,0 +1,641 @@
+[
+  {
+    "name": "最终-7d87d81-001-H6-入区-living.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 96790,
+    "sha256": "c00a3f116a2a910dba9056c69a1761475237236ce5d71ded18d1ff7d987e1e11"
+  },
+  {
+    "name": "最终-7d87d81-002-N1-新村外地图总览及14户基线.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 602037,
+    "sha256": "0642daa340bb4692c8492fb98571e1b7a435d43d0e2f9f5aaaa7af41e298c4e6"
+  },
+  {
+    "name": "最终-7d87d81-003-H6-入区-exterior.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 148375,
+    "sha256": "1d1521434e53c2322ae8a4adac73ef54085849d61f36b2086695e5d0b4b36f64"
+  },
+  {
+    "name": "最终-7d87d81-004-H6-入区-village.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 169173,
+    "sha256": "5022a0151406e08ab7cd54fe5f76647ed9367d54d8906aff1e5f5f0d53c72095"
+  },
+  {
+    "name": "最终-7d87d81-005-D01-二爸门边帮忙前.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 364834,
+    "sha256": "ca92d51b652cfe9ba125a24b500b59c0ac0cf114453c32c1439d81f991440d2d"
+  },
+  {
+    "name": "最终-7d87d81-006-D02-白砖铜铃首次实际回应.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 379596,
+    "sha256": "8aa4d6c23f7c78660f4ab311fb3a7be80ce8977a67d3c0a909b8cd5d7c8a52e8"
+  },
+  {
+    "name": "最终-7d87d81-007-D03-葡萄导航当前核对.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 375610,
+    "sha256": "c6dd33f866671199a7f9104e763e7d39fd8a5d4c0b392d34a39b2790d6224204"
+  },
+  {
+    "name": "最终-7d87d81-008-D04-Sunflower-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 321426,
+    "sha256": "79f3800a28c827abddbfec07a52194e78cc96d74544b8dab9db1874a863b6d8f"
+  },
+  {
+    "name": "最终-7d87d81-009-D05-Persimmon-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 355931,
+    "sha256": "caaf6e72a2766f53b9d21577f0efb215feace1eafea98a851c1d061d30357340"
+  },
+  {
+    "name": "最终-7d87d81-010-D06-Rose-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 294871,
+    "sha256": "cd494dadf8e5471f459bb64cfc1616e8c07757a09262103700f968a3bd9da6f3"
+  },
+  {
+    "name": "最终-7d87d81-011-D07-H1-newspaper-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 266887,
+    "sha256": "285912431076e59aac1b10fd701031c101c7eae02f0731878885d44b1ffcac6a"
+  },
+  {
+    "name": "最终-7d87d81-012-D08-H6-water-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 307946,
+    "sha256": "156065ed0678a82e64a2f0d5313c5cc7b9a4d4e47e739df6e3274b6adbb328ff"
+  },
+  {
+    "name": "最终-7d87d81-013-D09-H2-thread-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 271548,
+    "sha256": "2d2cfb4ff77274d4c0acdf8044af587413f440eedfcc5b5b0db068ec70bb719e"
+  },
+  {
+    "name": "最终-7d87d81-014-D10-大爸路线当前核对.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 367938,
+    "sha256": "c7deccafd7c94030619951444afd213fb744355804ebfde911d2d79195c7517a"
+  },
+  {
+    "name": "最终-7d87d81-015-D11-Flower-water-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 414980,
+    "sha256": "c760bce61667f3877c2aa1e3d191b63fc41ec4284d121d63dd3c6b9bbd769fad"
+  },
+  {
+    "name": "最终-7d87d81-016-D12-H8-firewood-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 253981,
+    "sha256": "06cb3226d921cc1ba3e16a5cb9adb3e9c4ed717b85e29e66fb41ac1b66942db5"
+  },
+  {
+    "name": "最终-7d87d81-017-D13-H4-leaves-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 305508,
+    "sha256": "7d96931a2f7a09bc55c662e989fbb62e405cf72f8cc7cf35ff37c3096ed89f76"
+  },
+  {
+    "name": "最终-7d87d81-018-D14-H7-grain-first-response.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 285422,
+    "sha256": "fd42d16e0919d43b819d2f9513fa0293ca5b959da59f19c94cae2ff8980d6c36"
+  },
+  {
+    "name": "最终-7d87d81-019-N3-春-同位置同视口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 345084,
+    "sha256": "984d507e795e46f7b807dbc5805f738d94b108411cceeaad9fc2635f1315dd3b"
+  },
+  {
+    "name": "最终-7d87d81-020-N3-夏-同位置同视口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 345183,
+    "sha256": "bf1f756cb02f9b73077af4b45a9822277f1e77dbf03ea6ee181d6c2d342df6bb"
+  },
+  {
+    "name": "最终-7d87d81-021-N3-秋-同位置同视口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 342658,
+    "sha256": "93263d041c913f82de16ce5b85b9e59c4b9679a76d76dc24c22e5bac16b4d5bf"
+  },
+  {
+    "name": "最终-7d87d81-022-N3-冬-同位置同视口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 350348,
+    "sha256": "3762d50d4aba33c1867a90321464ac376d480a331c1ca6df8a3192a101b9e527"
+  },
+  {
+    "name": "最终-7d87d81-023-N4-雪-540x960-原生切换后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 358560,
+    "sha256": "fe1969c3c95503ed253fb3e8127937767d679c14460feeed6a96be5e700cc6c6"
+  },
+  {
+    "name": "最终-7d87d81-024-N4-雪-1280x720-调整窗口后.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 566467,
+    "sha256": "b522022c7daf57d3d7b745598f1a83e4cf26fddfc84daa452f7a290fe39faa9b"
+  },
+  {
+    "name": "最终-7d87d81-025-N4-雪-大横屏实际尺寸核对.png",
+    "pixels": [
+      1654,
+      1080
+    ],
+    "bytes": 785036,
+    "sha256": "2369a8b30c0e9f163f1a35520a1e2cd3a9075138dcdb55b91a293796ae589b6e"
+  },
+  {
+    "name": "最终-7d87d81-026-N4-雪-桌面最大化.png",
+    "pixels": [
+      2766,
+      1676
+    ],
+    "bytes": 1485704,
+    "sha256": "32c5dbd4dcf44e37e054d809c18b9b36f99b40bba3769596141ec47cef8a2c64"
+  },
+  {
+    "name": "最终-7d87d81-027-N4-雪-桌面全屏.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "bytes": 1589364,
+    "sha256": "a7076480d9965d4d5db0a3085ee90c191c570f5bef31fa43057e883f155cb883"
+  },
+  {
+    "name": "最终-7d87d81-028-N4-全屏日常菜单.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "bytes": 70262,
+    "sha256": "20064509c4d04b9404eb42efc1fb279af2c31acb4b1dbe356db6ffd9a615cd67"
+  },
+  {
+    "name": "最终-7d87d81-029-N4-全屏天气菜单.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "bytes": 61673,
+    "sha256": "05066eb10bb2e1d31e8de3a575615b11ca785a3c51223aed1cdd6b3f05e15b30"
+  },
+  {
+    "name": "最终-7d87d81-030-N4-雨-桌面全屏.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "bytes": 1579032,
+    "sha256": "bb05f56fc16f7ba11554b54b49e30aa9394e5ec48d12a5de46f6749bdc1a4a4a"
+  },
+  {
+    "name": "最终-7d87d81-031-N4-雨-1920x1080.png",
+    "pixels": [
+      1920,
+      1080
+    ],
+    "bytes": 914685,
+    "sha256": "6cfae78afe07afb4cc7f9b19b5b68d40608510527e7954d8c10406c5442b4fb9"
+  },
+  {
+    "name": "最终-7d87d81-032-N4-1920菜单位置.png",
+    "pixels": [
+      1920,
+      1080
+    ],
+    "bytes": 46690,
+    "sha256": "64679d0c8159f1965cc66e005263daeeb9d3eac875689ac76c927e136eb94e11"
+  },
+  {
+    "name": "最终-7d87d81-033-N4-1920天气选择.png",
+    "pixels": [
+      1920,
+      1080
+    ],
+    "bytes": 43601,
+    "sha256": "fd93a582ff461d66a7f8359e342730798086b7b97a7a12b0804174ee44a25a4d"
+  },
+  {
+    "name": "最终-7d87d81-034-N4-雪-1920x1080-切换后.png",
+    "pixels": [
+      1920,
+      1080
+    ],
+    "bytes": 906804,
+    "sha256": "42f3ef38d1e36c55ccbff4968d7aaca3b318914686eb365a900ff126f709c99b"
+  },
+  {
+    "name": "最终-7d87d81-035-N4-雨-1280x720-原生选择后.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 559795,
+    "sha256": "f15ec702d07dec342ec664e07d4e4b6d882ada40271db9c18f27174558f51fe4"
+  },
+  {
+    "name": "最终-7d87d81-036-N4-雨-桌面最大化.png",
+    "pixels": [
+      2766,
+      1676
+    ],
+    "bytes": 1423840,
+    "sha256": "d55abed01e251863a3f7b45556a62ae772e7bef3e5e08b87031ebf9049184faa"
+  },
+  {
+    "name": "最终-7d87d81-037-N4-雨-540x960-缩放后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 306759,
+    "sha256": "4bb358750f043e00e5b97adfbd12599c5504bd928561da8ced1e5f647d2dc85d"
+  },
+  {
+    "name": "最终-7d87d81-038-H6-入区-exterior.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 148254,
+    "sha256": "71c64d6befa82810ec2dfa2f5f84ef6f27c2143665b45db80e78caae5fcff68e"
+  },
+  {
+    "name": "最终-7d87d81-039-N4-雨-阿鱼家门口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 148705,
+    "sha256": "b81ba833ee6c8be243601bc3866ba406e5aabf63fca787acbb1c4c2f2a98aa57"
+  },
+  {
+    "name": "最终-7d87d81-040-H6-入区-village.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 198904,
+    "sha256": "4099e88b3e48cba00b0a62e721b3291d25f1231d2ffd8a6ab573150fbf8afaa8"
+  },
+  {
+    "name": "最终-7d87d81-041-N4-阿鱼门口操作后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 199931,
+    "sha256": "1b3e5a45a29d24e2a9355da97995082703cd1b9f6af9cbda30706f4a09103d9e"
+  },
+  {
+    "name": "最终-7d87d81-042-H6-入区-exterior.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 147463,
+    "sha256": "b2f85707bfea76c8fec2c6a0cf964425cb97b6be9079c90586d2025c657d4ce1"
+  },
+  {
+    "name": "最终-7d87d81-043-N4-正常走近阿鱼正门.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 180656,
+    "sha256": "1be6ef4b1d25cfc12e5aea061908ba80c38ec2e3eb7640a16bdadbfe310df799"
+  },
+  {
+    "name": "最终-7d87d81-044-N4-雨-阿鱼客厅进入后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 238950,
+    "sha256": "86a12fd4f569b948bc0b4db4975a47370d5f0df826afa72c4ce02b689962132f"
+  },
+  {
+    "name": "最终-7d87d81-045-H6-入区-living.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 98495,
+    "sha256": "66b7b66e64016add1082bbb1e3c242e5af669e03557926aa153a1d25097373d7"
+  },
+  {
+    "name": "最终-7d87d81-046-N4-阿鱼客厅-雨天室内.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 104385,
+    "sha256": "3757f1c6526f0b43059efe6c7fa01b6a9c24c814c6da22052c9df26ee6dcf3d7"
+  },
+  {
+    "name": "最终-7d87d81-047-N4-雨-客厅横屏窗景.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 249621,
+    "sha256": "db561843d68d419515cac1423267ee30fd16f1700847629e3af998ccb7540ea3"
+  },
+  {
+    "name": "最终-7d87d81-048-R2-早间8点半-时段切换.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 250672,
+    "sha256": "84e3b2d43abc53aee0a9f214e6485d46685752e8ea9f6922c6ee816dbb8e39ad"
+  },
+  {
+    "name": "最终-7d87d81-049-R2-8点半客厅实际作息.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 253015,
+    "sha256": "b2206099c0afb8e228a95e05dc6139c27093463f21cfb7be00cb96fcc68ccc2c"
+  },
+  {
+    "name": "最终-7d87d81-050-R2-早间清扫-人物可见.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 260076,
+    "sha256": "2bdb6d00a01a3182a56ced7474040c7474143714777c3006e1e041a96c3d49cc"
+  },
+  {
+    "name": "最终-7d87d81-051-R2-13点时段切换.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 257213,
+    "sha256": "64731d9aa4a7a38709be2d2005efcb3443e7aa039242eecfc1faeadcec1c41a9"
+  },
+  {
+    "name": "最终-7d87d81-052-H6-入区-stairs1.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 99986,
+    "sha256": "3422764ba2fc65abaf086eb2b3c624b2faefdc5ed4e674da9d0f9acfc75f2fae"
+  },
+  {
+    "name": "最终-7d87d81-053-H6-入区-stairs2.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 190702,
+    "sha256": "d12672dea184bf833da88c3d86add8b481f00f700161afa9198c8a88d2dde183"
+  },
+  {
+    "name": "最终-7d87d81-054-H6-入区-study.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 188767,
+    "sha256": "e5e2eda3d3dbba95b75d12af0739e531db94ec13581842747fbe6ccfa6dbcc54"
+  },
+  {
+    "name": "最终-7d87d81-055-R4-拼图入口行走中.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 259416,
+    "sha256": "b815b616bdbff6c18b9f24784ebb27bde4e88cdf17fec594249d995b11562abc"
+  },
+  {
+    "name": "最终-7d87d81-056-R4-拼图进行与提示.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256523,
+    "sha256": "58fcb54770033e46a7a36d19c04818fede2366a7c189fbb02d281cd5a5cb2544"
+  },
+  {
+    "name": "最终-7d87d81-057-R4-拼图第二组后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256578,
+    "sha256": "10e8f08e4c2a74b778797cc2a35a176a9ab6e4780e3de2abb4f276675d6d3a51"
+  },
+  {
+    "name": "最终-7d87d81-058-R4-拼图第三组后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256234,
+    "sha256": "505d2c09486d676eab8dba4d5071ede4ca9cf7501eb4afb72bd5b4900d6cc829"
+  },
+  {
+    "name": "最终-7d87d81-059-R4-拼图第四组后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256172,
+    "sha256": "14a90f150add83231618948bcc2fe0ed450c58cc46f79d1bee0e70dd45e6e4ec"
+  },
+  {
+    "name": "最终-7d87d81-060-R4-拼图第五组后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256528,
+    "sha256": "e01f7919d0f1915cd7e38460cc8d68c7bb4db2eefa82a49f50e1831af2457d4e"
+  },
+  {
+    "name": "最终-7d87d81-061-R4-拼图第六组后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256640,
+    "sha256": "af6fd3a12b6b3a0aaac4e2bed9f3c0ea283a663b534b39fa2202002ad597cedd"
+  },
+  {
+    "name": "最终-7d87d81-062-R4-原拼图完整完成.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 259598,
+    "sha256": "a50a034bf62c84dfcade6dd681593fd57cfeff222f2204572229d31441a91e84"
+  },
+  {
+    "name": "最终-7d87d81-063-R4-最后剩余提示.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 256495,
+    "sha256": "cf19a75b8c7cb23f4ee07b6724da6856ca20fbdb4df5d76246fab6031e85cc0a"
+  },
+  {
+    "name": "最终-7d87d81-064-R4-实际成功完成.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 260037,
+    "sha256": "509d629c4056d3d6e385c56139702341a5639870cf485f7d285d2a2fd95f54bd"
+  },
+  {
+    "name": "最终-7d87d81-065-R2-13点书房小游戏收起后.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 217208,
+    "sha256": "e92778ce453dee03b7500d4a8a682820edcbbbe8049b390742ca6095d125be77"
+  },
+  {
+    "name": "最终-7d87d81-066-R2-13点书房阿鱼作息.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 239069,
+    "sha256": "de469872fe7156fbebed522275b0d664513b7eb1a3e616e43affb783edebe592"
+  },
+  {
+    "name": "最终-7d87d81-067-R2-正常楼层图入口.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 11702,
+    "sha256": "ae7998e1bfc6e06a93ee554ae8aac52168e5e960ad8900272a9fc866ed8047c1"
+  },
+  {
+    "name": "最终-7d87d81-068-H6-入区-living.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 117312,
+    "sha256": "ebdc411e20fc4c9defbf7da7f7b4a192ba7f8f53016f8818c1d61682dda718b1"
+  },
+  {
+    "name": "最终-7d87d81-069-R2-晚间19点时段.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 117352,
+    "sha256": "67e64a329193158aaea97f4f1f82ae80bbd44ee14f501db2f046a7c28179f6e6"
+  },
+  {
+    "name": "最终-7d87d81-070-R2-19点阿鱼唱片作息.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 242036,
+    "sha256": "441d1808469cf4b4a42214a9a1f757159ef591f8e854fae86ec74516a2d25f45"
+  },
+  {
+    "name": "最终-7d87d81-071-R5-13点晴天准备.png",
+    "pixels": [
+      1280,
+      720
+    ],
+    "bytes": 241432,
+    "sha256": "331027ad1dbbe3018024d9b158d34839a78e3a4ee0f2ebebdcf255a1e6edb887"
+  }
+]

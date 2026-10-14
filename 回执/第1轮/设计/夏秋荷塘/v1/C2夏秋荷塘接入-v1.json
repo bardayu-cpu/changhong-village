@@ -1,0 +1,1354 @@
+{
+  "version": "C4-summer-autumn-lotus-v1",
+  "scope": "Summer dense crown geometry/flowers/lotus/wheat/sun/heat; autumn large gold/orange vegetation. No new gameplay. Spring and winter retained. Static design, not runtime pass.",
+  "assets": [
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/夏秋荷塘/v1/assets/lotus-summer-v1.png",
+      "target": "res://ayu_home/v4/assets/village/c4-summer-autumn-v1/lotus-summer-v1.png",
+      "size": [
+        265,
+        88
+      ],
+      "sha256": "e1ff2e21273fbaf142c5df5f34ba0d753552bedaf4d95bcc94de1ec30bd24a9b",
+      "filter": "nearest",
+      "alpha": "preserved from built-in imagegen output"
+    },
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/夏秋荷塘/v1/assets/flowers-summer-v1.png",
+      "target": "res://ayu_home/v4/assets/village/c4-summer-autumn-v1/flowers-summer-v1.png",
+      "size": [
+        80,
+        32
+      ],
+      "sha256": "7952bedb50a8957ce7a1b3ce902a365aca9c3742b7352baf0e5fce660555fc3f",
+      "filter": "nearest",
+      "alpha": "preserved from built-in imagegen output"
+    },
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/夏秋荷塘/v1/assets/crown-summer-v1.png",
+      "target": "res://ayu_home/v4/assets/village/c4-summer-autumn-v1/crown-summer-v1.png",
+      "size": [
+        180,
+        137
+      ],
+      "sha256": "6d936a7a29d2dbaa1186d742a46caf784e6e44d738140691ff65965cd7a6c785",
+      "filter": "nearest",
+      "alpha": "preserved from built-in imagegen output"
+    },
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/夏秋荷塘/v1/assets/wheat-summer-v1.png",
+      "target": "res://ayu_home/v4/assets/village/c4-summer-autumn-v1/wheat-summer-v1.png",
+      "size": [
+        585,
+        215
+      ],
+      "sha256": "81f142198d21f86cdb833637501eb29e9d9681afdc634e8665f98fe8f1ec453c",
+      "filter": "nearest",
+      "alpha": "preserved from built-in imagegen output"
+    }
+  ],
+  "shader_copy": [
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/夏秋荷塘/v1/夏秋植物材质.gdshader",
+      "target": "res://ayu_home/v4/assets/village/c4-summer-autumn-v1/season-material.gdshader",
+      "sha256": "24fcdaf590488eb8978bff7d0583801acbe5d9db30df0981f5988dc333256c88"
+    },
+    {
+      "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/夏秋荷塘/v1/麦田热浪.gdshader",
+      "target": "res://ayu_home/v4/assets/village/c4-summer-autumn-v1/wheat-heat.gdshader",
+      "sha256": "d5d09ca39458baf949c7c6cdf5323c9930f8c87af59b69a0521b296a1fd520ea"
+    }
+  ],
+  "existing_mask_bindings": "res://ayu_home/v4/assets/village/c4-spring-v1/bindings.json",
+  "no_new_control_masks": true,
+  "low_decorations": [
+    {
+      "id": "summer_bed_0_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2516,
+        369
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_erba_0"
+    },
+    {
+      "id": "summer_bed_0_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2511,
+        464
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_erba_0"
+    },
+    {
+      "id": "summer_bed_1_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        320,
+        363
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_laowu_0"
+    },
+    {
+      "id": "summer_bed_1_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        320,
+        460
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_laowu_0"
+    },
+    {
+      "id": "summer_bed_2_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        984,
+        613
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_laowu_1"
+    },
+    {
+      "id": "summer_bed_2_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        1097,
+        615
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_laowu_1"
+    },
+    {
+      "id": "summer_bed_3_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2025,
+        1169
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_daba_0"
+    },
+    {
+      "id": "summer_bed_3_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2020,
+        1264
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_daba_0"
+    },
+    {
+      "id": "summer_bed_4_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2734,
+        1417
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_daba_1"
+    },
+    {
+      "id": "summer_bed_4_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2842,
+        1417
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_daba_1"
+    },
+    {
+      "id": "summer_bed_5_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        966,
+        1537
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h5_0"
+    },
+    {
+      "id": "summer_bed_5_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        971,
+        1636
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h5_0"
+    },
+    {
+      "id": "summer_bed_6_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2155,
+        2162
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h2_0"
+    },
+    {
+      "id": "summer_bed_6_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2150,
+        2257
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h2_0"
+    },
+    {
+      "id": "summer_bed_7_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        122,
+        2763
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h3_0"
+    },
+    {
+      "id": "summer_bed_7_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        230,
+        2763
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h3_0"
+    },
+    {
+      "id": "summer_bed_8_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        976,
+        2513
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h3_1"
+    },
+    {
+      "id": "summer_bed_8_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        981,
+        2612
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h3_1"
+    },
+    {
+      "id": "summer_bed_9_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        1636,
+        3727
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h7_0"
+    },
+    {
+      "id": "summer_bed_9_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        1740,
+        3725
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h7_0"
+    },
+    {
+      "id": "summer_bed_10_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        162,
+        4263
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h4_0"
+    },
+    {
+      "id": "summer_bed_10_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        270,
+        4263
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h4_0"
+    },
+    {
+      "id": "summer_bed_11_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        20,
+        4013
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h4_1"
+    },
+    {
+      "id": "summer_bed_11_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        25,
+        4112
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h4_1"
+    },
+    {
+      "id": "summer_bed_12_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2766,
+        4249
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h1_0"
+    },
+    {
+      "id": "summer_bed_12_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2870,
+        4247
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h1_0"
+    },
+    {
+      "id": "summer_bed_13_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2620,
+        3997
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h1_1"
+    },
+    {
+      "id": "summer_bed_13_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2620,
+        4094
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_h1_1"
+    },
+    {
+      "id": "summer_bed_14_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2620,
+        387
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_whitebrick_0"
+    },
+    {
+      "id": "summer_bed_14_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        2625,
+        486
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_whitebrick_0"
+    },
+    {
+      "id": "summer_bed_15_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        4681,
+        505
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_grape_0"
+    },
+    {
+      "id": "summer_bed_15_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        4676,
+        600
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_grape_0"
+    },
+    {
+      "id": "summer_bed_16_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        3740,
+        1610
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_sunflower_0"
+    },
+    {
+      "id": "summer_bed_16_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        3740,
+        1707
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_sunflower_0"
+    },
+    {
+      "id": "summer_bed_17_0",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        3720,
+        4057
+      ],
+      "size": [
+        80,
+        32
+      ],
+      "mirror": true,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_rose_0"
+    },
+    {
+      "id": "summer_bed_17_1",
+      "asset": "flowers-summer-v1.png",
+      "pos": [
+        3725,
+        4156
+      ],
+      "size": [
+        70,
+        28
+      ],
+      "mirror": false,
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "garden": "garden_rose_0"
+    },
+    {
+      "id": "summer_wheat_field4",
+      "field": "c4_field_4",
+      "asset": "wheat-summer-v1.png",
+      "pos": [
+        3850,
+        3320
+      ],
+      "size": [
+        585,
+        215
+      ],
+      "layer": "low_ground_before_props",
+      "seasons": [
+        1
+      ],
+      "collisions": [],
+      "shader": "麦田热浪.gdshader",
+      "decorative_only": true
+    }
+  ],
+  "tree_crowns": [
+    {
+      "id": "summer_crown_orchard0",
+      "parent_prop": "orchard0",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1502,
+        1125
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1300,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_orchard1",
+      "parent_prop": "orchard1",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1642,
+        1125
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1300,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_orchard2",
+      "parent_prop": "orchard2",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1782,
+        1125
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1300,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_0",
+      "parent_prop": "c4_tree_0",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1408,
+        425
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 610.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_1",
+      "parent_prop": "c4_tree_1",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1248,
+        425
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 610.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_2",
+      "parent_prop": "c4_tree_2",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3268,
+        1545
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1730.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_3",
+      "parent_prop": "c4_tree_3",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3648,
+        895
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1080.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_5",
+      "parent_prop": "c4_tree_5",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3638,
+        1275
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1460.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_6",
+      "parent_prop": "c4_tree_6",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3602,
+        2125
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 2310.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_8",
+      "parent_prop": "c4_tree_8",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3568,
+        2585
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 2770.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_9",
+      "parent_prop": "c4_tree_9",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3588,
+        3405
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 3590.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_11",
+      "parent_prop": "c4_tree_11",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        3588,
+        3915
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 4100.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_12",
+      "parent_prop": "c4_tree_12",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        4408,
+        865
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1050.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_13",
+      "parent_prop": "c4_tree_13",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        4438,
+        975
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1160.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_14",
+      "parent_prop": "c4_tree_14",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        4338,
+        965
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 1150.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_15",
+      "parent_prop": "c4_tree_15",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1998,
+        3125
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 3310.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_16",
+      "parent_prop": "c4_tree_16",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        2068,
+        3205
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 3390.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_17",
+      "parent_prop": "c4_tree_17",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        4478,
+        3095
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 3280.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_18",
+      "parent_prop": "c4_tree_18",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        4458,
+        3305
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 3490.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_c4_tree_19",
+      "parent_prop": "c4_tree_19",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        4258,
+        3435
+      ],
+      "size": [
+        165,
+        126
+      ],
+      "layer": "after_parent_sprite_same_root",
+      "root_foot": 3620.0,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    },
+    {
+      "id": "summer_crown_h7_back",
+      "parent_prop": "h7",
+      "asset": "crown-summer-v1.png",
+      "pos": [
+        1611,
+        3179
+      ],
+      "size": [
+        180,
+        137
+      ],
+      "layer": "before_parent_sprite_same_root",
+      "root_foot": 3521,
+      "seasons": [
+        1
+      ],
+      "collisions": []
+    }
+  ],
+  "lotus": {
+    "id": "summer_public_lotus",
+    "parent_prop": "public_pond",
+    "asset": "lotus-summer-v1.png",
+    "pos": [
+      1150,
+      1065
+    ],
+    "size": [
+      265,
+      88
+    ],
+    "layer": "after_parent_sprite_same_root",
+    "root_foot": 1210,
+    "seasons": [
+      1
+    ],
+    "collisions": []
+  },
+  "placement_policy": [
+    "All positions are world top-left; size is final world draw rect; original foot/positions unchanged.",
+    "Summer-only overlays hidden for spring/autumn/winter. Effective season follows existing effects_enabled policy.",
+    "Crown shares original root/foot; no new root collision; baked H7 crown must be BEHIND house sprite so roof stays unchanged.",
+    "Low flowers/wheat rendered above base ground but below houses/NPCs/player, no collision.",
+    "Lotus above existing public_pond sprite, within existing water. No new task/reward/item or changed fish feeding."
+  ],
+  "pond_access": {
+    "existing_pond_prop": "public_pond",
+    "pond_rect": [
+      1035,
+      1000,
+      435,
+      245
+    ],
+    "feeding_hotspot": [
+      1450,
+      1250
+    ],
+    "existing_approach": [
+      1450,
+      1280
+    ],
+    "water_collision_only_if_not_already_covered": [
+      [
+        1165,
+        1080,
+        235,
+        28
+      ],
+      [
+        1148,
+        1108,
+        264,
+        42
+      ],
+      [
+        1170,
+        1150,
+        220,
+        24
+      ]
+    ],
+    "shore_walk_space": "Keep entire south/east approach outside water unobstructed, no new bank wall.",
+    "nav": "Only if missing water solids are added, C2 rebakes village navigation and C3 walks approach."
+  },
+  "sun": {
+    "season": 1,
+    "area": "outdoor village",
+    "weather_strength": {
+      "clear": 1.0,
+      "cloud": 0.25,
+      "rain": 0.0,
+      "snow": 0.0
+    },
+    "hour_gate": [
+      [
+        0,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        9.5,
+        1
+      ],
+      [
+        15.5,
+        1
+      ],
+      [
+        17.5,
+        0
+      ],
+      [
+        24,
+        0
+      ]
+    ],
+    "material_uniform": "summer_sun",
+    "behavior": "Bright warm leaf glints with saturated source greens, not whole-frame exposure/colour overlay. Keep original weather/day-night ambient and indoors. Generated crowns/flowers carry warm highlights; reuse weather modulation."
+  },
+  "heat": {
+    "shader_asset": "wheat-heat.gdshader",
+    "applies_to": "summer_wheat_field4 TEXTURE only, never screen_texture/UI/player",
+    "uniform": "heat_strength",
+    "gate": "effects_enabled AND season1 AND clear AND hour12..16; ease gate over0.5s",
+    "range": [
+      0,
+      1
+    ],
+    "maximum_displacement_world_px": 1.0125,
+    "field_world_size": [
+      585,
+      215
+    ],
+    "rain_uniform": "existing rain factor",
+    "preview": "麦田热浪-材质动效示意.gif is mathematical preview, not in-game evidence"
+  },
+  "cicada_C2_logic": {
+    "scope": "summer outdoor daytime; strongest10..17 on clear, subdued on cloud, mute at night/rain/indoors",
+    "source": "existing available sound or free native synthesis, no paid service",
+    "controls": "Existing sound toggle/master volume and existing dialogue ducking; no new settings/UI",
+    "mix": "quiet intermittent fast trills, nominal0.10 volume, avoid continuous loud tone"
+  },
+  "autumn": {
+    "targets": "existing vegetation R masks only, deciduous/fruit/crops/grass golden/orange; evergreen bamboo22% blend",
+    "unchanged": "source houses/roads/water/player; spring block and winter block retained",
+    "summer_wheat_removed": "Summer decorative wheat layer hides in autumn; original field still receives strong gold vegetation palette."
+  },
+  "views": {
+    "sheet": "同机位春夏秋-荷塘麦田门前-设计预览.png",
+    "columns": [
+      "spring current",
+      "summer proposed",
+      "autumn proposed"
+    ],
+    "rows": [
+      [
+        "荷塘",
+        [
+          1260,
+          1130
+        ]
+      ],
+      [
+        "麦田",
+        [
+          4140,
+          3440
+        ]
+      ],
+      [
+        "门前",
+        [
+          1880,
+          3511
+        ]
+      ]
+    ],
+    "hour": 13,
+    "weather": "clear in all panels",
+    "viewport_each": [
+      640,
+      360
+    ],
+    "scale": 1.15,
+    "type": "native asset/material composition without actors/HUD, not screenshots"
+  },
+  "source_sha256": {
+    "village": "5780ccdac5d25934358a6e58d3ae61c09c95ec4f7dfdb46696fc05e4a8737cf9",
+    "spring_shader": "999893536e3c0ad9f306ffb146ca71ef45778ba0ce68cecb862031551f5d6d67",
+    "spring_bindings": "e4017a288d1638a0781c8b7b5d0d55e1b50a2334f5359e0b939ad9e0f51e1111"
+  },
+  "cost": {
+    "generated_assets": 4,
+    "normalized_texture_rgba_bytes": 705260,
+    "summer_sprites": 59,
+    "new_tree_roots": 0,
+    "control_mask_memory_increment": 0
+  },
+  "pending": "C1 review -> C2 compile/integrate/day-weather/audio/heat logic -> C3 live seasonal, approach, night/rain/audio/heat checks."
+}
