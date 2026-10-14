@@ -13176,7 +13176,7 @@
         4640
       ],
       "outdoor": true,
-      "view_scale": 1.15,
+      "view_scale": 2.0,
       "nav_cell": 16,
       "npcs": [
         {
