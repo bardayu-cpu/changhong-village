@@ -1,0 +1,19 @@
+{
+  "item": "A1",
+  "attempt": 1,
+  "status": "targeted_fix_ready_for_C3_not_full_A1_acceptance",
+  "source_evidence": "回执/第1轮/图/第三次续测-首日-85b78db-011-活动中心-正常地图进入.png",
+  "fixed": [
+    "活动中心三块悬空彩色方块及整理后同类方块",
+    "方婆婆搅拌动作的悬空几何托盘"
+  ],
+  "changed_file": "godot/ayu_home/v4/core/institution_room.gd",
+  "interaction_and_schedule_functions_identical": true,
+  "check": "Godot --headless --check-only exit 0",
+  "logs": [
+    "回执/第1轮返工/A1-首修编译.log",
+    "回执/第1轮返工/A1-首修引擎.log"
+  ],
+  "pending": "C3全部可进入室内早中晚并排检查；整理互动保留保存与对白，正式物件前后视觉表现不能再用彩块代替。",
+  "no_art_save_economy_original_test_changes": true
+}

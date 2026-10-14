@@ -59,8 +59,7 @@ func draw_work() -> void:
 		work_layer.draw_rect(Rect2(-23,-44+phase,9,12),Color("e8b780"));work_layer.draw_rect(Rect2(-24,-35+phase,10,5),Color("b37c38"))
 	elif actor.action=="mill":
 		for x in [-19,12]:work_layer.draw_rect(Rect2(x,-46+phase,8,10),Color("d7a26e"))
-	elif actor.action=="stir":
-		work_layer.draw_line(Vector2(-13,-39),Vector2(-23+phase*2,-25),Color("b88853"),4);work_layer.draw_rect(Rect2(-28,-24,22,7),Color("d8bd87"))
+	# 共桌与搅拌盆已在C4底图中；旧几何托盘会浮在NPC身前，不再叠画。
 func talk(id:String) -> bool:
 	if id!="resident:"+str(record.id):return false
 	actor.face="down";ui.home.dialogue(str(record.name),str(record.schedule[slot_index].line),str(record.portrait));return true
@@ -143,10 +142,7 @@ func draw_community(effects:Dictionary) -> void:
 	for n in 4:
 		var p:=Vector2(213+n*24,281) if laid else Vector2(293+n%2*14,274+n/2*11)
 		draw_rect(Rect2(p,Vector2(10,6)),Color("eadbbe"));draw_rect(Rect2(p+Vector2(2,1),Vector2(6,2)),Color("a9bdb2"))
-	var tidy:bool=int(effects.get("tidy",0))>0
-	for n in 3:
-		var p:=Vector2(438+n*10,316) if tidy else Vector2(393+n*9,360+n%2*9)
-		draw_rect(Rect2(p,Vector2(7,7)),[Color("bd6650"),Color("d8b868"),Color("76a295")][n])
+	# 棋盒和球篮使用C4底图；整理状态照常保存，不用悬空彩块代替实物。
 	if int(effects.get("read",0))>0:
 		draw_rect(Rect2(130,450,26,16),Color("e5cfa5"));draw_line(Vector2(143,450),Vector2(143,466),Color("916a45"),2)
 	if slot_index==0 and actor.visible:

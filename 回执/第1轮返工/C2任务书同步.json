@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-14",
+  "stage": "第1轮返工任务书同步",
+  "status": "merged_on_existing_branch",
+  "branch": "village-deep-1010",
+  "before": "31f5947308e87c767ec8360ea0580a26962ac888",
+  "merged_main": "1f7652168346ab9a5bda95d3300c276909b6d17d",
+  "merge_commit": "2dc979dcd23d8bfff2e78034188a603c75ad8c6e",
+  "taskbook": "给Astra任务书/第1轮验收-Claude-1014.md",
+  "taskbook_sha256": "0242b2f912d2a6f1abc6d2c54622b359d492bcf4a4005c3dd13edbf10cc5ecc6",
+  "preserved_preexisting_tracked_modifications": 6,
+  "preserved_preexisting_untracked_files": 65,
+  "preserved_file_hash_mismatches": 0,
+  "stash_reset_checkout_cleanup_used": false,
+  "changes_in_merge": [
+    "给Astra任务书/第1轮验收-Claude-1014.md"
+  ],
+  "corrected_checklist": "## 下一步收尾清单（10/14 更正版，等阿鱼说开工）\n\n**先做画面（C4 画、C2 接入）：**\n\nA1. 清掉所有占位方块、调试矩形和半透明测试图形；C3 用全部室内、早中晚截图逐张检查。\nA2. 统一比例：村路上的人、树、房子按阿鱼家门前院子的比例来，人物在村路和室内同一高度。\nA3. 重画村路地面：不要平涂草地加印章花纹，要有田埂、石板、杂草、落叶、篱笆、晾晒物这类细节，密度参照阿鱼家门前院子。桥等阿鱼选定无桥村图后一起处理。\nA4. 室内镜头：进门第一眼看到整间屋子的主体，参照阿鱼家客厅首屏。\n\n**新增硬规则：截图交给我之前，C3 必须把每张截图跟阿鱼家同场景并排；看得出比阿鱼家差的，不许交。最后由阿鱼判断。**\n\n**再做原来的 4 项：**\n\n1. C2 修篮子触摸拖动；C3 用真实触摸实测（滑动能滚、点按不误选）。三次不过就写清原因停下。\n2. C3 新存档连续跑一次首日，中途不退出，10～20 分钟内落户并开第一块地。不改代码；没过才交给 C2 调数值。\n3. C2 给磨坊椅子补遮挡对象；C3 实际坐一次截图。\n4. C3 在正常窗口听一次蝉鸣，并测开关和时段切换。\n\n画面四项过阿鱼这关，第 1 轮才算过。夏秋素材先不接。\n",
+  "quota_remaining_at_C2_start": 23,
+  "quota_hard_stop_remaining": 5,
+  "next_scope": "C1随后授权A1清室内占位与A4四机构室内首屏；C4负责A2/A3绘图，C2待明确接口接入；不接无桥新村图/夏秋，不提前展开原四项。",
+  "engine_changes_in_this_sync": false
+}
