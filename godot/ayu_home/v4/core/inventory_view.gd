@@ -33,6 +33,10 @@ var signature:=""
 var dragging:=false
 var touch_index:=-1
 var touch_origin:=Vector2.ZERO
+var mouse_drag_active:=false
+var drag_scroll_start:=0.0
+var drag_local_start:=0.0
+var drag_serial:=0
 
 class ItemIcon extends Control:
 	var item:=""
@@ -214,7 +218,7 @@ func refresh(capture:=true) -> void:
 		card.pressed.connect(func():if not dragging:select_item(id))
 		card.focus_entered.connect(func():
 			# Pointer press may start a scroll; selection occurs on release instead.
-			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and touch_index<0:select_item(id)
+			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and touch_index<0 and not mouse_drag_active:select_item(id)
 			card.queue_redraw()
 		)
 		card.focus_exited.connect(card.queue_redraw);cards[id]=card;controls["entry:"+id]=card;grid.add_child(card)
@@ -305,9 +309,37 @@ func wire_focus() -> void:
 
 func _input(event:InputEvent) -> void:
 	if event is InputEventScreenTouch:
-		if event.pressed and touch_index<0:touch_index=event.index;touch_origin=event.position;dragging=false
-		elif not event.pressed and event.index==touch_index:clear_touch.call_deferred()
+		if event.pressed and touch_index<0 and in_item_scroll(event.position):
+			touch_index=event.index;mouse_drag_active=false;begin_item_drag(event.position)
+		elif not event.pressed and event.index==touch_index:
+			update_item_drag(event.position);end_item_drag()
 	elif event is InputEventScreenDrag and event.index==touch_index:
-		if event.position.distance_to(touch_origin)>8:dragging=true
+		update_item_drag(event.position)
+	elif touch_index<0 and event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT:
+		if event.pressed and in_item_scroll(event.position):
+			mouse_drag_active=true;begin_item_drag(event.position)
+		elif not event.pressed and mouse_drag_active:
+			# Some platforms coalesce motion; the release position still distinguishes a drag from a tap.
+			update_item_drag(event.position);end_item_drag()
+	elif touch_index<0 and mouse_drag_active and event is InputEventMouseMotion:
+		update_item_drag(event.position)
 
-func clear_touch() -> void:touch_index=-1;dragging=false
+func in_item_scroll(at:Vector2) -> bool:
+	return is_instance_valid(scroll) and Rect2(Vector2.ZERO,scroll.size).has_point(scroll.get_global_transform_with_canvas().affine_inverse()*at)
+func begin_item_drag(at:Vector2) -> void:
+	drag_serial+=1;touch_origin=at;dragging=false
+	drag_scroll_start=scroll.scroll_vertical;drag_local_start=(scroll.get_global_transform_with_canvas().affine_inverse()*at).y
+func update_item_drag(at:Vector2) -> void:
+	if not dragging and at.distance_to(touch_origin)<=8:return
+	if not dragging:
+		dragging=true;scroll.propagate_notification(Control.NOTIFICATION_SCROLL_BEGIN)
+	var local_y:float=(scroll.get_global_transform_with_canvas().affine_inverse()*at).y
+	scroll.scroll_vertical=roundi(drag_scroll_start+drag_local_start-local_y)
+	get_viewport().set_input_as_handled()
+func end_item_drag() -> void:
+	if dragging:
+		scroll.propagate_notification(Control.NOTIFICATION_SCROLL_END);get_viewport().set_input_as_handled()
+	clear_touch.call_deferred(drag_serial)
+func clear_touch(serial:=-1) -> void:
+	if serial>=0 and serial!=drag_serial:return
+	touch_index=-1;mouse_drag_active=false;dragging=false

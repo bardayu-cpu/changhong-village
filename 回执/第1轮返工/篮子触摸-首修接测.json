@@ -1,0 +1,15 @@
+{
+  "item": "原1-篮子触摸拖动",
+  "attempt": 1,
+  "status": "最小代码修复与原生输入派发预检通过；真实硬件触摸欠验",
+  "change": "仅在物品滚动区捕获手势；越过8像素后取消卡片点击并按坐标变换滚动。同时处理鼠标拖动及合并运动后的释放位移，释放后恢复正常点按/焦点。",
+  "checks": "7项通过Window/Control真实输入派发，包括鼠标点按、卡内50px拖动、ScreenDrag滚动、ScreenTouch点按、区域外手势、拖后焦点与无库存/存档写入；不是直接调用_input测试",
+  "evidence": [
+    "篮子触摸-派发核对.json",
+    "篮子触摸-派发核对.log",
+    "篮子触摸-原生派发检查.gd"
+  ],
+  "pending": "C3/阿鱼真实触摸硬件实测；没有接口不能用模拟输入冒充。",
+  "old_standards_unchanged": true,
+  "runtime_warning": "日志保留Godot系统证书ret!=noErr提示；退出0。"
+}
