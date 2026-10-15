@@ -127,15 +127,16 @@ func draw_civic(effects:Dictionary) -> void:
 func draw_community(effects:Dictionary) -> void:
 	var woven:int=mini(7,int((elapsed-float(changed_at.get("weave",-20.0)))*2)) if int(effects.get("weave",0))>0 else 0
 	for n in 7:
-		draw_rect(Rect2(312+n*4,137,2,18),Color("b89851"))
-		if n<woven:draw_rect(Rect2(310,138+n*2,31,1),Color("ead39a"))
+		draw_rect(Rect2(250+n*4,145,2,18),Color("b89851"))
+		if n<woven:draw_rect(Rect2(248,146+n*2,31,1),Color("ead39a"))
 	var laid:bool=int(effects.get("table",0))>0
-	for n in 4:
-		var p:=Vector2(213+n*24,281) if laid else Vector2(293+n%2*14,274+n/2*11)
-		draw_rect(Rect2(p,Vector2(10,6)),Color("eadbbe"));draw_rect(Rect2(p+Vector2(2,1),Vector2(6,2)),Color("a9bdb2"))
+	if laid:
+		# 复用已有独立透明餐食精灵，摆到新图四只餐盘；不再画米色/浅绿矩形碗。
+		for n in 4:
+			var p:Vector2=[Vector2(222,253),Vector2(312,253),Vector2(222,312),Vector2(312,312)][n]
+			draw_texture_rect(Assets.texture("res://ayu_home/v4/assets/floor1-redraw/meal-"+str(n)+".png"),Rect2(p-Vector2(10,8),Vector2(20,17)),false)
 	# 棋盒和球篮使用C4底图；整理状态照常保存，不用悬空彩块代替实物。
-	if int(effects.get("read",0))>0:
-		draw_rect(Rect2(130,450,26,16),Color("e5cfa5"));draw_line(Vector2(143,450),Vector2(143,466),Color("916a45"),2)
+	# 图画册使用真实底图，阅读反馈由原有故事册翻页面板呈现。
 	if slot_index==0 and actor.visible:
 		for n in 5:draw_rect(Rect2(Vector2(64+n*5,224+sin(elapsed*4+n)*3).round(),Vector2(3,3)),Color("b8ded2"))
 

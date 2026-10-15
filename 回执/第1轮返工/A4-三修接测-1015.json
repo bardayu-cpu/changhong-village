@@ -1,0 +1,283 @@
+{
+  "item": "A4",
+  "attempt": 3,
+  "date": "2026-10-15",
+  "status": "末次样板已绑定，必要预检通过，待C3真实双视口同窗并排；尚未判A4通过。",
+  "base_commit": "9caa18f5fe66e35ba277158d7bafd012ca4a6f23",
+  "production_files": [
+    "godot/ayu_home/v4/assets/my_cabin.json",
+    "godot/ayu_home/v4/assets/rooms.json",
+    "godot/ayu_home/v4/assets/institutions/community-a4-v3.png",
+    "godot/ayu_home/v4/home.gd",
+    "godot/ayu_home/v4/core/institution_room.gd"
+  ],
+  "art_source": "回执/第1轮返工/设计/续办-1015/A4-活动中心第3次紧凑构图-508x600-v1.png",
+  "art_sha256": "1c7d1fa897eac465b058e517b0515d1bf4cad5d536d7b614d2c6669b80d0ec59",
+  "art_copied_without_edit": true,
+  "entry": {
+    "door": {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        347,
+        552
+      ],
+      "approach": [
+        347,
+        499
+      ],
+      "arrival": [
+        347,
+        415
+      ],
+      "face": "up",
+      "kind": "door",
+      "span": [
+        347,
+        510,
+        89
+      ],
+      "width": 89,
+      "explicit_opening": true
+    },
+    "actual_arrival": [
+      346.0,
+      414.0
+    ],
+    "previous_door_inside": [
+      346.0,
+      498.0
+    ],
+    "continuous_path_world_length": 84,
+    "note": "加载落点前移84逻辑像素；原门位置/宽度与步行区不动。原生路径为可走直线，仍需C3正常进门判断体验合理，不能算GUI通过。"
+  },
+  "camera": "只对活动中心入口前视，离开入口160逻辑像素后退回原跟随；按窗口保护人物。阿鱼客厅及其他五机构目标不变。",
+  "binding": {
+    "obstacles": [
+      [
+        173,
+        97,
+        305,
+        72
+      ],
+      [
+        171,
+        213,
+        191,
+        27
+      ],
+      [
+        152,
+        244,
+        204,
+        85
+      ],
+      [
+        136,
+        252,
+        29,
+        107
+      ],
+      [
+        222,
+        331,
+        44,
+        42
+      ],
+      [
+        282,
+        331,
+        44,
+        42
+      ],
+      [
+        27,
+        151,
+        84,
+        141
+      ],
+      [
+        27,
+        296,
+        60,
+        65
+      ],
+      [
+        36,
+        328,
+        47,
+        36
+      ],
+      [
+        29,
+        393,
+        94,
+        47
+      ],
+      [
+        34,
+        449,
+        72,
+        57
+      ],
+      [
+        127,
+        421,
+        70,
+        65
+      ],
+      [
+        430,
+        235,
+        47,
+        165
+      ]
+    ],
+    "hotspots": [
+      {
+        "id": "community_meal",
+        "pos": [
+          76,
+          207
+        ],
+        "approach": [
+          130,
+          207
+        ],
+        "kind": "community_game",
+        "label": "一起备共桌餐"
+      },
+      {
+        "id": "craft_demo",
+        "pos": [
+          270,
+          153
+        ],
+        "approach": [
+          333,
+          204
+        ],
+        "kind": "bamboo_weave",
+        "label": "编一片竹席",
+        "action": "weave"
+      },
+      {
+        "id": "shared_table",
+        "pos": [
+          252,
+          285
+        ],
+        "approach": [
+          374,
+          350
+        ],
+        "kind": "communal_table",
+        "label": "摆好共桌碗碟",
+        "action": "table"
+      },
+      {
+        "id": "story_book",
+        "pos": [
+          149,
+          486
+        ],
+        "approach": [
+          210,
+          445
+        ],
+        "kind": "story_album",
+        "label": "翻翻图画故事册",
+        "action": "read"
+      },
+      {
+        "id": "return_box",
+        "pos": [
+          454,
+          310
+        ],
+        "approach": [
+          400,
+          315
+        ],
+        "kind": "activity_tidy",
+        "label": "收好棋盒和球",
+        "action": "tidy"
+      },
+      {
+        "id": "rest_seat",
+        "pos": [
+          58,
+          458
+        ],
+        "approach": [
+          114,
+          449
+        ],
+        "kind": "seat",
+        "label": "坐在茶角歇脚",
+        "seat": [
+          58,
+          458
+        ],
+        "face": "right"
+      }
+    ],
+    "resident_schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          130,
+          207
+        ],
+        "face": "left",
+        "action": "wash",
+        "line": "我在这里值日，先把菜洗好，再摆大家的碗。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          366,
+          294
+        ],
+        "face": "left",
+        "action": "stir",
+        "line": "共桌的菜一起拌，竹条等会儿也教你编。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          58,
+          458
+        ],
+        "approach": [
+          114,
+          449
+        ],
+        "face": "right",
+        "action": "read",
+        "line": "今天的物件都收齐了，我把故事册这一页合上。"
+      }
+    ]
+  },
+  "feedback": {
+    "weave": "既有竹条反馈移到新图实物编席处。",
+    "table": "移除旧米色/浅绿几何碗框；摆碗后在四盘上显示既有独立RGBA餐食meal-0..3。未拆家具，未绘新图或动画。",
+    "read": "移除覆盖真实书页的几何纸块；阅读保留原故事册翻页面板。",
+    "tidy": "底图棋球和原交互状态保留，专用前后态美术不足不冒称全项通过。"
+  },
+  "validation": {
+    "compile_exit": 0,
+    "script_errors": 0,
+    "entry_cases": 4,
+    "walking_routes": 14,
+    "nominal_actor_screen_height": 168,
+    "other_room_configs_unchanged": true,
+    "original_tests_unchanged": true,
+    "real_GUI_pass": false,
+    "fixture_note": "首次编译因夹具door_inside缺显式Vector2类型失败，修夹具后通过；原日志保留，不另算美术试次。",
+    "environment": "保留macOS证书ret != noErr提示。"
+  },
+  "C3_target": "从村路正常进入，540x960及1280x720与阿鱼同窗同季节并排；看共桌、功能角、人物清晰度及体量、门内落点和走回门口、四项互动及NPC。禁止第4次自动重画。",
+  "village": "v2仅归档及给C4首段参数，室外未接图。"
+}

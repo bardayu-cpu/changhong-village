@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "door_inside" variable because the value doesn't have a set type.
+          at: GDScript::reload (/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/A4-三修-入口通路预检.gd:23)
+ERROR: Failed to load script "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/A4-三修-入口通路预检.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

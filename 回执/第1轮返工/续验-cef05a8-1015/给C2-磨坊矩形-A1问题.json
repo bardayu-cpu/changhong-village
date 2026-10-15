@@ -1,0 +1,38 @@
+{
+  "id": "A1-磨坊早晨簸谷裸矩形",
+  "status": "视觉失败；等C2稳定SHA后单点复验",
+  "commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "date": "2026-10-15",
+  "conditions": {
+    "hour": 9.0,
+    "visual_month": 10,
+    "visual_weather": "clear",
+    "world_weather": "clear",
+    "window_size": [
+      540,
+      960
+    ]
+  },
+  "resident": {
+    "action": "sift",
+    "bubble": "早上的谷子干爽，先把壳簸出去，磨出的粉才细。",
+    "bubble_visible": true,
+    "face": "right",
+    "lift": 0.0,
+    "position": [
+      106.0,
+      280.0
+    ],
+    "slot": 0,
+    "walking": false
+  },
+  "player": [
+    159.629531860352,
+    277.636779785156
+  ],
+  "finding": "NPC手前纯色棕矩形与浅黄横条；实际工作叠层，不是宣称开启了调试开关。",
+  "source_hint": "institution_room.gd draw_work sift: 38x11 brown, 32x6 yellow, seven dots",
+  "raw": "回执/第1轮返工/图/返工续验-cef05a8-1015-042-A1-磨坊早晨簸谷-腰前纯色矩形问题-9时.png",
+  "pair": "回执/第1轮返工/图/续验-cef05a8-A1-磨坊早晨矩形-9时-左目标右阿鱼.png",
+  "scope": "正常地图进入、原时钟9时、居民就位后走近；无位置或物资注入。仅失败证据。"
+}

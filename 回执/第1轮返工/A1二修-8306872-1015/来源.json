@@ -1,0 +1,26 @@
+{
+  "commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+  "published_ancestor_of": "origin/village-deep-1010",
+  "scope": "A1二修独立图形目标复验；不重复首日",
+  "save": "克隆刚正常完成的唯一首日档，原首日文件不变；不改档内容，不加物资/进度",
+  "profile": "c3-continuous-cef05a8-1015-once",
+  "visual": "540x960，10月晴9/13/19，原有视觉时钟；不改变生产经济时间",
+  "observer": "原观察器仅换路径/前缀",
+  "diff_from_cef": [
+    "godot/ayu_home/v4/actor.gd",
+    "godot/ayu_home/v4/core/institution_room.gd"
+  ],
+  "files": {
+    "godot/ayu_home/v4/actor.gd": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a",
+    "godot/ayu_home/v4/core/institution_room.gd": "cd7211b44cdb5b1d25357e80ea35ac0353a845153d83a391a9a8dd4f1c429325"
+  },
+  "final_verification": {
+    "critical_files_identical_to_commit": {
+      "godot/ayu_home/v4/actor.gd": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a",
+      "godot/ayu_home/v4/core/institution_room.gd": "cd7211b44cdb5b1d25357e80ea35ac0353a845153d83a391a9a8dd4f1c429325"
+    },
+    "published_ancestor_check_exit": 0,
+    "window": "游戏保留打开，未声称本次进程已退出",
+    "scope": "预检不替代实机；目标原图与固定侧证按单独索引"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "status": "通过本次唯一新档连续首日功能验收；不是画面整体通过",
+  "source_commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "profile": "c3-continuous-cef05a8-1015-once",
+  "start_unix": 1792061743.812261,
+  "first_state_unix": 1792061748.93873,
+  "goal_confirm_unix": 1792062470.71339,
+  "goal_confirm_elapsed_seconds": 726.9011290073395,
+  "goal_ready_elapsed_seconds": 669.882798910141,
+  "residency_elapsed_seconds": 469.5814788341522,
+  "land_paid_elapsed_seconds": 666.8827888965607,
+  "initial": {
+    "coins": 0,
+    "order_total": 0,
+    "resident": false,
+    "location": "",
+    "land": [
+      0,
+      0,
+      0
+    ]
+  },
+  "final": {
+    "coins": 30,
+    "order_total": 3,
+    "resident": true,
+    "location": "lake",
+    "land_due": 1792062413.69506,
+    "land_ready_at_confirmation": true,
+    "page": "院子"
+  },
+  "wallet_ledger": [
+    {
+      "delta": 55,
+      "line": "village",
+      "src": "order",
+      "t": 1792062057.4057
+    },
+    {
+      "delta": 60,
+      "line": "village",
+      "src": "order",
+      "t": 1792062132.31949
+    },
+    {
+      "delta": 75,
+      "line": "village",
+      "src": "order",
+      "t": 1792062154.03553
+    },
+    {
+      "delta": -100,
+      "line": "village",
+      "src": "decor",
+      "t": 1792062213.39374
+    },
+    {
+      "delta": -60,
+      "line": "village",
+      "src": "decor",
+      "t": 1792062410.69505
+    }
+  ],
+  "animal_supplies": [
+    {
+      "at": 1792061802.79951,
+      "items": {
+        "bamboo": 2,
+        "stone": 2
+      },
+      "kind": "animal",
+      "who": "xiduo"
+    },
+    {
+      "at": 1792061846.11771,
+      "items": {
+        "bamboo": 1,
+        "radish_seed": 1,
+        "stone": 1,
+        "tool": 1
+      },
+      "kind": "animal",
+      "who": "qiuqiu"
+    },
+    {
+      "at": 1792061846.76273,
+      "items": {
+        "bamboo": 1,
+        "parcel": 2,
+        "stone": 1
+      },
+      "kind": "animal",
+      "who": "luoluo"
+    },
+    {
+      "at": 1792061847.36262,
+      "items": {
+        "bamboo": 1,
+        "grain_seed": 2,
+        "parcel": 1
+      },
+      "kind": "animal",
+      "who": "tiantian"
+    }
+  ],
+  "native_pressed_events": 67,
+  "clock_injection_events": 0,
+  "window_close_events_before_goal": 0,
+  "fresh_save_basis": "运行前专属目录为空，launcher作空目录校验；唯一首次启动、无克隆档、无物资/进度/时钟注入；正常现实时间18:55起，游戏内日期10/15。",
+  "normal_actions": "四宠物正常领取；六格正常种收；做拌菜、交海椒/谷子/拌菜三单；沿村路找村长，提交100金币与楼卜竹材；湖边选址，回院点荒地，确认60金币及石头竹材旧锄头。",
+  "ui_confirmation": "正常重新打开院子后显示第1块·已开好；初次界面的正在开地文案没有自动刷新，重开页面后正确，过程未退出游戏。",
+  "art_gate": "本目录原帧为功能记录，不作为美术送审通过图；不凑阿鱼不同页面假对照；未配对原帧不加入画面通过清单。",
+  "fixed_source_records": [
+    {
+      "path": "回执/第1轮返工/连续首日-cef05a8-1015-once/连续启动.json",
+      "sha256": "45970e1634132db087e27bec109eb36157dc5c099e3b25fd0ec08b04538e6037"
+    },
+    {
+      "path": "回执/第1轮返工/连续首日-cef05a8-1015-once/连续首日-cef05a8-1015-once-001-H6-入区-exterior.json",
+      "sha256": "f01ff43049070aabaa010b5577775fc0791166be1a69ce01e408f8ba7cae3880"
+    },
+    {
+      "path": "回执/第1轮返工/连续首日-cef05a8-1015-once/连续首日-cef05a8-1015-once-009-首日-落户且第一块地已开好-正常UI确认.json",
+      "sha256": "4fd95d227b4f9d50efeac9d3917dcbf3ea7b868e1cc8fc95258b1c167c742680"
+    }
+  ],
+  "continuity_end": {
+    "normal_close_after_goal": true,
+    "engine_exit_code": 0,
+    "total_session_seconds": 788.1805188655853,
+    "exit_unix": 1792062531.99278
+  },
+  "exit_notes": "正常关闭、engine exit0；仍有5个CanvasItem/纹理RID及15个ObjectDB释放警告。保留原始输出，未当成干净退出通过；该既有警告不改变本次首日目标事实。"
+}

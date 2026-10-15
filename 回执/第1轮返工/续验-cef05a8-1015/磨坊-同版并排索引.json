@@ -1,0 +1,66 @@
+[
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A4-磨坊进门首屏-13时-左目标右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-031-A4-磨坊正常进门首屏-13时.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-027-A4参照-阿鱼家正常门口进入客厅首屏-13时.png",
+    "conditions": {
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ]
+    },
+    "scope": "室内2.0镜头；局部可见范围，不代表整室无问题；A4两侧正常门口进入首屏。"
+  },
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A1-磨坊晚间-19时-左目标右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-039-A1-磨坊晚间居民坐椅-19时.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-019-参照-阿鱼客厅主体-19时.png",
+    "conditions": {
+      "hour": 19.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ]
+    },
+    "scope": "室内2.0镜头；局部可见范围，不代表整室无问题；A4两侧正常门口进入首屏。"
+  },
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A1-磨坊早晨矩形-9时-左目标右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-042-A1-磨坊早晨簸谷-腰前纯色矩形问题-9时.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-021-参照-阿鱼客厅主体-9时.png",
+    "conditions": {
+      "hour": 9.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ]
+    },
+    "scope": "室内2.0镜头；局部可见范围，不代表整室无问题；A4两侧正常门口进入首屏。"
+  },
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A1-磨坊中午-13时-左目标右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-045-A1-磨坊中午石磨工作近景-13时.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-023-参照-阿鱼客厅主体-13时.png",
+    "conditions": {
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ]
+    },
+    "scope": "室内2.0镜头；局部可见范围，不代表整室无问题；A4两侧正常门口进入首屏。"
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A2-房屋人物横窗-左村路右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-051-A2-村路养蜂小院门前-横窗13时晴.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-055-A2参照-阿鱼房屋人物-横窗13时晴.png",
+    "conditions": {
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ]
+    },
+    "scope": "同为房屋门前场景；只覆盖样本，不代表全村每栋比例",
+    "world_scale_left": [
+      2.0,
+      2.0
+    ],
+    "world_scale_right": [
+      2.0,
+      2.0
+    ],
+    "pixel_edit": "只按原像素并排，无缩放裁切"
+  },
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A2-果树人物横窗-左村路右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-052-A2-村路果树人物-横窗13时晴.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-054-A2参照-阿鱼院门人物植被-横窗13时晴.png",
+    "conditions": {
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ]
+    },
+    "scope": "同为室外人物与植被；不同树种，不据此证明所有树比例已通过",
+    "world_scale_left": [
+      2.0,
+      2.0
+    ],
+    "world_scale_right": [
+      2.0,
+      2.0
+    ],
+    "pixel_edit": "只按原像素并排，无缩放裁切",
+    "measurement_status": "RGB对齐只得到局部区域，未采信作完整人物包围盒；不能声明误差<=2px。"
+  },
+  {
+    "pair": "回执/第1轮返工/图/续验-cef05a8-A2-人物室内外高度侧证-左村路右阿鱼.png",
+    "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-052-A2-村路果树人物-横窗13时晴.png",
+    "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-057-A2参照-阿鱼客厅无遮挡人物-横窗13时晴.png",
+    "conditions": {
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ]
+    },
+    "scope": "仅人物高度跨场景侧证，不当作同场景美术送审通过图",
+    "world_scale_left": [
+      2.0,
+      2.0
+    ],
+    "world_scale_right": [
+      2.0,
+      2.0
+    ],
+    "pixel_edit": "只按原像素并排，无缩放裁切",
+    "measurement_status": "RGB对齐只得到局部区域，未采信作完整人物包围盒；不能声明误差<=2px。"
+  }
+]

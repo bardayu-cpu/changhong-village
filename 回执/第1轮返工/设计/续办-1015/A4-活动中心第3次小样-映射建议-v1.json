@@ -1,0 +1,46 @@
+{
+  "art": {
+    "high_res": "回执/第1轮返工/设计/续办-1015/A4-活动中心第3次紧凑构图小样.png",
+    "high_res_px": [1153, 1364],
+    "target_preview": "回执/第1轮返工/设计/续办-1015/A4-活动中心第3次紧凑构图-508x600-v1.png",
+    "target_px": [508, 600],
+    "high_to_target_scale": [0.44059, 0.43988]
+  },
+  "entry_proposal": {
+    "door_unchanged": true,
+    "arrival": [347, 415],
+    "face": "up",
+    "clear_corridor": [330, 375, 60, 135]
+  },
+  "camera_proposal": {
+    "portrait_center": [256, 313],
+    "portrait_safe_world": [131, 150.5, 250, 325],
+    "landscape_center": [254, 313],
+    "landscape_safe_world_clipped": [0, 210.5, 508, 205]
+  },
+  "visual_envelopes_estimate_xywh": {
+    "weave": [170, 72, 310, 116],
+    "table": [136, 212, 225, 162],
+    "table_prep_support": [25, 50, 98, 338],
+    "read": [24, 383, 190, 132],
+    "tidy": [422, 187, 64, 222]
+  },
+  "suggested_obstacles_xywh": {
+    "weave": [[173, 97, 305, 72]],
+    "table": [[171, 213, 191, 27], [152, 244, 204, 85], [136, 252, 29, 107], [222, 331, 44, 42], [282, 331, 44, 42]],
+    "table_prep_support": [[27, 151, 84, 141], [27, 296, 60, 65], [36, 328, 47, 36]],
+    "read": [[29, 393, 94, 47], [34, 449, 72, 57], [127, 421, 70, 65]],
+    "tidy": [[430, 235, 47, 165]]
+  },
+  "suggested_hotspots": {
+    "craft_demo": {"pos": [333, 123], "approach": [333, 204]},
+    "community_meal": {"pos": [76, 207], "approach": [130, 207]},
+    "shared_table": {"pos": [252, 285], "approach": [374, 315]},
+    "story_book": {"pos": [149, 486], "approach": [210, 445]},
+    "rest_seat": {"pos": [58, 458], "approach": [106, 449]},
+    "return_box": {"pos": [454, 310], "approach": [400, 315]}
+  },
+  "estimated_real_obstacle_coverage": 0.294,
+  "status": "供C2绑定与C3双视口实测；不是已验收坐标"
+}
+

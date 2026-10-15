@@ -1,0 +1,51 @@
+{
+  "actual_tested_commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "method": "git archive independent snapshot; only generated cache reused; production bytes unchanged",
+  "rules": "remaining10%stop; same model/effort; no agents; no production/Git mutation",
+  "latest_usage_remaining_percent": 82,
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/actor.gd",
+      "sha256": "f05226046f40e0495664481b830bd2eccfa5cc67d6826950bf485ddb426f2980"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_room.gd",
+      "sha256": "0cddac036102a224f482146bc3159bbbad16902b65b4644fe75fa4f4575d7e0c"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/inventory_view.gd",
+      "sha256": "a208051ed59979587c0e5299a22f80d99ca9af6c012b338b6858b512ae3de8e0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/rooms.json",
+      "sha256": "bacfa3c8832250c866cfcbe4d1a8d50bbce20ac352b7b1e651d62ce904685adc"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.json",
+      "sha256": "74d396f3725ba2f1ce5fffec45c9e7722d7425ee623a3dc4c6ea2b630b212cc1"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h3.json",
+      "sha256": "c5b50f48cd965ea32d7f3f9370a28be226f11d750a705833ce404fcfb1ad842d"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/config.gd",
+      "sha256": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/state.gd",
+      "sha256": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e"
+    }
+  ],
+  "latest_A1_stage": {
+    "commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+    "source": "回执/第1轮返工/A1二修-8306872-1015/来源.json",
+    "target_cells": 12,
+    "whole_room_pass": false,
+    "other_cells_pending": 69,
+    "h3_representatives": 4,
+    "pairs": 16,
+    "firstday_repeated": false,
+    "usage_remaining_percent": 70
+  }
+}

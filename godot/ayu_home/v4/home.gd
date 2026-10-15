@@ -223,7 +223,7 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 			if player.position.distance_to(entrance)<28:
 				player.position=world.nearest(entrance+dir(str(doorway.face))*34);break
 	sync_family(false);cooldown=.45;room_history.append(area);life.discover("room:"+area);title.text="裳泓村 · "+("你的房间" if area=="guest" and life.data.resident else str(world.cfg.title)).replace("后花园 · 果园 · 菜地","后花园").replace("一楼楼梯与过道","一楼楼梯")
-	camera=player.position-Vector2(0,65);world.parallax_origin=camera
+	camera=room_camera_target();world.parallax_origin=camera
 	if village_ui!=null:village_ui.entered()
 	room_entries+=1;note="走近东西，点气泡就能做事" if room_entries<=3 else "";make_markers();layout();play_ambience()
 	if with_transition:
@@ -321,7 +321,7 @@ func _process(dt:float) -> void:
 		if not after_door.is_empty() and pending.is_empty() and player.route.is_empty():continue_into_room()
 		elif final_leg and player.route.is_empty():final_leg=false
 	update_family_walk(dt);update_pets(dt);update_ball(dt);update_water_audio();update_bark()
-	var target:Vector2=player.position-Vector2(0,65)
+	var target:Vector2=room_camera_target()
 	camera=camera.lerp(target,1-exp(-dt*7));layout_world()
 	var distance:=76.0;near_id=""
 	for h in world.cfg.hotspots+world.cfg.doors:
@@ -778,6 +778,12 @@ func show_toast(copy:String) -> void:
 	toast.modulate.a=0;toast.position.y=hud_bottom()+2
 	toast_tween=create_tween();toast_tween.set_parallel(true);toast_tween.tween_property(toast,"modulate:a",1.0,.18);toast_tween.tween_property(toast,"position:y",hud_bottom()+10,.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	toast_tween.chain().tween_interval(3.4);toast_tween.chain().tween_property(toast,"modulate:a",0.0,.5)
+func room_camera_target() -> Vector2:
+	var target:Vector2=player.position-Vector2(0,65)
+	if area=="my_cabin" and world.cfg.has("entry_camera_bias"):
+		var weight:=clampf(1.0-player.position.distance_to(World.v(world.cfg.spawn))/float(world.cfg.entry_camera_radius),0.0,1.0)
+		target-=World.v(world.cfg.entry_camera_bias)*weight
+	return target
 func layout_world() -> void:
 	if not world or world.cfg.is_empty():return
 	var screen:=get_viewport_rect().size
@@ -792,6 +798,13 @@ func layout_world() -> void:
 		var origin:=World.v(world.cfg.source_offset)-World.v(world.cfg.source_crop)
 		var art_size:=Vector2(world.base_sprite.texture.get_size())
 		center=camera.clamp(origin+visible_world*.5,origin+art_size-visible_world*.5)
+	if area=="my_cabin" and world.cfg.has("entry_camera_bias") and is_instance_valid(player):
+		# 入门前视随行走退回普通跟随；窄/横窗口仍给玩家留出顶栏和底栏空间。
+		var safe_top:=maxf(17.0,125.0-top_area)
+		var lower:Vector2=player.position+Vector2(20,0)-(screen-Vector2(20,29)-screen*.5)/view_scale
+		var upper:Vector2=player.position-Vector2(20,84)-(Vector2(20,safe_top)-screen*.5)/view_scale
+		if lower.x<=upper.x:center.x=clampf(center.x,lower.x,upper.x)
+		if lower.y<=upper.y:center.y=clampf(center.y,lower.y,upper.y)
 	world.scale=Vector2.ONE*view_scale;world.position=(screen*.5-center*view_scale).round();world.camera_center=center
 func make_markers() -> void:
 	for n in markers.get_children():n.queue_free()

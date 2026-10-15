@@ -1,0 +1,301 @@
+{
+	"arrival": [
+		346.0,
+		414.0
+	],
+	"entries": [
+		{
+			"actor": [
+				384.0,
+				483.0,
+				128.0,
+				168.0
+			],
+			"actor_visible": true,
+			"center": [
+				256.795501708984,
+				313.318206787109
+			],
+			"header": 88.0,
+			"nominal_actor_height": 168.0,
+			"table": [
+				28.0,
+				247.0,
+				450.0,
+				324.0
+			],
+			"table_visible": true,
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor": [
+				384.0,
+				489.0,
+				128.0,
+				168.0
+			],
+			"actor_visible": true,
+			"center": [
+				256.795501708984,
+				313.318206787109
+			],
+			"header": 100.0,
+			"nominal_actor_height": 168.0,
+			"table": [
+				28.0,
+				253.0,
+				450.0,
+				324.0
+			],
+			"table_visible": true,
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor": [
+				760.0,
+				363.0,
+				128.0,
+				168.0
+			],
+			"actor_visible": true,
+			"center": [
+				254.0,
+				313.318206787109
+			],
+			"header": 88.0,
+			"nominal_actor_height": 168.0,
+			"table": [
+				404.0,
+				127.0,
+				450.0,
+				324.0
+			],
+			"table_visible": true,
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor": [
+				760.0,
+				367.0,
+				128.0,
+				168.0
+			],
+			"actor_visible": true,
+			"center": [
+				254.0,
+				314.5
+			],
+			"header": 100.0,
+			"nominal_actor_height": 168.0,
+			"table": [
+				404.0,
+				131.0,
+				450.0,
+				324.0
+			],
+			"table_visible": true,
+			"window": [
+				1280,
+				720
+			]
+		}
+	],
+	"entry_path_world_length": 84.0,
+	"failures": [],
+	"mode": "Native headless path, Actor.move_along, camera and sprite-bound preflight; no GUI or save. Visual style/corner recognition and actual doorway experience await C3.",
+	"old_door_inside": [
+		346.0,
+		498.0
+	],
+	"unaffected_room_targets": [
+		{
+			"room": "living",
+			"target_unchanged": true
+		},
+		{
+			"room": "v_h3",
+			"target_unchanged": true
+		},
+		{
+			"room": "v_h3_up",
+			"target_unchanged": true
+		},
+		{
+			"room": "v_h5",
+			"target_unchanged": true
+		},
+		{
+			"room": "v_mayor",
+			"target_unchanged": true
+		},
+		{
+			"room": "v_mayor_up",
+			"target_unchanged": true
+		}
+	],
+	"walks": [
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 175,
+			"target": "community_meal",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 111,
+			"target": "craft_demo",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 34,
+			"target": "shared_table",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 67,
+			"target": "story_book",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 55,
+			"target": "return_box",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 133,
+			"target": "rest_seat",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 38,
+			"target": "outside",
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "community_meal",
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "craft_demo",
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "shared_table",
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "story_book",
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "return_box",
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "rest_seat",
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actor_visible": true,
+			"continuous_passable": true,
+			"finished": true,
+			"steps": 0,
+			"target": "outside",
+			"window": [
+				1280,
+				720
+			]
+		}
+	]
+}

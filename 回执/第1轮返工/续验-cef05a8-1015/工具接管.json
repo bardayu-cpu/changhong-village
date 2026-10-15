@@ -1,0 +1,27 @@
+{
+  "commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "status": "实际鼠标与键盘已恢复",
+  "native_bind": "重新枚举后绑定org.godotengine.godot，标题裳泓村·把日子住进来",
+  "mouse": "click [421,916]打开随身篮子",
+  "keyboard": "Escape关闭篮子返回书房",
+  "startup_attempts": [
+    {
+      "attempt": 1,
+      "method": "LaunchServices",
+      "result": "kLSNoExecutableErr -10827"
+    },
+    {
+      "attempt": 2,
+      "method": "受限直启",
+      "result": "exit -6"
+    },
+    {
+      "attempt": 3,
+      "method": "正常图形权限直启同一隔离副本",
+      "result": "成功；运行session31642"
+    }
+  ],
+  "known_capabilities": "未重探真触摸/实听；仍无公开接口",
+  "stop_rule": "余10%停止",
+  "source_changes": "无；独立副本复用已有生成缓存；资源批量导入中断记录保留"
+}

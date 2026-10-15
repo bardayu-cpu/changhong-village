@@ -1,0 +1,298 @@
+{
+  "commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+  "scope": "4机构各1项代表互动；不等同全部24项回归",
+  "entries": [
+    {
+      "kind": "代表互动",
+      "room": "v_h3",
+      "title": "磨坊簸谷",
+      "hour": 13,
+      "raw": "回执/第1轮返工/图/A1二修-8306872-1015-008-H3-v_h3-实时互动后.png",
+      "reference": "回执/第1轮返工/图/A1二修-8306872-1015-011-续接-阿鱼客厅参照13时.png",
+      "pair": "回执/第1轮返工/图/A1二修-8306872-代表互动-磨坊簸谷-13时-左目标右阿鱼.png",
+      "observation": {
+        "at": 1792063438.65279,
+        "area": "v_h3",
+        "position": [
+          106.0,
+          282.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {
+          "action": "mill",
+          "bubble": "搭把手推一圈吧，粉槽满了就能收好。",
+          "bubble_visible": false,
+          "face": "up",
+          "lift": 0.0,
+          "position": [
+            276.0,
+            280.0
+          ],
+          "slot": 1,
+          "walking": false
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "cdd09e34d5c247f274c640056236a213901c1584322235ed12c6dc72ecf238b2"
+      },
+      "reference_observation": {
+        "at": 1792066718.33557,
+        "area": "living",
+        "position": [
+          361.6,
+          300.9
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {},
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "769e24722e60d67060b384a8ac7f1dac502fa8faead6f733ecfd9c0f07c2b4c5"
+      },
+      "scope": "可见目标局部；非整室美术通过，非A4进门首屏",
+      "action": "sift",
+      "after_count": 1,
+      "feedback": "正常GUI实点后文字及场所/物件反馈可见；未替代全部24项回归"
+    },
+    {
+      "kind": "代表互动",
+      "room": "v_h5",
+      "title": "蜂具清洗",
+      "hour": 13,
+      "raw": "回执/第1轮返工/图/A1二修-8306872-1015-021-H3-v_h5-实时互动后.png",
+      "reference": "回执/第1轮返工/图/A1二修-8306872-1015-011-续接-阿鱼客厅参照13时.png",
+      "pair": "回执/第1轮返工/图/A1二修-8306872-代表互动-蜂具清洗-13时-左目标右阿鱼.png",
+      "observation": {
+        "at": 1792064105.3775,
+        "area": "v_h5",
+        "position": [
+          150.0,
+          278.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {
+          "action": "honey",
+          "bubble": "蜂具先洗净，等下摇蜜就不会把碎蜡带进瓶里。",
+          "bubble_visible": false,
+          "face": "left",
+          "lift": 0.0,
+          "position": [
+            343.0,
+            278.0
+          ],
+          "slot": 1,
+          "walking": false
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "32a3ebfe323e2bf1c82ba8a8f4a37a917b865b92eecb5b670cf230f73ecb0d46"
+      },
+      "reference_observation": {
+        "at": 1792066718.33557,
+        "area": "living",
+        "position": [
+          361.6,
+          300.9
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {},
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "769e24722e60d67060b384a8ac7f1dac502fa8faead6f733ecfd9c0f07c2b4c5"
+      },
+      "scope": "可见目标局部；非整室美术通过，非A4进门首屏",
+      "action": "wash",
+      "after_count": 1,
+      "feedback": "正常GUI实点后文字及场所/物件反馈可见；未替代全部24项回归"
+    },
+    {
+      "kind": "代表互动",
+      "room": "v_mayor",
+      "title": "名册登记",
+      "hour": 9,
+      "raw": "回执/第1轮返工/图/A1二修-8306872-1015-029-H3-v_mayor-实时互动后.png",
+      "reference": "回执/第1轮返工/图/A1二修-8306872-1015-013-续接-阿鱼客厅参照9时.png",
+      "pair": "回执/第1轮返工/图/A1二修-8306872-代表互动-名册登记-9时-左目标右阿鱼.png",
+      "observation": {
+        "at": 1792064671.23445,
+        "area": "v_mayor",
+        "position": [
+          314.0,
+          162.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {
+          "action": "registry",
+          "bubble": "先查好名册，今天办事就不用翻来翻去。",
+          "bubble_visible": true,
+          "face": "left",
+          "lift": 0.0,
+          "position": [
+            313.0,
+            163.0
+          ],
+          "slot": 0,
+          "walking": false
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "17928bbdc0c592d5d00909176507e4872e8530c1198d8490f7b13f2351f6a23e"
+      },
+      "reference_observation": {
+        "at": 1792066751.1134,
+        "area": "living",
+        "position": [
+          361.6,
+          300.9
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {},
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "259fba04a3f934730034f603f62bd734805be1fa2ba0c85ba776589000b581f8"
+      },
+      "scope": "可见目标局部；非整室美术通过，非A4进门首屏",
+      "action": "register",
+      "after_count": 1,
+      "feedback": "正常GUI实点后文字及场所/物件反馈可见；未替代全部24项回归"
+    },
+    {
+      "kind": "代表互动",
+      "room": "my_cabin",
+      "title": "竹席编织",
+      "hour": 9,
+      "raw": "回执/第1轮返工/图/A1二修-8306872-1015-003-H3-my_cabin-实时互动后.png",
+      "reference": "回执/第1轮返工/图/A1二修-8306872-1015-013-续接-阿鱼客厅参照9时.png",
+      "pair": "回执/第1轮返工/图/A1二修-8306872-代表互动-竹席编织-9时-左目标右阿鱼.png",
+      "observation": {
+        "at": 1792066494.7843,
+        "area": "my_cabin",
+        "position": [
+          334.0,
+          206.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {
+          "action": "wash",
+          "bubble": "",
+          "bubble_visible": false,
+          "face": "left",
+          "lift": 0.0,
+          "position": [
+            137.0,
+            207.0
+          ],
+          "slot": 0,
+          "walking": false
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "5d43cfe6eb93f7c3259c1e471b21fd0f476c1df3642d0ffcafce663c895eee9b"
+      },
+      "reference_observation": {
+        "at": 1792066751.1134,
+        "area": "living",
+        "position": [
+          361.6,
+          300.9
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "resident": {},
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "metadata_sha256": "259fba04a3f934730034f603f62bd734805be1fa2ba0c85ba776589000b581f8"
+      },
+      "scope": "可见目标局部；非整室美术通过，非A4进门首屏",
+      "action": "weave",
+      "after_count": 1,
+      "feedback": "正常GUI实点后文字及场所/物件反馈可见；未替代全部24项回归"
+    }
+  ]
+}
