@@ -1,0 +1,176 @@
+{
+	"failures": 0,
+	"mode": "Headless native institution setup/schedule/pose check; not visual acceptance or a C3 playtest.",
+	"no_game_state_or_save_instantiated": true,
+	"non_institution_overlay_default_preserved": true,
+	"schedule_cases": [
+		{
+			"action": "sift",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 9.0,
+			"room": "v_h3"
+		},
+		{
+			"action": "mill",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 13.0,
+			"room": "v_h3"
+		},
+		{
+			"action": "drink",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 19.0,
+			"room": "v_h3"
+		},
+		{
+			"action": "wash",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 9.0,
+			"room": "v_h5"
+		},
+		{
+			"action": "honey",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 13.0,
+			"room": "v_h5"
+		},
+		{
+			"action": "drink",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 19.0,
+			"room": "v_h5"
+		},
+		{
+			"action": "registry",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 9.0,
+			"room": "v_mayor"
+		},
+		{
+			"action": "stamp",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 13.0,
+			"room": "v_mayor"
+		},
+		{
+			"action": "read",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 19.0,
+			"room": "v_mayor"
+		},
+		{
+			"action": "wash",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 9.0,
+			"room": "my_cabin"
+		},
+		{
+			"action": "stir",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 13.0,
+			"room": "my_cabin"
+		},
+		{
+			"action": "read",
+			"checks": {
+				"existing_resident_texture_loaded": true,
+				"institution_hand_overlays_disabled": true,
+				"scheduled_action_retained": true,
+				"scheduled_face_retained": true,
+				"settled_visible_resident": true,
+				"visual_anchor_retained": true,
+				"work_layer_still_connected": true
+			},
+			"hour": 19.0,
+			"room": "my_cabin"
+		}
+	]
+}

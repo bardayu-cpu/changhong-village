@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+v_h3 9.0 sift { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+v_h3 13.0 mill { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+v_h3 19.0 drink { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+SCRIPT ERROR: Invalid access to property or key 'area' on a base object of type 'previously freed'.
+   at: _draw (res://ayu_home/v4/core/institution_room.gd:73)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://ayu_home/v4/core/institution_room.gd:73)
+v_h5 9.0 wash { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+v_h5 13.0 honey { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+v_h5 19.0 drink { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+SCRIPT ERROR: Invalid access to property or key 'area' on a base object of type 'previously freed'.
+   at: _draw (res://ayu_home/v4/core/institution_room.gd:73)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://ayu_home/v4/core/institution_room.gd:73)
+v_mayor 9.0 registry { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+v_mayor 13.0 stamp { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+v_mayor 19.0 read { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+SCRIPT ERROR: Invalid access to property or key 'area' on a base object of type 'previously freed'.
+   at: _draw (res://ayu_home/v4/core/institution_room.gd:73)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://ayu_home/v4/core/institution_room.gd:73)
+my_cabin 9.0 wash { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+my_cabin 13.0 stir { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+my_cabin 19.0 read { "scheduled_action_retained": true, "scheduled_face_retained": true, "visual_anchor_retained": true, "settled_visible_resident": true, "existing_resident_texture_loaded": true, "institution_hand_overlays_disabled": true, "work_layer_still_connected": true }
+SCRIPT ERROR: Invalid access to property or key 'area' on a base object of type 'previously freed'.
+   at: _draw (res://ayu_home/v4/core/institution_room.gd:73)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://ayu_home/v4/core/institution_room.gd:73)
+A1_SECOND_FIX failures=0 schedule_cases=12

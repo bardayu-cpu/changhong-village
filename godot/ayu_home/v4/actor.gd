@@ -24,6 +24,7 @@ var bubble: Label
 var bubble_tail: Sprite2D
 var bubble_time := 0.0
 var bubble_allowed:=true
+var draw_hand_overlays:=true # 机构居民关闭旧几何手部/手持物，其他角色保留原表现。
 var pet := false
 var freeze := false
 var seated_textures:Dictionary = {}
@@ -199,7 +200,7 @@ func _draw() -> void:
 		draw_rect(Rect2(-13,-9,10,12),Color("384456"));draw_rect(Rect2(3,-9,10,12),Color("384456"));draw_rect(Rect2(-15,2,14,5),Color("6b5246"));draw_rect(Rect2(3,2,14,5),Color("6b5246"))
 	# 新母亲动作自带手臂、道具和被子，避免旧代码色块叠在新图上。
 	if id=="mother" and not walking:return
-	if action in ["drink","eat"] and not walking:
+	if draw_hand_overlays and action in ["drink","eat"] and not walking:
 		var raise:float=(sin(elapsed*2)+1)*6
 		draw_rect(Rect2(5,-33-raise,12,6),Color("e9b98e"));draw_rect(Rect2(13,-38-raise,10,10),Color("f5e3bb"));draw_rect(Rect2(15,-38-raise,6,3),Color("9b6a35"))
 	if action in ["photo","hug"]:
@@ -217,5 +218,5 @@ func _draw() -> void:
 				draw_rect(Rect2(-25,top,50,12),quilt);draw_rect(Rect2(-24,top+(10 if head_down else -2),48,3),quilt.lightened(.35));draw_rect(Rect2(-25,top+(-2 if head_down else 10),50,2),quilt.darkened(.12))
 		var y:float=-43-fmod(elapsed*8,17);draw_string(UI.FONT,Vector2(24,y),"呼",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("eedabb"))
 
-	if action=="wash":
+	if draw_hand_overlays and action=="wash":
 		for i in 2:draw_rect(Rect2(-17+i*22,-37+sin(elapsed*9+i)*3,13,7),Color("edc5a2"))

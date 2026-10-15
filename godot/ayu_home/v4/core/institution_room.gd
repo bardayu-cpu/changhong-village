@@ -14,7 +14,7 @@ var settled:=false
 var work_layer:Node2D
 func setup(owner) -> void:
 	ui=owner;record=ui.home.world.cfg.npc.duplicate(true);record.schedule=ui.home.world.cfg.resident.schedule
-	actor=Actor.new();actor.look_override=Residents.look(str(record.id));ui.home.world.actors.add_child(actor);actor.setup("visitor")
+	actor=Actor.new();actor.look_override=Residents.look(str(record.id));actor.draw_hand_overlays=false;ui.home.world.actors.add_child(actor);actor.setup("visitor")
 	actor.set_meta("display_name",str(record.name));ui.home.people["resident:"+str(record.id)]=actor
 	var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",12);nameplate.position=Vector2(-12,-102);actor.add_child(nameplate)
 	work_layer=Node2D.new();actor.add_child(work_layer);work_layer.draw.connect(draw_work)
@@ -46,20 +46,11 @@ func _process(dt:float) -> void:
 func draw_work() -> void:
 	if actor.walking or not actor.visible:return
 	var phase:=roundf(sin(elapsed*4)*2)
+	# 实物使用机构底图；人物前只保留谷粒、水花，不叠画几何道具或方块手部。
 	if actor.action=="sift":
-		work_layer.draw_rect(Rect2(-19,-39+phase,38,11),Color("714a29"));work_layer.draw_rect(Rect2(-16,-39+phase,32,6),Color("d9ac51"))
 		for n in 7:work_layer.draw_rect(Rect2(-13+n*4,-37+phase,2,2),Color("f7d56d"))
-	elif actor.action=="registry":
-		work_layer.draw_rect(Rect2(-16,-40,32,19),Color("eedcb0"));work_layer.draw_line(Vector2(0,-40),Vector2(0,-21),Color("765037"),2)
-	elif actor.action=="stamp":
-		work_layer.draw_rect(Rect2(13,-35+phase*2,9,9),Color("a04a30"));work_layer.draw_rect(Rect2(15,-41+phase*2,5,8),Color("684530"))
 	elif actor.action=="wash":
 		for n in 5:work_layer.draw_rect(Rect2(-12+n*5,-30+phase,3,3),Color("a4dde1"))
-	elif actor.action=="honey":
-		work_layer.draw_rect(Rect2(-23,-44+phase,9,12),Color("e8b780"));work_layer.draw_rect(Rect2(-24,-35+phase,10,5),Color("b37c38"))
-	elif actor.action=="mill":
-		for x in [-19,12]:work_layer.draw_rect(Rect2(x,-46+phase,8,10),Color("d7a26e"))
-	# 共桌与搅拌盆已在C4底图中；旧几何托盘会浮在NPC身前，不再叠画。
 func talk(id:String) -> bool:
 	if id!="resident:"+str(record.id):return false
 	actor.face="down";ui.home.dialogue(str(record.name),str(record.schedule[slot_index].line),str(record.portrait));return true

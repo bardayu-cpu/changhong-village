@@ -1,0 +1,124 @@
+{
+  "item": "A1",
+  "attempt": 2,
+  "date": "2026-10-15",
+  "base_commit": "358ab1978cc6ad0dc7d5ab2576f27e7dcb351bc9",
+  "status": "targeted_fix_ready_for_C3_not_full_A1_acceptance",
+  "trigger": {
+    "C3_tested_sha": "cef05a8bdda609431643077e42aa49fac8df6c02",
+    "finding": "NPC手前纯色棕矩形与浅黄横条；实际工作叠层，不是宣称开启了调试开关。",
+    "conditions": {
+      "hour": 9.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ]
+    },
+    "raw": "回执/第1轮返工/图/返工续验-cef05a8-1015-042-A1-磨坊早晨簸谷-腰前纯色矩形问题-9时.png",
+    "raw_sha256": "e616f1dc53092e8c19e107e974e465ef69c0b366ca0398fca23f77cce665d4ba",
+    "metadata": "回执/第1轮返工/续验-cef05a8-1015/给C2-磨坊矩形-A1问题.json"
+  },
+  "production_files": [
+    "godot/ayu_home/v4/actor.gd",
+    "godot/ayu_home/v4/core/institution_room.gd"
+  ],
+  "removed_overlays": [
+    "簸谷 38×11 棕框和 32×6 黄横条",
+    "机构 NPC 身前名册/印章的平涂几何替身",
+    "摇蜜/推磨的方块手部覆盖",
+    "仅机构 NPC 的清洗方块手部、端杯方块手部及杯块"
+  ],
+  "preserved": [
+    "簸谷谷粒、水花、石磨推杆与落粉、摇蜜旋转及流蜜",
+    "真实底图及现有像素素材、桌上名册/申请表/修缮包和全部互动可见反馈",
+    "动作名称、早中晚时刻、位置/朝向、坐姿身体和椅子遮挡",
+    "非机构角色的原有手部覆盖默认行为",
+    "资产、地图/导航/镜头、存档和原测试均未改"
+  ],
+  "identical_functions": [
+    "current_slot",
+    "sync_schedule",
+    "settle",
+    "_process",
+    "handle",
+    "_draw",
+    "draw_honey",
+    "draw_civic",
+    "draw_community"
+  ],
+  "native_preflight": {
+    "compile_exit": 0,
+    "run_exit": 0,
+    "script_errors": 0,
+    "schedule_cases": 12,
+    "failures": 0,
+    "non_institution_default_preserved": true,
+    "visual_acceptance": false,
+    "environment_diagnostic": "运行日志保留 macOS CA 证书加载 ret != noErr；不宣称日志零报错。"
+  },
+  "fixture_first_run": "首跑 12 个状态检查为真，但夹具提前释放 Home 导致延后 _draw 访问已释放对象，判为无效预检。只修夹具清理顺序后重跑通过；原始脚本/结果/日志保留，未计为 A1 第三次制作。",
+  "C4_art_gaps": [
+    "林伯 registry 翻册、stamp 盖章：现有居民素材仅站立/行走，缺专用动作帧或真实手持像素；桌上实物及登记/申请互动反馈仍在。",
+    "小涛/凯凯 drink 端杯：现有坐姿保留，缺专用端杯动作帧；本次不使用纯色杯块替代。"
+  ],
+  "pending_C3": "冻结新 SHA 后复验磨坊9时腰前托盘；同时检查四机构9/13/19时人物身前覆盖、真实物件和H3可见变化。未完成独立图形复验，不能判 A1/H3 全项通过。",
+  "baseline_local_files": {
+    "count": 145,
+    "changed_since_sync": []
+  },
+  "files": [
+    {
+      "path": "回执/第1轮返工/A1-二修-机构活动预检.gd",
+      "sha256": "3467b455142d9a48fbbbf452456e40ad758deee0858a0b369903473aa3dd929b",
+      "bytes": 2694
+    },
+    {
+      "path": "回执/第1轮返工/A1-二修-机构活动预检.json",
+      "sha256": "aa21967cd16df32e4df5e94b47e7a4ce98815a85e05f9b3bc5e6c53fd809aea8",
+      "bytes": 4700
+    },
+    {
+      "path": "回执/第1轮返工/A1-二修-编译.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "bytes": 73
+    },
+    {
+      "path": "回执/第1轮返工/A1-二修-编译引擎.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "bytes": 73
+    },
+    {
+      "path": "回执/第1轮返工/A1-二修-预检.log",
+      "sha256": "40842f817089d4b2e9fee84da11058bd421ee39c71a88fe7a6e21d070c7d314c",
+      "bytes": 3552
+    },
+    {
+      "path": "回执/第1轮返工/A1-二修-预检引擎.log",
+      "sha256": "40842f817089d4b2e9fee84da11058bd421ee39c71a88fe7a6e21d070c7d314c",
+      "bytes": 3552
+    },
+    {
+      "path": "回执/第1轮返工/失败记录/A1-二修-预检夹具首跑.gd",
+      "sha256": "65701129a735db3e31ed15245be7a3b7bbc2bd4e2f825a8777320fd06bf19cdc",
+      "bytes": 2712
+    },
+    {
+      "path": "回执/第1轮返工/失败记录/A1-二修-预检夹具首跑.json",
+      "sha256": "aa21967cd16df32e4df5e94b47e7a4ce98815a85e05f9b3bc5e6c53fd809aea8",
+      "bytes": 4700
+    },
+    {
+      "path": "回执/第1轮返工/失败记录/A1-二修-预检夹具首跑.log",
+      "sha256": "c467c3638428ac9620c7985b663ee4b0091791d4d296aa96dddc1dba905753b4",
+      "bytes": 4732
+    },
+    {
+      "path": "回执/第1轮返工/失败记录/A1-二修-预检夹具首跑引擎.log",
+      "sha256": "c0ef8840670689a3b123ab152faaba8233b366c029a5c555dc7584358664dd48",
+      "bytes": 4648
+    }
+  ]
+}
