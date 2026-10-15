@@ -196,6 +196,8 @@ class CommunityBoard extends Control:
 			else:
 				for n in 15:draw_rect(Rect2(c+Vector2(22+n%5*18,-20+n/5*20),Vector2(10,9)),Color("d95d3f"))
 		else:
-			draw_rect(Rect2(c+Vector2(-103,-53),Vector2(206,27)),Color("e7d9b0"));draw_rect(Rect2(c+Vector2(-90,-26),Vector2(180,80)),Color("b9aa80"));draw_rect(Rect2(c+Vector2(-69,54),Vector2(138,15)),Color("78613f"))
-			for n in 24:draw_rect(Rect2(c+Vector2(-84+n%8*23,-47+n/8*14),Vector2(18,9)),Color("d25335") if n%3==0 else Color("efe2b4"))
+			# 复用阿鱼家已有透明餐盘，按原像素整数倍显示成品菜。
+			var meal:=Assets.texture("res://ayu_home/v4/assets/floor1-redraw/meal-14.png")
+			var meal_size:Vector2=meal.get_size()*6.0
+			draw_texture_rect(meal,Rect2((c+Vector2(0,8)-meal_size*.5).round(),meal_size),false)
 			for n in 4:draw_rect(Rect2((c+Vector2(-55+n*35,-68-fmod(elapsed*15+n*7,28))).round(),Vector2(4,8)),Color("ead9b0"))
