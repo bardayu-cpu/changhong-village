@@ -1,0 +1,28 @@
+{
+  "time": "2026-10-15T21:35:41.532001+08:00",
+  "status": "候选语法检查完成，尚未修改生产，等待C3封存",
+  "command": [
+    "/Applications/Godot.app/Contents/MacOS/Godot",
+    "--headless",
+    "--path",
+    "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot",
+    "--script",
+    "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/备餐成品小修-1015/institution_game.gd",
+    "--check-only",
+    "--log-file",
+    "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/备餐成品小修-1015/候选编译引擎.log"
+  ],
+  "exit_code": 0,
+  "script_error": false,
+  "source_sha256": "d467f1e8cc04428187603fa1d855a3a2ceb726ba106d6ecfc8436bdbdba23d43",
+  "candidate_sha256": "ff3933b42fba748e2d573547e6577e0a032e224111308a451b145aaae03eca74",
+  "candidate_path": "测试数据/备餐成品小修-1015/institution_game.gd",
+  "rendered_size": [
+    192,
+    144
+  ],
+  "pixel_scale": 6,
+  "nearest_filter": "CommunityBoard._ready 原有 TEXTURE_FILTER_NEAREST",
+  "same_code_except_finished_dish_branch": true,
+  "native_visual_test": "待稳定版本交C3，不用语法检查代替实际画面"
+}
