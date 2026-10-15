@@ -1,0 +1,88 @@
+{
+  "status": "未通过美术QA：v3存在宽幅低透明度黄褐柔边，禁止作为正式生产层接入；坐标仅供下一版继承",
+  "world_rect": [160, 600, 1536, 1024],
+  "pixel_contract": {
+    "image_px_to_world_px": 1,
+    "view_scale": 2.0,
+    "resample": false,
+    "player_height_world": 84
+  },
+  "layers": [
+    {
+      "id": "seasonal_ground_underlay",
+      "source": "沿用C2当前四季地面系统",
+      "world_pos": [160, 600],
+      "note": "本次不烘入固定绿草"
+    },
+    {
+      "id": "road_yard_overlay",
+      "source": "蜂蜜小院-道路院坝透明层-v3.png",
+      "size": [1536, 1024],
+      "world_pos": [160, 600],
+      "scale": [1, 1],
+      "season_behavior": "原计划为铺装和窄土肩不变、透明区显示四季地面；但v3源图柔边过宽，当前不合格",
+      "qa_status": "fail_alpha_halo_do_not_integrate"
+    },
+    {
+      "id": "house_h5",
+      "source": "res://ayu_home/v4/assets/village/house_h5.png",
+      "source_size": [1536, 1024],
+      "world_pos": [224, 664],
+      "scale": [0.5533854166666666, 0.5533854166666666],
+      "visual_world_rect_rounded": [224, 664, 850, 567],
+      "sort_foot_y": 1138,
+      "transform_from_old": {
+        "old_pos": [95, 1170],
+        "translation": [129, -506],
+        "scale_changed": false
+      },
+      "collision_rule": "现有h5实体边界和导航阻挡整体平移[129,-506]，不按概念图重猜"
+    },
+    {
+      "id": "house_h5_season_mask",
+      "source": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h5-spring-mask.png",
+      "world_pos": [224, 664],
+      "scale": [0.5533854166666666, 0.5533854166666666],
+      "note": "与house_h5同变换；其他季节沿现有绑定规则"
+    }
+  ],
+  "house_entry": {
+    "id": "visit_h5",
+    "target": "v_h5",
+    "label": "拜访5A · 养蜂小院",
+    "kind": "door",
+    "face": "down",
+    "pos": [437, 1163],
+    "approach": [437, 1197],
+    "width": 68,
+    "explicit_opening": true,
+    "source_image_point_approx": [385, 902]
+  },
+  "preserved_interaction": {
+    "id": "honey",
+    "label": "凯凯 · 蜂蜜箱",
+    "pos": [1019, 624],
+    "approach": [1019, 654],
+    "transform_from_old": [129, -506],
+    "note": "保持原相对关系；C3需验证是否位于首段边界和可达区"
+  },
+  "road_geometry_reference": {
+    "main_centerline_local": [[0, 865], [320, 835], [720, 820], [1080, 770], [1536, 710]],
+    "main_width_approx": 210,
+    "access_centerline_local": [[277, 563], [286, 680], [320, 790]],
+    "access_width_approx": 118,
+    "junction": "短T形接入；不是Y形中心"
+  },
+  "do_not_bake": [
+    "NPC",
+    "可互动物",
+    "碰撞",
+    "固定绿草",
+    "房屋重绘",
+    "桥或水体"
+  ],
+  "qa_blocker": {
+    "reason": "alpha>0范围从y=83开始，而alpha>8与主体均从y约410开始；存在约327像素高的极低透明度残留区。横向柔边外扩p95=209px、p99=495px，不符合窄土肩要求。",
+    "decision": "v3判失败；不让C2手绘修补，不生成第4版，不扩整村。"
+  }
+}

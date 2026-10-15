@@ -1,0 +1,154 @@
+{
+  "status": "原版检查通过；室外首段v1至v3失败且未接入；A4实机验收仍待C3",
+  "date": "2026-10-15T21:09:45.155154+08:00",
+  "production_commit": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "archive_type": "证据与协调文档单独提交，无生产修改",
+  "checks": {
+    "room_standard": {
+      "result": "PASS",
+      "rooms": 5,
+      "community_occupancy": "33%",
+      "raw": "回执/第1轮返工/原版检查-9c24efa-1015/check_room_standard-stdout.log"
+    },
+    "test_core": {
+      "result": "PASS",
+      "checks": 87,
+      "failures": [],
+      "raw": "回执/第1轮返工/原版检查-9c24efa-1015/test_core-stdout.log"
+    },
+    "protected_assertions_unchanged": true,
+    "production_unchanged": true,
+    "environment_diagnostic": "原始 stderr 保留 macOS get_system_ca_certificates ret != noErr；不是脚本断言失败"
+  },
+  "outdoor": {
+    "result": "FAIL_DO_NOT_INTEGRATE",
+    "attempts": 3,
+    "v1_v2": "几何未对齐，原失败素材保留",
+    "v3": "宽幅低透明度黄褐柔边，横向外扩 P95 209px / P99 495px",
+    "production_changes": false,
+    "further_preview_or_reachability_test": "源图已失败，不重复做夏冬叠图与接入测试",
+    "fourth_generation": false,
+    "manual_or_programmatic_paint_repair": false,
+    "mapping": "仅归档拟定坐标，不代表已批准或已接入",
+    "source_note": "首段交接原文仍含旧句 C2只接v3；以其首尾阻断段、映射status及alpha核验失败结论为准，原文保留"
+  },
+  "remaining": {
+    "A4": "C3独立9c24efa冻结副本实测中，预检及原脚本通过不代替画面验收",
+    "outdoor": "等待阿鱼对新方法重开最多三次的明确答复，本工位不重复询问或擅自开画",
+    "round_one": "未整体验收通过"
+  },
+  "files": [
+    {
+      "path": "回执/第1轮返工/续办-1015.md",
+      "bytes": 5069,
+      "sha256": "1386747111a1bd8ec58720195d4d6ad7b4e25e1d1fb26c6588a2a810ea0c3e50"
+    },
+    {
+      "path": "回执/第1轮返工/C1续办画面核对-1015.md",
+      "bytes": 3005,
+      "sha256": "e9c9460a77b6e2a67d6f6632de1eac8207af66369b552d1df79115bd108493c5"
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 5579,
+      "sha256": "ed57fc1db2f74eedebacacd15b37a1895a7f3bbf9e338be77ace640f92abf0c8"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄v2-首段-蜂蜜小院/蜂蜜小院-道路院坝透明层-v1.png",
+      "bytes": 1666559,
+      "sha256": "b314354257b7cd0b455da51ea04b24685b2d98e4416803fbaaf916074d12a4fc",
+      "image": {
+        "mode": "RGBA",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄v2-首段-蜂蜜小院/蜂蜜小院-道路院坝透明层-v2.png",
+      "bytes": 1600375,
+      "sha256": "7d96d448b5f3d7625852a2513156d6c9fca375569fdcaa727dc6b4e3d7c14f1e",
+      "image": {
+        "mode": "RGBA",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄v2-首段-蜂蜜小院/蜂蜜小院-道路院坝透明层-v3.png",
+      "bytes": 1428669,
+      "sha256": "c5b4bbfa1dc66c1f7b3b4cb72916868c93b047060b859adff7802c491ce3431d",
+      "image": {
+        "mode": "RGBA",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄v2-首段-蜂蜜小院/蜂蜜小院-道路院坝v3-alpha核验.md",
+      "bytes": 1261,
+      "sha256": "991e259b91cfb192af06258cfb1513509cd8b440de6ec5956ea376840dc8e9db"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄v2-首段-蜂蜜小院/蜂蜜小院-首段交接-v1.md",
+      "bytes": 1589,
+      "sha256": "0b101642272420a7b618f403805c4ee0003f246f81c14157f5b495e5b05528cc"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄v2-首段-蜂蜜小院/蜂蜜小院-首段映射-v1.json",
+      "bytes": 3069,
+      "sha256": "1f4e1911278b21de1a500f9cbc610e57c241677905a36d42662e0d38b96a20a0"
+    },
+    {
+      "path": "回执/第1轮返工/原版检查-9c24efa-1015/check_room_standard-stdout.log",
+      "bytes": 875,
+      "sha256": "ba73eae1aa686d1033c84ed5226b306d4563105741979ac7ec2089b06ffe6f64"
+    },
+    {
+      "path": "回执/第1轮返工/原版检查-9c24efa-1015/check_room_standard-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "回执/第1轮返工/原版检查-9c24efa-1015/test_core-stdout.log",
+      "bytes": 6755,
+      "sha256": "0ae26d9414b593d2e3f97505f4ce932cef2b1df440364db007d510eb0543ddf8"
+    },
+    {
+      "path": "回执/第1轮返工/原版检查-9c24efa-1015/test_core-stderr.log",
+      "bytes": 123,
+      "sha256": "b44d1484f324204d488884405aedead024c019bb75f70f0852bf5b1c19905174"
+    },
+    {
+      "path": "回执/第1轮返工/原版检查-9c24efa-1015/test_core-engine.log",
+      "bytes": 6878,
+      "sha256": "6cdc2417c9180638f9203e9e9672fa7f83303f0f0f457a41dfecd989af1a9445"
+    },
+    {
+      "path": "回执/第1轮返工/原版检查-9c24efa-1015/运行记录.json",
+      "bytes": 3742,
+      "sha256": "b51ef9dda91aa7c7e934e544b50d8eec205efd88cf5f1369e2e21c536ed9ffae"
+    }
+  ],
+  "self": "回执/第1轮返工/C2-原检与室外失败归档-1015.json",
+  "self_note": "本清单自身纳入提交，不递归计算自身哈希",
+  "excluded": [
+    "godot/ 生产（本次不改）",
+    "工具/ 和原检查脚本（未改）",
+    "运行数据/",
+    "测试数据/（含本次合成测试存档及前置备份）",
+    "C3未封存实时观察、存档、日志和新截图",
+    "第1轮历史未提交WIP",
+    "A4-活动中心首屏构图建议.md 等未纳入的设计修改"
+  ],
+  "counts": {
+    "files_without_self": 15,
+    "files_with_self": 16,
+    "bytes_without_self": 4733548
+  }
+}

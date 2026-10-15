@@ -1,0 +1,71 @@
+{
+  "time": "2026-10-15T21:07:30.864560+08:00",
+  "tested_commit": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "runs": [
+    {
+      "name": "check_room_standard",
+      "cmd": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/给Claude审查/check_room_standard.py",
+        "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot"
+      ],
+      "cwd": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村",
+      "exit_code": 0,
+      "duration_seconds": 0.109,
+      "stdout": "check_room_standard-stdout.log",
+      "stderr": "check_room_standard-stderr.log"
+    },
+    {
+      "name": "test_core",
+      "cmd": [
+        "/Applications/Godot.app/Contents/MacOS/Godot",
+        "--headless",
+        "--path",
+        "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot",
+        "--script",
+        "res://ayu_home/v4/core/test_core.gd",
+        "--log-file",
+        "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/原版检查-9c24efa-1015/test_core-engine.log"
+      ],
+      "cwd": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot",
+      "exit_code": 0,
+      "duration_seconds": 1.16,
+      "stdout": "test_core-stdout.log",
+      "stderr": "test_core-stderr.log"
+    }
+  ],
+  "script_hashes_before": {
+    "给Claude审查/check_room_standard.py": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+    "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+  },
+  "script_hashes_after": {
+    "给Claude审查/check_room_standard.py": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+    "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+  },
+  "scripts_unchanged": true,
+  "scripts_equal_8306872": {
+    "给Claude审查/check_room_standard.py": true,
+    "godot/ayu_home/v4/core/test_core.gd": true
+  },
+  "production_hashes_before": {
+    "godot/ayu_home/v4/assets/my_cabin.json": "1e33ceb5805b564bac75f52720c48ee5e6eedc41c5f403f90b5637f62c8bae6e",
+    "godot/ayu_home/v4/assets/rooms.json": "48f9cb772804487e0e9fbdf8cdeab8f9a1e607382c4caa9dd9ebcbe4125d4b9b",
+    "godot/ayu_home/v4/assets/institutions/community-a4-v3.png": "1c7d1fa897eac465b058e517b0515d1bf4cad5d536d7b614d2c6669b80d0ec59",
+    "godot/ayu_home/v4/home.gd": "8d6e36bcc3069d9fab963fb32d68905ae104851e9e1d19f7f27ecc327e8a67be",
+    "godot/ayu_home/v4/core/institution_room.gd": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26"
+  },
+  "production_hashes_after": {
+    "godot/ayu_home/v4/assets/my_cabin.json": "1e33ceb5805b564bac75f52720c48ee5e6eedc41c5f403f90b5637f62c8bae6e",
+    "godot/ayu_home/v4/assets/rooms.json": "48f9cb772804487e0e9fbdf8cdeab8f9a1e607382c4caa9dd9ebcbe4125d4b9b",
+    "godot/ayu_home/v4/assets/institutions/community-a4-v3.png": "1c7d1fa897eac465b058e517b0515d1bf4cad5d536d7b614d2c6669b80d0ec59",
+    "godot/ayu_home/v4/home.gd": "8d6e36bcc3069d9fab963fb32d68905ae104851e9e1d19f7f27ecc327e8a67be",
+    "godot/ayu_home/v4/core/institution_room.gd": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26"
+  },
+  "production_unchanged": true,
+  "scope": "Original assertions and thresholds, executed once each. Synthetic QA save path only; existing synthetic slots copied to ignored test data. C3 GUI and real save not used.",
+  "environment": {
+    "HOME": "removed for child process",
+    "__GODOT_SHELL_ENV_SET": "1",
+    "TMPDIR": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/运行数据/临时"
+  }
+}
