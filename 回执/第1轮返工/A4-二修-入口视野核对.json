@@ -1,0 +1,294 @@
+{
+	"arrival": [
+		346.0,
+		498.0
+	],
+	"mode": "Read-only native layout_world projection. Fixed HUD bottom 100; C4 safe region is 20..520 / 125..775 at 540x960. No game state/save, GUI window or production edit.",
+	"samples": [
+		{
+			"actual_center": [
+				346.0,
+				426.0
+			],
+			"corner_screen": {
+				"prep": [
+					-270.0,
+					18.0
+				],
+				"read": [
+					-126.0,
+					578.0
+				],
+				"tidy": [
+					486.0,
+					224.0
+				],
+				"weave": [
+					244.0,
+					-150.0
+				]
+			},
+			"mode": "existing_entry",
+			"nominal_actor_height": 168.0,
+			"player_screen": [
+				206.0,
+				432.0,
+				128.0,
+				168.0
+			],
+			"safe_rect": [
+				20.0,
+				125.0,
+				500.0,
+				650.0
+			],
+			"scale": 2.0,
+			"table_screen": [
+				-122.0,
+				36.0,
+				420.0,
+				330.0
+			],
+			"visible_corner_centers": [
+				"tidy"
+			],
+			"whole_player_in_safe_area": true,
+			"whole_table_in_safe_area": false,
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actual_center": [
+				256.0,
+				350.0
+			],
+			"corner_screen": {
+				"prep": [
+					-90.0,
+					170.0
+				],
+				"read": [
+					54.0,
+					730.0
+				],
+				"tidy": [
+					666.0,
+					376.0
+				],
+				"weave": [
+					424.0,
+					2.0
+				]
+			},
+			"mode": "table_first_candidate",
+			"nominal_actor_height": 168.0,
+			"player_screen": [
+				386.0,
+				584.0,
+				128.0,
+				168.0
+			],
+			"safe_rect": [
+				20.0,
+				125.0,
+				500.0,
+				650.0
+			],
+			"scale": 2.0,
+			"table_screen": [
+				58.0,
+				188.0,
+				420.0,
+				330.0
+			],
+			"visible_corner_centers": [
+				"read"
+			],
+			"whole_player_in_safe_area": true,
+			"whole_table_in_safe_area": true,
+			"window": [
+				540,
+				960
+			]
+		},
+		{
+			"actual_center": [
+				254.0,
+				433.0
+			],
+			"corner_screen": {
+				"prep": [
+					284.0,
+					-116.0
+				],
+				"read": [
+					428.0,
+					444.0
+				],
+				"tidy": [
+					1040.0,
+					90.0
+				],
+				"weave": [
+					798.0,
+					-284.0
+				]
+			},
+			"mode": "existing_entry",
+			"nominal_actor_height": 168.0,
+			"player_screen": [
+				760.0,
+				298.0,
+				128.0,
+				168.0
+			],
+			"safe_rect": [
+				20.0,
+				125.0,
+				1240.0,
+				410.0
+			],
+			"scale": 2.0,
+			"table_screen": [
+				432.0,
+				-98.0,
+				420.0,
+				330.0
+			],
+			"visible_corner_centers": [
+				"read"
+			],
+			"whole_player_in_safe_area": true,
+			"whole_table_in_safe_area": false,
+			"window": [
+				1280,
+				720
+			]
+		},
+		{
+			"actual_center": [
+				254.0,
+				350.0
+			],
+			"corner_screen": {
+				"prep": [
+					284.0,
+					50.0
+				],
+				"read": [
+					428.0,
+					610.0
+				],
+				"tidy": [
+					1040.0,
+					256.0
+				],
+				"weave": [
+					798.0,
+					-118.0
+				]
+			},
+			"mode": "table_first_candidate",
+			"nominal_actor_height": 168.0,
+			"player_screen": [
+				760.0,
+				464.0,
+				128.0,
+				168.0
+			],
+			"safe_rect": [
+				20.0,
+				125.0,
+				1240.0,
+				410.0
+			],
+			"scale": 2.0,
+			"table_screen": [
+				432.0,
+				68.0,
+				420.0,
+				330.0
+			],
+			"visible_corner_centers": [
+				"tidy"
+			],
+			"whole_player_in_safe_area": false,
+			"whole_table_in_safe_area": false,
+			"window": [
+				1280,
+				720
+			]
+		}
+	],
+	"two_corner_feasibility": [
+		{
+			"corners": [
+				"prep",
+				"weave"
+			],
+			"fits_500_by_650_safe_area": false,
+			"minimum_screen_span": [
+				604.0,
+				750.0
+			]
+		},
+		{
+			"corners": [
+				"prep",
+				"read"
+			],
+			"fits_500_by_650_safe_area": false,
+			"minimum_screen_span": [
+				604.0,
+				582.0
+			]
+		},
+		{
+			"corners": [
+				"prep",
+				"tidy"
+			],
+			"fits_500_by_650_safe_area": false,
+			"minimum_screen_span": [
+				756.0,
+				582.0
+			]
+		},
+		{
+			"corners": [
+				"weave",
+				"read"
+			],
+			"fits_500_by_650_safe_area": false,
+			"minimum_screen_span": [
+				460.0,
+				750.0
+			]
+		},
+		{
+			"corners": [
+				"weave",
+				"tidy"
+			],
+			"fits_500_by_650_safe_area": false,
+			"minimum_screen_span": [
+				608.0,
+				750.0
+			]
+		},
+		{
+			"corners": [
+				"read",
+				"tidy"
+			],
+			"fits_500_by_650_safe_area": false,
+			"minimum_screen_span": [
+				612.0,
+				564.0
+			]
+		}
+	],
+	"visual_acceptance": false
+}
