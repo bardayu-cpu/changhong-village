@@ -84,15 +84,15 @@
     },
     {
       "path": "回执/第1轮返工/回执.md",
-      "bytes": 6400,
-      "sha256": "3159835532d0b1005563934a20e313ee90b9bdc9046df0956b94d28786d734d5"
+      "bytes": 6722,
+      "sha256": "59ecd7ddc479e4a16e7d6a33721d7bc7c466c6f692e611fb4346ac2e1473ed2d"
     }
   ],
   "self": "回执/第1轮返工/C2-A4末次稳定证据归档-1015.json",
   "counts": {
     "payload_files": 12,
     "files_including_manifest": 13,
-    "bytes_without_manifest": 729480
+    "bytes_without_manifest": 729802
   },
   "excluded": [
     "C3清单未列的过程截图、横窗缺参照原帧和实时文件",
@@ -100,5 +100,12 @@
     "生产代码（本次仅归档）",
     "未在本清单列出的C1/C4历史未提交修改"
   ],
-  "self_note": "自身纳入，不递归计算自哈希"
+  "self_note": "自身纳入，不递归计算自哈希",
+  "receipt_sync": {
+    "time": "2026-10-15T21:50:02.978153+08:00",
+    "prior_archive_commit": "563b56a62765bfaee77909162ccc0b8322d6ae89",
+    "updated_path": "回执/第1轮返工/回执.md",
+    "reason": "C1最新回执在前次证据提交推送后补齐f382dc0生产与原检查结论，追加提交保留其新内容，不改写已推历史。",
+    "original_suite_scope": "五房和87项原脚本结果属于9c24efa；f382dc0仅成品绘制语法检查及差异核对，实机补验待C3。"
+  }
 }
