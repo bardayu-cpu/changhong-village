@@ -47,5 +47,15 @@
     "pairs": 16,
     "firstday_repeated": false,
     "usage_remaining_percent": 70
+  },
+  "latest_A4_stage": {
+    "commit": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+    "status": "现有证据固定封存；GUI暂停等待交回，缺横窗阿鱼真实进门参照，A4最终对照欠验",
+    "source": "回执/第1轮返工/A4末次-9c24efa-1015/来源.json",
+    "fixed_evidence": "回执/第1轮返工/A4末次-9c24efa-1015/目标验收-固定侧证.json",
+    "phone_pairs": 1,
+    "wide_reference_missing": true,
+    "GUI_paused_for_human_control": true,
+    "usage_remaining_percent": 55
   }
 }
