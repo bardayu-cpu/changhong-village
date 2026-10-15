@@ -1,0 +1,558 @@
+{
+  "scope": "仅活动中心第3次真实美术重排输入；不是已确认新布局或新坐标。四功能区不减，备餐属于共桌支持功能。",
+  "units": "全部矩形 [x,y,w,h]，原画像素=逻辑世界像素；屏幕数值单独命名。",
+  "source": {
+    "image_absolute": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot/ayu_home/v4/assets/institutions/community-v1.png",
+    "config": "godot/ayu_home/v4/assets/my_cabin.json",
+    "image_sha256": "eee75f7ca71ae5da6f73793e43aa75afc21e8931aa282f0336084f3b05445f13",
+    "image_px": [
+      508,
+      600
+    ],
+    "logic_size": [
+      508,
+      600
+    ],
+    "mapping": "背景 Sprite2D 非居中、原点(0,0)、无裁剪/偏移/独立底图缩放，1图像px=1逻辑px；整个世界按2倍显示。",
+    "asset_is_single_background": true,
+    "rooms_index": "godot/ayu_home/v4/assets/rooms.json -> rooms.my_cabin"
+  },
+  "precision": {
+    "config": "碰撞、热点、入口、NPC、反馈坐标来自当前生产文件。",
+    "visual_envelopes": "看原画保守圈出的整组家具范围；不是分层蒙版或像素级分割。重画时C4需按原图核准外沿，不能直接拿估读框替代碰撞。",
+    "projection": "直接整理已完成的原生投影，HUD下沿100为夹具设定；540安全区来自C4，1280安全区沿用相同边距，不冒称真实GUI实测。"
+  },
+  "player_and_entry": {
+    "door": {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        347,
+        552
+      ],
+      "approach": [
+        347,
+        499
+      ],
+      "arrival": [
+        347,
+        499
+      ],
+      "face": "up",
+      "kind": "door",
+      "span": [
+        347,
+        510,
+        89
+      ],
+      "width": 89,
+      "explicit_opening": true
+    },
+    "spawn_config": [
+      347,
+      499
+    ],
+    "normal_entry_nearest_world": [
+      346.0,
+      498.0
+    ],
+    "nominal_standing_height_world": 84,
+    "nominal_standing_height_screen": 168,
+    "preflight_envelope_world": [
+      64,
+      84
+    ],
+    "envelope_note": "64宽为投影核对用保守框，并非当前皮肤不透明像素宽度实测；高度84为Actor归一化站姿。",
+    "view_scale": 2.0,
+    "walk_rect": [
+      24,
+      96,
+      460,
+      490
+    ],
+    "walk_polygons": [
+      [
+        [
+          24,
+          96
+        ],
+        [
+          484,
+          96
+        ],
+        [
+          484,
+          510
+        ],
+        [
+          392,
+          510
+        ],
+        [
+          392,
+          585
+        ],
+        [
+          303,
+          585
+        ],
+        [
+          303,
+          510
+        ],
+        [
+          24,
+          510
+        ]
+      ]
+    ]
+  },
+  "safe_views": [
+    {
+      "window": [
+        540,
+        960
+      ],
+      "mode": "existing_entry",
+      "camera_center": [
+        346.0,
+        426.0
+      ],
+      "safe_screen_xywh": [
+        20.0,
+        125.0,
+        500.0,
+        650.0
+      ],
+      "safe_world_xywh": [
+        221.0,
+        260.5,
+        250.0,
+        325.0
+      ],
+      "safe_world_clipped_to_art": [
+        221.0,
+        260.5,
+        250.0,
+        325.0
+      ]
+    },
+    {
+      "window": [
+        540,
+        960
+      ],
+      "mode": "table_first_candidate",
+      "camera_center": [
+        256.0,
+        350.0
+      ],
+      "safe_screen_xywh": [
+        20.0,
+        125.0,
+        500.0,
+        650.0
+      ],
+      "safe_world_xywh": [
+        131.0,
+        184.5,
+        250.0,
+        325.0
+      ],
+      "safe_world_clipped_to_art": [
+        131.0,
+        184.5,
+        250.0,
+        325.0
+      ]
+    },
+    {
+      "window": [
+        1280,
+        720
+      ],
+      "mode": "existing_entry",
+      "camera_center": [
+        254.0,
+        433.0
+      ],
+      "safe_screen_xywh": [
+        20.0,
+        125.0,
+        1240.0,
+        410.0
+      ],
+      "safe_world_xywh": [
+        -56.0,
+        327.5,
+        620.0,
+        205.0
+      ],
+      "safe_world_clipped_to_art": [
+        0,
+        327.5,
+        508,
+        205.0
+      ]
+    },
+    {
+      "window": [
+        1280,
+        720
+      ],
+      "mode": "table_first_candidate",
+      "camera_center": [
+        254.0,
+        350.0
+      ],
+      "safe_screen_xywh": [
+        20.0,
+        125.0,
+        1240.0,
+        410.0
+      ],
+      "safe_world_xywh": [
+        -56.0,
+        244.5,
+        620.0,
+        205.0
+      ],
+      "safe_world_clipped_to_art": [
+        0,
+        244.5,
+        508,
+        205.0
+      ]
+    }
+  ],
+  "zones": {
+    "weave": {
+      "visual_envelope_estimate_xywh": [
+        192,
+        75,
+        287,
+        108
+      ],
+      "exact_collision_rects_xywh": [
+        [
+          195,
+          113,
+          281,
+          67
+        ],
+        [
+          219,
+          159,
+          32,
+          21
+        ]
+      ],
+      "hotspots": [
+        {
+          "id": "craft_demo",
+          "pos": [
+            333,
+            123
+          ],
+          "approach": [
+            333,
+            204
+          ],
+          "kind": "bamboo_weave",
+          "label": "编一片竹席",
+          "action": "weave"
+        }
+      ]
+    },
+    "table": {
+      "visual_envelope_estimate_xywh": [
+        150,
+        216,
+        210,
+        165
+      ],
+      "exact_collision_rects_xywh": [
+        [
+          154,
+          245,
+          204,
+          89
+        ],
+        [
+          174,
+          218,
+          163,
+          26
+        ],
+        [
+          174,
+          340,
+          163,
+          39
+        ]
+      ],
+      "hotspots": [
+        {
+          "id": "shared_table",
+          "pos": [
+            271,
+            290
+          ],
+          "approach": [
+            403,
+            290
+          ],
+          "kind": "communal_table",
+          "label": "摆好共桌碗碟",
+          "action": "table"
+        }
+      ]
+    },
+    "table_prep_support": {
+      "visual_envelope_estimate_xywh": [
+        26,
+        55,
+        95,
+        312
+      ],
+      "exact_collision_rects_xywh": [
+        [
+          27,
+          151,
+          84,
+          141
+        ],
+        [
+          27,
+          296,
+          60,
+          65
+        ],
+        [
+          36,
+          328,
+          47,
+          36
+        ]
+      ],
+      "hotspots": [
+        {
+          "id": "community_meal",
+          "pos": [
+            76,
+            207
+          ],
+          "approach": [
+            137,
+            207
+          ],
+          "kind": "community_game",
+          "label": "一起备共桌餐"
+        }
+      ]
+    },
+    "read": {
+      "visual_envelope_estimate_xywh": [
+        24,
+        359,
+        169,
+        154
+      ],
+      "exact_collision_rects_xywh": [
+        [
+          28,
+          377,
+          94,
+          61
+        ],
+        [
+          28,
+          431,
+          51,
+          57
+        ],
+        [
+          123,
+          420,
+          51,
+          47
+        ]
+      ],
+      "hotspots": [
+        {
+          "id": "story_book",
+          "pos": [
+            148,
+            487
+          ],
+          "approach": [
+            96,
+            449
+          ],
+          "kind": "story_album",
+          "label": "翻翻图画故事册",
+          "action": "read"
+        },
+        {
+          "id": "rest_seat",
+          "pos": [
+            53,
+            458
+          ],
+          "approach": [
+            96,
+            449
+          ],
+          "kind": "seat",
+          "label": "坐在茶角歇脚",
+          "seat": [
+            53,
+            458
+          ],
+          "face": "right"
+        }
+      ]
+    },
+    "tidy": {
+      "visual_envelope_estimate_xywh": [
+        427,
+        188,
+        55,
+        216
+      ],
+      "exact_collision_rects_xywh": [
+        [
+          430,
+          236,
+          47,
+          163
+        ]
+      ],
+      "hotspots": [
+        {
+          "id": "return_box",
+          "pos": [
+            454,
+            310
+          ],
+          "approach": [
+            403,
+            315
+          ],
+          "kind": "activity_tidy",
+          "label": "收好棋盒和球",
+          "action": "tidy"
+        }
+      ]
+    }
+  },
+  "resident_schedule_current": [
+    {
+      "slot": "早",
+      "pos": [
+        137,
+        207
+      ],
+      "face": "left",
+      "action": "wash",
+      "line": "我在这里值日，先把菜洗好，再摆大家的碗。"
+    },
+    {
+      "slot": "中",
+      "pos": [
+        403,
+        290
+      ],
+      "face": "left",
+      "action": "stir",
+      "line": "共桌的菜一起拌，竹条等会儿也教你编。"
+    },
+    {
+      "slot": "晚",
+      "pos": [
+        53,
+        458
+      ],
+      "approach": [
+        96,
+        449
+      ],
+      "face": "right",
+      "action": "read",
+      "line": "今天的物件都收齐了，我把故事册这一页合上。"
+    }
+  ],
+  "feedback_current": {
+    "source": "godot/ayu_home/v4/core/institution_room.gd:127 draw_community",
+    "weave": {
+      "vertical_strips": "Rect2(312+4*n,137,2,18), n=0..6",
+      "completed_rows": "Rect2(310,138+2*n,31,1), n=0..6"
+    },
+    "table": {
+      "after_positions": [
+        [
+          213,
+          281
+        ],
+        [
+          237,
+          281
+        ],
+        [
+          261,
+          281
+        ],
+        [
+          285,
+          281
+        ]
+      ],
+      "each_dish_outer_size": [
+        10,
+        6
+      ],
+      "before_positions_formula": "Vector2(293+n%2*14,274+n/2*11), n=0..3"
+    },
+    "read": {
+      "overlay_rect": [
+        130,
+        450,
+        26,
+        16
+      ],
+      "spine_line": [
+        [
+          143,
+          450
+        ],
+        [
+          143,
+          466
+        ]
+      ]
+    },
+    "prep": {
+      "water": "x=64+5*n,y=224+sin(t*4+n)*3, size=3x3, n=0..4"
+    },
+    "tidy": "棋盒/球篮在底图；无独立整理变化贴图，已有状态及交互须保留，此项不冒称已有完整前后图。",
+    "alignment_note": "仅记录现坐标，不表示反馈与原图已通过全部对齐验收；新图确认后整体重新绑定。"
+  },
+  "hard_limits": {
+    "portrait_safe_world_size": [
+      250,
+      325
+    ],
+    "landscape_safe_world_size": [
+      620,
+      205
+    ],
+    "landscape_safe_height_required_for_current_table_and_player": 282,
+    "landscape_min_vertical_span_reduction_world": 77,
+    "landscape_min_reduction_using_whole_scene_without_safe_insets": 54,
+    "meaning": "77是已测横屏安全区下需减少的总纵向跨度，不是要求把桌子机械下移77。不能靠平移相机、缩角色或只改热点消除。",
+    "portrait": "共桌完整入框后，现有任意两处其他功能角中心的组合均放不进；C4需真实重排可识别功能物件。",
+    "bounds_basis": "跨度282/差额77按已测保守共桌包围框上沿y216计算，C4须按原画核准外沿，不冒称像素级分割。"
+  },
+  "handoff": "C4先交真实紧凑构图及每组实物的新边界/落点；C2再同步相应实体阻挡、热点、NPC站位和反馈，保住入口及连续通路。其余五屋/室外/人物和家具比例不改。"
+}
