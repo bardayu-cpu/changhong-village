@@ -1,0 +1,80 @@
+{
+  "schema": "c4_a3_road_sample_v1",
+  "date": "2026-10-14",
+  "status": "failed_visual_gate_do_not_integrate",
+  "integration_allowed": false,
+  "scope": "三次尝试均为现有村路原位补画验证；当前只保留失败证据与坐标契约，不得接入生产。",
+  "blocking_reasons": [
+    "第三次透明层叠回底图后，道路边沿出现明显黄、红、绿碎边",
+    "草丛仍呈独立漂浮碎片，和底图草地没有同材质融合",
+    "完整画面明显未达到阿鱼家门前院子的同档密度与统一度",
+    "同一A3问题已经三次生成，按规则停止，不做第四次"
+  ],
+  "production_baseline": {
+    "room_config": "res://ayu_home/v4/assets/village.json",
+    "background": "res://ayu_home/v4/assets/village/ground-c4-v2.png",
+    "background_size": [4800, 4700],
+    "background_sha256": "b37d973cad75655231b68b07f55d00a56a15f5352e06c9d438f37a0d657b8042"
+  },
+  "asset": {
+    "delivery_file": "assets/a3-road-detail-overlay-v1.png",
+    "sha256": "ad0cdfa4d1be2fa0673806938cda2b98fc266ad9c29c0c0f76cafd63d4652ea2",
+    "format": "PNG RGBA",
+    "pixel_size": [1024, 1024],
+    "alpha_nonzero_percent": 24.09,
+    "proposed_copy_to_if_redesigned": "res://ayu_home/v4/assets/village/a3-road-detail-overlay-v1.png",
+    "do_not_copy_current_asset": true
+  },
+  "proof": {
+    "one_to_one_composite": "预览/a3-道路样板-1比1叠加预览.png",
+    "one_to_one_composite_sha256": "007331a660adaf83827fbed27df73d3023e3d295a84f9921761a0e900f4274ee",
+    "three_attempt_montage": "失败记录/三次尝试合成预览.png",
+    "three_attempt_montage_sha256": "dbb0404c607871e65651f32515915f6cbe5b3a8c7f0734e76492b163042d2f4e"
+  },
+  "world_contract": {
+    "world_origin": [0, 1900],
+    "world_rect": [0, 1900, 1024, 1024],
+    "scale": [1, 1],
+    "centered": false,
+    "texture_filter": "nearest",
+    "repeat": false,
+    "mipmaps": false,
+    "layer": "ground_above_background_below_actors_and_houses",
+    "add_obstacle": false,
+    "add_hotspot": false,
+    "change_navigation": false
+  },
+  "village_json_prop": {
+    "id": "a3_road_sample_v1",
+    "file": "res://ayu_home/v4/assets/village/a3-road-detail-overlay-v1.png",
+    "pos": [0, 1900],
+    "foot": 0,
+    "ground": true
+  },
+  "ratio_contract_for_a2": {
+    "actor_source_frame_world_px": [64, 84],
+    "ayu_home_view_scale": 2.0,
+    "current_village_view_scale": 1.15,
+    "target_village_view_scale_for_same_actor_screen_height": 2.0,
+    "actor_target_screen_height_px_at_scale_2": 168,
+    "tree_art_target_world_height_px": [150, 180],
+    "visible_tree_trunk_target_world_height_px": [34, 50],
+    "rule": "不缩放人物贴图；由C2把village视口比例与阿鱼家对齐。树与屋若需缩放，只以脚点/门口为锚，门和道路世界坐标保持不变。"
+  },
+  "integration_order": [
+    "当前状态禁止复制资产、修改village.json或加入prop",
+    "C2只归档本manifest、1:1叠加预览和三次失败合成图",
+    "若未来重新设计，仍必须保持原obstacles、hotspots、doors、spawn、roads和navigation不变",
+    "新样板须先由C3与阿鱼家同场景条件并排，再决定是否接入"
+  ],
+  "c3_gate": {
+    "window": [1280, 720],
+    "season": "春",
+    "hour": 13,
+    "weather": "rain",
+    "sample_world_rect": [0, 1900, 1024, 1024],
+    "reference": "参考/阿鱼家门前春-质量基准.png",
+    "required_evidence": "当前1:1叠加图已暴露碎边和漂浮贴片，判定未过；不得用黑底透明图替代完整画面证据。",
+    "spread_allowed_after_pass": false
+  }
+}

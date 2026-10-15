@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-15",
+  "status": "停止开发测试，仅保存与封存；自评60分，未通过",
+  "code_frozen_sha": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "quota_remaining_percent": 4,
+  "hard_stop_percent": 5,
+  "items": [
+    {
+      "item": "同步main",
+      "sha": "2dc979dcd23d8bfff2e78034188a603c75ad8c6e",
+      "result": "合入更正版验收单；原6份跟踪修改及65份未跟踪文件哈希未变。"
+    },
+    {
+      "item": "A1",
+      "attempts": 1,
+      "sha": "4248d20aa8a10c43b0b0f4dc040e93f783793268",
+      "result": "移除活动中心三色占位块和NPC几何托盘；C3在510ae8f中午近景确认两处消失，整体81格正式验收0/81，其他覆盖仍欠验。"
+    },
+    {
+      "item": "A2",
+      "attempts": 1,
+      "sha": "510ae8f29d95d4f502141f7cd2740a5bd5a3bf3d",
+      "result": "村路倍率1.15改2.0；名义人物屏高与阿鱼家一致。实际包围盒、树屋和其他村民室内比例未判通过。"
+    },
+    {
+      "item": "A3",
+      "attempts": 3,
+      "result": "C4三次样板没过，禁止接入；整村A/C目标图属于独立参考，不纳入本次工程成果。"
+    },
+    {
+      "item": "A4",
+      "attempts": 1,
+      "result": "全屋缩放后人物约57至87屏幕像素，不能达到168±2，失败候选已撤回；生产home.gd未改。",
+      "evidence": "A4-首修结论.json"
+    },
+    {
+      "item": "篮子拖动",
+      "attempts": 1,
+      "sha": "18327134b0c094dfdf1e6ab5619283c86c4a759a",
+      "result": "7项Window/Control输入派发预检通过；真实硬件触摸欠验，不能以模拟替代。",
+      "evidence": "篮子触摸-首修接测.json"
+    },
+    {
+      "item": "磨坊椅子",
+      "attempts": 1,
+      "sha": "cef05a8bdda609431643077e42aa49fac8df6c02",
+      "result": "复用原底图的独立AtlasTexture遮挡对象，6项alpha/坐点预检通过；正常坐下截图欠验。",
+      "evidence": "磨坊椅子-首修接测.json"
+    },
+    {
+      "item": "连续首日与蝉鸣实听",
+      "result": "本次未获得无中断首日、实际听感与正常窗口开关/时段切换通过结论；未调经济数值，未追加声音修改。"
+    }
+  ],
+  "preserved": "原阿鱼家、原图、原home.gd镜头、原测试断言、工具、旧未提交资料均保留；无桥新图与夏秋不接。",
+  "independent_test_limitation": "C1告知C3遇noWindowsAvailable、原生焦点审批超时及会话断连；未测项不补写通过。",
+  "archive_rule": "仅精确归档返工稳定回执、已有独立证据与A3三次失败；排除实时观测、存档、缓存、旧未提交文件和独立整村目标图。"
+}
