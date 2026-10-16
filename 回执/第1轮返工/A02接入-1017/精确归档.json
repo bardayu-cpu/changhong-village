@@ -1,0 +1,143 @@
+{
+  "time": "2026-10-17T06:35:18.678398+08:00",
+  "status": "A02生产接入已推，C1/C4隔离预览核图通过，C2组件核验通过；待C3实机，不宣称整轮通过",
+  "production_commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "branch": "village-deep-1010",
+  "payload_count": 14,
+  "commit_file_count_including_self": 15,
+  "self": "回执/第1轮返工/A02接入-1017/精确归档.json",
+  "payload": [
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三次样板核验-v1.md",
+      "bytes": 1617,
+      "sha256": "4b3e0727133f77d6ff5a0f5c71b24e3e11a05d0b340085e935c3ecdba54262ce"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三层样板-v1.png",
+      "bytes": 1272604,
+      "sha256": "dee4933fe0bb7be35d1c1bd52187d5bdbc1d5971eab6a3cda7a682058c0fa3d9"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三层样板-v2.png",
+      "bytes": 1192575,
+      "sha256": "ba3056d718a4a26ba91149f2218b55178187bc4a08fcc8e45f342715b7817399"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三层样板-v3.png",
+      "bytes": 1148481,
+      "sha256": "c8516a113dab2675b9f2ab101a2927b1c2308f59f0d8910e98460c63d2729da1"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-v3-C2硬边预览参数.json",
+      "bytes": 1879,
+      "sha256": "e35d5b8fb78ecb02c1141945225a53f204791dcd6a63ab32007ace73e823479b"
+    },
+    {
+      "path": "回执/第1轮返工/A1美术交接-1016/A02-v3四态-隔离预览.png",
+      "bytes": 70370,
+      "sha256": "5e76f90a16b488d20eab435b4cc229d6626f6ed1d0c90201e93386a38505dd30"
+    },
+    {
+      "path": "回执/第1轮返工/A1美术交接-1016/A02-v3四态预览参数.json",
+      "bytes": 1615,
+      "sha256": "fdecbcf559317863e4494ed005dc4b30a8cf7f15c5b328bdc9ea1d8e9672c228"
+    },
+    {
+      "path": "回执/第1轮返工/A1美术交接-1016/A02-v3四态预览结论.json",
+      "bytes": 1663,
+      "sha256": "635e601669498714e283e3ba2ceb661d099d591b661cc611c50a36dae1bc8f55"
+    },
+    {
+      "path": "回执/第1轮返工/A1美术交接-1016/A02-v3-C4画面复核结论.md",
+      "bytes": 417,
+      "sha256": "31d5260e98fdd1a85c18139c91dbd826b46ac294eb307c8a893d296a8a715437"
+    },
+    {
+      "path": "回执/第1轮返工/A02接入-1017/组件核验.json",
+      "bytes": 2858,
+      "sha256": "6f675fa202aa604194cc2f3ec3990f31c2b85ce08ee1ccb0444becc1d759a155"
+    },
+    {
+      "path": "回执/第1轮返工/A02接入-1017/组件核验.gd",
+      "bytes": 4179,
+      "sha256": "3e0cf02591d1714b0433f7742da17dde6e1643b8c4fd0c0e0cec9adcf2ba1669"
+    },
+    {
+      "path": "回执/第1轮返工/A02接入-1017/接测.json",
+      "bytes": 4073,
+      "sha256": "62430db1cb552e8769281fe2b8ea913299bfaca8aa0c3fd26e8aef2be52d336e"
+    },
+    {
+      "path": "回执/第1轮返工/续办-1016.md",
+      "bytes": 3151,
+      "sha256": "743637054243e6983fc0d119aefc92c887238ed6fac72d4bf9e1050e07d01f69"
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 3373,
+      "sha256": "c59c5c7eaa3083775ee109626626237b1215d4a8c085bf69581d564d1cadb27a"
+    }
+  ],
+  "source_art_note": "三稿原始PNG及失败说明均保留；v3生产PNG为同字节副本，仅游戏三层节点做Alpha Test和nearest，原PNG未改写。",
+  "checks": {
+    "four_state_component": "PASS",
+    "six_step_bottom_anchor": "PASS",
+    "state_config_hash_unchanged": {
+      "godot/ayu_home/v4/core/state.gd": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+      "godot/ayu_home/v4/core/config.gd": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735"
+    },
+    "original_protected_scripts": {
+      "给Claude审查/check_room_standard.py": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+      "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+    },
+    "full_five_rooms_core87_first_day_rerun": false,
+    "Godot_GUI_pass": false
+  },
+  "excluded_original_seven": [
+    {
+      "path": "回执/第1轮/C1画面核对.md",
+      "sha256": "c83bb01d3c2215edeee63544a049c185167392727e9fb8efcfd25edf35269acc"
+    },
+    {
+      "path": "回执/第1轮/设计/00-C4状态.md",
+      "sha256": "01a205e299dff154b01a3971136fe9f066d79bd83728f5bcaf59e68473e50b58"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C2设计归档清单-1014.json",
+      "sha256": "a5b5791bf94001f0aed8b0e2c660f8834f6310704848033849c587b2a7373b6c"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C4二期设计回执-1014.md",
+      "sha256": "f0339261aa4a01ded6909d0ce06b8a0e1959ff882618db5125de4a8b2abd54bd"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/本波静态核对-1014.json",
+      "sha256": "d1d2b645db36a2558b2dea1a20abe1ffd59f359569fc256de039893a40ff8a1e"
+    },
+    {
+      "path": "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/C4麦收田园无桥三案交付-v7.md",
+      "sha256": "a6c7032de04636d8abb822ee89ba735913c3b8249505b5733c5f3a8c2be3abfa"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A4-活动中心首屏构图建议.md",
+      "sha256": "42e1451b5f8838eed16eeae56f030f8ba64ebc93ad42a6ceac65474d5642be6d"
+    }
+  ],
+  "other_exclusions": [
+    "未封存A03新素材与记录",
+    "C3进行中截图/实测",
+    "真实存档",
+    "运行日志",
+    "缓存与临时Chrome配置",
+    "离屏HTML与过程文件",
+    "打包产物",
+    "敏感文件",
+    "超过50MB文件",
+    "其他旧文件夹"
+  ],
+  "quota": {
+    "observed_remaining_percent": 20,
+    "stop_remaining_percent": 10
+  },
+  "handoff": "接测.json包含独立副本和隔离存档要求、六步压蜜和收取一次的最少GUI步骤，以及已推A03参数路径。"
+}

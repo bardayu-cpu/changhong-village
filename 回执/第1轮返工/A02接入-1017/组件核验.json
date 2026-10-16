@@ -1,0 +1,152 @@
+{
+  "failures": [],
+  "four_state_layout_cases": [
+    {
+      "finished": false,
+      "layers": [
+        {
+          "kind": "frame",
+          "source": [
+            77.0,
+            87.0,
+            796.0,
+            693.0
+          ],
+          "target": [
+            0.0,
+            4.86934661865234,
+            84.0,
+            73.1306533813477
+          ]
+        }
+      ],
+      "progress": 0
+    },
+    {
+      "finished": false,
+      "layers": [
+        {
+          "kind": "honey",
+          "source": [
+            909.0,
+            520.0,
+            548.0,
+            216.0
+          ],
+          "target": [
+            9.0,
+            41.9854011535645,
+            66.0,
+            26.0145988464355
+          ]
+        },
+        {
+          "kind": "frame",
+          "source": [
+            77.0,
+            87.0,
+            796.0,
+            693.0
+          ],
+          "target": [
+            0.0,
+            4.86934661865234,
+            84.0,
+            73.1306533813477
+          ]
+        }
+      ],
+      "progress": 3
+    },
+    {
+      "finished": false,
+      "layers": [
+        {
+          "kind": "honey",
+          "source": [
+            909.0,
+            304.0,
+            548.0,
+            432.0
+          ],
+          "target": [
+            9.0,
+            15.9708023071289,
+            66.0,
+            52.0291976928711
+          ]
+        },
+        {
+          "kind": "frame",
+          "source": [
+            77.0,
+            87.0,
+            796.0,
+            693.0
+          ],
+          "target": [
+            0.0,
+            4.86934661865234,
+            84.0,
+            73.1306533813477
+          ]
+        }
+      ],
+      "progress": 6
+    },
+    {
+      "finished": true,
+      "layers": [
+        {
+          "kind": "honey",
+          "source": [
+            909.0,
+            304.0,
+            548.0,
+            432.0
+          ],
+          "target": [
+            9.0,
+            15.9708023071289,
+            66.0,
+            52.0291976928711
+          ]
+        },
+        {
+          "kind": "frame",
+          "source": [
+            77.0,
+            87.0,
+            796.0,
+            693.0
+          ],
+          "target": [
+            0.0,
+            4.86934661865234,
+            84.0,
+            73.1306533813477
+          ]
+        },
+        {
+          "kind": "seal",
+          "source": [
+            347.0,
+            847.0,
+            842.0,
+            88.0
+          ],
+          "target": [
+            10.0,
+            7.0,
+            64.0,
+            6.68883657455444
+          ]
+        }
+      ],
+      "progress": 6
+    }
+  ],
+  "passed": true,
+  "scope": "Headless component and resource checks only; no GUI input, save file, or full regression. Godot visual confirmation belongs to C3.",
+  "six_step_fill_anchor_check": true
+}
