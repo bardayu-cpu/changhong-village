@@ -864,42 +864,61 @@ func layout_markers() -> void:
 	var faces:Dictionary={}
 	for a in [player]+people.values():
 		if a.visible:faces[a]=face_rect(a,xf)
-	var tag_for:Button=null;var tag_hot:Dictionary={};var visible_marker:Button=null
+	var tag_for:Button=null;var tag_hot:Dictionary={};var tag_rect:=Rect2();var visible_marker:Button=null
+	var blocked:Array[Rect2]=[]
+	for face in faces.values():blocked.append(face.grow(2))
+	for other in speech:blocked.append(other.grow(4))
+	var safe:=Rect2(Vector2(8,top_limit),Vector2(size.x-16,bottom_limit-top_limit))
 	for item in pick:
 		var m:Dictionary=item.m;var h:Dictionary=m.hot;var b:Button=m.button;var is_person:=str(h.id).begins_with("person:")
 		var raw:Vector2=xf*World.v(h.pos)
 		var show_marker:bool=not busy() and raw.x>4 and raw.x<size.x-4 and raw.y>top_limit+14 and (raw.y<bottom_limit or (h.has("target") and raw.y<size.y+20)) # 门在屏幕最下沿也给气泡
 		if not show_marker:continue
-		var owner=people[str(h.id).substr(7)] if is_person else null
-		# 第 22、23 条：「!」尖对着主人头顶，挨着主人；压到别人的头或脸就往左右挪一点（不超过一个泡宽），不往上飘到别人头上
+		# 人物提示仍只左右让位；物件提示连同下方名字牌一起避开头脸和话泡。
 		var base:Vector2=(raw-Vector2(b.size.x*.5,b.size.y+(2 if is_person else 14)))
-		var p:Vector2=base
-		for dx in [0.0,-30.0,30.0,-52.0,52.0,-74.0,74.0]:
-			var q:=base+Vector2(dx,0)
-			if q.x<6 or q.x>size.x-54:continue
-			var clash:=false
-			for a in faces:
-				if a!=owner and faces[a].intersects(Rect2(q,b.size).grow(-3)):clash=true
-			if not clash:p=q;break
-		var behind_speech:=false
-		for other in speech:
-			if other.grow(4).intersects(Rect2(p,b.size)):behind_speech=true
-		if behind_speech:continue # 有人在说话时，压在话泡上的提示先藏一下
-		var tag_height:=0.0
+		var tag_size:=Vector2.ZERO
 		if not is_person and player.action=="idle":
-			near_tag.text=str(h.get("label",""));near_tag.reset_size()
-			tag_height=near_tag.get_combined_minimum_size().y+2.0 # 名字牌与气泡重叠2px，点击区再向外4px。
-		b.position=p.clamp(Vector2(6,top_limit),Vector2(size.x-54,maxf(top_limit,bottom_limit-b.size.y-tag_height)));m.bubble.selected=true;m.bubble.queue_redraw()
+			near_tag.clip_text=false;near_tag.text=str(h.get("label",""));near_tag.reset_size()
+			tag_size=near_tag.get_combined_minimum_size()
+			if tag_size.x>safe.size.x:
+				near_tag.clip_text=true;near_tag.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;tag_size.x=safe.size.x
+		var placed:=marker_group_layout(base,b.size,tag_size,safe,blocked,not is_person)
+		if placed.is_empty() and tag_size!=Vector2.ZERO:
+			# 实在放不下名字牌时仍保留安全、可点击的气泡，不覆盖人物。
+			placed=marker_group_layout(base,b.size,Vector2.ZERO,safe,blocked,true)
+		if placed.is_empty():continue
+		b.position=placed.marker.position;m.bubble.selected=true;m.bubble.queue_redraw()
 		visible_marker=b
-		if not is_person and player.action=="idle":tag_for=b;tag_hot=h
+		if placed.tag.has_area():tag_for=b;tag_hot=h;tag_rect=placed.tag
 	# 只在最终状态变化时切换可见性，避免每帧隐藏按钮取消正在进行的按下/松开。
 	for m in marker_nodes:m.button.visible=m.button==visible_marker
 	# 名字牌只挂在这唯一的提示泡下面
 	if tag_for:
-		near_tag.text=str(tag_hot.get("label",""));near_tag.set_meta("hot",str(tag_hot.id));near_tag.reset_size();near_tag.size=near_tag.get_combined_minimum_size()
-		near_tag.position=Vector2(clampf(tag_for.position.x+24-near_tag.size.x*.5,6,size.x-near_tag.size.x-6),tag_for.position.y+tag_for.size.y-2)
+		near_tag.set_meta("hot",str(tag_hot.id));near_tag.size=tag_rect.size;near_tag.position=tag_rect.position
 	near_tag.visible=tag_for!=null and near_tag.text.length()>0
 	if scene_controls:place_scene_controls(size,top_limit,bottom_limit,speech)
+## 先限制最终位置，再核对气泡、文字牌及上下扩展的点击区；之后不再夹位破坏避让。
+static func marker_group_layout(base:Vector2,marker_size:Vector2,tag_size:Vector2,safe:Rect2,blocked:Array[Rect2],allow_lift:bool) -> Dictionary:
+	var has_tag:=tag_size.x>0 and tag_size.y>0
+	var width:=maxf(marker_size.x,tag_size.x)
+	var height:=marker_size.y+(tag_size.y+2.0 if has_tag else 0.0)
+	if width>safe.size.x or height>safe.size.y:return {}
+	var lower:=Vector2(ceilf(safe.position.x+(width-marker_size.x)*.5),ceilf(safe.position.y))
+	var upper:=Vector2(floorf(safe.end.x-(width+marker_size.x)*.5),floorf(safe.end.y-height))
+	if lower.x>upper.x or lower.y>upper.y:return {}
+	for lift in ([0.0,32.0,64.0,96.0] if allow_lift else [0.0]):
+		for dx in [0.0,-30.0,30.0,-52.0,52.0,-74.0,74.0]:
+			var p:Vector2=(base+Vector2(dx,-lift)).clamp(lower,upper).round()
+			var marker:=Rect2(p,marker_size);var tag:=Rect2();var tag_hit:=Rect2()
+			if has_tag:
+				tag=Rect2(Vector2(roundf(marker.get_center().x-tag_size.x*.5),marker.end.y-2),tag_size)
+				tag_hit=tag.grow_individual(0,4,0,4)
+			if not safe.encloses(marker) or (has_tag and not safe.encloses(tag_hit)):continue
+			var clash:=false
+			for obstacle in blocked:
+				if obstacle.intersects(marker) or (has_tag and obstacle.intersects(tag_hit)):clash=true;break
+			if not clash:return {"marker":marker,"tag":tag}
+	return {}
 ## 一个人的头和脸在屏幕上占哪块（头顶往下 34、宽 30，坐、躺、宠物的头顶各按自己的算）
 func face_rect(a,xf:Transform2D) -> Rect2:
 	var w:=(20.0 if a.pet else 30.0);var hgt:=(24.0 if a.pet else 34.0)
