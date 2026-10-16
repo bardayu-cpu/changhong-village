@@ -108,13 +108,16 @@ class HoneyBoard extends Control:
 	var game
 	var cells:Array[Button]=[]
 	var elapsed:=0.0
+	var jar_art:HoneyJar
 	func _ready() -> void:
 		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 		for n in 6:
 			var b:=UI.button("压蜜",func():game.step(n),true);b.custom_minimum_size=Vector2(96,78);b.size=Vector2(96,78);add_child(b);cells.append(b)
+		jar_art=HoneyJar.new();jar_art.size=Vector2(84,78);add_child(jar_art)
 		resized.connect(refresh);refresh()
 	func refresh() -> void:
 		if cells.is_empty():return
+		jar_art.position=Vector2(size.x*.5-42,280);jar_art.update_state(game.progress,game.finished)
 		for n in 6:
 			var done:bool=game.HONEY_SEQUENCE.find(n)<game.progress
 			cells[n].position=Vector2(size.x*.5-164+(n%3)*116,58+(n/3)*98)
@@ -129,12 +132,46 @@ class HoneyBoard extends Control:
 				var c:=corner+Vector2(9+i*17,16);var points:=PackedVector2Array([c+Vector2(-7,-5),c+Vector2(0,-9),c+Vector2(7,-5),c+Vector2(7,5),c+Vector2(0,9),c+Vector2(-7,5)])
 				draw_colored_polygon(points,Color("8e542d") if game.HONEY_SEQUENCE.find(n)<game.progress else Color("e3a43b"))
 		var jar:=Vector2(size.x*.5-42,280)
-		draw_rect(Rect2(jar,Vector2(84,78)),Color("67452e"));draw_rect(Rect2(jar+Vector2(5,5),Vector2(74,68)),Color("c8b98e"))
-		var fill:float=game.progress/6.0
-		draw_rect(Rect2(jar+Vector2(9,68-fill*59),Vector2(66,fill*59)),Color("e4a32d"))
 		if game.progress>0 and game.progress<6 and not game.run_id.is_empty():
 			for n in 4:draw_rect(Rect2(jar+Vector2(40,-33+fmod(elapsed*35+n*9,38)),Vector2(5,7)),Color("ffd665"))
-		if game.finished:draw_rect(Rect2(jar+Vector2(-3,-3),Vector2(90,10)),Color("b34f38"))
+
+
+class HoneyJar extends Control:
+	const TEXTURE_PATH="res://ayu_home/v4/assets/institutions/honey-jar-v3.png"
+	const FRAME=Rect2(77,87,796,693)
+	const FILL=Rect2(909,304,548,432)
+	const SEAL=Rect2(347,847,842,88)
+	var progress:=0
+	var sealed:=false
+	func _ready() -> void:
+		mouse_filter=Control.MOUSE_FILTER_IGNORE
+		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		texture_repeat=CanvasItem.TEXTURE_REPEAT_DISABLED
+		var shader:=Shader.new()
+		shader.code="shader_type canvas_item; render_mode unshaded; void fragment(){if(COLOR.a<=0.8){discard;} COLOR.a=1.0;}"
+		var alpha_material:=ShaderMaterial.new();alpha_material.shader=shader;material=alpha_material
+	func update_state(step:int,finished:bool) -> void:
+		progress=clampi(step,0,6);sealed=finished;queue_redraw()
+	static func layers_for_state(step:int,finished:bool) -> Array[Dictionary]:
+		# Match the reviewed four-state preview: preserve each sprite's aspect
+		# ratio and the jar/honey bottom anchors; only the honey is revealed.
+		var layers:Array[Dictionary]=[]
+		var fill_ratio:=clampf(step/6.0,0.0,1.0)
+		var fill_size:Vector2=FILL.size*(66.0/FILL.size.x)
+		if fill_ratio>0.0:
+			var shown_height:=fill_size.y*fill_ratio
+			layers.append({"kind":"honey","source":Rect2(FILL.position+Vector2(0,FILL.size.y*(1.0-fill_ratio)),Vector2(FILL.size.x,FILL.size.y*fill_ratio)),"target":Rect2(Vector2(9,68-shown_height),Vector2(fill_size.x,shown_height))})
+		var frame_size:Vector2=FRAME.size*(84.0/FRAME.size.x)
+		layers.append({"kind":"frame","source":FRAME,"target":Rect2(Vector2(0,78-frame_size.y),frame_size)})
+		if finished and step>=6:
+			var seal_size:Vector2=SEAL.size*(64.0/SEAL.size.x)
+			layers.append({"kind":"seal","source":SEAL,"target":Rect2(Vector2(10,7),seal_size)})
+		return layers
+	func _draw() -> void:
+		var texture:=Assets.texture(TEXTURE_PATH)
+		if texture==null:return
+		for layer in layers_for_state(progress,sealed):
+			draw_texture_rect_region(texture,layer.target,layer.source)
 
 class CivicBoard extends Control:
 	var game
