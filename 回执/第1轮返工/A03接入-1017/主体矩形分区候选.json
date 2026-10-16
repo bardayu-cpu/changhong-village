@@ -1,0 +1,406 @@
+{
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-备菜三阶段图集-v2.png",
+  "source_size": [
+    1859,
+    846
+  ],
+  "sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "stage_canvas": [
+    264,
+    120
+  ],
+  "origin_relative_c": [
+    -144,
+    -54
+  ],
+  "alpha_cutoff": 0.8,
+  "fit": "uniform, each allowed box bottom aligned; no source bitmap changes",
+  "stages": [
+    {
+      "id": "progress_0_raw",
+      "items": [
+        {
+          "id": "basin_daikon",
+          "source": [
+            43,
+            33,
+            523,
+            388
+          ],
+          "target": [
+            4.0,
+            21.265774378585093,
+            125.0,
+            92.73422562141491
+          ],
+          "allowed_box": [
+            4,
+            4,
+            125,
+            110
+          ],
+          "parts": [
+            {
+              "source": [
+                43,
+                33,
+                523,
+                304
+              ],
+              "target": [
+                4.0,
+                21.265774378585093,
+                125.0,
+                72.65774378585085
+              ]
+            },
+            {
+              "source": [
+                43,
+                337,
+                518,
+                84
+              ],
+              "target": [
+                4.0,
+                93.92351816443595,
+                123.80497131931166,
+                20.076481835564053
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whole_peppers",
+          "source": [
+            561,
+            172,
+            307,
+            230
+          ],
+          "target": [
+            175.0,
+            41.814332247557005,
+            79.0,
+            59.185667752442995
+          ],
+          "allowed_box": [
+            175,
+            22,
+            79,
+            79
+          ],
+          "parts": [
+            {
+              "source": [
+                561,
+                172,
+                307,
+                59
+              ],
+              "target": [
+                175.0,
+                41.814332247557005,
+                79.0,
+                15.182410423452769
+              ]
+            },
+            {
+              "source": [
+                566,
+                231,
+                302,
+                56
+              ],
+              "target": [
+                176.28664495114006,
+                56.99674267100977,
+                77.71335504885994,
+                14.410423452768729
+              ]
+            },
+            {
+              "source": [
+                561,
+                287,
+                307,
+                115
+              ],
+              "target": [
+                175.0,
+                71.4071661237785,
+                79.0,
+                29.592833876221498
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "progress_1_washed",
+      "items": [
+        {
+          "id": "basin_daikon_water",
+          "source": [
+            972,
+            33,
+            524,
+            388
+          ],
+          "target": [
+            4.0,
+            21.44274809160305,
+            125.0,
+            92.55725190839695
+          ],
+          "allowed_box": [
+            4,
+            4,
+            125,
+            110
+          ],
+          "parts": [
+            {
+              "source": [
+                972,
+                33,
+                524,
+                303
+              ],
+              "target": [
+                4.0,
+                21.44274809160305,
+                125.0,
+                72.28053435114504
+              ]
+            },
+            {
+              "source": [
+                972,
+                336,
+                518,
+                85
+              ],
+              "target": [
+                4.0,
+                93.72328244274809,
+                123.56870229007635,
+                20.27671755725191
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whole_peppers",
+          "source": [
+            1490,
+            172,
+            307,
+            230
+          ],
+          "target": [
+            175.0,
+            41.814332247557005,
+            79.0,
+            59.185667752442995
+          ],
+          "allowed_box": [
+            175,
+            22,
+            79,
+            79
+          ],
+          "parts": [
+            {
+              "source": [
+                1490,
+                172,
+                307,
+                60
+              ],
+              "target": [
+                175.0,
+                41.814332247557005,
+                79.0,
+                15.439739413680782
+              ]
+            },
+            {
+              "source": [
+                1496,
+                232,
+                301,
+                53
+              ],
+              "target": [
+                176.54397394136808,
+                57.25407166123779,
+                77.45602605863192,
+                13.63843648208469
+              ]
+            },
+            {
+              "source": [
+                1490,
+                285,
+                307,
+                117
+              ],
+              "target": [
+                175.0,
+                70.89250814332247,
+                79.0,
+                30.107491856677523
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "progress_2_diced",
+      "items": [
+        {
+          "id": "clean_drained_daikon",
+          "source": [
+            456,
+            451,
+            516,
+            375
+          ],
+          "target": [
+            4.0,
+            23.156976744186053,
+            125.0,
+            90.84302325581395
+          ],
+          "allowed_box": [
+            4,
+            4,
+            125,
+            110
+          ],
+          "parts": [
+            {
+              "source": [
+                456,
+                451,
+                516,
+                375
+              ],
+              "target": [
+                4.0,
+                23.156976744186053,
+                125.0,
+                90.84302325581395
+              ]
+            }
+          ]
+        },
+        {
+          "id": "board_diced_peppers",
+          "source": [
+            981,
+            568,
+            428,
+            241
+          ],
+          "target": [
+            166.0,
+            36.82710280373832,
+            82.0,
+            46.17289719626168
+          ],
+          "allowed_box": [
+            166,
+            34,
+            82,
+            49
+          ],
+          "parts": [
+            {
+              "source": [
+                981,
+                568,
+                428,
+                241
+              ],
+              "target": [
+                166.0,
+                36.82710280373832,
+                82.0,
+                46.17289719626168
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "仅把每个主体按1-3块矩形绘制，保持同一对象统一比例/位置，不新画、不改PNG、不新增shader掩膜",
+  "status": "一次普通矩形分区修正候选，等待C4核对后做最后一次复核预览；未绑定",
+  "component_verification": [
+    {
+      "id": "basin_daikon",
+      "stage": "progress_0_raw",
+      "subject_components": 1,
+      "subject_alpha_gt_204_pixels": 142473,
+      "subject_pixels_lost": 0,
+      "neighbor_fragment_pixels_removed": 491,
+      "neighbor_pixels_retained": 0,
+      "rectangular_parts": 2
+    },
+    {
+      "id": "whole_peppers",
+      "stage": "progress_0_raw",
+      "subject_components": 3,
+      "subject_alpha_gt_204_pixels": 31944,
+      "subject_pixels_lost": 0,
+      "neighbor_fragment_pixels_removed": 307,
+      "neighbor_pixels_retained": 0,
+      "rectangular_parts": 3
+    },
+    {
+      "id": "basin_daikon_water",
+      "stage": "progress_1_washed",
+      "subject_components": 1,
+      "subject_alpha_gt_204_pixels": 140804,
+      "subject_pixels_lost": 0,
+      "neighbor_fragment_pixels_removed": 527,
+      "neighbor_pixels_retained": 0,
+      "rectangular_parts": 2
+    },
+    {
+      "id": "whole_peppers",
+      "stage": "progress_1_washed",
+      "subject_components": 3,
+      "subject_alpha_gt_204_pixels": 31979,
+      "subject_pixels_lost": 0,
+      "neighbor_fragment_pixels_removed": 307,
+      "neighbor_pixels_retained": 0,
+      "rectangular_parts": 3
+    },
+    {
+      "id": "clean_drained_daikon",
+      "stage": "progress_2_diced",
+      "subject_components": 1,
+      "subject_alpha_gt_204_pixels": 135184,
+      "subject_pixels_lost": 0,
+      "neighbor_fragment_pixels_removed": 1835,
+      "neighbor_pixels_retained": 0,
+      "rectangular_parts": 1
+    },
+    {
+      "id": "board_diced_peppers",
+      "stage": "progress_2_diced",
+      "subject_components": 1,
+      "subject_alpha_gt_204_pixels": 95232,
+      "subject_pixels_lost": 0,
+      "neighbor_fragment_pixels_removed": 85,
+      "neighbor_pixels_retained": 0,
+      "rectangular_parts": 1
+    }
+  ],
+  "notes": "盆保留最大连通主体；完整海椒保留3个大主体。只排除已目视确认的邻图红点/黑线。按现有alpha>0.8核所有主体像素均保留、所有独立邻图残片均排除。"
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-17",
+  "status": "未通过；停止A03接入",
+  "preview": "回执/第1轮返工/A03接入-1017/A03-v2矩形分区-复核预览.png",
+  "parameters": "回执/第1轮返工/A03接入-1017/唯一修正预览参数.json",
+  "review": {
+    "resolved": [
+      "盆侧明显黑线",
+      "盆下孤立红点"
+    ],
+    "remaining": [
+      "progress_0_raw 和 progress_1_washed 完整海椒左侧仍有孤立细黑色竖线，C1目视原尺寸与放大图均确认"
+    ],
+    "subject": "盆把手、白萝卜、三根完整海椒和海椒丁主体可辨识",
+    "decision": "一次矩形修正仍有可见残留；按既定门槛判未过，不继续修图、生成新图或搭建额外工具",
+    "C1_final": "C1同判未通过；无需再做推导或修正"
+  },
+  "render": {
+    "kind": "隔离WebGL目标尺寸预览，非Godot实机",
+    "stage_canvas": [
+      264,
+      120
+    ],
+    "filter": "nearest",
+    "alpha_test": 0.8,
+    "aspect": "统一比例、底边对齐",
+    "source_pixels_unchanged": true
+  },
+  "source_sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "production_binding": false,
+  "production_commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "acceptance_boundary": "蜂蜜A02已由C3完成最小差异实机验收；A03仅有失败的隔离预览，不代表本轮整体通过，不报告整体达到75%。",
+  "follow_up": "本轮封存失败证据和素材；未授权新的A03尝试。道路不继续画，旧工程/封存快照保持只读。",
+  "budget_at_start_of_closeout": "13% remaining; preserve 10% safety floor"
+}

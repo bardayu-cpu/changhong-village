@@ -1,0 +1,75 @@
+{
+  "status": "修正C2首张隔离预览的邻物残留；原PNG不变，不代表实机通过",
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-备菜三阶段图集-v2.png",
+  "source_sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "canvas": [264, 120],
+  "render": {
+    "filter": "nearest",
+    "alpha_test": 0.8,
+    "keep_aspect": true,
+    "piece_mapping": "每片目标位置=组目标原点+(片源坐标-组源原点)*组scale；片尺寸=片源尺寸*组scale",
+    "note": "仅用普通矩形裁片；不建遮罩、不改原图、不程序补画"
+  },
+  "stages": {
+    "progress_0_raw": {
+      "basin_group": {
+        "source_bounds": [43, 33, 523, 388],
+        "destination": [4.0, 12.6329, 125.0, 92.7342],
+        "scale": 0.2390057361,
+        "source_pieces": [
+          [43, 33, 517, 388],
+          [560, 220, 6, 80]
+        ],
+        "note": "第二片仅补完整右把手；y<300，不会带入海椒尾端"
+      },
+      "whole_peppers_group": {
+        "source_bounds": [561, 172, 307, 230],
+        "destination": [175.0, 31.9072, 79.0, 59.1857],
+        "scale": 0.2573289902,
+        "source_pieces": [
+          [566, 172, 302, 230],
+          [561, 340, 5, 40]
+        ],
+        "note": "第二片仅补最左海椒尾端；y>340，不会带入盆把手"
+      }
+    },
+    "progress_1_washed": {
+      "basin_group": {
+        "source_bounds": [972, 33, 524, 388],
+        "destination": [4.0, 12.7214, 125.0, 92.5573],
+        "scale": 0.2385496183,
+        "source_pieces": [
+          [972, 33, 518, 388],
+          [1490, 220, 6, 80]
+        ],
+        "note": "第二片仅补完整右把手"
+      },
+      "whole_peppers_group": {
+        "source_bounds": [1490, 172, 307, 230],
+        "destination": [175.0, 31.9072, 79.0, 59.1857],
+        "scale": 0.2573289902,
+        "source_pieces": [
+          [1496, 172, 301, 230],
+          [1490, 340, 6, 40]
+        ],
+        "note": "第二片仅补最左海椒尾端"
+      }
+    },
+    "progress_2_diced": {
+      "basin_group": {
+        "source_bounds": [456, 451, 516, 375],
+        "destination": [4.0, 13.5785, 125.0, 90.843],
+        "scale": 0.242248062,
+        "source_pieces": [[456, 451, 516, 375]]
+      },
+      "board_group": {
+        "source_bounds": [981, 568, 428, 241],
+        "destination": [166.0, 35.4136, 82.0, 46.1729],
+        "scale": 0.191588785,
+        "source_pieces": [[981, 568, 428, 241]]
+      }
+    }
+  },
+  "first_preview_decision": "未通过：盆右黑竖线、原始/洗净盆右下红点、完整海椒左黑线均为重叠裁框带入的邻物残留",
+  "corrected_preview_gate": "重做隔离预览后，盆把手与海椒轮廓必须完整，且上述黑线/红点全部消失；否则A03判失败并停止"
+}

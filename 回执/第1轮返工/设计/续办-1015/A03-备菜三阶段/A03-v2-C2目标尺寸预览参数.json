@@ -1,0 +1,65 @@
+{
+  "status": "仅供C2制作264x120目标尺寸预览；实机前不宣称通过",
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-备菜三阶段图集-v2.png",
+  "source_size": [1859, 846],
+  "stage_canvas": [264, 120],
+  "display_origin_relative_c": [-144, -54],
+  "import_preview": {
+    "filter": "nearest",
+    "mipmaps": false,
+    "repeat": false,
+    "alpha_test": "仅外部低Alpha雾圈可用discard<=0.8；不得损伤主体边线",
+    "keep_aspect_each_object": true,
+    "forbid_stretch_to_fill": true
+  },
+  "stages": {
+    "progress_0_raw": {
+      "basin_daikon": {
+        "source_core_alpha_gt_204": [43, 33, 537, 388],
+        "allowed_box": [4, 4, 125, 110],
+        "destination_keep_aspect": [4.0, 13.8417, 125.0, 90.3166]
+      },
+      "whole_peppers": {
+        "source_core_alpha_gt_204": [560, 172, 308, 230],
+        "allowed_box": [175, 22, 79, 79],
+        "destination_keep_aspect": [175.0, 32.0032, 79.0, 58.9935]
+      }
+    },
+    "progress_1_washed": {
+      "basin_daikon_water": {
+        "source_core_alpha_gt_204": [972, 33, 538, 388],
+        "allowed_box": [4, 4, 125, 110],
+        "destination_keep_aspect": [4.0, 13.9257, 125.0, 90.1487]
+      },
+      "whole_peppers": {
+        "source_core_alpha_gt_204": [1490, 172, 307, 230],
+        "allowed_box": [175, 22, 79, 79],
+        "destination_keep_aspect": [175.0, 31.9072, 79.0, 59.1857]
+      }
+    },
+    "progress_2_diced": {
+      "clean_drained_daikon": {
+        "source_core_alpha_gt_204": [456, 451, 534, 375],
+        "allowed_box": [4, 4, 125, 110],
+        "destination_keep_aspect": [4.0, 15.1096, 125.0, 87.7809]
+      },
+      "board_diced_peppers": {
+        "source_core_alpha_gt_204": [970, 568, 439, 241],
+        "allowed_box": [166, 34, 82, 49],
+        "destination_keep_aspect": [166.0, 35.992, 82.0, 45.0159]
+      }
+    }
+  },
+  "preserve": [
+    "现有桌面底板与三个按钮",
+    "progress1现有独立水点动画",
+    "progress3现有meal-14成品与蒸汽",
+    "洗菜→切海椒→拌匀原三步状态及库存奖励"
+  ],
+  "reject_if": [
+    "目标尺寸仍出现外晕或主体断边",
+    "盆、楼卜、海椒或砧板被非等比挤压",
+    "progress0泥渍、progress1清水洗净、progress2海椒丁三态无法一眼区分",
+    "图像遮挡按钮或被误解为成品菜"
+  ]
+}

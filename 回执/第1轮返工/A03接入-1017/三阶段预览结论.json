@@ -1,0 +1,24 @@
+{
+  "time": "2026-10-17T06:42:03.151729+08:00",
+  "status": "一次目标尺寸预览未通过，未生产绑定",
+  "source_sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "preview": {
+    "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/A03接入-1017/A03-v2三阶段-隔离预览.png",
+    "sha256": "498656b33736e2a3eebac003febfe640239f3bcbd5d7e0db434a7b611f84e974"
+  },
+  "method": "复用蜂蜜离屏WebGL renderer；六个主体分别等比、底锚、nearest、alpha discard<=0.8；源PNG未改",
+  "visible_pass": [
+    "0带泥楼卜和完整海椒可辨",
+    "1清水与洗净楼卜可辨",
+    "2沥水楼卜与海椒丁/砧板可辨"
+  ],
+  "failure": [
+    "0与1左盆右下角带入红色相邻海椒碎片",
+    "0与1右侧海椒左边带入黑色相邻盆边线",
+    "2左盆右边带入砧板黑色边线"
+  ],
+  "cause": "C4提供的矩形核心裁框覆盖了相邻不相连图块的局部。Alpha Test只去半透明外晕，不能去这些高Alpha邻图残片；不能用它声称分层已经干净。",
+  "production_commit_unchanged": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "gate": "交C1/C4核对分离边界后决定是否做必要标准裁切修复；不静默遮掉真实主体、不新画、不绑定未通过候选。",
+  "stop_remaining_percent": 10
+}
