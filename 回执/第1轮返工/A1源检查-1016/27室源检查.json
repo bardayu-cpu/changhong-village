@@ -1,0 +1,1478 @@
+{
+  "time": "2026-10-16T09:43:37.911018+08:00",
+  "status": "27室精简源检查完成，新增1处确定错配修复；剩余美术与GUI欠验保留",
+  "production_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "scope_source": "回执/第1轮返工/A1二修-8306872-1015/A1二修-覆盖.json",
+  "room_count": 27,
+  "reachability_note": "按C3既定27室清单逐室绑定实际独立JSON及公共绘制。door目标图另连通terrace露台；它不在C3的27室清单，本次作范围说明、不改计数或扩展GUI批次。52个已配置室内不等于本批27个送验室。",
+  "method": "只读相关渲染/分派片段并按每室热点kind/effect映射触发条件；未运行27室GUI、未重跑五房/87项；原脚本和阈值未改",
+  "sources": [
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "sha256": "559229bdc4439e65023bff25052a0951af4aa8463db0d50fb7db97a690e0a6e1"
+    },
+    {
+      "path": "godot/ayu_home/v4/world.gd",
+      "sha256": "c4885fbc2e9513e20f5af4274f64ec12d1cdb62842c8666a6accbc26228f9344"
+    },
+    {
+      "path": "godot/ayu_home/v4/actor.gd",
+      "sha256": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_room.gd",
+      "sha256": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_game.gd",
+      "sha256": "ff3933b42fba748e2d573547e6577e0a032e224111308a451b145aaae03eca74"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "sha256": "6caf652f1eb07c01eb87bc60f5fbb08140fd9e41ed77f6b7aa048fa3bfc2bc71"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/world_life.gd",
+      "sha256": "c0b09cc8e929de6d95e3b7361b9ca585eea6b038ab27ea369200f32eac13a2bd"
+    },
+    {
+      "path": "godot/ayu_home/v4/redraw_art.gd",
+      "sha256": "93be0c8151c08b433ecaa59fa8bf0d3e90328c4b20ca8cf4cea13f87d2b7fea0"
+    },
+    {
+      "path": "godot/ayu_home/v4/activities.gd",
+      "sha256": "fac71d12dd19c7e4a4265d2fc8f920f336ebd98064af2138030d0b77c712bab2"
+    },
+    {
+      "path": "godot/ayu_home/v4/immersive.gd",
+      "sha256": "baea055bb19f3ab1581c5a558f3922f948a7c74e752d3e137b28f044c211aa7c"
+    },
+    {
+      "path": "godot/ayu_home/v4/life_games.gd",
+      "sha256": "46341cc39720330be0e2b55b91fc068ccfd620b58a82fefc5dc43954b066f5ab"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "class": "已修明确布局错误",
+      "rooms": [
+        "living",
+        "dining",
+        "kitchen",
+        "laundry",
+        "cats",
+        "stairs1",
+        "mahjong",
+        "parents",
+        "workshop",
+        "garage",
+        "closet1",
+        "bath1",
+        "guest",
+        "guest_closet",
+        "guest_bath",
+        "stairs2",
+        "study",
+        "closet2",
+        "bath2",
+        "ayu_room",
+        "v_laowu",
+        "v_h5",
+        "v_h3_up",
+        "v_h3",
+        "v_mayor_up",
+        "v_mayor",
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/home.gd",
+        "line": 901,
+        "anchor": "static func marker_group_layout"
+      },
+      "trigger": "走近物件/居民，最近互动气泡出现；人物/话泡或屏边接近气泡及文字牌",
+      "result": "5e2e0d2已整体避让气泡、文字和点击区，12项几何通过；原生画面/点击待C3"
+    },
+    {
+      "id": "F02",
+      "class": "已修明确反馈错配",
+      "rooms": [
+        "workshop",
+        "garage",
+        "guest_closet"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/world.gd",
+        "line": 576,
+        "anchor": "if kind==\"fold\" or (kind==\"tidy\""
+      },
+      "trigger": "整理workshop/tools、garage/shelf、guest_closet/bag后，已保存effects标志为真",
+      "result": "9acd328仅收窄叠衣绘制条件，去掉3处错误衣物块；9处真正衣物整理保留；状态/玩法未改"
+    },
+    {
+      "id": "F03",
+      "class": "已修成品占位，实机待补验",
+      "rooms": [
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/core/institution_game.gd",
+        "line": 200,
+        "anchor": "var meal:=Assets.texture("
+      },
+      "trigger": "一起备餐progress>=3，包括正常收菜后",
+      "result": "f382dc0复用既有透明餐盘；不代表前两步美术同步完成"
+    },
+    {
+      "id": "A01",
+      "class": "简化插画残留，需匹配美术",
+      "rooms": [
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/core/institution_room.gd",
+        "line": 149,
+        "anchor": "class StoryPicture extends Control"
+      },
+      "trigger": "点story_book打开共桌故事，page 0/1/2",
+      "details": "书页内小苗、桌子、篮子及人物由基础矩形拼出；书页底板/书脊属于正常面板，不与插画混为一项",
+      "decision": "无现成同主题独立插画；不擅画、不删故事或正常翻页按钮，保留欠项"
+    },
+    {
+      "id": "A02",
+      "class": "简化器具残留，需匹配美术",
+      "rooms": [
+        "v_h5"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/core/institution_game.gd",
+        "line": 131,
+        "anchor": "var jar:=Vector2(size.x*.5-42,280)"
+      },
+      "trigger": "打开honey_game；进度改变罐内填充，完成后出现封口",
+      "details": "84x78矩形罐体及填充代替专用蜜罐；蜂巢格是顺序操作区域，进度条和按钮是正常UI",
+      "decision": "现有honey-v2是房间整体底图，未找到对应独立透明蜜罐；不裁房间、不用另一组色块代替，不改玩法"
+    },
+    {
+      "id": "A03",
+      "class": "备餐过程简化美术，需实机判读/专用素材",
+      "rooms": [
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/core/institution_game.gd",
+        "line": 186,
+        "anchor": "if game.progress<3:"
+      },
+      "trigger": "一起备餐progress=0/1/2",
+      "details": "盆、楼卜、海椒及切丁仍是程序几何；成品分支已独立修好。木台底板/步骤按钮不因矩形误删",
+      "decision": "无匹配独立原料过程图，不把通用熟菜图放进洗菜/切菜阶段；此次登记，不扩图"
+    },
+    {
+      "id": "A04",
+      "class": "简化开合覆盖，欠匹配开合帧",
+      "rooms": [
+        "closet1",
+        "closet2",
+        "guest_closet"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/world.gd",
+        "line": 404,
+        "anchor": "elif toggles[id] and h.get(\"kind\",\"\") not in [\"tap\",\"shower\"]:"
+      },
+      "trigger": [
+        {
+          "room": "closet1",
+          "spot": "drawer",
+          "kind": "reaction",
+          "effect": "open"
+        },
+        {
+          "room": "guest_closet",
+          "spot": "bag",
+          "kind": "tidy",
+          "effect": "open"
+        },
+        {
+          "room": "closet2",
+          "spot": "drawer",
+          "kind": "reaction",
+          "effect": "open"
+        }
+      ],
+      "details": "effect=open切开后持续画28x45米白矩形及三个8x8色块；再次切关消失。kitchen/fridge走pantry早返回，不误列为此绘制的当前入口",
+      "decision": "登记具体开合热点；目前没有同家具开合图，不能用删除正常反馈或改按钮冒充完成"
+    },
+    {
+      "id": "A05",
+      "class": "专用动作不足/粒子，非调试框",
+      "rooms": [
+        "v_h3",
+        "v_h5",
+        "v_mayor",
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/core/institution_room.gd",
+        "line": 46,
+        "anchor": "func draw_work()"
+      },
+      "trigger": "居民sift/wash作息且未行走；活动中心slot_index=0另有水花行",
+      "details": "机构人物已关闭旧draw_hand_overlays；水花/谷粒是2至3px粒子，C3所见腰前水花点列属于动作表现不足，不是隐藏调试矩形",
+      "decision": "保留动作/场所反馈，专用翻册/盖章/饮茶/清洗帧欠美术；不宣称人物劳动动画完整"
+    },
+    {
+      "id": "A06",
+      "class": "既有手部/被沿简化表现，非调试",
+      "rooms": [
+        "living",
+        "dining",
+        "kitchen",
+        "laundry",
+        "cats",
+        "stairs1",
+        "mahjong",
+        "parents",
+        "workshop",
+        "garage",
+        "closet1",
+        "bath1",
+        "guest",
+        "guest_closet",
+        "guest_bath",
+        "stairs2",
+        "study",
+        "closet2",
+        "bath2",
+        "ayu_room",
+        "v_laowu",
+        "v_h5",
+        "v_h3_up",
+        "v_h3",
+        "v_mayor_up",
+        "v_mayor",
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/actor.gd",
+        "line": 203,
+        "anchor": "if draw_hand_overlays and action in"
+      },
+      "trigger": "非母亲角色drink/eat/wash；visitor坐姿；sleep/lie缺quilt纹理时走颜色被沿回退；photo/hug手势",
+      "details": "机构居民draw_hand_overlays=false，母亲新帧提前返回；玩家及家人仍有旧手臂/杯等小块。要结合对应动作实机判读，不等同每一格都出现问题",
+      "decision": "记录条件，未全局删除人物部件，不改已认可阿鱼家动画"
+    },
+    {
+      "id": "A07",
+      "class": "旧屋画面待统一，文件名命中不等于矩形占位",
+      "rooms": [
+        "v_laowu"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/assets/v_laowu.json",
+        "line": 12,
+        "anchor": "\"props\":"
+      },
+      "trigger": "进入老屋，持续展示",
+      "details": "背景为简化木地板/隔墙；props仍引用furniture_cabinet.png及furniture_table.png。已实际看源PNG，柜子和圆桌均含真实像素纹理，并非纯几何块。原四机构检查的禁用表不能被扩大成全部房间的自动删除规则",
+      "decision": "原样保留现有家具及碰撞；整体风格与布局需C4重做/实机验收，源审不代替通过"
+    },
+    {
+      "id": "K01",
+      "class": "正常UI/小范围物件状态，保留",
+      "rooms": [
+        "v_mayor",
+        "v_h3",
+        "v_h5",
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/core/institution_room.gd",
+        "line": 119,
+        "anchor": "func draw_civic(effects:Dictionary)"
+      },
+      "trigger": "register/counter/notice/bundle、filter/bottle、weave等状态",
+      "details": "真实桌面处的小纸张/印记/系带/滤布/编织线与局部水蜜粒子是状态反馈；CivicBoard事务卡、勾选、步骤/进度/按钮为正常UI。未以draw_rect词或矩形形状自动判占位"
+    },
+    {
+      "id": "K02",
+      "class": "正常场景效果/衣物反馈，保留",
+      "rooms": [
+        "living",
+        "dining",
+        "kitchen",
+        "laundry",
+        "cats",
+        "stairs1",
+        "mahjong",
+        "parents",
+        "workshop",
+        "garage",
+        "closet1",
+        "bath1",
+        "guest",
+        "guest_closet",
+        "guest_bath",
+        "stairs2",
+        "study",
+        "closet2",
+        "bath2",
+        "ayu_room",
+        "v_laowu",
+        "v_h5",
+        "v_h3_up",
+        "v_h3",
+        "v_mayor_up",
+        "v_mayor",
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/world.gd",
+        "line": 360,
+        "anchor": "func _air_draw()"
+      },
+      "trigger": "灯/电视/窗外季节色/雨雪/水龙头/蒸汽/鱼食；九处衣物整理完成",
+      "details": "电视矩形按tv_rect、窗口色按windows限定，水/气/谷粒受特效开关及时间控制；麻将小牌墙是明示设计，非调试。叠衣修复后的衣物热点见clothing_targets"
+    },
+    {
+      "id": "D01",
+      "class": "休眠代码/非当前入口，不算可见占位",
+      "rooms": [
+        "living",
+        "dining",
+        "kitchen",
+        "laundry",
+        "cats",
+        "stairs1",
+        "mahjong",
+        "parents",
+        "workshop",
+        "garage",
+        "closet1",
+        "bath1",
+        "guest",
+        "guest_closet",
+        "guest_bath",
+        "stairs2",
+        "study",
+        "closet2",
+        "bath2",
+        "ayu_room",
+        "v_laowu",
+        "v_h5",
+        "v_h3_up",
+        "v_h3",
+        "v_mayor_up",
+        "v_mayor",
+        "my_cabin"
+      ],
+      "source": {
+        "path": "godot/ayu_home/v4/world.gd",
+        "line": 15,
+        "anchor": "var debug_paths := false"
+      },
+      "trigger": "debug_paths声明为false且本v4代码无其他引用；未发现激活的导航/碰撞调试绘制",
+      "details": "_air_draw的book分支在本27室正常入口中被read/recipe提前返回绕过。activities._draw_fun旧简图入口也未被当前home的guitar/puzzle/album分派使用。仅据源码静态路径，不声称所有运行状态已实测"
+    }
+  ],
+  "clothing_targets": [
+    {
+      "room": "laundry",
+      "spot": "towel",
+      "kind": "fold",
+      "effect": "fold"
+    },
+    {
+      "room": "closet1",
+      "spot": "hang",
+      "kind": "fold",
+      "effect": "fold"
+    },
+    {
+      "room": "closet1",
+      "spot": "tidy",
+      "kind": "tidy",
+      "effect": "fold"
+    },
+    {
+      "room": "bath1",
+      "spot": "towel",
+      "kind": "fold",
+      "effect": "fold"
+    },
+    {
+      "room": "guest_closet",
+      "spot": "coat",
+      "kind": "fold",
+      "effect": "fold"
+    },
+    {
+      "room": "guest_closet",
+      "spot": "basket",
+      "kind": "tidy",
+      "effect": "fold"
+    },
+    {
+      "room": "closet2",
+      "spot": "hanger",
+      "kind": "fold",
+      "effect": "fold"
+    },
+    {
+      "room": "closet2",
+      "spot": "clothes",
+      "kind": "fold",
+      "effect": "fold"
+    },
+    {
+      "room": "bath2",
+      "spot": "mat",
+      "kind": "fold",
+      "effect": "fold"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "living",
+      "title": "客厅",
+      "config": "godot/ayu_home/v4/assets/living.json",
+      "config_sha256": "215f4e8c8339b3b1c58478355f05a915743a36574eb4ca0ecf7748668330e56d",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "fish",
+          "kind": "fish",
+          "effect": ""
+        },
+        {
+          "id": "tv",
+          "kind": "tv_scene",
+          "effect": "tv"
+        },
+        {
+          "id": "sofa",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "album",
+          "kind": "album",
+          "effect": ""
+        },
+        {
+          "id": "lamp",
+          "kind": "reaction",
+          "effect": "lamp"
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_1",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_2",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "dining",
+      "title": "餐厅",
+      "config": "godot/ayu_home/v4/assets/dining.json",
+      "config_sha256": "e5afd0319484afd8f3fee09aea6e7bfac70dac13bb484a404e68f895bd1e4e95",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "meal",
+          "kind": "meal",
+          "effect": "eat"
+        },
+        {
+          "id": "tea",
+          "kind": "drink",
+          "effect": "drink"
+        },
+        {
+          "id": "recipe",
+          "kind": "recipe",
+          "effect": "book"
+        },
+        {
+          "id": "flowers",
+          "kind": "flowers",
+          "effect": ""
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_1",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_2",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_3",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "kitchen",
+      "title": "厨房",
+      "config": "godot/ayu_home/v4/assets/kitchen.json",
+      "config_sha256": "37a58cce61cdd4af122015828c9db4d7487da5e3e0456d9ad2a1ed9f68bd95bd",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "stove",
+          "kind": "soup",
+          "effect": ""
+        },
+        {
+          "id": "fridge",
+          "kind": "pantry",
+          "effect": "open"
+        },
+        {
+          "id": "sink",
+          "kind": "tap",
+          "effect": "water"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "laundry",
+      "title": "卫生间与洗衣",
+      "config": "godot/ayu_home/v4/assets/laundry.json",
+      "config_sha256": "f52b8a40adcf3a01043c30ab50d6791eb71d6b9a67ba7bb9763166d84bd98540",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "wash",
+          "kind": "laundry",
+          "effect": ""
+        },
+        {
+          "id": "basin",
+          "kind": "tap",
+          "effect": "water"
+        },
+        {
+          "id": "towel",
+          "kind": "fold",
+          "effect": "fold"
+        },
+        {
+          "id": "drying",
+          "kind": "drying",
+          "effect": "fold"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "cats",
+      "title": "楼梯旁猫窝走道",
+      "config": "godot/ayu_home/v4/assets/cats.json",
+      "config_sha256": "e585033f9668f7092e942dc18e16a6fe8494ee59ca5bd52e4f5d42e21ac399fe",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "nest",
+          "kind": "pet_scene",
+          "effect": "pet"
+        },
+        {
+          "id": "scratch",
+          "kind": "pet_play",
+          "effect": "pet"
+        },
+        {
+          "id": "bowls",
+          "kind": "pet_food",
+          "effect": "food"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "stairs1",
+      "title": "一楼楼梯",
+      "config": "godot/ayu_home/v4/assets/stairs1.json",
+      "config_sha256": "f746c4c7393ea703908113a97399a21d45ae2b10752dda88737ad44d1a7e8b04",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "rail",
+          "kind": "reaction",
+          "effect": "spark"
+        },
+        {
+          "id": "plant",
+          "kind": "tend",
+          "effect": "water"
+        },
+        {
+          "id": "picture",
+          "kind": "reaction",
+          "effect": "picture"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "mahjong",
+      "title": "茶桌与麻将室",
+      "config": "godot/ayu_home/v4/assets/mahjong.json",
+      "config_sha256": "4202df4b2d491622800dd0f65ee1186debcebb8a020a5e166242ad592d4f0b95",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "tea",
+          "kind": "tea",
+          "effect": ""
+        },
+        {
+          "id": "chair",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "plant",
+          "kind": "tend",
+          "effect": "water"
+        },
+        {
+          "id": "pairs",
+          "kind": "pairs",
+          "effect": ""
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_1",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_2",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_3",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "parents",
+      "title": "爸妈卧室",
+      "config": "godot/ayu_home/v4/assets/parents.json",
+      "config_sha256": "6dde0b67e3078d9d1240693d793669fad92da6d5d49e9cb7a4494c8571a57613",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "lamp",
+          "kind": "reaction",
+          "effect": "lamp"
+        },
+        {
+          "id": "bed",
+          "kind": "bed",
+          "effect": "sleep"
+        },
+        {
+          "id": "window",
+          "kind": "window",
+          "effect": "window"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "workshop",
+      "title": "爸爸的手作房",
+      "config": "godot/ayu_home/v4/assets/workshop.json",
+      "config_sha256": "59f19e8e7f57bc06f6d19dd8c717640d633bf756a454009c4d07795f2da4147d",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "wood",
+          "kind": "wood",
+          "effect": ""
+        },
+        {
+          "id": "tools",
+          "kind": "tidy",
+          "effect": "tools"
+        },
+        {
+          "id": "lamp",
+          "kind": "reaction",
+          "effect": "lamp"
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "F02",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "garage",
+      "title": "车库",
+      "config": "godot/ayu_home/v4/assets/garage.json",
+      "config_sha256": "08953b7e57979a38c80313b9c4d58cae5f7ccf0d8296108a55528138e2206d8a",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "car",
+          "kind": "wipe",
+          "effect": "wipe"
+        },
+        {
+          "id": "bike",
+          "kind": "bell",
+          "effect": "bell"
+        },
+        {
+          "id": "shelf",
+          "kind": "tidy",
+          "effect": "tools"
+        }
+      ],
+      "findings": [
+        "F01",
+        "F02",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "closet1",
+      "title": "东侧过道与次净衣柜",
+      "config": "godot/ayu_home/v4/assets/closet1.json",
+      "config_sha256": "7c476685a038610cd9c28fbb2e980eaca3e80b5d34fc6ceefb6a15668ec2ce48",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "hang",
+          "kind": "fold",
+          "effect": "fold"
+        },
+        {
+          "id": "drawer",
+          "kind": "reaction",
+          "effect": "open"
+        },
+        {
+          "id": "tidy",
+          "kind": "tidy",
+          "effect": "fold"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A04",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "bath1",
+      "title": "爸妈卧室浴室",
+      "config": "godot/ayu_home/v4/assets/bath1.json",
+      "config_sha256": "2d8b784852acfcffc12b5061c3c7e0c52752ae103313f534c7d745ae01f44292",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "sink",
+          "kind": "tap",
+          "effect": "water"
+        },
+        {
+          "id": "shower",
+          "kind": "shower",
+          "effect": "water"
+        },
+        {
+          "id": "towel",
+          "kind": "fold",
+          "effect": "fold"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "guest",
+      "title": "客房",
+      "config": "godot/ayu_home/v4/assets/guest.json",
+      "config_sha256": "9a54aa0c4097f80eb8bd7d61d0660d194d8844b7c1883fbfbe2c78772c24c5ba",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "bed",
+          "kind": "stay",
+          "effect": "sleep"
+        },
+        {
+          "id": "lamp",
+          "kind": "reaction",
+          "effect": "lamp"
+        },
+        {
+          "id": "book",
+          "kind": "read",
+          "effect": "book"
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_1",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "guest_closet",
+      "title": "客房衣帽间",
+      "config": "godot/ayu_home/v4/assets/guest_closet.json",
+      "config_sha256": "7513fe67588558e7a5f370b1a2aa12b424f66cf64750cbd99d4bc4f835a2287b",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "coat",
+          "kind": "fold",
+          "effect": "fold"
+        },
+        {
+          "id": "bag",
+          "kind": "tidy",
+          "effect": "open"
+        },
+        {
+          "id": "basket",
+          "kind": "tidy",
+          "effect": "fold"
+        }
+      ],
+      "findings": [
+        "F01",
+        "F02",
+        "A04",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "guest_bath",
+      "title": "客房浴室",
+      "config": "godot/ayu_home/v4/assets/guest_bath.json",
+      "config_sha256": "5b5a9d02fb9645306a72c4da6eb838e37c0e99f4221256236d14558b63310b13",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "water",
+          "kind": "tap",
+          "effect": "water"
+        },
+        {
+          "id": "shower",
+          "kind": "shower",
+          "effect": "water"
+        },
+        {
+          "id": "plant",
+          "kind": "tend",
+          "effect": "water"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "stairs2",
+      "title": "二楼楼梯与过道",
+      "config": "godot/ayu_home/v4/assets/stairs2.json",
+      "config_sha256": "b15852cc490d6c54f52eb13ec9486e99a969651ae61b220fd5d36621ccbafc3d",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "rail",
+          "kind": "reaction",
+          "effect": "spark"
+        },
+        {
+          "id": "fern",
+          "kind": "tend",
+          "effect": "water"
+        },
+        {
+          "id": "table",
+          "kind": "reaction",
+          "effect": "spark"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "study",
+      "title": "书房",
+      "config": "godot/ayu_home/v4/assets/study.json",
+      "config_sha256": "c6642ac4cd4995d7155778974378dd762d038bdfbbc338be85e61be413040301",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "computer",
+          "kind": "work",
+          "effect": "computer"
+        },
+        {
+          "id": "guitar",
+          "kind": "guitar",
+          "effect": "spark"
+        },
+        {
+          "id": "puzzle",
+          "kind": "puzzle",
+          "effect": "spark"
+        },
+        {
+          "id": "chair",
+          "kind": "read",
+          "effect": "book"
+        },
+        {
+          "id": "music",
+          "kind": "music",
+          "effect": ""
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        },
+        {
+          "id": "seat_1",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "closet2",
+      "title": "阿鱼的衣柜",
+      "config": "godot/ayu_home/v4/assets/closet2.json",
+      "config_sha256": "16807471d255654ca20fde39e5fe89e13dc8932e15055b422769f4c5f7a0c507",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "hanger",
+          "kind": "fold",
+          "effect": "fold"
+        },
+        {
+          "id": "drawer",
+          "kind": "reaction",
+          "effect": "open"
+        },
+        {
+          "id": "clothes",
+          "kind": "fold",
+          "effect": "fold"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A04",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "bath2",
+      "title": "阿鱼的浴室",
+      "config": "godot/ayu_home/v4/assets/bath2.json",
+      "config_sha256": "450fca5186720ed03a807e807320912d66b68c93677db62c31f04521dc4cc216",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "basin",
+          "kind": "tap",
+          "effect": "water"
+        },
+        {
+          "id": "shower",
+          "kind": "shower",
+          "effect": "water"
+        },
+        {
+          "id": "mat",
+          "kind": "fold",
+          "effect": "fold"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "ayu_room",
+      "title": "阿鱼卧室",
+      "config": "godot/ayu_home/v4/assets/ayu_room.json",
+      "config_sha256": "9f035145adaedd352e202b55b77603ec04b8bd4dbd364412abce95bd343e5827",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "bunny",
+          "kind": "bunny",
+          "effect": "pet"
+        },
+        {
+          "id": "mirror",
+          "kind": "mirror",
+          "effect": "mirror"
+        },
+        {
+          "id": "lamp",
+          "kind": "reaction",
+          "effect": "lamp"
+        },
+        {
+          "id": "window",
+          "kind": "window",
+          "effect": "window"
+        },
+        {
+          "id": "bed",
+          "kind": "bed",
+          "effect": "sleep"
+        },
+        {
+          "id": "seat_0",
+          "kind": "seat",
+          "effect": "sit"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "v_laowu",
+      "title": "老屋 · 一楼",
+      "config": "godot/ayu_home/v4/assets/v_laowu.json",
+      "config_sha256": "0d6f6a747ca88c851eb4ced016575f776920dd5456759076f1fd4e9d7f8e2c59",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "resident_note",
+          "kind": "village",
+          "effect": ""
+        },
+        {
+          "id": "house_help",
+          "kind": "village",
+          "effect": ""
+        },
+        {
+          "id": "tea_seat",
+          "kind": "seat",
+          "effect": ""
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "A07",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "v_h5",
+      "title": "凯凯蜂蜜小院",
+      "config": "godot/ayu_home/v4/assets/v_h5.json",
+      "config_sha256": "1ade8fd1af8e0bde14fa35520d3a7e92cb43e62b60f8190f60a813821b3fe862",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "press_honey",
+          "kind": "honey_game",
+          "effect": ""
+        },
+        {
+          "id": "clean_tools",
+          "kind": "bee_tool_wash",
+          "effect": "wash"
+        },
+        {
+          "id": "filter_honey",
+          "kind": "honey_filter",
+          "effect": "filter"
+        },
+        {
+          "id": "seal_jar",
+          "kind": "wax_seal",
+          "effect": "bottle"
+        },
+        {
+          "id": "taste_honey",
+          "kind": "honey_taste",
+          "effect": "tea"
+        },
+        {
+          "id": "rest_seat",
+          "kind": "seat",
+          "effect": ""
+        }
+      ],
+      "findings": [
+        "F01",
+        "A02",
+        "A05",
+        "A06",
+        "K01",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "v_h3_up",
+      "title": "小涛磨坊 · 二楼",
+      "config": "godot/ayu_home/v4/assets/v_h3_up.json",
+      "config_sha256": "a2b1db82585dc6131217338fc37513301dc4b5408ab65f176f7cf346c1b38caf",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "up_book",
+          "kind": "read",
+          "effect": ""
+        },
+        {
+          "id": "up_bed",
+          "kind": "seat",
+          "effect": ""
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "v_h3",
+      "title": "小涛磨坊 · 一楼",
+      "config": "godot/ayu_home/v4/assets/v_h3.json",
+      "config_sha256": "c5b50f48cd965ea32d7f3f9370a28be226f11d750a705833ce404fcfb1ad842d",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "mill",
+          "kind": "mill_game",
+          "effect": ""
+        },
+        {
+          "id": "sift",
+          "kind": "sift_grain",
+          "effect": ""
+        },
+        {
+          "id": "tea",
+          "kind": "tea_pour",
+          "effect": ""
+        },
+        {
+          "id": "sweep",
+          "kind": "sweep_mill",
+          "effect": ""
+        },
+        {
+          "id": "tea_seat",
+          "kind": "seat",
+          "effect": ""
+        }
+      ],
+      "findings": [
+        "F01",
+        "A05",
+        "A06",
+        "K01",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "v_mayor_up",
+      "title": "村委会 · 二楼资料室",
+      "config": "godot/ayu_home/v4/assets/v_mayor_up.json",
+      "config_sha256": "0065b42f989a970bd9a990d256668481c141cfe7df998b24dbd67edf26a9041b",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "archive_read",
+          "kind": "read",
+          "effect": ""
+        },
+        {
+          "id": "archive_lamp",
+          "kind": "reaction",
+          "effect": "lamp"
+        }
+      ],
+      "findings": [
+        "F01",
+        "A06",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "v_mayor",
+      "title": "村委会 · 一楼",
+      "config": "godot/ayu_home/v4/assets/v_mayor.json",
+      "config_sha256": "54f0b2ead2154fd8b273b95830ce6d2cf366fbd8d337af674eedc2c46d453337",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "village_tasks",
+          "kind": "civic_game",
+          "effect": ""
+        },
+        {
+          "id": "register_book",
+          "kind": "registry_book",
+          "effect": "register"
+        },
+        {
+          "id": "residency_counter",
+          "kind": "residency_counter",
+          "effect": "counter"
+        },
+        {
+          "id": "opinion_basket",
+          "kind": "opinion_note",
+          "effect": "notice"
+        },
+        {
+          "id": "material_sort",
+          "kind": "material_sort",
+          "effect": "bundle"
+        },
+        {
+          "id": "rest_seat",
+          "kind": "seat",
+          "effect": ""
+        }
+      ],
+      "findings": [
+        "F01",
+        "A05",
+        "A06",
+        "K01",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    },
+    {
+      "id": "my_cabin",
+      "title": "村民活动中心",
+      "config": "godot/ayu_home/v4/assets/my_cabin.json",
+      "config_sha256": "1e33ceb5805b564bac75f52720c48ee5e6eedc41c5f403f90b5637f62c8bae6e",
+      "renderer": "world.gd + actor.gd + home.gd; institution_room.gd when cfg.resident",
+      "hotspots": [
+        {
+          "id": "community_meal",
+          "kind": "community_game",
+          "effect": ""
+        },
+        {
+          "id": "craft_demo",
+          "kind": "bamboo_weave",
+          "effect": "weave"
+        },
+        {
+          "id": "shared_table",
+          "kind": "communal_table",
+          "effect": "table"
+        },
+        {
+          "id": "story_book",
+          "kind": "story_album",
+          "effect": "read"
+        },
+        {
+          "id": "return_box",
+          "kind": "activity_tidy",
+          "effect": "tidy"
+        },
+        {
+          "id": "rest_seat",
+          "kind": "seat",
+          "effect": ""
+        }
+      ],
+      "findings": [
+        "F01",
+        "F03",
+        "A01",
+        "A03",
+        "A05",
+        "A06",
+        "K01",
+        "K02",
+        "D01"
+      ],
+      "visual_acceptance": "未因源审改判；沿用C3各时段已测/未测"
+    }
+  ],
+  "needs_C3": [
+    "完成原f382dc0备餐成品与A4横窗参照批次",
+    "随后仅核5e2e0d2标签遮头/边缘/点击与9acd328三处整理反馈差异",
+    "其余室内按原缺口分波，不把源码覆盖计作图面通过"
+  ],
+  "constraints": [
+    "C4未新增美术，A3本轮停止",
+    "低于或等于剩30%停止开发及GUI，预留Git/证据安全收尾",
+    "模型/角色不变"
+  ]
+}
