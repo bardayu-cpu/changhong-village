@@ -573,7 +573,7 @@ func _life_draw() -> void:
 	for h in cfg.hotspots:
 		if not saved.get(area+":"+h.id,false):continue
 		var p:=v(h.pos);var kind:String=h.get("kind","")
-		if kind in ["fold","tidy"]:
+		if kind=="fold" or (kind=="tidy" and h.get("effect","")=="fold"):
 			for j in 3:pixel(Rect2(p+Vector2(-12,-j*4),Vector2(25,5)),[Color("d4a29a"),Color("cbd7ad"),Color("e5d1a7")][j])
 		elif kind=="wipe":
 			pixel(Rect2(p+Vector2(-7,-10),Vector2(3,21)),Color("d2e4d7"));pixel(Rect2(p+Vector2(-16,-2),Vector2(21,3)),Color("d2e4d7"))
