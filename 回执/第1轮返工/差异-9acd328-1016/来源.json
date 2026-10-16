@@ -1,0 +1,20 @@
+{
+  "commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "published_ancestor_check_exit": 0,
+  "scope": "只核标签及叠衣反馈差异，约6代表案例；原流程/首日不整套重跑",
+  "files": {
+    "godot/ayu_home/v4/home.gd": "559229bdc4439e65023bff25052a0951af4aa8463db0d50fb7db97a690e0a6e1",
+    "godot/ayu_home/v4/world.gd": "c4885fbc2e9513e20f5af4274f64ec12d1cdb62842c8666a6accbc26228f9344",
+    "godot/ayu_home/v4/actor.gd": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a",
+    "godot/ayu_home/v4/core/institution_room.gd": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26",
+    "godot/ayu_home/v4/assets/rooms.json": "48f9cb772804487e0e9fbdf8cdeab8f9a1e607382c4caa9dd9ebcbe4125d4b9b",
+    "godot/ayu_home/v4/core/institution_game.gd": "ff3933b42fba748e2d573547e6577e0a032e224111308a451b145aaae03eca74"
+  },
+  "cloned_save": "f382小波正常关闭后的隔离档，原文件不动；无状态注入",
+  "stop_remaining_percent": 30,
+  "seal_threshold_remaining_percent": 35,
+  "previous_usage_remaining_percent": 41,
+  "observer": "原观察器仅换路径前缀，启动视觉9时10月晴，无新框架",
+  "additional_scope": "同一冻结版追加村委二楼9/13/19地图桌主体局部，不判全室通过",
+  "latest_usage_remaining_percent": 36
+}

@@ -1,8 +1,8 @@
 {
   "actual_tested_commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
   "method": "git archive independent snapshot; only generated cache reused; production bytes unchanged",
-  "rules": "remaining10%stop; same model/effort; no agents; no production/Git mutation",
-  "latest_usage_remaining_percent": 82,
+  "rules": "当前剩30%硬停止，接近35%封存；同模型，无代理/生产或Git修改，无购买或重置",
+  "latest_usage_remaining_percent": 36,
   "files": [
     {
       "path": "godot/ayu_home/v4/actor.gd",
@@ -57,5 +57,31 @@
     "wide_reference_missing": true,
     "GUI_paused_for_human_control": true,
     "usage_remaining_percent": 55
+  },
+  "latest_f382_stage": {
+    "commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+    "source": "回执/第1轮返工/收尾-f382dc0-1016/来源.json",
+    "fixed_evidence": "回执/第1轮返工/收尾-f382dc0-1016/小波固定侧证.json",
+    "A4_scope": "活动中心末次样板主体首屏目标达到",
+    "food_fix_actual_GUI": true,
+    "firstday_repeated": false,
+    "stop_remaining_percent": 30
+  },
+  "historical_rules": "remaining10%stop; same model/effort; no agents; no production/Git mutation",
+  "latest_9acd_stage": {
+    "commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+    "source": "回执/第1轮返工/差异-9acd328-1016/来源.json",
+    "fixed_evidence": "回执/第1轮返工/差异-9acd328-1016/差异固定侧证.json",
+    "A1_small_wave": "回执/第1轮返工/差异-9acd328-1016/A1小波-村委二楼固定侧证.json",
+    "representative_cases": 6,
+    "selected_pngs": 23,
+    "pairs_viewed": 10,
+    "whole_room_pass": false,
+    "never_observed_cells": 66,
+    "partially_observed_cells": 3,
+    "pending_full_room_cells": 69,
+    "runtime_closed_normally": true,
+    "engine_exit_code": 0,
+    "stop_remaining_percent": 30
   }
 }

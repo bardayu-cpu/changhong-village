@@ -1,0 +1,326 @@
+{
+  "time": "2026-10-16T10:51:05.536199+08:00",
+  "status": "本期最终证据封存，整轮未通过，不申报75分及以上；完成推送后待命",
+  "production_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "parent_archive_commit": "f1a29165b4c715f8ccc06c04f4a504f7acd18815",
+  "branch": "village-deep-1010",
+  "source_manifest": {
+    "path": "回执/第1轮返工/C3稳定文件清单.json",
+    "sha256": "fb5217cf127f2aba611ce17c3f8a361f9032629c11cf18b04804e04f9c15a021",
+    "verified_files": 146,
+    "verified_png": 113,
+    "unchanged_already_in_git": 107,
+    "new_to_git": 37,
+    "changed_in_git": 2
+  },
+  "payload_count": 42,
+  "commit_file_count_including_self": 43,
+  "self": "回执/第1轮返工/C2-最终精确归档-1016.json",
+  "payload": [
+    {
+      "path": "回执/第1轮返工/C3-A1既有证据边界审计-1016.json",
+      "bytes": 7673,
+      "sha256": "04e7c736e14ae5660e3bea53af41615267a12e9831e7d456da26500649b899ce"
+    },
+    {
+      "path": "回执/第1轮返工/C3-A1欠验69格与最少路线-1016.json",
+      "bytes": 46338,
+      "sha256": "cc6f55f66cbd637dae4b3e0e7ef9f22f32939a70a37819743d262ffe8adc69e6"
+    },
+    {
+      "path": "回执/第1轮返工/C3-A1欠验最少路线-1016.md",
+      "bytes": 4580,
+      "sha256": "9266122e5dc5e052924c46e009e7f073fa8e95aaae24f7231865e3f20885fea2"
+    },
+    {
+      "path": "回执/第1轮返工/图/A1小波-9acd328-村委二楼-13时-左目标右阿鱼.png",
+      "bytes": 301621,
+      "sha256": "6b1aae9492f8fa85aa721842c79a7c27af2619196517fed8447be9e2d654bf7d"
+    },
+    {
+      "path": "回执/第1轮返工/图/A1小波-9acd328-村委二楼-19时-左目标右阿鱼.png",
+      "bytes": 290012,
+      "sha256": "f172070662eb48c01b35f0be546f0e38a65747d366c0252cb2644d981bd09b18"
+    },
+    {
+      "path": "回执/第1轮返工/图/A1小波-9acd328-村委二楼-9时-左目标右阿鱼.png",
+      "bytes": 298141,
+      "sha256": "c69b1f5c885c47e7aa550f019522cb1a2a1d5614825173ea3d003c1ddc055bb2"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+      "bytes": 113042,
+      "sha256": "1f56d7e56aeecb508997e6c31212d8a663ec000c631f70b99acb5f2e9dc08504"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-006-参照-阿鱼客厅19时.png",
+      "bytes": 129979,
+      "sha256": "831a554a6fac6d8aa96374ad7c7c672c32085c14546b1a4abcf3d0512a03e557"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-010-整理-手作工具正常点击后-无错冒叠衣.png",
+      "bytes": 106867,
+      "sha256": "bcc915445b0aece7eff6877b116f437e38457ff6c7f2932436808dd00e82a4b3"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-012-整理与标签-车库屏边实点后-无错冒叠衣.png",
+      "bytes": 100109,
+      "sha256": "6f45a5f421a65ab56258f5e656144ce81a222b1deaece883d811eb4c3f7868c6"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-014-整理-旅行包点击后-另有开合几何块保留.png",
+      "bytes": 205485,
+      "sha256": "c0d7601c32fc6c5aee21fc3ff8e227e4b8651e486aa1c37152f59d2523577f0e"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-015-整理-真实外套实点后-衣物叠层保留.png",
+      "bytes": 200628,
+      "sha256": "71397b07969bca7703b55b0aa05a61684778a80a5be70385d0c2682f8c32cde6"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-023-H5-走近自然问候-v_mayor-9.0点.png",
+      "bytes": 233712,
+      "sha256": "1113c5ae11d7e5c2b1ac89a0e7ee80260a1c2c661d0a17c9ade0985e1145526f"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-024-标签-村委双人近距说话避让.png",
+      "bytes": 241140,
+      "sha256": "92511c91bf9a3a617c832804b7e28b38f0a0c0133f062925f3aef682657c67e5"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-032-标签-磨坊坐姿近距稳定帧.png",
+      "bytes": 177087,
+      "sha256": "b1aba44b32859379d8360c03fffa3e61d9e8e52a087fa4cbf4993edfa6cdb602"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-037-A1小波-村委二楼地图主体19时.png",
+      "bytes": 170674,
+      "sha256": "7a42a7c8d11ff5a2108ca8b7f53141a957254b691116cc5a0e90b9b3717fb83b"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-039-A1小波-村委二楼地图主体9时.png",
+      "bytes": 191592,
+      "sha256": "439dc25e69b38ac5efb0327d0d452dc9ea7fa4dec0b5e7d20272e76f618f3584"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-041-A1小波-村委二楼地图主体13时.png",
+      "bytes": 202298,
+      "sha256": "87779a13fb331cd8617e6335514198d9551bf0d576787040141d66dc5c66a12f"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-1016-043-参照-阿鱼客厅13时.png",
+      "bytes": 104916,
+      "sha256": "8d2448e7607b966a1815494001c0d80b351dfe56752aaf45777785d9bd7ee441"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-手作工具-9时-左目标右阿鱼.png",
+      "bytes": 204298,
+      "sha256": "f2740924220d0c6131b9112f009327af2b9f98660bf671933080a71987500b68"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-旅行包-9时-左目标右阿鱼.png",
+      "bytes": 305901,
+      "sha256": "4935025e726320343a46b4e9cced857d2b1e993d9f231e91ca0561ed7cdfc8bf"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-村委双人话泡-9时-左目标右阿鱼.png",
+      "bytes": 336417,
+      "sha256": "d5420e54b867486d2b4947dfac7a0c22ca73620dea090957a8179336a614a614"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-村委双人近距文字牌-9时-左目标右阿鱼.png",
+      "bytes": 342839,
+      "sha256": "6e5fe65e9acda438f6e6f4e8a035ac9da2716c123d098028a95d327247eb20b1"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-真实外套-9时-左目标右阿鱼.png",
+      "bytes": 300987,
+      "sha256": "c8c5aac2fb440780b6339a6232381a76fe7736d632ac732bb5b2ec3ca30a3d81"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-磨坊坐姿气泡-19时-左目标右阿鱼.png",
+      "bytes": 297146,
+      "sha256": "c1e053e300d62b1a7455a3a040167f554ca3d6a47ba7291d27b90d1dc14c7ec1"
+    },
+    {
+      "path": "回执/第1轮返工/图/差异-9acd328-车库工具架及屏边标签-9时-左目标右阿鱼.png",
+      "bytes": 201545,
+      "sha256": "ab925069d53e10cbac3dfc8f8caaa6f3699a7f0919e306f1800f6bc8a1324b42"
+    },
+    {
+      "path": "回执/第1轮返工/图/收尾-f382dc0-1016-004-A4-横窗阿鱼真实进门首屏13时.png",
+      "bytes": 328148,
+      "sha256": "f8ac4ba3e2e9f6e20f943c04d7bca2f759597147995e054bea68b5501bb7ed69"
+    },
+    {
+      "path": "回执/第1轮返工/图/收尾-f382dc0-1016-008-A4-横窗活动中心真实进门首屏13时.png",
+      "bytes": 585505,
+      "sha256": "49a9acdc5c83cbe4cd848c1666596aa18c33523761f6bb6a25852103eead9965"
+    },
+    {
+      "path": "回执/第1轮返工/图/收尾-f382dc0-A4横窗真实首屏-左活动右阿鱼-13时.png",
+      "bytes": 867865,
+      "sha256": "0d8a874df4da5697700f5bc68f807e9f4b72e442bb7c8986105c56c0bbb38aa4"
+    },
+    {
+      "path": "回执/第1轮返工/差异-9acd328-1016/A1小波-村委二楼固定侧证.json",
+      "bytes": 7711,
+      "sha256": "928ea87fa7d54e412787d648a26b9e080ea82033ee0d70ef7f6be8baa78d3f18"
+    },
+    {
+      "path": "回执/第1轮返工/差异-9acd328-1016/差异固定侧证.json",
+      "bytes": 29059,
+      "sha256": "e0cb9602d676a7559f2a16f38c0b6478ee3742eebfbf06d1a7b521be0fd02a7c"
+    },
+    {
+      "path": "回执/第1轮返工/差异-9acd328-1016/来源.json",
+      "bytes": 1315,
+      "sha256": "dd57bd3a9521e13567a50bbfed90c8d8c258921a274abe5587053bda82cd09cd"
+    },
+    {
+      "path": "回执/第1轮返工/差异-9acd328-1016/选定图片.json",
+      "bytes": 2175,
+      "sha256": "6f9341c9fb2d9904a349e07b6df45b25a4c4969b9a76584488872f5ddf737bf0"
+    },
+    {
+      "path": "回执/第1轮返工/差异-9acd328-1016/阶段回执.md",
+      "bytes": 2986,
+      "sha256": "9c2515d7970bf4ec7955ebfb24ed056ab54d5695fe1b2d5d0cfbfff6ecf5e34d"
+    },
+    {
+      "path": "回执/第1轮返工/收尾-f382dc0-1016/小波固定侧证.json",
+      "bytes": 6786,
+      "sha256": "5b2acbb7719a2a48dd04dc6cae28c345d14f673a61bd587e576510920b1d77b4"
+    },
+    {
+      "path": "回执/第1轮返工/收尾-f382dc0-1016/来源.json",
+      "bytes": 1578,
+      "sha256": "78140ba3713d68a4c5058956f76f9adc5f948bbb8b51ffbe87c156d536504a0d"
+    },
+    {
+      "path": "回执/第1轮返工/收尾-f382dc0-1016/阶段回执.md",
+      "bytes": 2574,
+      "sha256": "4e9cccf88d41008efefe50234745e75b5eecbb0f59e9ba8be6fe38905f601eb6"
+    },
+    {
+      "path": "回执/第1轮返工/C3受测来源-1015.json",
+      "bytes": 3588,
+      "sha256": "4cbee6e6ab86704e16a52126392c58bb025968d0e71504e6c34d11f56a3bf0e2"
+    },
+    {
+      "path": "回执/第1轮返工/C3验收.md",
+      "bytes": 7578,
+      "sha256": "b43bf1294af1fe73495fdf0b97d1bf018b7b7a5d1f2eebff0d1e128e2008669e"
+    },
+    {
+      "path": "回执/第1轮返工/C1收尾核对-1016.md",
+      "bytes": 1803,
+      "sha256": "6064874cd69e1e6049dae7d1277ab00166f52d8ae1493ff844d878cc6bd95cc3"
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 3195,
+      "sha256": "2c3eacfe8e040e3403d7013002bda6ef854afff4092566ace846a4d217e1076f"
+    },
+    {
+      "path": "回执/第1轮返工/C3稳定文件清单.json",
+      "bytes": 47752,
+      "sha256": "fb5217cf127f2aba611ce17c3f8a361f9032629c11cf18b04804e04f9c15a021"
+    }
+  ],
+  "image_provenance": {
+    "new_png": 26,
+    "from_f382": 3,
+    "from_9acd": 23,
+    "new_9acd_pairs": 10,
+    "all_new_png_bound_to_fixed_evidence": true,
+    "C2_performed_new_visual_or_GUI_testing": false,
+    "C3_sealed_visual_checks": "C3记录10张9acd并排逐一目视；本归档仅核清单、哈希、PNG头和固定侧证引用"
+  },
+  "validation": {
+    "original_protected_script_sha256": {
+      "给Claude审查/check_room_standard.py": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+      "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+    },
+    "production_changes": false,
+    "five_room_or_core87_rerun": false,
+    "source_manifest_paths_and_sizes_and_sha256_match": true,
+    "allowed_payload_types": [
+      ".png",
+      ".json",
+      ".md"
+    ],
+    "sensitive_pattern_scan_findings": 0,
+    "payload_bytes_before_self": 7014645,
+    "largest_payload_bytes": 867865,
+    "actual_save_or_log_or_cache_or_package_included": false
+  },
+  "already_archived": {
+    "path": "回执/第1轮返工/续办-1016.md",
+    "commit": "53b50702fb28b585aed66dc5abafe64bda00430e",
+    "sha256": "1e1a9c9fc5ca29cd39484fa1db8a09b923ea02b8e5060d28fb391a158a13876f",
+    "unchanged": true
+  },
+  "excluded_original_seven": [
+    {
+      "path": "回执/第1轮/C1画面核对.md",
+      "sha256": "c83bb01d3c2215edeee63544a049c185167392727e9fb8efcfd25edf35269acc"
+    },
+    {
+      "path": "回执/第1轮/设计/00-C4状态.md",
+      "sha256": "01a205e299dff154b01a3971136fe9f066d79bd83728f5bcaf59e68473e50b58"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C2设计归档清单-1014.json",
+      "sha256": "a5b5791bf94001f0aed8b0e2c660f8834f6310704848033849c587b2a7373b6c"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C4二期设计回执-1014.md",
+      "sha256": "f0339261aa4a01ded6909d0ce06b8a0e1959ff882618db5125de4a8b2abd54bd"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/本波静态核对-1014.json",
+      "sha256": "d1d2b645db36a2558b2dea1a20abe1ffd59f359569fc256de039893a40ff8a1e"
+    },
+    {
+      "path": "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/C4麦收田园无桥三案交付-v7.md",
+      "sha256": "a6c7032de04636d8abb822ee89ba735913c3b8249505b5733c5f3a8c2be3abfa"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A4-活动中心首屏构图建议.md",
+      "sha256": "42e1451b5f8838eed16eeae56f030f8ba64ebc93ad42a6ceac65474d5642be6d"
+    }
+  ],
+  "other_exclusions": [
+    "不在本精确payload清单中的历史/过程/未配对原帧",
+    "实际存档",
+    "运行日志",
+    "缓存",
+    "实时观测/控件/capture-request",
+    "打包产物",
+    "敏感文件",
+    "超过50MB文件",
+    "生产源代码及原测试脚本",
+    "其他旧文件夹"
+  ],
+  "acceptance_boundaries": {
+    "round_passed": false,
+    "score_at_least_75_claimed": false,
+    "A4": "仅活动中心样板首屏主体目标达到，非全部室内",
+    "A1": "代表标签/整理反馈小修实测保留；原69格仍欠全室，其中66未观察、村委二楼3格仅地图桌主体局部",
+    "A2_A3": "失败或未通过保留，本轮道路停止",
+    "other_pending": [
+      "超长名字/窄屏等组合",
+      "部分简化美术与柜包开合反馈",
+      "真实硬件触摸及蝉鸣实际收听"
+    ],
+    "runtime_exit": "C3记录已正常保存关闭、进程0，但6 CanvasItem RIDs、6纹理和18 ObjectDB释放警告仍保留，不称干净退出"
+  },
+  "quota": {
+    "last_C2_observed_remaining_percent": 35,
+    "reserve_mode": "本轮不再开发或GUI，只做最终封存推送",
+    "hard_stop_remaining_percent": 30,
+    "final_actual_remaining": "在推送后的最终回报记录"
+  },
+  "permission": "用户在当前聊天明确允许按第1轮任务持续推送该分支"
+}

@@ -1,0 +1,224 @@
+{
+  "commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+  "scope": "A4活动中心末次样板横窗真实首屏及备餐成品小修；不是全村A4或全套回归",
+  "pair": "回执/第1轮返工/图/收尾-f382dc0-A4横窗真实首屏-左活动右阿鱼-13时.png",
+  "target": {
+    "raw_local": "回执/第1轮返工/收尾-f382dc0-1016/收尾-f382dc0-1016-008-A4-横窗活动中心真实进门首屏13时.png",
+    "metadata_sha256": "691e5b5df86958db6df87dbfdb654eaef43a48ade88364b0cca68f0fc3713301",
+    "observation": {
+      "at": 1792114901.58725,
+      "area": "my_cabin",
+      "position": [
+        346.0,
+        414.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ],
+      "effects": {
+        "community": {
+          "completed": 1.0
+        },
+        "my_cabin": {
+          "read": 1.0,
+          "table": 1.0,
+          "tidy": 1.0,
+          "weave": 2.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {}
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ]
+  },
+  "reference": {
+    "raw_local": "回执/第1轮返工/收尾-f382dc0-1016/收尾-f382dc0-1016-004-A4-横窗阿鱼真实进门首屏13时.png",
+    "metadata_sha256": "c47644610d9929fba890835774e30874d161c9728d652f37a9494708272632f4",
+    "observation": {
+      "at": 1792114639.49008,
+      "area": "living",
+      "position": [
+        330.0,
+        418.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ],
+      "effects": {
+        "community": {
+          "completed": 1.0
+        },
+        "my_cabin": {
+          "read": 1.0,
+          "table": 1.0,
+          "tidy": 1.0,
+          "weave": 2.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {}
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ]
+  },
+  "same_layout_source_as_9c": {
+    "godot/ayu_home/v4/assets/my_cabin.json": "1e33ceb5805b564bac75f52720c48ee5e6eedc41c5f403f90b5637f62c8bae6e",
+    "godot/ayu_home/v4/assets/rooms.json": "48f9cb772804487e0e9fbdf8cdeab8f9a1e607382c4caa9dd9ebcbe4125d4b9b",
+    "godot/ayu_home/v4/assets/institutions/community-a4-v3.png": "1c7d1fa897eac465b058e517b0515d1bf4cad5d536d7b614d2c6669b80d0ec59",
+    "godot/ayu_home/v4/home.gd": "8d6e36bcc3069d9fab963fb32d68905ae104851e9e1d19f7f27ecc327e8a67be",
+    "godot/ayu_home/v4/core/institution_room.gd": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26",
+    "godot/ayu_home/v4/actor.gd": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a"
+  },
+  "prior_phone_pair": "回执/第1轮返工/图/A4末次-9c24efa-手机真实首屏-左活动右阿鱼-13时.png",
+  "pixel_policy": "两个同版2766x1676原图按原像素左右拼接，无裁剪缩放，旧9c手机原图不改写",
+  "food_before_collection": {
+    "raw_local": "回执/第1轮返工/收尾-f382dc0-1016/收尾-f382dc0-1016-010-功能-备餐三步后新餐食实际显示.png",
+    "metadata_sha256": "ab6372da3dcded8f206fc552e6c29f0655540f1487d022d19d1776d8a66952f6",
+    "observation": {
+      "at": 1792115138.17516,
+      "area": "my_cabin",
+      "position": [
+        130.0,
+        206.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ],
+      "effects": {
+        "community": {
+          "completed": 1.0
+        },
+        "my_cabin": {
+          "read": 1.0,
+          "table": 1.0,
+          "tidy": 1.0,
+          "weave": 2.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {
+        "finished": false,
+        "message": "香气出来了，端上这碗海椒拌楼卜。",
+        "progress": 3,
+        "run": "2"
+      }
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ]
+  },
+  "food_after_collection": {
+    "raw_local": "回执/第1轮返工/收尾-f382dc0-1016/收尾-f382dc0-1016-011-功能-新餐食正常收菜完成.png",
+    "metadata_sha256": "993609a46439e05c9895178c824e09340897278aabee267a1476bb83aeb0d3b9",
+    "observation": {
+      "at": 1792115225.12114,
+      "area": "my_cabin",
+      "position": [
+        130.0,
+        206.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ],
+      "effects": {
+        "community": {
+          "completed": 2
+        },
+        "my_cabin": {
+          "read": 1.0,
+          "table": 1.0,
+          "tidy": 1.0,
+          "weave": 2.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {
+        "finished": true,
+        "message": "收好了：海椒拌楼卜×1，已放进同一个篮子",
+        "progress": 3,
+        "run": "2"
+      }
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ]
+  },
+  "food_scope": "实际原GUI三步完成→新菜盘显示→正常收菜；功能原帧只留本地过程，不拿不同页面凑阿鱼艺术对照",
+  "criterion": "按任务书进门看到屋子主体；C1扩大四区全露的要求已撤回，非放宽原标准",
+  "gui": "本小波由明确接管授权恢复后C3独占；已正常返回世界并关闭保存，未重跑首日/六热点/碰撞",
+  "conclusion": {
+    "wide_pair_viewed": true,
+    "A4_activity_center_subject_target": "通过本末次样板的主体首屏目标；完整共桌/人物可读，身份明确，与同窗阿鱼主体参照未见足以判失败的明显劣化",
+    "limits": "只此活动中心样板；原9c手机同版并排结论保留，6布局文件字节一致；不判全村A4/全室全区域/整体画面通过",
+    "food": "原GUI三步及收菜通过；中央占位已替成现有餐食，原像素整数倍显示；只核本小修",
+    "exit": "正常返回世界、关闭保存，进程0；6纹理/RID及18 ObjectDB释放警告仍在，未称干净退出",
+    "stop_remaining_percent": 30
+  }
+}

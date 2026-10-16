@@ -1,0 +1,231 @@
+{
+  "commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "route": "村庄地图正常到村委一楼，走到楼梯点击上楼查资料；在地图桌前正常走位，不注入位置",
+  "entry_auto_frame": "正常进入村委二楼的自动入区帧留在本地过程；固定结论只使用本索引三个稳定原帧",
+  "clock": "原已授权视觉时钟9/13/19，10月晴；非经济或进度时间注入",
+  "entries": [
+    {
+      "room": "v_mayor_up",
+      "hour": 9,
+      "status": "局部已查，整室欠验",
+      "target_raw": "回执/第1轮返工/图/差异-9acd328-1016-039-A1小波-村委二楼地图主体9时.png",
+      "reference_raw": "回执/第1轮返工/图/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+      "pair": "回执/第1轮返工/图/A1小波-9acd328-村委二楼-9时-左目标右阿鱼.png",
+      "target": {
+        "metadata_sha256": "137c2450bf0795e1b59719bc9135abe8d0b4af581885a0d2400b0557bc2939a4",
+        "observation": {
+          "at": 1792118461.73567,
+          "area": "v_mayor_up",
+          "position": [
+            275.1,
+            409.3
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "resident": {}
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ]
+      },
+      "reference": {
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "resident": {}
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ]
+      },
+      "checked_regions": [
+        "中央地图桌完整桌面、桌前沿及可见桌脚",
+        "玩家可见完整身体及身边地板"
+      ],
+      "occluded_unchecked_regions": [
+        "后墙柜上部被HUD及画面上缘挡住",
+        "左右侧阅览角及左侧楼梯处于屏外或只露边缘",
+        "地图桌后方、家具内部及隐藏区域未走近检查"
+      ],
+      "finding": "可见桌面、桌脚与人物范围未发现额外纯色占位/调试覆盖块；背景柜顶和两侧未完成，不能判全室通过",
+      "whole_room_pass": false
+    },
+    {
+      "room": "v_mayor_up",
+      "hour": 13,
+      "status": "局部已查，整室欠验",
+      "target_raw": "回执/第1轮返工/图/差异-9acd328-1016-041-A1小波-村委二楼地图主体13时.png",
+      "reference_raw": "回执/第1轮返工/图/差异-9acd328-1016-043-参照-阿鱼客厅13时.png",
+      "pair": "回执/第1轮返工/图/A1小波-9acd328-村委二楼-13时-左目标右阿鱼.png",
+      "target": {
+        "metadata_sha256": "9bf849f374c7f1a61ec5b6be56d3e8a5c5608cde855e3ee3e1aed5ba1e84fc85",
+        "observation": {
+          "at": 1792118479.33095,
+          "area": "v_mayor_up",
+          "position": [
+            275.1,
+            409.3
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 13.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "resident": {}
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ]
+      },
+      "reference": {
+        "metadata_sha256": "48a875df64393e9fc52917b5bb92186f1879767c5bd8ef3396dbd811a355ae8a",
+        "observation": {
+          "at": 1792118568.94142,
+          "area": "living",
+          "position": [
+            433.9,
+            316.1
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 13.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "resident": {}
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ]
+      },
+      "checked_regions": [
+        "中央地图桌完整桌面、桌前沿及可见桌脚",
+        "玩家可见完整身体及身边地板"
+      ],
+      "occluded_unchecked_regions": [
+        "后墙柜上部被HUD及画面上缘挡住",
+        "左右侧阅览角及左侧楼梯处于屏外或只露边缘",
+        "地图桌后方、家具内部及隐藏区域未走近检查"
+      ],
+      "finding": "可见桌面、桌脚与人物范围未发现额外纯色占位/调试覆盖块；背景柜顶和两侧未完成，不能判全室通过",
+      "whole_room_pass": false
+    },
+    {
+      "room": "v_mayor_up",
+      "hour": 19,
+      "status": "局部已查，整室欠验",
+      "target_raw": "回执/第1轮返工/图/差异-9acd328-1016-037-A1小波-村委二楼地图主体19时.png",
+      "reference_raw": "回执/第1轮返工/图/差异-9acd328-1016-006-参照-阿鱼客厅19时.png",
+      "pair": "回执/第1轮返工/图/A1小波-9acd328-村委二楼-19时-左目标右阿鱼.png",
+      "target": {
+        "metadata_sha256": "7a2da35776ba5d91f56be4923ab833defa8f066a8bd11d9c80ba09f8f2a4aab3",
+        "observation": {
+          "at": 1792118435.09556,
+          "area": "v_mayor_up",
+          "position": [
+            275.1,
+            409.3
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 19.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "resident": {}
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ]
+      },
+      "reference": {
+        "metadata_sha256": "7a58608abeafdf79b6858580ad67f7f6e40772633cf83c5405555ed619271ece",
+        "observation": {
+          "at": 1792115921.29369,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 19.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "resident": {}
+        },
+        "world_scale": [
+          2.0,
+          2.0
+        ]
+      },
+      "checked_regions": [
+        "中央地图桌完整桌面、桌前沿及可见桌脚",
+        "玩家可见完整身体及身边地板"
+      ],
+      "occluded_unchecked_regions": [
+        "后墙柜上部被HUD及画面上缘挡住",
+        "左右侧阅览角及左侧楼梯处于屏外或只露边缘",
+        "地图桌后方、家具内部及隐藏区域未走近检查"
+      ],
+      "finding": "可见桌面、桌脚与人物范围未发现额外纯色占位/调试覆盖块；背景柜顶和两侧未完成，不能判全室通过",
+      "whole_room_pass": false
+    }
+  ],
+  "whole_room_pass_count": 0,
+  "never_observed_cells": 66,
+  "partially_observed_cells": 3,
+  "still_incomplete_full_room_cells": 69,
+  "all_3_pairs_viewed": true,
+  "runtime_closed_normally": true,
+  "engine_exit_code": 0,
+  "exit_warnings": "6 CanvasItem RIDs、6 textures及18 ObjectDB释放警告仍在",
+  "new_room_not_started": "磨坊二楼未开新波，预留封存额度",
+  "latest_usage_remaining_percent": 36
+}
