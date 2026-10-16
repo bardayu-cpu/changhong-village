@@ -1,0 +1,16 @@
+{
+  "commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "published_ancestor_exit": 0,
+  "files": {
+    "godot/ayu_home/v4/core/institution_game.gd": "50e1eff02ea552399bb0ebbf56e199bbdf8cad4e8436f623706dce2ce2ebd187",
+    "godot/ayu_home/v4/assets/institutions/honey-jar-v3.png": "c8516a113dab2675b9f2ab101a2927b1c2308f59f0d8910e98460c63d2729da1",
+    "godot/ayu_home/v4/core/state.gd": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+    "godot/ayu_home/v4/core/config.gd": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735"
+  },
+  "scope": "蜂蜜小游戏六步填充、收取封口、奖品及关闭；独立冻结副本，原9acd测试正常关闭档克隆，无试玩档操作/状态注入",
+  "stop_remaining_percent": 10,
+  "start_remaining_percent": 20,
+  "observer": "沿用原观察器，仅改路径/前缀及独立窗口标题，生产字节不变",
+  "generated_cache": "第一次缺生成缓存未进游戏；复用旧独立验收.godot生成缓存，第二次成功；4关键生产文件仍与冻结提交一致",
+  "latest_usage_remaining_percent": 18
+}

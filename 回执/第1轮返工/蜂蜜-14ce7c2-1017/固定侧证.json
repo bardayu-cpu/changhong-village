@@ -1,0 +1,770 @@
+{
+  "commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "scope": "蜂蜜最小差异实际GUI；原六步逐步填充，空/半/满、正常收取后封口、开始/收取/回屋按钮及蜂蜜奖励",
+  "route": "原独立档客厅→正常地图凯凯蜂蜜小院→正常走近和点击压蜜装一瓶→开始→依亮起0/3/1/4/2/5六次正常点击→封好这瓶蜜→回屋里",
+  "entries": [
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-007-蜂蜜-打开空罐-未开始.png",
+      "metadata_sha256": "e01e3041b51534eeb9ca71c9ddc92ee581f4692bca521a13170cbb73743e4814",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {},
+        "game": {
+          "finished": false,
+          "message": "按亮起的位置压好六块蜜脾，蜜会慢慢接进罐里。今天可收一瓶。",
+          "progress": 0,
+          "run": ""
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "按亮起的位置压好六块蜜脾，蜜会慢慢接进罐里。今天可收一瓶。",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "摆好蜜脾",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-008-蜂蜜-0步已开始空罐.png",
+      "metadata_sha256": "156b4b573a0233af6ff5e7e08d66fa3cfb963b6c169d492301bddefb7d45eb69",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 0,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "准备好了，做完再收进篮子",
+          "progress": 0,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "准备好了，做完再收进篮子",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-009-蜂蜜-1步六分之一未封口.png",
+      "metadata_sha256": "b007558e9f18d9e2c46c3f52b9b691f755b62016f09f7db02ba8c4bec53d1bd3",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 1,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "已压好 1 / 6 块蜜脾，蜜罐慢慢满起来了。",
+          "progress": 1,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "已压好 1 / 6 块蜜脾，蜜罐慢慢满起来了。",
+        "压好了",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "压蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-010-蜂蜜-2步三分之一未封口.png",
+      "metadata_sha256": "8685b0f8a3aadf295bc938df0599b62f1460bed199f041327a1b273ca6c12efc",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 2,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "已压好 2 / 6 块蜜脾，蜜罐慢慢满起来了。",
+          "progress": 2,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "已压好 2 / 6 块蜜脾，蜜罐慢慢满起来了。",
+        "压好了",
+        "压蜜",
+        "压蜜",
+        "压好了",
+        "压蜜",
+        "压蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-011-蜂蜜-3步半罐未封口.png",
+      "metadata_sha256": "fbaf63c7403ec53a6b9fbb08a5e895a613a5ed781940ebf5641cb2cbd18fcf4c",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 3,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "已压好 3 / 6 块蜜脾，蜜罐慢慢满起来了。",
+          "progress": 3,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "已压好 3 / 6 块蜜脾，蜜罐慢慢满起来了。",
+        "压好了",
+        "压好了",
+        "压蜜",
+        "压好了",
+        "压蜜",
+        "压蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-012-蜂蜜-4步三分之二未封口.png",
+      "metadata_sha256": "97aa53ba4ed5bc2ecdab5a6d32a6101707e47edde0662dd905d0446608a050b8",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 4,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "已压好 4 / 6 块蜜脾，蜜罐慢慢满起来了。",
+          "progress": 4,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "已压好 4 / 6 块蜜脾，蜜罐慢慢满起来了。",
+        "压好了",
+        "压好了",
+        "压蜜",
+        "压好了",
+        "压好了",
+        "压蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-013-蜂蜜-5步六分之五未封口.png",
+      "metadata_sha256": "8ff7d747e807403632fdcfb568eedfb31c198b0672c65fcaecc62f39922ab820",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 5,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "已压好 5 / 6 块蜜脾，蜜罐慢慢满起来了。",
+          "progress": 5,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "已压好 5 / 6 块蜜脾，蜜罐慢慢满起来了。",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-014-蜂蜜-6步满罐未收取未封口.png",
+      "metadata_sha256": "ca29110fe424f1633220ecced2b623cb3eb08cc663fc815ecc93e9c100dab9c4",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {
+          "game": "honey",
+          "progress": 6,
+          "run": "3"
+        },
+        "game": {
+          "finished": false,
+          "message": "这一瓶接满了，封好蜡口带回去吧。",
+          "progress": 6,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "这一瓶接满了，封好蜡口带回去吧。",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "封好这瓶蜜",
+        "先放下，回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-015-蜂蜜-正常收取后封口与奖励.png",
+      "metadata_sha256": "c92fd97a02f3d882f2fce026a16a37b60a690ed4f9be70449406202f1c904e6e",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "honey": 1,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {},
+        "game": {
+          "finished": true,
+          "message": "收好了：蜂蜜×1，已放进同一个篮子",
+          "progress": 6,
+          "run": "3"
+        },
+        "page": "地图"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "压蜜装瓶",
+        "收好了：蜂蜜×1，已放进同一个篮子",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "压好了",
+        "回屋里"
+      ]
+    },
+    {
+      "local_raw": "回执/第1轮返工/蜂蜜-14ce7c2-1017/蜂蜜-14ce7c2-1017-016-蜂蜜-回屋关闭成功奖励保留.png",
+      "metadata_sha256": "734a01fce9323bd502e1912fd5456b6deb856629b821c288ed7eecba5b75defe",
+      "observation": {
+        "area": "v_h5",
+        "position": [
+          342.0,
+          278.0
+        ],
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "items": {
+          "apple": 2.0,
+          "apple_seed": 2.0,
+          "aster": 3.0,
+          "aster_seed": 6.0,
+          "bamboo": 2.0,
+          "carrot": 3.0,
+          "carrot_seed": 6.0,
+          "chrysanthemum": 3.0,
+          "chrysanthemum_seed": 6.0,
+          "cosmos": 3.0,
+          "cosmos_seed": 6.0,
+          "grain": 3.0,
+          "grain_seed": 4.0,
+          "honey": 1,
+          "meal": 2.0,
+          "parcel": 3.0,
+          "pepper": 1.0,
+          "pepper_seed": 1.0,
+          "pumpkin": 3.0,
+          "pumpkin_seed": 6.0,
+          "radish": 1.0,
+          "radish_seed": 2.0,
+          "stone": 2.0,
+          "tool": 0.0
+        },
+        "coins": 30.0,
+        "active": {},
+        "game": {},
+        "page": "world"
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "凯凯",
+        "裳泓村 · 凯凯蜂蜜小院",
+        "09:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "压蜜装一瓶",
+        "走近东西，点气泡就能做事",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "state": "空罐",
+      "raw": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-008-蜂蜜-0步已开始空罐.png",
+      "reference": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-002-参照-阿鱼客厅9时.png",
+      "pair": "回执/第1轮返工/图/蜂蜜-14ce7c2-空罐-9时-左实机右阿鱼.png",
+      "comparison_scope": "同源同时段季节天气窗口原像素参照；左侧小游戏物件，右侧阿鱼室内背景。此配对不等于同类物件评分或全村美术通过"
+    },
+    {
+      "state": "半罐",
+      "raw": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-011-蜂蜜-3步半罐未封口.png",
+      "reference": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-002-参照-阿鱼客厅9时.png",
+      "pair": "回执/第1轮返工/图/蜂蜜-14ce7c2-半罐-9时-左实机右阿鱼.png",
+      "comparison_scope": "同源同时段季节天气窗口原像素参照；左侧小游戏物件，右侧阿鱼室内背景。此配对不等于同类物件评分或全村美术通过"
+    },
+    {
+      "state": "满罐未封",
+      "raw": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-014-蜂蜜-6步满罐未收取未封口.png",
+      "reference": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-002-参照-阿鱼客厅9时.png",
+      "pair": "回执/第1轮返工/图/蜂蜜-14ce7c2-满罐未封-9时-左实机右阿鱼.png",
+      "comparison_scope": "同源同时段季节天气窗口原像素参照；左侧小游戏物件，右侧阿鱼室内背景。此配对不等于同类物件评分或全村美术通过"
+    },
+    {
+      "state": "收取封口",
+      "raw": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-015-蜂蜜-正常收取后封口与奖励.png",
+      "reference": "回执/第1轮返工/图/蜂蜜-14ce7c2-1017-002-参照-阿鱼客厅9时.png",
+      "pair": "回执/第1轮返工/图/蜂蜜-14ce7c2-收取封口-9时-左实机右阿鱼.png",
+      "comparison_scope": "同源同时段季节天气窗口原像素参照；左侧小游戏物件，右侧阿鱼室内背景。此配对不等于同类物件评分或全村美术通过"
+    }
+  ],
+  "all_4_pairs_viewed": true,
+  "actual_GUI_result": "本最小差异流程通过；整体美术/全村验收不变",
+  "first_launch": "缺生成缓存未进入游戏，退出1；只补用此前独立副本已验证生成缓存，第二次成功",
+  "runtime_closed_normally": true,
+  "engine_exit_code": 0,
+  "stop_remaining_percent": 10,
+  "latest_usage_remaining_percent": 18,
+  "limits": [
+    "不碰阿鱼试玩窗口和试玩存档；使用此前C3正常关闭测试档的独立克隆",
+    "原首日/87核心/六热点不整套重跑",
+    "小游戏残留六个蜂巢按钮及滴落像素保持原样，本波仅蜂蜜罐修复，不推整板美术通过",
+    "元数据core/存档/缓存/实时观测/控件/运行日志只留本地，不进稳定清单"
+  ],
+  "all_0_to_6_live_jar_states_viewed": true,
+  "exit_warnings": "6 CanvasItem RIDs、6纹理、18 ObjectDB释放警告仍在"
+}

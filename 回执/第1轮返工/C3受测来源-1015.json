@@ -1,8 +1,8 @@
 {
   "actual_tested_commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
   "method": "git archive independent snapshot; only generated cache reused; production bytes unchanged",
-  "rules": "当前剩30%硬停止，接近35%封存；同模型，无代理/生产或Git修改，无购买或重置",
-  "latest_usage_remaining_percent": 36,
+  "rules": "当前剩10%硬停止，15%附近集中验收；同模型，无代理/生产或Git修改，无购买或重置",
+  "latest_usage_remaining_percent": 18,
   "files": [
     {
       "path": "godot/ayu_home/v4/actor.gd",
@@ -83,5 +83,19 @@
     "runtime_closed_normally": true,
     "engine_exit_code": 0,
     "stop_remaining_percent": 30
+  },
+  "latest_honey_stage": {
+    "commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+    "source": "回执/第1轮返工/蜂蜜-14ce7c2-1017/来源.json",
+    "fixed_evidence": "回执/第1轮返工/蜂蜜-14ce7c2-1017/固定侧证.json",
+    "minimal_GUI_pass": true,
+    "whole_round_pass": false,
+    "normal_steps": 6,
+    "honey_before": 0,
+    "honey_after": 1,
+    "selected_pngs": 9,
+    "pairs_viewed": 4,
+    "engine_exit_code": 0,
+    "stop_remaining_percent": 10
   }
 }
