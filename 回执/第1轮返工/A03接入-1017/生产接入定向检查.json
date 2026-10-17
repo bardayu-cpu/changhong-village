@@ -1,0 +1,15 @@
+{
+  "status": "pending independent Godot GUI acceptance",
+  "source_sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "component_check": "A03_COMPONENT PASS 22",
+  "protected_files": 149,
+  "protected_files_changed": [],
+  "reviewed_rectangles": 12,
+  "local_rendering": "nearest, alpha>0.8, region clip_uv=true",
+  "global_rendering_changed": false,
+  "GUI_acceptance": false,
+  "environment_notes": [
+    "Sandbox engine user log and system query warnings; component process exited 0 with no script errors.",
+    "Editor import stopped; runtime directly decodes PNG successfully."
+  ]
+}

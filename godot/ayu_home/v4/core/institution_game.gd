@@ -205,36 +205,75 @@ class CommunityBoard extends Control:
 	var game
 	var steps:Array[Button]=[]
 	var elapsed:=0.0
+	var ingredients:CommunityIngredients
 	const LABELS=["洗楼卜","切海椒","拌匀"]
 	func _ready() -> void:
 		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		ingredients=CommunityIngredients.new();ingredients.board=self;add_child(ingredients)
 		for n in 3:
 			var b:=UI.button(LABELS[n],func():game.step(n),true);b.custom_minimum_size=Vector2(124,72);b.size=Vector2(124,72);add_child(b);steps.append(b)
 		resized.connect(refresh);refresh()
 	func refresh() -> void:
+		if ingredients!=null:
+			ingredients.position=Vector2(size.x*.5-144,86)
+			ingredients.visible=game.progress<3
+			ingredients.queue_redraw()
 		for n in steps.size():
 			steps[n].position=Vector2(size.x*.5-198+n*136,296);steps[n].disabled=game.run_id.is_empty() or game.progress!=n or game.finished;steps[n].text="做好了" if game.progress>n else LABELS[n]
 		queue_redraw()
-	func _process(dt:float) -> void:elapsed+=dt;queue_redraw()
+	func _process(dt:float) -> void:
+		elapsed+=dt;queue_redraw()
+		if ingredients!=null:ingredients.queue_redraw()
 	func _draw() -> void:
 		var c:=Vector2(size.x*.5,140)
 		draw_rect(Rect2(c+Vector2(-177,-105),Vector2(354,232)),Color("68482f"));draw_rect(Rect2(c+Vector2(-171,-99),Vector2(342,220)),Color("b78350"))
 		for n in 7:draw_rect(Rect2(c+Vector2(-165,-91+n*32),Vector2(330,3)),Color("a47043"))
-		if game.progress<3:
-			draw_rect(Rect2(c+Vector2(-140,-50),Vector2(125,110)),Color("e1c795"));draw_rect(Rect2(c+Vector2(-134,-44),Vector2(113,98)),Color("8bbab2") if game.progress==1 else Color("dcc298"))
-			for n in 3:
-				var q:=c+Vector2(-113+n*27,-17+n%2*14);draw_rect(Rect2(q,Vector2(18,39)),Color("eee3b4"));draw_rect(Rect2(q+Vector2(5,-10),Vector2(8,13)),Color("5f8749"))
-			if game.progress==0:
-				for n in 5:draw_rect(Rect2(c+Vector2(-111+n*16,19+n%2*12),Vector2(4,4)),Color("98713e"))
-			if game.progress==1:
-				for n in 8:draw_rect(Rect2((c+Vector2(-132+n*13,-33+sin(elapsed*4+n)*5)).round(),Vector2(4,4)),Color("cee6d3"))
-			if game.progress<2:
-				for n in 3:draw_rect(Rect2(c+Vector2(31+n*30,-25+n%2*14),Vector2(19,51)),Color("c64e37"));draw_rect(Rect2(c+Vector2(35+n*30,-32+n%2*14),Vector2(10,11)),Color("69854c"))
-			else:
-				for n in 15:draw_rect(Rect2(c+Vector2(22+n%5*18,-20+n/5*20),Vector2(10,9)),Color("d95d3f"))
-		else:
+		if game.progress>=3:
 			# 复用阿鱼家已有透明餐盘，按原像素整数倍显示成品菜。
 			var meal:=Assets.texture("res://ayu_home/v4/assets/floor1-redraw/meal-14.png")
 			var meal_size:Vector2=meal.get_size()*6.0
 			draw_texture_rect(meal,Rect2((c+Vector2(0,8)-meal_size*.5).round(),meal_size),false)
 			for n in 4:draw_rect(Rect2((c+Vector2(-55+n*35,-68-fmod(elapsed*15+n*7,28))).round(),Vector2(4,8)),Color("ead9b0"))
+
+class CommunityIngredients extends Control:
+	const TEXTURE_PATH="res://ayu_home/v4/assets/institutions/community-prep-v2.png"
+	# Reviewed source partitions and bottom-aligned targets, in a 264 x 120 canvas.
+	const STAGES=[
+		[
+			[Rect2(43,33,523,304),Rect2(4.0,21.265774378585093,125.0,72.65774378585085)],
+			[Rect2(43,337,518,84),Rect2(4.0,93.92351816443595,123.80497131931166,20.076481835564053)],
+			[Rect2(561,172,307,59),Rect2(175.0,41.814332247557005,79.0,15.182410423452769)],
+			[Rect2(566,231,302,56),Rect2(176.28664495114006,56.99674267100977,77.71335504885994,14.410423452768729)],
+			[Rect2(561,287,307,115),Rect2(175.0,71.4071661237785,79.0,29.592833876221498)],
+		],
+		[
+			[Rect2(972,33,524,303),Rect2(4.0,21.44274809160305,125.0,72.28053435114504)],
+			[Rect2(972,336,518,85),Rect2(4.0,93.72328244274809,123.56870229007635,20.27671755725191)],
+			[Rect2(1490,172,307,60),Rect2(175.0,41.814332247557005,79.0,15.439739413680782)],
+			[Rect2(1496,232,301,53),Rect2(176.54397394136808,57.25407166123779,77.45602605863192,13.63843648208469)],
+			[Rect2(1490,285,307,117),Rect2(175.0,70.89250814332247,79.0,30.107491856677523)],
+		],
+		[
+			[Rect2(456,451,516,375),Rect2(4.0,23.156976744186053,125.0,90.84302325581395)],
+			[Rect2(981,568,428,241),Rect2(166.0,36.82710280373832,82.0,46.17289719626168)],
+		],
+	]
+	var board
+	func _ready() -> void:
+		mouse_filter=Control.MOUSE_FILTER_IGNORE
+		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		texture_repeat=CanvasItem.TEXTURE_REPEAT_DISABLED
+		var shader:=Shader.new()
+		shader.code="shader_type canvas_item; render_mode unshaded; void fragment(){if(COLOR.a<=0.8){discard;} COLOR.a=1.0;}"
+		var alpha_material:=ShaderMaterial.new();alpha_material.shader=shader;material=alpha_material
+	func _draw() -> void:
+		if board==null or board.game.progress>=3:return
+		var texture:=Assets.texture(TEXTURE_PATH)
+		if texture==null:return
+		for part in STAGES[clampi(board.game.progress,0,2)]:
+			# Clip UVs to each source region; no antialiased polygon edge or global render changes.
+			draw_texture_rect_region(texture,part[1],part[0],Color.WHITE,false,true)
+		if board.game.progress==1:
+			var c:=Vector2(144,54)
+			var elapsed:float=board.elapsed
+			for n in 8:draw_rect(Rect2((c+Vector2(-132+n*13,-33+sin(elapsed*4+n)*5)).round(),Vector2(4,4)),Color("cee6d3"))

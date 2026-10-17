@@ -1,0 +1,22 @@
+{
+  "status": "隔离验证已生成，等待C1/C4核图；未生产绑定",
+  "only_change": "WebGL context antialias:false",
+  "original_html": "测试数据/A03预览-1017/preview-corrected.html",
+  "preview_html": "测试数据/A03预览-1017/preview-antialias-off-1017.html",
+  "preview_png": "回执/第1轮返工/A03接入-1017/A03-v2关闭MSAA-隔离验证.png",
+  "source_sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "source_unchanged": true,
+  "returncode": 0,
+  "render_ok": true,
+  "screenshot_exists": true,
+  "threshold": 0.8,
+  "filter": "nearest",
+  "parameters_unchanged": true,
+  "production_binding": false,
+  "startup_note": "沙箱内启动退出 -6；获自动审批后同一副本启动成功，未改变候选方案",
+  "former_line_region_non_background_pixels": {
+    "0": 0,
+    "1": 0
+  },
+  "screenshot_sha256": "2c9c99a677377a48047155528a051c35ec18e410faed1703ae1166aefe28973d"
+}
