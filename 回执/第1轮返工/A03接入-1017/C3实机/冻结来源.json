@@ -1,0 +1,25 @@
+{
+  "commit": "0e130d0c7eef1d00b0d8964a6cc3c3686a3d88df",
+  "source": "local frozen commit; remote push not completed",
+  "files": {
+    "godot/ayu_home/v4/core/institution_game.gd": {
+      "sha256": "fb1aab50a066a277b008a7a41defae0c051ffb1a05688c59b8cf28ac6b404839",
+      "matches_frozen": true
+    },
+    "godot/ayu_home/v4/assets/institutions/community-prep-v2.png": {
+      "sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+      "matches_frozen": true
+    },
+    "godot/ayu_home/v4/core/state.gd": {
+      "sha256": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+      "matches_frozen": true
+    },
+    "godot/ayu_home/v4/core/config.gd": {
+      "sha256": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735",
+      "matches_frozen": true
+    }
+  },
+  "test_copy": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/A03-0e130d0-1017",
+  "save_clone_source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/蜂蜜-14ce7c2-1017/隔离存档",
+  "GUI": "Mac unlocked; isolated Godot C3_READY; CUA selected Project Manager only, game window not addressable; no game clicks; own launch session interrupted"
+}
