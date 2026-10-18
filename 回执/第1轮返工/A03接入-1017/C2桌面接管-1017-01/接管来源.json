@@ -1,0 +1,42 @@
+{
+  "source_commit": "0e130d0c7eef1d00b0d8964a6cc3c3686a3d88df",
+  "frozen_files": {
+    "godot/ayu_home/v4/core/institution_game.gd": {
+      "sha256": "fb1aab50a066a277b008a7a41defae0c051ffb1a05688c59b8cf28ac6b404839",
+      "matches_frozen": true
+    },
+    "godot/ayu_home/v4/assets/institutions/community-prep-v2.png": {
+      "sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+      "matches_frozen": true
+    },
+    "godot/ayu_home/v4/core/state.gd": {
+      "sha256": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+      "matches_frozen": true
+    },
+    "godot/ayu_home/v4/core/config.gd": {
+      "sha256": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735",
+      "matches_frozen": true
+    }
+  },
+  "test_root": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/A03-0e130d0-1017",
+  "new_save": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/A03-0e130d0-1017/C2接管-01/隔离存档",
+  "cloned_save_sha256": {
+    "shared.a": "550a68546b93b1bd382345a6625f0608036036850cdea2952991be189b20a056",
+    "shared.b": "72166f5a31d99e32596ee3572e38388508f3dffd2b00c5970bee515eee95062a",
+    "household.json": "cc5c6381b4a0addaf79b4f994d15bffc2ff55f43a04b0ef73476b6ce62918555"
+  },
+  "new_evidence": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/A03接入-1017/C2桌面接管-1017-01",
+  "observer_change": "Only window title; existing observer and all production files unchanged",
+  "launcher": "LaunchServices open -n -a Godot with frozen project arguments; isolate game from empty project manager",
+  "user_authorization": "允许你接管本次桌面验收",
+  "status": "用户授权C2接管；冻结0e130d0的备菜最小差异实机验收完成",
+  "app_entry": {
+    "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/A03-0e130d0-1017/C2接管-01/裳泓村备菜验收.app",
+    "bundle_id": "org.suqitown.a03.acceptance.0e130d0.c2",
+    "engine": "copy of installed /Applications/Godot.app; fixed arguments only",
+    "note": "CUA prohibits Terminal; dedicated named test app avoids Terminal and project-manager routing",
+    "production_files_changed": false
+  },
+  "successful_launcher": "Installed /Applications/Godot.app executable, with fixed frozen project, cloned saves, observer and log paths; all GUI input through CUA",
+  "failed_app_entry_preserved": "独立名称入口因无法读取工程文件退出；保留engine-app.log，不作为实机证据；随后原Godot程序正常运行"
+}
