@@ -72,6 +72,8 @@ func load_room(which: String) -> void:
 		bg.texture=art("res://ayu_home/v4/assets/floor1-redraw/floor1.png" if int(cfg.floor)==1 else P+"approved-2.png")
 		bg.position=v(cfg.source_offset)-v(cfg.source_crop)
 	else:bg.texture = art(asset_path(str(cfg.get("background",area+"_floor.png"))))
+	if cfg.has("background_scale"):
+		bg.scale=v(cfg.background_scale);bg.position=v(cfg.get("background_offset",[0,0]))
 	if cfg.get("floor",0)==1 and sharp:bg.material=sharpen_material()
 	# 屋外的季节和雨：冬天草和树叶上盖一层雪，秋天叶子泛黄，雨天地面发暗发凉（后花园有四季原图，不叠）
 	season_material=null;plant_materials.clear();village_material_cache.clear()

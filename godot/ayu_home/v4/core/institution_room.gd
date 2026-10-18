@@ -12,12 +12,16 @@ var greet_after:=0.0
 var changed_at:Dictionary={}
 var settled:=false
 var work_layer:Node2D
+var mill_effect_layer:Node2D
 func setup(owner) -> void:
 	ui=owner;record=ui.home.world.cfg.npc.duplicate(true);record.schedule=ui.home.world.cfg.resident.schedule
 	actor=Actor.new();actor.look_override=Residents.look(str(record.id));actor.draw_hand_overlays=false;ui.home.world.actors.add_child(actor);actor.setup("visitor")
 	actor.set_meta("display_name",str(record.name));ui.home.people["resident:"+str(record.id)]=actor
 	var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",12);nameplate.position=Vector2(-12,-102);actor.add_child(nameplate)
 	work_layer=Node2D.new();actor.add_child(work_layer);work_layer.draw.connect(draw_work)
+	if ui.home.area=="v_h3":
+		# Draw moving mill details above its matching foreground crops, still y-sorted with people.
+		mill_effect_layer=Node2D.new();mill_effect_layer.position.y=491;ui.home.world.actors.add_child(mill_effect_layer);mill_effect_layer.draw.connect(draw_mill)
 	sync_schedule(true);texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 func current_slot() -> int:return 0 if ui.home.hour<11 else (1 if ui.home.hour<17 else 2)
 func sync_schedule(first:=false) -> void:
@@ -43,6 +47,7 @@ func _process(dt:float) -> void:
 		greet_after=elapsed+30;actor.face="right" if ui.home.player.position.x>actor.position.x else "left";actor.say(str(record.schedule[slot_index].line))
 	elif actor.bubble_time<=0 and not actor.walking:actor.face=str(record.schedule[slot_index].face)
 	work_layer.queue_redraw();queue_redraw()
+	if is_instance_valid(mill_effect_layer):mill_effect_layer.queue_redraw()
 func draw_work() -> void:
 	if actor.walking or not actor.visible:return
 	var phase:=roundf(sin(elapsed*4)*2)
@@ -74,21 +79,27 @@ func _draw() -> void:
 	if ui.home.area=="v_h5":draw_honey(effects);return
 	if ui.home.area=="v_mayor":draw_civic(effects);return
 	if ui.home.area=="my_cabin":draw_community(effects);return
-	if ui.home.area!="v_h3":return
-	if int(effects.get("sweep",0))==0:
-		for n in 16:draw_rect(Rect2(288+(n*13)%29,430+(n*7)%39,3,2),Color("d9b464"))
-	if int(effects.get("tea",0))>0:
+	if ui.home.area=="v_h3" and int(effects.get("tea",0))>0:
 		for n in 4:
 			var rise:=fmod(elapsed*10+n*7,27.0);draw_rect(Rect2(Vector2(113+sin(elapsed+n)*3,353-rise).round(),Vector2(2,4)),Color(1,.94,.78,(1-rise/27)*.8))
+
+func draw_mill() -> void:
+	if not is_instance_valid(mill_effect_layer) or not is_instance_valid(ui):return
+	var effects:Dictionary=ui.state.data.village.institutions.get("v_h3",{})
+	var canvas:=mill_effect_layer
+	var offset:=Vector2(0,-491)
+	canvas.draw_set_transform(offset)
+	if int(effects.get("sweep",0))==0:
+		for n in 16:canvas.draw_rect(Rect2(314+(n*13)%29,230+(n*7)%39,3,2),Color("d9b464"))
 	var sifting:bool=elapsed-float(changed_at.get("sift",-20.0))<4 or (slot_index==0 and actor.visible and not actor.walking)
 	if sifting:
-		for n in 7:draw_rect(Rect2(Vector2(100+n*3+sin(elapsed*6)*4,182+fmod(elapsed*18+n*3,18)).round(),Vector2(2,2)),Color("f1c65c"))
+		for n in 7:canvas.draw_rect(Rect2(Vector2(264+n*3+sin(elapsed*6)*4,170+fmod(elapsed*18+n*3,18)).round(),Vector2(2,2)),Color("f1c65c"))
 	var working:bool=slot_index==1 and actor.visible and not actor.walking and not ui.opened
 	var rod:=Assets.texture("res://ayu_home/v4/assets/institutions/mill-rod-v1.png")
-	draw_set_transform(Vector2(268,111),sin(elapsed*1.8)*.17 if working else 0.0)
-	draw_texture(rod,Vector2(-6,-17));draw_set_transform(Vector2.ZERO)
+	canvas.draw_set_transform(Vector2(370,353)+offset,sin(elapsed*1.8)*.17 if working else 0.0)
+	canvas.draw_texture(rod,Vector2(-6,-17));canvas.draw_set_transform(offset)
 	if working:
-		for n in 7:draw_rect(Rect2(264+n%3,173+fmod(elapsed*26+n*6,44),2,3),Color("f8dfb0"))
+		for n in 7:canvas.draw_rect(Rect2(370+n%3,410+fmod(elapsed*26+n*6,44),2,3),Color("f8dfb0"))
 
 func draw_honey(effects:Dictionary) -> void:
 	var working:bool=slot_index==1 and actor.visible and not actor.walking and not ui.opened

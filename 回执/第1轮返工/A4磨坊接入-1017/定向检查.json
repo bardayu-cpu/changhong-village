@@ -1,0 +1,237 @@
+{
+	"arrival": [
+		254.0,
+		494.0
+	],
+	"background_offset": [
+		0.407624632120132,
+		0.0
+	],
+	"background_scale": [
+		0.439882695674896,
+		0.439882695674896
+	],
+	"checks": 57,
+	"failures": [],
+	"frames": [
+		{
+			"center": [
+				320.5,
+				400.5
+			],
+			"header": 88.0,
+			"machine": [
+				201.0,
+				177.0,
+				332.0,
+				358.0
+			],
+			"player": [
+				73.0,
+				373.0,
+				128.0,
+				168.0
+			],
+			"scene_position": [
+				0.0,
+				96.0
+			],
+			"scene_size": [
+				540.0,
+				708.0
+			],
+			"window": [
+				540,
+				960
+			],
+			"world_position": [
+				-371.0,
+				-447.0
+			]
+		},
+		{
+			"center": [
+				320.5,
+				400.5
+			],
+			"header": 100.0,
+			"machine": [
+				201.0,
+				171.0,
+				332.0,
+				358.0
+			],
+			"player": [
+				73.0,
+				367.0,
+				128.0,
+				168.0
+			],
+			"scene_position": [
+				0.0,
+				108.0
+			],
+			"scene_size": [
+				540.0,
+				696.0
+			],
+			"window": [
+				540,
+				960
+			],
+			"world_position": [
+				-371.0,
+				-453.0
+			]
+		},
+		{
+			"center": [
+				254.0,
+				400.5
+			],
+			"header": 88.0,
+			"machine": [
+				704.0,
+				57.0,
+				332.0,
+				358.0
+			],
+			"player": [
+				576.0,
+				253.0,
+				128.0,
+				168.0
+			],
+			"scene_position": [
+				0.0,
+				96.0
+			],
+			"scene_size": [
+				1280.0,
+				468.0
+			],
+			"window": [
+				1280,
+				720
+			],
+			"world_position": [
+				132.0,
+				-567.0
+			]
+		},
+		{
+			"center": [
+				254.0,
+				400.5
+			],
+			"header": 100.0,
+			"machine": [
+				704.0,
+				51.0,
+				332.0,
+				358.0
+			],
+			"player": [
+				576.0,
+				247.0,
+				128.0,
+				168.0
+			],
+			"scene_position": [
+				0.0,
+				108.0
+			],
+			"scene_size": [
+				1280.0,
+				456.0
+			],
+			"window": [
+				1280,
+				720
+			],
+			"world_position": [
+				132.0,
+				-573.0
+			]
+		}
+	],
+	"mode": "offline native geometry, navigation, resource and room interaction checks; not GUI",
+	"npc_frame_position": [
+		-32.0,
+		-84.0
+	],
+	"npc_frame_scale": [
+		1.0,
+		1.0
+	],
+	"npc_position": [
+		260.0,
+		410.0
+	],
+	"player_frame_position": [
+		-32.0,
+		-84.0
+	],
+	"player_frame_scale": [
+		1.0,
+		1.0
+	],
+	"routes": [
+		{
+			"approach": [
+				254.0,
+				518.0
+			],
+			"clear": true,
+			"id": "outside"
+		},
+		{
+			"approach": [
+				270.0,
+				334.0
+			],
+			"clear": true,
+			"id": "mill"
+		},
+		{
+			"approach": [
+				274.0,
+				230.0
+			],
+			"clear": true,
+			"id": "sift"
+		},
+		{
+			"approach": [
+				218.0,
+				366.0
+			],
+			"clear": true,
+			"id": "tea"
+		},
+		{
+			"approach": [
+				330.0,
+				278.0
+			],
+			"clear": true,
+			"id": "sweep"
+		},
+		{
+			"approach": [
+				190.0,
+				438.0
+			],
+			"clear": true,
+			"id": "tea_seat"
+		},
+		{
+			"approach": [
+				438.0,
+				278.0
+			],
+			"clear": true,
+			"id": "upstairs"
+		}
+	]
+}

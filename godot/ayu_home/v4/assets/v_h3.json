@@ -7,38 +7,87 @@
     508,
     600
   ],
-  "background": "res://ayu_home/v4/assets/institutions/mill-v2.png",
+  "background": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
   "asset_root": "res://ayu_home/v3/assets/",
   "props": [
     {
       "id": "mill_tea_chair",
-      "file": "res://ayu_home/v4/assets/institutions/mill-v2.png",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
       "atlas_region": [
-        44,
-        367,
-        86,
-        94
+        99.10000000000001,
+        834.3133333333334,
+        195.50666666666666,
+        213.69333333333333
       ],
       "pos": [
         44,
         367
       ],
-      "foot": 460
+      "foot": 460,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
+    },
+    {
+      "id": "mill_machine_front",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        681.0733333333334,
+        709.28,
+        345.5466666666667,
+        363.73333333333335
+      ],
+      "pos": [
+        300,
+        312
+      ],
+      "foot": 472,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
+    },
+    {
+      "id": "mill_bucket_front",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        649.2466666666668,
+        945.7066666666667,
+        95.48,
+        125.03333333333333
+      ],
+      "pos": [
+        286,
+        416
+      ],
+      "foot": 471,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
+    },
+    {
+      "id": "mill_trough_front",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        744.7266666666667,
+        1045.7333333333333,
+        209.14666666666668,
+        70.47333333333333
+      ],
+      "pos": [
+        328,
+        460
+      ],
+      "foot": 491,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
     }
   ],
   "obstacles": [
-    [
-      26,
-      130,
-      138,
-      114
-    ],
-    [
-      192,
-      128,
-      145,
-      118
-    ],
     [
       390,
       84,
@@ -64,22 +113,34 @@
       38
     ],
     [
-      357,
-      344,
-      114,
-      97
+      171,
+      65,
+      143,
+      146
     ],
     [
-      392,
-      431,
-      50,
-      38
+      337,
+      55,
+      38,
+      111
     ],
     [
-      319,
-      356,
-      57,
-      103
+      300,
+      312,
+      152,
+      160
+    ],
+    [
+      286,
+      416,
+      42,
+      55
+    ],
+    [
+      328,
+      460,
+      92,
+      31
     ]
   ],
   "hotspots": [
@@ -88,12 +149,12 @@
       "label": "推石磨磨谷粉",
       "kind": "mill_game",
       "pos": [
-        276,
-        204
+        302,
+        350
       ],
       "approach": [
-        276,
-        280
+        268,
+        332
       ]
     },
     {
@@ -101,12 +162,12 @@
       "label": "簸一簸谷子",
       "kind": "sift_grain",
       "pos": [
-        106,
-        205
+        271,
+        170
       ],
       "approach": [
-        106,
-        280
+        272,
+        230
       ]
     },
     {
@@ -127,12 +188,12 @@
       "label": "扫净地上的谷壳",
       "kind": "sweep_mill",
       "pos": [
-        300,
-        448
+        326,
+        248
       ],
       "approach": [
-        284,
-        446
+        328,
+        278
       ]
     },
     {
@@ -273,8 +334,8 @@
       {
         "slot": "早",
         "pos": [
-          106,
-          280
+          272,
+          230
         ],
         "face": "up",
         "action": "sift",
@@ -283,10 +344,10 @@
       {
         "slot": "中",
         "pos": [
-          276,
-          280
+          260,
+          410
         ],
-        "face": "up",
+        "face": "right",
         "action": "mill",
         "line": "搭把手推一圈吧，粉槽满了就能收好。"
       },
@@ -316,5 +377,18 @@
       106,
       280
     ]
-  }
+  },
+  "background_scale": [
+    0.4398826979472141,
+    0.4398826979472141
+  ],
+  "background_offset": [
+    0.4076246334310838,
+    0
+  ],
+  "entry_camera_bias": [
+    -70,
+    30
+  ],
+  "entry_camera_radius": 160
 }
