@@ -780,7 +780,7 @@ func show_toast(copy:String) -> void:
 	toast_tween.chain().tween_interval(3.4);toast_tween.chain().tween_property(toast,"modulate:a",0.0,.5)
 func room_camera_target() -> Vector2:
 	var target:Vector2=player.position-Vector2(0,65)
-	if area in ["my_cabin","v_h3"] and world.cfg.has("entry_camera_bias"):
+	if area in ["my_cabin","v_h3","v_mayor"] and world.cfg.has("entry_camera_bias"):
 		var weight:=clampf(1.0-player.position.distance_to(World.v(world.cfg.spawn))/float(world.cfg.entry_camera_radius),0.0,1.0)
 		target-=World.v(world.cfg.entry_camera_bias)*weight
 	return target
@@ -798,7 +798,7 @@ func layout_world() -> void:
 		var origin:=World.v(world.cfg.source_offset)-World.v(world.cfg.source_crop)
 		var art_size:=Vector2(world.base_sprite.texture.get_size())
 		center=camera.clamp(origin+visible_world*.5,origin+art_size-visible_world*.5)
-	if area in ["my_cabin","v_h3"] and world.cfg.has("entry_camera_bias") and is_instance_valid(player):
+	if area in ["my_cabin","v_h3","v_mayor"] and world.cfg.has("entry_camera_bias") and is_instance_valid(player):
 		# 入门前视随行走退回普通跟随；窄/横窗口仍给玩家留出顶栏和底栏空间。
 		var safe_top:=maxf(17.0,125.0-top_area)
 		var lower:Vector2=player.position+Vector2(20,0)-(screen-Vector2(20,29)-screen*.5)/view_scale

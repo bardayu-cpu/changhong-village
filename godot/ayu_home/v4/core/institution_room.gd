@@ -133,7 +133,7 @@ func draw_civic(effects:Dictionary) -> void:
 	if int(effects.get("counter",0))>0:draw_rect(Rect2(201,199,11,14),Color("f2e0b1"));draw_rect(Rect2(205,204,4,4),Color("a44333"))
 	if int(effects.get("notice",0))>0:
 		for n in 3:draw_rect(Rect2(133+n*6,329-n*2,5,12),Color("edcf8b"))
-	if int(effects.get("bundle",0))>0:draw_rect(Rect2(424,391,12,5),Color("af4733"));draw_rect(Rect2(428,393,5,11),Color("b84c35"))
+	if int(effects.get("bundle",0))>0:draw_rect(Rect2(307,342,12,5),Color("af4733"));draw_rect(Rect2(311,344,5,11),Color("b84c35"))
 
 func draw_community(effects:Dictionary) -> void:
 	var woven:int=mini(7,int((elapsed-float(changed_at.get("weave",-20.0)))*2)) if int(effects.get("weave",0))>0 else 0

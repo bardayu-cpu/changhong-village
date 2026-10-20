@@ -7,9 +7,86 @@
     508,
     600
   ],
-  "background": "res://ayu_home/v4/assets/institutions/civic-v1.png",
+  "background": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [],
+  "props": [
+    {
+      "id": "civic_table_front",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        340.7466666666667,
+        713.3033333333333,
+        427.0733333333333,
+        227.16666666666666
+      ],
+      "pos": [
+        150,
+        314
+      ],
+      "foot": 414,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
+    },
+    {
+      "id": "civic_chair_top_left",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        392.995,
+        640.61,
+        90.86666666666666,
+        74.965
+      ],
+      "pos": [
+        173,
+        282
+      ],
+      "foot": 315,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
+    },
+    {
+      "id": "civic_chair_top_right",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        588.3583333333335,
+        640.61,
+        93.13833333333334,
+        74.965
+      ],
+      "pos": [
+        259,
+        282
+      ],
+      "foot": 315,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
+    },
+    {
+      "id": "civic_chair_bottom",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        365.735,
+        870.0483333333333,
+        86.32333333333332,
+        109.03999999999999
+      ],
+      "pos": [
+        161,
+        383
+      ],
+      "foot": 431,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
+    }
+  ],
   "obstacles": [
     [
       152,
@@ -60,28 +137,28 @@
       32
     ],
     [
-      272,
-      379,
-      183,
+      150,
+      345,
+      187,
       68
     ],
     [
-      242,
+      161,
       386,
-      31,
-      47
+      37,
+      45
     ],
     [
-      303,
-      340,
-      44,
-      38
+      173,
+      283,
+      39,
+      31
     ],
     [
-      373,
-      340,
-      38,
-      38
+      259,
+      283,
+      41,
+      31
     ],
     [
       36,
@@ -100,12 +177,12 @@
     {
       "id": "village_tasks",
       "pos": [
-        316,
-        402
+        197,
+        355
       ],
       "approach": [
-        317,
-        322
+        251,
+        442
       ],
       "kind": "civic_game",
       "label": "整理村务任务卡"
@@ -145,8 +222,8 @@
         345
       ],
       "approach": [
-        172,
-        383
+        130,
+        386
       ],
       "kind": "opinion_note",
       "label": "留一张意见条",
@@ -155,12 +232,12 @@
     {
       "id": "material_sort",
       "pos": [
-        429,
-        404
+        312,
+        355
       ],
       "approach": [
-        475,
-        413
+        359,
+        383
       ],
       "kind": "material_sort",
       "label": "给修缮包系记号",
@@ -169,20 +246,20 @@
     {
       "id": "rest_seat",
       "pos": [
-        259,
-        401
+        181,
+        412
       ],
       "approach": [
-        220,
-        403
+        214,
+        445
       ],
       "kind": "seat",
       "label": "坐下听村事",
       "seat": [
-        259,
-        401
+        181,
+        412
       ],
-      "face": "right"
+      "face": "up"
     }
   ],
   "doors": [
@@ -343,17 +420,30 @@
       {
         "slot": "晚",
         "pos": [
-          259,
-          401
+          181,
+          412
         ],
-        "face": "right",
+        "face": "up",
         "action": "read",
         "line": "手续都收好了，这张桌留给大家慢慢说事。",
         "approach": [
-          220,
-          403
+          214,
+          445
         ]
       }
     ]
-  }
+  },
+  "entry_camera_bias": [
+    -100,
+    20
+  ],
+  "entry_camera_radius": 160,
+  "background_scale": [
+    0.4402054292002935,
+    0.4402054292002935
+  ],
+  "background_offset": [
+    0.0014673514306480229,
+    0
+  ]
 }
