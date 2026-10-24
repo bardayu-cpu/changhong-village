@@ -8252,174 +8252,126 @@
     },
     "v_daba": {
       "id": "v_daba",
-      "title": "大爸家 · 一楼",
+      "title": "大爸家 · 竹编堂屋",
       "group": "村庄",
       "floor": 0,
       "size": [
-        780,
-        680
+        768,
+        512
       ],
-      "background": "res://ayu_home/v4/assets/village/interior_daba.png",
+      "background": "res://ayu_home/v4/assets/village/households-pixel/daba-bamboo.png",
+      "background_scale": [
+        0.5,
+        0.5
+      ],
       "asset_root": "res://ayu_home/v3/assets/",
-      "props": [
-        {
-          "id": "bench0",
-          "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
-          "pos": [
-            75,
-            125
-          ],
-          "foot": 198,
-          "front": false
-        },
-        {
-          "id": "kitchen1",
-          "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-          "pos": [
-            555,
-            120
-          ],
-          "foot": 203,
-          "front": false
-        },
-        {
-          "id": "table2",
-          "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-          "pos": [
-            205,
-            360
-          ],
-          "foot": 435,
-          "front": false
-        },
-        {
-          "id": "stairs",
-          "file": "res://ayu_home/v4/assets/village/stairs.png",
-          "pos": [
-            670,
-            370
-          ],
-          "foot": 520,
-          "front": false
-        },
-        {
-          "id": "detail_window",
-          "file": "res://ayu_home/v4/assets/village/window.png",
-          "pos": [
-            292,
-            21
-          ],
-          "foot": 75,
-          "front": false
-        },
-        {
-          "id": "detail_plant0",
-          "file": "exterior_pot_window_left.png",
-          "pos": [
-            25,
-            450
-          ],
-          "foot": 518,
-          "front": false
-        },
-        {
-          "id": "detail_plant1",
-          "file": "exterior_pot_window_left.png",
-          "pos": [
-            708,
-            90
-          ],
-          "foot": 158,
-          "front": false
-        },
-        {
-          "id": "tea_bench",
-          "file": "res://ayu_home/v3/assets/exterior_bench.png",
-          "pos": [
-            360,
-            422
-          ],
-          "foot": 455,
-          "front": false
-        }
-      ],
+      "props": [],
       "obstacles": [
         [
-          480,
-          95,
-          12,
-          190
+          80,
+          160,
+          204,
+          32
+        ],
+        [
+          290,
+          146,
+          165,
+          43
         ],
         [
           480,
-          420,
-          12,
-          205
+          145,
+          70,
+          42
         ],
         [
-          79,
-          167.9,
-          118,
-          35.1
+          565,
+          165,
+          110,
+          25
         ],
         [
-          559,
-          168.4,
-          147,
-          39.6
+          48,
+          195,
+          157,
+          184
         ],
         [
-          209,
-          404.0,
-          112,
-          36.0
+          334,
+          230,
+          124,
+          111
+        ],
+        [
+          300,
+          239,
+          34,
+          99
+        ],
+        [
+          458,
+          238,
+          33,
+          100
+        ],
+        [
+          374,
+          203,
+          43,
+          29
+        ],
+        [
+          363,
+          296,
+          52,
+          63
+        ],
+        [
+          679,
+          175,
+          42,
+          157
+        ],
+        [
+          700,
+          303,
+          43,
+          55
         ]
       ],
       "hotspots": [
         {
-          "id": "resident_note",
-          "label": "门边的生活便签",
-          "pos": [
-            290,
-            560
-          ],
-          "approach": [
-            290,
-            600
-          ],
-          "kind": "village",
-          "copy": "门边的竹篮适合装一趟新鲜菜。"
-        },
-        {
           "id": "house_help",
-          "label": "修好竹篮提手",
+          "label": "收齐散竹条",
           "pos": [
-            480,
-            530
+            350,
+            137
           ],
           "approach": [
-            480,
-            570
+            317,
+            199
           ],
           "kind": "village",
-          "copy": "提手扎紧了，下次装菜就稳当了。",
-          "house": "daba"
+          "house": "daba",
+          "copy": "竹条收齐，长短分开放在工作台边。明天编篮子时，拿起来就顺手了。",
+          "repeat_copy": "大爸记着你的帮助，今天的竹条已经收齐了。坐下来歇一会儿吧。"
         },
         {
           "id": "tea_seat",
           "label": "坐一会儿",
           "pos": [
-            390,
-            435
+            164,
+            238
           ],
           "approach": [
-            390,
-            490
+            224,
+            267
           ],
           "kind": "seat",
           "seat": [
-            390,
-            445
+            166,
+            251
           ],
           "face": "down"
         }
@@ -8431,65 +8383,78 @@
           "target": "village",
           "pos": [
             390,
-            626
+            454
           ],
           "approach": [
             390,
-            644
+            433
           ],
           "face": "up",
           "kind": "door",
-          "width": 60,
-          "explicit_opening": true
-        },
-        {
-          "id": "upstairs",
-          "label": "上二楼",
-          "target": "v_daba_up",
-          "pos": [
-            715,
-            525
-          ],
-          "approach": [
-            715,
-            555
-          ],
-          "face": "down",
-          "kind": "door",
-          "width": 60,
-          "explicit_opening": true
+          "width": 114,
+          "explicit_opening": true,
+          "arrival": [
+            390,
+            398
+          ]
         }
       ],
       "anchors": {},
       "windows": [],
-      "lamps": [
-        [
-          249,
-          115,
-          240
-        ],
-        [
-          561,
-          475,
-          220
-        ]
-      ],
+      "lamps": [],
       "source_offset": [
         0,
         0
       ],
       "spawn": [
         390,
-        575
+        398
       ],
       "walk_rect": [
-        22,
-        100,
-        736,
-        560
+        30,
+        176,
+        712,
+        304
+      ],
+      "walk_polygons": [
+        [
+          [
+            80,
+            176
+          ],
+          [
+            672,
+            190
+          ],
+          [
+            740,
+            396
+          ],
+          [
+            454,
+            396
+          ],
+          [
+            454,
+            480
+          ],
+          [
+            326,
+            480
+          ],
+          [
+            326,
+            396
+          ],
+          [
+            32,
+            396
+          ]
+        ]
       ],
       "outdoor": false,
-      "view_scale": 1.15
+      "view_scale": 1.15,
+      "household_open": true
     },
     "v_h5": {
       "id": "v_h5",
@@ -12871,21 +12836,6 @@
           "closed_note": "门闩落下了"
         },
         {
-          "id": "visit_daba",
-          "house": "daba",
-          "label": "门口 · 收齐散竹条",
-          "pos": [
-            2592,
-            1293
-          ],
-          "approach": [
-            2528,
-            1327
-          ],
-          "kind": "door_chore",
-          "closed_note": "竹帘放下了"
-        },
-        {
           "id": "visit_h2",
           "house": "h2",
           "label": "门口 · 理顺门边线筐",
@@ -13169,6 +13119,23 @@
           "arrival": [
             1288,
             3784
+          ],
+          "width": 68,
+          "explicit_opening": true
+        },
+        {
+          "id": "visit_daba",
+          "target": "v_daba",
+          "label": "到大爸家坐坐",
+          "kind": "door",
+          "face": "down",
+          "pos": [
+            2528,
+            1293
+          ],
+          "approach": [
+            2528,
+            1327
           ],
           "width": 68,
           "explicit_opening": true

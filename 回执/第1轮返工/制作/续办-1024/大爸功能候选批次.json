@@ -1,0 +1,98 @@
+{
+  "scope": "大爸家像素堂屋功能候选与后续整村只读接入方案",
+  "base": "3fe0cfe616cceb4a8cb3c3ee82411d7437620dff",
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "bytes": 119019,
+      "sha256": "ea04186e5a474c818b5d25a4cdcad610688ed400700036dacff718c2c9eca5f9"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "bytes": 28089,
+      "sha256": "e5fb5e0b947f55afd0e197ea3b87660840bdf48108308912421753bd0fdb5826"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/state.gd",
+      "bytes": 24154,
+      "sha256": "7155071f0cbc4e130429cebad540530fdadc0aef23deff03b91f52e42ca46318"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/world_life.gd",
+      "bytes": 4658,
+      "sha256": "a9fcc657145c77e203aeb574ec0aff791e605164a40ce71bfc3d2aa17994a662"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_daba.json",
+      "bytes": 2705,
+      "sha256": "35b8039ccdcff81e73a4e523cf048521160aec5cb61302056d6ceca4149155d0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.json",
+      "bytes": 36270,
+      "sha256": "c907448bd33eab85d6824ff913145dc7d08819030c2863bf07653d1eb9befc1f"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/houses.json",
+      "bytes": 6552,
+      "sha256": "8404a0c2fe734aa33219bad20e9a7360ed239fbbcf96bdf59843da31dda61349"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/rooms.json",
+      "bytes": 331771,
+      "sha256": "f7eab9764de6f7971e8cd708c9be197de92cd767425a9b2b89a6861eb910e0d3"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/daba-bamboo.png",
+      "bytes": 1912402,
+      "sha256": "6e24a49ae8db0fd8ba120b467ab31ce4e6e00e34f5e767ff8bb75d3871ee2f23"
+    },
+    {
+      "path": "工具/test_home_bamboo_1024.gd",
+      "bytes": 9633,
+      "sha256": "55031bf9f3c0f58d22a37b2305ae3aaa251d1091fd287220eff92b4f41e2a8a6"
+    },
+    {
+      "path": "回执/第1轮返工/制作/续办-1024/竹编人家候选/最小接入方案.md",
+      "bytes": 1864,
+      "sha256": "abbb775d53362527f6843130e5bc9b4c12a655f64f7f1237ff657f62182afc81"
+    },
+    {
+      "path": "回执/第1轮返工/制作/续办-1024/整村像素地面接入方案.md",
+      "bytes": 3373,
+      "sha256": "5c1df5b0d0e23435da56f20f782f5248c75e3ae91f88877c40788d71ccae2291"
+    },
+    {
+      "path": "工具/render_bamboo_review_1024.gd",
+      "bytes": 1810,
+      "sha256": "b8561571a5790e13b74882f6e1478f249ad89da4b4e6060d35cd806a4ec457e0"
+    }
+  ],
+  "verification": {
+    "run": "1fc62345c5c342a4b2931a76656613ab",
+    "create": "18/18",
+    "reopen": "11/11",
+    "mode": "actual Home headless, normal go, isolated dual saves, separate processes"
+  },
+  "limitations": [
+    "未进行真人GUI验收",
+    "无接入后同屏人物尺度图",
+    "茶椅前沿缺独立遮挡层",
+    "CA证书报错和退出RID/ObjectDB泄漏警告保留"
+  ],
+  "pending": "新屋人物尺度/椅前景视觉未验；13户新图接入；C4整村地面",
+  "excluded": "7份旧脏文档、全部运行日志/存档/缓存、未选旧设计和失败图；不推送旧A/B或本批",
+  "independent_verification": {
+    "agent": "C3",
+    "run": "c79a891d749e4c829f0e533de8561aba",
+    "create": "18/18",
+    "reopen": "11/11"
+  },
+  "offline_render": {
+    "script": "工具/render_bamboo_review_1024.gd",
+    "attempts": 1,
+    "exit_code": -6,
+    "png_outputs": 0,
+    "status": "failed; no visual pass"
+  }
+}

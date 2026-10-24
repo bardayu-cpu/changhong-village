@@ -190,7 +190,7 @@ func anchor(room:String,id:String) -> Vector2:
 	return World.v(cfg.anchors.get(id,cfg.spawn))
 func enter_room(which:String,with_transition:=true,from:="") -> void:
 	var doorstep_id:=which.trim_prefix("v_").trim_suffix("_up")
-	var doorstep_only:bool=village_ui!=null and village_ui.C.DOOR_CHORES.has(doorstep_id)
+	var doorstep_only:bool=village_ui!=null and village_ui.C.DOOR_CHORES.has(doorstep_id) and not bool(definitions.get(which,{}).get("household_open",false))
 	if doorstep_only:which="village";from="" # 旧档留在今天闭门的邻居屋里时，也从该户门边继续。
 	if not definitions.has(which):return
 	if not await preload("res://ayu_home/v4/core/download_gate.gd").ensure(self,"room:"+which):transition=false;return

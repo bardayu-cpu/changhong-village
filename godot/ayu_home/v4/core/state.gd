@@ -201,10 +201,14 @@ func execute(command:String,a:Dictionary) -> Dictionary:
 			var id:=str(a.get("id",""));var key:=date_key()+":house:"+id
 			if not C.DOOR_CHORES.has(id):return fail("这户没有留下门边小事")
 			var chore:Dictionary=C.DOOR_CHORES[id]
-			if v.chores.has(key):return fail(chore.owner+"记着你的帮助。"+chore.closed+"，明天再来走走。")
+			var response:String=str(a.get("text","")) if command=="house_help" else ""
+			if response.is_empty():response=str(chore.response)
+			var repeat_text:String=str(a.get("repeat_text","")) if command=="house_help" else ""
+			if repeat_text.is_empty():repeat_text=chore.owner+"记着你的帮助。"+chore.closed+"，明天再来走走。"
+			if v.chores.has(key):return fail(repeat_text)
 			v.chores[key]=true;v.helped["house:"+id]=int(v.helped.get("house:"+id,0))+1
-			v.memories.append({"date":date_key(),"place":chore.owner,"text":chore.response});renqing_add(chore.owner,chore.label)
-			return success(chore.response)
+			v.memories.append({"date":date_key(),"place":chore.owner,"text":response});renqing_add(chore.owner,chore.label)
+			return success(response)
 		"season_help":
 			var key:=date_key()+":season"
 			if v.chores.has(key):return fail("今天的季节小事已经做完，明天还会有新的便签")

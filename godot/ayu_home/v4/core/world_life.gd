@@ -53,7 +53,7 @@ func _draw() -> void:
 				if ripe:draw_rect(Rect2(q+Vector2(-2,2),Vector2(12,13)),{"radish":Color("edccab"),"pepper":Color("d55a44"),"grain":Color("e6bd5e")}[crop.crop])
 	elif h.area.begins_with("v_"):
 		var id:String=h.area.trim_prefix("v_").trim_suffix("_up")
-		if int(v.helped.get("house:"+id,0))>0:draw_texture(Assets.texture("res://ayu_home/v3/assets/exterior_pot_window_left.png"),Vector2(430,330))
+		if not h.world.cfg.get("household_open",false) and int(v.helped.get("house:"+id,0))>0:draw_texture(Assets.texture("res://ayu_home/v3/assets/exterior_pot_window_left.png"),Vector2(430,330))
 	if h.world.cfg.get("outdoor",false):
 		var season:int=h.Data.season(h.month)
 		for p in h.world.props:

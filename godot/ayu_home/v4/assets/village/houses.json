@@ -41,7 +41,7 @@
   {
     "id": "daba",
     "title": "大爸家",
-    "subtitle": "竹帘放下了 · 门边帮忙",
+    "subtitle": "竹编堂屋 · 收竹条与歇脚",
     "floors": 2,
     "at": [
       2528,
@@ -56,7 +56,7 @@
       567
     ],
     "art": "house_daba.png",
-    "doorstep_only": true
+    "doorstep_only": false
   },
   {
     "id": "h5",

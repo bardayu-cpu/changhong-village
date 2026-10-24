@@ -1046,21 +1046,6 @@
       "closed_note": "门闩落下了"
     },
     {
-      "id": "visit_daba",
-      "house": "daba",
-      "label": "门口 · 收齐散竹条",
-      "pos": [
-        2592,
-        1293
-      ],
-      "approach": [
-        2528,
-        1327
-      ],
-      "kind": "door_chore",
-      "closed_note": "竹帘放下了"
-    },
-    {
       "id": "visit_h2",
       "house": "h2",
       "label": "门口 · 理顺门边线筐",
@@ -1344,6 +1329,23 @@
       "arrival": [
         1288,
         3784
+      ],
+      "width": 68,
+      "explicit_opening": true
+    },
+    {
+      "id": "visit_daba",
+      "target": "v_daba",
+      "label": "到大爸家坐坐",
+      "kind": "door",
+      "face": "down",
+      "pos": [
+        2528,
+        1293
+      ],
+      "approach": [
+        2528,
+        1327
       ],
       "width": 68,
       "explicit_opening": true
