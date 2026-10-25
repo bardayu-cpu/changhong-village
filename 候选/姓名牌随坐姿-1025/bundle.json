@@ -1,0 +1,28 @@
+{
+  "base_candidate": "../自然路肩样板-1025",
+  "base_checkpoint": "bd7c63c",
+  "scope": "label pose/lift following and street actor exclusion only",
+  "status": "awaiting second narrow C3 review; road remains failed",
+  "files": [
+    {
+      "path": "ayu_home/v4/actor.gd",
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01",
+      "bytes": 13522
+    },
+    {
+      "path": "ayu_home/v4/home.gd",
+      "sha256": "b4a2b8af586f11cd38c9addbd6f75489e35d14e65338e0eb184f26c205db4c60",
+      "bytes": 120068
+    },
+    {
+      "path": "ayu_home/v4/core/institution_room.gd",
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110",
+      "bytes": 13336
+    },
+    {
+      "path": "ayu_home/v4/core/interface.gd",
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3",
+      "bytes": 31384
+    }
+  ]
+}

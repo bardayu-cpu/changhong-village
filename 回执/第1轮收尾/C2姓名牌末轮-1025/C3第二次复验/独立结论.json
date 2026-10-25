@@ -1,0 +1,68 @@
+{
+  "round": 2,
+  "same_issue_attempt_count_not_reset": true,
+  "initial_fixture_failure": "new copy lacked global class cache; retained engine-initial-cache-missing.log; recovered original test cache without source changes; no label test ran during startup failure",
+  "sources": [
+    {
+      "path": "actor.gd",
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01"
+    },
+    {
+      "path": "home.gd",
+      "sha256": "b4a2b8af586f11cd38c9addbd6f75489e35d14e65338e0eb184f26c205db4c60"
+    },
+    {
+      "path": "core/institution_room.gd",
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110"
+    },
+    {
+      "path": "core/interface.gd",
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3"
+    }
+  ],
+  "h6": {
+    "13_native_standing_visual_and_rect_pass": true,
+    "19_native_seated_visual_and_rect_pass": true,
+    "seated_lift": 52,
+    "seated_nameplate": [
+      85,
+      274,
+      144,
+      32
+    ],
+    "seated_body": [
+      123,
+      316,
+      68,
+      120
+    ],
+    "first_failure_preserved": true
+  },
+  "merchant": {
+    "normal_four_leg_cycle_result": "sit",
+    "13_hour": true,
+    "OS_clock_not_claimed_real_wait": "street_time advanced through four normal legs; route and destination action not forced",
+    "interaction_marker_body_overlap": false,
+    "own_nameplate_vs_merchant_body_overlap": false,
+    "conservative_nameplate_vs_player_rect_overlap_height": 4,
+    "production_approach_player_and_merchant_bodies_overlap": true,
+    "whole_merchant_visual_pass": false,
+    "meaning": "marker and own-nameplate avoidance improved; current standard approach covers seated merchant with player and label frame touches player's head, so not whole-scene passed",
+    "actual_click_verified": false
+  },
+  "OS_input": {
+    "test_game_received_events": false,
+    "click_status": "not performed; native app binding repeatedly selected project manager, not candidate; no click sent to an unverified window",
+    "automatic_review": "Quit Godot rejected because it could close the candidate required to remain open; no bypass or termination performed"
+  },
+  "engine": {
+    "ready": true,
+    "ready_log": "LABEL_SECOND_READY action=sit player=(1256.0, 3576.0)",
+    "runtime_script_error_after_cache_recovery": false
+  },
+  "candidate_left_running": true,
+  "road_retested": false,
+  "S3_third_drag_attempt": false,
+  "production_modified": false,
+  "full_game_pass": false
+}

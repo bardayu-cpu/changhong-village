@@ -1,0 +1,52 @@
+{
+  "area": "v_h6",
+  "bodies": [
+    {
+      "action": "idle",
+      "id": "visitor",
+      "lift": 0.0,
+      "rect": [
+        275.0,
+        536.0,
+        72.0,
+        168.0
+      ]
+    },
+    {
+      "action": "idle",
+      "id": "visitor",
+      "lift": 0.0,
+      "rect": [
+        143.0,
+        416.0,
+        74.0,
+        164.0
+      ]
+    }
+  ],
+  "clashes": [],
+  "events": [],
+  "hour": 13.0,
+  "markers": [],
+  "month": 10,
+  "name": "h6-native-13",
+  "page_visible": false,
+  "player": [
+    350.0,
+    298.0
+  ],
+  "scale": 2.0,
+  "tags": [
+    {
+      "mouse_filter": 2,
+      "rect": [
+        107.0,
+        374.0,
+        144.0,
+        32.0
+      ],
+      "text": "花窗人家主人"
+    }
+  ],
+  "talk_visible": false
+}

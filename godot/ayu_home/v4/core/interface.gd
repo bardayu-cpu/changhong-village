@@ -277,6 +277,7 @@ func entered() -> void:
 		if record.get("character_id","") in ["xiaotao","kaikai","linbo"] and not (home.hour>=5 and home.hour<7):continue
 		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.get("preset",0));actor.look_override=Residents.look(str(record.get("character_id",record.get("id",""))));home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.draw_hand_overlays=false;street_actors.append({"actor":actor,"origin":actor.position,"next":8.0,"leg":0,"id":str(record.get("character_id",record.get("id","")))})
 		var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",16);nameplate.add_theme_color_override("font_shadow_color",Color("392f24"));nameplate.add_theme_constant_override("shadow_offset_x",1);nameplate.add_theme_constant_override("shadow_offset_y",1);nameplate.position=Vector2(-24,-108);actor.add_child(nameplate)
+		actor.nameplate=nameplate;nameplate.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	if cfg.has("resident"):
 		institution_room=preload("res://ayu_home/v4/core/institution_room.gd").new();home.world.add_child(institution_room);home.world.move_child(institution_room,home.world.actors.get_index());institution_room.setup(self)
 	overlay=preload("res://ayu_home/v4/core/world_life.gd").new();overlay.ui=self;home.world.add_child(overlay)

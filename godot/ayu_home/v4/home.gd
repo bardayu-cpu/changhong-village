@@ -869,11 +869,17 @@ func layout_markers() -> void:
 	if not door_pick.is_empty():pick=door_pick
 	# 当前帧的完整人物范围：姓名牌、气泡及点击区都不能压住身体或坐姿。
 	var faces:Dictionary={}
-	for a in [player]+people.values():
+	var visible_actors:Array=[player]+people.values()
+	if is_instance_valid(village_ui):
+		for row in village_ui.street_actors:
+			if is_instance_valid(row.actor) and not row.actor in visible_actors:visible_actors.append(row.actor)
+	for a in visible_actors:
 		if a.visible:faces[a]=a.get_global_transform_with_canvas()*a.visual_rect()
 	var tag_for:Button=null;var tag_hot:Dictionary={};var tag_rect:=Rect2();var visible_marker:Button=null
 	var blocked:Array[Rect2]=[]
 	for face in faces.values():blocked.append(face.grow(2))
+	for a in visible_actors:
+		if a.visible and is_instance_valid(a.nameplate):blocked.append((a.nameplate.get_global_transform_with_canvas()*Rect2(Vector2.ZERO,a.nameplate.size)).grow(2))
 	for other in speech:blocked.append(other.grow(4))
 	var safe:=Rect2(Vector2(8,top_limit),Vector2(size.x-16,bottom_limit-top_limit))
 	for item in pick:

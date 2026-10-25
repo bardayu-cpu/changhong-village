@@ -18,6 +18,7 @@ func setup(owner) -> void:
 	actor=Actor.new();actor.look_override=Residents.look(str(record.id));actor.draw_hand_overlays=false;ui.home.world.actors.add_child(actor);actor.setup("visitor")
 	actor.set_meta("display_name",str(record.name));ui.home.people["resident:"+str(record.id)]=actor
 	var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",12);nameplate.position=Vector2(-12,-102);actor.add_child(nameplate)
+	actor.nameplate=nameplate;nameplate.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	work_layer=Node2D.new();actor.add_child(work_layer);work_layer.draw.connect(draw_work)
 	if ui.home.area=="v_h3":
 		# Draw moving mill details above its matching foreground crops, still y-sorted with people.

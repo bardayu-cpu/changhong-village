@@ -40,6 +40,7 @@ var quilt_tex:Texture2D
 var quilt_region:=Rect2()
 var in_bed := false # 家人睡觉、休息时躺在床上（和玩家躺床同一套画法）
 var head_down := false # 床头朝下的床（新一楼爸妈的床）：头枕在下面的枕头上，脸照常朝上，身子在上面的花被子里
+var nameplate:Label
 static var visible_bounds_cache:Dictionary={}
 
 ## 提示避让使用当前帧实际像素范围，包含坐姿、抬高与翻转；不修改人物图。
@@ -133,6 +134,10 @@ func _process(dt: float) -> void:
 	bubble.visible = bubble_time > 0 and bubble_allowed
 	cooldown = maxf(0,cooldown-dt)
 	pose()
+	if is_instance_valid(nameplate):
+		var body:=visual_rect()
+		nameplate.reset_size()
+		nameplate.position=Vector2(body.get_center().x-nameplate.size.x*.5,body.position.y-nameplate.size.y-5).round()
 
 func pose() -> void:
 	if not sprite: return
