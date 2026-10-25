@@ -106,7 +106,7 @@
         380,
         260
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "persimmon",
       "copy": "熟柿子稳稳放回盘里，软熟的另摆一边。窗边的秋光照着，甜味慢慢留住。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -128,6 +128,21 @@
         264
       ],
       "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "persimmon",
+      "label": "挪一挪熟柿盘",
+      "pos": [
+        524,
+        227
+      ],
+      "approach": [
+        380,
+        260
+      ],
+      "copy": "熟柿盘换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -214,5 +229,70 @@
     10
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "meal-4",
+    "pos": [
+      476,
+      227
+    ],
+    "label": "熟柿盘",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      524,
+      227
+    ]
+  },
+  "npc": {
+    "id": "household_persimmon",
+    "character_id": "household_persimmon",
+    "name": "柿树老院主人",
+    "portrait": "household_persimmon",
+    "preset": 5,
+    "pos": [
+      380,
+      260
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          380,
+          260
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理熟柿盘，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          162,
+          314
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的熟柿盘也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          87,
+          264
+        ],
+        "approach": [
+          162,
+          314
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

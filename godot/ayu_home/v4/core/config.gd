@@ -14,10 +14,11 @@ const CROPS={
  "pepper":{"name":"海椒","seconds":180,"yield":3,"seed":"pepper_seed"},
  "grain":{"name":"谷子","seconds":240,"yield":4,"seed":"grain_seed"}}
 const RECIPES={
+ "loach_soup":{"name":"泥鳅汤","station":"stove","seconds":60,"input":{"loach":2},"output":"loach_soup"},
  "meal":{"name":"海椒拌楼卜","station":"stove","seconds":90,"input":{"radish":1,"pepper":1},"output":"meal"},
  "flour":{"name":"谷粉","station":"mill","seconds":60,"input":{"grain":2},"output":"flour"},
  "porridge":{"name":"谷香粥","station":"stove","seconds":90,"input":{"flour":1},"output":"porridge"}}
-const ITEMS={"radish":"楼卜","pepper":"海椒","grain":"谷子","radish_seed":"楼卜种","pepper_seed":"海椒种","grain_seed":"谷种","stone":"石头","bamboo":"竹材","tool":"旧锄头","parcel":"动物包","meal":"海椒拌楼卜","flour":"谷粉","porridge":"谷香粥","honey":"蜂蜜","fish":"鲜鱼","egg":"鸡蛋","fruit":"时令果"}
+const ITEMS={"loach":"泥鳅","loach_soup":"泥鳅汤","radish":"楼卜","pepper":"海椒","grain":"谷子","radish_seed":"楼卜种","pepper_seed":"海椒种","grain_seed":"谷种","stone":"石头","bamboo":"竹材","tool":"旧锄头","parcel":"动物包","meal":"海椒拌楼卜","flour":"谷粉","porridge":"谷香粥","honey":"蜂蜜","fish":"鲜鱼","egg":"鸡蛋","fruit":"时令果"}
 const ORDERS=[{"key":"o01","who":"妈妈","title":"一碟海椒","items":{"pepper":2},"coins":55,"family":true},{"key":"o07","who":"隔壁婆婆","title":"热粥一碗","items":{"porridge":1},"coins":70,"family":false},{"key":"o02","who":"牛肉店伙计","title":"磨坊添谷","items":{"grain":3},"coins":60,"family":false},{"key":"o05","who":"阿鱼","title":"拌菜一碗","items":{"meal":1},"coins":75,"family":true},{"key":"o03","who":"林伯","title":"午饭楼卜","items":{"radish":2},"coins":62,"family":false},{"key":"o04","who":"凯凯","title":"蜂蜜糕用粉","items":{"flour":1},"coins":72,"family":false},{"key":"o06","who":"村民活动中心","title":"聚餐配菜","items":{"radish":1,"pepper":1},"coins":62,"family":false},{"key":"o08","who":"小涛","title":"谷粮和菜","items":{"grain":2,"radish":1},"coins":66,"family":false},{"key":"o09","who":"妈妈","title":"晒楼卜干","items":{"radish":3},"coins":65,"family":true},{"key":"o10","who":"凯凯","title":"邻里分海椒","items":{"pepper":3},"coins":64,"family":false},{"key":"o11","who":"林伯","title":"储粮补一袋","items":{"grain":4},"coins":70,"family":false},{"key":"o12","who":"村民活动中心","title":"蒸糕配料","items":{"flour":1,"radish":1},"coins":80,"family":false}]
 const RESIDENCY={"coins":100,"items":{"radish":2,"bamboo":2},"orders":3}
 const LOCATIONS={"lake":"湖边","bamboo":"竹林里","hill":"山坡上","garden":"花园中间"}
@@ -38,6 +39,12 @@ const NEIGHBOURS={
  "honey":{"name":"凯凯","house":"h5","request":{"honey":1},"coins":0,"gift":{},"first":"花架还空着。帮我收一瓶蜜，摆盆花在这里吧。","again":"你上次留下的蜜很香。花架一直给你留着位置。"},
  "mill":{"name":"小涛","house":"h3","request":{"flour":1},"coins":0,"gift":{},"first":"谷子磨成粉，便能煮粥。帮我带一袋，石磨随时借你。","again":"上次的谷粉派上用场了。坐下，我再泡壶茶。"}}
 const LOCATION_POINTS={"lake":[1300,4080],"bamboo":[1750,4080],"hill":[1300,4480],"garden":[1750,4480]}
+static var _location_points:Dictionary={}
+static func location_points() -> Dictionary:
+	if _location_points.is_empty():
+		var village:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://ayu_home/v4/assets/village.json"))
+		_location_points=village.get("location_points",LOCATION_POINTS).duplicate(true)
+	return _location_points
 
 const DAILY_ORDER_COUNT=4
 const ORDER_ROTATION_DAYS=3
@@ -55,3 +62,9 @@ const NEIGHBOUR_REQUESTS={"honey":[{"honey":1},{"fruit":2},{"egg":2}],"mill":[{"
 const SEASON_REQUESTS={"wet":{"grain":1},"dry":{"fruit":1}}
 
 const DOOR_CHORES={"erba":{"owner":"二爸","closed":"门闩落下了","label":"点亮门边灯","response":"灯芯拨亮了，二爸留话：今晚在田边忙，灯替我照着晚归的人。"},"daba":{"owner":"大爸","closed":"竹帘放下了","label":"收齐散竹条","response":"竹条捆成小束，大爸留话：今天出门送竹器，门边这些留着明天编。"},"h1":{"owner":"街口人家","closed":"屋里在午睡","label":"把报纸卷进筒","response":"报纸卷好了，门上便签写着：家里正在午睡，这一卷留给晚上慢慢看。"},"h2":{"owner":"方婆婆","closed":"活动中心值日","label":"理顺门边线筐","response":"线头绕回轴上，方婆婆留话：我在活动中心值日，线筐多谢你理顺。"},"h4":{"owner":"石阶人家","closed":"全家去赶集","label":"扫净门前落叶","response":"落叶扫成一小堆，门边字条说：我们去赶集了，石阶清爽得像早上的风。"},"h6":{"owner":"花窗人家","closed":"门帘已放下","label":"给窗下花浇水","response":"水润进花土，叶片挺起来了，住户留话：今天在后院忙，花托你照看一会儿。"},"h7":{"owner":"晒谷人家","closed":"今天下田去了","label":"翻一翻晒粮盘","response":"谷粒翻过一面，晒粮人留话：我下田去了，金黄这一面也要见见太阳。"},"h8":{"owner":"柴火人家","closed":"烟囱旁留了条","label":"码好门旁柴段","response":"柴段码得稳稳的，门边字条说：屋里在熏豆干，今天先在门边歇脚。"},"flower":{"owner":"花园人家","closed":"一家出门赏花","label":"给鸟饮盆添水","response":"小饮盆映出天光，花园人留话：我们赏花去了，麻雀的水别忘了添满。"},"whitebrick":{"owner":"白砖人家","closed":"门内传来琴声","label":"擦亮铜铃","response":"铜铃擦亮了，清脆响了一声，住户隔门说：正在教小孩弹琴，晚些再坐。"},"grape":{"owner":"葡萄架人家","closed":"藤帘放下了","label":"扶好葡萄藤","response":"藤条扎在小竹竿上，院里传来一句：葡萄正挑着呢，明天再请你进来吃。"},"sunflower":{"owner":"向日葵人家","closed":"主人去看蜂了","label":"收拢葵籽盘","response":"葵籽归进小盘，向日葵人留话：我去看蜂了，鸟儿那一份就留在门旁。"},"persimmon":{"owner":"柿树人家","closed":"家里在晒柿饼","label":"捡起落地柿子","response":"三只熟柿子安稳进了篮，院里传来一句：今天晒柿饼腾不开手，秋甜先收好。"},"rose":{"owner":"玫瑰人家","closed":"午后歇一会儿","label":"摘去枯花瓣","response":"枯花瓣收走，玫瑰露出新花心，门边小卡写着：午后歇一会儿，花香陪你坐。"}}
+
+# 90分收尾：人情、共桌和童年数值统一在此调整。
+const FRIEND_UNLOCKS={"凯凯":{"threshold":3,"blueprint":"honey_rack","label":"蜂蜜小架图纸"},"小涛":{"threshold":3,"blueprint":"grain_crate","label":"谷粮小箱图纸"},"林伯":{"threshold":3,"blueprint":"notice_easel","label":"留言画架图纸"}}
+const COMMUNITY_STAGES=[{"items":{"bamboo":2},"name":"铺一张共坐竹席","asset":"picnic_mat"},{"items":{"radish":1,"pepper":1},"name":"添一桌家常饭","asset":"meal"},{"items":{"bamboo":3,"stone":1},"name":"搭起邻里留言架","asset":"notice_easel"}]
+const CHILDHOOD={"milk_fee":30,"milk_reward":12,"daily_reward":5,"train_reward":8,"loach_seconds":60,"milk_checks":3,"milk_seconds":75,"laundry_seconds":45,"train_budget":10}
+const FIRST_WEEK=["收动物带回的种子，交第一张家常订单","凯凯的压蜜装瓶，收一罐蜂蜜","帮小涛磨谷，攒人情学谷粮小箱","到林伯处帮忙，学留言画架","给活动中心添材料，摆出共坐竹席","抓泥鳅，回灶屋煮一锅泥鳅汤","整理行囊重温坐火车，翻新解锁的回忆"]

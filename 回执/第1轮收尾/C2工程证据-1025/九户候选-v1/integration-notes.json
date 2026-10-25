@@ -1,0 +1,60 @@
+{
+  "production_applied": false,
+  "rooms": [
+    {
+      "id": "v_h1",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 5,
+      "foreground_regions": 3
+    },
+    {
+      "id": "v_h2",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 7,
+      "foreground_regions": 3
+    },
+    {
+      "id": "v_h4",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 5,
+      "foreground_regions": 3
+    },
+    {
+      "id": "v_h6",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 5,
+      "foreground_regions": 4
+    },
+    {
+      "id": "v_h7",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 5,
+      "foreground_regions": 4
+    },
+    {
+      "id": "v_whitebrick",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 7,
+      "foreground_regions": 4
+    },
+    {
+      "id": "v_erba",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 8,
+      "foreground_regions": 4
+    },
+    {
+      "id": "v_daba",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 5,
+      "foreground_regions": 3
+    },
+    {
+      "id": "v_rose",
+      "old_obstacles_replaced": true,
+      "new_obstacles": 8,
+      "foreground_regions": 4
+    }
+  ],
+  "pending": "14 households real before/after objects; not claimed fixed by new backgrounds"
+}

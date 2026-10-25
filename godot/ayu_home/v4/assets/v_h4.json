@@ -70,7 +70,7 @@
         506,
         326
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "h4",
       "copy": "草帽和竹篮归回柜边，沾泥的用具也摆稳了。下田回来，屋里就能歇脚。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -92,6 +92,21 @@
         351
       ],
       "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h4",
+      "label": "挪一挪田边用具",
+      "pos": [
+        611,
+        290
+      ],
+      "approach": [
+        506,
+        326
+      ],
+      "copy": "田边用具换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -178,5 +193,70 @@
     114
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "wash_basin",
+    "pos": [
+      577,
+      290
+    ],
+    "label": "田边用具",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      611,
+      290
+    ]
+  },
+  "npc": {
+    "id": "household_h4",
+    "character_id": "household_h4",
+    "name": "田边平房主人",
+    "portrait": "household_h4",
+    "preset": 2,
+    "pos": [
+      506,
+      326
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          506,
+          326
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理田边用具，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          187,
+          355
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的田边用具也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          104,
+          351
+        ],
+        "approach": [
+          187,
+          355
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

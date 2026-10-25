@@ -94,7 +94,7 @@
         388,
         211
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "h2",
       "copy": "线头绕回轴上，布料也叠齐了。缝补台边终于空出一小块地方。",
       "repeat_copy": "方婆婆记着你的帮助，今天的线筐已经理顺。坐下来歇歇吧。"
@@ -116,6 +116,21 @@
         287
       ],
       "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h2",
+      "label": "挪一挪线筐",
+      "pos": [
+        436,
+        139
+      ],
+      "approach": [
+        388,
+        211
+      ],
+      "copy": "线筐换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -202,5 +217,70 @@
     140
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "grain_crate",
+    "pos": [
+      388,
+      139
+    ],
+    "label": "线筐",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      436,
+      139
+    ]
+  },
+  "npc": {
+    "id": "fang",
+    "character_id": "fang",
+    "name": "方婆婆",
+    "portrait": "fang",
+    "preset": 1,
+    "pos": [
+      388,
+      211
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          388,
+          211
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理线筐，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          183,
+          289
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的线筐也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          118,
+          287
+        ],
+        "approach": [
+          183,
+          289
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

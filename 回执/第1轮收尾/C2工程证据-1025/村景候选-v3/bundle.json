@@ -1,0 +1,29 @@
+{
+  "candidate": "v3",
+  "production_applied": false,
+  "north_viewpoint": [
+    4580,
+    600
+  ],
+  "same_20_house_positions": true,
+  "changes": [
+    "route centres clear solids",
+    "56px field paths",
+    "public spur entries",
+    "rendered width clipped against solid footprints",
+    "field navigation exported from exact visible surfaces; 8px grid-centre clearance only"
+  ],
+  "missing_art": [
+    "four seasonal rice tiles",
+    "tree footprints/placement"
+  ],
+  "files": {
+    "rooms.json": "7292b0d4508389816981ff59fc0e62e772f34c9a489520daa5c8596a559ff8fd",
+    "route-check.json": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0",
+    "village/ground-pixel-1024/layers.json": "b4f9eb38cdb8c5d60b50de762ac1cd5fbb874e20d2ef4c5c3d6a81e19665af2d",
+    "village/houses.json": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+    "village/layout-1025.json": "d8a44309593cab77dc22e330a3b19230250f939dbe048913c8f2ead9b75ceba2",
+    "village/topology.json": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+    "village.json": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec"
+  }
+}

@@ -1,0 +1,4744 @@
+{
+  "source_integration": "测试数据/本轮C2专用目录/前端接管-1025/R-full-integration.json",
+  "36_hashes_verified": true,
+  "family_files_unchanged": {
+    "chr_ayu.png": true,
+    "chr_ayu.json": true,
+    "act_ayu.png": true,
+    "act_ayu.json": true,
+    "chr_father.png": true,
+    "chr_father.json": true,
+    "act_father.png": true,
+    "act_father.json": true,
+    "chr_mother.png": true,
+    "chr_mother.json": true,
+    "act_mother.png": true,
+    "act_mother.json": true
+  },
+  "rows": [
+    {
+      "id": "linbo",
+      "name": "林伯",
+      "strip_sha256": "3fc6c012d6833ed6e0ef150ccbc085a83163f3798fbece268926390afeaa4318",
+      "face_sha256": "eee709593c49c931a7b180deb856a6c52f7ad072e913ceace897835d1a880246",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d69e3ad733038880be824888fe3a2e532bdbde634e71c32687fce3bbc155dccc"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5832d3ca17894beae5ce1856d8620e7e1d99209b50ad35a2e7029f7f181b529e"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "93231bdc2f41a6bcbe4650e1bd6892dcc53952bff0f1e3bb0c1bae3e6e3247ae"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3d853b248e744e88ba5e1a9c7ad4201d0fc4fa0a380c27cec0b1003f8bee2155"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            16,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "876574791198b1911dc2723e2d4584e3091deebaf3626cc18c1283af22e887f7"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c570d5aaebc7b4655698a36f84ba29c3ce1e36ef5dd7c80b0b95624f9094c0ea"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0a49a319817725c68b124842629bab9cc7660b59cf2648db478066a9f42e40cd"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3aa47006e0f2ec80e5e7f9cd14887c8d74605c5d9e157926f1edb127b2aca9b1"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a55557220c44c1893666014ef801cae6ab990a6d0d8e06a054745cdf07b97051"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "24a64b412c2eadacc2fcc657bce749708b92a31993c097fe514a965752a6f43b"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4b0ea1f7a0d96421de2edb49f6f1a8497ab6f3ceffe829dc7ffce650c8a377c5"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "70a771c5f2e89e58dbd6d21edcfcf5948aa33bf3c596a81b0950e990036a7c20"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ddbb91ea8ae4ca2be788eb2d08ecfc5db50ee0bcea22748cd15fa6e8827b0841"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ddca6f1b1ac337fb83bc70a6258f5f1c6cce8a9729bff586107bba0f18fc5ae0"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d18e3ce2a230817a0a87da7b4555b0145064766a4510901c271aa7016538c00f"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c35bb914a29363ae5dbf16eae98d755b300cb5fa2e8a77db86567385a6991d0e"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            12,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "a088b8c3077af6e90d2c35ab6fc978617f8fa82277e8282b76467c9eb6b4e124"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "327277b6abbe3243842a0cfd37d2c8159a4d9d00f00be4db97e72cf165dd5633"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "c379e6d51e6b9ec3ad573db63a183cf777856a54654c022c489c4413b5377cbc"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "eb36a05199ad6e796be492c76903c3a2b8b631b7d3e9565e2c620c9db67a603a"
+        }
+      ]
+    },
+    {
+      "id": "household_h1",
+      "name": "蓝瓦人家主人",
+      "strip_sha256": "a03128306f8d8d7705a7c60405c0327eb4540312502cd6105e6b7f4f8fc2360e",
+      "face_sha256": "5d700b89a885a4cf3b67835d4063a103db98a9e0b3a8cbc7b1d94d1d425a3f3b",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f003e9f59753c348d3bfb2a3e0c1a6fda9ac59a311b46e069b7e0c46bc96acf0"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "316265a4599cd2999a0f79fe57857c018e248aa4763e9592120ba5c02a87a121"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "86f4b2afb63c5fb9b0401471936e3f40164814ea44f5e19c41f02af8bb9b5179"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "87bf413427f40d627a198addf4982805fc7347da3c22ab78b41d55822615e0b1"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2afbabbae1af241fde23e5c045b5290bb21c420db55bbe03ed01a73acd3bc75b"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2c6739a2c3d3e9a8d8a32ac8ebf4b14df1df7402b77db3aa9e80f8222d6396dd"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1b752309d25bd08d48de6c74f215561e5f1cde7bc7790c911879993b2285e16b"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "fd5b9c701141930f7679d5b0078464496ca11491862c38610b6055e8ae12509e"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4a45cc32a60a0b81be4d23f245b02978488617d77a4905060ba734740d4e527a"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8b70a0fbb6ce49384f10c92368f81720c362d6b6f926678f7e582e79bc4f595c"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "cfb1ee574ee61403469cbba3988c20bf71fd12738cb480df6273fd1b7e18a964"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a440bbed37c04c046f5e4fc5e8ee3d9d01ebca28a5bc9ce60a15f2306fee0670"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e32d282f4e4670d5d115aa77a6b2f0e05c769dcddb056eacc9e45a804aa26669"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6b05c447adfe95a4f41f316ef824c9f0e5bd9e3ae4ba19ac136454d9d6a75f5c"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ea51045f3d4ac6980e0e1dd1df1eece92523aa7be15939b344d1b03fb1661e06"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b6aaa94d5f166bb48a157492149e2c69ddf75a5554e83ab1a50c4474b6ee05ad"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            11,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "4db863cb6c0758096e7f8fda0119254e1dc67e429fdb9336393af8dc30f5f4e4"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "1d8c4b55dad89fdaab203201ae143cd2696e56b0a3305049364cefe277c251c3"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "daa035444e70811fe76babdb02d0cbd148eee3a00e6437f6f7ba39c4c474e7d9"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "0eafdc19f30ab0923b32d868fac83ed2e1d2d7d43287a478d1686994a39c7c38"
+        }
+      ]
+    },
+    {
+      "id": "household_h6",
+      "name": "花窗人家主人",
+      "strip_sha256": "c0d4564efb3cc2ac1f907e819b4c3f6bcd3329d36b64a957335d6930032211b6",
+      "face_sha256": "cf5276f20e3439b145f4f406568c4f6ba88450192b68c3d870dc6176e3dc5ef8",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5d7292f3bf41163bf09ed7ec94ea0e436b1ba1e65ee0a30d2168a9eb6c333c34"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "62cdf300ad90210cd7bb2af81280d1901dfe83b964c15a76dbb21e81ceb0e5ff"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2f1ce1d7e100197dcaa8fc0390ffb08d54d859487c219492d12c9cd1f175e989"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "eadd5217b5600a657b83e25cc463d487475e08ca4e40559072d11f535c0cbb57"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7a332ea86be70fa7b8e4ce13232ce6ad808526ecc49c83c799b2e9abbb2048cb"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9a16d4e925409a9a2b2ad3861a4698c37ad5079661a239ba440c0813733e7b46"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3fc9f08edaeb0cc5cd6e573c0a105d926bf371f10d82dba78dd57a685f91ba69"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "76f4a425167550cf8c62a1652822c2dc4f03042292b946bc14ca62a740ac6d6b"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "fadd8ddaacc9f09652bacd8b09d18837f6d6e67eacd89b2d17d152cb766f1650"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c08a1745f5ad892e23f7356974864e75a29ecfc915507487061f6ba107049033"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "92a3ae8210f45ab223a0ff11ae7592aa3159c791cfcff839bf49fa4cd12fc01e"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b1cf83226588aa2280f60515182c13836bc2b07214bb7c011afa09df0cf704a6"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "617a867cf446d3122a51300a9606edacb7b222f818f3b76b18cb4ab4a681a17d"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7ac2d9fea212f5c787ccdc47fad91b65e3af8701be7883b2ad56e9dd9276f151"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ba1e2874512ac82fdb9f1ba7664767175b0b60346fba11cf09f4e65ddcb338b4"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "57b1fa4688fcf44757e95947b10f23b08936f9c2799c5eab3a13602844d8f5bb"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            15,
+            23,
+            49,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "464fb81900c0b69cb2e9e614e224ba19264d4f760c54dc229841a1cd3e91f7ca"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "396cbea323c123fd7011f1e821ff96511a327455739b43af2307bfb0132e8634"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "db444a3349b1c30b17e12645e5c1fc6e360a25f21af07344ef4cc44a1b81e47b"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            11,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "04430cadbb0dc20e666962cf40db7243a5c8e2feed8c67894252793b34467b53"
+        }
+      ]
+    },
+    {
+      "id": "household_erba",
+      "name": "二爸",
+      "strip_sha256": "3b8816c98920d8470c14a2bf839bbaa3583d722717babcaf007de8b9f1e71283",
+      "face_sha256": "2b753296d9111ce019e012d90bf113cd669f0f07206167dda204d0ccfa416d41",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            10,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4b802992ece95097e839e22fa5100d57a076a29ac68f1e65a00bb5602533b2bf"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            10,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "aab2c4594d49790e50d4afa8df7f321203acfc38516bf48cb096ec691daccc08"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4d5d03e56c884c496b60159bdbe879a3c4073ad41093acb58bd59909bbd14051"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "34d3b1ccffb84b53b526497832c757d9d6d678c43827598e565fab6ea5345ef8"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            16,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0e414455c701a7a727da75d5c859616c1dfbf928b3addca625db5c09fddc8ec4"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "138652e31693acecb7de0a8c3e4a7187ad1895d9e106d57205bafb65b9145455"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4143e58e3dfc50dbcecabeadd2f2685f0633e09b34793ea006805923fc64d2c3"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3aacd9a98775ed32c22b765f3315d20e84636b9c258f29390d4e4c83b528438c"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f201cb02bc5d5ffa7d842d5fb5858e1b826998c5b618c1d9a244f32702006c77"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d79e1b0a3f903aa0266aa17e4aa27af732599d05c60c4377b3256ca1b7f4b4f6"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a4e6471ecbe0da4605d995425a53de5c2d50abbff8946a4a5a0f31f9a3d213b4"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5fa0567b7aadd410474a4d9a7b947c5388e85e433f1e03cf067625b7770aaabb"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ca741324dc0016a4ce97685532f52c0a733895f5aebdda38d56bb909d8bcd0e3"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0ceda830289bfcae0264034ff295548a4f56f2c2049006a7d4e8cc9dacf80809"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9c1c03f4b4de1ae5e073d6e6749e56d00fc8b554a617430ca4499bd2862fbc6d"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5a0c07cda0079dfc52b8c08a5175910b871b4700a2c13d1a4337ba0a78396977"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "9736c1cb643e52f38f0f1802d7fcdb5cb954322883ac42630523dc0c9326c28c"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "147725b5e4f1347865882214543a7fe75cce78e500ecd2a6b09546977c56533a"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "773a1bc9ef8247a8770645011fa30e69020eca24de77f74f38944739a3412067"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "c458b977c149ff3f45d677eea63af9aac14e499389c78561e462d3ef962545b4"
+        }
+      ]
+    },
+    {
+      "id": "household_whitebrick",
+      "name": "白砖小院主人",
+      "strip_sha256": "b83549d2cf5962f3aabd559878a3cff6229eaa6066439f9dca0430935d8c4dbd",
+      "face_sha256": "d59f06b860b697205f4ae1400c3c3b31b847ae646a37146860a969561b13a840",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "41b4cb6297e28af4c08aad626de51093eebfd95bde724a341424b155a08e3b56"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f3c01f5e7db4548899313aa691be6203f48f035bef99a3615d25be5871ef2ec5"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9a0c7e1a529aa75d274acb1951b222dad92ee19f4749591ce1ed617f3c1932a5"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3224f02b7089236a0c8c95abfb5924355a40e867d303bebff74d465bfacd7746"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5bae6b5df5a3457a0922def288714b43b7d99d167ef8474df62630453f0957c8"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d404b3646c2c13ef90942c92295c012636216900284dad07ea67649dd87b79b7"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "49c90de55bab156c21eceb635f081ec00874531cbaed270fe8f8a889a2968eac"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5bd20cead49c4d080cca8abfc38e4e9c61ce213b689d67cc6735ae65de3e2b6f"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "63c0bc81d3dbfc0f51576c05a125096fb5f4191d443848ddcd35e589db8a6fa4"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4305410a62cfb43e0f0020d716436ec2d7dc339b72f0353921be13eaa34922c5"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0013710f9518de250b58d318d3299ea88d97378f904bf8f76bfd01f06e6c5378"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "64619fdc6f5427037d0efaebced667d4116e7965330bba05e75e66e1eecbba63"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "629e61dc5ac68f3405771c7a752ccd9bada1a4ee34bea5865fc013585fcc51eb"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "625b4f72fece70dc2ea6684af4b210a858d83c115958b15ed7791d3bf84fdb71"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8448e86bd315bd9ea83bee3d0c985951b3e81a93a5b1410f39ac71efce947435"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "47927e2ee6391b3ed7265e608eefdbcd4e820a52c6d696f8b60de27c0e7910a3"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            13,
+            23,
+            51,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "759f6c8e0337dc85de0f729a53f2f256e78ab505a5671697591a812f7e3e9c78"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "72fb34597d3f2b3d9459aaaff10cef82bdca4864b916a7997130fef004039da9"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "26306a86e691c3b020152466dd148cc9bc8a5571b853867f9786aaf5aa9de1c7"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "4d69610d150d79533097bc7f5cc5b2f5b54487f7cecf00a47be5ed58dab764a6"
+        }
+      ]
+    },
+    {
+      "id": "household_grape",
+      "name": "葡萄架小院主人",
+      "strip_sha256": "9d4ba9a11b6138e5eaaf865792614d250a86adae578f7b0bbcb8656f719e8d92",
+      "face_sha256": "9963aa055d60f0c0236c504541fffc28d9502858d0305c927c1bbcb2fbb69ded",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "64ecbae65cb794c203aa8650971d862a04d0719240fb312dd57c9645d7fdd039"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1d30e4ec52adffc6b1a66dd244f23829be85cee89e45efd06e0278afc6812527"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a51acb35c6b4eed44aee6e67f6981a3e4d172f810c9a858adec138059ecd8374"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "95e4bd39311aa7b01e3123eb81ee75de8a7a6b16a95b84f92284d4c54a952a3e"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2241a7b6476b6882bed2c9fa872f49b969505da2785643b430849a800def153f"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "12b9d04c93981474a70c78c895df4e6a2d18ed1819c2b830aa12905802b2840d"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "cd676af0c17952d85d93e1028e11fbe0fd55bf9fbc12287d34ee83e55f127ef6"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "805c1c1e8f68568d601de3df747229085bfebdf3d66e06ecdf79a13ddb0c901c"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b445beca963fde061dd9d859955d3ecdc5773e4c6b1006698906782854cbfa88"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8b9641d1cdd3d8ac6ca3f8a69261b30f804d503ee2e002b933e4afe4dd0e8894"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            13,
+            0,
+            50,
+            83
+          ],
+          "height": 83,
+          "foot_last_y": 82,
+          "visible_sha256": "65b13411fd9f0f4fc1bec5bef466e6abe26af9986d9489b0e40ad8e1d8ccec31"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "50c5986e55ed6d0608e0c7eba4e092e58799b6bc65414414949430dd5a6b78a5"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "34077856047ab2c1a5bd7625ca2209353c9b70a098ae4c34e061786a7f2fe571"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "735e9a19fe064f68ea628d7c236c8315d552f67138e74aafa77b94ec08f0d483"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "70bbe39639bcc3fbdee6115ffcdc87daae88b0895a2b05b0d4e9c9526df3736c"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2e0f8f990e7959d25d5c4e97e420130117aaf398ec75b24b67ac4c40d685c62f"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "1014c727885412b966c321fb0959ae1cc201d816cf0da6f590c3f7313891f223"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "88aec8e867f044dc4b22a9be0e835f08859f0aff25600a4cdeab06e7682b7867"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            22,
+            54,
+            83
+          ],
+          "height": 61,
+          "foot_last_y": 82,
+          "visible_sha256": "151e32cfdfec8948b7b2eb9c1dadd80cb013a22a1f91058dc8506942971a122e"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "b14f8a001a98bf00b982140f6711e4828842f2c93f7938c976256842f17742f1"
+        }
+      ]
+    },
+    {
+      "id": "household_h7",
+      "name": "窄巷人家主人",
+      "strip_sha256": "694b680a61c10442aee66a25494d36ca8790525c628bc87ae751bbdb4ee93b3a",
+      "face_sha256": "211007393fd39d27b48a46626b10c28191c81335761904a435dc70a4851c88ba",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2f7b478f6d12036a42bccd91a5b0a643af7c98717664699d77e45bfdbb4a0bfc"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "15fcba74654457170393a2b1e04af23e7797097c1eaf9eebb1adb9f80f3a615d"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "962acf8d0ca9a62b847104c4bf7593bdc9aa7a10a77eed6564a7a5381a6bcd89"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3586a2bb15b9598ed0318e8ed520bbd60451f8098e5ef3210748ddd211acc292"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "67a8549886582bdc0d4f5680bf6025896f68d397bbebd0096455ee90fdf80b9c"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "40dafe631376978228a494a11c55ba4790f1846c96e7cd3d70efbfc2a408e8c9"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "77ee906388d3fa803a6914630d5516e599c201dde1cdc76ccd9f199518630c63"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f4590a800a78b1a8c53c96781c9b23a62dbd1da4a643468d015490080fce59e6"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "aca4b32b8f4f9afee354c8d28af72977be18bc3293e3cf63330c82b02b95e667"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3541d5483b346897990c32aaac76c05845d9ce65dfbf6236103eed47dbddb54a"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c4a097c6b224b1f64b68049ff563910a6f7602cef9f6d17267f97a7874134187"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4570f024cad58524587a09e695e3dc4a99c7f26358b0cedfb971cf9b88732193"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9135f5cad6d162fbb5b64c7bc1f7a2e1c3cb6771b357c6dd7b6cb8b977993d7a"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "be03855802f15008fc0b8cc73f97a5eb3249664ec7e284df43a5cc3958f989a3"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4a9b5426bdd0e41f8c7e302c0ba12e5c93dc5e2afb8635dd1486654325310f73"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6340acd089c49b474d0ece811dbbbcae1fa92f6c934cd21ddd85225495d5e00c"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            12,
+            23,
+            51,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "a7d64693175ea0d02b6481277de33ebb84c449402acac74e8c9c7ab15a9549ed"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "a5315cf29d36c383c0e5d10f4015d709453f985352fbd6a58f66bcea7a473536"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "836c8b37a5a008522eee24fa94809f8dba479a6508fc15efedd91522f16c6780"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            12,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "0607d4a70a8c8d2e3c73225b9148dab33e5334db5d947331312f6d8314ed2f57"
+        }
+      ]
+    },
+    {
+      "id": "household_h8",
+      "name": "茶香小院主人",
+      "strip_sha256": "5a081ccd452f4088abdab8b10de604d2c630c4342bd335e7a2872901c5c6eaae",
+      "face_sha256": "fcb55b1669fbe67c0e3f4b04abc8e257134b92bcc1813a93d18b269c2fb2ef99",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "df3f1f15e500a0a8d55a1bc18f6f60bd850c0da62ffde8b6a4ee86c69dc5e693"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "285250615ceb5836fd5694d004fe6c921eaf8502d2ce41384f4c34d4bb86ae52"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ec959eaccd03039b8c2eb674e6bf8d11a30ab3c321dd3d3c471946ecaf56f0db"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4034417d3e6825a681a6034be2d6ead1c1c11284fe60f2c388a9a3d165d36309"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "375e554339b00930b9000247510e400b83749e7fbd410cc1e89e99f0ba537a8b"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e7cbc829994a02a2d1449c24fcd740b5bf7b5e2f404c1eb13d4e45369f9671a4"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8e89aecfdaac9e51f13f794c790df02caa86908ab5f274c4e2b4bf407214352b"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7ec5ba56c4ebfa77760e3a60763ab545565cccf75ec2e050cc0b406c97e59f30"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a389b7165f1ef8d550a37b01c471ee8aa1aee274dda2f69c209d9ab5127c8fb3"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2cdb46f63bd68cc3940f772c41fd397e84e4e71c87347edc7a8184bc58b14f41"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1d9f814156bf737d674795de425b4e024399adae27a154de379be9c8801705f9"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3ab5337ec9f089168640c917e9be5cbfdf19ed2e9aa87318655a3ae3ce194964"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9dd512396526075b1d143d504026b4107e92f583102fcf86cdd1e8ab206f52e2"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a82e5f0a86e0d374e848b42d1c5747dd896b47f9803752d0ef4abcb62a61a63a"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1c6656bd491677c8a5230a4d4973b008c0dbddc24ab7eb38b5d4a8e41e6560e1"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "14aff5c75df6737f51b99960f110b8bb819e9c6813d731ec675e2cef7f9753bf"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            12,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "95c1de35f45e70d2d2bd0fe6bbd3e0d34547d00939684f36c9d7f46099b05397"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "b2305b089fe935833262aa39dd3aa9e503f0d32245348f268d96beef229217d2"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "101579b556b306615feda847eecedfe7b89df5894c2008b09edb6366304dbcfc"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "45713094fe2bd2bdc3cf7055044b837fbdc4a16d1ccbb24ed0005f141c28b7c7"
+        }
+      ]
+    },
+    {
+      "id": "household_rose",
+      "name": "玫瑰花之家主人",
+      "strip_sha256": "0d3d707f20441b58a0827502f1abbb0ecb9f5a74d2db588c5d69445883e0c15d",
+      "face_sha256": "0f7a0e4fb584773aefc2c925b09f3ee1749cf21f99d40dc08c257f3d2df6e446",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d4f65b189f609449410257aaadaa10f695004ebbc15e291986130e74aaa2adab"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4f3a9ee964846a4b1700914f4a2cbabff926299b1950f4a9941668c5dcef6df1"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a9fcf903ffdeae009209a7b38b47e56880cc393ecbce777d19173197a94c7331"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6d1dbb52f8be054a4eaf0bad90f10a88b2c4eb3bde9b58eb75b92885155583c6"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f54a80c1d41551c6dc35e65c06bcb70ab28d0f127bcba5a3a89b259994f70bd2"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "025fbd861de81482b768699cc7f3f5fd912962f5a1b080b3236a00b518fa9041"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "580d262fc76101d849590f8ce2dba885d3a9b85bdf5bd864f26e82101751684c"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9ed9c5c357385ae6703a1461f7025abde42cf2e0691d851ad6a9686c02519a11"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "517f782d82a303510a6a98221ae574e4bbeef31e05b743df9662de097b1b41ae"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "05cfe4664c6b4318fd7e60576cb724fd8f067dbebe33ee5e700797cdde90b9e0"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "284a190c174ff0a601f8bc44b1b385d05a71b9044eb461c51cec7486af55f221"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "00bbd40b0074d55a5c7aedc15eb54c29bfa00089a6cae5bf20f5a74c3da2099f"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6dd49b5fc4e1f93a611fc108c6dbc3a5a10caa538defd101e84ad9d13de7e763"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ff603f53f17cf074de7c53f823b58b2fa85fc541e56e01d26a66e9146d594cc5"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "545ea7a30ebd8f001bbc3ed6afe1f6712e46e7e9d15f7ba42c2d8fde05b91a0c"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c6591e3c956502769058694cd4874075e159cb48674c55f8ab5197ab4682664d"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            14,
+            23,
+            50,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "62f0a6c85c8bd63c3a35c162832a626fdaa1c3aef738219dbe7cef5f6a8c88d0"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            11,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "f326f1a2d0b2544a256fee2816409a4e5617c751976b2edd821cd551376d3a4d"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            11,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "b5f3cfed3e0e4b43155cf7b1df3a1cd004d7482d81b4b1d19a61dd181c43cd1e"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            12,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "864afa20c56d906acc6224060550ca11c6b2d2564a864ec1977c0e633cc98e8e"
+        }
+      ]
+    },
+    {
+      "id": "household_h4",
+      "name": "田边平房主人",
+      "strip_sha256": "3839389adf72c923e1b92caae94cda79931d3e0fd3290191a39f5b12947bb9c1",
+      "face_sha256": "563de74dbd10b72acb277ff9eab210a513aa6bfa8ac5294b50d04f597ab51525",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "956b52d7e8ce2b53f6c928161e01f9c05541eb20bc1ee99be5d9aa20180ed605"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "658b0fa5510d264a0ac920acd0e7bb4bb367c1e050785b303298fb5cfe403986"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "49be130b4d9867ce110430f8949ea26642c17a3d5da86cb013a56d7bb88d578c"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f02b8b612f3c5a2efb943b32f4cf4a33afc3876a9fbba5a12af1e1d02fb9f3c4"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            16,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "bd30e4754857bcec72fd3d42dfd12576979f8ef1796721726ec2a55312cb83c4"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e73f1f8f13f1628047d1cd967fc6681618496c45ab38851766b52dcf54a86bd2"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a239fe5310cdb15d8b3290f0ca61a270d850b3f31359027cd4d7b3dc3b1a235b"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7f7a22cb60410696986c773847a7ec0f59a3872a6ae43ac92f633d21a34c8d4e"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8580db83379262b68f153860ae6eec8508b72b995d2ed056998d833ba1e5e77a"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "50f46f9b49bba066c830e2348a2e6fac7fd946fa2d987c957aeb22a218d68fb1"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            12,
+            0,
+            51,
+            83
+          ],
+          "height": 83,
+          "foot_last_y": 82,
+          "visible_sha256": "7be83b7bbd2fee79dc81772d1155fd751f8b7c1e3edb3f27a490b1b3ce8f4ff1"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9a1e05b3c115eac11b7bbf05cdd2906d8ce3e6f1f7c0fa036787925b437d5e20"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f3b5dcee8a621f9fadccdcc8edb538c8f3bffe1ee7c34912e72df5871f77ab26"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b8bcf7685fc02aef8b5f3da728c5b97814c11037c3734774a1ba7338720b3465"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6177ca8d043794577771b3f7cb4b44364064d08c671337df66474bff9b9c0e6e"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f02ff1821e9509418f966b719ec889f29e73734b99f6155b36632f831e727892"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            13,
+            23,
+            51,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "5279f63c929b6166fe55a8774a1a6178b24880c19ed0b674343719df5b0e1dad"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "e739ca6be1b29a0ef01ee45e2af09b7f517538634957e776bb796f1d86080a14"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "7d08f9489e0c0c0e584a0d4b94c4ef34875f3902f8158f345d14810aaf9f0ac0"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "3364ebf8d2c8654b1758a1aaf4476b3190eac3b5015435e2f556ce417083e4aa"
+        }
+      ]
+    },
+    {
+      "id": "kaikai",
+      "name": "凯凯",
+      "strip_sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384",
+      "face_sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "498af7a9fa376092399db1a4e761e569a32bbbefd3600b9c6ef0e356c31472ac"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6ed503c8e443c5bb5dfebd9d7c829d2273c1914c70c661095a52d10bfd59ca4a"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6379c5e42c3dc79903ea171ce1548a8f3beff33725a4e29901f6ed6ac99cc051"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6045d291adc5833bc094bf28b7832882313bf0c9ca6113ef55277546af75dc47"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            17,
+            1,
+            47,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d5f1d89184996074974692ae76228ecb09983aef4b074509b856e42434eae214"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ef44c27b02fbcc6e77827b0bac8f122fbb8010813e3ec81dcacac31fe2f271c8"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b6e7d8ce23b862fbdd90f4b24a57b7c7144427f4e8977511c8f49ce5642f6c89"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            16,
+            1,
+            47,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "26bec194a5f5d33d22b99db1157fb95c28e5bff32fe58080c895374cc55cf5f4"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            16,
+            1,
+            47,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4de574c7cfa598593506505c51b093ed56e40dd44bef00ab64b36d91a6fa2e6a"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0785706cb41cb2cf541ad5b08d99b389123315dfc3c41526c534609061160ba1"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "70ba699f00744b18a9a726bd548143efba35433a1563e5be15a72dc04090c8d6"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            17,
+            1,
+            47,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b817b5bb653fead2c0c85e81f98549806acd12911dd15d24c26b297b0c34a161"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "696805ed333bf06c8f8811f2e4324ef90943279e02ffc034a99ebab0d43b200f"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2ec6ccdb8a0fe1a64b75afc55351d4f25bad79131559a0dc41959314ae257d54"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8a2438888e422d8bc5654f0d9ce8f60630c2e95b0fa618fb0c33541b63a2c0f8"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "138d221638a4fef5691ee18de6ff6c02b777793bf359955ef495621def7e9562"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            14,
+            23,
+            50,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "f981d3e65690cc116bfed9f14ad9077e220d555086b1ebdf7ea6f05027f25c28"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "cec88b3bf0d32395954661bad759f93a3e330f1cf315b4676adc9ebb12d5ad9d"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "3b05253ecc4b69748eaa660f0a997c2b5e98ff4d131b8038fd410a495077962e"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "c6806919d68b0fd4bb12c49bb08355a4dca6d72d0d09c716545ac15f491cbfdb"
+        }
+      ]
+    },
+    {
+      "id": "household_daba",
+      "name": "大爸",
+      "strip_sha256": "c9689176505405be98840bb001c876e6574bdecb7ee676da9e5685787a442faf",
+      "face_sha256": "6da4bae475c4e498e199520d6a7b502b85cc6dcea57713af7a7f11bb5bc2b903",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "69e900f410ea24e9e9623b2c383f070deb685197237e7a127d565cfb557fa4e3"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9ffa8102d3a3a7636fc61fdefd51412ce6872a97715328aae1e4debaa56ea748"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8e66f4a9553f889db8dfb225e819272abb43866fda81dc43ee3a330e723e5ef3"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a7f03b3e94770531dccd09b8996a2be77699f72de8c89df8b35ad93c627d7cfc"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            16,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d0fe91c45b36e64be4c59d28116c06319f78ce44948ddd8fe9645bfec77c0e63"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "74935bae81ee44003d4bc6c2f428411d60b63cbe4b49fe7d67340a9be647cbb7"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "aef68f7f707a680c76db4ef672421c2fa12305270624a5af5fe04a893e9b4606"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8b6301779b1eadc5e8cd7abb217e620d32398ea20d7f383c578138b91ae4dc8e"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0c582acc42ffac04f61836d3cdcdb5cf33cb1a1475bd9b072edfd2547b617d8a"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b9253d536c48abf4c3dfffda1f7887ce5b20c18129ac4a663894e37331161f50"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2e0c009d6ac971b1cbf3d6f6442ca0c7c3769fc519f7f8c37e772fab887d8d93"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1f0c22c8c3d1d0767abb33fcbe3e4fa59e4d76f45995d993400d354248fb7664"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d7bcc1fff9f85767d2246c151aee095ff93a611e5d890c07ac2f993d9d582fbd"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "50859dc8d6ed157ac98ba5dc2bb0a6d9140fcd5da7e8d7cda0916b8139743457"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b68a40dd36436713f2098297820d889d9121b309311c86bdde7aaa6a40422258"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b77db34d1607f6057d288e49376f84eed99811d4646d8f1842cef1f82322763b"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            13,
+            23,
+            51,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "3118d103bae6a0268c868d4db045d032f03df31dbcb83443b60db617d3300e78"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "28c3d43124bc002e35744dec3368607a540b8c308cbdfe30694f950600abd36a"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "f53f47dc9401f5647b2bded6449e6d723c2bff63a7ce6f4d2b9d4152ed89d48a"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "4b5fb0938c44519f1e287f12a0fcdd1695e5fc982c1b2cc77d7b725bf7c0c990"
+        }
+      ]
+    },
+    {
+      "id": "fang",
+      "name": "方婆婆",
+      "strip_sha256": "91adfaf867723fb92e68c6c03e6b0886763549f29708113aad40b79fb2b2775e",
+      "face_sha256": "e5e70e36704f0484c3e66657a20338811caa2ec9d09a1c52c8f735debe87f0a8",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "886e866db3cc7837c9c83e10e05d21e7b30fdd1229b72bf0cf4e80fd614cb6ee"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ffdafc2a23f5f93a48506a584a342d545f22b798cf67bd72ad713c515fd3e916"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "525d9659749984c75c5ef9d6656c84967d62b3c4ed72de0e2b5a07d75fbe4d24"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            13,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2a9d06d50da9594011cae53f93dfc19f2bd1f50f077848b9ca18aee3a10eecfd"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "87cd5fe287c1c0c3a026c089fed758ea9f89b6f9013befbd5af8acf1e5ca5aeb"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "29d81592a16512f9832c06daff55633b83c1433e8b366a10c2affda07fa9c4c6"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "97b7cf05637a53ed0d8d59ff9196a2cec87d4eb07581e3b37faf63e4b64d63f2"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1b29d784cce548ce023e70a50701492fe601cf7cd021d5d4491b8acdfcc0027b"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "456e973c5e3562fe28ee049f2c1cc22d583e54e7917ded87b0c25ca4eecfd643"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "814a0ab3eddca3673d9829c3e2f1be75687657bfe7793b79e91d6861255b6ebc"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b5bb5a39b734d70346474c8c2dd987267353596f2a94d4248b408614e1cf0fd6"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c3ac06f4f529d6ef79053e146b892e31b4c10fbddca2d548036f3917f87e6203"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c76b10b191c80e8e48bd7643dadf5518daf9ee9dfa6bd03a1ff36bed73ca0006"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ba20065f18587ba8d141ec92571ca06a6a431a68c79965d2d4b622a5beae3813"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "0713fcb060c64f43085379ee93d44f27903784de148dd721bbb07758ff3ae804"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "68171cacd0b55b6f3058b9702d09b3b3c4a73680e4038d80a8e2d56b0280c19c"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            12,
+            23,
+            51,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "91839946b5ebfa025dcfa09737d5c6aa6a408fce07ed1e97f7535f3cd24d2406"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "19a2fedf0dbfea09af73e2b338fb94c1c4fa068207121c8f7e350f952c7f082d"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "202b3a1ede81358a0a602443862e3116c55a79a10ca5e352141de5f139994997"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "8dba74f75a6c051bc62ac3c3d5f01570aa40a3db17ce806b779b3dd468bcd037"
+        }
+      ]
+    },
+    {
+      "id": "household_sunflower",
+      "name": "向日葵之家主人",
+      "strip_sha256": "679491fd3df7c5f8fcf4a9b3079568d77d57f833bf5659e12be5f4f073c488da",
+      "face_sha256": "9712d28112ff02567e879d7243f17f254f97364776f9992c400adb64707d7caf",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8772e2818167aec39749eb6b48b6d4605ce0f9b063abc9a52f83cf6a4c1bb2f8"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a69aa66e5777b1a9297703543727a5a03cd0bf43a6351e94a0c5a3479e2f45ba"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            15,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2674564577316012a567774dcd42d718f129ce0b7211aed6d04fdeea0ecad33f"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            15,
+            1,
+            48,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7fa66ed76d52f90262dbab663cbd75a5fbdd95ad53bf72a920db1d93c4b3e542"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7619c3674a30b5cfd69b1999fa8781c4da88df1412918252ec92283bf65506ad"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "cd646f883baafdce075abf5e129afa099e58eb2c073a3dedface3868347b7750"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            10,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "760914d0a727abadb6f5815fb686c4c4a6b19c96211be79b19bd3eace09c10c0"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ac92974c63e1e34b1c3d13a26035b63153acaef6b951793c57e024349151f1c6"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d0e39b111ae3b5d2dd82499ad1d2c134d3006d7ab8d9b0e38111eb0275913bb7"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "db22e354d9bde4af23f5ec92f3d7377ed034bbdf480b46de5c9c1a8d49da33e4"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "08cf6acb98bd626cea899d09273405652cd5881f3b7b59b7f28ea9e341549910"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            10,
+            1,
+            54,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7f6572794156b5413985ef496532eb7daa5374e43a52d03c8f3d05a52516634f"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "16d5317632d9f98cf85537c73ad4dd364e23be3a65f5202c0c4f1482b0e49356"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d052dd17898bc80944ae3833497292dd140e3cfe82ee74c7f50478272b5a3017"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "31bdc11c09b9cff1acacd06ee8968f860129152857e623b9eb4432156a5cf103"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "41c65829bbc53c7046744d1952651999c565866e78a35c27f95f8f27733ea5f4"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            15,
+            23,
+            48,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "1108e2adb91c5ef6a2f30a159bd1ee482de6d96dc72d0b1967f233f0d6c65772"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "ee9592d4020c8f98f29f4c2cbdd8880a24605f93d7dc480a17c4434490e54fce"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "1e3b9d62ff23b18e0fdfc45623af2c53d38337ebef30f3a98a58c46dd83156fc"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "9ac4e712efb3409b42c04d65b4abc4a1ad2a1141b9b5fcee8f7e2257695b85d9"
+        }
+      ]
+    },
+    {
+      "id": "household_persimmon",
+      "name": "柿树老院主人",
+      "strip_sha256": "642bccce690fb2528e019eda11ab544d02083e9663daa8b3e7ad7794cc2d1002",
+      "face_sha256": "ab44c8df5533cf1ad3df4deea2c8db67452acd42e0acdfc841b91337386375ae",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "daf2e40d510e8466ef54f8a734a1aefcf05b7f83236770184e5396c36e7cec5a"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            10,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7b09e2b1b007bc8a0a4a097606a80c7c28c48bfabbd8cc799a9cd50d0896444a"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "363588c67a60268a9cbc88e10a5d088beef3b7a9d5728b62fdbad766b3674366"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "aef2f82eb2c76f00965a5bf5a2e20f9482247009dac1ab4be1af8b2ee37fa66e"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "52defe39ad9c7eb61b84cc34e5f06bf1e1c189b3ac4d0aaab090cbbe1d36b689"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "696c81c5b4cbbf606aa933c0981ea32793a1a3cca15ab1a034d058c82db7e348"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "af46721ff0e7fa981e6ff8be2c2e403d3c54e231b3e1a2abe66cf349bd284d34"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e63a3725d19da975559542fae32ad5230d77ba624f538f8c3c6f5543f6846be6"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3fb771f7e339cf444bfb310ad9a752fae272dfc388b8499653a4c2f561b3f705"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "bb1d722e94d0014437447b17b2f41049f2ba0ef20756a9955bcca7ecebd6a190"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e0206e7d49f4d2998e53736bc9c256a3c24a98fbb69810aea4b8411a863a24c2"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e5ddad3e268f585d9be53a05672b3633d892dce38e026bd51a83a7ab5dc64907"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "ecab8fe66db634410b56437134ff422abe0cf7e0fbdb786817ed8bee9d0892d3"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2e9eaf1d512d7f8d46ef0bd96abd863b85c499415db331ddf02fc9469b215a66"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "be47264a671320ce11d05d3ea8e5d0c575b868660e4fc694eb3693a9dadf4839"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            11,
+            1,
+            53,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "fa509015423ea4ca2f1294e8905e8fcf588bec897e16c0d40cd7b608905baddf"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "4571087f8436862ac37ae58de4893cbf975bc372ef09c803cdb74ecb2b75911b"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "58946984fc79aecde7fe737e41f0a294657cbab2294ef708ff47222ff22086df"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "c39039975c775d8248b107f70d689ae6b92936a9d78c4556de1f34ea4faa4eb0"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "f47c60636f62ce1736483a8f84493fb234fffb5b5d55fa98c0e7df85b2cdd000"
+        }
+      ]
+    },
+    {
+      "id": "xiaotao",
+      "name": "小涛",
+      "strip_sha256": "bae05efcc167afdd0291172b9735ea9775406e4be52b687c903b3e57c82f417b",
+      "face_sha256": "8b0f94f88f620ace8c2f699f21fdb667508b4b222ac8589c41edc034966da489",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5e10dc3e6f5cf26d4781b27b57346d407a943c1b0989f8284c59d16029438d1a"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9266b1187ec007fcb069101ba3947aaf2831f106b7a3e96ba18fc9800029f143"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            14,
+            1,
+            49,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "85deb2b2051de4d548288696703bb1ea5111652a2df255651f53048389306b13"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "98e88f13571f20c62541c54aa46227ce40a29e971f36d9ab717f309611a8aee4"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3bc6481d90135ad2c0b8f0b0aa797a9de2a377ce75ccc7ff02e8944fa302587a"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "4ff929b88273feb41b93649ea6f69d6ae8732d85706de13ffd911afb1f599747"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6b3505fb7a8b0c9f26e2ce372de9b431b7978a3ebdc86cf2f5556ebe0da82fcd"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c72c42596c4d657089b824e3d6511b044802c50f64b4754df4254904e5ecccb0"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b7044f5daa191fad2f840da64fdace96741d0baf4298340cbf8280c083ffe912"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "adfd031ee49de2bd469de903e1c8bef9db8f5fc420c0abf6edeb987760ad6aa4"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e6914d64232466400c9c139bf7f07709ab40239c7132146565b38bd1abd0b914"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "54f5afc7bfa9ba890a4b63660a107a06f2ac82e53834aeb9efd5a6165dc29526"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a99b51097e537c04eb024fa58d86574af7285620aff5ed55b20b2fea3217ce4c"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            14,
+            0,
+            50,
+            83
+          ],
+          "height": 83,
+          "foot_last_y": 82,
+          "visible_sha256": "85872b083507b57716403a79064dd264fb1b24988b287feb1c68c21fcaa3a1df"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            14,
+            0,
+            50,
+            83
+          ],
+          "height": 83,
+          "foot_last_y": 82,
+          "visible_sha256": "dbdad1a628ca75b37bfe22bb3f3f9e251ce68d5b53cb699e7bbda2a68de75641"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            14,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "8f5d7bcf3ae4ee44e7eef91920188a5446948b43b167a10a3562adc3cb3a484a"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            13,
+            23,
+            50,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "94771a59359c4e25b3d5c7dae95ca2d9861be01eadf0e304758c03a9126b3fe2"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "1abe443335974ea3004217edee0b6fadb4bba193ca9fd6779862b95b43abe131"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            22,
+            54,
+            83
+          ],
+          "height": 61,
+          "foot_last_y": 82,
+          "visible_sha256": "168ac77f6fd1ac20501bed89a3acbf8d7895449946ba8b1b774f6c6f96338538"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            11,
+            23,
+            53,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "9d0a95c77a098f455f4d73a6b0725e37e0c75776a59e9bcdaf3311ad065938bd"
+        }
+      ]
+    },
+    {
+      "id": "market",
+      "name": "货郎",
+      "strip_sha256": "621fc51fd699f911ef033ae010f406befc80dec8f82f1b217412aa3585e8ed00",
+      "face_sha256": "53796dd014ce046652f8d4b30661b2a7aefea4f8352953a7edf85e6d0efa67ac",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2b2d1a66a83a8a38f27727834616247222280c96f1e04b02fe344d3fe7cfda35"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5a1fe54b2c8ad2fc738eefb981660f9ee401065e4c5d979a599f658c48454955"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "914d59a8eb0b632a716fda1e9c281ba77cad72092224f1c6ab2f251c31eb8367"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d0c83ba696f06ebcef73d5e540c4fadbb160032c1d6eeb3c7ff2c3f4605642ca"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "77d63c71744118a26560fb6c0e94a7329ebc444ce9b205fa9bd93d7923357228"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d9fbdd04ee28de4c9ee3f9c64fb1726c464ffddcf382b4f60cc3a015ae7f0191"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f2656f1ae9f9841f8dab53ecd11f2dc11e1e5723ecc8b623ed312a72c2b32a09"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f99767a891b6518e847db960b9d145f4ec9ae3eacacafc3e333df5a2087c1e2e"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "e30869aabd3f908132cae357534c35cf4150a42c95545d2dadfc5a3de5f7030a"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "bddeb2e84aba5f227bdaa15add40b5901834daf534c9d9ce2c5b5a2548db1705"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "862c6f8ac0465b82f1f55c32fdb13a12045c56644acee22a883f4a63bd118ed1"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a5e07e1853f7ba476d80220b7dc5db62cc27d18ee3de3833d456571b478b5329"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d2ce1e627ee75af0cafbbc026308d5a352c25767c1fa96ddb407ba0a05214636"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d23a7be736891498ba28e6ff68eb248e6754b81c7267419aafdf654e166d4259"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "160915d7c6aabf846e5c120a408f772a289ba83b5e7eeec1e4fd1793643beb6c"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "f72e4c989d25c66e87b663b53ea974c463c36c580670f6d9efb2736d9bafc426"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            11,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "427a7ec37b186a97c055bbcacdbd90e4498360237769f013bd671697feb3b992"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "6a0418797d970eb05a9061a4392b0ddef333149522c4ba197fbd767cce063a39"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "268ab7c526efc456d92ad3f0c95a8aa684aeee68354218897ea39529c59db2c6"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "1f635c97a2c9cd3e38abaca194a0f199a32afb4508392ec15a8c00b28a99ce12"
+        }
+      ]
+    },
+    {
+      "id": "household_flower",
+      "name": "花房小楼主人",
+      "strip_sha256": "8bdcc0c7b4de486517a30da514dac533eaa43657f8df9320ff12c6e14dae4e32",
+      "face_sha256": "e84dfd538e9b19a01badbf86e850b50bce6e229646d5c4b9f8bba668d4fbbc32",
+      "size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "directions_unique": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "metrics": [
+        {
+          "frame": 0,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9270896afa61b8bbe7fcc0d2525eaf436e7dcf70431045399e86baddf05b3a96"
+        },
+        {
+          "frame": 1,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "9aa4eef8d1a8cc36a781f64f6117100815be3e8a63095e9876659801eaf282ef"
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "10439cdb0e8e8c42132bccd02f673f2d20e316bc9bac9776eb87b1e510a89ca8"
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "c5ee17ab5154e77f10d9d9ef2c47772b003463148ef4b8572173bbbb2d431a56"
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "1a0fa4cafa1b7c9fa99dae3e68a4b40041ea8047a098698a1901d8c61d191506"
+        },
+        {
+          "frame": 5,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "7b16af294c54eca08458dd772bbcd75da2edc22d9c996073a0676b6ad1ad9d1a"
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "d2617a2845b94b683477abab10a3a1fb6d8fb3867cc9d2a0be64c5cd9c574332"
+        },
+        {
+          "frame": 7,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "3d7d563a4e56fbd75751b87524db4088e4ed8b1188630c1b5343df6e49d4a9ea"
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "a2c7529baf5dcbbd13d95008756d012e88d822d3469b9a6b2148a92734ab5ae0"
+        },
+        {
+          "frame": 9,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "5fb363615b1131549e2e72548a92c53492453ee815c3b3e25bb00e3955d70ac1"
+        },
+        {
+          "frame": 10,
+          "bbox": [
+            11,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "b9642c1f7cc9dabb17db44681119b7ffd1655ce9db7ab722713a413c080c72ed"
+        },
+        {
+          "frame": 11,
+          "bbox": [
+            12,
+            1,
+            52,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "fd55b0614e3fe76eef4c072cacd5ca22536621af12a8903fb5fdf00a45e05f08"
+        },
+        {
+          "frame": 12,
+          "bbox": [
+            13,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "83bd58b1ae6321e47040bb28f3454889dfdb9dd43621b00a6f217bcea7d2cbc2"
+        },
+        {
+          "frame": 13,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "6ab35e3aeeab6d71361e38616c9aea4d563eb03152c89b6d3c4abfa3668b98a6"
+        },
+        {
+          "frame": 14,
+          "bbox": [
+            12,
+            1,
+            51,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "2c9425b9c37240550fdabbb5bac6f2274b3f258d66c14ff38decd66a7b2840c1"
+        },
+        {
+          "frame": 15,
+          "bbox": [
+            13,
+            1,
+            50,
+            83
+          ],
+          "height": 82,
+          "foot_last_y": 82,
+          "visible_sha256": "efe470ed05ca2796f167bb7f01a053202bc887517f2518d8f849931ba857164e"
+        },
+        {
+          "frame": 16,
+          "bbox": [
+            13,
+            23,
+            50,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "193f3946f77665bae204da34e0f14982232367067e31b60d8d7c2da61388e0ee"
+        },
+        {
+          "frame": 17,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "33c86812ca4299d15c0698f7a3bbcb8bd988a23bd07b1cef404ac7ea5b02053c"
+        },
+        {
+          "frame": 18,
+          "bbox": [
+            10,
+            23,
+            54,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "68b85fd56db73dc145ab0bab3055dc30ce8c9564a205607d8b557c893c43a38a"
+        },
+        {
+          "frame": 19,
+          "bbox": [
+            12,
+            23,
+            52,
+            83
+          ],
+          "height": 60,
+          "foot_last_y": 82,
+          "visible_sha256": "a4d476c325b954a4a81f4924302327bd85fa88998ead9405e1695bf80b95165a"
+        }
+      ]
+    }
+  ],
+  "visual_review_pending": false,
+  "R_overall_pass": false,
+  "source_art_review": {
+    "all_6_contact_panels_viewed": true,
+    "all_18_portraits_viewed": true,
+    "source_lineup_status": "pass source-material scope; age/hair/clothes distinguishable, independent sitting silhouettes, no malformed/truncated frames seen",
+    "runtime_pending": true
+  }
+}

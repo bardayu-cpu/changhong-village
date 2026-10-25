@@ -106,7 +106,7 @@
         587,
         385
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "h1",
       "copy": "茶杯擦净收在桌边，蓝布也抚平了。窗外慢慢亮起来，屋里清清爽爽。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -128,6 +128,21 @@
         258
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h1",
+      "label": "挪一挪茶杯",
+      "pos": [
+        628,
+        270
+      ],
+      "approach": [
+        587,
+        385
+      ],
+      "copy": "茶杯换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -214,5 +229,70 @@
     0
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "tea_stool",
+    "pos": [
+      580,
+      270
+    ],
+    "label": "茶杯",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      628,
+      270
+    ]
+  },
+  "npc": {
+    "id": "household_h1",
+    "character_id": "household_h1",
+    "name": "蓝瓦人家主人",
+    "portrait": "household_h1",
+    "preset": 0,
+    "pos": [
+      587,
+      385
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          587,
+          385
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理茶杯，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          313,
+          260
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的茶杯也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          205,
+          258
+        ],
+        "approach": [
+          313,
+          260
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

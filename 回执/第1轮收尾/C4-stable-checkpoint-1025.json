@@ -1,0 +1,87 @@
+{
+  "checkpoint": "C4-1025-38pct-closeout",
+  "policy": "no_new_image_generation; freeze delivered candidates; do not fill missing work with placeholders",
+  "stable_candidates": [
+    {
+      "id": "R_18_npcs",
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入",
+      "count": 18,
+      "files": "18 strips + 18 faces + lineup + manifest",
+      "status": "C2 byte-copied; C3 visual review"
+    },
+    {
+      "id": "S_25_objects",
+      "path": "回执/第1轮收尾/C4-童年物件图集",
+      "count": 25,
+      "status": "C2 integrated"
+    },
+    {
+      "id": "S_6_backgrounds",
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景",
+      "count": 6,
+      "status": "hospital v2 no-bed integrated; five other files unchanged"
+    },
+    {
+      "id": "rice_4_seasons",
+      "path": "回执/第1轮收尾/C4-村景四季田块",
+      "count": 4,
+      "status": "C2 integrated; C3 review"
+    },
+    {
+      "id": "village_layout",
+      "path": "回执/第1轮收尾/C4-村景布局接口/裳泓村-layout-1025.json",
+      "count": 20,
+      "status": "C2 owns geometry v3; C4 frozen"
+    },
+    {
+      "id": "nine_households_art",
+      "path": "回执/第1轮收尾/C4-九户正式陈设",
+      "count": 9,
+      "status": "C2 candidate; C3 room review"
+    },
+    {
+      "id": "nine_households_geometry",
+      "path": "回执/第1轮收尾/C4-九户正式陈设/geometry-v1.json",
+      "count": 9,
+      "details": {
+        "obstacles": 55,
+        "foreground_regions": 32,
+        "semantic_objects": 27
+      },
+      "status": "C2 candidate; engineering calibration remains C2"
+    }
+  ],
+  "not_delivered": [
+    {
+      "id": "tree_anchor_manifest",
+      "status": "not_started",
+      "existing_reusable_source": "godot/ayu_home/v4/assets/village/c4-landscape-v2/",
+      "missing": "new-layout PNG selection + world rect + foot + collision footprint"
+    },
+    {
+      "id": "old_house_door",
+      "status": "not_started",
+      "missing": "door leaf art + naturally closed state"
+    },
+    {
+      "id": "fourteen_household_before_after",
+      "status": "not_started",
+      "missing": "real semantic before/after object images aligned to current rooms",
+      "prohibited": "text-only or wrong-object placeholders"
+    },
+    {
+      "id": "nine_households_independent_change_art",
+      "status": "not_generated",
+      "available": "semantic rect/approach only in geometry-v1.json",
+      "missing": "actual per-interaction before/after art"
+    }
+  ],
+  "frozen_no_redraw": [
+    "Ayu/Toretto/阿晓",
+    "approved NPC assets unless C3 returns a named defect",
+    "approved house exteriors and village layout",
+    "five unchanged S backgrounds",
+    "four rice textures pending only concrete QA feedback"
+  ],
+  "human_summary": "回执/第1轮收尾/C4-1025集中交接清单.md"
+}

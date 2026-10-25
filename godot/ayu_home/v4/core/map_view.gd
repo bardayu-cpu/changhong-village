@@ -39,7 +39,7 @@ func _draw() -> void:
 	var scale:=minf(size.x/world_size.x,size.y/world_size.y);var offset:=(size-world_size*scale)*.5
 	draw_texture_rect(Assets.texture(background_path),Rect2(offset,world_size*scale),false)
 	if is_instance_valid(terrain):
-		terrain.set_winter(state!=null and state.season()=="冬");terrain.draw_to(self,scale,offset)
+		terrain.set_season(["春","夏","秋","冬"].find(state.season()) if state!=null else 1);terrain.draw_to(self,scale,offset)
 	for prop in scenery:
 		var path:String=str(prop.file)
 		if not path.begins_with("res://"):path="res://ayu_home/v3/assets/"+path
@@ -51,8 +51,8 @@ func _draw() -> void:
 		var p:=offset+Vector2(h.at[0],h.at[1])*scale
 		draw_string(UI.FONT,p+Vector2(-35,13),str(h.title).split(" · ")[0],HORIZONTAL_ALIGNMENT_CENTER,72,16,Color("443c2c"))
 		draw_string(UI.FONT,p+Vector2(-36,12),str(h.title).split(" · ")[0],HORIZONTAL_ALIGNMENT_CENTER,72,16,Color("fff3d8"))
-	for id in C.LOCATION_POINTS:
-		var xy:Array=C.LOCATION_POINTS[id];var p:=offset+Vector2(xy[0],xy[1])*scale
+	for id in C.location_points():
+		var xy:Array=C.location_points()[id];var p:=offset+Vector2(xy[0],xy[1])*scale
 		var selected:bool=id==chosen or (not state.data.village.location.is_empty() and id==state.data.village.location)
 		draw_rect(Rect2(p-Vector2(17,10),Vector2(34,20)),Color("ebd67d") if selected else Color("c2a47a"),false,3)
 	if current!=Vector2.ZERO:draw_circle(offset+current*scale,5,Color("fff3c4"))

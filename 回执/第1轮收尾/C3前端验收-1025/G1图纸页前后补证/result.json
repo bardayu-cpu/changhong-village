@@ -1,0 +1,107 @@
+{
+  "mode": "actual Home/InventoryView rendering, normal institution_effect + UI friend_claim transaction, no reward injection; not OS input playthrough",
+  "rows": [
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_h5",
+      "spot": "wash"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_h5",
+      "spot": "filter"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_h5",
+      "spot": "bottle"
+    },
+    {
+      "after": true,
+      "before": false,
+      "friendship": 3,
+      "notice": "学会了蜂蜜小架图纸，现在可以在院子制作并摆放",
+      "who": "凯凯"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_h3",
+      "spot": "sift"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_h3",
+      "spot": "tea"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_h3",
+      "spot": "sweep"
+    },
+    {
+      "after": true,
+      "before": false,
+      "friendship": 3,
+      "notice": "学会了谷粮小箱图纸，现在可以在院子制作并摆放",
+      "who": "小涛"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_mayor",
+      "spot": "register"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_mayor",
+      "spot": "notice"
+    },
+    {
+      "command": "institution_effect",
+      "result": {
+        "message": "这件小事收拾好了",
+        "ok": true
+      },
+      "room": "v_mayor",
+      "spot": "bundle"
+    },
+    {
+      "after": true,
+      "before": false,
+      "friendship": 3,
+      "notice": "学会了留言画架图纸，现在可以在院子制作并摆放",
+      "who": "林伯"
+    }
+  ]
+}

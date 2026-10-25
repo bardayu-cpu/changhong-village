@@ -1,0 +1,43 @@
+{
+  "kind": "新增Kai v3复核波次；此前66份清单不动",
+  "files": [
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/Kai-v3素材独立复核/独立复核.json",
+      "bytes": 11921,
+      "sha256": "8b7df97a280cce46a4068ea403d6e367ac1db3553480bab223b806aa55e1f42b"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/Kai-v3素材独立复核/给C2结论.md",
+      "bytes": 1341,
+      "sha256": "d3941df67b70985bac64d6143f0b38ca3109df67da8c2a614ee40aae25c14bd9"
+    }
+  ],
+  "source_references": [
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/kaikai.png",
+      "sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/kaikai-face.png",
+      "sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/Ayu-Kai-v3-实际尺寸脚锚对比.png",
+      "sha256": "f997cb305765043eeacc86fbbaa0d110d058558e499b1d2b3db7960b851aa100"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/kaikai-v3-20帧预览.png",
+      "sha256": "dac9787e148e7089e6866914344bf698030e2c69ee944567c4d4a16a88e7fd12"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/kaikai-v3-validation.json",
+      "sha256": "89dd995f4f90138c8c8d2403ad8f953393ac427de0d1e94573145bd1ee880bbc"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/交C3样板复核.md",
+      "sha256": "db63729ae0b64be13562ff567e0c4a638fbcabc7fd0b94cfa0691635fdbbf18e"
+    }
+  ],
+  "metadata_correction_needed": true,
+  "ingame_pending": true
+}

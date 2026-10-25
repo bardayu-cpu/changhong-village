@@ -37,7 +37,7 @@ func sync_schedule(first:=false) -> void:
 	actor.route=ui.home.world.path(actor.position,approach);actor.destination_action="idle";actor.destination_face=str(s.face)
 func settle() -> void:
 	var s:Dictionary=record.schedule[slot_index];actor.position=Vector2(s.pos[0],s.pos[1]);actor.face=str(s.face)
-	actor.action=str(s.action);actor.lift=ui.home.seat_lift(actor.position) if s.action in ["drink","read"] else 0.0;actor.position.y+=actor.lift;settled=true
+	actor.action=str(s.action);actor.lift=ui.home.seat_lift(actor.position) if s.action in ["sit","drink","read"] else 0.0;actor.position.y+=actor.lift;settled=true
 func _process(dt:float) -> void:
 	if not is_instance_valid(ui) or not is_instance_valid(actor):return
 	elapsed+=dt;sync_schedule()
@@ -58,10 +58,10 @@ func draw_work() -> void:
 		for n in 5:work_layer.draw_rect(Rect2(-12+n*5,-30+phase,3,3),Color("a4dde1"))
 func talk(id:String) -> bool:
 	if id!="resident:"+str(record.id):return false
-	actor.face="down";ui.home.dialogue(str(record.name),str(record.schedule[slot_index].line),str(record.portrait));return true
+	actor.face="down";ui.home.dialogue(str(record.name),str(record.schedule[slot_index].line),str(record.portrait) if FileAccess.file_exists("res://ayu_home/v4/assets/talk-faces/"+str(record.portrait)+".png") else "");return true
 func handle(h:Dictionary) -> bool:
 	if str(h.get("kind","")) in ["mill_game","honey_game","civic_game","community_game"]:ui.open_institution_game(str(ui.home.world.cfg.institution));return true
-	if h.get("kind","")=="seat" and actor.visible and actor.action in ["drink","read"] and actor.position.distance_to(Vector2(h.pos[0],h.pos[1]))<60:
+	if h.get("kind","")=="seat" and actor.visible and actor.action in ["sit","drink","read"] and actor.position.distance_to(Vector2(h.pos[0],h.pos[1]))<60:
 		ui.home.player.say(str(record.name)+"正坐着喝茶，桌边还有热茶。")
 		return true
 	var id:=str(h.get("action",h.id))
@@ -136,6 +136,10 @@ func draw_civic(effects:Dictionary) -> void:
 	if int(effects.get("bundle",0))>0:draw_rect(Rect2(307,342,12,5),Color("af4733"));draw_rect(Rect2(311,344,5,11),Color("b84c35"))
 
 func draw_community(effects:Dictionary) -> void:
+	var stage:=int(ui.state.data.village.community_stage)
+	if stage>=1:draw_texture_rect(Assets.texture("res://ayu_home/v4/assets/craft/picnic_mat.png"),Rect2(105,355,64,38),false)
+	if stage>=2:draw_texture_rect(Assets.texture("res://ayu_home/v4/assets/floor1-redraw/meal-0.png"),Rect2(255,270,30,24),false)
+	if stage>=3:draw_texture_rect(Assets.texture("res://ayu_home/v4/assets/craft/notice_easel.png"),Rect2(340,348,36,54),false)
 	var woven:int=mini(7,int((elapsed-float(changed_at.get("weave",-20.0)))*2)) if int(effects.get("weave",0))>0 else 0
 	for n in 7:
 		draw_rect(Rect2(250+n*4,145,2,18),Color("b89851"))

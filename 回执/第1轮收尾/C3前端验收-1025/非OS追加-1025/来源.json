@@ -1,0 +1,30 @@
+{
+  "kind": "当前工作树独立冻结，非纯HEAD提交；仅隔离加入Kai v3样板走既有Residents.look入口",
+  "head": "e1d26c9a01d3597c3d5c7c5c43953aa0a80a40ab",
+  "files": {
+    "ayu_home/v4/core/village_ground.gd": "df798b1ca7ca35602b2ed770d89b8b22aa286db922741f2146df3800bb52fd46",
+    "ayu_home/v4/core/map_view.gd": "c001f4045b22a77eff63acaf79b874502956e010ffda80ccee87875aa961d0ee",
+    "ayu_home/v4/core/childhood_rules.gd": "8f8458468ccbd5756fa62687c25a008313768cde3430f49c8257ba91f4c8614e",
+    "ayu_home/v4/core/childhood_game.gd": "ab722674c0d299130f11bdf464a120c77a2f70afda32eee96ff5f7cfaddea0f3",
+    "ayu_home/v4/core/config.gd": "4bd927ea805f1889e370d781cf47af176937faafbd15312dab86bd544b4bad02",
+    "ayu_home/v4/core/state.gd": "8dce02504aec4efae68f011b7fb7bd3e66108e025bf313427791f5e53a5ff7e2",
+    "ayu_home/v4/core/residents.gd": "fb39f5be66454f92be0b6bc319e8a470bf22ef28018dc6a486f888e79c81f6b7",
+    "ayu_home/v4/core/institution_room.gd": "65ec695419f6be6af754ff79b59bcbf58d5765197b8436334e901f0e2ae5a53e",
+    "ayu_home/v4/actor.gd": "b24aacbe93f25eee6acfaab400bea1cd314da7825075ebdf9f720f0e3e513281",
+    "ayu_home/v4/home.gd": "e3c4ca8879aa4bbcf0520ef6e5791d1f503b1e22ff18fa61a00e8c40bbebe14f",
+    "ayu_home/v4/assets/village.json": "304d5ccabe6aea74a16f32643d1eff4782d116cf02e8976b98d39a11cc4ba5b5",
+    "ayu_home/v4/assets/childhood/objects.png": "bad3f5f3491fae2999b3e245ef61db7f01d155e49d09ecc46923bb81d9ff7e29",
+    "ayu_home/v4/assets/v_h3.json": "b0d9eeb2419015817a4a7c1db711a7b078165c06e0d2cfccf5d066cd875ace69",
+    "ayu_home/v4/assets/my_cabin.json": "8cc8862542464c149d60913a9630adde15ae9a94bb08e1519ff3147da0e56506"
+  },
+  "changed_during_copy": [],
+  "controlled_test_assets": {
+    "Kai": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384",
+    "portrait": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1",
+    "portrait_target": "ayu_home/v4/assets/talk-faces/kaikai.png"
+  },
+  "no_OS_input": true,
+  "production_mutated": false,
+  "stop_remaining_percent": 30,
+  "start_remaining_percent": 60
+}

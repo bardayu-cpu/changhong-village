@@ -1,0 +1,130 @@
+{
+  "version": "1025-s-backgrounds-c4",
+  "size": [
+    640,
+    360
+  ],
+  "format": "opaque_png",
+  "stable_for_c2_byte_copy": true,
+  "visual_status": "hospital_v2_pending_c3_review_other_five_unchanged",
+  "assets": [
+    {
+      "id": "milk_table",
+      "file": "milk_table.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-2021a424-8fee-48e4-9668-bbc928511495.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "crop_size": [
+        1672,
+        940
+      ],
+      "output_size": [
+        640,
+        360
+      ],
+      "alpha": false
+    },
+    {
+      "id": "mudflat",
+      "file": "mudflat.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-8f1a4f24-9788-4fba-9256-0ab3b8d38427.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "crop_size": [
+        1672,
+        940
+      ],
+      "output_size": [
+        640,
+        360
+      ],
+      "alpha": false
+    },
+    {
+      "id": "train_room",
+      "file": "train_room.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-951c6e88-0f28-4201-af15-e0f2e5fd1fe8.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "crop_size": [
+        1672,
+        940
+      ],
+      "output_size": [
+        640,
+        360
+      ],
+      "alpha": false
+    },
+    {
+      "id": "laundry",
+      "file": "laundry.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-0b0248be-2d38-42db-8b45-c1503eab9050.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "crop_size": [
+        1672,
+        940
+      ],
+      "output_size": [
+        640,
+        360
+      ],
+      "alpha": false
+    },
+    {
+      "id": "vegetables",
+      "file": "vegetables.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-f248b71b-9572-42c7-8ba7-232c96d11a37.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "crop_size": [
+        1672,
+        940
+      ],
+      "output_size": [
+        640,
+        360
+      ],
+      "alpha": false
+    },
+    {
+      "id": "hospital",
+      "file": "hospital.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-3f0d2f86-9cc6-4da4-999b-bf198341551d.png",
+      "source_size": [
+        1672,
+        940
+      ],
+      "crop_size": [
+        1671,
+        940
+      ],
+      "output_size": [
+        640,
+        360
+      ],
+      "alpha": false,
+      "revision": "v2-fixed-no-bed",
+      "replaces_rejected": "退回证据/hospital-with-bed-rejected.png",
+      "interface_check": [
+        "warm_silhouette_transition",
+        "no_bed",
+        "no_needles",
+        "no_rash",
+        "no_extra_plot"
+      ]
+    }
+  ],
+  "revision": "v2-hospital-only-fix"
+}

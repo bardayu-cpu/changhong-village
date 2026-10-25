@@ -1,0 +1,56 @@
+{
+  "OS_input": false,
+  "fourteen_real_object_states": "missing, not passed",
+  "mode": "nine candidate actual entry/help at13 and normal room-init evening seating at19; no whole-day path or real desktop input; narrow solid center/approach/source-mapping checks only, not full furniture collision/swept QA",
+  "rows": [
+    {
+      "check": "normal spawn and scale unchanged",
+      "details": {},
+      "pass": true,
+      "room": "v_daba"
+    }
+  ],
+  "shots": [
+    {
+      "actor": {},
+      "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-entry-13",
+      "player_position": [
+        298.0,
+        158.0
+      ],
+      "room": "living",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          238.0,
+          267.0
+        ],
+        "screen": [
+          -34.0,
+          492.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_daba-entry-camera2-13",
+      "player_position": [
+        390.0,
+        398.0
+      ],
+      "room": "v_daba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    }
+  ],
+  "whole_nine_pass": false
+}

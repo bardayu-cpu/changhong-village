@@ -1,0 +1,10 @@
+[
+  {
+    "script": "independent_geometry_v3.gd",
+    "exit": 0
+  },
+  {
+    "script": "footprint_audit.gd",
+    "exit": 0
+  }
+]

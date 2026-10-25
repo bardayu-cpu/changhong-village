@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "source": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/kaikai.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/kaikai.png",
+      "sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384",
+      "previous_sha256": null,
+      "dimensions": [
+        1280,
+        84
+      ]
+    },
+    {
+      "source": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3/kaikai-face.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/kaikai.png",
+      "sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1",
+      "previous_sha256": "7957a4e2d94e7479fb48fbe7f639fdce44b4bf2a55d9645a7af2f2a534c30a60",
+      "dimensions": [
+        112,
+        129
+      ]
+    }
+  ],
+  "review": "C3 v3 material pass; actual standing opaque height 82px, cell 64x84; runtime animation and seating review pending",
+  "all_R_pass": false
+}

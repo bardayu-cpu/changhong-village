@@ -1,0 +1,27 @@
+{
+  "candidate_bundle": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/前端接管-1025/村景候选-v2/bundle.json",
+  "bundle_sha256": "8373f749fab9397e1fa674b34767caef30aaf20d4e047c7cc3802bb8f0d2f6bf",
+  "input_file_hashes_verified": true,
+  "candidate_files": {
+    "route-check.json": "8c04c205b9da6006e49c08175f79ee82c745f073482d352444949b147bb4b9ff",
+    "rooms.json": "7292b0d4508389816981ff59fc0e62e772f34c9a489520daa5c8596a559ff8fd",
+    "village.json": "086cc524c3dfd9d78061f48522eb5a90fb60b9f36f9d6dede44efcb2d50b7299",
+    "village/layout-1025.json": "7202147f000ae20faf3e60f132757756ece24fe774394c0155cb647367d16d89",
+    "village/houses.json": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+    "village/topology.json": "8e747fbcde405cae80c28a0bda743de0f0926b8538b81175ecd4745977c923e4",
+    "village/ground-pixel-1024/layers.json": "b4f9eb38cdb8c5d60b50de762ac1cd5fbb874e20d2ef4c5c3d6a81e19665af2d"
+  },
+  "code_hashes": {
+    "ayu_home/v4/world.gd": "975c6d17fb763485f2ea6b6ba05e443ac96439b1ebd17c6df1629c6df34c3d2e",
+    "ayu_home/v4/actor.gd": "b24aacbe93f25eee6acfaab400bea1cd314da7825075ebdf9f720f0e3e513281",
+    "ayu_home/v4/core/village_ground.gd": "e35e1dd2c543c8814b861590467a60dec5247d10c3de910399c7a07e86a6ec36",
+    "ayu_home/v4/core/map_view.gd": "c001f4045b22a77eff63acaf79b874502956e010ffda80ccee87875aa961d0ee",
+    "ayu_home/v4/home.gd": "e3c4ca8879aa4bbcf0520ef6e5791d1f503b1e22ff18fa61a00e8c40bbebe14f"
+  },
+  "mode": "独立引擎导航/几何验证；不读C2 route-check结果作为断言；无OS输入；候选未入生产",
+  "missing_art": [
+    "four seasonal rice tiles",
+    "tree footprints/placement"
+  ],
+  "stop_remaining_percent": 30
+}

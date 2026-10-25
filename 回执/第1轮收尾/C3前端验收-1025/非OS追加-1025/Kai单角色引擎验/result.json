@@ -1,0 +1,1638 @@
+{
+  "OS_input": false,
+  "engine_path": [
+    [
+      282.0,
+      453.333343505859
+    ],
+    [
+      282.0,
+      456.666687011719
+    ],
+    [
+      282.0,
+      460.000030517578
+    ],
+    [
+      282.0,
+      463.333374023438
+    ],
+    [
+      282.0,
+      466.666717529297
+    ],
+    [
+      282.0,
+      470.000061035156
+    ],
+    [
+      282.0,
+      473.333404541016
+    ],
+    [
+      282.0,
+      476.666748046875
+    ],
+    [
+      282.0,
+      480.000091552734
+    ],
+    [
+      282.0,
+      483.333435058594
+    ],
+    [
+      282.0,
+      486.666778564453
+    ],
+    [
+      282.0,
+      490.000122070312
+    ],
+    [
+      282.0,
+      493.333465576172
+    ],
+    [
+      282.0,
+      496.666809082031
+    ],
+    [
+      282.0,
+      498.0
+    ]
+  ],
+  "mode": "non-OS actual Home/Residents/Actor engine rendering and schedule; explicit test fixture scene/pose control, not desktop input or full R release",
+  "rows": [
+    {
+      "check": "actual Residents.look loads Kai v3 sheet",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "idle frame down",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "natural engine animation visits all 4 frames down",
+      "details": {
+        "frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "no vertical sprite anchor change during walk down",
+      "details": {
+        "sprite_y": [
+          "-84.0"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame down 0",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame down 1",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame down 2",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame down 3",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "idle frame left",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "natural engine animation visits all 4 frames left",
+      "details": {
+        "frames": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "no vertical sprite anchor change during walk left",
+      "details": {
+        "sprite_y": [
+          "-84.0"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame left 0",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame left 1",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame left 2",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame left 3",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "idle frame right",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "natural engine animation visits all 4 frames right",
+      "details": {
+        "frames": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "no vertical sprite anchor change during walk right",
+      "details": {
+        "sprite_y": [
+          "-84.0"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame right 0",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame right 1",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame right 2",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame right 3",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "idle frame up",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "natural engine animation visits all 4 frames up",
+      "details": {
+        "frames": [
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "no vertical sprite anchor change during walk up",
+      "details": {
+        "sprite_y": [
+          "-84.0"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame up 0",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame up 1",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame up 2",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "selected engine walk frame up 3",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "sit frame engine mapping down",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "sit frame engine mapping left",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "sit frame engine mapping right",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "sit frame engine mapping up",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "actual 19h institution schedule reaches chair",
+      "details": {
+        "frames": 136
+      },
+      "pass": true
+    },
+    {
+      "check": "actual evening drink uses left sit frame",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "seat logical anchor and lift match production seat_lift",
+      "details": {
+        "expected_lift": 0.0,
+        "lift": 0.0,
+        "position": [
+          263.0,
+          475.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "engine path crosses bucket foot line",
+      "details": {
+        "end_y": 498.0,
+        "start_y": 453.333343505859
+      },
+      "pass": true
+    }
+  ],
+  "scope": "Kai only; 4idle/16walk/4sit engine frames, evening honey chair, mill furniture edge fixture",
+  "shots": [
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "idle-down",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          84.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-idle-down",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-down-0",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          64.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-down-1",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          128.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-down-2",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          192.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-down-3",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          256.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "idle-left",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          256.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-idle-left",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          256.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-left-0",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          320.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-left-1",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          384.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-left-2",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          448.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-left-3",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          512.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "idle-right",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          512.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-idle-right",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          512.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-right-0",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          576.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-right-1",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          640.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-right-2",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          704.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-right-3",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          768.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "idle-up",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          768.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-idle-up",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          768.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-up-0",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          832.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-up-1",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          896.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-up-2",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          960.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": true
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "walk-up-3",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          1024.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "pose-only-sit-down",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          1088.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "pose-only-sit-left",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          1152.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "pose-only-sit-right",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "actor_screen": [
+          296.0,
+          442.0
+        ],
+        "face": "up",
+        "lift": 0.0,
+        "position": [
+          343.0,
+          278.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          1216.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 13.0,
+      "month": 10,
+      "name": "pose-only-sit-up",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "drink",
+        "actor_screen": [
+          176.0,
+          554.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          263.0,
+          475.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          1088.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 19.0,
+      "month": 10,
+      "name": "Kai-honey-19-actual-seat",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "actor_screen": [
+          176.0,
+          554.0
+        ],
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          263.0,
+          475.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          384.0,
+          84.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h5",
+      "hour": 19.0,
+      "month": 10,
+      "name": "Ayu-honey-19-same-seat",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          158.0,
+          594.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          282.0,
+          450.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h3",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Kai-mill-bucket-behind",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          158.0,
+          594.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          282.0,
+          450.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          84.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h3",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-mill-bucket-behind",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          158.0,
+          690.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          282.0,
+          498.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          0.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h3",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Kai-mill-bucket-front",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "actor_screen": [
+          158.0,
+          690.0
+        ],
+        "face": "down",
+        "lift": 0.0,
+        "position": [
+          282.0,
+          498.0
+        ],
+        "sprite_position": [
+          -32.0,
+          -84.0
+        ],
+        "texture_region": [
+          0.0,
+          84.0,
+          64.0,
+          84.0
+        ],
+        "walking": false
+      },
+      "area": "v_h3",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-mill-bucket-front",
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    }
+  ]
+}

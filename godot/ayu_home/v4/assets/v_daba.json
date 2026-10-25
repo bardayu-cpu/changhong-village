@@ -100,7 +100,7 @@
         317,
         199
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "daba",
       "copy": "竹条收齐，长短分开放在工作台边。明天编篮子时，拿起来就顺手了。",
       "repeat_copy": "大爸记着你的帮助，今天的竹条已经收齐了。坐下来歇一会儿吧。"
@@ -122,6 +122,21 @@
         251
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "daba",
+      "label": "挪一挪竹编小物",
+      "pos": [
+        398,
+        137
+      ],
+      "approach": [
+        317,
+        199
+      ],
+      "copy": "竹编小物换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -208,5 +223,70 @@
     -8
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "picnic_mat",
+    "pos": [
+      350,
+      137
+    ],
+    "label": "竹编小物",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      398,
+      137
+    ]
+  },
+  "npc": {
+    "id": "household_daba",
+    "character_id": "household_daba",
+    "name": "大爸",
+    "portrait": "household_daba",
+    "preset": 0,
+    "pos": [
+      317,
+      199
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          317,
+          199
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理竹编小物，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          224,
+          267
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的竹编小物也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          166,
+          251
+        ],
+        "approach": [
+          224,
+          267
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

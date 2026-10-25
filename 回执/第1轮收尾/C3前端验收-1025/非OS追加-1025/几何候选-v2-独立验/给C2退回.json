@@ -1,0 +1,1281 @@
+{
+  "candidate": "v2",
+  "candidate_bundle_sha256": "8373f749fab9397e1fa674b34767caef30aaf20d4e047c7cc3802bb8f0d2f6bf",
+  "mode": "首次前端C3独立几何/脚步验证；无OS输入，不以C2 route-check结果作通过断言",
+  "overall_geometry_pass": false,
+  "passed_scope": {
+    "assertions_passed": 197,
+    "assertions_total": 198,
+    "reachable_routes": 31,
+    "doors": 19,
+    "hotspots": 11,
+    "mountain_route": 1,
+    "foot_samples_collision_free": true,
+    "no_water_path_material_overlap": true,
+    "four_season_geometry_equal": true
+  },
+  "return_issues": [
+    {
+      "id": "GEO-V2-1",
+      "title": "绘制路径宽度与房碰撞区相交",
+      "pieces": 26,
+      "grouped": [
+        {
+          "surface": "road",
+          "house_id": "h6",
+          "house_title": "花窗人家",
+          "pieces": 1,
+          "intersection_area_sum": 301.5
+        },
+        {
+          "surface": "road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家",
+          "pieces": 5,
+          "intersection_area_sum": 9247.0
+        },
+        {
+          "surface": "yard",
+          "house_id": "h5",
+          "house_title": "凯凯蜂蜜小院",
+          "pieces": 1,
+          "intersection_area_sum": 214.0
+        },
+        {
+          "surface": "yard",
+          "house_id": "h3",
+          "house_title": "小涛磨坊",
+          "pieces": 2,
+          "intersection_area_sum": 5782.875
+        },
+        {
+          "surface": "yard",
+          "house_id": "h4",
+          "house_title": "田边平房",
+          "pieces": 2,
+          "intersection_area_sum": 1653.625
+        },
+        {
+          "surface": "yard",
+          "house_id": "daba",
+          "house_title": "大爸家",
+          "pieces": 1,
+          "intersection_area_sum": 1145.5
+        },
+        {
+          "surface": "yard",
+          "house_id": "ayu",
+          "house_title": "阿鱼家",
+          "pieces": 1,
+          "intersection_area_sum": 19.5
+        },
+        {
+          "surface": "yard",
+          "house_id": "persimmon",
+          "house_title": "柿树老院",
+          "pieces": 1,
+          "intersection_area_sum": 1172.5
+        },
+        {
+          "surface": "yard",
+          "house_id": "laowu",
+          "house_title": "老屋",
+          "pieces": 1,
+          "intersection_area_sum": 1937.75
+        },
+        {
+          "surface": "yard",
+          "house_id": "rose",
+          "house_title": "玫瑰花之家",
+          "pieces": 1,
+          "intersection_area_sum": 2731.5
+        },
+        {
+          "surface": "yard",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家",
+          "pieces": 1,
+          "intersection_area_sum": 9982.0
+        },
+        {
+          "surface": "entry_road",
+          "house_id": "h3",
+          "house_title": "小涛磨坊",
+          "pieces": 2,
+          "intersection_area_sum": 1023.25
+        },
+        {
+          "surface": "entry_road",
+          "house_id": "h6",
+          "house_title": "花窗人家",
+          "pieces": 1,
+          "intersection_area_sum": 2189.5
+        },
+        {
+          "surface": "entry_road",
+          "house_id": "laowu",
+          "house_title": "老屋",
+          "pieces": 3,
+          "intersection_area_sum": 369.625
+        },
+        {
+          "surface": "entry_road",
+          "house_id": "ayu",
+          "house_title": "阿鱼家",
+          "pieces": 1,
+          "intersection_area_sum": 13134.5
+        },
+        {
+          "surface": "entry_road",
+          "house_id": "mayor",
+          "house_title": "村委会",
+          "pieces": 1,
+          "intersection_area_sum": 4676.75
+        },
+        {
+          "surface": "entry_road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家",
+          "pieces": 1,
+          "intersection_area_sum": 994.0
+        }
+      ],
+      "details": [
+        {
+          "area": 301.5,
+          "obstacle": [
+            3064.0,
+            3016.0,
+            797.0,
+            524.0
+          ],
+          "surface": "road",
+          "house_id": "h6",
+          "house_title": "花窗人家"
+        },
+        {
+          "area": 471.0,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        },
+        {
+          "area": 6663.5,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        },
+        {
+          "area": 1306.0,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        },
+        {
+          "area": 483.0,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        },
+        {
+          "area": 323.5,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        },
+        {
+          "area": 214.0,
+          "obstacle": [
+            114.0,
+            2116.0,
+            822.0,
+            441.0
+          ],
+          "surface": "yard",
+          "house_id": "h5",
+          "house_title": "凯凯蜂蜜小院"
+        },
+        {
+          "area": 5120.125,
+          "obstacle": [
+            264.0,
+            2816.0,
+            847.0,
+            467.0
+          ],
+          "surface": "yard",
+          "house_id": "h3",
+          "house_title": "小涛磨坊"
+        },
+        {
+          "area": 662.75,
+          "obstacle": [
+            264.0,
+            2816.0,
+            847.0,
+            467.0
+          ],
+          "surface": "yard",
+          "house_id": "h3",
+          "house_title": "小涛磨坊"
+        },
+        {
+          "area": 958.875,
+          "obstacle": [
+            964.0,
+            2166.0,
+            847.0,
+            461.0
+          ],
+          "surface": "yard",
+          "house_id": "h4",
+          "house_title": "田边平房"
+        },
+        {
+          "area": 1145.5,
+          "obstacle": [
+            2164.0,
+            2866.0,
+            822.0,
+            435.0
+          ],
+          "surface": "yard",
+          "house_id": "daba",
+          "house_title": "大爸家"
+        },
+        {
+          "area": 19.5,
+          "obstacle": [
+            1868.0,
+            2170.0,
+            764.0,
+            590.0
+          ],
+          "surface": "yard",
+          "house_id": "ayu",
+          "house_title": "阿鱼家"
+        },
+        {
+          "area": 1172.5,
+          "obstacle": [
+            1214.0,
+            2866.0,
+            892.0,
+            500.0
+          ],
+          "surface": "yard",
+          "house_id": "persimmon",
+          "house_title": "柿树老院"
+        },
+        {
+          "area": 1937.75,
+          "obstacle": [
+            314.0,
+            1316.0,
+            772.0,
+            374.0
+          ],
+          "surface": "yard",
+          "house_id": "laowu",
+          "house_title": "老屋"
+        },
+        {
+          "area": 694.75,
+          "obstacle": [
+            964.0,
+            2166.0,
+            847.0,
+            461.0
+          ],
+          "surface": "yard",
+          "house_id": "h4",
+          "house_title": "田边平房"
+        },
+        {
+          "area": 2731.5,
+          "obstacle": [
+            3764.0,
+            1416.0,
+            822.0,
+            452.0
+          ],
+          "surface": "yard",
+          "house_id": "rose",
+          "house_title": "玫瑰花之家"
+        },
+        {
+          "area": 9982.0,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "yard",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        },
+        {
+          "area": 940.375,
+          "obstacle": [
+            264.0,
+            2816.0,
+            847.0,
+            467.0
+          ],
+          "surface": "entry_road",
+          "house_id": "h3",
+          "house_title": "小涛磨坊"
+        },
+        {
+          "area": 2189.5,
+          "obstacle": [
+            3064.0,
+            3016.0,
+            797.0,
+            524.0
+          ],
+          "surface": "entry_road",
+          "house_id": "h6",
+          "house_title": "花窗人家"
+        },
+        {
+          "area": 103.75,
+          "obstacle": [
+            314.0,
+            1316.0,
+            772.0,
+            374.0
+          ],
+          "surface": "entry_road",
+          "house_id": "laowu",
+          "house_title": "老屋"
+        },
+        {
+          "area": 13134.5,
+          "obstacle": [
+            1868.0,
+            2170.0,
+            764.0,
+            590.0
+          ],
+          "surface": "entry_road",
+          "house_id": "ayu",
+          "house_title": "阿鱼家"
+        },
+        {
+          "area": 4676.75,
+          "obstacle": [
+            2664.0,
+            2116.0,
+            807.0,
+            410.0
+          ],
+          "surface": "entry_road",
+          "house_id": "mayor",
+          "house_title": "村委会"
+        },
+        {
+          "area": 82.875,
+          "obstacle": [
+            264.0,
+            2816.0,
+            847.0,
+            467.0
+          ],
+          "surface": "entry_road",
+          "house_id": "h3",
+          "house_title": "小涛磨坊"
+        },
+        {
+          "area": 132.9375,
+          "obstacle": [
+            314.0,
+            1316.0,
+            772.0,
+            374.0
+          ],
+          "surface": "entry_road",
+          "house_id": "laowu",
+          "house_title": "老屋"
+        },
+        {
+          "area": 132.9375,
+          "obstacle": [
+            314.0,
+            1316.0,
+            772.0,
+            374.0
+          ],
+          "surface": "entry_road",
+          "house_id": "laowu",
+          "house_title": "老屋"
+        },
+        {
+          "area": 994.0,
+          "obstacle": [
+            3664.0,
+            2316.0,
+            822.0,
+            452.0
+          ],
+          "surface": "entry_road",
+          "house_id": "h1",
+          "house_title": "蓝瓦人家"
+        }
+      ],
+      "boundary": "26是相交多边形片段，不是26栋房或26种独立bug；路径中心和脚步可通，但实际绘制宽度/圆角仍进入不可行走的实体区域。未借缺材质给美术打分。"
+    },
+    {
+      "id": "GEO-V2-2",
+      "title": "实际寻路仍抄入田块内部",
+      "route_count": 30,
+      "all_routes": 31,
+      "routes": [
+        {
+          "examples": [
+            [
+              2205.5,
+              2824.0
+            ],
+            [
+              2151.5,
+              2824.0
+            ],
+            [
+              2133.5,
+              2824.0
+            ],
+            [
+              2115.5,
+              2824.0
+            ],
+            [
+              2097.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 89,
+          "id": "visit_h5",
+          "surface_samples": 113
+        },
+        {
+          "examples": [
+            [
+              2205.5,
+              2824.0
+            ],
+            [
+              2151.5,
+              2824.0
+            ],
+            [
+              2133.5,
+              2824.0
+            ],
+            [
+              2115.5,
+              2824.0
+            ],
+            [
+              2097.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 65,
+          "id": "visit_h3",
+          "surface_samples": 106
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 52,
+          "id": "visit_mayor",
+          "surface_samples": 59
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 76,
+          "id": "visit_community",
+          "surface_samples": 103
+        },
+        {
+          "examples": [
+            [
+              2248.09057617188,
+              2839.90942382812
+            ],
+            [
+              2235.36303710938,
+              2852.63696289062
+            ],
+            [
+              2218.75610351562,
+              2856.0
+            ],
+            [
+              2200.75610351562,
+              2856.0
+            ],
+            [
+              2182.75610351562,
+              2856.0
+            ]
+          ],
+          "field_interior_samples": 40,
+          "id": "visit_daba",
+          "surface_samples": 56
+        },
+        {
+          "examples": [
+            [
+              2158.12817382812,
+              2808.0
+            ],
+            [
+              2140.12817382812,
+              2808.0
+            ],
+            [
+              2126.19140625,
+              2798.19140625
+            ],
+            [
+              2113.4638671875,
+              2785.4638671875
+            ],
+            [
+              2099.38427734375,
+              2776.0
+            ]
+          ],
+          "field_interior_samples": 129,
+          "id": "visit_flower",
+          "surface_samples": 160
+        },
+        {
+          "examples": [
+            [
+              2279.90942382812,
+              2808.09057617188
+            ],
+            [
+              2297.87182617188,
+              2808.0
+            ],
+            [
+              2315.87182617188,
+              2808.0
+            ],
+            [
+              2333.87182617188,
+              2808.0
+            ],
+            [
+              2351.87182617188,
+              2808.0
+            ]
+          ],
+          "field_interior_samples": 74,
+          "id": "visit_h2",
+          "surface_samples": 162
+        },
+        {
+          "examples": [
+            [
+              2158.12817382812,
+              2808.0
+            ],
+            [
+              2140.12817382812,
+              2808.0
+            ],
+            [
+              2126.19140625,
+              2798.19140625
+            ],
+            [
+              2113.4638671875,
+              2785.4638671875
+            ],
+            [
+              2099.38427734375,
+              2776.0
+            ]
+          ],
+          "field_interior_samples": 90,
+          "id": "visit_h8",
+          "surface_samples": 98
+        },
+        {
+          "examples": [
+            [
+              2279.90942382812,
+              2808.09057617188
+            ],
+            [
+              2297.87182617188,
+              2808.0
+            ],
+            [
+              2315.87182617188,
+              2808.0
+            ],
+            [
+              2333.87182617188,
+              2808.0
+            ],
+            [
+              2351.87182617188,
+              2808.0
+            ]
+          ],
+          "field_interior_samples": 81,
+          "id": "visit_erba",
+          "surface_samples": 135
+        },
+        {
+          "examples": [
+            [
+              2279.90942382812,
+              2839.90942382812
+            ],
+            [
+              2297.87182617188,
+              2840.0
+            ],
+            [
+              2315.87182617188,
+              2840.0
+            ],
+            [
+              2333.87182617188,
+              2840.0
+            ],
+            [
+              2351.87182617188,
+              2840.0
+            ]
+          ],
+          "field_interior_samples": 73,
+          "id": "visit_h6",
+          "surface_samples": 106
+        },
+        {
+          "examples": [
+            [
+              2279.90942382812,
+              2808.09057617188
+            ],
+            [
+              2297.87182617188,
+              2808.0
+            ],
+            [
+              2315.87182617188,
+              2808.0
+            ],
+            [
+              2333.87182617188,
+              2808.0
+            ],
+            [
+              2351.87182617188,
+              2808.0
+            ]
+          ],
+          "field_interior_samples": 13,
+          "id": "visit_h7",
+          "surface_samples": 78
+        },
+        {
+          "examples": [
+            [
+              2205.5,
+              2824.0
+            ],
+            [
+              2151.5,
+              2824.0
+            ],
+            [
+              2133.5,
+              2824.0
+            ],
+            [
+              2115.5,
+              2824.0
+            ],
+            [
+              2097.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 45,
+          "id": "visit_h4",
+          "surface_samples": 52
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 65,
+          "id": "visit_h1",
+          "surface_samples": 101
+        },
+        {
+          "examples": [
+            [
+              2158.12817382812,
+              2808.0
+            ],
+            [
+              2140.12817382812,
+              2808.0
+            ],
+            [
+              2126.19140625,
+              2798.19140625
+            ],
+            [
+              2113.4638671875,
+              2785.4638671875
+            ],
+            [
+              2099.38427734375,
+              2776.0
+            ]
+          ],
+          "field_interior_samples": 128,
+          "id": "visit_whitebrick",
+          "surface_samples": 141
+        },
+        {
+          "examples": [
+            [
+              2158.12817382812,
+              2808.0
+            ],
+            [
+              2140.12817382812,
+              2808.0
+            ],
+            [
+              2126.19140625,
+              2798.19140625
+            ],
+            [
+              2113.4638671875,
+              2785.4638671875
+            ],
+            [
+              2099.38427734375,
+              2776.0
+            ]
+          ],
+          "field_interior_samples": 109,
+          "id": "visit_grape",
+          "surface_samples": 117
+        },
+        {
+          "examples": [
+            [
+              2279.90942382812,
+              2808.09057617188
+            ],
+            [
+              2297.87182617188,
+              2808.0
+            ],
+            [
+              2315.87182617188,
+              2808.0
+            ],
+            [
+              2333.87182617188,
+              2808.0
+            ],
+            [
+              2351.87182617188,
+              2808.0
+            ]
+          ],
+          "field_interior_samples": 18,
+          "id": "visit_sunflower",
+          "surface_samples": 72
+        },
+        {
+          "examples": [
+            [
+              2248.09057617188,
+              2839.90942382812
+            ],
+            [
+              2235.36303710938,
+              2852.63696289062
+            ],
+            [
+              2218.75610351562,
+              2856.0
+            ],
+            [
+              2200.75610351562,
+              2856.0
+            ],
+            [
+              2182.75610351562,
+              2856.0
+            ]
+          ],
+          "field_interior_samples": 20,
+          "id": "visit_persimmon",
+          "surface_samples": 56
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 97,
+          "id": "visit_rose",
+          "surface_samples": 140
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 53,
+          "id": "mayor",
+          "surface_samples": 56
+        },
+        {
+          "examples": [
+            [
+              2205.5,
+              2824.0
+            ],
+            [
+              2151.5,
+              2824.0
+            ],
+            [
+              2133.5,
+              2824.0
+            ],
+            [
+              2115.5,
+              2824.0
+            ],
+            [
+              2097.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 69,
+          "id": "honey",
+          "surface_samples": 85
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 134,
+          "id": "pond",
+          "surface_samples": 139
+        },
+        {
+          "examples": [
+            [
+              2248.09057617188,
+              2839.90942382812
+            ],
+            [
+              2235.36303710938,
+              2852.63696289062
+            ],
+            [
+              2218.75610351562,
+              2856.0
+            ],
+            [
+              2200.75610351562,
+              2856.0
+            ],
+            [
+              2182.75610351562,
+              2856.0
+            ]
+          ],
+          "field_interior_samples": 44,
+          "id": "chicken",
+          "surface_samples": 64
+        },
+        {
+          "examples": [
+            [
+              2158.12817382812,
+              2808.0
+            ],
+            [
+              2140.12817382812,
+              2808.0
+            ],
+            [
+              2126.19140625,
+              2798.19140625
+            ],
+            [
+              2113.4638671875,
+              2785.4638671875
+            ],
+            [
+              2099.38427734375,
+              2776.0
+            ]
+          ],
+          "field_interior_samples": 57,
+          "id": "orchard",
+          "surface_samples": 63
+        },
+        {
+          "examples": [
+            [
+              2248.09057617188,
+              2839.90942382812
+            ],
+            [
+              2235.36303710938,
+              2852.63696289062
+            ],
+            [
+              2218.75610351562,
+              2856.0
+            ],
+            [
+              2200.75610351562,
+              2856.0
+            ],
+            [
+              2182.75610351562,
+              2856.0
+            ]
+          ],
+          "field_interior_samples": 53,
+          "id": "market",
+          "surface_samples": 90
+        },
+        {
+          "examples": [
+            [
+              2248.09057617188,
+              2839.90942382812
+            ],
+            [
+              2235.36303710938,
+              2852.63696289062
+            ],
+            [
+              2218.75610351562,
+              2856.0
+            ],
+            [
+              2200.75610351562,
+              2856.0
+            ],
+            [
+              2182.75610351562,
+              2856.0
+            ]
+          ],
+          "field_interior_samples": 45,
+          "id": "home_site",
+          "surface_samples": 149
+        },
+        {
+          "examples": [
+            [
+              2205.5,
+              2824.0
+            ],
+            [
+              2151.5,
+              2824.0
+            ],
+            [
+              2133.5,
+              2824.0
+            ],
+            [
+              2115.5,
+              2824.0
+            ],
+            [
+              2097.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 99,
+          "id": "map",
+          "surface_samples": 149
+        },
+        {
+          "examples": [
+            [
+              2205.5,
+              2824.0
+            ],
+            [
+              2151.5,
+              2824.0
+            ],
+            [
+              2133.5,
+              2824.0
+            ],
+            [
+              2115.5,
+              2824.0
+            ],
+            [
+              2097.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 65,
+          "id": "mill",
+          "surface_samples": 114
+        },
+        {
+          "examples": [
+            [
+              2158.12817382812,
+              2808.0
+            ],
+            [
+              2140.12817382812,
+              2808.0
+            ],
+            [
+              2126.19140625,
+              2798.19140625
+            ],
+            [
+              2113.4638671875,
+              2785.4638671875
+            ],
+            [
+              2099.38427734375,
+              2776.0
+            ]
+          ],
+          "field_interior_samples": 117,
+          "id": "visit_laowu",
+          "surface_samples": 129
+        },
+        {
+          "examples": [
+            [
+              2286.5,
+              2824.0
+            ],
+            [
+              2304.5,
+              2824.0
+            ],
+            [
+              2322.5,
+              2824.0
+            ],
+            [
+              2340.5,
+              2824.0
+            ],
+            [
+              2358.5,
+              2824.0
+            ]
+          ],
+          "field_interior_samples": 93,
+          "id": "loach_memory",
+          "surface_samples": 125
+        },
+        {
+          "examples": [
+            [
+              2279.90942382812,
+              2808.09057617188
+            ],
+            [
+              2297.87182617188,
+              2808.0
+            ],
+            [
+              2315.87182617188,
+              2808.0
+            ],
+            [
+              2333.87182617188,
+              2808.0
+            ],
+            [
+              2351.87182617188,
+              2808.0
+            ]
+          ],
+          "field_interior_samples": 131,
+          "id": "north_mountain_viewpoint",
+          "surface_samples": 220
+        }
+      ],
+      "boundary": "依据当前要求的路面/导航一致及其余靠田埂走，列为待修；不是撞墙、跨河或任意要求所有草地都禁止走。"
+    }
+  ],
+  "not_visual_acceptance": "田块四季材质及树脚锚未交，未耗轮次验空图，也未入生产",
+  "retest_scope": "修绘制路径净空/导航避开田块后，只重测此候选相关几何和31条路线；不重跑87或其他已过项"
+}

@@ -1,0 +1,40 @@
+{
+  "geometry": "pass exact geometry/source comparison; reuse v3 199/199 + 70879 footprint samples, no geometry regression rerun",
+  "engine": {
+    "checks": 40,
+    "passed": 40,
+    "corrected_clock": "2027 ascending months; first attempt map/world season mismatch was fixture date clamped to saved monotonic clock; retained, not product fault"
+  },
+  "visual": "return current art/camera scope",
+  "issues": [
+    {
+      "id": "M1",
+      "gate": "K2/K3",
+      "severity": "blocking visual",
+      "position": [
+        4584,
+        600
+      ],
+      "view_scale": 2,
+      "hour": 13,
+      "evidence": "精选并排/north-month4-左候选右Ayu13时.png",
+      "finding": "At actual north viewpoint normal camera [4584,535], only magnified lower corner of mountain tile enters viewport, hard rectangular lower edge at screen y422. Sky and identifiable ridge are absent. Map overview also retains detailed pointed blue/green mountain, not low-saturation 2-3 fog layers with long flat Emei ridge.",
+      "next": "resolve scene camera/horizon composition and matching mountain art together; keep approved house geometry."
+    },
+    {
+      "id": "M2",
+      "gate": "K4/K5/K11",
+      "severity": "visual return",
+      "evidence": [
+        "精选并排/map-month4-左候选右Ayu13时.png",
+        "精选并排/map-month7-左候选右Ayu13时.png"
+      ],
+      "finding": "At actual map size repeated rice produces dense bright cyan/green/yellow speckle across most ground. Spring has repeated small seedlings and white ripples, no broad quiet sky/mountain reflection; summer/autumn contrast competes with houses instead of quiet contiguous field surfaces.",
+      "next": "revise material scale/pattern/contrast based on actual-size renders, then compare same four seasons; no need change roads or houses."
+    }
+  ],
+  "season_materials": "four distinct actual season textures now rendered, not empty placeholders; winter stubble/frost visible",
+  "tree_art": "not supplied/placement pending in this candidate",
+  "overall_village_art_pass": false,
+  "OS_input": false
+}

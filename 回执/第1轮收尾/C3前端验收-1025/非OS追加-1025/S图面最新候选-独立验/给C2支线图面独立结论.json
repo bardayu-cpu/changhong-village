@@ -1,0 +1,21 @@
+{
+  "OS_input": false,
+  "scope": "latest childhood_scene art follow-up only; normal API Game.begin/send, accelerated diagnostic date; old 87 rules / S4 22 deadline checks reused, no full rerun",
+  "source_hashes": "来源.json",
+  "new_small_flow_checks": {
+    "main": 7,
+    "loach_visual_supplement": 2,
+    "all_passed": true
+  },
+  "art_review": {
+    "milk": "table/cards/isolated placements visible, 3-level success and hospital failure actual UI reviewed",
+    "hospital": "replacement warm corridor with distant silhouettes. No bed, needles or rash visible; passes narrow S1 non-scary image requirement",
+    "loach": "mudflat/ripple/basket actual scene visible; initial too-early cast correctly rejected by calm interval (not product failure); supplementary normal .5s cast catches1 and at60s completion puts1 into common basket, both reviewed",
+    "train": "actual station background, shopping and packed ticket/document/water/coat rendered; coat outcome reviewed. Lower controls require scroll as designed; actual OS drag/keyboard/touch not exercised while locked",
+    "laundry": "8 clothes along actual line, 2 picked disappear; basket feedback visible; previous exact45 deadline normal API proof reused",
+    "vegetables": "leaves within actual bamboo tray, 2 bad leaves removed, picked feedback visible"
+  },
+  "art_scope_pass": true,
+  "S_overall_pass": false,
+  "remaining": "Actual desktop/touch interactions not covered by this non-OS batch; old transaction results remain separately attributed, not replaced by7/2 flows"
+}

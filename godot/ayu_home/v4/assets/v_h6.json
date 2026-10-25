@@ -82,7 +82,7 @@
         421,
         239
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "h6",
       "copy": "水沿着花盆边慢慢渗下去，窗下的叶片又舒展开了。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -104,6 +104,21 @@
         165
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h6",
+      "label": "挪一挪窗边花盆",
+      "pos": [
+        464,
+        164
+      ],
+      "approach": [
+        421,
+        239
+      ],
+      "copy": "窗边花盆换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -190,5 +205,70 @@
     130
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "clay_pot",
+    "pos": [
+      416,
+      164
+    ],
+    "label": "窗边花盆",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      464,
+      164
+    ]
+  },
+  "npc": {
+    "id": "household_h6",
+    "character_id": "household_h6",
+    "name": "花窗人家主人",
+    "portrait": "household_h6",
+    "preset": 3,
+    "pos": [
+      421,
+      239
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          421,
+          239
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理窗边花盆，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          285,
+          237
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的窗边花盆也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          282,
+          165
+        ],
+        "approach": [
+          285,
+          237
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

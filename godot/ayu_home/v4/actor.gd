@@ -136,7 +136,9 @@ func pose() -> void:
 		var fw:int=int(chosen_look.get("frame_w",16));var fh:int=int(chosen_look.get("frame_h",32))
 		var atlas:=pose_texture;atlas.atlas=sheet;atlas.region=Rect2(frame*fw,0,fw,fh)
 		var sitting:bool=action in ["sit","eat","drink","read","computer","tv","guitar","swing"] and not walking
-		if sitting:atlas.region.size.y=floor(fh*.72)
+		if sitting and chosen_look.has("sit"):
+			atlas.region=Rect2(int(chosen_look.sit.get(face,16))*fw,0,fw,fh)
+		elif sitting:atlas.region.size.y=floor(fh*.72)
 		sprite.texture=atlas;sprite.scale=Vector2.ONE*(84.0/fh);sprite.flip_h=bool(a.get("flip",false))
 		if action in ["sleep","lie"] and not walking:
 			# 躺在床上：正脸朝上，只露出头和肩，下半身盖在被子里（不再横着画到床底下）。
@@ -196,7 +198,7 @@ func _draw() -> void:
 		if action=="happy":
 			for i in 3:draw_rect(Rect2(-14+i*13,-55-sin(elapsed*4+i)*5,4,4),Color("edb3b2"))
 		return
-	if id=="visitor" and action in ["sit","eat","drink","read","computer","tv","guitar","swing"] and not walking:
+	if id=="visitor" and not chosen_look.has("sit") and action in ["sit","eat","drink","read","computer","tv","guitar","swing"] and not walking:
 		draw_rect(Rect2(-13,-9,10,12),Color("384456"));draw_rect(Rect2(3,-9,10,12),Color("384456"));draw_rect(Rect2(-15,2,14,5),Color("6b5246"));draw_rect(Rect2(3,2,14,5),Color("6b5246"))
 	# 新母亲动作自带手臂、道具和被子，避免旧代码色块叠在新图上。
 	if id=="mother" and not walking:return

@@ -1,0 +1,2706 @@
+{
+  "purpose": "unfinished closeout engineering checkpoint; NOT 90-point final delivery",
+  "source_head": "e1d26c9a01d3597c3d5c7c5c43953aa0a80a40ab",
+  "file_count_excluding_this_manifest": 536,
+  "bytes_excluding_this_manifest": 116221880,
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/actor.gd",
+      "bytes": 12496,
+      "sha256": "b24aacbe93f25eee6acfaab400bea1cd314da7825075ebdf9f720f0e3e513281"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/hospital.png",
+      "bytes": 326604,
+      "sha256": "35a2b48005f900a1b45618d4055c67e215526e20fd07d6b35338dd110ca0c3a1"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/laundry.png",
+      "bytes": 504851,
+      "sha256": "1118060b23e364e0c77da1e8e49ecfdfd0de41b9db436ada3bd1a6a1fe7238be"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/milk_table.png",
+      "bytes": 424667,
+      "sha256": "361693636914a2b38358b86953a1d220054c5fe48c79ee1d9cf96f37022199c7"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/mudflat.png",
+      "bytes": 551513,
+      "sha256": "7b93dfc2320c1f8b317e07871a65b84366cb9f3d3aac6788670a0266043f40f3"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/objects.png",
+      "bytes": 107846,
+      "sha256": "bad3f5f3491fae2999b3e245ef61db7f01d155e49d09ecc46923bb81d9ff7e29"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/train_room.png",
+      "bytes": 428485,
+      "sha256": "7f8c97a90fb92be27e98b19511f7d4c261580a2d7dea240f8be09723b6a3d402"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/childhood/vegetables.png",
+      "bytes": 448325,
+      "sha256": "f279805aea1f8e25263d31cf9aa49a43fcb64fd73e226cee495eb982aa1bcdca"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/living.json",
+      "bytes": 8636,
+      "sha256": "76d48456229cecec3fbd120289123a834d26c4c4afa25468f2467c8467125af9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/my_cabin.json",
+      "bytes": 4811,
+      "sha256": "8cc8862542464c149d60913a9630adde15ae9a94bb08e1519ff3147da0e56506"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/fang.png",
+      "bytes": 126093,
+      "sha256": "91adfaf867723fb92e68c6c03e6b0886763549f29708113aad40b79fb2b2775e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_daba.png",
+      "bytes": 112877,
+      "sha256": "c9689176505405be98840bb001c876e6574bdecb7ee676da9e5685787a442faf"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_erba.png",
+      "bytes": 118285,
+      "sha256": "3b8816c98920d8470c14a2bf839bbaa3583d722717babcaf007de8b9f1e71283"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_flower.png",
+      "bytes": 122145,
+      "sha256": "8bdcc0c7b4de486517a30da514dac533eaa43657f8df9320ff12c6e14dae4e32"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_grape.png",
+      "bytes": 106299,
+      "sha256": "9d4ba9a11b6138e5eaaf865792614d250a86adae578f7b0bbcb8656f719e8d92"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h1.png",
+      "bytes": 124023,
+      "sha256": "a03128306f8d8d7705a7c60405c0327eb4540312502cd6105e6b7f4f8fc2360e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h4.png",
+      "bytes": 105797,
+      "sha256": "3839389adf72c923e1b92caae94cda79931d3e0fd3290191a39f5b12947bb9c1"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h6.png",
+      "bytes": 102743,
+      "sha256": "c0d4564efb3cc2ac1f907e819b4c3f6bcd3329d36b64a957335d6930032211b6"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h7.png",
+      "bytes": 110805,
+      "sha256": "694b680a61c10442aee66a25494d36ca8790525c628bc87ae751bbdb4ee93b3a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h8.png",
+      "bytes": 119127,
+      "sha256": "5a081ccd452f4088abdab8b10de604d2c630c4342bd335e7a2872901c5c6eaae"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_persimmon.png",
+      "bytes": 115664,
+      "sha256": "642bccce690fb2528e019eda11ab544d02083e9663daa8b3e7ad7794cc2d1002"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_rose.png",
+      "bytes": 108060,
+      "sha256": "0d3d707f20441b58a0827502f1abbb0ecb9f5a74d2db588c5d69445883e0c15d"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_sunflower.png",
+      "bytes": 109931,
+      "sha256": "679491fd3df7c5f8fcf4a9b3079568d77d57f833bf5659e12be5f4f073c488da"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/household_whitebrick.png",
+      "bytes": 115185,
+      "sha256": "b83549d2cf5962f3aabd559878a3cff6229eaa6066439f9dca0430935d8c4dbd"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/kaikai.png",
+      "bytes": 103492,
+      "sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/linbo.png",
+      "bytes": 107360,
+      "sha256": "3fc6c012d6833ed6e0ef150ccbc085a83163f3798fbece268926390afeaa4318"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/market.png",
+      "bytes": 109923,
+      "sha256": "621fc51fd699f911ef033ae010f406befc80dec8f82f1b217412aa3585e8ed00"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/residents/closeout-1025/xiaotao.png",
+      "bytes": 105807,
+      "sha256": "bae05efcc167afdd0291172b9735ea9775406e4be52b687c903b3e57c82f417b"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/fang.png",
+      "bytes": 26767,
+      "sha256": "e5e70e36704f0484c3e66657a20338811caa2ec9d09a1c52c8f735debe87f0a8"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_daba.png",
+      "bytes": 22089,
+      "sha256": "6da4bae475c4e498e199520d6a7b502b85cc6dcea57713af7a7f11bb5bc2b903"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_erba.png",
+      "bytes": 25156,
+      "sha256": "2b753296d9111ce019e012d90bf113cd669f0f07206167dda204d0ccfa416d41"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_flower.png",
+      "bytes": 24712,
+      "sha256": "e84dfd538e9b19a01badbf86e850b50bce6e229646d5c4b9f8bba668d4fbbc32"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_grape.png",
+      "bytes": 24039,
+      "sha256": "9963aa055d60f0c0236c504541fffc28d9502858d0305c927c1bbcb2fbb69ded"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_h1.png",
+      "bytes": 24053,
+      "sha256": "5d700b89a885a4cf3b67835d4063a103db98a9e0b3a8cbc7b1d94d1d425a3f3b"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_h4.png",
+      "bytes": 22108,
+      "sha256": "563de74dbd10b72acb277ff9eab210a513aa6bfa8ac5294b50d04f597ab51525"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_h6.png",
+      "bytes": 21863,
+      "sha256": "cf5276f20e3439b145f4f406568c4f6ba88450192b68c3d870dc6176e3dc5ef8"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_h7.png",
+      "bytes": 22817,
+      "sha256": "211007393fd39d27b48a46626b10c28191c81335761904a435dc70a4851c88ba"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_h8.png",
+      "bytes": 23878,
+      "sha256": "fcb55b1669fbe67c0e3f4b04abc8e257134b92bcc1813a93d18b269c2fb2ef99"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_persimmon.png",
+      "bytes": 24348,
+      "sha256": "ab44c8df5533cf1ad3df4deea2c8db67452acd42e0acdfc841b91337386375ae"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_rose.png",
+      "bytes": 23969,
+      "sha256": "0f7a0e4fb584773aefc2c925b09f3ee1749cf21f99d40dc08c257f3d2df6e446"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_sunflower.png",
+      "bytes": 21626,
+      "sha256": "9712d28112ff02567e879d7243f17f254f97364776f9992c400adb64707d7caf"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/household_whitebrick.png",
+      "bytes": 25502,
+      "sha256": "d59f06b860b697205f4ae1400c3c3b31b847ae646a37146860a969561b13a840"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/kaikai.png",
+      "bytes": 22559,
+      "sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/linbo.png",
+      "bytes": 23262,
+      "sha256": "eee709593c49c931a7b180deb856a6c52f7ad072e913ceace897835d1a880246"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/market.png",
+      "bytes": 22109,
+      "sha256": "53796dd014ce046652f8d4b30661b2a7aefea4f8352953a7edf85e6d0efa67ac"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/talk-faces/xiaotao.png",
+      "bytes": 18728,
+      "sha256": "8b0f94f88f620ace8c2f699f21fdb667508b4b222ac8589c41edc034966da489"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_daba.json",
+      "bytes": 4384,
+      "sha256": "66a028d9309110033ded11f07ad58dec23d206e2507bc81216240f6cd1cfcf15"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_erba.json",
+      "bytes": 4529,
+      "sha256": "87342a4aa1e5ab52e5f062694d69ab5b11dbd09517da9cb22e6de3772d5b8ac8"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_flower.json",
+      "bytes": 4469,
+      "sha256": "0a2c464ad9dd5e04e990e4e6c11cb7f12e6133754c8abcfe121977f35cf00050"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_grape.json",
+      "bytes": 4452,
+      "sha256": "7a8ff2998969a3810364b55b50f7c915900b6d741831c823a644240083f92365"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h1.json",
+      "bytes": 4375,
+      "sha256": "bb664ad99509f1ac0d1b3d67aa028eff0a18a695249a863a3446660a9f3faf9c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h2.json",
+      "bytes": 4229,
+      "sha256": "15acc664eb5b3ebd54d4ca41f15809fca9929f8570317bb12670d770b9b559a0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h4.json",
+      "bytes": 4090,
+      "sha256": "730603d82f8cedf9e50ea7c7fda1541d028a2944a6e49e93122edb4336ed6d22"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h6.json",
+      "bytes": 4170,
+      "sha256": "0972121c6897c4e8de9a0b118345129136ebd007fa15ca7a016ea654596df886"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h7.json",
+      "bytes": 4504,
+      "sha256": "e985c0d4abf4e932b8b23966ec5ce1994ee7ad5b88a64ede26934bf14ec32aad"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h8.json",
+      "bytes": 4170,
+      "sha256": "79135c456ace801f0d265d64f372230e9315064ecbdf120f669b440c23808b6d"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_persimmon.json",
+      "bytes": 4460,
+      "sha256": "87508998599ec1518c21bf264f4a1d0e91b1f58a49768b2222845f5bfcb66990"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_rose.json",
+      "bytes": 4504,
+      "sha256": "2923c55021d635b0ca33cfc7cb4d4cb81d6318f8dea952762abd786a76ae86af"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_sunflower.json",
+      "bytes": 4448,
+      "sha256": "9b5926b0c232f6cd5d5c77f0ec258517b2910c3341d4aa04ae01adcd1f51e49e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_whitebrick.json",
+      "bytes": 4392,
+      "sha256": "be4a3556048827c6ec3e24c7b4b988548b560271591f4bf25278ff4bc130708a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.json",
+      "bytes": 39987,
+      "sha256": "304d5ccabe6aea74a16f32643d1eff4782d116cf02e8976b98d39a11cc4ba5b5"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "bytes": 1892581,
+      "sha256": "4a9666ca9201eac833086929719195b39e83799d264426f04835636b909f911e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/erba.png",
+      "bytes": 2203111,
+      "sha256": "413f254b85d54086d19c9d130f009be525d676f175d1b881b56cc7e398daea2e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/h1.png",
+      "bytes": 2247151,
+      "sha256": "4ecafebe749cc7740e2fd04fcccdf759eced89fae05acccf390552dd1ab91efc"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "bytes": 2032246,
+      "sha256": "5d9989d6ed851f973aca70f993ffcbc09fcc9e6eae9da0a52d8223bec3850fe0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "bytes": 2140250,
+      "sha256": "4509738fad84505d2802f594d9eb840f236557acf6b8a0de41d6f569a2d27764"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/h6.png",
+      "bytes": 2378604,
+      "sha256": "9b5568fe2fe1e3644d6adc2c8bec70180c00cdbfadc05f6ee030ecc5812a64f7"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "bytes": 1999561,
+      "sha256": "8d604dedeadb5a119df959207688fb2dec219648eb693c43a242d83bffb67edb"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/rose.png",
+      "bytes": 2511044,
+      "sha256": "5bcca0be89f27055884dd3baba4628ac5795e483fd8ba4083778720067afd063"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "bytes": 1996228,
+      "sha256": "5d77e6248fab54195cc3cabaf1fcc2d7eb3a5aef8dab213d9b70cf7772814ec0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "bytes": 169116,
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "bytes": 147491,
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "bytes": 168980,
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "bytes": 155890,
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/childhood_game.gd",
+      "bytes": 18030,
+      "sha256": "cd0229c4f4edb202c5ce8312ef4decdc48e8a579b3fbb4eff33226e79725214a"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/childhood_rules.gd",
+      "bytes": 8579,
+      "sha256": "8f8458468ccbd5756fa62687c25a008313768cde3430f49c8257ba91f4c8614e"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/config.gd",
+      "bytes": 11819,
+      "sha256": "4bd927ea805f1889e370d781cf47af176937faafbd15312dab86bd544b4bad02"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/household_visual.gd",
+      "bytes": 1972,
+      "sha256": "6cffe3603d2cf38a5fa28f9d391ecd6d828b82dde612f0cdcf6a6cfe91f692bb"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_room.gd",
+      "bytes": 13258,
+      "sha256": "65ec695419f6be6af754ff79b59bcbf58d5765197b8436334e901f0e2ae5a53e"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "bytes": 31305,
+      "sha256": "4a549c76e0a9b54e110c95dd7b4f24483d941f349f4a8f816abf3bc0dc3f2e57"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/inventory_view.gd",
+      "bytes": 19924,
+      "sha256": "33942dd9a4cd34f928f6ec94cb8b35f5a096d10ea04b0ae00d6adfcb5c9bac0c"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/map_view.gd",
+      "bytes": 3802,
+      "sha256": "c001f4045b22a77eff63acaf79b874502956e010ffda80ccee87875aa961d0ee"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/residents.gd",
+      "bytes": 1033,
+      "sha256": "fb39f5be66454f92be0b6bc319e8a470bf22ef28018dc6a486f888e79c81f6b7"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/state.gd",
+      "bytes": 26811,
+      "sha256": "8dce02504aec4efae68f011b7fb7bd3e66108e025bf313427791f5e53a5ff7e2"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/village_ground.gd",
+      "bytes": 10135,
+      "sha256": "793898de429f7120ffd0802a206c7ecd56d0aaace95bc05e88ed92b8554a9b10"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/world_life.gd",
+      "bytes": 6505,
+      "sha256": "e770d6a06179ce6122dd11cc2180fd3f08b6c73b219bc79c799a477c0054b266"
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "bytes": 119618,
+      "sha256": "3d9354774341e9a7b0dd479c32c707203764ba75e76ec4231b41613acf92e172"
+    },
+    {
+      "path": "godot/ayu_home/v4/tools/build_local_mac.py",
+      "bytes": 4178,
+      "sha256": "6ba0304d806f60a2837c09b7a42795f32cf03da4e7d1f250d9a14f38b19850ff"
+    },
+    {
+      "path": "godot/ayu_home/v4/tools/prepare_village_layout.py",
+      "bytes": 7012,
+      "sha256": "530a83257267b95206c73601b383b115c44164cdca1860be51311e91c9919736"
+    },
+    {
+      "path": "godot/ayu_home/v4/world.gd",
+      "bytes": 42456,
+      "sha256": "a1ef9d2a2211ac4240d3a30d0d300f9e507a4231ccb2daf03ffefe968566cb7b"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/R-full-integration.json",
+      "bytes": 13873,
+      "sha256": "a9b9aee86577cb398b04b7f8b8199c6e749ba5392f210911aa90f2c034268398"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/S-backgrounds-rice-integration.json",
+      "bytes": 3266,
+      "sha256": "69439fdbe9f03b9318c8dd572a45f583d2a44475d843a0e8c77d8a728a986b89"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/check_candidate_v3.gd",
+      "bytes": 3074,
+      "sha256": "882db8b4a43d85979521c7543c76eca81d565b45a632d3452afef497fbd495d3"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/check_nine_rooms.gd",
+      "bytes": 1904,
+      "sha256": "9ec01fc340b6249c3728df88740df16f01aebab80a295aa01e5942c8e3d95dfe"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/family-house-freeze-proof.json",
+      "bytes": 13866,
+      "sha256": "8bf73e4b261293c914a0b1a4feffd818b3dbbe782d33bd0f9bbfac9f1b2cf474"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/field-clearance-cases.json",
+      "bytes": 1318,
+      "sha256": "b3dada4b77be81457374694380b64e1d6ca29392347b21798bf3814e43c972ea"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/field_clearance_cases.gd",
+      "bytes": 1977,
+      "sha256": "a05d0156fdb3307ab745ac1fc04bfb556f1e63b3292c625cda1265f0d0493093"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/kai-runtime.log",
+      "bytes": 416,
+      "sha256": "24199d2980309d1518a62f4c7234656bc65a4464bc0ac5aa342876ebc849fa0f"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/kai-v3-integration.json",
+      "bytes": 924,
+      "sha256": "809f5d5bef1049d5e4f9f95db6c73929686b86c0ac583b7cf9a3388d71fd08c3"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/kai_runtime.gd",
+      "bytes": 1485,
+      "sha256": "e0c9f755883cb8674b47ae95015cc98bf540f8b81e690245199695abd45f96f5"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/laundry-deadline.log",
+      "bytes": 236,
+      "sha256": "b3430ca2b1dec91941348c8aefb730aa103470adf667e519477baf7571d05810"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/laundry_deadline.gd",
+      "bytes": 1784,
+      "sha256": "c696cc543aa555ddc987a13da359d353fac7e889c015ef2add22b64d4b284840"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/layout-candidate-checks.json",
+      "bytes": 222,
+      "sha256": "b87ef2f0fdb0164e70540f86ea3c8b6fdde2b1cca17af4db2f930896ed1a47ea"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/layout-runtime.log",
+      "bytes": 330,
+      "sha256": "deb5ff87de16a256fe7ee8551dadfcc5cd4017a70928266508d2e005ae5b2664"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/layout_candidate_checks.py",
+      "bytes": 2602,
+      "sha256": "b81c9cd3b27dd34f092da130114a8c85c3621c688684bb69eaa6ac90b86319c2"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/layout_runtime.gd",
+      "bytes": 1792,
+      "sha256": "9d8ddc3c2dcb0bf3151f2dca46d7c1c0f381302ca52ddb49549b92b49b6b2766"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/nine-room-assets-staged.json",
+      "bytes": 2892,
+      "sha256": "6129ca3f1aa170d9e20d70a276b1cbff494a62ce42b9ec24a042de97e14283a2"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/nine-room-navigation.log",
+      "bytes": 4593,
+      "sha256": "3ab878076084f19b143b8392e7a1f114de41ad21ddd2ac8dbad5330f3fc94606"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/objects-integration.json",
+      "bytes": 407,
+      "sha256": "0a33435aa7e66927bae40e8c730066af4c6b7f13fbe50b929a5d017aa2c99e35"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/parse-market-portrait.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/prepare_candidate_v3.gd",
+      "bytes": 4807,
+      "sha256": "5c88cf73d7ca32799dab6d582556afa6e9b8a19179dffe8ccb06e5a7ebbdfc65"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/v3-clearance-semantics.md",
+      "bytes": 1697,
+      "sha256": "2cfc8fc542917f1e44ef935ebdcf9d7493a42ad28f5500721276cc4d72406b91"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/winter-layers.log",
+      "bytes": 284,
+      "sha256": "d3e4f15053da54412c5a4cf1678cb18ad923607e79dc8610242e9314aff68fe8"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/winter_layers.gd",
+      "bytes": 1202,
+      "sha256": "58bc5348050b15f21d77241c339af07857da462962aa936833cebe8656f97b7d"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/C2-anchor-corrections.json",
+      "bytes": 630,
+      "sha256": "f9d260c5821b95ac8f6faf7435ea89cdc72b6ad6f00637f41dba36b3989f66e0"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/bundle.json",
+      "bytes": 1417,
+      "sha256": "cca6ab9850c1d5923f96bf1c0fd19d1a7823ef7a8d0084df278823351cbce298"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/integration-notes.json",
+      "bytes": 1302,
+      "sha256": "c28c2322abe7412a95eaa1c03f13ac7a6059420554bcceefc2b80a448a33569e"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/route-check.json",
+      "bytes": 7404,
+      "sha256": "cfc7197afb8714f36db263e1ff9929891a006bb26749f700efed9617f29c6072"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_daba.json",
+      "bytes": 4959,
+      "sha256": "f35f936d69d45b78e8c6d35059f474f79ec2cf84ed8fa4882dec806306f3dd92"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_erba.json",
+      "bytes": 5529,
+      "sha256": "9a60c7db3599759f0017e1f54ac82268490557c6df22983ecb78a9fecb4c3e88"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h1.json",
+      "bytes": 4850,
+      "sha256": "672f6172264c702a9aa014a5176140cdccbf6074342d5f2085d9004c846194db"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h2.json",
+      "bytes": 4930,
+      "sha256": "0bf4440ee197c0dc511bc3992fae39d3cba94ef6f8f6a35311ca857e177bf9eb"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h4.json",
+      "bytes": 4899,
+      "sha256": "94cc264c5d5de28c423bbf5d3abfda1c56fa5514b2e3f6ffe326c23961ac4c1f"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h6.json",
+      "bytes": 5214,
+      "sha256": "f46c28fd851e9d1429c74dd12f01b04e067b3cfb81726fc8914597004fc3d70f"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h7.json",
+      "bytes": 5220,
+      "sha256": "e29882ce089ea016feb85cdd5d8439e594e3bae3db86e602c77ac9133052ce52"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_rose.json",
+      "bytes": 5445,
+      "sha256": "bf2005c07c7bbc17b782e9bad5d61e05ece8fe6de65fd894c31ab77e7b5e8ff6"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_whitebrick.json",
+      "bytes": 5455,
+      "sha256": "94265068013ed37b79cdba24bed33223d650681f89a4ce7104ac27ddf727cd2e"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-大爸首屏2/bundle.json",
+      "bytes": 618,
+      "sha256": "d730ce8c5d01fa5ed83ff861e83f69989e1ea5343c31d212326fe4ce68787615"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/九户候选-大爸首屏2/v_daba.json",
+      "bytes": 4958,
+      "sha256": "440e5d729785533d791f12bf2586b69b1513ab2074794ba9a78f2cdb504c5576"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/归档校验.json",
+      "bytes": 17258,
+      "sha256": "513da1e185d6944b7f72a815ec72d41855b739040e607a30899fac5a9e4bedd4"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/bundle.json",
+      "bytes": 1164,
+      "sha256": "273c52c9b146d4581009d9a815a1eb79d90a67990154ce3d04c77712ec948d9b"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/rooms.json",
+      "bytes": 285723,
+      "sha256": "7292b0d4508389816981ff59fc0e62e772f34c9a489520daa5c8596a559ff8fd"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/route-check.json",
+      "bytes": 2406,
+      "sha256": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village.json",
+      "bytes": 377165,
+      "sha256": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/ground-pixel-1024/layers.json",
+      "bytes": 1146,
+      "sha256": "b4f9eb38cdb8c5d60b50de762ac1cd5fbb874e20d2ef4c5c3d6a81e19665af2d"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/houses.json",
+      "bytes": 6436,
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/layout-1025.json",
+      "bytes": 45021,
+      "sha256": "d8a44309593cab77dc22e330a3b19230250f939dbe048913c8f2ead9b75ceba2"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/topology.json",
+      "bytes": 11980,
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/bundle.json",
+      "bytes": 1315,
+      "sha256": "09d02b47fe2399ea942a2d39b8e54779f0b0bc42a3e9e21f00340562a5de9375"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/rooms.json",
+      "bytes": 724215,
+      "sha256": "37c4c3650b3031b65efc0794c98929708dce000ae63c9c8d5edca7fdad4d39fa"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/route-check.json",
+      "bytes": 2406,
+      "sha256": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village.json",
+      "bytes": 377165,
+      "sha256": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/ground-pixel-1024/layers.json",
+      "bytes": 1242,
+      "sha256": "54d92add17d5a3578cf18c64bdc8f49dee24456a2dad6713ec0968c40bebbd7d"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/houses.json",
+      "bytes": 6436,
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/layout-1025.json",
+      "bytes": 47047,
+      "sha256": "30be70c29b04a0f7c19506799f40a9b9fe466f0fe70922f08c154cd950423bee"
+    },
+    {
+      "path": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/topology.json",
+      "bytes": 11980,
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/Ayu-13.json",
+      "bytes": 491,
+      "sha256": "6c2df86b254f7f44912d8f8d52658cd5f77a0f78940df2387cbffd1861084527"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/Ayu-13.png",
+      "bytes": 114264,
+      "sha256": "5c61b97625a695e4df733ba2bd1f90605ca12293afd9089ea77acc33d11ced6f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/grain_crate-after.json",
+      "bytes": 1256,
+      "sha256": "9dc506d563642893aed72a109612d0dff9aed403143a337efb9893c4b6ea0ebe"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/grain_crate-after.png",
+      "bytes": 53477,
+      "sha256": "a33d8de521bb319466889a12452366c989213068a6008fe747263d54b60c0824"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/grain_crate-before.json",
+      "bytes": 1268,
+      "sha256": "b7d8ba6ca01e398f714472b846c0232f5c18a86a6a0e8fc032f5625d2323f7de"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/grain_crate-before.png",
+      "bytes": 53935,
+      "sha256": "de8c16c3588fc285aa30d77d75c3dcf21ffb5548305828eed559828f314e6b3b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/honey_rack-after.json",
+      "bytes": 1250,
+      "sha256": "2070bccf500d0af425e1faa5e6fdb809e8178a150d49d8eac9266fbb8375aead"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/honey_rack-after.png",
+      "bytes": 53857,
+      "sha256": "4bdcd989404663a12d8c815c9463821c522636ff5190f1974b4bdddf601f5468"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/honey_rack-before.json",
+      "bytes": 1261,
+      "sha256": "36b3a1141dd7269ab3522836e5838d34490e45c8577b452a52774bc74f1d1f44"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/honey_rack-before.png",
+      "bytes": 54031,
+      "sha256": "61e2e6450e76926d68740400a460455723475dabca4b89a785105e0c19a98ee8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/notice_easel-after.json",
+      "bytes": 1291,
+      "sha256": "168dc2dd3e85004e0a81bfc6109b1e235a2e8363eca15eaf0ad41b3b9b2dc8e5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/notice_easel-after.png",
+      "bytes": 51009,
+      "sha256": "a41792c47630c8d43abe989c29f9535841bda40e3484c75fde96a97cd4323dc9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/notice_easel-before.json",
+      "bytes": 1302,
+      "sha256": "2d455cde43e25af3a43bda8fc997ac8b663d0a2f966ca86c4c5b48b269eda8a1"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/notice_easel-before.png",
+      "bytes": 51280,
+      "sha256": "70ce9d9325280fbb267a2b1828d123937db783a550140f79f8d22c2bd4370560"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/result.json",
+      "bytes": 2448,
+      "sha256": "9ccc83c1c248156917e6d3fb17cde7bdfdebfebfc4886cf731cbb33781d0bc52"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/固定侧证.json",
+      "bytes": 11631,
+      "sha256": "81a7de6ae25073e689e45f650ef2fc69b54072b77f2b28336e8a49a6fdcac34f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/选定并排/grain_crate-after-左图纸页右阿鱼-13时.png",
+      "bytes": 159402,
+      "sha256": "088823e43f968326be7d5992a26fae81280d89fd781e65248decb07bea7dd6aa"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/选定并排/grain_crate-before-左图纸页右阿鱼-13时.png",
+      "bytes": 159879,
+      "sha256": "a08850fa3f247853b98a507b89e41609a132ec3f76aa008f85caf07c3560a243"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/选定并排/honey_rack-after-左图纸页右阿鱼-13时.png",
+      "bytes": 159743,
+      "sha256": "4e544fbcf09298c903389cda3f71861e0e26377303b5b0c4c24405e0b913b55e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/选定并排/honey_rack-before-左图纸页右阿鱼-13时.png",
+      "bytes": 160068,
+      "sha256": "d0607385a2e402e99ac653480973c4923a14a5b8308e89f03defe3f3e3e14fa1"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/选定并排/notice_easel-after-左图纸页右阿鱼-13时.png",
+      "bytes": 157219,
+      "sha256": "3ccf37dd53f4def0c0cd9aeb7b2473a396d1feac1d311b6ccbbe717d17d3ff25"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G1图纸页前后补证/选定并排/notice_easel-before-左图纸页右阿鱼-13时.png",
+      "bytes": 157492,
+      "sha256": "e3a5f27f6f098db793b53e283c1ca87985d88b433709695fabb09b8a77bd584f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G2继承图边界复核/G2-stage0-左旧实测右同轮阿鱼-13时.png",
+      "bytes": 313161,
+      "sha256": "e25bd367fd484274e081deebbcb4b9179082e59a5031fe0a1c20b07031eb406f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G2继承图边界复核/G2-stage1-左旧实测右同轮阿鱼-13时.png",
+      "bytes": 321074,
+      "sha256": "cc7a903a827e186802b9986d6679ba61fd9c836bb00f7b8095ad65d41e50a33d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G2继承图边界复核/G2-stage2-左旧实测右同轮阿鱼-13时.png",
+      "bytes": 321464,
+      "sha256": "a9c7006c65580606af62fc71a6b84c93d695121aa0c098516c224bbf4ff05d76"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G2继承图边界复核/G2-stage3-左旧实测右同轮阿鱼-13时.png",
+      "bytes": 325054,
+      "sha256": "e0c590d2c5e9c5a84e40f60f6c98348a52383e5e97429d6d56044b6d9abe3cbf"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/G2继承图边界复核/边界复核.json",
+      "bytes": 2194,
+      "sha256": "fed049a88e7a78f59c1fd8c5598483cb6ef7dacedd6ea16e2a445474ef095389"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/Kai-v3追加/独立复核.json",
+      "bytes": 11921,
+      "sha256": "8b7df97a280cce46a4068ea403d6e367ac1db3553480bab223b806aa55e1f42b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/Kai-v3追加/给C2结论.md",
+      "bytes": 1341,
+      "sha256": "d3941df67b70985bac64d6143f0b38ca3109df67da8c2a614ee40aae25c14bd9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/Kai-v3追加/给C2追加归档清单.json",
+      "bytes": 1763,
+      "sha256": "2583c986bf7046b572ae0878971809fe90822a4194eaab224fe3c8a31679c71d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/front_occlusion.gd",
+      "bytes": 4107,
+      "sha256": "88abbf01643e2cc11b7c147df92a88e194fa2724200a500e3b64ac0ee04870a0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/front_occlusion_mill.gd",
+      "bytes": 4107,
+      "sha256": "74f86e2bd5d0708a9a2689537d98b272f4b056d56783757415331f23940038a8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/g1_pages.gd",
+      "bytes": 3041,
+      "sha256": "0d0d7865f5539aeab2435b04b843076a8ac2c0e3a1632910a703548840107a80"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/winter_live.gd",
+      "bytes": 4821,
+      "sha256": "37e1a68b120f048cd021aefe2e3868ab4be30032c2da05211c448e7a6c4e37a7"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case1-shot136-keyframe.json",
+      "bytes": 314,
+      "sha256": "ee6cd5c5c65abf1633b49e18065c20fcdda6714870da57412a2a1dcb546e5415"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case1-shot136-keyframe.png",
+      "bytes": 204543,
+      "sha256": "bce8d2810814911f80f7d1eeaf846ca8df3531be1ed3030fffaac298af1e3470"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case1-shot211-keyframe.json",
+      "bytes": 315,
+      "sha256": "3460fa4ba4fb8732b665e6a5be28d5d86b88cba61e7218f960455aadb72d6cc1"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case1-shot211-keyframe.png",
+      "bytes": 203683,
+      "sha256": "902d22d0bdb50d10269cd8799c91dacda9344c601d9d5bdee8f2c1d5ad3e5966"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case2-shot327-keyframe.json",
+      "bytes": 314,
+      "sha256": "b3324c75b559b43094db7f552f0498c12a7d34e255184ce62f92d41a559d9675"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case2-shot327-keyframe.png",
+      "bytes": 441939,
+      "sha256": "71daaf1bce63ed482651470bf812c3a2001d4566239b19ee66aaf29b91b0b9c8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case2-shot368-keyframe.json",
+      "bytes": 314,
+      "sha256": "f6637c393d185df45a29575bec27412b0655a92b14bfe26dd4fc87eda912a907"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case2-shot368-keyframe.png",
+      "bytes": 474076,
+      "sha256": "c4318f7f3b97b0fd1b51d884b8728ed7bd2a7d186d6b7b58c398d40c750d92e3"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case3-shot458-keyframe.json",
+      "bytes": 310,
+      "sha256": "72eeb09df03e6047bda4bc6b93475227d659b9a7b7d495cb252f9ffcfe054932"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case3-shot458-keyframe.png",
+      "bytes": 448330,
+      "sha256": "6277dcdf928a5064d9a0c2213c6dc46f06e3acae53b5763fd86f6ea775652396"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case3-shot515-keyframe.json",
+      "bytes": 310,
+      "sha256": "16b5b61be938c1642e4e07cdb20148d7e404f4d2c1b55099dc60489702611309"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case3-shot515-keyframe.png",
+      "bytes": 473799,
+      "sha256": "87f353ee6bd35c538d48ab34ae70d4feec45fdd036cc11918081ff9f0739eecc"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case4-shot590-keyframe.json",
+      "bytes": 312,
+      "sha256": "2b3586805d05c18d76360254dfe00276e29efc87eaaa9f41902028a4e24c037d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/case4-shot590-keyframe.png",
+      "bytes": 112950,
+      "sha256": "70644dfd8edb7352da50ebb04c199c1892b5cc294fa784ee2f478c1102fef2df"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/trace.json",
+      "bytes": 490331,
+      "sha256": "6898321046dee5285b6f82f8ff98585a08282fc139fb619deb2dc09092c5e6a7"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/固定侧证.json",
+      "bytes": 5598,
+      "sha256": "792b0d5fc3a802293f9c7aa55273decf40b1b721cb2c6fe1bf3718bae9ce9743"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/选定并排/村景树-前-左实测右阿鱼-13时.png",
+      "bytes": 558073,
+      "sha256": "10d295e4a7ea0c70fe27881b3aebe34deb3ac11cef65ac838a0bb63956b9feee"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/选定并排/村景树-后-左实测右阿鱼-13时.png",
+      "bytes": 527643,
+      "sha256": "96fafc3099eaff2624aed61ec43be238350cddf435aefeb641c0fa9dab745af7"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/选定并排/磨坊椅侧-前-左实测右阿鱼-13时.png",
+      "bytes": 556697,
+      "sha256": "7c8e1cbac45a42a07421918714915c858576f90e3be2097f40a784816471b4a4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/选定并排/磨坊椅侧-后-左实测右阿鱼-13时.png",
+      "bytes": 531717,
+      "sha256": "f0bdde199c52c3908fd7c28203b2c4334dbe4a7cadc7a2946818b02c2db5e8c5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/选定并排/院子棚沿-前-左实测右阿鱼-13时.png",
+      "bytes": 306139,
+      "sha256": "3686f87d568705cc7461eb7d341dd3fe64ab88d4136d3ec17c9a1de66475c31f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/三场景真实输入遮挡-第2次/选定并排/院子棚沿-后-左实测右阿鱼-13时.png",
+      "bytes": 307166,
+      "sha256": "53cc50b302b6592a8f12eb412b7f4e243bf7759f776db0ed6892416c085cc084"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/冬季来源.json",
+      "bytes": 421,
+      "sha256": "2407124c682c0a46361987396abc8c9a873f45b98e4b2887f6ef47dedd2936fd"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/前端C3逐项状态.json",
+      "bytes": 5551,
+      "sha256": "ebb9f84736831f78dc94630a0b1789d397474184d1fe9c85292d60e4b75a8464"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/归档校验.json",
+      "bytes": 24211,
+      "sha256": "ecc1a78332859a5192b92830141b75b37c2dbb655209dc014d1d25ee43b6f4e3"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/来源.json",
+      "bytes": 1102,
+      "sha256": "a5ca94ff9796e2a49fb1af08fe50a42d937752507c1da5ff3df658559be98607"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/case3-shot269-keyframe.json",
+      "bytes": 309,
+      "sha256": "eaad0e3d8344ce4419530c6ff4e45b02613a5d4ebe21d0b158cbab1ac51990da"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/case3-shot269-keyframe.png",
+      "bytes": 453631,
+      "sha256": "5cdcae11afd37d2deb0d8d27059b3f85ed1f9f16db8336a58d8d114e2761e5ac"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/case3-shot316-keyframe.json",
+      "bytes": 310,
+      "sha256": "5eaaaece16b34a0321b67eb03d0781e260d2ea879a1cbdcdf6d6e94c2d80d6c6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/case3-shot316-keyframe.png",
+      "bytes": 459527,
+      "sha256": "440281728a2fb9dac6b3e1c23d11f099a1384345d40e10c473aa53775dda24a2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/trace.json",
+      "bytes": 277485,
+      "sha256": "b57594be71ffb99cdb574d2481a922b42eacafd6f2f665165011fdcde996078c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/选定并排/磨坊桶沿-前-左实测右阿鱼-13时.png",
+      "bytes": 542715,
+      "sha256": "0e7445f193823696b1f9a0185f9026df412b97896ca0ee37dd46391e6f679e88"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/磨坊桶沿补证-第3次/选定并排/磨坊桶沿-后-左实测右阿鱼-13时.png",
+      "bytes": 537724,
+      "sha256": "4204acbff868a0991cb19dd1e4514648024e55ee729f607d80ddeb1375d657b2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/给C2归档稿.md",
+      "bytes": 2628,
+      "sha256": "058a12fed13e4b22c7d14c4d337aca66c08098e6e2c0514aa320578fab4fb3e7"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/给前端C2-接管范围.json",
+      "bytes": 815,
+      "sha256": "d1d4fe2a8124e2c22eb276afa36141b902196e56fdb6c4416efdd69f6d753d9d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/继承证据范围核对.json",
+      "bytes": 1197,
+      "sha256": "692e457da9ce6bf29dfa95789d71e6525c1a8fb1ef761b12ff4c91fc8da01765"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/result.json",
+      "bytes": 2129,
+      "sha256": "394f715a68b954376b2c52c31f9edf68ee4d70f5c644c838ecacff86828e2ca8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/画架补角/result.json",
+      "bytes": 392,
+      "sha256": "79ce9a10c7fb616c8b7266219ea942698d8991265095d6c25d7f2acda048c098"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/画架补角/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage1-full-target-左活动右阿鱼13时.png",
+      "bytes": 312592,
+      "sha256": "a5c7cfbae62278ccc6be56c0b7e3ca7bf9d13c5e4f042aa0dc2fcd64d5c8d5bb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage2-full-target-左活动右阿鱼13时.png",
+      "bytes": 313685,
+      "sha256": "38508f39c13ef14e523713c5a4914386b335207931bb838abd9add9a45f8353b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage3-full-easel-左活动右阿鱼13时.png",
+      "bytes": 295072,
+      "sha256": "8f3733888a86a890a3ad609cb358d965e216281ba93d9cc1908afd6d13754def"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/16走帧引擎原像素裁切-每行右侧Ayu同向.png",
+      "bytes": 157307,
+      "sha256": "63f0031c33f81ba065a6e5ab89fbda526406efbe0670d91c62bd44f36cf966a8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/4坐姿引擎原像素裁切-非椅面证明.png",
+      "bytes": 33843,
+      "sha256": "33606c365881373d02580114c61fba040b0336c44b90820fba573f24abf50cd2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/result.json",
+      "bytes": 28673,
+      "sha256": "60f3e37a4dfd94587f865e2c3dc2d8b494d2608a56c3a6022221ee98b865ce4e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-honey-19-actual-seat-左Kai右Ayu同场景.png",
+      "bytes": 175786,
+      "sha256": "a90dfb8da861da1b0b52ada4d6be55edbc88196c391bb2242e72151371635e0e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-mill-bucket-behind-左Kai右Ayu同场景.png",
+      "bytes": 447610,
+      "sha256": "e0abd54f79353b45026809990f43e9fcdb162e5e979a28e0e6f2e280accfac9f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-mill-bucket-front-左Kai右Ayu同场景.png",
+      "bytes": 446085,
+      "sha256": "748fbd46564157975046d7e5b2198fd936b694c1b31d2abf273afd526fa5c80c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-down-左Kai右Ayu同场景.png",
+      "bytes": 227585,
+      "sha256": "d185577905947caea65f5ab1fa807eef4c6965f4f03213be9de494a1ee42a25b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-left-左Kai右Ayu同场景.png",
+      "bytes": 227272,
+      "sha256": "54672c2cf5d5784b1575cf2c00517349b0f5b76fd22966bea06ae1e4dacc48fb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-right-左Kai右Ayu同场景.png",
+      "bytes": 233267,
+      "sha256": "8195ce61919c9c6a4525a3f5148ef49475f31efb95e6f580917d8f1e192c0b3c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-up-左Kai右Ayu同场景.png",
+      "bytes": 237850,
+      "sha256": "8cc3ed7c21ff1c2783fc1279434cde7f263253caaf6f89d5d5f41c9de464798d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/roster_engine.gd",
+      "bytes": 8865,
+      "sha256": "99d2fdf8f49f1e336fd7da30c258246f49abb378cd20db10e0d8c385597a7fa4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/two_preview_fixture.gd",
+      "bytes": 7408,
+      "sha256": "f71f14bec3e12430222ddb0df20cdf6f12b870055f077186b2d8aa72e176913a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/两角色透明边界独立判读.json",
+      "bytes": 13331,
+      "sha256": "1bb5bd32daaa8283b5364f24240baff1b111d310136af32d6319dd05bfb5fb50"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/实际引擎/result.json",
+      "bytes": 230349,
+      "sha256": "ae0dc703d2f6881bc1a961477ab37c1ce8701ad5ee12eec8c41351287ba712b5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/实际引擎/运行结果.json",
+      "bytes": 37,
+      "sha256": "a859a47706f8e7c59350b91f8c308a0178b3fbd66cc3515711c7e3cb7fccfca6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/R全员阵容-实际尺寸-C4原图只读副本.png",
+      "bytes": 123482,
+      "sha256": "a45bc77ae7d357a909a9dc3f52748509ad34237c47eb59792076b035b6ed4fdd"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/fang-左NPC右Ayu-同座位同时间.png",
+      "bytes": 197698,
+      "sha256": "7d4792615e579dd0e73a86196a53436b7bf426ca577bf32480232b93d997d8ae"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_daba-左NPC右Ayu-同座位同时间.png",
+      "bytes": 471121,
+      "sha256": "00d015034e3f03b54f46f71f5550fad15f601b43c7ebeea36620ac934ec20ede"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_erba-左NPC右Ayu-同座位同时间.png",
+      "bytes": 501673,
+      "sha256": "ae7ee261e96dceb5d6f1a81834fcbb59b7695e98cdc06b4d57db285dc9500f13"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_flower-左NPC右Ayu-同座位同时间.png",
+      "bytes": 498360,
+      "sha256": "98ab5d74ab45baabc24f983cb092b888512126e687a5533e8a6d5ac60520ef8f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_grape-左NPC右Ayu-同座位同时间.png",
+      "bytes": 537561,
+      "sha256": "2ed1d1f2b17a201e4c05a8aba9e9c17ef425e83d19de7ab0d42c843a78e6757a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h1-左NPC右Ayu-同座位同时间.png",
+      "bytes": 544093,
+      "sha256": "8d26740d599fb93315436fb65d623bd7c620929b7f928d118b33f16097408ece"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h4-左NPC右Ayu-同座位同时间.png",
+      "bytes": 426213,
+      "sha256": "bdd2962005a8e2f1839de35c75851d5efc49010880223eff31b0745ddd26aceb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h6-左NPC右Ayu-同座位同时间.png",
+      "bytes": 511649,
+      "sha256": "04a1345dce92ef67f5d2bf265ee21d44eed0e4d1209998067da9d84d8f116cf8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h7-左NPC右Ayu-同座位同时间.png",
+      "bytes": 485607,
+      "sha256": "fb0d63b22118666e982838c68451844c69b2cf66531ed17dd8d4fcb8cd2280d6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h8-左NPC右Ayu-同座位同时间.png",
+      "bytes": 474532,
+      "sha256": "ecaa52ba6ed167d4f370c3e06ecb7dd623af5cc57bbff3f1d4c4982866193805"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_persimmon-左NPC右Ayu-同座位同时间.png",
+      "bytes": 563139,
+      "sha256": "76c0e3caa322b9f762500f24142954ce726c21ac9fb9f9b1b3e7c08f70525c3f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_rose-左NPC右Ayu-同座位同时间.png",
+      "bytes": 590930,
+      "sha256": "24df0b3c7bdf9e44248e3e0b80ba6c5a11efd0279c0b807ba1064a7668198725"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_sunflower-左NPC右Ayu-同座位同时间.png",
+      "bytes": 476474,
+      "sha256": "d71f0126114fe3ef8399e56f26c915623a313cce533556a329c8ff27504c5ec2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_whitebrick-左NPC右Ayu-同座位同时间.png",
+      "bytes": 453811,
+      "sha256": "cf9b5341e2c5161c977d6ef3e39aaf91bf11d1d92a763d0f1dfc9dbf3b4dd03e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/linbo-左NPC右Ayu-同座位同时间.png",
+      "bytes": 388832,
+      "sha256": "6042e1c1ca14e3f2a7571d1ab4b117a63c1ff7d4d3db28da49028f9869fb0154"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/market-左NPC右Ayu-同座位同时间.png",
+      "bytes": 473383,
+      "sha256": "81ccea29dcdf807b7ee1b1b28fa9af9f1376e60aada6818145c05ba25327011a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/xiaotao-左NPC右Ayu-同座位同时间.png",
+      "bytes": 372951,
+      "sha256": "3be5ab7695e7c5db593837d735e983d74282bcbf2bca02b037450976ef1cd3a2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际对话头像原像素-分组1.png",
+      "bytes": 365409,
+      "sha256": "f2cf7da349866bbc09e79603cccb3c0681e41c060b27723b355a379cf311de7f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际对话头像原像素-分组2.png",
+      "bytes": 310581,
+      "sha256": "b8a20011a26cf4033b862ee0d70146d5a90a11c705362b0e468547f6ba452552"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组1.png",
+      "bytes": 582106,
+      "sha256": "5616734bbc1dce865ea6c4e067916bdb625768950ce71a0fbc0e4d4a4a03afea"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组2.png",
+      "bytes": 536387,
+      "sha256": "9c11737cedc71475dd9f36a1a86b29157d33bdab49d35dabcf6a7e0c51424563"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组3.png",
+      "bytes": 497145,
+      "sha256": "4170061b2d5c591b39648969aa07bf393fcd8b5c840b9fa263165b051fef397f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组1.png",
+      "bytes": 487997,
+      "sha256": "121e42e3469b8cf8740922073e2e17c759b11d2da553669e0b1d9e3c4d8a8a6a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组2.png",
+      "bytes": 444676,
+      "sha256": "f0e7a5ff22dc63ed71c51fb90e8d6b3420def43bbd2b1df2e8a33493707fc444"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组3.png",
+      "bytes": 409353,
+      "sha256": "c03feb719900b17e40c10487b45118c2652c27b4c044f5bd2dc195b0423b23d9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组4.png",
+      "bytes": 486640,
+      "sha256": "2ad9e532020190f4be559fb83f55e3753fe747fe0e26ac54190456c61deacbea"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组5.png",
+      "bytes": 473430,
+      "sha256": "bd15d16e067bc4a6ee32d11f4948a92abca86ee0141fa553822b89026f33bf8c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组6.png",
+      "bytes": 276609,
+      "sha256": "516e15df43e88857bb825ab11af17eaa51ad3536706d01f133151381eff4138d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/素材独立量测.json",
+      "bytes": 112143,
+      "sha256": "7ab6dfd8d6042dece30fcd7f0f3bf1d486571eafa469e10a678708e4f84dbd12"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/素材视觉复核.json",
+      "bytes": 112441,
+      "sha256": "5b2209b387c7999da41249533f747bb0db484975da7c1cd27c76515b5cc3be69"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/给C2全员R独立结论.json",
+      "bytes": 2483,
+      "sha256": "b5b3bf5c81fc0d5216802b131f07dee754108b033061baa0b8de6369109bee82"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/给C2全员R独立结论.md",
+      "bytes": 1005,
+      "sha256": "1583943c2d7872dce2f7ff6b60a4dab901e189d4c0f11a73d326f02cd6c60502"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/角色房间绑定.json",
+      "bytes": 7844,
+      "sha256": "500dbbbb8b749da2c042ff76ea8f37d7878410879e079afda9b86614f215d8cc"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/result.json",
+      "bytes": 2753,
+      "sha256": "143110433018e7b970b659d5ae94c60c58c739f6dc6cf91676da92fea6e46f63"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-eight-before-rain-左实际界面右同条件阿鱼.png",
+      "bytes": 128207,
+      "sha256": "06a9eb0e1bdf3ee57e318104d4742796b16528da7dedb872a7cb89e6977e5dff"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-one-second-left-左实际界面右同条件阿鱼.png",
+      "bytes": 150439,
+      "sha256": "774d0938089dec4943cca09d3302f6a68ec6fc1ac764a18154efd7cee9e49e36"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-rain-no-penalty-左实际界面右同条件阿鱼.png",
+      "bytes": 116635,
+      "sha256": "4c7dd7d87a47741c79209d0324de31725f97eee078949431ec51cbfc5b56ac87"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-start-45-左实际界面右同条件阿鱼.png",
+      "bytes": 157456,
+      "sha256": "35dca0c57fed1e19e7b66a15959ccfb0939b2d9c1fcf87479000ed385344643b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-success-once-左实际界面右同条件阿鱼.png",
+      "bytes": 115977,
+      "sha256": "6a52aa9653e8db936b9899c58192c20b35ff649f5fd96dfcc94ea90d39c5e66c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/loach_visual_supplement.gd",
+      "bytes": 3413,
+      "sha256": "5c2c226b287d4013f74f938e09bc6a3857250df4c0f6dc3ea43cce14b2ce7186"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/s_art_engine.gd",
+      "bytes": 4697,
+      "sha256": "c93ca67220aab3013a4471166956d08a67acb9efeaba2ffccb2ce3b4685018ed"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/Ayu-13.json",
+      "bytes": 383,
+      "sha256": "eb60bf443330508ef4ee1d42b1bca010b0e292ae6b8217141ab2580e96274d38"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/laundry-start.json",
+      "bytes": 1980,
+      "sha256": "fe1a46986a66587b293b8c28b4ace1976921c058abd298d8beb8b1edf9505fcb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/laundry-two-picked.json",
+      "bytes": 2006,
+      "sha256": "6bae986378b30eee0f58cb62010fbfbaa1ad858104af5b9592381ef750b065ef"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-catch.json",
+      "bytes": 2254,
+      "sha256": "408d1f4a6b6a4f7e0c4c0a4fc4848c442c08ce2da1301cecde2e2121afed7577"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-end.json",
+      "bytes": 533,
+      "sha256": "ca6d0060dd4994240ffe77e381e5a6c56662d46f8ebe48696d93aef7e1c74929"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-start.json",
+      "bytes": 2230,
+      "sha256": "b312608f329c935ec552acf3071bf2f8eb9d36c798aa895b329603302b3bf749"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-hospital-failure.json",
+      "bytes": 524,
+      "sha256": "dfb31a86126ebab158c312df1d65c991646a230a9f03206ad863e9400ae3bd83"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level1-isolated.json",
+      "bytes": 1656,
+      "sha256": "3492b5f844bf8d6375a0d7d6373dc33df48ed32c748947bfb596167da52f6f8b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level1-table.json",
+      "bytes": 1629,
+      "sha256": "33b0d814162063bcd0eab5c295685c1732f2979d35b0a99df92df1446a2bd1f7"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level2-isolated.json",
+      "bytes": 1808,
+      "sha256": "4d90020354f4b6fa4ece769c359124c7b2bf48bcc16ef00db80aa1412adc76f6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level3-isolated.json",
+      "bytes": 1966,
+      "sha256": "1c4622a8a96b5f550bf272ca10e1c2977e8a3a2c1cb2c3a089f02c9743af5925"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-success.json",
+      "bytes": 510,
+      "sha256": "dad320f9b2cbefa87adad079e87ee8b8df8c430427f0770fb47ef3de080766ef"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/result.json",
+      "bytes": 32995,
+      "sha256": "8d272bcb413ce4f55275849ed846c7fcb585e8b6dc482deac3660ce70368265c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-packed.json",
+      "bytes": 2320,
+      "sha256": "aeb0cb0e86a980692d571a8bc28e8f947ddb180cae521fe7c47fc04ac0c6041b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-result.json",
+      "bytes": 462,
+      "sha256": "75ed58c0b5d8c43443335af4a81ef75fe6c6e3edfd480d8c8d3ca892121f1577"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-shop.json",
+      "bytes": 2224,
+      "sha256": "25c4bf67f51651ffd9cbbcdcf3f94ab09cad55b8d55e04d68e6e62cf040bec56"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/vegetables-start.json",
+      "bytes": 1950,
+      "sha256": "4b688e44d7f16e1e6796f1cccade9bbc0320cbca5149969113c710ae71280db4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/vegetables-two-picked.json",
+      "bytes": 1973,
+      "sha256": "73ae718ed5392a43e4d175626a7f2d55c9dd026a87350402904f4de327066f7f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/来源.json",
+      "bytes": 1399,
+      "sha256": "f6bbe407619db696a23a7d304560d31e84805414947a6530a1d097e8205928ca"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/泥鳅捕获补证/result.json",
+      "bytes": 4372,
+      "sha256": "6f0290c9fa66fdbf5baf1e9e37701a11c5faa38dbecc60deb444731ce0cf73a0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/泥鳅捕获补证/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/laundry-start-左支线右Ayu13时.png",
+      "bytes": 387070,
+      "sha256": "395313b055ef602568ab6620286c67dc3a910f0a7e134e045579ca750a672c8f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/laundry-two-picked-左支线右Ayu13时.png",
+      "bytes": 387745,
+      "sha256": "5881847e34a7022c68c9cbcb21dbfd667cbdba545aa3ba945ee5a29a78ed8ca4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/loach-complete-one-左候选右Ayu13时.png",
+      "bytes": 109521,
+      "sha256": "0ad211dbea522ad9fa4767ad4e4b1abf3843340b187ee8252cbeed391ed2994c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/loach-one-caught-左候选右Ayu13时.png",
+      "bytes": 409883,
+      "sha256": "c8a105d3b93aeb2cf20e65f32464b674cd1b4b50f67c5d52340ff63992f16b7f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-hospital-failure-左支线右Ayu13时.png",
+      "bytes": 219762,
+      "sha256": "034e610bb5dbb993f0d6f69143185e4623457b8d2ce9970d9a5b74ae9f73dfc6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-level1-table-左支线右Ayu13时.png",
+      "bytes": 356826,
+      "sha256": "02c07184bd99f036284ef1408a7d2325aabb581f89030597de43706122a569b6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-level3-isolated-左支线右Ayu13时.png",
+      "bytes": 356444,
+      "sha256": "2c85e15e21f5af6715687d4f48114cc16f0426c45c376de42e023dea22cc94e9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-success-左支线右Ayu13时.png",
+      "bytes": 109370,
+      "sha256": "76b07f63e03ec9397b68570d0f0678b8c44c9acb8d644004522512c0c0aaf5d0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-packed-左支线右Ayu13时.png",
+      "bytes": 372806,
+      "sha256": "b33897450b4073da3cb406624561a74bca6fa5abc632819aef18e29aa11b587b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-result-左支线右Ayu13时.png",
+      "bytes": 109119,
+      "sha256": "bcc151aea821a42eb678017e40475092b2fa7494c5011f021c31e93f29b0d9e3"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-shop-左支线右Ayu13时.png",
+      "bytes": 360553,
+      "sha256": "27db249aa2abedfda6f17103c956a7f5f09a91d54975338d42f67cc62af77916"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/vegetables-start-左支线右Ayu13时.png",
+      "bytes": 364308,
+      "sha256": "56647e269de1e391cf5d722a62091056176541ed886d9989f252aec618581803"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/vegetables-two-picked-左支线右Ayu13时.png",
+      "bytes": 364455,
+      "sha256": "702916f3696bf80a93df95fa5784f0f5c8b6dae097d9e758f9d4be5f84c0f838"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/给C2支线图面独立结论.json",
+      "bytes": 1546,
+      "sha256": "8285795a8f3c863e5de2a76bb7db34391c43a69ce2a905bf9991404b6b6bfe89"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/给C2支线图面独立结论.md",
+      "bytes": 742,
+      "sha256": "0611d5133b20f6e21856a74fdd91d7239f3daa7070e2b59a2b02a310c41b8e56"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/g2_easel_view.gd",
+      "bytes": 1925,
+      "sha256": "049fd12c0da787e8c4163facb562bce6f3b68ffff67a7c73e17c85771f1b0ce6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/g2_full_views.gd",
+      "bytes": 3629,
+      "sha256": "7c92d78246f08264f208c069101ed7fa22a0475b537f954021fa626544ba9705"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/kai_engine.gd",
+      "bytes": 7401,
+      "sha256": "88d79bff71b8b51f14e891ec12df94ce2bea313aa5d0b28774f5d376c8e3ffb0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/laundry_ui.gd",
+      "bytes": 5293,
+      "sha256": "1d7d1c77be3cd10b8d1729e6ea2af6fcd335b144ada4e8670ccfc192e4db80d4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/winter_engine.gd",
+      "bytes": 4743,
+      "sha256": "040d6377ec04e5cf41b7675125096c66338095f74a9b8328ee86f979d308871c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/daba_camera_single.gd",
+      "bytes": 2698,
+      "sha256": "8a3034e45d001555def0257f7ed4861fd4ae77cec5219bde8ddca6302228185d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/market_single.gd",
+      "bytes": 6250,
+      "sha256": "6fb5f32ce724010cccabcc1d527c68d5c68d59813611d44aaa5a8d148e168ca5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/nine_engine.gd",
+      "bytes": 6293,
+      "sha256": "1ba95b60d9f8b08f82e761d0cd71e0b800b70e76b26e85a9db92f2960d4a79b9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/result.json",
+      "bytes": 1366,
+      "sha256": "ef4db924aaa16acdfc3cea4aacd49ed4d1e88ee761ea0e03202f4c4e0ae1c853"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/来源.json",
+      "bytes": 491,
+      "sha256": "95c6174b912ae133c271304ac570a40027de6fb5df2460441f444e92c4e88b85"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/Ayu-entry-13.json",
+      "bytes": 255,
+      "sha256": "0f7766b1dd72123d5a318673f0ce805d5f9b4b4c3d5d50163a475fc87960b2a5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/result.json",
+      "bytes": 35532,
+      "sha256": "e6075370dfcfd42b322150b9ac22cdac6ac412ca732f7c6b53e859b2ca70522c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-Ayu-same-seat-19.json",
+      "bytes": 450,
+      "sha256": "7bc59afaebc62f328d97a6faaf38306a745e9d77fd19da18c4705b8b46fccebb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-actual-seat-19.json",
+      "bytes": 448,
+      "sha256": "7c1bd484b6cf8ff9e8a309b2aa00054ba1112cb6bebf7bba7f33196d0411dcd4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-entry-13.json",
+      "bytes": 441,
+      "sha256": "9232904bdbbacf19b82858fef0a66bb850e63ad17020d014d6e6fb4deb8ca95e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-help-13.json",
+      "bytes": 441,
+      "sha256": "e7a2785ecd72f52b8c1b0d6b8480471f48d651bfde45bc6feea1ee7593a0c1c1"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-Ayu-same-seat-19.json",
+      "bytes": 442,
+      "sha256": "4a5a6dbc2a424a61a1532a03fe04bd5b9b492158d5f4aa0d2a8cb4573d731bd3"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-actual-seat-19.json",
+      "bytes": 440,
+      "sha256": "f19e723c26f04a827af2373c2defdee06b4d86d128364cf3a46139f0ee8b9e2f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-entry-13.json",
+      "bytes": 435,
+      "sha256": "d3969388c7245f0d67c06e7f3aef8c52513a2010269adad8db7b0618eef084ec"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-help-13.json",
+      "bytes": 434,
+      "sha256": "39ddb3f120210642089e3b099d5599e41dcf7b082ff0a195e8540ae88eac365f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-Ayu-same-seat-19.json",
+      "bytes": 436,
+      "sha256": "f62d22af2f32c415dd6b2bbc9e2f2d52bd492ab50e9832193d6429f9416aa408"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-actual-seat-19.json",
+      "bytes": 434,
+      "sha256": "d76fd0e4a018569f4973af6e1732cab667793b0cda568067d13cf8204b6e67da"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-entry-13.json",
+      "bytes": 428,
+      "sha256": "1e4b1a5d0430c8267e57a5732380a0a154e0afc18538d597ce310131fe9727a0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-help-13.json",
+      "bytes": 428,
+      "sha256": "5a48749f2edfcb31876fa7e789878644868691f93a65c0d6379b207a1f3ea226"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-Ayu-same-seat-19.json",
+      "bytes": 437,
+      "sha256": "205d41c0379cb464507a6fab596d9eca6fc833b881fe05373b1d5f305cb3cf52"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-actual-seat-19.json",
+      "bytes": 435,
+      "sha256": "453145dc282eaf73b89f3a6fa6028e0b74b24c7497eef89fac7bb4f36a1924a0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-entry-13.json",
+      "bytes": 428,
+      "sha256": "b0e2f924e80c5c4d5f1d292246e211f8ee546ea1c29b7b360a0f825469f15cb2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-help-13.json",
+      "bytes": 426,
+      "sha256": "b1aa67b5f2e86e0935d18cbfe8ed7957f01aa978c3f34319d625a66cdcbba781"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-Ayu-same-seat-19.json",
+      "bytes": 438,
+      "sha256": "e0fcce7aa1e2f2e103071c9c5598fb78a3a30d0a7adbcb3c15d367191ca26794"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-actual-seat-19.json",
+      "bytes": 436,
+      "sha256": "e3851574b99919ea4d62ce560e607a61eb98e4d067dd0b7cc102b515f6058d12"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-entry-13.json",
+      "bytes": 428,
+      "sha256": "f20a40deace206a3f16696c21faefd7798b51a8b55799c9682510a2658b09d5a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-help-13.json",
+      "bytes": 428,
+      "sha256": "ccfa5941fe752d3d4f3ceab438d8e5a3e2553e93973d198a66890b6c47bc7866"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-Ayu-same-seat-19.json",
+      "bytes": 436,
+      "sha256": "3486be52240937c36f9e21fc334cea608dea3ce70b1a075ff430c9eed5d6bf6f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-actual-seat-19.json",
+      "bytes": 434,
+      "sha256": "51d115d4a8687d2df7a707ec4e09f96e201f2cd339b42e3f056a33dc4b2e658e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-entry-13.json",
+      "bytes": 428,
+      "sha256": "076f8f090c94b77bed1253625abc623de413dede2c66ef0428998596367d1256"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-help-13.json",
+      "bytes": 426,
+      "sha256": "9fca3261d47c3e581e9f0751fdf94c2fb009d2c991a1da7cb6c37a2fa536afaf"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-Ayu-same-seat-19.json",
+      "bytes": 437,
+      "sha256": "95ddf70f4711961bc7879f65e59a52088d58a912daab4ad6bc7d6c1f165b29a8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-actual-seat-19.json",
+      "bytes": 435,
+      "sha256": "66d25de5adf880e81608d4b484fc934030e19eb9587c55f5f71731ec756e3ca0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-entry-13.json",
+      "bytes": 428,
+      "sha256": "d4a779b99b9b0e3498f3fa539ef5da3a3852c02b038221be08c4b6cad872fbff"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-help-13.json",
+      "bytes": 429,
+      "sha256": "46628dcbf87b5b14ec093bb26e0f5412057be2db9acb858c71890c7f686f4fef"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-Ayu-same-seat-19.json",
+      "bytes": 443,
+      "sha256": "0b885314ca30ac37c58a5f8d7ff35c785b402361dd94cecd4603f68063e25b24"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-actual-seat-19.json",
+      "bytes": 441,
+      "sha256": "917aba7d6dbc79b83fd8f616c5a46d867f41ec34d0c066778fca1e6f0402e0ec"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-entry-13.json",
+      "bytes": 435,
+      "sha256": "d5d1c2eb8b336bdbf0259d2c78a6d920d2020d50ba20bf5239059e2371ab4d4b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-help-13.json",
+      "bytes": 434,
+      "sha256": "fe08f359d9bf959b3bb1c2a8be54faca37f1ea0aa0122bdbb745d294ef403a3e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-Ayu-same-seat-19.json",
+      "bytes": 460,
+      "sha256": "0b1c7cf6e7cbbde076d18bac7d4167ced3b882903066f0be9eb2fcf7d7aee38f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-actual-seat-19.json",
+      "bytes": 458,
+      "sha256": "341875d8284ae40fcdbe625d14f745e0543659bc2094393f16396c3b97ffa12e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-entry-13.json",
+      "bytes": 453,
+      "sha256": "66cf8cfa24a4fe94d4ba2dbd23ef0ae58288272834db757ab640b5cde3f0f953"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-help-13.json",
+      "bytes": 452,
+      "sha256": "77fa2d0ccfd1afbf5d6f1bce7c69b089334154c5c05a5cf05b7f6d2de061395a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/运行结果.json",
+      "bytes": 18,
+      "sha256": "b0a837b1b20b961ec2f2fbf5e7b0a86ee1a8a38121a09a95c0e5c07c7a94ce8c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/来源.json",
+      "bytes": 781,
+      "sha256": "85fb6fd9642220f0c850d96a73e4441ea84c5df130fbb11d319cec378c0930ef"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/market-normal-shop-portrait-13-左候选右Ayu.png",
+      "bytes": 143107,
+      "sha256": "15a4c24d4a0d2c7db1d660931c0fa55e7284c6e0ad85836e6a648b40cf45702a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_daba-entry-camera2-13-左候选右Ayu.png",
+      "bytes": 641115,
+      "sha256": "b48cfb452751cbe027a40d1a150d2ba9dbd82f38bf24df3a6d8d91d2c2e46dbe"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_daba-入口13时左候选右Ayu.png",
+      "bytes": 589931,
+      "sha256": "e37c154e1cbc339c5adda30002ab9b18cd8d5a6765b9f1b75ec2d5ed60151a7c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_erba-入口13时左候选右Ayu.png",
+      "bytes": 666772,
+      "sha256": "53593e9975d37f6ada7bffe7aeb41b8375ec4f617cb6046943ce83238856f4da"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h1-入口13时左候选右Ayu.png",
+      "bytes": 616476,
+      "sha256": "5ee3eee68e5282aac394c749a0871b859ffa1c347ac4e440abf95cacfff23d0e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h2-入口13时左候选右Ayu.png",
+      "bytes": 687827,
+      "sha256": "02d72271fa332c4079fb45cc2cb2a4307a6ff08bd13a9147a5ebb64f82fa493d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h4-入口13时左候选右Ayu.png",
+      "bytes": 597635,
+      "sha256": "428a038cd34c7c70fd559e1e8e97811e5d3f7bc97218472019a8b8534be94368"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h6-入口13时左候选右Ayu.png",
+      "bytes": 730420,
+      "sha256": "83c590c31503cf870181d2c8390df44cd94afccae7dcb02dca447eacc0257174"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h7-入口13时左候选右Ayu.png",
+      "bytes": 679229,
+      "sha256": "78a49d3e447096380535848644fb10462d5228e767b678ee08cac44c8cbb6598"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_rose-入口13时左候选右Ayu.png",
+      "bytes": 666936,
+      "sha256": "3bd6f2a74ca558e90f7e0f3529fe59ce98216200bb0524b95fdfba055ce85f01"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_whitebrick-入口13时左候选右Ayu.png",
+      "bytes": 537460,
+      "sha256": "101e5f84e6b62313d7b13c1f8d12acb79e6dfaed512eeb546d189ef35e6fdb14"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组1.png",
+      "bytes": 659623,
+      "sha256": "daafab7410b88ab786c813d9f07e03b6d62d0380309c781b25e92b969d2bc847"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组2.png",
+      "bytes": 671098,
+      "sha256": "8128c0b472fc447507c7eff583317e2e173e5d975565c7df0b408bdc908f94dd"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组3.png",
+      "bytes": 632590,
+      "sha256": "cb05810a4121d2d1c4a8098d92d8aa592bae4e8a74381f07ca3e8d98954a6782"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组1.png",
+      "bytes": 824303,
+      "sha256": "60b7278580004c5edb9ab17e7ca36d078d9b8284c20a5c42289c66d5ac3b1efb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组2.png",
+      "bytes": 861648,
+      "sha256": "1625aae368dd51f792c9dca9ef6133db644ae61a6e72f4d545202070ec09c43f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组3.png",
+      "bytes": 843486,
+      "sha256": "2284ae18853831eabedc7f5acc0b39f9055174e51e7e026639f1f8b1fd75f1b7"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/给C2九户与货郎最终定点结论.json",
+      "bytes": 2321,
+      "sha256": "02ca4fe5794c58fc518f7a4968079f64838e5b751ce598d783b66e772ef6c7e4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/货郎单点补证/result.json",
+      "bytes": 1308,
+      "sha256": "031e225365cf4797fab33bc55b8aeda3233b3d12a0ebdce9e82c1f85dbd72798"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/货郎单点补证/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/result.json",
+      "bytes": 15387,
+      "sha256": "bc79fde145eb30a6d9c03a25e8f1c22c9a09758a07868798c95c85d9eb7831fb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/运行结果.json",
+      "bytes": 124,
+      "sha256": "e8ed65266a1fdf1507974ba22f84c9c660143a87ca005585d53ae3b802c97a3c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/map-month10-左地图右同月阿鱼13时.png",
+      "bytes": 748375,
+      "sha256": "aedffa833509618f97a4e5e394079b5b0d40af5c60efef951359f7d2b5fb7754"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/map-month12-左地图右同月阿鱼13时.png",
+      "bytes": 751565,
+      "sha256": "a4794101d282d9596f7def0fbda0f256212d48bd5f82659ebf2f1fd3e097cc6d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month10-左村景右同月阿鱼13时.png",
+      "bytes": 556482,
+      "sha256": "2157e5a094efc9bea034a56859e55208d7048139d96e054d03552b5d45f9055c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month12-左村景右同月阿鱼13时.png",
+      "bytes": 625613,
+      "sha256": "01486dd64983d34b9bd7b8980e16dd7557becfa39841ce6a767bc45ce109fd85"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month4-左村景右同月阿鱼13时.png",
+      "bytes": 547089,
+      "sha256": "a22659a7a8d34898cdf653afc0258c58fc732812fcfeff72778632807c6d05c3"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month7-左村景右同月阿鱼13时.png",
+      "bytes": 544704,
+      "sha256": "ffe9bb01c30776df7efcf5a212365f2cbc2babfa62a06a6b7bb35016425a453c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/同坐标-左秋右冬-13时.png",
+      "bytes": 850271,
+      "sha256": "4fcc4b80c3345c3ce446024447fe299e89d346543dd97209e8ddfe5ea4c8ce36"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/independent_geometry.gd",
+      "bytes": 8604,
+      "sha256": "467176a7507340ba05780583dce36eef151a321b85cc90576ab93f71dfad7175"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/result.json",
+      "bytes": 259135,
+      "sha256": "5122ed667c6ba6c0deedbfe0c6d5019b2ba926a2086dae5392860448c194a1af"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/来源.json",
+      "bytes": 1766,
+      "sha256": "4c80e51c5dab4ccac02f089734eace97d6c557884d6c9dbab901e9e479afa231"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/给C2退回.json",
+      "bytes": 28144,
+      "sha256": "57453a1fb915d86b311885c2b4978fd35e42042cc7b1ce59fd576c26c5d2e8a1"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/给C2退回.md",
+      "bytes": 1468,
+      "sha256": "662e1b5729f94a3650ff85a8be0046fc66ac37bb8132cb2779288aeb46c4694a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/footprint_audit.gd",
+      "bytes": 5326,
+      "sha256": "35a8fa641426bfe24cf9f29d9914b33e6faf06e6ea22cb100d7bf74f8a9fbac5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/independent_geometry_v3.gd",
+      "bytes": 9056,
+      "sha256": "8e3b8f72de39854049102767e81453153a0df9e1448968ea38972934847fdcd0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/result.json",
+      "bytes": 451841,
+      "sha256": "1fd1cbe629521fe49cf7c3b1d618d68d7e9e5c4f4b2fc53f296457edf170abbc"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/原v2断言只读副本.gd",
+      "bytes": 8604,
+      "sha256": "467176a7507340ba05780583dce36eef151a321b85cc90576ab93f71dfad7175"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/来源.json",
+      "bytes": 1972,
+      "sha256": "601bf97fc6a20437cc0f6d7aa2eb8e56109c67cded9b0afe43fe42a7fb9985bb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/给C2几何复验通过.json",
+      "bytes": 5000,
+      "sha256": "97bf950374e8fdf05d5771f64305e428466e1891a03e67425bc97d82c6961fc0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/给C2几何复验通过.md",
+      "bytes": 1597,
+      "sha256": "d01428566bb84be9cbddf463491605a3c150ccb12cb564353a4aff5409f428cb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/脚印补充结果.json",
+      "bytes": 10524,
+      "sha256": "7a2c6f434bae629de2470a444d5c56517174dcf9a90623c46b00655b3fb3ea49"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/运行结果.json",
+      "bytes": 129,
+      "sha256": "53a9244deb1d1cc796732ce467d00446c5073afa052c348277e60f61697f2996"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/归档校验.json",
+      "bytes": 97658,
+      "sha256": "25f20aa0350cdcec688831f36fc1c730aff495d329c03be0116427f3b71ed4cb"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/本批逐项状态-给C2.json",
+      "bytes": 6778,
+      "sha256": "ca820bf3f2b8c5d7164e2c0b5d2566c49dbeb3033e226ca3ca11ddbc5e6e5ddf"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/material_engine.gd",
+      "bytes": 3960,
+      "sha256": "3af34ffea9ede89a97619ec28459594b66086cc5590e60f8275c5831a90e48e0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month10.json",
+      "bytes": 273,
+      "sha256": "298f4f9772eeee4a8a6ad457acf8cfae16d63a7475725c895b7eefa4250e7f42"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month12.json",
+      "bytes": 273,
+      "sha256": "cfeb21d2e539e625111d6ceeb6c136bb2653d964e6557f3eeb7e5e441d8555d0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month4.json",
+      "bytes": 271,
+      "sha256": "f63a2d6f633c0e99895148a422219a60c3b472d1c179f7471defb073ad349d5e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month7.json",
+      "bytes": 271,
+      "sha256": "a7f7622c6af895c2397e2add89ede6a57d9b4e0e750d1bf3cc611ae056a88d71"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month10.json",
+      "bytes": 315,
+      "sha256": "c73670221a0f99ba77eeade089eb4d992689309fb2ac439cd40167af171a7312"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month12.json",
+      "bytes": 315,
+      "sha256": "89d3fbe78e1a60dfd0a636bb7f51bec1ad29f9fec26c73250ac5d9268e4c4733"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month4.json",
+      "bytes": 313,
+      "sha256": "5b9e31e9210a80ea6f5bb41f4c662bb3a6e8ac2278daeffc5984b214f6f43e00"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month7.json",
+      "bytes": 313,
+      "sha256": "f94487dc28b7eff7fed09331846d88ce1ab31a552e89f2fb7bf2fe780653e13e"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month10.json",
+      "bytes": 276,
+      "sha256": "3a2a49f7c2677cc27efa297ad8940f083d1c177f42b527a217d3659332440466"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month12.json",
+      "bytes": 276,
+      "sha256": "60e9192a251130c2f2ddc79ba273ecd88ce81a7b17f5d0c81d37f6bcf244d3f8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month4.json",
+      "bytes": 274,
+      "sha256": "0a64c4b09094656fa5861c485072a90fbc5de57d9a4b2f217c4aa436a4fd6938"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month7.json",
+      "bytes": 274,
+      "sha256": "ddc9b56ddd0ee7a8c89525534a756e3c88546705bb169f45ab73fd808270e355"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month10.json",
+      "bytes": 313,
+      "sha256": "5abd532122e7f0cd6d0a8390554fe57b5d3040f7e043f11f786481fa7a90ff12"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month12.json",
+      "bytes": 313,
+      "sha256": "9fc570871bcbb737592ce2d3aeaab204021191a96c93bfee24baaa117e2054d8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month4.json",
+      "bytes": 311,
+      "sha256": "f15cfff00d6e4b2e67be3caf6b76160f3209d07eaa50249c07ea026f3e2f1176"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month7.json",
+      "bytes": 311,
+      "sha256": "3cac4179ab002d5de41e7d0039893ba7e4efe3f4385a2dce18eac35222f7780d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/result.json",
+      "bytes": 12345,
+      "sha256": "581377c20fdb34231959b1e1c23388e299d72d694a3ffb3ae6c90df3608e5a2f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/来源.json",
+      "bytes": 1053,
+      "sha256": "27e1018b5fe4507cfe3bb6fbfe08fcabbf3bf9b8ccc3fa0330b3de5a7d077c57"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month10-左候选右Ayu13时.png",
+      "bytes": 594059,
+      "sha256": "4fd95c1a3993982adb2bf48649c790002bbd5107441288e08fcb02faac347a48"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month12-左候选右Ayu13时.png",
+      "bytes": 586098,
+      "sha256": "6d13f5b1e44891246072171116b2fec8eccfb789c564838c52bd9c13d326320b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month4-左候选右Ayu13时.png",
+      "bytes": 571368,
+      "sha256": "cfa5abffd08cbedfef99d065a90d6b61cc0f5ea25303c7c0b93fda3607e0f0e9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month7-左候选右Ayu13时.png",
+      "bytes": 594713,
+      "sha256": "9811dd8805a7db2008202adcd65303d9bceb18319dee5e448f420144df1f7ce1"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/map-month4-左候选右Ayu13时.png",
+      "bytes": 697735,
+      "sha256": "033c2daca964effb8108cda81a07e4665cc01ebb589bf6fd87416b299b3240f2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/map-month7-左候选右Ayu13时.png",
+      "bytes": 699337,
+      "sha256": "06e767cb13688f5c0b9ecf449b7270c1952937ff4c2fb968783af1c9a1599c20"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/north-month4-左候选右Ayu13时.png",
+      "bytes": 465233,
+      "sha256": "5e9c4d8a06c9117cd1832d2aaff34418fe87fd7255ad726960778373c39d6456"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/给C2材质独立退回.json",
+      "bytes": 2090,
+      "sha256": "0ba485d97b117a9ab59b5736ee324f897cde4579080e79cdffffb24dd032891a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/给C2材质独立退回.md",
+      "bytes": 571,
+      "sha256": "36a3c8fb19cc1aec9c39add0ea0fe4bfba7e6cafd8bf8322ccecddeac6e36e86"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/来源.json",
+      "bytes": 2086,
+      "sha256": "4acf25120ca333a89ad7f65c1fa3ba4ddc3c74816b9a85b6daec60d51f565242"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/给C2新增通过范围与缺项.json",
+      "bytes": 2184,
+      "sha256": "a1e82c300f98da9b3f2876cb7004209c8ff69c93b4fff20878d35cd09d17b748"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/给C2本批归档说明.md",
+      "bytes": 1129,
+      "sha256": "dad49f7464c34ba2e27ad0a0f3c474d5c93b4d2c3c14b1e327b9fa808436a67c"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/给C2稳定追加清单.json",
+      "bytes": 63896,
+      "sha256": "a91c0868f542d9396eff5229096e0618267de4b614a8eeb6a4bfc31abbd72edf"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/material_engine.gd",
+      "bytes": 3952,
+      "sha256": "d914bd974abbd4b33cd3e3d114365fc649b9991b5f0ac737b06cf71b82ffb718"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/实际引擎/result.json",
+      "bytes": 3355,
+      "sha256": "fa00dbdaea5b8104e6f365e67e9cd77df82ea6ae5a2c2b55db2fd2458b5c89d2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/实际引擎/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/来源.json",
+      "bytes": 484,
+      "sha256": "dc68446ad813a3284cb9bdfde07415160416b6bbccf3606847ef412433125f17"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/精选并排/map-month7-左候选右Ayu13时.png",
+      "bytes": 692418,
+      "sha256": "499fce675ab2ffff26b0684b9a964551eca31bbfc8f6f6c037073b1c3baae7f3"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/精选并排/north-month7-左候选右Ayu13时.png",
+      "bytes": 512657,
+      "sha256": "e5a0b9f497af167d5b967982d03126c8f7c899d046bb90589f15187809b3432b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/给C2远山第2次结论.json",
+      "bytes": 1395,
+      "sha256": "4b9e8c7e90654d38c9bf975ddc38ce54c6441b7f83fc00b5a0ee04206e5fa8d8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/给C2远山第2次结论.md",
+      "bytes": 549,
+      "sha256": "33f051ec249ee5c58c7e3d186ff4f15bd1cee059146436efdc9678b1363706c1"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-1025集中交接清单.md",
+      "bytes": 2571,
+      "sha256": "553d944dfe624b654ef96066741f5a3fefa9755c2fb35db081dcb14e3bc04731"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-stable-checkpoint-1025.json",
+      "bytes": 2861,
+      "sha256": "97f17ee31333a35d7b19d4ca516f404b994a5a6a4111f5468b574d58b7eb7e8c"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户接入规格.json",
+      "bytes": 28252,
+      "sha256": "72a8aa2129162cec0f995554f210f2b05207c7b54104bde195025cb672a0d209"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/daba-bamboo.png",
+      "bytes": 1892581,
+      "sha256": "4a9666ca9201eac833086929719195b39e83799d264426f04835636b909f911e"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/erba.png",
+      "bytes": 2203111,
+      "sha256": "413f254b85d54086d19c9d130f009be525d676f175d1b881b56cc7e398daea2e"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/geometry-v1.json",
+      "bytes": 29952,
+      "sha256": "36ddf4888982ce619574b113711a202bc10d4190ba2d29edbe24d2b0e28d827c"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/h1.png",
+      "bytes": 2247151,
+      "sha256": "4ecafebe749cc7740e2fd04fcccdf759eced89fae05acccf390552dd1ab91efc"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/h2.png",
+      "bytes": 2032246,
+      "sha256": "5d9989d6ed851f973aca70f993ffcbc09fcc9e6eae9da0a52d8223bec3850fe0"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/h4.png",
+      "bytes": 2140250,
+      "sha256": "4509738fad84505d2802f594d9eb840f236557acf6b8a0de41d6f569a2d27764"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/h6.png",
+      "bytes": 2378604,
+      "sha256": "9b5568fe2fe1e3644d6adc2c8bec70180c00cdbfadc05f6ee030ecc5812a64f7"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/h7.png",
+      "bytes": 1999561,
+      "sha256": "8d604dedeadb5a119df959207688fb2dec219648eb693c43a242d83bffb67edb"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/manifest.json",
+      "bytes": 4564,
+      "sha256": "39ff3eb5e413c55efb3eebfc71e56372667871f3f76c3a67d8dd86a0021ab733"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/rose.png",
+      "bytes": 2511044,
+      "sha256": "5bcca0be89f27055884dd3baba4628ac5795e483fd8ba4083778720067afd063"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/whitebrick.png",
+      "bytes": 1996228,
+      "sha256": "5d77e6248fab54195cc3cabaf1fcc2d7eb3a5aef8dab213d9b70cf7772814ec0"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-九户正式陈设/九户正式陈设-总览.png",
+      "bytes": 2251077,
+      "sha256": "a8181ac203c7b001d520e85adc14a520624c46d065f33ac33e16fbfd60a1ff9f"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/R全员阵容-3x.png",
+      "bytes": 170474,
+      "sha256": "a9301ff5f39cfcd2ce4729da61ebaee2e460368d642de99396ee356a6ff4685c"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/R全员阵容-实际尺寸.png",
+      "bytes": 123482,
+      "sha256": "a45bc77ae7d357a909a9dc3f52748509ad34237c47eb59792076b035b6ed4fdd"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/manifest.json",
+      "bytes": 7899,
+      "sha256": "ba5d43fd1a5c6c09f14a70cfc7be9f6fec67921afb74ce0f4c7b36db5ea1071f"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/fang.png",
+      "bytes": 126093,
+      "sha256": "91adfaf867723fb92e68c6c03e6b0886763549f29708113aad40b79fb2b2775e"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_daba.png",
+      "bytes": 112877,
+      "sha256": "c9689176505405be98840bb001c876e6574bdecb7ee676da9e5685787a442faf"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_erba.png",
+      "bytes": 118285,
+      "sha256": "3b8816c98920d8470c14a2bf839bbaa3583d722717babcaf007de8b9f1e71283"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_flower.png",
+      "bytes": 122145,
+      "sha256": "8bdcc0c7b4de486517a30da514dac533eaa43657f8df9320ff12c6e14dae4e32"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_grape.png",
+      "bytes": 106299,
+      "sha256": "9d4ba9a11b6138e5eaaf865792614d250a86adae578f7b0bbcb8656f719e8d92"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h1.png",
+      "bytes": 124023,
+      "sha256": "a03128306f8d8d7705a7c60405c0327eb4540312502cd6105e6b7f4f8fc2360e"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h4.png",
+      "bytes": 105797,
+      "sha256": "3839389adf72c923e1b92caae94cda79931d3e0fd3290191a39f5b12947bb9c1"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h6.png",
+      "bytes": 102743,
+      "sha256": "c0d4564efb3cc2ac1f907e819b4c3f6bcd3329d36b64a957335d6930032211b6"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h7.png",
+      "bytes": 110805,
+      "sha256": "694b680a61c10442aee66a25494d36ca8790525c628bc87ae751bbdb4ee93b3a"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h8.png",
+      "bytes": 119127,
+      "sha256": "5a081ccd452f4088abdab8b10de604d2c630c4342bd335e7a2872901c5c6eaae"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_persimmon.png",
+      "bytes": 115664,
+      "sha256": "642bccce690fb2528e019eda11ab544d02083e9663daa8b3e7ad7794cc2d1002"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_rose.png",
+      "bytes": 108060,
+      "sha256": "0d3d707f20441b58a0827502f1abbb0ecb9f5a74d2db588c5d69445883e0c15d"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_sunflower.png",
+      "bytes": 109931,
+      "sha256": "679491fd3df7c5f8fcf4a9b3079568d77d57f833bf5659e12be5f4f073c488da"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_whitebrick.png",
+      "bytes": 115185,
+      "sha256": "b83549d2cf5962f3aabd559878a3cff6229eaa6066439f9dca0430935d8c4dbd"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/kaikai.png",
+      "bytes": 103492,
+      "sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/linbo.png",
+      "bytes": 107360,
+      "sha256": "3fc6c012d6833ed6e0ef150ccbc085a83163f3798fbece268926390afeaa4318"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/market.png",
+      "bytes": 109923,
+      "sha256": "621fc51fd699f911ef033ae010f406befc80dec8f82f1b217412aa3585e8ed00"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/xiaotao.png",
+      "bytes": 105807,
+      "sha256": "bae05efcc167afdd0291172b9735ea9775406e4be52b687c903b3e57c82f417b"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/fang.png",
+      "bytes": 26767,
+      "sha256": "e5e70e36704f0484c3e66657a20338811caa2ec9d09a1c52c8f735debe87f0a8"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_daba.png",
+      "bytes": 22089,
+      "sha256": "6da4bae475c4e498e199520d6a7b502b85cc6dcea57713af7a7f11bb5bc2b903"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_erba.png",
+      "bytes": 25156,
+      "sha256": "2b753296d9111ce019e012d90bf113cd669f0f07206167dda204d0ccfa416d41"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_flower.png",
+      "bytes": 24712,
+      "sha256": "e84dfd538e9b19a01badbf86e850b50bce6e229646d5c4b9f8bba668d4fbbc32"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_grape.png",
+      "bytes": 24039,
+      "sha256": "9963aa055d60f0c0236c504541fffc28d9502858d0305c927c1bbcb2fbb69ded"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h1.png",
+      "bytes": 24053,
+      "sha256": "5d700b89a885a4cf3b67835d4063a103db98a9e0b3a8cbc7b1d94d1d425a3f3b"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h4.png",
+      "bytes": 22108,
+      "sha256": "563de74dbd10b72acb277ff9eab210a513aa6bfa8ac5294b50d04f597ab51525"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h6.png",
+      "bytes": 21863,
+      "sha256": "cf5276f20e3439b145f4f406568c4f6ba88450192b68c3d870dc6176e3dc5ef8"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h7.png",
+      "bytes": 22817,
+      "sha256": "211007393fd39d27b48a46626b10c28191c81335761904a435dc70a4851c88ba"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h8.png",
+      "bytes": 23878,
+      "sha256": "fcb55b1669fbe67c0e3f4b04abc8e257134b92bcc1813a93d18b269c2fb2ef99"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_persimmon.png",
+      "bytes": 24348,
+      "sha256": "ab44c8df5533cf1ad3df4deea2c8db67452acd42e0acdfc841b91337386375ae"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_rose.png",
+      "bytes": 23969,
+      "sha256": "0f7a0e4fb584773aefc2c925b09f3ee1749cf21f99d40dc08c257f3d2df6e446"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_sunflower.png",
+      "bytes": 21626,
+      "sha256": "9712d28112ff02567e879d7243f17f254f97364776f9992c400adb64707d7caf"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_whitebrick.png",
+      "bytes": 25502,
+      "sha256": "d59f06b860b697205f4ae1400c3c3b31b847ae646a37146860a969561b13a840"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/kaikai.png",
+      "bytes": 22559,
+      "sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/linbo.png",
+      "bytes": 23262,
+      "sha256": "eee709593c49c931a7b180deb856a6c52f7ad072e913ceace897835d1a880246"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/market.png",
+      "bytes": 22109,
+      "sha256": "53796dd014ce046652f8d4b30661b2a7aefea4f8352953a7edf85e6d0efa67ac"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/xiaotao.png",
+      "bytes": 18728,
+      "sha256": "8b0f94f88f620ace8c2f699f21fdb667508b4b222ac8589c41edc034966da489"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/manifest.json",
+      "bytes": 2000,
+      "sha256": "de0c28ec3c9471a5f9101f2c2000211d04336c6a5142265b1470781d1c358129"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-autumn-3x3拼接检查.png",
+      "bytes": 520174,
+      "sha256": "2dbfc3e1282a3dc147a663b481164e9846381bb308f94a7802860e3706c89cd4"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-autumn.png",
+      "bytes": 169116,
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-spring-3x3拼接检查.png",
+      "bytes": 468216,
+      "sha256": "62eeca5a514db51628a8141173a1802956eac5366d5dca41c3bd9855957db8ef"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-spring.png",
+      "bytes": 147491,
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-summer-3x3拼接检查.png",
+      "bytes": 519034,
+      "sha256": "2a3c618f9d772e9a96a4abc937f574bc887c145894b6424f6f1738ea23510850"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-summer.png",
+      "bytes": 168980,
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-winter-3x3拼接检查.png",
+      "bytes": 484620,
+      "sha256": "89a06954cd71c874f77f41fcb2e073fae9b5bd14d82e4e022ee924b27b0f4cc8"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/rice-winter.png",
+      "bytes": 155890,
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景四季田块/四季稻田纹理-总览与2x2拼接.png",
+      "bytes": 1023658,
+      "sha256": "3f297a35622f24da269d5a45652d7ee95043a51d87a681444787b3433b0f45f3"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景布局接口/layout-1025-audit.json",
+      "bytes": 417,
+      "sha256": "e97d76fcfd74647e25caa57adebb6b0a760a6e12912aeb6ecd782d30f8f54e83"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景布局接口/交C2-layout-1025.md",
+      "bytes": 1673,
+      "sha256": "a1d5eb5c99d628656d8c2cc492ccd2a6a5b4f83c8abfd622b490c9c769737b44"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-村景布局接口/裳泓村-layout-1025.json",
+      "bytes": 18364,
+      "sha256": "7bcc78ecfe8d8cbf63cecf7155d50fa3bd39efeeb838437a245196c3b0e9a9f1"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年可见玩法接口.json",
+      "bytes": 1526,
+      "sha256": "707197cfc034a189c76b3033dcbc491d2818431a02e6913fbd441b6a4f64240a"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年物件图集/objects-8x4-预览.png",
+      "bytes": 147918,
+      "sha256": "2013da6e19e445bcd8932713b58260a2f941f0508a0783f8a7d19e2ea9120322"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年物件图集/objects-manifest.json",
+      "bytes": 4757,
+      "sha256": "0ca30899919137881c580b6f8ba64ae5b966a8a51545598f3e52e803e3369ac0"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年物件图集/objects.png",
+      "bytes": 107846,
+      "sha256": "bad3f5f3491fae2999b3e245ef61db7f01d155e49d09ecc46923bb81d9ff7e29"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/S六背景-总览.png",
+      "bytes": 2779029,
+      "sha256": "86c698cbc3f95ce7ee74b3ae164f9c16853f19edbecbffaff3abee0004a2079e"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/hospital.png",
+      "bytes": 326604,
+      "sha256": "35a2b48005f900a1b45618d4055c67e215526e20fd07d6b35338dd110ca0c3a1"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/laundry.png",
+      "bytes": 504851,
+      "sha256": "1118060b23e364e0c77da1e8e49ecfdfd0de41b9db436ada3bd1a6a1fe7238be"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/manifest.json",
+      "bytes": 2952,
+      "sha256": "16d14bda05aafb6b606a44b3c859eba30c98b6e17b13de975ecae04481b357b3"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/milk_table.png",
+      "bytes": 424667,
+      "sha256": "361693636914a2b38358b86953a1d220054c5fe48c79ee1d9cf96f37022199c7"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/mudflat.png",
+      "bytes": 551513,
+      "sha256": "7b93dfc2320c1f8b317e07871a65b84366cb9f3d3aac6788670a0266043f40f3"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/train_room.png",
+      "bytes": 428485,
+      "sha256": "7f8c97a90fb92be27e98b19511f7d4c261580a2d7dea240f8be09723b6a3d402"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/vegetables.png",
+      "bytes": 448325,
+      "sha256": "f279805aea1f8e25263d31cf9aa49a43fcb64fd73e226cee495eb982aa1bcdca"
+    },
+    {
+      "path": "回执/第1轮收尾/C4-童年背景/S六背景/退回证据/hospital-with-bed-rejected.png",
+      "bytes": 427521,
+      "sha256": "86fdee1fc8d928438c3e9437aea8dc4d2abfeb373af78d34d8e97fc5add399ee"
+    },
+    {
+      "path": "回执/第1轮收尾/R-真实角色映射.json",
+      "bytes": 2685,
+      "sha256": "fa2c6bd75b5f52593066c76e7332d7041f6ece9387e82bca206108d10b6e491f"
+    },
+    {
+      "path": "回执/第1轮收尾/回执.md",
+      "bytes": 12613,
+      "sha256": "4dd200afbb16986943ddc0a698567a2f024d528abb3108a514670c42a0bca098"
+    }
+  ],
+  "excluded_existing_dirty": [
+    "回执/第1轮/C1画面核对.md",
+    "回执/第1轮/设计/00-C4状态.md",
+    "回执/第1轮/设计/二期设计归档/C2设计归档清单-1014.json",
+    "回执/第1轮/设计/二期设计归档/C4二期设计回执-1014.md",
+    "回执/第1轮/设计/二期设计归档/本波静态核对-1014.json",
+    "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/C4麦收田园无桥三案交付-v7.md",
+    "回执/第1轮返工/设计/续办-1015/A4-活动中心首屏构图建议.md"
+  ],
+  "excluded_categories": [
+    "profile/save",
+    "runtime snapshots",
+    "cache/import/uid",
+    "playtest app/pck",
+    "video",
+    "credentials"
+  ],
+  "unapproved_layout_and_nine_rooms": "isolated candidates only, live configs not replaced"
+}

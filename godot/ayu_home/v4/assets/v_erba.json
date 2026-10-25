@@ -118,7 +118,7 @@
         551,
         332
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "erba",
       "copy": "碗筷归整齐，桌边也擦净了。家常饭吃过，留一张清爽桌子慢慢聊。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -140,6 +140,21 @@
         178
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "erba",
+      "label": "挪一挪家常饭菜",
+      "pos": [
+        668,
+        244
+      ],
+      "approach": [
+        551,
+        332
+      ],
+      "copy": "家常饭菜换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -226,5 +241,70 @@
     -2
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "meal-0",
+    "pos": [
+      620,
+      244
+    ],
+    "label": "家常饭菜",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      668,
+      244
+    ]
+  },
+  "npc": {
+    "id": "household_erba",
+    "character_id": "household_erba",
+    "name": "二爸",
+    "portrait": "household_erba",
+    "preset": 7,
+    "pos": [
+      551,
+      332
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          551,
+          332
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理家常饭菜，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          311,
+          198
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的家常饭菜也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          208,
+          178
+        ],
+        "approach": [
+          311,
+          198
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

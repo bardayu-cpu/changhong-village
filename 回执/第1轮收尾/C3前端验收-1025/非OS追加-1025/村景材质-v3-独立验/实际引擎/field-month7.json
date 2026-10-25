@@ -1,0 +1,21 @@
+{
+  "area": "village",
+  "camera": [
+    3528.0,
+    1239.0
+  ],
+  "extra": {
+    "selected_season": "summer"
+  },
+  "hour": 13.0,
+  "month": 7,
+  "name": "field-month7",
+  "position": [
+    3528.0,
+    1304.0
+  ],
+  "state_date": "2027-07-15",
+  "state_season": "夏",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

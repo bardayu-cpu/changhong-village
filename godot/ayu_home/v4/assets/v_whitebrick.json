@@ -94,7 +94,7 @@
         235,
         194
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "whitebrick",
       "copy": "水槽旁的台面擦干净了，杯碗也顺手归好。白砖映着窗光，屋里更敞亮了。",
       "repeat_copy": "白砖小院记着你的帮助，今天的料理台已经擦净。到沙发上坐一会儿吧。"
@@ -116,6 +116,21 @@
         278
       ],
       "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "whitebrick",
+      "label": "挪一挪台边盆栽",
+      "pos": [
+        283,
+        125
+      ],
+      "approach": [
+        235,
+        194
+      ],
+      "copy": "台边盆栽换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -202,5 +217,70 @@
     -2
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "clay_pot",
+    "pos": [
+      235,
+      125
+    ],
+    "label": "台边盆栽",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      283,
+      125
+    ]
+  },
+  "npc": {
+    "id": "household_whitebrick",
+    "character_id": "household_whitebrick",
+    "name": "白砖小院主人",
+    "portrait": "household_whitebrick",
+    "preset": 6,
+    "pos": [
+      235,
+      194
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          235,
+          194
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理台边盆栽，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          174,
+          285
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的台边盆栽也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          116,
+          278
+        ],
+        "approach": [
+          174,
+          285
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

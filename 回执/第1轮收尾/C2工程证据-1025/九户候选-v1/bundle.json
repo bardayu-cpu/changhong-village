@@ -1,0 +1,20 @@
+{
+  "candidate": "nine-rooms-v1",
+  "production_applied": false,
+  "files": {
+    "C2-anchor-corrections.json": "f9d260c5821b95ac8f6faf7435ea89cdc72b6ad6f00637f41dba36b3989f66e0",
+    "integration-notes.json": "c28c2322abe7412a95eaa1c03f13ac7a6059420554bcceefc2b80a448a33569e",
+    "route-check.json": "cfc7197afb8714f36db263e1ff9929891a006bb26749f700efed9617f29c6072",
+    "v_daba.json": "f35f936d69d45b78e8c6d35059f474f79ec2cf84ed8fa4882dec806306f3dd92",
+    "v_erba.json": "9a60c7db3599759f0017e1f54ac82268490557c6df22983ecb78a9fecb4c3e88",
+    "v_h1.json": "672f6172264c702a9aa014a5176140cdccbf6074342d5f2085d9004c846194db",
+    "v_h2.json": "0bf4440ee197c0dc511bc3992fae39d3cba94ef6f8f6a35311ca857e177bf9eb",
+    "v_h4.json": "94cc264c5d5de28c423bbf5d3abfda1c56fa5514b2e3f6ffe326c23961ac4c1f",
+    "v_h6.json": "f46c28fd851e9d1429c74dd12f01b04e067b3cfb81726fc8914597004fc3d70f",
+    "v_h7.json": "e29882ce089ea016feb85cdd5d8439e594e3bae3db86e602c77ac9133052ce52",
+    "v_rose.json": "bf2005c07c7bbc17b782e9bad5d61e05ece8fe6de65fd894c31ab77e7b5e8ff6",
+    "v_whitebrick.json": "94265068013ed37b79cdba24bed33223d650681f89a4ce7104ac27ddf727cd2e"
+  },
+  "scope": "9 new backgrounds, replaced furniture collisions, foreground atlas crops, aligned approaches and resident schedules",
+  "pending": "14 real before/after interaction objects not delivered; their legacy substitutes are disabled only in this candidate"
+}

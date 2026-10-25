@@ -1,0 +1,316 @@
+{
+  "id": "v_h7",
+  "title": "窄巷人家",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "closeout_left_storage",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "pos": [
+        170,
+        254
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 378,
+      "atlas_region": [
+        340,
+        508,
+        224,
+        248
+      ]
+    },
+    {
+      "id": "closeout_back_table",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "pos": [
+        290,
+        135
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 200,
+      "atlas_region": [
+        580,
+        270,
+        380,
+        130
+      ]
+    },
+    {
+      "id": "closeout_right_alcove",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "pos": [
+        585,
+        185
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 403,
+      "atlas_region": [
+        1170,
+        370,
+        240,
+        436
+      ]
+    },
+    {
+      "id": "closeout_door_basket_table",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "pos": [
+        550,
+        342
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 426,
+      "atlas_region": [
+        1100,
+        684,
+        310,
+        168
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      290,
+      130,
+      190,
+      68
+    ],
+    [
+      170,
+      252,
+      112,
+      126
+    ],
+    [
+      490,
+      170,
+      88,
+      92
+    ],
+    [
+      585,
+      180,
+      120,
+      220
+    ],
+    [
+      550,
+      340,
+      155,
+      86
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "house_help",
+      "label": "收好门边竹篮",
+      "pos": [
+        632,
+        348
+      ],
+      "approach": [
+        540,
+        360
+      ],
+      "kind": "house_task",
+      "house": "h7",
+      "copy": "竹篮挪到柜边，门前的窄道腾出来了。进进出出也不绊脚。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        210,
+        335
+      ],
+      "approach": [
+        285,
+        350
+      ],
+      "kind": "seat",
+      "seat": [
+        210,
+        335
+      ],
+      "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h7",
+      "label": "挪一挪收纳竹篮",
+      "pos": [
+        672,
+        348
+      ],
+      "approach": [
+        540,
+        360
+      ],
+      "copy": "收纳竹篮换到另一边，摆放也有了新样子。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        384,
+        470
+      ],
+      "approach": [
+        384,
+        447
+      ],
+      "arrival": [
+        384,
+        408
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 88,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    384,
+    408
+  ],
+  "walk_rect": [
+    90,
+    137,
+    594,
+    356
+  ],
+  "walk_polygons": [
+    [
+      [
+        233,
+        137
+      ],
+      [
+        539,
+        137
+      ],
+      [
+        677,
+        444
+      ],
+      [
+        435,
+        444
+      ],
+      [
+        435,
+        490
+      ],
+      [
+        331,
+        490
+      ],
+      [
+        331,
+        444
+      ],
+      [
+        94,
+        444
+      ]
+    ]
+  ],
+  "outdoor": false,
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    2,
+    67
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "layers": [],
+    "pending_real_object_states": true
+  },
+  "npc": {
+    "id": "household_h7",
+    "character_id": "household_h7",
+    "name": "窄巷人家主人",
+    "portrait": "household_h7",
+    "preset": 4,
+    "pos": [
+      540,
+      360
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          540,
+          360
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理收纳竹篮，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          285,
+          350
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的收纳竹篮也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          210,
+          335
+        ],
+        "approach": [
+          285,
+          350
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  },
+  "rebuild_navigation": true
+}

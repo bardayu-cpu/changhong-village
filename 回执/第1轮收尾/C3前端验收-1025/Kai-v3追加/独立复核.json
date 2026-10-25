@@ -1,0 +1,514 @@
+{
+  "character": "凯凯",
+  "revision": 3,
+  "source_directory": "回执/第1轮收尾/C4-人物重画/R样板-Kai-v3",
+  "source_sheet_sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384",
+  "Ayu_reference": "godot/ayu_home/v2/assets/chr_ayu.png",
+  "Ayu_source_sha256": "87dc5ecba34f5f0b3652eaf1944d295fdce90f6dccf47b244fc239d956a0d464",
+  "Ayu_frame0_bbox": [
+    13,
+    0,
+    51,
+    84
+  ],
+  "Ayu_visible_height": 84,
+  "frame_size": [
+    64,
+    84
+  ],
+  "sheet_size": [
+    1280,
+    84
+  ],
+  "metrics": [
+    {
+      "frame": 0,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "498af7a9fa376092399db1a4e761e569a32bbbefd3600b9c6ef0e356c31472ac",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 1,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "6ed503c8e443c5bb5dfebd9d7c829d2273c1914c70c661095a52d10bfd59ca4a",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 2,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "6379c5e42c3dc79903ea171ce1548a8f3beff33725a4e29901f6ed6ac99cc051",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 3,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "6045d291adc5833bc094bf28b7832882313bf0c9ca6113ef55277546af75dc47",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 4,
+      "bbox_alpha_gt0": [
+        17,
+        1,
+        47,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        17,
+        1,
+        47,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "d5f1d89184996074974692ae76228ecb09983aef4b074509b856e42434eae214",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 5,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "ef44c27b02fbcc6e77827b0bac8f122fbb8010813e3ec81dcacac31fe2f271c8",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 6,
+      "bbox_alpha_gt0": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "b6e7d8ce23b862fbdd90f4b24a57b7c7144427f4e8977511c8f49ce5642f6c89",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 7,
+      "bbox_alpha_gt0": [
+        16,
+        1,
+        47,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        16,
+        1,
+        47,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "26bec194a5f5d33d22b99db1157fb95c28e5bff32fe58080c895374cc55cf5f4",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 8,
+      "bbox_alpha_gt0": [
+        16,
+        1,
+        47,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        16,
+        1,
+        47,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "4de574c7cfa598593506505c51b093ed56e40dd44bef00ab64b36d91a6fa2e6a",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 9,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "0785706cb41cb2cf541ad5b08d99b389123315dfc3c41526c534609061160ba1",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 10,
+      "bbox_alpha_gt0": [
+        13,
+        1,
+        50,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        13,
+        1,
+        50,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "70ba699f00744b18a9a726bd548143efba35433a1563e5be15a72dc04090c8d6",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 11,
+      "bbox_alpha_gt0": [
+        17,
+        1,
+        47,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        17,
+        1,
+        47,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "b817b5bb653fead2c0c85e81f98549806acd12911dd15d24c26b297b0c34a161",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 12,
+      "bbox_alpha_gt0": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "696805ed333bf06c8f8811f2e4324ef90943279e02ffc034a99ebab0d43b200f",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 13,
+      "bbox_alpha_gt0": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "2ec6ccdb8a0fe1a64b75afc55351d4f25bad79131559a0dc41959314ae257d54",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 14,
+      "bbox_alpha_gt0": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "8a2438888e422d8bc5654f0d9ce8f60630c2e95b0fa618fb0c33541b63a2c0f8",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 15,
+      "bbox_alpha_gt0": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "visible_height": 82,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "138d221638a4fef5691ee18de6ff6c02b777793bf359955ef495621def7e9562",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 16,
+      "bbox_alpha_gt0": [
+        14,
+        23,
+        50,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        14,
+        23,
+        50,
+        83
+      ],
+      "visible_height": 60,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "f981d3e65690cc116bfed9f14ad9077e220d555086b1ebdf7ea6f05027f25c28",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 17,
+      "bbox_alpha_gt0": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "visible_height": 60,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "cec88b3bf0d32395954661bad759f93a3e330f1cf315b4676adc9ebb12d5ad9d",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 18,
+      "bbox_alpha_gt0": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "visible_height": 60,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "3b05253ecc4b69748eaa660f0a997c2b5e98ff4d131b8038fd410a495077962e",
+      "single_file_matches_sheet": true
+    },
+    {
+      "frame": 19,
+      "bbox_alpha_gt0": [
+        11,
+        23,
+        53,
+        83
+      ],
+      "bbox_alpha_ge204": [
+        11,
+        23,
+        53,
+        83
+      ],
+      "visible_height": 60,
+      "last_occupied_y": 82,
+      "bottom_exclusive": 83,
+      "visible_hash": "c6806919d68b0fd4bb12c49bb08355a4dca6d72d0d09c716545ac15f491cbfdb",
+      "single_file_matches_sheet": true
+    }
+  ],
+  "directions": [
+    {
+      "direction": "down",
+      "unique_visible_frames": 4,
+      "visible_different_pixels_between_consecutive": [
+        2050,
+        2019,
+        2032,
+        2104
+      ]
+    },
+    {
+      "direction": "left",
+      "unique_visible_frames": 4,
+      "visible_different_pixels_between_consecutive": [
+        1930,
+        1962,
+        1998,
+        1839
+      ]
+    },
+    {
+      "direction": "right",
+      "unique_visible_frames": 4,
+      "visible_different_pixels_between_consecutive": [
+        1947,
+        2010,
+        2031,
+        1803
+      ]
+    },
+    {
+      "direction": "up",
+      "unique_visible_frames": 4,
+      "visible_different_pixels_between_consecutive": [
+        2111,
+        2084,
+        2101,
+        2106
+      ]
+    }
+  ],
+  "source_images_viewed": [
+    "Ayu-Kai-v3-实际尺寸脚锚对比.png",
+    "kaikai-v3-20帧预览.png",
+    "kaikai-face.png",
+    "kaikai.png",
+    "production chr_ayu.png"
+  ],
+  "five_points": [
+    {
+      "item": "84像素档位",
+      "result": "素材档位通过",
+      "detail": "64×84帧格，站走实际不透明82px，对照阿鱼实际84px；第一版59px的明显缩小已消除。不因2px另造身高门槛，但交接数字应如实改正"
+    },
+    {
+      "item": "四方向各4走帧",
+      "result": "素材帧齐备通过",
+      "detail": "0..15四组各4个可见像素不同的帧，方向/步伐在预览中可辨；不等于已在游戏逐角色出现"
+    },
+    {
+      "item": "脚锚与连续稳定",
+      "result": "静态锚点通过；游戏连续播放待验",
+      "detail": "20帧末占用行均y82（底边exclusive83），站走top均1、height82；逻辑锚[32,84]与可见脚底不是同一量。未进行锁屏下的OS播放，不能断言实机完全无抖动"
+    },
+    {
+      "item": "成年比例/描边/颗粒",
+      "result": "素材同档审查通过",
+      "detail": "对照实际Ayu源帧与v3预览，未见前稿59px幼儿化异档；为年轻成年男性外观，花衬衫/长裤、头像与行走身份可辨。最终需放进同场景与Ayu同条件检查，不推全员"
+    },
+    {
+      "item": "坐下四方向可直接游戏使用",
+      "result": "四方向姿态素材齐；直接可用未验",
+      "detail": "16前/17左/18右/19背，实际高度60px、同一底边；当前接口已有sit映射，但尚未验证椅面落点、lift及前缘排序。只可进入单角色隔离接入验证，不能直接批量视为游戏通过"
+    }
+  ],
+  "portrait": {
+    "size": [
+      112,
+      129
+    ],
+    "result": "单人透明头像，黑卷发和花衬衫身份与帧条一致；未测游戏头像显示比例"
+  },
+  "overall": "Kai v3素材样板可进入单角色隔离游戏验证；R整项未通过，未批准全员批量验收",
+  "third_attempt_rule": "这是第3稿审查，不生成第4稿。仅允许纠正元数据/机械接入或如实保留未通过项",
+  "production_mutated": false,
+  "GUI_input_sent": false,
+  "locked_state": "尚未收到解锁确认；这批不发送OS输入",
+  "formal_report_owner": "前端C2"
+}

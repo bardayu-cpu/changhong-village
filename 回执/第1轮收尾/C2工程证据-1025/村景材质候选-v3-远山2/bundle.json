@@ -1,0 +1,28 @@
+{
+  "candidate": "v3-materials-mountain2",
+  "production_applied": false,
+  "north_viewpoint": [
+    4580,
+    600
+  ],
+  "same_20_house_positions": true,
+  "changes": [
+    "add 4 season texture references only",
+    "sync rooms index with exact frozen village config",
+    "frame original distant skyline within visible northern horizon; source PNG and all collision/route geometry unchanged"
+  ],
+  "missing_art": [
+    "tree footprints/placement"
+  ],
+  "files": {
+    "rooms.json": "37c4c3650b3031b65efc0794c98929708dce000ae63c9c8d5edca7fdad4d39fa",
+    "route-check.json": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0",
+    "village/ground-pixel-1024/layers.json": "54d92add17d5a3578cf18c64bdc8f49dee24456a2dad6713ec0968c40bebbd7d",
+    "village/houses.json": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+    "village/layout-1025.json": "30be70c29b04a0f7c19506799f40a9b9fe466f0fe70922f08c154cd950423bee",
+    "village/topology.json": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+    "village.json": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec"
+  },
+  "geometry_approved_by": "C3 v3 independent geometry + 6x6 feet checks",
+  "geometry_bundle_sha256": "273c52c9b146d4581009d9a815a1eb79d90a67990154ce3d04c77712ec948d9b"
+}

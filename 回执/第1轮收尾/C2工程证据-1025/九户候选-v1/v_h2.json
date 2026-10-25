@@ -1,0 +1,309 @@
+{
+  "id": "v_h2",
+  "title": "缝补人家",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "closeout_left_sofa",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "pos": [
+        55,
+        275
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 383,
+      "atlas_region": [
+        110,
+        550,
+        224,
+        216
+      ]
+    },
+    {
+      "id": "closeout_sewing_bench",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "pos": [
+        185,
+        140
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 195,
+      "atlas_region": [
+        370,
+        280,
+        330,
+        110
+      ]
+    },
+    {
+      "id": "closeout_right_daybed",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "pos": [
+        620,
+        265
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 367,
+      "atlas_region": [
+        1240,
+        530,
+        200,
+        204
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      55,
+      134,
+      130,
+      65
+    ],
+    [
+      185,
+      125,
+      165,
+      68
+    ],
+    [
+      360,
+      146,
+      62,
+      54
+    ],
+    [
+      450,
+      126,
+      185,
+      78
+    ],
+    [
+      650,
+      138,
+      65,
+      64
+    ],
+    [
+      55,
+      270,
+      112,
+      112
+    ],
+    [
+      620,
+      262,
+      100,
+      104
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "house_help",
+      "label": "理顺线筐",
+      "pos": [
+        292,
+        118
+      ],
+      "approach": [
+        300,
+        212
+      ],
+      "kind": "house_task",
+      "house": "h2",
+      "copy": "线头绕回轴上，布料也叠齐了。缝补台边终于空出一小块地方。",
+      "repeat_copy": "方婆婆记着你的帮助，今天的线筐已经理顺。坐下来歇歇吧。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        118,
+        287
+      ],
+      "approach": [
+        183,
+        289
+      ],
+      "kind": "seat",
+      "seat": [
+        118,
+        287
+      ],
+      "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h2",
+      "label": "挪一挪线筐",
+      "pos": [
+        332,
+        118
+      ],
+      "approach": [
+        300,
+        212
+      ],
+      "copy": "线筐换到另一边，摆放也有了新样子。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        384,
+        454
+      ],
+      "approach": [
+        384,
+        433
+      ],
+      "arrival": [
+        384,
+        398
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 100,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    384,
+    398
+  ],
+  "walk_rect": [
+    32,
+    181,
+    704,
+    299
+  ],
+  "walk_polygons": [
+    [
+      [
+        67,
+        181
+      ],
+      [
+        700,
+        181
+      ],
+      [
+        734,
+        395
+      ],
+      [
+        444,
+        395
+      ],
+      [
+        444,
+        480
+      ],
+      [
+        327,
+        480
+      ],
+      [
+        327,
+        395
+      ],
+      [
+        34,
+        395
+      ]
+    ]
+  ],
+  "outdoor": false,
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    42,
+    140
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "layers": [],
+    "pending_real_object_states": true
+  },
+  "npc": {
+    "id": "fang",
+    "character_id": "fang",
+    "name": "方婆婆",
+    "portrait": "fang",
+    "preset": 1,
+    "pos": [
+      300,
+      212
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          300,
+          212
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理线筐，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          183,
+          289
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的线筐也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          118,
+          287
+        ],
+        "approach": [
+          183,
+          289
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  },
+  "rebuild_navigation": true
+}

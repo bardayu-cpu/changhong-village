@@ -1,0 +1,335 @@
+{
+  "status": "immutable C2 engineering evidence snapshot; candidate visual acceptance tracked separately",
+  "files": [
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/winter_layers.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/winter_layers.gd",
+      "sha256": "58bc5348050b15f21d77241c339af07857da462962aa936833cebe8656f97b7d",
+      "bytes": 1202
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/winter-layers.log",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/winter-layers.log",
+      "sha256": "d3e4f15053da54412c5a4cf1678cb18ad923607e79dc8610242e9314aff68fe8",
+      "bytes": 284
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/laundry_deadline.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/laundry_deadline.gd",
+      "sha256": "c696cc543aa555ddc987a13da359d353fac7e889c015ef2add22b64d4b284840",
+      "bytes": 1784
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/laundry-deadline.log",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/laundry-deadline.log",
+      "sha256": "b3430ca2b1dec91941348c8aefb730aa103470adf667e519477baf7571d05810",
+      "bytes": 236
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/objects-integration.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/objects-integration.json",
+      "sha256": "0a33435aa7e66927bae40e8c730066af4c6b7f13fbe50b929a5d017aa2c99e35",
+      "bytes": 407
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/kai_runtime.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/kai_runtime.gd",
+      "sha256": "e0c9f755883cb8674b47ae95015cc98bf540f8b81e690245199695abd45f96f5",
+      "bytes": 1485
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/kai-runtime.log",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/kai-runtime.log",
+      "sha256": "24199d2980309d1518a62f4c7234656bc65a4464bc0ac5aa342876ebc849fa0f",
+      "bytes": 416
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/kai-v3-integration.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/kai-v3-integration.json",
+      "sha256": "809f5d5bef1049d5e4f9f95db6c73929686b86c0ac583b7cf9a3388d71fd08c3",
+      "bytes": 924
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/R-full-integration.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/R-full-integration.json",
+      "sha256": "a9b9aee86577cb398b04b7f8b8199c6e749ba5392f210911aa90f2c034268398",
+      "bytes": 13873
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/S-backgrounds-rice-integration.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/S-backgrounds-rice-integration.json",
+      "sha256": "69439fdbe9f03b9318c8dd572a45f583d2a44475d843a0e8c77d8a728a986b89",
+      "bytes": 3266
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/nine-room-assets-staged.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/nine-room-assets-staged.json",
+      "sha256": "6129ca3f1aa170d9e20d70a276b1cbff494a62ce42b9ec24a042de97e14283a2",
+      "bytes": 2892
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/family-house-freeze-proof.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/family-house-freeze-proof.json",
+      "sha256": "8bf73e4b261293c914a0b1a4feffd818b3dbbe782d33bd0f9bbfac9f1b2cf474",
+      "bytes": 13866
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/layout_candidate_checks.py",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/layout_candidate_checks.py",
+      "sha256": "b81c9cd3b27dd34f092da130114a8c85c3621c688684bb69eaa6ac90b86319c2",
+      "bytes": 2602
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/layout-candidate-checks.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/layout-candidate-checks.json",
+      "sha256": "b87ef2f0fdb0164e70540f86ea3c8b6fdde2b1cca17af4db2f930896ed1a47ea",
+      "bytes": 222
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/layout_runtime.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/layout_runtime.gd",
+      "sha256": "9d8ddc3c2dcb0bf3151f2dca46d7c1c0f381302ca52ddb49549b92b49b6b2766",
+      "bytes": 1792
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/layout-runtime.log",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/layout-runtime.log",
+      "sha256": "deb5ff87de16a256fe7ee8551dadfcc5cd4017a70928266508d2e005ae5b2664",
+      "bytes": 330
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/prepare_candidate_v3.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/prepare_candidate_v3.gd",
+      "sha256": "5c88cf73d7ca32799dab6d582556afa6e9b8a19179dffe8ccb06e5a7ebbdfc65",
+      "bytes": 4807
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/check_candidate_v3.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/check_candidate_v3.gd",
+      "sha256": "882db8b4a43d85979521c7543c76eca81d565b45a632d3452afef497fbd495d3",
+      "bytes": 3074
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/field_clearance_cases.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/field_clearance_cases.gd",
+      "sha256": "a05d0156fdb3307ab745ac1fc04bfb556f1e63b3292c625cda1265f0d0493093",
+      "bytes": 1977
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/field-clearance-cases.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/field-clearance-cases.json",
+      "sha256": "b3dada4b77be81457374694380b64e1d6ca29392347b21798bf3814e43c972ea",
+      "bytes": 1318
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/v3-clearance-semantics.md",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/v3-clearance-semantics.md",
+      "sha256": "2cfc8fc542917f1e44ef935ebdcf9d7493a42ad28f5500721276cc4d72406b91",
+      "bytes": 1697
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/check_nine_rooms.gd",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/check_nine_rooms.gd",
+      "sha256": "9ec01fc340b6249c3728df88740df16f01aebab80a295aa01e5942c8e3d95dfe",
+      "bytes": 1904
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/nine-room-navigation.log",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/nine-room-navigation.log",
+      "sha256": "3ab878076084f19b143b8392e7a1f114de41ad21ddd2ac8dbad5330f3fc94606",
+      "bytes": 4593
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/parse-market-portrait.log",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/parse-market-portrait.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "bytes": 73
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/bundle.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/bundle.json",
+      "sha256": "273c52c9b146d4581009d9a815a1eb79d90a67990154ce3d04c77712ec948d9b",
+      "bytes": 1164
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/rooms.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/rooms.json",
+      "sha256": "7292b0d4508389816981ff59fc0e62e772f34c9a489520daa5c8596a559ff8fd",
+      "bytes": 285723
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/route-check.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/route-check.json",
+      "sha256": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0",
+      "bytes": 2406
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/village/ground-pixel-1024/layers.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/ground-pixel-1024/layers.json",
+      "sha256": "b4f9eb38cdb8c5d60b50de762ac1cd5fbb874e20d2ef4c5c3d6a81e19665af2d",
+      "bytes": 1146
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/village/houses.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/houses.json",
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "bytes": 6436
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/village/layout-1025.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/layout-1025.json",
+      "sha256": "d8a44309593cab77dc22e330a3b19230250f939dbe048913c8f2ead9b75ceba2",
+      "bytes": 45021
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/village/topology.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village/topology.json",
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "bytes": 11980
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景候选-v3/village.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景候选-v3/village.json",
+      "sha256": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec",
+      "bytes": 377165
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/bundle.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/bundle.json",
+      "sha256": "09d02b47fe2399ea942a2d39b8e54779f0b0bc42a3e9e21f00340562a5de9375",
+      "bytes": 1315
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/rooms.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/rooms.json",
+      "sha256": "37c4c3650b3031b65efc0794c98929708dce000ae63c9c8d5edca7fdad4d39fa",
+      "bytes": 724215
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/route-check.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/route-check.json",
+      "sha256": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0",
+      "bytes": 2406
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/village/ground-pixel-1024/layers.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/ground-pixel-1024/layers.json",
+      "sha256": "54d92add17d5a3578cf18c64bdc8f49dee24456a2dad6713ec0968c40bebbd7d",
+      "bytes": 1242
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/village/houses.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/houses.json",
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "bytes": 6436
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/village/layout-1025.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/layout-1025.json",
+      "sha256": "30be70c29b04a0f7c19506799f40a9b9fe466f0fe70922f08c154cd950423bee",
+      "bytes": 47047
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/village/topology.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village/topology.json",
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "bytes": 11980
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3-远山2/village.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/村景材质候选-v3-远山2/village.json",
+      "sha256": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec",
+      "bytes": 377165
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/C2-anchor-corrections.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/C2-anchor-corrections.json",
+      "sha256": "f9d260c5821b95ac8f6faf7435ea89cdc72b6ad6f00637f41dba36b3989f66e0",
+      "bytes": 630
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/bundle.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/bundle.json",
+      "sha256": "cca6ab9850c1d5923f96bf1c0fd19d1a7823ef7a8d0084df278823351cbce298",
+      "bytes": 1417
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/integration-notes.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/integration-notes.json",
+      "sha256": "c28c2322abe7412a95eaa1c03f13ac7a6059420554bcceefc2b80a448a33569e",
+      "bytes": 1302
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/route-check.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/route-check.json",
+      "sha256": "cfc7197afb8714f36db263e1ff9929891a006bb26749f700efed9617f29c6072",
+      "bytes": 7404
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_daba.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_daba.json",
+      "sha256": "f35f936d69d45b78e8c6d35059f474f79ec2cf84ed8fa4882dec806306f3dd92",
+      "bytes": 4959
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_erba.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_erba.json",
+      "sha256": "9a60c7db3599759f0017e1f54ac82268490557c6df22983ecb78a9fecb4c3e88",
+      "bytes": 5529
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_h1.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h1.json",
+      "sha256": "672f6172264c702a9aa014a5176140cdccbf6074342d5f2085d9004c846194db",
+      "bytes": 4850
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_h2.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h2.json",
+      "sha256": "0bf4440ee197c0dc511bc3992fae39d3cba94ef6f8f6a35311ca857e177bf9eb",
+      "bytes": 4930
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_h4.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h4.json",
+      "sha256": "94cc264c5d5de28c423bbf5d3abfda1c56fa5514b2e3f6ffe326c23961ac4c1f",
+      "bytes": 4899
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_h6.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h6.json",
+      "sha256": "f46c28fd851e9d1429c74dd12f01b04e067b3cfb81726fc8914597004fc3d70f",
+      "bytes": 5214
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_h7.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_h7.json",
+      "sha256": "e29882ce089ea016feb85cdd5d8439e594e3bae3db86e602c77ac9133052ce52",
+      "bytes": 5220
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_rose.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_rose.json",
+      "sha256": "bf2005c07c7bbc17b782e9bad5d61e05ece8fe6de65fd894c31ab77e7b5e8ff6",
+      "bytes": 5445
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-v1/v_whitebrick.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-v1/v_whitebrick.json",
+      "sha256": "94265068013ed37b79cdba24bed33223d650681f89a4ce7104ac27ddf727cd2e",
+      "bytes": 5455
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-大爸首屏2/bundle.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-大爸首屏2/bundle.json",
+      "sha256": "d730ce8c5d01fa5ed83ff861e83f69989e1ea5343c31d212326fe4ce68787615",
+      "bytes": 618
+    },
+    {
+      "source": "测试数据/本轮C2专用目录/前端接管-1025/九户候选-大爸首屏2/v_daba.json",
+      "archive": "回执/第1轮收尾/C2工程证据-1025/九户候选-大爸首屏2/v_daba.json",
+      "sha256": "440e5d729785533d791f12bf2586b69b1513ab2074794ba9a78f2cdb504c5576",
+      "bytes": 4958
+    }
+  ]
+}

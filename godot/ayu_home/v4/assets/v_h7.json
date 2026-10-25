@@ -118,7 +118,7 @@
         571,
         363
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "h7",
       "copy": "竹篮挪到柜边，门前的窄道腾出来了。进进出出也不绊脚。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -140,6 +140,21 @@
         349
       ],
       "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h7",
+      "label": "挪一挪收纳竹篮",
+      "pos": [
+        680,
+        348
+      ],
+      "approach": [
+        571,
+        363
+      ],
+      "copy": "收纳竹篮换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -226,5 +241,70 @@
     67
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "grain_crate",
+    "pos": [
+      632,
+      348
+    ],
+    "label": "收纳竹篮",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      680,
+      348
+    ]
+  },
+  "npc": {
+    "id": "household_h7",
+    "character_id": "household_h7",
+    "name": "窄巷人家主人",
+    "portrait": "household_h7",
+    "preset": 4,
+    "pos": [
+      571,
+      363
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          571,
+          363
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理收纳竹篮，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          230,
+          350
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的收纳竹篮也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          165,
+          349
+        ],
+        "approach": [
+          230,
+          350
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

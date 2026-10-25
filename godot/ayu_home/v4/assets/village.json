@@ -1197,6 +1197,36 @@
         615,
         2840
       ]
+    },
+    {
+      "id": "visit_laowu",
+      "label": "老屋今天关门",
+      "kind": "closed_house",
+      "face": "down",
+      "pos": [
+        828,
+        462
+      ],
+      "approach": [
+        828,
+        496
+      ],
+      "width": 68,
+      "explicit_opening": true,
+      "copy": "老屋的木门关着，今天不便进屋。门边歇一歇，明天再来看看。"
+    },
+    {
+      "id": "loach_memory",
+      "kind": "loach_memory",
+      "label": "浅水滩抓泥鳅",
+      "pos": [
+        3450,
+        4050
+      ],
+      "approach": [
+        3384,
+        4104
+      ]
     }
   ],
   "doors": [
@@ -1215,23 +1245,6 @@
         2122
       ],
       "width": 64,
-      "explicit_opening": true
-    },
-    {
-      "id": "visit_laowu",
-      "target": "v_laowu",
-      "label": "拜访老屋",
-      "kind": "door",
-      "face": "down",
-      "pos": [
-        828,
-        462
-      ],
-      "approach": [
-        828,
-        496
-      ],
-      "width": 68,
       "explicit_opening": true
     },
     {

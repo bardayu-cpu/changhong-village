@@ -1,0 +1,328 @@
+{
+  "id": "v_whitebrick",
+  "title": "白砖小院 · 明亮客厅",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "closeout_kitchen_counter",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "pos": [
+        35,
+        126
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 184,
+      "atlas_region": [
+        70,
+        252,
+        580,
+        116
+      ]
+    },
+    {
+      "id": "closeout_left_sofa",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "pos": [
+        45,
+        292
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 382,
+      "atlas_region": [
+        90,
+        584,
+        224,
+        180
+      ]
+    },
+    {
+      "id": "closeout_coffee_table",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "pos": [
+        170,
+        286
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 344,
+      "atlas_region": [
+        340,
+        572,
+        232,
+        116
+      ]
+    },
+    {
+      "id": "closeout_dining_set",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "pos": [
+        560,
+        276
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 374,
+      "atlas_region": [
+        1120,
+        552,
+        340,
+        196
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      35,
+      125,
+      290,
+      58
+    ],
+    [
+      330,
+      108,
+      72,
+      64
+    ],
+    [
+      420,
+      125,
+      112,
+      58
+    ],
+    [
+      585,
+      118,
+      120,
+      62
+    ],
+    [
+      45,
+      290,
+      112,
+      92
+    ],
+    [
+      170,
+      285,
+      116,
+      58
+    ],
+    [
+      560,
+      275,
+      170,
+      98
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "house_help",
+      "label": "擦净料理台",
+      "pos": [
+        235,
+        125
+      ],
+      "approach": [
+        235,
+        194
+      ],
+      "kind": "house_task",
+      "house": "whitebrick",
+      "copy": "水槽旁的台面擦干净了，杯碗也顺手归好。白砖映着窗光，屋里更敞亮了。",
+      "repeat_copy": "白砖小院记着你的帮助，今天的料理台已经擦净。到沙发上坐一会儿吧。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        116,
+        278
+      ],
+      "approach": [
+        174,
+        276
+      ],
+      "kind": "seat",
+      "seat": [
+        116,
+        278
+      ],
+      "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "whitebrick",
+      "label": "挪一挪台边盆栽",
+      "pos": [
+        275,
+        125
+      ],
+      "approach": [
+        235,
+        194
+      ],
+      "copy": "台边盆栽换到另一边，摆放也有了新样子。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        384,
+        470
+      ],
+      "approach": [
+        384,
+        440
+      ],
+      "arrival": [
+        384,
+        405
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 82,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    384,
+    405
+  ],
+  "walk_rect": [
+    42,
+    168,
+    674,
+    320
+  ],
+  "walk_polygons": [
+    [
+      [
+        48,
+        169
+      ],
+      [
+        711,
+        169
+      ],
+      [
+        715,
+        388
+      ],
+      [
+        427,
+        388
+      ],
+      [
+        427,
+        487
+      ],
+      [
+        342,
+        487
+      ],
+      [
+        342,
+        388
+      ],
+      [
+        43,
+        388
+      ]
+    ]
+  ],
+  "outdoor": false,
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -118,
+    -2
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "layers": [],
+    "pending_real_object_states": true
+  },
+  "npc": {
+    "id": "household_whitebrick",
+    "character_id": "household_whitebrick",
+    "name": "白砖小院主人",
+    "portrait": "household_whitebrick",
+    "preset": 6,
+    "pos": [
+      235,
+      194
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          235,
+          194
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理台边盆栽，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          174,
+          276
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的台边盆栽也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          116,
+          278
+        ],
+        "approach": [
+          174,
+          276
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  },
+  "rebuild_navigation": true
+}

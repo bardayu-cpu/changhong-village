@@ -1,0 +1,129 @@
+{
+  "OS_input": false,
+  "art_scope": "25-object atlas visible only; six backgrounds pending, not S art pass",
+  "mode": "non-OS Home + actual childhood Game.begin/send/automatic countdown; normal transactions, accelerated test clock, no reward injection",
+  "rows": [
+    {
+      "check": "normal daily selection found laundry",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal visit",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal animal supply xiduo",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal animal supply qiuqiu",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal animal supply luoluo",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal animal supply tiantian",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal pepper plant for positive balance",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal pepper harvest",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "positive coins earned normally",
+      "details": {
+        "coins": 64
+      },
+      "pass": true
+    },
+    {
+      "check": "visible 45 second countdown",
+      "details": {
+        "text": "雨点落下还有 45 秒"
+      },
+      "pass": true
+    },
+    {
+      "check": "visible one second left",
+      "details": {
+        "text": "雨点落下还有 1 秒"
+      },
+      "pass": true
+    },
+    {
+      "check": "deadline UI auto ends unfinished laundry",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "rain does not charge or reward positive wallet",
+      "details": {
+        "after": 64,
+        "before": 64
+      },
+      "pass": true
+    },
+    {
+      "check": "rain does not consume daily completion",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same day normal retry",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "all eight collected before deadline",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "no reward before finishing",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "collected before deadline still completes after deadline",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "exact one daily reward",
+      "details": {
+        "after": 69,
+        "before": 64
+      },
+      "pass": true
+    },
+    {
+      "check": "repeat finish rejected",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same day repeat reward rejected",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "wallet stays after rejected repeats",
+      "details": {},
+      "pass": true
+    }
+  ]
+}

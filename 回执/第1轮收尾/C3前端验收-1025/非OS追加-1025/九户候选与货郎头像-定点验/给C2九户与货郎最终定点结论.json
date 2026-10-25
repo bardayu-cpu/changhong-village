@@ -1,0 +1,49 @@
+{
+  "OS_input": false,
+  "production_modified": false,
+  "nine_main_checks": {
+    "passed": 131,
+    "total": 131,
+    "scope": "9 rooms actual entry/help13h and native initial evening19h seat; solid centers, all C4 foreground atlas/foot mapping, C4 obstacles replacement except documented erba split, 36 approach endpoints, 4 daba rug points only; not full swept collision/OS walkthrough"
+  },
+  "visual_reviewed": "all9 entry13 pairs +3 help groups +3 actual seat/Ayu same-position groups",
+  "nine_art_geometry_scope": "new furnished backgrounds visibly installed in isolated candidate; source mapping and limited solids/approaches pass; nine full acceptance remains open",
+  "return_first": [
+    {
+      "id": "seated_nameplate",
+      "examples": [
+        "v_h1",
+        "v_h6",
+        "v_h7"
+      ],
+      "finding": "Fixed nameplate at actor local -102 does not follow lifted seated sprite; text crosses face/forehead/chest in actual evening views. Correct label anchor and then do relevant supplemental views only.",
+      "evidence": "精选/九户实际座位同位对照-分组2.png"
+    }
+  ],
+  "daba_entry_camera2": {
+    "pass": true,
+    "checks": 1,
+    "position_zoom_unchanged": true,
+    "candidate_bias": [
+      0,
+      90
+    ],
+    "mode": "only exact candidate camera config field loaded into isolated live cfg, Home normal tracking/layout active",
+    "finding": "13h first screen now shows bamboo workbench/tabletop; source image, collision, player spawn and 2.0 scale unchanged"
+  },
+  "merchant_portrait": {
+    "pass": true,
+    "checks": 2,
+    "entry": "ordinary interface.interact(actual world.spot(market)) -> shop page",
+    "image": "112x129 original portrait, no invented dialogue",
+    "prior_missing_entry_closed": true,
+    "merchant_sit_badge_occlusion": "still returned; this narrow portrait fix does not close it"
+  },
+  "helper_error": "original nine helper finished all9 then called nonexistent handle API at market; kept raw log and recovered131 CHECK rows +37 screenshot metadata. No nine rerun. Corrected merchant-only helper exited0.",
+  "whole_nine_pass": false,
+  "R_overall_pass": false,
+  "still_missing": [
+    "14 actual before/after interaction objects",
+    "full door enter/exit desktop and swept furniture checks, not expanded under closing window"
+  ]
+}

@@ -87,7 +87,7 @@ func load_room(which: String) -> void:
 		village_ground.configure_path(str(cfg.ground_layers),asset_path(str(cfg.background)))
 		add_child(village_ground)
 		village_ground.mount_layers(func(kind):
-			if kind=="mountain":return null # sky vertex color and C4 mountain art stay intact
+			if kind=="mountain" or (kind=="fields" and not village_ground.layout.is_empty()):return null # C4 seasonal field plates and mountains keep their original colors.
 			var mat=make_village_season_material(asset_path(str(cfg.background)),0,0) if kind=="fields" else make_season_material()
 			plant_materials.append(mat);return mat)
 	ground = Node2D.new();ground.draw.connect(_ground_draw);add_child(ground)
@@ -139,10 +139,10 @@ func load_room(which: String) -> void:
 	grid.region = Rect2i(0,0,int(cfg.size[0])/CELL,int(cfg.size[1])/CELL)
 	grid.cell_size = Vector2(CELL,CELL);grid.offset = Vector2(CELL/2,CELL/2);grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES;grid.update()
 	var nav_file:String=Assets.resolved_paths.get(ROOMS+area+".nav",ROOMS+area+".nav")
-	var mask:=FileAccess.get_file_as_bytes(nav_file) if use_baked_navigation and FileAccess.file_exists(nav_file) else PackedByteArray()
+	var mask:=FileAccess.get_file_as_bytes(nav_file) if use_baked_navigation and not cfg.get("rebuild_navigation",false) and FileAccess.file_exists(nav_file) else PackedByteArray()
 	var baked:bool=mask.size()==grid.region.size.x*grid.region.size.y
 	for y in grid.region.size.y:
-		for x in grid.region.size.x:grid.set_point_solid(Vector2i(x,y),bool(mask[y*grid.region.size.x+x]) if baked else not walkable(Vector2(x*CELL+CELL/2,y*CELL+CELL/2)))
+		for x in grid.region.size.x:grid.set_point_solid(Vector2i(x,y),bool(mask[y*grid.region.size.x+x]) if baked else not walkable(Vector2(x*CELL+CELL/2,y*CELL+CELL/2),true))
 	seal_islands()
 	add_table_top();add_tap_water()
 	update_light()
@@ -228,9 +228,11 @@ func seal_islands() -> void:
 			if seen[y*size.x+x]==0 and not grid.is_point_solid(Vector2i(x,y)):grid.set_point_solid(Vector2i(x,y),true)
 	nearest_cache.clear()
 static func v(a: Array) -> Vector2:return Vector2(a[0],a[1])
-func walkable(at: Vector2) -> bool:
+func walkable(at: Vector2, nav_clearance:=false) -> bool:
 	var r: Array = cfg.walk_rect
 	if not Rect2(r[0],r[1],r[2],r[3]).has_point(at):return false
+	if blocked_by_polygon(cfg,at):return false
+	if blocked_by_field(cfg,at,nav_clearance):return false
 	if not cfg.get("walk_polygons",[]).is_empty():
 		var inside:=false
 		for polygon in cfg.walk_polygons:
@@ -309,7 +311,7 @@ func make_village_season_material(source:String,plant_kind:int,layer_kind:int,ma
 	return m
 func update_light() -> void:
 	if not ambient:return
-	if is_instance_valid(village_ground):village_ground.set_winter(effects_enabled and preload("res://ayu_home/home_data.gd").season(month)==3)
+	if is_instance_valid(village_ground):village_ground.set_season(preload("res://ayu_home/home_data.gd").season(month) if effects_enabled else 1)
 	for pm in plant_materials:
 		pm.set_shader_parameter("season",preload("res://ayu_home/home_data.gd").season(month) if effects_enabled else 1)
 		pm.set_shader_parameter("rain",1.0 if weather=="rain" and effects_enabled else 0.0)
@@ -517,6 +519,8 @@ func leads_out(d:Dictionary,at:Vector2) -> bool:
 static func walkable_in(c:Dictionary,at:Vector2) -> bool:
 	var r:Array=c.walk_rect
 	if not Rect2(r[0],r[1],r[2],r[3]).has_point(at):return false
+	if blocked_by_polygon(c,at):return false
+	if blocked_by_field(c,at):return false
 	if not c.get("walk_polygons",[]).is_empty():
 		var inside:=false
 		for polygon in c.walk_polygons:
@@ -527,6 +531,42 @@ static func walkable_in(c:Dictionary,at:Vector2) -> bool:
 	for b in c.obstacles:
 		if Rect2(b[0],b[1],b[2],b[3]).grow(3).has_point(at):return false
 	return true
+static func blocked_by_polygon(c:Dictionary,at:Vector2) -> bool:
+	for polygon in c.get("blocked_polygons",[]):
+		var points:=PackedVector2Array()
+		for p in polygon:points.append(v(p))
+		if Geometry2D.is_point_in_polygon(at,points):return true
+	return false
+static func blocked_by_field(c:Dictionary,at:Vector2, nav_clearance:=false) -> bool:
+	if not c.has("field_navigation"):return false
+	if not c.has("_field_nav_cache"):
+		var cache:={"fields":[],"buckets":{}}
+		for polygon in c.field_navigation.fields:
+			var points:=PackedVector2Array()
+			for p in polygon:points.append(v(p))
+			cache.fields.append(points)
+		for polygon in c.field_navigation.walk_surfaces:
+			var points:=PackedVector2Array();var bounds:=Rect2(v(polygon[0]),Vector2.ZERO)
+			for p in polygon:points.append(v(p));bounds=bounds.expand(v(p))
+			for y in range(floori(bounds.position.y/128),floori(bounds.end.y/128)+1):
+				for x in range(floori(bounds.position.x/128),floori(bounds.end.x/128)+1):
+					var key:=Vector2i(x,y)
+					if not cache.buckets.has(key):cache.buckets[key]=[]
+					cache.buckets[key].append(points)
+		c._field_nav_cache=cache
+	var inside:=false
+	for field in c._field_nav_cache.fields:
+		if Geometry2D.is_point_in_polygon(at,field):inside=true;break
+	if not inside:return false
+	# Keep cell centres away from the path edge so interpolated steps cannot cut a field corner.
+	var margin:=float(c.field_navigation.get("margin",8)) if nav_clearance else 0.0
+	for offset in [Vector2.ZERO,Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN,Vector2(-.707,-.707),Vector2(.707,-.707),Vector2(-.707,.707),Vector2(.707,.707)]:
+		var sample:Vector2=at+offset*margin;var covered:=false
+		var key:=Vector2i(floori(sample.x/128),floori(sample.y/128))
+		for polygon in c._field_nav_cache.buckets.get(key,[]):
+			if Geometry2D.is_point_in_polygon(sample,polygon):covered=true;break
+		if not covered:return true
+	return false
 func open_cell(at:Vector2) -> bool:
 	var cell:=Vector2i(at/CELL)
 	return grid.is_in_boundsv(cell) and not grid.is_point_solid(cell)

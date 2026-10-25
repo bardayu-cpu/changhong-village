@@ -112,7 +112,7 @@
         311,
         306
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "rose",
       "copy": "枯花瓣轻轻收走，花瓶边也擦净了。玫瑰露出新花心，香气留在客厅里。",
       "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
@@ -134,6 +134,21 @@
         275
       ],
       "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "rose",
+      "label": "挪一挪玫瑰花盆",
+      "pos": [
+        302,
+        284
+      ],
+      "approach": [
+        311,
+        306
+      ],
+      "copy": "玫瑰花盆换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -220,5 +235,70 @@
     -2
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "clay_pot",
+    "pos": [
+      254,
+      284
+    ],
+    "label": "玫瑰花盆",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      302,
+      284
+    ]
+  },
+  "npc": {
+    "id": "household_rose",
+    "character_id": "household_rose",
+    "name": "玫瑰花之家主人",
+    "portrait": "household_rose",
+    "preset": 1,
+    "pos": [
+      311,
+      306
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          311,
+          306
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理玫瑰花盆，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          174,
+          277
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的玫瑰花盆也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          113,
+          275
+        ],
+        "approach": [
+          174,
+          277
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

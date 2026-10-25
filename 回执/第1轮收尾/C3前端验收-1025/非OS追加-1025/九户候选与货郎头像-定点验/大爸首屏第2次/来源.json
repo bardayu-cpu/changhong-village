@@ -1,0 +1,19 @@
+{
+  "candidate_bundle_sha256": "d730ce8c5d01fa5ed83ff861e83f69989e1ea5343c31d212326fe4ce68787615",
+  "only_config_diff": {
+    "entry_camera_bias": [
+      [
+        -3,
+        -8
+      ],
+      [
+        0,
+        90
+      ]
+    ]
+  },
+  "fixture": "load exact candidate bias into isolated actual World cfg after normal entry; Home camera processing/layout remains active; no player/camera/zoom rewrite",
+  "same_problem_attempt": 2,
+  "production_modified": false,
+  "OS_input": false
+}

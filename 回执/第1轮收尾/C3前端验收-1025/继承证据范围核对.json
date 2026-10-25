@@ -1,0 +1,38 @@
+{
+  "14户交互作息-第1次": {
+    "total_assertions": 270,
+    "passed": 269,
+    "failures": [
+      {
+        "check": "oldhouse closed hotspot exists",
+        "details": {},
+        "pass": false
+      }
+    ],
+    "mode": null
+  },
+  "童年规则-第2次": {
+    "total_assertions": 87,
+    "passed": 87,
+    "failures": [],
+    "mode": "headless independent rules via normal transactions; time override only, no currency/inventory injection"
+  },
+  "G与七天-第1次": {
+    "total_assertions": 116,
+    "passed": 116,
+    "failures": [],
+    "mode": "isolated actual Home UI plus normal transaction API, accelerated test clock; not OS playthrough or first-week exclusive gating proof"
+  },
+  "core": {
+    "recorded_source": "基线-core-f306dee",
+    "current_core_source_sha256": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d",
+    "last_lines": [
+      "CHECK true visit {  } { \"ok\": true, \"message\": \"回来啦\" }",
+      "CHECK true 过时窗口拒绝覆盖新存档",
+      "CHECK true 坏一槽可以从另一有效槽恢复",
+      "CHECK true 身份不同不读别人的存档",
+      "RESULT PASS 87 checks []"
+    ],
+    "not_rerun": true
+  }
+}

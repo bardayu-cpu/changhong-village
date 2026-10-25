@@ -1,0 +1,18 @@
+{
+  "mode": "current childhood code/backgrounds/objects overlay on frozen Home project; village material candidate remains separate from S conclusions",
+  "hashes": {
+    "ayu_home/v4/core/childhood_game.gd": "cd0229c4f4edb202c5ce8312ef4decdc48e8a579b3fbb4eff33226e79725214a",
+    "ayu_home/v4/core/childhood_rules.gd": "8f8458468ccbd5756fa62687c25a008313768cde3430f49c8257ba91f4c8614e",
+    "ayu_home/v4/core/config.gd": "4bd927ea805f1889e370d781cf47af176937faafbd15312dab86bd544b4bad02",
+    "ayu_home/v4/assets/childhood/hospital.png": "35a2b48005f900a1b45618d4055c67e215526e20fd07d6b35338dd110ca0c3a1",
+    "ayu_home/v4/assets/childhood/mudflat.png": "7b93dfc2320c1f8b317e07871a65b84366cb9f3d3aac6788670a0266043f40f3",
+    "ayu_home/v4/assets/childhood/laundry.png": "1118060b23e364e0c77da1e8e49ecfdfd0de41b9db436ada3bd1a6a1fe7238be",
+    "ayu_home/v4/assets/childhood/objects.png": "bad3f5f3491fae2999b3e245ef61db7f01d155e49d09ecc46923bb81d9ff7e29",
+    "ayu_home/v4/assets/childhood/milk_table.png": "361693636914a2b38358b86953a1d220054c5fe48c79ee1d9cf96f37022199c7",
+    "ayu_home/v4/assets/childhood/vegetables.png": "f279805aea1f8e25263d31cf9aa49a43fcb64fd73e226cee495eb982aa1bcdca",
+    "ayu_home/v4/assets/childhood/train_room.png": "7f8c97a90fb92be27e98b19511f7d4c261580a2d7dea240f8be09723b6a3d402"
+  },
+  "OS_input": false,
+  "production_modified": false,
+  "rules_full_rerun": false
+}

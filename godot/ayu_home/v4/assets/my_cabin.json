@@ -177,6 +177,19 @@
         458
       ],
       "face": "right"
+    },
+    {
+      "id": "community_growth",
+      "kind": "community_growth",
+      "label": "添置共用物件",
+      "pos": [
+        130,
+        353
+      ],
+      "approach": [
+        175,
+        382
+      ]
     }
   ],
   "doors": [

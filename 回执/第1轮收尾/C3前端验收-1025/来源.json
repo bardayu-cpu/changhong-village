@@ -1,0 +1,18 @@
+{
+  "basis_head": "e1d26c9a01d3597c3d5c7c5c43953aa0a80a40ab",
+  "kind": "当前未提交工作树的独立冻结副本，不冒称提交内容",
+  "files": {
+    "ayu_home/v4/home.gd": "98042c7038c80a6414a3dfb4dd88c57eca0a95e9ed783bb418bdd45d9cfe13e6",
+    "ayu_home/v4/world.gd": "a524be3574e039dfdd263fbfbf56148716fe922935ec896d5945d0237a6ec5ec",
+    "ayu_home/v4/actor.gd": "b24aacbe93f25eee6acfaab400bea1cd314da7825075ebdf9f720f0e3e513281",
+    "ayu_home/v4/assets/exterior.json": "f9d91fa16508855d04384a5f24107e050d33a193bea58cebb94322862786e23b",
+    "ayu_home/v4/assets/village.json": "304d5ccabe6aea74a16f32643d1eff4782d116cf02e8976b98d39a11cc4ba5b5",
+    "ayu_home/v4/assets/v_h3.json": "b0d9eeb2419015817a4a7c1db711a7b078165c06e0d2cfccf5d066cd875ace69",
+    "ayu_home/v4/core/state.gd": "8dce02504aec4efae68f011b7fb7bd3e66108e025bf313427791f5e53a5ff7e2",
+    "ayu_home/v4/core/config.gd": "10ac40465670ac57ee032b5f580209e7adc6cea3ac94d57ddc6be029252e26bb"
+  },
+  "changed_during_copy": [],
+  "stop_remaining_percent": 30,
+  "profile": "c3-front-occlusion-1025",
+  "time": 1792928535.380288
+}

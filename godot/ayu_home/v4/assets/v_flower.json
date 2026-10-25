@@ -106,7 +106,7 @@
         287,
         218
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "flower",
       "copy": "剪下的枝叶归进小筐，花瓶旁的水迹擦干了。新花束可以慢慢扎起来。",
       "repeat_copy": "花房主人记着你的帮助，今天的插花台已经整理好了。坐下看看窗边的花吧。"
@@ -128,6 +128,21 @@
         292
       ],
       "face": "left"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "flower",
+      "label": "挪一挪插花花器",
+      "pos": [
+        329,
+        124
+      ],
+      "approach": [
+        287,
+        218
+      ],
+      "copy": "插花花器换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -214,5 +229,70 @@
     75
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "clay_pot",
+    "pos": [
+      281,
+      124
+    ],
+    "label": "插花花器",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      329,
+      124
+    ]
+  },
+  "npc": {
+    "id": "household_flower",
+    "character_id": "household_flower",
+    "name": "花房小楼主人",
+    "portrait": "household_flower",
+    "preset": 2,
+    "pos": [
+      287,
+      218
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          287,
+          218
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理插花花器，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          333,
+          298
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的插花花器也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          283,
+          292
+        ],
+        "approach": [
+          333,
+          298
+        ],
+        "face": "left",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

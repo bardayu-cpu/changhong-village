@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-25",
+  "source_head": "e1d26c9a01d3597c3d5c7c5c43953aa0a80a40ab + 独立冻结未提交工作树；冬季仅单文件差异",
+  "stop_remaining_percent": 30,
+  "last_checked_remaining_percent": 64,
+  "no_agents": true,
+  "production_or_git_mutated": false,
+  "overall_pass": false,
+  "score": null,
+  "score_note": "缺S或R最高85，现仍缺；不能报>=90或交付完成",
+  "items": [
+    {
+      "item": "1 村景",
+      "status": "未通过／待C4稳定成图接入",
+      "boundary": "参考图已看，按错落院落、田埂和弯主路验；原4桥穿村河仍属旧几何，不能用比例统计判过"
+    },
+    {
+      "item": "2 冬季地面",
+      "status": "C2窄测已交；C3实际输入暂欠",
+      "boundary": "已单独冻结去隐藏层修复；Mac锁定，未完成秋冬同路线输入，未判通过；新村景几何还需最终复验"
+    },
+    {
+      "item": "3 九户室内",
+      "status": "未通过／待新图",
+      "boundary": "不重画冻结五户；九户新图及接入尚待送验"
+    },
+    {
+      "item": "4 十四户交互",
+      "status": "事务局部已有；画面退回",
+      "boundary": "原269/270，一项测试ID前置错误不列生产bug；h1茶杯竹凳/压盘截边退回第1次，等语义及锚点修复版本"
+    },
+    {
+      "item": "5 老屋",
+      "status": "未通过",
+      "boundary": "无target/闭门文字事务成立；门洞仍开，第1次待C4门扇及C2接入"
+    },
+    {
+      "item": "6 白天与作息",
+      "status": "已有14张13时+42早中晚证据；当前画面复核待续",
+      "boundary": "交互作息证据不代表室内图面或新NPC通过；按实际时段标注"
+    },
+    {
+      "item": "7 触摸与动态遮挡",
+      "status": "动态选定三路线完成；整项未通过",
+      "boundary": "院子棚沿、村景树、磨坊桶沿真实OS按键跨排序线及恢复；磨坊另存补段，初椅侧弱证据不判过；真实触摸仍欠"
+    },
+    {
+      "item": "8 蝉鸣实听",
+      "status": "欠验",
+      "boundary": "需要阿鱼实际听1分钟并开关一次，不能由音轨或状态冒称"
+    },
+    {
+      "item": "G1 人情解锁",
+      "status": "本次图纸页前后补证通过；结合原事务证据",
+      "boundary": "三张未获得→已学会，正常institution_effect和UI friend_claim；本次未重做制作/防重/跨进程，旧116记录另存，不冒称OS全程"
+    },
+    {
+      "item": "G2 活动中心三档",
+      "status": "原三档图已核，新增物局部可见；完整画面仍待补",
+      "boundary": "stage1竹席屏边截、stage2菜盘牌遮、stage3画架人物挡；旧116不代完整图面，锁屏后待正常走位补角度"
+    },
+    {
+      "item": "G3 七天",
+      "status": "原116正常事务加速七天已有；证据边界保留",
+      "boundary": "每天图和新物表在原目录；不是自然连续现实七天，也不是首日重跑"
+    },
+    {
+      "item": "H1 真实触摸",
+      "status": "欠验",
+      "boundary": "只有Mac，无真实触摸设备；鼠标和模拟不冒称通过"
+    },
+    {
+      "item": "H2 交付包",
+      "status": "待C2打交付提交包后独测",
+      "boundary": "双击/关重开/存档/提交号待最终稳定包"
+    },
+    {
+      "item": "H3 全村走查",
+      "status": "未完成",
+      "boundary": "只完成上述局部，不能由规则断言或局部路线推全村无死点/占位"
+    },
+    {
+      "item": "S1 牛奶",
+      "status": "规则旧87通过；美术未过",
+      "boundary": "桌盒/定稿Ayu走近/医院暖色剪影待稳定图面，未复验新SceneBoard"
+    },
+    {
+      "item": "S2 泥鳅",
+      "status": "规则旧87通过；图面/真人时机待续",
+      "boundary": "泥鳅库存接汤事务已有；泥滩水纹新图面待送验"
+    },
+    {
+      "item": "S3 火车",
+      "status": "规则旧87通过；实际图面待续",
+      "boundary": "必带拦截和结果分支事务已有；采买/格子装箱当前UI证据尚待补"
+    },
+    {
+      "item": "S4 日常",
+      "status": "规则旧87通过；图面待续",
+      "boundary": "至少两支线及每日随机事务已有，衣叶新图待C4"
+    },
+    {
+      "item": "R 全员人物",
+      "status": "未通过",
+      "boundary": "Kai第1次59px/脚底抖异档退回；等第2次样板，不批准批量，全部人游戏内走/待机/坐下未齐"
+    }
+  ],
+  "current_block": "Mac锁定，手动解锁问题仍待回复；没有继续发送OS输入",
+  "independent_runtime": "冬季复验副本运行中，600秒超时会正常保存退出；当前未发送任何冬季行走输入",
+  "delivered_to_formal_report": false,
+  "handoff": "供唯一写入者前端C2审阅归档，本目录仅隔离QA产物",
+  "received_not_verified": [
+    {
+      "item": "冬季",
+      "source_file": "core/village_ground.gd",
+      "C2_narrow_test": "8层可见/18路多边形不变",
+      "C3_state": "Mac锁定，实际输入待续"
+    },
+    {
+      "item": "S4收衣截止",
+      "C2_narrow_test": "laundry_seconds=45，18项窄测",
+      "C3_state": "等S图面一起复验，不重跑87"
+    },
+    {
+      "item": "逐户真实物件加载",
+      "C2_note": "支持前后file/rect/foot排序",
+      "C3_state": "等C4资产；当前不算画面修好"
+    }
+  ],
+  "G1_minor_observation": "未获得图纸说明仍只提动物包/金币盲盒，未提示新人情解锁；不影响已测未获得→已学会状态，建议C2文案同步"
+}

@@ -82,7 +82,7 @@
         390,
         360
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "h8",
       "copy": "茶杯倒扣归好，茶盘擦干净了。留一壶热水，下回坐下就能慢慢泡茶。",
       "repeat_copy": "茶香小院记着你的帮助，今天的茶盘已经归整好了。找张椅子坐坐吧。"
@@ -104,6 +104,21 @@
         283
       ],
       "face": "left"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h8",
+      "label": "挪一挪茶席",
+      "pos": [
+        438,
+        282
+      ],
+      "approach": [
+        390,
+        360
+      ],
+      "copy": "茶席换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -190,5 +205,70 @@
     -4
   ],
   "entry_camera_radius": 220,
-  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "tea_stool",
+    "pos": [
+      390,
+      282
+    ],
+    "label": "茶席",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      438,
+      282
+    ]
+  },
+  "npc": {
+    "id": "household_h8",
+    "character_id": "household_h8",
+    "name": "茶香小院主人",
+    "portrait": "household_h8",
+    "preset": 5,
+    "pos": [
+      390,
+      360
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          390,
+          360
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理茶席，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          584,
+          289
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的茶席也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          522,
+          283
+        ],
+        "approach": [
+          584,
+          289
+        ],
+        "face": "left",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

@@ -1,0 +1,26 @@
+{
+  "actor": {
+    "action": "sit",
+    "face": "right",
+    "lift": 104.0,
+    "position": [
+      104.0,
+      455.0
+    ],
+    "screen": [
+      208.0,
+      794.0
+    ]
+  },
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+  "hour": 19.0,
+  "month": 10,
+  "name": "v_h4-Ayu-same-seat-19",
+  "player_position": [
+    104.0,
+    351.0
+  ],
+  "room": "v_h4",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

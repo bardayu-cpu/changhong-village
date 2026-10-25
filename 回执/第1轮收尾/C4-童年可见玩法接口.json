@@ -1,0 +1,20 @@
+{
+  "asset_root": "res://ayu_home/v4/assets/childhood/",
+  "sheet": "objects.png",
+  "cell": [64, 64],
+  "columns": 8,
+  "rows": 4,
+  "order": ["milk_good", "milk_swollen", "milk_leak", "bowl", "loach", "stone", "crab", "basket", "ticket", "document", "water", "coat", "snack", "book", "shirt", "trousers", "scarf", "towel", "socks", "leaf_green", "leaf_yellow", "leaf_bug", "bubble", "ripple", "mud_splash"],
+  "background_pixels": [640, 360],
+  "backgrounds": {
+    "milk_table.png": "厨房木桌近景，杯盘不画死，中央留4至6盒位置，右后留阿鱼走近通道",
+    "mudflat.png": "浅浅浑水泥滩，9个可交互区域覆盖中央，提示泡和波纹用透明图集叠加",
+    "train_room.png": "收拾行囊的小房间或车窗景，不编具体地点",
+    "laundry.png": "家中空晾衣绳背景，挂点留空，右侧收衣篮",
+    "vegetables.png": "家中择菜案板与篮，中央留8片可点叶子空位",
+    "hospital.png": "暖色安静剪影转场，无病床、针头、红疹，不编额外情节"
+  },
+  "style": "阿鱼家像素档，清晰像素边缘；objects透明PNG，背景不透明。C4画，C2只接Control与动画。",
+  "ayu_approach": "不重画阿鱼定稿，C2使用现chr_ayu.png定稿走路帧在桌旁通道移动，不换衣服。",
+  "integration": "S1桌面点盒后展开线索，隔离盒移位；S2泥水泡纹提示、按压捞取与竹篓收获；S3物件图真实拖进格箱、重叠拒绝；S4衣物/坏叶点击后移入篮，健康叶保留。"
+}

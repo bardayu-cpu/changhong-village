@@ -189,6 +189,7 @@ func anchor(room:String,id:String) -> Vector2:
 	var cfg:Dictionary=definitions[room]
 	return World.v(cfg.anchors.get(id,cfg.spawn))
 func enter_room(which:String,with_transition:=true,from:="") -> void:
+	if which in ["v_laowu","v_laowu_up"]:which="village";from=""
 	var doorstep_id:=which.trim_prefix("v_").trim_suffix("_up")
 	var doorstep_only:bool=village_ui!=null and village_ui.C.DOOR_CHORES.has(doorstep_id) and not bool(definitions.get(which,{}).get("household_open",false))
 	if doorstep_only:which="village";from="" # 旧档留在今天闭门的邻居屋里时，也从该户门边继续。
@@ -206,7 +207,7 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 			player.face=d.face;player.position=world.nearest(World.v(d.arrival)) if d.has("arrival") else world.nearest(World.v(d.approach)+dir(d.face)*(64 if world.cfg.get("outdoor",false) else 25));break
 	if which=="village" and from=="my_yard" and village_ui!=null:
 		var location:String=str(village_ui.state.data.village.location)
-		if village_ui.C.LOCATION_POINTS.has(location):player.position=world.nearest(World.v(village_ui.C.LOCATION_POINTS[location])+Vector2(0,64))
+		if village_ui.C.location_points().has(location):player.position=world.nearest(World.v(village_ui.C.location_points()[location])+Vector2(0,64))
 	if not bootstrapped and not first_visit and village_ui!=null:
 		var saved:Dictionary=village_ui.state.data.village
 		var saved_position:Array=saved.get("last_position",[])
@@ -533,6 +534,11 @@ func interact(id:String) -> void:
 		if area=="exterior" and id=="xiduo":village_ui.show_page("田边");return
 		if area=="kitchen" and id=="stove":village_ui.show_page("灶屋");return
 		if area=="garden" and id in ["vegetables","garden_play"]:village_ui.show_page("田边");return
+	if kind=="album" and village_ui!=null:
+		var pages:VBoxContainer=modal_shell("阿鱼的相册与旧本子")
+		pages.add_child(UI.button("小时候的事",func():village_ui.open_childhood(),true))
+		pages.add_child(UI.button("翻看相册",func():close_modal();activities.open("album",{"month":month,"v2_art":true})))
+		return
 	if kind in ["guitar","puzzle","album"]:activities.open(kind,{"month":month,"v2_art":true});return
 	if kind=="fish":immersive.open("fish",{"hour":hour,"month":month,"fish":life.data.fish});return
 	if Games.TITLES.has(kind):games.open(kind,life,{"hour":hour,"month":month,"weather":weather,"sound":sound_on,"area":area});return
@@ -806,6 +812,7 @@ func layout_world() -> void:
 		if lower.x<=upper.x:center.x=clampf(center.x,lower.x,upper.x)
 		if lower.y<=upper.y:center.y=clampf(center.y,lower.y,upper.y)
 	world.scale=Vector2.ONE*view_scale;world.position=(screen*.5-center*view_scale).round();world.camera_center=center
+	if is_instance_valid(world.village_ground):world.village_ground.set_view(Rect2(center-visible_world*.5,visible_world))
 func make_markers() -> void:
 	for n in markers.get_children():n.queue_free()
 	marker_nodes.clear()

@@ -1,0 +1,825 @@
+{
+  "original_full_cell_crop_failures_retained": 48,
+  "second_camera_fixture_no_effect": "Home auto camera tracking overwrote manual camera; retained second attempt, no third runtime rerun",
+  "actual_visible_alpha_bounds": [
+    {
+      "id": "household_whitebrick",
+      "frame": 0,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 0,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 1,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 2,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 3,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 4,
+      "source_alpha_bbox": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "actual_visible_rect": [
+        26.0,
+        426.0,
+        92.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 4,
+      "source_alpha_bbox": [
+        15,
+        1,
+        48,
+        83
+      ],
+      "actual_visible_rect": [
+        26.0,
+        426.0,
+        92.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 5,
+      "source_alpha_bbox": [
+        13,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 6,
+      "source_alpha_bbox": [
+        13,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 7,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 8,
+      "source_alpha_bbox": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        26.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 8,
+      "source_alpha_bbox": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        26.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 9,
+      "source_alpha_bbox": [
+        13,
+        1,
+        51,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        98.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 10,
+      "source_alpha_bbox": [
+        13,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 11,
+      "source_alpha_bbox": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        26.0,
+        426.0,
+        94.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 12,
+      "source_alpha_bbox": [
+        13,
+        1,
+        51,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        98.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 12,
+      "source_alpha_bbox": [
+        13,
+        1,
+        51,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        98.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 13,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 14,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        426.0,
+        96.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 15,
+      "source_alpha_bbox": [
+        13,
+        1,
+        51,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        426.0,
+        98.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 16,
+      "source_alpha_bbox": [
+        13,
+        23,
+        51,
+        83
+      ],
+      "actual_visible_rect": [
+        22.0,
+        470.0,
+        98.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 17,
+      "source_alpha_bbox": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "actual_visible_rect": [
+        16.0,
+        470.0,
+        102.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 18,
+      "source_alpha_bbox": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "actual_visible_rect": [
+        16.0,
+        470.0,
+        102.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_whitebrick",
+      "frame": 19,
+      "source_alpha_bbox": [
+        10,
+        23,
+        53,
+        83
+      ],
+      "actual_visible_rect": [
+        16.0,
+        470.0,
+        102.0,
+        590.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 0,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 0,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 1,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 2,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 3,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 4,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 4,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 5,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 6,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 7,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 8,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 8,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 9,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 10,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 11,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 12,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 12,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 13,
+      "source_alpha_bbox": [
+        15,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        26.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 14,
+      "source_alpha_bbox": [
+        14,
+        1,
+        49,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        94.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 15,
+      "source_alpha_bbox": [
+        14,
+        1,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        458.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 16,
+      "source_alpha_bbox": [
+        14,
+        23,
+        50,
+        83
+      ],
+      "actual_visible_rect": [
+        24.0,
+        502.0,
+        96.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 17,
+      "source_alpha_bbox": [
+        11,
+        23,
+        52,
+        83
+      ],
+      "actual_visible_rect": [
+        18.0,
+        502.0,
+        100.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 18,
+      "source_alpha_bbox": [
+        11,
+        23,
+        52,
+        83
+      ],
+      "actual_visible_rect": [
+        18.0,
+        502.0,
+        100.0,
+        622.0
+      ],
+      "inside": true
+    },
+    {
+      "id": "household_rose",
+      "frame": 19,
+      "source_alpha_bbox": [
+        12,
+        23,
+        52,
+        83
+      ],
+      "actual_visible_rect": [
+        20.0,
+        502.0,
+        100.0,
+        622.0
+      ],
+      "inside": true
+    }
+  ],
+  "visible_body_checks_pass": 48,
+  "not_lowering_frame_or_seat_requirements": true,
+  "finding": "Only 2 transparent source columns outside viewport. All nontransparent body pixels fit. Full original engine contacts visually reviewed. No actual body truncation in these two preview fixtures."
+}

@@ -1,0 +1,30 @@
+{
+  "house_count": 20,
+  "ids": [
+    "erba",
+    "laowu",
+    "daba",
+    "h5",
+    "ayu",
+    "h2",
+    "h3",
+    "mayor",
+    "h6",
+    "h8",
+    "h7",
+    "h4",
+    "h1",
+    "flower",
+    "whitebrick",
+    "grape",
+    "sunflower",
+    "persimmon",
+    "rose",
+    "community"
+  ],
+  "rectangle_overlaps": [],
+  "max_house_right": 4600,
+  "river_min_x": 4650,
+  "all_houses_west_of_river": true,
+  "bridges": 0
+}

@@ -272,6 +272,10 @@ func update_details() -> void:
 			var cfg:Dictionary=C.FURNITURE[selected];command="craft";args={"id":selected};action_text="制作"+cfg.name
 			var learned:bool=selected in state.data.village.blueprints;enabled=learned and state.has_items(cfg.items)
 			description="先从动物包或金币盲盒取得图纸。" if not learned else ("材料不足。" if not enabled else "制作后收进家具库。")
+			if not learned:
+				for who in C.FRIEND_UNLOCKS:
+					var unlock:Dictionary=C.FRIEND_UNLOCKS[who]
+					if str(unlock.blueprint)==selected:description="帮%s做事，人情攒到%d可领取这张图纸。"%[who,int(unlock.threshold)]
 			var counts:Array[String]=[]
 			for material in cfg.items:counts.append("%s %d/%d"%[state.item_name(material),state.count(material),int(cfg.items[material])])
 			description+=" "+" · ".join(counts)

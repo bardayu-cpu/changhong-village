@@ -1,0 +1,55 @@
+{
+  "overall_R_pass": false,
+  "OS_input": false,
+  "source_art_pass": true,
+  "source_18_distinct_NPCs_and_36_hashes_verified": true,
+  "family_12_sprite_metadata_files_unchanged": true,
+  "runtime_scope": {
+    "new_full_pose_roles": 17,
+    "Kai_full_suite_reused": 37,
+    "Kai_new_scope": "portrait only",
+    "actual_native_portrait_entries": 17,
+    "actual_native_evening_seats_this_run": 16,
+    "Kai_actual_seat_previous_run": true,
+    "merchant_street_cycle_actual_sit": true,
+    "walk_animation_each_direction": 4,
+    "directions_each_role": 4
+  },
+  "raw_assertions": {
+    "total": 1092,
+    "passed": 1043,
+    "failed": 49,
+    "failures_classified": {
+      "48_full_cell_empty_border_crop": "two source-transparent columns outside viewport in two preview fixtures, actual visible pixel bounds independently checked 48/48 inside; original failures retained; second camera-only fixture had no effect due Home tracking and is retained",
+      "1_market_portrait_entry": "source art exists, production only routes to shop; actual portrait entry not verified"
+    }
+  },
+  "visual_review": {
+    "source_contacts": 6,
+    "source_portraits": 18,
+    "engine_pose_contact_groups": 6,
+    "actual_seat_context_groups": 3,
+    "actual_portrait_groups": 2,
+    "findings": [
+      "New NPC bodies proportionate to approved Ayu, independent sit art, no actual body-frame truncation in reviewed crops",
+      "Existing nameplates remain at fixed high offset in seated poses",
+      "Merchant street sitting is masked by nearby market interaction badge/nameplate in normal view; screenshot proves state but cannot count as clean sitting visual proof"
+    ]
+  },
+  "return_or_pending": [
+    {
+      "id": "R-market-portrait",
+      "status": "欠接入/欠验",
+      "finding": "No ordinary merchant dialogue entry found; current handle opens shop. Do not substitute direct Home.dialogue fixture and call it normal entry.",
+      "source": "core/interface.gd entered()/handle()/market()"
+    },
+    {
+      "id": "R-market-sit-visibility",
+      "status": "视觉退回第1次",
+      "finding": "Shop interaction badge covers head/body in sitting view at 13h; move badge/label or camera-safe normal view before independent supplemental screenshot.",
+      "evidence": "精选/market-左NPC右Ayu-同座位同时间.png"
+    }
+  ],
+  "lineup": "精选/R全员阵容-实际尺寸-C4原图只读副本.png",
+  "delivery": "source lineup accepted; R full gate remains open"
+}

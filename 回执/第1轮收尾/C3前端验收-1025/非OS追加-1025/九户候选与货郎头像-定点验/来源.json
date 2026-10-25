@@ -1,0 +1,13 @@
+{
+  "bundle_sha256": "cca6ab9850c1d5923f96bf1c0fd19d1a7823ef7a8d0084df278823351cbce298",
+  "candidate_hashes_verified": true,
+  "code_hashes": {
+    "ayu_home/v4/core/interface.gd": "4a549c76e0a9b54e110c95dd7b4f24483d941f349f4a8f816abf3bc0dc3f2e57",
+    "ayu_home/v4/home.gd": "3d9354774341e9a7b0dd479c32c707203764ba75e76ec4231b41613acf92e172",
+    "ayu_home/v4/core/village_ground.gd": "793898de429f7120ffd0802a206c7ecd56d0aaace95bc05e88ed92b8554a9b10"
+  },
+  "c4_geometry_sha256": "36ddf4888982ce619574b113711a202bc10d4190ba2d29edbe24d2b0e28d827c",
+  "production_modified": false,
+  "OS_input": false,
+  "scope": "only nine new rooms 13h entry/object views and actual evening seating; single normal merchant shop portrait entry; no 14 interaction-state art or full regression"
+}

@@ -1,0 +1,23 @@
+{
+  "area": "living",
+  "case": 4,
+  "file": "case4-shot590-keyframe.png",
+  "frame": 8071,
+  "hour": 13.0,
+  "month": 10,
+  "position": [
+    386.0,
+    338.0
+  ],
+  "walking": false,
+  "wall": 1792928798.75581,
+  "weather": "clear",
+  "window": [
+    540,
+    960
+  ],
+  "world_scale": [
+    2.0,
+    2.0
+  ]
+}
