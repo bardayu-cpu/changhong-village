@@ -1,0 +1,246 @@
+{
+  "level": "实际入口/街景为正常Home根Viewport；四季地图北山及静坐为引擎离线概览，均非真人操作",
+  "files": [
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/daba_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/daba_540x960.png",
+      "bytes": 294359,
+      "sha256": "53fcab45406e5094cfd021a20a480ab3d46f7c8145c28cf94009be0918bd162e"
+    },
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/erba_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/erba_540x960.png",
+      "bytes": 350348,
+      "sha256": "64b12e739e7a8e29bd984123368feb9dadecd431961076d1a812a77767000cbf"
+    },
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/erba_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/erba_1280x720.png",
+      "bytes": 696428,
+      "sha256": "6f6b3c8f48ec542364b8106c8f679d105ceb760980474c1eb5ecb5303d81c9ba"
+    },
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/whitebrick_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/whitebrick_540x960.png",
+      "bytes": 306839,
+      "sha256": "31f571a0ceea93e57f6085c99680c0f3c31a05a0fc67b03713a0c5bf5a8b5600"
+    },
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/sunflower_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/sunflower_540x960.png",
+      "bytes": 416599,
+      "sha256": "b055e651265e72f1b5d2856b003a18150f870def2532ec3335d4c09b7993c3d3"
+    },
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/persimmon_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/persimmon_540x960.png",
+      "bytes": 452813,
+      "sha256": "9bb71fae854f5c40488bd36aed110887eba6fd7d06f33877e10f2187c9a99be1"
+    },
+    {
+      "source": "测试数据/Home新户-1024/48919d32d00040f09ae152c831b1b9c9/frames/rose_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/rose_540x960.png",
+      "bytes": 363883,
+      "sha256": "768b66c1259888de2dc9762affc886ca1484d8c2f6d24aaf4dad8fd75ffe3879"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/flower_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/flower_540x960.png",
+      "bytes": 416171,
+      "sha256": "d3c9261c3f85ab3d20f0f6deb48646919e0cbfb88b6b1973c5eab56bacd1ffaa"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/h2_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h2_540x960.png",
+      "bytes": 335377,
+      "sha256": "f11be94b17368d1d71fe7fb035cbfdb02b2ecc08a2cec6fc8110abe8f6574085"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/h4_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h4_1280x720.png",
+      "bytes": 507602,
+      "sha256": "ec35e55ef41a65ea2ee396ed4f33f220a8fe0ed6ad9f5e26800255785293fc9a"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/h4_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h4_540x960.png",
+      "bytes": 279788,
+      "sha256": "a0b4b0a0933bf2f802990345e36439b8033149f3a8da4406844c2397b20e37d3"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/flower_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/flower_1280x720.png",
+      "bytes": 739801,
+      "sha256": "fe76939e5c2fcf9886cf6151d32745c5a5b9575eb5df6b9cb0b9718ba546a432"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/living_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/living_540x960.png",
+      "bytes": 92868,
+      "sha256": "754169dbc4bfc89aa2e2e989f76d4edb6deb7b972ec4b82183c575580ccded63"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/living_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/living_1280x720.png",
+      "bytes": 203195,
+      "sha256": "6520f4c7fbedce0f809216c17cb3b566234ce2d19912370071a1c56b31a0b0d0"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/h6_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h6_540x960.png",
+      "bytes": 422430,
+      "sha256": "98491870d8081343b8dcf896d7912b27275914dc92ed6230e3c4e15d61094483"
+    },
+    {
+      "source": "测试数据/Home新户-1024/a81e7f9aa394404bbfbbf6f3d3ee5121/frames/grape_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/grape_540x960.png",
+      "bytes": 451471,
+      "sha256": "d71cc1f84f3711de3f71b7b85fe427e1ed249d8355fa2573279b3e0b6ad37e27"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/v_mayor_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/v_mayor_540x960.png",
+      "bytes": 324509,
+      "sha256": "55832e037ae1da0e618f951762e65234d596146671e788efc7215c7d67eaa3de"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/v_h5_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/v_h5_540x960.png",
+      "bytes": 145968,
+      "sha256": "9c95303ed62669b58835976badbfdca24cf07ba86672becd0f3f5c4ca0e44af2"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/v_mayor_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/v_mayor_1280x720.png",
+      "bytes": 395685,
+      "sha256": "fe23f7f7c205e6768ea2abdb5cb9dfa391f8d66a196b78d86918160c932c3474"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/my_cabin_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/my_cabin_540x960.png",
+      "bytes": 160530,
+      "sha256": "ebae6d4236ea86c8292d84db260d4d511e30e4099ea67fd8e357c55f87d38f00"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/v_h3_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/v_h3_540x960.png",
+      "bytes": 300647,
+      "sha256": "6bb12959f93f2ade6bf3161d381b63a65e76648506ee04a2f8159aa3175bd617"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/living_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/living_540x960.png",
+      "bytes": 92878,
+      "sha256": "3374a398eba1ca9525807ab0780440c1575fecd5ca8b98cb2530ff1f840f4137"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/v_laowu_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/v_laowu_540x960.png",
+      "bytes": 129611,
+      "sha256": "fa375cc3151410b0805d981d9a8c6ca57c10cc315412cd2fbdea7ebaf39697c9"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/living_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/living_1280x720.png",
+      "bytes": 202891,
+      "sha256": "2d9627ab86a20f4fccd5914ba29c047502adabf5e2ee4d3191662c1284465c4f"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/1eaf943cb6d24ce19ad5fedf5d957788/frames/my_cabin_1280x720.png",
+      "path": "回执/第1轮返工/图/首轮-1025/机构实际入口/my_cabin_1280x720.png",
+      "bytes": 289914,
+      "sha256": "d010e8a314db11680111fe20f808dcf0d974501b9f96a78b3c506bb09edd67fc"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/b898bd3263c74a5dbc0c5d297ef79cef/frames/street_v_mayor_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/最终实际街景/street_v_mayor_540x960.png",
+      "bytes": 364242,
+      "sha256": "fc9c19ff7243de444b45998445565e648fc496c8bceeb1c9aff112aaf7eb782e"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/b898bd3263c74a5dbc0c5d297ef79cef/frames/street_v_h3_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/最终实际街景/street_v_h3_540x960.png",
+      "bytes": 379749,
+      "sha256": "0881c7c8d75aa41547835d252644e38d4ceb30a7c61d6468b474a1706d110cb0"
+    },
+    {
+      "source": "测试数据/Home公区画面-1024/b898bd3263c74a5dbc0c5d297ef79cef/frames/street_my_cabin_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/最终实际街景/street_my_cabin_540x960.png",
+      "bytes": 381345,
+      "sha256": "62f789a4e2828ae70d437c41a8a578d86c11ed155b5c331523517a52dfb0fb62"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/world_month_10.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/world_month_10.png",
+      "bytes": 1489121,
+      "sha256": "22bf01e17c0b923bb2e0f441e92d98fbb43f27ea3a6fcfcdd60c4abeb7e7a894"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/map_winter.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/map_winter.png",
+      "bytes": 1957296,
+      "sha256": "2f5b834585ca5b090458c42beb85b6ded758c9d9031bd6ffe50958cb5d68b373"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/north_detail.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/north_detail.png",
+      "bytes": 1299519,
+      "sha256": "ae1900b1e03636f53a5b6a8c66e9177388a5a5d2db146facc1ebb84286656c09"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/map_summer.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/map_summer.png",
+      "bytes": 1512293,
+      "sha256": "435ef7002a3cc42c32bf01960d5c33933dc98c916757079ec605b2a6f22585e5"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/world_month_1.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/world_month_1.png",
+      "bytes": 2026118,
+      "sha256": "4f31eb4a513c0647db80d65d2f7fcb09d0ea444dc90068380823ab5070c573e4"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/world_month_4.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/world_month_4.png",
+      "bytes": 1488920,
+      "sha256": "6ebf3174a46b8f7113eeb6f0bd4f90ec9b106a3b16f54bd832b1e24e3408e03b"
+    },
+    {
+      "source": "测试数据/地面接入-1024/runs/10240000000000000000000000000003/world_month_7.png",
+      "path": "回执/第1轮返工/图/首轮-1025/四季地图北山概览/world_month_7.png",
+      "bytes": 1487125,
+      "sha256": "9b4c58e4c3f24e245aaea8d7c16747408120d668e9c35a7c3557a2fb2c98b607"
+    },
+    {
+      "source": "测试数据/竹编静帧-1024/v_daba_seat.png",
+      "path": "回执/第1轮返工/图/首轮-1025/代表静坐概览/v_daba_seat.png",
+      "bytes": 619313,
+      "sha256": "2c9eb4d67e71c7301bc99abfe42da39ac06234edabb26bffa2dcc5f8e3220986"
+    },
+    {
+      "source": "测试数据/Home新户-1024/ad2c96e1b8bb4f58a21393a8d599e3bc/frames/h1_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h1_540x960.png",
+      "bytes": 358945,
+      "sha256": "adcc74a7717febc01fa0d72da40e8a7a287f7df7269d25b8bf613a22a76f005b"
+    },
+    {
+      "source": "测试数据/Home新户-1024/ad2c96e1b8bb4f58a21393a8d599e3bc/frames/h7_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h7_540x960.png",
+      "bytes": 423641,
+      "sha256": "fd3b41c8d32bdc707226c9d325cd0f1862d46675ede1dbe0323099ed583f77af"
+    },
+    {
+      "source": "测试数据/Home新户-1024/ad2c96e1b8bb4f58a21393a8d599e3bc/frames/h8_540x960.png",
+      "path": "回执/第1轮返工/图/首轮-1025/室内实际入口/h8_540x960.png",
+      "bytes": 410750,
+      "sha256": "cc1364711edccbdb601db661647a486471a643d18b8328ea81c320f94a092458"
+    }
+  ],
+  "capture_cleanup": {
+    "token": "ad2c96e1b8bb4f58a21393a8d599e3bc",
+    "normal_entry_exit_checks": 13,
+    "result": "pass, exit0",
+    "scope": "h1/h7/h8 only; no production change or new gameplay assertions",
+    "warnings": "shader cache unavailable and exit RID/ObjectDB leaks retained"
+  }
+}
