@@ -1,0 +1,52 @@
+{
+  "scope": "C3 independent integration review of C2 label fix and C4 road sample; C3-authored curved geometry retains original-author self-test status",
+  "usage_remaining_percent_at_closing": 19,
+  "production_modified": false,
+  "candidate_hashes_verified": 19,
+  "road": {
+    "visual_pass": false,
+    "improved": [
+      "muted plant greens",
+      "short-grass to earth transition",
+      "fork surface continuity"
+    ],
+    "remaining": [
+      "ditch remains smooth uniform-width strip with hard bank",
+      "south open grass plane is flat",
+      "flower clumps look repeated"
+    ],
+    "shader_compile_errors": false,
+    "performance_pass": false,
+    "performance_note": "cold startup and brief forced-frame screenshots are insufficient for stable FPS conclusion",
+    "shutdown_leaks": "6 CanvasItem RID, 18 ObjectDB, 6 GL texture allocations; retained log"
+  },
+  "labels": {
+    "h6_standing_native_13_no_overlap": true,
+    "h6_seated_native_19_pass": false,
+    "failed_tag": "花窗人家主人",
+    "seated_actor_rect": [
+      123,
+      316,
+      68,
+      120
+    ],
+    "tag_rect": [
+      133,
+      338,
+      144,
+      32
+    ],
+    "source_actor_sha256": "d9a2077c893a5496469dd8ab86b75d08507efd2c8fceefbdfd14dec1ba7df3a9",
+    "source_home_sha256": "41deb1805aae374f236474b2fd1ab0fe0f8bb7b68b35c6f8cf6683a4d2ba3620",
+    "merchant_actual_seated": "not rerun; pending, not passed",
+    "bubble_click": "not tested in this finite engine capture"
+  },
+  "necessary_images": [
+    "实际引擎/road-complaint-13.png",
+    "实际引擎/road-south-13.png",
+    "实际引擎/h6-native-19.png",
+    "实际引擎/Ayu-13.png"
+  ],
+  "before_main": "../自然色路缘-v2/实际图面/curved-main-lane-13.png",
+  "whole_village_pass": false
+}

@@ -1,0 +1,12 @@
+{
+  "test_owner": "C3 independent review of C2 actor/home UI fix, separate from C3-authored landscape self-test",
+  "C2_current_source_hashes": {
+    "ayu_home/v4/actor.gd": "d9a2077c893a5496469dd8ab86b75d08507efd2c8fceefbdfd14dec1ba7df3a9",
+    "ayu_home/v4/home.gd": "41deb1805aae374f236474b2fd1ab0fe0f8bb7b68b35c6f8cf6683a4d2ba3620"
+  },
+  "hashes_rechecked_after_copy": true,
+  "old_overlay_not_reapplied": true,
+  "rooms": "v_h6 and v_h1 C2 nine-room candidate; merchant current natural candidate",
+  "production_modified": false,
+  "OS_input": false
+}

@@ -1,0 +1,180 @@
+{
+  "OS_input": true,
+  "source": "actual CUA native keyboard and mouse, not Input.parse_input_event",
+  "checks": {
+    "actual_keyboard_releases_autumn": true,
+    "actual_keyboard_releases_winter": true,
+    "real_mouse_press_release_winter": true,
+    "mouse_path_final_arrival_y536": true,
+    "autumn_winter_geometry_identical": true,
+    "winter_all8_layers_visible": true
+  },
+  "pass": true,
+  "up_down_release_positions": [
+    {
+      "area": "village",
+      "case": 1,
+      "event": "Up",
+      "frame": 7841,
+      "position": [
+        1240.0,
+        552.453002929688
+      ],
+      "pressed": false,
+      "type": "OS event",
+      "wall": 1792941340.98607
+    },
+    {
+      "area": "village",
+      "case": 1,
+      "event": "Down",
+      "frame": 7863,
+      "position": [
+        1240.0,
+        649.588806152344
+      ],
+      "pressed": false,
+      "type": "OS event",
+      "wall": 1792941341.83871
+    },
+    {
+      "area": "village",
+      "case": 2,
+      "event": "Up",
+      "frame": 12151,
+      "position": [
+        1240.0,
+        541.01220703125
+      ],
+      "pressed": false,
+      "type": "OS event",
+      "wall": 1792941485.5931
+    },
+    {
+      "area": "village",
+      "case": 2,
+      "event": "Down",
+      "frame": 12170,
+      "position": [
+        1240.0,
+        625.408569335938
+      ],
+      "pressed": false,
+      "type": "OS event",
+      "wall": 1792941486.39313
+    }
+  ],
+  "mouse_events": [
+    {
+      "area": "village",
+      "case": 2,
+      "event": "Left Mouse Button",
+      "frame": 15017,
+      "position": [
+        1240.0,
+        625.408569335938
+      ],
+      "pressed": true,
+      "type": "OS event",
+      "wall": 1792941581.42306
+    },
+    {
+      "area": "village",
+      "case": 2,
+      "event": "Left Mouse Button",
+      "frame": 15022,
+      "position": [
+        1240.0,
+        615.981872558594
+      ],
+      "pressed": false,
+      "type": "OS event",
+      "wall": 1792941581.5883
+    }
+  ],
+  "season_fixture_setups": [
+    {
+      "case": 1,
+      "month": 10,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 0
+    },
+    {
+      "case": 1,
+      "month": 10,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 7819
+    },
+    {
+      "case": 2,
+      "month": 12,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 7865
+    },
+    {
+      "case": 1,
+      "month": 10,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 18625
+    },
+    {
+      "case": 2,
+      "month": 12,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 18626
+    },
+    {
+      "case": 1,
+      "month": 10,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 18627
+    },
+    {
+      "case": 2,
+      "month": 12,
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "frame": 18628
+    },
+    {
+      "case": 3,
+      "month": 10,
+      "position": [
+        386.0,
+        338.0
+      ],
+      "frame": 18629
+    },
+    {
+      "case": 4,
+      "month": 12,
+      "position": [
+        386.0,
+        338.0
+      ],
+      "frame": 18632
+    }
+  ],
+  "initial_unplanned_events_excluded": "W/Space before explicit F1 reset are retained in raw trace but excluded from controlled baseline; no question/retry loop",
+  "scope": "current production old layout winter same-route consistency only; test F keys set season/initial coordinates explicitly. Does not approve new village artwork, real touchscreen or all-village walkthrough."
+}

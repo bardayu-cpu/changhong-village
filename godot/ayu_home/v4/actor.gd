@@ -40,6 +40,22 @@ var quilt_tex:Texture2D
 var quilt_region:=Rect2()
 var in_bed := false # 家人睡觉、休息时躺在床上（和玩家躺床同一套画法）
 var head_down := false # 床头朝下的床（新一楼爸妈的床）：头枕在下面的枕头上，脸照常朝上，身子在上面的花被子里
+static var visible_bounds_cache:Dictionary={}
+
+## 提示避让使用当前帧实际像素范围，包含坐姿、抬高与翻转；不修改人物图。
+func visual_rect() -> Rect2:
+	if not sprite or not sprite.texture:return Rect2(-24,head_top(),48,-head_top())
+	var tex:Texture2D=sprite.texture
+	var key:String=str(tex.get_rid())
+	if tex is AtlasTexture:key=str(tex.atlas.get_rid())+":"+str(tex.region)
+	if not visible_bounds_cache.has(key):
+		var pixels:Image=tex.get_image()
+		visible_bounds_cache[key]=Rect2(pixels.get_used_rect()) if pixels else sprite.get_rect()
+	var used:Rect2=visible_bounds_cache[key]
+	if sprite.flip_h:used.position.x=tex.get_width()-used.end.x
+	if sprite.flip_v:used.position.y=tex.get_height()-used.end.y
+	used.position+=sprite.get_rect().position
+	return sprite.transform*used
 
 func setup(who: String) -> void:
 	id = who

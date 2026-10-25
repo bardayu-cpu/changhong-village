@@ -1,0 +1,230 @@
+[
+  {
+    "id": "main",
+    "original_points": 55,
+    "new_points": 686,
+    "max_bend_world_px": 67.91
+  },
+  {
+    "id": "south_plot_access",
+    "original_points": 8,
+    "new_points": 92,
+    "max_bend_world_px": 61.92
+  },
+  {
+    "id": "east_public_access",
+    "original_points": 26,
+    "new_points": 98,
+    "max_bend_world_px": 43.68
+  },
+  {
+    "id": "fp_west_homes",
+    "original_points": 24,
+    "new_points": 159,
+    "max_bend_world_px": 26.13
+  },
+  {
+    "id": "fp_ayu",
+    "original_points": 20,
+    "new_points": 125,
+    "max_bend_world_px": 23.59
+  },
+  {
+    "id": "fp_nw",
+    "original_points": 26,
+    "new_points": 350,
+    "max_bend_world_px": 26.59
+  },
+  {
+    "id": "fp_ne",
+    "original_points": 48,
+    "new_points": 175,
+    "max_bend_world_px": 29.28
+  },
+  {
+    "id": "fp_east_homes",
+    "original_points": 10,
+    "new_points": 143,
+    "max_bend_world_px": 29.42
+  },
+  {
+    "id": "erba",
+    "original_points": 16,
+    "new_points": 42,
+    "max_bend_world_px": 11.6
+  },
+  {
+    "id": "laowu",
+    "original_points": 2,
+    "new_points": 11,
+    "max_bend_world_px": 0.26
+  },
+  {
+    "id": "daba",
+    "original_points": 6,
+    "new_points": 23,
+    "max_bend_world_px": 9.11
+  },
+  {
+    "id": "h5",
+    "original_points": 10,
+    "new_points": 46,
+    "max_bend_world_px": 10.53
+  },
+  {
+    "id": "ayu",
+    "original_points": 4,
+    "new_points": 6,
+    "max_bend_world_px": 3.2
+  },
+  {
+    "id": "h2",
+    "original_points": 3,
+    "new_points": 6,
+    "max_bend_world_px": 6.79
+  },
+  {
+    "id": "h3",
+    "original_points": 2,
+    "new_points": 5,
+    "max_bend_world_px": 0.01
+  },
+  {
+    "id": "mayor",
+    "original_points": 2,
+    "new_points": 19,
+    "max_bend_world_px": 2.34
+  },
+  {
+    "id": "h6",
+    "original_points": 13,
+    "new_points": 55,
+    "max_bend_world_px": 6.87
+  },
+  {
+    "id": "h8",
+    "original_points": 5,
+    "new_points": 24,
+    "max_bend_world_px": 6.93
+  },
+  {
+    "id": "h7",
+    "original_points": 9,
+    "new_points": 140,
+    "max_bend_world_px": 13.36
+  },
+  {
+    "id": "h4",
+    "original_points": 8,
+    "new_points": 36,
+    "max_bend_world_px": 11.03
+  },
+  {
+    "id": "h1",
+    "original_points": 2,
+    "new_points": 3,
+    "max_bend_world_px": 0.0
+  },
+  {
+    "id": "flower",
+    "original_points": 2,
+    "new_points": 28,
+    "max_bend_world_px": 6.99
+  },
+  {
+    "id": "whitebrick",
+    "original_points": 15,
+    "new_points": 41,
+    "max_bend_world_px": 13.23
+  },
+  {
+    "id": "grape",
+    "original_points": 7,
+    "new_points": 106,
+    "max_bend_world_px": 16.9
+  },
+  {
+    "id": "sunflower",
+    "original_points": 2,
+    "new_points": 64,
+    "max_bend_world_px": 10.08
+  },
+  {
+    "id": "persimmon",
+    "original_points": 6,
+    "new_points": 10,
+    "max_bend_world_px": 7.47
+  },
+  {
+    "id": "rose",
+    "original_points": 5,
+    "new_points": 31,
+    "max_bend_world_px": 4.5
+  },
+  {
+    "id": "community",
+    "original_points": 2,
+    "new_points": 4,
+    "max_bend_world_px": 0.0
+  },
+  {
+    "id": "public:honey",
+    "original_points": 5,
+    "new_points": 7,
+    "max_bend_world_px": 5.33
+  },
+  {
+    "id": "public:pond",
+    "original_points": 10,
+    "new_points": 45,
+    "max_bend_world_px": 13.87
+  },
+  {
+    "id": "public:chicken",
+    "original_points": 3,
+    "new_points": 4,
+    "max_bend_world_px": 5.33
+  },
+  {
+    "id": "public:orchard",
+    "original_points": 12,
+    "new_points": 65,
+    "max_bend_world_px": 12.17
+  },
+  {
+    "id": "public:market",
+    "original_points": 2,
+    "new_points": 4,
+    "max_bend_world_px": 0.0
+  },
+  {
+    "id": "public:home_site",
+    "original_points": 2,
+    "new_points": 4,
+    "max_bend_world_px": 0.0
+  },
+  {
+    "id": "public:map",
+    "original_points": 2,
+    "new_points": 8,
+    "max_bend_world_px": 0.03
+  },
+  {
+    "id": "public:mill",
+    "original_points": 2,
+    "new_points": 3,
+    "max_bend_world_px": 0.0
+  },
+  {
+    "id": "public:loach_memory",
+    "original_points": 3,
+    "new_points": 6,
+    "max_bend_world_px": 6.78
+  },
+  {
+    "id": "public:player_spawn",
+    "original_points": 2,
+    "new_points": 3,
+    "max_bend_world_px": 0.0
+  }
+]

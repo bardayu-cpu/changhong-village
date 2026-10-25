@@ -867,10 +867,10 @@ func layout_markers() -> void:
 		if real<best_d:best_d=real;pick=[c]
 		if c.m.hot.has("target") and real<DOOR_NEAR and real<door_d:door_d=real;door_pick=[c]
 	if not door_pick.is_empty():pick=door_pick
-	# 每个人的头和脸（屏幕上）：提示泡不压别人的头和脸
+	# 当前帧的完整人物范围：姓名牌、气泡及点击区都不能压住身体或坐姿。
 	var faces:Dictionary={}
 	for a in [player]+people.values():
-		if a.visible:faces[a]=face_rect(a,xf)
+		if a.visible:faces[a]=a.get_global_transform_with_canvas()*a.visual_rect()
 	var tag_for:Button=null;var tag_hot:Dictionary={};var tag_rect:=Rect2();var visible_marker:Button=null
 	var blocked:Array[Rect2]=[]
 	for face in faces.values():blocked.append(face.grow(2))
@@ -881,7 +881,7 @@ func layout_markers() -> void:
 		var raw:Vector2=xf*World.v(h.pos)
 		var show_marker:bool=not busy() and raw.x>4 and raw.x<size.x-4 and raw.y>top_limit+14 and (raw.y<bottom_limit or (h.has("target") and raw.y<size.y+20)) # 门在屏幕最下沿也给气泡
 		if not show_marker:continue
-		# 人物提示仍只左右让位；物件提示连同下方名字牌一起避开头脸和话泡。
+		# 提示连同下方名字牌一起避开整个人物和话泡。
 		var base:Vector2=(raw-Vector2(b.size.x*.5,b.size.y+(2 if is_person else 14)))
 		var tag_size:=Vector2.ZERO
 		if not is_person and player.action=="idle":
@@ -889,7 +889,7 @@ func layout_markers() -> void:
 			tag_size=near_tag.get_combined_minimum_size()
 			if tag_size.x>safe.size.x:
 				near_tag.clip_text=true;near_tag.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;tag_size.x=safe.size.x
-		var placed:=marker_group_layout(base,b.size,tag_size,safe,blocked,not is_person)
+		var placed:=marker_group_layout(base,b.size,tag_size,safe,blocked,true)
 		if placed.is_empty() and tag_size!=Vector2.ZERO:
 			# 实在放不下名字牌时仍保留安全、可点击的气泡，不覆盖人物。
 			placed=marker_group_layout(base,b.size,Vector2.ZERO,safe,blocked,true)
@@ -914,7 +914,7 @@ static func marker_group_layout(base:Vector2,marker_size:Vector2,tag_size:Vector
 	var upper:=Vector2(floorf(safe.end.x-(width+marker_size.x)*.5),floorf(safe.end.y-height))
 	if lower.x>upper.x or lower.y>upper.y:return {}
 	for lift in ([0.0,32.0,64.0,96.0] if allow_lift else [0.0]):
-		for dx in [0.0,-30.0,30.0,-52.0,52.0,-74.0,74.0]:
+		for dx in [0.0,-30.0,30.0,-52.0,52.0,-74.0,74.0,-104.0,104.0,-132.0,132.0]:
 			var p:Vector2=(base+Vector2(dx,-lift)).clamp(lower,upper).round()
 			var marker:=Rect2(p,marker_size);var tag:=Rect2();var tag_hit:=Rect2()
 			if has_tag:

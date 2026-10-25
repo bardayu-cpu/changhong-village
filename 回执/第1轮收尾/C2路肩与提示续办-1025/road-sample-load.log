@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+{"configure_ms":757,"mask_size":"(1200.0, 1175.0)","pass":true,"road_polygons":873,"scope":"load, material setup and coverage construction only; actual shader/visual gate by C3"}

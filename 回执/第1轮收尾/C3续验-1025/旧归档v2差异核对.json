@@ -1,0 +1,9 @@
+{
+  "expected_v2": 237,
+  "missing": [
+    "本批逐项状态-给C2-v2.json",
+    "最终归档读取顺序-v2.md"
+  ],
+  "changed": [],
+  "old_archive_readonly": true
+}

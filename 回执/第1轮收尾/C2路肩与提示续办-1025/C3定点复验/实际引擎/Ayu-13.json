@@ -1,0 +1,38 @@
+{
+  "area": "living",
+  "bodies": [
+    {
+      "action": "idle",
+      "id": "visitor",
+      "lift": 0.0,
+      "rect": [
+        234.0,
+        418.0,
+        72.0,
+        168.0
+      ]
+    },
+    {
+      "action": "lie",
+      "id": "qiuqiu",
+      "lift": 0.0,
+      "rect": [
+        -175.0,
+        676.5,
+        88.5,
+        52.5
+      ]
+    }
+  ],
+  "fps": 15.0,
+  "hour": 13.0,
+  "month": 7,
+  "name": "Ayu-13",
+  "overlaps": [],
+  "pos": [
+    386.0,
+    338.0
+  ],
+  "scale": 2.0,
+  "tags": []
+}

@@ -1,0 +1,13 @@
+{
+  "actual_OS_mouse": true,
+  "fixture_entry": "Home living + Game.begin(train), not full narrative OS entry",
+  "purchase_water_and_coat": true,
+  "budget_after": 4,
+  "missing_ticket_gate": true,
+  "actual_drag_attempts": 2,
+  "packed_after_actual_drag": {},
+  "drag_pass": false,
+  "reason": "both native drag attempts left packed empty; root cause not established",
+  "whole_S3_pass": false,
+  "stopped_for_20_percent_closing": true
+}
