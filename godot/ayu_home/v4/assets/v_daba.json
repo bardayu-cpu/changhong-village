@@ -201,6 +201,12 @@
     ]
   ],
   "outdoor": false,
-  "view_scale": 1.15,
-  "household_open": true
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -3,
+    -8
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
 }

@@ -1,267 +1,133 @@
 {
   "id": "v_sunflower",
-  "title": "向日葵之家 · 一楼",
+  "title": "向日葵之家 · 日光饭厅",
   "group": "村庄",
   "floor": 0,
   "size": [
-    650,
-    830
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-pixel/sunflower.png",
+  "background_scale": [
+    0.5,
+    0.5
   ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "background": "res://ayu_home/v4/assets/village/interior_v_sunflower.png",
-  "props": [
-    {
-      "id": "bench0",
-      "file": "res://ayu_home/v4/assets/village/interiors/sunflower-v1.png",
-      "pos": [
-        75.679,
-        130.0
-      ],
-      "foot": 203,
-      "scale": [
-        0.2635135135135135,
-        0.2635135135135135
-      ],
-      "front": false,
-      "atlas_region": [
-        815,
-        637,
-        473,
-        296
-      ],
-      "interior_set": "sunflower-v1"
-    },
-    {
-      "id": "cabinet1",
-      "file": "res://ayu_home/v4/assets/village/interiors/sunflower-v1.png",
-      "pos": [
-        439.893,
-        130.0
-      ],
-      "foot": 237,
-      "scale": [
-        0.2660332541567696,
-        0.2660332541567696
-      ],
-      "front": false,
-      "atlas_region": [
-        1220,
-        50,
-        294,
-        421
-      ],
-      "interior_set": "sunflower-v1"
-    },
-    {
-      "id": "kitchen2",
-      "file": "res://ayu_home/v4/assets/village/interiors/sunflower-v1.png",
-      "pos": [
-        109.288,
-        430.0
-      ],
-      "foot": 513,
-      "scale": [
-        0.21153846153846154,
-        0.21153846153846154
-      ],
-      "front": false,
-      "atlas_region": [
-        29,
-        531,
-        314,
-        416
-      ],
-      "interior_set": "sunflower-v1"
-    },
-    {
-      "id": "table3",
-      "file": "res://ayu_home/v4/assets/village/interiors/sunflower-v1.png",
-      "pos": [
-        406.364,
-        450.0
-      ],
-      "foot": 525,
-      "scale": [
-        0.24242424242424243,
-        0.24242424242424243
-      ],
-      "front": false,
-      "atlas_region": [
-        19,
-        141,
-        360,
-        330
-      ],
-      "interior_set": "sunflower-v1"
-    },
-    {
-      "id": "window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        227,
-        21
-      ],
-      "foot": 75,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        540,
-        530
-      ],
-      "foot": 670,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v4/assets/village/interiors/sunflower-v1.png",
-      "pos": [
-        281.031,
-        530.0
-      ],
-      "foot": 579,
-      "front": false,
-      "atlas_region": [
-        422,
-        143,
-        347,
-        292
-      ],
-      "scale": [
-        0.2534246575342466,
-        0.2534246575342466
-      ],
-      "interior_set": "sunflower-v1"
-    },
-    {
-      "id": "new_reading_lamp",
-      "pos": [
-        545.524,
-        170.0
-      ],
-      "foot": 235,
-      "front": false,
-      "file": "res://ayu_home/v4/assets/village/interiors/sunflower-v1.png",
-      "atlas_region": [
-        1339,
-        530,
-        149,
-        418
-      ],
-      "scale": [
-        0.1674641148325359,
-        0.1674641148325359
-      ],
-      "interior_set": "sunflower-v1"
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      38,
-      320,
-      170,
-      12
+      78,
+      142,
+      131,
+      53
     ],
     [
-      350,
-      320,
-      260,
-      12
+      39,
+      184,
+      89,
+      157
     ],
     [
-      260,
-      465,
-      12,
-      300
+      115,
+      327,
+      42,
+      39
     ],
     [
-      79.679,
-      176.8,
-      116.642,
-      31.2
+      20,
+      300,
+      92,
+      101
     ],
     [
-      443.893,
-      197.2,
-      70.214,
-      44.8
+      276,
+      210,
+      193,
+      113
     ],
     [
-      113.288,
-      482.8,
-      58.423,
-      35.2
+      287,
+      169,
+      43,
+      45
     ],
     [
-      410.364,
-      498.0,
-      79.273,
-      32.0
+      413,
+      176,
+      43,
+      37
     ],
     [
-      549.524,
-      212.0,
-      16.952,
-      28.0
+      289,
+      268,
+      61,
+      77
+    ],
+    [
+      393,
+      268,
+      63,
+      79
+    ],
+    [
+      632,
+      137,
+      93,
+      115
+    ],
+    [
+      622,
+      194,
+      39,
+      57
+    ],
+    [
+      650,
+      299,
+      81,
+      104
+    ],
+    [
+      531,
+      153,
+      88,
+      20
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "看看生活便签",
-      "pos": [
-        95,
-        660
-      ],
-      "approach": [
-        95,
-        705
-      ],
-      "kind": "village",
-      "copy": "门边留着向日葵种子的小纸袋，狭长过道通向后灶屋。住户为虚构邻居。"
-    },
-    {
       "id": "house_help",
-      "label": "整理晒种子的纸袋",
+      "label": "收拢葵籽盘",
       "pos": [
-        405,
-        640
+        165,
+        124
       ],
       "approach": [
-        405,
-        715
+        226,
+        203
       ],
       "kind": "village",
       "house": "sunflower",
-      "copy": "纸袋按日期摆齐了，来年还有一片向日葵。"
+      "copy": "葵籽归进小盘，散落的壳也收齐了。窗外的向日葵正晒着太阳。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        325,
-        570
+        92,
+        252
       ],
       "approach": [
-        325,
-        610
+        165,
+        253
       ],
       "kind": "seat",
       "seat": [
-        325,
-        580
+        92,
+        252
       ],
-      "face": "down"
+      "face": "right"
     }
   ],
   "doors": [
@@ -270,60 +136,83 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        325,
-        776
+        384,
+        482
       ],
       "approach": [
-        325,
-        794
+        384,
+        445
       ],
+      "arrival": [
+        384,
+        410
+      ],
+      "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "up"
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_sunflower_up",
-      "pos": [
-        585,
-        675
-      ],
-      "approach": [
-        585,
-        705
-      ],
-      "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "down"
+      "width": 164,
+      "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      325,
-      170,
-      260
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    325,
-    745
+    384,
+    410
   ],
   "walk_rect": [
-    22,
-    96,
-    606,
-    712
+    29,
+    173,
+    710,
+    329
+  ],
+  "walk_polygons": [
+    [
+      [
+        66,
+        173
+      ],
+      [
+        702,
+        173
+      ],
+      [
+        738,
+        403
+      ],
+      [
+        477,
+        403
+      ],
+      [
+        477,
+        501
+      ],
+      [
+        282,
+        501
+      ],
+      [
+        282,
+        403
+      ],
+      [
+        30,
+        403
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15,
-  "interior_art_status": "new_household_set_pending_graphical_acceptance"
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    4,
+    13
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
 }

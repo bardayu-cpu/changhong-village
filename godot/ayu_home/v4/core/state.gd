@@ -207,7 +207,9 @@ func execute(command:String,a:Dictionary) -> Dictionary:
 			if repeat_text.is_empty():repeat_text=chore.owner+"记着你的帮助。"+chore.closed+"，明天再来走走。"
 			if v.chores.has(key):return fail(repeat_text)
 			v.chores[key]=true;v.helped["house:"+id]=int(v.helped.get("house:"+id,0))+1
-			v.memories.append({"date":date_key(),"place":chore.owner,"text":response});renqing_add(chore.owner,chore.label)
+			v.memories.append({"date":date_key(),"place":chore.owner,"text":response})
+			var label:String=str(a.get("label","")) if command=="house_help" else ""
+			renqing_add(chore.owner,chore.label if label.is_empty() else label)
 			return success(response)
 		"season_help":
 			var key:=date_key()+":season"

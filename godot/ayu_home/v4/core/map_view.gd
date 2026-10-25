@@ -11,6 +11,7 @@ var world_size:=Vector2(4800,4700)
 var background_path:="res://ayu_home/v4/assets/village/ground.png"
 var scenery:Array=[]
 var house_buttons:Array=[]
+var terrain:Node2D
 func _ready() -> void:
 	custom_minimum_size=Vector2(0,480);texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;mouse_filter=Control.MOUSE_FILTER_IGNORE;resized.connect(queue_redraw)
 	var cfg:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://ayu_home/v4/assets/village.json"))
@@ -19,6 +20,10 @@ func _ready() -> void:
 	background_path=str(cfg.get("background",background_path))
 	if background_path.is_empty():background_path="res://ayu_home/v4/assets/village/ground.png"
 	elif not background_path.begins_with("res://"):background_path=str(cfg.get("asset_root","res://ayu_home/v3/assets/"))+background_path
+	if cfg.has("ground_layers"):
+		terrain=preload("res://ayu_home/v4/core/village_ground.gd").new()
+		terrain.configure_path(str(cfg.ground_layers),background_path);add_child(terrain)
+		texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 	scenery=cfg.get("props",[]).duplicate();scenery.sort_custom(func(a,b):return float(a.get("foot",0))<float(b.get("foot",0)))
 	for house in houses:
 		var b:=Button.new();b.flat=true;b.tooltip_text=str(house.title);b.focus_mode=Control.FOCUS_NONE
@@ -33,6 +38,8 @@ func place_buttons() -> void:
 func _draw() -> void:
 	var scale:=minf(size.x/world_size.x,size.y/world_size.y);var offset:=(size-world_size*scale)*.5
 	draw_texture_rect(Assets.texture(background_path),Rect2(offset,world_size*scale),false)
+	if is_instance_valid(terrain):
+		terrain.set_winter(state!=null and state.season()=="冬");terrain.draw_to(self,scale,offset)
 	for prop in scenery:
 		var path:String=str(prop.file)
 		if not path.begins_with("res://"):path="res://ayu_home/v3/assets/"+path

@@ -322,7 +322,7 @@ func interact(h:Dictionary) -> bool:
 			if state.data.village.location.is_empty():notice="先找林伯申请，再比较四处空地。";show_page("日常")
 			else:home.enter_room("my_yard",true,"village")
 		"house_help":
-			var result:Dictionary=state.act("house_help",{"id":h.get("house",home.area),"title":home.world.cfg.title,"text":h.get("copy",""),"repeat_text":h.get("repeat_copy","")});home.player.say(result.message);home.note=result.message
+			var result:Dictionary=state.act("house_help",{"id":h.get("house",home.area),"title":home.world.cfg.title,"text":h.get("copy",""),"repeat_text":h.get("repeat_copy",""),"label":h.get("label","")});home.player.say(result.message);home.note=result.message
 		_:
 			home.player.say(str(h.get("copy","慢慢来，坐一会儿。")));home.note=str(h.get("copy",""))
 	return true

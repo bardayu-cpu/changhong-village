@@ -1,201 +1,133 @@
 {
   "id": "v_flower",
-  "title": "花房小楼 · 一楼",
+  "title": "花房小楼 · 插花客厅",
   "group": "村庄",
   "floor": 0,
   "size": [
-    780,
-    710
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-pixel/flower.png",
+  "background_scale": [
+    0.5,
+    0.5
   ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "background": "res://ayu_home/v4/assets/village/interior_v_flower.png",
-  "props": [
-    {
-      "id": "bench0",
-      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
-      "pos": [
-        50,
-        135
-      ],
-      "foot": 208,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "cabinet1",
-      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-      "pos": [
-        180,
-        125
-      ],
-      "foot": 232,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "kitchen2",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        430,
-        120
-      ],
-      "foot": 203,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "table3",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        435,
-        330
-      ],
-      "foot": 405,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        292,
-        21
-      ],
-      "foot": 75,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        670,
-        410
-      ],
-      "foot": 550,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        360,
-        437
-      ],
-      "foot": 470,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      320,
-      100,
-      12,
-      180
+      82,
+      135,
+      111,
+      49
     ],
     [
-      320,
-      430,
-      12,
-      235
-    ],
-    [
-      40,
-      360,
-      170,
-      12
-    ],
-    [
+      210,
+      135,
       55,
-      181.8,
-      116,
-      31.200000000000003
+      44
     ],
     [
-      185,
-      192.2,
-      88,
-      44.800000000000004
+      268,
+      146,
+      160,
+      55
     ],
     [
-      435,
-      172.8,
-      145,
-      35.2
+      430,
+      149,
+      91,
+      50
     ],
     [
-      440,
-      378.0,
+      525,
+      133,
+      63,
+      39
+    ],
+    [
+      602,
+      148,
+      74,
+      28
+    ],
+    [
+      44,
+      214,
       110,
-      32.0
+      157
+    ],
+    [
+      160,
+      250,
+      87,
+      88
+    ],
+    [
+      258,
+      253,
+      59,
+      78
+    ],
+    [
+      199,
+      324,
+      44,
+      40
+    ],
+    [
+      511,
+      221,
+      132,
+      134
+    ],
+    [
+      664,
+      202,
+      48,
+      98
+    ],
+    [
+      676,
+      282,
+      56,
+      91
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "看看生活便签",
-      "pos": [
-        95,
-        540
-      ],
-      "approach": [
-        95,
-        585
-      ],
-      "kind": "village",
-      "copy": "木窗搭成的花房在左手边，右边的小厨房能看见盆栽。住户为虚构邻居。"
-    },
-    {
       "id": "house_help",
-      "label": "换好花架托盘",
+      "label": "整理插花台",
       "pos": [
-        470,
-        520
+        281,
+        124
       ],
       "approach": [
-        470,
-        595
+        287,
+        218
       ],
       "kind": "village",
       "house": "flower",
-      "copy": "托盘擦干净了，新枝可以慢慢长。"
+      "copy": "剪下的枝叶归进小筐，花瓶旁的水迹擦干了。新花束可以慢慢扎起来。",
+      "repeat_copy": "花房主人记着你的帮助，今天的插花台已经整理好了。坐下看看窗边的花吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        390,
-        450
+        283,
+        286
       ],
       "approach": [
-        390,
-        490
+        333,
+        298
       ],
       "kind": "seat",
       "seat": [
-        390,
-        460
+        283,
+        292
       ],
-      "face": "down"
+      "face": "left"
     }
   ],
   "doors": [
@@ -204,59 +136,83 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        390,
-        656
+        384,
+        451
       ],
       "approach": [
-        390,
-        674
+        384,
+        433
       ],
+      "arrival": [
+        384,
+        398
+      ],
+      "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "up"
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_flower_up",
-      "pos": [
-        715,
-        555
-      ],
-      "approach": [
-        715,
-        585
-      ],
-      "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "down"
+      "width": 72,
+      "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      390,
-      170,
-      260
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    390,
-    625
+    384,
+    398
   ],
   "walk_rect": [
-    22,
-    96,
-    736,
-    592
+    30,
+    177,
+    711,
+    309
+  ],
+  "walk_polygons": [
+    [
+      [
+        80,
+        177
+      ],
+      [
+        676,
+        177
+      ],
+      [
+        739,
+        381
+      ],
+      [
+        430,
+        381
+      ],
+      [
+        430,
+        486
+      ],
+      [
+        339,
+        486
+      ],
+      [
+        339,
+        381
+      ],
+      [
+        31,
+        381
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    15,
+    75
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
 }

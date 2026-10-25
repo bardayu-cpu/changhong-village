@@ -1,0 +1,276 @@
+{
+  "baseline": "22c6b2c8b71dcca7863cfea803371185a4cebf03",
+  "purpose": "All20 house entry completion:13 new household interiors plus14-room camera correction, original-ID pixel terrain, Emei backdrop; precise local archive only",
+  "excluded": "7 old dirty documents, all tests saves/logs/PNGs, source candidate art, pure-ground candidates and previous untracked output",
+  "manifest_self": "not hashed recursively; git commit includes this manifest",
+  "status": "C3 final limited acceptance recorded; exact local commit payload; upload not authorized",
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/assets/v_flower.json",
+      "bytes": 2970,
+      "sha256": "aa90a6d9d3d4301947456af8655b273ed900ab06f329a8a0717d6dd81cb505bb"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h2.json",
+      "bytes": 2805,
+      "sha256": "f5000f88ed84d785daf4d1176992880ae20e20244438b5cdbc4fd1d48759e92d"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h8.json",
+      "bytes": 2716,
+      "sha256": "154cec3cabb5e245382f8e6b6057b4ef4ae89933e1d6482cac098a4de30fc5d7"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_erba.json",
+      "bytes": 3052,
+      "sha256": "96c36dc9fe48984b1340a79ab2dd9a3935258128249b7fae1f2270363cbb2cf0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h6.json",
+      "bytes": 2687,
+      "sha256": "c311321df3cb0b3362c4d4d3196d5bc83923184790e7f8673dba4ecd6560959a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h7.json",
+      "bytes": 3017,
+      "sha256": "1e2456db2b016145beab9717e24ba00f1160346402e7f8d33616fd3c0333a54c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h4.json",
+      "bytes": 2604,
+      "sha256": "4cb3f9b6911c73fc6b9675239ec54d0896b4abef2f4d826c92b6d5370f7b5417"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_h1.json",
+      "bytes": 2921,
+      "sha256": "63e87fb5ca9781c8b6a6ecade3d57e526bc9052256e16f6a848308fc4bf3933a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_whitebrick.json",
+      "bytes": 2876,
+      "sha256": "c54779af0e0fc2778952d5595415767f4cdcb1820dba6a91d0f4ec8617387b65"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_grape.json",
+      "bytes": 2956,
+      "sha256": "0a93ddb76c86d0fe04f6cec3333c398a418aea6bc78fc1459a6341aae7179d36"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_sunflower.json",
+      "bytes": 2951,
+      "sha256": "2ad03a7ba4d83b3b99cf64abb089d4434a96bd326170a054b4e69d9d26c6cf49"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_persimmon.json",
+      "bytes": 2966,
+      "sha256": "a5fc5e85dab6f2db3834ff3f8aa4f1137ffc662fa85ab0f47a829ede70f49663"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_rose.json",
+      "bytes": 3009,
+      "sha256": "b5ace4ce39a71a6cfab308b0d8ab5fca96d1b96687dceef9f030d21517908675"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/flower.png",
+      "bytes": 2123182,
+      "sha256": "1be5b9809c6ca349f41b36b9e6559ae3d8799cd91a5b57eb7f20f8c56f6f2b12"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/h2.png",
+      "bytes": 1897797,
+      "sha256": "9c85748b2ef8e73353d857c7580fb5345fb70478d985fa79ad79c064f99c9b26"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/h8.png",
+      "bytes": 2293962,
+      "sha256": "279e7504f0a742353ddb513ea3b847a2ceef8cc46f1d28fc1c8e34591a3b6c5c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/erba.png",
+      "bytes": 2141220,
+      "sha256": "c7c510dcba0c1f95e0918f4fec3f6c70bb9ceabd394f7f0adf542c63e807ad80"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/h6.png",
+      "bytes": 2328025,
+      "sha256": "3f7e2258595d08977289d2f09fc21aa5e33e85e4a7e845fe2b1037d6316ba58e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/h7.png",
+      "bytes": 2158029,
+      "sha256": "07ee6ae8a186901934aad8ecf5145df23151702248715e23abf64de62faba7d3"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/h4.png",
+      "bytes": 1892941,
+      "sha256": "c92809936fcb0cd5b03f938fd6f6fddf1eafa3e8b6079fa8c79a233a09950598"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/h1.png",
+      "bytes": 2231734,
+      "sha256": "b36422267a904cec0336bd0834983a3e5dcd3e3b7f30bcbcd7812f77c618c5e0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/whitebrick.png",
+      "bytes": 2041809,
+      "sha256": "b58303ecdf2919c64600eb9300d93141e973301e25a28c74bbd9fca15a979d43"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/grape.png",
+      "bytes": 2424525,
+      "sha256": "96a838ccf4bbacfa42bfafbd3b9b94336c2263626a44983eb8f7f025d83e4b40"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/sunflower.png",
+      "bytes": 2159125,
+      "sha256": "cb37dd88a5ada3cccbb76f279c8d725aedea94209484fdcb03461bd772d9dbfa"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/persimmon.png",
+      "bytes": 2629895,
+      "sha256": "1e12bb528de4209c2ce8b673f051c684fa7ba1b75eba7763d2471818986e7a87"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/households-pixel/rose.png",
+      "bytes": 2435055,
+      "sha256": "ce483352fc8d2c702f8269a89da8645a40f307ebafc7bc143a16817d190d8805"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/rooms.json",
+      "bytes": 311889,
+      "sha256": "e72361f32e3f8f3a9130655aaf996f59a2ea0ca998b4c7779768b3f5791e1331"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.json",
+      "bytes": 39684,
+      "sha256": "ec4e97c1f5617dc67405498d343c23994bc01757e1bd5315ad4f387ade7700a0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/houses.json",
+      "bytes": 6421,
+      "sha256": "8da42e77fcf7a7ddf2c6ecf68cc19bece247aef4d1a3da90f395582da726c8bd"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "bytes": 28115,
+      "sha256": "fe035144e078dbd3643b028bd98f24593fb7e119415c14dedee66846dad41a20"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/state.gd",
+      "bytes": 24264,
+      "sha256": "d47eb66c3f6b5c044e2ac7b50876dab8432feedcc1d583e8d0fbaaed9ffc8edc"
+    },
+    {
+      "path": "工具/test_home_households_1024.gd",
+      "bytes": 7265,
+      "sha256": "74c00665a39d9091fdf5de9e12d47c15858c5b6c42b8df4114b30be73e71e02e"
+    },
+    {
+      "path": "工具/render_household_review_1024.gd",
+      "bytes": 1947,
+      "sha256": "4c4c615112d061925a94ba4199ddc84ed3cb9af59b7519370a93e778c5d5726c"
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 14871,
+      "sha256": "30a62b6345535ec0382c5a741598cd5533aa842fc4025ac4bf497244e185f42b"
+    },
+    {
+      "path": "回执/第1轮返工/制作/续办-1024/C3-大爸家有限复核.md",
+      "bytes": 3833,
+      "sha256": "a470c34ee5d120f548d7590c3a3ee4f2f69f7601efe83ff1b4d4774216aa03e4"
+    },
+    {
+      "path": "回执/第1轮返工/制作/续办-1024/C3-新户分批有限复核.md",
+      "bytes": 7134,
+      "sha256": "2972b2a17527ab2dcb4423fb56235b148b04cdae6f81f370733012d5d924b82b"
+    },
+    {
+      "path": "回执/第1轮返工/制作/续办-1024/逐户接入批次.json",
+      "bytes": 7316,
+      "sha256": "833e74db1de6120476ba079e60f8f5dc0275f04e5536a9f993e7963c8927a836"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/v_daba.json",
+      "bytes": 2903,
+      "sha256": "27a60c47398940e8e85dd0a149c11df3599cc4b3108b7dcf5791ed69556e0abe"
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "bytes": 119105,
+      "sha256": "3aaa5c1cf088345b4eecdfec9dfb857127b36e69e0cd02f89f982b557c004a8f"
+    },
+    {
+      "path": "godot/ayu_home/v4/world.gd",
+      "bytes": 40218,
+      "sha256": "a524be3574e039dfdd263fbfbf56148716fe922935ec896d5945d0237a6ec5ec"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/map_view.gd",
+      "bytes": 3767,
+      "sha256": "5d04a9ae4a60f2cb70ec214b85717b49e5cddc649f4582d8a82ec30b628ed7e0"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/village_ground.gd",
+      "bytes": 4603,
+      "sha256": "110cb88e2e08a5a597f564c375f354b523fbd9f88afeb1f58d08337b1623675c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.nav",
+      "bytes": 87900,
+      "sha256": "9995493b699082becae4377660860a84bcd249e5354e573e50163c9c10b579e1"
+    },
+    {
+      "path": "工具/review_village_ground_1024.gd",
+      "bytes": 3525,
+      "sha256": "409afe3e2d1c138ccfa818bbb941e9aa08f00268c416e65e6c5537b519a4ebab"
+    },
+    {
+      "path": "工具/capture_home_public_1024.gd",
+      "bytes": 6063,
+      "sha256": "52ec366c58ececc2f82d0f04affa561e332fdd9b6f77378ba796d06d2b804a71"
+    },
+    {
+      "path": "回执/第1轮返工/制作/续办-1024/C3-地面山景有限复核.md",
+      "bytes": 3017,
+      "sha256": "a120587adf792737be97d2ac24ca87d0c1595c03817cda28e980898bffa9567d"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+      "bytes": 1477939,
+      "sha256": "4cbeaa93dcd77d574066e563995502508a102af18fc5b4b2bbd361419218fde8"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/bridge.png",
+      "bytes": 1515971,
+      "sha256": "dbac537bcb53081bfc4c2f8e11fb47a5eb27bff18519a33e0b0c2c110aa1cdb1"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/grass.png",
+      "bytes": 1565445,
+      "sha256": "7f4e0aea02f4cbbebd0453cb85de9a62a5f553cc2f3d6e5d129d3890be057bd3"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/stone.png",
+      "bytes": 1749476,
+      "sha256": "372533a5b47f19150877ca27c49b4b4958acf524087e2d56a759cae0d2020d15"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/emei.png",
+      "bytes": 842649,
+      "sha256": "9af74be2cd33233bb0a07cadc8806766b983f624210c1c851189728220405de0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+      "bytes": 1422003,
+      "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "bytes": 1081,
+      "sha256": "623cc8b2a12ea4f3fe288e52d617dc0c4578a280b77825640f540f0c7af632d3"
+    }
+  ],
+  "payload_file_count": 53,
+  "payload_bytes_excluding_manifest": 38093233
+}

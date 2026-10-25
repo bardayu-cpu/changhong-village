@@ -1,165 +1,97 @@
 {
   "id": "v_h4",
-  "title": "4A · 田边平房 · 一楼",
+  "title": "田边平房",
   "group": "村庄",
   "floor": 0,
   "size": [
-    760,
-    670
+    656,
+    600
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h4.png",
+  "background": "res://ayu_home/v4/assets/village/households-pixel/h4.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "bed0",
-      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-      "pos": [
-        35,
-        135
-      ],
-      "foot": 345,
-      "front": false
-    },
-    {
-      "id": "kitchen1",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        370,
-        135
-      ],
-      "foot": 218,
-      "front": false
-    },
-    {
-      "id": "table2",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        400,
-        390
-      ],
-      "foot": 465,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        282,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        440
-      ],
-      "foot": 508,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        688,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        350,
-        412
-      ],
-      "foot": 445,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      250,
+      81,
+      128,
+      164,
+      67
+    ],
+    [
+      488,
+      153,
+      61,
+      24
+    ],
+    [
+      55,
+      231,
+      105,
+      215
+    ],
+    [
+      534,
+      228,
       90,
-      12,
-      210
+      213
     ],
     [
-      250,
-      440,
-      12,
-      180
+      299,
+      139,
+      103,
+      108
     ],
     [
-      39,
-      253.25,
-      142,
-      96.75
+      263,
+      183,
+      36,
+      48
     ],
     [
-      374,
-      183.4,
-      147,
-      39.6
-    ],
-    [
-      404,
-      434.0,
-      112,
-      36.0
+      407,
+      194,
+      34,
+      50
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
-      "pos": [
-        280,
-        550
-      ],
-      "approach": [
-        280,
-        590
-      ],
-      "kind": "village",
-      "copy": "田边的小屋记着每次种下的东西。"
-    },
-    {
       "id": "house_help",
-      "label": "写一张种植便签",
+      "label": "收好田边用具",
       "pos": [
-        470,
-        520
+        577,
+        290
       ],
       "approach": [
-        470,
-        560
+        506,
+        326
       ],
       "kind": "village",
-      "copy": "便签贴好了：慢慢种，熟了再收。",
-      "house": "h4"
+      "house": "h4",
+      "copy": "草帽和竹篮归回柜边，沾泥的用具也摆稳了。下田回来，屋里就能歇脚。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        380,
-        425
+        104,
+        351
       ],
       "approach": [
-        380,
-        480
+        187,
+        355
       ],
       "kind": "seat",
       "seat": [
-        380,
-        435
+        104,
+        351
       ],
-      "face": "down"
+      "face": "right"
     }
   ],
   "doors": [
@@ -168,47 +100,83 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        380,
-        616
+        350,
+        548
       ],
       "approach": [
-        380,
-        634
+        350,
+        515
+      ],
+      "arrival": [
+        350,
+        480
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
+      "width": 98,
       "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      243,
-      115,
-      240
-    ],
-    [
-      547,
-      468,
-      220
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    380,
-    565
+    350,
+    480
   ],
   "walk_rect": [
-    22,
-    100,
-    716,
-    550
+    31,
+    166,
+    594,
+    421
+  ],
+  "walk_polygons": [
+    [
+      [
+        90,
+        166
+      ],
+      [
+        570,
+        174
+      ],
+      [
+        623,
+        465
+      ],
+      [
+        408,
+        465
+      ],
+      [
+        408,
+        585
+      ],
+      [
+        290,
+        585
+      ],
+      [
+        290,
+        465
+      ],
+      [
+        35,
+        465
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    0,
+    114
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
 }

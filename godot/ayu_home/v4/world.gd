@@ -53,6 +53,7 @@ var sharp_material:ShaderMaterial
 var base_sprite:Sprite2D
 var nearest_cache:Dictionary={}
 var parallax_origin := Vector2.ZERO
+var village_ground:Node2D
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -64,6 +65,7 @@ func art(path:String) -> Texture2D:return null if nav_only else Assets.texture(p
 func load_room(which: String) -> void:
 	for n in get_children(): remove_child(n); n.queue_free()
 	props.clear();lights.clear();obstacles.clear();windows.clear();nearest_cache.clear();plane_cache.clear()
+	village_ground=null
 	area = which
 	cfg = JSON.parse_string(FileAccess.get_file_as_string(ROOMS+area+".json"))
 	CELL=int(cfg.get("nav_cell",4))
@@ -80,6 +82,14 @@ func load_room(which: String) -> void:
 	if cfg.get("outdoor",false) and area!="garden":
 		season_material=make_village_season_material(asset_path(str(cfg.background)),0,0) if area=="village" else make_season_material()
 		bg.material=season_material
+	if area=="village" and cfg.has("ground_layers") and not nav_only:
+		village_ground=preload("res://ayu_home/v4/core/village_ground.gd").new()
+		village_ground.configure_path(str(cfg.ground_layers),asset_path(str(cfg.background)))
+		add_child(village_ground)
+		village_ground.mount_layers(func(kind):
+			if kind=="mountain":return null # sky vertex color and C4 mountain art stay intact
+			var mat=make_village_season_material(asset_path(str(cfg.background)),0,0) if kind=="fields" else make_season_material()
+			plant_materials.append(mat);return mat)
 	ground = Node2D.new();ground.draw.connect(_ground_draw);add_child(ground)
 	actors = Node2D.new();actors.y_sort_enabled = true;add_child(actors)
 	for p in cfg.props:
@@ -299,6 +309,7 @@ func make_village_season_material(source:String,plant_kind:int,layer_kind:int,ma
 	return m
 func update_light() -> void:
 	if not ambient:return
+	if is_instance_valid(village_ground):village_ground.set_winter(effects_enabled and preload("res://ayu_home/home_data.gd").season(month)==3)
 	for pm in plant_materials:
 		pm.set_shader_parameter("season",preload("res://ayu_home/home_data.gd").season(month) if effects_enabled else 1)
 		pm.set_shader_parameter("rain",1.0 if weather=="rain" and effects_enabled else 0.0)

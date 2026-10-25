@@ -1,0 +1,45 @@
+{
+  "grass": {
+    "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/grass.png",
+    "repeat": 384
+  },
+  "road": {
+    "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/stone.png",
+    "repeat": 192
+  },
+  "yard": {
+    "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+    "repeat": 384
+  },
+  "water": {
+    "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+    "repeat": 256
+  },
+  "bridge": {
+    "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/bridge.png",
+    "repeat": 256
+  },
+  "mountain": {
+    "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/emei.png",
+    "rect": [
+      2060,
+      10,
+      900,
+      169.47513812154696
+    ],
+    "source_region": [
+      0,
+      191,
+      2172,
+      409
+    ]
+  },
+  "source_geometry": "topology.json roads + houses.json at + fixed original collision river/bridge gaps",
+  "preserved_fields": "landscape-layout.json fields: original background texture regions incl24px border",
+  "north_exclusion": [
+    0,
+    0,
+    4800,
+    180
+  ]
+}

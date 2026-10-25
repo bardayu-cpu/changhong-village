@@ -1,0 +1,203 @@
+{
+  "baseline": "22c6b2c8b71dcca7863cfea803371185a4cebf03",
+  "preserve_completed": [
+    "ayu",
+    "laowu",
+    "h3",
+    "h5",
+    "mayor",
+    "community"
+  ],
+  "prior_candidate": "daba @ abe7d6f",
+  "batches": [
+    {
+      "households": [
+        "flower",
+        "h2",
+        "h8"
+      ],
+      "activities": {
+        "flower": "整理插花台、坐下看花",
+        "h2": "理顺线筐、旧沙发歇脚",
+        "h8": "归整茶盘、茶椅小坐"
+      },
+      "original_doors": {
+        "flower": [
+          539,
+          1090
+        ],
+        "h2": [
+          2709,
+          2316
+        ],
+        "h8": [
+          224,
+          3405
+        ]
+      },
+      "main_table_blocking_points": {
+        "flower": [
+          570,
+          277
+        ],
+        "h2": [
+          534,
+          148
+        ],
+        "h8": [
+          390,
+          280
+        ]
+      },
+      "C2": {
+        "token": "a56c8b976fa043329d69c603951c5f9a",
+        "passed": 35,
+        "total": 35,
+        "evidence": "测试数据/Home新户-1024/a56c8b976fa043329d69c603951c5f9a/result.json"
+      },
+      "C3": {
+        "token": "a40e7b6e5aa24aa0b3f94ac4d7ec9d1f",
+        "passed": 35,
+        "total": 35
+      },
+      "mode": "actual Home headless, normal go, no progress/inventory/position injection"
+    },
+    {
+      "households": [
+        "erba",
+        "h6",
+        "h7"
+      ],
+      "C2": {
+        "token": "56b1fb7560284754ab822af038441e63",
+        "passed": 35,
+        "total": 35
+      },
+      "C3": {
+        "token": "f9e2ee6b69564a4a859d103755768136",
+        "passed": 35,
+        "total": 35
+      }
+    },
+    {
+      "households": [
+        "h4",
+        "h1",
+        "whitebrick"
+      ],
+      "C2": {
+        "token": "d1893c09014f4bdc8e84013e3049d6e4",
+        "passed": 35,
+        "total": 35
+      },
+      "C3": {
+        "token": "cbe6a37bcca54fb68dd9d1e416e2382b",
+        "passed": 35,
+        "total": 35
+      }
+    },
+    {
+      "households": [
+        "grape",
+        "sunflower",
+        "persimmon",
+        "rose"
+      ],
+      "C2": {
+        "token": "abdce3cd769b4c0eb3baf880d5c62fe4",
+        "passed": 45,
+        "total": 45
+      },
+      "C3": {
+        "token": "8aff19bb001e4c20b6b3e71e193218bf",
+        "passed": 45,
+        "total": 45
+      }
+    }
+  ],
+  "limits": [
+    "C3 reviewed all27 actual World/Actor new13 entry/seat and same-preset living images: static scale and seated placement pass; dynamic occlusion and interactive play remain unverified",
+    "flower white and h8 beige exterior image margins retained; walking polygons confine play to indoor floor",
+    "sandbox renderer failed during macOS RegisterApplication; approved same-script require_escalated run succeeded exit0 and output3 PNG; shader cache unavailable warning retained",
+    "CA certificate and exit RID/ObjectDB warnings retained"
+  ],
+  "remaining": [],
+  "not_claimed": "whole-round score or human-input/audio/dynamic-occlusion acceptance; actual Home static A2 and limited A4 have passed",
+  "configured_pending_tour": [],
+  "static_checks": {
+    "room_mirrors": "13 rooms and village exactly match rooms.json",
+    "twenty_doors": "C3 confirmed20 true door targets/returns and0 residual door_chore"
+  },
+  "visual_evidence": {
+    "path": "测试数据/新户静帧-1024",
+    "count": 27,
+    "max_bytes": 841040,
+    "level": "World/Actor overview only; A2 judged from actual Home capture described in camera_correction",
+    "C3": "13 households static scale and seating pass"
+  },
+  "home_entry_capture": {
+    "token": "31ec0dcd8e8d4571a1e9508e2df2fe02",
+    "passed": 137,
+    "total": 137,
+    "png_count": 18,
+    "max_bytes": 439765,
+    "mode": "actual Home root viewport, normal go and invitation dialogue; live local night, no clock override",
+    "phone": "13 new rooms and living 540x960",
+    "wide": "flower,erba,h4,living 1280x720",
+    "C3": "superseded for A2: rejected1.15 scale; corrected2.0 capture below",
+    "first_attempt": "a7101e5f40574e5cb82e3bfa11d86b3f stopped at expected invitation dialogue; capture-only helper corrected to finish normal dialogue, no production state injection"
+  },
+  "camera_correction": {
+    "issue": "World/Actor overview did not prove actual phone scale; 1.15 yielded about84px versus Ayu about150px",
+    "change": "all14 ordinary rooms view_scale2.0 matching living; existing entry_camera_bias and player-safe clamp reused; no art or actor resize, no spawn move",
+    "token": "48919d32d00040f09ae152c831b1b9c9",
+    "actual_home_capture": "19 frames,147 normal workflow checks passed,exit0; actual local night",
+    "C3": "A2 all14 same160px-scale as Ayu; A4 limited pass with9 unchanged frames and final5 corrected framing",
+    "final_five_token": "a81e7f9aa394404bbfbbf6f3d3ee5121",
+    "final_five_result": "17 normal entry/exit checks,exit0,9 frames; no repeat indoor interactions; spawn unchanged",
+    "final_five": [
+      "flower",
+      "h2",
+      "h6",
+      "h4",
+      "grape"
+    ]
+  },
+  "public_entry_capture": {
+    "token": "1eaf943cb6d24ce19ad5fedf5d957788",
+    "checks": 28,
+    "exit": 0,
+    "frames": 12,
+    "kind": "actual Home normal entry/exit, no minigames/economy, no OS input",
+    "C3": "12 actual Home frames independently reviewed: public-room subject visibility limited A4 pass; not human input acceptance"
+  },
+  "ground": {
+    "source": "5 original C4 texture PNGs plus transparent Emei PNG, runtime geometry only",
+    "helper": "godot/ayu_home/v4/core/village_ground.gd",
+    "geometry": "existing topology roads + original20 gates; river and4 openings unchanged; original6 field regions retained",
+    "additions": "scaled front yards/public courtyards;9 reused C4 trees off paths, with existing y-sort and base collision",
+    "navigation": "north0..180 and9 tree bases updated; other nav bytes unchanged",
+    "winter": "old base and existing snow shader retained; mountain/sky remains visible; map retains historical nonseasonal old-base appearance",
+    "C2_checks": 9,
+    "render_directory": "测试数据/地面接入-1024/runs/10240000000000000000000000000003",
+    "pngs": 7,
+    "C3": "independent9/9 navigation exit0;7 engine previews and final3 actual Home street frames reviewed; limited terrain/Emei/yard seam acceptance passed",
+    "final_layer_order": "grass,entry_road,yard,main_road,fields,water,bridge,mountain; courtyard covers internal stub while main road stays continuous",
+    "street_seam_capture": {
+      "token": "b898bd3263c74a5dbc0c5d297ef79cef",
+      "checks": 18,
+      "exit": 0,
+      "frames": 3,
+      "time": "unmodified game time19:09 evening; not same-phase comparison with earlier night images",
+      "C3": "all3 reviewed: internal stone stubs covered, courtyard/main-road connection clear; limited seam acceptance passed"
+    },
+    "overview_stage": "run003 depicts sky/yard/tree geometry; final entry-road-before-yard order is additionally verified by street_seam_capture",
+    "C3_navigation_run": "cc0397d8c50b47b285caca67ffb3ff6c",
+    "limits": [
+      "spring flower presence subtle in overview",
+      "minor localized sky boundary remains",
+      "map winter preserves historical nonseasonal base",
+      "real touch, dynamic occlusion and cicada listening remain unverified"
+    ]
+  }
+}

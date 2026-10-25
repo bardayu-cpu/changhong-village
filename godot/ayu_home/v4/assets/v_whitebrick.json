@@ -1,207 +1,121 @@
 {
   "id": "v_whitebrick",
-  "title": "白砖小院 · 一楼",
+  "title": "白砖小院 · 明亮客厅",
   "group": "村庄",
   "floor": 0,
   "size": [
-    900,
-    740
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-pixel/whitebrick.png",
+  "background_scale": [
+    0.5,
+    0.5
   ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "background": "res://ayu_home/v4/assets/village/interior_v_whitebrick.png",
-  "props": [
-    {
-      "id": "sofa0",
-      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
-      "pos": [
-        55,
-        160
-      ],
-      "foot": 245,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "table1",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        115,
-        365
-      ],
-      "foot": 440,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "kitchen2",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        665,
-        135
-      ],
-      "foot": 218,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "cabinet3",
-      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-      "pos": [
-        700,
-        330
-      ],
-      "foot": 437,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        352,
-        21
-      ],
-      "foot": 75,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        790,
-        440
-      ],
-      "foot": 580,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        420,
-        467
-      ],
-      "foot": 500,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      330,
-      100,
-      12,
-      220
-    ],
-    [
-      330,
-      470,
-      12,
-      200
-    ],
-    [
-      590,
-      100,
-      12,
-      230
-    ],
-    [
-      590,
-      480,
-      12,
-      190
-    ],
-    [
       60,
-      214.0,
       125,
-      36.0
+      252,
+      47
     ],
     [
-      120,
-      413.0,
-      110,
-      32.0
+      316,
+      121,
+      54,
+      49
     ],
     [
-      670,
-      187.8,
-      145,
-      35.2
+      414,
+      124,
+      109,
+      46
     ],
     [
-      705,
-      397.2,
-      88,
-      44.800000000000004
+      530,
+      133,
+      39,
+      34
+    ],
+    [
+      584,
+      146,
+      97,
+      17
+    ],
+    [
+      65,
+      226,
+      86,
+      127
+    ],
+    [
+      40,
+      320,
+      43,
+      60
+    ],
+    [
+      73,
+      362,
+      128,
+      61
+    ],
+    [
+      580,
+      218,
+      82,
+      150
+    ],
+    [
+      558,
+      228,
+      25,
+      132
+    ],
+    [
+      659,
+      226,
+      36,
+      131
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "看看生活便签",
-      "pos": [
-        95,
-        570
-      ],
-      "approach": [
-        95,
-        615
-      ],
-      "kind": "village",
-      "copy": "中间的过厅把起居间和灶屋分开，门外有旧球架。这里是一户虚构邻居。"
-    },
-    {
       "id": "house_help",
-      "label": "收好廊下的球",
+      "label": "擦净料理台",
       "pos": [
-        530,
-        550
+        235,
+        125
       ],
       "approach": [
-        530,
-        625
+        235,
+        194
       ],
       "kind": "village",
       "house": "whitebrick",
-      "copy": "球放进廊下的篮筐，门口又宽敞了。"
+      "copy": "水槽旁的台面擦干净了，杯碗也顺手归好。白砖映着窗光，屋里更敞亮了。",
+      "repeat_copy": "白砖小院记着你的帮助，今天的料理台已经擦净。到沙发上坐一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        450,
-        480
+        116,
+        278
       ],
       "approach": [
-        450,
-        520
+        174,
+        285
       ],
       "kind": "seat",
       "seat": [
-        450,
-        490
+        116,
+        278
       ],
-      "face": "down"
+      "face": "right"
     }
   ],
   "doors": [
@@ -210,59 +124,83 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        450,
-        686
+        384,
+        470
       ],
       "approach": [
-        450,
-        704
+        384,
+        440
       ],
+      "arrival": [
+        384,
+        405
+      ],
+      "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "up"
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_whitebrick_up",
-      "pos": [
-        835,
-        585
-      ],
-      "approach": [
-        835,
-        615
-      ],
-      "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "down"
+      "width": 82,
+      "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      450,
-      170,
-      260
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    450,
-    655
+    384,
+    405
   ],
   "walk_rect": [
-    22,
-    96,
-    856,
-    622
+    42,
+    168,
+    674,
+    320
+  ],
+  "walk_polygons": [
+    [
+      [
+        48,
+        169
+      ],
+      [
+        711,
+        169
+      ],
+      [
+        715,
+        388
+      ],
+      [
+        427,
+        388
+      ],
+      [
+        427,
+        487
+      ],
+      [
+        342,
+        487
+      ],
+      [
+        342,
+        388
+      ],
+      [
+        43,
+        388
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -118,
+    -2
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp"
 }
