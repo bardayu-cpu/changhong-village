@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<rect width="960" height="540" fill="#f5f5f5"/><rect y="0" width="960" height="108" fill="#e7e7e7"/>
+<polygon points="0,78 135,60 270,74 390,58 600,64 620,49 680,49 700,65 820,63 960,77 960,108 0,108" fill="#c4c4c4"/>
+<polyline points="0,89 230,76 470,92 700,79 960,89" fill="none" stroke="#d0d0d0" stroke-width="10"/>
+<rect y="108" width="960" height="432" fill="#eeeeee"/>
+<rect x="0" y="190" width="960" height="95" rx="5" fill="#dddddd" stroke="#fafafa" stroke-width="5"/>
+<rect x="0" y="390" width="960" height="150" rx="5" fill="#dddddd" stroke="#fafafa" stroke-width="5"/>
+<rect x="0" y="295" width="240" height="70" rx="5" fill="#dddddd" stroke="#fafafa" stroke-width="5"/>
+<rect x="720" y="295" width="240" height="70" rx="5" fill="#dddddd" stroke="#fafafa" stroke-width="5"/>
+<polyline points="0,214 240,210 480,214 720,211 960,211" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,235 240,231 480,235 720,232 960,232" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,255 240,251 480,255 720,252 960,252" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,318 240,314 480,318 720,315 960,315" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,338 240,334 480,338 720,335 960,335" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,414 240,410 480,414 720,411 960,411" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,438 240,434 480,438 720,435 960,435" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,462 240,458 480,462 720,459 960,459" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,486 240,482 480,486 720,483 960,483" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="0,510 240,506 480,510 720,507 960,507" fill="none" stroke="#c8c8c8" stroke-width="2"/>
+<polyline points="40,430 175,420 210,380 320,380 450,385 535,375 580,340 680,335 820,342" fill="none" stroke="#a5a5a5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="40,430 175,420 210,380 320,380 450,385 535,375 580,340 680,335 820,342" fill="none" stroke="#f5f5f5" stroke-width="2" stroke-dasharray="4 8"/>
+<polyline points="915,180 900,235 923,300 910,365 920,425 915,480 960,510" fill="none" stroke="#b5c1c6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><polyline points="915,180 900,235 923,300 910,365 920,425 915,480 960,510" fill="none" stroke="#edf1f2" stroke-width="4"/>
+<polyline points="210,323 210,377" fill="none" stroke="#b9b9b9" stroke-width="3" stroke-dasharray="2 2"/>
+<polyline points="450,308 450,382" fill="none" stroke="#b9b9b9" stroke-width="3" stroke-dasharray="2 2"/>
+<polyline points="685,328 685,332" fill="none" stroke="#b9b9b9" stroke-width="3" stroke-dasharray="2 2"/>
+<rect x="192" y="292" width="13" height="10" fill="#777777"/>
+<rect x="210" y="292" width="13" height="10" fill="#777777"/>
+<rect x="228" y="292" width="13" height="10" fill="#777777"/>
+<rect x="192" y="308" width="13" height="10" fill="#777777"/>
+<rect x="210" y="308" width="13" height="10" fill="#777777"/>
+<rect x="432" y="277" width="13" height="10" fill="#777777"/>
+<rect x="450" y="277" width="13" height="10" fill="#777777"/>
+<rect x="468" y="277" width="13" height="10" fill="#777777"/>
+<rect x="432" y="293" width="13" height="10" fill="#777777"/>
+<rect x="450" y="293" width="13" height="10" fill="#777777"/>
+<rect x="667" y="297" width="13" height="10" fill="#777777"/>
+<rect x="685" y="297" width="13" height="10" fill="#777777"/>
+<rect x="703" y="297" width="13" height="10" fill="#777777"/>
+<rect x="667" y="313" width="13" height="10" fill="#777777"/>
+<rect x="685" y="313" width="13" height="10" fill="#777777"/>
+<rect x="163" y="326" width="18" height="14" fill="#555555"/><text x="168" y="337" font-size="9" font-family="sans-serif" fill="white">A</text>
+<rect x="185" y="326" width="18" height="14" fill="#555555"/><text x="190" y="337" font-size="9" font-family="sans-serif" fill="white">M</text>
+<rect x="450" y="311" width="18" height="14" fill="#555555"/><text x="455" y="322" font-size="9" font-family="sans-serif" fill="white">H</text>
+<rect x="707" y="331" width="18" height="14" fill="#555555"/><text x="712" y="342" font-size="9" font-family="sans-serif" fill="white">V</text>
+<rect x="729" y="331" width="18" height="14" fill="#555555"/><text x="734" y="342" font-size="9" font-family="sans-serif" fill="white">C</text>
+<circle cx="176" cy="278" r="8" fill="#bdbdbd"/>
+<circle cx="416" cy="263" r="8" fill="#bdbdbd"/>
+<circle cx="651" cy="283" r="8" fill="#bdbdbd"/>
+<circle cx="245" cy="275" r="8" fill="#bdbdbd"/>
+<rect x="20" y="18" width="250" height="42" rx="8" fill="#ffffff" stroke="#aaa"/><text x="36" y="47" font-size="22" font-family="sans-serif" fill="#555">方案 A｜田埂弧线</text>
+<text x="25" y="525" font-size="15" font-family="sans-serif" fill="#666">灰白小稿 · 灰块=现有住户房位置，字母=阿鱼家/机构 · 田埂连接 · 右侧河界无桥</text></svg>
