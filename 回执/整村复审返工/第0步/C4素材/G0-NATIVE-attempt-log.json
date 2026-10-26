@@ -1,0 +1,24 @@
+{
+  "issue": "G0-NATIVE",
+  "attempts": [
+    {
+      "id": "G0-NATIVE-01",
+      "status": "rejected",
+      "evidence_dir": "attempts/G0-NATIVE-01",
+      "failures": [
+        "1024x1024 ground template returned as 1254x1254; direct 64-cell coordinates no longer match the approved template",
+        "ground output painted 91,327 nontransparent pixels outside authorized regions",
+        "terrain opposite edges failed seamless checks; visible cell boundaries",
+        "horizon output kept 1536x1024 but merged far mountain, middle ridge, forest and mist into one stacked scene rather than independent RGBA layers",
+        "horizon output left 2,439 nontransparent pixels below authorized y=543"
+      ],
+      "usable_for_c2": false
+    }
+  ],
+  "requested_contract_revision": {
+    "ground_canvas": "1536x1024 fixed output, 24x16 real 64px grid; crop only, no resize",
+    "horizon_pipeline": "one 1536x1024 generation canvas per independent layer; crop fixed native-height region, no resize",
+    "reason": "ImageGen preserved 1536x1024 landscape canvas but did not preserve 1024x1024 square canvas or multi-layer separation"
+  },
+  "stop": "No further generation until C1 updates affected contract and C3 rechecks it."
+}
