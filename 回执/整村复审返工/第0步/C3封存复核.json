@@ -1,0 +1,70 @@
+{
+  "scope": "停止封存范围复核；非全面代码验收、非运行/画面/真实输入通过",
+  "reviewer": "C3",
+  "verdict": "封存材料可审；停止状态下的未启用候选与证据封存通过，不是游戏通过",
+  "candidate": "候选/整村95-G0-1026",
+  "manifest_sha256_reviewed": "3796be489f4c4987c7f3fcb6c07d59e6ce1eb9c61cb74144f1656a512f05b203",
+  "independent_checks": {
+    "declared_and_actual_file_count": 34,
+    "bytes": 9551622,
+    "all_file_sizes_and_sha_match": true,
+    "missing_or_unlisted_files": [],
+    "manifest_hash_matches_C2_stop_record": true,
+    "formal_godot_tracked_diff_empty": true,
+    "formal_main_scene": "res://ayu_home/v4/phone_boot.tscn",
+    "candidate_or_new_G0_module_references_in_formal_v4": false,
+    "new_G0_core_modules_present_in_formal": false,
+    "ready_for_c3_visual": false,
+    "ready_for_c3_input": false,
+    "native_attempts": "3/3失败并停止",
+    "complete_G0_scene_attempts": "0/3，未开始",
+    "true_input_and_GL_visual_claimed_pass": false
+  },
+  "document_boundary_review": {
+    "C1_receipt": "3/3停止、短草仅素材通过、完整镜头0/3、真实输入未验、95未完成均与独立结论一致",
+    "Claude_handoff": "隔离overlay仅供审查，非独立运行包、不提升正式、继承素材不计本轮完成；边界成立",
+    "C2_process_shutdown": "仅核对声明为自有PID67237单次SIGTERM/143，未将其记为GUI菜单退出；本次未独立重测进程"
+  },
+  "required_metadata_correction": [],
+  "after_metadata_correction": "两项补正及哈希链已定向确认；本次封存复核完成，不恢复制作或实测。",
+  "C3_checklist_updated": "C3核对表.json已置3/3停止；保留initial_preparation_status及最初environment对象；各实际检查为停止未验。",
+  "preserved_grass": "C3短草预检-03.json保持通过，仅短草子项，不代替完整G0",
+  "G0_and_later_gates": "停止",
+  "95_target": "未完成；未过素材和未验代码不得计分",
+  "runtime_started": false,
+  "engineering_or_Git_modified": false,
+  "previous_review": {
+    "verdict": "文件内容具备只读审查条件；最终封存元数据需补正，暂不签齐套",
+    "manifest_sha256": "88e122b4c4fb4820178cea9e4c56b8b18f60ca2f1061ad5439932b164f32adb9",
+    "full_file_check_bytes": 9551613,
+    "required_metadata_correction": [
+      {
+        "files": [
+          "C2隔离候选封存清单.json",
+          "候选/整村95-G0-1026/bundle.json"
+        ],
+        "item": "core/road_surface.gd作者来源",
+        "reason": "当前清单归为C3旧作者成果；方案第1节已明确为C2旧批road_surface遮罩，需修正作者归属，避免污染独立性记录。"
+      },
+      {
+        "files": [
+          "候选/整村95-G0-1026/bundle.json"
+        ],
+        "item": "native_pipeline.far_layer状态",
+        "reason": "仍记independent failure check pending；应同步C3已确认失败，并引用C3停止条件复核-03.json。"
+      }
+    ]
+  },
+  "metadata_followup": {
+    "scope": "仅复核两处字段及关联哈希；未重跑34文件全集核验",
+    "road_surface_author": "已更正为C2旧批遮罩代码；源码SHA不变",
+    "far_layer": "已同步C3独立确认失败，引用停止复核",
+    "bundle_sha256": "f74b4fa62ebe2a0d03eda7eb9c560f2faf1ae5006dffa3eda8cba5b107105041",
+    "manifest_sha256": "3796be489f4c4987c7f3fcb6c07d59e6ce1eb9c61cb74144f1656a512f05b203",
+    "stop_manifest_reference_matches": true,
+    "file_count": 34,
+    "total_bytes": 9551622,
+    "byte_change_basis": "bundle由11589增至11598字节，较上一轮核验增加9字节；清单与停点核验一致",
+    "remaining_metadata_issues": []
+  }
+}

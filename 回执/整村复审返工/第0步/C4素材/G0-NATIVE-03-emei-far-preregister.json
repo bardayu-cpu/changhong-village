@@ -1,0 +1,26 @@
+{
+  "id": "G0-NATIVE-03-emei-far",
+  "status": "preregistered_before_generation",
+  "source_canvas": [
+    1536,
+    1024
+  ],
+  "fixed_crop_region": [
+    0,
+    416,
+    1536,
+    192
+  ],
+  "final_size": [
+    1536,
+    192
+  ],
+  "rules": [
+    "no crop movement",
+    "no resize/filter/quantization",
+    "all nontransparent mountain pixels inside fixed band",
+    "complete single Emei long ridge and summit",
+    "outside band fully transparent",
+    "no sky, forest, mist, middle ridge or ground"
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "candidate": "整村95-G0-1026",
+  "implementation_base": "9bd2f214baa67a0369d8d774ce00b688a65c8b5f",
+  "plan_revision_commit": "b92dfe4e4deb777f52374367de6e6a2814a03b48",
+  "status": "STOPPED 3/3: unapproved and unactivated isolated skeleton for review only",
+  "ready_for_c3_visual": false,
+  "native_art_integrated": "only four approved grass cells; incomplete scene",
+  "native_attempts_used": 3,
+  "g0_scene_versions_used": 0,
+  "checks_scope": "C2 headless author-only navigation and synthetic input; not native GUI/visual/independent acceptance",
+  "shader_gl_runtime_verified": false,
+  "formal_game_modified": false,
+  "legacy_outside_roi": "retained for normal travel during G0; map style remains legacy until G1; never use as whole-village approval",
+  "runtime_directory": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026/工程",
+  "evidence_directory": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026",
+  "checks": {
+    "preflight_points.json": {
+      "pass": true,
+      "scope": "headless navigation precondition only; not actual walking, visual or independent acceptance"
+    },
+    "preflight-new-shore.json": {
+      "pass": true,
+      "scope": "headless navigation precondition only; not actual walking, visual or independent acceptance"
+    },
+    "viewport-check.json": {
+      "pass": true,
+      "scope": "synthetic input routing and buffer dimensions only; no native OS click or visual acceptance"
+    }
+  },
+  "files": [
+    {
+      "path": "ayu_home/v4/actor.gd",
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01",
+      "bytes": 13522,
+      "author": "C2 sealed 1603f8d label code"
+    },
+    {
+      "path": "ayu_home/v4/assets/rooms.json",
+      "sha256": "6a3091a95cae7663f0cb7b745dacb4fb85ab1f83212d2ac775ba4f7049247e9d",
+      "bytes": 3496328,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/grass-00.png",
+      "author": "C4 approved grass-03",
+      "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+      "bytes": 4388
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/grass-01.png",
+      "author": "C4 approved grass-03",
+      "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+      "bytes": 4700
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/grass-02.png",
+      "author": "C4 approved grass-03",
+      "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+      "bytes": 4563
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/grass-03.png",
+      "author": "C4 approved grass-03",
+      "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+      "bytes": 4412
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/layout.json",
+      "sha256": "65c1236cc27e94748805bb7d2fa73f05d99ae38894a82ab49b762bfcaa917d84",
+      "bytes": 238654,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/native-manifest.json",
+      "author": "C2 approved-grass import manifest",
+      "sha256": "4173e6f3db05d6f77e2b74049c89b056eaf8ba0f492aa3476f5f57582b13b113",
+      "bytes": 1680
+    },
+    {
+      "path": "ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "sha256": "abc0155e56f10f02d5be63015f13ec2d523180e64fdebdf8711f549a97bcc5d3",
+      "bytes": 1891,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/houses.json",
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "bytes": 6436,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/layout-1025.json",
+      "sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a",
+      "bytes": 238631,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+      "sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507",
+      "bytes": 1661119,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+      "bytes": 169116,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06",
+      "bytes": 147491,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+      "bytes": 168980,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+      "bytes": 155890,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/road-shoulder-1025/road-transition-atlas.png",
+      "sha256": "045e7a15d9302da5b27703de9c05cb8f07cac8c3a0c7ba165e069a3e59ec0dc1",
+      "bytes": 309038,
+      "author": "C4 old 1025 road sample; not new native art"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/topology.json",
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "bytes": 11980,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/assets/village.json",
+      "sha256": "10c780f25fda5a4d2dd88a33ff8395b51f29cde9c5ea1ee72d4c590553bfb3f9",
+      "bytes": 2650634,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/core/game_viewport.gd",
+      "sha256": "4cd71621c1f41073503b1b56925752b9bce05d2a4780ffa870ec286300677696",
+      "bytes": 2440,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/core/institution_room.gd",
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110",
+      "bytes": 13336,
+      "author": "C2 sealed 1603f8d label code"
+    },
+    {
+      "path": "ayu_home/v4/core/interface.gd",
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3",
+      "bytes": 31384,
+      "author": "C2 sealed 1603f8d label code"
+    },
+    {
+      "path": "ayu_home/v4/core/native_surface.gd",
+      "sha256": "3f791331c1333673ccd1504542a29d844a7594347d566262591de15792e3d629",
+      "bytes": 6785,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/core/natural_terrain.gd",
+      "sha256": "d22ef1a91ee4609772d733347658f4850cfb610e3e8f3e03cb2952460d419c5d",
+      "bytes": 2072,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/core/natural_verges.gd",
+      "sha256": "6f806ede5b6b0ee3fa7c30f6cfbb2365ea0a5b02433460f75673c6f07b572cf7",
+      "bytes": 4081,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "ayu_home/v4/core/road_surface.gd",
+      "sha256": "31ef5f24d97dc017130baf67c5d758de14b714d05727d0fba088dec67e7bf649",
+      "bytes": 3239,
+      "author": "C2 old-batch road_surface mask code"
+    },
+    {
+      "path": "ayu_home/v4/core/village_ground.gd",
+      "sha256": "412a0e7391f74dcea85bd9cb6220d52e128577c749cd19bc36955d2ec41d35d2",
+      "bytes": 13101,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/core/village_horizon.gd",
+      "sha256": "75ed7b124863a4d17175efb013bfaa6c18f046467c0fc915092e3a4dc2cc89bb",
+      "bytes": 3796,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/home.gd",
+      "sha256": "f82f580bd07bea3312c115f635771771953a372c1fd5cf29f2fe63f76119f490",
+      "bytes": 121224,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/phone_boot.gd",
+      "sha256": "d750d9e236053ef8c98d06472cfa76c7cfb07925f35732b267eca74c8cab4ec5",
+      "bytes": 3750,
+      "author": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "ayu_home/v4/world.gd",
+      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2",
+      "bytes": 42688,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "project.godot",
+      "sha256": "2a6284a175e53551e30d7a6499cf619eddd00463a2d83732d0d5b6e041057d83",
+      "bytes": 1499,
+      "author": "C2 G0 new integration/geometry"
+    }
+  ],
+  "native_pipeline": {
+    "failed_previous_attempts": 2,
+    "current_attempt": 3,
+    "grass_subcomponent": "C4/C3 precheck passed; four tiles imported",
+    "far_layer": "C3 independently confirmed failure; see 回执/整村复审返工/第0步/C3停止条件复核-03.json; G0 stopped",
+    "complete_material_set": false
+  },
+  "ready_for_c3_input": false,
+  "environment_precheck": {
+    "scope": "C2 normal startup environment precheck interrupted by mandatory G0-NATIVE 3/3 stop",
+    "process_id": 67237,
+    "exec_tool_session": 85789,
+    "window_title_set_by_game": "整村95 G0 1026 · 隔离候选作者自测",
+    "entry": "normal project.godot main_scene -> phone_boot.tscn -> native game viewport -> Home; no fixture SceneTree script",
+    "runtime_project": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026/工程",
+    "independent_life": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026/environment-01/life.json",
+    "independent_core_prefix": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026/environment-01/core",
+    "engine_home_ready": true,
+    "initial_area": "exterior (阿鱼家门前院子)",
+    "native_mouse_or_key_events_observed": 0,
+    "menu_pressed_events_observed": 0,
+    "native_UI_observation_performed": false,
+    "menu_or_living_input_pass": false,
+    "village_entered": false,
+    "graphical_scene_acceptance": false,
+    "stopped_before_gui_input_attempts": true,
+    "process_action": "Verified exact isolated PID67237; one SIGTERM request; process exited; no GUI/menu quit claimed, no other process targeted; saves/logs retained",
+    "log_snapshot_sha256": "d2dca0b3de5e620d8cb24451d18eb0b4ccafb12b933570de5deef7004f7c862b",
+    "native_assets": "only C3-approved grass-00..03 byte copies; far layer not imported",
+    "next": "no fourth attempt, no method switch; preserve work pending C1 stop-point handoff",
+    "process_running": false,
+    "exit_method": "single SIGTERM after exact isolated project and save-argument verification",
+    "exit_code": 143,
+    "normal_gui_quit_verified": false,
+    "saved_runtime_lock_retained": true
+  }
+}

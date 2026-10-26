@@ -1,0 +1,125 @@
+{
+  "issue": "G0-NATIVE",
+  "attempt": "03",
+  "scope": "短草素材独立预检；非G0实际镜头、非其他素材通过",
+  "reviewer": "C3；未制作或修改本素材",
+  "verdict": "短草素材预检通过",
+  "source": {
+    "file": "回执/整村复审返工/第0步/C4素材/attempts/G0-NATIVE-03/G0-NATIVE-03-grass-raw.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "original_mode": "RGB",
+    "opaque": true,
+    "sha256": "67434359a68c877941e9a55680fb4efcd6de0db1f0ba9c57ecddb5663c64a4d1"
+  },
+  "fixed_crops": [
+    {
+      "file": "grass-00.png",
+      "region": [
+        704,
+        448,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "source_pixels_exact": true,
+      "repeat_3x3_exact": true,
+      "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f"
+    },
+    {
+      "file": "grass-01.png",
+      "region": [
+        768,
+        448,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "source_pixels_exact": true,
+      "repeat_3x3_exact": true,
+      "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6"
+    },
+    {
+      "file": "grass-02.png",
+      "region": [
+        704,
+        512,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "source_pixels_exact": true,
+      "repeat_3x3_exact": true,
+      "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7"
+    },
+    {
+      "file": "grass-03.png",
+      "region": [
+        768,
+        512,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64
+      ],
+      "source_pixels_exact": true,
+      "repeat_3x3_exact": true,
+      "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94"
+    }
+  ],
+  "preview_integrity": {
+    "four_repeat_contact_exact": true,
+    "mixed_2x2_block_exact": true,
+    "mixed_repeat3x3_exact": true
+  },
+  "visual_evidence": [
+    {
+      "files": [
+        "G0-NATIVE-03-grass-raw.png",
+        "grass-00.png",
+        "grass-01.png",
+        "grass-02.png",
+        "grass-03.png"
+      ],
+      "observation": "亲自看原图及四格：单一顶视短草，色彩较克制，草叶为小尺度色块；未见材料混入、大物体压缩、分格线或独立大块光照。素材层笔触尺度未见阻断项，与人物同屏的最终颗粒仍须G0实际核对。"
+    },
+    {
+      "files": [
+        "grass-four-repeat-contact.png"
+      ],
+      "observation": "亲自看四格各自3x3：未见明确透明缝、格框或亮度断层；存在可辨的重复草叶图案，不将有限变体纹理误写成完全无重复。"
+    },
+    {
+      "files": [
+        "grass-mixed-2x2-repeat3x3.png"
+      ],
+      "observation": "亲自看混合变体边界：未见明显跨格色带、十字缝或断层。"
+    }
+  ],
+  "limits": {
+    "runtime_started": false,
+    "engineering_modified": false,
+    "new_images_generated_or_edited": false,
+    "G0_scene_pass": false,
+    "same_candidate_Ayu_comparison": "尚未进行；不得用本素材预检代替"
+  },
+  "next": "C4作者自检也通过后，仅允许继续v1.4同契约的其他素材；任何后续子材质失败即用尽本周期3次并停止G0及后门，不换方法或ID。",
+  "attempt_state": {
+    "G0_NATIVE": "前两次失败保留；03仅短草子项通过，整个03尚未完成",
+    "G0_SCENE_used": 0,
+    "limit": 3
+  }
+}

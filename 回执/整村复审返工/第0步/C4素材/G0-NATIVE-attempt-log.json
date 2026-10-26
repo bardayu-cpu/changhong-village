@@ -31,6 +31,26 @@
       ],
       "salvage_scan_status": "rejected: post-run dynamic crop selection is outside v1.3 contract and must not be used",
       "usable_for_c2": false
+    },
+    {
+      "id": "G0-NATIVE-03",
+      "status": "failed_3_of_3_stop",
+      "raw_file": "candidate/G0-NATIVE-03-grass/G0-NATIVE-03-grass-raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "manifest": "G0-NATIVE-03-grass-manifest.json",
+      "usable_for_c2": "grass remains approved; far layer unusable; G0 cannot proceed",
+      "passed_subasset": "grass: C3 independent material precheck passed; keep frozen",
+      "failed_subasset": "emei far layer",
+      "far_raw": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-raw.png",
+      "far_check": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-check.json",
+      "far_failures": [
+        "4208 nontransparent pixels outside preregistered [0,416,1536,192] band",
+        "alpha bounds [0,279,1536,1000] exceed fixed band",
+        "luminous sky/ground backdrop and multiple nearer ridges merged into the far layer"
+      ]
     }
   ],
   "requested_contract_revision": {
@@ -38,7 +58,8 @@
     "horizon_pipeline": "one 1536x1024 generation canvas per independent layer; crop fixed native-height region, no resize",
     "reason": "ImageGen preserved 1536x1024 landscape canvas but did not preserve 1024x1024 square canvas or multi-layer separation"
   },
-  "stop": "No more generation until C1 revises the production contract, C3 approves it, and the revision is pushed.",
-  "used_attempts": 2,
-  "remaining_attempts": 1
+  "stop": "G0-NATIVE exhausted. No further generation or method change in this cycle. Preserve C3-approved grass; report exact far-layer failure to C1/Claude.",
+  "used_attempts": 3,
+  "remaining_attempts": 0,
+  "overall_status": "stopped_after_3_of_3"
 }

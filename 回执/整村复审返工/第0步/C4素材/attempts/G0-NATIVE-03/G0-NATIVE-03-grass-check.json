@@ -1,0 +1,95 @@
+{
+  "issue": "G0-NATIVE",
+  "attempt": "G0-NATIVE-03",
+  "status": "author_pass_pending_c3_material_precheck",
+  "raw_file": "attempts/G0-NATIVE-03/G0-NATIVE-03-grass-raw.png",
+  "raw_size": [
+    1536,
+    1024
+  ],
+  "raw_sha256": "67434359a68c877941e9a55680fb4efcd6de0db1f0ba9c57ecddb5663c64a4d1",
+  "processing": "fixed integer crop only; no move, resize, filter or quantization",
+  "cells": [
+    {
+      "id": "grass-00",
+      "file": "attempts/G0-NATIVE-03/grass-00.png",
+      "region": [
+        704,
+        448,
+        64,
+        64
+      ],
+      "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+      "edge_mad": {
+        "left_right": 8.36,
+        "top_bottom": 4.42
+      }
+    },
+    {
+      "id": "grass-01",
+      "file": "attempts/G0-NATIVE-03/grass-01.png",
+      "region": [
+        768,
+        448,
+        64,
+        64
+      ],
+      "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+      "edge_mad": {
+        "left_right": 7.64,
+        "top_bottom": 6.6
+      }
+    },
+    {
+      "id": "grass-02",
+      "file": "attempts/G0-NATIVE-03/grass-02.png",
+      "region": [
+        704,
+        512,
+        64,
+        64
+      ],
+      "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+      "edge_mad": {
+        "left_right": 4.06,
+        "top_bottom": 10.13
+      }
+    },
+    {
+      "id": "grass-03",
+      "file": "attempts/G0-NATIVE-03/grass-03.png",
+      "region": [
+        768,
+        512,
+        64,
+        64
+      ],
+      "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+      "edge_mad": {
+        "left_right": 5.59,
+        "top_bottom": 12.39
+      }
+    }
+  ],
+  "mixed_block": {
+    "file": "attempts/G0-NATIVE-03/grass-mixed-2x2-block.png",
+    "region": [
+      704,
+      448,
+      128,
+      128
+    ],
+    "sha256": "31134cf1d2d6806241b5bfb016ac57b8429a3ca9590c04d68c1be12711d3b887",
+    "repeat_check": "attempts/G0-NATIVE-03/grass-mixed-2x2-repeat3x3.png"
+  },
+  "author_visual_checks": {
+    "canvas_size": "pass: 1536x1024",
+    "fixed_regions": "pass: exact preregistered coordinates",
+    "processing": "pass: integer crop only, no move/resize/filter/quantization",
+    "native_pixel_marks": "pass: hard source-pixel clusters, low-contrast short grass, no tall or large leaf masses",
+    "grid_or_banding": "pass: no template line or 64px boundary in raw",
+    "individual_repeat_3x3": "pass: four cells show no hard seam or brightness step",
+    "mixed_variants": "pass: contiguous 2x2 mixed block shows no hard seam or brightness step",
+    "next": "stop all generation; C3 independent material precheck required"
+  }
+}

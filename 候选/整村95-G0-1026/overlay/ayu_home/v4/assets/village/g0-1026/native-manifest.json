@@ -1,0 +1,61 @@
+{
+  "contract_version": "v1.4",
+  "status": "approved grass only; no complete G0 material set",
+  "pipeline_attempt": 3,
+  "pipeline_complete": false,
+  "scene_pass": false,
+  "surfaces": {
+    "grass": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-00.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-01.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-02.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-03.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      }
+    ]
+  },
+  "horizon": {},
+  "source_raw_sha256": "67434359a68c877941e9a55680fb4efcd6de0db1f0ba9c57ecddb5663c64a4d1"
+}

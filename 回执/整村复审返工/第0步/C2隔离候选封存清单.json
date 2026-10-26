@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "status": "未通过、未启用，供审查的隔离骨架",
+  "candidate_root": "候选/整村95-G0-1026",
+  "HEAD": "492a2283c3d8afb9072407978cffc026923adb80",
+  "file_count": 34,
+  "total_bytes": 9551622,
+  "ready_for_c3_visual": false,
+  "ready_for_c3_input": false,
+  "native_pipeline": "3/3 停止；不得第四次或换方法续试",
+  "complete_G0_scene_versions": 0,
+  "formal_default_entry_references_candidate": false,
+  "sensitive_scan": {
+    "likely_secret_findings": [],
+    "local_absolute_path_metadata_files": [
+      "候选/整村95-G0-1026/bundle.json"
+    ],
+    "note": "本机路径和 PID 为审查元数据；未删除或改写源文件中的值"
+  },
+  "excluded": [
+    "隔离运行副本",
+    "存档及锁",
+    "日志",
+    "缓存",
+    "安装包",
+    "前两次失败派生格及模板",
+    "原七份脏文档"
+  ],
+  "files": [
+    {
+      "path": "候选/整村95-G0-1026/README.md",
+      "bytes": 1176,
+      "sha256": "9e9fe87a7f5a6a28907872e93847853b202b267d0bc6996b40ee9b132dc98946",
+      "source": "C2 封存说明与元数据"
+    },
+    {
+      "path": "候选/整村95-G0-1026/bundle.json",
+      "bytes": 11598,
+      "sha256": "f74b4fa62ebe2a0d03eda7eb9c560f2faf1ae5006dffa3eda8cba5b107105041",
+      "source": "C2 封存说明与元数据"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/actor.gd",
+      "bytes": 13522,
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01",
+      "source": "C2 sealed 1603f8d label code"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/rooms.json",
+      "bytes": 3496328,
+      "sha256": "6a3091a95cae7663f0cb7b745dacb4fb85ab1f83212d2ac775ba4f7049247e9d",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/grass-00.png",
+      "bytes": 4388,
+      "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+      "source": "C4 approved grass-03"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/grass-01.png",
+      "bytes": 4700,
+      "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+      "source": "C4 approved grass-03"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/grass-02.png",
+      "bytes": 4563,
+      "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+      "source": "C4 approved grass-03"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/grass-03.png",
+      "bytes": 4412,
+      "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+      "source": "C4 approved grass-03"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/layout.json",
+      "bytes": 238654,
+      "sha256": "65c1236cc27e94748805bb7d2fa73f05d99ae38894a82ab49b762bfcaa917d84",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/native-manifest.json",
+      "bytes": 1680,
+      "sha256": "4173e6f3db05d6f77e2b74049c89b056eaf8ba0f492aa3476f5f57582b13b113",
+      "source": "C2 approved-grass import manifest"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "bytes": 1891,
+      "sha256": "abc0155e56f10f02d5be63015f13ec2d523180e64fdebdf8711f549a97bcc5d3",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/houses.json",
+      "bytes": 6436,
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/layout-1025.json",
+      "bytes": 238631,
+      "sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+      "bytes": 1661119,
+      "sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "bytes": 169116,
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "bytes": 147491,
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "bytes": 168980,
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "bytes": 155890,
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/road-shoulder-1025/road-transition-atlas.png",
+      "bytes": 309038,
+      "sha256": "045e7a15d9302da5b27703de9c05cb8f07cac8c3a0c7ba165e069a3e59ec0dc1",
+      "source": "C4 old 1025 road sample; not new native art"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/topology.json",
+      "bytes": 11980,
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village.json",
+      "bytes": 2650634,
+      "sha256": "10c780f25fda5a4d2dd88a33ff8395b51f29cde9c5ea1ee72d4c590553bfb3f9",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/game_viewport.gd",
+      "bytes": 2440,
+      "sha256": "4cd71621c1f41073503b1b56925752b9bce05d2a4780ffa870ec286300677696",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/institution_room.gd",
+      "bytes": 13336,
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110",
+      "source": "C2 sealed 1603f8d label code"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/interface.gd",
+      "bytes": 31384,
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3",
+      "source": "C2 sealed 1603f8d label code"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/native_surface.gd",
+      "bytes": 6785,
+      "sha256": "3f791331c1333673ccd1504542a29d844a7594347d566262591de15792e3d629",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/natural_terrain.gd",
+      "bytes": 2072,
+      "sha256": "d22ef1a91ee4609772d733347658f4850cfb610e3e8f3e03cb2952460d419c5d",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/natural_verges.gd",
+      "bytes": 4081,
+      "sha256": "6f806ede5b6b0ee3fa7c30f6cfbb2365ea0a5b02433460f75673c6f07b572cf7",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/road_surface.gd",
+      "bytes": 3239,
+      "sha256": "31ef5f24d97dc017130baf67c5d758de14b714d05727d0fba088dec67e7bf649",
+      "source": "C2 old-batch road_surface mask code"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/village_ground.gd",
+      "bytes": 13101,
+      "sha256": "412a0e7391f74dcea85bd9cb6220d52e128577c749cd19bc36955d2ec41d35d2",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/village_horizon.gd",
+      "bytes": 3796,
+      "sha256": "75ed7b124863a4d17175efb013bfaa6c18f046467c0fc915092e3a4dc2cc89bb",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/home.gd",
+      "bytes": 121224,
+      "sha256": "f82f580bd07bea3312c115f635771771953a372c1fd5cf29f2fe63f76119f490",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/phone_boot.gd",
+      "bytes": 3750,
+      "sha256": "d750d9e236053ef8c98d06472cfa76c7cfb07925f35732b267eca74c8cab4ec5",
+      "source": "C2 G0 new integration/geometry"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/world.gd",
+      "bytes": 42688,
+      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2",
+      "source": "C3 old curved-lane candidate/source; author self-test identity retained"
+    },
+    {
+      "path": "候选/整村95-G0-1026/overlay/project.godot",
+      "bytes": 1499,
+      "sha256": "2a6284a175e53551e30d7a6499cf619eddd00463a2d83732d0d5b6e041057d83",
+      "source": "C2 G0 new integration/geometry"
+    }
+  ]
+}
