@@ -13,6 +13,24 @@
         "horizon output left 2,439 nontransparent pixels below authorized y=543"
       ],
       "usable_for_c2": false
+    },
+    {
+      "id": "G0-NATIVE-02",
+      "status": "rejected",
+      "raw_file": "attempts/G0-NATIVE-02/G0-NATIVE-02-ground-raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_sha256": "1e3396ae11156d7ca1fe13d9d6472d6a4bef2d43d761337e0daf7f4aa6af289f",
+      "failures": [
+        "Canvas size passed at 1536x1024, but requested material blocks drifted away from every preregistered 64px region",
+        "Fixed 64px crops mix adjacent materials and visible brightness boundaries",
+        "Model painted 160,690 nontransparent pixels outside authorized regions",
+        "Template divisions remain visible; grass contains bright dense clumps and base tiles fail 3x3 seam inspection"
+      ],
+      "salvage_scan_status": "rejected: post-run dynamic crop selection is outside v1.3 contract and must not be used",
+      "usable_for_c2": false
     }
   ],
   "requested_contract_revision": {
@@ -20,5 +38,7 @@
     "horizon_pipeline": "one 1536x1024 generation canvas per independent layer; crop fixed native-height region, no resize",
     "reason": "ImageGen preserved 1536x1024 landscape canvas but did not preserve 1024x1024 square canvas or multi-layer separation"
   },
-  "stop": "No further generation until C1 updates affected contract and C3 rechecks it."
+  "stop": "No more generation until C1 revises the production contract, C3 approves it, and the revision is pushed.",
+  "used_attempts": 2,
+  "remaining_attempts": 1
 }
