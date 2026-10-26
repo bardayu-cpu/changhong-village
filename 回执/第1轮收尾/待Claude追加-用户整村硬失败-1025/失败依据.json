@@ -1,0 +1,30 @@
+{
+  "status": "user explicitly rejected whole-village visual result; defects-only test candidate",
+  "source_commit": "1603f8dbc216534432acc4a810659dbdeb46f14e",
+  "actual_project": "测试数据/本轮C3专用目录/前端接管-1025/20线续验-1025/坐姿标签第二次定点复验/工程冻结",
+  "verified_source_assets": 21,
+  "launcher": "existing C2整身提示避让复验/leave_candidate.gd; no snap or QA invoked",
+  "launch_position": [
+    3544,
+    1960
+  ],
+  "screenshot_camera_position_evidence": [
+    {
+      "source": "open-play-core.b",
+      "modified": 1792984765.598713,
+      "area": "village",
+      "position": [
+        4616.0,
+        568.0
+      ]
+    }
+  ],
+  "user_screenshot_sha256": "82b3f8171468354c6782772180e4d25f56d20cb098d74b702cb5d6831c01dae4",
+  "hard_failures": [
+    "mountain plate bottom and right edges visibly rectangular, like a ground-level poster",
+    "right river appears as vertical water wall; bank and view angle mismatch",
+    "grass, road, water and mountain scale/depth discontinuity"
+  ],
+  "action": "stop UI and auto play; preserve current window for user; no code/art edits or new acceptance run",
+  "handoff": "append to next Claude review; not submitted during this open-only task"
+}
