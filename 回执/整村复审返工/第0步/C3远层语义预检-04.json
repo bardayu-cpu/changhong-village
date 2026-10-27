@@ -1,0 +1,86 @@
+{
+  "issue": "G0-NATIVE",
+  "attempt": "04",
+  "plan_commit": "a4e4d411",
+  "reviewer": "C3 independent source/material review",
+  "verdict": "语义预检未见直接判退项，允许原PNG进入隔离背景合成；完整素材视觉与G0仍待验",
+  "raw": "回执/整村复审返工/第0步/C4素材/attempts/G0-NATIVE-04/G0-NATIVE-04-emei-far-raw.png",
+  "raw_sha256": "1b4c604d5a23b3a0ea821a528b7c58f94cf10d69a844a7262867be1167fa8138",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "region": [
+    0,
+    0,
+    1536,
+    1024
+  ],
+  "independent_observations": {
+    "visual": "已亲自看完整raw；平顶长脊完整，多道蓝灰远山符合本版允许语义，未见树林、河流、地面或村庄烘焙进层。素材级像素轮廓可用，最终与人物同屏颗粒仍待G0。",
+    "alpha_full_bbox_xyxy": [
+      0,
+      23,
+      1536,
+      918
+    ],
+    "alpha_ge16_bbox_xyxy": [
+      0,
+      454,
+      1536,
+      640
+    ],
+    "alpha_ge128_bbox_xyxy": [
+      0,
+      455,
+      1536,
+      640
+    ],
+    "alpha_above_y454_max": 5,
+    "alpha_below_y640_max": 8,
+    "effective_mountain_width": 1536,
+    "diagnostic_limit": "alpha阈值仅用于解释源图，非裁区或新通过线；全RGBA保留，不清低alpha余边。"
+  },
+  "author_registration": {
+    "status": "conditional pending actual composite",
+    "peak": [
+      824,
+      455
+    ],
+    "anchor": [
+      768,
+      640
+    ],
+    "buried_region_xywh": [
+      0,
+      640,
+      1536,
+      384
+    ],
+    "anchor_assessment": "位于主体下缘附近，未见挪至山腰；是否能与前景正确遮底仍须合成。"
+  },
+  "must_verify_in_actual_composite": [
+    "按真实天空/中层/林带/雾合成原PNG，观察低alpha余边是否造成可见蓝晕、矩形色差或染天，不用黑底RGB效果判退，也不阈值去边。",
+    "登记埋底区从y640开始，而较明显山体止于y639附近；必须证明前景实际遮住山脚硬缘，不只是盖住透明尾部。真实遮挡范围须如实登记，不裁山脚或改alpha救图。",
+    "主体诊断高度约186源像素，2倍约372渲染像素；用两尺寸实际scene_frame核峰顶、长脊及路草岸水同框，不机械认定高度合格，不藏峰或压扁。",
+    "北缘移动、倍率1/2及视差极限下有效覆盖足够，不重复、不拉伸、不露侧缘，完整G0须正常步行及三栏实图。"
+  ],
+  "scope_limits": {
+    "runtime_started": false,
+    "GUI_input_sent": false,
+    "source_or_engineering_modified": false,
+    "full_material_visual_pass": false,
+    "G0_scene_pass": false,
+    "C3_old_geometry_retested": false
+  },
+  "attempt_ledger": {
+    "01_03": "旧失败保留",
+    "04": "本次续办第1次，待实际合成形成完整结论，未改记失败或通过",
+    "remaining_if_needed": [
+      "05",
+      "06"
+    ],
+    "G0_complete_scene_used": 0,
+    "G0_complete_scene_limit": 3
+  }
+}

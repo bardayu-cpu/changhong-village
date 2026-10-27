@@ -1,0 +1,55 @@
+{
+  "id": "G0-NATIVE-04-emei-far",
+  "status": "author_conditional_pending_actual_composite",
+  "file": "attempts/G0-NATIVE-04/G0-NATIVE-04-emei-far-raw.png",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "region": [
+    0,
+    0,
+    1536,
+    1024
+  ],
+  "alpha_bbox": [
+    0,
+    23,
+    1536,
+    895
+  ],
+  "core_alpha_bbox_at_16": [
+    0,
+    454,
+    1536,
+    186
+  ],
+  "peak": [
+    824,
+    455
+  ],
+  "anchor_x": 768,
+  "anchor_y": 640,
+  "buried_region": [
+    0,
+    640,
+    1536,
+    384
+  ],
+  "raw_sha256": "1b4c604d5a23b3a0ea821a528b7c58f94cf10d69a844a7262867be1167fa8138",
+  "passed": [
+    "canvas is 1536x1024",
+    "core mountain content spans full effective width 1536",
+    "single complete broad flat-topped main summit is visible",
+    "core mountain relief is 186 source pixels, within normal variation of the 128px composition target",
+    "low-saturation blue-gray native pixel art"
+  ],
+  "failed": [
+    "very-low-alpha blue-gray glow spans y=23..917, far beyond a small irregular silhouette fringe",
+    "large full-canvas atmospheric gradient would tint the sky and risks recreating a background rectangle/halo",
+    "several visually nearer ridge bands are merged into the far layer instead of a clean isolated far-distance silhouette"
+  ],
+  "processing": "raw preserved intact; no crop, resize, alpha edit, filter, quantization or rescue window",
+  "next": "No regeneration and no other layer. C2 tests original raw in actual horizon composition; C3 judges the composite.",
+  "author_conclusion": "Core Emei silhouette, width, peak and relief are usable. The very-low-alpha blue atmosphere cannot be accepted or rejected from the raw asset alone; verify it only in the actual C2 composite with forest/mist and real sky. Preserve raw unchanged."
+}

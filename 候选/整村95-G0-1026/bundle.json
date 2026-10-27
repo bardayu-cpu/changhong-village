@@ -1,11 +1,11 @@
 {
   "candidate": "整村95-G0-1026",
   "implementation_base": "9bd2f214baa67a0369d8d774ce00b688a65c8b5f",
-  "plan_revision_commit": "b92dfe4e4deb777f52374367de6e6a2814a03b48",
-  "status": "STOPPED 3/3: unapproved and unactivated isolated skeleton for review only",
+  "plan_revision_commit": "8076b516c7fbbca08907b2ac0988cf5fb4a94b71",
+  "status": "STOPPED: G0-SHALLOW-WATER-03 failed 3/3; unapproved/unactivated review skeleton only",
   "ready_for_c3_visual": false,
-  "native_art_integrated": "only four approved grass cells; incomplete scene",
-  "native_attempts_used": 3,
+  "native_art_integrated": "Only four approved grass-03 cells; no far-04 or v2 material copied into this overlay",
+  "native_attempts_used": 4,
   "g0_scene_versions_used": 0,
   "checks_scope": "C2 headless author-only navigation and synthetic input; not native GUI/visual/independent acceptance",
   "shader_gl_runtime_verified": false,
@@ -162,9 +162,9 @@
     },
     {
       "path": "ayu_home/v4/core/native_surface.gd",
-      "sha256": "3f791331c1333673ccd1504542a29d844a7594347d566262591de15792e3d629",
-      "bytes": 6785,
-      "author": "C2 G0 new integration/geometry"
+      "sha256": "920664656c812d2fe524b3d5208f63e1bb03499f05cb3617df69f683d9bd927c",
+      "bytes": 7292,
+      "author": "C2 G0 renderer plus lossless in-memory RGB8 to RGBA8 import correction; GL not verified"
     },
     {
       "path": "ayu_home/v4/core/natural_terrain.gd",
@@ -192,9 +192,9 @@
     },
     {
       "path": "ayu_home/v4/core/village_horizon.gd",
-      "sha256": "75ed7b124863a4d17175efb013bfaa6c18f046467c0fc915092e3a4dc2cc89bb",
-      "bytes": 3796,
-      "author": "C2 G0 new integration/geometry"
+      "sha256": "2771307c508ca60f7869cfd27e3f05c941ecd1453f8accc267cc091a547341a8",
+      "bytes": 8755,
+      "author": "C2 v1.5 native region/alpha/anchor reader; unapproved, no complete scene test"
     },
     {
       "path": "ayu_home/v4/home.gd",
@@ -222,11 +222,16 @@
     }
   ],
   "native_pipeline": {
-    "failed_previous_attempts": 2,
-    "current_attempt": 3,
-    "grass_subcomponent": "C4/C3 precheck passed; four tiles imported",
-    "far_layer": "C3 independently confirmed failure; see 回执/整村复审返工/第0步/C3停止条件复核-03.json; G0 stopped",
-    "complete_material_set": false
+    "far_attempts_used": 4,
+    "far_attempt_limit": 6,
+    "old_01_03_failures_preserved": true,
+    "far_04": "C3 source semantics allow isolated composite only; source decoded for projection, not integrated or visually composited",
+    "blocking_issue": "G0-SHALLOW-WATER-03",
+    "blocking_attempts_used": 3,
+    "blocking_attempt_limit": 3,
+    "stop_receipt": "回执/整村复审返工/第0步/C3本批素材预检-v2.json",
+    "complete_material_set": false,
+    "no_fourth_shallow_attempt": true
   },
   "ready_for_c3_input": false,
   "environment_precheck": {
@@ -256,5 +261,29 @@
     "exit_code": 143,
     "normal_gui_quit_verified": false,
     "saved_runtime_lock_retained": true
-  }
+  },
+  "support_files": [
+    {
+      "path": "horizon-manifest-contract-v1.5.json",
+      "bytes": 1577,
+      "sha256": "0d3cd6e8a0dea3b6fd4e802c0fe4405ac0a6738676bb4127a822668d4062a4ec",
+      "author": "C2 metadata contract only"
+    }
+  ],
+  "UI_camera_change_implemented": false,
+  "previous_checks_scope": "Existing checks/previous environment entries are historical author checks, not current visual/input acceptance; no old test rerun at this stop.",
+  "current_author_checks": {
+    "horizon_compile_exit_code": 0,
+    "metadata_projection_fixture": "8/8; no art or native input acceptance",
+    "lossless_grass_import": "16384 texels match original RGB and alpha; missing material set remains unready",
+    "normal_Home_layout_read": "headless; 540x696 and 1280x456 scene frame; author-position fixture only",
+    "headless_processes_exited": true,
+    "headless_tool_exit_codes": [
+      0,
+      0
+    ],
+    "new_GUI_started": false,
+    "GL_visual_or_native_input_verified": false
+  },
+  "historical_archive": "f46b193 C2 stop manifests remain unchanged and describe that historical snapshot, not these updated overlay hashes"
 }

@@ -20,7 +20,14 @@ func configure(ground,meta:Dictionary,art:Dictionary) -> bool:
 		for i in cells.size():
 			var cell:Dictionary=cells[i];var file:=str(cell.get("file",""));var r:Array=cell.get("region",[])
 			if not FileAccess.file_exists(file) or r.size()!=4:errors.append("missing source/region: "+role);continue
-			var image:Image=Assets.texture(file).get_image()
+			var texture:Texture2D=Assets.texture(file)
+			if texture==null:errors.append("unreadable source: "+role);continue
+			var image:Image=texture.get_image()
+			if image==null or image.is_empty():errors.append("empty source pixels: "+role);continue
+			# RGB8 -> RGBA8 only adds alpha=255; source texels and original files stay unchanged.
+			if image.get_format()==Image.FORMAT_RGB8:
+				image=image.duplicate() as Image;image.convert(Image.FORMAT_RGBA8)
+			elif image.get_format()!=Image.FORMAT_RGBA8:errors.append("expected RGB8/RGBA8 source: "+role);continue
 			var clip:=Rect2i(r[0],r[1],r[2],r[3])
 			if clip.size!=Vector2i(64,64) or not Rect2i(Vector2i.ZERO,image.get_size()).encloses(clip):errors.append("non-native cell: "+role);continue
 			strip.blit_rect(image,clip,Vector2i(i*64,0))

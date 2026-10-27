@@ -1,0 +1,57 @@
+{
+  "scope": "C2 final author stop facts only; no independent game acceptance",
+  "base_HEAD": "8076b516c7fbbca08907b2ac0988cf5fb4a94b71",
+  "stopped_issue": "G0-SHALLOW-WATER-03",
+  "attempts": "3/3 failed; G0 and dependent gates stopped",
+  "changed_code": [
+    "overlay/ayu_home/v4/core/village_horizon.gd",
+    "overlay/ayu_home/v4/core/native_surface.gd"
+  ],
+  "added_contract": "horizon-manifest-contract-v1.5.json",
+  "UI_camera_changes_started": false,
+  "new_art_imported": false,
+  "author_checks": {
+    "horizon_compile_exit_code": 0,
+    "metadata_projection_fixture": "8/8",
+    "RGB_import_checked_texels": 16384,
+    "RGB_import_pass": true,
+    "Home_scene_sizes": [
+      [
+        540,
+        696
+      ],
+      [
+        1280,
+        456
+      ]
+    ],
+    "layout_scope": "C2 author composition precheck using normal Home layout; not G0-SCENE version or normal-walk/native-input/visual acceptance"
+  },
+  "G0_complete_scene_versions_used": 0,
+  "G0_complete_scene_limit": 3,
+  "G0_real_scene_verified": false,
+  "native_input_verified": false,
+  "GL_composite_verified": false,
+  "processes": {
+    "new_GUI_started": false,
+    "headless_layout_and_import_exited": true,
+    "headless_exit_codes": [
+      0,
+      0
+    ],
+    "historical_GUI_PID": 67237,
+    "historical_GUI_exited": true,
+    "historical_GUI_exit_method": "single SIGTERM, exit 143; not GUI menu quit",
+    "other_Godot_terminated": false
+  },
+  "known_log_limits": [
+    "macOS system CA message",
+    "RGB format mismatch observed in first Home layout entry; then fixed and pixel-equivalence checked",
+    "headless fixture resource warnings at exit; no claim of error-free real runtime"
+  ],
+  "historical_manifests_preserved": true,
+  "no_old_tests_rerun_at_stop": true,
+  "formal_godot_changed": false,
+  "protected_seven_changed": false,
+  "commit_or_push_performed": false
+}

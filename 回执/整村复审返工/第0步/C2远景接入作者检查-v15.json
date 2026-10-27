@@ -1,0 +1,34 @@
+{
+  "scope": "C2 v1.5 isolated horizon reader author checks only",
+  "plan_commit": "d62dc7a6d6420a880e5f0ec57027e7a467ce9521",
+  "files": [
+    {
+      "path": "候选/整村95-G0-1026/overlay/ayu_home/v4/core/village_horizon.gd",
+      "sha256": "2771307c508ca60f7869cfd27e3f05c941ecd1453f8accc267cc091a547341a8",
+      "bytes": 8755
+    },
+    {
+      "path": "候选/整村95-G0-1026/horizon-manifest-contract-v1.5.json",
+      "sha256": "0d3cd6e8a0dea3b6fd4e802c0fe4405ac0a6738676bb4127a822668d4062a4ec",
+      "bytes": 1577
+    }
+  ],
+  "compile_exit_code": 0,
+  "metadata_and_projection_checks": {
+    "passed": 8,
+    "total": 8,
+    "report": "测试数据/本轮C2专用目录/整村95-G0-1026/horizon-v15/check.json",
+    "sha256": "8e8ab7bb20201aa3723502cb5cf0a825ba47a8a76379307eef33973027b1ce93"
+  },
+  "engine_environment_message": "macOS get_system_ca_certificates ret != noErr during headless test; not claimed warning-free",
+  "actual_art_added": false,
+  "GL_visual_tested": false,
+  "native_input_tested": false,
+  "G0_scene_versions": 0,
+  "visual_acceptance": false,
+  "candidate_code_committed": false,
+  "formal_godot_unchanged": true,
+  "historical_stop_manifests_unchanged": true,
+  "protected_seven_unchanged": true,
+  "index_empty": true
+}

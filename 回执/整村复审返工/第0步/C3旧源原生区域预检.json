@@ -1,0 +1,137 @@
+{
+  "scope": "仅指定旧源water/yard/stone的四个64区域；非场景验收",
+  "fixed_regions": [
+    [
+      704,
+      448,
+      64,
+      64
+    ],
+    [
+      768,
+      448,
+      64,
+      64
+    ],
+    [
+      704,
+      512,
+      64,
+      64
+    ],
+    [
+      768,
+      512,
+      64,
+      64
+    ]
+  ],
+  "sources": [
+    {
+      "source": "godot/ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+      "source_sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "four_fixed_crops_match": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "individual_repeats_exact": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "source": "godot/ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+      "source_sha256": "4cbeaa93dcd77d574066e563995502508a102af18fc5b4b2bbd361419218fde8",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "four_fixed_crops_match": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "individual_repeats_exact": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "source": "godot/ayu_home/v4/assets/village/ground-pixel-1024/stone.png",
+      "source_sha256": "372533a5b47f19150877ca27c49b4b4958acf524087e2d56a759cae0d2020d15",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "four_fixed_crops_match": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "individual_repeats_exact": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "visual_review": [
+    {
+      "material": "water",
+      "proposed_use": "深水",
+      "verdict": "本组退回，不建议接入合成",
+      "visible_reasons": [
+        "各格明暗差别大，混排形成周期性的亮暗色带。",
+        "亮波纹在裁块边缘重复并出现突接，笔触块较粗，难与已通过短草及人物细颗粒相称。"
+      ],
+      "evidence": [
+        "/private/tmp/g0_existing_regions/water-individual-repeats.png",
+        "/private/tmp/g0_existing_regions/water-mixed-repeat.png"
+      ]
+    },
+    {
+      "material": "yard",
+      "proposed_use": "压实土路",
+      "verdict": "本组退回，不建议接入合成",
+      "visible_reasons": [
+        "大面积方块状色阶及石粒在小格内占比高，原样取格后仍显粗颗粒。",
+        "重复图中的石粒和切断深色边形成显著规律，混排未消除不自然的重复感。"
+      ],
+      "evidence": [
+        "/private/tmp/g0_existing_regions/yard-individual-repeats.png",
+        "/private/tmp/g0_existing_regions/yard-mixed-repeat.png"
+      ]
+    },
+    {
+      "material": "stone",
+      "proposed_use": "院坝石",
+      "verdict": "四区拼铺不通过；当前不入镜可延后，不扩大检查",
+      "visible_reasons": [
+        "裁块切穿大石板及灰缝，重复/混排后石缝不连续，出现截断、突接。"
+      ],
+      "evidence": [
+        "/private/tmp/g0_existing_regions/stone-individual-repeats.png",
+        "/private/tmp/g0_existing_regions/stone-mixed-repeat.png"
+      ]
+    }
+  ],
+  "source_or_preview_modified": false,
+  "runtime_started": false,
+  "engineering_modified": false,
+  "G0_pass": false,
+  "attempt_note": "本次是既有源区域复用筛查，未生成新图；不自行修改G0-NATIVE或镜头尝试账本。",
+  "preserved": "03短草保留；04远层仍按既有语义预检进入受控合成，本结论不扩大到它们。"
+}

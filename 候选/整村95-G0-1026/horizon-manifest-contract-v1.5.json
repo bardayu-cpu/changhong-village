@@ -1,0 +1,30 @@
+{
+  "version": "v1.5",
+  "scope": "规范，不含可接入美术或画面通过结论",
+  "coordinates": "source_size为原图尺寸；region为原图xywh；alpha_bbox、anchor、peak、buried_region均相对region，矩形统一xywh；全为整数",
+  "required_all_layers": {
+    "file": "C4合格原图路径",
+    "source_size": ["actual_width", "actual_height"],
+    "region": ["x", "y", "width", "height"],
+    "alpha_bbox": ["x", "y", "width", "height"],
+    "anchor_x": "原像素水平锚点",
+    "anchor_y": "原像素地平线或落地锚点",
+    "baseline_offset": "由C2按下表填写，不由美术猜世界坐标"
+  },
+  "C2_baseline_offsets": {"far": 0, "middle": 0, "forest": 16, "mist": 16},
+  "mountain_additional_fields": {
+    "peak": ["x", "y"],
+    "buried_region": ["x", "anchor_y", "width", "height"]
+  },
+  "validation": [
+    "region保留完整原图或仅裁去全透明余白，不得裁非透明主体",
+    "alpha_bbox必须与实际源alpha边界一致",
+    "far和middle的实际alpha边界在anchor_x左右各至少768源像素，透明余白不计覆盖",
+    "peak必须非透明且在anchor_y之上；完整峰顶、轮廓和不过高占屏仍由实际画面验",
+    "buried_region从anchor_y开始，覆盖允许遮挡的底部；语义由C4声明、C3独立审，不埋主体救图",
+    "无固定原图高度，不自动缩放、过滤或删alpha，只乘一次1或2的整数zoom",
+    "forest和mist按实际宽度重复，实际平铺接缝仍需独立验"
+  ],
+  "approved_assets_added": false,
+  "visual_acceptance": false
+}

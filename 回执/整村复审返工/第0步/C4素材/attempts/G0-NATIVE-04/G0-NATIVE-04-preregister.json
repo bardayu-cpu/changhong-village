@@ -1,0 +1,21 @@
+{
+  "id": "G0-NATIVE-04-emei-far",
+  "status": "preregistered_before_generation",
+  "purpose": "complete independent far-distance Mount Emei RGBA layer for G0 north horizon",
+  "content_contract": [
+    "effective mountain content spans at least 1536 source pixels horizontally",
+    "single complete Golden Summit flat-topped long ridge based on designated emei.png",
+    "extremely distant, low and horizontally extended silhouette",
+    "low-saturation blue-gray native pixel art",
+    "transparent sky; no forest, mist, middle ridge, river, ground, village or opaque sky rectangle",
+    "raw image kept intact; no subject crop, resize, filter or quantization"
+  ],
+  "composition_target": "visible summit-to-reasonable-foot relief approximately 128 source pixels, with normal artistic variation and no fixed y band",
+  "burial_rule": "record actual reasonable mountain-foot anchor_y after generation; only the irregular lower foothill portion may later be covered by separate forest and mist. Summit, plateau and primary ridge must remain visible. No anchor may be moved up to the mountain waist to fake compliance.",
+  "integration_rule": "original pixels 1:1, integer parallax placement, no horizontal repetition or stretching; side safety areas may remain outside the viewport",
+  "references": [
+    "godot/ayu_home/v4/assets/village/ground-pixel-1024/emei.png",
+    "回执/第1轮收尾/待Claude追加-用户整村硬失败-1025/用户认可风格参考.png",
+    "godot/ayu_home/assets/ayu_walk.png"
+  ]
+}

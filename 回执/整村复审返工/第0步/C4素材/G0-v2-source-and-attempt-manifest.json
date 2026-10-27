@@ -1,0 +1,121 @@
+{
+  "scope": "G0 east-river sample art only; no G1+ art and no production integration",
+  "plan_commit": "a4e4d411",
+  "pixel_rule": "source pixels remain 1:1; C2 may crop declared regions and compose masks, but may not resize, filter or synthesize texture",
+  "fixed_material_regions_xywh": [
+    [704, 448, 64, 64],
+    [768, 448, 64, 64],
+    [704, 512, 64, 64],
+    [768, 512, 64, 64]
+  ],
+  "reuse": [
+    {
+      "id": "G0-GRASS-03",
+      "status": "reuse_passed",
+      "source": "回执/整村复审返工/第0步/C4素材/candidate/G0-NATIVE-03-grass/G0-NATIVE-03-grass-raw.png",
+      "regions": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+      "purpose": "short summer grass",
+      "history": "G0-NATIVE-01 and 02 rejected; 03 passed C4/C3 material precheck"
+    },
+    {
+      "id": "G0-ROAD-SOURCE-REUSE",
+      "status": "rejected_by_C3_do_not_integrate",
+      "source": "godot/ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+      "source_size": [1254,1254],
+      "regions": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+      "purpose": "low-contrast compacted dirt road",
+      "author_check": "each declared 64px crop repeated 3x3 without an obvious edge seam; actual scene still required"
+    },
+    {
+      "id": "G0-YARD-STONE-SOURCE-REUSE",
+      "status": "C3_four_region_composite_failed_deferred_not_approved",
+      "source": "godot/ayu_home/v4/assets/village/ground-pixel-1024/stone.png",
+      "source_size": [1254,1254],
+      "regions": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+      "purpose": "yard stone, not river bank",
+      "author_check": "each declared 64px crop repeated 3x3 without an obvious edge seam"
+    },
+    {
+      "id": "G0-DEEP-WATER-SOURCE-REUSE",
+      "status": "rejected_by_C3_do_not_integrate",
+      "source": "godot/ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+      "source_size": [1254,1254],
+      "regions": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+      "purpose": "deep water frames",
+      "author_check": "each declared 64px crop repeated 3x3 without an obvious edge seam; wave scale remains subject to actual scene comparison"
+    },
+    {
+      "id": "G0-ROAD-SHOULDER-1025",
+      "status": "old_candidate_not_promoted",
+      "source": "回执/第1轮收尾/C4-道路路肩样板-1025/road-transition-atlas.png",
+      "source_size": [512,256],
+      "purpose": "road and sparse shoulder candidate",
+      "history": "existing C4 sample; not counted as a new v2 attempt; must not be promoted before actual G0 visual check"
+    },
+    {
+      "id": "G0-EMEI-FAR-04",
+      "status": "original_RGBA_for_isolated_composite_only",
+      "source": "回执/整村复审返工/第0步/C4素材/attempts/G0-NATIVE-04/G0-NATIVE-04-emei-far-raw.png",
+      "source_size": [1536,1024],
+      "region": [0,0,1536,1024],
+      "alpha_bbox": [0,23,1536,895],
+      "anchor": [768,640],
+      "peak": [824,455],
+      "buried_region": [0,640,1536,384],
+      "history": "far mountain attempt 04; do not start 05 unless actual composite rejects 04"
+    }
+  ],
+  "new_attempts_preregistered": [
+    {
+      "id": "G0-MIDDLE-02",
+      "history": "attempt 01 was merged with sky/near trees and rejected",
+      "limit": "02 of maximum 3",
+      "target": "independent transparent blue-gray middle ridge; effective width at least 1536; no sky, forest, mist, ground or village",
+      "final_status": "C3允许现图受控合成，未通过；真实主脊遮挡与硬底边待验"
+    },
+    {
+      "id": "G0-FOREST-02",
+      "history": "attempt 01 crop was nearly opaque across the whole rectangle and rejected as an independent layer",
+      "limit": "02 of maximum 3",
+      "target": "independent transparent summer forest belt; effective tile width at least 1024; horizontally seamless"
+    },
+    {
+      "id": "G0-MIST-02",
+      "history": "attempt 01 came from the rejected merged horizon source and has no independent acceptance",
+      "limit": "02 of maximum 3",
+      "target": "independent low translucent irregular mist strip; effective tile width at least 1024; horizontally seamless",
+      "final_status": "C3要求真实背景合成，未通过；透明、白条感和接缝待验"
+    },
+    {
+      "id": "G0-SHALLOW-WATER-03",
+      "history": "G0-NATIVE-01 and 02 fixed crops failed placement/seams",
+      "limit": "03 of maximum 3; no retry if fixed regions fail",
+      "target": "single-material shallow-water source; declared fixed 64px regions only; no bank, plants, rocks or scene background",
+      "final_status": "C3确认失败；亮波纹在固定格边突接成周期斜条/短截口，颗粒粗；3/3停止"
+    },
+    {
+      "id": "G0-MUD-BANK-03",
+      "history": "G0-NATIVE-01 and 02 fixed bank crops came from rejected mixed templates",
+      "limit": "03 of maximum 3; no retry if fixed regions fail",
+      "target": "single-material damp earth bank source; declared fixed 64px regions only; no water edge, plants, rocks or scene background",
+      "final_status": "C3仅允许保留为合成候选，未通过；石粒重复/方向性待验，合成失败即锁3/3"
+    },
+    {
+      "id": "G0-SHOULDER-03",
+      "history": "G0-NATIVE-01 and 02 fixed shoulder crops came from rejected mixed templates",
+      "limit": "03 of maximum 3; no retry if fixed regions fail",
+      "target": "single-material sparse short-grass and exposed-earth shoulder source; declared fixed 64px regions only; no road edge or scene background"
+    }
+  ],
+  "final_C3_sync": {
+    "G0-FOREST-03": "第三张原PNG仅允许进入隔离合成，未通过；禁止第四次、灌木换名替代、缩裁或改alpha",
+    "G0-MIDDLE-02": "允许受控合成，未通过",
+    "G0-MIST-02": "仅待真实背景合成，未通过",
+    "G0-SHALLOW-WATER-03": "独立失败，第三次失败",
+    "G0-MUD-BANK-03": "仅有条件保留合成候选，未通过",
+    "old_water": "C3退回，不建议接入",
+    "old_yard": "C3退回，不建议接入",
+    "old_stone": "四区拼铺不通过；未批准",
+    "gate": "浅水第三次失败，G0及依赖关停止；不得第四次或换裁窗救援"
+  }
+}

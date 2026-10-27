@@ -51,6 +51,14 @@
         "alpha bounds [0,279,1536,1000] exceed fixed band",
         "luminous sky/ground backdrop and multiple nearer ridges merged into the far layer"
       ]
+    },
+    {
+      "id": "G0-NATIVE-04",
+      "status": "author_conditional_pending_actual_composite",
+      "raw_file": "attempts/G0-NATIVE-04/G0-NATIVE-04-emei-far-raw.png",
+      "author_check": "attempts/G0-NATIVE-04/G0-NATIVE-04-author-check.json",
+      "failure_summary": "Core mountain usable; low-alpha atmosphere requires actual C2 composite and C3 judgment.",
+      "usable_for_c2": "projection/composite test only; raw must remain unchanged"
     }
   ],
   "requested_contract_revision": {
@@ -58,8 +66,8 @@
     "horizon_pipeline": "one 1536x1024 generation canvas per independent layer; crop fixed native-height region, no resize",
     "reason": "ImageGen preserved 1536x1024 landscape canvas but did not preserve 1024x1024 square canvas or multi-layer separation"
   },
-  "stop": "G0-NATIVE exhausted. No further generation or method change in this cycle. Preserve C3-approved grass; report exact far-layer failure to C1/Claude.",
-  "used_attempts": 3,
+  "stop": "No regeneration or additional layers. Await C2 actual projection/composite and C3 judgment.",
+  "used_attempts": 4,
   "remaining_attempts": 0,
-  "overall_status": "stopped_after_3_of_3"
+  "overall_status": "v1.5_attempt04_pending_actual_composite"
 }
