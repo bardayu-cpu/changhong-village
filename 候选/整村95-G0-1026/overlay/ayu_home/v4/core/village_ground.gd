@@ -161,7 +161,12 @@ func draw_order() -> Array:
 	return ORDER if layout.is_empty() else ["grass","fields","yard","entry_road","road","water","mountain"]
 func visible_legacy_pieces(polygon:PackedVector2Array,only:String) -> Array:
 	# Map style remains legacy during G0; no holes. G1 will unify the full map.
-	if native_enabled and native_surface.ready_art and not only.is_empty():return Geometry2D.clip_polygons(polygon,native_cut)
+	if native_enabled and native_surface.ready_art and not only.is_empty():
+		var north:float=spec.g0_native.north_y
+		var sky_cut:=PackedVector2Array([Vector2(0,0),Vector2(layout.size[0],0),Vector2(layout.size[0],north),Vector2(0,north)])
+		var result:Array=[]
+		for piece in Geometry2D.clip_polygons(polygon,native_cut):result.append_array(Geometry2D.clip_polygons(piece,sky_cut))
+		return result
 	return [polygon]
 func draw_to(canvas:CanvasItem,factor:=1.0,offset:=Vector2.ZERO,only:="") -> void:
 	for kind in draw_order():

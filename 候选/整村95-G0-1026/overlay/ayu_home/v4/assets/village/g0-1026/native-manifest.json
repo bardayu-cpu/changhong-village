@@ -1,6 +1,6 @@
 {
-  "contract_version": "v1.4",
-  "status": "approved grass only; no complete G0 material set",
+  "contract_version": "v2.1-author-preview",
+  "status": "AUTHOR COMPOSITION PREVIEW; ground unqualified; no G0 acceptance",
   "pipeline_attempt": 3,
   "pipeline_complete": false,
   "scene_pass": false,
@@ -54,8 +54,438 @@
         "author": "C4",
         "independent_review": "C3短草预检-03.json"
       }
+    ],
+    "bank": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          704,
+          448,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          768,
+          448,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          704,
+          512,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          768,
+          512,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      }
+    ],
+    "soil": [
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+        "region": [
+          704,
+          448,
+          64,
+          64
+        ],
+        "sha256": "4cbeaa93dcd77d574066e563995502508a102af18fc5b4b2bbd361419218fde8",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+        "region": [
+          768,
+          448,
+          64,
+          64
+        ],
+        "sha256": "4cbeaa93dcd77d574066e563995502508a102af18fc5b4b2bbd361419218fde8",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+        "region": [
+          704,
+          512,
+          64,
+          64
+        ],
+        "sha256": "4cbeaa93dcd77d574066e563995502508a102af18fc5b4b2bbd361419218fde8",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/yard.png",
+        "region": [
+          768,
+          512,
+          64,
+          64
+        ],
+        "sha256": "4cbeaa93dcd77d574066e563995502508a102af18fc5b4b2bbd361419218fde8",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      }
+    ],
+    "shallow": [
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          704,
+          448,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          768,
+          448,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          704,
+          512,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          768,
+          512,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      }
+    ],
+    "deep": [
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          704,
+          448,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          768,
+          448,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          704,
+          512,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/ground-pixel-1024/water.png",
+        "region": [
+          768,
+          512,
+          64,
+          64
+        ],
+        "sha256": "3aa925f3d44cfa0a6905df4df9dc0a3886e951b6777309bd1bb2645aa96e66af",
+        "acceptance": "REJECTED legacy placeholder; author composition preview only"
+      }
+    ],
+    "shoulder": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-00.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-01.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-02.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-03.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      }
+    ],
+    "paddy": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-00.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-01.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-02.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-03.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      }
     ]
   },
-  "horizon": {},
-  "source_raw_sha256": "67434359a68c877941e9a55680fb4efcd6de0db1f0ba9c57ecddb5663c64a4d1"
+  "horizon": {
+    "far": {
+      "source_size": [
+        1536,
+        1024
+      ],
+      "region": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "alpha_bbox": [
+        0,
+        23,
+        1536,
+        895
+      ],
+      "anchor_x": 768,
+      "anchor_y": 640,
+      "peak": [
+        824,
+        455
+      ],
+      "buried_region": [
+        0,
+        640,
+        1536,
+        384
+      ],
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-far.png",
+      "baseline_offset": 0,
+      "sha256": "1b4c604d5a23b3a0ea821a528b7c58f94cf10d69a844a7262867be1167fa8138",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/attempts/G0-NATIVE-04/G0-NATIVE-04-emei-far-raw.png",
+      "acceptance": "conditional composite only; not passed"
+    },
+    "middle": {
+      "source_size": [
+        2172,
+        724
+      ],
+      "region": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "alpha_bbox": [
+        0,
+        155,
+        2172,
+        497
+      ],
+      "anchor_x": 1086,
+      "anchor_y": 483,
+      "peak": [
+        1056,
+        315
+      ],
+      "buried_region": [
+        0,
+        483,
+        2172,
+        241
+      ],
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-middle.png",
+      "baseline_offset": 0,
+      "sha256": "1e888250ab3c4fa4919435571273c10fcac5e4bae108b0fd7874e83a7a387346",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/v2/G0-MIDDLE-02.png",
+      "acceptance": "conditional composite only; not passed"
+    },
+    "forest": {
+      "source_size": [
+        2172,
+        724
+      ],
+      "region": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "alpha_bbox": [
+        0,
+        85,
+        2172,
+        575
+      ],
+      "anchor_x": 1086,
+      "anchor_y": 485,
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-forest.png",
+      "baseline_offset": 16,
+      "sha256": "e0caa4fe280e171d7dadd1cc5db37bc6dc9f7c256d87e88e76893f6adcf771ca",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/v2/G0-FOREST-03.png",
+      "acceptance": "conditional composite only; not passed"
+    },
+    "mist": {
+      "source_size": [
+        2172,
+        724
+      ],
+      "region": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "alpha_bbox": [
+        0,
+        101,
+        2172,
+        492
+      ],
+      "anchor_x": 1086,
+      "anchor_y": 400,
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-mist.png",
+      "baseline_offset": 16,
+      "sha256": "8811970a7b1b50f4f0672e6c41f0a0c31f2b31d1335e8810e060c84fa3137b09",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/v2/G0-MIST-02.png",
+      "acceptance": "conditional composite only; not passed"
+    }
+  },
+  "source_raw_sha256": "67434359a68c877941e9a55680fb4efcd6de0db1f0ba9c57ecddb5663c64a4d1",
+  "preview_only": true,
+  "preview_placeholders": [
+    "soil",
+    "shoulder",
+    "paddy",
+    "shallow",
+    "deep"
+  ],
+  "middle_peak_registration": "C4 direct confirmation 2026-10-27: [1056,315], alpha=250; source unchanged"
 }

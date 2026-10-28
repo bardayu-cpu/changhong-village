@@ -1,6 +1,5 @@
 extends Control
-## One native game canvas; wide windows add margins, never another scale.
-const MAX_WIDTH:=1280
+## One native game canvas uses the actual window, without a second scale.
 var game:Node
 var holder:SubViewportContainer
 var play:SubViewport
@@ -36,7 +35,7 @@ func trace_new_button(button:Node) -> void:
 	if button is BaseButton and play.is_ancestor_of(button):button.pressed.connect(func():print("G0_BUTTON ",str(button.get("text"))))
 func resize_canvas() -> void:
 	var host:=Vector2i(get_viewport_rect().size)
-	var logical:=Vector2i(mini(MAX_WIDTH,maxi(1,host.x)),maxi(1,host.y))
+	var logical:=Vector2i(maxi(1,host.x),maxi(1,host.y))
 	play.size=logical
 	holder.position=Vector2(floori((host.x-logical.x)*.5),0)
 	holder.size=Vector2(logical)

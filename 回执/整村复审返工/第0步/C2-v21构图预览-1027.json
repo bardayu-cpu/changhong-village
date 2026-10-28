@@ -1,0 +1,67 @@
+{
+  "status": "wrap-up unpassed candidate; G0/95 not passed",
+  "plan": "8076b516 v2.1; 40dd8d1 v2.2",
+  "candidate": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/候选/整村95-G0-1026",
+  "runtime": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1027/工程",
+  "window": "裳泓村 1027 · 构图预览 · 地面未验",
+  "author_layout_report": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1027/作者预检/layout.json",
+  "author_layout_pass": true,
+  "native_input_pass": false,
+  "visual_pass": false,
+  "G0_scene_versions_used": 0,
+  "input_owner": "C3",
+  "unqualified_ground_placeholders": [
+    "soil: old rejected yard four fixed regions",
+    "shallow/deep: old rejected water four fixed regions",
+    "shoulder/paddy: approved grass temporarily reused"
+  ],
+  "conditional_art": [
+    "far04",
+    "middle02",
+    "forest03",
+    "mist02",
+    "mudbank03"
+  ],
+  "next": "resume qualified ground integration and normal desktop input after authorized quota reset; no fourth same-batch window location attempt",
+  "formal_godot_modified": false,
+  "author_layout_summary": {
+    "landscape_scene": [
+      1280,
+      512
+    ],
+    "portrait_scene": [
+      540,
+      696
+    ],
+    "home_landscape_scene": [
+      1280,
+      456
+    ],
+    "button_height": 56,
+    "peak_margin_zoom2": 20,
+    "feet_bottom_margin_wide_zoom2": 26,
+    "round_trip_parents_restored": true,
+    "source_PNG_pixel_changes": false
+  },
+  "window_location": "C3 three normal API selections found empty project manager only; no candidate-game input; no fourth attempt per C1",
+  "owned_game_pid": 2488,
+  "owned_game_running_at_handoff": true,
+  "v23_author_GPU_report": "回执/整村复审返工/第0步/C2-v23作者构图-1027/layout.json",
+  "v23_author_GPU_pass": true,
+  "actual_maximized_buffer": [
+    2772,
+    1676
+  ],
+  "new_water_integrated": false,
+  "owned_game_process": "PID2488 left open, initial v2.1 code; v2.3 disk update requires fresh launch",
+  "unverified": [
+    "native mouse/menu/walk",
+    "fullscreen",
+    "weather actual coverage",
+    "G0 five elements and pixel style",
+    "qualified road/shoulder",
+    "whole-village seasons",
+    "remaining original defects",
+    "new activities"
+  ]
+}

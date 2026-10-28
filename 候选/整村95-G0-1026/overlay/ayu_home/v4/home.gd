@@ -36,6 +36,9 @@ var near_tag:Button
 var actions_layer:Control
 var task_button:Button
 var tools_button:Button
+var village_footer:HBoxContainer
+var footer_controls:Array[Dictionary]=[]
+var compact_footer:=false
 var toast:PanelContainer
 var toast_tween:Tween
 var season_icon:TextureRect
@@ -131,7 +134,7 @@ var final_leg:=false
 
 func _ready() -> void:
 	DisplayServer.window_set_title("裳泓村 · 把日子住进来")
-	if get_tree().root.get_meta("g0_review_build",false):DisplayServer.window_set_title("整村95 G0 1026 · 隔离候选作者自测")
+	if get_tree().root.get_meta("g0_review_build",false):DisplayServer.window_set_title("裳泓村 1027 · 构图预览 · 地面未验")
 	RenderingServer.set_default_clear_color(UI.DEEP)
 	definitions=JSON.parse_string(FileAccess.get_file_as_string("res://ayu_home/v4/assets/rooms.json")).rooms
 	for arg in OS.get_cmdline_user_args():
@@ -374,6 +377,7 @@ func _unhandled_input(event:InputEvent) -> void:
 	if event is InputEventScreenTouch:at=event.position;pressed=event.pressed
 	elif event is InputEventMouseButton:at=event.position;pressed=event.pressed and event.button_index==MOUSE_BUTTON_LEFT
 	if not pressed:return
+	if not scene_frame.get_global_rect().has_point(at):return
 	tracked_person="";after_door={};final_leg=false
 	if village_ui!=null:village_ui.route_target=""
 	var p:Vector2=world.get_global_transform_with_canvas().affine_inverse()*at
@@ -774,10 +778,49 @@ func hud_bottom() -> float:
 	return 10+words.get_combined_minimum_size().y+4
 ## 底栏实际顶边留出间隙；气泡、文字牌和坐姿操作共用这一条边界。
 func interaction_bottom() -> float:
-	var edge:=get_viewport_rect().size.y-136.0
+	var edge:=footer_boundary()+(0.0 if compact_footer else 20.0)
 	if is_instance_valid(village_ui) and is_instance_valid(village_ui.hud_button):
 		edge=minf(edge,village_ui.hud_button.get_global_rect().position.y)
+	if toolbar and toolbar.visible:edge=minf(edge,toolbar.get_global_rect().position.y)
 	return edge-16.0
+func footer_boundary() -> float:
+	return get_viewport_rect().size.y-(100.0 if compact_footer else 156.0)
+func layout_footer() -> void:
+	if village_ui==null:return
+	if not is_instance_valid(village_footer):
+		village_footer=HBoxContainer.new();village_footer.name="VillageFooter"
+		village_footer.alignment=BoxContainer.ALIGNMENT_CENTER;village_footer.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		village_footer.add_theme_constant_override("separation",8);ui.add_child(village_footer)
+		village_footer.sort_children.connect(layout_toolbar)
+		for button:Control in [village_ui.hud_button,village_ui.crop_button,village_ui.order_button,tools_button]:
+			footer_controls.append({"node":button,"parent":button.get_parent(),"anchors":[button.anchor_left,button.anchor_top,button.anchor_right,button.anchor_bottom],"offsets":[button.offset_left,button.offset_top,button.offset_right,button.offset_bottom],"minimum":button.custom_minimum_size,"flags_h":button.size_flags_horizontal,"flags_v":button.size_flags_vertical})
+	var buffer:=get_viewport_rect().size
+	var widths:Array[float]=[152.0,152.0,180.0,56.0]
+	var needed:=52.0 # Side margins and three gaps.
+	for index in footer_controls.size():needed+=maxf(widths[index],footer_controls[index].node.get_combined_minimum_size().x)
+	var wanted:bool=area=="village" and buffer.x>buffer.y and buffer.y>=720 and buffer.x>=needed
+	if wanted!=compact_footer:
+		compact_footer=wanted
+		for index in footer_controls.size():
+			var saved:Dictionary=footer_controls[index];var button:Control=saved.node
+			button.reparent(village_footer if wanted else saved.parent,false)
+			if wanted:
+				button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+				button.custom_minimum_size=Vector2(widths[index],56)
+				button.size_flags_horizontal=Control.SIZE_FILL;button.size_flags_vertical=Control.SIZE_FILL
+			else:
+				button.custom_minimum_size=saved.minimum;button.size_flags_horizontal=saved.flags_h;button.size_flags_vertical=saved.flags_v
+				button.anchor_left=saved.anchors[0];button.anchor_top=saved.anchors[1];button.anchor_right=saved.anchors[2];button.anchor_bottom=saved.anchors[3]
+				button.offset_left=saved.offsets[0];button.offset_top=saved.offsets[1];button.offset_right=saved.offsets[2];button.offset_bottom=saved.offsets[3]
+	village_footer.visible=compact_footer
+	if compact_footer:
+		village_footer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		village_footer.offset_left=14;village_footer.offset_right=-14;village_footer.offset_top=-76;village_footer.offset_bottom=-20
+func layout_toolbar() -> void:
+	if not is_instance_valid(toolbar) or not is_instance_valid(tools_button):return
+	var bag:Rect2=tools_button.get_global_rect()
+	toolbar.size=Vector2(150,toolbar.get_combined_minimum_size().y)
+	toolbar.global_position=Vector2(clampf(bag.end.x-toolbar.size.x,14,get_viewport_rect().size.x-toolbar.size.x-14),bag.position.y-10-toolbar.size.y)
 func layout() -> void:
 	if not ui:return
 	var size:=get_viewport_rect().size;ui.size=size;ui_scale=size.x/540.0
@@ -785,8 +828,9 @@ func layout() -> void:
 	var words:Control=top.get_node("Words");words.position=Vector2(10,10);words.size=Vector2(size.x-80,words.get_combined_minimum_size().y)
 	var gear:Control=top.get_node("Settings");gear.position=Vector2(size.x-58,12);gear.size=Vector2(44,44)
 	var bottom=ui.get_node("Bottom");bottom.position=Vector2.ZERO;bottom.size=size
-	tools_button.size=Vector2(56,56);tools_button.position=Vector2(size.x-70,size.y-74)
-	toolbar.size=Vector2(150,toolbar.get_combined_minimum_size().y);toolbar.position=Vector2(size.x-164,tools_button.position.y-10-toolbar.size.y)
+	layout_footer()
+	if not compact_footer:tools_button.size=Vector2(56,56);tools_button.position=Vector2(size.x-70,size.y-74)
+	layout_toolbar()
 	var text_w:float=hint.get_theme_font("font").get_string_size(hint.text,HORIZONTAL_ALIGNMENT_LEFT,-1,24).x
 	var width:=minf(ceilf(text_w)+28,size.x-48);hint.custom_minimum_size.x=width-28;toast.size=Vector2(width,0);toast.reset_size();toast.position=Vector2((size.x-toast.size.x)*.5,hud_bottom()+10) # 万一字太长，一行放不下就收成「…」
 	fade.size=size;markers.size=size;actions_layer.size=size;layout_world()
@@ -800,6 +844,16 @@ func show_toast(copy:String) -> void:
 	toast_tween.chain().tween_interval(3.4);toast_tween.chain().tween_property(toast,"modulate:a",0.0,.5)
 func room_camera_target() -> Vector2:
 	var target:Vector2=player.position-Vector2(0,65)
+	if area=="village" and view_scale>1.0 and village_horizon.specs.has("far"):
+		var spec:Dictionary=village_horizon.specs.far
+		var north:float=village_horizon.north_y
+		var peak_y:float=north+float(spec.baseline_offset)-float(spec.anchor[1]-spec.peak[1])
+		var half_height:float=scene_frame.size.y*.5
+		var needed:float=target.y-peak_y-(half_height-20.0)/view_scale
+		var feet_budget:float=maxf(0.0,(half_height-16.0)/view_scale-(player.position.y-target.y))
+		var near_north:float=1.0-smoothstep(north+48.0,north+320.0,player.position.y)
+		var near_east:float=smoothstep(village_horizon.native_region.position.x,village_horizon.native_region.position.x+128.0,player.position.x)
+		target.y-=clampf(needed,0.0,feet_budget)*near_north*near_east
 	if (area in ["my_cabin","v_h3","v_mayor"] or world.cfg.get("household_open",false)) and world.cfg.has("entry_camera_bias"):
 		var weight:=clampf(1.0-player.position.distance_to(World.v(world.cfg.spawn))/float(world.cfg.entry_camera_radius),0.0,1.0)
 		target-=World.v(world.cfg.entry_camera_bias)*weight
@@ -808,9 +862,16 @@ func layout_world() -> void:
 	if not world or world.cfg.is_empty():return
 	var screen:=get_viewport_rect().size
 	var top_area:=hud_bottom()+8
-	scene_frame.position=Vector2(0,top_area);screen.y=maxf(180,screen.y-top_area-156);scene_frame.size=screen
+	scene_frame.position=Vector2(0,top_area);screen.y=maxf(180,footer_boundary()-top_area);scene_frame.size=screen
 	var size:Vector2=World.v(world.cfg.size)
 	view_scale=float(world.cfg.get("view_scale",2.0))
+	if area=="village" and village_horizon.ready_art:
+		# Full-width desktops use the complete original layer once. Only integer world zoom may grow.
+		var content_width:=INF
+		for id in ["far","middle"]:
+			var spec:Dictionary=village_horizon.specs[id];var alpha:Array=spec.alpha_bbox
+			content_width=minf(content_width,2.0*minf(float(spec.anchor[0]-alpha[0]),float(alpha[0]+alpha[2]-spec.anchor[0])))
+		view_scale=maxf(view_scale,ceilf(screen.x/content_width))
 
 	var visible_world:=screen/view_scale
 	var center:=Vector2(size.x*.5 if size.x<visible_world.x else clampf(camera.x,visible_world.x*.5,size.x-visible_world.x*.5),size.y*.5 if size.y<visible_world.y else clampf(camera.y,visible_world.y*.5,size.y-visible_world.y*.5))

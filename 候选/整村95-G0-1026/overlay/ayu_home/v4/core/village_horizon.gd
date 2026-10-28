@@ -92,15 +92,18 @@ func bind_terrain(terrain:Node2D) -> void:
 func set_view(rect:Rect2,scale:float,size:Vector2) -> void:
 	if world_view.is_equal_approx(rect) and is_equal_approx(zoom,scale) and frame_size.is_equal_approx(size):return
 	world_view=rect;zoom=scale;frame_size=size;view_errors.clear()
-	if scale!=1.0 and scale!=2.0:view_errors.append("world zoom must remain 1 or 2")
-	if size.x<=0 or size.x>1280 or size.y<=0:view_errors.append("invalid logical game buffer")
+	if scale<1.0 or scale!=floorf(scale):view_errors.append("world zoom must remain a positive integer")
+	if size.x<=0 or size.y<=0:view_errors.append("invalid logical game buffer")
 	queue_redraw()
 	if is_instance_valid(foreground):foreground.queue_redraw()
 func mountain_rect(id:String) -> Rect2:
 	var texture:Texture2D=plates[id]
 	var spec:Dictionary=specs[id]
 	var speed:=.04 if id=="far" else .08
-	var shift:=clampf(roundf((world_view.get_center().x-4616.0)*speed),-128,128)
+	var alpha:Array=spec.alpha_bbox
+	var half_content:float=minf(float(spec.anchor[0]-alpha[0]),float(alpha[0]+alpha[2]-spec.anchor[0]))
+	var allowance:float=clampf(floorf(half_content-frame_size.x/(2.0*zoom)),0.0,128.0)
+	var shift:=clampf(roundf((world_view.get_center().x-4616.0)*speed),-allowance,allowance)
 	var baseline:=roundf((north_y+float(spec.baseline_offset)-world_view.position.y)*zoom)
 	var pos:=Vector2(frame_size.x*.5-(float(spec.anchor[0])+shift)*zoom,baseline-float(spec.anchor[1])*zoom).round()
 	return Rect2(pos,texture.get_size()*zoom)
@@ -117,11 +120,11 @@ func paint_foreground(canvas:CanvasItem) -> void:
 		var texture:Texture2D=plates[id]
 		var spec:Dictionary=specs[id]
 		var base:=north_y+float(spec.baseline_offset)
-		var first:=floori((maxf(native_region.position.x,world_view.position.x)+float(spec.anchor[0]))/texture.get_width())
-		var last:=ceili((minf(native_region.end.x,world_view.end.x)+float(spec.anchor[0]))/texture.get_width())
+		var first:=floori((world_view.position.x+float(spec.anchor[0]))/texture.get_width())
+		var last:=ceili((world_view.end.x+float(spec.anchor[0]))/texture.get_width())
 		for index in range(first,last):
 			var dest:=Rect2(Vector2(index*texture.get_width()-float(spec.anchor[0]),base-float(spec.anchor[1])),texture.get_size())
-			var clipped:=dest.intersection(Rect2(Vector2(native_region.position.x,dest.position.y),Vector2(native_region.size.x,dest.size.y)))
+			var clipped:=dest.intersection(Rect2(Vector2(world_view.position.x,dest.position.y),Vector2(world_view.size.x,dest.size.y)))
 			if clipped.has_area():canvas.draw_texture_rect_region(texture,clipped,Rect2(clipped.position-dest.position,clipped.size))
 func snapshot() -> Dictionary:
 	var projected:Dictionary={}

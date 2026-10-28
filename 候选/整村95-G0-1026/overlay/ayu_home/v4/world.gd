@@ -85,6 +85,16 @@ func load_room(which: String) -> void:
 	if area=="village" and cfg.has("ground_layers") and not nav_only:
 		village_ground=preload("res://ayu_home/v4/core/village_ground.gd").new()
 		village_ground.configure_path(str(cfg.ground_layers),asset_path(str(cfg.background)))
+		if village_ground.native_enabled and village_ground.native_surface.ready_art:
+			# The old baked base must also release the native region, or it covers the screen-space mountains.
+			var cut:Array=cfg.g0_native.region
+			var base_material:ShaderMaterial=season_material.duplicate() as ShaderMaterial
+			var base_shader:=Shader.new()
+			base_shader.code=SPRING_SHADER.code.replace("void fragment() {","uniform vec4 g0_cut;\nuniform float g0_north;\nvoid fragment() {\nvec2 g0_source=UV/TEXTURE_PIXEL_SIZE;\nif(g0_source.y<g0_north || (g0_source.x>=g0_cut.x && g0_source.x<g0_cut.z && g0_source.y>=g0_cut.y && g0_source.y<g0_cut.w)){discard;}\n")
+			base_material.shader=base_shader
+			base_material.set_shader_parameter("g0_cut",Vector4(cut[0],cut[1],cut[0]+cut[2],cut[1]+cut[3]))
+			base_material.set_shader_parameter("g0_north",float(cfg.g0_native.north_y))
+			season_material=base_material;bg.material=base_material
 		add_child(village_ground)
 		village_ground.mount_layers(func(kind):
 			if kind=="mountain" or (kind=="fields" and not village_ground.layout.is_empty()):return null # C4 seasonal field plates and mountains keep their original colors.

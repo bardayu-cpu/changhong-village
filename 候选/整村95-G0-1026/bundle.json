@@ -1,18 +1,18 @@
 {
   "candidate": "整村95-G0-1026",
   "implementation_base": "9bd2f214baa67a0369d8d774ce00b688a65c8b5f",
-  "plan_revision_commit": "8076b516c7fbbca08907b2ac0988cf5fb4a94b71",
-  "status": "STOPPED: G0-SHALLOW-WATER-03 failed 3/3; unapproved/unactivated review skeleton only",
+  "plan_revision_commit": "673ee34",
+  "status": "WRAP-UP UNPASSED CANDIDATE: v2.3 author GPU layout/render check passed, native play and G0 not passed",
   "ready_for_c3_visual": false,
-  "native_art_integrated": "Only four approved grass-03 cells; no far-04 or v2 material copied into this overlay",
+  "native_art_integrated": "grass03 + byte-exact far04/middle02/forest03/mist02/mudbank03; remaining ground explicitly preview placeholders",
   "native_attempts_used": 4,
   "g0_scene_versions_used": 0,
   "checks_scope": "C2 headless author-only navigation and synthetic input; not native GUI/visual/independent acceptance",
-  "shader_gl_runtime_verified": false,
+  "shader_gl_runtime_verified": true,
   "formal_game_modified": false,
   "legacy_outside_roi": "retained for normal travel during G0; map style remains legacy until G1; never use as whole-village approval",
-  "runtime_directory": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026/工程",
-  "evidence_directory": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1026",
+  "runtime_directory": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1027/工程",
+  "evidence_directory": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1027",
   "checks": {
     "preflight_points.json": {
       "pass": true,
@@ -72,9 +72,39 @@
     },
     {
       "path": "ayu_home/v4/assets/village/g0-1026/native-manifest.json",
-      "author": "C2 approved-grass import manifest",
-      "sha256": "4173e6f3db05d6f77e2b74049c89b056eaf8ba0f492aa3476f5f57582b13b113",
-      "bytes": 1680
+      "author": "C2 composition manifest; rejected/missing ground explicitly placeholders, no scene pass",
+      "sha256": "51ba3798ee42583a534edddc18252e8388f5e18103c2d313aa0924b35cb7b24c",
+      "bytes": 14071
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+      "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+      "bytes": 1677913,
+      "author": "C4 original PNG copied byte-for-byte; conditional composition only"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/preview-far.png",
+      "sha256": "1b4c604d5a23b3a0ea821a528b7c58f94cf10d69a844a7262867be1167fa8138",
+      "bytes": 892504,
+      "author": "C4 original PNG copied byte-for-byte; conditional composition only"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/preview-forest.png",
+      "sha256": "e0caa4fe280e171d7dadd1cc5db37bc6dc9f7c256d87e88e76893f6adcf771ca",
+      "bytes": 506318,
+      "author": "C4 original PNG copied byte-for-byte; conditional composition only"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/preview-middle.png",
+      "sha256": "1e888250ab3c4fa4919435571273c10fcac5e4bae108b0fd7874e83a7a387346",
+      "bytes": 339194,
+      "author": "C4 original PNG copied byte-for-byte; conditional composition only"
+    },
+    {
+      "path": "ayu_home/v4/assets/village/g0-1026/preview-mist.png",
+      "sha256": "8811970a7b1b50f4f0672e6c41f0a0c31f2b31d1335e8810e060c84fa3137b09",
+      "bytes": 258413,
+      "author": "C4 original PNG copied byte-for-byte; conditional composition only"
     },
     {
       "path": "ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
@@ -144,9 +174,10 @@
     },
     {
       "path": "ayu_home/v4/core/game_viewport.gd",
-      "sha256": "4cd71621c1f41073503b1b56925752b9bce05d2a4780ffa870ec286300677696",
-      "bytes": 2440,
-      "author": "C2 G0 new integration/geometry"
+      "sha256": "c6b55401114f928b076805415aa929ba43f6cdb85691fdb0c2d9e9536d94ccee",
+      "bytes": 2402,
+      "author": "C2 G0 new integration/geometry",
+      "current_change": "C2 v2.3 full-window/native-region integration; author GPU checked; native input unverified"
     },
     {
       "path": "ayu_home/v4/core/institution_room.gd",
@@ -186,33 +217,37 @@
     },
     {
       "path": "ayu_home/v4/core/village_ground.gd",
-      "sha256": "412a0e7391f74dcea85bd9cb6220d52e128577c749cd19bc36955d2ec41d35d2",
-      "bytes": 13101,
-      "author": "C2 G0 new integration/geometry"
+      "sha256": "0b24e56b2a06c4353cd1b5e7b1034f83d33a9c401d234a195344bf2c44fcc9b9",
+      "bytes": 13373,
+      "author": "C2 G0 new integration/geometry",
+      "current_change": "C2 v2.3 full-window/native-region integration; author GPU checked; native input unverified"
     },
     {
       "path": "ayu_home/v4/core/village_horizon.gd",
-      "sha256": "2771307c508ca60f7869cfd27e3f05c941ecd1453f8accc267cc091a547341a8",
-      "bytes": 8755,
-      "author": "C2 v1.5 native region/alpha/anchor reader; unapproved, no complete scene test"
+      "sha256": "15a69a15e6500527ae0a426aa0cb01daacf81e4784bdbc44ad3c2990900a77e0",
+      "bytes": 8927,
+      "author": "C2 v1.5 native region/alpha/anchor reader; unapproved, no complete scene test",
+      "current_change": "C2 v2.3 full-window/native-region integration; author GPU checked; native input unverified"
     },
     {
       "path": "ayu_home/v4/home.gd",
-      "sha256": "f82f580bd07bea3312c115f635771771953a372c1fd5cf29f2fe63f76119f490",
-      "bytes": 121224,
-      "author": "C2 G0 new integration/geometry"
+      "sha256": "b4d123546a5443426d9841acc22eaa1160c8d0d5a5f08e32ff81b3442722f706",
+      "bytes": 125518,
+      "author": "C2 v2.1 village landscape footer/camera; headless layout checked, native acceptance pending",
+      "current_change": "C2 v2.3 full-window/native-region integration; author GPU checked; native input unverified"
     },
     {
       "path": "ayu_home/v4/phone_boot.gd",
-      "sha256": "d750d9e236053ef8c98d06472cfa76c7cfb07925f35732b267eca74c8cab4ec5",
-      "bytes": 3750,
-      "author": "C2 G0 new integration/geometry"
+      "sha256": "8080343733e1bd02667412aa34d00babc855b28dc8009d0ab03c5aae8a1eaff2",
+      "bytes": 3748,
+      "author": "C2 v2.1 village landscape footer/camera; headless layout checked, native acceptance pending"
     },
     {
       "path": "ayu_home/v4/world.gd",
-      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2",
-      "bytes": 42688,
-      "author": "C3 old curved-lane candidate/source; author self-test identity retained"
+      "sha256": "03d8127fe7b2e41db79e559c2df8de4ee40a978cdd24aa3deece38710259ff93",
+      "bytes": 43608,
+      "author": "C3 old curved-lane candidate/source; author self-test identity retained",
+      "current_change": "C2 v2.3 full-window/native-region integration; author GPU checked; native input unverified"
     },
     {
       "path": "project.godot",
@@ -222,18 +257,14 @@
     }
   ],
   "native_pipeline": {
-    "far_attempts_used": 4,
-    "far_attempt_limit": 6,
-    "old_01_03_failures_preserved": true,
-    "far_04": "C3 source semantics allow isolated composite only; source decoded for projection, not integrated or visually composited",
-    "blocking_issue": "G0-SHALLOW-WATER-03",
-    "blocking_attempts_used": 3,
-    "blocking_attempt_limit": 3,
-    "stop_receipt": "回执/整村复审返工/第0步/C3本批素材预检-v2.json",
+    "previous_failures_preserved": true,
+    "current_ground_method_plan": "40dd8d1 v2.2",
     "complete_material_set": false,
-    "no_fourth_shallow_attempt": true
+    "preview_only": true,
+    "scene_pass": false,
+    "G0_scene_versions_used": 0
   },
-  "ready_for_c3_input": false,
+  "ready_for_c3_input": true,
   "environment_precheck": {
     "scope": "C2 normal startup environment precheck interrupted by mandatory G0-NATIVE 3/3 stop",
     "process_id": 67237,
@@ -270,20 +301,64 @@
       "author": "C2 metadata contract only"
     }
   ],
-  "UI_camera_change_implemented": false,
+  "UI_camera_change_implemented": true,
   "previous_checks_scope": "Existing checks/previous environment entries are historical author checks, not current visual/input acceptance; no old test rerun at this stop.",
   "current_author_checks": {
-    "horizon_compile_exit_code": 0,
-    "metadata_projection_fixture": "8/8; no art or native input acceptance",
-    "lossless_grass_import": "16384 texels match original RGB and alpha; missing material set remains unready",
-    "normal_Home_layout_read": "headless; 540x696 and 1280x456 scene frame; author-position fixture only",
-    "headless_processes_exited": true,
-    "headless_tool_exit_codes": [
-      0,
-      0
+    "GPU_probe": "回执/整村复审返工/第0步/C2-v23作者构图-1027/layout.json",
+    "pass": true,
+    "actual_buffers": [
+      [
+        540,
+        960
+      ],
+      [
+        1280,
+        720
+      ],
+      [
+        2772,
+        1676
+      ]
     ],
-    "new_GUI_started": false,
-    "GL_visual_or_native_input_verified": false
+    "normal_walk_or_native_input_pass": false,
+    "G0_pass": false,
+    "fullscreen_checked": false,
+    "GPU_exit_code": 0,
+    "warnings": "fixture-exit CanvasItem/ObjectDB/GL texture leaks remain; not zero-warning"
   },
-  "historical_archive": "f46b193 C2 stop manifests remain unchanged and describe that historical snapshot, not these updated overlay hashes"
+  "historical_archive": "f46b193 C2 stop manifests remain unchanged and describe that historical snapshot, not these updated overlay hashes",
+  "input_scope": "normal startup/menu/walking preview only, not formal G0 scene acceptance",
+  "preview_ground_unqualified": true,
+  "historical_native_pipeline_at_a57c211": {
+    "far_attempts_used": 4,
+    "far_attempt_limit": 6,
+    "old_01_03_failures_preserved": true,
+    "far_04": "C3 source semantics allow isolated composite only; source decoded for projection, not integrated or visually composited",
+    "blocking_issue": "G0-SHALLOW-WATER-03",
+    "blocking_attempts_used": 3,
+    "blocking_attempt_limit": 3,
+    "stop_receipt": "回执/整村复审返工/第0步/C3本批素材预检-v2.json",
+    "complete_material_set": false,
+    "no_fourth_shallow_attempt": true
+  },
+  "preview_launch": {
+    "tool_session": 44552,
+    "title": "裳泓村 1027 · 构图预览 · 地面未验",
+    "input_owner": "C3; C2 no GUI input after handoff",
+    "life": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1027/桌面预览/life.json",
+    "core_prefix": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/整村95-G0-1027/桌面预览/core",
+    "headless_warnings": "macOS CA certificate error and fixture-exit RID/ObjectDB leaks; no zero-warning claim",
+    "process_id": 2488,
+    "C3_native_input_verified": false,
+    "window_location": "unresolved after 3 selections; no fourth attempt",
+    "game_input_events_from_C3": 0,
+    "process_state": "left open; launched v2.1 code before v2.3 disk updates; current source requires restart"
+  },
+  "approved_water_assets": {
+    "shallow": "C4素材/v22/G0-SHALLOW-WATER-V22-01",
+    "deep": "C4素材/v22/G0-DEEP-WATER-V22-03",
+    "independent_material_precheck": "C3浅水小组预检-v22.md; C3深水小组预检-v22.md",
+    "integrated_into_current_runtime": false,
+    "current_preview_water": "rejected legacy placeholder remains, clearly marked"
+  }
 }

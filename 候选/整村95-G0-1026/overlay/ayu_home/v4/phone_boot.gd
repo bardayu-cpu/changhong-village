@@ -7,7 +7,7 @@ const DS=preload("res://scripts/ui/dialog_skin.gd")
 const UI=preload("res://ayu_home/v4/pixel_ui.gd")
 const NativeCanvas=preload("res://ayu_home/v4/core/game_viewport.gd")
 ## 版本号（阿鱼 10/5 的规矩：总号 V大.中.小.版，所有发给阿鱼的码排一条线；模块号单记）
-const VERSION:="整村95 G0 1026 · 环境输入预检"
+const VERSION:="1027 · 构图预览 · 地面未验"
 var cloud:Node
 var loader:Node
 var line:Label
