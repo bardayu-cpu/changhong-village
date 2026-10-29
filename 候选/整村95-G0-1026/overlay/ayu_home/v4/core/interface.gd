@@ -41,6 +41,7 @@ func setup(h:Node) -> void:
 	var override_path:=""
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--core-save="):override_path=arg.trim_prefix("--core-save=")
+	if not home.candidate_root.is_empty():override_path=home.candidate_root.path_join("core")
 	state.open(home.profile,override_path)
 	if not state.blocked:
 		if state.data.village.household.is_empty():

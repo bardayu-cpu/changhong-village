@@ -17,12 +17,18 @@ var retry:Button
 var done:=0
 var total:=1
 func _ready() -> void:
+	if ProjectSettings.get_setting("application/config/candidate_enabled",false):
+		var expected:=str(ProjectSettings.get_setting("application/config/candidate_os_userdata",""))
+		if expected.is_empty() or OS.get_user_data_dir()!=expected:
+			push_error("Candidate OS userdata identity mismatch; no gameplay opened");get_tree().quit(2);return
+		print("CANDIDATE_BOOT build=",ProjectSettings.get_setting("application/config/candidate_build_id","")," executable=",OS.get_executable_path()," userdata=",OS.get_user_data_dir())
 	NativeCanvas.configure_window(get_window())
 	var layer:=CanvasLayer.new();add_child(layer)
 	var bg:=ColorRect.new();bg.color=Color(DS.PAL.box.fill);bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);layer.add_child(bg)
 	var col:=VBoxContainer.new();col.set_anchors_and_offsets_preset(Control.PRESET_CENTER);col.custom_minimum_size=Vector2(420,0);col.position-=Vector2(210,90);col.add_theme_constant_override("separation",16);layer.add_child(col)
 	var title:=UI.label("裳泓村",36);title.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;title.add_theme_color_override("font_color",Color(DS.PAL.name));col.add_child(title)
-	var ver:=UI.label(VERSION,24);ver.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;ver.add_theme_color_override("font_color",Color(DS.PAL.box.rim));col.add_child(ver)
+	var version:=str(ProjectSettings.get_setting("application/config/candidate_build_id",VERSION))
+	var ver:=UI.label(version,24);ver.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;ver.add_theme_color_override("font_color",Color(DS.PAL.box.rim));col.add_child(ver)
 	line=UI.paragraph("正在打开裳泓村…",24);line.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;line.add_theme_color_override("font_color",Color(DS.PAL.text));col.add_child(line)
 	bar=Control.new();bar.custom_minimum_size=Vector2(420,20);bar.draw.connect(draw_bar);col.add_child(bar)
 	count=UI.label("",24);count.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;count.add_theme_color_override("font_color",Color(DS.PAL.text));col.add_child(count)

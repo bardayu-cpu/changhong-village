@@ -86,6 +86,7 @@ var door_audio_count:=0
 var effects_log:Array=[]
 var room_state:Dictionary={}
 var save_path:="user://ayu_home_life_v3.json"
+var candidate_root:=""
 var journal:Dictionary={"version":3,"found":[],"completed":{},"notes":[]}
 var talk_label:Label
 var talk_line:=""
@@ -135,6 +136,13 @@ var final_leg:=false
 func _ready() -> void:
 	DisplayServer.window_set_title("裳泓村 · 把日子住进来")
 	if get_tree().root.get_meta("g0_review_build",false):DisplayServer.window_set_title("裳泓村 1027 · 构图预览 · 地面未验")
+	if ProjectSettings.get_setting("application/config/candidate_enabled",false):
+		candidate_root=str(ProjectSettings.get_setting("application/config/candidate_data_root",""))
+		if not candidate_root.is_absolute_path() or not DirAccess.dir_exists_absolute(candidate_root):
+			push_error("Candidate data root is unavailable; no gameplay save opened");get_tree().quit(2);return
+		save_path=candidate_root.path_join("life.json")
+		test_hour=13.0;test_month=7;test_weather="clear"
+		DisplayServer.window_set_title(str(ProjectSettings.get_setting("application/config/name","裳泓村候选"))+" · "+str(ProjectSettings.get_setting("application/config/candidate_build_id","未登记构建")))
 	RenderingServer.set_default_clear_color(UI.DEEP)
 	definitions=JSON.parse_string(FileAccess.get_file_as_string("res://ayu_home/v4/assets/rooms.json")).rooms
 	for arg in OS.get_cmdline_user_args():
@@ -146,6 +154,7 @@ func _ready() -> void:
 		elif arg.begins_with("--ayu-focus="):focus=arg.get_slice("=",1)
 		elif arg=="--ayu-test" and OS.is_debug_build():test_panel_enabled=true
 		elif arg=="--ayu-owner=true" and OS.is_debug_build():is_owner=true
+	if not candidate_root.is_empty():save_path=candidate_root.path_join("life.json")
 	if not definitions.has(area):area="exterior"
 	load_journal();read_clock();life.pack_seeds(month)
 	scene_frame=Control.new();scene_frame.clip_contents=true;scene_frame.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(scene_frame)
@@ -171,6 +180,7 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(layout)
 	bootstrapped=true
 	if get_tree().root.get_meta("g0_review_build",false):print("G0_HOME_READY area=",area," viewport=",get_viewport_rect().size," scale=",view_scale)
+	if not candidate_root.is_empty():print("CANDIDATE_READY build=",ProjectSettings.get_setting("application/config/candidate_build_id","")," life=",life.path," core=",village_ui.state.path," userdata=",OS.get_user_data_dir()," area=",area)
 	life.changed.connect(refresh_life_hud);refresh_life_hud()
 	if life.another_open:note="开了两个阿鱼家，关一个就好"
 	if first_visit:call_deferred("welcome")
@@ -240,6 +250,7 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 			var entrance:Vector2=world.nearest(World.v(doorway.approach))
 			if player.position.distance_to(entrance)<28:
 				player.position=world.nearest(entrance+dir(str(doorway.face))*34);break
+	if not candidate_root.is_empty():print("CANDIDATE_ROOM_READY area=",area," from=",from," position=",player.position)
 	sync_family(false);cooldown=.45;room_history.append(area);life.discover("room:"+area);title.text="裳泓村 · "+("你的房间" if area=="guest" and life.data.resident else str(world.cfg.title)).replace("后花园 · 果园 · 菜地","后花园").replace("一楼楼梯与过道","一楼楼梯")
 	camera=room_camera_target();world.parallax_origin=camera
 	if village_ui!=null:village_ui.entered()
@@ -536,6 +547,7 @@ func cross(d:Dictionary) -> void:
 	pending="";player.route.clear()
 	if area=="exterior" and d.target=="living" and not admitted and not life.data.resident:knock();cooldown=2;return
 	transition_log.append({"from":area,"to":d.target,"at":elapsed,"position":[player.position.x,player.position.y],"steps":stair_steps})
+	if not candidate_root.is_empty():print("CANDIDATE_ROOM_CROSS from=",area," to=",d.target," door=",d.id," position=",player.position)
 	var from:=area;enter_room(d.target,true,from)
 	# 下一扇门等换房间的淡入结束后再接着走（_process 里），不然这一步会被「正在换房间」挡掉
 

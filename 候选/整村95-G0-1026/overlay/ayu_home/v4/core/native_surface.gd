@@ -19,7 +19,7 @@ func configure(ground,meta:Dictionary,art:Dictionary) -> bool:
 		var strip:=Image.create(cells.size()*64,64,false,Image.FORMAT_RGBA8)
 		for i in cells.size():
 			var cell:Dictionary=cells[i];var file:=str(cell.get("file",""));var r:Array=cell.get("region",[])
-			if not FileAccess.file_exists(file) or r.size()!=4:errors.append("missing source/region: "+role);continue
+			if not (FileAccess.file_exists(file) or ResourceLoader.exists(file)) or r.size()!=4:errors.append("missing source/region: "+role);continue
 			var texture:Texture2D=Assets.texture(file)
 			if texture==null:errors.append("unreadable source: "+role);continue
 			var image:Image=texture.get_image()

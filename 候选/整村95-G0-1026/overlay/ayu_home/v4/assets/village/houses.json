@@ -1,396 +1,396 @@
 [
   {
-    "id": "erba",
-    "title": "二爸家",
-    "subtitle": "收好餐桌碗筷 · 歇脚",
-    "floors": 2,
+    "art": "house_erba.png",
     "at": [
       3073,
       1194
     ],
-    "target": "v_erba",
-    "fictional": false,
     "bounds": [
       2750,
       650,
       850,
       567
     ],
-    "art": "house_erba.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": false,
+    "floors": 2,
+    "id": "erba",
+    "subtitle": "收好餐桌碗筷 · 歇脚",
+    "target": "v_erba",
+    "title": "二爸家"
   },
   {
-    "id": "laowu",
-    "title": "老屋",
-    "subtitle": "旧书与风",
-    "floors": 1,
+    "art": "house_laowu.png",
     "at": [
       708,
       1766
     ],
-    "target": "v_laowu",
-    "fictional": false,
     "bounds": [
       300,
       1300,
       800,
       533
     ],
-    "art": "house_laowu.png"
+    "fictional": false,
+    "floors": 1,
+    "id": "laowu",
+    "subtitle": "旧书与风",
+    "target": "v_laowu",
+    "title": "老屋"
   },
   {
-    "id": "daba",
-    "title": "大爸家",
-    "subtitle": "竹编堂屋 · 收竹条与歇脚",
-    "floors": 2,
+    "art": "house_daba.png",
     "at": [
       2558,
       3377
     ],
-    "target": "v_daba",
-    "fictional": false,
     "bounds": [
       2150,
       2850,
       850,
       567
     ],
-    "art": "house_daba.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": false,
+    "floors": 2,
+    "id": "daba",
+    "subtitle": "竹编堂屋 · 收竹条与歇脚",
+    "target": "v_daba",
+    "title": "大爸家"
   },
   {
-    "id": "h5",
-    "title": "凯凯蜂蜜小院",
-    "subtitle": "凯凯的蜂蜜",
-    "floors": 1,
+    "art": "house_h5.png",
     "at": [
       313,
       2633
     ],
-    "target": "v_h5",
-    "fictional": true,
     "bounds": [
       100,
       2100,
       850,
       567
     ],
-    "art": "house_h5.png"
+    "fictional": true,
+    "floors": 1,
+    "id": "h5",
+    "subtitle": "凯凯的蜂蜜",
+    "target": "v_h5",
+    "title": "凯凯蜂蜜小院"
   },
   {
-    "id": "ayu",
-    "title": "阿鱼家",
-    "subtitle": "阿鱼家的院门",
-    "floors": 2,
+    "art": "house_ayu.png",
     "at": [
-      2250,
-      2802
+      2418,
+      2689
     ],
-    "target": "exterior",
-    "fictional": false,
     "bounds": [
       1850,
       2150,
       800,
       600
     ],
-    "art": "house_ayu.png"
+    "fictional": false,
+    "floors": 2,
+    "id": "ayu",
+    "subtitle": "阿鱼家的院门",
+    "target": "exterior",
+    "title": "阿鱼家"
   },
   {
-    "id": "h2",
-    "title": "缝补人家",
-    "subtitle": "缝补台与旧沙发",
-    "floors": 2,
+    "art": "house_h2.png",
     "at": [
       4059,
       1206
     ],
-    "target": "v_h2",
-    "fictional": true,
     "bounds": [
       3600,
       650,
       900,
       600
     ],
-    "art": "house_h2.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "h2",
+    "subtitle": "缝补台与旧沙发",
+    "target": "v_h2",
+    "title": "缝补人家"
   },
   {
-    "id": "h3",
-    "title": "小涛磨坊",
-    "subtitle": "小涛的小石磨",
-    "floors": 2,
+    "art": "house_h3.png",
     "at": [
       784,
       3359
     ],
-    "target": "v_h3",
-    "fictional": true,
     "bounds": [
       250,
       2800,
       875,
       583
     ],
-    "art": "house_h3.png"
+    "fictional": true,
+    "floors": 2,
+    "id": "h3",
+    "subtitle": "小涛的小石磨",
+    "target": "v_h3",
+    "title": "小涛磨坊"
   },
   {
-    "id": "mayor",
-    "title": "村委会",
-    "subtitle": "村长 · 林伯",
-    "floors": 2,
+    "art": "house_mayor.png",
     "at": [
       3218,
       2602
     ],
-    "target": "v_mayor",
-    "fictional": true,
     "bounds": [
       2650,
       2100,
       835,
       557
     ],
-    "art": "house_mayor.png"
+    "fictional": true,
+    "floors": 2,
+    "id": "mayor",
+    "subtitle": "村长 · 林伯",
+    "target": "v_mayor",
+    "title": "村委会"
   },
   {
-    "id": "h6",
-    "title": "花窗人家",
-    "subtitle": "给窗下花浇水 · 歇脚",
-    "floors": 2,
+    "art": "house_h6.png",
     "at": [
       3462,
       3616
     ],
-    "target": "v_h6",
-    "fictional": true,
     "bounds": [
       3050,
       3000,
       825,
       619
     ],
-    "art": "house_h6.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "h6",
+    "subtitle": "给窗下花浇水 · 歇脚",
+    "target": "v_h6",
+    "title": "花窗人家"
   },
   {
-    "id": "h8",
-    "title": "茶香小院",
-    "subtitle": "茶盘与窗下小坐",
-    "floors": 1,
+    "art": "house_h8.png",
     "at": [
       1294,
       1765
     ],
-    "target": "v_h8",
-    "fictional": true,
     "bounds": [
       1150,
       1300,
       850,
       567
     ],
-    "art": "house_h8.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 1,
+    "id": "h8",
+    "subtitle": "茶盘与窗下小坐",
+    "target": "v_h8",
+    "title": "茶香小院"
   },
   {
-    "id": "h7",
-    "title": "窄巷人家",
-    "subtitle": "收好门边竹篮 · 歇脚",
-    "floors": 2,
+    "art": "house_h7.png",
     "at": [
       2334,
       2000
     ],
-    "target": "v_h7",
-    "fictional": true,
     "bounds": [
       2050,
       1450,
       430,
       645
     ],
-    "art": "house_h7.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "h7",
+    "subtitle": "收好门边竹篮 · 歇脚",
+    "target": "v_h7",
+    "title": "窄巷人家"
   },
   {
-    "id": "h4",
-    "title": "田边平房",
-    "subtitle": "收好田边用具 · 歇脚",
-    "floors": 1,
+    "art": "house_h4.png",
     "at": [
       1388,
       2703
     ],
-    "target": "v_h4",
-    "fictional": true,
     "bounds": [
       950,
       2150,
       875,
       583
     ],
-    "art": "house_h4.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 1,
+    "id": "h4",
+    "subtitle": "收好田边用具 · 歇脚",
+    "target": "v_h4",
+    "title": "田边平房"
   },
   {
-    "id": "h1",
-    "title": "蓝瓦人家",
-    "subtitle": "收好茶杯 · 歇脚",
-    "floors": 2,
+    "art": "house_h1.png",
     "at": [
       4075,
       2844
     ],
-    "target": "v_h1",
-    "fictional": true,
     "bounds": [
       3650,
       2300,
       850,
       567
     ],
-    "art": "house_h1.png",
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "h1",
+    "subtitle": "收好茶杯 · 歇脚",
+    "target": "v_h1",
+    "title": "蓝瓦人家"
   },
   {
-    "id": "flower",
-    "title": "花房小楼",
-    "subtitle": "插花客厅 · 看花与歇脚",
-    "floors": 2,
-    "target": "v_flower",
-    "fictional": true,
+    "art": "house_flower.png",
+    "at": [
+      579,
+      1205
+    ],
     "bounds": [
       100,
       700,
       785,
       523
     ],
-    "art": "house_flower.png",
-    "at": [
-      579,
-      1205
-    ],
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "flower",
+    "subtitle": "插花客厅 · 看花与歇脚",
+    "target": "v_flower",
+    "title": "花房小楼"
   },
   {
-    "id": "whitebrick",
-    "title": "白砖小院",
-    "subtitle": "料理台与明亮小坐",
-    "floors": 2,
-    "target": "v_whitebrick",
-    "fictional": true,
+    "art": "house_whitebrick.png",
+    "at": [
+      1427,
+      1200
+    ],
     "bounds": [
       900,
       650,
       850,
       567
     ],
-    "art": "house_whitebrick.png",
-    "at": [
-      1427,
-      1200
-    ],
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "whitebrick",
+    "subtitle": "料理台与明亮小坐",
+    "target": "v_whitebrick",
+    "title": "白砖小院"
   },
   {
-    "id": "grape",
-    "title": "葡萄架小院",
-    "subtitle": "整理果篮 · 歇脚",
-    "floors": 1,
-    "target": "v_grape",
-    "fictional": true,
+    "art": "house_grape.png",
+    "at": [
+      2080,
+      1191
+    ],
     "bounds": [
       1800,
       650,
       875,
       583
     ],
-    "art": "house_grape.png",
-    "at": [
-      2080,
-      1191
-    ],
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 1,
+    "id": "grape",
+    "subtitle": "整理果篮 · 歇脚",
+    "target": "v_grape",
+    "title": "葡萄架小院"
   },
   {
-    "id": "sunflower",
-    "title": "向日葵之家",
-    "subtitle": "收拢葵籽盘 · 歇脚",
-    "floors": 2,
-    "target": "v_sunflower",
-    "fictional": true,
+    "art": "house_sunflower.png",
+    "at": [
+      2789,
+      1940
+    ],
     "bounds": [
       2550,
       1400,
       825,
       550
     ],
-    "art": "house_sunflower.png",
-    "at": [
-      2789,
-      1940
-    ],
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "sunflower",
+    "subtitle": "收拢葵籽盘 · 歇脚",
+    "target": "v_sunflower",
+    "title": "向日葵之家"
   },
   {
-    "id": "persimmon",
-    "title": "柿树老院",
-    "subtitle": "拾好熟柿 · 歇脚",
-    "floors": 1,
-    "target": "v_persimmon",
-    "fictional": true,
+    "art": "house_persimmon.png",
+    "at": [
+      1798,
+      3442
+    ],
     "bounds": [
       1200,
       2850,
       920,
       613
     ],
-    "art": "house_persimmon.png",
-    "at": [
-      1798,
-      3442
-    ],
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 1,
+    "id": "persimmon",
+    "subtitle": "拾好熟柿 · 歇脚",
+    "target": "v_persimmon",
+    "title": "柿树老院"
   },
   {
-    "id": "rose",
-    "title": "玫瑰花之家",
-    "subtitle": "摘去枯花瓣 · 歇脚",
-    "floors": 2,
-    "target": "v_rose",
-    "fictional": true,
+    "art": "house_rose.png",
+    "at": [
+      4379,
+      1944
+    ],
     "bounds": [
       3750,
       1400,
       850,
       567
     ],
-    "art": "house_rose.png",
-    "at": [
-      4379,
-      1944
-    ],
-    "doorstep_only": false
+    "doorstep_only": false,
+    "fictional": true,
+    "floors": 2,
+    "id": "rose",
+    "subtitle": "摘去枯花瓣 · 歇脚",
+    "target": "v_rose",
+    "title": "玫瑰花之家"
   },
   {
-    "id": "community",
-    "title": "村民活动中心",
-    "subtitle": "方婆婆值日 · 共桌与手作",
-    "floors": 1,
+    "art": "cabin.png",
     "at": [
       3870,
       2260
     ],
-    "target": "my_cabin",
-    "fictional": true,
     "bounds": [
       3650,
       1980,
       461,
       307
     ],
-    "art": "cabin.png"
+    "fictional": true,
+    "floors": 1,
+    "id": "community",
+    "subtitle": "方婆婆值日 · 共桌与手作",
+    "target": "my_cabin",
+    "title": "村民活动中心"
   }
 ]

@@ -25,7 +25,7 @@ func _ready() -> void:
 	play.render_target_update_mode=SubViewport.UPDATE_ALWAYS
 	play.canvas_item_default_texture_filter=Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	holder.add_child(play)
-	trace_input="--g0-input-trace" in OS.get_cmdline_user_args()
+	trace_input="--g0-input-trace" in OS.get_cmdline_user_args() or bool(ProjectSettings.get_setting("application/config/candidate_enabled",false))
 	if trace_input:
 		play.add_child(InputTrace.new())
 		get_tree().node_added.connect(trace_new_button)
