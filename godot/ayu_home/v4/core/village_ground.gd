@@ -12,6 +12,12 @@ var winter_active:=false
 var layout:Dictionary={}
 var field_tiles:Array=[]
 var season_index:=1
+var roadside=preload("res://ayu_home/v4/core/natural_verges.gd").new()
+var road_surface
+var native_surface
+var native_enabled:=false
+var native_cut:=PackedVector2Array()
+var legacy_earth:Texture2D
 var view_rect:=Rect2()
 func set_view(rect:Rect2) -> void:
 	if view_rect.is_equal_approx(rect):return
@@ -21,6 +27,7 @@ func configure_path(path:String,background:String) -> void:
 	configure(JSON.parse_string(FileAccess.get_file_as_string(path)),background)
 func configure(value:Dictionary,background:String) -> void:
 	spec=value;old_background=Assets.texture(background)
+	native_enabled=spec.has("g0_native")
 	if spec.has("layout"):
 		layout=JSON.parse_string(FileAccess.get_file_as_string(str(spec.layout)))
 		if layout.has("mountain_rect"):spec.mountain.rect=layout.mountain_rect
@@ -29,6 +36,18 @@ func configure(value:Dictionary,background:String) -> void:
 		if spec.has(kind):textures[kind]=Assets.texture(str(spec[kind].file))
 		elif kind=="entry_road":textures[kind]=Assets.texture(str(spec.road.file))
 	build_geometry()
+	if not layout.is_empty() and spec.has("road_sample") and not native_enabled:
+		road_surface=preload("res://ayu_home/v4/core/road_surface.gd").new()
+		road_surface.setup(polygons.road+polygons.yard+polygons.entry_road,Vector2(layout.size[0],layout.size[1]),spec.road_sample)
+	if native_enabled:
+		native_surface=preload("res://ayu_home/v4/core/native_surface.gd").new()
+		var contract:Dictionary={}
+		if FileAccess.file_exists(str(spec.g0_native.manifest)):contract=JSON.parse_string(FileAccess.get_file_as_string(str(spec.g0_native.manifest)))
+		native_surface.configure(self,spec.g0_native,contract)
+		var b:Array=spec.g0_native.region
+		native_cut=PackedVector2Array([Vector2(b[0],b[1]),Vector2(b[0]+b[2],b[1]),Vector2(b[0]+b[2],b[1]+b[3]),Vector2(b[0],b[1]+b[3])])
+		var atlas:=AtlasTexture.new();atlas.atlas=Assets.texture("res://ayu_home/v4/assets/village/road-shoulder-1025/road-transition-atlas.png");atlas.region=Rect2(0,0,256,256);atlas.filter_clip=true;legacy_earth=atlas
+	if not layout.is_empty():roadside.setup(layout,polygons.road+polygons.yard+polygons.entry_road)
 	texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 func build_geometry() -> void:
@@ -112,10 +131,19 @@ func add_path(kind:String,points:Array,width:float) -> void:
 	for polygon in Geometry2D.offset_polyline(line,width*.5,Geometry2D.JOIN_ROUND,Geometry2D.END_ROUND):polygons[kind].append(polygon)
 func mount_layers(material_factory:Callable) -> void:
 	for kind in draw_order():
+		if road_surface and kind in ["yard","entry_road","road"]:
+			if kind!="yard":continue
+			var lane:=Node2D.new();lane.name="road_surface";add_child(lane)
+			lane.material=road_surface.material(material_factory.call("road"))
+			lane.draw.connect(func():road_surface.paint(lane))
+			continue
+		if kind=="water" and not layout.is_empty():
+			var verge_layer:=Node2D.new();verge_layer.name="natural_verges";add_child(verge_layer);verge_layer.draw.connect(func():roadside.paint(verge_layer,1.0,Vector2.ZERO,season_index))
 		var layer=Node2D.new();layer.name=kind;add_child(layer)
 		layer.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
 		layer.material=material_factory.call(kind)
 		layer.draw.connect(func():draw_to(layer,1.0,Vector2.ZERO,kind))
+	if native_enabled:native_surface.mount(self)
 func set_winter(active:bool) -> void:
 	if active==winter_active:return
 	winter_active=active
@@ -129,9 +157,20 @@ func set_season(index:int) -> void:
 	queue_redraw()
 	for child in get_children():child.queue_redraw()
 func draw_order() -> Array:
+	if native_enabled:return ["grass","fields","yard","entry_road","road","water"]
 	return ORDER if layout.is_empty() else ["grass","fields","yard","entry_road","road","water","mountain"]
+func visible_legacy_pieces(polygon:PackedVector2Array,only:String) -> Array:
+	# Map style remains legacy during G0; no holes. G1 will unify the full map.
+	if native_enabled and native_surface.ready_art and not only.is_empty():
+		var north:float=spec.g0_native.north_y
+		var sky_cut:=PackedVector2Array([Vector2(0,0),Vector2(layout.size[0],0),Vector2(layout.size[0],north),Vector2(0,north)])
+		var result:Array=[]
+		for piece in Geometry2D.clip_polygons(polygon,native_cut):result.append_array(Geometry2D.clip_polygons(piece,sky_cut))
+		return result
+	return [polygon]
 func draw_to(canvas:CanvasItem,factor:=1.0,offset:=Vector2.ZERO,only:="") -> void:
 	for kind in draw_order():
+		if only.is_empty() and kind=="water" and not layout.is_empty():roadside.paint(canvas,factor,offset,season_index)
 		if not only.is_empty() and kind!=only:continue
 		if kind=="fields":
 			if not layout.is_empty():
@@ -140,17 +179,21 @@ func draw_to(canvas:CanvasItem,factor:=1.0,offset:=Vector2.ZERO,only:="") -> voi
 					var key:String=["spring","summer","autumn","winter"][season_index]
 					var file:=str(definition.get("season_files",{}).get(key,definition.get("file","")))
 					if file.is_empty():continue
-					var texture:=Assets.texture(file)
+					var texture:=preload("res://ayu_home/v4/core/natural_terrain.gd").foliage(file,season_index)
 					if texture==null:continue
-					var screen:=PackedVector2Array();var uv:=PackedVector2Array()
-					for point in field.polygon:screen.append(offset+point*factor);uv.append(point/float(definition.get("repeat",192)))
-					canvas.draw_polygon(screen,PackedColorArray([Color.WHITE]),uv,texture)
+					for piece in visible_legacy_pieces(field.polygon,only):
+						var screen:=PackedVector2Array();var uv:=PackedVector2Array()
+						for point in piece:screen.append(offset+point*factor);uv.append(point/float(definition.get("repeat",192)))
+						canvas.draw_polygon(screen,PackedColorArray([Color.WHITE]),uv,texture)
 				continue
 			if old_background:
 				for rect in field_rects:canvas.draw_texture_rect_region(old_background,Rect2(offset+rect.position*factor,rect.size*factor),rect)
 			continue
 		var texture:Texture2D=textures.get(kind)
 		if texture==null:continue
+		if not layout.is_empty():
+			if kind in ["road","yard","entry_road"]:texture=legacy_earth if native_enabled else (road_surface.road if road_surface else preload("res://ayu_home/v4/core/natural_terrain.gd").earth())
+			elif kind=="grass":texture=preload("res://ayu_home/v4/core/natural_terrain.gd").foliage(str(spec.grass.file),season_index,true)
 		if kind=="mountain":
 			if not layout.is_empty() and spec.mountain.get("panorama",false):
 				var band:Array=layout.mountain_rect
@@ -175,7 +218,9 @@ func draw_to(canvas:CanvasItem,factor:=1.0,offset:=Vector2.ZERO,only:="") -> voi
 			canvas.draw_texture_rect_region(texture,destination,Rect2(region[0],region[1],region[2],region[3]))
 			continue
 		var repeat_size:float=float(spec.get(kind,spec.road).get("repeat",384))
+		if native_enabled and kind in ["road","yard","entry_road"]:repeat_size=256.0
 		for polygon in polygons[kind]:
-			var screen=PackedVector2Array();var uv=PackedVector2Array()
-			for point in polygon:screen.append(offset+point*factor);uv.append(point/repeat_size)
-			canvas.draw_polygon(screen,PackedColorArray([Color.WHITE]),uv,texture)
+			for piece in visible_legacy_pieces(polygon,only):
+				var screen=PackedVector2Array();var uv=PackedVector2Array()
+				for point in piece:screen.append(offset+point*factor);uv.append(point/repeat_size)
+				canvas.draw_polygon(screen,PackedColorArray([Color.WHITE]),uv,texture)

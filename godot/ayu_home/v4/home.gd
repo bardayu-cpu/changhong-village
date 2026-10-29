@@ -11,6 +11,7 @@ const Immersive=preload("res://ayu_home/v4/immersive.gd")
 const Life=preload("res://ayu_home/v4/life_state.gd")
 const Games=preload("res://ayu_home/v4/life_games.gd")
 const Photo=preload("res://ayu_home/v4/polaroid.gd")
+const G0Horizon=preload("res://ayu_home/v4/core/village_horizon.gd")
 const Data=preload("res://ayu_home/home_data.gd")
 const NAMES={"ayu":"阿鱼","father":"爸爸","mother":"妈妈","qiuqiu":"求求","luoluo":"落落","tiantian":"天天","xiduo":"喜多"}
 const P="res://ayu_home/v3/assets/"
@@ -20,6 +21,7 @@ var world
 var player
 var people:Dictionary={}
 var scene_frame:Control
+var village_horizon:Node2D
 var hud:CanvasLayer
 var ui:Control
 var title:Label
@@ -34,6 +36,9 @@ var near_tag:Button
 var actions_layer:Control
 var task_button:Button
 var tools_button:Button
+var village_footer:HBoxContainer
+var footer_controls:Array[Dictionary]=[]
+var compact_footer:=false
 var toast:PanelContainer
 var toast_tween:Tween
 var season_icon:TextureRect
@@ -81,6 +86,7 @@ var door_audio_count:=0
 var effects_log:Array=[]
 var room_state:Dictionary={}
 var save_path:="user://ayu_home_life_v3.json"
+var candidate_root:=""
 var journal:Dictionary={"version":3,"found":[],"completed":{},"notes":[]}
 var talk_label:Label
 var talk_line:=""
@@ -128,7 +134,19 @@ var final_leg:=false
 
 
 func _ready() -> void:
+
+	candidate_root=preload("res://ayu_home/v4/core/playtest_paths.gd").data_root()
+	if not candidate_root.is_empty():save_path=candidate_root.path_join("life.json")
 	DisplayServer.window_set_title("裳泓村 · 把日子住进来")
+	if ProjectSettings.get_setting("application/config/playtest_isolated",false):DisplayServer.window_set_title("裳泓村 · 试玩版")
+	if get_tree().root.get_meta("g0_review_build",false):DisplayServer.window_set_title("裳泓村 1027 · 构图预览 · 地面未验")
+	if ProjectSettings.get_setting("application/config/candidate_enabled",false):
+		candidate_root=str(ProjectSettings.get_setting("application/config/candidate_data_root",""))
+		if not candidate_root.is_absolute_path() or not DirAccess.dir_exists_absolute(candidate_root):
+			push_error("Candidate data root is unavailable; no gameplay save opened");get_tree().quit(2);return
+		save_path=candidate_root.path_join("life.json")
+		test_hour=13.0;test_month=7;test_weather="clear"
+		DisplayServer.window_set_title(str(ProjectSettings.get_setting("application/config/name","裳泓村候选"))+" · "+str(ProjectSettings.get_setting("application/config/candidate_build_id","未登记构建")))
 	RenderingServer.set_default_clear_color(UI.DEEP)
 	definitions=JSON.parse_string(FileAccess.get_file_as_string("res://ayu_home/v4/assets/rooms.json")).rooms
 	for arg in OS.get_cmdline_user_args():
@@ -140,9 +158,11 @@ func _ready() -> void:
 		elif arg.begins_with("--ayu-focus="):focus=arg.get_slice("=",1)
 		elif arg=="--ayu-test" and OS.is_debug_build():test_panel_enabled=true
 		elif arg=="--ayu-owner=true" and OS.is_debug_build():is_owner=true
+	if not candidate_root.is_empty():save_path=candidate_root.path_join("life.json")
 	if not definitions.has(area):area="exterior"
 	load_journal();read_clock();life.pack_seeds(month)
 	scene_frame=Control.new();scene_frame.clip_contents=true;scene_frame.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(scene_frame)
+	village_horizon=G0Horizon.new();scene_frame.add_child(village_horizon);village_horizon.visible=false
 	world=World.new();world.life=life;scene_frame.add_child(world)
 	amb=AudioStreamPlayer.new();add_child(amb);sfx=AudioStreamPlayer.new();add_child(sfx);setup_water_audio()
 	make_ui()
@@ -163,6 +183,8 @@ func _ready() -> void:
 		if not h.is_empty():player.position=world.nearest(World.v(h.approach));camera=player.position-Vector2(0,55)
 	get_viewport().size_changed.connect(layout)
 	bootstrapped=true
+	if get_tree().root.get_meta("g0_review_build",false):print("G0_HOME_READY area=",area," viewport=",get_viewport_rect().size," scale=",view_scale)
+	if not candidate_root.is_empty():print("CANDIDATE_READY build=",ProjectSettings.get_setting("application/config/candidate_build_id","")," life=",life.path," core=",village_ui.state.path," userdata=",OS.get_user_data_dir()," area=",area)
 	life.changed.connect(refresh_life_hud);refresh_life_hud()
 	if life.another_open:note="开了两个阿鱼家，关一个就好"
 	if first_visit:call_deferred("welcome")
@@ -199,6 +221,15 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 		room_state[area]={"lamp":world.lamp_on,"tv":world.tv_on,"toggles":world.toggles.duplicate()}
 		life.data.effects.rooms=room_state.duplicate(true);life.save()
 	clear_scene_controls();area=which;pending="";people.clear();world.load_room(area);world.hour=hour;world.month=month;world.weather=weather;world.reactions.clear();world.toggles.clear()
+	village_horizon.visible=which=="village" and world.cfg.has("g0_native")
+	if village_horizon.visible:
+		var g0:Dictionary=world.cfg.g0_native
+		var contract:Dictionary={}
+		if FileAccess.file_exists(str(g0.manifest)):contract=JSON.parse_string(FileAccess.get_file_as_string(str(g0.manifest)))
+		var box:Array=g0.region
+		village_horizon.sky=Color(str(contract.get("sky_color","b8d0db")))
+		village_horizon.configure(contract.get("horizon",{}),Rect2(box[0],box[1],box[2],box[3]),float(g0.north_y))
+		village_horizon.bind_terrain(world.village_ground)
 	var state:Dictionary=room_state.get(area,{})
 	world.lamp_on=state.get("lamp",true);world.tv_on=state.get("tv",hour>=6 and hour<22);world.toggles=state.get("toggles",{}).duplicate();world.life=life
 	player=Actor.new();player.preset=player_preset;world.actors.add_child(player);player.setup("visitor");player.position=world.spawn()
@@ -223,6 +254,7 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 			var entrance:Vector2=world.nearest(World.v(doorway.approach))
 			if player.position.distance_to(entrance)<28:
 				player.position=world.nearest(entrance+dir(str(doorway.face))*34);break
+	if not candidate_root.is_empty():print("CANDIDATE_ROOM_READY area=",area," from=",from," position=",player.position)
 	sync_family(false);cooldown=.45;room_history.append(area);life.discover("room:"+area);title.text="裳泓村 · "+("你的房间" if area=="guest" and life.data.resident else str(world.cfg.title)).replace("后花园 · 果园 · 菜地","后花园").replace("一楼楼梯与过道","一楼楼梯")
 	camera=room_camera_target();world.parallax_origin=camera
 	if village_ui!=null:village_ui.entered()
@@ -360,6 +392,7 @@ func _unhandled_input(event:InputEvent) -> void:
 	if event is InputEventScreenTouch:at=event.position;pressed=event.pressed
 	elif event is InputEventMouseButton:at=event.position;pressed=event.pressed and event.button_index==MOUSE_BUTTON_LEFT
 	if not pressed:return
+	if not scene_frame.get_global_rect().has_point(at):return
 	tracked_person="";after_door={};final_leg=false
 	if village_ui!=null:village_ui.route_target=""
 	var p:Vector2=world.get_global_transform_with_canvas().affine_inverse()*at
@@ -518,6 +551,7 @@ func cross(d:Dictionary) -> void:
 	pending="";player.route.clear()
 	if area=="exterior" and d.target=="living" and not admitted and not life.data.resident:knock();cooldown=2;return
 	transition_log.append({"from":area,"to":d.target,"at":elapsed,"position":[player.position.x,player.position.y],"steps":stair_steps})
+	if not candidate_root.is_empty():print("CANDIDATE_ROOM_CROSS from=",area," to=",d.target," door=",d.id," position=",player.position)
 	var from:=area;enter_room(d.target,true,from)
 	# 下一扇门等换房间的淡入结束后再接着走（_process 里），不然这一步会被「正在换房间」挡掉
 
@@ -760,10 +794,49 @@ func hud_bottom() -> float:
 	return 10+words.get_combined_minimum_size().y+4
 ## 底栏实际顶边留出间隙；气泡、文字牌和坐姿操作共用这一条边界。
 func interaction_bottom() -> float:
-	var edge:=get_viewport_rect().size.y-136.0
+	var edge:=footer_boundary()+(0.0 if compact_footer else 20.0)
 	if is_instance_valid(village_ui) and is_instance_valid(village_ui.hud_button):
 		edge=minf(edge,village_ui.hud_button.get_global_rect().position.y)
+	if toolbar and toolbar.visible:edge=minf(edge,toolbar.get_global_rect().position.y)
 	return edge-16.0
+func footer_boundary() -> float:
+	return get_viewport_rect().size.y-(100.0 if compact_footer else 156.0)
+func layout_footer() -> void:
+	if village_ui==null:return
+	if not is_instance_valid(village_footer):
+		village_footer=HBoxContainer.new();village_footer.name="VillageFooter"
+		village_footer.alignment=BoxContainer.ALIGNMENT_CENTER;village_footer.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		village_footer.add_theme_constant_override("separation",8);ui.add_child(village_footer)
+		village_footer.sort_children.connect(layout_toolbar)
+		for button:Control in [village_ui.hud_button,village_ui.crop_button,village_ui.order_button,tools_button]:
+			footer_controls.append({"node":button,"parent":button.get_parent(),"anchors":[button.anchor_left,button.anchor_top,button.anchor_right,button.anchor_bottom],"offsets":[button.offset_left,button.offset_top,button.offset_right,button.offset_bottom],"minimum":button.custom_minimum_size,"flags_h":button.size_flags_horizontal,"flags_v":button.size_flags_vertical})
+	var buffer:=get_viewport_rect().size
+	var widths:Array[float]=[152.0,152.0,180.0,56.0]
+	var needed:=52.0 # Side margins and three gaps.
+	for index in footer_controls.size():needed+=maxf(widths[index],footer_controls[index].node.get_combined_minimum_size().x)
+	var wanted:bool=area=="village" and buffer.x>buffer.y and buffer.y>=720 and buffer.x>=needed
+	if wanted!=compact_footer:
+		compact_footer=wanted
+		for index in footer_controls.size():
+			var saved:Dictionary=footer_controls[index];var button:Control=saved.node
+			button.reparent(village_footer if wanted else saved.parent,false)
+			if wanted:
+				button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+				button.custom_minimum_size=Vector2(widths[index],56)
+				button.size_flags_horizontal=Control.SIZE_FILL;button.size_flags_vertical=Control.SIZE_FILL
+			else:
+				button.custom_minimum_size=saved.minimum;button.size_flags_horizontal=saved.flags_h;button.size_flags_vertical=saved.flags_v
+				button.anchor_left=saved.anchors[0];button.anchor_top=saved.anchors[1];button.anchor_right=saved.anchors[2];button.anchor_bottom=saved.anchors[3]
+				button.offset_left=saved.offsets[0];button.offset_top=saved.offsets[1];button.offset_right=saved.offsets[2];button.offset_bottom=saved.offsets[3]
+	village_footer.visible=compact_footer
+	if compact_footer:
+		village_footer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		village_footer.offset_left=14;village_footer.offset_right=-14;village_footer.offset_top=-76;village_footer.offset_bottom=-20
+func layout_toolbar() -> void:
+	if not is_instance_valid(toolbar) or not is_instance_valid(tools_button):return
+	var bag:Rect2=tools_button.get_global_rect()
+	toolbar.size=Vector2(150,toolbar.get_combined_minimum_size().y)
+	toolbar.global_position=Vector2(clampf(bag.end.x-toolbar.size.x,14,get_viewport_rect().size.x-toolbar.size.x-14),bag.position.y-10-toolbar.size.y)
 func layout() -> void:
 	if not ui:return
 	var size:=get_viewport_rect().size;ui.size=size;ui_scale=size.x/540.0
@@ -771,8 +844,9 @@ func layout() -> void:
 	var words:Control=top.get_node("Words");words.position=Vector2(10,10);words.size=Vector2(size.x-80,words.get_combined_minimum_size().y)
 	var gear:Control=top.get_node("Settings");gear.position=Vector2(size.x-58,12);gear.size=Vector2(44,44)
 	var bottom=ui.get_node("Bottom");bottom.position=Vector2.ZERO;bottom.size=size
-	tools_button.size=Vector2(56,56);tools_button.position=Vector2(size.x-70,size.y-74)
-	toolbar.size=Vector2(150,toolbar.get_combined_minimum_size().y);toolbar.position=Vector2(size.x-164,tools_button.position.y-10-toolbar.size.y)
+	layout_footer()
+	if not compact_footer:tools_button.size=Vector2(56,56);tools_button.position=Vector2(size.x-70,size.y-74)
+	layout_toolbar()
 	var text_w:float=hint.get_theme_font("font").get_string_size(hint.text,HORIZONTAL_ALIGNMENT_LEFT,-1,24).x
 	var width:=minf(ceilf(text_w)+28,size.x-48);hint.custom_minimum_size.x=width-28;toast.size=Vector2(width,0);toast.reset_size();toast.position=Vector2((size.x-toast.size.x)*.5,hud_bottom()+10) # 万一字太长，一行放不下就收成「…」
 	fade.size=size;markers.size=size;actions_layer.size=size;layout_world()
@@ -786,6 +860,16 @@ func show_toast(copy:String) -> void:
 	toast_tween.chain().tween_interval(3.4);toast_tween.chain().tween_property(toast,"modulate:a",0.0,.5)
 func room_camera_target() -> Vector2:
 	var target:Vector2=player.position-Vector2(0,65)
+	if area=="village" and view_scale>1.0 and village_horizon.specs.has("far"):
+		var spec:Dictionary=village_horizon.specs.far
+		var north:float=village_horizon.north_y
+		var peak_y:float=north+float(spec.baseline_offset)-float(spec.anchor[1]-spec.peak[1])
+		var half_height:float=scene_frame.size.y*.5
+		var needed:float=target.y-peak_y-(half_height-20.0)/view_scale
+		var feet_budget:float=maxf(0.0,(half_height-16.0)/view_scale-(player.position.y-target.y))
+		var near_north:float=1.0-smoothstep(north+48.0,north+320.0,player.position.y)
+		var near_east:float=smoothstep(village_horizon.native_region.position.x,village_horizon.native_region.position.x+128.0,player.position.x)
+		target.y-=clampf(needed,0.0,feet_budget)*near_north*near_east
 	if (area in ["my_cabin","v_h3","v_mayor"] or world.cfg.get("household_open",false)) and world.cfg.has("entry_camera_bias"):
 		var weight:=clampf(1.0-player.position.distance_to(World.v(world.cfg.spawn))/float(world.cfg.entry_camera_radius),0.0,1.0)
 		target-=World.v(world.cfg.entry_camera_bias)*weight
@@ -794,9 +878,16 @@ func layout_world() -> void:
 	if not world or world.cfg.is_empty():return
 	var screen:=get_viewport_rect().size
 	var top_area:=hud_bottom()+8
-	scene_frame.position=Vector2(0,top_area);screen.y=maxf(180,screen.y-top_area-156);scene_frame.size=screen
+	scene_frame.position=Vector2(0,top_area);screen.y=maxf(180,footer_boundary()-top_area);scene_frame.size=screen
 	var size:Vector2=World.v(world.cfg.size)
 	view_scale=float(world.cfg.get("view_scale",2.0))
+	if area=="village" and village_horizon.ready_art:
+		# Full-width desktops use the complete original layer once. Only integer world zoom may grow.
+		var content_width:=INF
+		for id in ["far","middle"]:
+			var spec:Dictionary=village_horizon.specs[id];var alpha:Array=spec.alpha_bbox
+			content_width=minf(content_width,2.0*minf(float(spec.anchor[0]-alpha[0]),float(alpha[0]+alpha[2]-spec.anchor[0])))
+		view_scale=maxf(view_scale,ceilf(screen.x/content_width))
 
 	var visible_world:=screen/view_scale
 	var center:=Vector2(size.x*.5 if size.x<visible_world.x else clampf(camera.x,visible_world.x*.5,size.x-visible_world.x*.5),size.y*.5 if size.y<visible_world.y else clampf(camera.y,visible_world.y*.5,size.y-visible_world.y*.5))
@@ -813,6 +904,7 @@ func layout_world() -> void:
 		if lower.y<=upper.y:center.y=clampf(center.y,lower.y,upper.y)
 	world.scale=Vector2.ONE*view_scale;world.position=(screen*.5-center*view_scale).round();world.camera_center=center
 	if is_instance_valid(world.village_ground):world.village_ground.set_view(Rect2(center-visible_world*.5,visible_world))
+	if is_instance_valid(village_horizon):village_horizon.set_view(Rect2(center-visible_world*.5,visible_world),view_scale,screen)
 func make_markers() -> void:
 	for n in markers.get_children():n.queue_free()
 	marker_nodes.clear()
@@ -1628,7 +1720,9 @@ func album_page() -> void:
 		var snapshot:Dictionary=record.duplicate(true);var b:=UI.button(str(record.title)+"\n"+str(record.date),func():close_modal();photo.open(life,snapshot,true));b.custom_minimum_size.y=92;col.add_child(b)
 func settings_page() -> void:
 	var box:=modal_shell("慢慢玩的设置")
-	box.add_child(UI.button("声音 · "+("开" if sound_on else "关"),func():sound_on=not sound_on;life.data.settings.sound=sound_on;life.save();play_ambience();settings_page()))
+	var music=preload("res://ayu_home/v4/core/playtest_music.gd").ensure(get_tree())
+	box.add_child(UI.button(music.caption(),func():music.toggle_from_gesture();settings_page()))
+	box.add_child(UI.button("环境与音效 · "+("开" if sound_on else "关"),func():sound_on=not sound_on;life.data.settings.sound=sound_on;life.save();play_ambience();settings_page()))
 	box.add_child(UI.button("轻松节奏 · 已开启",func():note="没有倒计时，也不会枯萎"))
 	# 手机上没有键盘：只有电脑版才写按键（体验师小毛病 5）
 	var help:=UI.label(("方向键 / WASD：走路\nE：走近并操作　M：地图\nJ：生活册　C：拍立得\nEsc：收起当前页面\n" if OS.has_feature("pc") and not OS.has_feature("web") else "点地面走路；走近东西，点冒出来的气泡就能做。\n右下角的小包里有相机、生活册和地图。\n")+"进度自动保存在这位玩家自己的家里。",20);help.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;box.add_child(help)

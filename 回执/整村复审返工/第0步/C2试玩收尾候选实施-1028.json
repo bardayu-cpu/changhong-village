@@ -1,0 +1,134 @@
+{
+  "status": "1028_5_published_pack_privacy_verified_waiting_independent_native_and_Web_tests",
+  "build": "收尾1028-14ec7e8d · 试玩版",
+  "version": "0.1.2/1028.5",
+  "same_runtime_source_Mac_Web": true,
+  "formal_engine_applied": true,
+  "formal_manifest": "候选/试玩收尾-1028/工程接入清单.json",
+  "old_formal_save_contract_unchanged": true,
+  "old_saves_migrated_or_cleared": false,
+  "author_headless": {
+    "BGM_off_persisted": true,
+    "actual_phone_test": false,
+    "continue_uses_actual_valid_save": true,
+    "invalid_save_preserved": true,
+    "kind": "headless_controls_and_prefs_only_not_native_or_phone",
+    "layouts": [
+      {
+        "art_present": true,
+        "music_inside": true,
+        "primary_inside": true,
+        "save": "new",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      {
+        "art_present": true,
+        "music_inside": true,
+        "primary_inside": true,
+        "save": "new",
+        "size": [
+          390,
+          844
+        ]
+      },
+      {
+        "art_present": true,
+        "music_inside": true,
+        "primary_inside": true,
+        "save": "new",
+        "size": [
+          844,
+          390
+        ]
+      },
+      {
+        "art_present": true,
+        "music_inside": true,
+        "primary_inside": true,
+        "save": "new",
+        "size": [
+          540,
+          960
+        ]
+      }
+    ],
+    "master_volume_unchanged": true,
+    "native_audible_test": false,
+    "track_available": true
+  },
+  "first_pack_rejected": {
+    "build": "cafe9451/1028.4",
+    "reason": "PCK file index contained old project runtime player profile",
+    "content_read_or_printed": false,
+    "filename_only": "res://运行数据/ayu_home_local_player.json",
+    "LAN_service_stopped": true,
+    "old_source_file_deleted": false
+  },
+  "correction": "export excludes private/save/QA directories and profile names; own cloned workspace gets .gdignore; rebuild 1028.5 without runtime-code changes",
+  "current_entries_block_old_package": true,
+  "old_QA_save_directory_retained": true,
+  "author_native_welcome_pass": false,
+  "C3_new_welcome_BGM_pass": false,
+  "C3_Web_render_pass": false,
+  "actual_phone_pass": false,
+  "actual_audio_listening_pass": false,
+  "village95_pass": false,
+  "stop_rule": {
+    "hard_remaining_percent": 20,
+    "verification_and_save_only_near_percent": 23
+  },
+  "staged_pack_checks": {
+    "version": "0.1.2/1028.5",
+    "private_files_in_packs": {
+      "web": [],
+      "mac": [],
+      "qa": []
+    },
+    "packages": {
+      "web": {
+        "manifest_sha256": "959ae05498de2fe3a867d1574ce162352dd731d4e5de453bcd15c0a3223cc41c",
+        "bytes": 216239860,
+        "indexed_resource_count": 3646,
+        "full_index_report_sha256": "a92766fe0c18c3e839bd16ce70149c3ac3d29877eaca5d15a6385cd5cb6986dc"
+      },
+      "mac": {
+        "manifest_sha256": "ea1f1b1bf9581113bab39e93d6232bd93b13a1ef650e9d6d8fd2115533be8920",
+        "bytes": 347426793,
+        "indexed_resource_count": 3646,
+        "full_index_report_sha256": "a92766fe0c18c3e839bd16ce70149c3ac3d29877eaca5d15a6385cd5cb6986dc"
+      },
+      "qa": {
+        "manifest_sha256": "7fa855d6305649b4ac479e7f9469fe8bfbd09d97af6655b00fe404ee9dec20d9",
+        "bytes": 363584681,
+        "indexed_resource_count": 3646,
+        "full_index_report_sha256": "b240985249cbc3862bb94b86a86ae4f9b53f0120fa7641fb4604c5a787f5b515"
+      }
+    }
+  },
+  "published_to_stable_entries": true,
+  "old_cafe_QA_replacement_waits_for_normal_exit": false,
+  "old_cafe_generated_outputs_removed": true,
+  "all_pack_indexes_include_hidden_and_exclude_private": {
+    "mac": {
+      "old_or_QA_save_paths": [],
+      "repo_or_editor_private_paths": []
+    },
+    "web": {
+      "old_or_QA_save_paths": [],
+      "repo_or_editor_private_paths": []
+    },
+    "qa": {
+      "old_or_QA_save_paths": [],
+      "repo_or_editor_private_paths": []
+    }
+  },
+  "QA_GUI_release": "C3 normal exit and inventory isRunning=false, no in-flight calls; C3收尾欢迎音乐阶段记录-1028.md",
+  "stable_paths": {
+    "mac": "发布/试玩收尾-1028/Mac/裳泓村试玩.app",
+    "web": "发布/试玩收尾-1028/Web/index.html",
+    "QA": "测试数据/本轮C2专用目录/1028试玩收尾/构建/裳泓村收尾QA1028.app"
+  }
+}
