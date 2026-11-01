@@ -36,27 +36,46 @@
 
 ## 本机最新包现状
 
-核对范围为微信小游戏的本机最新构建。截至 2026 年 11 月 1 日，本次能核对的是源仓库的历史出码和验收记录。未取得当前本机构建、对应版本的真机通关记录或微信公众平台版本管理记录。
+下表对应《苏七镇奇缘》本机最新**微信小游戏包**。本次核验拿到了网页版 Git 分支和小镇远端历史回执，未取得打包电脑上的当前微信构建、与该包对应的真机录像，或微信公众平台「版本管理」页面。网页分支的 HEAD、自动测试和旧预览码分别记录。
 
-| 核对项 | 当前本机最新包 |
-| --- | --- |
-| 版本号 | 未验证 |
-| 构建对应的 Git 提交号 | 未验证 |
-| 构建日期 | 未验证 |
-| 从首次打开到哪一步能在真机连续玩通 | 未验证 |
-| 回忆篇存档续玩是否已实现（中途退出后重进，回到原剧情节点） | 未验证 |
-| 微信小游戏是否已提审 | 未验证 |
-| 微信审核状态 | 未验证 |
+| 核对项 | 本机最新微信包 | 核验依据或缺少的凭据 |
+| --- | --- | --- |
+| 版本号 | 未验证 | 当前工作区查找 `project.godot` 无结果。历史《第56版出码-回执.md》「包里核过」记录的是旧预览包，未取得最新包内版本号或微信后台版本行。 |
+| 构建对应提交号 | 未验证 | 当前可运行的 `git rev-parse game/hongyuan-adventure` 输出 `d445d3b3346f41dd29a67497a53790f9f24bdbd1`，这是网页提交。缺少本机最新微信包打包时的 `git rev-parse HEAD` 输出或同版构建日志。 |
+| 构建日期 | 未验证 | 当前微信包的构建日志、出码记录或带版本的后台上传记录均未取得。历史回执有 2026 年 10 月 3 日的出码记录。 |
+| 真机连续玩通到哪一步 | 未验证 | 《测-第一次来整条路.md》记录的命令是 `Godot --headless`，第 5 步为回忆册入口置灰。第 56 版回执将开屏、首次加载及三个场景的真机验收列为「没验成」。缺少最新包从首次打开到具体节点的真机记录。 |
+| 退出后从原节点续玩 | 未验证 | `godot/scripts/orchard_save.gd` 记录的是 `user://suqi_orchard.json` 果园存档。缺少同一微信包在回忆节点退出、重进并恢复到原节点的真机记录。 |
+| 是否已提审 | 未验证 | 未取得微信公众平台「版本管理」中对应版本的提审记录。旧回执的「不上传体验版」只适用于该次出码。 |
+| 当前审核状态 | 未验证 | 未取得微信公众平台「版本管理」中与当前版本号对应的审核状态页面或截图。 |
 
-| 回忆篇关卡 | 本机最新包状态 |
-| --- | --- |
-| 第 1 关　上海 | 未验证 |
-| 第 2 关　成都 | 未验证 |
-| 第 3 关　生日来电 | 未验证 |
-| 第 4 关　静冈与静安 | 未验证 |
-| 第 5 关　海南 | 未验证 |
-| 第 6 关　香港 | 未验证 |
+**可定位的历史构建。** 第 56 版调试预览的码图为 `第56版-1003-1900.png`。出码回执记录的包内版本号为 `1003-1900`，导出源提交为 `fa819f8`，`4273651` 是登记出码的提交。[出码与验收回执](./第56版出码-回执.md) · [历史预览码文件](./码/第56版-1003-1900.png) · [自动化路线记录](./测-第一次来整条路.md) · [果园存储](../scripts/orchard_save.gd)
 
-各关在取得对应版本的证据后，按「未开始／有原型／能玩通」登记。现有记录不足以给本机最新包的任一关定级。
+### 六关在本机微信包里的状态
 
-**可核对的历史包。** 2026 年 10 月 3 日的第 56 版是调试预览包，包内版本号为 `1003-1900`。回执列明从 `fa819f8` 导出；正文前述的 `4273651` 是登记该次出码的提交。回执将开屏、首次加载及三个场景的真机验收列为「没验成」，并写明当次未上传体验版。源仓的果园脚本另有本机地块和果篮存储；回忆篇退出续玩仍按上表登记。[第 56 版出码与验收回执](./第56版出码-回执.md) · [果园存档](../scripts/orchard_save.gd)
+下表的「未验证」表示没有足够依据归入「未开始／有原型／能玩通」。查到的源仓快照 `godot/scripts/court_ui.gd` 有 `const CLIP_READY := false`，只能说明那一版迎宾院回忆册的开关状态。各行的网页资源可以在下表路径复核。
+
+| 关 | 微信包状态 | 分关依据 |
+| --- | --- | --- |
+| 上海 | 未验证 | 已定位网页首关脚本与上海地图；缺少最新微信包从打开请柬到首关出口的真机记录。 |
+| 成都 | 未验证 | 已定位网页第 2 关配置与素材；缺少最新微信包从成都入口到下一节点的真机记录。 |
+| 生日来电 | 未验证 | 已定位网页第 3 关配置与素材；缺少该节点在最新微信包中可交互、可完成的证据。 |
+| 静冈与静安 | 未验证 | 已定位网页第 4 关配置及两张场景图；缺少最新微信包完成该关的真机记录。 |
+| 海南 | 未验证 | 已定位网页第 5 关配置及场景图；缺少最新微信包完成该关的真机记录。 |
+| 香港 | 未验证 | 已定位网页第 6 关配置及场景图；缺少最新微信包走完该关并返回请柬的真机记录。 |
+
+### 六关的场景、脚本、图片与对白
+
+以下路径均相对于 **`game/hongyuan-adventure@d445d3b`** 的仓库根目录。已用 `git cat-file -e <提交>:<路径>` 核对表内实体文件；URL 中的 `?chapter=N` 是参数，磁盘入口文件为 `public/journey.html`。本表记录的是已归档网页源文件。
+
+| 关 | 场景与脚本 | 代表图片（相对 `public/assets/`） | 对白与顺序 |
+| --- | --- | --- | --- |
+| 上海 | `public/index.html`；`public/stage1/app.js`、`public/stage1/driving.js`、`public/stage1/world.js` | `stage1/generated/shanghai-map-day-optimized.webp`、`stage1/generated/driving-road-day-optimized.webp` | `public/stage1/copy.js` 的 A1 系列；`public/stage1/state.js` 的 MEET、CHAT |
+| 成都 | `public/journey.html?chapter=2`；共用脚本见下 | `l2_chengdu.webp`、`continuation/generated/panda-eating-states-mobile.webp` | A2 系列；`chapter2` |
+| 生日来电 | `public/journey.html?chapter=3`；共用脚本见下 | `l3_computer.webp`、`continuation/generated/ch3-toretto-cake-blue-flowers-memory.webp` | A3 系列；`chapter3` |
+| 静冈与静安 | `public/journey.html?chapter=4`；共用脚本见下 | `l4_japan.webp`、`l4_cert.webp` | A4 系列；`chapter4` |
+| 海南 | `public/journey.html?chapter=5`；共用脚本见下 | `l5_pool.webp`、`continuation/generated/ch5-fireworks-without-rocket.webp` | A5 系列；`chapter5` |
+| 香港 | `public/journey.html?chapter=6`；共用脚本见下 | `l6_hongkong.webp` | A6 系列；`chapter6` |
+
+第 2 至 6 关由 `public/journey.js` 的 `beginChapter`、`playChapter` 切换，小游戏入口为 `public/gameplay.js` 的 `startMinigame`。对白正文在 `public/stage1/copy.js`，章节顺序与背景配置在 `public/journey-data.js`，资源映射见 `public/story.js`。
+
+**引擎与复用边界。** 六关归档为 HTML／JavaScript 网页工程。上海使用浏览器 DOM／Canvas，后五关的小游戏使用 Phaser；`package.json` 声明 `phaser: 3.80.1`，仓内有 `public/vendor/phaser.min.js`。此分支的 `git ls-tree -r --name-only` 中没有 `project.godot`、`.tscn` 或 `.gd`。小镇微信工程另有 `godot/project.godot`，入口为 `res://main.tscn`。已有网页六关不能直接作为 Godot 场景运行；图片及对白数据可复用，场景、交互和存档需要适配。是否已有本机移植版：**未验证**。
