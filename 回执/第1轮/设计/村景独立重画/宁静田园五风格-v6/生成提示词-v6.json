@@ -1,0 +1,43 @@
+{
+  "version": "c4-serene-pastoral-five-styles-v6",
+  "date": "2026-10-14",
+  "mode": "built-in image_gen, five brand-new opaque images without references",
+  "common_prompt": "Create a brand-new 1024x1536 portrait pixel-art master-plan background for a serene rural Sichuan village in summer. This is a calm, complete pastoral landscape base for later compositing the already-approved house sprites. Draw NO houses, NO residential buildings, NO generic villas, and NO blank circular or rectangular vacant lots. Every area must have a believable purpose: planted rice, corn, soybeans, kitchen gardens, orchards, bamboo, lotus water, irrigation, meadows, crop paths or small public landscape. Leave about 19 subtle buildable pockets beside paths, but integrate them naturally as orchard-edge lawns or planted courtyard margins rather than empty beige holes. Keep the village on broad flat valley land. Far north horizon: a quiet, recognizable broad Mount Emei silhouette, horizontally layered, blue-green, with a high shoulder and light summer cloud band; no pointed snowy Alps. Calm harmonious composition, generous visual rhythm, clean road hierarchy, no clutter, no crowded decorations. Roads are softly curved, continuous and easy to read, with short house-entry spurs; never a straight grid or maze. Warm clear summer daylight, lush shade, gentle heat haze, crisp cozy 16/32-bit pixel art, elevated near-orthographic map view, consistent scale. No rapeseed flower sea, no huge saturated yellow flower fields, no labels, text, UI, icons, people, animals, cars, watermark or vignette. Do not copy any previous village map or old Ayu map pixels.",
+  "styles": [
+    {
+      "id": 1,
+      "name": "稻田水渠",
+      "specific_prompt": "Make layered emerald rice paddies the dominant land use, divided by narrow silver-blue irrigation channels and low grassy bunds. A single calm S-curving main lane crosses the map, with two restrained side lanes. Add one long narrow irrigation pond, a few lotus corners, a waterwheel shelter, small sluices and two modest stone footbridges. Orchards and kitchen gardens sit between future house pockets. Use cool green reflections and broad ordered field bands; very little ochre dirt and no unused grass bowls.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-c637ed15-e0de-4198-8244-75173813bd65.png",
+      "saved_output": "风格1-稻田水渠-无房底图-v6.png"
+    },
+    {
+      "id": 2,
+      "name": "竹溪石桥",
+      "specific_prompt": "A clear shallow stream meanders through the middle third in two broad bends, crossed by three simple stone or timber bridges. Tall bamboo groves and shaded orchard belts frame the water without hiding paths. A narrow lane follows the stream and forks only at two bridges. Add mossy stone edges, washing steps, a tiny waterside pavilion, tea shrubs and small vegetable terraces. Use deep cool greens, blue water and warm sun patches.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-03477d2f-d818-42c3-b215-27f7670f2091.png",
+      "saved_output": "风格2-竹溪石桥-无房底图-v6.png"
+    },
+    {
+      "id": 3,
+      "name": "荷塘果园",
+      "specific_prompt": "Build the composition around two calm irregular lotus ponds linked by a narrow natural channel. Surround them with peach, pear, loquat and citrus orchards, neat kitchen gardens, flowering hedges and shady willow banks. A single looping lane touches the ponds and branches gently into orchard lanes. Add one small pavilion, one stone well, a wash platform and a few simple timber bridges, widely spaced. The palette is jade green, soft blue, leaf shadow and restrained pink lotus.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-36c939ef-3953-48c0-a462-47ff566aea51.png",
+      "saved_output": "风格3-荷塘果园-无房底图-v6.png"
+    },
+    {
+      "id": 4,
+      "name": "麦收夏风",
+      "specific_prompt": "Show Sichuan early-summer fields after the wheat and rapeseed harvest: pale straw-gold stubble plots, stacked wheat sheaves and hayricks, alternating with vigorous green rice seedlings, corn, soybeans and vegetable rows. Do NOT show blooming rapeseed. Use broad worked field bands, one clear sweeping main road and two small farm lanes. Add a threshing floor, modest granary shelter, irrigation ditches, shade trees and a distant pond. The mood is warm, breezy, sunlit and quiet.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-7b09f0f4-288d-4442-8ee1-7127807d4d19.png",
+      "saved_output": "风格4-麦收夏风-无房底图-v6.png"
+    },
+    {
+      "id": 5,
+      "name": "峨眉晨雾",
+      "specific_prompt": "Use soft early-summer morning light, thin pearly mist lying low over emerald rice, tea shrubs at the far valley edges, bamboo, orchards and a reflective stream. The distant Mount Emei silhouette is especially important: broad layered sacred-mountain mass, high shoulder catching first warm light, cloud belt around the middle. A graceful Y-shaped lane, one arched stone bridge and one calm village green organize the future homes. Palette: mist blue, sage, emerald, warm cream sunlight and restrained flowers.",
+      "generated_source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-ed7c2467-40ed-4780-ae07-026829ef8fb3.png",
+      "saved_output": "风格5-峨眉晨雾-无房底图-v6.png"
+    }
+  ]
+}

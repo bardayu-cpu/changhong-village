@@ -1,0 +1,38 @@
+{
+  "time": "2026-10-16T17:03:26.545532+08:00",
+  "production": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "scope": "只读一次最小可行性核对，无GUI、无源码/配置改动，不据旧图声称新版本实测",
+  "evidence": {
+    "historical_real_entry_pair": "回执/第1轮返工/图/续验-cef05a8-A4-磨坊进门首屏-13时-左目标右阿鱼.png",
+    "viewed_current_art": "godot/ayu_home/v4/assets/institutions/mill-v2.png",
+    "source_sha256": {
+      "godot/ayu_home/v4/home.gd": "559229bdc4439e65023bff25052a0951af4aa8463db0d50fb7db97a690e0a6e1",
+      "godot/ayu_home/v4/assets/v_h3.json": "c5b50f48cd965ea32d7f3f9370a28be226f11d750a705833ce404fcfb1ad842d",
+      "godot/ayu_home/v4/assets/institutions/mill-v2.png": "7f01c12f9b18a3c7587dc9f08bef13a745c6e1e2f010915c3733c135cb141758"
+    }
+  },
+  "facts": {
+    "art_size": [
+      508,
+      600
+    ],
+    "view_scale": 2,
+    "stone_mill_subject_region": [
+      188,
+      68,
+      155,
+      180
+    ],
+    "configured_spawn": [
+      254,
+      486
+    ],
+    "real_entry": "outside.approach=(254,518)，face=up；home.gd正常门转场先取approach+up*25=(254,493)，再nearest吸附；无arrival覆盖，不能把spawn当正常进门证据。",
+    "current_camera": "player-(0,65)，entry_camera_bias分支当前仅my_cabin启用。",
+    "phone_world_height_approx": 348
+  },
+  "conclusion": "只挪相机且保留现有门内落点，无法同时完整容纳石磨主体顶部与正常玩家：顶部约68到门内493相隔约425，超过该竖屏有效世界高度约348。原图能画出完整石磨，问题不是缺底图；横窗高度更紧，不能据手机算式宣称全窗可行。",
+  "boundary": "继续需同时处理门内到达点与小范围前视，并实走真实入口验证，不属只加镜头配置即可完成。本小波登记此限制，先蜂蜜，不改磨坊、不扩图、不缩小人物、不反复算细框。",
+  "next": "如C1后续选择此项，再用正常门口路线核到达点/可走空间及手机横窗；本记录不新增GUI派单。",
+  "stop_remaining_percent": 10
+}

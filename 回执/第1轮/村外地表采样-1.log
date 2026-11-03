@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+WARNING: Loaded resource as image file, this will not work on export: 'res://ayu_home/v4/assets/village/ground.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2780)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://../工具/texture_landscape.gd:5)
+LANDSCAPE_MATERIAL continuous mirrored world sampling: 350410 road + 2017732 grass pixels; source bounds and water preserved

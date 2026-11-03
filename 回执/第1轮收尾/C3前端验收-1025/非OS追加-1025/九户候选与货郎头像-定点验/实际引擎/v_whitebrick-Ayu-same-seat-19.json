@@ -1,0 +1,26 @@
+{
+  "actor": {
+    "action": "sit",
+    "face": "right",
+    "lift": 0.0,
+    "position": [
+      116.0,
+      278.0
+    ],
+    "screen": [
+      232.0,
+      586.0
+    ]
+  },
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+  "hour": 19.0,
+  "month": 10,
+  "name": "v_whitebrick-Ayu-same-seat-19",
+  "player_position": [
+    116.0,
+    278.0
+  ],
+  "room": "v_whitebrick",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

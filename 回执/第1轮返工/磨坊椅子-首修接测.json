@@ -1,0 +1,19 @@
+{
+  "item": "原3-磨坊独立椅子遮挡",
+  "attempt": 1,
+  "status": "已有底图像素增加独立AtlasTexture遮挡对象，6项预检通过；待C3正常坐下截图",
+  "change": "原mill-v2.png的[44,367,86,94]像素作为mill_tea_chair独立prop，放回[44,367]，脚点460；没有裁写或生成新图片。",
+  "same_original_seat": [
+    90,
+    415
+  ],
+  "actual_prop_covers": true,
+  "seat_lift": 47,
+  "preserved": "阿鱼家、原图片、碰撞、导航、门、座位/approach坐标、库存与原测试断言不变",
+  "evidence": [
+    "磨坊椅子-遮挡核对.json",
+    "磨坊椅子-遮挡核对.log",
+    "磨坊椅子-原生遮挡检查.gd"
+  ],
+  "pending": "C3同窗口实际坐下，与阿鱼家坐姿并排；预检不代替真实画面。"
+}

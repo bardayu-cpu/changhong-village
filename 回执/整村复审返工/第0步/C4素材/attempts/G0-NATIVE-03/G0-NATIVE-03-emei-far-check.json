@@ -1,0 +1,36 @@
+{
+  "id": "G0-NATIVE-03-emei-far",
+  "status": "author_check_failed",
+  "raw_file": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-raw.png",
+  "raw_size": [
+    1536,
+    1024
+  ],
+  "raw_sha256": "32c2ec909637ac7b4f74a2310d0d8aa9c8a34277c77150b1ff2768296134ac94",
+  "fixed_crop_file": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-fixed-crop.png",
+  "fixed_crop_region": [
+    0,
+    416,
+    1536,
+    192
+  ],
+  "fixed_crop_sha256": "15ae8114ada53b9fbae9f71a3c5bc5ce59870d754fe7c5d3440fee4f2cfb3e1f",
+  "alpha_bbox_full": [
+    0,
+    279,
+    1536,
+    1000
+  ],
+  "alpha_bbox_crop": [
+    0,
+    7,
+    1536,
+    192
+  ],
+  "nontransparent_pixels_outside_fixed_band": 4208,
+  "failures": [
+    "nontransparent sky/glow/ground exists outside preregistered fixed band",
+    "subject alpha bounds exceed fixed band",
+    "far layer includes a luminous atmospheric backdrop and multiple nearer ridge shapes instead of a clean isolated far-mountain RGBA silhouette"
+  ]
+}

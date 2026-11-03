@@ -1,0 +1,87 @@
+{
+  "checks": {
+    "compile_exit_code": 0,
+    "script_error": false,
+    "old_linen_feedback_count": 12,
+    "remaining_clothing_hotspots": [
+      {
+        "room": "laundry",
+        "spot": "towel",
+        "kind": "fold",
+        "effect": "fold"
+      },
+      {
+        "room": "closet1",
+        "spot": "hang",
+        "kind": "fold",
+        "effect": "fold"
+      },
+      {
+        "room": "closet1",
+        "spot": "tidy",
+        "kind": "tidy",
+        "effect": "fold"
+      },
+      {
+        "room": "bath1",
+        "spot": "towel",
+        "kind": "fold",
+        "effect": "fold"
+      },
+      {
+        "room": "guest_closet",
+        "spot": "coat",
+        "kind": "fold",
+        "effect": "fold"
+      },
+      {
+        "room": "guest_closet",
+        "spot": "basket",
+        "kind": "tidy",
+        "effect": "fold"
+      },
+      {
+        "room": "closet2",
+        "spot": "hanger",
+        "kind": "fold",
+        "effect": "fold"
+      },
+      {
+        "room": "closet2",
+        "spot": "clothes",
+        "kind": "fold",
+        "effect": "fold"
+      },
+      {
+        "room": "bath2",
+        "spot": "mat",
+        "kind": "fold",
+        "effect": "fold"
+      }
+    ],
+    "removed_wrong_feedback": [
+      {
+        "room": "workshop",
+        "spot": "tools",
+        "kind": "tidy",
+        "effect": "tools"
+      },
+      {
+        "room": "garage",
+        "spot": "shelf",
+        "kind": "tidy",
+        "effect": "tools"
+      },
+      {
+        "room": "guest_closet",
+        "spot": "bag",
+        "kind": "tidy",
+        "effect": "open"
+      }
+    ]
+  },
+  "production_path": "godot/ayu_home/v4/world.gd",
+  "sha256": "c4885fbc2e9513e20f5af4274f64ec12d1cdb62842c8666a6accbc26228f9344",
+  "scope": "仅收窄衣物色块的绘制条件；整理动作、工具反馈、开合反馈及保存数据不改。原五房/87测试不重跑；GUI交C3。",
+  "production_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b"
+}

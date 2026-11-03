@@ -1,0 +1,28 @@
+{
+  "OS_winter_real_input": "pass current production old layout only; raw native input trace retained",
+  "geometry": {
+    "checks": 199,
+    "passed": 199,
+    "routes": 31
+  },
+  "footprint": {
+    "samples": 72328,
+    "bad_samples": 0,
+    "checks": 37,
+    "passed": 37
+  },
+  "irrigation": {
+    "channels": 8,
+    "checks": 24,
+    "passed": 24,
+    "first_fixture_issue": "2 centreline probes outside clipped fragment; corrected to interior triangle centroid; original retained"
+  },
+  "visual": "actual four seasons reviewed; user visual approval pending",
+  "family": "12 approved sprite/action metadata SHA unchanged",
+  "active_production_modified": false,
+  "whole_game_pass": false,
+  "score": null,
+  "exit_warnings": "8RID/24ObjectDB cleanup warnings retained, not diagnosed",
+  "budget": "user replaced30 hard stop with20 commit/review line; no quota burning",
+  "old_archive": "235 of final v2 already archived; 2 v2-only docs copied here; old236 also includes obsolete v1 status; no missing PNG"
+}

@@ -1,0 +1,311 @@
+{
+  "npcs": [
+    {
+      "id": "linbo",
+      "name": "林伯",
+      "strip": "residents/closeout-1025/linbo.png",
+      "face": "talk-faces/linbo.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_h1",
+      "name": "蓝瓦人家主人",
+      "strip": "residents/closeout-1025/household_h1.png",
+      "face": "talk-faces/household_h1.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_h6",
+      "name": "花窗人家主人",
+      "strip": "residents/closeout-1025/household_h6.png",
+      "face": "talk-faces/household_h6.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_erba",
+      "name": "二爸",
+      "strip": "residents/closeout-1025/household_erba.png",
+      "face": "talk-faces/household_erba.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_whitebrick",
+      "name": "白砖小院主人",
+      "strip": "residents/closeout-1025/household_whitebrick.png",
+      "face": "talk-faces/household_whitebrick.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_grape",
+      "name": "葡萄架小院主人",
+      "strip": "residents/closeout-1025/household_grape.png",
+      "face": "talk-faces/household_grape.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_h7",
+      "name": "窄巷人家主人",
+      "strip": "residents/closeout-1025/household_h7.png",
+      "face": "talk-faces/household_h7.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_h8",
+      "name": "茶香小院主人",
+      "strip": "residents/closeout-1025/household_h8.png",
+      "face": "talk-faces/household_h8.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_rose",
+      "name": "玫瑰花之家主人",
+      "strip": "residents/closeout-1025/household_rose.png",
+      "face": "talk-faces/household_rose.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_h4",
+      "name": "田边平房主人",
+      "strip": "residents/closeout-1025/household_h4.png",
+      "face": "talk-faces/household_h4.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "kaikai",
+      "name": "凯凯",
+      "strip": "residents/closeout-1025/kaikai.png",
+      "face": "talk-faces/kaikai.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_daba",
+      "name": "大爸",
+      "strip": "residents/closeout-1025/household_daba.png",
+      "face": "talk-faces/household_daba.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "fang",
+      "name": "方婆婆",
+      "strip": "residents/closeout-1025/fang.png",
+      "face": "talk-faces/fang.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_sunflower",
+      "name": "向日葵之家主人",
+      "strip": "residents/closeout-1025/household_sunflower.png",
+      "face": "talk-faces/household_sunflower.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_persimmon",
+      "name": "柿树老院主人",
+      "strip": "residents/closeout-1025/household_persimmon.png",
+      "face": "talk-faces/household_persimmon.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "xiaotao",
+      "name": "小涛",
+      "strip": "residents/closeout-1025/xiaotao.png",
+      "face": "talk-faces/xiaotao.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "market",
+      "name": "货郎",
+      "strip": "residents/closeout-1025/market.png",
+      "face": "talk-faces/market.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    },
+    {
+      "id": "household_flower",
+      "name": "花房小楼主人",
+      "strip": "residents/closeout-1025/household_flower.png",
+      "face": "talk-faces/household_flower.png",
+      "strip_size": [
+        1280,
+        84
+      ],
+      "face_size": [
+        112,
+        129
+      ],
+      "status": "ready_for_c3_visual_review",
+      "mechanical_audit": "20_nonempty_frames_64x84_and_face_112x129"
+    }
+  ],
+  "rooms": {
+    "fang": "my_cabin",
+    "household_daba": "v_daba",
+    "household_erba": "v_erba",
+    "household_flower": "v_flower",
+    "household_grape": "v_grape",
+    "household_h1": "v_h1",
+    "xiaotao": "v_h3",
+    "household_h4": "v_h4",
+    "kaikai": "v_h5",
+    "household_h6": "v_h6",
+    "household_h7": "v_h7",
+    "household_h8": "v_h8",
+    "linbo": "v_mayor",
+    "household_persimmon": "v_persimmon",
+    "household_rose": "v_rose",
+    "household_sunflower": "v_sunflower",
+    "household_whitebrick": "v_whitebrick"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "version": "1025-rice-seasons-c4",
+  "tile_size": [
+    256,
+    256
+  ],
+  "format": "opaque_png",
+  "stable_for_c2_byte_copy": true,
+  "visual_status": "pending_c3_tile_review",
+  "assets": [
+    {
+      "id": "rice-spring",
+      "file": "rice-spring.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-2d2ad650-7b52-4cc9-bc06-1988bd279e2c.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        256,
+        256
+      ],
+      "alpha": false,
+      "edge_mean_abs_delta": {
+        "left_right": 23.5,
+        "top_bottom": 21.03
+      }
+    },
+    {
+      "id": "rice-summer",
+      "file": "rice-summer.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-1725daf3-84c5-44aa-8752-68c3c530492f.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        256,
+        256
+      ],
+      "alpha": false,
+      "edge_mean_abs_delta": {
+        "left_right": 18.74,
+        "top_bottom": 25.09
+      }
+    },
+    {
+      "id": "rice-autumn",
+      "file": "rice-autumn.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-2c3afe40-0809-4cca-b935-1989c81dc915.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        256,
+        256
+      ],
+      "alpha": false,
+      "edge_mean_abs_delta": {
+        "left_right": 25.0,
+        "top_bottom": 25.55
+      }
+    },
+    {
+      "id": "rice-winter",
+      "file": "rice-winter.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-e7077040-ae91-4069-aedd-acb2aec304af.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        256,
+        256
+      ],
+      "alpha": false,
+      "edge_mean_abs_delta": {
+        "left_right": 17.26,
+        "top_bottom": 19.55
+      }
+    }
+  ]
+}

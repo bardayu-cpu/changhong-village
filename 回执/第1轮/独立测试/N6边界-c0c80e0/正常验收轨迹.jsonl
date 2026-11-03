@@ -1,0 +1,19 @@
+{"action":"idle","active":{},"area":"my_yard","at":1791931776.82115,"coins":6.0,"effects":{"community":{"completed":1.0},"my_cabin":{"read":1.0,"table":1.0,"tidy":1.0,"weave":1.0},"v_h3":{"sift":2.0},"v_h5":{"bottle":1.0,"filter":1.0,"tea":1.0,"wash":1.0},"v_mayor":{"bundle":1.0,"counter":1.0,"notice":1.0,"register":1.0}},"fps":1.0,"game":{},"hour":13.0,"items":{"apple":2.0,"apple_seed":2.0,"aster":3.0,"aster_seed":6.0,"bamboo":4.0,"carrot":3.0,"carrot_seed":6.0,"chrysanthemum":3.0,"chrysanthemum_seed":6.0,"cosmos":3.0,"cosmos_seed":6.0,"grain":4.0,"grain_seed":3.0,"meal":1.0,"parcel":0.0,"pepper":2.0,"pepper_seed":3.0,"pumpkin":3.0,"pumpkin_seed":6.0,"radish":1234567890.0,"radish_seed":6.0,"stone":0.0,"tool":2.0,"这是一件用于隔离边界验收的超长中文物品名称需要能够完整阅读并且不会推开返回按钮和固定详情区":1234567890.0},"lift":0.0,"page":"world","position":[530.0,614.0],"resident":{},"type":"state"}
+{"at":1791931819.28973,"event":"Left Mouse Button","position":[282.0,729.0],"pressed":true,"type":"native_input"}
+{"at":1791931819.33781,"event":"Left Mouse Button","position":[282.0,729.0],"pressed":false,"type":"native_input"}
+{"action":"idle","active":{},"area":"my_yard","at":1791931819.47131,"coins":6.0,"effects":{"community":{"completed":1.0},"my_cabin":{"read":1.0,"table":1.0,"tidy":1.0,"weave":1.0},"v_h3":{"sift":2.0},"v_h5":{"bottle":1.0,"filter":1.0,"tea":1.0,"wash":1.0},"v_mayor":{"bundle":1.0,"counter":1.0,"notice":1.0,"register":1.0}},"fps":120.0,"game":{},"hour":13.0,"items":{"apple":2.0,"apple_seed":2.0,"aster":3.0,"aster_seed":6.0,"bamboo":4.0,"carrot":3.0,"carrot_seed":6.0,"chrysanthemum":3.0,"chrysanthemum_seed":6.0,"cosmos":3.0,"cosmos_seed":6.0,"grain":4.0,"grain_seed":3.0,"meal":1.0,"parcel":0.0,"pepper":2.0,"pepper_seed":3.0,"pumpkin":3.0,"pumpkin_seed":6.0,"radish":1234567890.0,"radish_seed":6.0,"stone":0.0,"tool":2.0,"这是一件用于隔离边界验收的超长中文物品名称需要能够完整阅读并且不会推开返回按钮和固定详情区":1234567890.0},"lift":0.0,"page":"篮子","position":[530.0,614.0],"resident":{},"type":"state"}
+{"at":1791931856.54252,"event":"Left Mouse Button","position":[172.0,530.0],"pressed":true,"type":"native_input"}
+{"at":1791931856.54306,"event":"Left Mouse Button","position":[172.0,258.0],"pressed":false,"type":"native_input"}
+{"at":1791931911.67155,"event":"Mouse Wheel Down","position":[324.0,531.0],"pressed":true,"type":"native_input"}
+{"at":1791931911.67263,"event":"Mouse Wheel Down","position":[324.0,531.0],"pressed":false,"type":"native_input"}
+{"at":1791931936.25525,"event":"Left Mouse Button","position":[65.0,616.0],"pressed":true,"type":"native_input"}
+{"at":1791931936.30505,"event":"Left Mouse Button","position":[65.0,616.0],"pressed":false,"type":"native_input"}
+{"at":1791931990.93853,"event":"Mouse Wheel Down","position":[290.0,703.0],"pressed":true,"type":"native_input"}
+{"at":1791931990.93946,"event":"Mouse Wheel Down","position":[290.0,703.0],"pressed":false,"type":"native_input"}
+{"at":1791932020.39186,"event":"Left Mouse Button","position":[171.0,432.0],"pressed":true,"type":"native_input"}
+{"at":1791932020.3924,"event":"Left Mouse Button","position":[175.0,436.0],"pressed":false,"type":"native_input"}
+{"at":1791932047.57461,"event":"Left Mouse Button","position":[64.0,291.0],"pressed":true,"type":"native_input"}
+{"at":1791932047.57508,"event":"Left Mouse Button","position":[64.0,341.0],"pressed":false,"type":"native_input"}
+{"at":1791932100.05563,"event":"Left Mouse Button","position":[64.0,596.0],"pressed":true,"type":"native_input"}
+{"at":1791932100.10553,"event":"Left Mouse Button","position":[64.0,596.0],"pressed":false,"type":"native_input"}
+{"area":"my_yard","at":1791932190.16133,"type":"window_close_requested"}

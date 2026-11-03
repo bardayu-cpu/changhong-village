@@ -1,0 +1,73 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS isolated state opens
+PASS all positive real inventory keys listed
+PASS ordinary food has no invented action
+PASS basket alone matches final window (540, 960)
+PASS columns from final usable width (540, 960)
+PASS no page overflow (540, 960)
+SCRIPT ERROR: Invalid call. Nonexistent function 'to_local' in base 'Control (inventory_view.gd)'.
+   at: inspect_layout (res://../工具/test_basket_v2.gd:34)
+   GDScript backtrace (most recent call first):
+       [0] inspect_layout (res://../工具/test_basket_v2.gd:34)
+       [1] settle (res://../工具/test_basket_v2.gd:22)
+PASS basket alone matches final window (540, 1200)
+PASS columns from final usable width (540, 1200)
+PASS no page overflow (540, 1200)
+SCRIPT ERROR: Invalid call. Nonexistent function 'to_local' in base 'Control (inventory_view.gd)'.
+   at: inspect_layout (res://../工具/test_basket_v2.gd:34)
+   GDScript backtrace (most recent call first):
+       [0] inspect_layout (res://../工具/test_basket_v2.gd:34)
+       [1] settle (res://../工具/test_basket_v2.gd:22)
+PASS basket alone matches final window (360, 800)
+PASS columns from final usable width (360, 800)
+PASS no page overflow (360, 800)
+SCRIPT ERROR: Invalid call. Nonexistent function 'to_local' in base 'Control (inventory_view.gd)'.
+   at: inspect_layout (res://../工具/test_basket_v2.gd:34)
+   GDScript backtrace (most recent call first):
+       [0] inspect_layout (res://../工具/test_basket_v2.gd:34)
+       [1] settle (res://../工具/test_basket_v2.gd:22)
+PASS basket alone matches final window (320, 720)
+PASS columns from final usable width (320, 720)
+PASS no page overflow (320, 720)
+SCRIPT ERROR: Invalid call. Nonexistent function 'to_local' in base 'Control (inventory_view.gd)'.
+   at: inspect_layout (res://../工具/test_basket_v2.gd:34)
+   GDScript backtrace (most recent call first):
+       [0] inspect_layout (res://../工具/test_basket_v2.gd:34)
+       [1] settle (res://../工具/test_basket_v2.gd:22)
+PASS selection never consumes
+PASS context action available
+PASS animal parcel consumes exactly one, no coins
+PASS action preserves valid selection and scroll
+PASS action restores card focus
+PASS context action available
+PASS seed command uses selected crop and real price
+PASS twelve plans plus virtual box; default first furniture
+PASS context action available
+PASS craft consumes exact materials and adds one furniture
+PASS unknown blueprint disabled
+PASS context action available
+PASS box command charges original price only on button
+PASS virtual service never becomes inventory or blueprint
+PASS box disabled when funds insufficient
+PASS learned blueprint with missing materials disabled
+PASS group restores selection and insufficient seed funds disabled
+PASS unknown long saved key retained and exact quantity available
+PASS basket alone matches final window (360, 800)
+PASS columns from final usable width (360, 800)
+PASS no page overflow (360, 800)
+SCRIPT ERROR: Invalid call. Nonexistent function 'to_local' in base 'Control (inventory_view.gd)'.
+   at: inspect_layout (res://../工具/test_basket_v2.gd:34)
+   GDScript backtrace (most recent call first):
+       [0] inspect_layout (res://../工具/test_basket_v2.gd:34)
+       [1] settle (res://../工具/test_basket_v2.gd:22)
+PASS drag gesture cannot select another card
+PASS tap selects without consuming
+PASS closing returns focus to basket launcher
+PASS reopen restores valid selected item
+PASS empty inventory has no fake cards or empty action row
+PASS zero seed counts still visible
+PASS empty inventory retains plan/service group
+BASKET_V2 PASS 43 checks []

@@ -1,0 +1,165 @@
+{
+  "scope": "new supplemental evidence only; old archives untouched",
+  "files": [
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/case1-geometry.json",
+      "bytes": 45349,
+      "sha256": "468a511d386adef9b0b7047de7c873197ac77672e513c5ee197d72bb79e3eff8"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/case1-最后实拍.png",
+      "bytes": 482780,
+      "sha256": "dd322c8c8e7732bc513730917eece3a033bc00e08a7941440c92c56bf208f897"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/case2-geometry.json",
+      "bytes": 45349,
+      "sha256": "04c1327ac5261e165915fd91b9cdee5c8220e792c4f44e03c8d1e99fee0a9955"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/case2-最后实拍.png",
+      "bytes": 485037,
+      "sha256": "1a8b85861f189602cb54af542ccc66412ba9c7d545ce6d5fcbba66d2292418bf"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/trace.json",
+      "bytes": 572530,
+      "sha256": "ff620947c6842590bd8713f896198b107c70323596606bac198fcbe7fc079e57"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/独立结论.json",
+      "bytes": 3552,
+      "sha256": "b50ccc82472d8bef878a3dd7ce5069905fabc0a519c6d9b35e9909ee73ff2794"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/旧归档v2差异核对.json",
+      "bytes": 171,
+      "sha256": "f7c32ea1028973488ea3119d887874065ea5c46069d8314ef50582ff3010a36a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/来源.json",
+      "bytes": 956,
+      "sha256": "706b55aa2127f8dffb5a20ae589773089afda68bb86dae49cad4f5314cfbabd0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/Ayu-13.png",
+      "bytes": 107077,
+      "sha256": "47d93383fc862397efbd1a0a866deb1f7a32bf5f362b35eae7588e364839f75f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-main-lane-13-左候选右Ayu13时.png",
+      "bytes": 345294,
+      "sha256": "e4bd27514b7ab957788e7f95d762189e1cb647862966ecdf9146f36e9994e8f6"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-main-lane-13.png",
+      "bytes": 258532,
+      "sha256": "3526db5167aeac670a59a880e7fac23b169b576336de389625c50995af70f0b9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-map-13-左候选右Ayu13时.png",
+      "bytes": 605013,
+      "sha256": "8a5917b5a4ffd58355aedc9fc19e300dba3cf376d1ce0005d457783115249128"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-map-13.png",
+      "bytes": 536737,
+      "sha256": "1c90b09752a97b1278142444298b43a6016fa478a1089147a974ae0d73b02f33"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-south-lane-13-左候选右Ayu13时.png",
+      "bytes": 250281,
+      "sha256": "885a1dc84d0fa8e17425e612034926ff2460d613bf9b52945ba0040c08057c0b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-south-lane-13.png",
+      "bytes": 159451,
+      "sha256": "d41ef870809c230422f42a77bf7d3af4be3725cc9828529d697744e47c40467d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/四季-10-左候选右Ayu同月13时.png",
+      "bytes": 342305,
+      "sha256": "4b13576a49b642f7b4c0f3742423a409a552f5e8e30127b584769541df733238"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/四季-12-左候选右Ayu同月13时.png",
+      "bytes": 284555,
+      "sha256": "a3bc01a45e66bdb4b0edd2c0222f9037b2c4828abf9f57f750d821fc1eb4867d"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/四季-4-左候选右Ayu同月13时.png",
+      "bytes": 331262,
+      "sha256": "35a628760da105d122991c6fa0bc38002b334089b79290ba3313c9e377082e69"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/四季-7-左候选右Ayu同月13时.png",
+      "bytes": 345307,
+      "sha256": "92e6cdc28e28fbe4ba48623ecd3c4b34073b9fc350ab4e488a42d836b734a01a"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/左旧荧光色石路-右自然色泥路-同坐标13时.png",
+      "bytes": 718569,
+      "sha256": "6990bf52cc5a3a257ea7aca05bbfbc11ec55b25a98a541556ac088238965eaf2"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/续验最终结论.json",
+      "bytes": 1018,
+      "sha256": "3482bd7b347c2923ccdcd3cbe938d28f14d45d267bb7fb095394dd3d9d05424b"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/audit_irrigation.gd",
+      "bytes": 2339,
+      "sha256": "b07e4d01450c3aa873d33c7a9f33e362e754f3f14a285496e28067fd3ee795f4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/footprint_audit.gd",
+      "bytes": 5326,
+      "sha256": "35a8fa641426bfe24cf9f29d9914b33e6faf06e6ea22cb100d7bf74f8a9fbac5"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/independent_geometry_v3.gd",
+      "bytes": 9056,
+      "sha256": "8e3b8f72de39854049102767e81453153a0df9e1448968ea38972934847fdcd0"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/result.json",
+      "bytes": 456586,
+      "sha256": "89bfcb538c05ae45a0f3ea332734c6538845d6e9f66064735f31f77b338e7af4"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/图集来源.json",
+      "bytes": 861,
+      "sha256": "20ed4ea94c8ec2cdbb7ebeaba07b8428ecdf26bbc70f8926da258b82ab050f1f"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/水渠独立检查.json",
+      "bytes": 2938,
+      "sha256": "f60146d7ed93fae1577c67488ecb015a3c079297c16174cbf206d8828c00c531"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/脚印补充结果.json",
+      "bytes": 10526,
+      "sha256": "00c0f1119af1048844b1777a8453bd283de9820f9c5097c93e33a6ccc06b7be9"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/首次水渠中心线夹具.json",
+      "bytes": 3144,
+      "sha256": "b813494cd177dae1234cc3ea601740b471670484a4d00364ef1ffcacc6900981"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/补齐旧清单v2/最终归档读取顺序-v2.md",
+      "bytes": 965,
+      "sha256": "a185a7435be5a957f6d22ec64cfec785718c132df8c129a3678b208eda11de90"
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/补齐旧清单v2/本批逐项状态-给C2-v2.json",
+      "bytes": 7639,
+      "sha256": "b76b8ed6cd3dac83c400929e75c8edaf742e3e8c58b84b5fe6c63a63e5317699"
+    }
+  ]
+}

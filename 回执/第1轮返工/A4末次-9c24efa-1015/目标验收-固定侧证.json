@@ -1,0 +1,839 @@
+{
+  "commit": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "status": "现有证据固定封存；GUI暂停等待交回，缺横窗阿鱼真实进门参照，A4最终对照欠验",
+  "criteria_correction": {
+    "from": "C1后续纠正原派单扩大要求",
+    "original": "室内镜头：进门第一眼看到整间屋子的主体，参照阿鱼家客厅首屏",
+    "withdrawn": "撤回仅因四功能区未同时完整入镜而判失败；不是放宽任务书原要求，不自动改判通过",
+    "raw_name_note": "手机首屏原始文件名含四区不全，仅为当时可见性观察，不能作最终失败理由"
+  },
+  "phone_pair": "回执/第1轮返工/图/A4末次-9c24efa-手机真实首屏-左活动右阿鱼-13时.png",
+  "phone_target": {
+    "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-009-手机-活动真实进门首屏13时-四区不全.png",
+    "metadata_sha256": "6b7e489c4d4d59230fe0c441468d4585e16a6eca3b368dce9f41b5c9ae6afc5b",
+    "state": {
+      "at": 1792069687.6794,
+      "area": "my_cabin",
+      "position": [
+        346.0,
+        414.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "effects": {
+        "my_cabin": {
+          "weave": 1.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {}
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ],
+    "visible_text": [
+      "方婆婆",
+      "裳泓村 · 村民活动中心",
+      "13:00",
+      "秋",
+      "0/3",
+      "小事 0/3",
+      "摆好共桌碗碟",
+      "走近东西，点气泡就能做事",
+      "日常",
+      "村庄地图",
+      "随身篮子"
+    ]
+  },
+  "phone_reference": {
+    "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-005-手机-阿鱼真实进门首屏13时.png",
+    "metadata_sha256": "6279e96d43d23e40785fd0f1e6c8fa696c62f4639967ba685fc43a99ac14b516",
+    "state": {
+      "at": 1792069523.67697,
+      "area": "living",
+      "position": [
+        330.0,
+        418.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "effects": {
+        "my_cabin": {
+          "weave": 1.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {}
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ],
+    "visible_text": [
+      "裳泓村 · 客厅",
+      "13:00",
+      "秋",
+      "0/3",
+      "小事 0/3",
+      "去门前院子",
+      "走近东西，点气泡就能做事",
+      "日常",
+      "村庄地图",
+      "随身篮子"
+    ]
+  },
+  "wide_entry": {
+    "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-014-横窗-活动真实进门首屏13时.png",
+    "metadata_sha256": "5ecdc1f37ea3c27f89e3e92b6d8bd071953acdc01d6b88023d665016e0452c1e",
+    "state": {
+      "at": 1792069907.87624,
+      "area": "my_cabin",
+      "position": [
+        346.0,
+        414.0
+      ],
+      "action": "idle",
+      "lift": 0.0,
+      "hour": 13.0,
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        2766,
+        1676
+      ],
+      "effects": {
+        "my_cabin": {
+          "weave": 1.0
+        },
+        "v_h3": {
+          "sift": 1.0
+        },
+        "v_h5": {
+          "wash": 1.0
+        },
+        "v_mayor": {
+          "register": 1.0
+        }
+      },
+      "game": {}
+    },
+    "world_scale": [
+      2.0,
+      2.0
+    ],
+    "visible_text": [
+      "方婆婆",
+      "裳泓村 · 村民活动中心",
+      "13:00",
+      "秋",
+      "0/3",
+      "小事 0/3",
+      "摆好共桌碗碟",
+      "走近东西，点气泡就能做事",
+      "日常",
+      "村庄地图",
+      "随身篮子"
+    ]
+  },
+  "functional": {
+    "横窗-摆碗实点后-四份透明餐食替换": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-017-横窗-摆碗实点后-四份透明餐食替换.png",
+      "metadata_sha256": "132f8bf57a38f060d012c97df417c085c7ffe5534cc656272671cb3976b75758",
+      "state": {
+        "at": 1792069977.55949,
+        "area": "my_cabin",
+        "position": [
+          374.0,
+          350.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "my_cabin": {
+            "table": 1,
+            "weave": 1.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "摆好共桌碗碟",
+        "每个座位都摆好碗了，等大家来坐。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "功能-棋球整理真实点击后": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-020-功能-棋球整理真实点击后.png",
+      "metadata_sha256": "f5b851dd03a76db28ae74b559a940af4f74b657c5c9c1efa4403ca1214c7f1ca",
+      "state": {
+        "at": 1792070125.70147,
+        "area": "my_cabin",
+        "position": [
+          403.0,
+          312.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "my_cabin": {
+            "table": 1,
+            "tidy": 1,
+            "weave": 1.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "收好棋盒和球",
+        "球归球篮，棋盒收进格子，走道空出来了。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "功能-新工作台编席点击后": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-022-功能-新工作台编席点击后.png",
+      "metadata_sha256": "227ae1771dd0453fa05880eb743c35a88b4755d307ecde24dd8956bc86ca92c6",
+      "state": {
+        "at": 1792070202.47479,
+        "area": "my_cabin",
+        "position": [
+          334.5,
+          206.4
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "my_cabin": {
+            "table": 1,
+            "tidy": 1,
+            "weave": 2
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "编一片竹席",
+        "横一条，竖一条，竹片编成一小块。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "功能-备餐三步完成并正常收菜": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-024-功能-备餐三步完成并正常收菜.png",
+      "metadata_sha256": "e1a2d047ca65773ba00181ec6f05c7fa05f450a6091f596128deb6f6786725a8",
+      "state": {
+        "at": 1792070456.50674,
+        "area": "my_cabin",
+        "position": [
+          130.0,
+          206.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "community": {
+            "completed": 1
+          },
+          "my_cabin": {
+            "table": 1,
+            "tidy": 1,
+            "weave": 2
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {
+          "finished": true,
+          "message": "收好了：海椒拌楼卜×1，已放进同一个篮子",
+          "progress": 3,
+          "run": "1"
+        }
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "张罗共桌",
+        "收好了：海椒拌楼卜×1，已放进同一个篮子",
+        "做好了",
+        "做好了",
+        "做好了",
+        "回屋里"
+      ]
+    },
+    "横窗-茶角实际坐下最终帧": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-026-横窗-茶角实际坐下最终帧.png",
+      "metadata_sha256": "9becfda6bb04259f9bcfd9501bf87c56c58bb6fd707beb65824ef879cdea479a",
+      "state": {
+        "at": 1792070668.70841,
+        "area": "my_cabin",
+        "position": [
+          58.0,
+          458.0
+        ],
+        "action": "sit",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "community": {
+            "completed": 1
+          },
+          "my_cabin": {
+            "table": 1,
+            "tidy": 1,
+            "weave": 2
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "起身",
+        "横一条，竖一条，竹片编成一小块。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "功能-故事册真实点击翻到第二页": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-028-功能-故事册真实点击翻到第二页.png",
+      "metadata_sha256": "7ba65f835dc1d8014696059541fd1911d811c64b4ca569dff19b01aae5671e16",
+      "state": {
+        "at": 1792070805.62481,
+        "area": "my_cabin",
+        "position": [
+          208.8,
+          449.6
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "community": {
+            "completed": 1
+          },
+          "my_cabin": {
+            "read": 1,
+            "table": 1,
+            "tidy": 1,
+            "weave": 2
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "翻开图画，听方婆婆讲共桌的故事。",
+        "日常",
+        "村庄地图",
+        "随身篮子",
+        "方婆婆的共桌故事",
+        "收起",
+        "第二回 · 夏天\n青菜和海椒洗净了，长桌摆上碗，谁路过都可以坐下吃一口。",
+        "翻到下一页",
+        "合上故事册"
+      ]
+    },
+    "手机-活动真实门外13时-出口可返": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-012-手机-活动真实门外13时-出口可返.png",
+      "metadata_sha256": "4a9c38384160a7360a03a1d5a6cac7e41e84547eab0f6dde70469887381b39ee",
+      "state": {
+        "at": 1792069786.14099,
+        "area": "village",
+        "position": [
+          1288.0,
+          3784.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "effects": {
+          "my_cabin": {
+            "weave": 1.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "货郎",
+        "裳泓村 · 裳泓村",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "到村民活动中心",
+        "走近东西，点气泡就能做事",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "横窗-共桌右边按左受阻": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-018-横窗-共桌右边按左受阻.png",
+      "metadata_sha256": "f597e3d90c1627f6ff0f087bc050e6b1ff0f8869b0ede6a8012f42addbef477b",
+      "state": {
+        "at": 1792070027.74354,
+        "area": "my_cabin",
+        "position": [
+          360.0,
+          293.7
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "my_cabin": {
+            "table": 1,
+            "weave": 1.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "每个座位都摆好碗了，等大家来坐。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "功能-右侧收纳柜按右受阻": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-029-功能-右侧收纳柜按右受阻.png",
+      "metadata_sha256": "284a806d970a25802d463831072796692796be73f126414f78c6f0e29549cf4b",
+      "state": {
+        "at": 1792070878.37352,
+        "area": "my_cabin",
+        "position": [
+          427.0,
+          327.4
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "community": {
+            "completed": 1
+          },
+          "my_cabin": {
+            "read": 1,
+            "table": 1,
+            "tidy": 1,
+            "weave": 2
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "收好棋盒和球",
+        "翻开图画，听方婆婆讲共桌的故事。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "功能-工作台正面按上受阻": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-030-功能-工作台正面按上受阻.png",
+      "metadata_sha256": "c3d78de8970ed57976b3cfc7689f7bc0d78cc8396306f9d3b3d4224e72025583",
+      "state": {
+        "at": 1792070960.96468,
+        "area": "my_cabin",
+        "position": [
+          335.0,
+          172.7
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          2766,
+          1676
+        ],
+        "effects": {
+          "community": {
+            "completed": 1
+          },
+          "my_cabin": {
+            "read": 1,
+            "table": 1,
+            "tidy": 1,
+            "weave": 2
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "编一片竹席",
+        "翻开图画，听方婆婆讲共桌的故事。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    "手机-从新落点走回门内通道": {
+      "raw_local": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-010-手机-从新落点走回门内通道.png",
+      "metadata_sha256": "2e5ac74d403507739344b999cc76eac54f3b64c85880430d2777d3e27b36881e",
+      "state": {
+        "at": 1792069740.70014,
+        "area": "my_cabin",
+        "position": [
+          346.0,
+          496.2
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 13.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "effects": {
+          "my_cabin": {
+            "weave": 1.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 1.0
+          }
+        },
+        "game": {}
+      },
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visible_text": [
+        "方婆婆",
+        "裳泓村 · 村民活动中心",
+        "13:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "回到村路",
+        "走近东西，点气泡就能做事",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    }
+  },
+  "interference": {
+    "pressed_extra_click_at": 1792071186.05813,
+    "root_position": [
+      259,
+      650
+    ],
+    "effect": "角色从院门移动至车库前；计划Right210/Up1750在CUA保护中被拒，未发出",
+    "awaiting_human_exclusive_control": true
+  },
+  "criteria_review": {
+    "phone_subject": "按原任务书重评：正常进门后完整共桌、前后座凳和正常人物在画面内，活动中心身份可辨，主体首屏要求局部达到；不因四区未全判失败",
+    "phone_art": "已与同版阿鱼手机真实进门首屏目视；本帧未见可据以独立判失败的明显劣化。此结论不代替阿鱼最终画面判断",
+    "wide_subject": "真实门外点击进入后完整共桌、人物、备餐/阅读/手作/收纳部分实物可见，主体可读",
+    "wide_comparison": "欠同版同窗阿鱼真实进门首屏，未宣称已完成并排或A4最终通过",
+    "functional": "6室内热点+出口均真实输入验证；只此布局变更范围，非全旧屋或全部互动回归",
+    "collision": "共桌右边按左止于x360；收纳柜按右止于x427；工作台按上止于y172.7，均与新障碍边界相符；各区正常绕行可达。未穷举每个家具像素",
+    "known_art_limits": "备餐小游戏完成图仍是几何占位；故事册面板也是现有几何插图；整理无专用前后态。功能成立不冒称这些美术达到阿鱼标准"
+  },
+  "delivery": {
+    "new_png_count": 3,
+    "art_pair_count": 1,
+    "unpaired_wide_and_functional_raw": "保留本地过程目录，不作为完整美术送审图入稳定清单",
+    "github": "按稳定清单交C2归档；本批未由C3执行Git提交或推送，不能宣称新证据已上GitHub",
+    "no_fourth_art_attempt": true,
+    "firstday_repeated": false,
+    "true_touch_and_listening": "接口缺失仍欠验",
+    "usage_remaining_percent": 55
+  },
+  "startup": {
+    "preparation": "首次资源准备中提前启动的进程已中止，不计正式验收；随后确认Assets直接解码PNG，停止多余全量导入，用原始资源正常启动",
+    "formal_engine_session": 59300,
+    "current_state": "游戏进程保留打开，未抢回前台、未正常退出声明"
+  }
+}

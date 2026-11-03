@@ -1,0 +1,15 @@
+{
+  "commit": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "scope": "仅A4第三次末次样板；不重跑首日，不补全旧室覆盖",
+  "files": {
+    "godot/ayu_home/v4/assets/my_cabin.json": "1e33ceb5805b564bac75f52720c48ee5e6eedc41c5f403f90b5637f62c8bae6e",
+    "godot/ayu_home/v4/assets/rooms.json": "48f9cb772804487e0e9fbdf8cdeab8f9a1e607382c4caa9dd9ebcbe4125d4b9b",
+    "godot/ayu_home/v4/assets/institutions/community-a4-v3.png": "1c7d1fa897eac465b058e517b0515d1bf4cad5d536d7b614d2c6669b80d0ec59",
+    "godot/ayu_home/v4/home.gd": "8d6e36bcc3069d9fab963fb32d68905ae104851e9e1d19f7f27ecc327e8a67be",
+    "godot/ayu_home/v4/core/institution_room.gd": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26",
+    "godot/ayu_home/v4/actor.gd": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a"
+  },
+  "save": "正常关闭830后复制隔离档，不注入位置/物资/进度；原首日不变",
+  "observer": "复用原观察器，只换独立路径/图片前缀，启动视觉13时10月晴",
+  "published_ancestor_check_exit": 0
+}

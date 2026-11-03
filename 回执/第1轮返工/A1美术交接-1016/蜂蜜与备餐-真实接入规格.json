@@ -1,0 +1,132 @@
+{
+  "time": "2026-10-16T16:55:03.397621+08:00",
+  "source": {
+    "production": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+    "file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot/ayu_home/v4/core/institution_game.gd",
+    "sha256": "ff3933b42fba748e2d573547e6577e0a032e224111308a451b145aaae03eca74"
+  },
+  "order": "C4先只画A02蜂蜜；C2接入、定向检查、提交，C3独测过后再启动A03。道路仍停；最新剩10%停止。",
+  "A02": {
+    "coordinate_space": "HoneyBoard局部坐标，w为board宽；现有540宽窗口时w=492。以下尺寸都是最终显示像素。",
+    "body": {
+      "canvas": [
+        84,
+        78
+      ],
+      "origin": [
+        "w/2-42",
+        280
+      ],
+      "content": "新画独立透明蜜罐：正面略俯视、清楚口沿/玻璃轮廓/底座，内部透明，保留少量高光；不把空罐腹画成遮住蜂蜜的实色板。"
+    },
+    "full_honey": {
+      "canvas": [
+        66,
+        59
+      ],
+      "full_origin_relative_to_body": [
+        9,
+        9
+      ],
+      "bottom_relative_to_body": 68,
+      "content": "单独满蜜层，金色像素明暗，边缘与罐腹吻合，外侧透明；从底部向上显示原图区域，禁止把整张蜜液纵向压扁。"
+    },
+    "cap": {
+      "canvas": [
+        90,
+        10
+      ],
+      "origin_relative_to_body": [
+        -3,
+        -3
+      ],
+      "content": "单独红棕蜡封/盖口，底层透明，跨罐口正确对齐。"
+    },
+    "draw_order": [
+      "裁取满蜜层底部相应高度",
+      "透明罐体覆盖其上",
+      "finished=true时叠封口"
+    ],
+    "states": [
+      "progress0：空罐，开始前与开始后都显示罐体",
+      "progress1..5：显示满蜜层底部progress/6，现有落蜜小粒子保留",
+      "progress6且finished=false：满罐未封口，等待原封好这瓶蜜按钮",
+      "正常institution_complete成功，finished=true：满罐加封口"
+    ],
+    "delivery": "三张独立透明PNG，建议分别body/fill/cap；精确画布如上，若生成工具需要整数倍源图，请标明倍率和统一锚点。原稿与失败稿保留，不程序画素材；无白底、棋盘格烘焙、柔光晕或黄色脏边。",
+    "unchanged": "六格顺序[0,3,1,4,2,5]、按钮/进度条、每日限制、正常收取蜂蜜1和退出逻辑。"
+  },
+  "A03_queued": {
+    "coordinate_space": "CommunityBoard中心c=(w/2,140)，仅替换progress0/1/2原料；桌面、按钮与progress3现有meal-14不改。",
+    "delivery": "稍后获C1顺序确认再画3张透明阶段PNG，共用264x120画布，显示原点c+(-144,-54)；只画盆/食材/小砧板等物件，背景透明，不含桌子、字、按钮或UI。",
+    "placement": {
+      "left_basin_rect_relative_c": [
+        -140,
+        -50,
+        125,
+        110
+      ],
+      "right_whole_peppers_region_relative_c": [
+        31,
+        -32,
+        79,
+        79
+      ],
+      "right_diced_peppers_region_relative_c": [
+        22,
+        -20,
+        82,
+        49
+      ]
+    },
+    "stages": [
+      {
+        "progress": 0,
+        "objects": "左：盛3根带少量泥的白楼卜、绿叶的浅盆；右：3只完整红海椒、绿蒂；下一步洗楼卜。"
+      },
+      {
+        "progress": 1,
+        "objects": "左：浅水盆里洗净的白楼卜、绿叶；右：仍为完整红海椒。现有小水点另绘在盆内，不烘焙到背景；下一步切海椒。"
+      },
+      {
+        "progress": 2,
+        "objects": "左：洗净沥水楼卜；右：小砧板上的红海椒丁，可有小刀但不伸入按钮区；下一步拌匀。"
+      }
+    ],
+    "state_boundary": "摆出食材后仍progress0；依次洗→切→拌共3步。progress3沿用现有成品菜盘，正常端好后才扣radish1/pepper1并产meal1；不提前改库存/奖励。"
+  },
+  "pixel_references": [
+    {
+      "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot/ayu_home/v4/assets/craft/honey_rack.png",
+      "size": [
+        92,
+        96
+      ],
+      "use": "仅参考罐子暖金/深棕像素簇，不裁现有架子"
+    },
+    {
+      "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot/ayu_home/v4/assets/floor1-redraw/meal-14.png",
+      "size": [
+        32,
+        24
+      ],
+      "use": "粗颗粒食物画风；现有完成菜盘保留，32x24按6倍显示"
+    },
+    {
+      "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot/ayu_home/v4/assets/craft/clay_pot.png",
+      "size": [
+        46,
+        58
+      ],
+      "use": "轮廓、陶器明暗与透明边界参考"
+    },
+    {
+      "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/godot/ayu_home/v4/assets/institutions/honey-v2.png",
+      "size": [
+        508,
+        600
+      ],
+      "use": "养蜂屋的场景配色参考，不裁屋内家具代替新物件"
+    }
+  ]
+}

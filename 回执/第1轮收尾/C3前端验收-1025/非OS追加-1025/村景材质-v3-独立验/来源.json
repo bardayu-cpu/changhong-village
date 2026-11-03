@@ -1,0 +1,16 @@
+{
+  "bundle": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/前端接管-1025/村景材质候选-v3/bundle.json",
+  "bundle_sha256": "9442195ded601f0a7193078d9fa3fa9ff2dd4c00b3275f9d6a17425d099588da",
+  "candidate_hashes_verified": true,
+  "geometry_exactly_unchanged_after_removing_only_season_files_repeat": true,
+  "rice_hashes": {
+    "rice-autumn.png": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+    "rice-summer.png": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+    "rice-winter.png": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+    "rice-spring.png": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06"
+  },
+  "base_project": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/工程冻结",
+  "OS_input": false,
+  "production_modified": false,
+  "not_reviewed_missing_trees": true
+}

@@ -1,0 +1,26 @@
+{
+  "actor": {
+    "action": "sit",
+    "face": "down",
+    "lift": 103.0,
+    "position": [
+      166.0,
+      354.0
+    ],
+    "screen": [
+      270.0,
+      792.0
+    ]
+  },
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+  "hour": 19.0,
+  "month": 10,
+  "name": "v_daba-actual-seat-19",
+  "player_position": [
+    166.0,
+    251.0
+  ],
+  "room": "v_daba",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

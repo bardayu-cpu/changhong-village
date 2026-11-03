@@ -1,0 +1,35 @@
+{
+  "scope": "byte-identical geometry/navigation and physical channel source; not new QA approval",
+  "files": [
+    {
+      "file": "ayu_home/v4/assets/village/layout-1025.json",
+      "unchanged": true,
+      "sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a"
+    },
+    {
+      "file": "ayu_home/v4/assets/village.json",
+      "unchanged": true,
+      "sha256": "eea72927751eda1e77483c8d1cced9e9945cec61dbc7aea4d3aa138134021090"
+    },
+    {
+      "file": "ayu_home/v4/assets/rooms.json",
+      "unchanged": true,
+      "sha256": "1f6677d776be3498f53d42ceeac846af10bdfef79c7ce3b269ef6a828ca875b3"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/topology.json",
+      "unchanged": true,
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc"
+    },
+    {
+      "file": "ayu_home/v4/assets/village/houses.json",
+      "unchanged": true,
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1"
+    },
+    {
+      "file": "ayu_home/v4/world.gd",
+      "unchanged": true,
+      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2"
+    }
+  ]
+}

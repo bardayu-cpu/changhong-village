@@ -1,0 +1,37 @@
+{
+  "overall_pass": false,
+  "score": null,
+  "do_not_claim_90": true,
+  "OS_input_this_batch": false,
+  "old66_and_Kai_addendum_untouched": true,
+  "pass_scope": {
+    "v3_geometry": "199/199 +70879 exact6x6 feet samples 0 outside,37/37 controls/routes; reuse no unchanged broad rerun",
+    "winter": "35/35 same geometry/material mounting/map and actual engine route, old geometry consistency scope",
+    "S4_deadline": "22/22 actual Game API/45 sec auto deadline, normally earned64 coins, rain64→64 and one success64→69",
+    "Kai": "37/37 actual engine four dirs/walk/sit, normal19h honey seat, actual bucket y-sort crossing; not full R; portraits later added",
+    "G2": "16/16 normal0→3 +full easel angle; visibility increments proven; floor/plate composition reservations remain",
+    "S_art": "latest5boards+hospital v2 actual scenes reviewed;7+2 normal API narrow flows, no OS drag/touch; old87/116 reused",
+    "R": "18 source sheets/portraits and unchanged family checked;17 new actual pose sets plus Kai reused; all18 portrait material exposed through normal native dialogue or merchant shop; full R visual gate still open",
+    "nine": "131 narrow checks +merchant2 +daba camera1; not full nine QA"
+  },
+  "returned": [
+    "village noisy high contrast rice/rectangular horizon and fog style; skyline visibility subproblem fixed on second candidate only",
+    "seated NPC nameplates crossing face/body in some new nine rooms",
+    "merchant normal sitting view masked by interaction badge",
+    "G2 mat/meal placement composition reservations",
+    "old h1 interaction item semantics and old-house open-door art still not independently resolved"
+  ],
+  "missing_assets": [
+    "tree art/placement",
+    "closed old-house door art",
+    "14 real before/after household objects"
+  ],
+  "device_or_delivery_pending": [
+    "OS input while Mac locked",
+    "true touchscreen H1",
+    "1 minute human cicada listening/toggle",
+    "H2 final packaged double-click/reopen/save/commit independent check",
+    "H3 final whole-village walk including newly migrated geometry"
+  ],
+  "formal_owner": "front C2 only; C3 writes isolated QA records, no production/Git mutation"
+}

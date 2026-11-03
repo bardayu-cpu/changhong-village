@@ -1,0 +1,23 @@
+{
+  "easel_screen": [
+    231.0,
+    300.0,
+    72.0,
+    108.0
+  ],
+  "hour": 13.0,
+  "inside_window": true,
+  "mode": "non-OS additional view angle only, reopens own normal stage3 checkpoint; no stage or reward write",
+  "month": 10,
+  "not_intersecting_player_quad": true,
+  "position": [
+    382.0,
+    530.0
+  ],
+  "stage": 3.0,
+  "weather": "clear",
+  "window": [
+    540,
+    960
+  ]
+}

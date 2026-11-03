@@ -1,0 +1,841 @@
+{
+  "OS_input": false,
+  "mode": "non-OS actual Home world/map render, engine navigation route; test clock only, no rewards/progress injection",
+  "rows": [
+    {
+      "check": "same world geometry month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same collision samples month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "8 mounted layers visible month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "route exists month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "engine route arrival month 4",
+      "details": {
+        "frames": 24,
+        "position": [
+          1240.0,
+          536.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "actual map view exists month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "map and world geometry equal month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same world geometry month 7",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same collision samples month 7",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "8 mounted layers visible month 7",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "route exists month 7",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "engine route arrival month 7",
+      "details": {
+        "frames": 24,
+        "position": [
+          1240.0,
+          536.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "actual map view exists month 7",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "map and world geometry equal month 7",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same world geometry month 10",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same collision samples month 10",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "8 mounted layers visible month 10",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "route exists month 10",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "engine route arrival month 10",
+      "details": {
+        "frames": 24,
+        "position": [
+          1240.0,
+          536.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "actual map view exists month 10",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "map and world geometry equal month 10",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same world geometry month 12",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same collision samples month 12",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "8 mounted layers visible month 12",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "route exists month 12",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "engine route arrival month 12",
+      "details": {
+        "frames": 24,
+        "position": [
+          1240.0,
+          536.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "actual map view exists month 12",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "map and world geometry equal month 12",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same world geometry month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "same collision samples month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "8 mounted layers visible month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "route exists month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "engine route arrival month 4",
+      "details": {
+        "frames": 24,
+        "position": [
+          1240.0,
+          536.0
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "actual map view exists month 4",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "map and world geometry equal month 4",
+      "details": {},
+      "pass": true
+    }
+  ],
+  "scope": "old/current geometry season consistency only; not approval of new layout, bridges or river",
+  "shots": [
+    {
+      "area": "village",
+      "extra": {
+        "layers": [
+          {
+            "name": "grass",
+            "visible": true
+          },
+          {
+            "name": "entry_road",
+            "visible": true
+          },
+          {
+            "name": "yard",
+            "visible": true
+          },
+          {
+            "name": "road",
+            "visible": true
+          },
+          {
+            "name": "fields",
+            "visible": true
+          },
+          {
+            "name": "water",
+            "visible": true
+          },
+          {
+            "name": "bridge",
+            "visible": true
+          },
+          {
+            "name": "mountain",
+            "visible": true
+          }
+        ],
+        "road_polygons": 18
+      },
+      "hour": 13.0,
+      "month": 4,
+      "name": "world-month4-run0",
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {},
+      "hour": 13.0,
+      "month": 4,
+      "name": "map-month4-run0",
+      "position": [
+        1240.0,
+        536.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "living",
+      "extra": {},
+      "hour": 13.0,
+      "month": 4,
+      "name": "Ayu-month4-run0",
+      "position": [
+        386.0,
+        338.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {
+        "layers": [
+          {
+            "name": "grass",
+            "visible": true
+          },
+          {
+            "name": "entry_road",
+            "visible": true
+          },
+          {
+            "name": "yard",
+            "visible": true
+          },
+          {
+            "name": "road",
+            "visible": true
+          },
+          {
+            "name": "fields",
+            "visible": true
+          },
+          {
+            "name": "water",
+            "visible": true
+          },
+          {
+            "name": "bridge",
+            "visible": true
+          },
+          {
+            "name": "mountain",
+            "visible": true
+          }
+        ],
+        "road_polygons": 18
+      },
+      "hour": 13.0,
+      "month": 7,
+      "name": "world-month7-run1",
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {},
+      "hour": 13.0,
+      "month": 7,
+      "name": "map-month7-run1",
+      "position": [
+        1240.0,
+        536.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "living",
+      "extra": {},
+      "hour": 13.0,
+      "month": 7,
+      "name": "Ayu-month7-run1",
+      "position": [
+        386.0,
+        338.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {
+        "layers": [
+          {
+            "name": "grass",
+            "visible": true
+          },
+          {
+            "name": "entry_road",
+            "visible": true
+          },
+          {
+            "name": "yard",
+            "visible": true
+          },
+          {
+            "name": "road",
+            "visible": true
+          },
+          {
+            "name": "fields",
+            "visible": true
+          },
+          {
+            "name": "water",
+            "visible": true
+          },
+          {
+            "name": "bridge",
+            "visible": true
+          },
+          {
+            "name": "mountain",
+            "visible": true
+          }
+        ],
+        "road_polygons": 18
+      },
+      "hour": 13.0,
+      "month": 10,
+      "name": "world-month10-run2",
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {},
+      "hour": 13.0,
+      "month": 10,
+      "name": "map-month10-run2",
+      "position": [
+        1240.0,
+        536.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "living",
+      "extra": {},
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-month10-run2",
+      "position": [
+        386.0,
+        338.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {
+        "layers": [
+          {
+            "name": "grass",
+            "visible": true
+          },
+          {
+            "name": "entry_road",
+            "visible": true
+          },
+          {
+            "name": "yard",
+            "visible": true
+          },
+          {
+            "name": "road",
+            "visible": true
+          },
+          {
+            "name": "fields",
+            "visible": true
+          },
+          {
+            "name": "water",
+            "visible": true
+          },
+          {
+            "name": "bridge",
+            "visible": true
+          },
+          {
+            "name": "mountain",
+            "visible": true
+          }
+        ],
+        "road_polygons": 18
+      },
+      "hour": 13.0,
+      "month": 12,
+      "name": "world-month12-run3",
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {},
+      "hour": 13.0,
+      "month": 12,
+      "name": "map-month12-run3",
+      "position": [
+        1240.0,
+        536.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "living",
+      "extra": {},
+      "hour": 13.0,
+      "month": 12,
+      "name": "Ayu-month12-run3",
+      "position": [
+        386.0,
+        338.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {
+        "layers": [
+          {
+            "name": "grass",
+            "visible": true
+          },
+          {
+            "name": "entry_road",
+            "visible": true
+          },
+          {
+            "name": "yard",
+            "visible": true
+          },
+          {
+            "name": "road",
+            "visible": true
+          },
+          {
+            "name": "fields",
+            "visible": true
+          },
+          {
+            "name": "water",
+            "visible": true
+          },
+          {
+            "name": "bridge",
+            "visible": true
+          },
+          {
+            "name": "mountain",
+            "visible": true
+          }
+        ],
+        "road_polygons": 18
+      },
+      "hour": 13.0,
+      "month": 4,
+      "name": "world-month4-run4",
+      "position": [
+        1240.0,
+        648.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "village",
+      "extra": {},
+      "hour": 13.0,
+      "month": 4,
+      "name": "map-month4-run4",
+      "position": [
+        1240.0,
+        536.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    {
+      "area": "living",
+      "extra": {},
+      "hour": 13.0,
+      "month": 4,
+      "name": "Ayu-month4-run4",
+      "position": [
+        386.0,
+        338.0
+      ],
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    }
+  ],
+  "terrain": [
+    {
+      "collision_samples": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "geometry_sha256": "15f19ab40471559a9a199ed7ba95abe8108f8e0a9272bcf72b87bbd3d490beba",
+      "month": 4,
+      "road_polygons": 18,
+      "world": "world-month4-run0"
+    },
+    {
+      "collision_samples": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "geometry_sha256": "15f19ab40471559a9a199ed7ba95abe8108f8e0a9272bcf72b87bbd3d490beba",
+      "month": 7,
+      "road_polygons": 18,
+      "world": "world-month7-run1"
+    },
+    {
+      "collision_samples": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "geometry_sha256": "15f19ab40471559a9a199ed7ba95abe8108f8e0a9272bcf72b87bbd3d490beba",
+      "month": 10,
+      "road_polygons": 18,
+      "world": "world-month10-run2"
+    },
+    {
+      "collision_samples": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "geometry_sha256": "15f19ab40471559a9a199ed7ba95abe8108f8e0a9272bcf72b87bbd3d490beba",
+      "month": 12,
+      "road_polygons": 18,
+      "world": "world-month12-run3"
+    },
+    {
+      "collision_samples": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "geometry_sha256": "15f19ab40471559a9a199ed7ba95abe8108f8e0a9272bcf72b87bbd3d490beba",
+      "month": 4,
+      "road_polygons": 18,
+      "world": "world-month4-run4"
+    }
+  ]
+}

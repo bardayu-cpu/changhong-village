@@ -1,0 +1,74 @@
+{
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三层样板-v3.png",
+  "sha256": "c8516a113dab2675b9f2ab101a2927b1c2308f59f0d8910e98460c63d2729da1",
+  "scope": "独立浏览器离屏渲染预览，非Godot实机验收，原图不改，生产未绑定",
+  "renderer": "WebGL nearest + alpha discard <=0.8, output alpha=1; only three sprite layers",
+  "states": [
+    {
+      "progress": 0,
+      "finished": false
+    },
+    {
+      "progress": 3,
+      "finished": false
+    },
+    {
+      "progress": 6,
+      "finished": false
+    },
+    {
+      "progress": 6,
+      "finished": true
+    }
+  ],
+  "layers": [
+    {
+      "id": "body",
+      "source": [
+        77,
+        87,
+        796,
+        693
+      ],
+      "destination": [
+        0,
+        4.8693467336683,
+        84,
+        73.1306532663317
+      ]
+    },
+    {
+      "id": "fill",
+      "source": [
+        909,
+        304,
+        548,
+        432
+      ],
+      "destination": [
+        9,
+        15.97080291970803,
+        66,
+        52.02919708029197
+      ],
+      "bottom": 68
+    },
+    {
+      "id": "cap",
+      "source": [
+        347,
+        847,
+        842,
+        88
+      ],
+      "destination": [
+        10,
+        7,
+        64,
+        6.688836104513064
+      ]
+    }
+  ],
+  "fit": "所有层保持源比例；罐体底锚78，蜜液底锚68。盖口按新图口沿实际宽度64与位置7对齐，原90x10为上限而非强行填满。C1/C4仍需目视复核该口沿定位。",
+  "source_images_modified": false
+}

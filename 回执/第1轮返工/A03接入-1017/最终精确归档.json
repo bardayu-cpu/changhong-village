@@ -1,0 +1,140 @@
+{
+  "time": "2026-10-17T06:57:20.260937+08:00",
+  "status": "蜂蜜本项实机通过；A03两次隔离预览均未通过且未接入；整轮未通过",
+  "base_commit": "948fa7bfde91d49e5451b7eca18f8198112f438d",
+  "production_commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "honey_evidence_commit": "948fa7bfde91d49e5451b7eca18f8198112f438d",
+  "self": "回执/第1轮返工/A03接入-1017/最终精确归档.json",
+  "payload_count": 16,
+  "commit_file_count_including_self": 17,
+  "payload": [
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 4145,
+      "sha256": "d53f37fbdb32107088be9cd14d704124cbbcd18c802b36ea0f8ea2e0fd64bd6f"
+    },
+    {
+      "path": "回执/第1轮返工/续办-1016.md",
+      "bytes": 4273,
+      "sha256": "d11c71b7b505e8b35470019ef18828a2cfd661f7a5f1724f9c3c9906701be45a"
+    },
+    {
+      "path": "回执/第1轮返工/C1收尾核对-1017.md",
+      "bytes": 2540,
+      "sha256": "8ff9555b1bd0eb9870316f05e4863173b7558c9520c1d9a782599a5c3063078b"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-备菜三阶段图集-v1.png",
+      "bytes": 1155489,
+      "sha256": "3d640a5645fb02e49142f19003ac02b9b0b0d1b43acca238414aad9606d9f145"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-备菜三阶段图集-v2.png",
+      "bytes": 1121964,
+      "sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-v2-C2目标尺寸预览参数.json",
+      "bytes": 2432,
+      "sha256": "5be3710a06ffc530a5b5e88e09a3818dc93d1cdd4b5c43c4a19f0115fe330fa7"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-v2-C4裁框修正-v1.json",
+      "bytes": 2883,
+      "sha256": "2deb6357d637cffb0603af46ef010bb9c6fd94e4de169c275e0d650d3bd32465"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-v2交接结论.md",
+      "bytes": 737,
+      "sha256": "efaf88f1a35aa6e9d0dce44370fafee28bbda15c1cd6b77af5986ce4e7a1d347"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-v2首张预览裁框审核.md",
+      "bytes": 645,
+      "sha256": "2fdcbddd95566e062e85fcfca4a2c4c3f12655817bb36c489bc2605dbb743b65"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/A03-v2三阶段-隔离预览.png",
+      "bytes": 240296,
+      "sha256": "498656b33736e2a3eebac003febfe640239f3bcbd5d7e0db434a7b611f84e974"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/三阶段预览参数.json",
+      "bytes": 3151,
+      "sha256": "f61db53f763f339baecd24e92527cda16bdfd9c2e9567cefce6e2b429785df9e"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/三阶段预览结论.json",
+      "bytes": 1376,
+      "sha256": "16698b84c2dc13068f23a17baefe3fe43e2a2d2b2e1d99ab782fba2d95a0ed17"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/主体矩形分区候选.json",
+      "bytes": 9393,
+      "sha256": "28e9a05528855346f333ac25170b960ed2525cbede9b643c7ff7078f77da2d9d"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/唯一修正预览参数.json",
+      "bytes": 10410,
+      "sha256": "4efd29b9646f566390bbaaa3c31916203d8a135dd7e6fe3ff373202548524caf"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/A03-v2矩形分区-复核预览.png",
+      "bytes": 248189,
+      "sha256": "fefe95347fb54a83c11c0a17f43c23821f17ab18b14aa2dc142e2e6c75c50bee"
+    },
+    {
+      "path": "回执/第1轮返工/A03接入-1017/一次修正复核结论.json",
+      "bytes": 1622,
+      "sha256": "9487ede082433de85abaa6c6b35f9ddd09ea120cdccce3000661bcd5bd9a7b2b"
+    }
+  ],
+  "excluded_original_seven": [
+    {
+      "path": "回执/第1轮/C1画面核对.md",
+      "sha256": "c83bb01d3c2215edeee63544a049c185167392727e9fb8efcfd25edf35269acc"
+    },
+    {
+      "path": "回执/第1轮/设计/00-C4状态.md",
+      "sha256": "01a205e299dff154b01a3971136fe9f066d79bd83728f5bcaf59e68473e50b58"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C2设计归档清单-1014.json",
+      "sha256": "a5b5791bf94001f0aed8b0e2c660f8834f6310704848033849c587b2a7373b6c"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C4二期设计回执-1014.md",
+      "sha256": "f0339261aa4a01ded6909d0ce06b8a0e1959ff882618db5125de4a8b2abd54bd"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/本波静态核对-1014.json",
+      "sha256": "d1d2b645db36a2558b2dea1a20abe1ffd59f359569fc256de039893a40ff8a1e"
+    },
+    {
+      "path": "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/C4麦收田园无桥三案交付-v7.md",
+      "sha256": "a6c7032de04636d8abb822ee89ba735913c3b8249505b5733c5f3a8c2be3abfa"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A4-活动中心首屏构图建议.md",
+      "sha256": "42e1451b5f8838eed16eeae56f030f8ba64ebc93ad42a6ceac65474d5642be6d"
+    }
+  ],
+  "other_exclusions": [
+    "测试数据/A03预览-1017（Chrome profile、预览HTML、运行日志）",
+    "所有实际存档、缓存、运行请求、过程帧和控件元数据",
+    "其余未选定资料、打包产物、敏感文件和大于50MB文件"
+  ],
+  "protected": [
+    {
+      "path": "给Claude审查/check_room_standard.py",
+      "sha256": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/test_core.gd",
+      "sha256": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+    }
+  ],
+  "scope": "仅封存已完成的审查和失败预览；没有新增生产变更、第三次预览或A03实机验收",
+  "remaining_at_closeout": 12,
+  "stop_remaining_percent": 10
+}

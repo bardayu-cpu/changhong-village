@@ -1,0 +1,69 @@
+{
+  "files": [
+    {
+      "source": "回执/第1轮收尾/C4-童年背景/S六背景/milk_table.png",
+      "destination": "godot/ayu_home/v4/assets/childhood/milk_table.png",
+      "sha256": "361693636914a2b38358b86953a1d220054c5fe48c79ee1d9cf96f37022199c7"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-童年背景/S六背景/mudflat.png",
+      "destination": "godot/ayu_home/v4/assets/childhood/mudflat.png",
+      "sha256": "7b93dfc2320c1f8b317e07871a65b84366cb9f3d3aac6788670a0266043f40f3"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-童年背景/S六背景/train_room.png",
+      "destination": "godot/ayu_home/v4/assets/childhood/train_room.png",
+      "sha256": "7f8c97a90fb92be27e98b19511f7d4c261580a2d7dea240f8be09723b6a3d402"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-童年背景/S六背景/laundry.png",
+      "destination": "godot/ayu_home/v4/assets/childhood/laundry.png",
+      "sha256": "1118060b23e364e0c77da1e8e49ecfdfd0de41b9db436ada3bd1a6a1fe7238be"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-童年背景/S六背景/vegetables.png",
+      "destination": "godot/ayu_home/v4/assets/childhood/vegetables.png",
+      "sha256": "f279805aea1f8e25263d31cf9aa49a43fcb64fd73e226cee495eb982aa1bcdca"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-童年背景/S六背景/hospital.png",
+      "destination": "godot/ayu_home/v4/assets/childhood/hospital.png",
+      "sha256": "86fdee1fc8d928438c3e9437aea8dc4d2abfeb373af78d34d8e97fc5add399ee"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-村景四季田块/rice-spring.png",
+      "destination": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-村景四季田块/rice-summer.png",
+      "destination": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-村景四季田块/rice-autumn.png",
+      "destination": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a"
+    },
+    {
+      "source": "回执/第1轮收尾/C4-村景四季田块/rice-winter.png",
+      "destination": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf"
+    }
+  ],
+  "visual_acceptance": "pending C3",
+  "rice_geometry_activated": false,
+  "retracted": {
+    "file": "hospital.png",
+    "reason": "bed shown, forbidden by agreed quiet silhouette interface",
+    "source_preserved": "回执/第1轮收尾/C4-童年背景/S六背景/hospital.png"
+  },
+  "hospital_replacement": {
+    "source": "回执/第1轮收尾/C4-童年背景/S六背景/hospital.png",
+    "destination": "godot/ayu_home/v4/assets/childhood/hospital.png",
+    "sha256": "35a2b48005f900a1b45618d4055c67e215526e20fd07d6b35338dd110ca0c3a1",
+    "revision": "v2-fixed-no-bed",
+    "C2_visual_check": "warm corridor, family silhouettes, no bed/needle/rash",
+    "C3_status": "pending"
+  }
+}

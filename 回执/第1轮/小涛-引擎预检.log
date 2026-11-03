@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+FAIL actual Home booted in mill
+FAIL approach is on real walkable floor: xiduo
+PASS entrance path to xiduo
+PASS approach is on real walkable floor: bench
+PASS entrance path to bench
+FAIL approach is on real walkable floor: flowers
+PASS entrance path to flowers
+FAIL approach is on real walkable floor: ball
+PASS entrance path to ball
+PASS approach is on real walkable floor: today
+PASS entrance path to today
+PASS approach is on real walkable floor: to_living
+PASS entrance path to to_living
+PASS approach is on real walkable floor: to_workshop
+PASS entrance path to to_workshop
+PASS approach is on real walkable floor: to_garage
+PASS entrance path to to_garage
+PASS approach is on real walkable floor: to_side_path
+PASS entrance path to to_side_path
+SCRIPT ERROR: Invalid call. Nonexistent function 'sync_schedule' in base 'Nil'.
+   at: run (res://../工具/test_mill_runtime.gd:22)
+   GDScript backtrace (most recent call first):
+       [0] run (res://../工具/test_mill_runtime.gd:22)

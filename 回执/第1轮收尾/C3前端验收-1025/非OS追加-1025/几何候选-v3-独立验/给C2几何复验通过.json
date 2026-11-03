@@ -1,0 +1,150 @@
+{
+  "candidate": "v3",
+  "problem_registry": "同v2两项退回，第2次独立候选复验；不按文件版本重新计数",
+  "geometry_scope_pass": true,
+  "production_visual_or_release_pass": false,
+  "original_checks": {
+    "passed": 199,
+    "total": 199,
+    "road_collision_pieces": 0,
+    "routes_entering_fields": 0,
+    "reachable_routes": 31
+  },
+  "footprint_audit": {
+    "passed_checks": 37,
+    "total_samples": 70879,
+    "bad_samples": 0,
+    "half_extent_world_px": 3,
+    "counterexamples": "L转角/路外/墙3px/河边均被拒；路内3px足端可放且不足8px格中心余量的正例被接受，未重复8px内缩"
+  },
+  "network_check": {
+    "roads_v2": [
+      "main",
+      "south_plot_access",
+      "east_public_access"
+    ],
+    "roads_v3": [
+      "main",
+      "south_plot_access",
+      "east_public_access"
+    ],
+    "field_paths_v2": [
+      "fp_west_homes",
+      "fp_ayu",
+      "fp_nw",
+      "fp_ne",
+      "fp_east_homes"
+    ],
+    "field_paths_v3": [
+      "fp_west_homes",
+      "fp_ayu",
+      "fp_nw",
+      "fp_ne",
+      "fp_east_homes"
+    ],
+    "house_entries": 20,
+    "public_spurs": [
+      {
+        "id": "public:mayor",
+        "points": 1,
+        "length": 0
+      },
+      {
+        "id": "public:honey",
+        "points": 5,
+        "length": 77.25483399593904
+      },
+      {
+        "id": "public:pond",
+        "points": 10,
+        "length": 506.50966799187813
+      },
+      {
+        "id": "public:chicken",
+        "points": 3,
+        "length": 38.62741699796952
+      },
+      {
+        "id": "public:orchard",
+        "points": 12,
+        "length": 629.0193359837562
+      },
+      {
+        "id": "public:market",
+        "points": 2,
+        "length": 32.0
+      },
+      {
+        "id": "public:home_site",
+        "points": 2,
+        "length": 32.0
+      },
+      {
+        "id": "public:map",
+        "points": 2,
+        "length": 80.0
+      },
+      {
+        "id": "public:mill",
+        "points": 2,
+        "length": 16.0
+      },
+      {
+        "id": "public:visit_laowu",
+        "points": 1,
+        "length": 0
+      },
+      {
+        "id": "public:loach_memory",
+        "points": 3,
+        "length": 61.254833995939045
+      },
+      {
+        "id": "public:player_spawn",
+        "points": 2,
+        "length": 22.627416997969522
+      }
+    ]
+  },
+  "scope": [
+    "19有效门+11热点+观山点实际Actor正常步长到达",
+    "20原房位/外形、19有效门门槛、闭老屋、同岸无桥、S2岸边可达",
+    "路面完整宽度/圆头不侵实体；四季几何同源",
+    "20房入口与12公共/出生短入口合法分组，未新增31条逐目标最短路"
+  ],
+  "limits": [
+    "无OS输入，桌面仍未收到解锁确认",
+    "田块材质/树脚锚仍待正式图面验，不靠空材质通过",
+    "几何可供C2受控接入候选与单独四季渲染；不是90分交工",
+    "旧v2结果/冻结与原66归档不改写"
+  ],
+  "source": {
+    "bundle_sha256": "273c52c9b146d4581009d9a815a1eb79d90a67990154ce3d04c77712ec948d9b",
+    "candidate_files_verified": true,
+    "files": {
+      "rooms.json": "7292b0d4508389816981ff59fc0e62e772f34c9a489520daa5c8596a559ff8fd",
+      "route-check.json": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0",
+      "village/ground-pixel-1024/layers.json": "b4f9eb38cdb8c5d60b50de762ac1cd5fbb874e20d2ef4c5c3d6a81e19665af2d",
+      "village/houses.json": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "village/layout-1025.json": "d8a44309593cab77dc22e330a3b19230250f939dbe048913c8f2ead9b75ceba2",
+      "village/topology.json": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "village.json": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec"
+    },
+    "code_hashes": {
+      "ayu_home/v4/world.gd": "a1ef9d2a2211ac4240d3a30d0d300f9e507a4231ccb2daf03ffefe968566cb7b",
+      "ayu_home/v4/actor.gd": "b24aacbe93f25eee6acfaab400bea1cd314da7825075ebdf9f720f0e3e513281",
+      "ayu_home/v4/core/village_ground.gd": "0b09a8ebfa1d7f182b869207a873ad5c972bac213b6b0a5c0b4eee8e7c46285e",
+      "ayu_home/v4/core/map_view.gd": "c001f4045b22a77eff63acaf79b874502956e010ffda80ccee87875aa961d0ee"
+    },
+    "original_v2_validator_sha256": "467176a7507340ba05780583dce36eef151a321b85cc90576ab93f71dfad7175",
+    "v3_validator_sha256": "8e3b8f72de39854049102767e81453153a0df9e1448968ea38972934847fdcd0",
+    "single_fixture_schema_change": "entry_paths list now has house+public. House threshold remains exactly20 matching frozen house IDs; additionally verifies exactly12 public/spawn. All road/field/river/footstep geometric thresholds unchanged, no C2 assertion results reused",
+    "problem_registry": "same two v2 return issues, second independent candidate test; does not reset by version name",
+    "OS_input": false,
+    "production_applied": false,
+    "missing_art": [
+      "four seasonal rice tiles",
+      "tree footprints/placement"
+    ]
+  }
+}

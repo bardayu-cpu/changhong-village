@@ -1,0 +1,43 @@
+{
+  "time": "2026-10-16T09:33:29.509309+08:00",
+  "status": "标签布局源码小修、12项原生几何核验通过，真实显示仍待C3",
+  "source_before": "5b450e1a1db5f04485fb0f1218e235dbf60d43cc",
+  "production_file": "godot/ayu_home/v4/home.gd",
+  "source_sha256": "559229bdc4439e65023bff25052a0951af4aa8463db0d50fb7db97a690e0a6e1",
+  "root_cause": [
+    "旧布局只检查气泡48x54区域，遗漏下方文字牌及其点击扩展区",
+    "检查之后再次把气泡夹回边界，可能重新撞头",
+    "超长文字牌没有限制到屏幕安全宽度"
+  ],
+  "change": [
+    "用最终夹位后的气泡和文字牌共同检查所有可见人物头脸与话泡",
+    "对象标签优先小幅左右让位，必要时最多向上96px；人物提示仍只左右移",
+    "文字牌与上下4px点击区保持在现有HUD和底栏之间、左右留8px",
+    "超长文字只限制显示宽度并省略，操作目标和原标签数据不改",
+    "拥挤时优先保留安全可点击气泡，不强行覆盖头脸"
+  ],
+  "validation": {
+    "geometry_cases": 12,
+    "result": "PASS",
+    "cases_cover": [
+      "村委相邻双人标签撞头构型",
+      "磨坊坐姿构型",
+      "夹顶边后二次撞头",
+      "左右与底边含点击区",
+      "长文字、320窄屏、1280横窗",
+      "话泡避让、人物提示不往上漂、完全拥挤"
+    ],
+    "gui": false,
+    "original_scripts_and_assertions_unchanged": true,
+    "full_room_or_core_suite_rerun": false,
+    "raw_environment_note": "保留macOS get_system_ca_certificates环境提示；无SCRIPT ERROR"
+  },
+  "C3_recheck": "保持已冻结f382dc0批次不变；随后仅在本提交补看村委翻名册/磨坊座位附近标签不遮头、左右边缘与点击有效，顺带相邻人物说话时的提示布局。无需重跑首日和原87项。",
+  "scope_limits": [
+    "未改图、镜头、NPC、玩法、进度条或按钮样式",
+    "不据几何核验宣称实机显示通过",
+    "A3本轮停止",
+    "额度剩30%停止"
+  ],
+  "production_commit": "5e2e0d2f40aa2677af305f49afd88a68fb2cdf94"
+}

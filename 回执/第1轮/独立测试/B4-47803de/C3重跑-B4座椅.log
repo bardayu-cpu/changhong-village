@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS scaled atlas opaque seat
+PASS atlas transparent margin ignored
+PASS outside furniture ignored
+PASS moving chair uses rendered transform
+PASS old chair position no longer covers
+PASS seated character sorted in front of chair
+PASS seat visual foot remains anchored
+PASS actual old-house bench seat is opaque
+PASS actual bench sort and foot anchor
+B4_SEATING PASS

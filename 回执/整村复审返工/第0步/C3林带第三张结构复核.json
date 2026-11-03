@@ -1,0 +1,67 @@
+{
+  "issue": "G0-FOREST",
+  "attempt": "03",
+  "scope": "独立原图/结构复核，不运行游戏",
+  "verdict": "存在不缩裁主体的可行构图；仅允许现有第三张原样进入隔离合成，未判素材或场景通过",
+  "source": "回执/整村复审返工/第0步/C4素材/v2/G0-FOREST-03.png",
+  "source_sha256": "e0caa4fe280e171d7dadd1cc5db37bc6dc9f7c256d87e88e76893f6adcf771ca",
+  "source_size": [
+    2172,
+    724
+  ],
+  "independent_image_observation": "已看完整原图，是一条连续起伏竹/树林带；未见需要把整棵高树藏掉才能成立的主体。外沿色边、低alpha余边及横向拼接实际效果尚待合成。",
+  "alpha_diagnostic": {
+    "full_bbox_xyxy": [
+      0,
+      85,
+      2172,
+      660
+    ],
+    "ge16_bbox_xyxy": [
+      0,
+      337,
+      2172,
+      485
+    ],
+    "ge128_bbox_xyxy": [
+      0,
+      337,
+      2172,
+      484
+    ],
+    "core_height_approx": 148,
+    "limit": "阈值仅解释主体，不成为裁区、清alpha或新的硬通过线；完整PNG保留。"
+  },
+  "geometry_example": {
+    "basis": "使用C1/C2给定的v2.1场景512、森林世界基线536、far基线520、far峰世界335、玩家脚点568；真实source脚点metadata待C4同步。",
+    "forest_top_world_estimate": 388,
+    "forest_top_below_peak_world": 53,
+    "example_scene_top_world": 327,
+    "zoom": 2,
+    "scene_render_height": 512,
+    "peak_render_y": 16,
+    "forest_core_render_y": [
+      122,
+      418
+    ],
+    "player_foot_render_y": 482,
+    "player_bottom_clearance": 30,
+    "implication": "可保主峰及整个可见林带核心，不存在仅由核心148高度推出的几何无解。"
+  },
+  "before_composite": "C4同步第三张真实source_size、全region、自然alpha、合理根部锚点与平铺声明；不能沿用02登记或抬脚点到树腰。",
+  "must_verify": [
+    "主峰和应见长脊保持完整，树冠遮挡不吞掉主体；不得挪原图anchor或缩图藏峰。",
+    "低alpha余边在实际天空/山体/地面上无不自然晕染，保留全RGBA，不阈值清理。",
+    "林带脚边、侧缘和横向接缝自然，前景不压玩家；两尺寸/倍率/移动均实际验证。"
+  ],
+  "attempt_boundary": {
+    "forest_04_regeneration": "禁止",
+    "renamed_shrub_replacement": "禁止作为第四次绕过",
+    "third_image_status": "本次不确认3/3失败；保留第1/2次历史，第3张仅准合成验证，不预判通过",
+    "G0_scene_pass": false
+  },
+  "old_budget": "32–48仅为此前初步构图预算，不是方案规定的PNG硬高度上限。",
+  "engineering_modified": false,
+  "source_modified": false,
+  "runtime_started": false
+}

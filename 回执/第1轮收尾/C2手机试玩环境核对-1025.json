@@ -1,0 +1,17 @@
+{
+  "scope":"read-only check of existing local export environment; no installs or public publishing",
+  "godot":"4.7.2 at /Applications/Godot.app/Contents/MacOS/Godot",
+  "existing_export_presets":[
+    {"name":"小游戏","platform":"小游戏"},
+    {"name":"小游戏调试","platform":"小游戏"},
+    {"name":"阿鱼家手机预览","platform":"小游戏"}
+  ],
+  "web_preset_found":false,
+  "user_export_templates":"~/Library/Application Support/Godot/export_templates has no installed templates",
+  "app_web_template_found":false,
+  "local_phone_browser_build_created":false,
+  "lan_server_started":false,
+  "requires_next":["matching Godot Web export template","isolated Web preset and resource inclusion check","local-only browser build and same-Wi-Fi server","actual phone touch/drag and performance tests"],
+  "input_limits":"C3 static check found portrait 540x960 and touch-to-mouse enabled; S3 actual desktop drag failed twice; phone touch remains untested",
+  "conclusion":"Existing environment cannot immediately provide a local phone-browser play link. The phone-named preset is for WeChat minigames, not a browser package. No preview package committed."
+}

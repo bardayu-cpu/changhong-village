@@ -1,0 +1,29 @@
+{
+  "bundle_sha256": "273c52c9b146d4581009d9a815a1eb79d90a67990154ce3d04c77712ec948d9b",
+  "candidate_files_verified": true,
+  "files": {
+    "rooms.json": "7292b0d4508389816981ff59fc0e62e772f34c9a489520daa5c8596a559ff8fd",
+    "route-check.json": "8836c2f2c24946f5a864c03169fea00a9828019354369e778b2a6d68ebecbbc0",
+    "village/ground-pixel-1024/layers.json": "b4f9eb38cdb8c5d60b50de762ac1cd5fbb874e20d2ef4c5c3d6a81e19665af2d",
+    "village/houses.json": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+    "village/layout-1025.json": "d8a44309593cab77dc22e330a3b19230250f939dbe048913c8f2ead9b75ceba2",
+    "village/topology.json": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+    "village.json": "ef04ef588cea35b5d0c6c295db9a5e6e89719a41878f090291de8ad6790c6bec"
+  },
+  "code_hashes": {
+    "ayu_home/v4/world.gd": "a1ef9d2a2211ac4240d3a30d0d300f9e507a4231ccb2daf03ffefe968566cb7b",
+    "ayu_home/v4/actor.gd": "b24aacbe93f25eee6acfaab400bea1cd314da7825075ebdf9f720f0e3e513281",
+    "ayu_home/v4/core/village_ground.gd": "0b09a8ebfa1d7f182b869207a873ad5c972bac213b6b0a5c0b4eee8e7c46285e",
+    "ayu_home/v4/core/map_view.gd": "c001f4045b22a77eff63acaf79b874502956e010ffda80ccee87875aa961d0ee"
+  },
+  "original_v2_validator_sha256": "467176a7507340ba05780583dce36eef151a321b85cc90576ab93f71dfad7175",
+  "v3_validator_sha256": "8e3b8f72de39854049102767e81453153a0df9e1448968ea38972934847fdcd0",
+  "single_fixture_schema_change": "entry_paths list now has house+public. House threshold remains exactly20 matching frozen house IDs; additionally verifies exactly12 public/spawn. All road/field/river/footstep geometric thresholds unchanged, no C2 assertion results reused",
+  "problem_registry": "same two v2 return issues, second independent candidate test; does not reset by version name",
+  "OS_input": false,
+  "production_applied": false,
+  "missing_art": [
+    "four seasonal rice tiles",
+    "tree footprints/placement"
+  ]
+}

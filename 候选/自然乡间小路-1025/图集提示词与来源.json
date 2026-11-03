@@ -1,0 +1,21 @@
+{
+  "tool": "built-in imagegen",
+  "original": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-67bc-7223-afae-f6a8904ff250/exec-e367623e-91ff-4b26-8956-b9d47727693f.png",
+  "workspace_copy": "测试数据/本轮C3专用目录/前端接管-1025/20线续验-1025/自然色路缘-v2/工程冻结/ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+  "sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507",
+  "prompt_summary": "4x3 transparent natural rural grass/groundcover/daisy/lilac/pale yellow flower/rush atlas; restrained ordinary plant greens; detailed crisp pixel game sprites; no scene/UI/fence/pots/ground",
+  "selected_zero_based_cells": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    10,
+    11
+  ],
+  "excluded_cells": "reddish reed heads not selected; generated original preserved; no image pixel editing",
+  "file": "overlay/ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+  "final_prompt": "Use case: stylized-concept. Production 2D sprite atlas for a top-down Chinese rural village pixel-art game. Exactly twelve natural roadside vegetation clumps, 4 columns by 3 rows, genuine transparent alpha and transparent margins. Three-quarter overhead view, roots at lower centre. Irregular grasses, broadleaf weeds, sparse tiny white daisies, muted lilac wildflowers, pale yellow flowers, rushes; mostly olive/grass/deep natural leaf green with warm subtle upper-left light, crisp hand-painted pixels. Variable density and gaps. No fluorescent lime/electric yellow-green, uniform round bushes, plastic shine, text, labels, borders, ground tiles, fences, pots, roads, characters, or UI. Intended in-game width24–40 world pixels and height12–25 compared with84px human.",
+  "prompt_note": "Production specification records the complete requested subjects, grid, palette, medium, exclusions and intended scale; built-in imagegen used, not CLI/API fallback."
+}

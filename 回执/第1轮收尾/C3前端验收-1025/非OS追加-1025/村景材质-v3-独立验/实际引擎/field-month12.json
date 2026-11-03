@@ -1,0 +1,21 @@
+{
+  "area": "village",
+  "camera": [
+    3528.0,
+    1239.0
+  ],
+  "extra": {
+    "selected_season": "winter"
+  },
+  "hour": 13.0,
+  "month": 12,
+  "name": "field-month12",
+  "position": [
+    3528.0,
+    1304.0
+  ],
+  "state_date": "2027-12-15",
+  "state_season": "冬",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

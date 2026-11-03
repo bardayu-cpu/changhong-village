@@ -1,0 +1,6 @@
+{
+  "checks": 158,
+  "pass": true,
+  "fixture": "20 houses shifted by (20,80); candidate objects only, production unchanged",
+  "boundary": "No real village layout or visual acceptance; final C4 manifest still required"
+}

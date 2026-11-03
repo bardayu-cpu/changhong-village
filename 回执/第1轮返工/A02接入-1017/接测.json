@@ -1,0 +1,68 @@
+{
+  "time": "2026-10-17T06:33:20.096992+08:00",
+  "status": "蜂蜜A02已完成最小生产接入及定向组件核验，待C3真实六步与收取确认；整轮未通过",
+  "freeze_commit": "14ce7c2d7624283a15be76021cfa94a78fbc2963",
+  "production_files": [
+    {
+      "path": "godot/ayu_home/v4/core/institution_game.gd",
+      "sha256": "50e1eff02ea552399bb0ebbf56e199bbdf8cad4e8436f623706dce2ce2ebd187"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/institutions/honey-jar-v3.png",
+      "sha256": "c8516a113dab2675b9f2ab101a2927b1c2308f59f0d8910e98460c63d2729da1"
+    }
+  ],
+  "source_art": {
+    "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三层样板-v3.png",
+    "unchanged_byte_for_byte": true
+  },
+  "scope": "新增只负责蜜罐三层的HoneyJar绘制节点，nearest/alpha>0.8只作用该节点；沿核准预览保持比例和底锚，替换原矩形罐体/蜜液/封口。压蜜网格、按钮、进度条、落蜜粒子保留。",
+  "checks": {
+    "component_report": "组件核验.json",
+    "component_script": "组件核验.gd",
+    "native_headless_exit_code": 0,
+    "script_error": false,
+    "four_states_match_approved_preview": true,
+    "six_step_fill_monotonic_fixed_bottom": true,
+    "material_and_mouse_filter_isolated": true,
+    "original_atlas_loaded": [
+      1536,
+      1024
+    ],
+    "original_scripts_sha256": {
+      "给Claude审查/check_room_standard.py": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+      "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+    },
+    "unchanged_state_and_config_sha256": {
+      "godot/ayu_home/v4/core/state.gd": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+      "godot/ayu_home/v4/core/config.gd": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735"
+    },
+    "begin_step_collect_cancel_and_other_boards_unchanged": true,
+    "full_five_rooms_or_core87_or_first_day_rerun": false,
+    "gui_visual_pass": false,
+    "environment_note": "原始stderr仅macOS get_system_ca_certificates提示，未称日志全空；原始日志留测试数据，不纳入提交。"
+  },
+  "approval": {
+    "C1": "已核图允许准备，并明确C4通过后正式绑定，无须二次确认",
+    "C4": "回执/第1轮返工/A1美术交接-1016/A02-v3-C4画面复核结论.md"
+  },
+  "C3_minimum_test": {
+    "isolation": "只用冻结提交的独立副本和自己的隔离存档；不操作、不关闭阿鱼当前试玩窗口。使用当天可正常收取的隔离档，不注入进度或库存。",
+    "steps": [
+      "从村路正常进入凯凯蜂蜜小院v_h5，打开压蜜装瓶；记录蜂蜜数量，检查开始前空罐、边缘和正常按钮。",
+      "点击摆好蜜脾，按原亮起顺序0→3→1→4→2→5逐步压蜜（0/1/2为上排、3/4/5为下排）。",
+      "第3步取半满证据；第6步取满罐未封口证据，检查底锚不跳、蜜液无外溢、人物/全局UI不受专用材质影响。",
+      "正常点封好这瓶蜜一次，确认出现封口、蜂蜜增加1、收取按钮正常消失，回屋里按钮可用。",
+      "正常返回屋内并保存隔离副本；记录任何shader报错、断边、外晕、错叠。仅这次最少差异，不重跑首日/六热点/87项。"
+    ],
+    "visual_gate": "实际Godot四态清楚，原六步与收取语义保持；WebGL隔离预览和headless组件核验不代替本项。"
+  },
+  "A03_parameter": {
+    "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/A1美术交接-1016/蜂蜜与备餐-真实接入规格.json",
+    "section": "A03_queued",
+    "already_pushed_commit": "868e76303b14099ae59e46cec82105cf869674c2",
+    "integration_order": "A02经C3独测后再接A03；progress3成品菜盘及正常流程保留"
+  },
+  "stop_remaining_percent": 10,
+  "roads": "本轮继续停画；磨坊仅有可行性记录未改动"
+}

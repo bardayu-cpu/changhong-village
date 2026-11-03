@@ -1,0 +1,520 @@
+{
+  "rooms": [
+    {
+      "id": "living",
+      "title": "客厅",
+      "times": {
+        "9": {
+          "status": "当版同窗参照已取；非全室验收",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "当版同窗参照已取；非全室验收",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "当版同窗参照已取；非全室验收",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "dining",
+      "title": "餐厅",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "kitchen",
+      "title": "厨房",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "laundry",
+      "title": "卫生间与洗衣",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "cats",
+      "title": "楼梯旁猫窝走道",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "stairs1",
+      "title": "一楼楼梯",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "mahjong",
+      "title": "茶桌与麻将室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "parents",
+      "title": "爸妈卧室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "workshop",
+      "title": "爸爸的手作房",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "garage",
+      "title": "车库",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "closet1",
+      "title": "东侧过道与次净衣柜",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "bath1",
+      "title": "爸妈卧室浴室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "guest",
+      "title": "客房",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "guest_closet",
+      "title": "客房衣帽间",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "guest_bath",
+      "title": "客房浴室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "stairs2",
+      "title": "二楼楼梯与过道",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "study",
+      "title": "书房",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "closet2",
+      "title": "阿鱼的衣柜",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "bath2",
+      "title": "阿鱼的浴室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "ayu_room",
+      "title": "阿鱼卧室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "v_laowu",
+      "title": "老屋 · 一楼",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "v_h5",
+      "title": "凯凯蜂蜜小院",
+      "times": {
+        "9": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-019-二修-蜂蜜9时-清洗覆盖已清.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-蜂蜜-9时-左目标右阿鱼.png"
+        },
+        "13": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-022-二修-蜂蜜13时-人物覆盖已清与桶内旋转保留.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-蜂蜜-13时-左目标右阿鱼.png"
+        },
+        "19": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-016-二修-蜂蜜19时-坐姿和桌上真茶杯.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-蜂蜜-19时-左目标右阿鱼.png"
+        }
+      }
+    },
+    {
+      "id": "v_h3_up",
+      "title": "小涛磨坊 · 二楼",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "v_h3",
+      "title": "小涛磨坊 · 一楼",
+      "times": {
+        "9": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-005-二修-磨坊9时-裸矩形已去.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-磨坊-9时-左目标右阿鱼.png"
+        },
+        "13": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-009-二修-磨坊13时-人物覆盖已清.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-磨坊-13时-左目标右阿鱼.png"
+        },
+        "19": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-012-二修-磨坊19时-坐姿遮挡与杯块清除.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-磨坊-19时-左目标右阿鱼.png"
+        }
+      }
+    },
+    {
+      "id": "v_mayor_up",
+      "title": "村委会 · 二楼资料室",
+      "times": {
+        "9": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "13": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        },
+        "19": {
+          "status": "未测/后补",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012"
+        }
+      }
+    },
+    {
+      "id": "v_mayor",
+      "title": "村委会 · 一楼",
+      "times": {
+        "9": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-030-二修-村委9时-翻册覆盖已清-互动后.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-村委-9时-左目标右阿鱼.png"
+        },
+        "13": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-026-二修-村委13时-盖章身前覆盖已清.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-村委-13时-左目标右阿鱼.png"
+        },
+        "19": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-033-二修-村委19时-晚间坐姿和桌上实物.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-村委-19时-左目标右阿鱼.png"
+        }
+      }
+    },
+    {
+      "id": "my_cabin",
+      "title": "村民活动中心",
+      "times": {
+        "9": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-006-续接-活动9时-清洗居民完整可见.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-活动中心-9时-左目标右阿鱼.png"
+        },
+        "13": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-009-续接-活动13时-身前覆盖清除完整居民.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-活动中心-13时-左目标右阿鱼.png"
+        },
+        "19": {
+          "status": "已实机观察目标可见范围并完成当版阿鱼并排；局部清理确认，整室未判通过",
+          "source_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+          "raw": "回执/第1轮返工/图/A1二修-8306872-1015-037-二修-活动19时-阅读坐姿和实物保留.png",
+          "pair": "回执/第1轮返工/图/A1二修-8306872-目标-活动中心-19时-左目标右阿鱼.png"
+        }
+      }
+    }
+  ],
+  "total": 81,
+  "scope": "四机构目标优先，其余23室69格按C1保留后补；隐藏区域不作通过",
+  "status": "目标批次完成，整体A1仍未通过",
+  "target_cells_observed": 12,
+  "whole_room_cells_passed": 0,
+  "other_cells_pending": 69
+}

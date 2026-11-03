@@ -11,20 +11,6 @@
   "asset_root": "res://ayu_home/v3/assets/",
   "props": [
     {
-      "id": "cabin",
-      "file": "res://ayu_home/v4/assets/village/cabin.png",
-      "pos": [
-        150,
-        45
-      ],
-      "foot": 405,
-      "scale": [
-        0.45,
-        0.45
-      ],
-      "front": false
-    },
-    {
       "id": "yard_tree1",
       "file": "res://ayu_home/v4/assets/village/green_tree.png",
       "pos": [
@@ -70,14 +56,7 @@
       "plant_type": "fruit"
     }
   ],
-  "obstacles": [
-    [
-      230,
-      90,
-      560,
-      277
-    ]
-  ],
+  "obstacles": [],
   "hotspots": [
     {
       "id": "yard",
@@ -123,23 +102,6 @@
       "kind": "door",
       "width": 60,
       "explicit_opening": true
-    },
-    {
-      "id": "cabin",
-      "label": "进自己的小屋",
-      "target": "my_cabin",
-      "pos": [
-        486,
-        410
-      ],
-      "approach": [
-        486,
-        445
-      ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
-      "explicit_opening": true
     }
   ],
   "anchors": {},
@@ -161,9 +123,9 @@
   ],
   "walk_rect": [
     35,
-    360,
+    70,
     980,
-    500
+    790
   ],
   "outdoor": true,
   "view_scale": 1.25

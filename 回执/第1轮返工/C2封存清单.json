@@ -1,0 +1,1100 @@
+{
+  "date": "2026-10-15",
+  "phase": "第1轮返工封存",
+  "score": 60,
+  "accepted": false,
+  "code_frozen_sha": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "quota_last_remaining_percent": 4,
+  "development_and_tests_stopped": true,
+  "source_manifest": {
+    "path": "回执/第1轮返工/C3稳定文件清单.json",
+    "sha256": "622837e73981f501b1678c3de0aad13a860bc487ea2611496a6b266acc269eee",
+    "sealed_evidence_count": 13
+  },
+  "files": [
+    {
+      "path": "回执/第1轮返工/A1-首修引擎.log",
+      "scope": "previously_committed_rework",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "git_blob": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A1-首修接测.json",
+      "scope": "previously_committed_rework",
+      "bytes": 841,
+      "sha256": "bfa19a9071152fe81bf24a006b11d960582f0cefd0f3a2dd6a9bab58bb7dc3d2",
+      "git_blob": "8a9d615cd99d0ab7983cb0780d7752c0f446ee47",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A1-首修编译.log",
+      "scope": "previously_committed_rework",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "git_blob": "ef295ec7a107867bd87e58236a2532ecbef02742",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A2-首修接测.json",
+      "scope": "previously_committed_rework",
+      "bytes": 906,
+      "sha256": "9a7d3be2f67dba3ac91f946b11beeb4b4742250a739513c5711d2266cf0508c6",
+      "git_blob": "d5cbebfdb90d75c182c987727f44c3ebc5483d7d",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A4-首修引擎.log",
+      "scope": "previously_committed_rework",
+      "bytes": 285,
+      "sha256": "13c21ac9ed38710452bee0026ed06310ef992cf57d5dad4799e0969fee787bb3",
+      "git_blob": "c9139348c5ab4cae2c9f2fc0b7912e543ed24bba",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A4-首修结论.json",
+      "scope": "previously_committed_rework",
+      "bytes": 785,
+      "sha256": "1412c90d18dd8798e84cfc50bb7968b5c8cd6463cf2c8c03400bcd730c0e906b",
+      "git_blob": "07199237ebd3c91934af07ca311e44d8fd171196",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A4-首修镜头核对.json",
+      "scope": "previously_committed_rework",
+      "bytes": 4445,
+      "sha256": "b4fcfed5aaab48ebd46c963b88ffaa5e73d7f277502497df1fb27b1ef7172d74",
+      "git_blob": "0654bd1dacdfe97fa94edfdc9e6787c3eb722301",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/A4-首修镜头核对.log",
+      "scope": "previously_committed_rework",
+      "bytes": 285,
+      "sha256": "13c21ac9ed38710452bee0026ed06310ef992cf57d5dad4799e0969fee787bb3",
+      "git_blob": "c9139348c5ab4cae2c9f2fc0b7912e543ed24bba",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/C2任务书同步.json",
+      "scope": "previously_committed_rework",
+      "bytes": 2457,
+      "sha256": "b4a0195ad3ab9647bf9a16ecf72ebac21de2d5ae77701e81888da46361ac1a22",
+      "git_blob": "05a77fee0cdfa0bb2a8a45c298cfac671f4e245d",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/C2制作结论.json",
+      "scope": "closeout",
+      "bytes": 2674,
+      "sha256": "a79958deef63ba658bc066d9b72c4cfc79dec7f4b295db5d52e99e082cabc6ae",
+      "git_blob": "88d49c1a1b00a40460840a2067172fac6d25a693",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/C3固定证据索引.json",
+      "scope": "C3sealed",
+      "bytes": 9181,
+      "sha256": "4ac48f2b9fa169d7fa38bbed5602cfe789cb8905ee8c50f7d7570a0d834008f3",
+      "git_blob": "9519b430b97567a1c52069723a78254d3179bf36",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/C3稳定文件清单.json",
+      "scope": "C3manifest",
+      "bytes": 4141,
+      "sha256": "622837e73981f501b1678c3de0aad13a860bc487ea2611496a6b266acc269eee",
+      "git_blob": "51f041a00587cb87a494fde9c5b4539b1dce4354",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/C3验收.md",
+      "scope": "C3sealed",
+      "bytes": 5411,
+      "sha256": "16d88f542fe2377ff3de3c3b95089c9a3f955486ab9bf66134d841db145b7521",
+      "git_blob": "d9320b45acc770ba2a32d3f76e45be1ac6472792",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "scope": "closeout",
+      "bytes": 3818,
+      "sha256": "736e2b248553742eee7bd52f16483ce03d99811919b08dd8f85002c170ae43c0",
+      "git_blob": "7c7b4e24649039e71f85a259042b69d056411f60",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/A1-A4-活动中心-017-左基线右阿鱼客厅-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 298964,
+      "sha256": "e2fc23c3bc9bf61a230124cd1546ddaaf951f53a35c01e8451ceaf32116d80fc",
+      "image_size": [
+        1080,
+        960
+      ],
+      "git_blob": "38b18b5e0de41ca0730ea4863d1291c810618191",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/A1-A4-活动中心-018-左基线右阿鱼客厅-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 301746,
+      "sha256": "f53481d7b424206a78e0e8590ca5630f0b9432c3d3f62b8595ac082508089d04",
+      "image_size": [
+        1080,
+        960
+      ],
+      "git_blob": "897420b6bc9875611bc7c72c1b3ba32acc89e744",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/A1-活动中心无遮挡矩形-左基线右阿鱼客厅-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 356945,
+      "sha256": "451be563348f782639003db3370c88d17a07849ad2cf2f43a19c12fb941c9c51",
+      "image_size": [
+        1080,
+        960
+      ],
+      "git_blob": "1b5517ab9adb51256b463c7cd4d0b3dc5d7b6415",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/返工基线-2dc979d-009-参照-阿鱼客厅-正常家门首屏-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 103542,
+      "sha256": "ac8571250517d2306bb0766670a6712b24d5c9ab68c697f4dcfe01c2fb480ffe",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "5b5a61a66f2f62c29cb4a838d518def05e3fb1f7",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/返工基线-2dc979d-017-基线-活动中心到达确认-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 202325,
+      "sha256": "e255d2a8572d1a565f1f0145fce6dd34a449eb1cd4bdc5403d1645a8438d1d71",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "40b1c6c2561e08a159d94777c00d430ae47249a6",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/返工基线-2dc979d-018-H5-走近自然问候-my_cabin-13.0点.png",
+      "scope": "C3sealed",
+      "bytes": 207376,
+      "sha256": "9acb1ddb1ffca52e5a96895d58f186e1aa15e900336b7c64431b9f099c7a6774",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "c17ee26922521054ac8739417b362422dec1d96a",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/图/返工基线-2dc979d-019-A1-活动中心NPC近景-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 265171,
+      "sha256": "313479d595ee77e1ce331a6fa5d57f4cf93b5c3a3b96bcea01b2ac13b1f76da6",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "d7ee0dbceac155df6fa255e718b820d3adf97875",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/失败记录/A4-第1次-全屋缩放.patch",
+      "scope": "previously_committed_rework",
+      "bytes": 1335,
+      "sha256": "bbaea7af8e03793c6d30132ef2042d78ff90ae280a2db2384dba1064cc8aff5d",
+      "git_blob": "e60ad14802e9a3d97c84114d5090154f12b3c8ad",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/失败记录/A4-第1次-镜头核对.gd",
+      "scope": "previously_committed_rework",
+      "bytes": 2172,
+      "sha256": "cd515d8bb170de4a124c2482ce055e9ad3b63dc248f43f8a346c761cf52c8aed",
+      "git_blob": "356b641210ab4456f193667c4d2bf4f7cee606d7",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/磨坊椅子-原生遮挡检查.gd",
+      "scope": "previously_committed_rework",
+      "bytes": 1562,
+      "sha256": "b7c28883c3107214d0a9b6862c4a43d4accb78fa4bdd462abddbe2495534259d",
+      "git_blob": "e5e5f68444c8baffc5b091d199899cfa91f329e2",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/磨坊椅子-引擎.log",
+      "scope": "previously_committed_rework",
+      "bytes": 438,
+      "sha256": "f79c3a54ea93aba584dbc14a2fc78796561a933baf0711d7f162b3242cbac6c0",
+      "git_blob": "e5e9b60e7d58746d772e68c0fa1cb2e5843da42d",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/磨坊椅子-遮挡核对.json",
+      "scope": "previously_committed_rework",
+      "bytes": 396,
+      "sha256": "6e6982f3b2119a57f6d10cfefcbfe73963ae5777155c29e154f0887f77b8bdc9",
+      "git_blob": "17da8d8ad7d7161e84ba6741f59638d9f4084a04",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/磨坊椅子-遮挡核对.log",
+      "scope": "previously_committed_rework",
+      "bytes": 438,
+      "sha256": "f79c3a54ea93aba584dbc14a2fc78796561a933baf0711d7f162b3242cbac6c0",
+      "git_blob": "e5e9b60e7d58746d772e68c0fa1cb2e5843da42d",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/磨坊椅子-首修接测.json",
+      "scope": "previously_committed_rework",
+      "bytes": 779,
+      "sha256": "c7d3dafca991fc4e2444c6f1034277aa74dce6b2065ec9be4e0c7dfe4c337737",
+      "git_blob": "8094f83dec6cf548e8d1f52aee5aa6e17c7f2433",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/篮子触摸-原生派发检查.gd",
+      "scope": "previously_committed_rework",
+      "bytes": 3593,
+      "sha256": "551455892258ce2536fa5eb054697b6bb7e7e4ae3e0ea217f3017d41a474676f",
+      "git_blob": "a0bafa699c9b3178ddb50f0af759d19326d4a0b0",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/篮子触摸-引擎.log",
+      "scope": "previously_committed_rework",
+      "bytes": 663,
+      "sha256": "e1c2ca2b32e4f973de93a185ee8b34201728dc1343d0b0fe71378f9988e0aeeb",
+      "git_blob": "340eb44c6303b4f71b97a69e70c887b14d62fa67",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/篮子触摸-派发核对-初次六项.log",
+      "scope": "previously_committed_rework",
+      "bytes": 597,
+      "sha256": "3fd952e762890d1a54e63c3d77f60a800f0a9c91ff921b9f379b4a55d3db6f4a",
+      "git_blob": "d95ea1ff37bcb53bf2ed894ac25a544793121cb7",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/篮子触摸-派发核对.json",
+      "scope": "previously_committed_rework",
+      "bytes": 830,
+      "sha256": "116616704595ce27f4b96def8d7e790d3a1c6a690e9ca57227380eb86392112f",
+      "git_blob": "98604201c0e401b31abf0f224826e167fca4862e",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/篮子触摸-派发核对.log",
+      "scope": "previously_committed_rework",
+      "bytes": 663,
+      "sha256": "e1c2ca2b32e4f973de93a185ee8b34201728dc1343d0b0fe71378f9988e0aeeb",
+      "git_blob": "340eb44c6303b4f71b97a69e70c887b14d62fa67",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/篮子触摸-首修接测.json",
+      "scope": "previously_committed_rework",
+      "bytes": 938,
+      "sha256": "5555a047cfc2f8da7cfc08d733bb2e9cc5341ad224a28acc9f3a4503c4f1100c",
+      "git_blob": "f07d686a504454833108113ad1fa6d27e49c1799",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/A2人物树屋比例建议-v1.md",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 1060,
+      "sha256": "21b4c4f81a0d17b26fae731672f24e3af960e59d8b97af4b98eccfc7e27bea13",
+      "git_blob": "33a2481dd6a8d5f575160db19e2e049e2879671a",
+      "changed": false
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/C2接入-manifest-v1.json",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 3589,
+      "sha256": "f539f8cdcd3dc63e3eac86cde39753622a7ffba937a92cc9d8550fd3f65cbab3",
+      "git_blob": "deb982beb61f52ac0cb2fa36542122fd42338dcd",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/C4道路样板交付-v1.md",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 1700,
+      "sha256": "95e193e4d8d19169c0c5c59b82c29e2cf25a347d04959d0aec0c9c34fb94796b",
+      "git_blob": "ef9cb73e33a03a01b6d1e3306076da4532570e8e",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/assets/a3-road-detail-overlay-v1.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 613439,
+      "sha256": "ad0cdfa4d1be2fa0673806938cda2b98fc266ad9c29c0c0f76cafd63d4652ea2",
+      "image_size": [
+        1024,
+        1024
+      ],
+      "git_blob": "cb8b2160eadcd2d048c72edefc25c9520fcaf552",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/参考/现有地图裁片-x0-y1900-1024.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 283854,
+      "sha256": "63fc78e311ba084fcddecf227d59ed602e7a000efe3340ef749a1c711ece484d",
+      "image_size": [
+        1024,
+        1024
+      ],
+      "git_blob": "9bda8559133594c9eeba30ae1dbe46ccc2da281c",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/参考/阿鱼家门前春-质量基准.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 330215,
+      "sha256": "f9a2edd0bbc8186286e52048a47a3add24bfbb5b71d9e7516ecd55e2abadf76e",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "b0cbed993e229e6cfc8cce9f0af3f2316bfd39a5",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/失败记录/三次尝试合成预览.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 4317819,
+      "sha256": "dbb0404c607871e65651f32515915f6cbe5b3a8c7f0734e76492b163042d2f4e",
+      "image_size": [
+        3072,
+        1080
+      ],
+      "git_blob": "3a18c1affbd740ee7f0e1b2c94f501527744f460",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/失败记录/失败原因.md",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 651,
+      "sha256": "ca6262e023b18635707e453a90932906f118dfd93ebf56da27a8e058b330a75d",
+      "git_blob": "d0cc2d307adddef6e4cf87f1021778ff225d010e",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/失败记录/尝试1-材质达标但几何漂移.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 2495859,
+      "sha256": "2f2d1a55587205d4618666d5dc41c22ff399a80845a684db27c8e2d47e69ab24",
+      "image_size": [
+        1254,
+        1254
+      ],
+      "git_blob": "42182ed0c1f968c321b6224e999df59a56f832f8",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/失败记录/尝试2-几何仍漂移.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 2621533,
+      "sha256": "d50339e4b3f3c81bc9527ce04cc2c80e5ef11baed65600d1d86b371be0dcf4a5",
+      "image_size": [
+        1254,
+        1254
+      ],
+      "git_blob": "60c68c3c4ed49a72ba4de8792fdcbec03fad633d",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/本波静态核对-v1.json",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 1154,
+      "sha256": "80a2ed158cb7c06c400406d6c79aedc85a7de516cab23176a587b9fe30158171",
+      "git_blob": "699273fc978cf0bb9de901abb047f03b070fa0b4",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/道路样板对比-v1.html",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 2015,
+      "sha256": "4288c456e307a56ba82dfca54857f6a81c697770273fb69d8d2f38f469bd2132",
+      "git_blob": "4348b9081da88f98e825414523e16622db189666",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/A3-道路样板-v1/预览/a3-道路样板-1比1叠加预览.png",
+      "scope": "C4_A3_failed_archive_only",
+      "bytes": 606098,
+      "sha256": "007331a660adaf83827fbed27df73d3023e3d295a84f9921761a0e900f4274ee",
+      "image_size": [
+        1024,
+        1024
+      ],
+      "git_blob": "ab6024133ddcd00d2dbf4eaffcb1d6a75d1d9901",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/设计/C4返工短结论-1014.md",
+      "scope": "closeout",
+      "bytes": 719,
+      "sha256": "1dae8c1fffd43134ad9586019471a714c94e55a71bbdf4d94205a6db26d8d139",
+      "git_blob": "4551212bdb24bd9ff492884546c149c97622ca84",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/问题证据/A2-A3-村路当前地面-左村路右阿鱼院子-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 283913,
+      "sha256": "424ef4468b5e80478bc08053bb54ecbc20acb1ac942ccbf5f720ba24fbc84ac3",
+      "image_size": [
+        1080,
+        960
+      ],
+      "git_blob": "3cd879feb561210801f164e58948ca7cd76292cf",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/问题证据/返工基线-2dc979d-007-参照-阿鱼门前院子-秋13时-540x960.png",
+      "scope": "C3sealed",
+      "bytes": 197446,
+      "sha256": "6cbef1b6cf393c6215616bcb05d79b44ce4d907d0b16166df049d62b887708c3",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "bf9ddeecb56eb2b976849f3cbd21f89107dd9d8c",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/问题证据/返工基线-2dc979d-015-基线-活动中心进门第一屏-秋13时.png",
+      "scope": "C3sealed",
+      "bytes": 97677,
+      "sha256": "7dca5b60206404deeb59c246e4ef50a7dfec0ea6f6b1cc8ce69cdf168f8218d9",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "cd1c659160fc52bde59fbf822f284a493cf93c03",
+      "changed": true
+    },
+    {
+      "path": "回执/第1轮返工/问题证据/返工目标-510ae8f-003-A1-活动中心中午整改近景.png",
+      "scope": "C3sealed",
+      "bytes": 265465,
+      "sha256": "40d27252c089d809bb486ae28fb389222b35a3a32fe52b779f38f352ce7ead1c",
+      "image_size": [
+        540,
+        960
+      ],
+      "git_blob": "ab88c8250562c783500eb42a5b53f41e5dd0b7ea",
+      "changed": true
+    }
+  ],
+  "excluded_worktree_files": [
+    {
+      "path": "回执/第1轮/C1画面核对.md",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/图/N3-东田-上春下夏-原像素.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/图/N3-门前-左春右夏-原像素并排.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/图/S1-最终-0846985-001-H6-入区-v_mayor.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/图/WTH01-雪晴雨-HUD原像素.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/村外追加-B3路口回归.txt",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/村外追加-东田局部素材合成.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/村外追加-全村素材合成.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期14-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期14-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期14-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期15-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期15-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期15-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期16-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期16-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/E2日期16-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/N6空篮-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/N6空篮-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/N6空篮-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/N6边界-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/N6边界-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/N6边界-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/YARD-01-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/YARD-01-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/YARD-01-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/原生启动-4127b2a/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/原生启动-4127b2a/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/原生启动-4127b2a/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/当前试玩-c0c80e0/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/当前试玩-c0c80e0/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/当前试玩-c0c80e0/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/重开前稳定轨迹/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/首次运行归档/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/首次运行归档/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-0846985/首次运行归档/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-4127b2a/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-4127b2a/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-4127b2a/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-7d87d81/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-7d87d81/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/最终-7d87d81/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/有家具重开-4127b2a/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/有家具重开-4127b2a/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/有家具重开-4127b2a/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/有进度重开-0846985/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/有进度重开-0846985/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/机构-d093c3c/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/机构-d093c3c/机构-d093c3c-001-H6-入区-v_h3.png",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日-85b78db/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日-85b78db/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日-85b78db/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日复测3-85b78db/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日复测3-85b78db/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日复测3-85b78db/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日有开地重开-85b78db/capture-request.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日有开地重开-85b78db/实时控件.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/独立测试/首日有开地重开-85b78db/最新观测.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/篮子v2-编译预检-1.log",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/设计/00-C4状态.md",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C2设计归档清单-1014.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C4二期设计回执-1014.md",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/本波静态核对-1014.json",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/C4麦收田园无桥三案交付-v7.md",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/阿鱼选择记录-1014.md",
+      "reason": "old_unsealed_material_preserved"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/capture-request.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/原生启动-stderr.log",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/图形启动.log",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/实时控件.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/房间覆盖安排.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/最新观测.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/来源.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/正常验收轨迹.jsonl",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-001-H6-入区-my_yard.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-001-H6-入区-my_yard.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-002-H6-入区-village.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-002-H6-入区-village.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-003-H6-入区-exterior.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-003-H6-入区-exterior.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-004-H6-入区-living.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-004-H6-入区-living.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-005-基线-村路当前位置-13点晴.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-005-基线-村路当前位置-13点晴.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-006-H6-入区-exterior.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-006-H6-入区-exterior.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-007-参照-阿鱼门前院子-秋13时-540x960.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-007-参照-阿鱼门前院子-秋13时-540x960.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-008-H6-入区-living.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-008-H6-入区-living.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-009-参照-阿鱼客厅-正常家门首屏-秋13时.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-009-参照-阿鱼客厅-正常家门首屏-秋13时.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-010-参照-阿鱼客厅-秋9时.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-010-参照-阿鱼客厅-秋9时.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-011-参照-阿鱼客厅-秋19时.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-011-参照-阿鱼客厅-秋19时.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-012-参照-阿鱼客厅-秋13时恢复.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-012-参照-阿鱼客厅-秋13时恢复.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-013-H6-入区-exterior.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-013-H6-入区-exterior.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-014-H6-入区-village.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-014-H6-入区-village.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-015-基线-活动中心进门第一屏-秋13时.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-015-基线-活动中心进门第一屏-秋13时.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-016-H6-入区-my_cabin.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-016-H6-入区-my_cabin.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-017-基线-活动中心到达确认-秋13时.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-017-基线-活动中心到达确认-秋13时.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-018-H5-走近自然问候-my_cabin-13.0点.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-018-H5-走近自然问候-my_cabin-13.0点.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-019-A1-活动中心NPC近景-秋13时.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-019-A1-活动中心NPC近景-秋13时.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/capture-request.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/原生启动-stderr.log",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/图形启动.log",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/实时控件.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/最新观测.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/来源.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/正常验收轨迹.jsonl",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-001-H6-入区-my_cabin.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-001-H6-入区-my_cabin.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-002-H5-走近自然问候-my_cabin-13.0点.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-002-H5-走近自然问候-my_cabin-13.0点.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-003-A1-活动中心中午整改近景.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-003-A1-活动中心中午整改近景.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-004-H6-入区-dining.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-004-H6-入区-dining.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-005-H6-入区-living.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-005-H6-入区-living.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-006-H6-入区-stairs1.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-006-H6-入区-stairs1.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-007-H6-入区-stairs2.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-007-H6-入区-stairs2.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-008-H6-入区-study.json",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-008-H6-入区-study.png",
+      "reason": "not_in_C3_stable_list_or_live_runtime"
+    },
+    {
+      "path": "回执/第1轮返工/设计/整村目标俯瞰-A定向-v1/现有20栋房屋参照表.png",
+      "reason": "independent_village_target_reference"
+    },
+    {
+      "path": "回执/第1轮返工/设计/整村目标俯瞰-A定向-v1/裳泓村-完整俯瞰目标图-A-v1.png",
+      "reason": "independent_village_target_reference"
+    },
+    {
+      "path": "回执/第1轮返工/设计/整村目标俯瞰-A定向-v1/说明.md",
+      "reason": "independent_village_target_reference"
+    },
+    {
+      "path": "回执/第1轮返工/设计/整村目标俯瞰-C定向-v1/裳泓村-完整俯瞰目标图-C-v1.png",
+      "reason": "independent_village_target_reference"
+    },
+    {
+      "path": "回执/第1轮返工/设计/整村目标俯瞰-C定向-v1/说明.md",
+      "reason": "independent_village_target_reference"
+    }
+  ],
+  "checks": {
+    "hashes_and_sizes_match": true,
+    "image_decode_ok": true,
+    "C3_max_png_bytes": 356945,
+    "no_secret_pattern_match": true,
+    "no_file_over_50MiB": true,
+    "no_production_or_tool_change": true
+  },
+  "protected_trees": {
+    "godot": "dafcdc65f0e05080898f3b70a15e5b3e96114e49",
+    "工具": "2469ea3eef527fe73f566b7958ade75b0048974c"
+  },
+  "audit_self_hash_excluded": true,
+  "known_pending": "A1局部改善但0/81正式格；A2整体比例欠验；A3三失败禁止接；A4失败撤回；组合版本独测/真触摸/椅子实坐/连续新首日/蝉鸣实听欠验。"
+}

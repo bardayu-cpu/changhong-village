@@ -1,0 +1,29 @@
+{
+  "commit": "084698547cf590d74dc776f2771ad82b0beeb04d",
+  "base": "完整d093c3c冻结副本+0846985变更",
+  "latest_overlays": {
+    "godot/ayu_home/v4/assets/craft/bamboo_screen.png": "25540d5ba441f11c41181644b99b247cd07c5c0ae364cee0be106f153e7d700c",
+    "godot/ayu_home/v4/assets/craft/clay_pot.png": "5abb1884dba426a78661f66c3726ee673fb70a3b02807370ee9280c9d0200b42",
+    "godot/ayu_home/v4/assets/craft/grain_crate.png": "5a6d7ab5f0bcaaee50ba1a0e7bd008b4e76a433feee83629838d2d5525a4d875",
+    "godot/ayu_home/v4/assets/craft/hanging_lamp.png": "5692869b5b1233cea7db292c53812ad1d76181b789f0a7d676f0d9f17d245026",
+    "godot/ayu_home/v4/assets/craft/honey_rack.png": "0e6ffd36c92875940c434d087018f68f27f40809b53e294fd7e662b1f5eea4fa",
+    "godot/ayu_home/v4/assets/craft/notice_easel.png": "21f64742455a68244d871539aabd61069e79a19b9773b7eb6775d2e38adeaf5b",
+    "godot/ayu_home/v4/assets/craft/picnic_mat.png": "92b3534d35639f061b789438f2be04db19e88e3a63e37fdc8f5170370ef06af6",
+    "godot/ayu_home/v4/assets/craft/tea_stool.png": "dab70282ec5a6b6df3b8f3c7dea2ce01c1c4746693fc3e7821d1659be49f98ee",
+    "godot/ayu_home/v4/assets/craft/wash_basin.png": "59fc58a0af7341e7ad37dec231d61cb7a4b1b616549ee2858ea651c4363f0c03",
+    "godot/ayu_home/v4/assets/rooms.json": "e416226419072ccad4188136b438a72c331aa27248f773b7559dedff5ece8e01",
+    "godot/ayu_home/v4/assets/village.json": "80b3b97dea81696e5f30e0abcf0e63ed7293e797823f28ef48f248b6c578582a",
+    "godot/ayu_home/v4/assets/village/houses.json": "34b514c9c57c576253367964c9aeab41914b44358cc5ecdee001e312856bad68",
+    "godot/ayu_home/v4/core/config.gd": "c5811f1f6da5129f2a360aee6a74511f562c1cfef245a0db8bd05a0911905735",
+    "godot/ayu_home/v4/core/doorstep_draw.gd": "5f7b938d1e2ad21626ed9751ea0c992aa14fd0ba8c8e999f4b08892b3839102d",
+    "godot/ayu_home/v4/core/furniture_draw.gd": "e994900b438cab6321c283be6b5a0eba9f4a1a1d4c2ce5c5a7ee0ec1fb2663f7",
+    "godot/ayu_home/v4/core/interface.gd": "764a7f8ecb05e5ed42674e1557b4e44b27eaffa8f1407d8dd382971de0ec0fef",
+    "godot/ayu_home/v4/core/state.gd": "645ff3f520d5135f4cd411ac83e478c8bc4b956ef69c2186d26a30f9dc8c321e",
+    "godot/ayu_home/v4/core/world_life.gd": "44705b66fd411758c18b611b7379e2af2415a14422bed448d72a9cd816f4fbfd",
+    "godot/ayu_home/v4/home.gd": "76ff8b5ce39441639cd7ef688642d8c53777b75b216bfd956b47869dd2193448"
+  },
+  "profile": "c3-final-0846985",
+  "save": "final_household/final_shared全新；未复制旧进度，不注入物品位置，第一天计时从真实初场景开始",
+  "scope": "后三机构、MILL最小复验、经济、14户、30分钟、最终重开；已有未改证据沿用",
+  "quota_exception": "按本轮额度例外-1013继续，40%精简，不在20%提前停"
+}

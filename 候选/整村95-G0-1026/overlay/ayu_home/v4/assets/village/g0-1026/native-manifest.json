@@ -1,0 +1,678 @@
+{
+  "contract_version": "v2.1-author-preview",
+  "status": "Next build source prepared with C3-prechecked water/road; live entry app remains frozen on prior build",
+  "pipeline_attempt": 3,
+  "pipeline_complete": false,
+  "scene_pass": false,
+  "surfaces": {
+    "grass": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-00.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-01.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-02.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-03.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json"
+      }
+    ],
+    "bank": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          704,
+          448,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          768,
+          448,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          704,
+          512,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+        "region": [
+          768,
+          512,
+          64,
+          64
+        ],
+        "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+        "author": "C4",
+        "acceptance": "conditional curved-bank composite only"
+      }
+    ],
+    "soil": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-soil-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          48,
+          256,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-ROAD-V22-01/G0-ROAD-V22-01-manifest.json",
+        "sha256": "8eb69127591b1a1b5c0a7b0bea8775037214163e138538299c4cb44c35402e83",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3土路小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-soil-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          64,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          704,
+          896,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-ROAD-V22-01/G0-ROAD-V22-01-manifest.json",
+        "sha256": "8eb69127591b1a1b5c0a7b0bea8775037214163e138538299c4cb44c35402e83",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3土路小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-soil-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          128,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          80,
+          768,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-ROAD-V22-01/G0-ROAD-V22-01-manifest.json",
+        "sha256": "8eb69127591b1a1b5c0a7b0bea8775037214163e138538299c4cb44c35402e83",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3土路小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-soil-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          192,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          1280,
+          848,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-ROAD-V22-01/G0-ROAD-V22-01-manifest.json",
+        "sha256": "8eb69127591b1a1b5c0a7b0bea8775037214163e138538299c4cb44c35402e83",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3土路小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      }
+    ],
+    "shallow": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-shallow-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          768,
+          480,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-manifest.json",
+        "sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3浅水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-shallow-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          64,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          384,
+          528,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-manifest.json",
+        "sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3浅水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-shallow-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          128,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          1360,
+          288,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-manifest.json",
+        "sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3浅水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-shallow-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          192,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          1344,
+          912,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-manifest.json",
+        "sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3浅水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      }
+    ],
+    "deep": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-deep-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          768,
+          480,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-manifest.json",
+        "sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3深水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-deep-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          64,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          384,
+          528,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-manifest.json",
+        "sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3深水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-deep-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          128,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          1360,
+          288,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-manifest.json",
+        "sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3深水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/native-deep-1028.png",
+        "source_size": [
+          256,
+          64
+        ],
+        "region": [
+          192,
+          0,
+          64,
+          64
+        ],
+        "source_region_xywh": [
+          1344,
+          912,
+          64,
+          64
+        ],
+        "source_manifest": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-manifest.json",
+        "sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa",
+        "author": "C4",
+        "independent_review": "回执/整村复审返工/第0步/C3深水小组预检-v22.md",
+        "acceptance": "material group precheck only; in-engine usage/transition not yet passed"
+      }
+    ],
+    "shoulder": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-00.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-01.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-02.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-03.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing shoulder; composition preview only"
+      }
+    ],
+    "paddy": [
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-00.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-01.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-02.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      },
+      {
+        "file": "res://ayu_home/v4/assets/village/g0-1026/grass-03.png",
+        "region": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94",
+        "author": "C4",
+        "independent_review": "C3短草预检-03.json",
+        "acceptance": "short-grass placeholder for missing paddy; composition preview only"
+      }
+    ]
+  },
+  "horizon": {
+    "far": {
+      "source_size": [
+        1536,
+        1024
+      ],
+      "region": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "alpha_bbox": [
+        0,
+        23,
+        1536,
+        895
+      ],
+      "anchor_x": 768,
+      "anchor_y": 640,
+      "peak": [
+        824,
+        455
+      ],
+      "buried_region": [
+        0,
+        640,
+        1536,
+        384
+      ],
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-far.png",
+      "baseline_offset": 0,
+      "sha256": "1b4c604d5a23b3a0ea821a528b7c58f94cf10d69a844a7262867be1167fa8138",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/attempts/G0-NATIVE-04/G0-NATIVE-04-emei-far-raw.png",
+      "acceptance": "conditional composite only; not passed"
+    },
+    "middle": {
+      "source_size": [
+        2172,
+        724
+      ],
+      "region": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "alpha_bbox": [
+        0,
+        155,
+        2172,
+        497
+      ],
+      "anchor_x": 1086,
+      "anchor_y": 483,
+      "peak": [
+        1056,
+        315
+      ],
+      "buried_region": [
+        0,
+        483,
+        2172,
+        241
+      ],
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-middle.png",
+      "baseline_offset": 0,
+      "sha256": "1e888250ab3c4fa4919435571273c10fcac5e4bae108b0fd7874e83a7a387346",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/v2/G0-MIDDLE-02.png",
+      "acceptance": "conditional composite only; not passed"
+    },
+    "forest": {
+      "source_size": [
+        2172,
+        724
+      ],
+      "region": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "alpha_bbox": [
+        0,
+        85,
+        2172,
+        575
+      ],
+      "anchor_x": 1086,
+      "anchor_y": 485,
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-forest.png",
+      "baseline_offset": 16,
+      "sha256": "e0caa4fe280e171d7dadd1cc5db37bc6dc9f7c256d87e88e76893f6adcf771ca",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/v2/G0-FOREST-03.png",
+      "acceptance": "conditional composite only; not passed"
+    },
+    "mist": {
+      "source_size": [
+        2172,
+        724
+      ],
+      "region": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "alpha_bbox": [
+        0,
+        101,
+        2172,
+        492
+      ],
+      "anchor_x": 1086,
+      "anchor_y": 400,
+      "file": "res://ayu_home/v4/assets/village/g0-1026/preview-mist.png",
+      "baseline_offset": 16,
+      "sha256": "8811970a7b1b50f4f0672e6c41f0a0c31f2b31d1335e8810e060c84fa3137b09",
+      "author": "C4",
+      "source": "回执/整村复审返工/第0步/C4素材/v2/G0-MIST-02.png",
+      "acceptance": "conditional composite only; not passed"
+    }
+  },
+  "source_raw_sha256": "67434359a68c877941e9a55680fb4efcd6de0db1f0ba9c57ecddb5663c64a4d1",
+  "preview_only": true,
+  "preview_placeholders": [
+    "shoulder",
+    "paddy"
+  ],
+  "middle_peak_registration": "C4 direct confirmation 2026-10-27: [1056,315], alpha=250; source unchanged",
+  "pending_usage_review": [
+    "road/yard material binding and courtyard transitions",
+    "bank-to-shallow-to-deep actual view",
+    "water animation actual view"
+  ],
+  "next_build_materials": [
+    {
+      "role": "shallow",
+      "source_atlas": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-atlas-4x64.png",
+      "candidate_file": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/native-shallow-1028.png",
+      "sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7",
+      "frames": 4,
+      "resized": false,
+      "review": "C3浅水小组预检-v22.md"
+    },
+    {
+      "role": "deep",
+      "source_atlas": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-atlas-4x64.png",
+      "candidate_file": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/native-deep-1028.png",
+      "sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa",
+      "frames": 4,
+      "resized": false,
+      "review": "C3深水小组预检-v22.md"
+    },
+    {
+      "role": "soil",
+      "source_atlas": "回执/整村复审返工/第0步/C4素材/v22/G0-ROAD-V22-01/G0-ROAD-V22-01-atlas-4x64.png",
+      "candidate_file": "候选/整村95-G0-1026/overlay/ayu_home/v4/assets/village/g0-1026/native-soil-1028.png",
+      "sha256": "8eb69127591b1a1b5c0a7b0bea8775037214163e138538299c4cb44c35402e83",
+      "frames": 4,
+      "resized": false,
+      "review": "C3土路小组预检-v22.md"
+    }
+  ]
+}

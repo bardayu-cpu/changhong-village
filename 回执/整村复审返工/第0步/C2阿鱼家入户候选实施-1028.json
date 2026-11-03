@@ -1,0 +1,245 @@
+{
+  "status": "exported_candidate_author_partial_GUI_released_to_C3",
+  "candidate_build": "d97a3cb4+2b984700 阿鱼入户候选未验",
+  "scope": "单户隔离候选；不代表院坝美术、G0或95通过",
+  "source_png_sha256": "6ce40dbceda7088b70402f0b4d324b71bce25d21a911dd0102b07ce694dc6047",
+  "source_art_changed": false,
+  "house_pos_size_changed": false,
+  "interiors_changed": false,
+  "door": {
+    "span": [
+      2418,
+      2625,
+      64
+    ],
+    "approach": [
+      2424,
+      2616
+    ],
+    "arrival": [
+      2418,
+      2689
+    ],
+    "actual_G": [
+      2424,
+      2616
+    ],
+    "actual_R": [
+      2424,
+      2696
+    ]
+  },
+  "solid_blocks": [
+    [
+      1868,
+      2170,
+      764,
+      434
+    ],
+    [
+      1868,
+      2604,
+      515,
+      64
+    ],
+    [
+      2453,
+      2604,
+      179,
+      64
+    ]
+  ],
+  "reviewed_engine_correction": {
+    "extra_open_rectangle": [
+      2383,
+      2604,
+      70,
+      4
+    ],
+    "reason": "原案地表grow3裁切与nav margin8叠加，G被移到门外2632",
+    "C3_receipt": "1028统筹/C3阿鱼家通道上沿4单位修正审查-1028.md",
+    "failed_attempt": "测试数据/本轮C2专用目录/1028阿鱼入户修复/构建/原方案导航失败摘要.json"
+  },
+  "geometry": {
+    "walk": [
+      2358,
+      2600,
+      124,
+      117
+    ],
+    "path": [
+      [
+        2418,
+        2689
+      ],
+      [
+        2352,
+        2712
+      ],
+      [
+        2280,
+        2752
+      ],
+      [
+        2200,
+        2776
+      ]
+    ],
+    "width": 56,
+    "same_source_surfaces_before": 910,
+    "same_source_surfaces_after": 911,
+    "cross_field_right_connection": false
+  },
+  "navigation": {
+    "G": [
+      2424.0,
+      2616.0
+    ],
+    "R": [
+      2424.0,
+      2696.0
+    ],
+    "baked_bytes": 87900,
+    "baked_sha256": "21f02244fa8b8534af07dcd7c022b493d8096554c169a58405c07844740de2ec",
+    "kind": "author_engine_navigation_only_not_native_playthrough",
+    "negative_garage": true,
+    "negative_left_wall": true,
+    "negative_south_neighbor": true,
+    "path_G_to_R": 6,
+    "path_public_to_G": 86,
+    "plane": [
+      2418.0,
+      2625.0
+    ],
+    "side_pass_does_not_enter": true,
+    "swept_entry": true,
+    "width": 64.0
+  },
+  "approved_material_cells": 12,
+  "failed_shoulder_v3_integrated": false,
+  "runtime": {
+    "life_core_root": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/本轮C2专用目录/1028阿鱼入户修复/运行数据",
+    "os_userdata": "/Users/kayra_ayu/Library/Application Support/裳泓村阿鱼入户1028-测试数据",
+    "userdata_is_symlink": false
+  },
+  "old_frozen_app_replaced": false,
+  "author_native_roundtrips_pass": false,
+  "C3_independent_roundtrips_pass": false,
+  "G0_pass": false,
+  "village95_pass": false,
+  "first_native_failure": {
+    "build": "d97a3cb4+9db4ec50",
+    "normal_startup": true,
+    "normal_exterior_to_village": true,
+    "actual_arrival": [
+      2424,
+      2696
+    ],
+    "image": "测试数据/本轮C2专用目录/1028阿鱼入户修复/作者截图/03-正常出院到村子.png",
+    "failure": "foot2735使人物头部被原台阶遮挡",
+    "normal_quit_confirmed": true
+  },
+  "sorting_fix": {
+    "only_prop": "ayu",
+    "old_foot": 2735,
+    "new_foot": 2625,
+    "sprite_global_position_unchanged": true,
+    "PNG_unchanged": true,
+    "native_retest_pending": false,
+    "native_R_visibility_retest_pass": true,
+    "world_full_rect_before": [
+      1850,
+      2150,
+      800,
+      600
+    ],
+    "world_full_rect_after": [
+      1850,
+      2150,
+      800,
+      600
+    ],
+    "old_root_y_plus_sprite_y": [
+      2735,
+      -585
+    ],
+    "new_root_y_plus_sprite_y": [
+      2625,
+      -475
+    ],
+    "visible_threshold_world_before_and_after": [
+      2418,
+      2625
+    ],
+    "visible_step_bottom_world_before_and_after": [
+      2418,
+      2667
+    ]
+  },
+  "package": {
+    "bundle_id": "com.bardayu.changhong.ayu1028",
+    "version": "0.1.1/1028.3",
+    "manifest_sha256": "e8a5a60c15c654fc7d5c8e2cd9a2e165887d3bd9f8b0f2707732928a43eaa7bb",
+    "hash_kind": "SHA256 of UTF8 canonical sorted file manifest",
+    "bytes": 363579030,
+    "codesign_deep_strict_exit": 0
+  },
+  "author_native_partial": {
+    "correct_normal_startup": true,
+    "normal_save_quit_reopen_restored_village_R": true,
+    "R_character_fully_visible_after_sorting_fix": true,
+    "normal_keyboard_village_to_exterior": true,
+    "normal_walk_to_family_door_and_invitation": true,
+    "normal_invitation_click_entered_living_log": {
+      "position": [
+        330,
+        418
+      ],
+      "from": "exterior",
+      "screenshot_after_click": false
+    },
+    "complete_three_roundtrips": false,
+    "public_road_full_native_walk": false,
+    "native_collision_negatives": false,
+    "native_long_hold_roundtrip": false
+  },
+  "GUI_handoff": {
+    "released": true,
+    "all_inflight_calls_finished": true,
+    "last_actual_screenshot": "06-第1轮院内家门.png",
+    "last_AX_visible_build": "d97a3cb4+2b984700",
+    "last_runtime_room": "living",
+    "further_C2_GUI_input": false,
+    "reason": "C1明确由C3接续；工具单次操作耗时205/583/476/505/951秒，不拿已做部分代签三轮"
+  },
+  "unchanged_float32_navigation_polygons": 907,
+  "changed_or_new_local_navigation_polygons": 4,
+  "navigation_hash_correction": {
+    "old_hex_text_digest": "b6cb73d0202e02ab7e90eaae3e9fd11a7f4d7ae605ae4ceebea56393130062c6",
+    "actual_mask_file_bytes_sha256": "21f02244fa8b8534af07dcd7c022b493d8096554c169a58405c07844740de2ec",
+    "verified_by": "Godot HashingContext and Python hashlib; previous field hashed hex text, not file bytes"
+  },
+  "author_images": [
+    {
+      "path": "回执/整村复审返工/第0步/C2阿鱼入户作者实画-1028/03-首包台阶遮挡失败.png",
+      "sha256": "c0cec3c2cf3eba222d827965fdd58854c92f70c5da7ae7062054fa6dd08dbaaa"
+    },
+    {
+      "path": "回执/整村复审返工/第0步/C2阿鱼入户作者实画-1028/04-排序修正后正常重开.png",
+      "sha256": "607d680ed3b6c92ee222eb53118b9f34d8c5a22cb49700c0b95918898d3a1ddc"
+    },
+    {
+      "path": "回执/整村复审返工/第0步/C2阿鱼入户作者实画-1028/05-真实跨门进入院子.png",
+      "sha256": "70593e31eeba676b5658269b7c65ce03f4ae61beed9a6b8eb56da70a0fe4a134"
+    },
+    {
+      "path": "回执/整村复审返工/第0步/C2阿鱼入户作者实画-1028/06-正常家门邀请.png",
+      "sha256": "6f85ba47a458e4cd42b1601827bfbe4a5e14ddd4c5d3da4b989e5c8f6aa972f5"
+    }
+  ],
+  "assembly_preflight_corrections": [
+    "独立工程叠加时根project覆盖生成配置；已改为排除root配置并在最后强制写入新隔离配置。早期仅几何脚本未启动Home或打开life/core；最终新包实际BOOT/READY已核独立路径。",
+    "首次脚本相对路径无法加载，改绝对路径；初次复制配置曾用旧测试日志路径，已告知C3，旧app本体未改。"
+  ],
+  "old7_protected_hashes_unchanged": true
+}

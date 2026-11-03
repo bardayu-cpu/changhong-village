@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS real approach path: press_honey
+PASS real approach path: clean_tools
+PASS real approach path: filter_honey
+PASS real approach path: seal_jar
+PASS real approach path: taste_honey
+PASS real approach path: rest_seat
+PASS real approach path: outside
+PASS host moves among three zones
+PASS three distinct host activities
+FAIL saved visible effect: wash / 保存没成功，这次操作没有扣除或发放物品
+FAIL saved visible effect: filter / 保存没成功，这次操作没有扣除或发放物品
+FAIL saved visible effect: bottle / 保存没成功，这次操作没有扣除或发放物品
+FAIL saved visible effect: tea / 保存没成功，这次操作没有扣除或发放物品
+PASS honey cancel has no reward and restores room
+PASS wrong comb cannot advance
+FAIL six combs expose collect
+FAIL bottled honey in shared inventory
+FAIL collect cannot duplicate honey
+PASS same date cannot start second bottle
+HONEY_RUNTIME FAIL

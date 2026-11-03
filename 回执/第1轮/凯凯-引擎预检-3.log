@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS real approach path: press_honey
+PASS real approach path: clean_tools
+PASS real approach path: filter_honey
+PASS real approach path: seal_jar
+PASS real approach path: taste_honey
+PASS real approach path: rest_seat
+PASS real approach path: outside
+PASS host moves among three zones
+PASS three distinct host activities
+PASS saved visible effect: wash / 水花带走碎蜡，蜂具洗得亮亮的。
+PASS saved visible effect: filter / 滤布轻轻压下，细碎蜂蜡留在上面。
+PASS saved visible effect: bottle / 蜜罐封好蜡口，留住花朵的香味。
+PASS saved visible effect: tea / 续上一杯热茶，茶香慢慢冒起来。
+PASS honey begins with persisted session
+PASS honey cancel has no reward and restores room
+PASS wrong comb cannot advance
+PASS six combs expose collect
+PASS bottled honey in shared inventory
+PASS collect cannot duplicate honey
+PASS same date cannot start second bottle
+HONEY_RUNTIME PASS

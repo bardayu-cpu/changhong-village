@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS isolated new save
+PASS mill requires grain without spending it
+PASS begin mill
+PASS start changes no inventory
+PASS cannot complete before work
+PASS first quarter turn
+PASS repeated input cannot advance twice
+PASS cancel in progress
+PASS cancel consumes and awards nothing
+PASS new mill run after cancel
+PASS quarter turn 1
+PASS quarter turn 2
+PASS quarter turn 3
+PASS quarter turn 4
+PASS quarter turn 5
+PASS quarter turn 6
+PASS quarter turn 7
+PASS quarter turn 8
+PASS quarter turn 9
+PASS quarter turn 10
+PASS quarter turn 11
+PASS quarter turn 12
+PASS completed mill transaction
+PASS exactly two grain to one flour in shared inventory
+PASS finish replay rejected
+PASS reopen completed save
+PASS shared inventory survives reopen
+PASS reopen cannot repeat payout
+PASS daily activity starts
+PASS daily output goes to shared inventory
+PASS daily activity cannot be claimed twice
+INSTITUTION_STATE PASS 31

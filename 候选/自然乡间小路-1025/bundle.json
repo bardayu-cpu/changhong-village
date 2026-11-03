@@ -1,0 +1,117 @@
+{
+  "candidate": "natural-winding-lanes-20261025",
+  "base_commit": "6595419d4d70c5ef3e6f995327f344508309c2e0",
+  "active_production_modified": false,
+  "user_scope": [
+    "winding realistic rural lanes",
+    "natural ordinary plant green, wildflowers/grasses and shallow curved irrigation",
+    "20 percent remaining commit/review closing line"
+  ],
+  "files": [
+    {
+      "path": "ayu_home/v4/home.gd",
+      "sha256": "3d9354774341e9a7b0dd479c32c707203764ba75e76ec4231b41613acf92e172",
+      "bytes": 119618
+    },
+    {
+      "path": "ayu_home/v4/world.gd",
+      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2",
+      "bytes": 42688
+    },
+    {
+      "path": "ayu_home/v4/core/village_ground.gd",
+      "sha256": "e1c40f913bf0d1bb14d7d27da7df4e6dbe135edc23f8044c4566f966af453579",
+      "bytes": 10975
+    },
+    {
+      "path": "ayu_home/v4/core/natural_terrain.gd",
+      "sha256": "d22ef1a91ee4609772d733347658f4850cfb610e3e8f3e03cb2952460d419c5d",
+      "bytes": 2072
+    },
+    {
+      "path": "ayu_home/v4/core/natural_verges.gd",
+      "sha256": "6f806ede5b6b0ee3fa7c30f6cfbb2365ea0a5b02433460f75673c6f07b572cf7",
+      "bytes": 4081
+    },
+    {
+      "path": "ayu_home/v4/assets/village.json",
+      "sha256": "eea72927751eda1e77483c8d1cced9e9945cec61dbc7aea4d3aa138134021090",
+      "bytes": 2649769
+    },
+    {
+      "path": "ayu_home/v4/assets/rooms.json",
+      "sha256": "1f6677d776be3498f53d42ceeac846af10bdfef79c7ce3b269ef6a828ca875b3",
+      "bytes": 3495151
+    },
+    {
+      "path": "ayu_home/v4/assets/village/layout-1025.json",
+      "sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a",
+      "bytes": 238631
+    },
+    {
+      "path": "ayu_home/v4/assets/village/houses.json",
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "bytes": 6436
+    },
+    {
+      "path": "ayu_home/v4/assets/village/topology.json",
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "bytes": 11980
+    },
+    {
+      "path": "ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "sha256": "54d92add17d5a3578cf18c64bdc8f49dee24456a2dad6713ec0968c40bebbd7d",
+      "bytes": 1242
+    },
+    {
+      "path": "ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+      "sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507",
+      "bytes": 1661119
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+      "bytes": 169116
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+      "bytes": 168980
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+      "bytes": 155890
+    },
+    {
+      "path": "ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06",
+      "bytes": 147491
+    }
+  ],
+  "family_unchanged": {
+    "ayu_home/v2/assets/chr_ayu.png": true,
+    "ayu_home/v2/assets/chr_ayu.json": true,
+    "ayu_home/v2/assets/act_ayu.png": true,
+    "ayu_home/v2/assets/act_ayu.json": true,
+    "ayu_home/v2/assets/chr_father.png": true,
+    "ayu_home/v2/assets/chr_father.json": true,
+    "ayu_home/v2/assets/act_father.png": true,
+    "ayu_home/v2/assets/act_father.json": true,
+    "ayu_home/v2/assets/chr_mother.png": true,
+    "ayu_home/v2/assets/chr_mother.json": true,
+    "ayu_home/v2/assets/act_mother.png": true,
+    "ayu_home/v2/assets/act_mother.json": true
+  },
+  "visual_user_approval": false,
+  "whole_game_90_pass": false,
+  "deferred": [
+    "distant mountain/river horizon rectangle",
+    "big tree layout",
+    "closed old-house door",
+    "14 real interaction before/after objects",
+    "9 room seated labels and merchant sit badge",
+    "true touch/audio/final release/H3"
+  ],
+  "test_boundary": "actual headless World/Actor routes and footprint assertions; winter native OS evidence separately attributed; images actual engine renders at explicit test positions/clocks"
+}

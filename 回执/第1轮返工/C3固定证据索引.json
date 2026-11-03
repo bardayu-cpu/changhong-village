@@ -1,0 +1,303 @@
+{
+  "last_actually_tested_commit": "510ae8f29d95d4f502141f7cd2740a5bd5a3bf3d",
+  "baseline_commit": "2dc979dcd23d8bfff2e78034188a603c75ad8c6e",
+  "new_combination_reported_by_C1": "cef05a8",
+  "new_combination_independently_tested": false,
+  "frames": [
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-007-参照-阿鱼门前院子-秋13时-540x960.json",
+      "area": "exterior",
+      "hour": 13.0,
+      "position": [
+        858.0,
+        710.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959031.96615,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-009-参照-阿鱼客厅-正常家门首屏-秋13时.json",
+      "area": "living",
+      "hour": 13.0,
+      "position": [
+        330.0,
+        418.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959076.13545,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-010-参照-阿鱼客厅-秋9时.json",
+      "area": "living",
+      "hour": 9.0,
+      "position": [
+        330.0,
+        418.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959076.64509,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-011-参照-阿鱼客厅-秋19时.json",
+      "area": "living",
+      "hour": 19.0,
+      "position": [
+        330.0,
+        418.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959100.89732,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-015-基线-活动中心进门第一屏-秋13时.json",
+      "area": "village",
+      "hour": 13.0,
+      "position": [
+        1128.0,
+        3234.5322265625
+      ],
+      "world_scale": [
+        1.14999997615814,
+        1.14999997615814
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959176.1886,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-017-基线-活动中心到达确认-秋13时.json",
+      "area": "my_cabin",
+      "hour": 13.0,
+      "position": [
+        346.0,
+        498.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959228.88151,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-018-H5-走近自然问候-my_cabin-13.0点.json",
+      "area": "my_cabin",
+      "hour": 13.0,
+      "position": [
+        386.279876708984,
+        370.744781494141
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959353.73021,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/基线-2dc979d/返工基线-2dc979d-019-A1-活动中心NPC近景-秋13时.json",
+      "area": "my_cabin",
+      "hour": 13.0,
+      "position": [
+        394.0,
+        206.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": null,
+      "visual_weather": null,
+      "world_weather": null,
+      "window_size": null,
+      "timestamp": 1791959394.8266,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-003-A1-活动中心中午整改近景.json",
+      "area": "my_cabin",
+      "hour": 13.0,
+      "position": [
+        394.0,
+        206.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "timestamp": 1791960263.35579,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-004-H6-入区-dining.json",
+      "area": "dining",
+      "hour": 13.0,
+      "position": [
+        286.0,
+        322.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "timestamp": 1791961853.74671,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-005-H6-入区-living.json",
+      "area": "living",
+      "hour": 13.0,
+      "position": [
+        94.0,
+        102.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "timestamp": 1791961872.79721,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-006-H6-入区-stairs1.json",
+      "area": "stairs1",
+      "hour": 13.0,
+      "position": [
+        138.0,
+        358.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "timestamp": 1791961876.82189,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-007-H6-入区-stairs2.json",
+      "area": "stairs2",
+      "hour": 13.0,
+      "position": [
+        46.0,
+        154.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "timestamp": 1791961880.38259,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    },
+    {
+      "source": "回执/第1轮返工/目标-510ae8f/返工目标-510ae8f-008-H6-入区-study.json",
+      "area": "study",
+      "hour": 13.0,
+      "position": [
+        78.0,
+        242.0
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "visual_month": 10,
+      "visual_weather": "clear",
+      "world_weather": "clear",
+      "window_size": [
+        540,
+        960
+      ],
+      "timestamp": 1791961883.91628,
+      "note": "原始固定帧侧证；不含存档、物品及实时观测。缺失字段保持null，不反推。"
+    }
+  ],
+  "pairing": {
+    "valid_baseline_pairs": [
+      "A1-A4-活动中心-017-左基线右阿鱼客厅-秋13时.png",
+      "A1-A4-活动中心-018-左基线右阿鱼客厅-秋13时.png",
+      "A1-活动中心无遮挡矩形-左基线右阿鱼客厅-秋13时.png"
+    ],
+    "reference": "返工基线-2dc979d-009-参照-阿鱼客厅-正常家门首屏-秋13时.png",
+    "conditions": "既有基线原像素并排：同版、10月13时、540×960室内参照；均为问题证据，不是通过图。旧观察器未记录天气字段，不能据此补称天气完整核验。",
+    "invalid_road_pair": "问题证据/A2-A3-村路当前地面-左村路右阿鱼院子-秋13时.png：院子可见雨，与道路天气不匹配，取消严格送审资格。",
+    "unpaired_target": "目标003只有整改近景，未完成受控同版阿鱼参照配对，不送审通过。"
+  }
+}

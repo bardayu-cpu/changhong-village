@@ -1,0 +1,24 @@
+{
+  "source_changes": [
+    {
+      "path": "actor.gd",
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01"
+    },
+    {
+      "path": "home.gd",
+      "sha256": "b4a2b8af586f11cd38c9addbd6f75489e35d14e65338e0eb184f26c205db4c60"
+    },
+    {
+      "path": "core/institution_room.gd",
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110"
+    },
+    {
+      "path": "core/interface.gd",
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3"
+    }
+  ],
+  "only_four_C2_sources_updated": true,
+  "previous_failure_evidence_preserved": true,
+  "road_assets_and_geometry_unchanged": true,
+  "OS_input_only_after_ready": true
+}

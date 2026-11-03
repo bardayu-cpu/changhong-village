@@ -1,0 +1,1515 @@
+{
+  "date": "2026-10-16",
+  "basis_commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+  "basis_prior_coverage_sha256": "deffc32aa27929c34ace2aac2bd1d140daddf336638521b6862a881fb0b4036e",
+  "kind": "原69格路线计划，10/16追加村委二楼局部实测；全室仍欠验",
+  "pending_cells": 69,
+  "rooms": 23,
+  "times": [
+    9,
+    13,
+    19
+  ],
+  "stop_remaining_percent": 30,
+  "batch_rule": "先A4/备餐当前小波，再最少标签案例；每波先查额度、预留封存，不启动跨30%的69格大批",
+  "route_groups": [
+    {
+      "wave": "A-阿鱼一楼",
+      "rooms": [
+        "living",
+        "dining",
+        "kitchen",
+        "laundry",
+        "cats",
+        "stairs1",
+        "mahjong",
+        "parents",
+        "workshop",
+        "garage",
+        "closet1",
+        "bath1"
+      ]
+    },
+    {
+      "wave": "B-阿鱼二楼",
+      "rooms": [
+        "guest",
+        "guest_closet",
+        "guest_bath",
+        "stairs2",
+        "study",
+        "closet2",
+        "bath2",
+        "ayu_room"
+      ]
+    },
+    {
+      "wave": "C-村庄三室",
+      "rooms": [
+        "v_laowu",
+        "v_h3_up",
+        "v_mayor_up"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "room": "living",
+      "title": "客厅",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "客厅房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "喂一撮鱼食",
+        "开关电视",
+        "坐一会儿",
+        "翻开相册"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "830三时段仅阿鱼参照，非全室验收"
+    },
+    {
+      "room": "dining",
+      "title": "餐厅",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "餐厅房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "坐下来吃饭",
+        "倒一杯温水",
+        "翻翻食谱",
+        "照顾桌上的花"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "kitchen",
+      "title": "厨房",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "厨房房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "煮一锅汤",
+        "开冰箱",
+        "洗洗手"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "laundry",
+      "title": "卫生间与洗衣",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "卫生间与洗衣房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "洗一筐衣服",
+        "拧开水龙头",
+        "整理毛巾",
+        "晾衣 / 收衣"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "cats",
+      "title": "楼梯旁猫窝走道",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "楼梯旁猫窝走道房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "猫窝",
+        "猫抓柱",
+        "添水和猫粮"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "stairs1",
+      "title": "一楼楼梯",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "一楼楼梯房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "摸摸木扶手",
+        "浇一小杯水",
+        "看看小画"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "mahjong",
+      "title": "茶桌与麻将室",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "茶桌与麻将室房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "沏茶",
+        "坐下聊会儿",
+        "照顾绿植",
+        "花纹翻牌"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "parents",
+      "title": "爸妈卧室",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "爸妈卧室房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "开关床头灯",
+        "把被子铺好",
+        "听听窗外"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "workshop",
+      "title": "爸爸的手作房",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "爸爸的手作房房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "磨一只木鸟",
+        "收好工具",
+        "工作台小灯",
+        "坐在这里"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "garage",
+      "title": "车库",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "车库房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "擦一擦车窗",
+        "转转自行车铃",
+        "整理杂物架"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "closet1",
+      "title": "东侧过道与次净衣柜",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "东侧过道与次净衣柜房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "叠好次净衣",
+        "打开抽屉",
+        "整理衣柜"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "bath1",
+      "title": "爸妈卧室浴室",
+      "wave": "A-阿鱼一楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "一楼",
+        "爸妈卧室浴室房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "洗手台",
+        "打开淋浴",
+        "整理浴巾"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "guest",
+      "title": "客房",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "客房房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "躺下休息",
+        "开关床头灯",
+        "翻一本书",
+        "坐在这里"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "guest_closet",
+      "title": "客房衣帽间",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "客房衣帽间房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "挂外套",
+        "整理旅行包",
+        "放好收纳盒"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "guest_bath",
+      "title": "客房浴室",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "客房浴室房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "拧开水龙头",
+        "试试温水",
+        "给盆栽浇水"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "stairs2",
+      "title": "二楼楼梯与过道",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "二楼楼梯与过道房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "木扶手",
+        "照顾楼梯绿植",
+        "过道的小花"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "study",
+      "title": "书房",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "书房房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "阿鱼的书桌",
+        "弹一首小旋律",
+        "书架里的拼图",
+        "靠窗读书"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "closet2",
+      "title": "阿鱼的衣柜",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "阿鱼的衣柜房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "挑一件外套",
+        "看看抽屉",
+        "叠好换洗衣服"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "bath2",
+      "title": "阿鱼的浴室",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "阿鱼的浴室房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "洗手",
+        "淋浴水声",
+        "晒晒浴垫"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "ayu_room",
+      "title": "阿鱼卧室",
+      "wave": "B-阿鱼二楼",
+      "route": [
+        "村庄地图底部阿鱼家楼层图",
+        "二楼",
+        "阿鱼卧室房间卡"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "摸摸兔子玩偶",
+        "梳妆镜",
+        "开关床头灯",
+        "看一眼窗外"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "v_laowu",
+      "title": "老屋 · 一楼",
+      "wave": "C-村庄三室",
+      "route": [
+        "村庄地图",
+        "老屋门边",
+        "正常门口进入一楼"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "门边的生活便签",
+        "整理窗边书页",
+        "坐一会儿"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "v_h3_up",
+      "title": "小涛磨坊 · 二楼",
+      "wave": "C-村庄三室",
+      "route": [
+        "村庄地图",
+        "小涛磨坊",
+        "一楼去二楼歇息间门口",
+        "正常上楼"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "坐下看记账本",
+        "在床边歇一歇"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    },
+    {
+      "room": "v_mayor_up",
+      "title": "村委会 · 二楼资料室",
+      "wave": "C-村庄三室",
+      "route": [
+        "村庄地图",
+        "村委会",
+        "一楼上楼查资料门口",
+        "正常上楼"
+      ],
+      "short_capture_order": [
+        9,
+        13,
+        19
+      ],
+      "principle": "同房一次到达，原视觉时钟按9→13→19；每次等居民停稳/清掉短暂招呼再观察，少于按时段走三遍",
+      "planned_subjects_from_config_only": [
+        "坐下翻资料",
+        "开关资料室的灯"
+      ],
+      "additional_view_rule": "先主体视野，屏外、家具前后或标签遮挡处仅正常走近补最少角度；未补到的具体区域继续欠验，不宣称整室",
+      "existing_fact": "该81格范围内仍欠验，不由静态配置或自动入区帧填通过"
+    }
+  ],
+  "cells": [
+    {
+      "room": "living",
+      "title": "客厅",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "living",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "living",
+      "title": "客厅",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "living",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "living",
+      "title": "客厅",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "living",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "dining",
+      "title": "餐厅",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "dining",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "dining",
+      "title": "餐厅",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "dining",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "dining",
+      "title": "餐厅",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "dining",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "kitchen",
+      "title": "厨房",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "kitchen",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "kitchen",
+      "title": "厨房",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "kitchen",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "kitchen",
+      "title": "厨房",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "kitchen",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "laundry",
+      "title": "卫生间与洗衣",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "laundry",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "laundry",
+      "title": "卫生间与洗衣",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "laundry",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "laundry",
+      "title": "卫生间与洗衣",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "laundry",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "cats",
+      "title": "楼梯旁猫窝走道",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "cats",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "cats",
+      "title": "楼梯旁猫窝走道",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "cats",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "cats",
+      "title": "楼梯旁猫窝走道",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "cats",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "stairs1",
+      "title": "一楼楼梯",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "stairs1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "stairs1",
+      "title": "一楼楼梯",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "stairs1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "stairs1",
+      "title": "一楼楼梯",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "stairs1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "mahjong",
+      "title": "茶桌与麻将室",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "mahjong",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "mahjong",
+      "title": "茶桌与麻将室",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "mahjong",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "mahjong",
+      "title": "茶桌与麻将室",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "mahjong",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "parents",
+      "title": "爸妈卧室",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "parents",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "parents",
+      "title": "爸妈卧室",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "parents",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "parents",
+      "title": "爸妈卧室",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "parents",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "workshop",
+      "title": "爸爸的手作房",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "workshop",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "workshop",
+      "title": "爸爸的手作房",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "workshop",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "workshop",
+      "title": "爸爸的手作房",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "workshop",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "garage",
+      "title": "车库",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "garage",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "garage",
+      "title": "车库",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "garage",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "garage",
+      "title": "车库",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "garage",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "closet1",
+      "title": "东侧过道与次净衣柜",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "closet1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "closet1",
+      "title": "东侧过道与次净衣柜",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "closet1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "closet1",
+      "title": "东侧过道与次净衣柜",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "closet1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "bath1",
+      "title": "爸妈卧室浴室",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "bath1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "bath1",
+      "title": "爸妈卧室浴室",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "bath1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "bath1",
+      "title": "爸妈卧室浴室",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "bath1",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest",
+      "title": "客房",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "guest",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest",
+      "title": "客房",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "guest",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest",
+      "title": "客房",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "guest",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest_closet",
+      "title": "客房衣帽间",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "guest_closet",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest_closet",
+      "title": "客房衣帽间",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "guest_closet",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest_closet",
+      "title": "客房衣帽间",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "guest_closet",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest_bath",
+      "title": "客房浴室",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "guest_bath",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest_bath",
+      "title": "客房浴室",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "guest_bath",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "guest_bath",
+      "title": "客房浴室",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "guest_bath",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "stairs2",
+      "title": "二楼楼梯与过道",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "stairs2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "stairs2",
+      "title": "二楼楼梯与过道",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "stairs2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "stairs2",
+      "title": "二楼楼梯与过道",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "stairs2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "study",
+      "title": "书房",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "study",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "study",
+      "title": "书房",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "study",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "study",
+      "title": "书房",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "study",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "closet2",
+      "title": "阿鱼的衣柜",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "closet2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "closet2",
+      "title": "阿鱼的衣柜",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "closet2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "closet2",
+      "title": "阿鱼的衣柜",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "closet2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "bath2",
+      "title": "阿鱼的浴室",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "bath2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "bath2",
+      "title": "阿鱼的浴室",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "bath2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "bath2",
+      "title": "阿鱼的浴室",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "bath2",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "ayu_room",
+      "title": "阿鱼卧室",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "ayu_room",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "ayu_room",
+      "title": "阿鱼卧室",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "ayu_room",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "ayu_room",
+      "title": "阿鱼卧室",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "ayu_room",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_laowu",
+      "title": "老屋 · 一楼",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "v_laowu",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_laowu",
+      "title": "老屋 · 一楼",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "v_laowu",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_laowu",
+      "title": "老屋 · 一楼",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "v_laowu",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_h3_up",
+      "title": "小涛磨坊 · 二楼",
+      "hour": 9,
+      "status": "欠验",
+      "route_id": "v_h3_up",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_h3_up",
+      "title": "小涛磨坊 · 二楼",
+      "hour": 13,
+      "status": "欠验",
+      "route_id": "v_h3_up",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_h3_up",
+      "title": "小涛磨坊 · 二楼",
+      "hour": 19,
+      "status": "欠验",
+      "route_id": "v_h3_up",
+      "scope": "全室A1目标检查未完成",
+      "raw": null,
+      "checked_regions": [],
+      "occluded_unchecked_regions": [
+        "尚未GUI观察，不能静态推断无遮挡"
+      ]
+    },
+    {
+      "room": "v_mayor_up",
+      "title": "村委会 · 二楼资料室",
+      "hour": 9,
+      "status": "局部已查，整室欠验",
+      "route_id": "v_mayor_up",
+      "scope": "全室A1目标检查未完成",
+      "raw": "回执/第1轮返工/图/差异-9acd328-1016-039-A1小波-村委二楼地图主体9时.png",
+      "checked_regions": [
+        "中央地图桌完整桌面、桌前沿及可见桌脚",
+        "玩家可见完整身体及身边地板"
+      ],
+      "occluded_unchecked_regions": [
+        "后墙柜上部被HUD及画面上缘挡住",
+        "左右侧阅览角及左侧楼梯处于屏外或只露边缘",
+        "地图桌后方、家具内部及隐藏区域未走近检查"
+      ],
+      "tested_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b"
+    },
+    {
+      "room": "v_mayor_up",
+      "title": "村委会 · 二楼资料室",
+      "hour": 13,
+      "status": "局部已查，整室欠验",
+      "route_id": "v_mayor_up",
+      "scope": "全室A1目标检查未完成",
+      "raw": "回执/第1轮返工/图/差异-9acd328-1016-041-A1小波-村委二楼地图主体13时.png",
+      "checked_regions": [
+        "中央地图桌完整桌面、桌前沿及可见桌脚",
+        "玩家可见完整身体及身边地板"
+      ],
+      "occluded_unchecked_regions": [
+        "后墙柜上部被HUD及画面上缘挡住",
+        "左右侧阅览角及左侧楼梯处于屏外或只露边缘",
+        "地图桌后方、家具内部及隐藏区域未走近检查"
+      ],
+      "tested_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b"
+    },
+    {
+      "room": "v_mayor_up",
+      "title": "村委会 · 二楼资料室",
+      "hour": 19,
+      "status": "局部已查，整室欠验",
+      "route_id": "v_mayor_up",
+      "scope": "全室A1目标检查未完成",
+      "raw": "回执/第1轮返工/图/差异-9acd328-1016-037-A1小波-村委二楼地图主体19时.png",
+      "checked_regions": [
+        "中央地图桌完整桌面、桌前沿及可见桌脚",
+        "玩家可见完整身体及身边地板"
+      ],
+      "occluded_unchecked_regions": [
+        "后墙柜上部被HUD及画面上缘挡住",
+        "左右侧阅览角及左侧楼梯处于屏外或只露边缘",
+        "地图桌后方、家具内部及隐藏区域未走近检查"
+      ],
+      "tested_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b"
+    }
+  ],
+  "never_observed_cells": 66,
+  "partially_observed_cells": 3,
+  "pending_full_room_cells": 69,
+  "actual_overlay": "回执/第1轮返工/差异-9acd328-1016/A1小波-村委二楼固定侧证.json"
+}

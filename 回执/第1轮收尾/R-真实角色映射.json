@@ -1,0 +1,158 @@
+{
+  "npcs": {
+    "linbo": {
+      "name": "林伯",
+      "rooms": [
+        "v_mayor",
+        "village"
+      ]
+    },
+    "household_h1": {
+      "name": "蓝瓦人家主人",
+      "rooms": [
+        "v_h1"
+      ]
+    },
+    "household_h6": {
+      "name": "花窗人家主人",
+      "rooms": [
+        "v_h6"
+      ]
+    },
+    "household_erba": {
+      "name": "二爸",
+      "rooms": [
+        "v_erba"
+      ]
+    },
+    "household_whitebrick": {
+      "name": "白砖小院主人",
+      "rooms": [
+        "v_whitebrick"
+      ]
+    },
+    "household_grape": {
+      "name": "葡萄架小院主人",
+      "rooms": [
+        "v_grape"
+      ]
+    },
+    "household_h7": {
+      "name": "窄巷人家主人",
+      "rooms": [
+        "v_h7"
+      ]
+    },
+    "household_h8": {
+      "name": "茶香小院主人",
+      "rooms": [
+        "v_h8"
+      ]
+    },
+    "household_rose": {
+      "name": "玫瑰花之家主人",
+      "rooms": [
+        "v_rose"
+      ]
+    },
+    "household_h4": {
+      "name": "田边平房主人",
+      "rooms": [
+        "v_h4"
+      ]
+    },
+    "kaikai": {
+      "name": "凯凯",
+      "rooms": [
+        "v_h5",
+        "village"
+      ]
+    },
+    "household_daba": {
+      "name": "大爸",
+      "rooms": [
+        "v_daba"
+      ]
+    },
+    "fang": {
+      "name": "方婆婆",
+      "rooms": [
+        "v_h2",
+        "my_cabin"
+      ]
+    },
+    "household_sunflower": {
+      "name": "向日葵之家主人",
+      "rooms": [
+        "v_sunflower"
+      ]
+    },
+    "household_persimmon": {
+      "name": "柿树老院主人",
+      "rooms": [
+        "v_persimmon"
+      ]
+    },
+    "xiaotao": {
+      "name": "小涛",
+      "rooms": [
+        "village",
+        "v_h3"
+      ]
+    },
+    "market": {
+      "name": "货郎",
+      "rooms": [
+        "village"
+      ]
+    },
+    "household_flower": {
+      "name": "花房小楼主人",
+      "rooms": [
+        "v_flower"
+      ]
+    }
+  },
+  "frame_size": [
+    64,
+    84
+  ],
+  "frame_order": {
+    "down": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "left": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "right": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "up": [
+      12,
+      13,
+      14,
+      15
+    ],
+    "sit": [
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "frozen_family": {
+    "ayu": "res://ayu_home/v2/assets/chr_ayu.png",
+    "father": "res://ayu_home/v2/assets/chr_father.png",
+    "mother": "res://ayu_home/v2/assets/chr_mother.png"
+  },
+  "note": "坐姿读取完整84像素，不再裁站立半身或补几何腿。新角色资产待C4，加载路径residents/closeout-1025/角色ID.png，头像talk-faces/角色ID.png。"
+}

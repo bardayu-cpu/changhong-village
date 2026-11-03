@@ -1,0 +1,82 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS authored whole-map ground loaded
+PASS coarse pixel nearest filtering
+PASS raised plants use actor Y sorting
+PASS loaded sorted plant at authored foot c4_tree_0
+PASS loaded sorted plant at authored foot c4_tree_1
+PASS loaded sorted plant at authored foot c4_tree_2
+PASS loaded sorted plant at authored foot c4_tree_3
+PASS loaded sorted plant at authored foot c4_bamboo_4
+PASS loaded sorted plant at authored foot c4_tree_5
+PASS loaded sorted plant at authored foot c4_tree_6
+PASS loaded sorted plant at authored foot c4_bamboo_7
+PASS loaded sorted plant at authored foot c4_tree_8
+PASS loaded sorted plant at authored foot c4_tree_9
+PASS loaded sorted plant at authored foot c4_bamboo_10
+PASS loaded sorted plant at authored foot c4_tree_11
+PASS loaded sorted plant at authored foot c4_tree_12
+PASS loaded sorted plant at authored foot c4_tree_13
+PASS loaded sorted plant at authored foot c4_tree_14
+PASS loaded sorted plant at authored foot c4_tree_15
+PASS loaded sorted plant at authored foot c4_tree_16
+PASS loaded sorted plant at authored foot c4_tree_17
+PASS loaded sorted plant at authored foot c4_tree_18
+PASS loaded sorted plant at authored foot c4_tree_19
+PASS loaded sorted plant at authored foot c4_shrub_20
+PASS loaded sorted plant at authored foot c4_shrub_21
+PASS loaded sorted plant at authored foot c4_shrub_22
+PASS all 23 C4 raised plants attached
+PASS master index exactly matches village file
+PASS preserved reachable approach visit_ayu
+PASS preserved reachable approach visit_laowu
+PASS preserved reachable approach visit_h5
+PASS preserved reachable approach visit_h3
+PASS preserved reachable approach visit_mayor
+PASS preserved reachable approach visit_community
+PASS preserved reachable approach mayor
+PASS preserved reachable approach honey
+PASS preserved reachable approach pond
+PASS preserved reachable approach chicken
+PASS preserved reachable approach orchard
+PASS preserved reachable approach market
+PASS preserved reachable approach home_site
+PASS preserved reachable approach map
+PASS preserved reachable approach mill
+PASS preserved reachable approach visit_erba
+PASS preserved reachable approach visit_daba
+PASS preserved reachable approach visit_h2
+PASS preserved reachable approach visit_h6
+PASS preserved reachable approach visit_h8
+PASS preserved reachable approach visit_h7
+PASS preserved reachable approach visit_h4
+PASS preserved reachable approach visit_h1
+PASS preserved reachable approach visit_flower
+PASS preserved reachable approach visit_whitebrick
+PASS preserved reachable approach visit_grape
+PASS preserved reachable approach visit_sunflower
+PASS preserved reachable approach visit_persimmon
+PASS preserved reachable approach visit_rose
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+LANDSCAPE PASS 77 checks; headless path/asset precheck; N1-N5 screenshots remain C3

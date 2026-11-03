@@ -1,0 +1,68 @@
+{
+  "scope": "one road-center and sparse short-grass shoulder atlas; C2 controls geometry/masks",
+  "attempt": 1,
+  "status": "ready_for_c2_byte_copy_pending_c3_visual_gate",
+  "atlas": {
+    "file": "road-transition-atlas.png",
+    "size": [
+      512,
+      256
+    ],
+    "sha256": "045e7a15d9302da5b27703de9c05cb8f07cac8c3a0c7ba165e069a3e59ec0dc1",
+    "regions": {
+      "road-center": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "road-shoulder": [
+        256,
+        0,
+        256,
+        256
+      ]
+    }
+  },
+  "tiles": {
+    "road-center": {
+      "file": "road-center.png",
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-30119df3-8efe-4dd9-a3dd-f082affb296f.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "sha256": "95d680e287a2bdbd49d0a3b986aa784481ee3c869478af12101392cbdde8c891"
+    },
+    "road-shoulder": {
+      "file": "road-shoulder.png",
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-c266b284-a543-493d-94eb-f53640652c34.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "sha256": "9fa55a8cda82b8af66fa494d5befb5a353b4d2a18a3baa16d3fe2a31d6ef52f7"
+    }
+  },
+  "mechanical_processing": "center crop to square, nearest-neighbor resize to 256, stitch only; no procedural repaint or blending",
+  "constraints": [
+    "top-down coarse pixel style",
+    "worn compact earth with quiet variation",
+    "sparse short grass and exposed soil at shoulder",
+    "no flowers, tall dense grass, hard border, cobblestone, puddle, bridge"
+  ],
+  "integration_note": "Reuse existing natural-verge-1025/roadside-atlas.png for verge detail; use this atlas only for road center and shoulder material.",
+  "test_note": "C2 to test at main_road_view [3544.321,1952.678], 13h July; C3 visual gate before reuse."
+}

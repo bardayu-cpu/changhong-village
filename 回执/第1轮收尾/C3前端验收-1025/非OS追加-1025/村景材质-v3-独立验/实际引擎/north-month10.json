@@ -1,0 +1,21 @@
+{
+  "area": "village",
+  "camera": [
+    4584.0,
+    535.0
+  ],
+  "extra": {
+    "selected_season": "autumn"
+  },
+  "hour": 13.0,
+  "month": 10,
+  "name": "north-month10",
+  "position": [
+    4584.0,
+    600.0
+  ],
+  "state_date": "2027-10-15",
+  "state_season": "秋",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

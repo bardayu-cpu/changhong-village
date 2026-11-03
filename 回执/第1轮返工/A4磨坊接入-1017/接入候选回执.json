@@ -1,0 +1,148 @@
+{
+  "status": "本屋最小接入候选；待C1/C3离线复核，未提交，Godot GUI欠验",
+  "base_commit": "d2ad72cb1ed952356ba090f29224b970b27c66ee",
+  "production_files": [
+    {
+      "path": "godot/ayu_home/v4/assets/v_h3.json",
+      "sha256": "b0d9eeb2419015817a4a7c1db711a7b078165c06e0d2cfccf5d066cd875ace69"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "sha256": "72367d7d86278f515bf14d45d24b894018e3ec6c6d6eb78bf73f91bc35eeb4d7"
+    },
+    {
+      "path": "godot/ayu_home/v4/world.gd",
+      "sha256": "fafc90171fa5fcab3c22e0224689e4b680ed3d146b88b855a6c7807a382192e6"
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "sha256": "fe3dace588319a98133a0d40a9d026f7cb0bb9a646ec185f90dd8b17a0c288d4"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_room.gd",
+      "sha256": "b8232d838cdd73cf40f39838d0d259f8afa68e6e543a75e3b56527efbebb48dc"
+    }
+  ],
+  "original_art": "回执/第1轮返工/设计/续办-1017/A4-磨坊入口构图/A4-磨坊入口构图-候选-v2.png",
+  "source_sha256": "72367d7d86278f515bf14d45d24b894018e3ec6c6d6eb78bf73f91bc35eeb4d7",
+  "source_unchanged": true,
+  "background_logical_mapping": {
+    "scale": [
+      0.4398826979472141,
+      0.4398826979472141
+    ],
+    "offset": [
+      0.4076246334310838,
+      0
+    ],
+    "logical_size": [
+      508,
+      600
+    ]
+  },
+  "entry": {
+    "spawn_unchanged": [
+      254,
+      486
+    ],
+    "door_approach_unchanged": [
+      254,
+      518
+    ],
+    "actual_nearest_arrival": [
+      254,
+      494
+    ],
+    "bias": [
+      -70,
+      30
+    ],
+    "radius": 160,
+    "view_scale_unchanged": 2
+  },
+  "new_interactions": {
+    "mill": {
+      "pos": [
+        302,
+        350
+      ],
+      "approach": [
+        268,
+        332
+      ]
+    },
+    "sift": {
+      "pos": [
+        271,
+        170
+      ],
+      "approach": [
+        272,
+        230
+      ]
+    },
+    "sweep": {
+      "pos": [
+        326,
+        248
+      ],
+      "approach": [
+        328,
+        278
+      ]
+    }
+  },
+  "chair": {
+    "logical_region": [
+      44,
+      367,
+      86,
+      94
+    ],
+    "foot": 460,
+    "source_region": [
+      99.10000000000001,
+      834.3133333333334,
+      195.50666666666666,
+      213.69333333333333
+    ],
+    "original_PNG_not_reused_as_overlay": true,
+    "GUI_revalidated": false
+  },
+  "foreground": "Existing atlas props/y sorting reused for main machine, bucket and trough; moving mill details have local y-sorted draw layer at foot491; tea steam stays in original room draw order.",
+  "checks": {
+    "focused_pass": 57,
+    "protected_unchanged": 150,
+    "original_seven_unchanged": true,
+    "other_room_configs_changed": false,
+    "GUI_pass": false
+  },
+  "preview_scope": "Canvas2D using native Godot-computed camera rectangles and existing sprite frames; offline composition only; not engine rendering, no lighting/bubbles/full UI simulation.",
+  "previews": [
+    {
+      "path": "回执/第1轮返工/A4磨坊接入-1017/磨坊-离线-540x960-HUD100.png",
+      "bytes": 457821,
+      "sha256": "8e69982e62147c4e95fad491e48c6781699c7a72a5b9563ede79cae38ae058d5"
+    },
+    {
+      "path": "回执/第1轮返工/A4磨坊接入-1017/磨坊-离线-540x960-HUD88.png",
+      "bytes": 464906,
+      "sha256": "d38a2780beb8a87494436eb232cd4745f12000df364ca792956bb48ba82fb65a"
+    },
+    {
+      "path": "回执/第1轮返工/A4磨坊接入-1017/磨坊-离线-1280x720-HUD100.png",
+      "bytes": 631638,
+      "sha256": "f7956eed00b6774d91ddc44ffefde29fe6df3734221250f1e452856a4886d852"
+    },
+    {
+      "path": "回执/第1轮返工/A4磨坊接入-1017/磨坊-离线-1280x720-HUD88.png",
+      "bytes": 644107,
+      "sha256": "54e469ec5e3609a63d9ff993f860a75fc694a50cddb4670e424dbd5c34bc048d"
+    }
+  ],
+  "environment_notes": [
+    "Initial new test fixture lacked explicit dynamic-result variable types; only declarations corrected, no existing assertions changed.",
+    "Native check passes; macOS certificate query and engine relative-log-path warnings retained in process logs.",
+    "Chrome asynchronous image.decode raced DOM capture; switched preview images to normal page-load lifecycle, final landscape DOM LAYOUT_OK. Same composition, no extra artwork generation."
+  ]
+}

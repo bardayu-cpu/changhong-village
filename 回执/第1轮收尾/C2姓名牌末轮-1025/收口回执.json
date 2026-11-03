@@ -1,0 +1,14 @@
+{
+  "base_checkpoint": "bd7c63c",
+  "status": "partial improvement; not final acceptance",
+  "production_delta": "4 source files: pose-following actor nameplates; street actor bodies and nameplates excluded by interaction markers",
+  "h6": "native standing at 13h and native seated at 19h/lift52 both visually and geometrically pass; first failure preserved",
+  "merchant": "own nameplate and interaction marker avoid body; current approach overlaps player/merchant and nameplate frame intersects player head by 4px; whole scene not passed",
+  "real_click": "pending; candidate native app selection unsuccessful; Quit Godot denied by automatic approval because it could close required candidate; no bypass",
+  "road": "prior sample remains visually failed; geometry and material unchanged in this last patch",
+  "S3": "two real drags failed; no third attempt",
+  "phone": "no Web template/preset or usable browser package; no new installation, no public deployment",
+  "desktop": "C3 confirms label candidate remains running using isolated test saves",
+  "old_seven_dirty_documents": "preserved byte-for-byte",
+  "next": "review merchant approach/label-player interaction; ditch bank; S3 native drag; Web template and real phone touch"
+}

@@ -1,0 +1,295 @@
+{
+  "npcs": 18,
+  "files": [
+    {
+      "id": "linbo",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/linbo.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/linbo.png",
+      "sha256": "3fc6c012d6833ed6e0ef150ccbc085a83163f3798fbece268926390afeaa4318",
+      "previous_sha256": null
+    },
+    {
+      "id": "linbo",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/linbo.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/linbo.png",
+      "sha256": "eee709593c49c931a7b180deb856a6c52f7ad072e913ceace897835d1a880246",
+      "previous_sha256": "83502ed7f72da86c22f0e4d48a864b546f8699483f2c3104734a09f04801ba99"
+    },
+    {
+      "id": "household_h1",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h1.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h1.png",
+      "sha256": "a03128306f8d8d7705a7c60405c0327eb4540312502cd6105e6b7f4f8fc2360e",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h1",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h1.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_h1.png",
+      "sha256": "5d700b89a885a4cf3b67835d4063a103db98a9e0b3a8cbc7b1d94d1d425a3f3b",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h6",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h6.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h6.png",
+      "sha256": "c0d4564efb3cc2ac1f907e819b4c3f6bcd3329d36b64a957335d6930032211b6",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h6",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h6.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_h6.png",
+      "sha256": "cf5276f20e3439b145f4f406568c4f6ba88450192b68c3d870dc6176e3dc5ef8",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_erba",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_erba.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_erba.png",
+      "sha256": "3b8816c98920d8470c14a2bf839bbaa3583d722717babcaf007de8b9f1e71283",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_erba",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_erba.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_erba.png",
+      "sha256": "2b753296d9111ce019e012d90bf113cd669f0f07206167dda204d0ccfa416d41",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_whitebrick",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_whitebrick.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_whitebrick.png",
+      "sha256": "b83549d2cf5962f3aabd559878a3cff6229eaa6066439f9dca0430935d8c4dbd",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_whitebrick",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_whitebrick.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_whitebrick.png",
+      "sha256": "d59f06b860b697205f4ae1400c3c3b31b847ae646a37146860a969561b13a840",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_grape",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_grape.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_grape.png",
+      "sha256": "9d4ba9a11b6138e5eaaf865792614d250a86adae578f7b0bbcb8656f719e8d92",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_grape",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_grape.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_grape.png",
+      "sha256": "9963aa055d60f0c0236c504541fffc28d9502858d0305c927c1bbcb2fbb69ded",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h7",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h7.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h7.png",
+      "sha256": "694b680a61c10442aee66a25494d36ca8790525c628bc87ae751bbdb4ee93b3a",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h7",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h7.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_h7.png",
+      "sha256": "211007393fd39d27b48a46626b10c28191c81335761904a435dc70a4851c88ba",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h8",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h8.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h8.png",
+      "sha256": "5a081ccd452f4088abdab8b10de604d2c630c4342bd335e7a2872901c5c6eaae",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h8",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h8.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_h8.png",
+      "sha256": "fcb55b1669fbe67c0e3f4b04abc8e257134b92bcc1813a93d18b269c2fb2ef99",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_rose",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_rose.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_rose.png",
+      "sha256": "0d3d707f20441b58a0827502f1abbb0ecb9f5a74d2db588c5d69445883e0c15d",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_rose",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_rose.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_rose.png",
+      "sha256": "0f7a0e4fb584773aefc2c925b09f3ee1749cf21f99d40dc08c257f3d2df6e446",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h4",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_h4.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_h4.png",
+      "sha256": "3839389adf72c923e1b92caae94cda79931d3e0fd3290191a39f5b12947bb9c1",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_h4",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_h4.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_h4.png",
+      "sha256": "563de74dbd10b72acb277ff9eab210a513aa6bfa8ac5294b50d04f597ab51525",
+      "previous_sha256": null
+    },
+    {
+      "id": "kaikai",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/kaikai.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/kaikai.png",
+      "sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384",
+      "previous_sha256": "fad2bf15723832b3b8c6bd1ff65fbf12381d371eafdc9290fbf94524f3492384"
+    },
+    {
+      "id": "kaikai",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/kaikai.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/kaikai.png",
+      "sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1",
+      "previous_sha256": "5c27e2c38f7a93d80d5a1567c41c536f2af33adb860d8a8460d94e15818748d1"
+    },
+    {
+      "id": "household_daba",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_daba.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_daba.png",
+      "sha256": "c9689176505405be98840bb001c876e6574bdecb7ee676da9e5685787a442faf",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_daba",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_daba.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_daba.png",
+      "sha256": "6da4bae475c4e498e199520d6a7b502b85cc6dcea57713af7a7f11bb5bc2b903",
+      "previous_sha256": null
+    },
+    {
+      "id": "fang",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/fang.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/fang.png",
+      "sha256": "91adfaf867723fb92e68c6c03e6b0886763549f29708113aad40b79fb2b2775e",
+      "previous_sha256": null
+    },
+    {
+      "id": "fang",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/fang.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/fang.png",
+      "sha256": "e5e70e36704f0484c3e66657a20338811caa2ec9d09a1c52c8f735debe87f0a8",
+      "previous_sha256": "a812e2e6dcb6e4cd34530ad973470c2b56b2460e49519eee8a3c591921a42d56"
+    },
+    {
+      "id": "household_sunflower",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_sunflower.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_sunflower.png",
+      "sha256": "679491fd3df7c5f8fcf4a9b3079568d77d57f833bf5659e12be5f4f073c488da",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_sunflower",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_sunflower.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_sunflower.png",
+      "sha256": "9712d28112ff02567e879d7243f17f254f97364776f9992c400adb64707d7caf",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_persimmon",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_persimmon.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_persimmon.png",
+      "sha256": "642bccce690fb2528e019eda11ab544d02083e9663daa8b3e7ad7794cc2d1002",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_persimmon",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_persimmon.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_persimmon.png",
+      "sha256": "ab44c8df5533cf1ad3df4deea2c8db67452acd42e0acdfc841b91337386375ae",
+      "previous_sha256": null
+    },
+    {
+      "id": "xiaotao",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/xiaotao.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/xiaotao.png",
+      "sha256": "bae05efcc167afdd0291172b9735ea9775406e4be52b687c903b3e57c82f417b",
+      "previous_sha256": null
+    },
+    {
+      "id": "xiaotao",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/xiaotao.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/xiaotao.png",
+      "sha256": "8b0f94f88f620ace8c2f699f21fdb667508b4b222ac8589c41edc034966da489",
+      "previous_sha256": "99008ec0aefe681a93addc05c52cf20f45b3dd7e6c892d00438ff030812045b2"
+    },
+    {
+      "id": "market",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/market.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/market.png",
+      "sha256": "621fc51fd699f911ef033ae010f406befc80dec8f82f1b217412aa3585e8ed00",
+      "previous_sha256": null
+    },
+    {
+      "id": "market",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/market.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/market.png",
+      "sha256": "53796dd014ce046652f8d4b30661b2a7aefea4f8352953a7edf85e6d0efa67ac",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_flower",
+      "kind": "strip",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/residents/closeout-1025/household_flower.png",
+      "destination": "godot/ayu_home/v4/assets/residents/closeout-1025/household_flower.png",
+      "sha256": "8bdcc0c7b4de486517a30da514dac533eaa43657f8df9320ff12c6e14dae4e32",
+      "previous_sha256": null
+    },
+    {
+      "id": "household_flower",
+      "kind": "face",
+      "source": "回执/第1轮收尾/C4-人物重画/R交C2可直接接入/talk-faces/household_flower.png",
+      "destination": "godot/ayu_home/v4/assets/talk-faces/household_flower.png",
+      "sha256": "e84dfd538e9b19a01badbf86e850b50bce6e229646d5c4b9f8bba668d4fbbc32",
+      "previous_sha256": null
+    }
+  ],
+  "family_unchanged": true,
+  "visual_acceptance": "pending C3"
+}

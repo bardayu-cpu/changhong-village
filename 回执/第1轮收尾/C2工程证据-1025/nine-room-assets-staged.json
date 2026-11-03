@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "room": "v_h1",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/h1.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/h1.png",
+      "sha256": "4ecafebe749cc7740e2fd04fcccdf759eced89fae05acccf390552dd1ab91efc",
+      "activated": false
+    },
+    {
+      "room": "v_h2",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/h2.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "sha256": "5d9989d6ed851f973aca70f993ffcbc09fcc9e6eae9da0a52d8223bec3850fe0",
+      "activated": false
+    },
+    {
+      "room": "v_h4",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/h4.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "sha256": "4509738fad84505d2802f594d9eb840f236557acf6b8a0de41d6f569a2d27764",
+      "activated": false
+    },
+    {
+      "room": "v_h6",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/h6.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/h6.png",
+      "sha256": "9b5568fe2fe1e3644d6adc2c8bec70180c00cdbfadc05f6ee030ecc5812a64f7",
+      "activated": false
+    },
+    {
+      "room": "v_h7",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/h7.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "sha256": "8d604dedeadb5a119df959207688fb2dec219648eb693c43a242d83bffb67edb",
+      "activated": false
+    },
+    {
+      "room": "v_whitebrick",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/whitebrick.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "sha256": "5d77e6248fab54195cc3cabaf1fcc2d7eb3a5aef8dab213d9b70cf7772814ec0",
+      "activated": false
+    },
+    {
+      "room": "v_erba",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/erba.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/erba.png",
+      "sha256": "413f254b85d54086d19c9d130f009be525d676f175d1b881b56cc7e398daea2e",
+      "activated": false
+    },
+    {
+      "room": "v_daba",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/daba-bamboo.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "sha256": "4a9666ca9201eac833086929719195b39e83799d264426f04835636b909f911e",
+      "activated": false
+    },
+    {
+      "room": "v_rose",
+      "source": "回执/第1轮收尾/C4-九户正式陈设/rose.png",
+      "destination": "godot/ayu_home/v4/assets/village/households-closeout-1025/rose.png",
+      "sha256": "5bcca0be89f27055884dd3baba4628ac5795e483fd8ba4083778720067afd063",
+      "activated": false
+    }
+  ],
+  "status": "assets copied only; new collision/foreground mapping pending, live rooms unchanged"
+}

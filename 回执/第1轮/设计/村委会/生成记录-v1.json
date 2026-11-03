@@ -1,0 +1,7 @@
+{
+  "tool": "内置imagegen",
+  "asset": "林伯-老人头像-source-v1.png",
+  "prompt": "Use case: stylized-concept\nAsset type: transparent dialogue bust portrait for fictional elderly village official Linbo (林伯).\nInput image1: identity reference, FIRST elderly MAN in sprite strip. Preserve neat short silver-grey swept hair, kind mature male face, warm tan skin, simple dark charcoal Chinese jacket with subtle frog closures and dark collar; dark trousers not shown in bust. Do not copy any other character.\nInput image2: game pixel style reference only, warm hard edges and thick dark brown outline, not the woman's identity.\nRequest: exactly one chest-up portrait of the same elder man, gentle3/4 facing screen-left, warm calm smile, subtle wrinkles and silver brows make him clearly an elder. Whole head and shoulders visible with padding, upper arms visible.\nStyle: crisp coarse pixel clusters, dark thick outlines, warm stepped highlights, restrained2-3 shades/material. NO blur, photorealism, glossy3D or smooth gradient.\nConstraints: genuinely transparent alpha background, no painted checkerboard, no name, no text, no props or stamps held, no room, no floor shadow, no border, no UI, no watermark. Not a spritesheet. Intended reduction roughly188x220 pixels for dialogue. Fictional NPC, not a real relative.",
+  "reference": "已打开LM-GUEST-10灰发男性原图，认可客厅风格",
+  "review": "灰发、深灰唐装、男性长者脸一致，alpha透明；未接入未游戏验收"
+}

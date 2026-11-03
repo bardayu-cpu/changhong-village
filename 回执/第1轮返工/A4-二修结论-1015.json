@@ -1,0 +1,193 @@
+{
+  "item": "A4",
+  "attempt": 2,
+  "date": "2026-10-15",
+  "status": "镜头小样前置核对未过；未修改生产镜头，不交作实机通过。",
+  "base_commit": "addd5aded42dfe09e8b45f000b615f5c0e67cfb6",
+  "production_code_stays": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+  "method": "调用真实 Home.layout_world 做内存中的取景投影；固定 HUD 下沿 100，采用 C4 540×960 安全区 x20..520/y125..775。无游戏存档、无窗口操作。",
+  "minimal_camera_candidate": {
+    "center": [
+      256,
+      350
+    ],
+    "scale": 2.0,
+    "nominal_actor_screen_height": 168,
+    "portrait_result": {
+      "actual_center": [
+        256.0,
+        350.0
+      ],
+      "corner_screen": {
+        "prep": [
+          -90.0,
+          170.0
+        ],
+        "read": [
+          54.0,
+          730.0
+        ],
+        "tidy": [
+          666.0,
+          376.0
+        ],
+        "weave": [
+          424.0,
+          2.0
+        ]
+      },
+      "mode": "table_first_candidate",
+      "nominal_actor_height": 168.0,
+      "player_screen": [
+        386.0,
+        584.0,
+        128.0,
+        168.0
+      ],
+      "safe_rect": [
+        20.0,
+        125.0,
+        500.0,
+        650.0
+      ],
+      "scale": 2.0,
+      "table_screen": [
+        58.0,
+        188.0,
+        420.0,
+        330.0
+      ],
+      "visible_corner_centers": [
+        "read"
+      ],
+      "whole_player_in_safe_area": true,
+      "whole_table_in_safe_area": true,
+      "window": [
+        540,
+        960
+      ]
+    },
+    "limitation": "可收全共桌和玩家，但只露出阅读角中心，不能满足完整共桌外再识别两个功能角。未接入首屏或行走跟随。"
+  },
+  "why_camera_only_is_insufficient": {
+    "portrait": "所有两功能角组合即使只要求看见中心点，与完整共桌/玩家的合并跨度也都超过 C4 500×650 安全区；6组均不成立。换镜头中心不能改变跨度。",
+    "pairs": [
+      {
+        "corners": [
+          "prep",
+          "weave"
+        ],
+        "fits_500_by_650_safe_area": false,
+        "minimum_screen_span": [
+          604.0,
+          750.0
+        ]
+      },
+      {
+        "corners": [
+          "prep",
+          "read"
+        ],
+        "fits_500_by_650_safe_area": false,
+        "minimum_screen_span": [
+          604.0,
+          582.0
+        ]
+      },
+      {
+        "corners": [
+          "prep",
+          "tidy"
+        ],
+        "fits_500_by_650_safe_area": false,
+        "minimum_screen_span": [
+          756.0,
+          582.0
+        ]
+      },
+      {
+        "corners": [
+          "weave",
+          "read"
+        ],
+        "fits_500_by_650_safe_area": false,
+        "minimum_screen_span": [
+          460.0,
+          750.0
+        ]
+      },
+      {
+        "corners": [
+          "weave",
+          "tidy"
+        ],
+        "fits_500_by_650_safe_area": false,
+        "minimum_screen_span": [
+          608.0,
+          750.0
+        ]
+      },
+      {
+        "corners": [
+          "read",
+          "tidy"
+        ],
+        "fits_500_by_650_safe_area": false,
+        "minimum_screen_span": [
+          612.0,
+          564.0
+        ]
+      }
+    ],
+    "landscape": "1280×720 固定 HUD 夹具中实际场景高456px，共桌上沿到玩家脚底最少564px；保持2倍时，仅平移镜头无法同时容纳。横屏安全边距沿用同样上下留白，不作为真实GUI验收。"
+  },
+  "required_art_work": "C4需把共桌与邻近功能家具作为真实美术组团重排，使入口视域内至少两处功能角可辨；保留编席、共桌、阅读茶角、棋球整理四区和原交互。确认真实美术后，再同步原物件对应热点/碰撞/反馈并做第三次小样，不能只挪脚本坐标。",
+  "preserved": "阿鱼家、其他五屋、人物比例、室外地图、全部原美术/热点/导航/存档逻辑和生产镜头均未改。未再跑首日或历史全套。",
+  "checks": {
+    "measurement_script_compile_exit": 0,
+    "measurement_run_exit": 0,
+    "projection_samples": 4,
+    "corner_pairs": 6,
+    "script_errors": 0,
+    "game_visual_acceptance": false,
+    "walking_acceptance": "未实施镜头改动，未做新行走通过声明。",
+    "environment_diagnostic": "投影日志保留既有macOS证书 ret != noErr 提示。"
+  },
+  "files": [
+    {
+      "path": "回执/第1轮返工/A4-二修-入口视野核对.gd",
+      "bytes": 3516,
+      "sha256": "c46b3f7b605b4a93b5e24287f3f98d9c54cae9f3c10b120f1fa7fae998baf318"
+    },
+    {
+      "path": "回执/第1轮返工/A4-二修-入口视野核对.json",
+      "bytes": 4035,
+      "sha256": "49e03d79898b93e6db820428e624dede43930177c5f4e70415604a6293af5509"
+    },
+    {
+      "path": "回执/第1轮返工/A4-二修-编译.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "回执/第1轮返工/A4-二修-编译引擎.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "回执/第1轮返工/A4-二修-投影核对.log",
+      "bytes": 251,
+      "sha256": "42d8b1969ce020ee4e6e60b87bafeffcecc7427d4848de87d5e6b2eb265f8cbd"
+    },
+    {
+      "path": "回执/第1轮返工/A4-二修-投影核对引擎.log",
+      "bytes": 251,
+      "sha256": "42d8b1969ce020ee4e6e60b87bafeffcecc7427d4848de87d5e6b2eb265f8cbd"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A4-活动中心首屏构图建议.md",
+      "bytes": 2243,
+      "sha256": "dfc0764438bb213cdb8aac3df0990f6edf4cc59b2a49ac953f68b3e04756aaa8"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+夏秋植物材质.gdshader parser uniforms: ["season", "rain", "summer_sun", "plant_kind", "spring_plant_mask", "spring_mask_enabled", "spring_layer_kind"]
+麦田热浪.gdshader parser uniforms: ["heat_strength", "field_world_size", "rain"]

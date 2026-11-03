@@ -1,0 +1,184 @@
+{
+  "id": "G0-SHALLOW-WATER-V22-01",
+  "attempt_scope": "v2.2 new-method batch attempt 2 of maximum 3; first generated source was author-rejected for coarse blocks/bands before C3; old SHALLOW03 remains failed",
+  "status": "C3 passed single-tile v2.2 precheck; may expand necessary shallow-water group; not yet a full water-set or G0 pass",
+  "generation": {
+    "tool": "built-in imagegen",
+    "source_reference": "accepted G0-NATIVE-03 grass for pixel-density only",
+    "discarded_internal_source": "first internal source retained only in generated_images; not submitted because C4 3x3 diagnosis found low-frequency bands/coarse blocks",
+    "prompt_summary": "uniform calm Sichuan summer shallow water; true-pixel 1-2px clusters; sparse 4-8px horizontal micro-ripples; no shore/objects/long diagonals/bands/grid"
+  },
+  "source": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-source.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "bd9a9688dc934076aef6565f72e51bc68218418274240dc22783b7b8c922133f"
+  },
+  "registered_native_region_xywh": [
+    768,
+    480,
+    64,
+    64
+  ],
+  "tile": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-tile-64.png",
+    "size": [
+      64,
+      64
+    ],
+    "sha256": "3ed02704f575e03508207b77c6ae96421db6272dcd3f98f20ac32bc4ba9a4158",
+    "transform": "exact crop only; no resize, filter, paint, alpha edit or quantization"
+  },
+  "repeat_preview": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-repeat-3x3.png",
+    "size": [
+      192,
+      192
+    ],
+    "sha256": "648f10ee6cd69b2a1eb7d846e84cec3a4e7dfc5af8df935cb1005b677d59ad13",
+    "transform": "exact 3x3 rearrangement of the same 64x64 pixels; diagnostic only"
+  },
+  "diagnostic": {
+    "opposite_edge_mean_abs_rgb": 1.865,
+    "channel_stddev": [
+      5.464,
+      3.94,
+      2.92
+    ],
+    "author_observation": "fine 1-2px sparse texture; low contrast; 3x3 shows no broad periodic light/dark band, bright diagonal chain, or conspicuous cut-off wave; C3 must decide visual pass",
+    "preselection_note": "an earlier x976,y512 diagnostic window was not submitted because its 3x3 preview showed a faint horizontal brightness period; final registered region is x768,y480"
+  },
+  "pixel_rule": "1 source pixel = 1 world unit; nearest sampling; no image scaling",
+  "next_step": "do not expand shallow/deep water set unless C3 passes this single-tile precheck",
+  "attempt_ledger": {
+    "batch_attempt": 2,
+    "batch_maximum": 3,
+    "attempt_1": "author rejected before C3: coarse blocks and low-frequency brightness bands; no registered tile delivered; source archived at 回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-ATTEMPT-01-REJECTED-source.png",
+    "attempt_2": "current source and registered tile; C3 first-tile precheck passed",
+    "old_history": "G0-SHALLOW-WATER-03 remains a separate failed legacy attempt; not rewritten as pass",
+    "attempt_1_source": {
+      "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-ATTEMPT-01-REJECTED-source.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "e67c680184b6a154d26425d45346f6c79f392c4990a517f48edf3b0d9088919f"
+    }
+  },
+  "shallow_group": {
+    "status": "C4 complete small group; pending C3 group precheck and C2 integration; not water-system/G0 pass",
+    "frames": [
+      {
+        "frame": 0,
+        "source_region_xywh": [
+          768,
+          480,
+          64,
+          64
+        ],
+        "mean_rgb": [
+          84.648,
+          154.99,
+          141.357
+        ],
+        "channel_stddev": [
+          5.464,
+          3.94,
+          2.92
+        ],
+        "opposite_edge_mean_abs_rgb": 1.865
+      },
+      {
+        "frame": 1,
+        "source_region_xywh": [
+          384,
+          528,
+          64,
+          64
+        ],
+        "mean_rgb": [
+          84.537,
+          155.211,
+          141.81
+        ],
+        "channel_stddev": [
+          5.862,
+          4.26,
+          3.155
+        ],
+        "opposite_edge_mean_abs_rgb": 1.849
+      },
+      {
+        "frame": 2,
+        "source_region_xywh": [
+          1360,
+          288,
+          64,
+          64
+        ],
+        "mean_rgb": [
+          86.366,
+          156.193,
+          142.668
+        ],
+        "channel_stddev": [
+          4.661,
+          3.759,
+          3.04
+        ],
+        "opposite_edge_mean_abs_rgb": 1.786
+      },
+      {
+        "frame": 3,
+        "source_region_xywh": [
+          1344,
+          912,
+          64,
+          64
+        ],
+        "mean_rgb": [
+          86.463,
+          155.947,
+          142.521
+        ],
+        "channel_stddev": [
+          5.567,
+          4.363,
+          3.55
+        ],
+        "opposite_edge_mean_abs_rgb": 2.112
+      }
+    ],
+    "atlas": {
+      "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-atlas-4x64.png",
+      "size": [
+        256,
+        64
+      ],
+      "sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7",
+      "transform": "exact crops concatenated; no resize/filter/repaint"
+    },
+    "self_repeat_preview": {
+      "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-frames-repeat-3x3.png",
+      "size": [
+        792,
+        192
+      ],
+      "sha256": "dd015865ade6f8e59ea3cadb9a4d3ae8d0c49605a9f7fd604738c23ee74bf082",
+      "transform": "each frame copied 3x3; diagnostic only"
+    },
+    "mixed_preview": {
+      "path": "回执/整村复审返工/第0步/C4素材/v22/G0-SHALLOW-WATER-V22-01/G0-SHALLOW-WATER-V22-01-mixed-4x4.png",
+      "size": [
+        256,
+        256
+      ],
+      "sha256": "fc33a3214a02251807e8837ab7f993ede9450833372ec082cb27c011727e2fcd",
+      "transform": "four frames cyclically rearranged at native pixels; diagnostic only"
+    },
+    "author_check": "four frames share close mean color and fine 1-2px texture; no obvious old-style bright diagonal chain or broad periodic light/dark band in diagnostic; C3 decides pass"
+  }
+}

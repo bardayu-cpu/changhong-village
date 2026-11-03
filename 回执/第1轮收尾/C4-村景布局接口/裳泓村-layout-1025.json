@@ -1,0 +1,1156 @@
+{
+  "version": "1025-single-reference-v1",
+  "world_size": [
+    4800,
+    4700
+  ],
+  "coordinate_rule": "原房PNG世界1:1；仅整体平移，不缩放、不重画房形。房门、碰撞、设施与bounds使用同delta平移。",
+  "source_direction": "用户1025最新精细像素村庄参考；停止三灰稿与多方案循环。",
+  "status": {
+    "houses": "frozen",
+    "main_road": "frozen",
+    "edge_river": "frozen",
+    "public_anchors": "frozen",
+    "fields": "density_tunable_after_13h_preview",
+    "trees": "density_tunable_after_13h_preview"
+  },
+  "houses": [
+    {
+      "id": "erba",
+      "title": "二爸家",
+      "art": "house_erba.png",
+      "pos": [
+        2750,
+        650
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        323,
+        544
+      ],
+      "door_at": [
+        3073,
+        1194
+      ],
+      "delta": [
+        1110,
+        650
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "laowu",
+      "title": "老屋",
+      "art": "house_laowu.png",
+      "pos": [
+        300,
+        1300
+      ],
+      "bounds_size": [
+        800,
+        533
+      ],
+      "door_offset": [
+        408,
+        466
+      ],
+      "door_at": [
+        708,
+        1766
+      ],
+      "delta": [
+        -120,
+        1270
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "daba",
+      "title": "大爸家",
+      "art": "house_daba.png",
+      "pos": [
+        2150,
+        2850
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        408,
+        527
+      ],
+      "door_at": [
+        2558,
+        3377
+      ],
+      "delta": [
+        30,
+        2050
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h5",
+      "title": "凯凯蜂蜜小院",
+      "art": "house_h5.png",
+      "pos": [
+        100,
+        2100
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        213,
+        533
+      ],
+      "door_at": [
+        313,
+        2633
+      ],
+      "delta": [
+        5,
+        930
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "ayu",
+      "title": "阿鱼家",
+      "art": "house_ayu.png",
+      "pos": [
+        1850,
+        2150
+      ],
+      "bounds_size": [
+        800,
+        600
+      ],
+      "door_offset": [
+        400,
+        652
+      ],
+      "door_at": [
+        2250,
+        2802
+      ],
+      "delta": [
+        760,
+        680
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h2",
+      "title": "缝补人家",
+      "art": "house_h2.png",
+      "pos": [
+        3600,
+        650
+      ],
+      "bounds_size": [
+        900,
+        600
+      ],
+      "door_offset": [
+        459,
+        556
+      ],
+      "door_at": [
+        4059,
+        1206
+      ],
+      "delta": [
+        1350,
+        -1110
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h3",
+      "title": "小涛磨坊",
+      "art": "house_h3.png",
+      "pos": [
+        250,
+        2800
+      ],
+      "bounds_size": [
+        875,
+        583
+      ],
+      "door_offset": [
+        534,
+        559
+      ],
+      "door_at": [
+        784,
+        3359
+      ],
+      "delta": [
+        170,
+        670
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "mayor",
+      "title": "村委会",
+      "art": "house_mayor.png",
+      "pos": [
+        2650,
+        2100
+      ],
+      "bounds_size": [
+        835,
+        557
+      ],
+      "door_offset": [
+        568,
+        502
+      ],
+      "door_at": [
+        3218,
+        2602
+      ],
+      "delta": [
+        1520,
+        -190
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h6",
+      "title": "花窗人家",
+      "art": "house_h6.png",
+      "pos": [
+        3050,
+        3000
+      ],
+      "bounds_size": [
+        825,
+        619
+      ],
+      "door_offset": [
+        412,
+        616
+      ],
+      "door_at": [
+        3462,
+        3616
+      ],
+      "delta": [
+        550,
+        270
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h8",
+      "title": "茶香小院",
+      "art": "house_h8.png",
+      "pos": [
+        1150,
+        1300
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        144,
+        465
+      ],
+      "door_at": [
+        1294,
+        1765
+      ],
+      "delta": [
+        1070,
+        -1640
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h7",
+      "title": "窄巷人家",
+      "art": "house_h7.png",
+      "pos": [
+        2050,
+        1450
+      ],
+      "bounds_size": [
+        430,
+        645
+      ],
+      "door_offset": [
+        284,
+        550
+      ],
+      "door_at": [
+        2334,
+        2000
+      ],
+      "delta": [
+        460,
+        -1580
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h4",
+      "title": "田边平房",
+      "art": "house_h4.png",
+      "pos": [
+        950,
+        2150
+      ],
+      "bounds_size": [
+        875,
+        583
+      ],
+      "door_offset": [
+        438,
+        553
+      ],
+      "door_at": [
+        1388,
+        2703
+      ],
+      "delta": [
+        830,
+        -1480
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "h1",
+      "title": "蓝瓦人家",
+      "art": "house_h1.png",
+      "pos": [
+        3650,
+        2300
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        425,
+        544
+      ],
+      "door_at": [
+        4075,
+        2844
+      ],
+      "delta": [
+        930,
+        -1330
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "flower",
+      "title": "花房小楼",
+      "art": "house_flower.png",
+      "pos": [
+        100,
+        700
+      ],
+      "bounds_size": [
+        785,
+        523
+      ],
+      "door_offset": [
+        479,
+        505
+      ],
+      "door_at": [
+        579,
+        1205
+      ],
+      "delta": [
+        40,
+        115
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "whitebrick",
+      "title": "白砖小院",
+      "art": "house_whitebrick.png",
+      "pos": [
+        900,
+        650
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        527,
+        550
+      ],
+      "door_at": [
+        1427,
+        1200
+      ],
+      "delta": [
+        -1820,
+        630
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "grape",
+      "title": "葡萄架小院",
+      "art": "house_grape.png",
+      "pos": [
+        1800,
+        650
+      ],
+      "bounds_size": [
+        875,
+        583
+      ],
+      "door_offset": [
+        280,
+        541
+      ],
+      "door_at": [
+        2080,
+        1191
+      ],
+      "delta": [
+        -1980,
+        530
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "sunflower",
+      "title": "向日葵之家",
+      "art": "house_sunflower.png",
+      "pos": [
+        2550,
+        1400
+      ],
+      "bounds_size": [
+        825,
+        550
+      ],
+      "door_offset": [
+        239,
+        540
+      ],
+      "door_at": [
+        2789,
+        1940
+      ],
+      "delta": [
+        -1290,
+        140
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "persimmon",
+      "title": "柿树老院",
+      "art": "house_persimmon.png",
+      "pos": [
+        1200,
+        2850
+      ],
+      "bounds_size": [
+        920,
+        613
+      ],
+      "door_offset": [
+        598,
+        592
+      ],
+      "door_at": [
+        1798,
+        3442
+      ],
+      "delta": [
+        -2530,
+        400
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "rose",
+      "title": "玫瑰花之家",
+      "art": "house_rose.png",
+      "pos": [
+        3750,
+        1400
+      ],
+      "bounds_size": [
+        850,
+        567
+      ],
+      "door_offset": [
+        629,
+        544
+      ],
+      "door_at": [
+        4379,
+        1944
+      ],
+      "delta": [
+        -70,
+        -2290
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    },
+    {
+      "id": "community",
+      "title": "村民活动中心",
+      "art": "cabin.png",
+      "pos": [
+        3650,
+        1980
+      ],
+      "bounds_size": [
+        461,
+        307
+      ],
+      "door_offset": [
+        220,
+        280
+      ],
+      "door_at": [
+        3870,
+        2260
+      ],
+      "delta": [
+        2590,
+        -1520
+      ],
+      "scale_policy": "keep_existing_1_to_1_world_scale",
+      "status": "frozen_for_c2_migration"
+    }
+  ],
+  "roads": [
+    {
+      "id": "main",
+      "width": 112,
+      "points": [
+        [
+          80,
+          3700
+        ],
+        [
+          650,
+          3520
+        ],
+        [
+          1200,
+          3600
+        ],
+        [
+          1800,
+          3700
+        ],
+        [
+          2400,
+          3600
+        ],
+        [
+          2800,
+          3500
+        ],
+        [
+          3020,
+          2800
+        ],
+        [
+          3550,
+          2700
+        ],
+        [
+          3550,
+          2050
+        ],
+        [
+          3525,
+          1300
+        ],
+        [
+          3525,
+          520
+        ]
+      ],
+      "surface": "warm_packed_dirt_with_sparse_stone",
+      "status": "frozen"
+    },
+    {
+      "id": "south_plot_access",
+      "width": 72,
+      "points": [
+        [
+          650,
+          3520
+        ],
+        [
+          600,
+          3850
+        ],
+        [
+          600,
+          4500
+        ]
+      ],
+      "surface": "packed_dirt",
+      "status": "frozen"
+    },
+    {
+      "id": "east_public_access",
+      "width": 68,
+      "points": [
+        [
+          3550,
+          2700
+        ],
+        [
+          4050,
+          2850
+        ],
+        [
+          4370,
+          3100
+        ]
+      ],
+      "surface": "packed_dirt",
+      "status": "frozen"
+    }
+  ],
+  "field_paths": [
+    {
+      "id": "fp_west_homes",
+      "width": 34,
+      "points": [
+        [
+          650,
+          3520
+        ],
+        [
+          700,
+          3100
+        ],
+        [
+          800,
+          2700
+        ],
+        [
+          900,
+          2400
+        ]
+      ]
+    },
+    {
+      "id": "fp_ayu",
+      "width": 36,
+      "points": [
+        [
+          1800,
+          3700
+        ],
+        [
+          1950,
+          3300
+        ],
+        [
+          2200,
+          2750
+        ]
+      ]
+    },
+    {
+      "id": "fp_nw",
+      "width": 30,
+      "points": [
+        [
+          900,
+          2400
+        ],
+        [
+          750,
+          1900
+        ],
+        [
+          900,
+          1200
+        ]
+      ]
+    },
+    {
+      "id": "fp_ne",
+      "width": 32,
+      "points": [
+        [
+          3550,
+          2050
+        ],
+        [
+          4000,
+          1800
+        ],
+        [
+          4200,
+          1200
+        ]
+      ]
+    },
+    {
+      "id": "fp_east_homes",
+      "width": 32,
+      "points": [
+        [
+          4050,
+          2850
+        ],
+        [
+          4050,
+          2500
+        ],
+        [
+          4200,
+          2150
+        ]
+      ]
+    }
+  ],
+  "water_polygon": [
+    [
+      4720,
+      0
+    ],
+    [
+      4660,
+      520
+    ],
+    [
+      4725,
+      1050
+    ],
+    [
+      4655,
+      1600
+    ],
+    [
+      4710,
+      2200
+    ],
+    [
+      4650,
+      2780
+    ],
+    [
+      4720,
+      3380
+    ],
+    [
+      4660,
+      4010
+    ],
+    [
+      4720,
+      4700
+    ],
+    [
+      4800,
+      4700
+    ],
+    [
+      4800,
+      0
+    ]
+  ],
+  "water_rules": {
+    "kind": "small_edge_river",
+    "bridges": 0,
+    "all_houses_and_roads_on": "west_side",
+    "no_crossing": true,
+    "bank_details": [
+      "washing_steps",
+      "willow",
+      "bamboo"
+    ],
+    "status": "frozen"
+  },
+  "mountain_rect": [
+    0,
+    0,
+    4650,
+    520
+  ],
+  "mountain_rules": {
+    "silhouette": "峨眉山平顶长山脊，前低后高，2-3层低饱和灰蓝雾色",
+    "status": "frozen"
+  },
+  "fields": [
+    {
+      "id": "far_rice",
+      "polygon": [
+        [
+          0,
+          500
+        ],
+        [
+          4550,
+          500
+        ],
+        [
+          4550,
+          760
+        ],
+        [
+          0,
+          760
+        ]
+      ],
+      "kind": "rice_far",
+      "seasonal": true
+    },
+    {
+      "id": "nw_rice",
+      "polygon": [
+        [
+          0,
+          760
+        ],
+        [
+          2450,
+          760
+        ],
+        [
+          2450,
+          2050
+        ],
+        [
+          0,
+          2050
+        ]
+      ],
+      "kind": "rice",
+      "seasonal": true
+    },
+    {
+      "id": "ne_rice",
+      "polygon": [
+        [
+          2450,
+          760
+        ],
+        [
+          4550,
+          760
+        ],
+        [
+          4550,
+          2000
+        ],
+        [
+          2450,
+          2000
+        ]
+      ],
+      "kind": "rice",
+      "seasonal": true
+    },
+    {
+      "id": "mid_rice",
+      "polygon": [
+        [
+          0,
+          1900
+        ],
+        [
+          4550,
+          1900
+        ],
+        [
+          4550,
+          2800
+        ],
+        [
+          0,
+          2800
+        ]
+      ],
+      "kind": "rice",
+      "seasonal": true
+    },
+    {
+      "id": "south_rice",
+      "polygon": [
+        [
+          0,
+          2750
+        ],
+        [
+          4550,
+          2750
+        ],
+        [
+          4550,
+          3900
+        ],
+        [
+          0,
+          3900
+        ]
+      ],
+      "kind": "rice",
+      "seasonal": true
+    }
+  ],
+  "trees": [
+    {
+      "id": "bamboo_nw",
+      "kind": "bamboo",
+      "points": [
+        [
+          180,
+          620
+        ],
+        [
+          950,
+          620
+        ],
+        [
+          1850,
+          610
+        ]
+      ],
+      "density": "clustered_sparse"
+    },
+    {
+      "id": "bamboo_ne",
+      "kind": "bamboo",
+      "points": [
+        [
+          2800,
+          590
+        ],
+        [
+          3800,
+          590
+        ],
+        [
+          4400,
+          720
+        ]
+      ],
+      "density": "clustered_sparse"
+    },
+    {
+      "id": "ayu_orchard",
+      "kind": "fruit_orchard",
+      "points": [
+        [
+          1650,
+          1950
+        ],
+        [
+          1800,
+          1900
+        ],
+        [
+          2450,
+          1900
+        ],
+        [
+          2500,
+          2050
+        ]
+      ],
+      "density": "medium"
+    },
+    {
+      "id": "road_huangge",
+      "kind": "huangge_large",
+      "points": [
+        [
+          600,
+          3420
+        ],
+        [
+          2900,
+          3400
+        ],
+        [
+          3480,
+          2620
+        ]
+      ],
+      "density": "landmarks_only"
+    },
+    {
+      "id": "river_bank",
+      "kind": "willow_bamboo",
+      "points": [
+        [
+          4520,
+          850
+        ],
+        [
+          4490,
+          2450
+        ],
+        [
+          4510,
+          3650
+        ]
+      ],
+      "density": "sparse"
+    }
+  ],
+  "public_anchors": {
+    "beekeeping_yard": {
+      "pos": [
+        280,
+        2750
+      ],
+      "size": [
+        520,
+        300
+      ],
+      "owner_near": "h5"
+    },
+    "lotus_pond": {
+      "pos": [
+        4020,
+        3300
+      ],
+      "size": [
+        470,
+        300
+      ],
+      "bridge": false
+    },
+    "chicken_coop": {
+      "pos": [
+        2350,
+        3150
+      ],
+      "size": [
+        360,
+        250
+      ]
+    },
+    "ayu_orchard": {
+      "polygon": [
+        [
+          1550,
+          1850
+        ],
+        [
+          2600,
+          1800
+        ],
+        [
+          2700,
+          2250
+        ],
+        [
+          1600,
+          2350
+        ]
+      ]
+    },
+    "market_vendor": {
+      "pos": [
+        1260,
+        3550
+      ],
+      "facing": "north"
+    },
+    "road_sign": {
+      "pos": [
+        120,
+        3600
+      ],
+      "facing": "east"
+    },
+    "stone_mill": {
+      "pos": [
+        640,
+        3340
+      ],
+      "near": "h3"
+    },
+    "loach_minigame": {
+      "pos": [
+        4480,
+        3000
+      ],
+      "bank_side": "west",
+      "river_crossing": false
+    }
+  },
+  "player_plot_candidates": {
+    "bamboo": [
+      150,
+      3900,
+      850,
+      700
+    ],
+    "garden": [
+      1100,
+      3900,
+      850,
+      700
+    ],
+    "hill": [
+      2100,
+      3900,
+      850,
+      700
+    ],
+    "lake": [
+      3150,
+      3900,
+      1100,
+      700
+    ]
+  },
+  "season_rule": {
+    "same_geometry": true,
+    "spring": "mirror-water rice",
+    "summer": "dense green rice",
+    "autumn": "gold rice + few stacks",
+    "winter": "stubble + thin frost/snow"
+  },
+  "notes": [
+    "20个真实ID，不复制房子凑任务书24口径。",
+    "房形与PNG冻结；环境、道路、田埂、小河、山景为新画。",
+    "布局参考的院落与田埂连接感保留；不使用旧环路、旧桥或穿村河。"
+  ]
+}

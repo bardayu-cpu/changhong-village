@@ -1,0 +1,33 @@
+{
+  "same_problem_attempt": 2,
+  "OS_input": false,
+  "checks": 10,
+  "passed": 10,
+  "geometry_source_hashes_unchanged": true,
+  "player_position": [
+    4584,
+    600
+  ],
+  "normal_view_scale": 2,
+  "hour": 13,
+  "visual_result": "partially corrected, village art gate remains returned",
+  "closed_subproblem": "At same normal north viewpoint, skyline and complete sky now appear instead of only lower mountain corner; no fake zoom-out or player move used",
+  "remaining": [
+    {
+      "gate": "K2/K3",
+      "finding": "Mountain/sky remains a hard rectangle ending at screen x~402, y~426, while the right river/grass strip continues vertically to top. Distant sky boundary looks like a pasted panel rather than whole horizon. Mountain retains detailed rocks/dark green slopes rather than 2-3 low-saturation fog silhouette layers.",
+      "evidence": "精选并排/north-month7-左候选右Ayu13时.png"
+    },
+    {
+      "gate": "K4/K5/K11",
+      "finding": "Rice density/contrast issue from first review unchanged; this is not a new material approval."
+    },
+    {
+      "gate": "K8",
+      "finding": "Tree art/placement still missing from candidate."
+    }
+  ],
+  "whole_mountain_art_pass": false,
+  "whole_village_art_pass": false,
+  "count_rule": "same M1 second visual candidate; clock fixture correction in first candidate is not new product revision; no reset by version name"
+}

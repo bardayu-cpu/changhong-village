@@ -1,0 +1,19 @@
+{
+  "commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+  "scope": "A4横窗同源首屏与备餐成品小修优先，随后分波补A1欠验；旧首日/六热点/碰撞不重复整套",
+  "save": "克隆此前隔离档，未注入位置/库存/进度，原首日不变",
+  "files": {
+    "godot/ayu_home/v4/assets/my_cabin.json": "1e33ceb5805b564bac75f52720c48ee5e6eedc41c5f403f90b5637f62c8bae6e",
+    "godot/ayu_home/v4/assets/rooms.json": "48f9cb772804487e0e9fbdf8cdeab8f9a1e607382c4caa9dd9ebcbe4125d4b9b",
+    "godot/ayu_home/v4/assets/institutions/community-a4-v3.png": "1c7d1fa897eac465b058e517b0515d1bf4cad5d536d7b614d2c6669b80d0ec59",
+    "godot/ayu_home/v4/home.gd": "8d6e36bcc3069d9fab963fb32d68905ae104851e9e1d19f7f27ecc327e8a67be",
+    "godot/ayu_home/v4/core/institution_room.gd": "184aa5a3f8e053bc0556c04976fd1f02ff7c3d8789170050945519f994515c26",
+    "godot/ayu_home/v4/actor.gd": "ef76caf95b755ea654ea0eb16d80966a21c6c3fa45a9913cb33c2ccffb0b690a",
+    "godot/ayu_home/v4/core/institution_game.gd": "ff3933b42fba748e2d573547e6577e0a032e224111308a451b145aaae03eca74",
+    "godot/ayu_home/v4/assets/floor1-redraw/meal-14.png": "3847d7f45b1bc395230c41c853af1ce76dcb390ec5c47b905a732d947de960f7"
+  },
+  "only_production_diff_from_9c": "godot/ayu_home/v4/core/institution_game.gd",
+  "published_ancestor_check_exit": 0,
+  "authorization": "C1转达阿鱼明确可以，由C3接管；GUI已恢复授权，无需再问",
+  "observer": "复用原观察器，只换路径和前缀；原视觉13时10月晴，无新测试框架；PNG直接解码不重复全量导入"
+}

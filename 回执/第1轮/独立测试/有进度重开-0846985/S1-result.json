@@ -1,0 +1,119 @@
+{
+  "area": {
+    "before": "v_mayor",
+    "after": "v_mayor",
+    "equal": true
+  },
+  "items": {
+    "before": {
+      "apple": 2.0,
+      "apple_seed": 2.0,
+      "aster": 3.0,
+      "aster_seed": 6.0,
+      "bamboo": 9,
+      "carrot": 3.0,
+      "carrot_seed": 6.0,
+      "chrysanthemum": 3.0,
+      "chrysanthemum_seed": 6.0,
+      "cosmos": 3.0,
+      "cosmos_seed": 6.0,
+      "grain_seed": 5.0,
+      "honey": 1,
+      "pepper_seed": 1.0,
+      "pumpkin": 3.0,
+      "pumpkin_seed": 6.0,
+      "radish_seed": 1.0,
+      "stone": 3.0,
+      "tool": 2.0
+    },
+    "after": {
+      "apple": 2.0,
+      "apple_seed": 2.0,
+      "aster": 3.0,
+      "aster_seed": 6.0,
+      "bamboo": 9.0,
+      "carrot": 3.0,
+      "carrot_seed": 6.0,
+      "chrysanthemum": 3.0,
+      "chrysanthemum_seed": 6.0,
+      "cosmos": 3.0,
+      "cosmos_seed": 6.0,
+      "grain_seed": 5.0,
+      "honey": 1.0,
+      "pepper_seed": 1.0,
+      "pumpkin": 3.0,
+      "pumpkin_seed": 6.0,
+      "radish_seed": 1.0,
+      "stone": 3.0,
+      "tool": 2.0
+    },
+    "equal": true
+  },
+  "coins": {
+    "before": 0.0,
+    "after": 0.0,
+    "equal": true
+  },
+  "effects": {
+    "before": {
+      "civic": {
+        "completed": 1
+      },
+      "honey": {
+        "completed": 1
+      },
+      "my_cabin": {
+        "weave": 1.0
+      },
+      "v_h3": {
+        "sweep": 1.0
+      },
+      "v_h5": {
+        "bottle": 1,
+        "filter": 1,
+        "tea": 1,
+        "wash": 1
+      },
+      "v_mayor": {
+        "notice": 1,
+        "register": 1
+      }
+    },
+    "after": {
+      "civic": {
+        "completed": 1.0
+      },
+      "honey": {
+        "completed": 1.0
+      },
+      "my_cabin": {
+        "weave": 1.0
+      },
+      "v_h3": {
+        "sweep": 1.0
+      },
+      "v_h5": {
+        "bottle": 1.0,
+        "filter": 1.0,
+        "tea": 1.0,
+        "wash": 1.0
+      },
+      "v_mayor": {
+        "notice": 1.0,
+        "register": 1.0
+      }
+    },
+    "equal": true
+  },
+  "positions": {
+    "before": [
+      259.0,
+      401.0
+    ],
+    "after": [
+      258.0,
+      382.0
+    ],
+    "note": "standing restored, exact coordinates not required"
+  }
+}

@@ -1,0 +1,1299 @@
+{
+  "date": "2026-10-14 Asia/Taipei",
+  "scope": "C1 requested one evidence-only archive of ended 85b78db second/third/reopen runs, third interruption, specified screenshots and current C1 receipt; production stays at 4127b2a",
+  "production_base_commit": "4127b2a0d553d717a865b62c3a96a9e187f477d3",
+  "branch": "village-deep-1010",
+  "quota_remaining_percent": {
+    "start": 60,
+    "end": 59
+  },
+  "source_files_reviewed": 109,
+  "commit_files_including_this_report": 110,
+  "new_source_files": 107,
+  "tracked_updates": [
+    "回执/第1轮/回执.md",
+    "回执/第1轮/独立测试/C3稳定归档清单-1014.md"
+  ],
+  "png_review": {
+    "count": 48,
+    "max_bytes": 295696,
+    "limit_bytes": 2000000,
+    "all_signature_crc_decompression_dimensions_pass": true,
+    "all_text_exif_metadata_chunks_absent": true,
+    "third_run_screenshot_observation_pairs": 45,
+    "reopen_images": 2,
+    "reopen_sidecars_reviewed_but_left_unsubmitted_as_not_named_in_scope": true,
+    "paired_comparison_image": 1,
+    "visual_spot_checks": [
+      "第三次-首日-85b78db-008-第三次-首田真实完成.png",
+      "开地重开-首日-85b78db-002-已开地重开实际核对.png",
+      "活动中心-85b78db-H2-同期阿鱼客厅并排.png"
+    ]
+  },
+  "content_review": {
+    "json_and_jsonl_parse": true,
+    "credential_pattern_scan": "No matches: private keys, GitHub/API/AWS credentials, bearer tokens, credential assignments",
+    "screenshot_observations": "45 files have observation/control/core screenshot schema and synthetic c3-focused-third-85b78db-1014 identity; these are C3 observation evidence, not persisted household/shared saves",
+    "persisted_test_or_real_user_saves_included": false,
+    "runtime_requests_controls_latest_observations_caches_included": false
+  },
+  "evidence_consistency": {
+    "second_attempt": "21.1113 minute due / 21.5272 minute observation; failure retained",
+    "third_attempt": "15.5720 minute due / 16.1935 minute observation; original start and profile agree with interruption; all closed time retained",
+    "reopen": "All eight reported before/after field groups equal",
+    "continuous_run": "37.8441 minutes from the new process start only; state-change samples are not a per-frame performance report; startup 1 FPS and shutdown warnings retained in source findings",
+    "community_H4": "Five screenshot observations match recorded ingredients/coins; cancellation no deduction/reward; completion consumes one radish and one pepper, awards one meal",
+    "not_rejudged": "No new gameplay acceptance or score; H3 still pending comparison organization and new 4127b2a N3/N6/WTH remain C3 work"
+  },
+  "integrity": {
+    "every_reviewed_source_hash_rechecked_before_staging": true,
+    "production_and_tool_worktree_unchanged": true,
+    "no_game_tests_run": true,
+    "existing_0846985_archive_not_repeated": true,
+    "current_7d87d81_directory_not_staged": true,
+    "other_worker_deletions_not_staged_or_restored": true
+  },
+  "files": [
+    {
+      "file": "回执/第1轮/回执.md",
+      "category": "C1 current 4127b2a acceptance status",
+      "bytes": 9582,
+      "sha256": "b4562f8ed11395e9e586d13dade696a9d552075456e9be3378c1615f476f8d13",
+      "mtime_ns": 1791921729469395332
+    },
+    {
+      "file": "回执/第1轮/图/开地重开-首日-85b78db-001-H6-入区-my_yard.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 45985,
+      "sha256": "f9b249f4dcad2fe69e799c2fb4091ffedb9199a9cdf358450a552d4ff0c1a71c",
+      "mtime_ns": 1791910971937133146,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日有开地重开-85b78db/首日-85b78db-001-H6-入区-my_yard.json",
+      "observation_in_this_commit": false
+    },
+    {
+      "file": "回执/第1轮/图/开地重开-首日-85b78db-002-已开地重开实际核对.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 45915,
+      "sha256": "d9bf0e090e1f36629a4610233f9826e7e302fd11607ba90542169e664da23534",
+      "mtime_ns": 1791911055175141144,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日有开地重开-85b78db/首日-85b78db-002-已开地重开实际核对.json",
+      "observation_in_this_commit": false
+    },
+    {
+      "file": "回执/第1轮/图/活动中心-85b78db-H2-同期阿鱼客厅并排.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 295696,
+      "sha256": "6f76040d006a8d76cd3e879dc0f4802be5a6249ae988b131b2004f1aecc77dea",
+      "mtime_ns": 1791914132997195939,
+      "width": 1080,
+      "height": 992,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "comparison_sources": [
+        "第三次续测-首日-85b78db-011-活动中心-正常地图进入.png",
+        "第三次续测-首日-85b78db-043-阿鱼客厅-H2-同期稳定对照.png"
+      ]
+    },
+    {
+      "file": "回执/第1轮/图/第三次-中断前-首日-85b78db-001-H6-入区-exterior.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 133695,
+      "sha256": "1b51b1452a1c386bd93256d899e7995ea97f2d1932d1a8b4eb60eb6ea0418fb1",
+      "mtime_ns": 1791911120774729282,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/首日-85b78db-001-H6-入区-exterior.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-中断前-首日-85b78db-002-第三次-六地与四动物正常完成.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 28211,
+      "sha256": "860432a78952daeb1ef450fc75b8efa16ad59a047840afae49c217e87bb7f0e0",
+      "mtime_ns": 1791911258084416877,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/首日-85b78db-002-第三次-六地与四动物正常完成.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-001-H6-入区-exterior.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 133157,
+      "sha256": "faadfceb52aef057ff17cf8db84d5892d10ca41636e27d753718810e88529e8f",
+      "mtime_ns": 1791911632467217886,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-001-H6-入区-exterior.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-002-第三次-六地与四动物正常完成.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 133568,
+      "sha256": "1c0bde7d54723efc9bad4217d0a783f9acd7f984b4bff678b19ccad0350ecd7e",
+      "mtime_ns": 1791911632534863068,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-002-第三次-六地与四动物正常完成.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-003-第三次-同档续测真实收获.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 29755,
+      "sha256": "4575c86319565312782e20e4c1068a24277a55e3568612ef87d2f1b7a2650d73",
+      "mtime_ns": 1791911740873456235,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-003-第三次-同档续测真实收获.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-004-H6-入区-village.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 130822,
+      "sha256": "5d9ebc6f1d724c509df07151b9351456dba983aeb334983e37e4dc96fe10c402",
+      "mtime_ns": 1791911878858088283,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-004-H6-入区-village.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-005-第三次-三单199币正常入驻路线.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 11596,
+      "sha256": "915b772e8ca0825d5911aecd89ad12938c3e3e62fb1b812e754ebdbe994f777f",
+      "mtime_ns": 1791911913632170393,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-005-第三次-三单199币正常入驻路线.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-006-H6-入区-my_yard.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 40538,
+      "sha256": "ddc257ae02b37e3b167e6ef875e7172045f69149299b6b84cf361a5749229b01",
+      "mtime_ns": 1791911969792304925,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-006-H6-入区-my_yard.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-007-第三次-湖边落户到院子.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 42659,
+      "sha256": "e5ce10512840ab6b18f5aef85e516899a6375c46dceac25b30585eafef53bb44",
+      "mtime_ns": 1791911978875692865,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-007-第三次-湖边落户到院子.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次-首日-85b78db-008-第三次-首田真实完成.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 10536,
+      "sha256": "93e2670ad8140eeba9b30fb0db9476a2559ce0c3c3076603e9d01076b9d64cf2",
+      "mtime_ns": 1791912092305569431,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-008-第三次-首田真实完成.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-009-H6-入区-village.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 156901,
+      "sha256": "3759708736a32ba43b357ecfc0dc508e6140c9daa1b2947c2c6cad2080ace14d",
+      "mtime_ns": 1791912250909169467,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-009-H6-入区-village.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-010-H6-入区-my_cabin.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 193015,
+      "sha256": "fe57c531e21a3bf18665c5bd372d2e830e567bb5175757ef9925b50cc3e8f733",
+      "mtime_ns": 1791912254971676460,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-010-H6-入区-my_cabin.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-011-活动中心-正常地图进入.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 193015,
+      "sha256": "fe57c531e21a3bf18665c5bd372d2e830e567bb5175757ef9925b50cc3e8f733",
+      "mtime_ns": 1791912283153762957,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-011-活动中心-正常地图进入.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-012-H5-走近自然问候-my_cabin-13.0点.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 198880,
+      "sha256": "61af9d063939e99dee00cdde1fb33dceef814f1ec15b6232eefa232967854c50",
+      "mtime_ns": 1791912336098489827,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-012-H5-走近自然问候-my_cabin-13.0点.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-013-H3-my_cabin-实时互动后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 211313,
+      "sha256": "c82545d0dc8d267587182a93cd6e5a9f17c41fa90770ea7023a58334d9caf107",
+      "mtime_ns": 1791912337110134192,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-013-H3-my_cabin-实时互动后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-014-活动中心-收棋球后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 235601,
+      "sha256": "a4f129c2516f930219fd15748c3a881b6b958401aa60dcdd65a5dc48eb75bfb6",
+      "mtime_ns": 1791912355767021518,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-014-活动中心-收棋球后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-015-H3-my_cabin-实时互动后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 220104,
+      "sha256": "f4521737472eac6010f1f6c544e14a63e3dfc4f034915f288cac616bd7a6ca7c",
+      "mtime_ns": 1791912380963991333,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-015-H3-my_cabin-实时互动后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-016-活动中心-摆碗后与竹席前.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 246920,
+      "sha256": "fb40f448c1ac57ff98dbe730a67433d9b603646eeb3ce0a47001af21fa856888",
+      "mtime_ns": 1791912414755088582,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-016-活动中心-摆碗后与竹席前.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-017-H3-my_cabin-实时互动后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 250078,
+      "sha256": "563afa1961ba9ae079e56044ac04245fd541af4b9db792ef7dc56232b316d671",
+      "mtime_ns": 1791912449016742741,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-017-H3-my_cabin-实时互动后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-018-活动中心-竹席后-早9.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 266483,
+      "sha256": "a9cc25acc8cb8227a604e9484d8852f0d8cf42c014abab89702e62aa964883a3",
+      "mtime_ns": 1791912470706362260,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-018-活动中心-竹席后-早9.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-019-H5-走近自然问候-my_cabin-9.0点.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 252277,
+      "sha256": "c8bbfabc77027fc354640be3e045b65bbf7492a107e97e1cf9b205bc7be87064",
+      "mtime_ns": 1791912499060910418,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-019-H5-走近自然问候-my_cabin-9.0点.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-020-活动中心-早问候及备餐前.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 265728,
+      "sha256": "e1133e245e15fec2b9145d1cf026b688c4b95dcbe25fab342be96a2a09d9932c",
+      "mtime_ns": 1791912528303222067,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-020-活动中心-早问候及备餐前.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-021-活动中心-H4-开始.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 8497,
+      "sha256": "d86085976227953ed0697aa4e4dd7276d06116796ba3a84390f7033ad6e2ff62",
+      "mtime_ns": 1791912582151155233,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-021-活动中心-H4-开始.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-022-活动中心-H4-进行洗菜后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 7348,
+      "sha256": "f392cac14a60b015cb6ae6354afdcda8ad0294783f9834ee58822271ff418883",
+      "mtime_ns": 1791912633138290003,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-022-活动中心-H4-进行洗菜后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-023-活动中心-H4-中退库存.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 259761,
+      "sha256": "c620a77c12a1a0d43f0255be1193912a3a52d8fb0deacafea3d9e31e687740e6",
+      "mtime_ns": 1791912674542688133,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-023-活动中心-H4-中退库存.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-024-活动中心-H4-完成待端碗.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 7668,
+      "sha256": "912a47d8e603440792baf35139f29b75c643ade91ecb9d7677c8d60f57b6d925",
+      "mtime_ns": 1791912739527718703,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-024-活动中心-H4-完成待端碗.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-025-活动中心-H4-共桌菜到账.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 7015,
+      "sha256": "bb055717e19006d1db96b466145c2707675b8f25fc1e53cb4ea15d4a1aeff78e",
+      "mtime_ns": 1791912785961279022,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-025-活动中心-H4-共桌菜到账.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-026-活动中心-茶角故事册前.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 230569,
+      "sha256": "65bb75646d1b144882b2514305c9c5cb6c6abe23d5871a3089ae35f979089e87",
+      "mtime_ns": 1791912882890311267,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-026-活动中心-茶角故事册前.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-027-活动中心-H3-茶角实际坐后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 214700,
+      "sha256": "f9f81b26281f847ce0c41500419385590be3d46f741e331f9ce9edb6deeaa895",
+      "mtime_ns": 1791912942903378399,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-027-活动中心-H3-茶角实际坐后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-028-活动中心-茶角起身故事前.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 215901,
+      "sha256": "9867140800638805513623acb6ec8a4a279d7d20755a4181881162b28ec63ad3",
+      "mtime_ns": 1791913031854010877,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-028-活动中心-茶角起身故事前.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-029-H3-my_cabin-实时互动后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 49716,
+      "sha256": "a12353e0825a013bdfb85d887a8256d8f2da488f8bae63f4eb31aa51be309178",
+      "mtime_ns": 1791913053554258509,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-029-H3-my_cabin-实时互动后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-030-活动中心-故事第一页.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 59073,
+      "sha256": "39c01bc532cbf476fed3545e225585a31c68bfdc74bf562cfa2e38b4540bff66",
+      "mtime_ns": 1791913069723645134,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-030-活动中心-故事第一页.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-031-活动中心-故事第二页.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 59097,
+      "sha256": "202aafe76babe8b5422e92410a169e129229dc6b7e2ca62a3989bfe2ad5aeac6",
+      "mtime_ns": 1791913107058264486,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-031-活动中心-故事第二页.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-032-活动中心-故事第三页.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 59141,
+      "sha256": "c57fbdc8e122d970a09816bf1be4ba49bdf0cfde8ff9e469c78933774077e9fa",
+      "mtime_ns": 1791913146366517028,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-032-活动中心-故事第三页.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-033-活动中心-晚19读书作息切换.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 214897,
+      "sha256": "ac153d339e1d23fce464a8e2a8cf6dc3fb7cbee8a69aeaf8e2c5643a5aa23cbc",
+      "mtime_ns": 1791913227893094101,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-033-活动中心-晚19读书作息切换.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-034-H5-走近自然问候-my_cabin-19.0点.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 177754,
+      "sha256": "784d9a3f5e135c6d5ae5dc3c5da7201f264f6252213837995854d2a6f7ea9e80",
+      "mtime_ns": 1791913261074638071,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-034-H5-走近自然问候-my_cabin-19.0点.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-035-活动中心-竹席完整无遮挡后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 199259,
+      "sha256": "a79d9298ac0e64ea14de28c8066597a8dbdeaf5966d19fedc301d6d9349d2df2",
+      "mtime_ns": 1791913422031743471,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-035-活动中心-竹席完整无遮挡后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-036-活动中心-编席区无遮挡后.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 278421,
+      "sha256": "165610bf9bf1af88749ba7e1cd5ea9238fc0d7d7c8799f509d1ea1c080d2dbaa",
+      "mtime_ns": 1791913514468492385,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-036-活动中心-编席区无遮挡后.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-037-H6-入区-village.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 237441,
+      "sha256": "e00ae2ddcf926dd204520fb0ef0c10f4b1c21be5827d0ce9f650ca8b47fc9e68",
+      "mtime_ns": 1791913667005113840,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-037-H6-入区-village.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-038-H6-入区-exterior.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 97841,
+      "sha256": "0c3b2e3b85e71ce2f51a9b7e1f14606a1f66db9140eb30b70350b0427824e844",
+      "mtime_ns": 1791913682733925537,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-038-H6-入区-exterior.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-039-活动中心-公共门回村路及阿鱼家抵达.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 123593,
+      "sha256": "3eb468363bf17961a6ded3de9a1a9bf3567c486e1b9345d0148b5ea2c2101040",
+      "mtime_ns": 1791913705821764762,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-039-活动中心-公共门回村路及阿鱼家抵达.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-040-阿鱼家-R3-正常敲门欢迎.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 264258,
+      "sha256": "c5e7acbaddfc5e90d317ab59919195cc3ee384eae2cc3a16dfde31cadb8e09e1",
+      "mtime_ns": 1791913863988762068,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-040-阿鱼家-R3-正常敲门欢迎.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-041-H6-入区-living.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 110371,
+      "sha256": "90908d56b7c9381fef2bd5318bf57ce9188d858f36916d864ce83d11698c1d3a",
+      "mtime_ns": 1791913884015029223,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-041-H6-入区-living.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-042-阿鱼家-同期客厅13对照.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 109517,
+      "sha256": "ee45ba85b66f4105b1d62977c58e4182eb1d4ec1d537f4eb4c56871d5010082c",
+      "mtime_ns": 1791913902601790190,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-042-阿鱼家-同期客厅13对照.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/图/第三次续测-首日-85b78db-043-阿鱼客厅-H2-同期稳定对照.png",
+      "category": "explicit C3 screenshot pattern",
+      "bytes": 104150,
+      "sha256": "90dee22c16f39adb4ae45486cfc1b9372cbb4688cf7bc2dca77c5b6a3974135c",
+      "mtime_ns": 1791913970839944439,
+      "width": 540,
+      "height": 960,
+      "png_structure_crc_decode_ok": true,
+      "metadata_chunks": [],
+      "observation_file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-043-阿鱼客厅-H2-同期稳定对照.json",
+      "observation_in_this_commit": true
+    },
+    {
+      "file": "回执/第1轮/独立测试/C3稳定归档清单-1014.md",
+      "category": "C3 approved supplemental scope",
+      "bytes": 1184,
+      "sha256": "bdeaf5888c5a877a5dac3944f47bbb32e097afc54aa119f1c50e1c952c7b6106",
+      "mtime_ns": 1791914873438867444
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/真实计时.json",
+      "category": "首日-85b78db",
+      "bytes": 1433,
+      "sha256": "9ef1d04143c10c2b59568f3a455e34225a4ef71eade9751e342e956e84cd3940",
+      "mtime_ns": 1791910895724093357
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/结论.md",
+      "category": "首日-85b78db",
+      "bytes": 354,
+      "sha256": "cdf8ffbaa84b73603cc731aca5a64e910c0329a0b4afb5efe596fa76d175f328",
+      "mtime_ns": 1791910895729961312
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/图归档清单.json",
+      "category": "首日复测3-85b78db",
+      "bytes": 2524,
+      "sha256": "34548c7288b69b375e9e645e336b92a3404cb4b8ea2ca30c47af346e33e6c6e7",
+      "mtime_ns": 1791912173938088973
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/正常验收轨迹.jsonl",
+      "category": "首日复测3-85b78db",
+      "bytes": 170279,
+      "sha256": "b59cfa160239f7b5d9121c26b46ecea903439ff243fa8ad75bd8c3b687a8f6b3",
+      "mtime_ns": 1791913903039521277,
+      "event_count": 355,
+      "first_at": 1791911632.39188,
+      "last_at": 1791913903.0388
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/活动中心H4库存核对.json",
+      "category": "首日复测3-85b78db",
+      "bytes": 1392,
+      "sha256": "a1ef50925f5b52b55f42b1073df0c8348bd1940529ac6b3bc6d6235052707048",
+      "mtime_ns": 1791912786199269786
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/活动中心阶段结论.md",
+      "category": "首日复测3-85b78db",
+      "bytes": 1281,
+      "sha256": "9456263cf7eb23216756ab790b3baed7fe5cd30a6d98457a7e2ff95ac4f9cccf",
+      "mtime_ns": 1791914132997799588
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/真实计时.json",
+      "category": "首日复测3-85b78db",
+      "bytes": 1436,
+      "sha256": "aff54cf7d834aedb6459af34d57ea696cd773bd1df8239eb2ab9a391448f610c",
+      "mtime_ns": 1791912582339445030
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/图形启动.log",
+      "category": "首日复测3-85b78db/窗口中断前",
+      "bytes": 1354,
+      "sha256": "fecbb53bdf1e26510b1ec6f7eb1834b13aab2c33a1e3696cb3591583c8f70ff6",
+      "mtime_ns": 1791911443328955044
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/正常验收轨迹.jsonl",
+      "category": "首日复测3-85b78db/窗口中断前",
+      "bytes": 10290,
+      "sha256": "d8d2ef895df57d9cd038e47becc084cf10415dbe3edb18f6cf85160f70072948",
+      "mtime_ns": 1791911424723233929,
+      "event_count": 48,
+      "first_at": 1791911120.69471,
+      "last_at": 1791911424.72234
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/真实计时.json",
+      "category": "首日复测3-85b78db/窗口中断前",
+      "bytes": 426,
+      "sha256": "2ca0a0b05bd70718c1c648549019c09d7f422bae42ffdd39e17c905bbd3922e4",
+      "mtime_ns": 1791911553144896226
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/首日-85b78db-001-H6-入区-exterior.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 5447,
+      "sha256": "3bbd9ba4ff28a33d79d443c2d6fdcbd99a80ad681d33e3bc82d6ec748c622c3a",
+      "mtime_ns": 1791911120776020147
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/首日-85b78db-002-第三次-六地与四动物正常完成.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6983,
+      "sha256": "3df36d6891bd341f114ce551bb8939e8455b304e00363acede30aa0210be882e",
+      "mtime_ns": 1791911258085604909
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/结论.md",
+      "category": "首日复测3-85b78db",
+      "bytes": 1158,
+      "sha256": "e32a022a2243f5b2dd26615023590ca79cede6d708c93e24dc7ba2a09a16cfa1",
+      "mtime_ns": 1791912173938370263
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/连续试玩阶段记录.json",
+      "category": "首日复测3-85b78db",
+      "bytes": 885,
+      "sha256": "680d39ea805784441cba206bfcd9b7f2f53358fc8e64ae6bb8f8a7df47d5d486",
+      "mtime_ns": 1791914201070380926
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-001-H6-入区-exterior.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6367,
+      "sha256": "718249c15c44f17a06421cf40adfab31b38409add39e31719653c00d105d74d0",
+      "mtime_ns": 1791911632468057673
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-002-第三次-六地与四动物正常完成.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6367,
+      "sha256": "fbe262c74a7a74c26ad21ac687cf75538a9dda6131d2cd7b9139ea509c3bf5b9",
+      "mtime_ns": 1791911632535875937
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-003-第三次-同档续测真实收获.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6990,
+      "sha256": "1f3fa6ee1e8bfc90fe70681bfff8121042182de1d11255cf4a170bbed8f7d65b",
+      "mtime_ns": 1791911740874934727
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-004-H6-入区-village.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8517,
+      "sha256": "50c06310d825391111ae05854d1a67845801d1d82954c67265e8473cf947272c",
+      "mtime_ns": 1791911878859687608
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-005-第三次-三单199币正常入驻路线.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 9055,
+      "sha256": "522ecf92db9571c0c3a75cffc42ab4540085929b6b359c2babc09d3c6ab919da",
+      "mtime_ns": 1791911913633731968
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-006-H6-入区-my_yard.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6102,
+      "sha256": "2029f1aa44e1ff94abd86df1bb2e209f7a74c7193c66441c120a84351dd2553d",
+      "mtime_ns": 1791911969793119378
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-007-第三次-湖边落户到院子.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6340,
+      "sha256": "a4f2b3952156ae9303287be59a6fb04812ec4ff0134d6983897cffed90db1ecf",
+      "mtime_ns": 1791911978876518111
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-008-第三次-首田真实完成.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6093,
+      "sha256": "dc710afe0eec5bf0428a822bf000d10755063bcdaf17e9c38141fe3ffcba3283",
+      "mtime_ns": 1791912092306652759
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-009-H6-入区-village.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8812,
+      "sha256": "3d7e20c4c88f0219e08ae40135a1da4c114dfa2dbecd881f26aad7bf20c07158",
+      "mtime_ns": 1791912250910895699
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-010-H6-入区-my_cabin.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7027,
+      "sha256": "60ce1647855cfda4039a439b2afe0a343a2bd6bfce61826e108a6d65f6755c7d",
+      "mtime_ns": 1791912254973530171
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-011-活动中心-正常地图进入.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7028,
+      "sha256": "0c6dd8be57c6c43118bad826b806e732d5b37907375e23600494393f2a3c2f66",
+      "mtime_ns": 1791912283155183686
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-012-H5-走近自然问候-my_cabin-13.0点.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 6992,
+      "sha256": "9a9b1097ae89879df9886c2d75623837131551fa5f71affc5ff55c59631b98ba",
+      "mtime_ns": 1791912336100416902
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-013-H3-my_cabin-实时互动后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7558,
+      "sha256": "f0268ab914f0e47cc5207100fc2d987e590947db1ac48ae1bf77a847f47d4b9b",
+      "mtime_ns": 1791912337111411978
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-014-活动中心-收棋球后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7297,
+      "sha256": "b3c05793c33c68779daa446f6370f220c18b4ca879a1a98002ac22d8b62c7cc6",
+      "mtime_ns": 1791912355768966675
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-015-H3-my_cabin-实时互动后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7588,
+      "sha256": "d0c8d767c19ad9ba92c085357c6801b111161e9971cf822ffcb9ed19063dedb9",
+      "mtime_ns": 1791912380966129239
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-016-活动中心-摆碗后与竹席前.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7454,
+      "sha256": "6cb8e3c979cf7f717da952dc68a72d4042fa44f7b062c0c55877513f5b509c2d",
+      "mtime_ns": 1791912414756890365
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-017-H3-my_cabin-实时互动后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7516,
+      "sha256": "a0009dd596bd26ed52196d82d208c9047eec16a6fc920a31e296230227b41136",
+      "mtime_ns": 1791912449018685940
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-018-活动中心-竹席后-早9.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7622,
+      "sha256": "684e9b7f24690f99026431427683dd479ab4f3a2c761b0f725dc2443d037ccb4",
+      "mtime_ns": 1791912470707733712
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-019-H5-走近自然问候-my_cabin-9.0点.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7509,
+      "sha256": "414275f393d47623a36279b77fb6f6cef371f2d27d2251da1c922d56c09903d8",
+      "mtime_ns": 1791912499062864200
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-020-活动中心-早问候及备餐前.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7634,
+      "sha256": "6076001f7b2d75eeaa777474c109c3756b75aca5c2fb5e377b1812bdfc237faa",
+      "mtime_ns": 1791912528304233978
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-021-活动中心-H4-开始.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7230,
+      "sha256": "68db24d518475051d7bbb8227c38d814375278ad188354dbca47fe64da08d5b3",
+      "mtime_ns": 1791912582152400810
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-022-活动中心-H4-进行洗菜后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7091,
+      "sha256": "a5783581cb4783b22926a7a20704d84642ed7c59da4bb1a5fdae5828330e1360",
+      "mtime_ns": 1791912633139226498
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-023-活动中心-H4-中退库存.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7640,
+      "sha256": "6928fcfe678eafb1b68738a232ec1181fb1e1e41713643e5ad382739ccbddcd9",
+      "mtime_ns": 1791912674544262209
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-024-活动中心-H4-完成待端碗.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7210,
+      "sha256": "337aab5c0d7931a34496f1cf32f8d56dbaf471c15a5221f96635f6a44a41b087",
+      "mtime_ns": 1791912739528757031
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-025-活动中心-H4-共桌菜到账.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7246,
+      "sha256": "4d1fe3efb5c944f0cba137b972c682c8e30d7b89044a9fa4649ba0e35b2bc93d",
+      "mtime_ns": 1791912785962590182
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-026-活动中心-茶角故事册前.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7869,
+      "sha256": "e6830b7d681c825c42a7d39c00ab9639e01f53f29444655fccaab21c9a000ed0",
+      "mtime_ns": 1791912882891272888
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-027-活动中心-H3-茶角实际坐后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7765,
+      "sha256": "5c2bef9ecb23e25d3863a25c5429085f61d03d01d36d9f280be09f2e06fa7320",
+      "mtime_ns": 1791912942905493555
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-028-活动中心-茶角起身故事前.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7861,
+      "sha256": "c1ebcf569f3ac82c9778fc8e6493927ad761e608a57963e67e4636b61ef6b367",
+      "mtime_ns": 1791913031855008955
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-029-H3-my_cabin-实时互动后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8324,
+      "sha256": "0dd8633107572de1f3f27d49dd6a124b78bbfc997d7498dcf134dcd108b23646",
+      "mtime_ns": 1791913053555619919
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-030-活动中心-故事第一页.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8324,
+      "sha256": "0855c05b9064e913beaf0ce7ec66f45cc72a4f2b80742ca32bc9663893b18f35",
+      "mtime_ns": 1791913069724659962
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-031-活动中心-故事第二页.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8330,
+      "sha256": "a37aee9a771bf8b0fdfea505694f88bd91aa21f52c2a346892deb49ff4d3bb1d",
+      "mtime_ns": 1791913107059370105
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-032-活动中心-故事第三页.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8327,
+      "sha256": "9154adb54860e9b951a5bdfbc453fb7b7a79e50e557c203d4ae2c363542a03a5",
+      "mtime_ns": 1791913146368200270
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-033-活动中心-晚19读书作息切换.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8039,
+      "sha256": "2e5cc9fa07098da48e94aaa6ae60dc2f011dc6813680eee990ff7e59584f2605",
+      "mtime_ns": 1791913227895020007
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-034-H5-走近自然问候-my_cabin-19.0点.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8164,
+      "sha256": "5796cc8078216bc9ae56dc8efe3e501d41fc9ce222737d3ce92ee428a75d9bb5",
+      "mtime_ns": 1791913261075808732
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-035-活动中心-竹席完整无遮挡后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8075,
+      "sha256": "397b4bba69cabe0985090cc1e10fd1c4555c95c889830e152acbb918dfca3ede",
+      "mtime_ns": 1791913422032710883
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-036-活动中心-编席区无遮挡后.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8071,
+      "sha256": "bc556a2b78777484f6afc5cd1d42211d6f0ee441875d6325b88c31ec3ea238a9",
+      "mtime_ns": 1791913514469959378
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-037-H6-入区-village.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 10087,
+      "sha256": "63cafbba9e1d0ed4a2089490036295086b686440b9e923097bfa0074b650c0ba",
+      "mtime_ns": 1791913667006264543
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-038-H6-入区-exterior.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7666,
+      "sha256": "3a732438bf0318bdc021762c368a49101bc5a4f2acb0ba7f8fde748f94f64aaa",
+      "mtime_ns": 1791913682735479279
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-039-活动中心-公共门回村路及阿鱼家抵达.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7911,
+      "sha256": "586dc8a55fab1deb7e2d4ba39b6d5b21700a8279d0c9a0d931402104481f43ec",
+      "mtime_ns": 1791913705823048422
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-040-阿鱼家-R3-正常敲门欢迎.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7813,
+      "sha256": "3c2846bb9af2cbf73ba97254b122ff3346f202b6d74ee7e8432eaa583b4e88e1",
+      "mtime_ns": 1791913863989831313
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-041-H6-入区-living.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 7943,
+      "sha256": "aafbf34ca8d614fd703052ef371071f454dedb9721c6b90cd57eab9b6dd35f88",
+      "mtime_ns": 1791913884016025593
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-042-阿鱼家-同期客厅13对照.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8187,
+      "sha256": "74704cff77935d58ac9550f9332393596e13fafd05a1d320e957d0882545acaf",
+      "mtime_ns": 1791913902603323141
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/首日-85b78db-043-阿鱼客厅-H2-同期稳定对照.json",
+      "category": "third-run screenshot observation, not a persisted save",
+      "bytes": 8187,
+      "sha256": "c82146f18b9e30f82b581d11758424fcce19c57967e6976feff5836a5abaed51",
+      "mtime_ns": 1791913970840947559
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/关键字段核对.json",
+      "category": "首日有开地重开-85b78db",
+      "bytes": 3128,
+      "sha256": "256e56a3c213b3697c2066e4ebd3ae4cc8183039e9f79a0404357510039e06f9",
+      "mtime_ns": 1791911055257374765
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/结论.md",
+      "category": "首日有开地重开-85b78db",
+      "bytes": 295,
+      "sha256": "8fdd4d2b7b0a35e97b4146e700de0807413aef450e54a555bffa2be017170f15",
+      "mtime_ns": 1791911055257573889
+    }
+  ],
+  "excluded_untouched": [
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/capture-request.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/受测版本.md",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/图形启动.log",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/实时控件.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/最新观测.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/正常验收轨迹.jsonl",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-001-H6-入区-exterior.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-002-全新档-计时起点.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-003-首日-自留地种植前.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-004-首日-六地种植后.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-005-首日-四动物材料正常收取.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-006-首日-作物与材料当前核对.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-007-首日-楼卜收获进行.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-008-首日-楼卜海椒入库.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-009-首日-三种收获及订单.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-010-首日-三单已交199币.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-011-H6-入区-village.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-012-首日-三单199币正常去林伯.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-013-H6-入区-my_yard.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-014-首日-落户后正常回自己地.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日-85b78db/首日-85b78db-015-首日-第一块地完成核对.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/capture-request.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/图形启动.log",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/实时控件.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/最新观测.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/正常验收轨迹.jsonl",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/首日-85b78db-001-H6-入区-my_yard.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日有开地重开-85b78db/首日-85b78db-002-已开地重开实际核对.json",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/capture-request.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/图形启动.log",
+      "reason": "not explicitly named for this archive wave; left untouched"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/实时控件.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/最新观测.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/capture-request.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/实时控件.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/首日复测3-85b78db/窗口中断前/最新观测.json",
+      "reason": "explicitly excluded live request/control/observation"
+    },
+    {
+      "file": "回执/第1轮/独立测试/C3阶段状态.md",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " M"
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-7d87d81/WTH-01-天气图标.md",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " M"
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-7d87d81/最终-7d87d81-023-N4-雪-540x960-原生切换后.png",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " D"
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-7d87d81/最终-7d87d81-024-N4-雪-1280x720-调整窗口后.png",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " D"
+    },
+    {
+      "file": "回执/第1轮/独立测试/最终-7d87d81/最终-7d87d81-026-N4-雪-桌面最大化.png",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " D"
+    },
+    {
+      "file": "回执/第1轮/独立测试/问题与结论.md",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " M"
+    },
+    {
+      "file": "回执/第1轮/独立测试/验收矩阵.md",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " M"
+    },
+    {
+      "file": "回执/第1轮/设计/00-C4状态.md",
+      "reason": "other worker/current wave change; excluded from evidence-only commit",
+      "git_status": " M"
+    }
+  ]
+}

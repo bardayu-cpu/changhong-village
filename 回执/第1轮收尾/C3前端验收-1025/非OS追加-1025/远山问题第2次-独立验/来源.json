@@ -1,0 +1,12 @@
+{
+  "bundle_sha256": "09d02b47fe2399ea942a2d39b8e54779f0b0bc42a3e9e21f00340562a5de9375",
+  "candidate_hashes_verified": true,
+  "geometry_assets_exact_sha_unchanged": true,
+  "code_hashes": {
+    "ayu_home/v4/home.gd": "3d9354774341e9a7b0dd479c32c707203764ba75e76ec4231b41613acf92e172",
+    "ayu_home/v4/core/village_ground.gd": "793898de429f7120ffd0802a206c7ecd56d0aaace95bc05e88ed92b8554a9b10"
+  },
+  "same_problem_attempt": 2,
+  "OS_input": false,
+  "production_modified": false
+}

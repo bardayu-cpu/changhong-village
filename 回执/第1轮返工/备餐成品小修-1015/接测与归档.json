@@ -1,0 +1,69 @@
+{
+  "status": "单点生产小修已提交，实机画面待C3补验",
+  "time": "2026-10-15T21:41:26.410249+08:00",
+  "production_commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+  "previous_head": "0dfde6bb8fd09e4bfc662e05614fbec1c304e8f9",
+  "preserved_C3_source": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "production_files": [
+    "godot/ayu_home/v4/core/institution_game.gd"
+  ],
+  "change": "仅CommunityBoard._draw完成分支：去掉3块矩形碗体及24个食物色块，复用现有meal-14.png原像素6倍透明餐盘（192x144），最近邻过滤和原蒸汽保留。",
+  "unmodified": [
+    "现有餐食PNG字节",
+    "初始、清洗和切菜过程",
+    "三步按钮及进度条",
+    "状态机、食材扣除、产出、奖励",
+    "全部房间配置、镜头、碰撞",
+    "C3冻结副本、旧证据和活跃文件"
+  ],
+  "validation": {
+    "candidate_godot_check_only": "exit0，无SCRIPT ERROR",
+    "production_identical_to_checked_candidate": true,
+    "asset": "32x24 RGBA，alpha范围0至255；原已有阿鱼家通用时蔬餐盘",
+    "diff_check": "通过，生产只改1个文件4增2删",
+    "new_full_suite_run": false,
+    "reason_no_repeat": "仅成品绘制改动，流程与状态代码逐字保持；9c24efa原房间5行及核心87项结果保留，不冒称新版本整轮复验",
+    "gui": "待C3只补此处成品画面，不用语法检查代替实际显示"
+  },
+  "next_test": "GUI可用后完成备餐三步，确认收菜前后成品餐盘透明边缘/粗像素正常，按钮和正常收菜保留；同时完成原未完横窗阿鱼家对照。无需重跑首日或整轮。",
+  "outdoor": "A3素材重开仍待阿鱼明确回答，未生成、未接入、未修补",
+  "files": [
+    {
+      "path": "回执/第1轮返工/C2-备餐成品占位归类-1015.json",
+      "bytes": 2571,
+      "sha256": "18d8813f593bdf930a7f5e4eda8a192bfa5cf362c7087110d1d54b0231e163ac"
+    },
+    {
+      "path": "回执/第1轮返工/备餐成品小修-1015/候选.diff",
+      "bytes": 993,
+      "sha256": "dbdf09f21c15bce085a6a73069f6506c70a0a4abeff3cb8e0ada9c101564fbeb"
+    },
+    {
+      "path": "回执/第1轮返工/备餐成品小修-1015/候选检查.json",
+      "bytes": 1220,
+      "sha256": "6a51402d99ba9e6c2b7e632f0d4ce5408f79f0e40d398b0689b78bb436af6f8c"
+    },
+    {
+      "path": "回执/第1轮返工/备餐成品小修-1015/候选编译-stdout.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "回执/第1轮返工/备餐成品小修-1015/候选编译-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "回执/第1轮返工/备餐成品小修-1015/候选编译引擎.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    }
+  ],
+  "self": "回执/第1轮返工/备餐成品小修-1015/接测与归档.json",
+  "excludes": [
+    "所有C3活跃文件及未封存截图",
+    "测试数据/候选脚本及Godot生成uid",
+    "运行数据/与缓存",
+    "C1/C4当前未提交修改"
+  ]
+}

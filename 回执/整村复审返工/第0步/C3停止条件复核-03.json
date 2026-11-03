@@ -1,0 +1,59 @@
+{
+  "issue": "G0-NATIVE",
+  "attempt": "03",
+  "reviewer": "C3 independent material review",
+  "verdict": "远层失败成立；累计3/3，停止G0及全部后门",
+  "preregister": "C4素材/G0-NATIVE-03-emei-far-preregister.json",
+  "fixed_region": [
+    0,
+    416,
+    1536,
+    192
+  ],
+  "source_size": [
+    1536,
+    1024
+  ],
+  "crop_size": [
+    1536,
+    192
+  ],
+  "fixed_crop_exact_source_pixels": true,
+  "raw_alpha_bbox": [
+    0,
+    279,
+    1536,
+    1000
+  ],
+  "independent_visual_findings": [
+    "已亲自看raw及固定裁片：输出带有大面积天空/气氛光晕，并叠有多道较近的深色山脊，不是登记要求的独立远山层。",
+    "固定裁片保留主峰，但把上下连续光晕与底部过渡截在带边；裁切不能将混合场景合法变成独立远层。",
+    "带外并非完全透明，alpha范围超出预登记y=416至608；源图尺寸正确不足以通过。"
+  ],
+  "evidence": {
+    "raw": "C4素材/attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-raw.png",
+    "raw_sha256": "32c2ec909637ac7b4f74a2310d0d8aa9c8a34277c77150b1ff2768296134ac94",
+    "fixed_crop": "C4素材/attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-fixed-crop.png",
+    "crop_sha256": "15ae8114ada53b9fbae9f71a3c5bc5ce59870d754fe7c5d3440fee4f2cfb3e1f",
+    "author_check": "C4素材/attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-check.json",
+    "stop_summary": "C4素材/G0-NATIVE-03-stop-summary.json"
+  },
+  "preserved_pass": {
+    "item": "03短草素材",
+    "status": "独立素材预检通过，保留",
+    "receipt": "C3短草预检-03.json",
+    "does_not_replace_complete_G0": true
+  },
+  "stop": {
+    "G0_NATIVE_used": 3,
+    "limit": 3,
+    "G0_actual_scene_attempts": 0,
+    "actual_scene_status": "正式独立镜头复验未开始",
+    "G0_and_later_gates": "停止",
+    "further_generation_or_method_retry": "禁止；不挪窗、不修alpha、不缩放、不换ID续试",
+    "95_target": "未完成"
+  },
+  "runtime_started": false,
+  "engineering_modified": false,
+  "source_images_modified": false
+}

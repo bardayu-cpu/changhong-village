@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A3道路样板 v1</title>
+  <style>
+    :root{color-scheme:dark;background:#20160f;color:#f6e8cd;font-family:system-ui,sans-serif}body{margin:0;padding:24px}h1{font-size:24px;margin:0 0 8px}.note{color:#cdbb9b;margin:0 0 18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}.card{background:#342319;border:2px solid #8f6d43;border-radius:10px;padding:12px}.card h2{font-size:16px;margin:0 0 10px}.frame,.stack{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:#111}.frame img,.stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}.baseline{aspect-ratio:540/960}.legend{font-size:13px;line-height:1.55;color:#dac8aa;margin-top:9px}code{color:#ffd78a}</style>
+</head>
+<body>
+  <h1>A3 现有村路原位补画样板</h1>
+  <p class="note">世界坐标 <code>(0,1900)</code>，1024×1024，透明覆盖层；房屋、门、道路、寻路和碰撞坐标不变。</p>
+  <div class="grid">
+    <section class="card"><h2>接入前</h2><div class="frame"><img src="参考/现有地图裁片-x0-y1900-1024.png" alt="接入前"></div><p class="legend">重复草纹、大片平涂，路边缺少生活痕迹。</p></section>
+    <section class="card"><h2>样板叠加预览</h2><div class="stack"><img src="参考/现有地图裁片-x0-y1900-1024.png" alt="底图"><img src="assets/a3-road-detail-overlay-v1.png" alt="透明道路细节层"></div><p class="legend">只增加石板、碎石、草边、落叶、稻草和晒垫。C2按同一坐标叠加。</p></section>
+    <section class="card"><h2>阿鱼家门前质量基准</h2><div class="frame baseline"><img src="参考/阿鱼家门前春-质量基准.png" alt="阿鱼家门前春"></div><p class="legend">C3需以同窗口、同春季、同时间和天气做最终并排。</p></section>
+  </div>
+</body>
+</html>

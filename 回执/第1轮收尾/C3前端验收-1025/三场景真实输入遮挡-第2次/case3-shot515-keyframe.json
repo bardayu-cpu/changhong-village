@@ -1,0 +1,23 @@
+{
+  "area": "v_h3",
+  "case": 3,
+  "file": "case3-shot515-keyframe.png",
+  "frame": 7044,
+  "hour": 13.0,
+  "month": 10,
+  "position": [
+    142.0,
+    503.5
+  ],
+  "walking": false,
+  "wall": 1792928771.28121,
+  "weather": "clear",
+  "window": [
+    540,
+    960
+  ],
+  "world_scale": [
+    2.0,
+    2.0
+  ]
+}

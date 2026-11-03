@@ -1,0 +1,205 @@
+{
+  "source": "../来源.json",
+  "mode": "起点为显式夹具定位；三次正常上下键连续输入跨排序线。F1-4仅切测试场景，不算自然到达或核心旅行验收",
+  "movie": "three-scenes-real-OS-input.avi",
+  "movie_frames": 8913,
+  "movie_FPS": 30,
+  "movie_length_seconds": 297.1,
+  "wall_recorded_seconds": 206,
+  "real_time_speed": 1.44,
+  "movie_is_continuous_no_edits": true,
+  "reference": {
+    "area": "living",
+    "case": 4,
+    "file": "case4-shot590-keyframe.png",
+    "frame": 8071,
+    "hour": 13.0,
+    "month": 10,
+    "position": [
+      386.0,
+      338.0
+    ],
+    "walking": false,
+    "wall": 1792928798.75581,
+    "weather": "clear",
+    "window": [
+      540,
+      960
+    ],
+    "world_scale": [
+      2.0,
+      2.0
+    ]
+  },
+  "entries": [
+    {
+      "case": 1,
+      "label": "院子棚沿",
+      "side": "后",
+      "raw": "case1-shot136-keyframe.png",
+      "metadata": "case1-shot136-keyframe.json",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/三场景真实输入遮挡-第2次/选定并排/院子棚沿-后-左实测右阿鱼-13时.png",
+      "position": [
+        978.0,
+        600.5
+      ],
+      "sort_line": 625,
+      "range_y": [
+        600.5,
+        683.75
+      ]
+    },
+    {
+      "case": 1,
+      "label": "院子棚沿",
+      "side": "前",
+      "raw": "case1-shot211-keyframe.png",
+      "metadata": "case1-shot211-keyframe.json",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/三场景真实输入遮挡-第2次/选定并排/院子棚沿-前-左实测右阿鱼-13时.png",
+      "position": [
+        978.0,
+        683.75
+      ],
+      "sort_line": 625,
+      "range_y": [
+        600.5,
+        683.75
+      ]
+    },
+    {
+      "case": 2,
+      "label": "村景树",
+      "side": "后",
+      "raw": "case2-shot327-keyframe.png",
+      "metadata": "case2-shot327-keyframe.json",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/三场景真实输入遮挡-第2次/选定并排/村景树-后-左实测右阿鱼-13时.png",
+      "position": [
+        1304.0,
+        576.0
+      ],
+      "sort_line": 610,
+      "range_y": [
+        576.0,
+        670.5
+      ]
+    },
+    {
+      "case": 2,
+      "label": "村景树",
+      "side": "前",
+      "raw": "case2-shot368-keyframe.png",
+      "metadata": "case2-shot368-keyframe.json",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/三场景真实输入遮挡-第2次/选定并排/村景树-前-左实测右阿鱼-13时.png",
+      "position": [
+        1304.0,
+        670.5
+      ],
+      "sort_line": 610,
+      "range_y": [
+        576.0,
+        670.5
+      ]
+    },
+    {
+      "case": 3,
+      "label": "磨坊椅侧",
+      "side": "后",
+      "raw": "case3-shot458-keyframe.png",
+      "metadata": "case3-shot458-keyframe.json",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/三场景真实输入遮挡-第2次/选定并排/磨坊椅侧-后-左实测右阿鱼-13时.png",
+      "position": [
+        142.0,
+        413.5
+      ],
+      "sort_line": 460,
+      "range_y": [
+        413.5,
+        503.5
+      ],
+      "status": "椅侧重叠窄，仅跨线事实，不作为磨坊最终判据"
+    },
+    {
+      "case": 3,
+      "label": "磨坊椅侧",
+      "side": "前",
+      "raw": "case3-shot515-keyframe.png",
+      "metadata": "case3-shot515-keyframe.json",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/三场景真实输入遮挡-第2次/选定并排/磨坊椅侧-前-左实测右阿鱼-13时.png",
+      "position": [
+        142.0,
+        503.5
+      ],
+      "sort_line": 460,
+      "range_y": [
+        413.5,
+        503.5
+      ],
+      "status": "椅侧重叠窄，仅跨线事实，不作为磨坊最终判据"
+    }
+  ],
+  "visual_review_pending": false,
+  "runtime_exit": 0,
+  "warnings": "5 RID/纹理、15 ObjectDB释放警告仍在",
+  "production_changed": false,
+  "mill_supplement": {
+    "directory": "测试数据/本轮C3专用目录/前端接管-1025/磨坊桶沿补证-第3次",
+    "movie": "mill-real-OS-input.avi",
+    "frames": 5128,
+    "FPS": 30,
+    "movie_length_seconds": 170.93333333333334,
+    "wall_recorded_seconds": 136,
+    "real_time_speed": 1.25,
+    "behind": {
+      "area": "v_h3",
+      "case": 3,
+      "file": "case3-shot269-keyframe.png",
+      "frame": 3700,
+      "hour": 13.0,
+      "month": 10,
+      "position": [
+        282.5,
+        448.5
+      ],
+      "walking": true,
+      "wall": 1792929022.32959,
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    "front": {
+      "area": "v_h3",
+      "case": 3,
+      "file": "case3-shot316-keyframe.png",
+      "frame": 4343,
+      "hour": 13.0,
+      "month": 10,
+      "position": [
+        282.5,
+        498.0
+      ],
+      "walking": false,
+      "wall": 1792929039.39274,
+      "weather": "clear",
+      "window": [
+        540,
+        960
+      ],
+      "world_scale": [
+        2.0,
+        2.0
+      ]
+    },
+    "sort_line": 471,
+    "same_source_snapshot": true,
+    "scope": "谷桶左沿可见重叠范围，替代原椅侧窄范围作为第三场景判据",
+    "viewed_pending": false,
+    "visual_result": "桶后人物右下缘被桶沿遮住，退回桶前后恢复；限桶沿该路线"
+  },
+  "result": "选定院子棚沿、村景树、磨坊桶沿的往返排序范围已实测通过；磨坊以另存补段为判据。初录椅侧过窄不充作最终证据。不是全村所有遮挡通过。"
+}

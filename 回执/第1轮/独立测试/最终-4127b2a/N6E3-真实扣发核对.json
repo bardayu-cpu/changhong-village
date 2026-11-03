@@ -1,0 +1,87 @@
+[
+  {
+    "action": "seed",
+    "before": 22,
+    "after": 23,
+    "coin_delta": -3.0,
+    "items_delta": {
+      "radish_seed": 1.0
+    },
+    "blueprints": [],
+    "furniture": []
+  },
+  {
+    "action": "parcel1",
+    "before": 24,
+    "after": 25,
+    "coin_delta": 0,
+    "items_delta": {
+      "parcel": -1.0,
+      "tool": 1.0
+    },
+    "blueprints": [],
+    "furniture": []
+  },
+  {
+    "action": "parcel2",
+    "before": 25,
+    "after": 26,
+    "coin_delta": 0,
+    "items_delta": {
+      "parcel": -1,
+      "tool": 1
+    },
+    "blueprints": [],
+    "furniture": []
+  },
+  {
+    "action": "box",
+    "before": 27,
+    "after": 28,
+    "coin_delta": -30,
+    "items_delta": {},
+    "blueprints": [
+      "wash_basin"
+    ],
+    "furniture": []
+  },
+  {
+    "action": "craft",
+    "before": 33,
+    "after": 34,
+    "coin_delta": 0,
+    "items_delta": {
+      "stone": -4,
+      "bamboo": -1
+    },
+    "blueprints": [
+      "wash_basin"
+    ],
+    "furniture": [
+      {
+        "id": 1,
+        "kind": "wash_basin",
+        "x": -1,
+        "y": -1
+      }
+    ]
+  },
+  {
+    "action": "place",
+    "before": 45,
+    "after": 46,
+    "coin_delta": 0,
+    "items_delta": {},
+    "blueprints": [
+      "wash_basin"
+    ],
+    "furniture": [
+      {
+        "id": 1,
+        "kind": "wash_basin",
+        "x": 1,
+        "y": 1
+      }
+    ]
+  }
+]

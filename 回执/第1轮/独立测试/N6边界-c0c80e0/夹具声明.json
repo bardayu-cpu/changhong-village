@@ -1,0 +1,9 @@
+{
+  "commit": "c0c80e0",
+  "same_original_identity": true,
+  "real_save_isolated": true,
+  "case": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/最终-c0c80e0/边界夹具/长名数量触摸",
+  "modified": "仅克隆items追加超长中文键/楼卜数量1234567890，不作真实收入/材料来源证据",
+  "touch": "引擎公开Input.set_emulate_touch_from_mouse(true)，原生鼠标经引擎模拟触摸，无脚本输入事件注入",
+  "engine_api_proved": "TOUCH_API true，见忽略测试目录准备.log"
+}

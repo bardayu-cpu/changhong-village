@@ -1,0 +1,38 @@
+{
+  "adjustments": [
+    {
+      "room": "whitebrick",
+      "old_approach": [
+        174,
+        285
+      ],
+      "new_approach": [
+        174,
+        276
+      ]
+    },
+    {
+      "room": "daba",
+      "old_approach": [
+        224,
+        267
+      ],
+      "new_approach": [
+        238,
+        267
+      ]
+    },
+    {
+      "room": "erba",
+      "old_approach": [
+        311,
+        198
+      ],
+      "new_approach": [
+        326,
+        222
+      ]
+    }
+  ],
+  "erba": "split overbroad conversation-set rectangle into actual tea table/left chair/right chair footprints so sofa approach remains a real gap"
+}

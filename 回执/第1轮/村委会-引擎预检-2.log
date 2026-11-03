@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS front entry arrives inside doorway
+PASS approach path: village_tasks
+PASS approach path: register_book
+PASS approach path: residency_counter
+PASS approach path: opinion_basket
+PASS approach path: material_sort
+PASS approach path: rest_seat
+PASS approach path: outside
+PASS approach path: upstairs
+PASS three host positions and activities
+PASS visible effect saved: register
+PASS visible effect saved: counter
+PASS visible effect saved: notice
+PASS visible effect saved: bundle
+PASS opening counter does not submit residency or spend
+PASS civic session persists
+PASS cancel has no material reward
+PASS wrong category does not advance
+PASS three sorted cards allow completion
+PASS repair bamboo joins shared inventory
+PASS no duplicate material
+PASS upstairs arrival uses open corridor
+PASS upstairs path: archive_read
+PASS upstairs path: archive_lamp
+PASS upstairs path: downstairs
+PASS returns to correct left staircase
+PASS civic reward limited to one per date
+PASS archive uses its own book pages
+PASS MILL-01 grain ledger replaces generic bird text
+PASS MILL-01 second ledger page
+CIVIC_RUNTIME PASS

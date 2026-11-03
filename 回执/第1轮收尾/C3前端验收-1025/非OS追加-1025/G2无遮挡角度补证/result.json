@@ -1,0 +1,98 @@
+{
+  "OS_input": false,
+  "mode": "non-OS Home scene rendering, normal supply/plant/harvest/community_grow transactions; explicit view-position fixture, no awards or stages injected",
+  "rows": [
+    {
+      "check": "normal visit",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal supply xiduo",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal supply qiuqiu",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal supply luoluo",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal supply tiantian",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal radish plant",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal pepper plant",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal radish harvest",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal pepper harvest",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal resource supply bounded",
+      "details": {
+        "loops": 0
+      },
+      "pass": true
+    },
+    {
+      "check": "normal community_grow 1",
+      "details": {
+        "message": "铺一张共坐竹席，回头看看活动中心添了什么",
+        "ok": true
+      },
+      "pass": true
+    },
+    {
+      "check": "visible stage state 1",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal community_grow 2",
+      "details": {
+        "message": "添一桌家常饭，回头看看活动中心添了什么",
+        "ok": true
+      },
+      "pass": true
+    },
+    {
+      "check": "visible stage state 2",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "normal community_grow 3",
+      "details": {
+        "message": "搭起邻里留言架，回头看看活动中心添了什么",
+        "ok": true
+      },
+      "pass": true
+    },
+    {
+      "check": "visible stage state 3",
+      "details": {},
+      "pass": true
+    }
+  ],
+  "scope": "three new objects full visible angle only; not whole scene or NPC art approval"
+}

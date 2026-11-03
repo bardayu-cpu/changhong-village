@@ -1,0 +1,14 @@
+{
+  "items": true,
+  "institutions": true,
+  "orders": true,
+  "order_total": true,
+  "resident": true,
+  "location": true,
+  "land": true,
+  "blueprints": true,
+  "furniture": true,
+  "active_institution": true,
+  "room": true,
+  "wallet": true
+}

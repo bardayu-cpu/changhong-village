@@ -1,0 +1,65 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS all viewport edges covered (540, 960) zoom1.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (540, 960) zoom2.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (540, 960) zoom2.8
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (1280, 720) zoom1.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (1280, 720) zoom2.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (1280, 720) zoom2.8
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (1920, 1080) zoom1.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (1920, 1080) zoom2.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (1920, 1080) zoom2.8
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (2560, 1600) zoom1.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (2560, 1600) zoom2.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (2560, 1600) zoom2.8
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (540, 960) zoom1.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (540, 960) zoom2.0
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+PASS all viewport edges covered (540, 960) zoom2.8
+PASS range follows actual window and canvas, no fixed phone mask
+PASS rain density scales with visible area
+PASS rain reaches left centre and right bands
+WEATHER_VIEWPORT PASS 60 checks; headless geometry, desktop screenshots remain C3

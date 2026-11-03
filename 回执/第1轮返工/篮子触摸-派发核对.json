@@ -1,0 +1,34 @@
+{
+	"checks": [
+		{
+			"check": "native mouse tap selects through Window/Control dispatch",
+			"pass": true
+		},
+		{
+			"check": "50px within-card release drag scrolls without selecting even if motion was coalesced",
+			"pass": true
+		},
+		{
+			"check": "ScreenTouch/ScreenDrag routed through input pipeline scroll without selecting",
+			"pass": true
+		},
+		{
+			"check": "ScreenTouch tap still selects through native mouse emulation",
+			"pass": true
+		},
+		{
+			"check": "outside-grid touch leaves basket scroll untouched",
+			"pass": true
+		},
+		{
+			"check": "focus selection works after both drag types end",
+			"pass": true
+		},
+		{
+			"check": "gestures neither consume items nor open/write a save",
+			"pass": true
+		}
+	],
+	"failures": 0,
+	"mode": "headless native Window/Control input dispatch; not real hardware touch"
+}

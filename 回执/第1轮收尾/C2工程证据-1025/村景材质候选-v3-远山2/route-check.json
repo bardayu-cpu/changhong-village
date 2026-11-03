@@ -1,0 +1,133 @@
+{
+  "approach_snaps": [
+    {
+      "id": "mayor",
+      "pixels": 6.32455539703369
+    },
+    {
+      "id": "honey",
+      "pixels": 0.0
+    },
+    {
+      "id": "pond",
+      "pixels": 6.40312433242798
+    },
+    {
+      "id": "chicken",
+      "pixels": 8.24621105194092
+    },
+    {
+      "id": "orchard",
+      "pixels": 2.82842707633972
+    },
+    {
+      "id": "market",
+      "pixels": 5.65685415267944
+    },
+    {
+      "id": "home_site",
+      "pixels": 9.21954441070557
+    },
+    {
+      "id": "map",
+      "pixels": 6.0
+    },
+    {
+      "id": "mill",
+      "pixels": 8.24621105194092
+    },
+    {
+      "id": "visit_laowu",
+      "pixels": 4.4721360206604
+    },
+    {
+      "id": "loach_memory",
+      "pixels": 8.48528099060059
+    },
+    {
+      "id": "visit_ayu",
+      "pixels": 6.32455539703369
+    },
+    {
+      "id": "visit_h5",
+      "pixels": 1.41421353816986
+    },
+    {
+      "id": "visit_h3",
+      "pixels": 10.6301460266113
+    },
+    {
+      "id": "visit_mayor",
+      "pixels": 6.32455539703369
+    },
+    {
+      "id": "visit_community",
+      "pixels": 7.21110248565674
+    },
+    {
+      "id": "visit_daba",
+      "pixels": 9.21954441070557
+    },
+    {
+      "id": "visit_flower",
+      "pixels": 5.83095169067383
+    },
+    {
+      "id": "visit_h2",
+      "pixels": 3.60555124282837
+    },
+    {
+      "id": "visit_h8",
+      "pixels": 6.70820379257202
+    },
+    {
+      "id": "visit_erba",
+      "pixels": 7.28010988235474
+    },
+    {
+      "id": "visit_h6",
+      "pixels": 8.24621105194092
+    },
+    {
+      "id": "visit_h7",
+      "pixels": 10.0
+    },
+    {
+      "id": "visit_h4",
+      "pixels": 8.06225776672363
+    },
+    {
+      "id": "visit_h1",
+      "pixels": 5.0
+    },
+    {
+      "id": "visit_whitebrick",
+      "pixels": 9.43398094177246
+    },
+    {
+      "id": "visit_grape",
+      "pixels": 8.06225776672363
+    },
+    {
+      "id": "visit_sunflower",
+      "pixels": 5.0
+    },
+    {
+      "id": "visit_persimmon",
+      "pixels": 6.32455539703369
+    },
+    {
+      "id": "visit_rose",
+      "pixels": 3.0
+    },
+    {
+      "id": "north_mountain_viewpoint",
+      "pixels": 4.0
+    }
+  ],
+  "boundary": "31 actual World/AStar routes; interpolated feet checked against physical obstacles/field surfaces without reapplying grid-centre clearance; not OS or visual acceptance",
+  "doors": 19,
+  "failures": [],
+  "hotspots": 11,
+  "pass": true
+}

@@ -1,0 +1,241 @@
+{
+  "sha": "4127b2a0d553d717a865b62c3a96a9e187f477d3",
+  "base": "7d87d81",
+  "delta": [
+    {
+      "path": "godot/ayu_home/v4/assets/ui/inventory-icons-v1.json",
+      "sha256": "9cda3bd3cbb3eb2d3559fda1b9d27ec25d6502e63de1512aab662c15af0b6741"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/apple_tree-spring-mask.png",
+      "sha256": "f2538ca92dc86cfa35b1823dfa2f8876526603756d06da55c9384e52c7412e26"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/bindings.json",
+      "sha256": "e4017a288d1638a0781c8b7b5d0d55e1b50a2334f5359e0b939ad9e0f51e1111"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/board-spring-mask.png",
+      "sha256": "6d17dcf84bc9b17c8d505c9c8dd49ec4a4e5f300821f0e58ff302faf54b49bd6"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_10-spring-mask.png",
+      "sha256": "5612fec1f902bdb51fa557ab0acd2302f3663b0d6881563c85a1b9b5ad4430f0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_4-spring-mask.png",
+      "sha256": "5612fec1f902bdb51fa557ab0acd2302f3663b0d6881563c85a1b9b5ad4430f0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_7-spring-mask.png",
+      "sha256": "5612fec1f902bdb51fa557ab0acd2302f3663b0d6881563c85a1b9b5ad4430f0"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_20-spring-mask.png",
+      "sha256": "a74fa72b067a8dbd0fbe86832ece843e87a6ae0668338589dd1f8ea0bfad7bdf"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_21-spring-mask.png",
+      "sha256": "a74fa72b067a8dbd0fbe86832ece843e87a6ae0668338589dd1f8ea0bfad7bdf"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_22-spring-mask.png",
+      "sha256": "4cb148ea770f93263ec27ce6d2af06bb704dbcd66d87ed78055f83bb30abd388"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_0-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_1-spring-mask.png",
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_11-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_12-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_13-spring-mask.png",
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_14-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_15-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_16-spring-mask.png",
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_17-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_18-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_19-spring-mask.png",
+      "sha256": "7262cd631f7e88388950ca5c83fe1e5991c602b2fecc3727f22d720fb8a971f9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_2-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_3-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_5-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_6-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_8-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/c4_tree_9-spring-mask.png",
+      "sha256": "010dc6dffc7b8b9e048fe03f08b5f66624fda354018882031044d9069a99049c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/cabin-spring-mask.png",
+      "sha256": "da7dd9e2af24d6bce01881dc459f8fd8255c1cfbd77dbfbba65683723a234f01"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/exterior_beehive_1-spring-mask.png",
+      "sha256": "32dbfbaa989d0c55242cc3cd0f1b0e9128676cfd55694317254947a5fba204b9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/fruit_tree-spring-mask.png",
+      "sha256": "21e77d2c3bd90d55047e3f1c2ad5775f7334ed328c1807cbbd228dada6b3e171"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/ground-spring-mask.png",
+      "sha256": "97a1cb64cb65c1832563c528de68a547fbbe7691faab358b72e61676d467f292"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_ayu-spring-mask.png",
+      "sha256": "5d6dc3de95dba9ffddee8ec8d1d63a8890fd42cd68317d2a4011cbc544094bdf"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_daba-spring-mask.png",
+      "sha256": "db09317209641658a7f2d18bfb2425b79c2e8e7beea9a38d2e733c12e90432ba"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_erba-spring-mask.png",
+      "sha256": "92bcfa06c9c8f03b3e0907bcedac9382103444d0635feefc0c938e3a2d1d06c5"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_flower-spring-mask.png",
+      "sha256": "59eb1736e47655f042e750e1725b158cf63612ad34fe600a183ecad7f48f7a86"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_grape-spring-mask.png",
+      "sha256": "553367016d8ecf2252ae1119a8d2c8833baeaaf98c72e7ed5c20b23a5ed88ec6"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h1-spring-mask.png",
+      "sha256": "cd693d5782d2031f4e0dc582afe8e242f4e076013159b941c5951883824fc8e9"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h2-spring-mask.png",
+      "sha256": "015112817cbb2c7431336fbc20c3f2cfdbfb2be438571dddc31663ab248c4242"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h3-spring-mask.png",
+      "sha256": "c9d2c082e58da49933315781ca325c6feb60deb2da6b47a74b453be6fa340651"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h4-spring-mask.png",
+      "sha256": "9a7654d56ea8492ae6301c530bd35b001076df328e09f399551db40188ba79de"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h5-spring-mask.png",
+      "sha256": "0feeba8dc3487911f8386a9962c211dab3e8a397ed226e35aeeb25cf859f264e"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h6-spring-mask.png",
+      "sha256": "7cc3d5446ed5b6850a5c44decdf012e588f69b0a86ee6988fa4cf9d1e9ace65c"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h7-spring-mask.png",
+      "sha256": "ccaba5d0eaa578678bbea7503c8c37aa175ca7cda0f3bff302a7db3d8edca569"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_h8-spring-mask.png",
+      "sha256": "48e358b10e5a6fab967eb4a9b70aff62252c23a365a295721d62be786224cd96"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_laowu-spring-mask.png",
+      "sha256": "9430aedd97ac837ffbbe675fe8c60ba7edb368ac0db9dba3cdbac12f56c651ee"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_mayor-spring-mask.png",
+      "sha256": "6df93acf6434aa910b877714af1522763037e3fd9777699a02495fc07c3e6ebd"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_persimmon-spring-mask.png",
+      "sha256": "04cd5e06a1139b29d2410442fa664331f6cb8595b41357fb5829c146800eb67d"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_rose-spring-mask.png",
+      "sha256": "dd805a77ea084b48dbeac9225760dbfc2f47ef479911edbc5b79e350c163fd9a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_sunflower-spring-mask.png",
+      "sha256": "e145d0d2a0128e7dcb171c93107755ab60648277add4269136b04b5184e9af40"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/house_whitebrick-spring-mask.png",
+      "sha256": "d7d38b6b57d8ffc10507c1a3e4547b097bf0fa4770d2374b0a208c0e40cbe433"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/pear_tree-spring-mask.png",
+      "sha256": "c7ac263c5c8772ff7e9304ae3489d830adf847f846ee673c715291ca12c93bf4"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/pond-spring-mask.png",
+      "sha256": "362e21d6b81a3606737508811bf7663d3d5a35e9df7630ad8e3ab5cbfac27d50"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/c4-spring-v1/season-material.gdshader",
+      "sha256": "999893536e3c0ad9f306ffb146ca71ef45778ba0ce68cecb862031551f5d6d67"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "sha256": "6caf652f1eb07c01eb87bc60f5fbb08140fd9e41ed77f6b7aa048fa3bfc2bc71"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/inventory_icon_draw.gd",
+      "sha256": "94fba817c4c562487ab4675e3e5270f219cd39ea0b86745705572c9cffa0d94d"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/inventory_view.gd",
+      "sha256": "bb24b77cf337470b29ac6c8631a7d4b6a55d149caf0cc13c289904b1e1c2f654"
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "sha256": "d35a83cc210fa7d5c717e8c21abcc05d48d53a8ff3c09e2110422791f1fa5f70"
+    },
+    {
+      "path": "godot/ayu_home/v4/world.gd",
+      "sha256": "0a8ea61b081d4c17d79e2c0e68c3d933c51fdf3f55c38802efa0a2a5851c2104"
+    }
+  ],
+  "profile": "c3-focused-third-85b78db-1014",
+  "method": "上一冻结副本copy2保留缓存；只读git show逐个改动blob；不改生产/Git/原断言",
+  "remaining_percent_start": 60
+}

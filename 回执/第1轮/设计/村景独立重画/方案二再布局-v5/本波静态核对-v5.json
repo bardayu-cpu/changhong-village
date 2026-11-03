@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-14",
+  "canvas": [1024, 1536],
+  "house_art_changed": false,
+  "rendered_house_count_per_layout": 19,
+  "embedded_ayu_rear_old_house": 1,
+  "effective_destination_count": 20,
+  "overlap_checks": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "invariants": {
+    "ayu_complete_plot_v4_used": true,
+    "kaikai_left_of_h2_and_ayu": true,
+    "real_road_topology_used_as_reference": true,
+    "flat_valley_middle": true,
+    "emei_silhouette_visible_at_north_horizon": true,
+    "decorative_public_structures_present": true,
+    "old_ayu_map_cutout_used": false
+  },
+  "files": {
+    "峨眉山实景路网-无房屋底图-v5.png": "032f48615801e161c3b6393a9a78160c0cd3a0769436941d37f83036fb34a2e9",
+    "布局A-沿实景主路舒展-v5.png": "927db06879893a89c1f825b963176b3c465ac082e56560694da951dcc9ffd56c",
+    "布局B-南北双组团-v5.png": "cff4b70548341a65d81e811e4e9807509842aa7d4f9104849d240214d9e5da98",
+    "布局C-果树林环村-v5.png": "3e7c5546ac597028ceacefbf50313a0bc251a0b1b3a29036876df885b824c903"
+  },
+  "quota_check": {
+    "start_remaining_percent": 33,
+    "end_remaining_percent": 33,
+    "ordinary_usage_allowed": true,
+    "freeze_threshold_percent": 30,
+    "stop_threshold_percent": 15
+  },
+  "scope": "C4 design alternatives only. No production integration, runtime acceptance, or Git work."
+}

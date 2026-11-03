@@ -1,0 +1,387 @@
+{
+  "cell": [
+    64,
+    64
+  ],
+  "columns": 8,
+  "rows": 4,
+  "order": [
+    "milk_good",
+    "milk_swollen",
+    "milk_leak",
+    "bowl",
+    "loach",
+    "stone",
+    "crab",
+    "basket",
+    "ticket",
+    "document",
+    "water",
+    "coat",
+    "snack",
+    "book",
+    "shirt",
+    "trousers",
+    "scarf",
+    "towel",
+    "socks",
+    "leaf_green",
+    "leaf_yellow",
+    "leaf_bug",
+    "bubble",
+    "ripple",
+    "mud_splash"
+  ],
+  "items": [
+    {
+      "index": 0,
+      "id": "milk_good",
+      "cell": [
+        0,
+        0
+      ],
+      "rect": [
+        0,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 1,
+      "id": "milk_swollen",
+      "cell": [
+        1,
+        0
+      ],
+      "rect": [
+        64,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 2,
+      "id": "milk_leak",
+      "cell": [
+        2,
+        0
+      ],
+      "rect": [
+        128,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 3,
+      "id": "bowl",
+      "cell": [
+        3,
+        0
+      ],
+      "rect": [
+        192,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 4,
+      "id": "loach",
+      "cell": [
+        4,
+        0
+      ],
+      "rect": [
+        256,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 5,
+      "id": "stone",
+      "cell": [
+        5,
+        0
+      ],
+      "rect": [
+        320,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 6,
+      "id": "crab",
+      "cell": [
+        6,
+        0
+      ],
+      "rect": [
+        384,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 7,
+      "id": "basket",
+      "cell": [
+        7,
+        0
+      ],
+      "rect": [
+        448,
+        0,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 8,
+      "id": "ticket",
+      "cell": [
+        0,
+        1
+      ],
+      "rect": [
+        0,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 9,
+      "id": "document",
+      "cell": [
+        1,
+        1
+      ],
+      "rect": [
+        64,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 10,
+      "id": "water",
+      "cell": [
+        2,
+        1
+      ],
+      "rect": [
+        128,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 11,
+      "id": "coat",
+      "cell": [
+        3,
+        1
+      ],
+      "rect": [
+        192,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 12,
+      "id": "snack",
+      "cell": [
+        4,
+        1
+      ],
+      "rect": [
+        256,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 13,
+      "id": "book",
+      "cell": [
+        5,
+        1
+      ],
+      "rect": [
+        320,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 14,
+      "id": "shirt",
+      "cell": [
+        6,
+        1
+      ],
+      "rect": [
+        384,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 15,
+      "id": "trousers",
+      "cell": [
+        7,
+        1
+      ],
+      "rect": [
+        448,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 16,
+      "id": "scarf",
+      "cell": [
+        0,
+        2
+      ],
+      "rect": [
+        0,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 17,
+      "id": "towel",
+      "cell": [
+        1,
+        2
+      ],
+      "rect": [
+        64,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 18,
+      "id": "socks",
+      "cell": [
+        2,
+        2
+      ],
+      "rect": [
+        128,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 19,
+      "id": "leaf_green",
+      "cell": [
+        3,
+        2
+      ],
+      "rect": [
+        192,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 20,
+      "id": "leaf_yellow",
+      "cell": [
+        4,
+        2
+      ],
+      "rect": [
+        256,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 21,
+      "id": "leaf_bug",
+      "cell": [
+        5,
+        2
+      ],
+      "rect": [
+        320,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 22,
+      "id": "bubble",
+      "cell": [
+        6,
+        2
+      ],
+      "rect": [
+        384,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 23,
+      "id": "ripple",
+      "cell": [
+        7,
+        2
+      ],
+      "rect": [
+        448,
+        128,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 24,
+      "id": "mud_splash",
+      "cell": [
+        0,
+        3
+      ],
+      "rect": [
+        0,
+        192,
+        64,
+        64
+      ]
+    }
+  ]
+}

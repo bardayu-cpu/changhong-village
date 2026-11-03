@@ -1,0 +1,93 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS asset exists land_65_field_0
+PASS asset exists land_66_bund_field_0
+PASS asset exists land_67_field_1
+PASS asset exists land_68_bund_field_1
+PASS asset exists land_69_drain_field_1
+PASS asset exists land_70_field_2
+PASS asset exists land_71_bund_field_2
+PASS asset exists land_72_field_3
+PASS asset exists land_73_bund_field_3
+PASS asset exists land_74_field_4
+PASS asset exists land_75_bund_field_4
+PASS asset exists land_76_drain_field_4
+PASS asset exists land_77_field_5
+PASS asset exists land_78_bund_field_5
+PASS asset exists land_79_field_6
+PASS asset exists land_80_bund_field_6
+PASS asset exists land_81_field_7
+PASS asset exists land_82_bund_field_7
+PASS asset exists land_83_drain_field_7
+PASS asset exists land_84_field_8
+PASS asset exists land_85_bund_field_8
+PASS asset exists land_86_garden_laowu
+PASS asset exists land_87_garden_daba
+PASS asset exists land_88_garden_daba
+PASS asset exists land_89_garden_h5
+PASS asset exists land_90_garden_h3
+PASS asset exists land_91_garden_h8
+PASS asset exists land_92_garden_h7
+PASS asset exists land_93_garden_h4
+PASS asset exists land_94_garden_h1
+PASS asset exists land_95_plant_0
+PASS asset exists land_96_plant_1
+PASS asset exists land_97_plant_2
+PASS asset exists land_98_plant_3
+PASS asset exists land_99_plant_4
+PASS asset exists land_100_plant_5
+PASS asset exists land_101_plant_6
+PASS asset exists land_102_plant_7
+PASS asset exists land_103_plant_9
+PASS asset exists land_104_plant_10
+PASS asset exists land_105_plant_11
+PASS asset exists land_106_plant_12
+PASS asset exists land_107_plant_13
+PASS asset exists land_108_plant_14
+PASS asset exists land_109_plant_15
+PASS asset exists land_110_plant_16
+PASS asset exists land_111_plant_17
+PASS asset exists land_112_plant_18
+PASS asset exists land_113_plant_20
+PASS asset exists land_114_plant_21
+PASS ground decorations and sorted raised plants both attached
+PASS master index exactly matches village file
+PASS preserved reachable approach visit_ayu
+PASS preserved reachable approach visit_laowu
+PASS preserved reachable approach visit_h5
+PASS preserved reachable approach visit_h3
+PASS preserved reachable approach visit_mayor
+PASS preserved reachable approach visit_community
+PASS preserved reachable approach mayor
+PASS preserved reachable approach honey
+PASS preserved reachable approach pond
+PASS preserved reachable approach chicken
+PASS preserved reachable approach orchard
+PASS preserved reachable approach market
+PASS preserved reachable approach home_site
+PASS preserved reachable approach map
+PASS preserved reachable approach mill
+PASS preserved reachable approach visit_erba
+PASS preserved reachable approach visit_daba
+PASS preserved reachable approach visit_h2
+PASS preserved reachable approach visit_h6
+PASS preserved reachable approach visit_h8
+PASS preserved reachable approach visit_h7
+PASS preserved reachable approach visit_h4
+PASS preserved reachable approach visit_h1
+PASS preserved reachable approach visit_flower
+PASS preserved reachable approach visit_whitebrick
+PASS preserved reachable approach visit_grape
+PASS preserved reachable approach visit_sunflower
+PASS preserved reachable approach visit_persimmon
+PASS preserved reachable approach visit_rose
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+PASS new solid plant root has collision
+LANDSCAPE PASS; headless path/asset precheck; N1-N5 screenshots remain C3

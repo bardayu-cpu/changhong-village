@@ -1,0 +1,84 @@
+{
+  "scope": "仅本次C4美术静态与坐标核对，不等于游戏运行通过",
+  "fields": [
+    [
+      "北巷长田",
+      [
+        1260,
+        85,
+        305,
+        430
+      ],
+      13,
+      7
+    ],
+    [
+      "东田北块",
+      [
+        3020,
+        855,
+        325,
+        340
+      ],
+      9,
+      7
+    ],
+    [
+      "东田南块",
+      [
+        3020,
+        1250,
+        300,
+        405
+      ],
+      10,
+      6
+    ],
+    [
+      "东岸长田",
+      [
+        3825,
+        2120,
+        510,
+        215
+      ],
+      5,
+      13
+    ],
+    [
+      "东岸南田",
+      [
+        3830,
+        3300,
+        625,
+        255
+      ],
+      7,
+      14
+    ],
+    [
+      "村西菜田",
+      [
+        35,
+        1930,
+        390,
+        125
+      ],
+      2,
+      10
+    ]
+  ],
+  "continuous_bank_paths": 6,
+  "connected_drain_paths": 6,
+  "field_paths": 5,
+  "garden_bands": 18,
+  "raised_props": 23,
+  "root_collisions": 20,
+  "minimum_root_center_to_water": 114.2,
+  "base_props_unchanged": true,
+  "original_houses": 20,
+  "no_legacy_scattered_images": true,
+  "main_road_polylines_preserved": true,
+  "old_placeholder_ground_removed": "ground rebuilt from continuous native masks, not the old ground PNG",
+  "warnings": "isolated headless export reported blocked default user-data path and macOS certificate lookup; all authored files exported to design dir; no script errors in final export"
+}

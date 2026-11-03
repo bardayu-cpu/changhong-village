@@ -1,191 +1,136 @@
 {
   "id": "v_h2",
-  "title": "2A · 缝补人家 · 一楼",
+  "title": "缝补人家",
   "group": "村庄",
   "floor": 0,
   "size": [
-    660,
-    760
+    768,
+    512
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h2.png",
+  "background": "res://ayu_home/v4/assets/village/households-pixel/h2.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "bench0",
-      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
-      "pos": [
-        60,
-        130
-      ],
-      "foot": 203,
-      "front": false
-    },
-    {
-      "id": "cabinet1",
-      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-      "pos": [
-        390,
-        150
-      ],
-      "foot": 257,
-      "front": false
-    },
-    {
-      "id": "sofa2",
-      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
-      "pos": [
-        85,
-        405
-      ],
-      "foot": 490,
-      "front": false
-    },
-    {
-      "id": "table3",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        380,
-        460
-      ],
-      "foot": 535,
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        550,
-        450
-      ],
-      "foot": 600,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        232,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        530
-      ],
-      "foot": 598,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        588,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        300,
-        502
-      ],
-      "foot": 535,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      40,
-      325,
-      190,
-      12
+      75,
+      140,
+      106,
+      47
     ],
     [
-      385,
-      325,
-      215,
-      12
+      183,
+      140,
+      56,
+      46
     ],
     [
-      64,
-      172.9,
-      118,
-      35.1
+      244,
+      138,
+      106,
+      70
     ],
     [
-      394,
-      211.60000000000002,
-      90,
-      50.4
+      356,
+      139,
+      58,
+      39
     ],
     [
-      89,
-      454.5,
-      127,
-      40.5
-    ],
-    [
-      384,
-      504.0,
+      446,
       112,
-      36.0
+      33,
+      90
+    ],
+    [
+      478,
+      135,
+      118,
+      72
+    ],
+    [
+      516,
+      176,
+      43,
+      48
+    ],
+    [
+      597,
+      111,
+      31,
+      87
+    ],
+    [
+      648,
+      133,
+      55,
+      62
+    ],
+    [
+      622,
+      189,
+      100,
+      166
+    ],
+    [
+      42,
+      214,
+      112,
+      178
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
-      "pos": [
-        230,
-        640
-      ],
-      "approach": [
-        230,
-        680
-      ],
-      "kind": "village",
-      "copy": "桌边放着针线和折好的布料。"
-    },
-    {
       "id": "house_help",
-      "label": "把布料叠好",
+      "label": "理顺线筐",
       "pos": [
-        420,
-        610
+        388,
+        139
       ],
       "approach": [
-        420,
-        650
+        388,
+        211
       ],
-      "kind": "village",
-      "copy": "布料叠好了，椅背上多了一块干净坐垫。",
-      "house": "h2"
+      "kind": "house_task",
+      "house": "h2",
+      "copy": "线头绕回轴上，布料也叠齐了。缝补台边终于空出一小块地方。",
+      "repeat_copy": "方婆婆记着你的帮助，今天的线筐已经理顺。坐下来歇歇吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        330,
-        515
+        118,
+        281
       ],
       "approach": [
-        330,
-        570
+        183,
+        289
       ],
       "kind": "seat",
       "seat": [
-        330,
-        525
+        118,
+        287
       ],
-      "face": "down"
+      "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h2",
+      "label": "挪一挪线筐",
+      "pos": [
+        436,
+        139
+      ],
+      "approach": [
+        388,
+        211
+      ],
+      "copy": "线筐换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -194,64 +139,148 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        330,
-        706
+        384,
+        454
       ],
       "approach": [
-        330,
-        724
+        384,
+        433
+      ],
+      "arrival": [
+        384,
+        398
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_h2_up",
-      "pos": [
-        595,
-        605
-      ],
-      "approach": [
-        595,
-        635
-      ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
+      "width": 100,
       "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      211,
-      115,
-      240
-    ],
-    [
-      475,
-      532,
-      220
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    330,
-    655
+    384,
+    398
   ],
   "walk_rect": [
-    22,
-    100,
-    616,
-    640
+    32,
+    181,
+    704,
+    299
+  ],
+  "walk_polygons": [
+    [
+      [
+        67,
+        181
+      ],
+      [
+        700,
+        181
+      ],
+      [
+        734,
+        395
+      ],
+      [
+        444,
+        395
+      ],
+      [
+        444,
+        480
+      ],
+      [
+        327,
+        480
+      ],
+      [
+        327,
+        395
+      ],
+      [
+        34,
+        395
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    42,
+    140
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "grain_crate",
+    "pos": [
+      388,
+      139
+    ],
+    "label": "线筐",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      436,
+      139
+    ]
+  },
+  "npc": {
+    "id": "fang",
+    "character_id": "fang",
+    "name": "方婆婆",
+    "portrait": "fang",
+    "preset": 1,
+    "pos": [
+      388,
+      211
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          388,
+          211
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理线筐，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          183,
+          289
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的线筐也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          118,
+          287
+        ],
+        "approach": [
+          183,
+          289
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+boil 长 2.20 秒 峰值 10470
+kettle 长 0.90 秒 峰值 5454
+pour 长 1.40 秒 峰值 11509
+stream 长 1.20 秒 峰值 10513
+leaf 长 0.35 秒 峰值 20680
+plop 长 0.35 秒 峰值 17910
+stir 长 0.60 秒 峰值 16793
+bubble 长 1.20 秒 峰值 12050
+cloth 长 0.30 秒 峰值 26000
+wash 长 2.00 秒 峰值 8711
+sand 长 0.12 秒 峰值 26000
+cast 长 0.70 秒 峰值 14541
+reel 长 0.50 秒 峰值 11602
+splash 长 0.60 秒 峰值 16560
+flip 长 0.16 秒 峰值 26000
+shutter 长 0.35 秒 峰值 17975
+dig 长 0.30 秒 峰值 11320
+seed 长 0.18 秒 峰值 17580
+pick 长 0.20 秒 峰值 16580
+kick 长 0.22 秒 峰值 18166
+twinkle 长 1.00 秒 峰值 4535
+knock 长 0.50 秒 峰值 19192
+bark 长 0.42 秒 峰值 5233
+RESULT PASS [] 不同的声音 23/23

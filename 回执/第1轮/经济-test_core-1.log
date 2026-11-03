@@ -1,0 +1,92 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+CHECK true 新玩家存档
+CHECK true 从做客起步，金币零
+CHECK true animal { "id": "xiduo" } { "ok": true, "message": "喜多带回：石头×2、竹材×2。它又出门啦" }
+CHECK true 每只恰好四件
+CHECK true 不能连续重领
+CHECK true animal { "id": "qiuqiu" } { "ok": true, "message": "求求带回：竹材×1、旧锄头×1、楼卜种×1、海椒种×1。它又出门啦" }
+CHECK true 每只恰好四件
+CHECK true 不能连续重领
+CHECK true animal { "id": "luoluo" } { "ok": true, "message": "落落带回：谷种×2、竹材×1、石头×1。它又出门啦" }
+CHECK true 每只恰好四件
+CHECK true 不能连续重领
+CHECK true animal { "id": "tiantian" } { "ok": true, "message": "天天带回：竹材×1、旧锄头×2、石头×1。它又出门啦" }
+CHECK true 每只恰好四件
+CHECK true 不能连续重领
+CHECK true plant { "plot": 0, "crop": "radish" } { "ok": true, "message": "种下了楼卜" }
+CHECK true plant { "plot": 1, "crop": "pepper" } { "ok": true, "message": "种下了海椒" }
+CHECK true plant { "plot": 2, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true plant { "plot": 3, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true plant { "plot": 4, "crop": "radish" } { "ok": true, "message": "种下了楼卜" }
+CHECK true plant { "plot": 5, "crop": "pepper" } { "ok": true, "message": "种下了海椒" }
+CHECK true 不能提前收菜
+CHECK true harvest { "plot": 0 } { "ok": true, "message": "收下楼卜" }
+CHECK true harvest { "plot": 1 } { "ok": true, "message": "收下海椒" }
+CHECK true harvest { "plot": 2 } { "ok": true, "message": "收下谷子" }
+CHECK true harvest { "plot": 3 } { "ok": true, "message": "收下谷子" }
+CHECK true harvest { "plot": 4 } { "ok": true, "message": "收下楼卜" }
+CHECK true harvest { "plot": 5 } { "ok": true, "message": "收下海椒" }
+CHECK true produce { "recipe": "flour" } { "ok": true, "message": "谷粉正在做，离开也会继续" }
+CHECK true 石磨满位不重复扣原料
+CHECK true collect { "station": "mill" } { "ok": true, "message": "做好了，放进篮子" }
+CHECK true produce { "recipe": "porridge" } { "ok": true, "message": "谷香粥正在做，离开也会继续" }
+CHECK true collect { "station": "stove" } { "ok": true, "message": "做好了，放进篮子" }
+CHECK true produce { "recipe": "meal" } { "ok": true, "message": "海椒拌楼卜正在做，离开也会继续" }
+CHECK true collect { "station": "stove" } { "ok": true, "message": "做好了，放进篮子" }
+CHECK true order { "id": "2026-10-06:o01" } { "ok": true, "message": "交给妈妈了，收到 55 金币" }
+CHECK true 同日订单不可重领
+CHECK true order { "id": "2026-10-06:o07" } { "ok": true, "message": "交给隔壁婆婆了，收到 70 金币" }
+CHECK true 同日订单不可重领
+CHECK true order { "id": "2026-10-06:o02" } { "ok": true, "message": "交给牛肉店伙计了，收到 60 金币" }
+CHECK true 同日订单不可重领
+CHECK true order { "id": "2026-10-06:o05" } { "ok": true, "message": "交给阿鱼了，收到 75 金币" }
+CHECK true 同日订单不可重领
+CHECK true 四单收入260、家人两笔人情
+CHECK true 动物概率链供给工具、材料、动物包，轮数 8
+CHECK true reside {  } { "ok": true, "message": "村长收好了申请，去选一处喜欢的位置吧" }
+CHECK true location { "id": "lake" } { "ok": true, "message": "你的家就在湖边，从第一块荒地开始吧" }
+CHECK true land { "plot": 0 } { "ok": true, "message": "杂草收走，石头搬开…3 秒后可以摆家具" }
+CHECK true 重复开地不重复扣钱
+CHECK true plant { "plot": 0, "crop": "pepper" } { "ok": true, "message": "种下了海椒" }
+CHECK true plant { "plot": 1, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true plant { "plot": 2, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true harvest { "plot": 0 } { "ok": true, "message": "收下海椒" }
+CHECK true harvest { "plot": 1 } { "ok": true, "message": "收下谷子" }
+CHECK true harvest { "plot": 2 } { "ok": true, "message": "收下谷子" }
+CHECK true plant { "plot": 0, "crop": "pepper" } { "ok": true, "message": "种下了海椒" }
+CHECK true plant { "plot": 1, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true plant { "plot": 2, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true harvest { "plot": 0 } { "ok": true, "message": "收下海椒" }
+CHECK true harvest { "plot": 1 } { "ok": true, "message": "收下谷子" }
+CHECK true harvest { "plot": 2 } { "ok": true, "message": "收下谷子" }
+CHECK true plant { "plot": 0, "crop": "pepper" } { "ok": true, "message": "种下了海椒" }
+CHECK true plant { "plot": 1, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true plant { "plot": 2, "crop": "grain" } { "ok": true, "message": "种下了谷子" }
+CHECK true harvest { "plot": 0 } { "ok": true, "message": "收下海椒" }
+CHECK true harvest { "plot": 1 } { "ok": true, "message": "收下谷子" }
+CHECK true harvest { "plot": 2 } { "ok": true, "message": "收下谷子" }
+CHECK true 跨日谷子和海椒订单攒开地金币
+CHECK true land { "plot": 1 } { "ok": true, "message": "杂草收走，石头搬开…3 秒后可以摆家具" }
+CHECK true land { "plot": 2 } { "ok": true, "message": "杂草收走，石头搬开…3 秒后可以摆家具" }
+CHECK true parcel {  } { "ok": true, "message": "得到石洗盆图纸" }
+CHECK true craft { "id": "wash_basin" } { "ok": true, "message": "家具做好了，选它再放到地上" }
+CHECK true place { "id": 1, "x": 1, "y": 1 } { "ok": true, "message": "摆好了，点家具可再挪或收起" }
+CHECK true place { "id": 1, "x": 2, "y": 7 } { "ok": true, "message": "摆好了，点家具可再挪或收起" }
+CHECK true store { "id": 1 } { "ok": true, "message": "家具收好了，可以再摆" }
+CHECK true place { "id": 1, "x": 0, "y": 8 } { "ok": true, "message": "摆好了，点家具可再挪或收起" }
+CHECK true 重开 1
+CHECK true 重开后钱/库存/计时/家具/订单全部一致
+CHECK true 重开 2
+CHECK true 重开后钱/库存/计时/家具/订单全部一致
+CHECK true 时钟回拨不倒退
+CHECK true animal { "id": "xiduo" } { "ok": true, "message": "喜多带回：竹材×1、谷种×1、动物包×1、楼卜种×1。它又出门啦" }
+CHECK true 离线一年仍只一趟
+CHECK true 下一真实日刷新订单
+CHECK true visit {  } { "ok": true, "message": "回来啦" }
+CHECK true 过时窗口拒绝覆盖新存档
+CHECK true 坏一槽可以从另一有效槽恢复
+CHECK true 身份不同不读别人的存档
+RESULT PASS 87 checks []

@@ -1,0 +1,556 @@
+{
+  "base": "6595419d4d70c5ef3e6f995327f344508309c2e0",
+  "status": "WIP - independent review failed; not 90-percent completion",
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/actor.gd",
+      "sha256": "d9a2077c893a5496469dd8ab86b75d08507efd2c8fceefbdfd14dec1ba7df3a9",
+      "bytes": 13304
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "sha256": "41deb1805aae374f236474b2fd1ab0fe0f8bb7b68b35c6f8cf6683a4d2ba3620",
+      "bytes": 119663
+    },
+    {
+      "path": "候选/自然乡间小路-1025/README.md",
+      "sha256": "069e5ffaefbc1fbab0e5e1d19c373fc6b256ce9b16bb28697a5d17fe59d9a55e",
+      "bytes": 1006
+    },
+    {
+      "path": "候选/自然乡间小路-1025/build_irrigation.gd",
+      "sha256": "be8507473ef3fc2b33e31f2c6efe404becec07bc7c81131295fc8253fa883687",
+      "bytes": 3110
+    },
+    {
+      "path": "候选/自然乡间小路-1025/bundle.json",
+      "sha256": "2136ef9abd8988258acd504ad30ce937ea7a628542b349647552f34664d2222a",
+      "bytes": 4342
+    },
+    {
+      "path": "候选/自然乡间小路-1025/export_curved_navigation.gd",
+      "sha256": "f033871ef432889466daa15508cc405e99766c6593a022e79f3924f8d71a0d1d",
+      "bytes": 1245
+    },
+    {
+      "path": "候选/自然乡间小路-1025/generate_curves.py",
+      "sha256": "a67359ac687710f94cc8f0f12a95f594f7161fe1a2776db135fa248ea3f455ff",
+      "bytes": 4203
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/rooms.json",
+      "sha256": "1f6677d776be3498f53d42ceeac846af10bdfef79c7ce3b269ef6a828ca875b3",
+      "bytes": 3495151
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village.json",
+      "sha256": "eea72927751eda1e77483c8d1cced9e9945cec61dbc7aea4d3aa138134021090",
+      "bytes": 2649769
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "sha256": "54d92add17d5a3578cf18c64bdc8f49dee24456a2dad6713ec0968c40bebbd7d",
+      "bytes": 1242
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/houses.json",
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "bytes": 6436
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/layout-1025.json",
+      "sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a",
+      "bytes": 238631
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+      "sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507",
+      "bytes": 1661119
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+      "bytes": 169116
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06",
+      "bytes": 147491
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+      "bytes": 168980
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+      "bytes": 155890
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/assets/village/topology.json",
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "bytes": 11980
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/core/natural_terrain.gd",
+      "sha256": "d22ef1a91ee4609772d733347658f4850cfb610e3e8f3e03cb2952460d419c5d",
+      "bytes": 2072
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/core/natural_verges.gd",
+      "sha256": "6f806ede5b6b0ee3fa7c30f6cfbb2365ea0a5b02433460f75673c6f07b572cf7",
+      "bytes": 4081
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/core/village_ground.gd",
+      "sha256": "e1c40f913bf0d1bb14d7d27da7df4e6dbe135edc23f8044c4566f966af453579",
+      "bytes": 10975
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/home.gd",
+      "sha256": "3d9354774341e9a7b0dd479c32c707203764ba75e76ec4231b41613acf92e172",
+      "bytes": 119618
+    },
+    {
+      "path": "候选/自然乡间小路-1025/overlay/ayu_home/v4/world.gd",
+      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2",
+      "bytes": 42688
+    },
+    {
+      "path": "候选/自然乡间小路-1025/preview.gd",
+      "sha256": "9d7ae237df4f5eff09a5d7ccc7f9e2849b83896579826044c82ee2a235559069",
+      "bytes": 2264
+    },
+    {
+      "path": "候选/自然乡间小路-1025/原布局只读.json",
+      "sha256": "30be70c29b04a0f7c19506799f40a9b9fe466f0fe70922f08c154cd950423bee",
+      "bytes": 47047
+    },
+    {
+      "path": "候选/自然乡间小路-1025/图集提示词与来源.json",
+      "sha256": "ed558e5b90506c250f9f74aacb92153fa3f9ef287a172f89a9398f4026984dca",
+      "bytes": 1929
+    },
+    {
+      "path": "候选/自然乡间小路-1025/弯路量测.json",
+      "sha256": "16d65ea6c747dfacc0b5e2746d7429ca797f4bcff529ce6616f12c994712165e",
+      "bytes": 4165
+    },
+    {
+      "path": "候选/自然乡间小路-1025/查看坐标.json",
+      "sha256": "6811b067dd4babf2f1724fc942660ad2e38af4b918d5bf3291d859940c8e9bc3",
+      "bytes": 102
+    },
+    {
+      "path": "候选/自然乡间小路-1025/预览.py",
+      "sha256": "605805359e138e1b0aa4d51c964e83d6f9b38e88a0913ee838847fbdfbd65e04",
+      "bytes": 1511
+    },
+    {
+      "path": "候选/自然路肩样板-1025/README.md",
+      "sha256": "5c29eebe665034f00d55927580c6c81e46f7a47dd0e78adf050ad9cdbd70a334",
+      "bytes": 749
+    },
+    {
+      "path": "候选/自然路肩样板-1025/build_irrigation.gd",
+      "sha256": "be8507473ef3fc2b33e31f2c6efe404becec07bc7c81131295fc8253fa883687",
+      "bytes": 3110
+    },
+    {
+      "path": "候选/自然路肩样板-1025/bundle.json",
+      "sha256": "b8a002fdfff7d14a01820ed93982385d32ba85a402965ebf69d2284f2d24baf7",
+      "bytes": 4953
+    },
+    {
+      "path": "候选/自然路肩样板-1025/export_curved_navigation.gd",
+      "sha256": "f033871ef432889466daa15508cc405e99766c6593a022e79f3924f8d71a0d1d",
+      "bytes": 1245
+    },
+    {
+      "path": "候选/自然路肩样板-1025/generate_curves.py",
+      "sha256": "a67359ac687710f94cc8f0f12a95f594f7161fe1a2776db135fa248ea3f455ff",
+      "bytes": 4203
+    },
+    {
+      "path": "候选/自然路肩样板-1025/geometry-preserved.json",
+      "sha256": "02ecf9c7aaeaf000f5ec8097c8bdd5d4e31cb199b8871fd65bdfd97f3d92a2b8",
+      "bytes": 1153
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/actor.gd",
+      "sha256": "d9a2077c893a5496469dd8ab86b75d08507efd2c8fceefbdfd14dec1ba7df3a9",
+      "bytes": 13304
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/rooms.json",
+      "sha256": "1f6677d776be3498f53d42ceeac846af10bdfef79c7ce3b269ef6a828ca875b3",
+      "bytes": 3495151
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village.json",
+      "sha256": "eea72927751eda1e77483c8d1cced9e9945cec61dbc7aea4d3aa138134021090",
+      "bytes": 2649769
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "sha256": "27412d1b4aab33a15503eb3082121756df7191b6142c7ff2b5d7ede200e572f9",
+      "bytes": 1649
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/houses.json",
+      "sha256": "87620e12bf2f98f4a1f18aba496808e99a049884b49a24865db115726dcbcde1",
+      "bytes": 6436
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/layout-1025.json",
+      "sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a",
+      "bytes": 238631
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+      "sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507",
+      "bytes": 1661119
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+      "bytes": 169116
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06",
+      "bytes": 147491
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+      "bytes": 168980
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+      "bytes": 155890
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/road-shoulder-1025/road-transition-atlas.png",
+      "sha256": "045e7a15d9302da5b27703de9c05cb8f07cac8c3a0c7ba165e069a3e59ec0dc1",
+      "bytes": 309038
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/assets/village/topology.json",
+      "sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc",
+      "bytes": 11980
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/core/natural_terrain.gd",
+      "sha256": "d22ef1a91ee4609772d733347658f4850cfb610e3e8f3e03cb2952460d419c5d",
+      "bytes": 2072
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/core/natural_verges.gd",
+      "sha256": "6f806ede5b6b0ee3fa7c30f6cfbb2365ea0a5b02433460f75673c6f07b572cf7",
+      "bytes": 4081
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/core/road_surface.gd",
+      "sha256": "31ef5f24d97dc017130baf67c5d758de14b714d05727d0fba088dec67e7bf649",
+      "bytes": 3239
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/core/village_ground.gd",
+      "sha256": "27a8e84b3b58774846f39b2cc8229547be3cffbf2cd8b165926f01826b5474bd",
+      "bytes": 11574
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/home.gd",
+      "sha256": "41deb1805aae374f236474b2fd1ab0fe0f8bb7b68b35c6f8cf6683a4d2ba3620",
+      "bytes": 119663
+    },
+    {
+      "path": "候选/自然路肩样板-1025/overlay/ayu_home/v4/world.gd",
+      "sha256": "4870cdd17e851decf97d43c37167b43e58d5ddceceb9f2ef56933a74380109f2",
+      "bytes": 42688
+    },
+    {
+      "path": "候选/自然路肩样板-1025/preview.gd",
+      "sha256": "9d7ae237df4f5eff09a5d7ccc7f9e2849b83896579826044c82ee2a235559069",
+      "bytes": 2264
+    },
+    {
+      "path": "候选/自然路肩样板-1025/原布局只读.json",
+      "sha256": "30be70c29b04a0f7c19506799f40a9b9fe466f0fe70922f08c154cd950423bee",
+      "bytes": 47047
+    },
+    {
+      "path": "候选/自然路肩样板-1025/图集提示词与来源.json",
+      "sha256": "ed558e5b90506c250f9f74aacb92153fa3f9ef287a172f89a9398f4026984dca",
+      "bytes": 1929
+    },
+    {
+      "path": "候选/自然路肩样板-1025/弯路量测.json",
+      "sha256": "16d65ea6c747dfacc0b5e2746d7429ca797f4bcff529ce6616f12c994712165e",
+      "bytes": 4165
+    },
+    {
+      "path": "候选/自然路肩样板-1025/查看坐标.json",
+      "sha256": "6811b067dd4babf2f1724fc942660ad2e38af4b918d5bf3291d859940c8e9bc3",
+      "bytes": 102
+    },
+    {
+      "path": "候选/自然路肩样板-1025/预览.py",
+      "sha256": "605805359e138e1b0aa4d51c964e83d6f9b38e88a0913ee838847fbdfbd65e04",
+      "bytes": 1511
+    },
+    {
+      "path": "回执/第1轮收尾/C2-道路补图接口-1025.json",
+      "sha256": "439ec05302f794dd597ea975e95b0423f18b1216fa4f7efad5f691fb027d2a48",
+      "bytes": 1326
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/engine-final.log",
+      "sha256": "cf3c4beb6a74ea6e1993ef3741d855b29497ad4a557e6d28c3df7c522bb2f5c7",
+      "bytes": 1154
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/launch.py",
+      "sha256": "ddedc5ce23f413a95e14dd8efd413f014d893915b9da62f091674ce742c2dd22",
+      "bytes": 589
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/leave.py",
+      "sha256": "f24e5da5ad057ef3e7e00126ce12fbb388091a3291535ebcc90dd8c7ed22d150",
+      "bytes": 449
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/leave_candidate.gd",
+      "sha256": "d8dad2684ba773c1ab38f463320a3f4a90ac100ff3a097ab04e53932cdae15c1",
+      "bytes": 2353
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/narrow.gd",
+      "sha256": "459206e3cacb9545e56eb9237eea67205da67a0d2faf69dac04c42b712a999fe",
+      "bytes": 3316
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/Ayu-13.json",
+      "sha256": "a27a9e076d0267932c5f4dabd71e8b60d726e59adfe083a5aded3120686090ef",
+      "bytes": 510
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/Ayu-13.png",
+      "sha256": "47d93383fc862397efbd1a0a866deb1f7a32bf5f362b35eae7588e364839f75f",
+      "bytes": 107077
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/h6-native-13.json",
+      "sha256": "3df5fa34e644b95185f1a3b389661736ef8d3c7fe1799db63470025c63b79da8",
+      "bytes": 942
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/h6-native-13.png",
+      "sha256": "f960ed3b71acd52b08562cf33d76105af470e0b0c40a26ca49aed7d3b28beb27",
+      "bytes": 708418
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/h6-native-19.json",
+      "sha256": "a14fccc319a3fafb005a95289356ba14ee48afd9bb04e12300f8d6af5bb899f0",
+      "bytes": 996
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/h6-native-19.png",
+      "sha256": "e4f90707067c2f2be9deb7676cc881fbf1dd75484c24ee64788b4b3527ea4fe8",
+      "bytes": 568913
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/result.json",
+      "sha256": "1499b22046845f97461588d87d90b4d0227ddad28252a4e2801246f9e6b4d06f",
+      "bytes": 4330
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/road-complaint-13.json",
+      "sha256": "dad75173b47a9a5dae25ba646062964e10eca447fee0faf4ae20a56ba73b3b80",
+      "bytes": 364
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/road-complaint-13.png",
+      "sha256": "7e8817a6ee397cd0d113a3d1397ba4a36e141c7423d11553a1a9cfcd775fa2ff",
+      "bytes": 223712
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/road-south-13.json",
+      "sha256": "f1319e9417c3dc5d2179b1dfd5d80abf2765365251f6a21d0055e6c61810cd15",
+      "bytes": 359
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/实际引擎/road-south-13.png",
+      "sha256": "a75c9a7fa56a2a056f6465e9b468024d3800553345e70de5989313fda8b88728",
+      "bytes": 148323
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/来源.json",
+      "sha256": "50e6317976b65563075e845e45d1fdbcf71efb66e6929d6ea8a2d16386a80abc",
+      "bytes": 558
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/独立结论-收口.json",
+      "sha256": "14bc077e49dc5267bab2c6c2219ca1fc860fe7af446dc6a698b22370a670840c",
+      "bytes": 1770
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/路肩送验SHA.json",
+      "sha256": "2b7d5ebef9bd12405c8d20ed09875c0d9e750f497cc3ed78c731e7bfc6bbef33",
+      "bytes": 4952
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/C3定点复验/运行-final.json",
+      "sha256": "57d1f9a4817672151356688aabbfc4cc4bf2581fc2b869af47e3e0707bfa3834",
+      "bytes": 41
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/S3真实拖拽未过/shot03-manual.png",
+      "sha256": "a2b4754fbfb3a71b69ad7cad1b4bced159b7d369df855cd8e30cbf5fb7e1ceab",
+      "bytes": 281555
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/S3真实拖拽未过/有限结论.json",
+      "sha256": "df6018540b3705605581fa0dc79c39b0620003d3df4bf03966216787e211e2ac",
+      "bytes": 439
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/parse-marker-fullbody.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "bytes": 73
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/parse-road-surface.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "bytes": 73
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/road-sample-load.log",
+      "sha256": "43a0753c1648c91916116ebe6e97da48f6fa2f6d7527d0909311dc17a87688c7",
+      "bytes": 375
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/road_sample_check.gd",
+      "sha256": "d35fc44965e5cdbc9e23ea894b46845e421afbc5dfaf7e4293d4662a62cd687d",
+      "bytes": 1109
+    },
+    {
+      "path": "回执/第1轮收尾/C2路肩与提示续办-1025/收口回执.json",
+      "sha256": "6cd4f8999fa49d7717db2ebf63480f12da2631c32df5977f9cf655014b261afd",
+      "bytes": 1735
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/case1-最后实拍.png",
+      "sha256": "dd322c8c8e7732bc513730917eece3a033bc00e08a7941440c92c56bf208f897",
+      "bytes": 482780
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/case2-最后实拍.png",
+      "sha256": "1a8b85861f189602cb54af542ccc66412ba9c7d545ce6d5fcbba66d2292418bf",
+      "bytes": 485037
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/独立结论.json",
+      "sha256": "b50ccc82472d8bef878a3dd7ce5069905fabc0a519c6d9b35e9909ee73ff2794",
+      "bytes": 3552
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/冬季真实桌面/运行结果.json",
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "bytes": 16
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/旧归档v2差异核对.json",
+      "sha256": "f7c32ea1028973488ea3119d887874065ea5c46069d8314ef50582ff3010a36a",
+      "bytes": 171
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/本次追加清单.json",
+      "sha256": "2201cd52cd9f217ec148b1346cbec49edc65d0d63a72d06671732fe86d62469a",
+      "bytes": 6872
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-main-lane-13-左候选右Ayu13时.png",
+      "sha256": "e4bd27514b7ab957788e7f95d762189e1cb647862966ecdf9146f36e9994e8f6",
+      "bytes": 345294
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/curved-main-lane-13.png",
+      "sha256": "3526db5167aeac670a59a880e7fac23b169b576336de389625c50995af70f0b9",
+      "bytes": 258532
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/精选实图/左旧荧光色石路-右自然色泥路-同坐标13时.png",
+      "sha256": "6990bf52cc5a3a257ea7aca05bbfbc11ec55b25a98a541556ac088238965eaf2",
+      "bytes": 718569
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/续验最终结论.json",
+      "sha256": "3482bd7b347c2923ccdcd3cbe938d28f14d45d267bb7fb095394dd3d9d05424b",
+      "bytes": 1018
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/result.json",
+      "sha256": "89bfcb538c05ae45a0f3ea332734c6538845d6e9f66064735f31f77b338e7af4",
+      "bytes": 456586
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/水渠独立检查.json",
+      "sha256": "f60146d7ed93fae1577c67488ecb015a3c079297c16174cbf206d8828c00c531",
+      "bytes": 2938
+    },
+    {
+      "path": "回执/第1轮收尾/C3续验-1025/自然小路检查/脚印补充结果.json",
+      "sha256": "00c0f1119af1048844b1777a8453bd283de9820f9c5097c93e33a6ccc06b7be9",
+      "bytes": 10526
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/manifest.json",
+      "sha256": "343d6d6dea3eb8043bc8f4e95a40c626f668d4877a614ca4ad74f1c2efd7e90f",
+      "bytes": 2037
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/road-center-repeat-3x3.png",
+      "sha256": "ac8ec9d85f7a95b8fc3759a605369dc9e2b1b5075bc1fa2bece577976e568cbd",
+      "bytes": 419358
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/road-center.png",
+      "sha256": "95d680e287a2bdbd49d0a3b986aa784481ee3c869478af12101392cbdde8c891",
+      "bytes": 126510
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/road-shoulder-repeat-3x3.png",
+      "sha256": "2b8a17d9981068f0a261b3cbd359746423d3a2544b3f1da2dcccbc465da3a0c4",
+      "bytes": 549760
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/road-shoulder.png",
+      "sha256": "9fa55a8cda82b8af66fa494d5befb5a353b4d2a18a3baa16d3fe2a31d6ef52f7",
+      "bytes": 173984
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/road-transition-atlas.png",
+      "sha256": "045e7a15d9302da5b27703de9c05cb8f07cac8c3a0c7ba165e069a3e59ec0dc1",
+      "bytes": 309038
+    },
+    {
+      "path": "回执/第1轮收尾/C4-道路路肩样板-1025/road-transition-preview-2x.png",
+      "sha256": "19122d877e688c14ae70a14e22b3b5de36f907c19256b6f479b3c5a0637745dc",
+      "bytes": 373006
+    },
+    {
+      "path": "给Claude审查/请检查-自然乡间小路与冬季续验-1025.md",
+      "sha256": "128d828b9528ef326313d0488494ea48b7727f2baa4be02ab7ff8f41c316a9cb",
+      "bytes": 3788
+    },
+    {
+      "path": "给Claude审查/请检查-路肩样板与整身提示避让-1025.md",
+      "sha256": "809fbe9eb49eb4ddf45fedbc5962f9ae7158269521c50d5362302204c0c3f49f",
+      "bytes": 2159
+    }
+  ]
+}

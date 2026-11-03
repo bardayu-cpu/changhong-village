@@ -1,0 +1,40 @@
+{
+  "status": "仅供C2目标尺寸实机预览；不是美术通过，不得覆盖或改写原图",
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A02-蜂蜜罐/A02-蜂蜜罐三层样板-v3.png",
+  "source_size": [1536, 1024],
+  "import_preview": {
+    "filter": "nearest",
+    "mipmaps": false,
+    "repeat": false,
+    "alpha_scissor_threshold": 0.8,
+    "note": "Alpha Test只用于预览去除外部低Alpha雾圈；不能损伤主体边线或改变填充对齐"
+  },
+  "layers": {
+    "jar_frame": {
+      "source_core_region_alpha_gt_204": [77, 87, 796, 693],
+      "target_size": [84, 78],
+      "target_anchor": [0, 0],
+      "preview_scale_xy": [0.1055276382, 0.1125541126]
+    },
+    "honey_fill": {
+      "source_core_region_alpha_gt_204": [909, 304, 548, 432],
+      "target_size": [66, 59],
+      "target_anchor_in_jar": [9, 9],
+      "bottom_anchor": [33, 59],
+      "preview_scale_xy": [0.1204379562, 0.1365740741],
+      "progress_crop": "按progress/6从源区域底部向上裁切，并显示到目标66x59区域底部"
+    },
+    "finished_seal": {
+      "source_core_region_alpha_gt_204": [347, 847, 842, 88],
+      "target_size": [90, 10],
+      "target_anchor_in_jar": [-3, -3],
+      "preview_scale_xy": [0.106888361, 0.1136363636]
+    }
+  },
+  "risks": [
+    "三层均需非等比缩放才能强制达到目标尺寸；罐框约6.7%、填充约13.4%、封口约6.3%的XY比例差可能损伤像素观感",
+    "Alpha Test后若主体断边、锯齿缺口、填充挤压或封口错位，维持失败结论",
+    "必须检查空罐、半满、装满、完成封口四种状态；任何一态不可读即失败"
+  ],
+  "decision_rule": "只有目标尺寸最近邻实机预览四态均清晰、无外晕且叠合正确才可复核；存在上述问题则停止，不生成v4"
+}

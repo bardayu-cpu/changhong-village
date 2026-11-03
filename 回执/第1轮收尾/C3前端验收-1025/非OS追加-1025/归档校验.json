@@ -1,0 +1,1423 @@
+{
+  "frozen": true,
+  "source_count": 236,
+  "files": [
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/result.json",
+      "bytes": 2129,
+      "sha256": "394f715a68b954376b2c52c31f9edf68ee4d70f5c644c838ecacff86828e2ca8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/画架补角/result.json",
+      "bytes": 392,
+      "sha256": "79ce9a10c7fb616c8b7266219ea942698d8991265095d6c25d7f2acda048c098",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/画架补角/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/画架补角/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/画架补角/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage1-full-target-左活动右阿鱼13时.png",
+      "bytes": 312592,
+      "sha256": "a5c7cfbae62278ccc6be56c0b7e3ca7bf9d13c5e4f042aa0dc2fcd64d5c8d5bb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage1-full-target-左活动右阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage2-full-target-左活动右阿鱼13时.png",
+      "bytes": 313685,
+      "sha256": "38508f39c13ef14e523713c5a4914386b335207931bb838abd9add9a45f8353b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage2-full-target-左活动右阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage3-full-easel-左活动右阿鱼13时.png",
+      "bytes": 295072,
+      "sha256": "8f3733888a86a890a3ad609cb358d965e216281ba93d9cc1908afd6d13754def",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/G2无遮挡角度补证/选定并排/stage3-full-easel-左活动右阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/16走帧引擎原像素裁切-每行右侧Ayu同向.png",
+      "bytes": 157307,
+      "sha256": "63f0031c33f81ba065a6e5ab89fbda526406efbe0670d91c62bd44f36cf966a8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/16走帧引擎原像素裁切-每行右侧Ayu同向.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/4坐姿引擎原像素裁切-非椅面证明.png",
+      "bytes": 33843,
+      "sha256": "33606c365881373d02580114c61fba040b0336c44b90820fba573f24abf50cd2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/4坐姿引擎原像素裁切-非椅面证明.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/result.json",
+      "bytes": 28673,
+      "sha256": "60f3e37a4dfd94587f865e2c3dc2d8b494d2608a56c3a6022221ee98b865ce4e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-honey-19-actual-seat-左Kai右Ayu同场景.png",
+      "bytes": 175786,
+      "sha256": "a90dfb8da861da1b0b52ada4d6be55edbc88196c391bb2242e72151371635e0e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-honey-19-actual-seat-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-mill-bucket-behind-左Kai右Ayu同场景.png",
+      "bytes": 447610,
+      "sha256": "e0abd54f79353b45026809990f43e9fcdb162e5e979a28e0e6f2e280accfac9f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-mill-bucket-behind-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-mill-bucket-front-左Kai右Ayu同场景.png",
+      "bytes": 446085,
+      "sha256": "748fbd46564157975046d7e5b2198fd936b694c1b31d2abf273afd526fa5c80c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/Kai-mill-bucket-front-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-down-左Kai右Ayu同场景.png",
+      "bytes": 227585,
+      "sha256": "d185577905947caea65f5ab1fa807eef4c6965f4f03213be9de494a1ee42a25b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-down-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-left-左Kai右Ayu同场景.png",
+      "bytes": 227272,
+      "sha256": "54672c2cf5d5784b1575cf2c00517349b0f5b76fd22966bea06ae1e4dacc48fb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-left-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-right-左Kai右Ayu同场景.png",
+      "bytes": 233267,
+      "sha256": "8195ce61919c9c6a4525a3f5148ef49475f31efb95e6f580917d8f1e192c0b3c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-right-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-up-左Kai右Ayu同场景.png",
+      "bytes": 237850,
+      "sha256": "8cc3ed7c21ff1c2783fc1279434cde7f263253caaf6f89d5d5f41c9de464798d",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/Kai单角色引擎验/选定并排/idle-up-左Kai右Ayu同场景.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/roster_engine.gd",
+      "bytes": 8865,
+      "sha256": "99d2fdf8f49f1e336fd7da30c258246f49abb378cd20db10e0d8c385597a7fa4",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/roster_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/two_preview_fixture.gd",
+      "bytes": 7408,
+      "sha256": "f71f14bec3e12430222ddb0df20cdf6f12b870055f077186b2d8aa72e176913a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/two_preview_fixture.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/两角色透明边界独立判读.json",
+      "bytes": 13331,
+      "sha256": "1bb5bd32daaa8283b5364f24240baff1b111d310136af32d6319dd05bfb5fb50",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/两角色透明边界独立判读.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/实际引擎/result.json",
+      "bytes": 230349,
+      "sha256": "ae0dc703d2f6881bc1a961477ab37c1ce8701ad5ee12eec8c41351287ba712b5",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/实际引擎/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/实际引擎/运行结果.json",
+      "bytes": 37,
+      "sha256": "a859a47706f8e7c59350b91f8c308a0178b3fbd66cc3515711c7e3cb7fccfca6",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/实际引擎/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/R全员阵容-实际尺寸-C4原图只读副本.png",
+      "bytes": 123482,
+      "sha256": "a45bc77ae7d357a909a9dc3f52748509ad34237c47eb59792076b035b6ed4fdd",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/R全员阵容-实际尺寸-C4原图只读副本.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/fang-左NPC右Ayu-同座位同时间.png",
+      "bytes": 197698,
+      "sha256": "7d4792615e579dd0e73a86196a53436b7bf426ca577bf32480232b93d997d8ae",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/fang-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_daba-左NPC右Ayu-同座位同时间.png",
+      "bytes": 471121,
+      "sha256": "00d015034e3f03b54f46f71f5550fad15f601b43c7ebeea36620ac934ec20ede",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_daba-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_erba-左NPC右Ayu-同座位同时间.png",
+      "bytes": 501673,
+      "sha256": "ae7ee261e96dceb5d6f1a81834fcbb59b7695e98cdc06b4d57db285dc9500f13",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_erba-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_flower-左NPC右Ayu-同座位同时间.png",
+      "bytes": 498360,
+      "sha256": "98ab5d74ab45baabc24f983cb092b888512126e687a5533e8a6d5ac60520ef8f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_flower-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_grape-左NPC右Ayu-同座位同时间.png",
+      "bytes": 537561,
+      "sha256": "2ed1d1f2b17a201e4c05a8aba9e9c17ef425e83d19de7ab0d42c843a78e6757a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_grape-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_h1-左NPC右Ayu-同座位同时间.png",
+      "bytes": 544093,
+      "sha256": "8d26740d599fb93315436fb65d623bd7c620929b7f928d118b33f16097408ece",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h1-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_h4-左NPC右Ayu-同座位同时间.png",
+      "bytes": 426213,
+      "sha256": "bdd2962005a8e2f1839de35c75851d5efc49010880223eff31b0745ddd26aceb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h4-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_h6-左NPC右Ayu-同座位同时间.png",
+      "bytes": 511649,
+      "sha256": "04a1345dce92ef67f5d2bf265ee21d44eed0e4d1209998067da9d84d8f116cf8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h6-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_h7-左NPC右Ayu-同座位同时间.png",
+      "bytes": 485607,
+      "sha256": "fb0d63b22118666e982838c68451844c69b2cf66531ed17dd8d4fcb8cd2280d6",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h7-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_h8-左NPC右Ayu-同座位同时间.png",
+      "bytes": 474532,
+      "sha256": "ecaa52ba6ed167d4f370c3e06ecb7dd623af5cc57bbff3f1d4c4982866193805",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_h8-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_persimmon-左NPC右Ayu-同座位同时间.png",
+      "bytes": 563139,
+      "sha256": "76c0e3caa322b9f762500f24142954ce726c21ac9fb9f9b1b3e7c08f70525c3f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_persimmon-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_rose-左NPC右Ayu-同座位同时间.png",
+      "bytes": 590930,
+      "sha256": "24df0b3c7bdf9e44248e3e0b80ba6c5a11efd0279c0b807ba1064a7668198725",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_rose-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_sunflower-左NPC右Ayu-同座位同时间.png",
+      "bytes": 476474,
+      "sha256": "d71f0126114fe3ef8399e56f26c915623a313cce533556a329c8ff27504c5ec2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_sunflower-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/household_whitebrick-左NPC右Ayu-同座位同时间.png",
+      "bytes": 453811,
+      "sha256": "cf9b5341e2c5161c977d6ef3e39aaf91bf11d1d92a763d0f1dfc9dbf3b4dd03e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/household_whitebrick-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/linbo-左NPC右Ayu-同座位同时间.png",
+      "bytes": 388832,
+      "sha256": "6042e1c1ca14e3f2a7571d1ab4b117a63c1ff7d4d3db28da49028f9869fb0154",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/linbo-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/market-左NPC右Ayu-同座位同时间.png",
+      "bytes": 473383,
+      "sha256": "81ccea29dcdf807b7ee1b1b28fa9af9f1376e60aada6818145c05ba25327011a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/market-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/xiaotao-左NPC右Ayu-同座位同时间.png",
+      "bytes": 372951,
+      "sha256": "3be5ab7695e7c5db593837d735e983d74282bcbf2bca02b037450976ef1cd3a2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/xiaotao-左NPC右Ayu-同座位同时间.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际对话头像原像素-分组1.png",
+      "bytes": 365409,
+      "sha256": "f2cf7da349866bbc09e79603cccb3c0681e41c060b27723b355a379cf311de7f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际对话头像原像素-分组1.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际对话头像原像素-分组2.png",
+      "bytes": 310581,
+      "sha256": "b8a20011a26cf4033b862ee0d70146d5a90a11c705362b0e468547f6ba452552",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际对话头像原像素-分组2.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组1.png",
+      "bytes": 582106,
+      "sha256": "5616734bbc1dce865ea6c4e067916bdb625768950ce71a0fbc0e4d4a4a03afea",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组1.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组2.png",
+      "bytes": 536387,
+      "sha256": "9c11737cedc71475dd9f36a1a86b29157d33bdab49d35dabcf6a7e0c51424563",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组2.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组3.png",
+      "bytes": 497145,
+      "sha256": "4170061b2d5c591b39648969aa07bf393fcd8b5c840b9fa263165b051fef397f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际座位上下文-分组3.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组1.png",
+      "bytes": 487997,
+      "sha256": "121e42e3469b8cf8740922073e2e17c759b11d2da553669e0b1d9e3c4d8a8a6a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组1.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组2.png",
+      "bytes": 444676,
+      "sha256": "f0e7a5ff22dc63ed71c51fb90e8d6b3420def43bbd2b1df2e8a33493707fc444",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组2.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组3.png",
+      "bytes": 409353,
+      "sha256": "c03feb719900b17e40c10487b45118c2652c27b4c044f5bd2dc195b0423b23d9",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组3.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组4.png",
+      "bytes": 486640,
+      "sha256": "2ad9e532020190f4be559fb83f55e3753fe747fe0e26ac54190456c61deacbea",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组4.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组5.png",
+      "bytes": 473430,
+      "sha256": "bd15d16e067bc4a6ee32d11f4948a92abca86ee0141fa553822b89026f33bf8c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组5.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组6.png",
+      "bytes": 276609,
+      "sha256": "516e15df43e88857bb825ab11af17eaa51ad3536706d01f133151381eff4138d",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/精选/实际引擎24姿势-分组6.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/素材独立量测.json",
+      "bytes": 112143,
+      "sha256": "7ab6dfd8d6042dece30fcd7f0f3bf1d486571eafa469e10a678708e4f84dbd12",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/素材独立量测.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/素材视觉复核.json",
+      "bytes": 112441,
+      "sha256": "5b2209b387c7999da41249533f747bb0db484975da7c1cd27c76515b5cc3be69",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/素材视觉复核.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/给C2全员R独立结论.json",
+      "bytes": 2483,
+      "sha256": "b5b3bf5c81fc0d5216802b131f07dee754108b033061baa0b8de6369109bee82",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/给C2全员R独立结论.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/给C2全员R独立结论.md",
+      "bytes": 1005,
+      "sha256": "1583943c2d7872dce2f7ff6b60a4dab901e189d4c0f11a73d326f02cd6c60502",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/给C2全员R独立结论.md"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/R全员独立复核/角色房间绑定.json",
+      "bytes": 7844,
+      "sha256": "500dbbbb8b749da2c042ff76ea8f37d7878410879e079afda9b86614f215d8cc",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/R全员独立复核/角色房间绑定.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S4截止正常流程/result.json",
+      "bytes": 2753,
+      "sha256": "143110433018e7b970b659d5ae94c60c58c739f6dc6cf91676da92fea6e46f63",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-eight-before-rain-左实际界面右同条件阿鱼.png",
+      "bytes": 128207,
+      "sha256": "06a9eb0e1bdf3ee57e318104d4742796b16528da7dedb872a7cb89e6977e5dff",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-eight-before-rain-左实际界面右同条件阿鱼.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-one-second-left-左实际界面右同条件阿鱼.png",
+      "bytes": 150439,
+      "sha256": "774d0938089dec4943cca09d3302f6a68ec6fc1ac764a18154efd7cee9e49e36",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-one-second-left-左实际界面右同条件阿鱼.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-rain-no-penalty-左实际界面右同条件阿鱼.png",
+      "bytes": 116635,
+      "sha256": "4c7dd7d87a47741c79209d0324de31725f97eee078949431ec51cbfc5b56ac87",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-rain-no-penalty-左实际界面右同条件阿鱼.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-start-45-左实际界面右同条件阿鱼.png",
+      "bytes": 157456,
+      "sha256": "35dca0c57fed1e19e7b66a15959ccfb0939b2d9c1fcf87479000ed385344643b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-start-45-左实际界面右同条件阿鱼.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-success-once-左实际界面右同条件阿鱼.png",
+      "bytes": 115977,
+      "sha256": "6a52aa9653e8db936b9899c58192c20b35ff649f5fd96dfcc94ea90d39c5e66c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S4截止正常流程/选定并排/laundry-success-once-左实际界面右同条件阿鱼.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/loach_visual_supplement.gd",
+      "bytes": 3413,
+      "sha256": "5c2c226b287d4013f74f938e09bc6a3857250df4c0f6dc3ea43cce14b2ce7186",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/loach_visual_supplement.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/s_art_engine.gd",
+      "bytes": 4697,
+      "sha256": "c93ca67220aab3013a4471166956d08a67acb9efeaba2ffccb2ce3b4685018ed",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/s_art_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/Ayu-13.json",
+      "bytes": 383,
+      "sha256": "eb60bf443330508ef4ee1d42b1bca010b0e292ae6b8217141ab2580e96274d38",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/Ayu-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/laundry-start.json",
+      "bytes": 1980,
+      "sha256": "fe1a46986a66587b293b8c28b4ace1976921c058abd298d8beb8b1edf9505fcb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/laundry-start.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/laundry-two-picked.json",
+      "bytes": 2006,
+      "sha256": "6bae986378b30eee0f58cb62010fbfbaa1ad858104af5b9592381ef750b065ef",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/laundry-two-picked.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-catch.json",
+      "bytes": 2254,
+      "sha256": "408d1f4a6b6a4f7e0c4c0a4fc4848c442c08ce2da1301cecde2e2121afed7577",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-catch.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-end.json",
+      "bytes": 533,
+      "sha256": "ca6d0060dd4994240ffe77e381e5a6c56662d46f8ebe48696d93aef7e1c74929",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-end.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-start.json",
+      "bytes": 2230,
+      "sha256": "b312608f329c935ec552acf3071bf2f8eb9d36c798aa895b329603302b3bf749",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/loach-start.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-hospital-failure.json",
+      "bytes": 524,
+      "sha256": "dfb31a86126ebab158c312df1d65c991646a230a9f03206ad863e9400ae3bd83",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-hospital-failure.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level1-isolated.json",
+      "bytes": 1656,
+      "sha256": "3492b5f844bf8d6375a0d7d6373dc33df48ed32c748947bfb596167da52f6f8b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level1-isolated.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level1-table.json",
+      "bytes": 1629,
+      "sha256": "33b0d814162063bcd0eab5c295685c1732f2979d35b0a99df92df1446a2bd1f7",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level1-table.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level2-isolated.json",
+      "bytes": 1808,
+      "sha256": "4d90020354f4b6fa4ece769c359124c7b2bf48bcc16ef00db80aa1412adc76f6",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level2-isolated.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level3-isolated.json",
+      "bytes": 1966,
+      "sha256": "1c4622a8a96b5f550bf272ca10e1c2977e8a3a2c1cb2c3a089f02c9743af5925",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-level3-isolated.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-success.json",
+      "bytes": 510,
+      "sha256": "dad320f9b2cbefa87adad079e87ee8b8df8c430427f0770fb47ef3de080766ef",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/milk-success.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/result.json",
+      "bytes": 32995,
+      "sha256": "8d272bcb413ce4f55275849ed846c7fcb585e8b6dc482deac3660ce70368265c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-packed.json",
+      "bytes": 2320,
+      "sha256": "aeb0cb0e86a980692d571a8bc28e8f947ddb180cae521fe7c47fc04ac0c6041b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-packed.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-result.json",
+      "bytes": 462,
+      "sha256": "75ed58c0b5d8c43443335af4a81ef75fe6c6e3edfd480d8c8d3ca892121f1577",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-shop.json",
+      "bytes": 2224,
+      "sha256": "25c4bf67f51651ffd9cbbcdcf3f94ab09cad55b8d55e04d68e6e62cf040bec56",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/train-shop.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/vegetables-start.json",
+      "bytes": 1950,
+      "sha256": "4b688e44d7f16e1e6796f1cccade9bbc0320cbca5149969113c710ae71280db4",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/vegetables-start.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/vegetables-two-picked.json",
+      "bytes": 1973,
+      "sha256": "73ae718ed5392a43e4d175626a7f2d55c9dd026a87350402904f4de327066f7f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/vegetables-two-picked.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/实际引擎/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/来源.json",
+      "bytes": 1399,
+      "sha256": "f6bbe407619db696a23a7d304560d31e84805414947a6530a1d097e8205928ca",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/泥鳅捕获补证/result.json",
+      "bytes": 4372,
+      "sha256": "6f0290c9fa66fdbf5baf1e9e37701a11c5faa38dbecc60deb444731ce0cf73a0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/泥鳅捕获补证/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/泥鳅捕获补证/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/泥鳅捕获补证/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/laundry-start-左支线右Ayu13时.png",
+      "bytes": 387070,
+      "sha256": "395313b055ef602568ab6620286c67dc3a910f0a7e134e045579ca750a672c8f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/laundry-start-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/laundry-two-picked-左支线右Ayu13时.png",
+      "bytes": 387745,
+      "sha256": "5881847e34a7022c68c9cbcb21dbfd667cbdba545aa3ba945ee5a29a78ed8ca4",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/laundry-two-picked-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/loach-complete-one-左候选右Ayu13时.png",
+      "bytes": 109521,
+      "sha256": "0ad211dbea522ad9fa4767ad4e4b1abf3843340b187ee8252cbeed391ed2994c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/loach-complete-one-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/loach-one-caught-左候选右Ayu13时.png",
+      "bytes": 409883,
+      "sha256": "c8a105d3b93aeb2cf20e65f32464b674cd1b4b50f67c5d52340ff63992f16b7f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/loach-one-caught-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-hospital-failure-左支线右Ayu13时.png",
+      "bytes": 219762,
+      "sha256": "034e610bb5dbb993f0d6f69143185e4623457b8d2ce9970d9a5b74ae9f73dfc6",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-hospital-failure-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-level1-table-左支线右Ayu13时.png",
+      "bytes": 356826,
+      "sha256": "02c07184bd99f036284ef1408a7d2325aabb581f89030597de43706122a569b6",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-level1-table-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-level3-isolated-左支线右Ayu13时.png",
+      "bytes": 356444,
+      "sha256": "2c85e15e21f5af6715687d4f48114cc16f0426c45c376de42e023dea22cc94e9",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-level3-isolated-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-success-左支线右Ayu13时.png",
+      "bytes": 109370,
+      "sha256": "76b07f63e03ec9397b68570d0f0678b8c44c9acb8d644004522512c0c0aaf5d0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/milk-success-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-packed-左支线右Ayu13时.png",
+      "bytes": 372806,
+      "sha256": "b33897450b4073da3cb406624561a74bca6fa5abc632819aef18e29aa11b587b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-packed-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-result-左支线右Ayu13时.png",
+      "bytes": 109119,
+      "sha256": "bcc151aea821a42eb678017e40475092b2fa7494c5011f021c31e93f29b0d9e3",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-result-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-shop-左支线右Ayu13时.png",
+      "bytes": 360553,
+      "sha256": "27db249aa2abedfda6f17103c956a7f5f09a91d54975338d42f67cc62af77916",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/train-shop-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/vegetables-start-左支线右Ayu13时.png",
+      "bytes": 364308,
+      "sha256": "56647e269de1e391cf5d722a62091056176541ed886d9989f252aec618581803",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/vegetables-start-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/vegetables-two-picked-左支线右Ayu13时.png",
+      "bytes": 364455,
+      "sha256": "702916f3696bf80a93df95fa5784f0f5c8b6dae097d9e758f9d4be5f84c0f838",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/精选并排/vegetables-two-picked-左支线右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/给C2支线图面独立结论.json",
+      "bytes": 1546,
+      "sha256": "8285795a8f3c863e5de2a76bb7db34391c43a69ce2a905bf9991404b6b6bfe89",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/给C2支线图面独立结论.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/S图面最新候选-独立验/给C2支线图面独立结论.md",
+      "bytes": 742,
+      "sha256": "0611d5133b20f6e21856a74fdd91d7239f3daa7070e2b59a2b02a310c41b8e56",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/S图面最新候选-独立验/给C2支线图面独立结论.md"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/g2_easel_view.gd",
+      "bytes": 1925,
+      "sha256": "049fd12c0da787e8c4163facb562bce6f3b68ffff67a7c73e17c85771f1b0ce6",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/g2_easel_view.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/g2_full_views.gd",
+      "bytes": 3629,
+      "sha256": "7c92d78246f08264f208c069101ed7fa22a0475b537f954021fa626544ba9705",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/g2_full_views.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/kai_engine.gd",
+      "bytes": 7401,
+      "sha256": "88d79bff71b8b51f14e891ec12df94ce2bea313aa5d0b28774f5d376c8e3ffb0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/kai_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/laundry_ui.gd",
+      "bytes": 5293,
+      "sha256": "1d7d1c77be3cd10b8d1729e6ea2af6fcd335b144ada4e8670ccfc192e4db80d4",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/laundry_ui.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/winter_engine.gd",
+      "bytes": 4743,
+      "sha256": "040d6377ec04e5cf41b7675125096c66338095f74a9b8328ee86f979d308871c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/winter_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/daba_camera_single.gd",
+      "bytes": 2698,
+      "sha256": "8a3034e45d001555def0257f7ed4861fd4ae77cec5219bde8ddca6302228185d",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/daba_camera_single.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/market_single.gd",
+      "bytes": 6250,
+      "sha256": "6fb5f32ce724010cccabcc1d527c68d5c68d59813611d44aaa5a8d148e168ca5",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/market_single.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/nine_engine.gd",
+      "bytes": 6293,
+      "sha256": "1ba95b60d9f8b08f82e761d0cd71e0b800b70e76b26e85a9db92f2960d4a79b9",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/nine_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/result.json",
+      "bytes": 1366,
+      "sha256": "ef4db924aaa16acdfc3cea4aacd49ed4d1e88ee761ea0e03202f4c4e0ae1c853",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/来源.json",
+      "bytes": 491,
+      "sha256": "95c6174b912ae133c271304ac570a40027de6fb5df2460441f444e92c4e88b85",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/大爸首屏第2次/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/Ayu-entry-13.json",
+      "bytes": 255,
+      "sha256": "0f7766b1dd72123d5a318673f0ce805d5f9b4b4c3d5d50163a475fc87960b2a5",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/Ayu-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/result.json",
+      "bytes": 35532,
+      "sha256": "e6075370dfcfd42b322150b9ac22cdac6ac412ca732f7c6b53e859b2ca70522c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-Ayu-same-seat-19.json",
+      "bytes": 450,
+      "sha256": "7bc59afaebc62f328d97a6faaf38306a745e9d77fd19da18c4705b8b46fccebb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-actual-seat-19.json",
+      "bytes": 448,
+      "sha256": "7c1bd484b6cf8ff9e8a309b2aa00054ba1112cb6bebf7bba7f33196d0411dcd4",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-entry-13.json",
+      "bytes": 441,
+      "sha256": "9232904bdbbacf19b82858fef0a66bb850e63ad17020d014d6e6fb4deb8ca95e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-help-13.json",
+      "bytes": 441,
+      "sha256": "e7a2785ecd72f52b8c1b0d6b8480471f48d651bfde45bc6feea1ee7593a0c1c1",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_daba-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-Ayu-same-seat-19.json",
+      "bytes": 442,
+      "sha256": "4a5a6dbc2a424a61a1532a03fe04bd5b9b492158d5f4aa0d2a8cb4573d731bd3",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-actual-seat-19.json",
+      "bytes": 440,
+      "sha256": "f19e723c26f04a827af2373c2defdee06b4d86d128364cf3a46139f0ee8b9e2f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-entry-13.json",
+      "bytes": 435,
+      "sha256": "d3969388c7245f0d67c06e7f3aef8c52513a2010269adad8db7b0618eef084ec",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-help-13.json",
+      "bytes": 434,
+      "sha256": "39ddb3f120210642089e3b099d5599e41dcf7b082ff0a195e8540ae88eac365f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_erba-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-Ayu-same-seat-19.json",
+      "bytes": 436,
+      "sha256": "f62d22af2f32c415dd6b2bbc9e2f2d52bd492ab50e9832193d6429f9416aa408",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-actual-seat-19.json",
+      "bytes": 434,
+      "sha256": "d76fd0e4a018569f4973af6e1732cab667793b0cda568067d13cf8204b6e67da",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-entry-13.json",
+      "bytes": 428,
+      "sha256": "1e4b1a5d0430c8267e57a5732380a0a154e0afc18538d597ce310131fe9727a0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-help-13.json",
+      "bytes": 428,
+      "sha256": "5a48749f2edfcb31876fa7e789878644868691f93a65c0d6379b207a1f3ea226",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h1-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-Ayu-same-seat-19.json",
+      "bytes": 437,
+      "sha256": "205d41c0379cb464507a6fab596d9eca6fc833b881fe05373b1d5f305cb3cf52",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-actual-seat-19.json",
+      "bytes": 435,
+      "sha256": "453145dc282eaf73b89f3a6fa6028e0b74b24c7497eef89fac7bb4f36a1924a0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-entry-13.json",
+      "bytes": 428,
+      "sha256": "b0e2f924e80c5c4d5f1d292246e211f8ee546ea1c29b7b360a0f825469f15cb2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-help-13.json",
+      "bytes": 426,
+      "sha256": "b1aa67b5f2e86e0935d18cbfe8ed7957f01aa978c3f34319d625a66cdcbba781",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h2-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-Ayu-same-seat-19.json",
+      "bytes": 438,
+      "sha256": "e0fcce7aa1e2f2e103071c9c5598fb78a3a30d0a7adbcb3c15d367191ca26794",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-actual-seat-19.json",
+      "bytes": 436,
+      "sha256": "e3851574b99919ea4d62ce560e607a61eb98e4d067dd0b7cc102b515f6058d12",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-entry-13.json",
+      "bytes": 428,
+      "sha256": "f20a40deace206a3f16696c21faefd7798b51a8b55799c9682510a2658b09d5a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-help-13.json",
+      "bytes": 428,
+      "sha256": "ccfa5941fe752d3d4f3ceab438d8e5a3e2553e93973d198a66890b6c47bc7866",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h4-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-Ayu-same-seat-19.json",
+      "bytes": 436,
+      "sha256": "3486be52240937c36f9e21fc334cea608dea3ce70b1a075ff430c9eed5d6bf6f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-actual-seat-19.json",
+      "bytes": 434,
+      "sha256": "51d115d4a8687d2df7a707ec4e09f96e201f2cd339b42e3f056a33dc4b2e658e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-entry-13.json",
+      "bytes": 428,
+      "sha256": "076f8f090c94b77bed1253625abc623de413dede2c66ef0428998596367d1256",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-help-13.json",
+      "bytes": 426,
+      "sha256": "9fca3261d47c3e581e9f0751fdf94c2fb009d2c991a1da7cb6c37a2fa536afaf",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h6-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-Ayu-same-seat-19.json",
+      "bytes": 437,
+      "sha256": "95ddf70f4711961bc7879f65e59a52088d58a912daab4ad6bc7d6c1f165b29a8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-actual-seat-19.json",
+      "bytes": 435,
+      "sha256": "66d25de5adf880e81608d4b484fc934030e19eb9587c55f5f71731ec756e3ca0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-entry-13.json",
+      "bytes": 428,
+      "sha256": "d4a779b99b9b0e3498f3fa539ef5da3a3852c02b038221be08c4b6cad872fbff",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-help-13.json",
+      "bytes": 429,
+      "sha256": "46628dcbf87b5b14ec093bb26e0f5412057be2db9acb858c71890c7f686f4fef",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_h7-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-Ayu-same-seat-19.json",
+      "bytes": 443,
+      "sha256": "0b885314ca30ac37c58a5f8d7ff35c785b402361dd94cecd4603f68063e25b24",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-actual-seat-19.json",
+      "bytes": 441,
+      "sha256": "917aba7d6dbc79b83fd8f616c5a46d867f41ec34d0c066778fca1e6f0402e0ec",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-entry-13.json",
+      "bytes": 435,
+      "sha256": "d5d1c2eb8b336bdbf0259d2c78a6d920d2020d50ba20bf5239059e2371ab4d4b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-help-13.json",
+      "bytes": 434,
+      "sha256": "fe08f359d9bf959b3bb1c2a8be54faca37f1ea0aa0122bdbb745d294ef403a3e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_rose-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-Ayu-same-seat-19.json",
+      "bytes": 460,
+      "sha256": "0b1c7cf6e7cbbde076d18bac7d4167ced3b882903066f0be9eb2fcf7d7aee38f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-Ayu-same-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-actual-seat-19.json",
+      "bytes": 458,
+      "sha256": "341875d8284ae40fcdbe625d14f745e0543659bc2094393f16396c3b97ffa12e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-actual-seat-19.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-entry-13.json",
+      "bytes": 453,
+      "sha256": "66cf8cfa24a4fe94d4ba2dbd23ef0ae58288272834db757ab640b5cde3f0f953",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-entry-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-help-13.json",
+      "bytes": 452,
+      "sha256": "77fa2d0ccfd1afbf5d6f1bce7c69b089334154c5c05a5cf05b7f6d2de061395a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/v_whitebrick-help-13.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/运行结果.json",
+      "bytes": 18,
+      "sha256": "b0a837b1b20b961ec2f2fbf5e7b0a86ee1a8a38121a09a95c0e5c07c7a94ce8c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/实际引擎/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/来源.json",
+      "bytes": 781,
+      "sha256": "85fb6fd9642220f0c850d96a73e4441ea84c5df130fbb11d319cec378c0930ef",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/market-normal-shop-portrait-13-左候选右Ayu.png",
+      "bytes": 143107,
+      "sha256": "15a4c24d4a0d2c7db1d660931c0fa55e7284c6e0ad85836e6a648b40cf45702a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/market-normal-shop-portrait-13-左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_daba-entry-camera2-13-左候选右Ayu.png",
+      "bytes": 641115,
+      "sha256": "b48cfb452751cbe027a40d1a150d2ba9dbd82f38bf24df3a6d8d91d2c2e46dbe",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_daba-entry-camera2-13-左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_daba-入口13时左候选右Ayu.png",
+      "bytes": 589931,
+      "sha256": "e37c154e1cbc339c5adda30002ab9b18cd8d5a6765b9f1b75ec2d5ed60151a7c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_daba-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_erba-入口13时左候选右Ayu.png",
+      "bytes": 666772,
+      "sha256": "53593e9975d37f6ada7bffe7aeb41b8375ec4f617cb6046943ce83238856f4da",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_erba-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h1-入口13时左候选右Ayu.png",
+      "bytes": 616476,
+      "sha256": "5ee3eee68e5282aac394c749a0871b859ffa1c347ac4e440abf95cacfff23d0e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h1-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h2-入口13时左候选右Ayu.png",
+      "bytes": 687827,
+      "sha256": "02d72271fa332c4079fb45cc2cb2a4307a6ff08bd13a9147a5ebb64f82fa493d",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h2-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h4-入口13时左候选右Ayu.png",
+      "bytes": 597635,
+      "sha256": "428a038cd34c7c70fd559e1e8e97811e5d3f7bc97218472019a8b8534be94368",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h4-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h6-入口13时左候选右Ayu.png",
+      "bytes": 730420,
+      "sha256": "83c590c31503cf870181d2c8390df44cd94afccae7dcb02dca447eacc0257174",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h6-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h7-入口13时左候选右Ayu.png",
+      "bytes": 679229,
+      "sha256": "78a49d3e447096380535848644fb10462d5228e767b678ee08cac44c8cbb6598",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_h7-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_rose-入口13时左候选右Ayu.png",
+      "bytes": 666936,
+      "sha256": "3bd6f2a74ca558e90f7e0f3529fe59ce98216200bb0524b95fdfba055ce85f01",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_rose-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_whitebrick-入口13时左候选右Ayu.png",
+      "bytes": 537460,
+      "sha256": "101e5f84e6b62313d7b13c1f8d12acb79e6dfaed512eeb546d189ef35e6fdb14",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/v_whitebrick-入口13时左候选右Ayu.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组1.png",
+      "bytes": 659623,
+      "sha256": "daafab7410b88ab786c813d9f07e03b6d62d0380309c781b25e92b969d2bc847",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组1.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组2.png",
+      "bytes": 671098,
+      "sha256": "8128c0b472fc447507c7eff583317e2e173e5d975565c7df0b408bdc908f94dd",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组2.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组3.png",
+      "bytes": 632590,
+      "sha256": "cb05810a4121d2d1c4a8098d92d8aa592bae4e8a74381f07ca3e8d98954a6782",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户实际座位同位对照-分组3.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组1.png",
+      "bytes": 824303,
+      "sha256": "60b7278580004c5edb9ab17e7ca36d078d9b8284c20a5c42289c66d5ac3b1efb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组1.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组2.png",
+      "bytes": 861648,
+      "sha256": "1625aae368dd51f792c9dca9ef6133db644ae61a6e72f4d545202070ec09c43f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组2.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组3.png",
+      "bytes": 843486,
+      "sha256": "2284ae18853831eabedc7f5acc0b39f9055174e51e7e026639f1f8b1fd75f1b7",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/精选/九户物件热点上下文-分组3.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/给C2九户与货郎最终定点结论.json",
+      "bytes": 2321,
+      "sha256": "02ca4fe5794c58fc518f7a4968079f64838e5b751ce598d783b66e772ef6c7e4",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/给C2九户与货郎最终定点结论.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/货郎单点补证/result.json",
+      "bytes": 1308,
+      "sha256": "031e225365cf4797fab33bc55b8aeda3233b3d12a0ebdce9e82c1f85dbd72798",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/货郎单点补证/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/九户候选与货郎头像-定点验/货郎单点补证/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/九户候选与货郎头像-定点验/货郎单点补证/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/result.json",
+      "bytes": 15387,
+      "sha256": "bc79fde145eb30a6d9c03a25e8f1c22c9a09758a07868798c95c85d9eb7831fb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/运行结果.json",
+      "bytes": 124,
+      "sha256": "e8ed65266a1fdf1507974ba22f84c9c660143a87ca005585d53ae3b802c97a3c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/map-month10-左地图右同月阿鱼13时.png",
+      "bytes": 748375,
+      "sha256": "aedffa833509618f97a4e5e394079b5b0d40af5c60efef951359f7d2b5fb7754",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/map-month10-左地图右同月阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/map-month12-左地图右同月阿鱼13时.png",
+      "bytes": 751565,
+      "sha256": "a4794101d282d9596f7def0fbda0f256212d48bd5f82659ebf2f1fd3e097cc6d",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/map-month12-左地图右同月阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month10-左村景右同月阿鱼13时.png",
+      "bytes": 556482,
+      "sha256": "2157e5a094efc9bea034a56859e55208d7048139d96e054d03552b5d45f9055c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month10-左村景右同月阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month12-左村景右同月阿鱼13时.png",
+      "bytes": 625613,
+      "sha256": "01486dd64983d34b9bd7b8980e16dd7557becfa39841ce6a767bc45ce109fd85",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month12-左村景右同月阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month4-左村景右同月阿鱼13时.png",
+      "bytes": 547089,
+      "sha256": "a22659a7a8d34898cdf653afc0258c58fc732812fcfeff72778632807c6d05c3",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month4-左村景右同月阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month7-左村景右同月阿鱼13时.png",
+      "bytes": 544704,
+      "sha256": "ffe9bb01c30776df7efcf5a212365f2cbc2babfa62a06a6b7bb35016425a453c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/world-month7-左村景右同月阿鱼13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/冬季独立引擎验/选定并排/同坐标-左秋右冬-13时.png",
+      "bytes": 850271,
+      "sha256": "4fcc4b80c3345c3ce446024447fe299e89d346543dd97209e8ddfe5ea4c8ce36",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/冬季独立引擎验/选定并排/同坐标-左秋右冬-13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v2-独立验/independent_geometry.gd",
+      "bytes": 8604,
+      "sha256": "467176a7507340ba05780583dce36eef151a321b85cc90576ab93f71dfad7175",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/independent_geometry.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v2-独立验/result.json",
+      "bytes": 259135,
+      "sha256": "5122ed667c6ba6c0deedbfe0c6d5019b2ba926a2086dae5392860448c194a1af",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v2-独立验/来源.json",
+      "bytes": 1766,
+      "sha256": "4c80e51c5dab4ccac02f089734eace97d6c557884d6c9dbab901e9e479afa231",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v2-独立验/给C2退回.json",
+      "bytes": 28144,
+      "sha256": "57453a1fb915d86b311885c2b4978fd35e42042cc7b1ce59fd576c26c5d2e8a1",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/给C2退回.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v2-独立验/给C2退回.md",
+      "bytes": 1468,
+      "sha256": "662e1b5729f94a3650ff85a8be0046fc66ac37bb8132cb2779288aeb46c4694a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v2-独立验/给C2退回.md"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/footprint_audit.gd",
+      "bytes": 5326,
+      "sha256": "35a8fa641426bfe24cf9f29d9914b33e6faf06e6ea22cb100d7bf74f8a9fbac5",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/footprint_audit.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/independent_geometry_v3.gd",
+      "bytes": 9056,
+      "sha256": "8e3b8f72de39854049102767e81453153a0df9e1448968ea38972934847fdcd0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/independent_geometry_v3.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/result.json",
+      "bytes": 451841,
+      "sha256": "1fd1cbe629521fe49cf7c3b1d618d68d7e9e5c4f4b2fc53f296457edf170abbc",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/原v2断言只读副本.gd",
+      "bytes": 8604,
+      "sha256": "467176a7507340ba05780583dce36eef151a321b85cc90576ab93f71dfad7175",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/原v2断言只读副本.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/来源.json",
+      "bytes": 1972,
+      "sha256": "601bf97fc6a20437cc0f6d7aa2eb8e56109c67cded9b0afe43fe42a7fb9985bb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/给C2几何复验通过.json",
+      "bytes": 5000,
+      "sha256": "97bf950374e8fdf05d5771f64305e428466e1891a03e67425bc97d82c6961fc0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/给C2几何复验通过.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/给C2几何复验通过.md",
+      "bytes": 1597,
+      "sha256": "d01428566bb84be9cbddf463491605a3c150ccb12cb564353a4aff5409f428cb",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/给C2几何复验通过.md"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/脚印补充结果.json",
+      "bytes": 10524,
+      "sha256": "7a2c6f434bae629de2470a444d5c56517174dcf9a90623c46b00655b3fb3ea49",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/脚印补充结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/几何候选-v3-独立验/运行结果.json",
+      "bytes": 129,
+      "sha256": "53a9244deb1d1cc796732ce467d00446c5073afa052c348277e60f61697f2996",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/几何候选-v3-独立验/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/本批逐项状态-给C2.json",
+      "bytes": 6778,
+      "sha256": "ca820bf3f2b8c5d7164e2c0b5d2566c49dbeb3033e226ca3ca11ddbc5e6e5ddf",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/本批逐项状态-给C2.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/material_engine.gd",
+      "bytes": 3960,
+      "sha256": "3af34ffea9ede89a97619ec28459594b66086cc5590e60f8275c5831a90e48e0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/material_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month10.json",
+      "bytes": 273,
+      "sha256": "298f4f9772eeee4a8a6ad457acf8cfae16d63a7475725c895b7eefa4250e7f42",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month10.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month12.json",
+      "bytes": 273,
+      "sha256": "cfeb21d2e539e625111d6ceeb6c136bb2653d964e6557f3eeb7e5e441d8555d0",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month12.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month4.json",
+      "bytes": 271,
+      "sha256": "f63a2d6f633c0e99895148a422219a60c3b472d1c179f7471defb073ad349d5e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month4.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month7.json",
+      "bytes": 271,
+      "sha256": "a7f7622c6af895c2397e2add89ede6a57d9b4e0e750d1bf3cc611ae056a88d71",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/Ayu-month7.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month10.json",
+      "bytes": 315,
+      "sha256": "c73670221a0f99ba77eeade089eb4d992689309fb2ac439cd40167af171a7312",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month10.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month12.json",
+      "bytes": 315,
+      "sha256": "89d3fbe78e1a60dfd0a636bb7f51bec1ad29f9fec26c73250ac5d9268e4c4733",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month12.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month4.json",
+      "bytes": 313,
+      "sha256": "5b9e31e9210a80ea6f5bb41f4c662bb3a6e8ac2278daeffc5984b214f6f43e00",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month4.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month7.json",
+      "bytes": 313,
+      "sha256": "f94487dc28b7eff7fed09331846d88ce1ab31a552e89f2fb7bf2fe780653e13e",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/field-month7.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month10.json",
+      "bytes": 276,
+      "sha256": "3a2a49f7c2677cc27efa297ad8940f083d1c177f42b527a217d3659332440466",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month10.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month12.json",
+      "bytes": 276,
+      "sha256": "60e9192a251130c2f2ddc79ba273ecd88ce81a7b17f5d0c81d37f6bcf244d3f8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month12.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month4.json",
+      "bytes": 274,
+      "sha256": "0a64c4b09094656fa5861c485072a90fbc5de57d9a4b2f217c4aa436a4fd6938",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month4.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month7.json",
+      "bytes": 274,
+      "sha256": "ddc9b56ddd0ee7a8c89525534a756e3c88546705bb169f45ab73fd808270e355",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/map-month7.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month10.json",
+      "bytes": 313,
+      "sha256": "5abd532122e7f0cd6d0a8390554fe57b5d3040f7e043f11f786481fa7a90ff12",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month10.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month12.json",
+      "bytes": 313,
+      "sha256": "9fc570871bcbb737592ce2d3aeaab204021191a96c93bfee24baaa117e2054d8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month12.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month4.json",
+      "bytes": 311,
+      "sha256": "f15cfff00d6e4b2e67be3caf6b76160f3209d07eaa50249c07ea026f3e2f1176",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month4.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month7.json",
+      "bytes": 311,
+      "sha256": "3cac4179ab002d5de41e7d0039893ba7e4efe3f4385a2dce18eac35222f7780d",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/north-month7.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/result.json",
+      "bytes": 12345,
+      "sha256": "581377c20fdb34231959b1e1c23388e299d72d694a3ffb3ae6c90df3608e5a2f",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/实际引擎/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/来源.json",
+      "bytes": 1053,
+      "sha256": "27e1018b5fe4507cfe3bb6fbfe08fcabbf3bf9b8ccc3fa0330b3de5a7d077c57",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month10-左候选右Ayu13时.png",
+      "bytes": 594059,
+      "sha256": "4fd95c1a3993982adb2bf48649c790002bbd5107441288e08fcb02faac347a48",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month10-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month12-左候选右Ayu13时.png",
+      "bytes": 586098,
+      "sha256": "6d13f5b1e44891246072171116b2fec8eccfb789c564838c52bd9c13d326320b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month12-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month4-左候选右Ayu13时.png",
+      "bytes": 571368,
+      "sha256": "cfa5abffd08cbedfef99d065a90d6b61cc0f5ea25303c7c0b93fda3607e0f0e9",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month4-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month7-左候选右Ayu13时.png",
+      "bytes": 594713,
+      "sha256": "9811dd8805a7db2008202adcd65303d9bceb18319dee5e448f420144df1f7ce1",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/field-month7-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/map-month4-左候选右Ayu13时.png",
+      "bytes": 697735,
+      "sha256": "033c2daca964effb8108cda81a07e4665cc01ebb589bf6fd87416b299b3240f2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/map-month4-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/map-month7-左候选右Ayu13时.png",
+      "bytes": 699337,
+      "sha256": "06e767cb13688f5c0b9ecf449b7270c1952937ff4c2fb968783af1c9a1599c20",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/map-month7-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/north-month4-左候选右Ayu13时.png",
+      "bytes": 465233,
+      "sha256": "5e9c4d8a06c9117cd1832d2aaff34418fe87fd7255ad726960778373c39d6456",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/精选并排/north-month4-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/给C2材质独立退回.json",
+      "bytes": 2090,
+      "sha256": "0ba485d97b117a9ab59b5736ee324f897cde4579080e79cdffffb24dd032891a",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/给C2材质独立退回.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/村景材质-v3-独立验/给C2材质独立退回.md",
+      "bytes": 571,
+      "sha256": "36a3c8fb19cc1aec9c39add0ea0fe4bfba7e6cafd8bf8322ccecddeac6e36e86",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/村景材质-v3-独立验/给C2材质独立退回.md"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/来源.json",
+      "bytes": 2086,
+      "sha256": "4acf25120ca333a89ad7f65c1fa3ba4ddc3c74816b9a85b6daec60d51f565242",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/给C2新增通过范围与缺项.json",
+      "bytes": 2184,
+      "sha256": "a1e82c300f98da9b3f2876cb7004209c8ff69c93b4fff20878d35cd09d17b748",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/给C2新增通过范围与缺项.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/给C2本批归档说明.md",
+      "bytes": 1129,
+      "sha256": "dad49f7464c34ba2e27ad0a0f3c474d5c93b4d2c3c14b1e327b9fa808436a67c",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/给C2本批归档说明.md"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/material_engine.gd",
+      "bytes": 3952,
+      "sha256": "d914bd974abbd4b33cd3e3d114365fc649b9991b5f0ac737b06cf71b82ffb718",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/material_engine.gd"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/实际引擎/result.json",
+      "bytes": 3355,
+      "sha256": "fa00dbdaea5b8104e6f365e67e9cd77df82ea6ae5a2c2b55db2fd2458b5c89d2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/实际引擎/result.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/实际引擎/运行结果.json",
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/实际引擎/运行结果.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/来源.json",
+      "bytes": 484,
+      "sha256": "dc68446ad813a3284cb9bdfde07415160416b6bbccf3606847ef412433125f17",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/来源.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/精选并排/map-month7-左候选右Ayu13时.png",
+      "bytes": 692418,
+      "sha256": "499fce675ab2ffff26b0684b9a964551eca31bbfc8f6f6c037073b1c3baae7f3",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/精选并排/map-month7-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/精选并排/north-month7-左候选右Ayu13时.png",
+      "bytes": 512657,
+      "sha256": "e5a0b9f497af167d5b967982d03126c8f7c899d046bb90589f15187809b3432b",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/精选并排/north-month7-左候选右Ayu13时.png"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/给C2远山第2次结论.json",
+      "bytes": 1395,
+      "sha256": "4b9e8c7e90654d38c9bf975ddc38ce54c6441b7f83fc00b5a0ee04206e5fa8d8",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/给C2远山第2次结论.json"
+    },
+    {
+      "path": "测试数据/本轮C3专用目录/前端接管-1025/非OS追加-1025/远山问题第2次-独立验/给C2远山第2次结论.md",
+      "bytes": 549,
+      "sha256": "33f051ec249ee5c58c7e3d186ff4f15bd1cee059146436efdc9678b1363706c1",
+      "archive": "回执/第1轮收尾/C3前端验收-1025/非OS追加-1025/远山问题第2次-独立验/给C2远山第2次结论.md"
+    }
+  ],
+  "old66_and_Kai_unchanged": true
+}

@@ -1,0 +1,297 @@
+{
+  "id": "v_h4",
+  "title": "田边平房",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    656,
+    600
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "closeout_left_rest_bench",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "pos": [
+        55,
+        315
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 453,
+      "atlas_region": [
+        110,
+        630,
+        270,
+        276
+      ]
+    },
+    {
+      "id": "closeout_farm_table",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "pos": [
+        263,
+        166
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 241,
+      "atlas_region": [
+        526,
+        332,
+        380,
+        150
+      ]
+    },
+    {
+      "id": "closeout_grain_cabinet",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "pos": [
+        540,
+        308
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 458,
+      "atlas_region": [
+        1080,
+        616,
+        204,
+        300
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      48,
+      145,
+      205,
+      45
+    ],
+    [
+      263,
+      150,
+      190,
+      88
+    ],
+    [
+      470,
+      132,
+      72,
+      58
+    ],
+    [
+      55,
+      305,
+      135,
+      146
+    ],
+    [
+      540,
+      300,
+      102,
+      158
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "house_help",
+      "label": "收好田边用具",
+      "pos": [
+        585,
+        290
+      ],
+      "approach": [
+        510,
+        350
+      ],
+      "kind": "house_task",
+      "house": "h4",
+      "copy": "草帽和竹篮归回柜边，沾泥的用具也摆稳了。下田回来，屋里就能歇脚。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        104,
+        351
+      ],
+      "approach": [
+        195,
+        355
+      ],
+      "kind": "seat",
+      "seat": [
+        104,
+        351
+      ],
+      "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h4",
+      "label": "挪一挪田边用具",
+      "pos": [
+        625,
+        290
+      ],
+      "approach": [
+        510,
+        350
+      ],
+      "copy": "田边用具换到另一边，摆放也有了新样子。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        350,
+        548
+      ],
+      "approach": [
+        350,
+        515
+      ],
+      "arrival": [
+        350,
+        480
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 98,
+      "explicit_opening": true
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    350,
+    480
+  ],
+  "walk_rect": [
+    31,
+    166,
+    594,
+    421
+  ],
+  "walk_polygons": [
+    [
+      [
+        90,
+        166
+      ],
+      [
+        570,
+        174
+      ],
+      [
+        623,
+        465
+      ],
+      [
+        408,
+        465
+      ],
+      [
+        408,
+        585
+      ],
+      [
+        290,
+        585
+      ],
+      [
+        290,
+        465
+      ],
+      [
+        35,
+        465
+      ]
+    ]
+  ],
+  "outdoor": false,
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    0,
+    114
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "layers": [],
+    "pending_real_object_states": true
+  },
+  "npc": {
+    "id": "household_h4",
+    "character_id": "household_h4",
+    "name": "田边平房主人",
+    "portrait": "household_h4",
+    "preset": 2,
+    "pos": [
+      510,
+      350
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          510,
+          350
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理田边用具，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          195,
+          355
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的田边用具也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          104,
+          351
+        ],
+        "approach": [
+          195,
+          355
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  },
+  "rebuild_navigation": true
+}

@@ -1,0 +1,37 @@
+{
+  "portrait": {
+    "file": "方婆婆-值日头像-source-v1.png",
+    "size": [
+      1160,
+      1356
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "suggested_dialogue_canvas": [
+      188,
+      220
+    ],
+    "scaling": "C2按面板尺寸等比最近邻缩放，保留alpha，不另换人"
+  },
+  "sprite": {
+    "file": "方婆婆-值日形象84px.png",
+    "size": [
+      1024,
+      84
+    ],
+    "cell": [
+      64,
+      84
+    ],
+    "foot_anchor": [
+      32,
+      84
+    ],
+    "layout": "已有水平16帧，朝下0–3/左4–7/右8–11/上12–15",
+    "status": "已有图复用，本轮不宣称新验动作"
+  },
+  "game_status": "未接入未游戏验收"
+}

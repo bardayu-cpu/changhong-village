@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS native mouse tap selects through Window/Control dispatch
+PASS 50px within-card release drag scrolls without selecting even if motion was coalesced
+PASS ScreenTouch/ScreenDrag routed through input pipeline scroll without selecting
+PASS ScreenTouch tap still selects through native mouse emulation
+PASS outside-grid touch leaves basket scroll untouched
+PASS focus selection works after both drag types end
+PASS gestures neither consume items nor open/write a save

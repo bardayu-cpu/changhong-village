@@ -1,0 +1,573 @@
+{
+  "copy_policy": "C2 only copies exported ground/assets and exact props, no redraw/replan",
+  "preview_type": "C4 native asset composition, not game runtime",
+  "props": [
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_0.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "foot": 610.0,
+      "front": false,
+      "ground": false,
+      "group": "北巷树组",
+      "id": "c4_tree_0",
+      "plant_type": "deciduous",
+      "pos": [
+        1415,
+        430
+      ],
+      "root_rect": [
+        1476.0,
+        595.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_1.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "foot": 610.0,
+      "front": false,
+      "ground": false,
+      "group": "北巷树组",
+      "id": "c4_tree_1",
+      "plant_type": "deciduous",
+      "pos": [
+        1255,
+        430
+      ],
+      "root_rect": [
+        1316.0,
+        595.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_2.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "foot": 1730.0,
+      "front": false,
+      "ground": false,
+      "group": "东田岸林",
+      "id": "c4_tree_2",
+      "plant_type": "deciduous",
+      "pos": [
+        3275,
+        1550
+      ],
+      "root_rect": [
+        3336.0,
+        1715.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_3.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "foot": 1080.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠北岸",
+      "id": "c4_tree_3",
+      "plant_type": "deciduous",
+      "pos": [
+        3655,
+        900
+      ],
+      "root_rect": [
+        3716.0,
+        1065.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_bamboo_4.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "foot": 1200.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠北岸",
+      "id": "c4_bamboo_4",
+      "plant_type": "evergreen",
+      "pos": [
+        3697,
+        1034
+      ],
+      "root_rect": [
+        3746.0,
+        1185.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_5.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "foot": 1460.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠北岸",
+      "id": "c4_tree_5",
+      "plant_type": "deciduous",
+      "pos": [
+        3645,
+        1280
+      ],
+      "root_rect": [
+        3706.0,
+        1445.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_6.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "foot": 2310.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠中岸",
+      "id": "c4_tree_6",
+      "plant_type": "deciduous",
+      "pos": [
+        3610,
+        2130
+      ],
+      "root_rect": [
+        3671.0,
+        2295.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_bamboo_7.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "foot": 2600.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠中岸",
+      "id": "c4_bamboo_7",
+      "plant_type": "evergreen",
+      "pos": [
+        3627,
+        2434
+      ],
+      "root_rect": [
+        3676.0,
+        2585.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_8.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "foot": 2770.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠中岸",
+      "id": "c4_tree_8",
+      "plant_type": "deciduous",
+      "pos": [
+        3575,
+        2590
+      ],
+      "root_rect": [
+        3636.0,
+        2755.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_9.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "foot": 3590.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠南岸",
+      "id": "c4_tree_9",
+      "plant_type": "deciduous",
+      "pos": [
+        3595,
+        3410
+      ],
+      "root_rect": [
+        3656.0,
+        3575.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_bamboo_10.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "foot": 3890.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠南岸",
+      "id": "c4_bamboo_10",
+      "plant_type": "evergreen",
+      "pos": [
+        3577,
+        3724
+      ],
+      "root_rect": [
+        3626.0,
+        3875.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_11.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "foot": 4100.0,
+      "front": false,
+      "ground": false,
+      "group": "东渠南岸",
+      "id": "c4_tree_11",
+      "plant_type": "deciduous",
+      "pos": [
+        3595,
+        3920
+      ],
+      "root_rect": [
+        3656.0,
+        4085.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_12.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "foot": 1050.0,
+      "front": false,
+      "ground": false,
+      "group": "东侧边林",
+      "id": "c4_tree_12",
+      "plant_type": "deciduous",
+      "pos": [
+        4415,
+        870
+      ],
+      "root_rect": [
+        4476.0,
+        1035.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_13.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "foot": 1160.0,
+      "front": false,
+      "ground": false,
+      "group": "东侧边林",
+      "id": "c4_tree_13",
+      "plant_type": "deciduous",
+      "pos": [
+        4445,
+        980
+      ],
+      "root_rect": [
+        4506.0,
+        1145.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_14.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "foot": 1150.0,
+      "front": false,
+      "ground": false,
+      "group": "东侧边林",
+      "id": "c4_tree_14",
+      "plant_type": "deciduous",
+      "pos": [
+        4345,
+        970
+      ],
+      "root_rect": [
+        4406.0,
+        1135.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_15.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "foot": 3310.0,
+      "front": false,
+      "ground": false,
+      "group": "西南田边",
+      "id": "c4_tree_15",
+      "plant_type": "deciduous",
+      "pos": [
+        2005,
+        3130
+      ],
+      "root_rect": [
+        2066.0,
+        3295.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_16.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "foot": 3390.0,
+      "front": false,
+      "ground": false,
+      "group": "西南田边",
+      "id": "c4_tree_16",
+      "plant_type": "deciduous",
+      "pos": [
+        2075,
+        3210
+      ],
+      "root_rect": [
+        2136.0,
+        3375.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_17.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "foot": 3280.0,
+      "front": false,
+      "ground": false,
+      "group": "东南田边",
+      "id": "c4_tree_17",
+      "plant_type": "deciduous",
+      "pos": [
+        4485,
+        3100
+      ],
+      "root_rect": [
+        4546.0,
+        3265.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_18.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "foot": 3490.0,
+      "front": false,
+      "ground": false,
+      "group": "东南田边",
+      "id": "c4_tree_18",
+      "plant_type": "deciduous",
+      "pos": [
+        4465,
+        3310
+      ],
+      "root_rect": [
+        4526.0,
+        3475.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_tree_19.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "foot": 3620.0,
+      "front": false,
+      "ground": false,
+      "group": "东南田边",
+      "id": "c4_tree_19",
+      "plant_type": "deciduous",
+      "pos": [
+        4265,
+        3440
+      ],
+      "root_rect": [
+        4326.0,
+        3605.0,
+        28.0,
+        13.0
+      ]
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_shrub_20.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "foot": 2882.0,
+      "front": false,
+      "ground": false,
+      "group": "西外缘",
+      "id": "c4_shrub_20",
+      "plant_type": "deciduous",
+      "pos": [
+        188,
+        2816
+      ],
+      "root_rect": null
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_shrub_21.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "foot": 2162.0,
+      "front": false,
+      "ground": false,
+      "group": "东外缘",
+      "id": "c4_shrub_21",
+      "plant_type": "deciduous",
+      "pos": [
+        4343,
+        2096
+      ],
+      "root_rect": null
+    },
+    {
+      "design_file": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮/设计/村外铺景/v2/assets/c4_shrub_22.png",
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "foot": 1689.0,
+      "front": false,
+      "ground": false,
+      "group": "中心缓冲",
+      "id": "c4_shrub_22",
+      "plant_type": "deciduous",
+      "pos": [
+        2359,
+        1623
+      ],
+      "root_rect": null
+    }
+  ],
+  "root_rects": [
+    [
+      1476.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      1316.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      3336.0,
+      1715.0,
+      28.0,
+      13.0
+    ],
+    [
+      3716.0,
+      1065.0,
+      28.0,
+      13.0
+    ],
+    [
+      3746.0,
+      1185.0,
+      28.0,
+      13.0
+    ],
+    [
+      3706.0,
+      1445.0,
+      28.0,
+      13.0
+    ],
+    [
+      3671.0,
+      2295.0,
+      28.0,
+      13.0
+    ],
+    [
+      3676.0,
+      2585.0,
+      28.0,
+      13.0
+    ],
+    [
+      3636.0,
+      2755.0,
+      28.0,
+      13.0
+    ],
+    [
+      3656.0,
+      3575.0,
+      28.0,
+      13.0
+    ],
+    [
+      3626.0,
+      3875.0,
+      28.0,
+      13.0
+    ],
+    [
+      3656.0,
+      4085.0,
+      28.0,
+      13.0
+    ],
+    [
+      4476.0,
+      1035.0,
+      28.0,
+      13.0
+    ],
+    [
+      4506.0,
+      1145.0,
+      28.0,
+      13.0
+    ],
+    [
+      4406.0,
+      1135.0,
+      28.0,
+      13.0
+    ],
+    [
+      2066.0,
+      3295.0,
+      28.0,
+      13.0
+    ],
+    [
+      2136.0,
+      3375.0,
+      28.0,
+      13.0
+    ],
+    [
+      4546.0,
+      3265.0,
+      28.0,
+      13.0
+    ],
+    [
+      4526.0,
+      3475.0,
+      28.0,
+      13.0
+    ],
+    [
+      4326.0,
+      3605.0,
+      28.0,
+      13.0
+    ]
+  ]
+}

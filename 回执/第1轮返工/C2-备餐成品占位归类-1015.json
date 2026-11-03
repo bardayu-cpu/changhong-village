@@ -1,0 +1,54 @@
+{
+  "time": "2026-10-15T21:33:44.429195+08:00",
+  "status": "已应用单点小修并独立提交；待C3获得GUI控制后补验此处",
+  "source_commit": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "evidence": "回执/第1轮返工/A4末次-9c24efa-1015/A4末次-9c24efa-1015-024-功能-备餐三步完成并正常收菜.png",
+  "classification": "A1残留占位式成品图：CommunityBoard._draw progress>=3 分支以3个矩形表示碗口/碗身/碗底，24个循环矩形表示成品食物；无纹理、轮廓或独立美术资产。不是进度条或操作按钮。",
+  "code": {
+    "path": "godot/ayu_home/v4/core/institution_game.gd",
+    "lines_before": [
+      199,
+      200
+    ],
+    "sha256_before": "d467f1e8cc04428187603fa1d855a3a2ceb726ba106d6ecfc8436bdbdba23d43"
+  },
+  "proposed_fix": {
+    "reuse": "godot/ayu_home/v4/assets/floor1-redraw/meal-14.png",
+    "sha256": "3847d7f45b1bc395230c41c853af1ce76dcb390ec5c47b905a732d947de960f7",
+    "image": {
+      "mode": "RGBA",
+      "size": [
+        32,
+        24
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    "choice": "已有阿鱼家餐盘体系中的通用时蔬图，life_state.gd的萝卜丝饼、凉拌茄子等使用同一图，默认菜图也为14。复用已有素菜视觉，不宣称它是新绘专用海椒拌楼卜图。",
+    "render": "原像素6倍、最近邻过滤、保持原纵横比、在原成品区居中；保留原蒸汽反馈",
+    "scope": "只替换progress>=3中心成品碗及24个碎丁色块。三步按钮、进度条、原料与过程绘制、状态机、扣料/产出/奖励和文案不改。",
+    "new_images": false
+  },
+  "status_limits": [
+    "不能据此宣称小游戏全部美术成熟或A1整体通过",
+    "不改变A4已冻结源9c24efa的实测结论",
+    "后续C3只补本处成品图和未完横窗对照，不整轮重跑"
+  ],
+  "candidate": {
+    "path": "测试数据/备餐成品小修-1015/institution_game.gd",
+    "diff": "回执/第1轮返工/备餐成品小修-1015/候选.diff",
+    "check": "回执/第1轮返工/备餐成品小修-1015/候选检查.json",
+    "compile_exit_code": 0,
+    "script_errors": false,
+    "render_size": [
+      192,
+      144
+    ],
+    "asset_bytes_unchanged": true
+  },
+  "gate": "C1最新续办明确允许先完成隔离小修及提交，不再等待C3整批封存。保留9c24efa冻结源和旧实机结论，C3活跃文件不纳入本提交。",
+  "production_commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+  "applied_at": "2026-10-15T21:41:26.410249+08:00"
+}

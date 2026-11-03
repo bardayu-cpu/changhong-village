@@ -1,0 +1,29 @@
+{
+  "commit": "ac029a2534eaf5f7410fed2572f63a29d1b19a42",
+  "base": "小涛0b8a580冻结副本",
+  "overlays": {
+    "godot/ayu_home/v4/assets/institutions/civic-up-v2.png": "6ea3cdce35dccc5ccf95df31b475dd813ca6251d818f2961c0be081a8073c834",
+    "godot/ayu_home/v4/assets/institutions/civic-v1.png": "1a0d755d068c4e3ca470fb9f4f47f8d4356f972ab3c50e66454287517ab667d9",
+    "godot/ayu_home/v4/assets/institutions/honey-v1.png": "fac9d3c81bfcf83b15859e9b4aef01a54363574a68e5dc5fe2fbda5408950103",
+    "godot/ayu_home/v4/assets/residents/kaikai-v1.png": "ff3dc857415b5ee0dd23b8662bd7a080cd2624c641e74e159c764962c7474aaa",
+    "godot/ayu_home/v4/assets/residents/linbo-v1.png": "feed5343b2426f0031192881180552dae7bb002640a9845aeb08484e26341c0f",
+    "godot/ayu_home/v4/assets/rooms.json": "de765d0d4ffc4a36899727647a5b1ba3e8b8718df4e65e1f4014f9583f339188",
+    "godot/ayu_home/v4/assets/talk-faces/kaikai.png": "7957a4e2d94e7479fb48fbe7f639fdce44b4bf2a55d9645a7af2f2a534c30a60",
+    "godot/ayu_home/v4/assets/talk-faces/linbo.png": "83502ed7f72da86c22f0e4d48a864b546f8699483f2c3104734a09f04801ba99",
+    "godot/ayu_home/v4/assets/v_h3.json": "a1339b7a4c2a80bca61a10596f350715d70a6ebae897584fef62de2cc05cdd92",
+    "godot/ayu_home/v4/assets/v_h3_up.json": "a2b1db82585dc6131217338fc37513301dc4b5408ab65f176f7cf346c1b38caf",
+    "godot/ayu_home/v4/assets/v_h5.json": "dedeeb9accb6887595612fd6df86a6d09bdf9054630e2ae10a0367beb46e1252",
+    "godot/ayu_home/v4/assets/v_mayor.json": "54f0b2ead2154fd8b273b95830ce6d2cf366fbd8d337af674eedc2c46d453337",
+    "godot/ayu_home/v4/assets/v_mayor_up.json": "0065b42f989a970bd9a990d256668481c141cfe7df998b24dbd67edf26a9041b",
+    "godot/ayu_home/v4/assets/village.json": "b944555980e9bceca0d07563e23a80d1f87a3c33774da6d77de83cb63e44e2d2",
+    "godot/ayu_home/v4/assets/village/houses.json": "2931f254c7ae2a3d72b0286ec79c6e0569b6324a9d31a9c03f7c79fb0a448ed2",
+    "godot/ayu_home/v4/core/config.gd": "63af854271bf7bdcd8f4566b292ac159407f0e0e5b509a93bdcaf7d01d60fa8b",
+    "godot/ayu_home/v4/core/institution_game.gd": "339594e5b5bbe133d61f233d3c36bc722d5d6487619c1e6bcb158511dc0d2dff",
+    "godot/ayu_home/v4/core/institution_room.gd": "6b469fdbd62508f8c09221cd552758b6b1f11ab2c9470bfe74d5afc925afbf9f",
+    "godot/ayu_home/v4/core/interface.gd": "a1ddb36b77a71709dd06b6d001ad504e7b91dc959f7987b89c2668e1180c5dc0",
+    "godot/ayu_home/v4/core/residents.gd": "ba98df191128bf2021e646bc0bd7ba75f7a210e5fc0d2c1c5b014df5eaeba37e",
+    "godot/ayu_home/v4/home.gd": "0e36d2056ee8b3ceb1e798f56d6ee61f60203dbb51aaa73afa2586559b1e7c30"
+  },
+  "scope": "只最小复验MILL-01账本及其楼梯到达；不替其他机构或新共享玩法判过",
+  "profile": "沿用C3实际种收/推磨所得独立存档；待0b8a580窗口正常关闭后复制"
+}

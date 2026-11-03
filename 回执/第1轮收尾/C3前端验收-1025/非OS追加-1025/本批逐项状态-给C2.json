@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-25",
+  "source_head": "e1d26c9a01d3597c3d5c7c5c43953aa0a80a40ab + 独立冻结未提交工作树；冬季仅单文件差异",
+  "stop_remaining_percent": 30,
+  "last_checked_remaining_percent": 34,
+  "no_agents": true,
+  "production_or_git_mutated": false,
+  "overall_pass": false,
+  "score": null,
+  "score_note": "C3全部门尚未过，禁止90分或交工结论；R门仍未闭合，按任务书缺项最高85不是实际评分",
+  "items": [
+    {
+      "item": "1 村景",
+      "status": "几何通过／图面仍退回",
+      "boundary": "v3 199/199+70879个6×6脚印采样0越界；四季材质已实际显示40/40；北端第2次山脊入镜修正，矩形地平线/雾色与高反差稻田仍退回；缺树"
+    },
+    {
+      "item": "2 冬季地面",
+      "status": "非OS引擎35/35通过／桌面输入欠验",
+      "boundary": "4→7→10→12→4同几何18道路8层、路径与地图一致；属旧几何一致性修复，不批准旧桥河或新村景全美术"
+    },
+    {
+      "item": "3 九户室内",
+      "status": "候选定点局部通过／姓名牌遮挡退回",
+      "boundary": "131/131限9户入口/帮助热点/实际19时座位/固体中心与36端点；大爸地毯4点无旧桌碰撞，首屏2单图通过。部分坐姿姓名牌压脸身；14物件未交，完整门进出和扫掠碰撞欠验，生产未切换"
+    },
+    {
+      "item": "4 十四户交互",
+      "status": "事务局部已有；画面退回",
+      "boundary": "原269/270，一项测试ID前置错误不列生产bug；h1茶杯竹凳/压盘截边退回第1次，等语义及锚点修复版本"
+    },
+    {
+      "item": "5 老屋",
+      "status": "未通过",
+      "boundary": "无target/闭门文字事务成立；门洞仍开，第1次待C4门扇及C2接入"
+    },
+    {
+      "item": "6 白天与作息",
+      "status": "已有14张13时+42早中晚证据；当前画面复核待续",
+      "boundary": "交互作息证据不代表室内图面或新NPC通过；按实际时段标注"
+    },
+    {
+      "item": "7 触摸与动态遮挡",
+      "status": "动态选定三路线完成；整项未通过",
+      "boundary": "院子棚沿、村景树、磨坊桶沿真实OS按键跨排序线及恢复；磨坊另存补段，初椅侧弱证据不判过；真实触摸仍欠"
+    },
+    {
+      "item": "8 蝉鸣实听",
+      "status": "欠验",
+      "boundary": "需要阿鱼实际听1分钟并开关一次，不能由音轨或状态冒称"
+    },
+    {
+      "item": "G1 人情解锁",
+      "status": "本次图纸页前后补证通过；结合原事务证据",
+      "boundary": "三张未获得→已学会，正常institution_effect和UI friend_claim；本次未重做制作/防重/跨进程，旧116记录另存，不冒称OS全程"
+    },
+    {
+      "item": "G2 活动中心三档",
+      "status": "可见增量补齐／场景摆位质量保留",
+      "boundary": "stage1竹席、stage2菜盘、stage3画架完整无挡补角已看，16/16正常stage0→3事务；竹席靠柜灯区/菜盘叠底图食物仍须美术摆位复核，不用可见推美术全过"
+    },
+    {
+      "item": "G3 七天",
+      "status": "原116正常事务加速七天已有；证据边界保留",
+      "boundary": "每天图和新物表在原目录；不是自然连续现实七天，也不是首日重跑"
+    },
+    {
+      "item": "H1 真实触摸",
+      "status": "欠验",
+      "boundary": "只有Mac，无真实触摸设备；鼠标和模拟不冒称通过"
+    },
+    {
+      "item": "H2 交付包",
+      "status": "待C2打交付提交包后独测",
+      "boundary": "双击/关重开/存档/提交号待最终稳定包"
+    },
+    {
+      "item": "H3 全村走查",
+      "status": "未完成",
+      "boundary": "只完成上述局部，不能由规则断言或局部路线推全村无死点/占位"
+    },
+    {
+      "item": "S1 牛奶",
+      "status": "最新图面窄项通过／输入欠验",
+      "boundary": "三关正常命令成功及医院v2失败已看，无床针疹；旧规则复用，不冒称OS真人流程"
+    },
+    {
+      "item": "S2 泥鳅",
+      "status": "图面与单次实际捕获入篮通过／真人时机欠验",
+      "boundary": "正常0.5秒投捞得1条、60秒入篮已看；汤事务旧证据复用"
+    },
+    {
+      "item": "S3 火车",
+      "status": "图面采买/装箱/外套结果通过／实际拖拽欠验",
+      "boundary": "当前UI原图已看；Scroll中下面控件未做OS输入验证"
+    },
+    {
+      "item": "S4 日常",
+      "status": "两支线图面与收衣截止窄项通过／输入欠验",
+      "boundary": "新摆位沿晾绳/竹筛，2件/2叶移除已看；旧单测22/22验证45秒、同日重试和一次奖励"
+    },
+    {
+      "item": "R 全员人物",
+      "status": "全员素材与引擎动作局部通过／整体未过",
+      "boundary": "18人源图阵容通过；17新实际动作+凯凯旧37复用；17原正常头像+货郎正常商店头像单点2/2通过。货郎坐姿被商店气泡挡、部分九户坐姿姓名牌压脸身体，图面退回"
+    }
+  ],
+  "current_block": "Mac锁定，手动解锁问题仍待回复；没有继续发送OS输入",
+  "independent_runtime": "冬季复验副本运行中，600秒超时会正常保存退出；当前未发送任何冬季行走输入",
+  "delivered_to_formal_report": false,
+  "handoff": "供唯一写入者前端C2审阅归档，本目录仅隔离QA产物",
+  "received_not_verified": [
+    {
+      "item": "冬季",
+      "source_file": "core/village_ground.gd",
+      "C2_narrow_test": "8层可见/18路多边形不变",
+      "C3_state": "Mac锁定，实际输入待续"
+    },
+    {
+      "item": "S4收衣截止",
+      "C2_narrow_test": "laundry_seconds=45，18项窄测",
+      "C3_state": "等S图面一起复验，不重跑87"
+    },
+    {
+      "item": "逐户真实物件加载",
+      "C2_note": "支持前后file/rect/foot排序",
+      "C3_state": "等C4资产；当前不算画面修好"
+    }
+  ],
+  "G1_minor_observation": "未获得图纸说明仍只提动物包/金币盲盒，未提示新人情解锁；不影响已测未获得→已学会状态，建议C2文案同步",
+  "batch": "非OS追加-1025",
+  "closing_threshold_remaining_percent": 40,
+  "OS_input_this_batch": false,
+  "OS_blocker": "CUA inventory still explicitly reports Mac locked; user has already authorized exclusive QA; no repeated confirmation, no unlock bypass",
+  "formal_archive_owner": "front C2; old66files untouched",
+  "new_evidence": "this batch only; all candidate/art/clock/preview fixture boundaries stated in subreports",
+  "new_tests_stopped": true,
+  "closure": "C2 requested immediate stable archive at34%; no new testing/OS input after final Daba single image already completed"
+}

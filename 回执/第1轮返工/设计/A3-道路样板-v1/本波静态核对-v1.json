@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-14",
+  "result": "a3_failed_visual_gate_do_not_integrate",
+  "checks": {
+    "manifest_json_parse": true,
+    "required_files_present": true,
+    "html_local_references": 4,
+    "html_missing_references": 0,
+    "asset_size": [1024, 1024],
+    "asset_mode": "RGBA",
+    "asset_sha256_matches_manifest": true,
+    "world_rect": [0, 1900, 1024, 1024],
+    "production_directory_modified": false,
+    "git_modified_by_c4": false,
+    "gui_run_by_c4": false
+  },
+  "attempts": {
+    "count": 3,
+    "attempt_1": "失败：菜地和道路几何漂移",
+    "attempt_2": "失败：几何仍未锁回原位",
+    "attempt_3": "失败：1:1合成后有彩色残边与漂浮贴片"
+  },
+  "layout_boundary": "使用现有生产布局ground-c4-v2.png与village.json；A、C整村候选均未接入，也都不是最终布局。",
+  "quota": {
+    "team_start_remaining_percent": 24,
+    "last_reported_remaining_percent": 21,
+    "stop_threshold_remaining_percent": 5,
+    "new_generation_after_delivery": false
+  },
+  "acceptance_boundary": "A3当前未过且禁止生产接入；只归档三次失败证据、manifest和A2比例建议。"
+}

@@ -1,204 +1,218 @@
 {
   "id": "v_h3",
-  "title": "3A · 磨坊人家 · 一楼",
+  "title": "小涛磨坊 · 一楼",
   "group": "村庄",
   "floor": 0,
   "size": [
-    820,
-    700
+    508,
+    600
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h3.png",
+  "background": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
   "asset_root": "res://ayu_home/v3/assets/",
   "props": [
     {
-      "id": "bench0",
-      "file": "res://ayu_home/v4/assets/village/furniture_bench.png",
-      "pos": [
-        50,
-        160
+      "id": "mill_tea_chair",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        99.10000000000001,
+        834.3133333333334,
+        195.50666666666666,
+        213.69333333333333
       ],
-      "foot": 233,
-      "front": false
+      "pos": [
+        44,
+        367
+      ],
+      "foot": 460,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
     },
     {
-      "id": "cabinet1",
-      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-      "pos": [
-        240,
-        165
+      "id": "mill_machine_front",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        681.0733333333334,
+        709.28,
+        345.5466666666667,
+        363.73333333333335
       ],
-      "foot": 272,
-      "front": false
+      "pos": [
+        300,
+        312
+      ],
+      "foot": 472,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
     },
     {
-      "id": "kitchen2",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        595,
-        140
+      "id": "mill_bucket_front",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        649.2466666666668,
+        945.7066666666667,
+        95.48,
+        125.03333333333333
       ],
-      "foot": 223,
-      "front": false
+      "pos": [
+        286,
+        416
+      ],
+      "foot": 471,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
     },
     {
-      "id": "table3",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        120,
-        405
+      "id": "mill_trough_front",
+      "file": "res://ayu_home/v4/assets/institutions/mill-entry-v2.png",
+      "atlas_region": [
+        744.7266666666667,
+        1045.7333333333333,
+        209.14666666666668,
+        70.47333333333333
       ],
-      "foot": 480,
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
       "pos": [
-        710,
-        390
+        328,
+        460
       ],
-      "foot": 540,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        312,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        470
-      ],
-      "foot": 538,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        748,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        380,
-        442
-      ],
-      "foot": 475,
-      "front": false
+      "foot": 491,
+      "scale": [
+        0.4398826979472141,
+        0.4398826979472141
+      ]
     }
   ],
   "obstacles": [
     [
-      500,
-      90,
-      12,
-      220
+      390,
+      84,
+      87,
+      170
     ],
     [
-      500,
-      450,
-      12,
-      190
+      74,
+      326,
+      91,
+      81
     ],
     [
-      54,
-      202.9,
-      118,
-      35.1
+      49,
+      402,
+      82,
+      63
     ],
     [
-      244,
-      226.60000000000002,
-      90,
-      50.4
+      28,
+      441,
+      38,
+      38
     ],
     [
-      599,
-      188.4,
-      147,
-      39.6
+      171,
+      65,
+      143,
+      146
     ],
     [
-      124,
-      449.0,
-      112,
-      36.0
+      337,
+      55,
+      38,
+      111
+    ],
+    [
+      300,
+      312,
+      152,
+      160
+    ],
+    [
+      286,
+      416,
+      42,
+      55
+    ],
+    [
+      328,
+      460,
+      92,
+      31
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
+      "id": "mill",
+      "label": "推石磨磨谷粉",
+      "kind": "mill_game",
       "pos": [
-        310,
-        580
+        302,
+        350
       ],
       "approach": [
-        310,
-        620
-      ],
-      "kind": "village",
-      "copy": "青叔是本村虚构住户。他做谷粉，也爱泡茶。"
+        268,
+        332
+      ]
     },
     {
-      "id": "house_help",
-      "label": "扫净磨坊台面",
+      "id": "sift",
+      "label": "簸一簸谷子",
+      "kind": "sift_grain",
       "pos": [
-        500,
-        550
+        271,
+        170
       ],
       "approach": [
-        500,
-        590
+        272,
+        230
+      ]
+    },
+    {
+      "id": "tea",
+      "label": "添一杯热茶",
+      "kind": "tea_pour",
+      "pos": [
+        115,
+        360
       ],
-      "kind": "village",
-      "copy": "谷壳扫好了，青叔把茶杯推到你手边。",
-      "house": "h3"
+      "approach": [
+        216,
+        365
+      ]
+    },
+    {
+      "id": "sweep",
+      "label": "扫净地上的谷壳",
+      "kind": "sweep_mill",
+      "pos": [
+        326,
+        248
+      ],
+      "approach": [
+        328,
+        278
+      ]
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
+      "kind": "seat",
       "pos": [
-        410,
-        455
+        90,
+        415
       ],
       "approach": [
-        410,
-        510
+        188,
+        438
       ],
-      "kind": "seat",
       "seat": [
-        410,
-        465
+        90,
+        415
       ],
       "face": "down"
-    },
-    {
-      "id": "mill",
-      "label": "青叔 · 石磨和订单",
-      "pos": [
-        600,
-        390
-      ],
-      "approach": [
-        600,
-        440
-      ],
-      "kind": "village"
     }
   ],
   "doors": [
@@ -207,33 +221,43 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        410,
-        646
+        254,
+        526
       ],
       "approach": [
-        410,
-        664
+        254,
+        518
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
+      "width": 76,
+      "span": [
+        254,
+        508,
+        76
+      ],
       "explicit_opening": true
     },
     {
       "id": "upstairs",
-      "label": "上二楼",
+      "label": "去二楼歇息间",
       "target": "v_h3_up",
       "pos": [
-        755,
-        545
+        439,
+        253
       ],
       "approach": [
-        755,
-        575
+        439,
+        276
       ],
       "face": "down",
       "kind": "door",
-      "width": 60,
+      "width": 64,
+      "span": [
+        439,
+        260,
+        64
+      ],
       "explicit_opening": true
     }
   ],
@@ -241,14 +265,14 @@
   "windows": [],
   "lamps": [
     [
-      262,
-      115,
-      240
+      164,
+      65,
+      160
     ],
     [
-      590,
-      489,
-      220
+      346,
+      65,
+      160
     ]
   ],
   "source_offset": [
@@ -256,23 +280,115 @@
     0
   ],
   "spawn": [
-    410,
-    595
+    254,
+    486
   ],
   "walk_rect": [
-    22,
-    100,
-    776,
-    580
+    24,
+    94,
+    460,
+    472
   ],
   "outdoor": false,
-  "view_scale": 1.15,
+  "view_scale": 2.0,
+  "walk_polygons": [
+    [
+      [
+        24,
+        94
+      ],
+      [
+        484,
+        94
+      ],
+      [
+        484,
+        504
+      ],
+      [
+        298,
+        504
+      ],
+      [
+        298,
+        566
+      ],
+      [
+        210,
+        566
+      ],
+      [
+        210,
+        504
+      ],
+      [
+        24,
+        504
+      ]
+    ]
+  ],
+  "nav_cell": 4,
+  "institution": "mill",
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          272,
+          230
+        ],
+        "face": "up",
+        "action": "sift",
+        "line": "早上的谷子干爽，先把壳簸出去，磨出的粉才细。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          260,
+          410
+        ],
+        "face": "right",
+        "action": "mill",
+        "line": "搭把手推一圈吧，粉槽满了就能收好。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          90,
+          415
+        ],
+        "face": "down",
+        "action": "drink",
+        "line": "磨坊歇下来了。坐一会儿，茶刚续上。",
+        "approach": [
+          188,
+          438
+        ]
+      }
+    ]
+  },
   "npc": {
-    "name": "青叔",
+    "id": "xiaotao",
+    "name": "小涛",
+    "portrait": "xiaotao",
+    "character_id": "xiaotao",
+    "preset": 1,
     "pos": [
-      600,
-      390
-    ],
-    "preset": 1
-  }
+      106,
+      280
+    ]
+  },
+  "background_scale": [
+    0.4398826979472141,
+    0.4398826979472141
+  ],
+  "background_offset": [
+    0.4076246334310838,
+    0
+  ],
+  "entry_camera_bias": [
+    -70,
+    30
+  ],
+  "entry_camera_radius": 160
 }

@@ -1,0 +1,15 @@
+{
+  "scope": "one road and sparse short-grass shoulder sample; geometry frozen; existing verge atlas reused",
+  "candidate_root": "候选/自然乡间小路-1025/overlay/ayu_home/v4",
+  "current_road_source": "core/natural_terrain.gd: earth() generates 256px dirt; to be replaced by C4 art",
+  "current_foliage": "assets/village/rice-seasons-1025/rice-summer.png; natural_terrain.foliage() remaps colour",
+  "existing_verge": "assets/village/natural-verge-1025/roadside-atlas.png; 4 columns by 3 rows",
+  "requested_art": [
+    {"id":"road", "target_tile_px":[256,256], "view":"top down, coarse pixels", "content":"worn compact earth, few stones, quiet variation, tileable"},
+    {"id":"shoulder", "target_tile_px":[256,256], "view":"same scale/light/palette", "content":"sparse short grass roots and bare earth, earth matches road, no tall dense grass or border"}
+  ],
+  "delivery": "one atlas or two tiles; supply exact pixel regions, raw file and SHA; C2 uses AtlasTexture, no program painting",
+  "integration": "C2 controls geometric masks and shoulder coverage only; no change to road navigation or physical channel boundaries",
+  "test": "one close view at main_road_view [3544.321,1952.678], 13h July, plus Ayu reference; C3 visual gate before reuse",
+  "stop": "20 percent start closing current work; 15 hard stop"
+}

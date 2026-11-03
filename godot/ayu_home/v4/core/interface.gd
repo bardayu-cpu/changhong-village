@@ -3,6 +3,9 @@ const UI=preload("res://ayu_home/v4/pixel_ui.gd")
 const C=preload("res://ayu_home/v4/core/config.gd")
 const State=preload("res://ayu_home/v4/core/state.gd")
 const Yard=preload("res://ayu_home/v4/core/yard.gd")
+const Residents=preload("res://ayu_home/v4/core/residents.gd")
+const InventoryView=preload("res://ayu_home/v4/core/inventory_view.gd")
+var basket_memory:Dictionary={}
 var state
 var home
 var opened:=false
@@ -29,11 +32,16 @@ var route_spot:=""
 var overlay
 var ticks:=0
 var houses:Array=[]
+var institution_room
+var institution_game
+var childhood_game
+var street_actors:Array=[]
 func setup(h:Node) -> void:
 	home=h;layer=45;state=State.new()
 	var override_path:=""
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--core-save="):override_path=arg.trim_prefix("--core-save=")
+	if not home.candidate_root.is_empty():override_path=home.candidate_root.path_join("core")
 	state.open(home.profile,override_path)
 	if not state.blocked:
 		if state.data.village.household.is_empty():
@@ -81,13 +89,19 @@ func tick() -> void:
 	if is_instance_valid(farm_canvas):farm_canvas.refresh()
 func time_text(seconds:int) -> String:return "%d:%02d"%[seconds/60,seconds%60]
 func close() -> void:
+	if is_instance_valid(institution_game):institution_game.cancel();return
 	if root:remove_child(root);root.queue_free();root=null
 	opened=false;home.ui.visible=true;home.cooldown=.8;yard=null;counters.clear()
+	if page=="篮子" and is_instance_valid(order_button):order_button.grab_focus()
 func _unhandled_input(e:InputEvent) -> void:
 	if opened and e.is_action_pressed("ui_cancel"):close();get_viewport().set_input_as_handled()
 func show_page(which:String) -> void:
 	if root:remove_child(root);root.queue_free()
 	opened=true;home.close_modal();home.ui.visible=false;page=which;counters.clear();yard=null;farm_canvas=null
+	if which=="篮子" and not state.blocked:
+		root=InventoryView.new();add_child(root);root.setup(state,basket_memory)
+		root.close_requested.connect(close);root.page_requested.connect(show_page);root.action_requested.connect(inventory_action)
+		return
 	root=Control.new();root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.theme=UI.theme();add_child(root)
 	var bg:=ColorRect.new();bg.color=UI.DEEP;bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.add_child(bg)
 	var outer:=MarginContainer.new();outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.add_child(outer)
@@ -123,7 +137,6 @@ func show_page(which:String) -> void:
 		"牌子":orders()
 		"村长":mayor()
 		"院子":my_yard()
-		"篮子":inventory()
 		"开地":land_confirmation()
 	back.grab_focus();tick()
 func text(copy:String) -> void:content.add_child(UI.paragraph(copy))
@@ -170,9 +183,9 @@ func kitchen() -> void:
 	button("去村里的生产场所",show_page.bind("地图"))
 
 func orders() -> void:
-	title("门口的小牌子")
+	title("门口的小牌子 · "+state.date_key())
 	for order in state.orders():
-		text("%s想要 %s\n酬谢 %d 金币%s"%[order.who,state.describe(order.items),order.coins," · 记人情簿" if order.family else ""])
+		text("%s · %s\n想要 %s，酬谢 %d 金币%s"%[order.who,order.title,state.describe(order.items),order.coins," · 记人情簿" if order.family else ""])
 		var b:=button("今天已交" if order.done else "交给"+order.who,action.bind("order",{"id":order.id}),not order.done);b.disabled=order.done
 	title("家人的人情簿")
 	if state.data.renqing.is_empty():text("帮家人交了订单，这里就留下一行来往。")
@@ -184,15 +197,15 @@ func mayor() -> void:
 	if not v.resident:
 		text("阿鱼说你常来帮忙。住下需要三件邻里订单，再备好一点起家物资。客房仍可以住。")
 		text("已交 %d / %d 件订单\n入驻：%d 金币、%s"%[v.order_total,C.RESIDENCY.orders,C.RESIDENCY.coins,state.describe(C.RESIDENCY.items)])
-		text("还缺材料："+(state.missing_text(C.RESIDENCY.items) if not state.has_items(C.RESIDENCY.items) else "材料已齐")+"。楼卜自己种，竹材让动物带回，或帮阿禾收蜜。")
+		text("还缺材料："+(state.missing_text(C.RESIDENCY.items) if not state.has_items(C.RESIDENCY.items) else "材料已齐")+"。楼卜自己种，竹材让动物带回，或在村委会整理事务卡。")
 		button("提交物资，申请入驻",action.bind("reside"),true)
 		button("去看邻里订单",show_page.bind("牌子"))
 	elif v.location.is_empty():
 		title("先看看，再决定住哪里")
-		text("这几处空地都是村里预留的。阿鱼家的动物仍住阿鱼家，会继续替你带东西；自留地和库存沿用你做客时的积累。第一块地开好才搭起小屋。")
+		text("这几处空地都是村里预留的。阿鱼家的动物仍住阿鱼家，会继续替你带东西；自留地和库存沿用你做客时的积累。第一块地开好后就能摆放家具。")
 		for id in C.LOCATIONS:button("预览 · "+C.LOCATIONS[id],func():preview_location=id;show_page("选址预览"))
 	else:
-		text("你的家在"+C.LOCATIONS[v.location]+"。生活过的地方都会记着你；有空也来公所坐坐。")
+		text("你的家在"+C.LOCATIONS[v.location]+"。生活过的地方都会记着你；有空也来村委会坐坐。")
 		button("沿村路回自己的地",func():travel("village","home_site"))
 	button("先回村里走走",close)
 func location_preview() -> void:
@@ -225,22 +238,19 @@ func my_yard() -> void:
 	title("家具库")
 	if v.furniture.is_empty():text("先在篮子里开图纸，备好材料做一件家具。")
 	for f in v.furniture:
-		button(C.FURNITURE[f.kind].name+" #%d · "%f.id+("已摆" if f.x>=0 else "待摆"),func():selected_furniture=int(f.id);notice="选好家具，点上面开好的空格放下";show_page(page),int(f.id)==selected_furniture)
+		button(C.FURNITURE[f.kind].name+" · "+("已摆" if f.x>=0 else "待摆"),func():selected_furniture=int(f.id);notice="选好家具，点上面开好的空格放下";show_page(page),int(f.id)==selected_furniture)
 	if selected_furniture>=0:button("收起选中的家具",action.bind("store",{"id":selected_furniture}))
 	button("去看图纸与材料",show_page.bind("篮子"))
-func inventory() -> void:
-	title("随身篮子")
-	text(state.describe(state.data.village.items))
-	title("种子篮 · 每包 %d 金币"%C.SEED_COST)
-	for crop in C.CROPS:button("换一包"+C.CROPS[crop].name+"种",action.bind("seed",{"crop":crop}))
-	title("图纸与小包")
-	text("金币盲盒和动物包：25% 出旧锄头，其余出图纸；连续三次没工具，第四次保底。已有图纸换 3 根竹材。")
-	button("金币盲盒 · %d 金币"%C.BOX_COST,action.bind("box"))
-	button("打开动物包（%d）"%state.count("parcel"),action.bind("parcel"))
-	for id in C.FURNITURE:
-		var cfg:Dictionary=C.FURNITURE[id]
-		text(cfg.name+"图纸 · "+("已学会" if id in state.data.village.blueprints else "未获得")+"\n制作需要："+state.describe(cfg.items))
-		var b:=button("制作"+cfg.name,action.bind("craft",{"id":id}));b.disabled=not id in state.data.village.blueprints
+func inventory_action(command:String,args:Dictionary) -> void:
+	var result:Dictionary=state.act(command,args);notice=result.message
+	if result.ok:home.play_sound("switch")
+	if is_instance_valid(root) and root is InventoryView:root.show_feedback(result.message)
+
+class FurnitureSample extends Control:
+	var kind:="chair"
+	func _draw() -> void:
+		texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+		preload("res://ayu_home/v4/core/furniture_draw.gd").paint(self,kind,Rect2(4,4,68,68))
 
 func confirm_land(index:int) -> void:
 	land_choice=index;notice="先看看要用的东西，够了再开这块地。";show_page("开地")
@@ -256,27 +266,79 @@ func checkpoint() -> void:
 	if not state.blocked and is_instance_valid(home.player):state.act("checkpoint",{"area":home.area,"position":[home.player.position.x,home.player.position.y]})
 func entered() -> void:
 	if state.blocked:return
+	institution_room=null;street_actors.clear()
 	var cfg:Dictionary=home.world.cfg
-	for d in cfg.doors:
-		if d.target=="my_cabin" and float(state.data.village.land[0])<=0:d.label="先开第一块地，搭起小屋"
 	if home.area=="village" and not state.data.village.location.is_empty():
-		var xy:Array=C.LOCATION_POINTS[state.data.village.location]
+		var xy:Array=C.location_points()[state.data.village.location]
 		for h in cfg.hotspots:
 			if h.id=="home_site":h.approach=xy;h.pos=[xy[0],xy[1]-30]
 	for record in cfg.get("npcs",[cfg.npc] if cfg.has("npc") else []):
+		if cfg.has("resident"):continue # 机构主人交给作息组件，只创建一次。
 		if record.get("id","")=="market" and not state.isMarketDay():continue
-		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.preset);home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.set_process(false)
+		if record.get("character_id","") in ["xiaotao","kaikai","linbo"] and not (home.hour>=5 and home.hour<7):continue
+		var actor=preload("res://ayu_home/v4/actor.gd").new();actor.preset=int(record.get("preset",0));actor.look_override=Residents.look(str(record.get("character_id",record.get("id",""))));home.world.actors.add_child(actor);actor.setup("visitor");actor.position=Vector2(record.pos[0],record.pos[1]);actor.action="idle";actor.draw_hand_overlays=false;street_actors.append({"actor":actor,"origin":actor.position,"next":8.0,"leg":0,"id":str(record.get("character_id",record.get("id","")))})
 		var nameplate:=Label.new();nameplate.text=str(record.name);nameplate.add_theme_font_override("font",UI.FONT);nameplate.add_theme_font_size_override("font_size",16);nameplate.add_theme_color_override("font_shadow_color",Color("392f24"));nameplate.add_theme_constant_override("shadow_offset_x",1);nameplate.add_theme_constant_override("shadow_offset_y",1);nameplate.position=Vector2(-24,-108);actor.add_child(nameplate)
+		actor.nameplate=nameplate;nameplate.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	if cfg.has("resident"):
+		institution_room=preload("res://ayu_home/v4/core/institution_room.gd").new();home.world.add_child(institution_room);home.world.move_child(institution_room,home.world.actors.get_index());institution_room.setup(self)
 	overlay=preload("res://ayu_home/v4/core/world_life.gd").new();overlay.ui=self;home.world.add_child(overlay)
 	checkpoint()
+func open_institution_game(id:String) -> void:
+	if is_instance_valid(institution_game):return
+	home.close_modal();opened=true;home.ui.visible=false
+	institution_game=preload("res://ayu_home/v4/core/institution_game.gd").new();add_child(institution_game);institution_game.setup(self,id)
+func talk_resident(id:String) -> bool:
+	return is_instance_valid(institution_room) and institution_room.talk(id)
+func resident_card(id:String) -> bool:
+	if not id in ["xiaotao","kaikai","linbo","fang"]:return false
+	var name:String={"xiaotao":"小涛","kaikai":"凯凯","linbo":"林伯","fang":"方婆婆"}[id]
+	var col:VBoxContainer=home.modal_shell(name+"的小卡片")
+	if id=="fang":
+		col.add_child(UI.label("方婆婆 · 活动中心值日",26));col.add_child(UI.paragraph("早上洗菜摆桌，中午招呼大家拌菜，晚上收好共用品坐下翻故事册。这里第一天就能来。"));return true
+	if id=="linbo":
+		col.add_child(UI.label("林伯 · 村委会",26));col.add_child(UI.paragraph("早上核对住户名册，中午办理村务，傍晚到议事桌听大家的意见。"));return true
+	if id=="kaikai":
+		col.add_child(UI.label("凯凯 · 蜂蜜小院",26));col.add_child(UI.paragraph("清早洗净蜂具，中午摇蜜装瓶，傍晚在窗下留一杯蜜茶。"));return true
+	col.add_child(UI.label("小涛 · 小涛磨坊",26));col.add_child(UI.paragraph("早上簸谷，中午推磨，傍晚在茶席歇脚。五点到七点在村路上转一圈，其余时间能在磨坊找到他。"))
+	return true
 func interact(h:Dictionary) -> bool:
+	if h.get("kind","")=="loach_memory":open_childhood();childhood_game.intro("loach");return true
+	if h.get("kind","")=="closed_house":home.play_sound("knock");home.player.say(str(h.copy));return true
+	if h.get("kind","")=="childhood":open_childhood();return true
+	if is_instance_valid(institution_room) and institution_room.handle(h):return true
 	var id:=str(h.id)
+	if h.get("kind","")=="door_chore":
+		var result:Dictionary=state.act("door_chore",{"id":h.house})
+		var message:String="今日不便拜访，下次再来。\n"+str(result.message)
+		home.player.face="up";home.player.say(message);home.note=message
+		if is_instance_valid(overlay):overlay.queue_redraw()
+		return true
+	if h.get("kind","")=="community_growth":
+		var col:VBoxContainer=home.modal_shell("一起张罗活动中心")
+		var stage:=int(state.data.village.community_stage)
+		col.add_child(UI.paragraph("已经添置 %d / 3 处，留下的物件会一直在这里。"%stage))
+		if stage<C.COMMUNITY_STAGES.size():
+			var next:Dictionary=C.COMMUNITY_STAGES[stage]
+			col.add_child(UI.paragraph(str(next.name)+" · 需要 "+state.describe(next.items)))
+			col.add_child(UI.button("交材料并摆好",func():var result:Dictionary=state.act("community_grow");home.close_modal();home.player.say(result.message);institution_room.queue_redraw(),true))
+		return true
+	if h.get("kind","")=="house_task":
+		var result:Dictionary=state.act("house_help",{"id":h.house,"title":home.world.cfg.title,"text":h.copy,"repeat_text":h.repeat_copy,"label":h.label})
+		home.player.say(result.message);home.note=result.message
+		if is_instance_valid(overlay):overlay.queue_redraw()
+		return true
+	if h.get("kind","")=="house_display":
+		var result:Dictionary=state.act("house_display",{"id":h.house})
+		home.player.say(str(h.copy) if result.ok else str(result.message))
+		if is_instance_valid(overlay):overlay.queue_redraw()
+		return true
 	if h.get("kind","")!="village":return false
 	context_id=id
 	match id:
 		"map":show_page("地图")
 		"mayor":show_page("村长")
-		"mill","honey":show_page("村民")
+		"mill":home.dialogue("小涛",C.NEIGHBOURS.mill.first,"xiaotao",func():show_page("村民"))
+		"honey":home.dialogue("凯凯",C.NEIGHBOURS.honey.first,"kaikai",func():show_page("村民"))
 		"pond","chicken","orchard":show_page("生产")
 		"market":show_page("货郎")
 		"yard":show_page("院子")
@@ -286,7 +348,7 @@ func interact(h:Dictionary) -> bool:
 			if state.data.village.location.is_empty():notice="先找林伯申请，再比较四处空地。";show_page("日常")
 			else:home.enter_room("my_yard",true,"village")
 		"house_help":
-			var result:Dictionary=state.act("house_help",{"id":h.get("house",home.area),"title":home.world.cfg.title,"text":h.get("copy","")});home.player.say(result.message);home.note=result.message
+			var result:Dictionary=state.act("house_help",{"id":h.get("house",home.area),"title":home.world.cfg.title,"text":h.get("copy",""),"repeat_text":h.get("repeat_copy",""),"label":h.get("label","")});home.player.say(result.message);home.note=result.message
 		_:
 			home.player.say(str(h.get("copy","慢慢来，坐一会儿。")));home.note=str(h.get("copy",""))
 	return true
@@ -295,7 +357,7 @@ func daily() -> void:
 	title("这是你来村里的第 %d 个日子"%state.day_number())
 	if v.order_total<3:
 		text("阿鱼：先种菜、做点吃的。三件订单交好，我就介绍你去找林伯。动物趁你串门时往返一趟，收获不着急。")
-	elif not v.resident:text("阿鱼：大家都认识你了。村公所就在院门往南的路上，林伯等你聊安家的事。")
+	elif not v.resident:text("阿鱼：大家都认识你了。村委会就在院门往南的路上，林伯等你聊安家的事。")
 	elif v.location.is_empty():text("今天可以慢慢选一处喜欢的位置。看完预览，再把家安下来。")
 	else:text("你的小院在"+C.LOCATIONS[v.location]+"。昨天留下的收获都还在，今天想开地、做家具，还是串门，由你安排。")
 	button("照料动物与自留地",show_page.bind("田边"),true)
@@ -303,6 +365,14 @@ func daily() -> void:
 	button("看看今日订单",show_page.bind("牌子"))
 	button("去找村长林伯",func():travel("village","mayor"))
 	if not v.location.is_empty():button("走回自己的地",func():travel("village","home_site"))
+	title("前七天，慢慢来")
+	text(C.FIRST_WEEK[mini(6,maxi(0,state.day_number()-1))])
+	for who in C.FRIEND_UNLOCKS:
+		var reward:Dictionary=C.FRIEND_UNLOCKS[who]
+		text(who+" · 人情 %d / %d"%[state.friendship(who),int(reward.threshold)])
+		if v.friend_unlocks.has(who):button(str(reward.label)+" · 已学会，去制作",show_page.bind("篮子"))
+		else:button("学习"+str(reward.label),action.bind("friend_claim",{"who":who}))
+	button("去活动中心添置共用物件",func():travel("my_cabin"))
 	title("十分钟之外，随便走走")
 	button("沿村路拜访邻居",show_page.bind("地图"))
 	button("去溪边钓鱼",func():travel("bridge","fishing"))
@@ -325,17 +395,24 @@ func neighbour() -> void:
 	var c:Dictionary=C.NEIGHBOURS[context_id].duplicate(true);c.request=state.neighbour_request(context_id);var v:Dictionary=state.data.village
 	title(c.name)
 	text(c.again if int(v.helped.get(context_id,0))>0 else c.first)
-	text("帮忙次数：%d。今天想要 %s，酬谢 %d 金币和 %s。"%[int(v.helped.get(context_id,0)),state.describe(c.request),c.coins,state.describe(c.gift)])
+	text("帮忙次数：%d。今天想要 %s，这份来往记在人情簿里。"%[int(v.helped.get(context_id,0)),state.describe(c.request)])
 	button("把东西交给"+c.name,action.bind("neighbour",{"id":context_id}),true)
 	if context_id=="mill":button("借用石磨",show_page.bind("灶屋"))
 	else:button("照料蜂蜜箱",show_page.bind("生产"))
 	title("窗外的小事")
-	text("雨雪天给鸟留一把谷子；晴阴天分享一个当季果子。帮完收到 25 金币和一根竹材。每天任选一回。")
+	text("雨雪天给鸟留一把谷子；晴阴天分享一个当季果子。邻居记着这份人情。每天任选一回。")
 	button("做今天的小事",action.bind("season_help",{"weather":home.weather,"season":home.Data.SEASONS[home.Data.season(home.month)]}))
 	button("坐会儿再走",func():close();home.player.action="sit";home.note="坐一会儿，点地面起身。")
 func market() -> void:
 	title("村口货郎 · "+("今日赶场" if state.isMarketDay() else "今天歇场"))
-	text("按公历逢单日赶场，每次轮换货物。歇场时，邻里食材柜仍收多余菜果。")
+	var introduction:=HBoxContainer.new();introduction.add_theme_constant_override("separation",14);content.add_child(introduction)
+	var portrait:=TextureRect.new();portrait.name="MarketPortrait"
+	portrait.texture=preload("res://ayu_home/v2/assets.gd").texture("res://ayu_home/v4/assets/talk-faces/market.png")
+	portrait.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;portrait.custom_minimum_size=Vector2(112,129)
+	portrait.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;portrait.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.mouse_filter=Control.MOUSE_FILTER_IGNORE;introduction.add_child(portrait)
+	var greeting:=UI.paragraph("按公历逢单日赶场，每次轮换货物。歇场时，邻里食材柜仍收多余菜果。")
+	greeting.size_flags_horizontal=Control.SIZE_EXPAND_FILL;introduction.add_child(greeting)
 	if state.isMarketDay():
 		for id in state.market_goods():button(C.ITEMS[id]+" · %d 金币"%state.market_goods()[id],action.bind("market_buy",{"id":id}))
 	title("邻里食材柜 · 随时能放")
@@ -363,7 +440,7 @@ func map_page() -> void:
 	m.house_selected.connect(func(id:String):travel("village","visit_"+id))
 	text("点图上的房屋或下方地点，就会沿路步行。途中点地面可改道；屋内先走到门，再接着往村路上走。")
 	for h in houses:button(h.title+" · "+h.subtitle,func():travel("village","visit_"+h.id))
-	for item in [["阿禾的蜂箱","honey"],["青叔的小石磨","mill"],["池塘","pond"],["鸡圈","chicken"],["果园","orchard"],["村口货郎","market"],["自己的地","home_site"]]:button(item[0],func():travel("village",item[1]))
+	for item in [["凯凯的蜂箱","honey"],["小涛的小石磨","mill"],["池塘","pond"],["鸡圈","chicken"],["果园","orchard"],["村口货郎","market"],["自己的地","home_site"]]:button(item[0],func():travel("village",item[1]))
 	button("阿鱼家楼层图",func():close();home.navigation("一楼"))
 func travel(room:String,spot:="") -> void:
 	close();route_target=room;route_spot=spot;home.note="沿路慢慢走。点地面或方向键可停下。";follow_route()
@@ -377,3 +454,8 @@ func follow_route() -> void:
 	for d in home.world.cfg.doors:
 		if d.target==hop:home.go(d.id);return
 	home.note="这段路暂时没连上，请从门口返回。";route_target=""
+
+func open_childhood() -> void:
+	if is_instance_valid(childhood_game):return
+	home.close_modal();close();opened=true;home.ui.visible=false
+	childhood_game=preload("res://ayu_home/v4/core/childhood_game.gd").new();add_child(childhood_game);childhood_game.setup(self)

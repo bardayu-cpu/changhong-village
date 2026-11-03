@@ -1,0 +1,109 @@
+{
+  "scope": "C4 author check for generated G0-only assets; not C3 acceptance and not permission to integrate formal production",
+  "generation_mode": "built-in imagegen",
+  "plan_commit": "a4e4d411",
+  "fixed_material_regions_xywh": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+  "assets": [
+    {
+      "id": "G0-MIDDLE-02",
+      "file": "回执/整村复审返工/第0步/C4素材/v2/G0-MIDDLE-02.png",
+      "sha256": "1e888250ab3c4fa4919435571273c10fcac5e4bae108b0fd7874e83a7a387346",
+      "source_size": [2172,724],
+      "region": [0,0,2172,724],
+      "alpha_bbox": [0,155,2172,497],
+      "core_alpha_bbox_at_16": [0,313,2172,170],
+      "anchor_x": 1086,
+      "anchor_y": 483,
+      "buried_region": [0,483,2172,241],
+      "status": "C3_controlled_composite_allowed_not_passed",
+      "author_check": "C3确认独立蓝灰山脊语义成立，只允许现图受控合成；真实主脊遮挡和硬底边待验。本项未通过，不解除G0停止。",
+      "attempt": "02 of maximum 3",
+      "prompt_summary": "single low blue-gray middle ridge, transparent, no sky/forest/mist/village"
+    },
+    {
+      "id": "G0-FOREST-02",
+      "file": "回执/整村复审返工/第0步/C4素材/v2/G0-FOREST-02.png",
+      "sha256": "4c0e01ffe52f9881630ea31f984c2d005259d1c88979b78cccb44f541c9ae0c8",
+      "source_size": [2172,724],
+      "region": [0,0,2172,724],
+      "alpha_bbox": [0,29,2172,695],
+      "core_alpha_bbox_at_16": [0,244,2172,301],
+      "status": "author_rejected_too_tall",
+      "reason": "Complete core forest height about 301 source pixels cannot fit the 32-48px visible forest budget without hiding most of the subject.",
+      "attempt": "02 of maximum 3",
+      "prompt_summary": "independent transparent summer forest belt with broadleaf and sparse bamboo"
+    },
+    {
+      "id": "G0-FOREST-03",
+      "file": "回执/整村复审返工/第0步/C4素材/v2/G0-FOREST-03.png",
+      "sha256": "e0caa4fe280e171d7dadd1cc5db37bc6dc9f7c256d87e88e76893f6adcf771ca",
+      "source_size": [2172,724],
+      "region": [0,0,2172,724],
+      "alpha_bbox": [0,85,2172,575],
+      "core_alpha_bbox_at_16": [0,337,2172,148],
+      "anchor_x": 1086,
+      "anchor_y": 485,
+      "buried_region": [0,485,2172,239],
+      "status": "C3_original_asset_allowed_for_isolated_composite_not_passed",
+      "author_check": "C3确认现有第三张存在不缩裁主体的可行构图，只允许原PNG进入隔离合成；外沿色边、低alpha余边、横向接缝和实际遮挡待验。未判素材或场景通过，禁止第四次、换名灌木替代、缩裁或改alpha。",
+      "attempt": "03 of maximum 3; stop",
+      "prompt_summary": "replace tall forest with a complete thin transparent distant tree line"
+    },
+    {
+      "id": "G0-MIST-02",
+      "file": "回执/整村复审返工/第0步/C4素材/v2/G0-MIST-02.png",
+      "sha256": "8811970a7b1b50f4f0672e6c41f0a0c31f2b31d1335e8810e060c84fa3137b09",
+      "source_size": [2172,724],
+      "region": [0,0,2172,724],
+      "alpha_bbox": [0,101,2172,492],
+      "core_alpha_bbox_at_16": [0,324,2172,76],
+      "anchor_x": 1086,
+      "anchor_y": 400,
+      "status": "C3_actual_background_composite_required_not_passed",
+      "reason": "C3未按76高机械判退，但要求实际背景合成检查白条感、透明和接缝；当前未通过，不解除G0停止。",
+      "attempt": "02 of maximum 3",
+      "prompt_summary": "independent extremely thin irregular translucent mist ribbon"
+    },
+    {
+      "id": "G0-SHALLOW-WATER-03",
+      "file": "回执/整村复审返工/第0步/C4素材/v2/G0-SHALLOW-WATER-03.png",
+      "sha256": "37508204ae41e1c92caa03bf24fb26c158bb53c85eaa8fa98795a9ac34e258c9",
+      "source_size": [1254,1254],
+      "region": [0,0,1254,1254],
+      "alpha_bbox": [0,0,1254,1254],
+      "fixed_regions": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+      "repeat_preview": "回执/整村复审返工/第0步/C4素材/v2/G0-SHALLOW-WATER-03-fixed-crops-repeat.png",
+      "status": "C3_failed_third_attempt_G0_stopped",
+      "author_check": "C3确认失败：亮波纹在固定格边突接，形成周期斜条和短截口，颗粒粗。四格确为固定原像素重复，失败不因1254尺寸。浅水3/3停止，禁止第四次、换裁窗、缩图或其他救援。",
+      "attempt": "03 of maximum 3; stop",
+      "prompt_summary": "light shallow blue-green water with muted sand visible below, pure orthographic material"
+    },
+    {
+      "id": "G0-MUD-BANK-03",
+      "file": "回执/整村复审返工/第0步/C4素材/v2/G0-MUD-BANK-03.png",
+      "sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb",
+      "source_size": [1254,1254],
+      "region": [0,0,1254,1254],
+      "alpha_bbox": [0,0,1254,1254],
+      "fixed_regions": [[704,448,64,64],[768,448,64,64],[704,512,64,64],[768,512,64,64]],
+      "repeat_preview": "回执/整村复审返工/第0步/C4素材/v2/G0-MUD-BANK-03-fixed-crops-repeat.png",
+      "status": "C3_composite_candidate_only_not_passed",
+      "author_check": "C3只允许保留为合成候选，未通过；泥土语义成立，但石粒重复和方向性必须在实际弯岸核验。第三张不重画，若合成失败即锁3/3。",
+      "attempt": "03 of maximum 3; stop",
+      "prompt_summary": "damp compacted muted river-bank earth, pure orthographic material"
+    }
+  ],
+  "not_generated_after_stop": [
+    "G0-SHOULDER-03",
+    "summer paddy replacement",
+    "river reeds, loose stones and washing steps",
+    "any far-mountain 05"
+  ],
+  "reused_source_final_status": {
+    "godot/ayu_home/v4/assets/village/ground-pixel-1024/water.png": "C3退回，不建议接入；明暗色带和亮波纹格边突接",
+    "godot/ayu_home/v4/assets/village/ground-pixel-1024/yard.png": "C3退回，不建议接入；大色块、石粒和切断深色边重复明显",
+    "godot/ayu_home/v4/assets/village/ground-pixel-1024/stone.png": "C3确认四区拼铺不通过；格边切穿石板和灰缝，未批准",
+    "回执/第1轮收尾/C4-道路路肩样板-1025/road-transition-atlas.png": "旧候选未晋级"
+  },
+  "stop": "C3确认G0-SHALLOW-WATER-03第三次失败，G0及依赖关停止。禁止第四次、换裁窗/缩图/改alpha救援、灌木换名替代、继续其他材料或启动峨眉05。"
+}

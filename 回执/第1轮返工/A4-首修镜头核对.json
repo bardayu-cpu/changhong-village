@@ -1,0 +1,205 @@
+{
+	"failures": 0,
+	"mode": "headless actual layout_world with memory-only viewport fixtures; no save opened",
+	"pending": "C3 real first-entry comparison and A2 common on-screen actor size; no visual acceptance claimed",
+	"samples": [
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 86.6456692913386,
+			"room": "v_h3",
+			"scale": 1.03149606299213,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				540,
+				960
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 86.6456692913386,
+			"room": "v_h3_up",
+			"scale": 1.03149606299213,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				540,
+				960
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 86.6456692913386,
+			"room": "v_h5",
+			"scale": 1.03149606299213,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				540,
+				960
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 86.6456692913386,
+			"room": "v_mayor",
+			"scale": 1.03149606299213,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				540,
+				960
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 86.6456692913386,
+			"room": "v_mayor_up",
+			"scale": 1.03149606299213,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				540,
+				960
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 86.6456692913386,
+			"room": "my_cabin",
+			"scale": 1.03149606299213,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				540,
+				960
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 56.8818897637795,
+			"room": "v_h3",
+			"scale": 0.677165354330709,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				360,
+				800
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 56.8818897637795,
+			"room": "v_h3_up",
+			"scale": 0.677165354330709,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				360,
+				800
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 56.8818897637795,
+			"room": "v_h5",
+			"scale": 0.677165354330709,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				360,
+				800
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 56.8818897637795,
+			"room": "v_mayor",
+			"scale": 0.677165354330709,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				360,
+				800
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 56.8818897637795,
+			"room": "v_mayor_up",
+			"scale": 0.677165354330709,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				360,
+				800
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 56.8818897637795,
+			"room": "my_cabin",
+			"scale": 0.677165354330709,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				360,
+				800
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 61.6,
+			"room": "v_h3",
+			"scale": 0.733333333333333,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				1280,
+				720
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 61.6,
+			"room": "v_h3_up",
+			"scale": 0.733333333333333,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				1280,
+				720
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 61.6,
+			"room": "v_h5",
+			"scale": 0.733333333333333,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				1280,
+				720
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 61.6,
+			"room": "v_mayor",
+			"scale": 0.733333333333333,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				1280,
+				720
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 61.6,
+			"room": "v_mayor_up",
+			"scale": 0.733333333333333,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				1280,
+				720
+			]
+		},
+		{
+			"full_room_inside_scene_frame": true,
+			"nominal_actor_screen_height": 61.6,
+			"room": "my_cabin",
+			"scale": 0.733333333333333,
+			"stable_when_player_camera_moves": true,
+			"viewport": [
+				1280,
+				720
+			]
+		}
+	]
+}

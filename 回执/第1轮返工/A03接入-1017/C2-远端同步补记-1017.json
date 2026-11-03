@@ -1,0 +1,23 @@
+{
+  "time": "2026-10-17T16:49:24.362698-07:00",
+  "status": "生产接入和当前交接已同步GitHub；游戏GUI仍欠验",
+  "repository": "https://github.com/bardayu-cpu/changhong-village",
+  "branch": "village-deep-1010",
+  "production_commit": "0e130d0c7eef1d00b0d8964a6cc3c3686a3d88df",
+  "verified_remote_commit": "d2ad72cb1ed952356ba090f29224b970b27c66ee",
+  "verification": "git ls-remote --heads returned this exact remote SHA after successful push",
+  "local_head_at_receipt": "d2ad72cb1ed952356ba090f29224b970b27c66ee",
+  "source_and_protection": {
+    "original_png_equals_production_asset": true,
+    "protected_files_checked": 149,
+    "protected_files_changed": [],
+    "new_tests_run_in_this_chat": false
+  },
+  "previous_status_note": "冻结来源.json、阶段回执.md及续办中的尚未远端同步/远端007ed2c记录是当时状态；本补记仅更新远端同步事实。",
+  "GUI": "C3实际游戏窗口未被工具选中；没有本轮三步收菜实机通过结论。本聊天已请求用户是否接管本次隔离副本桌面验收，待答复。",
+  "user_reported_remaining_percent": 100,
+  "current_round_stop_percent_from_latest_dispatch": 30,
+  "excluded": "原7份未提交资料、实际存档、缓存、运行日志、临时截图与工作请求保持原状，不纳入本次推送。",
+  "scope": "不重跑已过的首日、87核心或蜂蜜；不改原图、状态或奖励规则；本补记尚待与后续稳定验收资料一起归档。",
+  "GUI_follow_up": "用户随后明确允许接管；实测结果见C2桌面接管-1017-01/实机验收.json。原GUI字段保留当时等待状态。"
+}

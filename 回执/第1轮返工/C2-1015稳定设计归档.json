@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-15",
+  "base_commit": "8306872ae6c8d381f43364078c9fe3adfcec2012",
+  "scope": "仅精确归档稳定设计与协调资料；未改生产代码，未运行测试，未读取或改动 C3 运行资料。",
+  "approval_state": {
+    "effect_v1": "人类确认整体画风和村落氛围方向，要求远山使用真实峨眉山剪影。",
+    "effect_v2": "按实景参照修正远山；C1 已对照归档原照核对。此记录不追加人类批准。",
+    "layout_v1": "已展示，等待人类明确认可；禁止接入工程或抢跑正式资产。",
+    "game_acceptance": "设计图不是实机画面，不构成 A1/A2/A3 或全项通过。"
+  },
+  "preservation": "鸡舍、家禽及 NPC 专用动作帧仅登记美术缺口；不得借清占位删除现有饲养玩法或互动。",
+  "validation": {
+    "files": 11,
+    "bytes": 11376399,
+    "largest_file_bytes": 4141728,
+    "image_format_integrity_checked": 5,
+    "symlinks": 0,
+    "credential_pattern_hits": 0,
+    "all_files_under_50_MiB": true,
+    "content_hashes_stable_before_staging": true
+  },
+  "included_files": [
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/下一资产阶段必要缺口登记.md",
+      "bytes": 1909,
+      "sha256": "eb0fe8a9538d6322d5cabf62af6bd0f938ad13d2481aac262bff21da16f589bc"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/参考/峨眉山市政府-山下田园主轮廓参考-1.jpg",
+      "bytes": 82519,
+      "sha256": "b602621d09959191b6050713656bb97a3187a2eb8aab203c6ced9c233daad98c",
+      "format": "JPEG",
+      "dimensions": [
+        699,
+        466
+      ]
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/参考/峨眉山市政府-山下田园主轮廓参考-2.png",
+      "bytes": 561531,
+      "sha256": "ec2ce6fedfbcd01899b6da1889d6620a689f0def8e824e92739437cda8878f91",
+      "format": "PNG",
+      "dimensions": [
+        700,
+        417
+      ]
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/参考/来源与观看方向.txt",
+      "bytes": 593,
+      "sha256": "abbf8bed75ddc4c98d9e7e49109fb20ca1fa597a722368579171587657040e1e"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/峨眉山实景参考与修正说明-v2.md",
+      "bytes": 1193,
+      "sha256": "c50094fc86c79a66953bf8fc441c71105f0483612a8ce0ec625a17357c84398a"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄布局图-等比例四组团-v1.png",
+      "bytes": 4141728,
+      "sha256": "0fef079bde284824cf297eb202429abdd2c7f56a97acbce8694a0396aa9a4345",
+      "format": "PNG",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄布局图-说明-v1.md",
+      "bytes": 1436,
+      "sha256": "24c1212f0adfa64174a82328c6ff7efa9d5b46472826db3489dc53612d575787"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄整村效果图-审美确认-v1.png",
+      "bytes": 3385015,
+      "sha256": "afb5b9218f67b946f589606b5f8fbe21364d26c0a7fa84fd4d2c77b8baa19645",
+      "format": "PNG",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/村庄整村效果图-峨眉山实景轮廓修正-v2.png",
+      "bytes": 3195583,
+      "sha256": "889f0b090b79c6d576b7c2b1aaae2da1ff46b05c2e6808e6bd8f6a38d4e7db81",
+      "format": "PNG",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "path": "回执/第1轮返工/续办-1015.md",
+      "bytes": 3075,
+      "sha256": "2bb79df99acd49c899a8366a5e64caee645ca9e3ac21f9f4f3931935c9a10f46"
+    },
+    {
+      "path": "回执/第1轮返工/C1续办画面核对-1015.md",
+      "bytes": 1817,
+      "sha256": "477f83e306f4dc25cc6c707be17bdd639f427b0933cf76e847dfca4f369ad0ff"
+    }
+  ],
+  "next": "等待 C3 实测结果及人类布局回复。C3 稳定实测资料在流程结束后另交，不在本批中。"
+}

@@ -1,0 +1,171 @@
+{
+  "notice": "Only design fixtures. Not live inventory or gameplay evidence.",
+  "items": [
+    [
+      "radish",
+      "楼卜",
+      18
+    ],
+    [
+      "pepper",
+      "海椒",
+      8
+    ],
+    [
+      "grain",
+      "谷子",
+      12
+    ],
+    [
+      "radish_seed",
+      "楼卜种",
+      3
+    ],
+    [
+      "pepper_seed",
+      "海椒种",
+      2
+    ],
+    [
+      "grain_seed",
+      "谷种",
+      4
+    ],
+    [
+      "stone",
+      "石头",
+      9
+    ],
+    [
+      "bamboo",
+      "竹材",
+      14
+    ],
+    [
+      "tool",
+      "旧锄头",
+      1
+    ],
+    [
+      "parcel",
+      "动物包",
+      3
+    ],
+    [
+      "meal",
+      "海椒拌楼卜",
+      2
+    ],
+    [
+      "flour",
+      "谷粉",
+      4
+    ],
+    [
+      "porridge",
+      "谷香粥",
+      1
+    ],
+    [
+      "honey",
+      "蜂蜜",
+      2
+    ],
+    [
+      "fish",
+      "鲜鱼",
+      1
+    ],
+    [
+      "egg",
+      "鸡蛋",
+      2
+    ],
+    [
+      "fruit",
+      "时令果",
+      3
+    ]
+  ],
+  "furniture": {
+    "chair": [
+      "竹椅",
+      {
+        "bamboo": 2
+      }
+    ],
+    "table": [
+      "小木桌",
+      {
+        "bamboo": 3,
+        "stone": 1
+      }
+    ],
+    "planter": [
+      "花架",
+      {
+        "bamboo": 2,
+        "stone": 2
+      }
+    ],
+    "grain_crate": [
+      "谷粮小箱",
+      {
+        "bamboo": 3
+      }
+    ],
+    "tea_stool": [
+      "矮茶凳",
+      {
+        "bamboo": 2,
+        "stone": 1
+      }
+    ],
+    "bamboo_screen": [
+      "竹屏风",
+      {
+        "bamboo": 5
+      }
+    ],
+    "honey_rack": [
+      "蜂蜜小架",
+      {
+        "bamboo": 4,
+        "stone": 1
+      }
+    ],
+    "clay_pot": [
+      "陶花盆",
+      {
+        "stone": 3
+      }
+    ],
+    "hanging_lamp": [
+      "暖灯架",
+      {
+        "bamboo": 3,
+        "stone": 2
+      }
+    ],
+    "wash_basin": [
+      "石洗盆",
+      {
+        "stone": 4,
+        "bamboo": 1
+      }
+    ],
+    "picnic_mat": [
+      "野餐席",
+      {
+        "bamboo": 4
+      }
+    ],
+    "notice_easel": [
+      "留言画架",
+      {
+        "bamboo": 5,
+        "stone": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "method": "只读配置推导，不是实际三日UI验收",
+  "pool_count": 12,
+  "days": [
+    {
+      "date": "2026-10-13",
+      "cohort": 1,
+      "orders": [
+        {
+          "key": "o03",
+          "who": "林伯",
+          "title": "午饭楼卜",
+          "items": {
+            "radish": 2
+          },
+          "coins": 62,
+          "family": false
+        },
+        {
+          "key": "o04",
+          "who": "凯凯",
+          "title": "蜂蜜糕用粉",
+          "items": {
+            "flour": 1
+          },
+          "coins": 72,
+          "family": false
+        },
+        {
+          "key": "o06",
+          "who": "村民活动中心",
+          "title": "聚餐配菜",
+          "items": {
+            "radish": 1,
+            "pepper": 1
+          },
+          "coins": 62,
+          "family": false
+        },
+        {
+          "key": "o08",
+          "who": "小涛",
+          "title": "谷粮和菜",
+          "items": {
+            "grain": 2,
+            "radish": 1
+          },
+          "coins": 66,
+          "family": false
+        }
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "cohort": 2,
+      "orders": [
+        {
+          "key": "o09",
+          "who": "妈妈",
+          "title": "晒楼卜干",
+          "items": {
+            "radish": 3
+          },
+          "coins": 65,
+          "family": true
+        },
+        {
+          "key": "o10",
+          "who": "凯凯",
+          "title": "邻里分海椒",
+          "items": {
+            "pepper": 3
+          },
+          "coins": 64,
+          "family": false
+        },
+        {
+          "key": "o11",
+          "who": "林伯",
+          "title": "储粮补一袋",
+          "items": {
+            "grain": 4
+          },
+          "coins": 70,
+          "family": false
+        },
+        {
+          "key": "o12",
+          "who": "村民活动中心",
+          "title": "蒸糕配料",
+          "items": {
+            "flour": 1,
+            "radish": 1
+          },
+          "coins": 80,
+          "family": false
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "cohort": 0,
+      "orders": [
+        {
+          "key": "o01",
+          "who": "妈妈",
+          "title": "一碟海椒",
+          "items": {
+            "pepper": 2
+          },
+          "coins": 55,
+          "family": true
+        },
+        {
+          "key": "o07",
+          "who": "隔壁婆婆",
+          "title": "热粥一碗",
+          "items": {
+            "porridge": 1
+          },
+          "coins": 70,
+          "family": false
+        },
+        {
+          "key": "o02",
+          "who": "牛肉店伙计",
+          "title": "磨坊添谷",
+          "items": {
+            "grain": 3
+          },
+          "coins": 60,
+          "family": false
+        },
+        {
+          "key": "o05",
+          "who": "阿鱼",
+          "title": "拌菜一碗",
+          "items": {
+            "meal": 1
+          },
+          "coins": 75,
+          "family": true
+        }
+      ]
+    }
+  ]
+}

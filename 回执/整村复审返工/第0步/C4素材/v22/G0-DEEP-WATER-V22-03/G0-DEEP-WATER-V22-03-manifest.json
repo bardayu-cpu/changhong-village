@@ -1,0 +1,139 @@
+{
+  "id": "G0-DEEP-WATER-V22-03",
+  "attempt_scope": "v2.2 water batch attempt 3 of maximum 3; no fourth source if rejected",
+  "status": "C4 deep-water group complete; pending C3 precheck and C2 integration; not water-system/G0 pass",
+  "generation": {
+    "tool": "built-in imagegen",
+    "reference": "accepted shallow source for style and pixel density",
+    "prompt_summary": "matching deeper cooler teal water; same fine 1-2px marks; no bands/large waves"
+  },
+  "source": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-source.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "434ae365b1b0a1c059c80103cb0e14dcc5eb2368c3bcd6b893fba140aa528690"
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "source_region_xywh": [
+        768,
+        480,
+        64,
+        64
+      ],
+      "mean_rgb": [
+        41.565,
+        102.779,
+        116.808
+      ],
+      "channel_stddev": [
+        3.832,
+        4.273,
+        3.67
+      ],
+      "opposite_edge_mean_abs_rgb": 2.081
+    },
+    {
+      "frame": 1,
+      "source_region_xywh": [
+        384,
+        528,
+        64,
+        64
+      ],
+      "mean_rgb": [
+        41.442,
+        102.836,
+        116.853
+      ],
+      "channel_stddev": [
+        4.386,
+        4.869,
+        4.189
+      ],
+      "opposite_edge_mean_abs_rgb": 1.495
+    },
+    {
+      "frame": 2,
+      "source_region_xywh": [
+        1360,
+        288,
+        64,
+        64
+      ],
+      "mean_rgb": [
+        42.068,
+        103.787,
+        117.646
+      ],
+      "channel_stddev": [
+        3.705,
+        4.168,
+        3.706
+      ],
+      "opposite_edge_mean_abs_rgb": 2.271
+    },
+    {
+      "frame": 3,
+      "source_region_xywh": [
+        1344,
+        912,
+        64,
+        64
+      ],
+      "mean_rgb": [
+        41.865,
+        103.415,
+        117.237
+      ],
+      "channel_stddev": [
+        4.168,
+        4.747,
+        4.392
+      ],
+      "opposite_edge_mean_abs_rgb": 2.466
+    }
+  ],
+  "atlas": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-atlas-4x64.png",
+    "size": [
+      256,
+      64
+    ],
+    "sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa",
+    "transform": "exact source crops concatenated; no resize/filter/repaint"
+  },
+  "self_repeat_preview": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-frames-repeat-3x3.png",
+    "size": [
+      792,
+      192
+    ],
+    "sha256": "e389fde1d3cf5ea49788f9a7e3d397b251c16718b2b50520a42c506a4b556859",
+    "transform": "native copies only"
+  },
+  "mixed_preview": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-DEEP-WATER-V22-03-mixed-4x4.png",
+    "size": [
+      256,
+      256
+    ],
+    "sha256": "7e457ad7978b6217cc61f8bd42f410de15a7f684ba6bbe6c24750e205ff0cda5",
+    "transform": "native rearrangement only"
+  },
+  "shallow_deep_transition_preview": {
+    "path": "回执/整村复审返工/第0步/C4素材/v22/G0-DEEP-WATER-V22-03/G0-WATER-V22-shallow-deep-transition.png",
+    "size": [
+      256,
+      256
+    ],
+    "sha256": "2d224f20112107d0810d539f9db4469d62f05907cd4ed8b2c3854d96e3d0b9a3",
+    "transform": "paired shallow/deep native frames; diagnostic only"
+  },
+  "pixel_rule": "1 source pixel = 1 world unit; nearest sampling; no scaling",
+  "next_step": "C3 precheck, then C2 controlled integration; rejected means water batch exhausted 3/3"
+}

@@ -1,175 +1,124 @@
 {
   "id": "v_h6",
-  "title": "6A · 花窗人家 · 一楼",
+  "title": "花窗人家",
   "group": "村庄",
   "floor": 0,
   "size": [
-    710,
-    790
+    768,
+    512
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h6.png",
+  "background": "res://ayu_home/v4/assets/village/households-pixel/h6.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "kitchen0",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        65,
-        140
-      ],
-      "foot": 223,
-      "front": false
-    },
-    {
-      "id": "sofa1",
-      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
-      "pos": [
-        405,
-        140
-      ],
-      "foot": 225,
-      "front": false
-    },
-    {
-      "id": "table2",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        425,
-        425
-      ],
-      "foot": 500,
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        600,
-        480
-      ],
-      "foot": 630,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        257,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        560
-      ],
-      "foot": 628,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        638,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        325,
-        532
-      ],
-      "foot": 565,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      300,
-      90,
-      12,
-      260
-    ],
-    [
-      300,
-      480,
-      12,
-      270
-    ],
-    [
-      69,
-      188.4,
+      162,
       147,
-      39.6
+      284,
+      66
     ],
     [
-      409,
-      189.5,
-      127,
-      40.5
+      462,
+      146,
+      88,
+      78
     ],
     [
-      429,
-      469.0,
-      112,
-      36.0
+      40,
+      173,
+      101,
+      143
+    ],
+    [
+      121,
+      215,
+      47,
+      83
+    ],
+    [
+      580,
+      192,
+      95,
+      23
+    ],
+    [
+      694,
+      170,
+      42,
+      178
+    ],
+    [
+      506,
+      277,
+      155,
+      116
+    ],
+    [
+      465,
+      322,
+      37,
+      58
+    ],
+    [
+      657,
+      319,
+      32,
+      61
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
-      "pos": [
-        255,
-        670
-      ],
-      "approach": [
-        255,
-        710
-      ],
-      "kind": "village",
-      "copy": "花窗里有四季轮换的小盆栽。"
-    },
-    {
       "id": "house_help",
-      "label": "给窗边花浇水",
+      "label": "给窗下花浇水",
       "pos": [
-        445,
-        640
+        416,
+        164
       ],
       "approach": [
-        445,
-        680
+        421,
+        239
       ],
-      "kind": "village",
-      "copy": "叶尖亮亮的，花盆旁留了一滴水。",
-      "house": "h6"
+      "kind": "house_task",
+      "house": "h6",
+      "copy": "水沿着花盆边慢慢渗下去，窗下的叶片又舒展开了。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        355,
-        545
+        282,
+        165
       ],
       "approach": [
-        355,
-        600
+        285,
+        237
       ],
       "kind": "seat",
       "seat": [
-        355,
-        555
+        282,
+        165
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h6",
+      "label": "挪一挪窗边花盆",
+      "pos": [
+        464,
+        164
+      ],
+      "approach": [
+        421,
+        239
+      ],
+      "copy": "窗边花盆换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -178,64 +127,148 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        355,
-        736
+        380,
+        481
       ],
       "approach": [
-        355,
-        754
+        380,
+        437
+      ],
+      "arrival": [
+        380,
+        402
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_h6_up",
-      "pos": [
-        645,
-        635
-      ],
-      "approach": [
-        645,
-        665
-      ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
+      "width": 180,
       "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      227,
-      115,
-      240
-    ],
-    [
-      511,
-      553,
-      220
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    355,
-    685
+    380,
+    402
   ],
   "walk_rect": [
-    22,
-    100,
-    666,
-    670
+    28,
+    210,
+    713,
+    292
+  ],
+  "walk_polygons": [
+    [
+      [
+        75,
+        210
+      ],
+      [
+        694,
+        210
+      ],
+      [
+        739,
+        403
+      ],
+      [
+        482,
+        403
+      ],
+      [
+        482,
+        501
+      ],
+      [
+        270,
+        501
+      ],
+      [
+        270,
+        403
+      ],
+      [
+        29,
+        403
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    40,
+    130
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "clay_pot",
+    "pos": [
+      416,
+      164
+    ],
+    "label": "窗边花盆",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      464,
+      164
+    ]
+  },
+  "npc": {
+    "id": "household_h6",
+    "character_id": "household_h6",
+    "name": "花窗人家主人",
+    "portrait": "household_h6",
+    "preset": 3,
+    "pos": [
+      421,
+      239
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          421,
+          239
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理窗边花盆，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          285,
+          237
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的窗边花盆也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          282,
+          165
+        ],
+        "approach": [
+          285,
+          237
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

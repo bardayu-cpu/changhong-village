@@ -1,0 +1,297 @@
+{
+  "id": "v_daba",
+  "title": "大爸家 · 竹编堂屋",
+  "group": "村庄",
+  "floor": 0,
+  "size": [
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
+  "asset_root": "res://ayu_home/v3/assets/",
+  "props": [
+    {
+      "id": "closeout_bamboo_workbench",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "pos": [
+        262,
+        126
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 200,
+      "atlas_region": [
+        524,
+        252,
+        500,
+        148
+      ]
+    },
+    {
+      "id": "closeout_left_bamboo_seating",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "pos": [
+        50,
+        250
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 352,
+      "atlas_region": [
+        100,
+        500,
+        360,
+        204
+      ]
+    },
+    {
+      "id": "closeout_right_strip_rack",
+      "file": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "pos": [
+        690,
+        262
+      ],
+      "scale": [
+        0.5,
+        0.5
+      ],
+      "foot": 362,
+      "atlas_region": [
+        1380,
+        524,
+        130,
+        200
+      ]
+    }
+  ],
+  "obstacles": [
+    [
+      262,
+      124,
+      250,
+      76
+    ],
+    [
+      160,
+      120,
+      72,
+      44
+    ],
+    [
+      515,
+      130,
+      66,
+      66
+    ],
+    [
+      50,
+      245,
+      180,
+      106
+    ],
+    [
+      690,
+      260,
+      65,
+      102
+    ]
+  ],
+  "hotspots": [
+    {
+      "id": "house_help",
+      "label": "收齐散竹条",
+      "pos": [
+        350,
+        137
+      ],
+      "approach": [
+        317,
+        205
+      ],
+      "kind": "house_task",
+      "house": "daba",
+      "copy": "竹条收齐，长短分开放在工作台边。明天编篮子时，拿起来就顺手了。",
+      "repeat_copy": "大爸记着你的帮助，今天的竹条已经收齐了。坐下来歇一会儿吧。"
+    },
+    {
+      "id": "tea_seat",
+      "label": "坐一会儿",
+      "pos": [
+        166,
+        251
+      ],
+      "approach": [
+        238,
+        267
+      ],
+      "kind": "seat",
+      "seat": [
+        166,
+        251
+      ],
+      "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "daba",
+      "label": "挪一挪竹编小物",
+      "pos": [
+        390,
+        137
+      ],
+      "approach": [
+        317,
+        205
+      ],
+      "copy": "竹编小物换到另一边，摆放也有了新样子。"
+    }
+  ],
+  "doors": [
+    {
+      "id": "outside",
+      "label": "回到村路",
+      "target": "village",
+      "pos": [
+        390,
+        454
+      ],
+      "approach": [
+        390,
+        433
+      ],
+      "face": "up",
+      "kind": "door",
+      "width": 114,
+      "explicit_opening": true,
+      "arrival": [
+        390,
+        398
+      ]
+    }
+  ],
+  "anchors": {},
+  "windows": [],
+  "lamps": [],
+  "source_offset": [
+    0,
+    0
+  ],
+  "spawn": [
+    390,
+    398
+  ],
+  "walk_rect": [
+    30,
+    176,
+    712,
+    304
+  ],
+  "walk_polygons": [
+    [
+      [
+        80,
+        176
+      ],
+      [
+        672,
+        190
+      ],
+      [
+        740,
+        396
+      ],
+      [
+        454,
+        396
+      ],
+      [
+        454,
+        480
+      ],
+      [
+        326,
+        480
+      ],
+      [
+        326,
+        396
+      ],
+      [
+        32,
+        396
+      ]
+    ]
+  ],
+  "outdoor": false,
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -3,
+    -8
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "layers": [],
+    "pending_real_object_states": true
+  },
+  "npc": {
+    "id": "household_daba",
+    "character_id": "household_daba",
+    "name": "大爸",
+    "portrait": "household_daba",
+    "preset": 0,
+    "pos": [
+      317,
+      205
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          317,
+          205
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理竹编小物，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          238,
+          267
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的竹编小物也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          166,
+          251
+        ],
+        "approach": [
+          238,
+          267
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  },
+  "rebuild_navigation": true
+}

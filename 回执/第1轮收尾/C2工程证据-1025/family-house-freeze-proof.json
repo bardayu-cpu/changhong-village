@@ -1,0 +1,449 @@
+{
+  "baseline_commit": "e1d26c9a01d3597c3d5c7c5c43953aa0a80a40ab",
+  "files": [
+    {
+      "path": "godot/ayu_home/v2/assets/chr_ayu.png",
+      "sha256": "87dc5ecba34f5f0b3652eaf1944d295fdce90f6dccf47b244fc239d956a0d464",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/chr_ayu.json",
+      "sha256": "67859a92d3c7bd402254b2d2ae11b1f0710ba968b9c454a9a792c1ee1baf4b1a",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/act_ayu.png",
+      "sha256": "3f6c35a63eb7806a6b0c2c35fdfc9ef76a6cc6302faad879eb196a40dbb1f2b0",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/act_ayu.json",
+      "sha256": "74077c740a28a58bcd9cbbe8d9aa775c6e018bbb3a79d461e4989014e50c809e",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/chr_father.png",
+      "sha256": "c94efee4410c550d16525f442a234385a4887e8284e0fce0f1f0919194ff34cc",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/chr_father.json",
+      "sha256": "67859a92d3c7bd402254b2d2ae11b1f0710ba968b9c454a9a792c1ee1baf4b1a",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/act_father.png",
+      "sha256": "b9c60f123ac82da028baefccca691f72c718a5263424affca14a4265792510ea",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/act_father.json",
+      "sha256": "74077c740a28a58bcd9cbbe8d9aa775c6e018bbb3a79d461e4989014e50c809e",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/chr_mother.png",
+      "sha256": "abce90f8d96dac721f565bd090d257bd763a27a410a61b7155deba7d04fa1c06",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/chr_mother.json",
+      "sha256": "67859a92d3c7bd402254b2d2ae11b1f0710ba968b9c454a9a792c1ee1baf4b1a",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/act_mother.png",
+      "sha256": "d82469f036d4f2628fdbf714b1e4ac9f931d06d8aff131aec88af59cf53f29de",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v2/assets/act_mother.json",
+      "sha256": "ac194d31b32930cda72d70f6adf10bf8f7ba11ee01540d5a9a0c0cc83c5861fa",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_erba.png",
+      "sha256": "8ec21fc1caac49bed8d812445d09b50a03d5f05669ae3dae29463b9765e45d5c",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_laowu.png",
+      "sha256": "12a20ab685b84da2a9ec3aedfc7db1bc9375daaea52cc10a83a56543e022cb29",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_daba.png",
+      "sha256": "72d2127a4d4e74f204afa1e3cee54f99d21186b9873c23072a12cd0403c9412f",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h5.png",
+      "sha256": "975c40f090767437665f43563010a9f34951e4c3483f1fe1256cccccf4f913c1",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_ayu.png",
+      "sha256": "6ce40dbceda7088b70402f0b4d324b71bce25d21a911dd0102b07ce694dc6047",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h2.png",
+      "sha256": "b5edb36920da5a4c98e1c7d32b8973eb5e75e8ef044ccd14c51e93b57fc25b0e",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h3.png",
+      "sha256": "d9959717baf249103907d879254fa1170c5ef54c8531825cad7d4a1c624d767b",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_mayor.png",
+      "sha256": "4ba335dc38db03e0dc799c39bfd1ed87edf144baa7c285d26fda73566f1e63e5",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h6.png",
+      "sha256": "d00a5daf74eb5859e3d07314d816e9ef6aa335f727a1a7da22775ae7d63b2271",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h8.png",
+      "sha256": "5bae51817fe88e8d743cc1f026d3d02a0fa4431a3203dce85eb6296cd45724e1",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h7.png",
+      "sha256": "bd30f20ad6fc93e3e781e69b507d5c430f5bbb66948cfe06ee32c53e8ebd8830",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h4.png",
+      "sha256": "f58c8b8185e1c0e08c8b3ba93664c028281bcb42ca5dbd16990966799c83a83e",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_h1.png",
+      "sha256": "b85d6f5da9e13988ad0ffb221a93f6e623fd6936c335846a3a3537362aef71b7",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_flower.png",
+      "sha256": "0c6481f62f5431db16011da25def16f879301f02d1d9511cd9a4bf7cdeedcef7",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_whitebrick.png",
+      "sha256": "1824c16ef829fffd73e217d7a7e9aeda263da1ff94b80195368cd062c9fb590a",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_grape.png",
+      "sha256": "67e0826d054a9d83086b7e0a51b66d85e548c76796dce3af148322104c8fd600",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_sunflower.png",
+      "sha256": "8494e494f9ca2e0ae9d2e6754cff82d647ff87c0ceeed87c7d322cd1cea1d776",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_persimmon.png",
+      "sha256": "cb0b42871935e05871bf1fdf61092c85c21bf7183b92a4092ea47d0d8f841cc7",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/house_rose.png",
+      "sha256": "6b7c2bb400bfe84a32fe0e62933702772e119c2c6f971bbe72ca80adc7f9f295",
+      "equals_committed_baseline": true
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/cabin.png",
+      "sha256": "4295b519f4744183ec43ff3077a5b0f334b499f3f3f573c4b1a6a2c67e755d8b",
+      "equals_committed_baseline": true
+    }
+  ],
+  "candidate_house_props": [
+    {
+      "id": "ayu",
+      "file": "res://ayu_home/v4/assets/village/house_ayu.png",
+      "source_scale": [
+        1,
+        1
+      ],
+      "candidate_scale": [
+        1,
+        1
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 0
+    },
+    {
+      "id": "daba",
+      "file": "res://ayu_home/v4/assets/village/house_daba.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "erba",
+      "file": "res://ayu_home/v4/assets/village/house_erba.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "flower",
+      "file": "res://ayu_home/v4/assets/village/house_flower.png",
+      "source_scale": [
+        0.5110677083333334,
+        0.5110677083333334
+      ],
+      "candidate_scale": [
+        0.511067708333333,
+        0.511067708333333
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "grape",
+      "file": "res://ayu_home/v4/assets/village/house_grape.png",
+      "source_scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "candidate_scale": [
+        0.569661458333333,
+        0.569661458333333
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "h1",
+      "file": "res://ayu_home/v4/assets/village/house_h1.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "h2",
+      "file": "res://ayu_home/v4/assets/village/house_h2.png",
+      "source_scale": [
+        0.5859375,
+        0.5859375
+      ],
+      "candidate_scale": [
+        0.5859375,
+        0.5859375
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 0.0
+    },
+    {
+      "id": "h3",
+      "file": "res://ayu_home/v4/assets/village/house_h3.png",
+      "source_scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "candidate_scale": [
+        0.569661458333333,
+        0.569661458333333
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "h4",
+      "file": "res://ayu_home/v4/assets/village/house_h4.png",
+      "source_scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "candidate_scale": [
+        0.569661458333333,
+        0.569661458333333
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "h5",
+      "file": "res://ayu_home/v4/assets/village/house_h5.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "h6",
+      "file": "res://ayu_home/v4/assets/village/house_h6.png",
+      "source_scale": [
+        0.5697513812154696,
+        0.5697513812154696
+      ],
+      "candidate_scale": [
+        0.56975138121547,
+        0.56975138121547
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "h7",
+      "file": "res://ayu_home/v4/assets/village/house_h7.png",
+      "source_scale": [
+        0.419921875,
+        0.419921875
+      ],
+      "candidate_scale": [
+        0.419921875,
+        0.419921875
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 0.0
+    },
+    {
+      "id": "h8",
+      "file": "res://ayu_home/v4/assets/village/house_h8.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "house_community",
+      "file": "res://ayu_home/v4/assets/village/cabin.png",
+      "source_scale": [
+        0.3,
+        0.3
+      ],
+      "candidate_scale": [
+        0.3,
+        0.3
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 0.0
+    },
+    {
+      "id": "laowu",
+      "file": "res://ayu_home/v4/assets/village/house_laowu.png",
+      "source_scale": [
+        0.5208333333333334,
+        0.5208333333333334
+      ],
+      "candidate_scale": [
+        0.520833333333333,
+        0.520833333333333
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "mayor",
+      "file": "res://ayu_home/v4/assets/village/house_mayor.png",
+      "source_scale": [
+        0.5436197916666666,
+        0.5436197916666666
+      ],
+      "candidate_scale": [
+        0.543619791666667,
+        0.543619791666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "persimmon",
+      "file": "res://ayu_home/v4/assets/village/house_persimmon.png",
+      "source_scale": [
+        0.5989583333333334,
+        0.5989583333333334
+      ],
+      "candidate_scale": [
+        0.598958333333333,
+        0.598958333333333
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "rose",
+      "file": "res://ayu_home/v4/assets/village/house_rose.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    },
+    {
+      "id": "sunflower",
+      "file": "res://ayu_home/v4/assets/village/house_sunflower.png",
+      "source_scale": [
+        0.537109375,
+        0.537109375
+      ],
+      "candidate_scale": [
+        0.537109375,
+        0.537109375
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 0.0
+    },
+    {
+      "id": "whitebrick",
+      "file": "res://ayu_home/v4/assets/village/house_whitebrick.png",
+      "source_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "candidate_scale": [
+        0.553385416666667,
+        0.553385416666667
+      ],
+      "same_vector2_float32_bits": true,
+      "json_decimal_roundoff_max": 3.3306690738754696e-16
+    }
+  ],
+  "note": "Old house closed-door overlay still pending; original house PNGs preserved",
+  "scale_note": "Godot JSON.stringify rounds decimal text; all 20 Vector2 float32 scale bit patterns unchanged."
+}

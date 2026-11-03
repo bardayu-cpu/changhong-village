@@ -1,0 +1,181 @@
+{
+  "version": "1025-nine-households-c4-v1",
+  "stable_for_c2_byte_copy": true,
+  "visual_status": "pending_c3_room_by_room_review",
+  "integration_spec": "../C4-九户接入规格.json",
+  "rooms": [
+    {
+      "id": "v_h1",
+      "theme": "蓝瓦茶室",
+      "file": "h1.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-b7cfdabd-8fda-49b1-94d9-4bb3bde82994.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_h2",
+      "theme": "缝补人家",
+      "file": "h2.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-2316bd4c-0a1a-459e-8c35-1e98149aa537.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_h4",
+      "theme": "田边农具",
+      "file": "h4.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-9186d4c5-367a-45d3-9005-29f727da823b.png",
+      "source_size": [
+        1312,
+        1199
+      ],
+      "output_size": [
+        1312,
+        1200
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_h6",
+      "theme": "花窗养花",
+      "file": "h6.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-d9ab102e-89d9-4a3b-a51b-197c1cc0f553.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_h7",
+      "theme": "窄巷收纳",
+      "file": "h7.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-ae055a4f-8e42-456b-a624-23a5c262adf5.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_whitebrick",
+      "theme": "白砖料理",
+      "file": "whitebrick.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-ba5fb3b1-0648-4fd2-b564-a8159614a5c6.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_erba",
+      "theme": "二爸家常",
+      "file": "erba.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-9755d6df-8c7b-4197-9f7b-c82f5f0eaa21.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "output_size": [
+        1672,
+        944
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_daba",
+      "theme": "大爸竹编",
+      "file": "daba-bamboo.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-a3c3bcb7-af5d-4315-a10b-a8125a6f7b5e.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    },
+    {
+      "id": "v_rose",
+      "theme": "玫瑰花艺",
+      "file": "rose.png",
+      "source": "/Users/kayra_ayu/.codex/generated_images/01a10fa1-8146-7992-b3c7-900ed053f0af/exec-42726aa0-42a9-474b-aa16-fcdcd2b033bf.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_size": [
+        1536,
+        1024
+      ],
+      "background_scale": [
+        0.5,
+        0.5
+      ],
+      "status": "ready_for_c3_visual_review"
+    }
+  ],
+  "geometry": "geometry-v1.json",
+  "integration_spec_note": "旧 C4-九户接入规格.json 仅保留房间尺寸、门与逻辑ID参考；旧 obstacles/foreground 不可复用。新几何以 geometry-v1.json 为准。"
+}

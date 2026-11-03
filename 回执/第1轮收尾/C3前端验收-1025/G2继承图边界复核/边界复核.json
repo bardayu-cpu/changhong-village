@@ -1,0 +1,38 @@
+{
+  "kind": "前后台交接原证据的可见边界审计，不是本次重跑或当前提交全回归",
+  "old_reference": "测试数据/本轮C3专用目录/G与七天-第1次/Ayu-13.png",
+  "old_reference_sha256": "5c61b97625a695e4df733ba2bd1f90605ca12293afd9089ea77acc33d11ced6f",
+  "basis": "原qa_seven_days.gd明确13时10月晴同一轮Home；原116事务结果保留",
+  "entries": [
+    {
+      "stage": 0,
+      "old_raw": "测试数据/本轮C3专用目录/G与七天-第1次/G2-stage0.png",
+      "sha256": "ef6bf26998173166dfc5339b501aba2d1b37732d08c22efb219fabb815ddbe55",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/G2继承图边界复核/G2-stage0-左旧实测右同轮阿鱼-13时.png",
+      "visible_boundary": "基线"
+    },
+    {
+      "stage": 1,
+      "old_raw": "测试数据/本轮C3专用目录/G与七天-第1次/G2-stage1.png",
+      "sha256": "fa46b8495e93111d4fdbfcc7eaf30c31cdc421f178158da33d1a8366f75a0b7b",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/G2继承图边界复核/G2-stage1-左旧实测右同轮阿鱼-13时.png",
+      "visible_boundary": "竹席左缘在屏外，非完整"
+    },
+    {
+      "stage": 2,
+      "old_raw": "测试数据/本轮C3专用目录/G与七天-第1次/G2-stage2.png",
+      "sha256": "65dc656a5b8eef8af0a3a3dea9fb6107c0de9702f5d304e315dc25568ed0a6c1",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/G2继承图边界复核/G2-stage2-左旧实测右同轮阿鱼-13时.png",
+      "visible_boundary": "桌面新菜盘被热点牌遮挡"
+    },
+    {
+      "stage": 3,
+      "old_raw": "测试数据/本轮C3专用目录/G与七天-第1次/G2-stage3.png",
+      "sha256": "5d9d8714a51afa43724328b55de088cd8282083774698c983fad40a6eb8dfb7c",
+      "pair": "测试数据/本轮C3专用目录/前端接管-1025/G2继承图边界复核/G2-stage3-左旧实测右同轮阿鱼-13时.png",
+      "visible_boundary": "画架在人物后，只露局部"
+    }
+  ],
+  "result": "三档确有新增物局部可见，当前图遮挡和裁切不够完整，需要正常走位补无遮挡角度，不把前置角度问题当新生产bug",
+  "whole_G2_visual_pass": false
+}

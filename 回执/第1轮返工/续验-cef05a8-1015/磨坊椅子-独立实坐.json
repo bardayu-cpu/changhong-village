@@ -1,0 +1,36 @@
+{
+  "commit": "cef05a8bdda609431643077e42aa49fac8df6c02",
+  "status": "实际正常坐下与起身已测；独立椅子前缘与人物叠放可见；仅此目标功能确认",
+  "left": "回执/第1轮返工/图/返工续验-cef05a8-1015-032-磨坊椅子-真实点按坐下-13时.png",
+  "right": "回执/第1轮返工/图/返工续验-cef05a8-1015-059-椅子参照-阿鱼客厅真实坐下-13时.png",
+  "pair": "回执/第1轮返工/图/续验-cef05a8-磨坊真实坐椅-左目标右阿鱼同窗坐下.png",
+  "target_state": {
+    "area": "v_h3",
+    "position": [
+      90.0,
+      462.0
+    ],
+    "action": "sit",
+    "lift": 47.0
+  },
+  "reference_state": {
+    "area": "living",
+    "position": [
+      140.0,
+      378.0
+    ],
+    "action": "sit",
+    "lift": 162.0
+  },
+  "conditions": {
+    "hour": 13.0,
+    "visual_month": 10,
+    "visual_weather": "clear",
+    "world_weather": "clear",
+    "window_size": [
+      540,
+      960
+    ]
+  },
+  "scope": "同版同窗2.0镜头，同类坐椅场景；位置与家具不同。仅本次座位，不当作整个磨坊画面通过。"
+}

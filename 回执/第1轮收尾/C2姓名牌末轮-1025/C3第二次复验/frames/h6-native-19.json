@@ -1,0 +1,62 @@
+{
+  "area": "v_h6",
+  "bodies": [
+    {
+      "action": "idle",
+      "id": "visitor",
+      "lift": 0.0,
+      "rect": [
+        249.0,
+        392.0,
+        72.0,
+        168.0
+      ]
+    },
+    {
+      "action": "sit",
+      "id": "visitor",
+      "lift": 52.0,
+      "rect": [
+        123.0,
+        316.0,
+        68.0,
+        120.0
+      ]
+    }
+  ],
+  "clashes": [],
+  "events": [],
+  "hour": 19.0,
+  "markers": [
+    {
+      "id": "tea_seat",
+      "rect": [
+        237.0,
+        274.0,
+        48.0,
+        54.0
+      ]
+    }
+  ],
+  "month": 10,
+  "name": "h6-native-19",
+  "page_visible": false,
+  "player": [
+    346.0,
+    226.0
+  ],
+  "scale": 2.0,
+  "tags": [
+    {
+      "mouse_filter": 2,
+      "rect": [
+        85.0,
+        274.0,
+        144.0,
+        32.0
+      ],
+      "text": "花窗人家主人"
+    }
+  ],
+  "talk_visible": false
+}

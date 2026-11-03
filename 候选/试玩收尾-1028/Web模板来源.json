@@ -1,0 +1,23 @@
+{
+  "official_url": "https://downloads.godotengine.org/?flavor=stable&platform=templates&slug=export_templates.tpz&version=4.7.2",
+  "version": "4.7.2.stable",
+  "archive_bytes": 1281349702,
+  "transport": "HTTPS ranged entries; whole TPZ not downloaded or claimed verified",
+  "files": [
+    {
+      "file": "web_nothreads_debug.zip",
+      "bytes": 10232720,
+      "sha256": "08962aefef811b603541d7951ac67ef00413aad2d978855183c28adee98f626a",
+      "archive_crc_verified": true,
+      "installed": "/Users/kayra_ayu/Library/Application Support/Godot/export_templates/4.7.2.stable/web_nothreads_debug.zip"
+    },
+    {
+      "file": "web_nothreads_release.zip",
+      "bytes": 10245903,
+      "sha256": "d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0",
+      "archive_crc_verified": true,
+      "installed": "/Users/kayra_ayu/Library/Application Support/Godot/export_templates/4.7.2.stable/web_nothreads_release.zip"
+    }
+  ],
+  "temporary_full_TPZ_stopped_and_removed": true
+}

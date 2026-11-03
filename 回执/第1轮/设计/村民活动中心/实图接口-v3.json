@@ -1,0 +1,403 @@
+{
+  "room_id": "my_cabin",
+  "display_name": "村民活动中心",
+  "design_size": [
+    508,
+    600
+  ],
+  "character_height": 84,
+  "status": "v2分区已866f347先提交；专用共桌底图v1静态检查可接，实图接口v3待C2校准",
+  "host": {
+    "name": "方婆婆",
+    "resident_id": "h2_duty",
+    "home": "h2",
+    "home_label": "2A缝补人家",
+    "identity_policy": "本轮明确的虚构值日居民，不冒用真实亲属。独立身份不复用凯凯/小涛/林伯。",
+    "proposed_code": "LM-GUEST-09",
+    "sprite_source": "方婆婆-值日形象84px.png",
+    "portrait_source": "方婆婆-值日头像-source-v1.png"
+  },
+  "walk_rect": [
+    24,
+    96,
+    460,
+    413
+  ],
+  "zones": [
+    {
+      "id": "zone_1",
+      "label": "西墙洗切备餐",
+      "rect": [
+        27,
+        106,
+        84,
+        258
+      ],
+      "use": "洗盆、食材筐、拌菜盆",
+      "host": "早：洗菜摆桌"
+    },
+    {
+      "id": "zone_2",
+      "label": "北东侧手作台",
+      "rect": [
+        195,
+        90,
+        281,
+        90
+      ],
+      "use": "竹编工具、纸张、材料架",
+      "host": "中：编竹"
+    },
+    {
+      "id": "zone_3",
+      "label": "中央围坐共桌",
+      "rect": [
+        154,
+        218,
+        204,
+        161
+      ],
+      "use": "长桌、碗碟、两侧短椅",
+      "host": "中：一起拌菜"
+    },
+    {
+      "id": "zone_4",
+      "label": "西南阅读茶角",
+      "rect": [
+        28,
+        377,
+        147,
+        126
+      ],
+      "use": "低书架、茶盘、故事册、坐垫",
+      "host": "晚：收册歇脚"
+    },
+    {
+      "id": "zone_5",
+      "label": "东墙归还带",
+      "rect": [
+        430,
+        210,
+        47,
+        190
+      ],
+      "use": "窄归还架、球篮、棋盒",
+      "host": "收场：点共用品"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "community_meal",
+      "kind_suggested": "community_game",
+      "pos": [
+        76,
+        207
+      ],
+      "approach": [
+        137,
+        207
+      ],
+      "visible_change": "洗切、拌菜、成菜摆盘",
+      "inventory": "radish:1+pepper:1 -> meal:1"
+    },
+    {
+      "id": "craft_demo",
+      "kind_suggested": "bamboo_weave",
+      "pos": [
+        333,
+        123
+      ],
+      "approach": [
+        333,
+        204
+      ],
+      "visible_change": "竹条逐步编成小片",
+      "inventory": "展示动作，无解锁"
+    },
+    {
+      "id": "shared_table",
+      "kind_suggested": "communal_table",
+      "pos": [
+        271,
+        290
+      ],
+      "approach": [
+        403,
+        290
+      ],
+      "visible_change": "共桌碗碟从散到摆齐",
+      "inventory": "只记人情"
+    },
+    {
+      "id": "story_book",
+      "kind_suggested": "story_album",
+      "pos": [
+        148,
+        487
+      ],
+      "approach": [
+        96,
+        449
+      ],
+      "visible_change": "故事册展开成图画双页，可翻页",
+      "inventory": "无金币"
+    },
+    {
+      "id": "return_box",
+      "kind_suggested": "activity_tidy",
+      "pos": [
+        454,
+        310
+      ],
+      "approach": [
+        403,
+        315
+      ],
+      "visible_change": "棋盒与球归各自格",
+      "inventory": "只记人情"
+    },
+    {
+      "id": "rest_seat",
+      "kind_suggested": "seat",
+      "pos": [
+        53,
+        458
+      ],
+      "approach": [
+        96,
+        449
+      ],
+      "seat": [
+        53,
+        458
+      ],
+      "foot_sort": 488,
+      "visible_change": "实际坐下，前沿按最后实物裁透明层"
+    }
+  ],
+  "entrance": {
+    "opening": [
+      303,
+      510,
+      89,
+      90
+    ],
+    "pos": [
+      347,
+      552
+    ],
+    "approach": [
+      347,
+      499
+    ],
+    "spawn": [
+      347,
+      499
+    ],
+    "target": "village",
+    "side": "bottom-right",
+    "note": "实际门位在右下但较概念左移，公开场所无入驻前置"
+  },
+  "stairs": null,
+  "obstacles_suggested": [
+    [
+      27,
+      151,
+      84,
+      141
+    ],
+    [
+      27,
+      296,
+      60,
+      65
+    ],
+    [
+      36,
+      328,
+      47,
+      36
+    ],
+    [
+      195,
+      113,
+      281,
+      67
+    ],
+    [
+      219,
+      159,
+      32,
+      21
+    ],
+    [
+      154,
+      245,
+      204,
+      89
+    ],
+    [
+      174,
+      218,
+      163,
+      26
+    ],
+    [
+      174,
+      340,
+      163,
+      39
+    ],
+    [
+      430,
+      236,
+      47,
+      163
+    ],
+    [
+      28,
+      377,
+      94,
+      61
+    ],
+    [
+      28,
+      431,
+      51,
+      57
+    ],
+    [
+      123,
+      420,
+      51,
+      47
+    ]
+  ],
+  "path_centerlines": [
+    [
+      [
+        347,
+        499
+      ],
+      [
+        403,
+        406
+      ],
+      [
+        403,
+        204
+      ],
+      [
+        137,
+        204
+      ]
+    ],
+    [
+      [
+        137,
+        204
+      ],
+      [
+        137,
+        360
+      ],
+      [
+        134,
+        408
+      ],
+      [
+        96,
+        449
+      ]
+    ],
+    [
+      [
+        403,
+        406
+      ],
+      [
+        403,
+        315
+      ]
+    ],
+    [
+      [
+        403,
+        204
+      ],
+      [
+        333,
+        204
+      ]
+    ]
+  ],
+  "schedule": [
+    {
+      "slot": "早",
+      "pos": [
+        137,
+        207
+      ],
+      "face": "left",
+      "action": "洗菜、摆好共桌",
+      "line": "我在这里值日，先把菜洗好，再摆大家的碗。"
+    },
+    {
+      "slot": "中",
+      "pos": [
+        403,
+        290
+      ],
+      "face": "left",
+      "action": "带大家拌菜与编竹",
+      "line": "共桌的菜一起拌，竹条等会儿也教你编。"
+    },
+    {
+      "slot": "晚",
+      "pos": [
+        53,
+        458
+      ],
+      "face": "right",
+      "action": "坐下收故事册、点共用品",
+      "line": "今天的物件都收齐了，我把故事册这一页合上。"
+    }
+  ],
+  "full_screen_game": "全屏共桌拌菜：洗楼卜、拌海椒、按节奏翻拌三步；消耗实际库存后产meal。棋盘麻将只作静态陈设。",
+  "asset_policy": {
+    "background": "全部墙、门、地面、固定陈设和真楼梯画进一张底图，不用通用四件家具拼屋",
+    "dynamic": "只交变化和前沿遮挡层；C2由最终图裁，不重复叠完整家具",
+    "collision": "只对应画上实体脚印，不计地毯阴影和空地；最后需实走"
+  },
+  "home_door_consistency": {
+    "id": "h2",
+    "response": "线筐从乱线变整齐，便签而非远程本人回答",
+    "line": "我在活动中心值日，门边的线筐帮我理顺就好。",
+    "currency": 0,
+    "renqing_to": "方婆婆",
+    "npc_presence": "值日时不在h2屋里/门外再生成同一人物"
+  },
+  "entry_policy": "活动中心是公开场所，第一天即可走路或地图选入，不以玩家入驻/选地为门槛；室外对应村路落点由C2按外观校核。my_yard只保留玩家小院与田。",
+  "layout_concept": "右下公开入口，共用长桌居中，左备餐、右手作、下侧归还阅读",
+  "design_footprint_ratio": 0.2746,
+  "footprint_note": "仅设计物体脚印精确并集，不是H1结果；最后按画上真有的物体校准，不计地毯/阴影/空走道",
+  "background_source": "村民活动中心-共桌专用整屋-source-v1.png",
+  "source_size": [
+    1154,
+    1363
+  ],
+  "target_size": [
+    508,
+    600
+  ],
+  "image_note": "公开共桌居中，东西环形通道，西备餐、北东手作、东归还、西南阅读，无卧室/楼梯。门在右下。地毯/软垫/光影不加碰撞；桌、两条短椅和椅前沿拆脚印。",
+  "dynamic_plan": {
+    "meal": "备餐盆3步变化、共桌上菜，退出无扣发，完成原子扣radish+pepper发meal",
+    "craft": "竹条局部交错成编片，不叠整工作台",
+    "shared_table": "碗碟按席位摆齐，实际有画面变化",
+    "story": "故事册以图画翻双页，窗上图画不是占位字",
+    "return": "棋盒/球归各自格，麻将仅静态盒",
+    "seating": "方婆婆读茶角椅朝right；不在其家h2再生成分身，C2实坐校锚与前沿排序"
+  },
+  "zone_rect_note": "实图用途区域，不直接用作碰撞；碰撞仅obstacles_suggested中的实体脚印，仍由C2实物校核。"
+}

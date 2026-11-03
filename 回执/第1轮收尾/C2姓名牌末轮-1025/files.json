@@ -1,0 +1,146 @@
+{
+  "base_checkpoint": "bd7c63c",
+  "scope": "partial improvement; not final acceptance",
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/actor.gd",
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01",
+      "bytes": 13522
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_room.gd",
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110",
+      "bytes": 13336
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3",
+      "bytes": 31384
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "sha256": "b4a2b8af586f11cd38c9addbd6f75489e35d14e65338e0eb184f26c205db4c60",
+      "bytes": 120068
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/README.md",
+      "sha256": "f75b085a1febd9932420ab166b9206f23a4ca9a40606aa7e6868eef2ae308d6f",
+      "bytes": 357
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/bundle.json",
+      "sha256": "dfe4b4798f2a4941665d23a0d87474c77e5a4d2343d91123b208a37d15a9a77d",
+      "bytes": 892
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/overlay/ayu_home/v4/actor.gd",
+      "sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01",
+      "bytes": 13522
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/overlay/ayu_home/v4/core/institution_room.gd",
+      "sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110",
+      "bytes": 13336
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/overlay/ayu_home/v4/core/interface.gd",
+      "sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3",
+      "bytes": 31384
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/overlay/ayu_home/v4/home.gd",
+      "sha256": "b4a2b8af586f11cd38c9addbd6f75489e35d14e65338e0eb184f26c205db4c60",
+      "bytes": 120068
+    },
+    {
+      "path": "候选/姓名牌随坐姿-1025/preview_patch.py",
+      "sha256": "55b297361106faeb528318d6fb06f5e8ebde3cf02d886265b027a113cc5c42aa",
+      "bytes": 1410
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/engine-initial-cache-missing.log",
+      "sha256": "c32778416de5689175012464e85a662235c2a5808f1f935881f034628bc2ac19",
+      "bytes": 41552
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/engine.log",
+      "sha256": "5321b74a39d45a874f80a2f643b49a1ec7f68de3e821b39b1bc2bbc7074b86b1",
+      "bytes": 204
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/h6-native-13.json",
+      "sha256": "7a8ea57b233577d056c0614627bf6e0acd6be53b72cfd87f1893f73a115a97de",
+      "bytes": 745
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/h6-native-13.png",
+      "sha256": "dabfdf4d0f3d02bf2803d1a2e9f3dc4f62af4da567ab30fb081e68b82a82c05c",
+      "bytes": 708363
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/h6-native-19.json",
+      "sha256": "de0b00a9f1e587ae7e46c792a8c90245a155d2da035690f9bdbd9f9a8d8045d7",
+      "bytes": 864
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/h6-native-19.png",
+      "sha256": "759eeadaabc242ee8644b210c3334b42a292cf6829c7561200da6fdd0927f60a",
+      "bytes": 568530
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/market-natural-seat-13.json",
+      "sha256": "6cfc57e2694c9dd75232e119883cb1ed3c0496dac0fa45fef24bebb555e29958",
+      "bytes": 887
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/market-natural-seat-13.png",
+      "sha256": "3108da861d4618cb95a5055f44d35c6836ea3d4004e1681f6b83da9f41cbc473",
+      "bytes": 224826
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/frames/result.json",
+      "sha256": "fff74b09ab659634579a2a7faf4da7bf8e15d3b9d33083e489de98b134c96252",
+      "bytes": 3376
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/label_final.gd",
+      "sha256": "f8b74bab47ee6c3d161ce0fb724a806951e259296533076803e27e07c745294c",
+      "bytes": 4785
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/launch.py",
+      "sha256": "e99e50ee34391240d726ee5f10b7ac5c7ea4898c271d5d6becaec4697e2e9a8a",
+      "bytes": 456
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/来源.json",
+      "sha256": "ba86ee8bfbeccc1dc1b5f5659484031c983da7707f8151d5132fa3893ef72658",
+      "bytes": 710
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/C3第二次复验/独立结论.json",
+      "sha256": "99eb3cae94efc76517b904a1698023710a910473449978cd1d40cda373d03e3b",
+      "bytes": 2500
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/parse-nameplate-follow.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e",
+      "bytes": 73
+    },
+    {
+      "path": "回执/第1轮收尾/C2姓名牌末轮-1025/收口回执.json",
+      "sha256": "e459aedf00a4d436c74b457dd60da0e61d80c288b06ebb84cf1fec4ba7449684",
+      "bytes": 1238
+    },
+    {
+      "path": "回执/第1轮收尾/C2手机试玩环境核对-1025.json",
+      "sha256": "ef34c6eb4969c56fd47223c6a128aba206215d2ea439f219876161cfd21d5183",
+      "bytes": 1174
+    },
+    {
+      "path": "给Claude审查/请检查-路肩样板与整身提示避让-1025.md",
+      "sha256": "6592e138defb7c51b86bf7c14ae05a3370dee0d4091cda81bc922e651558f7d5",
+      "bytes": 2952
+    }
+  ]
+}

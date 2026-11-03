@@ -1,0 +1,1072 @@
+{
+  "commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "status": "最少差异案例完成；只限观察范围，整体未通过",
+  "entries": [
+    {
+      "title": "手作工具",
+      "pair": "回执/第1轮返工/图/差异-9acd328-手作工具-9时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-010-整理-手作工具正常点击后-无错冒叠衣.png",
+        "metadata_sha256": "30590f8de204eaa14bfa664cfd0a4356a1712fd2b1df01074ddb65b057bab282",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792116293.95032,
+          "area": "workshop",
+          "position": [
+            202.0,
+            254.0
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 爸爸的手作房",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "收好工具",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "原工具反馈和文本保留，未再错冒衣物叠层；首次点偏仅移动已排除",
+      "whole_art_pass": false
+    },
+    {
+      "title": "车库工具架及屏边标签",
+      "pair": "回执/第1轮返工/图/差异-9acd328-车库工具架及屏边标签-9时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-012-整理与标签-车库屏边实点后-无错冒叠衣.png",
+        "metadata_sha256": "7a074b4ea3e64584836fb02e1f7d1d08d5d69aac103a0af7e6faacce20066295",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792116544.61115,
+          "area": "garage",
+          "position": [
+            150.9,
+            102.0
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 车库",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "整理杂物架",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "左屏边文字牌在安全区内、未压脸，实点反馈正确；未再冒衣物叠层",
+      "whole_art_pass": false
+    },
+    {
+      "title": "旅行包",
+      "pair": "回执/第1轮返工/图/差异-9acd328-旅行包-9时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-014-整理-旅行包点击后-另有开合几何块保留.png",
+        "metadata_sha256": "11bdf79fb7cb0a274fd5c66df2b19d0f67609bc55d91fc20e083091c18cc0481",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792116800.68929,
+          "area": "guest_closet",
+          "position": [
+            150.0,
+            210.0
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客房衣帽间",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "整理旅行包",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "未再冒衣物叠层；原开合几何块仍覆盖旅行包，列美术欠缺",
+      "whole_art_pass": false
+    },
+    {
+      "title": "真实外套",
+      "pair": "回执/第1轮返工/图/差异-9acd328-真实外套-9时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-015-整理-真实外套实点后-衣物叠层保留.png",
+        "metadata_sha256": "9c3cd73468ef0969c2f431153bc7c57e667d3c0b00a4036736807bba529ffc53",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792116955.18225,
+          "area": "guest_closet",
+          "position": [
+            162.0,
+            182.0
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客房衣帽间",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "挂外套",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "正例衣物三色叠层与文本保留，不判此几何美术达标",
+      "whole_art_pass": false
+    },
+    {
+      "title": "村委双人近距文字牌",
+      "pair": "回执/第1轮返工/图/差异-9acd328-村委双人近距文字牌-9时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-024-标签-村委双人近距说话避让.png",
+        "metadata_sha256": "00d6f730fa5a9220e9bf9a525c404ed3f754268a1e46b0a9e5ef008e80499b1d",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792117323.32216,
+          "area": "v_mayor",
+          "position": [
+            268.2,
+            170.8
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {
+            "action": "registry",
+            "bubble": "先查好名册，今天办事就不用翻来翻去。",
+            "bubble_visible": false,
+            "face": "up",
+            "lift": 0.0,
+            "position": [
+              313.0,
+              163.0
+            ],
+            "slot": 0,
+            "walking": false
+          }
+        },
+        "feedback_text": [
+          "林伯",
+          "裳泓村 · 村委会 · 一楼",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "翻看住户名册",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "文件名含说话但此固定帧bubble_visible=false；为话泡结束后的文字牌避开两人头脸",
+      "whole_art_pass": false
+    },
+    {
+      "title": "村委双人话泡",
+      "pair": "回执/第1轮返工/图/差异-9acd328-村委双人话泡-9时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-023-H5-走近自然问候-v_mayor-9.0点.png",
+        "metadata_sha256": "4d7488b1890c80327492015a2598482eb851144261fe74f93640ed2c5b28efbf",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792117284.7457,
+          "area": "v_mayor",
+          "position": [
+            246.8,
+            170.8
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {
+            "action": "registry",
+            "bubble": "先查好名册，今天办事就不用翻来翻去。",
+            "bubble_visible": true,
+            "face": "left",
+            "lift": 0.0,
+            "position": [
+              313.0,
+              163.0
+            ],
+            "slot": 0,
+            "walking": false
+          }
+        },
+        "feedback_text": [
+          "先查好名册，今天办事就不用翻来翻去。",
+          "林伯",
+          "裳泓村 · 村委会 · 一楼",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-004-参照-阿鱼客厅9时.png",
+        "metadata_sha256": "ba9796f4c88ccb6a9ecb0f69b27f18033a0dc23bc0889c86fbed8948ad2764e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115841.46817,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 9.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "09:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "走近东西，点气泡就能做事",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "实际bubble_visible=true，自然问候时提示避让；不是文件名推断",
+      "whole_art_pass": false
+    },
+    {
+      "title": "磨坊坐姿气泡",
+      "pair": "回执/第1轮返工/图/差异-9acd328-磨坊坐姿气泡-19时-左目标右阿鱼.png",
+      "target": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-032-标签-磨坊坐姿近距稳定帧.png",
+        "metadata_sha256": "c099431c29bce8a04cafb04777d004b56b953ce3667de4b8a5478ee63999b2e4",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792117687.66174,
+          "area": "v_h3",
+          "position": [
+            128.6,
+            494.0
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 19.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 2
+            }
+          },
+          "resident": {
+            "action": "drink",
+            "bubble": "磨坊歇下来了。坐一会儿，茶刚续上。",
+            "bubble_visible": false,
+            "face": "down",
+            "lift": 47.0,
+            "position": [
+              90.0,
+              462.0
+            ],
+            "slot": 2,
+            "walking": false
+          }
+        },
+        "feedback_text": [
+          "小涛",
+          "裳泓村 · 小涛磨坊 · 一楼",
+          "19:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "时间、季节、天气换好了",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "reference": {
+        "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-006-参照-阿鱼客厅19时.png",
+        "metadata_sha256": "7a58608abeafdf79b6858580ad67f7f6e40772633cf83c5405555ed619271ece",
+        "world_scale": [
+          2.0,
+          2.0
+        ],
+        "observation": {
+          "at": 1792115921.29369,
+          "area": "living",
+          "position": [
+            385.0,
+            337.7
+          ],
+          "action": "idle",
+          "lift": 0.0,
+          "hour": 19.0,
+          "visual_month": 10,
+          "visual_weather": "clear",
+          "world_weather": "clear",
+          "window_size": [
+            540,
+            960
+          ],
+          "effects": {
+            "community": {
+              "completed": 2.0
+            },
+            "my_cabin": {
+              "read": 1.0,
+              "table": 1.0,
+              "tidy": 1.0,
+              "weave": 2.0
+            },
+            "v_h3": {
+              "sift": 1.0
+            },
+            "v_h5": {
+              "wash": 1.0
+            },
+            "v_mayor": {
+              "register": 1.0
+            }
+          },
+          "resident": {}
+        },
+        "feedback_text": [
+          "裳泓村 · 客厅",
+          "19:00",
+          "秋",
+          "0/3",
+          "小事 0/3",
+          "开关电视",
+          "时间、季节、天气换好了",
+          "日常",
+          "村庄地图",
+          "随身篮子"
+        ]
+      },
+      "scope": "坐姿lift47，人物气泡未压头脸；该状态只有人物提示气泡，未显示物件文字牌",
+      "whole_art_pass": false
+    }
+  ],
+  "actual_click_evidence": [
+    {
+      "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-026-标签-名册避让后实点目标正确.png",
+      "metadata_sha256": "a0c777e08bd1fa402d59cd3a54a1199bbaa6ace2e93bd76e0c0617f439ecfe91",
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "observation": {
+        "at": 1792117468.43761,
+        "area": "v_mayor",
+        "position": [
+          314.0,
+          162.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 9.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "effects": {
+          "community": {
+            "completed": 2.0
+          },
+          "my_cabin": {
+            "read": 1.0,
+            "table": 1.0,
+            "tidy": 1.0,
+            "weave": 2.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 2
+          }
+        },
+        "resident": {
+          "action": "registry",
+          "bubble": "先查好名册，今天办事就不用翻来翻去。",
+          "bubble_visible": true,
+          "face": "right",
+          "lift": 0.0,
+          "position": [
+            313.0,
+            163.0
+          ],
+          "slot": 0,
+          "walking": false
+        }
+      },
+      "feedback_text": [
+        "先查好名册，今天办事就不用翻来翻去。",
+        "林伯",
+        "裳泓村 · 村委会 · 一楼",
+        "09:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "翻开名册，今天的住户记录核对好了。",
+        "日常",
+        "村庄地图",
+        "随身篮子"
+      ]
+    },
+    {
+      "raw_local": "回执/第1轮返工/差异-9acd328-1016/差异-9acd328-1016-033-标签-坐姿气泡实点小涛对话正确.png",
+      "metadata_sha256": "586285aca68fb3787f30493e7ecbcd9dd0231f35fd53a76fa924f2540d7f4adf",
+      "world_scale": [
+        2.0,
+        2.0
+      ],
+      "observation": {
+        "at": 1792117821.76342,
+        "area": "v_h3",
+        "position": [
+          114.0,
+          474.0
+        ],
+        "action": "idle",
+        "lift": 0.0,
+        "hour": 19.0,
+        "visual_month": 10,
+        "visual_weather": "clear",
+        "world_weather": "clear",
+        "window_size": [
+          540,
+          960
+        ],
+        "effects": {
+          "community": {
+            "completed": 2.0
+          },
+          "my_cabin": {
+            "read": 1.0,
+            "table": 1.0,
+            "tidy": 1.0,
+            "weave": 2.0
+          },
+          "v_h3": {
+            "sift": 1.0
+          },
+          "v_h5": {
+            "wash": 1.0
+          },
+          "v_mayor": {
+            "register": 2
+          }
+        },
+        "resident": {
+          "action": "drink",
+          "bubble": "磨坊歇下来了。坐一会儿，茶刚续上。",
+          "bubble_visible": false,
+          "face": "down",
+          "lift": 47.0,
+          "position": [
+            90.0,
+            462.0
+          ],
+          "slot": 2,
+          "walking": false
+        }
+      },
+      "feedback_text": [
+        "小涛",
+        "裳泓村 · 小涛磨坊 · 一楼",
+        "19:00",
+        "秋",
+        "0/3",
+        "小事 0/3",
+        "时间、季节、天气换好了",
+        "日常",
+        "村庄地图",
+        "随身篮子",
+        "小涛",
+        "“磨坊歇下来了。坐一会儿，\n茶刚续上。”"
+      ]
+    }
+  ],
+  "limits": [
+    "三处错冒衣物反馈与一处衣物正例已实际触发，不推全部9处衣物逐一通过",
+    "名册实际字牌和既有多行长话泡、车库左屏边、近距双人、磨坊坐姿人物气泡已查；超长名字牌省略/320窄屏/所有坐姿文字牌组合未实机覆盖",
+    "旅行包开合块、衣物几何叠层仍为美术欠缺，源码收窄范围不等于整室画面通过",
+    "本波房间都是差异热点局部，69格全室欠验不由此扣除",
+    "原首日、六热点、碰撞未整套重跑，真实触摸与实听未再探测，A3道路本轮停止"
+  ],
+  "stop_remaining_percent": 30,
+  "new_room_start_min_remaining_percent": 36,
+  "all_7_pairs_viewed": true,
+  "runtime_closed_normally": true,
+  "engine_exit_code": 0,
+  "exit_warnings": "6 CanvasItem RIDs、6 textures及18 ObjectDB释放警告仍在"
+}

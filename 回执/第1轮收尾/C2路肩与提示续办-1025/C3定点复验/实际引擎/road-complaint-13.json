@@ -1,0 +1,27 @@
+{
+  "area": "village",
+  "bodies": [
+    {
+      "action": "idle",
+      "id": "visitor",
+      "lift": 0.0,
+      "rect": [
+        234.0,
+        418.0,
+        72.0,
+        168.0
+      ]
+    }
+  ],
+  "fps": 1.0,
+  "hour": 13.0,
+  "month": 7,
+  "name": "road-complaint-13",
+  "overlaps": [],
+  "pos": [
+    3544.0,
+    1960.0
+  ],
+  "scale": 2.0,
+  "tags": []
+}

@@ -1,0 +1,27 @@
+{
+  "canvas": [1024, 1536],
+  "behavior": "single_click_fast_travel_to_outside_door",
+  "confirmation": false,
+  "hotspots": [
+    {"id":"erba","title":"二爸家","rect":[495,95,140,100]},
+    {"id":"daba","title":"大爸家","rect":[258,240,145,90]},
+    {"id":"flower","title":"花房小楼","rect":[608,241,144,98]},
+    {"id":"whitebrick","title":"白砖小院","rect":[764,366,141,98]},
+    {"id":"grape","title":"葡萄架小院","rect":[92,350,145,81]},
+    {"id":"sunflower","title":"向日葵之家","rect":[712,507,145,96]},
+    {"id":"laowu","title":"阿鱼家后方老屋小楼","rect":[436,416,138,72]},
+    {"id":"h5","title":"凯凯蜂蜜小院","rect":[42,579,155,92]},
+    {"id":"h2","title":"2A · 缝补人家","rect":[212,582,145,87]},
+    {"id":"ayu","title":"0A · 阿鱼家","rect":[368,532,275,246]},
+    {"id":"h6","title":"6A · 花窗人家","rect":[732,669,145,102]},
+    {"id":"h3","title":"小涛磨坊","rect":[148,766,155,99]},
+    {"id":"mayor","title":"村委会","rect":[420,823,160,84]},
+    {"id":"h7","title":"7A · 窄巷人家","rect":[840,796,90,107]},
+    {"id":"h8","title":"8A · 茶香小院","rect":[672,882,145,75]},
+    {"id":"h4","title":"4A · 田边平房","rect":[175,1012,150,87]},
+    {"id":"community","title":"村民活动中心","rect":[428,1033,145,84]},
+    {"id":"h1","title":"1A · 蓝瓦人家","rect":[685,1034,150,92]},
+    {"id":"persimmon","title":"柿树老院","rect":[102,1170,155,99]},
+    {"id":"rose","title":"玫瑰花之家","rect":[670,1196,150,98]}
+  ]
+}

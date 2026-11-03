@@ -4,6 +4,8 @@ const Art = preload("res://ayu_home/v4/redraw_art.gd")
 const Actor = preload("res://ayu_home/v4/actor.gd")
 const P := "res://ayu_home/v3/assets/"
 const ROOMS := "res://ayu_home/v4/assets/"
+const SPRING_SHADER = preload("res://ayu_home/v4/assets/village/c4-spring-v1/season-material.gdshader")
+const SPRING_BINDINGS := "res://ayu_home/v4/assets/village/c4-spring-v1/bindings.json"
 var CELL := 4
 static var shared_light_texture:Texture2D
 var life
@@ -42,12 +44,16 @@ var light_rect:=Rect2()
 var table_top:Node2D
 var plane_cache:Dictionary={}
 static var season_shader:Shader
+static var village_spring_bindings:Dictionary={}
+static var black_spring_mask:Texture2D
+var village_material_cache:Dictionary={}
 var plant_materials:Array=[]
 var season_material:ShaderMaterial
 var sharp_material:ShaderMaterial
 var base_sprite:Sprite2D
 var nearest_cache:Dictionary={}
 var parallax_origin := Vector2.ZERO
+var village_ground:Node2D
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -59,6 +65,7 @@ func art(path:String) -> Texture2D:return null if nav_only else Assets.texture(p
 func load_room(which: String) -> void:
 	for n in get_children(): remove_child(n); n.queue_free()
 	props.clear();lights.clear();obstacles.clear();windows.clear();nearest_cache.clear();plane_cache.clear()
+	village_ground=null
 	area = which
 	cfg = JSON.parse_string(FileAccess.get_file_as_string(ROOMS+area+".json"))
 	CELL=int(cfg.get("nav_cell",4))
@@ -67,14 +74,37 @@ func load_room(which: String) -> void:
 		bg.texture=art("res://ayu_home/v4/assets/floor1-redraw/floor1.png" if int(cfg.floor)==1 else P+"approved-2.png")
 		bg.position=v(cfg.source_offset)-v(cfg.source_crop)
 	else:bg.texture = art(asset_path(str(cfg.get("background",area+"_floor.png"))))
+	if cfg.has("background_scale"):
+		bg.scale=v(cfg.background_scale);bg.position=v(cfg.get("background_offset",[0,0]))
 	if cfg.get("floor",0)==1 and sharp:bg.material=sharpen_material()
 	# 屋外的季节和雨：冬天草和树叶上盖一层雪，秋天叶子泛黄，雨天地面发暗发凉（后花园有四季原图，不叠）
-	season_material=null;plant_materials.clear()
-	if cfg.get("outdoor",false) and area!="garden":season_material=make_season_material();bg.material=season_material
+	season_material=null;plant_materials.clear();village_material_cache.clear()
+	if cfg.get("outdoor",false) and area!="garden":
+		season_material=make_village_season_material(asset_path(str(cfg.background)),0,0) if area=="village" else make_season_material()
+		bg.material=season_material
+	if area=="village" and cfg.has("ground_layers") and not nav_only:
+		village_ground=preload("res://ayu_home/v4/core/village_ground.gd").new()
+		village_ground.configure_path(str(cfg.ground_layers),asset_path(str(cfg.background)))
+		if village_ground.native_enabled and village_ground.native_surface.ready_art:
+			# The old baked base must also release the native region, or it covers the screen-space mountains.
+			var cut:Array=cfg.g0_native.region
+			var base_material:ShaderMaterial=season_material.duplicate() as ShaderMaterial
+			var base_shader:=Shader.new()
+			base_shader.code=SPRING_SHADER.code.replace("void fragment() {","uniform vec4 g0_cut;\nuniform float g0_north;\nvoid fragment() {\nvec2 g0_source=UV/TEXTURE_PIXEL_SIZE;\nif(g0_source.y<g0_north || (g0_source.x>=g0_cut.x && g0_source.x<g0_cut.z && g0_source.y>=g0_cut.y && g0_source.y<g0_cut.w)){discard;}\n")
+			base_material.shader=base_shader
+			base_material.set_shader_parameter("g0_cut",Vector4(cut[0],cut[1],cut[0]+cut[2],cut[1]+cut[3]))
+			base_material.set_shader_parameter("g0_north",float(cfg.g0_native.north_y))
+			season_material=base_material;bg.material=base_material
+		add_child(village_ground)
+		village_ground.mount_layers(func(kind):
+			if kind=="mountain" or (kind=="fields" and not village_ground.layout.is_empty()):return null # C4 seasonal field plates and mountains keep their original colors.
+			var mat=make_village_season_material(asset_path(str(cfg.background)),0,0) if kind=="fields" else make_season_material()
+			plant_materials.append(mat);return mat)
 	ground = Node2D.new();ground.draw.connect(_ground_draw);add_child(ground)
 	actors = Node2D.new();actors.y_sort_enabled = true;add_child(actors)
 	for p in cfg.props:
-		var base := Node2D.new();base.position = Vector2(0,float(p.foot));actors.add_child(base)
+		var base := Node2D.new();base.position = Vector2(0,float(p.foot))
+		(ground if p.get("ground",false) else actors).add_child(base)
 		var sp := Sprite2D.new();sp.centered = false;sp.texture = art(asset_path(p.file));sp.position = v(p.pos)-base.position;base.add_child(sp)
 		if p.has("atlas_region"):
 			var region_texture:=AtlasTexture.new();region_texture.atlas=sp.texture
@@ -83,7 +113,16 @@ func load_room(which: String) -> void:
 		if cfg.get("floor",0)==1 and sharp:
 			var mat:=sharpen_material().duplicate();var src_origin:=v(cfg.source_crop)+v(p.pos)-v(cfg.source_offset);mat.set_shader_parameter("source_origin",src_origin);sp.material=mat
 		if season_material:
-			if p.has("plant_type"):
+			if area=="village":
+				var source:=asset_path(p.file)
+				var binding:Dictionary=get_village_spring_bindings().get("props",{}).get(str(p.id),{})
+				# 当前接口无图集；源图或UV变化时用黑遮罩，不能误把背景掩区套到房屋上。
+				var matched:bool=binding.get("texture","")==source and not p.has("atlas_region")
+				var kind:int=int(binding.plant_kind) if matched else int({"fruit":3,"deciduous":1,"evergreen":2}.get(str(p.get("plant_type","")),0))
+				var sm:=make_village_season_material(source,kind,int(binding.get("spring_layer_kind",1)),matched)
+				sp.material=sm
+				if not plant_materials.has(sm):plant_materials.append(sm)
+			elif p.has("plant_type"):
 				var sm:=make_season_material();sm.set_shader_parameter("plant_kind",{"fruit":3,"deciduous":1,"evergreen":2}.get(str(p.plant_type),0));sp.material=sm;plant_materials.append(sm)
 			else:sp.material=season_material
 		props.append({"root":base,"sprite":sp,"origin":sp.position,"config":p})
@@ -110,10 +149,10 @@ func load_room(which: String) -> void:
 	grid.region = Rect2i(0,0,int(cfg.size[0])/CELL,int(cfg.size[1])/CELL)
 	grid.cell_size = Vector2(CELL,CELL);grid.offset = Vector2(CELL/2,CELL/2);grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES;grid.update()
 	var nav_file:String=Assets.resolved_paths.get(ROOMS+area+".nav",ROOMS+area+".nav")
-	var mask:=FileAccess.get_file_as_bytes(nav_file) if use_baked_navigation and FileAccess.file_exists(nav_file) else PackedByteArray()
+	var mask:=FileAccess.get_file_as_bytes(nav_file) if use_baked_navigation and not cfg.get("rebuild_navigation",false) and FileAccess.file_exists(nav_file) else PackedByteArray()
 	var baked:bool=mask.size()==grid.region.size.x*grid.region.size.y
 	for y in grid.region.size.y:
-		for x in grid.region.size.x:grid.set_point_solid(Vector2i(x,y),bool(mask[y*grid.region.size.x+x]) if baked else not walkable(Vector2(x*CELL+CELL/2,y*CELL+CELL/2)))
+		for x in grid.region.size.x:grid.set_point_solid(Vector2i(x,y),bool(mask[y*grid.region.size.x+x]) if baked else not walkable(Vector2(x*CELL+CELL/2,y*CELL+CELL/2),true))
 	seal_islands()
 	add_table_top();add_tap_water()
 	update_light()
@@ -199,9 +238,11 @@ func seal_islands() -> void:
 			if seen[y*size.x+x]==0 and not grid.is_point_solid(Vector2i(x,y)):grid.set_point_solid(Vector2i(x,y),true)
 	nearest_cache.clear()
 static func v(a: Array) -> Vector2:return Vector2(a[0],a[1])
-func walkable(at: Vector2) -> bool:
+func walkable(at: Vector2, nav_clearance:=false) -> bool:
 	var r: Array = cfg.walk_rect
 	if not Rect2(r[0],r[1],r[2],r[3]).has_point(at):return false
+	if blocked_by_polygon(cfg,at):return false
+	if blocked_by_field(cfg,at,nav_clearance):return false
 	if not cfg.get("walk_polygons",[]).is_empty():
 		var inside:=false
 		for polygon in cfg.walk_polygons:
@@ -253,8 +294,34 @@ func make_season_material() -> ShaderMaterial:
 		season_shader=Shader.new()
 		season_shader.code="shader_type canvas_item;uniform int season=2;uniform float rain=0.0;uniform int plant_kind=0;void fragment(){vec4 c=texture(TEXTURE,UV);vec3 col=c.rgb;float green=clamp((col.g-max(col.r,col.b))*5.0,0.0,1.0);float lum=dot(col,vec3(.3,.59,.11));if(season==3){vec3 snow=vec3(.86,.9,.96)*(.72+lum*.55);col=mix(col,snow,green*.8);col*=vec3(.94,.97,1.04);}else if(season==2){float k=plant_kind==2?.04:(plant_kind==1?.88:(plant_kind==3?.68:.52));col=mix(col,vec3(col.g*1.22,col.g*.70,col.b*.46),green*k);}else if(season==0){col=mix(col,vec3(col.r*.9+.13,col.g*.88+.17,col.b*.85+.07),green*.82);}if(rain>0.0){col*=mix(vec3(1.0),vec3(.8,.86,.95),rain);}COLOR=vec4(col,c.a);}"
 	var m:=ShaderMaterial.new();m.shader=season_shader;return m
+func get_village_spring_bindings() -> Dictionary:
+	if village_spring_bindings.is_empty():
+		var parsed=JSON.parse_string(FileAccess.get_file_as_string(SPRING_BINDINGS))
+		if parsed is Dictionary:village_spring_bindings=parsed
+	return village_spring_bindings
+func make_village_season_material(source:String,plant_kind:int,layer_kind:int,mask_allowed:=true) -> ShaderMaterial:
+	var key:=source+"|"+str(plant_kind)+"|"+str(layer_kind)+"|"+str(mask_allowed)
+	if village_material_cache.has(key):return village_material_cache[key]
+	var binding:Dictionary=get_village_spring_bindings().get("textures",{}).get(source,{})
+	var mask:Texture2D
+	if mask_allowed and not nav_only:
+		var path:String=str(binding.get("mask",""))
+		if not path.is_empty() and (FileAccess.file_exists(path) or ResourceLoader.exists(path)):mask=art(path)
+	if mask==null:
+		if black_spring_mask==null:
+			var im:=Image.create(1,1,false,Image.FORMAT_RGB8);im.fill(Color.BLACK)
+			black_spring_mask=ImageTexture.create_from_image(im)
+		mask=black_spring_mask
+	var m:=ShaderMaterial.new();m.shader=SPRING_SHADER
+	m.set_shader_parameter("spring_plant_mask",mask)
+	m.set_shader_parameter("spring_mask_enabled",true)
+	m.set_shader_parameter("spring_layer_kind",layer_kind)
+	m.set_shader_parameter("plant_kind",plant_kind)
+	village_material_cache[key]=m
+	return m
 func update_light() -> void:
 	if not ambient:return
+	if is_instance_valid(village_ground):village_ground.set_season(preload("res://ayu_home/home_data.gd").season(month) if effects_enabled else 1)
 	for pm in plant_materials:
 		pm.set_shader_parameter("season",preload("res://ayu_home/home_data.gd").season(month) if effects_enabled else 1)
 		pm.set_shader_parameter("rain",1.0 if weather=="rain" and effects_enabled else 0.0)
@@ -307,6 +374,14 @@ func soft_shadow(at:Vector2,width:float,opacity:float) -> void:
 			var angle:=TAU*i/24.0
 			pts.append(at+sv*.3+Vector2(cos(angle)*width*spread+sin(angle)*sv.x*.35,sin(angle)*(5+absf(sv.y)*.25)*spread))
 		ground.draw_colored_polygon(pts,Color(.08,.09,.15,opacity*.25))
+func weather_view() -> Rect2:
+	# 实际视口经画布逆变换落回世界；窗口缩放、横屏和镜头缩放共用同一范围。
+	var screen:=get_viewport_rect();var inverse:=get_global_transform_with_canvas().affine_inverse()
+	var bounds:=Rect2(inverse*screen.position,Vector2.ZERO)
+	for corner in [Vector2(screen.end.x,screen.position.y),screen.end,Vector2(screen.position.x,screen.end.y)]:bounds=bounds.expand(inverse*corner)
+	return bounds.grow(20.0)
+func weather_count(base_count:int,base_area:=156000.0) -> int:
+	return clampi(roundi(base_count*weather_view().get_area()/base_area),1,1600)
 func _air_draw() -> void:
 	if not effects_enabled:return
 	if area=="living":
@@ -337,8 +412,9 @@ func _air_draw() -> void:
 					var p := Vector2(rect.position.x+fposmod(i*19+elapsed*2,rect.size.x),rect.end.y+fposmod(i*15-elapsed*3,250)*(-1 if rect.position.y>float(cfg.size[1])*.5 else 1))
 					if light_rect.has_point(p):atmosphere.draw_rect(Rect2(p,Vector2.ONE),Color(1,.9,.64,.5))
 	else:
-		for i in (100 if weather in ["rain","snow"] else 32):
-			var p := camera_center-Vector2(600,650)+Vector2(fposmod(i*79+elapsed*(30 if weather=="rain" else 8),1200.0),fposmod(i*137+elapsed*(160 if weather=="rain" else 20),1300.0))
+		var full_view:=weather_view()
+		for i in weather_count(100 if weather in ["rain","snow"] else 32,1560000.0):
+			var p := full_view.position+Vector2(fposmod(i*79+elapsed*(30 if weather=="rain" else 8),full_view.size.x),fposmod(i*137+elapsed*(160 if weather=="rain" else 20),full_view.size.y))
 			if weather=="rain":atmosphere.draw_line(p,p+Vector2(-3,10),Color(.7,.85,.9,.4),1)
 			else:atmosphere.draw_rect(Rect2(p,Vector2(3,3) if weather=="snow" else Vector2(2,2)),Color(.94,.97,1,.7) if weather=="snow" else season_particle())
 	# Every reaction changes the scene at the object, even in daylight.
@@ -453,6 +529,8 @@ func leads_out(d:Dictionary,at:Vector2) -> bool:
 static func walkable_in(c:Dictionary,at:Vector2) -> bool:
 	var r:Array=c.walk_rect
 	if not Rect2(r[0],r[1],r[2],r[3]).has_point(at):return false
+	if blocked_by_polygon(c,at):return false
+	if blocked_by_field(c,at):return false
 	if not c.get("walk_polygons",[]).is_empty():
 		var inside:=false
 		for polygon in c.walk_polygons:
@@ -463,6 +541,44 @@ static func walkable_in(c:Dictionary,at:Vector2) -> bool:
 	for b in c.obstacles:
 		if Rect2(b[0],b[1],b[2],b[3]).grow(3).has_point(at):return false
 	return true
+static func blocked_by_polygon(c:Dictionary,at:Vector2) -> bool:
+	for polygon in c.get("blocked_polygons",[]):
+		var points:=PackedVector2Array()
+		for p in polygon:points.append(v(p))
+		if Geometry2D.is_point_in_polygon(at,points):return true
+	return false
+static func blocked_by_field(c:Dictionary,at:Vector2, nav_clearance:=false) -> bool:
+	if not c.has("field_navigation"):return false
+	if not c.has("_field_nav_cache"):
+		var cache:={"fields":[],"buckets":{}}
+		for polygon in c.field_navigation.fields:
+			var points:=PackedVector2Array()
+			for p in polygon:points.append(v(p))
+			cache.fields.append(points)
+		for polygon in c.field_navigation.walk_surfaces:
+			var points:=PackedVector2Array();var bounds:=Rect2(v(polygon[0]),Vector2.ZERO)
+			for p in polygon:points.append(v(p));bounds=bounds.expand(v(p))
+			for y in range(floori(bounds.position.y/128),floori(bounds.end.y/128)+1):
+				for x in range(floori(bounds.position.x/128),floori(bounds.end.x/128)+1):
+					var key:=Vector2i(x,y)
+					if not cache.buckets.has(key):cache.buckets[key]=[]
+					cache.buckets[key].append(points)
+		c._field_nav_cache=cache
+	# Curved-lane candidates constrain click routes to visible surfaces, including open grass.
+	# Physical keyboard walking still keeps the original field/wall rules.
+	var inside:=nav_clearance and bool(c.field_navigation.get("route_on_surfaces",false))
+	for field in c._field_nav_cache.fields:
+		if Geometry2D.is_point_in_polygon(at,field):inside=true;break
+	if not inside:return false
+	# Keep cell centres away from the path edge so interpolated steps cannot cut a field corner.
+	var margin:=float(c.field_navigation.get("margin",8)) if nav_clearance else 0.0
+	for offset in [Vector2.ZERO,Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN,Vector2(-.707,-.707),Vector2(.707,-.707),Vector2(-.707,.707),Vector2(.707,.707)]:
+		var sample:Vector2=at+offset*margin;var covered:=false
+		var key:=Vector2i(floori(sample.x/128),floori(sample.y/128))
+		for polygon in c._field_nav_cache.buckets.get(key,[]):
+			if Geometry2D.is_point_in_polygon(sample,polygon):covered=true;break
+		if not covered:return true
+	return false
 func open_cell(at:Vector2) -> bool:
 	var cell:=Vector2i(at/CELL)
 	return grid.is_in_boundsv(cell) and not grid.is_point_solid(cell)
@@ -522,7 +638,7 @@ func _life_draw() -> void:
 	for h in cfg.hotspots:
 		if not saved.get(area+":"+h.id,false):continue
 		var p:=v(h.pos);var kind:String=h.get("kind","")
-		if kind in ["fold","tidy"]:
+		if kind=="fold" or (kind=="tidy" and h.get("effect","")=="fold"):
 			for j in 3:pixel(Rect2(p+Vector2(-12,-j*4),Vector2(25,5)),[Color("d4a29a"),Color("cbd7ad"),Color("e5d1a7")][j])
 		elif kind=="wipe":
 			pixel(Rect2(p+Vector2(-7,-10),Vector2(3,21)),Color("d2e4d7"));pixel(Rect2(p+Vector2(-16,-2),Vector2(21,3)),Color("d2e4d7"))
@@ -539,21 +655,21 @@ func _life_draw() -> void:
 			if str(d.target) in ["exterior","side_path","bridge","oldhouse","garden","grove"]:exit_arrows(d)
 	if cfg.get("outdoor",false):
 		# 雪、花瓣、雨都只画在镜头看得到的地方，密一点，一眼看得出季节和天气
-		var view:=Rect2(camera_center-Vector2(150,260),Vector2(300,520))
-		var winter:=month in [12,1,2]
+		var view:=weather_view()
+		var winter:=month in [12,1,2] or weather=="snow"
 		if winter:
-			for i in 90:
+			for i in weather_count(90):
 				var p:=view.position+Vector2(fposmod(i*37.0+sin(elapsed*.7+i)*14+elapsed*6,view.size.x),fposmod(i*53.0+elapsed*(22+i%5*5),view.size.y))
 				pixel(Rect2(p,Vector2(3,3) if i%3 else Vector2(2,2)),Color(.97,.98,1,.9))
 		elif month in [3,4,5]:
-			for i in 30:pixel(Rect2(view.position+Vector2(fposmod(i*47.0+elapsed*12,view.size.x),fposmod(i*61.0+elapsed*16,view.size.y)),Vector2(4,3)),Color("efb9b1"))
+			for i in weather_count(30):pixel(Rect2(view.position+Vector2(fposmod(i*47.0+elapsed*12,view.size.x),fposmod(i*61.0+elapsed*16,view.size.y)),Vector2(4,3)),Color("efb9b1"))
 		elif month in [9,10,11]:
-			for i in 22:pixel(Rect2(view.position+Vector2(fposmod(i*59.0+sin(elapsed+i)*20+elapsed*10,view.size.x),fposmod(i*71.0+elapsed*18,view.size.y)),Vector2(4,3)),[Color("d58a3a"),Color("c5652e"),Color("e2b04a")][i%3])
+			for i in weather_count(22):pixel(Rect2(view.position+Vector2(fposmod(i*59.0+sin(elapsed+i)*20+elapsed*10,view.size.x),fposmod(i*71.0+elapsed*18,view.size.y)),Vector2(4,3)),[Color("d58a3a"),Color("c5652e"),Color("e2b04a")][i%3])
 		if weather=="rain":
-			for i in 110:
+			for i in weather_count(110):
 				var p:=view.position+Vector2(fposmod(i*29.0-elapsed*60,view.size.x),fposmod(i*47.0+elapsed*420,view.size.y))
 				atmosphere.draw_line(p,p+Vector2(-4,14),Color(.78,.88,.96,.55),1)
-			for i in 26:
+			for i in weather_count(26):
 				var p:=view.position+Vector2(fposmod(i*83.0,view.size.x),fposmod(i*131.0,view.size.y));var age:=fposmod(elapsed*1.6+i*.37,1.0)
 				if walkable(p):atmosphere.draw_arc(p,2+age*7,0,TAU,10,Color(.82,.9,.95,(1-age)*.7),1)
 			for i in 15:

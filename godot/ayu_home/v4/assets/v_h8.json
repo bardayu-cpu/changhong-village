@@ -1,165 +1,124 @@
 {
   "id": "v_h8",
-  "title": "8A · 茶香小院 · 一楼",
+  "title": "茶香小院",
   "group": "村庄",
   "floor": 0,
   "size": [
-    660,
-    670
+    768,
+    512
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h8.png",
+  "background": "res://ayu_home/v4/assets/village/households-pixel/h8.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "table0",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        65,
-        145
-      ],
-      "foot": 220,
-      "front": false
-    },
-    {
-      "id": "kitchen1",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        485,
-        145
-      ],
-      "foot": 228,
-      "front": false
-    },
-    {
-      "id": "bed2",
-      "file": "res://ayu_home/v4/assets/village/furniture_bed.png",
-      "pos": [
-        65,
-        410
-      ],
-      "foot": 620,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        232,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        440
-      ],
-      "foot": 508,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        588,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        300,
-        412
-      ],
-      "foot": 445,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      410,
-      90,
-      12,
-      140
+      88,
+      137,
+      220,
+      40
     ],
     [
-      410,
-      380,
-      12,
-      230
-    ],
-    [
-      69,
-      189.0,
-      112,
-      36.0
-    ],
-    [
-      489,
-      193.4,
-      147,
-      39.6
-    ],
-    [
-      69,
-      528.25,
+      315,
       142,
-      96.75
+      65,
+      34
+    ],
+    [
+      437,
+      142,
+      155,
+      48
+    ],
+    [
+      627,
+      178,
+      80,
+      22
+    ],
+    [
+      42,
+      173,
+      137,
+      229
+    ],
+    [
+      216,
+      234,
+      80,
+      102
+    ],
+    [
+      313,
+      253,
+      152,
+      83
+    ],
+    [
+      483,
+      233,
+      79,
+      103
+    ],
+    [
+      665,
+      233,
+      70,
+      153
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
-      "pos": [
-        230,
-        550
-      ],
-      "approach": [
-        230,
-        590
-      ],
-      "kind": "village",
-      "copy": "炉边一张竹椅，雨天正好听水声。"
-    },
-    {
       "id": "house_help",
-      "label": "沏一壶家常茶",
+      "label": "归整茶盘",
       "pos": [
-        420,
-        520
+        390,
+        282
       ],
       "approach": [
-        420,
-        560
+        390,
+        360
       ],
-      "kind": "village",
-      "copy": "茶泡好了，随时可以坐下喝。",
-      "house": "h8"
+      "kind": "house_task",
+      "house": "h8",
+      "copy": "茶杯倒扣归好，茶盘擦干净了。留一壶热水，下回坐下就能慢慢泡茶。",
+      "repeat_copy": "茶香小院记着你的帮助，今天的茶盘已经归整好了。找张椅子坐坐吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        330,
-        425
+        522,
+        276
       ],
       "approach": [
-        330,
-        480
+        584,
+        289
       ],
       "kind": "seat",
       "seat": [
-        330,
-        435
+        522,
+        283
       ],
-      "face": "down"
+      "face": "left"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h8",
+      "label": "挪一挪茶席",
+      "pos": [
+        438,
+        282
+      ],
+      "approach": [
+        390,
+        360
+      ],
+      "copy": "茶席换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -168,47 +127,148 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        330,
-        616
+        376,
+        454
       ],
       "approach": [
-        330,
-        634
+        376,
+        437
+      ],
+      "arrival": [
+        376,
+        402
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
+      "width": 65,
       "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      211,
-      115,
-      240
-    ],
-    [
-      475,
-      468,
-      220
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    330,
-    565
+    376,
+    402
   ],
   "walk_rect": [
-    22,
-    100,
-    616,
-    550
+    28,
+    177,
+    711,
+    306
+  ],
+  "walk_polygons": [
+    [
+      [
+        89,
+        177
+      ],
+      [
+        701,
+        199
+      ],
+      [
+        738,
+        402
+      ],
+      [
+        420,
+        402
+      ],
+      [
+        420,
+        483
+      ],
+      [
+        335,
+        483
+      ],
+      [
+        335,
+        402
+      ],
+      [
+        29,
+        402
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -7,
+    -4
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "tea_stool",
+    "pos": [
+      390,
+      282
+    ],
+    "label": "茶席",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      438,
+      282
+    ]
+  },
+  "npc": {
+    "id": "household_h8",
+    "character_id": "household_h8",
+    "name": "茶香小院主人",
+    "portrait": "household_h8",
+    "preset": 5,
+    "pos": [
+      390,
+      360
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          390,
+          360
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理茶席，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          584,
+          289
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的茶席也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          522,
+          283
+        ],
+        "approach": [
+          584,
+          289
+        ],
+        "face": "left",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

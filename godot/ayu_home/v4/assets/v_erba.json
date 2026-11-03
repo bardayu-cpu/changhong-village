@@ -1,181 +1,160 @@
 {
   "id": "v_erba",
-  "title": "二爸家 · 一楼",
+  "title": "二爸家 · 家常客厅",
   "group": "村庄",
   "floor": 0,
   "size": [
-    760,
-    720
+    836,
+    472
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_erba.png",
+  "background": "res://ayu_home/v4/assets/village/households-pixel/erba.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "kitchen0",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        60,
-        130
-      ],
-      "foot": 213,
-      "front": false
-    },
-    {
-      "id": "sofa1",
-      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
-      "pos": [
-        415,
-        175
-      ],
-      "foot": 260,
-      "front": false
-    },
-    {
-      "id": "table2",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        470,
-        400
-      ],
-      "foot": 475,
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        650,
-        410
-      ],
-      "foot": 560,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        282,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        490
-      ],
-      "foot": 558,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        688,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        350,
-        462
-      ],
-      "foot": 495,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      310,
-      100,
-      12,
-      210
+      42,
+      144,
+      63,
+      195
     ],
     [
-      310,
-      440,
-      12,
-      240
+      124,
+      148,
+      176,
+      54
     ],
     [
-      322,
-      350,
-      260,
-      12
+      303,
+      142,
+      66,
+      31
     ],
     [
-      64,
-      178.4,
-      147,
-      39.6
+      373,
+      133,
+      136,
+      35
     ],
     [
-      419,
-      224.5,
-      127,
-      40.5
+      512,
+      135,
+      89,
+      38
     ],
     [
-      474,
-      444.0,
+      687,
+      150,
+      96,
+      29
+    ],
+    [
+      163,
+      190,
+      102,
+      80
+    ],
+    [
+      108,
+      225,
+      77,
+      84
+    ],
+    [
+      267,
+      209,
+      77,
+      82
+    ],
+    [
+      560,
+      208,
       112,
-      36.0
+      100
+    ],
+    [
+      536,
+      217,
+      35,
+      82
+    ],
+    [
+      656,
+      212,
+      40,
+      85
+    ],
+    [
+      583,
+      261,
+      41,
+      64
+    ],
+    [
+      566,
+      192,
+      41,
+      20
+    ],
+    [
+      753,
+      201,
+      52,
+      148
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
-      "pos": [
-        280,
-        600
-      ],
-      "approach": [
-        280,
-        640
-      ],
-      "kind": "village",
-      "copy": "这盏灯总留给晚归的人。"
-    },
-    {
       "id": "house_help",
-      "label": "把窗边的小灯点亮",
+      "label": "收好餐桌碗筷",
       "pos": [
-        470,
-        570
+        620,
+        244
       ],
       "approach": [
-        470,
-        610
+        551,
+        332
       ],
-      "kind": "village",
-      "copy": "灯已经亮了，回村的路也暖了一些。",
-      "house": "erba"
+      "kind": "house_task",
+      "house": "erba",
+      "copy": "碗筷归整齐，桌边也擦净了。家常饭吃过，留一张清爽桌子慢慢聊。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        380,
-        475
+        208,
+        178
       ],
       "approach": [
-        380,
-        530
+        311,
+        198
       ],
       "kind": "seat",
       "seat": [
-        380,
-        485
+        208,
+        178
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "erba",
+      "label": "挪一挪家常饭菜",
+      "pos": [
+        668,
+        244
+      ],
+      "approach": [
+        551,
+        332
+      ],
+      "copy": "家常饭菜换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -184,64 +163,148 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        380,
-        666
+        418,
+        430
       ],
       "approach": [
-        380,
-        684
+        418,
+        407
+      ],
+      "arrival": [
+        418,
+        372
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_erba_up",
-      "pos": [
-        695,
-        565
-      ],
-      "approach": [
-        695,
-        595
-      ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
+      "width": 120,
       "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      243,
-      115,
-      240
-    ],
-    [
-      547,
-      503,
-      220
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    380,
-    615
+    418,
+    372
   ],
   "walk_rect": [
-    22,
-    100,
-    716,
-    600
+    28,
+    161,
+    784,
+    295
+  ],
+  "walk_polygons": [
+    [
+      [
+        44,
+        161
+      ],
+      [
+        789,
+        161
+      ],
+      [
+        805,
+        366
+      ],
+      [
+        491,
+        366
+      ],
+      [
+        491,
+        454
+      ],
+      [
+        344,
+        454
+      ],
+      [
+        344,
+        366
+      ],
+      [
+        30,
+        366
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -96,
+    -2
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "meal-0",
+    "pos": [
+      620,
+      244
+    ],
+    "label": "家常饭菜",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      668,
+      244
+    ]
+  },
+  "npc": {
+    "id": "household_erba",
+    "character_id": "household_erba",
+    "name": "二爸",
+    "portrait": "household_erba",
+    "preset": 7,
+    "pos": [
+      551,
+      332
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          551,
+          332
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理家常饭菜，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          311,
+          198
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的家常饭菜也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          208,
+          178
+        ],
+        "approach": [
+          311,
+          198
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

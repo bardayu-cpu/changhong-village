@@ -11,6 +11,7 @@ const Immersive=preload("res://ayu_home/v4/immersive.gd")
 const Life=preload("res://ayu_home/v4/life_state.gd")
 const Games=preload("res://ayu_home/v4/life_games.gd")
 const Photo=preload("res://ayu_home/v4/polaroid.gd")
+const G0Horizon=preload("res://ayu_home/v4/core/village_horizon.gd")
 const Data=preload("res://ayu_home/home_data.gd")
 const NAMES={"ayu":"阿鱼","father":"爸爸","mother":"妈妈","qiuqiu":"求求","luoluo":"落落","tiantian":"天天","xiduo":"喜多"}
 const P="res://ayu_home/v3/assets/"
@@ -20,6 +21,7 @@ var world
 var player
 var people:Dictionary={}
 var scene_frame:Control
+var village_horizon:Node2D
 var hud:CanvasLayer
 var ui:Control
 var title:Label
@@ -34,6 +36,9 @@ var near_tag:Button
 var actions_layer:Control
 var task_button:Button
 var tools_button:Button
+var village_footer:HBoxContainer
+var footer_controls:Array[Dictionary]=[]
+var compact_footer:=false
 var toast:PanelContainer
 var toast_tween:Tween
 var season_icon:TextureRect
@@ -68,6 +73,7 @@ var sound_on:=true
 var amb:AudioStreamPlayer
 var sfx:AudioStreamPlayer
 var water_audio:AudioStreamPlayer
+var cicada_audio:AudioStreamPlayer
 var activities
 var immersive
 var rest_position:=Vector2.ZERO
@@ -80,6 +86,7 @@ var door_audio_count:=0
 var effects_log:Array=[]
 var room_state:Dictionary={}
 var save_path:="user://ayu_home_life_v3.json"
+var candidate_root:=""
 var journal:Dictionary={"version":3,"found":[],"completed":{},"notes":[]}
 var talk_label:Label
 var talk_line:=""
@@ -101,6 +108,7 @@ var blocked_notice_until:=0.0
 var scene_until:=0.0
 var scene_action:=""
 var scene_progress:=0.0
+var scene_book_pages:Array=[]
 var ball_position:=Vector2(1000,719)
 var ball_velocity:=Vector2.ZERO
 var ball_phase:="idle"
@@ -126,7 +134,19 @@ var final_leg:=false
 
 
 func _ready() -> void:
+
+	candidate_root=preload("res://ayu_home/v4/core/playtest_paths.gd").data_root()
+	if not candidate_root.is_empty():save_path=candidate_root.path_join("life.json")
 	DisplayServer.window_set_title("裳泓村 · 把日子住进来")
+	if ProjectSettings.get_setting("application/config/playtest_isolated",false):DisplayServer.window_set_title("裳泓村 · 试玩版")
+	if get_tree().root.get_meta("g0_review_build",false):DisplayServer.window_set_title("裳泓村 1027 · 构图预览 · 地面未验")
+	if ProjectSettings.get_setting("application/config/candidate_enabled",false):
+		candidate_root=str(ProjectSettings.get_setting("application/config/candidate_data_root",""))
+		if not candidate_root.is_absolute_path() or not DirAccess.dir_exists_absolute(candidate_root):
+			push_error("Candidate data root is unavailable; no gameplay save opened");get_tree().quit(2);return
+		save_path=candidate_root.path_join("life.json")
+		test_hour=13.0;test_month=7;test_weather="clear"
+		DisplayServer.window_set_title(str(ProjectSettings.get_setting("application/config/name","裳泓村候选"))+" · "+str(ProjectSettings.get_setting("application/config/candidate_build_id","未登记构建")))
 	RenderingServer.set_default_clear_color(UI.DEEP)
 	definitions=JSON.parse_string(FileAccess.get_file_as_string("res://ayu_home/v4/assets/rooms.json")).rooms
 	for arg in OS.get_cmdline_user_args():
@@ -138,9 +158,11 @@ func _ready() -> void:
 		elif arg.begins_with("--ayu-focus="):focus=arg.get_slice("=",1)
 		elif arg=="--ayu-test" and OS.is_debug_build():test_panel_enabled=true
 		elif arg=="--ayu-owner=true" and OS.is_debug_build():is_owner=true
+	if not candidate_root.is_empty():save_path=candidate_root.path_join("life.json")
 	if not definitions.has(area):area="exterior"
 	load_journal();read_clock();life.pack_seeds(month)
 	scene_frame=Control.new();scene_frame.clip_contents=true;scene_frame.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(scene_frame)
+	village_horizon=G0Horizon.new();scene_frame.add_child(village_horizon);village_horizon.visible=false
 	world=World.new();world.life=life;scene_frame.add_child(world)
 	amb=AudioStreamPlayer.new();add_child(amb);sfx=AudioStreamPlayer.new();add_child(sfx);setup_water_audio()
 	make_ui()
@@ -161,6 +183,8 @@ func _ready() -> void:
 		if not h.is_empty():player.position=world.nearest(World.v(h.approach));camera=player.position-Vector2(0,55)
 	get_viewport().size_changed.connect(layout)
 	bootstrapped=true
+	if get_tree().root.get_meta("g0_review_build",false):print("G0_HOME_READY area=",area," viewport=",get_viewport_rect().size," scale=",view_scale)
+	if not candidate_root.is_empty():print("CANDIDATE_READY build=",ProjectSettings.get_setting("application/config/candidate_build_id","")," life=",life.path," core=",village_ui.state.path," userdata=",OS.get_user_data_dir()," area=",area)
 	life.changed.connect(refresh_life_hud);refresh_life_hud()
 	if life.another_open:note="开了两个阿鱼家，关一个就好"
 	if first_visit:call_deferred("welcome")
@@ -175,9 +199,10 @@ func read_clock() -> void:
 	if time_label:
 		time_label.text="%02d:%02d"%[int(hour),int(hour*60)%60]
 		season_label.text=Data.SEASONS[Data.season(month)] # 第二行只放图标和短数字（组件库第 7 条），试玩时钟不另标
-		var season_key:String=["spring","summer","autumn","winter"][Life.season(month)];var weather_key:="rain" if weather=="rain" else "sun"
+		var season_key:String=["spring","summer","autumn","winter"][Life.season(month)];var weather_key:="winter" if weather=="snow" else ("rain" if weather=="rain" else "sun")
 		if season_icon.get_meta("key","")!=season_key:season_icon.texture=UI.icon(season_key,26,Color(DSkin.PAL.text)).texture;season_icon.set_meta("key",season_key)
 		if weather_icon.get_meta("key","")!=weather_key:weather_icon.texture=UI.icon(weather_key,26,Color(DSkin.PAL.text)).texture;weather_icon.set_meta("key",weather_key)
+	update_cicada_audio()
 func set_test_clock(h:float,m:=10,w:="clear") -> void:
 	test_hour=h;test_month=m;test_weather=w;read_clock();family_state.clear();sync_family(true);play_ambience();note="时间、季节、天气换好了"
 func set_identity(owner:bool) -> void:is_owner=owner
@@ -186,25 +211,41 @@ func anchor(room:String,id:String) -> Vector2:
 	var cfg:Dictionary=definitions[room]
 	return World.v(cfg.anchors.get(id,cfg.spawn))
 func enter_room(which:String,with_transition:=true,from:="") -> void:
+	if which in ["v_laowu","v_laowu_up"]:which="village";from=""
+	var doorstep_id:=which.trim_prefix("v_").trim_suffix("_up")
+	var doorstep_only:bool=village_ui!=null and village_ui.C.DOOR_CHORES.has(doorstep_id) and not bool(definitions.get(which,{}).get("household_open",false))
+	if doorstep_only:which="village";from="" # 旧档留在今天闭门的邻居屋里时，也从该户门边继续。
 	if not definitions.has(which):return
 	if not await preload("res://ayu_home/v4/core/download_gate.gd").ensure(self,"room:"+which):transition=false;return
 	if world and not world.cfg.is_empty():
 		room_state[area]={"lamp":world.lamp_on,"tv":world.tv_on,"toggles":world.toggles.duplicate()}
 		life.data.effects.rooms=room_state.duplicate(true);life.save()
 	clear_scene_controls();area=which;pending="";people.clear();world.load_room(area);world.hour=hour;world.month=month;world.weather=weather;world.reactions.clear();world.toggles.clear()
+	village_horizon.visible=which=="village" and world.cfg.has("g0_native")
+	if village_horizon.visible:
+		var g0:Dictionary=world.cfg.g0_native
+		var contract:Dictionary={}
+		if FileAccess.file_exists(str(g0.manifest)):contract=JSON.parse_string(FileAccess.get_file_as_string(str(g0.manifest)))
+		var box:Array=g0.region
+		village_horizon.sky=Color(str(contract.get("sky_color","b8d0db")))
+		village_horizon.configure(contract.get("horizon",{}),Rect2(box[0],box[1],box[2],box[3]),float(g0.north_y))
+		village_horizon.bind_terrain(world.village_ground)
 	var state:Dictionary=room_state.get(area,{})
 	world.lamp_on=state.get("lamp",true);world.tv_on=state.get("tv",hour>=6 and hour<22);world.toggles=state.get("toggles",{}).duplicate();world.life=life
 	player=Actor.new();player.preset=player_preset;world.actors.add_child(player);player.setup("visitor");player.position=world.spawn()
 	for d in world.cfg.doors:
 		if d.target==from:
-			player.face=d.face;player.position=world.nearest(World.v(d.approach)+dir(d.face)*(64 if world.cfg.get("outdoor",false) else 25));break
+			player.face=d.face;player.position=world.nearest(World.v(d.arrival)) if d.has("arrival") else world.nearest(World.v(d.approach)+dir(d.face)*(64 if world.cfg.get("outdoor",false) else 25));break
 	if which=="village" and from=="my_yard" and village_ui!=null:
 		var location:String=str(village_ui.state.data.village.location)
-		if village_ui.C.LOCATION_POINTS.has(location):player.position=world.nearest(World.v(village_ui.C.LOCATION_POINTS[location])+Vector2(0,64))
+		if village_ui.C.location_points().has(location):player.position=world.nearest(World.v(village_ui.C.location_points()[location])+Vector2(0,64))
 	if not bootstrapped and not first_visit and village_ui!=null:
 		var saved:Dictionary=village_ui.state.data.village
 		var saved_position:Array=saved.get("last_position",[])
 		if str(saved.get("last_area",""))==which and saved_position.size()==2:player.position=world.nearest(World.v(saved_position))
+	if doorstep_only:
+		var doorstep:Dictionary=world.spot("visit_"+doorstep_id)
+		if not doorstep.is_empty():player.position=world.nearest(World.v(doorstep.approach))
 	for id in NAMES:
 		var actor:=Actor.new();world.actors.add_child(actor);actor.setup(id);people[id]=actor
 	arrival_locks.clear()
@@ -213,8 +254,9 @@ func enter_room(which:String,with_transition:=true,from:="") -> void:
 			var entrance:Vector2=world.nearest(World.v(doorway.approach))
 			if player.position.distance_to(entrance)<28:
 				player.position=world.nearest(entrance+dir(str(doorway.face))*34);break
+	if not candidate_root.is_empty():print("CANDIDATE_ROOM_READY area=",area," from=",from," position=",player.position)
 	sync_family(false);cooldown=.45;room_history.append(area);life.discover("room:"+area);title.text="裳泓村 · "+("你的房间" if area=="guest" and life.data.resident else str(world.cfg.title)).replace("后花园 · 果园 · 菜地","后花园").replace("一楼楼梯与过道","一楼楼梯")
-	camera=player.position-Vector2(0,65);world.parallax_origin=camera
+	camera=room_camera_target();world.parallax_origin=camera
 	if village_ui!=null:village_ui.entered()
 	room_entries+=1;note="走近东西，点气泡就能做事" if room_entries<=3 else "";make_markers();layout();play_ambience()
 	if with_transition:
@@ -312,7 +354,7 @@ func _process(dt:float) -> void:
 		if not after_door.is_empty() and pending.is_empty() and player.route.is_empty():continue_into_room()
 		elif final_leg and player.route.is_empty():final_leg=false
 	update_family_walk(dt);update_pets(dt);update_ball(dt);update_water_audio();update_bark()
-	var target:Vector2=player.position-Vector2(0,65)
+	var target:Vector2=room_camera_target()
 	camera=camera.lerp(target,1-exp(-dt*7));layout_world()
 	var distance:=76.0;near_id=""
 	for h in world.cfg.hotspots+world.cfg.doors:
@@ -320,7 +362,7 @@ func _process(dt:float) -> void:
 		if d<distance:distance=d;near_id=h.id
 	for id in people:
 		if people[id].visible and people[id].position.distance_to(player.position)<minf(distance,68):distance=people[id].position.distance_to(player.position);near_id="person:"+id
-	var caption:String="起身" if player.action in ["sit","sleep","lie","eat","read","tv","swing"] else ("和"+NAMES[near_id.substr(7)]+"说说话" if near_id.begins_with("person:") else str(world.spot(near_id).get("label","走近看看")))
+	var caption:String="起身" if player.action in ["sit","sleep","lie","eat","read","tv","swing"] else ("和"+str(NAMES.get(near_id.substr(7),people[near_id.substr(7)].get_meta("display_name","邻居")))+"说说话" if near_id.begins_with("person:") else str(world.spot(near_id).get("label","走近看看")))
 	if near_button.text!=caption:near_button.text=caption
 	near_button.disabled=near_id.is_empty() and player.action=="idle"
 	if note!=shown_note:shown_note=note;show_toast(note)
@@ -350,6 +392,7 @@ func _unhandled_input(event:InputEvent) -> void:
 	if event is InputEventScreenTouch:at=event.position;pressed=event.pressed
 	elif event is InputEventMouseButton:at=event.position;pressed=event.pressed and event.button_index==MOUSE_BUTTON_LEFT
 	if not pressed:return
+	if not scene_frame.get_global_rect().has_point(at):return
 	tracked_person="";after_door={};final_leg=false
 	if village_ui!=null:village_ui.route_target=""
 	var p:Vector2=world.get_global_transform_with_canvas().affine_inverse()*at
@@ -505,11 +548,10 @@ func continue_into_room() -> void:
 	go("to_"+hop)
 func cross(d:Dictionary) -> void:
 	if transition:return
-	if d.target=="my_cabin" and village_ui!=null and float(village_ui.state.data.village.land[0])<=0:
-		village_ui.show_page("院子");return
 	pending="";player.route.clear()
 	if area=="exterior" and d.target=="living" and not admitted and not life.data.resident:knock();cooldown=2;return
 	transition_log.append({"from":area,"to":d.target,"at":elapsed,"position":[player.position.x,player.position.y],"steps":stair_steps})
+	if not candidate_root.is_empty():print("CANDIDATE_ROOM_CROSS from=",area," to=",d.target," door=",d.id," position=",player.position)
 	var from:=area;enter_room(d.target,true,from)
 	# 下一扇门等换房间的淡入结束后再接着走（_process 里），不然这一步会被「正在换房间」挡掉
 
@@ -526,6 +568,11 @@ func interact(id:String) -> void:
 		if area=="exterior" and id=="xiduo":village_ui.show_page("田边");return
 		if area=="kitchen" and id=="stove":village_ui.show_page("灶屋");return
 		if area=="garden" and id in ["vegetables","garden_play"]:village_ui.show_page("田边");return
+	if kind=="album" and village_ui!=null:
+		var pages:VBoxContainer=modal_shell("阿鱼的相册与旧本子")
+		pages.add_child(UI.button("小时候的事",func():village_ui.open_childhood(),true))
+		pages.add_child(UI.button("翻看相册",func():close_modal();activities.open("album",{"month":month,"v2_art":true})))
+		return
 	if kind in ["guitar","puzzle","album"]:activities.open(kind,{"month":month,"v2_art":true});return
 	if kind=="fish":immersive.open("fish",{"hour":hour,"month":month,"fish":life.data.fish});return
 	if Games.TITLES.has(kind):games.open(kind,life,{"hour":hour,"month":month,"weather":weather,"sound":sound_on,"area":area});return
@@ -603,6 +650,7 @@ func knock() -> void:
 func admit() -> void:
 	admitted=true;phase="inside";close_modal();enter_room("living",true,"exterior")
 func talk(id:String) -> void:
+	if village_ui!=null and village_ui.talk_resident(id):return
 	if people[id].pet:pet_scene(id);return
 	var text:="欢迎回来，房间还是给你留着的。" if life.data.resident else "来做客不用拘束，想做什么就慢慢试。"
 	for task in life.daily_tasks():
@@ -660,12 +708,23 @@ func play_fx(which:String) -> void:
 	if not sound_on:return
 	sfx.stream=preload("res://ayu_home/v4/sfx.gd").get_sound(which);sfx.play()
 func play_ambience() -> void:
-	if not sound_on:amb.stop();return
+	if not sound_on:amb.stop();update_cicada_audio();return
 	var track:="rain" if weather=="rain" else ("outdoor" if world.cfg.get("outdoor",false) else ("living" if area=="living" else "dining"))
 	var file:="res://ayu_home/v4/assets/rain.wav" if track=="rain" else "res://ayu_home/v2/assets/"+("yard" if track=="outdoor" else track)+"_amb.wav"
 	if not FileAccess.file_exists(file):file="res://ayu_home/v2/assets/living_amb.wav"
 	amb.stream=Assets.sound(file)
 	if amb.stream:amb.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD;amb.volume_db=-15;amb.play()
+	update_cicada_audio()
+func update_cicada_audio() -> void:
+	var active:bool=sound_on and world!=null and bool(world.cfg.get("outdoor",false)) and month in [6,7,8] and hour>=6 and hour<18 and weather=="clear"
+	if not active:
+		if cicada_audio and cicada_audio.playing:cicada_audio.stop()
+		return
+	if amb==null:return
+	if cicada_audio==null:
+		cicada_audio=AudioStreamPlayer.new();cicada_audio.stream=preload("res://ayu_home/v4/sfx.gd").get_sound("cicada");add_child(cicada_audio)
+	cicada_audio.bus=amb.bus;cicada_audio.volume_db=amb.volume_db-3.0
+	if not cicada_audio.playing:cicada_audio.play()
 ## 界面（阿鱼 10/5）：屏幕上大部分是阿鱼家的画。顶上只留一行地点、一行小图标和一行今日小事，
 ## 不要大框；提示在上方亮一下就收；相机、生活册、地图收进右下角的小包；要点的操作出现在人旁边。
 func make_ui() -> void:
@@ -733,6 +792,51 @@ func toggle_tools(open=null) -> void:
 func hud_bottom() -> float:
 	var words:Control=ui.get_node("Top/Words")
 	return 10+words.get_combined_minimum_size().y+4
+## 底栏实际顶边留出间隙；气泡、文字牌和坐姿操作共用这一条边界。
+func interaction_bottom() -> float:
+	var edge:=footer_boundary()+(0.0 if compact_footer else 20.0)
+	if is_instance_valid(village_ui) and is_instance_valid(village_ui.hud_button):
+		edge=minf(edge,village_ui.hud_button.get_global_rect().position.y)
+	if toolbar and toolbar.visible:edge=minf(edge,toolbar.get_global_rect().position.y)
+	return edge-16.0
+func footer_boundary() -> float:
+	return get_viewport_rect().size.y-(100.0 if compact_footer else 156.0)
+func layout_footer() -> void:
+	if village_ui==null:return
+	if not is_instance_valid(village_footer):
+		village_footer=HBoxContainer.new();village_footer.name="VillageFooter"
+		village_footer.alignment=BoxContainer.ALIGNMENT_CENTER;village_footer.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		village_footer.add_theme_constant_override("separation",8);ui.add_child(village_footer)
+		village_footer.sort_children.connect(layout_toolbar)
+		for button:Control in [village_ui.hud_button,village_ui.crop_button,village_ui.order_button,tools_button]:
+			footer_controls.append({"node":button,"parent":button.get_parent(),"anchors":[button.anchor_left,button.anchor_top,button.anchor_right,button.anchor_bottom],"offsets":[button.offset_left,button.offset_top,button.offset_right,button.offset_bottom],"minimum":button.custom_minimum_size,"flags_h":button.size_flags_horizontal,"flags_v":button.size_flags_vertical})
+	var buffer:=get_viewport_rect().size
+	var widths:Array[float]=[152.0,152.0,180.0,56.0]
+	var needed:=52.0 # Side margins and three gaps.
+	for index in footer_controls.size():needed+=maxf(widths[index],footer_controls[index].node.get_combined_minimum_size().x)
+	var wanted:bool=area=="village" and buffer.x>buffer.y and buffer.y>=720 and buffer.x>=needed
+	if wanted!=compact_footer:
+		compact_footer=wanted
+		for index in footer_controls.size():
+			var saved:Dictionary=footer_controls[index];var button:Control=saved.node
+			button.reparent(village_footer if wanted else saved.parent,false)
+			if wanted:
+				button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+				button.custom_minimum_size=Vector2(widths[index],56)
+				button.size_flags_horizontal=Control.SIZE_FILL;button.size_flags_vertical=Control.SIZE_FILL
+			else:
+				button.custom_minimum_size=saved.minimum;button.size_flags_horizontal=saved.flags_h;button.size_flags_vertical=saved.flags_v
+				button.anchor_left=saved.anchors[0];button.anchor_top=saved.anchors[1];button.anchor_right=saved.anchors[2];button.anchor_bottom=saved.anchors[3]
+				button.offset_left=saved.offsets[0];button.offset_top=saved.offsets[1];button.offset_right=saved.offsets[2];button.offset_bottom=saved.offsets[3]
+	village_footer.visible=compact_footer
+	if compact_footer:
+		village_footer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		village_footer.offset_left=14;village_footer.offset_right=-14;village_footer.offset_top=-76;village_footer.offset_bottom=-20
+func layout_toolbar() -> void:
+	if not is_instance_valid(toolbar) or not is_instance_valid(tools_button):return
+	var bag:Rect2=tools_button.get_global_rect()
+	toolbar.size=Vector2(150,toolbar.get_combined_minimum_size().y)
+	toolbar.global_position=Vector2(clampf(bag.end.x-toolbar.size.x,14,get_viewport_rect().size.x-toolbar.size.x-14),bag.position.y-10-toolbar.size.y)
 func layout() -> void:
 	if not ui:return
 	var size:=get_viewport_rect().size;ui.size=size;ui_scale=size.x/540.0
@@ -740,8 +844,9 @@ func layout() -> void:
 	var words:Control=top.get_node("Words");words.position=Vector2(10,10);words.size=Vector2(size.x-80,words.get_combined_minimum_size().y)
 	var gear:Control=top.get_node("Settings");gear.position=Vector2(size.x-58,12);gear.size=Vector2(44,44)
 	var bottom=ui.get_node("Bottom");bottom.position=Vector2.ZERO;bottom.size=size
-	tools_button.size=Vector2(56,56);tools_button.position=Vector2(size.x-70,size.y-74)
-	toolbar.size=Vector2(150,toolbar.get_combined_minimum_size().y);toolbar.position=Vector2(size.x-164,tools_button.position.y-10-toolbar.size.y)
+	layout_footer()
+	if not compact_footer:tools_button.size=Vector2(56,56);tools_button.position=Vector2(size.x-70,size.y-74)
+	layout_toolbar()
 	var text_w:float=hint.get_theme_font("font").get_string_size(hint.text,HORIZONTAL_ALIGNMENT_LEFT,-1,24).x
 	var width:=minf(ceilf(text_w)+28,size.x-48);hint.custom_minimum_size.x=width-28;toast.size=Vector2(width,0);toast.reset_size();toast.position=Vector2((size.x-toast.size.x)*.5,hud_bottom()+10) # 万一字太长，一行放不下就收成「…」
 	fade.size=size;markers.size=size;actions_layer.size=size;layout_world()
@@ -753,13 +858,36 @@ func show_toast(copy:String) -> void:
 	toast.modulate.a=0;toast.position.y=hud_bottom()+2
 	toast_tween=create_tween();toast_tween.set_parallel(true);toast_tween.tween_property(toast,"modulate:a",1.0,.18);toast_tween.tween_property(toast,"position:y",hud_bottom()+10,.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	toast_tween.chain().tween_interval(3.4);toast_tween.chain().tween_property(toast,"modulate:a",0.0,.5)
+func room_camera_target() -> Vector2:
+	var target:Vector2=player.position-Vector2(0,65)
+	if area=="village" and view_scale>1.0 and village_horizon.specs.has("far"):
+		var spec:Dictionary=village_horizon.specs.far
+		var north:float=village_horizon.north_y
+		var peak_y:float=north+float(spec.baseline_offset)-float(spec.anchor[1]-spec.peak[1])
+		var half_height:float=scene_frame.size.y*.5
+		var needed:float=target.y-peak_y-(half_height-20.0)/view_scale
+		var feet_budget:float=maxf(0.0,(half_height-16.0)/view_scale-(player.position.y-target.y))
+		var near_north:float=1.0-smoothstep(north+48.0,north+320.0,player.position.y)
+		var near_east:float=smoothstep(village_horizon.native_region.position.x,village_horizon.native_region.position.x+128.0,player.position.x)
+		target.y-=clampf(needed,0.0,feet_budget)*near_north*near_east
+	if (area in ["my_cabin","v_h3","v_mayor"] or world.cfg.get("household_open",false)) and world.cfg.has("entry_camera_bias"):
+		var weight:=clampf(1.0-player.position.distance_to(World.v(world.cfg.spawn))/float(world.cfg.entry_camera_radius),0.0,1.0)
+		target-=World.v(world.cfg.entry_camera_bias)*weight
+	return target
 func layout_world() -> void:
 	if not world or world.cfg.is_empty():return
 	var screen:=get_viewport_rect().size
 	var top_area:=hud_bottom()+8
-	scene_frame.position=Vector2(0,top_area);screen.y=maxf(180,screen.y-top_area-156);scene_frame.size=screen
+	scene_frame.position=Vector2(0,top_area);screen.y=maxf(180,footer_boundary()-top_area);scene_frame.size=screen
 	var size:Vector2=World.v(world.cfg.size)
 	view_scale=float(world.cfg.get("view_scale",2.0))
+	if area=="village" and village_horizon.ready_art:
+		# Full-width desktops use the complete original layer once. Only integer world zoom may grow.
+		var content_width:=INF
+		for id in ["far","middle"]:
+			var spec:Dictionary=village_horizon.specs[id];var alpha:Array=spec.alpha_bbox
+			content_width=minf(content_width,2.0*minf(float(spec.anchor[0]-alpha[0]),float(alpha[0]+alpha[2]-spec.anchor[0])))
+		view_scale=maxf(view_scale,ceilf(screen.x/content_width))
 
 	var visible_world:=screen/view_scale
 	var center:=Vector2(size.x*.5 if size.x<visible_world.x else clampf(camera.x,visible_world.x*.5,size.x-visible_world.x*.5),size.y*.5 if size.y<visible_world.y else clampf(camera.y,visible_world.y*.5,size.y-visible_world.y*.5))
@@ -767,7 +895,16 @@ func layout_world() -> void:
 		var origin:=World.v(world.cfg.source_offset)-World.v(world.cfg.source_crop)
 		var art_size:=Vector2(world.base_sprite.texture.get_size())
 		center=camera.clamp(origin+visible_world*.5,origin+art_size-visible_world*.5)
+	if (area in ["my_cabin","v_h3","v_mayor"] or world.cfg.get("household_open",false)) and world.cfg.has("entry_camera_bias") and is_instance_valid(player):
+		# 入门前视随行走退回普通跟随；窄/横窗口仍给玩家留出顶栏和底栏空间。
+		var safe_top:=maxf(17.0,125.0-top_area)
+		var lower:Vector2=player.position+Vector2(20,0)-(screen-Vector2(20,29)-screen*.5)/view_scale
+		var upper:Vector2=player.position-Vector2(20,84)-(Vector2(20,safe_top)-screen*.5)/view_scale
+		if lower.x<=upper.x:center.x=clampf(center.x,lower.x,upper.x)
+		if lower.y<=upper.y:center.y=clampf(center.y,lower.y,upper.y)
 	world.scale=Vector2.ONE*view_scale;world.position=(screen*.5-center*view_scale).round();world.camera_center=center
+	if is_instance_valid(world.village_ground):world.village_ground.set_view(Rect2(center-visible_world*.5,visible_world))
+	if is_instance_valid(village_horizon):village_horizon.set_view(Rect2(center-visible_world*.5,visible_world),view_scale,screen)
 func make_markers() -> void:
 	for n in markers.get_children():n.queue_free()
 	marker_nodes.clear()
@@ -786,7 +923,7 @@ func make_markers() -> void:
 const DOOR_NEAR:=64.0 # 门前几步：人走一步约 16 画布像素，四步以内
 func layout_markers() -> void:
 	if not markers:return
-	var size:=get_viewport_rect().size;var candidates:Array=[];var used:Array[Rect2]=[];var top_limit:=hud_bottom()+4;var bottom_limit:=size.y-152
+	var size:=get_viewport_rect().size;var candidates:Array=[];var used:Array[Rect2]=[];var top_limit:=hud_bottom()+4;var bottom_limit:=interaction_bottom()
 	if toast and toast.modulate.a>.05:top_limit=maxf(top_limit,toast.position.y+toast.size.y+6) # 上面的提示亮着时，话泡往下让
 	for m in marker_nodes:
 		if str(m.hot.id).begins_with("person:"):
@@ -822,42 +959,71 @@ func layout_markers() -> void:
 		if real<best_d:best_d=real;pick=[c]
 		if c.m.hot.has("target") and real<DOOR_NEAR and real<door_d:door_d=real;door_pick=[c]
 	if not door_pick.is_empty():pick=door_pick
-	# 每个人的头和脸（屏幕上）：提示泡不压别人的头和脸
+	# 当前帧的完整人物范围：姓名牌、气泡及点击区都不能压住身体或坐姿。
 	var faces:Dictionary={}
-	for a in [player]+people.values():
-		if a.visible:faces[a]=face_rect(a,xf)
-	var tag_for:Button=null;var tag_hot:Dictionary={};var visible_marker:Button=null
+	var visible_actors:Array=[player]+people.values()
+	if is_instance_valid(village_ui):
+		for row in village_ui.street_actors:
+			if is_instance_valid(row.actor) and not row.actor in visible_actors:visible_actors.append(row.actor)
+	for a in visible_actors:
+		if a.visible:faces[a]=a.get_global_transform_with_canvas()*a.visual_rect()
+	var tag_for:Button=null;var tag_hot:Dictionary={};var tag_rect:=Rect2();var visible_marker:Button=null
+	var blocked:Array[Rect2]=[]
+	for face in faces.values():blocked.append(face.grow(2))
+	for a in visible_actors:
+		if a.visible and is_instance_valid(a.nameplate):blocked.append((a.nameplate.get_global_transform_with_canvas()*Rect2(Vector2.ZERO,a.nameplate.size)).grow(2))
+	for other in speech:blocked.append(other.grow(4))
+	var safe:=Rect2(Vector2(8,top_limit),Vector2(size.x-16,bottom_limit-top_limit))
 	for item in pick:
 		var m:Dictionary=item.m;var h:Dictionary=m.hot;var b:Button=m.button;var is_person:=str(h.id).begins_with("person:")
 		var raw:Vector2=xf*World.v(h.pos)
 		var show_marker:bool=not busy() and raw.x>4 and raw.x<size.x-4 and raw.y>top_limit+14 and (raw.y<bottom_limit or (h.has("target") and raw.y<size.y+20)) # 门在屏幕最下沿也给气泡
 		if not show_marker:continue
-		var owner=people[str(h.id).substr(7)] if is_person else null
-		# 第 22、23 条：「!」尖对着主人头顶，挨着主人；压到别人的头或脸就往左右挪一点（不超过一个泡宽），不往上飘到别人头上
+		# 提示连同下方名字牌一起避开整个人物和话泡。
 		var base:Vector2=(raw-Vector2(b.size.x*.5,b.size.y+(2 if is_person else 14)))
-		var p:Vector2=base
-		for dx in [0.0,-30.0,30.0,-52.0,52.0,-74.0,74.0]:
-			var q:=base+Vector2(dx,0)
-			if q.x<6 or q.x>size.x-54:continue
-			var clash:=false
-			for a in faces:
-				if a!=owner and faces[a].intersects(Rect2(q,b.size).grow(-3)):clash=true
-			if not clash:p=q;break
-		var behind_speech:=false
-		for other in speech:
-			if other.grow(4).intersects(Rect2(p,b.size)):behind_speech=true
-		if behind_speech:continue # 有人在说话时，压在话泡上的提示先藏一下
-		b.position=p.clamp(Vector2(6,top_limit),size-Vector2(54,size.y-bottom_limit+54));m.bubble.selected=true;m.bubble.queue_redraw()
+		var tag_size:=Vector2.ZERO
+		if not is_person and player.action=="idle":
+			near_tag.clip_text=false;near_tag.text=str(h.get("label",""));near_tag.reset_size()
+			tag_size=near_tag.get_combined_minimum_size()
+			if tag_size.x>safe.size.x:
+				near_tag.clip_text=true;near_tag.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS;tag_size.x=safe.size.x
+		var placed:=marker_group_layout(base,b.size,tag_size,safe,blocked,true)
+		if placed.is_empty() and tag_size!=Vector2.ZERO:
+			# 实在放不下名字牌时仍保留安全、可点击的气泡，不覆盖人物。
+			placed=marker_group_layout(base,b.size,Vector2.ZERO,safe,blocked,true)
+		if placed.is_empty():continue
+		b.position=placed.marker.position;m.bubble.selected=true;m.bubble.queue_redraw()
 		visible_marker=b
-		if not is_person and player.action=="idle":tag_for=b;tag_hot=h
+		if placed.tag.has_area():tag_for=b;tag_hot=h;tag_rect=placed.tag
 	# 只在最终状态变化时切换可见性，避免每帧隐藏按钮取消正在进行的按下/松开。
 	for m in marker_nodes:m.button.visible=m.button==visible_marker
 	# 名字牌只挂在这唯一的提示泡下面
 	if tag_for:
-		near_tag.text=str(tag_hot.get("label",""));near_tag.set_meta("hot",str(tag_hot.id));near_tag.reset_size();near_tag.size=near_tag.get_combined_minimum_size()
-		near_tag.position=Vector2(clampf(tag_for.position.x+24-near_tag.size.x*.5,6,size.x-near_tag.size.x-6),tag_for.position.y+tag_for.size.y-2)
+		near_tag.set_meta("hot",str(tag_hot.id));near_tag.size=tag_rect.size;near_tag.position=tag_rect.position
 	near_tag.visible=tag_for!=null and near_tag.text.length()>0
 	if scene_controls:place_scene_controls(size,top_limit,bottom_limit,speech)
+## 先限制最终位置，再核对气泡、文字牌及上下扩展的点击区；之后不再夹位破坏避让。
+static func marker_group_layout(base:Vector2,marker_size:Vector2,tag_size:Vector2,safe:Rect2,blocked:Array[Rect2],allow_lift:bool) -> Dictionary:
+	var has_tag:=tag_size.x>0 and tag_size.y>0
+	var width:=maxf(marker_size.x,tag_size.x)
+	var height:=marker_size.y+(tag_size.y+2.0 if has_tag else 0.0)
+	if width>safe.size.x or height>safe.size.y:return {}
+	var lower:=Vector2(ceilf(safe.position.x+(width-marker_size.x)*.5),ceilf(safe.position.y))
+	var upper:=Vector2(floorf(safe.end.x-(width+marker_size.x)*.5),floorf(safe.end.y-height))
+	if lower.x>upper.x or lower.y>upper.y:return {}
+	for lift in ([0.0,32.0,64.0,96.0] if allow_lift else [0.0]):
+		for dx in [0.0,-30.0,30.0,-52.0,52.0,-74.0,74.0,-104.0,104.0,-132.0,132.0]:
+			var p:Vector2=(base+Vector2(dx,-lift)).clamp(lower,upper).round()
+			var marker:=Rect2(p,marker_size);var tag:=Rect2();var tag_hit:=Rect2()
+			if has_tag:
+				tag=Rect2(Vector2(roundf(marker.get_center().x-tag_size.x*.5),marker.end.y-2),tag_size)
+				tag_hit=tag.grow_individual(0,4,0,4)
+			if not safe.encloses(marker) or (has_tag and not safe.encloses(tag_hit)):continue
+			var clash:=false
+			for obstacle in blocked:
+				if obstacle.intersects(marker) or (has_tag and obstacle.intersects(tag_hit)):clash=true;break
+			if not clash:return {"marker":marker,"tag":tag}
+	return {}
 ## 一个人的头和脸在屏幕上占哪块（头顶往下 34、宽 30，坐、躺、宠物的头顶各按自己的算）
 func face_rect(a,xf:Transform2D) -> Rect2:
 	var w:=(20.0 if a.pet else 30.0);var hgt:=(24.0 if a.pet else 34.0)
@@ -907,7 +1073,7 @@ func place_scene_controls(size:Vector2,top_limit:float,bottom_limit:float,speech
 	if p.y+s.y>bottom_limit:p.y=(xf*(player.position+Vector2(0,player.head_top()))).y-s.y-8
 	for r in speech:
 		if r.intersects(Rect2(p,s)):p.y=r.end.y+6
-	scene_controls.position=Vector2(clampf(p.x,8,size.x-s.x-8),clampf(p.y,top_limit,size.y-s.y-80)).round()
+	scene_controls.position=Vector2(clampf(p.x,8,size.x-s.x-8),clampf(p.y,top_limit,maxf(top_limit,bottom_limit-s.y))).round()
 
 func close_modal() -> void:
 	if modal:modal.queue_free();modal=null
@@ -989,6 +1155,7 @@ func show_talk_line() -> void:
 	talk_ui.skip.visible=talk_lines.size()-1-talk_index>=2
 ## 人物卡：从对话里点头像、名字牌打开，「继续聊天」回到刚才那一句
 func talk_card(id:String) -> void:
+	if village_ui!=null and village_ui.resident_card(id):return
 	var who:=talk_who;var lines:=talk_lines;var at:=talk_index;var next:=talk_next
 	family_card(id,func():say_lines(who,lines,id,next,at))
 func advance_dialogue() -> void:
@@ -1122,7 +1289,7 @@ func calendar_page() -> void:
 func detail_view() -> void:
 	immersive.open("detail" if area=="study" else "room_detail",{"room":area,"title":world.cfg.title,"hour":hour,"month":month,"weather":weather,"cfg":world.cfg})
 func stop_audio() -> void:
-	for a in [amb,sfx,water_audio]:
+	for a in [amb,sfx,water_audio,cicada_audio]:
 		if a:a.stop();a.stream=null
 func _exit_tree() -> void:
 	if is_instance_valid(village_ui):village_ui.checkpoint()
@@ -1227,17 +1394,9 @@ func scene_buttons(actions:Array) -> void:
 func prop_covers(p:Dictionary,at:Vector2) -> bool:
 	var tex:Texture2D=p.sprite.texture
 	if tex==null:return false
-	var origin:=World.v(p.config.pos);var scale:Vector2=p.sprite.scale
-	var r:=Rect2(origin,tex.get_size()*scale)
-	if not r.has_point(at):return false
-	var source:Texture2D=tex.atlas if tex is AtlasTexture else tex
-	var offset:Vector2=tex.region.position if tex is AtlasTexture else Vector2.ZERO
-	var key:=source.get_instance_id()
-	if not prop_images.has(key):prop_images[key]=source.get_image()
-	var img:Image=prop_images[key]
-	if img==null:return true
-	var q:=Vector2i((at-origin)/scale+offset).clamp(Vector2i.ZERO,img.get_size()-Vector2i.ONE)
-	return img.get_pixelv(q).a>.2
+	# 床面取色仍缓存原贴图；图集、缩放、翻转和家具轻微位移按 Sprite2D 的真实像素检测。
+	if not tex is AtlasTexture and not prop_images.has(tex.get_instance_id()):prop_images[tex.get_instance_id()]=tex.get_image()
+	return p.sprite.is_pixel_opaque(p.sprite.to_local(world.to_global(at)))
 ## 坐点被哪件家具画着、而那件家具的前沿比坐点靠下：人要排到它前面，再把画面抬回坐点。
 func seat_lift(at:Vector2) -> float:
 	var lift:=0.0
@@ -1396,9 +1555,10 @@ func update_ball(dt:float) -> void:
 		if dog.route.is_empty():ball_position=world.nearest(player.position+Vector2(27,8));ball_phase="idle";ball_return_count+=1;dog.say("汪！再来一次？" );life.event("football")
 func read_book(h:Dictionary) -> void:
 	if not sit_at(h):return
-	player.action="read";scene_progress=0;book_page()
+	player.action="read";scene_progress=0;scene_book_pages=h.get("pages",[]).duplicate();book_page()
 func book_page() -> void:
 	var pages:=["窗边的观察笔记：一只麻雀落在枝头，歪着头看了一会儿。","把一颗种子放进土里，也把一点期待留给了明天。","树影慢慢挪过地板，猫把自己翻到另一面晒太阳。","不赶时间的时候，连一杯水都能慢慢喝完。"]
+	if not scene_book_pages.is_empty():pages=scene_book_pages
 	player.say(pages[int(scene_progress)%pages.size()]);scene_progress+=1
 	scene_buttons([["翻下一页",book_page],["夹好书签",func():life.event("read");life.data.effects.bookmark=int(scene_progress);life.save();stand_up()]])
 func start_work(h:Dictionary) -> void:
@@ -1560,7 +1720,9 @@ func album_page() -> void:
 		var snapshot:Dictionary=record.duplicate(true);var b:=UI.button(str(record.title)+"\n"+str(record.date),func():close_modal();photo.open(life,snapshot,true));b.custom_minimum_size.y=92;col.add_child(b)
 func settings_page() -> void:
 	var box:=modal_shell("慢慢玩的设置")
-	box.add_child(UI.button("声音 · "+("开" if sound_on else "关"),func():sound_on=not sound_on;life.data.settings.sound=sound_on;life.save();play_ambience();settings_page()))
+	var music=preload("res://ayu_home/v4/core/playtest_music.gd").ensure(get_tree())
+	box.add_child(UI.button(music.caption(),func():music.toggle_from_gesture();settings_page()))
+	box.add_child(UI.button("环境与音效 · "+("开" if sound_on else "关"),func():sound_on=not sound_on;life.data.settings.sound=sound_on;life.save();play_ambience();settings_page()))
 	box.add_child(UI.button("轻松节奏 · 已开启",func():note="没有倒计时，也不会枯萎"))
 	# 手机上没有键盘：只有电脑版才写按键（体验师小毛病 5）
 	var help:=UI.label(("方向键 / WASD：走路\nE：走近并操作　M：地图\nJ：生活册　C：拍立得\nEsc：收起当前页面\n" if OS.has_feature("pc") and not OS.has_feature("web") else "点地面走路；走近东西，点冒出来的气泡就能做。\n右下角的小包里有相机、生活册和地图。\n")+"进度自动保存在这位玩家自己的家里。",20);help.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;box.add_child(help)

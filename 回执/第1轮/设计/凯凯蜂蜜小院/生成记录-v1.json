@@ -1,0 +1,7 @@
+{
+  "tool": "内置imagegen",
+  "asset": "凯凯-现有身份头像-source-v1.png",
+  "reference": "现有LM-GUEST-05原图（已打开）与认可客厅风格",
+  "prompt": "Use case: stylized-concept\nAsset type: transparent dialogue bust portrait for Kaikai (凯凯), fictional villager who makes honey, in a cozy Chinese pixel game.\nInput image1 is an IDENTITY reference spritesheet: preserve the exact FIRST character's face, curly dark hair, thick relaxed brows, cheerful warm adult smile, tan skin, short-sleeve bright floral orange/cream/green shirt and stocky adult body. This is the existing Kaikai identity, do not change sex, hairstyle, shirt or age.\nInput image2 is STYLE reference only: chunky cozy game pixels, hard warm outlines, not its woman's identity.\nPrimary request: one chest-up portrait of the SAME character from image1. Gentle 3/4 facing screen-left, looking at the player, friendly honey-maker welcoming expression. Arms upper half present, whole head and shoulders, centered withpadding.\nStyle: coarse sharp pixel clusters, thick dark brown outlines, 2-3 shade steps, amber highlights. Keep decorative floral shirt as large legible pixel shapes. No smooth gradient, no painterly blur.\nConstraints: one person only, genuinely transparent alpha background, no checkerboard pixels, no room, no hive, no honey jars or held props, no text, no name, no border, no UI, no watermark. Not a spritesheet. Do not draw any family member from reference2. Intended reduction to roughly188x220 for dialogue UI.",
+  "review": "卷发、花衬衣、开心成人面孔与原身份相符，真实alpha；未游戏验收"
+}

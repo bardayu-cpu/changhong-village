@@ -1,0 +1,1715 @@
+{
+  "version": "1025-nine-households-geometry-v1",
+  "coordinate_space": "logical_room_pixels",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
+  "source_region_rule": "foreground atlas_region = rect * 2 in the matching full background PNG",
+  "old_geometry_policy": "delete every old obstacle and every old foreground crop for these nine rooms; replace with the lists below",
+  "rooms": [
+    {
+      "id": "v_h1",
+      "background": "h1.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            160,
+            116,
+            188,
+            48
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            438,
+            82,
+            150,
+            94
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            78,
+            194,
+            210,
+            144
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            488,
+            225,
+            184,
+            124
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            700,
+            218,
+            50,
+            132
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "sofa",
+          "rect": [
+            78,
+            238,
+            210,
+            100
+          ],
+          "foot": 338,
+          "atlas_region_fullres": [
+            156,
+            476,
+            420,
+            200
+          ]
+        },
+        {
+          "id": "tea_table",
+          "rect": [
+            488,
+            248,
+            184,
+            102
+          ],
+          "foot": 350,
+          "atlas_region_fullres": [
+            976,
+            496,
+            368,
+            204
+          ]
+        },
+        {
+          "id": "stair_lower",
+          "rect": [
+            438,
+            104,
+            150,
+            72
+          ],
+          "foot": 176,
+          "atlas_region_fullres": [
+            876,
+            208,
+            300,
+            144
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "tea_service",
+          "rect": [
+            548,
+            235,
+            80,
+            55
+          ],
+          "approach": [
+            585,
+            360
+          ]
+        },
+        {
+          "id": "indigo_sofa",
+          "rect": [
+            90,
+            205,
+            190,
+            125
+          ],
+          "approach": [
+            205,
+            350
+          ]
+        },
+        {
+          "id": "tea_cabinet",
+          "rect": [
+            160,
+            78,
+            188,
+            88
+          ],
+          "approach": [
+            250,
+            180
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "tea_service",
+        "pos": [
+          580,
+          270
+        ],
+        "approach": [
+          585,
+          360
+        ]
+      },
+      "seat": {
+        "object_id": "indigo_sofa",
+        "pos": [
+          205,
+          258
+        ],
+        "approach": [
+          313,
+          260
+        ]
+      }
+    },
+    {
+      "id": "v_h2",
+      "background": "h2.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            55,
+            134,
+            130,
+            65
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            185,
+            125,
+            165,
+            68
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            360,
+            146,
+            62,
+            54
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            450,
+            126,
+            185,
+            78
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            650,
+            138,
+            65,
+            64
+          ]
+        },
+        {
+          "id": "obstacle_6",
+          "rect": [
+            55,
+            270,
+            112,
+            112
+          ]
+        },
+        {
+          "id": "obstacle_7",
+          "rect": [
+            620,
+            262,
+            100,
+            104
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "left_sofa",
+          "rect": [
+            55,
+            275,
+            112,
+            108
+          ],
+          "foot": 383,
+          "atlas_region_fullres": [
+            110,
+            550,
+            224,
+            216
+          ]
+        },
+        {
+          "id": "sewing_bench",
+          "rect": [
+            185,
+            140,
+            165,
+            55
+          ],
+          "foot": 195,
+          "atlas_region_fullres": [
+            370,
+            280,
+            330,
+            110
+          ]
+        },
+        {
+          "id": "right_daybed",
+          "rect": [
+            620,
+            265,
+            100,
+            102
+          ],
+          "foot": 367,
+          "atlas_region_fullres": [
+            1240,
+            530,
+            200,
+            204
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "sewing_machine",
+          "rect": [
+            240,
+            72,
+            108,
+            96
+          ],
+          "approach": [
+            300,
+            212
+          ]
+        },
+        {
+          "id": "thread_rack",
+          "rect": [
+            185,
+            50,
+            135,
+            45
+          ],
+          "approach": [
+            252,
+            118
+          ]
+        },
+        {
+          "id": "fabric_bolts",
+          "rect": [
+            55,
+            90,
+            130,
+            95
+          ],
+          "approach": [
+            190,
+            210
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "sewing_machine",
+        "pos": [
+          292,
+          118
+        ],
+        "approach": [
+          300,
+          212
+        ]
+      },
+      "seat": {
+        "object_id": "left_sofa",
+        "pos": [
+          118,
+          287
+        ],
+        "approach": [
+          183,
+          289
+        ]
+      }
+    },
+    {
+      "id": "v_h4",
+      "background": "h4.png",
+      "size": [
+        656,
+        600
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            48,
+            145,
+            205,
+            45
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            263,
+            150,
+            190,
+            88
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            470,
+            132,
+            72,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            55,
+            305,
+            135,
+            146
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            540,
+            300,
+            102,
+            158
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "left_rest_bench",
+          "rect": [
+            55,
+            315,
+            135,
+            138
+          ],
+          "foot": 453,
+          "atlas_region_fullres": [
+            110,
+            630,
+            270,
+            276
+          ]
+        },
+        {
+          "id": "farm_table",
+          "rect": [
+            263,
+            166,
+            190,
+            75
+          ],
+          "foot": 241,
+          "atlas_region_fullres": [
+            526,
+            332,
+            380,
+            150
+          ]
+        },
+        {
+          "id": "grain_cabinet",
+          "rect": [
+            540,
+            308,
+            102,
+            150
+          ],
+          "foot": 458,
+          "atlas_region_fullres": [
+            1080,
+            616,
+            204,
+            300
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "field_tools",
+          "rect": [
+            52,
+            62,
+            195,
+            115
+          ],
+          "approach": [
+            260,
+            205
+          ]
+        },
+        {
+          "id": "seed_baskets",
+          "rect": [
+            548,
+            250,
+            86,
+            120
+          ],
+          "approach": [
+            510,
+            350
+          ]
+        },
+        {
+          "id": "rain_gear",
+          "rect": [
+            470,
+            95,
+            72,
+            88
+          ],
+          "approach": [
+            470,
+            205
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "seed_baskets",
+        "pos": [
+          585,
+          290
+        ],
+        "approach": [
+          510,
+          350
+        ]
+      },
+      "seat": {
+        "object_id": "left_rest_bench",
+        "pos": [
+          104,
+          351
+        ],
+        "approach": [
+          195,
+          355
+        ]
+      }
+    },
+    {
+      "id": "v_h6",
+      "background": "h6.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            164,
+            158,
+            282,
+            54
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            45,
+            230,
+            116,
+            72
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            463,
+            180,
+            92,
+            54
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            503,
+            300,
+            176,
+            74
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            690,
+            300,
+            70,
+            92
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "window_bench",
+          "rect": [
+            164,
+            160,
+            282,
+            55
+          ],
+          "foot": 215,
+          "atlas_region_fullres": [
+            328,
+            320,
+            564,
+            110
+          ]
+        },
+        {
+          "id": "flower_press_table",
+          "rect": [
+            45,
+            235,
+            116,
+            68
+          ],
+          "foot": 303,
+          "atlas_region_fullres": [
+            90,
+            470,
+            232,
+            136
+          ]
+        },
+        {
+          "id": "potting_table",
+          "rect": [
+            503,
+            302,
+            176,
+            72
+          ],
+          "foot": 374,
+          "atlas_region_fullres": [
+            1006,
+            604,
+            352,
+            144
+          ]
+        },
+        {
+          "id": "right_plant_shelf",
+          "rect": [
+            690,
+            300,
+            70,
+            92
+          ],
+          "foot": 392,
+          "atlas_region_fullres": [
+            1380,
+            600,
+            140,
+            184
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "window_flowers",
+          "rect": [
+            165,
+            55,
+            280,
+            100
+          ],
+          "approach": [
+            420,
+            238
+          ]
+        },
+        {
+          "id": "flower_press",
+          "rect": [
+            48,
+            170,
+            105,
+            112
+          ],
+          "approach": [
+            170,
+            285
+          ]
+        },
+        {
+          "id": "watering_station",
+          "rect": [
+            540,
+            260,
+            115,
+            105
+          ],
+          "approach": [
+            490,
+            360
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "window_flowers",
+        "pos": [
+          416,
+          164
+        ],
+        "approach": [
+          421,
+          239
+        ]
+      },
+      "seat": {
+        "object_id": "window_bench",
+        "pos": [
+          282,
+          165
+        ],
+        "approach": [
+          285,
+          237
+        ]
+      }
+    },
+    {
+      "id": "v_h7",
+      "background": "h7.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            290,
+            130,
+            190,
+            68
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            170,
+            252,
+            112,
+            126
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            490,
+            170,
+            88,
+            92
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            585,
+            180,
+            120,
+            220
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            550,
+            340,
+            155,
+            86
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "left_storage",
+          "rect": [
+            170,
+            254,
+            112,
+            124
+          ],
+          "foot": 378,
+          "atlas_region_fullres": [
+            340,
+            508,
+            224,
+            248
+          ]
+        },
+        {
+          "id": "back_table",
+          "rect": [
+            290,
+            135,
+            190,
+            65
+          ],
+          "foot": 200,
+          "atlas_region_fullres": [
+            580,
+            270,
+            380,
+            130
+          ]
+        },
+        {
+          "id": "right_alcove",
+          "rect": [
+            585,
+            185,
+            120,
+            218
+          ],
+          "foot": 403,
+          "atlas_region_fullres": [
+            1170,
+            370,
+            240,
+            436
+          ]
+        },
+        {
+          "id": "door_basket_table",
+          "rect": [
+            550,
+            342,
+            155,
+            84
+          ],
+          "foot": 426,
+          "atlas_region_fullres": [
+            1100,
+            684,
+            310,
+            168
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "nested_baskets",
+          "rect": [
+            585,
+            300,
+            115,
+            100
+          ],
+          "approach": [
+            540,
+            360
+          ]
+        },
+        {
+          "id": "shoe_bench",
+          "rect": [
+            170,
+            300,
+            105,
+            80
+          ],
+          "approach": [
+            300,
+            390
+          ]
+        },
+        {
+          "id": "compact_storage",
+          "rect": [
+            490,
+            70,
+            88,
+            190
+          ],
+          "approach": [
+            465,
+            285
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "nested_baskets",
+        "pos": [
+          632,
+          348
+        ],
+        "approach": [
+          540,
+          360
+        ]
+      },
+      "seat": {
+        "object_id": "shoe_bench",
+        "pos": [
+          210,
+          335
+        ],
+        "approach": [
+          285,
+          350
+        ]
+      }
+    },
+    {
+      "id": "v_whitebrick",
+      "background": "whitebrick.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            35,
+            125,
+            290,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            330,
+            108,
+            72,
+            64
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            420,
+            125,
+            112,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            585,
+            118,
+            120,
+            62
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            45,
+            290,
+            112,
+            92
+          ]
+        },
+        {
+          "id": "obstacle_6",
+          "rect": [
+            170,
+            285,
+            116,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_7",
+          "rect": [
+            560,
+            275,
+            170,
+            98
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "kitchen_counter",
+          "rect": [
+            35,
+            126,
+            290,
+            58
+          ],
+          "foot": 184,
+          "atlas_region_fullres": [
+            70,
+            252,
+            580,
+            116
+          ]
+        },
+        {
+          "id": "left_sofa",
+          "rect": [
+            45,
+            292,
+            112,
+            90
+          ],
+          "foot": 382,
+          "atlas_region_fullres": [
+            90,
+            584,
+            224,
+            180
+          ]
+        },
+        {
+          "id": "coffee_table",
+          "rect": [
+            170,
+            286,
+            116,
+            58
+          ],
+          "foot": 344,
+          "atlas_region_fullres": [
+            340,
+            572,
+            232,
+            116
+          ]
+        },
+        {
+          "id": "dining_set",
+          "rect": [
+            560,
+            276,
+            170,
+            98
+          ],
+          "foot": 374,
+          "atlas_region_fullres": [
+            1120,
+            552,
+            340,
+            196
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "sink_counter",
+          "rect": [
+            126,
+            65,
+            180,
+            106
+          ],
+          "approach": [
+            235,
+            194
+          ]
+        },
+        {
+          "id": "rice_storage",
+          "rect": [
+            420,
+            78,
+            112,
+            105
+          ],
+          "approach": [
+            395,
+            205
+          ]
+        },
+        {
+          "id": "breakfast_table",
+          "rect": [
+            560,
+            225,
+            170,
+            145
+          ],
+          "approach": [
+            530,
+            340
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "sink_counter",
+        "pos": [
+          235,
+          125
+        ],
+        "approach": [
+          235,
+          194
+        ]
+      },
+      "seat": {
+        "object_id": "left_sofa",
+        "pos": [
+          116,
+          278
+        ],
+        "approach": [
+          174,
+          285
+        ]
+      }
+    },
+    {
+      "id": "v_erba",
+      "background": "erba.png",
+      "size": [
+        836,
+        472
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            45,
+            155,
+            75,
+            56
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            126,
+            158,
+            190,
+            54
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            360,
+            138,
+            230,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            625,
+            145,
+            55,
+            48
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            690,
+            145,
+            110,
+            56
+          ]
+        },
+        {
+          "id": "obstacle_6",
+          "rect": [
+            100,
+            190,
+            255,
+            128
+          ]
+        },
+        {
+          "id": "obstacle_7",
+          "rect": [
+            495,
+            185,
+            230,
+            162
+          ]
+        },
+        {
+          "id": "obstacle_8",
+          "rect": [
+            750,
+            202,
+            75,
+            150
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "family_sofa",
+          "rect": [
+            126,
+            160,
+            190,
+            52
+          ],
+          "foot": 212,
+          "atlas_region_fullres": [
+            252,
+            320,
+            380,
+            104
+          ]
+        },
+        {
+          "id": "left_conversation_set",
+          "rect": [
+            100,
+            220,
+            255,
+            100
+          ],
+          "foot": 320,
+          "atlas_region_fullres": [
+            200,
+            440,
+            510,
+            200
+          ]
+        },
+        {
+          "id": "round_dining",
+          "rect": [
+            495,
+            220,
+            230,
+            128
+          ],
+          "foot": 348,
+          "atlas_region_fullres": [
+            990,
+            440,
+            460,
+            256
+          ]
+        },
+        {
+          "id": "right_cabinet",
+          "rect": [
+            750,
+            230,
+            75,
+            124
+          ],
+          "foot": 354,
+          "atlas_region_fullres": [
+            1500,
+            460,
+            150,
+            248
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "cleared_tableware",
+          "rect": [
+            515,
+            190,
+            190,
+            145
+          ],
+          "approach": [
+            550,
+            350
+          ]
+        },
+        {
+          "id": "crt_tv",
+          "rect": [
+            45,
+            118,
+            75,
+            82
+          ],
+          "approach": [
+            125,
+            210
+          ]
+        },
+        {
+          "id": "family_sofa",
+          "rect": [
+            126,
+            112,
+            190,
+            100
+          ],
+          "approach": [
+            311,
+            198
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "cleared_tableware",
+        "pos": [
+          620,
+          244
+        ],
+        "approach": [
+          550,
+          350
+        ]
+      },
+      "seat": {
+        "object_id": "family_sofa",
+        "pos": [
+          208,
+          178
+        ],
+        "approach": [
+          311,
+          198
+        ]
+      }
+    },
+    {
+      "id": "v_daba",
+      "background": "daba-bamboo.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            262,
+            124,
+            250,
+            76
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            160,
+            120,
+            72,
+            44
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            515,
+            130,
+            66,
+            66
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            50,
+            245,
+            180,
+            106
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            690,
+            260,
+            65,
+            102
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "bamboo_workbench",
+          "rect": [
+            262,
+            126,
+            250,
+            74
+          ],
+          "foot": 200,
+          "atlas_region_fullres": [
+            524,
+            252,
+            500,
+            148
+          ]
+        },
+        {
+          "id": "left_bamboo_seating",
+          "rect": [
+            50,
+            250,
+            180,
+            102
+          ],
+          "foot": 352,
+          "atlas_region_fullres": [
+            100,
+            500,
+            360,
+            204
+          ]
+        },
+        {
+          "id": "right_strip_rack",
+          "rect": [
+            690,
+            262,
+            65,
+            100
+          ],
+          "foot": 362,
+          "atlas_region_fullres": [
+            1380,
+            524,
+            130,
+            200
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "bamboo_workbench",
+          "rect": [
+            270,
+            80,
+            235,
+            120
+          ],
+          "approach": [
+            317,
+            205
+          ]
+        },
+        {
+          "id": "sorted_strips",
+          "rect": [
+            250,
+            60,
+            290,
+            135
+          ],
+          "approach": [
+            317,
+            205
+          ]
+        },
+        {
+          "id": "finished_baskets",
+          "rect": [
+            50,
+            210,
+            175,
+            135
+          ],
+          "approach": [
+            225,
+            350
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "sorted_strips",
+        "pos": [
+          350,
+          137
+        ],
+        "approach": [
+          317,
+          205
+        ]
+      },
+      "seat": {
+        "object_id": "left_bamboo_seating",
+        "pos": [
+          166,
+          251
+        ],
+        "approach": [
+          224,
+          267
+        ]
+      },
+      "special_notes": [
+        "中央仅为可走地毯，删除旧中央桌及四周椅子的全部障碍。"
+      ]
+    },
+    {
+      "id": "v_rose",
+      "background": "rose.png",
+      "size": [
+        768,
+        512
+      ],
+      "delete_old_obstacles": "all",
+      "delete_old_foregrounds": "all",
+      "obstacles": [
+        {
+          "id": "obstacle_1",
+          "rect": [
+            55,
+            105,
+            150,
+            52
+          ]
+        },
+        {
+          "id": "obstacle_2",
+          "rect": [
+            190,
+            140,
+            96,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_3",
+          "rect": [
+            330,
+            125,
+            210,
+            48
+          ]
+        },
+        {
+          "id": "obstacle_4",
+          "rect": [
+            560,
+            110,
+            145,
+            58
+          ]
+        },
+        {
+          "id": "obstacle_5",
+          "rect": [
+            50,
+            260,
+            120,
+            102
+          ]
+        },
+        {
+          "id": "obstacle_6",
+          "rect": [
+            195,
+            290,
+            116,
+            78
+          ]
+        },
+        {
+          "id": "obstacle_7",
+          "rect": [
+            450,
+            255,
+            220,
+            92
+          ]
+        },
+        {
+          "id": "obstacle_8",
+          "rect": [
+            690,
+            300,
+            75,
+            102
+          ]
+        }
+      ],
+      "foreground_regions": [
+        {
+          "id": "left_sofa",
+          "rect": [
+            50,
+            262,
+            120,
+            100
+          ],
+          "foot": 362,
+          "atlas_region_fullres": [
+            100,
+            524,
+            240,
+            200
+          ]
+        },
+        {
+          "id": "rose_coffee_table",
+          "rect": [
+            195,
+            292,
+            116,
+            76
+          ],
+          "foot": 368,
+          "atlas_region_fullres": [
+            390,
+            584,
+            232,
+            152
+          ]
+        },
+        {
+          "id": "arranging_table",
+          "rect": [
+            450,
+            258,
+            220,
+            90
+          ],
+          "foot": 348,
+          "atlas_region_fullres": [
+            900,
+            516,
+            440,
+            180
+          ]
+        },
+        {
+          "id": "right_storage",
+          "rect": [
+            690,
+            302,
+            75,
+            100
+          ],
+          "foot": 402,
+          "atlas_region_fullres": [
+            1380,
+            604,
+            150,
+            200
+          ]
+        }
+      ],
+      "semantic_objects": [
+        {
+          "id": "arranging_table",
+          "rect": [
+            450,
+            210,
+            220,
+            135
+          ],
+          "approach": [
+            430,
+            350
+          ]
+        },
+        {
+          "id": "rose_shelf",
+          "rect": [
+            55,
+            45,
+            150,
+            110
+          ],
+          "approach": [
+            220,
+            180
+          ]
+        },
+        {
+          "id": "drying_petals",
+          "rect": [
+            650,
+            205,
+            105,
+            150
+          ],
+          "approach": [
+            645,
+            365
+          ]
+        }
+      ],
+      "house_help": {
+        "object_id": "arranging_table",
+        "pos": [
+          560,
+          255
+        ],
+        "approach": [
+          430,
+          350
+        ]
+      },
+      "seat": {
+        "object_id": "left_sofa",
+        "pos": [
+          113,
+          275
+        ],
+        "approach": [
+          174,
+          277
+        ]
+      }
+    }
+  ]
+}

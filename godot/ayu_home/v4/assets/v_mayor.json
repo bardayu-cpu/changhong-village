@@ -1,188 +1,265 @@
 {
   "id": "v_mayor",
-  "title": "村公所 · 一楼",
+  "title": "村委会 · 一楼",
   "group": "村庄",
   "floor": 0,
   "size": [
-    710,
-    710
+    508,
+    600
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_mayor.png",
+  "background": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
   "asset_root": "res://ayu_home/v3/assets/",
   "props": [
     {
-      "id": "cabinet0",
-      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-      "pos": [
-        65,
-        140
+      "id": "civic_table_front",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        340.7466666666667,
+        713.3033333333333,
+        427.0733333333333,
+        227.16666666666666
       ],
-      "foot": 247,
-      "front": false
+      "pos": [
+        150,
+        314
+      ],
+      "foot": 414,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
     },
     {
-      "id": "table1",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        390,
-        200
+      "id": "civic_chair_top_left",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        392.995,
+        640.61,
+        90.86666666666666,
+        74.965
       ],
-      "foot": 275,
-      "front": false
+      "pos": [
+        173,
+        282
+      ],
+      "foot": 315,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
     },
     {
-      "id": "sofa2",
-      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
-      "pos": [
-        335,
-        445
+      "id": "civic_chair_top_right",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        588.3583333333335,
+        640.61,
+        93.13833333333334,
+        74.965
       ],
-      "foot": 530,
-      "front": false
+      "pos": [
+        259,
+        282
+      ],
+      "foot": 315,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
     },
     {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        600,
-        400
+      "id": "civic_chair_bottom",
+      "file": "res://ayu_home/v4/assets/institutions/civic-entry-v3.png",
+      "atlas_region": [
+        365.735,
+        870.0483333333333,
+        86.32333333333332,
+        109.03999999999999
       ],
-      "foot": 550,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
       "pos": [
-        257,
-        21
+        161,
+        383
       ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        480
-      ],
-      "foot": 548,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        638,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        325,
-        452
-      ],
-      "foot": 485,
-      "front": false
+      "foot": 431,
+      "scale": [
+        0.4402054292002935,
+        0.4402054292002935
+      ]
     }
   ],
   "obstacles": [
     [
-      270,
-      95,
-      12,
-      180
+      152,
+      73,
+      268,
+      72
     ],
     [
-      270,
-      430,
-      12,
-      225
+      28,
+      74,
+      82,
+      147
     ],
     [
-      69,
-      201.60000000000002,
-      90,
-      50.4
+      172,
+      196,
+      294,
+      80
     ],
     [
-      394,
-      244.0,
-      112,
-      36.0
+      225,
+      177,
+      34,
+      21
     ],
     [
-      339,
-      494.5,
-      127,
-      40.5
+      327,
+      177,
+      34,
+      21
+    ],
+    [
+      38,
+      311,
+      40,
+      56
+    ],
+    [
+      86,
+      311,
+      42,
+      56
+    ],
+    [
+      128,
+      328,
+      26,
+      32
+    ],
+    [
+      150,
+      345,
+      187,
+      68
+    ],
+    [
+      161,
+      386,
+      37,
+      45
+    ],
+    [
+      173,
+      283,
+      39,
+      31
+    ],
+    [
+      259,
+      283,
+      41,
+      31
+    ],
+    [
+      36,
+      246,
+      30,
+      38
+    ],
+    [
+      435,
+      101,
+      45,
+      47
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
+      "id": "village_tasks",
       "pos": [
-        255,
-        590
+        197,
+        355
       ],
       "approach": [
-        255,
-        630
+        251,
+        442
       ],
-      "kind": "village",
-      "copy": "林伯是虚构村长，在榕树旁替新邻居安家。"
+      "kind": "civic_game",
+      "label": "整理村务任务卡"
     },
     {
-      "id": "house_help",
-      "label": "理好公告栏",
+      "id": "register_book",
       "pos": [
-        445,
-        560
+        313,
+        100
       ],
       "approach": [
-        445,
-        600
+        313,
+        163
       ],
-      "kind": "village",
-      "copy": "旧便条收妥，新消息能看清了。",
-      "house": "mayor"
+      "kind": "registry_book",
+      "label": "翻看住户名册",
+      "action": "register"
     },
     {
-      "id": "tea_seat",
-      "label": "坐一会儿",
+      "id": "residency_counter",
       "pos": [
-        355,
-        465
+        319,
+        224
       ],
       "approach": [
-        355,
-        520
+        319,
+        309
+      ],
+      "kind": "residency_counter",
+      "label": "到柜台办入驻",
+      "action": "counter"
+    },
+    {
+      "id": "opinion_basket",
+      "pos": [
+        141,
+        345
+      ],
+      "approach": [
+        130,
+        386
+      ],
+      "kind": "opinion_note",
+      "label": "留一张意见条",
+      "action": "notice"
+    },
+    {
+      "id": "material_sort",
+      "pos": [
+        312,
+        355
+      ],
+      "approach": [
+        359,
+        383
+      ],
+      "kind": "material_sort",
+      "label": "给修缮包系记号",
+      "action": "bundle"
+    },
+    {
+      "id": "rest_seat",
+      "pos": [
+        181,
+        412
+      ],
+      "approach": [
+        214,
+        445
       ],
       "kind": "seat",
+      "label": "坐下听村事",
       "seat": [
-        355,
-        475
+        181,
+        412
       ],
-      "face": "down"
-    },
-    {
-      "id": "mayor",
-      "label": "林伯 · 申请住下",
-      "pos": [
-        485,
-        470
-      ],
-      "approach": [
-        485,
-        550
-      ],
-      "kind": "village"
+      "face": "up"
     }
   ],
   "doors": [
@@ -191,48 +268,66 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        355,
-        656
+        136,
+        500
       ],
       "approach": [
-        355,
-        674
+        136,
+        489
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true
+      "span": [
+        136,
+        469,
+        80
+      ],
+      "width": 80,
+      "explicit_opening": true,
+      "arrival": [
+        136,
+        440
+      ]
     },
     {
       "id": "upstairs",
-      "label": "上二楼",
+      "label": "上楼查资料",
       "target": "v_mayor_up",
       "pos": [
-        645,
-        555
+        68,
+        223
       ],
       "approach": [
-        645,
-        585
+        130,
+        226
       ],
-      "face": "down",
+      "face": "right",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true
+      "span": [
+        116,
+        226,
+        54
+      ],
+      "width": 54,
+      "explicit_opening": true,
+      "arrival": [
+        130,
+        226
+      ]
     }
   ],
   "anchors": {},
   "windows": [],
   "lamps": [
     [
-      227,
-      115,
-      240
+      170,
+      48,
+      170
     ],
     [
-      511,
-      496,
-      220
+      386,
+      65,
+      170
     ]
   ],
   "source_offset": [
@@ -240,23 +335,115 @@
     0
   ],
   "spawn": [
-    355,
-    605
+    136,
+    440
   ],
   "walk_rect": [
-    22,
-    100,
-    666,
-    590
+    24,
+    95,
+    460,
+    490
   ],
   "outdoor": false,
-  "view_scale": 1.15,
+  "view_scale": 2.0,
   "npc": {
+    "id": "linbo",
     "name": "林伯",
+    "character_id": "linbo",
+    "portrait": "linbo",
+    "preset": 9,
     "pos": [
-      485,
-      500
-    ],
-    "preset": 0
-  }
+      313,
+      163
+    ]
+  },
+  "nav_cell": 4,
+  "institution": "civic",
+  "walk_polygons": [
+    [
+      [
+        24,
+        95
+      ],
+      [
+        484,
+        95
+      ],
+      [
+        484,
+        470
+      ],
+      [
+        169,
+        470
+      ],
+      [
+        169,
+        585
+      ],
+      [
+        87,
+        585
+      ],
+      [
+        87,
+        470
+      ],
+      [
+        24,
+        470
+      ]
+    ]
+  ],
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          313,
+          163
+        ],
+        "face": "up",
+        "action": "registry",
+        "line": "先查好名册，今天办事就不用翻来翻去。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          158,
+          225
+        ],
+        "face": "right",
+        "action": "stamp",
+        "line": "把申请放进篮里，我到柜台这边帮你看。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          181,
+          412
+        ],
+        "face": "up",
+        "action": "read",
+        "line": "手续都收好了，这张桌留给大家慢慢说事。",
+        "approach": [
+          214,
+          445
+        ]
+      }
+    ]
+  },
+  "entry_camera_bias": [
+    -100,
+    20
+  ],
+  "entry_camera_radius": 160,
+  "background_scale": [
+    0.4402054292002935,
+    0.4402054292002935
+  ],
+  "background_offset": [
+    0.0014673514306480229,
+    0
+  ]
 }

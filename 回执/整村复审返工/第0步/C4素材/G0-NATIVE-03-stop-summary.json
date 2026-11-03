@@ -1,0 +1,11 @@
+{
+  "issue": "G0-NATIVE",
+  "status": "failed_3_of_3_stop",
+  "kept": "candidate/G0-NATIVE-03-grass via G0-NATIVE-03-grass-manifest.json; C3 material precheck passed",
+  "failed": "emei far layer",
+  "raw": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-raw.png",
+  "fixed_crop": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-fixed-crop.png",
+  "check": "attempts/G0-NATIVE-03/G0-NATIVE-03-emei-far-check.json",
+  "reason": "Output exceeded preregistered alpha band and merged sky/near-ridge/ground effects; fixed crop cannot legally repair it.",
+  "next": "Stop entire G0-NATIVE cycle. C1/Claude must replan; no fourth generation."
+}

@@ -1,0 +1,26 @@
+{
+  "actor": {
+    "action": "idle",
+    "face": "left",
+    "lift": 0.0,
+    "position": [
+      183.0,
+      289.0
+    ],
+    "screen": [
+      39.0,
+      686.0
+    ]
+  },
+  "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+  "hour": 13.0,
+  "month": 10,
+  "name": "v_h2-help-13",
+  "player_position": [
+    302.0,
+    214.0
+  ],
+  "room": "v_h2",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

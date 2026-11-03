@@ -1,0 +1,433 @@
+{
+	"checks": [
+		{
+			"check": "all 50 authored masks load at approved dimensions",
+			"pass": true
+		},
+		{
+			"check": "world retains nearest filtering",
+			"pass": true
+		},
+		{
+			"check": "background uses only the ground mask and layer 0",
+			"pass": true
+		},
+		{
+			"check": "all 50 props bind their own approved source mask, plant kind and layer",
+			"pass": true
+		},
+		{
+			"check": "no prop shares ground material; same source/kind/layer reuses one material",
+			"pass": true
+		},
+		{
+			"check": "every prop material registered in existing season/rain update path",
+			"pass": true
+		},
+		{
+			"check": "source textures and authored prop positions remain exact",
+			"pass": true
+		},
+		{
+			"check": "no spring sprites or scene nodes added",
+			"pass": true
+		},
+		{
+			"check": "all materials receive seven seasonal/weather/effects parameter combinations",
+			"pass": true
+		},
+		{
+			"check": "missing or mismatched binding fails closed with enabled black mask",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: exterior",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: side_path",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: bridge",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: oldhouse",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: grove",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: my_yard",
+			"pass": true
+		},
+		{
+			"check": "other outdoor retains its original material: garden",
+			"pass": true
+		},
+		{
+			"check": "returning to village rebuilds exactly 50 materials without stale room bindings",
+			"pass": true
+		}
+	],
+	"failures": 0,
+	"mode": "headless; dummy renderer; not a screenshot/GPU/performance acceptance",
+	"pending": "C3 actual N3 spring/summer at gate and fields, autumn/winter, passage and performance; N6 and WTH on same stable commit",
+	"props": [
+		{
+			"id": "ayu",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_ayu-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "honeybox",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/exterior_beehive_1-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "notice",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/board-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "orchard0",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/fruit_tree-spring-mask.png",
+			"plant_kind": 3.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "orchard1",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/apple_tree-spring-mask.png",
+			"plant_kind": 3.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "orchard2",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/pear_tree-spring-mask.png",
+			"plant_kind": 3.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "public_pond",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/pond-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "erba",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_erba-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "laowu",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_laowu-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "daba",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_daba-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h5",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h5-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h2",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h2-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h3",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h3-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "mayor",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_mayor-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h6",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h6-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h8",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h8-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h7",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h7-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h4",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h4-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "h1",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_h1-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "flower",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_flower-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "whitebrick",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_whitebrick-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "grape",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_grape-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "sunflower",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_sunflower-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "persimmon",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_persimmon-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "rose",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/house_rose-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "site_pond",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/pond-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "house_community",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/cabin-spring-mask.png",
+			"plant_kind": 0.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_0",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_0-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_1",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_1-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_2",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_2-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_3",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_3-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_bamboo_4",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_4-spring-mask.png",
+			"plant_kind": 2.0,
+			"spring_layer_kind": 2.0
+		},
+		{
+			"id": "c4_tree_5",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_5-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_6",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_6-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_bamboo_7",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_7-spring-mask.png",
+			"plant_kind": 2.0,
+			"spring_layer_kind": 2.0
+		},
+		{
+			"id": "c4_tree_8",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_8-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_9",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_9-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_bamboo_10",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_bamboo_10-spring-mask.png",
+			"plant_kind": 2.0,
+			"spring_layer_kind": 2.0
+		},
+		{
+			"id": "c4_tree_11",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_11-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_12",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_12-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_13",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_13-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_14",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_14-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_15",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_15-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_16",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_16-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_17",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_17-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_18",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_18-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_tree_19",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_tree_19-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_shrub_20",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_20-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_shrub_21",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_21-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		},
+		{
+			"id": "c4_shrub_22",
+			"mask": "res://ayu_home/v4/assets/village/c4-spring-v1/c4_shrub_22-spring-mask.png",
+			"plant_kind": 1.0,
+			"spring_layer_kind": 1.0
+		}
+	],
+	"season_parameter_samples": [
+		{
+			"effects_enabled": true,
+			"month": 4,
+			"rain": 0.0,
+			"season": 0,
+			"weather": "clear"
+		},
+		{
+			"effects_enabled": true,
+			"month": 4,
+			"rain": 1.0,
+			"season": 0,
+			"weather": "rain"
+		},
+		{
+			"effects_enabled": true,
+			"month": 7,
+			"rain": 0.0,
+			"season": 1,
+			"weather": "clear"
+		},
+		{
+			"effects_enabled": true,
+			"month": 10,
+			"rain": 0.0,
+			"season": 2,
+			"weather": "clear"
+		},
+		{
+			"effects_enabled": true,
+			"month": 1,
+			"rain": 0.0,
+			"season": 3,
+			"weather": "snow"
+		},
+		{
+			"effects_enabled": true,
+			"month": 1,
+			"rain": 1.0,
+			"season": 3,
+			"weather": "rain"
+		},
+		{
+			"effects_enabled": false,
+			"month": 4,
+			"rain": 0.0,
+			"season": 1,
+			"weather": "rain"
+		}
+	],
+	"shader_uniform_count_reported_by_headless": 6
+}

@@ -1,197 +1,148 @@
 {
   "id": "v_h1",
-  "title": "1A · 蓝瓦人家 · 一楼",
+  "title": "蓝瓦人家",
   "group": "村庄",
   "floor": 0,
   "size": [
-    790,
-    800
+    768,
+    512
   ],
-  "background": "res://ayu_home/v4/assets/village/interior_h1.png",
+  "background": "res://ayu_home/v4/assets/village/households-pixel/h1.png",
+  "background_scale": [
+    0.5,
+    0.5
+  ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "props": [
-    {
-      "id": "sofa0",
-      "file": "res://ayu_home/v4/assets/village/furniture_sofa.png",
-      "pos": [
-        65,
-        145
-      ],
-      "foot": 230,
-      "front": false
-    },
-    {
-      "id": "kitchen1",
-      "file": "res://ayu_home/v4/assets/village/furniture_kitchen.png",
-      "pos": [
-        545,
-        140
-      ],
-      "foot": 223,
-      "front": false
-    },
-    {
-      "id": "table2",
-      "file": "res://ayu_home/v4/assets/village/furniture_table.png",
-      "pos": [
-        60,
-        420
-      ],
-      "foot": 495,
-      "front": false
-    },
-    {
-      "id": "cabinet3",
-      "file": "res://ayu_home/v4/assets/village/furniture_cabinet.png",
-      "pos": [
-        550,
-        495
-      ],
-      "foot": 602,
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        680,
-        490
-      ],
-      "foot": 640,
-      "front": false
-    },
-    {
-      "id": "detail_window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        297,
-        21
-      ],
-      "foot": 75,
-      "front": false
-    },
-    {
-      "id": "detail_plant0",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        25,
-        570
-      ],
-      "foot": 638,
-      "front": false
-    },
-    {
-      "id": "detail_plant1",
-      "file": "exterior_pot_window_left.png",
-      "pos": [
-        718,
-        90
-      ],
-      "foot": 158,
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v3/assets/exterior_bench.png",
-      "pos": [
-        365,
-        542
-      ],
-      "foot": 575,
-      "front": false
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      420,
-      90,
-      12,
-      250
+      195,
+      121,
+      158,
+      41
     ],
     [
-      420,
-      480,
-      12,
-      270
-    ],
-    [
-      430,
-      375,
-      160,
-      12
-    ],
-    [
-      69,
-      194.5,
-      127,
-      40.5
-    ],
-    [
-      549,
-      188.4,
+      437,
+      118,
       147,
-      39.6
+      66
+    ],
+    [
+      600,
+      161,
+      86,
+      18
     ],
     [
       64,
-      464.0,
-      112,
-      36.0
+      208,
+      218,
+      78
     ],
     [
-      554,
-      556.6,
-      90,
-      50.4
+      54,
+      251,
+      67,
+      122
+    ],
+    [
+      148,
+      279,
+      107,
+      73
+    ],
+    [
+      255,
+      325,
+      39,
+      42
+    ],
+    [
+      533,
+      237,
+      105,
+      113
+    ],
+    [
+      509,
+      243,
+      29,
+      102
+    ],
+    [
+      636,
+      243,
+      29,
+      102
+    ],
+    [
+      562,
+      312,
+      43,
+      55
+    ],
+    [
+      552,
+      212,
+      40,
+      28
+    ],
+    [
+      697,
+      279,
+      41,
+      85
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "门边的生活便签",
-      "pos": [
-        295,
-        680
-      ],
-      "approach": [
-        295,
-        720
-      ],
-      "kind": "village",
-      "copy": "一张长桌，空位等邻居来坐。"
-    },
-    {
       "id": "house_help",
-      "label": "摆好一副茶杯",
+      "label": "收好茶杯",
       "pos": [
-        485,
-        650
+        580,
+        270
       ],
       "approach": [
-        485,
-        690
+        587,
+        385
       ],
-      "kind": "village",
-      "copy": "茶杯摆齐了，今天来串门也算一件好事。",
-      "house": "h1"
+      "kind": "house_task",
+      "house": "h1",
+      "copy": "茶杯擦净收在桌边，蓝布也抚平了。窗外慢慢亮起来，屋里清清爽爽。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        395,
-        555
+        205,
+        258
       ],
       "approach": [
-        395,
-        610
+        313,
+        260
       ],
       "kind": "seat",
       "seat": [
-        395,
-        565
+        205,
+        258
       ],
       "face": "down"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "h1",
+      "label": "挪一挪茶杯",
+      "pos": [
+        628,
+        270
+      ],
+      "approach": [
+        587,
+        385
+      ],
+      "copy": "茶杯换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -200,64 +151,148 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        395,
-        746
+        390,
+        475
       ],
       "approach": [
-        395,
-        764
+        390,
+        443
+      ],
+      "arrival": [
+        390,
+        408
       ],
       "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_h1_up",
-      "pos": [
-        725,
-        645
-      ],
-      "approach": [
-        725,
-        675
-      ],
-      "face": "down",
-      "kind": "door",
-      "width": 60,
+      "width": 82,
       "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      252,
-      115,
-      240
-    ],
-    [
-      568,
-      560,
-      220
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    395,
-    695
+    390,
+    408
   ],
   "walk_rect": [
-    22,
-    100,
-    746,
-    680
+    29,
+    161,
+    712,
+    335
+  ],
+  "walk_polygons": [
+    [
+      [
+        92,
+        161
+      ],
+      [
+        698,
+        177
+      ],
+      [
+        738,
+        400
+      ],
+      [
+        437,
+        400
+      ],
+      [
+        437,
+        495
+      ],
+      [
+        343,
+        495
+      ],
+      [
+        343,
+        400
+      ],
+      [
+        30,
+        400
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -95,
+    0
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "tea_stool",
+    "pos": [
+      580,
+      270
+    ],
+    "label": "茶杯",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      628,
+      270
+    ]
+  },
+  "npc": {
+    "id": "household_h1",
+    "character_id": "household_h1",
+    "name": "蓝瓦人家主人",
+    "portrait": "household_h1",
+    "preset": 0,
+    "pos": [
+      587,
+      385
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          587,
+          385
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理茶杯，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          313,
+          260
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的茶杯也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          205,
+          258
+        ],
+        "approach": [
+          313,
+          260
+        ],
+        "face": "down",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

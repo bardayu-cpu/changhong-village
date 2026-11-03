@@ -1,0 +1,1616 @@
+{
+  "rows": [
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "new foreground source region and foot sofa"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "new foreground source region and foot tea_table"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "new foreground source region and foot stair_lower"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_h1",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "new foreground source region and foot left_sofa"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "new foreground source region and foot sewing_bench"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "new foreground source region and foot right_daybed"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_h2",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "new foreground source region and foot left_rest_bench"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "new foreground source region and foot farm_table"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "new foreground source region and foot grain_cabinet"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_h4",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "new foreground source region and foot window_bench"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "new foreground source region and foot flower_press_table"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "new foreground source region and foot potting_table"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "new foreground source region and foot right_plant_shelf"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_h6",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "new foreground source region and foot left_storage"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "new foreground source region and foot back_table"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "new foreground source region and foot right_alcove"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "new foreground source region and foot door_basket_table"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_h7",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "new foreground source region and foot kitchen_counter"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "new foreground source region and foot left_sofa"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "new foreground source region and foot coffee_table"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "new foreground source region and foot dining_set"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_whitebrick",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "new foreground source region and foot family_sofa"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "new foreground source region and foot left_conversation_set"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "new foreground source region and foot round_dining"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "new foreground source region and foot right_cabinet"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_erba",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "new foreground source region and foot bamboo_workbench"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "new foreground source region and foot left_bamboo_seating"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "new foreground source region and foot right_strip_rack"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "central rug no old table ghost collision"
+    },
+    {
+      "room": "v_daba",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "actual candidate room/background loaded"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "same normal scale and background source scale"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "actual entry spawn passable"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "new solid furniture centers blocked"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "all old obstacle list replaced by exact C4 new solids"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "new foreground count matches C4"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "new foreground source region and foot left_sofa"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "new foreground source region and foot rose_coffee_table"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "new foreground source region and foot arranging_table"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "new foreground source region and foot right_storage"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "candidate approach reachable house_help"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "candidate approach reachable tea_seat"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "candidate approach reachable house_display"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "candidate approach reachable outside"
+    },
+    {
+      "room": "v_rose",
+      "pass": true,
+      "check": "actual evening native schedule is seated"
+    }
+  ],
+  "shots": [
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          174.0,
+          277.0
+        ],
+        "screen": [
+          -364.0,
+          334.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/rose.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_rose-entry-13",
+      "player_position": [
+        386.0,
+        422.0
+      ],
+      "room": "v_rose",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 89.0,
+        "position": [
+          113.0,
+          364.0
+        ],
+        "screen": [
+          226.0,
+          764.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/rose.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_rose-Ayu-same-seat-19",
+      "player_position": [
+        113.0,
+        275.0
+      ],
+      "room": "v_rose",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          285.0,
+          237.0
+        ],
+        "screen": [
+          14.0,
+          582.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h6.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h6-help-13",
+      "player_position": [
+        422.0,
+        238.0
+      ],
+      "room": "v_h6",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          313.0,
+          260.0
+        ],
+        "screen": [
+          -292.0,
+          382.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h1.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h1-help-13",
+      "player_position": [
+        586.0,
+        362.0
+      ],
+      "room": "v_h1",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          174.0,
+          276.0
+        ],
+        "screen": [
+          -364.0,
+          332.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_whitebrick-entry-13",
+      "player_position": [
+        386.0,
+        406.0
+      ],
+      "room": "v_whitebrick",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 98.0,
+        "position": [
+          118.0,
+          385.0
+        ],
+        "screen": [
+          236.0,
+          782.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h2-Ayu-same-seat-19",
+      "player_position": [
+        118.0,
+        287.0
+      ],
+      "room": "v_h2",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          285.0,
+          350.0
+        ],
+        "screen": [
+          -243.0,
+          596.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h7-help-13",
+      "player_position": [
+        542.0,
+        362.0
+      ],
+      "room": "v_h7",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          116.0,
+          278.0
+        ],
+        "screen": [
+          232.0,
+          586.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_whitebrick-Ayu-same-seat-19",
+      "player_position": [
+        116.0,
+        278.0
+      ],
+      "room": "v_whitebrick",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          116.0,
+          278.0
+        ],
+        "screen": [
+          232.0,
+          586.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_whitebrick-actual-seat-19",
+      "player_position": [
+        116.0,
+        278.0
+      ],
+      "room": "v_whitebrick",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          195.0,
+          355.0
+        ],
+        "screen": [
+          -40.0,
+          521.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h4-entry-13",
+      "player_position": [
+        350.0,
+        482.0
+      ],
+      "room": "v_h4",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 104.0,
+        "position": [
+          104.0,
+          455.0
+        ],
+        "screen": [
+          208.0,
+          794.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h4-Ayu-same-seat-19",
+      "player_position": [
+        104.0,
+        351.0
+      ],
+      "room": "v_h4",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 36.0,
+        "position": [
+          208.0,
+          214.0
+        ],
+        "screen": [
+          270.0,
+          536.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/erba.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_erba-Ayu-same-seat-19",
+      "player_position": [
+        208.0,
+        178.0
+      ],
+      "room": "v_erba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          326.0,
+          222.0
+        ],
+        "screen": [
+          -253.0,
+          328.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/erba.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_erba-help-13",
+      "player_position": [
+        550.0,
+        350.0
+      ],
+      "room": "v_erba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 89.0,
+        "position": [
+          113.0,
+          364.0
+        ],
+        "screen": [
+          226.0,
+          764.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/rose.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_rose-actual-seat-19",
+      "player_position": [
+        113.0,
+        275.0
+      ],
+      "room": "v_rose",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          238.0,
+          267.0
+        ],
+        "screen": [
+          -40.0,
+          314.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_daba-entry-13",
+      "player_position": [
+        390.0,
+        398.0
+      ],
+      "room": "v_daba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          326.0,
+          222.0
+        ],
+        "screen": [
+          -104.0,
+          304.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/erba.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_erba-entry-13",
+      "player_position": [
+        418.0,
+        374.0
+      ],
+      "room": "v_erba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          285.0,
+          350.0
+        ],
+        "screen": [
+          72.0,
+          598.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h7-entry-13",
+      "player_position": [
+        386.0,
+        410.0
+      ],
+      "room": "v_h7",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 52.0,
+        "position": [
+          282.0,
+          217.0
+        ],
+        "screen": [
+          270.0,
+          542.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h6.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h6-Ayu-same-seat-19",
+      "player_position": [
+        282.0,
+        165.0
+      ],
+      "room": "v_h6",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          174.0,
+          276.0
+        ],
+        "screen": [
+          150.0,
+          660.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/whitebrick.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_whitebrick-help-13",
+      "player_position": [
+        234.0,
+        194.0
+      ],
+      "room": "v_whitebrick",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          174.0,
+          277.0
+        ],
+        "screen": [
+          -372.0,
+          438.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/rose.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_rose-help-13",
+      "player_position": [
+        430.0,
+        350.0
+      ],
+      "room": "v_rose",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 104.0,
+        "position": [
+          104.0,
+          455.0
+        ],
+        "screen": [
+          208.0,
+          794.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h4-actual-seat-19",
+      "player_position": [
+        104.0,
+        351.0
+      ],
+      "room": "v_h4",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          183.0,
+          289.0
+        ],
+        "screen": [
+          -53.0,
+          557.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h2-entry-13",
+      "player_position": [
+        386.0,
+        398.0
+      ],
+      "room": "v_h2",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 45.0,
+        "position": [
+          210.0,
+          380.0
+        ],
+        "screen": [
+          271.0,
+          695.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h7-actual-seat-19",
+      "player_position": [
+        210.0,
+        335.0
+      ],
+      "room": "v_h7",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 82.0,
+        "position": [
+          205.0,
+          340.0
+        ],
+        "screen": [
+          270.0,
+          750.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h1.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h1-Ayu-same-seat-19",
+      "player_position": [
+        205.0,
+        258.0
+      ],
+      "room": "v_h1",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          285.0,
+          237.0
+        ],
+        "screen": [
+          155.0,
+          445.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h6.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h6-entry-13",
+      "player_position": [
+        382.0,
+        402.0
+      ],
+      "room": "v_h6",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 52.0,
+        "position": [
+          282.0,
+          217.0
+        ],
+        "screen": [
+          270.0,
+          542.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h6.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h6-actual-seat-19",
+      "player_position": [
+        282.0,
+        165.0
+      ],
+      "room": "v_h6",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          313.0,
+          260.0
+        ],
+        "screen": [
+          -72.0,
+          300.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h1.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h1-entry-13",
+      "player_position": [
+        390.0,
+        410.0
+      ],
+      "room": "v_h1",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 36.0,
+        "position": [
+          208.0,
+          214.0
+        ],
+        "screen": [
+          270.0,
+          536.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/erba.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_erba-actual-seat-19",
+      "player_position": [
+        208.0,
+        178.0
+      ],
+      "room": "v_erba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 82.0,
+        "position": [
+          205.0,
+          340.0
+        ],
+        "screen": [
+          270.0,
+          750.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h1.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h1-actual-seat-19",
+      "player_position": [
+        205.0,
+        258.0
+      ],
+      "room": "v_h1",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 98.0,
+        "position": [
+          118.0,
+          385.0
+        ],
+        "screen": [
+          236.0,
+          782.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h2-actual-seat-19",
+      "player_position": [
+        118.0,
+        287.0
+      ],
+      "room": "v_h2",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {},
+      "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-entry-13",
+      "player_position": [
+        298.0,
+        158.0
+      ],
+      "room": "living",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          183.0,
+          289.0
+        ],
+        "screen": [
+          39.0,
+          686.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h2.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h2-help-13",
+      "player_position": [
+        302.0,
+        214.0
+      ],
+      "room": "v_h2",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "right",
+        "lift": 0.0,
+        "position": [
+          238.0,
+          267.0
+        ],
+        "screen": [
+          110.0,
+          642.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_daba-help-13",
+      "player_position": [
+        318.0,
+        206.0
+      ],
+      "room": "v_daba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 103.0,
+        "position": [
+          166.0,
+          354.0
+        ],
+        "screen": [
+          270.0,
+          792.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_daba-Ayu-same-seat-19",
+      "player_position": [
+        166.0,
+        251.0
+      ],
+      "room": "v_daba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "right",
+        "lift": 45.0,
+        "position": [
+          210.0,
+          380.0
+        ],
+        "screen": [
+          271.0,
+          695.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h7.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_h7-Ayu-same-seat-19",
+      "player_position": [
+        210.0,
+        335.0
+      ],
+      "room": "v_h7",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "sit",
+        "face": "down",
+        "lift": 103.0,
+        "position": [
+          166.0,
+          354.0
+        ],
+        "screen": [
+          270.0,
+          792.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/daba-bamboo.png",
+      "hour": 19.0,
+      "month": 10,
+      "name": "v_daba-actual-seat-19",
+      "player_position": [
+        166.0,
+        251.0
+      ],
+      "room": "v_daba",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {
+        "action": "idle",
+        "face": "left",
+        "lift": 0.0,
+        "position": [
+          195.0,
+          355.0
+        ],
+        "screen": [
+          -360.0,
+          610.0
+        ]
+      },
+      "background": "res://ayu_home/v4/assets/village/households-closeout-1025/h4.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "v_h4-help-13",
+      "player_position": [
+        510.0,
+        350.0
+      ],
+      "room": "v_h4",
+      "view_scale": 2.0,
+      "weather": "clear"
+    }
+  ],
+  "helper_failure_after_nine_rooms": "market called nonexistent handle() helper API; nine rooms finished before failure; recover original CHECK stdout and original screenshot metadata, no mutation of failed log",
+  "OS_input": false,
+  "nine_completed": true,
+  "market_not_yet_tested": true,
+  "scope": "entry/help13h; native room-init seat19h; narrow solid-center/approach/source checks; not full physical regression"
+}

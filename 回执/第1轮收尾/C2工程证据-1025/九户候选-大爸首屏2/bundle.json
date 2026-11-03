@@ -1,0 +1,27 @@
+{
+  "candidate": "daba-entry-camera2",
+  "base": "../九户候选-v1/bundle.json",
+  "production_applied": false,
+  "change": {
+    "old_entry_camera_bias": [
+      -3,
+      -8
+    ],
+    "new_entry_camera_bias": [
+      0,
+      90
+    ]
+  },
+  "unchanged": [
+    "room geometry",
+    "scale 2.0",
+    "sprite artwork",
+    "player spawn",
+    "collision",
+    "hotspots"
+  ],
+  "reason": "actual 13:00 entry frame centred on empty rug and hid bamboo workbench at top; use existing player-safe camera framing",
+  "files": {
+    "v_daba.json": "440e5d729785533d791f12bf2586b69b1513ab2074794ba9a78f2cdb504c5576"
+  }
+}

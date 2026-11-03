@@ -1,0 +1,12 @@
+{
+  "asset": "godot/ayu_home/v4/assets/childhood/objects.png",
+  "source": "回执/第1轮收尾/C4-童年物件图集/objects.png",
+  "sha256": "bad3f5f3491fae2999b3e245ef61db7f01d155e49d09ecc46923bb81d9ff7e29",
+  "size": [
+    512,
+    256
+  ],
+  "nonempty_objects": 25,
+  "order_matches_interface": true,
+  "status": "metadata and byte copy passed; game visual review pending; six backgrounds pending"
+}

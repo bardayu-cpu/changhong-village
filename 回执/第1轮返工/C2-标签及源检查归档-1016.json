@@ -1,0 +1,141 @@
+{
+  "time": "2026-10-16T09:47:59.725394+08:00",
+  "status": "两处生产小修已推送，12份C2证据及2份C1稳定文档精确归档；不代表GUI验收通过",
+  "branch": "village-deep-1010",
+  "production_commits": {
+    "labels": "5e2e0d2f40aa2677af305f49afd88a68fb2cdf94",
+    "clothing_feedback": "9acd3288eb88c4be3262c441909f57e75f773c1b"
+  },
+  "payload_count": 14,
+  "commit_file_count_including_this_manifest": 15,
+  "self": "回执/第1轮返工/C2-标签及源检查归档-1016.json",
+  "payload": [
+    {
+      "path": "回执/第1轮返工/标签避让-1016/几何核验.gd",
+      "bytes": 2880,
+      "sha256": "9bd1f0c9a3931d9e50e1eb88beb31c402341b68b2c51c376040acfbf76006ed9"
+    },
+    {
+      "path": "回执/第1轮返工/标签避让-1016/几何核验.json",
+      "bytes": 2411,
+      "sha256": "66be2491077be168eeb36c4ccde4433b16375033fbaa9ad3872de807f8c38d16"
+    },
+    {
+      "path": "回执/第1轮返工/标签避让-1016/几何核验-stdout.log",
+      "bytes": 103,
+      "sha256": "fc4d06c42f94ef74d57390dc33896e9b3c0fa8d7f1c72ccd61a814e48115fb7b"
+    },
+    {
+      "path": "回执/第1轮返工/标签避让-1016/几何核验-stderr.log",
+      "bytes": 123,
+      "sha256": "b44d1484f324204d488884405aedead024c019bb75f70f0852bf5b1c19905174"
+    },
+    {
+      "path": "回执/第1轮返工/标签避让-1016/几何核验-engine.log",
+      "bytes": 226,
+      "sha256": "04e4757bcc0ae86e8e1ae8583ac50efe5c0cf78566b2b5313981a018dc6cdceb"
+    },
+    {
+      "path": "回执/第1轮返工/标签避让-1016/布局差异.diff",
+      "bytes": 5790,
+      "sha256": "9b16867e628cb7ed1666fba696b9c22ba3257ede24cd2bb225512786e3a657c6"
+    },
+    {
+      "path": "回执/第1轮返工/标签避让-1016/接测.json",
+      "bytes": 2106,
+      "sha256": "7c25e1acd6bd934f0300d4c5747058d75ea7f42e15cb60fce995719010ad0b34"
+    },
+    {
+      "path": "回执/第1轮返工/A1源检查-1016/叠衣错配修复-engine.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "回执/第1轮返工/A1源检查-1016/叠衣错配修复-stdout.log",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "回执/第1轮返工/A1源检查-1016/叠衣错配修复-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "回执/第1轮返工/A1源检查-1016/叠衣错配修复核验.json",
+      "bytes": 1978,
+      "sha256": "d91017c5507f8ef2b857212ee38b6e7833a00b86b65ac375930da6b9ba2ac99e"
+    },
+    {
+      "path": "回执/第1轮返工/A1源检查-1016/27室源检查.json",
+      "bytes": 40112,
+      "sha256": "5c61d8afda82c39768c1aefa05e8cdde7a9e83f2447e121845b84db1e3d8bf4b"
+    },
+    {
+      "path": "回执/第1轮返工/续办-1016.md",
+      "bytes": 1259,
+      "sha256": "1e1a9c9fc5ca29cd39484fa1db8a09b923ea02b8e5060d28fb391a158a13876f"
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 7244,
+      "sha256": "ddb7d189eca8a18dd8c46b431f160208b08a41d2b91f282d85db4c9452652693"
+    }
+  ],
+  "validation": {
+    "label_geometry": "12/12 PASS，直接调用生产布局函数，无GUI输入及实际存档",
+    "cloth_check_only": "Godot语法检查退出0且无SCRIPT ERROR",
+    "cloth_mapping": "保留9个衣物反馈，排除手作房工具、车库工具架、客房衣帽间的包3处错配",
+    "source_audit": "沿C3既定27室逐室绑定热点及公共渲染，13项分为已修、待美术、正常界面/反馈与休眠代码",
+    "original_test_script_sha256": {
+      "给Claude审查/check_room_standard.py": "de13ed81de53fac062ac2d09cbd8cc54b4439445b0e8240baa8f61348bf5b971",
+      "godot/ayu_home/v4/core/test_core.gd": "efce56181399c06c965aa394bcd91aa081affacdf29b8e5c35f7bbc47be4283d"
+    },
+    "full_five_room_or_core87_rerun": false,
+    "gui_performed_by_C2": false,
+    "environment_note": "原样保留标签几何核验中的macOS证书提示；无SCRIPT ERROR，未修剪原始日志"
+  },
+  "remaining": {
+    "C3": "继续已授权的f382dc0冻结批次，完成备餐显示与A4横窗正常进门参照后，再小范围核新标签及3处整理反馈；A1早中晚缺口依原计划分波",
+    "art": "故事册几何插画、蜂蜜罐/备餐前段、柜包开合、部分NPC工作动作与旧室内风格问题保留，细项见27室源检查.json",
+    "A3": "本轮停止绘图及替代试验，不接失败v1-v3、不产第四版",
+    "acceptance": "第一轮尚未最终通过，源检查不计作真实画面通过"
+  },
+  "excluded_preserved": [
+    {
+      "path": "回执/第1轮/C1画面核对.md",
+      "sha256": "c83bb01d3c2215edeee63544a049c185167392727e9fb8efcfd25edf35269acc"
+    },
+    {
+      "path": "回执/第1轮/设计/00-C4状态.md",
+      "sha256": "01a205e299dff154b01a3971136fe9f066d79bd83728f5bcaf59e68473e50b58"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C2设计归档清单-1014.json",
+      "sha256": "a5b5791bf94001f0aed8b0e2c660f8834f6310704848033849c587b2a7373b6c"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/C4二期设计回执-1014.md",
+      "sha256": "f0339261aa4a01ded6909d0ce06b8a0e1959ff882618db5125de4a8b2abd54bd"
+    },
+    {
+      "path": "回执/第1轮/设计/二期设计归档/本波静态核对-1014.json",
+      "sha256": "d1d2b645db36a2558b2dea1a20abe1ffd59f359569fc256de039893a40ff8a1e"
+    },
+    {
+      "path": "回执/第1轮/设计/村景独立重画/麦收田园无桥三案-v7/C4麦收田园无桥三案交付-v7.md",
+      "sha256": "a6c7032de04636d8abb822ee89ba735913c3b8249505b5733c5f3a8c2be3abfa"
+    },
+    {
+      "path": "回执/第1轮返工/设计/续办-1015/A4-活动中心首屏构图建议.md",
+      "sha256": "42e1451b5f8838eed16eeae56f030f8ba64ebc93ad42a6ceac65474d5642be6d"
+    }
+  ],
+  "other_exclusions": "未列入payload的历史/未跟踪资料、C3本轮活跃截图和记录、Godot UID及运行/测试数据全部不纳入本提交",
+  "quota": {
+    "actual_observed_used_percent": 58,
+    "actual_observed_remaining_percent": 42,
+    "stop_at_remaining_percent": 30,
+    "rule": "触线停止开发及GUI，预留封存推送；覆盖此前10%停线"
+  },
+  "permission": "当前聊天用户已明确允许按第1轮任务持续推送该分支"
+}

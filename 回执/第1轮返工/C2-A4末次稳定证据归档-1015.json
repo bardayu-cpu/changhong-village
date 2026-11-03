@@ -1,0 +1,111 @@
+{
+  "status": "C3指定稳定证据精确归档；A4欠横窗阿鱼参照，未判整体通过",
+  "time": "2026-10-15T21:46:22.097059+08:00",
+  "current_production_commit": "f382dc01d88efc82514c57e0aab3348f6ed0716c",
+  "current_production_notes": "备餐中心单点透明餐盘替换已提交f382dc0；其独立检查记录在4ad8d96。C1本次文档和C3本次实机所记9c24efa是原冻结受测源，不能替代此小修的GUI补验。",
+  "tested_source": "9c24efae62e2ad9a6896ebd759b2791d14672852",
+  "source_manifest": {
+    "path": "回执/第1轮返工/C3稳定文件清单.json",
+    "sha256": "4aa9b51f6f0e0bf576a57816526996b38b5cdbf5619944ec4c3dc5b5fc67deed",
+    "entries_verified": 109,
+    "counts": {
+      "files": 109,
+      "png": 87,
+      "new_830_png": 35,
+      "new_830_pairs": 16,
+      "new_A4_png": 3,
+      "new_A4_pairs": 1
+    },
+    "new_png_decoded": 3,
+    "existing_images": "以稳定清单SHA256确认未变，未重跑旧视觉检查"
+  },
+  "conclusions": {
+    "seen_in_native": "手机与横窗完整共桌、正常人物；六热点和出口、代表家具碰撞均实际执行；手机同源同时间同窗原像素并排已完成",
+    "pending": "横窗阿鱼家真实进门参照尚缺，GUI暂停等待阿鱼交回控制；另需补看f382dc0备餐成品图",
+    "criterion_correction": "原任务只要求首屏看见房间主体，C1撤回额外四区同时露全条件；原帧文件名及可见性事实保留，不因更正条件自动判通过",
+    "A1": "备餐图小修只覆盖一处，不代表所有几何美术或27室早中晚整体通过",
+    "A3": "三次素材失败且未接入，新方法重开未获回答"
+  },
+  "files": [
+    {
+      "path": "回执/第1轮返工/A4末次-9c24efa-1015/来源.json",
+      "bytes": 1071,
+      "sha256": "3d0a7caaa19e646ff37ef1083bb698ab5723f5354ad665b47a75088386f37dae"
+    },
+    {
+      "path": "回执/第1轮返工/A4末次-9c24efa-1015/目标验收-固定侧证.json",
+      "bytes": 22134,
+      "sha256": "66158d22f921bccef02d9870230c715134138403d822a17db271d5db21043b02"
+    },
+    {
+      "path": "回执/第1轮返工/A4末次-9c24efa-1015/阶段回执.md",
+      "bytes": 4258,
+      "sha256": "955322c550a601c2481557d30fbb30d2f016aade57e43fcedbef4940d26b8aec"
+    },
+    {
+      "path": "回执/第1轮返工/C3受测来源-1015.json",
+      "bytes": 2384,
+      "sha256": "654fc1594bfc94e6dd3bbcce5fda5ac36de46f6a5591b257606474d6fb48e4e8"
+    },
+    {
+      "path": "回执/第1轮返工/C3验收.md",
+      "bytes": 5888,
+      "sha256": "fd49deecf6b447e7bb76419111320dfd3f8bf47abb611636225102435d0cbb7f"
+    },
+    {
+      "path": "回执/第1轮返工/图/A4末次-9c24efa-1015-005-手机-阿鱼真实进门首屏13时.png",
+      "bytes": 106803,
+      "sha256": "e13e7368ca0df174333e0ba8ddedbdb8a0351f3c7f62ce8bfd53e21e96b3a589"
+    },
+    {
+      "path": "回执/第1轮返工/图/A4末次-9c24efa-1015-009-手机-活动真实进门首屏13时-四区不全.png",
+      "bytes": 219487,
+      "sha256": "75de5516e027ef96b84e07205359443546dda8655d67b6e24f31e08f9198788b"
+    },
+    {
+      "path": "回执/第1轮返工/图/A4末次-9c24efa-手机真实首屏-左活动右阿鱼-13时.png",
+      "bytes": 317049,
+      "sha256": "83aac37d5272f09f5db6eb0fa539e7180f5c01e941d7d2a20b9170dfc1b14474"
+    },
+    {
+      "path": "回执/第1轮返工/C3稳定文件清单.json",
+      "bytes": 34290,
+      "sha256": "4aa9b51f6f0e0bf576a57816526996b38b5cdbf5619944ec4c3dc5b5fc67deed"
+    },
+    {
+      "path": "回执/第1轮返工/续办-1015.md",
+      "bytes": 5890,
+      "sha256": "0c5d7e931e92435b1820fd13b7ba0d5521b9ac285c24a2c8315a4ef447725f52"
+    },
+    {
+      "path": "回执/第1轮返工/C1续办画面核对-1015.md",
+      "bytes": 3826,
+      "sha256": "5f97c5c92d37e017cc15dbe254765fec458cab50b5e7cd016050073afa70f14d"
+    },
+    {
+      "path": "回执/第1轮返工/回执.md",
+      "bytes": 6722,
+      "sha256": "59ecd7ddc479e4a16e7d6a33721d7bc7c466c6f692e611fb4346ac2e1473ed2d"
+    }
+  ],
+  "self": "回执/第1轮返工/C2-A4末次稳定证据归档-1015.json",
+  "counts": {
+    "payload_files": 12,
+    "files_including_manifest": 13,
+    "bytes_without_manifest": 729802
+  },
+  "excluded": [
+    "C3清单未列的过程截图、横窗缺参照原帧和实时文件",
+    "实际存档、运行日志、缓存、打包产物",
+    "生产代码（本次仅归档）",
+    "未在本清单列出的C1/C4历史未提交修改"
+  ],
+  "self_note": "自身纳入，不递归计算自哈希",
+  "receipt_sync": {
+    "time": "2026-10-15T21:50:02.978153+08:00",
+    "prior_archive_commit": "563b56a62765bfaee77909162ccc0b8322d6ae89",
+    "updated_path": "回执/第1轮返工/回执.md",
+    "reason": "C1最新回执在前次证据提交推送后补齐f382dc0生产与原检查结论，追加提交保留其新内容，不改写已推历史。",
+    "original_suite_scope": "五房和87项原脚本结果属于9c24efa；f382dc0仅成品绘制语法检查及差异核对，实机补验待C3。"
+  }
+}

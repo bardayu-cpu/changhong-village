@@ -32,15 +32,29 @@ static func get_sound(name: String) -> AudioStreamWAV:
 		"twinkle":samples=_twinkle(1.0)    # 流星划过
 		"knock":samples=_knock(.5)
 		"bark":samples=_bark(.42)            # 喜多轻轻「汪汪」两声，音量小
+		"cicada":samples=_cicada(8.0)       # 夏日树间的一阵蝉声；缓存后循环，首尾平滑归零
 		_:samples=_plop(.2,300.0)
 	var wav:=AudioStreamWAV.new();wav.format=AudioStreamWAV.FORMAT_16_BITS;wav.mix_rate=RATE
 	var bytes:=PackedByteArray();bytes.resize(samples.size()*2)
 	for i in samples.size():bytes.encode_s16(i*2,int(clampf(samples[i],-1,1)*26000))
-	wav.data=bytes;cache[name]=wav;return wav
+	wav.data=bytes
+	if name=="cicada":wav.loop_mode=AudioStreamWAV.LOOP_FORWARD;wav.loop_begin=0;wav.loop_end=samples.size()
+	cache[name]=wav;return wav
 
 static func _rand(seed: int) -> float:
 	var x:=sin(float(seed)*12.9898+78.233)*43758.5453
 	return (x-floor(x))*2.0-1.0
+static func _cicada(sec:float) -> PackedFloat32Array:
+	var out:=PackedFloat32Array();out.resize(int(sec*RATE));var previous:=0.0
+	for i in out.size():
+		var t:=float(i)/RATE
+		var envelope:=pow(sin(PI*float(i)/float(out.size()-1)),2.0)
+		var pulse:=.55+.45*sin(TAU*57.0*t)
+		var chorus:=.72+.28*sin(TAU*.625*t)
+		var carrier:=sin(TAU*3850.0*t+1.8*sin(TAU*113.0*t))+.36*sin(TAU*4720.0*t)
+		var noise:=_rand(i*7+31);var rasp:=noise-previous;previous=noise
+		out[i]=(carrier*.38+rasp*.10)*pulse*chorus*envelope
+	return out
 static func _noise(sec: float, low: float, gain: float) -> PackedFloat32Array:
 	var out:=PackedFloat32Array();out.resize(int(sec*RATE));var y:=0.0
 	for i in out.size():

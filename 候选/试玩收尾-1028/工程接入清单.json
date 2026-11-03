@@ -1,0 +1,259 @@
+{
+  "files": [
+    {
+      "path": "godot/ayu_home/v4/phone_boot.gd",
+      "old_link": null,
+      "old_sha256": "056f92d68f8a88c6f3c7f6d9407713212bbaafe1a05a3a29d1ba7637b2939e3e",
+      "new_sha256": "ee01b4344392c5b3a9438827bc59557a74f141e7d5f93d68533fad3db60a86fd"
+    },
+    {
+      "path": "godot/ayu_home/v4/actor.gd",
+      "old_link": null,
+      "old_sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01",
+      "new_sha256": "a615b8c37ec659ff16dc7cc459eb91997fa120c3a21a72c8e9eab49d25773c01"
+    },
+    {
+      "path": "godot/ayu_home/v4/home.gd",
+      "old_link": null,
+      "old_sha256": "b4a2b8af586f11cd38c9addbd6f75489e35d14e65338e0eb184f26c205db4c60",
+      "new_sha256": "a15254d4a5e57b83a5c054b6c75e25b7dda80f1842dad3722c7d9a2cf016c8e0"
+    },
+    {
+      "path": "godot/ayu_home/v4/world.gd",
+      "old_link": null,
+      "old_sha256": "a1ef9d2a2211ac4240d3a30d0d300f9e507a4231ccb2daf03ffefe968566cb7b",
+      "new_sha256": "03d8127fe7b2e41db79e559c2df8de4ee40a978cdd24aa3deece38710259ff93"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/playtest_paths.gd",
+      "old_link": null,
+      "new_sha256": "970e88ed2c78dd329c906ea751f697d620c9eb2b892ece9f19cc84382fb8ef0c"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/village_ground.gd",
+      "old_link": null,
+      "old_sha256": "793898de429f7120ffd0802a206c7ecd56d0aaace95bc05e88ed92b8554a9b10",
+      "new_sha256": "0b24e56b2a06c4353cd1b5e7b1034f83d33a9c401d234a195344bf2c44fcc9b9"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/native_surface.gd",
+      "old_link": null,
+      "new_sha256": "236c26219288d5f36d05dc543643141bf494d36a3a9ab3b872a8358b891bdabc"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/natural_verges.gd",
+      "old_link": null,
+      "new_sha256": "6f806ede5b6b0ee3fa7c30f6cfbb2365ea0a5b02433460f75673c6f07b572cf7"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/game_viewport.gd",
+      "old_link": null,
+      "new_sha256": "05cd3b5398e92e4799e09208d6dcd53607a4523a6ce171c145308fd61aa76eda"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/village_horizon.gd",
+      "old_link": null,
+      "new_sha256": "15a69a15e6500527ae0a426aa0cb01daacf81e4784bdbc44ad3c2990900a77e0"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/road_surface.gd",
+      "old_link": null,
+      "new_sha256": "31ef5f24d97dc017130baf67c5d758de14b714d05727d0fba088dec67e7bf649"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/playtest_music.gd",
+      "old_link": null,
+      "new_sha256": "44e22e82e5c2aa5dae3611371b17fdcbed8d6397cd0a408a4d9d973aa603f785"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/natural_terrain.gd",
+      "old_link": null,
+      "new_sha256": "d22ef1a91ee4609772d733347658f4850cfb610e3e8f3e03cb2952460d419c5d"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/institution_room.gd",
+      "old_link": null,
+      "old_sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110",
+      "new_sha256": "403c597da59546197bb5f1b5e72644b4f012b262cd482cc12f0846fdd818b110"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/playtest_welcome.gd",
+      "old_link": null,
+      "new_sha256": "6937b89a604fc86e8e33ac673138c9aabbb0e02fd3af2b909e6e888d48072cc0"
+    },
+    {
+      "path": "godot/ayu_home/v4/core/interface.gd",
+      "old_link": null,
+      "old_sha256": "7977d94c363cfd94bc7e47772903bc1be994f40f42665de112932ad61e07a8b3",
+      "new_sha256": "a64cff4438843a86149c29095001d836594bb4c38d5dacb4075207093aa28290"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.nav",
+      "old_link": null,
+      "old_sha256": "9995493b699082becae4377660860a84bcd249e5354e573e50163c9c10b579e1",
+      "new_sha256": "21f02244fa8b8534af07dcd7c022b493d8096554c169a58405c07844740de2ec"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/rooms.json",
+      "old_link": null,
+      "old_sha256": "e72361f32e3f8f3a9130655aaf996f59a2ea0ca998b4c7779768b3f5791e1331",
+      "new_sha256": "135e3b00b74da6cc13a08efbd03bfa35fef3bda71ab5b86552cfb9aa2d1d9f1b"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village.json",
+      "old_link": null,
+      "old_sha256": "304d5ccabe6aea74a16f32643d1eff4782d116cf02e8976b98d39a11cc4ba5b5",
+      "new_sha256": "12cdb802bee35b177a68510ee89fa7dca08c358bf05f4acbb03e140011208250"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/layout-1025.json",
+      "old_link": null,
+      "new_sha256": "c73ecb51c90c6897ff6fd590abbde18008f5eb9a6225e188b7b7e18f5e3eaf4a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/houses.json",
+      "old_link": null,
+      "old_sha256": "8da42e77fcf7a7ddf2c6ecf68cc19bece247aef4d1a3da90f395582da726c8bd",
+      "new_sha256": "b351327cffea1c91c198061d57e684f45ca2b4b86312203b5e9a46fa10d0d280"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/topology.json",
+      "old_link": null,
+      "old_sha256": "38c0b15fa4131a1e7e360f63c7384a3fc2db91564e1bb9819f12446ed5cb3780",
+      "new_sha256": "c81be7d9703bd03502188492044ba0b9bc0e2f46e936d1894e08f3c82b25a1cc"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/ground-pixel-1024/layers.json",
+      "old_link": null,
+      "old_sha256": "623cc8b2a12ea4f3fe288e52d617dc0c4578a280b77825640f540f0c7af632d3",
+      "new_sha256": "abc0155e56f10f02d5be63015f13ec2d523180e64fdebdf8711f549a97bcc5d3"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/preview-middle.png",
+      "old_link": null,
+      "new_sha256": "1e888250ab3c4fa4919435571273c10fcac5e4bae108b0fd7874e83a7a387346"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/native-shallow-1028.png",
+      "old_link": null,
+      "new_sha256": "8aa870fb064f8a64a3a2e1e8b252e6c1e37108df3950cfea345f8e0f7fbe5da7"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/grass-02.png",
+      "old_link": null,
+      "new_sha256": "cc0dd5bf17aa7f4db6c3c5fe14fe51c83bcd2866497ba5fe4afd53312332f3d7"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/grass-03.png",
+      "old_link": null,
+      "new_sha256": "76d90ea7aaac2652914a7c505485f6eb62138114c5e90497674d71c71b27fe94"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/grass-01.png",
+      "old_link": null,
+      "new_sha256": "aafb7ebf251435bcdd74f16f140242dfe6c6c230bf04e9eae439bd04a07531e6"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/grass-00.png",
+      "old_link": null,
+      "new_sha256": "26fe5039ed1d62c43ea17853cf472faf277337a1d7279098ba0fd2ae42c9b65f"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/preview-far.png",
+      "old_link": null,
+      "new_sha256": "1b4c604d5a23b3a0ea821a528b7c58f94cf10d69a844a7262867be1167fa8138"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/preview-mist.png",
+      "old_link": null,
+      "new_sha256": "8811970a7b1b50f4f0672e6c41f0a0c31f2b31d1335e8810e060c84fa3137b09"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/layout.json",
+      "old_link": null,
+      "new_sha256": "94ebf68b8503070248a4b7bd9196afe436583e7311979aaf8f12abe6b17f347f"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/preview-bank.png",
+      "old_link": null,
+      "new_sha256": "d94e8515241fe5fc0ef80c3c9cf1e436379ee8a8821f0da889df1469156a90bb"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/preview-forest.png",
+      "old_link": null,
+      "new_sha256": "e0caa4fe280e171d7dadd1cc5db37bc6dc9f7c256d87e88e76893f6adcf771ca"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/native-manifest.json",
+      "old_link": null,
+      "new_sha256": "dbf74bf33c397a56d20612ab0ea1bb00e6c723234191d603a99180b872cdcf37"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/native-soil-1028.png",
+      "old_link": null,
+      "new_sha256": "8eb69127591b1a1b5c0a7b0bea8775037214163e138538299c4cb44c35402e83"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/g0-1026/native-deep-1028.png",
+      "old_link": null,
+      "new_sha256": "adff5e7e28ceb2baf8dd2f377b7cfaf8f6c3f518ca9e89cf154db7989e4f85fa"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/natural-verge-1025/roadside-atlas.png",
+      "old_link": null,
+      "new_sha256": "5e3d20680977f009afa598d6d51cc82cd873704869d5bee92ce7d9987154e507"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/road-shoulder-1025/road-transition-atlas.png",
+      "old_link": null,
+      "new_sha256": "045e7a15d9302da5b27703de9c05cb8f07cac8c3a0c7ba165e069a3e59ec0dc1"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-autumn.png",
+      "old_link": null,
+      "old_sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a",
+      "new_sha256": "93e5234c189a8d8ff91ebb5120d03ae666c78f9259ca9ad918f78f2f441da91a"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-summer.png",
+      "old_link": null,
+      "old_sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db",
+      "new_sha256": "4c89b2c9829a95dca17c5a5842f3ffedc31af2dd611d99bbe79a01c73643f3db"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-winter.png",
+      "old_link": null,
+      "old_sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf",
+      "new_sha256": "9e50c309f90cfc6ce1e5d865c2eacdfc1e2b4f9b2a1d0b6cdce18e460503f8bf"
+    },
+    {
+      "path": "godot/ayu_home/v4/assets/village/rice-seasons-1025/rice-spring.png",
+      "old_link": null,
+      "old_sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06",
+      "new_sha256": "a99bef51e006c34b4e6a3c6c175896c658045267554dbbc0ebef0e059c565f06"
+    }
+  ],
+  "house_PNGs_unchanged": {
+    "ayu_home/v4/assets/village/house_h8.png": "5bae51817fe88e8d743cc1f026d3d02a0fa4431a3203dce85eb6296cd45724e1",
+    "ayu_home/v4/assets/village/house_sunflower.png": "8494e494f9ca2e0ae9d2e6754cff82d647ff87c0ceeed87c7d322cd1cea1d776",
+    "ayu_home/v4/assets/village/house_persimmon.png": "cb0b42871935e05871bf1fdf61092c85c21bf7183b92a4092ea47d0d8f841cc7",
+    "ayu_home/v4/assets/village/house_daba.png": "72d2127a4d4e74f204afa1e3cee54f99d21186b9873c23072a12cd0403c9412f",
+    "ayu_home/v4/assets/village/house_whitebrick.png": "1824c16ef829fffd73e217d7a7e9aeda263da1ff94b80195368cd062c9fb590a",
+    "ayu_home/v4/assets/village/house_erba.png": "8ec21fc1caac49bed8d812445d09b50a03d5f05669ae3dae29463b9765e45d5c",
+    "ayu_home/v4/assets/village/house_rose.png": "6b7c2bb400bfe84a32fe0e62933702772e119c2c6f971bbe72ca80adc7f9f295",
+    "ayu_home/v4/assets/village/house_flower.png": "0c6481f62f5431db16011da25def16f879301f02d1d9511cd9a4bf7cdeedcef7",
+    "ayu_home/v4/assets/village/house_mayor.png": "4ba335dc38db03e0dc799c39bfd1ed87edf144baa7c285d26fda73566f1e63e5",
+    "ayu_home/v4/assets/village/house_h1.png": "b85d6f5da9e13988ad0ffb221a93f6e623fd6936c335846a3a3537362aef71b7",
+    "ayu_home/v4/assets/village/house_h2.png": "b5edb36920da5a4c98e1c7d32b8973eb5e75e8ef044ccd14c51e93b57fc25b0e",
+    "ayu_home/v4/assets/village/house_h3.png": "d9959717baf249103907d879254fa1170c5ef54c8531825cad7d4a1c624d767b",
+    "ayu_home/v4/assets/village/house_ayu.png": "6ce40dbceda7088b70402f0b4d324b71bce25d21a911dd0102b07ce694dc6047",
+    "ayu_home/v4/assets/village/house_laowu.png": "12a20ab685b84da2a9ec3aedfc7db1bc9375daaea52cc10a83a56543e022cb29",
+    "ayu_home/v4/assets/village/house_h7.png": "bd30f20ad6fc93e3e781e69b507d5c430f5bbb66948cfe06ee32c53e8ebd8830",
+    "ayu_home/v4/assets/village/house_h6.png": "d00a5daf74eb5859e3d07314d816e9ef6aa335f727a1a7da22775ae7d63b2271",
+    "ayu_home/v4/assets/village/house_h4.png": "f58c8b8185e1c0e08c8b3ba93664c028281bcb42ca5dbd16990966799c83a83e",
+    "ayu_home/v4/assets/village/house_h5.png": "975c40f090767437665f43563010a9f34951e4c3483f1fe1256cccccf4f913c1",
+    "ayu_home/v4/assets/village/house_grape.png": "67e0826d054a9d83086b7e0a51b66d85e548c76796dce3af148322104c8fd600"
+  },
+  "old_saves_read_or_changed": false,
+  "formal_project_save_settings_changed": false
+}

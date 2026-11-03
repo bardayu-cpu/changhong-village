@@ -1,0 +1,103 @@
+{
+  "gate": "G0",
+  "status": "G0-NATIVE累计3/3失败，G0及全部后门停止；仅做封存复核，95目标未完成",
+  "plan_commit": "9bd2f214baa67a0369d8d774ce00b688a65c8b5f",
+  "C3_scope": "仅独立验C2/C4新增；C3旧几何保持作者自测身份，由C1单列复核",
+  "environment": {
+    "read_only_attempts": 1,
+    "desktop_app_inventory": "可读",
+    "Godot_screenshot": "可读",
+    "selected_window": "Godot Engine - 项目管理器",
+    "lock_or_permission_error_observed": false,
+    "correct_G0_game_window": "尚未交接",
+    "keyboard_mouse_control": "待验；未发送输入",
+    "game_launched_by_C3": false,
+    "C2_author_window_taken_over": false,
+    "retry_limit": 3
+  },
+  "handoff_needed": [
+    "可运行G0候选及唯一运行来源清单/版本",
+    "正常入口启动方式及明确的独立测试存档路径",
+    "C2结束作者自测并交出窗口操作",
+    "实际玩家位置/相机/渲染缓冲/根倍率/世界倍率的只读观测方式"
+  ],
+  "fixed_capture": {
+    "G0_player": [
+      4616,
+      568
+    ],
+    "face": "up",
+    "hour": "13:00",
+    "month": 7,
+    "weather": "clear",
+    "world_scale": 2,
+    "render_sizes": [
+      [
+        540,
+        960
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "arrival": "从阿鱼家正常行走到场；不注入位置/姿态/完成状态",
+    "Ayu_reference": "同一G0候选渲染链；正常exterior门进living，预期[330,418]、up；两尺寸分别记录正常夹定相机",
+    "columns": [
+      "实际G0候选",
+      "已锁定用户认可参考",
+      "同候选阿鱼家同条件实图"
+    ],
+    "old_failure": "另列before，不替代三栏",
+    "raw_images": "图/；保留未加工原图，拼版只排版"
+  },
+  "checks": [
+    {
+      "id": "G0-1",
+      "item": "山脚及侧缘无矩形硬切",
+      "result": "停止，未验"
+    },
+    {
+      "id": "G0-2",
+      "item": "山在远处，林带/雾自然遮脚",
+      "result": "停止，未验"
+    },
+    {
+      "id": "G0-3",
+      "item": "草泥岸坡、浅深水连续，无直切水墙",
+      "result": "停止，未验"
+    },
+    {
+      "id": "G0-4",
+      "item": "草、路、水、人物颗粒一致；两尺寸核实际缩放链",
+      "result": "停止，未验"
+    },
+    {
+      "id": "G0-5",
+      "item": "地面俯视关系与认可参考统一",
+      "result": "停止，未验"
+    },
+    {
+      "id": "G0-WALK",
+      "item": "正常沿岸走动，视差进出和边界稳定，脚不进可见深水",
+      "result": "停止，未验"
+    }
+  ],
+  "asset_precheck": "03短草独立预检通过并保留；03远层失败成立，触发原生管线3/3停止；不替代实际镜头",
+  "acceptance": "两尺寸五条全过且沿岸操作通过；任一失败阻断G0及后门",
+  "scene_attempts": {
+    "used": 0,
+    "limit": 3
+  },
+  "later_gates_run": false,
+  "initial_preparation_status": "准备完成，等待C2可运行候选交接；未开始正式复验",
+  "native_attempts": {
+    "used": 3,
+    "limit": 3,
+    "result": "失败并停止"
+  },
+  "handoff_status": "原环境/候选交接准备已停止，不等待恢复实测",
+  "stop_receipt": "C3停止条件复核-03.json",
+  "real_input_verified": false,
+  "G0_visual_verified": false
+}

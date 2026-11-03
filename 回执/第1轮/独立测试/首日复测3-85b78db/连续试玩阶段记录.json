@@ -1,0 +1,25 @@
+{
+  "start_unix": 1791911632.39188,
+  "end_observed_unix": 1791913903.0388,
+  "elapsed_minutes": 37.8441,
+  "sampled_fps_min": 1.0,
+  "sampled_fps_max": 121.0,
+  "state_sample_count": 220,
+  "native_event_count": 116,
+  "areas": [
+    "exterior",
+    "my_cabin",
+    "my_yard",
+    "village"
+  ],
+  "method": "仅当前同档重开后的同一进程，状态变化采样，正常输入与正常导航；第一段退出不计入；不是逐帧性能报告",
+  "status": "过：本次重开同一进程连续37.8441分钟以上，正常关闭exit0；不含此前退出段",
+  "after_startup_sampled_fps_min": 30.0,
+  "after_startup_sampled_fps_max": 121.0,
+  "startup_low_sample": {
+    "at": 1791911632.39188,
+    "fps": 1.0
+  },
+  "exit_code": 0,
+  "limitation": "状态变化采样，不是逐帧性能报告；保留启动首帧1FPS和结束资源泄漏警告，未宣称无警告"
+}

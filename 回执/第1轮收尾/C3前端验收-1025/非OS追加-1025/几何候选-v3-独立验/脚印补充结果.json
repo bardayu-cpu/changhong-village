@@ -1,0 +1,507 @@
+{
+  "bad_samples": 0,
+  "foot_half_extent": 3.0,
+  "mode": "non-OS exact polygon subtraction of 6x6 foot square at <=2px segment sampling; original wall grow(3) interpretation, no duplicate 8px inset; separate from unchanged original centre/path checks",
+  "negative_and_positive_controls": 6,
+  "original_result_sha256": "1fd1cbe629521fe49cf7c3b1d618d68d7e9e5c4f4b2fc53f296457edf170abbc",
+  "routes": [
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_ayu",
+      "samples": 13
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h5",
+      "samples": 2487
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h3",
+      "samples": 1520
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_mayor",
+      "samples": 1931
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_community",
+      "samples": 2455
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_daba",
+      "samples": 1205
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_flower",
+      "samples": 4281
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h2",
+      "samples": 3105
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h8",
+      "samples": 3834
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_erba",
+      "samples": 3045
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h6",
+      "samples": 1630
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h7",
+      "samples": 805
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h4",
+      "samples": 2146
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_h1",
+      "samples": 2356
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_whitebrick",
+      "samples": 4159
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_grape",
+      "samples": 4532
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_sunflower",
+      "samples": 2814
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_persimmon",
+      "samples": 598
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_rose",
+      "samples": 2833
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "mayor",
+      "samples": 1859
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "honey",
+      "samples": 2232
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "pond",
+      "samples": 2872
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "chicken",
+      "samples": 1146
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "orchard",
+      "samples": 1157
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "market",
+      "samples": 998
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "home_site",
+      "samples": 1877
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "map",
+      "samples": 1670
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "mill",
+      "samples": 1422
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "visit_laowu",
+      "samples": 3576
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "loach_memory",
+      "samples": 2605
+    },
+    {
+      "bad_samples": 0,
+      "examples": [],
+      "id": "north_mountain_viewpoint",
+      "samples": 3716
+    }
+  ],
+  "rows": [
+    {
+      "check": "negative L corner: safe endpoints cannot certify footprint between",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "negative road edge: centre inside but 3px footprint outside",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "negative wall edge: original 3px footprint retained",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "negative river bank: centre land-side is insufficient",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "positive road-edge point with 3px room passes; no duplicate 8px inset",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "positive straight road",
+      "details": {},
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_ayu",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 13
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h5",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2487
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h3",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1520
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_mayor",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1931
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_community",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2455
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_daba",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1205
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_flower",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 4281
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h2",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 3105
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h8",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 3834
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_erba",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 3045
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h6",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1630
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h7",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 805
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h4",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2146
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_h1",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2356
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_whitebrick",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 4159
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_grape",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 4532
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_sunflower",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2814
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_persimmon",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 598
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_rose",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2833
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface mayor",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1859
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface honey",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2232
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface pond",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2872
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface chicken",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1146
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface orchard",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1157
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface market",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 998
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface home_site",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1877
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface map",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1670
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface mill",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 1422
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface visit_laowu",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 3576
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface loach_memory",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 2605
+      },
+      "pass": true
+    },
+    {
+      "check": "full 3px foot square on visible surface north_mountain_viewpoint",
+      "details": {
+        "bad": 0,
+        "examples": [],
+        "samples": 3716
+      },
+      "pass": true
+    }
+  ],
+  "total_samples": 70879
+}

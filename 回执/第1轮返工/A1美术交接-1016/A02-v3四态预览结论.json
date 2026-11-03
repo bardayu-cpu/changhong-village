@@ -1,0 +1,30 @@
+{
+  "time": "2026-10-16T17:24:53.512166+08:00",
+  "status": "C2一次目标尺寸隔离预览目视可读，待C1/C4复核；未正式绑定、未宣称Godot实机通过",
+  "source_sha256": "c8516a113dab2675b9f2ab101a2927b1c2308f59f0d8910e98460c63d2729da1",
+  "preview": {
+    "path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/A1美术交接-1016/A02-v3四态-隔离预览.png",
+    "sha256": "5e76f90a16b488d20eab435b4cc229d6626f6ed1d0c90201e93386a38505dd30",
+    "bytes": 70370
+  },
+  "parameters": "A02-v3四态预览参数.json",
+  "actual_method": "独立无窗口Chrome + WebGL标准Alpha Test/NEAREST；四态同一次渲染，底部3倍仅为像素检查放大；原图未变更、未运行/操作试玩窗口",
+  "runtime_result": "RENDER_OK, exit0",
+  "visual_review": {
+    "empty": "轮廓连续、罐腹透明，外部没有柔光晕",
+    "half": "底部填充位置清楚，未见外溢，液面与空余罐腹可区分",
+    "full": "保留罐口留空，蜜液仍在玻璃轮廓内，无明显挤压",
+    "sealed": "盖口位于新图实际瓶口位置，收取后状态可辨；需C1/C4复核此口沿对齐"
+  },
+  "art_constraints": {
+    "uniform_scale_each_layer": true,
+    "bottom_anchors_preserved": true,
+    "new_generation_count": 0,
+    "new_hand_drawn_pixels": 0,
+    "source_png_modified": false,
+    "alpha_test_only_preview_sprite_layers": true
+  },
+  "production_commit": "9acd3288eb88c4be3262c441909f57e75f773c1b",
+  "remaining_gate": "C1/C4复核后才正式接入；之后C3只验实际空/半/满/封口与原六步正常收取。",
+  "budget_stop_remaining_percent": 10
+}

@@ -7,6 +7,7 @@ const DIRS := ["down","left","right","up"]
 var id := "ayu"
 var preset := 2
 var chosen_look:Dictionary={}
+var look_override:Dictionary={}
 var movement_distance:=0.0
 var face := "down"
 var action := "idle"
@@ -23,6 +24,7 @@ var bubble: Label
 var bubble_tail: Sprite2D
 var bubble_time := 0.0
 var bubble_allowed:=true
+var draw_hand_overlays:=true # 机构居民关闭旧几何手部/手持物，其他角色保留原表现。
 var pet := false
 var freeze := false
 var seated_textures:Dictionary = {}
@@ -38,6 +40,23 @@ var quilt_tex:Texture2D
 var quilt_region:=Rect2()
 var in_bed := false # 家人睡觉、休息时躺在床上（和玩家躺床同一套画法）
 var head_down := false # 床头朝下的床（新一楼爸妈的床）：头枕在下面的枕头上，脸照常朝上，身子在上面的花被子里
+var nameplate:Label
+static var visible_bounds_cache:Dictionary={}
+
+## 提示避让使用当前帧实际像素范围，包含坐姿、抬高与翻转；不修改人物图。
+func visual_rect() -> Rect2:
+	if not sprite or not sprite.texture:return Rect2(-24,head_top(),48,-head_top())
+	var tex:Texture2D=sprite.texture
+	var key:String=str(tex.get_rid())
+	if tex is AtlasTexture:key=str(tex.atlas.get_rid())+":"+str(tex.region)
+	if not visible_bounds_cache.has(key):
+		var pixels:Image=tex.get_image()
+		visible_bounds_cache[key]=Rect2(pixels.get_used_rect()) if pixels else sprite.get_rect()
+	var used:Rect2=visible_bounds_cache[key]
+	if sprite.flip_h:used.position.x=tex.get_width()-used.end.x
+	if sprite.flip_v:used.position.y=tex.get_height()-used.end.y
+	used.position+=sprite.get_rect().position
+	return sprite.transform*used
 
 func setup(who: String) -> void:
 	id = who
@@ -49,7 +68,7 @@ func setup(who: String) -> void:
 	if pet:
 		sheet=Assets.texture("res://ayu_home/v3/assets/"+id+".png")
 	elif id == "visitor":
-		chosen_look=Spr.gpt_look(preset)
+		chosen_look=look_override if not look_override.is_empty() else Spr.gpt_look(preset)
 		sheet = chosen_look.tex if chosen_look.has("tex") else ImageTexture.create_from_image(Spr.sheet(preset))
 	else:
 		sheet = Assets.texture("res://ayu_home/v2/assets/chr_%s.png" % id)
@@ -115,6 +134,10 @@ func _process(dt: float) -> void:
 	bubble.visible = bubble_time > 0 and bubble_allowed
 	cooldown = maxf(0,cooldown-dt)
 	pose()
+	if is_instance_valid(nameplate):
+		var body:=visual_rect()
+		nameplate.reset_size()
+		nameplate.position=Vector2(body.get_center().x-nameplate.size.x*.5,body.position.y-nameplate.size.y-5).round()
 
 func pose() -> void:
 	if not sprite: return
@@ -134,7 +157,9 @@ func pose() -> void:
 		var fw:int=int(chosen_look.get("frame_w",16));var fh:int=int(chosen_look.get("frame_h",32))
 		var atlas:=pose_texture;atlas.atlas=sheet;atlas.region=Rect2(frame*fw,0,fw,fh)
 		var sitting:bool=action in ["sit","eat","drink","read","computer","tv","guitar","swing"] and not walking
-		if sitting:atlas.region.size.y=floor(fh*.72)
+		if sitting and chosen_look.has("sit"):
+			atlas.region=Rect2(int(chosen_look.sit.get(face,16))*fw,0,fw,fh)
+		elif sitting:atlas.region.size.y=floor(fh*.72)
 		sprite.texture=atlas;sprite.scale=Vector2.ONE*(84.0/fh);sprite.flip_h=bool(a.get("flip",false))
 		if action in ["sleep","lie"] and not walking:
 			# 躺在床上：正脸朝上，只露出头和肩，下半身盖在被子里（不再横着画到床底下）。
@@ -194,11 +219,11 @@ func _draw() -> void:
 		if action=="happy":
 			for i in 3:draw_rect(Rect2(-14+i*13,-55-sin(elapsed*4+i)*5,4,4),Color("edb3b2"))
 		return
-	if id=="visitor" and action in ["sit","eat","drink","read","computer","tv","guitar","swing"] and not walking:
+	if id=="visitor" and not chosen_look.has("sit") and action in ["sit","eat","drink","read","computer","tv","guitar","swing"] and not walking:
 		draw_rect(Rect2(-13,-9,10,12),Color("384456"));draw_rect(Rect2(3,-9,10,12),Color("384456"));draw_rect(Rect2(-15,2,14,5),Color("6b5246"));draw_rect(Rect2(3,2,14,5),Color("6b5246"))
 	# 新母亲动作自带手臂、道具和被子，避免旧代码色块叠在新图上。
 	if id=="mother" and not walking:return
-	if action in ["drink","eat"] and not walking:
+	if draw_hand_overlays and action in ["drink","eat"] and not walking:
 		var raise:float=(sin(elapsed*2)+1)*6
 		draw_rect(Rect2(5,-33-raise,12,6),Color("e9b98e"));draw_rect(Rect2(13,-38-raise,10,10),Color("f5e3bb"));draw_rect(Rect2(15,-38-raise,6,3),Color("9b6a35"))
 	if action in ["photo","hug"]:
@@ -216,5 +241,5 @@ func _draw() -> void:
 				draw_rect(Rect2(-25,top,50,12),quilt);draw_rect(Rect2(-24,top+(10 if head_down else -2),48,3),quilt.lightened(.35));draw_rect(Rect2(-25,top+(-2 if head_down else 10),50,2),quilt.darkened(.12))
 		var y:float=-43-fmod(elapsed*8,17);draw_string(UI.FONT,Vector2(24,y),"呼",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("eedabb"))
 
-	if action=="wash":
+	if draw_hand_overlays and action=="wash":
 		for i in 2:draw_rect(Rect2(-17+i*22,-37+sin(elapsed*9+i)*3,13,7),Color("edc5a2"))

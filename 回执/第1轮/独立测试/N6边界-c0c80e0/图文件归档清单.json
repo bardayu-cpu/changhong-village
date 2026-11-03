@@ -1,0 +1,65 @@
+[
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-001-H6-入区-my_yard.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 56534,
+    "sha256": "cf292f881e811468766ad391812a1ec061b843efb46df92a95195228bc88505e"
+  },
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-002-N6-360x800-大数量详情与触摸拖动前.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 34576,
+    "sha256": "88f47fc77150aa59631a0fd5135bbc8a4ba91bd84984c5e525495dee3e7a9707"
+  },
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-003-N6-360x800-超长名称选中固定详情.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 38630,
+    "sha256": "a5f804c1a2b741b165310da7d9f6d7002244edab63cf3fdc3c2f89939aff900a"
+  },
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-004-N6-360x800-长名称末尾与完整1234567890件.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 35387,
+    "sha256": "9dce0697983fc9d8bdc2356855ee0614003fcb6a9cb064e6af00e97e1d5eb0f0"
+  },
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-005-N6-模拟触摸50像素卡内拖动实际误选秋菊.png",
+    "pixels": [
+      360,
+      800
+    ],
+    "bytes": 33121,
+    "sha256": "f35c812b5eff1c859daa2cfd6e577a5e26b459eb164a6be54c878fda8eeab859"
+  },
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-006-N6-540x960-长名称和数量固定详情.png",
+    "pixels": [
+      540,
+      960
+    ],
+    "bytes": 14654,
+    "sha256": "9ff53b7f99d11c6d0be6aea8431699572c0e4a34a00ac026b5c3b2c0b5bbe5cd"
+  },
+  {
+    "name": "N6边界-c0c80e0-最终-c0c80e0-007-N6-540x1200-长名称大数量完整卡片.png",
+    "pixels": [
+      540,
+      1200
+    ],
+    "bytes": 18070,
+    "sha256": "7cba46945ecb7e932327db54b3a844ec9140def0d85bb598e89c4a0240f9b9b8"
+  }
+]

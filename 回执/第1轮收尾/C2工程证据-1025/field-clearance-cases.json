@@ -1,0 +1,61 @@
+{
+  "cases": [
+    {
+      "case": "outside L corner",
+      "grid_centre": false,
+      "physical": false,
+      "point": [
+        118.0,
+        88.0
+      ]
+    },
+    {
+      "case": "outside road edge",
+      "grid_centre": false,
+      "physical": false,
+      "point": [
+        161.0,
+        50.0
+      ]
+    },
+    {
+      "case": "inside road, 2px from edge; clearance is only a nav heuristic",
+      "grid_centre": false,
+      "physical": true,
+      "point": [
+        158.0,
+        50.0
+      ]
+    },
+    {
+      "case": "wall 3px physical buffer unchanged",
+      "grid_centre": false,
+      "physical": false,
+      "point": [
+        101.0,
+        100.0
+      ]
+    },
+    {
+      "case": "river remains solid despite surface overlap",
+      "grid_centre": false,
+      "physical": false,
+      "point": [
+        185.0,
+        100.0
+      ]
+    },
+    {
+      "case": "unsafe corner segment rejected at intermediate feet",
+      "pass": true
+    }
+  ],
+  "facts": [
+    "Actor movement uses a position point, not an 8px physics body",
+    "Existing wall collision Rect2.grow(3) unchanged",
+    "8px field clearance was introduced only with this v3 grid generation",
+    "Physical segment checks retain wall/river/field-boundary tests; C3 tests untouched"
+  ],
+  "failures": [],
+  "pass": true
+}

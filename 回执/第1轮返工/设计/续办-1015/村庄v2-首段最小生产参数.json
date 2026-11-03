@@ -1,0 +1,733 @@
+{
+  "approval": "现代农村布局v2已获阿鱼认可，v1被否决；旧版不接工程。",
+  "scope": "先做主路+一个院落及邻接地面；建议首段选凯凯蜂蜜小院h5。新原点按认可v2由C4给出。同窗同季节与阿鱼院子实机并排过后才扩村。",
+  "view": "2D正交世界坐标上的俯视斜视像素素材，无3D透视缩放。概念图不能整张铺进游戏。",
+  "pixel_contract": "地面1原生像素=1世界像素=2屏幕像素。人物站姿84世界像素、168屏幕像素。房屋有各自显式scale，不能用地面比例缩小人物。",
+  "first_segment_delivery": [
+    "代表段原生PNG与目标世界矩形[x,y,w,h]，接入1:1，避免插值糊纹理。",
+    "铺装/土路/草地边缘分层或带透明边覆盖片；院路边界接顺，避免直角贴图块和重复草印章。",
+    "房屋如随v2移动，交新pos、scale、排序foot、门图像点、门内外站点及实体边界；C2同步碰撞和导航。",
+    "地面不烘入NPC或可互动物；树、墙、栅栏等独立遮挡，入口和连续通路留空。",
+    "保留四季效果：给相应遮罩/分层，或标明纯铺装不随季节变化；固定绿草不得盖住冬季。"
+  ],
+  "coordinate_rules": "旧坐标仅供对照，主路、院落、房屋可按认可v2重排。入口ID、目的室内、门口家务、住户外观差异和现有饲养/村务功能保留，不增玩法。",
+  "ownership": "C4出真实地面资产及映射；C2唯一接工程和Git。先代表段，保留已做房屋、旧图和失败记录。",
+  "approved_layout": {
+    "path": "回执/第1轮返工/设计/续办-1015/村庄布局图-现代农村-v2.png",
+    "sha256": "8e9b0d399caa82d5f6e2223787b2c52a3f3a08544230ddb0e7c0a0bc99e36759"
+  },
+  "world": {
+    "size": [
+      4800,
+      4700
+    ],
+    "view_scale": 2.0,
+    "nav_cell": 16,
+    "walk_rect": [
+      30,
+      30,
+      4740,
+      4640
+    ],
+    "ground": "res://ayu_home/v4/assets/village/ground-c4-v2.png"
+  },
+  "references": {
+    "ayu_yard": "res://ayu_home/v4/assets/exterior-nocar/exterior_floor.png",
+    "ayu_size": [
+      1448,
+      1086
+    ],
+    "ayu_view_scale": 2.0,
+    "config": "godot/ayu_home/v4/assets/village.json",
+    "index": "godot/ayu_home/v4/assets/rooms.json -> rooms.village",
+    "seasons": "godot/ayu_home/v4/assets/village/c4-spring-v1/bindings.json"
+  },
+  "keep_houses": [
+    {
+      "id": "ayu",
+      "asset": "res://ayu_home/v4/assets/village/house_ayu.png",
+      "old_pos": [
+        1090,
+        1470
+      ],
+      "old_scale": [
+        1,
+        1
+      ],
+      "old_sort_foot": 2055,
+      "entry": {
+        "id": "visit_ayu",
+        "target": "exterior",
+        "label": "拜访0A · 阿鱼家",
+        "kind": "door",
+        "face": "down",
+        "pos": [
+          1490,
+          2100
+        ],
+        "approach": [
+          1490,
+          2122
+        ],
+        "width": 64,
+        "explicit_opening": true
+      }
+    },
+    {
+      "id": "erba",
+      "asset": "res://ayu_home/v4/assets/village/house_erba.png",
+      "old_pos": [
+        1640,
+        0
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 485,
+      "entry": {
+        "id": "visit_erba",
+        "house": "erba",
+        "label": "门口 · 点亮门边灯",
+        "pos": [
+          2027,
+          510
+        ],
+        "approach": [
+          1963,
+          544
+        ],
+        "kind": "door_chore",
+        "closed_note": "门闩落下了"
+      }
+    },
+    {
+      "id": "laowu",
+      "asset": "res://ayu_home/v4/assets/village/house_laowu.png",
+      "old_pos": [
+        420,
+        30
+      ],
+      "old_scale": [
+        0.5208333333333334,
+        0.5208333333333334
+      ],
+      "old_sort_foot": 437,
+      "entry": {
+        "id": "visit_laowu",
+        "target": "v_laowu",
+        "label": "拜访老屋",
+        "kind": "door",
+        "face": "down",
+        "pos": [
+          828,
+          462
+        ],
+        "approach": [
+          828,
+          496
+        ],
+        "width": 68,
+        "explicit_opening": true
+      }
+    },
+    {
+      "id": "daba",
+      "asset": "res://ayu_home/v4/assets/village/house_daba.png",
+      "old_pos": [
+        2120,
+        800
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 1268,
+      "entry": {
+        "id": "visit_daba",
+        "house": "daba",
+        "label": "门口 · 收齐散竹条",
+        "pos": [
+          2592,
+          1293
+        ],
+        "approach": [
+          2528,
+          1327
+        ],
+        "kind": "door_chore",
+        "closed_note": "竹帘放下了"
+      }
+    },
+    {
+      "id": "h5",
+      "asset": "res://ayu_home/v4/assets/village/house_h5.png",
+      "old_pos": [
+        95,
+        1170
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 1644,
+      "entry": {
+        "id": "visit_h5",
+        "target": "v_h5",
+        "label": "拜访5A · 养蜂小院",
+        "kind": "door",
+        "face": "down",
+        "pos": [
+          308,
+          1669
+        ],
+        "approach": [
+          308,
+          1703
+        ],
+        "width": 68,
+        "explicit_opening": true
+      }
+    },
+    {
+      "id": "h2",
+      "asset": "res://ayu_home/v4/assets/village/house_h2.png",
+      "old_pos": [
+        2250,
+        1760
+      ],
+      "old_scale": [
+        0.5859375,
+        0.5859375
+      ],
+      "old_sort_foot": 2257,
+      "entry": {
+        "id": "visit_h2",
+        "house": "h2",
+        "label": "门口 · 理顺门边线筐",
+        "pos": [
+          2773,
+          2282
+        ],
+        "approach": [
+          2709,
+          2316
+        ],
+        "kind": "door_chore",
+        "closed_note": "活动中心值日"
+      }
+    },
+    {
+      "id": "h3",
+      "asset": "res://ayu_home/v4/assets/village/house_h3.png",
+      "old_pos": [
+        80,
+        2130
+      ],
+      "old_scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "old_sort_foot": 2630,
+      "entry": {
+        "id": "visit_h3",
+        "target": "v_h3",
+        "label": "拜访小涛磨坊",
+        "kind": "door",
+        "face": "down",
+        "pos": [
+          614,
+          2655
+        ],
+        "approach": [
+          614,
+          2689
+        ],
+        "width": 68,
+        "explicit_opening": true
+      }
+    },
+    {
+      "id": "mayor",
+      "asset": "res://ayu_home/v4/assets/village/house_mayor.png",
+      "old_pos": [
+        1130,
+        2290
+      ],
+      "old_scale": [
+        0.5436197916666666,
+        0.5436197916666666
+      ],
+      "old_sort_foot": 2733,
+      "entry": {
+        "id": "visit_mayor",
+        "target": "v_mayor",
+        "label": "拜访村委会",
+        "kind": "door",
+        "face": "down",
+        "pos": [
+          1698,
+          2758
+        ],
+        "approach": [
+          1698,
+          2792
+        ],
+        "width": 68,
+        "explicit_opening": true
+      }
+    },
+    {
+      "id": "h6",
+      "asset": "res://ayu_home/v4/assets/village/house_h6.png",
+      "old_pos": [
+        2500,
+        2730
+      ],
+      "old_scale": [
+        0.5697513812154696,
+        0.5697513812154696
+      ],
+      "old_sort_foot": 3287,
+      "entry": {
+        "id": "visit_h6",
+        "house": "h6",
+        "label": "门口 · 给窗下花浇水",
+        "pos": [
+          2976,
+          3312
+        ],
+        "approach": [
+          2912,
+          3346
+        ],
+        "kind": "door_chore",
+        "closed_note": "门帘已放下"
+      }
+    },
+    {
+      "id": "h8",
+      "asset": "res://ayu_home/v4/assets/village/house_h8.png",
+      "old_pos": [
+        80,
+        2940
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 3346,
+      "entry": {
+        "id": "visit_h8",
+        "house": "h8",
+        "label": "门口 · 码好门旁柴段",
+        "pos": [
+          288,
+          3371
+        ],
+        "approach": [
+          224,
+          3405
+        ],
+        "kind": "door_chore",
+        "closed_note": "烟囱旁留了条"
+      }
+    },
+    {
+      "id": "h7",
+      "asset": "res://ayu_home/v4/assets/village/house_h7.png",
+      "old_pos": [
+        1590,
+        3030
+      ],
+      "old_scale": [
+        0.419921875,
+        0.419921875
+      ],
+      "old_sort_foot": 3521,
+      "entry": {
+        "id": "visit_h7",
+        "house": "h7",
+        "label": "门口 · 翻一翻晒粮盘",
+        "pos": [
+          1938,
+          3546
+        ],
+        "approach": [
+          1874,
+          3580
+        ],
+        "kind": "door_chore",
+        "closed_note": "今天下田去了"
+      }
+    },
+    {
+      "id": "h4",
+      "asset": "res://ayu_home/v4/assets/village/house_h4.png",
+      "old_pos": [
+        120,
+        3630
+      ],
+      "old_scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "old_sort_foot": 4124,
+      "entry": {
+        "id": "visit_h4",
+        "house": "h4",
+        "label": "门口 · 扫净门前落叶",
+        "pos": [
+          622,
+          4149
+        ],
+        "approach": [
+          558,
+          4183
+        ],
+        "kind": "door_chore",
+        "closed_note": "全家去赶集"
+      }
+    },
+    {
+      "id": "h1",
+      "asset": "res://ayu_home/v4/assets/village/house_h1.png",
+      "old_pos": [
+        2720,
+        3630
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 4115,
+      "entry": {
+        "id": "visit_h1",
+        "house": "h1",
+        "label": "门口 · 把报纸卷进筒",
+        "pos": [
+          3209,
+          4140
+        ],
+        "approach": [
+          3145,
+          4174
+        ],
+        "kind": "door_chore",
+        "closed_note": "屋里在午睡"
+      }
+    },
+    {
+      "id": "flower",
+      "asset": "res://ayu_home/v4/assets/village/house_flower.png",
+      "old_pos": [
+        60,
+        585
+      ],
+      "old_scale": [
+        0.5110677083333334,
+        0.5110677083333334
+      ],
+      "old_sort_foot": 1031,
+      "entry": {
+        "id": "visit_flower",
+        "house": "flower",
+        "label": "门口 · 给鸟饮盆添水",
+        "pos": [
+          603,
+          1056
+        ],
+        "approach": [
+          539,
+          1090
+        ],
+        "kind": "door_chore",
+        "closed_note": "一家出门赏花"
+      }
+    },
+    {
+      "id": "whitebrick",
+      "asset": "res://ayu_home/v4/assets/village/house_whitebrick.png",
+      "old_pos": [
+        2720,
+        20
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 511,
+      "entry": {
+        "id": "visit_whitebrick",
+        "house": "whitebrick",
+        "label": "门口 · 擦亮铜铃",
+        "pos": [
+          3311,
+          536
+        ],
+        "approach": [
+          3247,
+          570
+        ],
+        "kind": "door_chore",
+        "closed_note": "门内传来琴声"
+      }
+    },
+    {
+      "id": "grape",
+      "asset": "res://ayu_home/v4/assets/village/house_grape.png",
+      "old_pos": [
+        3780,
+        120
+      ],
+      "old_scale": [
+        0.5696614583333334,
+        0.5696614583333334
+      ],
+      "old_sort_foot": 602,
+      "entry": {
+        "id": "visit_grape",
+        "house": "grape",
+        "label": "门口 · 扶好葡萄藤",
+        "pos": [
+          4124,
+          627
+        ],
+        "approach": [
+          4060,
+          661
+        ],
+        "kind": "door_chore",
+        "closed_note": "藤帘放下了"
+      }
+    },
+    {
+      "id": "sunflower",
+      "asset": "res://ayu_home/v4/assets/village/house_sunflower.png",
+      "old_pos": [
+        3840,
+        1260
+      ],
+      "old_scale": [
+        0.537109375,
+        0.537109375
+      ],
+      "old_sort_foot": 1741,
+      "entry": {
+        "id": "visit_sunflower",
+        "house": "sunflower",
+        "label": "门口 · 收拢葵籽盘",
+        "pos": [
+          4143,
+          1766
+        ],
+        "approach": [
+          4079,
+          1800
+        ],
+        "kind": "door_chore",
+        "closed_note": "主人去看蜂了"
+      }
+    },
+    {
+      "id": "persimmon",
+      "asset": "res://ayu_home/v4/assets/village/house_persimmon.png",
+      "old_pos": [
+        3730,
+        2450
+      ],
+      "old_scale": [
+        0.5989583333333334,
+        0.5989583333333334
+      ],
+      "old_sort_foot": 2983,
+      "entry": {
+        "id": "visit_persimmon",
+        "house": "persimmon",
+        "label": "门口 · 捡起落地柿子",
+        "pos": [
+          4392,
+          3008
+        ],
+        "approach": [
+          4328,
+          3042
+        ],
+        "kind": "door_chore",
+        "closed_note": "家里在晒柿饼"
+      }
+    },
+    {
+      "id": "rose",
+      "asset": "res://ayu_home/v4/assets/village/house_rose.png",
+      "old_pos": [
+        3820,
+        3690
+      ],
+      "old_scale": [
+        0.5533854166666666,
+        0.5533854166666666
+      ],
+      "old_sort_foot": 4175,
+      "entry": {
+        "id": "visit_rose",
+        "house": "rose",
+        "label": "门口 · 摘去枯花瓣",
+        "pos": [
+          4513,
+          4200
+        ],
+        "approach": [
+          4449,
+          4234
+        ],
+        "kind": "door_chore",
+        "closed_note": "午后歇一会儿"
+      }
+    },
+    {
+      "id": "house_community",
+      "asset": "res://ayu_home/v4/assets/village/cabin.png",
+      "old_pos": [
+        1060,
+        3500
+      ],
+      "old_scale": [
+        0.3,
+        0.3
+      ],
+      "old_sort_foot": 3748,
+      "entry": {
+        "id": "visit_community",
+        "target": "my_cabin",
+        "label": "到村民活动中心",
+        "kind": "door",
+        "face": "down",
+        "pos": [
+          1280,
+          3748
+        ],
+        "approach": [
+          1280,
+          3780
+        ],
+        "arrival": [
+          1288,
+          3784
+        ],
+        "width": 68,
+        "explicit_opening": true
+      }
+    }
+  ],
+  "keep_other_interactions": [
+    {
+      "id": "mayor",
+      "label": "村长林伯",
+      "pos": [
+        1530,
+        2860
+      ],
+      "approach": [
+        1530,
+        2890
+      ]
+    },
+    {
+      "id": "honey",
+      "label": "凯凯 · 蜂蜜箱",
+      "pos": [
+        890,
+        1130
+      ],
+      "approach": [
+        890,
+        1160
+      ]
+    },
+    {
+      "id": "pond",
+      "label": "池塘 · 喂鱼",
+      "pos": [
+        1450,
+        1250
+      ],
+      "approach": [
+        1450,
+        1280
+      ]
+    },
+    {
+      "id": "chicken",
+      "label": "鸡圈 · 添谷子",
+      "pos": [
+        1080,
+        1340
+      ],
+      "approach": [
+        1080,
+        1370
+      ]
+    },
+    {
+      "id": "orchard",
+      "label": "时令果树",
+      "pos": [
+        1690,
+        1310
+      ],
+      "approach": [
+        1690,
+        1340
+      ]
+    },
+    {
+      "id": "market",
+      "label": "村口货郎",
+      "pos": [
+        2330,
+        4310
+      ],
+      "approach": [
+        2330,
+        4340
+      ]
+    },
+    {
+      "id": "home_site",
+      "label": "看看自己的地",
+      "pos": [
+        1350,
+        4050
+      ],
+      "approach": [
+        1350,
+        4080
+      ]
+    },
+    {
+      "id": "map",
+      "label": "村里的路牌",
+      "pos": [
+        1980,
+        2140
+      ],
+      "approach": [
+        1980,
+        2170
+      ]
+    },
+    {
+      "id": "mill",
+      "label": "小涛 · 石磨与小事",
+      "pos": [
+        615,
+        2810
+      ],
+      "approach": [
+        615,
+        2840
+      ]
+    }
+  ]
+}

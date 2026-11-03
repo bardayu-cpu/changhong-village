@@ -1,0 +1,40 @@
+{
+  "status": "WIP - independent review failed; not 90-percent completion",
+  "base_commit": "6595419d4d70c5ef3e6f995327f344508309c2e0",
+  "active_code_changes": [
+    "actor.gd current opaque sprite bounds",
+    "home.gd marker/tag whole-body exclusion"
+  ],
+  "candidate_only": "自然路肩样板-1025; production layout not promoted",
+  "road": {
+    "improved": [
+      "natural earth texture",
+      "short-grass shoulder transition",
+      "continuous forks"
+    ],
+    "failed": [
+      "hard smooth ditch bank",
+      "flat south grass",
+      "repeated flower clusters"
+    ],
+    "shader_compile_error": false,
+    "stable_performance": "not established"
+  },
+  "labels": {
+    "standing_h6_pass": true,
+    "seated_h6_pass": false,
+    "seated_h6_cause_observed": "institution_room.gd creates a separate actor-child nameplate at fixed (-12,-102); it does not follow lift/pose; not patched during freeze",
+    "merchant": "pending; street actors are separate from home.people, review exclusion population",
+    "clickability": "not tested"
+  },
+  "S3": {
+    "purchase_and_missing_luggage_gate": true,
+    "actual_mouse_drag_attempts": 2,
+    "drag_pass": false,
+    "root_cause": "not established; no speculative fix"
+  },
+  "desktop": "isolated candidate launch log contains CANDIDATE_PLAY_READY; no release build",
+  "freeze": "no further code/art/layout edits after this C3 result; preserve all old seven dirty documents",
+  "archive": "C3 new continuation selected evidence only, original curved-road tests explicitly author self-tests; current material integration review is independent C3",
+  "old_gates": "14 object-state art, closed old door, tree groups, H1 true touch and full final playtest remain incomplete"
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>裳泓村 · 三套疏朗布局</title>
+<style>
+  :root{color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+  *{box-sizing:border-box}body{margin:0;background:#17251d;color:#fff6d6}
+  main{width:min(96vw,900px);margin:auto;padding:18px}
+  h1{margin:0 0 6px;font-size:24px}p{color:#d4c59e;line-height:1.65}
+  nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+  button{padding:11px 8px;border:1px solid #957246;border-radius:10px;background:#2a2118;color:#f8e8bd;font-weight:700;cursor:pointer}
+  button.on{border-color:#ffda70;background:#5d4426;box-shadow:0 0 0 2px #ffda7033 inset}
+  figure{margin:0;border:2px solid #9d7745;border-radius:14px;overflow:hidden;background:#1f1a14;box-shadow:0 18px 48px #0008}
+  img{display:block;width:100%;image-rendering:pixelated}
+  figcaption{padding:12px 14px;color:#f6dda0;line-height:1.6}
+  .fixed{margin-top:12px;padding:10px 12px;border:1px solid #4d6447;border-radius:10px;background:#1c2d22;color:#bed3aa;font-size:13px}
+</style>
+<main>
+  <h1>裳泓村 · 三套疏朗布局</h1>
+  <p>房屋造型保持不变；三案都采用实景路网拓扑、峨眉山远景和新增公共装饰建筑。</p>
+  <nav>
+    <button class="on" data-i="0">A 沿实景主路</button>
+    <button data-i="1">B 南北双组团</button>
+    <button data-i="2">C 果树林环村</button>
+  </nav>
+  <figure>
+    <img id="preview" src="布局A-沿实景主路舒展-v5.png" alt="方案A">
+    <figcaption id="caption">A：最贴近实景聚落逻辑，各户沿东西主路和西北支路退让展开，路口与晒坝留白最大。</figcaption>
+  </figure>
+  <div class="fixed">共同固定：阿鱼家完整地块；西侧从左到右为凯凯家、缝补人家；山间平地；弯曲连续道路；夏日麦田、果树林、荷塘、溪流、戏台、亭子、水井、候车棚、村口门楼与桥。</div>
+</main>
+<script>
+const items=[
+  ["布局A-沿实景主路舒展-v5.png","方案A","A：最贴近实景聚落逻辑，各户沿东西主路和西北支路退让展开，路口与晒坝留白最大。"],
+  ["布局B-南北双组团-v5.png","方案B","B：北侧老住区与南侧扩展住区分开，中段成为连续果树林、荷塘和公共活动带。"],
+  ["布局C-果树林环村-v5.png","方案C","C：多数住宅沿外围树田环带疏落布置，阿鱼家邻里组守住核心路口，中心视线最开阔。"]
+];
+const preview=document.querySelector("#preview"),caption=document.querySelector("#caption");
+document.querySelectorAll("button").forEach(function(button){button.onclick=function(){
+  document.querySelector("button.on").classList.remove("on");button.classList.add("on");
+  const item=items[Number(button.dataset.i)];preview.src=item[0];preview.alt=item[1];caption.textContent=item[2];
+};});
+</script>
+</html>

@@ -1,0 +1,14 @@
+{
+  "actor": {},
+  "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+  "hour": 13.0,
+  "month": 10,
+  "name": "Ayu-entry-13",
+  "player_position": [
+    298.0,
+    158.0
+  ],
+  "room": "living",
+  "view_scale": 2.0,
+  "weather": "clear"
+}

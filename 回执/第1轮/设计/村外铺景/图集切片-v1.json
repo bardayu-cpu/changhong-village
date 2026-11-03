@@ -1,0 +1,303 @@
+{
+  "source": "村外地表田埂竹花-九格source-v1.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "person_height": 84,
+  "items": [
+    {
+      "key": "concrete",
+      "name": "暖灰村道面",
+      "index": 0,
+      "source_bbox_xyxy": [
+        84,
+        91,
+        366,
+        370
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        192,
+        192
+      ],
+      "uniform_fit_size": [
+        192,
+        190
+      ],
+      "anchor": [
+        96,
+        192
+      ],
+      "mode": "地表材料",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "material_inner_sample_xywh": [
+        119,
+        125,
+        209,
+        209
+      ],
+      "edge": "只取内样片填连续世界面，不把方形四边贴到场景；需交错混合采样，非宣称原图四边无缝周期纹理"
+    },
+    {
+      "key": "grass",
+      "name": "浓绿草面",
+      "index": 1,
+      "source_bbox_xyxy": [
+        486,
+        91,
+        769,
+        370
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        192,
+        192
+      ],
+      "uniform_fit_size": [
+        192,
+        189
+      ],
+      "anchor": [
+        96,
+        192
+      ],
+      "mode": "地表材料",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "material_inner_sample_xywh": [
+        522,
+        125,
+        209,
+        209
+      ],
+      "edge": "只取内样片填连续世界面，不把方形四边贴到场景；需交错混合采样，非宣称原图四边无缝周期纹理"
+    },
+    {
+      "key": "soil",
+      "name": "耕土浅垄面",
+      "index": 2,
+      "source_bbox_xyxy": [
+        890,
+        91,
+        1171,
+        370
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        192,
+        192
+      ],
+      "uniform_fit_size": [
+        192,
+        191
+      ],
+      "anchor": [
+        96,
+        192
+      ],
+      "mode": "地表材料",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "material_inner_sample_xywh": [
+        925,
+        125,
+        209,
+        209
+      ],
+      "edge": "只取内样片填连续世界面，不把方形四边贴到场景；需交错混合采样，非宣称原图四边无缝周期纹理"
+    },
+    {
+      "key": "bund",
+      "name": "低田埂直段",
+      "index": 3,
+      "source_bbox_xyxy": [
+        49,
+        565,
+        403,
+        659
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        160,
+        42
+      ],
+      "uniform_fit_size": [
+        158,
+        42
+      ],
+      "anchor": [
+        80,
+        42
+      ],
+      "mode": "低地表/植被",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "join": "中心线连续土脊/沟蒙版，直段纹理截取中部，端口重叠6～12px且只统一描外沿，旋转90/180用nearest；T/十字/弯口不重复闭合黑端线",
+      "center_strip_source_xywh": [
+        91,
+        565,
+        269,
+        94
+      ],
+      "end_caps": "不用原左右端边，取中部以去闭合端线；接口仍需连续蒙版和接点混合"
+    },
+    {
+      "key": "drain",
+      "name": "边沟直段",
+      "index": 4,
+      "source_bbox_xyxy": [
+        452,
+        572,
+        805,
+        658
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        160,
+        42
+      ],
+      "uniform_fit_size": [
+        160,
+        39
+      ],
+      "anchor": [
+        80,
+        42
+      ],
+      "mode": "低地表/植被",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "join": "中心线连续土脊/沟蒙版，直段纹理截取中部，端口重叠6～12px且只统一描外沿，旋转90/180用nearest；T/十字/弯口不重复闭合黑端线",
+      "center_strip_source_xywh": [
+        494,
+        572,
+        268,
+        86
+      ],
+      "end_caps": "不用原左右端边，取中部以去闭合端线；接口仍需连续蒙版和接点混合"
+    },
+    {
+      "key": "vegetable_bed",
+      "name": "菜畦组",
+      "index": 5,
+      "source_bbox_xyxy": [
+        861,
+        495,
+        1207,
+        733
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        220,
+        126
+      ],
+      "uniform_fit_size": [
+        183,
+        126
+      ],
+      "anchor": [
+        110,
+        126
+      ],
+      "mode": "低地表/植被",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "variation": "实图3排菜，C2按裸土+单排裁片组织错位短/长田块，不把18株整片满村复制；不替代玩家可交互田地"
+    },
+    {
+      "key": "bamboo",
+      "name": "竹丛",
+      "index": 6,
+      "source_bbox_xyxy": [
+        72,
+        792,
+        374,
+        1190
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        132,
+        218
+      ],
+      "uniform_fit_size": [
+        132,
+        174
+      ],
+      "anchor": [
+        66,
+        218
+      ],
+      "mode": "低地表/植被",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿",
+      "root_collider_local_suggested": [
+        50,
+        198,
+        32,
+        18
+      ]
+    },
+    {
+      "key": "flower_verge",
+      "name": "低花园带",
+      "index": 7,
+      "source_bbox_xyxy": [
+        436,
+        935,
+        811,
+        1109
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        208,
+        76
+      ],
+      "uniform_fit_size": [
+        164,
+        76
+      ],
+      "anchor": [
+        104,
+        76
+      ],
+      "mode": "低地表/植被",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿"
+    },
+    {
+      "key": "shrub",
+      "name": "低灌木组",
+      "index": 8,
+      "source_bbox_xyxy": [
+        854,
+        903,
+        1209,
+        1139
+      ],
+      "bbox_method": "alpha>=128主要连通物体，避免透明噪点/邻格跨界",
+      "target_canvas": [
+        174,
+        80
+      ],
+      "uniform_fit_size": [
+        120,
+        80
+      ],
+      "anchor": [
+        87,
+        80
+      ],
+      "mode": "低地表/植被",
+      "collision": "材料/低田埂/菜畦/草花不新加整块碰撞，边沟仅真有水/深沟部分；竹只根部",
+      "season": "基准夏季，绿key春/秋/冬沿现有shader，竹plant_kind=2常绿"
+    }
+  ],
+  "status": "九格已实际看图，均有主要连通物体；尺寸/材质样片/端口接法已交，未N1～N5运行验收"
+}

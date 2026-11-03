@@ -1,0 +1,111 @@
+{
+  "boundary": "canal polygons rendered and physical blocked source identical; exact polygon intersections with all clipped road/entry/yard surfaces; route feet on those surfaces already separately checked",
+  "canals": 8,
+  "failures": [],
+  "rows": [
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    },
+    {
+      "check": "visible canal does not cross visible walk surfaces",
+      "overlap_area": 0.0,
+      "pass": true
+    },
+    {
+      "check": "canal rendered polygon equals a physical blocked polygon",
+      "pass": true
+    },
+    {
+      "check": "canal physically blocks independent of field mask",
+      "pass": true
+    }
+  ]
+}

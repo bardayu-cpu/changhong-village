@@ -1,0 +1,802 @@
+{
+  "date": "2026-10-14",
+  "stage": "2期-C4完整村外美术v2",
+  "author": "C4",
+  "approval": "C4静态核图完成，待C1批准，N1/N2/N3等实机未过",
+  "ground": {
+    "source": "ground-c4-v2.png",
+    "target": "res://ayu_home/v4/assets/village/ground-c4-v2.png",
+    "size": [
+      4800,
+      4700
+    ],
+    "mode": "RGB",
+    "sha256": "b37d973cad75655231b68b07f55d00a56a15f5352e06c9d438f37a0d657b8042",
+    "pixel_filter": "nearest",
+    "opaque": true
+  },
+  "copy_assets": [
+    {
+      "source": "assets/c4_bamboo_10.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "size": [
+        126,
+        166
+      ],
+      "sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d"
+    },
+    {
+      "source": "assets/c4_bamboo_4.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "size": [
+        126,
+        166
+      ],
+      "sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d"
+    },
+    {
+      "source": "assets/c4_bamboo_7.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "size": [
+        126,
+        166
+      ],
+      "sha256": "4eb5d6fdc0cc91db209fb80e4ceff12c9298d032a1329aed54ccad96c707bb3d"
+    },
+    {
+      "source": "assets/c4_shrub_20.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "size": [
+        99,
+        66
+      ],
+      "sha256": "183865501afce24c7defa4651f1b3651b82daeb1ddf9bac11c007b0fe6e2c13d"
+    },
+    {
+      "source": "assets/c4_shrub_21.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "size": [
+        99,
+        66
+      ],
+      "sha256": "183865501afce24c7defa4651f1b3651b82daeb1ddf9bac11c007b0fe6e2c13d"
+    },
+    {
+      "source": "assets/c4_shrub_22.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "size": [
+        99,
+        66
+      ],
+      "sha256": "e43c5a51079d38f11cb79797e15bdcb53e76dea045f0cc05e539e09d367a0990"
+    },
+    {
+      "source": "assets/c4_tree_0.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_1.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "source": "assets/c4_tree_11.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_12.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_13.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "source": "assets/c4_tree_14.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_15.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_16.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "source": "assets/c4_tree_17.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_18.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_19.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "6560093ab2b8a225b803d6a7d74140119ad7185015924eacedee3509b87467ef"
+    },
+    {
+      "source": "assets/c4_tree_2.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_3.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_5.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_6.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_8.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    },
+    {
+      "source": "assets/c4_tree_9.png",
+      "target": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "size": [
+        150,
+        180
+      ],
+      "sha256": "fb9563aa27a65be0633633e546ce47a7bfaa4314fed4e41282201d62fa91af57"
+    }
+  ],
+  "remove_props_prefixes": [
+    "land_",
+    "wildtree",
+    "c4_tree_",
+    "c4_bamboo_",
+    "c4_shrub_"
+  ],
+  "preserve_prop_ids": [
+    "ayu",
+    "honeybox",
+    "notice",
+    "orchard0",
+    "orchard1",
+    "orchard2",
+    "public_pond",
+    "erba",
+    "laowu",
+    "daba",
+    "h5",
+    "h2",
+    "h3",
+    "mayor",
+    "h6",
+    "h8",
+    "h7",
+    "h4",
+    "h1",
+    "flower",
+    "whitebrick",
+    "grape",
+    "sunflower",
+    "persimmon",
+    "rose",
+    "site_pond",
+    "house_community"
+  ],
+  "exact_new_props": [
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_0.png",
+      "foot": 610.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_0",
+      "plant_type": "deciduous",
+      "pos": [
+        1415,
+        430
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_1.png",
+      "foot": 610.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_1",
+      "plant_type": "deciduous",
+      "pos": [
+        1255,
+        430
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_2.png",
+      "foot": 1730.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_2",
+      "plant_type": "deciduous",
+      "pos": [
+        3275,
+        1550
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_3.png",
+      "foot": 1080.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_3",
+      "plant_type": "deciduous",
+      "pos": [
+        3655,
+        900
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_4.png",
+      "foot": 1200.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_bamboo_4",
+      "plant_type": "evergreen",
+      "pos": [
+        3697,
+        1034
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_5.png",
+      "foot": 1460.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_5",
+      "plant_type": "deciduous",
+      "pos": [
+        3645,
+        1280
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_6.png",
+      "foot": 2310.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_6",
+      "plant_type": "deciduous",
+      "pos": [
+        3610,
+        2130
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_7.png",
+      "foot": 2600.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_bamboo_7",
+      "plant_type": "evergreen",
+      "pos": [
+        3627,
+        2434
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_8.png",
+      "foot": 2770.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_8",
+      "plant_type": "deciduous",
+      "pos": [
+        3575,
+        2590
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_9.png",
+      "foot": 3590.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_9",
+      "plant_type": "deciduous",
+      "pos": [
+        3595,
+        3410
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_bamboo_10.png",
+      "foot": 3890.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_bamboo_10",
+      "plant_type": "evergreen",
+      "pos": [
+        3577,
+        3724
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_11.png",
+      "foot": 4100.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_11",
+      "plant_type": "deciduous",
+      "pos": [
+        3595,
+        3920
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_12.png",
+      "foot": 1050.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_12",
+      "plant_type": "deciduous",
+      "pos": [
+        4415,
+        870
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_13.png",
+      "foot": 1160.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_13",
+      "plant_type": "deciduous",
+      "pos": [
+        4445,
+        980
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_14.png",
+      "foot": 1150.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_14",
+      "plant_type": "deciduous",
+      "pos": [
+        4345,
+        970
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_15.png",
+      "foot": 3310.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_15",
+      "plant_type": "deciduous",
+      "pos": [
+        2005,
+        3130
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_16.png",
+      "foot": 3390.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_16",
+      "plant_type": "deciduous",
+      "pos": [
+        2075,
+        3210
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_17.png",
+      "foot": 3280.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_17",
+      "plant_type": "deciduous",
+      "pos": [
+        4485,
+        3100
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_18.png",
+      "foot": 3490.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_18",
+      "plant_type": "deciduous",
+      "pos": [
+        4465,
+        3310
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_tree_19.png",
+      "foot": 3620.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_tree_19",
+      "plant_type": "deciduous",
+      "pos": [
+        4265,
+        3440
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_20.png",
+      "foot": 2882.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_shrub_20",
+      "plant_type": "deciduous",
+      "pos": [
+        188,
+        2816
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_21.png",
+      "foot": 2162.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_shrub_21",
+      "plant_type": "deciduous",
+      "pos": [
+        4343,
+        2096
+      ]
+    },
+    {
+      "file": "res://ayu_home/v4/assets/village/c4-landscape-v2/c4_shrub_22.png",
+      "foot": 1689.0,
+      "front": false,
+      "ground": false,
+      "id": "c4_shrub_22",
+      "plant_type": "deciduous",
+      "pos": [
+        2359,
+        1623
+      ]
+    }
+  ],
+  "remove_old_root_rects": [
+    [
+      3671.0,
+      581,
+      24,
+      10
+    ],
+    [
+      3684.0,
+      1366,
+      24,
+      10
+    ],
+    [
+      3673.0,
+      3593,
+      24,
+      10
+    ],
+    [
+      3691.0,
+      3863,
+      24,
+      10
+    ],
+    [
+      4291.0,
+      2063,
+      26,
+      13
+    ],
+    [
+      2468.0,
+      4103,
+      26,
+      13
+    ],
+    [
+      4208.0,
+      1169,
+      26,
+      13
+    ],
+    [
+      3705.0,
+      1116,
+      26,
+      13
+    ],
+    [
+      2759.0,
+      1672,
+      26,
+      13
+    ],
+    [
+      1881.0,
+      1044,
+      26,
+      13
+    ],
+    [
+      244.0,
+      323,
+      26,
+      13
+    ],
+    [
+      1387.0,
+      567,
+      26,
+      13
+    ],
+    [
+      3698.0,
+      1593,
+      26,
+      13
+    ],
+    [
+      3351.0,
+      1069,
+      26,
+      13
+    ],
+    [
+      4015.0,
+      1088,
+      26,
+      13
+    ],
+    [
+      3340.0,
+      2649,
+      26,
+      13
+    ],
+    [
+      197.0,
+      4485,
+      26,
+      13
+    ]
+  ],
+  "exact_new_root_rects": [
+    [
+      1476.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      1316.0,
+      595.0,
+      28.0,
+      13.0
+    ],
+    [
+      3336.0,
+      1715.0,
+      28.0,
+      13.0
+    ],
+    [
+      3716.0,
+      1065.0,
+      28.0,
+      13.0
+    ],
+    [
+      3746.0,
+      1185.0,
+      28.0,
+      13.0
+    ],
+    [
+      3706.0,
+      1445.0,
+      28.0,
+      13.0
+    ],
+    [
+      3671.0,
+      2295.0,
+      28.0,
+      13.0
+    ],
+    [
+      3676.0,
+      2585.0,
+      28.0,
+      13.0
+    ],
+    [
+      3636.0,
+      2755.0,
+      28.0,
+      13.0
+    ],
+    [
+      3656.0,
+      3575.0,
+      28.0,
+      13.0
+    ],
+    [
+      3626.0,
+      3875.0,
+      28.0,
+      13.0
+    ],
+    [
+      3656.0,
+      4085.0,
+      28.0,
+      13.0
+    ],
+    [
+      4476.0,
+      1035.0,
+      28.0,
+      13.0
+    ],
+    [
+      4506.0,
+      1145.0,
+      28.0,
+      13.0
+    ],
+    [
+      4406.0,
+      1135.0,
+      28.0,
+      13.0
+    ],
+    [
+      2066.0,
+      3295.0,
+      28.0,
+      13.0
+    ],
+    [
+      2136.0,
+      3375.0,
+      28.0,
+      13.0
+    ],
+    [
+      4546.0,
+      3265.0,
+      28.0,
+      13.0
+    ],
+    [
+      4526.0,
+      3475.0,
+      28.0,
+      13.0
+    ],
+    [
+      4326.0,
+      3605.0,
+      28.0,
+      13.0
+    ]
+  ],
+  "preserve_existing_solids": "current obstacles excluding remove_old_root_rects; do not regenerate house/water/door collisions",
+  "update_room_records": [
+    "ayu_home/v4/assets/village.json",
+    "ayu_home/v4/assets/rooms.json rooms.village"
+  ],
+  "no_artistic_choice_in_C2": "Copy exported ground and assets plus exact props/root rectangles. Do not rerun pre-correction landscape generators, change fields/crops/banks/gardens/positions or recompose art. On mismatch return coordinates to C4.",
+  "preserve_current_gameplay": [
+    "doors",
+    "hotspots",
+    "spawn",
+    "npc",
+    "walk_rect",
+    "user save/calendar/inventory",
+    "Ayu approved room/art/config"
+  ],
+  "visual_boundaries": {
+    "fields": "all final soil/banks/ditches/crop rows/garden-low-plants baked into authored opaque ground",
+    "raised": "only 23 exported tree/bamboo/shrub images remain separate for correct Y sorting",
+    "low_plants_walkable": true,
+    "dynamic_player_site": [
+      1050,
+      3850,
+      900,
+      800
+    ],
+    "tree_collision": "only exact_new_root_rects, not canopy boxes"
+  },
+  "reference_layout": "完整美术布局-v2.json",
+  "previews": [
+    "全村美术预览-v2.png",
+    "东田同机位近景-v2.png",
+    "河岸田沟近景-v2.png",
+    "磨坊院路绿化-v2.png",
+    "北巷长田与路口-v2.png"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "OS_input": false,
+  "fourteen_real_object_states": "missing, not passed",
+  "mode": "nine candidate actual entry/help at13 and normal room-init evening seating at19; no whole-day path or real desktop input; narrow solid center/approach/source-mapping checks only, not full furniture collision/swept QA",
+  "rows": [
+    {
+      "check": "ordinary market page entry shows merchant portrait",
+      "details": {},
+      "pass": true,
+      "room": "market"
+    },
+    {
+      "check": "actual merchant portrait uses supplied dimensions",
+      "details": {},
+      "pass": true,
+      "room": "market"
+    }
+  ],
+  "shots": [
+    {
+      "actor": {},
+      "background": "res://ayu_home/v4/assets/floor1-redraw/floor1.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "Ayu-entry-13",
+      "player_position": [
+        298.0,
+        158.0
+      ],
+      "room": "living",
+      "view_scale": 2.0,
+      "weather": "clear"
+    },
+    {
+      "actor": {},
+      "background": "res://ayu_home/v4/assets/village/ground-c4-v2.png",
+      "hour": 13.0,
+      "month": 10,
+      "name": "market-normal-shop-portrait-13",
+      "player_position": [
+        2264.0,
+        2840.0
+      ],
+      "room": "village",
+      "view_scale": 2.0,
+      "weather": "clear"
+    }
+  ],
+  "whole_nine_pass": false
+}

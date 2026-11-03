@@ -1,0 +1,251 @@
+{
+  "calendar": {
+    "events": [],
+    "test_clock": {
+      "enabled": false
+    }
+  },
+  "manor": {},
+  "openid": "c3-baseline-1013",
+  "profile": {
+    "avatar": 2,
+    "id": "c3-baseline-1013",
+    "nick": "来做客的你"
+  },
+  "renqing": [],
+  "town": {},
+  "version": 1,
+  "village": {
+    "animal_misses": 0,
+    "animals": {
+      "luoluo": {
+        "due": 1791891788.67806,
+        "trips": 0
+      },
+      "qiuqiu": {
+        "due": 1791891788.67806,
+        "trips": 0
+      },
+      "tiantian": {
+        "due": 1791891788.67806,
+        "trips": 0
+      },
+      "xiduo": {
+        "due": 1791891788.67805,
+        "trips": 0
+      }
+    },
+    "blueprints": [],
+    "box_misses": 0,
+    "chores": {},
+    "clock": 1791892040.54273,
+    "crops": [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {}
+    ],
+    "first_day": "2026-10-13",
+    "furniture": [],
+    "helped": {},
+    "history": [],
+    "household": {
+      "basket": {
+        "apple": 2,
+        "aster": 3,
+        "carrot": 3,
+        "chrysanthemum": 3,
+        "cosmos": 3,
+        "pumpkin": 3
+      },
+      "cards": [],
+      "chores": {
+        "2026-10-13": [
+          {
+            "accepted": false,
+            "done": false,
+            "event": "laundry",
+            "host": "mother",
+            "text": "洗好一筐衣服",
+            "thanked": false,
+            "thanks": "衣服晒在这里，太阳会慢慢把它们烘干。下雨记得收哦。"
+          },
+          {
+            "accepted": false,
+            "done": false,
+            "event": "puzzle",
+            "host": "father",
+            "text": "把那幅拼图拼完",
+            "thanked": false,
+            "thanks": "我拼了一个礼拜没拼上，你一会儿就好了。"
+          },
+          {
+            "accepted": false,
+            "done": false,
+            "event": "guitar",
+            "host": "ayu",
+            "text": "弹一小段吉他给我听",
+            "thanked": false,
+            "thanks": "再弹一遍嘛，我想录下来。"
+          }
+        ]
+      },
+      "completed": {
+        "sit": 1
+      },
+      "daily_cats": {},
+      "effects": {
+        "rooms": {
+          "exterior": {
+            "lamp": true,
+            "toggles": {},
+            "tv": true
+          },
+          "v_laowu": {
+            "lamp": true,
+            "toggles": {},
+            "tv": true
+          },
+          "village": {
+            "lamp": true,
+            "toggles": {},
+            "tv": true
+          }
+        },
+        "welcome_basket": true
+      },
+      "fish": [],
+      "flower_vase": [],
+      "found": [
+        "room:exterior",
+        "room:village",
+        "room:v_laowu",
+        "v_laowu:tea_seat"
+      ],
+      "harvest_history": [],
+      "invites": {},
+      "last_seen": 1791892040.54224,
+      "notes": [],
+      "photos": [],
+      "plots": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "profile": {
+        "avatar": 2,
+        "id": "c3-baseline-1013",
+        "nick": "来做客的你"
+      },
+      "resident": false,
+      "rev": 1,
+      "seed_packs": [
+        "2026-2"
+      ],
+      "seeds": {
+        "apple": 2,
+        "aster": 6,
+        "cabbage": 0,
+        "camellia": 0,
+        "carrot": 6,
+        "chrysanthemum": 6,
+        "cosmos": 6,
+        "cucumber": 0,
+        "daisy": 0,
+        "forgetmenot": 0,
+        "kumquat": 0,
+        "lily": 0,
+        "narcissus": 0,
+        "pansy": 0,
+        "pea": 0,
+        "peach": 0,
+        "plum": 0,
+        "pumpkin": 6,
+        "radish": 3,
+        "spinach": 0,
+        "sunflower": 0,
+        "tomato": 0,
+        "tulip": 0,
+        "zinnia": 0
+      },
+      "settings": {
+        "gentle": true,
+        "sound": true,
+        "text_scale": 1.0
+      },
+      "trees": [
+        {},
+        {}
+      ],
+      "version": 4,
+      "wishes": []
+    },
+    "inventory_migrated": true,
+    "items": {
+      "apple": 2,
+      "apple_seed": 2,
+      "aster": 3,
+      "aster_seed": 6,
+      "carrot": 3,
+      "carrot_seed": 6,
+      "chrysanthemum": 3,
+      "chrysanthemum_seed": 6,
+      "cosmos": 3,
+      "cosmos_seed": 6,
+      "grain_seed": 4,
+      "pepper_seed": 3,
+      "pumpkin": 3,
+      "pumpkin_seed": 6,
+      "radish_seed": 3
+    },
+    "land": [
+      0,
+      0,
+      0
+    ],
+    "last_area": "v_laowu",
+    "last_position": [
+      345.0,
+      427.0
+    ],
+    "location": "",
+    "market": {},
+    "memories": [],
+    "migration": {
+      "at": 1791891788.67861,
+      "from": "ayu_home_v4",
+      "legacy_path": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/测试数据/C3/baseline-b964ea5/测试数据/household.json"
+    },
+    "next_id": 1,
+    "order_total": 0,
+    "orders": {},
+    "producers": {
+      "chicken": {},
+      "honey": {},
+      "orchard": {},
+      "pond": {}
+    },
+    "resident": false,
+    "revision": 26,
+    "rng": "-7419893402258868209",
+    "season": "",
+    "stations": {
+      "mill": {},
+      "stove": {}
+    },
+    "version": 2,
+    "visits": [
+      "2026-10-13"
+    ],
+    "weather": ""
+  },
+  "wallet": {
+    "coins": 0,
+    "ledger": []
+  }
+}

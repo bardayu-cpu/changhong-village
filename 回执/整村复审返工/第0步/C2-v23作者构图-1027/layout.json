@@ -1,0 +1,574 @@
+{
+  "G0_scene_versions_used": 0,
+  "author_position_fixture": true,
+  "desktop_usable_size": [
+    2772,
+    1740
+  ],
+  "failures": [],
+  "home_restored": true,
+  "pass": true,
+  "rows": [
+    {
+      "buffer": [
+        1280,
+        720
+      ],
+      "buttons": [
+        {
+          "rect": [
+            358.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            518.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            678.0,
+            644.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            866.0,
+            644.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        503.0
+      ],
+      "compact_footer": true,
+      "feet": [
+        1096.0,
+        321.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        714.0,
+        88.0
+      ],
+      "requested_size": [
+        1280,
+        720
+      ],
+      "requested_zoom": 1.0,
+      "scene": [
+        1280.0,
+        512.0
+      ],
+      "zoom": 1.0
+    },
+    {
+      "buffer": [
+        1280,
+        720
+      ],
+      "buttons": [
+        {
+          "rect": [
+            358.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            518.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            678.0,
+            644.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            866.0,
+            644.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        453.0
+      ],
+      "compact_footer": true,
+      "feet": [
+        912.0,
+        486.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        762.0,
+        20.0
+      ],
+      "requested_size": [
+        1280,
+        720
+      ],
+      "requested_zoom": 2.0,
+      "scene": [
+        1280.0,
+        512.0
+      ],
+      "zoom": 2.0
+    },
+    {
+      "buffer": [
+        540,
+        960
+      ],
+      "buttons": [
+        {
+          "rect": [
+            14.0,
+            824.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            174.0,
+            824.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            334.0,
+            824.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            470.0,
+            886.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        503.0
+      ],
+      "compact_footer": false,
+      "feet": [
+        356.0,
+        413.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        329.0,
+        180.0
+      ],
+      "requested_size": [
+        540,
+        960
+      ],
+      "requested_zoom": 1.0,
+      "scene": [
+        540.0,
+        696.0
+      ],
+      "zoom": 1.0
+    },
+    {
+      "buffer": [
+        540,
+        960
+      ],
+      "buttons": [
+        {
+          "rect": [
+            14.0,
+            824.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            174.0,
+            824.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            334.0,
+            824.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            470.0,
+            886.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        499.0
+      ],
+      "compact_footer": false,
+      "feet": [
+        270.0,
+        486.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        382.0,
+        20.0
+      ],
+      "requested_size": [
+        540,
+        960
+      ],
+      "requested_zoom": 2.0,
+      "scene": [
+        540.0,
+        696.0
+      ],
+      "zoom": 2.0
+    },
+    {
+      "buffer": [
+        2772,
+        1676
+      ],
+      "buttons": [
+        {
+          "rect": [
+            1104.0,
+            1600.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            1264.0,
+            1600.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            1424.0,
+            1600.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            1612.0,
+            1600.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        503.0
+      ],
+      "compact_footer": true,
+      "feet": [
+        2404.0,
+        864.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        1538.0,
+        398.0
+      ],
+      "requested_size": [
+        2772,
+        1740
+      ],
+      "requested_zoom": 1.0,
+      "scene": [
+        2772.0,
+        1468.0
+      ],
+      "zoom": 2.0
+    },
+    {
+      "buffer": [
+        2772,
+        1676
+      ],
+      "buttons": [
+        {
+          "rect": [
+            1104.0,
+            1600.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            1264.0,
+            1600.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            1424.0,
+            1600.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            1612.0,
+            1600.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        503.0
+      ],
+      "compact_footer": true,
+      "feet": [
+        2404.0,
+        864.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        1538.0,
+        398.0
+      ],
+      "requested_size": [
+        2772,
+        1740
+      ],
+      "requested_zoom": 2.0,
+      "scene": [
+        2772.0,
+        1468.0
+      ],
+      "zoom": 2.0
+    },
+    {
+      "buffer": [
+        1280,
+        720
+      ],
+      "buttons": [
+        {
+          "rect": [
+            358.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            518.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            678.0,
+            644.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            866.0,
+            644.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        503.0
+      ],
+      "compact_footer": true,
+      "feet": [
+        1096.0,
+        321.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        714.0,
+        88.0
+      ],
+      "requested_size": [
+        1280,
+        720
+      ],
+      "requested_zoom": 1.0,
+      "scene": [
+        1280.0,
+        512.0
+      ],
+      "zoom": 1.0
+    },
+    {
+      "buffer": [
+        1280,
+        720
+      ],
+      "buttons": [
+        {
+          "rect": [
+            358.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "日常"
+        },
+        {
+          "rect": [
+            518.0,
+            644.0,
+            152.0,
+            56.0
+          ],
+          "text": "村庄地图"
+        },
+        {
+          "rect": [
+            678.0,
+            644.0,
+            180.0,
+            56.0
+          ],
+          "text": "随身篮子"
+        },
+        {
+          "rect": [
+            866.0,
+            644.0,
+            56.0,
+            56.0
+          ],
+          "text": ""
+        }
+      ],
+      "camera": [
+        4616.0,
+        453.0
+      ],
+      "compact_footer": true,
+      "feet": [
+        912.0,
+        486.0
+      ],
+      "ground_qualified": false,
+      "horizon_errors": [],
+      "native_surface_loaded": true,
+      "peak": [
+        762.0,
+        20.0
+      ],
+      "requested_size": [
+        1280,
+        720
+      ],
+      "requested_zoom": 2.0,
+      "scene": [
+        1280.0,
+        512.0
+      ],
+      "zoom": 2.0
+    }
+  ],
+  "scope": "C2 GPU author-position composition/layout probe; not normal-walk or native-input acceptance"
+}

@@ -1,0 +1,8 @@
+{
+  "parent_snapshot": "工程冻结",
+  "only_overridden_production_file": "ayu_home/v4/core/village_ground.gd",
+  "old_sha256": "e72a53146899aa6363408da0cd10a8212ffc681d6445d01600af7a1cfada0e9c",
+  "new_sha256": "cbb82c9bcf8706822c2be14c6a9838dc9f0f6a1b016e87164cbc37cd8dced158",
+  "matches_current_C2_source": true,
+  "scope": "仅C2去除冬季隐藏层分支修复；新村景未送验，不推最终几何通过"
+}

@@ -1,0 +1,53 @@
+{
+  "status": "design preview only; production unchanged",
+  "generation_mode": "built-in image_gen",
+  "new_master_size": [
+    1536,
+    1024
+  ],
+  "preview_window": [
+    0,
+    380,
+    960,
+    520
+  ],
+  "preview_scale": 2,
+  "same_source_pixel_difference_bbox": null,
+  "same_source_pixel_match": true,
+  "old_map_inputs_used_for_generation": [],
+  "architecture_reference_only": "exterior-nocar/exterior_house.png",
+  "old_asset_pixels_copied_into_new_master": false,
+  "visual_review": {
+    "curving_village_roads": true,
+    "mountains_join_wooded_foothills": true,
+    "full_ayu_plot_fore_and_rear_vegetation": true,
+    "lush_summer_trees": true,
+    "golden_wheat": true,
+    "clear_sun_and_tree_shadows": true
+  },
+  "not_validated": [
+    "existing household count/identity coverage",
+    "walkable geometry",
+    "occlusion layers",
+    "runtime entry/exit",
+    "season/weather runtime"
+  ],
+  "files": {
+    "阿鱼地块-同源近看预览-v1.png": {
+      "sha256": "a2701e1cfffe2ad49bbb71a30e6614e96d8138f19c681f866858f9e5f57d65df",
+      "bytes": 1505334,
+      "size": [
+        1920,
+        1040
+      ]
+    },
+    "盛夏村落-独立新画总图-v1.png": {
+      "sha256": "9cfdadedcb828675f7b4cc87b30c399ed7b3cf8e8cac2b58a30aa1deff0c5538",
+      "bytes": 3919543,
+      "size": [
+        1536,
+        1024
+      ]
+    }
+  }
+}

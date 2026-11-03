@@ -1,294 +1,154 @@
 {
   "id": "v_rose",
-  "title": "玫瑰花之家 · 一楼",
+  "title": "玫瑰花之家 · 花香客厅",
   "group": "村庄",
   "floor": 0,
   "size": [
-    820,
-    760
+    768,
+    512
+  ],
+  "background": "res://ayu_home/v4/assets/village/households-pixel/rose.png",
+  "background_scale": [
+    0.5,
+    0.5
   ],
   "asset_root": "res://ayu_home/v3/assets/",
-  "background": "res://ayu_home/v4/assets/village/interior_v_rose.png",
-  "props": [
-    {
-      "id": "bench0",
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "pos": [
-        88.4,
-        125.0
-      ],
-      "foot": 198,
-      "scale": [
-        0.2,
-        0.2
-      ],
-      "front": false,
-      "atlas_region": [
-        944,
-        569,
-        346,
-        390
-      ],
-      "interior_set": "rose-v1"
-    },
-    {
-      "id": "table1",
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "pos": [
-        93.324,
-        405.0
-      ],
-      "foot": 480,
-      "scale": [
-        0.21621621621621623,
-        0.21621621621621623
-      ],
-      "front": false,
-      "atlas_region": [
-        43,
-        129,
-        293,
-        370
-      ],
-      "interior_set": "rose-v1"
-    },
-    {
-      "id": "sofa2",
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "pos": [
-        473.011,
-        125.0
-      ],
-      "foot": 210,
-      "scale": [
-        0.31690140845070425,
-        0.31690140845070425
-      ],
-      "front": false,
-      "atlas_region": [
-        499,
-        647,
-        407,
-        284
-      ],
-      "interior_set": "rose-v1"
-    },
-    {
-      "id": "kitchen3",
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "pos": [
-        509.465,
-        430.0
-      ],
-      "foot": 513,
-      "scale": [
-        0.23466666666666666,
-        0.23466666666666666
-      ],
-      "front": false,
-      "atlas_region": [
-        25,
-        584,
-        452,
-        375
-      ],
-      "interior_set": "rose-v1"
-    },
-    {
-      "id": "window",
-      "file": "res://ayu_home/v4/assets/village/window.png",
-      "pos": [
-        312,
-        21
-      ],
-      "foot": 75,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "stairs",
-      "file": "res://ayu_home/v4/assets/village/stairs.png",
-      "pos": [
-        710,
-        460
-      ],
-      "foot": 600,
-      "scale": [
-        1,
-        1
-      ],
-      "front": false
-    },
-    {
-      "id": "tea_bench",
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "pos": [
-        367.465,
-        460.0
-      ],
-      "foot": 509,
-      "front": false,
-      "atlas_region": [
-        391,
-        116,
-        415,
-        361
-      ],
-      "scale": [
-        0.20498614958448755,
-        0.20498614958448755
-      ],
-      "interior_set": "rose-v1"
-    },
-    {
-      "id": "new_vase_cabinet",
-      "pos": [
-        201.399,
-        190.0
-      ],
-      "foot": 330,
-      "front": false,
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "atlas_region": [
-        1251,
-        32,
-        242,
-        486
-      ],
-      "scale": [
-        0.29835390946502055,
-        0.29835390946502055
-      ],
-      "interior_set": "rose-v1"
-    },
-    {
-      "id": "new_glass_lamp",
-      "pos": [
-        650.859,
-        190.0
-      ],
-      "foot": 255,
-      "front": false,
-      "file": "res://ayu_home/v4/assets/village/interiors/rose-v1.png",
-      "atlas_region": [
-        1334,
-        658,
-        140,
-        256
-      ],
-      "scale": [
-        0.2734375,
-        0.2734375
-      ],
-      "interior_set": "rose-v1"
-    }
-  ],
+  "props": [],
   "obstacles": [
     [
-      310,
-      90,
-      12,
-      235
+      71,
+      114,
+      120,
+      38
     ],
     [
-      310,
-      475,
-      12,
-      235
+      212,
+      101,
+      63,
+      69
     ],
     [
-      322,
-      350,
-      225,
-      12
+      181,
+      128,
+      38,
+      48
     ],
     [
-      92.4,
-      171.8,
-      61.2,
-      31.2
+      300,
+      132,
+      164,
+      35
     ],
     [
-      97.324,
-      453.0,
-      55.351,
-      32.0
+      472,
+      130,
+      49,
+      38
     ],
     [
-      477.011,
-      179.0,
-      120.979,
-      36.0
+      568,
+      148,
+      115,
+      14
     ],
     [
-      513.465,
-      482.8,
-      98.069,
-      35.2
+      43,
+      191,
+      117,
+      191
     ],
     [
-      205.399,
-      277.0,
-      64.202,
-      58.0
+      197,
+      265,
+      99,
+      94
     ],
     [
-      654.859,
-      232.0,
-      30.281,
-      28.0
+      509,
+      254,
+      175,
+      102
+    ],
+    [
+      573,
+      218,
+      47,
+      36
+    ],
+    [
+      543,
+      326,
+      50,
+      70
+    ],
+    [
+      607,
+      327,
+      54,
+      73
+    ],
+    [
+      704,
+      224,
+      43,
+      112
+    ],
+    [
+      707,
+      336,
+      38,
+      84
     ]
   ],
   "hotspots": [
     {
-      "id": "resident_note",
-      "label": "看看生活便签",
-      "pos": [
-        95,
-        590
-      ],
-      "approach": [
-        95,
-        635
-      ],
-      "kind": "village",
-      "copy": "左侧长廊连着插花桌，右边才是起居间和灶屋。住户为虚构邻居。"
-    },
-    {
       "id": "house_help",
-      "label": "换掉花瓶里的水",
+      "label": "摘去枯花瓣",
       "pos": [
-        490,
-        570
+        254,
+        284
       ],
       "approach": [
-        490,
-        645
+        311,
+        306
       ],
-      "kind": "village",
+      "kind": "house_task",
       "house": "rose",
-      "copy": "花瓶换好水了，一枝玫瑰留在你坐过的桌边。"
+      "copy": "枯花瓣轻轻收走，花瓶边也擦净了。玫瑰露出新花心，香气留在客厅里。",
+      "repeat_copy": "这家记着你的帮助，今天已经收拾好了。坐下来歇一会儿吧。"
     },
     {
       "id": "tea_seat",
       "label": "坐一会儿",
       "pos": [
-        410,
-        500
+        113,
+        275
       ],
       "approach": [
-        410,
-        540
+        174,
+        277
       ],
       "kind": "seat",
       "seat": [
-        410,
-        510
+        113,
+        275
       ],
-      "face": "down"
+      "face": "right"
+    },
+    {
+      "id": "house_display",
+      "kind": "house_display",
+      "house": "rose",
+      "label": "挪一挪玫瑰花盆",
+      "pos": [
+        302,
+        284
+      ],
+      "approach": [
+        311,
+        306
+      ],
+      "copy": "玫瑰花盆换到另一边，摆放也有了新样子。"
     }
   ],
   "doors": [
@@ -297,60 +157,148 @@
       "label": "回到村路",
       "target": "village",
       "pos": [
-        410,
-        706
+        384,
+        484
       ],
       "approach": [
-        410,
-        724
+        384,
+        456
       ],
+      "arrival": [
+        384,
+        421
+      ],
+      "face": "up",
       "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "up"
-    },
-    {
-      "id": "upstairs",
-      "label": "上二楼",
-      "target": "v_rose_up",
-      "pos": [
-        755,
-        605
-      ],
-      "approach": [
-        755,
-        635
-      ],
-      "kind": "door",
-      "width": 60,
-      "explicit_opening": true,
-      "face": "down"
+      "width": 104,
+      "explicit_opening": true
     }
   ],
   "anchors": {},
   "windows": [],
-  "lamps": [
-    [
-      410,
-      170,
-      260
-    ]
-  ],
+  "lamps": [],
   "source_offset": [
     0,
     0
   ],
   "spawn": [
-    410,
-    675
+    384,
+    421
   ],
   "walk_rect": [
-    22,
-    96,
-    776,
-    642
+    32,
+    152,
+    706,
+    353
+  ],
+  "walk_polygons": [
+    [
+      [
+        63,
+        152
+      ],
+      [
+        700,
+        167
+      ],
+      [
+        737,
+        444
+      ],
+      [
+        444,
+        444
+      ],
+      [
+        444,
+        503
+      ],
+      [
+        324,
+        503
+      ],
+      [
+        324,
+        444
+      ],
+      [
+        33,
+        444
+      ]
+    ]
   ],
   "outdoor": false,
-  "view_scale": 1.15,
-  "interior_art_status": "new_household_set_pending_graphical_acceptance"
+  "view_scale": 2.0,
+  "household_open": true,
+  "entry_camera_bias": [
+    -106,
+    -2
+  ],
+  "entry_camera_radius": 220,
+  "entry_camera_review": "same 2.0 scale as Ayu living; bias toward household main table, with existing player-safe clamp",
+  "household_visual": {
+    "item": "clay_pot",
+    "pos": [
+      254,
+      284
+    ],
+    "label": "玫瑰花盆",
+    "size": [
+      28,
+      24
+    ],
+    "display_pos": [
+      302,
+      284
+    ]
+  },
+  "npc": {
+    "id": "household_rose",
+    "character_id": "household_rose",
+    "name": "玫瑰花之家主人",
+    "portrait": "household_rose",
+    "preset": 1,
+    "pos": [
+      311,
+      306
+    ]
+  },
+  "resident": {
+    "schedule": [
+      {
+        "slot": "早",
+        "pos": [
+          311,
+          306
+        ],
+        "face": "up",
+        "action": "idle",
+        "line": "早上先理一理玫瑰花盆，屋里就清爽了。"
+      },
+      {
+        "slot": "中",
+        "pos": [
+          174,
+          277
+        ],
+        "face": "left",
+        "action": "idle",
+        "line": "过来坐坐吧，今天的玫瑰花盆也可以搭把手。"
+      },
+      {
+        "slot": "晚",
+        "pos": [
+          113,
+          275
+        ],
+        "approach": [
+          174,
+          277
+        ],
+        "face": "right",
+        "action": "sit",
+        "line": "一天忙完了，坐下来歇一会儿。"
+      }
+    ]
+  }
 }

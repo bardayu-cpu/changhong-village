@@ -1,0 +1,325 @@
+{
+  "room_id": "my_cabin",
+  "display_name": "村民活动中心",
+  "design_size": [
+    508,
+    600
+  ],
+  "character_height": 84,
+  "status": "分区先行草案；待C2提交，底图尚未生成，未游戏验收",
+  "host": {
+    "name": "方婆婆",
+    "resident_id": "h2_duty",
+    "home": "h2",
+    "home_label": "2A缝补人家",
+    "identity_policy": "本轮明确的虚构值日居民，不冒用真实亲属。独立身份不复用凯凯/小涛/林伯。",
+    "proposed_code": "LM-GUEST-09",
+    "sprite_source": "方婆婆-值日形象84px.png",
+    "portrait_source": "方婆婆-值日头像-source-v1.png"
+  },
+  "walk_rect": [
+    24,
+    112,
+    460,
+    450
+  ],
+  "zones": [
+    {
+      "id": "zone_1",
+      "label": "共桌备餐",
+      "rect": [
+        28,
+        118,
+        144,
+        182
+      ],
+      "use": "食材筐、拌菜盆、蒸笼和台面",
+      "host": "早：方婆婆备餐"
+    },
+    {
+      "id": "zone_2",
+      "label": "手作共桌",
+      "rect": [
+        228,
+        136,
+        158,
+        162
+      ],
+      "use": "长手作桌、纸张和竹编工具",
+      "host": "中：方婆婆一起手作"
+    },
+    {
+      "id": "zone_3",
+      "label": "故事与茶角",
+      "rect": [
+        28,
+        364,
+        145,
+        138
+      ],
+      "use": "低书架、坐垫、茶盘和木椅",
+      "host": "晚：围坐讲故事"
+    },
+    {
+      "id": "zone_4",
+      "label": "共用物品归还",
+      "rect": [
+        350,
+        393,
+        130,
+        134
+      ],
+      "use": "归还架、棋盒、球篮、扫帚",
+      "host": "收场：整理公共物品"
+    },
+    {
+      "id": "zone_5",
+      "label": "活动留言墙",
+      "rect": [
+        410,
+        122,
+        70,
+        166
+      ],
+      "use": "厚软木板、纸夹和折叠画架",
+      "host": "中：换今天的活动纸"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "community_meal",
+      "kind_suggested": "community_game",
+      "pos": [
+        102,
+        255
+      ],
+      "approach": [
+        102,
+        326
+      ],
+      "visible_change": "拌菜盆逐步成菜，杯碟摆好",
+      "inventory": "radish:1+pepper:1 -> meal:1"
+    },
+    {
+      "id": "craft_demo",
+      "kind_suggested": "bamboo_weave",
+      "pos": [
+        307,
+        246
+      ],
+      "approach": [
+        307,
+        326
+      ],
+      "visible_change": "竹条交错成小编片",
+      "inventory": "本轮展示动作，不做人情解锁"
+    },
+    {
+      "id": "story_book",
+      "kind_suggested": "story_album",
+      "pos": [
+        126,
+        422
+      ],
+      "approach": [
+        198,
+        446
+      ],
+      "visible_change": "故事册展开成有图的双页，能翻页",
+      "inventory": "无金币"
+    },
+    {
+      "id": "return_box",
+      "kind_suggested": "activity_tidy",
+      "pos": [
+        410,
+        457
+      ],
+      "approach": [
+        310,
+        478
+      ],
+      "visible_change": "球与棋盒回各自格子、架面变整齐",
+      "inventory": "只记人情"
+    },
+    {
+      "id": "daily_notice",
+      "kind_suggested": "notice_flip",
+      "pos": [
+        444,
+        230
+      ],
+      "approach": [
+        444,
+        326
+      ],
+      "visible_change": "留言墙纸翻至今天活动图",
+      "inventory": "第1轮不新增每日解锁"
+    },
+    {
+      "id": "rest_seat",
+      "kind_suggested": "seat",
+      "pos": [
+        74,
+        452
+      ],
+      "approach": [
+        198,
+        446
+      ],
+      "seat": [
+        74,
+        452
+      ],
+      "foot_sort": 484,
+      "visible_change": "实际坐下，透明前沿遮挡由C2裁出"
+    }
+  ],
+  "entrance": {
+    "opening": [
+      208,
+      558,
+      92,
+      42
+    ],
+    "pos": [
+      254,
+      580
+    ],
+    "approach": [
+      254,
+      540
+    ],
+    "spawn": [
+      254,
+      526
+    ],
+    "target": "village"
+  },
+  "stairs": null,
+  "obstacles_suggested": [
+    [
+      28,
+      118,
+      144,
+      182
+    ],
+    [
+      228,
+      160,
+      158,
+      138
+    ],
+    [
+      28,
+      390,
+      145,
+      112
+    ],
+    [
+      350,
+      418,
+      130,
+      109
+    ],
+    [
+      410,
+      142,
+      70,
+      146
+    ]
+  ],
+  "path_centerlines": [
+    [
+      [
+        254,
+        540
+      ],
+      [
+        254,
+        326
+      ],
+      [
+        102,
+        326
+      ]
+    ],
+    [
+      [
+        254,
+        326
+      ],
+      [
+        444,
+        326
+      ]
+    ],
+    [
+      [
+        254,
+        540
+      ],
+      [
+        310,
+        478
+      ]
+    ],
+    [
+      [
+        254,
+        540
+      ],
+      [
+        198,
+        446
+      ]
+    ]
+  ],
+  "schedule": [
+    {
+      "slot": "早",
+      "pos": [
+        102,
+        326
+      ],
+      "face": "up",
+      "action": "洗菜、摆好共桌",
+      "line": "我先把菜洗好。今天在这里值日，等大家来就能开桌。"
+    },
+    {
+      "slot": "中",
+      "pos": [
+        307,
+        326
+      ],
+      "face": "up",
+      "action": "带大家编竹、共桌拌菜",
+      "line": "拌菜盆在那边，做完一起尝尝；这根竹条从下面穿。"
+    },
+    {
+      "slot": "晚",
+      "pos": [
+        74,
+        452
+      ],
+      "face": "down",
+      "action": "坐着收故事册、点共用物品",
+      "line": "今天的物件都收齐了。坐一会儿，我把故事册这一页合上。"
+    }
+  ],
+  "full_screen_game": "全屏共桌拌菜：洗楼卜、拌海椒、按节奏翻拌三步；消耗实际库存后产meal。棋盘麻将只作静态陈设。",
+  "asset_policy": {
+    "background": "全部墙、门、地面、固定陈设和真楼梯画进一张底图，不用通用四件家具拼屋",
+    "dynamic": "只交变化和前沿遮挡层；C2由最终图裁，不重复叠完整家具",
+    "collision": "只对应画上实体脚印，不计地毯阴影和空地；最后需实走"
+  },
+  "home_door_consistency": {
+    "id": "h2",
+    "response": "线筐从乱线变整齐，便签而非远程本人回答",
+    "line": "我在活动中心值日，门边的线筐帮我理顺就好。",
+    "currency": 0,
+    "renqing_to": "方婆婆",
+    "npc_presence": "值日时不在h2屋里/门外再生成同一人物"
+  },
+  "entry_policy": "活动中心是公开场所，第一天即可走路或地图选入，不以玩家入驻/选地为门槛；室外对应村路落点由C2按外观校核。my_yard只保留玩家小院与田。"
+}

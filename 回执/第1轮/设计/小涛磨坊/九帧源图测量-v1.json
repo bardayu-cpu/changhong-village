@@ -1,0 +1,174 @@
+{
+  "source_size": [
+    1095,
+    1437
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "direction": "down",
+      "phase": "idle",
+      "cell_xywh": [
+        0,
+        0,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        125,
+        83,
+        290,
+        451
+      ]
+    },
+    {
+      "index": 1,
+      "direction": "down",
+      "phase": "step_left",
+      "cell_xywh": [
+        365,
+        0,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        97,
+        83,
+        265,
+        458
+      ]
+    },
+    {
+      "index": 2,
+      "direction": "down",
+      "phase": "step_right",
+      "cell_xywh": [
+        730,
+        0,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        75,
+        83,
+        241,
+        458
+      ]
+    },
+    {
+      "index": 3,
+      "direction": "up",
+      "phase": "idle",
+      "cell_xywh": [
+        0,
+        479,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        122,
+        57,
+        291,
+        418
+      ]
+    },
+    {
+      "index": 4,
+      "direction": "up",
+      "phase": "step_left",
+      "cell_xywh": [
+        365,
+        479,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        95,
+        56,
+        265,
+        422
+      ]
+    },
+    {
+      "index": 5,
+      "direction": "up",
+      "phase": "step_right",
+      "cell_xywh": [
+        730,
+        479,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        73,
+        56,
+        242,
+        423
+      ]
+    },
+    {
+      "index": 6,
+      "direction": "right",
+      "phase": "idle",
+      "cell_xywh": [
+        0,
+        958,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        130,
+        11,
+        285,
+        394
+      ]
+    },
+    {
+      "index": 7,
+      "direction": "right",
+      "phase": "step_left",
+      "cell_xywh": [
+        365,
+        958,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        106,
+        11,
+        268,
+        393
+      ]
+    },
+    {
+      "index": 8,
+      "direction": "right",
+      "phase": "step_right",
+      "cell_xywh": [
+        730,
+        958,
+        365,
+        479
+      ],
+      "local_alpha_bbox_128": [
+        83,
+        10,
+        246,
+        393
+      ]
+    }
+  ],
+  "target_cell": [
+    64,
+    84
+  ],
+  "target_strip": [
+    576,
+    84
+  ],
+  "foot_anchor": [
+    32,
+    84
+  ],
+  "requires_normalization": true
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "停点封存核验，非画面或真实输入通过结论",
+  "manifest": "回执/整村复审返工/第0步/C2隔离候选封存清单.json",
+  "manifest_sha256": "3796be489f4c4987c7f3fcb6c07d59e6ce1eb9c61cb74144f1656a512f05b203",
+  "source_count": 34,
+  "source_bytes": 9551622,
+  "source_hashes_verified": true,
+  "formal_godot_tracked_diff": [],
+  "formal_default_entry_references_candidate": false,
+  "formal_main_scene": [
+    "run/main_scene=\"res://ayu_home/v4/phone_boot.tscn\"",
+    "run/main_scene.ayu_phone=\"res://ayu_home/v4/phone_boot.tscn\""
+  ],
+  "ready_for_c3_visual": false,
+  "ready_for_c3_input": false,
+  "native_attempts_used": 3,
+  "native_attempt_limit": 3,
+  "complete_G0_scene_versions": 0,
+  "real_input_verified": false,
+  "G0_visual_verified": false,
+  "shader_GL_runtime_verified": false,
+  "owned_process": {
+    "pid": 67237,
+    "exact_project_and_save_arguments_verified_before_signal": true,
+    "closure_method": "single SIGTERM",
+    "exit_code": 143,
+    "running_after_exit_request": false,
+    "GUI_menu_quit_verified": false,
+    "other_Godot_processes_terminated": false,
+    "saves_logs_and_QA_lock_retained": true,
+    "runtime_files_in_archive": false
+  },
+  "protected_seven_unchanged": true,
+  "git_index_empty": true,
+  "likely_secret_findings_count": 0,
+  "no_commit_or_push_performed": true
+}

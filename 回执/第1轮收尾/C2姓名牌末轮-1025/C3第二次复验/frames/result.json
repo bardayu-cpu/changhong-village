@@ -1,0 +1,184 @@
+{
+  "OS_input": false,
+  "mode": "h6 native initial schedule; market actual four-leg street cycle accelerated time; no route/action forced",
+  "snapshots": [
+    {
+      "area": "v_h6",
+      "bodies": [
+        {
+          "action": "idle",
+          "id": "visitor",
+          "lift": 0.0,
+          "rect": [
+            275.0,
+            536.0,
+            72.0,
+            168.0
+          ]
+        },
+        {
+          "action": "idle",
+          "id": "visitor",
+          "lift": 0.0,
+          "rect": [
+            143.0,
+            416.0,
+            74.0,
+            164.0
+          ]
+        }
+      ],
+      "clashes": [],
+      "events": [],
+      "hour": 13.0,
+      "markers": [],
+      "month": 10,
+      "name": "h6-native-13",
+      "page_visible": false,
+      "player": [
+        350.0,
+        298.0
+      ],
+      "scale": 2.0,
+      "tags": [
+        {
+          "mouse_filter": 2,
+          "rect": [
+            107.0,
+            374.0,
+            144.0,
+            32.0
+          ],
+          "text": "花窗人家主人"
+        }
+      ],
+      "talk_visible": false
+    },
+    {
+      "area": "v_h6",
+      "bodies": [
+        {
+          "action": "idle",
+          "id": "visitor",
+          "lift": 0.0,
+          "rect": [
+            249.0,
+            392.0,
+            72.0,
+            168.0
+          ]
+        },
+        {
+          "action": "sit",
+          "id": "visitor",
+          "lift": 52.0,
+          "rect": [
+            123.0,
+            316.0,
+            68.0,
+            120.0
+          ]
+        }
+      ],
+      "clashes": [],
+      "events": [],
+      "hour": 19.0,
+      "markers": [
+        {
+          "id": "tea_seat",
+          "rect": [
+            237.0,
+            274.0,
+            48.0,
+            54.0
+          ]
+        }
+      ],
+      "month": 10,
+      "name": "h6-native-19",
+      "page_visible": false,
+      "player": [
+        346.0,
+        226.0
+      ],
+      "scale": 2.0,
+      "tags": [
+        {
+          "mouse_filter": 2,
+          "rect": [
+            85.0,
+            274.0,
+            144.0,
+            32.0
+          ],
+          "text": "花窗人家主人"
+        }
+      ],
+      "talk_visible": false
+    },
+    {
+      "area": "village",
+      "bodies": [
+        {
+          "action": "idle",
+          "id": "visitor",
+          "lift": 0.0,
+          "rect": [
+            234.0,
+            418.0,
+            72.0,
+            168.0
+          ]
+        },
+        {
+          "action": "sit",
+          "id": "visitor",
+          "lift": 0.0,
+          "rect": [
+            228.0,
+            432.0,
+            82.0,
+            120.0
+          ]
+        }
+      ],
+      "clashes": [
+        "货郎 / body"
+      ],
+      "events": [],
+      "hour": 13.0,
+      "markers": [
+        {
+          "id": "market",
+          "rect": [
+            358.0,
+            466.0,
+            48.0,
+            54.0
+          ]
+        }
+      ],
+      "month": 10,
+      "name": "market-natural-seat-13",
+      "page_visible": false,
+      "player": [
+        1256.0,
+        3576.0
+      ],
+      "scale": 2.0,
+      "tags": [
+        {
+          "mouse_filter": 2,
+          "rect": [
+            236.0,
+            378.0,
+            64.0,
+            44.0
+          ],
+          "text": "货郎"
+        }
+      ],
+      "talk_visible": false
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "time": "2026-10-17T19:14:36.369737-07:00",
+  "status": "通过本项最小桌面差异验收；不代表整轮、整板或全村美术通过",
+  "executor": "C2，本聊天收到用户明确允许接管桌面验收；不得冒称C3独立实测",
+  "production_source": "0e130d0c7eef1d00b0d8964a6cc3c3686a3d88df",
+  "later_shared_head_observed": "09618ac14c5bdabe206db79b20474ab3ba42fa66",
+  "scope": "只验冻结源A03备菜三阶段替换、原三步与收菜流程。后续磨坊/门口提示提交不在本次实测范围。",
+  "method": {
+    "window_title": "C2 A03 0e130d0 · 隔离验收 (DEBUG)",
+    "window_size": [
+      540,
+      960
+    ],
+    "clock": "9时、10月、晴；沿用既有授权视觉条件",
+    "input": "CUA正常地图导航、行走和鼠标点击；无玩家位置、库存或任务进度注入",
+    "recording": "既有只读观察器记录实际渲染和状态；仅使用截图请求，不使用状态修改请求",
+    "entry": "从克隆测试档中的蜂蜜小院经正常地图导航进入界面名为村民活动中心的房间；内部area记录为my_cabin；准备前有一次摆好共桌碗碟的正常互动，未计作备菜步骤。"
+  },
+  "checks": {
+    "normal_begin": true,
+    "raw_washed_diced_readable": true,
+    "handles_and_pepper_outlines_complete": true,
+    "former_black_lines_or_red_fragments_seen": false,
+    "nearest_pixel_edges_no_visible_squash": true,
+    "water_animation_present": true,
+    "water_two_frame_difference_bbox": [
+      138,
+      302,
+      233,
+      316
+    ],
+    "only_next_step_button_enabled": true,
+    "original_completed_meal_and_steam_visible": true,
+    "ingredient_counts_before_and_until_collection": {
+      "radish": 1,
+      "pepper": 1,
+      "meal": 2
+    },
+    "after_collection": {
+      "radish": 0,
+      "pepper": 0,
+      "meal": 3
+    },
+    "collect_button_disappears": true,
+    "basket_visibly_shows_meal_3": true,
+    "return_to_room_closes_game_and_clears_active_run": true
+  },
+  "frames": [
+    {
+      "seq": 1,
+      "image": "A03-0e130d0-1017-006-备菜-未开始-原始食材.png",
+      "at": 1792287495.49258,
+      "game": {
+        "finished": false,
+        "message": "洗净楼卜、切好海椒，再把它们拌匀。完成时用各 1 份食材做成一碗共桌菜。",
+        "progress": 0,
+        "run": ""
+      },
+      "active": {},
+      "items": {
+        "radish": 1.0,
+        "pepper": 1.0,
+        "meal": 2.0
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "adf8acdfdb4343190d6aff885668036514a1a79ebc0bf07a0ae570cf331be8db",
+      "metadata_source_sha256": "3b014759d88c58f8c27d26573fae288aa12dc7d96cdcc2834069ad2f8a547dd9"
+    },
+    {
+      "seq": 2,
+      "image": "A03-0e130d0-1017-007-备菜-0步-已开始.png",
+      "at": 1792287773.53904,
+      "game": {
+        "finished": false,
+        "message": "准备好了，做完再收进篮子",
+        "progress": 0,
+        "run": "4"
+      },
+      "active": {
+        "game": "community",
+        "progress": 0,
+        "run": "4"
+      },
+      "items": {
+        "radish": 1.0,
+        "pepper": 1.0,
+        "meal": 2.0
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "51e84b87e742328b6ab0cf5007a70e37a848fc352ae03cd05721b3180335266d",
+      "metadata_source_sha256": "0c52a48e169e2f5a46ccb39ab78a9402a82f4a11c3d03ccf90a0e6050b7d7db6"
+    },
+    {
+      "seq": 3,
+      "image": "A03-0e130d0-1017-008-备菜-1步-洗净水花A.png",
+      "at": 1792288031.44567,
+      "game": {
+        "finished": false,
+        "message": "楼卜洗净了，再切好海椒。",
+        "progress": 1,
+        "run": "4"
+      },
+      "active": {
+        "game": "community",
+        "progress": 1,
+        "run": "4"
+      },
+      "items": {
+        "radish": 1.0,
+        "pepper": 1.0,
+        "meal": 2.0
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "66ae4af7a7bd4e4d3234498d814d5d0c6528cc9cedeb2ba4d046c1a7ae5fb0c4",
+      "metadata_source_sha256": "13b9fc76c3f9236c0b2e0c09c75fede9084dd181c09bda3fdceed806073af770"
+    },
+    {
+      "seq": 4,
+      "image": "A03-0e130d0-1017-009-备菜-1步-洗净水花B.png",
+      "at": 1792288213.47437,
+      "game": {
+        "finished": false,
+        "message": "楼卜洗净了，再切好海椒。",
+        "progress": 1,
+        "run": "4"
+      },
+      "active": {
+        "game": "community",
+        "progress": 1,
+        "run": "4"
+      },
+      "items": {
+        "radish": 1.0,
+        "pepper": 1.0,
+        "meal": 2.0
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "9aed3f258ce030b00849504cb849354183396c0498eb1a03fe7a345ba7ad7c57",
+      "metadata_source_sha256": "5b63d3ef292089e2ae9885ce1e9a04b8b73bb862f9d6ec9f26c67b60a4f7b892"
+    },
+    {
+      "seq": 5,
+      "image": "A03-0e130d0-1017-010-备菜-2步-海椒切丁.png",
+      "at": 1792288389.12894,
+      "game": {
+        "finished": false,
+        "message": "海椒切成细丁了，一起拌匀吧。",
+        "progress": 2,
+        "run": "4"
+      },
+      "active": {
+        "game": "community",
+        "progress": 2,
+        "run": "4"
+      },
+      "items": {
+        "radish": 1.0,
+        "pepper": 1.0,
+        "meal": 2.0
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "c35b3cecb1be7aa0f993e30ad2a942853c28cb65601f657a897852912da1ecd1",
+      "metadata_source_sha256": "3100da1eb7569706f5035d88f4a04dde5e2b5843c790fa9603e24c2669733c18"
+    },
+    {
+      "seq": 6,
+      "image": "A03-0e130d0-1017-011-备菜-3步-拌匀未收取.png",
+      "at": 1792288541.54329,
+      "game": {
+        "finished": false,
+        "message": "香气出来了，端上这碗海椒拌楼卜。",
+        "progress": 3,
+        "run": "4"
+      },
+      "active": {
+        "game": "community",
+        "progress": 3,
+        "run": "4"
+      },
+      "items": {
+        "radish": 1.0,
+        "pepper": 1.0,
+        "meal": 2.0
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "4d1f32f6c599533013219c15cf2e4f731dac5b2063d99a87186552cdfa8e7eb6",
+      "metadata_source_sha256": "2fe5869db7bb01fd18693b61bc6cfa757e79722bee819a7319d57842ceb07b5a"
+    },
+    {
+      "seq": 7,
+      "image": "A03-0e130d0-1017-012-备菜-正常收取-奖励一次.png",
+      "at": 1792288725.75384,
+      "game": {
+        "finished": true,
+        "message": "收好了：海椒拌楼卜×1，已放进同一个篮子",
+        "progress": 3,
+        "run": "4"
+      },
+      "active": {},
+      "items": {
+        "radish": 0,
+        "pepper": 0,
+        "meal": 3
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "92b2979a4165441ed69f79756cf287a2d8373f5ec307dbebb305791194a2f7d7",
+      "metadata_source_sha256": "1d1d24c096e0214e5e33d27f8c56c511b26db58805a38adf79ecbf07bb0630af"
+    },
+    {
+      "seq": 8,
+      "image": "A03-0e130d0-1017-013-备菜-返回屋内-进度关闭.png",
+      "at": 1792288900.0072,
+      "game": {},
+      "active": {},
+      "items": {
+        "radish": 0,
+        "pepper": 0,
+        "meal": 3
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "d0a93b53d3c7425b4e119b90df97a52c8f400f0d3ecda159bacea3267ed4fad8",
+      "metadata_source_sha256": "4dc582f57e1642be9d09b370148d73148bfe049589cc50fb5d384df3f8f34d7d"
+    },
+    {
+      "seq": 9,
+      "image": "A03-0e130d0-1017-014-备菜-篮子成品3份.png",
+      "at": 1792289066.38707,
+      "game": {},
+      "active": {},
+      "items": {
+        "radish": 0,
+        "pepper": 0,
+        "meal": 3
+      },
+      "area": "my_cabin",
+      "window_size": [
+        540,
+        960
+      ],
+      "image_sha256": "1d7ef28cceea2a23de4a0e43848c11f46164a825d17d69a37d52c13e4fc5cd19",
+      "metadata_source_sha256": "148c129e5941d8a23174a982db1f74ec23ea6a5f3478f9c1d616e1a415f5ca60"
+    }
+  ],
+  "source_saves_unchanged": {
+    "shared.a": true,
+    "shared.b": true,
+    "household.json": true
+  },
+  "frozen_files_unchanged": {
+    "godot/ayu_home/v4/core/institution_game.gd": true,
+    "godot/ayu_home/v4/assets/institutions/community-prep-v2.png": true,
+    "godot/ayu_home/v4/core/state.gd": true,
+    "godot/ayu_home/v4/core/config.gd": true
+  },
+  "exit": {
+    "normal_window_close_observed": true,
+    "process_exit_code": 0,
+    "script_errors_during_game": 0,
+    "process_stderr_warnings": {
+      "canvas_item_RID_leaks": 6,
+      "texture_RID_leaks": 6,
+      "ObjectDB_leaks": 18
+    },
+    "note": "Warnings appeared in exec-session exit output; engine-direct.log does not contain all exit diagnostics. No clean-exit claim."
+  },
+  "boundaries": [
+    "本项没有重开存档验证；没有额外点击已消失的收取按钮测试重复结算。",
+    "未重跑原87核心、连续首日或蜂蜜；不更新全村评分。",
+    "仅540x960桌面窗口；不是手机真机触摸或全部窗口规格验收。",
+    "旧C3欠验记录和旧C4失败复核为当时历史状态，原文保留；本回执记录后续已获授权接管的实际结果。"
+  ],
+  "budget": {
+    "last_user_report_at_start_percent": 100,
+    "stop_percent": 30,
+    "live_usage_tool_available": false,
+    "no_claim_about_current_remaining_percent": true
+  }
+}

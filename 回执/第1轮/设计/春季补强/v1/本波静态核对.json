@@ -1,0 +1,14 @@
+{
+  "scope": "static material/mask verification, not game N3 or performance validation",
+  "source_hashes_unchanged": 50,
+  "mask_hashes_match": true,
+  "bloom_only_in_vegetation_mask": true,
+  "autumn_branch_exact_original": true,
+  "winter_branch_exact_original": true,
+  "rain_formula_retained": true,
+  "h7_unmasked_pixels_exact_source": true,
+  "h7_alpha_exact_source": true,
+  "summer_policy": "season1 enters none of the seasonal branches, same source and original rain formula",
+  "shader_runtime_compilation": "pending C2",
+  "field_input": "C3 new field group not yet present at handoff; all six current fields use ground mask"
+}

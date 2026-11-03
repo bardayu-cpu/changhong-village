@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+PASS viewport 960
+PASS bottom door prompt visible 960
+FAIL entire label click area above safe edge 960
+FAIL label does not overlap bottom buttons 960
+FAIL seated action stays above safe edge after speech avoidance 960
+FAIL seated action does not overlap bottom buttons 960
+PASS viewport 1200
+PASS bottom door prompt visible 1200
+FAIL entire label click area above safe edge 1200
+FAIL label does not overlap bottom buttons 1200
+FAIL seated action stays above safe edge after speech avoidance 1200
+FAIL seated action does not overlap bottom buttons 1200
+B2_LAYOUT FAIL

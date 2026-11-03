@@ -1,0 +1,162 @@
+{
+  "source": "/Users/kayra_ayu/Desktop/苏七镇奇缘/cursor-claude-1010/裳泓村/回执/第1轮返工/设计/续办-1015/A03-备菜三阶段/A03-备菜三阶段图集-v2.png",
+  "source_size": [
+    1859,
+    846
+  ],
+  "sha256": "a612dfcdfc9b3bbc834267b493322fccb92688bd29376e6a5d083b1c38aa0c78",
+  "stage_canvas": [
+    264,
+    120
+  ],
+  "origin_relative_c": [
+    -144,
+    -54
+  ],
+  "alpha_cutoff": 0.8,
+  "fit": "uniform, each allowed box bottom aligned; no source bitmap changes",
+  "stages": [
+    {
+      "id": "progress_0_raw",
+      "items": [
+        {
+          "id": "basin_daikon",
+          "source": [
+            43,
+            33,
+            537,
+            388
+          ],
+          "target": [
+            4.0,
+            23.683426443202976,
+            125.0,
+            90.31657355679702
+          ],
+          "allowed_box": [
+            4,
+            4,
+            125,
+            110
+          ]
+        },
+        {
+          "id": "whole_peppers",
+          "source": [
+            560,
+            172,
+            308,
+            230
+          ],
+          "target": [
+            175.0,
+            42.006493506493506,
+            79.0,
+            58.993506493506494
+          ],
+          "allowed_box": [
+            175,
+            22,
+            79,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "id": "progress_1_washed",
+      "items": [
+        {
+          "id": "basin_daikon_water",
+          "source": [
+            972,
+            33,
+            538,
+            388
+          ],
+          "target": [
+            4.0,
+            23.85130111524164,
+            125.0,
+            90.14869888475836
+          ],
+          "allowed_box": [
+            4,
+            4,
+            125,
+            110
+          ]
+        },
+        {
+          "id": "whole_peppers",
+          "source": [
+            1490,
+            172,
+            307,
+            230
+          ],
+          "target": [
+            175.0,
+            41.814332247557005,
+            79.0,
+            59.185667752442995
+          ],
+          "allowed_box": [
+            175,
+            22,
+            79,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "id": "progress_2_diced",
+      "items": [
+        {
+          "id": "clean_drained_daikon",
+          "source": [
+            456,
+            451,
+            534,
+            375
+          ],
+          "target": [
+            4.0,
+            26.219101123595507,
+            125.0,
+            87.78089887640449
+          ],
+          "allowed_box": [
+            4,
+            4,
+            125,
+            110
+          ]
+        },
+        {
+          "id": "board_diced_peppers",
+          "source": [
+            970,
+            568,
+            439,
+            241
+          ],
+          "target": [
+            166.0,
+            37.98405466970387,
+            82.0,
+            45.01594533029613
+          ],
+          "allowed_box": [
+            166,
+            34,
+            82,
+            49
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "isolated WebGL preview only, no production binding"
+}
