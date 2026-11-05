@@ -3514,6 +3514,278 @@
         "sourceReportSHA256": "8d0a7055ff0b3a91b861bd9452612765bbbfd90bf5eb2c673fdfcf7a134c648f"
       },
       "sha256": "ae465f2fe5f41bc1ccb79cccb6134194297a65bc9e6023ffb1317839e8ce9575"
+    },
+    "w2/common/toretto_sit.png": {
+      "file": "w2/common/toretto_sit.png",
+      "card": "M04-sit",
+      "dimensions": [
+        128,
+        208
+      ],
+      "anchor": [
+        64,
+        200
+      ],
+      "origin": "一览图同源站姿及 R1；ImageGen 恢复原白色圆领短袖",
+      "usedIn": "静冈船上右座",
+      "generationAttempt": 2,
+      "status": "staticArtReviewed",
+      "sha256": "904461bc1eba102a76730817a4285c6a124f73337a8ee24e8f63ab1577c9d8da",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M04-sit-R2-2026-11-05/assets/toretto_sit.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/hainan/ring_stall.png": {
+      "file": "w2/hainan/ring_stall.png",
+      "card": "M51",
+      "dimensions": [
+        300,
+        220
+      ],
+      "anchor": [
+        150,
+        211
+      ],
+      "origin": "万宁原景及 R1；ImageGen 补棚布、木纹与玩偶体积",
+      "usedIn": "万宁套圈摊",
+      "generationAttempt": 2,
+      "status": "staticArtReviewed",
+      "sha256": "f110214a643fb6b7d1a3e1451a23ee9dd9e3256971ccd210d674fe00d578cb10",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M51-R2-2026-11-05/assets/ring_stall.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/hongkong/exit_gate.png": {
+      "file": "w2/hongkong/exit_gate.png",
+      "card": "M61",
+      "dimensions": [
+        160,
+        200
+      ],
+      "anchor": [
+        80,
+        195
+      ],
+      "origin": "香港原景及 R1；ImageGen 补金属玻璃与接地",
+      "usedIn": "香港到达厅出口",
+      "generationAttempt": 2,
+      "status": "staticArtReviewed",
+      "sha256": "6393ba752d4144f870388bdc1b27996f292a1ae3e6b6b0a71edc8ebe05b71874",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M61-R2-2026-11-05/assets/exit_gate.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shanghai/bg_parking.png": {
+      "file": "w2/shanghai/bg_parking.png",
+      "card": "M17",
+      "dimensions": [
+        540,
+        960
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "origin": "项目原素材复用并对齐",
+      "usedIn": "上海街边、俯视驾驶、停车或下车广场",
+      "status": "staticArtReviewed",
+      "generationAttempt": 1,
+      "references": [
+        "parking.webp"
+      ],
+      "sha256": "ee280d71ac1217e40abf20bbd78aebf9a714605cc235ce6efcefaaf5f1c90289",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M10-M11-M17-M19-2026-11-05/assets/bg_parking.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shanghai/bg_pearl_plaza.png": {
+      "file": "w2/shanghai/bg_pearl_plaza.png",
+      "card": "M19",
+      "dimensions": [
+        540,
+        960
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "origin": "项目原素材复用并对齐",
+      "usedIn": "上海街边、俯视驾驶、停车或下车广场",
+      "status": "staticArtReviewed",
+      "generationAttempt": 1,
+      "references": [
+        "parking.webp"
+      ],
+      "sha256": "ee280d71ac1217e40abf20bbd78aebf9a714605cc235ce6efcefaaf5f1c90289",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M10-M11-M17-M19-2026-11-05/assets/bg_pearl_plaza.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shanghai/bg_street.png": {
+      "file": "w2/shanghai/bg_street.png",
+      "card": "M10",
+      "dimensions": [
+        540,
+        960
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "origin": "项目原素材复用并对齐",
+      "usedIn": "上海街边、俯视驾驶、停车或下车广场",
+      "status": "staticArtReviewed",
+      "generationAttempt": 1,
+      "references": [
+        "bg_sh_street.png"
+      ],
+      "sha256": "5be7bd409ec5cbab02140feb4bbbc10c95d431d2c3a52b39ccf4c31a45b745e4",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M10-M11-M17-M19-2026-11-05/assets/bg_street.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shanghai/car_side.png": {
+      "file": "w2/shanghai/car_side.png",
+      "card": "M11",
+      "dimensions": [
+        263,
+        80
+      ],
+      "anchor": [
+        131,
+        76
+      ],
+      "origin": "项目原素材复用并对齐",
+      "usedIn": "上海街边、俯视驾驶、停车或下车广场",
+      "status": "staticArtReviewed",
+      "generationAttempt": 1,
+      "references": [
+        "car_street.png"
+      ],
+      "sha256": "d974b595bdeae36b9a7ed3994553ceb02ce525253f90dd0ef44d191c3bba9186",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M10-M11-M17-M19-2026-11-05/assets/car_side.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shizuoka/bobber_1.png": {
+      "file": "w2/shizuoka/bobber_1.png",
+      "card": "M42",
+      "dimensions": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        12
+      ],
+      "origin": "D3 原生像素绘制；珊瑚色浮标、水线及水花分态",
+      "usedIn": "静冈码头钓鱼",
+      "generationAttempt": 2,
+      "status": "staticArtReviewed",
+      "sha256": "0a92058f46de49741102923500780fe5d812de2f1c7db069a1b4da2f987ad8e1",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M42-R2-2026-11-05/assets/bobber_1.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shizuoka/bobber_2.png": {
+      "file": "w2/shizuoka/bobber_2.png",
+      "card": "M42",
+      "dimensions": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        12
+      ],
+      "origin": "D3 原生像素绘制；珊瑚色浮标、水线及水花分态",
+      "usedIn": "静冈码头钓鱼",
+      "generationAttempt": 2,
+      "status": "staticArtReviewed",
+      "sha256": "4bb2bde3992ce4c8cee55b85e7612b3c16f652b9f3d961fbd354c645447d6419",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M42-R2-2026-11-05/assets/bobber_2.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
+    },
+    "w2/shizuoka/bobber_3.png": {
+      "file": "w2/shizuoka/bobber_3.png",
+      "card": "M42",
+      "dimensions": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        12
+      ],
+      "origin": "D3 原生像素绘制；珊瑚色浮标、水线及水花分态",
+      "usedIn": "静冈码头钓鱼",
+      "generationAttempt": 2,
+      "status": "staticArtReviewed",
+      "sha256": "3ca3618aaee9138bd236bb9fc05dad0a7b4fa2ac3d846b5b205499a47859cfd0",
+      "review": {
+        "D2": "初审过",
+        "D4": "静态六项审美过",
+        "sourceCommit": "a8be311e0b5ce5fdfeb0ebd9593bfee1b0a12bfb",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "d5e5d1fdea4ea11512c101eb312cc158f2243f7df27a02f7315a857ecb901439",
+        "evidence": "回执/W2工位/D4/M42-R2-2026-11-05/assets/bobber_3.png",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
+      }
     }
   },
   "palette": {
