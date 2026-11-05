@@ -2,11 +2,11 @@
   "sourceCommit": "d445d3b3346f41dd29a67497a53790f9f24bdbd1",
   "backgrounds": {
     "street": {
-      "file": "street.webp",
+      "file": "bg_sh_street.png",
       "bakedActors": [],
       "status": "approvedEmpty",
-      "location": "上海日景·出发街边",
-      "bakedText": []
+      "bakedText": [],
+      "location": "上海日景·出发街边"
     },
     "parking": {
       "file": "parking.webp",
@@ -23,11 +23,11 @@
       "bakedText": []
     },
     "chengdu": {
-      "file": "chengdu.webp",
+      "file": "bg_cd_panda.png",
       "bakedActors": [],
       "status": "approvedEmpty",
-      "location": "成都日景·熊猫基地走道",
-      "bakedText": []
+      "bakedText": [],
+      "location": "成都日景·熊猫基地"
     },
     "road": {
       "file": "driving.webp",
@@ -35,24 +35,59 @@
       "status": "approvedEmpty",
       "location": "上海日景·三车道路",
       "bakedText": []
+    },
+    "invitation_desk": {
+      "file": "bg_invite_desk.png",
+      "bakedActors": [],
+      "status": "approvedEmpty",
+      "bakedText": [],
+      "location": "序章·请柬书桌"
+    },
+    "night": {
+      "file": "l3_computer.webp",
+      "bakedActors": [],
+      "status": "approvedReuse",
+      "bakedText": [],
+      "location": "深夜房间",
+      "bakedSubjects": [
+        "猫"
+      ],
+      "canvas": [
+        540,
+        960
+      ],
+      "origin": [
+        20,
+        36
+      ],
+      "scale": 1
     }
   },
   "sprites": {
     "ayu": {
-      "idle": "ayu.png",
+      "idle": "ayu_idle.png",
       "walk": [
-        "ayu_walk1.png",
-        "ayu_walk2.png",
-        "ayu_walk3.png",
-        "ayu_walk4.png"
-      ]
+        "ayu_walk.png",
+        "ayu_idle.png"
+      ],
+      "footBottom": 4
     },
     "axiao": {
-      "idle": "axiao.png"
+      "idle": "axiao_idle.png",
+      "footBottom": 4,
+      "phone": "axiao_phone.png",
+      "walk": [
+        "axiao_walk_side_1.png",
+        "axiao_walk_side_2.png",
+        "axiao_walk_side_3.png",
+        "axiao_walk_side_4.png"
+      ]
     },
     "panda": {
-      "idle": "panda.png",
-      "action": "panda_action.png"
+      "idle": "panda_slow.png",
+      "action": "panda_eat.png",
+      "slow": "panda_slow.png",
+      "sleep": "panda_sleep.png"
     }
   },
   "images": {
@@ -63,7 +98,22 @@
     "traffic_gold": "traffic_gold.png",
     "ayu_avatar": "ayu_avatar.png",
     "axiao_avatar": "axiao_avatar.png",
-    "toretto_avatar": "toretto_avatar.png"
+    "toretto_avatar": "toretto_avatar.png",
+    "car_street": "car_street.png",
+    "car_parking": "car_parking.png",
+    "ayu_formal": "ayu_wedding_idle.png",
+    "invite_card": "invite_card.png",
+    "invite_pen_stroke": "invite_pen_stroke.png",
+    "invite_ink_tint": "invite_ink_tint.png",
+    "invite_slot_pen": "invite_slot_pen.png",
+    "invite_slot_ink": "invite_slot_ink.png",
+    "pen_tip": "pen_tip.png",
+    "phone_frame": "phone_frame.png",
+    "phone_prop": "phone_prop.png",
+    "bubble_left": "bubble_left.png",
+    "bubble_right": "bubble_right.png",
+    "bubble_system": "bubble_system.png",
+    "call_screen": "call_screen.png"
   },
   "sources": {
     "street.webp": {
@@ -73,10 +123,22 @@
         1080,
         637,
         1672
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 0
     },
     "driving.webp": {
-      "path": "public/assets/stage1/generated/driving-road-day-optimized.webp"
+      "path": "public/assets/stage1/generated/driving-road-day-optimized.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 0
     },
     "chengdu.webp": {
       "path": "public/assets/l2_chengdu.webp",
@@ -85,7 +147,13 @@
         245,
         321,
         506
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 0
     },
     "ayu.png": {
       "path": "public/assets/stage1/generated/ayu-idle-directions.png",
@@ -94,7 +162,13 @@
         0,
         192,
         256
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        82,
+        192
+      ],
+      "generationAttempt": 0
     },
     "ayu_walk1.png": {
       "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
@@ -103,7 +177,13 @@
         0,
         128,
         192
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        84,
+        181
+      ],
+      "generationAttempt": 0
     },
     "ayu_walk2.png": {
       "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
@@ -112,7 +192,13 @@
         0,
         256,
         192
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        82,
+        181
+      ],
+      "generationAttempt": 0
     },
     "ayu_walk3.png": {
       "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
@@ -121,7 +207,13 @@
         0,
         384,
         192
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        82,
+        181
+      ],
+      "generationAttempt": 0
     },
     "ayu_walk4.png": {
       "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
@@ -130,10 +222,22 @@
         0,
         512,
         192
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        83,
+        181
+      ],
+      "generationAttempt": 0
     },
     "axiao.png": {
-      "path": "public/assets/axiao_phone.webp"
+      "path": "public/assets/axiao_phone.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        83,
+        300
+      ],
+      "generationAttempt": 0
     },
     "panda.png": {
       "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
@@ -142,7 +246,13 @@
         0,
         256,
         256
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        111,
+        120
+      ],
+      "generationAttempt": 0
     },
     "panda_action.png": {
       "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
@@ -151,52 +261,529 @@
         0,
         512,
         256
-      ]
+      ],
+      "origin": "旧网页",
+      "dimensions": [
+        116,
+        120
+      ],
+      "generationAttempt": 0
     },
     "car.png": {
-      "path": "public/assets/car_ayu_L.webp"
+      "path": "public/assets/car_ayu_L.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        320,
+        94
+      ],
+      "generationAttempt": 0
     },
     "car_rear.png": {
-      "path": "public/assets/stage1/generated/ayu-g42-rear-optimized.webp"
+      "path": "public/assets/stage1/generated/ayu-g42-rear-optimized.webp",
+      "pixelTreatment": "保留原车造型，清理烘焙车牌字符与车标",
+      "origin": "旧网页",
+      "dimensions": [
+        240,
+        168
+      ],
+      "generationAttempt": 0
     },
     "traffic_silver.png": {
-      "path": "public/assets/stage1/generated/traffic-silver-rear-optimized.webp"
+      "path": "public/assets/stage1/generated/traffic-silver-rear-optimized.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        160,
+        118
+      ],
+      "generationAttempt": 0
     },
     "traffic_blue.png": {
-      "path": "public/assets/stage1/generated/traffic-blue-rear-optimized.webp"
+      "path": "public/assets/stage1/generated/traffic-blue-rear-optimized.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        160,
+        118
+      ],
+      "generationAttempt": 0
     },
     "traffic_gold.png": {
-      "path": "public/assets/stage1/generated/traffic-gold-rear-optimized.webp"
+      "path": "public/assets/stage1/generated/traffic-gold-rear-optimized.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        160,
+        118
+      ],
+      "generationAttempt": 0
     },
     "ayu_avatar.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        64,
+        64
+      ],
+      "generationAttempt": 0,
       "path": "public/assets/ayu_idle.webp",
-      "cropLTRB": [
-        0,
-        0,
-        225,
-        225
-      ]
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "designBoardCell": "A.ayu-casual-idle"
     },
     "axiao_avatar.png": {
-      "path": "public/assets/axiao_phone.webp",
-      "cropLTRB": [
-        0,
-        0,
-        199,
-        199
-      ]
+      "origin": "从阿晓新图裁取",
+      "dimensions": [
+        64,
+        64
+      ],
+      "generationAttempt": 0,
+      "references": [
+        "axiao_idle.png",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "已确认站姿头肩裁切"
     },
     "toretto_avatar.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        64,
+        64
+      ],
+      "generationAttempt": 0,
       "path": "public/assets/tt_stand.webp",
-      "cropLTRB": [
-        27,
-        0,
-        245,
-        218
-      ]
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "designBoardCell": "B-terotto-casual-stand"
     },
     "parking.webp": {
-      "path": "public/assets/stage1/generated/shanghai-map-day-optimized.webp"
+      "path": "public/assets/stage1/generated/shanghai-map-day-optimized.webp",
+      "origin": "旧网页",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 0
+    },
+    "bg_invite_desk.png": {
+      "dimensions": [
+        540,
+        960
+      ],
+      "origin": "新画",
+      "generationAttempt": 1,
+      "method": "内置 imagegen；目标像素尺寸最近邻整稿",
+      "references": [
+        "public/assets/stage1/generated/invitation-desk-empty-optimized.webp"
+      ]
+    },
+    "bg_sh_street.png": {
+      "dimensions": [
+        540,
+        960
+      ],
+      "origin": "新画",
+      "generationAttempt": 1,
+      "method": "内置 imagegen；目标像素尺寸最近邻整稿",
+      "references": [
+        "public/assets/stage1/generated/shanghai-map-day-optimized.webp",
+        "public/assets/stage1/generated/driving-road-day-optimized.webp"
+      ]
+    },
+    "bg_cd_panda.png": {
+      "dimensions": [
+        540,
+        960
+      ],
+      "origin": "新画",
+      "generationAttempt": 1,
+      "method": "内置 imagegen；目标像素尺寸最近邻整稿",
+      "references": [
+        "public/assets/stage1/generated/shanghai-map-day-optimized.webp",
+        "public/assets/l2_chengdu.webp"
+      ]
+    },
+    "l3_computer.webp": {
+      "origin": "旧网页",
+      "dimensions": [
+        499,
+        887
+      ],
+      "generationAttempt": 0,
+      "path": "public/assets/l3_computer.webp",
+      "canvas": [
+        540,
+        960
+      ],
+      "origin_px": [
+        20,
+        36
+      ],
+      "scale": 1,
+      "bakedSubjects": [
+        "猫"
+      ]
+    },
+    "car_street.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        263,
+        80
+      ],
+      "generationAttempt": 0,
+      "path": "public/assets/car_ayu_L.webp",
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "scaleDivisor": 2
+    },
+    "car_parking.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        132,
+        40
+      ],
+      "generationAttempt": 0,
+      "path": "public/assets/car_ayu_L.webp",
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "scaleDivisor": 4
+    },
+    "panda_sleep.png": {
+      "dimensions": [
+        170,
+        91
+      ],
+      "origin": "旧网页",
+      "generationAttempt": 0,
+      "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
+      "cropLTRB": [
+        512,
+        0,
+        768,
+        256
+      ],
+      "method": "相同比例缩到坐高约120；深色一像素描边"
+    },
+    "ayu_idle.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 0,
+      "path": "public/assets/ayu_idle.webp",
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "designBoardCell": "A.ayu-casual-idle"
+    },
+    "ayu_walk.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 0,
+      "path": "public/assets/ayu_walk.webp",
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "designBoardCell": "B.ayu-casual-walk"
+    },
+    "ayu_wedding_idle.png": {
+      "origin": "一览图同源原图",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 0,
+      "path": "public/assets/ayu_wed_stand.webp",
+      "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
+      "designBoardCell": "6.ayu-wedding-stand"
+    },
+    "panda_eat.png": {
+      "dimensions": [
+        111,
+        120
+      ],
+      "origin": "旧网页",
+      "generationAttempt": 0,
+      "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
+      "cropLTRB": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "method": "相同比例缩到坐高约120；深色一像素描边"
+    },
+    "panda_slow.png": {
+      "dimensions": [
+        110,
+        114
+      ],
+      "origin": "旧网页",
+      "generationAttempt": 0,
+      "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
+      "cropLTRB": [
+        256,
+        0,
+        512,
+        256
+      ],
+      "method": "相同比例缩到坐高约120；深色一像素描边"
+    },
+    "invite_card.png": {
+      "dimensions": [
+        360,
+        460
+      ],
+      "origin": "新画",
+      "generationAttempt": 1,
+      "method": "内置 imagegen；目标像素尺寸最近邻整稿",
+      "references": [
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ]
+    },
+    "invite_pen_stroke.png": {
+      "dimensions": [
+        360,
+        460
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "invite_card.png"
+      ],
+      "linePx": [
+        [
+          50,
+          172
+        ],
+        [
+          310,
+          172
+        ]
+      ]
+    },
+    "invite_ink_tint.png": {
+      "dimensions": [
+        360,
+        460
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "invite_card.png",
+        "invite_pen_stroke.png"
+      ]
+    },
+    "invite_slot_pen.png": {
+      "dimensions": [
+        360,
+        460
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "invite_card.png"
+      ]
+    },
+    "invite_slot_ink.png": {
+      "dimensions": [
+        360,
+        460
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "invite_card.png"
+      ]
+    },
+    "pen_tip.png": {
+      "dimensions": [
+        44,
+        56
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "invite_slot_pen.png"
+      ],
+      "anchor": [
+        6,
+        50
+      ]
+    },
+    "phone_frame.png": {
+      "dimensions": [
+        300,
+        540
+      ],
+      "origin": "新画",
+      "generationAttempt": 1,
+      "method": "内置 imagegen；目标像素尺寸最近邻整稿",
+      "references": [
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "screenRect": [
+        15,
+        26,
+        270,
+        488
+      ]
+    },
+    "phone_prop.png": {
+      "dimensions": [
+        42,
+        63
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "phone_frame.png"
+      ]
+    },
+    "bubble_left.png": {
+      "dimensions": [
+        48,
+        48
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "sliceMargin": 12
+    },
+    "bubble_right.png": {
+      "dimensions": [
+        48,
+        48
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "sliceMargin": 12
+    },
+    "bubble_system.png": {
+      "dimensions": [
+        48,
+        48
+      ],
+      "origin": "新画",
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿",
+      "references": [
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "sliceMargin": 12
+    },
+    "call_screen.png": {
+      "dimensions": [
+        270,
+        488
+      ],
+      "origin": "新画",
+      "generationAttempt": 1,
+      "method": "内置 imagegen；目标像素尺寸最近邻整稿",
+      "references": [
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ]
+    },
+    "axiao_idle.png": {
+      "origin": "新画",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 1,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 与透明像素整稿",
+      "approval": "阿鱼确认站姿小样"
+    },
+    "axiao_phone.png": {
+      "origin": "新画",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 1,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 与透明像素整稿"
+    },
+    "axiao_walk_side_1.png": {
+      "origin": "新画",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 1,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 与透明像素整稿"
+    },
+    "axiao_walk_side_2.png": {
+      "origin": "新画",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 1,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 与透明像素整稿"
+    },
+    "axiao_walk_side_3.png": {
+      "origin": "新画",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 1,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 与透明像素整稿"
+    },
+    "axiao_walk_side_4.png": {
+      "origin": "新画",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 1,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 与透明像素整稿"
+    },
+    "laugh.svg": {
+      "origin": "W1 现有图标",
+      "dimensions": [
+        32,
+        32
+      ],
+      "generationAttempt": 0
     }
+  },
+  "palette": {
+    "deep": "#240307",
+    "darkRed": "#400a0c",
+    "header": "#5e0e0e",
+    "label": "#662016",
+    "cream": "#fef2d3",
+    "line": "#d9c29e",
+    "gold": "#d6a43c"
   }
 }

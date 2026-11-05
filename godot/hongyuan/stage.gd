@@ -2,14 +2,24 @@ extends Control
 
 const CANVAS := Vector2(360, 640)
 const ASSET_ROOT := "res://hongyuan/assets/"
-const CREAM := Color("#f7ead6")
-const PAPER := Color("#fff1d5")
-const INK := Color("#583864")
-const NIGHT := Color("#121422")
-const ACCENT := Color("#e7ad81")
+const ART_SCALE := 2.0 / 3.0
+const CREAM := Color("#fef2d3")
+const DARK_RED := Color("#400a0c")
+const NIGHT := Color("#240307")
+const ACCENT := Color("#d6a43c")
+const ROOM_EDGE := Color("#20110a")
+const ROOM_TINT := Color(0.77, 0.73, 0.71)
 const PHONE := Rect2(22, 65, 316, 559)
-const PARKING := [Vector2(103, 392), Vector2(259, 392)]
-const STREET_CAR := Vector2(263, 420)
+const PHONE_ORIGIN := Vector2(80, 252)
+const PHONE_OPENING := Rect2(15, 26, 270, 488)
+const CARD_ORIGIN := Vector2(56, 120)
+const CARD_STROKE_FROM := Vector2(50, 172)
+const CARD_STROKE_TO := Vector2(310, 172)
+const PEN_TIP_ANCHOR := Vector2(6, 50)
+const ROOM_ORIGIN := Vector2(20, 36)
+const AVATAR_SIZE := 64.0 * ART_SCALE
+const PARKING := [Vector2(101, 380), Vector2(259, 380)]
+const STREET_CAR := Vector2(260, 405)
 const PANDA := Vector2(111, 445)
 const PHONE_HOTSPOT := Vector2(263, 400)
 const CAR_DEPTH := 0.89
@@ -28,6 +38,7 @@ var slow := 0.0
 var panda_time := 0.0
 var save_failed := false
 var texture_cache: Dictionary = {}
+var skin_cache: Dictionary = {}
 
 func _draw() -> void:
 	if shot.is_empty():
@@ -55,54 +66,40 @@ func _draw() -> void:
 		draw_circle(Vector2(336, 33), 0.9, Color("#ed8b7e"))
 
 func _invitation() -> void:
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color("#331b2b"))
-	for index in range(12):
-		var glow := Color("#a05255")
-		glow.a = 0.018
-		draw_circle(Vector2(171, 281), 250.0 - index * 16.0, glow)
-	round_box(Rect2(26, 130, 308, 295), Color("#1f1423"), 11)
-	round_box(Rect2(25, 125, 310, 295), PAPER, 10, Color("#d9a782"))
-	round_box(Rect2(35, 135, 290, 275), Color.TRANSPARENT, 6, Color("#d6ab8c"))
-	round_box(Rect2(41, 141, 278, 263), Color.TRANSPARENT, 5, Color("#edcfa7"))
-	_rosette(Vector2(180, 213), 25.0, Color("#a95c62"))
-	draw_line(Vector2(119, 252), Vector2(241, 252), Color("#d9ab87"), 1.0, true)
-	for y in [272, 290, 308, 326, 344, 370]:
-		draw_line(Vector2(76, y), Vector2(284, y), Color("#dcbfa3"), 1.0, true)
+	draw_rect(Rect2(Vector2.ZERO, CANVAS), DARK_RED)
+	if shot.sceneId == "invitation" and shot.type in ["invite", "narration"]:
+		_draw_background("invitation_desk")
+	_draw_art("invite_card", CARD_ORIGIN)
 
 	var pen_progress := 1.0 if materials.get("pen") == "applied" else 0.0
 	var ink_progress := 1.0 if materials.get("ink") == "applied" else 0.0
 	if shot.type == "material":
 		if shot.materialId == "pen":
 			pen_progress = clampf((time - 0.55) / 0.9, 0.0, 1.0)
-			var tip := Vector2(237, 571).lerp(Vector2(85 + 177 * pen_progress, 342), clampf(time / 0.55, 0.0, 1.0))
-			_pen(tip, clampf(time / 0.45, 0.08, 1.0))
+			var line_tip := CARD_ORIGIN + CARD_STROKE_FROM.lerp(CARD_STROKE_TO, pen_progress) * ART_SCALE
+			var tip := Vector2(222, 564).lerp(line_tip, clampf(time / 0.55, 0.0, 1.0))
+			_draw_art("pen_tip", tip - PEN_TIP_ANCHOR * ART_SCALE)
 		else:
 			ink_progress = clampf((time - 0.19) / 1.55, 0.0, 1.0)
-	if pen_progress > 0.0:
-		var end_x := 85.0 + 177.0 * pen_progress
-		draw_line(Vector2(85, 343), Vector2(end_x, 343), Color("#b0717c"), 2.4, true)
-		if ink_progress > 0.0:
-			var ink_end := lerpf(85.0, end_x, ink_progress)
-			for width in [15, 10, 6]:
-				draw_line(Vector2(85, 343), Vector2(ink_end, 343), Color(0.34, 0.20, 0.47, 0.15), width, true)
-			draw_line(Vector2(85, 343), Vector2(ink_end, 343), INK, 3.4, true)
-			draw_line(Vector2(85, 326), Vector2(85 + 162 * ink_progress, 326), Color("#9c7a9e"), 1.0, true)
+	_reveal_card_layer("invite_pen_stroke", pen_progress)
+	_reveal_card_layer("invite_ink_tint", ink_progress)
+	_draw_art("invite_slot_pen", CARD_ORIGIN, Color(1, 1, 1, smoothstep(0.7, 1.0, pen_progress)))
+	_draw_art("invite_slot_ink", CARD_ORIGIN, Color(1, 1, 1, smoothstep(0.7, 1.0, ink_progress)))
+	for actor: Dictionary in shot.visibleActors:
+		if actor.id == "ayu" and actor.layer == "invitation":
+			_draw_sprite(image_asset("ayu_formal"), Vector2(303, 456), 4.0)
 	if shot.get("effect", "") == "ink_to_chengdu":
 		var amount := clampf(time / float(shot.duration), 0.0, 1.0)
-		draw_circle(Vector2(263, 343), 560 * amount, Color(0.33, 0.21, 0.36, amount * 0.94), true, -1, true)
+		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.15, 0.05, 0.10, amount * 0.93))
 
-func _rosette(center: Vector2, radius: float, tint: Color) -> void:
-	for index in range(8):
-		var direction := Vector2.RIGHT.rotated(index * TAU / 8.0)
-		draw_circle(center + direction * radius * 0.56, radius * 0.33, tint, false, 1.0, true)
-	draw_circle(center, radius, tint, false, 1.0, true)
-	draw_circle(center, radius * 0.16, tint, true, -1, true)
-
-func _pen(tip: Vector2, length: float) -> void:
-	var base := tip + Vector2(47, -53) * length
-	draw_line(tip + Vector2(4, -4), base, Color("#2c1f36"), 10.0 * length, true)
-	draw_line(tip + Vector2(9, -10), tip + Vector2(25, -28) * length, ACCENT, 7.0 * length, true)
-	draw_colored_polygon(PackedVector2Array([tip, tip + Vector2(12, -6) * length, tip + Vector2(6, -13) * length]), ACCENT)
+func _reveal_card_layer(key: String, progress: float) -> void:
+	var texture := image_asset(key)
+	if not texture or progress <= 0.0:
+		return
+	var source_size := texture.get_size()
+	source_size.x = source_size.x if progress >= 1.0 else floorf(lerpf(CARD_STROKE_FROM.x, CARD_STROKE_TO.x, progress))
+	if source_size.x > 0.0:
+		draw_texture_rect_region(texture, Rect2(CARD_ORIGIN, source_size * ART_SCALE), Rect2(Vector2.ZERO, source_size))
 
 func _line_to_road() -> void:
 	_invitation()
@@ -110,10 +107,10 @@ func _line_to_road() -> void:
 	var wash := NIGHT
 	wash.a = progress
 	draw_rect(Rect2(Vector2.ZERO, CANVAS), wash)
-	var start := Vector2(76, 344).lerp(Vector2(179, 174), progress)
-	var finish := Vector2(284, 344).lerp(Vector2(180, 640), progress)
+	var start := (CARD_ORIGIN + CARD_STROKE_FROM * ART_SCALE).lerp(Vector2(179, 174), progress)
+	var finish := (CARD_ORIGIN + CARD_STROKE_TO * ART_SCALE).lerp(Vector2(180, 640), progress)
 	var width := 1.0 + 32.0 * progress * progress
-	draw_line(start, finish, Color("#d8b59c"), width, true)
+	draw_line(start, finish, Color("#d9c29e"), width, true)
 	draw_colored_polygon(PackedVector2Array([
 		start + Vector2(-3, 0), start + Vector2(3, 0),
 		finish + Vector2(230 * progress, 0), finish - Vector2(230 * progress, 0)
@@ -121,19 +118,12 @@ func _line_to_road() -> void:
 	draw_line(start, finish, Color("#edceae"), 1.0 + progress * 3.0, true)
 
 func _world(background: String) -> void:
-	var backdrop: Dictionary = manifest.get("backgrounds", {}).get(background, {})
-	var texture := _texture(str(backdrop.get("file", "")))
-	if texture:
-		_cover(texture, Rect2(0, 0, 360, 640))
-	else:
-		draw_rect(Rect2(12, 126, 336, 404), Color("#343247") if background == "chengdu" else Color("#3d3048"))
-		round_box(Rect2(18, 132, 324, 392), Color.TRANSPARENT, 9, Color("#685367"))
-		draw_line(Vector2(27, 456), Vector2(333, 456), Color("#846977"), 1, true)
+	_draw_background(background)
 	if background == "street":
-		_vehicle(STREET_CAR, 115.0, "car")
+		_vehicle(STREET_CAR, 0.0, "car_street")
 	elif background == "parking":
 		for index in range(int(shot.get("cars", 0))):
-			_vehicle(PARKING[index], 99.0, "car")
+			_vehicle(PARKING[index], 0.0, "car_parking")
 	if shot.type == "walk":
 		_world_hotspots()
 	var sorted: Array = shot.visibleActors.duplicate()
@@ -156,8 +146,10 @@ func _world_hotspots() -> void:
 			if panda_time <= 0 and not materials.get("panda_used", false):
 				_pin(PANDA + Vector2(0, 12))
 		elif hotspot.id == "phone":
-			round_box(Rect2(PHONE_HOTSPOT - Vector2(14, 21), Vector2(28, 42)), NIGHT, 6, ACCENT)
-			round_box(Rect2(PHONE_HOTSPOT - Vector2(9, 15), Vector2(18, 29)), Color("#dba58e"), 3)
+			var texture := image_asset("phone_prop")
+			if texture:
+				var size := texture.get_size() * ART_SCALE
+				draw_texture_rect(texture, Rect2(PHONE_HOTSPOT - size * 0.5, size), false)
 			_pin(PHONE_HOTSPOT + Vector2(0, 31))
 		elif hotspot.id == "car":
 			_pin(STREET_CAR + Vector2(0, 16))
@@ -171,53 +163,55 @@ func _pin(position: Vector2) -> void:
 
 func _feet(actor: Dictionary) -> Vector2:
 	if actor.id == "ayu":
-		return Vector2(96, 456) if shot.type == "dialogue" else player_feet
+		if shot.type == "dialogue":
+			return Vector2(96, 456)
+		return player_feet + Vector2(0, 5) if shot.sceneId == "shanghai_street" else player_feet
 	if actor.id == "panda":
 		return PANDA
 	return Vector2(264 if actor.slot == "right" else 96, 456)
 
 func _world_actor(actor: Dictionary) -> void:
-	var feet := _feet(actor)
 	var key: String = actor.id
 	var info: Dictionary = manifest.get("sprites", {}).get(key, {})
 	var file: String = info.get("idle", "")
 	var frames: Array = info.get("walk", [])
 	if key == "ayu" and walk_frame >= 0 and not frames.is_empty():
 		file = frames[walk_frame % frames.size()]
-	if key == "panda" and panda_time > 0.0:
-		file = info.get("action", file)
-	var texture := _texture(file)
-	if not texture:
-		# Missing actors use an unlabelled ground mark; their text card is in a fixed slot.
-		draw_arc(feet, 11, 0, TAU, 24, ACCENT, 1.4, true)
-		return
-	var tall := 122.0 if shot.type == "dialogue" else 82.0
-	if key == "panda":
-		tall = 69.0
-	var wide := tall * texture.get_size().aspect()
-	_shadow(feet, wide * 0.4)
+	elif key == "axiao" and shot.type == "dialogue" and shot.speaker == "axiao":
+		file = info.get("phone", file)
+	elif key == "panda":
+		if panda_time > 0.45:
+			file = info.get("action", file)
+		elif panda_time > 0.0:
+			file = info.get("slow", file)
+		elif materials.get("panda_used", false):
+			file = info.get("sleep", file)
 	var flip: bool = key == "ayu" and facing < 0.0 and shot.type != "dialogue"
-	if flip:
-		draw_set_transform(feet, 0.0, Vector2(-1, 1))
-		draw_texture_rect(texture, Rect2(-wide * 0.5, -tall, wide, tall), false)
-		draw_set_transform(Vector2.ZERO)
-	else:
-		draw_texture_rect(texture, Rect2(feet - Vector2(wide * 0.5, tall), Vector2(wide, tall)), false)
+	_draw_sprite(_texture(file), _feet(actor), float(info.get("footBottom", 0)), flip)
+
+func _draw_sprite(texture: Texture2D, feet: Vector2, foot_bottom := 0.0, flip := false) -> void:
+	if not texture:
+		return
+	var size := texture.get_size() * ART_SCALE
+	feet = _pixel_position(feet)
+	_shadow(feet, size.x * 0.32)
+	var top_left := Vector2(-floorf(texture.get_width() * 0.5) * ART_SCALE, -size.y + foot_bottom * ART_SCALE)
+	draw_set_transform(feet, 0.0, Vector2(-1, 1) if flip else Vector2.ONE)
+	draw_texture_rect(texture, Rect2(top_left, size), false)
+	draw_set_transform(Vector2.ZERO)
+
+func _pixel_position(position: Vector2) -> Vector2:
+	return (position / ART_SCALE).round() * ART_SCALE
 
 func _vignette() -> void:
 	for i in range(22):
 		var y := float(i) * 5.0
 		var alpha := 0.86 * pow(1.0 - y / 110.0, 2.0)
-		draw_rect(Rect2(0, y, 360, 5), Color(0.09, 0.07, 0.14, alpha))
-		draw_rect(Rect2(0, 635 - y, 360, 5), Color(0.09, 0.07, 0.14, alpha))
+		draw_rect(Rect2(0, y, 360, 5), Color(0.14, 0.02, 0.035, alpha))
+		draw_rect(Rect2(0, 635 - y, 360, 5), Color(0.14, 0.02, 0.035, alpha))
 
 func _road() -> void:
-	var background := _texture(str(manifest.get("backgrounds", {}).get("driving", {}).get("file", "")))
-	if background:
-		_cover(background, Rect2(0, 0, 360, 640))
-	else:
-		draw_rect(Rect2(0, 0, 360, 640), Color("#494260"))
-		draw_rect(Rect2(0, 158, 360, 482), Color("#755965"))
+	_draw_background("driving")
 	draw_colored_polygon(PackedVector2Array([
 		_project(-1.5, 0), _project(1.5, 0), _project(1.5, 1.09), _project(-1.5, 1.09)
 	]), Color("#383443"))
@@ -231,15 +225,17 @@ func _road() -> void:
 		var depth := traffic_depth(index, distance)
 		if depth >= 0.0 and depth <= 1.06:
 			_vehicle(_project(traffic_lane(index) - 1.0, depth), 7 + 74 * depth * depth, traffic_image(index))
-	_vehicle(_project(lane - 1.0, CAR_DEPTH), 78.0, "car_rear")
+	var player_car := _project(lane - 1.0, CAR_DEPTH)
+	player_car.x = clampf(player_car.x, 47.0, CANVAS.x - 47.0)
+	_vehicle(player_car, 78.0, "car_rear")
 	_vignette()
 	for target in range(3):
-		var center := Vector2(66 + target * 114, 570)
-		var fill := Color("#86516c") if roundi(lane) == target else Color("#261d31")
-		round_box(Rect2(center - Vector2(35, 20), Vector2(70, 40)), fill, 14, Color("#ad8193"))
-		draw_circle(center, 4, CREAM, true, -1, true)
-	draw_rect(Rect2(20, 618, 320, 2), Color("#796174"))
-	draw_rect(Rect2(20, 618, 320 * clampf(distance / float(shot.duration), 0.0, 1.0), 2), ACCENT)
+		var center := Vector2(66 + target * 114, 596)
+		_draw_skin("bubble_right" if roundi(lane) == target else "bubble_system",
+			Rect2(center - Vector2(35, 15), Vector2(70, 30)))
+		draw_circle(center, 3, DARK_RED if roundi(lane) == target else CREAM)
+	draw_rect(Rect2(20, 620, 320, 2), Color("#662016"))
+	draw_rect(Rect2(20, 620, 320 * clampf(distance / float(shot.duration), 0.0, 1.0), 2), ACCENT)
 	if slow > 0.0:
 		draw_rect(Rect2(0, 110, 360, 500), Color(0.68, 0.31, 0.29, slow * 0.11))
 
@@ -257,16 +253,23 @@ func _project(offset: float, depth: float) -> Vector2:
 
 func _vehicle(feet: Vector2, wide: float, key: String) -> void:
 	var texture := image_asset(key)
-	if not texture and key != "car":
+	if not texture:
 		texture = image_asset("car")
-	_shadow(feet, wide * 0.47)
-	if texture:
-		var tall := wide / texture.get_size().aspect()
-		draw_texture_rect(texture, Rect2(feet - Vector2(wide / 2.0, tall), Vector2(wide, tall)), false)
-	else:
-		var tint := Color("#8965a2") if key.begins_with("car") else Color("#aeb1c6")
-		round_box(Rect2(feet - Vector2(wide / 2.0, wide * 0.43), Vector2(wide, wide * 0.41)), tint, 4)
-		draw_line(feet - Vector2(wide * 0.35, wide * 0.22), feet + Vector2(wide * 0.35, -wide * 0.22), NIGHT, 2, true)
+	if not texture:
+		return
+	if wide <= 0.0:
+		var native_size := texture.get_size() * ART_SCALE
+		feet = _pixel_position(feet)
+		_shadow(feet, native_size.x * 0.47)
+		var origin := _pixel_position(feet - Vector2(native_size.x * 0.5, native_size.y))
+		draw_texture_rect(texture, Rect2(origin, native_size), false)
+		return
+	var native_wide := texture.get_width() * ART_SCALE
+	var divisor := pow(2.0, maxf(0.0, roundf(log(native_wide / wide) / log(2.0))))
+	var size := (texture.get_size() / divisor).round() * ART_SCALE
+	feet = _pixel_position(feet)
+	_shadow(feet, size.x * 0.47)
+	draw_texture_rect(texture, Rect2(_pixel_position(feet - Vector2(size.x * 0.5, size.y)), size), false)
 
 func _shadow(feet: Vector2, wide: float) -> void:
 	draw_set_transform(feet + Vector2(0, 1), 0.0, Vector2(1, 0.23))
@@ -275,63 +278,95 @@ func _shadow(feet: Vector2, wide: float) -> void:
 
 func _night() -> void:
 	var progress := smoothstep(0.0, 0.9, time / float(shot.duration))
-	var daylight: Dictionary = manifest.get("backgrounds", {}).get("chengdu", {})
-	var image := _texture(daylight.get("file", ""))
-	if image:
-		_cover(image, Rect2(Vector2.ZERO, CANVAS))
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.035, 0.047, 0.098, progress))
-	var phone_size := Vector2(50, 88).lerp(PHONE.size, smoothstep(0.42, 1.0, progress))
-	var phone_rect := Rect2(PHONE.get_center() - phone_size * 0.5, phone_size)
-	round_box(phone_rect, Color(0.063, 0.055, 0.094, progress), 23, Color(0.50, 0.40, 0.47, progress))
-	round_box(phone_rect.grow(-5), Color(0.145, 0.16, 0.26, progress), 19)
+	_draw_background("chengdu")
+	_draw_room(progress)
+	_draw_phone_shell(progress)
+
+func _draw_room(opacity: float = 1.0) -> void:
+	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(ROOM_EDGE, opacity))
+	var night: Dictionary = manifest.get("backgrounds", {}).get("night", {})
+	var room := _texture(night.get("file", ""))
+	if room:
+		draw_texture_rect(room, Rect2(ROOM_ORIGIN * ART_SCALE, room.get_size() * ART_SCALE), false,
+			Color(ROOM_TINT, opacity))
+
+func phone_screen_rect() -> Rect2:
+	return Rect2(PHONE_ORIGIN + PHONE_OPENING.position * ART_SCALE, PHONE_OPENING.size * ART_SCALE)
+
+func _draw_phone_shell(opacity: float = 1.0, incoming := false) -> void:
+	var screen := phone_screen_rect()
+	var tint := Color(1, 1, 1, opacity)
+	var call := image_asset("call_screen") if incoming else null
+	if call:
+		draw_texture_rect(call, screen, false, tint)
+	else:
+		draw_rect(screen, Color(Color("#5e0e0e"), opacity))
+	_draw_art("phone_frame", PHONE_ORIGIN, tint)
 
 func _phone() -> void:
 	var terminal: bool = shot.type == "terminal"
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color("#0f1120") if terminal else Color("#221c2c"))
-	var screen := Color("#252943") if terminal else Color("#31293b")
-	round_box(PHONE, Color("#100e18"), 23, Color("#806577"))
-	round_box(PHONE.grow(-5), screen, 19)
-	round_box(Rect2(155, 71, 50, 4), Color("#120f1c"), 2)
-	round_box(Rect2(145, 614, 70, 3), Color("#8f758f"), 2)
 	if terminal:
-		for index in range(6):
-			draw_circle(Vector2(180, 303), 76 + index * 9, Color(0.69, 0.64, 0.9, 0.035), false, 1.0, true)
-		_avatar("toretto", Rect2(130, 253, 100, 100))
-		draw_arc(Vector2(180, 303), 56, 0, TAU, 64, Color("#a899bd"), 1.5, true)
-		return
-	if shot.type == "chat":
+		_draw_room()
+	else:
+		draw_rect(Rect2(Vector2.ZERO, CANVAS), DARK_RED)
+	_draw_phone_shell(1.0, terminal)
+	if terminal:
+		_avatar("toretto", Vector2(180, 391) - Vector2.ONE * AVATAR_SIZE * 0.5)
+	elif shot.type == "chat":
 		for row: Dictionary in chat_rows:
-			var right: bool = row.speaker == "ayu"
-			var y: float = row.y
-			_avatar(row.speaker, Rect2(282 if right else 43, y + 8, 29, 29))
-			var bubble := Rect2(159 if right else 80, y, 114 if right else 188, float(row.height))
-			round_box(bubble, Color("#496054") if right else Color("#44394e"), 8)
-			if right and int(time * 3.0) % 2 == 0:
-				draw_line(Vector2(237, y + 11), Vector2(237, y + 27), CREAM, 1.2, true)
+			_draw_skin(row.skin, row.bubble)
+			if row.speaker != "system":
+				_avatar(row.speaker, row.avatar, 0.5)
+			if row.speaker == "ayu" and int(time * 3.0) % 2 == 0:
+				draw_rect(Rect2(row.bubble.end.x - 10, row.bubble.position.y + 7, ART_SCALE, 12), DARK_RED)
 	elif shot.type == "phone":
 		for index in range(shot.visibleActors.size()):
-			_avatar(shot.visibleActors[index].id, Rect2(82 + index * 71, 276, 52, 52))
+			var origin := Vector2(104 + index * 55, 368)
+			_avatar(shot.visibleActors[index].id, origin)
 	else:
-		round_box(Rect2(130, 247, 100, 100), Color("#55405d"), 24, Color("#876787"))
-		round_box(Rect2(148, 269, 63, 43), CREAM, 12)
-		draw_colored_polygon(PackedVector2Array([Vector2(156, 301), Vector2(156, 320), Vector2(174, 306)]), CREAM)
+		_draw_skin("bubble_left", Rect2(149, 379, 62, 40))
 		for x in [167, 180, 193]:
-			draw_circle(Vector2(x, 291), 2.5, Color("#55405d"), true, -1, true)
+			draw_rect(Rect2(x - 2, 397, 4, 4), DARK_RED)
 
-func _avatar(id: String, rect: Rect2) -> void:
-	var allowed := false
+func _avatar(id: String, origin: Vector2, ratio := 1.0) -> void:
 	for actor: Dictionary in shot.visibleActors:
 		if actor.id == id and actor.layer == "phone":
-			allowed = true
-			break
-	if not allowed:
-		return
-	var image := image_asset(id + "_avatar")
-	if image:
-		_cover(image, rect)
-	else:
-		round_box(rect, Color("#68536f"), 7, Color("#988099"))
-		draw_circle(rect.get_center(), rect.size.x * 0.17, Color("#c3a9b2"), false, 1.1, true)
+			var texture := image_asset(id + "_avatar")
+			if texture:
+				var size := texture.get_size() * ART_SCALE * ratio
+				draw_texture_rect(texture, Rect2(_pixel_position(origin), size), false)
+			return
+
+func _draw_art(key: String, origin: Vector2, tint := Color.WHITE) -> void:
+	var texture := image_asset(key)
+	if texture and tint.a > 0.0:
+		draw_texture_rect(texture, Rect2(_pixel_position(origin), texture.get_size() * ART_SCALE), false, tint)
+
+func _draw_background(key: String) -> void:
+	var backdrop: Dictionary = manifest.get("backgrounds", {}).get(key, {})
+	var texture := _texture(str(backdrop.get("file", "")))
+	if texture:
+		draw_texture_rect(texture, Rect2(Vector2.ZERO, CANVAS), false)
+
+func _draw_skin(key: String, rect: Rect2) -> void:
+	var skin := pixel_skin(key)
+	if skin:
+		draw_set_transform(_pixel_position(rect.position), 0.0, Vector2.ONE * ART_SCALE)
+		draw_style_box(skin, Rect2(Vector2.ZERO, rect.size / ART_SCALE))
+		draw_set_transform(Vector2.ZERO)
+
+func pixel_skin(key: String) -> StyleBoxTexture:
+	if not skin_cache.has(key):
+		var texture := image_asset(key)
+		if not texture:
+			return null
+		var skin := StyleBoxTexture.new()
+		skin.texture = texture
+		for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+			skin.set_texture_margin(side, 12)
+			skin.set_content_margin(side, 0)
+		skin_cache[key] = skin
+	return skin_cache[key]
 
 func image_asset(key: String) -> Texture2D:
 	return _texture(str(manifest.get("images", {}).get(key, "")))
@@ -343,17 +378,3 @@ func _texture(file: String) -> Texture2D:
 		var path := ASSET_ROOT + file
 		texture_cache[file] = load(path) if ResourceLoader.exists(path) else null
 	return texture_cache[file]
-
-func _cover(texture: Texture2D, rect: Rect2) -> void:
-	var source := texture.get_size()
-	var crop_size := rect.size / maxf(rect.size.x / source.x, rect.size.y / source.y)
-	draw_texture_rect_region(texture, rect, Rect2((source - crop_size) * 0.5, crop_size))
-
-func round_box(rect: Rect2, fill: Color, radius: int, border := Color.TRANSPARENT) -> void:
-	var box := StyleBoxFlat.new()
-	box.bg_color = fill
-	box.set_corner_radius_all(radius)
-	box.border_color = border
-	if border.a > 0.0:
-		box.set_border_width_all(1)
-	draw_style_box(box, rect)

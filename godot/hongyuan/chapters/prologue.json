@@ -10,7 +10,14 @@
       "actorMode": "none",
       "actorSlot": null,
       "background": "invitation",
-      "visibleActors": [],
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "invitation"
+        }
+      ],
       "copyId": "A0-1",
       "objectiveId": "G-03"
     },

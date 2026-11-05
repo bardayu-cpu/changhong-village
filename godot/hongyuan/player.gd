@@ -9,6 +9,11 @@ const SAVE_INTERVAL := 0.35
 const CHAT_ACCELERATED_INTERVAL := 0.50
 const PHONE_NOTIFICATION := Rect2(34, 77, 292, 34)
 const DIALOGUE_BOX := Rect2(22, 453, 316, 144)
+const CHAT_FONT_SIZE := 13
+const CHAT_LINE_SPACING := 2
+const CHAT_PADDING_X := 8.0
+const CHAT_PADDING_Y := 6.0
+const CHAT_GAP := 4.0
 
 var stage := Stage.new()
 var slots := Control.new()
@@ -396,9 +401,9 @@ func _present() -> void:
 		"notification":
 			_button(shot.copyId, PHONE_NOTIFICATION, _advance)
 		"phone":
-			_label(_text(shot.groupId), Rect2(44, 452, 272, 80), 18, Stage.CREAM, true)
+			_label(_text(shot.groupId), Rect2(91, 453, 178, 55), 16, Stage.CREAM, true)
 		"terminal":
-			_label(_text(shot.copyId), Rect2(44, 442, 272, 71), 23, Stage.CREAM, true)
+			_label(_text(shot.copyId), Rect2(91, 441, 178, 59), 19, Stage.CREAM, true)
 	if kind in ["walk", "drive"] and _needs_art():
 		for child in slots.get_children():
 			child.hide()
@@ -419,29 +424,58 @@ func _present_chat() -> void:
 	var first := active_index
 	while first > 0 and playlist[first - 1].type == "chat" and playlist[first - 1].sceneId == shot.sceneId:
 		first -= 1
+	var y := 440.0
+	var screen := stage.phone_screen_rect()
 	for index in range(first, active_index + 1):
 		var message: Dictionary = playlist[index]
 		var text := _text(message.copyId)
 		var latest := index == active_index
 		if message.speaker == "system":
-			_label(text, PHONE_NOTIFICATION, 12, Color("#dcc6ce"), latest)
+			stage.chat_rows.append({"speaker": "system", "skin": "bubble_system", "bubble": PHONE_NOTIFICATION})
+			_label(text, PHONE_NOTIFICATION, 12, Stage.CREAM, latest)
 			continue
-		var row := index - first - 1
+
 		var right: bool = message.speaker == "ayu"
-		var y: float = [442.0, 509.0, 560.0][row]
-		var height := 56.0 if row == 0 else 42.0
-		stage.chat_rows.append({"speaker": message.speaker, "y": y, "height": height})
-		_label(text, Rect2(165 if right else 90, y, 104 if right else 168, height), 14, Stage.CREAM, latest, HORIZONTAL_ALIGNMENT_LEFT)
+		var avatar_width := Stage.AVATAR_SIZE * 0.5
+		var avatar_x := screen.end.x - avatar_width - 5 if right else screen.position.x + 5
+		var width := 96.0 if right else 139.0
+		var x := avatar_x - width - 4 if right else avatar_x + avatar_width + 4
+		var label := Label.new()
+		var text_box := Rect2(x + CHAT_PADDING_X, y + CHAT_PADDING_Y, width - CHAT_PADDING_X * 2, 1)
+		_style_label(label, text_box, CHAT_FONT_SIZE, Stage.DARK_RED)
+		label.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
+		label.add_theme_constant_override("line_spacing", CHAT_LINE_SPACING)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		label.text = text
+		slots.add_child(label)
+
+		var line_count := label.get_line_count()
+		var text_height := 0
+		for line in range(line_count):
+			text_height += label.get_line_height(line)
+		text_height += CHAT_LINE_SPACING * maxi(0, line_count - 1)
+		label.size.y = text_height
+		var height := maxf(float(text_height) + 2 * CHAT_PADDING_Y, avatar_width + 2)
+		stage.chat_rows.append({
+			"speaker": message.speaker,
+			"skin": "bubble_right" if right else "bubble_left",
+			"bubble": Rect2(x, y, width, height),
+			"avatar": Vector2(avatar_x, y + (height - avatar_width) * 0.5),
+		})
+		if latest:
+			_fade_in(label, 2.0)
+		y += height + CHAT_GAP
 
 func _dialogue(text: String) -> void:
 	var panel := Panel.new()
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.position = DIALOGUE_BOX.position
 	panel.size = DIALOGUE_BOX.size
-	panel.add_theme_stylebox_override("panel", _style(Color("#271d32"), Color("#947184"), 12))
+	var skin := stage.pixel_skin("bubble_left")
+	if skin:
+		panel.add_theme_stylebox_override("panel", skin)
 	slots.add_child(panel)
-	var color := Stage.CREAM
-	_label(text, Rect2(42, 465, 276, 119), 18, color, true)
+	_label(text, Rect2(42, 465, 276, 119), 18, Stage.DARK_RED, true)
 
 func _button(id: String, rect: Rect2, action: Callable) -> void:
 	var button := Button.new()
@@ -450,9 +484,14 @@ func _button(id: String, rect: Rect2, action: Callable) -> void:
 	button.text = _text(id)
 	button.add_theme_font_override("font", FONT)
 	button.add_theme_font_size_override("font_size", 15)
-	button.add_theme_stylebox_override("normal", _style(Color("#6a4157"), Color("#ca927f"), 11))
-	button.add_theme_stylebox_override("hover", _style(Color("#805167"), Color("#e1a785"), 11))
-	button.add_theme_stylebox_override("pressed", _style(Color("#4e3047"), Color("#e1a785"), 11))
+	for state_name in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+		button.add_theme_color_override(state_name, Stage.DARK_RED)
+	var normal := stage.pixel_skin("bubble_right")
+	var hover := stage.pixel_skin("bubble_left")
+	if normal and hover:
+		button.add_theme_stylebox_override("normal", normal)
+		button.add_theme_stylebox_override("hover", hover)
+		button.add_theme_stylebox_override("pressed", hover)
 	button.pressed.connect(func() -> void:
 		if not paused:
 			action.call()
@@ -496,21 +535,13 @@ func _style_label(label: Label, rect: Rect2, font_size: int, color: Color) -> vo
 	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_constant_override("line_spacing", 5)
 	label.add_theme_color_override("font_color", color)
-	label.add_theme_color_override("font_shadow_color", Color(0.12, 0.08, 0.16, 0.74))
+	label.add_theme_color_override("font_shadow_color", Color(0.12, 0.02, 0.04, 0.74) if color == Stage.CREAM else Color.TRANSPARENT)
 	label.add_theme_constant_override("shadow_offset_y", 1)
 
-func _style(fill: Color, border: Color, radius: int) -> StyleBoxFlat:
-	var box := StyleBoxFlat.new()
-	box.bg_color = fill
-	box.border_color = border
-	box.set_border_width_all(1)
-	box.set_corner_radius_all(radius)
-	return box
-
-func _fade_in(control: Control) -> void:
+func _fade_in(control: Control, rise := 4.0) -> void:
 	var target := control.position.y
 	control.modulate.a = 0.0
-	control.position.y += 4.0
+	control.position.y += rise
 	var tween := control.create_tween().set_parallel()
 	tween.tween_property(control, "modulate:a", 1.0, 0.20)
 	tween.tween_property(control, "position:y", target, 0.20)
