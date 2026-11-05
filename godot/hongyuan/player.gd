@@ -45,6 +45,7 @@ var pointer_dragged := false
 var stick := Vector2.ZERO
 var stick_pointer := false
 var parking_held := false
+var parking_hold_time := 0.0
 var parking_started := false
 var parking_done := true
 var parking_progress := 0.0
@@ -372,6 +373,8 @@ func _on_stage_input(event: InputEvent) -> void:
 			stick_pointer = _controlled_walk() and event.position.x < 180 and event.position.y > 320
 			if _parking_active() and not parking_align and (Stage.BRAKE.has_point(event.position) or Stage.STEERING.has_point(event.position)):
 				parking_held = true
+				parking_hold_time = 0.0
+				parking_speed = maxf(parking_speed, 0.25)
 				parking_started = true
 				parking_grab_angle = parking_angle
 				parking_sound_steer = 0.0
@@ -384,11 +387,12 @@ func _on_stage_input(event: InputEvent) -> void:
 				return
 			var quick := not pointer_dragged and Time.get_ticks_msec() - pointer_started < 350
 			if parking_held:
-				parking_align = true
+				# A tap is only a pedal touch, not an automatic chapter-advance button.
+				parking_align = parking_hold_time >= 0.30 or absf(parking_steer) >= 0.20
 				parking_speed = 0.0
 				_parking_sound(parking_stop_sound)
 				# Good steering finishes immediately; assistance only rotates at rest.
-				if absf(parking_angle) <= 0.025:
+				if parking_align and absf(parking_angle) <= 0.025:
 					parking_angle = 0.0
 					_finish_parking()
 			if stick_pointer and pointer_dragged:
@@ -481,6 +485,7 @@ func _park(dt: float) -> void:
 		if is_zero_approx(parking_angle):
 			_finish_parking()
 	elif parking_held:
+		parking_hold_time += dt
 		parking_speed = move_toward(parking_speed, 0.12, dt * 0.8)
 		parking_progress = minf(0.85, parking_progress + dt * parking_speed * 0.55)
 		if parking_steerable:

@@ -30,6 +30,18 @@ func run() -> void:
 	root.add_child(p)
 	p.set_process(false)
 	var origin: Vector2 = p.Stage.STEERING.get_center()
+	start(p)
+	button(p, origin, true)
+	p._process(0.05)
+	button(p, origin, false)
+	for frame in range(120): p._process(0.016)
+	check(not p.parking_done and not p.parking_align and p.parking_speed == 0, "A short tap cannot auto-complete parking")
+	button(p, origin, true)
+	for frame in range(30): p._process(0.016)
+	check(p.parking_speed > 0 and p.parking_progress > 0.05, "Holding again after a short tap resumes movement")
+	button(p, origin, false)
+	for frame in range(120): p._process(0.016)
+	check(p.parking_done, "An intentional hold can finish without a failure state")
 	var result: Array[float] = []
 	for direction in [-1, 1]:
 		start(p)
