@@ -1,0 +1,18 @@
+{
+  frameId: 'A1B220C368633C8676515891846BD931',
+  loaderId: '857B1AC1237D524B2D61BD9ECCF2D6D7',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"revision":1,"runId":"66c4d833f175dc23bc0c94375060da07","slow":0,"stepId":"prologue/closed","version":1}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"revision":33,"runId":"66c4d833f175dc23bc0c94375060da07","slow":0,"stepId":"shanghai/board_car","version":1}
+OK expect
+OK shot
+undefined
+OK eval
+{"chatFast":false,"driveDistance":0.0,"elapsed":0.0,"facing":1.0,"feet":[104.0,451.0],"hitIndex":-1,"lane":1,"lanePosition":1.0,"materials":{},"pandaUsed":false,"revision":33,"runId":"66c4d833f175dc23bc0c94375060da07","slow":0.0,"stepId":"shanghai/board_car","version":1}
+OK current
+viewport [360,640,1,1]
+OK eval

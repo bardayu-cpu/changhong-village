@@ -1,0 +1,27 @@
+OK clear-origin
+OK audio-observer
+{
+  frameId: 'A1B220C368633C8676515891846BD931',
+  loaderId: '83F32244B344E3B1DA39702FB0E3F1F6',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":1,"runId":"07610bf4a589466fc4a4c3d32357f35e","slow":0,"stepId":"prologue/closed","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+viewport [360,640,1,1]
+OK eval
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":33,"runId":"07610bf4a589466fc4a4c3d32357f35e","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+{ mimeType: 'video/webm;codecs=vp8,opus', width: 360, height: 640 }
+OK rec-start
+OK tap
+file:///Users/kayra_ayu/Documents/Codex/2026-11-05/1-11-5-11-9-gpt/work/w2-stations/d4/r4-qa.mjs:220
+      if (!latest) throw new Error(`Wait timed out for ${condition}`);
+                         ^
+
+Error: Wait timed out for state.feet[0]>164 && !state.walking
+    at commandLine (file:///Users/kayra_ayu/Documents/Codex/2026-11-05/1-11-5-11-9-gpt/work/w2-stations/d4/r4-qa.mjs:220:26)
+    at async file:///Users/kayra_ayu/Documents/Codex/2026-11-05/1-11-5-11-9-gpt/work/w2-stations/d4/r4-qa.mjs:299:9
+
+Node.js v24.21.0

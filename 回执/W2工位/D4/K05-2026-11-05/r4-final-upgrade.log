@@ -1,0 +1,11 @@
+{
+  frameId: 'A1B220C368633C8676515891846BD931',
+  loaderId: '6176F2C5538634175E59CBCD07A1ADCF',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":35,"runId":"66c4d833f175dc23bc0c94375060da07","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+OK shot
+viewport [360,640,1,1]
+OK eval

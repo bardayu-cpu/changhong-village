@@ -1,0 +1,41 @@
+OK clear-origin
+OK audio-observer
+{
+  frameId: '18DF15B8474A3CE12BF65C15949E8B46',
+  loaderId: '131DA54CC2BA04B00B653E8029415505',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":1,"runId":"fd36930b828a0b19c5380cc7bfbfd351","slow":0,"stepId":"prologue/closed","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+viewport [360,640,1,1]
+OK eval
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":33,"runId":"fd36930b828a0b19c5380cc7bfbfd351","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+{ mimeType: 'video/webm;codecs=vp8,opus', width: 360, height: 640 }
+OK rec-start
+OK wait
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":1.5,"facing":1,"feet":[170,449.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":36,"runId":"fd36930b828a0b19c5380cc7bfbfd351","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[170,449.999969482422],"walking":false}
+OK expect
+OK touch-start
+OK touch-move
+OK wait
+OK touch-end
+{"chatFast":false,"driveDistance":0,"elapsed":2.66666666666666,"facing":1,"feet":[170,478],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":40,"runId":"fd36930b828a0b19c5380cc7bfbfd351","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[170,478],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":3.38333333333333,"facing":1,"feet":[219.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":43,"runId":"fd36930b828a0b19c5380cc7bfbfd351","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[219.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+OK tap
+file:///Users/kayra_ayu/Documents/Codex/2026-11-05/1-11-5-11-9-gpt/work/w2-stations/d4/r4-final-qa.mjs:220
+      if (!latest) throw new Error(`Wait timed out for ${condition}`);
+                         ^
+
+Error: Wait timed out for state.stepId==='shanghai/board_car' && !state.walking && Math.abs(state.feet[0]-226)<1
+    at commandLine (file:///Users/kayra_ayu/Documents/Codex/2026-11-05/1-11-5-11-9-gpt/work/w2-stations/d4/r4-final-qa.mjs:220:26)
+    at async file:///Users/kayra_ayu/Documents/Codex/2026-11-05/1-11-5-11-9-gpt/work/w2-stations/d4/r4-final-qa.mjs:299:9
+
+Node.js v24.21.0

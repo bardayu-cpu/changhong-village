@@ -1,0 +1,102 @@
+OK clear-origin
+OK audio-observer
+{
+  frameId: 'A1B220C368633C8676515891846BD931',
+  loaderId: '5A4B40C63D385E9CE58785B32F176F4E',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":1,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"prologue/closed","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+viewport [360,640,1,1]
+OK eval
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":33,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+{ mimeType: 'video/webm;codecs=vp8,opus', width: 360, height: 640 }
+OK rec-start
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0.816666666666668,"facing":1,"feet":[170,449.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":36,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[170,449.999969482422],"walking":false}
+OK expect
+OK touch-start
+OK touch-move
+OK wait
+OK touch-end
+{"chatFast":false,"driveDistance":0,"elapsed":1.85,"facing":1,"feet":[170,478],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":39,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[170,478],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":2.53333333333333,"facing":1,"feet":[219.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":42,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[219.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":2.89999999999999,"facing":1,"feet":[225.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":44,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":3.29999999999999,"facing":-1,"feet":[219.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":46,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[219.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":3.69999999999999,"facing":1,"feet":[225.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":48,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":50,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/drive","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+undefined
+OK eval
+OK shot
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":50,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/drive","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK swipe
+{"chatFast":false,"driveDistance":0.849999333333335,"elapsed":0.849999333333335,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":0,"lanePosition":0,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":53,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/drive","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK wait
+OK swipe
+{"chatFast":false,"driveDistance":3.06657733333333,"elapsed":3.06657733333333,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"baseX":0,"done":true,"lateral":0,"progress":1,"speed":1,"started":false,"steeringVersion":1},"revision":60,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/drive","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0.223255770872137,"baseX":0,"done":false,"lateral":-2.11205557189055,"progress":0,"speed":1,"started":false,"steeringVersion":1},"revision":181,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+drive-hits [{"id":2,"lane":2,"distance":13.7661493333335,"elapsed":13.7661493333335},{"id":4,"lane":2,"distance":22.863785413334,"elapsed":23.349099333334},{"id":8,"lane":2,"distance":41.0610574933347,"elapsed":42.0316853333348}]
+OK eval
+OK shot
+OK wait
+{"steeringInput":"correct","angle":0.223255770872137,"displacement":-45}
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0.0,"facing":1.0,"feet":[96.0,456.0],"hitIndex":8,"lane":2,"lanePosition":2.0,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":-0.00174426727483584,"baseX":0.0,"done":false,"lateral":-0.654889352110935,"progress":0.278544444444445,"speed":0.426666666666668,"started":true,"steeringVersion":1},"revision":186,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0.0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK parking-steer
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0.0,"facing":1.0,"feet":[96.0,456.0],"hitIndex":8,"lane":2,"lanePosition":2.0,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0.0,"baseX":0.0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0.0,"started":true,"steeringVersion":1},"revision":188,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0.0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK current
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":188,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":205,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/approach_axiao","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK tap
+OK wait
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0.15,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":206,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/approach_axiao","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK touch-start
+OK touch-move
+OK wait
+OK touch-end
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":1.41666666666667,"facing":1,"feet":[96,478],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":210,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/approach_axiao","version":1,"walkTarget":[96,478],"walking":false}
+OK expect
+OK shot
+OK tap
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":2.63333333333333,"facing":1,"feet":[213.999984741211,455.999969482422],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":214,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/approach_axiao","version":1,"walkTarget":[213.999984741211,455.999969482422],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0,"facing":1,"feet":[213.999984741211,455.999969482422],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":216,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/line_1","version":1,"walkTarget":[213.999984741211,455.999969482422],"walking":false}
+OK expect
+OK swipe
+OK tap
+{"chatFast":false,"driveDistance":44.9755675733348,"elapsed":0.700000000000001,"facing":1,"feet":[213.999984741211,455.999969482422],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"revision":218,"runId":"ca746807eceeb28893e0a0eb6b752834","slow":0,"stepId":"shanghai/line_1","version":1,"walkTarget":[213.999984741211,455.999969482422],"walking":false}
+OK expect
+OK shot
+parking-audio {"observed":true,"inputs":[{"type":"touchmove","at":72875.59999999404,"x":90,"y":552},{"type":"touchmove","at":72940.59999999404,"x":95,"y":552},{"type":"touchmove","at":73007.09999999404,"x":100,"y":552},{"type":"touchmove","at":73074,"x":105,"y":552},{"type":"touchmove","at":73140.09999999404,"x":110,"y":552},{"type":"touchmove","at":73207.30000001192,"x":115,"y":552},{"type":"touchmove","at":73273.80000001192,"x":120,"y":552},{"type":"touchmove","at":73340.09999999404,"x":125,"y":552},{"type":"touchmove","at":73406.59999999404,"x":130,"y":552},{"type":"touchend","at":73441.40000000596,"x":130,"y":552}],"peaks":[{"at":29476.09999999404,"peak":0.06648056954145432},{"at":39042.5,"peak":0.08941186219453812},{"at":57724,"peak":0.08941186219453812},{"at":63073.59999999404,"peak":0.06382134556770325},{"at":63224.40000000596,"peak":0.05714932829141617},{"at":64057.70000001788,"peak":0.07505033165216446}],"stateChanges":[{"at":62143,"stepId":"shanghai/park","parking":{"align":false,"angle":0.223255770872137,"baseX":0,"done":false,"lateral":-2.11205557189055,"progress":0,"speed":1,"started":false,"steeringVersion":1},"lane":2,"slow":0},{"at":62525.80000001192,"stepId":"shanghai/park","parking":{"align":false,"angle":0.223255770872137,"baseX":0,"done":false,"lateral":-2.11205557189055,"progress":0,"speed":1,"started":false,"steeringVersion":1},"lane":2,"slow":0},{"at":62874.30000001192,"stepId":"shanghai/park","parking":{"align":false,"angle":0.223255770872137,"baseX":0,"done":false,"lateral":-2.11205557189055,"progress":0,"speed":1,"started":false,"steeringVersion":1},"lane":2,"slow":0},{"at":63059.59999999404,"stepId":"shanghai/park","parking":{"align":false,"angle":0.223255770872137,"baseX":0,"done":false,"lateral":-2.11205557189055,"progress":0,"speed":1,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":63407.5,"stepId":"shanghai/park","parking":{"align":false,"angle":-0.00174426727483584,"baseX":0,"done":false,"lateral":-0.638479293910463,"progress":0.170744444444445,"speed":0.706666666666667,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":63757.5,"stepId":"shanghai/park","parking":{"align":false,"angle":-0.00174426727483584,"baseX":0,"done":false,"lateral":-0.654889352110935,"progress":0.278544444444445,"speed":0.426666666666668,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":64046.80000001192,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":64047.40000000596,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":64390.5,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":64741.20000001788,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":65091,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":65441,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":65791.09999999404,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":66140.80000001192,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":66491.5,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0},{"at":66841.5,"stepId":"shanghai/park","parking":{"align":true,"angle":0,"baseX":0,"done":true,"lateral":-0.662164105802981,"progress":0.326333333333334,"speed":0,"started":true,"steeringVersion":1},"lane":2,"slow":0}]}
+OK eval
+{
+  elapsedSeconds: 61.814899999976156,
+  bytes: 8960257,
+  mimeType: 'video/webm;codecs=vp8,opus'
+}
+OK rec-stop
