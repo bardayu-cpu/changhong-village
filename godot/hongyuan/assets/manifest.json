@@ -782,6 +782,31 @@
       ],
       "method": "内置 imagegen 与透明像素整稿"
     },
+    "w2_review/welcome_court_r1.png": {
+      "origin": "D3 迎宾院构图小样",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "generationAttempt": 1,
+      "status": "reviewOnly",
+      "references": [
+        "godot/assets/layered/scene_luoman_entrance/layout.json",
+        "godot/docs/任务卡-A05-迎宾院.md"
+      ]
+    },
+    "w2_review/fountain_plaza_r1.png": {
+      "origin": "D3 喷泉广场构图小样",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "generationAttempt": 1,
+      "status": "reviewOnly",
+      "references": [
+        "godot/assets/layered/scene_luoman_plaza/layout.json"
+      ]
+    },
     "laugh.svg": {
       "origin": "W1 现有图标",
       "dimensions": [
