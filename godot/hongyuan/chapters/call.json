@@ -1,0 +1,195 @@
+{
+ "chapterId": "call",
+ "titleId": "G-08",
+ "steps": [
+  {
+   "id": "night_call",
+   "type": "scene",
+   "sceneId": "call_room",
+   "speaker": "system",
+   "actorMode": "none",
+   "actorSlot": null,
+   "background": "scene",
+   "visibleActors": [],
+   "scene": {
+    "badge": "G-02",
+    "bg": "l3_computer.webp",
+    "fill": "#1a120e",
+    "night": 0.25,
+    "walkArea": [
+     [
+      130,
+      400
+     ],
+     [
+      330,
+      375
+     ],
+     [
+      340,
+      600
+     ],
+     [
+      30,
+      600
+     ],
+     [
+      30,
+      452
+     ],
+     [
+      130,
+      440
+     ]
+    ],
+    "start": [
+     200,
+     545
+    ],
+    "actors": [
+     {
+      "id": "phone",
+      "tex": "w2/call/phone_ring_1.png|phone_prop.png",
+      "at": [
+       262,
+       334
+      ]
+     }
+    ],
+    "hotspots": [
+     {
+      "id": "phone",
+      "at": [
+       258,
+       392
+      ],
+      "snap": [
+       258,
+       392
+      ],
+      "face": 1,
+      "pose": "back"
+     }
+    ],
+    "beats": [
+     {
+      "card": "G-08",
+      "duration": 2.0
+     },
+     {
+      "narrate": "A3-1a"
+     },
+     {
+      "narrate": "A3-1b"
+     },
+     {
+      "go": "phone"
+     },
+     {
+      "game": "call",
+      "aside": "A3-D1",
+      "lines": [
+       {
+        "say": "A3-2a"
+       },
+       {
+        "say": "A3-2b"
+       },
+       {
+        "say": "A3-2c"
+       },
+       {
+        "say": "A3-2d",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2e",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2f"
+       },
+       {
+        "say": "A3-2g",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2h",
+        "who": "toretto"
+       }
+      ]
+     },
+     {
+      "bg": "bg_cbd_birthday_desk_r1.png",
+      "night": 0.0,
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": []
+     },
+     {
+      "narrate": "A3-2i"
+     },
+     {
+      "say": "A3-2j",
+      "who": "toretto"
+     },
+     {
+      "narrate": "A3-2k"
+     },
+     {
+      "say": "A3-2l",
+      "who": "toretto"
+     },
+     {
+      "say": "A3-2m",
+      "who": "ayu"
+     },
+     {
+      "say": "A3-2n",
+      "who": "toretto"
+     },
+     {
+      "say": "A3-2o",
+      "who": "toretto"
+     },
+     {
+      "say": "A3-2p",
+      "who": "ayu"
+     },
+     {
+      "bg": "",
+      "fill": "#2a1414",
+      "badge": "G-02"
+     },
+     {
+      "narrate": "A3-2q",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-2r",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-2s",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-2t",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-3a",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-3b",
+      "auto": 2.6
+     },
+     {
+      "material": "paper"
+     }
+    ]
+   }
+  }
+ ]
+}

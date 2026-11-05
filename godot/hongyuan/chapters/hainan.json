@@ -1,0 +1,150 @@
+{
+ "chapterId": "hainan",
+ "titleId": "G-10",
+ "steps": [
+  {
+   "id": "wanning",
+   "type": "scene",
+   "sceneId": "hainan",
+   "speaker": "system",
+   "actorMode": "none",
+   "actorSlot": null,
+   "background": "scene",
+   "visibleActors": [],
+   "scene": {
+    "badge": "G-02",
+    "bg": "w2/hainan/bg_wanning.png",
+    "sky": "#86cfe8",
+    "ground": "#e8d6a8",
+    "horizon": 250,
+    "decor": [
+     {
+      "r": [
+       0,
+       250,
+       360,
+       36
+      ],
+      "c": "#4fb3c8"
+     }
+    ],
+    "walkArea": [
+     [
+      20,
+      440
+     ],
+     [
+      340,
+      440
+     ],
+     [
+      340,
+      610
+     ],
+     [
+      20,
+      610
+     ]
+    ],
+    "start": [
+     70,
+     580
+    ],
+    "hotspots": [
+     {
+      "id": "stall",
+      "at": [
+       180,
+       470
+      ],
+      "snap": [
+       180,
+       470
+      ],
+      "face": 1
+     }
+    ],
+    "beats": [
+     {
+      "card": "G-10",
+      "duration": 2.0
+     },
+     {
+      "narrate": "A5-0"
+     },
+     {
+      "narrate": "A5-1a"
+     },
+     {
+      "narrate": "A5-1b"
+     },
+     {
+      "go": "stall",
+      "hint": "A5-P1"
+     },
+     {
+      "game": "ringtoss"
+     },
+     {
+      "card": "A5-T1",
+      "duration": 1.6
+     },
+     {
+      "bg": "w2/hainan/bg_wenchang_night.png",
+      "sky": "#141a3a",
+      "ground": "#22202e",
+      "horizon": 470,
+      "decor": [
+       {
+        "r": [
+         0,
+         462,
+         360,
+         10
+        ],
+        "c": "#2c3a5a"
+       }
+      ],
+      "place": [
+       150,
+       560
+      ],
+      "pose": "back",
+      "actors": [
+       {
+        "id": "toretto",
+        "tex": "w2/common/toretto_stand.png",
+        "at": [
+         215,
+         562
+        ]
+       }
+      ],
+      "hotspots": []
+     },
+     {
+      "narrate": "A5-2"
+     },
+     {
+      "say": "A5-3a",
+      "who": "toretto"
+     },
+     {
+      "say": "A5-3b",
+      "who": "ayu"
+     },
+     {
+      "game": "fireworks",
+      "count": 5
+     },
+     {
+      "pose": ""
+     },
+     {
+      "material": "wax"
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -2,6 +2,7 @@ extends Control
 
 const Stage := preload("res://hongyuan/stage.gd")
 const Checkpoint := preload("res://hongyuan/checkpoint.gd")
+const SceneRunner := preload("res://hongyuan/scene_runner.gd")
 const FONT := preload("res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.otf.woff2")
 const COPY_PATH := "res://hongyuan/copy.json"
 const WALK_BOUNDS := Rect2(35, 396, 290, 60)
@@ -16,6 +17,7 @@ const CHAT_PADDING_Y := 12.0
 const CHAT_GAP := 40.0
 
 var stage := Stage.new()
+var runner: Control = null
 var slots := Control.new()
 var title := Label.new()
 var copy: Dictionary
@@ -154,7 +156,7 @@ func _validate_shot(step: Dictionary) -> bool:
 	for key in ["copyId", "titleId", "objectiveId", "groupId"]:
 		if step.has(key) and not copy.has(step[key]):
 			return false
-	if not step.type in ["invite", "narration", "transition", "walk", "drive", "dialogue", "wait", "chat", "material", "notification", "phone", "terminal"]:
+	if not step.type in ["invite", "narration", "transition", "walk", "drive", "dialogue", "wait", "chat", "material", "notification", "phone", "terminal", "scene"]:
 		return false
 	var backdrop: Dictionary = stage.manifest.get("backgrounds", {}).get(step.background, {})
 	var baked: Array = backdrop.get("bakedActors", [])
@@ -183,6 +185,9 @@ func _read_json(path: String) -> Dictionary:
 func _enter_step(index: int, resume := false) -> void:
 	var previous_scene: String = shot.get("sceneId", "")
 	var previous_type: String = shot.get("type", "")
+	if runner:
+		runner.queue_free()
+		runner = null
 	active_index = index
 	shot = playlist[index]
 	stage.shot = shot
@@ -257,8 +262,12 @@ func _enter_step(index: int, resume := false) -> void:
 			_:
 				state.materials[key] = "pending"
 	_sync_materials()
+	if shot.type == "scene" and not resume:
+		state.sceneBeat = 0
 	_save()
 	_present()
+	if shot.type == "scene":
+		_start_scene()
 	if shot.type == "chat" and not resume:
 		chime.play()
 
@@ -274,7 +283,7 @@ func _advance() -> void:
 		_enter_step(active_index + 1)
 
 func _process(delta: float) -> void:
-	if shot.is_empty() or paused or shot.type == "terminal":
+	if shot.is_empty() or paused or shot.type in ["terminal", "scene"]:
 		return
 	var dt := minf(delta, 0.08)
 	stage.parking_feedback = maxf(0.0, stage.parking_feedback - dt)
@@ -861,3 +870,31 @@ func _make_parking_sound(start_hz: float, end_hz: float, duration: float) -> Aud
 		samples.encode_s16(frame * 2, int(sin(phase) * envelope * 15000.0))
 	stream.data = samples
 	return stream
+
+
+# ---------- 可操控场景（Claude W2）----------
+
+func _start_scene() -> void:
+	var applied := {}
+	for key: String in state.get("sceneMaterials", {}):
+		applied[key] = true
+	for step: Dictionary in playlist:
+		if step.type == "material" and state.materials.get(_material_key(step), "") == "applied":
+			applied[step.materialId] = true
+	runner = SceneRunner.new()
+	runner.setup(shot.scene, copy, applied)
+	runner.beat_reached.connect(func(i: int) -> void:
+		state.sceneBeat = i
+		_save())
+	runner.material_applied.connect(func(id: String) -> void:
+		var m: Dictionary = state.get("sceneMaterials", {})
+		m[id] = true
+		state.sceneMaterials = m
+		_save())
+	runner.finished.connect(func() -> void:
+		if not runner.result.is_empty():
+			state.guest = runner.result
+		state.sceneBeat = 0
+		_advance.call_deferred())
+	stage.add_child(runner)
+	runner.begin(int(state.get("sceneBeat", 0)))
