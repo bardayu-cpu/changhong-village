@@ -18,7 +18,7 @@ const CARD_STROKE_TO := Vector2(310, 172)
 const PEN_TIP_ANCHOR := Vector2(6, 50)
 const ROOM_ORIGIN := Vector2(20, 36)
 const AVATAR_SIZE := 64.0 * ART_SCALE
-const PARKING := [Vector2(101, 380), Vector2(259, 380)]
+const PARKING := [Vector2(93, 379), Vector2(265, 379)]
 const STREET_CAR := Vector2(260, 405)
 const PANDA := Vector2(111, 445)
 const PHONE_HOTSPOT := Vector2(263, 400)
@@ -87,7 +87,7 @@ func _invitation() -> void:
 	_draw_art("invite_slot_ink", CARD_ORIGIN, Color(1, 1, 1, smoothstep(0.7, 1.0, ink_progress)))
 	for actor: Dictionary in shot.visibleActors:
 		if actor.id == "ayu" and actor.layer == "invitation":
-			_draw_sprite(image_asset("ayu_formal"), Vector2(303, 456), 4.0)
+			_draw_sprite(image_asset("ayu_formal"), Vector2(325, 456), 4.0)
 	if shot.get("effect", "") == "ink_to_chengdu":
 		var amount := clampf(time / float(shot.duration), 0.0, 1.0)
 		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.15, 0.05, 0.10, amount * 0.93))

@@ -432,13 +432,13 @@
     "car_parking.png": {
       "origin": "一览图同源原图",
       "dimensions": [
-        132,
-        40
+        175,
+        54
       ],
       "generationAttempt": 0,
       "path": "public/assets/car_ayu_L.webp",
       "board": "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png",
-      "scaleDivisor": 4
+      "scaleDivisor": 3
     },
     "panda_sleep.png": {
       "dimensions": [
