@@ -1,0 +1,77 @@
+OK clear-origin
+{
+  frameId: '18DF15B8474A3CE12BF65C15949E8B46',
+  loaderId: '6BDE0A31D37A82A3B99F70BB649B8C8D',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":1,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"prologue/closed","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+viewport [360,640,1,1]
+OK eval
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":33,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[0,0],"walking":false}
+OK expect
+{ mimeType: 'video/mp4;codecs=avc1.420034', width: 360, height: 640 }
+OK rec-start
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0.716666666666667,"facing":1,"feet":[170,449.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":36,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[170,449.999969482422],"walking":false}
+OK expect
+OK touch-start
+OK touch-move
+OK wait
+OK touch-end
+{"chatFast":false,"driveDistance":0,"elapsed":1.75,"facing":1,"feet":[170,478],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":39,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[170,478],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":2.43333333333333,"facing":1,"feet":[219.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":42,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[219.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":2.79999999999999,"facing":1,"feet":[225.999984741211,431.999969482422],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":44,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/board_car","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":46,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/drive","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+undefined
+OK eval
+OK shot
+OK wait
+OK swipe
+{"chatFast":false,"driveDistance":1.33333333333333,"elapsed":1.33333333333333,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":0,"done":true,"progress":1,"speed":1,"started":false},"revision":50,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/drive","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":false,"angle":-0.14,"done":false,"progress":0,"speed":1,"started":false},"revision":179,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+drive-hits [{"id":2,"lane":2,"distance":13.7666666666669,"elapsed":13.7666666666669},{"id":4,"lane":2,"distance":22.8627313333338,"elapsed":23.3480646666671},{"id":8,"lane":2,"distance":41.0689480799997,"elapsed":42.0395953333331}]
+OK eval
+OK shot
+OK wait
+OK touch-start
+OK touch-move
+OK wait
+OK touch-end
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":0.0,"facing":1.0,"feet":[96.0,456.0],"hitIndex":8,"lane":2,"lanePosition":2.0,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":-0.14,"done":false,"progress":0.351266666666667,"speed":0.0,"started":true},"revision":186,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0.0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK current
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"done":true,"progress":0.351266666666667,"speed":0,"started":true},"revision":188,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/park","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK shot
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"done":true,"progress":0.351266666666667,"speed":0,"started":true},"revision":205,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/approach_axiao","version":1,"walkTarget":[225.999984741211,431.999969482422],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":1.2,"facing":1,"feet":[213.999984741211,455.999969482422],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"done":true,"progress":0.351266666666667,"speed":0,"started":true},"revision":209,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/approach_axiao","version":1,"walkTarget":[213.999984741211,455.999969482422],"walking":false}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":0,"facing":1,"feet":[213.999984741211,455.999969482422],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"done":true,"progress":0.351266666666667,"speed":0,"started":true},"revision":211,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/line_1","version":1,"walkTarget":[213.999984741211,455.999969482422],"walking":false}
+OK expect
+OK swipe
+OK tap
+{"chatFast":false,"driveDistance":44.7836147466662,"elapsed":0.700000000000001,"facing":1,"feet":[213.999984741211,455.999969482422],"hitIndex":8,"lane":2,"lanePosition":2,"materials":{},"pandaUsed":false,"parking":{"align":true,"angle":0,"done":true,"progress":0.351266666666667,"speed":0,"started":true},"revision":213,"runId":"1dfea1e6aa1d2516a2c5cf592d372486","slow":0,"stepId":"shanghai/line_1","version":1,"walkTarget":[213.999984741211,455.999969482422],"walking":false}
+OK expect
+OK shot
+{
+  elapsedSeconds: 60.542099999994036,
+  bytes: 4927986,
+  mimeType: 'video/mp4;codecs=avc1.42001f'
+}
+OK rec-stop

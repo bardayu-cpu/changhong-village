@@ -1,0 +1,18 @@
+{
+  frameId: '18DF15B8474A3CE12BF65C15949E8B46',
+  loaderId: '2B0697B24F327D9E44B25FF4FD68692E',
+  isDownload: false
+}
+OK init
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[96,456],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"revision":1,"runId":"683ff4cdb201ae38dc24ed15d96b5997","slow":0,"stepId":"prologue/closed","version":1}
+OK expect
+OK tap
+{"chatFast":false,"driveDistance":0,"elapsed":0,"facing":1,"feet":[104,451],"hitIndex":-1,"lane":1,"lanePosition":1,"materials":{},"pandaUsed":false,"revision":30,"runId":"683ff4cdb201ae38dc24ed15d96b5997","slow":0,"stepId":"shanghai/board_car","version":1}
+OK expect
+OK shot
+undefined
+OK eval
+{"chatFast":false,"driveDistance":0.0,"elapsed":0.0,"facing":1.0,"feet":[104.0,451.0],"hitIndex":-1,"lane":1,"lanePosition":1.0,"materials":{},"pandaUsed":false,"revision":30,"runId":"683ff4cdb201ae38dc24ed15d96b5997","slow":0.0,"stepId":"shanghai/board_car","version":1}
+OK current
+viewport [360,640,1,1]
+OK eval
