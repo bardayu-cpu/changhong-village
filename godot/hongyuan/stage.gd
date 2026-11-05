@@ -24,6 +24,7 @@ const PANDA := Vector2(111, 445)
 const PHONE_HOTSPOT := Vector2(263, 400)
 const CAR_DEPTH := 0.89
 const BRAKE := Rect2(260, 530, 64, 64)
+const STEERING := Rect2(106, 522, 80, 80)
 
 var manifest: Dictionary
 var shot: Dictionary
@@ -46,6 +47,11 @@ var parking_active := false
 var parking_progress := 0.0
 var parking_pressed := false
 var parking_angle := 0.0
+var parking_offset := Vector2.ZERO
+var parking_steer := 0.0
+var parking_assisting := false
+var parking_feedback := 0.0
+var control_time := 0.0
 var texture_cache: Dictionary = {}
 var skin_cache: Dictionary = {}
 
@@ -137,7 +143,7 @@ func _world(background: String) -> void:
 			if index == 0:
 				# Already at the bay edge. Release holds this exact position;
 				# parking assist straightens the angle without another drive.
-				feet += Vector2(18, 10) * (1.0 - parking_progress)
+				feet += parking_offset
 			_vehicle(feet, 0.0, "car_parking", parking_angle if index == 0 else 0.0)
 	if shot.type == "walk":
 		_world_hotspots()
@@ -418,7 +424,14 @@ func _controls() -> void:
 		var icon := image_asset(str(interaction.get("icon", "interaction_hand")))
 		if icon:
 			draw_texture_rect(icon, Rect2(rect.position + Vector2(6, 6), Vector2(32, 32)), false)
+	if parking_feedback > 0.0 and shot.background == "parking":
+		var glow := Color(0.98, 0.86, 0.55, parking_feedback * 1.6)
+		var center: Vector2 = PARKING[0] + parking_offset + Vector2(0, -18)
+		for side in [-1.0, 1.0]:
+			var tip := center + Vector2(side * (60.0 + (0.45 - parking_feedback) * 18.0), -8)
+			draw_line(tip, tip + Vector2(side * 5, -4), glow, 2)
 	if parking_active:
+		_draw_parking_steering()
 		_draw_skin("bubble_left" if parking_pressed else "bubble_right", BRAKE)
 		# A brake-pedal pictogram: no added copy or button labels.
 		var center := BRAKE.get_center()
@@ -432,3 +445,28 @@ func _pedal_skin() -> StyleBoxFlat:
 	skin.bg_color = DARK_RED
 	skin.set_corner_radius_all(3)
 	return skin
+
+func _draw_parking_steering() -> void:
+	var center := STEERING.get_center()
+	var tint := CREAM if parking_pressed else Color(0.98, 0.9, 0.75, 0.8)
+	# One-finger gesture: hold either pictogram, slide sideways to steer.
+	_draw_skin("bubble_left" if parking_pressed else "bubble_right", STEERING)
+	draw_arc(center, 24, 0, TAU, 32, DARK_RED, 4)
+	var rotation_angle := parking_steer * 0.8
+	for spoke in [0.0, PI, PI * 0.5]:
+		var tip := center + Vector2.from_angle(spoke + rotation_angle) * 22.0
+		draw_line(center, tip, DARK_RED, 3)
+	draw_circle(center, 5, DARK_RED)
+	if not parking_assisting:
+		var hint := 3.0 * sin(control_time * 4.0) if not parking_pressed else 0.0
+		for side in [-1.0, 1.0]:
+			var tip := center + Vector2(side * (53 + hint), 0)
+			draw_line(tip + Vector2(-side * 10, -7), tip, tint, 2)
+			draw_line(tip, tip + Vector2(-side * 10, 7), tint, 2)
+	# At the bay, a level guide makes the car's angle readable without copy.
+	var bay: Vector2 = PARKING[0] + parking_offset + Vector2(0, 6)
+	draw_line(bay - Vector2(34, 0), bay + Vector2(34, 0), Color(0.98, 0.9, 0.75, 0.6), 1)
+	var aligned := absf(parking_angle) < 0.025
+	var tick_tint := Color("#b9d5a1") if aligned else ACCENT
+	var tip := Vector2(24, 0).rotated(parking_angle)
+	draw_line(bay - tip, bay + tip, tick_tint, 2)

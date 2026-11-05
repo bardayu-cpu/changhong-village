@@ -51,6 +51,16 @@ var parking_progress := 0.0
 var parking_speed := 1.0
 var parking_align := false
 var parking_angle := 0.0
+var parking_lateral := 0.0
+var parking_base_x := 0.0
+var parking_sound_steer := 0.0
+var parking_steerable := false
+var parking_steer := 0.0
+var parking_grab_angle := 0.0
+var parking_sound := AudioStreamPlayer.new()
+var parking_press_sound: AudioStreamWAV
+var parking_stop_sound: AudioStreamWAV
+var parking_finish_sound: AudioStreamWAV
 
 
 func _ready() -> void:
@@ -72,6 +82,11 @@ func _ready() -> void:
 	chime.stream = _make_chime()
 	chime.volume_db = -16.0
 	add_child(chime)
+	parking_press_sound = _make_parking_sound(110.0, 75.0, 0.10)
+	parking_stop_sound = _make_parking_sound(160.0, 65.0, 0.12)
+	parking_finish_sound = _make_parking_sound(440.0, 660.0, 0.18)
+	parking_sound.volume_db = -18.0
+	add_child(parking_sound)
 	resized.connect(_fit_canvas)
 	_fit_canvas()
 
@@ -177,7 +192,7 @@ func _enter_step(index: int, resume := false) -> void:
 			stage.player_feet = _starting_feet(shot.sceneId)
 			stage.facing = 1.0
 		if shot.fullId == "shanghai/park":
-			state.parking = {"started": false, "done": false, "progress": 0.0, "speed": 1.0, "align": false, "angle": -0.14}
+			state.parking = {"started": false, "done": false, "progress": 0.0, "speed": 1.0, "align": false, "angle": [-1.0, 1.0].pick_random() * randf_range(0.14, 0.23), "lateral": randf_range(-3.0, 3.0), "steeringVersion": 1}
 		if shot.type == "drive":
 			state.driveDistance = 0.0
 			state.lane = 1
@@ -207,6 +222,11 @@ func _enter_step(index: int, resume := false) -> void:
 	parking_speed = float(parking.get("speed", 1.0))
 	parking_align = bool(parking.get("align", false))
 	parking_angle = float(parking.get("angle", 0.0 if parking_done else -0.14))
+	parking_lateral = clampf(float(parking.get("lateral", 0.0)), -6.0, 6.0)
+	# Preserve the exact old R2/R3 location, then enable steering on the next press.
+	parking_base_x = float(parking.get("baseX", 0.0)) if int(parking.get("steeringVersion", 0)) == 1 else 18.0 * (1.0 - parking_progress)
+	parking_steerable = true
+	stage.parking_feedback = 0.0
 	if _controlled_walk():
 		stage.player_feet = _clamp_walk(stage.player_feet)
 		var target: Array = state.get("walkTarget", [])
@@ -246,6 +266,8 @@ func _process(delta: float) -> void:
 	if shot.is_empty() or paused or shot.type == "terminal":
 		return
 	var dt := minf(delta, 0.08)
+	stage.parking_feedback = maxf(0.0, stage.parking_feedback - dt)
+	stage.control_time += dt
 	if shot.fullId == "shanghai/park" and not parking_done:
 		_park(dt)
 		_sync_controls()
@@ -348,9 +370,14 @@ func _on_stage_input(event: InputEvent) -> void:
 			pointer_started = Time.get_ticks_msec()
 			pointer_dragged = false
 			stick_pointer = _controlled_walk() and event.position.x < 180 and event.position.y > 320
-			if _parking_active() and Stage.BRAKE.has_point(event.position):
+			if _parking_active() and not parking_align and (Stage.BRAKE.has_point(event.position) or Stage.STEERING.has_point(event.position)):
 				parking_held = true
 				parking_started = true
+				parking_grab_angle = parking_angle
+				parking_sound_steer = 0.0
+				_parking_sound(parking_press_sound)
+				_sync_controls()
+				stage.queue_redraw()
 				_save()
 		else:
 			if not pointer_down:
@@ -359,6 +386,11 @@ func _on_stage_input(event: InputEvent) -> void:
 			if parking_held:
 				parking_align = true
 				parking_speed = 0.0
+				_parking_sound(parking_stop_sound)
+				# Good steering finishes immediately; assistance only rotates at rest.
+				if absf(parking_angle) <= 0.025:
+					parking_angle = 0.0
+					_finish_parking()
 			if stick_pointer and pointer_dragged:
 				_clear_movement()
 			_reset_pointer()
@@ -371,7 +403,16 @@ func _on_stage_input(event: InputEvent) -> void:
 		if offset.length() > 12:
 			pointer_dragged = true
 		if pointer_dragged:
-			if stick_pointer:
+			if parking_held and parking_steerable:
+				parking_steer = clampf(offset.x / 56.0, -1.0, 1.0)
+				parking_angle = clampf(parking_grab_angle + offset.x * 0.005, -0.30, 0.30)
+				if absf(parking_steer - parking_sound_steer) >= 0.25:
+					_parking_sound(parking_press_sound)
+					parking_sound_steer = parking_steer
+				parking_sound.pitch_scale = 1.0 + absf(parking_steer) * 0.3
+				_sync_controls()
+				stage.queue_redraw()
+			elif stick_pointer:
 				stick = (offset / 36.0).limit_length()
 			elif shot.type == "drive" and absf(offset.x) >= 28:
 				_set_lane(lane_target + (1 if offset.x > 0 else -1))
@@ -384,6 +425,7 @@ func _reset_pointer() -> void:
 	stick_pointer = false
 	stick = Vector2.ZERO
 	parking_held = false
+	parking_steer = 0.0
 
 func _controlled_walk() -> bool:
 	return shot.get("chapterId") == "shanghai" and shot.get("type") == "walk"
@@ -428,20 +470,38 @@ func _sync_controls() -> void:
 	stage.parking_progress = parking_progress
 	stage.parking_pressed = parking_held
 	stage.parking_angle = parking_angle
+	stage.parking_steer = parking_steer
+	stage.parking_assisting = parking_align
+	stage.parking_offset = Vector2(parking_base_x + parking_lateral, 10.0 * (1.0 - parking_progress)) if parking_steerable else Vector2(18, 10) * (1.0 - parking_progress)
 
 func _park(dt: float) -> void:
 	if parking_align:
 		parking_speed = 0.0
 		parking_angle = move_toward(parking_angle, 0.0, dt * 0.28)
 		if is_zero_approx(parking_angle):
-			parking_done = true
-			elapsed = 0.0
-			stage.time = 0.0
-			_present()
-			_save()
+			_finish_parking()
 	elif parking_held:
 		parking_speed = move_toward(parking_speed, 0.12, dt * 0.8)
 		parking_progress = minf(0.85, parking_progress + dt * parking_speed * 0.55)
+		if parking_steerable:
+			parking_lateral = clampf(parking_lateral + sin(parking_angle) * parking_speed * dt * 48.0, -6.0, 6.0)
+
+func _finish_parking() -> void:
+	parking_done = true
+	parking_speed = 0.0
+	parking_held = false
+	elapsed = 0.0
+	stage.time = 0.0
+	stage.parking_feedback = 0.45
+	_parking_sound(parking_finish_sound)
+	_sync_controls()
+	_present()
+	_save()
+
+func _parking_sound(sound: AudioStreamWAV) -> void:
+	parking_sound.stream = sound
+	parking_sound.pitch_scale = 1.0
+	parking_sound.play()
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if paused or shot.get("type") != "drive" or not event.is_pressed() or event.is_echo():
@@ -514,7 +574,7 @@ func _save() -> void:
 	state.chatFast = chat_fast
 	state.walking = moving
 	state.walkTarget = [movement_target.x, movement_target.y]
-	state.parking = {"started": parking_started, "done": parking_done, "progress": parking_progress, "speed": parking_speed, "align": parking_align, "angle": parking_angle}
+	state.parking = {"started": parking_started, "done": parking_done, "progress": parking_progress, "speed": parking_speed, "align": parking_align, "angle": parking_angle, "lateral": parking_lateral, "baseX": parking_base_x, "steeringVersion": 1 if parking_steerable else 0}
 	state.revision = int(state.revision) + 1
 	stage.save_failed = not Checkpoint.write(state)
 	if stage.save_failed:
@@ -735,5 +795,21 @@ func _make_chime() -> AudioStreamWAV:
 		var envelope := minf(t * 180.0, 1.0) * pow(1.0 - float(frame) / 1764.0, 2.0)
 		var sample := int((sin(t * TAU * 740.0) + sin(t * TAU * 1110.0) * 0.32) * envelope * 12000.0)
 		samples.encode_s16(frame * 2, sample)
+	stream.data = samples
+	return stream
+
+func _make_parking_sound(start_hz: float, end_hz: float, duration: float) -> AudioStreamWAV:
+	var stream := AudioStreamWAV.new()
+	stream.mix_rate = 22050
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	var count := int(duration * stream.mix_rate)
+	var samples := PackedByteArray()
+	samples.resize(count * 2)
+	var phase := 0.0
+	for frame in range(count):
+		var progress := float(frame) / count
+		phase += TAU * lerpf(start_hz, end_hz, progress) / stream.mix_rate
+		var envelope := minf(progress * 25.0, 1.0) * pow(1.0 - progress, 2.0)
+		samples.encode_s16(frame * 2, int(sin(phase) * envelope * 15000.0))
 	stream.data = samples
 	return stream
