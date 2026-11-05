@@ -884,6 +884,107 @@
       "status": "reviewOnly",
       "reviewPlacement": "w2_review/wedding_r1/plaza/room.json"
     },
+    "w2_ui/bubble_left_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        48,
+        48
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate",
+      "sliceMargin": 12
+    },
+    "w2_ui/bubble_right_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        48,
+        48
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate",
+      "sliceMargin": 12
+    },
+    "w2_ui/bubble_system_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        48,
+        48
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate",
+      "sliceMargin": 12
+    },
+    "w2_ui/button_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        48,
+        48
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate",
+      "sliceMargin": 12
+    },
+    "w2_ui/call_accept_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        66,
+        66
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate"
+    },
+    "w2_ui/call_end_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        66,
+        66
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate"
+    },
+    "w2_ui/dialogue_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        48,
+        48
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate",
+      "sliceMargin": 12
+    },
+    "w2_ui/phone_frame_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        498,
+        864
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate",
+      "screenRect": [
+        12,
+        22,
+        474,
+        820
+      ]
+    },
+    "w2_ui/phone_header_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        474,
+        84
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate"
+    },
+    "w2_ui/phone_screen_paper_w2_r1.png": {
+      "origin": "D3 K38/K39 原生像素界面首批",
+      "dimensions": [
+        474,
+        820
+      ],
+      "generationAttempt": 1,
+      "status": "reviewCandidate"
+    },
     "laugh.svg": {
       "origin": "W1 现有图标",
       "dimensions": [
