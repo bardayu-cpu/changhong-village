@@ -1,0 +1,196 @@
+{
+ "chapterId": "shizuoka",
+ "titleId": "G-09",
+ "steps": [
+  {
+   "id": "pier",
+   "type": "scene",
+   "sceneId": "shizuoka",
+   "speaker": "system",
+   "actorMode": "none",
+   "actorSlot": null,
+   "background": "scene",
+   "visibleActors": [],
+   "scene": {
+    "badge": "G-02",
+    "bg": "bg_shizuoka_pier_r1.png",
+    "walkArea": [
+     [
+      16,
+      412
+     ],
+     [
+      344,
+      412
+     ],
+     [
+      344,
+      535
+     ],
+     [
+      16,
+      535
+     ]
+    ],
+    "start": [
+     60,
+     500
+    ],
+    "hotspots": [
+     {
+      "id": "spot",
+      "at": [
+       200,
+       420
+      ],
+      "snap": [
+       200,
+       420
+      ],
+      "face": 1,
+      "label": "A4-B2"
+     },
+     {
+      "id": "boat",
+      "at": [
+       326,
+       470
+      ],
+      "label": "A4-B3"
+     }
+    ],
+    "beats": [
+     {
+      "card": "G-09",
+      "duration": 2.0
+     },
+     {
+      "narrate": "A4-1a"
+     },
+     {
+      "narrate": "A4-1b"
+     },
+     {
+      "narrate": "A4-1c"
+     },
+     {
+      "go": "spot",
+      "hint": "A4-P1"
+     },
+     {
+      "game": "fishing"
+     },
+     {
+      "go": "boat"
+     },
+     {
+      "bg": "bg_shizuoka_boat_cabin_r1.png",
+      "walkArea": [
+       [
+        30,
+        425
+       ],
+       [
+        330,
+        425
+       ],
+       [
+        340,
+        610
+       ],
+       [
+        20,
+        610
+       ]
+      ],
+      "start": [
+       300,
+       570
+      ],
+      "pose": "",
+      "actors": [
+       {
+        "id": "toretto",
+        "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png",
+        "at": [
+         160,
+         430
+        ]
+       }
+      ],
+      "hotspots": [
+       {
+        "id": "seat",
+        "at": [
+         222,
+         432
+        ],
+        "snap": [
+         222,
+         432
+        ],
+        "face": -1,
+        "pose": "sit"
+       }
+      ]
+     },
+     {
+      "say": "A4-2a",
+      "who": "toretto"
+     },
+     {
+      "say": "A4-2b",
+      "who": "ayu"
+     },
+     {
+      "say": "A4-2c",
+      "who": "toretto"
+     },
+     {
+      "say": "A4-2d",
+      "who": "toretto"
+     },
+     {
+      "say": "A4-2e",
+      "who": "toretto"
+     },
+     {
+      "say": "A4-2f",
+      "who": "toretto"
+     },
+     {
+      "go": "seat",
+      "hint": "A4-P3"
+     },
+     {
+      "narrate": "A4-2g"
+     },
+     {
+      "say": "A4-2h",
+      "who": "ayu"
+     },
+     {
+      "card": "A4-T1",
+      "duration": 1.8
+     },
+     {
+      "bg": "w2/shizuoka/bg_cert.png",
+      "fill": "#5e2929",
+      "actors": [],
+      "hideAyu": true,
+      "hotspots": []
+     },
+     {
+      "narrate": "A4-3a"
+     },
+     {
+      "narrate": "A4-3b"
+     },
+     {
+      "material": "stamp"
+     }
+    ]
+   }
+  }
+ ]
+}

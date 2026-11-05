@@ -98,17 +98,25 @@
     },
     {
       "id": "drive",
-      "type": "drive",
+      "type": "scene",
       "sceneId": "shanghai_road",
       "speaker": "system",
       "actorMode": "none",
       "actorSlot": null,
-      "background": "road",
+      "background": "scene",
       "visibleActors": [],
-      "duration": 45
+      "scene": {
+        "hideAyu": true,
+        "fill": "#6f8f4e",
+        "beats": [
+          {
+            "game": "drive"
+          }
+        ]
+      }
     },
     {
-      "id": "park",
+      "id": "parked",
       "type": "narration",
       "sceneId": "shanghai_parking",
       "speaker": "narrator",
