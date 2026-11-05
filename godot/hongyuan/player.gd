@@ -7,13 +7,13 @@ const COPY_PATH := "res://hongyuan/copy.json"
 const WALK_BOUNDS := Rect2(35, 396, 290, 60)
 const SAVE_INTERVAL := 0.35
 const CHAT_ACCELERATED_INTERVAL := 0.50
-const PHONE_NOTIFICATION := Rect2(34, 77, 292, 34)
+const PHONE_NOTIFICATION := Rect2(38, 134, 284, 48)
 const DIALOGUE_BOX := Rect2(22, 453, 316, 144)
-const CHAT_FONT_SIZE := 13
-const CHAT_LINE_SPACING := 2
-const CHAT_PADDING_X := 8.0
-const CHAT_PADDING_Y := 6.0
-const CHAT_GAP := 4.0
+const CHAT_FONT_SIZE := 16
+const CHAT_LINE_SPACING := 5
+const CHAT_PADDING_X := 12.0
+const CHAT_PADDING_Y := 12.0
+const CHAT_GAP := 40.0
 
 var stage := Stage.new()
 var slots := Control.new()
@@ -650,7 +650,9 @@ func _present() -> void:
 		slots.remove_child(child)
 		child.queue_free()
 	stage.chat_rows.clear()
-	var chapter_title := "" if shot.type == "terminal" else _text(shot.titleId)
+	var phone_page: bool = shot.background == "phone"
+	_style_label(title, Stage.PHONE_HEADER if phone_page else Rect2(18, 14, 324, 34), 20 if phone_page else 16, Stage.CREAM)
+	var chapter_title := "" if shot.type == "terminal" else _text(shot.get("groupId", shot.titleId))
 	if title.text != chapter_title:
 		title.text = chapter_title
 		_fade_in(title)
@@ -669,9 +671,9 @@ func _present() -> void:
 		"notification":
 			_button(shot.copyId, PHONE_NOTIFICATION, _advance)
 		"phone":
-			_label(_text(shot.groupId), Rect2(91, 453, 178, 55), 16, Stage.CREAM, true)
+			pass # The group name occupies the shared phone header.
 		"terminal":
-			_label(_text(shot.copyId), Rect2(91, 441, 178, 59), 19, Stage.CREAM, true)
+			_label(_text(shot.copyId), Rect2(38, 296, 284, 60), 24, Stage.PHONE_TEXT, true)
 	if kind in ["walk", "drive"] and _needs_art():
 		for child in slots.get_children():
 			child.hide()
@@ -692,47 +694,51 @@ func _present_chat() -> void:
 	var first := active_index
 	while first > 0 and playlist[first - 1].type == "chat" and playlist[first - 1].sceneId == shot.sceneId:
 		first -= 1
-	var y := 440.0
+	var y := 134.0
 	var screen := stage.phone_screen_rect()
+	var labels: Array[Label] = []
 	for index in range(first, active_index + 1):
 		var message: Dictionary = playlist[index]
 		var text := _text(message.copyId)
-		var latest := index == active_index
-		if message.speaker == "system":
-			stage.chat_rows.append({"speaker": "system", "skin": "bubble_system", "bubble": PHONE_NOTIFICATION})
-			_label(text, PHONE_NOTIFICATION, 12, Stage.CREAM, latest)
-			continue
-
+		var system: bool = message.speaker == "system"
 		var right: bool = message.speaker == "ayu"
-		var avatar_width := Stage.AVATAR_SIZE * 0.5
-		var avatar_x := screen.end.x - avatar_width - 5 if right else screen.position.x + 5
-		var width := 96.0 if right else 139.0
-		var x := avatar_x - width - 4 if right else avatar_x + avatar_width + 4
+		var avatar_width := 32.0
+		var avatar_x := screen.end.x - avatar_width - 16 if right else screen.position.x + 12
+		var width := 284.0 if system else clampf(FONT.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, CHAT_FONT_SIZE).x + CHAT_PADDING_X * 2, 74, 234)
+		var x := 38.0 if system else (avatar_x - width - 8 if right else avatar_x + avatar_width + 8)
 		var label := Label.new()
-		var text_box := Rect2(x + CHAT_PADDING_X, y + CHAT_PADDING_Y, width - CHAT_PADDING_X * 2, 1)
-		_style_label(label, text_box, CHAT_FONT_SIZE, Stage.DARK_RED)
+		_style_label(label, Rect2(x + CHAT_PADDING_X, y + CHAT_PADDING_Y, width - CHAT_PADDING_X * 2, 1), CHAT_FONT_SIZE, Stage.CREAM if system else Stage.PHONE_TEXT)
 		label.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
 		label.add_theme_constant_override("line_spacing", CHAT_LINE_SPACING)
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if system else HORIZONTAL_ALIGNMENT_LEFT
 		label.text = text
 		slots.add_child(label)
-
+		labels.append(label)
 		var line_count := label.get_line_count()
 		var text_height := 0
 		for line in range(line_count):
 			text_height += label.get_line_height(line)
 		text_height += CHAT_LINE_SPACING * maxi(0, line_count - 1)
 		label.size.y = text_height
-		var height := maxf(float(text_height) + 2 * CHAT_PADDING_Y, avatar_width + 2)
+		var height := maxf(float(text_height) + 2 * CHAT_PADDING_Y, 48)
 		stage.chat_rows.append({
 			"speaker": message.speaker,
-			"skin": "bubble_right" if right else "bubble_left",
+			"skin": "w2_bubble_system" if system else ("w2_bubble_right" if right else "w2_bubble_left"),
 			"bubble": Rect2(x, y, width, height),
 			"avatar": Vector2(avatar_x, y + (height - avatar_width) * 0.5),
 		})
-		if latest:
-			_fade_in(label, 2.0)
 		y += height + CHAT_GAP
+	# Preserve message order and latest message when future text is taller.
+	var overflow := maxf(0, y - CHAT_GAP - (screen.end.y - 22))
+	for index in range(labels.size()):
+		var row: Dictionary = stage.chat_rows[index]
+		row.bubble.position.y -= overflow
+		row.avatar.y -= overflow
+		labels[index].position.y -= overflow
+		row.visible = row.bubble.position.y >= Stage.PHONE_HEADER.end.y + 12
+		labels[index].visible = row.visible
+	if not labels.is_empty():
+		_fade_in(labels[-1], 2.0)
 
 func _dialogue(text: String) -> void:
 	var panel := Panel.new()
@@ -751,11 +757,11 @@ func _button(id: String, rect: Rect2, action: Callable) -> void:
 	button.size = rect.size
 	button.text = _text(id)
 	button.add_theme_font_override("font", FONT)
-	button.add_theme_font_size_override("font_size", 15)
+	button.add_theme_font_size_override("font_size", 16 if shot.background == "phone" else 15)
 	for state_name in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
-		button.add_theme_color_override(state_name, Stage.DARK_RED)
-	var normal := stage.pixel_skin("bubble_right")
-	var hover := stage.pixel_skin("bubble_left")
+		button.add_theme_color_override(state_name, Stage.CREAM if shot.background == "phone" else Stage.DARK_RED)
+	var normal := stage.pixel_skin("w2_bubble_system" if shot.background == "phone" else "bubble_right")
+	var hover := stage.pixel_skin("w2_button" if shot.background == "phone" else "bubble_left")
 	if normal and hover:
 		button.add_theme_stylebox_override("normal", normal)
 		button.add_theme_stylebox_override("hover", hover)

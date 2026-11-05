@@ -10,8 +10,10 @@ const ACCENT := Color("#d6a43c")
 const ROOM_EDGE := Color("#20110a")
 const ROOM_TINT := Color(0.77, 0.73, 0.71)
 const PHONE := Rect2(22, 65, 316, 559)
-const PHONE_ORIGIN := Vector2(80, 252)
-const PHONE_OPENING := Rect2(15, 26, 270, 488)
+const PHONE_ORIGIN := Vector2(14, 37)
+const PHONE_OPENING := Rect2(12, 22, 474, 820)
+const PHONE_HEADER := Rect2(22, 52, 316, 56)
+const PHONE_TEXT := Color("#281a1a")
 const CARD_ORIGIN := Vector2(56, 120)
 const CARD_STROKE_FROM := Vector2(50, 172)
 const CARD_STROKE_TO := Vector2(310, 172)
@@ -347,40 +349,46 @@ func _draw_room(opacity: float = 1.0) -> void:
 func phone_screen_rect() -> Rect2:
 	return Rect2(PHONE_ORIGIN + PHONE_OPENING.position * ART_SCALE, PHONE_OPENING.size * ART_SCALE)
 
-func _draw_phone_shell(opacity: float = 1.0, incoming := false) -> void:
+func _draw_phone_shell(opacity: float = 1.0, _incoming := false) -> void:
 	var screen := phone_screen_rect()
 	var tint := Color(1, 1, 1, opacity)
-	var call := image_asset("call_screen") if incoming else null
-	if call:
-		draw_texture_rect(call, screen, false, tint)
-	else:
-		draw_rect(screen, Color(Color("#5e0e0e"), opacity))
-	_draw_art("phone_frame", PHONE_ORIGIN, tint)
+	var paper := image_asset("w2_phone_screen_paper")
+	var header := image_asset("w2_phone_header")
+	if paper:
+		draw_texture_rect(paper, screen, false, tint)
+	if header:
+		draw_texture_rect(header, PHONE_HEADER, false, tint)
+	_draw_art("w2_phone_frame", PHONE_ORIGIN, tint)
 
 func _phone() -> void:
 	var terminal: bool = shot.type == "terminal"
 	if terminal:
 		_draw_room()
 	else:
-		draw_rect(Rect2(Vector2.ZERO, CANVAS), DARK_RED)
-	_draw_phone_shell(1.0, terminal)
+		_draw_background("parking" if shot.chapterId == "shanghai" else "chengdu")
+		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.12, 0.08, 0.06, 0.28))
+	_draw_phone_shell()
 	if terminal:
-		_avatar("toretto", Vector2(180, 391) - Vector2.ONE * AVATAR_SIZE * 0.5)
+		_draw_skin("w2_bubble_right", Rect2(138, 194, 84, 84))
+		_avatar("toretto", Vector2(144, 200), 1.6875)
+		# This is still the W1 terminal. Both pictograms are decorative only.
+		for key in ["w2_call_accept", "w2_call_end"]:
+			var texture := image_asset(key)
+			if texture:
+				draw_texture_rect(texture, Rect2(102 if key == "w2_call_accept" else 214, 452, 44, 44), false)
 	elif shot.type == "chat":
 		for row: Dictionary in chat_rows:
+			if not row.get("visible", true):
+				continue
 			_draw_skin(row.skin, row.bubble)
 			if row.speaker != "system":
-				_avatar(row.speaker, row.avatar, 0.5)
+				_avatar(row.speaker, row.avatar, 0.75)
 			if row.speaker == "ayu" and int(time * 3.0) % 2 == 0:
-				draw_rect(Rect2(row.bubble.end.x - 10, row.bubble.position.y + 7, ART_SCALE, 12), DARK_RED)
+				draw_rect(Rect2(row.bubble.end.x - 9, row.bubble.position.y + 10, ART_SCALE, 14), PHONE_TEXT)
 	elif shot.type == "phone":
 		for index in range(shot.visibleActors.size()):
-			var origin := Vector2(104 + index * 55, 368)
-			_avatar(shot.visibleActors[index].id, origin)
-	else:
-		_draw_skin("bubble_left", Rect2(149, 379, 62, 40))
-		for x in [167, 180, 193]:
-			draw_rect(Rect2(x - 2, 397, 4, 4), DARK_RED)
+			var origin := Vector2(78 + index * 86, 266)
+			_avatar(shot.visibleActors[index].id, origin, 0.75)
 
 func _avatar(id: String, origin: Vector2, ratio := 1.0) -> void:
 	for actor: Dictionary in shot.visibleActors:

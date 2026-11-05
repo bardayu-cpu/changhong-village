@@ -136,18 +136,33 @@
     "bubble_left": "bubble_left.png",
     "bubble_right": "bubble_right.png",
     "bubble_system": "bubble_system.png",
-    "call_screen": "call_screen.png"
+    "call_screen": "call_screen.png",
+    "w2_phone_frame": "w2_ui/phone_frame_w2_r1.png",
+    "w2_phone_screen_paper": "w2_ui/phone_screen_paper_w2_r1.png",
+    "w2_phone_header": "w2_ui/phone_header_w2_r1.png",
+    "w2_bubble_left": "w2_ui/bubble_left_w2_r1.png",
+    "w2_bubble_right": "w2_ui/bubble_right_w2_r1.png",
+    "w2_bubble_system": "w2_ui/bubble_system_w2_r1.png",
+    "w2_button": "w2_ui/button_w2_r1.png",
+    "w2_call_accept": "w2_ui/call_accept_w2_r1.png",
+    "w2_call_end": "w2_ui/call_end_w2_r1.png"
   },
   "sources": {
     "interaction_hand.png": {
       "origin": "D3 原创",
-      "dimensions": [32, 32],
+      "dimensions": [
+        32,
+        32
+      ],
       "generationAttempt": 0,
       "method": "原生像素 PNG 手工制稿，深棕描边、米色手势"
     },
     "interaction_dialogue.png": {
       "origin": "D3 原创",
-      "dimensions": [32, 32],
+      "dimensions": [
+        32,
+        32
+      ],
       "generationAttempt": 0,
       "method": "原生像素 PNG 手工制稿，深棕描边、米色无字气泡"
     },
