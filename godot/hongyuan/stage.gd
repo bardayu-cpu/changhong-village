@@ -371,11 +371,10 @@ func _phone() -> void:
 	if terminal:
 		_draw_skin("w2_bubble_right", Rect2(138, 194, 84, 84))
 		_avatar("toretto", Vector2(144, 200), 1.6875)
-		# This is still the W1 terminal. Both pictograms are decorative only.
-		for key in ["w2_call_accept", "w2_call_end"]:
-			var texture := image_asset(key)
-			if texture:
-				draw_texture_rect(texture, Rect2(102 if key == "w2_call_accept" else 214, 452, 44, 44), false)
+		# W1 stops at an incoming call: one indication, no answer/reject handlers.
+		var call_icon := image_asset("w2_call_accept")
+		if call_icon:
+			draw_texture_rect(call_icon, Rect2(158, 452, 44, 44), false)
 	elif shot.type == "chat":
 		for row: Dictionary in chat_rows:
 			if not row.get("visible", true):
