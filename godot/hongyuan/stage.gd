@@ -37,6 +37,10 @@ var time := 0.0
 var distance := 0.0
 var lane := 1.0
 var slow := 0.0
+var drive_started := false
+var drive_exit := false
+var drive_arrival := 0.0
+var traffic_seed := 0
 var panda_time := 0.0
 var save_failed := false
 var interaction: Dictionary = {}
@@ -248,13 +252,27 @@ func _road() -> void:
 			var depth := fposmod(float(index) / 12.0 + distance * 0.14, 1.1)
 			draw_line(_project(divider, depth), _project(divider, depth + 0.034), Color("#d9baa8"), 1.0 + depth * 2.0, true)
 	for index in range(10):
-		var depth := traffic_depth(index, distance)
+		var depth := traffic_depth(index, distance, traffic_seed)
 		if depth >= 0.0 and depth <= 1.06:
-			_vehicle(_project(traffic_lane(index) - 1.0, depth), 7 + 74 * depth * depth, traffic_image(index))
+			_vehicle(_project(traffic_lane(index, traffic_seed) - 1.0, depth), 7 + 74 * depth * depth, traffic_image(index))
 	var player_car := _project(lane - 1.0, CAR_DEPTH)
 	player_car.x = clampf(player_car.x, 47.0, CANVAS.x - 47.0)
 	_vehicle(player_car, 78.0, "car_rear")
 	_vignette()
+	if not drive_started:
+		for side in [-1.0, 1.0]:
+			var tip := player_car + Vector2(side * (57 + sin(control_time * 4) * 3), -25)
+			draw_line(tip + Vector2(-side * 9, -7), tip, CREAM, 3)
+			draw_line(tip, tip + Vector2(-side * 9, 7), CREAM, 3)
+	if drive_exit:
+		var exit_pos := Vector2(294, 542)
+		var glow := Color(0.9, 0.73, 0.34, 0.6 + 0.2 * sin(control_time * 5))
+		draw_arc(exit_pos, 25, 0, TAU, 24, glow, 3)
+		draw_polyline(PackedVector2Array([exit_pos + Vector2(-10,0), exit_pos + Vector2(9,0), exit_pos + Vector2(2,-7)]), CREAM, 3)
+		draw_line(exit_pos + Vector2(9,0), exit_pos + Vector2(2,7), CREAM, 3)
+	if drive_arrival > 0.0:
+		var glow := Color(0.98, 0.9, 0.75, 1.0 - drive_arrival / 0.5)
+		draw_arc(player_car + Vector2(0,-24), 48 + drive_arrival * 30, PI, TAU, 24, glow, 3)
 	for target in range(3):
 		var center := Vector2(66 + target * 114, 596)
 		_draw_skin("bubble_right" if roundi(lane) == target else "bubble_system",
@@ -265,11 +283,16 @@ func _road() -> void:
 	if slow > 0.0:
 		draw_rect(Rect2(0, 110, 360, 500), Color(0.68, 0.31, 0.29, slow * 0.11))
 
-static func traffic_depth(index: int, progress: float) -> float:
-	return (progress - 0.8 - index * 4.55) * 0.21
+static func traffic_depth(index: int, progress: float, seed_value := 0) -> float:
+	var jitter := 0.0 if seed_value == 0 or index == 0 else float((seed_value * 31 + index * 71) % 101) / 100.0 * 1.4 - 0.7
+	return (progress - 0.8 - index * 4.55 - jitter) * 0.21
 
-static func traffic_lane(index: int) -> int:
-	return [1, 0, 2, 1, 2, 0, 1, 0, 2, 1][index]
+static func traffic_lane(index: int, seed_value := 0) -> int:
+	if seed_value == 0 or index == 0:
+		return [1, 0, 2, 1, 2, 0, 1, 0, 2, 1][index]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value + index * 7919
+	return rng.randi_range(0, 2)
 
 static func traffic_image(index: int) -> String:
 	return ["traffic_silver", "traffic_blue", "traffic_gold"][index % 3]

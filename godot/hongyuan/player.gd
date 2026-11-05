@@ -32,6 +32,8 @@ var pending_hotspot := ""
 var distance_walked := 0.0
 var lane_target := 1
 var hit_index := -1
+var drive_started := false
+var drive_arrival := 0.0
 var chat_fast := false
 var paused := false
 var page_hidden_callback: Variant
@@ -56,6 +58,7 @@ var parking_lateral := 0.0
 var parking_base_x := 0.0
 var parking_sound_steer := 0.0
 var parking_steerable := false
+var parking_steered := false
 var parking_steer := 0.0
 var parking_grab_angle := 0.0
 var parking_sound := AudioStreamPlayer.new()
@@ -193,9 +196,12 @@ func _enter_step(index: int, resume := false) -> void:
 			stage.player_feet = _starting_feet(shot.sceneId)
 			stage.facing = 1.0
 		if shot.fullId == "shanghai/park":
-			state.parking = {"started": false, "done": false, "progress": 0.0, "speed": 1.0, "align": false, "angle": [-1.0, 1.0].pick_random() * randf_range(0.14, 0.23), "lateral": randf_range(-3.0, 3.0), "steeringVersion": 1}
+			state.parking = {"started": false, "done": false, "progress": 0.0, "speed": 1.0, "align": false, "angle": [-1.0, 1.0].pick_random() * randf_range(0.14, 0.23), "lateral": randf_range(-3.0, 3.0), "steeringVersion": 1, "steered": false}
 		if shot.type == "drive":
 			state.driveDistance = 0.0
+			state.driveStarted = false
+			state.driveArrival = 0.0
+			state.trafficSeed = randi_range(1, 1000000)
 			state.lane = 1
 			state.lanePosition = 1.0
 			state.slow = 0.0
@@ -211,6 +217,9 @@ func _enter_step(index: int, resume := false) -> void:
 	elapsed = clampf(float(state.get("elapsed", 0.0)), 0.0, float(shot.get("duration", 0.0)))
 	stage.time = elapsed
 	stage.distance = float(state.get("driveDistance", 0.0))
+	drive_started = bool(state.get("driveStarted", stage.distance > 0.0))
+	drive_arrival = float(state.get("driveArrival", 0.0))
+	stage.traffic_seed = int(state.get("trafficSeed", 0))
 	stage.slow = float(state.get("slow", 0.0))
 	lane_target = clampi(int(state.get("lane", 1)), 0, 2)
 	stage.lane = clampf(float(state.get("lanePosition", lane_target)), 0.0, 2.0)
@@ -227,6 +236,7 @@ func _enter_step(index: int, resume := false) -> void:
 	# Preserve the exact old R2/R3 location, then enable steering on the next press.
 	parking_base_x = float(parking.get("baseX", 0.0)) if int(parking.get("steeringVersion", 0)) == 1 else 18.0 * (1.0 - parking_progress)
 	parking_steerable = true
+	parking_steered = bool(parking.get("steered", parking_align or parking_done))
 	stage.parking_feedback = 0.0
 	if _controlled_walk():
 		stage.player_feet = _clamp_walk(stage.player_feet)
@@ -286,7 +296,7 @@ func _process(delta: float) -> void:
 			_move(dt)
 		"drive":
 			_drive(dt)
-			if stage.distance >= duration:
+			if drive_arrival >= 0.45:
 				_advance()
 		"chat":
 			if chat_fast and duration < 1.0:
@@ -343,14 +353,27 @@ func _clear_movement() -> void:
 	stage.walk_frame = -1
 
 func _drive(dt: float) -> void:
+	if not drive_started:
+		return
+	var destination := float(shot.duration)
+	if stage.distance >= destination:
+		if drive_arrival == 0.0:
+			_parking_sound(parking_finish_sound)
+		drive_arrival += dt
+		return
 	stage.slow = maxf(0.0, stage.slow - dt)
 	stage.lane = move_toward(stage.lane, float(lane_target), 4.4 * dt)
-	stage.distance += dt * (0.44 if stage.slow > 0.0 else 1.0)
+	var near_exit := stage.distance >= destination - 4.0
+	# Ease to a stop at the marked right-hand entrance until the player steers in.
+	var exit_speed := 1.0
+	if near_exit and stage.lane < 1.9:
+		exit_speed = clampf((destination - 0.2 - stage.distance) / 1.5, 0.0, 1.0)
+	stage.distance = minf(destination, stage.distance + dt * (0.44 if stage.slow > 0.0 else 1.0) * exit_speed)
 	for index in range(10):
 		if index <= hit_index:
 			continue
-		var depth := Stage.traffic_depth(index, stage.distance)
-		if depth > 0.81 and depth < 0.94 and absf(stage.lane - Stage.traffic_lane(index)) < 0.48:
+		var depth := Stage.traffic_depth(index, stage.distance, stage.traffic_seed)
+		if depth > 0.81 and depth < 0.94 and absf(stage.lane - Stage.traffic_lane(index, stage.traffic_seed)) < 0.48:
 			hit_index = index
 			stage.slow = 0.88
 			chime.play()
@@ -388,7 +411,7 @@ func _on_stage_input(event: InputEvent) -> void:
 			var quick := not pointer_dragged and Time.get_ticks_msec() - pointer_started < 350
 			if parking_held:
 				# A tap is only a pedal touch, not an automatic chapter-advance button.
-				parking_align = parking_hold_time >= 0.30 or absf(parking_steer) >= 0.20
+				parking_align = parking_steered and (parking_hold_time >= 0.30 or absf(parking_steer) >= 0.20)
 				parking_speed = 0.0
 				_parking_sound(parking_stop_sound)
 				# Good steering finishes immediately; assistance only rotates at rest.
@@ -409,6 +432,7 @@ func _on_stage_input(event: InputEvent) -> void:
 		if pointer_dragged:
 			if parking_held and parking_steerable:
 				parking_steer = clampf(offset.x / 56.0, -1.0, 1.0)
+				parking_steered = parking_steered or absf(parking_steer) >= 0.20
 				parking_angle = clampf(parking_grab_angle + offset.x * 0.005, -0.30, 0.30)
 				if absf(parking_steer - parking_sound_steer) >= 0.25:
 					_parking_sound(parking_press_sound)
@@ -470,6 +494,9 @@ func _sync_controls() -> void:
 	stage.stick_visible = _controlled_walk() and not paused
 	stage.stick_origin = pointer_start if stick_pointer else Vector2(64, 558)
 	stage.stick_vector = stick
+	stage.drive_started = drive_started
+	stage.drive_exit = shot.type == "drive" and stage.distance >= float(shot.get("duration", 45.0)) - 4.0
+	stage.drive_arrival = drive_arrival
 	stage.parking_active = _parking_active()
 	stage.parking_progress = parking_progress
 	stage.parking_pressed = parking_held
@@ -553,7 +580,14 @@ func _walk_to(destination: Vector2, hotspot: String) -> void:
 	moving = true
 
 func _set_lane(target: int) -> void:
-	lane_target = clampi(target, 0, 2)
+	var next_lane := clampi(target, 0, 2)
+	if next_lane == lane_target:
+		return
+	lane_target = next_lane
+	drive_started = true
+	_parking_sound(parking_press_sound)
+	_sync_controls()
+	stage.queue_redraw()
 	_save()
 
 func _material_key(step: Dictionary) -> String:
@@ -572,6 +606,9 @@ func _save() -> void:
 	state.feet = [stage.player_feet.x, stage.player_feet.y]
 	state.facing = stage.facing
 	state.driveDistance = stage.distance
+	state.driveStarted = drive_started
+	state.driveArrival = drive_arrival
+	state.trafficSeed = stage.traffic_seed
 	state.slow = stage.slow
 	state.lane = lane_target
 	state.lanePosition = stage.lane
@@ -579,7 +616,7 @@ func _save() -> void:
 	state.chatFast = chat_fast
 	state.walking = moving
 	state.walkTarget = [movement_target.x, movement_target.y]
-	state.parking = {"started": parking_started, "done": parking_done, "progress": parking_progress, "speed": parking_speed, "align": parking_align, "angle": parking_angle, "lateral": parking_lateral, "baseX": parking_base_x, "steeringVersion": 1 if parking_steerable else 0}
+	state.parking = {"started": parking_started, "done": parking_done, "progress": parking_progress, "speed": parking_speed, "align": parking_align, "angle": parking_angle, "lateral": parking_lateral, "baseX": parking_base_x, "steered": parking_steered, "steeringVersion": 1 if parking_steerable else 0}
 	state.revision = int(state.revision) + 1
 	stage.save_failed = not Checkpoint.write(state)
 	if stage.save_failed:

@@ -41,7 +41,12 @@ func run() -> void:
 	check(p.parking_speed > 0 and p.parking_progress > 0.05, "Holding again after a short tap resumes movement")
 	button(p, origin, false)
 	for frame in range(120): p._process(0.016)
-	check(p.parking_done, "An intentional hold can finish without a failure state")
+	check(not p.parking_done, "Straight holding cannot substitute for steering")
+	button(p, origin, true)
+	drag(p, origin + Vector2(-36,0))
+	button(p, origin + Vector2(-36,0), false)
+	for frame in range(120): p._process(0.016)
+	check(p.parking_done, "After steering the stopped car can complete without failure")
 	var result: Array[float] = []
 	for direction in [-1, 1]:
 		start(p)

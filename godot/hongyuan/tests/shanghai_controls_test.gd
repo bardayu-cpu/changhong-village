@@ -44,6 +44,7 @@ func run() -> void:
 	check(p.shot.id == "board_car" and not p._nearby_hotspot().is_empty(), "Arrival never automatically triggers")
 	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
 	check(p.shot.id == "drive", "Explicit nearby icon boards car")
+	p._set_lane(2)
 	p.stage.distance = 4.9
 	p.stage.lane = 1
 	p._drive(0.016)
