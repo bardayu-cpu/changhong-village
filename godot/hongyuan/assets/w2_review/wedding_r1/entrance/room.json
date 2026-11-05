@@ -1,0 +1,345 @@
+{
+  "background": {
+    "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/review_base.png",
+    "x": 0,
+    "y": 0
+  },
+  "props": [
+    {
+      "id": "r1_lantern_w1",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/lantern_w1.png",
+      "x": 626,
+      "y": 234,
+      "foot": 300,
+      "hide": [
+        "lantern_w1"
+      ]
+    },
+    {
+      "id": "r1_lantern_e1",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/lantern_e1.png",
+      "x": 882,
+      "y": 234,
+      "foot": 300,
+      "hide": [
+        "lantern_e1"
+      ]
+    },
+    {
+      "id": "r1_tree_ne",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tree_ne.png",
+      "x": 1384,
+      "y": 37,
+      "foot": 300,
+      "hide": [
+        "tree_ne"
+      ]
+    },
+    {
+      "id": "r1_flower_wall",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/flower_wall.png",
+      "x": 1084,
+      "y": 184,
+      "foot": 326,
+      "hide": [
+        "flower_wall"
+      ]
+    },
+    {
+      "id": "r1_tree_nw",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tree_nw.png",
+      "x": 40,
+      "y": 157,
+      "foot": 420,
+      "hide": [
+        "tree_nw"
+      ]
+    },
+    {
+      "id": "r1_tea_1",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tea_1.png",
+      "x": 298,
+      "y": 400,
+      "foot": 450,
+      "hide": [
+        "tea_1"
+      ]
+    },
+    {
+      "id": "r1_stool_1a",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/stool_1a.png",
+      "x": 272,
+      "y": 424,
+      "foot": 452,
+      "hide": [
+        "stool_1a"
+      ]
+    },
+    {
+      "id": "r1_lantern_w2",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/lantern_w2.png",
+      "x": 626,
+      "y": 394,
+      "foot": 460,
+      "hide": [
+        "lantern_w2"
+      ]
+    },
+    {
+      "id": "r1_lantern_e2",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/lantern_e2.png",
+      "x": 882,
+      "y": 394,
+      "foot": 460,
+      "hide": [
+        "lantern_e2"
+      ]
+    },
+    {
+      "id": "r1_camera_w",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/camera_w.png",
+      "x": 968,
+      "y": 392,
+      "foot": 470,
+      "hide": [
+        "camera_w"
+      ]
+    },
+    {
+      "id": "r1_camera_e",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/camera_e.png",
+      "x": 1318,
+      "y": 392,
+      "foot": 470,
+      "hide": [
+        "camera_e"
+      ]
+    },
+    {
+      "id": "r1_print_desk",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/print_desk.png",
+      "x": 1382,
+      "y": 426,
+      "foot": 480,
+      "hide": [
+        "print_desk"
+      ]
+    },
+    {
+      "id": "r1_tea_3",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tea_3.png",
+      "x": 478,
+      "y": 494,
+      "foot": 545,
+      "hide": [
+        "tea_3"
+      ]
+    },
+    {
+      "id": "r1_stool_3a",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/stool_3a.png",
+      "x": 452,
+      "y": 518,
+      "foot": 547,
+      "hide": [
+        "stool_3a"
+      ]
+    },
+    {
+      "id": "r1_stool_3b",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/stool_3b.png",
+      "x": 530,
+      "y": 518,
+      "foot": 547,
+      "hide": [
+        "stool_3b"
+      ]
+    },
+    {
+      "id": "r1_lantern_w3",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/lantern_w3.png",
+      "x": 626,
+      "y": 554,
+      "foot": 620,
+      "hide": [
+        "lantern_w3"
+      ]
+    },
+    {
+      "id": "r1_lantern_e3",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/lantern_e3.png",
+      "x": 882,
+      "y": 554,
+      "foot": 620,
+      "hide": [
+        "lantern_e3"
+      ]
+    },
+    {
+      "id": "r1_album_stand",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/album_stand.png",
+      "x": 1282,
+      "y": 558,
+      "foot": 633,
+      "hide": [
+        "album_stand",
+        "album_book_cover",
+        "album_book_left",
+        "album_book_right",
+        "album_book_spine",
+        "album_book_line0",
+        "album_book_line1",
+        "album_book_line2",
+        "album_book_line3"
+      ]
+    },
+    {
+      "id": "r1_sign_table",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/sign_table.png",
+      "x": 1044,
+      "y": 580,
+      "foot": 636,
+      "hide": [
+        "sign_table"
+      ]
+    },
+    {
+      "id": "r1_tea_2",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tea_2.png",
+      "x": 298,
+      "y": 590,
+      "foot": 640,
+      "hide": [
+        "tea_2"
+      ]
+    },
+    {
+      "id": "r1_blessing_board",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/blessing_board.png",
+      "x": 924,
+      "y": 558,
+      "foot": 642,
+      "hide": [
+        "blessing_board"
+      ]
+    },
+    {
+      "id": "r1_stool_2a",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/stool_2a.png",
+      "x": 272,
+      "y": 614,
+      "foot": 642,
+      "hide": [
+        "stool_2a"
+      ]
+    },
+    {
+      "id": "r1_stool_2b",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/stool_2b.png",
+      "x": 350,
+      "y": 614,
+      "foot": 642,
+      "hide": [
+        "stool_2b"
+      ]
+    },
+    {
+      "id": "r1_parking_closure",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/parking_closure.png",
+      "x": 1484,
+      "y": 710,
+      "foot": 814,
+      "hide": []
+    },
+    {
+      "id": "r1_flower_box_w",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/flower_box_w.png",
+      "x": 300,
+      "y": 838,
+      "foot": 884,
+      "hide": [
+        "flower_box_w"
+      ]
+    },
+    {
+      "id": "r1_flower_box_e",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/flower_box_e.png",
+      "x": 1116,
+      "y": 838,
+      "foot": 884,
+      "hide": [
+        "flower_box_e"
+      ]
+    },
+    {
+      "id": "r1_gate_post_w",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/gate_post_w.png",
+      "x": 614,
+      "y": 690,
+      "foot": 904,
+      "hide": [
+        "gate_post_w"
+      ]
+    },
+    {
+      "id": "r1_gate_post_e",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/gate_post_e.png",
+      "x": 882,
+      "y": 690,
+      "foot": 904,
+      "hide": [
+        "gate_post_e"
+      ]
+    },
+    {
+      "id": "r1_tree_sw",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tree_sw.png",
+      "x": 25,
+      "y": 642,
+      "foot": 905,
+      "hide": [
+        "tree_sw"
+      ]
+    },
+    {
+      "id": "r1_tree_se",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/tree_se.png",
+      "x": 1339,
+      "y": 642,
+      "foot": 905,
+      "hide": [
+        "tree_se"
+      ]
+    },
+    {
+      "id": "r1_wall_s_w",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/wall_s_w.png",
+      "x": 0,
+      "y": 880,
+      "foot": 952,
+      "hide": [
+        "wall_s_w"
+      ]
+    },
+    {
+      "id": "r1_wall_s_e",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/wall_s_e.png",
+      "x": 884,
+      "y": 880,
+      "foot": 952,
+      "hide": [
+        "wall_s_e"
+      ]
+    },
+    {
+      "id": "r1_gate_roof",
+      "png": "res://hongyuan/assets/w2_review/wedding_r1/entrance/layers/gate_roof.png",
+      "x": 596,
+      "y": 682,
+      "foot": 1024,
+      "hide": [
+        "gate_roof"
+      ]
+    }
+  ]
+}

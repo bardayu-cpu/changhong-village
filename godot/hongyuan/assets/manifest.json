@@ -1,6 +1,27 @@
 {
   "sourceCommit": "d445d3b3346f41dd29a67497a53790f9f24bdbd1",
   "backgrounds": {
+    "cbd_birthday_desk_r1": {
+      "file": "bg_cbd_birthday_desk_r1.png",
+      "bakedActors": [],
+      "bakedText": [],
+      "status": "reviewCandidate",
+      "location": "CBD·生日桌面近景"
+    },
+    "shizuoka_pier_r1": {
+      "file": "bg_shizuoka_pier_r1.png",
+      "bakedActors": [],
+      "bakedText": [],
+      "status": "reviewCandidate",
+      "location": "静冈·浦岛酒店码头"
+    },
+    "shizuoka_boat_cabin_r1": {
+      "file": "bg_shizuoka_boat_cabin_r1.png",
+      "bakedActors": [],
+      "bakedText": [],
+      "status": "reviewCandidate",
+      "location": "静冈·乌龟船内"
+    },
     "street": {
       "file": "bg_sh_street.png",
       "bakedActors": [],
@@ -806,6 +827,62 @@
       "references": [
         "godot/assets/layered/scene_luoman_plaza/layout.json"
       ]
+    },
+    "bg_cbd_birthday_desk_r1.png": {
+      "origin": "D3 新画·K21 R1",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 1,
+      "method": "内置 ImageGen，最近邻缩至工程尺寸",
+      "references": [
+        "w2-refs/阿鱼10-03-像素办公室参考.png"
+      ]
+    },
+    "bg_shizuoka_pier_r1.png": {
+      "origin": "D3 新画·K22 R1",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 1,
+      "method": "内置 ImageGen，最近邻缩至工程尺寸",
+      "references": [
+        "public/assets/l4_japan.webp"
+      ]
+    },
+    "bg_shizuoka_boat_cabin_r1.png": {
+      "origin": "D3 新画·K22 R1",
+      "dimensions": [
+        540,
+        960
+      ],
+      "generationAttempt": 1,
+      "method": "内置 ImageGen，最近邻缩至工程尺寸",
+      "references": [
+        "public/assets/l4_japan.webp"
+      ]
+    },
+    "w2_review/wedding_r1/entrance/review_base.png": {
+      "origin": "D3 迎宾院 R1 真包评审分层",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "generationAttempt": 1,
+      "status": "reviewOnly",
+      "reviewPlacement": "w2_review/wedding_r1/entrance/room.json"
+    },
+    "w2_review/wedding_r1/plaza/review_base.png": {
+      "origin": "D3 喷泉广场 R1 真包评审分层",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "generationAttempt": 1,
+      "status": "reviewOnly",
+      "reviewPlacement": "w2_review/wedding_r1/plaza/room.json"
     },
     "laugh.svg": {
       "origin": "W1 现有图标",
