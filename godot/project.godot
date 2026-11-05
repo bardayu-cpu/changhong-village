@@ -14,7 +14,8 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="运行数据"
 
 config/name="苏七镇奇缘"
-run/main_scene="res://ayu_home/v4/phone_boot.tscn"
+run/main_scene="res://hongyuan/boot.tscn"
+hongyuan/enabled=true
 run/main_scene.ayu_phone="res://ayu_home/v4/phone_boot.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 

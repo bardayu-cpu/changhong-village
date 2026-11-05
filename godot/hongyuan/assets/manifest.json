@@ -1,0 +1,202 @@
+{
+  "sourceCommit": "d445d3b3346f41dd29a67497a53790f9f24bdbd1",
+  "backgrounds": {
+    "street": {
+      "file": "street.webp",
+      "bakedActors": [],
+      "status": "approvedEmpty",
+      "location": "上海日景·出发街边",
+      "bakedText": []
+    },
+    "parking": {
+      "file": "parking.webp",
+      "bakedActors": [],
+      "status": "approvedEmpty",
+      "location": "上海日景·东方明珠停车位",
+      "bakedText": []
+    },
+    "driving": {
+      "file": "driving.webp",
+      "bakedActors": [],
+      "status": "approvedEmpty",
+      "location": "上海日景·三车道路",
+      "bakedText": []
+    },
+    "chengdu": {
+      "file": "chengdu.webp",
+      "bakedActors": [],
+      "status": "approvedEmpty",
+      "location": "成都日景·熊猫基地走道",
+      "bakedText": []
+    },
+    "road": {
+      "file": "driving.webp",
+      "bakedActors": [],
+      "status": "approvedEmpty",
+      "location": "上海日景·三车道路",
+      "bakedText": []
+    }
+  },
+  "sprites": {
+    "ayu": {
+      "idle": "ayu.png",
+      "walk": [
+        "ayu_walk1.png",
+        "ayu_walk2.png",
+        "ayu_walk3.png",
+        "ayu_walk4.png"
+      ]
+    },
+    "axiao": {
+      "idle": "axiao.png"
+    },
+    "panda": {
+      "idle": "panda.png",
+      "action": "panda_action.png"
+    }
+  },
+  "images": {
+    "car": "car.png",
+    "car_rear": "car_rear.png",
+    "traffic_silver": "traffic_silver.png",
+    "traffic_blue": "traffic_blue.png",
+    "traffic_gold": "traffic_gold.png",
+    "ayu_avatar": "ayu_avatar.png",
+    "axiao_avatar": "axiao_avatar.png",
+    "toretto_avatar": "toretto_avatar.png"
+  },
+  "sources": {
+    "street.webp": {
+      "path": "public/assets/stage1/generated/shanghai-map-day-optimized.webp",
+      "cropLTRB": [
+        304,
+        1080,
+        637,
+        1672
+      ]
+    },
+    "driving.webp": {
+      "path": "public/assets/stage1/generated/driving-road-day-optimized.webp"
+    },
+    "chengdu.webp": {
+      "path": "public/assets/l2_chengdu.webp",
+      "cropLTRB": [
+        174,
+        245,
+        321,
+        506
+      ]
+    },
+    "ayu.png": {
+      "path": "public/assets/stage1/generated/ayu-idle-directions.png",
+      "cropLTRB": [
+        0,
+        0,
+        192,
+        256
+      ]
+    },
+    "ayu_walk1.png": {
+      "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
+      "cropLTRB": [
+        0,
+        0,
+        128,
+        192
+      ]
+    },
+    "ayu_walk2.png": {
+      "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
+      "cropLTRB": [
+        128,
+        0,
+        256,
+        192
+      ]
+    },
+    "ayu_walk3.png": {
+      "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
+      "cropLTRB": [
+        256,
+        0,
+        384,
+        192
+      ]
+    },
+    "ayu_walk4.png": {
+      "path": "public/assets/stage1/generated/ayu-walk-fixed.png",
+      "cropLTRB": [
+        384,
+        0,
+        512,
+        192
+      ]
+    },
+    "axiao.png": {
+      "path": "public/assets/axiao_phone.webp"
+    },
+    "panda.png": {
+      "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
+      "cropLTRB": [
+        0,
+        0,
+        256,
+        256
+      ]
+    },
+    "panda_action.png": {
+      "path": "public/assets/continuation/generated/panda-eating-states-mobile.webp",
+      "cropLTRB": [
+        256,
+        0,
+        512,
+        256
+      ]
+    },
+    "car.png": {
+      "path": "public/assets/car_ayu_L.webp"
+    },
+    "car_rear.png": {
+      "path": "public/assets/stage1/generated/ayu-g42-rear-optimized.webp"
+    },
+    "traffic_silver.png": {
+      "path": "public/assets/stage1/generated/traffic-silver-rear-optimized.webp"
+    },
+    "traffic_blue.png": {
+      "path": "public/assets/stage1/generated/traffic-blue-rear-optimized.webp"
+    },
+    "traffic_gold.png": {
+      "path": "public/assets/stage1/generated/traffic-gold-rear-optimized.webp"
+    },
+    "ayu_avatar.png": {
+      "path": "public/assets/ayu_idle.webp",
+      "cropLTRB": [
+        0,
+        0,
+        225,
+        225
+      ]
+    },
+    "axiao_avatar.png": {
+      "path": "public/assets/axiao_phone.webp",
+      "cropLTRB": [
+        0,
+        0,
+        199,
+        199
+      ]
+    },
+    "toretto_avatar.png": {
+      "path": "public/assets/tt_stand.webp",
+      "cropLTRB": [
+        27,
+        0,
+        245,
+        218
+      ]
+    },
+    "parking.webp": {
+      "path": "public/assets/stage1/generated/shanghai-map-day-optimized.webp"
+    }
+  }
+}

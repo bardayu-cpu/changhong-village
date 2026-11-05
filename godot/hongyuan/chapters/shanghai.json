@@ -1,0 +1,527 @@
+{
+  "chapterId": "shanghai",
+  "titleId": "G-06",
+  "steps": [
+    {
+      "id": "perspective",
+      "type": "narration",
+      "sceneId": "shanghai_street",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "street",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        }
+      ],
+      "duration": 2.1,
+      "titleId": "G-02"
+    },
+    {
+      "id": "street_intro",
+      "type": "narration",
+      "sceneId": "shanghai_street",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "street",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-1a",
+      "duration": 2.1
+    },
+    {
+      "id": "board_car",
+      "type": "walk",
+      "sceneId": "shanghai_street",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "street",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        }
+      ],
+      "objectiveId": "A1-P1",
+      "hotspots": [
+        {
+          "id": "car",
+          "target": [
+            263,
+            432
+          ],
+          "hit": [
+            202,
+            345,
+            140,
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drive",
+      "type": "drive",
+      "sceneId": "shanghai_road",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "road",
+      "visibleActors": [],
+      "duration": 45
+    },
+    {
+      "id": "park",
+      "type": "narration",
+      "sceneId": "shanghai_parking",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-1b",
+      "duration": 3.0,
+      "cars": 1
+    },
+    {
+      "id": "other_car",
+      "type": "narration",
+      "sceneId": "shanghai_parking",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-1c",
+      "duration": 2.7,
+      "cars": 2
+    },
+    {
+      "id": "approach_axiao",
+      "type": "walk",
+      "sceneId": "shanghai_parking",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "objectiveId": "A1-P3",
+      "cars": 2,
+      "hotspots": [
+        {
+          "id": "axiao",
+          "target": [
+            196,
+            456
+          ],
+          "hit": [
+            203,
+            303,
+            143,
+            157
+          ]
+        }
+      ]
+    },
+    {
+      "id": "line_1",
+      "type": "dialogue",
+      "sceneId": "shanghai_parking",
+      "speaker": "axiao",
+      "actorMode": "sprite",
+      "actorSlot": "right",
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2a",
+      "duration": 2.4,
+      "cars": 2
+    },
+    {
+      "id": "line_2",
+      "type": "dialogue",
+      "sceneId": "shanghai_parking",
+      "speaker": "ayu",
+      "actorMode": "sprite",
+      "actorSlot": "left",
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2b",
+      "duration": 2.4,
+      "cars": 2
+    },
+    {
+      "id": "line_3",
+      "type": "dialogue",
+      "sceneId": "shanghai_parking",
+      "speaker": "axiao",
+      "actorMode": "sprite",
+      "actorSlot": "right",
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2c",
+      "duration": 2.8,
+      "cars": 2
+    },
+    {
+      "id": "line_4",
+      "type": "dialogue",
+      "sceneId": "shanghai_parking",
+      "speaker": "ayu",
+      "actorMode": "sprite",
+      "actorSlot": "left",
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2d",
+      "duration": 2.4,
+      "cars": 2
+    },
+    {
+      "id": "line_5",
+      "type": "dialogue",
+      "sceneId": "shanghai_parking",
+      "speaker": "axiao",
+      "actorMode": "sprite",
+      "actorSlot": "right",
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2e",
+      "duration": 2.4,
+      "cars": 2
+    },
+    {
+      "id": "line_6",
+      "type": "dialogue",
+      "sceneId": "shanghai_parking",
+      "speaker": "ayu",
+      "actorMode": "sprite",
+      "actorSlot": "left",
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2f",
+      "duration": 2.4,
+      "cars": 2
+    },
+    {
+      "id": "meet_close",
+      "type": "narration",
+      "sceneId": "shanghai_parking",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-2g",
+      "duration": 2.6,
+      "cars": 2
+    },
+    {
+      "id": "quiet",
+      "type": "wait",
+      "sceneId": "shanghai_parking",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "duration": 0.85,
+      "cars": 2
+    },
+    {
+      "id": "later",
+      "type": "narration",
+      "sceneId": "shanghai_parking",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "parking",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A1-T1",
+      "duration": 2.0,
+      "cars": 2
+    },
+    {
+      "id": "chat_system",
+      "type": "chat",
+      "sceneId": "shanghai_phone",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "phone",
+      "visibleActors": [],
+      "copyId": "A1-3a",
+      "duration": 0.7,
+      "groupId": "A1-G0",
+      "messageId": "invite"
+    },
+    {
+      "id": "chat_axiao",
+      "type": "chat",
+      "sceneId": "shanghai_phone",
+      "speaker": "axiao",
+      "actorMode": "sprite",
+      "actorSlot": "left",
+      "background": "phone",
+      "visibleActors": [
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        }
+      ],
+      "copyId": "A1-3b",
+      "duration": 0.7,
+      "groupId": "A1-G0",
+      "messageId": "axiao"
+    },
+    {
+      "id": "chat_toretto",
+      "type": "chat",
+      "sceneId": "shanghai_phone",
+      "speaker": "toretto",
+      "actorMode": "sprite",
+      "actorSlot": "left",
+      "background": "phone",
+      "visibleActors": [
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        },
+        {
+          "id": "toretto",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        }
+      ],
+      "copyId": "A1-3c",
+      "duration": 0.7,
+      "groupId": "A1-G0",
+      "messageId": "toretto"
+    },
+    {
+      "id": "chat_ayu",
+      "type": "chat",
+      "sceneId": "shanghai_phone",
+      "speaker": "ayu",
+      "actorMode": "sprite",
+      "actorSlot": "right",
+      "background": "phone",
+      "visibleActors": [
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        },
+        {
+          "id": "toretto",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        },
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "phone"
+        }
+      ],
+      "copyId": "A1-3d",
+      "duration": 1.7,
+      "groupId": "A1-G0",
+      "messageId": "ayu",
+      "caret": true
+    },
+    {
+      "id": "pen",
+      "type": "material",
+      "sceneId": "invitation",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "invitation",
+      "visibleActors": [],
+      "duration": 2.0,
+      "materialId": "pen"
+    },
+    {
+      "id": "to_chengdu",
+      "type": "transition",
+      "sceneId": "invitation",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "invitation",
+      "visibleActors": [],
+      "duration": 1.1,
+      "effect": "ink_to_chengdu"
+    }
+  ]
+}

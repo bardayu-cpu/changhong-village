@@ -1,0 +1,194 @@
+{
+  "chapterId": "chengdu",
+  "titleId": "G-07",
+  "steps": [
+    {
+      "id": "chengdu_return",
+      "type": "narration",
+      "sceneId": "chengdu_day",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "chengdu",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "panda",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A2-1a",
+      "duration": 3.7
+    },
+    {
+      "id": "chengdu_routine",
+      "type": "narration",
+      "sceneId": "chengdu_day",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "chengdu",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "panda",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "copyId": "A2-1b",
+      "duration": 5.2
+    },
+    {
+      "id": "chengdu_walk",
+      "type": "walk",
+      "sceneId": "chengdu_day",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "chengdu",
+      "visibleActors": [
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "world"
+        },
+        {
+          "id": "panda",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "world"
+        }
+      ],
+      "objectiveId": "A2-P1",
+      "hotspots": [
+        {
+          "id": "panda",
+          "target": [
+            111,
+            445
+          ],
+          "hit": [
+            37,
+            322,
+            135,
+            135
+          ],
+          "optional": true
+        },
+        {
+          "id": "phone",
+          "target": [
+            263,
+            449
+          ],
+          "hit": [
+            214,
+            342,
+            120,
+            114
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chengdu_ping",
+      "type": "notification",
+      "sceneId": "chengdu_phone",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "phone",
+      "visibleActors": [],
+      "copyId": "A2-2"
+    },
+    {
+      "id": "chengdu_group",
+      "type": "phone",
+      "sceneId": "chengdu_phone",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "phone",
+      "visibleActors": [
+        {
+          "id": "axiao",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        },
+        {
+          "id": "toretto",
+          "mode": "sprite",
+          "slot": "left",
+          "layer": "phone"
+        },
+        {
+          "id": "ayu",
+          "mode": "sprite",
+          "slot": "right",
+          "layer": "phone"
+        }
+      ],
+      "duration": 2.4,
+      "groupId": "A1-G0"
+    },
+    {
+      "id": "ink",
+      "type": "material",
+      "sceneId": "invitation",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "invitation",
+      "visibleActors": [],
+      "duration": 2.25,
+      "materialId": "ink"
+    },
+    {
+      "id": "night",
+      "type": "transition",
+      "sceneId": "december_night",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "night",
+      "visibleActors": [],
+      "copyId": "A3-1a",
+      "duration": 2.35,
+      "effect": "night"
+    },
+    {
+      "id": "incoming_call",
+      "type": "terminal",
+      "sceneId": "december_night",
+      "speaker": "toretto",
+      "actorMode": "sprite",
+      "actorSlot": "center",
+      "background": "phone",
+      "visibleActors": [
+        {
+          "id": "toretto",
+          "mode": "sprite",
+          "slot": "center",
+          "layer": "phone"
+        }
+      ],
+      "copyId": "A3-C1"
+    }
+  ]
+}

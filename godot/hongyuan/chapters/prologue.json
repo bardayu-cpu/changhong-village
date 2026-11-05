@@ -1,0 +1,43 @@
+{
+  "chapterId": "prologue",
+  "titleId": "G-01",
+  "steps": [
+    {
+      "id": "closed",
+      "type": "invite",
+      "sceneId": "invitation",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "invitation",
+      "visibleActors": [],
+      "copyId": "A0-1",
+      "objectiveId": "G-03"
+    },
+    {
+      "id": "open",
+      "type": "narration",
+      "sceneId": "invitation",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "invitation",
+      "visibleActors": [],
+      "copyId": "A0-2",
+      "duration": 3.6
+    },
+    {
+      "id": "line_to_road",
+      "type": "transition",
+      "sceneId": "shanghai_road",
+      "speaker": "narrator",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "road",
+      "visibleActors": [],
+      "copyId": "A0-3",
+      "duration": 2.0,
+      "effect": "line_to_road"
+    }
+  ]
+}
