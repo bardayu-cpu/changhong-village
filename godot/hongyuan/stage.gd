@@ -23,6 +23,7 @@ const STREET_CAR := Vector2(260, 405)
 const PANDA := Vector2(111, 445)
 const PHONE_HOTSPOT := Vector2(263, 400)
 const CAR_DEPTH := 0.89
+const BRAKE := Rect2(260, 530, 64, 64)
 
 var manifest: Dictionary
 var shot: Dictionary
@@ -37,6 +38,14 @@ var lane := 1.0
 var slow := 0.0
 var panda_time := 0.0
 var save_failed := false
+var interaction: Dictionary = {}
+var stick_visible := false
+var stick_origin := Vector2(64, 558)
+var stick_vector := Vector2.ZERO
+var parking_active := false
+var parking_progress := 0.0
+var parking_pressed := false
+var parking_angle := 0.0
 var texture_cache: Dictionary = {}
 var skin_cache: Dictionary = {}
 
@@ -60,6 +69,7 @@ func _draw() -> void:
 			_phone()
 		_:
 			_world(background)
+	_controls()
 	if save_failed:
 		draw_arc(Vector2(336, 29), 6, 0, TAU, 20, Color("#ed8b7e"), 1.5, true)
 		draw_line(Vector2(336, 26), Vector2(336, 30), Color("#ed8b7e"), 1.5, true)
@@ -123,7 +133,12 @@ func _world(background: String) -> void:
 		_vehicle(STREET_CAR, 0.0, "car_street")
 	elif background == "parking":
 		for index in range(int(shot.get("cars", 0))):
-			_vehicle(PARKING[index], 0.0, "car_parking")
+			var feet: Vector2 = PARKING[index]
+			if index == 0:
+				# Already at the bay edge. Release holds this exact position;
+				# parking assist straightens the angle without another drive.
+				feet += Vector2(18, 10) * (1.0 - parking_progress)
+			_vehicle(feet, 0.0, "car_parking", parking_angle if index == 0 else 0.0)
 	if shot.type == "walk":
 		_world_hotspots()
 	var sorted: Array = shot.visibleActors.duplicate()
@@ -131,7 +146,7 @@ func _world(background: String) -> void:
 		return _feet(a).y < _feet(b).y
 	)
 	for actor: Dictionary in sorted:
-		if actor.mode == "sprite" and actor.layer == "world":
+		if actor.mode == "sprite" and actor.layer == "world" and not parking_active:
 			_world_actor(actor)
 	_vignette()
 	if shot.type == "dialogue":
@@ -141,6 +156,8 @@ func _world(background: String) -> void:
 		]), ACCENT)
 
 func _world_hotspots() -> void:
+	if shot.get("chapterId") == "shanghai":
+		return
 	for hotspot: Dictionary in shot.hotspots:
 		if hotspot.id == "panda":
 			if panda_time <= 0 and not materials.get("panda_used", false):
@@ -163,9 +180,9 @@ func _pin(position: Vector2) -> void:
 
 func _feet(actor: Dictionary) -> Vector2:
 	if actor.id == "ayu":
-		if shot.type == "dialogue":
+		if shot.type == "dialogue" and shot.get("chapterId") != "shanghai":
 			return Vector2(96, 456)
-		return player_feet + Vector2(0, 5) if shot.sceneId == "shanghai_street" else player_feet
+		return player_feet
 	if actor.id == "panda":
 		return PANDA
 	return Vector2(264 if actor.slot == "right" else 96, 456)
@@ -186,8 +203,11 @@ func _world_actor(actor: Dictionary) -> void:
 			file = info.get("slow", file)
 		elif materials.get("panda_used", false):
 			file = info.get("sleep", file)
-	var flip: bool = key == "ayu" and facing < 0.0 and shot.type != "dialogue"
-	_draw_sprite(_texture(file), _feet(actor), float(info.get("footBottom", 0)), flip)
+	var flip: bool = key == "ayu" and facing < 0.0 and (shot.type != "dialogue" or shot.get("chapterId") == "shanghai")
+	var feet := _feet(actor)
+	if key == "ayu" and walk_frame >= 0 and shot.get("chapterId") == "shanghai":
+		feet.y -= float(walk_frame % 2) * 1.5
+	_draw_sprite(_texture(file), feet, float(info.get("footBottom", 0)), flip)
 
 func _draw_sprite(texture: Texture2D, feet: Vector2, foot_bottom := 0.0, flip := false) -> void:
 	if not texture:
@@ -251,7 +271,7 @@ static func traffic_image(index: int) -> String:
 func _project(offset: float, depth: float) -> Vector2:
 	return Vector2(180 + offset * (10 + 151 * depth), 166 + 478 * pow(depth, 1.65))
 
-func _vehicle(feet: Vector2, wide: float, key: String) -> void:
+func _vehicle(feet: Vector2, wide: float, key: String, angle := 0.0) -> void:
 	var texture := image_asset(key)
 	if not texture:
 		texture = image_asset("car")
@@ -262,7 +282,12 @@ func _vehicle(feet: Vector2, wide: float, key: String) -> void:
 		feet = _pixel_position(feet)
 		_shadow(feet, native_size.x * 0.47)
 		var origin := _pixel_position(feet - Vector2(native_size.x * 0.5, native_size.y))
-		draw_texture_rect(texture, Rect2(origin, native_size), false)
+		if is_zero_approx(angle):
+			draw_texture_rect(texture, Rect2(origin, native_size), false)
+		else:
+			draw_set_transform(origin + native_size * 0.5, angle)
+			draw_texture_rect(texture, Rect2(-native_size * 0.5, native_size), false)
+			draw_set_transform(Vector2.ZERO)
 		return
 	var native_wide := texture.get_width() * ART_SCALE
 	var divisor := pow(2.0, maxf(0.0, roundf(log(native_wide / wide) / log(2.0))))
@@ -378,3 +403,32 @@ func _texture(file: String) -> Texture2D:
 		var path := ASSET_ROOT + file
 		texture_cache[file] = load(path) if ResourceLoader.exists(path) else null
 	return texture_cache[file]
+
+static func interaction_rect(hotspot: Dictionary) -> Rect2:
+	return Rect2(Vector2(float(hotspot.target[0]) - 22, float(hotspot.target[1]) - 70), Vector2(44, 44))
+
+func _controls() -> void:
+	if stick_visible:
+		draw_circle(stick_origin, 34, Color(0.98, 0.9, 0.75, 0.16))
+		draw_arc(stick_origin, 34, 0, TAU, 32, Color(0.98, 0.9, 0.75, 0.55), 2)
+		draw_circle(stick_origin + stick_vector * 25, 12, Color(0.98, 0.9, 0.75, 0.65))
+	if not interaction.is_empty():
+		var rect := interaction_rect(interaction)
+		_draw_skin("bubble_right", rect)
+		var icon := image_asset(str(interaction.get("icon", "interaction_hand")))
+		if icon:
+			draw_texture_rect(icon, Rect2(rect.position + Vector2(6, 6), Vector2(32, 32)), false)
+	if parking_active:
+		_draw_skin("bubble_left" if parking_pressed else "bubble_right", BRAKE)
+		# A brake-pedal pictogram: no added copy or button labels.
+		var center := BRAKE.get_center()
+		draw_style_box(_pedal_skin(), Rect2(center - Vector2(14, 19), Vector2(28, 34)))
+		for row in range(3):
+			draw_line(center + Vector2(-9, -12 + row * 9), center + Vector2(9, -12 + row * 9), CREAM, 2)
+		draw_line(center + Vector2(0, 15), center + Vector2(6, 23), DARK_RED, 4)
+
+func _pedal_skin() -> StyleBoxFlat:
+	var skin := StyleBoxFlat.new()
+	skin.bg_color = DARK_RED
+	skin.set_corner_radius_all(3)
+	return skin

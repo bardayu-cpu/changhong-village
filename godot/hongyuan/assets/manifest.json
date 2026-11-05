@@ -91,6 +91,8 @@
     }
   },
   "images": {
+    "interaction_hand": "interaction_hand.png",
+    "interaction_dialogue": "interaction_dialogue.png",
     "car": "car.png",
     "car_rear": "car_rear.png",
     "traffic_silver": "traffic_silver.png",
@@ -116,6 +118,18 @@
     "call_screen": "call_screen.png"
   },
   "sources": {
+    "interaction_hand.png": {
+      "origin": "D3 原创",
+      "dimensions": [32, 32],
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿，深棕描边、米色手势"
+    },
+    "interaction_dialogue.png": {
+      "origin": "D3 原创",
+      "dimensions": [32, 32],
+      "generationAttempt": 0,
+      "method": "原生像素 PNG 手工制稿，深棕描边、米色无字气泡"
+    },
     "street.webp": {
       "path": "public/assets/stage1/generated/shanghai-map-day-optimized.webp",
       "cropLTRB": [

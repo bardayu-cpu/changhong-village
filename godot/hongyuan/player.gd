@@ -36,6 +36,22 @@ var chat_fast := false
 var paused := false
 var page_hidden_callback: Variant
 var chime := AudioStreamPlayer.new()
+# Pointer gestures follow the wedding input: short release taps, lower-left drags steer.
+# project.godot maps real touches to these mouse events on mobile as well.
+var pointer_down := false
+var pointer_start := Vector2.ZERO
+var pointer_started := 0
+var pointer_dragged := false
+var stick := Vector2.ZERO
+var stick_pointer := false
+var parking_held := false
+var parking_started := false
+var parking_done := true
+var parking_progress := 0.0
+var parking_speed := 1.0
+var parking_align := false
+var parking_angle := 0.0
+
 
 func _ready() -> void:
 	copy = _read_json(COPY_PATH)
@@ -152,6 +168,7 @@ func _enter_step(index: int, resume := false) -> void:
 	shot = playlist[index]
 	stage.shot = shot
 	_clear_movement()
+	_reset_pointer()
 	since_save = 0.0
 	if not resume:
 		state.stepId = shot.fullId
@@ -159,6 +176,8 @@ func _enter_step(index: int, resume := false) -> void:
 		if shot.sceneId != previous_scene:
 			stage.player_feet = _starting_feet(shot.sceneId)
 			stage.facing = 1.0
+		if shot.fullId == "shanghai/park":
+			state.parking = {"started": false, "done": false, "progress": 0.0, "speed": 1.0, "align": false, "angle": -0.14}
 		if shot.type == "drive":
 			state.driveDistance = 0.0
 			state.lane = 1
@@ -180,6 +199,20 @@ func _enter_step(index: int, resume := false) -> void:
 	lane_target = clampi(int(state.get("lane", 1)), 0, 2)
 	stage.lane = clampf(float(state.get("lanePosition", lane_target)), 0.0, 2.0)
 	hit_index = int(state.get("hitIndex", -1))
+	var parking: Dictionary = state.get("parking", {})
+	parking_started = bool(parking.get("started", false))
+	# W1 park was an automatic scene: missing parking data means already parked.
+	parking_done = bool(parking.get("done", true))
+	parking_progress = float(parking.get("progress", 1.0))
+	parking_speed = float(parking.get("speed", 1.0))
+	parking_align = bool(parking.get("align", false))
+	parking_angle = float(parking.get("angle", 0.0 if parking_done else -0.14))
+	if _controlled_walk():
+		stage.player_feet = _clamp_walk(stage.player_feet)
+		var target: Array = state.get("walkTarget", [])
+		if resume and bool(state.get("walking", false)) and target.size() == 2:
+			_walk_to(Vector2(float(target[0]), float(target[1])), "")
+	_sync_controls()
 
 	if shot.type == "material":
 		var key := _material_key(shot)
@@ -213,6 +246,14 @@ func _process(delta: float) -> void:
 	if shot.is_empty() or paused or shot.type == "terminal":
 		return
 	var dt := minf(delta, 0.08)
+	if shot.fullId == "shanghai/park" and not parking_done:
+		_park(dt)
+		_sync_controls()
+		if since_save >= SAVE_INTERVAL:
+			_save()
+		since_save += dt
+		stage.queue_redraw()
+		return
 	elapsed += dt
 	stage.time = elapsed
 	since_save += dt
@@ -238,20 +279,26 @@ func _process(delta: float) -> void:
 				_advance()
 	if since_save >= SAVE_INTERVAL and (shot.has("duration") or moving):
 		_save()
+	_sync_controls()
 	stage.queue_redraw()
 
 func _move(dt: float) -> void:
 	stage.panda_time = maxf(stage.panda_time - dt, 0.0)
+	if _controlled_walk() and stick.length() > 0.05:
+		movement_target = _clamp_walk(stage.player_feet + stick * 126.0 * dt)
+		moving = true
 	if not moving:
 		return
 	var before: Vector2 = stage.player_feet
 	stage.player_feet = before.move_toward(movement_target, dt * 126.0)
+	if _controlled_walk():
+		stage.player_feet = _clamp_walk(stage.player_feet)
 	var displacement: Vector2 = stage.player_feet - before
 	if absf(displacement.x) > 0.01:
 		stage.facing = signf(displacement.x)
 	distance_walked += displacement.length()
 	stage.walk_frame = floori(distance_walked / 11.0)
-	if stage.player_feet == movement_target:
+	if stage.player_feet == movement_target and stick.length() <= 0.05:
 		var reached := pending_hotspot
 		_clear_movement()
 		match reached:
@@ -288,9 +335,113 @@ func _drive(dt: float) -> void:
 			break
 
 func _on_stage_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		_handle_tap(event.position)
+	if paused:
+		return
+	if not _controlled_walk() and shot.type != "drive" and not _parking_active():
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_handle_tap(event.position)
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			pointer_down = true
+			pointer_start = event.position
+			pointer_started = Time.get_ticks_msec()
+			pointer_dragged = false
+			stick_pointer = _controlled_walk() and event.position.x < 180 and event.position.y > 320
+			if _parking_active() and Stage.BRAKE.has_point(event.position):
+				parking_held = true
+				parking_started = true
+				_save()
+		else:
+			if not pointer_down:
+				return
+			var quick := not pointer_dragged and Time.get_ticks_msec() - pointer_started < 350
+			if parking_held:
+				parking_align = true
+				parking_speed = 0.0
+			if stick_pointer and pointer_dragged:
+				_clear_movement()
+			_reset_pointer()
+			if quick and _controlled_walk():
+				_handle_tap(event.position)
+			_save()
 		stage.accept_event()
+	elif event is InputEventMouseMotion and pointer_down:
+		var offset: Vector2 = event.position - pointer_start
+		if offset.length() > 12:
+			pointer_dragged = true
+		if pointer_dragged:
+			if stick_pointer:
+				stick = (offset / 36.0).limit_length()
+			elif shot.type == "drive" and absf(offset.x) >= 28:
+				_set_lane(lane_target + (1 if offset.x > 0 else -1))
+				pointer_start = event.position
+		stage.accept_event()
+
+func _reset_pointer() -> void:
+	pointer_down = false
+	pointer_dragged = false
+	stick_pointer = false
+	stick = Vector2.ZERO
+	parking_held = false
+
+func _controlled_walk() -> bool:
+	return shot.get("chapterId") == "shanghai" and shot.get("type") == "walk"
+
+func _parking_active() -> bool:
+	return shot.get("fullId") == "shanghai/park" and not parking_done
+
+func _walk_polygon() -> PackedVector2Array:
+	var polygon := PackedVector2Array()
+	for point: Array in shot.get("walkArea", []):
+		polygon.append(Vector2(float(point[0]), float(point[1])))
+	return polygon
+
+func _clamp_walk(point: Vector2) -> Vector2:
+	var polygon := _walk_polygon()
+	if polygon.size() < 3:
+		return point.clamp(WALK_BOUNDS.position, WALK_BOUNDS.end)
+	if Geometry2D.is_point_in_polygon(point, polygon):
+		return point
+	var nearest := polygon[0]
+	for index in range(polygon.size()):
+		var candidate := Geometry2D.get_closest_point_to_segment(point, polygon[index], polygon[(index + 1) % polygon.size()])
+		if candidate.distance_squared_to(point) < nearest.distance_squared_to(point):
+			nearest = candidate
+	return nearest
+
+func _nearby_hotspot() -> Dictionary:
+	if not _controlled_walk():
+		return {}
+	for hotspot: Dictionary in shot.get("hotspots", []):
+		var target := Vector2(float(hotspot.target[0]), float(hotspot.target[1]))
+		if stage.player_feet.distance_to(target) <= 40.0:
+			return hotspot
+	return {}
+
+func _sync_controls() -> void:
+	stage.interaction = _nearby_hotspot() if not paused else {}
+	stage.stick_visible = _controlled_walk() and not paused
+	stage.stick_origin = pointer_start if stick_pointer else Vector2(64, 558)
+	stage.stick_vector = stick
+	stage.parking_active = _parking_active()
+	stage.parking_progress = parking_progress
+	stage.parking_pressed = parking_held
+	stage.parking_angle = parking_angle
+
+func _park(dt: float) -> void:
+	if parking_align:
+		parking_speed = 0.0
+		parking_angle = move_toward(parking_angle, 0.0, dt * 0.28)
+		if is_zero_approx(parking_angle):
+			parking_done = true
+			elapsed = 0.0
+			stage.time = 0.0
+			_present()
+			_save()
+	elif parking_held:
+		parking_speed = move_toward(parking_speed, 0.12, dt * 0.8)
+		parking_progress = minf(0.85, parking_progress + dt * parking_speed * 0.55)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if paused or shot.get("type") != "drive" or not event.is_pressed() or event.is_echo():
@@ -314,6 +465,15 @@ func _handle_tap(position: Vector2) -> void:
 			if Stage.PHONE.has_point(position):
 				_advance()
 		"walk":
+			if _controlled_walk():
+				var nearby := _nearby_hotspot()
+				if not nearby.is_empty() and Stage.interaction_rect(nearby).has_point(position):
+					_clear_movement()
+					_advance()
+					return
+				if Geometry2D.is_point_in_polygon(position, _walk_polygon()):
+					_walk_to(position, "")
+				return
 			for hotspot: Dictionary in shot.hotspots:
 				var hit: Array = hotspot.hit
 				if Rect2(float(hit[0]), float(hit[1]), float(hit[2]), float(hit[3])).has_point(position):
@@ -323,7 +483,7 @@ func _handle_tap(position: Vector2) -> void:
 				_walk_to(position, "")
 
 func _walk_to(destination: Vector2, hotspot: String) -> void:
-	movement_target = destination.clamp(WALK_BOUNDS.position, WALK_BOUNDS.end)
+	movement_target = _clamp_walk(destination) if _controlled_walk() else destination.clamp(WALK_BOUNDS.position, WALK_BOUNDS.end)
 	pending_hotspot = hotspot
 	moving = true
 
@@ -352,6 +512,9 @@ func _save() -> void:
 	state.lanePosition = stage.lane
 	state.hitIndex = hit_index
 	state.chatFast = chat_fast
+	state.walking = moving
+	state.walkTarget = [movement_target.x, movement_target.y]
+	state.parking = {"started": parking_started, "done": parking_done, "progress": parking_progress, "speed": parking_speed, "align": parking_align, "angle": parking_angle}
 	state.revision = int(state.revision) + 1
 	stage.save_failed = not Checkpoint.write(state)
 	if stage.save_failed:
@@ -373,8 +536,11 @@ func _set_paused(value: bool) -> void:
 		return
 	paused = value
 	if paused:
-		_clear_movement()
+		if not _controlled_walk():
+			_clear_movement()
+		_reset_pointer()
 		_save()
+		_sync_controls()
 		stage.queue_redraw()
 
 func _present() -> void:
@@ -392,7 +558,7 @@ func _present() -> void:
 			_button(shot.objectiveId, Rect2(102, 72, 156, 41), _advance)
 			_dialogue(_text(shot.copyId))
 		"dialogue", "narration", "transition":
-			if shot.has("copyId"):
+			if shot.has("copyId") and not _parking_active():
 				_dialogue(_text(shot.copyId))
 		"walk":
 			_label(_text(shot.objectiveId), Rect2(24, 65, 312, 50), 15, Stage.CREAM, true)
