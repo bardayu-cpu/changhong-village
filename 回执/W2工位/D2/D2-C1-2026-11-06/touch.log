@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS Native 360x640 screenshot: 01-six-pandas-hungry
+PASS Second finger cannot steal panda joystick
+PASS Touch joystick moves and cancellation stops it
+PASS Mouse ground/object tap walks without taking
+PASS Viewport touch picks up bamboo
+PASS Native 360x640 screenshot: 02-carrying-bamboo
+PASS Background keeps bamboo and clears input
+PASS Viewport arrival needs explicit feed, round 1
+PASS Viewport feed 1
+PASS Viewport arrival needs explicit feed, round 2
+PASS Viewport feed 2
+PASS Viewport arrival needs explicit feed, round 3
+PASS Viewport feed 3
+PASS Viewport arrival needs explicit feed, round 4
+PASS Viewport feed 4
+PASS Viewport arrival needs explicit feed, round 5
+PASS Viewport feed 5
+PASS Native 360x640 screenshot: 03-five-pandas-fed
+PASS Normal game completion reaches preserved group notification
+PASS Viewport next-step calls skip and only leaves this minigame
+FAILURES 0

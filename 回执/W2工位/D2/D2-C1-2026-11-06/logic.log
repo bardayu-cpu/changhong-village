@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Existing Chengdu checkpoint IDs and narration survive
+PASS Six pandas start with one randomly hungry panda
+PASS No next-step shortcut during first ten seconds
+PASS Idle cannot feed a panda or leave the game
+PASS Framework next-step appears after ten seconds
+PASS Distant bamboo tap walks; arrival never picks automatically
+PASS Near pickup icon puts one bamboo in hand
+PASS JSON refresh preserves held bamboo, hungry target and feet
+PASS Refresh preserves random hunger sequence
+PASS Walking to hungry panda does not auto-feed
+PASS Feed consumes bamboo and immediately changes panda animation
+PASS Repeated tap cannot double-count the same panda
+PASS Refresh during chewing resumes with another unfed panda
+PASS Hungry panda cannot be fed without carrying bamboo
+PASS Non-hungry panda does not consume bamboo
+PASS Five distinct pandas finish with a visible eating moment
+PASS Refresh at fifth feed continues without duplicate feeding
+PASS Five feeds advance to the following beat
+PASS skip supplies exactly five fed pandas and preserves completed feeding
+PASS Five-feed loop has no dead end, run 1
+PASS Five-feed loop has no dead end, run 2
+PASS Five-feed loop has no dead end, run 3
+PASS Five-feed loop has no dead end, run 4
+PASS Five-feed loop has no dead end, run 5
+PASS New runs produce different hungry-panda orders
+FAILURES 0
