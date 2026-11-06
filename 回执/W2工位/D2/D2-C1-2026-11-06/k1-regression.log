@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Ringing needs manual accept
+PASS Accepted call waits for hold
+PASS Tap cannot skip the listening sentences
+PASS Anywhere on screen reveals about 12 characters per second
+PASS Release freezes text and line timer; idle hint is armed at ten seconds
+PASS Refresh restarts the current sentence without restoring a press
+PASS Older call checkpoint in the reply half migrates to tap mode
+PASS A second hold continues without losing characters
+PASS Background cancellation releases listening
+PASS Completed birthday line flashes once and switches Ayu pose
+PASS White flash lasts 0.3 seconds
+PASS A3-2e begins without another hold
+PASS Holding cannot auto-advance reply sentences
+PASS Single tap advances to reply index 5
+PASS Single tap advances to reply index 6
+PASS After three replies ordinary continue cannot skip speaker action
+PASS Reload before speaker action still requires the icon
+PASS Speaker click lights the speaker and reveals A3-2h
+PASS Reload after speaker action preserves visible on state
+PASS Dismissing A3-2h starts automatic hangup
+PASS Hangup remains visible during its animation
+PASS Hangup finishes in 0.6 seconds without a button
+FAILURES 0
+WARNING: 14 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
