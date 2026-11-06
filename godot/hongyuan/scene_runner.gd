@@ -27,6 +27,7 @@ const AVATARS := {"ayu": "ayu_avatar.png", "toretto": "toretto_avatar.png", "axi
 const CARD := Vector2(56, 120)
 const SLOTS := {"pen": Vector2(75, 305), "ink": Vector2(180, 305), "paper": Vector2(285, 305), "stamp": Vector2(77, 390), "wax": Vector2(180, 390), "envelope": Vector2(284, 393)}
 const GAMES := {
+	"desk_chat": preload("res://hongyuan/games/desk_chat.gd"),
 	"fishing": preload("res://hongyuan/games/fishing.gd"),
 	"ringtoss": preload("res://hongyuan/games/ringtoss.gd"),
 	"fireworks": preload("res://hongyuan/games/fireworks.gd"),
@@ -48,6 +49,8 @@ var time := 0.0
 
 # 世界
 var bg := ""
+var bg_fit := false
+var player_role := "ayu"
 var bg_fill := Color("#2a1c18")
 var night := 0.0
 var sky := Color.TRANSPARENT
@@ -133,10 +136,13 @@ func begin(start := 0) -> void:
 
 
 func _apply_world(d: Dictionary) -> void:
+	if d.has("player"):
+		player_role = str(d.player)
 	if d.has("personHeight"):
 		person_height = float(d.personHeight)
 	if d.has("bg"):
 		bg = str(d.bg)
+		bg_fit = bool(d.get("bgFit", false))
 	if d.has("fill"):
 		bg_fill = Color(str(d.fill))
 	if d.has("sky"):
@@ -343,6 +349,8 @@ func _arrive_at(id: String, _instant: bool) -> void:
 func _icon_rect(id: String) -> Rect2:
 	var h: Dictionary = hotspots[id]
 	var at := _v(h.at)
+	if h.has("iconAt"):
+		return Rect2(_v(h.iconAt) - Vector2(22, 22), Vector2(44, 44))
 	return Rect2(at.x - 22, at.y - 112, 44, 44)
 
 
@@ -495,7 +503,7 @@ func _draw_bg() -> void:
 	if not tex:
 		return
 	var sz := tex.get_size() * S
-	draw_texture_rect(tex, Rect2(((CANVAS - sz) * 0.5).round(), sz), false)
+	draw_texture_rect(tex, Rect2(Vector2.ZERO, CANVAS) if bg_fit else Rect2(((CANVAS - sz) * 0.5).round(), sz), false)
 
 
 func _draw_world() -> void:
@@ -533,7 +541,12 @@ func _draw_player() -> void:
 	var name := "ayu_idle.png"
 	var flip := facing < 0
 	var bob := 0.0
-	if pose != "" and not walking:
+	if player_role == "toretto":
+		name = "w2/common/toretto_idle.png|w2/common/toretto_stand.png"
+		if walking:
+			name = "w2/common/toretto_walk.png" if int(walk_dist / 10.0) % 2 == 0 else "w2/common/toretto_stand.png"
+			bob = -1.0 if int(walk_dist / 10.0) % 2 == 0 else 0.0
+	elif pose != "" and not walking:
 		name = {"sit": "w2/shizuoka/ayu_sit.png|ayu_idle.png", "fishing": "w2/shizuoka/ayu_fish_hold.png|w2/common/ayu_fishing.png", "throw": "w2/hainan/ayu_throw_hold.png|w2/common/ayu_throw.png", "cheer": "w2/common/ayu_cheer.png", "back": "w2/common/ayu_idle_back.png|ayu_idle.png"}.get(pose, pose)
 		if pose == "surprised": name = "w2/common/ayu_surprised.png|ayu_idle.png"
 	elif walking:
@@ -579,7 +592,7 @@ func _draw_say() -> void:
 
 
 func _speaker_anchor(who: String) -> Vector2:
-	if who == "ayu" and player_visible:
+	if who == player_role and player_visible:
 		return feet - Vector2(0, person_height * (0.73 if pose == "sit" else 1.0))
 	if actors.has(who) and not actors[who].get("hidden", false):
 		var a: Dictionary = actors[who]
@@ -672,7 +685,7 @@ func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
 # ---------- 快速浏览：小游戏和走路 10 秒后出「下一步」，不能整章跳过 ----------
 const SKIP_RECT := Rect2(268, 96, 80, 28)
 const SKIP_AFTER := 10.0
-const NO_SKIP := ["call", "finale", "seat"]  # 来电对白不能删；终章要玩家自己填名字入席
+const NO_SKIP := ["call", "desk_chat", "finale", "seat"]  # 来电对白不能删；终章要玩家自己填名字入席
 
 
 func _choice_rect(i: int) -> Rect2:
@@ -826,7 +839,7 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
 const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
-	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on"]
+	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on", "chat_scroll"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,

@@ -3909,6 +3909,23 @@
         "evidence": "回执/W2工位/D4/M21-R4-2026-11-05/",
         "handoff": "回执/W2工位/D2/美术交付-2026-11-05-C-M21.md"
       }
+    },
+    "w2/call/bg_cbd_office_r2.png": {
+      "file": "w2/call/bg_cbd_office_r2.png",
+      "card": "D2-K2",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; 阿鱼11/06要求上海CBD办公室中景",
+      "usedIn": "Toretto办公室收到蛋糕、两束蓝花与手机聊天",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "4ed05dee961f7a45deb6947b1eae8da58050accf1f6f24741da87b4c569a04f0"
     }
   },
   "palette": {
