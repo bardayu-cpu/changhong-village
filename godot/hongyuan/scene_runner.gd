@@ -836,11 +836,11 @@ func _text(id: String) -> String:
 
 
 static var _unit_re: RegEx
-## 「24 年」「10 个月」：数字和后面的字之间换成不断行空格，免得断成两行
+## 「24 年」「10 个月」：数字和后面的字之间去掉空格：Web 包会在任何空格（含不断行空格）处折行
 static func keep_units(s: String) -> String:
 	if _unit_re == null:
 		_unit_re = RegEx.create_from_string("(\\d) (?=[\\x{4e00}-\\x{9fff}])")
-	return _unit_re.sub(s, "$1\u00a0", true)
+	return _unit_re.sub(s, "$1", true)
 
 
 func t_(id: String) -> String:
