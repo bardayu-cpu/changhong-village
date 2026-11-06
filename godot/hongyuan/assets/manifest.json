@@ -4030,6 +4030,22 @@
         1458
       ],
       "contentAlphaThreshold": 16
+    },
+    "w2/hainan/bg_wenchang_memory_r2.png": {
+      "file": "w2/hainan/bg_wenchang_memory_r2.png",
+      "card": "D2-H2",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; Ayu requested a lively public beach memory with distant launch base",
+      "usedIn": "Hainan continuous fireworks memory; crowd baked, couple drawn separately",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "e5896bfb68dacc17696c659bad55cf6e78f18a36cb7c841517bb3e3a7f7cc587"
     }
   },
   "palette": {

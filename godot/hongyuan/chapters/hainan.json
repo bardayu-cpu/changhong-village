@@ -92,25 +92,16 @@
       "duration": 1.6
      },
      {
-      "personHeight": 120,
-      "bg": "w2/hainan/bg_wenchang_night.png",
-      "sky": "#141a3a",
-      "ground": "#22202e",
-      "horizon": 470,
-      "decor": [
-       {
-        "r": [
-         0,
-         462,
-         360,
-         10
-        ],
-        "c": "#2c3a5a"
-       }
-      ],
+      "personHeight": 112,
+      "bg": "w2/hainan/bg_wenchang_memory_r2.png",
+      "bgFit": true,
+      "scaleProfile": "beach_memory",
+      "atmosphere": "coast",
+      "badge": "",
+      "decor": [],
       "place": [
-       150,
-       585
+       151,
+       565
       ],
       "pose": "back",
       "actors": [
@@ -118,8 +109,8 @@
         "id": "toretto",
         "tex": "w2/common/toretto_back_r2.png",
         "at": [
-         215,
-         585
+         199,
+         565
         ]
        }
       ],
@@ -137,11 +128,11 @@
       "who": "ayu"
      },
      {
-      "game": "fireworks",
-      "count": 5
+      "wait": 8.0
      },
      {
-      "pose": ""
+      "pose": "",
+      "atmosphere": ""
      },
      {
       "material": "wax"

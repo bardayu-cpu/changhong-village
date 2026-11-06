@@ -12,6 +12,7 @@ const CANVAS := Vector2(360, 640)
 const S := 2.0 / 3.0
 const StoryCaption := preload("res://hongyuan/ui/story_caption.gd")
 const WorldScale := preload("res://hongyuan/world_scale.gd")
+const CoastShow := preload("res://hongyuan/coast_show.gd")
 const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const ROOT := "res://hongyuan/assets/"
 const SPEED := 126.0
@@ -53,6 +54,8 @@ var bg := ""
 var bg_fit := false
 var player_role := "ayu"
 var scale_profile := ""
+var atmosphere := ""
+var atmosphere_elapsed := 0.0
 var bg_fill := Color("#2a1c18")
 var night := 0.0
 var sky := Color.TRANSPARENT
@@ -146,8 +149,13 @@ func _apply_world(d: Dictionary) -> void:
 		bg = str(d.bg)
 		bg_fit = bool(d.get("bgFit", false))
 		scale_profile = WorldScale.profile("", bg)
+		atmosphere = ""
+		atmosphere_elapsed = 0.0
 	if d.has("scaleProfile"):
 		scale_profile = str(d.scaleProfile)
+	if d.has("atmosphere"):
+		atmosphere = str(d.atmosphere)
+		atmosphere_elapsed = 0.0
 	if d.has("fill"):
 		bg_fill = Color(str(d.fill))
 	if d.has("sky"):
@@ -264,6 +272,7 @@ func _process(dt: float) -> void:
 	dt = minf(dt, 0.08)
 	t += dt
 	time += dt
+	if atmosphere != "": atmosphere_elapsed += dt
 	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
 	match mode:
 		"say", "auto":
@@ -462,6 +471,7 @@ func _reset_input() -> void:
 func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO, CANVAS), bg_fill)
 	_draw_bg()
+	if atmosphere == "coast": CoastShow.draw(self, atmosphere_elapsed)
 	_draw_world()
 	if night > 0.0:
 		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.05, 0.04, 0.12, night))
@@ -860,7 +870,7 @@ const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fi
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
 		"target": [target.x, target.y], "moving": moving, "walk_dist": walk_dist,
-		"pose": pose, "t": t, "reveal": reveal, "result": result.duplicate(true), "trail": []}
+		"pose": pose, "t": t, "reveal": reveal, "result": result.duplicate(true), "trail": [], "atmosphere_elapsed": atmosphere_elapsed}
 	for p: Vector2 in trail:
 		saved.trail.append([p.x, p.y])
 	if game:
@@ -886,6 +896,7 @@ func restore(saved: Dictionary) -> void:
 	walk_dist = float(saved.get("walk_dist", 0))
 	pose = str(saved.get("pose", pose))
 	t = float(saved.get("t", 0))
+	atmosphere_elapsed = float(saved.get("atmosphere_elapsed", 0))
 	reveal = float(saved.get("reveal", 0))
 	result = saved.get("result", {}).duplicate(true)
 	trail.clear()
