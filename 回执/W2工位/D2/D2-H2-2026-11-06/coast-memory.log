@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS Chapter contains the seaside memory and no five-click fireworks game
+PASS New crowd beach is imported and actually selected by the chapter
+PASS Couple scale matches the foreground spectators
+PASS 360x640 01-crowd-beach-memory
+PASS 360x640 02-continuous-fireworks
+PASS Fireworks animate visibly without any tap input
+PASS Watching does not skip the original narration
+PASS Reload resumes the same visual show time and new beach
+PASS First original seaside dialogue is intact
+PASS 360x640 03-couple-under-fireworks
+PASS Ayu's original answer is intact
+PASS Finale is an uninterrupted memory, with no targets or counter
+PASS Automatic show transitions to wax without completing a game
+FAILURES 0
