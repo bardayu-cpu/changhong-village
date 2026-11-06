@@ -57,4 +57,4 @@
 
 ## 下一步验收条件
 
-收到 `build-manifest.json` 中 `sourceCommit=bcb0edcaed8243ef7b1449a643b36becc864a1aa` 的 Web 与微信候选后，先核 SHA-256 和入口，再用同包执行八章流程；Web 与微信真机结果分开记，每个玩法各连玩五次，逐条填写五项标准，并回归新包中之前已通过的章节。
+收到新包后，先运行 `git ls-remote origin refs/heads/hongyuan-launch`，确认 `build-manifest.json` 的 `sourceCommit` 与取包时远端最新 SHA 完全一致，再核包 SHA-256 和入口；随后用同包执行八章流程。Web 与微信真机结果分开记，每个玩法各连玩五次，逐条填写五项标准，并回归新包中之前已通过的章节。
