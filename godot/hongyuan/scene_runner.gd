@@ -10,6 +10,7 @@ signal scene_requested(path: String)
 
 const CANVAS := Vector2(360, 640)
 const S := 2.0 / 3.0
+const StoryCaption := preload("res://hongyuan/ui/story_caption.gd")
 const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const ROOT := "res://hongyuan/assets/"
 const SPEED := 126.0
@@ -574,27 +575,7 @@ func _draw_go_ui() -> void:
 
 
 func _draw_say() -> void:
-	# 框高跟着整句字数走（按全文算，逐字显示时框不跳）
-	var x0 := 70.0 if say_who != "narrator" and texture(AVATARS.get(say_who, "")) else 18.0
-	var th := FONT.get_multiline_string_size(say_text, HORIZONTAL_ALIGNMENT_LEFT, 332.0 - x0 - 18.0, 16).y
-	var bh := clampf(th + 40.0, 72.0 if x0 > 18.0 else 60.0, 134.0)
-	var box := Rect2(14, 604 - bh, 332, bh)
-	var shown := say_text.substr(0, int(reveal))
-	if say_who == "narrator":
-		_panel(box, Color(INK, 0.94), Color(GOLD, 0.8))
-		draw_multiline_string(FONT, box.position + Vector2(18, 32), shown, HORIZONTAL_ALIGNMENT_CENTER, box.size.x - 36, 16, -1, PAPER)
-	else:
-		_panel(box, PAPER, WOOD)
-		var av := texture(AVATARS.get(say_who, ""))
-		var x := 18.0
-		if av:
-			draw_texture_rect(av, Rect2(box.position + Vector2(14, 14), Vector2(44, 44)), false)
-			x = 70.0
-		_pill(Rect2(box.position.x + x, box.position.y - 12, 26 + 14 * NAMES.get(say_who, say_who).length(), 26), NAMES.get(say_who, say_who), 14, RED, PAPER)
-		draw_multiline_string(FONT, box.position + Vector2(x, 36), shown, HORIZONTAL_ALIGNMENT_LEFT, box.size.x - x - 18, 16, -1, INK)
-	if reveal >= say_text.length() and mode == "say":
-		var a := 0.5 + sin(time * 5.0) * 0.5
-		draw_colored_polygon(PackedVector2Array([box.end - Vector2(26, 22), box.end - Vector2(14, 22), box.end - Vector2(20, 14)]), Color(GOLD, a))
+	StoryCaption.draw_caption(self, say_text, say_who, int(reveal), reveal >= say_text.length() and mode == "say")
 
 
 func _draw_card() -> void:
