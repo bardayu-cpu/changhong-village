@@ -842,6 +842,10 @@ func _dialogue(text: String) -> void:
 	var caption := StoryCaption.new()
 	caption.text = text
 	caption.speaker = str(shot.get("speaker", "narrator")) if shot.type in ["dialogue", "invite"] else "narrator"
+	for actor: Dictionary in shot.visibleActors:
+		if actor.id == caption.speaker and actor.layer == "world":
+			var height: float = Stage.PEOPLE_HEIGHT.get(str(shot.get("sceneId", "")), 128.0)
+			caption.speaker_anchor = stage._feet(actor) - Vector2(0, height)
 	slots.add_child(caption)
 
 func _button(id: String, rect: Rect2, action: Callable) -> void:

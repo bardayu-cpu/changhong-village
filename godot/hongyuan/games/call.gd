@@ -95,7 +95,7 @@ func _listen_rect() -> Rect2:
 
 
 func _speaker_rect() -> Rect2:
-	return Rect2(252, 314, 54, 54)
+	return Rect2(252, 402, 54, 54)
 
 
 func input(kind: String, pos: Vector2) -> void:
@@ -148,7 +148,7 @@ func _draw_phone(ci) -> void:
 	if monologue:
 		# 阿鱼独自听电话/心里想：保留她自己的房间与人物，不叠对方肖像。
 		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0.02, 0.03, 0.05, 0.16))
-		ci.pill(Rect2(68, 100, 224, 34), ci.t_("A3-C2"), 16, Color(ci.INK, 0.85), ci.PAPER)
+		ci.pill(Rect2(68, 514, 224, 34), ci.t_("A3-C2"), 16, Color(ci.INK, 0.85), ci.PAPER)
 	else:
 		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0, 0, 0, 0.55))
 		PhoneShell.draw_shell(ci, true)
@@ -160,10 +160,10 @@ func _draw_phone(ci) -> void:
 		else:
 			for i in range(2):
 				var person := "ayu" if i == 0 else "toretto"
-				var center := Vector2(106 + i * 148, 187)
+				var center := Vector2(106 + i * 148, 335)
 				var face: Texture2D = ci.texture(person + "_avatar.png")
 				if face: ci.draw_texture_rect(face, Rect2(center - Vector2(37, 37), Vector2(74, 74)), false)
-				ci.text_at(Vector2(center.x - 60, 247), ci.NAMES[person], 16, ci.PAPER, 120)
+				ci.text_at(Vector2(center.x - 60, 395), ci.NAMES[person], 16, ci.PAPER, 120)
 				if who == person:
 					for bar in range(5):
 						var height := 4 + absf(sin(call_time * 7 + bar)) * 12
@@ -183,7 +183,7 @@ func _draw_phone(ci) -> void:
 			ci.draw_arc(at + Vector2(3, 0), 18, -PI / 3, PI / 3, 12, col, 2)
 	if phase == "ring":
 		if aside != "":
-			StoryCaption.draw_caption(ci, aside, "ayu")
+			StoryCaption.draw_caption(ci, aside, "narrator")
 		var acc: Texture2D = ci.texture("w2_ui/call_accept_w2_r1.png")
 		var rr := _accept_rect()
 		var k := 1.0 + 0.06 * sin(t * 8.0)
@@ -194,9 +194,9 @@ func _draw_phone(ci) -> void:
 			ci.draw_circle(rr.get_center(), 32 * k, Color("#4f9d5a"))
 		ci.text_at(Vector2(100, 462), ci.t_("A3-B1"), 16, ci.PAPER, 160)
 	elif phase in ["talk", "birthday", "reply"] and li < lines.size():
-		StoryCaption.draw_caption(ci, _line_text(), who, int(reveal))
+		StoryCaption.draw_caption(ci, _line_text(), who, int(reveal), false, Vector2(106 if who == "ayu" else 254, 294) if who != "narrator" else Vector2(-1, -1))
 		if phase == "talk":
 			var flash := hint_t >= 10.0 and fmod(hint_t, 10.0) < 0.6
-			ci.pill(Rect2(68, 152 if monologue else 438, 224, 40), ci.t_("G-HOLD"), 16, ci.GOLD if flash or holding else ci.WOOD, ci.PAPER)
+			ci.pill(Rect2(68, 568 if monologue else 462, 224, 40), ci.t_("G-HOLD"), 16, ci.GOLD if flash or holding else ci.WOOD, ci.PAPER)
 		elif phase == "reply":
-			ci.pill(Rect2(68, 152 if monologue else 444, 224, 34), ci.t_("G-SPEAKER") if li == 6 else ci.t_("G-19"), 16, ci.WOOD, ci.PAPER)
+			ci.pill(Rect2(68, 568 if monologue else 462, 224, 34), ci.t_("G-SPEAKER") if li == 6 else ci.t_("G-19"), 16, ci.WOOD, ci.PAPER)

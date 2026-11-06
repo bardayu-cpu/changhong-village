@@ -575,7 +575,17 @@ func _draw_go_ui() -> void:
 
 
 func _draw_say() -> void:
-	StoryCaption.draw_caption(self, say_text, say_who, int(reveal), reveal >= say_text.length() and mode == "say")
+	StoryCaption.draw_caption(self, say_text, say_who, int(reveal), reveal >= say_text.length() and mode == "say", _speaker_anchor(say_who))
+
+
+func _speaker_anchor(who: String) -> Vector2:
+	if who == "ayu" and player_visible:
+		return feet - Vector2(0, person_height * (0.73 if pose == "sit" else 1.0))
+	if actors.has(who) and not actors[who].get("hidden", false):
+		var a: Dictionary = actors[who]
+		var seated := "sit" in str(a.get("tex", "")) or "site" in str(a.get("tex", ""))
+		return _v(a.at) - Vector2(0, person_height * float(a.get("scale", 1)) * (0.73 if seated else 1.0))
+	return Vector2(-1, -1)
 
 
 func _draw_card() -> void:

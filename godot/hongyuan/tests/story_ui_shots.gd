@@ -62,7 +62,10 @@ func run() -> void:
 	r.game.li = 3
 	r.game.reveal = r.game._line_text().length()
 	var dialogue := await shot("06-call-two-person-dialogue")
-	check(narration.get_pixel(24, 580).get_luminance() < 0.15 and dialogue.get_pixel(24, 580).get_luminance() > 0.7, "Narration and dialogue render visibly distinct dark/light panels")
+	var Caption = load("res://hongyuan/ui/story_caption.gd")
+	check(Caption.caption_rect(p.copy["A3-2a"], "narrator").position.y == 54, "Narration is at the top")
+	var bubble: Rect2 = Caption.caption_rect(p.copy["A3-2d"], "toretto", Vector2(254, 294))
+	check(bubble.end.y < 294 and dialogue.get_pixel(int(bubble.position.x + 8), int(bubble.position.y + 18)).get_luminance() > 0.7, "Dialogue renders a light speech bubble above the speaker")
 	r.game.phase = "reply"
 	r.game.li = 6
 	r.game.t = 0.3
