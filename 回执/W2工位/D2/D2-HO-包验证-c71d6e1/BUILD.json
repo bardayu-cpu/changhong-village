@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "c71d6e1323ff74aa2bb78acb18bcb23057aaa2ca",
+  "branch": "d2-art-handoff-20261106",
+  "status": "review-candidate-not-final",
+  "includesPRs": [
+    39,
+    40,
+    41,
+    42
+  ],
+  "doesNotIncludePRs": [
+    38
+  ],
+  "artOnly": [
+    "onsen",
+    "hongkong-disneyland"
+  ],
+  "godot": "4.7.2",
+  "webFiles": {
+    "index.apple-touch-icon.png": {
+      "bytes": 11944,
+      "sha256": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5"
+    },
+    "index.wasm": {
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    "index.icon.png": {
+      "bytes": 5700,
+      "sha256": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5"
+    },
+    "index.html": {
+      "bytes": 5720,
+      "sha256": "1fdece751095dd4c3bc7804f2a2220931da6ce12e67a3e5ae45af33df6609a1d"
+    },
+    "index.png": {
+      "bytes": 21443,
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+    },
+    "index.audio.worklet.js": {
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    "index.js": {
+      "bytes": 279815,
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba"
+    },
+    "index.audio.position.worklet.js": {
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    },
+    "index.pck": {
+      "bytes": 30770200,
+      "sha256": "7301874825fde4193eea9ea6d0df70af8e40ab1bcb38134a5cea5648c5a0a506"
+    }
+  }
+}
