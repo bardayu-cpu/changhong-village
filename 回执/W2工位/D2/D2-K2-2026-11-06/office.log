@@ -13,8 +13,16 @@ PASS Flower narration is preserved
 PASS Phone follows blue flowers
 PASS Refresh restores office role, desk location and sequence
 PASS Desk phone opens all five original messages
+PASS Window phone scene has exactly one baked Toretto and no duplicate portrait/sprite
 PASS Ten-second shortcut cannot discard locked chat lines
-PASS 360x640 03-iphone-desk-messages
+PASS Tap sends first message, Ayu reply begins separately
+PASS Fast tap completes this reply without discarding it
+PASS 360x640 03-window-wechat-first-reply
+PASS Dragging chat reviews older messages without sending the next line
+PASS Refresh restores window shot, current message, reveal and history position
+PASS Tap while reviewing returns to latest without advancing
+PASS 360x640 04-window-wechat-final-reply
+PASS Longest reply and preceding message fit below the character without covering his body
 PASS Original l-to-p message order is exact
 PASS Office returns to Ayu timeline after final message
 FAILURES 0
