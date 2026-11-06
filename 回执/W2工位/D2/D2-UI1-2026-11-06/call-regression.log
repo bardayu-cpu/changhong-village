@@ -23,5 +23,3 @@ PASS Dismissing A3-2h starts automatic hangup
 PASS Hangup remains visible during its animation
 PASS Hangup finishes in 0.6 seconds without a button
 FAILURES 0
-WARNING: 14 ObjectDB instances were leaked at exit (run with `--verbose` for details).
-   at: cleanup (core/object/object.cpp:2536)

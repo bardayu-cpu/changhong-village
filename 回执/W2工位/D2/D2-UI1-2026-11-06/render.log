@@ -13,7 +13,8 @@ PASS Native 360x640 04-iphone-incoming
 PASS Moved iPhone accept button receives viewport touch
 PASS Native 360x640 05-call-single-person-narration
 PASS Native 360x640 06-call-two-person-dialogue
-PASS Narration and dialogue render visibly distinct dark/light panels
+PASS Narration is at the top
+PASS Dialogue renders a light speech bubble above the speaker
 PASS Speaker action still receives viewport touch
 PASS Native 360x640 07-iphone-offer
 PASS Offer row still opens by viewport touch
