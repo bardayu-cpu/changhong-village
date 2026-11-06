@@ -94,6 +94,10 @@ func play_scene(tag: String) -> void:
 			"button":
 				await shot(tag + "_button")
 				r._next()
+			"choice":
+				tick(0.6)
+				await shot(tag + "_choice")
+				r._next()
 			"go":
 				await shot(tag + "_go")
 				var h: Dictionary = r.hotspots.get(r.go_id, {})

@@ -41,7 +41,14 @@
       "who": "ayu"
      },
      {
-      "button": "A7-B1"
+      "choice": [
+       "G-WEDDING",
+       "G-VILLAGE"
+      ],
+      "to": [
+       null,
+       "res://ayu_home/v4/phone_boot.tscn"
+      ]
      },
      {
       "bg": "",
