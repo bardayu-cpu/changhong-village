@@ -1,0 +1,1651 @@
+{
+  "run": "chrome-mouse-1793970811933",
+  "mode": "mouse",
+  "version": {
+    "Browser": "Chrome/156.0.8078.80",
+    "File-Path-Style": "posix",
+    "Protocol-Version": "1.3",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "V8-Version": "15.6.75.27",
+    "WebKit-Version": "537.36 (@fb096c0011f9d50f0a264a9376420cdea9c421e3)",
+    "webSocketDebuggerUrl": "ws://127.0.0.1:9364/devtools/browser/1c5caff6-70b3-4521-8cd8-0dd32b64706d"
+  },
+  "checkpoints": [
+    {
+      "kind": "checkpoint",
+      "label": "00-new-title",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 0,
+        "touchProperty": false,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 0,
+        "facing": 1,
+        "feet": [
+          96,
+          456
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 1,
+        "runId": "185dbfe451358b6b8a0db012c8753f57",
+        "slow": 0,
+        "stepId": "prologue/closed",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          0,
+          0
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "01-shanghai-before",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 0,
+        "touchProperty": false,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 0,
+        "facing": 1,
+        "feet": [
+          104,
+          451
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 30,
+        "runId": "185dbfe451358b6b8a0db012c8753f57",
+        "slow": 0,
+        "stepId": "shanghai/board_car",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          0,
+          0
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "02-joystick-after",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 0,
+        "touchProperty": false,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 1.10955333333333,
+        "facing": 1,
+        "feet": [
+          173.873672485352,
+          451
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 33,
+        "runId": "185dbfe451358b6b8a0db012c8753f57",
+        "slow": 0,
+        "stepId": "shanghai/board_car",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          173.873672485352,
+          451
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "03-ground-after",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 0,
+        "touchProperty": false,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 2.71660533333333,
+        "facing": 1,
+        "feet": [
+          263,
+          445
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 36,
+        "runId": "185dbfe451358b6b8a0db012c8753f57",
+        "slow": 0,
+        "stepId": "shanghai/board_car",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          263,
+          445
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "04-interact-after",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 0,
+        "touchProperty": false,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 0,
+        "facing": 1,
+        "feet": [
+          96,
+          456
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 42,
+        "runId": "185dbfe451358b6b8a0db012c8753f57",
+        "sceneBeat": 0,
+        "sceneSnapshot": {
+          "beat": 0,
+          "facing": 1,
+          "feet": [
+            180,
+            520
+          ],
+          "game": {
+            "bay_y": -9999,
+            "bump": 0,
+            "car_x": 180,
+            "hint_t": 0.692533333333334,
+            "lane": 1,
+            "park_t": 0,
+            "phase": "ready",
+            "rng_state": "-7893309914241910734",
+            "scroll": 0,
+            "spawn_at": 420,
+            "speed": 0,
+            "t": 0.692533333333334,
+            "traffic": []
+          },
+          "mode": "game",
+          "moving": false,
+          "pose": "",
+          "result": {},
+          "reveal": 0,
+          "t": 0.692533333333334,
+          "target": [
+            0,
+            0
+          ],
+          "trail": [],
+          "walk_dist": 0
+        },
+        "slow": 0,
+        "stepId": "shanghai/drive",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          263,
+          445
+        ],
+        "walking": false
+      }
+    }
+  ],
+  "protocol": [
+    {
+      "at": "2026-11-06T13:13:32.030Z",
+      "method": "Target.createBrowserContext",
+      "params": {}
+    },
+    {
+      "at": "2026-11-06T13:13:32.150Z",
+      "method": "Target.createTarget",
+      "params": {
+        "url": "about:blank",
+        "browserContextId": "1D7D2D537634F3F6954793B2D06094E5"
+      }
+    },
+    {
+      "at": "2026-11-06T13:13:32.846Z",
+      "method": "Target.attachToTarget",
+      "params": {
+        "targetId": "76F3C56F6FFB54E8A855D84A8F137CC8",
+        "flatten": true
+      }
+    },
+    {
+      "at": "2026-11-06T13:13:32.949Z",
+      "method": "Page.enable",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:33.649Z",
+      "method": "Runtime.enable",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:33.666Z",
+      "method": "Log.enable",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:33.668Z",
+      "method": "Emulation.setDeviceMetricsOverride",
+      "params": {
+        "width": 360,
+        "height": 640,
+        "deviceScaleFactor": 3,
+        "mobile": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:33.684Z",
+      "method": "Emulation.setUserAgentOverride",
+      "params": {
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:33.685Z",
+      "method": "Emulation.setTouchEmulationEnabled",
+      "params": {
+        "enabled": false,
+        "maxTouchPoints": 5
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:33.685Z",
+      "method": "Page.navigate",
+      "params": {
+        "url": "http://127.0.0.1:8897/?run=chrome-mouse-1793970811933"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:40.711Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"00-new-title\")",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:40.745Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:41.033Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mousePressed",
+        "x": 180,
+        "y": 92,
+        "button": "left",
+        "buttons": 1,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:41.181Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mouseReleased",
+        "x": 180,
+        "y": 92,
+        "button": "left",
+        "buttons": 0,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:41.198Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:41.726Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:42.229Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:42.832Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:43.480Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:43.984Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:44.487Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:45.003Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:45.598Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:46.142Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:46.649Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:47.170Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:47.697Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:48.234Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:48.743Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:49.250Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:49.757Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:50.259Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:50.761Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:51.262Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:51.263Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"01-shanghai-before\")",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:51.268Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:51.648Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mousePressed",
+        "x": 64,
+        "y": 558,
+        "button": "left",
+        "buttons": 1,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:51.752Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mouseMoved",
+        "x": 100,
+        "y": 558,
+        "button": "left",
+        "buttons": 1,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:52.288Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mouseReleased",
+        "x": 100,
+        "y": 558,
+        "button": "left",
+        "buttons": 0,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:52.797Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"02-joystick-after\")",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:52.806Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:53.146Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mousePressed",
+        "x": 263,
+        "y": 445,
+        "button": "left",
+        "buttons": 1,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:53.250Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mouseReleased",
+        "x": 263,
+        "y": 445,
+        "button": "left",
+        "buttons": 0,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:55.269Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"03-ground-after\")",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:55.325Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:56.140Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mousePressed",
+        "x": 263,
+        "y": 382,
+        "button": "left",
+        "buttons": 1,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:56.254Z",
+      "method": "Input.dispatchMouseEvent",
+      "params": {
+        "type": "mouseReleased",
+        "x": 263,
+        "y": 382,
+        "button": "left",
+        "buttons": 0,
+        "clickCount": 1
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:57.314Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"04-interact-after\")",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:57.327Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "at": "2026-11-06T13:13:57.476Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Records",
+        "returnByValue": true
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    }
+  ],
+  "consoleEvents": [
+    {
+      "method": "Target.attachedToTarget",
+      "params": {
+        "sessionId": "DBC51706FE948A417B518E05B46A5789",
+        "targetInfo": {
+          "targetId": "76F3C56F6FFB54E8A855D84A8F137CC8",
+          "type": "page",
+          "title": "",
+          "url": "about:blank",
+          "attached": true,
+          "canAccessOpener": false,
+          "browserContextId": "1D7D2D537634F3F6954793B2D06094E5"
+        },
+        "waitingForDebugger": false
+      }
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "76F3C56F6FFB54E8A855D84A8F137CC8"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 1,
+          "origin": "://",
+          "name": "",
+          "uniqueId": "8922137282759172768.2171425478152886633",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "76F3C56F6FFB54E8A855D84A8F137CC8"
+          }
+        }
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "76F3C56F6FFB54E8A855D84A8F137CC8",
+        "url": "http://127.0.0.1:8897/?run=chrome-mouse-1793970811933",
+        "loaderId": "A8B5ED551B45C7F0501A52E66DF78CF3",
+        "navigationType": "differentDocument"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "76F3C56F6FFB54E8A855D84A8F137CC8"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.executionContextsCleared",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.executionContextsCleared",
+      "params": {},
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "id": "76F3C56F6FFB54E8A855D84A8F137CC8",
+          "loaderId": "A8B5ED551B45C7F0501A52E66DF78CF3",
+          "url": "http://127.0.0.1:8897/?run=chrome-mouse-1793970811933",
+          "domainAndRegistry": "",
+          "securityOrigin": "http://127.0.0.1:8897",
+          "securityOriginDetails": {
+            "isLocalhost": true
+          },
+          "mimeType": "text/html",
+          "adFrameStatus": {
+            "adFrameType": "none"
+          },
+          "secureContextType": "SecureLocalhost",
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "gatedAPIFeatures": []
+        },
+        "type": "Navigation"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 2,
+          "origin": "http://127.0.0.1:8897",
+          "name": "",
+          "uniqueId": "-5812510157424587894.6327664404066865596",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "76F3C56F6FFB54E8A855D84A8F137CC8"
+          }
+        }
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameAttached",
+      "params": {
+        "frameId": "9273ED774D70976D40F6E9BED8F9224C",
+        "parentFrameId": "76F3C56F6FFB54E8A855D84A8F137CC8"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameRequestedNavigation",
+      "params": {
+        "frameId": "9273ED774D70976D40F6E9BED8F9224C",
+        "reason": "initialFrameNavigation",
+        "url": "http://127.0.0.1:8897/web/index.html",
+        "disposition": "currentTab"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "9273ED774D70976D40F6E9BED8F9224C",
+        "url": "http://127.0.0.1:8897/web/index.html",
+        "loaderId": "599C8D90077E9531A7732EA182928BB1",
+        "navigationType": "differentDocument"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "9273ED774D70976D40F6E9BED8F9224C"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "id": "9273ED774D70976D40F6E9BED8F9224C",
+          "parentId": "76F3C56F6FFB54E8A855D84A8F137CC8",
+          "loaderId": "599C8D90077E9531A7732EA182928BB1",
+          "name": "game",
+          "url": "http://127.0.0.1:8897/web/index.html",
+          "domainAndRegistry": "",
+          "securityOrigin": "http://127.0.0.1:8897",
+          "securityOriginDetails": {
+            "isLocalhost": true
+          },
+          "mimeType": "text/html",
+          "adFrameStatus": {
+            "adFrameType": "none",
+            "explanations": []
+          },
+          "secureContextType": "SecureLocalhost",
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "gatedAPIFeatures": []
+        },
+        "type": "Navigation"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 3,
+          "origin": "http://127.0.0.1:8897",
+          "name": "",
+          "uniqueId": "3079871432965111517.-2818625444162694303",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "9273ED774D70976D40F6E9BED8F9224C"
+          }
+        }
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 297406.109986
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "9273ED774D70976D40F6E9BED8F9224C"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 297406.930205
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "76F3C56F6FFB54E8A855D84A8F137CC8"
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+          }
+        ],
+        "executionContextId": 3,
+        "timestamp": 1793970814984.604,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$func11398",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7266240
+            },
+            {
+              "functionName": "$func19445",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12571717
+            },
+            {
+              "functionName": "$func19276",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12006131
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14673507
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+          }
+        ],
+        "executionContextId": 3,
+        "timestamp": 1793970815254.397,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$func11398",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7266240
+            },
+            {
+              "functionName": "$func67330",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 33423250
+            },
+            {
+              "functionName": "$func18713",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 11533001
+            },
+            {
+              "functionName": "$func44351",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 28048621
+            },
+            {
+              "functionName": "$func19276",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12170440
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14673507
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+          }
+        ],
+        "executionContextId": 3,
+        "timestamp": 1793970815513.122,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14678681
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "DBC51706FE948A417B518E05B46A5789"
+    }
+  ]
+}

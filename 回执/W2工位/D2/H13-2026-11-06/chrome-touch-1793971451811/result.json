@@ -1,0 +1,1731 @@
+{
+  "run": "chrome-touch-1793971451811",
+  "mode": "touch",
+  "version": {
+    "Browser": "Chrome/156.0.8078.80",
+    "File-Path-Style": "posix",
+    "Protocol-Version": "1.3",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "V8-Version": "15.6.75.27",
+    "WebKit-Version": "537.36 (@fb096c0011f9d50f0a264a9376420cdea9c421e3)",
+    "webSocketDebuggerUrl": "ws://127.0.0.1:9364/devtools/browser/1c5caff6-70b3-4521-8cd8-0dd32b64706d"
+  },
+  "checkpoints": [
+    {
+      "kind": "checkpoint",
+      "label": "00-new-title",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 5,
+        "touchProperty": true,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 0,
+        "facing": 1,
+        "feet": [
+          96,
+          456
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 1,
+        "runId": "0217bf207282d6f88e6d3dc71af496f2",
+        "slow": 0,
+        "stepId": "prologue/closed",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          0,
+          0
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "01-shanghai-before",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 5,
+        "touchProperty": true,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 0,
+        "facing": 1,
+        "feet": [
+          104,
+          451
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 33,
+        "runId": "0217bf207282d6f88e6d3dc71af496f2",
+        "slow": 0,
+        "stepId": "shanghai/board_car",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          0,
+          0
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "02-joystick-after",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 5,
+        "touchProperty": true,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 1.01131,
+        "facing": 1,
+        "feet": [
+          171.722183227539,
+          451
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 36,
+        "runId": "0217bf207282d6f88e6d3dc71af496f2",
+        "slow": 0,
+        "stepId": "shanghai/board_car",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          171.722183227539,
+          451
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "03-ground-after",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 5,
+        "touchProperty": true,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 2.621044,
+        "facing": 1,
+        "feet": [
+          263,
+          445
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 39,
+        "runId": "0217bf207282d6f88e6d3dc71af496f2",
+        "slow": 0,
+        "stepId": "shanghai/board_car",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          263,
+          445
+        ],
+        "walking": false
+      }
+    },
+    {
+      "kind": "checkpoint",
+      "label": "04-interact-after",
+      "env": {
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+        "dpr": 3,
+        "viewport": [
+          360,
+          640
+        ],
+        "maxTouchPoints": 5,
+        "touchProperty": true,
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 640
+          }
+        },
+        "hidden": false,
+        "hasFocus": true
+      },
+      "saved": {
+        "chatFast": false,
+        "driveArrival": 0,
+        "driveDistance": 0,
+        "driveStarted": false,
+        "elapsed": 0,
+        "facing": 1,
+        "feet": [
+          96,
+          456
+        ],
+        "hitIndex": -1,
+        "lane": 1,
+        "lanePosition": 1,
+        "materials": {},
+        "pandaUsed": false,
+        "parking": {
+          "align": false,
+          "angle": 0,
+          "baseX": 0,
+          "done": true,
+          "lateral": 0,
+          "progress": 1,
+          "speed": 1,
+          "started": false,
+          "steered": true,
+          "steeringVersion": 1
+        },
+        "revision": 45,
+        "runId": "0217bf207282d6f88e6d3dc71af496f2",
+        "sceneBeat": 0,
+        "sceneSnapshot": {
+          "beat": 0,
+          "facing": 1,
+          "feet": [
+            180,
+            520
+          ],
+          "game": {
+            "bay_y": -9999,
+            "bump": 0,
+            "car_x": 180,
+            "hint_t": 0.715724666666667,
+            "lane": 1,
+            "park_t": 0,
+            "phase": "ready",
+            "rng_state": "9028583756436504586",
+            "scroll": 0,
+            "spawn_at": 420,
+            "speed": 0,
+            "t": 0.715724666666667,
+            "traffic": []
+          },
+          "mode": "game",
+          "moving": false,
+          "pose": "",
+          "result": {},
+          "reveal": 0,
+          "t": 0.715724666666667,
+          "target": [
+            0,
+            0
+          ],
+          "trail": [],
+          "walk_dist": 0
+        },
+        "slow": 0,
+        "stepId": "shanghai/drive",
+        "trafficSeed": 0,
+        "version": 1,
+        "walkTarget": [
+          263,
+          445
+        ],
+        "walking": false
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "normal new title",
+      "ok": true
+    },
+    {
+      "name": "joystick moves feet",
+      "ok": true
+    },
+    {
+      "name": "ground reaches target without auto interaction",
+      "ok": true
+    },
+    {
+      "name": "manual icon enters driving",
+      "ok": true
+    }
+  ],
+  "protocol": [
+    {
+      "at": "2026-11-06T13:24:11.894Z",
+      "method": "Target.createBrowserContext",
+      "params": {}
+    },
+    {
+      "at": "2026-11-06T13:24:12.047Z",
+      "method": "Target.createTarget",
+      "params": {
+        "url": "about:blank",
+        "browserContextId": "BF68B1EA390552C72752518B6D814FA5"
+      }
+    },
+    {
+      "at": "2026-11-06T13:24:12.526Z",
+      "method": "Target.attachToTarget",
+      "params": {
+        "targetId": "904B4BBDB0F34B41AE96970140BE388B",
+        "flatten": true
+      }
+    },
+    {
+      "at": "2026-11-06T13:24:12.602Z",
+      "method": "Page.enable",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:13.372Z",
+      "method": "Runtime.enable",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:13.393Z",
+      "method": "Log.enable",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:13.394Z",
+      "method": "Emulation.setDeviceMetricsOverride",
+      "params": {
+        "width": 360,
+        "height": 640,
+        "deviceScaleFactor": 3,
+        "mobile": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:13.415Z",
+      "method": "Emulation.setUserAgentOverride",
+      "params": {
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:13.421Z",
+      "method": "Emulation.setTouchEmulationEnabled",
+      "params": {
+        "enabled": true,
+        "maxTouchPoints": 5
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:13.424Z",
+      "method": "Page.navigate",
+      "params": {
+        "url": "http://127.0.0.1:8897/?run=chrome-touch-1793971451811"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:20.454Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"00-new-title\")",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:20.458Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:20.649Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchStart",
+        "touchPoints": [
+          {
+            "x": 180,
+            "y": 92,
+            "id": 0,
+            "radiusX": 1,
+            "radiusY": 1,
+            "force": 1
+          }
+        ]
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:20.790Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchEnd",
+        "touchPoints": []
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:20.820Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:21.322Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:21.824Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:22.328Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:22.832Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:23.333Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:23.835Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:24.337Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:24.839Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:25.341Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:25.843Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:26.348Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:26.850Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:27.353Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:27.854Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:28.356Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:28.858Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:29.360Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:29.863Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:30.365Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:30.866Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "JSON.parse(document.querySelector('iframe').contentWindow.localStorage.getItem('hongyuan_save.json')||'null')",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:30.867Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"01-shanghai-before\")",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:30.868Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:31.126Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchStart",
+        "touchPoints": [
+          {
+            "x": 64,
+            "y": 558,
+            "id": 0,
+            "radiusX": 1,
+            "radiusY": 1,
+            "force": 1
+          }
+        ]
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:31.154Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchMove",
+        "touchPoints": [
+          {
+            "x": 100,
+            "y": 558,
+            "id": 0,
+            "radiusX": 1,
+            "radiusY": 1,
+            "force": 1
+          }
+        ]
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:31.680Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchEnd",
+        "touchPoints": []
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:32.200Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"02-joystick-after\")",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:32.201Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:32.443Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchStart",
+        "touchPoints": [
+          {
+            "x": 263,
+            "y": 445,
+            "id": 0,
+            "radiusX": 1,
+            "radiusY": 1,
+            "force": 1
+          }
+        ]
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:32.565Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchEnd",
+        "touchPoints": []
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:34.583Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"03-ground-after\")",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:34.589Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:34.950Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchStart",
+        "touchPoints": [
+          {
+            "x": 263,
+            "y": 382,
+            "id": 0,
+            "radiusX": 1,
+            "radiusY": 1,
+            "force": 1
+          }
+        ]
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:35.074Z",
+      "method": "Input.dispatchTouchEvent",
+      "params": {
+        "type": "touchEnd",
+        "touchPoints": []
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:36.096Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Snapshot(\"04-interact-after\")",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:36.098Z",
+      "method": "Page.captureScreenshot",
+      "params": {
+        "format": "png"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "at": "2026-11-06T13:24:36.209Z",
+      "method": "Runtime.evaluate",
+      "params": {
+        "expression": "window.h11Records",
+        "returnByValue": true
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    }
+  ],
+  "consoleEvents": [
+    {
+      "method": "Target.attachedToTarget",
+      "params": {
+        "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E",
+        "targetInfo": {
+          "targetId": "904B4BBDB0F34B41AE96970140BE388B",
+          "type": "page",
+          "title": "",
+          "url": "about:blank",
+          "attached": true,
+          "canAccessOpener": false,
+          "browserContextId": "BF68B1EA390552C72752518B6D814FA5"
+        },
+        "waitingForDebugger": false
+      }
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "904B4BBDB0F34B41AE96970140BE388B"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 1,
+          "origin": "://",
+          "name": "",
+          "uniqueId": "8501445402404012516.8784233502225050928",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "904B4BBDB0F34B41AE96970140BE388B"
+          }
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "904B4BBDB0F34B41AE96970140BE388B",
+        "url": "http://127.0.0.1:8897/?run=chrome-touch-1793971451811",
+        "loaderId": "77B2802F5E3B94E1103749437792491B",
+        "navigationType": "differentDocument"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "904B4BBDB0F34B41AE96970140BE388B"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.executionContextsCleared",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.executionContextsCleared",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "id": "904B4BBDB0F34B41AE96970140BE388B",
+          "loaderId": "77B2802F5E3B94E1103749437792491B",
+          "url": "http://127.0.0.1:8897/?run=chrome-touch-1793971451811",
+          "domainAndRegistry": "",
+          "securityOrigin": "http://127.0.0.1:8897",
+          "securityOriginDetails": {
+            "isLocalhost": true
+          },
+          "mimeType": "text/html",
+          "adFrameStatus": {
+            "adFrameType": "none"
+          },
+          "secureContextType": "SecureLocalhost",
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "gatedAPIFeatures": []
+        },
+        "type": "Navigation"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 2,
+          "origin": "http://127.0.0.1:8897",
+          "name": "",
+          "uniqueId": "-2610716700815491463.2533577697402105093",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "904B4BBDB0F34B41AE96970140BE388B"
+          }
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameAttached",
+      "params": {
+        "frameId": "037DBCE8C4BACDBC5ACF27C5B6150622",
+        "parentFrameId": "904B4BBDB0F34B41AE96970140BE388B"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameRequestedNavigation",
+      "params": {
+        "frameId": "037DBCE8C4BACDBC5ACF27C5B6150622",
+        "reason": "initialFrameNavigation",
+        "url": "http://127.0.0.1:8897/web/index.html",
+        "disposition": "currentTab"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "037DBCE8C4BACDBC5ACF27C5B6150622",
+        "url": "http://127.0.0.1:8897/web/index.html",
+        "loaderId": "27C024069653E55B0C53B7FEE9998BFA",
+        "navigationType": "differentDocument"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "037DBCE8C4BACDBC5ACF27C5B6150622"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "id": "037DBCE8C4BACDBC5ACF27C5B6150622",
+          "parentId": "904B4BBDB0F34B41AE96970140BE388B",
+          "loaderId": "27C024069653E55B0C53B7FEE9998BFA",
+          "name": "game",
+          "url": "http://127.0.0.1:8897/web/index.html",
+          "domainAndRegistry": "",
+          "securityOrigin": "http://127.0.0.1:8897",
+          "securityOriginDetails": {
+            "isLocalhost": true
+          },
+          "mimeType": "text/html",
+          "adFrameStatus": {
+            "adFrameType": "none",
+            "explanations": []
+          },
+          "secureContextType": "SecureLocalhost",
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "gatedAPIFeatures": []
+        },
+        "type": "Navigation"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 3,
+          "origin": "http://127.0.0.1:8897",
+          "name": "",
+          "uniqueId": "6750266026712884628.-2862616089538060833",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "037DBCE8C4BACDBC5ACF27C5B6150622"
+          }
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 298045.867848
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "037DBCE8C4BACDBC5ACF27C5B6150622"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 298045.937686
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "904B4BBDB0F34B41AE96970140BE388B"
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+          }
+        ],
+        "executionContextId": 3,
+        "timestamp": 1793971453950.389,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$func11398",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7266240
+            },
+            {
+              "functionName": "$func19445",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12571717
+            },
+            {
+              "functionName": "$func19276",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12006131
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14673507
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+          }
+        ],
+        "executionContextId": 3,
+        "timestamp": 1793971454171.059,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$func11398",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7266240
+            },
+            {
+              "functionName": "$func67330",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 33423250
+            },
+            {
+              "functionName": "$func18713",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 11533001
+            },
+            {
+              "functionName": "$func44351",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 28048621
+            },
+            {
+              "functionName": "$func19276",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12170440
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14673507
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+          }
+        ],
+        "executionContextId": 3,
+        "timestamp": 1793971454386.838,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14678681
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "6",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "4",
+              "url": "http://127.0.0.1:8897/web/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    },
+    {
+      "method": "Log.entryAdded",
+      "params": {
+        "entry": {
+          "source": "other",
+          "level": "warning",
+          "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+          "timestamp": 1793971460682.942,
+          "url": "http://127.0.0.1:8897/web/index.js",
+          "lineNumber": 0,
+          "stackTrace": {
+            "callFrames": [
+              {
+                "functionName": "_godot_audio_resume",
+                "scriptId": "4",
+                "url": "http://127.0.0.1:8897/web/index.js",
+                "lineNumber": 0,
+                "columnNumber": 153300
+              },
+              {
+                "functionName": "$func65930",
+                "scriptId": "6",
+                "url": "wasm://wasm/096bca0a",
+                "lineNumber": 0,
+                "columnNumber": 32650704
+              },
+              {
+                "functionName": "touch_cb",
+                "scriptId": "4",
+                "url": "http://127.0.0.1:8897/web/index.js",
+                "lineNumber": 0,
+                "columnNumber": 194359
+              }
+            ]
+          }
+        }
+      },
+      "sessionId": "AF53CD5600EA7B4BA373BA5E99262E3E"
+    }
+  ]
+}

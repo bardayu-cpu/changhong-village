@@ -1,0 +1,3210 @@
+[
+  {
+    "seq": 1,
+    "at": "2026-11-06T13:12:21.397Z",
+    "kind": "loaded",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 300,
+        "height": 150,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 300,
+          "height": 150
+        }
+      },
+      "hidden": false,
+      "hasFocus": false
+    },
+    "saved": null
+  },
+  {
+    "seq": 2,
+    "at": "2026-11-06T13:12:21.461Z",
+    "kind": "save",
+    "saved": null
+  },
+  {
+    "seq": 3,
+    "at": "2026-11-06T13:12:21.664Z",
+    "kind": "input",
+    "type": "focus",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      null,
+      null
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "window",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 300,
+        "height": 150,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 300,
+          "height": 150
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 4,
+    "at": "2026-11-06T13:12:21.666Z",
+    "kind": "input",
+    "type": "focus",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      null,
+      null
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 300,
+        "height": 150,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 300,
+          "height": 150
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 5,
+    "at": "2026-11-06T13:12:22.587Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 1,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/closed",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 6,
+    "at": "2026-11-06T13:12:28.203Z",
+    "kind": "checkpoint",
+    "label": "00-new-title",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    },
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 1,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/closed",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 7,
+    "at": "2026-11-06T13:12:28.437Z",
+    "kind": "input",
+    "type": "pointerdown",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 2,
+    "buttons": 1,
+    "button": 0,
+    "client": [
+      180,
+      92
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 8,
+    "at": "2026-11-06T13:12:28.438Z",
+    "kind": "input",
+    "type": "touchstart",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      180,
+      92
+    ],
+    "touches": 1,
+    "changed": [
+      {
+        "id": 0,
+        "x": 180,
+        "y": 92
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 9,
+    "at": "2026-11-06T13:12:28.560Z",
+    "kind": "input",
+    "type": "pointerup",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 2,
+    "buttons": 0,
+    "button": 0,
+    "client": [
+      180,
+      92
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 10,
+    "at": "2026-11-06T13:12:28.560Z",
+    "kind": "input",
+    "type": "touchend",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      180,
+      92
+    ],
+    "touches": 0,
+    "changed": [
+      {
+        "id": 0,
+        "x": 180,
+        "y": 92
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 11,
+    "at": "2026-11-06T13:12:28.661Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 2,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 12,
+    "at": "2026-11-06T13:12:29.062Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.352337333333334,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 3,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 13,
+    "at": "2026-11-06T13:12:29.461Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.718989333333334,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 4,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 14,
+    "at": "2026-11-06T13:12:29.662Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.08564133333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 5,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 15,
+    "at": "2026-11-06T13:12:30.062Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.45229333333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 6,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 16,
+    "at": "2026-11-06T13:12:30.462Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.81894533333334,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 7,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 17,
+    "at": "2026-11-06T13:12:30.862Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 2.18559733333334,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 8,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 18,
+    "at": "2026-11-06T13:12:31.262Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 2.55224933333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 9,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 19,
+    "at": "2026-11-06T13:12:31.662Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 2.91890133333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 10,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 20,
+    "at": "2026-11-06T13:12:31.862Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 3.28555333333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 11,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/open",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 21,
+    "at": "2026-11-06T13:12:32.261Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 12,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/line_to_road",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 22,
+    "at": "2026-11-06T13:12:32.662Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.358331333333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 13,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/line_to_road",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 23,
+    "at": "2026-11-06T13:12:33.063Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.708331333333334,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 14,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/line_to_road",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 24,
+    "at": "2026-11-06T13:12:33.262Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.05833133333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 15,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/line_to_road",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 25,
+    "at": "2026-11-06T13:12:33.661Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.40833133333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 16,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/line_to_road",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 26,
+    "at": "2026-11-06T13:12:34.061Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.75833133333333,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 17,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "prologue/line_to_road",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 27,
+    "at": "2026-11-06T13:12:34.489Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 18,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/perspective",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 28,
+    "at": "2026-11-06T13:12:34.861Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.353577333333334,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 19,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/perspective",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 29,
+    "at": "2026-11-06T13:12:35.262Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.720177333333335,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 20,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/perspective",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 30,
+    "at": "2026-11-06T13:12:35.462Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.07017733333334,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 21,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/perspective",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 31,
+    "at": "2026-11-06T13:12:35.862Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.42017733333333,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 22,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/perspective",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 32,
+    "at": "2026-11-06T13:12:36.262Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.77017733333333,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 23,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/perspective",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 33,
+    "at": "2026-11-06T13:12:36.662Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 24,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/street_intro",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 34,
+    "at": "2026-11-06T13:12:36.861Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.35,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 25,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/street_intro",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 35,
+    "at": "2026-11-06T13:12:37.262Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.700000000000001,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 26,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/street_intro",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 36,
+    "at": "2026-11-06T13:12:37.662Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.05,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 27,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/street_intro",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 37,
+    "at": "2026-11-06T13:12:38.062Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.4,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 28,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/street_intro",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 38,
+    "at": "2026-11-06T13:12:38.262Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.75,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 29,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/street_intro",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 39,
+    "at": "2026-11-06T13:12:38.650Z",
+    "kind": "checkpoint",
+    "label": "01-shanghai-before",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    },
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 31,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 40,
+    "at": "2026-11-06T13:12:38.662Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        104,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 31,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        0,
+        0
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 41,
+    "at": "2026-11-06T13:12:38.928Z",
+    "kind": "input",
+    "type": "pointerdown",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 3,
+    "buttons": 1,
+    "button": 0,
+    "client": [
+      64,
+      558
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 42,
+    "at": "2026-11-06T13:12:38.928Z",
+    "kind": "input",
+    "type": "touchstart",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      64,
+      558
+    ],
+    "touches": 1,
+    "changed": [
+      {
+        "id": 0,
+        "x": 64,
+        "y": 558
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 43,
+    "at": "2026-11-06T13:12:38.959Z",
+    "kind": "input",
+    "type": "pointermove",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 3,
+    "buttons": 1,
+    "button": -1,
+    "client": [
+      100,
+      558
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 44,
+    "at": "2026-11-06T13:12:38.960Z",
+    "kind": "input",
+    "type": "touchmove",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      100,
+      558
+    ],
+    "touches": 1,
+    "changed": [
+      {
+        "id": 0,
+        "x": 100,
+        "y": 558
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 45,
+    "at": "2026-11-06T13:12:39.061Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.355197333333333,
+      "facing": 1,
+      "feet": [
+        110.767707824707,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 32,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        110.767707824707,
+        451
+      ],
+      "walking": true
+    }
+  },
+  {
+    "seq": 46,
+    "at": "2026-11-06T13:12:39.462Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.720797333333334,
+      "facing": 1,
+      "feet": [
+        156.833374023438,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 33,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        156.833374023438,
+        451
+      ],
+      "walking": true
+    }
+  },
+  {
+    "seq": 47,
+    "at": "2026-11-06T13:12:39.477Z",
+    "kind": "input",
+    "type": "pointerup",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 3,
+    "buttons": 0,
+    "button": 0,
+    "client": [
+      100,
+      558
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 48,
+    "at": "2026-11-06T13:12:39.478Z",
+    "kind": "input",
+    "type": "touchend",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      100,
+      558
+    ],
+    "touches": 0,
+    "changed": [
+      {
+        "id": 0,
+        "x": 100,
+        "y": 558
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 49,
+    "at": "2026-11-06T13:12:39.661Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.836930666666667,
+      "facing": 1,
+      "feet": [
+        171.466217041016,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 34,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        171.466217041016,
+        451
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 50,
+    "at": "2026-11-06T13:12:39.982Z",
+    "kind": "checkpoint",
+    "label": "02-joystick-after",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    },
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0.836930666666667,
+      "facing": 1,
+      "feet": [
+        171.466217041016,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 34,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        171.466217041016,
+        451
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 51,
+    "at": "2026-11-06T13:12:40.258Z",
+    "kind": "input",
+    "type": "pointerdown",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 4,
+    "buttons": 1,
+    "button": 0,
+    "client": [
+      263,
+      445
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 52,
+    "at": "2026-11-06T13:12:40.259Z",
+    "kind": "input",
+    "type": "touchstart",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      263,
+      445
+    ],
+    "touches": 1,
+    "changed": [
+      {
+        "id": 0,
+        "x": 263,
+        "y": 445
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 53,
+    "at": "2026-11-06T13:12:40.377Z",
+    "kind": "input",
+    "type": "pointerup",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 4,
+    "buttons": 0,
+    "button": 0,
+    "client": [
+      263,
+      445
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 54,
+    "at": "2026-11-06T13:12:40.378Z",
+    "kind": "input",
+    "type": "touchend",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      263,
+      445
+    ],
+    "touches": 0,
+    "changed": [
+      {
+        "id": 0,
+        "x": 263,
+        "y": 445
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 55,
+    "at": "2026-11-06T13:12:40.461Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 1.708424,
+      "facing": 1,
+      "feet": [
+        171.466217041016,
+        451
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 35,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": true
+    }
+  },
+  {
+    "seq": 56,
+    "at": "2026-11-06T13:12:40.862Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 2.075076,
+      "facing": 1,
+      "feet": [
+        217.565307617188,
+        447.978088378906
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 36,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": true
+    }
+  },
+  {
+    "seq": 57,
+    "at": "2026-11-06T13:12:41.261Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 2.441728,
+      "facing": 1,
+      "feet": [
+        263,
+        445
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 37,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 58,
+    "at": "2026-11-06T13:12:42.388Z",
+    "kind": "checkpoint",
+    "label": "03-ground-after",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    },
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 2.441728,
+      "facing": 1,
+      "feet": [
+        263,
+        445
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 37,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "slow": 0,
+      "stepId": "shanghai/board_car",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 59,
+    "at": "2026-11-06T13:12:42.811Z",
+    "kind": "input",
+    "type": "pointerdown",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 5,
+    "buttons": 1,
+    "button": 0,
+    "client": [
+      263,
+      382
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 60,
+    "at": "2026-11-06T13:12:42.811Z",
+    "kind": "input",
+    "type": "touchstart",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      263,
+      382
+    ],
+    "touches": 1,
+    "changed": [
+      {
+        "id": 0,
+        "x": 263,
+        "y": 382
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 61,
+    "at": "2026-11-06T13:12:42.927Z",
+    "kind": "input",
+    "type": "pointerup",
+    "isTrusted": true,
+    "pointerType": "touch",
+    "pointerId": 5,
+    "buttons": 0,
+    "button": 0,
+    "client": [
+      263,
+      382
+    ],
+    "touches": null,
+    "changed": [],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 62,
+    "at": "2026-11-06T13:12:42.927Z",
+    "kind": "input",
+    "type": "touchend",
+    "isTrusted": true,
+    "pointerType": null,
+    "pointerId": null,
+    "buttons": null,
+    "button": null,
+    "client": [
+      263,
+      382
+    ],
+    "touches": 0,
+    "changed": [
+      {
+        "id": 0,
+        "x": 263,
+        "y": 382
+      }
+    ],
+    "target": "canvas",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    }
+  },
+  {
+    "seq": 63,
+    "at": "2026-11-06T13:12:43.063Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 41,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "sceneBeat": 0,
+      "sceneSnapshot": {
+        "beat": 0,
+        "facing": 1,
+        "feet": [
+          180,
+          520
+        ],
+        "game": {
+          "bay_y": -9999,
+          "bump": 0,
+          "car_x": 180,
+          "hint_t": 0,
+          "lane": 1,
+          "park_t": 0,
+          "phase": "ready",
+          "rng_state": "-8635746440062314174",
+          "scroll": 0,
+          "spawn_at": 420,
+          "speed": 0,
+          "t": 0,
+          "traffic": []
+        },
+        "mode": "game",
+        "moving": false,
+        "pose": "",
+        "result": {},
+        "reveal": 0,
+        "t": 0,
+        "target": [
+          0,
+          0
+        ],
+        "trail": [],
+        "walk_dist": 0
+      },
+      "slow": 0,
+      "stepId": "shanghai/drive",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 64,
+    "at": "2026-11-06T13:12:43.464Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 42,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "sceneBeat": 0,
+      "sceneSnapshot": {
+        "beat": 0,
+        "facing": 1,
+        "feet": [
+          180,
+          520
+        ],
+        "game": {
+          "bay_y": -9999,
+          "bump": 0,
+          "car_x": 180,
+          "hint_t": 0.349986,
+          "lane": 1,
+          "park_t": 0,
+          "phase": "ready",
+          "rng_state": "-8635746440062314174",
+          "scroll": 0,
+          "spawn_at": 420,
+          "speed": 0,
+          "t": 0.349986,
+          "traffic": []
+        },
+        "mode": "game",
+        "moving": false,
+        "pose": "",
+        "result": {},
+        "reveal": 0,
+        "t": 0.349986,
+        "target": [
+          0,
+          0
+        ],
+        "trail": [],
+        "walk_dist": 0
+      },
+      "slow": 0,
+      "stepId": "shanghai/drive",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 65,
+    "at": "2026-11-06T13:12:43.661Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 43,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "sceneBeat": 0,
+      "sceneSnapshot": {
+        "beat": 0,
+        "facing": 1,
+        "feet": [
+          180,
+          520
+        ],
+        "game": {
+          "bay_y": -9999,
+          "bump": 0,
+          "car_x": 180,
+          "hint_t": 0.716640666666667,
+          "lane": 1,
+          "park_t": 0,
+          "phase": "ready",
+          "rng_state": "-8635746440062314174",
+          "scroll": 0,
+          "spawn_at": 420,
+          "speed": 0,
+          "t": 0.716640666666667,
+          "traffic": []
+        },
+        "mode": "game",
+        "moving": false,
+        "pose": "",
+        "result": {},
+        "reveal": 0,
+        "t": 0.716640666666667,
+        "target": [
+          0,
+          0
+        ],
+        "trail": [],
+        "walk_dist": 0
+      },
+      "slow": 0,
+      "stepId": "shanghai/drive",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 66,
+    "at": "2026-11-06T13:12:43.980Z",
+    "kind": "checkpoint",
+    "label": "04-interact-after",
+    "env": {
+      "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+      "dpr": 3,
+      "viewport": [
+        360,
+        640
+      ],
+      "maxTouchPoints": 5,
+      "touchProperty": true,
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 640
+        }
+      },
+      "hidden": false,
+      "hasFocus": true
+    },
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 43,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "sceneBeat": 0,
+      "sceneSnapshot": {
+        "beat": 0,
+        "facing": 1,
+        "feet": [
+          180,
+          520
+        ],
+        "game": {
+          "bay_y": -9999,
+          "bump": 0,
+          "car_x": 180,
+          "hint_t": 0.716640666666667,
+          "lane": 1,
+          "park_t": 0,
+          "phase": "ready",
+          "rng_state": "-8635746440062314174",
+          "scroll": 0,
+          "spawn_at": 420,
+          "speed": 0,
+          "t": 0.716640666666667,
+          "traffic": []
+        },
+        "mode": "game",
+        "moving": false,
+        "pose": "",
+        "result": {},
+        "reveal": 0,
+        "t": 0.716640666666667,
+        "target": [
+          0,
+          0
+        ],
+        "trail": [],
+        "walk_dist": 0
+      },
+      "slow": 0,
+      "stepId": "shanghai/drive",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  },
+  {
+    "seq": 67,
+    "at": "2026-11-06T13:12:44.062Z",
+    "kind": "save",
+    "saved": {
+      "chatFast": false,
+      "driveArrival": 0,
+      "driveDistance": 0,
+      "driveStarted": false,
+      "elapsed": 0,
+      "facing": 1,
+      "feet": [
+        96,
+        456
+      ],
+      "hitIndex": -1,
+      "lane": 1,
+      "lanePosition": 1,
+      "materials": {},
+      "pandaUsed": false,
+      "parking": {
+        "align": false,
+        "angle": 0,
+        "baseX": 0,
+        "done": true,
+        "lateral": 0,
+        "progress": 1,
+        "speed": 1,
+        "started": false,
+        "steered": true,
+        "steeringVersion": 1
+      },
+      "revision": 44,
+      "runId": "26f8e06f86c55f3f4a1d54428901da91",
+      "sceneBeat": 0,
+      "sceneSnapshot": {
+        "beat": 0,
+        "facing": 1,
+        "feet": [
+          180,
+          520
+        ],
+        "game": {
+          "bay_y": -9999,
+          "bump": 0,
+          "car_x": 180,
+          "hint_t": 1.08250733333333,
+          "lane": 1,
+          "park_t": 0,
+          "phase": "ready",
+          "rng_state": "-8635746440062314174",
+          "scroll": 0,
+          "spawn_at": 420,
+          "speed": 0,
+          "t": 1.08250733333333,
+          "traffic": []
+        },
+        "mode": "game",
+        "moving": false,
+        "pose": "",
+        "result": {},
+        "reveal": 0,
+        "t": 1.08250733333333,
+        "target": [
+          0,
+          0
+        ],
+        "trail": [],
+        "walk_dist": 0
+      },
+      "slow": 0,
+      "stepId": "shanghai/drive",
+      "trafficSeed": 0,
+      "version": 1,
+      "walkTarget": [
+        263,
+        445
+      ],
+      "walking": false
+    }
+  }
+]
