@@ -219,6 +219,19 @@ func play_game(tag: String, name: String) -> void:
 				tick(3.0)
 				await shot(tag + "_window_wechat_" + str(i + 1))
 				g.input("tap", Vector2(180, 618))
+		"offer":
+			await shot(tag + "_offer_list")
+			g.input("tap", g._row().get_center())
+			tick(0.6)
+			await shot(tag + "_offer_open")
+			g.input("down", Vector2(180, 250)); g.input("move", Vector2(180, 200)); g.input("move", Vector2(180, 170)); g.input("up", Vector2(180, 170))
+			await shot(tag + "_offer_scrolled")
+			for i in range(6):
+				g.input("tap", Vector2(180, 250))
+			tick(0.3)
+			await shot(tag + "_offer_end")
+			g.input("tap", g._button_rect().get_center())
+			await shot(tag + "_offer_accept")
 		"mail":
 			await shot(tag + "_mail_list")
 			g.input("tap", g._row().get_center()); tick(1.0)

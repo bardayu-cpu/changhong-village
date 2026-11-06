@@ -41,6 +41,7 @@ const GAMES := {
 	"seat": preload("res://hongyuan/games/seat.gd"),
 	"onsen": preload("res://hongyuan/games/onsen.gd"),
 	"photo": preload("res://hongyuan/games/photo.gd"),
+	"offer": preload("res://hongyuan/games/offer.gd"),
 }
 
 var copy: Dictionary
@@ -78,6 +79,13 @@ var move_dir := Vector2.ZERO
 var target := Vector2.ZERO
 var target_hot := ""
 var follower := ""
+var companion := ""        # 同行的人（和玩家并排走）：目前只有 "toretto"
+var comp_pos := Vector2.ZERO
+var comp_walk := 0.0
+var comp_moving := false
+var walkers: Array = []    # 路人：来回走的普通宾客，{guest,a,b,speed,phase}
+var sheet_cache: Dictionary = {}
+var sheet_rects: Dictionary = {}
 var trail: Array[Vector2] = []
 var badge := ""
 
@@ -192,6 +200,12 @@ func _apply_world(d: Dictionary) -> void:
 		pose = str(d.pose)
 	if d.has("hideAyu"):
 		player_visible = not bool(d.hideAyu)
+	if d.has("walkers"):
+		walkers = d.walkers
+	if d.has("companion"):
+		companion = str(d.companion)
+		comp_pos = feet + Vector2(36 * facing, -10)
+		comp_walk = 0.0
 
 
 func _is_setup(beat: Dictionary) -> bool:
@@ -216,6 +230,8 @@ func _run_setup(beat: Dictionary) -> void:
 	if beat.has("place"):
 		feet = _v(beat.place)
 		trail.clear()
+		if companion != "":
+			comp_pos = feet + Vector2(36 * facing, -10)
 
 
 func _next() -> void:
@@ -320,6 +336,7 @@ func _walk(dt: float) -> void:
 			target_hot = ""
 	var step := feet - before
 	move_dir = step
+	_update_companion(dt)
 	if absf(step.x) > 0.05:
 		facing = signf(step.x)
 	walk_dist += step.length()
@@ -327,6 +344,17 @@ func _walk(dt: float) -> void:
 		trail.push_front(feet)
 		if trail.size() > 40:
 			trail.resize(40)
+
+
+func _update_companion(dt: float) -> void:
+	if companion == "":
+		return
+	var want := feet + Vector2(36 * facing, -10)
+	var before := comp_pos
+	comp_pos = comp_pos.lerp(want, 1.0 - exp(-6.0 * dt))
+	var moved := comp_pos.distance_to(before)
+	comp_moving = moved > 0.12
+	comp_walk += moved
 
 
 func _clamp(p: Vector2) -> Vector2:
@@ -544,6 +572,13 @@ func _draw_world() -> void:
 		items.append({"y": _v(a.at).y + float(a.get("z", 0)), "tex": str(a.tex), "at": _v(a.at), "flip": bool(a.get("flip", false)), "scale": float(a.get("scale", 1.0))})
 	if player_visible:
 		items.append({"y": feet.y, "player": true})
+	if companion == "toretto" and player_visible:
+		var cf := "w2/common/toretto_neutral_r2.png"
+		if comp_moving and int(comp_walk / 10.0) % 2 == 0:
+			cf = "w2/common/toretto_walk.png"
+		items.append({"y": comp_pos.y, "tex": cf, "at": comp_pos, "flip": facing < 0, "scale": 1.0})
+	for i in range(walkers.size()):
+		items.append({"y": _walker_pos(walkers[i]).y, "walker": i})
 	if follower != "" and player_visible:
 		# 箱子拉杆握在手里：贴着身后走，不再落后一截
 		var k := person_height_at(feet.y) / person_height
@@ -553,6 +588,8 @@ func _draw_world() -> void:
 	for it: Dictionary in items:
 		if it.has("player"):
 			_draw_player()
+		elif it.has("walker"):
+			_draw_walker(walkers[int(it.walker)])
 		else:
 			var frame: String = it.tex
 			if it.get("roll", false) and walk_dist > 0.0:
@@ -564,6 +601,43 @@ func _draw_world() -> void:
 				draw_line(p + Vector2(0, -34), p + Vector2(10 * -facing, -50), INK, 2.0)
 				draw_circle(p + Vector2(-6, -3), 2.5, INK)
 				draw_circle(p + Vector2(6, -3), 2.5, INK)
+
+
+## 路人沿 a→b 来回走；位置只由时间决定，不进存档。
+func _walker_pos(w: Dictionary) -> Vector2:
+	var a := _v(w.a)
+	var b := _v(w.b)
+	var length := maxf(a.distance_to(b), 1.0)
+	var d := fposmod(time * float(w.get("speed", 30)) + float(w.get("phase", 0.0)) * length * 2.0, length * 2.0)
+	return a.lerp(b, (d if d <= length else length * 2.0 - d) / length)
+
+
+func _draw_walker(w: Dictionary) -> void:
+	var a := _v(w.a)
+	var b := _v(w.b)
+	var length := maxf(a.distance_to(b), 1.0)
+	var d := fposmod(time * float(w.get("speed", 30)) + float(w.get("phase", 0.0)) * length * 2.0, length * 2.0)
+	var heading := (b - a).normalized() * (1.0 if d <= length else -1.0)
+	var row := 8 if heading.x > 0 else 4
+	if absf(heading.y) > absf(heading.x):
+		row = 0 if heading.y > 0 else 12
+	var path := "res://assets/characters/lm/chr_LM-GUEST-%s.png" % str(w.guest)
+	if not sheet_cache.has(path):
+		sheet_cache[path] = load(path) if ResourceLoader.exists(path) else null
+	var sheet: Texture2D = sheet_cache[path]
+	var pos := a.lerp(b, (d if d <= length else length * 2.0 - d) / length)
+	var height := person_height_at(pos.y) * float(w.get("scale", 0.94))
+	if not sheet:
+		draw_rect(Rect2(pos - Vector2(7, height), Vector2(14, height)), Color("#6b3fa0"))
+		return
+	var f := row + int(d / 8.0) % 4
+	var key := path + str(f)
+	if not sheet_rects.has(key):
+		sheet_rects[key] = Rect2(sheet.get_image().get_region(Rect2i(f * 64, 0, 64, 84)).get_used_rect())
+	var used: Rect2 = sheet_rects[key]
+	var k := height / maxf(used.size.y, 1.0)
+	_shadow(pos, used.size.x * k * 0.3)
+	draw_texture_rect_region(sheet, Rect2(pos + Vector2((used.position.x - 32.0) * k, -height), used.size * k), Rect2(used.position + Vector2(f * 64, 0), used.size))
 
 
 func _player_frame() -> String:
@@ -628,6 +702,8 @@ func _draw_say() -> void:
 func _speaker_anchor(who: String) -> Vector2:
 	if who == player_role and player_visible:
 		return feet - Vector2(0, person_rect(_player_frame(), feet).size.y)
+	if companion != "" and who == companion and player_visible:
+		return comp_pos - Vector2(0, person_rect("w2/common/toretto_neutral_r2.png", comp_pos).size.y)
 	if actors.has(who) and not actors[who].get("hidden", false):
 		var a: Dictionary = actors[who]
 		return _v(a.at) - Vector2(0, person_rect(str(a.tex), _v(a.at), float(a.get("scale", 1))).size.y)

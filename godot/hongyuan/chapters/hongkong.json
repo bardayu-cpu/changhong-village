@@ -28,7 +28,7 @@
       "hint": "A6-P1"
      },
      {
-      "game": "mail"
+      "game": "offer"
      },
      {
       "hint": ""
@@ -86,6 +86,50 @@
        590
       ],
       "follow": "w2/hongkong/suitcase_1.png",
+      "companion": "toretto",
+      "walkers": [
+       {
+        "guest": "02",
+        "a": [
+         -30,
+         432
+        ],
+        "b": [
+         390,
+         432
+        ],
+        "speed": 30,
+        "scale": 0.85
+       },
+       {
+        "guest": "05",
+        "a": [
+         390,
+         474
+        ],
+        "b": [
+         -30,
+         474
+        ],
+        "speed": 36,
+        "phase": 0.35,
+        "scale": 0.85
+       },
+       {
+        "guest": "03",
+        "a": [
+         -30,
+         520
+        ],
+        "b": [
+         390,
+         520
+        ],
+        "speed": 26,
+        "phase": 0.6,
+        "scale": 0.85
+       }
+      ],
       "walkArea": [
        [
         20,
@@ -138,7 +182,9 @@
       "hint": "A6-P3"
      },
      {
-      "follow": ""
+      "follow": "",
+      "companion": "",
+      "walkers": []
      },
      {
       "bg": "w2/hongkong/bg_disney_memory_r1.png",
