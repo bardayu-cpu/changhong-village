@@ -219,7 +219,29 @@ func _world_actor(actor: Dictionary) -> void:
 	var feet := _feet(actor)
 	if key == "ayu" and walk_frame >= 0 and shot.get("chapterId") == "shanghai":
 		feet.y -= float(walk_frame % 2) * 1.5
+	var height: float = PEOPLE_HEIGHT.get(str(shot.get("sceneId", "")), 0.0) if key in ["ayu", "axiao"] else 0.0
+	if height > 0.0:
+		_draw_person(_texture(file), feet, height, flip)
+		return
 	_draw_sprite(_texture(file), feet, float(info.get("footBottom", 0)), flip)
+
+## 有车做参照的场景里，人按和车匹配的身高画；按图里不透明部分量身高，阿鱼和阿晓一样高。
+const PEOPLE_HEIGHT := {"shanghai_street": 82.0, "shanghai_parking": 82.0}
+var _used_rects := {}
+
+func _draw_person(texture: Texture2D, feet: Vector2, height: float, flip: bool) -> void:
+	if not texture:
+		return
+	if not _used_rects.has(texture):
+		_used_rects[texture] = texture.get_image().get_used_rect()
+	var used: Rect2 = Rect2(_used_rects[texture])
+	var k := height / used.size.y
+	var size := used.size * k
+	feet = _pixel_position(feet)
+	_shadow(feet, size.x * 0.3)
+	draw_set_transform(feet, 0.0, Vector2(-1, 1) if flip else Vector2.ONE)
+	draw_texture_rect_region(texture, Rect2(Vector2(-size.x * 0.5, -size.y), size), used)
+	draw_set_transform(Vector2.ZERO)
 
 func _draw_sprite(texture: Texture2D, feet: Vector2, foot_bottom := 0.0, flip := false) -> void:
 	if not texture:
