@@ -1,0 +1,359 @@
+diff --git a/godot/hongyuan/chapters/shizuoka.json b/godot/hongyuan/chapters/shizuoka.json
+index a3af60f..de0af45 100644
+--- a/godot/hongyuan/chapters/shizuoka.json
++++ b/godot/hongyuan/chapters/shizuoka.json
+@@ -41,12 +41,12 @@
+      {
+       "id": "spot",
+       "at": [
+-       200,
+-       382
++       104,
++       448
+       ],
+       "snap": [
+-       200,
+-       382
++       104,
++       448
+       ],
+       "face": 1,
+       "icon": "rod"
+diff --git a/godot/hongyuan/copy.json b/godot/hongyuan/copy.json
+index 9246e6e..d6edfdb 100644
+--- a/godot/hongyuan/copy.json
++++ b/godot/hongyuan/copy.json
+@@ -24,6 +24,10 @@
+   "A2-1b": "在这个单位，一切很稳定。\n每天早上九点打卡，下午六点走人，周末到处转转。\n一切平淡如水…",
+   "A2-2": "G42在淀山湖 · 有新消息",
+   "A2-P1": "走去逛逛熊猫基地",
++  "G-FISH-SWING": "看准鱼的位置，点一下放钩",
++  "G-FISH-REEL": "钩到了，正在拉回来",
++  "G-FISH-FULL": "鱼桶满了",
++  "G-FISH-COUNT": "鱼桶 %d / 5",
+   "A3-1a": "24 年 12 月 4 号",
+   "A3-C1": "Toretto 来电",
+   "G-01": "红缘大冒险 2.0",
+diff --git a/godot/hongyuan/games/fishing.gd b/godot/hongyuan/games/fishing.gd
+index 6f10ce7..45fb164 100644
+--- a/godot/hongyuan/games/fishing.gd
++++ b/godot/hongyuan/games/fishing.gd
+@@ -1,157 +1,157 @@
+ extends RefCounted
+-## 码头短钓：按住蓄力，松手甩竿；等 2～4 秒浮标下沉，点「收！」。错过了浮标回来，再甩一次，不计次数。
++## 码头朝画面上方的海面放钩：左右摆，点一下发射，碰到第一条鱼便拉回。
++## D3-J1 鱼种/钩图未齐时复用旧鱼图；五种大小、拉速和碰撞已独立。
++const PIVOT := Vector2(180, 353)
++const SEA := Rect2(14, 252, 332, 96)
++const BUCKET_AT := Vector2(238, 472)
++const REST := 14.0
++const SWING := 1.18
++const CAST_SPEED := 190.0
++const SIZES := [Vector2(23, 12), Vector2(29, 15), Vector2(35, 18), Vector2(41, 21), Vector2(47, 24)]
++const REEL_SPEEDS := [96.0, 74.0, 56.0, 40.0, 28.0]
++const ART := ["w2/shizuoka/fish_1.png|w2/shizuoka/fish.png", "w2/shizuoka/fish_2.png|w2/shizuoka/fish.png",
++	"w2/shizuoka/fish_3.png|w2/shizuoka/fish.png", "w2/shizuoka/fish_4.png|w2/shizuoka/fish.png", "w2/shizuoka/fish_5.png|w2/shizuoka/fish.png"]
+ 
+ var r
+-var phase := "aim"   # aim → fly → wait → bite → caught
++var phase := "aim" # aim → cast → reel → land → aim/done
+ var t := 0.0
+-var power := 0.0
+-var holding := false
+-var bob := Vector2.ZERO
+-var from := Vector2.ZERO
+-var wait_for := 3.0
++var fish_clock := 0.0
++var hook_angle := 0.0
++var hook_length := REST
++var caught_index := -1
++var fish: Array = []
++var bucket: Array = []
+ var rng := RandomNumberGenerator.new()
+-var fish_t := 0.0
+-var missed := false
+-
+ 
+ func start(runner, _beat: Dictionary) -> void:
+ 	r = runner
+-	rng.seed = Time.get_ticks_usec()
++	rng.randomize()
+ 	r.pose = "fishing"
+ 	r.facing = 1.0
+-
+-
+-func _tip() -> Vector2:
+-	return r.feet + Vector2(26 * r.facing, -118)
+-
++	r.hint = ""
++	r.actors["toretto"] = {"at": [292, 452], "tex": "w2/common/toretto_stand.png", "scale": 0.84, "flip": true}
++	var spots := [Vector2(78, 275), Vector2(127, 307), Vector2(181, 271), Vector2(236, 305), Vector2(291, 273)]
++	var kinds := [0, 1, 2, 3, 4]
++	for i in range(kinds.size() - 1, 0, -1):
++		var j := rng.randi_range(0, i)
++		var swap: int = kinds[i]
++		kinds[i] = kinds[j]
++		kinds[j] = swap
++	for i in range(5):
++		fish.append({"kind": kinds[i], "home": spots[i], "offset": rng.randf_range(0, TAU)})
++
++func _direction() -> Vector2: return Vector2(sin(hook_angle), -cos(hook_angle))
++func _hook() -> Vector2: return PIVOT + _direction() * hook_length
++func _fish_at(index: int) -> Vector2:
++	var f: Dictionary = fish[index]
++	return f.home + Vector2(sin(fish_clock * 0.65 + float(f.offset)) * 8, sin(fish_clock * 0.9 + float(f.offset)) * 2)
++
++func input(kind: String, _pos: Vector2) -> void:
++	if kind == "tap" and phase == "aim":
++		phase = "cast"
++		t = 0.0
++		r.pose = "w2/shizuoka/ayu_fish_cast.png|w2/shizuoka/ayu_fish_hold.png"
++		r.play("blip")
+ 
+ func process(dt: float) -> bool:
+ 	t += dt
++	fish_clock += dt
+ 	match phase:
+-		"aim":
+-			if holding:
+-				power = fmod(power + dt * 0.9, 2.0)
+-		"fly":
+-			var k := clampf(t / 0.6, 0.0, 1.0)
+-			bob = from.lerp(_landing(), k) + Vector2(0, -sin(k * PI) * 70.0)
+-			if k >= 1.0:
+-				phase = "wait"
+-				t = 0.0
+-				wait_for = rng.randf_range(2.0, 4.0)
+-				r.play("blip")
+-		"wait":
+-			if t >= wait_for:
+-				phase = "bite"
++		"aim": hook_angle = sin(fish_clock * 1.2) * SWING
++		"cast":
++			var before := _hook()
++			hook_length += CAST_SPEED * dt
++			var after := _hook()
++			var closest := INF
++			for i in range(fish.size()):
++				var center := _fish_at(i)
++				var hit := Geometry2D.get_closest_point_to_segment(center, before, after)
++				var radius: float = SIZES[int(fish[i].kind)].y * 0.5 + 4
++				if hit.distance_to(center) <= radius and hit.distance_to(before) < closest:
++					closest = hit.distance_to(before)
++					caught_index = i
++					hook_length = PIVOT.distance_to(hit)
++			if caught_index >= 0 or not SEA.has_point(after):
++				phase = "reel"
++				r.pose = "w2/shizuoka/ayu_fish_reel.png|w2/shizuoka/ayu_fish_hold.png"
++				if caught_index >= 0: r.play("blip")
++		"reel":
++			var speed: float = REEL_SPEEDS[int(fish[caught_index].kind)] if caught_index >= 0 else 120.0
++			hook_length = maxf(REST, hook_length - speed * dt)
++			if hook_length <= REST:
++				if caught_index >= 0:
++					bucket.append(int(fish[caught_index].kind))
++					fish.remove_at(caught_index)
++					r.play("pop")
++					phase = "land"
++				else:
++					phase = "aim"
++				caught_index = -1
+ 				t = 0.0
+-				r.play("blip")
+-		"bite":
+-			if t >= 3.0:
+-				phase = "aim"
+-				missed = true
+-				power = 0.0
++				r.pose = "fishing"
++		"land":
++			if t >= 0.6:
++				phase = "done" if bucket.size() >= 5 else "aim"
+ 				t = 0.0
+-		"caught":
+-			fish_t += dt
+-			if fish_t >= 1.6:
++		"done":
++			if t >= 0.7:
+ 				r.pose = ""
+ 				return true
+ 	return false
+ 
+-
+-func _p() -> float:
+-	return power if power <= 1.0 else 2.0 - power
+-
+-
+-func _landing() -> Vector2:
+-	return Vector2(r.feet.x + 40 + _p() * 60.0, r.feet.y - 70 - _p() * 150.0)
+-
+-
+-func input(kind: String, pos: Vector2) -> void:
+-	match phase:
+-		"aim":
+-			if kind == "down":
+-				holding = true
+-				power = 0.0
+-				missed = false
+-			elif kind == "up" and holding:
+-				holding = false
+-				phase = "fly"
+-				t = 0.0
+-				from = _tip()
+-				r.play("blip")
+-		"bite":
+-			if kind in ["down", "tap"]:
+-				phase = "caught"
+-				t = 0.0
+-				fish_t = 0.0
+-				r.play("pop")
+-		"wait":
+-			pass  # 还没咬钩时乱点不惩罚
+-
++func skip() -> void:
++	for f: Dictionary in fish:
++		if bucket.size() >= 5: break
++		bucket.append(int(f.kind))
++	fish.clear()
++	caught_index = -1
++	phase = "done"
++	t = 0.7
++	r.pose = ""
++
++func restore_checkpoint() -> void:
++	# Older charge/bobber phases safely start the new loop with its five fish.
++	if phase not in ["aim", "cast", "reel", "land", "done"]: phase = "aim"
++	if caught_index >= fish.size() or caught_index < -1: caught_index = -1
++	if bucket.size() >= 5:
++		phase = "done"
++		caught_index = -1
++	if phase == "aim": hook_length = REST
++	r.pose = "w2/shizuoka/ayu_fish_reel.png|w2/shizuoka/ayu_fish_hold.png" if phase == "reel" else "fishing"
++	r._reset_input()
+ 
+ func draw(ci) -> void:
+-	var tip := _tip()
+-	if phase in ["fly", "wait", "bite"]:
+-		var b := bob
+-		if phase == "wait":
+-			b = _landing() + Vector2(0, sin(t * 4.0) * 1.5)
+-		elif phase == "bite":
+-			b = _landing() + Vector2(0, 4 + sin(t * 30.0) * 2.0)
+-		_line(ci, tip, b)
+-		_bobber(ci, b, phase == "bite")
+-		if phase != "fly":
+-			ci.draw_arc(b + Vector2(0, 4), 10 + fmod(t * 8.0, 8.0), 0, TAU, 20, Color(1, 1, 1, 0.35), 1.0)
+-	if phase == "caught":
+-		var k := clampf(fish_t / 0.9, 0.0, 1.0)
+-		var p := _landing().lerp(r.feet + Vector2(-34, -20), k) + Vector2(0, -sin(k * PI) * 90.0)
+-		_line(ci, tip, p)
+-		var fish: Texture2D = ci.texture("w2/shizuoka/fish.png")
+-		if fish:
+-			var sz: Vector2 = fish.get_size() * ci.S
+-			ci.draw_texture_rect(fish, Rect2(p - sz * 0.5, sz), false)
+-		else:
+-			ci.draw_colored_polygon(PackedVector2Array([p + Vector2(-14, 0), p + Vector2(0, -7), p + Vector2(12, 0), p + Vector2(0, 7)]), Color("#9fb7c9"))
+-			ci.draw_colored_polygon(PackedVector2Array([p + Vector2(12, 0), p + Vector2(20, -6), p + Vector2(20, 6)]), Color("#7d97ab"))
+-			ci.draw_rect(Rect2(p + Vector2(-9, -2), Vector2(2, 2)), Color("#1d1d1d"))
+-		if fish_t < 0.5:
+-			for i in range(6):
+-				var a := TAU * i / 6.0
+-				ci.draw_rect(Rect2(_landing() + Vector2(cos(a), sin(a) * 0.5) * fish_t * 50.0, Vector2(3, 3)), Color(1, 1, 1, 1.0 - fish_t * 2.0))
+-	if phase == "aim":
+-		var base: Vector2 = r.feet + Vector2(-60, -60)
+-		ci.draw_rect(Rect2(base, Vector2(12, 70)), Color(ci.INK, 0.8))
+-		ci.draw_rect(Rect2(base + Vector2(2, 68 - 66 * _p()), Vector2(8, 66 * _p())), ci.GOLD)
+-		if not holding:
+-			var a := 0.6 + 0.4 * sin(t * 5.0)
+-			ci.draw_arc(Vector2(180, 590), 18, 0, TAU, 28, Color(ci.PAPER, a), 3.0)
+-			ci.draw_circle(Vector2(180, 590), 10, Color(ci.PAPER, a))
+-	var hint := ""
++	for i in range(fish.size()):
++		if i != caught_index: _draw_fish(ci, int(fish[i].kind), _fish_at(i))
++	var hook := _hook()
++	ci.draw_line(r.feet + Vector2(18, -54), PIVOT, ci.WOOD, 3)
++	ci.draw_line(PIVOT, hook, Color(ci.PAPER, 0.95), 1.5)
++	ci.draw_circle(PIVOT, 3, ci.GOLD)
++	var hook_art: Texture2D = ci.texture("w2/shizuoka/hook.png")
++	if hook_art:
++		ci.draw_texture_rect(hook_art, Rect2(hook - Vector2(7, 10), Vector2(14, 20)), false)
++	else:
++		ci.draw_arc(hook, 5, -PI * 0.7, PI * 0.7, 12, ci.PAPER, 2)
++		ci.draw_line(hook + Vector2(0, -5), hook + Vector2(0, -10), ci.PAPER, 2)
++	if caught_index >= 0:
++		_draw_fish(ci, int(fish[caught_index].kind), hook + Vector2(0, -6))
++	ci.sprite("w2/shizuoka/bucket.png", BUCKET_AT, false, 0.75)
++	for i in range(bucket.size()):
++		_draw_fish(ci, int(bucket[i]), BUCKET_AT + Vector2(-14 + i * 7, -27 - (i % 2) * 4), 0.45)
++	if phase == "land" and not bucket.is_empty():
++		var k := clampf(t / 0.6, 0, 1)
++		_draw_fish(ci, int(bucket[-1]), (PIVOT + Vector2(0, -REST)).lerp(BUCKET_AT + Vector2(0, -28), k) + Vector2(0, -sin(k * PI) * 38))
++	var prompt := "G-FISH-SWING"
++	if phase == "reel" and caught_index >= 0: prompt = "G-FISH-REEL"
++	elif phase in ["land", "done"] and bucket.size() >= 5: prompt = "G-FISH-FULL"
++	ci._hint(ci.t_(prompt))
++	ci.pill(Rect2(12, 96, 104, 28), ci.t_("G-FISH-COUNT") % mini(bucket.size(), 5), 14, Color(ci.INK, 0.78), ci.PAPER)
+ 	if phase == "aim":
+-		hint = ci.t_("G-FISH-MISS") if missed and t < 2.0 else ci.t_("G-FISH-HOLD")
+-	elif phase == "wait":
+-		hint = ci.t_("G-FISH-WAIT")
+-	if hint != "":
+-		ci.pill(Rect2(70, 520, 220, 34), hint, 15, Color(ci.INK, 0.8), ci.RED if missed and phase == "aim" and t < 2.0 else ci.PAPER)
+-	if phase == "bite":
+-		var pulse := 1.0 + 0.08 * sin(t * 18.0)
+-		var rect := Rect2(Vector2(180, 560) - Vector2(60, 26) * pulse, Vector2(120, 52) * pulse)
+-		ci.pill(rect, ci.t_("A4-P2"), 24, ci.RED, ci.PAPER)
+-
+-
+-func _line(ci, a: Vector2, b: Vector2) -> void:
+-	var pts := PackedVector2Array()
+-	for i in range(13):
+-		var k := i / 12.0
+-		pts.append(a.lerp(b, k) + Vector2(0, sin(k * PI) * 10.0))
+-	ci.draw_polyline(pts, Color(1, 1, 1, 0.75), 1.0)
+-
+-
+-func _bobber(ci, p: Vector2, sinking: bool) -> void:
+-	var tex: Texture2D = ci.texture("w2/shizuoka/bobber_%d.png" % (2 if sinking else 1))
+-	if tex:
+-		var sz: Vector2 = tex.get_size() * ci.S
+-		ci.draw_texture_rect(tex, Rect2(p - sz * 0.5, sz), false)
+-		return
+-	ci.draw_rect(Rect2(p + Vector2(-3, -6), Vector2(6, 6)), Color("#d63c3c"))
+-	if not sinking:
+-		ci.draw_rect(Rect2(p + Vector2(-3, 0), Vector2(6, 4)), Color("#f5f0e6"))
++		ci.draw_arc(Vector2(180, 562), 18 + sin(t * 4) * 2, 0, TAU, 24, Color(ci.PAPER, 0.7), 2)
++		ci.draw_circle(Vector2(180, 562), 8, Color(ci.PAPER, 0.7))
++
++func _draw_fish(ci, kind: int, at: Vector2, scale_k := 1.0) -> void:
++	var tex: Texture2D = ci.texture(ART[kind])
++	if not tex: return
++	var sz: Vector2 = SIZES[kind] * scale_k
++	ci.draw_texture_rect(tex, Rect2(at - sz * 0.5, sz), false)
+diff --git a/godot/hongyuan/scene_runner.gd b/godot/hongyuan/scene_runner.gd
+index a4834c7..9f31917 100644
+--- a/godot/hongyuan/scene_runner.gd
++++ b/godot/hongyuan/scene_runner.gd
+@@ -835,7 +835,8 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
+ const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
+ 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
+ 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
+-	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on"]
++	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on",
++	"fish_clock", "hook_angle", "hook_length", "caught_index", "fish", "bucket"]
+ 
+ func snapshot() -> Dictionary:
+ 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
+diff --git a/godot/hongyuan/tools/make_chapters.py b/godot/hongyuan/tools/make_chapters.py
+index 9698318..44d0650 100644
+--- a/godot/hongyuan/tools/make_chapters.py
++++ b/godot/hongyuan/tools/make_chapters.py
+@@ -38,7 +38,7 @@ write("shizuoka", "G-09", [scene("pier", "shizuoka", {
+     "personHeight": 128, "badge": "G-02", "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
+     "walkArea": [[16, 376], [344, 376], [344, 590], [16, 590]], "start": [60, 540],
+     "hotspots": [
+-        {"id": "spot", "at": [200, 382], "snap": [200, 382], "face": 1, "icon": "rod"},
++        {"id": "spot", "at": [104, 448], "snap": [104, 448], "face": 1, "icon": "rod"},
+         {"id": "boat", "at": [326, 500], "icon": "sit"}],
+     "beats": [
+         {"card": "G-09", "duration": 2.0},
