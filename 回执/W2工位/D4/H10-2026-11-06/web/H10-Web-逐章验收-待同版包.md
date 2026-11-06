@@ -9,18 +9,18 @@
 1. 停止旧的 b6415d7 浏览器页，不再使用旧包结论。
 2. 在独立 D4 工作树执行 `git pull --ff-only origin hongyuan-launch`，快进到 `bcb0edcaed8243ef7b1449a643b36becc864a1aa`。它在 PR #25 的 `5d92b76` 之后只新增 `godot/hongyuan/tests/p0_fix_test.gd.uid`，玩法源码无差异。
 3. 检查现有候选包清单：
-   - 最新找到的是 `/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/outputs/h-delivery-c73d16f/build-manifest.json`，其 `sourceCommit=c73d16f0123b1b7058d0282252eb18d89b8894e8`，不是目标 SHA。
-   - 该旧包 Web ZIP 为 `hongyuan-c73d16f-web.zip`，清单 SHA-256 为 `cf601ff52dd25cf2d454136bd96c7b60de97273019026b224a36abc155e30a93`；文档入口是本机 `http://127.0.0.1:8895/web/`。ZIP 实际 SHA-256 已复核与清单一致。
-   - 没有 `bcb0edc` 对应的 `build-manifest.json`、Web ZIP、微信 ZIP、预览二维码或真机入口。c73d16f 的入口不能代替目标包。
-4. 因此从序章开始就没有可启动的目标包。此处是包缺失的前置阻塞，没有应用屏幕或点击位置可供复现；进入任何章节都将改测旧代码，所以八章均跳过体验、统一记为阻塞。待同 SHA 包到位后，从序章开始重测并继续后续章节。
+   - 可用 Web ZIP 仍是旧候选 `h-delivery-c73d16f`，其 `sourceCommit=c73d16f0123b1b7058d0282252eb18d89b8894e8`，ZIP SHA-256 `cf601ff52dd25cf2d454136bd96c7b60de97273019026b224a36abc155e30a93`（已复核）；记录的本机入口是 `http://127.0.0.1:8895/web/`，不对应目标源码。
+   - 后续发现 D2 本地微信候选 `outputs/h14-wechat-bcb0edc/`：`sourceCommit=bcb0edcaed8243ef7b1449a643b36becc864a1aa`，微信 ZIP SHA-256 `4fc37dc8b2412bfe7bdc22092108b9dcdad601f9233b84db0d8a3e53fad53b08`（实际文件已复核与清单一致）。清单注明 `previewInvoked=false`、`uploadInvoked=false`、`wechatClientTested=false`；没有扫码预览/真机入口。
+   - D2 候选构建后，D4 回执推送使 `hongyuan-launch` 前移，因此该 H14 包不再匹配当前远端分支头；Claude 的同版 Web 包也未交。两个候选都不能计为当前最新包。
+4. 因此从序章开始就没有可用的同版 Web 包，也没有可扫码的同版微信包。此处是包版本/真机入口的前置阻塞，没有应用屏幕或点击位置可供复现；进入任何章节都会改测旧代码或只测本地渲染，所以八章均跳过体验、统一记为阻塞。待同 SHA 包到位后，从序章开始重测并继续后续章节。
 
-本次实际进度：Web 360×640 真包实玩 **0/8 章**；微信真机 **0/8 章**；九项玩法五轮实玩 **0/9**；新包上的已通过章节回归 **0 章**。此前 b6415d7 的阶段探索、截图和录屏均不计入本轮结果。
+本次实际进度：Web 360×640 真包实玩 **0/8 章**；微信真机 **0/8 章**；九项玩法五轮实玩 **0/9**；新包上的已通过章节回归 **0 章**。此前 b6415d7 的阶段探索、截图和录屏，以及 D2 H14 的 91 张本地 Godot PCK smoke 截图，均不计入 D4 实玩结果。
 
 ## 逐章表
 
 | 章 | 结果 | Web 360×640 | 微信真机 | 一句话原因或复现步骤 |
 | --- | --- | --- | --- | --- |
-| 序章 | 阻塞 | 阻塞 | 阻塞 | 同 SHA 包缺失，无法从序章入口开始；按上文核对清单即可复现包版本不匹配。 |
+| 序章 | 阻塞 | 阻塞 | 阻塞 | 同 SHA Web 包缺失、微信包无扫码入口；按上文核对清单即可复现。 |
 | 上海 | 阻塞 | 阻塞 | 阻塞 | 未进入目标包，驾驶、停车和旧已通过操控回归均未测；包到后从序章驶入上海并先做无人操作停车观察。 |
 | 成都 | 阻塞 | 阻塞 | 阻塞 | 未进入目标包，拿竹、喂熊猫、手动开手机及续档均未测。 |
 | 来电 | 阻塞 | 阻塞 | 阻塞 | 未进入目标包，走到桌旁、手动接听、生日桌面及续档均未测。 |
@@ -57,4 +57,4 @@
 
 ## 下一步验收条件
 
-收到新包后，先运行 `git ls-remote origin refs/heads/hongyuan-launch`，确认 `build-manifest.json` 的 `sourceCommit` 与取包时远端最新 SHA 完全一致，再核包 SHA-256 和入口；随后用同包执行八章流程。Web 与微信真机结果分开记，每个玩法各连玩五次，逐条填写五项标准，并回归新包中之前已通过的章节。
+D2 H14 微信 ZIP 的构建检查（P0 3 项、91 张 PCK smoke、0 fail）属于开发侧静态/原生检查，不能替代 D4 在微信客户端的八章体验。收到新包后，先运行 `git ls-remote origin refs/heads/hongyuan-launch`，确认 `build-manifest.json` 的 `sourceCommit` 与取包时远端最新 SHA 完全一致，再核包 SHA-256 和入口；随后用同包执行八章流程。Web 与微信真机结果分开记，每个玩法各连玩五次，逐条填写五项标准，并回归新包中之前已通过的章节。
