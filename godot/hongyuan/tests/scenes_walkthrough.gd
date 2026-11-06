@@ -128,10 +128,8 @@ func play_game(tag: String, name: String) -> void:
 				if r.bi != before:
 					break
 				# 车位到了附近就按住减速，然后松手
-				if g.phase == "park" and g.bay_y > 380 and g.bay_y < 470 and not g.holding:
+				if g.phase == "park" and g.bay_y > 400 and not g.holding:
 					g.input("down", Vector2(180, 500))
-				if g.holding and g.speed < 25.0:
-					g.input("up", Vector2(180, 500))
 				if i == 60:
 					await shot(tag + "_parking")
 				r._process(0.05)
