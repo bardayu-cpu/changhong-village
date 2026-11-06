@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS Old Shanghai renderer scales the same person smoothly with floor depth
+PASS 360x640 01-shanghai-street
+PASS Parking people are calibrated to the smaller distant cars
+PASS 360x640 02-shanghai-parking-dialogue
+PASS 360x640 03-chengdu
+PASS 360x640 04-room
+PASS Inspecting cake uses the contextual lowered-hand pose
+PASS Office body matches desk scale and feet remain anchored
+PASS 360x640 05-office-proportion-and-pose
+PASS Fishing line remains attached below the scaled character top
+PASS 360x640 06-pier
+PASS Couple sit together before their first marriage conversation line
+PASS 360x640 07-boat-approach
+PASS Walking to the correctly scaled bench still requires explicit sit interaction
+PASS Two seated bodies share seat depth and height instead of a small man and large standing woman
+PASS Both head bubbles use the actual drawn seated silhouette
+PASS 360x640 08-boat-seated-dialogue
+PASS JSON restore retains the same seated world size and foot position
+PASS 360x640 09-pool
+PASS 208px and 1599px source images produce the same world height and both look toward the sea
+PASS 360x640 10-beach-watching
+PASS 360x640 11-airport-near
+PASS Airport walking recedes from a foreground adult to door-calibrated depth
+PASS Idle and walking frames never change foot baseline or body height
+PASS 360x640 12-airport-far
+PASS 360x640 13-banquet-orthographic
+PASS Banquet drawing no longer mutates the scene's shared character height
+FAILURES 0
