@@ -3946,6 +3946,90 @@
         "D1": "待核"
       },
       "sha256": "3e1e0ebb9fb9c665d617af4d6c9c0ba9a1b21ee89b9e9ced5256832c54638dcf"
+    },
+    "w2/common/toretto_neutral_r2.png": {
+      "file": "w2/common/toretto_neutral_r2.png",
+      "card": "D2-UI2",
+      "dimensions": [
+        984,
+        1599
+      ],
+      "anchor": [
+        505,
+        1518
+      ],
+      "origin": "built-in image_gen; 阿鱼要求按场景切换动作，不总扶眼镜",
+      "usedIn": "自然站姿/办公室看礼物/背身看海",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "542f61dcea751fcf3ddee06a54be787b5a04149e1612044942c84b1eee937517",
+      "contentRect": [
+        299,
+        61,
+        412,
+        1457
+      ],
+      "contentAlphaThreshold": 16
+    },
+    "w2/common/toretto_gifts_r2.png": {
+      "file": "w2/common/toretto_gifts_r2.png",
+      "card": "D2-UI2",
+      "dimensions": [
+        984,
+        1599
+      ],
+      "anchor": [
+        462.5,
+        1525
+      ],
+      "origin": "built-in image_gen; 阿鱼要求按场景切换动作，不总扶眼镜",
+      "usedIn": "自然站姿/办公室看礼物/背身看海",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "5eeed65b28574c9923f7b516c38162b22fb8aa88adda57835f7098549a4b7b4a",
+      "contentRect": [
+        251,
+        66,
+        546,
+        1459
+      ],
+      "contentAlphaThreshold": 16
+    },
+    "w2/common/toretto_back_r2.png": {
+      "file": "w2/common/toretto_back_r2.png",
+      "card": "D2-UI2",
+      "dimensions": [
+        984,
+        1599
+      ],
+      "anchor": [
+        491.5,
+        1522
+      ],
+      "origin": "built-in image_gen; 阿鱼要求按场景切换动作，不总扶眼镜",
+      "usedIn": "自然站姿/办公室看礼物/背身看海",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "37e8d28cdf4dd3489b9694d85e234aa969ba0fd7c1d2e56b4899562441274609",
+      "contentRect": [
+        299,
+        64,
+        386,
+        1458
+      ],
+      "contentAlphaThreshold": 16
     }
   },
   "palette": {

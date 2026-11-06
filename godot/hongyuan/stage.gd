@@ -1,6 +1,7 @@
 extends Control
 
 const PhoneShell := preload("res://hongyuan/ui/phone_shell.gd")
+const WorldScale := preload("res://hongyuan/world_scale.gd")
 const CANVAS := Vector2(360, 640)
 const ASSET_ROOT := "res://hongyuan/assets/"
 const ART_SCALE := 2.0 / 3.0
@@ -223,7 +224,7 @@ func _world_actor(actor: Dictionary) -> void:
 	var feet := _feet(actor)
 	if key == "ayu" and walk_frame >= 0 and shot.get("chapterId") == "shanghai":
 		feet.y -= float(walk_frame % 2) * 1.5
-	var height: float = PEOPLE_HEIGHT.get(str(shot.get("sceneId", "")), 0.0) if key in ["ayu", "axiao"] else 0.0
+	var height := person_height_at(feet.y) if key in ["ayu", "axiao", "toretto"] else 0.0
 	if height > 0.0:
 		_draw_person(_texture(file), feet, height, flip)
 	else:
@@ -231,24 +232,25 @@ func _world_actor(actor: Dictionary) -> void:
 	if key == "ayu" and materials.get("bamboo_held", false):
 		var held := _texture("w2/chengdu/bamboo_held.png")
 		if held:
-			draw_texture_rect(held, Rect2(player_feet + Vector2(20 * facing - 8, -51), Vector2(16, 44)), false)
+			var k := person_height_at(player_feet.y) / 128.0
+			draw_texture_rect(held, Rect2(player_feet + Vector2(20 * facing - 8, -51) * k, Vector2(16, 44) * k), false)
 
-## 有车做参照的场景里，人按和车匹配的身高画；按图里不透明部分量身高，阿鱼和阿晓一样高。
-const PEOPLE_HEIGHT := {"shanghai_street": 82.0, "shanghai_parking": 82.0}
 var _used_rects := {}
+
+func person_height_at(floor_y: float) -> float:
+	return WorldScale.height_at(WorldScale.profile(str(shot.get("sceneId", ""))), floor_y)
 
 func _draw_person(texture: Texture2D, feet: Vector2, height: float, flip: bool) -> void:
 	if not texture:
 		return
 	if not _used_rects.has(texture):
-		_used_rects[texture] = texture.get_image().get_used_rect()
+		_used_rects[texture] = WorldScale.visible_rect(texture)
 	var used: Rect2 = Rect2(_used_rects[texture])
-	var k := height / used.size.y
-	var size := used.size * k
+	var rect := WorldScale.local_rect(texture.resource_path, texture.get_width(), used, height)
 	feet = _pixel_position(feet)
-	_shadow(feet, size.x * 0.3)
+	_shadow(feet, rect.size.x * 0.3)
 	draw_set_transform(feet, 0.0, Vector2(-1, 1) if flip else Vector2.ONE)
-	draw_texture_rect_region(texture, Rect2(Vector2(-size.x * 0.5, -size.y), size), used)
+	draw_texture_rect_region(texture, rect, used)
 	draw_set_transform(Vector2.ZERO)
 
 func _draw_sprite(texture: Texture2D, feet: Vector2, foot_bottom := 0.0, flip := false) -> void:

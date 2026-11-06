@@ -22,7 +22,7 @@ func start(runner, _beat: Dictionary) -> void:
 
 
 func _tip() -> Vector2:
-	return r.feet + Vector2(26 * r.facing, -118)
+	return r.feet + Vector2(26 * r.facing, -118) * (r.person_height_at(r.feet.y) / 128.0)
 
 
 func process(dt: float) -> bool:

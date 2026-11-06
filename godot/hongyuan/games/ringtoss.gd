@@ -29,7 +29,7 @@ func start(runner, beat: Dictionary) -> void:
 			pegs.append(Vector2(float(p[0]), float(p[1])))
 	r.facing = 1.0
 	r.pose = "throw"
-	hand = r.feet + Vector2(14, -100) * (r.person_height / 128.0)
+	hand = r.feet + Vector2(14, -100) * (r.person_height_at(r.feet.y) / 128.0)
 
 
 func process(dt: float) -> bool:

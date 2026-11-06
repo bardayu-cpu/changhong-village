@@ -11,6 +11,7 @@ signal scene_requested(path: String)
 const CANVAS := Vector2(360, 640)
 const S := 2.0 / 3.0
 const StoryCaption := preload("res://hongyuan/ui/story_caption.gd")
+const WorldScale := preload("res://hongyuan/world_scale.gd")
 const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const ROOT := "res://hongyuan/assets/"
 const SPEED := 126.0
@@ -51,6 +52,7 @@ var time := 0.0
 var bg := ""
 var bg_fit := false
 var player_role := "ayu"
+var scale_profile := ""
 var bg_fill := Color("#2a1c18")
 var night := 0.0
 var sky := Color.TRANSPARENT
@@ -143,6 +145,9 @@ func _apply_world(d: Dictionary) -> void:
 	if d.has("bg"):
 		bg = str(d.bg)
 		bg_fit = bool(d.get("bgFit", false))
+		scale_profile = WorldScale.profile("", bg)
+	if d.has("scaleProfile"):
+		scale_profile = str(d.scaleProfile)
 	if d.has("fill"):
 		bg_fill = Color(str(d.fill))
 	if d.has("sky"):
@@ -517,8 +522,9 @@ func _draw_world() -> void:
 		items.append({"y": feet.y, "player": true})
 	if follower != "" and player_visible:
 		# 箱子拉杆握在手里：贴着身后走，不再落后一截
-		var fp := feet + Vector2(-24 * facing, 0)
-		items.append({"y": feet.y - 1, "tex": follower, "at": fp, "flip": facing < 0, "scale": 1.0, "roll": true})
+		var k := person_height_at(feet.y) / person_height
+		var fp := feet + Vector2(-24 * facing * k, 0)
+		items.append({"y": feet.y - 1, "tex": follower, "at": fp, "flip": facing < 0, "scale": k, "roll": true})
 	items.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.y < b.y)
 	for it: Dictionary in items:
 		if it.has("player"):
@@ -536,16 +542,15 @@ func _draw_world() -> void:
 				draw_circle(p + Vector2(6, -3), 2.5, INK)
 
 
-func _draw_player() -> void:
+func _player_frame() -> String:
 	var walking := mode == "go" and (moving or stick.length() > 0.08) and move_dir.length() > 0.01
 	var name := "ayu_idle.png"
-	var flip := facing < 0
-	var bob := 0.0
 	if player_role == "toretto":
-		name = "w2/common/toretto_idle.png|w2/common/toretto_stand.png"
+		name = "w2/common/toretto_neutral_r2.png"
 		if walking:
-			name = "w2/common/toretto_walk.png" if int(walk_dist / 10.0) % 2 == 0 else "w2/common/toretto_stand.png"
-			bob = -1.0 if int(walk_dist / 10.0) % 2 == 0 else 0.0
+			name = "w2/common/toretto_walk.png" if int(walk_dist / 10.0) % 2 == 0 else "w2/common/toretto_neutral_r2.png"
+		elif pose != "":
+			name = {"gifts": "w2/common/toretto_gifts_r2.png", "sit": "w2/common/toretto_sit.png", "back": "w2/common/toretto_back_r2.png"}.get(pose, pose)
 	elif pose != "" and not walking:
 		name = {"sit": "w2/shizuoka/ayu_sit.png|ayu_idle.png", "fishing": "w2/shizuoka/ayu_fish_hold.png|w2/common/ayu_fishing.png", "throw": "w2/hainan/ayu_throw_hold.png|w2/common/ayu_throw.png", "cheer": "w2/common/ayu_cheer.png", "back": "w2/common/ayu_idle_back.png|ayu_idle.png"}.get(pose, pose)
 		if pose == "surprised": name = "w2/common/ayu_surprised.png|ayu_idle.png"
@@ -556,10 +561,15 @@ func _draw_player() -> void:
 			name = "w2/common/ayu_walk_%s_%d.png|w2/common/ayu_walk_side_%d.png|%s" % [dirn, f, f, "ayu_walk.png" if f % 2 == 1 else "ayu_idle.png"]
 		else:
 			name = "w2/common/ayu_walk_side_%d.png|%s" % [f, "ayu_walk.png" if f % 2 == 1 else "ayu_idle.png"]
-		bob = -1.0 if f % 2 == 0 else 0.0
 	if follower != "" and walking:
 		name = "w2/hongkong/ayu_drag_side_%d.png|%s" % [1 + int(walk_dist / 10.0) % 4, name]
-	sprite(name, feet + Vector2(0, bob), flip)
+	return name
+
+
+func _draw_player() -> void:
+	var walking := mode == "go" and (moving or stick.length() > 0.08) and move_dir.length() > 0.01
+	var bob := -1.0 if walking and int(walk_dist / 10.0) % 2 == 0 else 0.0
+	sprite(_player_frame(), feet + Vector2(0, bob), facing < 0, 1.0, feet.y)
 
 
 func _draw_go_ui() -> void:
@@ -593,11 +603,10 @@ func _draw_say() -> void:
 
 func _speaker_anchor(who: String) -> Vector2:
 	if who == player_role and player_visible:
-		return feet - Vector2(0, person_height * (0.73 if pose == "sit" else 1.0))
+		return feet - Vector2(0, person_rect(_player_frame(), feet).size.y)
 	if actors.has(who) and not actors[who].get("hidden", false):
 		var a: Dictionary = actors[who]
-		var seated := "sit" in str(a.get("tex", "")) or "site" in str(a.get("tex", ""))
-		return _v(a.at) - Vector2(0, person_height * float(a.get("scale", 1)) * (0.73 if seated else 1.0))
+		return _v(a.at) - Vector2(0, person_rect(str(a.tex), _v(a.at), float(a.get("scale", 1))).size.y)
 	return Vector2(-1, -1)
 
 
@@ -733,24 +742,31 @@ func texture(name: String) -> Texture2D:
 	return null
 
 
-func sprite(name: String, at: Vector2, flip := false, scale_k := 1.0) -> bool:
+func person_height_at(floor_y: float) -> float:
+	return WorldScale.height_at(scale_profile, floor_y, person_height)
+
+
+func person_rect(name: String, at: Vector2, scale_k := 1.0, depth_y := NAN) -> Rect2:
+	var tex := texture(name)
+	if not tex: return Rect2(at, Vector2.ZERO)
+	if not used_rects.has(tex): used_rects[tex] = WorldScale.visible_rect(tex)
+	var height := person_height_at(at.y if is_nan(depth_y) else depth_y) * scale_k
+	var local := WorldScale.local_rect(tex.resource_path, tex.get_width(), used_rects[tex], height)
+	return Rect2(at + local.position, local.size)
+
+
+func sprite(name: String, at: Vector2, flip := false, scale_k := 1.0, depth_y := NAN) -> bool:
 	var tex := texture(name)
 	if not tex:
 		return false
 	var person := "ayu_" in name or "toretto_" in name or "axiao_" in name
 	if person:
-		if not used_rects.has(tex):
-			used_rects[tex] = tex.get_image().get_used_rect()
+		var rect := person_rect(name, at, scale_k, depth_y)
 		var used: Rect2 = Rect2(used_rects[tex])
 		if used.size.y > 0:
-			# 192 opaque pixels in standing frames; seated poses keep their shorter height.
-			var height := person_height * used.size.y / 192.0 * scale_k
-			var k := height / used.size.y
-			var sz_person := used.size * k
-			_shadow(at, sz_person.x * 0.28)
+			_shadow(at, rect.size.x * 0.28)
 			draw_set_transform(at, 0, Vector2(-1, 1) if flip else Vector2.ONE)
-			var origin := Vector2((used.position.x - tex.get_width() * 0.5) * k, -height)
-			draw_texture_rect_region(tex, Rect2(origin, sz_person), used)
+			draw_texture_rect_region(tex, Rect2(rect.position - at, rect.size), used)
 			draw_set_transform(Vector2.ZERO)
 			return true
 	var sz := tex.get_size() * S * scale_k

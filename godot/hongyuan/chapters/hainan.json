@@ -116,10 +116,10 @@
       "actors": [
        {
         "id": "toretto",
-        "tex": "w2/common/toretto_stand.png",
+        "tex": "w2/common/toretto_back_r2.png",
         "at": [
          215,
-         587
+         585
         ]
        }
       ],
