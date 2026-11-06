@@ -44,24 +44,19 @@ func run() -> void:
 	check(p.shot.id == "board_car" and not p._nearby_hotspot().is_empty(), "Arrival never automatically triggers")
 	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
 	check(p.shot.id == "drive", "Explicit nearby icon boards car")
-	p._set_lane(2)
-	p.stage.distance = 4.9
-	p.stage.lane = 1
-	p._drive(0.016)
-	check(p.stage.slow > 0 and p.shot.id == "drive", "Collision slows without failure")
-	p._enter_step(p.step_indices["shanghai/park"])
-	for i in range(200): p._process(0.016)
-	check(p.shot.id == "park" and not p.parking_done and p.elapsed == 0, "Parking waits for player")
-	p.parking_held = true
-	p.parking_started = true
-	for i in range(60): p._process(0.016)
-	check(p.parking_progress > 0 and p.parking_speed < 1, "Brake hold moves and slows car")
-	var stopped_at: float = p.parking_progress
-	p.parking_held = false
-	p.parking_align = true
-	for i in range(80): p._process(0.016)
-	check(p.parking_done, "Brake release completes automatic alignment")
-	check(p.parking_progress == stopped_at and p.parking_speed == 0 and p.parking_angle == 0, "Release stops translation and straightens only")
+	var drive = p.runner.game
+	for i in range(100): drive.process(0.05)
+	check(drive.scroll == 0 and drive.phase == "ready", "Current driving waits for explicit start")
+	drive.input("tap", drive._go_rect().get_center())
+	drive.input("down", Vector2(180,500))
+	drive.input("move", Vector2(230,500))
+	drive.input("up", Vector2(230,500))
+	check(drive.lane == 2, "Current driving accepts swipe")
+	drive.car_x = drive.LANES[2]
+	drive.speed = 200
+	drive.traffic = [{"lane":2,"y":500.0,"v":100.0,"kind":1,"hit":false}]
+	drive._traffic(0.016)
+	check(drive.bump > 0 and drive.speed < 200, "Collision slows without failure")
 	p._enter_step(p.step_indices["shanghai/approach_axiao"])
 	for x in range(-100,500,9):
 		for y in range(200,700,11):
@@ -72,29 +67,31 @@ func run() -> void:
 	p._advance()
 	check(p.stage._feet({"id":"ayu"}) == Vector2(232,456), "Dialogue preserves feet")
 	check(not p.stage.stick_visible and p.stage.interaction.is_empty(), "Dialogue hides movement and interaction controls")
-	p.state.erase("parking")
-	p._enter_step(p.step_indices["shanghai/park"], true)
-	check(p.parking_done, "Legacy W1 park resumes existing narration")
-	p._enter_step(p.step_indices["chengdu/panda_walk"] if p.step_indices.has("chengdu/panda_walk") else p.step_indices["prologue/open"] if p.step_indices.has("prologue/open") else 0)
-	check(not p._controlled_walk(), "Other chapters keep existing controls")
+	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
+	check(p._controlled_walk(), "Chengdu uses the same walking controls")
+	p.state.bambooHeld = false
+	p.state.pandaUsed = false
+	p.stage.player_feet = Vector2(111,445)
+	check(p._nearby_hotspot().is_empty(), "Cannot feed without bamboo")
+	p.stage.player_feet = Vector2(182,437)
+	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
+	check(p.state.bambooHeld and not p.state.pandaUsed, "Picking bamboo does not advance")
+	p.stage.player_feet = Vector2(111,445)
+	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
+	check(not p.state.bambooHeld and p.state.pandaUsed and p.stage.panda_time > 0, "Feeding consumes bamboo with visible response")
+	p.stage.player_feet = Vector2(263,449)
+	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
+	check(p.shot.id == "chengdu_ping", "Phone opens only after manual interaction")
+	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
+	p.state.pandaUsed = false
+	p.stage.player_feet = Vector2(263,449)
+	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
+	check(p.shot.id == "chengdu_ping" and not p.state.pandaUsed, "Skipping optional feed reaches the same locked phone story")
 	# Restore fixtures are serialized through JSON as actual version-1 saves are.
 	p.state = {"version": 1, "runId": "d2-fixture", "materials": {}, "feet": [160, 450], "facing": -1, "walking": true, "walkTarget": [210, 450]}
 	p.state = JSON.parse_string(JSON.stringify(p.state))
 	p._enter_step(p.step_indices["shanghai/board_car"], true)
 	check(p.stage.player_feet == Vector2(160,450) and p.moving and p.movement_target == Vector2(210,450), "Walking save restores feet and tap destination")
-	for fixture in [
-		{"started":true,"done":false,"progress":0.23,"speed":0.5,"align":false,"angle":-0.14},
-		{"started":true,"done":false,"progress":0.23,"speed":0.0,"align":true,"angle":-0.07},
-		{"started":true,"done":true,"progress":0.23,"speed":0.0,"align":true,"angle":0.0}
-	]:
-		p.state.parking = JSON.parse_string(JSON.stringify(fixture))
-		p._enter_step(p.step_indices["shanghai/park"], true)
-		check(is_equal_approx(p.parking_progress,0.23) and p.parking_done == fixture.done and not p.parking_held, "Parking restore preserves progress and clears physical hold")
-		p._process(0.016)
-		check(is_equal_approx(p.parking_progress,0.23), "Parking restore never translates without a new press")
-	p.state.parking = {"started":true,"done":false,"progress":0.3,"speed":0.0,"align":true}
-	p._enter_step(p.step_indices["shanghai/park"], true)
-	check(p.parking_angle < 0 and not p.parking_done, "R2 save without angle gets compatible alignment")
 	print("FAILURES ", failures)
 	p.queue_free()
 	quit(failures)

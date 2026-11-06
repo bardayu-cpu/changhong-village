@@ -77,6 +77,15 @@
       "objectiveId": "A2-P1",
       "hotspots": [
         {
+          "id": "bamboo",
+          "target": [
+            182,
+            437
+          ],
+          "iconFile": "w2/common/icon_pick.png",
+          "optional": true
+        },
+        {
           "id": "panda",
           "target": [
             111,
@@ -88,7 +97,8 @@
             135,
             135
           ],
-          "optional": true
+          "optional": true,
+          "iconFile": "w2/common/icon_feed.png"
         },
         {
           "id": "phone",
@@ -101,8 +111,27 @@
             342,
             120,
             114
-          ]
+          ],
+          "iconFile": "w2/common/icon_phone.png"
         }
+      ],
+      "walkArea": [
+        [
+          35,
+          396
+        ],
+        [
+          325,
+          396
+        ],
+        [
+          325,
+          456
+        ],
+        [
+          35,
+          456
+        ]
       ]
     },
     {

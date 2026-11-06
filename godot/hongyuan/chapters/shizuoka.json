@@ -12,6 +12,7 @@
    "background": "scene",
    "visibleActors": [],
    "scene": {
+    "personHeight": 128,
     "badge": "G-02",
     "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
     "walkArea": [
@@ -48,7 +49,7 @@
        382
       ],
       "face": 1,
-      "label": "A4-B2"
+      "icon": "rod"
      },
      {
       "id": "boat",
@@ -56,7 +57,7 @@
        326,
        500
       ],
-      "label": "A4-B3"
+      "icon": "sit"
      }
     ],
     "beats": [
@@ -84,6 +85,7 @@
       "go": "boat"
      },
      {
+      "personHeight": 128,
       "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png",
       "walkArea": [
        [

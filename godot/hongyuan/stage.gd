@@ -171,7 +171,12 @@ func _world_hotspots() -> void:
 	if shot.get("chapterId") == "shanghai":
 		return
 	for hotspot: Dictionary in shot.hotspots:
-		if hotspot.id == "panda":
+		if hotspot.id == "bamboo":
+			if not materials.get("bamboo_held", false) and not materials.get("panda_used", false):
+				var bamboo := _texture("w2/chengdu/bamboo_clump.png")
+				if bamboo:
+					draw_texture_rect(bamboo, Rect2(165, 390, 34, 47), false)
+		elif hotspot.id == "panda":
 			if panda_time <= 0 and not materials.get("panda_used", false):
 				_pin(PANDA + Vector2(0, 12))
 		elif hotspot.id == "phone":
@@ -224,8 +229,12 @@ func _world_actor(actor: Dictionary) -> void:
 	var height: float = PEOPLE_HEIGHT.get(str(shot.get("sceneId", "")), 0.0) if key in ["ayu", "axiao"] else 0.0
 	if height > 0.0:
 		_draw_person(_texture(file), feet, height, flip)
-		return
-	_draw_sprite(_texture(file), feet, float(info.get("footBottom", 0)), flip)
+	else:
+		_draw_sprite(_texture(file), feet, float(info.get("footBottom", 0)), flip)
+	if key == "ayu" and materials.get("bamboo_held", false):
+		var held := _texture("w2/chengdu/bamboo_held.png")
+		if held:
+			draw_texture_rect(held, Rect2(player_feet + Vector2(20 * facing - 8, -51), Vector2(16, 44)), false)
 
 ## 有车做参照的场景里，人按和车匹配的身高画；按图里不透明部分量身高，阿鱼和阿晓一样高。
 const PEOPLE_HEIGHT := {"shanghai_street": 82.0, "shanghai_parking": 82.0}
@@ -469,13 +478,15 @@ static func interaction_rect(hotspot: Dictionary) -> Rect2:
 
 func _controls() -> void:
 	if stick_visible:
-		draw_circle(stick_origin, 34, Color(0.98, 0.9, 0.75, 0.16))
-		draw_arc(stick_origin, 34, 0, TAU, 32, Color(0.98, 0.9, 0.75, 0.55), 2)
-		draw_circle(stick_origin + stick_vector * 25, 12, Color(0.98, 0.9, 0.75, 0.65))
+		var base := _texture("w2/common/joystick_base.png")
+		var knob := _texture("w2/common/joystick_knob.png")
+		if base and knob:
+			draw_texture_rect(base, Rect2(stick_origin - Vector2(36, 36), Vector2(72, 72)), false)
+			draw_texture_rect(knob, Rect2(stick_origin + stick_vector * 25 - Vector2(16, 16), Vector2(32, 32)), false)
 	if not interaction.is_empty():
 		var rect := interaction_rect(interaction)
 		_draw_skin("bubble_right", rect)
-		var icon := image_asset(str(interaction.get("icon", "interaction_hand")))
+		var icon := _texture(str(interaction.iconFile)) if interaction.has("iconFile") else image_asset(str(interaction.get("icon", "interaction_hand")))
 		if icon:
 			draw_texture_rect(icon, Rect2(rect.position + Vector2(6, 6), Vector2(32, 32)), false)
 	if parking_feedback > 0.0 and shot.background == "parking":

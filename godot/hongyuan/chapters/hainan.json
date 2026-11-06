@@ -12,6 +12,7 @@
    "background": "scene",
    "visibleActors": [],
    "scene": {
+    "personHeight": 120,
     "badge": "G-02",
     "bg": "w2/hainan/bg_wanning.png",
     "sky": "#86cfe8",
@@ -61,7 +62,8 @@
        180,
        520
       ],
-      "face": 1
+      "face": 1,
+      "icon": "pick"
      }
     ],
     "beats": [
@@ -90,6 +92,7 @@
       "duration": 1.6
      },
      {
+      "personHeight": 120,
       "bg": "w2/hainan/bg_wenchang_night.png",
       "sky": "#141a3a",
       "ground": "#22202e",

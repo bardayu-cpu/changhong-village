@@ -1,7 +1,7 @@
 extends RefCounted
 ## 终章：请柬正文 → 写自己的名字（2～12 字）→ 选形象（婚宴的 8 个宾客）→ 装封 → 按住 1 秒盖火漆。
 
-const LOOKS := ["01", "02", "03", "04", "05", "06", "08", "09"]
+const LOOKS := ["01", "02", "03", "04", "05", "06", "07", "08"]
 
 var r
 var phase := "read"   # read → name → look → seal → stamped → done
@@ -113,7 +113,7 @@ func _submit_name() -> void:
 func _guest(i: int) -> Texture2D:
 	var id: String = LOOKS[i]
 	if not tex_cache.has(id):
-		var path := "res://assets/characters/lm/chr_LM-GUEST-%s.png" % id
+		var path := "res://hongyuan/assets/w2/finale/chr_LM-GUEST-07.png" if id == "07" else "res://assets/characters/lm/chr_LM-GUEST-%s.png" % id
 		tex_cache[id] = load(path) if ResourceLoader.exists(path) else null
 	return tex_cache[id]
 

@@ -16,6 +16,7 @@
     "bg": "w2/call/bg_room_night.png|l3_computer.webp",
     "fill": "#1a120e",
     "night": 0.0,
+    "personHeight": 128,
     "walkArea": [
      [
       150,

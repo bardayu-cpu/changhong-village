@@ -1,0 +1,27 @@
+"""Temporary settings for a love-story export; leave the shared project unchanged."""
+from contextlib import contextmanager
+import re
+
+
+@contextmanager
+def love_project(root, wechat=False):
+    project = root / 'project.godot'
+    original = project.read_text()
+    configured = original.replace('config/name="苏七镇奇缘"', 'config/name="红缘大冒险"')
+    # This plugin belongs to the other game. Hongyuan reads copy.json directly.
+    configured = re.sub(r'^DialogueManager=".*"\n', '', configured, flags=re.M)
+    if wechat:
+        section = re.search(r'(\[editor_plugins\]\s*\nenabled=PackedStringArray\()(.*?)(\))', configured)
+        if not section:
+            raise RuntimeError('Missing editor_plugins setting')
+        plugins = section.group(2)
+        if 'addons/godot-minigame/plugin.cfg' not in plugins:
+            plugins += (', ' if plugins.strip() else '') + '"res://addons/godot-minigame/plugin.cfg"'
+        configured = configured[:section.start(2)] + plugins + configured[section.end(2):]
+    try:
+        project.write_text(configured)
+        yield
+    finally:
+        if project.read_text() != configured:
+            raise RuntimeError('project.godot changed during export; inspect before restoring it')
+        project.write_text(original)

@@ -17,7 +17,7 @@ def write(cid, title, steps):
 ROOM_AREA = [[150, 372], [282, 368], [282, 445], [350, 452], [350, 620], [20, 620], [20, 470], [150, 462]]
 write("call", "G-08", [scene("night_call", "call_room", {
     "badge": "G-02", "bg": "w2/call/bg_room_night.png|l3_computer.webp", "fill": "#1a120e", "night": 0.0,
-    "walkArea": ROOM_AREA, "start": [200, 545],
+    "personHeight": 128, "walkArea": ROOM_AREA, "start": [200, 545],
     "actors": [{"id": "phone", "tex": "w2/call/phone_ring_1.png|phone_prop.png", "at": [215, 300]}],
     "hotspots": [{"id": "phone", "at": [215, 378], "snap": [215, 378], "face": 1, "pose": "back", "icon": "phone"}],
     "beats": [
@@ -35,18 +35,18 @@ write("call", "G-08", [scene("night_call", "call_room", {
     ]})])
 
 write("shizuoka", "G-09", [scene("pier", "shizuoka", {
-    "badge": "G-02", "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
+    "personHeight": 128, "badge": "G-02", "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
     "walkArea": [[16, 376], [344, 376], [344, 590], [16, 590]], "start": [60, 540],
     "hotspots": [
-        {"id": "spot", "at": [200, 382], "snap": [200, 382], "face": 1, "label": "A4-B2"},
-        {"id": "boat", "at": [326, 500], "label": "A4-B3"}],
+        {"id": "spot", "at": [200, 382], "snap": [200, 382], "face": 1, "icon": "rod"},
+        {"id": "boat", "at": [326, 500], "icon": "sit"}],
     "beats": [
         {"card": "G-09", "duration": 2.0},
         N("A4-1a"), N("A4-1b"), N("A4-1c"),
         {"go": "spot", "hint": "A4-P1"},
         {"game": "fishing"},
         {"go": "boat"},
-        {"bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png", "walkArea": [[30, 418], [330, 418], [340, 620], [20, 620]],
+        {"personHeight": 128, "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png", "walkArea": [[30, 418], [330, 418], [340, 620], [20, 620]],
          "start": [300, 570], "pose": "",
          "actors": [{"id": "toretto", "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png", "at": [160, 408]}],
          "hotspots": [{"id": "seat", "at": [228, 418], "snap": [228, 408], "face": -1, "pose": "sit", "icon": "sit"}]},
@@ -60,17 +60,17 @@ write("shizuoka", "G-09", [scene("pier", "shizuoka", {
     ]})])
 
 write("hainan", "G-10", [scene("wanning", "hainan", {
-    "badge": "G-02", "bg": "w2/hainan/bg_wanning.png", "sky": "#86cfe8", "ground": "#e8d6a8", "horizon": 250,
+    "personHeight": 120, "badge": "G-02", "bg": "w2/hainan/bg_wanning.png", "sky": "#86cfe8", "ground": "#e8d6a8", "horizon": 250,
     "decor": [{"r": [0, 250, 360, 36], "c": "#4fb3c8"}],
     "walkArea": [[20, 400], [340, 400], [340, 560], [20, 560]], "start": [70, 550],
-    "hotspots": [{"id": "stall", "at": [180, 520], "snap": [180, 520], "face": 1}],
+    "hotspots": [{"id": "stall", "at": [180, 520], "snap": [180, 520], "face": 1, "icon": "pick"}],
     "beats": [
         {"card": "G-10", "duration": 2.0},
         N("A5-0"), N("A5-1a"), N("A5-1b"),
         {"go": "stall", "hint": "A5-P1"},
         {"game": "ringtoss"},
         {"card": "A5-T1", "duration": 1.6},
-        {"bg": "w2/hainan/bg_wenchang_night.png", "sky": "#141a3a", "ground": "#22202e", "horizon": 470,
+        {"personHeight": 120, "bg": "w2/hainan/bg_wenchang_night.png", "sky": "#141a3a", "ground": "#22202e", "horizon": 470,
          "decor": [{"r": [0, 462, 360, 10], "c": "#2c3a5a"}],
          "place": [150, 585], "pose": "back",
          "actors": [{"id": "toretto", "tex": "w2/common/toretto_stand.png", "at": [215, 587]}], "hotspots": []},
@@ -89,7 +89,7 @@ write("hongkong", "G-11", [scene("hk", "hongkong", {
         {"game": "mail"},
         {"hint": ""},
         N("A6-1"),
-        {"bg": "w2/hongkong/bg_arrival.png", "sky": "#cfe3ee", "ground": "#d8d2c6", "horizon": 330,
+        {"personHeight": 112, "bg": "w2/hongkong/bg_arrival.png", "sky": "#cfe3ee", "ground": "#d8d2c6", "horizon": 330,
          "decor": [{"r": [0, 120, 360, 200], "c": "#a9c9dc"}, {"r": [0, 300, 360, 30], "c": "#7d8c7a"},
                    {"r": [296, 300, 54, 118], "c": "#3f7d5a"}, {"r": [306, 312, 34, 22], "c": "#f2f2f2"}],
          "hideAyu": False, "start": [50, 590], "follow": "w2/hongkong/suitcase_1.png",

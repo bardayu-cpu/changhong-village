@@ -9,10 +9,10 @@ signal material_applied(id: String)
 
 const CANVAS := Vector2(360, 640)
 const S := 2.0 / 3.0
-const FONT := preload("res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.otf.woff2")
+const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const ROOT := "res://hongyuan/assets/"
-const SPEED := 118.0
-const NEAR := 48.0
+const SPEED := 126.0
+const NEAR := 40.0
 const INK := Color("#281a1a")
 const WOOD := Color("#50332a")
 const RED := Color("#5e2929")
@@ -68,11 +68,13 @@ var trail: Array[Vector2] = []
 var badge := ""
 
 # 输入
+var pointer_input := preload("res://hongyuan/pointer_input.gd").new()
 var down := false
 var down_pos := Vector2.ZERO
 var down_ms := 0
 var dragged := false
 var stick := Vector2.ZERO
+var stick_pointer := false
 
 # 文字
 var hint := ""
@@ -86,6 +88,8 @@ var material_id := ""
 var game: RefCounted
 var result: Dictionary = {}
 var tex_cache: Dictionary = {}
+var used_rects: Dictionary = {}
+var person_height := 128.0
 var sfx := AudioStreamPlayer.new()
 var blip: AudioStreamWAV
 var pop: AudioStreamWAV
@@ -124,6 +128,8 @@ func begin(start := 0) -> void:
 
 
 func _apply_world(d: Dictionary) -> void:
+	if d.has("personHeight"):
+		person_height = float(d.personHeight)
 	if d.has("bg"):
 		bg = str(d.bg)
 	if d.has("fill"):
@@ -273,11 +279,7 @@ func _walk(dt: float) -> void:
 		feet = _clamp(feet)
 		if feet.distance_to(target) < 0.5:
 			moving = false
-			if target_hot != "":
-				var reached := target_hot
-				target_hot = ""
-				_trigger(reached)
-				return
+			target_hot = ""
 	var step := feet - before
 	move_dir = step
 	if absf(step.x) > 0.05:
@@ -329,13 +331,18 @@ func _arrive_at(id: String, _instant: bool) -> void:
 func _icon_rect(id: String) -> Rect2:
 	var h: Dictionary = hotspots[id]
 	var at := _v(h.at)
-	var w := 30.0 + 16.0 * _text(str(h.get("label", ""))).length() if h.has("label") else 40.0
-	return Rect2(at.x - w * 0.5, at.y - 112, w, 34)
+	return Rect2(at.x - 22, at.y - 112, 44, 44)
 
 
 # ---------- 输入 ----------
 
 func _gui_input(event: InputEvent) -> void:
+	event = pointer_input.normalize(event)
+	if event == null:
+		return
+	if event.get_meta("pointer_cancelled", false):
+		suspend_input()
+		return
 	var pos := Vector2.ZERO
 	var kind := ""
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -352,10 +359,11 @@ func _gui_input(event: InputEvent) -> void:
 		down_pos = pos
 		down_ms = Time.get_ticks_msec()
 		dragged = false
+		stick_pointer = mode == "go" and pos.x < 180 and pos.y > 320
 	elif kind == "move":
-		if pos.distance_to(down_pos) > 10:
+		if pos.distance_to(down_pos) > 12:
 			dragged = true
-	var tap := kind == "up" and down and not dragged and Time.get_ticks_msec() - down_ms < 400
+	var tap := kind == "up" and down and not dragged and Time.get_ticks_msec() - down_ms < 350
 	if kind == "up":
 		down = false
 	match mode:
@@ -383,8 +391,8 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
-	if kind == "move" and dragged:
-		stick = ((pos - down_pos) / 40.0).limit_length()
+	if kind == "move" and dragged and stick_pointer:
+		stick = ((pos - down_pos) / 36.0).limit_length()
 	elif kind == "up":
 		stick = Vector2.ZERO
 	if not tap:
@@ -393,23 +401,17 @@ func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
 	if near != "" and _icon_rect(near).grow(10).has_point(pos):
 		_trigger(near)
 		return
-	if hotspots.has(go_id):
-		var at := _v(hotspots[go_id].at)
-		if pos.distance_to(at) < 46 or _icon_rect(go_id).grow(10).has_point(pos):
-			target = _clamp(at)
-			target_hot = go_id
-			moving = true
-			if feet.distance_to(target) < 1.0:
-				_trigger(go_id)
-			return
-	target = _clamp(pos)
-	target_hot = ""
-	moving = true
+	# A ground tap only walks. Even a tap on a distant prop never activates it.
+	if Geometry2D.is_point_in_polygon(pos, walk_area):
+		target = _clamp(pos)
+		target_hot = ""
+		moving = true
 
 
 func _reset_input() -> void:
 	down = false
 	dragged = false
+	stick_pointer = false
 	stick = Vector2.ZERO
 	moving = false
 	target_hot = ""
@@ -520,8 +522,8 @@ func _draw_go_ui() -> void:
 		if near:
 			var r := _icon_rect(go_id)
 			r.position.y += sin(time * 5.0) * 2.0
-			var icon := texture("w2/common/icon_%s.png" % str(h.get("icon", "")))
-			if icon and not h.has("label"):
+			var icon := texture("w2/common/icon_%s.png" % str(h.get("icon", "pick")))
+			if icon:
 				draw_texture_rect(icon, Rect2(r.get_center() - Vector2(24, 24), Vector2(48, 48)), false)
 			else:
 				_pill(r, _text(str(h.get("label", "G-13"))) if h.has("label") else "！", 16, PAPER, INK, true)
@@ -529,11 +531,12 @@ func _draw_go_ui() -> void:
 			var a := 0.55 + sin(time * 4.5) * 0.25
 			draw_circle(at, 5, Color(1.0, 0.9, 0.6, a))
 			draw_arc(at, 10 + sin(time * 4.5) * 2.0, 0, TAU, 24, Color(1.0, 0.9, 0.6, a), 1.5)
-	if down and dragged:
-		draw_circle(down_pos, 34, Color(WOOD, 0.35))
-		draw_arc(down_pos, 34, 0, TAU, 32, Color(PAPER, 0.7), 2.0)
-		draw_circle(down_pos + stick * 26.0, 14, Color(PAPER, 0.85))
-		draw_arc(down_pos + stick * 26.0, 14, 0, TAU, 24, WOOD, 2.0)
+	var origin := down_pos if down and stick_pointer else Vector2(64, 558)
+	var base := texture("w2/common/joystick_base.png")
+	var knob := texture("w2/common/joystick_knob.png")
+	if base and knob:
+		draw_texture_rect(base, Rect2(origin - Vector2(36, 36), Vector2(72, 72)), false)
+		draw_texture_rect(knob, Rect2(origin + stick * 25 - Vector2(16, 16), Vector2(32, 32)), false)
 
 
 func _draw_say() -> void:
@@ -638,6 +641,22 @@ func sprite(name: String, at: Vector2, flip := false, scale_k := 1.0) -> bool:
 	var tex := texture(name)
 	if not tex:
 		return false
+	var person := "ayu_" in name or "toretto_" in name or "axiao_" in name
+	if person:
+		if not used_rects.has(tex):
+			used_rects[tex] = tex.get_image().get_used_rect()
+		var used: Rect2 = Rect2(used_rects[tex])
+		if used.size.y > 0:
+			# 192 opaque pixels in standing frames; seated poses keep their shorter height.
+			var height := person_height * used.size.y / 192.0 * scale_k
+			var k := height / used.size.y
+			var sz_person := used.size * k
+			_shadow(at, sz_person.x * 0.28)
+			draw_set_transform(at, 0, Vector2(-1, 1) if flip else Vector2.ONE)
+			var origin := Vector2((used.position.x - tex.get_width() * 0.5) * k, -height)
+			draw_texture_rect_region(tex, Rect2(origin, sz_person), used)
+			draw_set_transform(Vector2.ZERO)
+			return true
 	var sz := tex.get_size() * S * scale_k
 	at = (at / S).round() * S
 	draw_set_transform(Vector2.ZERO)
@@ -711,3 +730,91 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
 	w.mix_rate = rate
 	w.data = data
 	return w
+
+# Only gameplay values enter the checkpoint. Nodes, resources, input holds and caches do not.
+const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
+	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
+	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
+	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t"]
+
+func snapshot() -> Dictionary:
+	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
+		"target": [target.x, target.y], "moving": moving, "walk_dist": walk_dist,
+		"pose": pose, "t": t, "reveal": reveal, "result": result.duplicate(true), "trail": []}
+	for p: Vector2 in trail:
+		saved.trail.append([p.x, p.y])
+	if game:
+		var values := {}
+		for prop: Dictionary in game.get_property_list():
+			var key := str(prop.name)
+			if key in GAME_SAVE_FIELDS:
+				values[key] = _pack_value(game.get(key))
+		if "edit" in game and is_instance_valid(game.edit):
+			values.name = game.edit.text
+		if "rng" in game:
+			values.rng_state = str(game.rng.state)
+		saved.game = values
+	return saved
+
+func restore(saved: Dictionary) -> void:
+	if int(saved.get("beat", -1)) != bi or str(saved.get("mode", "")) != mode:
+		return
+	feet = _v(saved.get("feet", [feet.x, feet.y]))
+	facing = float(saved.get("facing", facing))
+	target = _v(saved.get("target", [feet.x, feet.y]))
+	moving = bool(saved.get("moving", false)) and mode == "go"
+	walk_dist = float(saved.get("walk_dist", 0))
+	pose = str(saved.get("pose", pose))
+	t = float(saved.get("t", 0))
+	reveal = float(saved.get("reveal", 0))
+	result = saved.get("result", {}).duplicate(true)
+	trail.clear()
+	for p: Array in saved.get("trail", []):
+		trail.append(_v(p))
+	if game and saved.get("game", null) is Dictionary:
+		var values: Dictionary = saved.game
+		for prop: Dictionary in game.get_property_list():
+			var key := str(prop.name)
+			if key in GAME_SAVE_FIELDS and values.has(key):
+				game.set(key, _unpack_value(values[key]))
+		if "rng" in game and values.has("rng_state"):
+			game.rng.state = int(values.rng_state)
+		if "edit" in game and game.phase == "name":
+			game._make_edit()
+			game.edit.text = game.name
+	queue_redraw()
+
+static func _pack_value(value: Variant) -> Variant:
+	if value is Vector2:
+		return {"vector2": [value.x, value.y]}
+	if value is Array:
+		return value.map(_pack_value)
+	if value is Dictionary:
+		var out := {}
+		for key: Variant in value:
+			out[key] = _pack_value(value[key])
+		return out
+	return value
+
+static func _unpack_value(value: Variant) -> Variant:
+	if value is Array:
+		return value.map(_unpack_value)
+	if value is Dictionary:
+		if value.has("vector2"):
+			return _v(value.vector2)
+		var out := {}
+		for key: Variant in value:
+			out[key] = _unpack_value(value[key])
+		return out
+	return value
+
+func suspend_input() -> void:
+	pointer_input.reset()
+	_reset_input()
+	if game:
+		if "holding" in game:
+			game.holding = false
+		if "dragging" in game:
+			game.dragging = false
+		if "swiping" in game:
+			game.swiping = false

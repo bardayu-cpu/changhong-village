@@ -5,6 +5,9 @@ extends SceneTree
 class Harness extends "res://hongyuan/player.gd":
 	func _save() -> void:
 		pass
+	func _start_scene(resume := false) -> void:
+		super._start_scene(resume)
+		runner.set_process(false)
 
 var out := "user://shots"
 var p
@@ -46,7 +49,11 @@ func run() -> void:
 	p = Harness.new()
 	p.size = Vector2(540, 960)
 	root.add_child(p)
+	p.set_process(false)
 	await frames()
+	for step_id in ["shanghai/board_car", "shanghai/approach_axiao", "chengdu/chengdu_walk"]:
+		p._enter_step(p.step_indices[step_id])
+		await shot(step_id.replace("/", "_"))
 	for step_id in ["shanghai/drive", "call/night_call", "shizuoka/pier", "hainan/wanning", "hongkong/hk", "finale/finale"]:
 		if not p.step_indices.has(step_id):
 			push_error("missing step " + step_id)
@@ -55,6 +62,11 @@ func run() -> void:
 		p._enter_step(p.step_indices[step_id])
 		await frames()
 		await play_scene(step_id.get_slice("/", 0))
+	await frames(3)
+	if p.shot.type != "terminal" or p.shot.copyId != "W-NEXT" or p.state.get("guest", {}).get("name", "") != "测试宾客":
+		push_error("terminal/guest handoff missing")
+		fails += 1
+	await shot("finale_terminal")
 	print("SHOTS ", n, " FAILS ", fails)
 	quit(1 if fails > 0 else 0)
 
@@ -86,9 +98,8 @@ func play_scene(tag: String) -> void:
 					fails += 1
 					r._next()
 				else:
-					# 点地走过去，验证寻路和到达触发
+					# 点地只移动；到达后再明确点击无字互动按钮。
 					r.target = r._clamp(r._v(h.at))
-					r.target_hot = r.go_id
 					r.moving = true
 					var before: int = r.bi
 					for i in range(200):
@@ -97,6 +108,8 @@ func play_scene(tag: String) -> void:
 							await shot(tag + "_walking")
 						if r.bi != before:
 							break
+					if r.bi == before and r._near_hotspot() == r.go_id:
+						r._go_input("up", r._icon_rect(r.go_id).get_center(), true)
 					if r.bi == before:
 						push_error("did not arrive at " + r.go_id + " feet=" + str(r.feet))
 						fails += 1

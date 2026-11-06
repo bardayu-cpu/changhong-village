@@ -2,6 +2,9 @@ extends RefCounted
 ## 套圈：往后拖动瞄准（像拉弹弓），松手投出。落点套中木桩就挂上去，没中就落在地上。
 ## 投一次后可以按「继续」走，投满两次自动往下走。不要求全中，没有奖品。
 
+# R2: 300×220 源图的五根木桩颈部，绘制和命中共用同一变换。
+const STALL_ORIGIN := Vector2(80, 385 - 220.0 * 2.0 / 3.0)
+const PEG_PIXELS := [Vector2(73, 90), Vector2(112, 90), Vector2(150, 90), Vector2(188, 90), Vector2(226, 90)]
 var r
 var pegs: Array[Vector2] = []
 var hand := Vector2.ZERO
@@ -18,11 +21,15 @@ var hit_flash := 0.0
 
 func start(runner, beat: Dictionary) -> void:
 	r = runner
-	for p: Array in beat.get("pegs", [[129, 306], [154, 306], [180, 306], [205, 306], [230, 306]]):
-		pegs.append(Vector2(float(p[0]), float(p[1])))
+	for p: Vector2 in PEG_PIXELS:
+		pegs.append(STALL_ORIGIN + p * r.S)
+	if beat.has("pegs"):
+		pegs.clear()
+		for p: Array in beat.pegs:
+			pegs.append(Vector2(float(p[0]), float(p[1])))
 	r.facing = 1.0
 	r.pose = "throw"
-	hand = r.feet + Vector2(14, -100)
+	hand = r.feet + Vector2(14, -100) * (r.person_height / 128.0)
 
 
 func process(dt: float) -> bool:
@@ -93,7 +100,7 @@ func draw(ci) -> void:
 	var stall: Texture2D = ci.texture("w2/hainan/ring_stall.png")
 	if stall:
 		var sz: Vector2 = stall.get_size() * ci.S
-		ci.draw_texture_rect(stall, Rect2(Vector2(180 - sz.x * 0.5, 385 - sz.y), sz), false)
+		ci.draw_texture_rect(stall, Rect2(STALL_ORIGIN, sz), false)
 	else:
 		_placeholder_stall(ci)
 	for i in range(pegs.size()):
@@ -103,7 +110,11 @@ func draw(ci) -> void:
 				lit = true
 		_peg(ci, pegs[i], lit)
 	for ring: Dictionary in rings:
-		_ring(ci, ring.at + (Vector2(0, -6) if ring.peg else Vector2.ZERO), 1.0, 0.0)
+		var roll := Vector2.ZERO
+		if not ring.peg:
+			var k := clampf(t / 0.6, 0, 1) if phase == "land" and ring == rings.back() else 1.0
+			roll = Vector2(12 * signf(ring.at.x - 180 + 0.01) * k, -sin(k * PI) * 8 + 6 * k)
+		_ring(ci, ring.at + roll, 1.0, t if not ring.peg else 0.0)
 	if phase == "fly":
 		var k := clampf(t / 0.7, 0.0, 1.0)
 		var p := hand.lerp(aim, k) + Vector2(0, -sin(k * PI) * 90.0)
@@ -149,7 +160,7 @@ func _peg(ci, p: Vector2, lit: bool) -> void:
 		ci.draw_rect(Rect2(p + Vector2(-3, -18), Vector2(6, 18)), Color("#6b4a2c"))
 		ci.draw_circle(p + Vector2(0, -20), 6, Color("#f4d495") if not lit else Color("#ffe27a"))
 	if lit:
-		ci.draw_arc(p + Vector2(0, -10), 14, 0, TAU, 20, Color(1, 0.9, 0.5, 0.7), 2.0)
+		ci.draw_arc(p, 14, 0, TAU, 20, Color(1, 0.9, 0.5, 0.7), 2.0)
 
 
 func _ring(ci, p: Vector2, s: float, spin: float) -> void:

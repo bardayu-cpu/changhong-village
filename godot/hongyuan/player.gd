@@ -3,7 +3,7 @@ extends Control
 const Stage := preload("res://hongyuan/stage.gd")
 const Checkpoint := preload("res://hongyuan/checkpoint.gd")
 const SceneRunner := preload("res://hongyuan/scene_runner.gd")
-const FONT := preload("res://assets/fonts/fusion-pixel-12px-proportional-zh_hans.otf.woff2")
+const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const COPY_PATH := "res://hongyuan/copy.json"
 const WALK_BOUNDS := Rect2(35, 396, 290, 60)
 const SAVE_INTERVAL := 0.35
@@ -39,9 +39,12 @@ var drive_arrival := 0.0
 var chat_fast := false
 var paused := false
 var page_hidden_callback: Variant
+var wechat_hide_callback: Variant
+var wechat_show_callback: Variant
 var chime := AudioStreamPlayer.new()
 # Pointer gestures follow the wedding input: short release taps, lower-left drags steer.
-# project.godot maps real touches to these mouse events on mobile as well.
+# Touch and mouse share one gesture path; emulated duplicates are ignored.
+var pointer_input := preload("res://hongyuan/pointer_input.gd").new()
 var pointer_down := false
 var pointer_start := Vector2.ZERO
 var pointer_started := 0
@@ -109,7 +112,13 @@ func _ready() -> void:
 	else:
 		_enter_step(active_index, true)
 
-	if OS.has_feature("web"):
+	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+		wechat_hide_callback = JavaScriptBridge.create_callback(func(_args: Array) -> void: _set_paused(true))
+		wechat_show_callback = JavaScriptBridge.create_callback(func(_args: Array) -> void: _set_paused(false))
+		var wx := JavaScriptBridge.get_interface("wx")
+		wx.onHide(wechat_hide_callback)
+		wx.onShow(wechat_show_callback)
+	elif OS.has_feature("web"):
 		page_hidden_callback = JavaScriptBridge.create_callback(_on_browser_visibility)
 		var document := JavaScriptBridge.get_interface("document")
 		var window := JavaScriptBridge.get_interface("window")
@@ -119,11 +128,19 @@ func _ready() -> void:
 func _fit_canvas() -> void:
 	var safe := Rect2(Vector2.ZERO, size)
 	if OS.has_feature("web"):
-		var values := str(JavaScriptBridge.eval("""[
+		var viewport_js := """[
 			innerWidth, innerHeight, ...['top', 'right', 'bottom', 'left'].map(
 				edge => parseFloat(getComputedStyle(document.body).getPropertyValue('--hy-' + edge)) || 0
 			)
-		].join(',')""", true)).split(",")
+		].join(',')"""
+		if OS.has_feature("hongyuan_wechat"):
+			viewport_js = """(() => {
+				const info = wx.getSystemInfoSync();
+				const w = info.windowWidth, h = info.windowHeight;
+				const safe = info.safeArea || {top:0, right:w, bottom:h, left:0};
+				return [w,h,safe.top,Math.max(0,w-safe.right),Math.max(0,h-safe.bottom),safe.left].join(',');
+			})()"""
+		var values := str(JavaScriptBridge.eval(viewport_js, true)).split(",")
 		if values.size() == 6 and float(values[0]) > 0.0 and float(values[1]) > 0.0:
 			var scale_to_view := size / Vector2(float(values[0]), float(values[1]))
 			safe.position = Vector2(float(values[5]), float(values[2])) * scale_to_view
@@ -264,10 +281,11 @@ func _enter_step(index: int, resume := false) -> void:
 	_sync_materials()
 	if shot.type == "scene" and not resume:
 		state.sceneBeat = 0
+		state.erase("sceneSnapshot")
 	_save()
 	_present()
 	if shot.type == "scene":
-		_start_scene()
+		_start_scene(resume)
 	if shot.type == "chat" and not resume:
 		chime.play()
 
@@ -283,7 +301,12 @@ func _advance() -> void:
 		_enter_step(active_index + 1)
 
 func _process(delta: float) -> void:
-	if shot.is_empty() or paused or shot.type in ["terminal", "scene"]:
+	if shot.is_empty() or paused or shot.type == "terminal":
+		return
+	if shot.type == "scene":
+		since_save += delta
+		if since_save >= SAVE_INTERVAL:
+			_save()
 		return
 	var dt := minf(delta, 0.08)
 	stage.parking_feedback = maxf(0.0, stage.parking_feedback - dt)
@@ -390,6 +413,13 @@ func _drive(dt: float) -> void:
 			break
 
 func _on_stage_input(event: InputEvent) -> void:
+	event = pointer_input.normalize(event)
+	if event == null:
+		return
+	if event.get_meta("pointer_cancelled", false):
+		_reset_pointer()
+		_clear_movement()
+		return
 	if paused:
 		return
 	if not _controlled_walk() and shot.type != "drive" and not _parking_active():
@@ -465,7 +495,7 @@ func _reset_pointer() -> void:
 	parking_steer = 0.0
 
 func _controlled_walk() -> bool:
-	return shot.get("chapterId") == "shanghai" and shot.get("type") == "walk"
+	return shot.get("type") == "walk" and shot.has("walkArea")
 
 func _parking_active() -> bool:
 	return shot.get("fullId") == "shanghai/park" and not parking_done
@@ -493,6 +523,10 @@ func _nearby_hotspot() -> Dictionary:
 	if not _controlled_walk():
 		return {}
 	for hotspot: Dictionary in shot.get("hotspots", []):
+		if hotspot.id == "bamboo" and (state.get("bambooHeld", false) or state.get("pandaUsed", false)):
+			continue
+		if hotspot.id == "panda" and (not state.get("bambooHeld", false) or state.get("pandaUsed", false)):
+			continue
 		var target := Vector2(float(hotspot.target[0]), float(hotspot.target[1]))
 		if stage.player_feet.distance_to(target) <= 40.0:
 			return hotspot
@@ -570,7 +604,21 @@ func _handle_tap(position: Vector2) -> void:
 				var nearby := _nearby_hotspot()
 				if not nearby.is_empty() and Stage.interaction_rect(nearby).has_point(position):
 					_clear_movement()
-					_advance()
+					match str(nearby.id):
+						"bamboo":
+							state.bambooHeld = true
+							chime.play()
+						"panda":
+							state.bambooHeld = false
+							state.pandaUsed = true
+							stage.panda_time = 1.2
+							chime.play()
+						_:
+							_advance()
+					_sync_materials()
+					_sync_controls()
+					_save()
+					stage.queue_redraw()
 					return
 				if Geometry2D.is_point_in_polygon(position, _walk_polygon()):
 					_walk_to(position, "")
@@ -608,9 +656,14 @@ func _sync_materials() -> void:
 		if step.type == "material":
 			applied[step.materialId] = state.materials.get(_material_key(step), "")
 	applied.panda_used = state.get("pandaUsed", false)
+	applied.bamboo_held = state.get("bambooHeld", false)
 	stage.materials = applied
 
 func _save() -> void:
+	if runner and is_instance_valid(runner) and shot.type == "scene":
+		state.sceneSnapshot = runner.snapshot()
+		if not runner.result.is_empty():
+			state.guest = runner.result.duplicate(true)
 	state.elapsed = elapsed
 	state.feet = [stage.player_feet.x, stage.player_feet.y]
 	state.facing = stage.facing
@@ -633,6 +686,10 @@ func _save() -> void:
 	since_save = 0.0
 
 func _notification(what: int) -> void:
+	# Browser inspector/responsive controls can blur the canvas while the page stays visible.
+	# Web lifecycle is handled by document visibility or wx.onHide/onShow above.
+	if OS.has_feature("web"):
+		return
 	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_WINDOW_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_OUT]:
 		_set_paused(true)
 	elif what in [NOTIFICATION_APPLICATION_RESUMED, NOTIFICATION_WM_WINDOW_FOCUS_IN, NOTIFICATION_APPLICATION_FOCUS_IN]:
@@ -646,10 +703,15 @@ func _set_paused(value: bool) -> void:
 	if shot.is_empty() or paused == value:
 		return
 	paused = value
+	if runner:
+		runner.set_process(not paused)
+		if paused:
+			runner.suspend_input()
 	if paused:
 		if not _controlled_walk():
 			_clear_movement()
 		_reset_pointer()
+		pointer_input.reset()
 		_save()
 		_sync_controls()
 		stage.queue_redraw()
@@ -874,7 +936,8 @@ func _make_parking_sound(start_hz: float, end_hz: float, duration: float) -> Aud
 
 # ---------- 可操控场景（Claude W2）----------
 
-func _start_scene() -> void:
+func _start_scene(resume := false) -> void:
+	var saved: Dictionary = state.get("sceneSnapshot", {}).duplicate(true) if resume else {}
 	var applied := {}
 	for key: String in state.get("sceneMaterials", {}):
 		applied[key] = true
@@ -898,3 +961,7 @@ func _start_scene() -> void:
 		_advance.call_deferred())
 	stage.add_child(runner)
 	runner.begin(int(state.get("sceneBeat", 0)))
+	if resume:
+		runner.restore(saved)
+		if runner.result.is_empty() and state.get("guest", null) is Dictionary:
+			runner.result = state.guest.duplicate(true)
