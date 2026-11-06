@@ -203,6 +203,11 @@ func play_game(tag: String, name: String) -> void:
 			tick(0.3)
 			await shot(tag + "_call_hangup")
 			tick(0.4)
+		"desk_chat":
+			for i in range(g.lines.size()):
+				tick(3.0)
+				await shot(tag + "_window_wechat_" + str(i + 1))
+				g.input("tap", Vector2(180, 618))
 		"mail":
 			await shot(tag + "_mail_list")
 			g.input("tap", g._row().get_center()); tick(1.0)

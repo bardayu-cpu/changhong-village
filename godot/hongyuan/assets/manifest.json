@@ -3926,6 +3926,26 @@
         "D1": "待核"
       },
       "sha256": "4ed05dee961f7a45deb6947b1eae8da58050accf1f6f24741da87b4c569a04f0"
+    },
+    "w2/call/bg_cbd_window_chat_r3.png": {
+      "file": "w2/call/bg_cbd_window_chat_r3.png",
+      "card": "D2-K2",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; 阿鱼11/06要求Toretto站办公室窗前拿iPhone给阿鱼发微信",
+      "usedIn": "蛋糕与两束蓝花之后的A3-2l～2p微信对话；Toretto已烘焙，禁叠立绘/头像",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "bakedActors": [
+        "toretto"
+      ],
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "3e1e0ebb9fb9c665d617af4d6c9c0ba9a1b21ee89b9e9ced5256832c54638dcf"
     }
   },
   "palette": {

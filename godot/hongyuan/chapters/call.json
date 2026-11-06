@@ -228,7 +228,12 @@
       "hint": "G-DESK-PHONE"
      },
      {
-      "hint": ""
+      "hint": "",
+      "bg": "w2/call/bg_cbd_window_chat_r3.png",
+      "bgFit": true,
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": []
      },
      {
       "game": "desk_chat",
