@@ -6,6 +6,7 @@ extends Control
 signal finished
 signal beat_reached(index: int)
 signal material_applied(id: String)
+signal scene_requested(path: String)
 
 const CANVAS := Vector2(360, 640)
 const S := 2.0 / 3.0
@@ -85,6 +86,8 @@ var reveal := 0.0
 var go_id := ""
 var button_text := ""
 var button_rect := Rect2()
+var choice_texts: Array = []
+var choice_to: Array = []
 var material_id := ""
 var game: RefCounted
 var result: Dictionary = {}
@@ -167,7 +170,7 @@ func _apply_world(d: Dictionary) -> void:
 
 
 func _is_setup(beat: Dictionary) -> bool:
-	for key in ["say", "card", "go", "game", "wait", "material", "button", "narrate"]:
+	for key in ["say", "card", "go", "game", "wait", "material", "button", "choice", "narrate"]:
 		if beat.has(key):
 			return false
 	return true
@@ -235,6 +238,13 @@ func _next() -> void:
 		mode = "button"
 		button_text = _text(str(beat.button))
 		button_rect = Rect2(100, 470, 160, 46)
+	elif beat.has("choice"):
+		# 终章二选一：第一项接着往下走；其余项切到 beat.to 里对应的场景（如村子）
+		mode = "choice"
+		choice_texts = []
+		for id in beat.choice:
+			choice_texts.append(_text(str(id)))
+		choice_to = beat.get("to", [])
 	queue_redraw()
 
 
@@ -367,6 +377,9 @@ func _gui_input(event: InputEvent) -> void:
 	var tap := kind == "up" and down and not dragged and Time.get_ticks_msec() - down_ms < 350
 	if kind == "up":
 		down = false
+	if tap and _skip_visible() and SKIP_RECT.grow(6).has_point(pos):
+		_skip()
+		return
 	match mode:
 		"game":
 			if game:
@@ -382,6 +395,18 @@ func _gui_input(event: InputEvent) -> void:
 		"card":
 			if tap and t > 0.6:
 				_next()
+		"choice":
+			if tap and t > 0.4:
+				for i in range(choice_texts.size()):
+					if _choice_rect(i).grow(6).has_point(pos):
+						sfx.stream = blip
+						sfx.play()
+						var to := str(choice_to[i]) if i < choice_to.size() and choice_to[i] != null else ""
+						if to == "":
+							_next()
+						else:
+							scene_requested.emit(to)
+						return
 		"button":
 			if tap and button_rect.grow(8).has_point(pos):
 				sfx.stream = blip
@@ -434,6 +459,8 @@ func _draw() -> void:
 		_pill(Rect2(250, 12, 100, 22), badge, 12, Color(RED, 0.85), PAPER)
 	if hint != "" and mode in ["go", "game"]:
 		_hint(hint)
+	if _skip_visible():
+		_pill(SKIP_RECT, _text("G-NEXT"), 13, Color(INK, 0.7), WHEAT)
 	match mode:
 		"say", "auto":
 			_draw_say()
@@ -441,6 +468,10 @@ func _draw() -> void:
 			_draw_card()
 		"material":
 			_draw_material()
+		"choice":
+			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
+			for i in range(choice_texts.size()):
+				_pill(_choice_rect(i), choice_texts[i], 19, RED if i == 0 else Color(INK, 0.85), PAPER)
 		"button":
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			_pill(button_rect, button_text, 20, RED, PAPER)
@@ -645,6 +676,36 @@ func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
 			draw_rect(Rect2(c - Vector2(20, 13), Vector2(40, 26)), WHEAT * col)
 			draw_polyline(PackedVector2Array([c + Vector2(-20, -13), c + Vector2(0, 2), c + Vector2(20, -13)]), WOOD * col, 1.5)
 			draw_rect(Rect2(c - Vector2(20, 13), Vector2(40, 26)), WOOD * col, false, 1.5)
+
+
+# ---------- 快速浏览：小游戏和走路 10 秒后出「下一步」，不能整章跳过 ----------
+const SKIP_RECT := Rect2(268, 96, 80, 28)
+const SKIP_AFTER := 10.0
+const NO_SKIP := ["call", "finale", "seat"]  # 来电对白不能删；终章要玩家自己填名字入席
+
+
+func _choice_rect(i: int) -> Rect2:
+	return Rect2(80, 250 + i * 62, 200, 48)
+
+
+func _skip_visible() -> bool:
+	if t < SKIP_AFTER or bi < 0 or bi >= beats.size():
+		return false
+	if mode == "go":
+		return hotspots.has(go_id)
+	return mode == "game" and game != null and not str(beats[bi].get("game", "")) in NO_SKIP
+
+
+func _skip() -> void:
+	sfx.stream = blip
+	sfx.play()
+	if mode == "go":
+		_trigger(go_id)
+		return
+	if game.has_method("skip"):
+		game.skip()
+	pose = ""
+	_next()
 
 
 func _hint(text: String) -> void:

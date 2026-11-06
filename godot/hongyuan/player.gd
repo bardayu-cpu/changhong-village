@@ -1015,6 +1015,12 @@ func _start_scene(resume := false) -> void:
 		m[id] = true
 		state.sceneMaterials = m
 		_save())
+	runner.scene_requested.connect(func(path: String) -> void:
+		# 先去村子入住：存好宾客名字和形象、停在二选一这一步，回来还能去婚礼现场
+		if not runner.result.is_empty():
+			state.guest = runner.result
+		_save()
+		get_tree().change_scene_to_file.call_deferred(path))
 	runner.finished.connect(func() -> void:
 		if not runner.result.is_empty():
 			state.guest = runner.result

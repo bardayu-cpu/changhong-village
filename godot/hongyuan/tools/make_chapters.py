@@ -110,7 +110,7 @@ write("finale", "G-12", [scene("finale", "finale", {
         {"game": "finale"},
         {"bg": "bg_invite_desk.png", "hideAyu": False, "place": [180, 520], "pose": ""},
         A("A7-2b"), A("A7-2c"),
-        {"button": "A7-B1"},
+        {"choice": ["G-WEDDING", "G-VILLAGE"], "to": [None, "res://ayu_home/v4/phone_boot.tscn"]},
         {"bg": "", "fill": "#2a1210", "hideAyu": True},
         {"game": "seat"},
     ]}),
