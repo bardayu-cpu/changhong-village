@@ -42,6 +42,7 @@ const GAMES := {
 	"onsen": preload("res://hongyuan/games/onsen.gd"),
 	"photo": preload("res://hongyuan/games/photo.gd"),
 	"offer": preload("res://hongyuan/games/offer.gd"),
+	"invite_mail": preload("res://hongyuan/games/invite_mail.gd"),
 }
 
 var copy: Dictionary
@@ -956,7 +957,7 @@ const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fi
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
 	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on", "chat_scroll",
-	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed", "ayu_x", "sky_s"]
+	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed", "ayu_x", "sky_s", "field", "typed", "typing"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,

@@ -154,6 +154,7 @@ write("finale", "G-12", [scene("finale", "finale", {
     "bg": "", "fill": "#3a1414", "hideAyu": True,
     "beats": [
         {"card": "G-12", "duration": 2.0},
+        {"game": "invite_mail"},
         {"game": "finale"},
         {"bg": "bg_invite_desk.png", "hideAyu": False, "place": [180, 520], "pose": ""},
         A("A7-2b"), A("A7-2c"),
