@@ -13,12 +13,15 @@ var out := "user://shots"
 var p
 var n := 0
 var fails := 0
+var only := PackedStringArray()   # 可选第二个参数：逗号分隔的步骤号，只跑这些章节（快速看图）
 
 
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.size() > 0:
 		out = args[0]
+	if args.size() > 1:
+		only = args[1].split(",")
 	DirAccess.make_dir_recursive_absolute(out)
 	root.size = Vector2i(540, 960)
 	call_deferred("run")
@@ -52,6 +55,8 @@ func run() -> void:
 	p.set_process(false)
 	await frames()
 	for step_id in ["shanghai/board_car", "shanghai/approach_axiao", "shanghai/line_1", "shanghai/chat_axiao", "chengdu/chengdu_walk"]:
+		if not only.is_empty():
+			break
 		p._enter_step(p.step_indices[step_id])
 		if p.shot.type == "chat":
 			p.elapsed = 1.0
@@ -59,6 +64,8 @@ func run() -> void:
 			p._present_chat()
 		await shot(step_id.replace("/", "_"))
 	for step_id in ["shanghai/drive", "call/night_call", "shizuoka/pier", "hainan/wanning", "hongkong/hk", "finale/finale"]:
+		if not only.is_empty() and not step_id in only:
+			continue
 		if not p.step_indices.has(step_id):
 			push_error("missing step " + step_id)
 			fails += 1
@@ -67,6 +74,10 @@ func run() -> void:
 		await frames()
 		await play_scene(step_id.get_slice("/", 0))
 	await frames(3)
+	if not only.is_empty():
+		print("SHOTS ", n, " FAILS ", fails)
+		quit(1 if fails > 0 else 0)
+		return
 	if p.shot.type != "terminal" or p.shot.copyId != "W-NEXT" or p.state.get("guest", {}).get("name", "") != "测试宾客":
 		push_error("terminal/guest handoff missing")
 		fails += 1
@@ -208,11 +219,68 @@ func play_game(tag: String, name: String) -> void:
 				tick(3.0)
 				await shot(tag + "_window_wechat_" + str(i + 1))
 				g.input("tap", Vector2(180, 618))
+		"invite_mail":
+			await shot(tag + "_mail_blank")
+			g.input("tap", Vector2(180, 500)); tick(2.0)
+			await shot(tag + "_mail_to")
+			g.input("tap", Vector2(180, 500)); tick(1.0)
+			g.input("tap", Vector2(180, 500)); tick(0.6)
+			await shot(tag + "_mail_subject")
+			g.input("tap", Vector2(180, 500)); tick(0.2)
+			g.input("tap", Vector2(180, 500)); tick(0.5)
+			await shot(tag + "_mail_body")
+			g.input("tap", Vector2(180, 500)); tick(0.3)
+			g.input("tap", Vector2(180, 500)); tick(0.3)
+			g.input("tap", Vector2(180, 500)); tick(0.3)
+			await shot(tag + "_mail_ready")
+			tick(0.3)
+			g.input("tap", g._send_rect().get_center()); tick(0.7)
+			await shot(tag + "_mail_flying")
+			tick(1.0)
+			await shot(tag + "_mail_sent")
+		"offer":
+			await shot(tag + "_offer_list")
+			g.input("tap", g._row().get_center())
+			tick(0.6)
+			await shot(tag + "_offer_open")
+			g.input("down", Vector2(180, 250)); g.input("move", Vector2(180, 200)); g.input("move", Vector2(180, 170)); g.input("up", Vector2(180, 170))
+			await shot(tag + "_offer_scrolled")
+			for i in range(6):
+				g.input("tap", Vector2(180, 250))
+			tick(0.3)
+			await shot(tag + "_offer_end")
+			g.input("tap", g._button_rect().get_center())
+			await shot(tag + "_offer_accept")
 		"mail":
 			await shot(tag + "_mail_list")
 			g.input("tap", g._row().get_center()); tick(1.0)
 			await shot(tag + "_mail_open")
 			g.input("tap", Vector2(180, 400))
+		"onsen":
+			await shot(tag + "_onsen_join")
+			g.input("tap", Vector2(g.SPOT_X, g.WATER_Y - 10))
+			tick(0.5)
+			await shot(tag + "_onsen_glide")
+			tick(1.2)
+			for i in range(g.lines.size()):
+				tick(2.5)
+				await shot(tag + "_onsen_line_" + str(i + 1))
+				g.input("tap", Vector2(180, 300))
+			tick(3.0)
+			await shot(tag + "_onsen_night")
+		"photo":
+			tick(1.5)
+			await shot(tag + "_photo_walk")
+			tick(4.0)
+			await shot(tag + "_photo_ready")
+			g.input("tap", g.CAMERA)
+			for i in range(5):
+				r._process(0.05)
+				await frames(2)
+			await shot(tag + "_photo_flash")
+			tick(0.9)
+			await frames(2)
+			await shot(tag + "_photo_show")
 		"seat":
 			tick(5.0)
 			await shot(tag + "_seat_pick")

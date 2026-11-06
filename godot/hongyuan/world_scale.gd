@@ -15,6 +15,7 @@ const PROFILES := {
 	"beach_memory": [430.0, 44.0, 600.0, 128.0],
 	"airport": [400.0, 98.0, 615.0, 175.0],
 	"banquet": [198.0, 50.0, 600.0, 50.0],
+	"disney": [383.0, 48.0, 620.0, 128.0],
 }
 
 static func profile(scene_id: String, background := "") -> String:
@@ -27,6 +28,7 @@ static func profile(scene_id: String, background := "") -> String:
 	if "bg_wanning" in background: return "pool"
 	if "bg_wenchang" in background: return "beach"
 	if "bg_arrival" in background: return "airport"
+	if "bg_disney" in background: return "disney"
 	return ""
 
 static func height_at(key: String, floor_y: float, fallback := 128.0) -> float:
