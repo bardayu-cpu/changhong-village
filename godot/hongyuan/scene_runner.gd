@@ -503,6 +503,7 @@ func _draw_player() -> void:
 	var bob := 0.0
 	if pose != "" and not walking:
 		name = {"sit": "w2/shizuoka/ayu_sit.png|ayu_idle.png", "fishing": "w2/shizuoka/ayu_fish_hold.png|w2/common/ayu_fishing.png", "throw": "w2/hainan/ayu_throw_hold.png|w2/common/ayu_throw.png", "cheer": "w2/common/ayu_cheer.png", "back": "w2/common/ayu_idle_back.png|ayu_idle.png"}.get(pose, pose)
+		if pose == "surprised": name = "w2/common/ayu_surprised.png|ayu_idle.png"
 	elif walking:
 		var f := 1 + int(walk_dist / 10.0) % 4
 		if absf(move_dir.y) > absf(move_dir.x) * 1.3:
@@ -773,7 +774,7 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
 const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
-	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t"]
+	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
@@ -820,6 +821,8 @@ func restore(saved: Dictionary) -> void:
 		if "edit" in game and game.phase == "name":
 			game._make_edit()
 			game.edit.text = game.name
+		if game.has_method("restore_checkpoint"):
+			game.restore_checkpoint()
 	queue_redraw()
 
 static func _pack_value(value: Variant) -> Variant:

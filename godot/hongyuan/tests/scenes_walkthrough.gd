@@ -181,11 +181,24 @@ func play_game(tag: String, name: String) -> void:
 		"call":
 			await shot(tag + "_call_ring")
 			g.input("tap", g._accept_rect().get_center())
-			while r.bi == before and g.phase == "talk":
-				tick(0.6)
-				if g.li == 3:
+			g.input("down", g._listen_rect().get_center())
+			var captured := false
+			for i in range(1200):
+				if r.bi != before or g.phase != "talk":
+					break
+				r._process(0.05)
+				if g.birthday_flash > 0.0 and not captured:
 					await shot(tag + "_call_talk")
-				g.input("tap", Vector2(180, 400))
+					captured = true
+			g.input("up", g._listen_rect().get_center())
+			tick(0.7)
+			for i in range(4):
+				tick(0.2)
+				await shot(tag + "_call_reply")
+				g.input("tap", g._speaker_rect().get_center() if g.li == 6 else Vector2(180, 500))
+			tick(0.3)
+			await shot(tag + "_call_hangup")
+			tick(0.4)
 		"mail":
 			await shot(tag + "_mail_list")
 			g.input("tap", g._row().get_center()); tick(1.0)
