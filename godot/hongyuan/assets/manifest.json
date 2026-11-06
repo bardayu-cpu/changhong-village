@@ -3786,6 +3786,33 @@
         "evidence": "回执/W2工位/D4/M42-R2-2026-11-05/assets/bobber_3.png",
         "handoff": "回执/W2工位/D2/美术交付-2026-11-05-B.md"
       }
+    },
+    "w2/chengdu/bamboo_clump.png": {
+      "file": "w2/chengdu/bamboo_clump.png",
+      "card": "M21",
+      "dimensions": [
+        120,
+        200
+      ],
+      "anchor": [
+        60,
+        196
+      ],
+      "origin": "D3 按 D2 第三次退回决定，从 R3 局部简化外围并净色",
+      "usedIn": "成都竹丛取物",
+      "generationAttempt": 2,
+      "revision": 4,
+      "status": "staticArtReviewed",
+      "sha256": "2b199325700671ab255eb54ad95a0c00b856258e304f0f13db37781442654d73",
+      "review": {
+        "D2": "R4初审过",
+        "D4": "R4静态六项审美过",
+        "sourceCommit": "85a2fed68cbbf7855dc044b33171575429986ec8",
+        "sourceReport": "回执/W2工位/D4/2026-11-05-本轮判定.md",
+        "sourceReportSHA256": "cef84f99e179ae6071d7afe1f5dcbc3ace38920e45bc7c284a9a1330f1c5d545",
+        "evidence": "回执/W2工位/D4/M21-R4-2026-11-05/",
+        "handoff": "回执/W2工位/D2/美术交付-2026-11-05-C-M21.md"
+      }
     }
   },
   "palette": {
