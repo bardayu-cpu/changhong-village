@@ -519,16 +519,22 @@ func _clamp_walk(point: Vector2) -> Vector2:
 			nearest = candidate
 	return nearest
 
-func _nearby_hotspot() -> Dictionary:
-	if not _controlled_walk():
-		return {}
+func _visible_hotspots() -> Array:
+	var out: Array = []
 	for hotspot: Dictionary in shot.get("hotspots", []):
 		if hotspot.id == "bamboo" and (state.get("bambooHeld", false) or state.get("pandaUsed", false)):
 			continue
 		if hotspot.id == "panda" and (not state.get("bambooHeld", false) or state.get("pandaUsed", false)):
 			continue
+		out.append(hotspot)
+	return out
+
+func _nearby_hotspot() -> Dictionary:
+	if not _controlled_walk():
+		return {}
+	for hotspot: Dictionary in _visible_hotspots():
 		var target := Vector2(float(hotspot.target[0]), float(hotspot.target[1]))
-		if stage.player_feet.distance_to(target) <= 40.0:
+		if stage.player_feet.distance_to(target) <= 56.0:
 			return hotspot
 	return {}
 
@@ -620,6 +626,14 @@ func _handle_tap(position: Vector2) -> void:
 					_save()
 					stage.queue_redraw()
 					return
+				# 点车／点人：自己走过去并触发，不用先摸到很小的目标点
+				for hotspot: Dictionary in _visible_hotspots():
+					if not hotspot.has("hit"):
+						continue
+					var hit: Array = hotspot.hit
+					if Rect2(float(hit[0]), float(hit[1]), float(hit[2]), float(hit[3])).grow(16).has_point(position):
+						_walk_to(Vector2(float(hotspot.target[0]), float(hotspot.target[1])), str(hotspot.id))
+						return
 				if Geometry2D.is_point_in_polygon(position, _walk_polygon()):
 					_walk_to(position, "")
 				return
@@ -741,6 +755,9 @@ func _present() -> void:
 			_present_chat()
 		"notification":
 			_button(shot.copyId, PHONE_NOTIFICATION, _advance)
+		"material":
+			if str(shot.get("materialId", "")) == "pen":
+				_label("1 / 6　" + _text("W-NEXT-CHENGDU"), Rect2(60, 560, 240, 34), 15, Stage.CREAM, true)
 		"phone":
 			pass # The group name occupies the shared phone header.
 		"terminal":

@@ -26,6 +26,7 @@ var park_t := 0.0
 var swipe_from := Vector2.ZERO
 var swiping := false
 var hint_t := 0.0
+var tapped := false
 
 
 func start(runner, _beat: Dictionary) -> void:
@@ -46,18 +47,23 @@ func process(dt: float) -> bool:
 			_traffic(dt)
 			if scroll >= LENGTH:
 				phase = "park"
+				park_t = 0.0
 				bay_y = -120.0
 				lane = 2
 				traffic.clear()
 		"park":
-			# 按住刹车：减速直到停住；停在车位旁边就自己倒进去。松手继续慢慢往前滑。
-			var want2 := 0.0 if holding else 90.0
-			speed = move_toward(speed, want2, (240.0 if holding else 90.0) * dt)
+			# 按住刹车：车位在附近就自动倒进去。点一下＝车位到了就停。
+			# 保底：车位开到和车并排还没停，就自己刹车入位，不会无限循环。
+			park_t += dt
+			var aligned := bay_y >= CAR_Y - 10.0
+			var braking := holding or aligned or (tapped and bay_y > CAR_Y - 300.0)
+			var want2 := 0.0 if braking else 150.0
+			speed = move_toward(speed, want2, (300.0 if braking else 90.0) * dt)
+			if aligned:
+				bay_y = minf(bay_y, CAR_Y + 30.0)
 			scroll += speed * dt
 			bay_y += speed * dt
-			if bay_y > 720.0:
-				bay_y = -160.0
-			if holding and speed < 6.0 and absf(bay_y - CAR_Y) < 150.0:
+			if speed < 8.0 and bay_y > CAR_Y - 320.0:
 				phase = "in"
 				park_t = 0.0
 				speed = 0.0
@@ -96,12 +102,16 @@ func input(kind: String, pos: Vector2) -> void:
 				hint_t = 0.0
 				r.play("blip")
 		"drive", "park":
+			if phase == "park" and kind == "tap":
+				tapped = true
 			if kind == "down":
 				swipe_from = pos
 				swiping = true
 				if phase == "park":
 					holding = true
 			elif kind == "move" and swiping and absf(pos.x - swipe_from.x) > 26.0:
+				if phase == "park" and pos.x > swipe_from.x:
+					tapped = true
 				lane = clampi(lane + (1 if pos.x > swipe_from.x else -1), 0, 2)
 				swipe_from = pos
 			elif kind == "up":
@@ -136,7 +146,7 @@ func draw(ci) -> void:
 		ci.pill(_go_rect(), ci.t_("A1-B2"), 20, ci.RED, ci.PAPER)
 	elif phase == "drive" and hint_t < 3.0:
 		_swipe_hint(ci)
-	elif phase == "park" and bay_y > -40.0 and bay_y < 640.0:
+	elif phase == "park":
 		_hold_hint(ci)
 
 
@@ -239,5 +249,7 @@ func _swipe_hint(ci) -> void:
 func _hold_hint(ci) -> void:
 	var p := Vector2(180, 595)
 	var a := 0.6 + 0.4 * sin(t * 5.0)
+	ci.draw_rect(Rect2(40, 538, 280, 30), Color(ci.INK, 0.72))
+	ci.text_at(Vector2(40, 543), ci.t_("G-PARK"), 15, ci.PAPER, 280)
 	ci.draw_arc(p, 18, 0, TAU, 28, Color(ci.PAPER, a), 3.0)
 	ci.draw_circle(p, 8 if holding else 11, Color(ci.PAPER, a))

@@ -560,19 +560,34 @@ func _draw_say() -> void:
 
 
 func _draw_card() -> void:
-	var a := clampf(t / 0.35, 0.0, 1.0)
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(INK, a))
-	draw_multiline_string(FONT, Vector2(30, 312), say_text, HORIZONTAL_ALIGNMENT_CENTER, 300, 20, -1, Color(WHEAT, a))
+	# 章节名叠在画面上，不再黑屏：上一屏的东西一直看得见
+	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
+	var dur := float(beat.get("duration", 1.8))
+	var a := clampf(t / 0.35, 0.0, 1.0) * clampf((dur - t) / 0.35, 0.0, 1.0)
+	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(INK, 0.28 * a))
+	draw_rect(Rect2(0, 270, 360, 84), Color(INK, 0.72 * a))
+	draw_rect(Rect2(0, 270, 360, 2), Color(GOLD, 0.8 * a))
+	draw_rect(Rect2(0, 352, 360, 2), Color(GOLD, 0.8 * a))
+	draw_multiline_string(FONT, Vector2(30, 318), say_text, HORIZONTAL_ALIGNMENT_CENTER, 300, 20, -1, Color(WHEAT, a))
+
+
+const NEXT_STOP := {"paper": "W-NEXT-SHIZUOKA", "stamp": "W-NEXT-HAINAN", "wax": "W-NEXT-HONGKONG"}
 
 
 func _draw_material() -> void:
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(INK, 0.82))
+	# 回到序章那张桌子：这一章的东西落进请柬，不弹「收入囊中」
+	var desk := texture("bg_invite_desk.png")
+	var fade := clampf(t / 0.4, 0.0, 1.0)
+	if desk:
+		draw_texture_rect(desk, Rect2(Vector2.ZERO, CANVAS), false, Color(1, 1, 1, fade))
+	else:
+		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(INK, 0.82 * fade))
 	var card := texture("invite_card.png")
 	if card:
-		draw_texture_rect(card, Rect2(CARD, card.get_size() * S), false)
+		draw_texture_rect(card, Rect2(CARD, card.get_size() * S), false, Color(1, 1, 1, fade))
 	for id: String in SLOTS:
 		var on: bool = materials.get(id, false)
-		var k := 1.0
+		var k := fade
 		if id == material_id:
 			k = clampf((t - 0.4) / 0.8, 0.0, 1.0)
 			on = k > 0.0
@@ -580,8 +595,17 @@ func _draw_material() -> void:
 				draw_circle(CARD + SLOTS[id] * S, 30 * k, Color(GOLD, 0.35 * (1.0 - k)))
 		if on:
 			_draw_material_icon(id, CARD + SLOTS[id] * S, k)
-	var label := _text("G-13")
-	_pill(Rect2(110, 452, 140, 36), label, 16, RED, PAPER)
+	var count := 0
+	for id: String in SLOTS:
+		if materials.get(id, false) or id == material_id:
+			count += 1
+	var c := clampf((t - 1.0) / 0.4, 0.0, 1.0)
+	var next_id: String = NEXT_STOP.get(material_id, "")
+	var caption := "%d / 6" % count
+	if next_id != "" and copy.has(next_id):
+		caption += "　" + _text(next_id)
+	draw_rect(Rect2(60, 560, 240, 34), Color(INK, 0.6 * c))
+	draw_string(FONT, Vector2(60, 583), caption, HORIZONTAL_ALIGNMENT_CENTER, 240, 15, Color(WHEAT, c))
 
 
 func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
