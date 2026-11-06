@@ -476,8 +476,9 @@ func _draw_world() -> void:
 	if player_visible:
 		items.append({"y": feet.y, "player": true})
 	if follower != "" and player_visible:
-		var fp := trail[mini(trail.size() - 1, 14)] if trail.size() > 0 else feet + Vector2(-26 * facing, -2)
-		items.append({"y": fp.y - 1, "tex": follower, "at": fp + Vector2(-10 * facing, 0), "flip": facing < 0, "scale": 1.0, "roll": true})
+		# 箱子拉杆握在手里：贴着身后走，不再落后一截
+		var fp := feet + Vector2(-24 * facing, 0)
+		items.append({"y": feet.y - 1, "tex": follower, "at": fp, "flip": facing < 0, "scale": 1.0, "roll": true})
 	items.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.y < b.y)
 	for it: Dictionary in items:
 		if it.has("player"):
@@ -541,11 +542,15 @@ func _draw_go_ui() -> void:
 
 
 func _draw_say() -> void:
-	var box := Rect2(14, 470, 332, 134)
+	# 框高跟着整句字数走（按全文算，逐字显示时框不跳）
+	var x0 := 70.0 if say_who != "narrator" and texture(AVATARS.get(say_who, "")) else 18.0
+	var th := FONT.get_multiline_string_size(say_text, HORIZONTAL_ALIGNMENT_LEFT, 332.0 - x0 - 18.0, 16).y
+	var bh := clampf(th + 40.0, 72.0 if x0 > 18.0 else 60.0, 134.0)
+	var box := Rect2(14, 604 - bh, 332, bh)
 	var shown := say_text.substr(0, int(reveal))
 	if say_who == "narrator":
-		_panel(box, Color(INK, 0.88), Color(GOLD, 0.8))
-		draw_multiline_string(FONT, box.position + Vector2(18, 40), shown, HORIZONTAL_ALIGNMENT_CENTER, box.size.x - 36, 16, -1, PAPER)
+		_panel(box, Color(INK, 0.94), Color(GOLD, 0.8))
+		draw_multiline_string(FONT, box.position + Vector2(18, 32), shown, HORIZONTAL_ALIGNMENT_CENTER, box.size.x - 36, 16, -1, PAPER)
 	else:
 		_panel(box, PAPER, WOOD)
 		var av := texture(AVATARS.get(say_who, ""))
@@ -554,7 +559,7 @@ func _draw_say() -> void:
 			draw_texture_rect(av, Rect2(box.position + Vector2(14, 14), Vector2(44, 44)), false)
 			x = 70.0
 		_pill(Rect2(box.position.x + x, box.position.y - 12, 26 + 14 * NAMES.get(say_who, say_who).length(), 26), NAMES.get(say_who, say_who), 14, RED, PAPER)
-		draw_multiline_string(FONT, box.position + Vector2(x, 44), shown, HORIZONTAL_ALIGNMENT_LEFT, box.size.x - x - 18, 16, -1, INK)
+		draw_multiline_string(FONT, box.position + Vector2(x, 36), shown, HORIZONTAL_ALIGNMENT_LEFT, box.size.x - x - 18, 16, -1, INK)
 	if reveal >= say_text.length() and mode == "say":
 		var a := 0.5 + sin(time * 5.0) * 0.5
 		draw_colored_polygon(PackedVector2Array([box.end - Vector2(26, 22), box.end - Vector2(14, 22), box.end - Vector2(20, 14)]), Color(GOLD, a))
@@ -723,7 +728,15 @@ func pill(r: Rect2, text: String, font_size: int, fill: Color, fg: Color) -> voi
 
 
 func _text(id: String) -> String:
-	return str(copy.get(id, id)).replace("<br>", "\n")
+	return keep_units(str(copy.get(id, id)).replace("<br>", "\n"))
+
+
+static var _unit_re: RegEx
+## 「24 年」「10 个月」：数字和后面的字之间换成不断行空格，免得断成两行
+static func keep_units(s: String) -> String:
+	if _unit_re == null:
+		_unit_re = RegEx.create_from_string("(\\d) (?=[\\x{4e00}-\\x{9fff}])")
+	return _unit_re.sub(s, "$1\u00a0", true)
 
 
 func t_(id: String) -> String:

@@ -757,7 +757,7 @@ func _present() -> void:
 			var objective: Control = slots.get_child(slots.get_child_count() - 1)
 			if objective is Label:
 				var back := StyleBoxFlat.new()
-				back.bg_color = Color(SceneRunner.INK, 0.62)
+				back.bg_color = Color(SceneRunner.INK, 0.82)
 				back.set_corner_radius_all(6)
 				objective.add_theme_stylebox_override("normal", back)
 		"chat":
@@ -770,7 +770,7 @@ func _present() -> void:
 		"phone":
 			pass # The group name occupies the shared phone header.
 		"terminal":
-			_label(_text(shot.copyId), Rect2(38, 296, 284, 60), 24, Stage.PHONE_TEXT, true)
+			_label(_text(shot.copyId), Rect2(20, 296, 320, 60), 24, Stage.CREAM, true)
 	if kind in ["walk", "drive"] and _needs_art():
 		for child in slots.get_children():
 			child.hide()
@@ -838,32 +838,50 @@ func _present_chat() -> void:
 		_fade_in(labels[-1], 2.0)
 
 func _dialogue(text: String) -> void:
-	# 和可操控场景（scene_runner._draw_say）同一个对话框：旁白深底金边，人物米色底加名字牌
-	var box := Rect2(14, 470, 332, 134)
+	# 和可操控场景（scene_runner._draw_say）同一个对话框：旁白深底金边居中，人物米色底加头像和名字牌、左对齐
 	var speaker := str(shot.get("speaker", ""))
 	var named: bool = SceneRunner.NAMES.has(speaker) and shot.type == "dialogue"
-	var dark: bool = shot.type in ["narration", "transition"]
+	var dark: bool = not named
+	var avatar: Texture2D = stage.image_asset(speaker + "_avatar") if named else null
+	var x := 70.0 if avatar else 18.0
+	# 框高跟着字数走：一行字不再顶出半个空框盖住人物的腿
+	var text_w := 332.0 - x - 18.0
+	var text_h := FONT.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, text_w, 17).y + 6.0 * text.count("\n")
+	var h := clampf(text_h + 36.0, 72.0 if avatar else 60.0, 134.0)
+	var box := Rect2(14, 604 - h, 332, h)
 	var panel := Panel.new()
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.position = box.position
 	panel.size = box.size
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(SceneRunner.INK, 0.88) if dark else SceneRunner.PAPER
+	style.bg_color = Color(SceneRunner.INK, 0.94) if dark else SceneRunner.PAPER
 	style.border_color = Color(SceneRunner.GOLD, 0.8) if dark else SceneRunner.WOOD
 	style.set_border_width_all(3)
 	panel.add_theme_stylebox_override("panel", style)
 	slots.add_child(panel)
+	if avatar:
+		var face := TextureRect.new()
+		face.texture = avatar
+		face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		face.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		face.position = box.position + Vector2(14, 14)
+		face.size = Vector2(44, 44)
+		slots.add_child(face)
 	if named:
 		var tag := Label.new()
 		var who: String = SceneRunner.NAMES[speaker]
-		_style_label(tag, Rect2(box.position.x + 18, box.position.y - 13, 26 + 14 * who.length(), 26), 14, SceneRunner.PAPER)
+		_style_label(tag, Rect2(box.position.x + x, box.position.y - 13, 26 + 14 * who.length(), 26), 14, SceneRunner.PAPER)
 		var tag_style := StyleBoxFlat.new()
 		tag_style.bg_color = SceneRunner.RED
 		tag_style.set_corner_radius_all(13)
 		tag.add_theme_stylebox_override("normal", tag_style)
 		tag.text = who
 		slots.add_child(tag)
-	_label(text, Rect2(box.position.x + 18, box.position.y + 12, box.size.x - 36, box.size.y - 24), 17, SceneRunner.PAPER if dark else SceneRunner.INK, true)
+	_label(text, Rect2(box.position.x + x, box.position.y + 12, box.size.x - x - 18, box.size.y - 24), 17,
+		SceneRunner.PAPER if dark else SceneRunner.INK, true,
+		HORIZONTAL_ALIGNMENT_CENTER if dark else HORIZONTAL_ALIGNMENT_LEFT)
 
 func _button(id: String, rect: Rect2, action: Callable) -> void:
 	var button := Button.new()
@@ -935,7 +953,7 @@ func _fade_in(control: Control, rise := 4.0) -> void:
 	tween.tween_property(control, "position:y", target, 0.20)
 
 func _text(id: String) -> String:
-	return copy.get(id, "【待补】")
+	return SceneRunner.keep_units(str(copy.get(id, "【待补】")))
 
 func _show_data_error() -> void:
 	var label := Label.new()
