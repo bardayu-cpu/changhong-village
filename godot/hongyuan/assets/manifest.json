@@ -4046,6 +4046,102 @@
         "D1": "pending"
       },
       "sha256": "e5896bfb68dacc17696c659bad55cf6e78f18a36cb7c841517bb3e3a7f7cc587"
+    },
+    "w2/shizuoka/bg_onsen_sunset.png": {
+      "file": "w2/shizuoka/bg_onsen_sunset.png",
+      "card": "D2-J3",
+      "dimensions": [
+        540,
+        960
+      ],
+      "origin": "D3 revised sunset sample",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "b4400f51f36250623e2aa340a2c91414f4290468809eee85a3aa1b32bc8f62b6"
+    },
+    "w2/shizuoka/bg_onsen_dusk_r2.png": {
+      "file": "w2/shizuoka/bg_onsen_dusk_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "2e1fbb7f8bcb1521e206a09593556a2092034b67ae253117d104fc6c0770260a"
+    },
+    "w2/shizuoka/bg_onsen_night_r2.png": {
+      "file": "w2/shizuoka/bg_onsen_night_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "bc873be8028658565da52a78b288e8bd48b095d55363ee24f668731563d85383"
+    },
+    "w2/shizuoka/ayu_onsen_r2.png": {
+      "file": "w2/shizuoka/ayu_onsen_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        1312,
+        1199
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "5d81cce523d29b4fa4ab7c7d5224c28181606765d547aeef5894dff54894aaeb"
+    },
+    "w2/shizuoka/toretto_onsen_r2.png": {
+      "file": "w2/shizuoka/toretto_onsen_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "ee48d2bf3a0e6eee6713ed7a3fec0a97e0a99a3034ce499052e9bf9e181b88cc"
+    },
+    "w2/hongkong/bg_disney_memory_r1.png": {
+      "file": "w2/hongkong/bg_disney_memory_r1.png",
+      "card": "D2-HO / D3-G3",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; exec-e2ae6ca3-c121-4418-be19-0729fe70bfc0.png",
+      "usedIn": "Intended Hong Kong Disneyland memory; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "edcf7401a824de04929a0d14c0ce9ba47099e35cfc594e3e38e1877ff093cc87"
     }
   },
   "palette": {
