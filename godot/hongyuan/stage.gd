@@ -197,6 +197,8 @@ func _feet(actor: Dictionary) -> Vector2:
 		return player_feet
 	if actor.id == "panda":
 		return PANDA
+	if actor.id == "axiao" and shot.get("sceneId") == "shanghai_parking":
+		return Vector2(222, 410)  # 站在她哥那辆车（右边车位）跟前
 	return Vector2(264 if actor.slot == "right" else 96, 456)
 
 func _world_actor(actor: Dictionary) -> void:
