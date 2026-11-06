@@ -1,4 +1,5 @@
 extends RefCounted
+const PhoneShell := preload("res://hongyuan/ui/phone_shell.gd")
 ## 邮件：手机里有一封未读邮件（发件人 + 标题），玩家亲手点开；只显示发件人和标题，不显示正文。
 
 var r
@@ -33,15 +34,7 @@ func input(kind: String, pos: Vector2) -> void:
 
 func draw(ci) -> void:
 	ci.draw_rect(Rect2(0, 0, 360, 640), Color(0, 0, 0, 0.55))
-	var frame: Texture2D = ci.texture("w2_ui/phone_frame_w2_r1.png")
-	if frame:
-		ci.draw_texture_rect(frame, Rect2(Vector2(14, 32), frame.get_size() * ci.S), false)
-		var paper: Texture2D = ci.texture("w2_ui/phone_screen_paper_w2_r1.png")
-		if paper:
-			ci.draw_texture_rect(paper, Rect2(Vector2(22, 40), paper.get_size() * ci.S), false)
-	else:
-		ci.draw_rect(Rect2(24, 40, 312, 548), Color("#2b1d19"))
-		ci.draw_rect(Rect2(34, 52, 292, 520), ci.PAPER)
+	PhoneShell.draw_shell(ci)
 	if phase == "list":
 		var row := _row()
 		var glow := 0.25 + 0.2 * sin(t * 5.0)

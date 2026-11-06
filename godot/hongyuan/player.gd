@@ -3,6 +3,7 @@ extends Control
 const Stage := preload("res://hongyuan/stage.gd")
 const Checkpoint := preload("res://hongyuan/checkpoint.gd")
 const SceneRunner := preload("res://hongyuan/scene_runner.gd")
+const StoryCaption := preload("res://hongyuan/ui/story_caption.gd")
 const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const COPY_PATH := "res://hongyuan/copy.json"
 const WALK_BOUNDS := Rect2(35, 396, 290, 60)
@@ -736,7 +737,7 @@ func _present() -> void:
 		child.queue_free()
 	stage.chat_rows.clear()
 	var phone_page: bool = shot.background == "phone"
-	_style_label(title, Stage.PHONE_HEADER if phone_page else Rect2(18, 14, 324, 34), 20 if phone_page else 16, Stage.CREAM)
+	_style_label(title, Stage.PHONE_HEADER if phone_page else Rect2(18, 14, 324, 34), 20 if phone_page else 16, Stage.PHONE_TEXT if phone_page else Stage.CREAM)
 	var chapter_title := "" if shot.type == "terminal" else _text(shot.get("groupId", shot.titleId))
 	var strip := StyleBoxFlat.new()
 	strip.bg_color = Color(SceneRunner.INK, 0.0 if phone_page else 0.62)
@@ -791,7 +792,7 @@ func _present_chat() -> void:
 	var first := active_index
 	while first > 0 and playlist[first - 1].type == "chat" and playlist[first - 1].sceneId == shot.sceneId:
 		first -= 1
-	var y := 134.0
+	var y := Stage.PHONE_HEADER.end.y + 18.0
 	var screen := stage.phone_screen_rect()
 	var labels: Array[Label] = []
 	for index in range(first, active_index + 1):
@@ -804,7 +805,7 @@ func _present_chat() -> void:
 		var width := 284.0 if system else clampf(FONT.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, CHAT_FONT_SIZE).x + CHAT_PADDING_X * 2, 74, 234)
 		var x := 38.0 if system else (avatar_x - width - 8 if right else avatar_x + avatar_width + 8)
 		var label := Label.new()
-		_style_label(label, Rect2(x + CHAT_PADDING_X, y + CHAT_PADDING_Y, width - CHAT_PADDING_X * 2, 1), CHAT_FONT_SIZE, Stage.CREAM if system else Stage.PHONE_TEXT)
+		_style_label(label, Rect2(x + CHAT_PADDING_X, y + CHAT_PADDING_Y, width - CHAT_PADDING_X * 2, 1), CHAT_FONT_SIZE, Stage.PHONE_TEXT)
 		label.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
 		label.add_theme_constant_override("line_spacing", CHAT_LINE_SPACING)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if system else HORIZONTAL_ALIGNMENT_LEFT
@@ -838,50 +839,14 @@ func _present_chat() -> void:
 		_fade_in(labels[-1], 2.0)
 
 func _dialogue(text: String) -> void:
-	# 和可操控场景（scene_runner._draw_say）同一个对话框：旁白深底金边居中，人物米色底加头像和名字牌、左对齐
-	var speaker := str(shot.get("speaker", ""))
-	var named: bool = SceneRunner.NAMES.has(speaker) and shot.type == "dialogue"
-	var dark: bool = not named
-	var avatar: Texture2D = stage.image_asset(speaker + "_avatar") if named else null
-	var x := 70.0 if avatar else 18.0
-	# 框高跟着字数走：一行字不再顶出半个空框盖住人物的腿
-	var text_w := 332.0 - x - 18.0
-	var text_h := FONT.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, text_w, 17).y + 6.0 * text.count("\n")
-	var h := clampf(text_h + 36.0, 72.0 if avatar else 60.0, 134.0)
-	var box := Rect2(14, 604 - h, 332, h)
-	var panel := Panel.new()
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.position = box.position
-	panel.size = box.size
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(SceneRunner.INK, 0.94) if dark else SceneRunner.PAPER
-	style.border_color = Color(SceneRunner.GOLD, 0.8) if dark else SceneRunner.WOOD
-	style.set_border_width_all(3)
-	panel.add_theme_stylebox_override("panel", style)
-	slots.add_child(panel)
-	if avatar:
-		var face := TextureRect.new()
-		face.texture = avatar
-		face.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		face.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		face.position = box.position + Vector2(14, 14)
-		face.size = Vector2(44, 44)
-		slots.add_child(face)
-	if named:
-		var tag := Label.new()
-		var who: String = SceneRunner.NAMES[speaker]
-		_style_label(tag, Rect2(box.position.x + x, box.position.y - 13, 26 + 14 * who.length(), 26), 14, SceneRunner.PAPER)
-		var tag_style := StyleBoxFlat.new()
-		tag_style.bg_color = SceneRunner.RED
-		tag_style.set_corner_radius_all(13)
-		tag.add_theme_stylebox_override("normal", tag_style)
-		tag.text = who
-		slots.add_child(tag)
-	_label(text, Rect2(box.position.x + x, box.position.y + 12, box.size.x - x - 18, box.size.y - 24), 17,
-		SceneRunner.PAPER if dark else SceneRunner.INK, true,
-		HORIZONTAL_ALIGNMENT_CENTER if dark else HORIZONTAL_ALIGNMENT_LEFT)
+	var caption := StoryCaption.new()
+	caption.text = text
+	caption.speaker = str(shot.get("speaker", "narrator")) if shot.type in ["dialogue", "invite"] else "narrator"
+	for actor: Dictionary in shot.visibleActors:
+		if actor.id == caption.speaker and actor.layer == "world":
+			var height: float = stage.person_height_at(stage._feet(actor).y)
+			caption.speaker_anchor = stage._feet(actor) - Vector2(0, height)
+	slots.add_child(caption)
 
 func _button(id: String, rect: Rect2, action: Callable) -> void:
 	var button := Button.new()

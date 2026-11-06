@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS All four original chat messages remain
+PASS Chat message stays within iPhone screen
+PASS Chat message stays within iPhone screen
+PASS Chat message stays within iPhone screen
+PASS Chat message stays within iPhone screen
+PASS Native 360x640 01-iphone-group
+PASS Native 360x640 02-world-narration
+PASS Native 360x640 03-world-dialogue
+PASS Native 360x640 04-iphone-incoming
+PASS Moved iPhone accept button receives viewport touch
+PASS Native 360x640 05-call-single-person-narration
+PASS Native 360x640 06-call-two-person-dialogue
+PASS Narration is at the top
+PASS Dialogue renders a light speech bubble above the speaker
+PASS Speaker action still receives viewport touch
+PASS Native 360x640 07-iphone-offer
+PASS Offer row still opens by viewport touch
+FAILURES 0

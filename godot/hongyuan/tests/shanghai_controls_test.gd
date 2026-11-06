@@ -38,7 +38,7 @@ func run() -> void:
 	check(p.stage.walk_frame == -1 and not p.moving, "Joystick release returns to idle immediately")
 	p.stage.player_feet = Vector2(104,451)
 	p._handle_tap(Vector2(263, 380))
-	check(not p.moving and p.shot.id == "board_car", "Far car tap does not move or trigger")
+	check(p.moving and p.shot.id == "board_car", "Far car tap approaches without triggering the interaction")
 	p._walk_to(Vector2(263,432), "")
 	for i in range(180): p._move(0.016)
 	check(p.shot.id == "board_car" and not p._nearby_hotspot().is_empty(), "Arrival never automatically triggers")

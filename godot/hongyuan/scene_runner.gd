@@ -10,6 +10,9 @@ signal scene_requested(path: String)
 
 const CANVAS := Vector2(360, 640)
 const S := 2.0 / 3.0
+const StoryCaption := preload("res://hongyuan/ui/story_caption.gd")
+const WorldScale := preload("res://hongyuan/world_scale.gd")
+const CoastShow := preload("res://hongyuan/coast_show.gd")
 const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const ROOT := "res://hongyuan/assets/"
 const SPEED := 126.0
@@ -26,6 +29,8 @@ const AVATARS := {"ayu": "ayu_avatar.png", "toretto": "toretto_avatar.png", "axi
 const CARD := Vector2(56, 120)
 const SLOTS := {"pen": Vector2(75, 305), "ink": Vector2(180, 305), "paper": Vector2(285, 305), "stamp": Vector2(77, 390), "wax": Vector2(180, 390), "envelope": Vector2(284, 393)}
 const GAMES := {
+	"desk_chat": preload("res://hongyuan/games/desk_chat.gd"),
+	"pandas": preload("res://hongyuan/games/pandas.gd"),
 	"fishing": preload("res://hongyuan/games/fishing.gd"),
 	"ringtoss": preload("res://hongyuan/games/ringtoss.gd"),
 	"fireworks": preload("res://hongyuan/games/fireworks.gd"),
@@ -47,6 +52,11 @@ var time := 0.0
 
 # 世界
 var bg := ""
+var bg_fit := false
+var player_role := "ayu"
+var scale_profile := ""
+var atmosphere := ""
+var atmosphere_elapsed := 0.0
 var bg_fill := Color("#2a1c18")
 var night := 0.0
 var sky := Color.TRANSPARENT
@@ -88,6 +98,8 @@ var button_text := ""
 var button_rect := Rect2()
 var choice_texts: Array = []
 var choice_to: Array = []
+var choice_note := ""
+var choice_note_t := 0.0
 var material_id := ""
 var game: RefCounted
 var result: Dictionary = {}
@@ -132,10 +144,21 @@ func begin(start := 0) -> void:
 
 
 func _apply_world(d: Dictionary) -> void:
+	if d.has("player"):
+		player_role = str(d.player)
 	if d.has("personHeight"):
 		person_height = float(d.personHeight)
 	if d.has("bg"):
 		bg = str(d.bg)
+		bg_fit = bool(d.get("bgFit", false))
+		scale_profile = WorldScale.profile("", bg)
+		atmosphere = ""
+		atmosphere_elapsed = 0.0
+	if d.has("scaleProfile"):
+		scale_profile = str(d.scaleProfile)
+	if d.has("atmosphere"):
+		atmosphere = str(d.atmosphere)
+		atmosphere_elapsed = 0.0
 	if d.has("fill"):
 		bg_fill = Color(str(d.fill))
 	if d.has("sky"):
@@ -251,7 +274,9 @@ func _next() -> void:
 func _process(dt: float) -> void:
 	dt = minf(dt, 0.08)
 	t += dt
+	choice_note_t = maxf(0.0, choice_note_t - dt)
 	time += dt
+	if atmosphere != "": atmosphere_elapsed += dt
 	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
 	match mode:
 		"say", "auto":
@@ -342,6 +367,8 @@ func _arrive_at(id: String, _instant: bool) -> void:
 func _icon_rect(id: String) -> Rect2:
 	var h: Dictionary = hotspots[id]
 	var at := _v(h.at)
+	if h.has("iconAt"):
+		return Rect2(_v(h.iconAt) - Vector2(22, 22), Vector2(44, 44))
 	return Rect2(at.x - 22, at.y - 112, 44, 44)
 
 
@@ -404,7 +431,13 @@ func _gui_input(event: InputEvent) -> void:
 						var to := str(choice_to[i]) if i < choice_to.size() and choice_to[i] != null else ""
 						if to == "":
 							_next()
+						elif not ResourceLoader.exists(to):
+							# 这个包里没有村子（Web 试玩包）：给提示，不卡住
+							choice_note = _text("G-VILLAGE-LATER")
+							choice_note_t = 3.0
 						else:
+							choice_note = _text("G-VILLAGE-GO")
+							choice_note_t = 30.0
 							scene_requested.emit(to)
 						return
 		"button":
@@ -448,6 +481,7 @@ func _reset_input() -> void:
 func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO, CANVAS), bg_fill)
 	_draw_bg()
+	if atmosphere == "coast": CoastShow.draw(self, atmosphere_elapsed)
 	_draw_world()
 	if night > 0.0:
 		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.05, 0.04, 0.12, night))
@@ -472,6 +506,8 @@ func _draw() -> void:
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			for i in range(choice_texts.size()):
 				_pill(_choice_rect(i), choice_texts[i], 19, RED if i == 0 else Color(INK, 0.85), PAPER)
+			if choice_note_t > 0.0:
+				_pill(Rect2(20, 400, 320, 40), choice_note, 15, Color(INK, 0.9), WHEAT)
 		"button":
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			_pill(button_rect, button_text, 20, RED, PAPER)
@@ -494,7 +530,7 @@ func _draw_bg() -> void:
 	if not tex:
 		return
 	var sz := tex.get_size() * S
-	draw_texture_rect(tex, Rect2(((CANVAS - sz) * 0.5).round(), sz), false)
+	draw_texture_rect(tex, Rect2(Vector2.ZERO, CANVAS) if bg_fit else Rect2(((CANVAS - sz) * 0.5).round(), sz), false)
 
 
 func _draw_world() -> void:
@@ -508,8 +544,9 @@ func _draw_world() -> void:
 		items.append({"y": feet.y, "player": true})
 	if follower != "" and player_visible:
 		# 箱子拉杆握在手里：贴着身后走，不再落后一截
-		var fp := feet + Vector2(-24 * facing, 0)
-		items.append({"y": feet.y - 1, "tex": follower, "at": fp, "flip": facing < 0, "scale": 1.0, "roll": true})
+		var k := person_height_at(feet.y) / person_height
+		var fp := feet + Vector2(-24 * facing * k, 0)
+		items.append({"y": feet.y - 1, "tex": follower, "at": fp, "flip": facing < 0, "scale": k, "roll": true})
 	items.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.y < b.y)
 	for it: Dictionary in items:
 		if it.has("player"):
@@ -527,12 +564,16 @@ func _draw_world() -> void:
 				draw_circle(p + Vector2(6, -3), 2.5, INK)
 
 
-func _draw_player() -> void:
+func _player_frame() -> String:
 	var walking := mode == "go" and (moving or stick.length() > 0.08) and move_dir.length() > 0.01
 	var name := "ayu_idle.png"
-	var flip := facing < 0
-	var bob := 0.0
-	if pose != "" and not walking:
+	if player_role == "toretto":
+		name = "w2/common/toretto_neutral_r2.png"
+		if walking:
+			name = "w2/common/toretto_walk.png" if int(walk_dist / 10.0) % 2 == 0 else "w2/common/toretto_neutral_r2.png"
+		elif pose != "":
+			name = {"gifts": "w2/common/toretto_gifts_r2.png", "sit": "w2/common/toretto_sit.png", "back": "w2/common/toretto_back_r2.png"}.get(pose, pose)
+	elif pose != "" and not walking:
 		name = {"sit": "w2/shizuoka/ayu_sit.png|ayu_idle.png", "fishing": "w2/shizuoka/ayu_fish_hold.png|w2/common/ayu_fishing.png", "throw": "w2/hainan/ayu_throw_hold.png|w2/common/ayu_throw.png", "cheer": "w2/common/ayu_cheer.png", "back": "w2/common/ayu_idle_back.png|ayu_idle.png"}.get(pose, pose)
 		if pose == "surprised": name = "w2/common/ayu_surprised.png|ayu_idle.png"
 	elif walking:
@@ -542,10 +583,15 @@ func _draw_player() -> void:
 			name = "w2/common/ayu_walk_%s_%d.png|w2/common/ayu_walk_side_%d.png|%s" % [dirn, f, f, "ayu_walk.png" if f % 2 == 1 else "ayu_idle.png"]
 		else:
 			name = "w2/common/ayu_walk_side_%d.png|%s" % [f, "ayu_walk.png" if f % 2 == 1 else "ayu_idle.png"]
-		bob = -1.0 if f % 2 == 0 else 0.0
 	if follower != "" and walking:
 		name = "w2/hongkong/ayu_drag_side_%d.png|%s" % [1 + int(walk_dist / 10.0) % 4, name]
-	sprite(name, feet + Vector2(0, bob), flip)
+	return name
+
+
+func _draw_player() -> void:
+	var walking := mode == "go" and (moving or stick.length() > 0.08) and move_dir.length() > 0.01
+	var bob := -1.0 if walking and int(walk_dist / 10.0) % 2 == 0 else 0.0
+	sprite(_player_frame(), feet + Vector2(0, bob), facing < 0, 1.0, feet.y)
 
 
 func _draw_go_ui() -> void:
@@ -574,27 +620,16 @@ func _draw_go_ui() -> void:
 
 
 func _draw_say() -> void:
-	# 框高跟着整句字数走（按全文算，逐字显示时框不跳）
-	var x0 := 70.0 if say_who != "narrator" and texture(AVATARS.get(say_who, "")) else 18.0
-	var th := FONT.get_multiline_string_size(say_text, HORIZONTAL_ALIGNMENT_LEFT, 332.0 - x0 - 18.0, 16).y
-	var bh := clampf(th + 40.0, 72.0 if x0 > 18.0 else 60.0, 134.0)
-	var box := Rect2(14, 604 - bh, 332, bh)
-	var shown := say_text.substr(0, int(reveal))
-	if say_who == "narrator":
-		_panel(box, Color(INK, 0.94), Color(GOLD, 0.8))
-		draw_multiline_string(FONT, box.position + Vector2(18, 32), shown, HORIZONTAL_ALIGNMENT_CENTER, box.size.x - 36, 16, -1, PAPER)
-	else:
-		_panel(box, PAPER, WOOD)
-		var av := texture(AVATARS.get(say_who, ""))
-		var x := 18.0
-		if av:
-			draw_texture_rect(av, Rect2(box.position + Vector2(14, 14), Vector2(44, 44)), false)
-			x = 70.0
-		_pill(Rect2(box.position.x + x, box.position.y - 12, 26 + 14 * NAMES.get(say_who, say_who).length(), 26), NAMES.get(say_who, say_who), 14, RED, PAPER)
-		draw_multiline_string(FONT, box.position + Vector2(x, 36), shown, HORIZONTAL_ALIGNMENT_LEFT, box.size.x - x - 18, 16, -1, INK)
-	if reveal >= say_text.length() and mode == "say":
-		var a := 0.5 + sin(time * 5.0) * 0.5
-		draw_colored_polygon(PackedVector2Array([box.end - Vector2(26, 22), box.end - Vector2(14, 22), box.end - Vector2(20, 14)]), Color(GOLD, a))
+	StoryCaption.draw_caption(self, say_text, say_who, int(reveal), reveal >= say_text.length() and mode == "say", _speaker_anchor(say_who))
+
+
+func _speaker_anchor(who: String) -> Vector2:
+	if who == player_role and player_visible:
+		return feet - Vector2(0, person_rect(_player_frame(), feet).size.y)
+	if actors.has(who) and not actors[who].get("hidden", false):
+		var a: Dictionary = actors[who]
+		return _v(a.at) - Vector2(0, person_rect(str(a.tex), _v(a.at), float(a.get("scale", 1))).size.y)
+	return Vector2(-1, -1)
 
 
 func _draw_card() -> void:
@@ -681,7 +716,7 @@ func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
 # ---------- 快速浏览：小游戏和走路 10 秒后出「下一步」，不能整章跳过 ----------
 const SKIP_RECT := Rect2(268, 96, 80, 28)
 const SKIP_AFTER := 10.0
-const NO_SKIP := ["call", "finale", "seat"]  # 来电对白不能删；终章要玩家自己填名字入席
+const NO_SKIP := ["call", "desk_chat", "finale", "seat"]  # 来电对白不能删；终章要玩家自己填名字入席
 
 
 func _choice_rect(i: int) -> Rect2:
@@ -729,24 +764,31 @@ func texture(name: String) -> Texture2D:
 	return null
 
 
-func sprite(name: String, at: Vector2, flip := false, scale_k := 1.0) -> bool:
+func person_height_at(floor_y: float) -> float:
+	return WorldScale.height_at(scale_profile, floor_y, person_height)
+
+
+func person_rect(name: String, at: Vector2, scale_k := 1.0, depth_y := NAN) -> Rect2:
+	var tex := texture(name)
+	if not tex: return Rect2(at, Vector2.ZERO)
+	if not used_rects.has(tex): used_rects[tex] = WorldScale.visible_rect(tex)
+	var height := person_height_at(at.y if is_nan(depth_y) else depth_y) * scale_k
+	var local := WorldScale.local_rect(tex.resource_path, tex.get_width(), used_rects[tex], height)
+	return Rect2(at + local.position, local.size)
+
+
+func sprite(name: String, at: Vector2, flip := false, scale_k := 1.0, depth_y := NAN) -> bool:
 	var tex := texture(name)
 	if not tex:
 		return false
 	var person := "ayu_" in name or "toretto_" in name or "axiao_" in name
 	if person:
-		if not used_rects.has(tex):
-			used_rects[tex] = tex.get_image().get_used_rect()
+		var rect := person_rect(name, at, scale_k, depth_y)
 		var used: Rect2 = Rect2(used_rects[tex])
 		if used.size.y > 0:
-			# 192 opaque pixels in standing frames; seated poses keep their shorter height.
-			var height := person_height * used.size.y / 192.0 * scale_k
-			var k := height / used.size.y
-			var sz_person := used.size * k
-			_shadow(at, sz_person.x * 0.28)
+			_shadow(at, rect.size.x * 0.28)
 			draw_set_transform(at, 0, Vector2(-1, 1) if flip else Vector2.ONE)
-			var origin := Vector2((used.position.x - tex.get_width() * 0.5) * k, -height)
-			draw_texture_rect_region(tex, Rect2(origin, sz_person), used)
+			draw_texture_rect_region(tex, Rect2(rect.position - at, rect.size), used)
 			draw_set_transform(Vector2.ZERO)
 			return true
 	var sz := tex.get_size() * S * scale_k
@@ -794,11 +836,11 @@ func _text(id: String) -> String:
 
 
 static var _unit_re: RegEx
-## 「24 年」「10 个月」：数字和后面的字之间换成不断行空格，免得断成两行
+## 「24 年」「10 个月」：数字和后面的字之间去掉空格：Web 包会在任何空格（含不断行空格）处折行
 static func keep_units(s: String) -> String:
 	if _unit_re == null:
 		_unit_re = RegEx.create_from_string("(\\d) (?=[\\x{4e00}-\\x{9fff}])")
-	return _unit_re.sub(s, "$1\u00a0", true)
+	return _unit_re.sub(s, "$1", true)
 
 
 func t_(id: String) -> String:
@@ -835,12 +877,13 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
 const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
-	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on"]
+	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on", "chat_scroll",
+	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
 		"target": [target.x, target.y], "moving": moving, "walk_dist": walk_dist,
-		"pose": pose, "t": t, "reveal": reveal, "result": result.duplicate(true), "trail": []}
+		"pose": pose, "t": t, "reveal": reveal, "result": result.duplicate(true), "trail": [], "atmosphere_elapsed": atmosphere_elapsed}
 	for p: Vector2 in trail:
 		saved.trail.append([p.x, p.y])
 	if game:
@@ -866,6 +909,7 @@ func restore(saved: Dictionary) -> void:
 	walk_dist = float(saved.get("walk_dist", 0))
 	pose = str(saved.get("pose", pose))
 	t = float(saved.get("t", 0))
+	atmosphere_elapsed = float(saved.get("atmosphere_elapsed", 0))
 	reveal = float(saved.get("reveal", 0))
 	result = saved.get("result", {}).duplicate(true)
 	trail.clear()

@@ -85,16 +85,16 @@
       "go": "boat"
      },
      {
-      "personHeight": 128,
+      "personHeight": 180,
       "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png",
       "walkArea": [
        [
         30,
-        418
+        440
        ],
        [
         330,
-        418
+        440
        ],
        [
         340,
@@ -106,17 +106,17 @@
        ]
       ],
       "start": [
-       300,
+       284,
        570
       ],
       "pose": "",
       "actors": [
        {
         "id": "toretto",
-        "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png",
+        "tex": "w2/common/toretto_sit.png",
         "at": [
-         160,
-         408
+         142,
+         430
         ]
        }
       ],
@@ -124,18 +124,22 @@
        {
         "id": "seat",
         "at": [
-         228,
-         418
+         220,
+         440
         ],
         "snap": [
-         228,
-         408
+         220,
+         430
         ],
         "face": -1,
         "pose": "sit",
         "icon": "sit"
        }
       ]
+     },
+     {
+      "go": "seat",
+      "hint": "A4-P3"
      },
      {
       "say": "A4-2a",
@@ -160,10 +164,6 @@
      {
       "say": "A4-2f",
       "who": "toretto"
-     },
-     {
-      "go": "seat",
-      "hint": "A4-P3"
      },
      {
       "narrate": "A4-2g"

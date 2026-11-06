@@ -3909,6 +3909,239 @@
         "evidence": "回执/W2工位/D4/M21-R4-2026-11-05/",
         "handoff": "回执/W2工位/D2/美术交付-2026-11-05-C-M21.md"
       }
+    },
+    "w2/call/bg_cbd_office_r2.png": {
+      "file": "w2/call/bg_cbd_office_r2.png",
+      "card": "D2-K2",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; 阿鱼11/06要求上海CBD办公室中景",
+      "usedIn": "Toretto办公室收到蛋糕、两束蓝花与手机聊天",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "4ed05dee961f7a45deb6947b1eae8da58050accf1f6f24741da87b4c569a04f0"
+    },
+    "w2/call/bg_cbd_window_chat_r3.png": {
+      "file": "w2/call/bg_cbd_window_chat_r3.png",
+      "card": "D2-K2",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; 阿鱼11/06要求Toretto站办公室窗前拿iPhone给阿鱼发微信",
+      "usedIn": "蛋糕与两束蓝花之后的A3-2l～2p微信对话；Toretto已烘焙，禁叠立绘/头像",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "bakedActors": [
+        "toretto"
+      ],
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "3e1e0ebb9fb9c665d617af4d6c9c0ba9a1b21ee89b9e9ced5256832c54638dcf"
+    },
+    "w2/common/toretto_neutral_r2.png": {
+      "file": "w2/common/toretto_neutral_r2.png",
+      "card": "D2-UI2",
+      "dimensions": [
+        984,
+        1599
+      ],
+      "anchor": [
+        505,
+        1518
+      ],
+      "origin": "built-in image_gen; 阿鱼要求按场景切换动作，不总扶眼镜",
+      "usedIn": "自然站姿/办公室看礼物/背身看海",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "542f61dcea751fcf3ddee06a54be787b5a04149e1612044942c84b1eee937517",
+      "contentRect": [
+        299,
+        61,
+        412,
+        1457
+      ],
+      "contentAlphaThreshold": 16
+    },
+    "w2/common/toretto_gifts_r2.png": {
+      "file": "w2/common/toretto_gifts_r2.png",
+      "card": "D2-UI2",
+      "dimensions": [
+        984,
+        1599
+      ],
+      "anchor": [
+        462.5,
+        1525
+      ],
+      "origin": "built-in image_gen; 阿鱼要求按场景切换动作，不总扶眼镜",
+      "usedIn": "自然站姿/办公室看礼物/背身看海",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "5eeed65b28574c9923f7b516c38162b22fb8aa88adda57835f7098549a4b7b4a",
+      "contentRect": [
+        251,
+        66,
+        546,
+        1459
+      ],
+      "contentAlphaThreshold": 16
+    },
+    "w2/common/toretto_back_r2.png": {
+      "file": "w2/common/toretto_back_r2.png",
+      "card": "D2-UI2",
+      "dimensions": [
+        984,
+        1599
+      ],
+      "anchor": [
+        491.5,
+        1522
+      ],
+      "origin": "built-in image_gen; 阿鱼要求按场景切换动作，不总扶眼镜",
+      "usedIn": "自然站姿/办公室看礼物/背身看海",
+      "status": "pendingReview",
+      "generationAttempt": 1,
+      "review": {
+        "D4": "待判",
+        "D1": "待核"
+      },
+      "sha256": "37e8d28cdf4dd3489b9694d85e234aa969ba0fd7c1d2e56b4899562441274609",
+      "contentRect": [
+        299,
+        64,
+        386,
+        1458
+      ],
+      "contentAlphaThreshold": 16
+    },
+    "w2/hainan/bg_wenchang_memory_r2.png": {
+      "file": "w2/hainan/bg_wenchang_memory_r2.png",
+      "card": "D2-H2",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; Ayu requested a lively public beach memory with distant launch base",
+      "usedIn": "Hainan continuous fireworks memory; crowd baked, couple drawn separately",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "e5896bfb68dacc17696c659bad55cf6e78f18a36cb7c841517bb3e3a7f7cc587"
+    },
+    "w2/shizuoka/bg_onsen_sunset.png": {
+      "file": "w2/shizuoka/bg_onsen_sunset.png",
+      "card": "D2-J3",
+      "dimensions": [
+        540,
+        960
+      ],
+      "origin": "D3 revised sunset sample",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "b4400f51f36250623e2aa340a2c91414f4290468809eee85a3aa1b32bc8f62b6"
+    },
+    "w2/shizuoka/bg_onsen_dusk_r2.png": {
+      "file": "w2/shizuoka/bg_onsen_dusk_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "2e1fbb7f8bcb1521e206a09593556a2092034b67ae253117d104fc6c0770260a"
+    },
+    "w2/shizuoka/bg_onsen_night_r2.png": {
+      "file": "w2/shizuoka/bg_onsen_night_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "bc873be8028658565da52a78b288e8bd48b095d55363ee24f668731563d85383"
+    },
+    "w2/shizuoka/ayu_onsen_r2.png": {
+      "file": "w2/shizuoka/ayu_onsen_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        1312,
+        1199
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "5d81cce523d29b4fa4ab7c7d5224c28181606765d547aeef5894dff54894aaeb"
+    },
+    "w2/shizuoka/toretto_onsen_r2.png": {
+      "file": "w2/shizuoka/toretto_onsen_r2.png",
+      "card": "D2-J3",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "origin": "built-in image_gen; matching time-of-day or bathing pose",
+      "usedIn": "Intended seaside onsen A4-2a to h; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "ee48d2bf3a0e6eee6713ed7a3fec0a97e0a99a3034ce499052e9bf9e181b88cc"
+    },
+    "w2/hongkong/bg_disney_memory_r1.png": {
+      "file": "w2/hongkong/bg_disney_memory_r1.png",
+      "card": "D2-HO / D3-G3",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "origin": "built-in image_gen; exec-e2ae6ca3-c121-4418-be19-0729fe70bfc0.png",
+      "usedIn": "Intended Hong Kong Disneyland memory; art only, not connected to runtime",
+      "status": "pendingReview",
+      "review": {
+        "D4": "pending",
+        "D1": "pending"
+      },
+      "sha256": "edcf7401a824de04929a0d14c0ce9ba47099e35cfc594e3e38e1877ff093cc87"
     }
   },
   "palette": {

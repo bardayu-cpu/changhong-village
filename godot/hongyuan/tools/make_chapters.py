@@ -1,4 +1,4 @@
-"""生成第三章到终章的章节 JSON（可操控场景）。剧情文字只引用 copy.json 的编号。"""
+"""生成成都到终章的章节 JSON。剧情文字只引用 copy.json 的编号。"""
 import json, os
 D = os.path.join(os.path.dirname(__file__), "..", "chapters")
 
@@ -14,6 +14,30 @@ def auto(k, s=2.6): return {"narrate": k, "auto": s}
 def write(cid, title, steps):
     json.dump({"chapterId": cid, "titleId": title, "steps": steps}, open(os.path.join(D, cid + ".json"), "w"), ensure_ascii=False, indent=1)
 
+def legacy(id, kind, sid, background, actors=None, **fields):
+    return {"id": id, "type": kind, "sceneId": sid, "speaker": "narrator" if kind == "narration" else "system",
+            "actorMode": "none", "actorSlot": None, "background": background, "visibleActors": actors or [], **fields}
+
+# Keep legacy step IDs so existing Chengdu saves still resume at the same story boundary.
+# Only the former single-panda walk is replaced; mid-feed group messages belong to D2-C2.
+CHENGDU_ACTORS = [{"id": "ayu", "mode": "sprite", "slot": "left", "layer": "world"},
+                  {"id": "panda", "mode": "sprite", "slot": "right", "layer": "world"}]
+write("chengdu", "G-07", [
+    legacy("chengdu_return", "narration", "chengdu_day", "chengdu", CHENGDU_ACTORS, copyId="A2-1a", duration=3.7),
+    legacy("chengdu_routine", "narration", "chengdu_day", "chengdu", CHENGDU_ACTORS, copyId="A2-1b", duration=5.2),
+    scene("chengdu_walk", "chengdu_day", {
+        "bg": "w2/chengdu/bg_base.png", "badge": "G-02", "personHeight": 88,
+        "walkArea": [[25, 362], [335, 362], [335, 535], [25, 535]], "start": [240, 523],
+        "beats": [{"game": "pandas"}],
+    }),
+    legacy("chengdu_ping", "notification", "chengdu_phone", "phone", copyId="A2-2"),
+    legacy("chengdu_group", "phone", "chengdu_phone", "phone", [
+        {"id": "axiao", "mode": "sprite", "slot": "left", "layer": "phone"},
+        {"id": "toretto", "mode": "sprite", "slot": "left", "layer": "phone"},
+        {"id": "ayu", "mode": "sprite", "slot": "right", "layer": "phone"}], duration=2.4, groupId="A1-G0"),
+    legacy("ink", "material", "invitation", "invitation", duration=2.25, materialId="ink"),
+])
+
 ROOM_AREA = [[150, 372], [282, 368], [282, 445], [350, 452], [350, 620], [20, 620], [20, 470], [150, 462]]
 write("call", "G-08", [scene("night_call", "call_room", {
     "badge": "G-02", "bg": "w2/call/bg_room_night.png|l3_computer.webp", "fill": "#1a120e", "night": 0.0,
@@ -27,8 +51,21 @@ write("call", "G-08", [scene("night_call", "call_room", {
         {"game": "call", "aside": "A3-D1", "lines": [
             {"say": "A3-2a"}, {"say": "A3-2b"}, {"say": "A3-2c"}, {"say": "A3-2d", "who": "toretto"},
             {"say": "A3-2e", "who": "ayu"}, {"say": "A3-2f"}, {"say": "A3-2g", "who": "ayu"}, {"say": "A3-2h", "who": "toretto"}]},
-        {"bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png", "night": 0.0, "hideAyu": True, "actors": [], "hotspots": []},
-        N("A3-2i"), T("A3-2j"), N("A3-2k"), T("A3-2l"), A("A3-2m"), T("A3-2n"), T("A3-2o"), A("A3-2p"),
+        {"bg": "w2/call/bg_cbd_office_r2.png", "bgFit": True, "personHeight": 160,
+         "night": 0.0, "badge": "", "hideAyu": False, "player": "toretto", "pose": "", "actors": [],
+         "start": [65, 540], "walkArea": [[48, 432], [318, 432], [318, 568], [48, 568]],
+         "hotspots": [
+             {"id": "cake", "at": [94, 440], "snap": [94, 440], "face": 1, "pose": "gifts", "icon": "pick", "iconAt": [194, 289]},
+             {"id": "flowers", "at": [94, 440], "icon": "pick", "iconAt": [260, 247]},
+             {"id": "desk_phone", "at": [94, 440], "icon": "phone", "iconAt": [150, 300]}]},
+        N("A3-2i"),
+        {"go": "cake", "hint": "G-DESK-APPROACH"}, T("A3-2j"),
+        {"go": "flowers", "hint": "G-DESK-FLOWERS"}, N("A3-2k"),
+        {"go": "desk_phone", "hint": "G-DESK-PHONE"},
+        {"hint": "", "bg": "w2/call/bg_cbd_window_chat_r3.png", "bgFit": True,
+         "hideAyu": True, "actors": [], "hotspots": []},
+        {"game": "desk_chat", "lines": [T("A3-2l"), A("A3-2m"), T("A3-2n"), T("A3-2o"), A("A3-2p")]},
+        {"player": "ayu", "hideAyu": True, "actors": [], "hotspots": [], "pose": ""},
         {"bg": "", "fill": "#2a1414", "badge": "G-02"},
         auto("A3-2q"), auto("A3-2r"), auto("A3-2s"), auto("A3-2t"), auto("A3-3a"), auto("A3-3b"),
         {"material": "paper"},
@@ -46,12 +83,12 @@ write("shizuoka", "G-09", [scene("pier", "shizuoka", {
         {"go": "spot", "hint": "A4-P1"},
         {"game": "fishing"},
         {"go": "boat"},
-        {"personHeight": 128, "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png", "walkArea": [[30, 418], [330, 418], [340, 620], [20, 620]],
-         "start": [300, 570], "pose": "",
-         "actors": [{"id": "toretto", "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png", "at": [160, 408]}],
-         "hotspots": [{"id": "seat", "at": [228, 418], "snap": [228, 408], "face": -1, "pose": "sit", "icon": "sit"}]},
-        T("A4-2a"), A("A4-2b"), T("A4-2c"), T("A4-2d"), T("A4-2e"), T("A4-2f"),
+        {"personHeight": 180, "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png", "walkArea": [[30, 440], [330, 440], [340, 620], [20, 620]],
+         "start": [284, 570], "pose": "",
+         "actors": [{"id": "toretto", "tex": "w2/common/toretto_sit.png", "at": [142, 430]}],
+         "hotspots": [{"id": "seat", "at": [220, 440], "snap": [220, 430], "face": -1, "pose": "sit", "icon": "sit"}]},
         {"go": "seat", "hint": "A4-P3"},
+        T("A4-2a"), A("A4-2b"), T("A4-2c"), T("A4-2d"), T("A4-2e"), T("A4-2f"),
         N("A4-2g"), A("A4-2h"),
         {"card": "A4-T1", "duration": 1.8},
         {"bg": "w2/shizuoka/bg_cert.png", "fill": "#5e2929", "actors": [], "hideAyu": True, "hotspots": []},
@@ -70,13 +107,13 @@ write("hainan", "G-10", [scene("wanning", "hainan", {
         {"go": "stall", "hint": "A5-P1"},
         {"game": "ringtoss"},
         {"card": "A5-T1", "duration": 1.6},
-        {"personHeight": 120, "bg": "w2/hainan/bg_wenchang_night.png", "sky": "#141a3a", "ground": "#22202e", "horizon": 470,
-         "decor": [{"r": [0, 462, 360, 10], "c": "#2c3a5a"}],
-         "place": [150, 585], "pose": "back",
-         "actors": [{"id": "toretto", "tex": "w2/common/toretto_stand.png", "at": [215, 587]}], "hotspots": []},
+        {"personHeight": 112, "bg": "w2/hainan/bg_wenchang_memory_r2.png", "bgFit": True,
+         "scaleProfile": "beach_memory", "atmosphere": "coast", "badge": "", "decor": [],
+         "place": [151, 565], "pose": "back",
+         "actors": [{"id": "toretto", "tex": "w2/common/toretto_back_r2.png", "at": [199, 565]}], "hotspots": []},
         N("A5-2"), T("A5-3a"), A("A5-3b"),
-        {"game": "fireworks", "count": 5},
-        {"pose": ""},
+        {"wait": 8.0},
+        {"pose": "", "atmosphere": ""},
         {"material": "wax"},
     ]})])
 
@@ -95,7 +132,7 @@ write("hongkong", "G-11", [scene("hk", "hongkong", {
          "hideAyu": False, "start": [50, 590], "follow": "w2/hongkong/suitcase_1.png",
          "walkArea": [[20, 380], [345, 380], [345, 615], [20, 615]],
          "actors": [{"id": "gate", "tex": "w2/hongkong/exit_gate.png", "at": [300, 400]}],
-         "hotspots": [{"id": "exit", "at": [300, 405], "snap": [300, 402], "icon": "exit"}]},
+         "hotspots": [{"id": "exit", "at": [300, 405], "snap": [300, 402], "icon": "exit", "iconAt": [300, 262]}]},
         {"go": "exit", "hint": "A6-P3"},
         {"follow": ""},
         {"material": "envelope"},

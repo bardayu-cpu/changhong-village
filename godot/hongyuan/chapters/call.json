@@ -130,41 +130,143 @@
       ]
      },
      {
-      "bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png",
+      "bg": "w2/call/bg_cbd_office_r2.png",
+      "bgFit": true,
+      "personHeight": 160,
       "night": 0.0,
-      "hideAyu": true,
+      "badge": "",
+      "hideAyu": false,
+      "player": "toretto",
+      "pose": "",
       "actors": [],
-      "hotspots": []
+      "start": [
+       65,
+       540
+      ],
+      "walkArea": [
+       [
+        48,
+        432
+       ],
+       [
+        318,
+        432
+       ],
+       [
+        318,
+        568
+       ],
+       [
+        48,
+        568
+       ]
+      ],
+      "hotspots": [
+       {
+        "id": "cake",
+        "at": [
+         94,
+         440
+        ],
+        "snap": [
+         94,
+         440
+        ],
+        "face": 1,
+        "pose": "gifts",
+        "icon": "pick",
+        "iconAt": [
+         194,
+         289
+        ]
+       },
+       {
+        "id": "flowers",
+        "at": [
+         94,
+         440
+        ],
+        "icon": "pick",
+        "iconAt": [
+         260,
+         247
+        ]
+       },
+       {
+        "id": "desk_phone",
+        "at": [
+         94,
+         440
+        ],
+        "icon": "phone",
+        "iconAt": [
+         150,
+         300
+        ]
+       }
+      ]
      },
      {
       "narrate": "A3-2i"
+     },
+     {
+      "go": "cake",
+      "hint": "G-DESK-APPROACH"
      },
      {
       "say": "A3-2j",
       "who": "toretto"
      },
      {
+      "go": "flowers",
+      "hint": "G-DESK-FLOWERS"
+     },
+     {
       "narrate": "A3-2k"
      },
      {
-      "say": "A3-2l",
-      "who": "toretto"
+      "go": "desk_phone",
+      "hint": "G-DESK-PHONE"
      },
      {
-      "say": "A3-2m",
-      "who": "ayu"
+      "hint": "",
+      "bg": "w2/call/bg_cbd_window_chat_r3.png",
+      "bgFit": true,
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": []
      },
      {
-      "say": "A3-2n",
-      "who": "toretto"
+      "game": "desk_chat",
+      "lines": [
+       {
+        "say": "A3-2l",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2m",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2n",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2o",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2p",
+        "who": "ayu"
+       }
+      ]
      },
      {
-      "say": "A3-2o",
-      "who": "toretto"
-     },
-     {
-      "say": "A3-2p",
-      "who": "ayu"
+      "player": "ayu",
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": [],
+      "pose": ""
      },
      {
       "bg": "",

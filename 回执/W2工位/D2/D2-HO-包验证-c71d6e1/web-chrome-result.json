@@ -1,0 +1,728 @@
+{
+  "version": "Chrome/156.0.8078.80",
+  "state": {
+    "title": "红缘大冒险",
+    "statusVisible": false,
+    "canvas": [
+      360,
+      640
+    ]
+  },
+  "errors": [],
+  "events": [
+    {
+      "method": "Target.attachedToTarget",
+      "params": {
+        "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E",
+        "targetInfo": {
+          "targetId": "BFAF33E1265B6A79A88A02460D12A16D",
+          "type": "page",
+          "title": "",
+          "url": "about:blank",
+          "attached": true,
+          "canAccessOpener": false,
+          "browserContextId": "E7D1075E7351D3C0016E73BC211DFDAB"
+        },
+        "waitingForDebugger": false
+      }
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "BFAF33E1265B6A79A88A02460D12A16D"
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 1,
+          "origin": "://",
+          "name": "",
+          "uniqueId": "1014832006391486219.-3707454308305931598",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "BFAF33E1265B6A79A88A02460D12A16D"
+          }
+        }
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.frameResized",
+      "params": {},
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "BFAF33E1265B6A79A88A02460D12A16D",
+        "url": "http://127.0.0.1:8876/",
+        "loaderId": "1B7F4A20E317D1BF06D8E2DFB341D38A",
+        "navigationType": "differentDocument"
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "BFAF33E1265B6A79A88A02460D12A16D"
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.executionContextsCleared",
+      "params": {},
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.executionContextsCleared",
+      "params": {},
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "id": "BFAF33E1265B6A79A88A02460D12A16D",
+          "loaderId": "1B7F4A20E317D1BF06D8E2DFB341D38A",
+          "url": "http://127.0.0.1:8876/",
+          "domainAndRegistry": "",
+          "securityOrigin": "http://127.0.0.1:8876",
+          "securityOriginDetails": {
+            "isLocalhost": true
+          },
+          "mimeType": "text/html",
+          "adFrameStatus": {
+            "adFrameType": "none"
+          },
+          "secureContextType": "SecureLocalhost",
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "gatedAPIFeatures": []
+        },
+        "type": "Navigation"
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.executionContextCreated",
+      "params": {
+        "context": {
+          "id": 2,
+          "origin": "http://127.0.0.1:8876",
+          "name": "",
+          "uniqueId": "-6477369947138740425.2806005815133479171",
+          "auxData": {
+            "isDefault": true,
+            "type": "default",
+            "frameId": "BFAF33E1265B6A79A88A02460D12A16D"
+          }
+        }
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 334118.720743
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 334118.720899
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "BFAF33E1265B6A79A88A02460D12A16D"
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+          }
+        ],
+        "executionContextId": 2,
+        "timestamp": 1794007527017.353,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$func11398",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7266240
+            },
+            {
+              "functionName": "$func19445",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12571717
+            },
+            {
+              "functionName": "$func19276",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12006131
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14673507
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+          }
+        ],
+        "executionContextId": 2,
+        "timestamp": 1794007527236.94,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$func11398",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7266240
+            },
+            {
+              "functionName": "$func67330",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 33423250
+            },
+            {
+              "functionName": "$func18713",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 11533001
+            },
+            {
+              "functionName": "$func44351",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 28048621
+            },
+            {
+              "functionName": "$func19276",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 12170440
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14673507
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    },
+    {
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "type": "log",
+        "args": [
+          {
+            "type": "string",
+            "value": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+          }
+        ],
+        "executionContextId": 2,
+        "timestamp": 1794007527492.456,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "functionName": "onPrint",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 451,
+              "columnNumber": 15
+            },
+            {
+              "functionName": "put_char",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11897
+            },
+            {
+              "functionName": "write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 11651
+            },
+            {
+              "functionName": "write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 45725
+            },
+            {
+              "functionName": "doWritev",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95170
+            },
+            {
+              "functionName": "_fd_write",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 95401
+            },
+            {
+              "functionName": "$func28365",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 21791337
+            },
+            {
+              "functionName": "$func14710",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9030726
+            },
+            {
+              "functionName": "$func2212",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 1474726
+            },
+            {
+              "functionName": "$func15679",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 9707024
+            },
+            {
+              "functionName": "$func11022",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 7076981
+            },
+            {
+              "functionName": "$func8580",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 5109997
+            },
+            {
+              "functionName": "$func37407",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25085004
+            },
+            {
+              "functionName": "$func37406",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 25084881
+            },
+            {
+              "functionName": "$func777",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 542611
+            },
+            {
+              "functionName": "$func16612",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 10365716
+            },
+            {
+              "functionName": "$func633",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 459077
+            },
+            {
+              "functionName": "$rf",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 14678681
+            },
+            {
+              "functionName": "$sf",
+              "scriptId": "5",
+              "url": "wasm://wasm/096bca0a",
+              "lineNumber": 0,
+              "columnNumber": 29371575
+            },
+            {
+              "functionName": "callMain",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 0,
+              "columnNumber": 249806
+            },
+            {
+              "functionName": "",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 797,
+              "columnNumber": 26
+            },
+            {
+              "functionName": "",
+              "scriptId": "3",
+              "url": "http://127.0.0.1:8876/index.js",
+              "lineNumber": 792,
+              "columnNumber": 12
+            }
+          ]
+        }
+      },
+      "sessionId": "0C17548CE77DA9CBF4D0516EBB7B871E"
+    }
+  ]
+}

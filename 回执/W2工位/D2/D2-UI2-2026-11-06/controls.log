@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Shanghai controlled walk
+PASS Lower-left drag moves with polygon constraint
+PASS Joystick release returns to idle immediately
+PASS Far car tap approaches without triggering the interaction
+PASS Arrival never automatically triggers
+PASS Explicit nearby icon boards car
+PASS Current driving waits for explicit start
+PASS Current driving accepts swipe
+PASS Collision slows without failure
+PASS Dialogue preserves feet
+PASS Dialogue hides movement and interaction controls
+PASS Chengdu uses the same walking controls
+PASS Cannot feed without bamboo
+PASS Picking bamboo does not advance
+PASS Feeding consumes bamboo with visible response
+PASS Phone opens only after manual interaction
+PASS Skipping optional feed reaches the same locked phone story
+PASS Walking save restores feet and tap destination
+FAILURES 0
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

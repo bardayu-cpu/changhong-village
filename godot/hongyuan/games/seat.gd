@@ -9,7 +9,7 @@ const CARPET_X := 167.0
 const ENTRY := Vector2(167, 560)
 const TABLES := [Vector2(51, 228), Vector2(283, 228), Vector2(51, 307), Vector2(283, 307), Vector2(51, 391), Vector2(283, 391)]
 const SPEED := 70.0
-const GUEST_H := 46.0
+const GUEST_H := 50.0  # Opaque standing height, matching the couple in this top-down camera.
 
 var r
 var phase := "walk_in"   # walk_in → pick → walk → seated → done
@@ -21,6 +21,7 @@ var dir := "up"
 var walk_d := 0.0
 var sheet: Texture2D
 var guest_name := ""
+var frame_rects: Dictionary = {}
 
 
 func start(runner, _beat: Dictionary) -> void:
@@ -86,9 +87,9 @@ func draw(ci) -> void:
 	if bg:
 		ci.draw_texture_rect(bg, Rect2(0, BG_Y, 360, 360.0 * bg.get_height() / bg.get_width()), false)
 	# 新人站在台前
-	ci.person_height = 50.0
-	ci.sprite("ayu_wedding_idle.png|ayu_idle.png", Vector2(CARPET_X - 12, 198))
-	ci.sprite("w2/common/toretto_stand.png", Vector2(CARPET_X + 12, 198), true)
+	var k: float = GUEST_H / ci.person_height_at(198)
+	ci.sprite("ayu_wedding_idle.png|ayu_idle.png", Vector2(CARPET_X - 12, 198), false, k)
+	ci.sprite("w2/common/toretto_neutral_r2.png", Vector2(CARPET_X + 12, 198), true, k)
 	if phase == "pick":
 		var a := 0.5 + 0.5 * sin(t * 4.0)
 		for i in range(TABLES.size()):
@@ -97,7 +98,7 @@ func draw(ci) -> void:
 		ci.draw_arc(TABLES[table], 34, 0, TAU, 32, ci.GOLD, 3.0)
 	_draw_guest(ci)
 	# 上方文字
-	ci.draw_rect(Rect2(0, 20, 360, 44), Color(ci.INK, 0.72))
+
 	var line := ""
 	match phase:
 		"walk_in", "pick":
@@ -106,7 +107,7 @@ func draw(ci) -> void:
 			line = ci.t_("A7-B1")
 		_:
 			line = ci.t_("A7-1e")
-	ci.text_at(Vector2(0, 30), line, 16, ci.PAPER, 360)
+	ci.pill(Rect2(24, 22, 312, 40), line, 16, Color(ci.INK, 0.86), ci.PAPER)
 
 
 func _draw_guest(ci) -> void:
@@ -116,8 +117,11 @@ func _draw_guest(ci) -> void:
 		var row := {"down": 0, "left": 4, "right": 8, "up": 12}
 		var moving := phase in ["walk_in", "walk"] and not path.is_empty()
 		var f: int = row.get(dir if phase != "seated" else "down", 0) + (int(walk_d / 8.0) % 4 if moving else 0)
-		var w := GUEST_H * 64.0 / 84.0
-		ci.draw_texture_rect_region(sheet, Rect2(feet - Vector2(w * 0.5, GUEST_H), Vector2(w, GUEST_H)), Rect2(f * 64, 0, 64, 84))
+		if not frame_rects.has(f):
+			frame_rects[f] = Rect2(sheet.get_image().get_region(Rect2i(f * 64, 0, 64, 84)).get_used_rect())
+		var used: Rect2 = frame_rects[f]
+		var k := GUEST_H / maxf(used.size.y, 1)
+		ci.draw_texture_rect_region(sheet, Rect2(feet + Vector2((used.position.x - 32) * k, -GUEST_H), used.size * k), Rect2(used.position + Vector2(f * 64, 0), used.size))
 	else:
 		ci.draw_rect(Rect2(feet - Vector2(8, 40), Vector2(16, 40)), Color("#6b3fa0"))
 	if guest_name != "":

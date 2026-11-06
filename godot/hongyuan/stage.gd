@@ -1,5 +1,7 @@
 extends Control
 
+const PhoneShell := preload("res://hongyuan/ui/phone_shell.gd")
+const WorldScale := preload("res://hongyuan/world_scale.gd")
 const CANVAS := Vector2(360, 640)
 const ASSET_ROOT := "res://hongyuan/assets/"
 const ART_SCALE := 2.0 / 3.0
@@ -12,7 +14,7 @@ const ROOM_TINT := Color(0.77, 0.73, 0.71)
 const PHONE := Rect2(22, 65, 316, 559)
 const PHONE_ORIGIN := Vector2(14, 37)
 const PHONE_OPENING := Rect2(12, 22, 474, 820)
-const PHONE_HEADER := Rect2(22, 52, 316, 56)
+const PHONE_HEADER := PhoneShell.HEADER
 const PHONE_TEXT := Color("#281a1a")
 const CARD_ORIGIN := Vector2(56, 120)
 const CARD_STROKE_FROM := Vector2(50, 172)
@@ -222,7 +224,7 @@ func _world_actor(actor: Dictionary) -> void:
 	var feet := _feet(actor)
 	if key == "ayu" and walk_frame >= 0 and shot.get("chapterId") == "shanghai":
 		feet.y -= float(walk_frame % 2) * 1.5
-	var height: float = PEOPLE_HEIGHT.get(str(shot.get("sceneId", "")), 0.0) if key in ["ayu", "axiao"] else 0.0
+	var height := person_height_at(feet.y) if key in ["ayu", "axiao", "toretto"] else 0.0
 	if height > 0.0:
 		_draw_person(_texture(file), feet, height, flip)
 	else:
@@ -230,24 +232,25 @@ func _world_actor(actor: Dictionary) -> void:
 	if key == "ayu" and materials.get("bamboo_held", false):
 		var held := _texture("w2/chengdu/bamboo_held.png")
 		if held:
-			draw_texture_rect(held, Rect2(player_feet + Vector2(20 * facing - 8, -51), Vector2(16, 44)), false)
+			var k := person_height_at(player_feet.y) / 128.0
+			draw_texture_rect(held, Rect2(player_feet + Vector2(20 * facing - 8, -51) * k, Vector2(16, 44) * k), false)
 
-## 有车做参照的场景里，人按和车匹配的身高画；按图里不透明部分量身高，阿鱼和阿晓一样高。
-const PEOPLE_HEIGHT := {"shanghai_street": 82.0, "shanghai_parking": 82.0}
 var _used_rects := {}
+
+func person_height_at(floor_y: float) -> float:
+	return WorldScale.height_at(WorldScale.profile(str(shot.get("sceneId", ""))), floor_y)
 
 func _draw_person(texture: Texture2D, feet: Vector2, height: float, flip: bool) -> void:
 	if not texture:
 		return
 	if not _used_rects.has(texture):
-		_used_rects[texture] = texture.get_image().get_used_rect()
+		_used_rects[texture] = WorldScale.visible_rect(texture)
 	var used: Rect2 = Rect2(_used_rects[texture])
-	var k := height / used.size.y
-	var size := used.size * k
+	var rect := WorldScale.local_rect(texture.resource_path, texture.get_width(), used, height)
 	feet = _pixel_position(feet)
-	_shadow(feet, size.x * 0.3)
+	_shadow(feet, rect.size.x * 0.3)
 	draw_set_transform(feet, 0.0, Vector2(-1, 1) if flip else Vector2.ONE)
-	draw_texture_rect_region(texture, Rect2(Vector2(-size.x * 0.5, -size.y), size), used)
+	draw_texture_rect_region(texture, rect, used)
 	draw_set_transform(Vector2.ZERO)
 
 func _draw_sprite(texture: Texture2D, feet: Vector2, foot_bottom := 0.0, flip := false) -> void:
@@ -376,18 +379,11 @@ func _draw_room(opacity: float = 1.0) -> void:
 			Color(ROOM_TINT, opacity))
 
 func phone_screen_rect() -> Rect2:
-	return Rect2(PHONE_ORIGIN + PHONE_OPENING.position * ART_SCALE, PHONE_OPENING.size * ART_SCALE)
+	return PhoneShell.SCREEN
 
 func _draw_phone_shell(opacity: float = 1.0, _incoming := false) -> void:
-	var screen := phone_screen_rect()
-	var tint := Color(1, 1, 1, opacity)
-	var paper := image_asset("w2_phone_screen_paper")
-	var header := image_asset("w2_phone_header")
-	if paper:
-		draw_texture_rect(paper, screen, false, tint)
-	if header:
-		draw_texture_rect(header, PHONE_HEADER, false, tint)
-	_draw_art("w2_phone_frame", PHONE_ORIGIN, tint)
+	PhoneShell.draw_shell(self, false, opacity)
+	draw_line(Vector2(30, PHONE_HEADER.end.y), Vector2(330, PHONE_HEADER.end.y), Color(0.6, 0.63, 0.68, opacity * 0.35), 1)
 
 func _phone() -> void:
 	var terminal: bool = shot.type == "terminal"
@@ -416,7 +412,7 @@ func _phone() -> void:
 		for row: Dictionary in chat_rows:
 			if not row.get("visible", true):
 				continue
-			_draw_skin(row.skin, row.bubble)
+			PhoneShell.draw_message(self, row.bubble, row.speaker)
 			if row.speaker != "system":
 				_avatar(row.speaker, row.avatar, 0.75)
 			if row.speaker == "ayu" and int(time * 3.0) % 2 == 0:
