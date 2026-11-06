@@ -139,38 +139,62 @@
      },
      {
       "go": "seat",
-      "hint": "A4-P3"
+      "hint": "G-BOAT-SIT"
      },
      {
-      "say": "A4-2a",
-      "who": "toretto"
+      "hint": ""
      },
      {
-      "say": "A4-2b",
-      "who": "ayu"
+      "wait": 3.5
      },
      {
-      "say": "A4-2c",
-      "who": "toretto"
+      "card": "B-J3-1",
+      "duration": 2.0
      },
      {
-      "say": "A4-2d",
-      "who": "toretto"
+      "bg": "",
+      "fill": "#10122a",
+      "badge": "",
+      "pose": "",
+      "actors": [],
+      "hotspots": [],
+      "hideAyu": true
      },
      {
-      "say": "A4-2e",
-      "who": "toretto"
-     },
-     {
-      "say": "A4-2f",
-      "who": "toretto"
-     },
-     {
-      "narrate": "A4-2g"
-     },
-     {
-      "say": "A4-2h",
-      "who": "ayu"
+      "game": "onsen",
+      "lines": [
+       {
+        "say": "A4-2a",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2b",
+        "who": "ayu"
+       },
+       {
+        "say": "A4-2c",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2d",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2e",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2f",
+        "who": "toretto"
+       },
+       {
+        "narrate": "A4-2g"
+       },
+       {
+        "say": "A4-2h",
+        "who": "ayu"
+       }
+      ]
      },
      {
       "card": "A4-T1",
