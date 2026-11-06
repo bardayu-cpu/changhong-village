@@ -139,6 +139,10 @@
   "W-NEXT-HAINAN": "下一站：海南",
   "W-NEXT-HONGKONG": "下一站：香港",
   "G-PARK": "快到了！按住屏幕刹车，停进右边的车位",
+  "G-FISH-HOLD": "按住蓄力，松手甩竿",
+  "G-FISH-WAIT": "等浮标沉下去……",
+  "G-FISH-MISS": "鱼跑了，再甩一次",
+  "G-SEAL": "按住火漆，封好请柬",
   "G-HOLD": "按住听他说",
   "G-SPEAKER": "点亮扬声器"
 }

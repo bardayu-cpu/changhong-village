@@ -45,7 +45,7 @@ func process(dt: float) -> bool:
 				t = 0.0
 				r.play("blip")
 		"bite":
-			if t >= 1.8:
+			if t >= 3.0:
 				phase = "aim"
 				missed = true
 				power = 0.0
@@ -80,17 +80,13 @@ func input(kind: String, pos: Vector2) -> void:
 				from = _tip()
 				r.play("blip")
 		"bite":
-			if kind == "down":
+			if kind in ["down", "tap"]:
 				phase = "caught"
 				t = 0.0
 				fish_t = 0.0
 				r.play("pop")
 		"wait":
-			if kind == "down" and t > 0.4:
-				# 太早收了：浮标回来，再来一次
-				phase = "aim"
-				missed = true
-				power = 0.0
+			pass  # 还没咬钩时乱点不惩罚
 
 
 func draw(ci) -> void:
@@ -129,6 +125,13 @@ func draw(ci) -> void:
 			var a := 0.6 + 0.4 * sin(t * 5.0)
 			ci.draw_arc(Vector2(180, 590), 18, 0, TAU, 28, Color(ci.PAPER, a), 3.0)
 			ci.draw_circle(Vector2(180, 590), 10, Color(ci.PAPER, a))
+	var hint := ""
+	if phase == "aim":
+		hint = ci.t_("G-FISH-MISS") if missed and t < 2.0 else ci.t_("G-FISH-HOLD")
+	elif phase == "wait":
+		hint = ci.t_("G-FISH-WAIT")
+	if hint != "":
+		ci.pill(Rect2(70, 520, 220, 34), hint, 15, Color(ci.INK, 0.8), ci.RED if missed and phase == "aim" and t < 2.0 else ci.PAPER)
 	if phase == "bite":
 		var pulse := 1.0 + 0.08 * sin(t * 18.0)
 		var rect := Rect2(Vector2(180, 560) - Vector2(60, 26) * pulse, Vector2(120, 52) * pulse)

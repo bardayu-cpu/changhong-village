@@ -8,7 +8,8 @@ func reset() -> void:
 func normalize(event: InputEvent) -> InputEvent:
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			if touch_index != -1:
+			# 同一根手指又按下：上一次松手丢了，别让输入永久卡住
+			if touch_index != -1 and event.index != touch_index:
 				return null
 			touch_index = event.index
 		elif event.index != touch_index:

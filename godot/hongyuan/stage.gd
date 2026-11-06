@@ -133,10 +133,6 @@ func _line_to_road() -> void:
 	var finish := (CARD_ORIGIN + CARD_STROKE_TO * ART_SCALE).lerp(Vector2(180, 640), progress)
 	var width := 1.0 + 32.0 * progress * progress
 	draw_line(start, finish, Color("#d9c29e"), width, true)
-	draw_colored_polygon(PackedVector2Array([
-		start + Vector2(-3, 0), start + Vector2(3, 0),
-		finish + Vector2(230 * progress, 0), finish - Vector2(230 * progress, 0)
-	]), Color(0.28, 0.25, 0.37, progress))
 	draw_line(start, finish, Color("#edceae"), 1.0 + progress * 3.0, true)
 
 func _world(background: String) -> void:
@@ -396,7 +392,15 @@ func _draw_phone_shell(opacity: float = 1.0, _incoming := false) -> void:
 func _phone() -> void:
 	var terminal: bool = shot.type == "terminal"
 	if terminal:
-		_draw_room()
+		# 终章收尾：宴会厅压暗，一条金边横幅，不再用电话壳
+		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color("#2a1210"))
+		var hall := _texture("w2/finale/bg_banquet_hall.png")
+		if hall:
+			draw_texture_rect(hall, Rect2(0, 80, 360, 360.0 * hall.get_height() / hall.get_width()), false, Color(1, 1, 1, 0.45))
+		draw_rect(Rect2(0, 280, 360, 92), Color(NIGHT, 0.82))
+		draw_rect(Rect2(0, 284, 360, 2), ACCENT)
+		draw_rect(Rect2(0, 366, 360, 2), ACCENT)
+		return
 	else:
 		_draw_background("parking" if shot.chapterId == "shanghai" else "chengdu")
 		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.12, 0.08, 0.06, 0.28))

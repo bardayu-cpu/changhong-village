@@ -68,7 +68,7 @@ func input(kind: String, pos: Vector2) -> void:
 					phase = "seal"
 					t = 0.0
 		"seal":
-			if kind == "down" and _envelope().grow(30).has_point(pos):
+			if kind == "down":
 				holding = true
 			elif kind == "up":
 				holding = false
@@ -150,7 +150,8 @@ func draw(ci) -> void:
 				ci.pill(_ok_rect(), ci.t_("G-19"), 18, ci.RED, ci.PAPER)
 		"seal", "stamped":
 			var e := _envelope()
-			var env: Texture2D = ci.texture("w2/finale/invite_envelope.png")
+			# 材料小图标太小，这里画一个整屏可见的大信封
+			var env: Texture2D = null
 			if env:
 				ci.draw_texture_rect(env, e, false)
 			else:
@@ -158,7 +159,7 @@ func draw(ci) -> void:
 				ci.draw_rect(e, ci.WOOD, false, 2.0)
 				ci.draw_colored_polygon(PackedVector2Array([e.position, e.position + Vector2(e.size.x, 0), e.get_center() + Vector2(0, 10)]), Color("#e8c27e"))
 				ci.draw_polyline(PackedVector2Array([e.position, e.get_center() + Vector2(0, 10), e.position + Vector2(e.size.x, 0)]), ci.WOOD, 2.0)
-			ci.text_at(e.position + Vector2(0, e.size.y - 18), name, 16, ci.INK, e.size.x)
+			ci.text_at(e.position + Vector2(0, e.size.y - 10), name, 16, ci.INK, e.size.x)
 			var c := e.get_center() + Vector2(0, 10)
 			if phase == "seal":
 				ci.draw_arc(c, 34, -PI / 2, -PI / 2 + TAU * hold, 40, ci.GOLD, 5.0)
@@ -167,6 +168,7 @@ func draw(ci) -> void:
 					ci.draw_circle(c, 20, Color(0.75, 0.15, 0.12, 0.25 + 0.25 * a))
 				else:
 					ci.draw_circle(c, 18 * hold, Color("#9e1b1b"))
+				ci.pill(Rect2(80, 420, 200, 40), ci.t_("G-SEAL"), 17, ci.RED, ci.PAPER)
 			else:
 				var k := clampf(t / 0.3, 0.0, 1.0)
 				ci.draw_circle(c, 26, Color("#9e1b1b"))
