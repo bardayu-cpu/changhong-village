@@ -130,46 +130,165 @@
       ]
      },
      {
-      "bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png",
-      "night": 0.0,
-      "hideAyu": true,
-      "actors": [],
-      "hotspots": []
+      "narrate": "A3-2i"
      },
      {
-      "narrate": "A3-2i"
+      "bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png",
+      "bgOffset": [
+       0,
+       -140
+      ],
+      "fill": "#a18c75",
+      "night": 0.0,
+      "badge": "",
+      "hideAyu": false,
+      "player": "toretto",
+      "pose": "",
+      "start": [
+       60,
+       610
+      ],
+      "walkArea": [
+       [
+        20,
+        540
+       ],
+       [
+        340,
+        540
+       ],
+       [
+        340,
+        620
+       ],
+       [
+        20,
+        620
+       ]
+      ],
+      "actors": [
+       {
+        "id": "desk_phone",
+        "tex": "w2/call/phone_ring_1.png",
+        "at": [
+         300,
+         425
+        ],
+        "scale": 2
+       }
+      ],
+      "hotspots": [
+       {
+        "id": "cake",
+        "at": [
+         180,
+         548
+        ],
+        "snap": [
+         180,
+         548
+        ],
+        "pose": "back",
+        "icon": "pick",
+        "iconAt": [
+         138,
+         300
+        ],
+        "tapRect": [
+         46,
+         222,
+         184,
+         156
+        ]
+       },
+       {
+        "id": "flowers",
+        "at": [
+         180,
+         548
+        ],
+        "icon": "pick",
+        "iconAt": [
+         180,
+         112
+        ],
+        "tapRect": [
+         10,
+         4,
+         340,
+         216
+        ]
+       },
+       {
+        "id": "desk_phone",
+        "at": [
+         180,
+         548
+        ],
+        "icon": "phone",
+        "iconAt": [
+         300,
+         400
+        ],
+        "tapRect": [
+         264,
+         372,
+         72,
+         58
+        ]
+       }
+      ]
+     },
+     {
+      "go": "cake"
      },
      {
       "say": "A3-2j",
       "who": "toretto"
      },
      {
+      "go": "flowers"
+     },
+     {
       "narrate": "A3-2k"
      },
      {
-      "say": "A3-2l",
-      "who": "toretto"
+      "go": "desk_phone"
      },
      {
-      "say": "A3-2m",
-      "who": "ayu"
-     },
-     {
-      "say": "A3-2n",
-      "who": "toretto"
-     },
-     {
-      "say": "A3-2o",
-      "who": "toretto"
-     },
-     {
-      "say": "A3-2p",
-      "who": "ayu"
+      "game": "desk_chat",
+      "lines": [
+       {
+        "say": "A3-2l",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2m",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2n",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2o",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2p",
+        "who": "ayu"
+       }
+      ]
      },
      {
       "bg": "",
       "fill": "#2a1414",
-      "badge": "G-02"
+      "badge": "G-02",
+      "hideAyu": true,
+      "player": "ayu",
+      "actors": [],
+      "hotspots": [],
+      "pose": ""
      },
      {
       "narrate": "A3-2q",
@@ -186,6 +305,21 @@
      {
       "narrate": "A3-2t",
       "auto": 2.6
+     },
+     {
+      "narrate": "A3-P1"
+     },
+     {
+      "button": "A3-B2"
+     },
+     {
+      "game": "burden",
+      "pressure": [
+       "A3-L1",
+       "A3-L2",
+       "A3-L4"
+      ],
+      "care": "A3-L3"
      },
      {
       "narrate": "A3-3a",

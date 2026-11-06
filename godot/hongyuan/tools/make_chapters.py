@@ -27,10 +27,24 @@ write("call", "G-08", [scene("night_call", "call_room", {
         {"game": "call", "aside": "A3-D1", "lines": [
             {"say": "A3-2a"}, {"say": "A3-2b"}, {"say": "A3-2c"}, {"say": "A3-2d", "who": "toretto"},
             {"say": "A3-2e", "who": "ayu"}, {"say": "A3-2f"}, {"say": "A3-2g", "who": "ayu"}, {"say": "A3-2h", "who": "toretto"}]},
-        {"bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png", "night": 0.0, "hideAyu": True, "actors": [], "hotspots": []},
-        N("A3-2i"), T("A3-2j"), N("A3-2k"), T("A3-2l"), A("A3-2m"), T("A3-2n"), T("A3-2o"), A("A3-2p"),
-        {"bg": "", "fill": "#2a1414", "badge": "G-02"},
-        auto("A3-2q"), auto("A3-2r"), auto("A3-2s"), auto("A3-2t"), auto("A3-3a"), auto("A3-3b"),
+        N("A3-2i"),
+        # Keep the approved desk at its native aspect; the lower strip is walkable floor.
+        # A1 directional frames can replace the existing Toretto fallbacks without story changes.
+        {"bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png", "bgOffset": [0, -140],
+         "fill": "#a18c75", "night": 0.0, "badge": "", "hideAyu": False, "player": "toretto", "pose": "",
+         "start": [60, 610], "walkArea": [[20, 540], [340, 540], [340, 620], [20, 620]],
+         "actors": [{"id": "desk_phone", "tex": "w2/call/phone_ring_1.png", "at": [300, 425], "scale": 2}],
+         "hotspots": [
+             {"id": "cake", "at": [180, 548], "snap": [180, 548], "pose": "back", "icon": "pick", "iconAt": [138, 300], "tapRect": [46, 222, 184, 156]},
+             {"id": "flowers", "at": [180, 548], "icon": "pick", "iconAt": [180, 112], "tapRect": [10, 4, 340, 216]},
+             {"id": "desk_phone", "at": [180, 548], "icon": "phone", "iconAt": [300, 400], "tapRect": [264, 372, 72, 58]}]},
+        {"go": "cake"}, T("A3-2j"), {"go": "flowers"}, N("A3-2k"), {"go": "desk_phone"},
+        {"game": "desk_chat", "lines": [T("A3-2l"), A("A3-2m"), T("A3-2n"), T("A3-2o"), A("A3-2p")]},
+        {"bg": "", "fill": "#2a1414", "badge": "G-02", "hideAyu": True, "player": "ayu", "actors": [], "hotspots": [], "pose": ""},
+        auto("A3-2q"), auto("A3-2r"), auto("A3-2s"), auto("A3-2t"),
+        N("A3-P1"), {"button": "A3-B2"},
+        {"game": "burden", "pressure": ["A3-L1", "A3-L2", "A3-L4"], "care": "A3-L3"},
+        auto("A3-3a"), auto("A3-3b"),
         {"material": "paper"},
     ]})])
 

@@ -113,7 +113,7 @@ func play_scene(tag: String) -> void:
 						if r.bi != before:
 							break
 					if r.bi == before and r._near_hotspot() == r.go_id:
-						r._go_input("up", r._icon_rect(r.go_id).get_center(), true)
+						r._go_input("up", r._hotspot_rect(r.go_id).get_center(), true)
 					if r.bi == before:
 						push_error("did not arrive at " + r.go_id + " feet=" + str(r.feet))
 						fails += 1
@@ -181,16 +181,46 @@ func play_game(tag: String, name: String) -> void:
 		"call":
 			await shot(tag + "_call_ring")
 			g.input("tap", g._accept_rect().get_center())
-			while r.bi == before and g.phase == "talk":
-				tick(0.6)
-				if g.li == 3:
+			g.input("down", g._listen_rect().get_center())
+			var captured := false
+			for i in range(1200):
+				if r.bi != before or g.phase != "talk":
+					break
+				r._process(0.05)
+				if g.birthday_flash > 0.0 and not captured:
 					await shot(tag + "_call_talk")
+					captured = true
+			g.input("up", g._listen_rect().get_center())
+			tick(0.7)
+			for i in range(4):
+				tick(0.2)
+				await shot(tag + "_call_reply")
+				g.input("tap", Vector2(180, 500))
+			tick(0.3)
+			await shot(tag + "_call_hangup")
+			tick(0.4)
+		"desk_chat":
+			for i in range(5):
+				tick(0.2)
+				await shot(tag + "_desk_chat")
 				g.input("tap", Vector2(180, 400))
+			tick(0.1)
 		"mail":
 			await shot(tag + "_mail_list")
 			g.input("tap", g._row().get_center()); tick(1.0)
 			await shot(tag + "_mail_open")
 			g.input("tap", Vector2(180, 400))
+		"burden":
+			await shot(tag + "_burden_ready")
+			for i in range(6):
+				g.input("down", g.CARE[i % 3])
+				g.input("move", g.positions[i])
+				await shot(tag + "_burden_drag")
+				g.input("up", g.positions[i])
+				tick(0.1)
+				await shot(tag + "_burden_care")
+				tick(0.5)
+			tick(1.2)
 		"seat":
 			tick(5.0)
 			await shot(tag + "_seat_pick")

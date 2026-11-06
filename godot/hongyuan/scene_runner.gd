@@ -29,6 +29,8 @@ const GAMES := {
 	"ringtoss": preload("res://hongyuan/games/ringtoss.gd"),
 	"fireworks": preload("res://hongyuan/games/fireworks.gd"),
 	"call": preload("res://hongyuan/games/call.gd"),
+	"burden": preload("res://hongyuan/games/burden.gd"),
+	"desk_chat": preload("res://hongyuan/games/desk_chat.gd"),
 	"mail": preload("res://hongyuan/games/mail.gd"),
 	"finale": preload("res://hongyuan/games/finale.gd"),
 	"drive": preload("res://hongyuan/games/drive.gd"),
@@ -46,6 +48,7 @@ var time := 0.0
 
 # 世界
 var bg := ""
+var bg_offset := Vector2.ZERO
 var bg_fill := Color("#2a1c18")
 var night := 0.0
 var sky := Color.TRANSPARENT
@@ -59,6 +62,7 @@ var feet := Vector2(180, 520)
 var facing := 1.0
 var pose := ""
 var player_visible := true
+var player_role := "ayu"
 var walk_dist := 0.0
 var moving := false
 var move_dir := Vector2.ZERO
@@ -133,6 +137,9 @@ func _apply_world(d: Dictionary) -> void:
 		person_height = float(d.personHeight)
 	if d.has("bg"):
 		bg = str(d.bg)
+		bg_offset = _v(d.get("bgOffset", [0, 0]))
+	if d.has("player") and str(d.player) in ["ayu", "toretto"]:
+		player_role = str(d.player)
 	if d.has("fill"):
 		bg_fill = Color(str(d.fill))
 	if d.has("sky"):
@@ -331,8 +338,18 @@ func _arrive_at(id: String, _instant: bool) -> void:
 
 func _icon_rect(id: String) -> Rect2:
 	var h: Dictionary = hotspots[id]
+	if h.has("iconAt"):
+		return Rect2(_v(h.iconAt) - Vector2(22, 22), Vector2(44, 44))
 	var at := _v(h.at)
 	return Rect2(at.x - 22, at.y - 112, 44, 44)
+
+
+func _hotspot_rect(id: String) -> Rect2:
+	var h: Dictionary = hotspots[id]
+	if h.has("tapRect"):
+		var rect: Array = h.tapRect
+		return Rect2(float(rect[0]), float(rect[1]), float(rect[2]), float(rect[3]))
+	return _icon_rect(id).grow(10)
 
 
 # ---------- 输入 ----------
@@ -399,7 +416,7 @@ func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
 	if not tap:
 		return
 	var near := _near_hotspot()
-	if near != "" and _icon_rect(near).grow(10).has_point(pos):
+	if near != "" and _hotspot_rect(near).has_point(pos):
 		_trigger(near)
 		return
 	# A ground tap only walks. Even a tap on a distant prop never activates it.
@@ -463,7 +480,7 @@ func _draw_bg() -> void:
 	if not tex:
 		return
 	var sz := tex.get_size() * S
-	draw_texture_rect(tex, Rect2(((CANVAS - sz) * 0.5).round(), sz), false)
+	draw_texture_rect(tex, Rect2(((CANVAS - sz) * 0.5).round() + bg_offset, sz), false)
 
 
 func _draw_world() -> void:
@@ -500,8 +517,20 @@ func _draw_player() -> void:
 	var name := "ayu_idle.png"
 	var flip := facing < 0
 	var bob := 0.0
-	if pose != "" and not walking:
+	if player_role == "toretto":
+		name = "w2/common/toretto_idle.png|w2/common/toretto_stand.png"
+		if walking:
+			var f := 1 + int(walk_dist / 10.0) % 4
+			var direction := "side"
+			if absf(move_dir.y) > absf(move_dir.x) * 1.3:
+				direction = "back" if move_dir.y < 0 else "front"
+			name = "w2/common/toretto_walk_%s_%d.png|w2/common/toretto_stand.png" % [direction, f]
+			bob = -1.0 if f % 2 == 0 else 0.0
+		elif pose == "back":
+			name = "w2/common/toretto_idle_back.png|w2/common/toretto_stand.png"
+	elif pose != "" and not walking:
 		name = {"sit": "w2/shizuoka/ayu_sit.png|ayu_idle.png", "fishing": "w2/shizuoka/ayu_fish_hold.png|w2/common/ayu_fishing.png", "throw": "w2/hainan/ayu_throw_hold.png|w2/common/ayu_throw.png", "cheer": "w2/common/ayu_cheer.png", "back": "w2/common/ayu_idle_back.png|ayu_idle.png"}.get(pose, pose)
+		if pose == "surprised": name = "w2/common/ayu_surprised.png|ayu_idle.png"
 	elif walking:
 		var f := 1 + int(walk_dist / 10.0) % 4
 		if absf(move_dir.y) > absf(move_dir.x) * 1.3:
@@ -510,7 +539,7 @@ func _draw_player() -> void:
 		else:
 			name = "w2/common/ayu_walk_side_%d.png|%s" % [f, "ayu_walk.png" if f % 2 == 1 else "ayu_idle.png"]
 		bob = -1.0 if f % 2 == 0 else 0.0
-	if follower != "" and walking:
+	if player_role == "ayu" and follower != "" and walking:
 		name = "w2/hongkong/ayu_drag_side_%d.png|%s" % [1 + int(walk_dist / 10.0) % 4, name]
 	sprite(name, feet + Vector2(0, bob), flip)
 
@@ -520,6 +549,10 @@ func _draw_go_ui() -> void:
 		var h: Dictionary = hotspots[go_id]
 		var at := _v(h.at)
 		var near := _near_hotspot() != ""
+		if near and h.has("tapRect"):
+			var focus := _hotspot_rect(go_id)
+			draw_rect(focus, Color(GOLD, 0.1 + 0.06 * sin(time * 4.0)))
+			draw_rect(focus, Color(GOLD, 0.85), false, 2.0)
 		if near:
 			var r := _icon_rect(go_id)
 			r.position.y += sin(time * 5.0) * 2.0
@@ -760,7 +793,8 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
 const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
-	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t"]
+	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash",
+	"removed", "pop_t", "positions", "hearts", "idle_t", "call_time", "care_count", "warmth"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
@@ -807,6 +841,8 @@ func restore(saved: Dictionary) -> void:
 		if "edit" in game and game.phase == "name":
 			game._make_edit()
 			game.edit.text = game.name
+		if game.has_method("restore_checkpoint"):
+			game.restore_checkpoint()
 	queue_redraw()
 
 static func _pack_value(value: Variant) -> Variant:
