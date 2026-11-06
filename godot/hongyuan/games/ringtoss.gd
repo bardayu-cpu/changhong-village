@@ -18,7 +18,7 @@ var hit_flash := 0.0
 
 func start(runner, beat: Dictionary) -> void:
 	r = runner
-	for p: Array in beat.get("pegs", [[132, 228], [180, 216], [228, 228], [156, 256], [204, 256]]):
+	for p: Array in beat.get("pegs", [[129, 306], [154, 306], [180, 306], [205, 306], [230, 306]]):
 		pegs.append(Vector2(float(p[0]), float(p[1])))
 	r.facing = 1.0
 	r.pose = "throw"
@@ -58,7 +58,7 @@ func process(dt: float) -> bool:
 func _predict() -> Vector2:
 	var pull := drag_to - drag_from
 	var p := hand - pull * 1.6
-	return Vector2(clampf(p.x, 40, 320), clampf(p.y, 120, 330))
+	return Vector2(clampf(p.x, 40, 320), clampf(p.y, 200, 420))
 
 
 func _continue_rect() -> Rect2:
@@ -91,7 +91,10 @@ func input(kind: String, pos: Vector2) -> void:
 
 func draw(ci) -> void:
 	var stall: Texture2D = ci.texture("w2/hainan/ring_stall.png")
-	if not stall:
+	if stall:
+		var sz: Vector2 = stall.get_size() * ci.S
+		ci.draw_texture_rect(stall, Rect2(Vector2(180 - sz.x * 0.5, 385 - sz.y), sz), false)
+	else:
 		_placeholder_stall(ci)
 	for i in range(pegs.size()):
 		var lit := false
@@ -140,10 +143,8 @@ func _placeholder_stall(ci) -> void:
 
 
 func _peg(ci, p: Vector2, lit: bool) -> void:
-	var tex: Texture2D = ci.texture("w2/hainan/peg.png")
-	if tex:
-		var sz: Vector2 = tex.get_size() * ci.S
-		ci.draw_texture_rect(tex, Rect2(p - Vector2(sz.x * 0.5, sz.y), sz), false)
+	if ci.texture("w2/hainan/ring_stall.png"):
+		pass
 	else:
 		ci.draw_rect(Rect2(p + Vector2(-3, -18), Vector2(6, 18)), Color("#6b4a2c"))
 		ci.draw_circle(p + Vector2(0, -20), 6, Color("#f4d495") if not lit else Color("#ffe27a"))

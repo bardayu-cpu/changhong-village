@@ -14,12 +14,12 @@ def auto(k, s=2.6): return {"narrate": k, "auto": s}
 def write(cid, title, steps):
     json.dump({"chapterId": cid, "titleId": title, "steps": steps}, open(os.path.join(D, cid + ".json"), "w"), ensure_ascii=False, indent=1)
 
-ROOM_AREA = [[130, 400], [330, 375], [340, 600], [30, 600], [30, 452], [130, 440]]
+ROOM_AREA = [[150, 372], [282, 368], [282, 445], [350, 452], [350, 620], [20, 620], [20, 470], [150, 462]]
 write("call", "G-08", [scene("night_call", "call_room", {
-    "badge": "G-02", "bg": "l3_computer.webp", "fill": "#1a120e", "night": 0.25,
+    "badge": "G-02", "bg": "w2/call/bg_room_night.png|l3_computer.webp", "fill": "#1a120e", "night": 0.0,
     "walkArea": ROOM_AREA, "start": [200, 545],
-    "actors": [{"id": "phone", "tex": "w2/call/phone_ring_1.png|phone_prop.png", "at": [262, 334]}],
-    "hotspots": [{"id": "phone", "at": [258, 392], "snap": [258, 392], "face": 1, "pose": "back"}],
+    "actors": [{"id": "phone", "tex": "w2/call/phone_ring_1.png|phone_prop.png", "at": [215, 300]}],
+    "hotspots": [{"id": "phone", "at": [215, 378], "snap": [215, 378], "face": 1, "pose": "back", "icon": "phone"}],
     "beats": [
         {"card": "G-08", "duration": 2.0},
         N("A3-1a"), N("A3-1b"),
@@ -27,7 +27,7 @@ write("call", "G-08", [scene("night_call", "call_room", {
         {"game": "call", "aside": "A3-D1", "lines": [
             {"say": "A3-2a"}, {"say": "A3-2b"}, {"say": "A3-2c"}, {"say": "A3-2d", "who": "toretto"},
             {"say": "A3-2e", "who": "ayu"}, {"say": "A3-2f"}, {"say": "A3-2g", "who": "ayu"}, {"say": "A3-2h", "who": "toretto"}]},
-        {"bg": "bg_cbd_birthday_desk_r1.png", "night": 0.0, "hideAyu": True, "actors": [], "hotspots": []},
+        {"bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png", "night": 0.0, "hideAyu": True, "actors": [], "hotspots": []},
         N("A3-2i"), T("A3-2j"), N("A3-2k"), T("A3-2l"), A("A3-2m"), T("A3-2n"), T("A3-2o"), A("A3-2p"),
         {"bg": "", "fill": "#2a1414", "badge": "G-02"},
         auto("A3-2q"), auto("A3-2r"), auto("A3-2s"), auto("A3-2t"), auto("A3-3a"), auto("A3-3b"),
@@ -35,21 +35,21 @@ write("call", "G-08", [scene("night_call", "call_room", {
     ]})])
 
 write("shizuoka", "G-09", [scene("pier", "shizuoka", {
-    "badge": "G-02", "bg": "bg_shizuoka_pier_r1.png",
-    "walkArea": [[16, 412], [344, 412], [344, 535], [16, 535]], "start": [60, 500],
+    "badge": "G-02", "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
+    "walkArea": [[16, 376], [344, 376], [344, 590], [16, 590]], "start": [60, 540],
     "hotspots": [
-        {"id": "spot", "at": [200, 420], "snap": [200, 420], "face": 1, "label": "A4-B2"},
-        {"id": "boat", "at": [326, 470], "label": "A4-B3"}],
+        {"id": "spot", "at": [200, 382], "snap": [200, 382], "face": 1, "label": "A4-B2"},
+        {"id": "boat", "at": [326, 500], "label": "A4-B3"}],
     "beats": [
         {"card": "G-09", "duration": 2.0},
         N("A4-1a"), N("A4-1b"), N("A4-1c"),
         {"go": "spot", "hint": "A4-P1"},
         {"game": "fishing"},
         {"go": "boat"},
-        {"bg": "bg_shizuoka_boat_cabin_r1.png", "walkArea": [[30, 425], [330, 425], [340, 610], [20, 610]],
+        {"bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png", "walkArea": [[30, 418], [330, 418], [340, 620], [20, 620]],
          "start": [300, 570], "pose": "",
-         "actors": [{"id": "toretto", "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png", "at": [160, 430]}],
-         "hotspots": [{"id": "seat", "at": [222, 432], "snap": [222, 432], "face": -1, "pose": "sit"}]},
+         "actors": [{"id": "toretto", "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png", "at": [160, 408]}],
+         "hotspots": [{"id": "seat", "at": [228, 418], "snap": [228, 408], "face": -1, "pose": "sit", "icon": "sit"}]},
         T("A4-2a"), A("A4-2b"), T("A4-2c"), T("A4-2d"), T("A4-2e"), T("A4-2f"),
         {"go": "seat", "hint": "A4-P3"},
         N("A4-2g"), A("A4-2h"),
@@ -62,8 +62,8 @@ write("shizuoka", "G-09", [scene("pier", "shizuoka", {
 write("hainan", "G-10", [scene("wanning", "hainan", {
     "badge": "G-02", "bg": "w2/hainan/bg_wanning.png", "sky": "#86cfe8", "ground": "#e8d6a8", "horizon": 250,
     "decor": [{"r": [0, 250, 360, 36], "c": "#4fb3c8"}],
-    "walkArea": [[20, 440], [340, 440], [340, 610], [20, 610]], "start": [70, 580],
-    "hotspots": [{"id": "stall", "at": [180, 470], "snap": [180, 470], "face": 1}],
+    "walkArea": [[20, 400], [340, 400], [340, 560], [20, 560]], "start": [70, 550],
+    "hotspots": [{"id": "stall", "at": [180, 520], "snap": [180, 520], "face": 1}],
     "beats": [
         {"card": "G-10", "duration": 2.0},
         N("A5-0"), N("A5-1a"), N("A5-1b"),
@@ -72,8 +72,8 @@ write("hainan", "G-10", [scene("wanning", "hainan", {
         {"card": "A5-T1", "duration": 1.6},
         {"bg": "w2/hainan/bg_wenchang_night.png", "sky": "#141a3a", "ground": "#22202e", "horizon": 470,
          "decor": [{"r": [0, 462, 360, 10], "c": "#2c3a5a"}],
-         "place": [150, 560], "pose": "back",
-         "actors": [{"id": "toretto", "tex": "w2/common/toretto_stand.png", "at": [215, 562]}], "hotspots": []},
+         "place": [150, 585], "pose": "back",
+         "actors": [{"id": "toretto", "tex": "w2/common/toretto_stand.png", "at": [215, 587]}], "hotspots": []},
         N("A5-2"), T("A5-3a"), A("A5-3b"),
         {"game": "fireworks", "count": 5},
         {"pose": ""},
@@ -93,8 +93,9 @@ write("hongkong", "G-11", [scene("hk", "hongkong", {
          "decor": [{"r": [0, 120, 360, 200], "c": "#a9c9dc"}, {"r": [0, 300, 360, 30], "c": "#7d8c7a"},
                    {"r": [296, 300, 54, 118], "c": "#3f7d5a"}, {"r": [306, 312, 34, 22], "c": "#f2f2f2"}],
          "hideAyu": False, "start": [50, 590], "follow": "w2/hongkong/suitcase_1.png",
-         "walkArea": [[20, 420], [345, 420], [345, 615], [20, 615]],
-         "hotspots": [{"id": "exit", "at": [322, 430], "snap": [322, 430]}]},
+         "walkArea": [[20, 380], [345, 380], [345, 615], [20, 615]],
+         "actors": [{"id": "gate", "tex": "w2/hongkong/exit_gate.png", "at": [300, 400]}],
+         "hotspots": [{"id": "exit", "at": [300, 405], "snap": [300, 402], "icon": "exit"}]},
         {"go": "exit", "hint": "A6-P3"},
         {"follow": ""},
         {"material": "envelope"},

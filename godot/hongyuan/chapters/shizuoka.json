@@ -13,39 +13,39 @@
    "visibleActors": [],
    "scene": {
     "badge": "G-02",
-    "bg": "bg_shizuoka_pier_r1.png",
+    "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
     "walkArea": [
      [
       16,
-      412
+      376
      ],
      [
       344,
-      412
+      376
      ],
      [
       344,
-      535
+      590
      ],
      [
       16,
-      535
+      590
      ]
     ],
     "start": [
      60,
-     500
+     540
     ],
     "hotspots": [
      {
       "id": "spot",
       "at": [
        200,
-       420
+       382
       ],
       "snap": [
        200,
-       420
+       382
       ],
       "face": 1,
       "label": "A4-B2"
@@ -54,7 +54,7 @@
       "id": "boat",
       "at": [
        326,
-       470
+       500
       ],
       "label": "A4-B3"
      }
@@ -84,23 +84,23 @@
       "go": "boat"
      },
      {
-      "bg": "bg_shizuoka_boat_cabin_r1.png",
+      "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png",
       "walkArea": [
        [
         30,
-        425
+        418
        ],
        [
         330,
-        425
+        418
        ],
        [
         340,
-        610
+        620
        ],
        [
         20,
-        610
+        620
        ]
       ],
       "start": [
@@ -114,7 +114,7 @@
         "tex": "w2/common/toretto_sit.png|w2/common/toretto_stand.png",
         "at": [
          160,
-         430
+         408
         ]
        }
       ],
@@ -122,15 +122,16 @@
        {
         "id": "seat",
         "at": [
-         222,
-         432
+         228,
+         418
         ],
         "snap": [
-         222,
-         432
+         228,
+         408
         ],
         "face": -1,
-        "pose": "sit"
+        "pose": "sit",
+        "icon": "sit"
        }
       ]
      },

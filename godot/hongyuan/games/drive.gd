@@ -47,18 +47,21 @@ func process(dt: float) -> bool:
 			if scroll >= LENGTH:
 				phase = "park"
 				bay_y = -120.0
+				lane = 2
 				traffic.clear()
 		"park":
-			var want2 := 18.0 if holding else 120.0
-			speed = move_toward(speed, want2, (300.0 if holding else 120.0) * dt)
+			# 按住刹车：减速直到停住；停在车位旁边就自己倒进去。松手继续慢慢往前滑。
+			var want2 := 0.0 if holding else 90.0
+			speed = move_toward(speed, want2, (240.0 if holding else 90.0) * dt)
 			scroll += speed * dt
 			bay_y += speed * dt
-			if bay_y > 700.0:
+			if bay_y > 720.0:
 				bay_y = -160.0
-			if not holding and speed < 30.0 and lane == 2 and absf(bay_y - CAR_Y) < 46.0:
+			if holding and speed < 6.0 and absf(bay_y - CAR_Y) < 150.0:
 				phase = "in"
 				park_t = 0.0
 				speed = 0.0
+				lane = 2
 				r.play("pop")
 		"in":
 			park_t += dt
@@ -122,7 +125,7 @@ func draw(ci) -> void:
 	var ang := clampf((LANES[lane] - car_x) / 120.0, -0.25, 0.25)
 	if phase == "in":
 		var k := smoothstep(0.0, 1.0, park_t / 1.0)
-		p = Vector2(lerpf(240.0, 300.0, k), lerpf(CAR_Y, bay_y, k))
+		p = Vector2(lerpf(car_x, 318.0, k), lerpf(CAR_Y, bay_y, k))
 		ang = sin(k * PI) * 0.45
 	if bump > 0.0:
 		p.x += sin(t * 60.0) * 2.0 * bump
@@ -173,10 +176,14 @@ func _road(ci) -> void:
 
 func _bay(ci) -> void:
 	var lot := Rect2(276, bay_y - 260, 84, 520)
-	ci.draw_rect(lot, Color("#8d8a86"))
-	for i in range(6):
-		var y := bay_y - 225 + i * 90
-		ci.draw_rect(Rect2(278, y, 80, 3), Color("#f2ead8"))
+	var lot_tex: Texture2D = ci.texture("w2/shanghai/parking_lot.png")
+	if lot_tex:
+		ci.draw_texture_rect(lot_tex, lot, false)
+	else:
+		ci.draw_rect(lot, Color("#8d8a86"))
+		for i in range(6):
+			var y := bay_y - 225 + i * 90
+			ci.draw_rect(Rect2(278, y, 80, 3), Color("#f2ead8"))
 	var slot := Rect2(282, bay_y - 42, 72, 84)
 	ci.draw_rect(slot, Color(1.0, 0.85, 0.4, 0.25 + 0.15 * sin(t * 6.0)))
 	ci.draw_rect(slot, Color("#f5c75a"), false, 2.0)

@@ -13,33 +13,41 @@
    "visibleActors": [],
    "scene": {
     "badge": "G-02",
-    "bg": "l3_computer.webp",
+    "bg": "w2/call/bg_room_night.png|l3_computer.webp",
     "fill": "#1a120e",
-    "night": 0.25,
+    "night": 0.0,
     "walkArea": [
      [
-      130,
-      400
+      150,
+      372
      ],
      [
-      330,
-      375
+      282,
+      368
      ],
      [
-      340,
-      600
+      282,
+      445
      ],
      [
-      30,
-      600
-     ],
-     [
-      30,
+      350,
       452
      ],
      [
-      130,
-      440
+      350,
+      620
+     ],
+     [
+      20,
+      620
+     ],
+     [
+      20,
+      470
+     ],
+     [
+      150,
+      462
      ]
     ],
     "start": [
@@ -51,8 +59,8 @@
       "id": "phone",
       "tex": "w2/call/phone_ring_1.png|phone_prop.png",
       "at": [
-       262,
-       334
+       215,
+       300
       ]
      }
     ],
@@ -60,15 +68,16 @@
      {
       "id": "phone",
       "at": [
-       258,
-       392
+       215,
+       378
       ],
       "snap": [
-       258,
-       392
+       215,
+       378
       ],
       "face": 1,
-      "pose": "back"
+      "pose": "back",
+      "icon": "phone"
      }
     ],
     "beats": [
@@ -120,7 +129,7 @@
       ]
      },
      {
-      "bg": "bg_cbd_birthday_desk_r1.png",
+      "bg": "w2/call/bg_cbd_desk.png|bg_cbd_birthday_desk_r1.png",
       "night": 0.0,
       "hideAyu": true,
       "actors": [],
