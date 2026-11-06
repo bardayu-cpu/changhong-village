@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Dawn switches the controllable role to Toretto
+PASS Walkable floor is below the desk, never on its surface
+PASS Distant desk phone does not skip approach
+PASS Walking arrives without auto-activating desk
+PASS Later flower tap cannot skip cake
+PASS Cake immediately triggers A3-2j
+PASS Next hotspot is blue flowers
+PASS JSON reload preserves Toretto, feet and completed cake inspection
+PASS Blue flowers immediately trigger A3-2k
+PASS A3-2k waits for an explicit phone action
+PASS Wrong object cannot send the message
+PASS Phone opens the original chat
+PASS Chat preserves sender and order for message 0
+PASS Chat preserves sender and order for message 1
+PASS Chat preserves sender and order for message 2
+PASS Chat preserves sender and order for message 3
+PASS Chat preserves sender and order for message 4
+PASS Finishing chat resets to Ayu and original montage
+PASS Burden is between 2t → P1 → B2 and 3a/3b
+PASS Help button is manual and Toretto role is reset
+PASS All nine bubble labels exactly match the specified original copy
+PASS Idle never completes or fails; eight-second hint is armed
+PASS Pressure approaches each second but stops clear of Ayu
+PASS Tapping Ayu alone does not create care
+PASS Missed drop returns freely without failure
+PASS Canceled touch does not deliver care
+PASS Second finger cannot deliver or cancel first finger
+PASS Dropping on Ayu removes the nearest pressure with immediate pop and heart
+PASS Removed pressure finishes shrinking in 0.4 seconds
+PASS Reload preserves removed bubbles and hearts without a held drag
+PASS Background suspension clears drag
+PASS Unlimited copies of one care bubble remove all six targets
+PASS All six gone starts relaxed pose
+PASS Relaxed pose holds before returning to story
+PASS Relaxed pause completes into original A3-3a
+FAILURES 0
+WARNING: 21 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
