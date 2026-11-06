@@ -138,5 +138,7 @@
   "W-NEXT-SHIZUOKA": "下一站：静冈",
   "W-NEXT-HAINAN": "下一站：海南",
   "W-NEXT-HONGKONG": "下一站：香港",
-  "G-PARK": "快到了！按住屏幕刹车，停进右边的车位"
+  "G-PARK": "快到了！按住屏幕刹车，停进右边的车位",
+  "G-HOLD": "按住听他说",
+  "G-SPEAKER": "点亮扬声器"
 }
