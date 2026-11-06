@@ -51,8 +51,12 @@ func run() -> void:
 	root.add_child(p)
 	p.set_process(false)
 	await frames()
-	for step_id in ["shanghai/board_car", "shanghai/approach_axiao", "chengdu/chengdu_walk"]:
+	for step_id in ["shanghai/board_car", "shanghai/approach_axiao", "shanghai/line_1", "shanghai/chat_axiao", "chengdu/chengdu_walk"]:
 		p._enter_step(p.step_indices[step_id])
+		if p.shot.type == "chat":
+			p.elapsed = 1.0
+			p.stage.time = 1.0
+			p._present_chat()
 		await shot(step_id.replace("/", "_"))
 	for step_id in ["shanghai/drive", "call/night_call", "shizuoka/pier", "hainan/wanning", "hongkong/hk", "finale/finale"]:
 		if not p.step_indices.has(step_id):

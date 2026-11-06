@@ -425,10 +425,18 @@ func _phone() -> void:
 func _avatar(id: String, origin: Vector2, ratio := 1.0) -> void:
 	for actor: Dictionary in shot.visibleActors:
 		if actor.id == id and actor.layer == "phone":
-			var texture := image_asset(id + "_avatar")
-			if texture:
-				var size := texture.get_size() * ART_SCALE * ratio
-				draw_texture_rect(texture, Rect2(_pixel_position(origin), size), false)
+			var info: Dictionary = manifest.get("sprites", {}).get(id, {})
+			var region: Array = info.get("avatarRegion", [])
+			if region.size() == 4:
+				var face := _texture(str(info.get("avatarFile", "")))
+				if face:
+					draw_texture_rect_region(face, Rect2(_pixel_position(origin), Vector2(64,64) * ART_SCALE * ratio),
+						Rect2(region[0], region[1], region[2], region[3]))
+			else:
+				var texture := image_asset(id + "_avatar")
+				if texture:
+					var size := texture.get_size() * ART_SCALE * ratio
+					draw_texture_rect(texture, Rect2(_pixel_position(origin), size), false)
 			return
 
 func _draw_art(key: String, origin: Vector2, tint := Color.WHITE) -> void:
