@@ -1,4 +1,4 @@
-"""生成第三章到终章的章节 JSON（可操控场景）。剧情文字只引用 copy.json 的编号。"""
+"""生成成都到终章的章节 JSON。剧情文字只引用 copy.json 的编号。"""
 import json, os
 D = os.path.join(os.path.dirname(__file__), "..", "chapters")
 
@@ -13,6 +13,30 @@ def auto(k, s=2.6): return {"narrate": k, "auto": s}
 
 def write(cid, title, steps):
     json.dump({"chapterId": cid, "titleId": title, "steps": steps}, open(os.path.join(D, cid + ".json"), "w"), ensure_ascii=False, indent=1)
+
+def legacy(id, kind, sid, background, actors=None, **fields):
+    return {"id": id, "type": kind, "sceneId": sid, "speaker": "narrator" if kind == "narration" else "system",
+            "actorMode": "none", "actorSlot": None, "background": background, "visibleActors": actors or [], **fields}
+
+# Keep legacy step IDs so existing Chengdu saves still resume at the same story boundary.
+# Only the former single-panda walk is replaced; mid-feed group messages belong to D2-C2.
+CHENGDU_ACTORS = [{"id": "ayu", "mode": "sprite", "slot": "left", "layer": "world"},
+                  {"id": "panda", "mode": "sprite", "slot": "right", "layer": "world"}]
+write("chengdu", "G-07", [
+    legacy("chengdu_return", "narration", "chengdu_day", "chengdu", CHENGDU_ACTORS, copyId="A2-1a", duration=3.7),
+    legacy("chengdu_routine", "narration", "chengdu_day", "chengdu", CHENGDU_ACTORS, copyId="A2-1b", duration=5.2),
+    scene("chengdu_walk", "chengdu_day", {
+        "bg": "w2/chengdu/bg_base.png", "badge": "G-02", "personHeight": 88,
+        "walkArea": [[25, 362], [335, 362], [335, 535], [25, 535]], "start": [240, 523],
+        "beats": [{"game": "pandas"}],
+    }),
+    legacy("chengdu_ping", "notification", "chengdu_phone", "phone", copyId="A2-2"),
+    legacy("chengdu_group", "phone", "chengdu_phone", "phone", [
+        {"id": "axiao", "mode": "sprite", "slot": "left", "layer": "phone"},
+        {"id": "toretto", "mode": "sprite", "slot": "left", "layer": "phone"},
+        {"id": "ayu", "mode": "sprite", "slot": "right", "layer": "phone"}], duration=2.4, groupId="A1-G0"),
+    legacy("ink", "material", "invitation", "invitation", duration=2.25, materialId="ink"),
+])
 
 ROOM_AREA = [[150, 372], [282, 368], [282, 445], [350, 452], [350, 620], [20, 620], [20, 470], [150, 462]]
 write("call", "G-08", [scene("night_call", "call_room", {

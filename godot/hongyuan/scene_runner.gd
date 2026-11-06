@@ -26,6 +26,7 @@ const AVATARS := {"ayu": "ayu_avatar.png", "toretto": "toretto_avatar.png", "axi
 const CARD := Vector2(56, 120)
 const SLOTS := {"pen": Vector2(75, 305), "ink": Vector2(180, 305), "paper": Vector2(285, 305), "stamp": Vector2(77, 390), "wax": Vector2(180, 390), "envelope": Vector2(284, 393)}
 const GAMES := {
+	"pandas": preload("res://hongyuan/games/pandas.gd"),
 	"fishing": preload("res://hongyuan/games/fishing.gd"),
 	"ringtoss": preload("res://hongyuan/games/ringtoss.gd"),
 	"fireworks": preload("res://hongyuan/games/fireworks.gd"),
@@ -835,7 +836,8 @@ func _tone(f0: float, f1: float, dur: float) -> AudioStreamWAV:
 const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fish_t", "missed",
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
-	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on"]
+	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on",
+	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
