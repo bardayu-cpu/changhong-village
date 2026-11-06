@@ -1,0 +1,36 @@
+{
+  "sourceCommit": "bcb0edcaed8243ef7b1449a643b36becc864a1aa",
+  "sourceLoveTree": "fda977d16d977049154715bcb4c9d07325165a6e",
+  "pr25Merge": "5d92b768e893f44eec24c837f93bbcfdef25bf76",
+  "builtAt": "2026-11-06T11:17:55.859511-08:00",
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "runtimeSourceModified": false,
+  "appid": "wx26cb1101e51f4a47",
+  "compileType": "game",
+  "libVersionConfigured": "3.15.2",
+  "previewInvoked": false,
+  "uploadInvoked": false,
+  "packages": {
+    "wechat": {
+      "archive": "hongyuan-bcb0edc-wechat.zip",
+      "sha256": "4fc37dc8b2412bfe7bdc22092108b9dcdad601f9233b84db0d8a3e53fad53b08",
+      "fileListSha256": "970f8db8bca2dc8f6b36c090cf248c728df3ed9a36b79c37de294193a9c1793c",
+      "files": 16,
+      "uncompressedBytes": 19744825,
+      "archiveBytes": 19082854,
+      "mainBytes": 97013,
+      "engineBytes": 19647812,
+      "pckSha256": "e93cda147b0f260ec6b47c1df41e7752f8b27aca2d8f71200eac821ab5233c85"
+    }
+  },
+  "checks": {
+    "exportExit": 0,
+    "p0ChecksPassed": 3,
+    "packedSmokeShots": 91,
+    "packedSmokeFails": 0,
+    "packedStatePasses": 17,
+    "legacyGuiFailures": 4,
+    "legacyGuiReason": "Shanghai auto-board behavior changed in PR25; old test expects to stay in board_car. Do not use stale assertions as product rejection.",
+    "wechatClientTested": false
+  }
+}

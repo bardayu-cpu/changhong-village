@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 停车不操作 5.5 秒内自动入位
+PASS 停车点一下 1.7 秒内入位（bay_y=238）
+PASS 街边点车 1.2 秒后上车（现在 shanghai/drive）

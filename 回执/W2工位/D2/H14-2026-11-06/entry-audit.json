@@ -1,0 +1,39 @@
+{
+  "appid": "wx26cb1101e51f4a47",
+  "configuredBaseLibrary": "3.15.2",
+  "orientation": "portrait",
+  "entry": "game.js → godot-loader/godot-sdk → engine/game.js → engine/demo-pck.bin",
+  "subpackages": [
+    {
+      "name": "engine",
+      "root": "engine/"
+    }
+  ],
+  "excludedFiles": [
+    "images/background.jpg.import",
+    "images/logo.png.import",
+    "subpackages/subpack/game.js",
+    "subpackages/subpack/subpack.bin",
+    "subpacks/subpack_manifest.json",
+    "使用前阅读.md",
+    "小游戏工程说明.md"
+  ],
+  "includedChecksums": {
+    ".eslintrc.js": "ade498e34a85117314bdf5317ea27b73a546fff5946fae46e29f79de31d3b260",
+    ".godot-subpack-managed.json": "43d230c1ce5ffbc32834a35ee5ef177eee0c38322265e1b48097cac70cd262ca",
+    "engine/demo-pck.bin": "e93cda147b0f260ec6b47c1df41e7752f8b27aca2d8f71200eac821ab5233c85",
+    "engine/game.js": "7a97d79a32dc1d2241a8179174cf5d8710468fe91e0fd6de9a990e423fdceb3a",
+    "engine/godot-sdk.js": "f0f648b6778446a990b9865b8d577674f439348f8a3cef622e56ae13b8fda46e",
+    "engine/godot.js": "e1d74102f9c9ead075b8ff3589530a4d4afe7fe9076f01cc2effcfc696488475",
+    "engine/godot.wasm.br": "bc7a4399101968f7d8e9083d7407a42ceab16bed656c4a8a3bfbce24fdad1536",
+    "game.js": "07f85ffed19d25df6f88fb03a94694920dddc031662dbcd6c9e44be1b3657a31",
+    "game.json": "f6cb0f3de1ab2ab6072bbd24048e34e6952ae907c7d1f9a95a44bad41ed71a2f",
+    "glx-config.js": "ddefd618579efe1a156392da1e8393cabeaa65af2bb8bed25fa72f5f3c7483b3",
+    "godot-loader.js": "0e6bde33b9a63d3f452209838f0ef110a33890df8bc97fdedf25728bf00c03a4",
+    "images/background.jpg": "ee88b4672db843d57b164c5deeaf62e096e3bf91881bdba71a85dd980687db80",
+    "images/logo.png": "1e3ff92a1e7291f181c624292d788eae18e63b3cbb4e93a6f29bc57f422ac907",
+    "project.config.json": "3ccc57e69eb86d341519cfd9de4e2ab4e09281c8789cc301672c4b642458379c",
+    "project.private.config.json": "fb700c0383959fe45c2b4ec67840172bd58b7c1e73a83fa6f1cfa602a0e52311",
+    "weapp-adapter.js": "84c679ae0a6dbb226afb24110860e5142ac113a2e3a00a93449a09edeb4647f6"
+  }
+}

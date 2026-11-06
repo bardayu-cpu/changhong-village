@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Viewport ground tap moves, touch=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:11)
+       [1] run (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:48)
+       [2] settle (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:34)
+ERROR: Arrival needs interaction, touch=false
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:11)
+       [1] run (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:49)
+       [2] settle (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:34)
+PASS Viewport joystick moves/releases, touch=false
+ERROR: Viewport ground tap moves, touch=true
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:11)
+       [1] run (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:48)
+       [2] settle (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:34)
+ERROR: Arrival needs interaction, touch=true
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:11)
+       [1] run (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:49)
+       [2] settle (/Users/kayra_ayu/Documents/Codex/2026-11-05/w2-d2/work/wechat-pr25/godot/hongyuan/tests/gui_input_test.gd:34)
+PASS Viewport joystick moves/releases, touch=true
+PASS Second finger cannot steal joystick
+PASS Touch cancellation releases joystick
+PASS Scene runner receives direct touch GUI events
+PASS Pause stops scene and clears gesture
+PASS Resume restarts scene
+FAILURES 4

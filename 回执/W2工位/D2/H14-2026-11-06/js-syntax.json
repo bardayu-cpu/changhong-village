@@ -1,0 +1,42 @@
+[
+  {
+    "file": ".eslintrc.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "engine/game.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "engine/godot-sdk.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "engine/godot.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "game.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "glx-config.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "godot-loader.js",
+    "exitCode": 0,
+    "stderr": ""
+  },
+  {
+    "file": "weapp-adapter.js",
+    "exitCode": 0,
+    "stderr": ""
+  }
+]
