@@ -40,6 +40,7 @@ const GAMES := {
 	"drive": preload("res://hongyuan/games/drive.gd"),
 	"seat": preload("res://hongyuan/games/seat.gd"),
 	"onsen": preload("res://hongyuan/games/onsen.gd"),
+	"photo": preload("res://hongyuan/games/photo.gd"),
 }
 
 var copy: Dictionary

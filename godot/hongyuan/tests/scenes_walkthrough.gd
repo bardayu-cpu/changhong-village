@@ -236,6 +236,19 @@ func play_game(tag: String, name: String) -> void:
 				g.input("tap", Vector2(180, 300))
 			tick(3.0)
 			await shot(tag + "_onsen_night")
+		"photo":
+			tick(1.5)
+			await shot(tag + "_photo_walk")
+			tick(4.0)
+			await shot(tag + "_photo_ready")
+			g.input("tap", g.CAMERA)
+			for i in range(5):
+				r._process(0.05)
+				await frames(2)
+			await shot(tag + "_photo_flash")
+			tick(0.9)
+			await frames(2)
+			await shot(tag + "_photo_show")
 		"seat":
 			tick(5.0)
 			await shot(tag + "_seat_pick")

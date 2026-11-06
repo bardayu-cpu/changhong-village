@@ -141,6 +141,24 @@
       "follow": ""
      },
      {
+      "bg": "w2/hongkong/bg_disney_memory_r1.png",
+      "bgFit": true,
+      "personHeight": 90,
+      "decor": [],
+      "badge": "",
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": [],
+      "walkArea": [],
+      "start": [
+       50,
+       590
+      ]
+     },
+     {
+      "game": "photo"
+     },
+     {
       "material": "envelope"
      },
      {
