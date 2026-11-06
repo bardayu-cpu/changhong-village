@@ -191,6 +191,15 @@ func play_game(tag: String, name: String) -> void:
 			g.input("tap", g._row().get_center()); tick(1.0)
 			await shot(tag + "_mail_open")
 			g.input("tap", Vector2(180, 400))
+		"seat":
+			tick(5.0)
+			await shot(tag + "_seat_pick")
+			g.input("tap", g.TABLES[2])
+			tick(2.0)
+			await shot(tag + "_seat_walk")
+			tick(4.0)
+			await shot(tag + "_seated")
+			tick(3.0)
 		"finale":
 			tick(1.0)
 			await shot(tag + "_invite")

@@ -42,6 +42,14 @@
      },
      {
       "button": "A7-B1"
+     },
+     {
+      "bg": "",
+      "fill": "#2a1210",
+      "hideAyu": true
+     },
+     {
+      "game": "seat"
      }
     ]
    }

@@ -140,6 +140,8 @@ func draw(ci) -> void:
 	if bump > 0.0:
 		p.x += sin(t * 60.0) * 2.0 * bump
 	_car(ci, p, "w2/shanghai/g42_top.png", PURPLE, ang)
+	if phase == "drive":
+		_far_pearl(ci)
 	_progress(ci)
 	if phase == "ready":
 		ci.draw_rect(Rect2(Vector2.ZERO, Vector2(360, 640)), Color(0, 0, 0, 0.25))
@@ -253,3 +255,21 @@ func _hold_hint(ci) -> void:
 	ci.text_at(Vector2(40, 543), ci.t_("G-PARK"), 15, ci.PAPER, 280)
 	ci.draw_arc(p, 18, 0, TAU, 28, Color(ci.PAPER, a), 3.0)
 	ci.draw_circle(p, 8 if holding else 11, Color(ci.PAPER, a))
+
+
+func _far_pearl(ci) -> void:
+	# 东方明珠远景：越开越近（正式图到了用 w2/shanghai/pearl_far.png）
+	var k := clampf(scroll / LENGTH, 0.0, 1.0)
+	var h := lerpf(40.0, 120.0, k)
+	var base := Vector2(180, 118 + h)
+	var a := 0.55 + 0.35 * k
+	var far: Texture2D = ci.texture("w2/shanghai/pearl_far.png")
+	if far:
+		var sz := Vector2(far.get_width() * h / far.get_height(), h)
+		ci.draw_texture_rect(far, Rect2(base - Vector2(sz.x * 0.5, sz.y), sz), false, Color(1, 1, 1, a))
+		return
+	var col := Color("#c3407a", a)
+	ci.draw_line(base, base - Vector2(0, h), Color("#8b8f9a", a), maxf(2.0, h * 0.04))
+	ci.draw_circle(base - Vector2(0, h * 0.30), h * 0.11, col)
+	ci.draw_circle(base - Vector2(0, h * 0.68), h * 0.08, col)
+	ci.draw_circle(base - Vector2(0, h * 0.86), h * 0.04, col)

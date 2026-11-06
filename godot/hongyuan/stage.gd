@@ -89,7 +89,7 @@ func _draw() -> void:
 
 func _invitation() -> void:
 	draw_rect(Rect2(Vector2.ZERO, CANVAS), DARK_RED)
-	if shot.sceneId == "invitation" and shot.type in ["invite", "narration"]:
+	if shot.sceneId == "invitation" and shot.type in ["invite", "narration", "material"]:
 		_draw_background("invitation_desk")
 	_draw_art("invite_card", CARD_ORIGIN)
 

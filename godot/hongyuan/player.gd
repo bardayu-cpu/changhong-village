@@ -738,6 +738,9 @@ func _present() -> void:
 	var phone_page: bool = shot.background == "phone"
 	_style_label(title, Stage.PHONE_HEADER if phone_page else Rect2(18, 14, 324, 34), 20 if phone_page else 16, Stage.CREAM)
 	var chapter_title := "" if shot.type == "terminal" else _text(shot.get("groupId", shot.titleId))
+	var strip := StyleBoxFlat.new()
+	strip.bg_color = Color(SceneRunner.INK, 0.0 if phone_page else 0.62)
+	title.add_theme_stylebox_override("normal", strip)
 	if title.text != chapter_title:
 		title.text = chapter_title
 		_fade_in(title)
@@ -750,7 +753,13 @@ func _present() -> void:
 			if shot.has("copyId") and not _parking_active():
 				_dialogue(_text(shot.copyId))
 		"walk":
-			_label(_text(shot.objectiveId), Rect2(24, 65, 312, 50), 15, Stage.CREAM, true)
+			_label(_text(shot.objectiveId), Rect2(18, 56, 324, 40), 15, Stage.CREAM, true)
+			var objective: Control = slots.get_child(slots.get_child_count() - 1)
+			if objective is Label:
+				var back := StyleBoxFlat.new()
+				back.bg_color = Color(SceneRunner.INK, 0.62)
+				back.set_corner_radius_all(6)
+				objective.add_theme_stylebox_override("normal", back)
 		"chat":
 			_present_chat()
 		"notification":
@@ -829,15 +838,32 @@ func _present_chat() -> void:
 		_fade_in(labels[-1], 2.0)
 
 func _dialogue(text: String) -> void:
+	# 和可操控场景（scene_runner._draw_say）同一个对话框：旁白深底金边，人物米色底加名字牌
+	var box := Rect2(14, 470, 332, 134)
+	var speaker := str(shot.get("speaker", ""))
+	var named: bool = SceneRunner.NAMES.has(speaker) and shot.type == "dialogue"
+	var dark: bool = shot.type in ["narration", "transition"]
 	var panel := Panel.new()
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.position = DIALOGUE_BOX.position
-	panel.size = DIALOGUE_BOX.size
-	var skin := stage.pixel_skin("bubble_left")
-	if skin:
-		panel.add_theme_stylebox_override("panel", skin)
+	panel.position = box.position
+	panel.size = box.size
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(SceneRunner.INK, 0.88) if dark else SceneRunner.PAPER
+	style.border_color = Color(SceneRunner.GOLD, 0.8) if dark else SceneRunner.WOOD
+	style.set_border_width_all(3)
+	panel.add_theme_stylebox_override("panel", style)
 	slots.add_child(panel)
-	_label(text, Rect2(42, 465, 276, 119), 18, Stage.DARK_RED, true)
+	if named:
+		var tag := Label.new()
+		var who: String = SceneRunner.NAMES[speaker]
+		_style_label(tag, Rect2(box.position.x + 18, box.position.y - 13, 26 + 14 * who.length(), 26), 14, SceneRunner.PAPER)
+		var tag_style := StyleBoxFlat.new()
+		tag_style.bg_color = SceneRunner.RED
+		tag_style.set_corner_radius_all(13)
+		tag.add_theme_stylebox_override("normal", tag_style)
+		tag.text = who
+		slots.add_child(tag)
+	_label(text, Rect2(box.position.x + 18, box.position.y + 12, box.size.x - 36, box.size.y - 24), 17, SceneRunner.PAPER if dark else SceneRunner.INK, true)
 
 func _button(id: String, rect: Rect2, action: Callable) -> void:
 	var button := Button.new()

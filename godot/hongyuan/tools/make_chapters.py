@@ -111,6 +111,8 @@ write("finale", "G-12", [scene("finale", "finale", {
         {"bg": "bg_invite_desk.png", "hideAyu": False, "place": [180, 520], "pose": ""},
         A("A7-2b"), A("A7-2c"),
         {"button": "A7-B1"},
+        {"bg": "", "fill": "#2a1210", "hideAyu": True},
+        {"game": "seat"},
     ]}),
     {"id": "next", "type": "terminal", "sceneId": "finale_end", "speaker": "system", "actorMode": "none",
      "actorSlot": None, "background": "phone", "visibleActors": [], "copyId": "W-NEXT"}])
