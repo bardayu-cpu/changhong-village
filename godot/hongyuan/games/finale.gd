@@ -119,7 +119,13 @@ func _guest(i: int) -> Texture2D:
 
 
 func draw(ci) -> void:
-	ci.draw_rect(Rect2(0, 0, 360, 640), Color("#3a1414"))
+	# 回到序章那张桌子：六样齐了，收信人一栏等玩家来写
+	var desk: Texture2D = ci.texture("bg_invite_desk.png")
+	if desk:
+		ci.draw_texture_rect(desk, Rect2(0, 0, 360, 640), false)
+		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0, 0, 0, 0.25))
+	else:
+		ci.draw_rect(Rect2(0, 0, 360, 640), Color("#3a1414"))
 	match phase:
 		"read":
 			_card(ci, 1.0)
