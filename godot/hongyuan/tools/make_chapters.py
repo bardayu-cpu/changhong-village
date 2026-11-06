@@ -132,7 +132,7 @@ write("hongkong", "G-11", [scene("hk", "hongkong", {
          "hideAyu": False, "start": [50, 590], "follow": "w2/hongkong/suitcase_1.png",
          "walkArea": [[20, 380], [345, 380], [345, 615], [20, 615]],
          "actors": [{"id": "gate", "tex": "w2/hongkong/exit_gate.png", "at": [300, 400]}],
-         "hotspots": [{"id": "exit", "at": [300, 405], "snap": [300, 402], "icon": "exit"}]},
+         "hotspots": [{"id": "exit", "at": [300, 405], "snap": [300, 402], "icon": "exit", "iconAt": [300, 262]}]},
         {"go": "exit", "hint": "A6-P3"},
         {"follow": ""},
         {"material": "envelope"},

@@ -98,7 +98,7 @@ func draw(ci) -> void:
 		ci.draw_arc(TABLES[table], 34, 0, TAU, 32, ci.GOLD, 3.0)
 	_draw_guest(ci)
 	# 上方文字
-	ci.draw_rect(Rect2(0, 20, 360, 44), Color(ci.INK, 0.72))
+
 	var line := ""
 	match phase:
 		"walk_in", "pick":
@@ -107,7 +107,7 @@ func draw(ci) -> void:
 			line = ci.t_("A7-B1")
 		_:
 			line = ci.t_("A7-1e")
-	ci.text_at(Vector2(0, 30), line, 16, ci.PAPER, 360)
+	ci.pill(Rect2(24, 22, 312, 40), line, 16, Color(ci.INK, 0.86), ci.PAPER)
 
 
 func _draw_guest(ci) -> void:

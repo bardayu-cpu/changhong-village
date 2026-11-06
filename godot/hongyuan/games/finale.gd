@@ -168,7 +168,7 @@ func draw(ci) -> void:
 					ci.draw_circle(c, 20, Color(0.75, 0.15, 0.12, 0.25 + 0.25 * a))
 				else:
 					ci.draw_circle(c, 18 * hold, Color("#9e1b1b"))
-				ci.pill(Rect2(80, 420, 200, 40), ci.t_("G-SEAL"), 17, ci.RED, ci.PAPER)
+				ci.pill(Rect2(50, 416, 260, 48), ci.t_("G-SEAL"), 24, ci.RED, ci.PAPER)
 			else:
 				var k := clampf(t / 0.3, 0.0, 1.0)
 				ci.draw_circle(c, 26, Color("#9e1b1b"))

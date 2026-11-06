@@ -98,6 +98,8 @@ var button_text := ""
 var button_rect := Rect2()
 var choice_texts: Array = []
 var choice_to: Array = []
+var choice_note := ""
+var choice_note_t := 0.0
 var material_id := ""
 var game: RefCounted
 var result: Dictionary = {}
@@ -272,6 +274,7 @@ func _next() -> void:
 func _process(dt: float) -> void:
 	dt = minf(dt, 0.08)
 	t += dt
+	choice_note_t = maxf(0.0, choice_note_t - dt)
 	time += dt
 	if atmosphere != "": atmosphere_elapsed += dt
 	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
@@ -428,7 +431,13 @@ func _gui_input(event: InputEvent) -> void:
 						var to := str(choice_to[i]) if i < choice_to.size() and choice_to[i] != null else ""
 						if to == "":
 							_next()
+						elif not ResourceLoader.exists(to):
+							# 这个包里没有村子（Web 试玩包）：给提示，不卡住
+							choice_note = _text("G-VILLAGE-LATER")
+							choice_note_t = 3.0
 						else:
+							choice_note = _text("G-VILLAGE-GO")
+							choice_note_t = 30.0
 							scene_requested.emit(to)
 						return
 		"button":
@@ -497,6 +506,8 @@ func _draw() -> void:
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			for i in range(choice_texts.size()):
 				_pill(_choice_rect(i), choice_texts[i], 19, RED if i == 0 else Color(INK, 0.85), PAPER)
+			if choice_note_t > 0.0:
+				_pill(Rect2(20, 400, 320, 40), choice_note, 15, Color(INK, 0.9), WHEAT)
 		"button":
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			_pill(button_rect, button_text, 20, RED, PAPER)

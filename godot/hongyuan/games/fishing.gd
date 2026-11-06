@@ -132,6 +132,8 @@ func draw(ci) -> void:
 		hint = ci.t_("G-FISH-WAIT")
 	if hint != "":
 		ci.pill(Rect2(70, 520, 220, 34), hint, 15, Color(ci.INK, 0.8), ci.RED if missed and phase == "aim" and t < 2.0 else ci.PAPER)
+	if phase == "caught":
+		ci.pill(Rect2(110, 520, 140, 40), ci.t_("G-FISH-GOT"), 20, ci.RED, ci.PAPER)
 	if phase == "bite":
 		var pulse := 1.0 + 0.08 * sin(t * 18.0)
 		var rect := Rect2(Vector2(180, 560) - Vector2(60, 26) * pulse, Vector2(120, 52) * pulse)
