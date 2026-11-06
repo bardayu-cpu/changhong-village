@@ -1,0 +1,130 @@
+{
+  "sources": {
+    "axiao_idle.png": {
+      "origin": "D3 按退回04重画阿晓",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 2,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 重画；透明蒙版净边、最近邻整稿、减色与小熊发夹局部修正",
+      "card": "H01",
+      "anchor": [
+        64,
+        200
+      ],
+      "revision": "H01-R1",
+      "status": "reviewCandidate",
+      "sha256": "f250d0ae003446319ad82c59c2c61bc8dce9536feb34081dcf41956a2fe84f42"
+    },
+    "axiao_phone.png": {
+      "origin": "D3 按退回04重画阿晓",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 2,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 重画；透明蒙版净边、最近邻整稿、减色与小熊发夹局部修正",
+      "card": "H01",
+      "anchor": [
+        64,
+        200
+      ],
+      "revision": "H01-R1",
+      "status": "reviewCandidate",
+      "sha256": "1699739c620bcd087beaa44c6f72ae89920f93b0ad323fbc4ce634f58bfa6b95"
+    },
+    "axiao_walk_side_1.png": {
+      "origin": "D3 按退回04重画阿晓",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 2,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 重画；透明蒙版净边、最近邻整稿、减色与小熊发夹局部修正",
+      "card": "H01",
+      "anchor": [
+        64,
+        200
+      ],
+      "revision": "H01-R1",
+      "status": "reviewCandidate",
+      "sha256": "fbf69cd4c7bba5227f14c98ad38dff81ef15db05de7e63d1b9b58d7ffa056722"
+    },
+    "axiao_walk_side_2.png": {
+      "origin": "D3 按退回04重画阿晓",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 2,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 重画；透明蒙版净边、最近邻整稿、减色与小熊发夹局部修正",
+      "card": "H01",
+      "anchor": [
+        64,
+        200
+      ],
+      "revision": "H01-R1",
+      "status": "reviewCandidate",
+      "sha256": "0822b2cb5ae29350bcbcb7096b59c7eee508ade8285ce5257f7a9d39780d3399"
+    },
+    "axiao_walk_side_3.png": {
+      "origin": "D3 按退回04重画阿晓",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 3,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 重画；透明蒙版净边、最近邻整稿、减色与小熊发夹局部修正",
+      "card": "H01",
+      "anchor": [
+        64,
+        200
+      ],
+      "revision": "H01-R1",
+      "status": "reviewCandidate",
+      "sha256": "720f4ed15fcfb534e0edeab1d7f85bf6d3c1bc2ef4eedfd007c8d765d360530c"
+    },
+    "axiao_walk_side_4.png": {
+      "origin": "D3 按退回04重画阿晓",
+      "dimensions": [
+        128,
+        208
+      ],
+      "generationAttempt": 3,
+      "references": [
+        "public/assets/axiao_phone.webp",
+        "docs/红缘原稿/03 美术参考/红缘大冒险-人物设计一览图.png"
+      ],
+      "method": "内置 imagegen 重画；透明蒙版净边、最近邻整稿、减色与小熊发夹局部修正",
+      "card": "H01",
+      "anchor": [
+        64,
+        200
+      ],
+      "revision": "H01-R1",
+      "status": "reviewCandidate",
+      "sha256": "e7697c6c07ad1dceb5974018199591d6591a868ff35ee4c015f741aa19e89024"
+    }
+  }
+}
