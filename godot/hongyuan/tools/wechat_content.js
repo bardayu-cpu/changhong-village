@@ -61,6 +61,27 @@ async function mountInput(group, item, callback) {
 GameGlobal.hongyuanContent = {
     count: group => (config.remote[group] || []).length,
     local: group => !!config.local[group],
+    editGuestName(value, maxLength, callback) {
+        let draft = value
+        const input = result => { if (typeof result.value === 'string') draft = result.value }
+        const complete = (result = {}) => {
+            input(result)
+            wx.offKeyboardInput(input)
+            wx.offKeyboardConfirm(input)
+            wx.offKeyboardComplete(complete)
+            callback(draft)
+        }
+        wx.onKeyboardInput(input)
+        wx.onKeyboardConfirm(input)
+        wx.onKeyboardComplete(complete)
+        wx.showKeyboard({
+            defaultValue: value, maxLength, multiple: false, confirmHold: false, confirmType: 'done',
+            fail: error => {
+                console.error('[hongyuan] name keyboard failed', error)
+                complete()
+            }
+        })
+    },
     fetch(group, item, callback) {
         const isCloud = item >= 0
         const attempt = () => {
