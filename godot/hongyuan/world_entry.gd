@@ -9,7 +9,7 @@ var game: Node
 var profile: Dictionary = {}
 var state: Dictionary = {}
 var loading: Label
-var navigation: VBoxContainer
+var navigation: HBoxContainer
 var busy := false
 var save_elapsed := 0.0
 
@@ -41,13 +41,16 @@ func _ready() -> void:
     loading.add_theme_stylebox_override("normal", backdrop)
     loading.mouse_filter = Control.MOUSE_FILTER_STOP
     layer.add_child(loading)
-    navigation = VBoxContainer.new()
+    # 第六轮：原来 114×66 竖排在 y=252，压住宴会厅「翻簿子」和停车场的车。改成右上角一行小按钮，
+    # 放在顶栏（山庄金币条/村子来信卡）下面、宴会厅提示面板上面。
+    navigation = HBoxContainer.new()
     navigation.set_anchors_preset(Control.PRESET_TOP_RIGHT)
     navigation.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-    navigation.offset_left = -126
-    navigation.offset_right = -12
-    navigation.offset_top = 252
-    navigation.add_theme_constant_override("separation", 8)
+    navigation.offset_left = -300
+    navigation.offset_right = -8
+    navigation.offset_top = 82
+    navigation.alignment = BoxContainer.ALIGNMENT_END
+    navigation.add_theme_constant_override("separation", 6)
     layer.add_child(navigation)
     await travel(str(state.get("worldRoute", "wedding")))
 
@@ -124,13 +127,17 @@ func travel(where: String) -> void:
 func add_button(label: String, action: Callable) -> void:
     var button := Button.new()
     button.text = label
-    button.custom_minimum_size = Vector2(114, 66)
+    button.custom_minimum_size = Vector2(0, 38)
     button.add_theme_font_override("font", FONT)
-    button.add_theme_font_size_override("font_size", 22)
+    button.add_theme_font_size_override("font_size", 18)
     var style := StyleBoxFlat.new()
-    style.bg_color = Color("#473329")
+    style.bg_color = Color("#473329", 0.92)
     style.border_color = Color("#be974d")
     style.set_border_width_all(2)
+    style.content_margin_left = 10
+    style.content_margin_right = 10
+    style.content_margin_top = 4
+    style.content_margin_bottom = 4
     button.add_theme_stylebox_override("normal", style)
     var hover := style.duplicate()
     hover.bg_color = Color("#694a35")
