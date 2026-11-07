@@ -27,6 +27,18 @@ UNUSED = ['ayu_home/v4/assets/village/households-closeout-1025/', 'ayu_home/v3/a
 world_files = [p for p in world_files if not any(p.relative_to(root).as_posix().startswith(u) for u in UNUSED)]
 common += world_files
 common += sorted((root / 'hongyuan/assets/bgm').glob('*.ogg'))
+# The dialogue autoload looks up global class names, which Godot's explicit
+# resource export cannot always infer as dependencies.
+dialogue = root / 'addons/dialogue_manager'
+dialogue_runtime = [dialogue / (name + '.gd') for name in (
+    'constants', 'dialogue_line', 'dialogue_manager', 'dialogue_processor',
+    'dialogue_resource', 'dialogue_response', 'settings',
+)]
+dialogue_runtime += [dialogue / 'test_scene.tscn']
+for folder in ['compiler', 'utilities', 'nodes', 'example_balloon']:
+    dialogue_runtime += [p for p in (dialogue / folder).rglob('*')
+               if p.suffix in {'.gd', '.tres', '.svg'}
+               or (p.suffix == '.tscn' and p.stem == p.stem.lower())]
 guests = [root / ('assets/characters/lm/chr_LM-GUEST-%02d.png' % i) for i in [1, 2, 3, 4, 5, 6, 7, 8]]
 reachable = set()
 
@@ -89,7 +101,7 @@ for i, part in enumerate(parts):
     found = re.search(r'export_files=PackedStringArray\((.*?)\)\n', part)
     if not found:
         raise RuntimeError('Missing export_files in Hongyuan preset')
-    files = refs(common + guests + (art if web else sorted(reachable)))
+    files = refs(common + guests + (art if web else sorted(reachable) + dialogue_runtime))
     if web:
         files += re.findall(r'"([^"]+)"', found.group(1))
     files = [f for f in files if not any(f.startswith('res://' + u) for u in UNUSED)]
