@@ -41,7 +41,7 @@ func _rows() -> Array:
 	for i in range(maxi(0, end - 1), end + 1):
 		var message: String = r.t_(str(lines[i].say))
 		var width := clampf(r.FONT.get_string_size(message, HORIZONTAL_ALIGNMENT_LEFT, -1, 15).x + 28, 96, 292)
-		var height: float = maxf(38, r.FONT.get_multiline_string_size(message, HORIZONTAL_ALIGNMENT_LEFT, width - 28, 15).y + 18)
+		var height: float = maxf(38, r.FONT.get_multiline_string_size(r.StoryCaption.wrap_text(message,width-28,15), HORIZONTAL_ALIGNMENT_LEFT, width - 28, 15).y + 18)
 		rows.append({"index": i, "who": str(lines[i].who), "text": message, "width": width, "height": height})
 		total += height + 19
 	var y := maxf(CHAT_TOP, CHAT_BOTTOM - total)
@@ -96,7 +96,7 @@ func draw(ci) -> void:
 				ci.draw_circle(rect.position + Vector2(18 + i * 10, 20 + sin(t * 10 - i) * 2), 2.3, Color("#79927b"))
 		else:
 			var shown: String = str(row.text).substr(0, int(reveal)) if latest else str(row.text)
-			ci.draw_multiline_string(ci.FONT, rect.position + Vector2(14, 22), shown, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 28, 15, -1, ci.INK)
+			ci.draw_multiline_string(ci.FONT, rect.position + Vector2(14, 22), ci.StoryCaption.wrap_text(shown,rect.size.x-28,15), HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 28, 15, -1, ci.INK)
 	var hint: String = ci.t_("G-WINDOW-HISTORY" if chat_scroll > 0 else "G-WINDOW-NEXT")
 	ci.text_at(Vector2(23, 624), hint, 11, Color(0.13, 0.18, 0.15, 0.6), 316)
 	ci.text_at(Vector2(22, 623), hint, 11, Color("#f6f5ed"), 316)

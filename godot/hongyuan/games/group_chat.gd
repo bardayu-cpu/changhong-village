@@ -56,5 +56,5 @@ func draw(ci) -> void:
 	var avatar: Texture2D = ci.texture(ci.AVATARS.get(who,"")) if who in ci.AVATARS else null
 	if avatar: ci.draw_texture_rect(avatar,Rect2(30,430,36,36),false)
 	Bubble._round_box(ci,Rect2(76,425,248,132),Color("#d7ecc6") if who == "ayu" else Color.WHITE,8)
-	ci.draw_multiline_string(ci.FONT,Vector2(88,452),text.substr(0,int(reveal)),HORIZONTAL_ALIGNMENT_LEFT,220,16,-1,ci.INK)
+	ci.draw_multiline_string(ci.FONT,Vector2(88,452),ci.StoryCaption._display_text(text,"ayu",220,int(reveal)),HORIZONTAL_ALIGNMENT_LEFT,220,16,-1,ci.INK)
 	ci.text_at(Vector2(30,584),"轻点阅读下一条",12,ci.WOOD,300)

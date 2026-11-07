@@ -624,7 +624,7 @@ func _draw() -> void:
 			_panel(Rect2(30, 180, 300, 290), PAPER, GOLD)
 			var i := 0
 			for key: String in ["目标", "操作", "所得"]:
-				draw_multiline_string(FONT, Vector2(48, 218 + i * 80), key + "\n" + str(goal_data.get(key, "")), HORIZONTAL_ALIGNMENT_LEFT, 264, 17, -1, INK)
+				draw_multiline_string(FONT, Vector2(48, 218 + i * 80), StoryCaption.wrap_text(key + "\n" + str(goal_data.get(key, "")),264,17), HORIZONTAL_ALIGNMENT_LEFT, 264, 17, -1, INK)
 				i += 1
 			_pill(Rect2(100, 490, 160, 48), "准备好了", 18, RED, PAPER)
 		"say", "auto":
@@ -836,7 +836,7 @@ func _draw_card() -> void:
 	draw_rect(Rect2(0, 270, 360, 84), Color(INK, 0.72 * a))
 	draw_rect(Rect2(0, 270, 360, 2), Color(GOLD, 0.8 * a))
 	draw_rect(Rect2(0, 352, 360, 2), Color(GOLD, 0.8 * a))
-	draw_multiline_string(FONT, Vector2(30, 318), say_text, HORIZONTAL_ALIGNMENT_CENTER, 300, 20, -1, Color(WHEAT, a))
+	draw_multiline_string(FONT, Vector2(30, 318), StoryCaption.wrap_text(say_text,300,20), HORIZONTAL_ALIGNMENT_CENTER, 300, 20, -1, Color(WHEAT, a))
 
 
 const NEXT_STOP := {"paper": "W-NEXT-SHIZUOKA", "stamp": "W-NEXT-HAINAN", "wax": "W-NEXT-HONGKONG"}
@@ -993,7 +993,7 @@ func _pill(r: Rect2, text: String, font_size: int, fill: Color, fg: Color, outli
 
 
 func text_at(pos: Vector2, text: String, font_size: int, color: Color, width := -1.0, align := HORIZONTAL_ALIGNMENT_CENTER) -> void:
-	draw_multiline_string(FONT, pos, text, align, width, font_size, -1, color)
+	draw_multiline_string(FONT, pos, StoryCaption.wrap_text(text,width,font_size), align, width, font_size, -1, color)
 
 
 func pill(r: Rect2, text: String, font_size: int, fill: Color, fg: Color) -> void:

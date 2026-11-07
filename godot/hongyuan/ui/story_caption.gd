@@ -24,11 +24,22 @@ static func avatar(who: String) -> Texture2D:
 static func _display_text(full_text: String, who: String, width: float, visible_characters := -1) -> String:
 	var shown := full_text if visible_characters < 0 else full_text.substr(0, visible_characters)
 	var font_size := 16 if NAMES.has(who) else 15
-	var one_line := FONT.get_string_size(full_text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
-	if "\n" not in full_text and one_line > width and one_line <= width + 24:
-		var split := full_text.find("，") + 1
-		if split > 0 and split < shown.length(): shown = shown.insert(split, "\n")
-	return shown
+	return wrap_text(shown,width,font_size)
+
+static func wrap_text(shown: String, width: float, font_size: int) -> String:
+	if width <= 0: return shown
+	# Web's reduced TextServer does not reliably find Chinese word boundaries.
+	# Measure each line explicitly so the identical copy fits native and Web.
+	var lines: Array[String] = []
+	for paragraph in shown.split("\n"):
+		var line := ""
+		for character in paragraph:
+			if not line.is_empty() and FONT.get_string_size(line+character,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x > width:
+				lines.append(line)
+				line = ""
+			line += character
+		lines.append(line)
+	return "\n".join(lines)
 
 static func caption_rect(full_text: String, who: String, anchor := Vector2(-1, -1)) -> Rect2:
 	full_text = _strip_emoji(full_text)
