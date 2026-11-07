@@ -80,7 +80,7 @@ func run() -> void:
 	await shot("07-boat-approach")
 	tap(Vector2(220, 440))
 	await tick(3.0)
-	check(r.mode == "go" and r._near_hotspot() == "seat", "Walking to the correctly scaled bench still requires explicit sit interaction")
+	check(not (r.mode == "go" and r.go_id == "seat"), "Walking to the correctly scaled bench sits down automatically (#49)")
 	tap(r._icon_rect("seat").get_center())
 	r.reveal = r.say_text.length()
 	var ayu_rect: Rect2 = r.person_rect(r._player_frame(), r.feet)
@@ -110,7 +110,7 @@ func run() -> void:
 	r.feet = Vector2(180, 590)
 	var near_height: float = r.person_rect(r._player_frame(), r.feet).size.y
 	await shot("11-airport-near")
-	tap(Vector2(270, 410))
+	tap(Vector2(230, 410))
 	await tick(3.0)
 	var far_height: float = r.person_rect(r._player_frame(), r.feet).size.y
 	check(near_height > far_height * 1.4 and far_height > 95 and far_height < 110, "Airport walking recedes from a foreground adult to door-calibrated depth")
