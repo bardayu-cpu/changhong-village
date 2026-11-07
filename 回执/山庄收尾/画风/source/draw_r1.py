@@ -54,8 +54,9 @@ def person(name,shirt,hair='hair',glasses=False,straps=False,longhair=False):
  r(d,(11,29,14,37),'navy');r(d,(17,29,20,37),'navy')
  r(d,(9,38,15,41),'metal_d');r(d,(16,38,22,41),'metal_d')
  export(im,name)
+ return im
 person('photographer_w','green',straps=True)
-person('elder','cloth_m',hair='hairgray',glasses=True)
+elder_grid=person('elder','cloth_m',hair='hairgray',glasses=True)
 person('farmer_2','cloth_l',straps=True,longhair=True)
 # Separate shared foot-shadow component: exactly 2 art px contact + ~30% cast alpha.
 sh=Image.new('RGBA',(20,8),(0,0,0,0));sd=ImageDraw.Draw(sh)
@@ -81,27 +82,20 @@ r(d,(35,29,42,43),'car_d');r(d,(41,30,42,41),'car_hi');r(d,(36,31,39,39),'car_m'
 big=im.resize((86,148),Image.Resampling.NEAREST); big.crop((0,0,86,147)).save(OUT/'car_mine.png')
 # Car's soft cast shadow is a separate 30%-alpha component, cast down/right.
 csh=Image.new('RGBA',(43,74),(0,0,0,0));cd=ImageDraw.Draw(csh)
-cd.rectangle((5,5,42,73),fill=(*C['shadow'],77))
+cd.rectangle((5,5,42,72),fill=(*C['shadow'],77))
 csh.resize((86,148),Image.Resampling.NEAREST).crop((0,0,86,147)).save(OUT/'car_mine_shadow.png')
-# Scale board drawn at canvas resolution with real silhouettes/heights and one common foot baseline.
-# Place the actual 84px NPC PNG. Visible working area is 560x220 canvas pixels.
-S=Image.new('RGBA',(560,240),(*C['paper'],255));D=ImageDraw.Draw(S);base=210
-human=Image.open(OUT/'elder.png').convert('RGBA');S.alpha_composite(human,(12,base-84))
-# door: 43x100; table height 36 and width 86; chair 22x46; tree 150 tall, canopy 120x90; car projected footprint 86x147 with height noted.
+# Compose scale board on half-resolution art grid, then nearest-neighbor enlarge 2x.
+S=Image.new('RGBA',(280,120),(*C['paper'],255));D=ImageDraw.Draw(S);base=105
+S.alpha_composite(elder_grid,(6,base-42))
+# Door ~44x100; table 86x36; chair 22x46; tree 120x150; car silhouette 86x146.
 def R(x,y,w,h,c):D.rectangle((x,y,x+w-1,y+h-1),fill=(*C[c],255))
-# door
-R(95,base-100,43,100,'wood_d');R(99,base-96,35,96,'wood_l');R(127,base-52,3,3,'gold')
-# chair, height 46 / width 22
-R(164,base-46,22,3,'wood_d');R(166,base-43,18,20,'wood_m');R(168,base-23,14,20,'wood_d');R(166,base-3,18,3,'wood_l')
-# round table height 36 / diameter 86, tabletop shown as isometric ellipse
-D.ellipse((205,base-36,290,base-18),fill=(*C['stone_l'],255),outline=(*C['stone_d'],255),width=2);R(213,base-19,70,16,'wood_m')
-# tree height 150, canopy 120 wide
-R(326,base-62,16,62,'wood_d');D.ellipse((275,base-150,394,base-42),fill=(*C['grass_m'],255),outline=(*C['grass_d'],255),width=3);D.ellipse((292,base-142,375,base-81),fill=(*C['grass_l'],255))
-# car is north facing; footprint 86x147 is shown by outline bounds; raised profile height=71 callout in text
-R(420,base-147,86,147,'car_d');R(426,base-141,74,135,'car_m');R(435,base-132,55,18,'car_hi');R(434,base-107,58,24,'glass_d');R(435,base-78,55,31,'car_l');R(427,base-17,72,11,'metal_d')
-# gate column 196px high
-R(525,base-196,24,196,'roof');R(530,base-190,14,190,'wall_hi')
-S.save(OUT/'比例尺.png')
+R(47,base-50,22,50,'wood_d');R(49,base-48,18,48,'wood_l');R(63,base-26,2,2,'gold')
+R(82,base-23,11,2,'wood_d');R(83,base-21,9,10,'wood_m');R(84,base-11,7,10,'wood_d');R(83,base-2,9,2,'wood_l')
+D.ellipse((102,base-18,144,base-9),fill=(*C['stone_l'],255),outline=(*C['stone_d'],255),width=1);R(106,base-10,35,8,'wood_m')
+R(163,base-31,8,31,'wood_d');D.ellipse((138,base-75,197,base-21),fill=(*C['grass_m'],255),outline=(*C['grass_d'],255),width=2);D.ellipse((146,base-71,187,base-41),fill=(*C['grass_l'],255))
+R(210,base-73,43,73,'car_d');R(213,base-70,37,67,'car_m');R(217,base-66,28,9,'car_hi');R(217,base-54,29,12,'glass_d');R(217,base-39,28,16,'car_l');R(213,base-9,37,6,'metal_d')
+R(262,base-98,12,98,'roof');R(265,base-95,7,95,'wall_hi')
+S.resize((560,240),Image.Resampling.NEAREST).save(OUT/'比例尺.png')
 # Contact sheet previews for materials also include the actual 84px person as scale.
 sample=Image.new('RGBA',(360,92),(0,0,0,0))
 for i,n in enumerate(['草地','柏油','石板','木头','白墙灰瓦','水','车漆','布','金属玻璃']):
