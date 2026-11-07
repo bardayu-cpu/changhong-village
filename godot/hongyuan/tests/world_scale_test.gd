@@ -71,7 +71,12 @@ func run() -> void:
 	check(r.game._tip().y > r.person_rect(r._player_frame(), r.feet).position.y, "Fishing line remains attached below the scaled character top")
 	await shot("06-pier")
 	r = enter("shizuoka/pier", "go", "seat")
-	check(r.mode == "go" and r.beats[r.bi + 1].get("say", "") == "A4-2a", "Couple sit together before their first marriage conversation line")
+	# #46 起船上对白搬进了温泉小游戏：坐下之后先进温泉，对白第一句仍是 A4-2a。
+	var onsen_beat := {}
+	for b: Dictionary in r.beats:
+		if b.get("game", "") == "onsen":
+			onsen_beat = b
+	check(r.mode == "go" and not onsen_beat.is_empty() and onsen_beat.lines[0].get("say", "") == "A4-2a", "Couple sit together before their first marriage conversation line")
 	await shot("07-boat-approach")
 	tap(Vector2(220, 440))
 	await tick(3.0)

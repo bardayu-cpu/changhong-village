@@ -748,7 +748,9 @@ func _present() -> void:
 	var kind: String = shot.type
 	match kind:
 		"invite":
-			_button(shot.objectiveId, Rect2(102, 72, 156, 41), _advance)
+			# 旁白框从 y=54 起、高度随文字变化，按钮放在它下面，避免重叠。
+			var invite_caption := StoryCaption.caption_rect(_text(shot.copyId), "narrator")
+			_button(shot.objectiveId, Rect2(102, invite_caption.end.y + 12, 156, 41), _advance)
 			_dialogue(_text(shot.copyId))
 		"dialogue", "narration", "transition":
 			if shot.has("copyId") and not _parking_active():
@@ -963,6 +965,16 @@ func _make_parking_sound(start_hz: float, end_hz: float, duration: float) -> Aud
 # ---------- 可操控场景（Claude W2）----------
 
 func _start_scene(resume := false) -> void:
+	# 续档防错位：场景的拍子序号会随剧本改动而变。存档里记着当时场景的指纹，对不上就从头开始这一场。
+	# 旧存档没有指纹，静冈、香港、终章在 #46 里重排过拍子，这三章的旧存档一律从场景开头重来。
+	var scene_sig := str(JSON.stringify(shot.scene.get("beats", [])).hash())
+	if resume:
+		var saved_sig := str(state.get("sceneSig", ""))
+		var stale := saved_sig != scene_sig if saved_sig != "" else str(shot.chapterId) in ["shizuoka", "hongkong", "finale"]
+		if stale:
+			state.sceneBeat = 0
+			state.erase("sceneSnapshot")
+	state.sceneSig = scene_sig
 	var saved: Dictionary = state.get("sceneSnapshot", {}).duplicate(true) if resume else {}
 	var applied := {}
 	for key: String in state.get("sceneMaterials", {}):
