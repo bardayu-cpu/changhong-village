@@ -35,9 +35,16 @@ func run() -> void:
 	var spec := {"start":[80,500], "walkArea":[[20,350],[340,350],[340,620],[20,620]],
 		"hotspots":[{"id":"seat","at":[220,450],"icon":"sit"}], "beats":[{"go":"seat"},{"say":"A4-2h","who":"ayu"}]}
 	var r = make_scene(spec)
+	# #49 起：点目标本身会自己走过去并触发；点别处的地面只走路、不触发。
 	r._go_input("up", Vector2(220,450), true)
 	for i in range(100): r._process(0.05)
-	check(r.bi == 0 and r._near_hotspot() == "seat", "Arrival does not trigger the hotspot")
+	check(r.mode == "say", "Tapping the target walks there and triggers it")
+	r.free()
+	r = make_scene(spec)
+	r._go_input("up", Vector2(220,400), true)
+	for i in range(100): r._process(0.05)
+	check(r.bi == 0 and r.mode == "go", "Tapping other ground only walks")
+	r.feet = Vector2(215,450)
 	r._go_input("up", r._icon_rect("seat").get_center(), true)
 	check(r.mode == "say" and not r.moving and r.stick == Vector2.ZERO, "Explicit icon starts dialogue and clears movement")
 	r.free()

@@ -73,8 +73,6 @@ func run() -> void:
 	check(r.go_id == "cake", "Future flower hotspot cannot skip the cake")
 	tap(Vector2(94, 440))
 	await tick(3.0)
-	check(r.go_id == "cake" and r._near_hotspot() == "cake", "Walking reaches desk but does not auto-trigger gift")
-	tap(r._icon_rect("cake").get_center())
 	check(r.mode == "say" and r.say_who == "toretto" and r.beats[r.bi].say == "A3-2j", "Explicit cake interaction keeps Toretto's original line")
 	r.reveal = r.say_text.length()
 	await shot("02-toretto-cake-dialogue")
