@@ -16,7 +16,7 @@ common += [root / 'hongyuan/world_entry.tscn', root / 'hongyuan/village_entry.ts
 world_files = [
     p for folder in ['scripts', 'shaders', 'assets', 'ayu_home']
     for p in (root / folder).rglob('*')
-    if p.is_file() and p.suffix in {'.gd', '.tscn', '.tres', '.png', '.webp', '.svg', '.wav', '.ogg', '.ttf'}
+    if p.is_file() and p.suffix in {'.gd', '.tscn', '.tres', '.dialogue', '.png', '.webp', '.svg', '.wav', '.ogg', '.ttf'}
     and not {'tests', 'tools', 'docs'} & set(p.parts)
 ]
 common += world_files

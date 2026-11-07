@@ -4,10 +4,14 @@ import re
 
 
 @contextmanager
-def love_project(root, wechat=False):
+def love_project(root, wechat=False, user_data_name=None):
     project = root / 'project.godot'
     original = project.read_text()
     configured = original.replace('config/name="苏七镇奇缘"', 'config/name="红缘大冒险"')
+    if user_data_name:
+        configured = re.sub(r'^config/custom_user_dir_name=".*"$',
+                            'config/custom_user_dir_name="' + user_data_name + '"',
+                            configured, flags=re.M)
     # The estate uses the existing dialogue autoload for its NPC interactions.
     if wechat:
         section = re.search(r'(\[editor_plugins\]\s*\nenabled=PackedStringArray\()(.*?)(\))', configured)
