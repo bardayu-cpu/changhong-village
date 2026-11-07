@@ -150,7 +150,7 @@
   "G-FISH-HOLD": "按住蓄力，松手甩竿",
   "G-FISH-WAIT": "等浮标沉下去……",
   "G-FISH-MISS": "鱼跑了，再甩一次",
-  "G-SEAL": "按住火漆，封好请柬",
+  "G-SEAL": "按住火漆，封上信封",
   "G-HOLD": "按住听他说",
   "G-SPEAKER": "点亮扬声器",
   "G-NEXT": "下一步 ›",
@@ -182,5 +182,6 @@
   "G-MAIL-SUBJ": "主题",
   "G-MAIL-TYPE": "点一下，继续写",
   "G-MAIL-SEND": "发送",
-  "G-MAIL-SENT": "已发送"
+  "G-MAIL-SENT": "已发送",
+  "G-RING-HOW": "点一下想套的东西，或往后拉再松手"
 }
