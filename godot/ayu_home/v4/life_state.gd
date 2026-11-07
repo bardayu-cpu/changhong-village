@@ -83,16 +83,36 @@ func open(profile:Dictionary, override_path:="") -> void:
 	if data.trees.size()!=2:data.trees=[{},{}]
 	base=data.duplicate(true)
 	# 同一份存档是不是已经在别的窗口开着（那个窗口每几秒在旁边的小文件里记一下「我还开着」）
-	var other:=_read(path+".open")
+	var other:=_read_open()
 	another_open=not other.is_empty() and str(other.get("who",""))!=who and now_real()-float(other.get("at",0))<20
 	touch_open()
 ## 「我还开着」：每几秒记一次，关的时候删掉
 func touch_open() -> void:
+	if _browser_lock():
+		# Presence is ephemeral cross-tab state, not a saved household file.
+		# Removing an IDBFS .open file during an in-flight scan caused ENOENT
+		# and aborted the whole save transaction when leaving the village.
+		var value := JSON.stringify({"who":who,"at":now_real()})
+		JavaScriptBridge.eval("try{localStorage.setItem(%s,%s)}catch(_){}" % [JSON.stringify(_open_key()),JSON.stringify(value)],true)
+		return
 	var f:=FileAccess.open(path+".open",FileAccess.WRITE)
 	if f:f.store_string(JSON.stringify({"who":who,"at":now_real()}));f.close()
 func close_open() -> void:
+	if _browser_lock():
+		JavaScriptBridge.eval("try{const k=%s;const v=JSON.parse(localStorage.getItem(k)||'{}');if(v.who===%s)localStorage.removeItem(k)}catch(_){}" % [JSON.stringify(_open_key()),JSON.stringify(who)],true)
+		return
 	var other:=_read(path+".open")
 	if str(other.get("who",""))==who:DirAccess.remove_absolute(path+".open")
+func _browser_lock() -> bool:
+	return OS.has_feature("web") and not OS.has_feature("hongyuan_wechat")
+func _open_key() -> String:
+	return "ayu-home-open:"+ProjectSettings.globalize_path(path)
+func _read_open() -> Dictionary:
+	if _browser_lock():
+		var text := str(JavaScriptBridge.eval("(()=>{try{return localStorage.getItem(%s)||'{}'}catch(_){return '{}'}})()" % JSON.stringify(_open_key()),true))
+		var value: Variant = JSON.parse_string(text)
+		return value if value is Dictionary else {}
+	return _read(path+".open")
 func now_real() -> float:return Time.get_unix_time_from_system()
 ## 合并：存之前先读磁盘上的存档。别的窗口在我上次读 / 存之后存过（rev 变大），就三方合并：
 ## 我这边没动过的，用磁盘上的；磁盘上没动过的，用我的；两边都动了的，列表合在一起、开关取「做过」、次数取大的，其余用我的。
