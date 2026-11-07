@@ -19,6 +19,12 @@ world_files = [
     if p.is_file() and p.suffix in {'.gd', '.gdshader', '.tscn', '.tres', '.dialogue', '.png', '.jpg', '.webp', '.svg', '.wav', '.ogg', '.ttf', '.woff2'}
     and not {'tests', 'tools', 'docs', 'sources'} & set(p.parts)
 ]
+# 没有任何代码/配置引用的原稿与旧版大图不进包（Web 试玩包体积要压在 256MB 内）
+UNUSED = ['ayu_home/v4/assets/village/households-closeout-1025/', 'ayu_home/v3/assets/door-repair-source.png',
+          'ayu_home/v3/assets/floor1-clear-source.png', 'ayu_home/v3/assets/labels-repair-source.png',
+          'ayu_home/v3/assets/floor1-original.png', 'ayu_home/v3/assets/pets-source.png',
+          'ayu_home/v4/assets/floor1-redraw/floor1-generated.png']
+world_files = [p for p in world_files if not any(p.relative_to(root).as_posix().startswith(u) for u in UNUSED)]
 common += world_files
 common += sorted((root / 'hongyuan/assets/bgm').glob('*.ogg'))
 guests = [root / ('assets/characters/lm/chr_LM-GUEST-%02d.png' % i) for i in [1, 2, 3, 4, 5, 6, 7, 8]]
@@ -86,6 +92,7 @@ for i, part in enumerate(parts):
     files = refs(common + guests + (art if web else sorted(reachable)))
     if web:
         files += re.findall(r'"([^"]+)"', found.group(1))
+    files = [f for f in files if not any(f.startswith('res://' + u) for u in UNUSED)]
     line = 'export_files=PackedStringArray(' + ', '.join('"%s"' % f for f in sorted(set(files))) + ')\n'
     part = part.replace(found.group(0), line)
     part = re.sub(r'include_filter="([^"]*)"', lambda m: 'include_filter="' + ','.join(dict.fromkeys(m.group(1).split(',') + ['data/*.json', 'assets/*.json', 'assets/*.dialogue', 'assets/*.jpg', 'ayu_home/*.json', 'ayu_home/*.nav'])) + '"', part, count=1)

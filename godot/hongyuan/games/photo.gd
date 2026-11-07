@@ -71,7 +71,10 @@ func _camera_rect() -> Rect2:
 func input(kind: String, pos: Vector2) -> void:
 	if kind != "tap" or phase != "ready":
 		return
-	if _camera_rect().grow(16).has_point(pos):
+	# 相机图标及其下方一整片都算（手指常点在图标下面）
+	var zone := _camera_rect().grow(16)
+	zone = zone.merge(Rect2(zone.position.x - 30, zone.position.y, zone.size.x + 60, zone.size.y + 90))
+	if zone.has_point(pos):
 		phase = "prep"
 		t = 0.0
 		_frames = 0

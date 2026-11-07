@@ -71,14 +71,16 @@ func _seat_of(i: int) -> Vector2:
 func input(kind: String, p: Vector2) -> void:
 	if kind != "tap" or phase != "pick":
 		return
+	# 点到哪张桌就去哪张；点在红毯或空地上，就去离手指最近的那桌（不会点了没反应）
+	var best := 0
 	for i in range(TABLES.size()):
-		if Rect2(TABLES[i] - Vector2(36, 34), Vector2(72, 64)).has_point(p):
-			table = i
-			var seat := _seat_of(i)
-			path = [Vector2(CARPET_X, seat.y), seat]
-			phase = "walk"
-			r.play("blip")
-			return
+		if Rect2(TABLES[i] - Vector2(36, 34), Vector2(72, 64)).has_point(p) or p.distance_to(TABLES[i]) < p.distance_to(TABLES[best]):
+			best = i
+	table = best
+	var seat := _seat_of(best)
+	path = [Vector2(CARPET_X, seat.y), seat]
+	phase = "walk"
+	r.play("blip")
 
 
 func draw(ci) -> void:
