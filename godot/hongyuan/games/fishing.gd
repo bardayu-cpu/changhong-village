@@ -19,6 +19,7 @@ func start(runner, _beat: Dictionary) -> void:
 	rng.seed = Time.get_ticks_usec()
 	r.pose = "fishing"
 	r.facing = 1.0
+	r.comp_pos = r.feet + Vector2(-72,4)
 
 
 const BODY_ORIGIN := Vector2(49,200)
@@ -260,3 +261,7 @@ func _bobber(ci, p: Vector2, sinking: bool) -> void:
 	ci.draw_rect(Rect2(p + Vector2(-3, -6), Vector2(6, 6)), Color("#d63c3c"))
 	if not sinking:
 		ci.draw_rect(Rect2(p + Vector2(-3, 0), Vector2(6, 4)), Color("#f5f0e6"))
+
+
+func restore_checkpoint() -> void:
+	r.comp_pos = r.feet + Vector2(-72,4)

@@ -12,6 +12,8 @@ func _initialize() -> void:
 			if not shot.has("scene"): continue
 			shot.fullId = chapter + "/" + str(shot.id)
 			shot.chapterId = chapter
+			# New scenes have no pre-release checkpoint to migrate.
+			if not old.has(shot.fullId): continue
 			var baseline: Array = old[shot.fullId]
 			var game_index := -1
 			for i in range(baseline.size()):
@@ -19,7 +21,10 @@ func _initialize() -> void:
 			if game_index < 0: continue
 			var state := {"sceneSig":str(JSON.stringify(baseline).hash()),"sceneBeat":game_index,"sceneSnapshot":{"beat":game_index,"mode":"game","feet":[122,440],"game":{"phase":"wait","t":0.4}}}
 			check(Migration.migrate(state,shot),chapter+" old beat maps after inserted goal card")
-			check(shot.scene.beats[state.sceneBeat] == baseline[game_index] and state.sceneSnapshot.feet == [122,440],chapter+" preserves active game and location")
+			var target: Dictionary = shot.scene.beats[state.sceneBeat]
+			check(str(target.get("game", "")) == str(baseline[game_index].game) and state.sceneSnapshot.feet == [122,440] and state.sceneSnapshot.game.phase == "wait",chapter+" preserves the same active game, state and location")
+			var exact: int = shot.scene.beats.find(baseline[game_index])
+			if exact >= 0: check(state.sceneBeat == exact,chapter+" keeps exact unchanged beat when available")
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://hongyuan/chapters/finale.json"))
 	var finale: Dictionary = data.steps[0]
 	finale.fullId="finale/finale";finale.chapterId="finale"

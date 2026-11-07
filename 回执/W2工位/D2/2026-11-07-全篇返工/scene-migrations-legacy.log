@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS chengdu old beat maps after inserted goal card
+PASS chengdu preserves the same active game, state and location
+PASS chengdu keeps exact unchanged beat when available
+PASS call old beat maps after inserted goal card
+PASS call preserves the same active game, state and location
+PASS call keeps exact unchanged beat when available
+PASS shizuoka old beat maps after inserted goal card
+PASS shizuoka preserves the same active game, state and location
+PASS shizuoka keeps exact unchanged beat when available
+PASS hainan old beat maps after inserted goal card
+PASS hainan preserves the same active game, state and location
+PASS hongkong old beat maps after inserted goal card
+PASS hongkong preserves the same active game, state and location
+PASS hongkong keeps exact unchanged beat when available
+PASS old finale identity migrates
+PASS old unfinished invitation preserves name and reaches writing
+FAILURES 0
