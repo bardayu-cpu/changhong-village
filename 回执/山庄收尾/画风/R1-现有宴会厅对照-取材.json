@@ -202,7 +202,7 @@
   "new_inputs": {
     "photographer_w.png": {
       "path": "回执/山庄收尾/画风/photographer_w.png",
-      "sha256": "d2bf536a758becb3ce4d0332b530353f976c8ee559a4ec144335046d0e8c92fe",
+      "sha256": "10032387f0741b10595f7f72da2750d37629788616517b17b2712e8f338b94ab",
       "native_size": [
         64,
         84
@@ -210,7 +210,7 @@
     },
     "farmer_2.png": {
       "path": "回执/山庄收尾/画风/farmer_2.png",
-      "sha256": "be77489ea05b4fe74d8fd42e1d0cb1ce9276b784a42a083f7e09129f5e88f29a",
+      "sha256": "a64c8773492dbf3d745ac850fb3e24eb153835c6119626ce9eee12d914251469",
       "native_size": [
         64,
         84
@@ -218,7 +218,7 @@
     },
     "elder.png": {
       "path": "回执/山庄收尾/画风/elder.png",
-      "sha256": "aa685bc7ad876c4d0b4ac5b597b7dc092a6e2aa502c26fe6339c66f66cf7517d",
+      "sha256": "ef0ff1c521815259a81c80ff8cc5c6a7671c061d20774607e918f8ffabe8e4fb",
       "native_size": [
         64,
         84
@@ -226,7 +226,7 @@
     },
     "比例尺.png": {
       "path": "回执/山庄收尾/画风/比例尺.png",
-      "sha256": "7d02c46907d061ce613f420edaff306abb8e489aef2fbb551ed9bfe8a3a8a840",
+      "sha256": "2608c05566032742904595e04e8c4dcef6cefccaa281092213db51d09b26b303",
       "native_size": [
         560,
         448
@@ -297,7 +297,7 @@
     2144,
     1592
   ],
-  "output_sha256": "222bcabe955fecbe043e62da1309c18e9babf030bac1d2b18e53cba2f6585054",
+  "output_sha256": "2f15d808336b23d76a37b5eeb9658a5963fd9b60f10fcc0530b56cd276012dfe",
   "validation": {
     "atlas_matches_source_frames": true,
     "body_metrics_match_index": true,

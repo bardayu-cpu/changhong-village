@@ -1,6 +1,5 @@
 from PIL import Image, ImageDraw
 from pathlib import Path
-import math
 OUT=Path(__file__).resolve().parents[1]
 # Named shared palette. Every exported visible RGB is checked against this table at the end.
 P={
@@ -21,11 +20,12 @@ import subprocess
 import sys
 
 from draw_r1_car import export_car
+from draw_r1_furniture import draw_chair, draw_table
 
 MATERIALS = (
     ('草地', 'GRASS'), ('柏油', 'ASPHALT'), ('石板', 'STONE'),
     ('木头', 'WOOD'), ('白墙灰瓦', 'WALL / TILE'), ('水', 'WATER'),
-    ('车漆', 'CAR PAINT'), ('布', 'CLOTH'), ('金属玻璃', 'METAL / GLASS'),
+    ('红毯', 'RED CARPET'), ('布', 'CLOTH'), ('金属玻璃', 'METAL / GLASS'),
 )
 PEOPLE = ('photographer_w', 'elder', 'farmer_2')
 
@@ -96,62 +96,18 @@ def door(draw, x, base):
     box(draw, x + 20, y + 3, 2, 47, 'hair')
 
 
-def chair(draw, x, base):
-    y = base - 23
-    draw.polygon([(x+1,y), (x+8,y), (x+10,y+2), (x+9,y+14),
-                  (x+8,y+21), (x+7,y+22), (x+6,y+22), (x+6,y+16),
-                  (x+3,y+16), (x+2,y+22), (x+1,y+22), (x+1,y+15),
-                  (x,y+12), (x,y+2)], fill=color('wood_d'))
-    box(draw, x + 1, y + 2, 7, 8, 'wood_m')
-    stroke(draw, 'wood_hi', (x+2,y+1), (x+7,y+1), (x+8,y+2))
-    stroke(draw, 'wood_l', (x+1,y+3), (x+1,y+10))
-    box(draw, x + 3, y + 4, 4, 5, 'cloth_m')
-    stroke(draw, 'cloth_hi', (x+3,y+4), (x+6,y+4))
-    stroke(draw, 'cloth_d', (x+6,y+5), (x+6,y+8), (x+4,y+8))
-    draw.point((x+4,y+6), fill=color('gold'))
-    draw.point((x+2,y+2), fill=color('gold'))
-    draw.point((x+8,y+3), fill=color('wood_l'))
-    draw.polygon([(x,y+12), (x+7,y+11), (x+10,y+13), (x+8,y+16),
-                  (x+2,y+16), (x,y+15)], fill=color('cloth_l'))
-    stroke(draw, 'cloth_d', (x+1,y+15), (x+7,y+15), (x+9,y+14))
-    stroke(draw, 'gold', (x+2,y+14), (x+5,y+14), (x+7,y+13))
-    stroke(draw, 'wood_l', (x+1,y+17), (x+1,y+21))
-
-
-def table(draw, x, base):
-    y = base - 18
-    for px, py, h in ((8, 7, 10), (32, 7, 10), (11, 11, 7), (31, 11, 7)):
-        box(draw, x + px, y + py, 2, h, 'wood_d')
-        box(draw, x + px, y + py, 1, h - 1, 'wood_l')
-    draw.ellipse((x, y+3, x+42, y+12), fill=color('cloth_d'))
-    draw.ellipse((x, y, x+42, y+9), fill=color('cloth_m'))
-    draw.ellipse((x+1, y, x+40, y+7), fill=color('cloth_l'))
-    stroke(draw, 'cloth_hi', (x+4,y+3), (x+9,y+2), (x+19,y+1), (x+26,y+1))
-    stroke(draw, 'cloth_hi', (x+1,y+5), (x+2,y+7), (x+9,y+8), (x+17,y+8))
-    for x1, h in ((5, 2), (12, 2), (20, 3), (29, 2), (36, 2)):
-        box(draw, x+x1, y+9, 1, h, 'cloth_d')
-    stroke(draw, 'cloth_hi', (x+9,y+9), (x+9,y+10))
-    stroke(draw, 'cloth_hi', (x+16,y+9), (x+16,y+11))
-    stroke(draw, 'cloth_m', (x+33,y+9), (x+33,y+11))
-    # Small place settings and flowers keep the scale sample legible at native size.
-    for px, py in ((7,4), (13,2), (30,2), (35,5), (29,7), (13,7)):
-        draw.ellipse((x+px, y+py, x+px+3, y+py+2), fill=color('wall_l'))
-        stroke(draw, 'wall_hi', (x+px+1,y+py), (x+px+2,y+py))
-        draw.point((x+px+2,y+py+2), fill=color('gold'))
-    draw.ellipse((x+18,y+4,x+26,y+7), fill=color('cloth_d'))
-    stroke(draw, 'green', (x+20,y+5), (x+23,y+6), (x+25,y+5))
-    draw.point((x+20,y+4), fill=color('cloth_hi'))
-    draw.point((x+22,y+5), fill=color('flower'))
-    draw.point((x+24,y+4), fill=color('cloth_l'))
-
-
 def scale_board():
     canvas, draw = plate(280, 224)
     base = 115
     canvas.alpha_composite(grid_image('elder'), (6, base - 42))
     door(draw, 47, base)
-    chair(draw, 82, base)
-    table(draw, 102, base)
+    canvas.alpha_composite(draw_chair(C), (82, base-23))
+    canvas.alpha_composite(draw_table(C), (102, base-18))
+    tree_shadow = grid_image('tree_scale_shadow').getchannel('A')
+    # Use the approved ground tones on the printed scale board. The independent
+    # sprite retains its real contact and cast alpha for runtime integration.
+    canvas.paste(color('stone_hi'), (146, base-7, 206, base+3), tree_shadow.point(lambda a: 255 if a else 0))
+    canvas.paste(color('stone_d'), (146, base-7, 206, base+3), tree_shadow.point(lambda a: 255 if a==255 else 0))
     canvas.alpha_composite(grid_image('tree_scale'), (146, base - 75))
 
     car_grid = grid_image('car_mine')
@@ -201,24 +157,17 @@ def material_board():
 
 
 def palette():
-    known = set(C.values())
-    names = (*PEOPLE, '脚影', 'tree_scale', 'car_mine', 'car_mine_shadow', '比例尺', '材质样',
+    with Image.open(OUT / '主色板.png') as image:
+        approved = {pixel[:3] for pixel in image.convert('RGBA').getdata() if pixel[3]}
+    names = (*PEOPLE, '脚影', 'tree_scale', 'tree_scale_shadow', 'car_mine', 'car_mine_shadow', '比例尺', '材质样',
              *(name for name, _ in MATERIALS))
     used = set()
     for name in names:
         with Image.open(OUT / (name + '.png')) as image:
             used.update(pixel[:3] for pixel in image.convert('RGBA').getdata() if pixel[3])
-    assert used <= known, f'Unlisted production RGB: {sorted(used-known)}'
-    assert len(known) <= 64
-    # Keep the agreed hue groups; list only production colors, never the legacy reference RGB.
-    colors = sorted(used)
-    chips = Image.new('RGBA', (128, math.ceil(len(colors) / 8) * 16))
-    draw = ImageDraw.Draw(chips)
-    for i, rgb in enumerate(colors):
-        x, y = i % 8 * 16, i // 8 * 16
-        draw.rectangle((x, y, x + 15, y + 15), fill=(*rgb, 255))
-    export(chips, '主色板')
-    print(f'R1 production artwork: {len(used)} RGB used; {len(colors)} palette chips')
+    assert used <= approved, f'Production RGB outside the approved board: {sorted(used-approved)}'
+    assert len(approved) == 51, f'The approved 51-color R1 board was changed: {len(approved)}'
+    print(f'R1 production artwork: {len(used)} of {len(approved)} approved RGB in use')
 
 
 def main():

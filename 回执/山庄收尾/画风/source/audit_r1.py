@@ -8,8 +8,8 @@ ROOT = Path(__file__).resolve().parents[4]
 ART = ROOT / '回执/山庄收尾/画风'
 BASE = '61c0500'
 PEOPLE = ['photographer_w.png', 'elder.png', 'farmer_2.png']
-MATERIALS = ['草地.png', '柏油.png', '石板.png', '木头.png', '白墙灰瓦.png', '水.png', '车漆.png', '布.png', '金属玻璃.png']
-CORE = PEOPLE + MATERIALS + ['car_mine.png', '脚影.png', 'car_mine_shadow.png']
+MATERIALS = ['草地.png', '柏油.png', '石板.png', '木头.png', '白墙灰瓦.png', '水.png', '红毯.png', '布.png', '金属玻璃.png']
+CORE = PEOPLE + MATERIALS + ['car_mine.png', '脚影.png', 'car_mine_shadow.png', 'tree_scale.png', 'tree_scale_shadow.png']
 SHEETS = ['主色板.png', '材质样.png', '比例尺.png']
 
 def git(*args):
@@ -53,7 +53,7 @@ def main():
         im=images['car_mine.png']; a=im.getchannel('A')
         odd_tail=(im.height%2==1 and all(a.getpixel((x,im.height-1))==0 for x in range(im.width)))
         checks.append(('car_mine.png','AUTO',f'86x147={im.size==(86,147)}; transparent odd anchor row={odd_tail}'))
-    for n in ['脚影.png','car_mine_shadow.png']:
+    for n in ['脚影.png','car_mine_shadow.png','tree_scale_shadow.png']:
         if n in images:
             alphas=sorted(set(images[n].getchannel('A').getdata()))
             checks.append((n,'AUTO',f'alpha values include cast ~30% (70-85)={any(70<=x<=85 for x in alphas)}; alpha values={alphas[:20]}'))

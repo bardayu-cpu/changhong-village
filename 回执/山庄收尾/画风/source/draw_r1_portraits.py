@@ -21,33 +21,24 @@ class Figure:
     def dot(self, color, x, y):
         self.d.point((x, y), fill=(*C[color], 255))
 
-    def face(self, x, y, old=False):
-        def p(color, *points):
-            self.poly(color, *((x+a, y+b) for a,b in points))
-        p('hair', (2,0),(8,0),(11,2),(13,5),(13,10),(11,13),(8,15),(5,15),
-          (2,13),(0,10),(0,5),(1,2))
-        p('skin_d', (3,5),(10,4),(12,7),(12,10),(10,13),(8,14),(5,14),
-          (2,12),(1,9),(1,7))
-        p('skin_m', (3,5),(8,4),(10,5),(11,8),(10,11),(8,13),(5,13),
-          (2,11),(2,7))
-        p('skin_l', (3,6),(6,5),(8,6),(7,7),(5,8),(4,10),(2,10),(2,8))
-        p('skin_m', (5,14),(8,14),(9,16),(8,17),(5,17),(4,16))
-        self.dot('hair', x+4,y+8)
-        self.dot('hair', x+9,y+8)
-        self.dot('wall_hi', x+5,y+8)
-        self.dot('skin_l', x+8,y+8)
-        self.dot('skin_d', x+3,y+11)
-        self.dot('skin_d', x+10,y+10)
-        self.dot('skin_d', x+7,y+10)
-        self.line('skin_d', (x+6,y+12),(x+8,y+12))
-        self.dot('skin_l', x+6,y+13)
+    def face(self, x, y, eye_row=9, old=False):
+        def plane(color, *points):
+            self.poly(color, *((x+px, y+py) for px,py in points))
+
+        # One continuous contour and two broad skin planes; dark pupils are
+        # intentionally the only isolated face pixels.
+        plane('hair', (2,0),(8,0),(11,2),(13,5),(13,10),(11,13),(8,15),
+              (5,15),(2,13),(0,10),(0,5),(1,2))
+        plane('skin_m', (3,5),(9,4),(11,6),(12,9),(12,11),(10,13),(8,14),
+              (5,14),(2,12),(1,10),(1,7))
+        plane('skin_l', (3,5),(8,5),(10,6),(10,9),(9,11),(7,13),(4,12),(2,10),(2,7))
+        plane('skin_m', (5,14),(8,14),(9,16),(8,17),(5,17),(4,16))
+        self.line('hair', (x+4,y+eye_row), (x+4,y+eye_row+1))
+        self.line('hair', (x+9,y+eye_row), (x+9,y+eye_row+1))
+        self.line('skin_m', (x+6,y+12),(x+8,y+12))
         if old:
-            self.line('wood_d', (x+2,y+7),(x+5,y+7),(x+6,y+9))
-            self.line('wood_d', (x+6,y+8),(x+7,y+8),(x+8,y+7),(x+11,y+7))
-            self.dot('wall_hi', x+3,y+7)
-            self.dot('wall_hi', x+9,y+7)
-            self.dot('skin_d', x+3,y+10)
-            self.dot('skin_d', x+10,y+10)
+            self.line('hair', (x+3,y+8),(x+5,y+8),(x+6,y+9),(x+7,y+9),
+                      (x+8,y+8),(x+10,y+8))
 
     def feet(self, left, right, boot='hair'):
         a, b = left, right
@@ -79,12 +70,8 @@ def photographer():
     f.poly('grass_d',(9,17),(15,16),(19,18),(21,22),(19,25),(19,30),(12,31),(8,28))
     f.poly('grass_m',(10,17),(14,17),(15,20),(14,26),(12,30),(9,29),(10,23))
     f.line('grass_l',(10,18),(11,17),(13,17))
-    f.line('grass_l',(10,27),(11,25),(13,24))
-    f.line('grass_d',(10,30),(14,31),(16,30))
     f.line('navy',(18,23),(19,27),(19,30))
-    f.line('grass_d',(10,28),(13,28),(13,30))
-    f.dot('grass_hi',11,28)
-    f.dot('gold',17,29)
+    f.poly('grass_l',(10,27),(13,27),(13,29),(11,30),(10,29))
     f.poly('grass_d',(21,17),(24,17),(27,20),(27,23),(25,26),(21,25),(20,22))
     f.poly('skin_d',(25,19),(28,20),(27,24),(25,25),(23,23))
     f.poly('skin_m',(26,19),(28,20),(27,22),(25,23),(24,22))
@@ -126,16 +113,10 @@ def elder():
     f.poly('cloth_l',(9,17),(13,16),(16,17),(15,20),(11,22),(9,21),(7,22),(7,20))
     f.poly('cloth_hi',(7,19),(10,16),(13,16),(12,18),(9,19),(7,21))
     f.poly('cloth_m',(18,16),(21,16),(24,19),(24,22),(21,24),(20,21))
-    f.line('cloth_l',(20,17),(21,18),(22,20))
-    f.line('cloth_d',(15,21),(14,25),(14,28),(13,30))
-    f.line('cloth_l',(11,28),(13,27),(14,27))
-    f.line('cloth_l',(17,24),(18,25),(17,28),(18,29))
+    f.poly('cloth_l',(10,22),(13,21),(16,21),(14,25),(13,29),(11,30),(10,28))
+    f.poly('cloth_d',(20,23),(21,25),(21,28),(19,31),(16,32),(17,29),(18,26))
     f.line('cloth_d',(18,30),(20,29),(21,27))
-    f.line('cloth_hi',(10,30),(11,31),(13,31))
-    f.line('cloth_hi',(10,22),(12,21),(14,21))
     f.line('gold',(16,23),(16,24))
-    f.dot('wood_hi',15,27)
-    f.dot('cloth_hi',20,27)
     f.poly('skin_d',(8,22),(10,23),(9,27),(7,28),(5,26),(6,24))
     f.line('skin_l',(7,24),(6,26),(7,27))
     f.line('skin_m',(8,24),(8,26),(7,27))
@@ -182,15 +163,11 @@ def farmer():
     f.line('navy',(19,18),(18,22),(19,25),(19,29),width=2)
     f.poly('blue',(12,23),(17,22),(19,24),(18,28),(14,30),(11,29))
     f.line('metal_m',(12,23),(15,23),(17,22))
-    f.line('navy',(14,25),(16,24),(17,24),(16,27),(14,28),(13,27))
-    f.line('cloth_l',(9,28),(10,30),(12,31))
-    f.line('cloth_d',(17,30),(20,28),(21,26))
+    f.poly('navy',(14,25),(17,24),(17,26),(15,28),(13,28),(13,26))
+    f.poly('blue',(14,25),(16,25),(15,27),(14,27))
     f.dot('gold',12,22)
     f.dot('gold',18,22)
-    f.dot('metal_l',12,27)
-    f.line('metal_m',(13,30),(15,30),(16,29))
-    f.dot('cloth_hi',22,20)
-    f.face(9,0)
+    f.face(9,0,eye_row=10)
     # Braided side lock and flared straw brim define the silhouette.
     f.poly('hair',(20,8),(22,8),(24,10),(24,14),(23,16),(24,18),(22,19),
            (21,17),(22,14),(20,13))

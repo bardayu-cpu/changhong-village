@@ -12,9 +12,14 @@ C = {k: tuple(bytes.fromhex(v[1:])) + (255,) for k,v in P.items()}
 im=Image.new('RGBA',(60,75),(0,0,0,0)); d=ImageDraw.Draw(im)
 def poly(points,c): d.polygon(points,fill=C[c])
 def ellipse(box,c): d.ellipse(box,fill=C[c])
-# Tapered trunk and branching limbs, kept readable through the crown.
-poly([(24,74),(25,45),(22,34),(24,32),(31,44),(35,74),(35,75),(24,75)],'bark_d')
-poly([(27,74),(28,46),(24,35),(25,34),(30,46),(32,74)],'bark_m')
+# Short trunk below the low leaf clusters; the root flare reaches the floor.
+poly([(23,74),(26,70),(27,49),(24,39),(29,39),(33,50),(35,69),
+      (38,72),(43,74),(36,74),(33,73),(29,74)], 'bark_d')
+poly([(26,73),(28,69),(29,51),(27,44),(30,45),(32,57),(32,69),
+      (34,72),(32,73),(30,72)], 'bark_m')
+poly([(27,72),(29,68),(29,62),(30,62),(31,69),(30,72)], 'bark_l')
+d.line([(33,62),(33,67),(34,70),(36,72)], fill=C['bark_d'])
+d.line([(27,73),(29,71),(29,69)], fill=C['bark_hi'])
 # Two small branch windows remain visible between foliage clusters.
 poly([(17,30),(20,31),(23,35),(21,34)],'bark_l')
 poly([(39,30),(42,29),(44,27),(43,31)],'bark_l')
@@ -37,7 +42,23 @@ for points,c in [
 for pts,c in [([(4,20),(8,20),(8,17),(13,17),(13,22),(8,22),(8,25),(4,25)],'leaf_l'), ([(47,17),(51,17),(51,14),(55,14),(55,19),(59,19),(59,25),(54,25),(54,22),(47,22)],'leaf_m'), ([(16,5),(20,5),(20,2),(25,2),(25,7),(21,7),(21,10),(16,10)],'leaf_l')]: poly(pts,c)
 # Pixel-like glints grouped as leaf clusters, not scattered noise.
 for b,c in [((14,18,17,20),'leaf_hi'),((26,11,29,13),'leaf_hi'),((38,19,41,21),'leaf_hi'),((21,27,23,29),'leaf_hi'),((31,24,34,26),'leaf_hi'),((45,29,47,31),'leaf_l')]: d.rectangle(b,fill=C[c])
-# Root tip touches art row 74 (PNG row 148); extend one centered foot pixel to art row 74-1?
-# Use a single art-pixel root toe on row 74 so the 2x export ends at y=149.
-d.rectangle((29,74,29,74),fill=C['bark_l'])
+# Lower boughs hide the upper trunk; keep a dark notch between the clusters.
+poly([(13,43),(20,42),(26,46),(28,50),(27,55),(23,58),(17,58),
+      (12,56),(10,51),(11,46)], 'leaf_d')
+poly([(11,48),(15,45),(20,45),(23,48),(22,51),(18,53),(13,52)], 'leaf_m')
+poly([(12,48),(15,46),(18,46),(19,48),(16,49),(13,49)], 'leaf_l')
+poly([(23,47),(29,44),(37,46),(42,50),(43,55),(40,59),(35,61),
+      (29,60),(25,57),(22,53)], 'leaf_d')
+poly([(24,50),(29,47),(34,48),(38,51),(38,54),(34,56),(28,55)], 'leaf_m')
+poly([(25,51),(29,48),(32,48),(33,50),(30,52),(26,52)], 'leaf_l')
+poly([(38,43),(45,42),(51,44),(54,48),(53,52),(50,55),(44,56),
+      (40,54),(38,51)], 'leaf_d')
+poly([(40,46),(45,44),(49,46),(50,49),(46,50),(41,49)], 'leaf_m')
 im.resize((120,150),Image.Resampling.NEAREST).save(OUT/'tree_scale.png',optimize=True)
+
+shadow = Image.new('RGBA',(60,10),(0,0,0,0))
+sd = ImageDraw.Draw(shadow)
+sd.polygon([(11,4),(17,2),(29,1),(37,2),(47,3),(55,5),(59,7),
+            (54,9),(40,9),(32,8),(22,8),(14,7),(9,6)], fill=(*C['bark_d'][:3],77))
+sd.polygon([(25,5),(29,4),(34,4),(38,5),(39,6),(32,7),(26,6)], fill=C['bark_d'])
+shadow.resize((120,20),Image.Resampling.NEAREST).save(OUT/'tree_scale_shadow.png',optimize=True)

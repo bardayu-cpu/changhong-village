@@ -68,7 +68,8 @@ def paste_bottom(panel, im, center_x, baseline):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--ref', default='HEAD', help='Committed formal source revision; resolved to a full SHA')
+    parser.add_argument('--ref', default='61c05009b3194911703f689ec82f363ac27f066d',
+                        help='Committed formal source revision; resolved to a full SHA')
     parser.add_argument('--r1-dir', type=Path, default=ART)
     parser.add_argument('--output', type=Path, default=ART / (OUTPUT_NAME + '.png'))
     args = parser.parse_args()

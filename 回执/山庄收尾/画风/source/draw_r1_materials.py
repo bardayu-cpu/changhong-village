@@ -112,12 +112,15 @@ def wood(t):
 
 
 def wall(t):
-    t.rect("roof", 0, -5, 63, 15)
-    for y, shift in ((-4, 0), (2, 4), (8, 0)):
-        for x in range(shift-8, 64, 8):
-            t.line("wall_d", (x, y+4), (x+2, y+1), (x+5, y+1), (x+7, y+4))
-            t.line("wall_m", (x+1, y+3), (x+3, y+1), (x+5, y+1))
-    t.line("wall_d", (0, 15), (63, 15))
+    t.rect("roof", 0, -5, 63, 16)
+    # Broad staggered gray shingles. Each has a light shoulder and a dark lap.
+    for y, shift in ((-7, 0), (0, 8), (7, 0)):
+        for x in range(shift-16, 64, 16):
+            t.poly("wall_d", (x+1,y), (x+13,y), (x+15,y+2), (x+15,y+6),
+                   (x+13,y+7), (x+2,y+7), (x,y+5), (x,y+2))
+            t.line("wall_m", (x+1,y+4), (x+1,y+2), (x+3,y+1), (x+11,y+1), (x+13,y+2))
+            t.line("roof", (x+2,y+6), (x+12,y+6), (x+14,y+5), (x+14,y+3))
+    t.rect("roof", 0, 15, 63, 16)
     t.line("wall_hi", (0, 17), (63, 17))
     for x, y in ((-1, 29), (14, 37), (35, 25), (52, 45)):
         t.line("wall_m", (x, y), (x+4, y), (x+6, y+2), (x+9, y+2))
@@ -142,17 +145,18 @@ def water(t):
     t.line("water_hi", (18, 61), (24, 62), (28, 62))
 
 
-def car(t):
-    for y in (0, 32):
-        t.poly("car_d", (0, y+23), (12, y+25), (31, y+24), (48, y+22), (64, y+23),
-               (64, y+31), (0, y+31))
-        t.poly("car_hi", (-5, y+7), (13, y+8), (35, y+6), (55, y+5), (65, y+7),
-               (65, y+8), (47, y+7), (25, y+9), (10, y+10), (-5, y+8))
-        t.poly("glass_d", (21, y+13), (39, y+12), (45, y+20), (18, y+21))
-        t.line("asphalt_d", (23, y+14), (36, y+13))
-        t.line("car_hi", (27, y+19), (32, y+15), (35, y+14))
-        t.rect("asphalt_d", 5, y+25, 14, y+28)
-        t.line("glass_d", (6, y+28), (12, y+28))
+def carpet(t):
+    for x in (3, 60):
+        t.rect("car_d", x-3, 0, x+3, 63)
+        t.line("wood_hi", (x,0), (x,63))
+        t.line("car_l", (x+2,0), (x+2,63))
+    for x, y in ((16,16), (48,16), (32,48)):
+        t.poly("car_d", (x,y-6), (x+8,y), (x,y+6), (x-8,y))
+        t.poly("car_l", (x,y-4), (x+5,y), (x,y+4), (x-5,y))
+        t.line("wood_hi", (x-3,y), (x,y-2), (x+3,y))
+        t.line("car_d", (x-2,y+1), (x,y+2), (x+2,y+1))
+    for x,y in ((32,16),(16,48),(48,48)):
+        t.line("car_l", (x-2,y), (x,y-2), (x+2,y), (x,y+2), (x-2,y))
 
 
 def cloth(t):
@@ -183,7 +187,7 @@ def metal(t):
 MATERIALS = {
     "草地": ("grass_m", grass), "柏油": ("asphalt_m", asphalt), "石板": ("stone_d", stone),
     "木头": ("wood_m", wood), "白墙灰瓦": ("wall_l", wall), "水": ("water_d", water),
-    "车漆": ("car_m", car), "布": ("cloth_m", cloth), "金属玻璃": ("metal_d", metal),
+    "红毯": ("car_m", carpet), "布": ("cloth_m", cloth), "金属玻璃": ("metal_d", metal),
 }
 
 
