@@ -2,6 +2,7 @@ extends RefCounted
 ## 终章：请柬正文 → 写自己的名字（2～12 字）→ 选形象（婚宴的 8 个宾客）→ 装封 → 按住 1 秒盖火漆。
 
 const LOOKS := ["01", "02", "03", "04", "05", "06", "07", "08"]
+const NAME_FIELD := Rect2(60, 232, 240, 44)
 
 var r
 var phase := "read"   # read → name → look → seal → stamped → done
@@ -15,6 +16,7 @@ var name := ""
 var tex_cache := {}
 var keyboard_callback: JavaScriptObject
 var keyboard_open := false
+var native_keyboard := OS.has_feature("web") and OS.has_feature("hongyuan_wechat")
 
 
 func start(runner, _beat: Dictionary) -> void:
@@ -57,9 +59,14 @@ func input(kind: String, pos: Vector2) -> void:
 				phase = "name"
 				t = 0.0
 				_make_edit()
+				if native_keyboard:
+					_open_wechat_keyboard()
 		"name":
-			if kind == "tap" and _ok_rect().grow(8).has_point(pos):
-				_submit_name()
+			if kind == "tap":
+				if native_keyboard and NAME_FIELD.grow(8).has_point(pos):
+					_open_wechat_keyboard()
+				elif _ok_rect().grow(8).has_point(pos):
+					_submit_name()
 		"look":
 			if kind == "tap":
 				for i in range(LOOKS.size()):
@@ -81,8 +88,8 @@ func _make_edit() -> void:
 	edit.placeholder_text = r.t_("A7-I1")
 	edit.max_length = 12
 	edit.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	edit.position = Vector2(60, 232)
-	edit.size = Vector2(240, 44)
+	edit.position = NAME_FIELD.position
+	edit.size = NAME_FIELD.size
 	edit.add_theme_font_override("font", r.FONT)
 	edit.add_theme_font_size_override("font_size", 18)
 	edit.add_theme_color_override("font_color", r.INK)
@@ -95,18 +102,15 @@ func _make_edit() -> void:
 	edit.add_theme_stylebox_override("focus", box)
 	edit.text_submitted.connect(func(_s: String) -> void: _submit_name())
 	r.add_child(edit)
-	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+	if native_keyboard:
 		edit.virtual_keyboard_enabled = false
-		edit.gui_input.connect(_wechat_name_input)
+		edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	else:
 		edit.grab_focus()
 
 
-func _wechat_name_input(event: InputEvent) -> void:
-	var released: bool = event is InputEventScreenTouch and not event.pressed and not event.canceled
-	if event is InputEventMouseButton:
-		released = event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
-	if not released or keyboard_open or phase != "name":
+func _open_wechat_keyboard() -> void:
+	if keyboard_open or phase != "name":
 		return
 	var bridge := JavaScriptBridge.get_interface("hongyuanContent")
 	if bridge == null:
