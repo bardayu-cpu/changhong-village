@@ -103,7 +103,7 @@ func _make_edit() -> void:
 
 
 func _wechat_name_input(event: InputEvent) -> void:
-	var released := event is InputEventScreenTouch and not event.pressed and not event.canceled
+	var released: bool = event is InputEventScreenTouch and not event.pressed and not event.canceled
 	if event is InputEventMouseButton:
 		released = event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
 	if not released or keyboard_open or phase != "name":
