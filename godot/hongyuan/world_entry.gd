@@ -44,9 +44,9 @@ func _ready() -> void:
     navigation = VBoxContainer.new()
     navigation.set_anchors_preset(Control.PRESET_TOP_RIGHT)
     navigation.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-    navigation.offset_left = -166
+    navigation.offset_left = -126
     navigation.offset_right = -12
-    navigation.offset_top = 140
+    navigation.offset_top = 252
     navigation.add_theme_constant_override("separation", 8)
     layer.add_child(navigation)
     await travel(str(state.get("worldRoute", "wedding")))
@@ -124,9 +124,9 @@ func travel(where: String) -> void:
 func add_button(label: String, action: Callable) -> void:
     var button := Button.new()
     button.text = label
-    button.custom_minimum_size = Vector2(154, 66)
+    button.custom_minimum_size = Vector2(114, 66)
     button.add_theme_font_override("font", FONT)
-    button.add_theme_font_size_override("font_size", 24)
+    button.add_theme_font_size_override("font_size", 22)
     var style := StyleBoxFlat.new()
     style.bg_color = Color("#473329")
     style.border_color = Color("#be974d")

@@ -51,6 +51,11 @@ var fake_book: Dictionary = {
 }
 
 func _ready() -> void:
+    if OS.has_feature("web") and not OS.has_feature("wechat") and not OS.has_feature("hongyuan_wechat"):
+        if not bool(JavaScriptBridge.eval("typeof globalThis.__suqiCloud !== 'undefined'", true)):
+            _in_wx = false
+            set_process(false)
+            return
     # 不按 OS.has_feature 判断：读得到 __suqiCloud 就是接上了，读不到再看是不是在微信里
     _js = JavaScriptBridge.get_interface("__suqiCloud")
     _in_wx = _js != null or OS.has_feature("web") or OS.has_feature("wechat")

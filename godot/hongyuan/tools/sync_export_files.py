@@ -16,7 +16,7 @@ common += [root / 'hongyuan/world_entry.tscn', root / 'hongyuan/village_entry.ts
 world_files = [
     p for folder in ['scripts', 'shaders', 'assets', 'ayu_home']
     for p in (root / folder).rglob('*')
-    if p.is_file() and p.suffix in {'.gd', '.tscn', '.tres', '.dialogue', '.png', '.webp', '.svg', '.wav', '.ogg', '.ttf'}
+    if p.is_file() and p.suffix in {'.gd', '.gdshader', '.tscn', '.tres', '.dialogue', '.png', '.jpg', '.webp', '.svg', '.wav', '.ogg', '.ttf', '.woff2'}
     and not {'tests', 'tools', 'docs'} & set(p.parts)
 ]
 common += world_files
@@ -87,7 +87,7 @@ for i, part in enumerate(parts):
         files += re.findall(r'"([^"]+)"', found.group(1))
     line = 'export_files=PackedStringArray(' + ', '.join('"%s"' % f for f in sorted(set(files))) + ')\n'
     part = part.replace(found.group(0), line)
-    part = re.sub(r'include_filter="([^"]*)"', lambda m: 'include_filter="' + ','.join(dict.fromkeys(m.group(1).split(',') + ['assets/*.json', 'assets/*.dialogue', 'ayu_home/*.json', 'ayu_home/*.nav'])) + '"', part, count=1)
+    part = re.sub(r'include_filter="([^"]*)"', lambda m: 'include_filter="' + ','.join(dict.fromkeys(m.group(1).split(',') + ['assets/*.json', 'assets/*.dialogue', 'assets/*.jpg', 'ayu_home/*.json', 'ayu_home/*.nav'])) + '"', part, count=1)
     parts[i] = part
 p.write_text(''.join(parts).rstrip() + '\n')
 print('Web art:', len(art), 'WeChat reachable art:', len(reachable), 'scripts/fonts:', len(common))
