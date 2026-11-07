@@ -139,6 +139,9 @@ func run_scene(id: String) -> void:
 			settled_tag += "_"+str(r.game.phase)
 			if "read_index" in r.game: settled_tag += "_"+str(r.game.read_index)
 		await capture(settled_tag+"_settled")
+		# Screenshot awaits can let a completed scene free its runner. Never
+		# dispatch the next test gesture to that previous scene instance.
+		if not is_instance_valid(r) or not is_instance_valid(p.runner) or p.shot.fullId != id: break
 		match r.mode:
 			"say", "card", "material": tap_scene(r,Vector2(180,588))
 			"goal": tap_scene(r,Vector2(180,514))

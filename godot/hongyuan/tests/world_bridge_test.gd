@@ -32,7 +32,9 @@ func shot(label: String) -> void:
     await process_frame
     await RenderingServer.frame_post_draw
     var img := root.get_texture().get_image()
-    check(img.get_size() == Vector2i(360, 640), "360x640 " + label)
+    # World entry intentionally switches to the estate/village's 540×960
+    # logical viewport inside the 360×640 window. Record its actual render size.
+    check(img.get_size() == Vector2i(540, 960), "540x960 world canvas " + label)
     img.save_png(out.path_join(label + ".png"))
 
 func run() -> void:
@@ -40,13 +42,15 @@ func run() -> void:
     root.add_child(player)
     current_scene = player
     await process_frame
-    player._enter_step(player.step_indices["finale/finale"])
+    await player._enter_step(player.step_indices["finale/finale"])
+    await create_timer(0.4).timeout
     var runner = player.runner
     var choice := -1
     for i in runner.beats.size():
         if runner.beats[i].has("choice"):
             choice = i
     check(choice >= 0, "Finale retains both destination choices")
+    if choice < 0: quit(1); return
     runner.begin(choice)
     runner.result = {"name": "联调宾客", "look": "08"}
     runner.t = 1.0
@@ -87,7 +91,8 @@ func run() -> void:
     await process_frame
     root.add_child(second)
     current_scene = second
-    second._enter_step(second.step_indices["finale/finale"])
+    await second._enter_step(second.step_indices["finale/finale"])
+    await create_timer(0.4).timeout
     runner = second.runner
     runner.begin(choice)
     runner.result = {"name": "联调宾客", "look": "08"}

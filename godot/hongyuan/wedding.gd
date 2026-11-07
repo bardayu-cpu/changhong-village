@@ -14,9 +14,10 @@ func _ready() -> void:
     if OS.has_feature("web") and cloud._js == null:
         cloud._in_wx = false
     if resume_location.is_empty():
-        venue_ready.emit()
-        _start_play.call_deferred()
-        return
+        # The invitation already completed the journey. Enter the original
+        # playable estate, not its unrelated first-run schematic driving film.
+        # Only announce readiness after the real parking art and fade are ready.
+        await _enter_parking()
     else:
         await _enter_parking()
         var area := str(resume_location.get("area", "parking"))
