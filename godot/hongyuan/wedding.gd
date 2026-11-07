@@ -15,9 +15,9 @@ func _ready() -> void:
         cloud._in_wx = false
     if resume_location.is_empty():
         # The invitation already completed the journey. Enter the original
-        # playable estate, not its unrelated first-run schematic driving film.
-        # Only announce readiness after the real parking art and fade are ready.
-        await _enter_parking()
+        # wedding hall, not the estate's unfinished parking/drive greybox.
+        # Only announce readiness after the original hall and fade are ready.
+        await _enter_banquet()
     else:
         await _enter_parking()
         var area := str(resume_location.get("area", "parking"))
