@@ -421,64 +421,60 @@
         "atmosphere": "harbour",
         "walkers": [
           {
+            "guest": "03",
+            "a": [
+              20,
+              510
+            ],
+            "b": [
+              125,
+              510
+            ],
+            "speed": 11,
+            "scale": 0.8,
+            "pause": 3
+          },
+          {
+            "guest": "04",
+            "a": [
+              130,
+              545
+            ],
+            "b": [
+              25,
+              545
+            ],
+            "speed": 13,
+            "scale": 0.8,
+            "pause": 4
+          },
+          {
             "guest": "07",
             "a": [
-              22,
+              310,
               505
             ],
             "b": [
-              70,
+              310,
               505
             ],
-            "speed": 10,
-            "phase": 0.0,
+            "speed": 0,
             "scale": 0.8,
-            "pause": 3
+            "fishing": true
           },
           {
             "guest": "08",
             "a": [
-              39,
-              505
+              335,
+              540
             ],
             "b": [
-              89,
-              505
+              335,
+              540
             ],
-            "speed": 11,
-            "phase": 0.19,
+            "speed": 0,
             "scale": 0.8,
-            "pause": 3
-          },
-          {
-            "guest": "09",
-            "a": [
-              56,
-              505
-            ],
-            "b": [
-              108,
-              505
-            ],
-            "speed": 12,
-            "phase": 0.38,
-            "scale": 0.8,
-            "pause": 3
-          },
-          {
-            "guest": "10",
-            "a": [
-              73,
-              505
-            ],
-            "b": [
-              127,
-              505
-            ],
-            "speed": 13,
-            "phase": 0.5700000000000001,
-            "scale": 0.8,
-            "pause": 3
+            "fishing": true
           }
         ],
         "companion": "toretto"

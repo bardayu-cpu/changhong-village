@@ -702,5 +702,618 @@
   {
    "game": "seat"
   }
- ]
+ ],
+ "_versions": {
+  "call/night_call": [
+   {
+    "revision": "042c367",
+    "beats": [
+     {
+      "card": "G-08",
+      "duration": 2.0
+     },
+     {
+      "narrate": "A3-1a"
+     },
+     {
+      "narrate": "A3-1b"
+     },
+     {
+      "goal": {
+       "目标": "接起这通来电",
+       "操作": "走近手机，亲手点接听",
+       "所得": "信纸，记住这一段日子"
+      }
+     },
+     {
+      "go": "phone"
+     },
+     {
+      "game": "call",
+      "aside": "A3-D1",
+      "lines": [
+       {
+        "say": "A3-2a"
+       },
+       {
+        "say": "A3-2b"
+       },
+       {
+        "say": "A3-2c"
+       },
+       {
+        "say": "A3-2d",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2e",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2f"
+       },
+       {
+        "say": "A3-2g",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2h",
+        "who": "toretto"
+       }
+      ]
+     },
+     {
+      "bg": "w2/call/bg_cbd_office_r2.png",
+      "bgFit": true,
+      "personHeight": 160,
+      "night": 0.0,
+      "badge": "",
+      "hideAyu": false,
+      "player": "toretto",
+      "pose": "",
+      "actors": [],
+      "start": [
+       65,
+       540
+      ],
+      "walkArea": [
+       [
+        48,
+        432
+       ],
+       [
+        318,
+        432
+       ],
+       [
+        318,
+        568
+       ],
+       [
+        48,
+        568
+       ]
+      ],
+      "hotspots": [
+       {
+        "id": "cake",
+        "at": [
+         94,
+         440
+        ],
+        "snap": [
+         94,
+         440
+        ],
+        "face": 1,
+        "pose": "gifts",
+        "icon": "pick",
+        "iconAt": [
+         194,
+         289
+        ]
+       },
+       {
+        "id": "flowers",
+        "at": [
+         94,
+         440
+        ],
+        "icon": "pick",
+        "iconAt": [
+         260,
+         247
+        ]
+       },
+       {
+        "id": "desk_phone",
+        "at": [
+         94,
+         440
+        ],
+        "icon": "phone",
+        "iconAt": [
+         150,
+         300
+        ]
+       }
+      ]
+     },
+     {
+      "narrate": "A3-2i"
+     },
+     {
+      "go": "cake",
+      "hint": "G-DESK-APPROACH"
+     },
+     {
+      "say": "A3-2j",
+      "who": "toretto"
+     },
+     {
+      "go": "flowers",
+      "hint": "G-DESK-FLOWERS"
+     },
+     {
+      "narrate": "A3-2k"
+     },
+     {
+      "go": "desk_phone",
+      "hint": "G-DESK-PHONE"
+     },
+     {
+      "hint": "",
+      "bg": "w2/call/bg_cbd_window_chat_r3.png",
+      "bgFit": true,
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": []
+     },
+     {
+      "game": "desk_chat",
+      "lines": [
+       {
+        "say": "A3-2l",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2m",
+        "who": "ayu"
+       },
+       {
+        "say": "A3-2n",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2o",
+        "who": "toretto"
+       },
+       {
+        "say": "A3-2p",
+        "who": "ayu"
+       }
+      ]
+     },
+     {
+      "player": "ayu",
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": [],
+      "pose": ""
+     },
+     {
+      "bg": "",
+      "fill": "#2a1414",
+      "badge": "G-02"
+     },
+     {
+      "narrate": "A3-2q",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-2r",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-2s",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-2t",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-3a",
+      "auto": 2.6
+     },
+     {
+      "narrate": "A3-3b",
+      "auto": 2.6
+     },
+     {
+      "material": "paper"
+     }
+    ]
+   }
+  ],
+  "shizuoka/pier": [
+   {
+    "revision": "042c367",
+    "beats": [
+     {
+      "card": "G-09",
+      "duration": 2.0
+     },
+     {
+      "narrate": "A4-1a"
+     },
+     {
+      "narrate": "A4-1b"
+     },
+     {
+      "narrate": "A4-1c"
+     },
+     {
+      "goal": {
+       "目标": "到港口钓一次鱼",
+       "操作": "走到钓位，按住蓄力，松手甩竿",
+       "所得": "旅途之后，把印章带回书桌"
+      }
+     },
+     {
+      "go": "spot",
+      "hint": "A4-P1"
+     },
+     {
+      "game": "fishing"
+     },
+     {
+      "go": "boat"
+     },
+     {
+      "personHeight": 180,
+      "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png",
+      "walkArea": [
+       [
+        30,
+        440
+       ],
+       [
+        330,
+        440
+       ],
+       [
+        340,
+        620
+       ],
+       [
+        20,
+        620
+       ]
+      ],
+      "start": [
+       284,
+       570
+      ],
+      "pose": "",
+      "actors": [
+       {
+        "id": "toretto",
+        "tex": "w2/common/toretto_sit.png",
+        "at": [
+         142,
+         430
+        ]
+       }
+      ],
+      "hotspots": [
+       {
+        "id": "seat",
+        "at": [
+         220,
+         440
+        ],
+        "snap": [
+         220,
+         430
+        ],
+        "face": -1,
+        "pose": "sit",
+        "icon": "sit"
+       }
+      ]
+     },
+     {
+      "go": "seat",
+      "hint": "G-BOAT-SIT"
+     },
+     {
+      "hint": ""
+     },
+     {
+      "wait": 3.5
+     },
+     {
+      "card": "B-J3-1",
+      "duration": 2.0
+     },
+     {
+      "bg": "",
+      "fill": "#10122a",
+      "badge": "",
+      "pose": "",
+      "actors": [],
+      "hotspots": [],
+      "hideAyu": true
+     },
+     {
+      "game": "onsen",
+      "lines": [
+       {
+        "say": "A4-2a",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2b",
+        "who": "ayu"
+       },
+       {
+        "say": "A4-2c",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2d",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2e",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2f",
+        "who": "toretto"
+       },
+       {
+        "say": "A4-2g"
+       },
+       {
+        "say": "A4-2h",
+        "who": "ayu"
+       }
+      ]
+     },
+     {
+      "card": "A4-T1",
+      "duration": 1.8
+     },
+     {
+      "bg": "w2/shizuoka/bg_cert.png",
+      "fill": "#5e2929",
+      "actors": [],
+      "hideAyu": true,
+      "hotspots": []
+     },
+     {
+      "narrate": "A4-3a"
+     },
+     {
+      "narrate": "A4-3b"
+     },
+     {
+      "material": "stamp"
+     }
+    ]
+   }
+  ],
+  "hongkong/hk": [
+   {
+    "revision": "042c367",
+    "beats": [
+     {
+      "card": "G-11",
+      "duration": 2.0
+     },
+     {
+      "narrate": "A6-0"
+     },
+     {
+      "hint": "A6-P1"
+     },
+     {
+      "goal": {
+       "目标": "一起出发，留下旅行合影",
+       "操作": "打开新邮件，再带着行李去机场",
+       "所得": "信封，让这份邀请能够寄出"
+      }
+     },
+     {
+      "game": "offer"
+     },
+     {
+      "hint": ""
+     },
+     {
+      "narrate": "A6-1"
+     },
+     {
+      "personHeight": 112,
+      "bg": "w2/hongkong/bg_arrival.png",
+      "sky": "#cfe3ee",
+      "ground": "#d8d2c6",
+      "horizon": 330,
+      "decor": [
+       {
+        "r": [
+         0,
+         120,
+         360,
+         200
+        ],
+        "c": "#a9c9dc"
+       },
+       {
+        "r": [
+         0,
+         300,
+         360,
+         30
+        ],
+        "c": "#7d8c7a"
+       },
+       {
+        "r": [
+         296,
+         300,
+         54,
+         118
+        ],
+        "c": "#3f7d5a"
+       },
+       {
+        "r": [
+         306,
+         312,
+         34,
+         22
+        ],
+        "c": "#f2f2f2"
+       }
+      ],
+      "hideAyu": false,
+      "start": [
+       50,
+       590
+      ],
+      "follow": "w2/hongkong/suitcase_1.png",
+      "companion": "toretto",
+      "walkers": [
+       {
+        "guest": "02",
+        "a": [
+         -30,
+         384
+        ],
+        "b": [
+         250,
+         384
+        ],
+        "speed": 30,
+        "scale": 0.75
+       },
+       {
+        "guest": "05",
+        "a": [
+         250,
+         392
+        ],
+        "b": [
+         -30,
+         392
+        ],
+        "speed": 36,
+        "phase": 0.35,
+        "scale": 0.75
+       },
+       {
+        "guest": "03",
+        "a": [
+         -30,
+         400
+        ],
+        "b": [
+         230,
+         400
+        ],
+        "speed": 26,
+        "phase": 0.6,
+        "scale": 0.75
+       }
+      ],
+      "walkArea": [
+       [
+        20,
+        380
+       ],
+       [
+        345,
+        380
+       ],
+       [
+        345,
+        615
+       ],
+       [
+        20,
+        615
+       ]
+      ],
+      "actors": [
+       {
+        "id": "gate",
+        "tex": "w2/hongkong/exit_gate.png",
+        "at": [
+         300,
+         400
+        ]
+       }
+      ],
+      "hotspots": [
+       {
+        "id": "exit",
+        "at": [
+         300,
+         405
+        ],
+        "snap": [
+         300,
+         402
+        ],
+        "icon": "exit",
+        "iconAt": [
+         300,
+         262
+        ]
+       }
+      ]
+     },
+     {
+      "go": "exit",
+      "hint": "A6-P3"
+     },
+     {
+      "follow": "",
+      "companion": "",
+      "walkers": []
+     },
+     {
+      "bg": "w2/hongkong/bg_disney_memory_r1.png",
+      "bgFit": true,
+      "personHeight": 90,
+      "decor": [],
+      "badge": "",
+      "hideAyu": true,
+      "actors": [],
+      "hotspots": [],
+      "walkArea": [],
+      "start": [
+       50,
+       590
+      ]
+     },
+     {
+      "game": "photo"
+     },
+     {
+      "material": "envelope"
+     },
+     {
+      "badge": ""
+     },
+     {
+      "button": "A6-B2"
+     }
+    ]
+   }
+  ]
+ }
 }

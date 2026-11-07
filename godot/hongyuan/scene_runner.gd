@@ -723,6 +723,7 @@ func _draw_walker(w: Dictionary) -> void:
 	var heading: Vector2 = state.heading
 	var row := 8 if heading.x > 0 else 4
 	if absf(heading.y) > absf(heading.x): row = 0 if heading.y > 0 else 12
+	if bool(w.get("fishing",false)): row = 12
 	var path := "res://assets/characters/lm/chr_LM-GUEST-%s.png" % str(w.guest)
 	if not sheet_cache.has(path): sheet_cache[path] = load(path) if ResourceLoader.exists(path) else null
 	var sheet: Texture2D = sheet_cache[path]
@@ -742,6 +743,13 @@ func _draw_walker(w: Dictionary) -> void:
 	var top := pos.y - height
 	draw_texture_rect_region(sheet, Rect2(pos.x-width/2,top,width,height*0.23),Rect2(f*64,0,64,31))
 	draw_texture_rect_region(sheet, Rect2(pos.x-width/2,top+height*0.23,width,height*0.77),Rect2(f*64,31,64,53))
+	if bool(w.get("fishing",false)):
+		var hand := pos + Vector2(-height*0.12,-height*0.43)
+		var tip := hand + Vector2(-23,-height*0.68+sin(world_elapsed*0.8)*2)
+		draw_line(hand,tip,Color("#543d29"),1.8)
+		var float_at := tip+Vector2(-15,-24)
+		draw_line(tip,float_at,Color(0.9,0.94,0.95,0.65),0.8)
+		draw_circle(float_at,1.5,Color("#dc6652"))
 
 
 func _player_frame() -> String:

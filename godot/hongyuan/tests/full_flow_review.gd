@@ -134,6 +134,11 @@ func run_scene(id: String) -> void:
 		tick(0.45)
 		if not is_instance_valid(p.runner) or p.shot.fullId != id: break
 		r = p.runner
+		var settled_tag := id+"_%02d_%s"%[r.bi,r.mode]
+		if r.mode == "game" and r.game and "phase" in r.game:
+			settled_tag += "_"+str(r.game.phase)
+			if "read_index" in r.game: settled_tag += "_"+str(r.game.read_index)
+		await capture(settled_tag+"_settled")
 		match r.mode:
 			"say", "card", "material": tap_scene(r,Vector2(180,588))
 			"goal": tap_scene(r,Vector2(180,514))
@@ -175,7 +180,11 @@ func run() -> void:
 	if not is_instance_valid(p.fade_screen):
 		problem("Playlist initialization failed");p.free();quit(1);return
 	var count: int = p.playlist.size()
+	var filters: Array[String] = []
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--only="): filters.append(arg.trim_prefix("--only="))
 	for i in range(count):
+		if not filters.is_empty() and not filters.any(func(prefix):return str(p.playlist[i].fullId).begins_with(prefix)): continue
 		await p._enter_step(i)
 		await frame()
 		while p.fading: await process_frame
