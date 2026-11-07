@@ -617,7 +617,11 @@ func _draw() -> void:
 		"material":
 			_draw_material()
 		"choice":
-			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
+			if "res://hongyuan/world_entry.tscn" in choice_to and "res://hongyuan/village_entry.tscn" in choice_to:
+				preload("res://hongyuan/ui/desk_art.gd").cover(self, texture("round1/common/welcome_bg.png"), view_rect)
+				var welcome := texture("round1/common/welcome.png")
+				if welcome: draw_texture_rect(welcome, Rect2(42, 166, 276, 386.4), false)
+			draw_rect(view_rect, Color(0, 0, 0, 0.35))
 			for i in range(choice_texts.size()):
 				_pill(_choice_rect(i), choice_texts[i], 19, RED if i == 0 else Color(INK, 0.85), PAPER)
 			if choice_note_t > 0.0:
@@ -856,6 +860,8 @@ const NO_SKIP := ["call", "desk_chat", "finale", "seat", "desk_intro"]  # 来电
 
 
 func _choice_rect(i: int) -> Rect2:
+	if "res://hongyuan/world_entry.tscn" in choice_to and "res://hongyuan/village_entry.tscn" in choice_to:
+		return Rect2(48, 532 + i * 52, 264, 44)
 	return Rect2(80, 250 + i * 62, 200, 48)
 
 
@@ -1014,7 +1020,7 @@ const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fi
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
 	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on", "chat_scroll",
-	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed", "ayu_x", "sky_s", "field", "typed", "typing"]
+	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed", "ayu_x", "sky_s", "field", "typed", "typing", "read_index"]
 
 func snapshot() -> Dictionary:
 	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,

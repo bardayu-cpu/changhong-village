@@ -29,8 +29,9 @@ func run() -> void:
 	if not OS.get_cmdline_user_args().is_empty(): output = OS.get_cmdline_user_args()[0]
 	copy = JSON.parse_string(FileAccess.get_file_as_string("res://hongyuan/copy.json"))
 	var r := make()
-	advance(r, 0.8)
-	r.game.input("tap", Vector2(180,580))
+	for screen in range(3):
+		advance(r, 0.8)
+		r.game.input("tap", Vector2(180,580))
 	check(r.game.phase == "name", "recipient reads before name entry")
 	r.game.edit.text = "a"
 	r.game.input("tap", Vector2(180,580))

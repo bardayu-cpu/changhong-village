@@ -72,9 +72,11 @@ def write_pack(path, header, entries):
 def owner(path, byte_count):
     source = path.removesuffix(".import").removesuffix(".remap")
     media = Path(source).suffix.lower() in MEDIA
-    if source.startswith("hongyuan/assets/round1/common/") and Path(source).name in {"welcome.png", "envelope_open.png", "envelope_sealed.png", "wax_sealed.png"}:
+    if source.startswith("hongyuan/assets/round1/finale/"):
         return "finale"
-    if source.startswith("hongyuan/assets/round1/common/") or source.startswith("hongyuan/assets/w2/finale/slot_"):
+    if source.startswith("hongyuan/assets/round1/common/") and Path(source).name in {"welcome.png", "welcome_bg.png", "envelope_open.png", "envelope_sealed.png", "wax_sealed.png"}:
+        return "finale"
+    if source.startswith("hongyuan/assets/round1/desk_r3/") or source.startswith("hongyuan/assets/w2/finale/slot_"):
         return "main"
     if Path(source).name in {"bg_invite_desk.png", "invite_card.png", "invite_base.png", "invite_pen_stroke.png", "invite_slot_pen.png", "invite_slot_ink.png", "pen_tip.png"}:
         return "main"

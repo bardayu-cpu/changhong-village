@@ -31,6 +31,14 @@ STARTUP = {'bg_invite_desk.png', 'invite_card.png', 'invite_base.png', 'invite_p
            'invite_slot_pen.png', 'invite_slot_ink.png', 'pen_tip.png'}
 
 def split_web(out, root, source, base_url, development=False):
+    wasm = out / 'index.wasm'
+    with wasm.open('rb') as stream:
+        if stream.read(8) != b'\x00asm\x01\x00\x00\x00' or wasm.stat().st_size < 1_000_000:
+            raise RuntimeError('Incomplete WebAssembly export; preserve the log and repair before splitting')
+    html_source = (out / 'index.html').read_text()
+    match = re.search(r'"index\.wasm"\s*:\s*(\d+)', html_source)
+    if not match or int(match[1]) != wasm.stat().st_size:
+        raise RuntimeError('WebAssembly byte size does not match the generated HTML')
     pack = out / 'index.pck'
     header, entries = read_pack(pack)
     groups = partition(entries)
@@ -57,7 +65,7 @@ def split_web(out, root, source, base_url, development=False):
             name = entry.name.removesuffix('.import').removesuffix('.remap')
             target = group
             if name.startswith('hongyuan/assets/'):
-                if Path(name).name in STARTUP or (name.startswith('hongyuan/assets/round1/common/') and group != 'finale') or re.search(r'w2/finale/slot_', name):
+                if Path(name).name in STARTUP or name.startswith('hongyuan/assets/round1/desk_r3/') or re.search(r'w2/finale/slot_', name):
                     target = 'main'
                 elif group == 'love-media':
                     owners = references[Path(name).name] - {'prologue'}

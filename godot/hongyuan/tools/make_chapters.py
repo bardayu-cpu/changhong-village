@@ -171,9 +171,7 @@ write("finale", "G-12", [scene("finale", "finale", {
     "bg": "", "fill": "#3a1414", "hideAyu": True,
     "beats": [
         {"card": "G-12", "duration": 2.0},
-        {"bg": "bg_invite_desk.png", "hideAyu": False, "place": [180, 520], "pose": ""},
-        A("A7-2b"),
-        {"hideAyu": True},
+        {"bg": "", "hideAyu": True},
         {"game": "finale"},
         {"choice": ["G-WEDDING", "G-VILLAGE"],
          "to": ["res://hongyuan/world_entry.tscn", "res://hongyuan/village_entry.tscn"]},

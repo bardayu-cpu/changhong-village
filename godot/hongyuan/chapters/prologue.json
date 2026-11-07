@@ -17,6 +17,26 @@
         "beats": [
           {
             "game": "desk_intro",
+            "copyId": "R1-B01-MOTIVE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "unfinished_letter",
+      "type": "scene",
+      "sceneId": "invitation",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "scene",
+      "visibleActors": [],
+      "scene": {
+        "bg": "bg_invite_desk.png",
+        "hideAyu": true,
+        "beats": [
+          {
+            "game": "desk_intro",
             "copyId": "A0-1"
           }
         ]

@@ -39,7 +39,7 @@ static func caption_rect(full_text: String, who: String, anchor := Vector2(-1, -
 	if anchor.x >= 0:
 		var width := clampf(FONT.get_string_size(full_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x + 28, 76, 260)
 		var height := FONT.get_multiline_string_size(_display_text(full_text, who, width - 28), HORIZONTAL_ALIGNMENT_LEFT, width - 28, 16).y + 28
-		return Rect2(clampf(anchor.x - width * 0.5, 12, 348 - width), maxf(54, anchor.y - height - 20), width, height)
+		return Rect2(clampf(anchor.x - width * 0.5, 12, 348 - width), maxf(narration_top - 40, anchor.y - height - 20), width, height)
 	var height := FONT.get_multiline_string_size(_display_text(full_text, who, 244), HORIZONTAL_ALIGNMENT_LEFT, 244, 16).y + 38
 	return Rect2(14, 604 - maxf(height, 80), 332, maxf(height, 80))
 
