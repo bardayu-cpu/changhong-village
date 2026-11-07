@@ -360,13 +360,6 @@ func _pixel_art(flat: Node2D) -> void:
             s.name = str(p["id"])
             world.add_child(s)
 
-## 铺了像素成品的画布，镜头放大倍数取整到 1（原来按画布高 1024 缩到 0.9375）：1 个美术像素正好 1 个画布像素，
-## 手机上再整倍放大（1080 宽的屏正好 2 倍），像素不会一行宽一行窄、也不会掉行。画布高比屏高只多 64，镜头跟着人走，看不出少了什么
-func _fit_zoom() -> void:
-    super()
-    if cfg.has("pixel_art") and cam.zoom.x > 0.85 and cam.zoom.x < 1.0:
-        cam.zoom = Vector2.ONE
-
 ## 一棵树画在哪（画树、果园往树上挂果子共用；tools/layout_court/gen_specs_court.py 照同一个算法量框）：
 ## 给了 h（整棵多高）、w（树冠多宽）的：树干占下面 TREE_TRUNK，上面是树冠，顶正好在 y - h（10/3 照「人 = 1」）；
 ## 老写法只给 r 的照旧（树干 46 高，树冠半径 r）。回 {trunk_top, trunk_w, cy, rx, ry, top}
