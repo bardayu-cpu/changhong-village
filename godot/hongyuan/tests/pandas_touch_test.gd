@@ -7,8 +7,6 @@ var p
 var failures := 0
 var out := "user://pandas"
 func _initialize() -> void:
-	root.size = Vector2i(360, 640)
-	root.content_scale_size = Vector2i(360, 640)
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty(): out = args[0]
 	DirAccess.make_dir_recursive_absolute(out)
@@ -48,6 +46,10 @@ func shot(name: String) -> void:
 	check(img.get_size() == Vector2i(360, 640), "Native 360x640 screenshot: " + name)
 	img.save_png(out.path_join(name + ".png"))
 func run() -> void:
+	# 窗口尺寸要在初始化之后设置，否则会被项目的 540x960 覆盖，截图尺寸检查不过。
+	root.size = Vector2i(360, 640)
+	root.content_scale_size = Vector2i(360, 640)
+	await process_frame
 	p = Harness.new()
 	p.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_child(p)

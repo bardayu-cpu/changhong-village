@@ -67,26 +67,7 @@ func run() -> void:
 	p._advance()
 	check(p.stage._feet({"id":"ayu"}) == Vector2(232,456), "Dialogue preserves feet")
 	check(not p.stage.stick_visible and p.stage.interaction.is_empty(), "Dialogue hides movement and interaction controls")
-	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
-	check(p._controlled_walk(), "Chengdu uses the same walking controls")
-	p.state.bambooHeld = false
-	p.state.pandaUsed = false
-	p.stage.player_feet = Vector2(111,445)
-	check(p._nearby_hotspot().is_empty(), "Cannot feed without bamboo")
-	p.stage.player_feet = Vector2(182,437)
-	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
-	check(p.state.bambooHeld and not p.state.pandaUsed, "Picking bamboo does not advance")
-	p.stage.player_feet = Vector2(111,445)
-	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
-	check(not p.state.bambooHeld and p.state.pandaUsed and p.stage.panda_time > 0, "Feeding consumes bamboo with visible response")
-	p.stage.player_feet = Vector2(263,449)
-	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
-	check(p.shot.id == "chengdu_ping", "Phone opens only after manual interaction")
-	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
-	p.state.pandaUsed = false
-	p.stage.player_feet = Vector2(263,449)
-	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
-	check(p.shot.id == "chengdu_ping" and not p.state.pandaUsed, "Skipping optional feed reaches the same locked phone story")
+	# 成都已改成场景（scene_runner 里的熊猫小游戏）：喂熊猫、点手机的覆盖见 pandas_test.gd 和 pandas_touch_test.gd。
 	# Restore fixtures are serialized through JSON as actual version-1 saves are.
 	p.state = {"version": 1, "runId": "d2-fixture", "materials": {}, "feet": [160, 450], "facing": -1, "walking": true, "walkTarget": [210, 450]}
 	p.state = JSON.parse_string(JSON.stringify(p.state))

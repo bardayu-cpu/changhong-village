@@ -31,13 +31,7 @@ func run() -> void:
 	for child in p.slots.get_children():
 		if child is Button: notification = child
 	check(notification != null and notification.text == p.copy["A2-2"] and screen.encloses(Rect2(notification.position,notification.size)), "Chengdu notification retains copy and fits new phone")
-	p._enter_step(p.step_indices["chengdu/incoming_call"])
-	var before: String = p.shot.fullId
-	p._handle_tap(Vector2(124,474))
-	p._handle_tap(Vector2(236,474))
-	p._process(10)
-	check(p.shot.fullId == before and p.shot.type == "terminal", "Decorative call icons never answer, reject or advance")
-	check(p.state.stepId == before, "UI preserves original terminal checkpoint ID")
+	# 来电已改成场景（call/night_call），长按接听的覆盖见 call_hold_test.gd。
 	for key in ["w2_phone_frame","w2_phone_header","w2_phone_screen_paper","w2_bubble_left","w2_bubble_right","w2_bubble_system","w2_call_accept","w2_call_end"]:
 		check(p.stage.image_asset(key) != null, "Skin loads: " + key)
 	print("FAILURES ",failures)
