@@ -5,9 +5,27 @@ import argparse
 from collections import defaultdict
 from hashlib import md5, sha256
 import json
+import os
 from pathlib import Path
 import re
 from split_wechat_pack import Entry, read_pack, write_pack, partition, CHAPTERS, MEDIA, CLOUD_CHUNK
+
+def reuse_identical(path, output):
+    """Share only immutable, hash-identical prior artifacts; never remove a candidate."""
+    relative = path.relative_to(output)
+    digest = sha256(path.read_bytes()).digest()
+    for sibling in output.parent.iterdir():
+        if sibling == output or not sibling.is_dir():
+            continue
+        old = sibling / relative
+        if old.is_file() and old.stat().st_size == path.stat().st_size and sha256(old.read_bytes()).digest() == digest:
+            link = path.with_name(path.name + '.shared')
+            try:
+                os.link(old, link)
+                os.replace(link, path)
+                return
+            except OSError:
+                link.unlink(missing_ok=True)
 
 STARTUP = {'bg_invite_desk.png', 'invite_card.png', 'invite_base.png', 'invite_pen_stroke.png',
            'invite_slot_pen.png', 'invite_slot_ink.png', 'pen_tip.png'}
@@ -82,6 +100,7 @@ def split_web(out, root, source, base_url, development=False):
             digest = sha256(temp.read_bytes()).hexdigest()
             path = temp.with_name(f'{group}-{digest[:20]}.pck')
             temp.rename(path)
+            reuse_identical(path, out)
             manifest['groups'][group].append({'file': path.name, 'bytes': path.stat().st_size, 'sha256': digest})
         report[group] = sum(p['bytes'] for p in manifest['groups'][group])
     payload = json.dumps(manifest, ensure_ascii=False).encode()
@@ -90,6 +109,8 @@ def split_web(out, root, source, base_url, development=False):
     write_pack(pack, header, main)
     report['startup_pck'] = pack.stat().st_size
     report['startup_wasm'] = (out / 'index.wasm').stat().st_size
+    for name in ['index.wasm', 'index.js']:
+        reuse_identical(out / name, out)
     html = out / 'index.html'
     text = html.read_text()
     text, count = re.subn(r'("index\.pck"\s*:\s*)\d+', lambda m: m[1] + str(pack.stat().st_size), text)
