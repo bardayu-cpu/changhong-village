@@ -1,0 +1,187 @@
+{"seconds": 2.23, "kind": "console_warning", "value": "[.WebGL-0x11c000ca200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"}
+{"seconds": 4.626, "kind": "console_warning", "value": "[.WebGL-0x11c000dc800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"}
+{"seconds": 4.626, "kind": "console_warning", "value": "[.WebGL-0x11c000df800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"}
+{"seconds": 4.915, "kind": "content_request", "value": "http://127.0.0.1:57965/content/love-media-ae940e9cefed18d8e9e4.pck"}
+{"seconds": 7.308, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":1,\"time\":1794058996476}"}
+{"seconds": 7.317, "kind": "content_request", "value": "http://127.0.0.1:57965/content/finale-6d15bb1dbec028355534.pck"}
+{"seconds": 7.366, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":1,\"time\":1794058996543,\"elapsed_ms\":67,\"dirty\":false,\"error\":null}"}
+{"seconds": 8.136, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":2,\"time\":1794058997309}"}
+{"seconds": 8.38, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":2,\"time\":1794058997555,\"elapsed_ms\":246,\"dirty\":false,\"error\":null}"}
+{"seconds": 8.384, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":3,\"time\":1794058997555}"}
+{"seconds": 8.441, "kind": "storage_estimate", "value": {"at": "cold_start", "value": {"estimate": {"quota": 10749075456, "usage": 11657216, "usageDetails": {"indexedDB": 11657216}}, "persisted": false}}}
+{"seconds": 8.452, "kind": "open_lock_state", "value": {"at": "cold_start", "locks": {}}}
+{"seconds": 8.464, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":3,\"time\":1794058997641,\"elapsed_ms\":86,\"dirty\":false,\"error\":null}"}
+{"seconds": 8.695, "kind": "storage_estimate", "value": {"at": "finale", "value": {"estimate": {"quota": 10749075456, "usage": 11657216, "usageDetails": {"indexedDB": 11657216}}, "persisted": false}}}
+{"seconds": 8.698, "kind": "open_lock_state", "value": {"at": "finale", "locks": {}}}
+{"seconds": 8.735, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":4,\"time\":1794058997913}"}
+{"seconds": 8.744, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":4,\"time\":1794058997922,\"elapsed_ms\":9,\"dirty\":false,\"error\":null}"}
+{"seconds": 8.856, "kind": "screenshot", "value": {"tag": "finale/finale_03_choice", "file": "001_finale_finale_03_choice.png"}}
+{"seconds": 8.857, "kind": "fixture_choice_loaded", "value": {"steps": 1, "result": {"look": "07", "name": "FriendR5"}, "to": ["res://hongyuan/world_entry.tscn", "res://hongyuan/village_entry.tscn"]}}
+{"seconds": 8.857, "kind": "input_tap", "value": [180, 554]}
+{"seconds": 8.946, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":5,\"time\":1794058998123}"}
+{"seconds": 8.951, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":5,\"time\":1794058998129,\"elapsed_ms\":6,\"dirty\":false,\"error\":null}"}
+{"seconds": 8.972, "kind": "content_request", "value": "http://127.0.0.1:57965/content/world-e97cb167315b32eb16d3.pck"}
+{"seconds": 9.545, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":6,\"time\":1794058998720}"}
+{"seconds": 9.563, "kind": "content_request", "value": "http://127.0.0.1:57965/content/world-media-f35a7d39dff301618015.pck"}
+{"seconds": 9.748, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":6,\"time\":1794058998922,\"elapsed_ms\":202,\"dirty\":false,\"error\":null}"}
+{"seconds": 11.922, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":7,\"time\":1794059001095}"}
+{"seconds": 11.946, "kind": "content_request", "value": "http://127.0.0.1:57965/content/estate-82c60bafe4480908024f.pck"}
+{"seconds": 12.893, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":7,\"time\":1794059002069,\"elapsed_ms\":974,\"dirty\":false,\"error\":null}"}
+{"seconds": 12.893, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":8,\"time\":1794059002069}"}
+{"seconds": 13.276, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":8,\"time\":1794059002450,\"elapsed_ms\":381,\"dirty\":false,\"error\":null}"}
+{"seconds": 13.519, "kind": "console_log", "value": "WORLD_READY route=wedding nick=FriendR5 avatar=6"}
+{"seconds": 13.525, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":9,\"time\":1794059002698}"}
+{"seconds": 13.89, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":9,\"time\":1794059003063,\"elapsed_ms\":365,\"dirty\":false,\"error\":null}"}
+{"seconds": 15.894, "kind": "screenshot", "value": {"tag": "destination_wedding", "file": "002_destination_wedding.png"}}
+{"seconds": 15.974, "kind": "storage_estimate", "value": {"at": "destination_wedding", "value": {"estimate": {"quota": 10758184960, "usage": 20766720, "usageDetails": {"indexedDB": 20766720}}, "persisted": false}}}
+{"seconds": 16.001, "kind": "open_lock_state", "value": {"at": "destination_wedding", "locks": {}}}
+{"seconds": 17.986, "kind": "screenshot", "value": {"tag": "destination_banquet", "file": "003_destination_banquet.png"}}
+{"seconds": 17.986, "kind": "input_world_navigation", "value": {"button": "去村子入住", "viewport_point": [265, 74]}}
+{"seconds": 18.069, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":10,\"time\":1794059007243}"}
+{"seconds": 18.175, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-b953ddcd12c3acaa6630.pck"}
+{"seconds": 18.573, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":10,\"time\":1794059007748,\"elapsed_ms\":505,\"dirty\":false,\"error\":null}"}
+{"seconds": 19.633, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":11,\"time\":1794059008806}"}
+{"seconds": 19.66, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-2cf56df71c2b96b8aa88.pck"}
+{"seconds": 20.087, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":11,\"time\":1794059009261,\"elapsed_ms\":455,\"dirty\":false,\"error\":null}"}
+{"seconds": 26.08, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":12,\"time\":1794059015252}"}
+{"seconds": 26.102, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-27c797d9832628b98490.pck"}
+{"seconds": 26.57, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":12,\"time\":1794059015743,\"elapsed_ms\":491,\"dirty\":false,\"error\":null}"}
+{"seconds": 31.249, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":13,\"time\":1794059020421}"}
+{"seconds": 31.274, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-a752f4e626f0ffd1c92b.pck"}
+{"seconds": 31.713, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":13,\"time\":1794059020888,\"elapsed_ms\":467,\"dirty\":false,\"error\":null}"}
+{"seconds": 35.248, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":14,\"time\":1794059024421}"}
+{"seconds": 35.282, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-1fdb1a72837a0a852fe9.pck"}
+{"seconds": 35.722, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":14,\"time\":1794059024897,\"elapsed_ms\":476,\"dirty\":false,\"error\":null}"}
+{"seconds": 38.563, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":15,\"time\":1794059027737}"}
+{"seconds": 38.588, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-cc3ac7cc0ca8a1ec8754.pck"}
+{"seconds": 39.101, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":15,\"time\":1794059028273,\"elapsed_ms\":536,\"dirty\":false,\"error\":null}"}
+{"seconds": 44.235, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":16,\"time\":1794059033405}"}
+{"seconds": 44.258, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-331f78b27f03b10ae07d.pck"}
+{"seconds": 44.762, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":16,\"time\":1794059033937,\"elapsed_ms\":532,\"dirty\":false,\"error\":null}"}
+{"seconds": 50.436, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":17,\"time\":1794059039605}"}
+{"seconds": 50.461, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-8daa48aa5c37ed2e5320.pck"}
+{"seconds": 51.053, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":17,\"time\":1794059040227,\"elapsed_ms\":622,\"dirty\":false,\"error\":null}"}
+{"seconds": 57.403, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":18,\"time\":1794059046568}"}
+{"seconds": 57.434, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-503fd4314b244312797e.pck"}
+{"seconds": 58.037, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":18,\"time\":1794059047212,\"elapsed_ms\":644,\"dirty\":false,\"error\":null}"}
+{"seconds": 63.663, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":19,\"time\":1794059052833}"}
+{"seconds": 63.695, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-2b5cf3a77d8f52bd972b.pck"}
+{"seconds": 64.29, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":19,\"time\":1794059053463,\"elapsed_ms\":630,\"dirty\":false,\"error\":null}"}
+{"seconds": 69.94, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":20,\"time\":1794059059114}"}
+{"seconds": 69.964, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-9f81f73eb95134f0d000.pck"}
+{"seconds": 70.688, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":20,\"time\":1794059059863,\"elapsed_ms\":749,\"dirty\":false,\"error\":null}"}
+{"seconds": 75.932, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":21,\"time\":1794059065097}"}
+{"seconds": 75.966, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-1169547df8dfa3adcf2b.pck"}
+{"seconds": 76.8, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":21,\"time\":1794059065972,\"elapsed_ms\":875,\"dirty\":false,\"error\":null}"}
+{"seconds": 83.927, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":22,\"time\":1794059073097}"}
+{"seconds": 83.958, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-139b9c1c5c4a6c3802ac.pck"}
+{"seconds": 84.797, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":22,\"time\":1794059073971,\"elapsed_ms\":874,\"dirty\":false,\"error\":null}"}
+{"seconds": 90.763, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":23,\"time\":1794059079935}"}
+{"seconds": 90.791, "kind": "content_request", "value": "http://127.0.0.1:57965/content/village-media-ebfa08531e277fc89e0f.pck"}
+{"seconds": 91.584, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":23,\"time\":1794059080757,\"elapsed_ms\":822,\"dirty\":false,\"error\":null}"}
+{"seconds": 93.709, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":24,\"time\":1794059082883}"}
+{"seconds": 94.452, "kind": "console_log", "value": "WORLD_READY route=village nick=FriendR5 avatar=6"}
+{"seconds": 97.192, "kind": "screenshot", "value": {"tag": "destination_village", "file": "004_destination_village.png"}}
+{"seconds": 97.271, "kind": "storage_estimate", "value": {"at": "destination_village", "value": {"estimate": {"quota": 10926231552, "usage": 188813312, "usageDetails": {"indexedDB": 188813312}}, "persisted": false}}}
+{"seconds": 97.303, "kind": "open_lock_state", "value": {"at": "destination_village", "locks": {"ayu-home-open:/userfs/hongyuan-r12-review/ayu_home_v4_fab24295c73847010e90.json": {"at": 1794059083.288, "who": "0-3295375483"}}}}
+{"seconds": 97.721, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":24,\"time\":1794059086896,\"elapsed_ms\":4013,\"dirty\":false,\"error\":null}"}
+{"seconds": 97.722, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":25,\"time\":1794059086897}"}
+{"seconds": 98.725, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":25,\"time\":1794059087901,\"elapsed_ms\":1004,\"dirty\":false,\"error\":null}"}
+{"seconds": 98.73, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":26,\"time\":1794059087902}"}
+{"seconds": 99.47, "kind": "console_log", "value": "WORLD_READY route=wedding nick=FriendR5 avatar=6"}
+{"seconds": 99.472, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 99.472, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 99.473, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 99.473, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 99.473, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 99.473, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 99.473, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 99.474, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 99.474, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 99.474, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 99.474, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 99.474, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 99.49, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":26,\"time\":1794059088664,\"elapsed_ms\":762,\"dirty\":false,\"error\":null}"}
+{"seconds": 99.49, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":27,\"time\":1794059088665}"}
+{"seconds": 100.418, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":27,\"time\":1794059089593,\"elapsed_ms\":928,\"dirty\":false,\"error\":null}"}
+{"seconds": 101.747, "kind": "screenshot", "value": {"tag": "destination_wedding_return", "file": "005_destination_wedding_return.png"}}
+{"seconds": 101.776, "kind": "storage_estimate", "value": {"at": "destination_wedding_return", "value": {"estimate": {"quota": 10928005120, "usage": 190586880, "usageDetails": {"indexedDB": 190586880}}, "persisted": false}}}
+{"seconds": 101.777, "kind": "open_lock_state", "value": {"at": "destination_wedding_return", "locks": {}}}
+{"seconds": 104.23, "kind": "console_log", "value": "WORLD_READY route=wedding nick=FriendR5 avatar=6"}
+{"seconds": 104.231, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 104.231, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 104.232, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 104.251, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":1,\"time\":1794059093423}"}
+{"seconds": 105.135, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":1,\"time\":1794059094308,\"elapsed_ms\":885,\"dirty\":false,\"error\":null}"}
+{"seconds": 106.53, "kind": "screenshot", "value": {"tag": "destination_wedding_reload", "file": "006_destination_wedding_reload.png"}}
+{"seconds": 106.591, "kind": "storage_estimate", "value": {"at": "destination_wedding_reload", "value": {"estimate": {"quota": 10928005120, "usage": 190586880, "usageDetails": {"indexedDB": 190586880}}, "persisted": false}}}
+{"seconds": 106.615, "kind": "open_lock_state", "value": {"at": "destination_wedding_reload", "locks": {}}}
+{"seconds": 107.461, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":2,\"time\":1794059096639}"}
+{"seconds": 108.045, "kind": "console_log", "value": "WORLD_READY route=village nick=FriendR5 avatar=6"}
+{"seconds": 110.749, "kind": "screenshot", "value": {"tag": "stress_0_village", "file": "007_stress_0_village.png"}}
+{"seconds": 110.841, "kind": "storage_estimate", "value": {"at": "stress_0_village", "value": {"estimate": {"quota": 10928005120, "usage": 190586880, "usageDetails": {"indexedDB": 190586880}}, "persisted": false}}}
+{"seconds": 110.859, "kind": "open_lock_state", "value": {"at": "stress_0_village", "locks": {"ayu-home-open:/userfs/hongyuan-r12-review/ayu_home_v4_fab24295c73847010e90.json": {"at": 1794059096.976, "who": "0-2385470844"}}}}
+{"seconds": 111.518, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":2,\"time\":1794059100685,\"elapsed_ms\":4046,\"dirty\":false,\"error\":null}"}
+{"seconds": 111.518, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":3,\"time\":1794059100685}"}
+{"seconds": 112.56, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":3,\"time\":1794059101732,\"elapsed_ms\":1047,\"dirty\":false,\"error\":null}"}
+{"seconds": 112.561, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":4,\"time\":1794059101732}"}
+{"seconds": 112.613, "kind": "console_log", "value": "WORLD_READY route=wedding nick=FriendR5 avatar=6"}
+{"seconds": 112.615, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 112.615, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 112.616, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 113.513, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":4,\"time\":1794059102687,\"elapsed_ms\":955,\"dirty\":false,\"error\":null}"}
+{"seconds": 113.514, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":5,\"time\":1794059102687}"}
+{"seconds": 114.286, "kind": "screenshot", "value": {"tag": "stress_0_wedding", "file": "008_stress_0_wedding.png"}}
+{"seconds": 114.356, "kind": "storage_estimate", "value": {"at": "stress_0_wedding", "value": {"estimate": {"quota": 10928005120, "usage": 190586880, "usageDetails": {"indexedDB": 190586880}}, "persisted": false}}}
+{"seconds": 114.383, "kind": "open_lock_state", "value": {"at": "stress_0_wedding", "locks": {}}}
+{"seconds": 114.409, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":5,\"time\":1794059103583,\"elapsed_ms\":896,\"dirty\":false,\"error\":null}"}
+{"seconds": 114.409, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":6,\"time\":1794059103583}"}
+{"seconds": 114.588, "kind": "console_log", "value": "WORLD_READY route=village nick=FriendR5 avatar=6"}
+{"seconds": 115.626, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":6,\"time\":1794059104794,\"elapsed_ms\":1211,\"dirty\":false,\"error\":null}"}
+{"seconds": 115.626, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":7,\"time\":1794059104794}"}
+{"seconds": 116.208, "kind": "screenshot", "value": {"tag": "stress_1_village", "file": "009_stress_1_village.png"}}
+{"seconds": 116.293, "kind": "storage_estimate", "value": {"at": "stress_1_village", "value": {"estimate": {"quota": 10928005120, "usage": 190586880, "usageDetails": {"indexedDB": 190586880}}, "persisted": false}}}
+{"seconds": 116.326, "kind": "open_lock_state", "value": {"at": "stress_1_village", "locks": {"ayu-home-open:/userfs/hongyuan-r12-review/ayu_home_v4_fab24295c73847010e90.json": {"at": 1794059103.676, "who": "0-1908537479"}}}}
+{"seconds": 116.849, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":7,\"time\":1794059106012,\"elapsed_ms\":1218,\"dirty\":false,\"error\":null}"}
+{"seconds": 117.109, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":8,\"time\":1794059106277}"}
+{"seconds": 118.03, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":8,\"time\":1794059107202,\"elapsed_ms\":925,\"dirty\":false,\"error\":null}"}
+{"seconds": 118.03, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":9,\"time\":1794059107203}"}
+{"seconds": 118.145, "kind": "console_log", "value": "WORLD_READY route=wedding nick=FriendR5 avatar=6"}
+{"seconds": 118.145, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 118.146, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 118.146, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 118.147, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 118.147, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 118.147, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 118.147, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 118.148, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 118.148, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 118.148, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 118.148, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bindBuffer: element array buffers can not be bound to a different target"}
+{"seconds": 118.148, "kind": "console_warning", "value": "WebGL: INVALID_OPERATION: bufferSubData: no buffer"}
+{"seconds": 118.884, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":9,\"time\":1794059108058,\"elapsed_ms\":855,\"dirty\":false,\"error\":null}"}
+{"seconds": 118.884, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":10,\"time\":1794059108059}"}
+{"seconds": 119.797, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":10,\"time\":1794059108908,\"elapsed_ms\":849,\"dirty\":false,\"error\":null}"}
+{"seconds": 119.797, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"start\",\"sequence\":11,\"time\":1794059108908}"}
+{"seconds": 119.819, "kind": "screenshot", "value": {"tag": "stress_1_wedding", "file": "010_stress_1_wedding.png"}}
+{"seconds": 119.889, "kind": "storage_estimate", "value": {"at": "stress_1_wedding", "value": {"estimate": {"quota": 10928005120, "usage": 190586880, "usageDetails": {"indexedDB": 190586880}}, "persisted": false}}}
+{"seconds": 119.912, "kind": "open_lock_state", "value": {"at": "stress_1_wedding", "locks": {}}}
+{"seconds": 120.561, "kind": "console_log", "value": "HONGYUAN_IDBFS_SYNC {\"phase\":\"end\",\"sequence\":11,\"time\":1794059109736,\"elapsed_ms\":828,\"dirty\":false,\"error\":null}"}

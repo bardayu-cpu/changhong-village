@@ -1,0 +1,78 @@
+{
+  "method": "Declared finale-choice checkpoint fixture; actual browser touches for hall/village roundtrip and reload. Not a cold-start full-story claim.",
+  "status": "destination_roundtrip_and_reload_passed",
+  "errors": [],
+  "routes": [
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6"
+  ],
+  "lock_observations": [
+    {
+      "at": "cold_start",
+      "locks": {}
+    },
+    {
+      "at": "finale",
+      "locks": {}
+    },
+    {
+      "at": "destination_wedding",
+      "locks": {}
+    },
+    {
+      "at": "destination_village",
+      "locks": {
+        "ayu-home-open:/userfs/hongyuan-r12-review/ayu_home_v4_fab24295c73847010e90.json": {
+          "at": 1794059083.288,
+          "who": "0-3295375483"
+        }
+      }
+    },
+    {
+      "at": "destination_wedding_return",
+      "locks": {}
+    },
+    {
+      "at": "destination_wedding_reload",
+      "locks": {}
+    },
+    {
+      "at": "stress_0_village",
+      "locks": {
+        "ayu-home-open:/userfs/hongyuan-r12-review/ayu_home_v4_fab24295c73847010e90.json": {
+          "at": 1794059096.976,
+          "who": "0-2385470844"
+        }
+      }
+    },
+    {
+      "at": "stress_0_wedding",
+      "locks": {}
+    },
+    {
+      "at": "stress_1_village",
+      "locks": {
+        "ayu-home-open:/userfs/hongyuan-r12-review/ayu_home_v4_fab24295c73847010e90.json": {
+          "at": 1794059103.676,
+          "who": "0-1908537479"
+        }
+      }
+    },
+    {
+      "at": "stress_1_wedding",
+      "locks": {}
+    }
+  ],
+  "checks": [
+    "same guest and six materials survive round trip/reload",
+    "3 village round trips",
+    "village has one scoped online key; wedding has none",
+    "no console runtime or IDB errors"
+  ]
+}

@@ -6,4 +6,4 @@
 
 修复：full_flow_review.gd、round1_interactions_test.gd、photo_restore_test.gd均增加TextureRect呈现实际测试viewport，窗口标题显式标“内部验证／非交付包”。另发现并修复正式章节元数据校验冲突：转换scene时遗留actorMode=sprite而visibleActors为空，造成player初始化失败。现在38个playlist节点均能正常初始化运行。
 
-待补：最终新Web包正常boot入口冷启动、可见书桌首页截图及四屏到上海连续点击证据；未以日志代替画面。
+已补实证：Web r7 正常 boot 冷启动，390×844 Chrome 与 D4 独立短屏均看到新书桌，正常点击四屏进入上海，无存档注入。见 screenshots/web-r7-cold-start.png 和 screenshots/web-r7-drive-instructions.png。D4 又在真 Web 发现并复验修复了中文换行裁切。仍不据此断言用户当时截图的唯一来源；正常入口可见游戏已验证。

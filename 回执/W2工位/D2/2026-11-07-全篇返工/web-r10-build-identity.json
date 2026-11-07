@@ -1,0 +1,26 @@
+{
+  "source": "876c8c6ed110167d4ab663534ef8ed1a3433b51b",
+  "verified_content_files": 25,
+  "files": {
+    "index.html": {
+      "bytes": 5719,
+      "sha256": "7b963ccf4f4b8aae1bf40c47a441223a1dd782f1b6e75ed65518924ccd87c64e"
+    },
+    "index.js": {
+      "bytes": 282661,
+      "sha256": "bae98f29b573d8513aa3ab516a019e28947185d290bac4b6507c8d23cef683e9"
+    },
+    "index.pck": {
+      "bytes": 7458492,
+      "sha256": "722c330dea0916f889403c53ab7db0a68f4014728a6355617992a65635118258"
+    },
+    "index.wasm": {
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    "content-manifest.json": {
+      "bytes": 3976,
+      "sha256": "3335538aba1a2f097ce5649d32af414af303bd8e754e1b2354d2a420112f5c78"
+    }
+  }
+}

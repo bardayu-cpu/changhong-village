@@ -1,0 +1,143 @@
+{
+  "status": "destination_roundtrip_and_reload_passed",
+  "method": "Declared finale-choice checkpoint fixture; actual browser touches for hall/village roundtrip and reload. Not a cold-start full-story claim.",
+  "viewport": [
+    390,
+    844
+  ],
+  "wall_seconds": 122.92,
+  "visited_steps": [
+    "finale/finale"
+  ],
+  "game_visits": [],
+  "screenshots": 10,
+  "content_requests": [
+    "http://127.0.0.1:57965/content/love-media-ae940e9cefed18d8e9e4.pck",
+    "http://127.0.0.1:57965/content/finale-6d15bb1dbec028355534.pck",
+    "http://127.0.0.1:57965/content/world-e97cb167315b32eb16d3.pck",
+    "http://127.0.0.1:57965/content/world-media-f35a7d39dff301618015.pck",
+    "http://127.0.0.1:57965/content/estate-82c60bafe4480908024f.pck",
+    "http://127.0.0.1:57965/content/village-b953ddcd12c3acaa6630.pck",
+    "http://127.0.0.1:57965/content/village-media-2cf56df71c2b96b8aa88.pck",
+    "http://127.0.0.1:57965/content/village-media-27c797d9832628b98490.pck",
+    "http://127.0.0.1:57965/content/village-media-a752f4e626f0ffd1c92b.pck",
+    "http://127.0.0.1:57965/content/village-media-1fdb1a72837a0a852fe9.pck",
+    "http://127.0.0.1:57965/content/village-media-cc3ac7cc0ca8a1ec8754.pck",
+    "http://127.0.0.1:57965/content/village-media-331f78b27f03b10ae07d.pck",
+    "http://127.0.0.1:57965/content/village-media-8daa48aa5c37ed2e5320.pck",
+    "http://127.0.0.1:57965/content/village-media-503fd4314b244312797e.pck",
+    "http://127.0.0.1:57965/content/village-media-2b5cf3a77d8f52bd972b.pck",
+    "http://127.0.0.1:57965/content/village-media-9f81f73eb95134f0d000.pck",
+    "http://127.0.0.1:57965/content/village-media-1169547df8dfa3adcf2b.pck",
+    "http://127.0.0.1:57965/content/village-media-139b9c1c5c4a6c3802ac.pck",
+    "http://127.0.0.1:57965/content/village-media-ebfa08531e277fc89e0f.pck"
+  ],
+  "errors": [],
+  "world_ready": "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+  "world_routes": [
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6"
+  ],
+  "balance_wall_seconds": null,
+  "final_checkpoint": {
+    "chatFast": false,
+    "driveArrival": 0,
+    "driveDistance": 0,
+    "driveStarted": false,
+    "elapsed": 0,
+    "facing": 1,
+    "feet": [
+      96,
+      456
+    ],
+    "guest": {
+      "look": "07",
+      "name": "FriendR5"
+    },
+    "hitIndex": -1,
+    "lane": 1,
+    "lanePosition": 1,
+    "materials": {},
+    "pandaUsed": false,
+    "parking": {
+      "align": false,
+      "angle": 0,
+      "baseX": 0,
+      "done": true,
+      "lateral": 0,
+      "progress": 1,
+      "speed": 1,
+      "started": false,
+      "steered": true,
+      "steeringVersion": 1
+    },
+    "revision": 1268,
+    "runId": "7d637bd0c93c0b1c6496fd38fb8ade21",
+    "sceneBeat": 3,
+    "sceneMaterials": {
+      "envelope": true,
+      "ink": true,
+      "paper": true,
+      "pen": true,
+      "stamp": true,
+      "wax": true
+    },
+    "sceneSig": "531238629",
+    "sceneSnapshot": {
+      "atmosphere_elapsed": 0,
+      "beat": 3,
+      "comp_pos": [
+        0,
+        0
+      ],
+      "facing": 1,
+      "feet": [
+        180,
+        520
+      ],
+      "mode": "choice",
+      "moving": false,
+      "pose": "",
+      "result": {
+        "look": "07",
+        "name": "FriendR5"
+      },
+      "reveal": 0,
+      "t": 1.67116722222222,
+      "target": [
+        0,
+        0
+      ],
+      "trail": [],
+      "walk_dist": 0
+    },
+    "slow": 0,
+    "stepId": "finale/finale",
+    "trafficSeed": 0,
+    "version": 1,
+    "walkTarget": [
+      0,
+      0
+    ],
+    "walking": false,
+    "weddingLocation": {
+      "area": "banquet",
+      "position": [
+        1035,
+        415
+      ]
+    },
+    "worldProfile": {
+      "avatar": 6,
+      "id": "hongyuan_7d637bd0c93c0b1c6496fd38fb8ade21",
+      "nick": "FriendR5"
+    },
+    "worldRoute": "wedding"
+  }
+}

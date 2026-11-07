@@ -1,0 +1,25 @@
+{
+  "source": "074446598482ac483f687960068b5ae73e5c62ad",
+  "files": {
+    "index.html": {
+      "bytes": 5719,
+      "sha256": "db721cfdd1af2d2be91c8c437e7d59e3496063d55a00a903d8124bbf533d93fb"
+    },
+    "index.js": {
+      "bytes": 282661,
+      "sha256": "bae98f29b573d8513aa3ab516a019e28947185d290bac4b6507c8d23cef683e9"
+    },
+    "index.pck": {
+      "bytes": 5584964,
+      "sha256": "369c71550900c48dd23316b5637d1eec7c4e0f09e90f9fb889c85af0c6f48e17"
+    },
+    "index.wasm": {
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    "content-manifest.json": {
+      "bytes": 3976,
+      "sha256": "a3f583a3ce5eff18db015170d745cfcfe6a305a55e826fa59a06c706011f85b8"
+    }
+  }
+}

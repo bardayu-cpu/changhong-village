@@ -1,0 +1,143 @@
+{
+  "failures": 0,
+  "method": "developer checkpoint per playlist step; normal game inputs; accelerated time; native fixed SubViewport; no destination world mutation",
+  "playlist_steps": 38,
+  "records": [
+    {
+      "id": "chengdu/chengdu_return",
+      "kind": "step"
+    },
+    {
+      "file": "001_chengdu_chengdu_return_00_say.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_return_00_say"
+    },
+    {
+      "file": "002_chengdu_chengdu_return_00_say_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_return_00_say_settled"
+    },
+    {
+      "id": "chengdu/chengdu_routine",
+      "kind": "step"
+    },
+    {
+      "file": "003_chengdu_chengdu_routine_00_say.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_routine_00_say"
+    },
+    {
+      "file": "004_chengdu_chengdu_routine_00_say_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_routine_00_say_settled"
+    },
+    {
+      "id": "chengdu/chengdu_walk",
+      "kind": "step"
+    },
+    {
+      "file": "005_chengdu_chengdu_walk_00_goal.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_00_goal"
+    },
+    {
+      "file": "006_chengdu_chengdu_walk_00_goal_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_00_goal_settled"
+    },
+    {
+      "file": "007_chengdu_chengdu_walk_01_game_active.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_active"
+    },
+    {
+      "file": "008_chengdu_chengdu_walk_01_game_active_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_active_settled"
+    },
+    {
+      "file": "009_chengdu_chengdu_walk_01_game_chew.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_chew"
+    },
+    {
+      "file": "010_chengdu_chengdu_walk_01_game_chew_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_chew_settled"
+    },
+    {
+      "file": "011_chengdu_chengdu_walk_01_game_done.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_done"
+    },
+    {
+      "file": "012_chengdu_chengdu_walk_01_game_done_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_done_settled"
+    },
+    {
+      "id": "chengdu/chengdu_ping",
+      "kind": "step"
+    },
+    {
+      "file": "013_chengdu_chengdu_ping_00_say.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_ping_00_say"
+    },
+    {
+      "file": "014_chengdu_chengdu_ping_00_say_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_ping_00_say_settled"
+    },
+    {
+      "id": "chengdu/chengdu_group",
+      "kind": "step"
+    },
+    {
+      "file": "015_chengdu_chengdu_group_00_game_chat_0.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_0"
+    },
+    {
+      "file": "016_chengdu_chengdu_group_00_game_chat_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_settled"
+    },
+    {
+      "file": "017_chengdu_chengdu_group_00_game_chat_1.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_1"
+    },
+    {
+      "file": "018_chengdu_chengdu_group_00_game_chat_2.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_2"
+    },
+    {
+      "file": "019_chengdu_chengdu_group_00_game_done_3.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_done_3"
+    },
+    {
+      "file": "020_chengdu_chengdu_group_00_game_done_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_done_settled"
+    },
+    {
+      "id": "chengdu/ink",
+      "kind": "step"
+    },
+    {
+      "file": "021_chengdu_ink_00_material.png",
+      "kind": "frame",
+      "tag": "chengdu/ink_00_material"
+    },
+    {
+      "file": "022_chengdu_ink_00_material_settled.png",
+      "kind": "frame",
+      "tag": "chengdu/ink_00_material_settled"
+    }
+  ],
+  "screenshots": 22,
+  "steps": 6
+}

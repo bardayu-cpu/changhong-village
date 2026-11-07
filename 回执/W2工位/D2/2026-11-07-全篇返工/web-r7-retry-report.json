@@ -1,0 +1,87 @@
+{
+  "state": {
+    "chatFast": false,
+    "driveArrival": 0,
+    "driveDistance": 0,
+    "driveStarted": false,
+    "elapsed": 0,
+    "facing": 1,
+    "feet": [
+      104,
+      451
+    ],
+    "hitIndex": -1,
+    "lane": 1,
+    "lanePosition": 1,
+    "materials": {},
+    "pandaUsed": false,
+    "parking": {
+      "align": false,
+      "angle": 0,
+      "baseX": 0,
+      "done": true,
+      "lateral": 0,
+      "progress": 1,
+      "speed": 1,
+      "started": false,
+      "steered": true,
+      "steeringVersion": 1
+    },
+    "revision": 60,
+    "runId": "d8a807143dc4a632087b084638342453",
+    "sceneBeat": 0,
+    "sceneSig": "3546342613",
+    "sceneSnapshot": {
+      "atmosphere_elapsed": 10.2228184179894,
+      "beat": 0,
+      "comp_pos": [
+        0,
+        0
+      ],
+      "facing": 1,
+      "feet": [
+        100,
+        476
+      ],
+      "mode": "say",
+      "moving": false,
+      "pose": "",
+      "result": {},
+      "reveal": 265.793278867725,
+      "t": 10.2228184179894,
+      "target": [
+        0,
+        0
+      ],
+      "trail": [],
+      "walk_dist": 0
+    },
+    "slow": 0,
+    "stepId": "shanghai/street_intro",
+    "trafficSeed": 0,
+    "version": 1,
+    "walkTarget": [
+      0,
+      0
+    ],
+    "walking": false
+  },
+  "requests": [
+    {
+      "url": "http://127.0.0.1:57956/content/shanghai-daa06b845c4d771de1bf.pck",
+      "blocked": true
+    },
+    {
+      "url": "http://127.0.0.1:57956/content/shanghai-daa06b845c4d771de1bf.pck",
+      "blocked": true
+    },
+    {
+      "url": "http://127.0.0.1:57956/content/shanghai-daa06b845c4d771de1bf.pck",
+      "blocked": false
+    }
+  ],
+  "errors": [
+    "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+    "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+  ]
+}

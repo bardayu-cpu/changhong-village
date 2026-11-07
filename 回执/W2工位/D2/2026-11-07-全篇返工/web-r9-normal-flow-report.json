@@ -1,0 +1,302 @@
+{
+  "status": "normal_story_both_destinations_roundtrip_and_reload",
+  "method": "fresh isolated Chrome context; normal entry; real gestures only; read-only localStorage observations",
+  "viewport": [
+    390,
+    844
+  ],
+  "wall_seconds": 622.49,
+  "visited_steps": [
+    "call/night_call",
+    "chengdu/chengdu_group",
+    "chengdu/chengdu_ping",
+    "chengdu/chengdu_return",
+    "chengdu/chengdu_routine",
+    "chengdu/chengdu_walk",
+    "chengdu/ink",
+    "finale/finale",
+    "hainan/wanning",
+    "hongkong/hk",
+    "prologue/closed",
+    "prologue/line_to_road",
+    "prologue/open",
+    "prologue/unfinished_letter",
+    "shanghai/approach_axiao",
+    "shanghai/board_car",
+    "shanghai/chat_axiao",
+    "shanghai/chat_ayu",
+    "shanghai/chat_system",
+    "shanghai/chat_toretto",
+    "shanghai/drive",
+    "shanghai/later",
+    "shanghai/line_1",
+    "shanghai/line_2",
+    "shanghai/line_3",
+    "shanghai/line_4",
+    "shanghai/line_5",
+    "shanghai/line_6",
+    "shanghai/meet_close",
+    "shanghai/other_car",
+    "shanghai/parked",
+    "shanghai/pen",
+    "shanghai/perspective",
+    "shanghai/quiet",
+    "shanghai/street_intro",
+    "shanghai/to_chengdu",
+    "shizuoka/pier"
+  ],
+  "game_visits": [
+    [
+      "call/night_call",
+      5,
+      "call"
+    ],
+    [
+      "call/night_call",
+      14,
+      "desk_chat"
+    ],
+    [
+      "call/night_call",
+      23,
+      "care"
+    ],
+    [
+      "call/night_call",
+      25,
+      "balance"
+    ],
+    [
+      "chengdu/chengdu_group",
+      0,
+      "group_chat"
+    ],
+    [
+      "chengdu/chengdu_walk",
+      1,
+      "pandas"
+    ],
+    [
+      "finale/finale",
+      2,
+      "finale"
+    ],
+    [
+      "hainan/wanning",
+      6,
+      "ringtoss"
+    ],
+    [
+      "hongkong/hk",
+      4,
+      "offer"
+    ],
+    [
+      "hongkong/hk",
+      16,
+      "photo"
+    ],
+    [
+      "hongkong/hk",
+      27,
+      "photo"
+    ],
+    [
+      "hongkong/hk",
+      32,
+      "photo"
+    ],
+    [
+      "prologue/closed",
+      0,
+      "desk_intro"
+    ],
+    [
+      "prologue/line_to_road",
+      0,
+      "desk_intro"
+    ],
+    [
+      "prologue/open",
+      0,
+      "desk_intro"
+    ],
+    [
+      "prologue/unfinished_letter",
+      0,
+      "desk_intro"
+    ],
+    [
+      "shanghai/chat_axiao",
+      0,
+      "group_chat"
+    ],
+    [
+      "shanghai/chat_ayu",
+      0,
+      "group_chat"
+    ],
+    [
+      "shanghai/chat_system",
+      0,
+      "group_chat"
+    ],
+    [
+      "shanghai/chat_toretto",
+      0,
+      "group_chat"
+    ],
+    [
+      "shanghai/drive",
+      1,
+      "drive"
+    ],
+    [
+      "shizuoka/pier",
+      6,
+      "fishing"
+    ],
+    [
+      "shizuoka/pier",
+      17,
+      "onsen"
+    ],
+    [
+      "shizuoka/pier",
+      20,
+      "registration"
+    ]
+  ],
+  "screenshots": 306,
+  "content_requests": [
+    "http://127.0.0.1:57961/content/love-media-ae940e9cefed18d8e9e4.pck",
+    "http://127.0.0.1:57961/content/shanghai-daa06b845c4d771de1bf.pck",
+    "http://127.0.0.1:57961/content/chengdu-93307b693d434e17678c.pck",
+    "http://127.0.0.1:57961/content/call-355acc09e097fd694e68.pck",
+    "http://127.0.0.1:57961/content/shizuoka-ece2414d5320d54d08b0.pck",
+    "http://127.0.0.1:57961/content/hainan-4d9f1a22d95cd1f37aa4.pck",
+    "http://127.0.0.1:57961/content/hongkong-02c1ff836dacea0cb463.pck",
+    "http://127.0.0.1:57961/content/finale-6d15bb1dbec028355534.pck",
+    "http://127.0.0.1:57961/content/world-e97cb167315b32eb16d3.pck",
+    "http://127.0.0.1:57961/content/world-media-f35a7d39dff301618015.pck",
+    "http://127.0.0.1:57961/content/estate-fee7b397e68363085c54.pck",
+    "http://127.0.0.1:57961/content/village-2278dc5565b7da391218.pck",
+    "http://127.0.0.1:57961/content/village-media-2cf56df71c2b96b8aa88.pck",
+    "http://127.0.0.1:57961/content/village-media-27c797d9832628b98490.pck",
+    "http://127.0.0.1:57961/content/village-media-a752f4e626f0ffd1c92b.pck",
+    "http://127.0.0.1:57961/content/village-media-1fdb1a72837a0a852fe9.pck",
+    "http://127.0.0.1:57961/content/village-media-cc3ac7cc0ca8a1ec8754.pck",
+    "http://127.0.0.1:57961/content/village-media-331f78b27f03b10ae07d.pck",
+    "http://127.0.0.1:57961/content/village-media-8daa48aa5c37ed2e5320.pck",
+    "http://127.0.0.1:57961/content/village-media-503fd4314b244312797e.pck",
+    "http://127.0.0.1:57961/content/village-media-2b5cf3a77d8f52bd972b.pck",
+    "http://127.0.0.1:57961/content/village-media-9f81f73eb95134f0d000.pck",
+    "http://127.0.0.1:57961/content/village-media-1169547df8dfa3adcf2b.pck",
+    "http://127.0.0.1:57961/content/village-media-139b9c1c5c4a6c3802ac.pck",
+    "http://127.0.0.1:57961/content/village-media-ebfa08531e277fc89e0f.pck"
+  ],
+  "errors": [],
+  "world_ready": "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+  "world_routes": [
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=village nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6",
+    "WORLD_READY route=wedding nick=FriendR5 avatar=6"
+  ],
+  "balance_wall_seconds": 29.76,
+  "final_checkpoint": {
+    "chatFast": false,
+    "driveArrival": 0,
+    "driveDistance": 0,
+    "driveStarted": false,
+    "elapsed": 0,
+    "facing": 1,
+    "feet": [
+      96,
+      456
+    ],
+    "guest": {
+      "look": "07",
+      "name": "FriendR5"
+    },
+    "hitIndex": -1,
+    "lane": 1,
+    "lanePosition": 1,
+    "materials": {},
+    "pandaUsed": false,
+    "parking": {
+      "align": false,
+      "angle": 0,
+      "baseX": 0,
+      "done": true,
+      "lateral": 0,
+      "progress": 1,
+      "speed": 1,
+      "started": false,
+      "steered": true,
+      "steeringVersion": 1
+    },
+    "revision": 1247,
+    "runId": "046daa5497dd82910e7c96b1d5c162d2",
+    "sceneBeat": 3,
+    "sceneMaterials": {
+      "envelope": true,
+      "ink": true,
+      "paper": true,
+      "pen": true,
+      "stamp": true,
+      "wax": true
+    },
+    "sceneSig": "531238629",
+    "sceneSnapshot": {
+      "atmosphere_elapsed": 0,
+      "beat": 3,
+      "comp_pos": [
+        0,
+        0
+      ],
+      "facing": 1,
+      "feet": [
+        180,
+        520
+      ],
+      "mode": "choice",
+      "moving": false,
+      "pose": "",
+      "result": {
+        "look": "07",
+        "name": "FriendR5"
+      },
+      "reveal": 0,
+      "t": 1.13885833333335,
+      "target": [
+        0,
+        0
+      ],
+      "trail": [],
+      "walk_dist": 0
+    },
+    "slow": 0,
+    "stepId": "finale/finale",
+    "trafficSeed": 0,
+    "version": 1,
+    "walkTarget": [
+      0,
+      0
+    ],
+    "walking": false,
+    "weddingLocation": {
+      "area": "banquet",
+      "position": [
+        1035,
+        415
+      ]
+    },
+    "worldProfile": {
+      "avatar": 6,
+      "id": "hongyuan_046daa5497dd82910e7c96b1d5c162d2",
+      "nick": "FriendR5"
+    },
+    "worldRoute": "wedding"
+  }
+}

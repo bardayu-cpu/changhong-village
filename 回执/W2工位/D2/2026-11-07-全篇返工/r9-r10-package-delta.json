@@ -1,0 +1,23 @@
+{
+  "from": "8d2b44cba4ea08da7eb28c72206f9b2c9033ade2",
+  "to": "876c8c6ed110167d4ab663534ef8ed1a3433b51b",
+  "changed_groups": [
+    "estate"
+  ],
+  "unchanged_groups": [
+    "prologue",
+    "call",
+    "chengdu",
+    "finale",
+    "hainan",
+    "hongkong",
+    "love-media",
+    "shanghai",
+    "shizuoka",
+    "village",
+    "village-media",
+    "world",
+    "world-media"
+  ],
+  "source_change": "Only wedding.gd initial destination: _enter_parking -> _enter_banquet. Startup manifest embeds new source/estate pack hash."
+}

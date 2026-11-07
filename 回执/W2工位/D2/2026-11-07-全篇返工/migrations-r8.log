@@ -1,0 +1,154 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS call version 0 maps call
+PASS snapshot cannot land in another game: call
+PASS migration keeps identity and collected tokens
+PASS call current original sentence survives JSON/runner restore
+PASS call version 0 maps desk_chat
+PASS snapshot cannot land in another game: desk_chat
+PASS migration keeps identity and collected tokens
+PASS call version 1 maps call
+PASS snapshot cannot land in another game: call
+PASS migration keeps identity and collected tokens
+PASS call current original sentence survives JSON/runner restore
+PASS call version 1 maps desk_chat
+PASS snapshot cannot land in another game: desk_chat
+PASS migration keeps identity and collected tokens
+PASS call version 2 maps call
+PASS snapshot cannot land in another game: call
+PASS migration keeps identity and collected tokens
+PASS call current original sentence survives JSON/runner restore
+PASS call version 2 maps desk_chat
+PASS snapshot cannot land in another game: desk_chat
+PASS migration keeps identity and collected tokens
+PASS call version 2 maps care
+PASS snapshot cannot land in another game: care
+PASS migration keeps identity and collected tokens
+PASS call version 2 maps balance
+PASS snapshot cannot land in another game: balance
+PASS migration keeps identity and collected tokens
+PASS 042c367 all beats have a safe semantic destination call/0
+PASS 042c367 all beats have a safe semantic destination call/1
+PASS 042c367 all beats have a safe semantic destination call/2
+PASS 042c367 all beats have a safe semantic destination call/3
+PASS 042c367 all beats have a safe semantic destination call/4
+PASS 042c367 all beats have a safe semantic destination call/5
+PASS game state retained only for same game call/5
+PASS 042c367 all beats have a safe semantic destination call/6
+PASS 042c367 all beats have a safe semantic destination call/7
+PASS 042c367 all beats have a safe semantic destination call/8
+PASS 042c367 all beats have a safe semantic destination call/9
+PASS 042c367 all beats have a safe semantic destination call/10
+PASS 042c367 all beats have a safe semantic destination call/11
+PASS 042c367 all beats have a safe semantic destination call/12
+PASS 042c367 all beats have a safe semantic destination call/13
+PASS 042c367 all beats have a safe semantic destination call/14
+PASS game state retained only for same game call/14
+PASS 042c367 all beats have a safe semantic destination call/15
+PASS 042c367 all beats have a safe semantic destination call/16
+PASS 042c367 all beats have a safe semantic destination call/17
+PASS 042c367 all beats have a safe semantic destination call/18
+PASS 042c367 all beats have a safe semantic destination call/19
+PASS 042c367 all beats have a safe semantic destination call/20
+PASS 042c367 all beats have a safe semantic destination call/21
+PASS 042c367 all beats have a safe semantic destination call/22
+PASS 042c367 all beats have a safe semantic destination call/23
+PASS unknown call signature safely refuses without erasing data
+PASS shizuoka version 0 maps fishing
+PASS snapshot cannot land in another game: fishing
+PASS migration keeps identity and collected tokens
+PASS shizuoka version 0 maps onsen
+PASS snapshot cannot land in another game: onsen
+PASS migration keeps identity and collected tokens
+PASS shizuoka version 1 maps fishing
+PASS snapshot cannot land in another game: fishing
+PASS migration keeps identity and collected tokens
+PASS shizuoka version 1 maps onsen
+PASS snapshot cannot land in another game: onsen
+PASS migration keeps identity and collected tokens
+PASS 042c367 all beats have a safe semantic destination shizuoka/0
+PASS 042c367 all beats have a safe semantic destination shizuoka/1
+PASS 042c367 all beats have a safe semantic destination shizuoka/2
+PASS 042c367 all beats have a safe semantic destination shizuoka/3
+PASS 042c367 all beats have a safe semantic destination shizuoka/4
+PASS 042c367 all beats have a safe semantic destination shizuoka/5
+PASS 042c367 all beats have a safe semantic destination shizuoka/6
+PASS game state retained only for same game shizuoka/6
+PASS 042c367 all beats have a safe semantic destination shizuoka/7
+PASS 042c367 all beats have a safe semantic destination shizuoka/8
+PASS 042c367 all beats have a safe semantic destination shizuoka/9
+PASS 042c367 all beats have a safe semantic destination shizuoka/10
+PASS 042c367 all beats have a safe semantic destination shizuoka/11
+PASS 042c367 all beats have a safe semantic destination shizuoka/12
+PASS 042c367 all beats have a safe semantic destination shizuoka/13
+PASS 042c367 all beats have a safe semantic destination shizuoka/14
+PASS game state retained only for same game shizuoka/14
+PASS 042c367 all beats have a safe semantic destination shizuoka/15
+PASS 042c367 all beats have a safe semantic destination shizuoka/16
+PASS 042c367 all beats have a safe semantic destination shizuoka/17
+PASS 042c367 all beats have a safe semantic destination shizuoka/18
+PASS 042c367 all beats have a safe semantic destination shizuoka/19
+PASS unknown shizuoka signature safely refuses without erasing data
+PASS hongkong version 0 maps offer
+PASS snapshot cannot land in another game: offer
+PASS migration keeps identity and collected tokens
+PASS offer letter progress survives JSON/runner restore
+PASS hongkong version 0 maps photo
+PASS snapshot cannot land in another game: photo
+PASS migration keeps identity and collected tokens
+PASS photo restores same photo with both people; texture recaptures
+PASS hongkong version 1 maps offer
+PASS snapshot cannot land in another game: offer
+PASS migration keeps identity and collected tokens
+PASS offer letter progress survives JSON/runner restore
+PASS hongkong version 1 maps photo
+PASS snapshot cannot land in another game: photo
+PASS migration keeps identity and collected tokens
+PASS photo restores same photo with both people; texture recaptures
+PASS hongkong version 2 maps offer
+PASS snapshot cannot land in another game: offer
+PASS migration keeps identity and collected tokens
+PASS offer letter progress survives JSON/runner restore
+PASS hongkong version 2 maps photo
+PASS snapshot cannot land in another game: photo
+PASS migration keeps identity and collected tokens
+PASS photo restores same photo with both people; texture recaptures
+PASS hongkong version 2 maps photo
+PASS snapshot cannot land in another game: photo
+PASS migration keeps identity and collected tokens
+PASS photo restores same photo with both people; texture recaptures
+PASS hongkong version 2 maps photo
+PASS snapshot cannot land in another game: photo
+PASS migration keeps identity and collected tokens
+PASS photo restores same photo with both people; texture recaptures
+PASS 042c367 all beats have a safe semantic destination hongkong/0
+PASS 042c367 all beats have a safe semantic destination hongkong/1
+PASS 042c367 all beats have a safe semantic destination hongkong/2
+PASS 042c367 all beats have a safe semantic destination hongkong/3
+PASS 042c367 all beats have a safe semantic destination hongkong/4
+PASS game state retained only for same game hongkong/4
+PASS 042c367 all beats have a safe semantic destination hongkong/5
+PASS 042c367 all beats have a safe semantic destination hongkong/6
+PASS 042c367 all beats have a safe semantic destination hongkong/7
+PASS 042c367 all beats have a safe semantic destination hongkong/8
+PASS 042c367 all beats have a safe semantic destination hongkong/9
+PASS 042c367 all beats have a safe semantic destination hongkong/10
+PASS 042c367 all beats have a safe semantic destination hongkong/11
+PASS game state retained only for same game hongkong/11
+PASS 042c367 all beats have a safe semantic destination hongkong/12
+PASS 042c367 all beats have a safe semantic destination hongkong/13
+PASS 042c367 all beats have a safe semantic destination hongkong/14
+PASS unknown hongkong signature safely refuses without erasing data
+PASS 0744465 r7 call current line survives office colleague layout revision
+PASS late old call returns before newly required care/balance, no foreign game state
+PASS old registry memory/reward requires new registration 17
+PASS old registry memory/reward requires new registration 18
+PASS old registry memory/reward requires new registration 19
+PASS old HK reward/exit starts new Disney memories 12
+PASS old HK reward/exit starts new Disney memories 14
+PASS old airport exit starts added security interaction
+PASS old seat starts added boarding approach
+PASS pre-signature finale retains name and token compatibility
+FAILURES 0
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

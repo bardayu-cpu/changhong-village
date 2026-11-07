@@ -1,0 +1,27 @@
+{
+  "from": "8d2b44cba4ea08da7eb28c72206f9b2c9033ade2",
+  "to": "794dc010dd129d9a99086fa30582a39101c09b88",
+  "changed_groups": [
+    "estate",
+    "village"
+  ],
+  "unchanged_groups": [
+    "prologue",
+    "call",
+    "chengdu",
+    "finale",
+    "hainan",
+    "hongkong",
+    "love-media",
+    "shanghai",
+    "shizuoka",
+    "village-media",
+    "world",
+    "world-media"
+  ],
+  "source_changes": [
+    "wedding.gd: initial banquet, idempotent direct seating",
+    "life_state.gd: browser presence lock in localStorage, native/WeChat unchanged"
+  ],
+  "note": "All love-story chapter/media payloads identical. Startup manifest embeds current source and changed pack hashes."
+}
