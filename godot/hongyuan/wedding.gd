@@ -38,6 +38,10 @@ func location() -> Dictionary:
     return {"area": state, "position": [cv.pos.x, cv.pos.y]}
 
 func enter_banquet() -> void:
+    # The invitation can already arrive in the hall. Re-entering it rebuilds
+    # seated guests while their UI callbacks are pending; keep this idempotent.
+    if state == "banquet":
+        return
     if driving:
         drive.skipped = true
         while driving:
