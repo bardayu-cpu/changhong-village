@@ -8,8 +8,7 @@ def love_project(root, wechat=False):
     project = root / 'project.godot'
     original = project.read_text()
     configured = original.replace('config/name="苏七镇奇缘"', 'config/name="红缘大冒险"')
-    # This plugin belongs to the other game. Hongyuan reads copy.json directly.
-    configured = re.sub(r'^DialogueManager=".*"\n', '', configured, flags=re.M)
+    # The estate uses the existing dialogue autoload for its NPC interactions.
     if wechat:
         section = re.search(r'(\[editor_plugins\]\s*\nenabled=PackedStringArray\()(.*?)(\))', configured)
         if not section:

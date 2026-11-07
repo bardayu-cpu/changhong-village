@@ -997,6 +997,10 @@ func _start_scene(resume := false) -> void:
 		if not runner.result.is_empty():
 			state.guest = runner.result
 		_save()
+		if path in ["res://hongyuan/world_entry.tscn", "res://hongyuan/village_entry.tscn"]:
+			state["worldRoute"] = "village" if path.ends_with("village_entry.tscn") else "wedding"
+			state.revision = int(state.revision) + 1
+			Checkpoint.write(state)
 		get_tree().change_scene_to_file.call_deferred(path))
 	runner.finished.connect(func() -> void:
 		if not runner.result.is_empty():

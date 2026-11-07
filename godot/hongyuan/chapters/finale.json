@@ -49,8 +49,8 @@
        "G-VILLAGE"
       ],
       "to": [
-       null,
-       "res://ayu_home/v4/phone_boot.tscn"
+       "res://hongyuan/world_entry.tscn",
+       "res://hongyuan/village_entry.tscn"
       ]
      },
      {
