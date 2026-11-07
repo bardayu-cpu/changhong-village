@@ -85,17 +85,80 @@ csh=Image.new('RGBA',(43,74),(0,0,0,0));cd=ImageDraw.Draw(csh)
 cd.rectangle((5,5,42,72),fill=(*C['shadow'],77))
 csh.resize((86,148),Image.Resampling.NEAREST).crop((0,0,86,147)).save(OUT/'car_mine_shadow.png')
 # Compose scale board on half-resolution art grid, then nearest-neighbor enlarge 2x.
-S=Image.new('RGBA',(280,120),(*C['paper'],255));D=ImageDraw.Draw(S);base=105
+S=Image.new('RGBA',(280,224),(*C['paper'],255));D=ImageDraw.Draw(S);base=115
 S.alpha_composite(elder_grid,(6,base-42))
-# Door ~44x100; table 86x36; chair 22x46; tree 120x150; car silhouette 86x146.
+# Door ~44x100; table 86x36; chair 22x46; tree 120x150; car height ~72.
 def R(x,y,w,h,c):D.rectangle((x,y,x+w-1,y+h-1),fill=(*C[c],255))
 R(47,base-50,22,50,'wood_d');R(49,base-48,18,48,'wood_l');R(63,base-26,2,2,'gold')
 R(82,base-23,11,2,'wood_d');R(83,base-21,9,10,'wood_m');R(84,base-11,7,10,'wood_d');R(83,base-2,9,2,'wood_l')
 D.ellipse((102,base-18,144,base-9),fill=(*C['stone_l'],255),outline=(*C['stone_d'],255),width=1);R(106,base-10,35,8,'wood_m')
 R(163,base-31,8,31,'wood_d');D.ellipse((138,base-75,197,base-21),fill=(*C['grass_m'],255),outline=(*C['grass_d'],255),width=2);D.ellipse((146,base-71,187,base-41),fill=(*C['grass_l'],255))
-R(210,base-73,43,73,'car_d');R(213,base-70,37,67,'car_m');R(217,base-66,28,9,'car_hi');R(217,base-54,29,12,'glass_d');R(217,base-39,28,16,'car_l');R(213,base-9,37,6,'metal_d')
+D.polygon([(210,base-7),(210,base-18),(218,base-22),(225,base-36),
+           (241,base-36),(248,base-22),(252,base-19),(252,base-7)],fill=(*C['car_d'],255))
+R(212,base-19,39,8,'car_m');R(218,base-21,30,3,'car_hi')
+D.polygon([(221,base-23),(227,base-33),(239,base-33),(245,base-23)],fill=(*C['glass_d'],255))
+R(228,base-32,10,2,'glass_l');R(234,base-33,2,11,'car_d')
+for wheel in (216,239):
+ D.ellipse((wheel,base-11,wheel+10,base-1),fill=(*C['navy'],255))
+ D.ellipse((wheel+3,base-8,wheel+7,base-4),fill=(*C['metal_l'],255))
 R(262,base-98,12,98,'roof');R(265,base-95,7,95,'wall_hi')
-S.resize((560,240),Image.Resampling.NEAREST).save(OUT/'比例尺.png')
+# Original 3x5 bitmap glyphs keep annotations on the same art grid as the figures.
+GLYPHS = {
+ '0':(7,5,5,5,7), '1':(2,6,2,2,7), '2':(7,1,7,4,7), '3':(7,1,7,1,7),
+ '4':(5,5,7,1,1), '5':(7,4,7,1,7), '6':(7,4,7,5,7), '7':(7,1,2,2,2),
+ '8':(7,5,7,5,7), '9':(7,5,7,1,7), 'A':(2,5,7,5,5), 'B':(6,5,6,5,6),
+ 'C':(7,4,4,4,7), 'D':(6,5,5,5,6), 'E':(7,4,6,4,7), 'F':(7,4,6,4,4),
+ 'G':(7,4,5,5,7), 'H':(5,5,7,5,5), 'I':(7,2,2,2,7), 'L':(4,4,4,4,7),
+ 'M':(5,7,7,5,5), 'N':(5,7,7,7,5), 'O':(7,5,5,5,7), 'P':(7,5,7,4,4),
+ 'R':(6,5,6,5,5), 'S':(7,4,7,1,7), 'T':(7,2,2,2,2), 'U':(5,5,5,5,7),
+ 'V':(5,5,5,5,2), 'W':(5,5,7,7,5), 'X':(5,5,2,5,5), 'Y':(5,5,2,2,2),
+ 'Z':(7,1,2,4,7), '/':(1,1,2,4,4), ':':(0,2,0,2,0), ' ':(0,0,0,0,0)
+}
+ink = (*C['navy'],255)
+guide = (*C['stone_d'],255)
+
+def label(x, y, value):
+ for index, char in enumerate(value):
+  for row, bits in enumerate(GLYPHS[char]):
+   for col in range(3):
+    if bits & (4 >> col):
+     D.point((x+4*index+col,y+row),fill=ink)
+
+label(7,6,'ESTATE SCALE / CANVAS PX')
+D.line((5,base,275,base),fill=guide)
+for x,name,size in [(6,'NPC','H 84'),(43,'DOOR','100X43'),(77,'CHAIR','46X22'),
+                    (109,'TABLE','36X86'),(151,'TREE','150X120'),
+                    (208,'CAR','H 71'),(258,'POST','H 196')]:
+ label(x,base+5,name)
+ label(x,base+13,size)
+label(7,base+23,'SIZES H X W')
+D.line((5,149,275,149),fill=guide)
+
+label(7,159,'1 METER ON EACH AXIS')
+origin = (33,199)
+D.line((origin,(57,199)),fill=ink)
+D.line((origin,(33,175)),fill=ink)
+D.line((origin,(20,208)),fill=ink)
+D.line(((54,197),(57,199),(54,201)),fill=ink)
+D.line(((31,178),(33,175),(35,178)),fill=ink)
+D.line(((21,205),(20,208),(23,208)),fill=ink)
+label(60,197,'X')
+label(31,167,'Z')
+label(13,209,'Y')
+label(74,176,'X WIDTH 48 PX/M')
+label(74,187,'Z HEIGHT 48 PX/M')
+label(74,198,'Y DEPTH 32 PX/M')
+
+car_grid = Image.open(OUT/'car_mine.png').crop((0,0,86,146)).resize((43,73),Image.Resampling.NEAREST)
+# Half-height reference thumbnail. The full 86x147 part remains independent.
+thumbnail = car_grid.resize((22,37),Image.Resampling.NEAREST)
+S.alpha_composite(thumbnail,(247,173))
+label(176,172,'CAR FOOTPRINT')
+label(176,183,'86X147 PX')
+label(176,196,'HEIGHT 71 PX')
+D.line((246,171,269,171),fill=guide)
+D.line((244,173,244,209),fill=guide)
+export(S,'比例尺')
 # Contact sheet previews for materials also include the actual 84px person as scale.
 sample=Image.new('RGBA',(360,92),(0,0,0,0))
 for i,n in enumerate(['草地','柏油','石板','木头','白墙灰瓦','水','车漆','布','金属玻璃']):
