@@ -10,7 +10,24 @@ art = sorted(p for p in assets.rglob('*') if p.suffix in {'.png', '.webp', '.svg
 scripts = sorted(p for p in (root / 'hongyuan').rglob('*.gd') if not {'tests', 'tools'} & set(p.parts))
 fonts = sorted(p for p in (root / 'hongyuan/fonts').glob('*') if p.suffix in {'.tres', '.ttf', '.woff2'})
 common = scripts + fonts + [root / 'hongyuan/boot.tscn', root / 'hongyuan/player.tscn']
-guests = [root / ('assets/characters/lm/chr_LM-GUEST-%02d.png' % i) for i in [1, 2, 3, 4, 5, 6, 8]]
+common += [root / 'hongyuan/world_entry.tscn', root / 'hongyuan/village_entry.tscn']
+# These modules load maps, people and rooms by name, so Godot's static scene
+# dependency scan alone cannot include their runtime resources.
+world_files = [
+    p for folder in ['scripts', 'shaders', 'assets', 'ayu_home']
+    for p in (root / folder).rglob('*')
+    if p.is_file() and p.suffix in {'.gd', '.gdshader', '.tscn', '.tres', '.dialogue', '.png', '.jpg', '.webp', '.svg', '.wav', '.ogg', '.ttf', '.woff2'}
+    and not {'tests', 'tools', 'docs', 'sources'} & set(p.parts)
+]
+# 没有任何代码/配置引用的原稿与旧版大图不进包（Web 试玩包体积要压在 256MB 内）
+UNUSED = ['ayu_home/v4/assets/village/households-closeout-1025/', 'ayu_home/v3/assets/door-repair-source.png',
+          'ayu_home/v3/assets/floor1-clear-source.png', 'ayu_home/v3/assets/labels-repair-source.png',
+          'ayu_home/v3/assets/floor1-original.png', 'ayu_home/v3/assets/pets-source.png',
+          'ayu_home/v4/assets/floor1-redraw/floor1-generated.png']
+world_files = [p for p in world_files if not any(p.relative_to(root).as_posix().startswith(u) for u in UNUSED)]
+common += world_files
+common += sorted((root / 'hongyuan/assets/bgm').glob('*.ogg'))
+guests = [root / ('assets/characters/lm/chr_LM-GUEST-%02d.png' % i) for i in [1, 2, 3, 4, 5, 6, 7, 8]]
 reachable = set()
 
 
@@ -75,7 +92,10 @@ for i, part in enumerate(parts):
     files = refs(common + guests + (art if web else sorted(reachable)))
     if web:
         files += re.findall(r'"([^"]+)"', found.group(1))
+    files = [f for f in files if not any(f.startswith('res://' + u) for u in UNUSED)]
     line = 'export_files=PackedStringArray(' + ', '.join('"%s"' % f for f in sorted(set(files))) + ')\n'
-    parts[i] = part.replace(found.group(0), line)
+    part = part.replace(found.group(0), line)
+    part = re.sub(r'include_filter="([^"]*)"', lambda m: 'include_filter="' + ','.join(dict.fromkeys(m.group(1).split(',') + ['data/*.json', 'assets/*.json', 'assets/*.dialogue', 'assets/*.jpg', 'ayu_home/*.json', 'ayu_home/*.nav'])) + '"', part, count=1)
+    parts[i] = part
 p.write_text(''.join(parts).rstrip() + '\n')
 print('Web art:', len(art), 'WeChat reachable art:', len(reachable), 'scripts/fonts:', len(common))

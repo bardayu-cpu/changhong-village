@@ -474,14 +474,14 @@ func _gui_input(event: InputEvent) -> void:
 						var to := str(choice_to[i]) if i < choice_to.size() and choice_to[i] != null else ""
 						if to == "":
 							_next()
-						elif OS.has_feature("web") or not ResourceLoader.exists(to):
-							# 这个包里没有村子（Web 试玩包，村子只在微信包里）：给提示，3 秒后自动去婚礼现场
+						elif not ResourceLoader.exists(to):
+							# 缺失资源时留在选择页，允许玩家重试或选另一条路线
 							choice_note = _text("G-VILLAGE-LATER")
 							choice_note_t = 3.0
-							choice_fallback = true
-							print("choice: village not in this package, falling back to wedding")
+							choice_fallback = false
+							push_error("Choice destination is missing: " + to)
 						else:
-							choice_note = _text("G-VILLAGE-GO")
+							choice_note = "正在出发…"
 							choice_note_t = 30.0
 							scene_requested.emit(to)
 						return

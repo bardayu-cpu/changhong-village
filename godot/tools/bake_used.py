@@ -25,7 +25,7 @@ LM = os.path.join(GODOT, "assets", "characters", "lm")
 INDEX = os.path.join(LM, "lm_index.json")
 ATLAS = os.path.join(LM, "guest_atlas.png")
 USED = os.path.join(GODOT, "assets", "used_rects.json")
-GODOT_BIN = "/Applications/Godot.app/Contents/MacOS/Godot"
+GODOT_BIN = os.environ.get("GODOT", "/Applications/Godot.app/Contents/MacOS/Godot")
 
 
 def res(p):

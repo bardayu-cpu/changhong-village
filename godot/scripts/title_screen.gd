@@ -237,6 +237,9 @@ func _load_bg() -> Texture2D:
 func _log_handoff() -> void:
     if not (OS.has_feature("web") or OS.has_feature("wechat")):
         return
+    if OS.has_feature("web") and not OS.has_feature("wechat") and not OS.has_feature("hongyuan_wechat"):
+        if not bool(JavaScriptBridge.eval("typeof globalThis.__suqiSplash !== 'undefined'", true)):
+            return
     var s = JavaScriptBridge.get_interface("__suqiSplash")
     if s == null:
         print("[suqi] 开场：读不到第 1 层（__suqiSplash）")
