@@ -24,4 +24,3 @@ static func apply(camera: Camera2D, viewport: Vector2, painted: Rect2) -> void:
     camera.limit_bottom = floori(painted.end.y)
     # Limits apply during smoothing as well, including resize and camera panning.
     camera.limit_smoothed = false
-
