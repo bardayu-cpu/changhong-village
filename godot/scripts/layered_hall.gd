@@ -12,6 +12,10 @@ const Ambient = preload("res://scripts/ambient/ambient.gd")   # 场景动效（�
 const GameCfg = preload("res://scripts/games/game_config.gd")
 ## 画布的图（底图、积木）从哪来统一走这里（HANDOFF §0.9）：现在从包里读，远程加载真机验过以后只改那一处
 const Canvas = preload("res://scripts/canvas_assets.gd")
+const EstateCamera = preload("res://scripts/estate_camera.gd")
+## Empty means the current canvas only. Future art integration may set an actually
+## rendered, opaque bleed rectangle here; planned/unfinished bleed is not valid.
+var camera_art_rect := Rect2()
 const DATA := "res://assets/layered/scene_roman_banquet/scene.json"
 ## 55 桌大厅（01 9/24 派，阿鱼 v11「真实还原酒宴当天」）：新场景，和 12 桌厅并存，main.gd 按开关挑一个搭（验收前玩家照旧玩 12 桌厅）
 const DATA_55 := "res://assets/layered/scene_roman_banquet_55/scene.json"
@@ -187,15 +191,18 @@ func build(preset: int, nickname: String, f: Font) -> void:
     get_viewport().size_changed.connect(_fit_zoom)
     snap_cam()
 
-## 一屏按 1024 高算（ASSETS v1.0：画布可以比一屏高）。不到 1024 高的画布照旧整张铺满，
-## 比 1024 高的（9/20 起湖边、果园 1280）人和东西还是这么大，高出来的部分镜头上下跟着人走
-const VIEW_H := 1024.0
+func camera_bounds() -> Rect2:
+    if camera_art_rect.has_area():
+        return camera_art_rect
+    return Rect2(Vector2.ZERO, Vector2(float(cfg["size"][0]), float(cfg["size"][1])))
 
-## 一屏铺满多高，左右、上下跟着人移动（超出画布的部分由 cam 的 limit 挡住）
+## 540 内容宽；画面不足时等比放大，不把尚未画好的出血算进边界。
 func _fit_zoom() -> void:
-    var vh := float(get_viewport().get_visible_rect().size.y)
-    var z := vh / minf(float(cfg["size"][1]), VIEW_H)
-    cam.zoom = Vector2(z, z)
+    EstateCamera.apply(cam, get_viewport().get_visible_rect().size, camera_bounds())
+    _clamp_pan()
+    cam.position = pos + cam_pan
+    cam.reset_smoothing()
+    cam.force_update_scroll()
 
 ## 桌心的簿子（蓝图 3.2 桌簿）：每张摆出来的桌子一本。占位：代码画的小簿子（红封皮、米白内页、几道字迹），
 ## 正式的簿子积木 blk_guestbook 到了再换。按桌子着地那一行排前后，画在桌面上、在桌前的人后面
@@ -815,12 +822,8 @@ func pan_cam(drag: Vector2) -> void:
 
 ## 镜头中心不出厅：左右各留半屏宽，上下各留半屏高
 func _clamp_pan() -> void:
-    var vs := get_viewport().get_visible_rect().size * 0.5 / cam.zoom.x
-    var sz := Vector2(float(cfg["size"][0]), float(cfg["size"][1]))
-    var c := pos + cam_pan
-    c.x = clampf(c.x, vs.x, sz.x - vs.x) if sz.x > vs.x * 2.0 else sz.x * 0.5
-    c.y = clampf(c.y, vs.y, sz.y - vs.y) if sz.y > vs.y * 2.0 else sz.y * 0.5
-    cam_pan = c - pos
+    var visible := get_viewport().get_visible_rect().size / cam.zoom.x
+    cam_pan = EstateCamera.center(pos + cam_pan, visible, camera_bounds()) - pos
 
 func snap_cam() -> void:
     cam_pan = Vector2.ZERO
