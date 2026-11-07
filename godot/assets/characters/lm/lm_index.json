@@ -67,6 +67,17 @@
    ],
    "sha1": "07cd050ed44e64c213718829b2d64a10131317c9"
   },
+  "LM-GUEST-07": {
+   "top": 2,
+   "h": 81,
+   "front": [
+    15,
+    2,
+    33,
+    81
+   ],
+   "sha1": "102395443fe0e5f1a8e8f1d6a14159f62b7a3ef7"
+  },
   "LM-GUEST-08": {
    "top": 0,
    "h": 84,
@@ -132,6 +143,7 @@
    "LM-GUEST-04",
    "LM-GUEST-05",
    "LM-GUEST-06",
+   "LM-GUEST-07",
    "LM-GUEST-08",
    "LM-GUEST-09",
    "LM-GUEST-10",

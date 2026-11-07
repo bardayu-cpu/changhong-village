@@ -43,6 +43,8 @@ var page_hidden_callback: Variant
 var wechat_hide_callback: Variant
 var wechat_show_callback: Variant
 var chime := AudioStreamPlayer.new()
+var bgm := AudioStreamPlayer.new()
+var bgm_id := ""
 # Pointer gestures follow the wedding input: short release taps, lower-left drags steer.
 # Touch and mouse share one gesture path; emulated duplicates are ignored.
 var pointer_input := preload("res://hongyuan/pointer_input.gd").new()
@@ -92,6 +94,8 @@ func _ready() -> void:
 	chime.stream = _make_chime()
 	chime.volume_db = -16.0
 	add_child(chime)
+	bgm.volume_db = -15.0
+	add_child(bgm)
 	parking_press_sound = _make_parking_sound(110.0, 75.0, 0.10)
 	parking_stop_sound = _make_parking_sound(160.0, 65.0, 0.12)
 	parking_finish_sound = _make_parking_sound(440.0, 660.0, 0.18)
@@ -209,6 +213,7 @@ func _enter_step(index: int, resume := false) -> void:
 	active_index = index
 	shot = playlist[index]
 	stage.shot = shot
+	_play_bgm(str(shot.get("chapterId", "")))
 	_clear_movement()
 	_reset_pointer()
 	since_save = 0.0
@@ -1013,3 +1018,18 @@ func _start_scene(resume := false) -> void:
 		runner.restore(saved)
 		if runner.result.is_empty() and state.get("guest", null) is Dictionary:
 			runner.result = state.guest.duplicate(true)
+
+
+## 每章一段循环背景乐（tools/make_bgm.py 生成）；同一章内换场不重播
+func _play_bgm(chapter_id: String) -> void:
+	if chapter_id == bgm_id:
+		return
+	var path := "res://hongyuan/assets/bgm/bgm_%s.ogg" % chapter_id
+	if not ResourceLoader.exists(path):
+		return
+	var stream: AudioStream = load(path)
+	if stream is AudioStreamOggVorbis:
+		(stream as AudioStreamOggVorbis).loop = true
+	bgm_id = chapter_id
+	bgm.stream = stream
+	bgm.play()
