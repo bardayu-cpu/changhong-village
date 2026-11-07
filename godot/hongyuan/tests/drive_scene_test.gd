@@ -65,7 +65,7 @@ func run() -> void:
 	g.scroll = g.LENGTH - 5.0
 	await tick(0.5)
 	check(g.phase == "park" and g.lane == 2, "Road ends at the parking lot on the right lane")
-	# 车位还远时按住只会原地停住（松手继续开）；车位开到附近再按住，就自动停进去。入位之后才松手。
+	# 车位开到附近再按住，就自动停进去。入位之后才松手。
 	var guard := 0
 	while g.bay_y < g.CAR_Y - 280.0 and guard < 400:
 		await tick(0.05)
@@ -93,5 +93,20 @@ func run() -> void:
 	check(not r._skip_visible(), "Next button is hidden at first")
 	await tick(10.5)
 	check(r._skip_visible(), "Next button appears after 10 seconds")
+	# 车位还远就按住：车不能原地停死，要继续开，车位一靠近自己停进去（不用松手再按）。
+	touch(Vector2(180, 582), true)
+	touch(Vector2(180, 582), false)
+	g.scroll = g.LENGTH - 5.0
+	await tick(0.2)
+	check(g.phase == "park" and g.bay_y < g.CAR_Y - 300.0, "Early hold: bay still far")
+	touch(Vector2(180, 400), true)
+	await tick(0.5)
+	check(g.speed > 30.0, "Early hold keeps the car rolling (speed=%d)" % int(g.speed))
+	guard = 0
+	while g.phase == "park" and guard < 400:
+		await tick(0.05)
+		guard += 1
+	check(g.phase in ["in", "done"], "Early hold still parks once the bay arrives (guard=%d)" % guard)
+	touch(Vector2(180, 400), false)
 	print("FAILURES ", failures)
 	quit(failures)

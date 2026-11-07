@@ -56,8 +56,12 @@ func process(dt: float) -> bool:
 			# 保底：车位开到和车并排还没停，就自己刹车入位，不会无限循环。
 			park_t += dt
 			var aligned := bay_y >= CAR_Y - 10.0
-			var braking := holding or aligned or (tapped and bay_y > CAR_Y - 300.0)
-			var want2 := 0.0 if braking else 150.0
+			# 车位还远就按住：记下“要停”，车继续慢慢开，车位一靠近自己刹住，不会原地卡住。
+			if holding:
+				tapped = true
+			var near := bay_y > CAR_Y - 300.0
+			var braking := aligned or (tapped and near)
+			var want2 := 0.0 if braking else (90.0 if tapped else 150.0)
 			speed = move_toward(speed, want2, (300.0 if braking else 90.0) * dt)
 			if aligned:
 				bay_y = minf(bay_y, CAR_Y + 30.0)
