@@ -1,0 +1,95 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS Finale retains both destination choices
+[suqi] 脚本开始 3389 毫秒
+[suqi] 字体好了 3390 毫秒
+[suqi] 电脑上没有微信层，席位走假数据
+[suqi] 厅里的热闹搭好了 用时 60 毫秒（彩带 0 灯笼光 0 服务员 6）
+[suqi] 动效：scene_roman_banquet_55 挂了 1 样
+[suqi] 宴会厅搭好了（55 桌大厅） 3611 毫秒
+[suqi] 迎宾院 能走的格子算了 10 毫秒
+[suqi] 迎宾院搭好了 3648 毫秒
+[suqi] 界面搭好了 3766 毫秒
+[suqi] 着色器预热完了 3842 毫秒
+[suqi] 开场出来了 3864 毫秒
+[suqi] 停车场 能走的格子算了 12 毫秒
+[suqi] 停车场第一次进去才搭，用了 32 毫秒
+[suqi] 存资料 带邀请人 false 
+[suqi] 打开用时 引擎起来→标题 3.8 秒，进厅能走 4.7 秒（引擎起来以后算）
+[suqi] 别桌 NPC 宾客 501 个 用时 46 毫秒
+[suqi] 小游戏存档 金 0 进度 {  }
+[suqi] 进厅 名字 2 个 带邀请人的 1 个
+WORLD_READY route=wedding nick=联调宾客 avatar=7.0
+PASS Actual finale tap enters the original estate
+PASS Invitation name and look reach estate
+PASS Original estate and courtyard are instantiated
+PASS 360x640 01-estate-entry
+[suqi] 干杯插图 老王 敬了你一杯
+[suqi] 存资料 带邀请人 false 
+[suqi] 别桌 NPC 宾客 501 个 用时 35 毫秒
+[suqi] 小游戏存档 金 0 进度 {  }
+[suqi] 进厅 名字 2 个 带邀请人的 1 个
+PASS Direct seating enters the original banquet hall
+PASS 360x640 02-original-banquet
+WORLD_READY route=village nick=联调宾客 avatar=7.0
+PASS Village is playable with the same guest
+PASS 360x640 03-village
+[suqi] 脚本开始 6873 毫秒
+[suqi] 字体好了 6873 毫秒
+[suqi] 电脑上没有微信层，席位走假数据
+[suqi] 厅里的热闹搭好了 用时 51 毫秒（彩带 0 灯笼光 0 服务员 6）
+[suqi] 动效：scene_roman_banquet_55 挂了 1 样
+[suqi] 宴会厅搭好了（55 桌大厅） 6978 毫秒
+[suqi] 迎宾院 能走的格子算了 11 毫秒
+[suqi] 迎宾院搭好了 7015 毫秒
+[suqi] 界面搭好了 7125 毫秒
+[suqi] 着色器预热完了 7134 毫秒
+[suqi] 开场出来了 7147 毫秒
+[suqi] 停车场 能走的格子算了 13 毫秒
+[suqi] 停车场第一次进去才搭，用了 28 毫秒
+[suqi] 存资料 带邀请人 false 
+[suqi] 打开用时 引擎起来→标题 7.1 秒，进厅能走 7.9 秒（引擎起来以后算）
+[suqi] 别桌 NPC 宾客 501 个 用时 28 毫秒
+[suqi] 小游戏存档 金 0 进度 {  }
+[suqi] 进厅 名字 2 个 带邀请人的 1 个
+WORLD_READY route=wedding nick=联调宾客 avatar=7.0
+PASS Return to estate preserves identity
+PASS Return resumes the banquet location
+WORLD_READY route=village nick=联调宾客 avatar=7.0
+PASS Village progress survives an estate round trip
+WORLD_READY route=village nick=联调宾客 avatar=7.0
+PASS Normal boot resumes the selected world and identity
+PASS 360x640 04-resumed-village
+WORLD_READY route=village nick=联调宾客 avatar=7.0
+PASS Actual second finale choice enters the village
+WORLD_BRIDGE_FAILURES 0
+WARNING: 12 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+ERROR: Texture with GL ID of 31: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 33: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 35: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 32: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 37: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 34: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 94: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 38: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 95: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 97: leaked 860 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 36 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 12 RID allocations of type 'N5GLES37TextureE' were leaked at exit.

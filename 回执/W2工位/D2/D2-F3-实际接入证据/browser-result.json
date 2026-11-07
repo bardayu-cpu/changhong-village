@@ -1,0 +1,83 @@
+{
+  "browser": "Chrome/156.0.8078.80",
+  "notes": [
+    "Ready wedding",
+    "Ready village",
+    "Ready wedding",
+    "Ready village",
+    "Ready village",
+    "Reload retains selected village and invitation identity"
+  ],
+  "saved": {
+    "guest": {
+      "look": "08",
+      "name": "浏览器宾客"
+    },
+    "revision": 9,
+    "runId": "browser-world-bridge",
+    "version": 1,
+    "weddingLocation": {
+      "area": "banquet",
+      "position": [
+        1035,
+        415
+      ]
+    },
+    "worldProfile": {
+      "avatar": 7,
+      "id": "hongyuan_browser-world-bridge",
+      "nick": "浏览器宾客"
+    },
+    "worldRoute": "village"
+  },
+  "errors": [
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "ERROR: Parse JSON failed. Error at line 0: Unknown error getting token"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "   at: parse_string (core/io/json.cpp:629)"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "ERROR: Parse JSON failed. Error at line 0: Unknown error getting token"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "   at: parse_string (core/io/json.cpp:629)"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "ERROR: Parse JSON failed. Error at line 0: Unknown error getting token"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "   at: parse_string (core/io/json.cpp:629)"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "ERROR: Parse JSON failed. Error at line 0: Unknown error getting token"
+      ]
+    },
+    {
+      "type": "Runtime.consoleAPICalled",
+      "message": [
+        "   at: parse_string (core/io/json.cpp:629)"
+      ]
+    }
+  ]
+}
