@@ -156,6 +156,11 @@ func _ready() -> void:
 func _read_checkpoint() -> Dictionary:
 	return Checkpoint.read()
 
+func _draw() -> void:
+	# Wide desktop windows frame the portrait composition; they must not zoom
+	# the background independently of the people and furniture.
+	draw_rect(Rect2(Vector2.ZERO,size),Color("#241b18"))
+
 func _fit_canvas() -> void:
 	var safe := Rect2(Vector2.ZERO, size)
 	if OS.has_feature("web"):
@@ -180,12 +185,16 @@ func _fit_canvas() -> void:
 	stage.scale = Vector2.ONE * fit
 	stage.position = safe.position + (safe.size - Stage.CANVAS * fit) * 0.5
 	stage.view_rect = Rect2(-stage.position / fit, size / fit)
+	if stage.view_rect.size.x > Stage.CANVAS.x:
+		stage.view_rect.position.x = 0
+		stage.view_rect.size.x = Stage.CANVAS.x
 	StoryCaption.narration_top = stage.view_rect.position.y + 54.0
 	if is_instance_valid(runner):
 		runner.view_rect = stage.view_rect
 	if is_instance_valid(recovery):
 		recovery.view_rect = stage.view_rect
 	stage.queue_redraw()
+	queue_redraw()
 
 func _load_playlist() -> bool:
 	var order := _read_json("res://hongyuan/chapter_order.json")

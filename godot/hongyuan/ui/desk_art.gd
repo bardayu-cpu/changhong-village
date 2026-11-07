@@ -15,7 +15,20 @@ static func cover(ci: CanvasItem, tex: Texture2D, area: Rect2, offset := 0.0) ->
 	var scale := maxf(area.size.x / tex.get_width(), area.size.y / tex.get_height())
 	var size := tex.get_size() * scale
 	var free_y := maxf(0, size.y - area.size.y) * 0.5
-	ci.draw_texture_rect(tex, Rect2(area.get_center() - size * 0.5 + Vector2(0, clampf(offset, -free_y, free_y)), size), false)
+	var rect := Rect2(area.get_center() - size * 0.5 + Vector2(0, clampf(offset, -free_y, free_y)), size)
+	ci.draw_texture_rect_region(tex,area,Rect2((area.position-rect.position)/scale,area.size/scale))
+	if "/desk_r4/" in tex.resource_path: draw_family_frame(ci,rect)
+
+static func draw_family_frame(ci: CanvasItem, rect: Rect2) -> void:
+	var photo := texture("round1/desk_r4/family_portrait.png")
+	if not photo: return
+	# The original wood frame stays intact. These are its four inner corners,
+	# measured in the approved 841×1870 desk plate (both idle and writing).
+	var corners := PackedVector2Array([Vector2(420,412),Vector2(507,419),Vector2(498,515),Vector2(410,508)])
+	var k := rect.size.x/SOURCE_SIZE.x
+	for i in corners.size(): corners[i] = rect.position+corners[i]*k
+	ci.draw_polygon(corners,PackedColorArray([Color(0.96,0.89,0.80)]),
+		PackedVector2Array([Vector2(0,0),Vector2(1,0),Vector2(1,1),Vector2(0,1)]),photo)
 static func canvas(area: Rect2) -> Rect2:
 	var k := maxf(area.size.x / SOURCE_SIZE.x, area.size.y / SOURCE_SIZE.y)
 	var size := SOURCE_SIZE * k
@@ -37,6 +50,7 @@ static func draw(ci: CanvasItem, materials: Dictionary, area: Rect2, focus := ""
 	var idle := texture("round1/desk_r4/idle.png")
 	var full := texture("round1/desk_r4/writing.png")
 	ci.draw_texture_rect(full if writing else idle,rect,false)
+	draw_family_frame(ci,rect)
 	if writing: return
 	var k := rect.size.x / SOURCE_SIZE.x
 	for id: String in REGIONS:

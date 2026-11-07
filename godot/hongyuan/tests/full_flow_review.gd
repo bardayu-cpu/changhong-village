@@ -164,6 +164,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(out)
 	view = SubViewport.new()
 	view.size = Vector2i(360,640) if "360" in OS.get_cmdline_user_args() else Vector2i(390,844)
+	if "wide" in OS.get_cmdline_user_args(): view.size = Vector2i(1026,777)
 	view.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(view)
 	root.title = "爱情篇 · 开发回归检查（非交付包）"
@@ -211,7 +212,7 @@ func run() -> void:
 			else:
 				tick(maxf(0.5,float(p.shot.get("duration",1))-0.1));await capture(id+"_visible")
 		await frame()
-	var result := {"steps":count,"screenshots":serial,"failures":failures,"method":"developer checkpoint per playlist step; normal game inputs; accelerated time; native fixed SubViewport; no destination world mutation","records":report}
+	var result := {"steps":report.filter(func(item): return item.kind == "step").size(),"playlist_steps":count,"screenshots":serial,"failures":failures,"method":"developer checkpoint per playlist step; normal game inputs; accelerated time; native fixed SubViewport; no destination world mutation","records":report}
 	var file := FileAccess.open(out.path_join("report.json"),FileAccess.WRITE);file.store_string(JSON.stringify(result,"  "));file.close()
 	print("REVIEW_DONE steps=",count," screenshots=",serial," failures=",failures)
 	p.free();quit(1 if failures else 0)

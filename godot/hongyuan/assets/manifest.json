@@ -4152,5 +4152,13 @@
     "cream": "#fef2d3",
     "line": "#d9c29e",
     "gold": "#d6a43c"
+  },
+  "props": {
+    "desk_family_portrait": {
+      "file": "round1/desk_r4/family_portrait.png",
+      "status": "reviewCandidate",
+      "source": "User supplied P2 wedding family photograph; built-in imagegen pixel rendition 2026-11-07",
+      "integration": "desk_art.gd shared frame overlay: opening, materials, writing and direct desk backgrounds"
+    }
   }
 }

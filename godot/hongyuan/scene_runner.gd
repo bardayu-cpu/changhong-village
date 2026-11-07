@@ -685,7 +685,7 @@ func _draw_world() -> void:
 		var cf := "w2/common/toretto_neutral_r2.png"
 		if mode == "game" and game and game.has_method("companion_frame"):
 			cf = game.companion_frame()
-		elif comp_moving and int(comp_walk / 10.0) % 2 == 0:
+		elif mode == "go" and comp_moving and int(comp_walk / 10.0) % 2 == 0:
 			cf = "w2/common/toretto_walk.png"
 		items.append({"y": comp_pos.y, "tex": cf, "at": comp_pos, "flip": facing < 0, "scale": 1.0})
 	for i in range(walkers.size()):
@@ -715,8 +715,19 @@ func _draw_world() -> void:
 
 
 ## Drawing reads the movement state; render order never advances simulation.
+func _walker_source_transform() -> Transform2D:
+	var tex := texture(bg)
+	if not tex: return Transform2D.IDENTITY
+	var k := maxf(view_rect.size.x/tex.get_width(),view_rect.size.y/tex.get_height())
+	var size := tex.get_size()*k
+	var extent := maxf(0,size.y-view_rect.size.y)*0.5
+	# _draw_world already adds camera_y. Match cover's clamped camera exactly.
+	var origin := view_rect.get_center()-size*0.5+Vector2(0,clampf(camera_y,-extent,extent)-camera_y)
+	return Transform2D(Vector2(k,0),Vector2(0,k),origin)
+
 func _walker_pos(w: Dictionary) -> Vector2:
-	return crowd.at(walkers.find(w)).pos
+	var at: Vector2 = crowd.at(walkers.find(w)).pos
+	return _walker_source_transform()*at if bool(w.get("sourceAnchored",false)) else at
 
 func _draw_walker(w: Dictionary) -> void:
 	var state: Dictionary = crowd.at(walkers.find(w))
@@ -724,25 +735,41 @@ func _draw_walker(w: Dictionary) -> void:
 	var row := 8 if heading.x > 0 else 4
 	if absf(heading.y) > absf(heading.x): row = 0 if heading.y > 0 else 12
 	if bool(w.get("fishing",false)): row = 12
+	if w.has("frameRow"): row = int(w.frameRow)
 	var path := "res://assets/characters/lm/chr_LM-GUEST-%s.png" % str(w.guest)
 	if not sheet_cache.has(path): sheet_cache[path] = load(path) if ResourceLoader.exists(path) else null
 	var sheet: Texture2D = sheet_cache[path]
-	var pos: Vector2 = state.pos
+	var pos: Vector2 = _walker_pos(w)
 	var height := person_height_at(pos.y) * float(w.get("scale", 0.94))
+	if bool(w.get("sourceAnchored",false)):
+		height = float(w.get("sourceHeight",310))*_walker_source_transform().x.length()
 	if not sheet: return
 	var f := row + (int(float(state.distance) / 8.0) % 4 if state.walking else 0)
 	var key := path + str(f)
 	if not sheet_rects.has(key):
 		sheet_rects[key] = Rect2(sheet.get_image().get_region(Rect2i(f * 64, 0, 64, 84)).get_used_rect())
 	var used: Rect2 = sheet_rects[key]
-	var k := height / maxf(used.size.y, 1.0)
-	_shadow(pos, used.size.x * k * 0.3)
-	# The shared village sheets have large heads. Match the story's adult
-	# proportions while retaining each distinct face and walking frame.
-	var width := height * 0.58
-	var top := pos.y - height
-	draw_texture_rect_region(sheet, Rect2(pos.x-width/2,top,width,height*0.23),Rect2(f*64,0,64,31))
-	draw_texture_rect_region(sheet, Rect2(pos.x-width/2,top+height*0.23,width,height*0.77),Rect2(f*64,31,64,53))
+	var parts := WorldScale.guest_parts(used,height,int(w.guest))
+	_shadow(pos,parts[1].size.x*0.24)
+	for part in range(2):
+		var target: Rect2 = parts[part]
+		target.position += pos
+		var source: Rect2 = parts[part+2]
+		source.position.x += f*64
+		draw_texture_rect_region(sheet,target,source)
+	if bool(w.get("sourceAnchored",false)) and w.has("occludeBelowSource"):
+		var plate := texture(bg)
+		var source_h := float(w.get("sourceHeight",310))
+		var source_w := source_h*0.58
+		var source_pos: Vector2 = state.pos
+		# Restore only the intersection of this NPC and the foreground plate.
+		# It happens before nearer actors, so it cannot erase Toretto. The same
+		# original desk/flowers pixels hide the legs and keep both bouquets intact.
+		var mask_y := maxf(source_pos.y-source_h,float(w.occludeBelowSource))
+		var cut := Rect2(source_pos.x-source_w*0.5,mask_y,source_w,maxf(0,source_pos.y-mask_y))
+		if plate and cut.has_area():
+			var xf := _walker_source_transform()
+			draw_texture_rect_region(plate,Rect2(xf*cut.position,cut.size*xf.x.length()),cut)
 	if bool(w.get("fishing",false)):
 		var hand := pos + Vector2(-height*0.12,-height*0.43)
 		var tip := hand + Vector2(-23,-height*0.68+sin(world_elapsed*0.8)*2)

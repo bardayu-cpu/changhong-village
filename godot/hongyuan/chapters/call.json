@@ -216,30 +216,36 @@
               {
                 "guest": "04",
                 "a": [
-                  245,
-                  370
+                  240,
+                  840
                 ],
                 "b": [
-                  305,
-                  389
+                  255,
+                  840
                 ],
-                "speed": 12,
-                "scale": 0.63,
-                "pause": 3
+                "speed": 9,
+                "pause": 5,
+                "sourceAnchored": true,
+                "sourceHeight": 310,
+                "frameRow": 8,
+                "avoidPlayer": false
               },
               {
                 "guest": "06",
                 "a": [
-                  298,
-                  425
+                  750,
+                  850
                 ],
                 "b": [
-                  255,
-                  441
+                  750,
+                  850
                 ],
-                "speed": 10,
-                "scale": 0.63,
-                "pause": 4
+                "speed": 0,
+                "sourceAnchored": true,
+                "sourceHeight": 310,
+                "frameRow": 0,
+                "avoidPlayer": false,
+                "occludeBelowSource": 670
               }
             ],
             "scaleProfile": "office"

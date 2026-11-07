@@ -12,6 +12,7 @@ var loading: Label
 var navigation: HBoxContainer
 var busy := false
 var save_elapsed := 0.0
+var requested_destination := ""
 
 func _ready() -> void:
     state = Checkpoint.read()
@@ -52,7 +53,16 @@ func _ready() -> void:
     navigation.alignment = BoxContainer.ALIGNMENT_END
     navigation.add_theme_constant_override("separation", 6)
     layer.add_child(navigation)
+    Packs.service().progress.connect(_download_progress)
     await travel(str(state.get("worldRoute", "wedding")))
+
+func _download_progress(detail: Dictionary) -> void:
+    if not busy or detail.get("background",false): return
+    var total := int(detail.get("total",0))
+    if total > 0:
+        var received := int(detail.get("received",0))
+        loading.text = ("正在前往村子…" if requested_destination == "village" else "正在前往罗曼山庄…")
+        loading.text += "\n正在准备画面 %d%%" % clampi(roundi(100.0*received/total),0,100)
 
 func _process(dt: float) -> void:
     if busy:
@@ -87,6 +97,7 @@ func travel(where: String) -> void:
     if busy:
         return
     busy = true
+    requested_destination = where
     save_world()
     navigation.hide()
     loading.text = "正在前往村子…" if where == "village" else "正在前往罗曼山庄…"
@@ -97,8 +108,13 @@ func travel(where: String) -> void:
     else:
         groups.append("estate")
     if not await Packs.ensure(groups):
-        loading.text = "资源加载未完成，请重开游戏。"
+        loading.text = "画面还没下载完整，已下载的会保留。\n请检查网络，再点重试。"
         busy = false
+        for child in navigation.get_children(): child.queue_free()
+        add_button("重试",func(): travel(where))
+        if is_instance_valid(content):
+            add_button("留在这里",func(): travel(destination))
+        navigation.show()
         return
     if is_instance_valid(content):
         content.queue_free()

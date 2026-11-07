@@ -49,6 +49,9 @@ func run() -> void:
 		var before:=JSON.stringify(unknown)
 		check(not Migration.migrate(unknown,value) and before==JSON.stringify(unknown),"unknown "+chapter+" signature safely refuses without erasing data")
 	var call:=shot("call");var old_call: Array=baseline._versions[call.fullId][0].beats
+	var r7: Array=baseline._versions[call.fullId][1].beats
+	var r7_state:=checkpoint(r7,Migration._find_key(r7,"game:call"),{"phase":"reply","li":5,"reveal":3.0})
+	check(Migration.migrate(r7_state,call) and call.scene.beats[int(r7_state.sceneBeat)].get("game","")=="call" and r7_state.sceneSnapshot.game.li==5,"0744465 r7 call current line survives office colleague layout revision")
 	var state:=checkpoint(old_call,21,{"phase":"done"})
 	check(Migration.migrate(state,call) and call.scene.beats[int(state.sceneBeat)].has("goal") and not state.sceneSnapshot.has("game"),"late old call returns before newly required care/balance, no foreign game state")
 	var shizuoka:=shot("shizuoka");var old_shizuoka: Array=baseline._versions[shizuoka.fullId][0].beats

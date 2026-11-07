@@ -61,3 +61,20 @@ static func local_rect(file: String, texture_width: float, used: Rect2, standing
 	var height := standing_height * pose_ratio(file)
 	var k := height / maxf(used.size.y, 1)
 	return Rect2(Vector2((used.position.x - foot_x(file, texture_width)) * k, -height), used.size * k)
+
+static func guest_parts(used: Rect2, standing_height: float, guest: int) -> Array[Rect2]:
+	# Head pixels keep their aspect ratio. The village's compact body is extended
+	# separately to match the story actors; transparent padding is not anatomy.
+	var child := guest in [11,12]
+	var height := standing_height * (0.70 if child else 1.0)
+	# Neck rows differ by hairstyle and age. A fixed row slices some faces in
+	# half, stretching the jaw as though it were part of the torso.
+	var neck_rows := [0,33,32,38,32,40,42,32,30,38,35,56,55]
+	var source_head := float(neck_rows[clampi(guest,1,12)])-used.position.y
+	var head_height := height * (0.23 if child else 0.20)
+	var head_width := 64.0 * head_height / source_head
+	var body_width := height * 0.54
+	return [Rect2(-head_width/2,-height,head_width,head_height),
+		Rect2(-body_width/2,-height+head_height,body_width,height-head_height),
+		Rect2(0,used.position.y,64,source_head),
+		Rect2(0,used.position.y+source_head,64,used.size.y-source_head)]
