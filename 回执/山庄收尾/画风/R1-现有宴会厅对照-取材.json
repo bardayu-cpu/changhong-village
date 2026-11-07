@@ -1,0 +1,311 @@
+{
+  "legacy_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+  "formal_variant": "55 (fresh/default, no local debug override)",
+  "source_method": "git show <resolved SHA>:<path>, read into memory; no sparse-checkout expansion",
+  "guests": [
+    {
+      "code": "LM-GUEST-01",
+      "atlas_path": "godot/assets/characters/lm/guest_atlas.png",
+      "atlas_row_zero_based": 0,
+      "frame_zero_based": 0,
+      "direction": "down idle",
+      "crop_exclusive": [
+        0,
+        0,
+        64,
+        84
+      ],
+      "native_frame": [
+        64,
+        84
+      ],
+      "body_top": 0,
+      "body_height": 84,
+      "height_m": 1.75,
+      "runtime_scale": 1.0,
+      "seated_source_height": 52,
+      "usage": "seated upper-body/turning via _kit_frame; full frame when standing/leaving via _kit_body/_kit_pose"
+    },
+    {
+      "code": "LM-GUEST-02",
+      "atlas_path": "godot/assets/characters/lm/guest_atlas.png",
+      "atlas_row_zero_based": 1,
+      "frame_zero_based": 0,
+      "direction": "down idle",
+      "crop_exclusive": [
+        0,
+        84,
+        64,
+        168
+      ],
+      "native_frame": [
+        64,
+        84
+      ],
+      "body_top": 0,
+      "body_height": 84,
+      "height_m": 1.75,
+      "runtime_scale": 1.0,
+      "seated_source_height": 52,
+      "usage": "seated upper-body/turning via _kit_frame; full frame when standing/leaving via _kit_body/_kit_pose"
+    },
+    {
+      "code": "LM-GUEST-10",
+      "atlas_path": "godot/assets/characters/lm/guest_atlas.png",
+      "atlas_row_zero_based": 9,
+      "frame_zero_based": 0,
+      "direction": "down idle",
+      "crop_exclusive": [
+        0,
+        756,
+        64,
+        840
+      ],
+      "native_frame": [
+        64,
+        84
+      ],
+      "body_top": 0,
+      "body_height": 84,
+      "height_m": 1.75,
+      "runtime_scale": 1.0,
+      "seated_source_height": 52,
+      "usage": "seated upper-body/turning via _kit_frame; full frame when standing/leaving via _kit_body/_kit_pose"
+    }
+  ],
+  "furniture": [
+    {
+      "path": "godot/assets/layered/scene_roman_banquet_55/art_table.png",
+      "native_size": [
+        180,
+        150
+      ],
+      "runtime_scale": 1,
+      "semantic_label": "圆桌和椅（原图整件）",
+      "visible_content": "桌面周围的就座椅已画在同一张原图内",
+      "crop_exclusive": [
+        0,
+        0,
+        180,
+        150
+      ],
+      "instance_count": 54,
+      "example_instance": {
+        "id": "T1",
+        "image": "res://assets/layered/scene_roman_banquet_55/art_table.png",
+        "x": 853,
+        "y": 330,
+        "foot": 430
+      },
+      "extraction": "whole texture, no tight-crop or rescale"
+    },
+    {
+      "path": "godot/assets/layered/scene_roman_banquet_55/art_bench.png",
+      "native_size": [
+        72,
+        54
+      ],
+      "runtime_scale": 1,
+      "semantic_label": "补充长凳（非单椅）",
+      "visible_content": "独立长凳，仅作补充家具参照，不对应右侧单椅",
+      "crop_exclusive": [
+        0,
+        0,
+        72,
+        54
+      ],
+      "instance_count": 1,
+      "example_instance": {
+        "id": "长凳",
+        "image": "res://assets/layered/scene_roman_banquet_55/art_bench.png",
+        "x": 48,
+        "y": 533,
+        "foot": 579
+      },
+      "extraction": "whole texture, no tight-crop or rescale"
+    }
+  ],
+  "legacy_input_hashes": {
+    "godot/assets/hall.json": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "1f1bf349ec8ffe6d07022153958ba01e9f8d16929dd93f9707b06f0e6eb8f8fb"
+    },
+    "godot/scripts/main.gd": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "65fb7708f115cb19a08a7611e5c2facd24a8752fe6402b2ff79550a239231cd2"
+    },
+    "godot/scripts/layered_hall.gd": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "5655e84cf3856bd7dc35887158b668a29ce763d5a4e96bc4966c98927fa3592d"
+    },
+    "godot/scripts/hall_life.gd": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "68250830805ad775a78e3818a3abc6d7d498ad098d7aa93a2980bf4fb5d177ae"
+    },
+    "godot/scripts/lm_people.gd": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "05739ab40a8add77aacfacfc7f8c9bb84a6e27a54b4977b61b434dff9b18325d"
+    },
+    "godot/scripts/canvas_assets.gd": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "e1e9671a3c4e2fd1b066bbf91ea6321d38abb1b70e4c5055e2333af9ce5359a5"
+    },
+    "godot/hongyuan/wedding.gd": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "82184600892603f5a7e9950c1512eda0c113c0422be6e9ea979453452e86b724"
+    },
+    "godot/assets/layered/scene_roman_banquet_55/scene.json": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "7a33e5fde48a5672022b97f8be78ed988182b4edf7e46a7ed4b035be7f4fe419"
+    },
+    "godot/assets/characters/lm/lm_index.json": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "0d94f56616d9420bbde9e3344266982eb5ca588ae49a415ea9074f6116ff8a39"
+    },
+    "godot/assets/characters/lm/guest_atlas.png": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "b35aa7b345ae3597e5dff14d5c1508d30c19eb85acd929482eea3bc680b083d3"
+    },
+    "godot/assets/characters/lm/chr_LM-GUEST-01.json": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "45ff9f89bae9d2afce4bb6c74853a45217f0483d3d5275bfb1a3ea39065274eb"
+    },
+    "godot/assets/characters/lm/chr_LM-GUEST-01.png": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "55e7f51d7febba4b98ddcbfff4c2d0f7d65ec579ad767ce7d3691ed4547483f1"
+    },
+    "godot/assets/characters/lm/chr_LM-GUEST-02.json": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "45ff9f89bae9d2afce4bb6c74853a45217f0483d3d5275bfb1a3ea39065274eb"
+    },
+    "godot/assets/characters/lm/chr_LM-GUEST-02.png": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "0f42f0a73cee01408823c9f4384f53a782938c794ced3200a24c9fa12c6976f2"
+    },
+    "godot/assets/characters/lm/chr_LM-GUEST-10.json": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "45ff9f89bae9d2afce4bb6c74853a45217f0483d3d5275bfb1a3ea39065274eb"
+    },
+    "godot/assets/characters/lm/chr_LM-GUEST-10.png": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "267e76f1051334db6a8dba7ff1d7e2831bb4d8d35ddf5663575a0c588519ba29"
+    },
+    "godot/assets/layered/scene_roman_banquet_55/art_table.png": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "f02ecae6e6f8fa2184f2b118d74c42dbe9e839e5889fc806841de338481ece11"
+    },
+    "godot/assets/layered/scene_roman_banquet_55/art_bench.png": {
+      "git_revision": "61c05009b3194911703f689ec82f363ac27f066d",
+      "sha256": "b0264264f883ec7b6d9bff0507c71f69048116bd231fe9e716ba1e730ec89dea"
+    }
+  },
+  "new_inputs": {
+    "photographer_w.png": {
+      "path": "回执/山庄收尾/画风/photographer_w.png",
+      "sha256": "d2bf536a758becb3ce4d0332b530353f976c8ee559a4ec144335046d0e8c92fe",
+      "native_size": [
+        64,
+        84
+      ]
+    },
+    "farmer_2.png": {
+      "path": "回执/山庄收尾/画风/farmer_2.png",
+      "sha256": "be77489ea05b4fe74d8fd42e1d0cb1ce9276b784a42a083f7e09129f5e88f29a",
+      "native_size": [
+        64,
+        84
+      ]
+    },
+    "elder.png": {
+      "path": "回执/山庄收尾/画风/elder.png",
+      "sha256": "aa685bc7ad876c4d0b4ac5b597b7dc092a6e2aa502c26fe6339c66f66cf7517d",
+      "native_size": [
+        64,
+        84
+      ]
+    },
+    "比例尺.png": {
+      "path": "回执/山庄收尾/画风/比例尺.png",
+      "sha256": "7d02c46907d061ce613f420edaff306abb8e489aef2fbb551ed9bfe8a3a8a840",
+      "native_size": [
+        560,
+        448
+      ],
+      "table_crop_exclusive": [
+        204,
+        194,
+        290,
+        230
+      ],
+      "chair_crop_exclusive": [
+        164,
+        184,
+        186,
+        230
+      ],
+      "source_baseline_y": 230,
+      "note": "V1-approved crops; original paper color retained"
+    }
+  },
+  "panel_size_1x": [
+    512,
+    416
+  ],
+  "placements": [
+    {
+      "side": "old",
+      "scale": 1,
+      "rect": [
+        288,
+        142,
+        800,
+        558
+      ]
+    },
+    {
+      "side": "new",
+      "scale": 1,
+      "rect": [
+        1344,
+        142,
+        1856,
+        558
+      ]
+    },
+    {
+      "side": "old",
+      "scale": 2,
+      "rect": [
+        32,
+        630,
+        1056,
+        1462
+      ]
+    },
+    {
+      "side": "new",
+      "scale": 2,
+      "rect": [
+        1088,
+        630,
+        2112,
+        1462
+      ]
+    }
+  ],
+  "output_size": [
+    2144,
+    1592
+  ],
+  "output_sha256": "222bcabe955fecbe043e62da1309c18e9babf030bac1d2b18e53cba2f6585054",
+  "validation": {
+    "atlas_matches_source_frames": true,
+    "body_metrics_match_index": true,
+    "all_guest_runtime_scales": 1,
+    "furniture_runtime_scale": 1,
+    "same_scale_both_columns": true,
+    "nearest_only": true,
+    "new_inputs_stable": true
+  },
+  "scope": "static call-chain and pixel extraction verification, not a new Godot runtime test or art approval"
+}
