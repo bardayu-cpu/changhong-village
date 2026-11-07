@@ -61,6 +61,28 @@ async function mountInput(group, item, callback) {
 GameGlobal.hongyuanContent = {
     count: group => (config.remote[group] || []).length,
     local: group => !!config.local[group],
+    readCheckpoint(key) {
+        try {
+            const value = wx.getStorageSync(key)
+            return typeof value === 'string' ? value : ''
+        } catch (_) {
+            return ''
+        }
+    },
+    writeCheckpoint(key, contents, revision) {
+        try {
+            const previous = wx.getStorageSync(key)
+            let current = null
+            if (typeof previous === 'string' && previous) {
+                try { current = JSON.parse(previous) } catch (_) { /* replace a damaged save */ }
+            }
+            if (current && current.version === 1 && current.revision >= revision) return -1
+            wx.setStorageSync(key, contents)
+            return 1
+        } catch (_) {
+            return 0
+        }
+    },
     editGuestName(value, maxLength, callback) {
         let draft = value
         const input = result => { if (typeof result.value === 'string') draft = result.value }
