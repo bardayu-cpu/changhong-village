@@ -60,6 +60,7 @@ var parking_steer := 0.0
 var parking_assisting := false
 var parking_feedback := 0.0
 var control_time := 0.0
+var view_rect := Rect2(0, 0, 360, 640)
 var texture_cache: Dictionary = {}
 var skin_cache: Dictionary = {}
 
@@ -68,7 +69,7 @@ func _draw() -> void:
 		return
 	var kind: String = shot.type
 	var background: String = shot.background
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), NIGHT)
+	draw_rect(view_rect, NIGHT)
 	match background:
 		"invitation":
 			_invitation()
@@ -90,6 +91,13 @@ func _draw() -> void:
 		draw_circle(Vector2(336, 33), 0.9, Color("#ed8b7e"))
 
 func _invitation() -> void:
+	var applied := {}
+	for id in ["pen", "ink", "paper", "stamp", "wax", "envelope"]:
+		applied[id] = materials.get(id, "") == "applied"
+	preload("res://hongyuan/ui/desk_art.gd").draw(self, applied, view_rect, str(shot.get("materialId", "")), time)
+	return
+
+func _legacy_invitation() -> void:
 	draw_rect(Rect2(Vector2.ZERO, CANVAS), DARK_RED)
 	if shot.sceneId == "invitation" and shot.type in ["invite", "narration", "material"]:
 		_draw_background("invitation_desk")
@@ -448,7 +456,7 @@ func _draw_background(key: String) -> void:
 	var backdrop: Dictionary = manifest.get("backgrounds", {}).get(key, {})
 	var texture := _texture(str(backdrop.get("file", "")))
 	if texture:
-		draw_texture_rect(texture, Rect2(Vector2.ZERO, CANVAS), false)
+		preload("res://hongyuan/ui/desk_art.gd").cover(self, texture, view_rect)
 
 func _draw_skin(key: String, rect: Rect2) -> void:
 	var skin := pixel_skin(key)

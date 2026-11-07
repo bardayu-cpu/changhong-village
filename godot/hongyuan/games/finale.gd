@@ -4,7 +4,11 @@ extends RefCounted
 const LOOKS := ["01", "02", "03", "04", "05", "06", "07", "08"]
 
 var r
-var phase := "read"   # read → name → look → seal → stamped → done
+var phase := "read"
+var typed := 0.0
+var dragging := false
+var from := Vector2.ZERO
+var open_progress := 0.0
 var t := 0.0
 var edit: LineEdit
 var error := false
@@ -23,57 +27,98 @@ func start(runner, _beat: Dictionary) -> void:
 
 func process(dt: float) -> bool:
 	t += dt
-	if phase == "seal":
-		if holding:
-			hold += dt
-			if hold >= 1.0:
-				phase = "stamped"
-				t = 0.0
-				r.play("pop")
-		else:
-			hold = maxf(0.0, hold - dt * 2.0)
-	elif phase == "stamped" and t > 1.4:
-		phase = "done"
-		r.result = {"name": name, "look": LOOKS[look]}
+	match phase:
+		"write":
+			typed = minf(float(_letter().length()), typed + dt * 14.0)
+			if typed >= _letter().length():
+				_set_phase("written")
+		"fold":
+			if t >= 1.3: _set_phase("seal")
+		"seal":
+			if holding:
+				hold = minf(1.0, hold + dt)
+				if hold >= 1.0:
+					_set_phase("stamped")
+					r.play("pop")
+		"stamped":
+			if t >= 1.2: _set_phase("ready_send")
+		"send":
+			if t >= 1.8: _set_phase("receive")
+		"opening":
+			if t >= 0.8: _set_phase("read_received")
 	return phase == "done"
 
+func _set_phase(value: String) -> void:
+	phase = value
+	t = 0.0
+	holding = false
+	dragging = false
+	r.play("blip")
+
+func _letter() -> String:
+	return name + "：\n\n" + r.t_("A7-1a") + "\n\n" + r.t_("A7-1c") + "\n\n" + r.t_("A7-1e")
 
 func _ok_rect() -> Rect2:
-	return Rect2(120, 560, 120, 44)
-
+	return Rect2(100, 560, 160, 48)
 
 func _look_rect(i: int) -> Rect2:
 	return Rect2(36 + (i % 4) * 74, 250 + (i / 4) * 120, 66, 108)
 
-
 func _envelope() -> Rect2:
-	return Rect2(70, 220, 220, 150)
-
+	return Rect2(50, 255, 260, 165)
 
 func input(kind: String, pos: Vector2) -> void:
 	match phase:
 		"read":
 			if kind == "tap" and t > 0.6:
-				phase = "name"
-				t = 0.0
+				_set_phase("name")
 				_make_edit()
 		"name":
-			if kind == "tap" and _ok_rect().grow(8).has_point(pos):
-				_submit_name()
+			if kind == "tap" and _ok_rect().grow(8).has_point(pos): _submit_name()
+		"written":
+			if kind == "tap" and _ok_rect().has_point(pos): _set_phase("fold")
+		"seal":
+			if kind == "down" and pos.distance_to(_envelope().get_center()) <= 46:
+				holding = true
+			elif kind == "up":
+				holding = false
+				hold = 0.0
+			elif kind == "move" and pos.distance_to(_envelope().get_center()) > 56:
+				holding = false
+				hold = 0.0
+		"ready_send":
+			if kind == "tap" and _ok_rect().has_point(pos): _set_phase("send")
+		"receive":
+			if kind == "down" and _envelope().grow(12).has_point(pos):
+				dragging = true
+				from = pos
+			elif kind == "move" and dragging:
+				open_progress = clampf((pos.x - from.x) / 140.0, 0, 1)
+				if open_progress >= 1.0: _set_phase("opening")
+			elif kind == "up":
+				dragging = false
+				open_progress = 0.0
+		"read_received":
+			if kind == "tap" and t > 0.5: _set_phase("look")
 		"look":
 			if kind == "tap":
 				for i in range(LOOKS.size()):
 					if _look_rect(i).has_point(pos):
 						look = i
 						r.play("blip")
-				if look >= 0 and _ok_rect().grow(8).has_point(pos):
-					phase = "seal"
-					t = 0.0
-		"seal":
-			if kind == "down":
-				holding = true
-			elif kind == "up":
-				holding = false
+				if look >= 0 and _ok_rect().has_point(pos): _set_phase("welcome")
+		"welcome":
+			if kind == "tap" and t > 0.6:
+				r.result = {"name": name, "look": LOOKS[look]}
+				_set_phase("done")
+
+func restore_checkpoint() -> void:
+	# Old sealed saves predate sending/opening: continue with the physical letter.
+	if phase == "stamped" and hold >= 1.0:
+		t = minf(t, 1.2)
+	holding = false
+	dragging = false
+	open_progress = 0.0
 
 
 func _make_edit() -> void:
@@ -129,7 +174,8 @@ func _submit_name() -> void:
 	name = s
 	edit.queue_free()
 	edit = null
-	phase = "look"
+	phase = "write"
+	typed = 0.0
 	t = 0.0
 	r.play("pop")
 
@@ -143,68 +189,94 @@ func _guest(i: int) -> Texture2D:
 
 
 func draw(ci) -> void:
-	# 回到序章那张桌子：六样齐了，收信人一栏等玩家来写
-	var desk: Texture2D = ci.texture("bg_invite_desk.png")
-	if desk:
-		ci.draw_texture_rect(desk, Rect2(0, 0, 360, 640), false)
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0, 0, 0, 0.25))
-	else:
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color("#3a1414"))
+	var desk = preload("res://hongyuan/ui/desk_art.gd")
+	desk.draw(ci, r.materials, r.view_rect, "", t, false)
 	match phase:
 		"read":
-			_card(ci, 1.0)
-			ci.text_at(Vector2(30, 214), ci.t_("A7-1a"), 20, ci.RED, 300)
-			ci.text_at(Vector2(30, 246), ci.t_("A7-1c"), 15, ci.INK, 300)
-			ci.text_at(Vector2(30, 296), ci.t_("A7-1e"), 18, ci.RED, 300)
+			ci.StoryCaption.draw_caption(ci, "收件人：你", "narrator")
+			_paper(ci, _letter().length())
+			ci.pill(_ok_rect(), "写下名字", 18, ci.RED, ci.PAPER)
 		"name":
-			_card(ci, 1.0)
-			ci.text_at(Vector2(30, 214), ci.t_("A7-1a"), 20, ci.RED, 300)
-			ci.text_at(Vector2(30, 462), ci.t_("A7-E1") if error else ci.t_("A7-I2"), 14, ci.RED if error else ci.PAPER, 300)
+			_paper(ci, 0)
+			ci.text_at(Vector2(40, 190), ci.t_("A7-I1"), 18, ci.INK, 280)
+			ci.text_at(Vector2(40, 474), ci.t_("A7-E1") if error else ci.t_("A7-I2"), 14, ci.WOOD, 280)
 			ci.pill(_ok_rect(), ci.t_("G-19"), 18, ci.RED, ci.PAPER)
+		"write", "written":
+			_paper(ci, int(typed))
+			if phase == "write":
+				var pen: Texture2D = ci.texture("pen_tip.png")
+				var line := int(typed / 12.0)
+				var at := Vector2(98 + fmod(typed, 12.0) * 12, 205 + line * 25)
+				if pen: ci.draw_texture_rect(pen, Rect2(at, Vector2(30, 48)), false)
+			else:
+				ci.pill(_ok_rect(), "装进信封", 18, ci.RED, ci.PAPER)
+		"fold":
+			_envelope_art(ci, false)
+			var k := smoothstep(0, 1, clampf(t / 1.3, 0, 1))
+			var page := Rect2(Vector2(70, 130).lerp(Vector2(75, 280), k), Vector2(210, 260).lerp(Vector2(210, 95), k))
+			ci.draw_rect(page, ci.PAPER)
+			ci.draw_rect(page, ci.GOLD, false, 2)
+		"seal", "stamped", "ready_send", "send", "receive", "opening":
+			if phase == "send":
+				ci.draw_set_transform(Vector2(0, -700 * smoothstep(0, 1, clampf(t / 1.8, 0, 1))))
+			_envelope_art(ci, phase != "seal" or hold > 0.0)
+			ci.draw_set_transform(Vector2.ZERO)
+			var c := _envelope().get_center()
+			if phase == "seal":
+				ci.draw_arc(c, 38, -PI / 2, -PI / 2 + TAU * maxf(0.02, hold), 40, ci.GOLD, 4)
+				ci.pill(Rect2(65, 475, 230, 44), "按住火漆一秒", 18, ci.RED, ci.PAPER)
+			elif phase == "ready_send":
+				ci.pill(_ok_rect(), "寄出请帖", 18, ci.RED, ci.PAPER)
+			elif phase == "receive":
+				ci.StoryCaption.draw_caption(ci, "你收到了一封请帖", "narrator")
+				ci.draw_line(Vector2(76, 275), Vector2(76 + 208 * open_progress, 275), ci.GOLD, 4)
+				ci.pill(Rect2(48, 475, 264, 44), "沿封口向右滑动，亲手拆开", 16, ci.RED, ci.PAPER)
+			elif phase == "opening":
+				var k := clampf(t / 0.8, 0, 1)
+				ci.draw_rect(Rect2(70, 255 - 120 * k, 220, 120 + 160 * k), ci.PAPER)
+		"read_received":
+			_paper(ci, _letter().length())
+			ci.pill(_ok_rect(), "收下这份邀请", 18, ci.RED, ci.PAPER)
 		"look":
+			ci.text_at(Vector2(30, 185), ci.t_("G-CHOOSE-LOOK"), 20, ci.PAPER, 300)
 			for i in range(LOOKS.size()):
 				var rr := _look_rect(i)
 				ci.draw_rect(rr, ci.PAPER if i != look else Color("#ffe6a8"))
-				ci.draw_rect(rr, ci.GOLD if i == look else ci.WOOD, false, 3.0 if i == look else 2.0)
-				var g := _guest(i)
-				if g:
-					ci.draw_texture_rect_region(g, Rect2(rr.position + Vector2(1, 0), Vector2(64, 84) * 1.0), Rect2(0, 0, 64, 84))
-			ci.text_at(Vector2(30, 230), name, 20, ci.PAPER, 300)
-			if look >= 0:
-				ci.pill(_ok_rect(), ci.t_("G-19"), 18, ci.RED, ci.PAPER)
-		"seal", "stamped":
-			var e := _envelope()
-			# 材料小图标太小，这里画一个整屏可见的大信封
-			var env: Texture2D = null
-			if env:
-				ci.draw_texture_rect(env, e, false)
+				ci.draw_rect(rr, ci.GOLD if i == look else ci.WOOD, false, 3 if i == look else 2)
+				var guest := _guest(i)
+				if guest: ci.draw_texture_rect_region(guest, Rect2(rr.position + Vector2(1, 0), Vector2(64, 84)), Rect2(0, 0, 64, 84))
+			if look >= 0: ci.pill(_ok_rect(), ci.t_("G-19"), 18, ci.RED, ci.PAPER)
+		"welcome":
+			var welcome: Texture2D = ci.texture("round1/common/welcome.png")
+			if welcome:
+				ci.draw_texture_rect(welcome, Rect2(54, 120, 252, 353), false)
 			else:
-				ci.draw_rect(e, Color("#f4d495"))
-				ci.draw_rect(e, ci.WOOD, false, 2.0)
-				ci.draw_colored_polygon(PackedVector2Array([e.position, e.position + Vector2(e.size.x, 0), e.get_center() + Vector2(0, 10)]), Color("#e8c27e"))
-				ci.draw_polyline(PackedVector2Array([e.position, e.get_center() + Vector2(0, 10), e.position + Vector2(e.size.x, 0)]), ci.WOOD, 2.0)
-			ci.text_at(e.position + Vector2(0, e.size.y - 10), name, 16, ci.INK, e.size.x)
-			var c := e.get_center() + Vector2(0, 10)
-			if phase == "seal":
-				ci.draw_arc(c, 34, -PI / 2, -PI / 2 + TAU * hold, 40, ci.GOLD, 5.0)
-				var a := 0.5 + 0.5 * sin(t * 5.0)
-				if not holding:
-					ci.draw_circle(c, 20, Color(0.75, 0.15, 0.12, 0.25 + 0.25 * a))
-				else:
-					ci.draw_circle(c, 18 * hold, Color("#9e1b1b"))
-				ci.pill(Rect2(50, 416, 260, 48), ci.t_("G-SEAL"), 24, ci.RED, ci.PAPER)
-			else:
-				var k := clampf(t / 0.3, 0.0, 1.0)
-				ci.draw_circle(c, 26, Color("#9e1b1b"))
-				ci.draw_circle(c, 20, Color("#c23a2a"))
-				ci.draw_arc(c, 13, 0, TAU, 20, Color("#7d1414"), 2.0)
-				ci.draw_circle(c, 40 * (1.0 + k), Color(1, 0.8, 0.5, 0.3 * (1.0 - k)))
+				ci.sprite("ayu_stand.png", Vector2(135, 490))
+				ci.sprite("w2/common/toretto_neutral_r2.png", Vector2(230, 490))
+			ci.StoryCaption.draw_caption(ci, ci.t_("A7-2c"), "ayu", -1, true, Vector2(135, 205))
+			ci.pill(_ok_rect(), "去赴约", 18, ci.RED, ci.PAPER)
 
+func _paper(ci, length: int) -> void:
+	var page := Rect2(46, 140, 268, 330)
+	ci.draw_rect(page, ci.PAPER)
+	ci.draw_rect(page.grow(-6), ci.GOLD, false, 2)
+	ci.draw_multiline_string(ci.FONT, Vector2(70, 180), _letter().substr(0, length), HORIZONTAL_ALIGNMENT_LEFT, 220, 17, -1, ci.INK)
 
-func _card(ci, a: float) -> void:
-	var card: Texture2D = ci.texture("invite_card.png")
-	if card:
-		ci.draw_texture_rect(card, Rect2(ci.CARD, card.get_size() * ci.S), false, Color(1, 1, 1, a))
-		# 盖住空材料位：终章时六样都齐了
-		for id: String in ci.SLOTS:
-			ci._draw_material_icon(id, ci.CARD + ci.SLOTS[id] * ci.S, 1.0)
+func _envelope_art(ci, sealed: bool) -> void:
+	var rect := _envelope()
+	var art: Texture2D = ci.texture("round1/common/envelope_sealed.png") if sealed else null
+	if art:
+		ci.draw_texture_rect(art, rect, false)
+	else:
+		ci.draw_rect(rect, ci.WHEAT)
+		ci.draw_rect(rect, ci.WOOD, false, 2)
+		ci.draw_colored_polygon(PackedVector2Array([rect.position, rect.position + Vector2(rect.size.x, 0), rect.get_center()]), ci.PAPER)
+		ci.draw_polyline(PackedVector2Array([rect.position, rect.get_center(), rect.position + Vector2(rect.size.x, 0)]), ci.WOOD, 2)
+	ci.text_at(rect.position + Vector2(15, 142), name, 18, ci.INK, 230)
+	if sealed and not art:
+		var wax: Texture2D = ci.texture("round1/common/wax_sealed.png")
+		if wax:
+			ci.draw_texture_rect(wax, Rect2(rect.get_center() - Vector2(26,26), Vector2(52,52)), false)
+		else:
+			ci.draw_circle(rect.get_center(), 24, Color("#9e1b1b"))
+			ci.draw_arc(rect.get_center(), 17, 0, TAU, 24, ci.GOLD, 2)

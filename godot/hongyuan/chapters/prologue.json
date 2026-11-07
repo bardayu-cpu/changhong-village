@@ -4,47 +4,63 @@
   "steps": [
     {
       "id": "closed",
-      "type": "invite",
+      "type": "scene",
       "sceneId": "invitation",
-      "speaker": "narrator",
+      "speaker": "system",
       "actorMode": "none",
       "actorSlot": null,
-      "background": "invitation",
-      "visibleActors": [
-        {
-          "id": "ayu",
-          "mode": "sprite",
-          "slot": "right",
-          "layer": "invitation"
-        }
-      ],
-      "copyId": "A0-1",
-      "objectiveId": "G-03"
+      "background": "scene",
+      "visibleActors": [],
+      "scene": {
+        "bg": "bg_invite_desk.png",
+        "hideAyu": true,
+        "beats": [
+          {
+            "game": "desk_intro",
+            "copyId": "A0-1"
+          }
+        ]
+      }
     },
     {
       "id": "open",
-      "type": "narration",
+      "type": "scene",
       "sceneId": "invitation",
-      "speaker": "narrator",
+      "speaker": "system",
       "actorMode": "none",
       "actorSlot": null,
-      "background": "invitation",
+      "background": "scene",
       "visibleActors": [],
-      "copyId": "A0-2",
-      "duration": 3.6
+      "scene": {
+        "bg": "bg_invite_desk.png",
+        "hideAyu": true,
+        "beats": [
+          {
+            "game": "desk_intro",
+            "copyId": "A0-2"
+          }
+        ]
+      }
     },
     {
       "id": "line_to_road",
-      "type": "transition",
-      "sceneId": "shanghai_road",
-      "speaker": "narrator",
+      "type": "scene",
+      "sceneId": "invitation",
+      "speaker": "system",
       "actorMode": "none",
       "actorSlot": null,
-      "background": "road",
+      "background": "scene",
       "visibleActors": [],
-      "copyId": "A0-3",
-      "duration": 3.0,
-      "effect": "line_to_road"
+      "scene": {
+        "bg": "bg_invite_desk.png",
+        "hideAyu": true,
+        "beats": [
+          {
+            "game": "desk_intro",
+            "copyId": "A0-3"
+          }
+        ]
+      }
     }
   ]
 }

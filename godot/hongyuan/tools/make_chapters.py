@@ -11,7 +11,23 @@ def T(k): return {"say": k, "who": "toretto"}
 def A(k): return {"say": k, "who": "ayu"}
 def auto(k, s=2.6): return {"narrate": k, "auto": s}
 
+GOALS = {
+    "chengdu": {"目标": "逛逛熊猫基地", "操作": "走到竹子旁拿起，再靠近熊猫喂食", "所得": "墨水，让请帖上的字显现"},
+    "call": {"目标": "接起这通来电", "操作": "走近手机，亲手点接听", "所得": "信纸，记住这一段日子"},
+    "shizuoka": {"目标": "到港口钓一次鱼", "操作": "走到钓位，按住蓄力，松手甩竿", "所得": "旅途之后，把印章带回书桌"},
+    "hainan": {"目标": "一起留下海边的回忆", "操作": "走近套圈摊，拖动瞄准后松手", "所得": "火漆，留到最后封上请帖"},
+    "hongkong": {"目标": "一起出发，留下旅行合影", "操作": "打开新邮件，再带着行李去机场", "所得": "信封，让这份邀请能够寄出"},
+}
 def write(cid, title, steps):
+    if cid in GOALS:
+        inserted = False
+        for step in steps:
+            beats = step.get("scene", {}).get("beats", [])
+            for i, beat in enumerate(beats):
+                if not inserted and ("go" in beat or "game" in beat):
+                    beats.insert(i, {"goal": GOALS[cid]})
+                    inserted = True
+                    break
     json.dump({"chapterId": cid, "titleId": title, "steps": steps}, open(os.path.join(D, cid + ".json"), "w"), ensure_ascii=False, indent=1)
 
 def legacy(id, kind, sid, background, actors=None, **fields):
@@ -155,10 +171,10 @@ write("finale", "G-12", [scene("finale", "finale", {
     "bg": "", "fill": "#3a1414", "hideAyu": True,
     "beats": [
         {"card": "G-12", "duration": 2.0},
-        {"game": "invite_mail"},
-        {"game": "finale"},
         {"bg": "bg_invite_desk.png", "hideAyu": False, "place": [180, 520], "pose": ""},
-        A("A7-2b"), A("A7-2c"),
+        A("A7-2b"),
+        {"hideAyu": True},
+        {"game": "finale"},
         {"choice": ["G-WEDDING", "G-VILLAGE"],
          "to": ["res://hongyuan/world_entry.tscn", "res://hongyuan/village_entry.tscn"]},
         {"bg": "", "fill": "#2a1210", "hideAyu": True},

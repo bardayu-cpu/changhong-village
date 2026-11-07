@@ -47,6 +47,12 @@ var chime := AudioStreamPlayer.new()
 var bgm := AudioStreamPlayer.new()
 var bgm_id := ""
 var loading_content := false
+var content_overlay: Control
+var recovery: Control
+var pending_index := -1
+var pending_resume := false
+var fading := false
+var fade_screen: ColorRect
 # Pointer gestures follow the wedding input: short release taps, lower-left drags steer.
 # Touch and mouse share one gesture path; emulated duplicates are ignored.
 var pointer_input := preload("res://hongyuan/pointer_input.gd").new()
@@ -84,7 +90,7 @@ func _ready() -> void:
 		_show_data_error()
 		return
 	stage.size = Stage.CANVAS
-	stage.clip_contents = true
+	stage.clip_contents = false
 	stage.mouse_filter = Control.MOUSE_FILTER_STOP
 	stage.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	stage.gui_input.connect(_on_stage_input)
@@ -105,6 +111,17 @@ func _ready() -> void:
 	add_child(parking_sound)
 	resized.connect(_fit_canvas)
 	_fit_canvas()
+	content_overlay = preload("res://hongyuan/ui/content_overlay.gd").new()
+	add_child(content_overlay)
+	content_overlay.hide()
+	content_overlay.retry.connect(_retry_content)
+	content_overlay.return_to_desk.connect(_show_recovery)
+	Packs.service().progress.connect(content_overlay.update_progress)
+	fade_screen = ColorRect.new()
+	fade_screen.color = Color("#241b18", 0)
+	fade_screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(fade_screen)
 
 	state = Checkpoint.read()
 	active_index = int(step_indices.get(state.get("stepId", ""), -1))
@@ -116,6 +133,10 @@ func _ready() -> void:
 		}
 		active_index = 0
 		_enter_step(0)
+	elif bool(state.get("deskRecovery", false)):
+		pending_index = int(step_indices.get(state.get("pendingStepId", ""), active_index))
+		pending_resume = bool(state.get("pendingResume", true))
+		_show_recovery()
 	else:
 		_enter_step(active_index, true)
 
@@ -155,6 +176,13 @@ func _fit_canvas() -> void:
 	var fit := minf(safe.size.x / Stage.CANVAS.x, safe.size.y / Stage.CANVAS.y)
 	stage.scale = Vector2.ONE * fit
 	stage.position = safe.position + (safe.size - Stage.CANVAS * fit) * 0.5
+	stage.view_rect = Rect2(-stage.position / fit, size / fit)
+	StoryCaption.narration_top = stage.view_rect.position.y + 54.0
+	if is_instance_valid(runner):
+		runner.view_rect = stage.view_rect
+	if is_instance_valid(recovery):
+		recovery.view_rect = stage.view_rect
+	stage.queue_redraw()
 
 func _load_playlist() -> bool:
 	var order := _read_json("res://hongyuan/chapter_order.json")
@@ -210,13 +238,34 @@ func _enter_step(index: int, resume := false) -> void:
 	if loading_content:
 		return
 	var chapter := str(playlist[index].get("chapterId", ""))
-	if chapter != str(shot.get("chapterId", "")):
+	var chapter_changed := chapter != str(shot.get("chapterId", ""))
+	if chapter_changed and chapter != "prologue":
+		pending_index = index
+		pending_resume = resume
 		loading_content = true
+		if is_instance_valid(runner):
+			runner.set_process(false)
+			runner.suspend_input()
+		content_overlay.waiting(_text(str(playlist[index].titleId)))
 		var ready := await Packs.ensure(["love-media", chapter])
-		loading_content = false
 		if not ready:
-			_show_data_error()
+			content_overlay.failed(Packs.service().last_error)
 			return
+		loading_content = false
+		content_overlay.hide()
+		state.erase("deskRecovery")
+		state.erase("pendingStepId")
+		state.erase("pendingResume")
+	if is_instance_valid(recovery):
+		recovery.queue_free()
+		recovery = null
+	if not shot.is_empty():
+		fading = true
+		if is_instance_valid(runner):
+			runner.set_process(false)
+		var fade := create_tween()
+		fade.tween_property(fade_screen, "color:a", 1.0, 0.16)
+		await fade.finished
 	var previous_scene: String = shot.get("sceneId", "")
 	var previous_type: String = shot.get("type", "")
 	if runner:
@@ -306,6 +355,16 @@ func _enter_step(index: int, resume := false) -> void:
 		_start_scene(resume)
 	if shot.type == "chat" and not resume:
 		chime.play()
+	if fading:
+		var fade := create_tween()
+		fade.tween_property(fade_screen, "color:a", 0.0, 0.20)
+		await fade.finished
+		fading = false
+	if chapter_changed and chapter != "prologue":
+		var chapters: Array = _read_json("res://hongyuan/chapter_order.json").get("chapters", [])
+		var at := chapters.find(chapter)
+		if at >= 0 and at + 1 < chapters.size():
+			Packs.prefetch([str(chapters[at + 1])])
 
 func _starting_feet(scene: String) -> Vector2:
 	match scene:
@@ -319,7 +378,7 @@ func _advance() -> void:
 		_enter_step(active_index + 1)
 
 func _process(delta: float) -> void:
-	if loading_content or shot.is_empty() or paused or shot.type == "terminal":
+	if loading_content or fading or is_instance_valid(recovery) or shot.is_empty() or paused or shot.type == "terminal":
 		return
 	if shot.type == "scene":
 		since_save += delta
@@ -354,9 +413,11 @@ func _process(delta: float) -> void:
 			if elapsed >= duration:
 				_advance()
 		"material":
-			if elapsed >= duration:
+			if elapsed >= duration and state.materials.get(_material_key(shot), "") != "applied":
 				state.materials[_material_key(shot)] = "applied"
-				_advance()
+				_sync_materials()
+				_save()
+				_button("G-DESK-CONTINUE", Rect2(100, 566, 160, 44), _advance)
 		"narration", "dialogue", "wait", "transition", "phone":
 			if elapsed >= duration:
 				_advance()
@@ -431,7 +492,7 @@ func _drive(dt: float) -> void:
 			break
 
 func _on_stage_input(event: InputEvent) -> void:
-	if loading_content or shot.is_empty():
+	if loading_content or fading or is_instance_valid(recovery) or shot.is_empty():
 		return
 	event = pointer_input.normalize(event)
 	if event == null:
@@ -685,7 +746,9 @@ func _material_key(step: Dictionary) -> String:
 	return "%s+%s+%s" % [state.runId, step.chapterId, step.materialId]
 
 func _sync_materials() -> void:
-	var applied := {}
+	var applied: Dictionary = state.get("sceneMaterials", {}).duplicate()
+	for id in applied:
+		applied[id] = "applied"
 	for step: Dictionary in playlist:
 		if step.type == "material":
 			applied[step.materialId] = state.materials.get(_material_key(step), "")
@@ -990,7 +1053,7 @@ func _start_scene(resume := false) -> void:
 	if resume:
 		var saved_sig := str(state.get("sceneSig", ""))
 		var stale := saved_sig != scene_sig if saved_sig != "" else str(shot.chapterId) in ["shizuoka", "hongkong", "finale"]
-		if stale:
+		if stale and not preload("res://hongyuan/scene_migrations.gd").migrate(state, shot):
 			state.sceneBeat = 0
 			state.erase("sceneSnapshot")
 	state.sceneSig = scene_sig
@@ -1002,6 +1065,7 @@ func _start_scene(resume := false) -> void:
 		if step.type == "material" and state.materials.get(_material_key(step), "") == "applied":
 			applied[step.materialId] = true
 	runner = SceneRunner.new()
+	runner.view_rect = stage.view_rect
 	runner.setup(shot.scene, copy, applied)
 	runner.beat_reached.connect(func(i: int) -> void:
 		state.sceneBeat = i
@@ -1017,6 +1081,18 @@ func _start_scene(resume := false) -> void:
 			state.guest = runner.result
 		_save()
 		if path in ["res://hongyuan/world_entry.tscn", "res://hongyuan/village_entry.tscn"]:
+			pending_index = active_index
+			pending_resume = true
+			loading_content = true
+			runner.set_process(false)
+			content_overlay.waiting("正在准备出发")
+			var groups: Array[String] = ["world", "world-media"]
+			groups.append_array(["village", "village-media"] if path.ends_with("village_entry.tscn") else ["estate"])
+			if not await Packs.ensure(groups):
+				content_overlay.failed(Packs.service().last_error)
+				return
+			loading_content = false
+			content_overlay.hide()
 			state["worldRoute"] = "village" if path.ends_with("village_entry.tscn") else "wedding"
 			state.revision = int(state.revision) + 1
 			Checkpoint.write(state)
@@ -1047,3 +1123,36 @@ func _play_bgm(chapter_id: String) -> void:
 	bgm_id = chapter_id
 	bgm.stream = stream
 	bgm.play()
+
+func _retry_content() -> void:
+	if is_instance_valid(recovery):
+		recovery.queue_free()
+		recovery = null
+	loading_content = false
+	# Re-entering the current beat must also re-enable a paused runner.
+	shot = {}
+	_enter_step(pending_index, pending_resume)
+
+func _show_recovery() -> void:
+	loading_content = false
+	content_overlay.hide()
+	if is_instance_valid(runner):
+		runner.hide()
+		runner.set_process(false)
+	if is_instance_valid(recovery):
+		return
+	state.deskRecovery = true
+	state.pendingStepId = playlist[pending_index].fullId
+	state.pendingResume = pending_resume
+	state.revision = int(state.get("revision", 0)) + 1
+	Checkpoint.write(state)
+	var applied: Dictionary = state.get("sceneMaterials", {}).duplicate()
+	for step: Dictionary in playlist:
+		if step.type == "material" and state.materials.get(_material_key(step), "") == "applied":
+			applied[step.materialId] = true
+	recovery = SceneRunner.new()
+	recovery.view_rect = stage.view_rect
+	recovery.setup({"hideAyu": true, "beats": [{"game": "desk_intro", "copyId": "G-DESK-RECOVERY"}]}, copy, applied)
+	stage.add_child(recovery)
+	recovery.finished.connect(_retry_content)
+	recovery.begin()

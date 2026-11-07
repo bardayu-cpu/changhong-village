@@ -50,6 +50,7 @@ manifest.update(environment=match[1], prefix=prefix)
     "GameGlobal.hongyuanContentConfig = " + json.dumps(manifest, ensure_ascii=False) + ";\n"
 )
 (out / "hongyuan-content.js").write_bytes(Path(__file__).with_name("wechat_content.js").read_bytes())
+(out / "hongyuan-content-sha256.js").write_bytes(Path(__file__).with_name("content_sha256.js").read_bytes())
 engine = out / "engine/game.js"
 text = engine.read_text()
 old = "const pack = '/engine/empty-tips.bin';"

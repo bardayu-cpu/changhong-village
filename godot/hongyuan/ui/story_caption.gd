@@ -6,6 +6,7 @@ const PAPER := Color("#fff1d5")
 const INK := Color("#281a1a")
 const WOOD := Color("#50332a")
 const RED := Color("#5e2929")
+static var narration_top := 54.0
 var text := ""
 var speaker := "narrator"
 var speaker_anchor := Vector2(-1, -1)
@@ -34,7 +35,7 @@ static func caption_rect(full_text: String, who: String, anchor := Vector2(-1, -
 	var named := NAMES.has(who)
 	if not named:
 		var height := FONT.get_multiline_string_size(_display_text(full_text, who, 308), HORIZONTAL_ALIGNMENT_CENTER, 308, 15).y + 18
-		return Rect2(14, 54, 332, maxf(38, height))
+		return Rect2(14, narration_top, 332, maxf(38, height))
 	if anchor.x >= 0:
 		var width := clampf(FONT.get_string_size(full_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x + 28, 76, 260)
 		var height := FONT.get_multiline_string_size(_display_text(full_text, who, width - 28), HORIZONTAL_ALIGNMENT_LEFT, width - 28, 16).y + 28
@@ -101,7 +102,7 @@ static func _draw_caption_text(ci: CanvasItem, full_text: String, who: String, v
 	var bubble := named and anchor.x >= 0
 	var box := caption_rect(full_text, who, anchor)
 	var panel := StyleBoxFlat.new()
-	panel.bg_color = PAPER if named else Color(0.08, 0.07, 0.06, 0.18)
+	panel.bg_color = PAPER if named else Color(0.16, 0.12, 0.09, 0.40)
 	panel.set_corner_radius_all(12 if named else 6)
 	if named:
 		panel.border_color = WOOD

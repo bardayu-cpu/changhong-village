@@ -29,6 +29,7 @@ const AVATARS := {"ayu": "ayu_avatar.png", "toretto": "toretto_avatar.png", "axi
 const CARD := Vector2(56, 120)
 const SLOTS := {"pen": Vector2(75, 305), "ink": Vector2(180, 305), "paper": Vector2(285, 305), "stamp": Vector2(77, 390), "wax": Vector2(180, 390), "envelope": Vector2(284, 393)}
 const GAMES := {
+	"desk_intro": preload("res://hongyuan/games/desk_intro.gd"),
 	"desk_chat": preload("res://hongyuan/games/desk_chat.gd"),
 	"pandas": preload("res://hongyuan/games/pandas.gd"),
 	"fishing": preload("res://hongyuan/games/fishing.gd"),
@@ -55,6 +56,12 @@ var t := 0.0
 var time := 0.0
 
 # 世界
+var view_rect := Rect2(0, 0, 360, 640)
+var camera_y := 0.0
+var camera_drag := false
+var camera_start := 0.0
+var pending_setup: Dictionary = {}
+var transition_applied := false
 var bg := ""
 var bg_fit := false
 var player_role := "ayu"
@@ -100,6 +107,7 @@ var stick := Vector2.ZERO
 var stick_pointer := false
 
 # 文字
+var goal_data: Dictionary = {}
 var hint := ""
 var say_who := ""
 var say_text := ""
@@ -211,7 +219,7 @@ func _apply_world(d: Dictionary) -> void:
 
 
 func _is_setup(beat: Dictionary) -> bool:
-	for key in ["say", "card", "go", "game", "wait", "material", "button", "choice", "narrate"]:
+	for key in ["say", "card", "go", "game", "wait", "material", "button", "choice", "narrate", "goal"]:
 		if beat.has(key):
 			return false
 	return true
@@ -237,9 +245,14 @@ func _run_setup(beat: Dictionary) -> void:
 
 
 func _next() -> void:
+	if bi + 1 >= beats.size():
+		set_process(false)
+		finished.emit()
+		return
 	bi += 1
 	t = 0.0
 	mode = ""
+	camera_y = 0.0
 	game = null
 	_reset_input()
 	if bi >= beats.size():
@@ -247,11 +260,20 @@ func _next() -> void:
 		return
 	var beat: Dictionary = beats[bi]
 	if _is_setup(beat):
+		if beat.has("bg") and str(beat.bg) != bg:
+			pending_setup = beat
+			transition_applied = false
+			mode = "transition"
+			beat_reached.emit(bi)
+			return
 		_run_setup(beat)
 		_next()
 		return
 	beat_reached.emit(bi)
-	if beat.has("say") or beat.has("narrate"):
+	if beat.has("goal"):
+		mode = "goal"
+		goal_data = beat.goal
+	elif beat.has("say") or beat.has("narrate"):
 		mode = "say"
 		say_who = str(beat.get("who", "narrator"))
 		say_text = _text(str(beat.get("say", beat.get("narrate", ""))))
@@ -303,6 +325,12 @@ func _process(dt: float) -> void:
 	if atmosphere != "": atmosphere_elapsed += dt
 	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
 	match mode:
+		"transition":
+			if t >= 0.18 and not transition_applied:
+				_run_setup(pending_setup)
+				transition_applied = true
+			if t >= 0.36:
+				_next()
 		"say", "auto":
 			reveal += dt * 26.0
 			if mode == "auto" and t >= float(beat.get("auto", 2.4)):
@@ -314,10 +342,9 @@ func _process(dt: float) -> void:
 			if t >= float(beat.wait):
 				_next()
 		"material":
-			if t >= 2.0:
+			if t >= 2.0 and not materials.get(material_id, false):
 				materials[material_id] = true
 				material_applied.emit(material_id)
-				_next()
 		"go":
 			_walk(dt)
 		"game":
@@ -435,6 +462,21 @@ func _gui_input(event: InputEvent) -> void:
 	else:
 		return
 	accept_event()
+	if mode == "go":
+		if kind == "down":
+			camera_drag = pos.y < 320 and not _icon_rect(go_id).grow(12).has_point(pos) if hotspots.has(go_id) else pos.y < 320
+			camera_start = camera_y
+			if camera_drag: down_pos = pos
+		elif camera_drag and kind == "move":
+			var image := texture(bg)
+			var extent := maxf(0, image.get_height() * 360.0 / image.get_width() - view_rect.size.y) * 0.5 if image else 0.0
+			camera_y = clampf(camera_start + pos.y - down_pos.y, -extent, extent)
+			queue_redraw()
+			return
+		elif camera_drag and kind == "up":
+			camera_drag = false
+			_reset_input()
+			return
 	if kind == "down":
 		down = true
 		down_pos = pos
@@ -451,6 +493,11 @@ func _gui_input(event: InputEvent) -> void:
 		_skip()
 		return
 	match mode:
+		"goal":
+			if tap and t > 0.3 and Rect2(100, 490, 160, 48).has_point(pos): _next()
+		"material":
+			if tap and t >= 2.0:
+				_next()
 		"game":
 			if game:
 				game.input(kind, pos)
@@ -495,6 +542,7 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
+	pos.y -= camera_y
 	if kind == "move" and dragged and stick_pointer:
 		stick = ((pos - down_pos) / 36.0).limit_length()
 	elif kind == "up":
@@ -533,16 +581,20 @@ func _reset_input() -> void:
 # ---------- 画 ----------
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, CANVAS), bg_fill)
+	draw_rect(view_rect, bg_fill)
 	_draw_bg()
 	if atmosphere == "coast": CoastShow.draw(self, atmosphere_elapsed)
+	draw_set_transform(Vector2(0, camera_y))
 	_draw_world()
+	draw_set_transform(Vector2.ZERO)
 	if night > 0.0:
 		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0.05, 0.04, 0.12, night))
 	if mode == "game" and game:
 		game.draw(self)
 	if mode == "go":
+		draw_set_transform(Vector2(0, camera_y))
 		_draw_go_ui()
+		draw_set_transform(Vector2.ZERO)
 	if badge != "":
 		_pill(Rect2(250, 12, 100, 22), badge, 12, Color(RED, 0.85), PAPER)
 	if hint != "" and mode in ["go", "game"]:
@@ -550,6 +602,14 @@ func _draw() -> void:
 	if _skip_visible():
 		_pill(SKIP_RECT, _text("G-NEXT"), 13, Color(INK, 0.7), WHEAT)
 	match mode:
+		"goal":
+			draw_rect(view_rect, Color(INK, 0.38))
+			_panel(Rect2(30, 180, 300, 290), PAPER, GOLD)
+			var i := 0
+			for key: String in ["目标", "操作", "所得"]:
+				draw_multiline_string(FONT, Vector2(48, 218 + i * 80), key + "\n" + str(goal_data.get(key, "")), HORIZONTAL_ALIGNMENT_LEFT, 264, 17, -1, INK)
+				i += 1
+			_pill(Rect2(100, 490, 160, 48), "准备好了", 18, RED, PAPER)
 		"say", "auto":
 			_draw_say()
 		"card":
@@ -565,6 +625,9 @@ func _draw() -> void:
 		"button":
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			_pill(button_rect, button_text, 20, RED, PAPER)
+
+	if mode == "transition":
+		draw_rect(view_rect, Color(INK, sin(PI * clampf(t / 0.36, 0, 1))))
 
 
 func _draw_bg() -> void:
@@ -583,8 +646,7 @@ func _draw_bg() -> void:
 	var tex := texture(bg)
 	if not tex:
 		return
-	var sz := tex.get_size() * S
-	draw_texture_rect(tex, Rect2(Vector2.ZERO, CANVAS) if bg_fit else Rect2(((CANVAS - sz) * 0.5).round(), sz), false)
+	preload("res://hongyuan/ui/desk_art.gd").cover(self, tex, view_rect, camera_y)
 
 
 func _draw_world() -> void:
@@ -750,37 +812,9 @@ const NEXT_STOP := {"paper": "W-NEXT-SHIZUOKA", "stamp": "W-NEXT-HAINAN", "wax":
 
 
 func _draw_material() -> void:
-	# 回到序章那张桌子：这一章的东西落进请柬，不弹「收入囊中」
-	var desk := texture("bg_invite_desk.png")
-	var fade := clampf(t / 0.4, 0.0, 1.0)
-	if desk:
-		draw_texture_rect(desk, Rect2(Vector2.ZERO, CANVAS), false, Color(1, 1, 1, fade))
-	else:
-		draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(INK, 0.82 * fade))
-	var card := texture("invite_card.png")
-	if card:
-		draw_texture_rect(card, Rect2(CARD, card.get_size() * S), false, Color(1, 1, 1, fade))
-	for id: String in SLOTS:
-		var on: bool = materials.get(id, false)
-		var k := fade
-		if id == material_id:
-			k = clampf((t - 0.4) / 0.8, 0.0, 1.0)
-			on = k > 0.0
-			if k > 0.0 and k < 1.0:
-				draw_circle(CARD + SLOTS[id] * S, 30 * k, Color(GOLD, 0.35 * (1.0 - k)))
-		if on:
-			_draw_material_icon(id, CARD + SLOTS[id] * S, k)
-	var count := 0
-	for id: String in SLOTS:
-		if materials.get(id, false) or id == material_id:
-			count += 1
-	var c := clampf((t - 1.0) / 0.4, 0.0, 1.0)
-	var next_id: String = NEXT_STOP.get(material_id, "")
-	var caption := "%d / 6" % count
-	if next_id != "" and copy.has(next_id):
-		caption += "　" + _text(next_id)
-	draw_rect(Rect2(60, 560, 240, 34), Color(INK, 0.6 * c))
-	draw_string(FONT, Vector2(60, 583), caption, HORIZONTAL_ALIGNMENT_CENTER, 240, 15, Color(WHEAT, c))
+	preload("res://hongyuan/ui/desk_art.gd").draw(self, materials, view_rect, material_id, t)
+	if t >= 2.0:
+		_pill(Rect2(100, 566, 160, 44), "继续这封请帖", 17, RED, PAPER)
 
 
 func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
@@ -818,7 +852,7 @@ func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
 # ---------- 快速浏览：小游戏和走路 10 秒后出「下一步」，不能整章跳过 ----------
 const SKIP_RECT := Rect2(268, 96, 80, 28)
 const SKIP_AFTER := 10.0
-const NO_SKIP := ["call", "desk_chat", "finale", "seat"]  # 来电对白不能删；终章要玩家自己填名字入席
+const NO_SKIP := ["call", "desk_chat", "finale", "seat", "desk_intro"]  # 来电对白不能删；终章要玩家自己填名字入席
 
 
 func _choice_rect(i: int) -> Rect2:
@@ -889,17 +923,17 @@ func sprite(name: String, at: Vector2, flip := false, scale_k := 1.0, depth_y :=
 		var used: Rect2 = Rect2(used_rects[tex])
 		if used.size.y > 0:
 			_shadow(at, rect.size.x * 0.28)
-			draw_set_transform(at, 0, Vector2(-1, 1) if flip else Vector2.ONE)
+			draw_set_transform(at + Vector2(0, camera_y), 0, Vector2(-1, 1) if flip else Vector2.ONE)
 			draw_texture_rect_region(tex, Rect2(rect.position - at, rect.size), used)
-			draw_set_transform(Vector2.ZERO)
+			draw_set_transform(Vector2(0, camera_y))
 			return true
 	var sz := tex.get_size() * S * scale_k
 	at = (at / S).round() * S
-	draw_set_transform(Vector2.ZERO)
+	draw_set_transform(Vector2(0, camera_y))
 	_shadow(at, sz.x * 0.28)
-	draw_set_transform(at, 0.0, Vector2(-1, 1) if flip else Vector2.ONE)
+	draw_set_transform(at + Vector2(0, camera_y), 0.0, Vector2(-1, 1) if flip else Vector2.ONE)
 	draw_texture_rect(tex, Rect2(Vector2(-sz.x * 0.5, -sz.y + 5.0 * scale_k), sz), false)
-	draw_set_transform(Vector2.ZERO)
+	draw_set_transform(Vector2(0, camera_y))
 	return true
 
 

@@ -21,12 +21,6 @@
       "duration": 2.0
      },
      {
-      "game": "invite_mail"
-     },
-     {
-      "game": "finale"
-     },
-     {
       "bg": "bg_invite_desk.png",
       "hideAyu": false,
       "place": [
@@ -40,8 +34,10 @@
       "who": "ayu"
      },
      {
-      "say": "A7-2c",
-      "who": "ayu"
+      "hideAyu": true
+     },
+     {
+      "game": "finale"
      },
      {
       "choice": [
