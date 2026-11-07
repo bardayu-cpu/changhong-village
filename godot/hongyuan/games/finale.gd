@@ -131,8 +131,8 @@ func _make_edit() -> void:
 	edit.placeholder_text = r.t_("A7-I1")
 	edit.max_length = 12
 	edit.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	edit.position = Vector2(138, 355)
-	edit.size = Vector2(164, 44)
+	edit.position = Vector2(48, 475)
+	edit.size = Vector2(264, 40)
 	edit.add_theme_font_override("font", r.FONT)
 	edit.add_theme_font_size_override("font_size", 18)
 	edit.add_theme_color_override("font_color", r.INK)
@@ -177,6 +177,7 @@ func _submit_name() -> void:
 		r.play("blip")
 		return
 	name = s
+	error = false
 	edit.queue_free()
 	edit = null
 	phase = "write"
@@ -198,31 +199,32 @@ func draw(ci) -> void:
 	if phase == "welcome":
 		desk.cover(ci, ci.texture("round1/common/welcome_bg.png"), r.view_rect)
 	else:
-		desk.draw(ci, r.materials, r.view_rect, "", t, false, phase == "write")
+		desk.draw(ci, r.materials, r.view_rect, "", t, false, phase in ["write", "written"])
 	match phase:
 		"read":
-			desk.paper_art(ci)
 			var copy_id: String = ["R1-I02-REUNION", "R1-I02-YOU", "A7-2b"][read_index]
-			ci.StoryCaption.draw_caption(ci, ci.t_(copy_id), "ayu", -1, false, Vector2(88, 150))
+			ci.StoryCaption.draw_caption(ci, ci.t_(copy_id), "ayu", -1, false, desk.head(r.view_rect))
 			ci.pill(_ok_rect(), "写下名字" if read_index == 2 else "轻点继续", 18, ci.RED, ci.PAPER)
 		"name":
-			_paper(ci, 0)
-			ci.text_at(Vector2(138, 329), ci.t_("A7-I1"), 14, ci.INK, 164)
-			ci.text_at(Vector2(138, 435), ci.t_("A7-E1") if error else ci.t_("A7-I2"), 13, ci.WOOD, 164)
+			ci.draw_rect(Rect2(30,432,300,112),Color(ci.PAPER,0.96))
+			ci.text_at(Vector2(42,458),ci.t_("A7-I1"),16,ci.INK,276)
+			ci.text_at(Vector2(42,533),ci.t_("A7-E1") if error else ci.t_("A7-I2"),13,ci.WOOD,276)
 			ci.pill(_ok_rect(), ci.t_("G-19"), 18, ci.RED, ci.PAPER)
 		"write", "written":
 			_paper(ci, int(typed))
-			if phase == "write":
-				# A restrained writing gesture is the approved B02 fallback; do not
-				# stretch the hand/forearm to chase distant lines on the paper.
-				desk.draw_arm(ci, Vector2(218 + sin(t * 11) * 3, 330 + cos(t * 8) * 2))
-			else:
+			if phase == "written":
 				ci.pill(_ok_rect(), "装进信封", 18, ci.RED, ci.PAPER)
 		"fold":
 			_envelope_art(ci, false)
 			var k := smoothstep(0, 1, clampf(t / 1.3, 0, 1))
 			var page := Rect2(Vector2(70, 130).lerp(Vector2(75, 280), k), Vector2(210, 260).lerp(Vector2(210, 95), k))
 			desk.paper_art(ci, page)
+			ci.draw_set_transform(page.position,0,page.size/Vector2(210,260))
+			var row := 0
+			for line in _letter_lines(ci,_letter(),13,174):
+				ci.draw_string(ci.FONT,Vector2(18,30+row*18),line,HORIZONTAL_ALIGNMENT_LEFT,174,13,ci.INK)
+				row += 1
+			ci.draw_set_transform(Vector2.ZERO)
 		"seal", "stamped", "ready_send", "send", "receive", "opening":
 			if phase == "send":
 				ci.draw_set_transform(Vector2(0, -700 * smoothstep(0, 1, clampf(t / 1.8, 0, 1))))
@@ -264,12 +266,12 @@ func draw(ci) -> void:
 			ci.StoryCaption.draw_caption(ci, ci.t_("A7-2c"), "ayu", -1, true, Vector2(134, 258))
 			ci.pill(_ok_rect(), "去赴约", 18, ci.RED, ci.PAPER)
 
-func _letter_lines(ci, text: String) -> Array[String]:
+func _letter_lines(ci, text: String, font_size := 20, width := 205.0) -> Array[String]:
 	var result: Array[String] = []
 	for paragraph in text.split("\n"):
 		var line := ""
 		for character in paragraph:
-			if ci.FONT.get_string_size(line + character, HORIZONTAL_ALIGNMENT_LEFT, -1, 14).x > 164:
+			if ci.FONT.get_string_size(line + character, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > width:
 				result.append(line)
 				line = ""
 			line += character
@@ -277,11 +279,19 @@ func _letter_lines(ci, text: String) -> Array[String]:
 	return result
 
 func _paper(ci, length: int) -> void:
-	preload("res://hongyuan/ui/desk_art.gd").paper_art(ci)
+	var desk = preload("res://hongyuan/ui/desk_art.gd")
+	var close_up := phase == "read_received"
+	var fs := 17 if close_up else 20
+	var width := 220.0 if close_up else 205.0
+	if close_up:
+		desk.paper_art(ci)
+	else:
+		ci.draw_set_transform_matrix(desk.paper_transform(r.view_rect))
 	var row := 0
-	for line in _letter_lines(ci, _letter().substr(0, length)):
-		ci.draw_string(ci.FONT, Vector2(138, 328 + row * 19), line, HORIZONTAL_ALIGNMENT_LEFT, 164, 14, ci.INK)
+	for line in _letter_lines(ci, _letter().substr(0,length),fs,width):
+		ci.draw_string(ci.FONT,Vector2(70,180 + row*28) if close_up else Vector2(0,20+row*22),line,HORIZONTAL_ALIGNMENT_LEFT,width,fs,ci.INK)
 		row += 1
+	ci.draw_set_transform(Vector2.ZERO)
 
 func _envelope_art(ci, sealed: bool) -> void:
 	var rect := _envelope()
@@ -290,9 +300,9 @@ func _envelope_art(ci, sealed: bool) -> void:
 		ci.draw_texture_rect_region(art, rect, Rect2(27, 137, 306, 219))
 	ci.text_at(rect.position + Vector2(15, 142), name, 18, ci.INK, 230)
 	if sealed:
-		var file := "wax_03_seal.png"
-		if phase == "seal": file = "wax_01_melt.png" if hold < 0.45 else "wax_02_press.png"
-		var wax: Texture2D = ci.texture("round1/finale/" + file)
+		var file := "round1/finale/wax_03_seal.png"
+		if phase == "seal": file = "round1/finale/wax_01_melt.png" if hold < 0.45 else "round1/finale/wax_02_press.png"
+		var wax: Texture2D = ci.texture(file)
 		if wax:
 			ci.draw_texture_rect(wax, Rect2(rect.get_center() - Vector2(26,26), Vector2(52,52)), false)
 		if phase == "seal" and hold >= 0.45:

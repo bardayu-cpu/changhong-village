@@ -16,5 +16,5 @@ func input(kind: String, _pos: Vector2) -> void:
 		r.play("blip")
 func draw(ci) -> void:
 	Desk.draw(ci, r.materials, r.view_rect, "", t)
-	ci.StoryCaption.draw_caption(ci, ci.t_(copy_id), "ayu", -1, false, Vector2(88, 150))
+	ci.StoryCaption.draw_caption(ci, ci.t_(copy_id), "ayu", -1, false, Desk.head(r.view_rect))
 	ci.pill(Rect2(104, 566, 152, 44), "轻点继续", 17, ci.RED, ci.PAPER)

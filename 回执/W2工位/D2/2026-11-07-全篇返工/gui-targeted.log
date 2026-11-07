@@ -1,0 +1,30 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS group message ink visible 360
+PASS member face has visible pixels 360/0
+PASS member face has visible pixels 360/1
+PASS member face has visible pixels 360/2
+PASS member face has visible pixels 360/3
+PASS member face has visible pixels 360/4
+PASS group message ink visible 390
+PASS member face has visible pixels 390/0
+PASS member face has visible pixels 390/1
+PASS member face has visible pixels 390/2
+PASS member face has visible pixels 390/3
+PASS member face has visible pixels 390/4
+PASS full height hold reaches call -50.0 touch
+PASS release pauses call -50.0 touch
+PASS full height hold reaches call 690.0 touch
+PASS release pauses call 690.0 touch
+PASS full height hold reaches call -50.0 mouse
+PASS release pauses call -50.0 mouse
+PASS full height hold reaches call 690.0 mouse
+PASS release pauses call 690.0 mouse
+PASS camera shift preserves horizontal joystick true
+PASS horizontal movement has no vertical drift true
+PASS release stops joystick true
+PASS camera shift preserves horizontal joystick false
+PASS horizontal movement has no vertical drift false
+PASS release stops joystick false
+FAILURES 0

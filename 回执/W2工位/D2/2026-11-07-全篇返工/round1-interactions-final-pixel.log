@@ -1,0 +1,71 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS onsen enters before choosing seat 360
+PASS visible mapped seat target 360
+PASS seat movement reaches dialogue 360
+PASS line retained 0 at 360
+PASS line retained 1 at 360
+PASS line retained 2 at 360
+PASS line retained 3 at 360
+PASS line retained 4 at 360
+PASS line retained 5 at 360
+PASS line retained 6 at 360
+PASS line retained 7 at 360
+PASS onsen complete 360
+PASS registry arrives at seal 360
+PASS off-target hold cannot stamp
+PASS short press can retry
+PASS full hold stamps
+PASS documents precede photo
+PASS photo stays present through registration memories 360
+PASS registry original memory retained 0
+PASS registry original memory retained 1
+PASS registry completes after memories 360
+PASS onsen enters before choosing seat 390
+PASS visible mapped seat target 390
+PASS seat movement reaches dialogue 390
+PASS line retained 0 at 390
+PASS line retained 1 at 390
+PASS line retained 2 at 390
+PASS line retained 3 at 390
+PASS line retained 4 at 390
+PASS line retained 5 at 390
+PASS line retained 6 at 390
+PASS line retained 7 at 390
+PASS onsen complete 390
+PASS registry arrives at seal 390
+PASS off-target hold cannot stamp
+PASS short press can retry
+PASS full hold stamps
+PASS documents precede photo
+PASS photo stays present through registration memories 390
+PASS registry original memory retained 0
+PASS registry original memory retained 1
+PASS registry completes after memories 390
+PASS preparation is a distinct backswing
+PASS visible forward stroke before flight
+PASS lure releases only after forward stroke
+PASS rod tip moves through the casting arc
+PASS lure lands before waiting
+PASS fish bite follows wait
+PASS retrieve keeps reeling before catch
+PASS fish is brought in before success
+PASS single catch completes without failure
+PASS F05 candidate avoids both heads 360/1
+PASS F05 candidate stays visible 360/1
+PASS F05 candidate avoids both heads 360/2
+PASS F05 candidate stays visible 360/2
+PASS F05 candidate avoids both heads 360/3
+PASS F05 candidate stays visible 360/3
+PASS F05 candidate avoids both heads 360/4
+PASS F05 candidate stays visible 360/4
+PASS F05 candidate avoids both heads 390/1
+PASS F05 candidate stays visible 390/1
+PASS F05 candidate avoids both heads 390/2
+PASS F05 candidate stays visible 390/2
+PASS F05 candidate avoids both heads 390/3
+PASS F05 candidate stays visible 390/3
+PASS F05 candidate avoids both heads 390/4
+PASS F05 candidate stays visible 390/4
+FAILURES 0

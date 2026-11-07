@@ -1,0 +1,106 @@
+{
+  "checks": [
+    {
+      "check": "Offer letter restore rebuilds content",
+      "ok": true
+    },
+    {
+      "check": "Offer letter restore rebuilds Accept target",
+      "ok": true
+    },
+    {
+      "check": "Offer restored scroll is bounded",
+      "ok": true
+    },
+    {
+      "check": "Photo ready restore keeps Toretto present",
+      "ok": true
+    },
+    {
+      "check": "Photo ready recapture state",
+      "ok": true
+    },
+    {
+      "check": "Photo prep restore keeps Toretto present",
+      "ok": true
+    },
+    {
+      "check": "Photo prep recapture state",
+      "ok": true
+    },
+    {
+      "check": "Photo flash restore keeps Toretto present",
+      "ok": true
+    },
+    {
+      "check": "Photo flash recapture state",
+      "ok": true
+    },
+    {
+      "check": "Photo show restore keeps Toretto present",
+      "ok": true
+    },
+    {
+      "check": "Photo show recapture state",
+      "ok": true
+    },
+    {
+      "check": "Care body drag clears exactly one 0",
+      "ok": true
+    },
+    {
+      "check": "Care does not complete before six",
+      "ok": true
+    },
+    {
+      "check": "Care body drag clears exactly one 1",
+      "ok": true
+    },
+    {
+      "check": "Care does not complete before six",
+      "ok": true
+    },
+    {
+      "check": "Care body drag clears exactly one 2",
+      "ok": true
+    },
+    {
+      "check": "Care does not complete before six",
+      "ok": true
+    },
+    {
+      "check": "Care body drag clears exactly one 3",
+      "ok": true
+    },
+    {
+      "check": "Care does not complete before six",
+      "ok": true
+    },
+    {
+      "check": "Care body drag clears exactly one 4",
+      "ok": true
+    },
+    {
+      "check": "Care does not complete before six",
+      "ok": true
+    },
+    {
+      "check": "Care body drag clears exactly one 5",
+      "ok": true
+    },
+    {
+      "check": "Care completes after all six",
+      "ok": true
+    },
+    {
+      "check": "Balance cannot finish before 30 seconds",
+      "ok": true
+    },
+    {
+      "check": "Balance finishes after 30 seconds and interaction",
+      "ok": true
+    }
+  ],
+  "passed": 25,
+  "total": 25
+}

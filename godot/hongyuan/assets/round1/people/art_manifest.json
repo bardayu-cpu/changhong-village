@@ -1,0 +1,56 @@
+[
+  {
+    "file": "call_split.png",
+    "size": [
+      916,
+      1717
+    ],
+    "bytes": 1605340,
+    "sha256": "a04d0fdb06536b95aeead405c69895aca070ff650efd210fd9c0c709a5bcaec9"
+  },
+  {
+    "file": "daily_walk.png",
+    "size": [
+      841,
+      1870
+    ],
+    "bytes": 1871309,
+    "sha256": "f6c1f6a1f3632cb91dc167452e7b8db66b15dbbc19efe4da1c0a1cf3cc291aa1"
+  },
+  {
+    "file": "group_chengdu.png",
+    "size": [
+      841,
+      1870
+    ],
+    "bytes": 1806661,
+    "sha256": "5577c2d8b5e2fed9b953cb4f5cc5df6d5178650f8924ac84d67ddcaf67b14ece"
+  },
+  {
+    "file": "group_shoulder.png",
+    "size": [
+      841,
+      1870
+    ],
+    "bytes": 1740866,
+    "sha256": "396b72fc19e8d6cd24bf2c8d064c2987f010589dde7f92b0788c1542317ae18c"
+  },
+  {
+    "file": "offer_room.png",
+    "size": [
+      841,
+      1870
+    ],
+    "bytes": 1877917,
+    "sha256": "4c353c2d7b2bd15a09f6f1506dad828bdfb7eab24ccff02d814608e2eb18c718"
+  },
+  {
+    "file": "turtle_boarding.png",
+    "size": [
+      916,
+      1717
+    ],
+    "bytes": 2587999,
+    "sha256": "0434648038bce7b2ee8625bc6332ecc93c7d19ac0137f0142ffbfbbb25040268"
+  }
+]

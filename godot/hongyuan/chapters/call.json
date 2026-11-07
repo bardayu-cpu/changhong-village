@@ -1,314 +1,363 @@
 {
- "chapterId": "call",
- "titleId": "G-08",
- "steps": [
-  {
-   "id": "night_call",
-   "type": "scene",
-   "sceneId": "call_room",
-   "speaker": "system",
-   "actorMode": "none",
-   "actorSlot": null,
-   "background": "scene",
-   "visibleActors": [],
-   "scene": {
-    "badge": "G-02",
-    "bg": "w2/call/bg_room_night.png|l3_computer.webp",
-    "fill": "#1a120e",
-    "night": 0.0,
-    "personHeight": 128,
-    "walkArea": [
-     [
-      150,
-      372
-     ],
-     [
-      282,
-      368
-     ],
-     [
-      282,
-      445
-     ],
-     [
-      350,
-      452
-     ],
-     [
-      350,
-      620
-     ],
-     [
-      20,
-      620
-     ],
-     [
-      20,
-      470
-     ],
-     [
-      150,
-      462
-     ]
-    ],
-    "start": [
-     200,
-     545
-    ],
-    "actors": [
-     {
-      "id": "phone",
-      "tex": "w2/call/phone_ring_1.png|phone_prop.png",
-      "at": [
-       215,
-       300
-      ]
-     }
-    ],
-    "hotspots": [
-     {
-      "id": "phone",
-      "at": [
-       215,
-       378
-      ],
-      "snap": [
-       215,
-       378
-      ],
-      "face": 1,
-      "pose": "back",
-      "icon": "phone"
-     }
-    ],
-    "beats": [
-     {
-      "card": "G-08",
-      "duration": 2.0
-     },
-     {
-      "narrate": "A3-1a"
-     },
-     {
-      "narrate": "A3-1b"
-     },
-     {
-      "goal": {
-       "目标": "接起这通来电",
-       "操作": "走近手机，亲手点接听",
-       "所得": "信纸，记住这一段日子"
+  "chapterId": "call",
+  "titleId": "G-08",
+  "steps": [
+    {
+      "id": "night_call",
+      "type": "scene",
+      "sceneId": "call_room",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "scene",
+      "visibleActors": [],
+      "scene": {
+        "badge": "G-02",
+        "bg": "w2/call/bg_room_night.png|l3_computer.webp",
+        "fill": "#1a120e",
+        "night": 0.0,
+        "personHeight": 128,
+        "walkArea": [
+          [
+            150,
+            372
+          ],
+          [
+            282,
+            368
+          ],
+          [
+            282,
+            445
+          ],
+          [
+            350,
+            452
+          ],
+          [
+            350,
+            620
+          ],
+          [
+            20,
+            620
+          ],
+          [
+            20,
+            470
+          ],
+          [
+            150,
+            462
+          ]
+        ],
+        "start": [
+          200,
+          545
+        ],
+        "actors": [
+          {
+            "id": "phone",
+            "tex": "w2/call/phone_ring_1.png|phone_prop.png",
+            "at": [
+              215,
+              300
+            ]
+          }
+        ],
+        "hotspots": [
+          {
+            "id": "phone",
+            "at": [
+              215,
+              378
+            ],
+            "snap": [
+              215,
+              378
+            ],
+            "face": 1,
+            "pose": "back",
+            "icon": "phone"
+          }
+        ],
+        "beats": [
+          {
+            "card": "G-08",
+            "duration": 2.0
+          },
+          {
+            "narrate": "A3-1a"
+          },
+          {
+            "narrate": "A3-1b"
+          },
+          {
+            "goal": {
+              "目标": "接起这通来电",
+              "操作": "走近手机，亲手点接听",
+              "所得": "信纸，记住这一段日子"
+            }
+          },
+          {
+            "go": "phone"
+          },
+          {
+            "game": "call",
+            "aside": "A3-D1",
+            "lines": [
+              {
+                "say": "A3-2a"
+              },
+              {
+                "say": "A3-2b"
+              },
+              {
+                "say": "A3-2c"
+              },
+              {
+                "say": "A3-2d",
+                "who": "toretto"
+              },
+              {
+                "say": "A3-2e",
+                "who": "ayu"
+              },
+              {
+                "say": "A3-2f"
+              },
+              {
+                "say": "A3-2g",
+                "who": "ayu"
+              },
+              {
+                "say": "A3-2h",
+                "who": "toretto"
+              }
+            ]
+          },
+          {
+            "bg": "w2/call/bg_cbd_office_r2.png",
+            "bgFit": true,
+            "personHeight": 160,
+            "night": 0.0,
+            "badge": "",
+            "hideAyu": false,
+            "player": "toretto",
+            "pose": "",
+            "actors": [],
+            "start": [
+              28,
+              580
+            ],
+            "walkArea": [
+              [
+                48,
+                432
+              ],
+              [
+                318,
+                432
+              ],
+              [
+                318,
+                568
+              ],
+              [
+                48,
+                568
+              ]
+            ],
+            "hotspots": [
+              {
+                "id": "cake",
+                "at": [
+                  94,
+                  440
+                ],
+                "snap": [
+                  94,
+                  440
+                ],
+                "face": 1,
+                "pose": "gifts",
+                "icon": "pick",
+                "iconAt": [
+                  194,
+                  289
+                ]
+              },
+              {
+                "id": "flowers",
+                "at": [
+                  94,
+                  440
+                ],
+                "icon": "pick",
+                "iconAt": [
+                  260,
+                  247
+                ]
+              },
+              {
+                "id": "desk_phone",
+                "at": [
+                  94,
+                  440
+                ],
+                "icon": "phone",
+                "iconAt": [
+                  150,
+                  300
+                ]
+              }
+            ],
+            "walkers": [
+              {
+                "guest": "04",
+                "a": [
+                  245,
+                  370
+                ],
+                "b": [
+                  305,
+                  389
+                ],
+                "speed": 12,
+                "scale": 0.63,
+                "pause": 3
+              },
+              {
+                "guest": "06",
+                "a": [
+                  298,
+                  425
+                ],
+                "b": [
+                  255,
+                  441
+                ],
+                "speed": 10,
+                "scale": 0.63,
+                "pause": 4
+              }
+            ],
+            "scaleProfile": "office"
+          },
+          {
+            "narrate": "A3-2i"
+          },
+          {
+            "go": "cake",
+            "hint": "G-DESK-APPROACH"
+          },
+          {
+            "say": "A3-2j",
+            "who": "toretto"
+          },
+          {
+            "go": "flowers",
+            "hint": "G-DESK-FLOWERS"
+          },
+          {
+            "narrate": "A3-2k"
+          },
+          {
+            "go": "desk_phone",
+            "hint": "G-DESK-PHONE"
+          },
+          {
+            "hint": "",
+            "bg": "w2/call/bg_cbd_window_chat_r3.png",
+            "bgFit": true,
+            "hideAyu": true,
+            "actors": [],
+            "hotspots": [],
+            "walkers": []
+          },
+          {
+            "game": "desk_chat",
+            "lines": [
+              {
+                "say": "A3-2l",
+                "who": "toretto"
+              },
+              {
+                "say": "A3-2m",
+                "who": "ayu"
+              },
+              {
+                "say": "A3-2n",
+                "who": "toretto"
+              },
+              {
+                "say": "A3-2o",
+                "who": "toretto"
+              },
+              {
+                "say": "A3-2p",
+                "who": "ayu"
+              }
+            ]
+          },
+          {
+            "player": "ayu",
+            "hideAyu": true,
+            "actors": [],
+            "hotspots": [],
+            "pose": ""
+          },
+          {
+            "bg": "round1/people/daily_walk.png",
+            "fill": "#2a1414",
+            "badge": "",
+            "hideAyu": true,
+            "walkers": []
+          },
+          {
+            "narrate": "A3-2q"
+          },
+          {
+            "narrate": "A3-2r"
+          },
+          {
+            "narrate": "A3-2s"
+          },
+          {
+            "narrate": "A3-2t"
+          },
+          {
+            "goal": {
+              "目标": "一起度过忙碌的日子",
+              "操作": "把关心拖给阿鱼，消掉六个烦恼；再照顾三件日常小事",
+              "所得": "信纸，让彼此的心意留下来"
+            }
+          },
+          {
+            "bg": "w2/call/bg_room_night.png",
+            "hideAyu": true,
+            "actors": []
+          },
+          {
+            "game": "care"
+          },
+          {
+            "bg": "round1/people/daily_walk.png"
+          },
+          {
+            "game": "balance"
+          },
+          {
+            "narrate": "A3-3a"
+          },
+          {
+            "narrate": "A3-3b"
+          },
+          {
+            "material": "paper"
+          }
+        ]
       }
-     },
-     {
-      "go": "phone"
-     },
-     {
-      "game": "call",
-      "aside": "A3-D1",
-      "lines": [
-       {
-        "say": "A3-2a"
-       },
-       {
-        "say": "A3-2b"
-       },
-       {
-        "say": "A3-2c"
-       },
-       {
-        "say": "A3-2d",
-        "who": "toretto"
-       },
-       {
-        "say": "A3-2e",
-        "who": "ayu"
-       },
-       {
-        "say": "A3-2f"
-       },
-       {
-        "say": "A3-2g",
-        "who": "ayu"
-       },
-       {
-        "say": "A3-2h",
-        "who": "toretto"
-       }
-      ]
-     },
-     {
-      "bg": "w2/call/bg_cbd_office_r2.png",
-      "bgFit": true,
-      "personHeight": 160,
-      "night": 0.0,
-      "badge": "",
-      "hideAyu": false,
-      "player": "toretto",
-      "pose": "",
-      "actors": [],
-      "start": [
-       65,
-       540
-      ],
-      "walkArea": [
-       [
-        48,
-        432
-       ],
-       [
-        318,
-        432
-       ],
-       [
-        318,
-        568
-       ],
-       [
-        48,
-        568
-       ]
-      ],
-      "hotspots": [
-       {
-        "id": "cake",
-        "at": [
-         94,
-         440
-        ],
-        "snap": [
-         94,
-         440
-        ],
-        "face": 1,
-        "pose": "gifts",
-        "icon": "pick",
-        "iconAt": [
-         194,
-         289
-        ]
-       },
-       {
-        "id": "flowers",
-        "at": [
-         94,
-         440
-        ],
-        "icon": "pick",
-        "iconAt": [
-         260,
-         247
-        ]
-       },
-       {
-        "id": "desk_phone",
-        "at": [
-         94,
-         440
-        ],
-        "icon": "phone",
-        "iconAt": [
-         150,
-         300
-        ]
-       }
-      ]
-     },
-     {
-      "narrate": "A3-2i"
-     },
-     {
-      "go": "cake",
-      "hint": "G-DESK-APPROACH"
-     },
-     {
-      "say": "A3-2j",
-      "who": "toretto"
-     },
-     {
-      "go": "flowers",
-      "hint": "G-DESK-FLOWERS"
-     },
-     {
-      "narrate": "A3-2k"
-     },
-     {
-      "go": "desk_phone",
-      "hint": "G-DESK-PHONE"
-     },
-     {
-      "hint": "",
-      "bg": "w2/call/bg_cbd_window_chat_r3.png",
-      "bgFit": true,
-      "hideAyu": true,
-      "actors": [],
-      "hotspots": []
-     },
-     {
-      "game": "desk_chat",
-      "lines": [
-       {
-        "say": "A3-2l",
-        "who": "toretto"
-       },
-       {
-        "say": "A3-2m",
-        "who": "ayu"
-       },
-       {
-        "say": "A3-2n",
-        "who": "toretto"
-       },
-       {
-        "say": "A3-2o",
-        "who": "toretto"
-       },
-       {
-        "say": "A3-2p",
-        "who": "ayu"
-       }
-      ]
-     },
-     {
-      "player": "ayu",
-      "hideAyu": true,
-      "actors": [],
-      "hotspots": [],
-      "pose": ""
-     },
-     {
-      "bg": "",
-      "fill": "#2a1414",
-      "badge": "G-02"
-     },
-     {
-      "narrate": "A3-2q",
-      "auto": 2.6
-     },
-     {
-      "narrate": "A3-2r",
-      "auto": 2.6
-     },
-     {
-      "narrate": "A3-2s",
-      "auto": 2.6
-     },
-     {
-      "narrate": "A3-2t",
-      "auto": 2.6
-     },
-     {
-      "narrate": "A3-3a",
-      "auto": 2.6
-     },
-     {
-      "narrate": "A3-3b",
-      "auto": 2.6
-     },
-     {
-      "material": "paper"
-     }
-    ]
-   }
-  }
- ]
+    }
+  ]
 }

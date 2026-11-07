@@ -1,6 +1,6 @@
 extends RefCounted
 ## 套圈：往后拖动瞄准（像拉弹弓），松手投出。落点套中木桩就挂上去，没中就落在地上。
-## 投一次后可以按「继续」走，投满两次自动往下走。不要求全中，没有奖品。
+## 两人轮流各投两次，四次后自动往下走。不要求全中，没有奖品。
 
 # R2: 300×220 源图的五根木桩颈部，绘制和命中共用同一变换。
 const STALL_ORIGIN := Vector2(80, 385 - 220.0 * 2.0 / 3.0)
@@ -15,6 +15,8 @@ var drag_from := Vector2.ZERO
 var drag_to := Vector2.ZERO
 var aim := Vector2.ZERO
 var thrown := 0
+var turn := 0
+var auto_t := 0.0
 var rings: Array = []   # {at, peg}
 var hit_flash := 0.0
 
@@ -28,12 +30,17 @@ func start(runner, beat: Dictionary) -> void:
 		for p: Array in beat.pegs:
 			pegs.append(Vector2(float(p[0]), float(p[1])))
 	r.facing = 1.0
+	r.comp_pos = r.feet + Vector2(72,-4)
 	r.pose = "throw"
 	hand = r.feet + Vector2(14, -100) * (r.person_height_at(r.feet.y) / 128.0)
 
 
 func process(dt: float) -> bool:
 	t += dt
+	hand = (r.feet if turn % 2 == 0 else r.comp_pos) + Vector2(14,-92) * (r.person_height_at(r.feet.y)/128.0)
+	if phase == "auto_aim" and t >= 0.9:
+		aim = pegs[turn % pegs.size()] + Vector2(8,3)
+		phase = "fly";t = 0;thrown += 1;r.play("blip")
 	hit_flash = maxf(0.0, hit_flash - dt)
 	match phase:
 		"fly":
@@ -54,10 +61,11 @@ func process(dt: float) -> bool:
 		"land":
 			if t >= 0.9:
 				r.pose = "throw"
-				if thrown >= 2:
+				if thrown >= 4:
 					r.pose = ""
 					return true
-				phase = "aim"
+				turn += 1
+				phase = "aim" if turn % 2 == 0 else "auto_aim"
 				t = 0.0
 	return false
 
@@ -65,7 +73,7 @@ func process(dt: float) -> bool:
 func _predict() -> Vector2:
 	var pull := drag_to - drag_from
 	var p := hand - pull * 1.6
-	return Vector2(clampf(p.x, 40, 320), clampf(p.y, 200, 420))
+	return Vector2(clampf(p.x, 40, 320), clampf(p.y, 160, 420))
 
 
 func _continue_rect() -> Rect2:
@@ -75,12 +83,7 @@ func _continue_rect() -> Rect2:
 func input(kind: String, pos: Vector2) -> void:
 	if phase != "aim":
 		return
-	if kind == "tap" and thrown >= 1 and _continue_rect().grow(6).has_point(pos):
-		thrown = 2
-		phase = "land"
-		t = 1.0
-		return
-	if kind == "down" and not (thrown >= 1 and _continue_rect().grow(6).has_point(pos)):
+	if kind == "down":
 		dragging = true
 		drag_from = pos
 		drag_to = pos
@@ -92,7 +95,7 @@ func input(kind: String, pos: Vector2) -> void:
 		if short and pos.y < 460.0:
 			# 点一下目标也能扔：泳圈飞向点的位置
 			drag_to = drag_from
-			aim = Vector2(clampf(pos.x, 40, 320), clampf(pos.y, 200, 420))
+			aim = Vector2(clampf(pos.x, 40, 320), clampf(pos.y, 160, 420))
 			phase = "fly"
 			t = 0.0
 			thrown += 1
@@ -106,12 +109,7 @@ func input(kind: String, pos: Vector2) -> void:
 
 
 func draw(ci) -> void:
-	var stall: Texture2D = ci.texture("w2/hainan/ring_stall.png")
-	if stall:
-		var sz: Vector2 = stall.get_size() * ci.S
-		ci.draw_texture_rect(stall, Rect2(STALL_ORIGIN, sz), false)
-	else:
-		_placeholder_stall(ci)
+	ci.pill(Rect2(72,92,216,30),"阿鱼来投" if turn % 2 == 0 else "轮到 Toretto 了",15,Color(ci.WOOD,0.76),ci.PAPER)
 	for i in range(pegs.size()):
 		var lit := false
 		for ring: Dictionary in rings:
@@ -146,8 +144,7 @@ func draw(ci) -> void:
 			var p0 := Vector2(180, 560) + Vector2(0, 40) * k2
 			ci.draw_circle(p0, 9, Color(ci.PAPER, a))
 			ci.draw_line(Vector2(180, 560), Vector2(180, 600), Color(ci.PAPER, 0.4 * a), 2.0)
-		if thrown >= 1:
-			ci.pill(_continue_rect(), ci.t_("G-19"), 16, ci.RED, ci.PAPER)
+
 	if phase == "aim" and thrown == 0 and not dragging:
 		ci.pill(Rect2(40, 140, 280, 36), ci.t_("G-RING-HOW"), 15, Color(ci.INK, 0.86), ci.PAPER)
 	if hit_flash > 0.0:
@@ -165,13 +162,16 @@ func _placeholder_stall(ci) -> void:
 
 
 func _peg(ci, p: Vector2, lit: bool) -> void:
-	if ci.texture("w2/hainan/ring_stall.png"):
-		pass
-	else:
-		ci.draw_rect(Rect2(p + Vector2(-3, -18), Vector2(6, 18)), Color("#6b4a2c"))
-		ci.draw_circle(p + Vector2(0, -20), 6, Color("#f4d495") if not lit else Color("#ffe27a"))
-	if lit:
-		ci.draw_arc(p, 14, 0, TAU, 20, Color(1, 0.9, 0.5, 0.7), 2.0)
+	var bob := Vector2(0,sin(ci.time*1.4+p.x)*1.5)
+	var at := p+bob
+	var color := Color("#ffd06c") if int(p.x)%2==0 else Color("#d6a4d7")
+	# Small floating toys in the actual pool, no market stall or prize counter.
+	ci.draw_arc(at+Vector2(0,5),13,0,TAU,20,Color(0.85,1,1,0.35),1)
+	ci.draw_circle(at+Vector2(0,-2),8,color)
+	ci.draw_circle(at+Vector2(5,-9),5,color)
+	ci.draw_colored_polygon(PackedVector2Array([at+Vector2(8,-10),at+Vector2(15,-8),at+Vector2(8,-6)]),Color("#de8750"))
+	ci.draw_rect(Rect2(at+Vector2(6,-11),Vector2(1.5,1.5)),ci.INK)
+	if lit:ci.draw_arc(at,14,0,TAU,20,Color(1,0.9,0.5,0.7),2)
 
 
 func _ring(ci, p: Vector2, s: float, spin: float) -> void:
@@ -187,3 +187,12 @@ func _ring(ci, p: Vector2, s: float, spin: float) -> void:
 		var a := TAU * i / 16.0
 		pts.append(p + Vector2(cos(a) * w, sin(a) * h))
 	ci.draw_polyline(pts, Color("#e0403a"), 3.0)
+
+func companion_frame() -> String:
+	return "w2/common/toretto_cheer.png" if turn % 2 == 1 and phase in ["fly","land"] else "w2/common/toretto_neutral_r2.png"
+
+
+func restore_checkpoint() -> void:
+	dragging = false
+	if absf(r.comp_pos.x-r.feet.x) < 55.0:
+		r.comp_pos = r.feet + Vector2(72,-4)

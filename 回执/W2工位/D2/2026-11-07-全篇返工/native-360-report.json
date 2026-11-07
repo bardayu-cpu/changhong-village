@@ -1,0 +1,1242 @@
+{
+  "failures": 0,
+  "method": "developer checkpoint per playlist step; normal game inputs; accelerated time; native fixed SubViewport; no destination world mutation",
+  "records": [
+    {
+      "id": "prologue/closed",
+      "kind": "step"
+    },
+    {
+      "file": "001_prologue_closed_00_game_intro.png",
+      "kind": "frame",
+      "tag": "prologue/closed_00_game_intro"
+    },
+    {
+      "id": "prologue/unfinished_letter",
+      "kind": "step"
+    },
+    {
+      "file": "002_prologue_unfinished_letter_00_game_intro.png",
+      "kind": "frame",
+      "tag": "prologue/unfinished_letter_00_game_intro"
+    },
+    {
+      "id": "prologue/open",
+      "kind": "step"
+    },
+    {
+      "file": "003_prologue_open_00_game_intro.png",
+      "kind": "frame",
+      "tag": "prologue/open_00_game_intro"
+    },
+    {
+      "id": "prologue/line_to_road",
+      "kind": "step"
+    },
+    {
+      "file": "004_prologue_line_to_road_00_game_intro.png",
+      "kind": "frame",
+      "tag": "prologue/line_to_road_00_game_intro"
+    },
+    {
+      "id": "shanghai/perspective",
+      "kind": "step"
+    },
+    {
+      "file": "005_shanghai_perspective_00_card.png",
+      "kind": "frame",
+      "tag": "shanghai/perspective_00_card"
+    },
+    {
+      "id": "shanghai/street_intro",
+      "kind": "step"
+    },
+    {
+      "file": "006_shanghai_street_intro_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/street_intro_00_say"
+    },
+    {
+      "id": "shanghai/board_car",
+      "kind": "step"
+    },
+    {
+      "file": "007_shanghai_board_car_00_go.png",
+      "kind": "frame",
+      "tag": "shanghai/board_car_00_go"
+    },
+    {
+      "id": "shanghai/drive",
+      "kind": "step"
+    },
+    {
+      "file": "008_shanghai_drive_00_goal.png",
+      "kind": "frame",
+      "tag": "shanghai/drive_00_goal"
+    },
+    {
+      "file": "009_shanghai_drive_01_game_ready.png",
+      "kind": "frame",
+      "tag": "shanghai/drive_01_game_ready"
+    },
+    {
+      "file": "010_shanghai_drive_01_game_drive.png",
+      "kind": "frame",
+      "tag": "shanghai/drive_01_game_drive"
+    },
+    {
+      "file": "011_shanghai_drive_01_game_park.png",
+      "kind": "frame",
+      "tag": "shanghai/drive_01_game_park"
+    },
+    {
+      "file": "012_shanghai_drive_01_game_in.png",
+      "kind": "frame",
+      "tag": "shanghai/drive_01_game_in"
+    },
+    {
+      "id": "shanghai/parked",
+      "kind": "step"
+    },
+    {
+      "file": "013_shanghai_parked_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/parked_00_say"
+    },
+    {
+      "id": "shanghai/other_car",
+      "kind": "step"
+    },
+    {
+      "file": "014_shanghai_other_car_00_wait.png",
+      "kind": "frame",
+      "tag": "shanghai/other_car_00_wait"
+    },
+    {
+      "file": "015_shanghai_other_car_01_say_readable.png",
+      "kind": "frame",
+      "tag": "shanghai/other_car_01_say_readable"
+    },
+    {
+      "id": "shanghai/approach_axiao",
+      "kind": "step"
+    },
+    {
+      "file": "016_shanghai_approach_axiao_00_go.png",
+      "kind": "frame",
+      "tag": "shanghai/approach_axiao_00_go"
+    },
+    {
+      "id": "shanghai/line_1",
+      "kind": "step"
+    },
+    {
+      "file": "017_shanghai_line_1_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/line_1_00_say"
+    },
+    {
+      "id": "shanghai/line_2",
+      "kind": "step"
+    },
+    {
+      "file": "018_shanghai_line_2_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/line_2_00_say"
+    },
+    {
+      "id": "shanghai/line_3",
+      "kind": "step"
+    },
+    {
+      "file": "019_shanghai_line_3_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/line_3_00_say"
+    },
+    {
+      "id": "shanghai/line_4",
+      "kind": "step"
+    },
+    {
+      "file": "020_shanghai_line_4_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/line_4_00_say"
+    },
+    {
+      "id": "shanghai/line_5",
+      "kind": "step"
+    },
+    {
+      "file": "021_shanghai_line_5_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/line_5_00_say"
+    },
+    {
+      "id": "shanghai/line_6",
+      "kind": "step"
+    },
+    {
+      "file": "022_shanghai_line_6_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/line_6_00_say"
+    },
+    {
+      "id": "shanghai/meet_close",
+      "kind": "step"
+    },
+    {
+      "file": "023_shanghai_meet_close_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/meet_close_00_say"
+    },
+    {
+      "id": "shanghai/quiet",
+      "kind": "step"
+    },
+    {
+      "file": "024_shanghai_quiet_00_wait.png",
+      "kind": "frame",
+      "tag": "shanghai/quiet_00_wait"
+    },
+    {
+      "id": "shanghai/later",
+      "kind": "step"
+    },
+    {
+      "file": "025_shanghai_later_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/later_00_say"
+    },
+    {
+      "id": "shanghai/chat_system",
+      "kind": "step"
+    },
+    {
+      "file": "026_shanghai_chat_system_00_game_chat_0.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_system_00_game_chat_0"
+    },
+    {
+      "file": "027_shanghai_chat_system_00_game_done_1.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_system_00_game_done_1"
+    },
+    {
+      "id": "shanghai/chat_axiao",
+      "kind": "step"
+    },
+    {
+      "file": "028_shanghai_chat_axiao_00_game_chat_0.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_axiao_00_game_chat_0"
+    },
+    {
+      "file": "029_shanghai_chat_axiao_00_game_done_1.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_axiao_00_game_done_1"
+    },
+    {
+      "id": "shanghai/chat_toretto",
+      "kind": "step"
+    },
+    {
+      "file": "030_shanghai_chat_toretto_00_game_chat_0.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_toretto_00_game_chat_0"
+    },
+    {
+      "file": "031_shanghai_chat_toretto_00_game_done_1.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_toretto_00_game_done_1"
+    },
+    {
+      "id": "shanghai/chat_ayu",
+      "kind": "step"
+    },
+    {
+      "file": "032_shanghai_chat_ayu_00_game_chat_0.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_ayu_00_game_chat_0"
+    },
+    {
+      "file": "033_shanghai_chat_ayu_00_game_done_1.png",
+      "kind": "frame",
+      "tag": "shanghai/chat_ayu_00_game_done_1"
+    },
+    {
+      "id": "shanghai/pen",
+      "kind": "step"
+    },
+    {
+      "file": "034_shanghai_pen_00_material.png",
+      "kind": "frame",
+      "tag": "shanghai/pen_00_material"
+    },
+    {
+      "id": "shanghai/to_chengdu",
+      "kind": "step"
+    },
+    {
+      "file": "035_shanghai_to_chengdu_00_say.png",
+      "kind": "frame",
+      "tag": "shanghai/to_chengdu_00_say"
+    },
+    {
+      "id": "chengdu/chengdu_return",
+      "kind": "step"
+    },
+    {
+      "file": "036_chengdu_chengdu_return_00_say.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_return_00_say"
+    },
+    {
+      "id": "chengdu/chengdu_routine",
+      "kind": "step"
+    },
+    {
+      "file": "037_chengdu_chengdu_routine_00_say.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_routine_00_say"
+    },
+    {
+      "id": "chengdu/chengdu_walk",
+      "kind": "step"
+    },
+    {
+      "file": "038_chengdu_chengdu_walk_00_goal.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_00_goal"
+    },
+    {
+      "file": "039_chengdu_chengdu_walk_01_game_active.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_active"
+    },
+    {
+      "file": "040_chengdu_chengdu_walk_01_game_chew.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_chew"
+    },
+    {
+      "file": "041_chengdu_chengdu_walk_01_game_done.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_walk_01_game_done"
+    },
+    {
+      "id": "chengdu/chengdu_ping",
+      "kind": "step"
+    },
+    {
+      "file": "042_chengdu_chengdu_ping_00_say.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_ping_00_say"
+    },
+    {
+      "id": "chengdu/chengdu_group",
+      "kind": "step"
+    },
+    {
+      "file": "043_chengdu_chengdu_group_00_game_chat_0.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_0"
+    },
+    {
+      "file": "044_chengdu_chengdu_group_00_game_chat_1.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_1"
+    },
+    {
+      "file": "045_chengdu_chengdu_group_00_game_chat_2.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_chat_2"
+    },
+    {
+      "file": "046_chengdu_chengdu_group_00_game_done_3.png",
+      "kind": "frame",
+      "tag": "chengdu/chengdu_group_00_game_done_3"
+    },
+    {
+      "id": "chengdu/ink",
+      "kind": "step"
+    },
+    {
+      "file": "047_chengdu_ink_00_material.png",
+      "kind": "frame",
+      "tag": "chengdu/ink_00_material"
+    },
+    {
+      "id": "call/night_call",
+      "kind": "step"
+    },
+    {
+      "file": "048_call_night_call_00_card.png",
+      "kind": "frame",
+      "tag": "call/night_call_00_card"
+    },
+    {
+      "file": "049_call_night_call_01_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_01_say"
+    },
+    {
+      "file": "050_call_night_call_02_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_02_say"
+    },
+    {
+      "file": "051_call_night_call_03_goal.png",
+      "kind": "frame",
+      "tag": "call/night_call_03_goal"
+    },
+    {
+      "file": "052_call_night_call_04_go.png",
+      "kind": "frame",
+      "tag": "call/night_call_04_go"
+    },
+    {
+      "file": "053_call_night_call_05_game_ring_0.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_ring_0"
+    },
+    {
+      "file": "054_call_night_call_05_game_talk_0.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_talk_0"
+    },
+    {
+      "file": "055_call_night_call_05_game_talk_1.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_talk_1"
+    },
+    {
+      "file": "056_call_night_call_05_game_talk_2.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_talk_2"
+    },
+    {
+      "file": "057_call_night_call_05_game_talk_3.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_talk_3"
+    },
+    {
+      "file": "058_call_night_call_05_game_birthday_3.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_birthday_3"
+    },
+    {
+      "file": "059_call_night_call_05_game_reply_4.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_reply_4"
+    },
+    {
+      "file": "060_call_night_call_05_game_reply_5.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_reply_5"
+    },
+    {
+      "file": "061_call_night_call_05_game_reply_6.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_reply_6"
+    },
+    {
+      "file": "062_call_night_call_05_game_reply_7.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_reply_7"
+    },
+    {
+      "file": "063_call_night_call_05_game_hangup_8.png",
+      "kind": "frame",
+      "tag": "call/night_call_05_game_hangup_8"
+    },
+    {
+      "file": "064_call_night_call_06_transition.png",
+      "kind": "frame",
+      "tag": "call/night_call_06_transition"
+    },
+    {
+      "file": "065_call_night_call_07_say_readable.png",
+      "kind": "frame",
+      "tag": "call/night_call_07_say_readable"
+    },
+    {
+      "file": "066_call_night_call_08_go.png",
+      "kind": "frame",
+      "tag": "call/night_call_08_go"
+    },
+    {
+      "file": "067_call_night_call_09_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_09_say"
+    },
+    {
+      "file": "068_call_night_call_10_go.png",
+      "kind": "frame",
+      "tag": "call/night_call_10_go"
+    },
+    {
+      "file": "069_call_night_call_11_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_11_say"
+    },
+    {
+      "file": "070_call_night_call_12_go.png",
+      "kind": "frame",
+      "tag": "call/night_call_12_go"
+    },
+    {
+      "file": "071_call_night_call_13_transition.png",
+      "kind": "frame",
+      "tag": "call/night_call_13_transition"
+    },
+    {
+      "file": "072_call_night_call_14_game_chat_0.png",
+      "kind": "frame",
+      "tag": "call/night_call_14_game_chat_0"
+    },
+    {
+      "file": "073_call_night_call_14_game_chat_1.png",
+      "kind": "frame",
+      "tag": "call/night_call_14_game_chat_1"
+    },
+    {
+      "file": "074_call_night_call_14_game_chat_2.png",
+      "kind": "frame",
+      "tag": "call/night_call_14_game_chat_2"
+    },
+    {
+      "file": "075_call_night_call_14_game_chat_3.png",
+      "kind": "frame",
+      "tag": "call/night_call_14_game_chat_3"
+    },
+    {
+      "file": "076_call_night_call_14_game_chat_4.png",
+      "kind": "frame",
+      "tag": "call/night_call_14_game_chat_4"
+    },
+    {
+      "file": "077_call_night_call_14_game_done_5.png",
+      "kind": "frame",
+      "tag": "call/night_call_14_game_done_5"
+    },
+    {
+      "file": "078_call_night_call_18_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_18_say"
+    },
+    {
+      "file": "079_call_night_call_19_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_19_say"
+    },
+    {
+      "file": "080_call_night_call_20_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_20_say"
+    },
+    {
+      "file": "081_call_night_call_21_goal.png",
+      "kind": "frame",
+      "tag": "call/night_call_21_goal"
+    },
+    {
+      "file": "082_call_night_call_22_transition.png",
+      "kind": "frame",
+      "tag": "call/night_call_22_transition"
+    },
+    {
+      "file": "083_call_night_call_23_game_care_1.png",
+      "kind": "frame",
+      "tag": "call/night_call_23_game_care_1"
+    },
+    {
+      "file": "084_call_night_call_23_game_care_2.png",
+      "kind": "frame",
+      "tag": "call/night_call_23_game_care_2"
+    },
+    {
+      "file": "085_call_night_call_23_game_care_3.png",
+      "kind": "frame",
+      "tag": "call/night_call_23_game_care_3"
+    },
+    {
+      "file": "086_call_night_call_23_game_care_4.png",
+      "kind": "frame",
+      "tag": "call/night_call_23_game_care_4"
+    },
+    {
+      "file": "087_call_night_call_23_game_care_5.png",
+      "kind": "frame",
+      "tag": "call/night_call_23_game_care_5"
+    },
+    {
+      "file": "088_call_night_call_23_game_settle_6.png",
+      "kind": "frame",
+      "tag": "call/night_call_23_game_settle_6"
+    },
+    {
+      "file": "089_call_night_call_25_game_active.png",
+      "kind": "frame",
+      "tag": "call/night_call_25_game_active"
+    },
+    {
+      "file": "090_call_night_call_26_say_readable.png",
+      "kind": "frame",
+      "tag": "call/night_call_26_say_readable"
+    },
+    {
+      "file": "091_call_night_call_27_say.png",
+      "kind": "frame",
+      "tag": "call/night_call_27_say"
+    },
+    {
+      "file": "092_call_night_call_28_material.png",
+      "kind": "frame",
+      "tag": "call/night_call_28_material"
+    },
+    {
+      "id": "shizuoka/pier",
+      "kind": "step"
+    },
+    {
+      "file": "093_shizuoka_pier_00_card.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_00_card"
+    },
+    {
+      "file": "094_shizuoka_pier_01_say.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_01_say"
+    },
+    {
+      "file": "095_shizuoka_pier_02_say.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_02_say"
+    },
+    {
+      "file": "096_shizuoka_pier_03_say.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_03_say"
+    },
+    {
+      "file": "097_shizuoka_pier_04_goal.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_04_goal"
+    },
+    {
+      "file": "098_shizuoka_pier_05_go.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_05_go"
+    },
+    {
+      "file": "099_shizuoka_pier_06_game_aim.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_aim"
+    },
+    {
+      "file": "100_shizuoka_pier_06_game_backcast.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_backcast"
+    },
+    {
+      "file": "101_shizuoka_pier_06_game_cast.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_cast"
+    },
+    {
+      "file": "102_shizuoka_pier_06_game_fly.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_fly"
+    },
+    {
+      "file": "103_shizuoka_pier_06_game_wait.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_wait"
+    },
+    {
+      "file": "104_shizuoka_pier_06_game_reel.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_reel"
+    },
+    {
+      "file": "105_shizuoka_pier_06_game_caught.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_06_game_caught"
+    },
+    {
+      "file": "106_shizuoka_pier_07_go.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_07_go"
+    },
+    {
+      "file": "107_shizuoka_pier_08_transition.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_08_transition"
+    },
+    {
+      "file": "108_shizuoka_pier_09_go.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_09_go"
+    },
+    {
+      "file": "109_shizuoka_pier_10_go.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_10_go"
+    },
+    {
+      "file": "110_shizuoka_pier_11_transition.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_11_transition"
+    },
+    {
+      "file": "111_shizuoka_pier_12_go.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_12_go"
+    },
+    {
+      "file": "112_shizuoka_pier_14_wait.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_14_wait"
+    },
+    {
+      "file": "113_shizuoka_pier_15_card.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_15_card"
+    },
+    {
+      "file": "114_shizuoka_pier_16_transition.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_16_transition"
+    },
+    {
+      "file": "115_shizuoka_pier_17_game_enter_0.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_enter_0"
+    },
+    {
+      "file": "116_shizuoka_pier_17_game_glide_0.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_glide_0"
+    },
+    {
+      "file": "117_shizuoka_pier_17_game_talk_1.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_1"
+    },
+    {
+      "file": "118_shizuoka_pier_17_game_talk_2.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_2"
+    },
+    {
+      "file": "119_shizuoka_pier_17_game_talk_3.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_3"
+    },
+    {
+      "file": "120_shizuoka_pier_17_game_talk_4.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_4"
+    },
+    {
+      "file": "121_shizuoka_pier_17_game_talk_5.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_5"
+    },
+    {
+      "file": "122_shizuoka_pier_17_game_talk_6.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_6"
+    },
+    {
+      "file": "123_shizuoka_pier_17_game_talk_7.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_talk_7"
+    },
+    {
+      "file": "124_shizuoka_pier_17_game_outro_8.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_17_game_outro_8"
+    },
+    {
+      "file": "125_shizuoka_pier_19_transition.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_19_transition"
+    },
+    {
+      "file": "126_shizuoka_pier_20_game_enter_0.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_20_game_enter_0"
+    },
+    {
+      "file": "127_shizuoka_pier_20_game_stamp_0.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_20_game_stamp_0"
+    },
+    {
+      "file": "128_shizuoka_pier_20_game_photo_0.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_20_game_photo_0"
+    },
+    {
+      "file": "129_shizuoka_pier_20_game_flash_0.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_20_game_flash_0"
+    },
+    {
+      "file": "130_shizuoka_pier_20_game_memory_1.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_20_game_memory_1"
+    },
+    {
+      "file": "131_shizuoka_pier_20_game_done_2.png",
+      "kind": "frame",
+      "tag": "shizuoka/pier_20_game_done_2"
+    },
+    {
+      "id": "hainan/wanning",
+      "kind": "step"
+    },
+    {
+      "file": "132_hainan_wanning_00_card.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_00_card"
+    },
+    {
+      "file": "133_hainan_wanning_01_say.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_01_say"
+    },
+    {
+      "file": "134_hainan_wanning_02_say.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_02_say"
+    },
+    {
+      "file": "135_hainan_wanning_03_say.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_03_say"
+    },
+    {
+      "file": "136_hainan_wanning_04_goal.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_04_goal"
+    },
+    {
+      "file": "137_hainan_wanning_05_go.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_05_go"
+    },
+    {
+      "file": "138_hainan_wanning_06_game_aim_turn0.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_aim_turn0"
+    },
+    {
+      "file": "139_hainan_wanning_06_game_fly_turn0.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_fly_turn0"
+    },
+    {
+      "file": "140_hainan_wanning_06_game_land_turn0.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_land_turn0"
+    },
+    {
+      "file": "141_hainan_wanning_06_game_auto_aim_turn1.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_auto_aim_turn1"
+    },
+    {
+      "file": "142_hainan_wanning_06_game_fly_turn1.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_fly_turn1"
+    },
+    {
+      "file": "143_hainan_wanning_06_game_land_turn1.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_land_turn1"
+    },
+    {
+      "file": "144_hainan_wanning_06_game_fly_turn2.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_fly_turn2"
+    },
+    {
+      "file": "145_hainan_wanning_06_game_land_turn2.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_land_turn2"
+    },
+    {
+      "file": "146_hainan_wanning_06_game_auto_aim_turn3.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_auto_aim_turn3"
+    },
+    {
+      "file": "147_hainan_wanning_06_game_fly_turn3.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_fly_turn3"
+    },
+    {
+      "file": "148_hainan_wanning_06_game_land_turn3.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_06_game_land_turn3"
+    },
+    {
+      "file": "149_hainan_wanning_07_card.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_07_card"
+    },
+    {
+      "file": "150_hainan_wanning_08_transition.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_08_transition"
+    },
+    {
+      "file": "151_hainan_wanning_09_go.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_09_go"
+    },
+    {
+      "file": "152_hainan_wanning_10_say_readable.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_10_say_readable"
+    },
+    {
+      "file": "153_hainan_wanning_11_say.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_11_say"
+    },
+    {
+      "file": "154_hainan_wanning_12_say.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_12_say"
+    },
+    {
+      "file": "155_hainan_wanning_13_wait.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_13_wait"
+    },
+    {
+      "file": "156_hainan_wanning_15_material.png",
+      "kind": "frame",
+      "tag": "hainan/wanning_15_material"
+    },
+    {
+      "id": "hongkong/hk",
+      "kind": "step"
+    },
+    {
+      "file": "157_hongkong_hk_00_card.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_00_card"
+    },
+    {
+      "file": "158_hongkong_hk_01_say.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_01_say"
+    },
+    {
+      "file": "159_hongkong_hk_03_goal.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_03_goal"
+    },
+    {
+      "file": "160_hongkong_hk_04_game_list.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_04_game_list"
+    },
+    {
+      "file": "161_hongkong_hk_04_game_letter.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_04_game_letter"
+    },
+    {
+      "file": "162_hongkong_hk_04_game_accepted.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_04_game_accepted"
+    },
+    {
+      "file": "163_hongkong_hk_06_say_readable.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_06_say_readable"
+    },
+    {
+      "file": "164_hongkong_hk_07_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_07_transition"
+    },
+    {
+      "file": "165_hongkong_hk_08_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_08_go"
+    },
+    {
+      "file": "166_hongkong_hk_09_wait.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_09_wait"
+    },
+    {
+      "file": "167_hongkong_hk_10_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_10_go"
+    },
+    {
+      "file": "168_hongkong_hk_12_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_12_transition"
+    },
+    {
+      "file": "169_hongkong_hk_13_say_readable.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_13_say_readable"
+    },
+    {
+      "file": "170_hongkong_hk_14_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_14_go"
+    },
+    {
+      "file": "171_hongkong_hk_16_game_walk.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_16_game_walk"
+    },
+    {
+      "file": "172_hongkong_hk_16_game_prep.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_16_game_prep"
+    },
+    {
+      "file": "173_hongkong_hk_16_game_flash.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_16_game_flash"
+    },
+    {
+      "file": "174_hongkong_hk_16_game_show.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_16_game_show"
+    },
+    {
+      "file": "175_hongkong_hk_17_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_17_transition"
+    },
+    {
+      "file": "176_hongkong_hk_18_say_readable.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_18_say_readable"
+    },
+    {
+      "file": "177_hongkong_hk_19_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_19_go"
+    },
+    {
+      "file": "178_hongkong_hk_20_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_20_transition"
+    },
+    {
+      "file": "179_hongkong_hk_21_say_readable.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_21_say_readable"
+    },
+    {
+      "file": "180_hongkong_hk_22_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_22_go"
+    },
+    {
+      "file": "181_hongkong_hk_23_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_23_transition"
+    },
+    {
+      "file": "182_hongkong_hk_24_say_readable.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_24_say_readable"
+    },
+    {
+      "file": "183_hongkong_hk_25_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_25_go"
+    },
+    {
+      "file": "184_hongkong_hk_27_game_walk.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_27_game_walk"
+    },
+    {
+      "file": "185_hongkong_hk_27_game_prep.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_27_game_prep"
+    },
+    {
+      "file": "186_hongkong_hk_27_game_flash.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_27_game_flash"
+    },
+    {
+      "file": "187_hongkong_hk_27_game_show.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_27_game_show"
+    },
+    {
+      "file": "188_hongkong_hk_28_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_28_transition"
+    },
+    {
+      "file": "189_hongkong_hk_29_say_readable.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_29_say_readable"
+    },
+    {
+      "file": "190_hongkong_hk_30_go.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_30_go"
+    },
+    {
+      "file": "191_hongkong_hk_32_game_walk.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_32_game_walk"
+    },
+    {
+      "file": "192_hongkong_hk_32_game_prep.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_32_game_prep"
+    },
+    {
+      "file": "193_hongkong_hk_32_game_flash.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_32_game_flash"
+    },
+    {
+      "file": "194_hongkong_hk_32_game_show.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_32_game_show"
+    },
+    {
+      "file": "195_hongkong_hk_33_material.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_33_material"
+    },
+    {
+      "file": "196_hongkong_hk_34_transition.png",
+      "kind": "frame",
+      "tag": "hongkong/hk_34_transition"
+    },
+    {
+      "id": "finale/finale",
+      "kind": "step"
+    },
+    {
+      "file": "197_finale_finale_00_card.png",
+      "kind": "frame",
+      "tag": "finale/finale_00_card"
+    },
+    {
+      "file": "198_finale_finale_02_game_read_0.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_read_0"
+    },
+    {
+      "file": "199_finale_finale_02_game_read_1.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_read_1"
+    },
+    {
+      "file": "200_finale_finale_02_game_read_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_read_2"
+    },
+    {
+      "file": "201_finale_finale_02_game_name_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_name_2"
+    },
+    {
+      "file": "202_finale_finale_02_game_write_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_write_2"
+    },
+    {
+      "file": "203_finale_finale_02_game_fold_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_fold_2"
+    },
+    {
+      "file": "204_finale_finale_02_game_seal_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_seal_2"
+    },
+    {
+      "file": "205_finale_finale_02_game_stamped_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_stamped_2"
+    },
+    {
+      "file": "206_finale_finale_02_game_send_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_send_2"
+    },
+    {
+      "file": "207_finale_finale_02_game_opening_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_opening_2"
+    },
+    {
+      "file": "208_finale_finale_02_game_read_received_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_read_received_2"
+    },
+    {
+      "file": "209_finale_finale_02_game_look_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_look_2"
+    },
+    {
+      "file": "210_finale_finale_02_game_welcome_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_welcome_2"
+    },
+    {
+      "file": "211_finale_finale_02_game_done_2.png",
+      "kind": "frame",
+      "tag": "finale/finale_02_game_done_2"
+    },
+    {
+      "file": "212_finale_finale_choice_destinations.png",
+      "kind": "frame",
+      "tag": "finale/finale_choice_destinations"
+    },
+    {
+      "id": "finale/finale",
+      "kind": "exits",
+      "result": {
+        "look": "07",
+        "name": "测试宾客"
+      },
+      "to": [
+        "res://hongyuan/world_entry.tscn",
+        "res://hongyuan/village_entry.tscn"
+      ]
+    },
+    {
+      "id": "finale/next",
+      "kind": "step"
+    },
+    {
+      "file": "213_finale_next_entry.png",
+      "kind": "frame",
+      "tag": "finale/next_entry"
+    },
+    {
+      "file": "214_finale_next_visible.png",
+      "kind": "frame",
+      "tag": "finale/next_visible"
+    }
+  ],
+  "screenshots": 214,
+  "steps": 38
+}

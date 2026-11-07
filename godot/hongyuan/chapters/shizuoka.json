@@ -1,230 +1,488 @@
 {
- "chapterId": "shizuoka",
- "titleId": "G-09",
- "steps": [
-  {
-   "id": "pier",
-   "type": "scene",
-   "sceneId": "shizuoka",
-   "speaker": "system",
-   "actorMode": "none",
-   "actorSlot": null,
-   "background": "scene",
-   "visibleActors": [],
-   "scene": {
-    "personHeight": 128,
-    "badge": "G-02",
-    "bg": "w2/shizuoka/bg_pier.png|bg_shizuoka_pier_r1.png",
-    "walkArea": [
-     [
-      16,
-      376
-     ],
-     [
-      344,
-      376
-     ],
-     [
-      344,
-      590
-     ],
-     [
-      16,
-      590
-     ]
-    ],
-    "start": [
-     60,
-     540
-    ],
-    "hotspots": [
-     {
-      "id": "spot",
-      "at": [
-       200,
-       382
-      ],
-      "snap": [
-       200,
-       382
-      ],
-      "face": 1,
-      "icon": "rod"
-     },
-     {
-      "id": "boat",
-      "at": [
-       326,
-       500
-      ],
-      "icon": "sit"
-     }
-    ],
-    "beats": [
-     {
-      "card": "G-09",
-      "duration": 2.0
-     },
-     {
-      "narrate": "A4-1a"
-     },
-     {
-      "narrate": "A4-1b"
-     },
-     {
-      "narrate": "A4-1c"
-     },
-     {
-      "goal": {
-       "目标": "到港口钓一次鱼",
-       "操作": "走到钓位，按住蓄力，松手甩竿",
-       "所得": "旅途之后，把印章带回书桌"
+  "chapterId": "shizuoka",
+  "titleId": "G-09",
+  "steps": [
+    {
+      "id": "pier",
+      "type": "scene",
+      "sceneId": "shizuoka",
+      "speaker": "system",
+      "actorMode": "none",
+      "actorSlot": null,
+      "background": "scene",
+      "visibleActors": [],
+      "scene": {
+        "personHeight": 128,
+        "badge": "G-02",
+        "bg": "round1/scenes/harbor.png",
+        "walkArea": [
+          [
+            20,
+            485
+          ],
+          [
+            340,
+            485
+          ],
+          [
+            340,
+            610
+          ],
+          [
+            20,
+            610
+          ]
+        ],
+        "start": [
+          65,
+          588
+        ],
+        "hotspots": [
+          {
+            "id": "spot",
+            "at": [
+              225,
+              490
+            ],
+            "snap": [
+              225,
+              490
+            ],
+            "face": 1,
+            "icon": "rod"
+          },
+          {
+            "id": "boat",
+            "at": [
+              316,
+              564
+            ],
+            "icon": "exit"
+          }
+        ],
+        "beats": [
+          {
+            "card": "G-09",
+            "duration": 2.0
+          },
+          {
+            "narrate": "A4-1a"
+          },
+          {
+            "narrate": "A4-1b"
+          },
+          {
+            "narrate": "A4-1c"
+          },
+          {
+            "goal": {
+              "目标": "到港口钓一次鱼",
+              "操作": "走到钓位，按住蓄力，松手甩竿",
+              "所得": "旅途之后，把印章带回书桌"
+            }
+          },
+          {
+            "go": "spot",
+            "hint": "A4-P1"
+          },
+          {
+            "game": "fishing"
+          },
+          {
+            "go": "boat"
+          },
+          {
+            "bg": "round1/people/turtle_boarding.png",
+            "scaleProfile": "boarding",
+            "walkArea": [
+              [
+                40,
+                610
+              ],
+              [
+                320,
+                610
+              ],
+              [
+                320,
+                500
+              ],
+              [
+                150,
+                465
+              ],
+              [
+                240,
+                320
+              ],
+              [
+                200,
+                300
+              ],
+              [
+                70,
+                475
+              ],
+              [
+                40,
+                500
+              ]
+            ],
+            "start": [
+              65,
+              590
+            ],
+            "companion": "toretto",
+            "walkers": [
+              {
+                "guest": "05",
+                "a": [
+                  45,
+                  570
+                ],
+                "b": [
+                  45,
+                  610
+                ],
+                "speed": 12,
+                "scale": 0.9,
+                "phase": 0.0
+              },
+              {
+                "guest": "06",
+                "a": [
+                  115,
+                  570
+                ],
+                "b": [
+                  115,
+                  610
+                ],
+                "speed": 12,
+                "scale": 0.9,
+                "phase": 0.2
+              },
+              {
+                "guest": "07",
+                "a": [
+                  185,
+                  570
+                ],
+                "b": [
+                  185,
+                  610
+                ],
+                "speed": 12,
+                "scale": 0.9,
+                "phase": 0.4
+              },
+              {
+                "guest": "08",
+                "a": [
+                  255,
+                  570
+                ],
+                "b": [
+                  255,
+                  610
+                ],
+                "speed": 12,
+                "scale": 0.9,
+                "phase": 0.6000000000000001
+              }
+            ],
+            "hotspots": [
+              {
+                "id": "gangway_foot",
+                "at": [
+                  108,
+                  492
+                ],
+                "icon": "exit"
+              },
+              {
+                "id": "gangway",
+                "at": [
+                  215,
+                  335
+                ],
+                "snap": [
+                  215,
+                  335
+                ],
+                "icon": "exit"
+              }
+            ]
+          },
+          {
+            "go": "gangway_foot",
+            "hint": "A4-B3"
+          },
+          {
+            "go": "gangway",
+            "hint": "A4-B3"
+          },
+          {
+            "personHeight": 95,
+            "bg": "round1/scenes/cabin.png",
+            "walkArea": [
+              [
+                95,
+                285
+              ],
+              [
+                270,
+                285
+              ],
+              [
+                305,
+                620
+              ],
+              [
+                55,
+                620
+              ]
+            ],
+            "start": [
+              180,
+              590
+            ],
+            "pose": "",
+            "actors": [
+              {
+                "id": "toretto",
+                "tex": "w2/common/toretto_sit.png",
+                "at": [
+                  170,
+                  264
+                ]
+              }
+            ],
+            "hotspots": [
+              {
+                "id": "seat",
+                "at": [
+                  220,
+                  294
+                ],
+                "snap": [
+                  220,
+                  264
+                ],
+                "face": -1,
+                "pose": "sit",
+                "icon": "sit"
+              }
+            ],
+            "scaleProfile": "cabin",
+            "atmosphere": "boat",
+            "companion": "",
+            "walkers": [
+              {
+                "guest": "09",
+                "a": [
+                  80,
+                  298
+                ],
+                "b": [
+                  80,
+                  298
+                ],
+                "speed": 0,
+                "scale": 0.8
+              },
+              {
+                "guest": "10",
+                "a": [
+                  292,
+                  340
+                ],
+                "b": [
+                  292,
+                  340
+                ],
+                "speed": 0,
+                "scale": 0.8
+              },
+              {
+                "guest": "11",
+                "a": [
+                  107,
+                  430
+                ],
+                "b": [
+                  130,
+                  520
+                ],
+                "speed": 17,
+                "scale": 0.95
+              },
+              {
+                "guest": "12",
+                "a": [
+                  258,
+                  540
+                ],
+                "b": [
+                  240,
+                  420
+                ],
+                "speed": 19,
+                "scale": 0.95
+              }
+            ]
+          },
+          {
+            "go": "seat",
+            "hint": "G-BOAT-SIT"
+          },
+          {
+            "hint": ""
+          },
+          {
+            "wait": 3.5
+          },
+          {
+            "card": "B-J3-1",
+            "duration": 2.0
+          },
+          {
+            "bg": "",
+            "fill": "#10122a",
+            "badge": "",
+            "pose": "",
+            "actors": [],
+            "hotspots": [],
+            "hideAyu": true,
+            "walkers": [],
+            "companion": ""
+          },
+          {
+            "game": "onsen",
+            "lines": [
+              {
+                "say": "A4-2a",
+                "who": "toretto"
+              },
+              {
+                "say": "A4-2b",
+                "who": "ayu"
+              },
+              {
+                "say": "A4-2c",
+                "who": "toretto"
+              },
+              {
+                "say": "A4-2d",
+                "who": "toretto"
+              },
+              {
+                "say": "A4-2e",
+                "who": "toretto"
+              },
+              {
+                "say": "A4-2f",
+                "who": "toretto"
+              },
+              {
+                "say": "A4-2g"
+              },
+              {
+                "say": "A4-2h",
+                "who": "ayu"
+              }
+            ]
+          },
+          {
+            "card": "A4-T1",
+            "duration": 1.8
+          },
+          {
+            "bg": "round1/scenes/registry.png",
+            "fill": "#5e2929",
+            "actors": [],
+            "hideAyu": true,
+            "hotspots": [],
+            "walkers": [],
+            "companion": ""
+          },
+          {
+            "game": "registration",
+            "memory": [
+              "A4-3a",
+              "A4-3b"
+            ]
+          },
+          {
+            "material": "stamp"
+          }
+        ],
+        "scaleProfile": "harbor",
+        "atmosphere": "harbour",
+        "walkers": [
+          {
+            "guest": "07",
+            "a": [
+              22,
+              505
+            ],
+            "b": [
+              70,
+              505
+            ],
+            "speed": 10,
+            "phase": 0.0,
+            "scale": 0.8,
+            "pause": 3
+          },
+          {
+            "guest": "08",
+            "a": [
+              39,
+              505
+            ],
+            "b": [
+              89,
+              505
+            ],
+            "speed": 11,
+            "phase": 0.19,
+            "scale": 0.8,
+            "pause": 3
+          },
+          {
+            "guest": "09",
+            "a": [
+              56,
+              505
+            ],
+            "b": [
+              108,
+              505
+            ],
+            "speed": 12,
+            "phase": 0.38,
+            "scale": 0.8,
+            "pause": 3
+          },
+          {
+            "guest": "10",
+            "a": [
+              73,
+              505
+            ],
+            "b": [
+              127,
+              505
+            ],
+            "speed": 13,
+            "phase": 0.5700000000000001,
+            "scale": 0.8,
+            "pause": 3
+          }
+        ],
+        "companion": "toretto"
       }
-     },
-     {
-      "go": "spot",
-      "hint": "A4-P1"
-     },
-     {
-      "game": "fishing"
-     },
-     {
-      "go": "boat"
-     },
-     {
-      "personHeight": 180,
-      "bg": "w2/shizuoka/bg_boat.png|bg_shizuoka_boat_cabin_r1.png",
-      "walkArea": [
-       [
-        30,
-        440
-       ],
-       [
-        330,
-        440
-       ],
-       [
-        340,
-        620
-       ],
-       [
-        20,
-        620
-       ]
-      ],
-      "start": [
-       284,
-       570
-      ],
-      "pose": "",
-      "actors": [
-       {
-        "id": "toretto",
-        "tex": "w2/common/toretto_sit.png",
-        "at": [
-         142,
-         430
-        ]
-       }
-      ],
-      "hotspots": [
-       {
-        "id": "seat",
-        "at": [
-         220,
-         440
-        ],
-        "snap": [
-         220,
-         430
-        ],
-        "face": -1,
-        "pose": "sit",
-        "icon": "sit"
-       }
-      ]
-     },
-     {
-      "go": "seat",
-      "hint": "G-BOAT-SIT"
-     },
-     {
-      "hint": ""
-     },
-     {
-      "wait": 3.5
-     },
-     {
-      "card": "B-J3-1",
-      "duration": 2.0
-     },
-     {
-      "bg": "",
-      "fill": "#10122a",
-      "badge": "",
-      "pose": "",
-      "actors": [],
-      "hotspots": [],
-      "hideAyu": true
-     },
-     {
-      "game": "onsen",
-      "lines": [
-       {
-        "say": "A4-2a",
-        "who": "toretto"
-       },
-       {
-        "say": "A4-2b",
-        "who": "ayu"
-       },
-       {
-        "say": "A4-2c",
-        "who": "toretto"
-       },
-       {
-        "say": "A4-2d",
-        "who": "toretto"
-       },
-       {
-        "say": "A4-2e",
-        "who": "toretto"
-       },
-       {
-        "say": "A4-2f",
-        "who": "toretto"
-       },
-       {
-        "say": "A4-2g"
-       },
-       {
-        "say": "A4-2h",
-        "who": "ayu"
-       }
-      ]
-     },
-     {
-      "card": "A4-T1",
-      "duration": 1.8
-     },
-     {
-      "bg": "w2/shizuoka/bg_cert.png",
-      "fill": "#5e2929",
-      "actors": [],
-      "hideAyu": true,
-      "hotspots": []
-     },
-     {
-      "narrate": "A4-3a"
-     },
-     {
-      "narrate": "A4-3b"
-     },
-     {
-      "material": "stamp"
-     }
-    ]
-   }
-  }
- ]
+    }
+  ]
 }

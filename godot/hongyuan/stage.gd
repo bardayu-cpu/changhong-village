@@ -551,3 +551,7 @@ func _draw_parking_steering() -> void:
 	var tick_tint := Color("#b9d5a1") if aligned else ACCENT
 	var tip := Vector2(24, 0).rotated(parking_angle)
 	draw_line(bay - tip, bay + tip, tick_tint, 2)
+
+
+func _has_point(point: Vector2) -> bool:
+	return view_rect.has_point(point)

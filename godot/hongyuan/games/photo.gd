@@ -18,12 +18,28 @@ var ayu_x := -34.0
 var toretto_x := -86.0
 var walk_d := 0.0
 var _frames := 0
+var caption := "B-G3-1"
 var _photo: Texture2D
 
 
-func start(runner, _beat: Dictionary) -> void:
+func start(runner, beat: Dictionary) -> void:
 	r = runner
+	caption = str(beat.get("caption","B-G3-1"))
 	r.hint = ""
+
+
+func restore_checkpoint() -> void:
+	# The GPU texture is deliberately excluded from JSON checkpoints. Rebuild it
+	# from a clean couple frame before replaying the flash/polaroid transition.
+	_photo = null
+	_frames = 0
+	if phase != "walk":
+		ayu_x = AYU_STOP
+		toretto_x = TORETTO_STOP
+	if phase in ["prep", "flash", "show"]:
+		phase = "prep"
+		t = 0.0
+	r.hint = r.t_("G-PHOTO") if phase == "ready" else ""
 
 
 func process(dt: float) -> bool:
@@ -90,7 +106,7 @@ func skip() -> void:
 
 func draw(ci) -> void:
 	if phase in ["show", "flash"] and _photo:
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0.04, 0.03, 0.05, 0.6 if phase == "show" else 0.0))
+		ci.draw_rect(ci.view_rect, Color(0.04, 0.03, 0.05, 0.6 if phase == "show" else 0.0))
 	else:
 		_draw_couple(ci)
 	if phase == "ready":
@@ -98,7 +114,7 @@ func draw(ci) -> void:
 	if phase == "show":
 		_draw_polaroid(ci)
 	if phase == "flash":
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color(1, 1, 1, 1.0 - clampf(t / 0.5, 0.0, 1.0)))
+		ci.draw_rect(ci.view_rect, Color(1, 1, 1, 1.0 - clampf(t / 0.5, 0.0, 1.0)))
 
 
 func _draw_couple(ci) -> void:
@@ -145,9 +161,17 @@ func _draw_polaroid(ci) -> void:
 	ci.draw_rect(outer, Color(ci.INK, 0.9 * k), false, 2.0)
 	var photo := Rect2(Vector2(-122, -234), Vector2(244, 434))
 	if _photo:
-		ci.draw_texture_rect(_photo, photo, false, Color(1, 1, 1, k))
+		var src := Rect2(Vector2.ZERO,_photo.get_size())
+		var wanted := photo.size.x/photo.size.y
+		if src.size.x/src.size.y > wanted:
+			src.position.x = (src.size.x-src.size.y*wanted)*0.5
+			src.size.x = src.size.y*wanted
+		else:
+			src.position.y = (src.size.y-src.size.x/wanted)*0.5
+			src.size.y = src.size.x/wanted
+		ci.draw_texture_rect_region(_photo, photo, src, Color(1,1,1,k))
 	else:
 		ci.draw_rect(photo, Color("#d8b9a2", k))
 	ci.draw_rect(photo, Color(ci.WOOD, 0.8 * k), false, 2.0)
-	ci.text_at(Vector2(-122, 224), ci.t_("B-G3-1"), 16, Color(ci.INK, k), 244)
+	ci.text_at(Vector2(-122, 224), ci.t_(caption), 16, Color(ci.INK, k), 244)
 	ci.draw_set_transform(Vector2.ZERO)

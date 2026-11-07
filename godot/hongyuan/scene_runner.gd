@@ -29,6 +29,10 @@ const AVATARS := {"ayu": "ayu_avatar.png", "toretto": "toretto_avatar.png", "axi
 const CARD := Vector2(56, 120)
 const SLOTS := {"pen": Vector2(75, 305), "ink": Vector2(180, 305), "paper": Vector2(285, 305), "stamp": Vector2(77, 390), "wax": Vector2(180, 390), "envelope": Vector2(284, 393)}
 const GAMES := {
+	"registration": preload("res://hongyuan/games/registration.gd"),
+	"group_chat": preload("res://hongyuan/games/group_chat.gd"),
+	"care": preload("res://hongyuan/games/care.gd"),
+	"balance": preload("res://hongyuan/games/balance.gd"),
 	"desk_intro": preload("res://hongyuan/games/desk_intro.gd"),
 	"desk_chat": preload("res://hongyuan/games/desk_chat.gd"),
 	"pandas": preload("res://hongyuan/games/pandas.gd"),
@@ -68,6 +72,7 @@ var player_role := "ayu"
 var scale_profile := ""
 var atmosphere := ""
 var atmosphere_elapsed := 0.0
+var world_elapsed := 0.0
 var bg_fill := Color("#2a1c18")
 var night := 0.0
 var sky := Color.TRANSPARENT
@@ -91,7 +96,8 @@ var companion := ""        # 同行的人（和玩家并排走）：目前只有
 var comp_pos := Vector2.ZERO
 var comp_walk := 0.0
 var comp_moving := false
-var walkers: Array = []    # 路人：来回走的普通宾客，{guest,a,b,speed,phase}
+var walkers: Array = []    # 路人：来回走、转身停留和让路，脚点共用景深标定
+var crowd := preload("res://hongyuan/crowd_motion.gd").new()
 var sheet_cache: Dictionary = {}
 var sheet_rects: Dictionary = {}
 var trail: Array[Vector2] = []
@@ -170,6 +176,7 @@ func _apply_world(d: Dictionary) -> void:
 		person_height = float(d.personHeight)
 	if d.has("bg"):
 		bg = str(d.bg)
+		world_elapsed = 0.0
 		bg_fit = bool(d.get("bgFit", false))
 		scale_profile = WorldScale.profile("", bg)
 		atmosphere = ""
@@ -212,6 +219,7 @@ func _apply_world(d: Dictionary) -> void:
 		player_visible = not bool(d.hideAyu)
 	if d.has("walkers"):
 		walkers = d.walkers
+		crowd.setup(walkers)
 	if d.has("companion"):
 		companion = str(d.companion)
 		comp_pos = feet + Vector2(36 * facing, -10)
@@ -322,6 +330,8 @@ func _process(dt: float) -> void:
 			choice_fallback = false
 			_next()
 	time += dt
+	world_elapsed += dt
+	crowd.advance(dt, feet, player_visible)
 	if atmosphere != "": atmosphere_elapsed += dt
 	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
 	match mode:
@@ -357,12 +367,13 @@ func _process(dt: float) -> void:
 
 func _walk(dt: float) -> void:
 	var before := feet
+	var speed := SPEED * clampf(person_height_at(feet.y) / 128.0, 0.45, 1.15)
 	if stick.length() > 0.08:
 		target_hot = ""
 		moving = false
-		feet = _clamp(feet + stick * SPEED * dt)
+		feet = _clamp(feet + stick * speed * dt)
 	elif moving:
-		feet = feet.move_toward(target, SPEED * dt)
+		feet = feet.move_toward(target, speed * dt)
 		feet = _clamp(feet)
 		if feet.distance_to(target) < 0.5 or (target_hot != "" and _near_hotspot() == target_hot and feet.distance_to(target) < 2.0):
 			moving = false
@@ -444,6 +455,10 @@ func _icon_rect(id: String) -> Rect2:
 
 # ---------- 输入 ----------
 
+func _has_point(point: Vector2) -> bool:
+	return view_rect.has_point(point)
+
+
 func _gui_input(event: InputEvent) -> void:
 	event = pointer_input.normalize(event)
 	if event == null:
@@ -464,7 +479,7 @@ func _gui_input(event: InputEvent) -> void:
 	accept_event()
 	if mode == "go":
 		if kind == "down":
-			camera_drag = pos.y < 320 and not _icon_rect(go_id).grow(12).has_point(pos) if hotspots.has(go_id) else pos.y < 320
+			camera_drag = pos.y < 320 and not _icon_rect(go_id).grow(12).has_point(pos - Vector2(0, camera_y)) if hotspots.has(go_id) else pos.y < 320
 			camera_start = camera_y
 			if camera_drag: down_pos = pos
 		elif camera_drag and kind == "move":
@@ -542,9 +557,10 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
+	var screen_pos := pos
 	pos.y -= camera_y
 	if kind == "move" and dragged and stick_pointer:
-		stick = ((pos - down_pos) / 36.0).limit_length()
+		stick = ((screen_pos - down_pos) / 36.0).limit_length()
 	elif kind == "up":
 		stick = Vector2.ZERO
 	if not tap:
@@ -584,6 +600,7 @@ func _draw() -> void:
 	draw_rect(view_rect, bg_fill)
 	_draw_bg()
 	if atmosphere == "coast": CoastShow.draw(self, atmosphere_elapsed)
+	elif atmosphere != "": preload("res://hongyuan/ui/ambient_scene.gd").draw(self, atmosphere, atmosphere_elapsed)
 	draw_set_transform(Vector2(0, camera_y))
 	_draw_world()
 	draw_set_transform(Vector2.ZERO)
@@ -659,12 +676,16 @@ func _draw_world() -> void:
 		var a: Dictionary = actors[id]
 		if a.get("hidden", false):
 			continue
-		items.append({"y": _v(a.at).y + float(a.get("z", 0)), "tex": str(a.tex), "at": _v(a.at), "flip": bool(a.get("flip", false)), "scale": float(a.get("scale", 1.0))})
+		var pos := _v(a.at)
+		if a.has("moveFrom"): pos = _v(a.moveFrom).lerp(pos,smoothstep(0,1,world_elapsed/float(a.get("moveTime",2))))
+		items.append({"y": pos.y + float(a.get("z", 0)), "tex": str(a.tex), "at": pos, "flip": bool(a.get("flip", false)), "scale": float(a.get("scale", 1.0))})
 	if player_visible:
 		items.append({"y": feet.y, "player": true})
 	if companion == "toretto" and player_visible:
 		var cf := "w2/common/toretto_neutral_r2.png"
-		if comp_moving and int(comp_walk / 10.0) % 2 == 0:
+		if mode == "game" and game and game.has_method("companion_frame"):
+			cf = game.companion_frame()
+		elif comp_moving and int(comp_walk / 10.0) % 2 == 0:
 			cf = "w2/common/toretto_walk.png"
 		items.append({"y": comp_pos.y, "tex": cf, "at": comp_pos, "flip": facing < 0, "scale": 1.0})
 	for i in range(walkers.size()):
@@ -693,44 +714,39 @@ func _draw_world() -> void:
 				draw_circle(p + Vector2(6, -3), 2.5, INK)
 
 
-## 路人沿 a→b 来回走；位置只由时间决定，不进存档。
+## Drawing reads the movement state; render order never advances simulation.
 func _walker_pos(w: Dictionary) -> Vector2:
-	var a := _v(w.a)
-	var b := _v(w.b)
-	var length := maxf(a.distance_to(b), 1.0)
-	var d := fposmod(time * float(w.get("speed", 30)) + float(w.get("phase", 0.0)) * length * 2.0, length * 2.0)
-	return a.lerp(b, (d if d <= length else length * 2.0 - d) / length)
-
+	return crowd.at(walkers.find(w)).pos
 
 func _draw_walker(w: Dictionary) -> void:
-	var a := _v(w.a)
-	var b := _v(w.b)
-	var length := maxf(a.distance_to(b), 1.0)
-	var d := fposmod(time * float(w.get("speed", 30)) + float(w.get("phase", 0.0)) * length * 2.0, length * 2.0)
-	var heading := (b - a).normalized() * (1.0 if d <= length else -1.0)
+	var state: Dictionary = crowd.at(walkers.find(w))
+	var heading: Vector2 = state.heading
 	var row := 8 if heading.x > 0 else 4
-	if absf(heading.y) > absf(heading.x):
-		row = 0 if heading.y > 0 else 12
+	if absf(heading.y) > absf(heading.x): row = 0 if heading.y > 0 else 12
 	var path := "res://assets/characters/lm/chr_LM-GUEST-%s.png" % str(w.guest)
-	if not sheet_cache.has(path):
-		sheet_cache[path] = load(path) if ResourceLoader.exists(path) else null
+	if not sheet_cache.has(path): sheet_cache[path] = load(path) if ResourceLoader.exists(path) else null
 	var sheet: Texture2D = sheet_cache[path]
-	var pos := a.lerp(b, (d if d <= length else length * 2.0 - d) / length)
+	var pos: Vector2 = state.pos
 	var height := person_height_at(pos.y) * float(w.get("scale", 0.94))
-	if not sheet:
-		draw_rect(Rect2(pos - Vector2(7, height), Vector2(14, height)), Color("#6b3fa0"))
-		return
-	var f := row + int(d / 8.0) % 4
+	if not sheet: return
+	var f := row + (int(float(state.distance) / 8.0) % 4 if state.walking else 0)
 	var key := path + str(f)
 	if not sheet_rects.has(key):
 		sheet_rects[key] = Rect2(sheet.get_image().get_region(Rect2i(f * 64, 0, 64, 84)).get_used_rect())
 	var used: Rect2 = sheet_rects[key]
 	var k := height / maxf(used.size.y, 1.0)
 	_shadow(pos, used.size.x * k * 0.3)
-	draw_texture_rect_region(sheet, Rect2(pos + Vector2((used.position.x - 32.0) * k, -height), used.size * k), Rect2(used.position + Vector2(f * 64, 0), used.size))
+	# The shared village sheets have large heads. Match the story's adult
+	# proportions while retaining each distinct face and walking frame.
+	var width := height * 0.58
+	var top := pos.y - height
+	draw_texture_rect_region(sheet, Rect2(pos.x-width/2,top,width,height*0.23),Rect2(f*64,0,64,31))
+	draw_texture_rect_region(sheet, Rect2(pos.x-width/2,top+height*0.23,width,height*0.77),Rect2(f*64,31,64,53))
 
 
 func _player_frame() -> String:
+	if mode == "game" and game and game.has_method("body_frame"):
+		return game.body_frame()
 	var walking := mode == "go" and (moving or stick.length() > 0.08) and move_dir.length() > 0.01
 	var name := "ayu_idle.png"
 	if player_role == "toretto":
@@ -755,6 +771,9 @@ func _player_frame() -> String:
 
 
 func _draw_player() -> void:
+	if mode == "game" and game and game.has_method("draw_body"):
+		game.draw_body(self)
+		return
 	var walking := mode == "go" and (moving or stick.length() > 0.08) and move_dir.length() > 0.01
 	var bob := -1.0 if walking and int(walk_dist / 10.0) % 2 == 0 else 0.0
 	sprite(_player_frame(), feet + Vector2(0, bob), facing < 0, 1.0, feet.y)
@@ -856,7 +875,7 @@ func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
 # ---------- 快速浏览：小游戏和走路 10 秒后出「下一步」，不能整章跳过 ----------
 const SKIP_RECT := Rect2(268, 96, 80, 28)
 const SKIP_AFTER := 10.0
-const NO_SKIP := ["call", "desk_chat", "finale", "seat", "desk_intro"]  # 来电对白不能删；终章要玩家自己填名字入席
+const NO_SKIP := ["call", "desk_chat", "finale", "seat", "desk_intro", "group_chat", "onsen", "care", "balance", "registration", "photo"]  # 来电对白不能删；终章要玩家自己填名字入席
 
 
 func _choice_rect(i: int) -> Rect2:
@@ -1020,11 +1039,11 @@ const GAME_SAVE_FIELDS := ["phase", "t", "power", "bob", "from", "wait_for", "fi
 	"li", "reveal", "hand", "aim", "thrown", "rings", "hit_flash", "bursts", "count", "need",
 	"finale_t", "color_offset", "look", "hold", "name", "error", "lane", "car_x", "scroll",
 	"speed", "bump", "traffic", "spawn_at", "bay_y", "park_t", "hint_t", "birthday_seen", "birthday_flash", "call_time", "speaker_on", "chat_scroll",
-	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed", "ayu_x", "sky_s", "field", "typed", "typing", "read_index"]
+	"fed", "hungry", "bamboo_held", "feed_flash", "last_fed", "ayu_x", "toretto_x", "sky_s", "field", "typed", "typing", "read_index", "cleared", "levels", "touches", "glow", "handed", "turn", "auto_t"]
 
 func snapshot() -> Dictionary:
-	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing,
-		"target": [target.x, target.y], "moving": moving, "walk_dist": walk_dist,
+	var saved := {"beat": bi, "mode": mode, "feet": [feet.x, feet.y], "facing": facing, "comp_pos": [comp_pos.x, comp_pos.y],
+			"target": [target.x, target.y], "moving": moving, "walk_dist": walk_dist,
 		"pose": pose, "t": t, "reveal": reveal, "result": result.duplicate(true), "trail": [], "atmosphere_elapsed": atmosphere_elapsed}
 	for p: Vector2 in trail:
 		saved.trail.append([p.x, p.y])
@@ -1046,6 +1065,7 @@ func restore(saved: Dictionary) -> void:
 		return
 	feet = _v(saved.get("feet", [feet.x, feet.y]))
 	facing = float(saved.get("facing", facing))
+	comp_pos = _v(saved.get("comp_pos", [feet.x + 48.0, feet.y - 4.0]))
 	target = _v(saved.get("target", [feet.x, feet.y]))
 	moving = bool(saved.get("moving", false)) and mode == "go"
 	walk_dist = float(saved.get("walk_dist", 0))

@@ -123,7 +123,7 @@ func _ready() -> void:
 	fade_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(fade_screen)
 
-	state = Checkpoint.read()
+	state = _read_checkpoint()
 	active_index = int(step_indices.get(state.get("stepId", ""), -1))
 	if active_index < 0 or not state.get("materials", null) is Dictionary:
 		state = {
@@ -152,6 +152,9 @@ func _ready() -> void:
 		var window := JavaScriptBridge.get_interface("window")
 		document.addEventListener("visibilitychange", page_hidden_callback)
 		window.addEventListener("pagehide", page_hidden_callback)
+
+func _read_checkpoint() -> Dictionary:
+	return Checkpoint.read()
 
 func _fit_canvas() -> void:
 	var safe := Rect2(Vector2.ZERO, size)
@@ -1052,7 +1055,7 @@ func _start_scene(resume := false) -> void:
 	var scene_sig := str(JSON.stringify(shot.scene.get("beats", [])).hash())
 	if resume:
 		var saved_sig := str(state.get("sceneSig", ""))
-		var stale := saved_sig != scene_sig if saved_sig != "" else str(shot.chapterId) in ["shizuoka", "hongkong", "finale"]
+		var stale := saved_sig != scene_sig if saved_sig != "" else true
 		if stale and not preload("res://hongyuan/scene_migrations.gd").migrate(state, shot):
 			state.sceneBeat = 0
 			state.erase("sceneSnapshot")
@@ -1064,6 +1067,10 @@ func _start_scene(resume := false) -> void:
 	for step: Dictionary in playlist:
 		if step.type == "material" and state.materials.get(_material_key(step), "") == "applied":
 			applied[step.materialId] = true
+	# Legacy material steps can now be scenes. Preserve their earned tokens by ID.
+	for key: String in state.get("materials", {}):
+		var token: String = key.get_slice("+", key.get_slice_count("+")-1)
+		if token in ["pen","ink","paper","stamp","wax","envelope"] and state.materials[key] == "applied": applied[token] = true
 	runner = SceneRunner.new()
 	runner.view_rect = stage.view_rect
 	runner.setup(shot.scene, copy, applied)
@@ -1150,6 +1157,10 @@ func _show_recovery() -> void:
 	for step: Dictionary in playlist:
 		if step.type == "material" and state.materials.get(_material_key(step), "") == "applied":
 			applied[step.materialId] = true
+	# Legacy material steps can now be scenes. Preserve their earned tokens by ID.
+	for key: String in state.get("materials", {}):
+		var token: String = key.get_slice("+", key.get_slice_count("+")-1)
+		if token in ["pen","ink","paper","stamp","wax","envelope"] and state.materials[key] == "applied": applied[token] = true
 	recovery = SceneRunner.new()
 	recovery.view_rect = stage.view_rect
 	recovery.setup({"hideAyu": true, "beats": [{"game": "desk_intro", "copyId": "G-DESK-RECOVERY"}]}, copy, applied)

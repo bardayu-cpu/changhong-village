@@ -1,0 +1,392 @@
+{
+  "baseline": "013c8dd",
+  "locked14": [
+    {
+      "id": "A3-2q",
+      "equal": true,
+      "current": "Toretto的内心感到一种从未有过的感动"
+    },
+    {
+      "id": "A3-2r",
+      "equal": true,
+      "current": "就这样， 他越来越主动的分享他的日常"
+    },
+    {
+      "id": "A3-2s",
+      "equal": true,
+      "current": "两人也越来越熟悉，两人的关系变得更亲密"
+    },
+    {
+      "id": "A3-2t",
+      "equal": true,
+      "current": "最终决定，在一起试试"
+    },
+    {
+      "id": "A3-3a",
+      "equal": true,
+      "current": "幸好，这段日子扛过来了"
+    },
+    {
+      "id": "A3-3b",
+      "equal": true,
+      "current": "感情稳定，工作顺利，一切迈入正轨"
+    },
+    {
+      "id": "A4-2a",
+      "equal": true,
+      "current": "阿鱼，你怎么看待结婚？"
+    },
+    {
+      "id": "A4-2b",
+      "equal": true,
+      "current": "结婚是为了幸福，不结婚也是为了幸福，都是选择"
+    },
+    {
+      "id": "A4-2c",
+      "equal": true,
+      "current": "以前没想过成家"
+    },
+    {
+      "id": "A4-2d",
+      "equal": true,
+      "current": "跟你在一起之后 才有这个念头"
+    },
+    {
+      "id": "A4-2e",
+      "equal": true,
+      "current": "谢谢你愿意看见我"
+    },
+    {
+      "id": "A4-2f",
+      "equal": true,
+      "current": "回上海，我们就结婚吧"
+    },
+    {
+      "id": "A4-2g",
+      "equal": true,
+      "current": "阿鱼🤔"
+    },
+    {
+      "id": "A4-2h",
+      "equal": true,
+      "current": "行"
+    }
+  ],
+  "all_locked_equal": true,
+  "chapters": [
+    {
+      "chapter": "call",
+      "steps": [
+        {
+          "id": "night_call",
+          "type": "scene",
+          "games": [
+            "call",
+            "desk_chat",
+            "care",
+            "balance"
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "chengdu",
+      "steps": [
+        {
+          "id": "chengdu_return",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "chengdu_routine",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "chengdu_walk",
+          "type": "scene",
+          "games": [
+            "pandas"
+          ],
+          "choices": []
+        },
+        {
+          "id": "chengdu_ping",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "chengdu_group",
+          "type": "scene",
+          "games": [
+            "group_chat"
+          ],
+          "choices": []
+        },
+        {
+          "id": "ink",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "finale",
+      "steps": [
+        {
+          "id": "finale",
+          "type": "scene",
+          "games": [
+            "finale",
+            "seat"
+          ],
+          "choices": [
+            [
+              "res://hongyuan/world_entry.tscn",
+              "res://hongyuan/village_entry.tscn"
+            ]
+          ]
+        },
+        {
+          "id": "next",
+          "type": "terminal",
+          "games": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "hainan",
+      "steps": [
+        {
+          "id": "wanning",
+          "type": "scene",
+          "games": [
+            "ringtoss"
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "hongkong",
+      "steps": [
+        {
+          "id": "hk",
+          "type": "scene",
+          "games": [
+            "offer",
+            "photo",
+            "photo",
+            "photo"
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "prologue",
+      "steps": [
+        {
+          "id": "closed",
+          "type": "scene",
+          "games": [
+            "desk_intro"
+          ],
+          "choices": []
+        },
+        {
+          "id": "unfinished_letter",
+          "type": "scene",
+          "games": [
+            "desk_intro"
+          ],
+          "choices": []
+        },
+        {
+          "id": "open",
+          "type": "scene",
+          "games": [
+            "desk_intro"
+          ],
+          "choices": []
+        },
+        {
+          "id": "line_to_road",
+          "type": "scene",
+          "games": [
+            "desk_intro"
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "shanghai",
+      "steps": [
+        {
+          "id": "perspective",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "street_intro",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "board_car",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "drive",
+          "type": "scene",
+          "games": [
+            "drive"
+          ],
+          "choices": []
+        },
+        {
+          "id": "parked",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "other_car",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "approach_axiao",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "line_1",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "line_2",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "line_3",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "line_4",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "line_5",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "line_6",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "meet_close",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "quiet",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "later",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "chat_system",
+          "type": "scene",
+          "games": [
+            "group_chat"
+          ],
+          "choices": []
+        },
+        {
+          "id": "chat_axiao",
+          "type": "scene",
+          "games": [
+            "group_chat"
+          ],
+          "choices": []
+        },
+        {
+          "id": "chat_toretto",
+          "type": "scene",
+          "games": [
+            "group_chat"
+          ],
+          "choices": []
+        },
+        {
+          "id": "chat_ayu",
+          "type": "scene",
+          "games": [
+            "group_chat"
+          ],
+          "choices": []
+        },
+        {
+          "id": "pen",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        },
+        {
+          "id": "to_chengdu",
+          "type": "scene",
+          "games": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "chapter": "shizuoka",
+      "steps": [
+        {
+          "id": "pier",
+          "type": "scene",
+          "games": [
+            "fishing",
+            "onsen",
+            "registration"
+          ],
+          "choices": []
+        }
+      ]
+    }
+  ]
+}

@@ -91,7 +91,7 @@ func _accept_rect() -> Rect2:
 
 
 func _listen_rect() -> Rect2:
-	return Rect2(0, 0, 360, 640)
+	return r.view_rect
 
 
 func _speaker_rect() -> Rect2:
@@ -108,7 +108,6 @@ func input(kind: String, pos: Vector2) -> void:
 		return
 	if phase == "reply" and kind == "tap" and t >= 0.12:
 		if li == 6:
-			if not _speaker_rect().grow(8).has_point(pos): return
 			speaker_on = true
 			r.play("pop")
 		li += 1
@@ -134,69 +133,33 @@ func _line_text() -> String:
 
 
 func draw(ci) -> void:
-	var slide := 640.0 * pow(clampf(t / 0.6, 0.0, 1.0), 2) if phase == "hangup" else 0.0
-	ci.draw_set_transform(Vector2(0, slide))
-	_draw_phone(ci)
-	ci.draw_set_transform(Vector2.ZERO)
-	if birthday_flash > 0.0:
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color(1, 1, 1, birthday_flash))
-
-
-func _draw_phone(ci) -> void:
 	var who := str(lines[li].get("who", "narrator")) if li < lines.size() else "narrator"
-	var monologue := phase in ["talk", "birthday", "reply"] and who == "narrator"
-	if monologue:
-		# 阿鱼独自听电话/心里想：保留她自己的房间与人物，不叠对方肖像。
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0.02, 0.03, 0.05, 0.16))
-		ci.pill(Rect2(68, 514, 224, 34), ci.t_("A3-C2"), 16, Color(ci.INK, 0.85), ci.PAPER)
-	else:
-		ci.draw_rect(Rect2(0, 0, 360, 640), Color(0, 0, 0, 0.55))
-		PhoneShell.draw_shell(ci, true)
-		if phase == "ring":
-			# 来电时先呈现阿鱼的疑惑；接听后的双人对白才显示双方。
-			var face: Texture2D = ci.texture("ayu_avatar.png")
-			if face: ci.draw_texture_rect(face, Rect2(140, 146, 80, 80), false)
-			ci.text_at(Vector2(30, 278), ci.t_("A3-C1"), 22, ci.PAPER, 300)
-		else:
-			for i in range(2):
-				var person := "ayu" if i == 0 else "toretto"
-				var center := Vector2(106 + i * 148, 335)
-				var face: Texture2D = ci.texture(person + "_avatar.png")
-				if face: ci.draw_texture_rect(face, Rect2(center - Vector2(37, 37), Vector2(74, 74)), false)
-				ci.text_at(Vector2(center.x - 60, 395), ci.NAMES[person], 16, ci.PAPER, 120)
-				if who == person:
-					for bar in range(5):
-						var height := 4 + absf(sin(call_time * 7 + bar)) * 12
-						ci.draw_rect(Rect2(center + Vector2(-16 + bar * 7, 78 - height / 2), Vector2(3, height)), ci.GOLD)
-			ci.text_at(Vector2(30, 98), ci.t_("A3-C2"), 22, ci.PAPER, 300)
-			ci.text_at(Vector2(80, 127), "%02d:%02d" % [int(call_time) / 60, int(call_time) % 60], 14, ci.PAPER, 200)
-	if phase == "reply" and li >= 6:
-		var icon := _speaker_rect()
-		var col: Color = ci.GOLD if speaker_on else ci.WOOD
-		ci.draw_rect(icon, ci.WOOD if speaker_on else ci.PAPER)
-		ci.draw_rect(icon, ci.GOLD, false, 2)
-		var at := icon.get_center() - Vector2(6, 0)
-		ci.draw_colored_polygon(PackedVector2Array([at + Vector2(-12, -6), at + Vector2(-6, -6),
-			at + Vector2(3, -14), at + Vector2(3, 14), at + Vector2(-6, 6), at + Vector2(-12, 6)]), col)
-		ci.draw_arc(at + Vector2(3, 0), 11, -PI / 3, PI / 3, 12, col, 2)
-		if speaker_on:
-			ci.draw_arc(at + Vector2(3, 0), 18, -PI / 3, PI / 3, 12, col, 2)
+	var monologue := who == "narrator"
+	if phase != "ring" and not monologue:
+		var bg: Texture2D = ci.texture("round1/people/call_split.png")
+		if bg: preload("res://hongyuan/ui/desk_art.gd").cover(ci,bg,ci.view_rect)
 	if phase == "ring":
-		if aside != "":
-			StoryCaption.draw_caption(ci, aside, "narrator")
-		var acc: Texture2D = ci.texture("w2_ui/call_accept_w2_r1.png")
-		var rr := _accept_rect()
-		var k := 1.0 + 0.06 * sin(t * 8.0)
-		var rr2 := Rect2(rr.get_center() - rr.size * 0.5 * k, rr.size * k)
-		if acc:
-			ci.draw_texture_rect(acc, rr2, false)
-		else:
-			ci.draw_circle(rr.get_center(), 32 * k, Color("#4f9d5a"))
-		ci.text_at(Vector2(100, 462), ci.t_("A3-B1"), 16, ci.PAPER, 160)
-	elif phase in ["talk", "birthday", "reply"] and li < lines.size():
-		StoryCaption.draw_caption(ci, _line_text(), who, int(reveal), false, Vector2(106 if who == "ayu" else 254, 294) if who != "narrator" else Vector2(-1, -1))
-		if phase == "talk":
-			var flash := hint_t >= 10.0 and fmod(hint_t, 10.0) < 0.6
-			ci.pill(Rect2(68, 568 if monologue else 462, 224, 40), ci.t_("G-HOLD"), 16, ci.GOLD if flash or holding else ci.WOOD, ci.PAPER)
-		elif phase == "reply":
-			ci.pill(Rect2(68, 568 if monologue else 462, 224, 34), ci.t_("G-SPEAKER") if li == 6 else ci.t_("G-19"), 16, ci.WOOD, ci.PAPER)
+		PhoneShell._round_box(ci,Rect2(55,293,250,177),Color(0.10,0.16,0.22,0.92),18)
+		ci.text_at(Vector2(70,330),ci.t_("A3-C1"),20,ci.PAPER,220)
+		var face: Texture2D = ci.texture("toretto_avatar.png")
+		if face: ci.draw_texture_rect(face,Rect2(156,340,48,48),false)
+		ci.draw_circle(_accept_rect().get_center(),27,Color("#4b995c"))
+		ci.text_at(Vector2(145,409),"接听",16,ci.PAPER,70)
+		StoryCaption.draw_caption(ci,aside,"narrator")
+	elif phase in ["talk","birthday","reply"] and li < lines.size():
+		var anchor := Vector2(-1,-1) if monologue else _head(who)
+		StoryCaption.draw_caption(ci,_line_text(),who,int(reveal),false,anchor)
+		ci.pill(Rect2(88,572,184,34),ci.t_("G-HOLD") if phase == "talk" else "轻点继续",15,Color(ci.WOOD,0.75),ci.PAPER)
+		if holding:
+			for i in range(5):
+				var h := 3+absf(sin(call_time*8+i))*7
+				ci.draw_rect(Rect2(163+i*7,550-h*.5,3,h),ci.GOLD)
+	elif phase == "hangup":
+		ci.pill(Rect2(90,555,180,36),"通话结束",16,Color(ci.INK,clampf(1-t/0.6,0,1)),ci.PAPER)
+	if birthday_flash > 0:ci.draw_rect(ci.view_rect,Color(1,1,1,birthday_flash))
+
+func _head(who: String) -> Vector2:
+	var size := Vector2(916,1717)
+	var k := maxf(r.view_rect.size.x/size.x,r.view_rect.size.y/size.y)
+	var point := Vector2(520,380) if who == "ayu" else Vector2(500,1120)
+	return r.view_rect.get_center()-size*k*0.5+point*k

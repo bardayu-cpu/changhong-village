@@ -4,12 +4,15 @@ extends RefCounted
 ## Top-down banquet art intentionally keeps a constant scale.
 const PROFILES := {
 	"shanghai_street": [370.0, 55.0, 555.0, 112.0],
-	"shanghai_parking": [379.0, 47.0, 555.0, 117.0],
-	"chengdu": [310.0, 90.0, 560.0, 150.0],
+	"shanghai_parking": [380.0, 55.0, 580.0, 105.0],
+	"chengdu": [270.0, 62.0, 560.0, 110.0],
 	"room": [368.0, 185.0, 620.0, 270.0],
-	"office": [432.0, 220.0, 568.0, 275.0],
+	"office": [432.0, 160.0, 610.0, 225.0],
 	"pier": [376.0, 115.0, 590.0, 190.0],
 	"boat": [430.0, 180.0, 610.0, 256.0],
+	"harbor": [480.0, 96.0, 620.0, 140.0],
+	"cabin": [250.0, 78.0, 620.0, 180.0],
+	"boarding": [420.0, 78.0, 620.0, 144.0],
 	"pool": [290.0, 72.0, 580.0, 165.0],
 	"beach": [450.0, 95.0, 620.0, 170.0],
 	"beach_memory": [430.0, 44.0, 600.0, 128.0],
@@ -43,12 +46,13 @@ static func pose_ratio(file: String) -> float:
 
 static func foot_x(file: String, texture_width: float) -> float:
 	return float({"toretto_neutral_r2.png": 505.0, "toretto_gifts_r2.png": 462.5,
-		"toretto_back_r2.png": 491.5}.get(file.get_file(), texture_width * 0.5))
+		"toretto_back_r2.png": 491.5, "ayu_fish_hold.png":49.0, "ayu_fish_cast.png":64.0, "ayu_fish_reel.png":64.0}.get(file.get_file(), texture_width * 0.5))
 
 static func visible_rect(texture: Texture2D) -> Rect2:
 	# Generated transparent PNGs contain almost invisible (alpha < 16/255)
 	# pixels outside the figure. Content bounds omit that fringe, not the body.
-	var bounds := {"toretto_neutral_r2.png": Rect2(299, 61, 412, 1457),
+	var bounds := {"ayu_fish_hold.png":Rect2(12,8,104,192), "ayu_fish_cast.png":Rect2(39,8,51,192), "ayu_fish_reel.png":Rect2(39,8,51,192),
+		"toretto_neutral_r2.png": Rect2(299, 61, 412, 1457),
 		"toretto_gifts_r2.png": Rect2(251, 66, 546, 1459),
 		"toretto_back_r2.png": Rect2(299, 64, 386, 1458)}
 	return bounds.get(texture.resource_path.get_file(), Rect2(texture.get_image().get_used_rect()))

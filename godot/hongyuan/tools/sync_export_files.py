@@ -39,7 +39,7 @@ for folder in ['compiler', 'utilities', 'nodes', 'example_balloon']:
     dialogue_runtime += [p for p in (dialogue / folder).rglob('*')
                if p.suffix in {'.gd', '.tres', '.svg'}
                or (p.suffix == '.tscn' and p.stem == p.stem.lower())]
-guests = [root / ('assets/characters/lm/chr_LM-GUEST-%02d.png' % i) for i in [1, 2, 3, 4, 5, 6, 7, 8]]
+guests = [root / ('assets/characters/lm/chr_LM-GUEST-%02d.png' % i) for i in range(1, 13)]
 reachable = set()
 
 

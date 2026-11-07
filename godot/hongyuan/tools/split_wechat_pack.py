@@ -72,11 +72,22 @@ def write_pack(path, header, entries):
 def owner(path, byte_count):
     source = path.removesuffix(".import").removesuffix(".remap")
     media = Path(source).suffix.lower() in MEDIA
+    round1_owners = {
+        'shanghai_drive.png':'shanghai', 'shanghai_parking.png':'shanghai',
+        'panda_garden.png':'chengdu', 'group_chengdu.png':'chengdu',
+        'group_shoulder.png':'shanghai', 'call_split.png':'call', 'daily_walk.png':'call',
+        'offer_room.png':'hongkong', 'hk_street.png':'hongkong', 'university.png':'hongkong',
+        'disney_toys.png':'hongkong', 'disney_garden.png':'hongkong',
+        'registry.png':'shizuoka', 'harbor.png':'shizuoka', 'harbour_boat.png':'shizuoka',
+        'cabin.png':'shizuoka', 'turtle_boarding.png':'shizuoka', 'wanning_beach.png':'hainan',
+    }
+    if source.startswith(('hongyuan/assets/round1/scenes/', 'hongyuan/assets/round1/people/')):
+        return round1_owners.get(Path(source).name, 'love-media')
     if source.startswith("hongyuan/assets/round1/finale/"):
         return "finale"
     if source.startswith("hongyuan/assets/round1/common/") and Path(source).name in {"welcome.png", "welcome_bg.png", "envelope_open.png", "envelope_sealed.png", "wax_sealed.png"}:
         return "finale"
-    if source.startswith("hongyuan/assets/round1/desk_r3/") or source.startswith("hongyuan/assets/w2/finale/slot_"):
+    if source.startswith("hongyuan/assets/round1/desk_r4/") or source.startswith("hongyuan/assets/w2/finale/slot_"):
         return "main"
     if Path(source).name in {"bg_invite_desk.png", "invite_card.png", "invite_base.png", "invite_pen_stroke.png", "invite_slot_pen.png", "invite_slot_ink.png", "pen_tip.png"}:
         return "main"

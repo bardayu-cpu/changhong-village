@@ -148,7 +148,7 @@ func draw(ci) -> void:
 		_far_pearl(ci)
 	_progress(ci)
 	if phase == "ready":
-		ci.draw_rect(Rect2(Vector2.ZERO, Vector2(360, 640)), Color(0, 0, 0, 0.25))
+		ci.draw_rect(ci.view_rect, Color(0, 0, 0, 0.25))
 		ci.pill(_go_rect(), ci.t_("A1-B2"), 20, ci.RED, ci.PAPER)
 	elif phase == "drive" and hint_t < 3.0:
 		_swipe_hint(ci)
@@ -157,12 +157,12 @@ func draw(ci) -> void:
 
 
 func _road(ci) -> void:
-	var tile: Texture2D = ci.texture("w2/shanghai/drive_tile.png")
+	var tile: Texture2D = ci.texture("round1/scenes/shanghai_drive.png|w2/shanghai/drive_tile.png")
 	if tile:
 		var h := tile.get_size().y * (360.0 / tile.get_size().x)
 		var off := fposmod(scroll, h)
-		var y := off - h
-		while y < 640.0:
+		var y: float = ci.view_rect.position.y + off - h
+		while y < ci.view_rect.end.y:
 			ci.draw_texture_rect(tile, Rect2(0, y, 360, h), false)
 			y += h
 		return

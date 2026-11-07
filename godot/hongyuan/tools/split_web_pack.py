@@ -65,7 +65,7 @@ def split_web(out, root, source, base_url, development=False):
             name = entry.name.removesuffix('.import').removesuffix('.remap')
             target = group
             if name.startswith('hongyuan/assets/'):
-                if Path(name).name in STARTUP or name.startswith('hongyuan/assets/round1/desk_r3/') or re.search(r'w2/finale/slot_', name):
+                if Path(name).name in STARTUP or name.startswith('hongyuan/assets/round1/desk_r4/') or re.search(r'w2/finale/slot_', name):
                     target = 'main'
                 elif group == 'love-media':
                     owners = references[Path(name).name] - {'prologue'}

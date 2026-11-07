@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M1
+
+PASS mid-walk preserves both positions 360-walk
+PASS both people present after restore 360-ready
+PASS camera prompt restores 360-ready
+PASS missing GPU photo restarts clean capture 360-ready
+PASS actual frame recaptured 360-ready
+PASS polaroid keeps viewport pixels 360-ready
+PASS restored photo completes 360-ready
+PASS both people present after restore 360-prep
+PASS missing GPU photo restarts clean capture 360-prep
+PASS actual frame recaptured 360-prep
+PASS polaroid keeps viewport pixels 360-prep
+PASS restored photo completes 360-prep
+PASS both people present after restore 360-flash
+PASS missing GPU photo restarts clean capture 360-flash
+PASS actual frame recaptured 360-flash
+PASS polaroid keeps viewport pixels 360-flash
+PASS restored photo completes 360-flash
+PASS both people present after restore 360-show
+PASS missing GPU photo restarts clean capture 360-show
+PASS actual frame recaptured 360-show
+PASS polaroid keeps viewport pixels 360-show
+PASS restored photo completes 360-show
+PASS mid-walk preserves both positions 390-walk
+PASS both people present after restore 390-ready
+PASS camera prompt restores 390-ready
+PASS missing GPU photo restarts clean capture 390-ready
+PASS actual frame recaptured 390-ready
+PASS polaroid keeps viewport pixels 390-ready
+PASS restored photo completes 390-ready
+PASS both people present after restore 390-prep
+PASS missing GPU photo restarts clean capture 390-prep
+PASS actual frame recaptured 390-prep
+PASS polaroid keeps viewport pixels 390-prep
+PASS restored photo completes 390-prep
+PASS both people present after restore 390-flash
+PASS missing GPU photo restarts clean capture 390-flash
+PASS actual frame recaptured 390-flash
+PASS polaroid keeps viewport pixels 390-flash
+PASS restored photo completes 390-flash
+PASS both people present after restore 390-show
+PASS missing GPU photo restarts clean capture 390-show
+PASS actual frame recaptured 390-show
+PASS polaroid keeps viewport pixels 390-show
+PASS restored photo completes 390-show
+PASS all animated glints remain within Wanning pool source region
+FAILURES 0

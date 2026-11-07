@@ -102,7 +102,7 @@ static func _draw_caption_text(ci: CanvasItem, full_text: String, who: String, v
 	var bubble := named and anchor.x >= 0
 	var box := caption_rect(full_text, who, anchor)
 	var panel := StyleBoxFlat.new()
-	panel.bg_color = PAPER if named else Color(0.16, 0.12, 0.09, 0.40)
+	panel.bg_color = PAPER if named else Color(0.16, 0.12, 0.09, 0.24)
 	panel.set_corner_radius_all(12 if named else 6)
 	if named:
 		panel.border_color = WOOD

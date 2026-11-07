@@ -3,7 +3,7 @@ const Laptop := preload("res://hongyuan/ui/laptop.gd")
 ## 电脑上看英文 Offer：过肩看阿鱼的笔记本。点开未读邮件 → 上滑/点按读正式录用函 → 点「Accept」。
 ## 不写职位、薪资、日期。
 
-const VIEW := Rect2(38, 134, 286, 160)   # 信件可视区（只在里面画整行）
+const VIEW := Rect2(38, 180, 286, 285)   # 信件可视区（只在里面画整行）
 const LINE := 18.0
 const NAVY := Color("#1f3a68")
 const TEXT := Color("#2a2f3a")
@@ -34,7 +34,9 @@ func process(dt: float) -> bool:
 
 
 func _row() -> Rect2:
-	return Rect2(38, 130, 286, 54)
+	var k := maxf(r.view_rect.size.x/841.0,r.view_rect.size.y/1870.0)
+	var origin: Vector2 = r.view_rect.get_center()-Vector2(841,1870)*k*0.5
+	return Rect2(origin+Vector2(464,836)*k,Vector2(257,221)*k)
 
 
 func _button_rect() -> Rect2:
@@ -121,31 +123,19 @@ func _button_visible() -> bool:
 # ---------- 画 ----------
 
 func draw(ci) -> void:
-	Laptop.draw_room(ci, ci.time)
-	Laptop.draw_laptop(ci)
-	Laptop.draw_window_bar(ci)
+	var bg: Texture2D = ci.texture("round1/people/offer_room.png")
+	if bg: preload("res://hongyuan/ui/desk_art.gd").cover(ci,bg,ci.view_rect)
 	if phase == "list":
-		_draw_list(ci)
+		var at := _row().get_center()+Vector2(8,-10)
+		ci.draw_rect(Rect2(at-Vector2(14,10),Vector2(28,20)),Color("#e6b44f"))
+		ci.draw_line(at-Vector2(14,10),at+Vector2(0,2),Color.WHITE,1)
+		ci.draw_line(at+Vector2(14,-10),at+Vector2(0,2),Color.WHITE,1)
+		ci.draw_circle(at+Vector2(12,-10),3,Color("#b74242"))
+		ci.pill(Rect2(75,530,210,42),"电脑上有一封新邮件",15,Color(0.96,0.96,0.93,0.96),ci.INK)
 	else:
+		ci.draw_rect(Rect2(20,132,320,365),Color(0.97,0.96,0.93,0.97))
+		ci.text_at(Vector2(38,163),"Mail  /  Offer of Appointment",14,NAVY,286)
 		_draw_letter(ci)
-	Laptop.draw_ayu_back(ci)
-
-
-func _draw_list(ci) -> void:
-	# 其余几行只画灰条，不写任何假邮件内容
-	for i in range(3):
-		var y := 196.0 + i * 36.0
-		ci.draw_rect(Rect2(46, y, 120, 6), Color("#c9ced9"))
-		ci.draw_rect(Rect2(46, y + 12, 220, 5), Color("#dde1ea"))
-		ci.draw_line(Vector2(38, y + 28), Vector2(324, y + 28), Color("#e4e7ee"), 1.0)
-	var row := _row()
-	var glow := 0.55 + 0.2 * sin(t * 5.0)
-	ci.draw_rect(row, Color(1.0, 0.93, 0.7, glow))
-	ci.draw_rect(row, Color("#c99a3c"), false, 2.0)
-	ci.draw_circle(row.position + Vector2(12, 14), 4.0, Color("#d63c3c"))
-	ci.draw_string(ci.FONT, row.position + Vector2(24, 18), ci.t_("A6-M1"), HORIZONTAL_ALIGNMENT_LEFT, 120, 12, ci.INK)
-	ci.pill(Rect2(row.end.x - 70, row.position.y + 6, 62, 18), ci.t_("A6-M2"), 12, Color("#7a1f2b"), Color("#fff1d5"))
-	ci.draw_string(ci.FONT, row.position + Vector2(24, 42), ci.t_("B-G0-TITLE"), HORIZONTAL_ALIGNMENT_LEFT, 250, 13, TEXT)
 
 
 func _draw_letter(ci) -> void:
@@ -179,3 +169,12 @@ func _draw_letter(ci) -> void:
 		var h := VIEW.size.y * VIEW.size.y / (VIEW.size.y + max_scroll)
 		var ty := VIEW.position.y + (VIEW.size.y - h) * scroll / max_scroll
 		ci.draw_rect(Rect2(VIEW.end.x + 1, ty, 3, h), Color("#9aa3b5"))
+
+
+func restore_checkpoint() -> void:
+	dragging = false
+	_drag_total = 0.0
+	if phase in ["letter", "accepted"]:
+		_build()
+		scroll = clampf(scroll, 0.0, max_scroll)
+		r.hint = r.t_("G-OFFER-READ") if phase == "letter" else ""

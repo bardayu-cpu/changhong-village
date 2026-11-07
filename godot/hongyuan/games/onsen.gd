@@ -18,7 +18,7 @@ const NIGHT_HOLD := 1.5
 const STEAM := [Vector2(34, 392), Vector2(322, 384), Vector2(110, 352), Vector2(252, 356), Vector2(180, 372)]
 
 var r
-var phase := "join"   # join → glide → talk → outro → done
+var phase := "enter"   # enter → join → glide → talk → outro → done
 var t := 0.0
 var li := 0
 var reveal := 0.0
@@ -26,24 +26,30 @@ var lines: Array = []
 var ayu_x := START_X
 var sky_s := 0.0
 var _stars: Array = []
+var _guest_textures: Dictionary = {}
 
 
 func start(runner, beat: Dictionary) -> void:
 	r = runner
 	lines = beat.get("lines", [])
-	r.hint = r.t_("A4-P3")
+	r.hint = ""
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 5
 	for i in range(46):
 		_stars.append({"p": Vector2(rng.randf_range(8, 352), rng.randf_range(24, 232)), "ph": rng.randf() * TAU, "sp": rng.randf_range(1.4, 3.4), "big": i % 5 == 0})
 
 
+func _world_transform() -> Transform2D:
+	var full: Rect2 = r.view_rect
+	var k := maxf(full.size.x / 360.0, full.size.y / 640.0)
+	return Transform2D(Vector2(k, 0), Vector2(0, k), full.get_center() - Vector2(360,640) * k * 0.5)
+
 func _spot() -> Rect2:
-	return Rect2(SPOT_X - 46, WATER_Y - 66, 92, 100)
+	return _world_transform() * Rect2(SPOT_X - 46, WATER_Y - 66, 92, 100)
 
 
 func _target_sky() -> float:
-	if phase in ["join", "glide"]:
+	if phase in ["enter", "join", "glide"]:
 		return 0.0
 	if phase in ["outro", "done"]:
 		return 2.0
@@ -58,6 +64,11 @@ func process(dt: float) -> bool:
 	t += dt
 	sky_s = move_toward(sky_s, _target_sky(), dt * 0.55)
 	match phase:
+		"enter":
+			if t >= 2.5:
+				phase = "join"
+				t = 0.0
+				r.hint = r.t_("A4-P3")
 		"glide":
 			var k := clampf(t / 1.1, 0.0, 1.0)
 			ayu_x = lerpf(START_X, SPOT_X, k * k * (3.0 - 2.0 * k))
@@ -110,7 +121,7 @@ func skip() -> void:
 # ---------- 画 ----------
 
 func draw(ci) -> void:
-	var full := Rect2(0, 0, 360, 640)
+	var full: Rect2 = ci.view_rect
 	ci.draw_rect(full, Color.BLACK)
 	for i in range(3):
 		var tex: Texture2D = ci.texture(BG[i])
@@ -118,20 +129,32 @@ func draw(ci) -> void:
 			continue
 		var a := 1.0 if i == 0 else clampf(sky_s - (i - 1), 0.0, 1.0)
 		if a > 0.0:
-			ci.draw_texture_rect(tex, full, false, Color(1, 1, 1, a))
+			var size := tex.get_size() * maxf(full.size.x / tex.get_width(), full.size.y / tex.get_height())
+			ci.draw_texture_rect(tex, Rect2(full.get_center()-size*0.5,size), false, Color(1, 1, 1, a))
+	var xf := _world_transform()
+	ci.draw_set_transform_matrix(xf)
 	_draw_stars(ci)
 	_draw_foam(ci)
 	_draw_steam(ci, 0.0)
 	var warm := clampf(1.0 - sky_s, 0.0, 1.0)
 	var tint := Color(0.78, 0.74, 0.86).lerp(Color(1.0, 0.86, 0.74), warm)
 	tint = tint.lerp(Color(0.52, 0.56, 0.78), clampf(sky_s - 1.0, 0.0, 1.0))
-	_draw_person(ci, TORETTO_TEX, TORETTO_USED, TORETTO_X, TORETTO_H, tint, 0.0)
-	_draw_person(ci, AYU_TEX, AYU_USED, ayu_x, AYU_H, tint, 1.3)
-	_draw_water_line(ci, TORETTO_X, 30.0, 0.0)
-	_draw_water_line(ci, ayu_x, 27.0, 1.3)
+	_draw_guests(ci, tint)
+	if phase != "enter":
+		_draw_person(ci, TORETTO_TEX, TORETTO_USED, TORETTO_X, TORETTO_H, tint, 0.0)
+		_draw_person(ci, AYU_TEX, AYU_USED, ayu_x, AYU_H, tint, 1.3)
+		_draw_water_line(ci, TORETTO_X, 30.0, 0.0)
+		_draw_water_line(ci, ayu_x, 27.0, 1.3)
+	else:
+		_draw_arrival(ci)
+		ci.draw_set_transform_matrix(xf)
 	_draw_steam(ci, 1.0)
 	if phase == "join":
 		_draw_spot(ci)
+	ci.draw_set_transform(Vector2.ZERO)
+	if phase == "join" and t < 0.35: ci.draw_rect(ci.view_rect,Color(0.04,0.05,0.08,1-t/0.35))
+	if phase == "enter":
+		StoryCaption.draw_caption(ci, "浦岛酒店 · 海边温泉", "narrator")
 	elif phase == "talk" and li < lines.size():
 		_draw_bubble(ci)
 
@@ -153,9 +176,9 @@ func _draw_person(ci, name: String, used: Rect2, x: float, h: float, tint: Color
 
 func _head_anchor(who: String) -> Vector2:
 	if who == "toretto":
-		return Vector2(TORETTO_X, WATER_Y - TORETTO_H)
+		return _world_transform() * Vector2(TORETTO_X, WATER_Y - TORETTO_H)
 	if who == "ayu":
-		return Vector2(ayu_x, WATER_Y - AYU_H)
+		return _world_transform() * Vector2(ayu_x, WATER_Y - AYU_H)
 	return Vector2(-1, -1)
 
 
@@ -261,3 +284,50 @@ func _draw_bubble(ci) -> void:
 		var by: float = box.end.y - 12.0 + sin(r.time * 6.0) * 1.5
 		var bx := box.end.x - 16.0
 		ci.draw_colored_polygon(PackedVector2Array([Vector2(bx - 5, by - 4), Vector2(bx + 5, by - 4), Vector2(bx, by + 3)]), ci.WOOD)
+
+
+func _draw_arrival(ci) -> void:
+	# The full bodies stay on the dry foreground stone; the cut into the pool is
+	# a short dip-to-black, avoiding clothed legs sliding through the water.
+	var xf := _world_transform()
+	var k := smoothstep(0, 1, clampf(t / 2.1, 0, 1))
+	for i in range(2):
+		var at := Vector2(126 + i * 70, lerpf(657, 552, k))
+		var name: String = "w2/common/ayu_walk_back_%d.png" % (1 + int(t * 6) % 4) if i == 0 else "w2/common/toretto_back_r2.png"
+		var tex: Texture2D = ci.texture(name)
+		if tex:
+			var used: Rect2 = ci.WorldScale.visible_rect(tex)
+			var h := 116.0 + i * 6
+			var size := used.size * (h / used.size.y)
+			ci.draw_texture_rect_region(tex, Rect2(at - Vector2(size.x * 0.5, size.y), size), used)
+	var fade := clampf((t - 2.1) / 0.4, 0, 1)
+	if fade > 0:
+		ci.draw_set_transform(Vector2.ZERO)
+		ci.draw_rect(ci.view_rect,Color(0.04,0.05,0.08,fade))
+		ci.draw_set_transform_matrix(xf)
+
+func _draw_guests(ci, tint: Color) -> void:
+	# Distinct background bathers: only heads and shoulders, with no trouser or
+	# standing-body silhouette in the water. These use the existing guest atlas.
+	var positions := [Vector2(48,391),Vector2(91,367),Vector2(270,376),Vector2(302,404)]
+	var ids := ["02","06","09","11"]
+	for i in range(4):
+		var path := "res://assets/characters/lm/chr_LM-GUEST-%s.png" % ids[i]
+		if not _guest_textures.has(path):
+			_guest_textures[path] = load(path) if ResourceLoader.exists(path) else null
+		var tex: Texture2D = _guest_textures[path]
+		if not tex: continue
+		# 12 is the rear-view pose. A short side glance every few seconds gives
+		# the group a different rhythm without having them pace through a pool.
+		var frame := 12 if fmod(r.time + i * 2.3, 9.0) < 7.4 else (4 if i < 2 else 8)
+		var source := Rect2(frame * 64 + 14, 0, 36, 34)
+		var at: Vector2 = positions[i] + Vector2(0,sin(r.time*1.2+i)*0.6)
+		var h := 21.0 + (i % 2) * 3
+		var size := source.size * (h / source.size.y)
+		ci.draw_texture_rect_region(tex,Rect2(at-Vector2(size.x*0.5,h),size),source,tint)
+		ci.draw_rect(Rect2(at.x-size.x*0.6,at.y-2,size.x*1.2,6),Color(0.12,0.4,0.47,0.82))
+		var points := PackedVector2Array()
+		for j in range(17):
+			var a := TAU * j/16.0
+			points.append(at+Vector2(cos(a)*(size.x*0.7+3),sin(a)*2.8))
+		ci.draw_polyline(points,Color(0.8,0.9,0.9,0.35),1)
