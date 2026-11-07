@@ -111,6 +111,7 @@ var choice_texts: Array = []
 var choice_to: Array = []
 var choice_note := ""
 var choice_note_t := 0.0
+var choice_fallback := false
 var material_id := ""
 var game: RefCounted
 var result: Dictionary = {}
@@ -293,7 +294,11 @@ func _next() -> void:
 func _process(dt: float) -> void:
 	dt = minf(dt, 0.08)
 	t += dt
-	choice_note_t = maxf(0.0, choice_note_t - dt)
+	if choice_note_t > 0.0:
+		choice_note_t = maxf(0.0, choice_note_t - dt)
+		if choice_note_t == 0.0 and choice_fallback and mode == "choice":
+			choice_fallback = false
+			_next()
 	time += dt
 	if atmosphere != "": atmosphere_elapsed += dt
 	var beat: Dictionary = beats[bi] if bi >= 0 and bi < beats.size() else {}
@@ -332,9 +337,13 @@ func _walk(dt: float) -> void:
 	elif moving:
 		feet = feet.move_toward(target, SPEED * dt)
 		feet = _clamp(feet)
-		if feet.distance_to(target) < 0.5:
+		if feet.distance_to(target) < 0.5 or (target_hot != "" and _near_hotspot() == target_hot and feet.distance_to(target) < 2.0):
 			moving = false
+			var arrived := target_hot
 			target_hot = ""
+			if arrived != "" and _near_hotspot() == arrived:
+				_trigger(arrived)
+				return
 	var step := feet - before
 	move_dir = step
 	_update_companion(dt)
@@ -400,7 +409,10 @@ func _icon_rect(id: String) -> Rect2:
 	var at := _v(h.at)
 	if h.has("iconAt"):
 		return Rect2(_v(h.iconAt) - Vector2(22, 22), Vector2(44, 44))
-	return Rect2(at.x - 22, at.y - 112, 44, 44)
+	# 图标放在站到该点的人物头顶上方，不压在身上
+	var snap := _v(h.get("snap", h.at))
+	var top := snap.y - person_height_at(snap.y) - 30.0
+	return Rect2(at.x - 22, maxf(60.0, top - 22.0), 44, 44)
 
 
 # ---------- 输入 ----------
@@ -462,10 +474,12 @@ func _gui_input(event: InputEvent) -> void:
 						var to := str(choice_to[i]) if i < choice_to.size() and choice_to[i] != null else ""
 						if to == "":
 							_next()
-						elif not ResourceLoader.exists(to):
-							# 这个包里没有村子（Web 试玩包）：给提示，不卡住
+						elif OS.has_feature("web") or not ResourceLoader.exists(to):
+							# 这个包里没有村子（Web 试玩包，村子只在微信包里）：给提示，3 秒后自动去婚礼现场
 							choice_note = _text("G-VILLAGE-LATER")
 							choice_note_t = 3.0
+							choice_fallback = true
+							print("choice: village not in this package, falling back to wedding")
 						else:
 							choice_note = _text("G-VILLAGE-GO")
 							choice_note_t = 30.0
@@ -491,7 +505,16 @@ func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
 	if near != "" and _icon_rect(near).grow(10).has_point(pos):
 		_trigger(near)
 		return
-	# A ground tap only walks. Even a tap on a distant prop never activates it.
+	# 点目标本身（图标、小圆点或它周围）：走过去，到了自动触发，不用再点第二次
+	if hotspots.has(go_id):
+		var h: Dictionary = hotspots[go_id]
+		var at := _v(h.at)
+		if pos.distance_to(at) <= 40.0 or _icon_rect(go_id).grow(10).has_point(pos):
+			target = _clamp(_v(h.get("snap", h.at)))
+			target_hot = go_id
+			moving = true
+			return
+	# 其他地面点击只走路
 	if Geometry2D.is_point_in_polygon(pos, walk_area):
 		target = _clamp(pos)
 		target_hot = ""
@@ -538,7 +561,7 @@ func _draw() -> void:
 			for i in range(choice_texts.size()):
 				_pill(_choice_rect(i), choice_texts[i], 19, RED if i == 0 else Color(INK, 0.85), PAPER)
 			if choice_note_t > 0.0:
-				_pill(Rect2(20, 400, 320, 40), choice_note, 15, Color(INK, 0.9), WHEAT)
+				_pill(Rect2(16, 392, 328, 56), choice_note, 16, Color(INK, 0.94), WHEAT)
 		"button":
 			draw_rect(Rect2(Vector2.ZERO, CANVAS), Color(0, 0, 0, 0.35))
 			_pill(button_rect, button_text, 20, RED, PAPER)

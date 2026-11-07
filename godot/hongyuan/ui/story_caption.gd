@@ -30,6 +30,7 @@ static func _display_text(full_text: String, who: String, width: float, visible_
 	return shown
 
 static func caption_rect(full_text: String, who: String, anchor := Vector2(-1, -1)) -> Rect2:
+	full_text = _strip_emoji(full_text)
 	var named := NAMES.has(who)
 	if not named:
 		var height := FONT.get_multiline_string_size(_display_text(full_text, who, 308), HORIZONTAL_ALIGNMENT_CENTER, 308, 15).y + 18
@@ -41,7 +42,61 @@ static func caption_rect(full_text: String, who: String, anchor := Vector2(-1, -
 	var height := FONT.get_multiline_string_size(_display_text(full_text, who, 244), HORIZONTAL_ALIGNMENT_LEFT, 244, 16).y + 38
 	return Rect2(14, 604 - maxf(height, 80), 332, maxf(height, 80))
 
+## 表情字符在 Web 包里不可靠（字体回退会画空），换成占位全角空格，字画完后在原位置贴图标
+const EMOJI := {"🤔": "res://hongyuan/assets/think.svg", "😂": "res://hongyuan/assets/laugh.svg"}
+
+static func _strip_emoji(t: String) -> String:
+	for e in EMOJI:
+		t = t.replace(e, "   ")
+	return t
+
 static func draw_caption(ci: CanvasItem, full_text: String, who: String, visible_characters := -1, next_hint := false, anchor := Vector2(-1, -1)) -> void:
+	var icons: Array = []
+	for e in EMOJI:
+		var at := full_text.find(e)
+		while at >= 0:
+			icons.append([at, EMOJI[e]])
+			at = full_text.find(e, at + 1)
+	if not icons.is_empty():
+		var raw := full_text
+		full_text = _strip_emoji(full_text)
+		_draw_caption_text(ci, full_text, who, visible_characters, next_hint, anchor)
+		# 只处理一行内的表情（本作的表情都在短句末尾）
+		var named := NAMES.has(who)
+		var bubble := named and anchor.x >= 0
+		var box := caption_rect(full_text, who, anchor)
+		var inset := 14.0 if bubble else (70.0 if named else 12.0)
+		var width := box.size.x - inset - (14 if bubble else (18 if named else 12))
+		var fs := 16 if named else 15
+		# 居中对齐时末尾空格不算宽度
+		var line_w := FONT.get_string_size(full_text.strip_edges(false, true), HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		var x0 := box.position.x + inset + (0.0 if named else maxf(0.0, (width - line_w) * 0.5))
+		for ic in icons:
+			if visible_characters >= 0 and visible_characters <= int(ic[0]):
+				continue
+			var before := FONT.get_string_size(full_text.substr(0, int(ic[0])), HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+			_draw_face(ci, Vector2(x0 + before + fs * 0.5 + 3, box.position.y + (26 if named else 23) - fs * 0.35), fs * 0.5, str(ic[1]))
+		return
+	_draw_caption_text(ci, full_text, who, visible_characters, next_hint, anchor)
+
+## 直接画小表情（SVG 在部分 Web 环境会画成白块）
+static func _draw_face(ci: CanvasItem, c: Vector2, rad: float, kind: String) -> void:
+	var ink := Color("#54353c")
+	ci.draw_circle(c, rad, Color("#f6c568"))
+	if kind.ends_with("think.svg"):
+		ci.draw_circle(c + Vector2(-rad * 0.35, -rad * 0.15), rad * 0.13, ink)
+		ci.draw_circle(c + Vector2(rad * 0.35, -rad * 0.15), rad * 0.13, ink)
+		ci.draw_line(c + Vector2(-rad * 0.6, -rad * 0.5), c + Vector2(-rad * 0.15, -rad * 0.55), ink, 1.0)
+		ci.draw_line(c + Vector2(-rad * 0.25, rad * 0.4), c + Vector2(rad * 0.3, rad * 0.35), ink, 1.0)
+		ci.draw_circle(c + Vector2(-rad * 0.55, rad * 0.85), rad * 0.3, Color("#e8a94c"))
+	else:
+		ci.draw_line(c + Vector2(-rad * 0.55, -rad * 0.2), c + Vector2(-rad * 0.15, -rad * 0.35), ink, 1.0)
+		ci.draw_line(c + Vector2(rad * 0.15, -rad * 0.35), c + Vector2(rad * 0.55, -rad * 0.2), ink, 1.0)
+		ci.draw_circle(c + Vector2(0, rad * 0.3), rad * 0.35, Color("#633a42"))
+		ci.draw_circle(c + Vector2(-rad * 0.95, 0), rad * 0.22, Color("#74c9e6"))
+		ci.draw_circle(c + Vector2(rad * 0.95, 0), rad * 0.22, Color("#74c9e6"))
+
+static func _draw_caption_text(ci: CanvasItem, full_text: String, who: String, visible_characters := -1, next_hint := false, anchor := Vector2(-1, -1)) -> void:
 	var named := NAMES.has(who)
 	var bubble := named and anchor.x >= 0
 	var box := caption_rect(full_text, who, anchor)

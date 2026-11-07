@@ -88,7 +88,16 @@ func input(kind: String, pos: Vector2) -> void:
 		drag_to = pos
 	elif kind == "up" and dragging:
 		dragging = false
-		if drag_to.distance_to(drag_from) > 18.0:
+		var short := drag_to.distance_to(drag_from) <= 18.0
+		if short and pos.y < 460.0:
+			# 点一下目标也能扔：泳圈飞向点的位置
+			drag_to = drag_from
+			aim = Vector2(clampf(pos.x, 40, 320), clampf(pos.y, 200, 420))
+			phase = "fly"
+			t = 0.0
+			thrown += 1
+			r.play("blip")
+		elif not short:
 			aim = _predict()
 			phase = "fly"
 			t = 0.0
@@ -139,6 +148,8 @@ func draw(ci) -> void:
 			ci.draw_line(Vector2(180, 560), Vector2(180, 600), Color(ci.PAPER, 0.4 * a), 2.0)
 		if thrown >= 1:
 			ci.pill(_continue_rect(), ci.t_("G-19"), 16, ci.RED, ci.PAPER)
+	if phase == "aim" and thrown == 0 and not dragging:
+		ci.pill(Rect2(40, 140, 280, 36), ci.t_("G-RING-HOW"), 15, Color(ci.INK, 0.86), ci.PAPER)
 	if hit_flash > 0.0:
 		ci.draw_rect(Rect2(0, 0, 360, 640), Color(1, 0.9, 0.5, hit_flash * 0.15))
 
