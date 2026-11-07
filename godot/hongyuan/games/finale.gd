@@ -13,6 +13,8 @@ var hold := 0.0
 var holding := false
 var name := ""
 var tex_cache := {}
+var keyboard_callback: JavaScriptObject
+var keyboard_open := false
 
 
 func start(runner, _beat: Dictionary) -> void:
@@ -93,7 +95,29 @@ func _make_edit() -> void:
 	edit.add_theme_stylebox_override("focus", box)
 	edit.text_submitted.connect(func(_s: String) -> void: _submit_name())
 	r.add_child(edit)
-	edit.grab_focus()
+	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+		edit.virtual_keyboard_enabled = false
+		edit.gui_input.connect(_wechat_name_input)
+	else:
+		edit.grab_focus()
+
+
+func _wechat_name_input(event: InputEvent) -> void:
+	var released: bool = event is InputEventScreenTouch and not event.pressed and not event.canceled
+	if event is InputEventMouseButton:
+		released = event.button_index == MOUSE_BUTTON_LEFT and not event.pressed
+	if not released or keyboard_open or phase != "name":
+		return
+	var bridge := JavaScriptBridge.get_interface("hongyuanContent")
+	if bridge == null:
+		return
+	keyboard_open = true
+	keyboard_callback = JavaScriptBridge.create_callback(func(args: Array) -> void:
+		keyboard_open = false
+		if phase == "name" and is_instance_valid(edit) and not args.is_empty():
+			edit.text = str(args[0])
+	)
+	bridge.editGuestName(edit.text, edit.max_length, keyboard_callback)
 
 
 func _submit_name() -> void:

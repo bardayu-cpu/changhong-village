@@ -12,14 +12,15 @@ def love_project(root, wechat=False, user_data_name=None):
         configured = re.sub(r'^config/custom_user_dir_name=".*"$',
                             'config/custom_user_dir_name="' + user_data_name + '"',
                             configured, flags=re.M)
-    # The estate uses the existing dialogue autoload for its NPC interactions.
+    # The estate needs the dialogue importer as well as the existing autoload.
     if wechat:
         section = re.search(r'(\[editor_plugins\]\s*\nenabled=PackedStringArray\()(.*?)(\))', configured)
         if not section:
             raise RuntimeError('Missing editor_plugins setting')
         plugins = section.group(2)
-        if 'addons/godot-minigame/plugin.cfg' not in plugins:
-            plugins += (', ' if plugins.strip() else '') + '"res://addons/godot-minigame/plugin.cfg"'
+        for plugin in ('addons/dialogue_manager/plugin.cfg', 'addons/godot-minigame/plugin.cfg'):
+            if plugin not in plugins:
+                plugins += (', ' if plugins.strip() else '') + '"res://' + plugin + '"'
         configured = configured[:section.start(2)] + plugins + configured[section.end(2):]
     try:
         project.write_text(configured)

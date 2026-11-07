@@ -1,5 +1,6 @@
 extends Control
 
+const Packs := preload("res://hongyuan/content_packs.gd")
 const Stage := preload("res://hongyuan/stage.gd")
 const Checkpoint := preload("res://hongyuan/checkpoint.gd")
 const SceneRunner := preload("res://hongyuan/scene_runner.gd")
@@ -45,6 +46,7 @@ var wechat_show_callback: Variant
 var chime := AudioStreamPlayer.new()
 var bgm := AudioStreamPlayer.new()
 var bgm_id := ""
+var loading_content := false
 # Pointer gestures follow the wedding input: short release taps, lower-left drags steer.
 # Touch and mouse share one gesture path; emulated duplicates are ignored.
 var pointer_input := preload("res://hongyuan/pointer_input.gd").new()
@@ -205,6 +207,16 @@ func _read_json(path: String) -> Dictionary:
 	return data if data is Dictionary else {}
 
 func _enter_step(index: int, resume := false) -> void:
+	if loading_content:
+		return
+	var chapter := str(playlist[index].get("chapterId", ""))
+	if chapter != str(shot.get("chapterId", "")):
+		loading_content = true
+		var ready := await Packs.ensure(["love-media", chapter])
+		loading_content = false
+		if not ready:
+			_show_data_error()
+			return
 	var previous_scene: String = shot.get("sceneId", "")
 	var previous_type: String = shot.get("type", "")
 	if runner:
@@ -307,7 +319,7 @@ func _advance() -> void:
 		_enter_step(active_index + 1)
 
 func _process(delta: float) -> void:
-	if shot.is_empty() or paused or shot.type == "terminal":
+	if loading_content or shot.is_empty() or paused or shot.type == "terminal":
 		return
 	if shot.type == "scene":
 		since_save += delta
@@ -419,6 +431,8 @@ func _drive(dt: float) -> void:
 			break
 
 func _on_stage_input(event: InputEvent) -> void:
+	if loading_content or shot.is_empty():
+		return
 	event = pointer_input.normalize(event)
 	if event == null:
 		return

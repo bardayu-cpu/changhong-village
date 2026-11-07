@@ -6,7 +6,12 @@ const WEB_KEY := "hongyuan_save.json"
 
 static func read() -> Dictionary:
 	var saved := _decode(FileAccess.get_file_as_string(PATH)) if FileAccess.file_exists(PATH) else {}
-	if OS.has_feature("web"):
+	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+		var wx := JavaScriptBridge.get_interface("wx")
+		var mobile := _decode(str(wx.getStorageSync(WEB_KEY)))
+		if int(mobile.get("revision", -1)) > int(saved.get("revision", -1)):
+			saved = mobile
+	elif OS.has_feature("web"):
 		var web_save := _decode(str(JavaScriptBridge.eval(
 			"try { localStorage.getItem('hongyuan_save.json') || '' } catch (_) { '' }",
 			true
@@ -19,7 +24,21 @@ static func write(state: Dictionary) -> bool:
 	var revision := int(state.get("revision", 0))
 	var contents := JSON.stringify(state)
 	var browser_saved := false
-	if OS.has_feature("web"):
+	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+		var result := int(JavaScriptBridge.eval(
+			"""(function() {
+				try {
+					var current = JSON.parse(wx.getStorageSync(%s) || 'null');
+					if (current && current.version === 1 && current.revision >= %d) return -1;
+					wx.setStorageSync(%s, %s);
+					return 1;
+				} catch (_) { return 0; }
+			})()""" % [JSON.stringify(WEB_KEY), revision, JSON.stringify(WEB_KEY), JSON.stringify(contents)], true
+		))
+		if result == -1:
+			return false
+		browser_saved = result == 1
+	elif OS.has_feature("web"):
 		# Browser refresh can precede IndexedDB's async file flush.
 		var result := int(JavaScriptBridge.eval(
 			"""try {

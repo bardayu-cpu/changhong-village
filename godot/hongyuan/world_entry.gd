@@ -1,7 +1,7 @@
 extends Node
 ## A single host for the estate and village, sharing the invitation identity.
 const Checkpoint := preload("res://hongyuan/checkpoint.gd")
-const Wedding := preload("res://hongyuan/wedding.gd")
+const Packs := preload("res://hongyuan/content_packs.gd")
 const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 var destination := ""
 var content: Node
@@ -91,6 +91,15 @@ func travel(where: String) -> void:
     navigation.hide()
     loading.text = "正在前往村子…" if where == "village" else "正在前往罗曼山庄…"
     loading.show()
+    var groups: Array[String] = ["world", "world-media"]
+    if where == "village":
+        groups.append_array(["village", "village-media"])
+    else:
+        groups.append("estate")
+    if not await Packs.ensure(groups):
+        loading.text = "资源加载未完成，请重开游戏。"
+        busy = false
+        return
     if is_instance_valid(content):
         content.queue_free()
         await get_tree().process_frame
@@ -106,7 +115,7 @@ func travel(where: String) -> void:
         while not game.bootstrapped:
             await get_tree().process_frame
     else:
-        game = Wedding.new()
+        game = load("res://hongyuan/wedding.gd").new()
         game.guest_profile = profile.duplicate(true)
         game.resume_location = state.get("weddingLocation", {}).duplicate(true)
         content = game
