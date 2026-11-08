@@ -31,6 +31,7 @@ func shot(name: String) -> void:
 	check(img.get_size() == Vector2i(360, 640), "360x640 " + name)
 	img.save_png(out.path_join(name + ".png"))
 func enter(step: String, key: String, value: String):
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices[step])
 	var r = p.runner
 	r.set_process(false)
@@ -49,12 +50,15 @@ func run() -> void:
 	root.add_child(p)
 	await process_frame
 	p.set_process(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/board_car"])
 	check(p.stage.person_height_at(420) < p.stage.person_height_at(550), "Old Shanghai renderer scales the same person smoothly with floor depth")
 	await shot("01-shanghai-street")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/line_1"])
 	check(p.stage.person_height_at(410) < 65, "Parking people are calibrated to the smaller distant cars")
 	await shot("02-shanghai-parking-dialogue")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
 	await shot("03-chengdu")
 	var r = enter("call/night_call", "go", "phone")

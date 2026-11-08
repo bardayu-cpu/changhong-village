@@ -56,6 +56,7 @@ func run() -> void:
 	root.add_child(p)
 	await process_frame
 	p.set_process(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["call/night_call"])
 	var r = p.runner
 	r.set_process(false)

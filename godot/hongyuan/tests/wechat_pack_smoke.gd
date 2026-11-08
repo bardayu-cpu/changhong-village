@@ -63,6 +63,7 @@ func run() -> void:
 		for shot: Dictionary in player.playlist:
 			if shot.chapterId != chapter:
 				continue
+			player.shot = {}  # 跳过换场淡出，测试里同步进场
 			player._enter_step(int(player.step_indices[shot.fullId]))
 			check(player.bgm.playing and player.bgm_id == chapter, "BGM stream starts: " + chapter)
 			break

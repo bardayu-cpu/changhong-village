@@ -40,6 +40,7 @@ func run() -> void:
 	await settle()
 	p._set_paused(false)
 	for touch in [false, true]:
+		p.shot = {}  # 跳过换场淡出，测试里同步进场
 		p._enter_step(p.step_indices["shanghai/board_car"])
 		await settle()
 		# 点空地：只走过去，不触发。点车：自己走过去并上车（5f3b926 起的设计）。
@@ -52,6 +53,7 @@ func run() -> void:
 		button(Vector2(263,445),false,touch)
 		await settle(3.0)
 		check(p.shot.id!="board_car", "Tapping the car walks to it and boards, touch="+str(touch))
+		p.shot = {}  # 跳过换场淡出，测试里同步进场
 		p._enter_step(p.step_indices["shanghai/board_car"])
 		await settle()
 		button(Vector2(64,558),true,touch)
@@ -59,6 +61,7 @@ func run() -> void:
 		await settle(0.4)
 		button(Vector2(28,558),false,touch)
 		check(p.stage.player_feet.x<230 and p.stick==Vector2.ZERO, "Viewport joystick moves/releases, touch="+str(touch))
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/board_car"])
 	button(Vector2(64,558),true,true,2)
 	button(Vector2(300,440),true,true,3)
@@ -67,6 +70,7 @@ func run() -> void:
 	motion(Vector2(100,558),true,2)
 	button(Vector2(100,558),false,true,2,true)
 	check(p.stick==Vector2.ZERO and not p.moving, "Touch cancellation releases joystick")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["call/night_call"])
 	await settle()
 	while p.runner.mode!="go": p.runner._next()

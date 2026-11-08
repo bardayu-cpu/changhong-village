@@ -535,7 +535,8 @@ func _gui_input(event: InputEvent) -> void:
 			if tap and t > 0.6:
 				_next()
 		"choice":
-			if tap and t > 0.4:
+			# 已经在出发（提示 30 秒）时不再接受第二次点击，免得连点切两次场景
+			if tap and t > 0.4 and choice_note_t <= 3.0:
 				for i in range(choice_texts.size()):
 					if _choice_rect(i).grow(6).has_point(pos):
 						sfx.stream = blip

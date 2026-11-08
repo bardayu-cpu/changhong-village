@@ -13,6 +13,8 @@ var open_progress := 0.0
 var t := 0.0
 var edit: LineEdit
 var error := false
+var error_key := "A7-E1"
+const RESERVED_NAMES := ["阿鱼", "toretto", "新郎", "新娘", "主角"]
 var look := -1
 const SEAL_BAR := Rect2(65, 475, 230, 44)
 var hold := 0.0
@@ -126,6 +128,8 @@ func restore_checkpoint() -> void:
 	holding = false
 	dragging = false
 	open_progress = 0.0
+	# 进后台时手指还按着：回来要重新按满一秒
+	if phase == "seal": hold = 0.0
 
 
 func _make_edit() -> void:
@@ -177,6 +181,13 @@ func _submit_name() -> void:
 	var s := edit.text.strip_edges()
 	if s.length() < 2 or s.length() > 12:
 		error = true
+		error_key = "A7-E1"
+		r.play("blip")
+		return
+	# 主角的名字留给主角：婚礼现场服务端也会拒，这里先拦下，免得进场后没有退路
+	if s.to_lower().replace(" ", "") in RESERVED_NAMES:
+		error = true
+		error_key = "A7-E2"
 		r.play("blip")
 		return
 	name = s
@@ -211,7 +222,7 @@ func draw(ci) -> void:
 		"name":
 			ci.draw_rect(Rect2(30,432,300,112),Color(ci.PAPER,0.96))
 			ci.text_at(Vector2(42,458),ci.t_("A7-I1"),16,ci.INK,276)
-			ci.text_at(Vector2(42,533),ci.t_("A7-E1") if error else ci.t_("A7-I2"),13,ci.WOOD,276)
+			ci.text_at(Vector2(42,533),ci.t_(error_key) if error else ci.t_("A7-I2"),13,ci.WOOD,276)
 			ci.pill(_ok_rect(), ci.t_("G-19"), 18, ci.RED, ci.PAPER)
 		"write", "written":
 			_paper(ci, int(typed))

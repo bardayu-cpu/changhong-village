@@ -18,6 +18,7 @@ const STICK := Vector2(62, 568)
 var r
 var phase := "active"
 var t := 0.0
+const GOAL := 3   # 阿鱼 11/08 定：喂饱三只就够，不用来回跑五趟
 var fed: Array = []
 var hungry := -1
 var bamboo_held := false
@@ -75,7 +76,7 @@ func _act() -> void:
 			r.moving = false
 			r.play("pop")
 			t = 0.0
-			phase = "done" if fed.size() >= 5 else "chew"
+			phase = "done" if fed.size() >= GOAL else "chew"
 			if phase == "done": r._reset_input()
 
 func _action_rect() -> Rect2:
@@ -117,7 +118,7 @@ func _walk_to(pos: Vector2) -> void:
 func skip() -> void:
 	# Framework calls this only after ten seconds. Preserve already fed pandas.
 	for i in range(FEET.size()):
-		if fed.size() >= 5: break
+		if fed.size() >= GOAL: break
 		if i not in fed: fed.append(i)
 	hungry = -1
 	bamboo_held = false
@@ -132,7 +133,7 @@ func restore_checkpoint() -> void:
 		var index := int(value)
 		if index >= 0 and index < FEET.size() and index not in unique: unique.append(index)
 	fed = unique
-	if fed.size() >= 5:
+	if fed.size() >= GOAL:
 		phase = "done"
 		hungry = -1
 		bamboo_held = false
@@ -169,7 +170,7 @@ func draw(ci) -> void:
 	var prompt := "G-PANDA-TAKE" if not bamboo_held else "G-PANDA-FEED"
 	if phase == "done": prompt = "G-PANDA-DONE"
 	ci._hint(ci.t_(prompt))
-	ci.pill(Rect2(12, 96, 110, 28), ci.t_("G-PANDA-COUNT") % mini(fed.size(), 5), 14, Color(ci.INK, 0.78), ci.PAPER)
+	ci.pill(Rect2(12, 96, 110, 28), ci.t_("G-PANDA-COUNT") % mini(fed.size(), GOAL), 14, Color(ci.INK, 0.78), ci.PAPER)
 	if phase != "done":
 		_draw_stick(ci)
 		if not bamboo_held: ci.draw_arc(TAKE_AT, 9, 0, TAU, 24, Color(ci.GOLD, 0.7), 2)

@@ -67,7 +67,12 @@ func _build() -> void:
 	_items.append({"kind": "text", "s": r.t_("B-G0-REGARDS"), "size": 13, "y": y + 12, "col": TEXT})
 	y += LINE
 	_items.append({"kind": "text", "s": r.t_("B-G0-SIGN"), "size": 13, "y": y + 12, "col": NAVY})
-	y += LINE + 12.0
+	y += LINE + 8.0
+	# 中文小字：玩家不用读英文也知道信里说了什么
+	for ln: String in Laptop.wrap(r, r.t_("B-G0-ZH"), VIEW.size.x - 24, 12):
+		_items.append({"kind": "text", "s": ln, "size": 12, "y": y + 12, "col": Color(TEXT, 0.6)})
+		y += LINE - 2.0
+	y += 8.0
 	_items.append({"kind": "button", "y": y})
 	y += 30.0 + 10.0
 	max_scroll = maxf(0.0, y - VIEW.size.y)
