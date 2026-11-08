@@ -18,6 +18,8 @@ const STICK := Vector2(62, 568)
 var r
 var phase := "active"
 var t := 0.0
+# 熊猫坐着约 1 米、人约 1.65 米：按人物身高 88 像素换算，熊猫缩到 0.6（阿鱼 11/08：熊猫太大）
+const PANDA_SCALE := 0.6
 const GOAL := 3   # 阿鱼 11/08 定：喂饱三只就够，不用来回跑五趟
 var fed: Array = []
 var hungry := -1
@@ -155,9 +157,9 @@ func draw(ci) -> void:
 			var art: String = POSES[i]
 			if i in fed:
 				art = "w2/chengdu/panda_eat.png" if int(r.time * 3 + i) % 2 == 0 else "w2/chengdu/panda_slow.png"
-			ci.sprite(art, FEET[i], i % 2 == 1, 0.8)
+			ci.sprite(art, FEET[i], i % 2 == 1, PANDA_SCALE)
 	if hungry >= 0:
-		var at: Vector2 = FEET[hungry] + Vector2(0, -87 + sin(r.time * 4) * 2)
+		var at: Vector2 = FEET[hungry] + Vector2(0, -66 + sin(r.time * 4) * 2)
 		ci.pill(Rect2(at - Vector2(27, 15), Vector2(54, 30)), ci.t_("G-PANDA-HUNGRY"), 15, ci.PAPER, ci.INK)
 		ci.draw_colored_polygon(PackedVector2Array([at + Vector2(-5, 14), at + Vector2(5, 14), at + Vector2(0, 20)]), ci.PAPER)
 		ci.draw_arc(_approach(hungry), 9, 0, TAU, 24, Color(ci.GOLD, 0.7), 2)
@@ -166,7 +168,7 @@ func draw(ci) -> void:
 		# 吃到竹子：头顶冒两颗小爱心往上飘
 		var k := clampf(t / 0.7, 0, 1) if phase == "chew" else 0.0
 		for j in range(2):
-			_heart(ci, FEET[last_fed] + Vector2(-10 + j * 18, -70 - k * 26 - j * 8), 5.0, Color(0.93, 0.36, 0.45, 1.0 - k * 0.8))
+			_heart(ci, FEET[last_fed] + Vector2(-10 + j * 18, -52 - k * 26 - j * 8), 5.0, Color(0.93, 0.36, 0.45, 1.0 - k * 0.8))
 	var prompt := "G-PANDA-TAKE" if not bamboo_held else "G-PANDA-FEED"
 	if phase == "done": prompt = "G-PANDA-DONE"
 	ci._hint(ci.t_(prompt))
