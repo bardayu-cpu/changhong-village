@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild the internal R1 comparison from actual committed banquet assets.
 Legacy inputs are read from Git objects (works with sparse checkout); new R1
-inputs are read from the current working files. No production files are changed.
+inputs default to the reviewed R1 Git revision. No production files are changed.
 Only integer NEAREST enlargement is used; no fit-to-cell, recoloring or redraw.
 """
 import argparse
@@ -14,6 +14,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ART = Path(__file__).resolve().parents[1]
 ROOT = ART.parents[2]
+REVIEWED_R1 = '4aefa8f7d4baa411461ddcb4931ca0a29acec4ae'
 OUTPUT_NAME = 'R1-现有宴会厅对照'
 TABLE_BOX = (204, 194, 290, 230)
 CHAIR_BOX = (164, 184, 186, 230)
@@ -70,7 +71,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ref', default='61c05009b3194911703f689ec82f363ac27f066d',
                         help='Committed formal source revision; resolved to a full SHA')
-    parser.add_argument('--r1-dir', type=Path, default=ART)
+    parser.add_argument('--r1-dir', type=Path, help='Optional working R1 files; default is the reviewed revision')
     parser.add_argument('--output', type=Path, default=ART / (OUTPUT_NAME + '.png'))
     args = parser.parse_args()
     revision = git('rev-parse', args.ref + '^{commit}').decode().strip()
@@ -86,9 +87,12 @@ def main():
         return json.loads(source(path))
 
     def current(name):
-        path = args.r1_dir / name
-        data = path.read_bytes()
-        new_inputs[name] = {'path': path.resolve().relative_to(ROOT).as_posix(), 'sha256': sha(data)}
+        path = (args.r1_dir or ART) / name
+        relative = path.resolve().relative_to(ROOT).as_posix()
+        data = path.read_bytes() if args.r1_dir else git('show', f'{REVIEWED_R1}:{relative}')
+        new_inputs[name] = {'path': relative, 'sha256': sha(data)}
+        if not args.r1_dir:
+            new_inputs[name]['git_revision'] = REVIEWED_R1
         return png(data)
 
     # Verify the actual formal default rather than choosing the prettier hall.
@@ -209,6 +213,8 @@ def main():
     text(canvas, (32, 1546), '右侧圆桌/椅子保留比例尺板纸色。坐标、调用链、输入哈希及复跑方式见同名“取材”记录。', 18, MUTED)
     # Reject torn input while another worker regenerates R1. Existing output stays intact.
     for item in new_inputs.values():
+        if not args.r1_dir:
+            continue
         assert sha((ROOT / item['path']).read_bytes()) == item['sha256'], 'R1 changed during composition; rerun after regeneration finishes'
     args.output.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(args.output, optimize=True)
@@ -225,7 +231,7 @@ def main():
     def line(code, token):
         return next(i for i, s in enumerate(code.splitlines(), 1) if token in s)
     lines = [
-        '# R1 对照图取材证据', '', f'正式旧图基准：`{revision}`。右侧为运行脚本时当前 R1 文件，哈希见同名 JSON。', '',
+        '# R1 对照图取材证据', '', f'正式旧图基准：`{revision}`。右侧默认取已审的 R1 历史提交，哈希见同名 JSON。', '',
         '## 加载与缩放依据', '',
         f'- `godot/assets/hall.json`：hall55=true。`godot/scripts/main.gd:{line(main_code,"func hall_variant()")}` 优先级为一次性/同版本调试覆盖，未覆盖时读此正式配置；`_make_hall` 选择 DATA_55。',
         '- `godot/hongyuan/wedding.gd` 继承 main，正式邀请调用 `_enter_banquet()`，没有覆盖 hall_variant_once。此处核验默认路径，不假设个人调试存档。',
@@ -246,7 +252,7 @@ def main():
               '- 每档左右严格同尺度；原尺寸与 2 倍同时在一图中，2 倍仅 Image.Resampling.NEAREST。原素材颜色与尺寸不做归一化。',
               '- 这是静态调用链/图像取材核验，不是新一轮游戏运行或 Claude 审定。此对照图含旧素材颜色，不属于 R1 新素材色板审计集合。', '',
               '```sh', 'python3 回执/山庄收尾/画风/source/compare_r1.py', '```', '',
-              'V1 重生成三个人物和比例尺后执行同一命令即可；脚本会重新取当前文件并更新取材 JSON。输入若在拼图期间变化会拒绝写出，避免半新半旧。', '',
+              '正式比例尺已改用 LM-GUEST。历史人物仅从已审提交取材，不写回现行素材。', '',
               '阿鱼要做的事：暂时不用做。', '']
     args.output.with_name(args.output.stem + '-取材.md').write_text('\n'.join(lines))
     print(json.dumps({'output': str(args.output), 'size': canvas.size, 'legacy_revision': revision,

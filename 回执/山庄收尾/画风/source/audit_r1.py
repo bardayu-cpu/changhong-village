@@ -3,13 +3,13 @@
 from pathlib import Path
 import json, subprocess, hashlib, statistics, sys
 from PIL import Image
+from draw_r1 import GUEST_PLACEMENTS, guest_frame
 
 ROOT = Path(__file__).resolve().parents[4]
 ART = ROOT / '回执/山庄收尾/画风'
 BASE = '61c0500'
-PEOPLE = ['photographer_w.png', 'elder.png', 'farmer_2.png']
 MATERIALS = ['草地.png', '柏油.png', '石板.png', '木头.png', '白墙灰瓦.png', '水.png', '红毯.png', '布.png', '金属玻璃.png']
-CORE = PEOPLE + MATERIALS + ['car_mine.png', '脚影.png', 'car_mine_shadow.png', 'tree_scale.png', 'tree_scale_shadow.png']
+CORE = MATERIALS + ['car_mine.png', '脚影.png', 'car_mine_shadow.png', 'tree_scale.png', 'tree_scale_shadow.png']
 SHEETS = ['主色板.png', '材质样.png', '比例尺.png']
 
 def git(*args):
@@ -41,10 +41,21 @@ def main():
         try: im=Image.open(p).convert('RGBA')
         except Exception as e: checks.append((name,'FAIL',f'PNG decode: {e}')); continue
         images[name]=im
-        visible.update(v[:3] for v in im.getdata() if v[3])
-        checks.append((name,'INFO',f'{im.width}x{im.height}; 2x2 mixed blocks={grid_check(im)}'))
-    for n in PEOPLE:
-        if n in images: checks.append((n,'AUTO',f'84px body target: {images[n].size==(64,84)}'))
+        placement = GUEST_PLACEMENTS.get(p.stem)
+        art_only = im.copy()
+        if placement:
+            code, (x, y) = placement
+            frame = guest_frame(code)
+            box = (x, y, x + frame.width, y + frame.height)
+            expected = Image.new('RGBA', frame.size, (217, 209, 184, 255))
+            expected.alpha_composite(frame)
+            assert im.crop(box).tobytes() == expected.tobytes(), f'{name}: native guest pixels changed'
+            checks.append((name,'AUTO',f'{code} 64x84 atlas pixels match exactly; origin {(x,y)}'))
+            art_only.paste((0,0,0,0), box)
+        visible.update(v[:3] for v in art_only.getdata() if v[3])
+        mixed = grid_check(art_only)
+        assert mixed == 0, (name, mixed)
+        checks.append((name,'INFO',f'{im.width}x{im.height}; environment 2x2 mixed blocks={mixed}'))
     for n in MATERIALS:
         if n not in images: continue
         im=images[n]; sm=seam(im)
@@ -60,6 +71,7 @@ def main():
     palette=images.get('主色板.png')
     if palette:
         swatches={p[:3] for p in palette.getdata() if p[3]}
+        assert len(swatches) == 51 and not visible-swatches
         checks.append(('palette','AUTO',f'{len(visible)} visible colors across sampled PNGs; palette swatches={len(swatches)}; <=64={len(swatches)<=64}; missing swatches={len(visible-swatches)}'))
     # Runtime-code change audit relative to the merged R1 baseline.
     try:
@@ -69,7 +81,6 @@ def main():
     except Exception as e: checks.append(('runtime','PENDING',f'git baseline check unavailable: {e}'))
     for n in missing: checks.append((n,'PENDING','required item not present'))
     for name,status,detail in checks: print(f'{status}\t{name}\t{detail}')
-    print('MANUAL\tpeople\t鞋左右脚色块、三人职业可辨性、是否84px实际身体、树团枝干形态与三阶暖光方向。')
     print('MANUAL\tmaterials\t检查九种材质纹样是否可辨、光向统一；依据报告的边缘跳变量在原尺寸和实际平铺下目视接缝。')
     print('MANUAL\tcar\t3/4俯视车顶造型；前后轮位置和轮数、斜车窗、71px立高；两种影子的接触暗边和右下约30%拖影。')
     print('MANUAL\tscale\t比例尺、同一素材原尺寸/2倍并排审看；核对84px人和门/桌椅/树/车的相对尺度。')
