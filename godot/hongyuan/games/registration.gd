@@ -29,6 +29,7 @@ func start(runner, beat: Dictionary) -> void:
 
 func _stamp_rect() -> Rect2: return Rect2(162,214,56,29)
 func _next_rect() -> Rect2: return Rect2(104,552,152,46)
+func _hold_bar() -> Rect2: return Rect2(62,555,236,42)
 
 func process(dt: float) -> bool:
 	t += dt
@@ -61,11 +62,12 @@ func input(kind: String, pos: Vector2) -> void:
 			if li >= memories.size(): phase = "done"
 		return
 	if phase == "stamp":
-		if kind == "down": holding = _stamp_rect().grow(12).has_point(pos)
+		# 按印章本身，或者按底部的「一起按住印章」条，都算按住
+		if kind == "down": holding = _stamp_rect().grow(16).has_point(pos) or _hold_bar().grow(8).has_point(pos)
 		elif kind == "up":
 			holding = false
 			if hold < 1: hold = 0
-		elif kind == "move" and not _stamp_rect().grow(36).has_point(pos):
+		elif kind == "move" and not (_stamp_rect().grow(40).has_point(pos) or _hold_bar().grow(30).has_point(pos)):
 			holding = false;hold = 0
 	elif kind == "tap" and _next_rect().grow(8).has_point(pos):
 		if phase == "handover" and handed:
@@ -92,7 +94,9 @@ func draw(ci) -> void:
 		left_x = lerpf(147,145,progress);right_x = lerpf(215,218,progress)
 	elif phase == "photo":
 		var settle := smoothstep(0,1,clampf(t/0.6,0,1))
-		left_x = lerpf(145,147,settle);right_x = lerpf(218,215,settle)
+		left_x = lerpf(145,161,settle);right_x = lerpf(218,201,settle)
+	elif phase in ["flash","memory","done"]:
+		left_x = 161; right_x = 201
 	_draw_person(ci,Vector2(left_x,y),false,entering,t)
 	_draw_person(ci,Vector2(right_x,y+2),true,entering,t)
 	if phase in ["stamp","handover"]:
@@ -102,16 +106,22 @@ func draw(ci) -> void:
 		var down := smoothstep(0,1,hold)
 		# The seal visibly descends onto the document as the shared press fills.
 		_stamp(ci,c+Vector2(0,-8+12*down))
-		ci.draw_rect(Rect2(_stamp_rect().position+Vector2(0,30),Vector2(56*hold,2)),ci.GOLD)
-		ci.pill(Rect2(62,555,236,42),"一起按住印章一秒",17,ci.RED,ci.PAPER)
+		# 印章上一圈跳动的光圈 + 进度环，玩家一眼知道按哪里
+		var pulse := 0.5 + 0.5 * sin(t * 5.0)
+		ci.draw_arc(c, 26 + 4 * pulse, 0, TAU, 32, Color(1, 0.88, 0.5, 0.45 + 0.4 * pulse), 2)
+		ci.draw_arc(c, 22, -PI / 2, -PI / 2 + TAU * maxf(0.02, hold), 32, ci.GOLD, 4)
+		var bar := _hold_bar()
+		ci.pill(bar,"一起按住印章一秒",17,ci.RED,ci.PAPER)
+		if hold > 0: ci.draw_rect(Rect2(bar.position + Vector2(8, bar.size.y - 6), Vector2((bar.size.x - 16) * hold, 3)), ci.GOLD)
 	elif phase == "handover":
 		var k := smoothstep(0,1,clampf(t/1.6,0,1))
 		_certificate(ci,Vector2(188,237).lerp(Vector2(148,315),k),-0.08)
 		_certificate(ci,Vector2(188,237).lerp(Vector2(221,317),k),0.08)
 		if handed: ci.pill(_next_rect(),"收好证件，合张影",16,ci.RED,ci.PAPER)
 	elif photo_pose:
-		_certificate(ci,Vector2(154,y-38),-0.06)
-		_certificate(ci,Vector2(220,y-38),0.06)
+		# 合影：两人靠拢，红本举在胸前（不是飘在胯部）
+		_certificate(ci,Vector2(left_x+14,y-70),-0.08)
+		_certificate(ci,Vector2(right_x-14,y-72),0.08)
 		if phase == "photo":
 			_camera_marks(ci)
 			ci.pill(_next_rect(),"拍下这一刻",17,ci.RED,ci.PAPER)

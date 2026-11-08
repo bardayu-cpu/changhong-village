@@ -87,7 +87,7 @@ func restore_checkpoint() -> void:
 
 
 func _accept_rect() -> Rect2:
-	return Rect2(146, 366, 68, 68)
+	return Rect2(146, 400, 68, 68)  # 接听键放在头像下面，不压住 Toretto 的脸
 
 
 func _listen_rect() -> Rect2:
@@ -142,9 +142,11 @@ func draw(ci) -> void:
 		PhoneShell._round_box(ci,Rect2(55,293,250,177),Color(0.10,0.16,0.22,0.92),18)
 		ci.text_at(Vector2(70,330),ci.t_("A3-C1"),20,ci.PAPER,220)
 		var face: Texture2D = ci.texture("toretto_avatar.png")
-		if face: ci.draw_texture_rect(face,Rect2(156,340,48,48),false)
-		ci.draw_circle(_accept_rect().get_center(),27,Color("#4b995c"))
-		ci.text_at(Vector2(145,409),"接听",16,ci.PAPER,70)
+		if face: ci.draw_texture_rect(face,Rect2(156,342,48,48),false)
+		var pulse := 0.5 + 0.5 * sin(t * 6.0)
+		ci.draw_circle(_accept_rect().get_center(),25 + 3 * pulse,Color("#4b995c"))
+		ci.draw_arc(_accept_rect().get_center(),31 + 5 * pulse,0,TAU,32,Color(0.6,0.95,0.65,0.6 * (1 - pulse)),2)
+		ci.text_at(Vector2(145,443),"接听",16,ci.PAPER,70)
 		StoryCaption.draw_caption(ci,aside,"narrator")
 	elif phase in ["talk","birthday","reply"] and li < lines.size():
 		var anchor := Vector2(-1,-1) if monologue else _head(who)

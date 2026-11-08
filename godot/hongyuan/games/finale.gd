@@ -14,6 +14,7 @@ var t := 0.0
 var edit: LineEdit
 var error := false
 var look := -1
+const SEAL_BAR := Rect2(65, 475, 230, 44)
 var hold := 0.0
 var holding := false
 var name := ""
@@ -83,12 +84,13 @@ func input(kind: String, pos: Vector2) -> void:
 		"written":
 			if kind == "tap" and _ok_rect().has_point(pos): _set_phase("fold")
 		"seal":
-			if kind == "down" and pos.distance_to(_envelope().get_center()) <= 46:
+			# 按封口，或者按底部的「按住火漆」条，都算按住
+			if kind == "down" and (pos.distance_to(_envelope().get_center()) <= 60 or SEAL_BAR.grow(8).has_point(pos)):
 				holding = true
 			elif kind == "up":
 				holding = false
 				hold = 0.0
-			elif kind == "move" and pos.distance_to(_envelope().get_center()) > 56:
+			elif kind == "move" and pos.distance_to(_envelope().get_center()) > 76 and not SEAL_BAR.grow(30).has_point(pos):
 				holding = false
 				hold = 0.0
 		"ready_send":
@@ -128,7 +130,7 @@ func restore_checkpoint() -> void:
 
 func _make_edit() -> void:
 	edit = LineEdit.new()
-	edit.placeholder_text = r.t_("A7-I1")
+	edit.placeholder_text = "例如：小林"
 	edit.max_length = 12
 	edit.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	edit.position = Vector2(48, 475)
@@ -144,6 +146,7 @@ func _make_edit() -> void:
 	edit.add_theme_stylebox_override("normal", box)
 	edit.add_theme_stylebox_override("focus", box)
 	edit.text_submitted.connect(func(_s: String) -> void: _submit_name())
+	edit.text_changed.connect(func(_s: String) -> void: error = false)
 	r.add_child(edit)
 	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
 		edit.virtual_keyboard_enabled = false
@@ -232,12 +235,15 @@ func draw(ci) -> void:
 			ci.draw_set_transform(Vector2.ZERO)
 			var c := _envelope().get_center()
 			if phase == "seal":
+				var pulse := 0.5 + 0.5 * sin(t * 5.0)
+				ci.draw_arc(c, 44 + 4 * pulse, 0, TAU, 40, Color(1, 0.88, 0.5, 0.4 + 0.4 * pulse), 2)
 				ci.draw_arc(c, 38, -PI / 2, -PI / 2 + TAU * maxf(0.02, hold), 40, ci.GOLD, 4)
-				ci.pill(Rect2(65, 475, 230, 44), "按住火漆一秒", 18, ci.RED, ci.PAPER)
+				ci.pill(SEAL_BAR, "按住火漆一秒", 18, ci.RED, ci.PAPER)
+				if hold > 0: ci.draw_rect(Rect2(SEAL_BAR.position + Vector2(8, SEAL_BAR.size.y - 6), Vector2((SEAL_BAR.size.x - 16) * hold, 3)), ci.GOLD)
 			elif phase == "ready_send":
-				ci.pill(_ok_rect(), "寄出请帖", 18, ci.RED, ci.PAPER)
+				ci.pill(_ok_rect(), "寄出邀请函", 18, ci.RED, ci.PAPER)
 			elif phase == "receive":
-				ci.StoryCaption.draw_caption(ci, "你收到了一封请帖", "narrator")
+				ci.StoryCaption.draw_caption(ci, "你收到了一封邀请函", "narrator")
 				ci.draw_line(Vector2(76, 275), Vector2(76 + 208 * open_progress, 275), ci.GOLD, 4)
 				ci.pill(Rect2(48, 475, 264, 44), "沿封口向右滑动，亲手拆开", 16, ci.RED, ci.PAPER)
 			elif phase == "opening":

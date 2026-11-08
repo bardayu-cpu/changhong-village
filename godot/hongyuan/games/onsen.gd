@@ -154,7 +154,7 @@ func draw(ci) -> void:
 	ci.draw_set_transform(Vector2.ZERO)
 	if phase == "join" and t < 0.35: ci.draw_rect(ci.view_rect,Color(0.04,0.05,0.08,1-t/0.35))
 	if phase == "enter":
-		StoryCaption.draw_caption(ci, "浦岛酒店 · 海边温泉", "narrator")
+		StoryCaption.draw_caption(ci, "日本 · 浦岛酒店", "narrator")
 	elif phase == "talk" and li < lines.size():
 		_draw_bubble(ci)
 

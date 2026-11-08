@@ -42,11 +42,8 @@ func run() -> void:
 	await process_frame
 	while r.mode != "game": r._next()
 	var g = r.game
-	check(g.phase == "ready", "Drive game starts waiting for the start button")
-	# 点「开始」
-	touch(Vector2(180, 582), true)
-	touch(Vector2(180, 582), false)
-	check(g.phase == "drive", "Touching the start button begins driving")
+	# 任务卡已经确认过一次，开车不再要第二次「出发」
+	check(g.phase == "drive", "Driving begins right after the goal card")
 	await tick(0.5)
 	# 向右滑一道，再向左滑回
 	check(g.lane == 1, "Starts in the middle lane")

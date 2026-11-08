@@ -45,9 +45,7 @@ func run() -> void:
 	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
 	check(p.shot.id == "drive", "Explicit nearby icon boards car")
 	var drive = p.runner.game
-	for i in range(100): drive.process(0.05)
-	check(drive.scroll == 0 and drive.phase == "ready", "Current driving waits for explicit start")
-	drive.input("tap", drive._go_rect().get_center())
+	check(drive.phase == "drive", "Driving starts right after the goal card (no second 出发 confirm)")
 	drive.input("down", Vector2(180,500))
 	drive.input("move", Vector2(230,500))
 	drive.input("up", Vector2(230,500))

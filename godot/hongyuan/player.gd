@@ -46,6 +46,8 @@ var wechat_show_callback: Variant
 var chime := AudioStreamPlayer.new()
 var bgm := AudioStreamPlayer.new()
 var bgm_id := ""
+var music_button := Button.new()
+const MUSIC_KEY := "hongyuan_music_off"
 var loading_content := false
 var content_overlay: Control
 var recovery: Control
@@ -122,6 +124,7 @@ func _ready() -> void:
 	fade_screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	fade_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(fade_screen)
+	_make_music_button()
 
 	state = _read_checkpoint()
 	active_index = int(step_indices.get(state.get("stepId", ""), -1))
@@ -1139,6 +1142,59 @@ func _play_bgm(chapter_id: String) -> void:
 	bgm_id = chapter_id
 	bgm.stream = stream
 	bgm.play()
+	bgm.stream_paused = _music_off()
+
+## 左上角「音乐」开关：只关背景乐，音效照常；设置跨章节、跨存档保留
+func _make_music_button() -> void:
+	music_button.position = Vector2(10, 12)
+	music_button.size = Vector2(70, 24)
+	music_button.focus_mode = Control.FOCUS_NONE
+	music_button.add_theme_font_override("font", FONT)
+	music_button.add_theme_font_size_override("font_size", 12)
+	for state_name in ["font_color", "font_hover_color", "font_pressed_color"]:
+		music_button.add_theme_color_override(state_name, Stage.CREAM)
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color("#473329", 0.85)
+	box.border_color = Color("#c9a66b", 0.8)
+	box.set_border_width_all(1)
+	box.set_corner_radius_all(3)
+	for style in ["normal", "hover", "pressed"]:
+		music_button.add_theme_stylebox_override(style, box)
+	music_button.pressed.connect(func() -> void:
+		_set_music_off(not _music_off())
+	)
+	stage.add_child(music_button)
+	# 场景、小游戏后加进 stage 会盖住按钮：每次有新子节点就把按钮挪回最上层
+	stage.child_entered_tree.connect(func(_n: Node) -> void:
+		if is_instance_valid(music_button) and music_button.get_parent() == stage:
+			stage.move_child.call_deferred(music_button, -1)
+	)
+	_refresh_music_button()
+
+func _refresh_music_button() -> void:
+	music_button.text = "音乐：关" if _music_off() else "音乐：开"
+	bgm.stream_paused = _music_off()
+
+func _music_off() -> bool:
+	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+		return str(JavaScriptBridge.eval("(()=>{try{return String(wx.getStorageSync('%s')||'')}catch(_){return ''}})()" % MUSIC_KEY, true)) == "1"
+	if OS.has_feature("web"):
+		return str(JavaScriptBridge.eval("(()=>{try{return localStorage.getItem('%s')||''}catch(_){return ''}})()" % MUSIC_KEY, true)) == "1"
+	var cfg := ConfigFile.new()
+	return cfg.load("user://hongyuan_settings.cfg") == OK and bool(cfg.get_value("audio", "music_off", false))
+
+func _set_music_off(off: bool) -> void:
+	var v := "1" if off else ""
+	if OS.has_feature("web") and OS.has_feature("hongyuan_wechat"):
+		JavaScriptBridge.eval("try{wx.setStorageSync('%s','%s')}catch(_){}" % [MUSIC_KEY, v], true)
+	elif OS.has_feature("web"):
+		JavaScriptBridge.eval("try{localStorage.setItem('%s','%s')}catch(_){}" % [MUSIC_KEY, v], true)
+	else:
+		var cfg := ConfigFile.new()
+		cfg.load("user://hongyuan_settings.cfg")
+		cfg.set_value("audio", "music_off", off)
+		cfg.save("user://hongyuan_settings.cfg")
+	_refresh_music_button()
 
 func _retry_content() -> void:
 	if is_instance_valid(recovery):

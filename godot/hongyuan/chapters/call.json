@@ -62,23 +62,29 @@
             "at": [
               215,
               300
-            ]
+            ],
+            "scale": 1.7,
+            "ring": true
           }
         ],
         "hotspots": [
           {
             "id": "phone",
             "at": [
-              215,
-              378
+              180,
+              390
             ],
             "snap": [
-              215,
-              378
+              168,
+              392
             ],
             "face": 1,
             "pose": "back",
-            "icon": "phone"
+            "icon": "phone",
+            "iconAt": [
+              215,
+              240
+            ]
           }
         ],
         "beats": [
@@ -331,6 +337,9 @@
           },
           {
             "narrate": "A3-2t"
+          },
+          {
+            "wait": 2.2
           },
           {
             "goal": {
