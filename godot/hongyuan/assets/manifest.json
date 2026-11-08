@@ -4157,7 +4157,7 @@
     "desk_family_portrait": {
       "file": "round1/desk_r4/family_portrait.png",
       "status": "reviewCandidate",
-      "source": "User supplied P2 wedding family photograph; built-in imagegen pixel rendition 2026-11-07",
+      "source": "User supplied on-site wedding family photograph; printed image cropped for the existing desk frame, without a generative redraw",
       "integration": "desk_art.gd shared frame overlay: opening, materials, writing and direct desk backgrounds"
     }
   }
