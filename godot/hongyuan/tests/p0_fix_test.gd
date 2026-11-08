@@ -26,6 +26,7 @@ func run() -> void:
 	for i in range(3):
 		await process_frame
 	# 1) 停车：开到终点后完全不碰屏幕，几秒内要自己停进车位
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/drive"])
 	for i in range(3):
 		await process_frame
@@ -42,6 +43,7 @@ func run() -> void:
 		t += 0.05
 	check(p.shot.fullId != sid, "停车不操作 %.1f 秒内自动入位" % t)
 	# 2) 停车：点一下就停
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/drive"])
 	for i in range(3):
 		await process_frame
@@ -58,6 +60,7 @@ func run() -> void:
 		t += 0.05
 	check(g.phase != "park", "停车点一下 %.1f 秒内入位（bay_y=%.0f）" % [t, g.bay_y])
 	# 3) 街边：点车本身（不在可走区域内），阿鱼自己走过去并上车
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/board_car"])
 	for i in range(3):
 		await process_frame

@@ -18,6 +18,9 @@ const STICK := Vector2(62, 568)
 var r
 var phase := "active"
 var t := 0.0
+# 熊猫坐着约 1 米、人约 1.65 米：按人物身高 88 像素换算，熊猫缩到 0.6（阿鱼 11/08：熊猫太大）
+const PANDA_SCALE := 0.6
+const GOAL := 3   # 阿鱼 11/08 定：喂饱三只就够，不用来回跑五趟
 var fed: Array = []
 var hungry := -1
 var bamboo_held := false
@@ -75,11 +78,12 @@ func _act() -> void:
 			r.moving = false
 			r.play("pop")
 			t = 0.0
-			phase = "done" if fed.size() >= 5 else "chew"
+			phase = "done" if fed.size() >= GOAL else "chew"
 			if phase == "done": r._reset_input()
 
 func _action_rect() -> Rect2:
-	var center := BAMBOO + Vector2(36, -26)
+	# 取竹子的图标放在竹篮左边，不压在阿鱼头上（阿鱼站在竹篮右边）
+	var center := BAMBOO + Vector2(-46, -34)
 	if bamboo_held and hungry >= 0:
 		center = FEET[hungry] + Vector2(-40 if hungry % 3 == 2 else 40, -26)
 	return Rect2(center - Vector2(24, 24), Vector2(48, 48))
@@ -88,13 +92,17 @@ func input(kind: String, pos: Vector2) -> void:
 	if phase == "done": return
 	# Use runner's pointer ownership/cancellation; never retain a physical press in a save.
 	if kind == "down":
-		r.stick_pointer = pos.x < 180 and pos.y > 320
+		r.stick_pointer = pos.y > 320
 	elif kind == "move" and r.dragged and r.stick_pointer:
 		r.stick = ((pos - r.down_pos) / 36.0).limit_length()
 	elif kind == "up":
 		r.stick = Vector2.ZERO
 	if kind != "tap": return
-	if _action() != "" and _action_rect().has_point(pos):
+	# 站到位以后，点图标、点竹篮、点那只熊猫，都算「亲手」取或喂
+	var act := _action()
+	if act != "" and (_action_rect().grow(6).has_point(pos)
+			or (act == "take" and Rect2(BAMBOO - Vector2(28, 54), Vector2(56, 60)).has_point(pos))
+			or (act == "feed" and Rect2(FEET[hungry] - Vector2(40, 104), Vector2(80, 110)).has_point(pos))):
 		_act()
 		return
 	if not bamboo_held and Rect2(BAMBOO - Vector2(28, 54), Vector2(56, 60)).has_point(pos):
@@ -112,7 +120,7 @@ func _walk_to(pos: Vector2) -> void:
 func skip() -> void:
 	# Framework calls this only after ten seconds. Preserve already fed pandas.
 	for i in range(FEET.size()):
-		if fed.size() >= 5: break
+		if fed.size() >= GOAL: break
 		if i not in fed: fed.append(i)
 	hungry = -1
 	bamboo_held = false
@@ -127,7 +135,7 @@ func restore_checkpoint() -> void:
 		var index := int(value)
 		if index >= 0 and index < FEET.size() and index not in unique: unique.append(index)
 	fed = unique
-	if fed.size() >= 5:
+	if fed.size() >= GOAL:
 		phase = "done"
 		hungry = -1
 		bamboo_held = false
@@ -149,18 +157,22 @@ func draw(ci) -> void:
 			var art: String = POSES[i]
 			if i in fed:
 				art = "w2/chengdu/panda_eat.png" if int(r.time * 3 + i) % 2 == 0 else "w2/chengdu/panda_slow.png"
-			ci.sprite(art, FEET[i], i % 2 == 1, 0.8)
+			ci.sprite(art, FEET[i], i % 2 == 1, PANDA_SCALE)
 	if hungry >= 0:
-		var at: Vector2 = FEET[hungry] + Vector2(0, -87 + sin(r.time * 4) * 2)
+		var at: Vector2 = FEET[hungry] + Vector2(0, -66 + sin(r.time * 4) * 2)
 		ci.pill(Rect2(at - Vector2(27, 15), Vector2(54, 30)), ci.t_("G-PANDA-HUNGRY"), 15, ci.PAPER, ci.INK)
 		ci.draw_colored_polygon(PackedVector2Array([at + Vector2(-5, 14), at + Vector2(5, 14), at + Vector2(0, 20)]), ci.PAPER)
 		ci.draw_arc(_approach(hungry), 9, 0, TAU, 24, Color(ci.GOLD, 0.7), 2)
-	if feed_flash > 0 and last_fed >= 0:
-		ci.draw_arc(FEET[last_fed] + Vector2(0, -28), 20 + (0.6 - feed_flash) * 35, 0, TAU, 28, Color(ci.GOLD, feed_flash), 2)
+	if last_fed >= 0 and (feed_flash > 0 or phase == "chew"):
+		ci.draw_arc(FEET[last_fed] + Vector2(0, -28), 20 + (0.6 - feed_flash) * 35, 0, TAU, 28, Color(ci.GOLD, feed_flash / 0.6), 2)
+		# 吃到竹子：头顶冒两颗小爱心往上飘
+		var k := clampf(t / 0.7, 0, 1) if phase == "chew" else 0.0
+		for j in range(2):
+			_heart(ci, FEET[last_fed] + Vector2(-10 + j * 18, -52 - k * 26 - j * 8), 5.0, Color(0.93, 0.36, 0.45, 1.0 - k * 0.8))
 	var prompt := "G-PANDA-TAKE" if not bamboo_held else "G-PANDA-FEED"
 	if phase == "done": prompt = "G-PANDA-DONE"
 	ci._hint(ci.t_(prompt))
-	ci.pill(Rect2(12, 96, 110, 28), ci.t_("G-PANDA-COUNT") % mini(fed.size(), 5), 14, Color(ci.INK, 0.78), ci.PAPER)
+	ci.pill(Rect2(12, 96, 110, 28), ci.t_("G-PANDA-COUNT") % mini(fed.size(), GOAL), 14, Color(ci.INK, 0.78), ci.PAPER)
 	if phase != "done":
 		_draw_stick(ci)
 		if not bamboo_held: ci.draw_arc(TAKE_AT, 9, 0, TAU, 24, Color(ci.GOLD, 0.7), 2)
@@ -182,7 +194,14 @@ func _draw_player(ci) -> void:
 		var tex: Texture2D = ci.texture("w2/chengdu/bamboo_held.png")
 		if tex: ci.draw_texture_rect(tex, Rect2(r.feet + Vector2(16 * r.facing - 6, -49), Vector2(12, 37)), false)
 
+func _heart(ci, c: Vector2, rad: float, col: Color) -> void:
+	ci.draw_circle(c + Vector2(-rad * 0.5, 0), rad * 0.6, col)
+	ci.draw_circle(c + Vector2(rad * 0.5, 0), rad * 0.6, col)
+	ci.draw_colored_polygon(PackedVector2Array([c + Vector2(-rad * 1.05, rad * 0.2), c + Vector2(rad * 1.05, rad * 0.2), c + Vector2(0, rad * 1.4)]), col)
+
 func _draw_stick(ci) -> void:
+	# 摇杆只在手指按住时出现，平时不挡左下角
+	if not (r.down and r.stick_pointer): return
 	var base: Texture2D = ci.texture("w2/common/joystick_base.png")
 	var knob: Texture2D = ci.texture("w2/common/joystick_knob.png")
 	var origin: Vector2 = r.down_pos if r.down and r.stick_pointer else STICK

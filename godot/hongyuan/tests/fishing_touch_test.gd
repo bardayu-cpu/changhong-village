@@ -28,6 +28,7 @@ func run() -> void:
 	p.size = Vector2(540, 960)
 	root.add_child(p)
 	await wait(0.3)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shizuoka/pier"])
 	await wait(0.5)
 	var r = p.runner

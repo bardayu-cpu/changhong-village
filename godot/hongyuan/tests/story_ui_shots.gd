@@ -37,16 +37,20 @@ func run() -> void:
 	root.add_child(p)
 	await process_frame
 	p.set_process(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/chat_ayu"])
 	await create_timer(0.3).timeout
 	check(p.stage.chat_rows.size() == 4, "All four original chat messages remain")
 	for row: Dictionary in p.stage.chat_rows:
 		check(row.visible and p.stage.phone_screen_rect().encloses(row.bubble), "Chat message stays within iPhone screen")
 	await shot("01-iphone-group")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["chengdu/chengdu_return"])
 	await shot("02-world-narration")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/line_1"])
 	await shot("03-world-dialogue")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["call/night_call"])
 	var r = p.runner
 	r.set_process(false)
@@ -72,6 +76,7 @@ func run() -> void:
 	r.game.reveal = r.game._line_text().length()
 	tap(r.game._speaker_rect().get_center())
 	check(r.game.speaker_on and r.game.li == 7, "Speaker action still receives viewport touch")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["hongkong/hk"])
 	r = p.runner
 	r.set_process(false)

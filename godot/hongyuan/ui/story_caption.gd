@@ -113,11 +113,15 @@ static func _draw_caption_text(ci: CanvasItem, full_text: String, who: String, v
 	var bubble := named and anchor.x >= 0
 	var box := caption_rect(full_text, who, anchor)
 	var panel := StyleBoxFlat.new()
-	panel.bg_color = PAPER if named else Color(0.16, 0.12, 0.09, 0.24)
+	# 旁白压在亮背景（天空、海面、楼面）上也要看得清：深色半透明底 + 细金边
+	panel.bg_color = PAPER if named else Color(0.14, 0.10, 0.08, 0.74)
 	panel.set_corner_radius_all(12 if named else 6)
 	if named:
 		panel.border_color = WOOD
 		panel.set_border_width_all(2)
+	else:
+		panel.border_color = Color("#c9a66b", 0.55)
+		panel.set_border_width_all(1)
 	ci.draw_style_box(panel, box)
 	if bubble:
 		var tail_x := clampf(anchor.x, box.position.x + 18, box.end.x - 18)
@@ -126,6 +130,15 @@ static func _draw_caption_text(ci: CanvasItem, full_text: String, who: String, v
 		var tip := Vector2(anchor.x, minf(anchor.y - 3, box.end.y + 17))
 		ci.draw_colored_polygon(PackedVector2Array([a, b, tip]), PAPER)
 		ci.draw_polyline(PackedVector2Array([a, tip, b]), WOOD, 2)
+		# 气泡左上角的小名牌：两人并排时一眼看出是谁在说
+		var who_name: String = NAMES[who]
+		var name_w := FONT.get_string_size(who_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 11).x + 12
+		var name_tag := Rect2(box.position + Vector2(8, -9), Vector2(name_w, 16))
+		var name_skin := StyleBoxFlat.new()
+		name_skin.bg_color = RED
+		name_skin.set_corner_radius_all(8)
+		ci.draw_style_box(name_skin, name_tag)
+		ci.draw_string(FONT, name_tag.position + Vector2(0, 12), who_name, HORIZONTAL_ALIGNMENT_CENTER, name_tag.size.x, 11, PAPER)
 	var inset := 14.0 if bubble else (70.0 if named else 12.0)
 	if named and not bubble:
 		var face := avatar(who)

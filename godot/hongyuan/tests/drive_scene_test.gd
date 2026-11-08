@@ -35,6 +35,7 @@ func run() -> void:
 	root.add_child(p)
 	await process_frame
 	p._set_paused(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/drive"])
 	p.set_process(false)
 	var r = p.runner
@@ -42,11 +43,8 @@ func run() -> void:
 	await process_frame
 	while r.mode != "game": r._next()
 	var g = r.game
-	check(g.phase == "ready", "Drive game starts waiting for the start button")
-	# 点「开始」
-	touch(Vector2(180, 582), true)
-	touch(Vector2(180, 582), false)
-	check(g.phase == "drive", "Touching the start button begins driving")
+	# 任务卡已经确认过一次，开车不再要第二次「出发」
+	check(g.phase == "drive", "Driving begins right after the goal card")
 	await tick(0.5)
 	# 向右滑一道，再向左滑回
 	check(g.lane == 1, "Starts in the middle lane")
@@ -84,6 +82,8 @@ func run() -> void:
 		if not is_instance_valid(r) or p.shot.id != "drive": break
 		await tick(0.05)
 	check(p.shot.id != "drive", "Parked drive hands control back to the story")
+	while p.fading: await process_frame
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/drive"])
 	r = p.runner
 	r.set_process(false)
@@ -92,7 +92,9 @@ func run() -> void:
 	g = r.game
 	check(not r._skip_visible(), "Next button is hidden at first")
 	await tick(10.5)
-	check(r._skip_visible(), "Next button appears after 10 seconds")
+	check(not r._skip_visible(), "Next button stays hidden at 10 seconds while driving")
+	await tick(5.0)
+	check(r._skip_visible(), "Next button appears after 15 seconds of driving")
 	# 车位还远就按住：车不能原地停死，要继续开，车位一靠近自己停进去（不用松手再按）。
 	touch(Vector2(180, 582), true)
 	touch(Vector2(180, 582), false)

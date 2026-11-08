@@ -8,8 +8,8 @@ var touches := 0
 var glow := [0.0,0.0,0.0]
 const LABELS := ["工作","家人","对方"]
 func start(runner,_beat: Dictionary) -> void:
-	r=runner;r.hint="哪个快满了，就点一下照顾它"
-func rect(i: int) -> Rect2: return Rect2(28,345+i*74,304,57)
+	r=runner;r.hint="哪件事快堆满了，就点一下照顾它"
+func rect(i: int) -> Rect2: return Rect2(28,418+i*58,304,52)  # 放在画面下方，不压住两个人
 func process(dt: float) -> bool:
 	t += dt
 	if phase == "active":
@@ -25,7 +25,7 @@ func draw(ci) -> void:
 	for i in range(3):
 		var box:=rect(i)
 		ci.pill(box,LABELS[i],18,Color("#f6e8d1"),ci.INK)
-		ci.draw_rect(Rect2(box.position+Vector2(110,35),Vector2(172,7)),Color("#d7c7b0"))
-		ci.draw_rect(Rect2(box.position+Vector2(110,35),Vector2(172*levels[i],7)),Color("#cc8561") if levels[i]>.8 else Color("#80a88b"))
-		if glow[i]>0:ci.text_at(box.position+Vector2(114,26),"慢慢来",14,ci.WOOD,165)
+		ci.draw_rect(Rect2(box.position+Vector2(110,32),Vector2(172,7)),Color("#d7c7b0"))
+		ci.draw_rect(Rect2(box.position+Vector2(110,32),Vector2(172*levels[i],7)),Color("#cc8561") if levels[i]>.8 else Color("#80a88b"))
+		if glow[i]>0:ci.text_at(box.position+Vector2(114,24),"慢慢来",14,ci.WOOD,165)
 	ci.text_at(Vector2(45,602),"一起度过这段日子 · %d / 30 秒"%mini(30,int(t)),14,ci.PAPER,270)

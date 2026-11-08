@@ -212,7 +212,7 @@
             "goal": {
               "目标": "逛逛熊猫基地",
               "操作": "走到竹子旁拿起，再靠近熊猫喂食",
-              "所得": "墨水，让请帖上的字显现"
+              "所得": "墨水，让邀请函上的字显现"
             }
           },
           {
@@ -220,68 +220,7 @@
           }
         ],
         "scaleProfile": "chengdu",
-        "walkers": [
-          {
-            "guest": "05",
-            "a": [
-              20,
-              250
-            ],
-            "b": [
-              85,
-              250
-            ],
-            "speed": 18,
-            "phase": 0.0,
-            "scale": 0.95,
-            "pause": 2
-          },
-          {
-            "guest": "06",
-            "a": [
-              325,
-              267
-            ],
-            "b": [
-              265,
-              267
-            ],
-            "speed": 21,
-            "phase": 0.19,
-            "scale": 0.95,
-            "pause": 3
-          },
-          {
-            "guest": "07",
-            "a": [
-              115,
-              284
-            ],
-            "b": [
-              180,
-              284
-            ],
-            "speed": 24,
-            "phase": 0.38,
-            "scale": 0.95,
-            "pause": 2
-          },
-          {
-            "guest": "08",
-            "a": [
-              250,
-              301
-            ],
-            "b": [
-              200,
-              301
-            ],
-            "speed": 27,
-            "phase": 0.5700000000000001,
-            "scale": 0.95,
-            "pause": 3
-          }
-        ]
+        "walkers": []
       }
     },
     {
@@ -320,16 +259,16 @@
             "game": "group_chat",
             "lines": [
               {
-                "say": "A1-3b",
+                "say": "A2-3a",
                 "who": "axiao"
               },
               {
-                "say": "A1-3c",
-                "who": "toretto"
+                "say": "A2-3b",
+                "who": "ayu"
               },
               {
-                "say": "A1-3d",
-                "who": "ayu"
+                "say": "A2-3c",
+                "who": "toretto"
               }
             ],
             "backdrop": "round1/people/group_chengdu.png"

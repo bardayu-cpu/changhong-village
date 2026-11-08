@@ -109,7 +109,7 @@ func input(kind: String, pos: Vector2) -> void:
 
 
 func draw(ci) -> void:
-	ci.pill(Rect2(72,92,216,30),"阿鱼来投" if turn % 2 == 0 else "轮到 Toretto 了",15,Color(ci.WOOD,0.76),ci.PAPER)
+	ci.pill(Rect2(72,92,216,30),"轮到阿鱼了" if turn % 2 == 0 else "轮到 Toretto 了",15,Color(ci.WOOD,0.76),ci.PAPER)
 	for i in range(pegs.size()):
 		var lit := false
 		for ring: Dictionary in rings:

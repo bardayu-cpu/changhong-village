@@ -14,6 +14,7 @@ func run() -> void:
 	var p := Harness.new()
 	root.add_child(p)
 	p.set_process(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/chat_ayu"])
 	check(p.title.text == p.copy["A1-G0"], "Group header uses locked title")
 	check(p.stage.chat_rows.size() == 4, "Four original messages retained in order")
@@ -26,6 +27,7 @@ func run() -> void:
 		print("ROW ",row.speaker," ",row.bubble)
 		check(row.visible and screen.encloses(row.bubble), "Original message remains visible inside phone")
 	check(is_equal_approx(screen.size.x,316.0), "Phone opening fills the 360px layout")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["chengdu/chengdu_ping"])
 	var notification: Button
 	for child in p.slots.get_children():

@@ -55,6 +55,7 @@ func run() -> void:
 	root.add_child(p)
 	await process_frame
 	p._set_paused(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
 	p.set_process(false)
 	var r = p.runner
@@ -82,7 +83,7 @@ func run() -> void:
 	p._set_paused(false)
 	r.set_process(false)
 	p.set_process(false)
-	for i in range(5):
+	for i in range(3):
 		if not g.bamboo_held:
 			tap(g.BAMBOO)
 			await tick(3.0)
@@ -92,11 +93,13 @@ func run() -> void:
 		check(g.fed.size() == i, "Viewport arrival needs explicit feed, round %d" % (i + 1))
 		tap(g._action_rect().get_center())
 		check(g.fed.size() == i + 1, "Viewport feed %d" % (i + 1))
-		if i < 4: await tick(0.8)
-	await shot("03-five-pandas-fed")
+		if i < 2: await tick(0.8)
+	await shot("03-three-pandas-fed")
 	await tick(1.3)
 	await process_frame
 	check(p.shot.id == "chengdu_ping", "Normal game completion reaches preserved group notification")
+	while p.fading: await process_frame
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["chengdu/chengdu_walk"])
 	r = p.runner
 	r.set_process(false)

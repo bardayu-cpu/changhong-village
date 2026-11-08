@@ -19,6 +19,7 @@ func run() -> void:
 	var p := Harness.new()
 	root.add_child(p)
 	p.set_process(false)
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/board_car"])
 	check(p._controlled_walk(), "Shanghai controlled walk")
 	var down := InputEventMouseButton.new()
@@ -45,9 +46,7 @@ func run() -> void:
 	p._handle_tap(p.Stage.interaction_rect(p._nearby_hotspot()).get_center())
 	check(p.shot.id == "drive", "Explicit nearby icon boards car")
 	var drive = p.runner.game
-	for i in range(100): drive.process(0.05)
-	check(drive.scroll == 0 and drive.phase == "ready", "Current driving waits for explicit start")
-	drive.input("tap", drive._go_rect().get_center())
+	check(drive.phase == "drive", "Driving starts right after the goal card (no second 出发 confirm)")
 	drive.input("down", Vector2(180,500))
 	drive.input("move", Vector2(230,500))
 	drive.input("up", Vector2(230,500))
@@ -57,6 +56,7 @@ func run() -> void:
 	drive.traffic = [{"lane":2,"y":500.0,"v":100.0,"kind":1,"hit":false}]
 	drive._traffic(0.016)
 	check(drive.bump > 0 and drive.speed < 200, "Collision slows without failure")
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/approach_axiao"])
 	for x in range(-100,500,9):
 		for y in range(200,700,11):
@@ -71,6 +71,7 @@ func run() -> void:
 	# Restore fixtures are serialized through JSON as actual version-1 saves are.
 	p.state = {"version": 1, "runId": "d2-fixture", "materials": {}, "feet": [160, 450], "facing": -1, "walking": true, "walkTarget": [210, 450]}
 	p.state = JSON.parse_string(JSON.stringify(p.state))
+	p.shot = {}  # 跳过换场淡出，测试里同步进场
 	p._enter_step(p.step_indices["shanghai/board_car"], true)
 	check(p.stage.player_feet == Vector2(160,450) and p.moving and p.movement_target == Vector2(210,450), "Walking save restores feet and tap destination")
 	print("FAILURES ", failures)

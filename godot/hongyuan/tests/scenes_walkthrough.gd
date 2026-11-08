@@ -57,6 +57,7 @@ func run() -> void:
 	for step_id in ["shanghai/board_car", "shanghai/approach_axiao", "shanghai/line_1", "shanghai/chat_axiao", "chengdu/chengdu_walk"]:
 		if not only.is_empty():
 			break
+		p.shot = {}  # 跳过换场淡出，测试里同步进场
 		p._enter_step(p.step_indices[step_id])
 		if p.shot.type == "chat":
 			p.elapsed = 1.0
@@ -70,6 +71,7 @@ func run() -> void:
 			push_error("missing step " + step_id)
 			fails += 1
 			continue
+		p.shot = {}  # 跳过换场淡出，测试里同步进场
 		p._enter_step(p.step_indices[step_id])
 		await frames()
 		await play_scene(step_id.get_slice("/", 0))

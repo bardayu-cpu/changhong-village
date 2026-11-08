@@ -59,6 +59,15 @@ def split_web(out, root, source, base_url, development=False):
                 text += (root / f'hongyuan/games/{game}.gd').read_text()
         for filename in re.findall(r'[\w./-]+\.(?:png|webp|svg|ogg)', text):
             references[Path(filename).name].add(chapter)
+    # 全局代码（运行器、舞台、界面、没有归章的小游戏）里用到的图，不能只放进某一章的包
+    shared = set()
+    global_sources = [root / 'hongyuan/scene_runner.gd', root / 'hongyuan/stage.gd', root / 'hongyuan/player.gd']
+    global_sources += sorted((root / 'hongyuan/ui').glob('*.gd'))
+    global_sources += [f for f in sorted((root / 'hongyuan/games').glob('*.gd')) if f.stem not in games]
+    for source_file in global_sources:
+        if source_file.exists():
+            for filename in re.findall(r'[\w./%-]+\.(?:png|webp|svg|ogg)', source_file.read_text()):
+                shared.add(Path(filename).name)
     assigned = {}
     for group, members in groups.items():
         for entry in members:
@@ -69,7 +78,7 @@ def split_web(out, root, source, base_url, development=False):
                     target = 'main'
                 elif group == 'love-media':
                     owners = references[Path(name).name] - {'prologue'}
-                    if len(owners) == 1:
+                    if len(owners) == 1 and Path(name).name not in shared:
                         target = next(iter(owners))
             if group == 'prologue':
                 target = 'main'

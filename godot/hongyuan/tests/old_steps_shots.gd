@@ -30,6 +30,7 @@ func run() -> void:
 			var sid: String = chapter + "/" + str(step.id)
 			if not p.step_indices.has(sid) or step.type == "scene":
 				continue
+			p.shot = {}  # 跳过换场淡出，测试里同步进场
 			p._enter_step(p.step_indices[sid])
 			for i in range(40):
 				await process_frame

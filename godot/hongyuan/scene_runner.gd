@@ -17,6 +17,7 @@ const FONT := preload("res://hongyuan/fonts/dialogue_font.tres")
 const ROOT := "res://hongyuan/assets/"
 const SPEED := 126.0
 const NEAR := 40.0
+const GOAL_DELAY := 1.2
 const INK := Color("#281a1a")
 const WOOD := Color("#50332a")
 const RED := Color("#5e2929")
@@ -62,6 +63,7 @@ var time := 0.0
 # 世界
 var view_rect := Rect2(0, 0, 360, 640)
 var camera_y := 0.0
+var camera_moved := false
 var camera_drag := false
 var camera_start := 0.0
 var pending_setup: Dictionary = {}
@@ -479,25 +481,30 @@ func _gui_input(event: InputEvent) -> void:
 	accept_event()
 	if mode == "go":
 		if kind == "down":
-			camera_drag = pos.y < 320 and not _icon_rect(go_id).grow(12).has_point(pos - Vector2(0, camera_y)) if hotspots.has(go_id) else pos.y < 320
+			# 只有背景比屏幕高、按在上半屏、又不是按在目标上时，才可能是拖镜头；
+			# 真正拖动超过 12px 才算拖镜头，否则松手时照常当点击处理
+			var world_pos := pos - Vector2(0, camera_y)
+			camera_drag = pos.y < 320 and _camera_extent() > 0.0 and not _on_target(world_pos)
+			camera_moved = false
 			camera_start = camera_y
-			if camera_drag: down_pos = pos
 		elif camera_drag and kind == "move":
-			var image := texture(bg)
-			var extent := maxf(0, image.get_height() * 360.0 / image.get_width() - view_rect.size.y) * 0.5 if image else 0.0
-			camera_y = clampf(camera_start + pos.y - down_pos.y, -extent, extent)
-			queue_redraw()
-			return
+			if pos.distance_to(down_pos) > 12 or camera_moved:
+				camera_moved = true
+				camera_y = clampf(camera_start + pos.y - down_pos.y, -_camera_extent(), _camera_extent())
+				queue_redraw()
+				return
 		elif camera_drag and kind == "up":
 			camera_drag = false
-			_reset_input()
-			return
+			if camera_moved:
+				camera_moved = false
+				_reset_input()
+				return
 	if kind == "down":
 		down = true
 		down_pos = pos
 		down_ms = Time.get_ticks_msec()
 		dragged = false
-		stick_pointer = mode == "go" and pos.x < 180 and pos.y > 320
+		stick_pointer = mode == "go" and pos.y > 320 and not _on_target(pos - Vector2(0, camera_y))
 	elif kind == "move":
 		if pos.distance_to(down_pos) > 12:
 			dragged = true
@@ -509,7 +516,7 @@ func _gui_input(event: InputEvent) -> void:
 		return
 	match mode:
 		"goal":
-			if tap and t > 0.3 and Rect2(100, 490, 160, 48).has_point(pos): _next()
+			if tap and t > GOAL_DELAY + 0.4: _next()
 		"material":
 			if tap and t >= 2.0:
 				_next()
@@ -528,7 +535,8 @@ func _gui_input(event: InputEvent) -> void:
 			if tap and t > 0.6:
 				_next()
 		"choice":
-			if tap and t > 0.4:
+			# 已经在出发（提示 30 秒）时不再接受第二次点击，免得连点切两次场景
+			if tap and t > 0.4 and choice_note_t <= 3.0:
 				for i in range(choice_texts.size()):
 					if _choice_rect(i).grow(6).has_point(pos):
 						sfx.stream = blip
@@ -569,11 +577,10 @@ func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
 	if near != "" and _icon_rect(near).grow(10).has_point(pos):
 		_trigger(near)
 		return
-	# 点目标本身（图标、小圆点或它周围）：走过去，到了自动触发，不用再点第二次
+	# 点目标本身（图标、光圈或它周围）：走过去，到了自动触发，不用再点第二次
 	if hotspots.has(go_id):
 		var h: Dictionary = hotspots[go_id]
-		var at := _v(h.at)
-		if pos.distance_to(at) <= 40.0 or _icon_rect(go_id).grow(10).has_point(pos):
+		if _on_target(pos):
 			target = _clamp(_v(h.get("snap", h.at)))
 			target_hot = go_id
 			moving = true
@@ -585,7 +592,33 @@ func _go_input(kind: String, pos: Vector2, tap: bool) -> void:
 		moving = true
 
 
+func _camera_extent() -> float:
+	var image := texture(bg)
+	return maxf(0, image.get_height() * 360.0 / image.get_width() - view_rect.size.y) * 0.5 if image else 0.0
+
+
+## 玩家点在目标附近就算点到：光圈 56px 以内、图标、或者站到目标上的那个人身上
+func _on_target(pos: Vector2) -> bool:
+	if not hotspots.has(go_id):
+		return false
+	var h: Dictionary = hotspots[go_id]
+	var at := _v(h.at)
+	if pos.distance_to(at) <= 40.0 or _icon_rect(go_id).grow(14).has_point(pos):
+		return true
+	# 目标是一个人或一件东西（热点上站着角色或摆着道具）时，点到它的身体也算点中
+	for id: String in actors:
+		var a: Dictionary = actors[id]
+		if a.get("hidden", false) or not a.has("at"): continue
+		var foot := _v(a.at)
+		if foot.distance_to(at) > 110.0: continue
+		var height := person_height_at(foot.y)
+		if Rect2(foot.x - height * 0.35, foot.y - height, height * 0.7, height).has_point(pos):
+			return true
+	return false
+
+
 func _reset_input() -> void:
+	camera_moved = false
 	down = false
 	dragged = false
 	stick_pointer = false
@@ -620,13 +653,24 @@ func _draw() -> void:
 		_pill(SKIP_RECT, _text("G-NEXT"), 13, Color(INK, 0.7), WHEAT)
 	match mode:
 		"goal":
-			draw_rect(view_rect, Color(INK, 0.38))
-			_panel(Rect2(30, 180, 300, 290), PAPER, GOLD)
-			var i := 0
-			for key: String in ["目标", "操作", "所得"]:
-				draw_multiline_string(FONT, Vector2(48, 218 + i * 80), StoryCaption.wrap_text(key + "\n" + str(goal_data.get(key, "")),264,17), HORIZONTAL_ALIGNMENT_LEFT, 264, 17, -1, INK)
-				i += 1
-			_pill(Rect2(100, 490, 160, 48), "准备好了", 18, RED, PAPER)
+			# 任务卡：等上一句旁白落定 1.2 秒再淡入；放在上方，不盖住人物；点哪里都能关
+			if t >= GOAL_DELAY:
+				var k := clampf((t - GOAL_DELAY) / 0.3, 0, 1)
+				draw_rect(view_rect, Color(INK, 0.18 * k))
+				var rows: Array = []
+				var lines_total := 0
+				for key: String in ["目标", "操作", "所得"]:
+					var text := StoryCaption.wrap_text(key + "：" + str(goal_data.get(key, "")), 280, 15)
+					rows.append(text)
+					lines_total += text.count("\n") + 1
+				var h := 34.0 + lines_total * 21.0 + 2 * 6.0 + 30.0
+				var box := Rect2(24, 64, 312, h)
+				_panel(box, Color(PAPER, k), Color(GOLD, k))
+				var y := box.position.y + 26.0
+				for text: String in rows:
+					draw_multiline_string(FONT, Vector2(40, y), text, HORIZONTAL_ALIGNMENT_LEFT, 280, 15, -1, Color(INK, k))
+					y += (text.count("\n") + 1) * 21.0 + 6.0
+				draw_string(FONT, Vector2(box.position.x, box.end.y - 12), "轻点任意处开始", HORIZONTAL_ALIGNMENT_CENTER, box.size.x, 13, Color(RED, k))
 		"say", "auto":
 			_draw_say()
 		"card":
@@ -672,13 +716,20 @@ func _draw_bg() -> void:
 
 func _draw_world() -> void:
 	var items: Array = []
+	var ring_glow: Array = []
 	for id: String in actors:
 		var a: Dictionary = actors[id]
 		if a.get("hidden", false):
 			continue
 		var pos := _v(a.at)
 		if a.has("moveFrom"): pos = _v(a.moveFrom).lerp(pos,smoothstep(0,1,world_elapsed/float(a.get("moveTime",2))))
-		items.append({"y": pos.y + float(a.get("z", 0)), "tex": str(a.tex), "at": pos, "flip": bool(a.get("flip", false)), "scale": float(a.get("scale", 1.0))})
+		var tex_name := str(a.tex)
+		if a.get("ring", false) and mode == "go":
+			# 正在响的手机：两帧交替、左右震动、外圈光晕，一眼看得出在响
+			tex_name = tex_name.replace("_ring_1", "_ring_%d" % (1 + int(time * 8.0) % 2))
+			pos.x += sin(time * 60.0) * 1.5 * (1.0 if fmod(time, 1.2) < 0.7 else 0.0)
+			ring_glow.append(pos - Vector2(0, 10.0 * float(a.get("scale", 1.0))))
+		items.append({"y": pos.y + float(a.get("z", 0)), "tex": tex_name, "at": pos, "flip": bool(a.get("flip", false)), "scale": float(a.get("scale", 1.0))})
 	if player_visible:
 		items.append({"y": feet.y, "player": true})
 	if companion == "toretto" and player_visible:
@@ -695,6 +746,10 @@ func _draw_world() -> void:
 		var k := person_height_at(feet.y) / person_height
 		var fp := feet + Vector2(-24 * facing * k, 0)
 		items.append({"y": feet.y - 1, "tex": follower, "at": fp, "flip": facing < 0, "scale": k, "roll": true})
+	for g: Vector2 in ring_glow:
+		for k in range(3):
+			var phase := fmod(time * 1.4 + k / 3.0, 1.0)
+			draw_arc(g + Vector2(0, camera_y), 10.0 + phase * 34.0, 0, TAU, 32, Color(1.0, 0.92, 0.6, (1.0 - phase) * 0.7), 2.0)
 	items.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.y < b.y)
 	for it: Dictionary in items:
 		if it.has("player"):
@@ -828,15 +883,28 @@ func _draw_go_ui() -> void:
 			else:
 				_pill(r, _text(str(h.get("label", "G-13"))) if h.has("label") else "！", 16, PAPER, INK, true)
 		else:
-			var a := 0.55 + sin(time * 4.5) * 0.25
-			draw_circle(at, 5, Color(1.0, 0.9, 0.6, a))
-			draw_arc(at, 10 + sin(time * 4.5) * 2.0, 0, TAU, 24, Color(1.0, 0.9, 0.6, a), 1.5)
-	var origin := down_pos if down and stick_pointer else Vector2(64, 558)
+			# 远处的目标也要一眼看得到：地面双光圈 + 头顶半透明图标，轻轻上下浮动
+			var a := 0.6 + sin(time * 4.5) * 0.3
+			draw_circle(at, 6, Color(1.0, 0.9, 0.6, a))
+			draw_arc(at, 13 + sin(time * 4.5) * 3.0, 0, TAU, 28, Color(1.0, 0.9, 0.6, a), 2.0)
+			draw_arc(at, 22 + sin(time * 4.5) * 3.0, 0, TAU, 32, Color(1.0, 0.9, 0.6, a * 0.5), 1.5)
+			var far_icon := texture("w2/common/icon_%s.png" % str(h.get("icon", "pick")))
+			if far_icon:
+				var r2 := _icon_rect(go_id)
+				r2.position.y += sin(time * 3.0) * 3.0
+				draw_texture_rect(far_icon, Rect2(r2.get_center() - Vector2(18, 18), Vector2(36, 36)), false, Color(1, 1, 1, 0.75))
+	# 摇杆只在手指按住拖动时出现在手指下面；平时不常驻左下角挡住主角的脚，
+	# 只在刚进场的前 3 秒淡淡提示一下
+	var pressing := down and stick_pointer
+	if not pressing and t > 3.0:
+		return
+	var origin := down_pos if pressing else Vector2(64, 558)
+	var tint := Color(1, 1, 1, 1.0 if pressing else 0.35 * clampf(3.0 - t, 0, 1))
 	var base := texture("w2/common/joystick_base.png")
 	var knob := texture("w2/common/joystick_knob.png")
 	if base and knob:
-		draw_texture_rect(base, Rect2(origin - Vector2(36, 36), Vector2(72, 72)), false)
-		draw_texture_rect(knob, Rect2(origin + stick * 25 - Vector2(16, 16), Vector2(32, 32)), false)
+		draw_texture_rect(base, Rect2(origin - Vector2(36, 36), Vector2(72, 72)), false, tint)
+		draw_texture_rect(knob, Rect2(origin + stick * 25 - Vector2(16, 16), Vector2(32, 32)), false, tint)
 
 
 func _draw_say() -> void:
@@ -872,7 +940,7 @@ const NEXT_STOP := {"paper": "W-NEXT-SHIZUOKA", "stamp": "W-NEXT-HAINAN", "wax":
 func _draw_material() -> void:
 	preload("res://hongyuan/ui/desk_art.gd").draw(self, materials, view_rect, material_id, t)
 	if t >= 2.0:
-		_pill(Rect2(100, 566, 160, 44), "继续这封请帖", 17, RED, PAPER)
+		_pill(Rect2(100, 566, 160, 44), "继续这封邀请函", 17, RED, PAPER)
 
 
 func _draw_material_icon(id: String, c: Vector2, k: float) -> void:
@@ -921,6 +989,9 @@ func _choice_rect(i: int) -> Rect2:
 
 func _skip_visible() -> bool:
 	if t < SKIP_AFTER or bi < 0 or bi >= beats.size():
+		return false
+	# 开车时「下一步」晚一点出现（15 秒），免得换道时误点
+	if mode == "game" and str(beats[bi].get("game", "")) == "drive" and t < 15.0:
 		return false
 	if mode == "go":
 		return hotspots.has(go_id)

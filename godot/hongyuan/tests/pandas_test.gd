@@ -72,17 +72,17 @@ func run() -> void:
 	walk_to(r, g._approach(wrong))
 	g.input("tap", g.FEET[wrong] - Vector2(0, 25))
 	check(g.fed.size() == 1 and g.bamboo_held, "Non-hungry panda does not consume bamboo")
-	for i in range(4):
+	for i in range(2):
 		if not g.bamboo_held: take(r)
 		feed(r)
-		if i < 3: tick(r, 0.8)
-	check(g.fed.size() == 5 and g.phase == "done" and r.mode == "game", "Five distinct pandas finish with a visible eating moment")
+		if i < 1: tick(r, 0.8)
+	check(g.fed.size() == 3 and g.phase == "done" and r.mode == "game", "Three distinct pandas finish with a visible eating moment")
 	resumed = make_runner(saved(r))
 	tick(resumed, 1.2)
-	check(resumed.mode == "button", "Refresh at fifth feed continues without duplicate feeding")
+	check(resumed.mode == "button", "Refresh at third feed continues without duplicate feeding")
 	resumed.free()
 	tick(r, 1.2)
-	check(r.mode == "button", "Five feeds advance to the following beat")
+	check(r.mode == "button", "Three feeds advance to the following beat")
 	r.free()
 	r = make_runner()
 	take(r)
@@ -90,7 +90,7 @@ func run() -> void:
 	var first: int = r.game.fed[0]
 	var skipped = r.game
 	r._skip()
-	check(r.mode == "button" and skipped.fed.size() == 5 and first in skipped.fed and not skipped.bamboo_held, "skip supplies exactly five fed pandas and preserves completed feeding")
+	check(r.mode == "button" and skipped.fed.size() == 3 and first in skipped.fed and not skipped.bamboo_held, "skip supplies exactly three fed pandas and preserves completed feeding")
 	skipped = null
 	r.free()
 	var sequences := {}
@@ -99,12 +99,12 @@ func run() -> void:
 		r.game.rng.seed = 100 + seed_value
 		r.game._choose_hungry()
 		var order: Array = []
-		for i in range(5):
+		for i in range(3):
 			order.append(r.game.hungry)
 			take(r)
 			feed(r)
-			if i < 4: tick(r, 0.8)
-		check(r.game.fed.size() == 5, "Five-feed loop has no dead end, run %d" % (seed_value + 1))
+			if i < 2: tick(r, 0.8)
+		check(r.game.fed.size() == 3, "Three-feed loop has no dead end, run %d" % (seed_value + 1))
 		sequences[str(order)] = true
 		r.free()
 	check(sequences.size() >= 4, "New runs produce different hungry-panda orders")

@@ -10,7 +10,7 @@ const CRUISE := 230.0
 const PURPLE := Color("#6b3fa0")
 
 var r
-var phase := "ready"   # ready → drive → park → in → done
+var phase := "drive"   # (ready →) drive → park → in → done；任务卡已经确认过一次，不再要「出发」第二次确认
 var t := 0.0
 var lane := 1
 var car_x := 180.0
@@ -23,6 +23,8 @@ var rng := RandomNumberGenerator.new()
 var holding := false
 var bay_y := -9999.0
 var park_t := 0.0
+var misses := 0
+var miss_note_t := 0.0
 var swipe_from := Vector2.ZERO
 var swiping := false
 var hint_t := 0.0
@@ -39,6 +41,7 @@ func process(dt: float) -> bool:
 	hint_t += dt
 	car_x = move_toward(car_x, LANES[lane], 300.0 * dt)
 	bump = maxf(0.0, bump - dt)
+	miss_note_t = maxf(0.0, miss_note_t - dt)
 	match phase:
 		"drive":
 			var want := CRUISE * (0.45 if bump > 0.0 else 1.0)
@@ -60,10 +63,17 @@ func process(dt: float) -> bool:
 			if holding:
 				tapped = true
 			var near := bay_y > CAR_Y - 300.0
-			var braking := aligned or (tapped and near)
+			# 要按住才停得住：没按就开过车位，绕一圈再来。错过两次以后才自动帮忙停，免得卡死。
+			var braking := (tapped and near) or (aligned and misses >= 2)
+			if bay_y > CAR_Y + 150.0 and not tapped:
+				misses += 1
+				bay_y = -260.0
+				hint_t = 0.0
+				miss_note_t = 2.4
+				r.play("blip")
 			var want2 := 0.0 if braking else (90.0 if tapped else 150.0)
 			speed = move_toward(speed, want2, (300.0 if braking else 90.0) * dt)
-			if aligned:
+			if aligned and braking:
 				bay_y = minf(bay_y, CAR_Y + 30.0)
 			scroll += speed * dt
 			bay_y += speed * dt
@@ -256,7 +266,7 @@ func _hold_hint(ci) -> void:
 	var p := Vector2(180, 595)
 	var a := 0.6 + 0.4 * sin(t * 5.0)
 	ci.draw_rect(Rect2(40, 538, 280, 30), Color(ci.INK, 0.72))
-	ci.text_at(Vector2(40, 543), ci.t_("G-PARK"), 15, ci.PAPER, 280)
+	ci.text_at(Vector2(40, 543), "开过了，再来一次：车位靠近时按住屏幕" if miss_note_t > 0.0 else ci.t_("G-PARK"), 15, ci.PAPER, 280)
 	ci.draw_arc(p, 18, 0, TAU, 28, Color(ci.PAPER, a), 3.0)
 	ci.draw_circle(p, 8 if holding else 11, Color(ci.PAPER, a))
 
