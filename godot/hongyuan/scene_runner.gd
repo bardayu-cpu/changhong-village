@@ -603,11 +603,18 @@ func _on_target(pos: Vector2) -> bool:
 		return false
 	var h: Dictionary = hotspots[go_id]
 	var at := _v(h.at)
-	if pos.distance_to(at) <= 56.0 or _icon_rect(go_id).grow(14).has_point(pos):
+	if pos.distance_to(at) <= 40.0 or _icon_rect(go_id).grow(14).has_point(pos):
 		return true
-	var snap := _v(h.get("snap", h.at))
-	var height := person_height_at(snap.y)
-	return Rect2(snap.x - height * 0.3, snap.y - height, height * 0.6, height).has_point(pos)
+	# 目标是一个人或一件东西（热点上站着角色或摆着道具）时，点到它的身体也算点中
+	for id: String in actors:
+		var a: Dictionary = actors[id]
+		if a.get("hidden", false) or not a.has("at"): continue
+		var foot := _v(a.at)
+		if foot.distance_to(at) > 110.0: continue
+		var height := person_height_at(foot.y)
+		if Rect2(foot.x - height * 0.35, foot.y - height, height * 0.7, height).has_point(pos):
+			return true
+	return false
 
 
 func _reset_input() -> void:

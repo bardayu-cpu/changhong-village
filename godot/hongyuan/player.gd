@@ -1146,8 +1146,8 @@ func _play_bgm(chapter_id: String) -> void:
 
 ## 左上角「音乐」开关：只关背景乐，音效照常；设置跨章节、跨存档保留
 func _make_music_button() -> void:
-	music_button.position = Vector2(10, 12)
-	music_button.size = Vector2(70, 24)
+	music_button.position = Vector2(290, 612)  # 右下角：不压开场气泡和顶部旁白
+	music_button.size = Vector2(64, 22)
 	music_button.focus_mode = Control.FOCUS_NONE
 	music_button.add_theme_font_override("font", FONT)
 	music_button.add_theme_font_size_override("font_size", 12)
