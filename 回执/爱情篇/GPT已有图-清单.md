@@ -200,3 +200,119 @@
 | `godot/hongyuan/assets/w2/shizuoka/toretto_onsen_r2.png` | 浦岛温泉与海岸层（toretto_onsen_r2.png） | A5 | 分支基线已有 |
 | `godot/hongyuan/assets/w2_review/wedding_r1/entrance/layers/parking_closure.png` | 上海滨江停车带（parking_closure.png） | A7 | 分支基线已有 |
 | `godot/hongyuan/assets/w2_review/welcome_court_r1.png` | 终章迎宾与开门构图（welcome_court_r1.png） | A10 | 分支基线已有 |
+
+## 补充原样交接 · 已有原画与备选稿
+
+另收录 97 张原画和备选稿，文件内容原样入库。正式路径已有相同内容的 40 项沿用已有文件。草稿集中在 `_inbox`，用于 Claude 选图和处理。相框使用的实拍裁片仍走书桌路径。
+
+| 文件路径 | 画面 | 编号 | 状态 |
+| --- | --- | --- | --- |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/A10-欢迎首稿.png` | 欢迎首稿，人物偏平滑，选图时参考 R2 | A10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C4-领证首稿.png` | 领证首稿，人物偏平滑，选图时参考 R2 | C4 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C2-飞出窗-首稿.png` | 寄信窗口首稿，窗外建筑地点不符 | C2 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C2-飞出窗-上海原画.png` | 上海寄信窗口原画，正式帧已换实拍相框 | C2 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C2-城市-首稿.png` | 寄信城市首稿，建筑风格不符 | C2 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C2-落桌-未裁原画.png` | 信封下落，未裁原画 | C2 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C3-收件桌-首稿.png` | 收件桌首稿，摆设与上一帧不一致 | C3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-备选稿/C3-收件桌-未裁原画.png` | 信封落桌 R2，未裁原画 | C3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/boarding.png` | 乌龟船原稿 | A4 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/onsen_dusk.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/onsen_night.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/onsen_sunset.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/park_castle.png` | 香港乐园背景原稿 | A9 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/park_garden.png` | 香港乐园背景原稿 | A9 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/park_toys.png` | 香港乐园背景原稿 | A9 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/parking.png` | 上海滨江停车带原稿 | A7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/parking_access_r2.png` | 上海滨江停车带原稿 | A7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/shizuoka_pier.png` | 静冈码头与钓鱼分层原稿 | A3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-1107-full-rework/source/wanning_stall.png` | 万宁套圈背景原稿 | A6 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/car_front.png` | 车辆原稿 | C10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/car_front_r2.png` | 车辆原稿 | C10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/car_rear.png` | 车辆原稿 | C10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/car_rear_r2.png` | 车辆原稿 | C10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_01.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_02.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_03.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_04.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_05.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_06.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/npc_07_rejected.png` | 路人画风试稿 | C11 / D 组 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/parking_r1.png` | 上海滨江停车带原稿 | A7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/parking_r2_enclosed_rejected.png` | 上海滨江停车带原稿 | A7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/parking_r3.png` | 上海滨江停车带原稿 | A7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/street.png` | 上海街景原稿 | A8 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-scale-unity-1107/source/street_r2.png` | 上海街景原稿 | A8 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/desk-r2/source/desk.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/desk-r2/source/paper.png` | 信纸原稿 | C1 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/desk-r3/source/arm.png` | 书桌持笔手臂原稿 | B5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/harbor-r2/source/arm_rod.png` | 静冈码头与钓鱼分层原稿 | A3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/harbor-r2/source/water.png` | 静冈码头与钓鱼分层原稿 | A3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/onsen-r1/source/guests.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/onsen-r1/source/night.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/onsen-r1/source/scene.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/onsen-r2/source/guests_jp_cn.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/source/boat.png` | 乌龟船原稿 | A4 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/source/cabin.png` | 船舱原稿 | B3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/source/harbor.png` | 静冈码头与钓鱼分层原稿 | A3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/source/onsen_mountain_candidate.png` | 浦岛温泉及客人原稿 | A5 / D7 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/shizuoka/source/registration_interior_rejected.png` | 领证空间与画面原稿 | C4 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/couple_welcome.png` | 终章欢迎与迎宾原稿 | A10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/desk.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/envelope.png` | 收件桌、信封或拆信动作原稿 | C3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/letter.png` | 信纸原稿 | C1 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/mail_frames.png` | 收件桌、信封或拆信动作原稿 | C3 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/open.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/wax_frames.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-round1/source/welcome_bg.png` | 终章欢迎与迎宾原稿 | A10 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao-idle-attempt1.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao-phone-attempt1.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao-walk-attempt1.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao_idle.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao_phone.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao_walk_side_1.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao_walk_side_2.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao_walk_side_3.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/w1-actors/axiao_walk_side_4.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-章节首样/w2/chengdu/panda_idle.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-章节首样/w2/shanghai/pearl_skyline_approach.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-章节首样/w2/transition/line_to_road_mid.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/burden_care.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/burden_home_call.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/burden_meeting.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/burden_overtime.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/burden_report.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/night_light_cool.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/night_light_neutral.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/call/night_light_warm.png` | 书桌持笔手臂原稿 | B5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_group_climb.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_group_eat.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_group_hold.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_group_lie.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_group_sit.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_group_step.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/chengdu/panda_hunger_bubble.png` | 成都熊猫分层原稿 | C5 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hainan/bg_pool_toss.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hainan/bg_wenchang_launch_night.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hainan/pool_float_ball.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hainan/pool_float_boat.png` | 乌龟船原稿 | A4 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hainan/pool_float_duck.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hongkong/bg_campus_gate.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/hongkong/bg_clue_street.png` | 上海街景原稿 | A8 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/prologue/pet_qiuqiu_idle.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/prologue/pet_qiuqiu_rest.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/prologue/pet_xiduo_idle.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/prologue/pet_xiduo_rest.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/shanghai/bg_dianshan_camp_sunset.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/_inbox/love-1108-历史原稿/d3-玩法首样/w2/shanghai/bg_g42_pickup.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 原样备选 |
+| `godot/hongyuan/assets/round1/common/welcome_entrance_r2.png` | 沿用原门厅和标准立绘的 R2 | A10 | 同内容沿用 |
+| `godot/hongyuan/assets/w2/shanghai/wedding_photo_smile.png` | 静安民政局领证 R2 | C4 | 同内容沿用 |
+| `godot/hongyuan/assets/w2/finale/letter_closeup.png` | 无字信纸 | C1 | 同内容沿用 |
+| `godot/hongyuan/assets/w2/finale/send_transition_2.png` | 寄信经过上海黄浦江 | C2 | 同内容沿用 |
+| `godot/hongyuan/assets/round1/rework1107/hk_arrival.png` | 机场候选原稿 | A1 / A2 | 同内容沿用 |
+| `godot/hongyuan/assets/w2/hongkong/bg_departure_pvg.png` | 机场候选原稿 | A1 / A2 | 同内容沿用 |
+| `godot/hongyuan/assets/_inbox/d3-round1/registry/registration_entry_candidate.png` | 领证空间与画面原稿 | C4 | 同内容沿用 |
+| `godot/hongyuan/assets/_inbox/d3-round1/registry/registration_photo_candidate.png` | 领证空间与画面原稿 | C4 | 同内容沿用 |
+| `godot/hongyuan/assets/_inbox/d3-round1/registry/registration_stamp_candidate.png` | 领证空间与画面原稿 | C4 | 同内容沿用 |
+| `godot/hongyuan/assets/w2/chengdu/bg_base.png` | 成都熊猫分层原稿 | C5 | 同内容沿用 |
+| `godot/hongyuan/assets/bg_invite_desk.png` | 爱情篇美术分层或旧版原稿 | 清单外 | 同内容沿用 |
+| `godot/hongyuan/assets/w2/shanghai/bg_street.png` | 上海街景原稿 | A8 | 同内容沿用 |
