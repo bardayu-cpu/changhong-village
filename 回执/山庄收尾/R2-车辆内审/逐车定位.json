@@ -1,0 +1,352 @@
+[
+  {
+    "id": "car_a",
+    "label": "别的客人的车（银）",
+    "family": "compact",
+    "rect": [
+      820,
+      295,
+      907,
+      445
+    ],
+    "h": 70,
+    "x": 820,
+    "y": 225,
+    "foot": 445,
+    "png": "car_a.png",
+    "png_size": [
+      87,
+      220
+    ],
+    "alpha_bbox": [
+      4,
+      0,
+      84,
+      220
+    ],
+    "shadow": "car_a_shadow.png",
+    "shadow_at": [
+      820,
+      295
+    ],
+    "shadow_size": [
+      93,
+      158
+    ]
+  },
+  {
+    "id": "car_e",
+    "label": "别的客人的车（墨绿）",
+    "family": "suv",
+    "rect": [
+      701,
+      300,
+      786,
+      441
+    ],
+    "h": 74,
+    "x": 701,
+    "y": 226,
+    "foot": 441,
+    "png": "car_e.png",
+    "png_size": [
+      85,
+      215
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      84,
+      215
+    ],
+    "shadow": "car_e_shadow.png",
+    "shadow_at": [
+      701,
+      300
+    ],
+    "shadow_size": [
+      91,
+      149
+    ]
+  },
+  {
+    "id": "car_brz",
+    "label": "蓝色斯巴鲁 BRZ",
+    "family": "sports",
+    "rect": [
+      461,
+      302,
+      546,
+      438
+    ],
+    "h": 63,
+    "x": 461,
+    "y": 239,
+    "foot": 438,
+    "png": "car_brz.png",
+    "png_size": [
+      85,
+      199
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      84,
+      199
+    ],
+    "shadow": "car_brz_shadow.png",
+    "shadow_at": [
+      461,
+      302
+    ],
+    "shadow_size": [
+      91,
+      144
+    ]
+  },
+  {
+    "id": "car_b",
+    "label": "别的客人的车（白）",
+    "family": "sedan",
+    "rect": [
+      821,
+      586,
+      906,
+      730
+    ],
+    "h": 72,
+    "x": 821,
+    "y": 514,
+    "foot": 730,
+    "png": "car_b.png",
+    "png_size": [
+      85,
+      216
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      84,
+      216
+    ],
+    "shadow": "car_b_shadow.png",
+    "shadow_at": [
+      821,
+      586
+    ],
+    "shadow_size": [
+      91,
+      152
+    ]
+  },
+  {
+    "id": "car_c",
+    "label": "别的客人的车（深灰）",
+    "family": "suv",
+    "rect": [
+      699,
+      581,
+      788,
+      735
+    ],
+    "h": 81,
+    "x": 699,
+    "y": 500,
+    "foot": 735,
+    "png": "car_c.png",
+    "png_size": [
+      89,
+      235
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      88,
+      235
+    ],
+    "shadow": "car_c_shadow.png",
+    "shadow_at": [
+      699,
+      581
+    ],
+    "shadow_size": [
+      95,
+      162
+    ]
+  },
+  {
+    "id": "car_h6",
+    "label": "黑色哈弗 H6",
+    "family": "suv",
+    "rect": [
+      578,
+      584,
+      669,
+      733
+    ],
+    "h": 83,
+    "x": 578,
+    "y": 501,
+    "foot": 733,
+    "png": "car_h6.png",
+    "png_size": [
+      91,
+      232
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      90,
+      232
+    ],
+    "shadow": "car_h6_shadow.png",
+    "shadow_at": [
+      578,
+      584
+    ],
+    "shadow_size": [
+      97,
+      157
+    ]
+  },
+  {
+    "id": "car_p911",
+    "label": "白色保时捷 911",
+    "family": "sports",
+    "rect": [
+      459,
+      586,
+      548,
+      731
+    ],
+    "h": 62,
+    "x": 459,
+    "y": 524,
+    "foot": 731,
+    "png": "car_p911.png",
+    "png_size": [
+      89,
+      207
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      88,
+      207
+    ],
+    "shadow": "car_p911_shadow.png",
+    "shadow_at": [
+      459,
+      586
+    ],
+    "shadow_size": [
+      95,
+      153
+    ]
+  },
+  {
+    "id": "car_d",
+    "label": "别的客人的车（香槟）",
+    "family": "sedan",
+    "rect": [
+      821,
+      873,
+      907,
+      1020
+    ],
+    "h": 71,
+    "x": 821,
+    "y": 802,
+    "foot": 1020,
+    "png": "car_d.png",
+    "png_size": [
+      86,
+      218
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      84,
+      218
+    ],
+    "shadow": "car_d_shadow.png",
+    "shadow_at": [
+      821,
+      873
+    ],
+    "shadow_size": [
+      92,
+      155
+    ]
+  },
+  {
+    "id": "car_bmw240",
+    "label": "紫色宝马双门 240",
+    "family": "coupe",
+    "rect": [
+      581,
+      875,
+      666,
+      1017
+    ],
+    "h": 67,
+    "x": 581,
+    "y": 808,
+    "foot": 1017,
+    "png": "car_bmw240.png",
+    "png_size": [
+      85,
+      209
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      84,
+      209
+    ],
+    "shadow": "car_bmw240_shadow.png",
+    "shadow_at": [
+      581,
+      875
+    ],
+    "shadow_size": [
+      91,
+      150
+    ]
+  },
+  {
+    "id": "car_mine",
+    "label": "自己的车",
+    "family": "sedan",
+    "rect": [
+      461,
+      873,
+      547,
+      1020
+    ],
+    "h": 71,
+    "x": 461,
+    "y": 802,
+    "foot": 1020,
+    "png": "car_mine.png",
+    "png_size": [
+      86,
+      218
+    ],
+    "alpha_bbox": [
+      2,
+      0,
+      84,
+      218
+    ],
+    "shadow": "car_mine_shadow.png",
+    "shadow_at": [
+      461,
+      873
+    ],
+    "shadow_size": [
+      92,
+      155
+    ]
+  }
+]
