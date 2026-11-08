@@ -1,4 +1,6 @@
 from PIL import Image, ImageDraw
+import io
+import json
 from pathlib import Path
 OUT=Path(__file__).resolve().parents[1]
 # Named shared palette. Every exported visible RGB is checked against this table at the end.
@@ -27,7 +29,26 @@ MATERIALS = (
     ('木头', 'WOOD'), ('白墙灰瓦', 'WALL / TILE'), ('水', 'WATER'),
     ('红毯', 'RED CARPET'), ('布', 'CLOTH'), ('金属玻璃', 'METAL / GLASS'),
 )
-PEOPLE = ('photographer_w', 'elder', 'farmer_2')
+ROOT = OUT.parents[2]
+GUEST_BASE = '6f6448b45898479d58e5381675abe8fca53fda52'
+GUEST_DIR = 'godot/assets/characters/lm'
+# These are full native down/idle frames. Positions are in canvas pixels.
+GUEST_PLACEMENTS = {'比例尺': ('LM-GUEST-10', (12, 146)), '材质样': ('LM-GUEST-01', (476, 176))}
+
+
+def guest_frame(code):
+    def read(name):
+        return subprocess.check_output(['git', 'show', f'{GUEST_BASE}:{GUEST_DIR}/{name}'], cwd=ROOT)
+
+    index = json.loads(read('lm_index.json'))['guest_atlas']
+    assert (index['fw'], index['fh']) == (64, 84)
+    row = index['codes'].index(code)
+    with Image.open(io.BytesIO(read(index['file']))) as atlas:
+        frame = atlas.crop((0, row * 84, 64, (row + 1) * 84)).convert('RGBA')
+    with Image.open(io.BytesIO(read(f'chr_{code}.png'))) as sprite:
+        assert frame.tobytes() == sprite.crop((0, 0, 64, 84)).convert('RGBA').tobytes()
+    assert frame.getchannel('A').getbbox()[1::2] == (0, 84)
+    return frame
 
 # Original bitmap lettering, on the same art grid as the drawings.
 GLYPHS = {
@@ -68,9 +89,12 @@ def label(draw, x, y, text):
 
 
 def export(canvas, name):
-    canvas.resize((canvas.width * 2, canvas.height * 2), Image.Resampling.NEAREST).save(
-        OUT / (name + '.png'), optimize=True,
-    )
+    assert {p[:3] for p in canvas.getdata() if p[3]} <= set(C.values())
+    full = canvas.resize((canvas.width * 2, canvas.height * 2), Image.Resampling.NEAREST)
+    if name in GUEST_PLACEMENTS:
+        code, position = GUEST_PLACEMENTS[name]
+        full.alpha_composite(guest_frame(code), position)
+    full.save(OUT / (name + '.png'), optimize=True)
 
 
 def grid_image(name):
@@ -99,7 +123,6 @@ def door(draw, x, base):
 def scale_board():
     canvas, draw = plate(280, 224)
     base = 115
-    canvas.alpha_composite(grid_image('elder'), (6, base - 42))
     door(draw, 47, base)
     canvas.alpha_composite(draw_chair(C), (82, base-23))
     canvas.alpha_composite(draw_table(C), (102, base-18))
@@ -150,16 +173,26 @@ def material_board():
         assert tile.size == (64, 64), (file, tile.size)
         canvas.alpha_composite(tile, (x, y))
         label(draw, x, y + 66, title)
-    canvas.alpha_composite(grid_image('photographer_w'), (238, 88))
     label(draw, 238, 135, 'NPC')
     label(draw, 238, 144, 'H 84 PX')
     export(canvas, '材质样')
 
 
+def foot_shadow():
+    fig = Image.new('RGBA', (20, 8))
+    draw = ImageDraw.Draw(fig)
+    dark = C['wood_d']
+    draw.polygon([(1,3),(4,2),(11,2),(16,3),(19,5),(18,6),(9,7),(4,6),(1,5)],
+                 fill=(*dark, 77))
+    draw.line([(3,2),(7,2),(7,3),(3,3),(3,2)], fill=(*dark, 255))
+    draw.line([(11,2),(15,2),(15,3),(11,3),(11,2)], fill=(*dark, 255))
+    export(fig, '脚影')
+
+
 def palette():
     with Image.open(OUT / '主色板.png') as image:
         approved = {pixel[:3] for pixel in image.convert('RGBA').getdata() if pixel[3]}
-    names = (*PEOPLE, '脚影', 'tree_scale', 'tree_scale_shadow', 'car_mine', 'car_mine_shadow', '比例尺', '材质样',
+    names = ('脚影', 'tree_scale', 'tree_scale_shadow', 'car_mine', 'car_mine_shadow',
              *(name for name, _ in MATERIALS))
     used = set()
     for name in names:
@@ -181,7 +214,8 @@ def main():
     if args.car_only:
         return
     if not args.compose_only:
-        for script in ('draw_r1_portraits.py', 'draw_r1_tree.py', 'draw_r1_materials.py'):
+        foot_shadow()
+        for script in ('draw_r1_tree.py', 'draw_r1_materials.py'):
             subprocess.run([sys.executable, str(Path(__file__).with_name(script))], check=True)
     scale_board()
     material_board()
